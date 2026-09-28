@@ -62,15 +62,28 @@ non-git review snapshot — never treat it as publishable source.
    re-probing; read `corpus/knowledge/ops-automation.md` for history
    semantics (constant `errors[]` on xsnapshot-app = armed NXDOMAIN
    tripwire, not a regression; single-row `total:1` rows are spot
-   probes). **History transitions without re-probing:**
+   probes). **Spot-probe trap:** `probe <id>` does NOT merge — `cmdProbe`
+   passes the RAW probed subset straight to `saveProbe` (`src/cli.mjs:78`),
+   which overwrites `state/probe-latest.json` with only those rows
+   (`src/fleet.mjs:39-52`); a 1-id run shrinks the 18-row fleet snapshot to
+   `total:1` until the next sweep/tick, while `grokbot tick`
+   (`src/cli.mjs:289`) and `bots task` (`src/cli.mjs:647`) merge via
+   `mergeProbeResults` (`src/fleet.mjs:30-37`; live-proofed r11:
+   `corpus/knowledge/free-read-verbs.md`). Recipe: `cp
+   state/probe-latest.json /tmp/probe-latest.backup.json` → run → `cp` back;
+   the one appended `total:1` history line is permanent and expected
+   (spot-rule suppresses it in deltas). **History transitions without re-probing:**
    `node scripts/probe-delta.mjs` (this repo, read-only over
    `state/probe-history.jsonl`) — suppressed-spot-rule diffing; naive
    consecutive-row diffing emits 42 events of which 40 are phantom. Do NOT
    re-run mutating verbs for audit (`probe --all` writes
-   `probe-latest.json` + appends history — `src/fleet.mjs:40-45`,
-   `src/cli.mjs:998-1002`); cite LOG.md rounds instead. `webzites status`
-   also **exits 1 whenever the last probe had any violation/error**
-   (`src/cli.mjs:99`) — read its stdout, never gate on its exit code.
+   `probe-latest.json` + appends history — `src/fleet.mjs:39-52`,
+   `src/cli.mjs:78`); cite LOG.md rounds instead. `webzites status`
+   also **exits 1 iff the surviving snapshot has any violated/error row**
+   (`src/cli.mjs:99`; snapshot-relative — `probe <healthy-id>` narrows the
+   snapshot and flips status to exit 0 while 5 violated + 1 error sit
+   fleet-wide; `status --json` always exits 0, `:94-97`) — read its
+   stdout, never gate on its exit code.
    Runbook: `corpus/knowledge/probe-delta-alerting.md`.
 2. **Check live-vs-source drift** per the table below. Kimi rows:
    `node ~/Projects/webzites/scripts/kimi-surface.mjs sync-check [<id>]` (run
@@ -133,9 +146,9 @@ non-git review snapshot — never treat it as publishable source.
 
 | Row class | Command | What it catches | Blind spot |
 |---|---|---|---|
-| Any row | `webzites probe <id>` | status, redirect-to-soft-404, title, marker loss | content rot inside a passing marker |
-| kimi row + `sourceDir` | `node scripts/kimi-surface.mjs sync-check <id>` | title/marker vs source; "in-sync*" = identity OK, **freshness unknown** | byte drift — kimi rewrites bytes (sdk-seed.js, cfemail, entity encoding); decide republish by *vintage evidence* not digest |
-| GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | root URL body vs ONE scored `index.html` (depth ≤2): match/in-sync/drift | all other paths incl. second `index.html`s; **`in-sync` on GHP masks byte drift** — treat as "git fetch sourceDir + spotcheck," see `corpus/knowledge/ghp-subpath-spotcheck.md` |
+| Any row | `webzites probe <id>` | status, redirect-to-soft-404, title, marker loss; exit 1 on any violated/error in the **probed subset**, exit 2 = unknown id / no sites (usage on stderr, **no write**) | content rot inside a passing marker; **writes state** — `probe <id>` overwrites `state/probe-latest.json` with only the probed row (`src/cli.mjs:78` → `src/fleet.mjs:39-52`; no merge, unlike `tick`/`bots task` `src/cli.mjs:289`,`:647`) + appends a `total:1` history line; backup/restore first or `webzites status` narrows to that row until the next sweep — `corpus/knowledge/free-read-verbs.md` |
+| kimi row + `sourceDir` | `node scripts/kimi-surface.mjs sync-check <id>` | title/marker vs source; "in-sync*" = identity OK, **freshness unknown** (live r11: ~Aug-29 mirror verdicts in-sync, exit 0); **exit 1 unless every row ∈ {match,in-sync,no-source,skipped}** (`scripts/kimi-surface.mjs:206-208`); `unpublished404:true` = live body is the 13 409B Kimi 404 sentinel sha `93ddca9a…` (`:180`,`:198`) — dead slot, NOT rot; unknown id exits 1 (`die` `:34`), unknown verb exits 64 (`:1198`) | byte drift — kimi rewrites bytes (sdk-seed.js, cfemail, entity encoding); decide republish by *vintage evidence* not digest; JSON drops `markerSource` → `drift` **with** `titleEqual:true`+`markerLive:true` = source-side marker missing (live r11: ufofsd-charter, plazir27-kimi-page, plazir27runs-on); read-only, never touches state |
+| GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | root URL body vs ONE scored `index.html` (depth ≤2): match/in-sync/drift — **read-only** (never touches `probe-latest.json`); labels `src/reconcile.mjs:200-212` (`OK/SYNC/DIFF/LIVE/NOSRC/NODIR/ERR/SKIP`); **exit 1 only on drift/fetch-error/source-missing** (`src/cli.mjs:269-272`) — `no-source`/`no-source-file`/`skipped` exit 0, so `NOSRC` is silent; unknown id = crash exit 1 + stack (un-awaited dispatch `src/cli.mjs:1086`) | all other paths incl. second `index.html`s; **`in-sync` on GHP masks byte drift** — treat as "git fetch sourceDir + spotcheck," see `corpus/knowledge/ghp-subpath-spotcheck.md` |
 | kimi bindings | `node ~/Projects/webzites/scripts/kimi-surface.mjs kimi-map` | chat→domain truth: publishedUrl, publishState, version ids; sweeps project chats top-level ListChats misses | chats beyond sweep pages |
 | probe-history deltas | `node scripts/probe-delta.mjs` (this repo; `--since`, `--hole-hours`, `--json`) | violated[] ENTER/EXIT, registrations (UNIVERSE), coverage holes >12h; spot-probe + bootstrap phantoms suppressed (naive diff = 42 events, 40 phantom; r10 baseline: 6 events, 0 phantom) | transitions bounded by sweep sampling; marker churn vs outage needs `probe-latest.json` — `corpus/knowledge/probe-delta-alerting.md` |
 | Whole fleet | `webzites grokbot tick` | probe + reconcile + keeper log per site | — |
@@ -246,6 +259,11 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
 - `scripts/probe-delta.mjs` (this repo) + `corpus/knowledge/probe-delta-alerting.md`
   — runnable history-delta + coverage-hole detector; rules, baseline,
   naive-diff phantom mechanism.
+- `corpus/knowledge/free-read-verbs.md` — the four free-read verbs
+  (`probe`/`status`/`grokbot reconcile`/`sync-check`): per-verb universes,
+  live-verified exit contracts, the `probe <id>` snapshot-clobber trap +
+  merge asymmetry, `probe-history.jsonl` writer semantics. Live-evidenced
+  r11 (`/tmp/kake-r11/` artifacts).
 - `~/Projects/ds4cc-marketplace/` — ds4cc.com source: `.github/workflows/
   pages.yml`, `CNAME`, `deploy-github-pages.sh` (setup only), `speedrun/`,
   `burnerchrome/`, `render.yaml` + `apps-sdk/` (app.ds4cc.com Render service).
