@@ -125,6 +125,7 @@ non-git review snapshot — never treat it as publishable source.
 | Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
 | GHP subpaths | walk `sourceDir` → GET `<url>/<rel>` → sha vs `git show origin/main:<rel>` | subpath 404s/rot probe+reconcile can't see (first baseline 2026-09-28: 2 352 paths, 0 true rot, 126 diffs all local git lead/lag) | procedure in `corpus/knowledge/ghp-subpath-spotcheck.md` |
 | URL lists (sitemap) | GET every `<loc>` + sourceDir membership | dead listings, foreign content, pre-push listing preview (baseline 2026-09-28: 103 locs, 0 orphans/dead) | unlisted paths invisible; GHP live-only orphans impossible by construction (deploy artifact = full tree snapshot) — `corpus/knowledge/sitemap-orphan-audit.md` |
+| kimi subpaths | live-index same-origin link sweep + canonical `sitemap.xml` parity (`dir/`→`dir/index.html`), classify misses by `git log --diff-filter=A` vs publish vintage | per-path staleness quantified (ds4cc mirror 2026-09-28: 74/93 canonical locs missing, **all post-vintage, 0 rot**); `dir/` href rot | byte drift meaningless; JS-rendered links invisible to static sweep; `${...}` template literals are noise — `corpus/knowledge/kimi-subpath-audit.md` |
 
 Vintage evidence that beats digests: dedupe report sha table, keeper logs
 (`webzites/reports/keepers/grokbot-<site>.log.md`), max embedded date in DOM,
@@ -140,7 +141,11 @@ Vintage evidence that beats digests: dedupe report sha table, keeper logs
   200. GHP is the opposite: `/dir` → 301 → `/dir/` → serves `index.html`
   (verified 2026-09-28: `/plazir-15-site/snake`, `ds4cc.com/magga`). Nav
   links like `href="snake/"` work on GHP, 404 on kimi — convert to
-  explicit `dir/index.html` before mirroring.
+  explicit `dir/index.html` before mirroring. Live proof of the rot class:
+  ds4cc.kimi.page's index ships `omarchy-usage/`, `omegag/`, `speedrun/`
+  hrefs — all 404 today while their `index.html` twins serve 200; broken
+  since publish, unfixable by anything short of a re-publish with
+  rewritten hrefs (see `corpus/knowledge/kimi-subpath-audit.md`).
 - **One chat = one publish slot + one custom slug.** Firing an update into a
   chat bound to another live site hot-swaps that site. Never fire into
   `1a0c20ea-…` (veigapunk.kimi.page) or `1a049cb5-…` (plazir27runs-on).
