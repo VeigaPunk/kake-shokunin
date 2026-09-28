@@ -61,9 +61,21 @@ non-git review snapshot — never treat it as publishable source.
    `grokbot tick` daily. Check `state/probe-latest.json` age before
    re-probing; read `corpus/knowledge/ops-automation.md` for history
    semantics (constant `errors[]` on xsnapshot-app = armed NXDOMAIN
-   tripwire, not a regression; single-row `total:1` rows are spot probes).
+   tripwire, not a regression; single-row `total:1` rows are spot
+   probes). **History transitions without re-probing:**
+   `node scripts/probe-delta.mjs` (this repo, read-only over
+   `state/probe-history.jsonl`) — suppressed-spot-rule diffing; naive
+   consecutive-row diffing emits 42 events of which 40 are phantom. Do NOT
+   re-run mutating verbs for audit (`probe --all` writes
+   `probe-latest.json` + appends history — `src/fleet.mjs:40-45`,
+   `src/cli.mjs:998-1002`); cite LOG.md rounds instead. `webzites status`
+   also **exits 1 whenever the last probe had any violation/error**
+   (`src/cli.mjs:99`) — read its stdout, never gate on its exit code.
+   Runbook: `corpus/knowledge/probe-delta-alerting.md`.
 2. **Check live-vs-source drift** per the table below. Kimi rows:
-   `node scripts/kimi-surface.mjs sync-check [<id>]` (pure HTTP, no browser;
+   `node ~/Projects/webzites/scripts/kimi-surface.mjs sync-check [<id>]` (run
+   from any cwd — the script has **no `--help` verb**; usage prints via any
+   unknown verb, exit 64; pure HTTP, no browser;
    title+marker verdict — bytes never equal, see pitfalls). GHP rows:
    `webzites grokbot reconcile <id>` compares live bytes vs `sourceDir`.
 3. **Fix in the source repo**, commit path-scoped. Never edit live bytes,
@@ -124,7 +136,8 @@ non-git review snapshot — never treat it as publishable source.
 | Any row | `webzites probe <id>` | status, redirect-to-soft-404, title, marker loss | content rot inside a passing marker |
 | kimi row + `sourceDir` | `node scripts/kimi-surface.mjs sync-check <id>` | title/marker vs source; "in-sync*" = identity OK, **freshness unknown** | byte drift — kimi rewrites bytes (sdk-seed.js, cfemail, entity encoding); decide republish by *vintage evidence* not digest |
 | GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | root URL body vs ONE scored `index.html` (depth ≤2): match/in-sync/drift | all other paths incl. second `index.html`s; **`in-sync` on GHP masks byte drift** — treat as "git fetch sourceDir + spotcheck," see `corpus/knowledge/ghp-subpath-spotcheck.md` |
-| kimi bindings | `node scripts/kimi-surface.mjs kimi-map` | chat→domain truth: publishedUrl, publishState, version ids; sweeps project chats top-level ListChats misses | chats beyond sweep pages |
+| kimi bindings | `node ~/Projects/webzites/scripts/kimi-surface.mjs kimi-map` | chat→domain truth: publishedUrl, publishState, version ids; sweeps project chats top-level ListChats misses | chats beyond sweep pages |
+| probe-history deltas | `node scripts/probe-delta.mjs` (this repo; `--since`, `--hole-hours`, `--json`) | violated[] ENTER/EXIT, registrations (UNIVERSE), coverage holes >12h; spot-probe + bootstrap phantoms suppressed (naive diff = 42 events, 40 phantom; r10 baseline: 6 events, 0 phantom) | transitions bounded by sweep sampling; marker churn vs outage needs `probe-latest.json` — `corpus/knowledge/probe-delta-alerting.md` |
 | Whole fleet | `webzites grokbot tick` | probe + reconcile + keeper log per site | — |
 | Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
 | GHP subpaths | walk `sourceDir` → GET `<url>/<rel>` → sha vs `git show origin/main:<rel>` | subpath 404s/rot probe+reconcile can't see (first baseline 2026-09-28: 2 352 paths, 0 true rot, 126 diffs all local git lead/lag) | procedure in `corpus/knowledge/ghp-subpath-spotcheck.md` |
@@ -230,6 +243,9 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
   (6h cadence), `reports/keepers/repos-r{1..8}.md` (wz-repos lane),
   `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}`,
   `agents/webzites-{kimi,polish,repo,speedrun}.md` (keeper cards).
+- `scripts/probe-delta.mjs` (this repo) + `corpus/knowledge/probe-delta-alerting.md`
+  — runnable history-delta + coverage-hole detector; rules, baseline,
+  naive-diff phantom mechanism.
 - `~/Projects/ds4cc-marketplace/` — ds4cc.com source: `.github/workflows/
   pages.yml`, `CNAME`, `deploy-github-pages.sh` (setup only), `speedrun/`,
   `burnerchrome/`, `render.yaml` + `apps-sdk/` (app.ds4cc.com Render service).

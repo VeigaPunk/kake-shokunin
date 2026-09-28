@@ -57,7 +57,7 @@ refuses at `:845-849` when the slot serves live 200 (dead-slot gate, code 3).
 - `plazir27runson` — NOT self-contained: 7 same-origin assets incl. 3 film
   `.mp4` = ~147MB (exceeds the 32MB `fetchLive` maxBuffer at `:339-346` and any
   card budget). Extract `index.html` + `assets/` minus films; fire with
-  `--zip-exclude='assets/*.mp4'` (exclude chain `:891-894`, zip spawn `:906`).
+  `--zip-exclude='assets/*.mp4'` (exclude chain `:903`, zip spawn `:906`).
 - `ufo-fsd.kimi.pro` — 612B SPA shell is NOT the content: real bundle is
   `/assets/index-Bw9NLFv4.js` (739,018B) + `index-B-Hzbnm3.css` (82,871B); a
   body-only fire produces a blank DS4CC. Extract html+assets (~822KB zip).

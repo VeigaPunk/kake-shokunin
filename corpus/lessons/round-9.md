@@ -30,7 +30,8 @@ static `const PROPERTIES = [...]` literal in the served body.
   `cmdUpdate` refuses at `kimi-surface.mjs:483`, `cmdRecreate` refuses at
   `:845-849` on any live-200 slot. Extraction recipe landed
   (`vault-properties.md`); plazir27runson needs `--zip-exclude='assets/*.mp4'`
-  (147MB of films exceed the 32MB `fetchLive` maxBuffer at `:339`).
+  (147MB of films exceed the 32MB `fetchLive` maxBuffer at `:342`, range
+  `:339-346`).
 - **Two platform shifts since 09-26:** the injected `sdk-seed.js` tag grew
   exactly +157B on every kimi-surface row (digest checks must normalize it —
   byte deltas now carry zero freshness signal), and website-id `1a0acf59…`

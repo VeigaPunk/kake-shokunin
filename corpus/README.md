@@ -24,8 +24,8 @@ mirrors, Pages deploys).
 | Sitemap/orphan audit | `knowledge/sitemap-orphan-audit.md` | URL-list→live sweep, GHP orphan impossibility proof (deploy = full-tree artifact), first baseline (103 locs, 0 orphans/dead), charter marker day-2 churn |
 | kimi subpath audit | `knowledge/kimi-subpath-audit.md` | link sweep + sitemap parity; ds4cc mirror 75/93 canonical locs missing all post-vintage (0 rot); `dir/` hrefs live-dead on kimi |
 | Publish-queue ledger | `knowledge/publish-queue.md` | PQ-1..PQ-13 readiness: gate class, bound chats, source freshness, cheapest wins, ordering DAG (r9 baseline) |
-| Vault PROPERTIES[] | `knowledge/vault-properties.md` | JS-surface audit without DOM; 3/10 live links dead; sourceless-row extraction recipe; +157B seed shift; site-id collision |
-| Round lessons | `lessons/round-1.md`, `round-3.md`…`round-9.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit; PQ readiness baseline |
+| Probe-delta alerting | `knowledge/probe-delta-alerting.md` + `scripts/probe-delta.mjs` | phantom-suppressed history diffing (naive 42/40-phantom → 6/0), corrected r5 veigapunk bracket, coverage holes |
+| Round lessons | `lessons/round-1.md`, `round-3.md`…`round-10.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit; PQ readiness; probe-delta + checklist audit |
 
 ## Known gaps
 
@@ -43,10 +43,12 @@ mirrors, Pages deploys).
   round 9** — PROPERTIES[] is a static literal; rot baseline landed
   (`knowledge/vault-properties.md`).
 - kimi `apiv2` authenticated ops are capability-recorded but intentionally
-  unwired; any change there is a new round's work.
 - `webzites-probe.timer` nominally provides 6h coverage, but
   probe-history is bursty (median gap 0.45h, 42.7h hole 09-21→09-22) —
-  alerting on `violated[]` deltas (vs the silent log) is undecided.
+  **detection closed 2026-09-28 round 10**: `scripts/probe-delta.mjs`
+  (read-only, spot/bootstrap-phantom-suppressed; runbook
+  `knowledge/probe-delta-alerting.md`). Alert *delivery* (notify/systemd
+  fan-out) stays with the webzites owner — not this repo.
 - Keeper queue (flagged 09-28, not ours to apply): `ufo-fsd-kimi-pro` marker
   collision (website-id now 2/18), `plazir27runson` marker case `Nightcall`→
   `NIGHTCALL` (serves uppercase), charter-ghp pin `2026-09-26`→`2026-09-28

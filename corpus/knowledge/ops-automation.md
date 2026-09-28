@@ -32,9 +32,13 @@ back-calculate "time in violated" from row counts alone.
 
 Observed transitions (all UTC, from the file itself):
 
-- **`veigapunk-page` flipped violated→ok** between 2026-09-21T04:14 and
-  2026-09-22T22:58 runs — the human publish click landed; a successful
-  restore looks like the id silently leaving `violated[]`.
+- **`veigapunk-page` flipped violated→ok** between the 2026-09-21T03:32:06
+  and 2026-09-21T04:14:50 full sweeps — the human publish click landed; a
+  successful restore looks like the id silently leaving `violated[]`.
+  *(r10 correction: the earlier "04:14→09-22T22:58" bounds were the 42.7h
+  sampling hole's endpoints — those two rows carry identical `violated[]`
+  sets, zero delta. Verified against the raw rows 2026-09-28 by
+  `scripts/probe-delta.mjs`; see `corpus/knowledge/probe-delta-alerting.md`.)*
 - **`charter-ghp` entered violated[]** between 09-27T00:22 and 09-27T06:22 —
   the scribe-beat marker churned (PQ-12) while the site stayed up; a marker
   FAIL appears identical to an outage in history rows — resolution needs
@@ -42,9 +46,12 @@ Observed transitions (all UTC, from the file itself):
 - **`lucario` entered violated[]** between 09-27T12:22 and 09-27T16:38 —
   the *row* was added to the config mid-day (total 17→18); a new row
   appearing already-violated is a registration event, not a regression.
-- `xsnapshot-app` has been in `errors[]` every run since 09-21 (intended
-  NXDOMAIN tripwire, PQ-7) — **a constant errors[] entry is armed-tripwire
-  baseline, not noise to fix**.
+- `xsnapshot-app` has been in `errors[]` on **every full sweep since
+  2026-09-21T01:34:20Z** (present also on the 09-20T23:47:10 bootstrap row;
+  absent on 11 earlier full sweeps, last 09-21T01:33:49) — intended NXDOMAIN
+  tripwire, PQ-7. **A constant errors[] entry is armed-tripwire baseline,
+  not noise to fix** — but judge constancy on full sweeps only: spot
+  (`total:1`) rows trivially omit every other site.
 - `ufo-fsd-kimi-pro` oscillated errors→ok on 09-21 and 09-26/27 — transient
   FC-ingress fetches; single-run errors on that row are flake, two+
   consecutive are signal.
