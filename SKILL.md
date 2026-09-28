@@ -105,10 +105,12 @@ non-git review snapshot — never treat it as publishable source.
    deployment-scoped: canary/website-id pins churn per publish; beat-dated
    charter markers (`2026-09-26 scribe beat`, `On 2026-09-18 the grok-web
    scribe transcribed`) churn per scribe beat — 2026-09-28 evidence: the
-   `2026-09-26 scribe beat` pin went absent <48h after a daily scribe beat
-   rolled. Procedure: on a FAIL whose only miss is a stale pin, extract the
-   new live literal (`grep -o 'scribe beat[^<]*'` on the fetched body), then
-   fix the `expect.marker` in `fleet.config.json` — file that edit as a
+   `2026-09-26` pin failed on two consecutive probes (round-3 extraction +
+   round-7 FAIL at 18:51Z, live literal `2026-09-28 scribe beat (`), i.e.
+   beat pins die ~daily while the daily scribe lands. Procedure: on a FAIL
+   whose only miss is a stale pin, extract the new live literal
+   (`grep -o 'scribe beat[^<]*'` on the fetched body), then fix the
+   `expect.marker` in `fleet.config.json` — file that edit as a
    publish-queue item (webzites keeper owns it), never edit it silently.
 
 ## Live-vs-source drift detection
@@ -122,6 +124,7 @@ non-git review snapshot — never treat it as publishable source.
 | Whole fleet | `webzites grokbot tick` | probe + reconcile + keeper log per site | — |
 | Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
 | GHP subpaths | walk `sourceDir` → GET `<url>/<rel>` → sha vs `git show origin/main:<rel>` | subpath 404s/rot probe+reconcile can't see (first baseline 2026-09-28: 2 352 paths, 0 true rot, 126 diffs all local git lead/lag) | procedure in `corpus/knowledge/ghp-subpath-spotcheck.md` |
+| URL lists (sitemap) | GET every `<loc>` + sourceDir membership | dead listings, foreign content, pre-push listing preview (baseline 2026-09-28: 103 locs, 0 orphans/dead) | unlisted paths invisible; GHP live-only orphans impossible by construction (deploy artifact = full tree snapshot) — `corpus/knowledge/sitemap-orphan-audit.md` |
 
 Vintage evidence that beats digests: dedupe report sha table, keeper logs
 (`webzites/reports/keepers/grokbot-<site>.log.md`), max embedded date in DOM,

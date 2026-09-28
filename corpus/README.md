@@ -21,16 +21,18 @@ mirrors, Pages deploys).
 | Origin repos | `knowledge/origin-repos.md` | 50-clone canonical-source map, byte-verified writers, 5 sourceless artifacts |
 | Speedrun pipeline | `knowledge/speedrun-pipeline.md` | record→report→prep→operator-push→X-draft; redaction + fail-closed rules |
 | GHP subpath spotcheck | `knowledge/ghp-subpath-spotcheck.md` | probe/reconcile coverage math, `in-sync` masking, origin/main classification, first baseline (2 352 paths, 0 rot) |
+| Sitemap/orphan audit | `knowledge/sitemap-orphan-audit.md` | URL-list→live sweep, GHP orphan impossibility proof (deploy = full-tree artifact), first baseline (103 locs, 0 orphans/dead), charter marker day-2 churn |
 | Round lessons | `lessons/round-1.md`, `round-3.md`, `round-4.md`, `round-5.md`, `round-6.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck |
 
 ## Known gaps
 
 - The five sourceless kimi artifacts (`origin-repos.md` table) still have
   no Origin repo — extraction is operator-gated, unchanged since 2026-09-21.
-- GHP subpath rot: probe/reconcile cover one URL/one file; baseline
-  spotcheck 2026-09-28 found 0 true rot across 2 352 paths. Residual:
-  live-only orphan paths (needs sitemap crawl, not source walk) and kimi
-  subpaths (byte compare meaningless — needs per-path title+marker).
+- Live-only orphan paths: **closed 2026-09-28** — GHP Pages deploys are
+  full-tree artifacts, so the served set ≡ `origin/main` tree; the round-7
+  sitemap sweep (103 locs) found 0 orphans/dead listings. Residual: kimi
+  subpaths (byte compare meaningless — needs per-path title+marker) and
+  rows with no URL list (`lucario` GHP is 2 files — already total).
 - kimi `apiv2` authenticated ops are capability-recorded but intentionally
   unwired; any change there is a new round's work.
 - `webzites-probe.timer` provides 6h coverage; whether the operator wants
