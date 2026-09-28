@@ -2,6 +2,12 @@
 
 Source: `~/Projects/webzites/fleet/fleet.config.json` (schema
 `webzites-fleet-v1`, updatedAt 2026-09-26) + `fleet/fleet.dedupe-report.md`.
+Verified 2026-09-28: `len(sites)` = **21 rows** — status: 12 live / 3 pruned /
+3 broken / 3 queued; updatePath: 14 kimi-websites-surface / 4 git-push-main /
+2 kimi-pro-slot / 1 operator-registration. (Audit correction: round-1 said
+"20 rows" — the registry has 21; the inventory below already lists all 21
+ids. `app.ds4cc.com` is NOT a registry row — it exists only in SKILL.md's
+property map as a Render service; do not add it here.)
 
 **Freshness warning:** this table is a snapshot. Live probe 2026-09-28 found
 `lucario` recorded `live/maintained` while `lucario.kimi.page` had **never
@@ -21,13 +27,16 @@ Also 2026-09-28: `charter-ghp` FAIL on stale marker (09-26 pin vs live
 - `expect` = tripwire: GET status + final URL + title regex + one literal
   substring of raw bytes (`src/probe.mjs`, `html.includes`, case-sensitive).
 - `status`: `live` | `broken` | `pruned` | `queued`. Pruned rows are marked
-  `prunedFor: <canonical-id>` and **never deleted**; `status:"pruned"` is inert
-  in `probe.mjs` — pruned rows still get probed (tripwire value).
+  `prunedFor: <canonical-id>` and **never deleted**. `probe.mjs` has NO
+  `pruned` handling at all — every row with `url` + `expect` is probed
+  equally; pruning is a registry-level label invisible to the prober
+  (audit correction 2026-09-28: round-1 said "inert in probe.mjs",
+  implying a code path that does not exist).
 - `priority`: `high` (revenue/brand: veigapunk-page, ds4cc-com) · `maintained`
   (canonical mirrors + GHP fronts) · `dormant` (frozen/broken/pruned) ·
   `queued` (awaiting operator action).
 
-## Row inventory (2026-09-26 probes)
+## Row inventory (21 rows; counts verified 2026-09-28 via `len(sites)`)
 
 | id | url | status | sourceDir |
 |---|---|---|---|
@@ -52,6 +61,11 @@ Also 2026-09-28: `charter-ghp` FAIL on stale marker (09-26 pin vs live
 | snapshot-kimi-pro | null | queued | none |
 | burnerchrome-com | null | queued | `~/Projects/ds4cc-marketplace/burnerchrome` |
 | lucario | lucario.kimi.page | **broken (404, never published — see warning)** | `~/Projects/lucario` (canonical: `veigapunk.github.io/lucario/`) |
+
+**Counting rule:** "21 rows" = raw `sites[]` length (inventory above lists
+all 21). "14 kimi rows" = `updatePath == "kimi-websites-surface"`. Print the
+command beside any count cited — audit round-1 found "20" propagated through
+five files from one stale snapshot.
 
 ## Marker quality (r2 tightening)
 

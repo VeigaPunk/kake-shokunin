@@ -1,5 +1,9 @@
 # Drift detection — live vs source
 
+Source: `~/Projects/webzites/{bin/webzites.mjs, scripts/kimi-surface.mjs,
+src/probe.mjs}` + `state/probe-latest.json` (2026-09-28T18:51Z run) +
+`fleet/fleet.dedupe-report.md`.
+
 Commands (all under `~/Projects/webzites/`):
 
 ```bash

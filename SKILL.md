@@ -27,11 +27,13 @@ the probe commands, never with memory.
 | lucario kimi slot | `https://lucario.kimi.page/` — 404, **never published** | `~/Projects/lucario/site` | Kimi surface pending first publish (README: "pending — gated"). Config `status:live` is stale/wrong. |
 | app.ds4cc.com | `https://app.ds4cc.com/mcp` | `ds4cc-marketplace/apps-sdk` + `render.yaml` | Render web service (`ds4cc-marketplace-app`, Docker) |
 
-Registry of record: `~/Projects/webzites/fleet/fleet.config.json` (20 rows,
-`expect` tripwires, `sourceDir`, `updatePath`, `status`, `priority`). Dead rows
-are `status:"pruned"`/`"queued"` — never deleted. Config `status` is a
+Registry of record: `~/Projects/webzites/fleet/fleet.config.json` (21 rows —
+`len(sites)` verified 2026-09-28; status 12 live/3 pruned/3 broken/3 queued;
+`expect` tripwires, `sourceDir`, `updatePath`, `status`, `priority`). Dead
+rows are `status:"pruned"`/`"queued"` — never deleted. Config `status` is a
 **snapshot, not truth** — 2026-09-28 probe proved `lucario` recorded `live`
-while never published; always re-probe before acting.
+while never published; always re-probe before acting. `probe.mjs` has no
+`pruned` branch — every row with url+expect is probed equally.
 
 Non-sources: `~/Projects/ufofsdbeta` is the UFO-FSD *runtime* repo (no Pages
 site; `dist/` is JS build output). `~/Projects/ufofsdbeta-kimi-review` is a
@@ -72,6 +74,13 @@ non-git review snapshot — never treat it as publishable source.
    - After the operator clicks publish, verify (all free reads): live URL →
      200, `GetWebsiteByChatID` → `publishedUrl` host + `PUBLISHED`,
      `sync-check <id>` → marker verdict, `kimi-map` refresh.
+   - **Read run journals before judging a fire.** `state/{update,recreate,
+     rebuild}-*.json` carries `steps[]`, `fire`, `error.code`. Exit codes
+     lie about meter consumption: 5 = aborted before send (free retry),
+     6/7 post-`fired` = anomaly, fire consumed, operator inspects.
+     Successful recreate/rebuild ends `liveAfter.stillDead:true` + claimed
+     version card — the live URL stays 404 until the human publish click.
+     Decoder table: `corpus/knowledge/fire-journal-codes.md`.
 5. **Lease before browser.** `webzites lease acquire --owner <name>
    --ttl-ms 900000`; release in `finally`. The shared burner chrome
    (`the-musketeer` profile, CDP `127.0.0.1:9222`) serializes the whole
@@ -139,6 +148,13 @@ Vintage evidence that beats digests: dedupe report sha table, keeper logs
   boilerplate/misattributed/redundant — they passed 12 cross-body swap
   mutations. Keep the r2 tightened set in `fleet.config.json`; a `null`
   marker is worse (foreign-200 serves flip to silent pass).
+- **Fired-but-orphaned runs.** A metered fire that dies before `versionWait`
+  (journal `error.code` 4/6/7 after a `fired` step) can leave a version card
+  in an unknown chat — 2026-09-26 evidence: plazir15 `recreate` hit code 6
+  ("never navigated to /chat/<uuid>") post-fire; ds4cc-kimi-mirror `update`
+  consumed a fire then hit code 7 at ListVersions. Recovery is `kimi-map`
+  + match by fire-description timestamp, never a blind refire. Full code
+  table: `corpus/knowledge/fire-journal-codes.md`.
 
 ## Cited paths
 
