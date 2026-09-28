@@ -22,21 +22,34 @@ mirrors, Pages deploys).
 | Speedrun pipeline | `knowledge/speedrun-pipeline.md` | record→report→prep→operator-push→X-draft; redaction + fail-closed rules |
 | GHP subpath spotcheck | `knowledge/ghp-subpath-spotcheck.md` | probe/reconcile coverage math, `in-sync` masking, origin/main classification, first baseline (2 352 paths, 0 rot) |
 | Sitemap/orphan audit | `knowledge/sitemap-orphan-audit.md` | URL-list→live sweep, GHP orphan impossibility proof (deploy = full-tree artifact), first baseline (103 locs, 0 orphans/dead), charter marker day-2 churn |
-| kimi subpath audit | `knowledge/kimi-subpath-audit.md` | link sweep + sitemap parity; ds4cc mirror 74/93 canonical locs missing all post-vintage (0 rot); `dir/` hrefs live-dead on kimi |
-| Round lessons | `lessons/round-1.md`, `round-3.md`…`round-8.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit |
+| kimi subpath audit | `knowledge/kimi-subpath-audit.md` | link sweep + sitemap parity; ds4cc mirror 75/93 canonical locs missing all post-vintage (0 rot); `dir/` hrefs live-dead on kimi |
+| Publish-queue ledger | `knowledge/publish-queue.md` | PQ-1..PQ-13 readiness: gate class, bound chats, source freshness, cheapest wins, ordering DAG (r9 baseline) |
+| Vault PROPERTIES[] | `knowledge/vault-properties.md` | JS-surface audit without DOM; 3/10 live links dead; sourceless-row extraction recipe; +157B seed shift; site-id collision |
+| Round lessons | `lessons/round-1.md`, `round-3.md`…`round-9.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit; PQ readiness baseline |
 
 ## Known gaps
 
-- The five sourceless kimi artifacts (`origin-repos.md` table) still have
-  no Origin repo — extraction is operator-gated, unchanged since 2026-09-21.
+- The sourceless kimi artifacts now have an **extraction recipe**
+  (`knowledge/vault-properties.md`): body→`index.html`→`sourceDir`→`update`;
+  `ufo-fsd.kimi.page` additionally needs `recreate --new-chat --canonical=`
+  (no bound chat); `plazir27runson` needs `--zip-exclude='assets/*.mp4'`;
+  `ufo-fsd.kimi.pro` needs html+assets zipped. Execution remains
+  operator-gated; no Origin repo, unchanged since 2026-09-21.
 - Live-only orphan paths: **closed 2026-09-28** — GHP Pages deploys are
   full-tree artifacts, so the served set ≡ `origin/main` tree; the round-7
   sitemap sweep (103 locs) found 0 orphans/dead listings. kimi subpaths:
   **closed 2026-09-28 round 8** — link sweep + sitemap parity baseline
-  (`kimi-subpath-audit.md`). Residual: JS-rendered link surfaces (vault
-  PROPERTIES[]) need rendered DOM; rows with no URL list (`lucario` GHP is
-  2 files — already total).
+  (`kimi-subpath-audit.md`). JS-rendered link surfaces: **closed 2026-09-28
+  round 9** — PROPERTIES[] is a static literal; rot baseline landed
+  (`knowledge/vault-properties.md`).
 - kimi `apiv2` authenticated ops are capability-recorded but intentionally
   unwired; any change there is a new round's work.
-- `webzites-probe.timer` provides 6h coverage; whether the operator wants
-  alerting on `violated[]` deltas (vs the current silent log) is undecided.
+- `webzites-probe.timer` nominally provides 6h coverage, but
+  probe-history is bursty (median gap 0.45h, 42.7h hole 09-21→09-22) —
+  alerting on `violated[]` deltas (vs the silent log) is undecided.
+- Keeper queue (flagged 09-28, not ours to apply): `ufo-fsd-kimi-pro` marker
+  collision (website-id now 2/18), `plazir27runson` marker case `Nightcall`→
+  `NIGHTCALL` (serves uppercase), charter-ghp pin `2026-09-26`→`2026-09-28
+  scribe beat` (ready diff in `~/Projects/webzites/reports/r9-stale-markers.md`),
+  plazir15 chat-binding ambiguity (vessel `1a0c2186` vs emergent `1a0de2ed`),
+  bare `webzites` not on PATH (invoke `node ~/Projects/webzites/bin/webzites.mjs`).

@@ -21,9 +21,14 @@ these user units. **Before running your own `probe --all`, check
 
 76 rows 2026-09-20→09-28. Format per row:
 `{"at", "total", "ok", "violated":[ids], "errors":[ids]}`.
-`total` counts probed rows (14→17→18 as rows were added); `ok` counts only
+`total` counts probed rows (14→15→17→18 as rows were added); `ok` counts only
 passes — `total - ok` = violated+errors. Single-row probes write
 `total:1` rows — distinguish them from fleet runs before trend-reading.
+**The 6h cadence is the timer's, not the file's** (round-9 review): of 76
+rows only 66 are fleet runs; median inter-run gap 0.45h, only 20/65 gaps in
+the 5–7h band, largest hole 42.7h (09-21T04:14→09-22T22:58). Treat
+`probe-history.jsonl` as an event log whose sampling is bursty — never
+back-calculate "time in violated" from row counts alone.
 
 Observed transitions (all UTC, from the file itself):
 

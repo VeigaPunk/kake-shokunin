@@ -36,7 +36,11 @@ Add-date decomposition: 63 files 09-23 (magga/ tree), 10 files 09-22
 embedded max date is 2026-08-21 → published build predates ~Aug-29, matching
 the dedupe-report vintage. PQ-2 quantify: **the republish delta is 74
 canonical paths** — every one of them post-dates the last publish. No
-pre-publish file is missing.
+pre-publish file is missing. **Errata (round-9 review):** the source-side
+sitemap commit `f3d2ecd` adds **75** `<url>` entries (18→93 locs); the true
+republish delta is 75 paths — the live-GET count of 74 reflects the sweep
+run, and the dedupe report's cited 477-line revenger diff has no on-disk
+artifact. Prefer the in-repo number (75) when briefing the operator.
 
 ### `dir/` hrefs are live-dead on the mirror
 

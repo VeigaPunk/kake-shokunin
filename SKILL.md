@@ -43,7 +43,11 @@ non-git review snapshot — never treat it as publishable source.
 
 ## Audit → source-fix → publish checklist
 
-1. **Probe, don't guess.** `webzites probe --all` (or `probe <site-id>`) — GET +
+1. **Probe, don't guess.** `node ~/Projects/webzites/bin/webzites.mjs probe --all`
+   (or `probe <site-id>`) — the bare `webzites` name is NOT on PATH on this
+   host (`command -v webzites` = empty; sibling audits confirm); all commands
+   below abbreviate it to `webzites` for readability but the real invocation
+   is the node path. GET +
    canary tripwire (`expect.status`, final URL, title regex, marker literal);
    exit 1 on any violation. `webzites status` for last results. Raw `200` is
    not proof: kimi-pro serves `200 + 5995B preview-404 body` — trust `expect`,
@@ -125,18 +129,41 @@ non-git review snapshot — never treat it as publishable source.
 | Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
 | GHP subpaths | walk `sourceDir` → GET `<url>/<rel>` → sha vs `git show origin/main:<rel>` | subpath 404s/rot probe+reconcile can't see (first baseline 2026-09-28: 2 352 paths, 0 true rot, 126 diffs all local git lead/lag) | procedure in `corpus/knowledge/ghp-subpath-spotcheck.md` |
 | URL lists (sitemap) | GET every `<loc>` + sourceDir membership | dead listings, foreign content, pre-push listing preview (baseline 2026-09-28: 103 locs, 0 orphans/dead) | unlisted paths invisible; GHP live-only orphans impossible by construction (deploy artifact = full tree snapshot) — `corpus/knowledge/sitemap-orphan-audit.md` |
-| kimi subpaths | live-index same-origin link sweep + canonical `sitemap.xml` parity (`dir/`→`dir/index.html`), classify misses by `git log --diff-filter=A` vs publish vintage | per-path staleness quantified (ds4cc mirror 2026-09-28: 74/93 canonical locs missing, **all post-vintage, 0 rot**); `dir/` href rot | byte drift meaningless; JS-rendered links invisible to static sweep; `${...}` template literals are noise — `corpus/knowledge/kimi-subpath-audit.md` |
+| kimi subpaths | live-index same-origin link sweep + canonical `sitemap.xml` parity (`dir/`→`dir/index.html`), classify misses by `git log --diff-filter=A` vs publish vintage | per-path staleness quantified (ds4cc mirror 2026-09-28: **75**/93 canonical locs missing — sitemap commit `f3d2ecd` adds 75; "74" in older docs was off by one — **all post-vintage, 0 rot**); `dir/` href rot | byte drift meaningless; `${...}` template literals are noise — `corpus/knowledge/kimi-subpath-audit.md` |
+| Vault PROPERTIES[] | `node -e` eval the `const PROPERTIES = [...]` literal in the fetched body + GET each `url` | rendered-link rot WITHOUT a DOM (r9 baseline: 3/10 live-claimed links dead; lucario absent) | PROPERTIES[] is the only link surface — vault body has no other links; `corpus/knowledge/vault-properties.md` |
 
 Vintage evidence that beats digests: dedupe report sha table, keeper logs
 (`webzites/reports/keepers/grokbot-<site>.log.md`), max embedded date in DOM,
 `kimi-map` version timestamps.
 
+Publish-queue readiness ledger — what each PQ item fixes, its gate class,
+source freshness, and verification: `corpus/knowledge/publish-queue.md`.
+
 ## Mirror pitfalls (all observed, not hypothetical)
 
 - **Bytes never equal on kimi.** Kimi injects `sdk-seed.js` and rewrites
   cfemail/entities; normalized digest differs by a fixed ~+157B class.
-  `data-cfemail` is the *only* allowed churn class — anything else is real
-  drift. Never sha-compare kimi rows; use title+marker+vintage.
+  2026-09-28 evidence: the seed tag itself grew +157B fleet-wide
+  (`data-kimi-disable-watermark/analytics/website-env` attributes added) —
+  post-publish digest checks MUST normalize the seed tag, and byte deltas
+  cannot carry freshness evidence at all. `data-cfemail` was the *only*
+  allowed churn class — anything else is real drift. Never sha-compare kimi
+  rows; use title+marker+vintage.
+- **Site-ids are not host-unique.** `data-kimi-website-id="1a0acf59…"` serves
+  on BOTH `ufo-fsd.kimi.pro` AND `ufo-fsd.kimi.page` (2/18, not the "1/17" the
+  config note claims) — an `update` fire on one may co-write the other; never
+  trust a website-id pin alone.
+- **Live 200 slots block `recreate`; `sourceDir:null` blocks `update`.**
+  `cmdRecreate` refuses code 3 when the slot isn't the dead-slot sentinel
+  (`kimi-surface.mjs:845-849`); `cmdUpdate` refuses at `:483` without
+  `sourceDir/index.html`. Sourceless-row recipe (body→`index.html`→set
+  `sourceDir`, `--canonical` for the vault twin, `--zip-exclude='assets/*.mp4'`
+  for plazir27runson's 147MB films): `corpus/knowledge/vault-properties.md`.
+- **Vault PROPERTIES[] needs no browser.** The rendered link surface is a
+  `const PROPERTIES = [...]` literal in the fetched body — `node -e` eval +
+  GET each `url`. Baseline 2026-09-28: 3/10 live-claimed links dead
+  (charter-ufo-fsd.kimi.page, plazir15.kimi.page → 404; plazir27.kimi.pro →
+  preview-404); lucario absent from the array entirely.
 - **No directory indexes on kimi statics.** `dir/` → 404 while `dir/file` →
   200. GHP is the opposite: `/dir` → 301 → `/dir/` → serves `index.html`
   (verified 2026-09-28: `/plazir-15-site/snake`, `ds4cc.com/magga`). Nav
@@ -154,9 +181,16 @@ Vintage evidence that beats digests: dedupe report sha table, keeper logs
   (vault, byte-twin of veigapunk.kimi.page) ≠ `ufofsd.kimi.page` (frozen
   landing) ≠ `ufo-fsd.kimi.pro` (612B SPA shell). Resolve `publishedUrl` via
   `GetWebsiteByChatID`, not by hosts[] text mention.
-- **Dead slots.** `plazir15.kimi.page` and `charter-ufo-fsd.kimi.page` are
-  unpublished 404s with no bound chat → `recreate` verb (empty vessel or
-  `--new-chat`); a bound-but-unpublished chat carrying versions → `rebuild`.
+- **Dead slots (r9 readiness — `~/Projects/webzites/reports/dead-slot-
+  recreate-readiness-r9.md`).** `plazir15`, `charter-ufo-fsd`, `lucario`
+  `.kimi.page` all still 404 (verified 2026-09-28). Charter's `rebuild`
+  already produced a verified version card (`efc1830`, preview 8,323B
+  markerPresent) — its only remaining gate is the human Publish + slug click.
+  plazir15's chat binding is UNRESOLVED (vessel `1a0c2186` pristine vs
+  emergent `1a0de2ed` with one unpublished version) — run `kimi-map` before
+  any refire. lucario has no bound chat and zero consumed fires (all 3
+  journals died at lease-refusal, code 1). Dead slot + empty chat →
+  `recreate`; bound-but-unpublished chat with versions → `rebuild`.
   `plazir27.kimi.pro` = Function-Compute ingress serving preview-404.
 - **Session/browser traps.** Dead sessions can pass avatar checks (`browser
   status` probes a 401 must-fail + 200 must-pass). Transient 401 mid-poll is
