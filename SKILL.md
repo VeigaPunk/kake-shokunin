@@ -72,9 +72,13 @@ non-git review snapshot — never treat it as publishable source.
    `grokbot tick` has never fired** (r12 systemd read; keeper logs frozen
    at 2026-09-21T03; `corpus/knowledge/keeper-timer-inert.md`). Do not
    expect fresh per-site keeper logs; enable-vs-retire is an operator
-   decision (`.ufo/l0-questions.md`, kake round-12). Check
-   `state/probe-latest.json` age before
-   re-probing; read `corpus/knowledge/ops-automation.md` for history
+   decision (`.ufo/l0-questions.md`, kake round-12 — still unanswered at
+   r13 22:5xZ). Check `state/probe-latest.json` age before re-probing —
+   **read the `at` field, never the file mtime** (r13 forensics: after the
+   r11 clobber + manual `cp` restore, mtime 21:31:45Z vs `at` 18:51:26Z,
+   2h40m apart; birth-time = the clobber instant, sha proved the restored
+   file IS the r11 backup). Then read
+   `corpus/knowledge/ops-automation.md` for history
    semantics (constant `errors[]` on xsnapshot-app = armed NXDOMAIN
    tripwire, not a regression; single-row `total:1` rows are spot
    probes). **Spot-probe trap:** `probe <id>` does NOT merge — `cmdProbe`
@@ -149,9 +153,15 @@ non-git review snapshot — never treat it as publishable source.
    deployment-scoped: canary/website-id pins churn per publish; beat-dated
    charter markers (`2026-09-26 scribe beat`, `On 2026-09-18 the grok-web
    scribe transcribed`) churn per scribe beat — 2026-09-28 evidence: the
-   `2026-09-26` pin failed on two consecutive probes (round-3 extraction +
-   round-7 FAIL at 18:51Z, live literal `2026-09-28 scribe beat (`), i.e.
-   beat pins die ~daily while the daily scribe lands. Procedure: on a FAIL
+   `2026-09-26` pin has failed in **every full-universe row since the
+   09-27T06:22Z ENTER** (through 18:51:26Z; 22:47Z live re-reads agree),
+   i.e. beat pins die ~daily while beats land. **`observed: "absent"`
+   semantics:** the marker check is an exact-literal `includes()`
+   (`src/probe.mjs:55`) — "absent" means the *pin* wasn't found, never
+   that the beat line vanished (r13: live carried
+   `2026-09-28 scribe beat (` on every measured shape while pinned to
+   `2026-09-26`); pair it with the fuzzy read below before judging.
+   Procedure: on a FAIL
    whose only miss is a stale pin, extract the new live literal
    (`grep -o 'scribe beat[^<]*'` on the fetched body), then fix the
    `expect.marker` in `fleet.config.json` — file that edit as a

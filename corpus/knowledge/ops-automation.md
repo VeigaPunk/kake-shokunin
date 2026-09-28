@@ -1,8 +1,8 @@
 # Ops automation — timers, history, bot fleet
 
 Sources: `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}`
-(read 2026-09-28), `~/Projects/webzites/state/probe-history.jsonl` (76 rows,
-09-20→09-28), `bin/webzites.mjs --help` (2026-09-28),
+(read 2026-09-28), `~/Projects/webzites/state/probe-history.jsonl` (77 rows,
+09-20→09-28; r13 re-read), `bin/webzites.mjs --help` (2026-09-28),
 `reports/keepers/grokbot-*.log.md`.
 
 ## The fleet is already being watched — do not re-probe blindly
@@ -25,7 +25,8 @@ row, 2026-09-28T21:31:26.591Z; no fleet row since 18:51Z). Format per row:
 `total` counts probed rows (14→15→17→18 as rows were added); `ok` counts only
 passes — `total - ok` = violated+errors. Single-row probes write
 `total:1` rows — distinguish them from fleet runs before trend-reading.
-**The 6h cadence is the timer's, not the file's** (round-9 review): of 76
+**The 6h cadence is the timer's, not the file's** (round-9 review; r13
+detector re-run: 66 full sweeps, 11 spot, 0 malformed on 77 rows) — of 77
 rows only 66 are fleet runs; median inter-run gap 0.45h, only 20/65 gaps in
 the 5–7h band, largest hole 42.7h (09-21T04:14→09-22T22:58). Treat
 `probe-history.jsonl` as an event log whose sampling is bursty — never
@@ -84,3 +85,28 @@ reconcile=<verdict>`; manual `grokbot log --note` adds freeform entries
 lag without pushing). Read the site's log before editing its `sourceDir`:
 recent `reconcile=drift` + no note = live-vs-source problem; drift + a
 "git pull" note = the pull already resolved it.
+
+## r13 re-verification (2026-09-28T22:4x–22:5xZ, read-only)
+
+- **probe timer healthy, cadence confirmed:** `webzites-probe.timer` enabled
+  + `active (waiting)`; today's triggers 06:00:36Z, 12:00:53Z, 18:01:09Z
+  (history lines 73–75), next 2026-09-29T00:00:59Z. The 18:51:26.128Z
+  full-universe row (line 76) is an **off-cadence manual `probe --all`**
+  (kake round-3 vintage; timer rows land :00:4x–:01:1x) — do not cite it as
+  the timer's work. All three full rows today carry the identical
+  12 ok / 5 violated / 1 error set; an independent 18-curl live replication
+  at 22:50Z reproduced it with **0 verdict diffs** (pattern stable, not
+  stale). Line 77 (21:31:26.591Z, `total:1`) = the r11 sanctioned
+  `probe ds4cc-com` spot row.
+- **keeper timer unchanged from r12:** disabled + inactive(dead),
+  `LastTriggerUSec` empty, zero journal lines across 26 recorded boots —
+  has still never fired. L0 question (kake round-12) still unanswered at
+  22:5xZ.
+- **detector upkeep:** `node scripts/probe-delta.mjs` on 77 rows = 6 events
+  / 0 phantom (r10 baseline holds on the +1 spot row; universe rule
+  suppressed it, naive diff would have fabricated 6 EXIT phantoms).
+- **freshness-read rule (r13 forensics):** read `probe-latest.json`'s `at`
+  field, never its mtime — after the r11 clobber + manual restore, mtime
+  21:31:45Z vs `at` 18:51:26Z (2h40m apart); birth-time equals the clobber
+  instant, and the restored bytes are sha-identical to the r11 backup
+  (`8c5bb8ca…b6591e`).

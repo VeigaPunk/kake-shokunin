@@ -141,3 +141,22 @@ toggling is operator-only. Zero writes were made by this verification: the
 `state/*.json`+`state/*.jsonl` sha guard is byte-identical before/after
 (`/tmp/kake-r12/state-before.sha` vs `state-after.sha` hash sets equal;
 ExecutorDrafts re-check `/tmp/kake-r12/executor-now.sha`, sorted diff clean).
+
+## r13 addendum (2026-09-28T22:4xZ read-only) — "churn paused" was imprecise
+
+The r12 line above ("Until a push succeeds, the pin churn pauses anyway")
+held only for the *scribe automation*: its ledger still shows
+`pushed:false` beats (`pull timed out`), head `ee907f1`, 0 commits. But
+between 18:32:06Z and 20:43:21Z the **human pushed 5 commits directly to
+`origin/main`** of `~/Projects/origin-work/charter-ufo-fsd`
+(`b74190e` bake gold snapshot → `d69dd22` og/twitter/hreflang → `0c767c2`
+window sync → `b9db4b1` CORRECTION → `a8f1e2b` fixup), and Pages served
+them live within ~30s of each push: live `index.html` sha
+`0decd827…56716` == `raw.githubusercontent.com/…/a8f1e2b` (53,353B,
+last-modified 20:43:51Z) — **deploy lag NONE**, superseding r6's
+"bake not pulled" framing. The live beat line remains
+`2026-09-28 scribe beat (` (verified 22:47Z) while the pin stays
+`2026-09-26`, so charter-ghp stays `violated` — PQ-12 is still a one-line
+operator edit of `fleet.config.json:256`. The local clone now lags origin
+by 5 (`main` = `61d0ce6`) — `git pull --ff-only` before any local charter
+work (the keeper-log self-heal pattern, ops-automation.md:82-84).

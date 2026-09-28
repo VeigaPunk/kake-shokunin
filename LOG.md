@@ -17,3 +17,46 @@
 - 2026-09-28 — round 11: closed the "3 of ~20 free-read verbs never live-run" residual (r10 audit) — **operability axis-move, SCORECARD 8→9** (freshness stays 8; probe-latest 2.6h fresh at round open, operability picked per plan). 13 read-only L2 probes in one batch (planner/scout/revenger/labrat×3/executor×2/critic/reviewer/connector/sentinel/scribe → `/tmp/kake-r11/`); zero fires, zero pushes, zero browser ops; the only webzites state delta = one sanctioned `total:1` history append + a backup-guarded clobber→byte-identical restore (sentinel-audited). Central finding: **`probe <id>` clobbers the 18-row fleet snapshot to 1 row** (live: 18→1 rows, `webzites status` exit 1→0 while clobbered, masking 5 violated + 1 error; `--quiet` doesn't prevent it — `cli.mjs:78` saves before the quiet gate) — **unintended defect, not spot semantics**: `mergeProbeResults` intent comment `fleet.mjs:27-29` ("must not erase every other site's verdict"), the r2-era fix covered `tick`/`bots task` (`cli.mjs:289`,`:647`) but left `cmdProbe:78` raw (webzites-side archaeology `/tmp/kake-r11/revenger-merge.md`; 11 `total:1` rows in history). Live exit contracts: probe subset-scoped exit 1, unknown-id exit 2 + HELP **no write** (`cli.mjs:1097-1101`); `status --json` always 0 (`:94-97`), plain status **snapshot-relative** (`:99`, critic-refuted unconditional wording); reconcile read-only, exit 1 only on drift/fetch-error/source-missing — `NOSRC`/`no-source-file` silent 0 (`:269-272`), unknown-id = crash exit 1 + stack (un-awaited `:1086`); sync-check stricter bad-set (`kimi-surface.mjs:206`), `--all`/`--dead` undocumented selectors (`:184-190`), stale ~Aug-29 mirror verdicts **in-sync exit 0** (vintage invisible), `liveSha256` nondeterministic per fetch (abf822c7→440e3cba→5a80ee93 — never alert on sha deltas). Landed: `corpus/knowledge/free-read-verbs.md` (4 verb cards + 3-universe model + state-persistence model + provenance table); SKILL.md step-1 spot-probe trap + backup/restore recipe, status-exit sharpening, write-path cite fix (`cli.mjs:998-1002` was the install unit template → real write path `:78`), 3 drift-table rows, cited-paths entry. Reviewer corrections applied (7 off-by-N fleet.mjs/cli pins, bin import :5, reconcile verdict fork `reconcile.mjs:171-173`); connector: no sibling overlap (kumitate has zero webzites-verb vocabulary; kagi CDP-lease contested-scope boundary respected). r12 planned: freshness re-probe + PQ/marker re-verification if probe-latest stale at open, else remaining free-reads live + webzites-owner handoff for the cmdProbe merge fix (patch proposal `/tmp/kake-r11/scout-verbs.md` F1 — kake never edits webzites source).
 
 - 2026-09-28 — round 12: closed the "4 remaining free-read verbs replica-verified only" residual + falsified two automation myths — **operability axis-move, SCORECARD 9→10** (freshness stays 8; probe-latest 3.4h fresh at open → operability per r11 plan; next 6h sweep 00:00:59Z). 9 read-only L2 probes in one batch (scout/executor/scribe/critic/reviewer/connector/sentinel/revenger/labrat → `/tmp/kake-r12/`); zero fires, zero pushes, zero browser ops, zero systemctl mutations (sentinel PASS ×2 passes; 31-file state sha guard byte-identical before/after the 4 live verb runs — exits 0/1/0/1: `status --json` (18 rows, 5 violated+1 error, exit 0), `grokbots --check` (exit 1, `lucario: no registry row`, checked 21), `bots list` (exit 0, 20 keepers, cards 20/20, wrappers 17/20 — misses all queued), `bots report` (exit 1 gaps lucario; log=8d on 20/21, turn=never 17/21)). Central findings: (1) `webzites-keeper.timer` is loaded+DISABLED+inactive(dead), zero journal — **the daily keeper tick has never fired**; keeper logs frozen at 2026-09-21T03 mint round → r5 ops-automation + SKILL claims corrected (`corpus/knowledge/keeper-timer-inert.md`); enable-vs-retire filed to L0. (2) Critic refuted r7+r12-L1 "keeper re-pins charter-ghp marker": the writer is the ACTIVE 6h charter-scribe (beat commit `61d0ce6`), the probe FAIL is `fleet.config.json:256` pin lag, and **no webzites code writes fleet.config.json** (only reader `src/fleet.mjs:7-11`) → PQ-12 relabeled human/operator edit; new defect N1: scribe push-gate failing (3 beats since 06:05Z `pushed:false` `push_blocked: pull timed out after 60s` — ledger `~/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl`). (3) Roster arithmetic pinned: fleet.config 21 / grokbots registry 20 / probe snapshot 18; 18-of-21 is by-design url filtering (`src/cli.mjs:75`), the wedge is lucario (fleet row 09-27, no registry row/card/wrapper/log — L0 mint-or-prune). (4) Revenger REFUTED the r11 F1 guard (`positionals.length>0 && !flags.all` still clobbers on `probe <id> --all` — `--all` is parsed but never read); corrected one-line merge patch replica-verified (subset probe keeps 18 rows, merged `total:18`, `node --check` clean) → filed as `corpus/handoffs/cmdProbe-merge-fix.md` (webzites source stays read-only per operator rule). (5) Labrat replica matrix: corrupt probe-latest crashes all status/bots-report forms exit 1 before the `--json` branch (`fleet.mjs:14-18`); deleted snapshot → `{"probe":null}` exit 0 / plain status exit 0 "no probe results yet"; empty registry = SyntaxError exit 1 (NOT UsageError; `cli.mjs:340`), missing/wrong-schema = UsageError exit 2; `--stale 24`/`--stale 1` indistinguishable on uniformly 8d logs. Quality gates: reviewer 22 OK / 2 WRONG / 1 wrong-as-worded (mergeProbeResults `fleet.mjs:30-37` not 39-51; turn=never 17/21 not 13/21; 20/21 logs not "all") — all folded; scribe caught the same count error pre-landing; critic re-ran the 4 verbs independently matching the guard. 3 L0 items live (keeper timer, lucario, cmdProbe patch routing). Landed: `corpus/knowledge/keeper-timer-inert.md`, free-read-verbs r12 append + F1 guard addendum, `corpus/handoffs/cmdProbe-merge-fix.md`, `corpus/lessons/round-12.md`, publish-queue PQ-12 relabel, SKILL.md r12 amendments (half-instrumented, lucario roster gap, second-registry paragraph, url-filter fact, drift-table rows, cited paths), corpus README coverage/gaps, ops-automation keeper-timer status + 77-row history note.
+
+- 2026-09-28 — round 13: freshness re-verification round (probe-latest 3.9h
+  fresh at open — the planned >6h-stale trigger never materialized; score
+  stays 8, no falsifiable move existed per critic falsification). 10
+  read-only L2 probes in one batch (scout + executor×4 + labrat + revenger
+  + critic + reviewer + connector + sentinel → `/tmp/kake-r13/`); zero
+  fires, zero pushes, zero systemctl mutations, zero webzites-state writes
+  (sentinel 33-file sha guard baseline; the only git actions repaired the
+  MISSING round-12 commits in both repos — kake head was round-11, main
+  head round-6, connector corroborated kasegi hit the same gap). Findings:
+  (1) pattern HELD — timer sweeps 06:00:36Z/12:00:53Z/18:01:09Z + off-cadence
+  manual re-probe 18:51:26Z (r3 vintage, NOT the timer) all identical
+  12-ok/5-violated/1-error; independent 18-curl live replication 22:50Z =
+  0 verdict diffs. (2) PQ-5 still pending — live slot serves the
+  byte-identical 13,409B 404 sentinel (sha `93ddca9a…` == 09-26 journals);
+  zero fires fleet-wide since 09-26T15:34Z; `kimi-map` content is
+  09-26-vintage (CDP :9222 down — `publishedUrl:null` is NOT same-day
+  evidence); preview 8,387B (+64B vs journal, unexplained). (3) PQ-2
+  unchanged — 19/93 served, 74 missing live-GET (75 by f3d2ecd accounting:
+  5 pre-serve), 0 per-URL transitions, root byte-frozen 74,641B (max
+  embedded date 08-21); `/speedrun/`+`/burnerchrome/` 404s are the
+  dir-index pitfall (`index.html` serves 200), `/iqrunway/` dead on BOTH
+  surfaces. (4) charter-ghp: pin-lag persists BUT live is deploy-current —
+  the HUMAN pushed 5 commits 18:32:06–20:43:21Z (`b74190e` bake →
+  `d69dd22` og-block → `0c767c2` window sync → `b9db4b1` CORRECTION →
+  `a8f1e2b` fixup), Pages served each within ~30s (live sha `0decd827…`
+  == `a8f1e2b`, 53,353B); "churn paused" rescoped to the scribe automation
+  only; local clone lags 5 (`61d0ce6`). (5) r13 draft error caught by critic
+  pre-landing: `observed:"absent"` = exact-pin `includes()` miss
+  (`src/probe.mjs:55`), NOT the beat line vanishing — withdrawn, semantics
+  rule landed in SKILL.md. (6) at-vs-mtime rule: probe-latest mtime
+  21:31:45Z (r11 restore) vs `at` 18:51:26Z (2h40m apart) — freshness MUST
+  read `at`; birth-time = clobber instant; sha proved the restored file ==
+  r11 backup. (7) 4 stale citations fixed (PQ-3 behind 2→5, PQ-6
+  `:189`→`:175`, PQ-5 zip 1→2 days, ops-automation 76→77 rows). (8) keeper
+  timer unchanged (never fired, 26 boots zero journal); L0 kake round-12
+  question still unanswered. (9) detector upheld: 6 events/0 phantom on 77
+  rows. Evidence: `/tmp/kake-r13/` (scout-sweep, executor-charter,
+  executor-pq5, executor-pq2, labrat-timers, revenger-history, critic,
+  reviewer, connector, sentinel + sentinel-before.sha);
+  corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert}.md
+  updates; SKILL.md r13 amendments (at-vs-mtime, absent-semantics,
+  every-row-since-ENTER pin framing).
