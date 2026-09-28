@@ -9,26 +9,29 @@ Playbook for the VeigaPunk property fleet: audit → source fix → operator-gat
 publish. Every claim below cites a file or a verified report; verify state with
 the probe commands, never with memory.
 
-## Property map (as probed 2026-09-26, fleet.dedupe-report.md)
+## Property map (re-probed 2026-09-28; config `updatedAt` can lag live state)
 
 | Surface | Live URL | Source dir | Publish path |
 |---|---|---|---|
 | ds4cc.com (primary) | `https://ds4cc.com/` | `~/Projects/ds4cc-marketplace` | GH Actions on push to `main` (`CNAME` = ds4cc.com) |
 | plazir15 GHP front | `https://veigapunk.github.io/plazir-15-site/` | `~/Projects/plazir-15-site` | GH Actions on push to `main` |
-| charter GHP front | `https://veigapunk.github.io/charter-ufo-fsd/` | `~/Projects/origin-work/charter-ufo-fsd` | GH Pages (canonical document; all kimi variants `rel=canonical` here) |
+| charter GHP front | `https://veigapunk.github.io/charter-ufo-fsd/` | `~/Projects/origin-work/charter-ufo-fsd` | Pages deploy from branch (no workflow file); canonical doc, all kimi variants `rel=canonical` here |
 | ds4cc kimi mirror | `https://ds4cc.kimi.page/` | `~/Projects/ds4cc-marketplace` | Kimi surface, chat `1a073c43-bf42-874a-8000-0907bd80b9dc` — STALE (~Aug-29 vintage) |
 | burnerchrome kimi | `https://burnerchrome.kimi.page/` | `~/Projects/ds4cc-marketplace/burnerchrome` | Kimi surface, chat `1a0ada42-28e2…` |
 | vault index | `https://veigapunk.kimi.page/` | none on disk | Kimi surface, chat `1a0c20ea-6372…` — NEVER fire into this chat, it hot-swaps the live vault |
-| plazir27.kimi.page | `https://plazir27.kimi.page/` | charter repo | canonical kimi charter mirror (stale vs charter-ghp, 09-18 vs 09-26) |
+| plazir27.kimi.page | `https://plazir27.kimi.page/` | charter repo | canonical kimi charter mirror (stale: serves 09-18 beat, canonical 09-28) |
 | ufo-fsd.kimi.pro | `https://ufo-fsd.kimi.pro/` | none (Vite shell) | Kimi surface, chat `1a0acd51-4122…` (612B SPA shell) |
 | plazir15.kimi.page | 404 dead slot | `~/Projects/plazir-15-site` | RECREATE path — no bound chat; vessel `1a0c2186-fa12` is empty |
 | charter-ufo-fsd.kimi.page | 404 dead slot | charter repo | RECREATE path — no bound chat exists |
-| lucario | `https://lucario.kimi.page/` | `~/Projects/lucario/site` | Kimi surface |
+| lucario GHP (canonical) | `https://veigapunk.github.io/lucario/` | `~/Projects/lucario` (`site/` + `src/lucario/engine.py`) | Pages branch deploy on push — live 200, verified 09-28 |
+| lucario kimi slot | `https://lucario.kimi.page/` — 404, **never published** | `~/Projects/lucario/site` | Kimi surface pending first publish (README: "pending — gated"). Config `status:live` is stale/wrong. |
 | app.ds4cc.com | `https://app.ds4cc.com/mcp` | `ds4cc-marketplace/apps-sdk` + `render.yaml` | Render web service (`ds4cc-marketplace-app`, Docker) |
 
 Registry of record: `~/Projects/webzites/fleet/fleet.config.json` (20 rows,
 `expect` tripwires, `sourceDir`, `updatePath`, `status`, `priority`). Dead rows
-are `status:"pruned"`/`"queued"` — never deleted.
+are `status:"pruned"`/`"queued"` — never deleted. Config `status` is a
+**snapshot, not truth** — 2026-09-28 probe proved `lucario` recorded `live`
+while never published; always re-probe before acting.
 
 Non-sources: `~/Projects/ufofsdbeta` is the UFO-FSD *runtime* repo (no Pages
 site; `dist/` is JS build output). `~/Projects/ufofsdbeta-kimi-review` is a
@@ -42,7 +45,10 @@ non-git review snapshot — never treat it as publishable source.
    canary tripwire (`expect.status`, final URL, title regex, marker literal);
    exit 1 on any violation. `webzites status` for last results. Raw `200` is
    not proof: kimi-pro serves `200 + 5995B preview-404 body` — trust `expect`,
-   not status alone.
+   not status alone. **Trust hierarchy: live probe > config fields.**
+   `status`/`lastChecked` are snapshots (probe 2026-09-28: config said
+   `lucario` live+ maintained, URL had never been published — 404). On any
+   conflict, the probe wins and the config row is stale; record it.
 2. **Check live-vs-source drift** per the table below. Kimi rows:
    `node scripts/kimi-surface.mjs sync-check [<id>]` (pure HTTP, no browser;
    title+marker verdict — bytes never equal, see pitfalls). GHP rows:
@@ -73,8 +79,12 @@ non-git review snapshot — never treat it as publishable source.
 6. **Re-pin markers after republish.** `expect.marker` literals are
    deployment-scoped: canary/website-id pins churn per publish; beat-dated
    charter markers (`2026-09-26 scribe beat`, `On 2026-09-18 the grok-web
-   scribe transcribed`) churn per scribe beat. Update `fleet.config.json`
-   when the content they pin changes.
+   scribe transcribed`) churn per scribe beat — 2026-09-28 evidence: the
+   `2026-09-26 scribe beat` pin went absent <48h after a daily scribe beat
+   rolled. Procedure: on a FAIL whose only miss is a stale pin, extract the
+   new live literal (`grep -o 'scribe beat[^<]*'` on the fetched body), then
+   fix the `expect.marker` in `fleet.config.json` — file that edit as a
+   publish-queue item (webzites keeper owns it), never edit it silently.
 
 ## Live-vs-source drift detection
 

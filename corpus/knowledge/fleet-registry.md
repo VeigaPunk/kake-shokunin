@@ -3,6 +3,13 @@
 Source: `~/Projects/webzites/fleet/fleet.config.json` (schema
 `webzites-fleet-v1`, updatedAt 2026-09-26) + `fleet/fleet.dedupe-report.md`.
 
+**Freshness warning:** this table is a snapshot. Live probe 2026-09-28 found
+`lucario` recorded `live/maintained` while `lucario.kimi.page` had **never
+been published** (404; README: "first publish pending — gated") — its real
+canonical is `veigapunk.github.io/lucario/` (live, Pages branch deploy).
+Also 2026-09-28: `charter-ghp` FAIL on stale marker (09-26 pin vs live
+09-28 beat). Always re-probe before trusting `status`.
+
 ## Schema per row
 
 ```json
@@ -44,7 +51,7 @@ Source: `~/Projects/webzites/fleet/fleet.config.json` (schema
 | ds4cc-kimi-mirror-vault-row | null | pruned→ds4cc-kimi-mirror | `~/Projects/ds4cc-marketplace` |
 | snapshot-kimi-pro | null | queued | none |
 | burnerchrome-com | null | queued | `~/Projects/ds4cc-marketplace/burnerchrome` |
-| lucario | lucario.kimi.page | live | `~/Projects/lucario/site` |
+| lucario | lucario.kimi.page | **broken (404, never published — see warning)** | `~/Projects/lucario` (canonical: `veigapunk.github.io/lucario/`) |
 
 ## Marker quality (r2 tightening)
 

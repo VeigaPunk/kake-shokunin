@@ -38,3 +38,24 @@ webzites grokbot tick                         # probe + reconcile + keeper log, 
 | plazir15-ghp | tree byte-identical to live (no commit step) |
 | charter-ghp | sha256 == source index.html |
 | vault PROPERTIES[] | 5 stale rows internally (PQ-1) — body drift only visible from fetched bytes |
+
+## Fresh probe — 2026-09-28 (this repo's own run)
+
+`webzites probe --all` at 18:51Z: 12 OK, 6 fail/err. `sync-check` (kimi
+rows): ds4cc-kimi-mirror + burnerchrome-kimi `in-sync`; ufofsd-charter,
+plazir27-kimi-page, plazir27runs-on, plazir15, charter-ufo-fsd-kimi, lucario
+`drift`.
+
+| Row | 09-26 record | 09-28 live | Delta |
+|---|---|---|---|
+| lucario | live/maintained | **404, never published** | config status wrong; canonical = `veigapunk.github.io/lucario/` (live) |
+| charter-ghp | marker `2026-09-26 scribe beat` OK | marker absent — live rolled to `2026-09-28 scribe beat` | daily beat churns beat-dated pins in <48h → PQ-12 keeper fix |
+| plazir15, charter-ufo-fsd-kimi | broken | still 404 | none |
+| plazir27-kimi-pro | broken | still preview-404 (`finalUrlNot` trip) | none |
+| ds4cc-kimi-mirror | stale Aug-29 | `in-sync` by markers — still stale (PQ-2 open) | none (marker can't see freshness) |
+| xsnapshot-app | NXDOMAIN | fetch failed | none |
+
+**Lesson encoded:** probe-verdict semantics — `in-sync` = identity+markers,
+never freshness; `live` in config ≠ URL published. Snapshot config deltas at
+`/tmp/sync-check.json` (transient); durable state in
+`webzites/state/probe-latest.json` + `probe-history.jsonl`.
