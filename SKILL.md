@@ -5,9 +5,149 @@ description: Domain specialist — web properties & publishing — scopes ds4cc.
 
 # kake-shokunin
 
-Shonen seed. Develop: decision tables, error patterns, production checklists,
-anti-patterns, cited sources — verifiable, not generic.
+Playbook for the VeigaPunk property fleet: audit → source fix → operator-gated
+publish. Every claim below cites a file or a verified report; verify state with
+the probe commands, never with memory.
 
-## Domain
+## Property map (as probed 2026-09-26, fleet.dedupe-report.md)
 
-web properties & publishing — scopes ds4cc.com, kimi.page/pro mirrors, Pages deploys
+| Surface | Live URL | Source dir | Publish path |
+|---|---|---|---|
+| ds4cc.com (primary) | `https://ds4cc.com/` | `~/Projects/ds4cc-marketplace` | GH Actions on push to `main` (`CNAME` = ds4cc.com) |
+| plazir15 GHP front | `https://veigapunk.github.io/plazir-15-site/` | `~/Projects/plazir-15-site` | GH Actions on push to `main` |
+| charter GHP front | `https://veigapunk.github.io/charter-ufo-fsd/` | `~/Projects/origin-work/charter-ufo-fsd` | GH Pages (canonical document; all kimi variants `rel=canonical` here) |
+| ds4cc kimi mirror | `https://ds4cc.kimi.page/` | `~/Projects/ds4cc-marketplace` | Kimi surface, chat `1a073c43-bf42-874a-8000-0907bd80b9dc` — STALE (~Aug-29 vintage) |
+| burnerchrome kimi | `https://burnerchrome.kimi.page/` | `~/Projects/ds4cc-marketplace/burnerchrome` | Kimi surface, chat `1a0ada42-28e2…` |
+| vault index | `https://veigapunk.kimi.page/` | none on disk | Kimi surface, chat `1a0c20ea-6372…` — NEVER fire into this chat, it hot-swaps the live vault |
+| plazir27.kimi.page | `https://plazir27.kimi.page/` | charter repo | canonical kimi charter mirror (stale vs charter-ghp, 09-18 vs 09-26) |
+| ufo-fsd.kimi.pro | `https://ufo-fsd.kimi.pro/` | none (Vite shell) | Kimi surface, chat `1a0acd51-4122…` (612B SPA shell) |
+| plazir15.kimi.page | 404 dead slot | `~/Projects/plazir-15-site` | RECREATE path — no bound chat; vessel `1a0c2186-fa12` is empty |
+| charter-ufo-fsd.kimi.page | 404 dead slot | charter repo | RECREATE path — no bound chat exists |
+| lucario | `https://lucario.kimi.page/` | `~/Projects/lucario/site` | Kimi surface |
+| app.ds4cc.com | `https://app.ds4cc.com/mcp` | `ds4cc-marketplace/apps-sdk` + `render.yaml` | Render web service (`ds4cc-marketplace-app`, Docker) |
+
+Registry of record: `~/Projects/webzites/fleet/fleet.config.json` (20 rows,
+`expect` tripwires, `sourceDir`, `updatePath`, `status`, `priority`). Dead rows
+are `status:"pruned"`/`"queued"` — never deleted.
+
+Non-sources: `~/Projects/ufofsdbeta` is the UFO-FSD *runtime* repo (no Pages
+site; `dist/` is JS build output). `~/Projects/ufofsdbeta-kimi-review` is a
+non-git review snapshot — never treat it as publishable source.
+`plazir-15-site/speedrun/` is a frozen 3-run copy of `ds4cc.com/speedrun/`
+(`rel=canonical` points to ds4cc.com) — update ds4cc's `speedrun/`, not plazir's.
+
+## Audit → source-fix → publish checklist
+
+1. **Probe, don't guess.** `webzites probe --all` (or `probe <site-id>`) — GET +
+   canary tripwire (`expect.status`, final URL, title regex, marker literal);
+   exit 1 on any violation. `webzites status` for last results. Raw `200` is
+   not proof: kimi-pro serves `200 + 5995B preview-404 body` — trust `expect`,
+   not status alone.
+2. **Check live-vs-source drift** per the table below. Kimi rows:
+   `node scripts/kimi-surface.mjs sync-check [<id>]` (pure HTTP, no browser;
+   title+marker verdict — bytes never equal, see pitfalls). GHP rows:
+   `webzites grokbot reconcile <id>` compares live bytes vs `sourceDir`.
+3. **Fix in the source repo**, commit path-scoped. Never edit live bytes,
+   never push from a foreign clone. For no-push workspaces
+   (`~/Projects/ephemeral/wz1/*`): deliver `git format-patch` series +
+   `publish/APPLY.md`; verify `git am --check` against a fresh clone.
+4. **Publish stays operator-gated.**
+   - GHP rows: the publish verb is `git push origin main` — operator action.
+     `deploy-github-pages.sh` (ds4cc) is a *setup* script (CNAME, remote, DNS
+     print-out), not the deploy mechanism; `.github/workflows/pages.yml` does
+     the deploy on push.
+   - kimi-surface rows: prepare/verify only. `sync-check`, `kimi-map`,
+     `update|recreate|rebuild <id> --chat=<uuid>` *preflight* are free; any
+     `--fire` run consumes ONE metered chat fire and requires `--confirm=<id>`.
+     The version-card **Publish / Share→Update click is human** — no verified
+     automated publish exists; `PublishApp`/`PublishDeployment` RPCs exist but
+     are banned from fleet code. `kimi-webbridge` is unsupported on this Linux
+     host; `kimiraikkoner` is DOM chat automation, not a site-ops channel.
+   - After the operator clicks publish, verify (all free reads): live URL →
+     200, `GetWebsiteByChatID` → `publishedUrl` host + `PUBLISHED`,
+     `sync-check <id>` → marker verdict, `kimi-map` refresh.
+5. **Lease before browser.** `webzites lease acquire --owner <name>
+   --ttl-ms 900000`; release in `finally`. The shared burner chrome
+   (`the-musketeer` profile, CDP `127.0.0.1:9222`) serializes the whole
+   kimi fleet — one op at a time, machine-wide.
+6. **Re-pin markers after republish.** `expect.marker` literals are
+   deployment-scoped: canary/website-id pins churn per publish; beat-dated
+   charter markers (`2026-09-26 scribe beat`, `On 2026-09-18 the grok-web
+   scribe transcribed`) churn per scribe beat. Update `fleet.config.json`
+   when the content they pin changes.
+
+## Live-vs-source drift detection
+
+| Row class | Command | What it catches | Blind spot |
+|---|---|---|---|
+| Any row | `webzites probe <id>` | status, redirect-to-soft-404, title, marker loss | content rot inside a passing marker |
+| kimi row + `sourceDir` | `node scripts/kimi-surface.mjs sync-check <id>` | title/marker vs source; "in-sync*" = identity OK, **freshness unknown** | byte drift — kimi rewrites bytes (sdk-seed.js, cfemail, entity encoding); decide republish by *vintage evidence* not digest |
+| GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | live bytes vs `sourceDir/index.html`: match/in-sync/drift | subpaths beyond index |
+| kimi bindings | `node scripts/kimi-surface.mjs kimi-map` | chat→domain truth: publishedUrl, publishState, version ids; sweeps project chats top-level ListChats misses | chats beyond sweep pages |
+| Whole fleet | `webzites grokbot tick` | probe + reconcile + keeper log per site | — |
+| Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
+
+Vintage evidence that beats digests: dedupe report sha table, keeper logs
+(`webzites/reports/keepers/grokbot-<site>.log.md`), max embedded date in DOM,
+`kimi-map` version timestamps.
+
+## Mirror pitfalls (all observed, not hypothetical)
+
+- **Bytes never equal on kimi.** Kimi injects `sdk-seed.js` and rewrites
+  cfemail/entities; normalized digest differs by a fixed ~+157B class.
+  `data-cfemail` is the *only* allowed churn class — anything else is real
+  drift. Never sha-compare kimi rows; use title+marker+vintage.
+- **No directory indexes on kimi statics.** `dir/` → 404 while `dir/file` →
+  200. Nav links like `href="snake/"` work on GHP, 404 on kimi — convert to
+  explicit `dir/index.html` before mirroring.
+- **One chat = one publish slot + one custom slug.** Firing an update into a
+  chat bound to another live site hot-swaps that site. Never fire into
+  `1a0c20ea-…` (veigapunk.kimi.page) or `1a049cb5-…` (plazir27runs-on).
+- **Similar names, different sites.** `plazir27runson` (Night Trilogy, 15.7KB)
+  ≠ `plazir27runs-on` (charter doctrine build, 63KB). `ufo-fsd.kimi.page`
+  (vault, byte-twin of veigapunk.kimi.page) ≠ `ufofsd.kimi.page` (frozen
+  landing) ≠ `ufo-fsd.kimi.pro` (612B SPA shell). Resolve `publishedUrl` via
+  `GetWebsiteByChatID`, not by hosts[] text mention.
+- **Dead slots.** `plazir15.kimi.page` and `charter-ufo-fsd.kimi.page` are
+  unpublished 404s with no bound chat → `recreate` verb (empty vessel or
+  `--new-chat`); a bound-but-unpublished chat carrying versions → `rebuild`.
+  `plazir27.kimi.pro` = Function-Compute ingress serving preview-404.
+- **Session/browser traps.** Dead sessions can pass avatar checks (`browser
+  status` probes a 401 must-fail + 200 must-pass). Transient 401 mid-poll is
+  token-refresh flake — retry once. `t<N>` tab indices renumber on
+  open/close — re-derive targets from `/json/list` URLs. `agent-browser open
+  --wait` is a silent no-op — use `wait <ms>`. Open `[role=menu]` swallows
+  Enter — assert menu count 0. Composer `div.chat-input-editor`; send is a
+  click on `.send-button-container` (Enter unverified). `SingletonLock` after
+  a crash is tolerated — `browser ensure` rebinds.
+- **Source traps.** `ufofsdbeta-kimi-review` (no .git) is a snapshot, not a
+  source. `plazir-15-site/speedrun/` is a frozen copy; its canonical lives in
+  `ds4cc-marketplace/speedrun/`. Rows with `sourceDir: null` (vault, ufofsd,
+  plazir27runson, kimi.pro slots) have no local source — republish needs
+  extracted bytes first, never retype from memory.
+- **Weak markers.** `sdk-seed.js`, `PLAZIR-27`, `ballot`, `snapshot.` are
+  boilerplate/misattributed/redundant — they passed 12 cross-body swap
+  mutations. Keep the r2 tightened set in `fleet.config.json`; a `null`
+  marker is worse (foreign-200 serves flip to silent pass).
+
+## Cited paths
+
+- `~/Projects/webzites/` — mission root: `bin/webzites.mjs` (CLI),
+  `scripts/kimi-surface.mjs` (sync-check/kimi-map/update/recreate/rebuild),
+  `fleet/fleet.config.json` (registry), `fleet/fleet.dedupe-report.md`
+  (classifications + publish-queue PQ-1…PQ-13), `fleet/kimi-surface-ops.md`
+  (verified ops manual, rounds 1–4), `src/probe.mjs` (tripwire impl),
+  `agents/webzites-{kimi,polish,repo,speedrun}.md` (keeper cards).
+- `~/Projects/ds4cc-marketplace/` — ds4cc.com source: `.github/workflows/
+  pages.yml`, `CNAME`, `deploy-github-pages.sh` (setup only), `speedrun/`,
+  `burnerchrome/`, `render.yaml` + `apps-sdk/` (app.ds4cc.com Render service).
+- `~/Projects/plazir-15-site/` — plazir15 GHP source: `.github/workflows/
+  pages.yml`, `speedrun/` (frozen mirror copy).
+- `~/Projects/origin-work/charter-ufo-fsd/` — charter document source.
+- `~/Projects/lucario/site/` — lucario.kimi.page source.
+- `~/Projects/ufofsdbeta/.ufo/` — wz0/wz1 mission prompts, probe snapshots,
+  and wave evidence backing this playbook.
+
+Hard rule, repeated: publish stays operator-gated. Never `git push`, never
+click Publish, never call `PublishApp`/`PublishDeployment`/`UnpublishApp`
+from fleet code; prepare, verify, and hand the human a clean recipe.

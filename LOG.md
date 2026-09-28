@@ -1,3 +1,4 @@
 # kake-shokunin — Iteration Log
 
 - 2026-09-28 — round 0: minted as shonen.
+- 2026-09-28 — round 1: rewrote SKILL.md as audit→source-fix→operator-gated-publish playbook. Evidence: `~/Projects/webzites/fleet/fleet.config.json` (20-row registry, expect tripwires), `fleet/fleet.dedupe-report.md` (2026-09-26 probe classifications + publish-queue), `fleet/kimi-surface-ops.md` (verified ops manual r1–r4: no non-GUI publish channel, chat→domain map, update/recreate/rebuild verbs), `~/Projects/ds4cc-marketplace/.github/workflows/pages.yml` + `deploy-github-pages.sh` (GHP publish = push to main), `~/Projects/plazir-15-site/.github/workflows/pages.yml`, `plazir-15-site/speedrun/` frozen copy vs `ds4cc-marketplace/speedrun/` canonical (`rel=canonical` in plazir copy), `ufofsdbeta` = runtime repo not a site source, `ufofsdbeta-kimi-review` = non-git snapshot. Publish remains operator-gated throughout.
