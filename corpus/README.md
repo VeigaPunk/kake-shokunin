@@ -20,14 +20,17 @@ mirrors, Pages deploys).
 | Ops automation | `knowledge/ops-automation.md` | systemd 6h probe + daily keeper timers, probe-history semantics, full CLI verb table, bots fleet |
 | Origin repos | `knowledge/origin-repos.md` | 50-clone canonical-source map, byte-verified writers, 5 sourceless artifacts |
 | Speedrun pipeline | `knowledge/speedrun-pipeline.md` | record→report→prep→operator-push→X-draft; redaction + fail-closed rules |
-| Round lessons | `lessons/round-1.md`, `round-3.md`, `round-4.md`, `round-5.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer |
+| GHP subpath spotcheck | `knowledge/ghp-subpath-spotcheck.md` | probe/reconcile coverage math, `in-sync` masking, origin/main classification, first baseline (2 352 paths, 0 rot) |
+| Round lessons | `lessons/round-1.md`, `round-3.md`, `round-4.md`, `round-5.md`, `round-6.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck |
 
 ## Known gaps
 
 - The five sourceless kimi artifacts (`origin-repos.md` table) still have
   no Origin repo — extraction is operator-gated, unchanged since 2026-09-21.
-- GHP subpath rot beyond `index.html` is still invisible (`reconcile`
-  covers index only) — no spotcheck tooling exists yet.
+- GHP subpath rot: probe/reconcile cover one URL/one file; baseline
+  spotcheck 2026-09-28 found 0 true rot across 2 352 paths. Residual:
+  live-only orphan paths (needs sitemap crawl, not source walk) and kimi
+  subpaths (byte compare meaningless — needs per-path title+marker).
 - kimi `apiv2` authenticated ops are capability-recorded but intentionally
   unwired; any change there is a new round's work.
 - `webzites-probe.timer` provides 6h coverage; whether the operator wants

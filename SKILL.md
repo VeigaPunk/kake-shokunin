@@ -117,10 +117,11 @@ non-git review snapshot — never treat it as publishable source.
 |---|---|---|---|
 | Any row | `webzites probe <id>` | status, redirect-to-soft-404, title, marker loss | content rot inside a passing marker |
 | kimi row + `sourceDir` | `node scripts/kimi-surface.mjs sync-check <id>` | title/marker vs source; "in-sync*" = identity OK, **freshness unknown** | byte drift — kimi rewrites bytes (sdk-seed.js, cfemail, entity encoding); decide republish by *vintage evidence* not digest |
-| GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | live bytes vs `sourceDir/index.html`: match/in-sync/drift | subpaths beyond index |
+| GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | root URL body vs ONE scored `index.html` (depth ≤2): match/in-sync/drift | all other paths incl. second `index.html`s; **`in-sync` on GHP masks byte drift** — treat as "git fetch sourceDir + spotcheck," see `corpus/knowledge/ghp-subpath-spotcheck.md` |
 | kimi bindings | `node scripts/kimi-surface.mjs kimi-map` | chat→domain truth: publishedUrl, publishState, version ids; sweeps project chats top-level ListChats misses | chats beyond sweep pages |
 | Whole fleet | `webzites grokbot tick` | probe + reconcile + keeper log per site | — |
 | Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
+| GHP subpaths | walk `sourceDir` → GET `<url>/<rel>` → sha vs `git show origin/main:<rel>` | subpath 404s/rot probe+reconcile can't see (first baseline 2026-09-28: 2 352 paths, 0 true rot, 126 diffs all local git lead/lag) | procedure in `corpus/knowledge/ghp-subpath-spotcheck.md` |
 
 Vintage evidence that beats digests: dedupe report sha table, keeper logs
 (`webzites/reports/keepers/grokbot-<site>.log.md`), max embedded date in DOM,
@@ -133,7 +134,9 @@ Vintage evidence that beats digests: dedupe report sha table, keeper logs
   `data-cfemail` is the *only* allowed churn class — anything else is real
   drift. Never sha-compare kimi rows; use title+marker+vintage.
 - **No directory indexes on kimi statics.** `dir/` → 404 while `dir/file` →
-  200. Nav links like `href="snake/"` work on GHP, 404 on kimi — convert to
+  200. GHP is the opposite: `/dir` → 301 → `/dir/` → serves `index.html`
+  (verified 2026-09-28: `/plazir-15-site/snake`, `ds4cc.com/magga`). Nav
+  links like `href="snake/"` work on GHP, 404 on kimi — convert to
   explicit `dir/index.html` before mirroring.
 - **One chat = one publish slot + one custom slug.** Firing an update into a
   chat bound to another live site hot-swaps that site. Never fire into
