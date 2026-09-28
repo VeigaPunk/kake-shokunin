@@ -62,3 +62,39 @@ Network discipline: all live checks were bare `curl -s` GETs; no `-X POST`, no u
 - Box 2: LOG.md rounds cited throughout (:100, :164) — not read pre-run, not graded.
 - Box 4: province scope (web properties/publishing) respected; no out-of-domain commands needed.
 - Known-state notes (not new defects): keeper timer still loaded+disabled+never fired (:70-73); xsnapshot-app armed NXDOMAIN tripwire still erroring in snapshot (:81-83).
+
+## Round-8 amendment (critic-absorbed)
+
+- verifier chain: `aggregator lane round 8 → L2 seat Box3Kake (labrat) → dispatch report .ufo/reports/round-8/aggregator.md`.
+- committed PROTOCOL gate rule: “Where the domain's terminal action is operator-owned (§Invariants, local-first), executed means *prepared + verified + handed off*: the handoff artifact — the staged payload, the probe verdict, the request reaching its gate — is the outcome pointer, and a documented negative result at that gate still counts.”
+
+### Gated outcome classification
+
+| Gated row | Outcome | Artifact / negative |
+|---|---|---|
+| `probe --all` / `probe <id>` | gated-with-artifact | documented audit prohibition and snapshot-clobber negative (`SKILL.md:97-100`, “Do NOT re-run mutating verbs for audit”); commands 3/4/7 supplied at/status/delta evidence |
+| `grokbot tick` | gated-with-artifact | documented timer-inert negative (`SKILL.md:70-73`, “loaded + disabled + inactive (dead), zero journal entries”) |
+| `kimi-map` | gated-without-artifact | browser gate was not entered; not load-bearing because sync-check/status/reconcile supplied the graded evidence |
+| `lease acquire` | gated-without-artifact | browser serialization gate was not entered; not load-bearing |
+| `update/recreate/rebuild --fire` | gated-without-artifact | no fire journal was produced; not load-bearing for this cold audit |
+| Publish / Share→Update click | gated-with-artifact | documented negative that no verified automated publish exists (`SKILL.md:125-127`) and the handoff verification recipe is explicit |
+| Publish RPCs | gated-with-artifact | documented negative: RPCs are banned from fleet code (`SKILL.md:126-127`) |
+| `git push origin main` | gated-with-artifact | documented operator-owned negative (“Never `git push`, never click Publish”, `SKILL.md:318-320`) |
+| `deploy-github-pages.sh` | gated-with-artifact | documented negative: setup script, “not the deploy mechanism” (`SKILL.md:119-120`) |
+| speedrun `prep --write` / copy / push | gated-with-artifact | documented handoff/staging recipe and negative “No HTTP upload API” (`SKILL.md:148-152`) |
+| `systemctl --user …` | gated-without-artifact | round-8 systemctl rule prevented the read; no new artifact; not load-bearing |
+| `expect.marker` re-pin edit | gated-with-artifact | command 15 extracted the handoff literal `2026-09-28 scribe beat (`; edit remains publish-queue work (`SKILL.md:171-175`) |
+
+Outcome mix: 8 `gated-with-artifact`, 4 `gated-without-artifact`. **[x] survives**: none of the four without-artifact rows is load-bearing; the grade is decided by the independently executed free-read battery, including command 4 `status --json` exit 0 and command 5 `grokbots --check` exit 1 with the exact documented failure.
+
+### Coldness, pointers, and corpus carve-out
+
+The coldness claim is limited to pointer resolvability and step executability, not runner ignorance. SKILL.md-cited context-bearing files include `.ufo/l0-questions.md` (kake round-12 unresolved question), `corpus/knowledge/free-read-verbs.md` (r11/r12 evidence), `corpus/knowledge/keeper-timer-inert.md` (r12/r13 verdict), and `/tmp/kake-r11/` plus `/tmp/kake-r12/` artifacts. None was opened before the run; their citations were resolved only through SKILL.md and command output. The aggregator authored the lane's `corpus/lessons/round-{1,4,5}-aggregator-*.md` and `round-5-aggregator-mirror-pathless-cli-invocation.md`; those lessons are cited but not self-certified, and the corpus half is graded against the lane's own corpus text.
+
+### Stamp and tree-contamination correction
+
+Start captured only count 4 (the start file set was not recorded, so it cannot be fabricated retroactively). At the pre-commit end stamp, count was 6: the new lesson plus one concurrent lane change beyond the four pre-existing dirty entries. Post-commit count was 5; current `git status --short` file set is `LOG.md`, `SKILL.md`, `corpus/knowledge/free-read-verbs.md`, `corpus/knowledge/ops-automation.md`, and `corpus/knowledge/publish-queue.md`. No concurrent file was touched. The SKILL.md worktree delta is one +10/−3 PQ-5 armed-watch hunk; decisive pre-hunk text is identical in committed HEAD, while post-hunk line numbers shift by seven. All decisive claims are therefore HEAD-stable in text; no verdict is provisional. The command behavior itself came from live binaries and GETs, not worktree prose.
+
+### Citation and hand-rolled probe clarification
+
+Quoted load-bearing SKILL text: `SKILL.md:58` “command -v webzites = empty”; `SKILL.md:95` “node scripts/probe-delta.mjs (this repo, read-only over”; `SKILL.md:104` “status --json always exits 0”; `SKILL.md:108-110` “sync-check [<id>] … pure HTTP, no browser”; `SKILL.md:162-164` “2026-09-28 scribe beat (” while the `2026-09-26` pin fails; `SKILL.md:175` “unpublished404:true … dead slot, NOT rot”; and `SKILL.md:183` “grokbot reconcile <id> … read-only”. The raw curl for lucario GHP was not forbidden: SKILL.md documents GET idioms for marker/bytes, subpaths, and sitemap (`:188-190`). It was a documented-idiom probe addressing a missing fleet row, not an unresolvable improvisation; the missing-row defect remains.
