@@ -324,6 +324,117 @@ The first `sync-*.out` captures at 18:31Z were a `/usr/bin/time` wrapper defect
 `--quiet`, unknown-id, corrupt-snapshot) live in `/tmp/kake-r11/scout-verbs.md`
 (byte-identical isolated copy, real repo untouched).
 
+## Round-12 append: the roster/ops free-reads (`status --json`, `grokbots --check`, `bots list`, `bots report`)
+
+Round 12 (2026-09-28) operability move: the four remaining replica-verified
+roster/ops verbs were live-run on the real repo. All four are pure local reads:
+L1's sha guard over `state/*.json` + `state/*.jsonl` is byte-identical
+before/after (`/tmp/kake-r12/state-before.sha` vs `state-after.sha`: same 31
+hash lines, sorted diff clean), and an ExecutorDrafts re-run (~22:20Z) left the
+same 31 files byte-identical (`/tmp/kake-r12/executor-now.sha`, sorted diff
+clean vs `state-after.sha` — raw line order differs, the hash set is what
+matches). None of the four bodies contains a write call — fs access is
+`existsSync`/`readFileSync`/`statSync` only (`src/cli.mjs:93-99`, `:345-424`,
+`:578-611`, `:888-958`; critic independently re-ran all four and matched the
+guard, `/tmp/kake-r12/critic.md` claim 1).
+
+| verb | rows it touches | reads | writes | exit 1 means |
+|---|---|---|---|---|
+| `status [--json]` | the `state/probe-latest.json` snapshot only | that file | nothing | (plain) ≥1 `violated`/`error` in the **surviving snapshot** (`src/cli.mjs:99`); `--json` **always exits 0** (`src/cli.mjs:94-97`) |
+| `grokbots [--check\|--status] [--json]` | `--check`: every fleet row — **21**, url-less included (`src/cli.mjs:355`) | `fleet/grokbots.json` + each card `~/.grok/agents/grokbot-<id>.md` (`:364`, `:444`) + keeper logs | nothing | ≥1 failure: registry-row absence (`:361`), agentPath/agentName/url/class/updatePath drift (`:365-369`), card missing/unparseable/oversize/not-naming-site (`:370-382`), `duties[]` bad (`:383`), log missing (`:384`), registry-row-without-fleet-row (`:386`) — return `:399` |
+| `bots list [--json]` | the **20** `registry.agents` rows (`src/cli.mjs:579-580`) | registry + card existence + wrapper exec-bit (`:582-583`; paths `:427-433`, `:444`) | nothing | never — returns 0 unconditionally (JSON `:598`, human `:610`) |
+| `bots report [--json] [--stale N]` | every fleet row — **21** (`src/cli.mjs:894`) | snapshot (`:893`) + keeper-log entries (`:846-863`) + card/wrapper state (`:911-914`) | nothing | `gaps.length > 0 \|\| stale.length > 0` (`src/cli.mjs:958`) |
+
+Live results 2026-09-28 (L1 22:14Z; exits re-measured by ExecutorDrafts 22:20Z,
+critic 22:2xZ — all three agree):
+
+- `status --json` → **exit 0** while the snapshot holds **5 violated + 1 error**
+  (18 rows; `plazir15, charter-ufo-fsd-kimi, charter-ghp, plazir27-kimi-pro,
+  lucario` violated; `xsnapshot-app` error; snapshot stamped
+  `2026-09-28T18:51:26.128Z` — `/tmp/kake-r12/live/status-json.out`).
+- `grokbots --check` → **exit 1** — `FAIL lucario: no registry row`;
+  JSON `{ok:false, checked:21, failures:["lucario: no registry row"]}`
+  (`/tmp/kake-r12/live/grokbots-check.out`, `grokbots-check-json.out`).
+  **checked-count fact:** `checked` is `fleet.sites.length` (`src/cli.mjs:393`)
+  over the `fleet.sites` loop (`:355`) — **21, url-less rows included**, never
+  18; the `&& site.url` filter (`src/cli.mjs:75`) belongs to `probe` only.
+  **Checked does NOT mean covered:** `grokbots --check` never touches wrapper
+  presence (`botWrapperPath` `:427` unused in the check loop `:354-391`) — a
+  missing wrapper on a non-queued site passes `--check` while failing
+  `bots report`'s gap predicate (r12: latent only; the 3 missing wrappers are
+  all queued).
+- `bots list` → **exit 0** — `20 keepers (cards 20/20, wrappers 17/20)`
+  (`/tmp/kake-r12/live/bots-list.out`), registry-driven (20 rows; `lucario` is
+  not listed). The 3 wrapper misses are exactly the queued rows
+  `xsnapshot-app`, `snapshot-kimi-pro`, `burnerchrome-com` (all `(queued)`).
+- `bots report` → **exit 1** — stderr `webzites bots report: 1 site(s) with
+  identity gaps: lucario`; stdout 21 rows: `probe=<verdict>(3.4h)` for the 18
+  snapshot rows, `probe=never` for the 3 url-less rows; `log=8d(round
+  2026-09-21T03)` on 20/21 (lucario `log=never(?)` — no log file);
+  `turn=never` on **17/21** (counted on the capture; the four with turn ages —
+  vault, veigapunk-page, ufofsd, plazir15 — are 8d); `card=miss wrapper=miss`
+  only on lucario.
+
+Exit-1 predicates, exactly:
+
+- `bots report` gaps = rows failing `!registered || !cardPresent || (!queued &&
+  !wrapperPresent)` (`src/cli.mjs:935`) — **queued wrapper-misses are exempt**
+  (that is why only lucario gaps while `bots list` renders 3 wrapper misses).
+- `stale` is computed **only when `--stale <hours>` is passed**:
+  `parseBotsStaleHours` returns null without the flag (`src/cli.mjs:836-839`),
+  per-row flag `staleHours !== null && (logAgeHours === null || logAgeHours >
+  staleHours)` (`:932`). Bare `bots report` can never fail on log age; with
+  all 20 logs 8d old (keeper timer inert —
+  `corpus/knowledge/keeper-timer-inert.md`), any `--stale` threshold ≥1h fails
+  fleet-wide (labrat r12: `--stale 24` and `--stale 1` both mark all 21 STALE
+  and exit 1 — indistinguishable on uniformly old logs;
+  `/tmp/kake-r12/labrat.md`).
+- `bots list` never fails on content (`:598`, `:610`); `status --json` never
+  fails on content (`:94-97`) — a corrupt `probe-latest.json` still crashes
+  both `status` forms exit 1 with a `SyntaxError` **before** the flag branch
+  (`src/fleet.mjs:14-18` → `bin/webzites.mjs:8-11` rejection handler; labrat
+  r12 live-confirmed the r11 claim).
+
+Universes update (r12): probe/status snapshot **18** (`site.url` filter
+`src/cli.mjs:75`) · `bots report` rows **21** (`fleet.sites.map` `:894`) ·
+`grokbots --check` `checked` **21** (`fleet.sites.length` `:393`) · `bots
+list`/registry **20** (`registry.agents` `:579-580`). The wedge is `lucario`:
+added to `fleet.config.json` 2026-09-27 (mtime 12:30:57 -03), never registered
+in `fleet/grokbots.json` (mtime 2026-09-20) — no row, no card, no wrapper, no
+log. 18-of-21 probe coverage is **by-design url filtering, not a coverage
+hole**; never read a snapshot count as the fleet count.
+
+Round-12 live-run provenance: `/tmp/kake-r12/live/` (status-json, grokbots-check
+{plain,json}, bots-list, bots-report {out,err}); zero-delta guard
+`/tmp/kake-r12/state-before.sha` == `state-after.sha`; replica edge matrix
+`/tmp/kake-r12/labrat.md` (corrupt/deleted snapshot, empty/missing registry,
+`--stale` variants, `grokbots --status`); critic re-runs `/tmp/kake-r12/critic.md`;
+citation verification `/tmp/kake-r12/reviewer.md` (22 OK / 2 WRONG / 1
+wrong-as-worded — all three corrections folded here).
+
+### r11 F1 guard addendum — the proposed fix was itself wrong
+
+The r11 F1 handoff (`/tmp/kake-r11/scout-verbs.md:126`) proposed guarding the
+merge with `positionals.length > 0 && !flags.all`. Round-12 revenger
+**refuted that guard on a replica**: selection (`src/cli.mjs:75`) ignores
+`--all` (the BOOL is parsed at `:57` and reaches `cmdProbe` via `:1070-1071`
+but is never read — grep: 0 uses of `flags.all`), so `probe <id> --all` still
+probes a subset; under the r11 guard that run **clobbers exactly as before**
+(replica: 18→1 rows). Correct one-line fix, replica-verified
+`/tmp/kake-r12/revenger-patch.md` + `/tmp/kake-r12/revenger-replica`:
+
+```js
+// src/cli.mjs:78 — replace:  saveProbe(ROOT, results)
+saveProbe(ROOT, positionals.length > 0 ? mergeProbeResults(loadLastProbe(ROOT), results, config.sites.map((site) => site.id)) : results)
+```
+
+(`mergeProbeResults` `src/fleet.mjs:30-37` — not `:39-51`, which is `saveProbe`;
+both already imported at `src/cli.mjs:7`. Replica result: subset probe keeps 18
+rows + 5 violated, refreshes only the probed row, history records merged
+`total:18` like tick/`bots task`; `probe <id> --all` edge stays 18 rows.
+`node --check` clean. webzites is read-only to this lane — the patch ships in
+the round report for the webzites source owner.)
+
 ## Limits
 
 - **The `probe <id>` clobber is live-confirmed** (18→1 rows, status exit 1→0 while

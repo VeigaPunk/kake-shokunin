@@ -24,16 +24,26 @@ the probe commands, never with memory.
 | plazir15.kimi.page | 404 dead slot | `~/Projects/plazir-15-site` | RECREATE path — no bound chat; vessel `1a0c2186-fa12` is empty |
 | charter-ufo-fsd.kimi.page | 404 dead slot | charter repo | RECREATE path — no bound chat exists |
 | lucario GHP (canonical) | `https://veigapunk.github.io/lucario/` | `~/Projects/lucario` (`site/` + `src/lucario/engine.py`) | Pages branch deploy on push — live 200, verified 09-28 |
-| lucario kimi slot | `https://lucario.kimi.page/` — 404, **never published** | `~/Projects/lucario/site` | Kimi surface pending first publish (README: "pending — gated"). Config `status:live` is stale/wrong. |
+| lucario kimi slot | `https://lucario.kimi.page/` — 404, **never published** | `~/Projects/lucario/site` | Kimi surface pending first publish (README: "pending — gated"). Config `status:live` is stale/wrong. **Roster gap (r12):** the fleet row (added 2026-09-27) has no `fleet/grokbots.json` agent — `grokbots --check` exits 1 (`lucario: no registry row`, `src/cli.mjs:361`), no card at `~/.grok/agents/grokbot-lucario.md` (`botCardPath` `src/cli.mjs:444`), no wrapper `~/.local/bin/grokbot-lucario` (`:427`), no keeper log; `bots list` shows 20 keepers, `bots report` prints `card=miss wrapper=miss log=never(?)` (`/tmp/kake-r12/live/`). |
 | app.ds4cc.com | `https://app.ds4cc.com/mcp` | `ds4cc-marketplace/apps-sdk` + `render.yaml` | Render web service (`ds4cc-marketplace-app`, Docker) |
 
 Registry of record: `~/Projects/webzites/fleet/fleet.config.json` (21 rows —
 `len(sites)` verified 2026-09-28; status 12 live/3 pruned/3 broken/3 queued;
 `expect` tripwires, `sourceDir`, `updatePath`, `status`, `priority`). Dead
-rows are `status:"pruned"`/`"queued"` — never deleted. Config `status` is a
+rows are `status:"pruned"`/`"queued"` — never deleted. Second registry:
+`fleet/grokbots.json` (20 roster rows, mtime 2026-09-20) — one row per keeper
+bot, a **separate universe** parity-checked in both directions by
+`grokbots --check` (`src/cli.mjs:361`, `:386`); it lags `fleet.config.json`
+(`lucario` missing — see the lucario row above). Config `status` is a
 **snapshot, not truth** — 2026-09-28 probe proved `lucario` recorded `live`
 while never published; always re-probe before acting. `probe.mjs` has no
-`pruned` branch — every row with url+expect is probed equally.
+`pruned` branch — every row with url+expect is probed equally — but the
+universe is url-filtered upstream: `probe`/`status` see only rows with `url`
+(`src/cli.mjs:75` → **18 of 21**), while `grokbots --check` verifies all 21
+(`checked: fleet.sites.length`, `src/cli.mjs:393`). The three url-less rows
+(`ds4cc-kimi-mirror-vault-row`, `snapshot-kimi-pro`, `burnerchrome-com`) are
+invisible to probe/status by design — never read a snapshot count as the
+fleet count (`corpus/knowledge/free-read-verbs.md`).
 
 Non-sources: `~/Projects/ufofsdbeta` is the UFO-FSD *runtime* repo (no Pages
 site; `dist/` is JS build output). `~/Projects/ufofsdbeta-kimi-review` is a
@@ -55,10 +65,15 @@ non-git review snapshot — never treat it as publishable source.
    `status`/`lastChecked` are snapshots (probe 2026-09-28: config said
    `lucario` live+ maintained, URL had never been published — 404). On any
    conflict, the probe wins and the config row is stale; record it.
-   **The fleet is already instrumented** — `webzites-probe.timer` runs
+   **The fleet is half-instrumented** — `webzites-probe.timer` runs
    `probe --all` every 6h (`SuccessExitStatus=1`) into
-   `state/probe-history.jsonl`, and `webzites-keeper.timer` runs
-   `grokbot tick` daily. Check `state/probe-latest.json` age before
+   `state/probe-history.jsonl`; `webzites-keeper.timer` is **loaded +
+   disabled + inactive (dead), zero journal entries — the daily
+   `grokbot tick` has never fired** (r12 systemd read; keeper logs frozen
+   at 2026-09-21T03; `corpus/knowledge/keeper-timer-inert.md`). Do not
+   expect fresh per-site keeper logs; enable-vs-retire is an operator
+   decision (`.ufo/l0-questions.md`, kake round-12). Check
+   `state/probe-latest.json` age before
    re-probing; read `corpus/knowledge/ops-automation.md` for history
    semantics (constant `errors[]` on xsnapshot-app = armed NXDOMAIN
    tripwire, not a regression; single-row `total:1` rows are spot
@@ -151,7 +166,8 @@ non-git review snapshot — never treat it as publishable source.
 | GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | root URL body vs ONE scored `index.html` (depth ≤2): match/in-sync/drift — **read-only** (never touches `probe-latest.json`); labels `src/reconcile.mjs:200-212` (`OK/SYNC/DIFF/LIVE/NOSRC/NODIR/ERR/SKIP`); **exit 1 only on drift/fetch-error/source-missing** (`src/cli.mjs:269-272`) — `no-source`/`no-source-file`/`skipped` exit 0, so `NOSRC` is silent; unknown id = crash exit 1 + stack (un-awaited dispatch `src/cli.mjs:1086`) | all other paths incl. second `index.html`s; **`in-sync` on GHP masks byte drift** — treat as "git fetch sourceDir + spotcheck," see `corpus/knowledge/ghp-subpath-spotcheck.md` |
 | kimi bindings | `node ~/Projects/webzites/scripts/kimi-surface.mjs kimi-map` | chat→domain truth: publishedUrl, publishState, version ids; sweeps project chats top-level ListChats misses | chats beyond sweep pages |
 | probe-history deltas | `node scripts/probe-delta.mjs` (this repo; `--since`, `--hole-hours`, `--json`) | violated[] ENTER/EXIT, registrations (UNIVERSE), coverage holes >12h; spot-probe + bootstrap phantoms suppressed (naive diff = 42 events, 40 phantom; r10 baseline: 6 events, 0 phantom) | transitions bounded by sweep sampling; marker churn vs outage needs `probe-latest.json` — `corpus/knowledge/probe-delta-alerting.md` |
-| Whole fleet | `webzites grokbot tick` | probe + reconcile + keeper log per site | — |
+| Whole fleet | `webzites grokbot tick` | probe + reconcile + keeper log per site | tick is **manual/round-driven only** — the daily keeper timer is disabled and has never fired (`corpus/knowledge/keeper-timer-inert.md`); running it writes state + appends per-site keeper logs |
+| Roster/ops reads (r12) | `webzites status --json` · `webzites grokbots --check` · `webzites bots list` · `webzites bots report [--stale N]` | snapshot verdicts (status); registry/card/log parity across all 21 fleet rows (`--check`, exit 1 on gaps); card+wrapper state across the 20 registry rows (list); per-site probe/log/turn ages + gap/stale verdicts (report, exit 1 iff gaps or `--stale` tripped) | all four read-only local reads (r12 sha guard, zero state delta — `/tmp/kake-r12/live/`); `status --json` and `bots list` **always exit 0** — read stdout only; `bots report` probe column is snapshot-relative (inherits the `probe <id>` clobber); queued wrapper-misses are not gaps (`src/cli.mjs:935`); `--stale` never trips unless passed (`src/cli.mjs:836-839`, `:932`) — with the keeper timer inert, any threshold flags all logs STALE |
 | Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
 | GHP subpaths | walk `sourceDir` → GET `<url>/<rel>` → sha vs `git show origin/main:<rel>` | subpath 404s/rot probe+reconcile can't see (first baseline 2026-09-28: 2 352 paths, 0 true rot, 126 diffs all local git lead/lag) | procedure in `corpus/knowledge/ghp-subpath-spotcheck.md` |
 | URL lists (sitemap) | GET every `<loc>` + sourceDir membership | dead listings, foreign content, pre-push listing preview (baseline 2026-09-28: 103 locs, 0 orphans/dead) | unlisted paths invisible; GHP live-only orphans impossible by construction (deploy artifact = full tree snapshot) — `corpus/knowledge/sitemap-orphan-audit.md` |
@@ -263,7 +279,15 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
   (`probe`/`status`/`grokbot reconcile`/`sync-check`): per-verb universes,
   live-verified exit contracts, the `probe <id>` snapshot-clobber trap +
   merge asymmetry, `probe-history.jsonl` writer semantics. Live-evidenced
-  r11 (`/tmp/kake-r11/` artifacts).
+  r11 (`/tmp/kake-r11/` artifacts). r12 adds the roster/ops free-reads
+  (`status --json`/`grokbots --check`/`bots list`/`bots report`): live
+  exit codes, gap/stale predicates, zero-delta sha guard
+  (`/tmp/kake-r12/live/`).
+- `corpus/knowledge/keeper-timer-inert.md` — the daily keeper timer is
+  loaded/disabled/inactive and has never fired; keeper logs frozen at
+  2026-09-21T03; charter-ghp beat-pin is a **config-lag + human-edit item**
+  (no webzites code writes `fleet.config.json`; scribe push-gate currently
+  failing), not a keeper automation block.
 - `~/Projects/ds4cc-marketplace/` — ds4cc.com source: `.github/workflows/
   pages.yml`, `CNAME`, `deploy-github-pages.sh` (setup only), `speedrun/`,
   `burnerchrome/`, `render.yaml` + `apps-sdk/` (app.ds4cc.com Render service).

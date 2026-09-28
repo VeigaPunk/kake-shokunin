@@ -25,7 +25,10 @@ mirrors, Pages deploys).
 | kimi subpath audit | `knowledge/kimi-subpath-audit.md` | link sweep + sitemap parity; ds4cc mirror 75/93 canonical locs missing all post-vintage (0 rot); `dir/` hrefs live-dead on kimi |
 | Publish-queue ledger | `knowledge/publish-queue.md` | PQ-1..PQ-13 readiness: gate class, bound chats, source freshness, cheapest wins, ordering DAG (r9 baseline) |
 | Probe-delta alerting | `knowledge/probe-delta-alerting.md` + `scripts/probe-delta.mjs` | phantom-suppressed history diffing (naive 42/40-phantom → 6/0), corrected r5 veigapunk bracket, coverage holes |
-| Round lessons | `lessons/round-1.md`, `round-3.md`…`round-10.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit; PQ readiness; probe-delta + checklist audit |
+| Keeper-timer status | `knowledge/keeper-timer-inert.md` | r12: keeper timer loaded/disabled/never-fired; logs frozen 09-21; charter-ghp pin = config lag + human edit (scribe is the writer; no fleet.config writer in src/); scribe push-gate failing |
+| Free-read verbs | `knowledge/free-read-verbs.md` | probe/status/reconcile/sync-check (r11) + status --json/grokbots --check/bots list/bots report (r12 live): exit contracts, gap/stale predicates, 18/21/20/21 universes, clobber + corrected merge patch |
+| Handoffs (webzites owner) | `handoffs/cmdProbe-merge-fix.md` | verified one-line cmdProbe merge patch (r11 F1 guard refuted; `probe <id> --all` edge covered), owner test recipe |
+| Round lessons | `lessons/round-1.md`, `round-3.md`…`round-12.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit; PQ readiness; probe-delta + checklist audit; free-read suite; r12 automation-myth falsification |
 
 ## Known gaps
 
@@ -49,9 +52,14 @@ mirrors, Pages deploys).
   (read-only, spot/bootstrap-phantom-suppressed; runbook
   `knowledge/probe-delta-alerting.md`). Alert *delivery* (notify/systemd
   fan-out) stays with the webzites owner — not this repo.
-- Keeper queue (flagged 09-28, not ours to apply): `ufo-fsd-kimi-pro` marker
-  collision (website-id now 2/18), `plazir27runson` marker case `Nightcall`→
-  `NIGHTCALL` (serves uppercase), charter-ghp pin `2026-09-26`→`2026-09-28
-  scribe beat` (ready diff in `~/Projects/webzites/reports/r9-stale-markers.md`),
+- Operator-decision queue (r12, all filed to L0 — none are kake-executable):
+  keeper timer enable-vs-retire (disabled, never fired —
+  `knowledge/keeper-timer-inert.md`); lucario registry mint-or-prune
+  (grokbots --check exit 1); `ufo-fsd-kimi-pro` marker collision (website-id
+  2/18), `plazir27runson` marker case `Nightcall`→`NIGHTCALL`, charter-ghp
+  pin `2026-09-26`→current live literal (human config edit —
+  `fleet.config.json:256`; diff in `~/Projects/webzites/reports/r9-stale-markers.md`;
+  scribe push-gate failing since 06:05Z so churn is paused),
   plazir15 chat-binding ambiguity (vessel `1a0c2186` vs emergent `1a0de2ed`),
-  bare `webzites` not on PATH (invoke `node ~/Projects/webzites/bin/webzites.mjs`).
+  bare `webzites` not on PATH (invoke `node ~/Projects/webzites/bin/webzites.mjs`),
+  cmdProbe merge patch for the webzites owner (`handoffs/cmdProbe-merge-fix.md`).

@@ -10,7 +10,7 @@ Sources: `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}`
 | unit | cadence | ExecStart | notes |
 |---|---|---|---|
 | `webzites-probe.timer` | `OnUnitActiveSec=6h`, `OnBootSec=5min`, `Persistent=true` | `webzites probe --all --quiet` | `SuccessExitStatus=1` — exit 1 means "probe ran and found violations", recorded normally; any other exit is a real failure |
-| `webzites-keeper.timer` | `OnCalendar=daily` | `webzites grokbot tick --quiet` | probe+reconcile+append per-site keeper log; same `SuccessExitStatus=1` convention |
+| `webzites-keeper.timer` | `OnCalendar=daily` | `webzites grokbot tick --quiet` | probe+reconcile+append per-site keeper log; same `SuccessExitStatus=1` convention — **status (r12): loaded, DISABLED, inactive (dead), zero journal entries; has never fired.** Keeper logs frozen at 2026-09-21T03; keeper rounds are manual/round-driven only — `corpus/knowledge/keeper-timer-inert.md` |
 
 Install/refresh: `webzites install [--timer] [--enable] [--force]` writes
 these user units. **Before running your own `probe --all`, check
@@ -19,7 +19,8 @@ these user units. **Before running your own `probe --all`, check
 
 ## probe-history.jsonl — semantics and the transitions it recorded
 
-76 rows 2026-09-20→09-28. Format per row:
+77 rows 2026-09-20→09-28 (r12: line 77 = the r11 sanctioned `total:1` spot
+row, 2026-09-28T21:31:26.591Z; no fleet row since 18:51Z). Format per row:
 `{"at", "total", "ok", "violated":[ids], "errors":[ids]}`.
 `total` counts probed rows (14→15→17→18 as rows were added); `ok` counts only
 passes — `total - ok` = violated+errors. Single-row probes write
