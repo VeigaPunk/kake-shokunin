@@ -51,6 +51,13 @@ non-git review snapshot — never treat it as publishable source.
    `status`/`lastChecked` are snapshots (probe 2026-09-28: config said
    `lucario` live+ maintained, URL had never been published — 404). On any
    conflict, the probe wins and the config row is stale; record it.
+   **The fleet is already instrumented** — `webzites-probe.timer` runs
+   `probe --all` every 6h (`SuccessExitStatus=1`) into
+   `state/probe-history.jsonl`, and `webzites-keeper.timer` runs
+   `grokbot tick` daily. Check `state/probe-latest.json` age before
+   re-probing; read `corpus/knowledge/ops-automation.md` for history
+   semantics (constant `errors[]` on xsnapshot-app = armed NXDOMAIN
+   tripwire, not a regression; single-row `total:1` rows are spot probes).
 2. **Check live-vs-source drift** per the table below. Kimi rows:
    `node scripts/kimi-surface.mjs sync-check [<id>]` (pure HTTP, no browser;
    title+marker verdict — bytes never equal, see pitfalls). GHP rows:
@@ -81,6 +88,15 @@ non-git review snapshot — never treat it as publishable source.
      Successful recreate/rebuild ends `liveAfter.stillDead:true` + claimed
      version card — the live URL stays 404 until the human publish click.
      Decoder table: `corpus/knowledge/fire-journal-codes.md`.
+   - **ds4cc.com/speedrun has its own gated lane.** Keeper:
+     `speedrun record → report → prep --write` (fail-closed schema check
+     vs authority `speedrun/data/run-*.json`, redaction denylist, stages
+     run/curve/manifest bodies under `<out>/prep/`). Operator: `cp` the
+     bodies into `ds4cc-marketplace/speedrun/data/`, append the manifest
+     entry, `git push origin main`; then `speedrun post` prints the X
+     draft (never posts). No HTTP upload API. Full runbook:
+     `~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md`; decoded:
+     `corpus/knowledge/speedrun-pipeline.md`.
 5. **Lease before browser.** `webzites lease acquire --owner <name>
    --ttl-ms 900000`; release in `finally`. The shared burner chrome
    (`the-musketeer` profile, CDP `127.0.0.1:9222`) serializes the whole
@@ -163,6 +179,11 @@ Vintage evidence that beats digests: dedupe report sha table, keeper logs
   `fleet/fleet.config.json` (registry), `fleet/fleet.dedupe-report.md`
   (classifications + publish-queue PQ-1…PQ-13), `fleet/kimi-surface-ops.md`
   (verified ops manual, rounds 1–4), `src/probe.mjs` (tripwire impl),
+  `src/speedrun.mjs` (record/report/prep/post), `docs/SPEEDRUN-PROTOCOL.md`,
+  `repos/` (50 read-only Origin evidence clones — map:
+  `corpus/knowledge/origin-repos.md`), `state/probe-history.jsonl`
+  (6h cadence), `reports/keepers/repos-r{1..8}.md` (wz-repos lane),
+  `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}`,
   `agents/webzites-{kimi,polish,repo,speedrun}.md` (keeper cards).
 - `~/Projects/ds4cc-marketplace/` — ds4cc.com source: `.github/workflows/
   pages.yml`, `CNAME`, `deploy-github-pages.sh` (setup only), `speedrun/`,
