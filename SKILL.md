@@ -126,9 +126,16 @@ non-git review snapshot — never treat it as publishable source.
      automated publish exists; `PublishApp`/`PublishDeployment` RPCs exist but
      are banned from fleet code. `kimi-webbridge` is unsupported on this Linux
      host; `kimiraikkoner` is DOM chat automation, not a site-ops channel.
-   - After the operator clicks publish, verify (all free reads): live URL →
-     200, `GetWebsiteByChatID` → `publishedUrl` host + `PUBLISHED`,
-     `sync-check <id>` → marker verdict, `kimi-map` refresh.
+  - After the operator clicks publish, verify (all free reads): live URL →
+    200, `GetWebsiteByChatID` → `publishedUrl` host + `PUBLISHED`,
+    `sync-check <id>` → marker verdict, `kimi-map` refresh. **For
+    `charter-ufo-fsd-kimi` (PQ-5) use the armed watch** —
+    `corpus/knowledge/publish-queue.md` §r14: E1 (slug URL 404→200) is the
+    primary discriminator — a preview-host 200 proves NOTHING; judge body
+    by title+marker+vintage, never bytes; `kimi-map` (E5) is browser-gated
+    and NEVER gates the "published" verdict; half-states have named
+    verdicts (F1 card-published-slug-not-set, F2 wrong-version) — report
+    the state, never round up to "published".
    - **Read run journals before judging a fire.** `state/{update,recreate,
      rebuild}-*.json` carries `steps[]`, `fire`, `error.code`. Exit codes
      lie about meter consumption: 5 = aborted before send (free retry),

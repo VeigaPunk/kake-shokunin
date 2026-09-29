@@ -27,8 +27,9 @@ passes — `total - ok` = violated+errors. Single-row probes write
 `total:1` rows — distinguish them from fleet runs before trend-reading.
 **The 6h cadence is the timer's, not the file's** (round-9 review; r13
 detector re-run: 66 full sweeps, 11 spot, 0 malformed on 77 rows) — of 77
-rows only 66 are fleet runs; median inter-run gap 0.45h, only 20/65 gaps in
-the 5–7h band, largest hole 42.7h (09-21T04:14→09-22T22:58). Treat
+sweeps' **65 consecutive full-sweep gaps** (20/65 in the 5–7h band; over all
+77 rows' 76 raw gaps the median is 0.26h — always cite the full-sweep basis,
+not the row basis — r14), largest hole 42.7h (09-21T04:14→09-22T22:58). Treat
 `probe-history.jsonl` as an event log whose sampling is bursty — never
 back-calculate "time in violated" from row counts alone.
 
@@ -50,7 +51,10 @@ Observed transitions (all UTC, from the file itself):
   appearing already-violated is a registration event, not a regression.
 - `xsnapshot-app` has been in `errors[]` on **every full sweep since
   2026-09-21T01:34:20Z** (present also on the 09-20T23:47:10 bootstrap row;
-  absent on 11 earlier full sweeps, last 09-21T01:33:49) — intended NXDOMAIN
+  absent on the 11 full sweeps between them — rows 2–12,
+  09-20T23:47:43.915Z→09-21T01:33:49.067Z, i.e. *after* the bootstrap and
+  *before* the sustained start, not "earlier" than the bootstrap — r14
+  erratum on r13's wording) — intended NXDOMAIN
   tripwire, PQ-7. **A constant errors[] entry is armed-tripwire baseline,
   not noise to fix** — but judge constancy on full sweeps only: spot
   (`total:1`) rows trivially omit every other site.
@@ -89,8 +93,11 @@ recent `reconcile=drift` + no note = live-vs-source problem; drift + a
 ## r13 re-verification (2026-09-28T22:4x–22:5xZ, read-only)
 
 - **probe timer healthy, cadence confirmed:** `webzites-probe.timer` enabled
-  + `active (waiting)`; today's triggers 06:00:36Z, 12:00:53Z, 18:01:09Z
-  (history lines 73–75), next 2026-09-29T00:00:59Z. The 18:51:26.128Z
+  + `active (waiting)`; today's full-sweep history rows (lines 73–75) are
+  `at` 06:00:46.703Z, 12:00:53.973Z, 18:01:09.822Z (r14 erratum: r13 wrote
+  06:00:36Z — that is the journal `Starting` line, a different clock; the
+  journal starts are 06:00:36/12:00:43/18:00:59 −03), next
+  2026-09-29T00:00:59Z. The 18:51:26.128Z
   full-universe row (line 76) is an **off-cadence manual `probe --all`**
   (kake round-3 vintage; timer rows land :00:4x–:01:1x) — do not cite it as
   the timer's work. All three full rows today carry the identical

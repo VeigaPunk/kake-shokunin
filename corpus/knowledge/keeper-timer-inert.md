@@ -89,10 +89,12 @@ zero journal entries, empty `LastTriggerUSec`, and absence from
    (`~/Projects/origin-work/charter-ufo-fsd`, 00:04Z push). And **no webzites
    code writes `fleet.config.json` at all** — `src/` contains only the
    `loadFleetConfig` reader (`src/fleet.mjs:7-11`); no verb can re-pin the
-   marker, so PQ-12's gate class "keeper config edit" (r9
-   `corpus/knowledge/publish-queue.md:32`) is **not implementable as coded**:
+   marker, so PQ-12's r9 gate class "keeper config edit" (historical r9
+   phrasing — r14 annotation: `corpus/knowledge/publish-queue.md:32` now
+   reads "**operator config edit**", the r12 relabel) is **not implementable
+   as coded**:
    the re-pin is a one-line human/operator edit of `fleet.config.json:256`
-   (procedure: `SKILL.md:133-143`). The keeper timer being dead changes none of
+   (procedure: `SKILL.md:159-172` — r14: renumbered after SKILL grew). The keeper timer being dead changes none of
    that — r7's "queued for keeper" was wrong on both causality and mechanism.
 
 ## What still works (blast radius = exactly the keeper tick)
@@ -119,7 +121,9 @@ already being watched — do not re-probe blindly" with
 (`ops-automation.md:8-13`) — read as "runs daily". The row's *intent* is
 accurate; the *status* is not: it has never fired. Same correction for SKILL.md
 step 1 ("The fleet is already instrumented … `webzites-keeper.timer` runs
-`grokbot tick` daily", `SKILL.md:58-61`). Exact replacement text:
+`grokbot tick` daily", `SKILL.md:58-61` — pre-amendment r5 line numbers,
+historical; the r12 amendment that replaced it lives at `SKILL.md:68-75` —
+r14). Exact replacement text:
 `/tmp/kake-r12/drafts/skill-amendments.md` P1 (landed r12).
 
 ## Operator decision — filed, not executed

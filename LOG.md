@@ -27,7 +27,9 @@
   (sentinel 33-file sha guard baseline; the only git actions repaired the
   MISSING round-12 commits in both repos — kake head was round-11, main
   head round-6, connector corroborated kasegi hit the same gap). Findings:
-  (1) pattern HELD — timer sweeps 06:00:36Z/12:00:53Z/18:01:09Z + off-cadence
+  (1) pattern HELD — timer sweeps 06:00:46.703Z/12:00:53.973Z/18:01:09.822Z
+  (r14 erratum: r13 wrote 06:00:36Z — that is the journal `Starting` line,
+  the history `at` rows are :46.703/:53.973/:09.822) + off-cadence
   manual re-probe 18:51:26Z (r3 vintage, NOT the timer) all identical
   12-ok/5-violated/1-error; independent 18-curl live replication 22:50Z =
   0 verdict diffs. (2) PQ-5 still pending — live slot serves the
@@ -36,7 +38,10 @@
   09-26-vintage (CDP :9222 down — `publishedUrl:null` is NOT same-day
   evidence); preview 8,387B (+64B vs journal, unexplained). (3) PQ-2
   unchanged — 19/93 served, 74 missing live-GET (75 by f3d2ecd accounting:
-  5 pre-serve), 0 per-URL transitions, root byte-frozen 74,641B (max
+  5 pre-serve), 0 per-URL transitions, root content-frozen 74,641B (r14
+  erratum: r13 said "byte-frozen" — raw sha varies per fetch via Cloudflare
+  cfemail re-encoding, 1 occurrence; the valid freeze metric is the
+  cfemail-normalized sha `4427b7f8…`, equal across r13+r14 fetches; max
   embedded date 08-21); `/speedrun/`+`/burnerchrome/` 404s are the
   dir-index pitfall (`index.html` serves 200), `/iqrunway/` dead on BOTH
   surfaces. (4) charter-ghp: pin-lag persists BUT live is deploy-current —
@@ -60,3 +65,64 @@
   corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert}.md
   updates; SKILL.md r13 amendments (at-vs-mtime, absent-semantics,
   every-row-since-ENTER pin framing).
+
+- 2026-09-29 — round 14: freshness axis-move — **re-verification +
+  armed watches** (probe-latest 4.6h fresh at open — 00:00:59Z sweep
+  landed mid-round, captured live). 12 read-only L2 probes in one batch
+  (scout + executor×3 + labrat + revenger + critic + reviewer +
+  connector + sentinel + scribe + planner → `/tmp/kake-r14/`); zero
+  fires, zero pushes, zero systemctl mutations, zero webzites-state
+  writes (sentinel PASS: 45/47 files byte-identical across the round —
+  only the timer-owned `probe-latest.json` + `probe-history.jsonl`
+  changed, exactly the 00:01:09.976Z sweep: history 77→78 rows, new row
+  `total:18` **12 ok / 5 violated / 1 error — identical set**,
+  probe-latest `at` matched the row to the ms). Findings: (1) pattern
+  HELD for the 5th consecutive sweep-day (06:00:46.703Z / 12:00:53.973Z
+  / 18:01:09.822Z / 00:01:09.976Z + manual 18:51:26Z all 12/5/1);
+  labrat independent 18-curl replication 23:1xZ = 18/18 MATCH, 0 diffs;
+  probe-delta on 78 rows = **6 events / 0 phantom** (last ENTER lucario
+  09-27). (2) PQ-5 still pending (23:11Z: 404 / 13,409B / sha
+  `93ddca9a…` byte-identical; zero `fire:true` journals since
+  09-26T15:34:24Z; kimi-map 09-26-vintage) → **the pending-publish watch
+  is now armed** (publish-queue.md §r14): P1–P3 NOW-predictions verified;
+  E1 slug-404→200 is the primary discriminator (preview-host 200 proves
+  nothing; `kimi-map` E5 never gates); named half-states F1
+  card-published-slug-not-set, F2 wrong-version; F3 premise-void pivot.
+  (3) **PQ-12 dated re-check loop armed AND caught a transition
+  in-round:** `fleet.config.json:256` pin still `2026-09-26 scribe beat`
+  (operator edit not landed) but the 00:06:19Z scribe fire pushed
+  `pushed:true` for the first time in 4 beats — beat `9c28d29` (falsified
+  the round's own `pushed:false` prediction; `pull timed out` blocker
+  cleared). Live now `2026-09-29 scribe beat (` / 53,386B / `fb365e38…`
+  == `9c28d29`; clone synced (PQ-3's behind-5 gate cleared); row 78 stays
+  violated on the pin gap — correct re-pin literal is now `2026-09-29`,
+  not `2026-09-28` (edit-time literal guard). (4) PQ-2 unchanged again —
+  19/93 served, 74 missing, 0 per-URL transitions (two independent
+  sweeps: executor 23:15Z + reviewer 23:19–21Z; raw 15/78 + 4 dir-index
+  twins = 19/74); mirror sitemap.xml itself 404 (0 locs live). (5) New
+  observations landed: the 13,409B `93ddca9a…` body is the GENERIC kimi
+  404 sentinel (same sha on plazir15.kimi.page + lucario.kimi.page — it
+  cannot discriminate slots; decisive = 404 flip + `unpublished404`);
+  `ds4cc.com/sitemap.xml` + `/robots.txt` live-404 — the 93-loc canonical
+  list is working-tree-only (unpushed `e82a262`/`f3d2ecd`). (6) Charter
+  post-push subpath audit (b74190e…a8f1e2b series) = NULL: 5/5 paths
+  byte-identical live==raw + og:image 200/121,710B — completed baseline,
+  not a move. (7) 12 stale citations fixed: r13 06:00:36Z clock-mix
+  (journal Starting vs history `at` — LOG + ops-automation:96-99 +
+  r13-report errata); byte-frozen→content-frozen cfemail rule; ops-
+  automation "earlier sweeps" + denominator basis (65 full-sweep gaps);
+  free-read-verbs ×9 line cites (`:193`→`:192`, `:1190`→`:1184`, SKILL
+  renumbering incl. missed `SKILL.md:76-100`→`:122-128,:155-158`);
+  keeper-timer-inert ×3 (procedure cite + 2 historical annotations).
+  (8) Critic pre-adjudication: "pattern held" = verification, not a move;
+  score stays 8 — armed capability only becomes move-eligible when a
+  watch **catches** the event in-round. (9) Protocol repair: r13's
+  report was **untracked in the main repo** (its "commits in both repos"
+  claim was false on the main half) — filed this round alongside r14's.
+  (10) Keeper timer still inert; L0 kake round-12 question unanswered.
+  Evidence: `/tmp/kake-r14/` (scout-claims, executor-charter,
+  executor-pq5, executor-pq2, labrat-replicate, revenger-history,
+  critic, reviewer-cites, connector-sib, sentinel + sentinel-{before,
+  after}.sha, planner-move, scribe-draft);
+  corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert,
+  free-read-verbs}.md + SKILL.md step-4 watch wiring.

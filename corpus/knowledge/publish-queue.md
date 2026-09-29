@@ -19,8 +19,8 @@ version-card click is never automatable.
 | PQ | target | what it fixes | gate class | pre-publish checks | post-publish free reads | residuals / notes |
 |---|---|---|---|---|---|---|
 | PQ-1 | vault `ufo-fsd.kimi.page` (+ veigapunk-page index, ds4cc-mirror-vault-row) | PROPERTIES[] drift: **3 of 10 live links dead** (charter-ufo-fsd.kimi.page, plazir15.kimi.page → 404; plazir27.kimi.pro → preview-404) + ds4cc row `url:null` while live | `missing-chat` + `missing-source` + human | vault unbound after 200-chat sweep; sourceDir:null — extraction recipe in `vault-properties.md` | live GET + `kimi-map` refresh | blocked hardest: needs source bytes + chat + fire + click |
-| PQ-2 | `ds4cc-kimi-mirror` (chat `1a073c43-bf42-874a-8000-0907bd80b9dc`) | stale ~Aug-29 mirror; **75 missing canonical paths** (sitemap f3d2ecd: 18→93 locs — "74" in dedupe is off by one); r13 decomposition: `/speedrun/ /burnerchrome/` 404s are the **kimi dir-index pitfall** (`index.html` twins serve 200 — not staleness), `/iqrunway/` is dead on BOTH surfaces (0 sitemap locs, absent from source) | `metered-fire` + human | `sync-check ds4cc-kimi-mirror` (in-sync* = identity only); bound chat verified | live URL 200 → `GetWebsiteByChatID` PUBLISHED → `sync-check` → `kimi-map` | r13 22:47Z re-verify: **delta UNCHANGED** — 19/93 served, 74 missing by live-GET (75 by f3d2ecd accounting: 5 pre-serve, 4 misses pre-f3d2ecd), 0 per-URL transitions, root byte-frozen 74,641B (max embedded date 08-21); `update` verb ships index.html-only (kimi-surface.mjs:459-466) — subpath restore needs recreate-class zip; source `ds4cc-marketplace` is **20 commits unpushed** (live canonical sitemap 404) — pushing GHP first also advances canonical |
-| PQ-3 | `plazir27-kimi-page` (chat `1a0b5f08-fb32-87ba-8000-0907192544b0`) | 09-18-vintage charter mirror vs 09-28 canonical beat | `metered-fire` + human | local charter checkout is **behind 5** (r13: `b74190e…a8f1e2b` — `git pull --ff-only` first); mirror embedded max date 09-18 | marker re-pin (PQ-12) after publish; `kimi-map` | sequences into PQ-12 |
+| PQ-2 | `ds4cc-kimi-mirror` (chat `1a073c43-bf42-874a-8000-0907bd80b9dc`) | stale ~Aug-29 mirror; **75 missing canonical paths** (sitemap f3d2ecd: 18→93 locs — "74" in dedupe is off by one); r13 decomposition: `/speedrun/ /burnerchrome/` 404s are the **kimi dir-index pitfall** (`index.html` twins serve 200 — not staleness), `/iqrunway/` is dead on BOTH surfaces (0 sitemap locs, absent from source) | `metered-fire` + human | `sync-check ds4cc-kimi-mirror` (in-sync* = identity only); bound chat verified | live URL 200 → `GetWebsiteByChatID` PUBLISHED → `sync-check` → `kimi-map` | r13 22:47Z re-verify: **delta UNCHANGED** — 19/93 served, 74 missing by live-GET (75 by f3d2ecd accounting: 5 pre-serve, 4 misses pre-f3d2ecd), 0 per-URL transitions, root **content-frozen** 74,641B (r14 erratum: r13 said "byte-frozen" — raw sha varies per fetch via Cloudflare cfemail re-encoding, 1 occurrence; valid freeze metric = cfemail-normalized sha `4427b7f8…`, equal across r13+r14 fetches; max embedded date 08-21); `update` verb ships index.html-only (kimi-surface.mjs:459-466) — subpath restore needs recreate-class zip; source `ds4cc-marketplace` is **20 commits unpushed** (live canonical sitemap 404) — pushing GHP first also advances canonical; r14 23:15Z re-verify: **delta unchanged again** — 19/93, 74 missing, 0 transitions, universe identical; mirror `sitemap.xml` itself 404 (0 locs live) — the 93-loc universe is the source-tree sitemap (md5 `0adbb105…`, unchanged vs r13) |
+| PQ-3 | `plazir27-kimi-page` (chat `1a0b5f08-fb32-87ba-8000-0907192544b0`) | 09-18-vintage charter mirror vs 09-29 canonical beat | `metered-fire` + human | local charter checkout synced at `9c28d29` as of r14 00:37Z (was behind 5 `b74190e…a8f1e2b` — the 00:06:19Z scribe push cleared it; re-verify `git status -sb` first anyway — beats land ~daily); mirror embedded max date 09-18 | marker re-pin (PQ-12) after publish; `kimi-map` | sequences into PQ-12 |
 | PQ-4 | `plazir15` (vessel `1a0c2186-fa12…` 0 versions; emergent `1a0de2ed…` 1 version unpublished — binding UNRESOLVED) | dead slot restore; tree md5-identical to plazir15-ghp (200, 38,337B) | `metered-fire` + human (Publish + SetWebsiteSlug) | journals: last `recreate` exit code 6 post-`fired` — a fire was consumed 09-26T14:46Z with no landed card; resolve chat ambiguity via `kimi-map` before refire | live 404→200 + slug resolve | orphan fire risk documented in `fire-journal-codes.md` |
 | PQ-5 | `charter-ufo-fsd-kimi` (rebuild chat `1a0de32f-3f12-8611-8000-0907d06bd2f2`, 2 versions) | dead slot — **fire already done**: version `efc1830` + preview 8,323B markerPresent, `liveAfter.stillDead` | `human-click` only | none — shortest path to a green row; staged zip 2 days stale vs HEAD `61d0ce6` (r13; acceptable for publish; re-stage if restoring from source) | click Publish on version card + set slug `charter-ufo-fsd` → live 200 + slugStatus | r13 22:47Z re-verify: **still pending** — live slot serves the byte-identical 13,409B 404 sentinel (sha `93ddca9a…` == 09-26 journals); zero fires fleet-wide since 09-26T15:34Z; `kimi-map` content is 09-26-vintage (CDP :9222 down — `publishedUrl:null` is NOT same-day evidence); preview `p-bieb65….kimi.page` 200, 8,387B (+64B vs journal 8,323B, unexplained); operator decision restore-vs-retire precedes the click |
 | PQ-6 | `plazir27-kimi-pro` | slot never served; `ballot` marker misattributed (r2: 0 hits in plazir27, 35 on plazir15-ghp); provisional `PLAZIR-27` pin + `finalUrlNot:preview-404` already armed | `missing-chat` + `missing-source` + human | 302→`statics.kimi.ai/pages/preview-404-en.html` (5,995B) confirmed 09-28; `kimi-pro-slot` updatePath undocumented (kimi-surface-ops.md:175) | n/a until restored | extraction impossible — no artifact bytes anywhere |
@@ -56,3 +56,124 @@ version-card click is never automatable.
   until republish-with-rewrite; `kimi-subpath-audit.md`).
 - Vault PROPERTIES[] rot — needs the extraction+chat path of PQ-1.
 - Beat-dated pins — will re-churn ~daily while the scribe beats land.
+
+## r14 re-verification (2026-09-28T23:1xZ, read-only)
+
+- **PQ-5 still pending** (23:11:50Z + 23:13:07Z live GETs): 404, 13,409B,
+  sha `93ddca9a…` — byte-identical to r13; zero `fire:true` journals newer
+  than 09-26T15:34:24Z; `kimi-map` entry (chat `1a0de32f…`) still
+  `publishedUrl:null`, `versionCount:2`, latestVersion `efc1830`.
+- **Generic-sentinel caveat (r14 scout):** the 13,409B / sha `93ddca9a…`
+  body is the **generic kimi 404 sentinel**, served byte-identically by
+  `plazir15.kimi.page`, `lucario.kimi.page` and `charter-ufo-fsd.kimi.page`
+  — it cannot discriminate *which* slot a publish landed in. The decisive
+  signals are the **404 status flip** and the sync-check
+  `unpublished404:true` classification (`kimi-surface.mjs:180`,`:198`),
+  never the sentinel sha alone.
+- **PQ-12 pin persist — and the loop caught its first transition (r14
+  00:37Z):** `fleet.config.json:256` still `2026-09-26 scribe beat` (file
+  untouched since 09-27T15:30:57Z). At 23:11Z live carried
+  `2026-09-28 scribe beat (` / 53,353B / sha `0decd827…` == `a8f1e2b`,
+  remote main `a8f1e2b`, clone behind 5. **Then the 00:06:19Z scribe fire
+  pushed for the first time in 4 beats** — ledger `pushed:true`, beat
+  `9c28d29` (falsified the r14 `pushed:false` prediction; the
+  `pull timed out after 60s` blocker cleared; push leg recovered). Live at
+  00:37Z: **`2026-09-29 scribe beat (`**, 53,386B, sha `fb365e38…`;
+  remote+local main both `9c28d29` (PQ-3's behind-5 precondition cleared —
+  clone synced). Row 78 (00:01:09Z) still violated on the 09-28-vs-09-26
+  gap; every next sweep FAILs until the operator edit lands — and the
+  correct pin literal is now `2026-09-29 scribe beat`, NOT `2026-09-28`
+  (edit-time literal guard below: verify live at edit moment).
+- **Canonical side (r14 scout, new):** `ds4cc.com/sitemap.xml` and
+  `/robots.txt` are **live 404** (9,379B GH-Pages 404) — both exist only in
+  the 20-unpushed-commits working tree (`e82a262`, `f3d2ecd`; `git ls-tree
+  origin/main` has neither). The 93-loc canonical URL list is
+  **working-tree-only, never on the wire** until the ds4cc push lands —
+  PQ-2's canonical reference set is local-only by construction.
+
+### PQ-5 publish-verdict procedure (armed 2026-09-28; run the moment the
+### operator clicks Publish on card `efc1830` + sets slug `charter-ufo-fsd`)
+
+**PQ-5 pending-publish watch (armed r14, critic-designed):** bounded,
+named trigger + checklist — all free reads, no poller/daemon/metered
+verb/lease. Score-eligibility cap: arming alone is a landed capability,
+NOT a score move; it becomes move-eligible only if the event fires and the
+watch catches it in-round (correctly-attributed EXIT + E1–E5 chain).
+
+NOW-predictions (verified 2026-09-28T23:1xZ — any break ⇒ arming premise
+void, pivot to immediate post-publish verification, report loudly):
+
+- **P1** `GET https://charter-ufo-fsd.kimi.page/` → HTTP **404**,
+  **13,409B**, sha `93ddca9a0216…ca966` (sentinel; 23:11:50Z).
+- **P2** `probe-latest.json` row `charter-ufo-fsd-kimi` = `violated`; id
+  present in `violated[]` of every full sweep today (rows 73–76).
+- **P3** vault `PROPERTIES[]` (13 members, 10 url-bearing) carries
+  `https://charter-ufo-fsd.kimi.page` as a member, currently 404.
+
+EVENT-predictions (check the moment a publish is reported/suspected):
+
+- **E1 — primary discriminator:** the SAME slug URL flips **404→200**; a
+  200 on a preview host proves nothing (previews exist independently of
+  publish — never claim "published" from preview-host evidence).
+- **E2** body leaves the sentinel class (sha ≠ `93ddca9a…`);
+  `sync-check charter-ufo-fsd-kimi` drops `unpublished404:true`. Judge by
+  title+marker+vintage, NEVER bytes (kimi rewrites bytes).
+- **E3** next full sweep → id leaves `violated[]` → probe-delta emits the
+  EXIT event (first for this id since its ENTER).
+- **E4** vault member link revives 404→200 (dead-link count 3→2 vs the
+  r9 baseline; vault body itself unchanged).
+- **E5** (conditional, browser-gated) `kimi-map`/`GetWebsiteByChatID` →
+  `publishedUrl` + `PUBLISHED` + slugStatus. CDP :9222 was down r13,
+  `kimi-map.json` is 09-26-vintage — **never gate "published" on E5 and
+  never cite `publishedUrl:null` as evidence of anything** (r13 rule);
+  the decoy `ufofsd-charter.kimi.page` publishedUrl belongs to chat
+  `1a073c3f…`, NOT this chat — never cross-attribute.
+
+Failure branches (the watch outputs a verdict, never a shrug):
+
+- **F1** preview host 200 + slug host still 404 ⇒ "card published,
+  **slug not set**" — report the half-state, never "published".
+- **F2** slug host 200 + title/marker mismatch vs source ⇒ wrong version
+  published (not `efc1830`) — compare title/marker, not bytes.
+- **F3** any NOW-prediction breaks with no operator action reported ⇒
+  arming premise falsified ⇒ pivot to immediate post-publish verification.
+
+Post-publish beat churn re-trips the PQ-12-family marker on the NEXT sweep
+(expected — see the PQ-12 loop below).
+
+### PQ-12 dated re-check loop (armed 2026-09-28; per-round until the
+### operator lands the one-line `fleet.config.json:256` edit)
+
+Each freshness round records, with timestamps: (a) live beat line
+(`curl`+`grep -o 'scribe beat[^<]*'`), (b) config pin literal, (c) remote
+`main` HEAD, (d) local clone behind-count. Five states: `PERSIST` (pin ≠
+live, no edit — expected until the operator acts); `EDIT-LANDED` (pin ==
+live → row flips ok on the NEXT full sweep — the first EXIT since
+09-27T06:22Z; verify, never assume); `CHURN-AGAIN` (pin == live at read
+time but live beat moved before the sweep — re-pin loop, scribe beats land
+~daily); `SILENT` (no new sweep row within ~6.5h of the last — timer
+health suspect, check `systemctl --user list-timers webzites-probe.timer`);
+`ANOMALY` (anything else — e.g. live ≠ remote main: deploy lag, investigate
+before recording a verdict).
+
+Edit-time literal guard (r14): a re-pin recipe MUST verify the live literal
+equals the pin **at edit moment** — beat pins have bounded shelf life
+(the 09-26 pin survived <24h before the 09-27T06:22Z ENTER; beats land
+~daily: `c8bbc62` 09-27, `61d0ce6` 09-28; next scribe fire 00:06:19Z with
+the push leg failing ⇒ a 09-29 literal can land only via human push or
+scribe recovery — the exact r13 pattern). Under read-only contracts, pin
+vs live comparison uses the raw.githubusercontent path (proven workable
+r14) — any local `git pull`/`fetch` in `origin-work/*` needs explicit
+sanction; both write.
+
+### r14 completed baseline (not a move): charter post-push subpath audit
+
+The r13 human-push series `b74190e…a8f1e2b` (5 commits) was never per-path
+verified (r6's baseline predates it). Critic-executed 2026-09-28T23:22Z:
+trees API `61d0ce6`→`a8f1e2b` = ADDED 3 (`beats/M-scribe-autoclaw-0029.md`
+5,066B, `build.js` 9,190B, `src/index.template.html` 12,859B), CHANGED 2
+(`index.html` 8,592→53,353; `next-run.md` 13,101→15,241); live GETs —
+**5/5 paths byte-identical to raw `a8f1e2b`**; og:image `vessel.webp` 200,
+121,710B `image/webp`. NULL result: no rot, no deploy lag — closes the r6
+gap for this series; per r6/r7/r8 null-coverage precedent this is a
+baseline, not a freshness move.

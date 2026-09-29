@@ -10,7 +10,7 @@ observed 2026-09-28T21:31–21:33Z on the real repo (backup-guarded where the ve
 writes state; provenance table at the end).
 
 Invocation is always the absolute node path from any cwd — bare `webzites` is not
-on PATH on this host (`SKILL.md:48`; `bin/webzites.mjs:5-12`).
+on PATH on this host (`SKILL.md:56-58`; `bin/webzites.mjs:5-12`).
 
 ## Verb table
 
@@ -45,7 +45,7 @@ console.log(JSON.stringify({rows:s.length, url:s.filter(x=>x.url).length, expect
   (`scripts/kimi-surface.mjs:42-45`), then splits on `sourceDir`
   (`scripts/kimi-surface.mjs:187-190`).
 
-[INFERENCE] Because `sync-check` reuses `reconcileAll` (`scripts/kimi-surface.mjs:193`)
+[INFERENCE] Because `sync-check` reuses `reconcileAll` (`scripts/kimi-surface.mjs:192` import / `:194` call)
 over that narrower class-filtered set, a `sync-check --all` of 15 rows and a
 `grokbot reconcile` of 21 rows are **not** comparable row-for-row; diff the ids,
 never the counts.
@@ -107,7 +107,7 @@ failure line on stderr 57 B. Evidence: `/tmp/kake-r11/probe-ds4cc.out`,
   pre-state snapshot's non-ok rows (5 violated + 1 error,
   `/tmp/kake-r11/probe-latest.backup.json`) are simply not in the file. Never
   read this as an unconditional fleet verdict; read stdout, never gate on the exit
-  code (`SKILL.md:71-73`). Either way the check is *after* `loadLastProbe`, so a
+  code (`SKILL.md:100-105`). Either way the check is *after* `loadLastProbe`, so a
   corrupt `probe-latest.json` throws out of `JSON.parse` (`src/fleet.mjs:17`,
   no try/catch) and the bin wrapper exits 1 with a stack (`bin/webzites.mjs:7-12`)
   — a crash code that is indistinguishable from a legitimate tripwire by exit
@@ -145,7 +145,7 @@ Evidence: `/tmp/kake-r11/labrat-probe.md` steps 4/6,
   (`src/reconcile.mjs:200-212`).
 - **`in-sync` is the trap.** Kimi rewrites served bytes, so byte equality is not
   the contract (`src/reconcile.mjs:1-5`) — and on GHP rows `in-sync` masks real
-  byte drift; treat it as "git fetch + spotcheck" (`SKILL.md:138`;
+  byte drift; treat it as "git fetch + spotcheck" (`SKILL.md:183`;
   `corpus/knowledge/ghp-subpath-spotcheck.md`).
 - **Exit.** 1 iff any row is `drift`/`fetch-error`/`source-missing`
   (`src/cli.mjs:269-272`). **`no-source-file` is not in that set** — a sourceDir
@@ -182,7 +182,7 @@ Evidence: `/tmp/kake-r11/reconcile-ds4cc.out`, `/tmp/kake-r11/reconcile-plazir15
   in ids: …" or "no kimi-surface site has a sourceDir", exit 1
   (`scripts/kimi-surface.mjs:191`, `:34`).
 - **Method.** Same engine as `grokbot reconcile` — it imports `reconcileAll`
-  (`scripts/kimi-surface.mjs:193`), so the title+marker byte semantics and every
+  (`scripts/kimi-surface.mjs:192`), so the title+marker byte semantics and every
   verdict above apply unchanged (`scripts/kimi-surface.mjs:174-179`).
 - **Extra field.** `unpublished404: true` when the live body's sha256 equals the
   13 409-byte Kimi 404 sentinel (`S404_SHA256`, `scripts/kimi-surface.mjs:180`,
@@ -193,14 +193,14 @@ Evidence: `/tmp/kake-r11/reconcile-ds4cc.out`, `/tmp/kake-r11/reconcile-plazir15
 - **Output.** JSON only, no human table: `{at, results[{id,url,verdict,
   unpublished404,status,liveBytes,liveSha256(16),srcSha256(16),srcFile,titleEqual,
   markerLive,firstDiffLine,note}], summary:{ok,attention[]}}`
-  (`scripts/kimi-surface.mjs:193-205`).
+  (`scripts/kimi-surface.mjs:194-206`).
 - **Exit.** 1 iff any verdict falls outside `{match, in-sync, no-source, skipped}`
   (`scripts/kimi-surface.mjs:206`, `:208`) — note this set is **stricter** than
   `grokbot reconcile`'s: `no-source-file` and `source-missing` do fail here.
 - **No `--help`.** Usage prints via the default arm on any unknown verb, exit 64
-  (`scripts/kimi-surface.mjs:1197-1198`; dispatch at `:1190`;
+  (`scripts/kimi-surface.mjs:1197-1198`; dispatch at `:1184`;
   `corpus/knowledge/probe-delta-alerting.md`).
-- Pure HTTP: no browser, no lease needed (`SKILL.md:76-78`). The browser-gated
+- Pure HTTP: no browser, no lease needed (`SKILL.md:108-112`). The browser-gated
   kimi verbs (`update`/`recreate`/`rebuild`, `kimi-map`) are out of scope here.
 
 Live (2026-09-28T21:31-33Z, real repo, zero writes):
@@ -264,7 +264,7 @@ was left raw: **unintended defect, not spot-probe semantics**. Consequences:
   carry no provenance — `scripts/probe-delta.mjs` cannot tell a merged row from a
   fresh sweep (`corpus/knowledge/probe-delta-alerting.md`, "Merged-row caveat").
 - `grokbot reconcile` and `sync-check` write nothing at all (`src/cli.mjs:261-274`;
-  `scripts/kimi-surface.mjs:193-208`) — running them can never disturb the snapshot.
+  `scripts/kimi-surface.mjs:192-208`) — running them can never disturb the snapshot.
 
 ### 3. `probe-history.jsonl` — append-only summary lines, incl. `total:1` spot rows
 
@@ -450,7 +450,7 @@ the round report for the webzites source owner.)
   are invisible to `sync-check` (verdict precedence `src/reconcile.mjs:171-173`;
   live 2026-09-28: the ~Aug-29 ds4cc mirror with 75/93 canonical locs missing
   verdicts in-sync, exit 0 — `/tmp/kake-r11/labrat-sync.md`). Decide republish
-  from vintage evidence, not the verdict (`SKILL.md:137`).
+  from vintage evidence, not the verdict (`SKILL.md:182`).
 - **`sync-check` has no `--help`** (`scripts/kimi-surface.mjs:1197-1198`) — use the
   header comment (`scripts/kimi-surface.mjs:1-20`) as its usage; `--all`/`--dead`
   are real but absent from the usage line (F5, `/tmp/kake-r11/scout-verbs.md`).
@@ -460,5 +460,6 @@ the round report for the webzites source owner.)
   rule).
 - **Not covered here:** `grokbot tick` / `bots task|run|digest|mint` (mutating or
   metered — see `corpus/knowledge/ops-automation.md`), `kimi-surface
-  update|recreate|rebuild|kimi-map` (browser + lease, `SKILL.md:76-100`), and
+  update|recreate|rebuild|kimi-map` (browser + lease, `SKILL.md:122-128`,
+  `:155-158`), and
   `speedrun *` (`corpus/knowledge/speedrun-pipeline.md`).
