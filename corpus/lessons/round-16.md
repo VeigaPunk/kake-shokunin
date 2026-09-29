@@ -32,10 +32,10 @@ had a method to see:
 - **fire counts** — `recreate plazir15 ×2 fired` was an undercount: three
   journals carry `fire:true` (codes 7, 4, 6). Meter accounting is
   operator-facing, so the undercount mattered.
-- **ETag literal** — one r16 sampler read `6ab49126-1365d` where the file says
-  `6ab49127-1365d`; L1's 7/7 re-fetch reproduced the file's value. Lesson
-  recorded instead of a correction: ETags are edge-unstable identifiers, never
-  freeze metrics (the sha is).
+- **ETag literal** — one r16 sampler read `6ab49126-1365d` where the file said
+  `6ab49127-1365d`; L1's 7/7 same-round re-fetch reproduced the latter.
+  r17 then observed `6ab49126-1365d` in 8/8 fetches, confirming the lesson:
+  ETags are edge-unstable identifiers, never freeze metrics (the sha is).
 
 ## Two rules this round lands
 

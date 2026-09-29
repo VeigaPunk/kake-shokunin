@@ -168,7 +168,7 @@
   **49 resolve, 9 miss = 4 self-declared-absent (verified-true claims:
   webzites `package.json`, 3 lucario artifacts) + 5 genuine danglers**:
   `~/Projects/ufofsdbeta`, `…/.ufo`, `ufofsdbeta-kimi-review` (verified
-  PRESENT at r1, lessons/round-1-aggregator-audit.md:31-32) and
+  PRESENT at r1, lessons/round-1-aggregator-audit.md:34-35) and
   `ephemeral/wz1` + `wz1/ds4cc` (`ephemeral/` exists, emptied
   21:42-03:00). The ufofsdbeta pair vanished inside `~/Projects` mtime
   20:51:31-03:00 — the exact instant kasegi reported `bounties` gone
@@ -307,3 +307,92 @@
   probe-delta-alerting.md, drift-detection.md, publish-queue.md,
   sitemap-orphan-audit.md, keeper-timer-inert.md, free-read-verbs.md,
   fire-journal-codes.md}, SCORECARD.md 9→10, LOG.md r16.
+
+- 2026-09-29 — round 17: freshness **HOLD 10 — live drift caught and
+  repaired; instrument suppression paths closed.** Nine L2s dispatched in one
+  valid batched call (planner, scouts ×2, revenger, labrat, critic, connector,
+  reviewer, scribe) plus the separately re-run live-surface scout after the
+  first batch's invalid-agent preflight; all read-only, artifacts under
+  `/tmp/kake-r17/`. (1) **W6 caught before repair** — baseline
+  `node scripts/freshness-sweep.mjs` at 03:20:19Z exited 1 with a NEW §paths
+  miss: the round-1 lesson cited lowercase
+  `~/projects/shokunin/.ufo/reports/round-1/web-properties-publishing.md`,
+  but `~/projects` had disappeared since the r16 ~02:4xZ sweep. Baseline:
+  38 files / 65 tokens / resolve 47 / declaredAbsent 10 / drift 1 /
+  missSet 11. The report survives at the canonical uppercase path; cite fixed
+  and `pathsMissSet` re-pinned 9→10. R16 raw evidence resolves the inodes:
+  `~/Projects` = 27238 and lowercase = 101125103; capital stayed 27238.
+  `~/DIRMAP.md:1,7,27` records the cleanup — lowercase children absorbed into
+  the existing capital root, then lowercase removed; capital/home mtimes bound
+  it to 03:13:18–03:14:07Z; `magga-2`→`magga` also moved. This is W6 in the
+  broader cleanup/prune regime, but unlike W1–W5 the cited report was
+  preserved. Exact command/actor remains unproven. L0 corroboration updated.
+  (2) **Complete claim-class re-sweep** — all r16 inventory rows re-ran:
+  117/117 HOLD; 15/15 r16 stale repairs still correct; 7 UNVERIFIABLE carried;
+  21 HISTORICAL-OK; plus 16/16 new r16/r17 claims HOLD. Nine new deltas were
+  surfaced and closed/qualified in this commit: W6 inode/mtime/path + child
+  rename; edge ETag flip (`6ab49127` in r16's 7/7, back to `6ab49126` in
+  r17's 8/8 → ETag never a freeze metric); r17's self-stale 38/380 and
+  38-file literals; wrong inode wording; nonexistent `corpus/claims` cite;
+  unnamed scribe ledger locus (verified at
+  `origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl`: 28 rows,
+  newest 00:06:19.897Z `pushed:true`); and README's range gloss over missing
+  lesson rounds. Final corpus wording matches live evidence.
+  (3) **Instrument hardening** — P2b `projectsChildrenSet` pins the 36 direct
+  `~/Projects` children and prints added/removed names, informational by
+  design (critic: blanket-gating operator churn is false-positive-prone;
+  gate only a future protected web-root set). `pathsFiles` was a bare number
+  `38`, but its evaluator requires an array: the delta had been
+  **inert-by-type** since r16. It is now the evaluated 39-file list and prints
+  `+0/-0`. `loadPins` previously caught any parse/ReferenceError and silently
+  fell back to defaults, making all gates inert; invalid pins now fail closed
+  with exit 2. Permanent malformed-pins case added: selftest **10/10**. The
+  header also falsely called A5's six live plazir pins “not evaluated”; their
+  consumed-key classification is now correct, while truly unused pins stay
+  explicit.
+  (4) **Final measured gate** (04:18Z) — offline exit 0: §paths 39 files /
+  160 occurrences / **66 targets / 49 resolve / 10 declaredAbsent / 0 drift /
+  7 unresolved**, missSet 10, relative-cite matcher 382 lines, file set
+  `+0/-0`, children 36 MATCH; §history 78 rows / 67 full / 11 spot / 6
+  events / 0 phantom / last ENTER lucario. Live exit 1 **only** for expected
+  PQ-14 `plazir-live-source-gap`; no other reason. `webzites/state/` 33-file
+  sha set byte-identical before/after every run. Independent relative-cite
+  scout: sample 30/30 accounted for, 0 substantive misses; full-tree 438 true
+  occurrences, all 10 unresolved tokens non-cites/foreign-base/declared
+  absent. All 8 informational pins HOLD (vault 9,966B/sha/10 URLs/3 dead;
+  fleet 21 with 12/3/3/3 statuses; grokbots 20; clones 50).
+  (5) **Armed watches unchanged** — PQ-12 `PERSIST` (live GHP
+  200/53,386B/`fb365e38…`, literal 2026-09-29 vs config pin 2026-09-26);
+  PQ-5 `PENDING` 404/13,409B/`93ddca9a…`; PQ-2 `GATE-CLOSED` remote
+  `e6bd071`, HEAD `f3d2ecd`, 20 unpushed, sitemap+robots 404/9,379B;
+  PQ-14 `GATE-CLOSED`, 5 ahead, live/source sitemap 8/7. PQ-3 checkout
+  `main...origin/main`, HEAD `9c28d29`. Probe timer next 06:00:59Z; row 79
+  has not landed. Keeper timer disabled/inactive, empty LastTriggerUSec;
+  keeper reports still frozen 09-21.
+  (6) **Adjudication/review** — critic: **MOVE-ELIGIBLE, score holds 10**:
+  instrument work alone is operability, but the before-sweep W6 catch is the
+  required freshness trigger. Initial reviewer FAIL (two stale 38/380
+  literals) repaired; final reviewer **PASS** after fresh reproduction.
+  Its two residual numeric nits (38→39 file list, 438→436 true relative
+  occurrences) and two older line-pin drifts (round-1 audit, SKILL push rule)
+  were also fixed before commit. No sibling independently reported W6; kake
+  has zero
+  citations into kasegi's lost groknight descendants. Connector found kagi
+  r16's citation into the edited round-1 lesson shifted from its asserted
+  lines; reported, not absorbed. No L0 answer to keeper enable-vs-retire or
+  earlier prune entries.
+  (7) **Operator relay, reported not absorbed** — effective config has
+  `modelRoles.m_swe = devin/swe-2:max`, but
+  `retry.fallbackChains.m_swe = null`; the requested exact
+  `m_swe → openai-codex/gpt-daybreak-blue-latest:max` final-only chain is not
+  visible. No genuine m_swe capacity failure occurred, so runtime advancement
+  to Daybreak was not observed; no failure forced and no frozen contract/config
+  changed. Evidence: `/tmp/kake-r17/` (`baseline.{out,json}`,
+  `final-{live,offline,selftest}.{out,json}`, `scout-{live,pins,claims}.md`,
+  `claims-delta.tsv`, `revenger-w6.md`, `labrat-timers.md`, `critic.md`,
+  `connector.md`, `reviewer-{cites,final}.md`, `planner.md`,
+  `scribe-draft.md`, `sentinel-before.sha`, `raw*/`); repo edits:
+  `scripts/freshness-sweep.mjs`, `corpus/knowledge/{freshness-pins,
+  freshness-sweep,publish-queue}.md`, `corpus/lessons/{round-1-aggregator-audit,
+  round-8-aggregator-box3-coldrun,round-16,round-17}.md`, `corpus/README.md`,
+  `SKILL.md`, `SCORECARD.md`, `LOG.md`.

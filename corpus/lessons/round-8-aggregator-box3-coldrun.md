@@ -79,7 +79,7 @@ Network discipline: all live checks were bare `curl -s` GETs; no `-X POST`, no u
 | `update/recreate/rebuild --fire` | gated-without-artifact | no fire journal was produced; not load-bearing for this cold audit |
 | Publish / Share→Update click | gated-with-artifact | documented negative that no verified automated publish exists (`SKILL.md:125-127`) and the handoff verification recipe is explicit |
 | Publish RPCs | gated-with-artifact | documented negative: RPCs are banned from fleet code (`SKILL.md:126-127`) |
-| `git push origin main` | gated-with-artifact | documented operator-owned negative (“Never `git push`, never click Publish”, `SKILL.md:318-320`) |
+| `git push origin main` | gated-with-artifact | documented operator-owned negative (“Never `git push`, never click Publish”, `SKILL.md:366-368`) |
 | `deploy-github-pages.sh` | gated-with-artifact | documented negative: setup script, “not the deploy mechanism” (`SKILL.md:119-120`) |
 | speedrun `prep --write` / copy / push | gated-with-artifact | documented handoff/staging recipe and negative “No HTTP upload API” (`SKILL.md:148-152`) |
 | `systemctl --user …` | gated-without-artifact | round-8 systemctl rule prevented the read; no new artifact; not load-bearing |

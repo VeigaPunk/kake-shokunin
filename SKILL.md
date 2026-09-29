@@ -295,14 +295,18 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
   `ds4cc-marketplace/speedrun/`. Rows with `sourceDir: null` (vault, ufofsd,
   plazir27runson, kimi.pro slots) have no local source — republish needs
   extracted bytes first, never retype from memory.
-- **Filesystem traps.** `~/Projects` (capital, inode 27238) and `~/projects`
-  (lowercase) are DISTINCT dirs — a lowercase-path ENOENT is a case typo,
-  never a disappearance (r15). Whole cited roots DO vanish: r15's sweep caught
-  `ufofsdbeta`, `ufofsdbeta-kimi-review` + `ephemeral/wz1` gone inside the
+- **Filesystem traps.** Case distinguished two real dirs at r16:
+  `~/Projects` inode `27238`, lowercase `~/projects` inode `101125103`.
+  W6 (2026-09-29 03:13–03:14Z) absorbed the lowercase tree's children into
+  the existing capital root, then removed `~/projects`; `~/Projects` kept
+  inode `27238` (`~/DIRMAP.md:1,7,27`; `magga-2`→`magga` in-window).
+  Therefore lowercase ENOENT is **not safely classifiable as a typo** — check
+  `projectsChildrenSet`, `~/DIRMAP.md`, and parent mtimes before deciding.
+  Whole cited roots also vanish: r15 caught `ufofsdbeta`,
+  `ufofsdbeta-kimi-review` + `ephemeral/wz1` gone inside the
   09-28T23:51:31Z `~/Projects` mtime window — the same instant sibling kasegi
-  lost its `bounties` root (L0). ⇒ the path-citation base is re-swept every
-  freshness round (`test -e` over cited paths; LOG r15 recipe), never frozen
-  to r10's "60/60 resolve".
+  lost its `bounties` root (L0). ⇒ re-sweep the citation base every freshness
+  round; never freeze r10's “60/60 resolve.”
 - **Weak markers.** `sdk-seed.js`, `PLAZIR-27`, `ballot`, `snapshot.` are
   boilerplate/misattributed/redundant — they passed 12 cross-body swap
   mutations. Keep the r2 tightened set in `fleet.config.json`; a `null`

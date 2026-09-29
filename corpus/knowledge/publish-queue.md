@@ -243,8 +243,9 @@ ENOENT is a typo, not a vanish.
   (`/` 200, 53,386B, sha `fb365e38…` — byte-identical to r15 and to
   `origin/main` `9c28d29`). Excluded: EDIT-LANDED (pin≠literal), CHURN-AGAIN
   (live date == 09-29, not newer), SILENT (fresh 200 + literal present),
-  ANOMALY (live == deploy). Scribe ledger: 28 beats, newest 00:06:19.897Z
-  `pushed:true`; no beat newer than `9c28d29`.
+  ANOMALY (live == deploy). Scribe ledger (`~/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl` —
+  the .ufo dir lives on the alpha checkout, NOT `charter-ufo-fsd`): 28 beats,
+  newest 00:06:19.897Z `pushed:true`; no beat newer than `9c28d29`.
 - **PQ-5 `PENDING`** — `/` 404 / 13,409B / sha `93ddca9a…` byte-identical to
   the armed baseline; E1 never fired. P3 holds: vault `ufo-fsd.kimi.page`
   200 / 9,966B / sha `d93d6a0c…`, 13 PROPERTIES members (10 url-bearing),
@@ -252,10 +253,12 @@ ENOENT is a typo, not a vanish.
   (its own figure; do not swap the two).
 - **PQ-2 `GATE-CLOSED`** — remote `e6bd071`, local `f3d2ecd`, 20 unpushed,
   `sitemap.xml`+`robots.txt` still 404/9,379B. **ETag anomaly:** the r16
-  sampler that read `6ab49126-1365d` was refuted by L1 (7/7 re-fetches give
-  `6ab49127-1365d`, matching this file) — treat the ETag as an
-  **edge-unstable identifier**, never a freeze metric; the freeze metric for
-  the canonical root stays the sha (`b6f65899…` == `origin/main:index.html`).
+  sampler that read `6ab49126-1365d` was refuted by L1 (7/7 re-fetches gave
+  `6ab49127-1365d`, matching this file) — then r17's sampler read
+  `6ab49126-1365d` in 8/8 fetches: the ETag flips between edge nodes.
+  Confirms the standing rule: ETags are **edge-unstable identifiers**, never
+  a freeze metric; the freeze metric for the canonical root stays the sha
+  (`b6f65899…` == `origin/main:index.html`).
 - **NEW — PQ-14 (plazir15-ghp gate).** `~/Projects/plazir-15-site` is **5
   commits ahead of `origin/main`** (`c814526` vs `bd02d10`), so the live GHP
   tree is the pre-push build: live sitemap 8 locs incl. `/tetris/` vs source
@@ -263,7 +266,8 @@ ENOENT is a typo, not a vanish.
   self vs source `ds4cc.com`. All 8 live locs 200 → stale, not rot; invisible
   to `probe`/`reconcile`. Proof: `drift-detection.md` §r16.
 - **Claim-class sweep.** A complete enumeration of the lane's quantified
-  standing claims (160 claims, `corpus/claims` recipe in
+  standing claims (160 claims; r16 recipes in `/tmp/kake-r16/scout-claims.md` —
+  per-round scratch, not a repo path; instrument pinned in
   `corpus/knowledge/freshness-sweep.md`) found **15 stale** literals this
   round; those inside this file: the PQ-10 `Nightcall` clause (fixed above),
   the 5 r15 SG-count literals (`ops-automation.md`, `probe-delta-alerting.md`),

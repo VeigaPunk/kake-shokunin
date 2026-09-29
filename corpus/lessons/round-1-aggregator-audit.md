@@ -7,8 +7,11 @@ or publish was performed** — the domain's operator-gated publish boundary was
 respected by the audit itself. Scope: `corpus/` only.
 
 Round evidence: `LOG.md` round-1 entry; commit `cd5b381`; lane report
-`~/projects/shokunin/.ufo/reports/round-1/web-properties-publishing.md`
-(filename violates `PROTOCOL.md`'s `.ufo/reports/round-<N>/<lane>.md` — should
+`~/Projects/shokunin/.ufo/reports/round-1/web-properties-publishing.md`
+(r17: this cite originally pointed at the lowercase `~/projects` twin, which
+vanished between r16 ~2026-09-29T02:4xZ and r17 03:20Z — W6 of the
+`~/Projects` prune regime; the canonical report sits at the uppercase path;
+filename violates `PROTOCOL.md`'s `.ufo/reports/round-<N>/<lane>.md` — should
 be `kake.md`; filed to the integrator).
 
 ## Verdict: NOT conformant — well-sourced, but core fleet counts are wrong

@@ -29,7 +29,7 @@ mirrors, Pages deploys).
 | Keeper-timer status | `knowledge/keeper-timer-inert.md` | r12: keeper timer loaded/disabled/never-fired; logs frozen 09-21; charter-ghp pin = config lag + human edit (scribe is the writer; no fleet.config writer in src/); scribe push-gate failing |
 | Free-read verbs | `knowledge/free-read-verbs.md` | probe/status/reconcile/sync-check (r11) + status --json/grokbots --check/bots list/bots report (r12 live): exit contracts, gap/stale predicates, 18/21/20/21 universes, clobber + corrected merge patch |
 | Handoffs (webzites owner) | `handoffs/cmdProbe-merge-fix.md` | verified one-line cmdProbe merge patch (r11 F1 guard refuted; `probe <id> --all` edge covered), owner test recipe |
-| Round lessons | `lessons/round-1.md`, `round-3.md`…`round-12.md` | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit; PQ readiness; probe-delta + checklist audit; free-read suite; r12 automation-myth falsification |
+| Round lessons | 19 files: core `round-{1,3,4,5,6,7,8,9,10,12,16,17}.md` + 7 named aggregator audits | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit; PQ readiness; probe-delta + checklist audit; free-read suite; r12 automation-myth falsification; r16 claim-class instrument; r17 W6 catch + inert-pin hazards |
 
 ## Known gaps
 

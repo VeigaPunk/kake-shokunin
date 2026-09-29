@@ -191,7 +191,12 @@ function loadPins(repoRoot) {
       alias('errors', 'probeErrors');
       const known = new Set([...Object.keys(DEFAULT_PINS.pins),
         'probeFullSweepsFloor', 'probeSpotProbes', 'probeShapeTotal', 'probeShapeOk', 'probeViolated', 'probeErrors',
-        'pathsCitedSet', 'pathsMissSet', 'pathsFiles', 'deltaLastEvent', 'deltaEventsExact', 'pathsAbsenceStrictSameLine']);
+        'pathsCitedSet', 'pathsMissSet', 'pathsFiles', 'deltaLastEvent', 'deltaEventsExact', 'pathsAbsenceStrictSameLine',
+        'projectsChildrenSet',
+        // A5 consumes these even though they are absent from DEFAULT_PINS.
+        // Without this list the header falsely labels live gate pins "not evaluated".
+        'plazirRemote', 'plazirSourceDir', 'plazirLiveSitemapUrl',
+        'plazirUnpushed', 'plazirLiveSitemapLocs', 'plazirSourceSitemapLocs']);
       const unused = Object.keys(raw).filter((k) => !known.has(k));
       return { pins, source: 'file', file, schema: parsed.schema || null, updated: parsed.updated || null, round: parsed.round ?? null, unused };
     } catch (e) {
@@ -450,6 +455,25 @@ function scanCitations(repoRoot, pins = {}) {
     setDelta.filesRemoved = pins.pathsFiles.filter((f) => !relFiles.includes(f));
   }
   if (!setDelta.pinned) setDelta.notes.push('pin pathsMissSet/pathsCitedSet (JSON emits both live) for a set-delta verdict: NEW miss = drift, recovered/added = informational; pin pathsFiles to catch corpus-file moves');
+
+  // ~/Projects direct-children set — informational NEVER-gating side-channel.
+  // W6 (r17): `~/projects` vanished and was caught only because a descendant
+  // was cited; an uncited `~/Projects` child loss is invisible to P1/P2. The
+  // pinned child set makes that class visible each run (removals/entries are
+  // reported, never verdict-relevant — P1/P2 gate cited targets already).
+  const projectsDir = path.join(os.homedir(), 'Projects');
+  let projectsChildren = null;
+  try {
+    projectsChildren = fs.readdirSync(projectsDir, { withFileTypes: true }).map((e) => e.name).sort();
+  } catch { projectsChildren = null; }
+  const projectsChildrenDelta = { pinned: false };
+  if (projectsChildren && Array.isArray(pins.projectsChildrenSet)) {
+    projectsChildrenDelta.pinned = true;
+    projectsChildrenDelta.removed = pins.projectsChildrenSet.filter((n) => !projectsChildren.includes(n));
+    projectsChildrenDelta.added = projectsChildren.filter((n) => !pins.projectsChildrenSet.includes(n));
+  } else if (projectsChildren) {
+    projectsChildrenDelta.note = 'pin projectsChildrenSet (JSON emits the live set) for a per-round delta over ~/Projects children';
+  }
   const newDrift = setDelta.newDrift || [];
   const newMissing = setDelta.newMissing || [];
 
@@ -462,7 +486,7 @@ function scanCitations(repoRoot, pins = {}) {
     drift: drift.map((r) => ({ path: r.path, resolve: r.resolve, cites: r.cites })),
     unresolved,
     counts: { resolve: resolve.length, declaredAbsent: declaredAbsent.length, declaredAbsentIndirect: declaredAbsent.filter((r) => r.indirect).length, drift: drift.length, unresolved: unresolved.length, newDrift: newDrift.length, newMissing: newMissing.length },
-    citedSet, missSet, setDelta,
+    citedSet, missSet, setDelta, projectsChildren, projectsChildrenDelta,
     relativeCites: { count: relativeCites.length, sample: relativeCites.slice(0, 5), note: 'informational — cites not beginning with ~ or /home/vgpnk fall outside the spec PATH_RE (no base dir knowable); they are NOT resolve-checked' },
     ok: drift.length === 0 && newMissing.length === 0,
   };
@@ -848,6 +872,9 @@ function printPaths(p) {
     if (sd.newMissing) console.log(`  set-delta miss: ${sd.newMissing.length ? '!! NEW MISS ' + sd.newMissing.join(' · ') : 'no new miss'}${sd.recovered && sd.recovered.length ? ` · recovered: ${sd.recovered.join(' · ')}` : ''}`);
     if (sd.filesAdded) console.log(`  set-delta files: +${sd.filesAdded.length} / -${sd.filesRemoved.length}${sd.filesAdded.length ? ` — added: ${sd.filesAdded.join(' · ')}` : ''}${sd.filesRemoved.length ? ` — removed: ${sd.filesRemoved.join(' · ')}` : ''}`);
   } else if (sd.notes.length) console.log(`  set-delta: unpinned — ${sd.notes[0]}`);
+  const pd = p.projectsChildrenDelta;
+  if (pd && pd.pinned) console.log(`  ~/Projects children: ${p.projectsChildren.length} (informational)${pd.removed.length ? ` — !! removed: ${pd.removed.join(' · ')}` : ''}${pd.added.length ? ` — added: ${pd.added.join(' · ')}` : ''}${!pd.removed.length && !pd.added.length ? ' — set MATCH' : ''}`);
+  else if (pd && pd.note) console.log(`  ~/Projects children: ${p.projectsChildren.length} (informational) — ${pd.note}`);
 }
 
 function printHistory(h) {
@@ -956,6 +983,16 @@ async function main() {
 
   const { root: repoRoot, derived } = resolveRepoRoot(opt.repo);
   const pinsFile = loadPins(repoRoot);
+
+  // A pins file that exists but fails to load must NEVER degrade to defaults:
+  // defaults have no gate pins, so every gate goes inert and a green run
+  // against them proves nothing (r17: a dropped `const` inside loadPins did
+  // exactly this — caught only by the 'gate pins absent' warning line). The
+  // documented contract says invalid input is exit 2.
+  if (pinsFile.error) {
+    console.error(`freshness-sweep: pins file invalid — ${pinsFile.file}: ${pinsFile.source.replace(/^file-invalid:/, '')}`);
+    process.exit(2);
+  }
   const sections = opt.section ? [opt.section] : SECTIONS;
   const timeoutMs = Number(process.env.KAKE_FETCH_TIMEOUT || 15000);
   const result = await runSections({ repoRoot, pinsFile, sections, offline: opt.offline, timeoutMs });
@@ -1043,6 +1080,8 @@ async function selftest() {
     + 'Note: `~/Projects/webzites/selftest-named.md` is absent (annotation names the path).\n');
   const badHistory = path.join(dir, 'bad-history.jsonl');
   fs.writeFileSync(badHistory, '{"at":"2026-09-29T00:00:00.000Z","total":1,"ok":1,"violated":[],"errors":[]}\n{"at": "broken\n');
+  const badPins = path.join(dir, 'bad-pins.json');
+  fs.writeFileSync(badPins, '{"schema":"kake-freshness-pins-v1","pins":\n');
   // SELFTEST-WRITES-END
 
   const envA = { KAKE_REPO_ROOT: annotated, KAKE_FRESHNESS_PINS: pins, KAKE_FETCH_TIMEOUT: '2000' };
@@ -1123,6 +1162,17 @@ async function selftest() {
     expect: 'exit 2 · error names malformed JSONL',
     got: `exit ${r.code} · stderr/stdout ${JSON.stringify((r.stdout || r.stderr || '').slice(0, 120))}`,
     pass: r.code === 2 && /malformed/.test(r.stdout || r.stderr || ''),
+  });
+
+  r = run(['--section=paths', '--json', '--offline'], {
+    KAKE_REPO_ROOT: annotated,
+    KAKE_FRESHNESS_PINS: badPins,
+  });
+  cases.push({
+    id: 'i malformed pins JSON -> exit 2 (never silent defaults)',
+    expect: 'exit 2 · stderr names pins file invalid and parse error',
+    got: `exit ${r.code} · ${JSON.stringify((r.stderr || r.stdout || '').trim().slice(0, 160))}`,
+    pass: r.code === 2 && /pins file invalid/.test(r.stderr || r.stdout || ''),
   });
 
   r = run(['--bogus-flag'], {});
