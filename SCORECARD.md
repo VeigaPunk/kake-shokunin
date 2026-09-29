@@ -6,37 +6,40 @@ depth/coverage/calibration/adjacency belong to other lanes — not scored here).
 | Axis | Score | Evidence pointer | Last change |
 |---|---|---|---|
 | operability | 10 | Every free-read verb in the domain is now **live-executed on the real repo with a byte-level write-free proof**: r11 closed probe/status/reconcile/sync-check; r12 closed the last 4 (`status --json` exit 0 with 5 violated+1 error in snapshot; `grokbots --check` exit 1 lucario; `bots list` exit 0 20 keepers; `bots report` exit 1 gaps) — 31-file state sha guard identical before/after, re-verified by 2 independent L2 re-runs. Exit-1 predicates pinned to code (gaps `cli.mjs:935`, stale-only-with-flag `:836-839`/`:932`, checked=21 `:393`); replica edge matrix (corrupt/deleted snapshot, registry faults, `--stale` variants) landed. The automation layer is now runtime-verified, not unit-file-trusted: keeper timer never fired (enable-vs-retire at L0), scribe push-gate failing (N1), lucario registry gap at L0. Corrected cmdProbe merge patch replica-verified and staged for the webzites owner (`corpus/handoffs/cmdProbe-merge-fix.md` — r11 F1 guard refuted on the `probe <id> --all` edge). Full verb free-read/writer classification (35 rows) code-verified. | round 12 |
-| freshness | 9 | r15: the armed-watches read was pure re-verification (PQ-12 `PERSIST` — pin `2026-09-26` vs live `2026-09-29 scribe beat (` / `fb365e38…` == remote+clone `9c28d29`; PQ-5 still pending 404/13,409B/`93ddca9a…`; PQ-2 gate closed, remote `e6bd071` unchanged, still 20 unpushed) — but the **path-citation re-sweep caught the drift event**: 58 unique cited paths re-tested under the kasegi-reported `~/Projects` mtime window (2026-09-28T23:51:31Z) → 49 resolve, 5 genuine danglers incl. `ufofsdbeta` + `ufofsdbeta-kimi-review` (present at r1, gone now) + `ephemeral/wz1`; dated annotations landed in SKILL.md/mirror-pitfalls/publish-channels + a per-round re-sweep rule; critic re-ruling (complete sweep > sample) made it move-eligible. publish-queue.md §r15; LOG r15. | round 15 |
+| freshness | 10 | r16: drift detection widened from **path citations only** (r10's retired "60/60", r15's 58-target sweep) to **every quantified standing claim**, and made reproducible: `scripts/freshness-sweep.mjs` + `corpus/knowledge/freshness-pins.json` re-derive three sections in one read-only command with pinned baselines and exit 0/1/2/64 (`--selftest` 9/9; `~/Projects/webzites/state/` sha-identical across every run). First complete pass = **160 claims, 117 HOLD, 15 STALE, 7 UNVERIFIABLE, 21 HISTORICAL-OK** (`/tmp/kake-r16/scout-claims.md` + `claims.tsv`, one live recipe per row) — 10 of the 15 stale rows sit in classes no earlier round had a method for (verb-outcome literals, journal top-level key union, ETag literal, fire-count undercount), the rest are row-count/code-line literals that rot by design and are now floors or dated samples. In-round domain catch: **`plazir15-ghp` is 5 commits ahead of `origin/main`** → live serves the pre-push tree (sitemap 8 locs incl. `/tetris/` vs source 7, `snake/` `og:url` missing, `speedrun/` canonical unrepointed; all 8 live locs 200 = stale, not rot), invisible to `probe`/`reconcile` → falsifies `drift-detection.md`'s "tree byte-identical to live", ledgered as **PQ-14**; the instrument's arming now reproduces the catch mechanically (`PQ-14 … sitemap LIVE-SOURCE-GAP !! DRIFT`, exit 1). Critic re-ruled MOVE-ELIGIBLE on both branches (complete-claim sweep; previously-unledgered live/source drift) with the predicate recorded in `critic.md`. | r16 |
 
 ## Planned
 
-- **round 16 (pick at round open):** freshness default — continue the armed
-  **PQ-12 dated re-check loop** (five states `PERSIST | EDIT-LANDED |
-  CHURN-AGAIN | SILENT | ANOMALY`: `PERSIST` if pin still `2026-09-26` vs
-  live `2026-09-29 scribe beat (`; `EDIT-LANDED` if the operator re-pins —
-  row flips ok on the NEXT full sweep after the edit, the first EXIT since
-  09-27T06:22Z; `CHURN-AGAIN` if a 09-30 beat lands first — next scribe
-  fire ~06:06Z, push leg working but telemetry degraded: grok-web 300s
-  timeout + kimi route failure → local-fallback beats) + **PQ-5 watch
-  read** (P1 sentinel check → still pending = one curl; if E1 fires the
-  E-chain is move-eligible) + **PQ-2 re-verify** (19/93, gated on the 20
-  unpushed ds4cc commits — remote `e6bd071` at r15 close) + **path-sweep
-  cadence** (re-run the `test -e` sweep over the cited base every round
-  while FS drift is live — r15 caught 5 danglers; r10's "60/60" is retired
-  as a standing claim). Note: r15 opened 00:44:25Z, BEFORE the 06:00:59Z
-  sweep (r14's plan premise was wrong) — the first post-06:00:59Z round
-  carries new row 79 (row 80 once the 12:00:59Z sweep lands): check for a
-  `charter-ghp` EXIT or any `violations→ok` flip, run probe-delta rows
-  78→79/80. L0 keeper/lucario answers: still unanswered at r15 close —
-  same operator-gated support applies; the kasegi `~/Projects/bounties`
-  vanish is a sibling item with 0 kake citations — monitor only. PQ-3's
-  `git pull --ff-only` precondition stays cleared (`9c28d29`); pull/fetch
-  in `origin-work/*` still needs explicit sanction under the read-only
-  contract.
+- **round 17 (pick at round open):** the standing instrument now *is* the
+  freshness path — run `node scripts/freshness-sweep.mjs` first (exit 1 is
+  currently EXPECTED: PQ-14's live/source sitemap gap is an open drift until
+  the operator pushes `plazir-15-site`; `--section=paths|history` isolates the
+  rest). The round's job is then (a) re-pin whatever the run reports as
+  changed — set the `round`/`updated` stamp and fix the prose in the SAME
+  commit; (b) re-run the claim-class sweep for the classes the instrument
+  cannot gate (161+ prose literals; `scout-claims.md` is the inventory and its
+  recipes are reusable) and land the corrections; (c) continue the armed
+  watches PQ-12 (`PERSIST` at r16; `EDIT-LANDED` when the operator edits
+  `fleet.config.json:256` — then row 79/80 flips ok and it is move-eligible),
+  PQ-5 (E1 = the slug URL 404→200), PQ-2 (remote `e6bd071`, 20 unpushed),
+  **PQ-14** (operator push of `plazir-15-site`; `GATE-OPENED` is then the
+  expected drift line, verify 5→0 and live sitemap 8→7), and PQ-3's cleared
+  `git pull --ff-only` precondition. Note: r16 opened at 02:1xZ, still BEFORE
+  the 06:00:59Z sweep — the first post-06:00:59Z round carries row 79 (80 after
+  12:00:59Z); run probe-delta and check for a `charter-ghp` EXIT. FS hazard is
+  LIVE and escalating (`~/Projects` prune regime: W1 ≤23:51:31Z, W2 00:42:39Z,
+  W3 01:45:06Z, W4 ≤02:05:07Z, W5 02:19:20Z — revenger r16; L0 entries
+  kasegi r15/r16 + kake r16 remain unanswered) → **do not pull/fetch in
+  `origin-work/*` without explicit sanction**; the instrument's §paths gate
+  covers kake-owned citations only. SCORECARD erratum: the r15 plan text's
+  "0 kake citations" was false (r15's own `publish-queue.md:214` cites it);
+  kake cites `bounties` once, 0 descendant paths — corrected in that file's
+  §r16 note.
 
 ## Move log
 | Round | Axis | Before | After | Evidence |
 |---|---|---|---|---|
+| 16 | freshness | Drift detection was an ad-hoc, **path-only** sample: r10's "60/60 resolve" froze and rotted, r15's sweep covered citations but not counts / verb-outcomes / journal shape / ETag / code-line pins; SCORECARD itself carried a now-false "0 kake citations for `bounties`" and an unsided "103 locs"; re-verification had no reproducible gate | Widened to **all quantified standing claims** and instrumented: `scripts/freshness-sweep.mjs` (3 sections, pinned baselines, exit 0/1/2/64, `--selftest` 9/9, byte-identical state guard) + `corpus/knowledge/freshness-pins.json`; first complete pass 160 claims → 117 HOLD / **15 STALE** / 7 UNVERIFIABLE (10 in never-swept classes), all 15 fixed or re-pinned; **caught `plazir15-ghp` 5-commits-ahead live/source drift** (live sitemap 8 locs vs source 7, `og:url` + canonical lag; stale-not-rot) → `drift-detection.md` claim corrected, **PQ-14** ledgered, instrument now gates it (exit 1); SCORECARD self-claim corrected; rules landed: pin the *set* not the count, dated samples are not standing claims | `scripts/freshness-sweep.mjs`; `corpus/knowledge/{freshness-sweep.md,freshness-pins.json}`; corpus fixes in 8 files; `corpus/lessons/round-16.md`; `/tmp/kake-r16/` (12 L2 artifacts); LOG.md r16 |
 | 15 | freshness | Path-citation base trusted on r10's un-re-measured "60/60 resolve"; PQ-2 cell's "root content-frozen" ambiguous (mirror-vs-canonical misattribution in the r15 brief); canonical side described as "working-tree-only" when files ARE tracked-but-unpushed; normalization method for the mirror freeze metric not pinned; r14 plan-note asserted r15 opens post-sweep | 58 cited paths re-swept under the 09-28T23:51:31Z `~/Projects` drift window: 49 resolve, **5 genuine danglers caught** (ufofsdbeta + .ufo + ufofsdbeta-kimi-review vanished in-window; ephemeral/wz1 emptied 21:42-03:00) — all annotated with dated flags, per-round re-sweep rule landed; PQ-12 loop read `PERSIST` with all four non-PERSIST states evidence-excluded; PQ-5 armed-watch read PENDING (P1–P3 hold, E1 never fired); PQ-2 gate confirmed closed (remote `e6bd071`, 20 unpushed); PQ-2 cell + canonical wording + normalizer-variance corrections landed; sentinel 47/47 byte-identical across the round | corpus/knowledge/publish-queue.md §r15 + PQ-2 row erratum; SKILL.md FS-traps rule + 3 absent-annotations; mirror-pitfalls.md ×2; publish-channels.md ×1; LOG.md r15; `/tmp/kake-r15/` (12 L2 artifacts + sentinel sha pair + fetch bodies) |
 | 14 | freshness | Standing claims carried stale precision: r13 "byte-frozen" root claim wrong at sha level (Cloudflare cfemail re-encoding); r13 `06:00:36Z` was the journal Starting line not the history `at`; ops-automation "earlier full sweeps" wording backwards; 10+ line-number citations drifted as source/docs grew; no armed verdict path for the pending PQ-5 publish; no dated re-check loop on the operator-gated PQ-12 pin | Sweep landed mid-round and verified (row 78 `at` 00:01:09.976Z, identical 12/5/1); sentinel PASS 45/47 unchanged (timer pair only); 18-curl replication 0-diff; PQ-5 watch armed (P1–P3 verified NOW + E1–E5 + F1–F3 branches — `publish-queue.md` §r14, `SKILL.md` step 4); PQ-12 loop armed and **caught a transition in-round** — scribe `9c28d29` pushed `pushed:true` at 00:06:19Z, live literal moved to `2026-09-29` (53,386B `fb365e38…`); 12 stale citations fixed across 4 corpus files + LOG + the r13 report; 2 new facts landed (generic-sentinel non-discrimination; canonical sitemap wire-absent); charter subpath audit NULL baseline landed; r13 report-filing gap repaired; score stays 8 — armed capability ≠ caught event (critic rule) | `/tmp/kake-r14/` (12 L2 artifacts incl. sentinel-{before,after}.sha), corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert,free-read-verbs}.md, SKILL.md step-4 watch wiring, LOG.md r14 |
 | 13 | freshness | corpus aging: pin-failure framed as "two consecutive probes" (r3+r7); PQ-3 "behind 2", PQ-6 wrong line cite, PQ-5 zip "1 day stale", ops-automation header "76 rows"; "churn paused" unqualified; no at-vs-mtime rule; no absent-semantics rule; r12 commits missing in BOTH repos (round-11 was kake head; main head round-6) | Standing claims re-verified against live state 22:47–22:50Z (3 timer sweeps + manual re-probe identical 12/5/1; 18-curl replication 0-diff; PQ-5 pending, PQ-2 unchanged 19/93; pin-lag persists over deploy-current a8f1e2b); 4 stale citations fixed, 2 rules landed (at-vs-mtime; absent = exact-pin miss), 1 claim rescoped (churn-paused → scribe-automation-only); r12 protocol gap repaired (round-12 commits landed + pushed in both repos); score stays 8 — plan's trigger never materialized, no falsifiable move | `/tmp/kake-r13/` (10 L2 artifacts incl. sentinel-before.sha), corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert}.md, SKILL.md r13 amendments, LOG.md r13 |

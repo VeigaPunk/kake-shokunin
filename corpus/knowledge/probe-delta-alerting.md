@@ -39,7 +39,9 @@ Reads only `~/Projects/webzites/state/probe-history.jsonl`. Exit 0 = parsed
 - Coverage: gaps between consecutive full sweeps; hole = gap > 12h (2× the
   6h timer period). Baseline 2026-09-28: 76 rows → 66 full sweeps / 10 spot
   rows skipped; median gap 0.45h; **1 hole: 42.73h** (09-21T04:14:50 →
-  09-22T22:58:23).
+  09-22T22:58:23). **r16 re-pin (2026-09-29): 78 rows → 67 full / 11 spot,
+  0 malformed; 66 full-sweep gaps, 21 in the 5–7h band** — row-relative
+  counts rot every sweep; re-derive, never copy.
 - Bookkeeping quirk (r10 reviewer): 11 rows (09-20T23:47:43 → 09-21T01:33:49)
   carry `total ≠ ok+|violated|+|errors|` (one unlisted non-ok row each) —
   never trust the summary to reconstruct the roster.
@@ -99,7 +101,7 @@ differ misses this pair entirely (recall cost of spot phantoms).
   detector does not diff it by design (xsnapshot-app armed baseline).
 - `UNIVERSE` membership delta is partial (only newly-violated/error members
   are listed); a registered row that lands `ok` is invisible in history.
-  Era families on this file: {1:10, 14:4, 15:1, 17:54, 18:7} — 66 full
-  sweeps ✓.
+  Era families on this file (r16, 78 rows): {1:11, 14:4, 15:1, 17:54, 18:8} — 67 full
+  sweeps ✓ (r13's {1:10,…,18:7}/66 was the same file at 77 rows — re-derive).
 - Marker-churn ENTERs (charter-ghp class) are indistinguishable from outages
   in history rows — resolve with `probe-latest.json` per-row `fail[]` detail.

@@ -62,8 +62,12 @@ zero journal entries, empty `LastTriggerUSec`, and absence from
    probe=ok …` — e.g. the tail of `grokbot-charter-ghp.log.md`), and the newest
    file mtimes are `2026-09-21 00:32–00:47 -03` (= 03:32–03:47Z).
    `/tmp/kake-r12/live/bots-report.out` (report stamped 2026-09-28T22:14:48.869Z)
-   shows `log=8d(round 2026-09-21T03)` on **20/21** rows and `log=never(?)` on
-   `lucario`, which has **no log file at all**
+   shows `log=8d(round 2026-09-21T03)` on **19/21** rows and `log=never(?)` on
+   `lucario`, which has **no log file at all** (r16 correction: `20/21` holds
+   only under the widened `log=8d(` pattern — `grokbot-veigapunk-page.log.md`
+   ends `log=8d(e2e fix)`; the live `bots report` still reads
+   `19 log=8d(round` / `1 log=8d(e2e` / `1 log=never(?`, identical to this
+   capture)
    (`reports/keepers/grokbot-lucario.log.md` absent — `ls` 2026-09-28).
    `turn=never` on **17/21** rows (counted: `grep -c 'turn=never'
    /tmp/kake-r12/live/bots-report.out` → 17; the four rows with a turn age —

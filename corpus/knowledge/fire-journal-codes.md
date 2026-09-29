@@ -4,9 +4,13 @@ Source: `~/Projects/webzites/scripts/kimi-surface.mjs` (die/throw sites grep'd
 2026-09-28) + `~/Projects/webzites/state/{update,recreate,rebuild}-*.json`
 run journals (09-26/09-27) + `state/rebuild-charter-fire.log`.
 
-Every metered run writes a journal JSON to `state/`: `steps[]` (each
-`{name, at, …}`), `fire: bool`, optional `error: {message, code}`,
-`newVersion`, `preview`, `operatorNext`, `liveAfter`. **The exit code alone
+Every metered run writes a journal JSON to `state/`. **Top-level keys, measured
+over all 28 journals (r16 union) — exactly six:** `site`, `mode`, `startedAt`,
+`steps[]`, `fire: bool`, and optionally `error: {message, code}` (12/28 have
+`error`). The r1–r15 text listed `newVersion`, `preview`, `operatorNext`,
+`liveAfter` as if top-level: they are **not** — `preview`/`liveAfter` appear as
+`steps[]` entry names, `operatorNext` only in `state/rebuild-charter-fire.log`,
+and `newVersion` nowhere as a key. **The exit code alone
 does not tell you if a metered fire was consumed — read `fire` + which step
 died.**
 
@@ -48,7 +52,7 @@ died.**
 
 | Run | Outcome | Reading |
 |---|---|---|
-| `recreate plazir15` ×2 fired | code 7 (session expired mid-run) and code 4 (`tab` died) / code 6 (no /chat/uuid nav) | fires likely consumed on the code-6 run; two fired runs, slot still 404 — version cards may exist orphaned in chats; operator must inspect |
+| `recreate plazir15` ×3 fired | code 7 (session expired mid-run), code 4 (`tab` died), code 6 (no /chat/uuid nav) | fires likely consumed on the code-6 run; **three** journals carry `fire:true` (r16 re-count over `state/recreate-plazir15-*.json`: `…T142712310Z` c7, `…T144433810Z` c4, `…T144616014Z` c6) — r1–r15 said "×2", an undercount; slot still 404 — version cards may exist orphaned in chats; operator must inspect |
 | `rebuild charter-ufo-fsd-kimi` | success end-to-end: version `efc1830` card created, preview 200+marker, `liveAfter.stillDead:true` | correct terminal state; awaits human publish + slug `charter-ufo-fsd` |
 | `update ds4cc-kimi-mirror` ×7 | preflight mix: lease-held (1), transport (8), then fired run hit code 7 session-expired at ListVersions | the fire consumed but version-baseline read failed → code-7 anomaly; operator inspects that chat before any refire |
 | `recreate lucario` ×3 | all preflight (`fire:false`), stopped at canonCheck | zero fires consumed; safe to re-run |

@@ -39,7 +39,7 @@ webzites grokbot tick                         # probe + reconcile + keeper log, 
 | ds4cc.kimi.page | in-sync* but ~18+ revs stale (Aug-29 vintage; missing ss-plus section, stale agent-pip) |
 | plazir27.kimi.page | in-sync* stale vs charter-ghp (09-18 vs 09-26 scribe beat) |
 | plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path |
-| plazir15-ghp | tree byte-identical to live (no commit step) |
+| plazir15-ghp | tree byte-identical to live (no commit step) — **FALSE since 2026-09-26 (r16)**: source is 5 commits ahead of `origin/main`, live serves the pre-push tree (r16 proof below) |
 | charter-ghp | sha256 == source index.html |
 | vault PROPERTIES[] | 5 stale rows internally (PQ-1) — body drift only visible from fetched bytes |
 
@@ -63,3 +63,25 @@ plazir27-kimi-page, plazir27runs-on, plazir15, charter-ufo-fsd-kimi, lucario
 never freshness; `live` in config ≠ URL published. Snapshot config deltas at
 `/tmp/sync-check.json` (transient); durable state in
 `webzites/state/probe-latest.json` + `probe-history.jsonl`.
+
+## r16 re-verification — plazir15-ghp live-vs-source drift (2026-09-29T02:2xZ, read-only)
+
+Caught by the r16 quantified-claim sweep, not by any probe verb (`probe`
+checks `expect` on the root URL; `reconcile` scores one `index.html`; neither
+sees `sitemap.xml`):
+
+| evidence | live | source (`~/Projects/plazir-15-site`) | `origin/main` |
+|---|---|---|---|
+| `sitemap.xml` `<loc>` count | **8** (incl. `/tetris/`, 1,293B, sha `3eb1722c…`) | **7** (sha `8e162356…`; `/tetris/` dropped in `0de5eb9`, 2026-09-26) | 8 |
+| `snake/index.html` `og:url` | 0 hits | 1 hit (`3059bf0`) | 0 |
+| `speedrun/` `rel=canonical` | `…/plazir-15-site/speedrun/` | `https://ds4cc.com/speedrun/` (`0de5eb9`) | self |
+
+`git rev-list --count origin/main..HEAD` = **5** (HEAD `c814526`, remote
+`bd02d10`, all five dated 2026-09-26); every one of the 8 live locs is HTTP
+200, so this is **stale-vs-source, not rot** — a second unpushed publish gate
+alongside ds4cc (PQ-14, `publish-queue.md`). Also corrects the r7 baseline
+arithmetic carried in `sitemap-orphan-audit.md`: 93 (ds4cc staged) + 8
+(plazir *live*) + 2 (charter) = 103 live locs; source-side re-derivation at
+r16 = 93 + 7 + 2 = **102** — the two numbers differ *because* of this gate.
+`reconcile plazir15-ghp` still reports `in-sync` (root index.html path is not
+in the lag set) — the blind-spot class named above, live-proven.

@@ -1,4 +1,4 @@
-# Publish-queue readiness ledger (PQ-1..PQ-13)
+# Publish-queue readiness ledger (PQ-1..PQ-14)
 
 Source queue: `~/Projects/webzites/fleet/fleet.dedupe-report.md` (r1 lines
 46–57, r2 lines 89–106). Config of record: `fleet/fleet.config.json` (21 rows,
@@ -27,10 +27,11 @@ version-card click is never automatable.
 | PQ-7 | `xsnapshot-app` | DNS registration (armed NXDOMAIN tripwire; curl exit 6 since 09-21) | `human-click` (external registration) | none | row leaves `errors[]` in probe-history | constant errors[] is intended baseline until then |
 | PQ-8 | vault + `veigapunk-page` canary | decide vault canary treatment; veigapunk carries `WZ-CANARY-FIX-veigapunk` (keeper publish 09-21T03:47Z) | `none` — decision | — | — | execution path feeds PQ-13 verification |
 | PQ-9 | fleet-wide | policy: should `probe.mjs` skip `status:"pruned"` rows? — it currently has **no** pruned branch (grep: 0 hits); pruned rows probed equally | `none` — policy | — | — | code change in `src/probe.mjs`, not a publish |
-| PQ-10 | ufo-fsd-kimi-pro, xsnapshot-app, snapshot-kimi-pro, plazir27-kimi-pro, charter set | weak/misattributed marker tightening — r2 applied 13 field edits on 11 rows, killed 12 swap-mutations | `none` — config done | — | — | residual: content-level assertions are a probe.mjs feature; **new collision**: `ufo-fsd-kimi-pro` pin `data-kimi-website-id="1a0acf59…"` regressed 1/17 → 2/18 — same site-id serves on `ufo-fsd.kimi.page` AND `.kimi.pro` (keeper re-pin needed); `plazir27runson` marker `Nightcall` case-mismatches served `NIGHTCALL` — passes today only via title regex |
+| PQ-10 | ufo-fsd-kimi-pro, xsnapshot-app, snapshot-kimi-pro, plazir27-kimi-pro, charter set | weak/misattributed marker tightening — r2 applied 13 field edits on 11 rows, killed 12 swap-mutations | `none` — config done | — | — | residual: content-level assertions are a probe.mjs feature; **new collision**: `ufo-fsd-kimi-pro` pin `data-kimi-website-id="1a0acf59…"` regressed 1/17 → 2/18 — same site-id serves on `ufo-fsd.kimi.page` AND `.kimi.pro` (keeper re-pin needed); `plazir27runson` marker `Nightcall`: **r16** live body carries both cases (`NIGHTCALL` 2, `Nightcall` 2) → the configured literal matches again and the "passes only via title regex" clause is retired; keep the pin, re-check the served casing before touching it |
 | PQ-11 | `plazir27runs-on` (chat `1a049cb5-47d2-89cb-8000-0907da6e778e`) | extract 63KB doctrine build to Origin repo OR accept surface-only | `missing-source` | config points sourceDir at charter repo but content is a distinct frozen 09-02 artifact — provenance unresolved | — | extraction feasible (self-contained body per sentinel audit) |
 | PQ-12 | `charter-ghp` (+ plazir27-kimi-page after PQ-3) | re-pin beat-churn marker: config `2026-09-26 scribe beat` vs live **`2026-09-28 scribe beat (`** (verified r7 + r12 + r13 22:47Z live GET; fleet.config.json:256) | `human` — **operator config edit** (r12 relabel: no webzites code writes `fleet.config.json`, only the `loadFleetConfig` reader `src/fleet.mjs:7-11`; the active scribe, not any keeper, churns the marker — the scribe's push leg is failing (3 beats `pushed:false` since 06:05Z), but r13 found the **human pushed 5 commits directly 18:32–20:43Z** and Pages served them within ~30s: live is deploy-current with `a8f1e2b`, so "churn paused" applies only to the scribe automation, not the repo) | diff in `reports/r9-stale-markers.md` | next probe run flips row ok; procedure `SKILL.md` re-pin section | beats churn ~daily while beats land — see SKILL.md re-pin procedure + r13 addendum in `keeper-timer-inert.md`; keeper-timer dead ≠ the blocker |
 | PQ-13 | `veigapunk-page` | conditional verify only — canary row-id pin discriminates by design | `none` — conditional | — | re-GET after any PQ-8 action | only if PQ-8 executes |
+| PQ-14 | `plazir15-ghp` (`veigapunk.github.io/plazir-15-site/`) | **source is 5 commits ahead of `origin/main`** (HEAD `c814526`, remote `bd02d10`, all 5 dated 2026-09-26): live still serves the pre-push tree — sitemap 8 locs incl. `/tetris/` vs source 7, `snake/` missing its `og:url`, `speedrun/` canonical not yet repointed to ds4cc.com | `human` — **operator `git push origin main`** (r16 discovery; r6 knew "5 ahead / 5 diffs" but it was never ledgered) | `git rev-list --count origin/main..HEAD` in `~/Projects/plazir-15-site`; live sitemap loc-count vs source (8≠7) | per-path live GET vs `git show origin/main:<path>`; sitemap 8→7 locs | invisible to `probe`/`reconcile` (root `index.html` unchanged → `in-sync`); r16 proof in `drift-detection.md` §r16 |
 
 ## Ordering DAG (evidenced edges only)
 
@@ -221,8 +222,52 @@ genuine danglers**: `~/Projects/ufofsdbeta`, `~/Projects/ufofsdbeta/.ufo`,
 `~/Projects/ufofsdbeta-kimi-review` (all verified PRESENT at r1), and
 `~/Projects/ephemeral/wz1`, `~/Projects/ephemeral/wz1/ds4cc` (emptied
 21:42-03:00 — `ephemeral/` itself still exists). Domain roots webzites /
-ds4cc-marketplace / plazir-15-site / origin-work / lucario all alive; kake
-cites `bounties` 0 times. Classification claims about the vanished dirs are
+ds4cc-marketplace / plazir-15-site / origin-work / lucario all alive. **r16
+erratum:** this paragraph originally read "kake cites `bounties` 0
+times" — true of the corpus *before* the r15 edit (`git grep 'Projects/bounties'
+4c9a985 -- SKILL.md corpus/` = 0 hits) but falsified by the paragraph itself:
+kake's citation count for `bounties` is now **1** (`publish-queue.md:214`
+as of r16, the paragraph above; the line-number pin WILL shift on the next
+edit — re-grep, never trust it). Descendant citation targets under
+`~/Projects/bounties/` and
+`~/Projects/origin-work/open-bug-bounties/`: **0** (r16 connector sweep).
+Classification claims about the vanished dirs are
 annotated (not deleted) — they were true when written. Hazard rule landed
 in SKILL.md: `~/Projects` vs `~/projects` are distinct dirs; lowercase-path
 ENOENT is a typo, not a vanish.
+
+## r16 re-verification (2026-09-29T02:1x–02:3xZ, read-only)
+
+- **PQ-12 `PERSIST`** — pin `2026-09-26 scribe beat` (`fleet.config.json:256`,
+  mtime unchanged 2026-09-27T15:30:57Z) vs live `2026-09-29 scribe beat (`
+  (`/` 200, 53,386B, sha `fb365e38…` — byte-identical to r15 and to
+  `origin/main` `9c28d29`). Excluded: EDIT-LANDED (pin≠literal), CHURN-AGAIN
+  (live date == 09-29, not newer), SILENT (fresh 200 + literal present),
+  ANOMALY (live == deploy). Scribe ledger: 28 beats, newest 00:06:19.897Z
+  `pushed:true`; no beat newer than `9c28d29`.
+- **PQ-5 `PENDING`** — `/` 404 / 13,409B / sha `93ddca9a…` byte-identical to
+  the armed baseline; E1 never fired. P3 holds: vault `ufo-fsd.kimi.page`
+  200 / 9,966B / sha `d93d6a0c…`, 13 PROPERTIES members (10 url-bearing),
+  **3/10 dead** — unchanged. Vault twin `veigapunk.kimi.page` = 200/10,059B
+  (its own figure; do not swap the two).
+- **PQ-2 `GATE-CLOSED`** — remote `e6bd071`, local `f3d2ecd`, 20 unpushed,
+  `sitemap.xml`+`robots.txt` still 404/9,379B. **ETag anomaly:** the r16
+  sampler that read `6ab49126-1365d` was refuted by L1 (7/7 re-fetches give
+  `6ab49127-1365d`, matching this file) — treat the ETag as an
+  **edge-unstable identifier**, never a freeze metric; the freeze metric for
+  the canonical root stays the sha (`b6f65899…` == `origin/main:index.html`).
+- **NEW — PQ-14 (plazir15-ghp gate).** `~/Projects/plazir-15-site` is **5
+  commits ahead of `origin/main`** (`c814526` vs `bd02d10`), so the live GHP
+  tree is the pre-push build: live sitemap 8 locs incl. `/tetris/` vs source
+  7, `snake/` live lacks the source's `og:url`, `speedrun/` live canonical is
+  self vs source `ds4cc.com`. All 8 live locs 200 → stale, not rot; invisible
+  to `probe`/`reconcile`. Proof: `drift-detection.md` §r16.
+- **Claim-class sweep.** A complete enumeration of the lane's quantified
+  standing claims (160 claims, `corpus/claims` recipe in
+  `corpus/knowledge/freshness-sweep.md`) found **15 stale** literals this
+  round; those inside this file: the PQ-10 `Nightcall` clause (fixed above),
+  the 5 r15 SG-count literals (`ops-automation.md`, `probe-delta-alerting.md`),
+  `19/21` vs `20/21` log-age (`keeper-timer-inert.md`,
+  `free-read-verbs.md`), the two verb-outcome samples (`free-read-verbs.md`),
+  the `×2`→`×3` plazir15 fire count and the journal top-level key list
+  (`fire-journal-codes.md`), and two `src/cli.mjs` line pins (`SKILL.md`).

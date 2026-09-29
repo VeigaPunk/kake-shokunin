@@ -204,3 +204,106 @@
   robots}.html); corpus edits `publish-queue.md` §r15 + PQ-2 cell erratum,
   `SKILL.md` ×4, `mirror-pitfalls.md` ×2, `publish-channels.md` ×1;
   l0 corroboration line appended.
+
+- 2026-09-29 — round 16: freshness axis-move **9→10** — drift detection
+  widened from path-citations-only to **all quantified standing claims**, and
+  made reproducible. Articulated by 12 read-only L2 probes in one batched call
+  (planner + scout-paths + scout-claims + executor×2 + labrat + revenger +
+  critic + reviewer + connector + sentinel + scribe → `/tmp/kake-r16/`); zero
+  fires, zero pushes, zero systemctl mutations, zero webzites-state writes
+  (state-dir sha `15a5c47f…4669cb2` identical at open and after every
+  instrument run). (1) **Instrument landed** — `scripts/freshness-sweep.mjs`
+  (read-only, zero deps, exit 0/1/2/64, `--json`/`--offline`/`--section`/
+  `--selftest`) + `corpus/knowledge/freshness-pins.json` + runbook
+  `corpus/knowledge/freshness-sweep.md`; sections: §paths (every `~/…`
+  citation resolves; frozen `pathsMissSet` = 9 annotated misses; a NEW miss is
+  drift), §history (row floor 78, last-at ceiling 6h20m, fleet-shape set
+  equality, `probe-delta` exact event count 6 + last ENTER lucario
+  @09-27T16:38:27Z, phantom max 0), §armed (PQ-12/PQ-5/PQ-2/ds4cc-sitemap/
+  PQ-14). `--selftest` 9/9 (declaredAbsent exit-neutral; unannotated miss →
+  1; interior-tampered history → 1; malformed JSONL → 2; unknown flag/section
+  → 64; write-API confinement). (2) **Claim-class sweep = the move evidence**
+  — 160 quantified claims enumerated with one live recipe each
+  (`/tmp/kake-r16/scout-claims.md` + `claims.tsv`): **117 HOLD / 15 STALE / 7
+  UNVERIFIABLE / 21 HISTORICAL-OK**. All 15 stale items fixed or re-pinned:
+  `ops-automation.md` 77→78 rows ×5 + 66→67 full sweeps + 65→66 gaps +
+  20/65→21/66 band (`:4,22,29-31,112`); `probe-delta-alerting.md` 76→78 /
+  66→67 / 10→11 spot + era families {1:10→11, 18:7→8} (`:40,102`);
+  `keeper-timer-inert.md:65` + `free-read-verbs.md:373` log-age 20/21→19/21
+  (the widened `log=8d(` pattern keeps 20 — `veigapunk-page` ends `e2e fix`);
+  `free-read-verbs.md:212-216` sync-check bare sample ok:3→4 + attention 6→5
+  (plazir27runs-on now in-sync) and `:166-171` reconcile fleet 7→6 ids /
+  6→5 DIFF (both re-run live at 02:35Z, exits 1 re-proven — exit-code-only
+  re-checks would have called these "unchanged"); `fire-journal-codes.md:7-13`
+  journal top-level key union (measured over all 28 journals: exactly
+  `site,mode,startedAt,steps[],fire[,error]` — `newVersion`/`preview`/
+  `operatorNext`/`liveAfter` were listed as top-level and are not) and `:55`
+  `recreate plazir15` fired ×2→**×3** (`fire:true` in c7/c4/c6 journals);
+  `publish-queue.md` PQ-10 `Nightcall` clause (body now carries both cases)
+  and the bounties self-cite erratum `:213→:214` (reviewer-caught);
+  `SKILL.md` pins `cli.mjs:1086`→`:1087` and `:386`→`:389`. **S11 refuted on
+  re-measurement:** the ETag is `6ab49127-1365d` in 7/7 L1 fetches (matching
+  the file); recorded as a rule instead — ETags are edge-unstable identifiers,
+  never freeze metrics (the sha is). (3) **In-round domain catch (PQ-14)** —
+  `~/Projects/plazir-15-site` is **5 commits ahead of `origin/main`** (HEAD
+  `c814526`, remote `bd02d10`, all 5 dated 2026-09-26), so live serves the
+  pre-push tree: live `sitemap.xml` **8 locs** incl. `/tetris/` (sha
+  `3eb1722c…`) vs source **7** (`8e162356…`), live `snake/` has 0 `og:url` vs
+  source 1, live `speedrun/` canonical self vs source `ds4cc.com`; all 8 live
+  locs 200 → **stale-not-rot**; invisible to `probe`/`reconcile` (root
+  `index.html` not in the lag set → `in-sync`). Falsifies `drift-detection.md`
+  "plazir15-ghp tree byte-identical to live" (corrected + §r16 proof);
+  ledgered **PQ-14** (`publish-queue.md`); the instrument now reproduces the
+  catch mechanically (`PQ-14 … sitemap LIVE-SOURCE-GAP !! DRIFT`, exit 1, run
+  02:4xZ). r7's "103 locs" is now written as **103 live-side / 102
+  source-side — the delta IS the gate** (`sitemap-orphan-audit.md`, SKILL.md
+  :194, README). (4) **Armed watches, re-verification only** — PQ-12
+  `PERSIST` (pin `2026-09-26` @`fleet.config.json:256`, mtime unchanged
+  09-27T15:30:57Z; live `2026-09-29 scribe beat (` 200/53,386B/sha
+  `fb365e38…` == r15 == remote+clone `9c28d29`; EDIT-LANDED/CHURN-AGAIN/
+  SILENT/ANOMALY each excluded with evidence; scribe ledger 28 beats, newest
+  00:06:19.897Z `pushed:true`, none newer than `9c28d29`); PQ-5 `PENDING`
+  (404/13,409B/`93ddca9a…` identical to the armed baseline; E1 never fired;
+  P3 vault 200/9,966B/`d93d6a0c…`, 13 PROPERTIES, 3/10 dead — unchanged; the
+  twin `veigapunk.kimi.page` is 10,059B, do not swap the two); PQ-2
+  `GATE-CLOSED` (remote `e6bd071`, local `f3d2ecd`, 20 unpushed,
+  sitemap/robots 404/9,379B). (5) **Path base STABLE** — full re-sweep at
+  02:36:54Z: 59 targets, 49 resolve, 10 declared-absent, **0 new dangling**;
+  all 5 r15 danglers still absent; 4 new targets in-round
+  (`~/Projects/bounties`, `speedrun-r1.md`, `~/projects`, `open-bug-bounties`)
+  — all resolving/annotated; kake's 4 domain roots untouched by both windows
+  (A 23:51:31.175Z, B 01:45:06.815Z) and the lowercase dir is a distinct inode
+  (27238 vs 101125103). (6) **Sibling/hazard** — kasegi's two loss reports
+  (bounties r15, groknight −681f/41d/14MB r16 01:45:06.815Z) have **0 kake
+  citation descendants** (connector), but revenger bounded a LIVE escalating
+  prune regime on `~/Projects` roots inside r16 (W1 ≤23:51:31Z, W2 00:42:39Z,
+  W3 01:45:06Z, W4 `.ufo-missions` 262→2 dirs ≤02:05:07Z, W5 02:19:20Z) with
+  the actor still undetermined and all `.git` mtimes contaminated → L0
+  corroboration line appended (kake | round-16); the kasegi fleet-GC
+  hypothesis is NOT confirmed (0 groknight/prune mentions in
+  dispatcher-daemon.out / fleet-ledger.jsonl). kotoba r14's probe-delta
+  exit-0 complaint stays dispositioned by design. (7) **Adjudication** —
+  critic's first two rulings: freshness 9→10 NOT-ELIGIBLE (no trigger;
+  instrument = operability per r10 precedent) with two instrument
+  suppression paths proven (interior-history tamper absorbed; ±2-line/OR
+  `declaredAbsent` mislabel); both were closed (exact `deltaEventsExact`/
+  `deltaLastEvent` pins, armed set-delta gate, opt-in
+  `pathsAbsenceStrictSameLine`, 9/9 selftest) and the critic then re-ruled
+  **MOVE-ELIGIBLE on both independent branches** (complete-claim sweep; the
+  unledgered plazir live/source drift) with the predicate: "complete live
+  standing-claim sweep flags a previously unmeasured stale/unverifiable claim
+  with raw evidence OR catches previously unledgered live/source drift and
+  repairs/ledgers; instrument alone remains operability-only." Reviewer
+  verdict `concerns` (1 FAIL: the self-cite line number) — fixed in-round;
+  its 3 low residue items are pre-r15 conventions, recorded not fixed.
+  Evidence: `/tmp/kake-r16/` (planner.md, scout-paths.md + 4 target lists,
+  scout-claims.md + claims.tsv + raw recipes, freshness-sweep.mjs,
+  freshness-pins.json, executor-instrument.md, executor-arms.md,
+  labrat-timers.md, revenger-history.md, critic.md, reviewer-cites.md,
+  connector.md, scribe-draft.md, sentinel-{before,after}.sha,
+  raw/final-{bare,offline,selftest}.out); repo edits: SKILL.md ×6,
+  corpus/README.md ×4, corpus/lessons/round-16.md, corpus/knowledge/
+  {freshness-sweep.md, freshness-pins.json, ops-automation.md,
+  probe-delta-alerting.md, drift-detection.md, publish-queue.md,
+  sitemap-orphan-audit.md, keeper-timer-inert.md, free-read-verbs.md,
+  fire-journal-codes.md}, SCORECARD.md 9→10, LOG.md r16.

@@ -1,8 +1,9 @@
 # Ops automation — timers, history, bot fleet
 
 Sources: `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}`
-(read 2026-09-28), `~/Projects/webzites/state/probe-history.jsonl` (77 rows,
-09-20→09-28; r13 re-read), `bin/webzites.mjs --help` (2026-09-28),
+(read 2026-09-28), `~/Projects/webzites/state/probe-history.jsonl` (**78
+rows**, 09-20→09-29; r16 re-read — a row-count literal here is a *floor*, it
+grows every 6h; re-derive, never copy), `bin/webzites.mjs --help` (2026-09-28),
 `reports/keepers/grokbot-*.log.md`.
 
 ## The fleet is already being watched — do not re-probe blindly
@@ -19,17 +20,19 @@ these user units. **Before running your own `probe --all`, check
 
 ## probe-history.jsonl — semantics and the transitions it recorded
 
-77 rows 2026-09-20→09-28 (r12: line 77 = the r11 sanctioned `total:1` spot
-row, 2026-09-28T21:31:26.591Z; no fleet row since 18:51Z). Format per row:
+**78 rows** 2026-09-20→09-29 (r16 re-read 2026-09-29T02:2xZ; row 77 =
+the r11 sanctioned `total:1` spot row at 2026-09-28T21:31:26.591Z, row 78 =
+the 2026-09-29T00:01:09.976Z fleet sweep). Format per row:
 `{"at", "total", "ok", "violated":[ids], "errors":[ids]}`.
 `total` counts probed rows (14→15→17→18 as rows were added); `ok` counts only
 passes — `total - ok` = violated+errors. Single-row probes write
 `total:1` rows — distinguish them from fleet runs before trend-reading.
-**The 6h cadence is the timer's, not the file's** (round-9 review; r13
-detector re-run: 66 full sweeps, 11 spot, 0 malformed on 77 rows) — of 77
-sweeps' **65 consecutive full-sweep gaps** (20/65 in the 5–7h band; over all
-77 rows' 76 raw gaps the median is 0.26h — always cite the full-sweep basis,
-not the row basis — r14), largest hole 42.7h (09-21T04:14→09-22T22:58). Treat
+**The 6h cadence is the timer's, not the file's** (round-9 review; r16
+detector re-run: **67 full sweeps, 11 spot, 0 malformed on 78 rows** — the
+full/spot split advances with every sweep row, so treat it as a dated
+measurement, not a constant) — of 66 full-sweep gaps **21 sit in the 5–7h
+band**; over all 77 raw gaps the median is 0.26h — always cite the
+full-sweep basis, not the row basis — r14), largest hole 42.7h (09-21T04:14→09-22T22:58). Treat
 `probe-history.jsonl` as an event log whose sampling is bursty — never
 back-calculate "time in violated" from row counts alone.
 
@@ -109,9 +112,11 @@ recent `reconcile=drift` + no note = live-vs-source problem; drift + a
   `LastTriggerUSec` empty, zero journal lines across 26 recorded boots —
   has still never fired. L0 question (kake round-12) still unanswered at
   22:5xZ.
-- **detector upkeep:** `node scripts/probe-delta.mjs` on 77 rows = 6 events
-  / 0 phantom (r10 baseline holds on the +1 spot row; universe rule
-  suppressed it, naive diff would have fabricated 6 EXIT phantoms).
+- **detector upkeep:** `node scripts/probe-delta.mjs` on 78 rows = 6 events
+  / 0 phantom (r16 re-run; the r10 baseline holds across the +1 fleet row —
+  universe rule suppressed it; the naive consecutive-row symdiff now emits
+  52 events at 78 rows (~46 phantom, labrat r16) vs the r10-measured 42/40
+  at 76 rows — the phantom count grows with the file).
 - **freshness-read rule (r13 forensics):** read `probe-latest.json`'s `at`
   field, never its mtime — after the r11 clobber + manual restore, mtime
   21:31:45Z vs `at` 18:51:26Z (2h40m apart); birth-time equals the clobber

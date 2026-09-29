@@ -170,7 +170,10 @@ both sides — live bytes == local `sourceDir`, regardless of the 5-commit local
 lead over `origin/main`: reconcile compares live vs **local sourceDir**, never
 git-vs-origin); fleet-wide 21-row sweep → **exit 1**, 7 attention ids
 (`ufofsd-charter, plazir27-kimi-page, plazir27runs-on, plazir15,
-charter-ufo-fsd-kimi, xsnapshot-app, lucario` — 6 DIFF + 1 ERR).
+charter-ufo-fsd-kimi, xsnapshot-app, lucario` — 6 DIFF + 1 ERR). **r16 re-read
+(2026-09-29T02:35Z, exit 1 re-proven): 6 attention ids — `plazir27runs-on`
+dropped; verdicts `{no-source:6, in-sync:4, drift:5, match:2, fetch-error:1,
+skipped:3}` of 21, i.e. 5 DIFF + 1 ERR; re-run before citing**.
 Evidence: `/tmp/kake-r11/reconcile-ds4cc.out`, `/tmp/kake-r11/reconcile-plazir15.json.out`,
 `/tmp/kake-r11/labrat-reconcile.md`.
 
@@ -212,7 +215,12 @@ is invisible to this verb; `sync-check burnerchrome-kimi` → **exit 0, in-sync*
 [ufofsd-charter, plazir27-kimi-page, plazir27runs-on, plazir15,
 charter-ufo-fsd-kimi, lucario]}` — 3 of the 6 attention rows are 404-sentinel
 dead slots (`unpublished404:true`, sha `93ddca9a…`), 3 are real 200/titleEqual
-drift with source-side marker missing; verdict lines **identical across two
+drift with source-side marker missing; **r16 re-read (2026-09-29T02:35Z, exit 1
+re-proven): `{ok:4, attention:[ufofsd-charter, plazir27-kimi-page, plazir15,
+charter-ufo-fsd-kimi, lucario]}` — `plazir27runs-on` flipped to `in-sync` (the
+marker's served casing changed), so the count is 3 sentinel + 2 real drift of
+5; every attention-list literal in this file is a dated sample, re-run the verb
+before citing it**; verdict lines **identical across two
 consecutive runs**; `--dead` (6 rows) → **exit 0**; unknown id → **exit 1**
 (`kimi-surface: no kimi-surface site in ids: …`); unknown verb → **exit 64**.
 `liveSha256` is **nondeterministic run-to-run** (ds4cc mirror:
@@ -370,7 +378,8 @@ critic 22:2xZ — all three agree):
 - `bots report` → **exit 1** — stderr `webzites bots report: 1 site(s) with
   identity gaps: lucario`; stdout 21 rows: `probe=<verdict>(3.4h)` for the 18
   snapshot rows, `probe=never` for the 3 url-less rows; `log=8d(round
-  2026-09-21T03)` on 20/21 (lucario `log=never(?)` — no log file);
+  2026-09-21T03)` on 19/21 (r16 correction — the widened `log=8d(` pattern
+  gives 20/21, `veigapunk-page` ends `e2e fix`; lucario `log=never(?)` — no log file);
   `turn=never` on **17/21** (counted on the capture; the four with turn ages —
   vault, veigapunk-page, ufofsd, plazir15 — are 8d); `card=miss wrapper=miss`
   only on lucario.

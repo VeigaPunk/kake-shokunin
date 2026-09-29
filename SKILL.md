@@ -33,7 +33,7 @@ Registry of record: `~/Projects/webzites/fleet/fleet.config.json` (21 rows —
 rows are `status:"pruned"`/`"queued"` — never deleted. Second registry:
 `fleet/grokbots.json` (20 roster rows, mtime 2026-09-20) — one row per keeper
 bot, a **separate universe** parity-checked in both directions by
-`grokbots --check` (`src/cli.mjs:361`, `:386`); it lags `fleet.config.json`
+`grokbots --check` (`src/cli.mjs:361`, `:389` reverse loop — r16 re-pin, was `:386`); it lags `fleet.config.json`
 (`lucario` missing — see the lucario row above). Config `status` is a
 **snapshot, not truth** — 2026-09-28 probe proved `lucario` recorded `live`
 while never published; always re-probe before acting. `probe.mjs` has no
@@ -178,20 +178,46 @@ re-verify, don't assume the r1 findings still hold.
    `expect.marker` in `fleet.config.json` — file that edit as a
    publish-queue item (webzites keeper owns it), never edit it silently.
 
+## Freshness sweep — run this before citing anything below
+
+```bash
+node scripts/freshness-sweep.mjs            # exit 0 clean · 1 drift · 2 bad input · 64 usage
+node scripts/freshness-sweep.mjs --offline  # §paths + §history without any fetch
+```
+
+Read-only, zero deps. It re-derives the lane's standing claims against
+`corpus/knowledge/freshness-pins.json` in three sections: **§paths** (every
+`~/…` citation resolves; the frozen `pathsMissSet` catches a *new* miss —
+a citation that stopped resolving MUST be annotated or fixed before the pin
+moves), **§history** (`probe-history.jsonl` row floor + last-row age + fleet
+shape set + `probe-delta` event/last-event pins), **§armed** (PQ-12 beat pin,
+PQ-5 E1 watch, PQ-2 gate, ds4cc sitemap, PQ-14 plazir gate + live/source
+sitemap gap). Runbook, check-id table and re-pin procedure:
+`corpus/knowledge/freshness-sweep.md`.
+
+**Rule (r16):** never copy a pinned literal into prose — cite the check-id and
+the pins file. Counts of files that grow on a timer (probe-history rows,
+full/spot splits, era families) are **floors or dated measurements, never
+constants**; verb-outcome samples (attention lists, ok counts) are **dated
+samples** and MUST be re-run before being cited. A frozen sample cannot see
+the claim classes it never sampled: r10's "60/60 paths resolve" was retired by
+r15 for exactly that reason, and r16's first complete claim sweep (160 claims)
+found 15 stale literals in classes no earlier round had a recipe for.
+
 ## Live-vs-source drift detection
 
 | Row class | Command | What it catches | Blind spot |
 |---|---|---|---|
 | Any row | `webzites probe <id>` | status, redirect-to-soft-404, title, marker loss; exit 1 on any violated/error in the **probed subset**, exit 2 = unknown id / no sites (usage on stderr, **no write**) | content rot inside a passing marker; **writes state** — `probe <id>` overwrites `state/probe-latest.json` with only the probed row (`src/cli.mjs:78` → `src/fleet.mjs:39-52`; no merge, unlike `tick`/`bots task` `src/cli.mjs:289`,`:647`) + appends a `total:1` history line; backup/restore first or `webzites status` narrows to that row until the next sweep — `corpus/knowledge/free-read-verbs.md` |
 | kimi row + `sourceDir` | `node scripts/kimi-surface.mjs sync-check <id>` | title/marker vs source; "in-sync*" = identity OK, **freshness unknown** (live r11: ~Aug-29 mirror verdicts in-sync, exit 0); **exit 1 unless every row ∈ {match,in-sync,no-source,skipped}** (`scripts/kimi-surface.mjs:206-208`); `unpublished404:true` = live body is the 13 409B Kimi 404 sentinel sha `93ddca9a…` (`:180`,`:198`) — dead slot, NOT rot; unknown id exits 1 (`die` `:34`), unknown verb exits 64 (`:1198`) | byte drift — kimi rewrites bytes (sdk-seed.js, cfemail, entity encoding); decide republish by *vintage evidence* not digest; JSON drops `markerSource` → `drift` **with** `titleEqual:true`+`markerLive:true` = source-side marker missing (live r11: ufofsd-charter, plazir27-kimi-page, plazir27runs-on); read-only, never touches state |
-| GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | root URL body vs ONE scored `index.html` (depth ≤2): match/in-sync/drift — **read-only** (never touches `probe-latest.json`); labels `src/reconcile.mjs:200-212` (`OK/SYNC/DIFF/LIVE/NOSRC/NODIR/ERR/SKIP`); **exit 1 only on drift/fetch-error/source-missing** (`src/cli.mjs:269-272`) — `no-source`/`no-source-file`/`skipped` exit 0, so `NOSRC` is silent; unknown id = crash exit 1 + stack (un-awaited dispatch `src/cli.mjs:1086`) | all other paths incl. second `index.html`s; **`in-sync` on GHP masks byte drift** — treat as "git fetch sourceDir + spotcheck," see `corpus/knowledge/ghp-subpath-spotcheck.md` |
+| GHP row + `sourceDir` | `webzites grokbot reconcile <id>` | root URL body vs ONE scored `index.html` (depth ≤2): match/in-sync/drift — **read-only** (never touches `probe-latest.json`); labels `src/reconcile.mjs:200-212` (`OK/SYNC/DIFF/LIVE/NOSRC/NODIR/ERR/SKIP`); **exit 1 only on drift/fetch-error/source-missing** (`src/cli.mjs:269-272`) — `no-source`/`no-source-file`/`skipped` exit 0, so `NOSRC` is silent; unknown id = crash exit 1 + stack (un-awaited dispatch `src/cli.mjs:1087` — r16 re-pin, was `:1086`) | all other paths incl. second `index.html`s; **`in-sync` on GHP masks byte drift** — treat as "git fetch sourceDir + spotcheck," see `corpus/knowledge/ghp-subpath-spotcheck.md` |
 | kimi bindings | `node ~/Projects/webzites/scripts/kimi-surface.mjs kimi-map` | chat→domain truth: publishedUrl, publishState, version ids; sweeps project chats top-level ListChats misses | chats beyond sweep pages |
 | probe-history deltas | `node scripts/probe-delta.mjs` (this repo; `--since`, `--hole-hours`, `--json`) | violated[] ENTER/EXIT, registrations (UNIVERSE), coverage holes >12h; spot-probe + bootstrap phantoms suppressed (naive diff = 42 events, 40 phantom; r10 baseline: 6 events, 0 phantom) | transitions bounded by sweep sampling; marker churn vs outage needs `probe-latest.json` — `corpus/knowledge/probe-delta-alerting.md` |
 | Whole fleet | `webzites grokbot tick` | probe + reconcile + keeper log per site | tick is **manual/round-driven only** — the daily keeper timer is disabled and has never fired (`corpus/knowledge/keeper-timer-inert.md`); running it writes state + appends per-site keeper logs |
 | Roster/ops reads (r12) | `webzites status --json` · `webzites grokbots --check` · `webzites bots list` · `webzites bots report [--stale N]` | snapshot verdicts (status); registry/card/log parity across all 21 fleet rows (`--check`, exit 1 on gaps); card+wrapper state across the 20 registry rows (list); per-site probe/log/turn ages + gap/stale verdicts (report, exit 1 iff gaps or `--stale` tripped) | all four read-only local reads (r12 sha guard, zero state delta — `/tmp/kake-r12/live/`); `status --json` and `bots list` **always exit 0** — read stdout only; `bots report` probe column is snapshot-relative (inherits the `probe <id>` clobber); queued wrapper-misses are not gaps (`src/cli.mjs:935`); `--stale` never trips unless passed (`src/cli.mjs:836-839`, `:932`) — with the keeper timer inert, any threshold flags all logs STALE |
 | Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
 | GHP subpaths | walk `sourceDir` → GET `<url>/<rel>` → sha vs `git show origin/main:<rel>` | subpath 404s/rot probe+reconcile can't see (first baseline 2026-09-28: 2 352 paths, 0 true rot, 126 diffs all local git lead/lag) | procedure in `corpus/knowledge/ghp-subpath-spotcheck.md` |
-| URL lists (sitemap) | GET every `<loc>` + sourceDir membership | dead listings, foreign content, pre-push listing preview (baseline 2026-09-28: 103 locs, 0 orphans/dead) | unlisted paths invisible; GHP live-only orphans impossible by construction (deploy artifact = full tree snapshot) — `corpus/knowledge/sitemap-orphan-audit.md` |
+| URL lists (sitemap) | GET every `<loc>` + sourceDir membership | dead listings, foreign content, pre-push listing preview (baseline 2026-09-28: 103 locs **live-side** = 93 ds4cc-staged + 8 plazir-live + 2 charter; source-side re-derivation r16 = 102 — the delta IS the unpushed plazir gate, PQ-14; name the side) | unlisted paths invisible; GHP live-only orphans impossible by construction (deploy artifact = full tree snapshot) — `corpus/knowledge/sitemap-orphan-audit.md` |
 | kimi subpaths | live-index same-origin link sweep + canonical `sitemap.xml` parity (`dir/`→`dir/index.html`), classify misses by `git log --diff-filter=A` vs publish vintage | per-path staleness quantified (ds4cc mirror 2026-09-28: **75**/93 canonical locs missing — sitemap commit `f3d2ecd` adds 75; "74" in older docs was off by one — **all post-vintage, 0 rot**); `dir/` href rot | byte drift meaningless; `${...}` template literals are noise — `corpus/knowledge/kimi-subpath-audit.md` |
 | Vault PROPERTIES[] | `node -e` eval the `const PROPERTIES = [...]` literal in the fetched body + GET each `url` | rendered-link rot WITHOUT a DOM (r9 baseline: 3/10 live-claimed links dead; lucario absent) | PROPERTIES[] is the only link surface — vault body has no other links; `corpus/knowledge/vault-properties.md` |
 
@@ -305,6 +331,10 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
 - `scripts/probe-delta.mjs` (this repo) + `corpus/knowledge/probe-delta-alerting.md`
   — runnable history-delta + coverage-hole detector; rules, baseline,
   naive-diff phantom mechanism.
+- `scripts/freshness-sweep.mjs` (this repo) + `corpus/knowledge/freshness-sweep.md`
+  + `corpus/knowledge/freshness-pins.json` — the standing-claim drift
+  instrument: §paths/§history/§armed, exit 0/1/2/64, `--selftest`, pinned
+  baselines in JSON. Run it before citing anything in this file (r16).
 - `corpus/knowledge/free-read-verbs.md` — the four free-read verbs
   (`probe`/`status`/`grokbot reconcile`/`sync-check`): per-verb universes,
   live-verified exit contracts, the `probe <id>` snapshot-clobber trap +

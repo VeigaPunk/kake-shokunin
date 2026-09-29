@@ -71,6 +71,16 @@ The staged sitemap doubles as a **pre-push drift preview**: all 93
 listed paths already serve 200, so pushing adds a sitemap listing
 what's already there — zero new-path risk in that direction.
 
+**r16 re-read (2026-09-29T02:2xZ) — the 103 decomposes, and one term moved:**
+`93 (ds4cc staged) + 8 (plazir15-ghp live) + 2 (charter) = 103` **live**;
+source-side the same sum is now **102**, because `plazir-15-site` dropped its
+`/tetris/` loc in `0de5eb9` (2026-09-26) while live still serves the 8-loc
+pre-push tree — that row is **5 commits ahead of `origin/main`** (r16
+discovery, now ledgered as **PQ-14**). plazir live `/tetris/` = 200/1,650B, so
+this is stale-listing-through-deploy-lag, not a dead listing. Both numbers are
+correct *for their surface*: never compare a live loc count against a
+source-side one without naming which side (r16 rule).
+
 ## Charter marker churn — second consecutive day
 
 `probe-latest.json` (18:51Z): `charter-ghp` FAILED again on
