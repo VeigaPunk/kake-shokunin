@@ -45,9 +45,12 @@ universe is url-filtered upstream: `probe`/`status` see only rows with `url`
 invisible to probe/status by design — never read a snapshot count as the
 fleet count (`corpus/knowledge/free-read-verbs.md`).
 
-Non-sources: `~/Projects/ufofsdbeta` is the UFO-FSD *runtime* repo (no Pages
-site; `dist/` is JS build output). `~/Projects/ufofsdbeta-kimi-review` is a
-non-git review snapshot — never treat it as publishable source.
+Non-sources (classification stands; both dirs **absent from the FS since the
+2026-09-28T23:51:31Z `~/Projects` drift event** — r15 path sweep):
+`~/Projects/ufofsdbeta` was the UFO-FSD *runtime* repo (no Pages site;
+`dist/` was JS build output). `~/Projects/ufofsdbeta-kimi-review` was a
+non-git review snapshot — never publishable source; if either returns,
+re-verify, don't assume the r1 findings still hold.
 `plazir-15-site/speedrun/` is a frozen 3-run copy of `ds4cc.com/speedrun/`
 (`rel=canonical` points to ds4cc.com) — update ds4cc's `speedrun/`, not plazir's.
 
@@ -112,8 +115,9 @@ non-git review snapshot — never treat it as publishable source.
    `webzites grokbot reconcile <id>` compares live bytes vs `sourceDir`.
 3. **Fix in the source repo**, commit path-scoped. Never edit live bytes,
    never push from a foreign clone. For no-push workspaces
-   (`~/Projects/ephemeral/wz1/*`): deliver `git format-patch` series +
-   `publish/APPLY.md`; verify `git am --check` against a fresh clone.
+   (`~/Projects/ephemeral/wz1/*` — **wz1 emptied 2026-09-28T21:42-03:00**;
+   recipe only if the workspace is re-created): deliver `git format-patch`
+   series + `publish/APPLY.md`; verify `git am --check` against a fresh clone.
 4. **Publish stays operator-gated.**
    - GHP rows: the publish verb is `git push origin main` — operator action.
      `deploy-github-pages.sh` (ds4cc) is a *setup* script (CNAME, remote, DNS
@@ -259,11 +263,20 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
   Enter — assert menu count 0. Composer `div.chat-input-editor`; send is a
   click on `.send-button-container` (Enter unverified). `SingletonLock` after
   a crash is tolerated — `browser ensure` rebinds.
-- **Source traps.** `ufofsdbeta-kimi-review` (no .git) is a snapshot, not a
-  source. `plazir-15-site/speedrun/` is a frozen copy; its canonical lives in
+- **Source traps.** `ufofsdbeta-kimi-review` (was: no .git; snapshot, not a
+  source) — **absent since 2026-09-28T23:51:31Z** (r15 sweep).
+  `plazir-15-site/speedrun/` is a frozen copy; its canonical lives in
   `ds4cc-marketplace/speedrun/`. Rows with `sourceDir: null` (vault, ufofsd,
   plazir27runson, kimi.pro slots) have no local source — republish needs
   extracted bytes first, never retype from memory.
+- **Filesystem traps.** `~/Projects` (capital, inode 27238) and `~/projects`
+  (lowercase) are DISTINCT dirs — a lowercase-path ENOENT is a case typo,
+  never a disappearance (r15). Whole cited roots DO vanish: r15's sweep caught
+  `ufofsdbeta`, `ufofsdbeta-kimi-review` + `ephemeral/wz1` gone inside the
+  09-28T23:51:31Z `~/Projects` mtime window — the same instant sibling kasegi
+  lost its `bounties` root (L0). ⇒ the path-citation base is re-swept every
+  freshness round (`test -e` over cited paths; LOG r15 recipe), never frozen
+  to r10's "60/60 resolve".
 - **Weak markers.** `sdk-seed.js`, `PLAZIR-27`, `ballot`, `snapshot.` are
   boilerplate/misattributed/redundant — they passed 12 cross-body swap
   mutations. Keep the r2 tightened set in `fleet.config.json`; a `null`
@@ -313,7 +326,8 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
 - `~/Projects/origin-work/charter-ufo-fsd/` — charter document source.
 - `~/Projects/lucario/site/` — lucario.kimi.page source.
 - `~/Projects/ufofsdbeta/.ufo/` — wz0/wz1 mission prompts, probe snapshots,
-  and wave evidence backing this playbook.
+  and wave evidence backing this playbook. **ABSENT since
+  2026-09-28T23:51:31Z** (r15 sweep); wave evidence now citation-only.
 
 Hard rule, repeated: publish stays operator-gated. Never `git push`, never
 click Publish, never call `PublishApp`/`PublishDeployment`/`UnpublishApp`

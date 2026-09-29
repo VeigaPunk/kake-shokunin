@@ -14,7 +14,8 @@
   Not the deploy path.
 - Agent-side shipping when push is gated: `git format-patch` +
   `publish/APPLY.md`, verified by `git am --check` on a fresh clone
-  (wz1-ds4cc isolation protocol, `~/Projects/ephemeral/wz1/ds4cc`).
+  (wz1-ds4cc isolation protocol, `~/Projects/ephemeral/wz1/ds4cc` — emptied
+  2026-09-28T21:42-03:00; recipe stands for re-created workspaces).
 
 ## Render — app.ds4cc.com
 

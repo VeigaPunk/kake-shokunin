@@ -6,29 +6,38 @@ depth/coverage/calibration/adjacency belong to other lanes — not scored here).
 | Axis | Score | Evidence pointer | Last change |
 |---|---|---|---|
 | operability | 10 | Every free-read verb in the domain is now **live-executed on the real repo with a byte-level write-free proof**: r11 closed probe/status/reconcile/sync-check; r12 closed the last 4 (`status --json` exit 0 with 5 violated+1 error in snapshot; `grokbots --check` exit 1 lucario; `bots list` exit 0 20 keepers; `bots report` exit 1 gaps) — 31-file state sha guard identical before/after, re-verified by 2 independent L2 re-runs. Exit-1 predicates pinned to code (gaps `cli.mjs:935`, stale-only-with-flag `:836-839`/`:932`, checked=21 `:393`); replica edge matrix (corrupt/deleted snapshot, registry faults, `--stale` variants) landed. The automation layer is now runtime-verified, not unit-file-trusted: keeper timer never fired (enable-vs-retire at L0), scribe push-gate failing (N1), lucario registry gap at L0. Corrected cmdProbe merge patch replica-verified and staged for the webzites owner (`corpus/handoffs/cmdProbe-merge-fix.md` — r11 F1 guard refuted on the `probe <id> --all` edge). Full verb free-read/writer classification (35 rows) code-verified. | round 12 |
-| freshness | 8 | r14 re-verification + armed watches landed: the 00:00:59Z sweep landed (row 78 `at` 00:01:09.976Z — **12/5/1 identical**, violated set unchanged incl. charter-ghp on the pin-lag); sentinel PASS over the 47-file state+fleet guard (only the timer-owned pair changed: history +1 row, probe-latest re-stamped); 18-row live replication 23:1xZ **0 verdict diffs**; probe-delta on 78 rows = 6 events/0 phantom. **PQ-5 pending-publish watch armed** (P1–P3 now-verified; E1 slug-404→200 primary discriminator — never preview-host evidence, never bytes, never `kimi-map` vintage; F1/F2 half-state verdicts named). **PQ-12 dated re-check loop armed — and it caught a live transition in-round**: the 00:06:19Z scribe beat `9c28d29` pushed `pushed:true` after 3 failing beats (C7 prediction falsified), live literal now `2026-09-29 scribe beat (` 53,386B `fb365e38…` == `9c28d29` (clone synced — PQ-3's behind-5 gate cleared); pin still `2026-09-26` → PERSIST state, correct re-pin literal is now `2026-09-29`. 12 stale citations fixed (incl. r13's 06:00:36Z clock-mix slip + byte-frozen→content-frozen cfemail rule); 2 new observations landed (generic 404-sentinel can't discriminate slots; canonical 93-loc sitemap is working-tree-only — `ds4cc.com/sitemap.xml` live 404). Charter post-push subpath audit NULL (5/5 paths byte-identical live==`a8f1e2b` + og:image 200 — completed baseline). r13's own report was found **untracked in main repo** — repaired this round. Score stays 8 per critic rule (armed capability ≠ caught event; all operator-gated transitions unchanged). | round 14 |
+| freshness | 9 | r15: the armed-watches read was pure re-verification (PQ-12 `PERSIST` — pin `2026-09-26` vs live `2026-09-29 scribe beat (` / `fb365e38…` == remote+clone `9c28d29`; PQ-5 still pending 404/13,409B/`93ddca9a…`; PQ-2 gate closed, remote `e6bd071` unchanged, still 20 unpushed) — but the **path-citation re-sweep caught the drift event**: 58 unique cited paths re-tested under the kasegi-reported `~/Projects` mtime window (2026-09-28T23:51:31Z) → 49 resolve, 5 genuine danglers incl. `ufofsdbeta` + `ufofsdbeta-kimi-review` (present at r1, gone now) + `ephemeral/wz1`; dated annotations landed in SKILL.md/mirror-pitfalls/publish-channels + a per-round re-sweep rule; critic re-ruling (complete sweep > sample) made it move-eligible. publish-queue.md §r15; LOG r15. | round 15 |
 
 ## Planned
 
-- **round 15 (pick at round open):** freshness default — run the armed
-  PQ-12 loop (state check: `PERSIST` if pin still `2026-09-26` vs live
-  `2026-09-29 scribe beat (`; `EDIT-LANDED` if the operator re-pins — the
-  row flips ok on the NEXT full sweep after the edit, first EXIT since
-  09-27T06:22Z; `CHURN-AGAIN` if the 09-30 beat lands first — next scribe
-  fires ~06:06Z, push leg now working) + PQ-5 watch read (P1 sentinel
-  check → still pending = one curl; if E1 fires the event chain is
-  move-eligible) + PQ-2 re-verify (19/93, gated on the 20 unpushed ds4cc
-  commits). Note: r15 opens after the 06:00:59Z sweep — two rows will have
-  landed; check both for transitions, and watch `probe-delta` for a
-  `charter-ghp` EXIT or any `violations→ok` flip. L0 keeper/lucario
-  answers: still unanswered at r14 close — same operator-gated support
-  applies. The `git pull --ff-only` precondition on PQ-3 is now cleared
-  (clone synced `9c28d29`) — pull/fetch in `origin-work/*` still needs
-  explicit sanction before any charter work under a read-only contract.
+- **round 16 (pick at round open):** freshness default — continue the armed
+  **PQ-12 dated re-check loop** (five states `PERSIST | EDIT-LANDED |
+  CHURN-AGAIN | SILENT | ANOMALY`: `PERSIST` if pin still `2026-09-26` vs
+  live `2026-09-29 scribe beat (`; `EDIT-LANDED` if the operator re-pins —
+  row flips ok on the NEXT full sweep after the edit, the first EXIT since
+  09-27T06:22Z; `CHURN-AGAIN` if a 09-30 beat lands first — next scribe
+  fire ~06:06Z, push leg working but telemetry degraded: grok-web 300s
+  timeout + kimi route failure → local-fallback beats) + **PQ-5 watch
+  read** (P1 sentinel check → still pending = one curl; if E1 fires the
+  E-chain is move-eligible) + **PQ-2 re-verify** (19/93, gated on the 20
+  unpushed ds4cc commits — remote `e6bd071` at r15 close) + **path-sweep
+  cadence** (re-run the `test -e` sweep over the cited base every round
+  while FS drift is live — r15 caught 5 danglers; r10's "60/60" is retired
+  as a standing claim). Note: r15 opened 00:44:25Z, BEFORE the 06:00:59Z
+  sweep (r14's plan premise was wrong) — the first post-06:00:59Z round
+  carries new row 79 (row 80 once the 12:00:59Z sweep lands): check for a
+  `charter-ghp` EXIT or any `violations→ok` flip, run probe-delta rows
+  78→79/80. L0 keeper/lucario answers: still unanswered at r15 close —
+  same operator-gated support applies; the kasegi `~/Projects/bounties`
+  vanish is a sibling item with 0 kake citations — monitor only. PQ-3's
+  `git pull --ff-only` precondition stays cleared (`9c28d29`); pull/fetch
+  in `origin-work/*` still needs explicit sanction under the read-only
+  contract.
 
 ## Move log
 | Round | Axis | Before | After | Evidence |
 |---|---|---|---|---|
+| 15 | freshness | Path-citation base trusted on r10's un-re-measured "60/60 resolve"; PQ-2 cell's "root content-frozen" ambiguous (mirror-vs-canonical misattribution in the r15 brief); canonical side described as "working-tree-only" when files ARE tracked-but-unpushed; normalization method for the mirror freeze metric not pinned; r14 plan-note asserted r15 opens post-sweep | 58 cited paths re-swept under the 09-28T23:51:31Z `~/Projects` drift window: 49 resolve, **5 genuine danglers caught** (ufofsdbeta + .ufo + ufofsdbeta-kimi-review vanished in-window; ephemeral/wz1 emptied 21:42-03:00) — all annotated with dated flags, per-round re-sweep rule landed; PQ-12 loop read `PERSIST` with all four non-PERSIST states evidence-excluded; PQ-5 armed-watch read PENDING (P1–P3 hold, E1 never fired); PQ-2 gate confirmed closed (remote `e6bd071`, 20 unpushed); PQ-2 cell + canonical wording + normalizer-variance corrections landed; sentinel 47/47 byte-identical across the round | corpus/knowledge/publish-queue.md §r15 + PQ-2 row erratum; SKILL.md FS-traps rule + 3 absent-annotations; mirror-pitfalls.md ×2; publish-channels.md ×1; LOG.md r15; `/tmp/kake-r15/` (12 L2 artifacts + sentinel sha pair + fetch bodies) |
 | 14 | freshness | Standing claims carried stale precision: r13 "byte-frozen" root claim wrong at sha level (Cloudflare cfemail re-encoding); r13 `06:00:36Z` was the journal Starting line not the history `at`; ops-automation "earlier full sweeps" wording backwards; 10+ line-number citations drifted as source/docs grew; no armed verdict path for the pending PQ-5 publish; no dated re-check loop on the operator-gated PQ-12 pin | Sweep landed mid-round and verified (row 78 `at` 00:01:09.976Z, identical 12/5/1); sentinel PASS 45/47 unchanged (timer pair only); 18-curl replication 0-diff; PQ-5 watch armed (P1–P3 verified NOW + E1–E5 + F1–F3 branches — `publish-queue.md` §r14, `SKILL.md` step 4); PQ-12 loop armed and **caught a transition in-round** — scribe `9c28d29` pushed `pushed:true` at 00:06:19Z, live literal moved to `2026-09-29` (53,386B `fb365e38…`); 12 stale citations fixed across 4 corpus files + LOG + the r13 report; 2 new facts landed (generic-sentinel non-discrimination; canonical sitemap wire-absent); charter subpath audit NULL baseline landed; r13 report-filing gap repaired; score stays 8 — armed capability ≠ caught event (critic rule) | `/tmp/kake-r14/` (12 L2 artifacts incl. sentinel-{before,after}.sha), corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert,free-read-verbs}.md, SKILL.md step-4 watch wiring, LOG.md r14 |
 | 13 | freshness | corpus aging: pin-failure framed as "two consecutive probes" (r3+r7); PQ-3 "behind 2", PQ-6 wrong line cite, PQ-5 zip "1 day stale", ops-automation header "76 rows"; "churn paused" unqualified; no at-vs-mtime rule; no absent-semantics rule; r12 commits missing in BOTH repos (round-11 was kake head; main head round-6) | Standing claims re-verified against live state 22:47–22:50Z (3 timer sweeps + manual re-probe identical 12/5/1; 18-curl replication 0-diff; PQ-5 pending, PQ-2 unchanged 19/93; pin-lag persists over deploy-current a8f1e2b); 4 stale citations fixed, 2 rules landed (at-vs-mtime; absent = exact-pin miss), 1 claim rescoped (churn-paused → scribe-automation-only); r12 protocol gap repaired (round-12 commits landed + pushed in both repos); score stays 8 — plan's trigger never materialized, no falsifiable move | `/tmp/kake-r13/` (10 L2 artifacts incl. sentinel-before.sha), corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert}.md, SKILL.md r13 amendments, LOG.md r13 |
 

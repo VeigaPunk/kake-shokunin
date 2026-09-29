@@ -126,3 +126,81 @@
   after}.sha, planner-move, scribe-draft);
   corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert,
   free-read-verbs}.md + SKILL.md step-4 watch wiring.
+
+- 2026-09-29 — round 15: freshness **axis-move, drift CAUGHT — SCORECARD
+  8→9** (critic-adjudicated: dated external FS-drift event + complete sweep
+  catches genuine previously-cited misses + corrections landed and
+  re-verified; the watch-read half was re-verification only). probe-latest
+  `at` 00:01:09.976Z = 0.7h fresh at open (watchdog launched 00:44:25Z).
+  12 read-only L2 probes in one batch (planner + scout + executor×3 +
+  labrat + revenger + sentinel + critic + connector + reviewer + scribe →
+  `/tmp/kake-r15/`); zero fires, zero pushes, zero systemctl mutations,
+  zero webzites-state writes — sentinel: **47/47 state+fleet files
+  byte-identical across the whole round** (no sweep or scribe fired inside
+  it). Findings: (1) **premise drift** — the r14 plan predicted "r15 opens
+  after the 06:00:59Z sweep, two rows landed"; actual launch 00:44:25Z is
+  ~5.3h BEFORE it, only row 78 present (r16 plan re-anchored: first post-
+  06:00:59Z round carries row 79, post-12:00:59Z carries 80). (2) **PQ-12
+  `PERSIST`** — pin `2026-09-26 scribe beat` (config untouched since
+  09-27T15:30:57Z) vs live `2026-09-29 scribe beat (` / 53,386B / sha
+  `fb365e38…` (00:48:51Z; 09-26=0,09-28=0,09-29=1 counts); live ==
+  remote HEAD `9c28d29` (ls-remote) == clone HEAD (behind 0 — the scribe's
+  own 00:06:19Z run refreshed FETCH_HEAD 00:11:30Z; kake pulled nothing).
+  Scribe ledger: 0 beats newer than `9c28d29`; next ~06:06Z post-round;
+  telemetry degraded (grok-web 300s timeout, kimi route failure →
+  local-fallback). Correct edit-moment literal: `2026-09-29 scribe beat`.
+  (3) **PQ-5 still pending** — 404/13,409B/sha `93ddca9a…` byte-identical
+  (L1 00:45Z + executor 00:49:37Z); P2 violated in row 78; P3 vault
+  200/9,966B, member still 404 (dead links 3/10). E1 never fired → armed,
+  not move-eligible. (4) **PQ-2 gate CLOSED, unchanged** — remote `e6bd071`
+  (ls-remote 00:49:11Z), 0/20 of the unpushed commits landed;
+  `sitemap.xml`+`robots.txt` live 404 (9,379B GH 404 ×2); 93-loc sweep
+  correctly skipped. Errata caught: the PQ-2 cell's "root content-frozen
+  74,641B" is the **mirror root** (r14's own artifact fetched
+  ds4cc.kimi.page — my round brief mislabeled it canonical); canonical
+  `ds4cc.com/` = 79,453B sha `b6f65899…` byte-identical to
+  `origin/main:index.html` (etag `6ab49127-1365d`, 0 cfemail → plain sha
+  is the freeze metric); normalized-sha values differ by normalizer
+  (r14 `4427b7f8…` vs r15 `6a0c24b5…` — freeze-equal within each series);
+  "working-tree-only" → sitemap+robots ARE tracked at local HEAD
+  `f3d2ecd`, absent from `origin/main`. (5) **path-sweep = the move** —
+  all 58 unique cited paths (95 occurrences / 8 roots) re-tested:
+  **49 resolve, 9 miss = 4 self-declared-absent (verified-true claims:
+  webzites `package.json`, 3 lucario artifacts) + 5 genuine danglers**:
+  `~/Projects/ufofsdbeta`, `…/.ufo`, `ufofsdbeta-kimi-review` (verified
+  PRESENT at r1, lessons/round-1-aggregator-audit.md:31-32) and
+  `ephemeral/wz1` + `wz1/ds4cc` (`ephemeral/` exists, emptied
+  21:42-03:00). The ufofsdbeta pair vanished inside `~/Projects` mtime
+  20:51:31-03:00 — the exact instant kasegi reported `bounties` gone
+  (l0-questions.md; same-window corroboration, actor still undetermined).
+  Annotations landed (SKILL.md:48-52,118-120,266-279,328-330;
+  mirror-pitfalls:3-6,29-30; publish-channels:15-18) — dated flags, never
+  silent deletion; per-round re-sweep rule armed in SKILL.md §traps;
+  r10's "60/60" superseded. Post-fix re-check: annotations present,
+  danglers still absent, guard 47/47. (6) timers — probe healthy (row 78
+  = 00:01:09.976Z, next 06:01Z = systemd "06:00:59Z"), keeper/reaper
+  journals still empty; L0 r12 keeper+lucario questions still unanswered.
+  (7) history/detector — 78 rows (77 = sanctioned r11 total:1 clobber,
+  not a sweep); probe-delta on 78 = **6 events / 0 phantom**, last ENTER
+  lucario 09-27T16:38:27Z, 0 transitions this round. (8) adjacency —
+  `bounties` has 0 kake citations; kake's own danglers sit inside the
+  same drift window; connector bounded it to ≤23:32–23:51:31Z (~19m,
+  kasegi last-alive→mtime) and flagged `.git` mtimes as contaminated
+  (permitted `git status` reads refresh index metadata — not actor
+  evidence). kotoba r14:108-112 routes a probe-delta.mjs complaint (exit
+  0 on any nonempty parse) to kake — received, dispositioned **by
+  design** (probe-delta.mjs:26 documents "report, not a gate"; exit-2/64
+  reserved for real failures — r10 contract). (9) critic arc — initial
+  ruling "re-verification only" (sample-bounded C6: 10/10 resolve);
+  ScoutPaths' complete enumeration flipped C6 to REFUTED → move-eligible,
+  freshness 8→9 (predicate: dated drift + complete sweep catches genuine
+  previously-cited miss + correction landed + post-fix verify). The
+  watch-read half (PQ-12 PERSIST / PQ-5 pending / PQ-2 closed) stays
+  re-verification per r14 precedent. Evidence: `/tmp/kake-r15/`
+  (planner-move, scout-paths, executor-pq12, executor-pq5, executor-pq2,
+  labrat-timers, revenger-history, critic + addendum, connector-sib,
+  reviewer-cites, scribe-draft, sentinel-before.sha, sentinel-after.sha,
+  charter-live.html, p1-body.bin, mirror-root.html, final-{root,sitemap,
+  robots}.html); corpus edits `publish-queue.md` §r15 + PQ-2 cell erratum,
+  `SKILL.md` ×4, `mirror-pitfalls.md` ×2, `publish-channels.md` ×1;
+  l0 corroboration line appended.

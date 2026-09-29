@@ -1,7 +1,9 @@
 # Mirror pitfalls — observed, not hypothetical
 
 Sources: `fleet/kimi-surface-ops.md` failure-mode tables (r1–r4),
-`fleet.dedupe-report.md`, `ufofsdbeta/.ufo/` wave evidence.
+`fleet.dedupe-report.md`, `ufofsdbeta/.ufo/` wave evidence — `ufofsdbeta/`
+absent from FS since 2026-09-28T23:51:31Z (r15 sweep); wave evidence now
+citation-only.
 
 ## Kimi static surface
 
@@ -24,7 +26,8 @@ Sources: `fleet/kimi-surface-ops.md` failure-mode tables (r1–r4),
   different sites, hyphen matters.
 - `ufo-fsd.kimi.page` = vault twin; `ufofsd.kimi.page` = frozen landing;
   `ufo-fsd.kimi.pro` = 612B SPA shell. Three different artifacts.
-- `ufofsdbeta-kimi-review/` = non-git review snapshot, never a source.
+- `ufofsdbeta-kimi-review/` = non-git review snapshot, never a source —
+  **absent from FS since 2026-09-28T23:51:31Z** (r15 sweep).
 - `plazir-15-site/speedrun/` = frozen 3-run copy; canonical is
   `ds4cc-marketplace/speedrun/` (`rel=canonical` in the plazir copy confirms).
 
