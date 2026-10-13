@@ -396,3 +396,10 @@
   freshness-sweep,publish-queue}.md`, `corpus/lessons/{round-1-aggregator-audit,
   round-8-aggregator-box3-coldrun,round-16,round-17}.md`, `corpus/README.md`,
   `SKILL.md`, `SCORECARD.md`, `LOG.md`.
+
+## 2026-10-13 — HOURS.md ledger opened
+
+- Operator seed per PROTOCOL.md §Craft-hours: shonen→shokunin now requires
+  ≥10,000 verified craft-hours AND the SHONEN gate. Ledger starts at 0;
+  instrumented rounds accrue collective in-domain lane-minutes.
+- Evidence: fleet commit; PROTOCOL.md §Craft-hours.
