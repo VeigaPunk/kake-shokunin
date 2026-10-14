@@ -72,5 +72,5 @@ SHONEN.md itself is the untouched verbatim 4-box seed.
 Major 1 re-checks with the four printed systemctl/journalctl/grep commands; it
 flips to conformant-if-repaired when SKILL.md and ops-automation.md carry the
 disabled/never-ran state in a committed round. Minors re-check by re-parsing
-`~/Projects/webzites/state/probe-history.jsonl` (live file — pin row numbers,
+`~/Projects/webzites/state/probe-history.jsonl` (live file — pin row numbers, <!-- r18 re-census 2026-10-14: ~/Projects/webzites/state/probe-history.jsonl absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 not just timestamps, on re-run).

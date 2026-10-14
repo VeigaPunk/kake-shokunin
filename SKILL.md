@@ -13,10 +13,10 @@ the probe commands, never with memory.
 
 | Surface | Live URL | Source dir | Publish path |
 |---|---|---|---|
-| ds4cc.com (primary) | `https://ds4cc.com/` | `~/Projects/ds4cc-marketplace` | GH Actions on push to `main` (`CNAME` = ds4cc.com) |
+| ds4cc.com (primary) | `https://ds4cc.com/` | `~/Projects/ds4cc-marketplace` | GH Actions on push to `main` (`CNAME` = ds4cc.com) | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | plazir15 GHP front | `https://veigapunk.github.io/plazir-15-site/` | `~/Projects/plazir-15-site` | GH Actions on push to `main` |
-| charter GHP front | `https://veigapunk.github.io/charter-ufo-fsd/` | `~/Projects/origin-work/charter-ufo-fsd` | Pages deploy from branch (no workflow file); canonical doc, all kimi variants `rel=canonical` here |
-| ds4cc kimi mirror | `https://ds4cc.kimi.page/` | `~/Projects/ds4cc-marketplace` | Kimi surface, chat `1a073c43-bf42-874a-8000-0907bd80b9dc` — STALE (~Aug-29 vintage) |
+| charter GHP front | `https://veigapunk.github.io/charter-ufo-fsd/` | `~/Projects/origin-work/charter-ufo-fsd` | Pages deploy from branch (no workflow file); canonical doc, all kimi variants `rel=canonical` here | <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/charter-ufo-fsd absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
+| ds4cc kimi mirror | `https://ds4cc.kimi.page/` | `~/Projects/ds4cc-marketplace` | Kimi surface, chat `1a073c43-bf42-874a-8000-0907bd80b9dc` — STALE (~Aug-29 vintage) | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | burnerchrome kimi | `https://burnerchrome.kimi.page/` | `~/Projects/ds4cc-marketplace/burnerchrome` | Kimi surface, chat `1a0ada42-28e2…` |
 | vault index | `https://veigapunk.kimi.page/` | none on disk | Kimi surface, chat `1a0c20ea-6372…` — NEVER fire into this chat, it hot-swaps the live vault |
 | plazir27.kimi.page | `https://plazir27.kimi.page/` | charter repo | canonical kimi charter mirror (stale: serves 09-18 beat, canonical 09-28) |
@@ -27,7 +27,7 @@ the probe commands, never with memory.
 | lucario kimi slot | `https://lucario.kimi.page/` — 404, **never published** | `~/Projects/lucario/site` | Kimi surface pending first publish (README: "pending — gated"). Config `status:live` is stale/wrong. **Roster gap (r12):** the fleet row (added 2026-09-27) has no `fleet/grokbots.json` agent — `grokbots --check` exits 1 (`lucario: no registry row`, `src/cli.mjs:361`), no card at `~/.grok/agents/grokbot-lucario.md` (`botCardPath` `src/cli.mjs:444`), no wrapper `~/.local/bin/grokbot-lucario` (`:427`), no keeper log; `bots list` shows 20 keepers, `bots report` prints `card=miss wrapper=miss log=never(?)` (`/tmp/kake-r12/live/`). |
 | app.ds4cc.com | `https://app.ds4cc.com/mcp` | `ds4cc-marketplace/apps-sdk` + `render.yaml` | Render web service (`ds4cc-marketplace-app`, Docker) |
 
-Registry of record: `~/Projects/webzites/fleet/fleet.config.json` (21 rows —
+Registry of record: `~/Projects/webzites/fleet/fleet.config.json` (21 rows — <!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/fleet.config.json absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 `len(sites)` verified 2026-09-28; status 12 live/3 pruned/3 broken/3 queued;
 `expect` tripwires, `sourceDir`, `updatePath`, `status`, `priority`). Dead
 rows are `status:"pruned"`/`"queued"` — never deleted. Second registry:
@@ -154,7 +154,7 @@ re-verify, don't assume the r1 findings still hold.
      bodies into `ds4cc-marketplace/speedrun/data/`, append the manifest
      entry, `git push origin main`; then `speedrun post` prints the X
      draft (never posts). No HTTP upload API. Full runbook:
-     `~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md`; decoded:
+     `~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md`; decoded: <!-- r18 re-census 2026-10-14: ~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
      `corpus/knowledge/speedrun-pipeline.md`.
 5. **Lease before browser.** `webzites lease acquire --owner <name>
    --ttl-ms 900000`; release in `finally`. The shared burner chrome
@@ -270,7 +270,7 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
   (vault, byte-twin of veigapunk.kimi.page) ≠ `ufofsd.kimi.page` (frozen
   landing) ≠ `ufo-fsd.kimi.pro` (612B SPA shell). Resolve `publishedUrl` via
   `GetWebsiteByChatID`, not by hosts[] text mention.
-- **Dead slots (r9 readiness — `~/Projects/webzites/reports/dead-slot-
+- **Dead slots (r9 readiness — `~/Projects/webzites/reports/dead-slot- <!-- r18 re-census 2026-10-14: ~/Projects/webzites/reports/dead-slot-recreate-readiness-r9.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   recreate-readiness-r9.md`).** `plazir15`, `charter-ufo-fsd`, `lucario`
   `.kimi.page` all still 404 (verified 2026-09-28). Charter's `rebuild`
   already produced a verified version card (`efc1830`, preview 8,323B
@@ -321,7 +321,7 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
 
 ## Cited paths
 
-- `~/Projects/webzites/` — mission root: `bin/webzites.mjs` (CLI),
+- `~/Projects/webzites/` — mission root: `bin/webzites.mjs` (CLI), <!-- r18 re-census 2026-10-14: ~/Projects/webzites absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   `scripts/kimi-surface.mjs` (sync-check/kimi-map/update/recreate/rebuild),
   `fleet/fleet.config.json` (registry), `fleet/fleet.dedupe-report.md`
   (classifications + publish-queue PQ-1…PQ-13), `fleet/kimi-surface-ops.md`
@@ -330,7 +330,7 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
   `repos/` (50 read-only Origin evidence clones — map:
   `corpus/knowledge/origin-repos.md`), `state/probe-history.jsonl`
   (6h cadence), `reports/keepers/repos-r{1..8}.md` (wz-repos lane),
-  `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}`,
+  `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}`, <!-- r18 re-census 2026-10-14: ~/.config/systemd/user/webzites-keeper.service · ~/.config/systemd/user/webzites-keeper.timer · ~/.config/systemd/user/webzites-probe.service · ~/.config/systemd/user/webzites-probe.timer absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   `agents/webzites-{kimi,polish,repo,speedrun}.md` (keeper cards).
 - `scripts/probe-delta.mjs` (this repo) + `corpus/knowledge/probe-delta-alerting.md`
   — runnable history-delta + coverage-hole detector; rules, baseline,
@@ -352,12 +352,12 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
   2026-09-21T03; charter-ghp beat-pin is a **config-lag + human-edit item**
   (no webzites code writes `fleet.config.json`; scribe push-gate currently
   failing), not a keeper automation block.
-- `~/Projects/ds4cc-marketplace/` — ds4cc.com source: `.github/workflows/
+- `~/Projects/ds4cc-marketplace/` — ds4cc.com source: `.github/workflows/ <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   pages.yml`, `CNAME`, `deploy-github-pages.sh` (setup only), `speedrun/`,
   `burnerchrome/`, `render.yaml` + `apps-sdk/` (app.ds4cc.com Render service).
 - `~/Projects/plazir-15-site/` — plazir15 GHP source: `.github/workflows/
   pages.yml`, `speedrun/` (frozen mirror copy).
-- `~/Projects/origin-work/charter-ufo-fsd/` — charter document source.
+- `~/Projects/origin-work/charter-ufo-fsd/` — charter document source. <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/charter-ufo-fsd absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 - `~/Projects/lucario/site/` — lucario.kimi.page source.
 - `~/Projects/ufofsdbeta/.ufo/` — wz0/wz1 mission prompts, probe snapshots,
   and wave evidence backing this playbook. **ABSENT since

@@ -93,7 +93,7 @@ isolate the other sections, and expect the drift line to disappear (gate
 Selftest: 9/9 (declaredAbsent is exit-neutral; an unannotated miss exits 1;
 an interior-tampered history row exits 1 via the exact event/last-event pins;
 malformed JSONL exits 2; unknown flag/section exits 64). State guard: the
-`~/Projects/webzites/state/` sha list is byte-identical before/after every run
+`~/Projects/webzites/state/` sha list is byte-identical before/after every run <!-- r18 re-census 2026-10-14: ~/Projects/webzites/state absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 (r16 sentinel, 33/33 files).
 
 ## r17 run (2026-09-29T03:2xZ, read-only)
@@ -113,7 +113,7 @@ VERDICT DRIFT (exit 1: plazir-live-source-gap only)
 ```
 
 Selftest 10/10 (r17 adds malformed-pins → exit 2). State guard:
-`~/Projects/webzites/state/` 33-file sha set byte-identical before/after
+`~/Projects/webzites/state/` 33-file sha set byte-identical before/after <!-- r18 re-census 2026-10-14: ~/Projects/webzites/state absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 (`/tmp/kake-r17/sentinel-{before,after}.sha`).
 
 ## Known limits

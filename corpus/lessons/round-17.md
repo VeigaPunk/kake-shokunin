@@ -42,7 +42,7 @@ live drift event and two of its own suppression paths).
   plazir-live-source-gap (exit 1)` — only the expected open PQ-14 drift remains.
 - `--selftest` 10/10 (including malformed pins → exit 2); `--offline` exit 0 with
   `set-delta files +0/-0` and `~/Projects children: 36 — set MATCH` printed.
-- State guard: `~/Projects/webzites/state/` 33-file sha256 set byte-identical
+- State guard: `~/Projects/webzites/state/` 33-file sha256 set byte-identical <!-- r18 re-census 2026-10-14: ~/Projects/webzites/state absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   before/after every run (`/tmp/kake-r17/sentinel-{before,after}.sha`).
 
 ## Rule learned

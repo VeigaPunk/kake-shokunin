@@ -2,7 +2,7 @@
 
 **Kake does not edit webzites source** (operator rule: domain source repos are
 read-only to lanes). This is the verified patch + test recipe for whoever owns
-`~/Projects/webzites`. It supersedes the r11 F1 proposal
+`~/Projects/webzites`. It supersedes the r11 F1 proposal <!-- r18 re-census 2026-10-14: ~/Projects/webzites absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 (`/tmp/kake-r11/scout-verbs.md:126`), which was **refuted** this round: its
 guard `positionals.length > 0 && !flags.all` still clobbers on
 `probe <id> --all` (selection `src/cli.mjs:75` ignores `--all`; the BOOL is
@@ -57,7 +57,7 @@ bare `probe` (pre-existing tick property; bare probe stays the full-reset path).
 ## Owner test recipe
 
 ```bash
-cd ~/Projects/webzites
+cd ~/Projects/webzites <!-- r18 re-census 2026-10-14: ~/Projects/webzites absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 cp state/probe-latest.json /tmp/pl.bak && cp state/probe-history.jsonl /tmp/ph.bak
 node bin/webzites.mjs probe plazir15-ghp --quiet      # apply patch first
 node -e 'console.log(require("./state/probe-latest.json").results.length)'   # expect 18

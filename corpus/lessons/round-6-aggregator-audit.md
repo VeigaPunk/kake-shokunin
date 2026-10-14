@@ -37,7 +37,7 @@ aggregator lessons unindexed by convention.
 | claim (file:line) | command | observed | pass/fail |
 |---|---|---|---|
 | `len(sites)` = 21 (`fleet-registry.md:5`; README row) | `node -e "…fleet.config.json…"` | `sites: 21` | pass |
-| 50-clone canonical map (`origin-repos.md:3`; README row) | `ls -1 ~/Projects/webzites/repos \| wc -l` | `50` | pass |
+| 50-clone canonical map (`origin-repos.md:3`; README row) | `ls -1 ~/Projects/webzites/repos \| wc -l` | `50` | pass | <!-- r18 re-census 2026-10-14: ~/Projects/webzites/repos absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | PQ-1..PQ-13 (`publish-queue.md`; README row) | `grep -cE '^\| PQ-[0-9]+' publish-queue.md` | `13` | pass |
 | detector `6 events / 0 phantom on 76 rows` (`SCORECARD.md:19`, README row) | `node scripts/probe-delta.mjs --history …/probe-history.jsonl --json` | `rows:76 … events:[6 entries]`, `fullSweeps:66`, `universe:18` | pass |
 | naive diff `42 events / 40 phantom` (`SCORECARD.md:19`, `probe-delta-alerting.md`) | independent adjacency differ over the same file | `42` events (31 adjacent to a `total:1` row); the 40-phantom split is `[INFERENCE]`, not re-derived | pass (total), inference (split) |
@@ -78,7 +78,7 @@ aggregator lessons unindexed by convention.
    `.ufo/reports/round-10/kake.md:9`). Falsified by the rule itself — a fresh-session read of
    the committed pointer cannot resolve `/tmp` (28 files exist only in this boot).
    Required correction form: append the durable pointers (the two round-10 evidence reports
-   already live in `~/Projects/webzites/reports/`, and the detector + `probe-delta-alerting.md`
+   already live in `~/Projects/webzites/reports/`, and the detector + `probe-delta-alerting.md` <!-- r18 re-census 2026-10-14: ~/Projects/webzites/reports absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
    are committed) and mark the `/tmp` paths as session-local provenance, never evidence.
    Owning lane: kake.
 3. **major — future-dated evidence labels in committed corpus files, two instances.**
@@ -137,5 +137,5 @@ kake | 8/8 kake reports r3–r10 lack the SHONEN section | r6 | open | grep -ril
 kake | ghp-subpath-spotcheck.md:3 names no artifact for its 2 352-path baseline | r6 | open | corpus/knowledge/ghp-subpath-spotcheck.md:3 "/tmp baseline audit" (no filename)
 kake | SCORECARD scores lack counting command + measured-against commit | r6 | open | kake-shokunin/SCORECARD.md axes table (prose evidence only)
 kake | CDP-9222 lease ownership kake↔kagi unadjudicated | r5→ | open | ROADMAP.md "Contested rulings still open"; no ruling artifact
-kake | charter-ghp marker re-pin handed to keeper, unapplied | r9 | open | grep -n '2026-09-26 scribe beat' ~/Projects/webzites/fleet/fleet.config.json → :256 unchanged; probe-latest charter-ghp marker FAIL
+kake | charter-ghp marker re-pin handed to keeper, unapplied | r9 | open | grep -n '2026-09-26 scribe beat' ~/Projects/webzites/fleet/fleet.config.json → :256 unchanged; probe-latest charter-ghp marker FAIL <!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/fleet.config.json absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 ```

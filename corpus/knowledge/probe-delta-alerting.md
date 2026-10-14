@@ -15,7 +15,7 @@ node scripts/probe-delta.mjs --json      # machine output
 node scripts/probe-delta.mjs --since 2026-09-27 [--hole-hours H]
 ```
 
-Reads only `~/Projects/webzites/state/probe-history.jsonl`. Exit 0 = parsed
+Reads only `~/Projects/webzites/state/probe-history.jsonl`. Exit 0 = parsed <!-- r18 re-census 2026-10-14: ~/Projects/webzites/state/probe-history.jsonl absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 (this is a report, not a gate); 2 = unreadable input; 64 = bad flag.
 
 ## Rules (why naive diffing fails — measured)

@@ -1,8 +1,7 @@
 # Round-1 aggregator corpus audit — kake
 
 Auditor: aggregator L1 (m_qwen) + one independent L2 `reviewer` lane
-(m_composer), 2026-09-28. Method: re-parsed `~/Projects/webzites/fleet/
-fleet.config.json` and re-greped the cited sources. **No network probe, deploy,
+(m_composer), 2026-09-28. Method: re-parsed `~/Projects/webzites/fleet/fleet.config.json` <!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/fleet.config.json absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. --> and re-greped the cited sources. **No network probe, deploy,
 or publish was performed** — the domain's operator-gated publish boundary was
 respected by the audit itself. Scope: `corpus/` only.
 
@@ -27,8 +26,8 @@ registry size and clone count are wrong in four places at once.
 | Claim | Command | Observed |
 |---|---|---|
 | registry schema + vintage | `grep schema\|updatedAt fleet.config.json` | `webzites-fleet-v1`, `updatedAt: 2026-09-26` ✓ |
-| marker probe is a case-sensitive substring test | `grep marker ~/Projects/webzites/src/probe.mjs` | `probe.mjs:55` `html.includes(expect.marker)` ✓ |
-| ds4cc CNAME | `cat ~/Projects/ds4cc-marketplace/CNAME` | `ds4cc.com` ✓ |
+| marker probe is a case-sensitive substring test | `grep marker ~/Projects/webzites/src/probe.mjs` | `probe.mjs:55` `html.includes(expect.marker)` ✓ | <!-- r18 re-census 2026-10-14: ~/Projects/webzites/src/probe.mjs absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
+| ds4cc CNAME | `cat ~/Projects/ds4cc-marketplace/CNAME` | `ds4cc.com` ✓ | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace/CNAME absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | Render service | `grep name\|APP_ORIGIN render.yaml` | `ds4cc-marketplace-app`, `APP_ORIGIN=https://app.ds4cc.com` ✓ |
 | frozen speedrun copy | `grep 'rel=.canonical' plazir-15-site/speedrun/index.html` | 1 hit → `https://ds4cc.com/speedrun/` ✓ |
 | `ufofsdbeta` is runtime, not a site | `test ! -e ufofsdbeta/.github; test -d ufofsdbeta/dist` | no workflow; `dist/` present ✓ |
@@ -52,7 +51,7 @@ registry size and clone count are wrong in four places at once.
    direction: pick one counting rule — *rows*, *active rows*, or *kimi rows* —
    and print the command beside every number.
 2. **Clone count stale.** "~40 clones under `webzites/repos/`" (README +
-   lesson); `ls -1 ~/Projects/webzites/repos | wc -l` = **50** (+25%).
+   lesson); `ls -1 ~/Projects/webzites/repos | wc -l` = **50** (+25%). <!-- r18 re-census 2026-10-14: ~/Projects/webzites/repos absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 3. **Misleading mechanism claim.** `knowledge/fleet-registry.md` says
    `status:"pruned"` is "inert in `probe.mjs`". `probe.mjs` contains **no**
    `pruned` handling at all: every row with `url` + `expect` is probed equally.

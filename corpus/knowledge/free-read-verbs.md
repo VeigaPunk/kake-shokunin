@@ -2,7 +2,7 @@
 
 Round 11 (2026-09-28) operability axis. These are the four verbs a keeper may run
 **without spending a meter, firing a chat, publishing, or writing a keeper log**.
-Sources: `~/Projects/webzites/src/{cli,fleet,probe,reconcile}.mjs`,
+Sources: `~/Projects/webzites/src/{cli,fleet,probe,reconcile}.mjs`, <!-- r18 re-census 2026-10-14: ~/Projects/webzites/src/cli.mjs · ~/Projects/webzites/src/fleet.mjs · ~/Projects/webzites/src/probe.mjs · ~/Projects/webzites/src/reconcile.mjs absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 `~/Projects/webzites/bin/webzites.mjs`, `~/Projects/webzites/scripts/kimi-surface.mjs`
 (all read 2026-09-28, line pins re-verified post-draft), plus a live read of
 `fleet/fleet.config.json` for the per-verb universe counts. Every live-run value was
@@ -30,7 +30,7 @@ carry `expect`; **13** rows carry `sourceDir` (**9** of them `kimi-surface`).
 Reproduce (run 2026-09-28, output `{"rows":21,"url":18,"expect":21,"kimi":15,"kimiSrc":9,"src":13,"kimiNoSrc":6}`):
 
 ```bash
-cd ~/Projects/webzites && node -e 'const s=JSON.parse(require("fs").readFileSync("fleet/fleet.config.json","utf8")).sites;
+cd ~/Projects/webzites && node -e 'const s=JSON.parse(require("fs").readFileSync("fleet/fleet.config.json","utf8")).sites; <!-- r18 re-census 2026-10-14: ~/Projects/webzites absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 console.log(JSON.stringify({rows:s.length, url:s.filter(x=>x.url).length, expect:s.filter(x=>x.expect).length,
  kimi:s.filter(x=>x.class==="kimi-surface").length, kimiSrc:s.filter(x=>x.class==="kimi-surface"&&x.sourceDir).length,
  src:s.filter(x=>x.sourceDir).length, kimiNoSrc:s.filter(x=>x.class==="kimi-surface"&&!x.sourceDir).length}))'

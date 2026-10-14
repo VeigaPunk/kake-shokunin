@@ -1,14 +1,14 @@
 # Speedrun publish pipeline — ds4cc.com/speedrun
 
-Source: `~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md` (operator runbook,
-r1 speedrun lane) + `~/Projects/webzites/src/speedrun.mjs` +
+Source: `~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md` (operator runbook, <!-- r18 re-census 2026-10-14: ~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
+r1 speedrun lane) + `~/Projects/webzites/src/speedrun.mjs` + <!-- r18 re-census 2026-10-14: ~/Projects/webzites/src/speedrun.mjs absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 `agents/webzites-speedrun.md` keeper card + `reports/keepers/speedrun-r1.md`.
 
 The board is **static JSON + `main.js` served by GitHub Pages** from
 `ds4cc-marketplace/speedrun/` — there is **no HTTP upload API**. Authority:
-`~/Projects/ds4cc-marketplace/speedrun/` ONLY; `plazir-15-site/speedrun/`
+`~/Projects/ds4cc-marketplace/speedrun/` ONLY; `plazir-15-site/speedrun/` <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace/speedrun absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 is a frozen `rel=canonical` copy — never stage into it. Keeper mission
-root = `~/Projects/webzites`; `prep --write` refuses `--out` outside it.
+root = `~/Projects/webzites`; `prep --write` refuses `--out` outside it. <!-- r18 re-census 2026-10-14: ~/Projects/webzites absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 
 ## Stages (keeper does 1–3, operator does 4–6)
 

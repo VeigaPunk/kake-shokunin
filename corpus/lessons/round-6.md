@@ -2,7 +2,7 @@
 
 Cites: LOG.md round-6 entry; `corpus/knowledge/ghp-subpath-spotcheck.md`;
 evidence = live baseline audit (2 352 paths, ~16:45Z) +
-`~/Projects/webzites/src/reconcile.mjs` source + per-repo git lead/lag.
+`~/Projects/webzites/src/reconcile.mjs` source + per-repo git lead/lag. <!-- r18 re-census 2026-10-14: ~/Projects/webzites/src/reconcile.mjs absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 Commit `round-6`. Zero publishes, zero metered ops.
 
 ## The gap closed

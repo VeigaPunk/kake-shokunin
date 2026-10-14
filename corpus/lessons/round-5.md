@@ -4,7 +4,7 @@ Cites: LOG.md round-5 entry; `corpus/knowledge/{ops-automation,
 origin-repos,speedrun-pipeline}.md`; evidence in
 `~/Projects/webzites/{state/probe-history.jsonl,
 reports/keepers/repos-r{1..8}.md, reports/keepers/speedrun-r1.md,
-docs/SPEEDRUN-PROTOCOL.md}` + `~/.config/systemd/user/webzites-*.timer`.
+docs/SPEEDRUN-PROTOCOL.md}` <!-- r18 re-census 2026-10-14: the webzites tree (state/probe-history.jsonl · reports/keepers/repos-r1..r8 · speedrun-r1 · docs/SPEEDRUN-PROTOCOL.md) absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. --> + `~/.config/systemd/user/webzites-*.timer`.
 Commit `round-5`.
 
 ## The gap closed

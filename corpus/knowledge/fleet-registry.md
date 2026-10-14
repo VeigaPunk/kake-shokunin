@@ -1,6 +1,6 @@
 # Fleet registry & tripwires
 
-Source: `~/Projects/webzites/fleet/fleet.config.json` (schema
+Source: `~/Projects/webzites/fleet/fleet.config.json` (schema <!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/fleet.config.json absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 `webzites-fleet-v1`, updatedAt 2026-09-26) + `fleet/fleet.dedupe-report.md`.
 Verified 2026-09-28: `len(sites)` = **21 rows** — status: 12 live / 3 pruned /
 3 broken / 3 queued; updatePath: 14 kimi-websites-surface / 4 git-push-main /
@@ -42,8 +42,8 @@ Also 2026-09-28: `charter-ghp` FAIL on stale marker (09-26 pin vs live
 |---|---|---|---|
 | vault | ufo-fsd.kimi.page | pruned→veigapunk-page | none |
 | veigapunk-page | veigapunk.kimi.page | live | none (Kimi account only) |
-| ds4cc-com | ds4cc.com | live | `~/Projects/ds4cc-marketplace` |
-| ds4cc-kimi-mirror | ds4cc.kimi.page | live, STALE (~Aug-29 DOM) | `~/Projects/ds4cc-marketplace` |
+| ds4cc-com | ds4cc.com | live | `~/Projects/ds4cc-marketplace` | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
+| ds4cc-kimi-mirror | ds4cc.kimi.page | live, STALE (~Aug-29 DOM) | `~/Projects/ds4cc-marketplace` | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | burnerchrome-kimi | burnerchrome.kimi.page | live | `~/Projects/ds4cc-marketplace/burnerchrome` |
 | ufofsd | ufofsd.kimi.page | live (frozen landing) | none |
 | plazir27runson | plazir27runson.kimi.page | live (Night Trilogy) | none |
@@ -53,11 +53,11 @@ Also 2026-09-28: `charter-ghp` FAIL on stale marker (09-26 pin vs live
 | plazir15 | plazir15.kimi.page | broken (404) | `~/Projects/plazir-15-site` |
 | plazir15-ghp | veigapunk.github.io/plazir-15-site | live | `~/Projects/plazir-15-site` |
 | charter-ufo-fsd-kimi | charter-ufo-fsd.kimi.page | broken (404) | charter repo |
-| charter-ghp | veigapunk.github.io/charter-ufo-fsd | live (canonical doc) | `~/Projects/origin-work/charter-ufo-fsd` |
+| charter-ghp | veigapunk.github.io/charter-ufo-fsd | live (canonical doc) | `~/Projects/origin-work/charter-ufo-fsd` | <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/charter-ufo-fsd absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | plazir27-kimi-pro | plazir27.kimi.pro | broken (preview-404) | none |
 | ufo-fsd-kimi-pro | ufo-fsd.kimi.pro | live (612B SPA shell) | none |
 | xsnapshot-app | xsnapshot.app | queued (NXDOMAIN) | none |
-| ds4cc-kimi-mirror-vault-row | null | pruned→ds4cc-kimi-mirror | `~/Projects/ds4cc-marketplace` |
+| ds4cc-kimi-mirror-vault-row | null | pruned→ds4cc-kimi-mirror | `~/Projects/ds4cc-marketplace` | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | snapshot-kimi-pro | null | queued | none |
 | burnerchrome-com | null | queued | `~/Projects/ds4cc-marketplace/burnerchrome` |
 | lucario | lucario.kimi.page | **broken (404, never published — see warning)** | `~/Projects/lucario` (canonical: `veigapunk.github.io/lucario/`) |

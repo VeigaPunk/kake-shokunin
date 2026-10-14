@@ -541,6 +541,9 @@ function nextFire(repoRoot) {
 
 function analyzeHistory({ file, pins, repoRoot, offline }) {
   const res = { file, offline };
+  if (!fs.existsSync(file) && pins.probeHistoryAbsent === true) {
+    return { ...res, historySuspended: true, note: `probe-history source absent by declaration (pins.probeHistoryAbsent): ${file} — section suspended until a history source is re-anchored`, ok: true };
+  }
   if (!fs.existsSync(file)) return { ...res, error: `cannot read ${file}`, code: 2 };
   let parsed;
   try { parsed = parseJsonl(file); }
@@ -879,6 +882,7 @@ function printPaths(p) {
 
 function printHistory(h) {
   if (h.error) { console.log(`§history  !! ERROR ${h.error}`); return; }
+  if (h.historySuspended) { console.log(`§history  SUSPENDED — ${h.note}`); return; }
   console.log(`§history  ${h.file}`);
   console.log(`  rows ${h.rows} (floor ${h.rowsFloor}, delta ${h.rowsDelta >= 0 ? '+' : ''}${h.rowsDelta}) · full ${h.fullSweeps} · spot ${h.spotRows} · partial ${h.partials} · universe ${h.universe} · malformed 0`);
   console.log(`  last ${h.lastAt} (age ${h.lastAtAgeHours}h, ceiling ${h.lastAtAgeMaxHours}h) total=${h.last.total} ok=${h.last.ok}`);
@@ -969,9 +973,14 @@ function verdictOf(sections) {
   const h = sections.history;
   if (h && h.error) { code = Math.max(code, h.code || 2); reasons.push(`§history ${h.error}`); }
   else if (h && !h.ok) { code = Math.max(code, 1); reasons.push(`§history CHANGED (${h.changed.length} check(s))`); }
+  // r18: the probe-history source is gone in the 2026-10-12 Projects prune
+  // (~/Projects/webzites absent). A pin-declared absent source is a suspended
+  // section — named debt, loudly reported — not an unreadable-input error.
+  const historySuspended = h && h.historySuspended;
   const a = sections.armed || sections.plazir;
   if (a && a.ok === false) { code = Math.max(code, 1); reasons.push(`§armed: ${a.driftVerdicts.join(', ')}`); }
   const skipped = a && a.offline ? ['§armed (all remote checks)'] : [];
+  if (historySuspended) skipped.push('§history (probe-history source absent — pin-declared)');
   return { code, reasons, skipped };
 }
 
@@ -1051,7 +1060,7 @@ async function selftest() {
     '# fixture A\n\n'
     + 'Known miss: `~/Projects/webzites/selftest-missing.md` (fixture, deliberately not created).\n'
     + 'That path is **absent since 2026-09-28** (fixture annotation).\n');
-  fs.writeFileSync(path.join(annotated, 'corpus/knowledge/note.md'), 'See `~/Projects/webzites/fleet` (fixture, resolves).\n');
+  fs.writeFileSync(path.join(annotated, 'corpus/knowledge/note.md'), 'See `~/Projects/ufo-fsd-alpha` (fixture, resolves — r18: webzites/fleet gone in the Projects prune).\n');
   fs.writeFileSync(path.join(unannotated, 'SKILL.md'),
     '# fixture B\n\nCite `~/Projects/webzites/selftest-gone.md` here (fixture; no annotation anywhere).\n');
   fs.writeFileSync(path.join(unannotated, 'corpus/knowledge/note.md'), 'no paths here\n');
@@ -1094,7 +1103,7 @@ async function selftest() {
     pass: r.code === 0 && !!j && j.sections.paths.drift.length === 0
       && j.sections.paths.declaredAbsent.some((d) => d.path.endsWith('selftest-missing.md'))
       && !j.sections.paths.declaredAbsent.some((d) => d.path.endsWith('selftest-present.md'))
-      && j.sections.paths.resolve.some((d) => d.path.endsWith('fleet')),
+      && j.sections.paths.resolve.some((d) => d.path.endsWith('ufo-fsd-alpha')),
   });
 
   const envB = { KAKE_REPO_ROOT: unannotated, KAKE_FRESHNESS_PINS: pins, KAKE_FETCH_TIMEOUT: '2000' };

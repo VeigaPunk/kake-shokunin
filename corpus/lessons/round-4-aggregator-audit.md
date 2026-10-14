@@ -8,7 +8,7 @@
   `fleet-registry.md` + `drift-detection.md` (audit fixes), `lessons/round-4.md`,
   `README.md`.
 - **Method:** 16 citations independently re-executed against
-  `~/Projects/webzites` per `CORPUS.md`. No live URLs hit; file-based probes only.
+  `~/Projects/webzites` per `CORPUS.md`. No live URLs hit; file-based probes only. <!-- r18 re-census 2026-10-14: ~/Projects/webzites absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 
 **Verdict: NOT CONFORMANT at `6b1cd07`** — one major internal index
 inconsistency (same-commit README contradicts the knowledge file it indexes).
@@ -32,9 +32,9 @@ because the round-4 commit shipped it.
   the corpus table is complete in both directions.
 - **Registry census**: 21 rows = 12 live / 3 pruned / 3 broken / 3 queued;
   14 kimi-surface updatePath rows (JSON parse of `fleet/fleet.config.json`).
-- **Pruned-semantics negative**: `grep -n pruned ~/Projects/webzites/src/probe.mjs`
+- **Pruned-semantics negative**: `grep -n pruned ~/Projects/webzites/src/probe.mjs` <!-- r18 re-census 2026-10-14: ~/Projects/webzites/src/probe.mjs absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   → exit 1, no matches — sweep reproduces the absence; fleet-registry documents it.
-- **Clone count**: `ls ~/Projects/webzites/repos | wc -l` → 50.
+- **Clone count**: `ls ~/Projects/webzites/repos | wc -l` → 50. <!-- r18 re-census 2026-10-14: ~/Projects/webzites/repos absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 - **app.ds4cc.com rejection of the round-1 aggregator suggestion**: not among
   the 21 registry ids — the lane's rejection stands (AGGREGATE §9.4).
 - **Observed-outcome table**: rebuild charter-ufo-fsd `efc1830` success,

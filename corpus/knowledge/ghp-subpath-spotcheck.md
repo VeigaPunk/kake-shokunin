@@ -1,7 +1,7 @@
 # GHP subpath spotcheck — the blind spot behind `probe`/`reconcile`
 
 Evidence: `/tmp` baseline audit 2026-09-28 (~16:45Z, 2 352 paths across the
-three GHP rows), `~/Projects/webzites/src/reconcile.mjs` source read,
+three GHP rows), `~/Projects/webzites/src/reconcile.mjs` source read, <!-- r18 re-census 2026-10-14: ~/Projects/webzites/src/reconcile.mjs absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 `fleet/fleet.config.json`, live fetches (curl/python-urllib).
 
 ## What the existing verbs cover — and what they can't see

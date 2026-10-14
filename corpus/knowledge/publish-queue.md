@@ -1,6 +1,6 @@
 # Publish-queue readiness ledger (PQ-1..PQ-14)
 
-Source queue: `~/Projects/webzites/fleet/fleet.dedupe-report.md` (r1 lines
+Source queue: `~/Projects/webzites/fleet/fleet.dedupe-report.md` (r1 lines <!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/fleet.dedupe-report.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 46–57, r2 lines 89–106). Config of record: `fleet/fleet.config.json` (21 rows,
 `schema:webzites-fleet-v1`; `fleet/fleet.json` is a generated 2026-09-20
 snapshot of the vault's *claimed* PROPERTIES[] — the audited input for PQ-1,
@@ -185,7 +185,7 @@ baseline, not a freshness move.
   landed). Live `2026-09-29T00:48:51Z`: 200, 53,386B, sha `fb365e38…`,
   literal `2026-09-29 scribe beat (` (counts: 09-26=0, 09-28=0, 09-29=1);
   byte-identical to remote `main` HEAD `9c28d29` (ls-remote) and to clone
-  `~/Projects/origin-work/charter-ufo-fsd` HEAD/origin-main (behind 0 — the
+  `~/Projects/origin-work/charter-ufo-fsd` HEAD/origin-main (behind 0 — the <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/charter-ufo-fsd absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   scribe's own 00:06:19Z run refreshed FETCH_HEAD at 00:11:30Z; no pull by
   kake). EDIT-LANDED excluded (pin ≠ live); CHURN-AGAIN excluded (pin ≠ live
   at read); SILENT excluded (row 78 at 00:01:09.976Z, ~48min old); ANOMALY
@@ -243,7 +243,7 @@ ENOENT is a typo, not a vanish.
   (`/` 200, 53,386B, sha `fb365e38…` — byte-identical to r15 and to
   `origin/main` `9c28d29`). Excluded: EDIT-LANDED (pin≠literal), CHURN-AGAIN
   (live date == 09-29, not newer), SILENT (fresh 200 + literal present),
-  ANOMALY (live == deploy). Scribe ledger (`~/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl` —
+  ANOMALY (live == deploy). Scribe ledger (`~/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl` — <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   the .ufo dir lives on the alpha checkout, NOT `charter-ufo-fsd`): 28 beats,
   newest 00:06:19.897Z `pushed:true`; no beat newer than `9c28d29`.
 - **PQ-5 `PENDING`** — `/` 404 / 13,409B / sha `93ddca9a…` byte-identical to

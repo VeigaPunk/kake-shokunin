@@ -1,10 +1,10 @@
 # Origin repos — the 50-clone canonical-source map
 
-Source: `~/Projects/webzites/reports/keepers/repos-r1.md … repos-r8.md`
+Source: `~/Projects/webzites/reports/keepers/repos-r1.md … repos-r8.md` <!-- r18 re-census 2026-10-14: ~/Projects/webzites/reports/keepers/repos-r1.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 (wz-repos lane, terminal round 2026-09-21, run `gqab44994c06d7e7a4`).
-Clones live at `~/Projects/webzites/repos/<name>` — **read-only evidence
+Clones live at `~/Projects/webzites/repos/<name>` — **read-only evidence <!-- r18 re-census 2026-10-14: ~/Projects/webzites/repos absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 snapshots** cloned via `origin repo clone jo-o-veiga/<name>`; the editable
-working checkouts are `~/Projects/<name>` (e.g. `~/Projects/ds4cc-marketplace`).
+working checkouts are `~/Projects/<name>` (e.g. `~/Projects/ds4cc-marketplace`). <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 `origin repo list` = 224 repos under `jo-o-veiga` (unchanged r4→r8);
 50/50 clones re-fetched `HEAD == @{u}` at r8 — zero drift.
 
@@ -12,7 +12,7 @@ working checkouts are `~/Projects/<name>` (e.g. `~/Projects/ds4cc-marketplace`).
 
 | property | canonical repo | verdict |
 |---|---|---|
-| `ds4cc.com` | `repos/ds4cc-marketplace` (live index sha `b6f65899…`, also == `~/Projects/ds4cc-marketplace`) | byte-verified |
+| `ds4cc.com` | `repos/ds4cc-marketplace` (live index sha `b6f65899…`, also == `~/Projects/ds4cc-marketplace`) | byte-verified | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | `veigapunk.github.io` root | `repos/VeigaPunk.github.io` (sha `20805500…`, the Plazir-15 codex deck) | byte-verified |
 | `burnerchrome.kimi.page` | `repos/burnerchrome/index.html` (live 11819B vs 11775B = sdk-seed + serialization delta) | byte-verified |
 | `veigapunk.github.io/llm-wiki/` | `repos/llm-wiki` — CI builds `site/` from `site-src/`+`wiki/`; `site/` is never committed | declared+live 200 |
@@ -63,7 +63,7 @@ memory**.
 
 - `burnerchrome-kimi.sourceDir` → vendored `ds4cc-marketplace/burnerchrome`;
   canonical is `repos/burnerchrome` (byte-verdict).
-- `ds4cc-com.sourceDir` → `~/Projects/ds4cc-marketplace` (second checkout,
+- `ds4cc-com.sourceDir` → `~/Projects/ds4cc-marketplace` (second checkout, <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   byte-identical) — works, but `repos/ds4cc-marketplace` is the tracked clone.
 - `veigapunk-page.sourceDir` = null; `repos/VeigaPunk.github.io` is the
   byte-verified root source [INFERENCE for the kimi slot].

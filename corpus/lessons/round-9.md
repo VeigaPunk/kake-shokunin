@@ -1,7 +1,7 @@
 # Lesson — round 9 (2026-09-28)
 
 Cites: LOG.md round-9 entry; evidence = 10 delegated read-only probes
-(`~/Projects/webzites/reports/r9-publish-queue.md`, `r9-stale-markers.md`,
+(`~/Projects/webzites/reports/r9-publish-queue.md`, `r9-stale-markers.md`, <!-- r18 re-census 2026-10-14: ~/Projects/webzites/reports/r9-publish-queue.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 `dead-slot-recreate-readiness-r9.md`, `sentinel-sourceless-extract-r9.md`) +
 self-verified curl GETs on the vault + dead slots. Commit `round-9`. Zero
 publishes, zero metered fires, zero browser ops.

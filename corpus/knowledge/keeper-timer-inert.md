@@ -8,17 +8,17 @@ was enabled, started, or stopped by this lane (kake constraint; the decision is
 filed for the operator, see the last section).
 
 Sources: `systemctl --user status|show|list-timers`, `journalctl --user -u
-webzites-keeper.service`, `~/.config/systemd/user/webzites-keeper.{timer,service}`
+webzites-keeper.service`, `~/.config/systemd/user/webzites-keeper.{timer,service}` <!-- r18 re-census 2026-10-14: ~/.config/systemd/user/webzites-keeper.service · ~/.config/systemd/user/webzites-keeper.timer absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 — captured 2026-09-28T22:18Z on this host (verbatim below; the L1 pack recorded
 the same state at 22:14Z) — plus `/tmp/kake-r12/live/bots-report.out`,
-`/tmp/kake-r12/live/bots-list.out`, `~/Projects/webzites/reports/keepers/`.
+`/tmp/kake-r12/live/bots-list.out`, `~/Projects/webzites/reports/keepers/`. <!-- r18 re-census 2026-10-14: ~/Projects/webzites/reports/keepers absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 
 ## Verbatim state (read-only, 2026-09-28T22:18Z)
 
 ```text
 $ systemctl --user status webzites-keeper.timer   # rc=3
 ○ webzites-keeper.timer - Run the webzites keeper tick daily
-     Loaded: loaded (/home/vgpnk/.config/systemd/user/webzites-keeper.timer; disabled; preset: enabled)
+     Loaded: loaded (/home/vgpnk/.config/systemd/user/webzites-keeper.timer; disabled; preset: enabled) <!-- r18 re-census 2026-10-14: ~/.config/systemd/user/webzites-keeper.timer absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
      Active: inactive (dead)
     Trigger: n/a
    Triggers: ● webzites-keeper.service
@@ -45,7 +45,7 @@ Contrast, same minute — the probe half is alive: `webzites-probe.timer` is
 Unit files (read 2026-09-28): `webzites-keeper.timer` = `OnCalendar=daily`,
 `Persistent=true`, `[Install] WantedBy=timers.target`; `webzites-keeper.service`
 = `Type=oneshot`, `ExecStart=…/bin/webzites.mjs grokbot tick --quiet`,
-`SuccessExitStatus=1`, `WorkingDirectory=/home/vgpnk/Projects/webzites` — i.e.
+`SuccessExitStatus=1`, `WorkingDirectory=/home/vgpnk/Projects/webzites` — i.e. <!-- r18 re-census 2026-10-14: ~/Projects/webzites absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 the intended daily probe+reconcile+per-site-log round (`ops-automation.md:13`).
 
 [INFERENCE] `Persistent=true` cannot rescue this: catch-up semantics require the
@@ -90,7 +90,7 @@ zero journal entries, empty `LastTriggerUSec`, and absence from
    `charter-scribe.timer` (enabled, active, 6h;
    `ExecStart=…/origin-work/ufo-fsd-alpha/scripts/charter-scribe/sync.mjs`) beat
    commit `61d0ce6 "charter: scribe beat 2026-09-28"` exists in the charter repo
-   (`~/Projects/origin-work/charter-ufo-fsd`, 00:04Z push). And **no webzites
+   (`~/Projects/origin-work/charter-ufo-fsd`, 00:04Z push). And **no webzites <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/charter-ufo-fsd absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
    code writes `fleet.config.json` at all** — `src/` contains only the
    `loadFleetConfig` reader (`src/fleet.mjs:7-11`); no verb can re-pin the
    marker, so PQ-12's r9 gate class "keeper config edit" (historical r9
@@ -111,7 +111,7 @@ zero journal entries, empty `LastTriggerUSec`, and absence from
   last 3 ledger beats (06:05:59Z, 12:06:02Z, 18:06:19Z) are
   `pushed:false, push_blocked: "pull timed out after 60s"` with
   `scribe_route_failure: "grok-web empty or ceiling response"` (ledger
-  `~/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl`,
+  `~/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl`, <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   re-read 22:14Z; live marker still `2026-09-28 scribe beat (`). Until a push
   succeeds, the pin churn pauses anyway.
 - Manual `grokbot tick` / `grokbot log` still work (they are what stamped the
@@ -156,7 +156,7 @@ The r12 line above ("Until a push succeeds, the pin churn pauses anyway")
 held only for the *scribe automation*: its ledger still shows
 `pushed:false` beats (`pull timed out`), head `ee907f1`, 0 commits. But
 between 18:32:06Z and 20:43:21Z the **human pushed 5 commits directly to
-`origin/main`** of `~/Projects/origin-work/charter-ufo-fsd`
+`origin/main`** of `~/Projects/origin-work/charter-ufo-fsd` <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/charter-ufo-fsd absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 (`b74190e` bake gold snapshot → `d69dd22` og/twitter/hreflang → `0c767c2`
 window sync → `b9db4b1` CORRECTION → `a8f1e2b` fixup), and Pages served
 them live within ~30s of each push: live `index.html` sha

@@ -1,7 +1,7 @@
 # Ops automation — timers, history, bot fleet
 
-Sources: `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}`
-(read 2026-09-28), `~/Projects/webzites/state/probe-history.jsonl` (**78
+Sources: `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}` <!-- r18 re-census 2026-10-14: ~/.config/systemd/user/webzites-keeper.service · ~/.config/systemd/user/webzites-keeper.timer · ~/.config/systemd/user/webzites-probe.service · ~/.config/systemd/user/webzites-probe.timer absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
+(read 2026-09-28), `~/Projects/webzites/state/probe-history.jsonl` (**78 <!-- r18 re-census 2026-10-14: ~/Projects/webzites/state/probe-history.jsonl absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 rows**, 09-20→09-29; r16 re-read — a row-count literal here is a *floor*, it
 grows every 6h; re-derive, never copy), `bin/webzites.mjs --help` (2026-09-28),
 `reports/keepers/grokbot-*.log.md`.

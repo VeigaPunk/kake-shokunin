@@ -1,10 +1,10 @@
 # Drift detection — live vs source
 
 Source: `~/Projects/webzites/{bin/webzites.mjs, scripts/kimi-surface.mjs,
-src/probe.mjs}` + `state/probe-latest.json` (2026-09-28T18:51Z run) +
+src/probe.mjs}` <!-- r18 re-census 2026-10-14: the webzites tree (bin/webzites.mjs · scripts/kimi-surface.mjs · src/probe.mjs) absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. --> + `state/probe-latest.json` (2026-09-28T18:51Z run) +
 `fleet/fleet.dedupe-report.md`.
 
-Commands (all under `~/Projects/webzites/`):
+Commands (all under `~/Projects/webzites/`): <!-- r18 re-census 2026-10-14: ~/Projects/webzites absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 
 ```bash
 webzites probe --all                          # tripwire: GET + expect{status,finalUrl,title,marker}; rc 1 on violation

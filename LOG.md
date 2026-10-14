@@ -396,3 +396,36 @@
   freshness-sweep,publish-queue}.md`, `corpus/lessons/{round-1-aggregator-audit,
   round-8-aggregator-box3-coldrun,round-16,round-17}.md`, `corpus/README.md`,
   `SKILL.md`, `SCORECARD.md`, `LOG.md`.
+
+- 2026-10-14 — round 18: freshness **HOLD 10 — W7 mega-prune caught by the
+  standing gate before any repair; re-census completed, three debts
+  carried.** OMP/ufo-fsd re-census round (fleet directive): the substrate
+  moved — `~/Projects/origin-work/ufo-fsd-alpha` gone, same repo re-rooted
+  at `~/Projects/ufo-fsd-alpha` HEAD `964f443e` (no
+  `.ufo/charter-scribe/ledger.jsonl` on the new tree). (1) **Baseline
+  sweep 12:40Z → exit 2**: §paths 36 unannotated misses + 45 beyond the
+  pinned miss set; §history `probe-history.jsonl` unreadable; §armed
+  PQ-12 CHURN-AGAIN (live `2026-09-30 scribe beat`, 53 660 B, sha
+  `7c243a1d…`), PQ-2 + PQ-14 ANOMALY (repos gone), PQ-5 PENDING, ds4cc
+  sitemap PRE-PUSH. `~/Projects` children went 36 → 14 (33 removed incl.
+  `webzites`, `ds4cc-marketplace`, `plazir-15-site`, `lucario`,
+  `origin-work` wholesale, `~/DIRMAP.md`, the probe/keeper systemd units;
+  11 added). (2) **Repair** — append-only errata: 63 cite lines in 22
+  files now carry inline `r18 re-census 2026-10-14` markers (absent,
+  historical record; zero claims deleted; 3 multi-token/multi-line cites
+  hand-repaired after the blanket pass broke brace-list grammar).
+  `freshness-pins.json` re-measured in one pass: `pathsMissSet` 10→55,
+  `projectsChildrenSet` 36→14, `charterGhp{Pin,LiveSha,ChurnAfter}`
+  re-baselined to the observed 2026-09-30 beat, `probeHistoryAbsent`
+  added. `freshness-sweep.mjs`: pin-declared absent history source →
+  `SUSPENDED` (loud skip line, never counted as pass) instead of exit 2;
+  selftest fixture re-anchored `webzites/fleet` → `ufo-fsd-alpha`.
+  (3) **Verdicts** — bare: `VERDICT: DRIFT — §armed: PQ-2 ANOMALY,
+  plazir-gate-anomaly (exit 1)`; `--offline`: `VERDICT: OK (exit 0,
+  partial)`; `--selftest`: 10/10; §paths drift 0 / newMissing 0 /
+  children MATCH. (4) **Carried debt** — PQ-2 + PQ-14 ANOMALY (source
+  repos gone; exit 1 stands, correct) and §history SUSPENDED; each named
+  with unblock in SCORECARD `## Planned`. Evidence: `/tmp/kake-r18/`;
+  `corpus/lessons/round-18.md`; files: `scripts/freshness-sweep.mjs`,
+  `corpus/knowledge/freshness-pins.json`, `corpus/README.md`, 21 corpus
+  md errata files, `SCORECARD.md`, `LOG.md`.

@@ -46,4 +46,4 @@ not allowlisted, never called.
 
 Post-click verify (free): live URL 200 → `GetWebsiteByChatID` publishedUrl +
 PUBLISHED → `sync-check` marker → `kimi-map` refresh.
-Source: `~/Projects/webzites/fleet/kimi-surface-ops.md` rounds 1–4.
+Source: `~/Projects/webzites/fleet/kimi-surface-ops.md` rounds 1–4. <!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/kimi-surface-ops.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
