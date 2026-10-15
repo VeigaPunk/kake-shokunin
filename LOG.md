@@ -540,3 +540,27 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   (`.ufo/round-20/receipt-binding.json`), so no receipt was fabricated and
   Sighting remains incomplete. The report/continuation land after the
   owned work commit; a fresh session resumes this actual round, not round 21.
+
+## 2026-10-15 — round 20 shape-only evidence erratum
+
+- Review found a dispatch-contract violation in
+  `f405166a33878cab32bff18dce3f39c9d9d3e463`: acceptance evidence stored
+  controlled fixture override values, captured stdout repeated derived
+  fixture paths, and the SKILL selftest command embedded assignments.
+  Generated lane-local values are still environment material; the
+  shape-only rule was not satisfied by that initial landing.
+- Follow-up correction, not amend/history rewrite:
+  `.ufo/round-20/{acceptance,baseline-proof,candidate-proof}.json` replace
+  captured override paths with symbolic placeholders and retain only
+  variable names/isolation shape. Ordinary frozen fixture metadata remains
+  available for replay. SKILL now names isolation requirements without
+  assigned values. The previously stated “full output” means sanitized
+  output after this erratum, never byte-verbatim raw environment values.
+- Verification: structured evidence reserialized and captured JSON outputs
+  parsed; all stored verdict lines and exit codes compared unchanged before
+  and after the redaction. `.ufo/round-20/redaction-validation.json`
+  records PASS. No program/fixture changes and no runtime gate rerun.
+- `corpus/lessons/round-20.md` records this rejected representation;
+  `corpus/QUALITY.md` adds its grounded shape-only criterion. The original
+  commit remains in ancestry and is not claimed conformant or scrubbed.
+  No new round credit, admission, receipt or Sighting completion follows.

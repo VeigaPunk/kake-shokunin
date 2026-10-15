@@ -36,3 +36,12 @@ Without an already-authorized existing binding, the 32-seat dispatch is blocked.
 - Round admission additionally requires the actual compliant 32-seat batch and integrated terminal outcomes. A validated plan is not dispatch, specialist proof, Rust judgment, or completion.
 - Learning: record expansion/quality/discernment separately. A self-dispatched reviewer is not the independent promotion/learning verifier. No promotion attestation is earned here.
 - Receipt: use an applicable real mission/task binding only. Never invent a queue task key or call Sighting `complete` without a genuinely minted and validated applicable receipt. Fresh-session continuation remains required; the target of 100 verified rounds is not an in-session loop.
+
+## Evidence-format correction after local landing
+
+The original full-stream capture clause does not override the dispatch's
+shape-only environment restriction. Captured fixture environment paths are
+now symbolic; override metadata contains names/isolation shape only.
+Verdict lines and exits remain exact. The follow-up correction and preserved
+initial conformance defect are recorded in the round-20 LOG/lesson errata
+and `.ufo/round-20/redaction-validation.json`; no history rewrite or new round.

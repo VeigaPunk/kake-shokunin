@@ -120,3 +120,24 @@ Local axis verdicts: freshness improved, operability unchanged. Learning:
 expansion unchanged, quality improved locally, discernment unchanged.
 All remain provisional because no compliant wave or independent non-author
 spot-check ran; this attempt is blocked, not a completed training round.
+
+## Shape-only evidence erratum
+
+Review rejected the initial evidence representation in
+`f405166a33878cab32bff18dce3f39c9d9d3e463`: controlled fixture environment
+values were serialized and echoed through captured output; the SKILL
+selftest command also embedded assignments. Their lane-local origin does
+not exempt them from this dispatch's shape-only rule.
+
+A follow-up correction substitutes symbolic paths in captured output and
+keeps override variable names plus isolation shape, not assigned values.
+Ordinary frozen fixture metadata remains replayable. The output references
+above now mean shape-sanitized output with **unchanged full verdict lines
+and exit codes**, not byte-verbatim streams. Structured JSON parsing and
+before/after verdict comparison passed:
+`.ufo/round-20/redaction-validation.json`. No runtime program changed.
+
+The rejected representation grounds the added `corpus/QUALITY.md` criterion.
+The original commit is preserved as a recorded conformance defect, not
+rewritten or asserted scrubbed. This correction earns no verified round
+or independent promotion/learning attestation.

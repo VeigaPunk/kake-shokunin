@@ -131,3 +131,11 @@ operator restore-or-retire decisions for source watches and history;
 the previously reported static confinement-assertion weakness; independent
 spot-check; applicable receipt binding. Unblocks are in the current plan,
 `corpus/lessons/round-20.md`, and `.ufo/round-20/receipt-binding.json`.
+
+Round-20 evidence-format erratum: the initial landing serialized controlled
+fixture environment values. A follow-up redacts those values to shape-only
+metadata/symbolic output and preserves verdicts/exits; see the LOG and
+lesson's “shape-only evidence erratum” and
+`.ufo/round-20/redaction-validation.json`. The initial commit remains a
+recorded conformance defect in ancestry. Program/fixtures, local axis
+measurements, blocked admission and zero round credit are unchanged.
