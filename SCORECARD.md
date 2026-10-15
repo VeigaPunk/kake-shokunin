@@ -3,12 +3,33 @@
 Axes owned by this lane: **operability + freshness** (MISSION.md fleet-2;
 depth/coverage/calibration/adjacency belong to other lanes — not scored here).
 
+The numeric ratings below are legacy round-17/18 assessments, not a fresh
+proof that the current corpus is clean. Round 20 is a blocked attempt;
+its local per-axis evidence and admission limits are recorded at the end.
+
 | Axis | Score | Evidence pointer | Last change |
 |---|---|---|---|
 | operability | 10 | Every free-read verb in the domain is now **live-executed on the real repo with a byte-level write-free proof**: r11 closed probe/status/reconcile/sync-check; r12 closed the last 4 (`status --json` exit 0 with 5 violated+1 error in snapshot; `grokbots --check` exit 1 lucario; `bots list` exit 0 20 keepers; `bots report` exit 1 gaps) — 31-file state sha guard identical before/after, re-verified by 2 independent L2 re-runs. Exit-1 predicates pinned to code (gaps `cli.mjs:935`, stale-only-with-flag `:836-839`/`:932`, checked=21 `:393`); replica edge matrix (corrupt/deleted snapshot, registry faults, `--stale` variants) landed. The automation layer is now runtime-verified, not unit-file-trusted: keeper timer never fired (enable-vs-retire at L0), scribe push-gate failing (N1), lucario registry gap at L0. Corrected cmdProbe merge patch replica-verified and staged for the webzites owner (`corpus/handoffs/cmdProbe-merge-fix.md` — r11 F1 guard refuted on the `probe <id> --all` edge). Full verb free-read/writer classification (35 rows) code-verified. | round 12 |
 | freshness | 10 | **r17 HOLD 10:** the standing instrument caught a real between-sweep world change before prose repair: lowercase `~/projects` was consolidated into `~/Projects` and removed, making a cited descendant miss; cite corrected to the surviving canonical report, `pathsMissSet` 9→10. Full r16 inventory re-run: 160 claims (117/117 HOLD; 15/15 r16 stale repairs still correct; 7 carried UNVERIFIABLE; 21 HISTORICAL-OK) + 16/16 new claims HOLD; 9 new deltas found and resolved/qualified (W6 path+mtime/child rename, ETag edge flip, 2 r17 self-stale counts, inode wording, dangling `corpus/claims`, ledger locus, README range gloss). Instrument integrity also improved: `projectsChildrenSet` 36 informational set; `pathsFiles` count→39-entry evaluated list; bad pins now fail closed exit 2 with a permanent case (`--selftest` **10/10**). Final §paths = 66 targets / 49 resolve / 10 declared-absent / 0 drift / 39 files; 33-file state sha guard identical. Live exit 1 remains solely expected PQ-14 `plazir-live-source-gap`. Evidence: `corpus/knowledge/freshness-sweep.md` §r17, `corpus/lessons/round-17.md`, `LOG.md` r17, `/tmp/kake-r17/{scout-claims.md,claims-delta.tsv,critic.md,reviewer-cites.md,scout-pins.md,scout-live.md}`. | 17 |
 
 ## Planned
+
+- **Round 20 remains unadmitted.** Freshness is the chosen LIVE axis (10/10
+  tie with operability); no numeric rating or verified-round count advances.
+  The effective host aliases do not meet the dispatch contract:
+  `.ufo/round-20/routing-blocker.json`.
+- **Host owner / integrator unblock:** supply the already-authorized
+  content/audit/connector bindings and connector fallback, then dispatch the
+  saved complete 32-scope wave in a fresh session. No new overlay or route
+  mutation is authorized to this lane.
+- **Kake unblock:** triage each location in
+  `.ufo/round-20/citation-debt.json`, marking a historical recipe locally or
+  verifying a surviving source. Do not re-pin to hide the red path gate.
+- **Receipt unblock:** the current interactive mission has no queue task key
+  or expected receipt bag in its selected wall metadata; the integrator must
+  provide a real applicable binding. Sighting stays running/incomplete.
+
+### Historical round-18/19 plan (not current measurements)
 
 - **round 19 (pick at round open):** the round-18 re-census left three named
   debts, each with an explicit unblock: **PQ-2** (`~/Projects/ds4cc-marketplace`
@@ -65,3 +86,48 @@ depth/coverage/calibration/adjacency belong to other lanes — not scored here).
   operator-gated, and L0 answers may add follow-up execution support.
 - The two owned axes themselves are NOT retired (freshness has standing
   re-verification work; operability owns the landed scripts' upkeep).
+
+## Round 20 attempt — local verdicts, not round admission
+
+Baseline program: `20d13115323fba21bb3d63204cce13425feaf399`.
+Candidate program SHA-256:
+`816bbe688d54761930726c7196a6bf37ff3bc4bbdfbcd896ea7e1a5f4d1a6463`.
+The source commit carrying that byte-identical program is cited by the
+round report after landing. The measurements below grade the saved input
+surface, not an unmeasured historical corpus.
+
+| Owned axis | Verdict | Before → after evidence |
+|---|---|---|
+| freshness | improved locally; blocked/unadmitted | On the same measured candidate corpus, baseline program: exit 0, drift 0, declaredAbsent 55. Candidate: exit 1, drift 7 targets / 26 unannotated locations, declaredAbsent 48; newMissing 0. `.ufo/round-20/{same-surface-baseline,acceptance,citation-debt,measured-corpus-inputs}.json` record argv, full outputs and input hashes. `node .ufo/round-20/replay-proof.mjs` also proves the isolated false-green and unchanged controls. |
+| operability | unchanged | Entry/exit contracts and publishing/history logic retained; isolated selftest `14/14`, frozen CLI proof passes. Normal path/offline gates remain usefully red, not suppressed. Full evidence: `.ufo/round-20/acceptance.json`. No online armed checks ran. |
+
+No owned axis is observed harmed in the exercised paths. This is not Rust
+judgment, a compliant specialist wave, or evidence of 100 completed rounds.
+No new verified-round credit is claimed. Other expertise axes are outside
+the lane's scored ownership and were not re-scored.
+
+Learning trends: **expansion unchanged** (same domain ground, no new
+knowledge frontier admitted); **quality improved locally** (false-green
+rule corrected and historical runbook expectations explicitly qualified);
+**discernment unchanged** (no independent non-author admit/reject spot-check).
+All are provisional for a blocked round.
+
+Exact local acceptance verdicts (2026-10-15; full argv/stdout/stderr/exits in
+`.ufo/round-20/acceptance.json`):
+
+```text
+CITATION_LOCALITY_PROOF: PASS (cases=7, failures=0)
+exit=0
+selftest: 14/14 passed
+exit=0
+VERDICT: DRIFT — §paths: 7 unannotated miss · 0 NOT in pins.pathsMissSet (exit 1)
+exit=1
+VERDICT: DRIFT — §paths: 7 unannotated miss · 0 NOT in pins.pathsMissSet (exit 1, partial: offline)
+exit=1
+```
+
+Named debt: host role/fallback bindings; per-location corpus annotations;
+operator restore-or-retire decisions for source watches and history;
+the previously reported static confinement-assertion weakness; independent
+spot-check; applicable receipt binding. Unblocks are in the current plan,
+`corpus/lessons/round-20.md`, and `.ufo/round-20/receipt-binding.json`.

@@ -436,3 +436,107 @@
 
 Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
 `../.ufo/waves/shokunin12h-20261014-p1-repair/members/`.
+
+## 2026-10-15 — round 16 continuation: citation-local absence evidence
+
+- Steer: round 16, despite inherited records through round 19. Historical
+  entries/report remain intact; no counter or routing mutation. Both owned
+  axes score 10; freshness wins the tie on the falsifiable false-green below.
+- Motivating baseline: `20d13115323fba21bb3d63204cce13425feaf399`.
+  `node scripts/freshness-sweep.mjs --section=paths --json`, run from an
+  isolated `git archive` snapshot of that commit on the live filesystem,
+  returned exit 0: resolve 5, declaredAbsent 55, drift 0, newMissing 0,
+  files 41. The preexisting working-tree edit to `SKILL.md` was excluded.
+- Counterexample: the absent webzites CLI is still invoked at
+  `SKILL.md:59`; its local annotation window has no absence declaration.
+  A historical annotation in `corpus/knowledge/free-read-verbs.md:5-6`
+  marks the same target elsewhere. `scanCitations` ORs those declarations
+  across all occurrences, hiding the unannotated instruction. An actual CLI
+  invocation over a two-file fixture reproduced exit 0 for mixed annotated
+  and unannotated occurrences, including the canonical-home alias variant;
+  the all-annotated control also returned 0.
+- Single correction: retain annotation evidence per citation location.
+  A missing target with any locally unannotated occurrence is drift;
+  JSON/human diagnostics identify the offending occurrences. Existing
+  per-citation annotation windows, normalization, miss pins, history and
+  publishing gates are intentionally unchanged. This improves detection,
+  not source restoration or wholesale corpus repair.
+- Required L2 dispatch: one native OMP batch, nine seats (planner,
+  connector, executors ×3, scribe, scout, reviewer, critic), using unchanged
+  host role overrides. It is not a claimed validated UFO uniform wave.
+  The score remains capped at 10; measured outcomes and final verification
+  are recorded in the completion entry below.
+
+## 2026-10-15 — round 20 interactive reconciliation and WWKD plan
+
+- The preceding uncommitted “round 16 continuation” section came from the
+  interrupted headless worker. Its label is not a completed-round counter
+  and is not authority for this dispatch. Existing owned history reaches
+  `20d13115323fba21bb3d63204cce13425feaf399` (round-19 correction), with
+  the fleet's `.ufo/reports/round-19/kake.md` recording the actual round.
+  That history and the inherited three-file patch are preserved.
+- Current round attempt: **20**, freshness (both LIVE owned axes scored 10;
+  the target-wide annotation suppression defect breaks the tie). Plan:
+  `plans/wwkd-round-20-citation-locality.md`. `corpus/QUALITY.md` and
+  `MINT.md` were absent in the lane inventory at activation.
+- Dispatch precondition fails: effective `cfg://task/agentModelOverrides`
+  routes content through `@m_mid`/`@m_fast`, audit through mixed
+  `@m_fast`/`@m_mid`/`@m_strong`, connector through `@m_mid`.
+  Required bindings are content `@m_composer`, audit `@m_grok`, connector
+  `@m_antigravity` with `@m_zfl` fallback; the effective Antigravity
+  fallback chain is empty. No route/config mutation or substitute dispatch.
+  This attempt earns no verified-round credit without the actual required
+  wave. Local verification and truthful continuation remain reachable.
+
+## 2026-10-15 — round 20 local proof, blocked admission
+
+- Motivating evidence: round-19 lesson's unmarked publishing instructions
+  plus the actual baseline CLI false-green, not a recalled launch counter.
+  Baseline program revision:
+  `20d13115323fba21bb3d63204cce13425feaf399`. Retained inherited
+  per-location annotation sets in `scripts/freshness-sweep.mjs`;
+  simplified its new human diagnostic and removed the incidental
+  first-evidence ordering assertion from case M. The preceding nine-seat
+  dispatch note is inherited history, not a compliant 32-seat dispatch or
+  evidence that this interactive session launched specialists.
+- Smoke: `.ufo/round-20/{baseline-proof,candidate-proof}.json` contain
+  actual CLI argv/full output/exits. Mixed, distant same-file, home-alias,
+  brace-expanded and strict-mode cases changed false-green exit 0 to drift
+  exit 1; all-annotated and present-target controls stayed exit 0.
+  `node .ufo/round-20/replay-proof.mjs` verifies committed input digests
+  before comparing both programs: `CITATION_LOCALITY_PROOF: PASS
+  (cases=7, failures=0)`, exit 0. The permanent case M checks actionable
+  locations and unchanged annotated controls, not evidence-record ordering.
+- Acceptance: isolated-HOME selftest `14/14`, exit 0. Baseline program on
+  the same measured candidate corpus: drift 0 / declaredAbsent 55, exit 0.
+  Candidate path gate: 7 missing targets / 26 locally unannotated locations /
+  declaredAbsent 48 / newMissing 0, exit 1. Offline exit 1 with history
+  SUSPENDED and all armed HTTP checks skipped. Full verdict lines/exits:
+  `.ufo/round-20/acceptance.json`; input hashes:
+  `.ufo/round-20/measured-corpus-inputs.json`; actionable debt:
+  `.ufo/round-20/citation-debt.json`. Candidate script SHA-256:
+  `816bbe688d54761930726c7196a6bf37ff3bc4bbdfbcd896ea7e1a5f4d1a6463`.
+- Canonical wave plan/render: exit 0, exactly 32 distinct names/scopes and
+  32 leading Godspeed invocations; **zero native task calls**, no registry
+  persistence. Held payload and validation live under `.ufo/round-20/wave/`.
+  Effective alias/fallback mismatch remains the blocker. No new routing
+  overlay, global change, external request, source repair, or push.
+- Docs: `SKILL.md` records citation-local P1 and the owned gate registry;
+  the runbook preserves but explicitly supersedes the old OR rule and
+  historical copied baselines. `corpus/QUALITY.md` grounds admission
+  criteria in the measured lesson; `corpus/README.md` indexes them and names
+  the frontier. `corpus/lessons/round-20.md` records candidates, admits,
+  rejects, the missing non-author spot-check, and measured verdicts.
+- Per-axis outcomes: freshness improved locally; operability unchanged.
+  Learning trends: expansion unchanged, quality improved locally,
+  discernment unchanged. **Blocked/unadmitted; no new verified-round credit,
+  no promotion, no native judgment.** Existing numeric ratings stay legacy.
+- Named debt/unblock: host owner restores required existing role bindings
+  and Antigravity→ZFL fallback; kake triages each emitted citation location;
+  operator restores or retires missing publishing sources/history; kake
+  separately addresses the previously reported confinement-assertion
+  weakness; a non-author checks an admit and reject. The interactive wall
+  row has no applicable task/expected receipt binding
+  (`.ufo/round-20/receipt-binding.json`), so no receipt was fabricated and
+  Sighting remains incomplete. The report/continuation land after the
+  owned work commit; a fresh session resumes this actual round, not round 21.

@@ -7,6 +7,8 @@ mirrors, Pages deploys).
 
 - `knowledge/` — domain facts with citations (file path, command output, URL).
 - `lessons/` — per-round lessons citing LOG.md round + evidence.
+- `QUALITY.md` — publishing-evidence admission criteria grounded in the
+  round-20 citation-locality lesson; independent spot-check still owed.
 
 ## Coverage map
 
@@ -29,7 +31,8 @@ mirrors, Pages deploys).
 | Keeper-timer status | `knowledge/keeper-timer-inert.md` | r12: keeper timer loaded/disabled/never-fired; logs frozen 09-21; charter-ghp pin = config lag + human edit (scribe is the writer; no fleet.config writer in src/); scribe push-gate failing |
 | Free-read verbs | `knowledge/free-read-verbs.md` | probe/status/reconcile/sync-check (r11) + status --json/grokbots --check/bots list/bots report (r12 live): exit contracts, gap/stale predicates, 18/21/20/21 universes, clobber + corrected merge patch |
 | Handoffs (webzites owner) | `handoffs/cmdProbe-merge-fix.md` | verified one-line cmdProbe merge patch (r11 F1 guard refuted; `probe <id> --all` edge covered), owner test recipe |
-| Round lessons | 20 files: core `round-{1,3,4,5,6,7,8,9,10,12,16,17,18}.md` + 7 named aggregator audits | audit findings; fresh-probe corrections; journal decoder; automation+repo layer; subpath spotcheck; orphan audit; kimi subpath audit; PQ readiness; probe-delta + checklist audit; free-read suite; r12 automation-myth falsification; r16 claim-class instrument; r17 W6 catch + inert-pin hazards; r18 W7 mega-prune re-census + suspended-source semantics |
+| Citation-local absence | `lessons/round-20.md` + `QUALITY.md` | Baseline/candidate CLI proof, exact unannotated locations, frozen input digests; round admission blocked by host route bindings. |
+| Earlier round lessons (historical through r18) | core `round-{1,3,4,5,6,7,8,9,10,12,16,17,18}.md` plus named aggregator audits; later entries live in `lessons/` | Dated audit findings and source-era measurements, not current surface availability. |
 
 ## Known gaps
 
@@ -72,3 +75,14 @@ mirrors, Pages deploys).
   plazir15 chat-binding ambiguity (vessel `1a0c2186` vs emergent `1a0de2ed`),
   bare `webzites` not on PATH (invoke `node ~/Projects/webzites/bin/webzites.mjs`),
   cmdProbe merge patch for the webzites owner (`handoffs/cmdProbe-merge-fix.md`).
+
+## Frontier
+
+- Complete the round-20 audit only after the host owner supplies the required
+  existing alias bindings; the validated 32-scope wave is not dispatched.
+  See `lessons/round-20.md` and `.ufo/round-20/routing-blocker.json`.
+- Repair or locally qualify the individual deleted-source citations exposed
+  by P1; a target-wide historical marker is not enough. Existing publishing
+  source restoration and history restoration/retirement remain operator-owned.
+- Obtain a non-author spot-check of at least one admitted and rejected
+  round-20 candidate; self-review does not close discernment or promotion.

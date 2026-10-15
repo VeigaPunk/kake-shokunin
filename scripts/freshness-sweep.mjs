@@ -114,7 +114,10 @@ const isCanonicalProbeHistoryPath = (file) => path.resolve(file) === path.resolv
 
 
 // Absence vocabulary: a missing cited path is a *declared* absence (exit
-// neutral) iff any citing line ±2 carries one of these words.
+// neutral) iff EVERY citation's own ±2 window carries one of these words.
+// Per-citation AND (r20): one marked historical cite must not hide an
+// unannotated cite of the same token elsewhere. The gate flags an
+// annotation-contract violation; it never asserts which cite is a live claim.
 const ABSENT_RE = /absent|gone|vanished|emptied|no longer|dangling|no such file|never published|missing/i;
 
 // Cited-path grammar (spec, verbatim): ~ or /home/vgpnk, then path chars.
@@ -348,7 +351,7 @@ function scanCitations(repoRoot, pins = {}) {
 
   const REL_PATH_RE = /(?:^|[\s`'"([])((?:[\w.@%+-]+\/)+[\w.@%+-]+\.(?:jsonl|json|mjs|js|md|sh|html|txt|timer|service|toml))(?![A-Za-z0-9])/;
 
-  const byToken = new Map(); // token -> {cites:Set, missingCites:Set}
+  const byToken = new Map(); // token -> {cites:Set, annotatedCites:Set, placeholders:Set}
   let occurrences = 0;
   let rawHits = 0;
   const relativeCites = [];   // informational: spec-regex blind spot (see below)
@@ -410,18 +413,18 @@ function scanCitations(repoRoot, pins = {}) {
         for (const tk of norm.tokens) {
           const token = canonHome(tk.token);
           const key = `${tk.kind}:${token}`;
-          if (!byToken.has(key)) byToken.set(key, { token, kind: tk.kind, cites: new Set(), annotated: false, placeholders: new Set() });
+          if (!byToken.has(key)) byToken.set(key, { token, kind: tk.kind, cites: new Set(), annotatedCites: new Set(), placeholders: new Set() });
           const rec = byToken.get(key);
           rec.cites.add(cite);
           if (ann[token] || ann[tk.token]) {
-            rec.annotated = true;
+            rec.annotatedCites.add(cite);
             if (!rec.evidence) rec.evidence = { ...(ann[token] || ann[tk.token]), cite };
           }
         }
         if (norm.kind === 'placeholder' || norm.kind === 'mixed') {
           for (const ph of norm.placeholders) {
             const key = `placeholder:${raw}`;
-            if (!byToken.has(key)) byToken.set(key, { token: raw, kind: 'placeholder', cites: new Set(), annotated: false, placeholders: new Set() });
+            if (!byToken.has(key)) byToken.set(key, { token: raw, kind: 'placeholder', cites: new Set(), annotatedCites: new Set(), placeholders: new Set() });
             byToken.get(key).cites.add(cite);
             byToken.get(key).placeholders.add(ph);
           }
@@ -438,9 +441,15 @@ function scanCitations(repoRoot, pins = {}) {
       continue;
     }
     const abs = expandHome(rec.token);
+    // Declared absence = per-citation AND: every cite needs its own ±2
+    // annotation. A marked historical cite in one file no longer hides an
+    // unannotated cite elsewhere; drift reports ALL cites for context plus the
+    // actionable unannotatedCites subset (annotation-contract violation, not a
+    // claim about which occurrence is current).
+    const unannotatedCites = cites.filter((c) => !rec.annotatedCites.has(c));
     if (fs.existsSync(abs)) resolve.push({ path: rec.token, resolve: abs, cites });
-    else if (rec.annotated) declaredAbsent.push({ path: rec.token, resolve: abs, cites, evidence: rec.evidence || null, indirect: !!(rec.evidence && !rec.evidence.direct && !rec.evidence.mentions) });
-    else drift.push({ path: rec.token, resolve: abs, cites });
+    else if (unannotatedCites.length === 0) declaredAbsent.push({ path: rec.token, resolve: abs, cites, evidence: rec.evidence || null, indirect: !!(rec.evidence && !rec.evidence.direct && !rec.evidence.mentions) });
+    else drift.push({ path: rec.token, resolve: abs, cites, unannotatedCites });
   }
   const byPath = (a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
   resolve.sort(byPath); declaredAbsent.sort(byPath); drift.sort(byPath); unresolved.sort(byPath);
@@ -503,7 +512,7 @@ function scanCitations(repoRoot, pins = {}) {
     occurrences, rawHits, uniqueTokens: byToken.size,
     resolve: resolve.map((r) => ({ path: r.path, cites: r.cites })),
     declaredAbsent: declaredAbsent.map((r) => ({ path: r.path, cites: r.cites, evidence: r.evidence, indirect: r.indirect })),
-    drift: drift.map((r) => ({ path: r.path, resolve: r.resolve, cites: r.cites })),
+    drift: drift.map((r) => ({ path: r.path, resolve: r.resolve, cites: r.cites, unannotatedCites: r.unannotatedCites })),
     unresolved,
     counts: { resolve: resolve.length, declaredAbsent: declaredAbsent.length, declaredAbsentIndirect: declaredAbsent.filter((r) => r.indirect).length, drift: drift.length, unresolved: unresolved.length, newDrift: newDrift.length, newMissing: newMissing.length },
     citedSet, missSet, setDelta, projectsChildren, projectsChildrenDelta,
@@ -884,8 +893,11 @@ function printPaths(p) {
   console.log(`§paths  ${p.filesScanned} files · ${p.occurrences} occurrences · ${p.uniqueTokens} unique tokens`);
   console.log(`  resolve ${p.counts.resolve} · declaredAbsent ${p.counts.declaredAbsent} · drift ${p.counts.drift} · unresolved ${p.counts.unresolved}`);
   if (p.counts.drift) {
-    console.log(`  !! DRIFT ${p.counts.drift} cited path(s) missing with no absent-annotation:`);
-    for (const d of p.drift) console.log(`     ${d.path}  (${d.cites.length} cite(s): ${d.cites.slice(0, 3).join(', ')}${d.cites.length > 3 ? ', …' : ''})`);
+    console.log(`  !! DRIFT ${p.counts.drift} cited path(s) missing with unannotated citation(s):`);
+    for (const d of p.drift) {
+      const u = d.unannotatedCites;
+      console.log(`     ${d.path}  (${u.length} of ${d.cites.length} cites unannotated: ${u.slice(0, 3).join(', ')}${u.length > 3 ? ', …' : ''})`);
+    }
   }
   for (const d of p.declaredAbsent) console.log(`  declaredAbsent  ${d.path}  ${d.cites[0]}${d.cites.length > 1 ? ` (+${d.cites.length - 1})` : ''}${d.indirect ? ` [indirect: "${d.evidence.word}" @${d.evidence.line}, no token mention]` : ''}`);
   if (p.counts.unresolved) console.log(`  unresolved (not existsSync-checkable): ${p.unresolved.map((u) => `${u.path} [${u.kind}]`).join(' · ')}`);
@@ -1136,6 +1148,21 @@ async function selftest() {
   fs.writeFileSync(badHistory, '{"at":"2026-09-29T00:00:00.000Z","total":1,"ok":1,"violated":[],"errors":[]}\n{"at": "broken\n');
   const badPins = path.join(dir, 'bad-pins.json');
   fs.writeFileSync(badPins, '{"schema":"kake-freshness-pins-v1","pins":\n');
+  // Fixture M (r20): a historical note must not hide an unannotated cite.
+  // The alternate home spellings must aggregate into one token, while a
+  // second target annotated at both locations stays exit-neutral. Line 6's
+  // annotation is outside the unannotated line 3's ±2 window.
+  const leak = path.join(dir, 'cross-citation-leak');
+  fs.mkdirSync(path.join(leak, 'corpus/knowledge'), { recursive: true });
+  fs.writeFileSync(path.join(leak, 'SKILL.md'),
+    '# fixture M\n\n'
+    + 'Referenced: `/home/vgpnk/Projects/webzites/selftest-leak.md` appears here.\n'
+    + '\n\n'
+    + 'Control dup: `/home/vgpnk/Projects/webzites/selftest-dup.md` is absent (fixture annotation).\n');
+  fs.writeFileSync(path.join(leak, 'corpus/knowledge/note.md'),
+    'Known miss: `~/Projects/webzites/selftest-leak.md` (absent since 2026-10-15, fixture annotation).\n'
+    + '\n'
+    + 'Control: `~/Projects/webzites/selftest-dup.md` is absent (fixture annotation).\n');
   // SELFTEST-WRITES-END
 
   const envA = { KAKE_REPO_ROOT: annotated, KAKE_FRESHNESS_PINS: pins, KAKE_FETCH_TIMEOUT: '2000' };
@@ -1209,6 +1236,27 @@ async function selftest() {
       && j.sections.paths.declaredAbsent.some((d) => d.path.endsWith('selftest-named.md'))
       && j.sections.paths.declaredAbsent.every((d) => d.evidence && d.evidence.mentions === true),
   });
+
+  // Case M: cross-citation leak — an annotated cite in one file must NOT hide
+  // an unannotated cite of the same missing target elsewhere (per-cite AND).
+  r = run(['--section=paths', '--json'], { KAKE_REPO_ROOT: leak, KAKE_FRESHNESS_PINS: pins });
+  j = null; try { j = JSON.parse(r.stdout); } catch { /* fall through */ }
+  {
+    const leakD = j && j.sections.paths.drift.find((d) => d.path.endsWith('selftest-leak.md'));
+    const dupA = j && j.sections.paths.declaredAbsent.find((d) => d.path.endsWith('selftest-dup.md'));
+    cases.push({
+      id: 'm cross-citation leak -> drift, exit 1; annotated dup control stays declaredAbsent',
+      expect: "exit 1 · canonical leak target · unannotatedCites ['SKILL.md:3'] · cites lists both locations · annotated duplicate stays declaredAbsent",
+      got: `exit ${r.code} · drift ${JSON.stringify(j && j.sections.paths.drift.map((d) => [d.path, d.cites, d.unannotatedCites]))} · declaredAbsent ${JSON.stringify(j && j.sections.paths.declaredAbsent.map((d) => [d.path, d.cites]))}`,
+      pass: r.code === 1 && !!leakD && !!dupA
+        && leakD.path === '~/Projects/webzites/selftest-leak.md'
+        && leakD.cites.length === 2
+        && leakD.cites.includes('corpus/knowledge/note.md:1') && leakD.cites.includes('SKILL.md:3')
+        && JSON.stringify(leakD.unannotatedCites) === JSON.stringify(['SKILL.md:3'])
+        && !j.sections.paths.declaredAbsent.some((d) => d.path.endsWith('selftest-leak.md'))
+        && dupA.cites.length === 2 && dupA.cites.includes('SKILL.md:6') && dupA.cites.includes('corpus/knowledge/note.md:3'),
+    });
+  }
 
   r = run(['--section=history', '--json'], { KAKE_FRESHNESS_PINS: pins, KAKE_PROBE_HISTORY: badHistory });
   cases.push({

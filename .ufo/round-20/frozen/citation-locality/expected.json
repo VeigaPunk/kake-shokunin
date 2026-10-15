@@ -1,0 +1,121 @@
+{
+  "schema": "kake-citation-locality-proof-v1",
+  "baselineRevision": "20d13115323fba21bb3d63204cce13425feaf399",
+  "baselineScriptSha256": "19817629c5a41dadd076ac0da1d56bb5d4d7a1c28e01a3f54a7f6f3ec723b2ae",
+  "inputs": {
+    "mixed/repo/SKILL.md": "7d0ab13511191b6ab0144a3b7b9f3682ef38b6b88e05a9986200249ce0eed4b8",
+    "mixed/repo/corpus/knowledge/note.md": "df103b7dc589f4adfbc60dfa1d7aa20592c4b294bc0bcfae29abf93ca8c951fc",
+    "mixed/pins.json": "eeb0153ebb0c104d118fc84d0408a0ec8b869f0dc12e0e086debe3f0492e0531",
+    "mixed/home/.fixture": "b59367a00223c7fad7397881e417ec3610bd0a3e9684ce49fe2878419e911a46",
+    "all-annotated/repo/SKILL.md": "3abf6be6bf7b101c35c649904901abd4d01641e4dc159885f7c146f525fa94ee",
+    "all-annotated/repo/corpus/knowledge/note.md": "df103b7dc589f4adfbc60dfa1d7aa20592c4b294bc0bcfae29abf93ca8c951fc",
+    "all-annotated/pins.json": "57b1d600b0176210ee9de0e33727205ae5d4eea4e92e37b35f81d23433e830ee",
+    "all-annotated/home/.fixture": "b59367a00223c7fad7397881e417ec3610bd0a3e9684ce49fe2878419e911a46",
+    "present/repo/SKILL.md": "7d0ab13511191b6ab0144a3b7b9f3682ef38b6b88e05a9986200249ce0eed4b8",
+    "present/repo/corpus/knowledge/note.md": "3a7e7d77eb0b8d50654c4b70cda0faa5f0d4b8f3af9245d074799a923e4f56e4",
+    "present/pins.json": "57b1d600b0176210ee9de0e33727205ae5d4eea4e92e37b35f81d23433e830ee",
+    "present/home/.fixture": "b59367a00223c7fad7397881e417ec3610bd0a3e9684ce49fe2878419e911a46",
+    "present/home/publish/source.md": "9158b436af00e748f6a9137b57730180405f59d6595556dc53e2e8a555bb174e",
+    "same-file/repo/SKILL.md": "79f3ec7bc3051ab8fddda0ace70e60484c07bade6bf4eb84a8261b933cb3b24d",
+    "same-file/repo/corpus/knowledge/note.md": "436a61fb91daf5f1631a5bbfca80fae968f40f98326431c6a28a8bb0ad84b532",
+    "same-file/pins.json": "57b1d600b0176210ee9de0e33727205ae5d4eea4e92e37b35f81d23433e830ee",
+    "same-file/home/.fixture": "b59367a00223c7fad7397881e417ec3610bd0a3e9684ce49fe2878419e911a46",
+    "alias/repo/SKILL.md": "507f613e52191dfd5f186e1f21ba33e55e84029d487576c9360131a9b5b4f21b",
+    "alias/repo/corpus/knowledge/note.md": "df103b7dc589f4adfbc60dfa1d7aa20592c4b294bc0bcfae29abf93ca8c951fc",
+    "alias/pins.json": "eeb0153ebb0c104d118fc84d0408a0ec8b869f0dc12e0e086debe3f0492e0531",
+    "alias/home/.fixture": "b59367a00223c7fad7397881e417ec3610bd0a3e9684ce49fe2878419e911a46",
+    "braces/repo/SKILL.md": "a1062bf80c22d92917514005a782c9ad07bcbbc4415bbc3901e914714908b9fe",
+    "braces/repo/corpus/knowledge/note.md": "2919353554acd4463207ca564206d21018becec89c044a3aa182d9e2cdf6fbe2",
+    "braces/pins.json": "57b1d600b0176210ee9de0e33727205ae5d4eea4e92e37b35f81d23433e830ee",
+    "braces/home/.fixture": "b59367a00223c7fad7397881e417ec3610bd0a3e9684ce49fe2878419e911a46",
+    "strict/repo/SKILL.md": "7d0ab13511191b6ab0144a3b7b9f3682ef38b6b88e05a9986200249ce0eed4b8",
+    "strict/repo/corpus/knowledge/note.md": "df103b7dc589f4adfbc60dfa1d7aa20592c4b294bc0bcfae29abf93ca8c951fc",
+    "strict/pins.json": "4c1c6b7e3b16646b1ed604ee741e6d6419cf8e950964d0d3341118e24dcda7a9",
+    "strict/home/.fixture": "b59367a00223c7fad7397881e417ec3610bd0a3e9684ce49fe2878419e911a46"
+  },
+  "cases": {
+    "mixed": {
+      "beforeExit": 0,
+      "afterExit": 1,
+      "afterDrift": [
+        "~/publish/source.md"
+      ],
+      "afterUnannotatedCites": {
+        "~/publish/source.md": [
+          "SKILL.md:3"
+        ]
+      },
+      "present": false
+    },
+    "all-annotated": {
+      "beforeExit": 0,
+      "afterExit": 0,
+      "afterDrift": [],
+      "afterUnannotatedCites": {},
+      "present": false
+    },
+    "present": {
+      "beforeExit": 0,
+      "afterExit": 0,
+      "afterDrift": [],
+      "afterUnannotatedCites": {},
+      "present": true
+    },
+    "same-file": {
+      "beforeExit": 0,
+      "afterExit": 1,
+      "afterDrift": [
+        "~/publish/source.md"
+      ],
+      "afterUnannotatedCites": {
+        "~/publish/source.md": [
+          "SKILL.md:9"
+        ]
+      },
+      "present": false
+    },
+    "alias": {
+      "beforeExit": 0,
+      "afterExit": 1,
+      "afterDrift": [
+        "~/publish/source.md"
+      ],
+      "afterUnannotatedCites": {
+        "~/publish/source.md": [
+          "SKILL.md:3"
+        ]
+      },
+      "present": false
+    },
+    "braces": {
+      "beforeExit": 0,
+      "afterExit": 1,
+      "afterDrift": [
+        "~/publish/alpha.md",
+        "~/publish/beta.md"
+      ],
+      "afterUnannotatedCites": {
+        "~/publish/alpha.md": [
+          "SKILL.md:3"
+        ],
+        "~/publish/beta.md": [
+          "SKILL.md:3"
+        ]
+      },
+      "present": false
+    },
+    "strict": {
+      "beforeExit": 0,
+      "afterExit": 1,
+      "afterDrift": [
+        "~/publish/source.md"
+      ],
+      "afterUnannotatedCites": {
+        "~/publish/source.md": [
+          "SKILL.md:3"
+        ]
+      },
+      "present": false
+    }
+  }
+}

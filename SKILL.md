@@ -187,9 +187,10 @@ node scripts/freshness-sweep.mjs --offline  # §paths + §history without any fe
 
 Read-only, zero deps. It re-derives the lane's standing claims against
 `corpus/knowledge/freshness-pins.json` in three sections: **§paths** (every
-`~/…` citation resolves; the frozen `pathsMissSet` catches a *new* miss —
-a citation that stopped resolving MUST be annotated or fixed before the pin
-moves), **§history** (`probe-history.jsonl` row floor + last-row age + fleet
+`~/…` citation resolves; an absent target is drift if **any citing location
+lacks its own absence annotation**, even when another occurrence is historical
+or the target is already in `pathsMissSet`; the frozen set independently
+catches *new* misses), **§history** (`probe-history.jsonl` row floor + last-row age + fleet
 shape set + `probe-delta` event/last-event pins), **§armed** (PQ-12 beat pin,
 PQ-5 E1 watch, PQ-2 gate, ds4cc sitemap, PQ-14 plazir gate + live/source
 sitemap gap). Runbook, check-id table and re-pin procedure:
@@ -203,6 +204,12 @@ samples** and MUST be re-run before being cited. A frozen sample cannot see
 the claim classes it never sampled: r10's "60/60 paths resolve" was retired by
 r15 for exactly that reason, and r16's first complete claim sweep (160 claims)
 found 15 stale literals in classes no earlier round had a recipe for.
+
+### Owned freshness gate registry
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| freshness-sweep | gate | `node scripts/freshness-sweep.mjs --offline` for this local-only dispatch; bare form requires authorization for network checks | `0=clean` for evaluated checks only; `1=failed/drift`; `2=could-not-evaluate` (input); `64=could-not-evaluate` (usage). Offline/skipped/suspended sections are never proof of a complete publishing check. | `HOME="$PWD/.ufo/round-20/.scratch/home" KAKE_SELFTEST_DIR="$PWD/.ufo/round-20/.scratch/selftest" node scripts/freshness-sweep.mjs --selftest` (`--selftest`) | `corpus/knowledge/freshness-pins.json`; `node .ufo/round-20/replay-proof.mjs` checks all frozen input digests before baseline/candidate comparison | Normal path reads only; selftest writes isolated fixtures. The known static confinement assertion is not a complete write-free proof. | kake |
 
 ## Live-vs-source drift detection
 

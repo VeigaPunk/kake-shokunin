@@ -1,5 +1,11 @@
 # Freshness sweep — the standing-claim drift instrument
 
+> Round-20 correction: the r16/r17 measurements and copied table baselines
+> below are historical, not current expectations; load
+> `corpus/knowledge/freshness-pins.json`. The P1 OR-over-cites rule and its
+> old “Known limits” paragraph are superseded by the citation-local rule
+> at the end of this entry. Other annotation-window limitations remain.
+
 `scripts/freshness-sweep.mjs` (read-only, node ≥18, zero deps) +
 `corpus/knowledge/freshness-pins.json` (the pinned baselines). One command
 re-derives every standing claim family this lane owns and returns a
@@ -138,3 +144,31 @@ Selftest 10/10 (r17 adds malformed-pins → exit 2). State guard:
   list); (b) P2b is informational by design — a gate on `~/Projects` children
   would flag legitimate operator churn the lane cannot adjudicate; W6 showed
   the reporting-only variant was enough to catch the loss the same round.
+
+## Round-20 correction — citation-local absence evidence
+
+Source: `scripts/freshness-sweep.mjs` (`scanCitations`, `printPaths`, selftest
+case M); measured CLI evidence and input digests:
+`.ufo/round-20/{baseline-proof,candidate-proof}.json` and
+`.ufo/round-20/frozen/citation-locality/expected.json`.
+
+P1 now requires **every occurrence of a missing normalized target** to
+satisfy its own existing local annotation rule. One historical occurrence
+cannot excuse another unannotated occurrence, including a home-alias
+spelling or an already-pinned miss. JSON `drift[].unannotatedCites` lists
+the actionable locations; `cites` keeps the full context. Human output
+reports the unannotated subset.
+
+The local rule itself has not tightened: the default still accepts absence
+vocabulary in the citing line's ±2-line window; strict mode remains opt-in.
+This is annotation coverage, not semantic proof that every historical
+recipe is safe or executable. A present target resolves before annotation
+classification; a missing target whose occurrences are all annotated
+remains exit-neutral. Globs/placeholders remain unresolved.
+
+The round-20 local proof removes a false-green; it does not restore deleted
+publishing sources, authorize HTTP probes or deployment, repair corpus
+citations wholesale, or complete a training round. Required specialist
+dispatch is blocked by the effective host bindings recorded in
+`.ufo/round-20/routing-blocker.json`. Do not re-pin existing misses to hide
+the newly visible unannotated occurrences.
