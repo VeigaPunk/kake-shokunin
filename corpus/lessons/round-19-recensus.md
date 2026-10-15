@@ -42,3 +42,7 @@ measures 30 (P2b is informational by design).
 ## Independent audit erratum (appended 2026-10-14)
 
 Independent audit: gates re-ran green (13/13, offline partial exit 0, explicit-bad exit 2, no HOME residue); identity/pathspec/record confirmed. Audit coverage finding: the selftest write-region opens on the line-19 header comment containing the BEGIN token, so a write planted as the first statement of a later function survives the confinement check (scratch mutant, not patched). Carried debt: PQ-2/PQ-14 + suspended history; stale webzites binaries; pre-r18 pin literals; SCORECARD 14-vs-30 children.
+
+### Audit detail (appended 2026-10-14)
+
+Historical-marking audit: describe-don't-pin does not hold for kake. Beyond the three sites the lesson named — `freshness-sweep.md:43-53` still quotes pre-r18 pin literals as the current baseline (`pathsMissSet` 10 vs 55; children 36 vs pin 14 vs live 30; live sha `fb365e38…` vs loaded `7c243a1d…`), `SCORECARD.md:20` says 14 `~/Projects` children where the live listing is 30, and `:85-87` + `SCORECARD.md:9` + the standing PQ-12/PQ-14 rows add further current-voice counts and hashes. No unmarked sentence asserts a sha256 of a missing local file as that file's current identity; `origin-repos.md:15` is already marked historical. Commit hashes of the missing checkouts (`a8f1e2b`, `c814526`, `bd02d10`, `e6bd071`) do not resolve locally and were not re-fetched. No pid pin. Inode `27238` and alpha HEAD `964f443e` still match. Owner kake; unblock: mark those lines historical and re-measure the pin literals.
