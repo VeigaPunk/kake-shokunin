@@ -429,3 +429,10 @@
   `corpus/lessons/round-18.md`; files: `scripts/freshness-sweep.mjs`,
   `corpus/knowledge/freshness-pins.json`, `corpus/README.md`, 21 corpus
   md errata files, `SCORECARD.md`, `LOG.md`.
+
+## 19 — re-census round (freshness axis-move)
+
+2026-10-14 · steered round 19 · axis: freshness · 32-lane fleet wave + parent integration.
+
+Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
+`.ufo/waves/shokunin12h-20261014-p1-repair/members/`.

@@ -96,6 +96,23 @@ const DEFAULT_PINS = {
 const R15_LIVE_SHA = 'fb365e38c4eaa8842629bd0fe4f34a74568fd71360531927fa89111f53ef5293';
 const R15_SNAPSHOT_DEFAULT = '/tmp/kake-r15/charter-live.html';
 
+// Canonical probe-history default. pins.probeHistoryAbsent may SUSPEND only
+// this path when missing (r18 declared-absent source). Any other resolved
+// path — including an explicit KAKE_PROBE_HISTORY override — stays fail-closed
+// exit 2 when unreadable (explicit bad override must not ride the suspend).
+// Hermetic selftest may rebind the canonical path, but ONLY when the child
+// process is marked KAKE_IN_SELFTEST=1 by the --selftest runner (never a
+// public/operator env — do not export; ambient KAKE_SELFTEST_CANONICAL_HISTORY
+// alone is ignored on the normal path).
+const defaultProbeHistoryPath = () => {
+  if (process.env.KAKE_IN_SELFTEST === '1' && process.env.KAKE_SELFTEST_CANONICAL_HISTORY)
+    return process.env.KAKE_SELFTEST_CANONICAL_HISTORY;
+  return path.join(os.homedir(), 'Projects/webzites/state/probe-history.jsonl');
+};
+const resolveProbeHistoryPath = () => process.env.KAKE_PROBE_HISTORY || defaultProbeHistoryPath();
+const isCanonicalProbeHistoryPath = (file) => path.resolve(file) === path.resolve(defaultProbeHistoryPath());
+
+
 // Absence vocabulary: a missing cited path is a *declared* absence (exit
 // neutral) iff any citing line ±2 carries one of these words.
 const ABSENT_RE = /absent|gone|vanished|emptied|no longer|dangling|no such file|never published|missing/i;
@@ -196,7 +213,10 @@ function loadPins(repoRoot) {
         // A5 consumes these even though they are absent from DEFAULT_PINS.
         // Without this list the header falsely labels live gate pins "not evaluated".
         'plazirRemote', 'plazirSourceDir', 'plazirLiveSitemapUrl',
-        'plazirUnpushed', 'plazirLiveSitemapLocs', 'plazirSourceSitemapLocs']);
+        'plazirUnpushed', 'plazirLiveSitemapLocs', 'plazirSourceSitemapLocs',
+        // r18/r19: §history SUSPEND pin — consumed by analyzeHistory; must not
+        // render under pins-not-evaluated (same class as the r17 plazir label fix).
+        'probeHistoryAbsent']);
       const unused = Object.keys(raw).filter((k) => !known.has(k));
       return { pins, source: 'file', file, schema: parsed.schema || null, updated: parsed.updated || null, round: parsed.round ?? null, unused };
     } catch (e) {
@@ -541,7 +561,9 @@ function nextFire(repoRoot) {
 
 function analyzeHistory({ file, pins, repoRoot, offline }) {
   const res = { file, offline };
-  if (!fs.existsSync(file) && pins.probeHistoryAbsent === true) {
+  // Suspend only the canonical default when pin-declared absent. An explicit
+  // KAKE_PROBE_HISTORY override that does not resolve stays exit 2 (fail-closed).
+  if (!fs.existsSync(file) && pins.probeHistoryAbsent === true && isCanonicalProbeHistoryPath(file)) {
     return { ...res, historySuspended: true, note: `probe-history source absent by declaration (pins.probeHistoryAbsent): ${file} — section suspended until a history source is re-anchored`, ok: true };
   }
   if (!fs.existsSync(file)) return { ...res, error: `cannot read ${file}`, code: 2 };
@@ -942,7 +964,7 @@ async function runSections({ repoRoot, pinsFile, sections, offline, timeoutMs })
   const out = { sections: {}, notes: [] };
   if (sections.includes('paths')) out.sections.paths = scanCitations(repoRoot, pins);
   if (sections.includes('history')) out.sections.history = analyzeHistory({
-    file: process.env.KAKE_PROBE_HISTORY || path.join(os.homedir(), 'Projects/webzites/state/probe-history.jsonl'),
+    file: resolveProbeHistoryPath(),
     pins, repoRoot, offline: false,
   });
   if (offline && sections.includes('history')) {
@@ -1046,7 +1068,14 @@ async function selftest() {
   const cases = [];
   const run = (args, env) => {
     try {
-      const stdout = execFileSync(process.execPath, [SELF, ...args], { encoding: 'utf8', env: { ...process.env, ...env }, stdio: ['ignore', 'pipe', 'pipe'] });
+      // KAKE_IN_SELFTEST marks proof children so canonical-history rebind cannot
+      // fire on a normal operator invocation even if the obscure env is set.
+      // Marker is applied LAST so a proof `env` bag cannot clear/override it.
+      const stdout = execFileSync(process.execPath, [SELF, ...args], {
+        encoding: 'utf8',
+        env: { ...process.env, ...env, KAKE_IN_SELFTEST: '1' },
+        stdio: ['ignore', 'pipe', 'pipe'],
+      });
       return { code: 0, stdout };
     } catch (e) { return { code: e.status === undefined ? -1 : e.status, stdout: String(e.stdout || ''), stderr: String(e.stderr || '') }; }
   };
@@ -1060,7 +1089,23 @@ async function selftest() {
     '# fixture A\n\n'
     + 'Known miss: `~/Projects/webzites/selftest-missing.md` (fixture, deliberately not created).\n'
     + 'That path is **absent since 2026-09-28** (fixture annotation).\n');
-  fs.writeFileSync(path.join(annotated, 'corpus/knowledge/note.md'), 'See `~/Projects/ufo-fsd-alpha` (fixture, resolves — r18: webzites/fleet gone in the Projects prune).\n');
+  // Hermetic resolve target PATH_RE can match with no `..` segment: normalize()
+  // classifies ANY `..` as an unexpanded range placeholder
+  // (`range-not-expanded`), so a temp-tree cite reached through `..` can never
+  // resolve and the fixture would silently stop proving the resolve path.
+  // The fixture therefore lives in a per-run dir directly under $HOME —
+  // created by this selftest and removed by it in the cleanup region at the
+  // end of this function, never persisted.
+  const homeFixtureDir = path.join(os.homedir(), `.kake-freshness-selftest-${process.pid}`);
+  fs.rmSync(homeFixtureDir, { recursive: true, force: true });
+  fs.mkdirSync(homeFixtureDir, { recursive: true });
+  const presentFile = path.join(homeFixtureDir, 'selftest-present.md');
+  fs.writeFileSync(presentFile, 'fixture present — hermetic resolve target\n');
+  const presentCite = `~/${path.basename(homeFixtureDir)}/selftest-present.md`;
+  fs.writeFileSync(path.join(annotated, 'corpus/knowledge/note.md'),
+    `See \`${presentCite}\` (fixture, resolves — hermetic under selftest dir; no host project tree).\n`);
+  const pinsHistAbsent = path.join(dir, 'pins-history-absent.json');
+  fs.writeFileSync(pinsHistAbsent, JSON.stringify({ schema: 'kake-freshness-pins-v1', round: 0, pins: { probeHistoryAbsent: true } }, null, 2));
   fs.writeFileSync(path.join(unannotated, 'SKILL.md'),
     '# fixture B\n\nCite `~/Projects/webzites/selftest-gone.md` here (fixture; no annotation anywhere).\n');
   fs.writeFileSync(path.join(unannotated, 'corpus/knowledge/note.md'), 'no paths here\n');
@@ -1098,12 +1143,12 @@ async function selftest() {
   let j = null; try { j = JSON.parse(r.stdout); } catch { /* fall through */ }
   cases.push({
     id: 'a annotated-missing -> declaredAbsent, exit-neutral',
-    expect: 'exit 0 · declaredAbsent contains selftest-missing.md · drift []',
+    expect: 'exit 0 · declaredAbsent contains selftest-missing.md · drift [] · resolve contains selftest-present.md',
     got: `exit ${r.code} · declaredAbsent ${JSON.stringify(j && j.sections.paths.declaredAbsent.map((d) => d.path))} · drift ${JSON.stringify(j && j.sections.paths.drift.map((d) => d.path))} · resolve ${JSON.stringify(j && j.sections.paths.resolve.map((d) => d.path))}`,
     pass: r.code === 0 && !!j && j.sections.paths.drift.length === 0
       && j.sections.paths.declaredAbsent.some((d) => d.path.endsWith('selftest-missing.md'))
       && !j.sections.paths.declaredAbsent.some((d) => d.path.endsWith('selftest-present.md'))
-      && j.sections.paths.resolve.some((d) => d.path.endsWith('ufo-fsd-alpha')),
+      && j.sections.paths.resolve.some((d) => d.path.endsWith('selftest-present.md')),
   });
 
   const envB = { KAKE_REPO_ROOT: unannotated, KAKE_FRESHNESS_PINS: pins, KAKE_FETCH_TIMEOUT: '2000' };
@@ -1173,6 +1218,55 @@ async function selftest() {
     pass: r.code === 2 && /malformed/.test(r.stdout || r.stderr || ''),
   });
 
+  // Case j: pin-declared absent suspends ONLY the canonical default history path.
+  // Rebind canonical via KAKE_SELFTEST_CANONICAL_HISTORY to a never-created
+  // fixture path so the proof stays green if live webzites history is restored.
+  const selftestCanonHist = path.join(dir, 'canonical-absent-history.jsonl');
+  r = run(['--section=history', '--json', '--offline'], {
+    KAKE_FRESHNESS_PINS: pinsHistAbsent,
+    KAKE_FETCH_TIMEOUT: '2000',
+    KAKE_PROBE_HISTORY: '',
+    KAKE_SELFTEST_CANONICAL_HISTORY: selftestCanonHist,
+  });
+  j = null; try { j = JSON.parse(r.stdout); } catch { /* fall through */ }
+  cases.push({
+    id: 'j probeHistoryAbsent + canonical default missing -> SUSPENDED, exit 0',
+    expect: 'exit 0 · historySuspended true · file is selftest-rebound canonical',
+    got: `exit ${r.code} · suspended ${j && j.sections.history && j.sections.history.historySuspended} · file ${j && j.sections.history && j.sections.history.file}`,
+    pass: r.code === 0 && !!j && j.sections.history && j.sections.history.historySuspended === true
+      && path.resolve(j.sections.history.file) === path.resolve(selftestCanonHist),
+  });
+
+  // Case k: explicit bad KAKE_PROBE_HISTORY must fail closed even when the pin is set.
+  const missingHist = path.join(dir, 'explicit-missing-history.jsonl');
+  r = run(['--section=history', '--json'], {
+    KAKE_FRESHNESS_PINS: pinsHistAbsent,
+    KAKE_PROBE_HISTORY: missingHist,
+    KAKE_SELFTEST_CANONICAL_HISTORY: '',
+  });
+  j = null; try { j = JSON.parse(r.stdout); } catch { /* fall through */ }
+  cases.push({
+    id: 'k probeHistoryAbsent + explicit missing KAKE_PROBE_HISTORY -> exit 2 (fail-closed)',
+    expect: 'exit 2 · error cannot read · not historySuspended',
+    got: `exit ${r.code} · suspended ${j && j.sections.history && j.sections.history.historySuspended} · error ${j && j.sections.history && j.sections.history.error}`,
+    pass: r.code === 2 && !!j && j.sections.history && !j.sections.history.historySuspended
+      && /cannot read/.test(String(j.sections.history.error || '')),
+  });
+
+  // Case l: probeHistoryAbsent is a consumed pin — must not appear under _unused.
+  r = run(['--section=paths', '--json', '--offline'], {
+    KAKE_REPO_ROOT: annotated,
+    KAKE_FRESHNESS_PINS: pinsHistAbsent,
+    KAKE_FETCH_TIMEOUT: '2000',
+  });
+  j = null; try { j = JSON.parse(r.stdout); } catch { /* fall through */ }
+  cases.push({
+    id: 'l probeHistoryAbsent pin is known/consumed (not listed unused)',
+    expect: 'pins._unused excludes probeHistoryAbsent',
+    got: `unused ${JSON.stringify(j && j.pins && j.pins._unused)}`,
+    pass: !!j && Array.isArray(j.pins && j.pins._unused) && !j.pins._unused.includes('probeHistoryAbsent'),
+  });
+
   r = run(['--section=paths', '--json', '--offline'], {
     KAKE_REPO_ROOT: annotated,
     KAKE_FRESHNESS_PINS: badPins,
@@ -1193,24 +1287,37 @@ async function selftest() {
   });
 
   // Self-source read-only assertion: every write-API call site must sit inside
-  // the SELFTEST-WRITES region. Names are assembled so the checker's own
-  // source cannot self-match.
+  // a SELFTEST-WRITES region (multiple BEGIN/END pairs allowed — setup + cleanup).
+  // Names are assembled so the checker's own source cannot self-match.
   const WRITE_APIS = ['writeFile', 'mkdir', 'appendFile', 'rm', 'unlink', 'rmdir'].map((s) => s + 'Sync').concat(['createWriteStream', 'writeFile', 'mkdir']);
   const src = fs.readFileSync(SELF, 'utf8').split('\n');
-  const begin = src.findIndex((l) => l.includes('SELFTEST-WRITES-BEGIN'));
-  const end = src.findIndex((l) => l.includes('SELFTEST-WRITES-END'));
+  const writeAllowed = new Array(src.length).fill(false);
+  let inWriteRegion = false;
+  let regionMarks = [];
+  src.forEach((l, i) => {
+    if (l.includes('SELFTEST-WRITES-BEGIN')) { inWriteRegion = true; regionMarks.push(`B${i + 1}`); }
+    if (inWriteRegion) writeAllowed[i] = true;
+    if (l.includes('SELFTEST-WRITES-END')) { inWriteRegion = false; regionMarks.push(`E${i + 1}`); }
+  });
   const re = new RegExp(`(?:^|[^A-Za-z0-9_$])(${WRITE_APIS.join('|')})\\s*\\(`);
   const violations = [];
   src.forEach((l, i) => {
     if (l.trim().startsWith('//')) return;
-    if (re.test(l) && (i < begin || i > end)) violations.push(`${i + 1}: ${l.trim().slice(0, 70)}`);
+    if (re.test(l) && !writeAllowed[i]) violations.push(`${i + 1}: ${l.trim().slice(0, 70)}`);
   });
   cases.push({
     id: 'e write-API call sites confined to SELFTEST-WRITES region',
-    expect: '0 call sites outside the region',
-    got: `${violations.length} outside${violations.length ? `: ${violations.join(' | ')}` : ''} (region lines ${begin + 1}-${end + 1})`,
+    expect: '0 call sites outside the region(s)',
+    got: `${violations.length} outside${violations.length ? `: ${violations.join(' | ')}` : ''} (regions ${regionMarks.join(',')})`,
     pass: violations.length === 0,
   });
+
+  // Cleanup of the transient $HOME fixture dir: after every child run, so the
+  // resolve proof above still sees it. Inside its own region pair (the static
+  // confinement check allows multiple BEGIN/END pairs).
+  // SELFTEST-WRITES-BEGIN (cleanup)
+  fs.rmSync(homeFixtureDir, { recursive: true, force: true });
+  // SELFTEST-WRITES-END
 
   const failed = cases.filter((c) => !c.pass);
   console.log('freshness-sweep --selftest');
