@@ -564,3 +564,24 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   `corpus/QUALITY.md` adds its grounded shape-only criterion. The original
   commit remains in ancestry and is not claimed conformant or scrubbed.
   No new round credit, admission, receipt or Sighting completion follows.
+
+## 2026-10-15 — round 20 blocked report and fresh-session handoff
+
+- Local work commit: `f405166a33878cab32bff18dce3f39c9d9d3e463`;
+  evidence-format correction:
+  `9825b2ab5cd429647c09fb4964ec17e2db615e35`. The latter preserves exact
+  verdicts/exits while recording the former's shape-only conformance defect.
+- Publication paths, inside the lane only:
+  `.ufo/reports/round-20/kake.md` and
+  `.ufo/round-20/continuation.json`. They name both commits, full verdict
+  lines/exits, provisional axes/trends, zero new verified-round credit,
+  exact role/fallback blockers, citation debt and receipt prerequisite.
+- Handoff structure checked: actual round 20, roundComplete false,
+  verifiedRoundsAdded 0, 32 planned members, zero native task calls, next
+  fresh session resumes 20 rather than advancing to 21. Runtime/gate checks
+  were not re-run for this bookkeeping publication.
+- No applicable receipt was minted or validated because the real task/key
+  binding is absent; no fabricated replacement, Sighting completion,
+  fleet ledger edit or push. Restore authorized existing host bindings and
+  applicable receipt metadata outside this lane before a fresh session
+  executes the required complete wave and seeks round admission.
