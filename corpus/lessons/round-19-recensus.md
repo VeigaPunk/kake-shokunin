@@ -46,3 +46,15 @@ Independent audit: gates re-ran green (13/13, offline partial exit 0, explicit-b
 ### Audit detail (appended 2026-10-14)
 
 Historical-marking audit: describe-don't-pin does not hold for kake. Beyond the three sites the lesson named — `freshness-sweep.md:43-53` still quotes pre-r18 pin literals as the current baseline (`pathsMissSet` 10 vs 55; children 36 vs pin 14 vs live 30; live sha `fb365e38…` vs loaded `7c243a1d…`), `SCORECARD.md:20` says 14 `~/Projects` children where the live listing is 30, and `:85-87` + `SCORECARD.md:9` + the standing PQ-12/PQ-14 rows add further current-voice counts and hashes. No unmarked sentence asserts a sha256 of a missing local file as that file's current identity; `origin-repos.md:15` is already marked historical. Commit hashes of the missing checkouts (`a8f1e2b`, `c814526`, `bd02d10`, `e6bd071`) do not resolve locally and were not re-fetched. No pid pin. Inode `27238` and alpha HEAD `964f443e` still match. Owner kake; unblock: mark those lines historical and re-measure the pin literals.
+
+### Dead-path sweep, lane-granular (appended 2026-10-14)
+
+A lane-specific sweep (`.ufo/waves/shokunin12h-20261014-p1-audit/members/KakeDeadPathSweep.md`)
+measures **77 live citations** of deleted paths at this revision — not the 8 the
+fleet-level sweep reported, whose method was coarser. It also falsifies two claims
+in this record: `SKILL.md:59`/`:111` are not the only stale live prose, and
+`SCORECARD.md:22`'s "every `origin-work` cite is marked absent-historical" is false
+— `keeper-timer-inert.md:91` and `publish-queue.md:167` are unmarked and
+present-tense. The other 322 hits are marked-historical (65) or labelled (257);
+unresolved: 0. Owner kake; unblock: mark those lines and correct the scorecard
+sentence.
