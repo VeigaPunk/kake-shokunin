@@ -1,7 +1,7 @@
 # round-19 re-census — §history suspend semantics repaired; selftest made hermetic
 
 2026-10-14. Steered round 19. Advisory inventories:
-`.ufo/waves/shokunin12h-20261014-p1-repair/members/Kake*.md`.
+`../.ufo/waves/shokunin12h-20261014-p1-repair/members/Kake*.md`.
 
 ## Landed change (one file)
 
