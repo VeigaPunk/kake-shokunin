@@ -38,3 +38,7 @@ Stale live prose recorded, not rewritten in place: `SKILL.md:59`/`:111` still
 name deleted webzites binaries; `freshness-sweep.md:43-53` copies pre-r18 pin
 literals; `SCORECARD.md:20` says 14 `~/Projects` children where the receipt
 measures 30 (P2b is informational by design).
+
+## Independent audit erratum (appended 2026-10-14)
+
+Independent audit: gates re-ran green (13/13, offline partial exit 0, explicit-bad exit 2, no HOME residue); identity/pathspec/record confirmed. Audit coverage finding: the selftest write-region opens on the line-19 header comment containing the BEGIN token, so a write planted as the first statement of a later function survives the confinement check (scratch mutant, not patched). Carried debt: PQ-2/PQ-14 + suspended history; stale webzites binaries; pre-r18 pin literals; SCORECARD 14-vs-30 children.
