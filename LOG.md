@@ -585,3 +585,14 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   fleet ledger edit or push. Restore authorized existing host bindings and
   applicable receipt metadata outside this lane before a fresh session
   executes the required complete wave and seeks round admission.
+
+## 2026-10-16 — protocol conformance: SCORECARD contract fields
+
+- Operator amendment of 2026-10-16 (fleet root `84bade0`) requires the
+  SCORECARD.md contract fields `axes`, `capabilities`, `planned`,
+  `saturation`, `retired`. This lane already carried `axes`, `## Planned`
+  and `## Retired` as real sections before this rollout.
+- This rollout is additive scaffolding only: `## Capabilities` (empty
+  repertoire table) and `## Saturation` (declaration deferred to the lane's
+  next round). No axis claim was made and no score moved; no verdict or
+  last-change round changed. No round credit follows.
