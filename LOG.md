@@ -596,3 +596,11 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   repertoire table) and `## Saturation` (declaration deferred to the lane's
   next round). No axis claim was made and no score moved; no verdict or
   last-change round changed. No round credit follows.
+
+- 2026-10-17 — README: Devin wiki link. Operator directive (2026-10-17):
+  insert the Devin wiki link into the README header of every repository
+  with a generated wiki. `README.md` created (lane-header convention) with a `**Wiki:**` link to
+  https://app.devin.ai/org/veigapunk/wiki/VeigaPunk/kake-shokunin?branch=master.
+  Evidence: the org's Devin wiki index lists this repo's generated wiki;
+  sibling lane READMEs carry the same `**Wiki:**` header.
+  Documentation-only change; no round run, no axis moved.
