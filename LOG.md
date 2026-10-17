@@ -596,3 +596,15 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   repertoire table) and `## Saturation` (declaration deferred to the lane's
   next round). No axis claim was made and no score moved; no verdict or
   last-change round changed. No round credit follows.
+
+## 2026-10-17 — readable front door
+
+Root README was absent. Claims are taken from PROVINCE.md, SKILL.md (round-18 absent source dirs), and `scripts/freshness-sweep.mjs` (read-only path, `--help`, `--selftest`). SHONEN.md boxes are `[ ]`.
+
+Corpus index: `corpus/README.md` is line-cited and sha256-pinned in `.ufo/round-20/measured-corpus-inputs.json`. It was not edited. Navigation is the new root README. `corpus/knowledge/`, `corpus/lessons/`, evidence, fixtures, and earlier LOG entries were not rewrapped.
+
+Lint fixes: none. Human-legible Markdown in this repo had no unpinned same-line defect.
+
+Lint left in place: none in the human-legible set (README, PROVINCE, SKILL, SHONEN, MINT, AGENTS, corpus/README, corpus/QUALITY, plans/*.md).
+
+Devin: a search for `devin.ai` in this repo found no URL to edit. No wiki URL was added.
