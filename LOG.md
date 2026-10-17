@@ -596,3 +596,11 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   repertoire table) and `## Saturation` (declaration deferred to the lane's
   next round). No axis claim was made and no score moved; no verdict or
   last-change round changed. No round credit follows.
+
+## 2026-10-17 — root README
+
+Motivating evidence: no root `README.md`. The page is drawn from
+`PROVINCE.md` (web properties and publishing), `SKILL.md` (property map and
+the 2026-10-14 absence notes), `SHONEN.md` (open boxes), and the headers of
+`scripts/freshness-sweep.mjs` and `scripts/probe-delta.mjs`. No Devin wiki
+URL exists in this repo; none was invented.
