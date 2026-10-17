@@ -596,3 +596,8 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   repertoire table) and `## Saturation` (declaration deferred to the lane's
   next round). No axis claim was made and no score moved; no verdict or
   last-change round changed. No round credit follows.
+## 2026-10-17 — root README added
+
+- **Trigger.** Operator request for a repository front door. This checkout had no root `README.md`.
+- **Action.** Added `README.md` from `PROVINCE.md` (six-line domain: ds4cc.com, kimi.page/pro mirrors, Pages deploys), `scripts/freshness-sweep.mjs` header (exit 0/1/2/64, read-only normal path), and the `SCORECARD.md` banner that the numeric ratings are legacy and round 20 is a blocked attempt. The PQ-14 live-exit note is taken from that scorecard, not re-measured.
+- **Non-claims.** No Devin wiki URL existed here and none was added. No axis claim, no score change. Not a craft round.
