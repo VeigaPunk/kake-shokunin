@@ -596,3 +596,10 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   repertoire table) and `## Saturation` (declaration deferred to the lane's
   next round). No axis claim was made and no score moved; no verdict or
   last-change round changed. No round credit follows.
+
+## 2026-10-17 — repository README
+
+- **Trigger.** The repository root had no `README.md`.
+- **Evidence.** Domain is `PROVINCE.md`. Property-map status (historical rows after the 2026-10-12 prune) is the HTML comments in `SKILL.md`. `scripts/probe-delta.mjs` header states it diffs `violated[]` between full sweeps and does not deliver alerts.
+- **Action.** Added `README.md`. Corpus indexes were not edited. No Devin wiki URL was present.
+- **Outcome.** No axis claim; no score moved.
