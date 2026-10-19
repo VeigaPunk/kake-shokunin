@@ -10,15 +10,15 @@ live drift event and two of its own suppression paths).
    the r16 sweep (~02:4xZ) and 03:20Z → the descendant cite at
    `corpus/lessons/round-1-aggregator-audit.md:10` became an unannotated miss.
    **W6** of the `~/Projects` cleanup/prune regime (W1–W5 ledgered in r16).
-   `~/DIRMAP.md:1,7,27` resolves the event: children from lowercase
-   `~/projects` (r16 inode `101125103`) were absorbed into the existing capital
+   `~/DIRMAP.md:1,7,27` resolves the event: children from lowercase *[r20 citation-local 2026-10-19: `~/DIRMAP.md` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
+   `~/projects` (r16 inode `101125103`) were absorbed into the existing capital *[r20 citation-local 2026-10-19: `~/projects` absent — gone in W6, the 2026-09-29 03:13–03:14Z lowercase-tree consolidation; historical record, not an executable instruction.]*
    root (inode `27238` before and after), then lowercase was removed; parent
    mtimes narrow the transition to 03:13:18–03:14:07Z. `magga-2`→`magga`
    also moved in-window. Fix: cite
    corrected to the canonical uppercase path (the round-1 report exists at
    `~/Projects/shokunin/.ufo/reports/round-1/web-properties-publishing.md`) +
-   W6 note; `pathsMissSet` re-pinned 9→10 with `~/projects`.
-2. The same run proved a coverage gap: `~/projects` was caught only because a
+   W6 note; `pathsMissSet` re-pinned 9→10 with `~/projects`. *[r20 citation-local 2026-10-19: `~/projects` absent — gone in W6, the 2026-09-29 03:13–03:14Z lowercase-tree consolidation; historical record, not an executable instruction.]*
+2. The same run proved a coverage gap: `~/projects` was caught only because a *[r20 citation-local 2026-10-19: `~/projects` absent — gone in W6, the 2026-09-29 03:13–03:14Z lowercase-tree consolidation; historical record, not an executable instruction.]*
    descendant was *cited*. A `~/Projects` child with zero cites could vanish
    invisibly. Closed with pin `projectsChildrenSet` (36 entries) + P2b —
    **informational, never gating** (operator churn would false-positive a gate;

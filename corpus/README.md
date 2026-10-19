@@ -9,6 +9,8 @@ mirrors, Pages deploys).
 - `lessons/` — per-round lessons citing LOG.md round + evidence.
 - `QUALITY.md` — publishing-evidence admission criteria grounded in the
   round-20 citation-locality lesson; independent spot-check still owed.
+- `SOURCES.md` — where kake learns: scoped-tier source registry (contract v1),
+  study paths, search log and unopened leads (round 20 resume).
 
 ## Coverage map
 
@@ -23,7 +25,7 @@ mirrors, Pages deploys).
 | Origin repos | `knowledge/origin-repos.md` | 50-clone canonical-source map, byte-verified writers, 5 sourceless artifacts |
 | Speedrun pipeline | `knowledge/speedrun-pipeline.md` | record→report→prep→operator-push→X-draft; redaction + fail-closed rules |
 | GHP subpath spotcheck | `knowledge/ghp-subpath-spotcheck.md` | probe/reconcile coverage math, `in-sync` masking, origin/main classification, first baseline (2 352 paths, 0 rot) |
-| Sitemap/orphan audit | `knowledge/sitemap-orphan-audit.md` | URL-list→live sweep, GHP orphan impossibility proof (deploy = full-tree artifact), first baseline (103 locs live-side / 102 source-side at r16 — the delta is the unpushed plazir gate PQ-14), charter marker day-2 churn |
+| Sitemap/orphan audit | `knowledge/sitemap-orphan-audit.md` | URL-list→live sweep, GHP orphan impossibility proof (deploy = full-tree artifact), first baseline (103 locs live-side / 102 source-side at r16 — the delta is the unpushed plazir gate PQ-14), charter marker day-2 churn **[r20-correction 2026-10-19: the orphan direction must be checked against the actual uploaded/deployed artifact or build output, not inferred from the checkout; upload-pages-artifact excludes .git/.github and v4 excludes hidden paths by default (v5 adds include-hidden-files); branch builds also apply Jekyll's default exclusions — S001, S002, S004, S006]** |
 | kimi subpath audit | `knowledge/kimi-subpath-audit.md` | link sweep + sitemap parity; ds4cc mirror 75/93 canonical locs missing all post-vintage (0 rot); `dir/` hrefs live-dead on kimi |
 | Publish-queue ledger | `knowledge/publish-queue.md` | PQ-1..PQ-14 readiness: gate class, bound chats, source freshness, cheapest wins, ordering DAG (r9 baseline; PQ-14 = the plazir15-ghp 5-commit push gate found r16) |
 | Freshness sweep (instrument) | `scripts/freshness-sweep.mjs` + `knowledge/freshness-sweep.md` + `knowledge/freshness-pins.json` | one read-only command re-derives the lane's whole standing-claim battery (cited paths, probe-history shape, detector deltas, PQ-12/PQ-5/PQ-2/plazir gates) against pinned baselines with exit 0/1/2/64 — pinned values live in the JSON, never copied into prose |
@@ -32,6 +34,10 @@ mirrors, Pages deploys).
 | Free-read verbs | `knowledge/free-read-verbs.md` | probe/status/reconcile/sync-check (r11) + status --json/grokbots --check/bots list/bots report (r12 live): exit contracts, gap/stale predicates, 18/21/20/21 universes, clobber + corrected merge patch |
 | Handoffs (webzites owner) | `handoffs/cmdProbe-merge-fix.md` | verified one-line cmdProbe merge patch (r11 F1 guard refuted; `probe <id> --all` edge covered), owner test recipe |
 | Citation-local absence | `lessons/round-20.md` + `QUALITY.md` | Baseline/candidate CLI proof, exact unannotated locations, frozen input digests; round admission blocked by host route bindings. |
+| GHP served-set semantics (r20) | `knowledge/ghp-served-set.md` | what an Actions artifact or branch build actually serves: .git/.github always excluded, dot paths from upload-pages-artifact v4.0.0, Jekyll skips; tar depth repro |
+| GHP custom-domain source (r20) | `knowledge/ghp-custom-domain.md` | under Actions publishing the repo CNAME is ignored; the domain is the Pages setting (`cname`, `build_type` in the REST API) |
+| ETag anatomy (r20) | `knowledge/ghp-etag-anatomy.md` | the recorded root ETag decodes to mtime-length (nginx format, backend identity [INFERENCE]); validator, never identity |
+| Crawl scope per host (r20) | `knowledge/crawl-scope-per-host.md` | robots.txt only at the host root; sitemap scope by location; project sites share the user-site robots policy |
 | Earlier round lessons (historical through r18) | core `round-{1,3,4,5,6,7,8,9,10,12,16,17,18}.md` plus named aggregator audits; later entries live in `lessons/` | Dated audit findings and source-era measurements, not current surface availability. |
 
 ## Known gaps
@@ -50,7 +56,7 @@ mirrors, Pages deploys).
   `ufo-fsd.kimi.pro` needs html+assets zipped. Execution remains
   operator-gated; no Origin repo, unchanged since 2026-09-21.
 - Live-only orphan paths: **closed 2026-09-28** — GHP Pages deploys are
-  full-tree artifacts, so the served set ≡ `origin/main` tree; the round-7
+  full-tree artifacts, so the served set ≡ `origin/main` tree; the round-7 **[r20-correction 2026-10-19: the orphan direction must be checked against the actual uploaded/deployed artifact or build output, not inferred from the checkout; upload-pages-artifact excludes .git/.github and v4 excludes hidden paths by default (v5 adds include-hidden-files); branch builds also apply Jekyll's default exclusions — S001, S002, S004, S006]**
   sitemap sweep (103 locs live-side; 102 source-side from r16 — the delta is
   the unpushed plazir gate, PQ-14) found 0 orphans/dead listings. kimi subpaths:
   **closed 2026-09-28 round 8** — link sweep + sitemap parity baseline
@@ -58,6 +64,9 @@ mirrors, Pages deploys).
   round 9** — PROPERTIES[] is a static literal; rot baseline landed
   (`knowledge/vault-properties.md`).
 - kimi `apiv2` authenticated ops are capability-recorded but intentionally
+  unwired; any change there is a new round's work. *(r20 correction
+  2026-10-19: continuation restored from `cd5b381`; it was dropped in
+  `dd4eabf`.)*
 - `webzites-probe.timer` nominally provides 6h coverage, but
   probe-history is bursty (median gap 0.45h, 42.7h hole 09-21→09-22) —
   **detection closed 2026-09-28 round 10**: `scripts/probe-delta.mjs`
@@ -73,7 +82,7 @@ mirrors, Pages deploys).
   `fleet.config.json:256`; diff in `~/Projects/webzites/reports/r9-stale-markers.md`; <!-- r18 re-census 2026-10-14: ~/Projects/webzites/reports/r9-stale-markers.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
   scribe push-gate failing since 06:05Z so churn is paused),
   plazir15 chat-binding ambiguity (vessel `1a0c2186` vs emergent `1a0de2ed`),
-  bare `webzites` not on PATH (invoke `node ~/Projects/webzites/bin/webzites.mjs`),
+  bare `webzites` not on PATH (invoke `node ~/Projects/webzites/bin/webzites.mjs`), *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
   cmdProbe merge patch for the webzites owner (`handoffs/cmdProbe-merge-fix.md`).
 
 ## Frontier
@@ -86,3 +95,12 @@ mirrors, Pages deploys).
   source restoration and history restoration/retirement remain operator-owned.
 - Obtain a non-author spot-check of at least one admitted and rejected
   round-20 candidate; self-review does not close discernment or promotion.
+- *(r20 resume 2026-10-19)* The first bullet is now carried by the kaika
+  campaign swarm (`.ufo/round-20/resume/swarm-dispatch.json`); the second is
+  done for the 26 measured locations
+  (`.ufo/round-20/resume/citation-disposition.json`). Open ground: canonical
+  signals and JS-rendered canonicals; field performance (CWV/CrUX); WCAG 2.2;
+  Jekyll/base-path tooling; Render deploys (`../PROVINCE.md` §Frontier). Named
+  checks needing an operator-authorized free read: each Pages repo's
+  `build_type` and workflow action pins; whether `/CNAME` is served under
+  Actions; the user-site robots.txt.

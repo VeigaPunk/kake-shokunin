@@ -13,7 +13,7 @@ the probe commands, never with memory.
 
 | Surface | Live URL | Source dir | Publish path |
 |---|---|---|---|
-| ds4cc.com (primary) | `https://ds4cc.com/` | `~/Projects/ds4cc-marketplace` | GH Actions on push to `main` (`CNAME` = ds4cc.com) | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
+| ds4cc.com (primary) | `https://ds4cc.com/` | `~/Projects/ds4cc-marketplace` | GH Actions on push to `main` (`CNAME` = ds4cc.com) **[r20-correction 2026-10-19: a repo CNAME sets the domain only for branch publishing; under Actions it is ignored and the domain is a Pages setting (`cname` in the REST API) — S005, S003, S007]** | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | plazir15 GHP front | `https://veigapunk.github.io/plazir-15-site/` | `~/Projects/plazir-15-site` | GH Actions on push to `main` |
 | charter GHP front | `https://veigapunk.github.io/charter-ufo-fsd/` | `~/Projects/origin-work/charter-ufo-fsd` | Pages deploy from branch (no workflow file); canonical doc, all kimi variants `rel=canonical` here | <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/charter-ufo-fsd absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
 | ds4cc kimi mirror | `https://ds4cc.kimi.page/` | `~/Projects/ds4cc-marketplace` | Kimi surface, chat `1a073c43-bf42-874a-8000-0907bd80b9dc` — STALE (~Aug-29 vintage) | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
@@ -21,7 +21,7 @@ the probe commands, never with memory.
 | vault index | `https://veigapunk.kimi.page/` | none on disk | Kimi surface, chat `1a0c20ea-6372…` — NEVER fire into this chat, it hot-swaps the live vault |
 | plazir27.kimi.page | `https://plazir27.kimi.page/` | charter repo | canonical kimi charter mirror (stale: serves 09-18 beat, canonical 09-28) |
 | ufo-fsd.kimi.pro | `https://ufo-fsd.kimi.pro/` | none (Vite shell) | Kimi surface, chat `1a0acd51-4122…` (612B SPA shell) |
-| plazir15.kimi.page | 404 dead slot | `~/Projects/plazir-15-site` | RECREATE path — no bound chat; vessel `1a0c2186-fa12` is empty |
+| plazir15.kimi.page | 404 dead slot | `~/Projects/plazir-15-site` | RECREATE path — no bound chat; vessel `1a0c2186-fa12` is empty *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]* |
 | charter-ufo-fsd.kimi.page | 404 dead slot | charter repo | RECREATE path — no bound chat exists |
 | lucario GHP (canonical) | `https://veigapunk.github.io/lucario/` | `~/Projects/lucario` (`site/` + `src/lucario/engine.py`) | Pages branch deploy on push — live 200, verified 09-28 |
 | lucario kimi slot | `https://lucario.kimi.page/` — 404, **never published** | `~/Projects/lucario/site` | Kimi surface pending first publish (README: "pending — gated"). Config `status:live` is stale/wrong. **Roster gap (r12):** the fleet row (added 2026-09-27) has no `fleet/grokbots.json` agent — `grokbots --check` exits 1 (`lucario: no registry row`, `src/cli.mjs:361`), no card at `~/.grok/agents/grokbot-lucario.md` (`botCardPath` `src/cli.mjs:444`), no wrapper `~/.local/bin/grokbot-lucario` (`:427`), no keeper log; `bots list` shows 20 keepers, `bots report` prints `card=miss wrapper=miss log=never(?)` (`/tmp/kake-r12/live/`). |
@@ -48,7 +48,7 @@ fleet count (`corpus/knowledge/free-read-verbs.md`).
 Non-sources (classification stands; both dirs **absent from the FS since the
 2026-09-28T23:51:31Z `~/Projects` drift event** — r15 path sweep):
 `~/Projects/ufofsdbeta` was the UFO-FSD *runtime* repo (no Pages site;
-`dist/` was JS build output). `~/Projects/ufofsdbeta-kimi-review` was a
+`dist/` was JS build output). `~/Projects/ufofsdbeta-kimi-review` was a *[r20 citation-local 2026-10-19: `~/Projects/ufofsdbeta-kimi-review` absent — absent since the 2026-09-28T23:51:31Z `~/Projects` drift event (r15 path sweep); historical record, not an executable instruction.]*
 non-git review snapshot — never publishable source; if either returns,
 re-verify, don't assume the r1 findings still hold.
 `plazir-15-site/speedrun/` is a frozen 3-run copy of `ds4cc.com/speedrun/`
@@ -56,7 +56,7 @@ re-verify, don't assume the r1 findings still hold.
 
 ## Audit → source-fix → publish checklist
 
-1. **Probe, don't guess.** `node ~/Projects/webzites/bin/webzites.mjs probe --all`
+1. **Probe, don't guess.** `node ~/Projects/webzites/bin/webzites.mjs probe --all` *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
    (or `probe <site-id>`) — the bare `webzites` name is NOT on PATH on this
    host (`command -v webzites` = empty; sibling audits confirm); all commands
    below abbreviate it to `webzites` for readability but the real invocation
@@ -108,7 +108,7 @@ re-verify, don't assume the r1 findings still hold.
    stdout, never gate on its exit code.
    Runbook: `corpus/knowledge/probe-delta-alerting.md`.
 2. **Check live-vs-source drift** per the table below. Kimi rows:
-   `node ~/Projects/webzites/scripts/kimi-surface.mjs sync-check [<id>]` (run
+   `node ~/Projects/webzites/scripts/kimi-surface.mjs sync-check [<id>]` (run *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
    from any cwd — the script has **no `--help` verb**; usage prints via any
    unknown verb, exit 64; pure HTTP, no browser;
    title+marker verdict — bytes never equal, see pitfalls). GHP rows:
@@ -209,7 +209,9 @@ found 15 stale literals in classes no earlier round had a recipe for.
 
 | Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
 |---|---|---|---|---|---|---|---|
-| freshness-sweep | gate | `node scripts/freshness-sweep.mjs --offline` for this local-only dispatch; bare form requires authorization for network checks | `0=clean` for evaluated checks only; `1=failed/drift`; `2=could-not-evaluate` (input); `64=could-not-evaluate` (usage). Offline/skipped/suspended sections are never proof of a complete publishing check. | `node scripts/freshness-sweep.mjs --selftest` (`--selftest`); caller must isolate `HOME` and `KAKE_SELFTEST_DIR` to temporary lane-local directories; record variable names and isolation shape only, never assigned values. | `corpus/knowledge/freshness-pins.json`; `node .ufo/round-20/replay-proof.mjs` checks all frozen input digests before baseline/candidate comparison | Normal path reads only; selftest writes isolated fixtures. The known static confinement assertion is not a complete write-free proof. | kake |
+| freshness-sweep | gate | `node scripts/freshness-sweep.mjs --offline` for this local-only dispatch; bare form requires authorization for network checks | `0=clean` for evaluated checks only; `1=failed/drift`; `2=could-not-evaluate` (input); `64=could-not-evaluate` (usage). Offline/skipped/suspended sections are never proof of a complete publishing check. | `node scripts/freshness-sweep.mjs --selftest` (`--selftest`); caller must isolate `HOME` and `KAKE_SELFTEST_DIR` to temporary lane-local directories; record variable names and isolation shape only, never assigned values. | `corpus/knowledge/freshness-pins.json`; `node .ufo/round-20/replay-proof.mjs` checks all frozen input digests before baseline/candidate comparison | Normal path reads only; selftest writes isolated fixtures. The known static confinement assertion is not a complete write-free proof. **[r20 resume 2026-10-19: region markers are exact standalone lines and case `e2` plants a write at every out-of-region top-level function (selftest 15/15; `node .ufo/round-20/resume/confinement-mutants.mjs` → cb807bc killed 0/25, now 25/25). Still not complete: aliasing, bracket access, multi-line calls, metadata/fd writes and child-process side effects are named residual bypasses.]** | kake |
+
+Where to learn more: `corpus/SOURCES.md` (scoped-tier source registry; platform-mechanism claims cite a tier-A row there — `corpus/QUALITY.md` §Platform mechanism).
 
 ## Live-vs-source drift detection
 
@@ -224,7 +226,7 @@ found 15 stale literals in classes no earlier round had a recipe for.
 | Roster/ops reads (r12) | `webzites status --json` · `webzites grokbots --check` · `webzites bots list` · `webzites bots report [--stale N]` | snapshot verdicts (status); registry/card/log parity across all 21 fleet rows (`--check`, exit 1 on gaps); card+wrapper state across the 20 registry rows (list); per-site probe/log/turn ages + gap/stale verdicts (report, exit 1 iff gaps or `--stale` tripped) | all four read-only local reads (r12 sha guard, zero state delta — `/tmp/kake-r12/live/`); `status --json` and `bots list` **always exit 0** — read stdout only; `bots report` probe column is snapshot-relative (inherits the `probe <id>` clobber); queued wrapper-misses are not gaps (`src/cli.mjs:935`); `--stale` never trips unless passed (`src/cli.mjs:836-839`, `:932`) — with the keeper timer inert, any threshold flags all logs STALE |
 | Byte-twin copies | `grep -F '<marker>'` + sha256 over fetched body | duplicate slots serving same/foreign content | marker-only equality ≠ byte equality |
 | GHP subpaths | walk `sourceDir` → GET `<url>/<rel>` → sha vs `git show origin/main:<rel>` | subpath 404s/rot probe+reconcile can't see (first baseline 2026-09-28: 2 352 paths, 0 true rot, 126 diffs all local git lead/lag) | procedure in `corpus/knowledge/ghp-subpath-spotcheck.md` |
-| URL lists (sitemap) | GET every `<loc>` + sourceDir membership | dead listings, foreign content, pre-push listing preview (baseline 2026-09-28: 103 locs **live-side** = 93 ds4cc-staged + 8 plazir-live + 2 charter; source-side re-derivation r16 = 102 — the delta IS the unpushed plazir gate, PQ-14; name the side) | unlisted paths invisible; GHP live-only orphans impossible by construction (deploy artifact = full tree snapshot) — `corpus/knowledge/sitemap-orphan-audit.md` |
+| URL lists (sitemap) | GET every `<loc>` + sourceDir membership | dead listings, foreign content, pre-push listing preview (baseline 2026-09-28: 103 locs **live-side** = 93 ds4cc-staged + 8 plazir-live + 2 charter; source-side re-derivation r16 = 102 — the delta IS the unpushed plazir gate, PQ-14; name the side) | unlisted paths invisible; GHP live-only orphans impossible by construction (deploy artifact = full tree snapshot) — `corpus/knowledge/sitemap-orphan-audit.md` **[r20-correction 2026-10-19: the orphan direction must be checked against the actual uploaded/deployed artifact or build output, not inferred from the checkout; upload-pages-artifact excludes .git/.github and v4 excludes hidden paths by default (v5 adds include-hidden-files); branch builds also apply Jekyll's default exclusions — S001, S002, S004, S006]** |
 | kimi subpaths | live-index same-origin link sweep + canonical `sitemap.xml` parity (`dir/`→`dir/index.html`), classify misses by `git log --diff-filter=A` vs publish vintage | per-path staleness quantified (ds4cc mirror 2026-09-28: **75**/93 canonical locs missing — sitemap commit `f3d2ecd` adds 75; "74" in older docs was off by one — **all post-vintage, 0 rot**); `dir/` href rot | byte drift meaningless; `${...}` template literals are noise — `corpus/knowledge/kimi-subpath-audit.md` |
 | Vault PROPERTIES[] | `node -e` eval the `const PROPERTIES = [...]` literal in the fetched body + GET each `url` | rendered-link rot WITHOUT a DOM (r9 baseline: 3/10 live-claimed links dead; lucario absent) | PROPERTIES[] is the only link surface — vault body has no other links; `corpus/knowledge/vault-properties.md` |
 
@@ -303,10 +305,10 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
   plazir27runson, kimi.pro slots) have no local source — republish needs
   extracted bytes first, never retype from memory.
 - **Filesystem traps.** Case distinguished two real dirs at r16:
-  `~/Projects` inode `27238`, lowercase `~/projects` inode `101125103`.
+  `~/Projects` inode `27238`, lowercase `~/projects` inode `101125103`. *[r20 citation-local 2026-10-19: `~/projects` absent — gone in W6, the 2026-09-29 03:13–03:14Z lowercase-tree consolidation; historical record, not an executable instruction.]*
   W6 (2026-09-29 03:13–03:14Z) absorbed the lowercase tree's children into
-  the existing capital root, then removed `~/projects`; `~/Projects` kept
-  inode `27238` (`~/DIRMAP.md:1,7,27`; `magga-2`→`magga` in-window).
+  the existing capital root, then removed `~/projects`; `~/Projects` kept *[r20 citation-local 2026-10-19: `~/projects` absent — gone in W6, the 2026-09-29 03:13–03:14Z lowercase-tree consolidation; historical record, not an executable instruction.]*
+  inode `27238` (`~/DIRMAP.md:1,7,27`; `magga-2`→`magga` in-window). *[r20 citation-local 2026-10-19: `~/DIRMAP.md` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
   Therefore lowercase ENOENT is **not safely classifiable as a typo** — check
   `projectsChildrenSet`, `~/DIRMAP.md`, and parent mtimes before deciding.
   Whole cited roots also vanish: r15 caught `ufofsdbeta`,

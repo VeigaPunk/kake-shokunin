@@ -596,3 +596,44 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   repertoire table) and `## Saturation` (declaration deferred to the lane's
   next round). No axis claim was made and no score moved; no verdict or
   last-change round changed. No round credit follows.
+
+## 2026-10-19 — round 20 resume (kaika campaign): three claims landed
+
+- Motivating evidence: the round's own named debt — §paths drift 7 targets /
+  26 unannotated locations (`.ufo/round-20/citation-debt.json`), the r19
+  confinement erratum (`corpus/lessons/round-19-recensus.md:44`), and the W1
+  ART dossier's K1–K3 contradictions of standing GHP claims
+  (`kaika-w1/kake-art.md` §4, fleet ledger). Fresh session resuming round 20
+  per `LOG.md:542`; base `cb807bc`.
+- Swarm: one batched call of 10 L2 seats (planner, connector, scout, scribe,
+  reviewer, critic, 4 executors), each prompt led by `/skill:godspeed` plus the
+  verbatim directive; no model passed. Executor seats hit provider limits
+  (`resource_exhausted`, then `turn_rate_limit_exceeded`) and were re-spawned
+  in batched calls; a post-land reviewer/critic/mutation-tester batch followed.
+  Record: `.ufo/round-20/resume/swarm-dispatch.json`.
+- C1 freshness: 26/26 locations annotated in place (target + dated event +
+  non-executable wording); `node scripts/freshness-sweep.mjs --section=paths`
+  exit 1 → 0, drift 7 → 0, missSet 55 → 55, newMissing 0.
+- C2 operability: exact-marker `writeConfinement()` + mutation case `e2`;
+  isolated selftest 14/14 → 15/15; `confinement-mutants.mjs` killed 0/25 →
+  25/25; replay-proof PASS; child-process/alias writes named residual.
+- C3 capability: `corpus/SOURCES.md` 18 opened rows (census clean), 4 new
+  knowledge entries with `source:`/`verified-at:`/`recheck:` headers, 27
+  appended `r20-correction` tails; superseded literals uncorrected 9 → 0
+  (`sh .ufo/round-20/resume/old-strings.sh`).
+- Supporting: `PROVINCE.md` Core/Frontier/Adjacent/Surfaces appended;
+  `corpus/README.md:60` continuation restored (dropped in `dd4eabf`); 7
+  `QUALITY.md` criteria from mined mistakes; saturation line + window
+  declared; round-21 plan. Lesson: `corpus/lessons/round-20.md`
+  §Round-20 resume, §Gate — round-20 resume, §Mistakes.
+- Pre-commit catches by the L1: S009 line anchor (lead said 1671; `grep -nF`
+  at `481d28cb` → 1708); an inserted backtick and two dropped table pipes in
+  append-only lines; a duplicate executor seat that overwrote the disposition
+  ledger and kept editing after cancellation (ledger rebuilt from the 27
+  tails; an indentation change reverted). Post-land review: mutation probe
+  9/18 killed → e2 hardened (API list pinned, marker-error, anchoring and
+  boundary fixtures; all 8 survivors re-run killed); citation-local notes
+  made reader-visible (inside the last table cell); one broken table header
+  repaired (`drift-detection.md:73`).
+- No push (standing operator rule). No live-target probe. Non-author
+  verification is the orchestrator's, after landing.

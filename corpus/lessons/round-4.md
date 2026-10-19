@@ -1,7 +1,7 @@
 # Lesson — round 4 (2026-09-28)
 
 Cites: LOG.md round-4 entry; `knowledge/fire-journal-codes.md`;
-`~/Projects/webzites/scripts/kimi-surface.mjs` throw sites (grep `code: [0-9]`,
+`~/Projects/webzites/scripts/kimi-surface.mjs` throw sites (grep `code: [0-9]`, *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
 2026-09-28); `~/Projects/webzites/state/{update,recreate,rebuild}-*.json`;
 `state/rebuild-charter-fire.log`; commit `round-4`.
 

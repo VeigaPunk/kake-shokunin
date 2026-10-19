@@ -70,7 +70,7 @@ Caught by the r16 quantified-claim sweep, not by any probe verb (`probe`
 checks `expect` on the root URL; `reconcile` scores one `index.html`; neither
 sees `sitemap.xml`):
 
-| evidence | live | source (`~/Projects/plazir-15-site`) | `origin/main` |
+| evidence | live | source (`~/Projects/plazir-15-site`) | `origin/main` *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]* |
 |---|---|---|---|
 | `sitemap.xml` `<loc>` count | **8** (incl. `/tetris/`, 1,293B, sha `3eb1722c…`) | **7** (sha `8e162356…`; `/tetris/` dropped in `0de5eb9`, 2026-09-26) | 8 |
 | `snake/index.html` `og:url` | 0 hits | 1 hit (`3059bf0`) | 0 |

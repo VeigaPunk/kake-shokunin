@@ -45,7 +45,7 @@ aggregator lessons unindexed by convention.
 | `exit 0/2/64 proven` (`SCORECARD.md:19`) | `node scripts/probe-delta.mjs [--history /nonexistent \| --hole-hours banana \| --since notadate]` | `0 / 2 / 64 / 64` | pass |
 | "0 scripts in repo" before-state (`SCORECARD.md` move log) | `git ls-tree ed0b632 --name-only` | `AGENTS.md LOG.md PROVINCE.md SHONEN.md SKILL.md corpus` — no `scripts/` | pass |
 | 76 rows, median gap 0.45h, 42.7h hole (`ops-automation.md:22-29`) | detector `--json` | `rows:76 medianGapH:0.45 maxGapH:42.73 hole 09-21T04:14:50.502Z→09-22T22:58:23.543Z` | pass |
-| zip-exclude chain `:903` / zip spawn `:906` (`vault-properties.md:60`) | `sed -n '899,908p' ~/Projects/webzites/scripts/kimi-surface.mjs` | `:903` filter, `:906` spawnSync | pass (r10 fix) |
+| zip-exclude chain `:903` / zip spawn `:906` (`vault-properties.md:60`) | `sed -n '899,908p' ~/Projects/webzites/scripts/kimi-surface.mjs` | `:903` filter, `:906` spawnSync | pass (r10 fix) *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]* |
 | `32MB fetchLive maxBuffer :339-346` (`lessons/round-9.md:33`) | `grep -n maxBuffer scripts/kimi-surface.mjs` + `sed -n '339,346p'` | `:342 … maxBuffer: 32*1024*1024` in the fn spanning :339-346 | pass (r10 fix) |
 | `webzites status` exit-1 on violation (`SKILL.md` step 1) | `sed -n '95,102p' src/cli.mjs` | `:99` ternary on `"violated" \|\| "error"` | pass |
 | kimi-surface has no `--help` (`SKILL.md` step 2) | `sed -n '1193,1200p' scripts/kimi-surface.mjs` | `:1197-1198` usage + `process.exit(64)` | pass |

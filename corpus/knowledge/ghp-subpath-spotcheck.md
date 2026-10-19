@@ -80,7 +80,7 @@ are unpushed), `plazir-15-site` 5 ahead (5 diffs), `charter-ufo-fsd`
 - Live-only paths not in sourceDir (orphan files stay served after
   source deletion until a redeploy — detection needs sitemap crawl, not
   source walk).
-- `.github/`, CNAME, workflow files — never servable.
+- `.github/`, CNAME, workflow files — never servable. **[r20-correction 2026-10-19: CNAME is not in upload-pages-artifact's .git/.github/dotfile exclusion set; whether Actions serves /CNAME is an unverified prediction requiring an operator-authorized free read — S001, S005]**
 - Binary assets spot-checked by hash only if enumerated; large trees
   (ds4cc: 2 614 files, ~1 874 text) take ~1 min at concurrency 12.
 - kimi rows: same gap, but byte equality is meaningless there —

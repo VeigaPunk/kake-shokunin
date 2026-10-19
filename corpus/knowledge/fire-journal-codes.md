@@ -1,6 +1,6 @@
 # kimi-surface fire journals & exit codes
 
-Source: `~/Projects/webzites/scripts/kimi-surface.mjs` (die/throw sites grep'd
+Source: `~/Projects/webzites/scripts/kimi-surface.mjs` (die/throw sites grep'd *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
 2026-09-28) + `~/Projects/webzites/state/{update,recreate,rebuild}-*.json`
 run journals (09-26/09-27) + `state/rebuild-charter-fire.log`.
 

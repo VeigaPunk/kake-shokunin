@@ -90,7 +90,7 @@ VERDICT DRIFT (exit 1: plazir-live-source-gap)
 
 **Exit 1 is currently the EXPECTED verdict.** PQ-14's gap is an open drift: the
 published plazir sitemap has 8 locs while its source has 7, because
-`~/Projects/plazir-15-site` is 5 commits ahead of `origin/main`. The instrument
+`~/Projects/plazir-15-site` is 5 commits ahead of `origin/main`. The instrument *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
 does not green-light a live≠source state — that is the whole point of the
 §armed section. Use `--section=paths` / `--section=history` / `--offline` to
 isolate the other sections, and expect the drift line to disappear (gate
@@ -172,3 +172,12 @@ citations wholesale, or complete a training round. Required specialist
 dispatch is blocked by the effective host bindings recorded in
 `.ufo/round-20/routing-blocker.json`. Do not re-pin existing misses to hide
 the newly visible unannotated occurrences.
+## Round-20 resume note (2026-10-19)
+
+Source row: S014 in `corpus/SOURCES.md` (own-work, tier A for lane citation
+resolution only). The 26 locations the citation-local rule exposed are now
+annotated in place (`.ufo/round-20/resume/citation-disposition.json`); the
+§paths run exits 0 with missSet still 55. The write-confinement self-test now
+parses exact standalone region markers and adds a mutation case (`e2`); its
+residual bypasses (aliasing, bracket access, child-process side effects) are
+named in the script comment above `writeConfinement`.

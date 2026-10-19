@@ -15,11 +15,12 @@
 // Exit contract: 0 = clean · 1 = drift · 2 = unreadable/invalid input ·
 //                64 = usage error.
 //
-// READ-ONLY BY CONSTRUCTION: the only fs write APIs in this file live inside
-// the SELFTEST-WRITES-BEGIN/END region (`--selftest` builds hermetic fixtures
-// under /tmp/kake-r16/selftest). The normal path never writes, never mkdirs,
-// and never touches ~/Projects. `--selftest` proves this by grepping its own
-// source for write-API call sites outside that region.
+// READ-ONLY BY CONSTRUCTION: every direct fs write call this file makes sits
+// inside an exact SELFTEST-WRITES-BEGIN/END marker pair in selftest()
+// (`--selftest` builds hermetic fixtures under /tmp/kake-r16/selftest). The
+// normal path never writes, never mkdirs, and never touches ~/Projects.
+// `--selftest` checks this by scanning its own source for the write-API names
+// pinned in writeConfinement(); the residual bypasses listed there are not covered.
 //
 // Usage:
 //   node scripts/freshness-sweep.mjs [--json] [--offline]
@@ -1074,6 +1075,64 @@ async function main() {
   process.exit(v.code);
 }
 
+function writeConfinement(lines) {
+  const syncNames = [
+    'writeFile', 'mkdir', 'appendFile', 'rm', 'unlink', 'rmdir', 'copyFile',
+    'rename', 'cp', 'truncate', 'symlink', 'link', 'write', 'open', 'mkdtemp',
+  ].map((name) => `${name}Sync`);
+  const directNames = [
+    'createWriteStream', 'writeFile', 'mkdir', 'appendFile', 'copyFile',
+    'rename', 'cp', 'truncate', 'symlink', 'link', 'write', 'open', 'rm',
+    'unlink', 'rmdir', 'mkdtemp',
+  ];
+  const apis = [...syncNames, ...directNames];
+  const re = new RegExp(`(?:^|[^A-Za-z0-9_$])(${apis.join('|')})\\s*\\(`);
+  const violations = [];
+  const regions = [];
+  const errors = [];
+  const writeAllowed = new Array(lines.length).fill(false);
+  let inWriteRegion = false;
+  let openLine = null;
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    const begin = /^\/\/ SELFTEST-WRITES-BEGIN(?: \(.+\))?$/.test(trimmed);
+    const end = trimmed === '// SELFTEST-WRITES-END';
+    if (begin) {
+      if (inWriteRegion) errors.push(`nested BEGIN at ${i + 1}`);
+      else {
+        inWriteRegion = true;
+        openLine = i + 1;
+        regions.push(`B${i + 1}`);
+      }
+    }
+    if (inWriteRegion) writeAllowed[i] = true;
+    if (end) {
+      if (!inWriteRegion) errors.push(`unbalanced END at ${i + 1}`);
+      else {
+        inWriteRegion = false;
+        openLine = null;
+        regions.push(`E${i + 1}`);
+      }
+    }
+  }
+  if (inWriteRegion) errors.push(`unterminated BEGIN at ${openLine}`);
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].trim().startsWith('//')) continue;
+    if (re.test(lines[i]) && !writeAllowed[i]) violations.push(`${i + 1}: ${lines[i].trim().slice(0, 70)}`);
+  }
+  return { violations, regions, errors, apis };
+}
+
+// Covered: writeFileSync, mkdirSync, appendFileSync, rmSync, unlinkSync,
+// rmdirSync, copyFileSync, renameSync, cpSync, truncateSync, symlinkSync,
+// linkSync, writeSync, openSync, mkdtempSync, createWriteStream, plus direct
+// callback/promise calls named writeFile, mkdir, appendFile, copyFile, rename,
+// cp, truncate, symlink, link, write, open, rm, unlink, rmdir, and mkdtemp.
+// Residual bypasses (not covered): aliases, bracket access, a call split across
+// lines, metadata/fd writes (chmod, chown, utimes, ftruncate, writev, fsync), and
+// execFileSync/child-process command side effects. e2 also requires every
+// region to open inside selftest().
+
 // ── --selftest: hermetic fixtures + self-source read-only assertion ─────────
 async function selftest() {
   const dir = process.env.KAKE_SELFTEST_DIR || '/tmp/kake-r16/selftest';
@@ -1334,30 +1393,120 @@ async function selftest() {
     pass: r.code === 64,
   });
 
-  // Self-source read-only assertion: every write-API call site must sit inside
-  // a SELFTEST-WRITES region (multiple BEGIN/END pairs allowed — setup + cleanup).
-  // Names are assembled so the checker's own source cannot self-match.
-  const WRITE_APIS = ['writeFile', 'mkdir', 'appendFile', 'rm', 'unlink', 'rmdir'].map((s) => s + 'Sync').concat(['createWriteStream', 'writeFile', 'mkdir']);
+  // Self-source read-only assertion: every direct write-API call site must sit
+  // inside an exact SELFTEST-WRITES region. Names stay assembled to avoid
+  // matching the checker itself; aliases and child-process side effects remain residual.
   const src = fs.readFileSync(SELF, 'utf8').split('\n');
-  const writeAllowed = new Array(src.length).fill(false);
-  let inWriteRegion = false;
-  let regionMarks = [];
-  src.forEach((l, i) => {
-    if (l.includes('SELFTEST-WRITES-BEGIN')) { inWriteRegion = true; regionMarks.push(`B${i + 1}`); }
-    if (inWriteRegion) writeAllowed[i] = true;
-    if (l.includes('SELFTEST-WRITES-END')) { inWriteRegion = false; regionMarks.push(`E${i + 1}`); }
-  });
-  const re = new RegExp(`(?:^|[^A-Za-z0-9_$])(${WRITE_APIS.join('|')})\\s*\\(`);
-  const violations = [];
-  src.forEach((l, i) => {
-    if (l.trim().startsWith('//')) return;
-    if (re.test(l) && !writeAllowed[i]) violations.push(`${i + 1}: ${l.trim().slice(0, 70)}`);
-  });
+  const probeWrite = ['  fs.write', 'FileSync', "('/dev/null', '');"].join('');
+  const confinement = writeConfinement(src);
   cases.push({
     id: 'e write-API call sites confined to SELFTEST-WRITES region',
-    expect: '0 call sites outside the region(s)',
-    got: `${violations.length} outside${violations.length ? `: ${violations.join(' | ')}` : ''} (regions ${regionMarks.join(',')})`,
-    pass: violations.length === 0,
+    expect: '0 call sites outside balanced region(s)',
+    got: `${confinement.violations.length} outside${confinement.violations.length ? `: ${confinement.violations.join(' | ')}` : ''} · errors ${confinement.errors.join(',') || '0'} (regions ${confinement.regions.join(',')})`,
+    pass: confinement.violations.length === 0 && confinement.errors.length === 0,
+  });
+
+  const inRegion = (lineNumber, marks) => {
+    let start = null;
+    for (const mark of marks) {
+      const line = Number(mark.slice(1));
+      if (mark[0] === 'B') start = line;
+      else if (start !== null) {
+        if (lineNumber >= start && lineNumber <= line) return true;
+        start = null;
+      }
+    }
+    return false;
+  };
+  const bodySites = [];
+  for (let i = 0; i < src.length; i++) {
+    const declaration = /^(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(/.exec(src[i]);
+    if (!declaration) continue;
+    let parens = 0, quote = null, escaped = false, afterParams = false, bodyLine = -1;
+    for (let line = i; line < src.length && bodyLine < 0; line++) {
+      const text = src[line];
+      const from = line === i ? declaration[0].lastIndexOf('(') + declaration.index : 0;
+      for (let col = from; col < text.length; col++) {
+        const ch = text[col];
+        if (quote) {
+          if (escaped) escaped = false;
+          else if (ch === '\\') escaped = true;
+          else if (ch === quote) quote = null;
+          continue;
+        }
+        if (ch === "'" || ch === '"' || ch === '`') { quote = ch; continue; }
+        if (ch === '(') parens++;
+        else if (ch === ')' && --parens === 0) afterParams = true;
+        else if (afterParams && ch === '{') { bodyLine = line; break; }
+      }
+    }
+    const insertionLine = bodyLine + 2;
+    if (bodyLine >= 0 && !inRegion(insertionLine, confinement.regions)) {
+      bodySites.push({ name: declaration[1], bodyLine });
+    }
+  }
+  let caught = 0;
+  for (const site of bodySites) {
+    const mutated = src.slice();
+    mutated.splice(site.bodyLine + 1, 0, probeWrite);
+    const plantedLine = site.bodyLine + 2;
+    const report = writeConfinement(mutated);
+    if (!report.errors.length && report.violations.some((v) => v.startsWith(`${plantedLine}:`))) caught++;
+  }
+  const originalClean = confinement.violations.length === 0 && confinement.errors.length === 0;
+  const beginLine = Number(confinement.regions.find((mark) => mark[0] === 'B').slice(1));
+  const positive = src.slice();
+  positive.splice(beginLine, 0, probeWrite);
+  const positiveLine = beginLine + 1;
+  const positiveReport = writeConfinement(positive);
+  const positiveControl = !positiveReport.errors.length
+    && !positiveReport.violations.some((v) => v.startsWith(`${positiveLine}:`));
+  const decoy = ['// Decoy prose mentions SELFTEST-WRITES-BEGIN but is not a marker.', ...src];
+  const decoyReport = writeConfinement(decoy);
+  const normalizedDecoyRegions = decoyReport.regions.map((mark) => `${mark[0]}${Number(mark.slice(1)) - 1}`);
+  const decoyMutation = decoy.slice();
+  const decoySite = bodySites[0];
+  decoyMutation.splice(decoySite.bodyLine + 2, 0, probeWrite);
+  const decoyLine = decoySite.bodyLine + 3;
+  const decoyMutationReport = writeConfinement(decoyMutation);
+  const decoyControl = !decoyReport.errors.length
+    && normalizedDecoyRegions.join(',') === confinement.regions.join(',')
+    && decoyMutationReport.violations.some((v) => v.startsWith(`${decoyLine}:`));
+  const unbalanced = src.slice();
+  let lastEnd = -1;
+  for (let i = 0; i < unbalanced.length; i++) if (unbalanced[i].trim() === '// SELFTEST-WRITES-END') lastEnd = i;
+  if (lastEnd >= 0) unbalanced.splice(lastEnd, 1);
+  const unbalancedErrors = writeConfinement(unbalanced).errors.length;
+  // Pin every covered API name, both marker-error branches, exact anchoring and
+  // the identifier boundary (post-land mutation probe: names, nested/lone
+  // markers, trailing-junk markers and suffix-named calls were unpinned).
+  const apiSite = bodySites[0];
+  const apiMissed = confinement.apis.filter((name) => {
+    const m = src.slice();
+    m.splice(apiSite.bodyLine + 1, 0, `  x.${name}(0);`);
+    return !writeConfinement(m).violations.some((v) => v.startsWith(`${apiSite.bodyLine + 2}:`));
+  });
+  const mark = (kind) => `// SELFTEST-WRITES-${kind}`;
+  const nestedErr = writeConfinement([mark('BEGIN'), mark('BEGIN'), mark('END')]).errors.some((e) => e.startsWith('nested'));
+  const loneEndErr = writeConfinement([mark('END')]).errors.some((e) => e.startsWith('unbalanced'));
+  const junk = writeConfinement([`${mark('BEGIN')} junk`, probeWrite, mark('END')]);
+  const junkEnd = writeConfinement([mark('BEGIN'), `${mark('END')} junk`]);
+  const junkRejected = !junk.regions.some((r) => r[0] === 'B') && junk.violations.some((v) => v.startsWith('2:'))
+    && junkEnd.errors.some((e) => e.startsWith('unterminated'));
+  const suffixClean = writeConfinement(confinement.apis.map((name) => `  x.re${name}(0);`)).violations.length === 0;
+  // The covered-name list itself is pinned (31 names, sorted, sha256 prefix) so
+  // dropping or swapping a name cannot shrink the per-name loop above silently.
+  const apiPin = `${confinement.apis.length}:${sha256([...confinement.apis].sort().join(',')).slice(0, 16)}`;
+  const apiPinned = apiPin === '31:cf1b238d8d9f2486';
+  const selftestDecl = src.findIndex((l) => l.startsWith('async function selftest()')) + 1;
+  const regionsInSelftest = selftestDecl > 0 && confinement.regions.every((r) => Number(r.slice(1)) > selftestDecl);
+  const structural = apiMissed.length === 0 && apiPinned && nestedErr && loneEndErr && junkRejected && suffixClean && regionsInSelftest;
+  cases.push({
+    id: 'e2 write confinement mutation proof (in memory)',
+    expect: 'every out-of-region top-level function mutant caught; every covered API name caught; marker errors, anchoring and identifier boundary pinned; positive/decoy controls pass',
+    got: `caught ${caught}/${bodySites.length} mutants · apis ${confinement.apis.length - apiMissed.length}/${confinement.apis.length}${apiMissed.length ? ` missed ${apiMissed.join(',')}` : ''} pin=${apiPinned ? 'match' : `MISMATCH ${apiPin}`} · regions ${confinement.regions.join(',')} · controls positive=${positiveControl ? 'PASS' : 'FAIL'} decoy=${decoyControl ? 'PASS' : 'FAIL'} unbalanced=${unbalancedErrors ? 'error' : 'miss'} nested=${nestedErr ? 'error' : 'miss'} loneEnd=${loneEndErr ? 'error' : 'miss'} junkMarker=${junkRejected ? 'rejected' : 'ACCEPTED'} suffix=${suffixClean ? 'clean' : 'FLAGGED'} inSelftest=${regionsInSelftest ? 'yes' : 'NO'}`,
+    pass: originalClean && bodySites.length > 0 && caught === bodySites.length
+      && positiveControl && decoyControl && unbalancedErrors > 0 && structural,
   });
 
   // Cleanup of the transient $HOME fixture dir: after every child run, so the

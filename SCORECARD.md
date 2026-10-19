@@ -6,6 +6,8 @@ depth/coverage/calibration/adjacency belong to other lanes — not scored here).
 The numeric ratings below are legacy round-17/18 assessments, not a fresh
 proof that the current corpus is clean. Round 20 is a blocked attempt;
 its local per-axis evidence and admission limits are recorded at the end.
+The round-20 resume (2026-10-19) section below records this round's three
+claims; ratings stay at the 10/10 ceiling.
 
 | Axis | Score | Evidence pointer | Last change |
 |---|---|---|---|
@@ -13,6 +15,25 @@ its local per-axis evidence and admission limits are recorded at the end.
 | freshness | 10 | **r17 HOLD 10:** the standing instrument caught a real between-sweep world change before prose repair: lowercase `~/projects` was consolidated into `~/Projects` and removed, making a cited descendant miss; cite corrected to the surviving canonical report, `pathsMissSet` 9→10. Full r16 inventory re-run: 160 claims (117/117 HOLD; 15/15 r16 stale repairs still correct; 7 carried UNVERIFIABLE; 21 HISTORICAL-OK) + 16/16 new claims HOLD; 9 new deltas found and resolved/qualified (W6 path+mtime/child rename, ETag edge flip, 2 r17 self-stale counts, inode wording, dangling `corpus/claims`, ledger locus, README range gloss). Instrument integrity also improved: `projectsChildrenSet` 36 informational set; `pathsFiles` count→39-entry evaluated list; bad pins now fail closed exit 2 with a permanent case (`--selftest` **10/10**). Final §paths = 66 targets / 49 resolve / 10 declared-absent / 0 drift / 39 files; 33-file state sha guard identical. Live exit 1 remains solely expected PQ-14 `plazir-live-source-gap`. Evidence: `corpus/knowledge/freshness-sweep.md` §r17, `corpus/lessons/round-17.md`, `LOG.md` r17, `/tmp/kake-r17/{scout-claims.md,claims-delta.tsv,critic.md,reviewer-cites.md,scout-pins.md,scout-live.md}`. | 17 |
 
 ## Planned
+
+**Round 21** (two claims on the tied-lowest owned axes; counting commands
+from the round-20 resume planner seat):
+
+1. **freshness — knowledge-entry metadata.** Before: 4/21 knowledge entries
+   open with `source:`/`verified-at:`/`recheck:` (the four r20 entries).
+   After: 21/21, each field filled from the entry's own evidence. Count:
+   `python3 -c 'from pathlib import Path; import re; fs=sorted(Path("corpus/knowledge").glob("*.md")); [print(k, sum(bool(re.search(r"(?m)^"+k+r":\s*\S", "\n".join(p.read_text().splitlines()[:8]))) for p in fs), "/", len(fs)) for k in ("source","verified-at","recheck")]'`
+2. **operability — lesson gate coverage.** Before: 1/15 lane-authored
+   round lessons carry a `## Gate` heading (round-20 only). After: every lane-authored lesson
+   has an appended gate (candidates, admits/rejects with reasons, spot-check
+   status), never rewriting history. Count:
+   `ls corpus/lessons/round-*.md | grep -v aggregator | xargs grep -l '^## Gate' | wc -l`
+
+Named checks needing an operator-authorized free read (not claims): each
+Pages repo's `build_type` and action pins; whether `/CNAME` is served under
+Actions; the user-site robots.txt.
+
+### Superseded round-20 attempt plan (2026-10-15)
 
 - **Round 20 remains unadmitted.** Freshness is the chosen LIVE axis (10/10
   tie with operability); no numeric rating or verified-round count advances.
@@ -68,6 +89,8 @@ its local per-axis evidence and admission limits are recorded at the end.
 | 14 | freshness | Standing claims carried stale precision: r13 "byte-frozen" root claim wrong at sha level (Cloudflare cfemail re-encoding); r13 `06:00:36Z` was the journal Starting line not the history `at`; ops-automation "earlier full sweeps" wording backwards; 10+ line-number citations drifted as source/docs grew; no armed verdict path for the pending PQ-5 publish; no dated re-check loop on the operator-gated PQ-12 pin | Sweep landed mid-round and verified (row 78 `at` 00:01:09.976Z, identical 12/5/1); sentinel PASS 45/47 unchanged (timer pair only); 18-curl replication 0-diff; PQ-5 watch armed (P1–P3 verified NOW + E1–E5 + F1–F3 branches — `publish-queue.md` §r14, `SKILL.md` step 4); PQ-12 loop armed and **caught a transition in-round** — scribe `9c28d29` pushed `pushed:true` at 00:06:19Z, live literal moved to `2026-09-29` (53,386B `fb365e38…`); 12 stale citations fixed across 4 corpus files + LOG + the r13 report; 2 new facts landed (generic-sentinel non-discrimination; canonical sitemap wire-absent); charter subpath audit NULL baseline landed; r13 report-filing gap repaired; score stays 8 — armed capability ≠ caught event (critic rule) | `/tmp/kake-r14/` (12 L2 artifacts incl. sentinel-{before,after}.sha), corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert,free-read-verbs}.md, SKILL.md step-4 watch wiring, LOG.md r14 |
 | 13 | freshness | corpus aging: pin-failure framed as "two consecutive probes" (r3+r7); PQ-3 "behind 2", PQ-6 wrong line cite, PQ-5 zip "1 day stale", ops-automation header "76 rows"; "churn paused" unqualified; no at-vs-mtime rule; no absent-semantics rule; r12 commits missing in BOTH repos (round-11 was kake head; main head round-6) | Standing claims re-verified against live state 22:47–22:50Z (3 timer sweeps + manual re-probe identical 12/5/1; 18-curl replication 0-diff; PQ-5 pending, PQ-2 unchanged 19/93; pin-lag persists over deploy-current a8f1e2b); 4 stale citations fixed, 2 rules landed (at-vs-mtime; absent = exact-pin miss), 1 claim rescoped (churn-paused → scribe-automation-only); r12 protocol gap repaired (round-12 commits landed + pushed in both repos); score stays 8 — plan's trigger never materialized, no falsifiable move | `/tmp/kake-r13/` (10 L2 artifacts incl. sentinel-before.sha), corpus/knowledge/{publish-queue,ops-automation,keeper-timer-inert}.md, SKILL.md r13 amendments, LOG.md r13 |
 | 19 | freshness | measured at HEAD (see lesson) | verdicts recorded per gate, no scalar | `corpus/lessons/round-19-recensus.md` |
+| 20 (resume) | freshness (**HOLD 10**) | `--section=paths` exit 1: drift 7 targets / 26 unannotated locations, missSet 55, newMissing 0 | exit 0: drift 0, unannotated 0, missSet 55, newMissing 0; 26/26 annotations name target + dated event + non-executable wording | `.ufo/round-20/resume/{paths-before.txt,citation-disposition.json}`; `corpus/lessons/round-20.md` §Round-20 resume |
+| 20 (resume) | operability (**HOLD 10**) | isolated selftest 14/14; region marks `B19,B1095,E1166,B1346,E1348,B1366,E1368`; planted out-of-region writes survive (cb807bc killed 0/25) | selftest 15/15 (new `e2`: 26/26 in-memory sites, 31/31 API names pinned, marker-error/anchoring/boundary fixtures); marks `B1154,E1225,B1515,E1517` (regions must open inside `selftest()`); working tree killed 25/25; post-land mutation probe 9/18 → all 8 re-run survivors killed; replay-proof PASS 7/7; child-process writes named residual | `.ufo/round-20/resume/{selftest-before.txt,confinement-before.txt,confinement-after.txt,confinement-reviewer-recipe.txt,confinement-mutation-probe.txt}` |
 
 | 12 | operability | 4 of ~20 free-read verbs replica-verified only (r11 residual); automation layer trusted from unit files (r5 docs); r11 F1 patch proposal unchallenged; charter-ghp pin framed as "queued for keeper" since r7 | All 4 live-run on the real repo, exits 0/1/0/1, 31-file sha guard byte-identical (×3 runs incl. 2 independent L2 re-runs); automation layer runtime-verified: keeper timer never fired (logs frozen 09-21, 20/21 files, turn=never 17/21), scribe is the marker writer + its push-gate failing (3 beats), no fleet.config writer exists in src/ → PQ-12 relabeled operator edit; lucario = sole registry gap (grokbots --check exit 1); 18/21/20/21 universes pinned (url filter cli.mjs:75 by design); r11 F1 guard REFUTED on `probe <id> --all` edge, corrected patch replica-verified (18 rows preserved) → handoff filed; 35-row verb classification; keeper-timer + lucario + patch filed to L0; 2 wrong citations + 2 L1 count errors caught by reviewer/critic/scribe and fixed pre-landing | `corpus/knowledge/keeper-timer-inert.md`, `corpus/handoffs/cmdProbe-merge-fix.md`, `corpus/knowledge/free-read-verbs.md` r12 append, `corpus/lessons/round-12.md`, SKILL.md r12 amendments, LOG.md r12, `/tmp/kake-r12/` (9 L2 artifacts) |
 | 11 | operability | 3 of ~20 free-read verbs never live-run (r10 audit); `probe <id>` recommended in SKILL.md drift table with no side-effect warning; `status` exit-1 documented as unconditional | All 4 core free-read verbs live-run on the real repo (probe ds4cc-com exit 0 + 18→1 clobber + restore; status clobbered/restored exits 0/1; reconcile 3 runs exit 0/0/1 fleet 7-attention; sync-check 6 runs incl. bare-fleet exit 1 {ok:3,attention:6}, --dead 0, unknown-id 1, unknown-verb 64); snapshot-clobber trap + 7 CLI behaviors + merge asymmetry landed in corpus + SKILL.md; 1 citation defect fixed | `corpus/knowledge/free-read-verbs.md`, SKILL.md r11 amendments, LOG.md r11, `/tmp/kake-r11/` (13 L2 artifacts: labrat-probe/reconcile/sync, scout-verbs, revenger-merge, critic, reviewer, sentinel, executor×2, planner, connector, scribe) |
@@ -140,17 +163,42 @@ lesson's “shape-only evidence erratum” and
 recorded conformance defect in ancestry. Program/fixtures, local axis
 measurements, blocked admission and zero round credit are unchanged.
 
+## Round 20 resume — claims and verdicts (2026-10-19)
+
+Same round, fresh session (`LOG.md:542`); base `cb807bc`; measured on the
+round-20 resume commit (hash in the fleet report and LOG). Self-verdicts
+pending non-author verification. The ratings stay 10/10: the ceiling cannot
+rise, so each axis row reads HOLD with its measured move.
+
+| Claim | Axis / type | Before → after | Counting command | Self-verdict |
+|---|---|---|---|---|
+| C1 citation-local debt cleared | freshness | §paths exit 1 → 0; drift 7 → 0; unannotated locations 26 → 0; missSet 55 → 55; newMissing 0 → 0 | `node scripts/freshness-sweep.mjs --section=paths` | improved (HOLD 10) |
+| C2 confinement proof closed | operability | selftest 14/14 → 15/15; mutants killed 0/25 → 25/25 on the same 25 function sites; residual bypasses named (aliasing, bracket access, multi-line calls, child-process and metadata writes) | `HOME=$(mktemp -d) KAKE_SELFTEST_DIR=$(mktemp -d) node scripts/freshness-sweep.mjs --selftest; node .ufo/round-20/resume/confinement-mutants.mjs` | improved (HOLD 10) |
+| C3 curated source registry | capability | SOURCES rows 0 → 18 (A=16, C=2; mined 14, queued 2, rejected 2); census defects 0; knowledge entries citing a mined row 0 → 4; superseded literals left uncorrected 9 → 0; appended correction tails 0 → 27 | contract v1 census (`.ufo/round-20/resume/sources-census.txt`); `sh .ufo/round-20/resume/old-strings.sh`; `grep -rnF '**[r20-correction' SKILL.md corpus \| wc -l` | capability entered; per-axis: freshness supported (no second freshness credit), operability unchanged |
+
+No owned axis is observed harmed: replay-proof PASS, §paths output identical
+between the base and new program on the same tree, offline/armed logic
+untouched. Learning trends: expansion improved (4 knowledge entries on
+coverage-map ground new to the lane, each citing a mined row); quality
+improved (C1, C2, 27 source-backed correction tails); discernment improved
+locally (2 rejected sources with flips, 8 scout observations held back,
+7 criteria from mined mistakes) — outside spot-check still owed.
+
 ## Capabilities
 
 | Capability | What it can now do | Evidence pointer | First-working round |
 |---|---|---|---|
-| — none yet — | | | |
+| Curated source registry | Keeps a contract-v1 registry of opened, scope-tiered sources (with rejections and study paths) whose mined rows back knowledge entries and appended corrections; census commands verify its shape | `corpus/SOURCES.md`; census argv/output `.ufo/round-20/resume/sources-census.txt`; mined-row citation check in `corpus/lessons/round-20.md` §Round-20 resume | 20 (resume) |
 
 Rows enter only through a round that demonstrates the capability running
-(`AXES.md` §Capabilities); none enter through this rollout.
+(`AXES.md` §Capabilities); the registry row entered in the round-20 resume,
+whose report carries the census run.
 
 ## Saturation
 
-The lane's saturation line + stagnation window N are to be declared by the
-lane on its next round per `AXES.md` §The stagnation nudge; not asserted by
-this conformance change.
+Declared in the round-20 resume (2026-10-19): **saturation line 10/10 on
+both owned axes (operability, freshness); stagnation window N = 1 completed
+lane round.** Both owned axes already sit at the line (legacy ratings), so the
+nudge turns on whether a capability entered: one did this round (curated
+source registry), so round 21 is **not** waived by the nudge; if round 21
+adds no capability, round 22 should be a frontier/capability move.

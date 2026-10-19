@@ -11,31 +11,31 @@ Companion to `ghp-subpath-spotcheck.md` (which covers source→live).
 |---|---|---|
 | source file → live URL (rot) | subpath spotcheck (round 6) | 2 352 paths, 0 rot |
 | **URL listed → live** (dead listing) | sitemap `<loc>` GET sweep | 103 URLs, **0 dead listings** |
-| **live path → source** (orphan) | sitemap sweep + membership check | 0 orphans; GHP-provable impossible, see below |
+| **live path → source** (orphan) | sitemap sweep + membership check | 0 orphans; GHP-provable impossible, see below **[r20-correction 2026-10-19: a zero-orphan result must be checked against the actual deployed artifact/build output; the checkout alone does not establish the live→source set — S001, S004]** |
 | live path not listed anywhere | — | invisible by definition; bounded, see below |
 | kimi subpaths | — | still uncovered (title+marker per path, never sha) |
 
-## GHP live-only orphans are impossible by construction
+## GHP live-only orphans are impossible by construction **[r20-correction 2026-10-19: the no-orphan conclusion is conditional on comparing live paths with the actual uploaded/deployed artifact or build output, not the checkout — S001, S004]**
 
 `actions/upload-pages-artifact` + `actions/deploy-pages` deploy a
-**fresh snapshot of the entire checked-out tree** every push — both
+**fresh snapshot of the entire checked-out tree** every push — both **[r20-correction 2026-10-19: upload-pages-artifact excludes .git/.github and v4 excludes hidden paths by default (v5 adds include-hidden-files); check the deployed artifact/build output rather than assuming full-tree coverage — S001, S002, S004, S006]**
 workflows upload `path: ./ds4cc-marketplace` / `path: .`
 (`ds4cc-marketplace/.github/workflows/pages.yml`,
 `plazir-15-site/.github/workflows/pages.yml`, read 2026-09-28). A Page
-deploy never retains files from the previous artifact, so a deleted
+deploy never retains files from the previous artifact, so a deleted **[r20-correction 2026-10-19: whether deleted paths remain served depends on the actual deployed artifact/build output; verify that output rather than infer from the checkout — S001, S004]**
 source file cannot linger live. The whole "file deleted from source
 stays served until redeploy" class (README residual, round-6 lesson)
-does not exist on GHP — the live tree IS the last-pushed `origin/main`
+does not exist on GHP — the live tree IS the last-pushed `origin/main` **[r20-correction 2026-10-19: an artifact can be a subset or build output, so the served set is not equivalent to origin/main; compare the actual artifact/build output — S001, S002, S004, S006]**
 tree, modulo the push→deploy lag already captured by the origin/main
 comparison in the spotcheck.
 
-Residual live-only exposure on GHP is therefore **listing coverage**:
+Residual live-only exposure on GHP is therefore **listing coverage**: **[r20-correction 2026-10-19: [INFERENCE] listing-only residual is not established until live→source membership is checked against actual deployed artifact/build output — corpus/knowledge/ghp-served-set.md (S001, S004)]**
 paths that exist but no sitemap/audit enumerates. That is a completeness
 property of the URL list, not a deploy defect. The first sitemap sweep
 found nothing, and every unlisted path is still inside the source-walk
 coverage (round 6 covered ALL sourceDir paths, not just listed ones) —
 so the only true blind cell left is "URL the world can guess but no
-list names," which is undetectable by enumeration.
+list names," which is undetectable by enumeration. **[r20-correction 2026-10-19: [INFERENCE] generated artifact/build output can include paths not in sourceDir, so listing coverage is not the only possible blind spot; compare actual deployed output — corpus/knowledge/ghp-served-set.md (S001, S004)]**
 
 ## Procedure (the wedge: a URL list independent of the source tree)
 
@@ -109,4 +109,4 @@ lesson still live).
   already total coverage.
 - A live orphan could exist only via a non-workflow Pages deploy
   (branch deploy) or a manual upload — neither is in the observed
-  deploy graph; if a row ever switches deploy modes, re-derive this.
+  deploy graph; if a row ever switches deploy modes, re-derive this. **[r20-correction 2026-10-19: [INFERENCE] workflow build output may also differ from the checkout; test actual artifact/build membership before declaring live-only paths impossible — corpus/knowledge/ghp-served-set.md (S001, S004)]**

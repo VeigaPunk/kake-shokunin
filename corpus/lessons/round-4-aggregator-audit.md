@@ -28,7 +28,7 @@ because the round-4 commit shipped it.
 ## What reproduced
 
 - **Exit-code table completeness**: `grep -o 'code: [0-9]*'
-  ~/Projects/webzites/scripts/kimi-surface.mjs | sort -u` → exactly {1..8, 64} —
+  ~/Projects/webzites/scripts/kimi-surface.mjs | sort -u` → exactly {1..8, 64} — *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
   the corpus table is complete in both directions.
 - **Registry census**: 21 rows = 12 live / 3 pruned / 3 broken / 3 queued;
   14 kimi-surface updatePath rows (JSON parse of `fleet/fleet.config.json`).
