@@ -314,10 +314,11 @@ Line shape: `{"at","total","ok","violated":[ids],"errors":[ids]}` with
 
 | slot | command under test | evidence artifact |
 |---|---|---|
-| probe | `node ~/Projects/webzites/bin/webzites.mjs probe ds4cc-com --json` | `/tmp/kake-r11/probe-dscc.out` → `/tmp/kake-r11/probe-ds4cc.out` (1-row JSON), `probe-ds4cc.err`, `/tmp/kake-r11/labrat-probe.md` (step log incl. the restore + re-verified sha); `probe-latest.json` row count/sha before–after; the new `probe-history.jsonl` line *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]* |
+| probe | `node ~/Projects/webzites/bin/webzites.mjs probe ds4cc-com --json` | `/tmp/kake-r11/probe-dscc.out` → `/tmp/kake-r11/probe-ds4cc.out` (1-row JSON), `probe-ds4cc.err`, `/tmp/kake-r11/labrat-probe.md` (step log incl. the restore + re-verified sha); `probe-latest.json` row count/sha before–after; the new `probe-history.jsonl` line |
 | status | `… webzites status` **while clobbered**, then again post-restore | clobbered run: `/tmp/kake-r11/labrat-probe.md` step 4 (transcript block + `EXIT=`, no raw capture file); restored run: `/tmp/kake-r11/status-restored.out` (18 rows) |
 | reconcile | `… webzites grokbot reconcile ds4cc-com`, then `reconcile plazir15-ghp --json` | `/tmp/kake-r11/reconcile-ds4cc.out`, `/tmp/kake-r11/reconcile-plazir15.json.out`, `/tmp/kake-r11/labrat-reconcile.md` (run 3 isolation re-run + write-verification) |
-| sync-check | `node ~/Projects/webzites/scripts/kimi-surface.mjs sync-check <ids>` / bare | `/tmp/kake-r11/labrat-sync.md` (per-row exits + verdicts, exit-code table, fs-write isolation proof, nondeterminism caveat); `/tmp/kake-r11/sync-all.out` + `sync-all-2nd.out` (repeat determinism), `sync-fleet.json`, `sync-fleet.err`, `sync-burnerchrome.out`, `sync-ds4cc-mirror.out`; unknown-id path (EXIT=1) in `/tmp/kake-r11/err.txt` *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]* |
+| sync-check | `node ~/Projects/webzites/scripts/kimi-surface.mjs sync-check <ids>` / bare | `/tmp/kake-r11/labrat-sync.md` (per-row exits + verdicts, exit-code table, fs-write isolation proof, nondeterminism caveat); `/tmp/kake-r11/sync-all.out` + `sync-all-2nd.out` (repeat determinism), `sync-fleet.json`, `sync-fleet.err`, `sync-burnerchrome.out`, `sync-ds4cc-mirror.out`; unknown-id path (EXIT=1) in `/tmp/kake-r11/err.txt` |
+> *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
 
 Pre-state baseline for the probe experiment (recorded by L1 before the run,
 21:30Z): `probe-latest.json` sha256 `8c5bb8ca…b6591e`, `probe-history.jsonl`
@@ -472,3 +473,7 @@ the round report for the webzites source owner.)
   update|recreate|rebuild|kimi-map` (browser + lease, `SKILL.md:122-128`,
   `:155-158`), and
   `speedrun *` (`corpus/knowledge/speedrun-pipeline.md`).
+
+## Round-20 citation-local note (base `cb807bc`; table-distance uncleared)
+
+> *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*

@@ -46,3 +46,13 @@ outside this evidence. Current `build_type` remains unknown.
 - **Admission authority:** official Pages docs and API schema support the distinction.
 - **Citation-local absence:** cites surviving lane lines, not the pruned workflow checkout.
 - **Shape-only probe environment:** no API request or credential material is retained.
+
+## Post-review correction — round 20 (2026-10-19)
+
+S007 quote-format erratum: the earlier gate's “`cname`: required, string or
+null” is a schema transcription, not a verbatim quotation of the rendered
+GitHub Docs page (which reads “cname string or null”). The Markdown
+representation fetched by the L1 exposes `cname`: required, string or null;
+those representations must not be presented as an identical quote. The
+field claim remains supported by S007 §Get a GitHub Pages site, response
+schema; no API request was made.

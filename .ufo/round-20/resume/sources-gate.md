@@ -128,3 +128,17 @@ Each row below records an opened source, the 2026-10-19 access date, a verbatim 
 - Accessed: 2026-10-19
 - Quote (25 words): “Mozilla released version 114 of Firefox on the 14th of October 2025.”; “Firefox now supports the PerformanceEventTiming.interactionId API, allowing developers to group related input events.”
 - Location: DebugBear “INP support in Firefox 114”; article updated 2026-03-19. Firefox “144.0 Firefox Release,” “Web Platform,” released 2025-10-14.
+
+
+## Post-review corrections — 2026-10-19
+
+- S007: the earlier `cname` string/null text is a schema transcription, not
+  a verbatim rendered-page quote. Reviewer-opened rendered text: “cname
+  string or null”; the L1-opened Markdown representation annotates it
+  “required”. Authority: https://docs.github.com/en/rest/pages/pages
+  §Get a GitHub Pages site, response schema (reopened 2026-10-19).
+- S008: withdraw the knowledge entry's “GNU tar 1.35” label. The source is
+  manual commit `cfdb891bbd68c920ea75210977593f3cd08f0418`; the source uses
+  `@value{VERSION}`. Exact exclusion-default quote lines are 8587–8588 and
+  8602 (non-author reviewer re-open). Both recorded containing ranges are
+  broader than necessary. No SOURCES row cell changed in this correction.

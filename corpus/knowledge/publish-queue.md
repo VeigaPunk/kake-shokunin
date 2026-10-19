@@ -260,8 +260,9 @@ ENOENT is a typo, not a vanish.
   a freeze metric; the freeze metric for the canonical root stays the sha
   (`b6f65899…` == `origin/main:index.html`).
 - **NEW — PQ-14 (plazir15-ghp gate).** `~/Projects/plazir-15-site` is **5
+  > *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
   commits ahead of `origin/main`** (`c814526` vs `bd02d10`), so the live GHP
-  tree is the pre-push build: live sitemap 8 locs incl. `/tetris/` vs source *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
+  tree is the pre-push build: live sitemap 8 locs incl. `/tetris/` vs source
   7, `snake/` live lacks the source's `og:url`, `speedrun/` live canonical is
   self vs source `ds4cc.com`. All 8 live locs 200 → stale, not rot; invisible
   to `probe`/`reconcile`. Proof: `drift-detection.md` §r16.

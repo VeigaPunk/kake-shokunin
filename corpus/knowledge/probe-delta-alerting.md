@@ -74,8 +74,10 @@ differ misses this pair entirely (recall cost of spot phantoms).
   prints via the default arm on any unknown verb, exit 64
   (`kimi-surface.mjs:1197-1198`).
 - Invoke both from any cwd with absolute paths:
-  `node ~/Projects/webzites/bin/webzites.mjs …`, *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
-  `node ~/Projects/webzites/scripts/kimi-surface.mjs …` (bare `webzites` is *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
+  `node ~/Projects/webzites/bin/webzites.mjs …`,
+> *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
+  `node ~/Projects/webzites/scripts/kimi-surface.mjs …` (bare `webzites` is
+> *[r20 citation-local 2026-10-19: `~/Projects/webzites/scripts/kimi-surface.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*
   not on PATH; SKILL.md now carries the absolute form).
 
 ## Limits

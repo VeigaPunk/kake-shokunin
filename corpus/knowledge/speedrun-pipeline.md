@@ -33,7 +33,7 @@ root = `~/Projects/webzites`; `prep --write` refuses `--out` outside it. <!-- r1
    only when featured), `receipt.json` sha256+bytes — **keeper-side only,
    never uploaded**.
 4. Operator: `cp` the two bodies into the repo, edit `manifest.json`,
-   `git commit && git push origin main` — Pages deploys the whole repo. **[r20-correction 2026-10-19: the uploaded artifact is not the full checkout; .git/.github are excluded and v4 excludes hidden paths by default (v5 adds include-hidden-files) — S001, S002, S004]**
+   `git commit && git push origin main` — Pages deploys the whole repo.
 5. Operator verify: `curl ds4cc.com/speedrun/data/run-<id>.json` byte-diff
    vs staged file, `<id>-curve.json`, `manifest.json | grep run-<id>` —
    all three must pass; **a 200 with different bytes is failure — stop**.
@@ -60,3 +60,7 @@ provider/product, budget, meter %, lane counts, spend totals, `x.com` URLs.
 Fail closed on: missing telemetry, failing schema, redaction hits, `--out`
 outside mission root, duplicate run id, probe mismatch, >280-char draft.
 **Never smooth gaps, never invent a percentage, never retry a post.**
+
+## Round-20 corrections (append-only; base `cb807bc`)
+
+- Base `corpus/knowledge/speedrun-pipeline.md:36`: **[r20-correction 2026-10-19: the uploaded artifact is not the full checkout; .git/.github are excluded and v4 excludes hidden paths by default (v5 adds include-hidden-files) — S001, S002, S004]**

@@ -27,3 +27,15 @@ local annotation does not prove a historical publish recipe is executable.
 No credential values, session bodies, raw journals or external target probes
 belong in this round's corpus evidence. Criteria changes append a superseding
 row and its motivating lesson; they do not erase earlier criteria.
+
+## Post-review append-only ruling — round 20
+
+The orchestrator rejects the earlier “Append-only tails” criterion: a suffix
+changes the original line's bytes and hash even if its old text survives.
+Superseding rule: preserve every prior lesson/knowledge line byte-identically;
+use pure new-line additions or end-of-file correction blocks citing the old
+line. Never split a table to satisfy the citation-local gate. An adjacent
+standalone note is allowed only with an inbound-anchor movement census and
+corrections for moved pointers; otherwise leave the location uncleared.
+Grounding: `corpus/lessons/round-20.md` §Post-review fixes; the original
+criterion remains above as rejected history.

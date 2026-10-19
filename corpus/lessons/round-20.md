@@ -279,3 +279,177 @@ annotation content). M7–M10 stay historical append-only corrections.
 Environment, not lane: executor seats died on provider limits
 (`resource_exhausted`, then `turn_rate_limit_exceeded`) and were re-spawned;
 no claim was shrunk.
+
+
+## Post-review fixes — round 20 (2026-10-19)
+
+The orchestrator ruled that suffix additions rewrite historical lines. All
+17 prior lesson/knowledge files are restored to byte-identical base lines
+(`cb807bc`) with only pure new lines added. Platform corrections now live in
+EOF blocks citing the old lines; citation-local notes are standalone and
+never split a table. This restores the historical contract instead of
+weakening the scanner: C1 is **improved-bounded, annotation only**, 22/26
+locations cleared; 4 unannotated locations / 3 drift targets remain.
+`missSet` remains 55: no missing source was restored or recipe re-verified.
+The superseded-literal script and 27-tail count are now historical metrics
+of `02b6dd0`, not the corrected layout. C3 is admitted on the registry and
+its source-backed entries, not disappearance of historical words.
+
+Confinement assurance stays bounded: aliased/bracket calls, calls split
+over lines, child-process side effects and metadata/fd writes remain
+unchecked. Expansion rests on the capability row plus the new
+`crawl-scope-per-host.md` frontier entry; the other three new entries
+supersede previously covered ground (quality, not expansion).
+
+SCORECARD restoration: four deleted narrative lines (the rollout sentence
+and three-line saturation deferral) were restored. The empty capability
+placeholder was a current-value cell; replacing it with the demonstrated
+registry row is intentional, not a history-row deletion.
+
+S007 schema wording is a transcription, not an exact rendered-page quote;
+S008's “1.35” label is withdrawn. Appended errata in the two knowledge
+entries and `.ufo/round-20/resume/sources-gate.md` preserve those mistakes.
+No SOURCES cells changed (no status/recheck/used-by transition).
+
+Anchor integrity: HEAD-tracked literal filename/path:line and range census
+covered 728 occurrences in 22 source files (including committed evidence);
+148 moved occurrences (120 grouped rows); 942 expanded target-line
+comparisons, zero mismatches. No current-state SKILL/README/SCORECARD
+repoints needed. This is a literal-pointer proof, not a semantic-link proof.
+Every movement is corrected below; data snapshots are retained intact.
+Proof: `.ufo/round-20/resume/post-review-anchors.json`; original-line
+subsequence counts and remaining table cases in
+`.ufo/round-20/resume/post-review-restoration.txt`.
+
+UTC fleet validator: `TZ=UTC bash <fleet-census>/scripts/sources-census.sh
+validate <kake-worktree>` → `kake-shokunin ok`, exit **0**.
+
+
+### Inbound-pointer correction register (post-review)
+
+Each row explicitly supersedes the unqualified line pointer in the listed
+source at commit `02b6dd0`; frozen evidence remains a historical snapshot,
+not rewritten. New targets preserve the exact pre-tail target text.
+
+| Source at 02b6dd0 | Old target | Correct current target | Occurrences |
+|---|---|---|---|
+| `.ufo/round-20/acceptance.json:46` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 1 |
+| `.ufo/round-20/acceptance.json:46` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 1 |
+| `.ufo/round-20/acceptance.json:46` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/fire-journal-codes.md:4` | `corpus/knowledge/fire-journal-codes.md:5` | 3 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/free-read-verbs.md:352` | `corpus/knowledge/free-read-verbs.md:353` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 3 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/freshness-sweep.md:109` | `corpus/knowledge/freshness-sweep.md:110` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/freshness-sweep.md:110` | `corpus/knowledge/freshness-sweep.md:111` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/freshness-sweep.md:114` | `corpus/knowledge/freshness-sweep.md:115` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/freshness-sweep.md:122` | `corpus/knowledge/freshness-sweep.md:123` | 2 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/freshness-sweep.md:127` | `corpus/knowledge/freshness-sweep.md:128` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/freshness-sweep.md:144` | `corpus/knowledge/freshness-sweep.md:145` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/probe-delta-alerting.md:78` | `corpus/knowledge/probe-delta-alerting.md:79` | 2 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 3 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 2 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-17.md:19` | `corpus/lessons/round-17.md:21` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-17.md:20` | `corpus/lessons/round-17.md:22` | 2 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-17.md:21` | `corpus/lessons/round-17.md:24` | 2 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-17.md:22` | `corpus/lessons/round-17.md:26` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-17.md:44` | `corpus/lessons/round-17.md:48` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-17.md:45` | `corpus/lessons/round-17.md:49` | 2 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-18.md:50` | `corpus/lessons/round-18.md:51` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-18.md:54` | `corpus/lessons/round-18.md:55` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-18.md:56` | `corpus/lessons/round-18.md:57` | 1 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-4-aggregator-audit.md:35` | `corpus/lessons/round-4-aggregator-audit.md:36` | 2 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-4-aggregator-audit.md:37` | `corpus/lessons/round-4-aggregator-audit.md:38` | 2 |
+| `.ufo/round-20/acceptance.json:58` | `corpus/lessons/round-4.md:5` | `corpus/lessons/round-4.md:6` | 3 |
+| `.ufo/round-20/acceptance.json:69` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 1 |
+| `.ufo/round-20/acceptance.json:69` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 1 |
+| `.ufo/round-20/acceptance.json:69` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/citation-debt.json:42` | `corpus/lessons/round-18.md:56` | `corpus/lessons/round-18.md:57` | 1 |
+| `.ufo/round-20/citation-debt.json:112` | `corpus/knowledge/probe-delta-alerting.md:78` | `corpus/knowledge/probe-delta-alerting.md:79` | 1 |
+| `.ufo/round-20/citation-debt.json:122` | `corpus/knowledge/probe-delta-alerting.md:78` | `corpus/knowledge/probe-delta-alerting.md:79` | 1 |
+| `.ufo/round-20/citation-debt.json:135` | `corpus/knowledge/freshness-sweep.md:109` | `corpus/knowledge/freshness-sweep.md:110` | 1 |
+| `.ufo/round-20/citation-debt.json:139` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/citation-debt.json:140` | `corpus/lessons/round-17.md:20` | `corpus/lessons/round-17.md:22` | 1 |
+| `.ufo/round-20/citation-debt.json:141` | `corpus/lessons/round-17.md:21` | `corpus/lessons/round-17.md:24` | 1 |
+| `.ufo/round-20/citation-debt.json:147` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/citation-debt.json:148` | `corpus/lessons/round-17.md:20` | `corpus/lessons/round-17.md:22` | 1 |
+| `.ufo/round-20/citation-debt.json:149` | `corpus/lessons/round-17.md:21` | `corpus/lessons/round-17.md:24` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:102` | `corpus/knowledge/probe-delta-alerting.md:78` | `corpus/knowledge/probe-delta-alerting.md:79` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:134` | `corpus/lessons/round-17.md:12-16` | `corpus/lessons/round-17.md:12-13,15,17-18` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:140` | `corpus/lessons/round-17.md:12-16` | `corpus/lessons/round-17.md:12-13,15,17-18` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:144` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:146` | `corpus/lessons/round-17.md:12-16` | `corpus/lessons/round-17.md:12-13,15,17-18` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:150` | `corpus/lessons/round-17.md:20` | `corpus/lessons/round-17.md:22` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:152` | `corpus/lessons/round-17.md:12-16` | `corpus/lessons/round-17.md:12-13,15,17-18` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:156` | `corpus/lessons/round-17.md:21` | `corpus/lessons/round-17.md:24` | 1 |
+| `.ufo/round-20/resume/citation-disposition.json:158` | `corpus/lessons/round-17.md:12-16` | `corpus/lessons/round-17.md:12-13,15,17-18` | 1 |
+| `.ufo/round-20/resume/paths-after.txt:35` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 1 |
+| `.ufo/round-20/resume/paths-after.txt:59` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 1 |
+| `.ufo/round-20/resume/paths-before.json:101` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 1 |
+| `.ufo/round-20/resume/paths-before.json:102` | `corpus/knowledge/freshness-sweep.md:110` | `corpus/knowledge/freshness-sweep.md:111` | 1 |
+| `.ufo/round-20/resume/paths-before.json:103` | `corpus/knowledge/freshness-sweep.md:114` | `corpus/knowledge/freshness-sweep.md:115` | 1 |
+| `.ufo/round-20/resume/paths-before.json:104` | `corpus/knowledge/freshness-sweep.md:122` | `corpus/knowledge/freshness-sweep.md:123` | 1 |
+| `.ufo/round-20/resume/paths-before.json:105` | `corpus/knowledge/freshness-sweep.md:144` | `corpus/knowledge/freshness-sweep.md:145` | 1 |
+| `.ufo/round-20/resume/paths-before.json:123` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 1 |
+| `.ufo/round-20/resume/paths-before.json:140` | `corpus/lessons/round-17.md:22` | `corpus/lessons/round-17.md:26` | 1 |
+| `.ufo/round-20/resume/paths-before.json:141` | `corpus/lessons/round-17.md:44` | `corpus/lessons/round-17.md:48` | 1 |
+| `.ufo/round-20/resume/paths-before.json:142` | `corpus/lessons/round-17.md:45` | `corpus/lessons/round-17.md:49` | 1 |
+| `.ufo/round-20/resume/paths-before.json:149` | `corpus/lessons/round-4-aggregator-audit.md:35` | `corpus/lessons/round-4-aggregator-audit.md:36` | 1 |
+| `.ufo/round-20/resume/paths-before.json:150` | `corpus/lessons/round-4-aggregator-audit.md:37` | `corpus/lessons/round-4-aggregator-audit.md:38` | 1 |
+| `.ufo/round-20/resume/paths-before.json:164` | `corpus/lessons/round-17.md:19` | `corpus/lessons/round-17.md:21` | 1 |
+| `.ufo/round-20/resume/paths-before.json:171` | `corpus/lessons/round-18.md:50` | `corpus/lessons/round-18.md:51` | 1 |
+| `.ufo/round-20/resume/paths-before.json:297` | `corpus/lessons/round-18.md:54` | `corpus/lessons/round-18.md:55` | 1 |
+| `.ufo/round-20/resume/paths-before.json:540` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 1 |
+| `.ufo/round-20/resume/paths-before.json:547` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 1 |
+| `.ufo/round-20/resume/paths-before.json:767` | `corpus/lessons/round-4-aggregator-audit.md:37` | `corpus/lessons/round-4-aggregator-audit.md:38` | 1 |
+| `.ufo/round-20/resume/paths-before.json:827` | `corpus/lessons/round-4-aggregator-audit.md:35` | `corpus/lessons/round-4-aggregator-audit.md:36` | 1 |
+| `.ufo/round-20/resume/paths-before.json:871` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 1 |
+| `.ufo/round-20/resume/paths-before.json:872` | `corpus/knowledge/freshness-sweep.md:122` | `corpus/knowledge/freshness-sweep.md:123` | 1 |
+| `.ufo/round-20/resume/paths-before.json:873` | `corpus/lessons/round-17.md:45` | `corpus/lessons/round-17.md:49` | 1 |
+| `.ufo/round-20/resume/paths-before.json:880` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 1 |
+| `.ufo/round-20/resume/paths-before.json:930` | `corpus/lessons/round-18.md:56` | `corpus/lessons/round-18.md:57` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1000` | `corpus/knowledge/probe-delta-alerting.md:78` | `corpus/knowledge/probe-delta-alerting.md:79` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1010` | `corpus/knowledge/probe-delta-alerting.md:78` | `corpus/knowledge/probe-delta-alerting.md:79` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1023` | `corpus/knowledge/freshness-sweep.md:109` | `corpus/knowledge/freshness-sweep.md:110` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1027` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1028` | `corpus/lessons/round-17.md:20` | `corpus/lessons/round-17.md:22` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1029` | `corpus/lessons/round-17.md:21` | `corpus/lessons/round-17.md:24` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1035` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1036` | `corpus/lessons/round-17.md:20` | `corpus/lessons/round-17.md:22` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1037` | `corpus/lessons/round-17.md:21` | `corpus/lessons/round-17.md:24` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1047` | `corpus/knowledge/freshness-sweep.md:127` | `corpus/knowledge/freshness-sweep.md:128` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1064` | `corpus/knowledge/free-read-verbs.md:352` | `corpus/knowledge/free-read-verbs.md:353` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1089` | `corpus/knowledge/fire-journal-codes.md:4` | `corpus/knowledge/fire-journal-codes.md:5` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1090` | `corpus/lessons/round-4.md:5` | `corpus/lessons/round-4.md:6` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1098` | `corpus/knowledge/fire-journal-codes.md:4` | `corpus/knowledge/fire-journal-codes.md:5` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1099` | `corpus/lessons/round-4.md:5` | `corpus/lessons/round-4.md:6` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1107` | `corpus/knowledge/fire-journal-codes.md:4` | `corpus/knowledge/fire-journal-codes.md:5` | 1 |
+| `.ufo/round-20/resume/paths-before.json:1108` | `corpus/lessons/round-4.md:5` | `corpus/lessons/round-4.md:6` | 1 |
+| `.ufo/round-20/resume/paths-before.txt:14` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/resume/paths-before.txt:38` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 1 |
+| `.ufo/round-20/resume/paths-before.txt:61` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/fire-journal-codes.md:4` | `corpus/knowledge/fire-journal-codes.md:5` | 3 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/free-read-verbs.md:352` | `corpus/knowledge/free-read-verbs.md:353` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/freshness-sweep.md:102` | `corpus/knowledge/freshness-sweep.md:103` | 3 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/freshness-sweep.md:109` | `corpus/knowledge/freshness-sweep.md:110` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/freshness-sweep.md:110` | `corpus/knowledge/freshness-sweep.md:111` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/freshness-sweep.md:114` | `corpus/knowledge/freshness-sweep.md:115` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/freshness-sweep.md:122` | `corpus/knowledge/freshness-sweep.md:123` | 2 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/freshness-sweep.md:127` | `corpus/knowledge/freshness-sweep.md:128` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/freshness-sweep.md:144` | `corpus/knowledge/freshness-sweep.md:145` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/probe-delta-alerting.md:78` | `corpus/knowledge/probe-delta-alerting.md:79` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/knowledge/publish-channels.md:49` | `corpus/knowledge/publish-channels.md:50` | 3 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-17.md:14` | `corpus/lessons/round-17.md:15` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-17.md:19` | `corpus/lessons/round-17.md:21` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-17.md:20` | `corpus/lessons/round-17.md:22` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-17.md:21` | `corpus/lessons/round-17.md:24` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-17.md:22` | `corpus/lessons/round-17.md:26` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-17.md:44` | `corpus/lessons/round-17.md:48` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-17.md:45` | `corpus/lessons/round-17.md:49` | 2 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-18.md:50` | `corpus/lessons/round-18.md:51` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-18.md:54` | `corpus/lessons/round-18.md:55` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-18.md:56` | `corpus/lessons/round-18.md:57` | 1 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-4-aggregator-audit.md:35` | `corpus/lessons/round-4-aggregator-audit.md:36` | 2 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-4-aggregator-audit.md:37` | `corpus/lessons/round-4-aggregator-audit.md:38` | 2 |
+| `.ufo/round-20/same-surface-baseline.json:14` | `corpus/lessons/round-4.md:5` | `corpus/lessons/round-4.md:6` | 3 |
+| `LOG.md:232` | `free-read-verbs.md:373` | `free-read-verbs.md:374` | 1 |
+| `LOG.md:237` | `fire-journal-codes.md:7-13` | `fire-journal-codes.md:8-14` | 1 |

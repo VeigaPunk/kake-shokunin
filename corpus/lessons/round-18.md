@@ -29,7 +29,8 @@ report. `ufo-fsd-alpha` now lives directly at `~/Projects/ufo-fsd-alpha`
   reading is "edit landed while the registry file was unverifiable". PQ-5
   still `PENDING` 404/13 409B/`93ddca9a…`; ds4cc sitemap still `PRE-PUSH`
   404/9 379B.
-- `--selftest` regressed 10/10 → 8/10: fixture A cited `~/Projects/ *[r20 citation-local 2026-10-19: `~/Projects/webzites` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
+- `--selftest` regressed 10/10 → 8/10: fixture A cited `~/Projects/
+  > *[r20 citation-local 2026-10-19: `~/Projects/webzites` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
   webzites/fleet` as its guaranteed-resolving path — a fixture that
   trusted the world, which is exactly what fixtures must not do.
 

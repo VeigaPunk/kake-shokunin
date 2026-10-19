@@ -90,7 +90,8 @@ VERDICT DRIFT (exit 1: plazir-live-source-gap)
 
 **Exit 1 is currently the EXPECTED verdict.** PQ-14's gap is an open drift: the
 published plazir sitemap has 8 locs while its source has 7, because
-`~/Projects/plazir-15-site` is 5 commits ahead of `origin/main`. The instrument *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
+`~/Projects/plazir-15-site` is 5 commits ahead of `origin/main`. The instrument
+> *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
 does not green-light a live≠source state — that is the whole point of the
 §armed section. Use `--section=paths` / `--section=history` / `--offline` to
 isolate the other sections, and expect the drift line to disappear (gate

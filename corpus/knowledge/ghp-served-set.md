@@ -67,3 +67,13 @@ operator-authorized free read. Not probed.
 - **Admission authority:** action, platform docs, and GNU tar manual are cited at their scoped sources.
 - **Citation-local absence:** superseded coverage lines are named; no deleted checkout path is used as evidence.
 - **Shape-only probe environment:** no API credentials or live-target output is recorded.
+
+## Post-review correction — round 20 (2026-10-19)
+
+S008 version erratum: the “GNU tar 1.35” label at original line 34 is
+withdrawn. The cited source is the GNU tar manual text at commit
+`cfdb891bbd68c920ea75210977593f3cd08f0418`, not evidence of release 1.35; it
+uses `@value{VERSION}`. The exclusion-default quotes (lines 8587–8588 and
+8602 in the reviewer-opened source) remain supported. The SOURCES anchor
+range 8478–8617 and the gate range 8478–8603 both contain those lines; use
+the exact quote lines, not an inferred release label.

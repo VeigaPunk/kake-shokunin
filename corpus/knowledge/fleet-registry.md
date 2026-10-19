@@ -50,7 +50,7 @@ Also 2026-09-28: `charter-ghp` FAIL on stale marker (09-26 pin vs live
 | ufofsd-charter | ufofsd-charter.kimi.page | pruned→plazir27-kimi-page | charter repo |
 | plazir27-kimi-page | plazir27.kimi.page | live (canonical kimi charter) | charter repo |
 | plazir27runs-on | plazir27runs-on.kimi.page | live (distinct 63KB build) | charter repo |
-| plazir15 | plazir15.kimi.page | broken (404) | `~/Projects/plazir-15-site` *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]* |
+| plazir15 | plazir15.kimi.page | broken (404) | `~/Projects/plazir-15-site` |
 | plazir15-ghp | veigapunk.github.io/plazir-15-site | live | `~/Projects/plazir-15-site` |
 | charter-ufo-fsd-kimi | charter-ufo-fsd.kimi.page | broken (404) | charter repo |
 | charter-ghp | veigapunk.github.io/charter-ufo-fsd | live (canonical doc) | `~/Projects/origin-work/charter-ufo-fsd` | <!-- r18 re-census 2026-10-14: ~/Projects/origin-work/charter-ufo-fsd absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->
@@ -75,3 +75,7 @@ Weak markers killed by r2: `sdk-seed.js` (boilerplate), `ballot`
 `data-kimi-website-id` UUID) or beat-dated (`2026-09-26 scribe beat`) — all
 require re-pinning on republish. Source: dedupe-report r2 mutation table
 (12 cross-body swaps killed by new markers, 0 by old).
+
+## Round-20 citation-local note (base `cb807bc`)
+
+> *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*

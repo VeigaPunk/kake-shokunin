@@ -1,0 +1,40 @@
+Round-20 post-review restoration — base cb807bc; target 02b6dd05037376e9fe3af64640d172e0426d397a
+
+Restoration
+- Restored 23 prior-file r20-correction suffixes to appended correction blocks: ghp-subpath-spotcheck (1), publish-channels (4), sitemap-orphan-audit (8), speedrun-pipeline (1), round-7 (9). The three sitemap [INFERENCE] tags remain intact. SKILL.md and corpus/README.md current-state tails remain in place.
+- Moved all 18 prior-file citation-local suffixes into standalone annotations. citation-disposition.json records currentLine, annotationLine, and disposition for all 26 locations: 22 cleared, 4 uncleared table-distance fallbacks. No markdown table was split. The four new knowledge entries were not restored or edited.
+- Subsequence check: each original cb807bc line text is present byte-for-byte, in order, among current lines for all 17 edited prior files:
+  corpus/knowledge/drift-detection.md 87/87 base lines; 91 current lines
+  corpus/knowledge/fire-journal-codes.md 71/71; 72 current
+  corpus/knowledge/fleet-registry.md 77/77; 81 current
+  corpus/knowledge/free-read-verbs.md 474/474; 479 current
+  corpus/knowledge/freshness-sweep.md 174/174; 184 current
+  corpus/knowledge/ghp-subpath-spotcheck.md 87/87; 91 current
+  corpus/knowledge/probe-delta-alerting.md 107/107; 109 current
+  corpus/knowledge/publish-channels.md 49/49; 57 current
+  corpus/knowledge/publish-queue.md 277/277; 278 current
+  corpus/knowledge/sitemap-orphan-audit.md 112/112; 123 current
+  corpus/knowledge/speedrun-pipeline.md 62/62; 66 current
+  corpus/lessons/round-17.md 52/52; 56 current
+  corpus/lessons/round-18.md 63/63; 64 current
+  corpus/lessons/round-4-aggregator-audit.md 68/68; 69 current
+  corpus/lessons/round-4.md 41/41; 42 current
+  corpus/lessons/round-6-aggregator-audit.md 141/141; 145 current
+  corpus/lessons/round-7.md 53/53; 65 current
+
+Anchor integrity
+- post-review-anchors.json enumerates git-grep pointers from HEAD tracked .md/.mjs/.json/.txt sources, including evidence: 728 literal citations on 367 source lines across 22 source files (589 grouped rows); 148 citations moved. All 942 expanded target-line comparisons match the base text; 0 mismatches.
+- Scope is literal file:line / file:line-range pointers only, not semantic citations. No current-state literal pointers into these targets were found in SKILL.md, corpus/README.md, or SCORECARD.md; planned SCORECARD repoints are empty. SCORECARD's uncommitted restoration was left untouched.
+- Protected append-only LOG pointers are recorded old→new in the anchor proof, not rewritten: LOG.md:232 free-read-verbs.md:373→374; LOG.md:237 fire-journal-codes.md:7-13→8-14. Historical evidence snapshots are retained; citation-disposition evidence ranges were re-pointed in the working ledger.
+
+§paths gate
+Command: TZ=UTC node scripts/freshness-sweep.mjs --section=paths
+Observed 2026-10-19T23:04:22Z, Node v24.21.0; exit 1.
+48 files · 353 occurrences · 68 unique tokens; resolve 5 · declaredAbsent 52 · drift 3 · unresolved 8. Four unannotated locations remain across three path misses: ~/Projects/plazir-15-site (2/14: drift-detection.md:73, fleet-registry.md:53); ~/Projects/webzites/bin/webzites.mjs (1/11: free-read-verbs.md:317); ~/Projects/webzites/scripts/kimi-surface.mjs (1/18: round-6-aggregator-audit.md:48). missSet 55; 0 misses outside pins.pathsMissSet; set-delta miss: no new miss. These table-distance cases are intentionally left uncleared; no attempt was made to chase green.
+
+Files changed by this move
+corpus/knowledge/{drift-detection,fire-journal-codes,fleet-registry,free-read-verbs,freshness-sweep,ghp-subpath-spotcheck,probe-delta-alerting,publish-channels,publish-queue,sitemap-orphan-audit,speedrun-pipeline}.md
+corpus/lessons/{round-17,round-18,round-4-aggregator-audit,round-4,round-6-aggregator-audit,round-7}.md
+.ufo/round-20/resume/citation-disposition.json
+.ufo/round-20/resume/post-review-anchors.json
+.ufo/round-20/resume/post-review-restoration.txt

@@ -191,10 +191,17 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Curated source registry | Keeps a contract-v1 registry of opened, scope-tiered sources (with rejections and study paths) whose mined rows back knowledge entries and appended corrections; census commands verify its shape | `corpus/SOURCES.md`; census argv/output `.ufo/round-20/resume/sources-census.txt`; mined-row citation check in `corpus/lessons/round-20.md` §Round-20 resume | 20 (resume) |
 
 Rows enter only through a round that demonstrates the capability running
-(`AXES.md` §Capabilities); the registry row entered in the round-20 resume,
-whose report carries the census run.
+(`AXES.md` §Capabilities); none enter through this rollout.
+
+Round-20 resume (2026-10-19): the registry row above entered in this round,
+whose report carries the census run. The 2026-10-16 placeholder row
+`| — none yet — | | | |` was a current-value cell and is replaced, not kept.
 
 ## Saturation
+
+The lane's saturation line + stagnation window N are to be declared by the
+lane on its next round per `AXES.md` §The stagnation nudge; not asserted by
+this conformance change.
 
 Declared in the round-20 resume (2026-10-19): **saturation line 10/10 on
 both owned axes (operability, freshness); stagnation window N = 1 completed
@@ -202,3 +209,20 @@ lane round.** Both owned axes already sit at the line (legacy ratings), so the
 nudge turns on whether a capability entered: one did this round (curated
 source registry), so round 21 is **not** waived by the nudge; if round 21
 adds no capability, round 22 should be a frontier/capability move.
+
+
+## Post-review ruling — round 20
+
+This supersedes the earlier broad self-verdicts, without erasing them:
+C1 freshness **improved-bounded (HOLD 10), annotation only** — 26 originally
+unannotated locations → 4 remain (22 cleared), 7 drift targets → 3; gate
+exit remains 1 after preserving historical lines. MissSet 55 → 55; no source
+restored. C2 operability holds on its tested API/site population; aliases,
+bracket access, split calls, metadata/fd writes and child-process writes are
+not covered. C3 capability entered (18 registry rows; UTC census exit 0).
+Expansion is the registry capability and crawl-scope-per-host frontier
+entry only; the other three new entries supersede covered ground.
+Evidence: `corpus/lessons/round-20.md` §Post-review fixes;
+`.ufo/round-20/resume/post-review-restoration.txt` and anchor proof.
+The 9→0 literal and 27-tail metrics above apply to `02b6dd0` only, not this
+append-only corrected layout. This is the same round, no new claim.

@@ -637,3 +637,24 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   repaired (`drift-detection.md:73`).
 - No push (standing operator rule). No live-target probe. Non-author
   verification is the orchestrator's, after landing.
+
+## Round 20 — post-review fixes (2026-10-19)
+
+- Append-only ruling implemented: historical lesson/knowledge lines restored
+  byte-identically; standalone notes and EOF correction blocks replace suffix
+  tails; no gate change, no table split. C1 is improved-bounded (annotation
+  only), 22/26 cleared, 4 remaining / 3 drift targets; missSet stays 55.
+- Pointer errata for this LOG at `02b6dd0`: line 232's
+  `free-read-verbs.md:373` now resolves at `:374`; line 237's
+  `fire-journal-codes.md:7-13` now resolves at `:8-14`.
+  Full 148-occurrence movement register: `corpus/lessons/round-20.md`
+  §Inbound-pointer correction register; proof JSON
+  `.ufo/round-20/resume/post-review-anchors.json` (942 line matches, 0 misses).
+- Four SCORECARD narrative lines restored; empty capability placeholder was
+  current state, intentionally replaced. Source errata appended for S007
+  quote representation and S008's unsupported 1.35 label.
+- C2 coverage explicitly bounded (aliases, split calls, child-process writes
+  unchecked). Expansion basis corrected: registry capability + crawl-scope
+  frontier entry; other three entries supersede covered ground.
+- `TZ=UTC bash <fleet-census>/scripts/sources-census.sh validate
+  <kake-worktree>`: `kake-shokunin ok`, exit 0. No push.
