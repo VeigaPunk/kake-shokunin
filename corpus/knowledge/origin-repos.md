@@ -1,3 +1,7 @@
+source: ~/Projects/webzites/reports/keepers/repos-r1.md … repos-r8.md (wz-repos lane, run gqab44994c06d7e7a4; sources absent since the 2026-10-12 ~/Projects prune, retained as historical record) — metadata contract S019 (format authority only; entry evidence is the wz-repos reports)
+verified-at: 2026-09-21 (wz-repos terminal round r8, run gqab44994c06d7e7a4; original evidence) — historical-not-live-reverified; no live domain recheck performed
+recheck: when ~/Projects/webzites is restored — test -e ~/Projects/webzites/reports/keepers/repos-r1.md && test -d ~/Projects/webzites/repos && echo present || echo absent; sources vanished, so operator must restore them from the prune/migration archive or retire this entry as historical
+
 # Origin repos — the 50-clone canonical-source map
 
 Source: `~/Projects/webzites/reports/keepers/repos-r1.md … repos-r8.md` <!-- r18 re-census 2026-10-14: ~/Projects/webzites/reports/keepers/repos-r1.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->

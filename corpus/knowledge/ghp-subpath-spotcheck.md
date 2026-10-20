@@ -1,3 +1,7 @@
+source: entry-specific evidence — /tmp baseline audit 2026-09-28 (~16:45Z, 2 352 paths across the three GHP rows); ~/Projects/webzites/src/reconcile.mjs:55-107 (absent since the 2026-10-12 prune); fleet/fleet.config.json; live GHP fetches 2026-09-28. Registry-backed only for the round-20 correction: S001, S005 (corpus/SOURCES.md). S019 is metadata authority, not platform authority.
+verified-at: 2026-09-28 baseline audit and GHP fetches; webzites revision not recorded; source absence annotated at the r18 re-census. Historical-not-live-reverified. S019 in corpus/SOURCES.md governs metadata only.
+recheck: local only — test -f ~/Projects/webzites/src/reconcile.mjs && sed -n '55,107p' ~/Projects/webzites/src/reconcile.mjs || echo 'reconcile.mjs absent: operator must restore webzites or retire the selection-code claims'; the /tmp baseline and live GHP figures have no recorded local path, so operator restore-or-retire is required where source vanished
+
 # GHP subpath spotcheck — the blind spot behind `probe`/`reconcile`
 
 Evidence: `/tmp` baseline audit 2026-09-28 (~16:45Z, 2 352 paths across the

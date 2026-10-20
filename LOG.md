@@ -666,3 +666,36 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   Evidence: the org's Devin wiki index lists this repo's generated wiki;
   sibling lane READMEs carry the same `**Wiki:**` header.
   Documentation-only change; no round run, no axis moved.
+
+## Round 21 — historical publishing evidence made discoverable (2026-10-20)
+
+- Motivation: SCORECARD's round-21 planned claims; baseline
+  `5009ecaa1cce10b895617a585ddd3f7c7c923a84`; canonical CORPUS contract S019.
+  The recorded initial census is `.ufo/waves/round-21/initial.json`:
+  four complete provenance trios among twenty-one knowledge entries and
+  one exact Gate among fifteen baseline lane-authored lessons.
+- C1 freshness: seventeen pure four-line metadata prefixes expose original
+  evidence dates, entry-local source provenance and safe recheck/restore-or-
+  retire requirements. No old domain observation is promoted to current.
+- C2 operability: fourteen EOF Gate reconstructions plus the new round-21
+  Gate expose historical candidate decisions without inventing missing
+  admissions/rejections or independent review. The lane-local
+  `scripts/corpus-contract.mjs` makes missing sections fail visibly.
+- Proof/evidence tooling: `.ufo/waves/round-21/measure.mjs`,
+  `anchor-census.mjs`, `replay-proof.mjs`, frozen before inputs/digests and
+  the validated single 64-seat wave. Registry home: SKILL.md's appended
+  Publishing-corpus contract gate; no existing freshness pins are weakened.
+- Operator wrap-up arrived after wave 1 dispatch; no further workers were
+  dispatched. Planned wave 2 is skipped by that directive. L1 holds planner;
+  seats are author-side, not independent closure reviewers.
+- Source registry: S019 is new scoped own-work evidence; no old row's
+  status/recheck/used-by changes. Census-start output is committed in
+  `.ufo/waves/round-21/census-before.txt`.
+- Previous outside review is carried forward via
+  `corpus/lessons/round-20-verifier-spotcheck.md`: round 20 admitted with
+  bounded citation/confinement assurance. Its older “still owed” statements
+  are historical, not current. The round-21 lesson records reviewer findings,
+  rejected draft metadata, known residuals and integration rulings.
+- Domain-facing actions remain operator-owned. This work is local
+  preparation/verification/handoff; no domain source push, publish, browser
+  authentication or host package transaction is part of the round.

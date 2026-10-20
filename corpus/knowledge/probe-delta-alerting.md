@@ -1,3 +1,7 @@
+source: Own-work scripts/probe-delta.mjs, ops-automation.md and historical 2026-09-28/29 probe-history results cited below; external history input absent after the 2026-10-12 prune. Metadata authority only: S019 in corpus/SOURCES.md, not re-verification of event counts.
+verified-at: original evidence 2026-09-28 (round-10 final run, 76 rows, 6 events / 0 phantom); in-entry re-pins 2026-09-29 (r16, 78 rows) and absence annotations 2026-10-14 (r18) and 2026-10-19 (r20) — historical-not-live-reverified, not a domain recheck
+recheck: on detector, history, or repo-script change — `node --check scripts/probe-delta.mjs; test -r ~/Projects/webzites/state/probe-history.jsonl && wc -l ~/Projects/webzites/state/probe-history.jsonl || echo ABSENT`; on ABSENT the operator must restore the history file and re-derive, or retire the run-derived event claims as historical record
+
 # Probe-delta alerting — runnable violated[]-delta + coverage detection
 
 Residual closed 2026-09-28 (round 10): "alerting on `violated[]` deltas (vs

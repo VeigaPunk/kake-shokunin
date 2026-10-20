@@ -39,3 +39,35 @@ standalone note is allowed only with an inbound-anchor movement census and
 corrections for moved pointers; otherwise leave the location uncleared.
 Grounding: `corpus/lessons/round-20.md` §Post-review fixes; the original
 criterion remains above as rejected history.
+
+## Historical metadata and reconstructed gates — round 21
+
+Grounding: `corpus/lessons/round-21.md` §Mistakes; S019's local audit of the
+canonical corpus contract. A provenance header records the original evidence
+date/revision and names whether that evidence is historical; installing a
+header is never live re-verification. A retrospective Gate names its
+reconstruction round and leaves absent admission, rejection and non-author
+review records explicitly unknown. A heading count alone cannot prove those
+decisions occurred.
+
+Metadata prefixes preserve every prior byte. Where adding new lines moves
+inbound literal pointers, the round ships a same-byte line mapping and a
+correction register; frozen historical evidence is not rewritten. Reject a
+green structural census as proof of source restoration, publishing readiness,
+or independent round admission.
+
+### Bounded confinement and pointer coordinates — round 21
+
+Clarification of “Self-source confinement” above: round-20 enumerators cover
+named function declarations and their pinned API/site payload population,
+not arrow functions, methods or every possible write mechanism. API coverage
+is the list in `scripts/freshness-sweep.mjs`'s confinement comment; aliases,
+bracket/split calls, metadata/fd operations and child processes remain outside
+that proof. Grounding: `lessons/round-21.md` and `w1/Round20Debt.md` under the
+round-21 wave evidence.
+
+All pre-round-21 literal pointers into knowledge entries that receive the
+four-line metadata prefix retain their baseline coordinates. Add four for
+current coordinates, using the round-21 lesson's explicit per-file register.
+This supersedes the unqualified current-coordinate reading of old pointers
+in this file; it does not rewrite the historical lessons they cite.

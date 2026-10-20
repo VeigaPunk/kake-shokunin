@@ -1,3 +1,7 @@
+source: Historical entry-local evidence: webzites fleet.config.json (updatedAt 2026-09-26), fleet.dedupe-report.md, src/probe.mjs and the 2026-09-28 probe cited below. Metadata authority only: S019 in corpus/SOURCES.md, not platform verification.
+verified-at: 2026-09-28 (`len(sites)` = 21 and live probe of 2026-09-28 — original evidence; historical-not-live-reverified, not re-probed or re-read this round; source absent since the 2026-10-12 `~/Projects` prune per r18 re-census 2026-10-14)
+recheck: on fleet source restore or retirement — `test -f "$HOME/Projects/webzites/fleet/fleet.config.json" && node -p 'const c=require(process.env.HOME+"/Projects/webzites/fleet/fleet.config.json"); [c.schema,c.updatedAt,c.sites.length].join(" ")' || echo "absent: operator must restore the fleet source or retire this entry"` (expect `webzites-fleet-v1 2026-09-26 21` when present)
+
 # Fleet registry & tripwires
 
 Source: `~/Projects/webzites/fleet/fleet.config.json` (schema <!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/fleet.config.json absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->

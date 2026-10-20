@@ -1,3 +1,7 @@
+source: own-work, no SOURCES.md S### row — kimi subpath baseline 2026-09-28 ~21:15Z: read-only GETs of same-origin links on 10 live kimi rows; ds4cc sitemap.xml parity (93 locs; sitemap commit f3d2ecd); git log --diff-filter=A miss classification; transient /tmp/kimi_audit.py + /tmp/kimi-subpath-audit.json (absent at round-21 audit)
+verified-at: 2026-09-28 ~21:15Z baseline, sitemap source revision f3d2ecd — historical-not-live-reverified; no GET repeated this round
+recheck: on kimi index, sitemap, or ds4cc source change — git -C ds4cc-marketplace show f3d2ecd:sitemap.xml | grep -c '<loc>https://ds4cc.com' (expect 93 per entry evidence); source vanished: ds4cc-marketplace checkout, kimi_audit.py and kimi-surface tooling absent at round-21 audit — operator must restore at f3d2ecd or retire this recheck; metadata contract S019
+
 # kimi subpath audit — per-path freshness & link integrity
 
 First baseline: 2026-09-28 ~21:15Z, read-only GETs, `/tmp/kimi-subpath-audit.json`

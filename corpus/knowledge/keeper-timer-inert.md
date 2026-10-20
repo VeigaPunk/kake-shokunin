@@ -1,3 +1,7 @@
+source: Historical 2026-09-28 systemctl/journalctl and unit-file captures cited in this entry's Verbatim state section. Metadata authority only: S019 in corpus/SOURCES.md, not current service-state verification.
+verified-at: 2026-09-28T22:18Z original read-only capture (r13 re-read 2026-09-28T22:4x–22:5xZ; in-file revisions r12–r18) — historical-not-live-reverified; no current-host or domain recheck is claimed.
+recheck: source vanished — the unit files are absent after the 2026-10-12 ~/Projects prune (r18 re-census 2026-10-14). Safe local reading command: `systemctl --user is-enabled webzites-keeper.timer; test -e ~/.config/systemd/user/webzites-keeper.timer && echo present || echo absent`. Operator restore-or-retire required: restore the webzites-keeper units or retire the keeper-tick path (kake does not toggle system state).
+
 # Keeper timer inert — `webzites-keeper.timer` loaded, disabled, never fired
 
 Round 12 (2026-09-28) operability axis. The daily keeper tick documented in

@@ -1,3 +1,7 @@
+source: Historical webzites fleet snapshots, r9 readiness reports and kimi-map evidence cited in this entry, with later r13/r16 observations; sources absent after the 2026-10-12 prune. Metadata authority only: S019 in corpus/SOURCES.md, not publishing readiness.
+verified-at: 2026-09-29 (r16 re-verification 02:1x–02:3xZ, latest in-entry live read; baseline r9 2026-09-28; charter origin/main 9c28d29, plazir-15-site origin/main bd02d10 vs HEAD c814526 as recorded r16) — historical-not-live-reverified; no live domain recheck performed this round
+recheck: when ~/Projects/webzites is restored — for f in ~/Projects/webzites/fleet/fleet.config.json ~/Projects/webzites/reports/r9-publish-queue.md; do test -e "$f" && echo "present $f" || echo "absent $f"; done; sources vanished, so operator must restore them from the prune/migration archive or retire this ledger as historical
+
 # Publish-queue readiness ledger (PQ-1..PQ-14)
 
 Source queue: `~/Projects/webzites/fleet/fleet.dedupe-report.md` (r1 lines <!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/fleet.dedupe-report.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->

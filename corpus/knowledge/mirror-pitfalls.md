@@ -1,3 +1,7 @@
+source: Historical kimi-surface-ops.md failure-mode tables, fleet.dedupe-report.md and ufofsdbeta wave evidence cited in this entry; Browser/CDP bullets have no named source here. Metadata authority only: S019 in corpus/SOURCES.md, not platform verification.
+verified-at: 2026-09-28 (LOG.md rounds 1–4; ufofsdbeta absence event 2026-09-28T23:51:31Z, r15 sweep) — historical-not-live-reverified
+recheck: local historical reading only: `git show 5009ecaa1cce10b895617a585ddd3f7c7c923a84:corpus/knowledge/mirror-pitfalls.md`; the cited webzites and ufofsdbeta source evidence is absent per the entry's dated annotations. Operator must restore and recheck those sources or retire their recipes; no browser operation is authorized here.
+
 # Mirror pitfalls — observed, not hypothetical
 
 Sources: `fleet/kimi-surface-ops.md` failure-mode tables (r1–r4),

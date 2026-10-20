@@ -1,3 +1,7 @@
+source: Historical entry-local evidence: webzites probe/sync/reconcile source, fleet snapshots and the 2026-09-28/29 observations cited in this entry; source trees absent after the 2026-10-12 prune. Metadata authority only: S019 in corpus/SOURCES.md, not platform verification.
+verified-at: 2026-09-29 (latest original evidence: r16 read-only re-verification, 2026-09-29T02:2xZ; probe 2026-09-28T18:51Z; dedupe-report and sync-check record 2026-09-26) — historical-not-live-reverified; round 21 re-verified no domain or source tree.
+recheck: local historical reading only: `git show 5009ecaa1cce10b895617a585ddd3f7c7c923a84:corpus/knowledge/drift-detection.md`; the webzites and plazir source trees remain absent after the 2026-10-12 prune. Operator must restore them and re-derive domain verdicts or retire the dependent recipes.
+
 # Drift detection — live vs source
 
 Source: `~/Projects/webzites/{bin/webzites.mjs, scripts/kimi-surface.mjs,

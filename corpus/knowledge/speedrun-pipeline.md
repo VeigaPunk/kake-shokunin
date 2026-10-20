@@ -1,3 +1,7 @@
+source: operator-local webzites evidence cited in-entry — `~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md`, `~/Projects/webzites/src/speedrun.mjs`, `agents/webzites-speedrun.md`, `reports/keepers/speedrun-r1.md` (webzites-relative), `~/Projects/ds4cc-marketplace/speedrun/`; in-entry r18 absence flags (re-census 2026-10-14) cover SPEEDRUN-PROTOCOL.md, speedrun.mjs and ds4cc-marketplace/speedrun, while the keeper card and speedrun-r1 carry no absence flag; S001, S002, S004 (corpus/SOURCES.md) for the round-20 upload-artifact correction
+verified-at: 2026-09-28 round-5 original evidence (commit 18537e9; LOG round-5); r20 correction base cb807bc (2026-10-17) — historical-not-live-reverified, not a domain recheck; metadata contract S019
+recheck: on speedrun lane or webzites/ds4cc-marketplace source change — `for p in ~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md ~/Projects/webzites/src/speedrun.mjs ~/Projects/ds4cc-marketplace/speedrun; do test -e "$p" && echo "present $p" || echo "absent $p"; done`; paths absent since the 2026-10-12 prune: operator must restore the source tree or retire this entry
+
 # Speedrun publish pipeline — ds4cc.com/speedrun
 
 Source: `~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md` (operator runbook, <!-- r18 re-census 2026-10-14: ~/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->

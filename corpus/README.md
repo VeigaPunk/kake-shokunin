@@ -104,3 +104,20 @@ mirrors, Pages deploys).
   checks needing an operator-authorized free read: each Pages repo's
   `build_type` and workflow action pins; whether `/CNAME` is served under
   Actions; the user-site robots.txt.
+
+## Round-21 corpus maintenance
+
+- `lessons/round-21.md`: historical provenance and decision-log repair,
+  source S019, and the inbound line-pointer correction register.
+- `../scripts/corpus-contract.mjs`: runnable structural census of provenance
+  fields and exact lesson Gate headings; registry in `../SKILL.md`.
+- `../.ufo/waves/round-21/`: frozen red-before inputs, measured outputs,
+  author-side swarm reports and pure-addition/pointer proofs.
+
+This adds no new publishing-domain coverage. Original observations keep
+their own dates, missing source trees remain operator restore-or-retire
+debt, and round admission still requires the independent closure reviewer.
+Round-20 outside review is now recorded in
+`lessons/round-20-verifier-spotcheck.md`; older Frontier bullets are historical,
+not a denial of that later review. The remaining citation/confinement bounds
+are retained in the round-21 lesson.

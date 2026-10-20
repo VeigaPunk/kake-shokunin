@@ -375,3 +375,18 @@ source freshness, and verification: `corpus/knowledge/publish-queue.md`.
 Hard rule, repeated: publish stays operator-gated. Never `git push`, never
 click Publish, never call `PublishApp`/`PublishDeployment`/`UnpublishApp`
 from fleet code; prepare, verify, and hand the human a clean recipe.
+
+## Publishing-corpus contract gate — round 21
+
+S019 scopes this gate to evidence discoverability, not live publishing
+readiness. Historical metadata remains historical; reconstructed lesson gates
+do not manufacture old decisions or non-author review.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| corpus-contract | gate | `node scripts/corpus-contract.mjs --json` | `0=clean` structural census; `1=failed` missing fields/gates; `2=could-not-evaluate` input/read error; `64=could-not-evaluate` usage | `node scripts/corpus-contract.mjs --selftest` (`--selftest`), isolated generated fixtures only | `.ufo/waves/round-21/frozen/before/expected.json`; `node .ufo/waves/round-21/replay-proof.mjs` verifies every snapshot digest before checking the expected red baseline | Normal invocation read-only; selftest owns and removes temporary fixtures only | kake |
+
+Round-21 counting and pointer-audit helpers under `.ufo/waves/round-21/`
+are evidence tools, not publishing gates. `measure.mjs` reports the revision
+or working-tree input population; `anchor-census.mjs` maps preserved old
+lines after metadata prefixes. Their outputs never admit a round.

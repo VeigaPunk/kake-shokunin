@@ -1,3 +1,7 @@
+source: Historical entry-local evidence: webzites systemd units, probe-history.jsonl, CLI help and keeper logs cited below, originally observed 2026-09-28/29. Metadata authority only: S019 in corpus/SOURCES.md, not live automation verification.
+verified-at: 2026-09-29 (original evidence: r13 re-verification 2026-09-28T22:4x–22:5xZ and r16 re-read of probe-history.jsonl 2026-09-29T02:2xZ; no git revision recorded in entry; r18 re-census 2026-10-14 recorded the cited paths absent) — historical-not-live-reverified, not a 2026-10-20 domain recheck
+recheck: on any change to the cited local paths — `ls -l ~/.config/systemd/user/webzites-probe.timer ~/.config/systemd/user/webzites-keeper.timer ~/Projects/webzites/state/probe-history.jsonl 2>&1`; these paths are absent since the 2026-10-12 prune/migration, so the operator must restore the sources (then re-run the r13 read-only checks) or retire this entry's claims
+
 # Ops automation — timers, history, bot fleet
 
 Sources: `~/.config/systemd/user/webzites-{probe,keeper}.{timer,service}` <!-- r18 re-census 2026-10-14: ~/.config/systemd/user/webzites-keeper.service · ~/.config/systemd/user/webzites-keeper.timer · ~/.config/systemd/user/webzites-probe.service · ~/.config/systemd/user/webzites-probe.timer absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->

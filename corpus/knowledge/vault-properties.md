@@ -1,3 +1,7 @@
+source: Historical fleet/vault-properties.json, Kimi surface source and 2026-09-28 live PROPERTIES[] observations cited below; external fleet evidence is unavailable locally. Metadata authority only: S019 in corpus/SOURCES.md, not present-day property state.
+verified-at: 2026-09-28 original baseline GETs and +157B seed finding, introduced in kake commit ed0b632; dd4eabf only re-pinned a line reference. Historical-not-live-reverified; no round-21 domain recheck.
+recheck: historical-only; no local copy of fleet/vault-properties.json or kimi-surface.mjs exists here, so the operator must restore the fleet tree or retire this entry. Local check once restored: node -p "const j=require('./fleet/vault-properties.json'); j.generatedAt+' '+j.properties.length" (expect 13 entries); the live GET Method block stays operator-run, not run here
+
 # Vault PROPERTIES[] — the JS-rendered surface, audited without a browser
 
 Scope: `veigapunk.kimi.page` + `ufo-fsd.kimi.page` (byte-twin vaults). The

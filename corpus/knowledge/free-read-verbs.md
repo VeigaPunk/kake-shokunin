@@ -1,3 +1,7 @@
+source: ~/Projects/webzites/{bin/webzites.mjs, src/cli.mjs, src/fleet.mjs, src/probe.mjs, src/reconcile.mjs, scripts/kimi-surface.mjs, fleet/fleet.config.json} — local webzites tree read 2026-09-28, entry-internal live-run captures cited in body; metadata contract S019 (corpus/SOURCES.md, metadata authority only, not platform authority)
+verified-at: 2026-09-28 (original read of the webzites tree and live runs 2026-09-28T21:31–21:33Z; fleet.config.json updatedAt 2026-09-26; r16 re-read 2026-09-29T02:35Z; webzites revision not recorded in entry) — historical-not-live-reverified; absence notes 2026-10-14 (r18) and 2026-10-19 (r20) are citation-local, not a domain recheck
+recheck: on webzites source change or operator restore — `ls -l ~/Projects/webzites/bin/webzites.mjs ~/Projects/webzites/src/cli.mjs ~/Projects/webzites/scripts/kimi-surface.mjs`; tree absent since the 2026-10-12 ~/Projects prune, so operator must restore it and re-run the cited verbs, or retire the live-run claims and counts in this entry
+
 # Free-read verbs — `probe` / `status` / `grokbot reconcile` / `sync-check`
 
 Round 11 (2026-09-28) operability axis. These are the four verbs a keeper may run

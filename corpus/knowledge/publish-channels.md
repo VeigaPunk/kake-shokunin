@@ -1,3 +1,7 @@
+source: S001, S002, S003, S005 and S007 in corpus/SOURCES.md support the EOF round-20 corrections; the entry's historical local sources are the ds4cc/plazir workflows, render.yaml, deploy-github-pages.sh and Kimi surface tools named below. Metadata authority only: S019, not live platform verification.
+verified-at: 2026-09-26 (kimi-webbridge "not supported on Linux" check) and 2026-09-28 (round-1 commit cd5b381 that introduced this entry; wz1-ds4cc emptied 2026-09-28T21:42-03:00); round-20 corrections 2026-10-19 (S001-S007 opened that day) — historical-not-live-reverified; no live domain recheck performed
+recheck: local historical reading only: `git show 5009ecaa1cce10b895617a585ddd3f7c7c923a84:corpus/knowledge/publish-channels.md`; the external source trees are absent after the 2026-10-12 prune. Operator must restore and re-derive the dependent workflow/Render/Kimi claims or retire those sections.
+
 # Publish channels (verified)
 
 ## GitHub Pages — push to `main` is the publish verb

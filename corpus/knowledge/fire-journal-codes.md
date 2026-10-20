@@ -1,3 +1,7 @@
+source: ~/Projects/webzites/scripts/kimi-surface.mjs (die/throw sites) + ~/Projects/webzites/state/{update,recreate,rebuild}-*.json run journals + state/rebuild-charter-fire.log (own-work; no SOURCES.md id); metadata format per S019 (metadata authority only, not a platform source)
+verified-at: 2026-09-28 (die/throw sites in kimi-surface.mjs; journals 2026-09-26/09-27) — historical-not-live-reverified; script absent per the r20 correction below
+recheck: on journal or script change — test -e ~/Projects/webzites/scripts/kimi-surface.mjs && echo present || echo absent; grep -lE '"fire": *true' ~/Projects/webzites/state/recreate-plazir15-*.json; script vanished in W7 — operator must restore it or retire this entry
+
 # kimi-surface fire journals & exit codes
 
 Source: `~/Projects/webzites/scripts/kimi-surface.mjs` (die/throw sites grep'd

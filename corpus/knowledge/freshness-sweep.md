@@ -1,3 +1,7 @@
+source: S014 in corpus/SOURCES.md; scripts/freshness-sweep.mjs, corpus/knowledge/freshness-pins.json and the round-20 frozen citation-locality proof cited below. Metadata authority only: S019 in corpus/SOURCES.md, not platform verification.
+verified-at: 2026-10-19 (round-20 citation-local correction and S014 run; r16 run 2026-09-29T02:4xZ and r17 run 2026-09-29T03:2xZ records) — historical, not live-reverified
+recheck: on script, pins, or round-20 evidence change — `grep -cF 'function scanCitations' scripts/freshness-sweep.mjs` (expect 1); if the script is absent, operator must restore it from git (last touched in 02b6dd0) or retire this entry and the S014 row
+
 # Freshness sweep — the standing-claim drift instrument
 
 > Round-20 correction: the r16/r17 measurements and copied table baselines

@@ -1,3 +1,7 @@
+source: entry-specific evidence — /tmp/orphan-check.mjs baseline 2026-09-28 (103 sitemap locs), pages.yml deploy-graph reads for ds4cc-marketplace and plazir-15-site, fleet.config.json, live sitemap.xml fetches; S001, S002, S004, S006 (corpus/SOURCES.md) for the r20 artifact-membership corrections — https://raw.githubusercontent.com/actions/upload-pages-artifact/7b1f4a764d45c48632c6b24a0339c27f5614fb0b/action.yml §Archive artifact
+verified-at: 2026-09-28 (orphan-check baseline ~20:20Z; r16 re-read 2026-09-29T02:2xZ as recorded; r20 S001-S006 quote corrections 2026-10-19, base cb807bc) — historical-not-live-reverified; no live sitemap or domain fetch this round
+recheck: on pages.yml upload path, pinned action, or sitemap change — run from kake-shokunin: grep -nF 'include-hidden-files' corpus/knowledge/ghp-served-set.md corpus/SOURCES.md; source-vanished: /tmp/orphan-check.mjs, ds4cc-marketplace and plazir-15-site pages.yml, and fleet.config.json are absent from this workstation — operator must restore them at the cited paths or retire the 2026-09-28 baseline counts
+
 # Live-only orphan audit — the direction the source walk can't see
 
 Evidence: `/tmp/orphan-check.mjs` baseline 2026-09-28 (~20:20Z, 103
