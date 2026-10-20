@@ -390,3 +390,27 @@ Round-21 counting and pointer-audit helpers under `.ufo/waves/round-21/`
 are evidence tools, not publishing gates. `measure.mjs` reports the revision
 or working-tree input population; `anchor-census.mjs` maps preserved old
 lines after metadata prefixes. Their outputs never admit a round.
+
+## Static canonical publishing preflight — round 22
+
+Use `corpus/knowledge/static-canonical-preflight.md` (S020/S021/S026/S027)
+for a source-backed offline publisher-policy check over a named set of built
+HTML files. This does not restore the old source trees or probe live properties.
+Canonical declarations are signals, not guarantees of Google's selection.
+
+| Situation | Decision |
+|---|---|
+| Built static HTML and explicit expected canonical policy are available | Run `python3 scripts/canonical_audit.py --manifest /absolute/path/to/manifest.json --json`; retain revision and JSON receipt |
+| One supported head canonical matches local policy | Local policy clean, not complete publication readiness |
+| Missing, conflicting or mismatching declaration | Correct source or justify a policy change; do not silently rewrite expected values |
+| Unsupported HTML, invalid manifest or unreadable input | Could not evaluate; use a proper HTML5/browser audit rather than calling it clean |
+| Need Google-selected canonical, HTTP headers, redirects, content duplication or JS state | This tool cannot establish it; route browser work to tabi, publishing/account actions to the operator |
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| canonical-audit | gate | `python3 scripts/canonical_audit.py --manifest <local-manifest> --json` | `0=clean` named static publisher policy; `1=failed` policy finding; `2=could-not-evaluate` input/unsupported HTML; `64=could-not-evaluate` usage | `python3 scripts/canonical_audit.py --selftest` (`--selftest`), isolated local fixtures | Manifest `expectedCanonical` values; committed `.ufo/waves/round-22/cases.json`, `frozen/expected.json`; `python3 .ufo/waves/round-22/replay.py --root .` verifies input digests before comparing frozen matrix expectations | Normal invocation read-only, network-free; selftest owns temporary local fixtures only | kake |
+
+The independent matrix/measurement/replay helpers are evidence tools, not
+additional domain gates. A missing tool on the baseline is capability absent,
+not 32 observed classification mistakes. Legacy paths gate and anchor-census
+debts remain exactly as bounded by the round21 non-author verifier.

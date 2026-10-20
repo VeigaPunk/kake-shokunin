@@ -39,6 +39,7 @@ mirrors, Pages deploys).
 | ETag anatomy (r20) | `knowledge/ghp-etag-anatomy.md` | the recorded root ETag decodes to mtime-length (nginx format, backend identity [INFERENCE]); validator, never identity |
 | Crawl scope per host (r20) | `knowledge/crawl-scope-per-host.md` | robots.txt only at the host root; sitemap scope by location; project sites share the user-site robots policy |
 | Earlier round lessons (historical through r18) | core `round-{1,3,4,5,6,7,8,9,10,12,16,17,18}.md` plus named aggregator audits; later entries live in `lessons/` | Dated audit findings and source-era measurements, not current surface availability. |
+| Static canonical preflight (r22) | `knowledge/static-canonical-preflight.md` | Source-backed publisher-policy comparison of a named static HTML population; canonical signals versus selection, parser/URL limits; local fixture proof under `.ufo/waves/round-22/` |
 
 ## Known gaps
 
@@ -121,3 +122,14 @@ Round-20 outside review is now recorded in
 `lessons/round-20-verifier-spotcheck.md`; older Frontier bullets are historical,
 not a denial of that later review. The remaining citation/confinement bounds
 are retained in the round-21 lesson.
+
+## Round-22 frontier step
+
+Canonical signals now have a source-backed knowledge entry
+`knowledge/static-canonical-preflight.md` (S020/S021/S026/S027), and a local
+publisher-policy capability is measured in the round22 report. This is
+uncovered ground from the round20/21 Frontier, not another corpus-metadata
+claim. JS-rendered canonicals, Google-selected canonical, live delivery,
+HTTP headers, content duplication and actual operator publication remain open.
+Historical Frontier and Known gaps paragraphs above retain their chronology;
+the round21 verifier and correction register govern their current reading.

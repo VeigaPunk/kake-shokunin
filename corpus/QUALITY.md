@@ -71,3 +71,24 @@ four-line metadata prefix retain their baseline coordinates. Add four for
 current coordinates, using the round-21 lesson's explicit per-file register.
 This supersedes the unqualified current-coordinate reading of old pointers
 in this file; it does not rewrite the historical lessons they cite.
+
+## Canonical signal and reconstruction ordering — round 22
+
+Grounding: `corpus/lessons/round-22.md` §Mistakes and the non-author
+`round-21-verifier-spotcheck.md` routed notes 1–4.
+
+- A reconstructed Gate names its observation revision and is written only
+  after the sources it cites exist. Read-time absence statements remain
+  historical and require an explicit correction register; never invent their
+  original admission chronology. The old round-4/9/16 Gates fail this current
+  criterion and remain superseded only by round21's existing register.
+- A canonical preflight proves the declared signal matches explicit publisher
+  policy over the named static-file population. It never proves Google's
+  selected canonical, content duplication, live delivery or JavaScript state.
+  Source recommendations are distinguished from stricter local policy.
+- An unregistered evidence helper's red diagnostics cannot be relabelled as
+  gate success. The round21 anchor census is intentionally outside gate claims.
+  Legacy missing-path reds are carried, not counted as a round22 improvement.
+- SHONEN marks do not advance from a local fixture/corpus repair: an end-to-end
+  domain task and all other boxes still need a named independent non-author
+  verifier. This round's own seats remain author-side; no promotion is claimed.

@@ -46,3 +46,13 @@
   operator-owned; the corpus keeps their cites as historical records.
 - Live web properties (ds4cc.com, veigapunk.github.io project sites,
   *.kimi.page/pro) were not probed in round 20 (documentation-only round).
+
+## Round-22 publisher-side addition
+
+`corpus/knowledge/static-canonical-preflight.md` covers the previously open
+static canonical-signal ground: preferred relation semantics, explicit local
+publisher policy and offline parser limits. The lane's local validator and
+frozen fixtures are its operability artifact, not a claim that a live website
+was repaired or a Google-selected canonical observed. The broader crawl and
+JS-rendered-canonical frontier above remains open; browser execution stays tabi's
+adjacent province and publication/account operations stay operator-owned.

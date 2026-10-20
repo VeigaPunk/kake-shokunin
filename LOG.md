@@ -729,3 +729,30 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
 - Tool installs/updates: none. New L0 questions: none; inherited operator
   restore-or-retire decisions and independent closure remain open. No domain
   source tree was edited, committed, pushed or published.
+
+## Round 22 — static canonical publishing preflight (2026-10-20)
+
+- Motivation: SCORECARD's post-round21 capability/frontier plan and
+  `corpus/lessons/round-21-verifier-spotcheck.md`: the old corpus maintenance
+  claims were admitted but did not add publishing capability. Saturation
+  nudge permits a new capability after round21's one-round stagnation window.
+- Frozen C1: operability, offline publisher-policy comparison of canonical
+  declarations over a named static-file population. Contract/case names were
+  frozen before dispatch in `.ufo/waves/round-22/contract.json`; baseline
+  master `7c61c8cc791bde36dd5e3688bdfea2678d90146c` has no canonical tool.
+  Capability absence is not 32 observed wrong classifications.
+- Sources: S020–S027 opened RFC 6596, Google guidance, WHATWG HTML and Python
+  parser/URL docs. Exact short located quotes/access date are in round22's
+  Gate. New knowledge entry `static-canonical-preflight.md` distinguishes
+  documented platform semantics from stricter local publisher policy.
+- One validated 64-seat build wave, L1-held planner, separate private clones
+  for the three code writers, single L1 integration owner. Four scribe
+  startup deaths remain dead/uncredited (`w1-deaths.json`); no replacement.
+- Review learning: QUALITY now records reconstructed-Gate source ordering,
+  canonical signal versus selection, and the rule that broad pointer-census
+  diagnostics are not domain gate claims. Existing historical corpus bytes,
+  protected verifier notes and the round21 correction register stay intact.
+- Boundaries: no live property/auth/account/publishing/host-package/service
+  operation; old paths gate reds, missing sources/history and SHONEN debt
+  are not relabelled as new improvements. Final measurement and falsification
+  receipts are recorded in the appended round22 measured entry.
