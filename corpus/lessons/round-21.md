@@ -144,3 +144,60 @@ for knowledge-entry references unless they explicitly name current coordinates.
 The round-3 PQ-12 example now spells out baseline 32/current 36. Header source
 descriptions use section names rather than stale within-file line numbers.
 This is a coordinate correction, not semantic re-admission of any old claim.
+
+## Final measured results
+
+Measured source commit: `df6196b022a7fe9ac9a88af1293dc377a8197652`.
+`node .ufo/waves/round-21/measure.mjs --revision <commit>`:
+baseline `5009ecaa` exits 1 (trios 4/21, gates 1/15); measured commit exits 0
+(trios 21/21, legacy gates 15/15, current gates 16/16 including round-21).
+Exact argv, full outputs and exits are in `measure-before.json` and
+`measure-after.json` under `.ufo/waves/round-21/`.
+
+- `node scripts/corpus-contract.mjs --selftest`: `selftest: 7/7 passed`, exit 0.
+- `node scripts/corpus-contract.mjs --json`: exit 0, knowledgeChecked 21,
+  lessonsChecked 16, no findings/errors. Structural-only, not a domain check.
+- `node .ufo/waves/round-21/replay-proof.mjs`: PASS, files 36, runs 2,
+  failures 0, exit 0. All frozen digests verified before and after; expected
+  red baseline emits missing_metadata in 17 files and missing_gate in 14.
+- `node scripts/freshness-sweep.mjs --offline --section=paths --json`: exit 1,
+  three drift targets, four legacy unannotated locations, newMissing 0,
+  missSet 55. Pins unchanged; no new path debt remains from the prefixes or
+  reconstructed gates. This is not a complete online publishing check.
+- `node .ufo/waves/round-21/anchor-census.mjs`: zero prior-byte violations,
+  seventeen prefixes, fourteen EOF appends. Broad scan: 3,294 references,
+  2,051 moved, 78 baseline-inapplicable diagnostics, all in author wave
+  reports (73 references to new suffix lines, five to the new round-21
+  lesson). Exit 1 is preserved and not called a complete reference pass.
+  The original helper exited before flushing its large JSON; replacing
+  process.exit with process.exitCode produced the complete audit. Both
+  receipts remain as `anchors.json` and `anchors-fixed.json`.
+
+Source validation command (same before and after):
+`/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`.
+Both outputs: `kake ok /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md`,
+both exit 0. Registry rows 18→19; A16→17/C2→2;
+mined14→15/queued2→2/rejected2→2. Reproducible counting commands and results:
+`source-rows-before.json` and `source-rows-after.json` in round-21 evidence.
+Rows added: S019 tier A own-work, scope limited to the local audit. Existing
+row status/recheck/used-by changes: none. No domain frontier ground advanced.
+
+Claims: C1 freshness improved-bounded, C2 operability improved-bounded,
+both HOLD 10. Expansion unchanged; quality improved (bounded); discernment
+unchanged. Independent round-21 closure/spot-check remains orchestrator-owned.
+
+## Mistakes — integration
+
+| Class | Evidence pointer | Captured-by | Fix |
+|---|---|---|---|
+| scope | Four reports written under fleet `.ufo/waves/round-21/w1/`: Knowledge08, Lesson09, Lesson14, Population | Explicit absolute-path wave contract and mandatory misroot sweep | Copied byte-exact into the same lane-relative paths, cmp exit 0 for each, then deleted only those fleet copies. `.ufo/waves/round-21/misroot-sweep.json`; all other fleet artifacts untouched. |
+| reference-drift | New metadata/Gate recheck spellings introduced five unpinned missing descendants in the author-side attack snapshot | Existing paths gate and NoTrade.md | Replaced only new recheck spellings with revision-bound local historical reads and qualified the new Gate descriptions; final paths result retains baseline drift 3/newMissing 0 without repinning. |
+| attribution | vault-properties prefix credited dd4eabf with the baseline/+157B discovery | HistoricalDate.md's git-history comparison | New header corrected to introducing commit ed0b632; original entry bytes untouched. |
+| vacuous | Anchor helper produced only 65,536 bytes before process.exit, invalidating its JSON receipt | JSON parse after the first audit | ExitCode allows stdout to flush; second receipt is complete. Remaining baseline-inapplicable diagnostics are retained, not suppressed. |
+
+All 64 seat reports now reside inside the lane. The final audit helpers are
+bounded: normal corpus gate skips symlink/nonregular entries, permits a bare
+corpus and does not validate date/source truth; its confinement scanner is not
+exhaustive. The independent fixed-population counter and pinned measured
+revision supply the population evidence for this round. No tool was installed
+or upgraded. No domain-facing action was taken.

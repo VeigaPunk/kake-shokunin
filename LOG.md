@@ -699,3 +699,33 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
 - Domain-facing actions remain operator-owned. This work is local
   preparation/verification/handoff; no domain source push, publish, browser
   authentication or host package transaction is part of the round.
+
+### Round-21 measured closure (same round)
+
+- Measured commit `df6196b022a7fe9ac9a88af1293dc377a8197652` versus baseline
+  `5009ecaa1cce10b895617a585ddd3f7c7c923a84`: exact independent counter
+  trios 4/21→21/21; baseline lesson set Gate coverage 1/15→15/15
+  (current total 16/16). `measure-before.json`/`measure-after.json` under
+  `.ufo/waves/round-21/` record argv/stdout/stderr/exits 1→0.
+- Corpus gate selftest 7/7 exit 0; frozen red-before replay PASS (36 inputs,
+  two stable red runs, zero failures); current structural gate exit 0.
+  Gate script SHA-256 and source revision are persisted in `gate-digest.json`.
+- Existing offline paths gate stays exit 1: three drift targets, four old
+  unannotated locations, newMissing 0, missSet 55. No new miss was pinned.
+  Broad anchor audit preserves every prior byte (zero violations); its
+  78 baseline-inapplicable author-report diagnostics remain visible, exit 1.
+  The helper's stdout-flush defect was repaired after its first incomplete
+  JSON receipt; no gate implementation or historical corpus byte changed.
+- Source census exit 0→0, rows 18→19 (A16→17/C2→2,
+  mined14→15/queued2→2/rejected2→2); complete counts/commands in source-rows
+  receipts. S019 adds no publishing-domain coverage or new capability credit.
+- Mandatory fleet misroot sweep found four owned seat reports; each copied
+  into the lane, cmp verified, then its fleet copy removed. Full receipt:
+  `.ufo/waves/round-21/misroot-sweep.json`. All sixty-four reports now local.
+- Per-axis: freshness improved-bounded HOLD 10; operability improved-bounded
+  HOLD 10. Trends: expansion unchanged, quality improved (bounded evidence),
+  discernment unchanged pending independent orchestrator-dispatched review.
+  Wave 2 was skipped by operator wrap-up; no new worker followed that order.
+- Tool installs/updates: none. New L0 questions: none; inherited operator
+  restore-or-retire decisions and independent closure remain open. No domain
+  source tree was edited, committed, pushed or published.

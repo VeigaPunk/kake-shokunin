@@ -1,0 +1,14 @@
+{
+  "revision": "5009ecaa1cce10b895617a585ddd3f7c7c923a84",
+  "command": "python3 -c 'import subprocess,re,collections; t=subprocess.check_output([\"git\",\"show\",\"5009ecaa1cce10b895617a585ddd3f7c7c923a84:corpus/SOURCES.md\"],text=True); r=[x.split(\"|\")[1:-1] for x in t.splitlines() if re.match(r\"^\\|\\s*S[0-9]{3,}\\s*\\|\",x)]; print(len(r),collections.Counter(x[3].strip() for x in r),collections.Counter(x[7].strip() for x in r))'",
+  "rows": 18,
+  "tiers": {
+    "A": 16,
+    "C": 2
+  },
+  "statuses": {
+    "mined": 14,
+    "queued": 2,
+    "rejected": 2
+  }
+}

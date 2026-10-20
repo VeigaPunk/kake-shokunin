@@ -226,3 +226,52 @@ Evidence: `corpus/lessons/round-20.md` §Post-review fixes;
 `.ufo/round-20/resume/post-review-restoration.txt` and anchor proof.
 The 9→0 literal and 27-tail metrics above apply to `02b6dd0` only, not this
 append-only corrected layout. This is the same round, no new claim.
+
+## Round 21 — measured publishing-corpus maintenance
+
+Measured source commit: `df6196b022a7fe9ac9a88af1293dc377a8197652`.
+Baseline: `5009ecaa1cce10b895617a585ddd3f7c7c923a84`.
+This section supersedes the earlier planned counting recipes (whose lesson
+glob included the protected verifier file). Scores remain at the legacy
+ceiling; improved means a bounded evidenced move, not a numeric increase.
+
+| Claim | Axis / score delta | Before → after | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 discoverable historical provenance | freshness 10→10 (HOLD) | complete exact-lowercase trios 4/21→21/21 | `node .ufo/waves/round-21/measure.mjs --revision <commit>` with the baseline and measured commits above | improved-bounded; `.ufo/waves/round-21/measure-before.json`, `measure-after.json`; dates remain historical, not current web verification |
+| C2 inspectable historical decision logs | operability 10→10 (HOLD) | fixed baseline lesson population 1/15→15/15; current population 16/16 including round-21 | same revision-bound command; use its explicit baseline list in `initial.json`, and report new round-21 separately | improved-bounded; corpus-contract after exit 0, isolated selftest 7/7, frozen baseline replay PASS; `.ufo/waves/round-21/{corpus-after,corpus-selftest,replay}.json` |
+
+The contract gate's metadata matcher is intentionally more permissive than
+the exact-lowercase independent claim counter. Both find four complete
+baseline trios and twenty-one complete candidate trios. Neither proves source
+truth, date honesty, safe domain execution or independent admission.
+The structural gate enumerates existing regular Markdown files, skips
+symlinks and excludes protected-role knowledge basenames; its empty-corpus
+fixture is clean. The independent measurement pins the actual population and
+would flag dropped entries. Its self-source confinement assertion is bounded,
+not an exhaustive write/shell proof (`w1/Confinement.md` in round-21 evidence).
+
+No owned-axis harm observed on exercised checks: the old paths gate remains
+honestly red with three drift targets/four legacy citation locations,
+newMissing 0 and missSet 55. Metadata prefixes preserve all prior bytes;
+fourteen lesson gates are EOF additions. The helper's broad pointer census
+has zero preservation violations; seventy-eight baseline-inapplicable
+diagnostics concern only author wave-report references to newly added lines
+or the new round-21 lesson, not changed historical lines. Their presence is
+reported, not converted to an unqualified all-reference pass.
+
+S019 is new scoped audit evidence; registry 18→19 rows, source validation
+exit 0→0. No old source status/recheck/used-by cell changes. Expansion
+unchanged; quality improved (bounded to discoverability and runnable rejection
+of missing metadata/gates); discernment unchanged pending an independent
+round-21 admit/reject spot-check. All dispatched seats are author-side.
+The round-20 non-author admission and its limits remain authoritative via
+`corpus/lessons/round-20-verifier-spotcheck.md`; older blocked/owed wording is
+historical. This section records no new round admission by self-attestation.
+
+### Planned — supersedes round-21 plan
+
+Next steered round: a source-backed frontier/capability move in crawl/canonical
+signals or static publishing validation, chosen from PROVINCE's open ground.
+Round 21 enters no capabilities-table row; at the declared saturation line
+and one-round stagnation window the nudge permits that move. Publishing,
+restoration and remote property probes remain separately operator-gated.

@@ -538,7 +538,7 @@ function main() {
   };
 
   process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
-  process.exit(out.ok ? 0 : 1);
+  process.exitCode = out.ok ? 0 : 1;
 }
 
 main();
