@@ -150,8 +150,26 @@ def check_surface(surface: dict) -> None:
         raise ValueError(f"surface {surface['id']}: URLs must be http(s) with a host and no userinfo")
 
 
+def check_redirect_record(meta: dict) -> None:
+    previous = meta.get("url")
+    chain = meta.get("redirects")
+    if not isinstance(chain, list) or len(chain) > MAX_REDIRECTS:
+        raise ValueError("snapshot redirect chain missing or too long")
+    for hop in chain:
+        if (not isinstance(hop, dict) or hop.get("from") != previous
+                or hop.get("status") not in {301, 302, 303, 307, 308}
+                or not safe_url(str(hop.get("to")))):
+            raise ValueError("snapshot redirect chain is inconsistent")
+        previous = hop["to"]
+    if meta.get("finalUrl") != previous:
+        raise ValueError("snapshot finalUrl disagrees with redirect chain")
+
+
 def reaudit_body(directory_fd: int, surface: dict) -> tuple[dict, bytes | None]:
     meta = json.loads(read_file(directory_fd, "fetch.json", 1024 * 1024))
+    if not isinstance(meta, dict):
+        raise ValueError("snapshot fetch metadata must be a JSON object")
+    check_redirect_record(meta)
     if (meta.get("url") != surface["url"] or meta.get("method") != "GET"
             or not safe_url(str(meta.get("finalUrl"))) or type(meta.get("status")) is not int):
         raise ValueError("snapshot metadata does not describe the population GET")

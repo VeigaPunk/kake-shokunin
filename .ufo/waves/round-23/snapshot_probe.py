@@ -74,14 +74,19 @@ def main():
             code, output = invoke(name)
             unchanged = outside.read_text() == 'UNCHANGED'
             rows.append({'case': name, 'exit': code, 'outsideUnchanged': unchanged, 'ok': code == 2 and unchanged})
-        for name in ['edited-page', 'edited-digest', 'missing-page', 'missing-fetch']:
+        for name in ['edited-page', 'edited-digest', 'missing-page', 'missing-fetch', 'edited-final-url', 'array-metadata']:
             code, output = invoke(name)
             directory = root / name / 'page'
             if name == 'edited-page':
                 (directory / 'page.html').write_text('<head></head>')
-            elif name == 'edited-digest':
+            elif name in {'edited-digest', 'edited-final-url', 'array-metadata'}:
                 meta = json.loads((directory / 'fetch.json').read_text())
-                meta['sha256'] = '0' * 64
+                if name == 'edited-digest':
+                    meta['sha256'] = '0' * 64
+                elif name == 'edited-final-url':
+                    meta['finalUrl'] = url + 'different-base/'
+                else:
+                    meta = []
                 (directory / 'fetch.json').write_text(json.dumps(meta))
             else:
                 (directory / ('page.html' if name == 'missing-page' else 'fetch.json')).unlink()

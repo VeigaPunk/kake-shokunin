@@ -57,6 +57,17 @@ def check(root: str, revision: str, validator: bytes, surface: dict) -> tuple[li
         problems.append("fetchedAt missing or before 2026-10-21")
     if type(fetch.get("status")) is not int or not 100 <= fetch["status"] <= 599 or fetch.get("error"):
         problems.append("fetch did not record a usable HTTP response")
+    previous, chain = fetch.get("url"), fetch.get("redirects")
+    if not isinstance(chain, list) or len(chain) > 5:
+        problems.append("fetch redirect chain missing or too long")
+    else:
+        for hop in chain:
+            if not isinstance(hop, dict) or hop.get("from") != previous or hop.get("status") not in {301, 302, 303, 307, 308}:
+                problems.append("fetch redirect chain inconsistent")
+                break
+            previous = hop.get("to")
+        if fetch.get("finalUrl") != previous:
+            problems.append("fetch finalUrl differs from redirect chain")
     page = show(root, revision, f"{prefix}/page.html")
     if not served(fetch):
         if page is not None:

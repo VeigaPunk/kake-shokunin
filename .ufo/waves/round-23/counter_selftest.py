@@ -148,6 +148,7 @@ def seed_c2(repo: Path, surfaces: list[dict[str, str]]) -> tuple[list[str], str]
                 "truncated": False,
                 "sha256": hashlib.sha256(body).hexdigest(),
                 "bytes": len(body),
+                "redirects": [],
             }
             audit = {"verdict": "not-served", "status": status, "exit": None, "error": None}
         else:
@@ -167,6 +168,7 @@ def seed_c2(repo: Path, surfaces: list[dict[str, str]]) -> tuple[list[str], str]
                 "truncated": False,
                 "sha256": hashlib.sha256(body).hexdigest(),
                 "bytes": len(body),
+                "redirects": [],
             }
             (prefix / "page.html").parent.mkdir(parents=True, exist_ok=True)
             (prefix / "page.html").write_bytes(body)
@@ -426,6 +428,7 @@ def main() -> int:
             ("sha256", "0" * 64, "digest differs"),
             ("bytes", 0, "length differs"),
             ("status", None, "usable HTTP response"),
+            ("finalUrl", "https://wrong.test/base/", "redirect chain"),
         ):
             git(repo, "checkout", "--quiet", "--detach", good_revision)
             rel = f"{ROUND}/live/{surfaces[0]['id']}/fetch.json"
