@@ -204,3 +204,71 @@ the pin comparison. The proof now uses the preserved original frozen card
 control for both implementations; its whitespace-only population change
 can test the pin alone. The first proof receipt remains retained. Red-before
 and corrected-after outcomes are recorded only after execution.
+
+## Final observed results
+
+Measured source `be362b7808ea2350a4340cfa2cfde481269037f4` is pushed.
+The exact counting command is
+`python3 -B .ufo/waves/round-25/measure.py --root . --revision <commit>`.
+On baseline6883f1d580d811f7c434d1db4642596362f822b1 it reports0/55,
+capability_absent, exit1. On the measured source it reports55/55, clean,
+exit0. Full argv/stdout/stderr/executedAt receipts:
+`postfix-verification/{measure-before,measure-after}.json` under round25.
+
+Postfix packet selftest16/16, focused CLI39/39 and counter11/11 passed,
+all exit0. Corrected frozen replay is clean; its changed-input witness
+returns snapshot_tampered exit2. The quote oracle exits1 on the retained
+before implementation (one-character quotes and unpinned whitespace-change
+accepted), then0 on repaired code (quote rejected1, changed pin rejected2).
+The corrected pin-only control uses identical preserved card bytes.
+
+Fixture-coverage proof records three local regressions: heading haystack,
+status denylist and loose-card JSON. Old fixtures return0 for each;
+new fixtures return1 for the exact relevant cases, so the fixes are shown
+able to fail. This is a bounded local proof, not universal parser safety.
+
+Five S035 Gate excerpts were checked against the retained source and
+anchors: cc1=22 words,cc2=10,cc3=13,cc4=14,cc5=16; each occurs once.
+The quote-count erratum above is therefore supported by execution.
+Source stats command:
+`python3 -B .ufo/waves/round-25/source_stats.py --root . --before 6883f1d580d811f7c434d1db4642596362f822b1 --after be362b7808ea2350a4340cfa2cfde481269037f4`.
+Observed34→35 rows, A32→33/C2→2, mined30→31/queued2→2/rejected2→2;
+old34 row lines unchanged. S035 is the only added row; no old mutable
+cell is touched. All commands/results live in postfix-verification/.
+
+Start and end census use:
+`/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`.
+Both outputs, exit0:
+
+```text
+kake W04 S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+kake ok /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md
+```
+
+The exact tab-separated start/end bytes are retained in census-before.json
+and postfix-verification/census-after.json. W04 is inherited/nonfatal.
+The fleet-root mandatory status sweep found only tracked driver files,
+no untracked/misroot; misroot-sweep.json records it. No driver file is edited.
+Disposable implementation clones are removed, retained drafts/reports stay;
+no authored __pycache__ residue was found by the bounded path glob.
+
+Static no-harm checks: existing registered scripts/pins and all previous
+knowledge entries are byte-identical to baseline; SKILL, PROVINCE, SCORECARD,
+LOG, QUALITY and README retain their entire prior byte prefixes. These are
+documentary checks, not executions of any old refused/interrupted probe.
+Full domain/runtime no-harm and admission remain for the outside closure.
+
+### Postfix Mistakes register
+
+| Class | Evidence | Captured-by | Fix and observed fail-capability |
+|---|---|---|---|
+| stale-premise | initial focused35/36 and counter8/9 in verification/ | the new2000-level fixture caught reliance on native recursion behavior | explicit64-depth profile; same2000-level case now could-not-evaluate2;64/65 and quoted-bracket controls pass in postfix checks |
+| reference-drift | initial quote-before pin control had unrelated literal-quote failures | same-input repair-witness principle | use preserved frozen cards for both implementations; final before pin acceptance0→after snapshot_tampered2, oracle exit1→0 |
+| number-drift | original Gate12-word count and Review322's different29-word sentence | CORPUS reproducible-count and actual-field rule | retain10-word erratum and reject false29-word field claim; source-quotes proof and fixed packet oracle agree |
+| scope | SC333 /tmp source scratch and ReviewPopulation scratch scripts | explicit report-only/lane-only seat boundary | retained conformance debt; no outside scratch is primary evidence or claimed cleaned; future enforcement is operator tooling, not a new lane repair |
+
+Author self-verdicts: C1 improved for preparation only; expansion improved,
+quality improved on this bounded surface, discernment unchanged. Separate
+non-author admit/reject spot-check and promotion authority remain outside
+this lane. Round24 C1/C2 remain unadmitted; no stopped work was rerouted,
+and the policy-stop disposition question remains open.

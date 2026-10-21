@@ -453,3 +453,48 @@ their refused/interrupted probes are not repeated/rephrased/rerouted/replaced,
 and the policy-stop L0 disposition remains open. A different role/provider
 would not grant permission. Round25's explicit steer authorizes this separate
 round only, not another round or publication.
+
+### Round-25 measured outcome — supersedes the pending declaration
+
+Measured source: `be362b7808ea2350a4340cfa2cfde481269037f4`.
+Baseline: `6883f1d580d811f7c434d1db4642596362f822b1`.
+
+| Claim | Axis / score delta | Before → after | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 source-bound publisher accessibility preparation | operability10→10 HOLD | absent capability0/55, exit1 → reviewed packet55/55, exit0; every website result remains not-assessed | `python3 -B .ufo/waves/round-25/measure.py --root . --revision <commit>` with the baseline and measured source above | improved, bounded to preparation; `.ufo/waves/round-25/postfix-verification/{measure-before,measure-after}.json` |
+
+### Capabilities acquired in round25
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Publisher WCAG2.2 A/AA review preparation | Runs an offline inventory of55 source-bound criterion cards with manual evidence needs, a concrete operator handoff and explicit no-website-assessment boundary; actual browser/AT evaluation stays separately authorized | `python3 -B scripts/accessibility_packet.py --root . --json`; source S035; `corpus/handoffs/accessibility-preparation.md`; postfix-verification/packet.json under round25 | 25 |
+
+This is local exercised capability evidence, not independent admission or
+website conformance. Postfix checks: unit16/16, focused CLI39/39,
+counter11/11; corrected frozen replay clean and tampered snapshot exit2;
+the same quote/pin oracle exits1 on retained before code and0 on repaired
+code. Three local regression changes survive the old fixtures but fail the
+new fixtures (coverage-proof.json). Every packet/measurement verdict keeps
+websiteConformance=not-assessed; a selftest tally is not a website result.
+
+First coordinator failures remain visible: source6cb08's focused35/36 and
+counter8/9 were corrected by an explicit64-level local JSON profile, not
+relabelled as passing. Full receipts and timestamps are in verification/
+and postfix-verification/ under `.ufo/waves/round-25/`.
+
+Freshness is unchanged as a scored axis; no new property freshness or old
+round24 claim is admitted. Static evidence shows prior registered scripts,
+pins and knowledge bytes unchanged and six historical instruction/log
+prefixes preserved; old policy-interrupted gates/probes were not run.
+Source registry34→35 (A32→33, C2 unchanged; mined30→31, queued2/rejected2
+unchanged), prior34 rows identical, census exit0→0 with retained W04.
+
+Learning self-verdicts: expansion improved (new WCAG preparation frontier
+entry and working capability), quality improved on this packet/proof
+surface, discernment unchanged pending separate non-author admit/reject
+spot-check. SHONEN/rank and verified-round credit are not self-advanced.
+
+Planned only if separately steered: freshness recheck of S035 at release
+change and its source-bound packet instructions; actual property evaluation
+requires operator-named scope and authorization. Round24 policy-stop
+disposition remains open; no next round or renewed old probe starts here.

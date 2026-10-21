@@ -1,0 +1,17 @@
+{
+  "name": "preservation",
+  "executedAt": "2026-10-21T14:00:56.060101+00:00",
+  "argv": [
+    "python3",
+    "-B",
+    "-c",
+    "import subprocess,json\nbefore='6883f1d580d811f7c434d1db4642596362f822b1'; after='be362b7808ea2350a4340cfa2cfde481269037f4'\npaths=['SKILL.md','PROVINCE.md','SCORECARD.md','LOG.md','corpus/QUALITY.md','corpus/README.md']\ndef blob(rev,path): return subprocess.check_output(['git','--no-replace-objects','show',rev+':'+path])\nchecks={p:blob(after,p).startswith(blob(before,p)) for p in paths}\nprint(json.dumps({'before':before,'after':after,'priorBytesPreserved':checks},sort_keys=True))\nraise SystemExit(0 if all(checks.values()) else 1)\n"
+  ],
+  "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+  "sourceRevision": "be362b7808ea2350a4340cfa2cfde481269037f4",
+  "exit": 0,
+  "stdout": "{\"after\": \"be362b7808ea2350a4340cfa2cfde481269037f4\", \"before\": \"6883f1d580d811f7c434d1db4642596362f822b1\", \"priorBytesPreserved\": {\"LOG.md\": true, \"PROVINCE.md\": true, \"SCORECARD.md\": true, \"SKILL.md\": true, \"corpus/QUALITY.md\": true, \"corpus/README.md\": true}}\n",
+  "stderr": "",
+  "expectedExit": 0,
+  "matchedExpectedExit": true
+}

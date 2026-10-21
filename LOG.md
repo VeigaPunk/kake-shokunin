@@ -953,3 +953,34 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   both new parsers and corrected the pin-only proof's preserved-card control.
   The source profile and lesson explain the change; old evidence is not
   overwritten. Targeted postfix verification follows on a pushed revision.
+
+### Round-25 measured closure
+
+- Source pushed `be362b7808ea2350a4340cfa2cfde481269037f4`; the identical
+  revision-bound measure command observes baseline6883f1d0/55 exit1 →
+  source55/55 exit0. Exact receipts are in
+  `.ufo/waves/round-25/postfix-verification/{measure-before,measure-after}.json`.
+- Targeted postfix checks pass: unit16/16, focused39/39, counter11/11;
+  corrected frozen replay clean, tamper exit2, quote/pin repair oracle
+  red-before1→green-after0, three regression changes caught by strengthened
+  fixtures. Initial failed checks remain under verification/, not erased.
+- Recorded the working preparation capability in SCORECARD (round25,
+  operability10→10 HOLD). Concrete source S035, cards and operator handoff
+  establish preparation only; no website or account is evaluated/published.
+- Source census exit0→0 with inherited W04; source rows34→35, old34 rows
+  unchanged, newA/mined S035. Five located Gate quotes and source bytes
+  rechecked; static preservation/old-code/knowledge checks are clean.
+  No old policy-interrupted command is executed.
+- Both validated waves64+64=128 conclude; dead1+8=9 remain uncredited,
+  no replacements. Retained reports120 include the late uncredited W1
+  PacketTool artifact; credited completions119. L1 supplies residual work,
+  not new seat identities. Root misroot sweep found no untracked file;
+  only driver-owned tracked changes were present and left untouched.
+- Learning: expansion improved, quality improved boundedly, discernment
+  unchanged pending non-author closure; no SHONEN promotion/round-credit
+  assertion. Policy-stop L0 remains open for round24, with no provider or
+  routing bypass. No installation or host/global-config change this round.
+
+Measurement notation: the exact baseline is
+`6883f1d580d811f7c434d1db4642596362f822b1`, with accepted0/55.
+The compact baseline6883f1d0/55 wording above is not a different commit.
