@@ -126,3 +126,10 @@ round27's carry erratum identifies seven known unresolved units across three
 pairs. The old313 is a mixed-convention ledger-field sum, not a semantic
 denominator. Exact identities/accounting are in round27 `carry-errata.json`;
 all old filed bytes remain unchanged and strict C1 remains unprovable.
+
+Round27 report-pointer clarification: the bound report Target identifies the
+S013 review of the crawl-scope entry. Its phrase “this entry” is not a claim
+about this served-set entry. The artifact-label HOLD now binds that Target
+identity; actual retry provenance here remains grounded in the unchanged
+retry manifest. The new explicit report-label mentions do not supply upstream
+S013 serving semantics or discharge the7 unresolved units.

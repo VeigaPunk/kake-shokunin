@@ -591,7 +591,7 @@ of a row, rejects in-group containment twins, and checks the statement ledger
 for duplicate pairs, rows outside the population and unaccounted tags
 (`reclassified`). Self-test: 24 cases, fixtures under `TMPDIR`, never the lane.
 
-## Knowledge-file citing-set completeness — round27
+## Round27 unadmitted candidate — knowledge-file citing-set completeness
 
 Before re-verifying a publishing source, enumerate every knowledge-file
 citation, including grouped/range citations, metadata bands and appended
@@ -599,7 +599,7 @@ provenance. `used-by` is routing information, never the reviewed denominator.
 The range-aware gate compares that finite citing set with a presence ledger;
 it cannot determine whether a quote supports its claim. Keep source-specific
 adjudications, historical/procedural artifact judgments and UNVERIFIABLE
-statement units separate (`corpus/lessons/round-27.md`, `pairs.json`).
+statement units separate (`corpus/lessons/round-27.md`, `.ufo/waves/round-27/pairs.json`).
 
 Current consumer input is derived from the unchanged r26 pair reviews plus
 round27 judgments, not a replacement for the original313-unit statement
@@ -622,12 +622,12 @@ and reasons are separately recorded before candidate measurement. Green
 structural results never retroactively admit r26 or discharge broader corpus,
 source-authenticity, live-site or policy-stopped round24 obligations.
 
-Strict round27 measurement note: `knowledge-citing-count` separates review
-existence from HOLD/supported-STALE status. Its exit0 requires the frozen
-after-clause, including no unresolved UNVERIFIABLE pair; review-complete
-inputs with six inherited unknown units remain exit1. This does not change
-the independent presence-only `citing-set`/C2 verdict. Exact original baseline
-and stricter interpretation: `strict-c1-disposition.json` under round27 wave.
+Strict intended C1 acceptance never counts UNVERIFIABLE decided. The actual
+candidate remains55/58 with7 known units/3 pairs, but cold tests also expose
+a shape-only override route to false green; counter exit0 is not unit-resolution
+proof. Current interpretation: `.ufo/waves/round-27/current-interpretation.json`.
+The older `strict-c1-disposition.json` is historical six/two evidence only;
+it and the original measurements remain unchanged, not current authority.
 
 Focused Git-mode regression (part of the citing-set consumer evidence):
 
@@ -659,3 +659,20 @@ S007 unit was omitted. The strict measurement consumes hash-pinned round27
 description is not the total. Likewise raw313 is a mixed-convention field
 sum, not a semantic unit denominator. Original57 baseline obligations and
 the16-pair C2 oracle remain unchanged.
+
+### Final author verdict — honest stop, not capability admission
+
+The original57-pair scope, original counter and16-pair oracle are preserved.
+Actual review coverage is58/58; strict status is55/58 and C1 remains
+**unprovable**. C2's exact16/16, real29-case fixtures, Git30 checks and mutant
+sensitivity are real bounded evidence, not proof of its full input/interface
+bar. Cold readers demonstrate false-greens, hangs/JSON-protocol failures,
+identity loss and retention-boundary weaknesses. The full C2 claim is also
+**unprovable**; no new repertoire entry or score increase is taken.
+
+These scripts are unadmitted round evidence, not a production admission,
+arbitrary-root sandbox or general secret-removal guarantee. Actual8 retained
+capture representations were independently checked safe/integral, but received
+HTML attributes/bytes remain unproved. The unresolved findings are explicit in
+the round report and `unresolved-acceptance.json`; no code repair is claimed
+from a finite green or from the void stub smoke. Main owns independent closure.

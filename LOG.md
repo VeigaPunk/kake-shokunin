@@ -1157,3 +1157,32 @@ versus pair-membership comparison. Author after-runs and the fresh85 payload
 will grade the fixed candidate; no pre-fix failure is laundered PASS.
 The Git-name before variant has that independent pair fix applied so its
 controlled before/after differs only in NUL-framed path enumeration.
+
+### Round27 final falsification and author closure
+
+The one unchanged validated fresh85 payload actually spawned85 unique
+identities on its first attempt after the200-seat grant; all85 completed
+with85 reports. Round actual identities153=67build+1privacy+85falsify,
+no death/replacement or terminal provider error observed. Same-identity
+BuildGate resumptions are already among67. Event-derived handoff counts
+were sent to Main, not inferred from report presence.
+
+At measured ac46a7472d945a6d7ff135e4d7f07b0b6913d835: C1=58 reviewed/55
+status-decided,7 unknown units/3 pairs, exit1. C2 finite16/16,0 false positives,
+consumer58/58 presence, real gate29/29, Git-name30/30, C1 counter14/14,
+C2 counter3/3, privacy9/9. Four source mutants were killed by real behavior.
+The controlled Git-name before has10/30 failures; it is not a rerun to
+confirm the reader's separate57/23 failure.
+
+Cold readers also falsified full-interface/safety claims (false greens,
+FIFO hangs, JSON protocol/identity/path failures and retention weaknesses).
+Neither full claim is called verified or admitted. The scripts remain
+unadmitted candidate evidence; the bounded numeric successes are not a
+global native verdict. No code repair is claimed for those open failures.
+Explicit current interpretation and debt: current-interpretation.json and
+unresolved-acceptance.json. Source record wording/anchors are corrected in
+a new commit without changing keys/verdicts, original oracles or r26 bytes.
+
+Outside-scope policy debt stays explicit. No r24 stopped work/target was
+retried, no next round/state/admission/promotion was dispatched by this L1.
+Main owns independent closure; the author ends this round honestly stopped.

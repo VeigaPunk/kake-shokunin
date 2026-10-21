@@ -1,0 +1,36 @@
+# R27 fresh falsification — lane KakeR27.CliGitNames (operability)
+Scope: consumer Git/working-tree equivalence of the C2 gate over owned corpus fixtures whose knowledge filenames contain spaces, tabs/newlines and non-ASCII characters. Source read-only; only this report plus scratch fixture inputs under `/fast/scratch/hyaku/kake-r27/cligitnames/` were written. No shell interpolation (argv lists only); no real host files as fixtures; no tool installs (none needed).
+
+## 1. Attacked item (frozen, hash-checked)
+| object | candidate blob | sha256 (git blob == working tree) |
+|---|---|---|
+| `scripts/citing_set.py` (gate) | `352a471abec08daa56a0fb7ef23fe78f2930d773` | `3a361a002f66ce16b475e0e08eb2949db67f6651900d2c4b2699d5ef37ffc228` |
+| `.ufo/waves/round-27/git_name_selftest.py` (delivered consumer test) | `498019aae71c11841e3db555b41caa92f4ac651e` | `244de25530158c97940a9976a1a2dd7e6999355baafdd7f9870cfead1463c768` |
+`git rev-parse HEAD` = `ac46a7472d945a6d7ff135e4d7f07b0b6913d835`; `git diff --stat ac46a747… -- .` empty (no tracked drift), only untracked wave evidence present. The old prototype `before/citing_set_git_names.py` was deliberately **not** executed (instructed not to confirm reader failure with it).
+
+## 2. Probe A — delivered selftest against the frozen gate (author claim `git-name-after`: exit 0, cases 30, failed 0)
+Declared before the run: exit 0, 30 cases, 0 failed, `gateSha256` = candidate gate blob digest. Command: `TMPDIR=/fast/scratch/hyaku/kake-r27/cligitnames python3 -B .ufo/waves/round-27/git_name_selftest.py --gate scripts/citing_set.py --tmpdir /fast/scratch/hyaku/kake-r27/cligitnames`
+Actual: exit **0**; `verdict=clean, passed=true, cases=30, failed=0`, `gateSha256=3a361a00…c228` (= candidate blob); red/green in both modes, the exact five identities `S001 × {alpha.md, with space.md, with\ttab.md, with\nnewline.md, naïve-Ω.md}` and `modes-agree-empty-ledger` all passed. **Author claim reproduced; no discrepancy.**
+
+## 3. Probe B — my own awkward-name set (independent of the delivered names)
+Declared expectations (constants written before the run, `probe2.py`): both modes enumerate 8 corpus files and report exactly the 8 identities `S001 × {plain.md, two␠␠spaces.md, tab\there.md, line\nbreak.md, ünïcøde-Ω.md, trailing␠space␠.md, quotes"and'apos.md, emoji-🎌.md}`; exit 1 / `failed` / `citingPairs=8` with an empty ledger; then exit 0 / `clean` / `findings=[]` / `citingPairs=8` / `ledgerPairs=8` with the exact ledger; both modes' identity sets identical. Actual: **all 17 P1 checks PASS** (tree/blob identity sets identical; both green). probe2 total: 33 cases, 2 failed — both in Probe D.
+
+## 4. Probe C — further name classes (probe3.py, expectations declared first)
+All declared, all PASS (28 checks, 0 failed): `glob[1].md`+`glob1.md` with rows S001/S002 (2 files, exact 2 identities, green with exact ledger); `star*.md` and `q?mark.md` (both enumerated/adjudicated in both modes); nested `sub/dir/file.md`; NFC `café.md` + NFD `café.md` (2 distinct files, exact identities, green); `-dash.md`, `.hidden.md`, 204-char name; filename `bad\xff.md` (not valid UTF-8: no traceback, JSON on stdout, non-zero exit, both modes agree — both emit `file:"corpus/knowledge/bad\udcff.md"`, exit 1); file *content* not valid UTF-8 (`input_invalid`/`could-not-evaluate`, exit 2 + JSON, both modes).
+Mechanism verified independently: `git show HEAD:'corpus/knowledge/star*.md'` returns the **literal** star file (STARLITERAL, exit 0) and `HEAD:'corpus/knowledge/br[1].md'` returns BRACKET — `rev:path` is a literal tree path, not a pathspec glob, so bracket/star/question names cannot cross-map. The gate enumerates with `git ls-tree -rz` (NUL-framed, `scripts/citing_set.py:315-330`), so TAB/NEWLINE/Unicode survive.
+
+## 5. Probe D — FINDING (operability, medium-low): backslash in a corpus filename is unadjudicable
+Declared expectation: the gate must reach `clean` when the ledger names the file exactly (`corpus/knowledge/back\slash.md`). Actual (both modes, exit 1, permanent): `findings=[{"id":"ledger_pair_not_cited","row":"S001","file":"corpus/knowledge/back/slash.md"},{"id":"unadjudicated_citing_pair","row":"S001","file":"corpus/knowledge/back\\slash.md"}]`
+Cause: `normalize_ledger_file()` (`scripts/citing_set.py:174-180`, applied at `:396`) rewrites `\`→`/` on the **ledger side only**; the corpus side keeps the literal byte. The ledger field can never equal the corpus path, so no ledger content clears the obligation, and the `ledger_pair_not_cited` message prints a path that does not exist on disk. Loud, not a silent loss — but an unfixable false red. Blast radius now: **none** (all 26 corpus/knowledge names at the candidate are plain ASCII `[A-Za-z0-9._-]`); only a future corpus file with a backslash hits it. Fix direction for L1: normalise both sides identically, or reject a ledger `file` containing `\` as `input_invalid` instead of silently re-spelling it.
+
+## 6. Probe E — real-corpus consumer equivalence at the candidate
+Declared: identical payloads (except `source`/`revision`), exit 0, `clean`, `citingPairs=58`, `ledgerPairs=58`, `corpusFiles=26`. Commands: `python3 -B scripts/citing_set.py --root . --population .ufo/waves/round-26/population.json --ledger .ufo/waves/round-27/complete-ledger.json --json` (exit 0) and the same with `--revision ac46a747…` (exit 0). Actual: both `{"verdict":"clean","citingPairs":58,"ledgerPairs":58,"findings":[],"populationRows":32,"corpusFiles":26,"outsidePopulation":18}`, payloads identical except `source`/`revision`. Confirms consumer claim `consumer-current exit 0, citingPairs 58`.
+
+## 7. Cross-lane observation (evidence only, outside this lane's verdict)
+At the candidate the corpus cites **S014, S019 (16 files), S035** — 18 citing pairs whose ids are neither population rows (32 rows: S001–S013, S015–S018, S020–S034) nor r26 `statements.json` rows (25 rows). The gate reports them only as `outsidePopulation=18`, never as obligations — the contract's stated design ("counted … but never become findings"), so not silent loss; whether these three dangling ids should be population rows is a C1/population question, not mine.
+
+## 8. Author-side errors I made and corrected (not gate defects)
+(1) Probe run #1 declared `citingPairs=2` for a two-file fixture in which only one file cited S001 — my expectation was wrong; the gate's 1 was correct. (2) Probe run #1 compared `list` identities to `tuple` expectations (both sides printed identically) — harness bug, fixed in probe2. (3) Probe runs #1/#2 crashed on `os.path.join(str, bytes)` for the non-UTF-8 name and on printing surrogates to stdout — harness bugs, fixed in probe3.
+
+## 9. Residual risk / verification gaps
+The backslash finding has zero effect on the current corpus and was not re-tested against a real corpus file (none exists). Windows-style ledger separators are normalised (`\`→`/`) for compatibility; no POSIX corpus file uses them, so that intent is not separable from the defect — L1 may prefer an explicit `input_invalid`. Not exercised here (other lanes): range/list parsing, ledger duplicates, symlink/submodule corpus entries, the fixture runner (`citing_set_selftest.py`) coverage, C1 adjudication semantics. A non-UTF-8 *filename* appears in JSON as a lone surrogate `\udcff`; consumers re-encoding paths to UTF-8 must expect that.

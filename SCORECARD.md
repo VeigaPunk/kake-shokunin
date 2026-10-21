@@ -552,3 +552,23 @@ sum6 stays unchanged. Original review baseline41/57 and target are preserved.
 Strict expected arithmetic is38/57→55/58, not a completed C1; actual outputs
 must be measured separately. Raw313 is a mixed-convention ledger-field sum,
 not the semantic unit denominator (`carry-errata.json`, CarryLedger report).
+
+## Round27 measured outcome — author honest stop
+
+Measured candidate: `ac46a7472d945a6d7ff135e4d7f07b0b6913d835`.
+The arrow at line533 is the declared target, **not** an achieved result.
+
+| Claim | Preserved before | Observed after | Author verdict |
+|---|---|---|---|
+| C1 freshness | Original41/57 durable reviews; later complete strict instrument gives38/57 status-decided, exit1. Original files/counter unchanged. |58/58 reviewed;55/58 status-decided,7 known unknown units/3 pairs, exit1; original57 plus one disclosed artifact obligation. | **unprovable** — frozen after-clause not met. |
+| C2 operability | New gate absent at declarations be375d9:0/16 detected, exit1 (`c2-before.json`); old r26 counter failed to detect the16 omissions. | Exact16/16 with0 false positives, real29 fixtures/Git30 checks and4 killed mutants; full-interface cold failures also observed. | **unprovable at full claimed interface** — bounded numeric component verifies, not full admission. |
+
+Commands remain `.ufo/waves/round-27/count_c1.py --root . --revision <commit>`
+and `c2_count.py --root . --revision <commit>` with `python3 -B`.
+Actual commands/stdout/exits: `verification/`; all source versions and replay
+links: `counter-version-chain.json`. Current interpretation:
+`current-interpretation.json`; unresolved failures: `unresolved-acceptance.json`.
+
+Legacy ratings stay10→10; no new capability/repertoire entry, promotion or
+verified-round credit is self-awarded. Original57 target/before, current58
+obligations and carry erratum stay separate. Raw313 is a mixed field sum.

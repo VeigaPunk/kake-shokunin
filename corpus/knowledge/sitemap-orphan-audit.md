@@ -172,3 +172,11 @@ The date2026-10-19 and base`cb807bc` remain historical and are not rewritten.
 Evidence: `.ufo/round-20/resume/citation-disposition.json` platformCorrections;
 `corpus/lessons/round-20.md:261–262`; `.ufo/waves/round-27/pairs.json`,
 `w1/Pair03A.md`, `Pair03B.md`, `Pair07A.md`, `Pair07B.md` (wave-relative).
+
+Round27 disclosure correction: the earlier “both reviewers” wording conflated
+two alternatives. Pair07A records the min/max-interval interpretation;
+Pair07B records a consulted-batch/opened-date reading. Both proposed STALE,
+but their alternatives are not identical. The chosen relevance/support rule
+and exact inline support set remain as stated; date/base and original bytes
+are preserved. The strengthened S003 artifact witness includes A2's pointer
+to this entry, not merely the adjacent fix-group cell.

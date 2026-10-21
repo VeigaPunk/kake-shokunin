@@ -1,0 +1,60 @@
+{
+  "state": "Closed author honest-stop with unresolved acceptance findings; no remedy listed here was implemented/claimed passed.",
+  "candidate": "ac46a7472d945a6d7ff135e4d7f07b0b6913d835",
+  "acceptedForAfterBarrier": [
+    {
+      "finding": "Out-of-population numeric ledger ids render as bare numbers, not original source ids",
+      "evidence": [
+        "w2/AttackCase15.md",
+        "w2/AttackCase28.md",
+        "w2/AttackCase26.md"
+      ],
+      "plan": "Preserve population-first display convention when known; otherwise render original offending ledger spelling, with real identity regression."
+    },
+    {
+      "finding": "Fixture26 cannot isolate absent-file boundary because its row is outside population",
+      "evidence": [
+        "w2/AttackCase26.md"
+      ],
+      "plan": "Strengthen input to include that row in population; preserve original expected exit/id oracle; retain original candidate separately."
+    },
+    {
+      "finding": "29-case oracles intentionally assert exit/id multiset only and miss row/file misattribution",
+      "evidence": [
+        "w2/AttackCase19.md",
+        "w2/AttackCase02.md",
+        "w2/AttackCase27.md"
+      ],
+      "plan": "Add independent exact-identity consumer regressions, never rewrite original29 expected outputs to match candidate."
+    },
+    {
+      "finding": "SKILL exact-interpretation pointer lands on the historical six/two disposition",
+      "evidence": [
+        "w2/ReviewSkillRegistry.md"
+      ],
+      "plan": "Keep old disposition bytes as historical; add current qualified interpretation and fix current pointer/bare pairs path."
+    },
+    {
+      "finding": "Finite C2 counter alone accepts a constant16 gate, while mandatory real fixtures/mutations kill it",
+      "evidence": [
+        "w2/AttackC2Oracle.md",
+        "w2/MutateConstant.md"
+      ],
+      "plan": "C2 admission remains conjunction of exact snapshot, real positive/changed-input behavior, selftests and mutation sensitivity. Evaluate folding original positive-control requirement into finite counter without changing original16 oracle."
+    }
+  ],
+  "notAcceptedAsDefects": [
+    {
+      "finding": "Old W1 received hashes/used-by observations differ from post-integration candidate",
+      "reason": "They describe pre-filter/pre-routing snapshots at their named revisions. Preserve them and existing dated retention/routing errata; never rewrite history or call them current retained byte identity."
+    },
+    {
+      "finding": "used-by lists metadata-only or rejected-attribution citing files",
+      "reason": "SOURCES v1 says paths of entries/lessons citing the row, not every path supports every platform claim. Lesson explicitly labels routing\u2260admission and denominator retains metadata/provenance."
+    }
+  ],
+  "noAdmissionFromCounterAlone": true,
+  "knownUnknownsRemain": "7 units/3pairs; C1 unprovable, reviewed58\u2260decided55; raw313 is mixed field sum",
+  "finalDisposition": "Unresolved at author honest-stop; proposed remedies were not implemented or claimed passed. See unresolved-acceptance.json. Original frozen source/expectations retained.",
+  "barrierComplete": true
+}

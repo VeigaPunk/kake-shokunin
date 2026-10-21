@@ -163,3 +163,37 @@ Git-name causal regression and fresh85 readers remain separate evidence.
 Two build reports exceeded their180-line bound (Pair07A200, CritIndependence217);
 the stub smoke remains void acceptance evidence. All67 identities/report
 artifacts completed; the extra privacy executor is separate, no replacement.
+
+## Completed cold-reader outcome
+
+Both waves really ran:67build and85fresh falsifiers, plus1 ordinary bounded
+privacy executor =153 unique author identities. All153 finished;85/85 W2
+reports are nonempty, no dead replacement. The200-seat slot was granted and
+released around the single unchanged85 call. All measured source stayed
+frozen through the full reader barrier.
+
+Actual ac46 measurements: C1 review58/58 but status-decided55/58 with7 unknown
+units/3 pairs (exit1); C2 exact16/16/0FP (exit0), current presence58/58;
+gate29/29, Git30/30, counter14/14 and3/3, privacy9/9. Four real source
+mutants were killed. These do not discharge the cold failures or give full
+C2 admission: `unresolved-acceptance.json` names them. C1 and full C2 remain
+**unprovable**; no repertoire/score/rank credit is taken.
+
+Record corrections after the barrier preserve all pair keys/verdicts and
+original targets: S003's witness includes A2's pointer-bearing row, with one
+relevance rule rather than a claim of inline application; S005's min/max
+alternative belongs to Pair07A, while Pair07B states a different batch/date
+alternative; the preflight S008 reason now names both mentions; S013 binds
+the report Target identity, not an unrelated “this entry” sentence.
+
+The older six/two disposition is historical only. Current authority is
+`current-interpretation.json` plus carry-errata and actual receipts; original
+versions remain intact in `counter-version-chain.json`. W1's pre-integration
+received hashes/routing describe their named timepoints, not present retained
+HTML byte identity. No full HTTP-body attributes are inferred from filtered
+text, no account/security incident is inferred, and r26 history is untouched.
+
+Trends are bounded: expansion unchanged (no admitted capability/frontier);
+quality improved for the corrected source notes, while operational candidate
+failures remain open/unadmitted; discernment unchanged pending Main's actual
+non-author admit/reject spot-check. All own seats are author-side.

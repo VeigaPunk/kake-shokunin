@@ -1,0 +1,16 @@
+{
+  "label": "privacy-selftest",
+  "executedAt": "2026-10-21T21:53:27.806678+00:00",
+  "command": [
+    "python3",
+    "-B",
+    ".ufo/waves/round-27/fetch_group.py",
+    "--selftest"
+  ],
+  "cwd": "/fast/scratch/hyaku/kake-r27/author-candidate",
+  "sourceCandidate": "ac46a7472d945a6d7ff135e4d7f07b0b6913d835",
+  "meaning": "Non-secret real retention/migration fixtures; no network",
+  "exit": 0,
+  "stdout": "{\n  \"kind\": \"r27-privacy-selftest\",\n  \"cases\": [\n    {\n      \"case\": \"html_retained_as_visible_text\",\n      \"passed\": true,\n      \"detail\": {\n        \"kind\": \"public_visible_text\",\n        \"proseKept\": true,\n        \"sentinelRemoved\": true,\n        \"scriptTagRemoved\": true,\n        \"formInputRemoved\": true,\n        \"retainedBytes\": 146\n      }\n    },\n    {\n      \"case\": \"html_fixture_carried_the_sentinel_before_filtering\",\n      \"passed\": true,\n      \"detail\": {\n        \"fixtureIsMeaningful\": true\n      }\n    },\n    {\n      \"case\": \"html_without_content_type_is_filtered\",\n      \"passed\": true,\n      \"detail\": {\n        \"kind\": \"public_visible_text\",\n        \"sentinelRemoved\": true\n      }\n    },\n    {\n      \"case\": \"code_bytes_retained_unchanged\",\n      \"passed\": true,\n      \"detail\": {\n        \"kind\": \"received_code_bytes\",\n        \"identical\": true,\n        \"retainedBytes\": 93\n      }\n    },\n    {\n      \"case\": \"sanitize_filters_html_and_replaces_own_file\",\n      \"passed\": true,\n      \"detail\": {\n        \"retainedFile\": \"S002-1.public.txt.gz\",\n        \"oldFileRemoved\": true,\n        \"sidecarMatchesRetained\": true,\n        \"sentinelRemoved\": true\n      }\n    },\n    {\n      \"case\": \"sanitize_keeps_received_digest_and_observations\",\n      \"passed\": true,\n      \"detail\": {\n        \"receivedSha256Preserved\": true,\n        \"retainedSha256NamesRetainedBytes\": true,\n        \"fetchedAt\": \"2026-10-20T12:00:00+00:00\"\n      }\n    },\n    {\n      \"case\": \"sanitize_never_logs_sentinel_values\",\n      \"passed\": true,\n      \"detail\": {\n        \"printedMentionsSentinel\": false\n      }\n    },\n    {\n      \"case\": \"sanitize_touches_no_other_path\",\n      \"passed\": true,\n      \"detail\": {\n        \"neighbourUnchanged\": true\n      }\n    },\n    {\n      \"case\": \"sanitize_is_idempotent\",\n      \"passed\": true,\n      \"detail\": {\n        \"manifestBytesStable\": true,\n        \"retainedBytesStable\": true,\n        \"receivedDigestStable\": true\n      }\n    }\n  ],\n  \"failed\": 0\n}\n",
+  "stderr": ""
+}

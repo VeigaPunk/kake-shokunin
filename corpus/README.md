@@ -215,3 +215,12 @@ Known unresolved units are7 across3 pairs after the lost S007 historical
 representation unit is disclosed in round27 carry-errata.json. The earlier
 six-unit description is the old field sum only. C1 remains unprovable while
 these unknowns persist; complete review coverage is not strict support.
+
+Round27 closes author-side as an honest stop, **not admitted**: review58/58
+is distinct from strict55/58, and the full C2 input/interface claim is
+unprovable despite its exact16/16 finite result, real29/Git30 tests and killed
+mutants. The scripts are candidate evidence, not production admission or
+general sanitization guarantees. Current interpretation, measured receipts
+and explicit failures are under round27 current-interpretation.json,
+counter-version-chain.json, verification/ and unresolved-acceptance.json.
+No new frontier/capability/rank is admitted here; Main owns independent closure.

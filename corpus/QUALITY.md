@@ -278,3 +278,19 @@ after-clause is left intact and remains unprovable while those units persist;
 the counter's current-consumer selftest must reject that real input, not
 invent a clean fixture or reinterpret a review tally as supported truth.
 Grounding: round27 lesson Strict C1 section and `strict-c1-disposition.json`.
+
+## Round27 author closure — evidence is not full admission
+
+Grounding: round27 cold-reader reports and `unresolved-acceptance.json`.
+Reject whole-claim admission from a fixed16 output predicate, an id-only
+fixture tally, or a shape-valid whole-pair HOLD that erases unresolved units.
+The real fixed-input behavior and killed mutants remain evidence, but do
+not prove untested root/JSON/path/retention boundaries. Known counterexamples
+must be named and the claim remain unprovable, not narrowed after freezing.
+
+This round ends honestly stopped: no repertoire or rank credit. The8 actual
+retained representations passed their independent checks, yet received HTML
+bytes/attributes and general sanitizer/provenance guarantees remain unproved.
+Current qualified interpretation replaces the historical six/two pointer;
+old measurements/records are retained unchanged. Main's non-author closure,
+not any own seat, determines admission.
