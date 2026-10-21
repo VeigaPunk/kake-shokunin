@@ -1,0 +1,80 @@
+{
+ "round": 23,
+ "base": "b5d599e19bead54b96f589444e9ec64cdf67c28a",
+ "rule": "every property-map surface with a public page URL; app.ds4cc.com/mcp excluded (API endpoint, not a page)",
+ "policy": "local publisher policy: one head canonical equal to expectedCanonical; mirrors declare their primary",
+ "surfaces": [
+  {
+   "id": "ds4cc-primary",
+   "url": "https://ds4cc.com/",
+   "expectedCanonical": "https://ds4cc.com/",
+   "policyBasis": "primary self-canonical"
+  },
+  {
+   "id": "plazir15-ghp",
+   "url": "https://veigapunk.github.io/plazir-15-site/",
+   "expectedCanonical": "https://veigapunk.github.io/plazir-15-site/",
+   "policyBasis": "GHP front self-canonical"
+  },
+  {
+   "id": "charter-ghp",
+   "url": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "expectedCanonical": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "policyBasis": "canonical charter doc, self-canonical"
+  },
+  {
+   "id": "ds4cc-kimi",
+   "url": "https://ds4cc.kimi.page/",
+   "expectedCanonical": "https://ds4cc.com/",
+   "policyBasis": "mirror declares its primary"
+  },
+  {
+   "id": "burnerchrome-kimi",
+   "url": "https://burnerchrome.kimi.page/",
+   "expectedCanonical": "https://burnerchrome.kimi.page/",
+   "policyBasis": "no primary on record: self-canonical"
+  },
+  {
+   "id": "vault-index-kimi",
+   "url": "https://veigapunk.kimi.page/",
+   "expectedCanonical": "https://veigapunk.kimi.page/",
+   "policyBasis": "no primary on record: self-canonical"
+  },
+  {
+   "id": "plazir27-kimi",
+   "url": "https://plazir27.kimi.page/",
+   "expectedCanonical": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "policyBasis": "property map: all kimi charter variants rel=canonical to charter GHP"
+  },
+  {
+   "id": "ufo-fsd-kimi-pro",
+   "url": "https://ufo-fsd.kimi.pro/",
+   "expectedCanonical": "https://ufo-fsd.kimi.pro/",
+   "policyBasis": "no primary on record: self-canonical"
+  },
+  {
+   "id": "lucario-ghp",
+   "url": "https://veigapunk.github.io/lucario/",
+   "expectedCanonical": "https://veigapunk.github.io/lucario/",
+   "policyBasis": "property map: lucario GHP is canonical"
+  },
+  {
+   "id": "lucario-kimi",
+   "url": "https://lucario.kimi.page/",
+   "expectedCanonical": "https://veigapunk.github.io/lucario/",
+   "policyBasis": "mirror declares its primary (map: never published, expected not served)"
+  },
+  {
+   "id": "plazir15-kimi",
+   "url": "https://plazir15.kimi.page/",
+   "expectedCanonical": "https://veigapunk.github.io/plazir-15-site/",
+   "policyBasis": "mirror declares its primary (map: 404 dead slot)"
+  },
+  {
+   "id": "charter-kimi",
+   "url": "https://charter-ufo-fsd.kimi.page/",
+   "expectedCanonical": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "policyBasis": "kimi charter variant (map: 404 dead slot)"
+  }
+ ]
+}

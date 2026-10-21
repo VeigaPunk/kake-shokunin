@@ -1,0 +1,30 @@
+{
+ "round": 23,
+ "lane": "kake",
+ "base": "b5d599e19bead54b96f589444e9ec64cdf67c28a",
+ "claims": [
+  {
+   "id": "C1",
+   "axis": "freshness",
+   "type": "measured",
+   "name": "Live re-verification of historical knowledge and the property map",
+   "before": "0/17 units carry a round-23 live re-verification receipt; 16 entries self-declare historical-not-live-reverified, property map re-probed 2026-09-28",
+   "after": "every unit carries a receipt whose claim rows each name a live surface, observation and verdict HOLD/STALE/UNVERIFIABLE; STALE corrections appear in the unit's appended round-23 section; anchors exist in the unit",
+   "count": "python3 .ufo/waves/round-23/measure_c1.py --root . --revision <commit>",
+   "population": ".ufo/waves/round-23/c1-population.json",
+   "limits": "Read-only checks only: GET/HEAD of public pages, local test -e / git / file reads. A HOLD is an observation at observedAt, not a guarantee. UNVERIFIABLE (surface gone) counts as re-verified only with a reason."
+  },
+  {
+   "id": "C2",
+   "axis": "operability",
+   "type": "measured",
+   "name": "First end-to-end canonical preflight over live owned surfaces",
+   "before": "0/12 owned surfaces have a reproducible canonical-policy receipt of their live-served HTML",
+   "after": "every surface has a committed read-only snapshot (fetch metadata + bytes digest) and an audit receipt that the counter reproduces by re-running the revision's validator; non-served surfaces record status",
+   "count": "python3 .ufo/waves/round-23/measure_c2.py --root . --revision <commit>",
+   "population": ".ufo/waves/round-23/c2-population.json",
+   "limits": "Snapshot of served bytes at fetch time; policy comparison only, never search-engine selection; GET only, no auth, no publishing, no upstream edits (domain trees read-only; findings documented)."
+  }
+ ],
+ "debts": "Paths gate red (3 targets, missSet 55) carried; restore/retire operator-owned. SHONEN not promoted by author."
+}
