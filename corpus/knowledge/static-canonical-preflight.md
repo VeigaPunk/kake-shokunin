@@ -92,3 +92,55 @@ isolated local fixtures. A frozen failure case plus a clean positive control
 show the checker can reject the named mistake; neither replaces testing a real
 publisher's artifact. No credential, browser, live property or publishing
 operation is needed or authorized by this runbook.
+
+## Round 23: body markup, live snapshots, corrections (2026-10-21)
+
+Sources: S030 (WHATWG syntax: a slash is allowed only on void or foreign
+elements and has no effect on void elements), S031 (WHATWG parsing: in-body
+`<svg>`/`<math>` insert foreign elements; breakout tags and integration points
+return to HTML rules), S024 (the first base in tree order wins), S026.
+
+The tool is still not an HTML5 tree builder. After an explicitly closed head it
+now evaluates, instead of rejecting the whole page:
+
+- SVG/MathML subtrees whose tokens contain no `base`, `head` or canonical-looking
+  `link`, and whose end tags match a modelled element stack exactly. SVG/MathML
+  `title`/`style`/`script` are tokenized, not treated as HTML raw text, so markup
+  hidden there stays visible (SVG `title` is an HTML integration point).
+- Self-closed HTML void elements (`<input />`, `<img />`, `<br/>`, …, the 13 names
+  in S030). A self-closed non-void element (`<div/>`) stays unsupported.
+
+Still `html_unsupported`: SVG/MathML before the head closes; any `base`, `head`
+or canonical-looking `link` token inside SVG/MathML; mismatched or unclosed
+foreign end tags; and **any `<base>` after the head**, in or out of foreign
+content, because a body base is still the document's first base in tree order
+(S024) and would change a relative canonical. Before this fix the round-23
+candidate reported six such pages clean (w1/FalsifyForeignContent); a base after
+the head was also silently accepted by the round-22 validator.
+
+Also tightened: raw C1 control characters (U+0080–U+009F) in a URL are rejected,
+not percent-escaped (w1/BoundaryURLAuthority); a manifest that repeats a page URL
+or file is `input_invalid` instead of being counted twice (w1/BoundaryManifestKeys).
+
+### Live snapshot handoff
+
+`python3 scripts/live_snapshot.py --population <pop.json> --out <dir>` issues one
+GET per surface (no credentials, cookies or body; ≤5 redirects, each http(s)
+without userinfo; 2 MiB; 20 s), stores `fetch.json`, `page.html` for a 2xx
+`text/html` response, and an `audit.json` from `canonical_audit.py`. Surface ids
+must be one safe path component. `--reaudit` re-runs only the audit over stored
+bytes (no network), which is how a validator change is applied without
+refetching. A receipt proves the policy result of the bytes served at
+`fetchedAt`, not current delivery, rendered DOM (tabi's ground) or search-engine
+selection. Round 23's 12 owned surfaces are in
+`.ufo/waves/round-23/live/`; `measure_c2.py` reproduces each receipt.
+
+### Corrections to earlier text in this entry
+
+- [r23-correction] "rejects fragment canonicals" overstates S021: Google says it
+  generally does not support fragment canonicals; rejecting them is this tool's
+  stricter local policy (w1/ReopenGoogleCanonical).
+- [r23-correction] "template descendants cannot supply a document-head
+  canonical" rests on S025 (template contents are not children of the template),
+  which the round-22 text did not cite; it holds for the static input bytes
+  only, not for script-cloned template content (w1/ReopenHTMLTemplate).

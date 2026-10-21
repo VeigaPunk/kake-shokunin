@@ -1,0 +1,91 @@
+{
+ "unit": "vault-properties",
+ "path": "corpus/knowledge/vault-properties.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "13 entries, 3 `url:null` (ds4cc-mirror, snapshot.kimi.pro, burnerchrome .com),",
+   "claim": "A static GET exposes a PROPERTIES literal with 13 records, 3 null URLs and 10 non-null URLs; lucario is absent from that literal.",
+   "surface": "https://veigapunk.kimi.page/ and https://ufo-fsd.kimi.page/",
+   "method": "GET",
+   "observation": "RESULT|veigapunk|url=https://veigapunk.kimi.page/|curl_rc=0|http=200|bytes=10059|location=|sha16=a0a7f33aba443a85; COUNTS|entries=13|null_urls=3|live_urls=10|literal_bytes=2118|lucario_in_literal=False; TWIN|veigapunk|bytes=10059|sha256=a0a7f33aba443a85a4952a0bf57aa52947fdf95638b5ac7aba1c7d92b87a92fb|literal=True|literal_objects=13; TWIN|vault-twin-page|bytes=9966|sha256=d93d6a0c00e773f74389ebc6d052773262052d6a0fc6b6a21581f1c12cb3920c|literal=True|literal_objects=13",
+   "verdict": "HOLD",
+   "seat": "ReverifyVaultProperties"
+  },
+  {
+   "id": "c2",
+   "anchor": "Scope: `veigapunk.kimi.page` + `ufo-fsd.kimi.page` (byte-twin vaults).",
+   "claim": "The veigapunk.kimi.page and ufo-fsd.kimi.page GET bodies are byte-twin responses.",
+   "surface": "https://veigapunk.kimi.page/ and https://ufo-fsd.kimi.page/",
+   "method": "GET",
+   "observation": "TWIN|veigapunk|bytes=10059|sha256=a0a7f33aba443a85a4952a0bf57aa52947fdf95638b5ac7aba1c7d92b87a92fb|literal=True|literal_objects=13; TWIN|vault-twin-page|bytes=9966|sha256=d93d6a0c00e773f74389ebc6d052773262052d6a0fc6b6a21581f1c12cb3920c|literal=True|literal_objects=13; TWIN_IDENTICAL|False",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the GET bodies are not byte-identical: veigapunk.kimi.page is 10,059 bytes (SHA-256 a0a7f33aba443a85a4952a0bf57aa52947fdf95638b5ac7aba1c7d92b87a92fb) and ufo-fsd.kimi.page is 9,966 bytes (SHA-256 d93d6a0c00e773f74389ebc6d052773262052d6a0fc6b6a21581f1c12cb3920c).",
+   "seat": "ReverifyVaultProperties"
+  },
+  {
+   "id": "c3",
+   "anchor": "**3 of the 10 are dead while marked `\"live\"`**:",
+   "claim": "The unit reports three of the ten non-null property URLs as dead while marked live.",
+   "surface": "https://charter-ufo-fsd.kimi.page; https://plazir15.kimi.page; https://plazir27.kimi.pro; https://plazir27runson.kimi.page",
+   "method": "GET",
+   "observation": "GET|entry-4-charter-ufo-fsd|url=https://charter-ufo-fsd.kimi.page|rc=0|http=404|bytes=13409|location=|sha256=93ddca9a021664d562e698eb99d52b84d696f81485847dcfeaf6f4a5c8fca966; GET|entry-5-plazir-15|url=https://plazir15.kimi.page|rc=0|http=404|bytes=13409|location=|sha256=93ddca9a021664d562e698eb99d52b84d696f81485847dcfeaf6f4a5c8fca966; GET|entry-1-plazir27|url=https://plazir27.kimi.pro|rc=0|http=302|bytes=72|location=https://statics.kimi.ai/pages/preview-404-en.html|sha256=1972df6926dde9928e28046bcfb155220de31eab51205f5f0181add505a11f39; GET|entry-7-plazir27runson|url=https://plazir27runson.kimi.page|rc=0|http=404|bytes=13409|location=|sha256=93ddca9a021664d562e698eb99d52b84d696f81485847dcfeaf6f4a5c8fca966",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, four of the nine URLs marked live (among ten non-null property URLs) are non-200: charter-ufo-fsd.kimi.page, plazir15.kimi.page, and plazir27runson.kimi.page return 404; plazir27.kimi.pro returns 302 to https://statics.kimi.ai/pages/preview-404-en.html (soft-404).",
+   "seat": "ReverifyVaultProperties"
+  },
+  {
+   "id": "c4",
+   "anchor": "| `xsnapshot.app` | queue | NXDOMAIN",
+   "claim": "The queued xsnapshot.app URL is NXDOMAIN.",
+   "surface": "https://xsnapshot.app",
+   "method": "GET",
+   "observation": "GET|entry-12-xsnapshot|url=https://xsnapshot.app|rc=0|http=200|bytes=1985|location=|sha256=63b7146c39df128f5ebab88c4e60b652d1a7dfce65a443966298928807827da0; DNS|xsnapshot.app|rc=0|stdout=2606:4700:3032::ac43:cafd xsnapshot.app\n2606:4700:3030::6815:163d xsnapshot.app|stderr=",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, xsnapshot.app still has queue status in the literal but resolves to 2606:4700:3032::ac43:cafd and 2606:4700:3030::6815:163d, and GET returns HTTP 200 (1,985 bytes; SHA-256 63b7146c39df128f5ebab88c4e60b652d1a7dfce65a443966298928807827da0), not NXDOMAIN.",
+   "seat": "ReverifyVaultProperties"
+  },
+  {
+   "id": "c5",
+   "anchor": "6 healthy: ds4cc.com, veigapunk, burnerchrome, plazir27runson, ufofsd,",
+   "claim": "The six listed properties are healthy and all return 200.",
+   "surface": "https://ds4cc.com; https://veigapunk.kimi.page; https://burnerchrome.kimi.page; https://plazir27runson.kimi.page; https://ufofsd.kimi.page; https://ufo-fsd.kimi.pro; https://xsnapshot.app",
+   "method": "GET",
+   "observation": "GET|entry-11-ds4cc|url=https://ds4cc.com|rc=0|http=200|bytes=76159|location=|sha256=ccb3f46eda1ce3270df1e3373d49c4034025c4f475a6999142279e03b00b2bb8; GET|entry-3-veigapunk|url=https://veigapunk.kimi.page|rc=0|http=200|bytes=10059|location=|sha256=a0a7f33aba443a85a4952a0bf57aa52947fdf95638b5ac7aba1c7d92b87a92fb; GET|entry-6-burnerchrome|url=https://burnerchrome.kimi.page|rc=0|http=200|bytes=11976|location=|sha256=44dc3491fbc6cdc517c1d3821cae43c5988fd4d4f951203f15be8de36829addb; GET|entry-7-plazir27runson|url=https://plazir27runson.kimi.page|rc=0|http=404|bytes=13409|location=|sha256=93ddca9a021664d562e698eb99d52b84d696f81485847dcfeaf6f4a5c8fca966; GET|entry-8-ufofsd|url=https://ufofsd.kimi.page|rc=0|http=200|bytes=1913|location=|sha256=68e08e365d32827e8496a8f7e7b9887105c92d47a695788221431e352e50faef; GET|entry-9-ufo-fsd|url=https://ufo-fsd.kimi.pro|rc=0|http=200|bytes=612|location=|sha256=1df92e30ba5a76e69a863a729326949871d3d83e290935d596f6cd9b7d65ab8c; GET|entry-12-xsnapshot|url=https://xsnapshot.app|rc=0|http=200|bytes=1985|location=|sha256=63b7146c39df128f5ebab88c4e60b652d1a7dfce65a443966298928807827da0",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the six non-null property URLs returning 200 are veigapunk.kimi.page, burnerchrome.kimi.page, ufofsd.kimi.page, ufo-fsd.kimi.pro, ds4cc.com, and xsnapshot.app; plazir27runson.kimi.page now returns 404 (13,409 bytes; SHA-256 93ddca9a021664d562e698eb99d52b84d696f81485847dcfeaf6f4a5c8fca966).",
+   "seat": "ReverifyVaultProperties"
+  },
+  {
+   "id": "c6",
+   "anchor": "`data-kimi-website-id=\"1a0acf59-c082-8794-8000-0000eaa74687\"` serves on BOTH",
+   "claim": "The website id 1a0acf59-c082-8794-8000-0000eaa74687 occurs on both ufo-fsd.kimi.pro and ufo-fsd.kimi.page.",
+   "surface": "https://ufo-fsd.kimi.pro/ and https://ufo-fsd.kimi.page/",
+   "method": "GET",
+   "observation": "SITE_ID|vault-twin-page|occurrences=1; SITE_ID|ufo-fsd-pro-shell|occurrences=1; SEED_TAG|vault-twin-page|disable_watermark=True|analytics_true=True; SEED_TAG|ufo-fsd-pro-shell|disable_watermark=True|analytics_true=True",
+   "verdict": "HOLD",
+   "seat": "ReverifyVaultProperties"
+  },
+  {
+   "id": "c7",
+   "anchor": "`/assets/index-Bw9NLFv4.js` (739,018B) + `index-B-Hzbnm3.css` (82,871B)",
+   "claim": "ufo-fsd.kimi.pro serves a 612-byte shell referencing the 739,018-byte JavaScript bundle and 82,871-byte stylesheet.",
+   "surface": "https://ufo-fsd.kimi.pro/; https://ufo-fsd.kimi.pro/assets/index-Bw9NLFv4.js; https://ufo-fsd.kimi.pro/assets/index-B-Hzbnm3.css",
+   "method": "GET",
+   "observation": "GET|ufo-fsd-pro-shell|url=https://ufo-fsd.kimi.pro/|rc=0|http=200|bytes=612|location=|sha256=1df92e30ba5a76e69a863a729326949871d3d83e290935d596f6cd9b7d65ab8c; GET|ufo-fsd-pro-bundle|url=https://ufo-fsd.kimi.pro/assets/index-Bw9NLFv4.js|rc=0|http=200|bytes=739018|location=|sha256=bd781cd41b224da81bc8e7429760ed0158f354777d25f9ad9beb943bd2b52267; GET|ufo-fsd-pro-css|url=https://ufo-fsd.kimi.pro/assets/index-B-Hzbnm3.css|rc=0|http=200|bytes=82871|location=|sha256=5831ff6a4f0392a2a04a710023e938f8389b567b4c67eb52d9c226eee83b3a64; shell refs: 7: <script type=\"module\" crossorigin src=\"/assets/index-Bw9NLFv4.js\"></script>; 8: <link rel=\"stylesheet\" crossorigin href=\"/assets/index-B-Hzbnm3.css\">",
+   "verdict": "HOLD",
+   "seat": "ReverifyVaultProperties"
+  },
+  {
+   "id": "c8",
+   "anchor": "no local copy of fleet/vault-properties.json or kimi-surface.mjs exists here",
+   "claim": "The lane has no local copy at the expected source paths of fleet/vault-properties.json or kimi-surface.mjs.",
+   "surface": "/home/vgpnk/Projects/shokunin/kake-shokunin/fleet/vault-properties.json; /home/vgpnk/Projects/shokunin/kake-shokunin/fleet/kimi-surface.mjs; /home/vgpnk/Projects/shokunin/kake-shokunin/kimi-surface.mjs",
+   "method": "test -e",
+   "observation": "fleet/vault-properties.json: ABSENT; fleet/kimi-surface.mjs: ABSENT; kimi-surface.mjs: ABSENT; fleet.config.json: ABSENT",
+   "verdict": "HOLD",
+   "seat": "ReverifyVaultProperties"
+  }
+ ]
+}

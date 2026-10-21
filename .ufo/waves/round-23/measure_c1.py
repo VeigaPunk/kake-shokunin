@@ -13,7 +13,9 @@ at the measured revision:
     about text that existed before re-verification);
   * the unit file at the measured revision contains the heading
     "## Live re-verification — round 23" and, after it, every STALE correction verbatim
-    and every claim id as "[<unit>:<id>]".
+    and every claim id as "[<unit>:<id>]";
+  * at least one claim per unit is decided live (HOLD or STALE): an all-UNVERIFIABLE
+    receipt records absence, not re-verification (tightened after w1/CritCounterC1).
 Exit 0 iff all units pass; 1 otherwise; 2 when the revision or population cannot be read.
 """
 from __future__ import annotations
@@ -88,6 +90,8 @@ def check_unit(root: str, revision: str, unit: dict[str, str]) -> tuple[list[str
                 problems.append(f"claim {claim['id']}: correction not in round-23 section")
         if verdict == "UNVERIFIABLE" and not str(claim.get("reason", "")).strip():
             problems.append(f"claim {claim['id']}: UNVERIFIABLE without reason")
+    if verdicts["HOLD"] + verdicts["STALE"] == 0:
+        problems.append("no claim decided live (all UNVERIFIABLE)")
     return problems, verdicts
 
 

@@ -125,3 +125,16 @@ lesson still live).
 - Base `corpus/knowledge/sitemap-orphan-audit.md:32`: **[r20-correction 2026-10-19: [INFERENCE] listing-only residual is not established until live→source membership is checked against actual deployed artifact/build output — corpus/knowledge/ghp-served-set.md (S001, S004)]**
 - Base `corpus/knowledge/sitemap-orphan-audit.md:38`: **[r20-correction 2026-10-19: [INFERENCE] generated artifact/build output can include paths not in sourceDir, so listing coverage is not the only possible blind spot; compare actual deployed output — corpus/knowledge/ghp-served-set.md (S001, S004)]**
 - Base `corpus/knowledge/sitemap-orphan-audit.md:112`: **[r20-correction 2026-10-19: [INFERENCE] workflow build output may also differ from the checkout; test actual artifact/build membership before declaring live-only paths impossible — corpus/knowledge/ghp-served-set.md (S001, S004)]**
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/sitemap-orphan-audit.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [sitemap-orphan-audit:c1] **STALE** — The live plazir sitemap currently lists 8 <loc> URLs. Surface: `https://veigapunk.github.io/plazir-15-site/sitemap.xml`. Correction: On 2026-10-21, the live plazir-15-site sitemap returned HTTP 200 with 7 <loc> entries, not 8.
+- [sitemap-orphan-audit:c2] **HOLD** — The live charter sitemap currently lists 2 <loc> URLs. Surface: `https://veigapunk.github.io/charter-ufo-fsd/sitemap.xml`.
+- [sitemap-orphan-audit:c3] **STALE** — The public ds4cc.com sitemap endpoint returns HTTP 404. Surface: `https://ds4cc.com/sitemap.xml`. Correction: On 2026-10-21, https://ds4cc.com/sitemap.xml returned HTTP 200 and listed 96 <loc> entries, not HTTP 404.
+- [sitemap-orphan-audit:c4] **STALE** — The staged 93-loc ds4cc sitemap exists at local HEAD. Surface: `/home/vgpnk/Projects/ds4cc-marketplace/sitemap.xml`. Correction: On 2026-10-21, the cited local /home/vgpnk/Projects/ds4cc-marketplace/sitemap.xml file was absent, so the 93-loc staged-copy presence claim does not hold at that path.
+- [sitemap-orphan-audit:c5] **HOLD** — The direct live plazir /tetris/ route returns HTTP 200 and 1,650 bytes. Surface: `https://veigapunk.github.io/plazir-15-site/tetris/`.
+- [sitemap-orphan-audit:c6] **STALE** — The current charter homepage marker is 2026-09-28 scribe beat (the-scribe via local-fallback). Surface: `https://veigapunk.github.io/charter-ufo-fsd/`. Correction: On 2026-10-21, the charter homepage contained `2026-09-30 scribe beat (the-scribe via local-fallback)`, not the `2026-09-28` literal.
+- [sitemap-orphan-audit:c7] **STALE** — The plazir15, charter-ufo-fsd-kimi, and lucario rows each return HTTP 404. Surface: `https://plazir15.kimi.page/; https://charter-ufo-fsd.kimi.page/; https://veigapunk.github.io/lucario/`. Correction: On 2026-10-21, plazir15.kimi.page and charter-ufo-fsd.kimi.page still returned HTTP 404, but https://veigapunk.github.io/lucario/ returned HTTP 200, so lucario is no longer in the dead-404 set.
+- [sitemap-orphan-audit:c8] **HOLD** — plazir27-kimi-pro redirects to the preview-404 page. Surface: `https://plazir27.kimi.pro/`.

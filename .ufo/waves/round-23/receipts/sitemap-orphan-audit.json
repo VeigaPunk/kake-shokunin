@@ -1,0 +1,92 @@
+{
+ "unit": "sitemap-orphan-audit",
+ "path": "corpus/knowledge/sitemap-orphan-audit.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "plazir15-ghp ✓ (8 locs)",
+   "claim": "The live plazir sitemap currently lists 8 <loc> URLs.",
+   "surface": "https://veigapunk.github.io/plazir-15-site/sitemap.xml",
+   "method": "GET",
+   "observation": "status=200, bytes=1144, loc_count=7",
+   "verdict": "STALE",
+   "correction": "On 2026-10-21, the live plazir-15-site sitemap returned HTTP 200 with 7 <loc> entries, not 8.",
+   "seat": "ReverifySitemapOrphanAudit"
+  },
+  {
+   "id": "c2",
+   "anchor": "charter-ghp ✓ (2 locs)",
+   "claim": "The live charter sitemap currently lists 2 <loc> URLs.",
+   "surface": "https://veigapunk.github.io/charter-ufo-fsd/sitemap.xml",
+   "method": "GET",
+   "observation": "status=200, bytes=502, loc_count=2",
+   "verdict": "HOLD",
+   "seat": "ReverifySitemapOrphanAudit"
+  },
+  {
+   "id": "c3",
+   "anchor": "ds4cc.com/sitemap.xml → **404 live",
+   "claim": "The public ds4cc.com sitemap endpoint returns HTTP 404.",
+   "surface": "https://ds4cc.com/sitemap.xml",
+   "method": "GET",
+   "observation": "status=200, bytes=7565, loc_count=96",
+   "verdict": "STALE",
+   "correction": "On 2026-10-21, https://ds4cc.com/sitemap.xml returned HTTP 200 and listed 96 <loc> entries, not HTTP 404.",
+   "seat": "ReverifySitemapOrphanAudit"
+  },
+  {
+   "id": "c4",
+   "anchor": "**404 live but exists at local HEAD** (93",
+   "claim": "The staged 93-loc ds4cc sitemap exists at local HEAD.",
+   "surface": "/home/vgpnk/Projects/ds4cc-marketplace/sitemap.xml",
+   "method": "test -e",
+   "observation": "absent /home/vgpnk/Projects/ds4cc-marketplace/sitemap.xml",
+   "verdict": "STALE",
+   "correction": "On 2026-10-21, the cited local /home/vgpnk/Projects/ds4cc-marketplace/sitemap.xml file was absent, so the 93-loc staged-copy presence claim does not hold at that path.",
+   "seat": "ReverifySitemapOrphanAudit"
+  },
+  {
+   "id": "c5",
+   "anchor": "plazir live `/tetris/` = 200/1,650B",
+   "claim": "The direct live plazir /tetris/ route returns HTTP 200 and 1,650 bytes.",
+   "surface": "https://veigapunk.github.io/plazir-15-site/tetris/",
+   "method": "GET",
+   "observation": "status=200, bytes=1650, location=null",
+   "verdict": "HOLD",
+   "seat": "ReverifySitemapOrphanAudit"
+  },
+  {
+   "id": "c6",
+   "anchor": "live literal is now\n`2026-09-28 scribe beat (the-scribe via local-fallback)`.",
+   "claim": "The current charter homepage marker is 2026-09-28 scribe beat (the-scribe via local-fallback).",
+   "surface": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "method": "GET",
+   "observation": "status=200, bytes=53660; matched `s=\"thread-note rv\" data-i18n=\"s3.scribeBeat\">2026-09-30 scribe beat (<b>the-scribe</b> via <code>local-fallback</code>): <`",
+   "verdict": "STALE",
+   "correction": "On 2026-10-21, the charter homepage contained `2026-09-30 scribe beat (the-scribe via local-fallback)`, not the `2026-09-28` literal.",
+   "seat": "ReverifySitemapOrphanAudit"
+  },
+  {
+   "id": "c7",
+   "anchor": "`plazir15`,\n`charter-ufo-fsd-kimi`, `lucario` = dead 404 rows;",
+   "claim": "The plazir15, charter-ufo-fsd-kimi, and lucario rows each return HTTP 404.",
+   "surface": "https://plazir15.kimi.page/; https://charter-ufo-fsd.kimi.page/; https://veigapunk.github.io/lucario/",
+   "method": "GET",
+   "observation": "plazir15.kimi.page status=404 bytes=13409; charter-ufo-fsd.kimi.page status=404 bytes=13409; veigapunk.github.io/lucario/ status=200 bytes=3435",
+   "verdict": "STALE",
+   "correction": "On 2026-10-21, plazir15.kimi.page and charter-ufo-fsd.kimi.page still returned HTTP 404, but https://veigapunk.github.io/lucario/ returned HTTP 200, so lucario is no longer in the dead-404 set.",
+   "seat": "ReverifySitemapOrphanAudit"
+  },
+  {
+   "id": "c8",
+   "anchor": "`plazir27-kimi-pro` =\npreview-404",
+   "claim": "plazir27-kimi-pro redirects to the preview-404 page.",
+   "surface": "https://plazir27.kimi.pro/",
+   "method": "GET",
+   "observation": "status=302, bytes=72, location=https://statics.kimi.ai/pages/preview-404-en.html",
+   "verdict": "HOLD",
+   "seat": "ReverifySitemapOrphanAudit"
+  }
+ ]
+}

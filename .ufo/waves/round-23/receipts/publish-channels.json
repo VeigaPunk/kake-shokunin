@@ -1,0 +1,79 @@
+{
+ "unit": "publish-channels",
+ "path": "corpus/knowledge/publish-channels.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "adds origin, pushes once, prints the DNS records (apex A/AAAA, www CNAME).",
+   "claim": "The current setup helper performs one push only and has a run-once guard.",
+   "surface": "GET https://raw.githubusercontent.com/VeigaPunk/ds4cc-marketplace/main/deploy-github-pages.sh",
+   "method": "GET",
+   "observation": "GET returned status=200 content_type=text/plain; charset=utf-8 bytes=814. Exact lines: `git remote add origin \"git@github.com:${GITHUB_REPO}.git\" || true`; `git push -u origin main`; `echo \"Pages deploys via .github/workflows/pages.yml (Source = GitHub Actions).\"`.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the script has no run-once guard and executes `git push -u origin main` on every invocation, so the unit should describe the push as per-invocation rather than ‘once’.",
+   "seat": "ReverifyPublishChannels"
+  },
+  {
+   "id": "c2",
+   "anchor": "| `update <id> --chat=<uuidv8>` | chat bound to live URL | `--fire --confirm=<id>` = 1 fire |",
+   "claim": "The Kimi script still enforces the listed update precondition and one-fire confirmation gate, with the documented human publish and post-click verification sequence.",
+   "surface": "test -e /home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs; test -e /home/vgpnk/Projects/webzites/fleet/kimi-surface-ops.md; command -v kimi-webbridge; unauthenticated GET https://www.kimi.ai/apiv2/",
+   "method": "run",
+   "observation": "The two local source paths returned ABSENT; `command -v kimi-webbridge` returned `ABSENT: kimi-webbridge is not in PATH`. The public unauthenticated GET returned `404 page not found` and `status=404 content_type=text/plain; charset=utf-8 bytes=19`.",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The cited CLI and operations sources are absent, and the host's missing `kimi-webbridge` command does not establish the absence or behavior of every possible channel. An unauthenticated GET of the API root does not determine whether cookie-authenticated methods or the human-gated UI flow exist; those flows were not accessed under the no-auth/no-chat boundary.",
+   "seat": "ReverifyPublishChannels"
+  },
+  {
+   "id": "c3",
+   "anchor": "the external source trees are absent after the 2026-10-12 prune.",
+   "claim": "The named historical project/workspace trees remain absent at their recorded local paths on this host.",
+   "surface": "for p in /home/vgpnk/Projects/ds4cc-marketplace /home/vgpnk/Projects/plazir-15-site /home/vgpnk/Projects/webzites /home/vgpnk/Projects/ephemeral/wz1/ds4cc; do if test -e \"$p\"; then printf 'EXISTS %s\\n' \"$p\"; else printf 'ABSENT %s\\n' \"$p\"; fi; done",
+   "method": "test -e",
+   "observation": "ABSENT /home/vgpnk/Projects/ds4cc-marketplace; ABSENT /home/vgpnk/Projects/plazir-15-site; ABSENT /home/vgpnk/Projects/webzites; ABSENT /home/vgpnk/Projects/ephemeral/wz1/ds4cc.",
+   "verdict": "HOLD",
+   "seat": "ReverifyPublishChannels"
+  },
+  {
+   "id": "c4",
+   "anchor": "- `ds4cc-marketplace/.github/workflows/pages.yml`: on push to main → validate",
+   "claim": "The ds4cc Pages workflow still triggers on main, performs the listed checks/build/test, uploads the checked-out project tree, and deploys it; its documented public domain currently serves the site and sitemap.",
+   "surface": "GET https://raw.githubusercontent.com/VeigaPunk/ds4cc-marketplace/main/.github/workflows/pages.yml; GET https://ds4cc.com/; GET https://ds4cc.com/sitemap.xml",
+   "method": "GET",
+   "observation": "Workflow GET: status=200 content_type=text/plain; charset=utf-8 bytes=1789; observed `branches: [main]`, the listed validation/build/tests, `uses: actions/upload-pages-artifact@v3` with `path: ./ds4cc-marketplace`, and `uses: actions/deploy-pages@v4`. Site GET: `url=https://ds4cc.com/ status=200 content_type=text/html; charset=utf-8 bytes=76159`; sitemap GET: `url=https://ds4cc.com/sitemap.xml status=200 content_type=application/xml bytes=7565`.",
+   "verdict": "HOLD",
+   "seat": "ReverifyPublishChannels"
+  },
+  {
+   "id": "c5",
+   "anchor": "- `plazir-15-site/.github/workflows/pages.yml`: same shape, uploads `.` whole,",
+   "claim": "The Plazir Pages workflow still triggers on main, uploads the project root (`.`), and its documented GitHub Pages URL currently serves the expected site and sitemap.",
+   "surface": "GET https://raw.githubusercontent.com/VeigaPunk/plazir-15-site/main/.github/workflows/pages.yml; GET https://veigapunk.github.io/plazir-15-site/; GET https://veigapunk.github.io/plazir-15-site/sitemap.xml",
+   "method": "GET",
+   "observation": "Workflow GET: status=200 content_type=text/plain; charset=utf-8 bytes=565; observed `branches: [main]`, `uses: actions/upload-pages-artifact@v3` with `path: .`, and `uses: actions/deploy-pages@v4`. Site GET: `url=https://veigapunk.github.io/plazir-15-site/ status=200 content_type=text/html; charset=utf-8 bytes=38337`; extracted canonical matches that URL. Sitemap GET: `url=https://veigapunk.github.io/plazir-15-site/sitemap.xml status=200 content_type=application/xml bytes=1144`.",
+   "verdict": "HOLD",
+   "seat": "ReverifyPublishChannels"
+  },
+  {
+   "id": "c6",
+   "anchor": "`ds4cc-marketplace/render.yaml`: Docker web service `ds4cc-marketplace-app`,",
+   "claim": "The Render configuration still names the Docker web service, Dockerfile, health path, APP_ORIGIN, and ALLOWED_ORIGINS as stated, and the public health endpoint currently reports healthy.",
+   "surface": "GET https://raw.githubusercontent.com/VeigaPunk/ds4cc-marketplace/main/render.yaml; GET https://app.ds4cc.com/health",
+   "method": "GET",
+   "observation": "render.yaml GET: status=200 content_type=text/plain; charset=utf-8 bytes=565; observed `name: ds4cc-marketplace-app`, `runtime: docker`, `dockerfilePath: ./apps-sdk/Dockerfile`, `healthCheckPath: /health`, `APP_ORIGIN` = `https://app.ds4cc.com`, `ALLOWED_ORIGINS` = `https://chatgpt.com`. Health GET: `status=200 content_type=application/json; charset=utf-8 bytes=63`; body: `{\"status\":\"ok\",\"service\":\"ds4cc-marketplace\",\"version\":\"1.0.0\"}`.",
+   "verdict": "HOLD",
+   "seat": "ReverifyPublishChannels"
+  },
+  {
+   "id": "c7",
+   "anchor": "the uploaded artifact is not the full checkout; .git/.github are excluded and v4 excludes hidden paths by default",
+   "claim": "The version-qualified action correction is current: v4 excludes hidden paths by default in addition to `.git`/`.github`, and v5 adds an `include-hidden-files` option defaulting to false while always excluding `.git`/`.github`.",
+   "surface": "GET https://raw.githubusercontent.com/actions/upload-pages-artifact/7b1f4a764d45c48632c6b24a0339c27f5614fb0b/action.yml; GET https://raw.githubusercontent.com/actions/upload-pages-artifact/fc324d3547104276b827a68afc52ff2a11cc49c9/action.yml; GET https://raw.githubusercontent.com/actions/upload-pages-artifact/v3/action.yml; GET https://raw.githubusercontent.com/VeigaPunk/ds4cc-marketplace/main/.github/workflows/pages.yml",
+   "method": "GET",
+   "observation": "v4 source: status=200, 2529 bytes; includes `--exclude=.[^/]*` with `.git`/`.github` exclusions. v5 source: status=200, 2895 bytes; input description says hidden files are excluded by default, `include-hidden-files` defaults to `false`, and `.git`/`.github` remain excluded. Current ds4cc workflow source uses `actions/upload-pages-artifact@v3`; v3 source status=200, 2389 bytes and has `.git`/`.github` exclusions but no hidden-file exclusion/input.",
+   "verdict": "HOLD",
+   "seat": "ReverifyPublishChannels"
+  }
+ ]
+}

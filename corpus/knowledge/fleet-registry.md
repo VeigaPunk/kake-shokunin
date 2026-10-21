@@ -83,3 +83,16 @@ require re-pinning on republish. Source: dedupe-report r2 mutation table
 ## Round-20 citation-local note (base `cb807bc`)
 
 > *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/fleet-registry.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [fleet-registry:c1] **HOLD** — The canonical fleet configuration is currently absent at its recorded source path. Surface: `test -e /home/vgpnk/Projects/webzites/fleet/fleet.config.json`.
+- [fleet-registry:c2] **UNVERIFIABLE** — The current raw sites[] array contains 21 rows. Surface: `test -f "/home/vgpnk/Projects/webzites/fleet/fleet.config.json" && node -p 'const c=require("/home/vgpnk/Projects/webzites/fleet/fleet.config.json"); [c.schema,c.updatedAt,c.sites.length].join(" ")' || echo "absent: operator must restore the fleet source or retire this entry"`. Unverifiable: The canonical fleet.config.json is absent, so there is no current sites[] array to count; the command took its absent-file branch and the 21-row value remains historical evidence only.
+- [fleet-registry:c3] **HOLD** — Both named high-priority endpoints remain publicly reachable at their listed URLs. Surface: `GET https://veigapunk.kimi.page/; GET https://ds4cc.com/`.
+- [fleet-registry:c4] **HOLD** — The current endpoint split remains a 404 at the Kimi alias and a live GitHub Pages canonical; this does not re-prove the historical ‘never published’ wording. Surface: `GET https://lucario.kimi.page/; GET https://veigapunk.github.io/lucario/`.
+- [fleet-registry:c5] **STALE** — The plazir27.kimi.page row remains live as the canonical Kimi charter. Surface: `GET https://plazir27.kimi.page/`. Correction: As of 2026-10-21, https://plazir27.kimi.page/ returns HTTP 404 (404 Page Not Found) rather than serving a live canonical Kimi charter.
+- [fleet-registry:c6] **STALE** — The plazir27runson.kimi.page row is live (Night Trilogy). Surface: `GET https://plazir27runson.kimi.page/`. Correction: As of 2026-10-21, https://plazir27runson.kimi.page/ returns HTTP 404 (404 Page Not Found), so its live (Night Trilogy) status is stale.
+- [fleet-registry:c7] **STALE** — The xsnapshot-app row is queued because xsnapshot.app is NXDOMAIN. Surface: `GET https://xsnapshot.app/`. Correction: As of 2026-10-21, https://xsnapshot.app/ resolves and returns HTTP 200 with a page stating domain live · build in progress, so NXDOMAIN is no longer an accurate basis for its queued status.
+- [fleet-registry:c8] **HOLD** — The listed GitHub Pages canonical charter document is currently live. Surface: `GET https://veigapunk.github.io/charter-ufo-fsd/`.

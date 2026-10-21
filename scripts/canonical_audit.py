@@ -119,7 +119,7 @@ def usage() -> str:
 def parse_cli(argv: list[str]) -> argparse.Namespace:
     parser = CanonicalArgumentParser(
         prog="canonical_audit.py",
-        usage="canonical_audit.py --manifest PATH [--json] | --selftest | -h",
+        usage="canonical_audit.py --manifest PATH [--json] | --selftest | -h | --help",
         add_help=True,
         allow_abbrev=False,
         description="Offline static canonical preflight; --help is documentation only.",
@@ -171,7 +171,7 @@ class CanonicalHTMLParser(HTMLParser):
         self.body_seen = False
         self.unsupported = False
         self.template_depth = 0
-        self.foreign_depth = 0
+        self.foreign_stack: list[str] = []
         self.noscript_depth = 0
         self.raw_head_element: str | None = None
         self.head_canonicals: list[dict[str, str | None]] = []
@@ -192,15 +192,28 @@ class CanonicalHTMLParser(HTMLParser):
     def _after_head(self) -> bool:
         return self.head_closed and not self.head_open
 
+    @property
+    def foreign_depth(self) -> int:
+        return len(self.foreign_stack)
+
+    def set_cdata_mode(self, *args, **kwargs) -> None:
+        # SVG/MathML title/style/script are not HTML raw text: SVG title is an
+        # HTML integration point. Tokenize them so hidden markup stays visible.
+        if self.foreign_stack:
+            return
+        super().set_cdata_mode(*args, **kwargs)
+
+    def _foreign_token(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        # Inside SVG/MathML after the explicit head, only tokens that a browser
+        # could turn into an effective HTML base/head/canonical are ambiguous.
+        if tag in {"base", "head"} or (tag == "link" and is_canonical_relation(attrs_first_wins(attrs))):
+            self.unsupported = True
+
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         tag = ascii_lower(tag)
-        if self.foreign_depth:
-            # SVG/MathML content after the explicit head cannot change head
-            # canonicals; a canonical-looking link inside it stays ambiguous.
-            if tag in {"svg", "math"}:
-                self.foreign_depth += 1
-            elif tag == "link" and is_canonical_relation(attrs_first_wins(attrs)):
-                self.unsupported = True
+        if self.foreign_stack:
+            self._foreign_token(tag, attrs)
+            self.foreign_stack.append(tag)
             return
         if self.template_depth:
             if tag == "template":
@@ -219,7 +232,7 @@ class CanonicalHTMLParser(HTMLParser):
             return
         if tag in {"svg", "math"}:
             if self._after_head() and not self.template_depth:
-                self.foreign_depth = 1
+                self.foreign_stack.append(tag)
                 return
             self.unsupported = True
 
@@ -273,7 +286,8 @@ class CanonicalHTMLParser(HTMLParser):
                 self.raw_head_element = tag
             return
 
-        if tag == "head":
+        if tag in {"head", "base"}:
+            # A body base is still the document's first base in tree order.
             self.unsupported = True
         elif tag == "body":
             if self.body_seen:
@@ -284,10 +298,9 @@ class CanonicalHTMLParser(HTMLParser):
 
     def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         tag = ascii_lower(tag)
-        if self.foreign_depth or (self._after_head() and tag in {"svg", "math"}):
+        if self.foreign_stack or (self._after_head() and tag in {"svg", "math"}):
             # Self-closing syntax is native to foreign content; it opens nothing.
-            if tag == "link" and is_canonical_relation(attrs_first_wins(attrs)):
-                self.unsupported = True
+            self._foreign_token(tag, attrs)
             return
         if tag not in HEAD_VOID_ELEMENTS and not (self._after_head() and tag in HTML_VOID_ELEMENTS):
             # HTML ignores the slash on non-void tags; do not infer a close.
@@ -296,9 +309,13 @@ class CanonicalHTMLParser(HTMLParser):
 
     def handle_endtag(self, tag: str) -> None:
         tag = ascii_lower(tag)
-        if self.foreign_depth:
-            if tag in {"svg", "math"}:
-                self.foreign_depth -= 1
+        if self.foreign_stack:
+            # Browsers pop foreign elements by their own stack rules; only an
+            # exactly matching end tag is modelled, anything else fails closed.
+            if self.foreign_stack[-1] == tag:
+                self.foreign_stack.pop()
+            else:
+                self.unsupported = True
             return
         if self.template_depth:
             if tag == "template":
@@ -456,7 +473,8 @@ def normalize_http_url(raw: str, base: str | None = None, *, absolute: bool = Fa
         raise URLProblem("empty URL")
     if "#" in raw:
         raise URLFragment("fragments are not accepted")
-    if "\\" in raw or any(ord(ch) <= 0x20 or ord(ch) == 0x7F for ch in raw):
+    if "\\" in raw or any(ord(ch) <= 0x20 or 0x7F <= ord(ch) <= 0x9F for ch in raw):
+        # C0, DEL and C1 controls are outside RFC 3987 ucschar: reject, never escape.
         raise URLProblem("URL contains whitespace, controls, or backslash")
     query_delimiter_present = "?" in raw
     empty_query_delimiter = query_delimiter_present and raw.split("?", 1)[1] == ""
@@ -678,6 +696,9 @@ def _validate_manifest(value: object) -> list[dict[str, str]]:
             raise InputProblem("each page must have exactly url, file, expectedCanonical")
         if any(not isinstance(page.get(key), str) for key in ("url", "file", "expectedCanonical")):
             raise InputProblem("page url, file, and expectedCanonical must be strings")
+        if any(page["url"] == seen["url"] or page["file"] == seen["file"] for seen in normalized_pages):
+            # One page per URL and per file: a duplicate would be counted twice.
+            raise InputProblem("duplicate page url or file in manifest")
         normalized_pages.append(page)
     return normalized_pages
 
@@ -796,6 +817,8 @@ def _selftest_specs() -> list[dict[str, object]]:
         {"name": "href_absent", **failed("<head><link rel=canonical></head>", "canonical_href_missing")},
         {"name": "href_empty", **failed("<head><link rel=canonical href=''></head>", "canonical_href_missing")},
         {"name": "href_ascii_whitespace", **failed("<head><link rel=canonical href='&#32;&#9;&#10;&#12;&#13;'></head>", "canonical_href_missing")},
+        {"name": "href_c1_control_path", **failed("<head><link rel=canonical href='https://example.test/project/a\u0085.html'></head>", "canonical_url_invalid", "https://example.test/project/a%C2%85.html")},
+        {"name": "href_c1_control_query", **failed("<head><link rel=canonical href='https://example.test/project/a.html?x=\u009f'></head>", "canonical_url_invalid")},
         {"name": "invalid_url", **failed("<head><link rel=canonical href='https://[broken'></head>", "canonical_url_invalid")},
         {"name": "javascript_url", **failed("<head><link rel=canonical href='javascript:alert(1)'></head>", "canonical_url_invalid")},
         {"name": "data_url", **failed("<head><link rel=canonical href='data:text/html,x'></head>", "canonical_url_invalid")},
@@ -820,6 +843,19 @@ def _selftest_specs() -> list[dict[str, object]]:
         {"name": "body_nonvoid_selfclose", "html": f"<head><link rel=canonical href='{same}'></head><body><div/></body>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "body_svg_unclosed", "html": f"<head><link rel=canonical href='{same}'></head><body><svg><path d='M0 0'/>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "body_svg_then_body_canonical", **failed(f"<head></head><body><svg></svg><link rel=canonical href='{same}'></body>", "canonical_outside_head")},
+        *[
+            {"name": name, "html": html, "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"}
+            for name, html in (
+                ("body_base", "<head><link rel=canonical href=a.html></head><body><base href='https://wrong.test/'></body>"),
+                ("foreignobject_base", "<head><link rel=canonical href=a.html></head><body><svg><foreignObject><base href='https://wrong.test/' /></foreignObject></svg></body>"),
+                ("svg_head_breakout_base", "<head><link rel=canonical href=a.html></head><body><svg><head></head><base href='https://wrong.test/'></svg></body>"),
+                ("svg_mismatched_end_base", "<head><link rel=canonical href=a.html></head><body><svg><math></svg><base href='https://wrong.test/'></math></body>"),
+                ("svg_title_hidden_base", "<head><link rel=canonical href=a.html></head><body><svg><title><base href='https://wrong.test/'></title></svg></body>"),
+                ("svg_style_hidden_base", "<head><link rel=canonical href=a.html></head><body><svg><style><base href='https://wrong.test/'></style></svg></body>"),
+                ("svg_script_hidden_base", "<head><link rel=canonical href=a.html></head><body><svg><script><base href='https://wrong.test/'></script></svg></body>"),
+            )
+        ],
+        {"name": "svg_title_text_clean", **clean(f"<head><link rel=canonical href='{same}'></head><body><svg><title>Icon</title><path d='M0 0'/></svg></body>")},
         {"name": "processing_instruction", "html": f"<head><?server-side include?><link rel=canonical href='{same}'></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "missing_head", "html": "<html><body></body></html>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "head_body_child", "html": f"<head><div><link rel=canonical href='{same}'></div></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
@@ -926,6 +962,22 @@ def selftest() -> int:
                 "expected": {"exit": EXIT_INPUT, "id": "input_invalid"},
                 "actual": {"exit": empty_exit, "id": empty_id},
                 "ok": empty_exit == EXIT_INPUT and empty_id == "input_invalid",
+            })
+            duplicate_dir = os.path.join(root, "duplicate_pages")
+            os.mkdir(duplicate_dir)
+            with open(os.path.join(duplicate_dir, "page.html"), "w", encoding="utf-8", newline="") as stream:
+                stream.write("<head><link rel=canonical href='https://example.test/project/a.html'></head>")
+            duplicate_page = {"url": "https://example.test/project/a.html", "file": "page.html",
+                              "expectedCanonical": "https://example.test/project/a.html"}
+            duplicate_path = os.path.join(duplicate_dir, "manifest.json")
+            with open(duplicate_path, "w", encoding="utf-8", newline="") as stream:
+                json.dump({"version": 1, "pages": [duplicate_page, dict(duplicate_page)]}, stream)
+            duplicate_exit, duplicate_id = _run_manifest_cli(duplicate_path)
+            records.append({
+                "name": "duplicate_pages",
+                "expected": {"exit": EXIT_INPUT, "id": "input_invalid"},
+                "actual": {"exit": duplicate_exit, "id": duplicate_id},
+                "ok": duplicate_exit == EXIT_INPUT and duplicate_id == "input_invalid",
             })
         for name, argv in (
             ("cli_missing_mode", []),

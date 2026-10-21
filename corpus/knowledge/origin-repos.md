@@ -71,3 +71,16 @@ memory**.
   byte-identical) — works, but `repos/ds4cc-marketplace` is the tracked clone.
 - `veigapunk-page.sourceDir` = null; `repos/VeigaPunk.github.io` is the
   byte-verified root source [INFERENCE for the kimi slot].
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/origin-repos.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [origin-repos:c1] **STALE** — The documented `~/Projects/webzites/repos` clone root is present. Surface: `/home/vgpnk/Projects/webzites/repos`. Correction: As of 2026-10-21, `/home/vgpnk/Projects/webzites/repos` is absent, so clones are not currently available at the documented path.
+- [origin-repos:c2] **HOLD** — The current `origin repo list` contains 224 repositories under `jo-o-veiga`. Surface: `origin repo list | paste - - | wc -l`.
+- [origin-repos:c3] **UNVERIFIABLE** — All 50 clone HEADs matched their upstreams with zero drift at r8. Surface: `/home/vgpnk/Projects/webzites/repos`. Unverifiable: The documented clone tree and its individual Git worktrees are absent, so current HEAD/upstream equality for the 50 clones cannot be computed; the r8 result remains historical evidence.
+- [origin-repos:c4] **UNVERIFIABLE** — The current `ds4cc.com` index remains byte-verified against the documented `ds4cc-marketplace` checkout. Surface: `GET https://ds4cc.com/; /home/vgpnk/Projects/webzites/repos/ds4cc-marketplace`. Unverifiable: The public page is reachable, but the mapped checkout is absent and the unit records only a truncated digest, so the claimed live-to-repository byte identity cannot be rechecked.
+- [origin-repos:c5] **STALE** — The live `burnerchrome.kimi.page` response remains 11,819 bytes as recorded in the row. Surface: `https://burnerchrome.kimi.page/`. Correction: As of 2026-10-21, GET https://burnerchrome.kimi.page/ returned HTTP 200 with 11,976 bytes, not the cited 11,819-byte live size; the repository-side 11,775-byte comparison is not currently verifiable because its checkout is absent.
+- [origin-repos:c6] **HOLD** — The listed GitHub Pages root and the `llm-wiki`, `plazir-15-site`, and `charter-ufo-fsd` paths currently return HTTP 200. Surface: `GET https://veigapunk.github.io/; GET https://veigapunk.github.io/llm-wiki/; GET https://veigapunk.github.io/plazir-15-site/; GET https://veigapunk.github.io/charter-ufo-fsd/`.
+- [origin-repos:c7] **HOLD** — The listed `plazir27runs-on.kimi.page` public property is currently reachable. Surface: `https://plazir27runs-on.kimi.page/`.
+- [origin-repos:c8] **STALE** — The inferred `plazir27.kimi.page` property is currently served as a live mapped variant. Surface: `https://plazir27.kimi.page/`. Correction: As of 2026-10-21, GET https://plazir27.kimi.page/ returns HTTP 404, so this is not a currently served public property and its inferred live-source mapping should be withdrawn or retested only after a working endpoint exists.

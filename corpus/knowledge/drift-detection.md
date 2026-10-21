@@ -93,3 +93,14 @@ in the lag set) — the blind-spot class named above, live-proven.
 ## Round-20 citation-local note (base `cb807bc`)
 
 > *[r20 citation-local 2026-10-19: `~/Projects/plazir-15-site` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; historical record, not an executable instruction.]*
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/drift-detection.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [drift-detection:c1] **HOLD** — The documented webzites and plazir-15-site source trees are absent locally. Surface: `/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site`.
+- [drift-detection:c2] **HOLD** — GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML. Surface: `GET https://ufo-fsd.kimi.pro`.
+- [drift-detection:c3] **HOLD** — HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page. Surface: `HEAD https://ufo-fsd.kimi.pro`.
+- [drift-detection:c4] **STALE** — The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header. Surface: `GET https://plazir27.kimi.pro`. Correction: As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.
+- [drift-detection:c5] **HOLD** — The cited canonical GitHub Pages Lucario URL still serves the page. Surface: `GET https://veigapunk.github.io/lucario/`.
+- [drift-detection:c6] **HOLD** — Both explicitly named dead-slot Kimi pages still return HTTP 404. Surface: `GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page`.

@@ -1,0 +1,92 @@
+{
+ "unit": "origin-repos",
+ "path": "corpus/knowledge/origin-repos.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "Clones live at `~/Projects/webzites/repos/<name>` — **read-only evidence",
+   "claim": "The documented `~/Projects/webzites/repos` clone root is present.",
+   "surface": "/home/vgpnk/Projects/webzites/repos",
+   "method": "test -e",
+   "observation": "absent /home/vgpnk/Projects/webzites/repos",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, `/home/vgpnk/Projects/webzites/repos` is absent, so clones are not currently available at the documented path.",
+   "seat": "ReverifyOriginRepos"
+  },
+  {
+   "id": "c2",
+   "anchor": "`origin repo list` = 224 repos under `jo-o-veiga`",
+   "claim": "The current `origin repo list` contains 224 repositories under `jo-o-veiga`.",
+   "surface": "origin repo list | paste - - | wc -l",
+   "method": "run",
+   "observation": "224",
+   "verdict": "HOLD",
+   "seat": "ReverifyOriginRepos"
+  },
+  {
+   "id": "c3",
+   "anchor": "50/50 clones re-fetched `HEAD == @{u}` at r8 — zero drift.",
+   "claim": "All 50 clone HEADs matched their upstreams with zero drift at r8.",
+   "surface": "/home/vgpnk/Projects/webzites/repos",
+   "method": "test -e",
+   "observation": "absent /home/vgpnk/Projects/webzites/repos; individual clone worktrees are unavailable",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The documented clone tree and its individual Git worktrees are absent, so current HEAD/upstream equality for the 50 clones cannot be computed; the r8 result remains historical evidence.",
+   "seat": "ReverifyOriginRepos"
+  },
+  {
+   "id": "c4",
+   "anchor": "| `ds4cc.com` | `repos/ds4cc-marketplace` (live index sha `b6f65899…`, also == `~/Projects/ds4cc-marketplace`) | byte-verified |",
+   "claim": "The current `ds4cc.com` index remains byte-verified against the documented `ds4cc-marketplace` checkout.",
+   "surface": "GET https://ds4cc.com/; /home/vgpnk/Projects/webzites/repos/ds4cc-marketplace",
+   "method": "GET",
+   "observation": "http_code=200 url=https://ds4cc.com/ size_download=76159 content_type=text/html; charset=utf-8; absent /home/vgpnk/Projects/webzites/repos/ds4cc-marketplace",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The public page is reachable, but the mapped checkout is absent and the unit records only a truncated digest, so the claimed live-to-repository byte identity cannot be rechecked.",
+   "seat": "ReverifyOriginRepos"
+  },
+  {
+   "id": "c5",
+   "anchor": "| `burnerchrome.kimi.page` | `repos/burnerchrome/index.html` (live 11819B vs 11775B = sdk-seed + serialization delta) | byte-verified |",
+   "claim": "The live `burnerchrome.kimi.page` response remains 11,819 bytes as recorded in the row.",
+   "surface": "https://burnerchrome.kimi.page/",
+   "method": "GET",
+   "observation": "http_code=200 url=https://burnerchrome.kimi.page/ size_download=11976 content_type=text/html",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, GET https://burnerchrome.kimi.page/ returned HTTP 200 with 11,976 bytes, not the cited 11,819-byte live size; the repository-side 11,775-byte comparison is not currently verifiable because its checkout is absent.",
+   "seat": "ReverifyOriginRepos"
+  },
+  {
+   "id": "c6",
+   "anchor": "## Byte-verified canonical writers (sha256-matched live ↔ repo tip, r5–r8)",
+   "claim": "The listed GitHub Pages root and the `llm-wiki`, `plazir-15-site`, and `charter-ufo-fsd` paths currently return HTTP 200.",
+   "surface": "GET https://veigapunk.github.io/; GET https://veigapunk.github.io/llm-wiki/; GET https://veigapunk.github.io/plazir-15-site/; GET https://veigapunk.github.io/charter-ufo-fsd/",
+   "method": "GET",
+   "observation": "http_code=200 url=https://veigapunk.github.io/ size_download=38262 content_type=text/html; charset=utf-8 | http_code=200 url=https://veigapunk.github.io/llm-wiki/ size_download=16338 content_type=text/html; charset=utf-8 | http_code=200 url=https://veigapunk.github.io/plazir-15-site/ size_download=38337 content_type=text/html; charset=utf-8 | http_code=200 url=https://veigapunk.github.io/charter-ufo-fsd/ size_download=53660 content_type=text/html; charset=utf-8",
+   "verdict": "HOLD",
+   "seat": "ReverifyOriginRepos"
+  },
+  {
+   "id": "c7",
+   "anchor": "| `plazir27runs-on.kimi.page` (63KB doctrine) | `repos/charter-ufo-fsd` variant | mapped |",
+   "claim": "The listed `plazir27runs-on.kimi.page` public property is currently reachable.",
+   "surface": "https://plazir27runs-on.kimi.page/",
+   "method": "GET",
+   "observation": "http_code=200 url=https://plazir27runs-on.kimi.page/ size_download=63421 content_type=text/html",
+   "verdict": "HOLD",
+   "seat": "ReverifyOriginRepos"
+  },
+  {
+   "id": "c8",
+   "anchor": "| `plazir27.kimi.page` | `repos/ufo-fsd-alpha/docs/charter-ufo-fsd` [INFERENCE — third variant, sha mismatches both charter clones] | inferred |",
+   "claim": "The inferred `plazir27.kimi.page` property is currently served as a live mapped variant.",
+   "surface": "https://plazir27.kimi.page/",
+   "method": "GET",
+   "observation": "http_code=404 url=https://plazir27.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, GET https://plazir27.kimi.page/ returns HTTP 404, so this is not a currently served public property and its inferred live-source mapping should be withdrawn or retested only after a working endpoint exists.",
+   "seat": "ReverifyOriginRepos"
+  }
+ ]
+}

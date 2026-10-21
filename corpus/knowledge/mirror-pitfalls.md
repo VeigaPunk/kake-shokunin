@@ -52,3 +52,14 @@ citation-only.
   `(musketeer-chrome &)` dies with the shell — `setsid -f musketeer-chrome`.
 - Chat fires are metered: ~1 per site update; `--fire --confirm=<id>`
   double-gate; preflight path is free.
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/mirror-pitfalls.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [mirror-pitfalls:c1] **HOLD** — The public root currently serves a 612-byte HTML client SPA shell. Surface: `GET https://ufo-fsd.kimi.pro/`.
+- [mirror-pitfalls:c2] **HOLD** — The two named public roots currently serve distinct pages: a central vault and a work-in-progress ufofsd landing page. Surface: `GET https://ufo-fsd.kimi.page/; GET https://ufofsd.kimi.page/`.
+- [mirror-pitfalls:c3] **UNVERIFIABLE** — The two named Kimi sites have no chat bound to them. Surface: `GET https://plazir15.kimi.page/; GET https://charter-ufo-fsd.kimi.page/`. Unverifiable: Unauthenticated public GET establishes only the current 404 responses, not the private Kimi chat-to-site binding. No authenticated API or browser operation was used.
+- [mirror-pitfalls:c4] **STALE** — The frozen three-run copy and its canonical repository path are present locally, with a rel=canonical link from the copy. Surface: `test -e /home/vgpnk/Projects/plazir-15-site/speedrun; test -e /home/vgpnk/Projects/ds4cc-marketplace/speedrun`. Correction: As of 2026-10-21, neither /home/vgpnk/Projects/plazir-15-site/speedrun nor /home/vgpnk/Projects/ds4cc-marketplace/speedrun exists under /home/vgpnk/Projects, so this workstation cannot substantiate the asserted copy or canonical link.
+- [mirror-pitfalls:c5] **UNVERIFIABLE** — The named tree is a non-git review snapshot, is not a source, and has remained absent from the filesystem since the r15 sweep. Surface: `test -e /home/vgpnk/Projects/ufofsdbeta-kimi-review; test -e /home/vgpnk/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review; glob /home/vgpnk/Projects/**/ufofsdbeta-kimi-review`. Unverifiable: The unit gives only a relative directory name and makes a filesystem-wide absence/non-git assertion. The checked project-root candidates were absent, but without an exact canonical absolute path or the tree itself I cannot verify the global absence or its former git status.
+- [mirror-pitfalls:c6] **UNVERIFIABLE** — Kimi's served bytes are rewritten by the listed mechanisms, making source-versus-served SHA comparison unsuitable without normalization. Surface: `GET https://ufo-fsd.kimi.pro/ plus its raw response; paired pre-publish source bytes unavailable`. Unverifiable: The public response confirms SDK-seed injection on this page, but neither the named historical source documents nor paired pre-publish bytes are available to verify cfemail/entity rewriting or the broader digest conclusion.

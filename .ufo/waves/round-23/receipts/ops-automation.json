@@ -1,0 +1,73 @@
+{
+ "unit": "ops-automation",
+ "path": "corpus/knowledge/ops-automation.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "`webzites-probe.timer` | `OnUnitActiveSec=6h`, `OnBootSec=5min`, `Persistent=true` | `webzites probe --all --quiet`",
+   "claim": "The cited probe timer is an installed live timer, scheduled every six hours with a five-minute boot delay and persistence to run `webzites probe --all --quiet`.",
+   "surface": "systemctl --user show webzites-probe.timer webzites-keeper.timer -p Id -p LoadState -p ActiveState -p UnitFileState -p NextElapseUSecRealtime -p LastTriggerUSec -p FragmentPath",
+   "method": "run",
+   "observation": "Id=webzites-probe.timer\nLoadState=not-found\nActiveState=inactive\nFragmentPath=\nUnitFileState=\nNextElapseUSecRealtime=\nLastTriggerUSec=",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, `webzites-probe.timer` is not loaded (`LoadState=not-found`) and its cited user unit file is absent, so the documented schedule is not a current live timer configuration.",
+   "seat": "ReverifyOpsAutomation"
+  },
+  {
+   "id": "c2",
+   "anchor": "status (r12): loaded, DISABLED, inactive (dead), zero journal entries; has never fired.",
+   "claim": "The keeper timer is currently loaded, disabled, and inactive, with the cited daily timer configuration.",
+   "surface": "systemctl --user show webzites-probe.timer webzites-keeper.timer -p Id -p LoadState -p ActiveState -p UnitFileState -p NextElapseUSecRealtime -p LastTriggerUSec -p FragmentPath",
+   "method": "run",
+   "observation": "Id=webzites-keeper.timer\nLoadState=not-found\nActiveState=inactive\nFragmentPath=\nUnitFileState=\nNextElapseUSecRealtime=\nLastTriggerUSec=",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, `webzites-keeper.timer` is not loaded (`LoadState=not-found`) and its cited user unit file is absent, so the `loaded, DISABLED, inactive (dead)` state is historical rather than current.",
+   "seat": "ReverifyOpsAutomation"
+  },
+  {
+   "id": "c3",
+   "anchor": "**78 rows** 2026-09-20→09-29 (r16 re-read 2026-09-29T02:2xZ; row 77 =",
+   "claim": "The cited `probe-history.jsonl` is a live source with at least 78 rows and a row-count floor that must be re-derived as it grows.",
+   "surface": "/home/vgpnk/Projects/webzites/state/probe-history.jsonl",
+   "method": "test -e",
+   "observation": "ABSENT /home/vgpnk/Projects/webzites/state/probe-history.jsonl",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the cited `probe-history.jsonl` path is absent, so it has no live row count to report; `78 rows` remains only the dated 2026-09-29 observation.",
+   "seat": "ReverifyOpsAutomation"
+  },
+  {
+   "id": "c4",
+   "anchor": "## CLI surface beyond probe/reconcile (`bin/webzites.mjs --help`, verbatim)",
+   "claim": "The cited `bin/webzites.mjs` help surface exists and provides the listed live CLI verbs, including `status`, `map`, `auth`, and `install`.",
+   "surface": "if command -v webzites >/dev/null 2>&1; then printf 'FOUND %s\\n' \"$(command -v webzites)\"; webzites --help; else printf 'NOT_FOUND webzites\\n'; fi",
+   "method": "run",
+   "observation": "NOT_FOUND webzites",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the cited `bin/webzites.mjs` file is absent and no `webzites` executable is on PATH, so the listed verbs are not available from the documented live surface.",
+   "seat": "ReverifyOpsAutomation"
+  },
+  {
+   "id": "c5",
+   "anchor": "**`veigapunk-page` flipped violated→ok** between the 2026-09-21T03:32:06",
+   "claim": "The probe-history rows show `veigapunk-page` flipping from violated to ok between the 2026-09-21T03:32:06 and 04:14:50 full sweeps.",
+   "surface": "/home/vgpnk/Projects/webzites/state/probe-history.jsonl",
+   "method": "test -e",
+   "observation": "ABSENT /home/vgpnk/Projects/webzites/state/probe-history.jsonl",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The raw event-log file is absent, so no live surface remains from which to inspect the two dated rows and verify this historical transition.",
+   "seat": "ReverifyOpsAutomation"
+  },
+  {
+   "id": "c6",
+   "anchor": "status (r12): loaded, DISABLED, inactive (dead), zero journal entries; has never fired.",
+   "claim": "The keeper timer had never fired by the historical r12 check and had zero journal entries at that time.",
+   "surface": "journalctl --user --unit=webzites-keeper.service --no-pager -o short-iso",
+   "method": "run",
+   "observation": "-- No entries --",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The current retained journal has no entries and the cited unit file is absent, but this does not establish that the historical journal was complete or prove the timer never fired by the r12 check.",
+   "seat": "ReverifyOpsAutomation"
+  }
+ ]
+}

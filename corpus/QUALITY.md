@@ -131,3 +131,21 @@ Grounding: `corpus/lessons/round-22-verifier-spotcheck.md` routed notes 1–3.
   `.ufo/waves/round-22/postfix/REPRODUCE.md`.
 - Recovered misroot files keep their content but live with the wave evidence
   that produced them, not at the lane root.
+
+### Parser relaxations and live receipts — round 23
+
+Grounding: `corpus/lessons/round-23.md` §Mistakes; `.ufo/waves/round-23/w1/{FalsifyForeignContent,CritCounterC1,CritCounterC2}.md`.
+
+- A change that turns an unsupported input class into an evaluated one lists
+  every way the newly evaluated region can feed the decision (for canonical:
+  base, head, canonical link, end-tag mismatch, raw-text hiding, integration
+  points) and ships a probe for each. Fails if
+  `python3 .ufo/waves/round-23/relaxation_probe.py --validator scripts/canonical_audit.py`
+  exits nonzero.
+- A freshness receipt counts only with at least one claim decided against a
+  live surface; "surface gone" is recorded as UNVERIFIABLE with a reason and is
+  never relabelled HOLD. A presence claim whose surface is gone is STALE.
+- A live-page receipt states what it proves: the policy result of the bytes
+  served at `fetchedAt`. Receipt coverage (reproducible receipts / population)
+  is reported separately from policy outcomes (clean / failed-policy /
+  not-served); a 404 is never a canonical result.

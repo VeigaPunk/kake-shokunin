@@ -1,0 +1,80 @@
+{
+ "unit": "ghp-subpath-spotcheck",
+ "path": "corpus/knowledge/ghp-subpath-spotcheck.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "~/Projects/webzites/src/reconcile.mjs:55-107 (absent since the 2026-10-12 prune)",
+   "claim": "The cited local reconcile source path is absent at this recheck.",
+   "surface": "/home/vgpnk/Projects/webzites/src/reconcile.mjs",
+   "method": "test -e",
+   "observation": "absent /home/vgpnk/Projects/webzites/src/reconcile.mjs",
+   "verdict": "HOLD",
+   "seat": "ReverifyGhpSubpathSpotcheck"
+  },
+  {
+   "id": "c2",
+   "anchor": "`in-sync` needs only\n`titleEqual` + marker parity.",
+   "claim": "The current webzites behavior is as documented: probe checks only the row root URL, reconcile selects one shallow index.html, and in-sync can accept title/marker parity without byte equality, masking GHP byte drift.",
+   "surface": "command -v webzites; /home/vgpnk/Projects/webzites/src/probe.mjs; /home/vgpnk/Projects/webzites/src/reconcile.mjs",
+   "method": "run",
+   "observation": "source paths absent; command -v webzites produced no path",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The cited implementation files and webzites executable are absent locally; no current implementation surface can decide these behaviors. The historical 2026-09-28 byte example also has no reproducible audit-file path.",
+   "seat": "ReverifyGhpSubpathSpotcheck"
+  },
+  {
+   "id": "c3",
+   "anchor": "`/dir` → 301 → `/dir/` → serves `dir/index.html`.",
+   "claim": "Current GHP slashless /snake and /magga paths redirect to slash URLs, whose response bytes match their explicit index.html paths.",
+   "surface": "https://veigapunk.github.io/plazir-15-site/snake; https://ds4cc.com/magga; both slash and index.html forms",
+   "method": "GET",
+   "observation": "GET /snake status=301 redirect=https://veigapunk.github.io/plazir-15-site/snake/; followed GET status=200, redirects=1. GET /magga status=301 redirect=https://ds4cc.com/magga/; followed GET status=200, redirects=1. SHA-256 /snake/ and /snake/index.html both d42e5247cf52456efc8c86768ae16c331fd8f06d3914767ff64d00fb12509826; /magga/ and /magga/index.html both 63ba970082ccf115af0c763aa8350f26e35e249058406bdae14cf13bd94642cc.",
+   "verdict": "HOLD",
+   "seat": "ReverifyGhpSubpathSpotcheck"
+  },
+  {
+   "id": "c4",
+   "anchor": "`404.html` at root is honored as the custom 404 body",
+   "claim": "The Plazir Pages site serves its root 404.html bytes for missing routes; ds4cc.com does not expose a 404.html file and currently returns the stock GitHub Pages 404 body.",
+   "surface": "https://veigapunk.github.io/plazir-15-site/404.html; https://veigapunk.github.io/plazir-15-site/__r23-nonexistent-20261021__; https://ds4cc.com/404.html; https://ds4cc.com/__r23-nonexistent-20261021__",
+   "method": "GET",
+   "observation": "Plazir /404.html status=200; missing path status=404; both body SHA-256 f02b656cb925f54b069dbe82e78bd58daea8556428615b0020fa7a6955810f11. ds4cc /404.html status=404; missing path status=404; both body SHA-256 b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368; body includes `<title>Page not found &middot; GitHub Pages</title>` and `File not found`.",
+   "verdict": "HOLD",
+   "seat": "ReverifyGhpSubpathSpotcheck"
+  },
+  {
+   "id": "c5",
+   "anchor": "title \"Page not found\"",
+   "claim": "The current Plazir GHP missing-page document title is `Page not found`.",
+   "surface": "GET https://veigapunk.github.io/plazir-15-site/__r23-nonexistent-20261021__; raw GET https://veigapunk.github.io/plazir-15-site/404.html",
+   "method": "GET",
+   "observation": "Missing-path GET status=404; its body hash equals /404.html; raw HTML title is `<title>Not found — Plazir-15</title>`.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the missing path returns HTTP 404 with bytes identical to /404.html, whose HTML title is `Not found — Plazir-15`; the body still contains the words `Page not found`.",
+   "seat": "ReverifyGhpSubpathSpotcheck"
+  },
+  {
+   "id": "c6",
+   "anchor": "whether Actions serves /CNAME is an unverified prediction requiring an operator-authorized free read",
+   "claim": "The note's unresolved `/CNAME` availability question is still open for the current ds4cc.com deployment.",
+   "surface": "https://ds4cc.com/CNAME",
+   "method": "GET",
+   "observation": "GET status=200, Content-Type=application/octet-stream; raw response body `ds4cc.com`.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, GET https://ds4cc.com/CNAME returns HTTP 200 with raw body `ds4cc.com`, so the current ds4cc.com deployment exposes `/CNAME`; this does not establish which publishing workflow supplied it.",
+   "seat": "ReverifyGhpSubpathSpotcheck"
+  },
+  {
+   "id": "c7",
+   "anchor": "kimi has no directory indexes",
+   "claim": "The current ds4cc Kimi mirror reproduces the directory-index contrast on its linked omarchy-usage path: the directory URL is 404 while explicit index.html is 200.",
+   "surface": "https://ds4cc.kimi.page/omarchy-usage/; https://ds4cc.kimi.page/omarchy-usage/index.html",
+   "method": "GET",
+   "observation": "GET /omarchy-usage/ status=404; GET /omarchy-usage/index.html status=200.",
+   "verdict": "HOLD",
+   "seat": "ReverifyGhpSubpathSpotcheck"
+  }
+ ]
+}

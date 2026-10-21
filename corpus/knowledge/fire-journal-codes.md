@@ -74,3 +74,14 @@ died.**
 4. **Orphan risk**: a fired run that dies before `versionWait` (code 4/6/7)
    can leave a version card in an unknown chat. `kimi-map` sweep + match by
    fire-description timestamp is the recovery path.
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/fire-journal-codes.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [fire-journal-codes:c1] **HOLD** — The recorded kimi-surface.mjs path remains absent now. Surface: `/home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs`.
+- [fire-journal-codes:c2] **UNVERIFIABLE** — The current implementation writes each metered run to a JSON journal under state/. Surface: `/home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs`. Unverifiable: The cited implementation and its state directory are both absent; no live source remains to inspect or run to establish this behavior.
+- [fire-journal-codes:c3] **UNVERIFIABLE** — The historical 28-journal corpus has exactly six top-level keys, with error optional. Surface: `/home/vgpnk/Projects/webzites/state/`. Unverifiable: The cited state directory and its 28-journal corpus are absent, so the key census cannot be repeated.
+- [fire-journal-codes:c4] **UNVERIFIABLE** — The listed code-6 new-chat anomaly is classified as consuming a metered fire. Surface: `/home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs`. Unverifiable: The throw-site implementation and the associated journals are unavailable, so the historical code-6 behavior and fired-step state cannot be checked.
+- [fire-journal-codes:c5] **UNVERIFIABLE** — The historical charter rebuild created version efc1830, had a marker-present 200 preview, and ended with stillDead true. Surface: `/home/vgpnk/Projects/webzites/state/rebuild-charter-fire.log`. Unverifiable: The cited run log is absent, and the local artifacts needed to re-establish the historical preview result are unavailable.
+- [fire-journal-codes:c6] **HOLD** — The charter-ufo-fsd Kimi live URL currently responds 404. Surface: `https://charter-ufo-fsd.kimi.page/`.

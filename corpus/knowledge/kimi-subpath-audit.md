@@ -88,3 +88,13 @@ Classification table: `in_source && added ≤ publish-vintage` = ROT;
 `added > vintage` = expected staleness; `!in_source` = not-ours/noise.
 Publish vintage per row: max embedded DOM date, kimi-map chat updateTime of
 the bound chat, keeper logs — never `fleet.config.json.updatedAt`.
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/kimi-subpath-audit.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [kimi-subpath-audit:c1] **STALE** — The live canonical sitemap currently has 93 entries and is the should-serve inventory for the Kimi mirror. Surface: `GET https://ds4cc.com/sitemap.xml`. Correction: As of 2026-10-21, the live ds4cc.com sitemap contains 96 <loc> entries and remains the should-serve inventory for ds4cc.kimi.page.
+- [kimi-subpath-audit:c2] **STALE** — Parity of the canonical list reports 19 served and 74 missing Kimi paths. Surface: `GET https://ds4cc.com/sitemap.xml; GET all 96 mapped paths on https://ds4cc.kimi.page (trailing / mapped to index.html)`. Correction: As of 2026-10-21, the live sitemap has 96 canonical locations and the 96 directory-mapped Kimi GETs return 19 HTTP 200 and 77 HTTP 404.
+- [kimi-subpath-audit:c3] **HOLD** — The index-linked omarchy-usage, omegag, and speedrun directory URLs fail on Kimi while their index.html paths serve. Surface: `GET https://ds4cc.kimi.page/{omarchy-usage,omegag,speedrun}{/,/index.html}`.
+- [kimi-subpath-audit:c4] **HOLD** — The burnerchrome Kimi index has 15 same-origin link targets and zero non-200 targets. Surface: `GET https://burnerchrome.kimi.page/ and its 15 unique same-origin non-fragment href/src targets`.
+- [kimi-subpath-audit:c5] **STALE** — The source-history pointer f3d2ecd is the sitemap change adding 75 URLs to the 18-entry list, reaching 93. Surface: `GET https://github.com/VeigaPunk/ds4cc-marketplace/commits/main/sitemap.xml; GET https://github.com/VeigaPunk/ds4cc-marketplace/commit/f3d2ecd; GET raw sitemap at 2b5fd57 and 0b1116766de2d9895a3673c88678049b4946cf3c`. Correction: As of 2026-10-21, the reachable sitemap history shows commit 0b1116766de2d9895a3673c88678049b4946cf3c adding 75 locations (parent 2b5fd57: 18; new tree: 93), while the cited f3d2ecd URL returns 404.

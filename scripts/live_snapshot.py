@@ -12,6 +12,10 @@ redirects, 2 MiB body, 20 s timeout) and writes, under DIR/<id>/:
               validator's stdout JSON plus exit; a non-served surface records
               {"verdict":"not-served","status":N,"exit":null}.
 It never sends anything but GET, never publishes, and writes only under DIR.
+Surface ids must be a single safe path component ([a-z0-9][a-z0-9-]*) and URLs must be
+http(s) without userinfo; anything else is bad input and nothing is fetched.
+--reaudit re-runs only the audit step over already stored snapshots (no network),
+e.g. after the validator changes, keeping fetch.json/page.html byte-identical.
 Exit 0 when every surface was attempted (verdicts are data, not exit status);
 2 on bad input; 64 on usage.
 """
@@ -22,15 +26,18 @@ import datetime
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 
 MAX_BODY = 2 * 1024 * 1024
 TIMEOUT = 20
 MAX_REDIRECTS = 5
 USER_AGENT = "kake-shokunin-readonly-preflight/1 (+GET only)"
+SAFE_ID = re.compile(r"[a-z0-9][a-z0-9-]{0,62}")
 
 
 class Redirects(urllib.request.HTTPRedirectHandler):
@@ -40,6 +47,9 @@ class Redirects(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         if len(self.chain) >= MAX_REDIRECTS:
             raise urllib.error.HTTPError(req.full_url, code, "too many redirects", headers, fp)
+        target = urllib.parse.urlsplit(newurl)
+        if target.scheme not in {"http", "https"} or target.username is not None or target.password is not None:
+            raise urllib.error.HTTPError(req.full_url, code, "redirect to non-http(s) or userinfo URL refused", headers, fp)
         self.chain.append({"status": code, "from": req.full_url, "to": newurl})
         new = super().redirect_request(req, fp, code, msg, headers, newurl)
         if new is not None and new.get_method() != "GET":
@@ -86,15 +96,28 @@ def audit(validator: str, directory: str, page_url: str, expected: str) -> dict[
     path = os.path.join(directory, "manifest.json")
     with open(path, "w", encoding="utf-8") as stream:
         json.dump(manifest, stream, sort_keys=True)
-    done = subprocess.run([sys.executable, "-B", validator, "--manifest", path, "--json"],
-                          capture_output=True, text=True, timeout=60, check=False)
-    return {"exit": done.returncode, "result": json.loads(done.stdout)}
+    try:
+        done = subprocess.run([sys.executable, "-B", validator, "--manifest", path, "--json"],
+                              capture_output=True, text=True, timeout=60, check=False)
+        return {"exit": done.returncode, "result": json.loads(done.stdout)}
+    except (subprocess.TimeoutExpired, json.JSONDecodeError, OSError) as exc:
+        return {"exit": None, "result": {"verdict": "audit-error", "findings": [], "pagesChecked": 0},
+                "error": f"{type(exc).__name__}: {exc}"}
+
+
+def check_surface(surface: dict) -> None:
+    if not isinstance(surface.get("id"), str) or not SAFE_ID.fullmatch(surface["id"]):
+        raise ValueError(f"unsafe surface id {surface.get('id')!r}")
+    parts = urllib.parse.urlsplit(str(surface.get("url")))
+    if parts.scheme not in {"http", "https"} or not parts.hostname or parts.username is not None or parts.password is not None:
+        raise ValueError(f"surface {surface['id']}: url must be http(s) with a host and no userinfo")
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--population", required=True)
     parser.add_argument("--out", required=True)
+    parser.add_argument("--reaudit", action="store_true", help="re-run audits on stored snapshots only (no network)")
     parser.add_argument("--validator", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "canonical_audit.py"))
     try:
         args = parser.parse_args(argv)
@@ -103,23 +126,38 @@ def main(argv: list[str] | None = None) -> int:
     try:
         with open(args.population, encoding="utf-8") as stream:
             surfaces = json.load(stream)["surfaces"]
-        if not surfaces or any(set(s) < {"id", "url", "expectedCanonical"} for s in surfaces):
+        if not surfaces or any(not {"id", "url", "expectedCanonical"} <= set(s) for s in surfaces):
             raise ValueError("each surface needs id, url, expectedCanonical")
+        for surface in surfaces:
+            check_surface(surface)
+        if len({s["id"] for s in surfaces}) != len(surfaces):
+            raise ValueError("duplicate surface id")
     except (OSError, ValueError, KeyError, TypeError) as exc:
         print(json.dumps({"error": str(exc)}))
         return 2
+    out = os.path.realpath(args.out)
     summary = []
     for surface in surfaces:
-        directory = os.path.join(args.out, surface["id"])
-        os.makedirs(directory, exist_ok=True)
-        meta, body = fetch(surface["url"])
-        with open(os.path.join(directory, "fetch.json"), "w", encoding="utf-8") as stream:
-            json.dump(meta, stream, indent=1, sort_keys=True)
+        directory = os.path.join(out, surface["id"])
+        if os.path.dirname(os.path.realpath(directory)) != out:
+            print(json.dumps({"error": f"{surface['id']}: destination escapes --out"}))
+            return 2
+        if args.reaudit:
+            with open(os.path.join(directory, "fetch.json"), encoding="utf-8") as stream:
+                meta = json.load(stream)
+            page = os.path.join(directory, "page.html")
+            body = b"" if os.path.isfile(page) else None
+        else:
+            os.makedirs(directory, exist_ok=True)
+            meta, body = fetch(surface["url"])
+            with open(os.path.join(directory, "fetch.json"), "w", encoding="utf-8") as stream:
+                json.dump(meta, stream, indent=1, sort_keys=True)
+            if body is not None:
+                with open(os.path.join(directory, "page.html"), "wb") as stream:
+                    stream.write(body)
         if body is None:
             receipt = {"verdict": "not-served", "status": meta["status"], "exit": None, "error": meta["error"]}
         else:
-            with open(os.path.join(directory, "page.html"), "wb") as stream:
-                stream.write(body)
             receipt = audit(args.validator, directory, str(meta["finalUrl"]), surface["expectedCanonical"])
         with open(os.path.join(directory, "audit.json"), "w", encoding="utf-8") as stream:
             json.dump(receipt, stream, indent=1, sort_keys=True)

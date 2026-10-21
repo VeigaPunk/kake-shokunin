@@ -280,3 +280,14 @@ ENOENT is a typo, not a vanish.
   `free-read-verbs.md`), the two verb-outcome samples (`free-read-verbs.md`),
   the `×2`→`×3` plazir15 fire count and the journal top-level key list
   (`fire-journal-codes.md`), and two `src/cli.mjs` line pins (`SKILL.md`).
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/publish-queue.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [publish-queue:c1] **HOLD** — The cited historical webzites report, dedupe report, and scribe ledger remain absent on disk. Surface: `/home/vgpnk/Projects/webzites/reports/r9-publish-queue.md; /home/vgpnk/Projects/webzites/fleet/fleet.dedupe-report.md; /home/vgpnk/Projects/origin-work/ufo-fsd-alpha/.ufo/charter-scribe/ledger.jsonl`.
+- [publish-queue:c2] **HOLD** — The three named queue URLs still return two hard 404s and a redirect to Kimi's preview-404 page. Surface: `https://charter-ufo-fsd.kimi.page/; https://plazir15.kimi.page/; https://plazir27.kimi.pro/`.
+- [publish-queue:c3] **HOLD** — The charter-ufo-fsd Kimi slug root remains HTTP 404 with the watch's sentinel bytes and digest. Surface: `https://charter-ufo-fsd.kimi.page/`.
+- [publish-queue:c4] **STALE** — The live charter-ghp page carries the 2026-09-29 scribe-beat marker. Surface: `https://veigapunk.github.io/charter-ufo-fsd/`. Correction: As of 2026-10-21, GET https://veigapunk.github.io/charter-ufo-fsd/ serves the literal `2026-09-30 scribe beat (`, not `2026-09-29 scribe beat (`.
+- [publish-queue:c5] **STALE** — The config-of-record path contains the cited 2026-09-26 scribe-beat pin at line 256. Surface: `/home/vgpnk/Projects/webzites/fleet/fleet.config.json`. Correction: As of 2026-10-21, `/home/vgpnk/Projects/webzites/fleet/fleet.config.json` is absent, so the cited line-256 `2026-09-26 scribe beat` pin is not present at its claimed surface.
+- [publish-queue:c6] **STALE** — The canonical sitemap and robots endpoints are live HTTP 404s. Surface: `https://ds4cc.com/sitemap.xml; https://ds4cc.com/robots.txt`. Correction: As of 2026-10-21, GET https://ds4cc.com/sitemap.xml returned HTTP 200 (7,565 bytes) and GET https://ds4cc.com/robots.txt returned HTTP 200 (62 bytes), not HTTP 404.

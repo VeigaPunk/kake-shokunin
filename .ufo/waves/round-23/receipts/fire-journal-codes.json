@@ -1,0 +1,71 @@
+{
+ "unit": "fire-journal-codes",
+ "path": "corpus/knowledge/fire-journal-codes.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "script absent per the r20 correction below",
+   "claim": "The recorded kimi-surface.mjs path remains absent now.",
+   "surface": "/home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs",
+   "method": "test -e",
+   "observation": "script=absent",
+   "verdict": "HOLD",
+   "seat": "ReverifyFireJournalCodes"
+  },
+  {
+   "id": "c2",
+   "anchor": "Every metered run writes a journal JSON to `state/`.",
+   "claim": "The current implementation writes each metered run to a JSON journal under state/.",
+   "surface": "/home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs",
+   "method": "test -e",
+   "observation": "script=absent",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The cited implementation and its state directory are both absent; no live source remains to inspect or run to establish this behavior.",
+   "seat": "ReverifyFireJournalCodes"
+  },
+  {
+   "id": "c3",
+   "anchor": "Top-level keys, measured\nover all 28 journals (r16 union) — exactly six:",
+   "claim": "The historical 28-journal corpus has exactly six top-level keys, with error optional.",
+   "surface": "/home/vgpnk/Projects/webzites/state/",
+   "method": "test -e",
+   "observation": "/home/vgpnk/Projects/webzites/state=absent",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The cited state directory and its 28-journal corpus are absent, so the key census cannot be repeated.",
+   "seat": "ReverifyFireJournalCodes"
+  },
+  {
+   "id": "c4",
+   "anchor": "post-fire anomaly on new-chat flow",
+   "claim": "The listed code-6 new-chat anomaly is classified as consuming a metered fire.",
+   "surface": "/home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs",
+   "method": "test -e",
+   "observation": "script=absent",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The throw-site implementation and the associated journals are unavailable, so the historical code-6 behavior and fired-step state cannot be checked.",
+   "seat": "ReverifyFireJournalCodes"
+  },
+  {
+   "id": "c5",
+   "anchor": "version `efc1830` card created, preview 200+marker, `liveAfter.stillDead:true`",
+   "claim": "The historical charter rebuild created version efc1830, had a marker-present 200 preview, and ended with stillDead true.",
+   "surface": "/home/vgpnk/Projects/webzites/state/rebuild-charter-fire.log",
+   "method": "test -e",
+   "observation": "/home/vgpnk/Projects/webzites/state/rebuild-charter-fire.log=absent",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The cited run log is absent, and the local artifacts needed to re-establish the historical preview result are unavailable.",
+   "seat": "ReverifyFireJournalCodes"
+  },
+  {
+   "id": "c6",
+   "anchor": "state: live URL stays 404 until a human clicks the version card and sets",
+   "claim": "The charter-ufo-fsd Kimi live URL currently responds 404.",
+   "surface": "https://charter-ufo-fsd.kimi.page/",
+   "method": "HEAD",
+   "observation": "HTTP/2 404\ndate: Wed, 21 Oct 2026 07:00:26 GMT\n…\nstatus=404\nurl=https://charter-ufo-fsd.kimi.page/",
+   "verdict": "HOLD",
+   "seat": "ReverifyFireJournalCodes"
+  }
+ ]
+}

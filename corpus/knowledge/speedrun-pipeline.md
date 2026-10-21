@@ -68,3 +68,16 @@ outside mission root, duplicate run id, probe mismatch, >280-char draft.
 ## Round-20 corrections (append-only; base `cb807bc`)
 
 - Base `corpus/knowledge/speedrun-pipeline.md:36`: **[r20-correction 2026-10-19: the uploaded artifact is not the full checkout; .git/.github are excluded and v4 excludes hidden paths by default (v5 adds include-hidden-files) — S001, S002, S004]**
+
+## Live re-verification — round 23 (2026-10-21)
+
+Read-only live checks; receipt `.ufo/waves/round-23/receipts/speedrun-pipeline.json` (claim, surface, method, observation). A HOLD is an observation on 2026-10-21, not a guarantee. Where this section and earlier text disagree, this section is newer.
+
+- [speedrun-pipeline:c1] **HOLD** — The previously flagged local runbook and implementation paths remain absent. Surface: `/home/vgpnk/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md; /home/vgpnk/Projects/webzites/src/speedrun.mjs`.
+- [speedrun-pipeline:c2] **STALE** — The unflagged keeper-card and keeper-report references remain extant current source files. Surface: `/home/vgpnk/Projects/webzites/agents/webzites-speedrun.md; /home/vgpnk/Projects/webzites/reports/keepers/speedrun-r1.md`. Correction: As of 2026-10-21, `/home/vgpnk/Projects/webzites/agents/webzites-speedrun.md` and `/home/vgpnk/Projects/webzites/reports/keepers/speedrun-r1.md` are absent and should be marked unavailable rather than unflagged current sources.
+- [speedrun-pipeline:c3] **HOLD** — The historically designated local authority path remains absent. Surface: `/home/vgpnk/Projects/ds4cc-marketplace/speedrun`.
+- [speedrun-pipeline:c4] **UNVERIFIABLE** — The live `prep --write` implementation refuses output paths outside the keeper mission root. Surface: `/home/vgpnk/Projects/webzites and /home/vgpnk/Projects/webzites/src/speedrun.mjs`. Unverifiable: Both the named mission root and the implementation path are absent, so no current CLI is available to execute this guard and decide the behavior.
+- [speedrun-pipeline:c5] **UNVERIFIABLE** — The cited board poller currently runs on a five-minute cadence. Surface: `systemctl --user list-timers --all --no-pager; systemctl list-timers --all --no-pager; crontab -l`. Unverifiable: No current timer is identified as a speedrun/board poller, and the five-minute `ai-usage.timer` cannot be attributed to that poller from the available evidence.
+- [speedrun-pipeline:c6] **HOLD** — The primary board's currently served run records still have 18 common top-level keys and `budget_usd` explicitly null in four of nine records. Surface: `GET https://ds4cc.com/speedrun/data/manifest.json and its nine `runs[]` JSON URLs`.
+- [speedrun-pipeline:c7] **UNVERIFIABLE** — The public board is served from GitHub Pages and has no HTTP upload API. Surface: `GET https://ds4cc.com/speedrun/; GET https://ds4cc.com/speedrun/main.js; GET https://ds4cc.com/speedrun/data/manifest.json`. Unverifiable: The local source/authority tree is absent; public GETs show a JSON-backed page but cannot establish its GitHub Pages origin or prove that no separate upload endpoint exists.
+- [speedrun-pipeline:c8] **HOLD** — The live Pages mirror declares `https://ds4cc.com/speedrun/` as its canonical URL. Surface: `GET https://veigapunk.github.io/plazir-15-site/speedrun/`.
