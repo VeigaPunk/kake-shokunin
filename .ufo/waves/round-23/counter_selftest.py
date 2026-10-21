@@ -147,8 +147,9 @@ def seed_c2(repo: Path, surfaces: list[dict[str, str]]) -> tuple[list[str], str]
                 "error": None,
                 "truncated": False,
                 "sha256": hashlib.sha256(body).hexdigest(),
+                "bytes": len(body),
             }
-            audit = {"verdict": "not-served", "status": status}
+            audit = {"verdict": "not-served", "status": status, "exit": None, "error": None}
         else:
             body = (
                 "<!doctype html><html><head><link rel=\"canonical\" href=\""
@@ -165,6 +166,7 @@ def seed_c2(repo: Path, surfaces: list[dict[str, str]]) -> tuple[list[str], str]
                 "error": None,
                 "truncated": False,
                 "sha256": hashlib.sha256(body).hexdigest(),
+                "bytes": len(body),
             }
             (prefix / "page.html").parent.mkdir(parents=True, exist_ok=True)
             (prefix / "page.html").write_bytes(body)
@@ -383,6 +385,56 @@ def main() -> int:
             run_case(repo, "measure_c2.py", "C2 non-GET fetch rejected", method_revision, 1, len(surfaces),
                      failure_target=surfaces[1]["id"], expected_problem="GET")
         )
+
+        # Regression inputs target checks the seven-case detector did not cover
+        # (w2/MutateCounterSelftest: 58/71 mutants survived the initial suite).
+        for field, value, problem in (
+            ("unit", "wrong-unit", "unit/path mismatch"),
+            ("path", "wrong-path.md", "unit/path mismatch"),
+            ("observedAt", "2026-10-20", "observedAt"),
+            ("claims", [], "no claims"),
+        ):
+            git(repo, "checkout", "--quiet", "--detach", good_revision)
+            rel = f"{ROUND}/receipts/{units[0]['unit']}.json"
+            payload = json.loads((repo / rel).read_text())
+            payload[field] = value
+            write_json(repo / rel, payload)
+            rev = commit_fixture(repo, f"selftest: C1 {field}", [rel])
+            cases.append(run_case(repo, "measure_c1.py", f"C1 invalid {field}", rev, 1, len(units),
+                                  failure_target=units[0]["unit"], expected_problem=problem))
+        claim_variants = [
+            (f"missing-{field}", {field: ""}, "missing field")
+            for field in ("id", "anchor", "claim", "surface", "method", "observation", "verdict")
+        ] + [
+            ("unknown-verdict", {"verdict": "PASS"}, "verdict"),
+            ("stale-without-correction", {"verdict": "STALE"}, "STALE without correction"),
+            ("stale-correction-absent", {"verdict": "STALE", "correction": "not appended correction"}, "correction not in"),
+            ("unverifiable-without-reason", {"verdict": "UNVERIFIABLE"}, "UNVERIFIABLE without reason"),
+        ]
+        for name, changes, problem in claim_variants:
+            git(repo, "checkout", "--quiet", "--detach", good_revision)
+            rel = f"{ROUND}/receipts/{units[0]['unit']}.json"
+            payload = json.loads((repo / rel).read_text())
+            payload["claims"][0].update(changes)
+            write_json(repo / rel, payload)
+            rev = commit_fixture(repo, f"selftest: C1 {name}", [rel])
+            cases.append(run_case(repo, "measure_c1.py", f"C1 {name}", rev, 1, len(units),
+                                  failure_target=units[0]["unit"], expected_problem=problem))
+        for field, value, problem in (
+            ("url", "https://wrong.test/", "url/method"),
+            ("fetchedAt", "2026-10-20", "fetchedAt"),
+            ("sha256", "0" * 64, "digest differs"),
+            ("bytes", 0, "length differs"),
+            ("status", None, "usable HTTP response"),
+        ):
+            git(repo, "checkout", "--quiet", "--detach", good_revision)
+            rel = f"{ROUND}/live/{surfaces[0]['id']}/fetch.json"
+            payload = json.loads((repo / rel).read_text())
+            payload[field] = value
+            write_json(repo / rel, payload)
+            rev = commit_fixture(repo, f"selftest: C2 {field}", [rel])
+            cases.append(run_case(repo, "measure_c2.py", f"C2 invalid {field}", rev, 1, len(surfaces),
+                                  failure_target=surfaces[0]["id"], expected_problem=problem))
 
     print(json.dumps({"selftest": "passed", "cases": cases}, sort_keys=True))
     return 0

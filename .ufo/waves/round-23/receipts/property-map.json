@@ -105,7 +105,7 @@
    "method": "test -e",
    "observation": "test -e /home/vgpnk/Projects/ds4cc-marketplace/burnerchrome → exit 1; test -e /home/vgpnk/Projects/ds4cc-marketplace → exit 1",
    "verdict": "STALE",
-   "correction": "2026-10-21: ~/Projects/ds4cc-marketplace/burnerchrome and its parent ~/Projects/ds4cc-marketplace are absent on this workstation; the listed source path is historical unless restored.",
+   "correction": "As of 2026-10-21, the mapped ds4cc-marketplace/burnerchrome path is absent, but a surviving source candidate is /home/vgpnk/Projects/burnerchrome (VeigaPunk/burnerchrome, commit ee834920de8411f8014236948e2d5b9f5f82dde2); its title and h1 match the live page, not a proved deployment binding.",
    "seat": "SurfaceBurnerchromeKimi"
   },
   {
@@ -578,6 +578,28 @@
    "verdict": "UNVERIFIABLE",
    "reason": "Verifying that side effect would require a chat operation, which is prohibited; the public page does not expose the chat-to-site binding.",
    "seat": "SurfaceVaultIndexKimi"
+  },
+  {
+   "id": "c56",
+   "anchor": "Function-Compute",
+   "claim": "The Function-Compute ingress fingerprint in SKILL.md still describes plazir27.kimi.pro.",
+   "surface": "https://plazir27.kimi.pro/",
+   "method": "GET",
+   "observation": "302 Location https://statics.kimi.ai/pages/preview-404-en.html; no historical Function-Compute fingerprint",
+   "verdict": "STALE",
+   "seat": "w2/StaleDriftDetection",
+   "correction": "As of 2026-10-21, plazir27.kimi.pro redirects to the Kimi static preview-404 page rather than serving the old Function-Compute response; the historical ingress diagnosis at SKILL.md line 292 is superseded."
+  },
+  {
+   "id": "c57",
+   "anchor": "ds4cc-marketplace/apps-sdk",
+   "claim": "The mapped app.ds4cc.com source lives at ds4cc-marketplace/apps-sdk.",
+   "surface": "/home/vgpnk/Projects/ds4cc-marketplace/apps-sdk",
+   "method": "test -e",
+   "observation": "test -e exits 1 (absent)",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the mapped apps-sdk source path is absent; HTTP reachability of app.ds4cc.com/mcp does not identify a current local source or deployment configuration.",
+   "seat": "L1 after w2/StalePropertyMap"
   }
  ]
 }

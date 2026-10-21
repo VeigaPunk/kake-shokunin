@@ -15,3 +15,14 @@ python3 .ufo/waves/round-22/postfix/counter-probe.py --lane . --measure "$T/meas
 
 Digests: `git show c0fd6d5:scripts/canonical_audit.py | sha256sum` = `35433e50…` (the
 round-22 frozen pin before re-pin); the c0fd6d5 measure.py blob sha256 is `329f45b6…`.
+
+## After-fix runner identity
+
+The after receipt names a mutable lane path; reproduce its round-22 bytes from the measured commit, not from the current worktree:
+
+```sh
+git -C /home/vgpnk/Projects/shokunin/kake-shokunin show b539cc1:scripts/canonical_audit.py > "$T/canonical_audit_b539cc1.py"
+python3 /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/postfix/defect-probe.py --validator "$T/canonical_audit_b539cc1.py" # 8/8
+```
+
+Its sha256 is `5de32200…`, not the round-23 worktree digest. The original lane path in the JSON is an invocation record, not a permanent content address.

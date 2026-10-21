@@ -48,20 +48,27 @@ def check(root: str, revision: str, validator: bytes, surface: dict) -> tuple[li
         fetch, receipt = json.loads(raw_fetch), json.loads(raw_audit)
     except json.JSONDecodeError as exc:
         return [f"receipt JSON invalid: {exc}"], None
+    if not isinstance(fetch, dict) or not isinstance(receipt, dict):
+        return ["fetch/audit must be JSON objects"], None
     problems = []
     if fetch.get("url") != surface["url"] or fetch.get("method") != "GET":
         problems.append("fetch url/method does not match population GET")
     if not isinstance(fetch.get("fetchedAt"), str) or fetch["fetchedAt"][:10] < "2026-10-21":
         problems.append("fetchedAt missing or before 2026-10-21")
+    if type(fetch.get("status")) is not int or not 100 <= fetch["status"] <= 599 or fetch.get("error"):
+        problems.append("fetch did not record a usable HTTP response")
     page = show(root, revision, f"{prefix}/page.html")
     if not served(fetch):
         if page is not None:
             problems.append("page.html stored for a non-served response")
-        if receipt.get("verdict") != "not-served" or receipt.get("status") != fetch.get("status"):
+        expected_receipt = {"verdict": "not-served", "status": fetch.get("status"), "exit": None, "error": None}
+        if receipt != expected_receipt:
             problems.append("non-served surface lacks a matching not-served receipt")
         return problems, "not-served"
     if page is None or hashlib.sha256(page).hexdigest() != fetch.get("sha256"):
         return problems + ["page.html missing or digest differs from fetch.sha256"], None
+    if len(page) != fetch.get("bytes"):
+        problems.append("page.html length differs from fetch.bytes")
     with tempfile.TemporaryDirectory(prefix="kake-r23-c2-") as tmp:
         with open(os.path.join(tmp, "canonical_audit.py"), "wb") as stream:
             stream.write(validator)
@@ -72,9 +79,12 @@ def check(root: str, revision: str, validator: bytes, surface: dict) -> tuple[li
                                              "expectedCanonical": surface["expectedCanonical"]}]}
         with open(os.path.join(tmp, "s", "manifest.json"), "w", encoding="utf-8") as stream:
             json.dump(manifest, stream)
-        done = subprocess.run([sys.executable, "-B", os.path.join(tmp, "canonical_audit.py"), "--manifest",
-                               os.path.join(tmp, "s", "manifest.json"), "--json"],
-                              capture_output=True, text=True, timeout=60, check=False)
+        try:
+            done = subprocess.run([sys.executable, "-B", os.path.join(tmp, "canonical_audit.py"), "--manifest",
+                                   os.path.join(tmp, "s", "manifest.json"), "--json"],
+                                  capture_output=True, text=True, timeout=60, check=False)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return problems + [f"validator could not complete: {type(exc).__name__}"], None
     try:
         actual = {"exit": done.returncode, "result": json.loads(done.stdout)}
     except json.JSONDecodeError:

@@ -87,3 +87,6 @@ Round 23 bounded question (2026-10-21): which primary text decides whether body-
 - OpenAI Apps SDK docs for the app publishing channel (adjacent).
 
 No source ids are void: all S001-S018 were opened. The canonical GNU manual page timed out; its upstream GNU tar manual source text was opened at commit cfdb891bbd68c920ea75210977593f3cd08f0418 instead.
+
+
+Round-23 precision note for S030 (w2/ReopenS030): "no effect" describes a separate trailing solidus on a void-element start tag. Immediately after an unquoted attribute value the slash belongs to that value; for example `href=/x/>` has value `/x/`. The quoted start-tag rule and the immutable teaching cell are read with this caveat. No status/recheck/used-by changed.

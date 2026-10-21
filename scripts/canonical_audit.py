@@ -77,7 +77,7 @@ class SingleManifestAction(argparse.Action):
 
 def usage() -> str:
     return (
-        "usage: canonical_audit.py --manifest PATH [--json] | --selftest\n"
+        "usage: canonical_audit.py --manifest PATH [--json] | --selftest | -h | --help\n"
         "--help prints standard CLI help, exits 0, and emits no publishing verdict.\n"
         "\n"
         "Read UTF-8 JSON manifest v1 and bounded local UTF-8 HTML only. The\n"
@@ -856,6 +856,7 @@ def _selftest_specs() -> list[dict[str, object]]:
             )
         ],
         {"name": "svg_title_text_clean", **clean(f"<head><link rel=canonical href='{same}'></head><body><svg><title>Icon</title><path d='M0 0'/></svg></body>")},
+        {"name": "foreign_stray_end", "html": f"<head><link rel=canonical href='{same}'></head><body><svg><g></bad></g></svg></body>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "processing_instruction", "html": f"<head><?server-side include?><link rel=canonical href='{same}'></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "missing_head", "html": "<html><body></body></html>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "head_body_child", "html": f"<head><div><link rel=canonical href='{same}'></div></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},

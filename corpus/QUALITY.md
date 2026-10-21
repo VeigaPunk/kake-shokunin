@@ -149,3 +149,6 @@ Grounding: `corpus/lessons/round-23.md` §Mistakes; `.ufo/waves/round-23/w1/{Fal
   served at `fetchedAt`. Receipt coverage (reproducible receipts / population)
   is reported separately from policy outcomes (clean / failed-policy /
   not-served); a 404 is never a canonical result.
+
+
+Round-23 falsifier clarification: canonical policy is not redirect/navigation readiness. A meta-refresh page may match its declared canonical; that never implies publish approval. A counting command validates receipt structure and replay consistency, not the truth of a claimed GET/HOLD: author seat observations and the non-author review must establish the latter. Select operationally load-bearing claims, not merely convenient live URL statuses (w2/HoldDriftDetection, HoldFleetRegistry, HoldOpsAutomation, HoldVaultProperties).

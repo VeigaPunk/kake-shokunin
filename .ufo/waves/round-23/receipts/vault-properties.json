@@ -86,6 +86,28 @@
    "observation": "fleet/vault-properties.json: ABSENT; fleet/kimi-surface.mjs: ABSENT; kimi-surface.mjs: ABSENT; fleet.config.json: ABSENT",
    "verdict": "HOLD",
    "seat": "ReverifyVaultProperties"
+  },
+  {
+   "id": "c9",
+   "anchor": "zero same-origin (kimi.page) links inside PROPERTIES[]",
+   "claim": "The PROPERTIES literal has zero same-origin links.",
+   "surface": "https://veigapunk.kimi.page/",
+   "method": "GET",
+   "observation": "PROPERTIES contains veigapunk URL https://veigapunk.kimi.page, which has the same origin as the fetched page",
+   "verdict": "STALE",
+   "seat": "w2/HoldVaultProperties",
+   "correction": "As of 2026-10-21, the live veigapunk PROPERTIES literal includes a link to its own origin, so the historical zero-same-origin-links cross-check no longer holds."
+  },
+  {
+   "id": "c10",
+   "anchor": "`sourceDir:null` is the single hard blocker",
+   "claim": "sourceDir null is the hard blocker enforced by cmdUpdate and cmdRecreate.",
+   "surface": "/home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs",
+   "method": "test -e",
+   "observation": "cited implementation absent; a public page cannot prove authenticated update/recreate guards",
+   "verdict": "UNVERIFIABLE",
+   "seat": "w2/HoldVaultProperties",
+   "reason": "No surviving implementation or authorized account-operation trace is available; public HTML does not verify sourceDir enforcement. Do not execute write/publish operations to test it."
   }
  ]
 }

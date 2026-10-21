@@ -29,6 +29,8 @@ ATTACKS = {
     "svg_style_hidden_base": f"{HEAD}<body><svg><style>{WRONG}</style></svg></body>",
     "svg_script_hidden_base": f"{HEAD}<body><svg><script>{WRONG}</script></svg></body>",
     "math_annotation_base": f"{HEAD}<body><math><annotation-xml encoding='text/html'>{WRONG}</annotation-xml></math></body>",
+    "foreign_canonical": f"{HEAD}<body><svg><link rel=canonical href='https://wrong.test/'/></svg></body>",
+    "foreign_stray_end": f"{HEAD}<body><svg><g></bad></g></svg></body>",
 }
 CONTROLS = {
     "control_body_svg": f"{HEAD}<body><svg viewBox='0 0 1 1'><title>Icon</title><path d='M0 0'/></svg></body>",

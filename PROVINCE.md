@@ -56,3 +56,8 @@ frozen fixtures are its operability artifact, not a claim that a live website
 was repaired or a Google-selected canonical observed. The broader crawl and
 JS-rendered-canonical frontier above remains open; browser execution stays tabi's
 adjacent province and publication/account operations stay operator-owned.
+
+
+## Round-23 live use
+
+The publisher-side canonical tool now consumes saved GET-response HTML from owned public properties through `scripts/live_snapshot.py`; live capture is GET-only and separate from offline validation. This is not rendered-DOM observation, navigation/readiness approval or permission to publish. `corpus/lessons/round-23.md` records the outcomes; source repair and deployment stay operator-owned. A surviving burnerchrome source candidate at `~/Projects/burnerchrome` was found and read only; its mapped historical ds4cc-marketplace path remains absent.

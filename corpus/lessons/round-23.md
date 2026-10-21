@@ -25,7 +25,7 @@ passes or fails without the other. Measured numbers are in §Measurement.
 
 ## Gate
 
-Candidates: 168 C1 claim rows from 29 seats (17 Reverify*, 12 Surface*); 12 C2
+Candidates from wave 1: 171 C1 claim rows from 29 seats (17 Reverify*, 12 Surface*); 12 C2
 snapshots; validator relaxation; two WHATWG sources; five re-opened round-22 rows.
 
 Admitted:
@@ -57,8 +57,8 @@ Rejected:
 
 | Row | URL | Access | Located quote |
 |---|---|---|---|
-| S030 | https://html.spec.whatwg.org/multipage/syntax.html#start-tags | 2026-10-21 (LS 20 Oct 2026, sha256 a11dcf17…) | “On void elements, it does not mark the start tag as self-closing but instead is unnecessary and has no effect of any kind.” |
-| S031 | https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inforeign | 2026-10-21 (LS 20 Oct 2026, sha256 04b65bf0…) | “Insert a foreign element for the token, with SVG namespace.” |
+| S030 | https://html.spec.whatwg.org/multipage/syntax.html#start-tags | 2026-10-21 (LS 20 Oct 2026, sha256 04b65bf0…) | “On void elements, it does not mark the start tag as self-closing but instead is unnecessary and has no effect of any kind.” |
+| S031 | https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inbody | 2026-10-21 (LS 20 Oct 2026, sha256 a11dcf17…) | “Insert a foreign element for the token, with SVG namespace.” |
 
 Both opened by seats (w1/SourceHTMLVoidSyntax, w1/SourceHTMLForeignContent) and
 re-fetched by the L1, quotes located in the fetched text. No old row's
@@ -82,3 +82,44 @@ status/recheck/used-by changed.
 | parser relaxation without adversarial neighbours: turning "unsupported" into "evaluated" opened a false-clean class (body/foreign `<base>`) | `postfix/relaxation-cand.json` (2/11 met, nine attacks clean on `4d95d2e`); w1/FalsifyForeignContent | round-22 QUALITY "resolver neighbours" covered URL branches only | new QUALITY criterion "parser relaxations"; base/head/link guards, element stack, no raw text in foreign content; probe 11/11 now, and it fails on both `4d95d2e` and `b539cc1` (the latter already accepted a body base: 7/11) |
 | inverted fail predicate in a quality criterion | round-22 verifier note 1 | none (author wrote criterion and probe in one sitting) | named correction; the fixed reading fails on the c0fd6d5 runner (counter probe exit 1) |
 | count accepted an all-absence receipt | w1/CritCounterC1 | none | counter requires one HOLD/STALE claim per unit; `counter_selftest.py` case "C1 all-UNVERIFIABLE receipt rejected" |
+
+## Wave-2 integration and limits
+
+- Wave 1 completed 69/69. Wave 2 dispatched 64; 25 reports survived, 39 seats
+  died (no replacement). `w2-deaths.json` retains the exact errors: mostly zai
+  429 `type=1302` after five retries, three Codex capacity failures (one after
+  thirteen retries, two after five). Role routing settings are not availability
+  proof; the observed errors override any configured retry/cascade expectation.
+- C1 additions after falsification: eight omitted live/operational claims in
+  drift-detection, fleet-registry, ops-automation, vault-properties and the
+  property map, plus a correction to the burnerchrome source-path guidance:
+  the mapped path is absent, but `/home/vgpnk/Projects/burnerchrome` survives
+  (`ee834920…`, title/h1 match the live page, not proved deployment binding).
+  Final C1 has 176 claim rows over the same 17 frozen units. An h1 literal in
+  drift-detection:c5 was corrected; its HOLD verdict did not change.
+- `w2/SentinelSnapshotV2` P1/P2: no-follow, regular single-link output leaves,
+  opened relative to an output directory fd; re-audit verifies original
+  byte length and digest and rejects a missing served body; malformed metadata
+  returns a JSON input error; blocked redirects preserve the last HTTP URL.
+- `w2/MutateGuards`: a foreign end-tag mismatch mutant survived both detectors.
+  Added a direct stray-end witness and a foreign canonical-link witness to the
+  relaxation probe (now 13 cases), and the mismatch witness to selftest.
+- `w2/MutateCounterSelftest`: the initial seven-case selftest killed 13/71
+  mutants; 58 survived. Added targeted regression inputs for dates, fields,
+  identity, corrections, reasons, URL, digest, byte length and HTTP response
+  status. No exhaustive mutation-kill claim is made.
+- C1's counter validates a receipt's structure/anchors/correction placement,
+  not the truth of an asserted GET or HOLD. A forged self-consistent receipt
+  can pass; the live observations in seat reports and non-author spot-check
+  carry that authority, not the number 17/17 (`w2/CritCounterTightening`,
+  `ReviewLessonGate`, `ReviewQualityCriteria`).
+- `w2/CritRelaxationProbe` meta-refresh disagreement: rejected as a canonical
+  policy counterexample. `meta[http-equiv=refresh]` does not alter the declared
+  canonical link or its base; HTTP/HTML redirects and navigation/readiness are
+  outside the frozen claim. A clean canonical receipt must not be used as
+  permission to publish a redirecting page (QUALITY and knowledge limits).
+- Source corrections: the first Gate table had S030/S031 response digests
+  cross-assigned; fixed above (`w2/ReopenS030`). A separate trailing solidus
+  has no effect on a void start tag; a slash immediately following an unquoted
+  attribute is part of that value, not that syntax. This caveat is recorded
+  with S030 rather than changing its immutable registry teaching cell.

@@ -86,6 +86,17 @@
    "observation": "http=200 final=https://veigapunk.github.io/charter-ufo-fsd/ bytes=53660",
    "verdict": "HOLD",
    "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c9",
+   "anchor": "`charter-ghp` FAIL on stale marker (09-26 pin vs live",
+   "claim": "The historical charter marker discrepancy remained a 09-26 pin versus a 09-28 live beat.",
+   "surface": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "method": "GET",
+   "observation": "200; 2026-09-26 scribe beat absent; 2026-09-30 scribe beat present",
+   "verdict": "STALE",
+   "seat": "w2/HoldFleetRegistry",
+   "correction": "As of 2026-10-21, the live charter page has a 2026-09-30 scribe beat, not the historical 09-28 beat; the current config pin cannot be checked while its source is absent."
   }
  ]
 }

@@ -133,3 +133,8 @@ claim. JS-rendered canonicals, Google-selected canonical, live delivery,
 HTTP headers, content duplication and actual operator publication remain open.
 Historical Frontier and Known gaps paragraphs above retain their chronology;
 the round21 verifier and correction register govern their current reading.
+
+
+## Round-23 re-verification and live canonical use
+
+Seventeen frozen units (16 historical knowledge entries and the property map) carry claim-level dated HOLD/STALE/UNVERIFIABLE rechecks; original observations remain intact. See `lessons/round-23.md` and `.ufo/waves/round-23/receipts/` (relative to the lane root). Twelve owned public surfaces were captured GET-only and preflighted: three clean, five missing a canonical under the local policy, four not-served (404). Rendering and live publishing remain outside this workflow. The formerly open static-canonical ground is in use, not a search-engine-selection claim.

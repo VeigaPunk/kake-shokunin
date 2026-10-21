@@ -144,3 +144,12 @@ selection. Round 23's 12 owned surfaces are in
   canonical" rests on S025 (template contents are not children of the template),
   which the round-22 text did not cite; it holds for the static input bytes
   only, not for script-cloned template content (w1/ReopenHTMLTemplate).
+
+
+### Round-23 falsifier clarifications
+
+S030 caveat: a separate trailing solidus has no effect on a void-element start tag; a slash immediately following an unquoted attribute is part of the value (`href=/x/>` means `/x/`). This is not an XML-style self-closing element (w2/ReopenS030).
+
+A clean canonical receipt does not check HTML meta refresh, HTTP redirects, navigation/readiness or rendering. Meta refresh does not alter the declared canonical href/base, so a refresh page can match the local canonical policy while remaining unfit to publish; never treat that result as publication approval (w2/CritRelaxationProbe disagreement).
+
+The snapshot producer now opens output leaves no-follow relative to an opened directory, rejects non-regular or multiply linked leaves, and verifies stored body length/digest before re-audit. Missing or altered capture data is input error, not not-served. The counter reproduces captures, not the network event: GET provenance is in the producer invocation and independent seat observations.

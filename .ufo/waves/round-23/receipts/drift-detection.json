@@ -50,7 +50,7 @@
    "claim": "The cited canonical GitHub Pages Lucario URL still serves the page.",
    "surface": "GET https://veigapunk.github.io/lucario/",
    "method": "GET",
-   "observation": "http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario</h1>.",
+   "observation": "http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.",
    "verdict": "HOLD",
    "seat": "ReverifyDriftDetection"
   },
@@ -63,6 +63,28 @@
    "observation": "https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.",
    "verdict": "HOLD",
    "seat": "ReverifyDriftDetection"
+  },
+  {
+   "id": "c7",
+   "anchor": "**8** (incl. `/tetris/`,",
+   "claim": "The r16 live Plazir sitemap contained eight locations including tetris.",
+   "surface": "https://veigapunk.github.io/plazir-15-site/sitemap.xml",
+   "method": "GET",
+   "observation": "200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200",
+   "verdict": "STALE",
+   "seat": "w2/HoldDriftDetection",
+   "correction": "As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals."
+  },
+  {
+   "id": "c8",
+   "anchor": "| `snake/index.html` `og:url` | 0 hits",
+   "claim": "The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.",
+   "surface": "https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/",
+   "method": "GET",
+   "observation": "snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/",
+   "verdict": "STALE",
+   "seat": "w2/HoldDriftDetection",
+   "correction": "As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict."
   }
  ]
 }
