@@ -431,3 +431,25 @@ shape omitted from argv). This is disclosed, not retroactively redacted or
 counted as evidence of a fully recorded isolation environment.
 `recovery/docs-audit.md` and the lesson's Documentary-audit dispositions
 carry this conformance debt and exact-command/timestamp clarifications.
+
+## Round 25 — declared publisher accessibility capability
+
+C1 targets **operability**, one of the tied-lowest owned axes (legacy10).
+Before branch tip: `6883f1d580d811f7c434d1db4642596362f822b1`.
+Before: no WCAG2.2 A/AA publisher-review packet or packet inventory command.
+Intended after:55 exact source-bound review cards and a runnable offline
+inventory, all website outcomes explicitly not-assessed. Counting command:
+`python3 -B .ufo/waves/round-25/measure.py --root . --revision <commit>`.
+Score stays10→10 (HOLD); execution and revision-bound outcomes are appended
+only after observation. Contract: `.ufo/waves/round-25/contract.json`.
+
+This is sourced by S035 and the new
+`corpus/knowledge/accessibility-review-packet.md` entry. A capability-table
+row requires an observed working run, not this declaration. Neither card
+coverage nor packet structure establishes WCAG conformance.
+
+Round24's rejected honest-stop is not reopened: C1/C2 remain candidate debt,
+their refused/interrupted probes are not repeated/rephrased/rerouted/replaced,
+and the policy-stop L0 disposition remains open. A different role/provider
+would not grant permission. Round25's explicit steer authorizes this separate
+round only, not another round or publication.

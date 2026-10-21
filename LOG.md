@@ -887,3 +887,32 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   installed CPython3.10.22 and3.15.0 via uv0.13.0's managed interpreter
   channel (`uv python install 3.10 3.15`) to compare pre-3.11/current-doc
   datetime behavior. Recovery installed nothing; no pacman/system upgrade.
+
+## Round 25 — publisher accessibility preparation (2026-10-21)
+
+- Declared C1 operability capability in `.ufo/waves/round-25/contract.json`:
+  a fixed WCAG 2.2 A/AA manual-review packet and offline structural inventory.
+  Both owned axes tie at legacy10; no scalar increase is asserted. Baseline
+  branch tip was `6883f1d580d811f7c434d1db4642596362f822b1`.
+- Opened W3C's pinned 12 December2024 Recommendation, source S035.
+  The first read adapter returned abstract/metadata only; raw official HTML
+  supplied normative source, retained as source-wcag22.html with digest.
+  Source population and source-backed knowledge entry advance preparation
+  ground from the existing WCAG frontier, not website conformance.
+- Built a validated64-seat wave:55 criterion scouts,3 executors,2 connectors,
+  1 scribe,1 reviewer,2 critics. L1 holds the frozen planner seat. Separate
+  sandbox checkouts isolate implementation; read-only seats own only reports.
+  PacketTool died on Codex capacity (`turn_rate_limit_exceeded`, five retries);
+  no replacement. L1 authored the residual validator. Specs, registry and
+  dispatched payload are in `.ufo/waves/round-25/`.
+- Assembled the55 criterion-specific cards into
+  `corpus/knowledge/accessibility-review-cards.json`. Every status remains
+  not-assessed. `scripts/accessibility_packet.py` validates packet structure,
+  never a website. Execution measurements are recorded only after running.
+- Updated SKILL registry, province boundary, corpus index and QUALITY with
+  complete-source-read and no-conformance-overclaim rules grounded in
+  `corpus/lessons/round-25.md`; original corpus bytes remain untouched.
+- Round24 C1/C2 remain unadmitted candidate debt. No refused/interrupted
+  assignment, probe or counter is repeated, rephrased, rerouted or replaced.
+  The existing L0 policy-stop question is retained and restated for round25;
+  this unrelated packet neither resolves it nor grants old-round credit.

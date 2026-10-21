@@ -66,3 +66,13 @@ The publisher-side canonical tool now consumes saved GET-response HTML from owne
 ## Round-24 restored source correction
 
 The earlier Surfaces paragraph and round-23 burnerchrome note are historical local-state observations. On 2026-10-21 the ds4cc-marketplace checkout and its CNAME, burnerchrome, speedrun and apps-sdk subtrees are present again (checkout birth 05:19 -03; observed HEAD 1fbdb8ed). No restoration was performed by kake. Evidence: `.ufo/waves/round-24/c1-receipts/T16.json` through `T19.json` and `w1/R23ReceiptsDs4ccStale.md`. Presence enables later source rechecks; it does not establish live deployment or grant publication, browser-profile, DNS or account authority. The webzites, Plazir and Lucario observations remain separately dated.
+
+## Round-25 accessibility preparation boundary
+
+The WCAG frontier now has publisher-side review preparation: sourced criterion
+cards and an offline inventory gate (`corpus/knowledge/accessibility-review-packet.md`,
+S035). This moves preparation only into held ground, not WCAG conformance.
+No actual website accessibility is evaluated. Browser/assistive-technology
+execution stays separately authorized adjacent work; publishing stays with
+the operator. The remaining field-performance, Jekyll and Render frontier
+is unchanged. Round24's policy-stop disposition remains separate open debt.

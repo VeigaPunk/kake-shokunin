@@ -143,3 +143,15 @@ Seventeen frozen units (16 historical knowledge entries and the property map) ca
 ## Round-24 frontier maintenance
 
 The restored ds4cc source changes the local-state premise, not the domain boundary. Nineteen paths-gate targets now have dated reconciliation evidence (30 hash-bound citation corrections); source-tree observations remain read-only. The individual citation frontier advances through preservation-safe sidecar/EOF corrections; no original observation is relabelled live. `lessons/round-24.md` records the gate decisions and exact counters. Rendering, deployment, accounts and operator restore-or-retire decisions for the other trees remain open.
+
+## Round-25 accessibility frontier preparation
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Publisher accessibility review preparation | `knowledge/accessibility-review-packet.md`, `knowledge/accessibility-review-cards.json` (S035) | Fixed WCAG 2.2 A/AA criterion cards: publisher checks, manual evidence needs and limits; packet-structure gate only, no website evaluated |
+
+This is new publisher-side preparation ground from the WCAG frontier.
+Actual accessibility evaluation, browser/assistive-technology execution,
+conformance claims and publication remain open or operator/adjacent-owned.
+Round24's interrupted reconciliation/replay falsification remains held and
+is not repeated or satisfied by this unrelated documentation capability.

@@ -162,3 +162,21 @@ Grounding: `corpus/lessons/round-24.md` Mistakes; outside r23 closure in MANIFES
 - Reconcile recovered tokens as well as new misses: each re-pin has a dated observation; a recovered target leaves pathsMissSet so its next disappearance is armed. Original corpus lines remain byte-identical under the round20 ruling; line-hash-bound sidecars plus separate correction blocks replace suffix edits. Restoration notes carry no absence vocabulary, preventing neighbour annotation bleed. Fails if `python3 -B .ufo/waves/round-24/measure_c1.py --root . --revision <commit> --json` is nonzero or `node scripts/freshness-sweep.mjs --selftest` loses its recovered-list/sidecar/vocabulary controls.
 
 These round-bound counters establish the named frozen expectations, not a universal schema proof or current publication readiness. A later filesystem change requires a new dated reconciliation; rerunning a historical paths measurement against a changed host need not stay green.
+
+## Accessibility preparation and complete source reads — round 25
+
+Grounding: `corpus/lessons/round-25.md` Mistakes; S035 WCAG 2.2 section 5.2.
+
+- A source adapter's abstract-only result is not a normative source read.
+  Open the pinned official document and locate the criterion body; retain
+  the source bytes and digest. A card quote must be in normativeText, never
+  merely a heading, doclink, badge or informative note.
+- A complete accessibility-review packet is preparation, not a website
+  assessment. Every card and every tool JSON result retains not-assessed.
+  Reject a source-only, automated-only or partial-page conformance claim;
+  full pages, complete processes, accessibility support and non-interference
+  remain required by S035. The packet selftests exercise false status and
+  heading-quote rejection; an unrun witness is not a proved repair.
+- A policy-interrupted assignment stays held. Changing a role, provider or
+  wording is not permission to repeat it. Round25's new accessibility
+  preparation is separate work and carries no round24 admission credit.

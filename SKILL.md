@@ -538,3 +538,18 @@ These dated corrections supersede only current local-state readings of the cited
 | receipt-replay-matrix | gate (round measurement) | `python3 -B .ufo/waves/round-24/measure_c2.py --root . --revision <commit> --json` | 0 all frozen expectations; 1 failed expectation; 2 could-not-evaluate | same script `--selftest` | `.ufo/waves/round-24/c2-population.json` sha256 checked by matrix; original fixtureBase round23 | disposable clone commits only; never lane Git/jj writes | kake |
 
 Current replay commands supersede the historical round23 readers for new validation; historical examples remain tied to their original revision/digest. Source rationale and exact per-field limits: `corpus/knowledge/static-canonical-preflight.md` Receipt replay hardening (S032–S034). The gate proves structure/replay consistency, never GET provenance, live truth, domain identity or permission to publish.
+
+## Publisher accessibility review preparation — round 25
+
+Use `corpus/knowledge/accessibility-review-packet.md` (S035) to prepare a
+publisher-side WCAG 2.2 A/AA review work item. Each criterion card supplies a
+manual check, needed evidence, failure example and explicit limitation.
+No page is assessed by this packet: every card stays `not-assessed`.
+Source inspection or a complete inventory is not WCAG conformance. Rendering,
+interaction and assistive-technology observations require separate authorized
+evaluation; browser execution remains adjacent ownership and publication
+remains operator-gated.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| accessibility-packet | gate (packet structure only) | `python3 -B scripts/accessibility_packet.py --root . --json` | 0 structurally clean; 1 failed packet requirement; 2 could-not-evaluate input; 64 could-not-evaluate usage. Every JSON result keeps websiteConformance=not-assessed. | `python3 -B scripts/accessibility_packet.py --selftest`; focused CLI cases `python3 -B .ufo/waves/round-25/packet_selftest.py --root .` | `.ufo/waves/round-25/population.json`, source-wcag22.html and frozen/expected.json; revision-bound `measure.py` evidence in round25 lesson | ordinary path read-only; selftest synthetic in-memory fixtures; focused tests temporary fixtures; no network or website | kake |
