@@ -54,3 +54,11 @@ no lane property was fetched.
 - **Citation-local absence:** every lane citation points to retained files at base line locations.
 - **Shape-only probe environment:** no live headers, credentials, or session data were collected.
 - **Validator is not identity:** the opaque marker is not treated as a content digest.
+
+## Round-26 source recheck
+
+- Round-26 source recheck (2026-10-21, append-only; original lines unchanged). Rows S009 and S010 were re-fetched by one public GET each (`.ufo/waves/round-26/fetched/manifest.json`, S008 via `manifest-retry.json`) and judged HOLD at their anchors against the retained bytes; receipts `.ufo/waves/round-26/rechecks/S0NN.json`, statement-level reviews `.ufo/waves/round-26/w1/Pair*.md`. Older verified-at/reopened dates in this entry remain the historical record of the earlier reading; they are not rewritten. Pointers labelled `at base cb807bc` stay base-scoped (QUALITY.md round-21 coordinate rule), so current-tree line movement is not a stale claim. Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
+
+- [r26-recheck S010 STALE] Locator correction for line 1: the URL there is S009's nginx source only. S010 is RFC 9110 §8.8 — https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8 (§8.8.1 Weak versus Strong; §8.8.3 ETag), re-fetched 2026-10-21. Evidence: w1/PairS010GhpEtagAnatomy.md (C1).
+
+- [r26-recheck S010 STALE] Lines 25-28 paraphrase the §8.8.1 condition as “when changed twice within that second”. The 2026-10-21 bytes condition it on modification twice during a single second “and retrieved between those modifications”; two changes within one second are not by themselves that condition. Evidence: w1/PairS010GhpEtagAnatomy.md (C2). Current nginx lines (1.30/1.31) move the same format expression; the release-1.28.0 pin and its line anchors remain correct as pinned (w1/PairS009GhpEtagAnatomy.md).

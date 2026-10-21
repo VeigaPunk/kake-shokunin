@@ -56,3 +56,7 @@ representation fetched by the L1 exposes `cname`: required, string or null;
 those representations must not be presented as an identical quote. The
 field claim remains supported by S007 §Get a GitHub Pages site, response
 schema; no API request was made.
+
+## Round-26 source recheck
+
+- Round-26 source recheck (2026-10-21, append-only; original lines unchanged). Rows S003, S005 and S007 were re-fetched by one public GET each (`.ufo/waves/round-26/fetched/manifest.json`, S008 via `manifest-retry.json`) and judged HOLD at their anchors against the retained bytes; receipts `.ufo/waves/round-26/rechecks/S0NN.json`, statement-level reviews `.ufo/waves/round-26/w1/Pair*.md`. Older verified-at/reopened dates in this entry remain the historical record of the earlier reading; they are not rewritten. Pointers labelled `at base cb807bc` stay base-scoped (QUALITY.md round-21 coordinate rule), so current-tree line movement is not a stale claim. Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.

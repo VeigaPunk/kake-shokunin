@@ -203,3 +203,22 @@ Grounding: `corpus/lessons/round-25.md` build/falsify dispositions and
 - A review finding quotes the actual saved field, never a reconstructed
   complete source sentence. Review322's reported29-word quote did not match
   the stored25-word field; its unrelated semantic findings were still kept.
+
+## Recheck adjudication — round 26
+
+Grounding: `corpus/lessons/round-26.md` Mistakes (vacuous, stale-premise,
+survivor rows) and `.ufo/waves/round-26/statements.json`.
+
+- A recheck HOLD needs a row-specific located quote: page chrome or any text
+  that also occurs in a different source's bytes cannot ground a row. Formats
+  of one document (RFC 9110 html/txt) may share text but need distinct quotes.
+  Fails if `python3 -B .ufo/waves/round-26/measure.py --selftest` loses its
+  boilerplate_quote case.
+- STALE means the statement is wrong or unsupported at its own stated scope.
+  A historical verified-at date, a pointer explicitly scoped to a base
+  revision, or a patch-version label in the same documented family is not a
+  stale claim; record it as a note. A statement whose attribution was false
+  even at its base revision is STALE.
+- A text extractor decodes character references exactly once; a second
+  unescape turns literal `&lt;` text into markup. Fails if
+  `.ufo/waves/round-26/text_selftest.py` loses its double-escape cases.

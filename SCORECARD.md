@@ -498,3 +498,15 @@ Planned only if separately steered: freshness recheck of S035 at release
 change and its source-bound packet instructions; actual property evaluation
 requires operator-named scope and authorization. Round24 policy-stop
 disposition remains open; no next round or renewed old probe starts here.
+
+## Round 26 — declared source freshness claim
+
+C1 targets **freshness** (tied-lowest owned axis, legacy 10; not worked in
+round 25). Base: `97404de4ff73d6c8a4f87385cf5fdf36dca7f006`. Before: 0/32
+prior external SOURCES rows carry a round-26 live-source receipt. Intended
+after: 32 rows decided against bytes re-fetched this round with row-specific
+quotes, and every adjudicated STALE knowledge statement corrected append-only.
+Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
+Score stays 10→10 (HOLD); measured outcomes are appended only after execution.
+Contract: `.ufo/waves/round-26/contract.json` plus `contract-amendment.json`.
+Round-24 C1/C2 remain unadmitted debt; no stopped work is repeated.

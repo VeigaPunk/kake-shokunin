@@ -163,3 +163,11 @@ instructions and the shared authorization/evaluation-record boundary.
 The corrected finite snapshot is `.ufo/waves/round-25/frozen-final/` relative
 to the lane root; the original frozen/ remains historical evidence only.
 No card stores an actual website result.
+
+## Round-26 source recheck
+
+All 32 prior external SOURCES rows were re-fetched 2026-10-21 and hold at
+their anchors (`.ufo/waves/round-26/rechecks/`). The five platform/canonical
+knowledge entries citing them carry an appended "Round-26 source recheck"
+section: dated HOLD record plus 8 `[r26-recheck S0NN STALE]` statement
+corrections. No coverage-map ground was added; this is quality maintenance.

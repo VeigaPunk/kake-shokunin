@@ -984,3 +984,26 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
 Measurement notation: the exact baseline is
 `6883f1d580d811f7c434d1db4642596362f822b1`, with accepted0/55.
 The compact baseline6883f1d0/55 wording above is not a different commit.
+
+## Round 26 — source recheck (2026-10-21)
+
+- Declared C1 freshness (`.ufo/waves/round-26/contract.json`): re-verify the
+  32 previously opened external SOURCES rows. Motivation: MANIFEST
+  rounds[420] recorded quality unchanged in round 25 because no prior entry
+  was re-verified. Base `97404de4ff73d6c8a4f87385cf5fdf36dca7f006`.
+- Re-fetched 34 recorded URLs once each (S008 retried once after a timeout;
+  inline command preserved as `fetch_retry.py`), retained gzip bytes and
+  sha256. Census start exit 0 with inherited W04 (`census-before.txt`).
+- W1: validated 64 seats (32 row scouts, 25 pair reviewers, 1 SKILL/README
+  reviewer, 2 executors, 2 critics, 1 connector, 1 scribe) after five
+  job-cap refusals (`w1-dispatch-attempts.json`); no deaths. One report was
+  misrooted at the fleet root and moved byte-exact (`misroot-RowS012.txt`).
+- Row receipts: 32/32 HOLD. Statement reviews: 276 statements, 22 proposed
+  STALE, 8 admitted and appended as `[r26-recheck S0NN STALE]` blocks in
+  ghp-served-set, ghp-etag-anatomy and static-canonical-preflight; 14
+  rejected with reasons (`statements.json`). Dated HOLD sections appended to
+  all five citing entries. No SOURCES row cell changed.
+- Critics drove counter rules (row-specific quotes, statement ledger) and an
+  extractor fix (double entity decode; before copy retained). QUALITY,
+  README, SKILL registry and SCORECARD appended. Measurements follow
+  execution on a pushed revision.

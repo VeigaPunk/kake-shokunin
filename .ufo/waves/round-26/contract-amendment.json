@@ -1,0 +1,19 @@
+{
+  "round": 26,
+  "supersedes": "contract.json counting details (claim unchanged)",
+  "motivatingEvidence": [
+    "w1/ClaimCritic.md",
+    "w1/FetchCritic.md",
+    "w1/RecheckFixtures.md",
+    "w1/RecheckCounter.md",
+    "w1/SourceRulesConnect.md"
+  ],
+  "changes": [
+    "Quote length: >=6 alphanumeric tokens and <=25 whitespace words (S016 is a whitespace-free JSON body)",
+    "Quote specificity: a decided quote must not occur in any other population row text outside its document group; group {S010,S028,S033} (RFC 9110 html/txt) needs distinct quotes",
+    "Statement ledger statements.json: each adjudicated STALE knowledge statement needs its [r26-recheck S0NN STALE] tag in the named corpus file",
+    "source_text.py: single entity decode (HTMLParser convert_charrefs) and no \"]\" spacing rule; before copy retained at before/source_text.py; 18 text views regenerated and all 32 receipt quotes re-found",
+    "fetch_retry.py: committed post-hoc copy of the inline S008 retry; it did not produce manifest-retry.json"
+  ],
+  "unchanged": "32-row population (sha 16330e1e…), one claim on freshness, no live property probing, round24 debt held"
+}

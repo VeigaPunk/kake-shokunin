@@ -76,6 +76,8 @@ Round 24 bounded question (2026-10-21): which primary grammars distinguish malfo
 
 Round 25 bounded question (2026-10-21): what publisher-side evidence must be prepared before a WCAG 2.2 A/AA evaluation? Opened the pinned W3C Recommendation, success criteria and section 5.2. Identified 1, screened 1, included 1 (S035, scoped tier A), excluded 0 registry candidates. The first reader returned only the abstract; raw pinned HTML supplied the normative sections. Stop: the complete fixed A/AA population and conformance boundaries are directly sourced. No website conformity, browser execution, publication or round-24 policy-stop resolution is inferred.
 
+Round 26 bounded recheck (2026-10-21): do the 32 previously opened external rows (S001–S034 minus own-work S014/S019) still support their teaches at their anchors? Re-fetched every recorded URL with one public GET (34 fetches; S008 one retry after a 60 s timeout), retained gzip bytes and sha256 under round26 `fetched/`. Identified 32, screened 32, rechecked 32: HOLD 32, STALE 0, UNVERIFIABLE 0 at row level; receipts `.ufo/waves/round-26/rechecks/S0NN.json`. Knowledge-statement corrections (8) are appended in the citing entries, not here. No row added, rejected or changed; no status/recheck/used-by cell changed. Lead noted, not a row: RFC 9557 updates RFC 3339 §4.3 (RFC Editor info page, PairS032). Stop: every in-scope row was re-opened once this round.
+
 ## Leads (unopened)
 
 - GitHub Docs: Verifying your custom domain for GitHub Pages — https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages

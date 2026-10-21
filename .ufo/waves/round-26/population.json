@@ -1,0 +1,792 @@
+{
+  "round": 26,
+  "baseline": "97404de4ff73d6c8a4f87385cf5fdf36dca7f006",
+  "rows": [
+    {
+      "id": "S001",
+      "source": "actions/upload-pages-artifact action.yml at v4.0.0 and main commit — https://raw.githubusercontent.com/actions/upload-pages-artifact/7b1f4a764d45c48632c6b24a0339c27f5614fb0b/action.yml; https://raw.githubusercontent.com/actions/upload-pages-artifact/5f327015a708106f6f1b7c9a633901af30fe80cb/action.yml",
+      "kind": "code",
+      "tier": "A",
+      "scope": "Hidden-file inclusion and invariant exclusions in this action",
+      "anchor": "inputs.include-hidden-files lines 17-20 and Archive artifact steps lines 37-39; v4.0.0 tag and main 5f327015a708106f6f1b7c9a633901af30fe80cb",
+      "teaches": "The action exposes hidden-file inclusion while excluding .git and .github regardless; v4.0.0's default dotfile exclusion is separately evidenced by S002",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "on-release",
+      "usedBy": "corpus/knowledge/ghp-served-set.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://raw.githubusercontent.com/actions/upload-pages-artifact/7b1f4a764d45c48632c6b24a0339c27f5614fb0b/action.yml",
+          "status": 200,
+          "sha256": "4524ed61c2fb61b4d7e88de2d779fe937461b6926aeb716b56f047ae3abcd046",
+          "file": "fetched/S001-1.raw.gz",
+          "text": "fetched/text/S001-1.txt",
+          "fetchedAt": "2026-10-21T15:09:32.237330+00:00"
+        },
+        {
+          "index": 2,
+          "url": "https://raw.githubusercontent.com/actions/upload-pages-artifact/5f327015a708106f6f1b7c9a633901af30fe80cb/action.yml",
+          "status": 200,
+          "sha256": "e8ce828a4f2a0e500dc506bc03c706881dab7dc4b7cd527c7ea175c6c0ca6741",
+          "file": "fetched/S001-2.raw.gz",
+          "text": "fetched/text/S001-2.txt",
+          "fetchedAt": "2026-10-21T15:09:32.490601+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S002",
+      "source": "actions/upload-pages-artifact release notes v4.0.0 and v5.0.0 — https://github.com/actions/upload-pages-artifact/releases/tag/v4.0.0; https://github.com/actions/upload-pages-artifact/releases/tag/v5.0.0",
+      "kind": "code",
+      "tier": "A",
+      "scope": "Artifact packaging behavior across v4.0.0 and v5.0.0",
+      "anchor": "v4.0.0 What's Changed and v5.0.0 Changelog; release tags 7b1f4a764d45c48632c6b24a0339c27f5614fb0b and fc324d3547104276b827a68afc52ff2a11cc49c9",
+      "teaches": "v4.0.0 excludes hidden dotfiles by default; v5.0.0 adds the include-hidden-files input",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "on-release",
+      "usedBy": "corpus/knowledge/ghp-served-set.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://github.com/actions/upload-pages-artifact/releases/tag/v4.0.0",
+          "status": 200,
+          "sha256": "455adcec328f88362641c1d533e1c7a65c46d5120f8ebe2d55b7dc5eaca6334f",
+          "file": "fetched/S002-1.raw.gz",
+          "text": "fetched/text/S002-1.txt",
+          "fetchedAt": "2026-10-21T15:09:32.797793+00:00"
+        },
+        {
+          "index": 2,
+          "url": "https://github.com/actions/upload-pages-artifact/releases/tag/v5.0.0",
+          "status": 200,
+          "sha256": "28d5566afe0653febefea1777c191bd7afb1ecae02e502587c202b74f46fd998",
+          "file": "fetched/S002-2.raw.gz",
+          "text": "fetched/text/S002-2.txt",
+          "fetchedAt": "2026-10-21T15:09:33.535214+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S003",
+      "source": "GitHub Docs: Configuring a publishing source for your GitHub Pages site — https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "GitHub Pages publishing modes and repository source selection",
+      "anchor": "About publishing sources and note under Creating a custom GitHub Actions workflow; fetched 2026-10-19",
+      "teaches": "GitHub Pages can publish from a selected branch or from a GitHub Actions workflow",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/ghp-custom-domain.md, corpus/knowledge/ghp-served-set.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+          "status": 200,
+          "sha256": "aa758b4a543f792f3afa1ea37edf4042581719510a479a3f45ce3ace58fdf1ac",
+          "file": "fetched/S003-1.raw.gz",
+          "text": "fetched/text/S003-1.txt",
+          "fetchedAt": "2026-10-21T15:09:34.198990+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S004",
+      "source": "GitHub Docs: Using custom workflows with GitHub Pages — https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Artifact shape and deployment requirements for custom workflows",
+      "anchor": "Configuring the upload-pages-artifact action; fetched 2026-10-19",
+      "teaches": "Pages artifacts are gzip-compressed tar files under 10GB and should contain no symbolic or hard links",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/ghp-served-set.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages",
+          "status": 200,
+          "sha256": "5c15ef2d916a57a9877f75518968df2d644799f08630f9beb5ed8d699206a385",
+          "file": "fetched/S004-1.raw.gz",
+          "text": "fetched/text/S004-1.txt",
+          "fetchedAt": "2026-10-21T15:09:34.536589+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S005",
+      "source": "GitHub Docs: Managing a custom domain for your GitHub Pages site — https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Custom-domain configuration for Actions-published Pages sites",
+      "anchor": "Configuring an apex domain step 4 and Configuring a subdomain step 4; fetched 2026-10-19",
+      "teaches": "An Actions-published site ignores a repository CNAME file; the domain is configured through Pages settings or the API",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/ghp-custom-domain.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site",
+          "status": 200,
+          "sha256": "dc89eecdf00c22581f1d85dd5c429d63e3d206f7d7a946c3c2f752a023e0cee9",
+          "file": "fetched/S005-1.raw.gz",
+          "text": "fetched/text/S005-1.txt",
+          "fetchedAt": "2026-10-21T15:09:34.843922+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S006",
+      "source": "GitHub Docs: About GitHub Pages and Jekyll — https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Default file exclusions in GitHub Pages Jekyll branch builds",
+      "anchor": "Configuring Jekyll in your GitHub Pages site; fetched 2026-10-19",
+      "teaches": "By default Jekyll skips paths starting with underscore, dot, or hash, paths ending in tilde, node_modules, and vendor",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/ghp-served-set.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll",
+          "status": 200,
+          "sha256": "71a698604486380c05ca092adbc863dc653fc175eecea5a675891651cd3bdfbd",
+          "file": "fetched/S006-1.raw.gz",
+          "text": "fetched/text/S006-1.txt",
+          "fetchedAt": "2026-10-21T15:09:35.317006+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S007",
+      "source": "GitHub REST API: GitHub Pages endpoints — https://docs.github.com/en/rest/pages/pages",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Pages API fields describing build mode and custom-domain state",
+      "anchor": "Get a GitHub Pages site response schema and Update information about a GitHub Pages site body parameters; fetched 2026-10-19",
+      "teaches": "The Pages API exposes build_type, cname, and protected_domain_state as distinct fields",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/ghp-custom-domain.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.github.com/en/rest/pages/pages",
+          "status": 200,
+          "sha256": "4f4449ba997276df8acfb9a04aad7dc31c8f95b263ef56c6c7a4aac892097ce0",
+          "file": "fetched/S007-1.raw.gz",
+          "text": "fetched/text/S007-1.txt",
+          "fetchedAt": "2026-10-21T15:09:35.741177+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S008",
+      "source": "GNU tar manual: Controlling Pattern-Matching — https://cgit.git.savannah.gnu.org/cgit/tar.git/plain/doc/tar.texi?id=cfdb891bbd68c920ea75210977593f3cd08f0418",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "GNU tar exclusion-pattern defaults used to interpret archive selection",
+      "anchor": "Controlling Pattern-Matching, anchored patterns and wildcard matching, lines 8478-8617; GNU tar master cfdb891bbd68c920ea75210977593f3cd08f0418",
+      "teaches": "GNU tar exclusions are unanchored and wildcard matching can cross slash by default, so patterns may apply to nested paths",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/ghp-served-set.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://cgit.git.savannah.gnu.org/cgit/tar.git/plain/doc/tar.texi?id=cfdb891bbd68c920ea75210977593f3cd08f0418",
+          "status": 200,
+          "sha256": "93281a63cb9f94a08d4d2ed6dfe9559b02cecc72d6bbd304c9970d8f81606084",
+          "file": "fetched/S008-1-retry.raw.gz",
+          "text": "fetched/text/S008-1.txt",
+          "fetchedAt": "2026-10-21T15:11:01.972009+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S009",
+      "source": "nginx source release-1.28.0, src/http/ngx_http_core_module.c — https://raw.githubusercontent.com/nginx/nginx/release-1.28.0/src/http/ngx_http_core_module.c",
+      "kind": "code",
+      "tier": "A",
+      "scope": "nginx's own ETag format only; not an assertion about the GitHub Pages backend",
+      "anchor": "ngx_http_set_etag at line 1682, ETag sprintf lines 1708-1710; tag release-1.28.0, commit 481d28cb4e04c8096b9b6134856891dc52ecc68f",
+      "teaches": "nginx formats its ETag from hexadecimal last-modified time and hexadecimal content length; this says nothing about which server GitHub Pages runs",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/ghp-etag-anatomy.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://raw.githubusercontent.com/nginx/nginx/release-1.28.0/src/http/ngx_http_core_module.c",
+          "status": 200,
+          "sha256": "c58ebede93aa6c790858ce7e14e01f80f3480466ceb9f7d784c1051321cec3fe",
+          "file": "fetched/S009-1.raw.gz",
+          "text": "fetched/text/S009-1.txt",
+          "fetchedAt": "2026-10-21T15:10:38.383102+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S010",
+      "source": "RFC 9110: HTTP Semantics — https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "HTTP validator semantics for entity tags",
+      "anchor": "Section 8.8.1 Weak versus Strong and 8.8.3 ETag; published June 2022",
+      "teaches": "Entity tags are opaque validators, and a strong validator can change for metadata reasons without representation-data changes",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/ghp-etag-anatomy.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8",
+          "status": 200,
+          "sha256": "d431760660ea44e130f6e919dab216df2d0b3a490567a98089267523368fe1e5",
+          "file": "fetched/S010-1.raw.gz",
+          "text": "fetched/text/S010-1.txt",
+          "fetchedAt": "2026-10-21T15:10:38.602255+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S011",
+      "source": "RFC 9309: Robots Exclusion Protocol — https://www.rfc-editor.org/rfc/rfc9309.html",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Host-root scope of robots.txt rules",
+      "anchor": "Section 2.3 Access Method and 2.3.1.4 Unreachable Status; published September 2022",
+      "teaches": "Robots rules are located at the service's top-level /robots.txt; an unreachable robots file requires crawlers to assume complete disallow",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/crawl-scope-per-host.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+          "status": 200,
+          "sha256": "bbaa280636d3e38f0a1a130a5ce40e9753db1ed18c860945b0bf795ff8dc1a87",
+          "file": "fetched/S011-1.raw.gz",
+          "text": "fetched/text/S011-1.txt",
+          "fetchedAt": "2026-10-21T15:10:38.867462+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S012",
+      "source": "sitemaps.org: Sitemaps XML format — https://www.sitemaps.org/protocol.html",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Sitemap file location and the URLs it can list",
+      "anchor": "Sitemap file location section; fetched 2026-10-19",
+      "teaches": "A sitemap's location limits the set of URLs it may include",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/crawl-scope-per-host.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.sitemaps.org/protocol.html",
+          "status": 200,
+          "sha256": "5e7570590fcb92d473d7015c88940a830383b6a61bc6c16be4df51e97f471654",
+          "file": "fetched/S012-1.raw.gz",
+          "text": "fetched/text/S012-1.txt",
+          "fetchedAt": "2026-10-21T15:10:39.073655+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S013",
+      "source": "Google Search Central: Build and submit a sitemap — https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Google's sitemap-location and metadata handling",
+      "anchor": "Sitemap best practices; last updated 2026-07-08 UTC",
+      "teaches": "Unless submitted through Search Console, Google applies a sitemap only to descendants of its parent directory",
+      "status": "mined",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/crawl-scope-per-host.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+          "status": 200,
+          "sha256": "492e22cf133333d6202bbfd6c47370eac981612d7952b1e851d31e06dd78920b",
+          "file": "fetched/S013-1.raw.gz",
+          "text": "fetched/text/S013-1.txt",
+          "fetchedAt": "2026-10-21T15:10:40.699115+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S015",
+      "source": "GitHub Docs: GitHub Pages limits — https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Published-site size and platform usage limits",
+      "anchor": "Usage limits; fetched 2026-10-19",
+      "teaches": "Published GitHub Pages sites are limited to 1 GB",
+      "status": "queued",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "—",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
+          "status": 200,
+          "sha256": "e5e9c38f4d09a286ed2d06609c678097da8771c322025b875ea50f41dc2f5014",
+          "file": "fetched/S015-1.raw.gz",
+          "text": "fetched/text/S015-1.txt",
+          "fetchedAt": "2026-10-21T15:10:41.343790+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S016",
+      "source": "GitHub Pages dependency versions — https://pages.github.com/versions.json",
+      "kind": "dataset",
+      "tier": "A",
+      "scope": "Dependency versions in the public GitHub Pages build catalog",
+      "anchor": "JSON keys jekyll and github-pages; fetched 2026-10-19",
+      "teaches": "At fetch time the dataset lists Jekyll 3.10.0 and the github-pages gem 232",
+      "status": "queued",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "—",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://pages.github.com/versions.json",
+          "status": 200,
+          "sha256": "0a713bab52e15579fda7f76e71da0283e8260e217e448fd56d704801212c4542",
+          "file": "fetched/S016-1.raw.gz",
+          "text": "fetched/text/S016-1.txt",
+          "fetchedAt": "2026-10-21T15:10:41.481034+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S017",
+      "source": "Astro Docs: Deploy your Astro Site to GitHub Pages — https://docs.astro.build/en/guides/deploy/github/",
+      "kind": "docs",
+      "tier": "C",
+      "scope": "Whether public/CNAME sets a custom domain under Actions publishing",
+      "anchor": "Change your GitHub URL to a custom domain, step 2; fetched 2026-10-19",
+      "teaches": "REJECTED: Astro's public/CNAME step is contradicted by GitHub's Pages guidance for Actions; flip: GitHub docs say the CNAME file is honored under Actions",
+      "status": "rejected",
+      "opened": "2026-10-19",
+      "recheck": "90d",
+      "usedBy": "—",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.astro.build/en/guides/deploy/github/",
+          "status": 200,
+          "sha256": "89cb471d86fd43f8b76420ac1c2079a52fdef21418bdf1e09a1f367b07336075",
+          "file": "fetched/S017-1.raw.gz",
+          "text": "fetched/text/S017-1.txt",
+          "fetchedAt": "2026-10-21T15:10:41.644198+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S018",
+      "source": "DebugBear: Firefox And Safari Now Support Two Core Web Vitals Metrics — https://www.debugbear.com/blog/firefox-safari-web-vitals",
+      "kind": "community",
+      "tier": "C",
+      "scope": "Firefox version and date for interactionId and INP support",
+      "anchor": "INP support in Firefox 114; updated 2026-03-19",
+      "teaches": "REJECTED: DebugBear says Firefox 114, while Firefox 144.0 release notes carry interactionId; flip: a tier-A source confirms its number",
+      "status": "rejected",
+      "opened": "2026-10-19",
+      "recheck": "180d",
+      "usedBy": "—",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.debugbear.com/blog/firefox-safari-web-vitals",
+          "status": 200,
+          "sha256": "21a3e87351b4a621bafeb7a0caeabb5845dc9bbb89613156383798d7bf2a9045",
+          "file": "fetched/S018-1.raw.gz",
+          "text": "fetched/text/S018-1.txt",
+          "fetchedAt": "2026-10-21T15:10:41.891198+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S020",
+      "source": "RFC 6596: The Canonical Link Relation — https://www.rfc-editor.org/rfc/rfc6596.html",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Preferred canonical relation semantics, not an Internet Standards Track conformance claim",
+      "anchor": "Section 3, April 2012 Informational RFC; opened 2026-10-20",
+      "teaches": "Relative and cross-host targets are permitted; duplicate/superset content is not established by a static declaration audit",
+      "status": "mined",
+      "opened": "2026-10-20",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.rfc-editor.org/rfc/rfc6596.html",
+          "status": 200,
+          "sha256": "87a13951ce93195e9a52915e6d170eebd4c48260576b637407bb96ea8c47f5e4",
+          "file": "fetched/S020-1.raw.gz",
+          "text": "fetched/text/S020-1.txt",
+          "fetchedAt": "2026-10-21T15:10:43.158633+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S021",
+      "source": "Google Search Central: How to specify a canonical URL — https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Google's documented HTML canonical signals and limitations",
+      "anchor": "The rel=canonical link element, Use rel=canonical link annotations, Best practices; updated 2026-07-10, opened 2026-10-20",
+      "teaches": "Head placement matters; absolute URLs are recommended while relatives work; the signal is not a selection guarantee",
+      "status": "mined",
+      "opened": "2026-10-20",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+          "status": 200,
+          "sha256": "4edda778243cee4a2138fa31541226d22fc7be155a1ee385ce11a26674c7e5c5",
+          "file": "fetched/S021-1.raw.gz",
+          "text": "fetched/text/S021-1.txt",
+          "fetchedAt": "2026-10-21T15:10:43.417148+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S022",
+      "source": "Google Search Central: Fix canonicalization issues — https://developers.google.com/search/docs/crawling-indexing/canonicalization-troubleshooting",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Declared canonical versus Google-selected canonical",
+      "anchor": "Opening paragraph, updated 2026-08-21; opened 2026-10-20",
+      "teaches": "Google may choose a different canonical even when the publisher explicitly designates one",
+      "status": "mined",
+      "opened": "2026-10-20",
+      "recheck": "90d",
+      "usedBy": "corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://developers.google.com/search/docs/crawling-indexing/canonicalization-troubleshooting",
+          "status": 200,
+          "sha256": "4d42dd82db74b81329deaa0e46fc4bfdf08548894d1e437a1a2634009b173e47",
+          "file": "fetched/S022-1.raw.gz",
+          "text": "fetched/text/S022-1.txt",
+          "fetchedAt": "2026-10-21T15:10:44.344595+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S023",
+      "source": "WHATWG HTML: Link type canonical — https://html.spec.whatwg.org/multipage/links.html#link-type-canonical",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "HTML link-type keyword semantics",
+      "anchor": "Section 4.6.8 Link types and 4.6.8.4 canonical; Living Standard accessed 2026-10-20",
+      "teaches": "Canonical indicates the preferred URL; link-type keywords compare ASCII case-insensitively",
+      "status": "mined",
+      "opened": "2026-10-20",
+      "recheck": "90d",
+      "usedBy": "corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://html.spec.whatwg.org/multipage/links.html#link-type-canonical",
+          "status": 200,
+          "sha256": "82a81f233583716daf76ce20938a399016dfd877a9368ea2cdb1a60bcd3df6b7",
+          "file": "fetched/S023-1.raw.gz",
+          "text": "fetched/text/S023-1.txt",
+          "fetchedAt": "2026-10-21T15:10:45.104275+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S024",
+      "source": "WHATWG HTML: The base element — https://html.spec.whatwg.org/multipage/semantics.html#the-base-element",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "First base href in document tree order",
+      "anchor": "Section 4.2.3, multiple base href paragraph; Living Standard accessed 2026-10-20",
+      "teaches": "Only the first base element with href supplies the base; later base href values are ignored",
+      "status": "mined",
+      "opened": "2026-10-20",
+      "recheck": "90d",
+      "usedBy": "corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://html.spec.whatwg.org/multipage/semantics.html#the-base-element",
+          "status": 200,
+          "sha256": "fd9ae4b6a2e12472ae6f61c52b4ef32751e63f8262cea997d8c6056eba2db959",
+          "file": "fetched/S024-1.raw.gz",
+          "text": "fetched/text/S024-1.txt",
+          "fetchedAt": "2026-10-21T15:10:46.764855+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S025",
+      "source": "WHATWG HTML: The template element — https://html.spec.whatwg.org/multipage/scripting.html#the-template-element",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Template contents are separate from document children",
+      "anchor": "Section 4.12.3, template contents paragraph; Living Standard accessed 2026-10-20",
+      "teaches": "Template contents are not children of the template element itself and do not supply document-head canonical links",
+      "status": "mined",
+      "opened": "2026-10-20",
+      "recheck": "90d",
+      "usedBy": "corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://html.spec.whatwg.org/multipage/scripting.html#the-template-element",
+          "status": 200,
+          "sha256": "5854951bbabbdca6b5ea365edd1e2f14e342bc51e77353469d21e46f859abe43",
+          "file": "fetched/S025-1.raw.gz",
+          "text": "fetched/text/S025-1.txt",
+          "fetchedAt": "2026-10-21T15:10:47.988656+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S026",
+      "source": "Python: html.parser — https://docs.python.org/3/library/html.parser.html",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "Standard-library tokenizer callbacks and parser limitations",
+      "anchor": "HTMLParser introduction and handle_starttag; Python 3.15 documentation accessed 2026-10-20",
+      "teaches": "Tag and attribute names are lowercased and entities decoded, but matching end tags and HTML5 tree construction are not validated",
+      "status": "mined",
+      "opened": "2026-10-20",
+      "recheck": "on-release",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.python.org/3/library/html.parser.html",
+          "status": 200,
+          "sha256": "d92217e08486dc9bfedf255f071fdad1ea1a506a1e8a8570c4711a47aad5faa3",
+          "file": "fetched/S026-1.raw.gz",
+          "text": "fetched/text/S026-1.txt",
+          "fetchedAt": "2026-10-21T15:10:49.267812+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S027",
+      "source": "Python: urllib.parse — https://docs.python.org/3/library/urllib.parse.html",
+      "kind": "docs",
+      "tier": "A",
+      "scope": "URL splitting and resolution are not validation",
+      "anchor": "urlsplit warning and URL parsing security; Python 3.15 documentation accessed 2026-10-20",
+      "teaches": "URL components must be validated by the caller; stdlib parsing is not exact browser URL equivalence",
+      "status": "mined",
+      "opened": "2026-10-20",
+      "recheck": "on-release",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://docs.python.org/3/library/urllib.parse.html",
+          "status": 200,
+          "sha256": "a27468b3a18380e3f0b86b9326217bfee865d2c81523d0849927dd2b8542d9f1",
+          "file": "fetched/S027-1.raw.gz",
+          "text": "fetched/text/S027-1.txt",
+          "fetchedAt": "2026-10-21T15:10:49.412345+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S028",
+      "source": "RFC 9110: HTTP Semantics, http and https URI schemes — https://www.rfc-editor.org/rfc/rfc9110.txt",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Validity of http(s) URIs with an empty host; distinct section and scope from S010",
+      "anchor": "Sections 4.2.1 http URI Scheme and 4.2.2 https URI Scheme; plain text sha256 21c1cdce…7232a, opened 2026-10-21",
+      "teaches": "A recipient must reject an http or https URI reference with an empty host identifier as invalid",
+      "status": "mined",
+      "opened": "2026-10-21",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+          "status": 200,
+          "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+          "file": "fetched/S028-1.raw.gz",
+          "text": "fetched/text/S028-1.txt",
+          "fetchedAt": "2026-10-21T15:10:49.556871+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S029",
+      "source": "RFC 3986: URI Generic Syntax — https://www.rfc-editor.org/rfc/rfc3986.txt",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Reference grammar for authority versus path in references beginning with two slashes",
+      "anchor": "Section 3 Syntax Components paragraph after the hier-part ABNF; plain text sha256 3102dae4…b2d683, opened 2026-10-21",
+      "teaches": "Without an authority a path cannot begin with two slashes, so a `//`-prefixed reference always carries an authority, possibly empty",
+      "status": "mined",
+      "opened": "2026-10-21",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-22.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.rfc-editor.org/rfc/rfc3986.txt",
+          "status": 200,
+          "sha256": "3102dae4b68cebe40337730312fcb612297b8928547267e8b3d1ee6002b2d683",
+          "file": "fetched/S029-1.raw.gz",
+          "text": "fetched/text/S029-1.txt",
+          "fetchedAt": "2026-10-21T15:10:49.846088+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S030",
+      "source": "WHATWG HTML: The HTML syntax, void elements and start tags — https://html.spec.whatwg.org/multipage/syntax.html#start-tags",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Self-closing slash on void and foreign elements versus non-void HTML elements",
+      "anchor": "Section 13.1.2.1 start tags step 6 and 13.1.2 void elements list; Living Standard last updated 20 October 2026, opened 2026-10-21",
+      "teaches": "A slash is allowed only on void or foreign elements and has no effect on void elements; the void list has 13 names",
+      "status": "mined",
+      "opened": "2026-10-21",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-23.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://html.spec.whatwg.org/multipage/syntax.html#start-tags",
+          "status": 200,
+          "sha256": "04b65bf0b4b5f3bb3815999ab499af980fa09b8832f02c1686c544ab8e79a52d",
+          "file": "fetched/S030-1.raw.gz",
+          "text": "fetched/text/S030-1.txt",
+          "fetchedAt": "2026-10-21T15:10:50.088887+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S031",
+      "source": "WHATWG HTML: Parsing HTML documents, in body and foreign content — https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inforeign",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Which body tokens become SVG/MathML foreign elements and where HTML parsing resumes",
+      "anchor": "13.2.6.4.7 in body (svg/math start tags) and 13.2.6.5 foreign content (any other start tag; breakout list incl. head); Living Standard last updated 20 October 2026, opened 2026-10-21",
+      "teaches": "In-body svg/math insert foreign elements; ordinary children take the foreign namespace, but breakout tags and integration points return to HTML rules",
+      "status": "mined",
+      "opened": "2026-10-21",
+      "recheck": "90d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-23.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inforeign",
+          "status": 200,
+          "sha256": "a11dcf1768a76e24cdf7e16060f54bcb149c529aa8bcb9297b8d1ab633b26f13",
+          "file": "fetched/S031-1.raw.gz",
+          "text": "fetched/text/S031-1.txt",
+          "fetchedAt": "2026-10-21T15:10:50.839991+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S032",
+      "source": "RFC 3339: Date and Time on the Internet: Timestamps — https://www.rfc-editor.org/rfc/rfc3339.txt",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Calendar and offset grammar for timestamp fields in publishing receipts",
+      "anchor": "Sections 5.6 Internet Date/Time Format and 5.7 Restrictions, July 2002; opened 2026-10-21",
+      "teaches": "A date-time combines a full date with a full time whose offset is required; real calendar restrictions are not validated by lexical prefix comparisons",
+      "status": "mined",
+      "opened": "2026-10-21",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-24.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.rfc-editor.org/rfc/rfc3339.txt",
+          "status": 200,
+          "sha256": "9ab2b8864a85dca73a88f49b0927bc7bc85f596926e4fd1890905777924e700a",
+          "file": "fetched/S032-1.raw.gz",
+          "text": "fetched/text/S032-1.txt",
+          "fetchedAt": "2026-10-21T15:10:51.912841+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S033",
+      "source": "RFC 9110: HTTP Semantics, media types — https://www.rfc-editor.org/rfc/rfc9110.txt",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "Content-Type media-type grammar, distinct from S010 validator and S028 URI scopes",
+      "anchor": "Sections 8.3, 8.3.1, 5.6.2 and 5.6.6, June 2022; opened 2026-10-21",
+      "teaches": "Media types have token type/subtype and optional parameters; nullable omitted headers are distinguished from malformed values by the receipt schema",
+      "status": "mined",
+      "opened": "2026-10-21",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-24.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+          "status": 200,
+          "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+          "file": "fetched/S033-1.raw.gz",
+          "text": "fetched/text/S033-1.txt",
+          "fetchedAt": "2026-10-21T15:10:52.138664+00:00"
+        }
+      ]
+    },
+    {
+      "id": "S034",
+      "source": "RFC 8259: The JavaScript Object Notation Data Interchange Format — https://www.rfc-editor.org/rfc/rfc8259.txt",
+      "kind": "spec",
+      "tier": "A",
+      "scope": "JSON receipt interoperability: duplicate members, non-finite constants and boolean versus number types",
+      "anchor": "Sections 3, 4, 6 and 9, December 2017; opened 2026-10-21",
+      "teaches": "Object names SHOULD be unique; NaN and Infinity are not JSON numbers; explicit duplicate rejection is local receipt-integrity policy",
+      "status": "mined",
+      "opened": "2026-10-21",
+      "recheck": "365d",
+      "usedBy": "corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-24.md",
+      "fetches": [
+        {
+          "index": 1,
+          "url": "https://www.rfc-editor.org/rfc/rfc8259.txt",
+          "status": 200,
+          "sha256": "61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7",
+          "file": "fetched/S034-1.raw.gz",
+          "text": "fetched/text/S034-1.txt",
+          "fetchedAt": "2026-10-21T15:10:52.448786+00:00"
+        }
+      ]
+    }
+  ]
+}

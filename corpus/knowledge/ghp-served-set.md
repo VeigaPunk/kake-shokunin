@@ -77,3 +77,13 @@ uses `@value{VERSION}`. The exclusion-default quotes (lines 8587–8588 and
 8602 in the reviewer-opened source) remain supported. The SOURCES anchor
 range 8478–8617 and the gate range 8478–8603 both contain those lines; use
 the exact quote lines, not an inferred release label.
+
+## Round-26 source recheck
+
+- Round-26 source recheck (2026-10-21, append-only; original lines unchanged). Rows S001, S002, S003, S004, S006 and S008 were re-fetched by one public GET each (`.ufo/waves/round-26/fetched/manifest.json`, S008 via `manifest-retry.json`) and judged HOLD at their anchors against the retained bytes; receipts `.ufo/waves/round-26/rechecks/S0NN.json`, statement-level reviews `.ufo/waves/round-26/w1/Pair*.md`. Older verified-at/reopened dates in this entry remain the historical record of the earlier reading; they are not rewritten. Pointers labelled `at base cb807bc` stay base-scoped (QUALITY.md round-21 coordinate rule), so current-tree line movement is not a stale claim. Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
+
+- [r26-recheck S003 STALE] The r20-correction sentence at line 17-18, “`corpus/knowledge/publish-channels.md:5-14` distinguishes Actions from branch publishing”, was false already at base cb807bc: those lines describe two Actions workflows and a setup script. The Actions-versus-branch distinction is S003's own text (“About publishing sources”, re-fetched 2026-10-21): “You can publish your site when changes are pushed to a specific branch, or you can write a GitHub Actions workflow to publish your site.” Evidence: w1/PairS003GhpServedSet.md (C1).
+
+- [r26-recheck S003 STALE] The S003 bullet at lines 28-29 is not a verbatim quote. The 2026-10-21 bytes read: “the source folder can either be the root of the repository (/) on the source branch or a /docs folder on the source branch.” The root-or-/docs substance is unchanged; the earlier wording dropped “on the source branch” twice. Evidence: w1/PairS003GhpServedSet.md (C2).
+
+- UNVERIFIABLE this round (not STALE): the four upload-pages-artifact v3.0.1 statements. S001 pins only v4.0.0 and main, and no v3.0.1 bytes are retained under round 26 (w1/PairS001GhpServedSet.md). They remain historical claims until a pinned v3.0.1 source is opened.

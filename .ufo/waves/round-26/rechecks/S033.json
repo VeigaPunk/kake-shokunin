@@ -1,0 +1,9 @@
+{
+  "id": "S033",
+  "verdict": "HOLD",
+  "fetchIndex": 1,
+  "quote": "media-type = type \"/\" subtype parameters type = token subtype = token",
+  "anchorObserved": "§8.3.1 \"Media Type\", first ABNF block (single-line text view); §8.3, §5.6.2 \"Tokens\" and §5.6.6 \"Parameters\" all present at their cited numbers",
+  "reason": "Published RFC 9110 (STD 97, June 2022) is immutable; today's 200 body sha256 21c1cdce...232a is identical to the digest recorded for this row in corpus/lessons/round-24.md:32, and all four cited sections retain their numbers and substance. §8.3.1 still defines media-type as token type/subtype plus optional parameters, §5.6.6 still defines name/value parameters, and §8.3 still says an absent Content-Type lets the recipient assume application/octet-stream. scripts/receipt_replay.py still distinguishes absent or present-null contentType from malformed values (parse_media_type:210-227; validation branch:395-415). Scope remains disjoint from S010 (§8.8 validators) and S028 (§4.2 http/https schemes).",
+  "correction": null
+}

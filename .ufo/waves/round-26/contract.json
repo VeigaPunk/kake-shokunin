@@ -1,0 +1,18 @@
+{
+  "round": 26,
+  "base": "97404de4ff73d6c8a4f87385cf5fdf36dca7f006",
+  "claim": {
+    "id": "C1",
+    "axis": "freshness",
+    "type": "measured re-verification",
+    "before": "0/32 prior external SOURCES rows carry a round-26 dated live-source recheck receipt",
+    "after": "each of the 32 rows decided HOLD or STALE against bytes re-fetched this round (UNVERIFIABLE reported separately, never counted decided); every STALE has an appended correction in the citing corpus file; knowledge-entry claims citing the rows rechecked",
+    "count": "python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>"
+  },
+  "motivation": "MANIFEST rounds[420] closure: quality trend unchanged because no prior entry was re-verified or superseded; freshness axis unchanged since r24.",
+  "lowestAxis": "operability and freshness tie at legacy 10; freshness selected (not worked in r25).",
+  "population": ".ufo/waves/round-26/population.json \u2014 S001..S034 minus own-work S014/S019; S035 (opened r25) excluded",
+  "fetch": "fetch_sources.py one public GET per recorded URL, gzip-retained bytes + sha256 manifest; S008 one documented retry after a 60s timeout",
+  "boundaries": "Documentation/spec GET reads only. No property probing, browser, accounts, publication, credentials, security testing. Round24 C1/C2 debt remains held; no r24 assignment/probe/counter retried, rephrased or rerouted.",
+  "appendOnly": "SOURCES row cells unchanged except allowed status/recheck/used-by (logged); prior corpus bytes preserved; corrections as EOF blocks tagged [r26-recheck S0NN STALE]."
+}

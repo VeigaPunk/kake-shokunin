@@ -572,3 +572,16 @@ The packet row's current frozen proof is
 Its `--selftest` on that snapshot checks both a clean replay and
 snapshot_tampered exit2. Quote and fixture-coverage proofs under round25
 are subordinate fixed-fixture evidence, not website checks.
+
+## Source recheck — round 26
+
+Re-verify cited sources from retained bytes, not memory: re-fetch each
+recorded URL once (`.ufo/waves/round-26/fetch_sources.py --root . --out <dir>`),
+judge each row at its anchor with a row-specific ≤25-word quote, and append
+`[r26-recheck S0NN STALE]` corrections to the citing entry only when a
+statement is wrong at its own stated scope (QUALITY round-26 adjudication).
+Living documents are judged by quote at anchor, never by sha equality.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| source-recheck-counter | gate (round measurement) | `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>` | 0 all 32 rows decided and every adjudicated STALE statement corrected; 1 undecided/finding; 2 could-not-evaluate (Git/input/tampered bytes); 64 could-not-evaluate usage | same script `--selftest` (temporary fixture repository under the wave directory); `.ufo/waves/round-26/text_selftest.py` for the extractor | population sha256 constant; manifest sha256 per fetch; receipts and statements ledger at the measured revision | read-only Git blobs; selftest writes only a disposable fixture repo; no network | kake |
