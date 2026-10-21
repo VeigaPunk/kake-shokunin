@@ -1,0 +1,261 @@
+{
+  "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+  "checks": [
+    {
+      "name": "python-version",
+      "executedAt": "2026-10-21T13:56:58.432508+00:00",
+      "argv": [
+        "python3",
+        "--version"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "Python 3.14.8\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "packet",
+      "executedAt": "2026-10-21T13:56:58.436577+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/accessibility_packet.py",
+        "--root",
+        ".",
+        "--json"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "{\"accepted\": 55, \"criteria\": [{\"accepted\": true, \"findings\": [], \"id\": \"1.1.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.5\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.5\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.5\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.10\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.11\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.12\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.13\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.1.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.1.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.1.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.2.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.2.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.3.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.5\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.6\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.7\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.11\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.7\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.8\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.1.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.1.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.6\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.7\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.8\"}, {\"accepted\": true, \"findings\": [], \"id\": \"4.1.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"4.1.3\"}], \"expected\": 55, \"findings\": [], \"schema\": \"kake-accessibility-packet-v1\", \"verdict\": \"clean\", \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "packet-selftest",
+      "executedAt": "2026-10-21T13:56:58.469856+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/accessibility_packet.py",
+        "--selftest"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "{\"failures\": [], \"passed\": 16, \"schema\": \"kake-accessibility-packet-v1\", \"selftest\": true, \"total\": 16, \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "focused-selftest",
+      "executedAt": "2026-10-21T13:56:58.505331+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/packet_selftest.py",
+        "--root",
+        "."
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 1,
+      "stdout": "{\"failures\": [{\"case\": \"cards_nested_unsupported\", \"error\": \"exit was 1, expected 2\"}], \"passed\": 35, \"schema\": \"kake-accessibility-packet-selftest-v1\", \"total\": 36}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": false
+    },
+    {
+      "name": "counter-selftest",
+      "executedAt": "2026-10-21T13:56:59.625221+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/measure.py",
+        "--selftest"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 1,
+      "stdout": "{\"passed\": false, \"rows\": [{\"accepted\": 0, \"case\": \"absent_baseline\", \"exit\": 1, \"findings\": [\"capability_absent\"], \"passed\": true, \"websiteConformance\": \"not-assessed\"}, {\"accepted\": 55, \"case\": \"complete_candidate\", \"exit\": 0, \"findings\": [], \"passed\": true, \"websiteConformance\": \"not-assessed\"}, {\"accepted\": 0, \"case\": \"missing_candidate_population\", \"exit\": 2, \"findings\": [\"input_invalid\"], \"passed\": true, \"websiteConformance\": \"not-assessed\"}, {\"accepted\": 0, \"case\": \"missing_candidate_source\", \"exit\": 2, \"findings\": [\"input_invalid\"], \"passed\": true, \"websiteConformance\": \"not-assessed\"}, {\"accepted\": 0, \"case\": \"tool_disagreement\", \"exit\": 2, \"findings\": [\"tool_mismatch\"], \"passed\": true, \"websiteConformance\": \"not-assessed\"}, {\"accepted\": 0, \"case\": \"changed_population\", \"exit\": 2, \"findings\": [\"snapshot_tampered\"], \"passed\": true, \"websiteConformance\": \"not-assessed\"}, {\"accepted\": 0, \"case\": \"changed_reviewed_packet\", \"exit\": 2, \"findings\": [\"snapshot_tampered\"], \"passed\": true, \"websiteConformance\": \"not-assessed\"}, {\"case\": \"git_failure_not_absence\", \"passed\": true}, {\"case\": \"unsupported_json_nesting\", \"passed\": false}], \"schema\": \"kake-packet-counter-selftest-v1\", \"total\": 9, \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": false
+    },
+    {
+      "name": "frozen-replay",
+      "executedAt": "2026-10-21T13:56:59.809772+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/frozen_replay.py",
+        "--frozen",
+        ".ufo/waves/round-25/frozen-final"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "{\"accepted\": 55, \"checks\": {\"accepted\": true, \"all_rows\": true, \"exit\": true, \"expected\": true, \"findings\": true, \"ids\": true, \"stderr\": true, \"verdict\": true, \"websiteConformance\": true}, \"verdict\": \"clean\", \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "frozen-selftest",
+      "executedAt": "2026-10-21T13:56:59.878577+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/frozen_replay.py",
+        "--frozen",
+        ".ufo/waves/round-25/frozen-final",
+        "--selftest"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "{\"finding\": \"snapshot_tampered\", \"passed\": true, \"selftest\": true, \"tamperedExit\": 2, \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "quote-before",
+      "executedAt": "2026-10-21T13:56:59.946689+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/quote_proof.py",
+        "--validator",
+        ".ufo/waves/round-25/before/accessibility_packet.py"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 1,
+      "stdout": "{\"checks\": {\"populationPin\": false, \"substantiveQuote\": false}, \"passed\": false, \"populationPin\": {\"exit\": 1, \"findings\": [\"quote_not_from_source\"]}, \"quote\": {\"accepted\": 55, \"exit\": 0, \"findings\": []}, \"validatorSha256\": \"9e97fa9ae1a5c01986ba350e4b83fcd851f1b972d417504d6b80e1a877019df2\", \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 1,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "quote-after",
+      "executedAt": "2026-10-21T13:56:59.982616+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/quote_proof.py",
+        "--validator",
+        "scripts/accessibility_packet.py"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "{\"checks\": {\"populationPin\": true, \"substantiveQuote\": true}, \"passed\": true, \"populationPin\": {\"exit\": 2, \"findings\": [\"snapshot_tampered\"]}, \"quote\": {\"accepted\": 0, \"exit\": 1, \"findings\": [\"quote_not_from_source\", \"quote_too_short\"]}, \"validatorSha256\": \"dbb07ee329a75428be3ee4f3063c9e0d3e1cffa2546f3b7e9e7f3456648dade3\", \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "coverage-proof",
+      "executedAt": "2026-10-21T13:57:00.016525+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/coverage_proof.py"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "{\"passed\": true, \"priorTestRevision\": \"9f62cda0a6b71a9c0c86d2088f01673f25787715\", \"rows\": [{\"after\": {\"exit\": 1, \"failedCases\": [\"cards_nested_unsupported\", \"quote_heading_doclink\"], \"stderrEmpty\": true}, \"before\": {\"exit\": 0, \"failedCases\": [], \"stderrEmpty\": true}, \"caught\": true, \"mutation\": \"heading_haystack\"}, {\"after\": {\"exit\": 1, \"failedCases\": [\"cards_nested_unsupported\", \"status_supports\", \"status_missing\"], \"stderrEmpty\": true}, \"before\": {\"exit\": 0, \"failedCases\": [], \"stderrEmpty\": true}, \"caught\": true, \"mutation\": \"status_denylist\"}, {\"after\": {\"exit\": 1, \"failedCases\": [\"cards_duplicate_member\", \"cards_nonfinite\", \"cards_nested_unsupported\"], \"stderrEmpty\": true}, \"before\": {\"exit\": 0, \"failedCases\": [], \"stderrEmpty\": true}, \"caught\": true, \"mutation\": \"loose_cards_json\"}], \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "measure-before",
+      "executedAt": "2026-10-21T13:57:05.780430+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/measure.py",
+        "--root",
+        ".",
+        "--revision",
+        "6883f1d580d811f7c434d1db4642596362f822b1"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 1,
+      "stdout": "{\"accepted\": 0, \"criteria\": [{\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.1.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.2.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.2.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.2.3\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.2.4\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.2.5\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.3.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.3.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.3.3\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.3.4\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.3.5\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.3\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.4\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.5\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.10\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.11\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.12\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"1.4.13\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.1.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.1.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.1.4\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.2.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.2.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.3.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.4.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.4.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.4.3\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.4.4\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.4.5\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.4.6\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.4.7\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.4.11\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.5.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.5.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.5.3\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.5.4\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.5.7\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"2.5.8\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.1.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.1.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.2.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.2.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.2.3\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.2.4\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.2.6\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.3.1\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.3.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.3.3\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.3.4\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.3.7\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"3.3.8\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"4.1.2\"}, {\"accepted\": false, \"findings\": [\"capability_absent\"], \"id\": \"4.1.3\"}], \"expected\": 55, \"findings\": [\"capability_absent\"], \"schema\": \"kake-accessibility-packet-v1\", \"verdict\": \"failed\", \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 1,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "measure-after",
+      "executedAt": "2026-10-21T13:57:05.822209+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/measure.py",
+        "--root",
+        ".",
+        "--revision",
+        "6cb08a40d72d657628f9a0334417901cdc97c732"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "{\"accepted\": 55, \"criteria\": [{\"accepted\": true, \"findings\": [], \"id\": \"1.1.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.2.5\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.3.5\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.5\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.10\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.11\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.12\"}, {\"accepted\": true, \"findings\": [], \"id\": \"1.4.13\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.1.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.1.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.1.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.2.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.2.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.3.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.5\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.6\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.7\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.4.11\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.7\"}, {\"accepted\": true, \"findings\": [], \"id\": \"2.5.8\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.1.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.1.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.2.6\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.1\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.3\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.4\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.7\"}, {\"accepted\": true, \"findings\": [], \"id\": \"3.3.8\"}, {\"accepted\": true, \"findings\": [], \"id\": \"4.1.2\"}, {\"accepted\": true, \"findings\": [], \"id\": \"4.1.3\"}], \"expected\": 55, \"findings\": [], \"schema\": \"kake-accessibility-packet-v1\", \"verdict\": \"clean\", \"websiteConformance\": \"not-assessed\"}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "source-stats",
+      "executedAt": "2026-10-21T13:57:05.899499+00:00",
+      "argv": [
+        "python3",
+        "-B",
+        ".ufo/waves/round-25/source_stats.py",
+        "--root",
+        ".",
+        "--before",
+        "6883f1d580d811f7c434d1db4642596362f822b1",
+        "--after",
+        "6cb08a40d72d657628f9a0334417901cdc97c732"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "{\"added\": [\"S035\"], \"after\": {\"rows\": 35, \"statuses\": {\"mined\": 31, \"queued\": 2, \"rejected\": 2}, \"tiers\": {\"A\": 33, \"C\": 2}}, \"afterRevision\": \"6cb08a40d72d657628f9a0334417901cdc97c732\", \"before\": {\"rows\": 34, \"statuses\": {\"mined\": 30, \"queued\": 2, \"rejected\": 2}, \"tiers\": {\"A\": 32, \"C\": 2}}, \"beforeRevision\": \"6883f1d580d811f7c434d1db4642596362f822b1\", \"priorRowsChanged\": []}\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    },
+    {
+      "name": "census-after",
+      "executedAt": "2026-10-21T13:57:05.930261+00:00",
+      "argv": [
+        "/home/vgpnk/Projects/shokunin/scripts/sources-census.sh",
+        "validate",
+        "--root",
+        "/home/vgpnk/Projects/shokunin",
+        "kake"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+      "sourceRevision": "6cb08a40d72d657628f9a0334417901cdc97c732",
+      "exit": 0,
+      "stdout": "kake\tW04\tS033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes\nkake\tok\t/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md\n",
+      "stderr": "",
+      "expectedExit": 0,
+      "matchedExpectedExit": true
+    }
+  ],
+  "allExpectedExits": false
+}

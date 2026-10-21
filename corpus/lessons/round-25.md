@@ -180,3 +180,27 @@ This is retained scope/hygiene conformance debt, not a trusted durable
 evidence pointer: all primary source bytes, reports, data and runnable
 proofs used for closure are committed in the lane. No such scratch is
 claimed cleaned by L1, and nothing outside the authorized scope is changed.
+
+## First coordinator suite and runtime-neighbour correction
+
+Measured source `6cb08a40d72d657628f9a0334417901cdc97c732`.
+`verification/suite.json` under round25 retains every argv, executedAt,
+stdout, stderr and exit. Core packet55/55, unit16/16, corrected frozen
+replay, source census and before/after counter all matched expected exits.
+Focused tests were35/36, exit1; counter selftest was8/9, exit1. Both failures
+were the assumed unsupported2000-level JSON input: Python3.14.8 parsed it,
+then the card shape failed with exit1 instead of the fixture's expected2.
+No traceback occurred. These are real failed checks, not discarded noise.
+
+The repair makes the previously implicit profile explicit: maximum64
+container levels outside strings in both new parsers. This is a local
+packet bound, not an RFC or WCAG requirement. Boundary64, rejected65 and
+quoted-bracket controls are added; only affected checks and measurements
+are rerun after the fix. No previous round24 probe is involved.
+
+Quote proof correction: the first pin-only before control copied the newly
+normalized quotations and thus tripped the old literal quote rule before
+the pin comparison. The proof now uses the preserved original frozen card
+control for both implementations; its whitespace-only population change
+can test the pin alone. The first proof receipt remains retained. Red-before
+and corrected-after outcomes are recorded only after execution.

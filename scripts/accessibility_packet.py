@@ -26,6 +26,27 @@ def normalized(text):
 
 
 def strict_json(raw):
+    text = raw.decode('utf-8') if isinstance(raw, bytes) else raw
+    depth = 0
+    in_string = False
+    escaped = False
+    for char in text:
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == '\\':
+                escaped = True
+            elif char == '"':
+                in_string = False
+        elif char == '"':
+            in_string = True
+        elif char in '{[':
+            depth += 1
+            if depth > 64:
+                raise ValueError('JSON nesting exceeds local depth limit 64')
+        elif char in '}]':
+            depth -= 1
+
     def unique_object(pairs):
         value = {}
         for key, item in pairs:
@@ -38,7 +59,7 @@ def strict_json(raw):
         raise ValueError('non-finite JSON constant')
 
     try:
-        return json.loads(raw, object_pairs_hook=unique_object,
+        return json.loads(text, object_pairs_hook=unique_object,
                           parse_constant=reject_constant)
     except RecursionError:
         raise ValueError('JSON nesting unsupported') from None

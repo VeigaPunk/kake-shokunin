@@ -941,3 +941,15 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
 - W1/W2 report findings are author-side. Old round24 remains held; no old
   interrupted probe/counter was executed, no model/provider policy was
   bypassed, no seat replaced, and no system/tool install performed.
+
+### Round-25 coordinator suite correction
+
+- Source landed `6cb08a40d72d657628f9a0334417901cdc97c732`.
+  `verification/suite.json` records the initial executed suite and its two
+  failures: focused35/36 and counter8/9 on the2000-level JSON assumption.
+  Python3.14.8 parsed that input rather than throwing RecursionError;
+  the observed shape-failure exit1 is preserved, not called a crash.
+- Added an explicit local64-level bound with boundary/string controls in
+  both new parsers and corrected the pin-only proof's preserved-card control.
+  The source profile and lesson explain the change; old evidence is not
+  overwritten. Targeted postfix verification follows on a pushed revision.

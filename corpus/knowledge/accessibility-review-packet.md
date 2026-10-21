@@ -172,3 +172,10 @@ capability, Git read failure, unavailable/tampered input and tool/oracle
 disagreement. Only an absent-tool baseline may use the separately pinned
 source oracle; a candidate that ships the tool must ship its own source
 inputs. No ancestor-directory fixture search is used.
+
+JSON nesting has an explicit local maximum of64 object/array levels,
+excluding braces/brackets inside JSON strings. Native decoder recursion
+behavior is not the profile: CPython3.14 can parse the deeper fixture that
+an earlier review expected to raise RecursionError. Depth65 and above is
+could-not-evaluate; the64-level parse boundary and quoted-bracket controls
+are covered separately from whether the resulting value is a valid card.

@@ -84,6 +84,11 @@ def main():
         else:
             passed = False
         rows.append({'case': 'unsupported_json_nesting', 'passed': passed})
+        parsed = counter.strict_json(b'[' * 64 + b']' * 64)
+        rows.append({'case': 'json_nesting_at_64_supported', 'passed': isinstance(parsed, list)})
+        literal = '[' * 100 + ']' * 100 + ' "quoted" \\ slash.'
+        parsed = counter.strict_json(json.dumps({'text': literal}).encode())
+        rows.append({'case': 'quoted_brackets_not_nesting', 'passed': parsed == {'text': literal}})
     passed = all(row['passed'] for row in rows)
     print(json.dumps({'schema': 'kake-packet-counter-selftest-v1', 'passed': passed,
                       'total': len(rows), 'rows': rows, 'websiteConformance': 'not-assessed'}, sort_keys=True))

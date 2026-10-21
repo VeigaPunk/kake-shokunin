@@ -184,6 +184,13 @@ def build_cases(population_raw, source_raw, population, ids, cards):
     add('cards_duplicate_member', 2, ['input_invalid'], duplicate_status.encode(), criteria_rows=False)
     add('cards_nonfinite', 2, ['input_invalid'], b'[NaN]', criteria_rows=False)
     add('cards_nested_unsupported', 2, ['input_invalid'], b'[' * 2000 + b']' * 2000, criteria_rows=False)
+    add('cards_nesting_at_64_schema_failure', 1, ['input_invalid', 'missing_id'],
+        b'[' * 64 + b']' * 64)
+    add('cards_nesting_65_unsupported', 2, ['input_invalid'],
+        b'[' * 65 + b']' * 65, criteria_rows=False)
+    quoted = copy.deepcopy(cards)
+    quoted[0]['publisherCheck'] += ' Literal brackets in quoted prose: ' + '[' * 100 + ']' * 100 + ' "quoted" \\ slash.'
+    add('quoted_brackets_are_not_nesting', 0, [], quoted)
     for flag in ('--help', '--unknown-option'):
         add('usage_' + flag[2:], 64, ['usage'], cards, criteria_rows=False)
         cases[-1]['extra_args'] = [flag]

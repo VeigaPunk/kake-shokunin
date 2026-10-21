@@ -62,6 +62,27 @@ def packet_result(verdict: str, accepted: int = 0,
 
 
 def strict_json(raw: bytes) -> Any:
+    text = raw.decode("utf-8")
+    depth = 0
+    in_string = False
+    escaped = False
+    for char in text:
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+        elif char == '"':
+            in_string = True
+        elif char in "{[":
+            depth += 1
+            if depth > 64:
+                raise ValueError("JSON nesting exceeds local depth limit 64")
+        elif char in "}]":
+            depth -= 1
+
     def reject_constant(value: str) -> None:
         raise ValueError(f"non-standard JSON constant: {value}")
 
@@ -75,7 +96,7 @@ def strict_json(raw: bytes) -> Any:
 
     try:
         return json.loads(
-            raw.decode("utf-8"),
+            text,
             parse_constant=reject_constant,
             object_pairs_hook=unique_object,
         )

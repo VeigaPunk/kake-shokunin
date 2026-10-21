@@ -33,6 +33,9 @@ def main():
             dest = target / relative
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / relative, dest)
+        # Use the preserved literal-quote control for both implementations;
+        # later punctuation cleanup must not contaminate the pin-only witness.
+        (target / packet.CARDS).write_bytes((BASE / 'frozen/cards.json').read_bytes())
         # Same parsed population, different pinned bytes; only the implementation differs.
         p = target / packet.POPULATION
         p.write_bytes(p.read_bytes() + b' ')
