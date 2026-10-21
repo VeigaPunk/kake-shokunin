@@ -526,3 +526,8 @@ Legacy score stays freshness 10→10; operability 10→10, no new capability
 claimed. Quality maintenance is measured by the receipt delta, not a scalar
 increment. Expansion unchanged; quality improved; discernment unchanged
 pending the independent non-author closure. Round-24 debt remains separate.
+
+
+## Round27 — frozen repair-first claims
+
+C1 freshness (tied-lowest legacy10):41/57 citing pairs adjudicated→all frozen/discovered pairs decided, with grouped S001–S006 source-grounded this round. Count: `python3 -B .ufo/waves/round-27/count_c1.py --root . --revision <commit>`. C2 operability capability:0/16→16/16 frozen-r26 omissions detected, no false positives. Count: `python3 -B .ufo/waves/round-27/c2_count.py --root . --revision <commit>`. Base83528f7c486fd1b9a85e6c0bb643b25fa4fb9fba; contract.json/c2-oracle.json freeze expected outcomes before implementation. Source freshness score10→10, operability10→10; no numeric ceiling inflation. r26 author-side verify claim above is superseded by non-author rejected-honest-stop, corpus/lessons/round-26-verifier-spotcheck.md;313 units are not retroactively completed.

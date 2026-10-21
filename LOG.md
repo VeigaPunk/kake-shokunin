@@ -1061,3 +1061,8 @@ The compact baseline6883f1d0/55 wording above is not a different commit.
   minimum; this inherited conformance deficit is reported, not padded.
 - Final scratch disclosure additionally includes S032's transient /tmp file
   (self-reported deleted). No seat/provider death and no tool install reported.
+
+
+## Round27 — frozen independent claims and oracles
+
+Repair-first motivation: corpus/lessons/round-26-verifier-spotcheck.md:9–13,117–123; r26 C1 was rejected, not completed by the green32 counter. Base83528f7c486fd1b9a85e6c0bb643b25fa4fb9fba. C1 freshness: full inherited32-row citing-set adjudication41/57→all57 minimum; historical metadata/EOF prose included, discoveries monotonically add obligations. C2 operability capability: frozen-r26 missing-pair detection0/16→16/16, independent of C1 additions. Contract, counting commands, baseline outputs and expected16 pairs in .ufo/waves/round-27/ committed before implementation. Legacy ratings10/10 held. No other active kake source writer at proc census; lane clean; r24 stopped work untouched.
