@@ -1,0 +1,153 @@
+{
+ "id": "T02",
+ "token": "~/Projects/webzites/bin/webzites.mjs",
+ "class": "drift",
+ "observedAt": "2026-10-21T11:50:52Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "date -u +%Y-%m-%dT%H:%M:%SZ",
+   "test -e /home/vgpnk/Projects/webzites/bin/webzites.mjs",
+   "stat -c '%n %w %y' /home/vgpnk/Projects/webzites/bin/webzites.mjs /home/vgpnk/Projects",
+   "ls -la /home/vgpnk/Projects",
+   "git -C /home/vgpnk/Projects/webzites log -3 --format='%H %cI %s'",
+   "git -C /home/vgpnk/Projects/webzites remote -v"
+  ],
+  "output": "2026-10-21T11:50:52Z; test_exit=1; stat: cannot stat '/home/vgpnk/Projects/webzites/bin/webzites.mjs': No such file or directory (os error 2); /home/vgpnk/Projects 2026-10-03 17:48:28.004231881 -0300 2026-10-21 05:19:01.033916520 -0300; ls -la /home/vgpnk/Projects exited 0, 0 files and 24 dirs, no webzites entry (12 listing lines elided by tool); git log and git remote each: fatal: cannot change to '/home/vgpnk/Projects/webzites': No such file or directory (exit 128)."
+ },
+ "event": "2026-10-12 ~/Projects prune/migration; round-18 commit b0feb30886585d8df6d4671845a2d18989ca722b (2026-10-14T09:45:43-03:00) records the sweep catching the prune and names webzites among 33/36 removed children. The file's exact removal time was not independently observed.",
+ "cites": [
+  {
+   "cite": "SKILL.md:59",
+   "lineText": "1. **Probe, don't guess.** `node ~/Projects/webzites/bin/webzites.mjs probe --all` *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/README.md:86",
+   "lineText": "  bare `webzites` not on PATH (invoke `node ~/Projects/webzites/bin/webzites.mjs`), *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/drift-detection.md:7",
+   "lineText": "Source: `~/Projects/webzites/{bin/webzites.mjs, scripts/kimi-surface.mjs,",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/free-read-verbs.md:1",
+   "lineText": "source: ~/Projects/webzites/{bin/webzites.mjs, src/cli.mjs, src/fleet.mjs, src/probe.mjs, src/reconcile.mjs, scripts/kimi-surface.mjs, fleet/fleet.config.json} — local webzites tree read 2026-09-28, entry-internal live-run captures cited in body; metadata contract S019 (corpus/SOURCES.md, metadata authority only, not platform authority)",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/free-read-verbs.md:10",
+   "lineText": "`~/Projects/webzites/bin/webzites.mjs`, `~/Projects/webzites/scripts/kimi-surface.mjs`",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/free-read-verbs.md:3",
+   "lineText": "recheck: on webzites source change or operator restore — `ls -l ~/Projects/webzites/bin/webzites.mjs ~/Projects/webzites/src/cli.mjs ~/Projects/webzites/scripts/kimi-surface.mjs`; tree absent since the 2026-10-12 ~/Projects prune, so operator must restore it and re-run the cited verbs, or retire the live-run claims and counts in this entry",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/free-read-verbs.md:321",
+   "lineText": "| probe | `node ~/Projects/webzites/bin/webzites.mjs probe ds4cc-com --json` | `/tmp/kake-r11/probe-dscc.out` → `/tmp/kake-r11/probe-ds4cc.out` (1-row JSON), `probe-ds4cc.err`, `/tmp/kake-r11/labrat-probe.md` (step log incl. the restore + re-verified sha); `probe-latest.json` row count/sha before–after; the new `probe-history.jsonl` line |",
+   "authored": "lane",
+   "status": "unannotated",
+   "action": "append-inline",
+   "text": " <!-- r24 citation-local 2026-10-21: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration (round-18 sweep records webzites among 33/36 removed children); this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked. -->"
+  },
+  {
+   "cite": "corpus/knowledge/free-read-verbs.md:483",
+   "lineText": "> *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/free-read-verbs.md:490",
+   "lineText": "- [free-read-verbs:c2] **STALE** — The documented absolute Node invocation is currently runnable from any cwd because its script is present. Surface: `test -e /home/vgpnk/Projects/webzites/bin/webzites.mjs`. Correction: As of 2026-10-21, /home/vgpnk/Projects/webzites/bin/webzites.mjs is absent, so the documented absolute Node invocation cannot run from any cwd.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/probe-delta-alerting.md:120",
+   "lineText": "- [probe-delta-alerting:c2] **HOLD** — The canonical history input and the two cited webzites CLI paths remain absent at their documented ~/Projects/webzites locations. Surface: `test -e /home/vgpnk/Projects/webzites/state/probe-history.jsonl; test -e /home/vgpnk/Projects/webzites/bin/webzites.mjs; test -e /home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs; test -e /home/vgpnk/Projects/webzites`.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/probe-delta-alerting.md:81",
+   "lineText": "  `node ~/Projects/webzites/bin/webzites.mjs …`,",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/knowledge/probe-delta-alerting.md:82",
+   "lineText": "> *[r20 citation-local 2026-10-19: `~/Projects/webzites/bin/webzites.mjs` absent — gone in W7, the 2026-10-12 `~/Projects` prune/migration; this citing command is a historical record, not an executable instruction; it is not executable until restored and re-checked.]*",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/lessons/round-5-aggregator-mirror-pathless-cli-invocation.md:11",
+   "lineText": "`SKILL.md:46` (`6b1cd07`) opens the checklist with `` `webzites probe --all` `` — invoked as a bare command; the CLI's real location is named only in the \"Cited paths\" trailer (`~/Projects/webzites/bin/webzites.mjs`), with no step declaring it on `PATH` and no prerequisite row for it.",
+   "authored": "non-author",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/lessons/round-5-aggregator-mirror-pathless-cli-invocation.md:13",
+   "lineText": "Host verification (2026-09-28): `command -v webzites` → empty (exit 1); `ls ~/.local/bin | grep -i webzites` → no match; `ls -la ~/Projects/webzites/bin/webzites.mjs` → `-rwxr-xr-x 1 vgpnk vgpnk 410 Sep 20 22:42`; `ls ~/Projects/webzites/package.json` → No such file (no root manifest to install a `bin` link from). So every pasted `webzites …` command in this file is non-runnable as written for a reader whose shell lacks the mission root's `bin/` on `PATH`.",
+   "authored": "non-author",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/lessons/round-9.md:121",
+   "lineText": "  `node ~/Projects/webzites/bin/webzites.mjs`). Admitted with qualification as",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  },
+  {
+   "cite": "corpus/lessons/round-9.md:43",
+   "lineText": "  PATH — canonical invocation `node ~/Projects/webzites/bin/webzites.mjs`.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsDriftT02WebzitesMjs.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

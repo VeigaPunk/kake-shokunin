@@ -1,0 +1,34 @@
+{
+ "id": "T08",
+ "token": "~/Projects/shokunin/kake-shokunin/fleet/vault-properties.json",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T11:50:02Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "test -e /home/vgpnk/Projects/shokunin/kake-shokunin/fleet/vault-properties.json; echo \"exit=$?\"",
+   "stat -c '%n %w %y' /home/vgpnk/Projects/shokunin/kake-shokunin/fleet/vault-properties.json",
+   "ls -la /home/vgpnk/Projects/shokunin/kake-shokunin",
+   "git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -3 --format='%H %cI %s'",
+   "git -C /home/vgpnk/Projects/shokunin/kake-shokunin remote -v",
+   "git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'vault-properties.json' --format='%h %cI %s' -- fleet/vault-properties.json",
+   "git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- fleet/vault-properties.json"
+  ],
+  "output": "test -e: exit=1; stat: cannot stat '/home/vgpnk/Projects/shokunin/kake-shokunin/fleet/vault-properties.json': No such file or directory (os error 2); nearest existing ancestor listing: total 196, with .git, .jj, .ufo, corpus, scripts and other lane-root entries, no fleet/ entry; git log -3: f7de3ab4e9f030a15a857a5a08631bd8e690f436 2026-10-21T06:00:18-03:00 round-23: record final committed measurements and recovery audit dispositions; dd58390d3a0b2942ffdd8f0330c0da3dda7b87e1 2026-10-21T05:48:54-03:00 round-23: recover evidence, preserve lesson corrections and reject malformed content type; 5bef55b1464d7ccbff802edab400d138597a621c 2026-10-21T05:18:26-03:00 round-23: verify final URL against captured redirect chain before re-audit; remote: origin https://github.com/VeigaPunk/kake-shokunin.git (fetch); origin https://github.com/VeigaPunk/kake-shokunin.git (push); both path-history commands emitted no lines; observedAt 2026-10-21T11:50:02Z"
+ },
+ "event": "unknown",
+ "cites": [
+  {
+   "cite": "corpus/knowledge/vault-properties.md:100",
+   "lineText": "- [vault-properties:c8] **HOLD** — The lane has no local copy at the expected source paths of fleet/vault-properties.json or kimi-surface.mjs. Surface (all absent, not executable): `/home/vgpnk/Projects/shokunin/kake-shokunin/fleet/vault-properties.json; /home/vgpnk/Projects/shokunin/kake-shokunin/fleet/kimi-surface.mjs; /home/vgpnk/Projects/shokunin/kake-shokunin/kimi-surface.mjs`.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsNewT08VaultPropertiesJso.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

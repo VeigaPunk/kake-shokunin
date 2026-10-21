@@ -343,12 +343,51 @@ const expandHome = (t) => (t === '~' || t.startsWith('~/') ? path.join(os.homedi
 // is always the `~` spelling; resolution goes through expandHome().
 const canonHome = (t) => (t.startsWith('/home/vgpnk/') ? `~${t.slice('/home/vgpnk'.length)}` : t);
 
+// A line-bound lane erratum preserves original corpus bytes (QUALITY r20 ruling).
+function loadPathSidecar(repoRoot) {
+  const file = path.join(repoRoot, 'corpus/knowledge/freshness-sidecar.json');
+  if (!fs.existsSync(file)) return new Map();
+  const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (!data || data.schema !== 'kake-paths-sidecar-v1' || !Array.isArray(data.entries))
+    throw new Error('paths sidecar invalid schema');
+  const entries = new Map();
+  for (const e of data.entries) {
+    if (!e || typeof e.file !== 'string'
+        || !(e.file === 'SKILL.md' || /^corpus\/.+\.md$/.test(e.file))
+        || e.file.split('/').some((part) => part === '.' || part === '..' || !part)
+        || !Number.isSafeInteger(e.line) || e.line < 1
+        || typeof e.token !== 'string' || canonHome(e.token) !== e.token
+        || typeof e.lineSha256 !== 'string' || !/^[0-9a-f]{64}$/.test(e.lineSha256)
+        || !['absent', 'restored'].includes(e.kind)
+        || typeof e.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(e.date)
+        || Number.isNaN(Date.parse(e.date)) || new Date(e.date).toISOString().slice(0, 10) !== e.date
+        || typeof e.note !== 'string' || !e.note.includes(e.date))
+      throw new Error('paths sidecar invalid entry');
+    const lines = fs.readFileSync(path.join(repoRoot, e.file), 'utf8').split('\n');
+    const line = lines[e.line - 1];
+    const tokens = typeof line === 'string'
+      ? [...line.matchAll(PATH_RE)].flatMap((m) => normalize(m[0]).tokens.map((t) => canonHome(t.token)))
+      : [];
+    const prose = e.note.replace(PATH_RE, '\u00abcite\u00bb');
+    if (line === undefined || sha256(line) !== e.lineSha256 || !tokens.includes(e.token)
+        || (e.kind === 'absent' && (!ABSENT_RE.test(prose)
+          || !e.note.includes('historical record, not an executable instruction')))
+        || (e.kind === 'restored' && ABSENT_RE.test(prose)))
+      throw new Error(`paths sidecar binding invalid: ${e.file}:${e.line}`);
+    const key = `${e.file}:${e.line}:${e.token}`;
+    if (entries.has(key)) throw new Error(`paths sidecar duplicate: ${key}`);
+    entries.set(key, e);
+  }
+  return entries;
+}
+
 function scanCitations(repoRoot, pins = {}) {
   const files = [];
   const skill = path.join(repoRoot, 'SKILL.md');
   if (fs.existsSync(skill)) files.push(skill);
   const corpus = path.join(repoRoot, 'corpus');
   if (fs.existsSync(corpus)) files.push(...listMd(corpus));
+  const sidecar = loadPathSidecar(repoRoot);
 
   const REL_PATH_RE = /(?:^|[\s`'"([])((?:[\w.@%+-]+\/)+[\w.@%+-]+\.(?:jsonl|json|mjs|js|md|sh|html|txt|timer|service|toml))(?![A-Za-z0-9])/;
 
@@ -417,6 +456,11 @@ function scanCitations(repoRoot, pins = {}) {
           if (!byToken.has(key)) byToken.set(key, { token, kind: tk.kind, cites: new Set(), annotatedCites: new Set(), placeholders: new Set() });
           const rec = byToken.get(key);
           rec.cites.add(cite);
+          const erratum = sidecar.get(`${cite}:${token}`);
+          if (erratum && erratum.kind === 'absent') {
+            ann[token] = { word: ABSENT_RE.exec(erratum.note.replace(PATH_RE, ''))[0],
+              line: i + 1, direct: true, mentions: true, source: 'freshness-sidecar.json' };
+          }
           if (ann[token] || ann[tk.token]) {
             rec.annotatedCites.add(cite);
             if (!rec.evidence) rec.evidence = { ...(ann[token] || ann[tk.token]), cite };
@@ -1058,7 +1102,8 @@ async function main() {
       ...(result.gateWarnings ? { gateWarnings: result.gateWarnings } : {}),
       ...(repoRoot !== derived ? { note: `repoRoot via override (script-derived: ${derived})` } : {}),
     }, null, 2));
-    process.exit(v.code);
+    process.exitCode = v.code;
+    return;
   }
 
   console.log(`freshness-sweep — kake-shokunin freshness axis`);
@@ -1072,7 +1117,7 @@ async function main() {
   if (result.sections.armed && result.sections.armed.warnings) for (const w of result.sections.armed.warnings) console.log(`!! WARN ${w}`);
   if (v.skipped.length) console.log(`skipped(offline): ${v.skipped.join(' · ')} — complete=false, never counted as pass`);
   console.log(`VERDICT: ${ok ? 'OK' : 'DRIFT'}${v.reasons.length ? ` — ${v.reasons.join(' · ')}` : ''}${result.sections.armed && result.sections.armed.events && result.sections.armed.events.length ? ` — EVENT: ${result.sections.armed.events.join(' · ')}` : ''} (exit ${v.code}${opt.offline ? ', partial: offline' : ''}${result.gateWarnings ? ', gates inert' : ''})`);
-  process.exit(v.code);
+  process.exitCode = v.code;
 }
 
 function writeConfinement(lines) {
@@ -1508,6 +1553,74 @@ async function selftest() {
     pass: originalClean && bodySites.length > 0 && caught === bodySites.length
       && positiveControl && decoyControl && unbalancedErrors > 0 && structural,
   });
+
+  // SELFTEST-WRITES-BEGIN (round-24 sidecar and vocabulary fixtures)
+  const sideRoot = path.join(dir, 'sidecar');
+  fs.mkdirSync(path.join(sideRoot, 'corpus/knowledge'), { recursive: true });
+  fs.mkdirSync(path.join(sideRoot, 'corpus/lessons'), { recursive: true });
+  const sideRel = 'corpus/lessons/round-1-aggregator-fixture.md';
+  const sideToken = `~/${path.basename(homeFixtureDir)}/sidecar-target.md`;
+  const sideLine = `Cite \`${sideToken}\` (immutable source).`;
+  fs.writeFileSync(path.join(sideRoot, sideRel), `${sideLine}\n`);
+  fs.writeFileSync(path.join(sideRoot, 'SKILL.md'), 'fixture\n');
+  const sideFile = path.join(sideRoot, 'corpus/knowledge/freshness-sidecar.json');
+  const goodEntry = {
+    file: sideRel, line: 1, token: sideToken, lineSha256: sha256(sideLine),
+    kind: 'absent', date: '2026-10-21',
+    note: '2026-10-21 absent on direct check; event unknown; historical record, not an executable instruction',
+  };
+  const sideCases = [
+    ['valid absence', goodEntry, 0],
+    ['stale line digest', { ...goodEntry, lineSha256: '0'.repeat(64) }, 2],
+    ['outside corpus file', { ...goodEntry, file: '../SKILL.md' }, 2],
+    ['wrong token', { ...goodEntry, token: `${sideToken}-other` }, 2],
+    ['no absence word', { ...goodEntry, note: '2026-10-21 historical record, not an executable instruction' }, 2],
+    ['invalid calendar date', { ...goodEntry, date: '2026-02-30' }, 2],
+    ['no historical wording', { ...goodEntry, note: '2026-10-21 absent' }, 2],
+    ['malformed JSON', null, 2],
+    ['valid restoration is not absence', {
+      ...goodEntry, kind: 'restored', note: '2026-10-21 restored on direct check; prior result historical',
+    }, 1],
+    ['restoration cannot annotate', { ...goodEntry, kind: 'restored' }, 2],
+  ];
+  for (const [name, entry, code] of sideCases) {
+    fs.writeFileSync(sideFile, entry === null ? '{' : JSON.stringify({
+      schema: 'kake-paths-sidecar-v1', entries: [entry],
+    }));
+    const got = run(['--section=paths', '--json'], { KAKE_REPO_ROOT: sideRoot, KAKE_FRESHNESS_PINS: pins });
+    const validAbsent = code === 0 ? JSON.parse(got.stdout).sections.paths.declaredAbsent : null;
+    cases.push({
+      id: `sidecar ${name}`, expect: `exit ${code}`, got: `exit ${got.code}`,
+      pass: got.code === code && (code !== 0 || validAbsent.some((e) =>
+        e.path === sideToken && e.evidence.source === 'freshness-sidecar.json')),
+    });
+  }
+  fs.writeFileSync(sideFile, JSON.stringify({ schema: 'kake-paths-sidecar-v1', entries: [] }));
+  const phrases = ['absent', 'gone', 'vanished', 'emptied', 'no longer', 'dangling', 'no such file', 'never published', 'missing'];
+  for (const phrase of phrases) {
+    fs.writeFileSync(path.join(sideRoot, sideRel), `Cite \`${sideToken}\` — ${phrase}.\n`);
+    const got = run(['--section=paths', '--json'], { KAKE_REPO_ROOT: sideRoot, KAKE_FRESHNESS_PINS: pins });
+    const body = got.code === 0 ? JSON.parse(got.stdout).sections.paths : null;
+    cases.push({
+      id: `absence vocabulary ${phrase}`, expect: 'exit 0, annotated target', got: `exit ${got.code}`,
+      pass: got.code === 0 && body.declaredAbsent.some((e) => e.path === sideToken),
+    });
+  }
+  fs.writeFileSync(path.join(sideRoot, sideRel), `Cite \`${presentCite}\`.\n`);
+  const recoveredPins = path.join(dir, 'pins-recovered.json');
+  fs.writeFileSync(recoveredPins, JSON.stringify({ schema: 'kake-freshness-pins-v1',
+    pins: { pathsMissSet: [presentCite] } }));
+  const recoveredRun = run(['--section=paths', '--json'], {
+    KAKE_REPO_ROOT: sideRoot, KAKE_FRESHNESS_PINS: recoveredPins,
+  });
+  const recoveredBody = recoveredRun.code === 0 ? JSON.parse(recoveredRun.stdout) : null;
+  cases.push({
+    id: 'recovered list is exact and informational', expect: `exit 0, recovered [${presentCite}]`,
+    got: `exit ${recoveredRun.code} · ${JSON.stringify(recoveredBody?.sections.paths.setDelta.recovered)}`,
+    pass: recoveredRun.code === 0
+      && JSON.stringify(recoveredBody.sections.paths.setDelta.recovered) === JSON.stringify([presentCite]),
+  });
+  // SELFTEST-WRITES-END
 
   // Cleanup of the transient $HOME fixture dir: after every child run, so the
   // resolve proof above still sees it. Inside its own region pair (the static

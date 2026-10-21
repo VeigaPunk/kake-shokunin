@@ -502,3 +502,29 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/property-map.json` 
   `python3 .ufo/waves/round-23/snapshot_probe.py --snapshot-script scripts/live_snapshot.py --validator scripts/canonical_audit.py`
   (targeted loopback regression, 12 cases).
   The retained counter selftest still covers receipt replay, not network truth.
+
+
+## Round-24 path reconciliation
+
+These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
+
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:16 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:19 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:364 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:445 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:448 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:449 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:450 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace/burnerchrome present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:20 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace/burnerchrome present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:423 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace/burnerchrome present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at SKILL.md:431 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+
+- Additional round-23 correction [property-map:c57] at line 496: the apps-sdk subtree and Dockerfile are present at checkout `1fbdb8ed`; current Render binding remains unverified (w1/R23ReceiptsDs4ccStale.md).
+
+### Preservation-safe paths workflow — round 24
+
+1. Run `node scripts/freshness-sweep.mjs --section=paths --json` and retain its code and full JSON. Re-observe every newMissing/recovered target before changing a pin.
+2. Correct original citations through `corpus/knowledge/freshness-sidecar.json` (schema `kake-paths-sidecar-v1`: file, line, token, lineSha256, kind, date, note) and a matching EOF correction block, never by editing original lesson/knowledge lines. Immutable non-author notes live in `corpus/lessons/round-24.md`.
+3. Record dated observations; remove recovered targets from `pathsMissSet` to re-arm their next disappearance; add newly cited misses only with a receipt. The gate is local citation conformance, not source restoration or permission to publish.
+4. Re-run the paths gate. The target reconciliation counter is `python3 -B .ufo/waves/round-24/measure_c1.py --root . --revision <commit> --json`; exit0 means all 19 frozen targets reconcile and paths exits0, exit1 a failed criterion, exit2 unreadable inputs. Selftest: `python3 -B .ufo/waves/round-24/c1_selftest.py`. Pins: `.ufo/waves/round-24/c1-population.json` and `corpus/knowledge/freshness-pins.json`; scratch writes only to temporary directories; owner kake.
+5. New sidecar/vocabulary/recovered-list fixtures are part of `node scripts/freshness-sweep.mjs --selftest`; no domain source tree is written. The current correction-register proof is revision-bound: later source changes require new dated observations, not retroactive rewrites.

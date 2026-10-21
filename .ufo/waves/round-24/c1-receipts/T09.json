@@ -1,0 +1,32 @@
+{
+ "id": "T09",
+ "token": "~/Projects/shokunin/kake-shokunin/kimi-surface.mjs",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T11:46:10Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "test -e /home/vgpnk/Projects/shokunin/kake-shokunin/kimi-surface.mjs",
+   "stat -c '%n %w %y' /home/vgpnk/Projects/shokunin/kake-shokunin/kimi-surface.mjs",
+   "ls -la /home/vgpnk/Projects/shokunin/kake-shokunin",
+   "test -e /home/vgpnk/Projects/shokunin/kake-shokunin/fleet",
+   "git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --diff-filter=A --format='%h %cI %s' -- '*kimi-surface*'"
+  ],
+  "output": "test -e => ABSENT (exit 1); stat: cannot stat 'kimi-surface.mjs': No such file or directory (os error 2); ls -la lane root: no kimi-surface.mjs (AGENTS.md LOG.md PROVINCE.md README.md SCORECARD.md SHONEN.md SKILL.md considerthese corpus plans scripts .git .jj .ufo .gitignore only); fleet: No such file or directory; git log --all --diff-filter=A -- '*kimi-surface*' => empty across all refs incl. refs/jj/*"
+ },
+ "event": "No vanishing event: the file never existed in lane history. git log --all --diff-filter=A -- '*kimi-surface*' is empty over every ref including collocated refs/jj/* (history starts 1126144 2026-09-28T15:29:47-03:00 'seed: kake shonen') and git log --all -- fleet is empty. The absence claim itself is the round-23 falsifier correction authored 2026-10-21T05:11:15-03:00 (commit 1b309c9 'round-23: integrate falsifier corrections and snapshot integrity fixes'; .ufo/waves/round-23/receipts/vault-properties.json c8, seat ReverifyVaultProperties, method test -e: 'fleet/vault-properties.json: ABSENT; fleet/kimi-surface.mjs: ABSENT; kimi-surface.mjs: ABSENT'). The upstream source ~/Projects/webzites/scripts/kimi-surface.mjs was pruned 2026-10-12 in the W7 ~/Projects prune/migration (corpus/lessons/round-18.md:12,16), so no copy survives to restore; the standing miss belongs in pins.pathsMissSet.",
+ "cites": [
+  {
+   "cite": "corpus/knowledge/vault-properties.md:100",
+   "lineText": "- [vault-properties:c8] **HOLD** — The lane has no local copy at the expected source paths of fleet/vault-properties.json or kimi-surface.mjs. Surface (all absent, not executable): `/home/vgpnk/Projects/shokunin/kake-shokunin/fleet/vault-properties.json; /home/vgpnk/Projects/shokunin/kake-shokunin/fleet/kimi-surface.mjs; /home/vgpnk/Projects/shokunin/kake-shokunin/kimi-surface.mjs`.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsNewT09KimiSurfaceMjs.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

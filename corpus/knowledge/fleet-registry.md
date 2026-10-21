@@ -98,3 +98,15 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/fleet-registry.json
 - [fleet-registry:c8] **HOLD** — The listed GitHub Pages canonical charter document is currently live. Surface: `GET https://veigapunk.github.io/charter-ufo-fsd/`.
 
 - [fleet-registry:c9] **STALE** — The historical charter marker discrepancy remained a 09-26 pin versus a 09-28 live beat. Surface: `https://veigapunk.github.io/charter-ufo-fsd/`. Correction: As of 2026-10-21, the live charter page has a 2026-09-30 scribe beat, not the historical 09-28 beat; the current config pin cannot be checked while its source is absent.
+
+
+## Round-24 path reconciliation
+
+These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
+
+- 2026-10-21: ~/Projects/plazir-15-site absent (test -e exit 1); exact removal time and cause unknown, earlier W7 attribution historical. Citation corpus/knowledge/fleet-registry.md:57 is a historical record, not an executable instruction.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/fleet-registry.md:49 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/fleet-registry.md:50 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/fleet-registry.md:64 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace/burnerchrome present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/fleet-registry.md:51 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace/burnerchrome present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/fleet-registry.md:66 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.

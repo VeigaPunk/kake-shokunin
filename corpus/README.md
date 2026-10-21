@@ -138,3 +138,8 @@ the round21 verifier and correction register govern their current reading.
 ## Round-23 re-verification and live canonical use
 
 Seventeen frozen units (16 historical knowledge entries and the property map) carry claim-level dated HOLD/STALE/UNVERIFIABLE rechecks; original observations remain intact. See `lessons/round-23.md` and `.ufo/waves/round-23/receipts/` (relative to the lane root). Twelve owned public surfaces were captured GET-only and preflighted: three clean, five missing a canonical under the local policy, four not-served (404). Rendering and live publishing remain outside this workflow. The formerly open static-canonical ground is in use, not a search-engine-selection claim.
+
+
+## Round-24 frontier maintenance
+
+The restored ds4cc source changes the local-state premise, not the domain boundary. Nineteen paths-gate targets now have dated reconciliation evidence (30 hash-bound citation corrections); source-tree observations remain read-only. The individual citation frontier advances through preservation-safe sidecar/EOF corrections; no original observation is relabelled live. `lessons/round-24.md` records the gate decisions and exact counters. Rendering, deployment, accounts and operator restore-or-retire decisions for the other trees remain open.

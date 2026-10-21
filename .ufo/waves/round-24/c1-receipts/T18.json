@@ -1,0 +1,72 @@
+{
+ "id": "T18",
+ "token": "~/Projects/ds4cc-marketplace/burnerchrome",
+ "class": "recovered",
+ "observedAt": "2026-10-21T11:50:24Z",
+ "state": "present",
+ "observation": {
+  "commands": [
+   "test -e ~/Projects/ds4cc-marketplace/burnerchrome && echo EXISTS || echo ABSENT",
+   "stat -c '%n %w %y' ~/Projects/ds4cc-marketplace/burnerchrome",
+   "ls -la ~/Projects/ds4cc-marketplace/burnerchrome",
+   "ls -la ~/Projects/ds4cc-marketplace",
+   "git -C ~/Projects/ds4cc-marketplace log -3 --format='%H %cI %s'",
+   "git -C ~/Projects/ds4cc-marketplace remote -v",
+   "git -C ~/Projects/ds4cc-marketplace reflog -6 --date=iso --format='%H %gd %gs %ci'",
+   "git -C ~/Projects/ds4cc-marketplace rev-parse HEAD",
+   "git -C ~/Projects/ds4cc-marketplace rev-parse HEAD:burnerchrome",
+   "git -C ~/Projects/ds4cc-marketplace ls-tree -r --name-only HEAD -- burnerchrome | wc -l",
+   "find ~/Projects/ds4cc-marketplace/burnerchrome -type f | wc -l",
+   "od -c ~/Projects/ds4cc-marketplace/CNAME",
+   "git --no-optional-locks -C ~/Projects/ds4cc-marketplace status --porcelain --ignored --untracked-files=all -- burnerchrome"
+  ],
+  "output": "EXISTS; stat target: /home/vgpnk/Projects/ds4cc-marketplace/burnerchrome 2026-10-21 05:19:05.038621636 -0300 2026-10-21 05:19:05.040003658 -0300; ls target: README.md, adapters/, assets/, burner.html, compare.html, delegate.html, family.html, favicon.svg, fonts/, index.html, install.html, marketplace.html; ancestor stat: /home/vgpnk/Projects/ds4cc-marketplace 2026-10-21 05:19:01.033916520 -0300 2026-10-21 05:21:03.733544920 -0300; ancestor ls includes .git/, CNAME, burnerchrome/, speedrun/, apps-sdk/; CNAME od -c: 0000000   d   s   4   c   c   .   c   o   m / 0000011; HEAD 1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28; HEAD:burnerchrome tree 7f9781cc711e314d6c57676482a6b1e6886bb0ac; tracked count 23; on-disk regular-file count 23; scoped status output empty. Repo log: 1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28 2026-10-21T05:51:24-03:00 omarchy-usage: sync page to usage-tray 1.10.0 (14 omp-metered providers, how it works, working install); 95dbeb69b2db413f00f5310a171334967c368924 2026-10-21T05:21:55-03:00 os-tuning: add gkeep (local post-it notes for the Omarchy bar) at /gkeep/; 6e888784ae1bac9d341cc9af7fe12f9c5d83f31f 2026-10-20T14:33:09Z magga: Enduro — Classic & Remastered at /magga/enduro/. Remote: origin https://github.com/VeigaPunk/ds4cc-marketplace.git (fetch); origin https://github.com/VeigaPunk/ds4cc-marketplace.git (push). Parent reflog records clone from that URL at 2026-10-21 05:19:05 -0300. origin/main reflog records two lines ending `update by push` (at 05:34:58 and 05:51:26 -0300)."
+ },
+ "event": "2026-10-21T08:19:05Z: the parent repository reflog records a clone from https://github.com/VeigaPunk/ds4cc-marketplace.git, and the target directory birth time is 2026-10-21 05:19:05.038621636 -0300. The restoration actor and reason are unknown.",
+ "cites": [
+  {
+   "cite": "SKILL.md:20",
+   "lineText": "| burnerchrome kimi | `https://burnerchrome.kimi.page/` | `~/Projects/ds4cc-marketplace/burnerchrome` | Kimi surface, chat `1a0ada42-28e2…` |",
+   "authored": "lane",
+   "status": "presence-claim-true",
+   "action": "append-inline",
+   "text": " <!-- r24 restoration 2026-10-21: observed `/home/vgpnk/Projects/ds4cc-marketplace/burnerchrome` present at 2026-10-21T11:50:24Z (birth 2026-10-21 05:19:05 -0300; repo HEAD `1fbdb8ed`). This confirms the local source path and contents only; the listed Kimi chat binding and live-page correspondence remain unverified. -->"
+  },
+  {
+   "cite": "SKILL.md:423",
+   "lineText": "- [property-map:c2] **STALE** — The mapped local source directories for the active plazir front, burnerchrome, and lucario (including lucario/site) are absent; the explicit-path test output is recorded below. The missing ds4cc and charter roots and the plazir dead-slot path are separately annotated as historical/unavailable in the source map. Surface: `test -e /home/vgpnk/Projects/plazir-15-site; test -e /home/vgpnk/Projects/ds4cc-marketplace/burnerchrome; test -e /home/vgpnk/Projects/lucario; test -e /home/vgpnk/Projects/lucario/site`. Correction: As of 2026-10-21, `/home/vgpnk/Projects/plazir-15-site`, `/home/vgpnk/Projects/ds4cc-marketplace/burnerchrome`, `/home/vgpnk/Projects/lucario`, and `/home/vgpnk/Projects/lucario/site` are absent, so these mapped local source paths need a verified replacement or an explicit unavailable/history annotation.",
+   "authored": "lane",
+   "status": "annotated-stale",
+   "action": "append-inline",
+   "text": " *[r24 restoration 2026-10-21: `/home/vgpnk/Projects/ds4cc-marketplace/burnerchrome` was observed present (birth 2026-10-21 05:19:05 -0300; 23 on-disk files match 23 entries in HEAD tree `7f9781cc`). The parent `/home/vgpnk/Projects/ds4cc-marketplace` was also observed present (birth 2026-10-21 05:19:01 -0300). The earlier burnerchrome and ds4cc-root path results remain historical snapshots; the plazir, charter, and lucario clauses were not re-observed here.]*"
+  },
+  {
+   "cite": "SKILL.md:431",
+   "lineText": "- [property-map:c10] **STALE** — The map's listed source directory is present as a current local source path. Surface: `/home/vgpnk/Projects/ds4cc-marketplace/burnerchrome`. Correction: As of 2026-10-21, the mapped ds4cc-marketplace/burnerchrome path is absent, but a surviving source candidate is /home/vgpnk/Projects/burnerchrome (VeigaPunk/burnerchrome, commit ee834920de8411f8014236948e2d5b9f5f82dde2); its title and h1 match the live page, not a proved deployment binding.",
+   "authored": "lane",
+   "status": "annotated-stale",
+   "action": "append-inline",
+   "text": " *[r24 restoration 2026-10-21: `/home/vgpnk/Projects/ds4cc-marketplace/burnerchrome` was observed present, with 23 files matching its 23 HEAD-tracked entries (subtree `7f9781cc`; repo HEAD `1fbdb8ed`). The earlier c10 path result and candidate-vs-live title/H1 statement remain historical snapshots; this local check does not verify Kimi chat binding or current live-page correspondence.]*"
+  },
+  {
+   "cite": "corpus/knowledge/fleet-registry.md:51",
+   "lineText": "| burnerchrome-kimi | burnerchrome.kimi.page | live | `~/Projects/ds4cc-marketplace/burnerchrome` |",
+   "authored": "lane",
+   "status": "presence-claim-true",
+   "action": "append-inline",
+   "text": " <!-- r24 restoration 2026-10-21: observed `/home/vgpnk/Projects/ds4cc-marketplace/burnerchrome` present (birth 2026-10-21 05:19:05 -0300; parent repo HEAD `1fbdb8ed`). This filesystem observation verifies the local sourceDir only; the row's Kimi status and surface binding remain unverified. -->"
+  },
+  {
+   "cite": "corpus/knowledge/fleet-registry.md:66",
+   "lineText": "| burnerchrome-com | null | queued | `~/Projects/ds4cc-marketplace/burnerchrome` |",
+   "authored": "lane",
+   "status": "presence-claim-true",
+   "action": "append-inline",
+   "text": " <!-- r24 restoration 2026-10-21: observed `/home/vgpnk/Projects/ds4cc-marketplace/burnerchrome` present (birth 2026-10-21 05:19:05 -0300; parent repo HEAD `1fbdb8ed`). This filesystem observation verifies the local sourceDir only; the queued/null-URL designation and any publication state remain unverified. -->"
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsRestoredT18Burnerchrome.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

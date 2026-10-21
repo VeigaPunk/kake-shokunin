@@ -186,3 +186,16 @@ annotated in place (`.ufo/round-20/resume/citation-disposition.json`); the
 parses exact standalone region markers and adds a mutation case (`e2`); its
 residual bypasses (aliasing, bracket access, child-process side effects) are
 named in the script comment above `writeConfinement`.
+
+
+## Round-24 reconciliation and preservation (2026-10-21)
+
+The round-open census found three unannotated targets, twelve newly cited targets outside the old miss pin, and four recovered tokens after the ds4cc checkout reappeared. `.ufo/waves/round-24/c1-population.json` freezes the 19 targets; `c1-receipts/` records dated observations. The old pin is not a current census.
+
+Re-pin only observed targets with receipts: twelve recorded misses enter `pathsMissSet`; four present targets leave it (55→63). Removing a recovered token re-arms disappearance detection; leaving it pinned would suppress the next loss. `projectsChildrenSet` remains informational and unchanged; its 14-name baseline is not a claim that only 14 children exist now.
+
+QUALITY's round-20 ruling forbids changing original knowledge/lesson lines, even by suffix. `corpus/knowledge/freshness-sidecar.json` binds each correction to file, line, token and original line SHA256. Both lane-authored and non-author cites may use it. The original file stays byte-identical up to its appended EOF block; non-author files stay completely unchanged and their correction block lives in the round-24 lesson. Stale hashes, wrong tokens, malformed notes and invalid sidecars fail closed (exit2).
+
+A kind=absent note has its date, an observed event or explicit unknown, and “historical record, not an executable instruction.” A kind=restored note contains no absence vocabulary, names present state and keeps prior results historical/unverified. This avoids silently annotating neighbouring misses through the heuristic's ±2 window. It does not turn restored source presence into publishing permission, source/deployment identity, or re-validation of old CLI behaviour.
+
+The JSON path uses process.exitCode so a delayed pipe reader receives the complete document before process termination. Red-before evidence and the reproduction are in w1/ScoutMistakeSweep.md; round-24 falsification covers the fixed path.

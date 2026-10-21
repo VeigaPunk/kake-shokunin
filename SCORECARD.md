@@ -369,3 +369,15 @@ Committed recovery measurement: `dd58390d3a0b2942ffdd8f0330c0da3dda7b87e1`,
 using the same C1/C2 commands above, again yields 17/17 (exit 0) and 12/12
 (exit 0); `.ufo/waves/round-23/recovery-final-counts.json`. Baseline remains
 `6847479d404d1dd93ecb59f99ff735bd7f010a4a` (0/17 and 0/12, exit 1 each).
+
+
+## Round 24 — reconciliation and strict receipt replay
+
+Claims frozen in `.ufo/waves/round-24/contract.json`; `contract-amendment.json` supersedes the rejected suffix-edit plan. Base f7de3ab4e9f030a15a857a5a08631bd8e690f436; frozen-artifact measurement ab85dbdba4499f35f7dab9c9635b9b605679dbe5. Both owned axes tie at legacy10; the lowest-axis obligation is met. Numeric ratings stay10→10 (HOLD), not a fresh assertion of corpus-wide cleanliness.
+
+| Claim | Axis / score delta | Frozen before | Counting command | Evidence / status |
+|---|---|---|---|---|
+| C1 current filesystem reconciliation | freshness 10→10 | accepted0/19, sweep exit1 | `python3 -B .ufo/waves/round-24/measure_c1.py --root . --revision <commit> --json` | `measure-c1-before.json`; after is recorded only on execution |
+| C2 malformed receipt replay | operability 10→10 | correct81/130; reject61/110, accept20/20; exit1 | `python3 -B .ufo/waves/round-24/measure_c2.py --root . --revision <commit> --json` | `measure-c2-before.json`; population SHA256 16da1936f30e2e7bfa405d9b51dfc18ab686edbd9f1d36f65d76626b0cab7b8f |
+
+The 130-case selection preserves candidate observations, rejects unrepresentable companion fixtures, and keeps accepted controls. It is not an exhaustive malformed-JSON proof. Original round-23 runners are historical evidence; the maintained replay is a successor, not a byte rewrite of those receipts or runners.

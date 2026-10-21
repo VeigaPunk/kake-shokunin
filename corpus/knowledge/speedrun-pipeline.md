@@ -81,3 +81,15 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/speedrun-pipeline.j
 - [speedrun-pipeline:c6] **HOLD** — The primary board's currently served run records still have 18 common top-level keys and `budget_usd` explicitly null in four of nine records. Surface: `GET https://ds4cc.com/speedrun/data/manifest.json and its nine `runs[]` JSON URLs`.
 - [speedrun-pipeline:c7] **UNVERIFIABLE** — The public board is served from GitHub Pages and has no HTTP upload API. Surface: `GET https://ds4cc.com/speedrun/; GET https://ds4cc.com/speedrun/main.js; GET https://ds4cc.com/speedrun/data/manifest.json`. Unverifiable: The local source/authority tree is absent; public GETs show a JSON-backed page but cannot establish its GitHub Pages origin or prove that no separate upload endpoint exists.
 - [speedrun-pipeline:c8] **HOLD** — The live Pages mirror declares `https://ds4cc.com/speedrun/` as its canonical URL. Surface: `GET https://veigapunk.github.io/plazir-15-site/speedrun/`.
+
+
+## Round-24 path reconciliation
+
+These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
+
+- 2026-10-21: ~/Projects/ds4cc-marketplace/speedrun present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/speedrun-pipeline.md:1 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace/speedrun present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/speedrun-pipeline.md:13 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace/speedrun present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/speedrun-pipeline.md:3 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace/speedrun present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/speedrun-pipeline.md:78 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+
+- Additional round-23 correction [speedrun-pipeline:c7] at line 82: the mapped authority tree is present, but its reappearance alone does not establish the public hosting origin or an upload API (w1/R23ReceiptsDs4ccStale.md).

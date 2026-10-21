@@ -494,3 +494,10 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/free-read-verbs.jso
 - [free-read-verbs:c6] **UNVERIFIABLE** — `status --json` always exits 0, while plain `status` is snapshot-relative. Surface: `test -e /home/vgpnk/Projects/webzites/src/cli.mjs; test -e /tmp/kake-r12/live/status-json.out; test -e /tmp/kake-r12/labrat.md`. Unverifiable: The CLI source and cited round-12 status/run captures are absent, so the exit branches cannot be checked against current execution or retained output.
 - [free-read-verbs:c7] **STALE** — A six-hour `webzites-probe.timer` is installed and re-widens narrowed snapshots. Surface: `systemctl --user show webzites-probe.timer --property=LoadState,ActiveState,SubState,NextElapseUSecRealtime,FragmentPath --no-pager; systemctl show webzites-probe.timer --property=LoadState,ActiveState,SubState,NextElapseUSecRealtime,FragmentPath --no-pager`. Correction: As of 2026-10-21, neither systemd manager has a `webzites-probe.timer` unit (`LoadState=not-found`), so no such six-hour sweep is available to re-widen narrowed snapshots.
 - [free-read-verbs:c8] **HOLD** — The `plazir15-ghp` public page currently serves HTTP 200 with a 38,337-byte response; this GET does not reverify equality with the historical local source body. Surface: `https://veigapunk.github.io/plazir-15-site/`.
+
+
+## Round-24 path reconciliation
+
+These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
+
+- 2026-10-21: ~/Projects/webzites/bin/webzites.mjs absent (test -e exit 1); exact removal time and cause unknown, earlier W7 attribution historical. Citation corpus/knowledge/free-read-verbs.md:321 is a historical record, not an executable instruction.

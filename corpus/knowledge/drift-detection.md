@@ -107,3 +107,10 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/drift-detection.jso
 
 - [drift-detection:c7] **STALE** — The r16 live Plazir sitemap contained eight locations including tetris. Surface: `https://veigapunk.github.io/plazir-15-site/sitemap.xml`. Correction: As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.
 - [drift-detection:c8] **STALE** — The r16 live snake page had no og:url and speedrun had a Plazir self-canonical. Surface: `https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/`. Correction: As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.
+
+
+## Round-24 path reconciliation
+
+These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
+
+- 2026-10-21: ~/Projects/plazir-15-site absent (test -e exit 1); exact removal time and cause unknown, earlier W7 attribution historical. Citation corpus/knowledge/drift-detection.md:77 is a historical record, not an executable instruction.

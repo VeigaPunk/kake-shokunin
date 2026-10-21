@@ -84,3 +84,12 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/origin-repos.json` 
 - [origin-repos:c6] **HOLD** — The listed GitHub Pages root and the `llm-wiki`, `plazir-15-site`, and `charter-ufo-fsd` paths currently return HTTP 200. Surface: `GET https://veigapunk.github.io/; GET https://veigapunk.github.io/llm-wiki/; GET https://veigapunk.github.io/plazir-15-site/; GET https://veigapunk.github.io/charter-ufo-fsd/`.
 - [origin-repos:c7] **HOLD** — The listed `plazir27runs-on.kimi.page` public property is currently reachable. Surface: `https://plazir27runs-on.kimi.page/`.
 - [origin-repos:c8] **STALE** — The inferred `plazir27.kimi.page` property is currently served as a live mapped variant. Surface: `https://plazir27.kimi.page/`. Correction: As of 2026-10-21, GET https://plazir27.kimi.page/ returns HTTP 404, so this is not a currently served public property and its inferred live-source mapping should be withdrawn or retested only after a working endpoint exists.
+
+
+## Round-24 path reconciliation
+
+These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
+
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/origin-repos.md:11 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/origin-repos.md:19 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/origin-repos.md:70 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.

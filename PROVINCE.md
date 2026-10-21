@@ -61,3 +61,8 @@ adjacent province and publication/account operations stay operator-owned.
 ## Round-23 live use
 
 The publisher-side canonical tool now consumes saved GET-response HTML from owned public properties through `scripts/live_snapshot.py`; live capture is GET-only and separate from offline validation. This is not rendered-DOM observation, navigation/readiness approval or permission to publish. `corpus/lessons/round-23.md` records the outcomes; source repair and deployment stay operator-owned. A surviving burnerchrome source candidate at `~/Projects/burnerchrome` was found and read only; its mapped historical ds4cc-marketplace path remains absent.
+
+
+## Round-24 restored source correction
+
+The earlier Surfaces paragraph and round-23 burnerchrome note are historical local-state observations. On 2026-10-21 the ds4cc-marketplace checkout and its CNAME, burnerchrome, speedrun and apps-sdk subtrees are present again (checkout birth 05:19 -03; observed HEAD 1fbdb8ed). No restoration was performed by kake. Evidence: `.ufo/waves/round-24/c1-receipts/T16.json` through `T19.json` and `w1/R23ReceiptsDs4ccStale.md`. Presence enables later source rechecks; it does not establish live deployment or grant publication, browser-profile, DNS or account authority. The webzites, Plazir and Lucario observations remain separately dated.

@@ -1,0 +1,30 @@
+{
+ "id": "T06",
+ "token": "~/Projects/plazir-15-site/speedrun",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T12:13:05Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "test -e /home/vgpnk/Projects/plazir-15-site/speedrun",
+   "stat -c %n|birth=%w|mtime=%y /home/vgpnk/Projects/plazir-15-site/speedrun"
+  ],
+  "output": "test -e exit 1; stat exit 1: stat: cannot statx '/home/vgpnk/Projects/plazir-15-site/speedrun': No such file or directory\n"
+ },
+ "event": "2026-10-21 direct recheck; exact removal time and cause unknown. Earlier corpus W7 attribution remains historical.",
+ "cites": [
+  {
+   "cite": "corpus/knowledge/mirror-pitfalls.md:63",
+   "lineText": "- [mirror-pitfalls:c4] **STALE** — The frozen three-run copy and its canonical repository path are present locally, with a rel=canonical link from the copy. Surface: `test -e /home/vgpnk/Projects/plazir-15-site/speedrun; test -e /home/vgpnk/Projects/ds4cc-marketplace/speedrun`. Correction: As of 2026-10-21, neither /home/vgpnk/Projects/plazir-15-site/speedrun nor /home/vgpnk/Projects/ds4cc-marketplace/speedrun exists under /home/vgpnk/Projects, so this workstation cannot substantiate the asserted copy or canonical link.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "observer": "KakeR24 coordinator; dead seat not replaced",
+ "reportSources": [
+  "coordinator direct observation recorded in receipt"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

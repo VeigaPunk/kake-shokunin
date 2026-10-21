@@ -1,0 +1,32 @@
+{
+ "id": "T12",
+ "token": "~/Projects/webzites/fleet/grokbots.json",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T11:50:08Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "test -e /home/vgpnk/Projects/webzites/fleet/grokbots.json",
+   "stat -c '%n %w %y' /home/vgpnk/Projects/webzites/fleet/grokbots.json",
+   "ls -la /home/vgpnk/Projects/webzites/fleet",
+   "ls -la /home/vgpnk/Projects",
+   "stat -c '%n %w %y' /home/vgpnk/Projects"
+  ],
+  "output": "test -e: exit 1; stat target: stat: cannot stat '/home/vgpnk/Projects/webzites/fleet/grokbots.json': No such file or directory (os error 2) (exit 1); ls fleet: ls: cannot access '/home/vgpnk/Projects/webzites/fleet': No such file or directory (exit 2); ls nearest existing ancestor /home/vgpnk/Projects: total 0; listing has current child directories and no webzites; stat ancestor: /home/vgpnk/Projects 2026-10-03 17:48:28.004231881 -0300 2026-10-21 05:19:01.033916520 -0300."
+ },
+ "event": "2026-10-12 W7 ~/Projects prune/migration; round-18 LOG.md:400-422 and commit b0feb308 attribute removal of webzites among 33 removed children to this event. The 2026-10-14 round-18 census recorded the tree absent; exact file-deletion time is not observed.",
+ "cites": [
+  {
+   "cite": "SKILL.md:429",
+   "lineText": "- [property-map:c8] **STALE** — Interpreting the relative second-registry path under the same `~/Projects/webzites` root, the file is absent and the paragraph does not annotate that registry as historical. Surface: `test -e /home/vgpnk/Projects/webzites/fleet/grokbots.json`. Correction: As of 2026-10-21, `/home/vgpnk/Projects/webzites/fleet/grokbots.json` is absent, so mark this second-registry location unavailable/historical or replace it with a verified current absolute path.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsNewT12GrokbotsJson.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

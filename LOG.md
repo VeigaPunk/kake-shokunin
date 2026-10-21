@@ -835,3 +835,13 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   C2 12/12 exit 0 (`.ufo/waves/round-23/recovery-final-counts.json`).
   The fixed snapshot producer does not alter received page bytes, the
   canonical validator, the claim populations or expected canonical policy.
+
+
+## Round 24 — paths reconciliation and receipt replay (2026-10-21)
+
+- Declared two causally separable claims on tied-lowest owned axes: C1 freshness (19 flagged path targets), C2 operability (malformed receipt rejection). Contract and preservation amendment: `.ufo/waves/round-24/{contract,contract-amendment}.json`.
+- Motivating evidence: round-23 non-author closure MANIFEST rounds[394] routed the lexical observedAt and contentType counter gaps plus retained paths debt. Round-open `paths-before.json` also caught the restored ds4cc checkout before repair: drift3/newMissing12/recovered4; no domain tree was changed by this lane.
+- Frozen-population landing ab85dbdba4499f35f7dab9c9635b9b605679dbe5; actual before measurements: C1 0/19, sweep exit1; C2 81/130 (61/110 rejection expectations,20/20 acceptance controls), exit1. Exact argv/stdout/stderr: `measure-c1-before.json`, `measure-c2-before.json`.
+- C1 implementation retains every original corpus line; 30 correction-sidecar records plus EOF blocks replace the rejected suffix plan. Twelve observed misses enter the pin and four recovered tokens leave it (55→63). Nineteen dated target receipts include four direct coordinator observations after provider deaths. Source observations, not re-pinning alone, justify the changes.
+- Source rows S032–S034 were opened this round and ground the C2 grammar choices; lesson Gate has URLs, dates and short located quotes. The remaining outside admit/reject spot-check is not self-granted.
+- Wave1: 72 validated seats, L1-held planner; solutionSpace was the only host-required addition to rendered tasks. Provider deaths stay uncredited; recovered scratch code is reviewed/integrated by the coordinator, never represented as a completed seat.

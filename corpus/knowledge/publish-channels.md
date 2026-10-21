@@ -71,3 +71,10 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/publish-channels.js
 - [publish-channels:c5] **HOLD** — The Plazir Pages workflow still triggers on main, uploads the project root (`.`), and its documented GitHub Pages URL currently serves the expected site and sitemap. Surface: `GET https://raw.githubusercontent.com/VeigaPunk/plazir-15-site/main/.github/workflows/pages.yml; GET https://veigapunk.github.io/plazir-15-site/; GET https://veigapunk.github.io/plazir-15-site/sitemap.xml`.
 - [publish-channels:c6] **HOLD** — The Render configuration still names the Docker web service, Dockerfile, health path, APP_ORIGIN, and ALLOWED_ORIGINS as stated, and the public health endpoint currently reports healthy. Surface: `GET https://raw.githubusercontent.com/VeigaPunk/ds4cc-marketplace/main/render.yaml; GET https://app.ds4cc.com/health`.
 - [publish-channels:c7] **HOLD** — The version-qualified action correction is current: v4 excludes hidden paths by default in addition to `.git`/`.github`, and v5 adds an `include-hidden-files` option defaulting to false while always excluding `.git`/`.github`. Surface: `GET https://raw.githubusercontent.com/actions/upload-pages-artifact/7b1f4a764d45c48632c6b24a0339c27f5614fb0b/action.yml; GET https://raw.githubusercontent.com/actions/upload-pages-artifact/fc324d3547104276b827a68afc52ff2a11cc49c9/action.yml; GET https://raw.githubusercontent.com/actions/upload-pages-artifact/v3/action.yml; GET https://raw.githubusercontent.com/VeigaPunk/ds4cc-marketplace/main/.github/workflows/pages.yml`.
+
+
+## Round-24 path reconciliation
+
+These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
+
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/publish-channels.md:69 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.

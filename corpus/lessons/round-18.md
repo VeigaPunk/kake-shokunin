@@ -98,3 +98,10 @@ Not recorded for round 18. No non-author admit or reject sample of round-18 gate
 ### Gate completeness
 
 Gaps: no admit or reject row is recorded for C1-C9; no outside spot-check of round-18 decisions exists; the 22-file (lesson) and 21-file (LOG) counts are unreconciled; `keeper-timer-inert.md:91` and `publish-queue.md:167` are a round-19 finding with no recorded repair; C4 and C8 are unverified. Nothing in this section changes the original sections, and no live state was re-measured.
+
+
+## Round-24 path reconciliation
+
+These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
+
+- 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/lessons/round-18.md:55 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.

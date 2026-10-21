@@ -138,3 +138,8 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/sitemap-orphan-audi
 - [sitemap-orphan-audit:c6] **STALE** — The current charter homepage marker is 2026-09-28 scribe beat (the-scribe via local-fallback). Surface: `https://veigapunk.github.io/charter-ufo-fsd/`. Correction: On 2026-10-21, the charter homepage contained `2026-09-30 scribe beat (the-scribe via local-fallback)`, not the `2026-09-28` literal.
 - [sitemap-orphan-audit:c7] **STALE** — The plazir15, charter-ufo-fsd-kimi, and lucario rows each return HTTP 404. Surface: `https://plazir15.kimi.page/; https://charter-ufo-fsd.kimi.page/; https://veigapunk.github.io/lucario/`. Correction: On 2026-10-21, plazir15.kimi.page and charter-ufo-fsd.kimi.page still returned HTTP 404, but https://veigapunk.github.io/lucario/ returned HTTP 200, so lucario is no longer in the dead-404 set.
 - [sitemap-orphan-audit:c8] **HOLD** — plazir27-kimi-pro redirects to the preview-404 page. Surface: `https://plazir27.kimi.pro/`.
+
+
+## Round-24 local-source restoration correction
+
+The local-state rationale at line136 [sitemap-orphan-audit:c4] is historical. On 2026-10-21 the local sitemap is present and byte-identical to checkout HEAD 1fbdb8ed: 7,614 bytes, SHA256 18c51c45d62dd1cea99f9d88e7e19c0e9bd00c75f7e2ccf36e002a702823e53d, 97 parsed loc elements (w1/R23ReceiptsDs4ccStale.md, exact commands/output). This does not verify the earlier 93-entry count or refresh the separate round-23 HTTP observation. No publication or source change occurred.

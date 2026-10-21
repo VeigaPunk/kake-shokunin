@@ -1,0 +1,37 @@
+{
+ "id": "T17",
+ "token": "~/Projects/ds4cc-marketplace/CNAME",
+ "class": "recovered",
+ "observedAt": "2026-10-21T11:50:15Z",
+ "state": "present",
+ "observation": {
+  "commands": [
+   "test -e /home/vgpnk/Projects/ds4cc-marketplace/CNAME && echo 'CNAME exists' || echo 'CNAME absent'",
+   "stat -c '%n %w %y' /home/vgpnk/Projects/ds4cc-marketplace/CNAME",
+   "ls -la /home/vgpnk/Projects/ds4cc-marketplace",
+   "git -C /home/vgpnk/Projects/ds4cc-marketplace log -3 --format='%H %cI %s'",
+   "git -C /home/vgpnk/Projects/ds4cc-marketplace remote -v",
+   "od -c /home/vgpnk/Projects/ds4cc-marketplace/CNAME",
+   "git -C /home/vgpnk/Projects/ds4cc-marketplace hash-object --no-filters -- CNAME",
+   "git -C /home/vgpnk/Projects/ds4cc-marketplace rev-parse HEAD",
+   "git -C /home/vgpnk/Projects/ds4cc-marketplace ls-tree HEAD -- CNAME",
+   "cat /home/vgpnk/Projects/ds4cc-marketplace/.git/logs/HEAD"
+  ],
+  "output": "At 2026-10-21T11:50:15Z: CNAME exists; stat reports birth and mtime 2026-10-21 05:19:05.036234032 -0300; ls -la shows a 9-byte CNAME plus burnerchrome/ and speedrun/; od is `d s 4 c c . c o m` (9 bytes, no newline); hash-object and HEAD tree blob are both 0883895ee82a66676768a7665488b3dde4089f09; HEAD is 1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28; git log's first row is that HEAD; remote origin is https://github.com/VeigaPunk/ds4cc-marketplace.git; first HEAD reflog row records `clone: from https://github.com/VeigaPunk/ds4cc-marketplace.git` at 2026-10-21T05:19:05-03:00."
+ },
+ "event": "2026-10-21T05:19:05-03:00 fresh clone of https://github.com/VeigaPunk/ds4cc-marketplace.git; the first .git/logs/HEAD row records `clone: from https://github.com/VeigaPunk/ds4cc-marketplace.git` at epoch 1792570745 -0300, and the CNAME birth time is the same timestamp.",
+ "cites": [
+  {
+   "cite": "corpus/lessons/round-1-aggregator-audit.md:30",
+   "lineText": "| ds4cc CNAME | `cat ~/Projects/ds4cc-marketplace/CNAME` | `ds4cc.com` ✓ | <!-- r18 re-census 2026-10-14: ~/Projects/ds4cc-marketplace/CNAME absent — gone in the 2026-10-12 ~/Projects prune/migration; cite retained as historical record. -->",
+   "authored": "non-author",
+   "status": "annotated-stale",
+   "action": "sidecar",
+   "text": "<!-- r24 restoration 2026-10-21: observed ~/Projects/ds4cc-marketplace/CNAME present at 2026-10-21T11:50:15Z: 9 bytes, exact value ds4cc.com, blob 0883895ee82a66676768a7665488b3dde4089f09 at HEAD 1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28. This fresh clone confirms current presence and value only; the round-1 checkmark remains a historical/unverified observation of the prior checkout, and the r18 re-census remains a historical 2026-10-14 observation, not a statement of current state. -->"
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsRestoredT17CNAME.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}
