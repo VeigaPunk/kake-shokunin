@@ -31,6 +31,7 @@ EXIT_INPUT = 2
 EXIT_USAGE = 64
 
 INPUT_FINDINGS = {"input_invalid", "html_unsupported"}
+USAGE_RESULT = {"verdict": "could-not-evaluate", "pagesChecked": 0, "findings": []}
 ASCII_WS = " \t\n\r\f"
 HEAD_ELEMENTS = {"base", "link", "meta", "noscript", "script", "style", "template", "title"}
 HEAD_VOID_ELEMENTS = {"base", "link", "meta"}
@@ -62,6 +63,15 @@ class CanonicalArgumentParser(argparse.ArgumentParser):
         raise UsageError(message)
 
 
+class SingleManifestAction(argparse.Action):
+    """Reject a repeated --manifest instead of silently keeping the last path."""
+
+    def __call__(self, parser, namespace, values, option_string=None) -> None:
+        if getattr(namespace, self.dest, None) is not None:
+            raise UsageError("--manifest may be given only once")
+        setattr(namespace, self.dest, values)
+
+
 def usage() -> str:
     return (
         "usage: canonical_audit.py --manifest PATH [--json] | --selftest\n"
@@ -70,16 +80,19 @@ def usage() -> str:
         "Read UTF-8 JSON manifest v1 and bounded local UTF-8 HTML only. The\n"
         "manifest limit is 1 MiB; each HTML file is limited to 2 MiB.\n"
         "HTML files are relative to the manifest directory; absolute paths,\n"
-        "traversal, symlinks, and non-regular files are rejected. No network\n"
-        "access or writes occur in manifest mode.\n"
+        "traversal, symlinks, and non-regular files are rejected. The manifest\n"
+        "file itself must not be a symlink; its directory path is the caller's\n"
+        "chosen location and is opened as given, once, for manifest and pages.\n"
+        "No network access or writes occur in manifest mode.\n"
         "\n"
         "URLs use this tool's conservative HTTP(S) normalization: lowercase ASCII\n"
         "scheme/host, accept ASCII DNS labels, strict dotted IPv4, or bracketed\n"
         "IPv6, remove default ports and dot segments, and serialize empty paths\n"
         "as '/'. Non-ASCII path/query text is UTF-8 percent-escaped; existing\n"
         "escapes and legal ASCII query spelling, including a final empty '?', persist.\n"
-        "Credentials, fragments, backslashes, whitespace, and malformed\n"
-        "authorities are rejected. The first head base[href] resolves relative\n"
+        "Credentials, fragments, backslashes, whitespace, malformed authorities,\n"
+        "and network-path references with an empty authority ('///path') are\n"
+        "rejected. The first head base[href] resolves relative\n"
         "links; invalid first base is base_url_invalid, not browser fallback.\n"
         "This is a conservative RFC-style subset, not a WHATWG URL implementation.\n"
         "\n"
@@ -92,7 +105,8 @@ def usage() -> str:
         "This compares publisher policy only, not Google or other search-engine\n"
         "canonical selection. It does not assess readiness or HTTP responses.\n"
         "\n"
-        "Output is always one JSON object: verdict, pagesChecked, findings.\n"
+        "Except --help, stdout is always one JSON object: verdict, pagesChecked,\n"
+        "findings. Usage errors report could-not-evaluate with no findings.\n"
         "Exit: 0 clean; 1 policy finding; 2 input/unsupported; 64 usage.\n"
     )
 
@@ -100,12 +114,13 @@ def usage() -> str:
 def parse_cli(argv: list[str]) -> argparse.Namespace:
     parser = CanonicalArgumentParser(
         prog="canonical_audit.py",
+        usage="canonical_audit.py --manifest PATH [--json] | --selftest | -h",
         add_help=True,
         allow_abbrev=False,
         description="Offline static canonical preflight; --help is documentation only.",
     )
     mode = parser.add_mutually_exclusive_group(required=True)
-    mode.add_argument("--manifest", metavar="PATH")
+    mode.add_argument("--manifest", metavar="PATH", action=SingleManifestAction)
     mode.add_argument("--selftest", action="store_true")
     parser.add_argument("--json", action="store_true", help="emit JSON (the default)")
     args = parser.parse_args(argv)
@@ -424,6 +439,9 @@ def normalize_http_url(raw: str, base: str | None = None, *, absolute: bool = Fa
         else:
             if base is None:
                 raise URLProblem("relative URL has no base")
+            if raw.startswith("//") and not initial.netloc:
+                # urljoin would silently inherit the base authority (false clean).
+                raise URLProblem("network-path reference has an empty authority")
             candidate = urljoin(base, raw)
         parts = urlsplit(candidate)
         if empty_query_delimiter:
@@ -468,23 +486,51 @@ def read_bounded_fd(fd: int, limit: int, description: str) -> bytes:
     return b"".join(chunks)
 
 
-def read_manifest_bytes(path: str) -> bytes:
+def read_manifest_bytes(path: str) -> tuple[bytes, int]:
+    """Return manifest bytes and an open fd for its directory (caller closes).
+
+    The directory path is the caller's chosen location and is opened as given,
+    resolved once by the kernel (no lexical '..' collapsing, which would audit a
+    different file after a symlink); the manifest name inside it is opened
+    no-follow, and pages are resolved from this same directory fd.
+    """
+    if not hasattr(os, "O_NOFOLLOW") or not hasattr(os, "O_DIRECTORY"):
+        raise InputProblem("safe no-follow file opens are unavailable")
     try:
-        fd = os.open(path, os.O_RDONLY | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_CLOEXEC", 0))
+        directory, name = os.path.split(path)
+    except (TypeError, ValueError) as exc:
+        raise InputProblem("manifest path is invalid") from exc
+    if not name:
+        raise InputProblem("manifest path names no file")
+    try:
+        dir_fd = os.open(directory or ".", os.O_RDONLY | os.O_DIRECTORY | getattr(os, "O_CLOEXEC", 0))
     except (OSError, TypeError, ValueError) as exc:
-        raise InputProblem("manifest cannot be opened") from exc
+        raise InputProblem("manifest directory cannot be opened") from exc
     try:
-        if not stat.S_ISREG(os.fstat(fd).st_mode):
-            raise InputProblem("manifest is not a regular file")
         try:
-            return read_bounded_fd(fd, MAX_MANIFEST_BYTES, "manifest")
-        except UnsupportedHTML as exc:
-            raise InputProblem(str(exc)) from exc
-    finally:
-        os.close(fd)
+            fd = os.open(
+                name,
+                os.O_RDONLY | os.O_NOFOLLOW | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_CLOEXEC", 0),
+                dir_fd=dir_fd,
+            )
+        except (OSError, TypeError, ValueError) as exc:
+            raise InputProblem("manifest is missing, a symlink, or unreadable") from exc
+        try:
+            if not stat.S_ISREG(os.fstat(fd).st_mode):
+                raise InputProblem("manifest is not a regular file")
+            try:
+                data = read_bounded_fd(fd, MAX_MANIFEST_BYTES, "manifest")
+            except UnsupportedHTML as exc:
+                raise InputProblem(str(exc)) from exc
+        finally:
+            os.close(fd)
+    except BaseException:
+        os.close(dir_fd)
+        raise
+    return data, dir_fd
 
 
-def read_page_bytes(manifest_dir: str, relative: str) -> bytes:
+def read_page_bytes(manifest_dir_fd: int, relative: str) -> bytes:
     if not isinstance(relative, str) or not relative:
         raise InputProblem("page file must be a non-empty relative path")
     if (
@@ -503,9 +549,9 @@ def read_page_bytes(manifest_dir: str, relative: str) -> bytes:
     flags_dir = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0)
     flags_file = os.O_RDONLY | os.O_NOFOLLOW | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_CLOEXEC", 0)
     try:
-        current_fd = os.open(manifest_dir, flags_dir)
+        current_fd = os.dup(manifest_dir_fd)
     except (OSError, TypeError, ValueError) as exc:
-        raise InputProblem("manifest directory cannot be opened") from exc
+        raise InputProblem("manifest directory cannot be reused") from exc
 
     try:
         for component in parts[:-1]:
@@ -513,8 +559,8 @@ def read_page_bytes(manifest_dir: str, relative: str) -> bytes:
                 next_fd = os.open(component, flags_dir, dir_fd=current_fd)
             except (OSError, TypeError, ValueError) as exc:
                 raise InputProblem("page path contains a symlink or inaccessible directory") from exc
-            os.close(current_fd)
-            current_fd = next_fd
+            old_fd, current_fd = current_fd, next_fd
+            os.close(old_fd)
         try:
             file_fd = os.open(parts[-1], flags_file, dir_fd=current_fd)
         except (OSError, TypeError, ValueError) as exc:
@@ -606,22 +652,25 @@ def _validate_manifest(value: object) -> list[dict[str, str]]:
     return normalized_pages
 
 
-def _load_manifest(path: str) -> tuple[list[dict[str, str]], str]:
-    raw = read_manifest_bytes(path)
+def _load_manifest(path: str) -> tuple[list[dict[str, str]], int]:
+    raw, manifest_dir_fd = read_manifest_bytes(path)
     try:
-        value = json.loads(raw.decode("utf-8-sig", errors="strict"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise InputProblem("manifest is not UTF-8 JSON") from exc
-    pages = _validate_manifest(value)
-    manifest_dir = os.path.dirname(os.path.abspath(path))
-    return pages, manifest_dir
+        try:
+            value = json.loads(raw.decode("utf-8-sig", errors="strict"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise InputProblem("manifest is not UTF-8 JSON") from exc
+        pages = _validate_manifest(value)
+    except BaseException:
+        os.close(manifest_dir_fd)
+        raise
+    return pages, manifest_dir_fd
 
 
 def audit_manifest(path: str) -> dict[str, object]:
     findings: list[dict[str, str | None]] = []
     pages_checked = 0
     try:
-        pages, manifest_dir = _load_manifest(path)
+        pages, manifest_dir_fd = _load_manifest(path)
     except (InputProblem, OSError, UnicodeError, ValueError):
         return {
             "verdict": "could-not-evaluate",
@@ -630,21 +679,24 @@ def audit_manifest(path: str) -> dict[str, object]:
             "exit_code": EXIT_INPUT,
         }
 
-    for page in pages:
-        page_url = page["url"]
-        try:
-            normalized_document = normalize_http_url(page_url, absolute=True)
-            normalized_expected = normalize_http_url(page["expectedCanonical"], absolute=True)
-            html_bytes = read_page_bytes(manifest_dir, page["file"])
-        except UnsupportedHTML:
-            finding_id = "html_unsupported"
-        except (InputProblem, OSError, UnicodeError, ValueError):
-            finding_id = "input_invalid"
-        else:
-            pages_checked += 1
-            finding_id = evaluate_page(html_bytes, normalized_document, normalized_expected)
-        if finding_id is not None:
-            findings.append({"id": finding_id, "page": page_url})
+    try:
+        for page in pages:
+            page_url = page["url"]
+            try:
+                normalized_document = normalize_http_url(page_url, absolute=True)
+                normalized_expected = normalize_http_url(page["expectedCanonical"], absolute=True)
+                html_bytes = read_page_bytes(manifest_dir_fd, page["file"])
+            except UnsupportedHTML:
+                finding_id = "html_unsupported"
+            except (InputProblem, OSError, UnicodeError, ValueError):
+                finding_id = "input_invalid"
+            else:
+                pages_checked += 1
+                finding_id = evaluate_page(html_bytes, normalized_document, normalized_expected)
+            if finding_id is not None:
+                findings.append({"id": finding_id, "page": page_url})
+    finally:
+        os.close(manifest_dir_fd)
 
     if any(finding["id"] in INPUT_FINDINGS for finding in findings):
         verdict, exit_code = "could-not-evaluate", EXIT_INPUT
@@ -693,6 +745,8 @@ def _selftest_specs() -> list[dict[str, object]]:
         {"name": "relative_parent", **clean("<head><link rel=canonical href='../a.html'></head>", "https://example.test/a.html")},
         {"name": "root_relative", **clean("<head><link rel=canonical href='/project/a.html'></head>")},
         {"name": "scheme_relative", **clean("<head><link rel=canonical href='//example.test/project/a.html'></head>")},
+        {"name": "network_path_empty_authority", **failed("<head><link rel=canonical href='///project/a.html'></head>", "canonical_url_invalid")},
+        {"name": "network_path_empty_authority_four", **failed("<head><link rel=canonical href='////example.test/project/a.html'></head>", "canonical_url_invalid")},
         {"name": "first_base", **clean("<head><base href='https://example.test/first/'><base href='https://wrong.test/'><link rel=canonical href=item.html></head>", "https://example.test/first/item.html")},
         {"name": "second_base_ignored", **clean("<head><base href='/project/'><base href='https://wrong.test/'><link rel=canonical href=a.html></head>")},
         {"name": "empty_base", **clean("<head><base href=''><link rel=canonical href=a.html></head>")},
@@ -721,6 +775,7 @@ def _selftest_specs() -> list[dict[str, object]]:
         {"name": "wrong_path", **failed("<head><link rel=canonical href='https://example.test/project/b.html'></head>", "canonical_mismatch")},
         {"name": "wrong_query", **failed("<head><link rel=canonical href='https://example.test/project/a.html?v=2'></head>", "canonical_mismatch")},
         {"name": "base_invalid", **failed("<head><base href='https://[broken'><link rel=canonical href=a.html></head>", "base_url_invalid")},
+        {"name": "base_empty_authority", **failed("<head><base href='///project/'><link rel=canonical href=a.html></head>", "base_url_invalid")},
         {"name": "comment_decoy", **failed(f"<head><!-- <link rel=canonical href='{same}'> --></head>", "canonical_missing")},
         {"name": "script_decoy", **failed(f"<head><script>const x = '<link rel=canonical href=\"{same}\">';</script></head>", "canonical_missing")},
         {"name": "template_decoy", **failed(f"<head><template><link rel=canonical href='{same}'></template></head>", "canonical_missing")},
@@ -734,6 +789,8 @@ def _selftest_specs() -> list[dict[str, object]]:
         {"name": "symlink_html", "symlink": True, "html": f"<head><link rel=canonical href='{same}'></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "input_invalid"},
         {"name": "symlink_parent", "symlink_parent": True, "file": "alias/page.html", "html": f"<head><link rel=canonical href='{same}'></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "input_invalid"},
         {"name": "fifo_html", "fifo": True, "html": "", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "input_invalid"},
+        {"name": "manifest_symlink", "manifest_symlink": True, "html": f"<head><link rel=canonical href='{same}'></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "input_invalid"},
+        {"name": "manifest_dir_caller_prefix", "manifest_prefix_symlink": True, "html": f"<head><link rel=canonical href='{same}'></head>", "url": doc, "expected": same, "exit": EXIT_CLEAN, "id": None},
     ]
 
 
@@ -768,6 +825,13 @@ def _run_selftest_case(root: str, spec: dict[str, object]) -> tuple[int, str | N
     case_dir = os.path.join(root, str(spec["name"]))
     os.mkdir(case_dir)
     file_name = str(spec.get("file", "page.html"))
+    manifest_dir = case_dir
+    run_dir = case_dir
+    if spec.get("manifest_prefix_symlink"):
+        manifest_dir = os.path.join(case_dir, "real", "sub")
+        os.makedirs(manifest_dir)
+        os.symlink("real", os.path.join(case_dir, "alias"))
+        run_dir = os.path.join(case_dir, "alias", "sub")
     if spec.get("symlink_parent"):
         target_dir = os.path.join(case_dir, "real")
         os.mkdir(target_dir)
@@ -785,16 +849,18 @@ def _run_selftest_case(root: str, spec: dict[str, object]) -> tuple[int, str | N
         with open(os.path.join(root, "outside.html"), "w", encoding="utf-8", newline="") as stream:
             stream.write("<head></head>")
     else:
-        with open(os.path.join(case_dir, file_name), "w", encoding="utf-8", newline="") as stream:
+        with open(os.path.join(manifest_dir, file_name), "w", encoding="utf-8", newline="") as stream:
             stream.write(str(spec["html"]))
     manifest = {
         "version": 1,
         "pages": [{"url": spec["url"], "file": file_name, "expectedCanonical": spec["expected"]}],
     }
-    manifest_path = os.path.join(case_dir, "manifest.json")
-    with open(manifest_path, "w", encoding="utf-8", newline="") as stream:
+    manifest_name = "manifest-target.json" if spec.get("manifest_symlink") else "manifest.json"
+    with open(os.path.join(manifest_dir, manifest_name), "w", encoding="utf-8", newline="") as stream:
         json.dump(manifest, stream)
-    return _run_manifest_cli(manifest_path)
+    if spec.get("manifest_symlink"):
+        os.symlink(manifest_name, os.path.join(manifest_dir, "manifest.json"))
+    return _run_manifest_cli(os.path.join(run_dir, "manifest.json"))
 
 
 def selftest() -> int:
@@ -830,14 +896,19 @@ def selftest() -> int:
             ("cli_conflicting_modes", ["--selftest", "--manifest", "x"]),
             ("cli_json_with_selftest", ["--selftest", "--json"]),
             ("cli_abbreviated_manifest", ["--man", "x"]),
+            ("cli_repeated_manifest", ["--manifest", "x", "--manifest", "y"]),
         ):
             completed = _run_cli(argv)
             actual = completed.returncode
+            try:
+                usage_json = json.loads(completed.stdout) == USAGE_RESULT
+            except json.JSONDecodeError:
+                usage_json = False
             records.append({
                 "name": name,
-                "expected": {"exit": EXIT_USAGE, "id": None},
-                "actual": {"exit": actual, "id": None},
-                "ok": actual == EXIT_USAGE,
+                "expected": {"exit": EXIT_USAGE, "id": "usage_json"},
+                "actual": {"exit": actual, "id": "usage_json" if usage_json else None},
+                "ok": actual == EXIT_USAGE and usage_json,
             })
         help_result = _run_cli(["--help"])
         has_verdict = '"verdict"' in help_result.stdout
@@ -865,6 +936,7 @@ def main(argv: list[str] | None = None) -> int:
         args = parse_cli(argv)
     except UsageError as exc:
         print(f"canonical_audit.py: {exc}\n{usage()}", file=sys.stderr, end="")
+        print(json.dumps(USAGE_RESULT, sort_keys=True, separators=(",", ":")))
         return EXIT_USAGE
     if args.selftest:
         return selftest()

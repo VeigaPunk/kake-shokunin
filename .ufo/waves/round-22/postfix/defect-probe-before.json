@@ -1,0 +1,100 @@
+{
+  "met": 2,
+  "passed": false,
+  "probes": [
+    {
+      "actualExit": 0,
+      "actualStdout": {
+        "findings": [],
+        "pagesChecked": 1,
+        "verdict": "clean"
+      },
+      "expected": "exit 1; canonical_url_invalid",
+      "ok": false,
+      "probe": "network_path_empty_authority",
+      "source": "w2/Attack05.md"
+    },
+    {
+      "actualExit": 0,
+      "actualStdout": {
+        "findings": [],
+        "pagesChecked": 1,
+        "verdict": "clean"
+      },
+      "expected": "exit 1; base_url_invalid",
+      "ok": false,
+      "probe": "base_empty_authority",
+      "source": "w2/Attack05.md (propagates through base)"
+    },
+    {
+      "actualExit": 0,
+      "actualStdout": {
+        "findings": [],
+        "pagesChecked": 1,
+        "verdict": "clean"
+      },
+      "expected": "exit 64; usage could-not-evaluate JSON, not the last manifest's clean verdict",
+      "ok": false,
+      "probe": "repeated_manifest",
+      "source": "w2/BoundaryCLIErrors.md P2b"
+    },
+    {
+      "actualExit": 64,
+      "actualStdout": null,
+      "expected": "exit 64; stdout is the usage could-not-evaluate JSON object",
+      "ok": false,
+      "probe": "usage_error_json",
+      "source": "w2/BoundaryCLIErrors.md P2a"
+    },
+    {
+      "actualExit": 0,
+      "actualStdout": {
+        "findings": [],
+        "pagesChecked": 1,
+        "verdict": "clean"
+      },
+      "expected": "exit 2; input_invalid",
+      "ok": false,
+      "probe": "manifest_symlink",
+      "source": "w2/BoundarySymlinks.md residual"
+    },
+    {
+      "actualExit": 0,
+      "actualStdout": {
+        "findings": [],
+        "pagesChecked": 1,
+        "verdict": "clean"
+      },
+      "expected": "exit 0; clean (documented caller-chosen location)",
+      "ok": true,
+      "probe": "caller_prefix_control",
+      "source": "w2/BoundarySymlinks.md P2 (scoped: caller-trusted prefix)"
+    },
+    {
+      "actualExit": 0,
+      "actualStdout": {
+        "findings": [],
+        "pagesChecked": 1,
+        "verdict": "clean"
+      },
+      "expected": "exit 0; clean",
+      "ok": true,
+      "probe": "clean_control",
+      "source": "positive control"
+    },
+    {
+      "actualExit": 0,
+      "actualStdout": {
+        "findings": [],
+        "pagesChecked": 1,
+        "verdict": "clean"
+      },
+      "expected": "exit 1; canonical_mismatch from the kernel-resolved deep/ manifest+page, not lexical dotdot/",
+      "ok": false,
+      "probe": "dotdot_after_symlink",
+      "source": "residual/CritScope.md P2 (kernel resolves alias/.. to deep/)"
+    }
+  ],
+  "total": 8,
+  "validator": "/tmp/kake-r22a2/canonical_audit_c0fd6d5.py"
+}

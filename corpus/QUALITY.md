@@ -92,3 +92,24 @@ Grounding: `corpus/lessons/round-22.md` §Mistakes and the non-author
 - SHONEN marks do not advance from a local fixture/corpus repair: an end-to-end
   domain task and all other boxes still need a named independent non-author
   verifier. This round's own seats remain author-side; no promotion is claimed.
+
+### Derived counts and resolver neighbours — round 22 recovery
+
+Grounding: `corpus/lessons/round-22.md` §Recovery attempt 2 Mistakes;
+`.ufo/waves/round-22/w2/{FalsifyCounting,Attack05,BoundaryCLIErrors}.md`.
+
+- A counting command derives its numerator from per-case rows against the
+  digest-pinned oracle and cross-checks every declared aggregate (accepted,
+  discrepancies, matrix exit) against them. A count that repeats the
+  instrument's own declared total is not evidence. An unmeasurable baseline
+  (instrument not validated) exits nonzero, never with the "proven absent" code.
+  Fails if `postfix/counter-probe.py` against the counter exits 0.
+- Every URL-resolution branch of a gate has a one-character adversarial
+  neighbour outside the frozen claim population (selftest or probe), because
+  a frozen positive case (`scheme_relative`) does not cover its malformed
+  sibling (`///path` with an empty authority). A stdlib join or split is never
+  the validator (S027-S029). Fails if `postfix/defect-probe.py` against the gate exits 1.
+- A documented output contract ("always one JSON object") covers every exit
+  path including usage errors, and an argument that can be repeated either
+  has defined multi-value semantics or is a usage error; "last value wins"
+  never decides a verdict.

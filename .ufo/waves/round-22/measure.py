@@ -59,6 +59,13 @@ CASES = f"{ROUND_DIR}/cases.json"
 FIXTURES = f"{ROUND_DIR}/fixtures"
 # The traversal manifest resolves ../escape.html to this fixture-root file.
 ESCAPE_FIXTURE = f"{FIXTURES}/escape.html"
+# Frozen instrument identity (c0fd6d5). A runner that trusts matrix-reported rows
+# cannot prove the validator ran, so the matrix and oracle bytes themselves are
+# pinned: a self-consistent stub matrix is rejected before its rows are read.
+PINNED_INSTRUMENT_SHA256 = {
+    MATRIX: "d7de622cf149c4a7a0d3152b3d6c0560fadcc4c0c784c764502d0a2110bf4aab",
+    CASES: "28a49013d3aaf72b0e1c3801fd5359592602e079408d9a71c99f2df03d1cbeb6",
+}
 
 
 class MeasurementError(Exception):
@@ -438,7 +445,7 @@ def run_measurement(root: pathlib.Path, revision_arg: str, cases_root_arg: str |
             )
             result["instrumentValidated"] = False
             result["missingInstrumentPaths"] = missing
-            return result, 0
+            return result, 2
         raise MeasurementError(
             "revision lacks frozen matrix inputs: " + ", ".join(missing) +
             "; supply --cases-root <candidate root>"
@@ -455,11 +462,23 @@ def run_measurement(root: pathlib.Path, revision_arg: str, cases_root_arg: str |
                 instrument_revision=instrument_revision,
             )
             result["instrumentValidated"] = False
-            return result, 0
+            return result, 2
         raise MeasurementError("frozen measurement instrument is incomplete")
 
     measured_blobs = {**target, **instrument}
     pins = {path: blob.pin() for path, blob in sorted(measured_blobs.items())}
+
+    tampered = [
+        path for path, digest in PINNED_INSTRUMENT_SHA256.items()
+        if hashlib.sha256(instrument[path].data).hexdigest() != digest
+    ]
+    if tampered:
+        result = invalid_population_result(
+            revision, pins, instrument_revision,
+            "frozen instrument digest mismatch: " + ", ".join(tampered),
+        )
+        result["instrumentValidated"] = False
+        return result, 2
 
     try:
         manifest_ids = manifest_case_ids(instrument[CASES])
@@ -586,11 +605,28 @@ def run_measurement(root: pathlib.Path, revision_arg: str, cases_root_arg: str |
         result["matrixStderr"] = completed.stderr
         result["reportedTotal"] = total
         return result, 1
+    try:
+        oracle = oracle_expectations(instrument[CASES])
+    except MeasurementError as exc:
+        return invalid_population_result(revision, pins, instrument_revision, str(exc), results), 1
+    derived, problems = reconcile_rows(results, oracle, matrix_result, completed.returncode)
+    if problems:
+        result = invalid_population_result(
+            revision, pins, instrument_revision, "; ".join(problems), results
+        )
+        result["matrixExitCode"] = completed.returncode
+        result["reportedAccepted"] = accepted
+        result["derivedAccepted"] = derived
+        result["reportedTotal"] = total
+        result["matrixStdout"] = completed.stdout
+        result["matrixStderr"] = completed.stderr
+        return result, 1
     result = {
         "revision": revision,
         "available": True,
         "unavailable": False,
-        "accepted": accepted,
+        "accepted": derived,
+        "acceptedDerivedFromRows": True,
         "total": total,
         "expectedCaseIds": list(EXPECTED_CASES),
         "results": results,
@@ -600,8 +636,64 @@ def run_measurement(root: pathlib.Path, revision_arg: str, cases_root_arg: str |
         "matrixStdout": completed.stdout,
         "matrixStderr": completed.stderr,
     }
-    failed = completed.returncode != 0 or accepted != total
+    failed = completed.returncode != 0 or derived != total
     return result, 1 if failed else 0
+
+
+def oracle_expectations(blob: Blob) -> dict[str, tuple[int, list[str]]]:
+    """Per-case expected exit and finding ids from the pinned cases.json blob."""
+    document = json.loads(blob.data.decode("utf-8"))
+    oracle: dict[str, tuple[int, list[str]]] = {}
+    for row in document["cases"]:
+        expected_exit = row.get("expectedExit")
+        expected_findings = row.get("expectedFindings")
+        if type(expected_exit) is not int or not isinstance(expected_findings, list):
+            raise MeasurementError(f"{CASES} row {row.get('caseId')!r} lacks expectedExit/expectedFindings")
+        oracle[row["caseId"]] = (expected_exit, expected_findings)
+    return oracle
+
+
+def reconcile_rows(
+    results: list[Any],
+    oracle: dict[str, tuple[int, list[str]]],
+    matrix_result: dict[str, Any],
+    matrix_exit: int,
+) -> tuple[int, list[str]]:
+    """Recompute acceptance from per-case rows; never trust a declared numerator."""
+    problems: list[str] = []
+    derived = 0
+    for row in results:
+        if not isinstance(row, dict):
+            problems.append("matrix result row is not an object")
+            continue
+        case_id = row.get("caseId")
+        expected = oracle.get(case_id)
+        if expected is None:
+            problems.append(f"{case_id!r}: no frozen oracle row")
+            continue
+        actual_exit = row.get("actualExit")
+        matches = (
+            type(actual_exit) is int
+            and actual_exit == expected[0]
+            and row.get("actualFindings") == expected[1]
+        )
+        if (row.get("status") == "PASS") != matches:
+            problems.append(f"{case_id}: status {row.get('status')!r} disagrees with oracle comparison")
+        if matches:
+            derived += 1
+    if matrix_result.get("accepted") != derived:
+        problems.append(f"declared accepted={matrix_result.get('accepted')!r} != derived {derived}")
+    executed = matrix_result.get("executed")
+    if type(executed) is not int or not derived <= executed <= len(results):
+        problems.append(f"executed={executed!r} is not a count between derived {derived} and the result rows")
+    if matrix_result.get("discrepancies") != len(results) - derived:
+        problems.append(
+            f"discrepancies={matrix_result.get('discrepancies')!r} != rows-derived {len(results) - derived}"
+        )
+    expected_matrix_exit = 0 if derived == len(results) else 1
+    if matrix_exit != expected_matrix_exit:
+        problems.append(f"matrix exit {matrix_exit} != {expected_matrix_exit} implied by rows")
+    return derived, problems
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -631,6 +723,7 @@ def main(argv: list[str] | None = None) -> int:
             "expectedCaseIds": list(EXPECTED_CASES),
         }
         exit_code = 2
+    result["runnerSha256"] = hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()
     emit(result)
     return exit_code
 
