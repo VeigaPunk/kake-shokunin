@@ -35,6 +35,9 @@ USAGE_RESULT = {"verdict": "could-not-evaluate", "pagesChecked": 0, "findings": 
 ASCII_WS = " \t\n\r\f"
 HEAD_ELEMENTS = {"base", "link", "meta", "noscript", "script", "style", "template", "title"}
 HEAD_VOID_ELEMENTS = {"base", "link", "meta"}
+HTML_VOID_ELEMENTS = {
+    "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"
+}
 HEAD_TEXT_ELEMENTS = {"script", "style", "title"}
 
 
@@ -100,7 +103,9 @@ def usage() -> str:
         "encoding sniffing or implied-element repair; only explicit, properly\n"
         "closed head markup with supported head children is evaluated. Comments,\n"
         "raw-text elements, and template descendants do not contribute links.\n"
-        "Any SVG/Math markup, and canonical/base inside noscript, is unsupported.\n"
+        "SVG/Math before the head closes, a canonical-looking link inside SVG/Math,\n"
+        "and canonical/base inside noscript are unsupported; SVG/Math and\n"
+        "self-closed HTML void elements after the closed head are evaluated.\n"
         "Oversize, non-UTF-8, or structurally ambiguous HTML is unsupported.\n"
         "This compares publisher policy only, not Google or other search-engine\n"
         "canonical selection. It does not assess readiness or HTTP responses.\n"
@@ -166,6 +171,7 @@ class CanonicalHTMLParser(HTMLParser):
         self.body_seen = False
         self.unsupported = False
         self.template_depth = 0
+        self.foreign_depth = 0
         self.noscript_depth = 0
         self.raw_head_element: str | None = None
         self.head_canonicals: list[dict[str, str | None]] = []
@@ -183,8 +189,19 @@ class CanonicalHTMLParser(HTMLParser):
         target = self.head_canonicals if inside_head else self.outside_canonicals
         target.append(normalized)
 
+    def _after_head(self) -> bool:
+        return self.head_closed and not self.head_open
+
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         tag = ascii_lower(tag)
+        if self.foreign_depth:
+            # SVG/MathML content after the explicit head cannot change head
+            # canonicals; a canonical-looking link inside it stays ambiguous.
+            if tag in {"svg", "math"}:
+                self.foreign_depth += 1
+            elif tag == "link" and is_canonical_relation(attrs_first_wins(attrs)):
+                self.unsupported = True
+            return
         if self.template_depth:
             if tag == "template":
                 self._enter_template()
@@ -201,6 +218,9 @@ class CanonicalHTMLParser(HTMLParser):
             self.noscript_depth = 1
             return
         if tag in {"svg", "math"}:
+            if self._after_head() and not self.template_depth:
+                self.foreign_depth = 1
+                return
             self.unsupported = True
 
         if tag == "template":
@@ -264,13 +284,22 @@ class CanonicalHTMLParser(HTMLParser):
 
     def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         tag = ascii_lower(tag)
-        if tag not in HEAD_VOID_ELEMENTS:
+        if self.foreign_depth or (self._after_head() and tag in {"svg", "math"}):
+            # Self-closing syntax is native to foreign content; it opens nothing.
+            if tag == "link" and is_canonical_relation(attrs_first_wins(attrs)):
+                self.unsupported = True
+            return
+        if tag not in HEAD_VOID_ELEMENTS and not (self._after_head() and tag in HTML_VOID_ELEMENTS):
             # HTML ignores the slash on non-void tags; do not infer a close.
             self.unsupported = True
         self.handle_starttag(tag, attrs)
 
     def handle_endtag(self, tag: str) -> None:
         tag = ascii_lower(tag)
+        if self.foreign_depth:
+            if tag in {"svg", "math"}:
+                self.foreign_depth -= 1
+            return
         if self.template_depth:
             if tag == "template":
                 self.template_depth -= 1
@@ -326,6 +355,7 @@ class CanonicalHTMLParser(HTMLParser):
             and not self.head_open
             and self.template_depth == 0
             and self.noscript_depth == 0
+            and self.foreign_depth == 0
             and self.raw_head_element is None
             and getattr(self, "cdata_elem", None) is None
             and not self.unsupported
@@ -782,6 +812,14 @@ def _selftest_specs() -> list[dict[str, object]]:
         {"name": "template_selfclose", "html": f"<head><template/><link rel=canonical href='{same}'></template></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "noscript_canonical", "html": f"<head><noscript><link rel=canonical href='{same}'></noscript></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "foreign_content", "html": f"<head></head><body><svg><link rel=canonical href='{same}'></svg></body>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
+        {"name": "body_svg_after_head", **clean(f"<head><link rel=canonical href='{same}'></head><body><svg viewBox='0 0 1 1'><path d='M0 0'/><g><circle r='1'/></g></svg></body>")},
+        {"name": "body_math_after_head", **clean(f"<head><link rel=canonical href='{same}'></head><body><math><mi>x</mi></math></body>")},
+        {"name": "body_void_selfclose", **clean(f"<head><link rel=canonical href='{same}'></head><body><input type='checkbox' /><br/><img src='a.png' /></body>")},
+        {"name": "body_svg_selfclose_link", "html": f"<head></head><body><svg><link rel=canonical href='{same}'/></svg></body>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
+        {"name": "head_svg", "html": f"<head><svg></svg><link rel=canonical href='{same}'></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
+        {"name": "body_nonvoid_selfclose", "html": f"<head><link rel=canonical href='{same}'></head><body><div/></body>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
+        {"name": "body_svg_unclosed", "html": f"<head><link rel=canonical href='{same}'></head><body><svg><path d='M0 0'/>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
+        {"name": "body_svg_then_body_canonical", **failed(f"<head></head><body><svg></svg><link rel=canonical href='{same}'></body>", "canonical_outside_head")},
         {"name": "processing_instruction", "html": f"<head><?server-side include?><link rel=canonical href='{same}'></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "missing_head", "html": "<html><body></body></html>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
         {"name": "head_body_child", "html": f"<head><div><link rel=canonical href='{same}'></div></head>", "url": doc, "expected": same, "exit": EXIT_INPUT, "id": "html_unsupported"},
