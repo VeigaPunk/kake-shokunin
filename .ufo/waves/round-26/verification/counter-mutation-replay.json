@@ -1,0 +1,106 @@
+{
+  "measureSha256": "13f5e1f7defddd168f28b38517c12bc04e4ad07c79081f008a50e15873e43836",
+  "runner": "KakeR26-2 (L1)",
+  "scratch": "/fast/scratch/hyaku/kake-r26/mut (deleted)",
+  "pristineSelftestExit": 0,
+  "mutants": [
+    {
+      "mutant": "M01 left boundary",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "quote_left_boundary"
+      ]
+    },
+    {
+      "mutant": "M02 right boundary",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "quote_right_boundary"
+      ]
+    },
+    {
+      "mutant": "M04 max words",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "quote_26_words"
+      ]
+    },
+    {
+      "mutant": "M05 group twins",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "group_twin_quote"
+      ]
+    },
+    {
+      "mutant": "M06 statement total",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "complete_clean",
+        "reclassified_accounted"
+      ]
+    },
+    {
+      "mutant": "M10 manifest sha",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "manifest_sha_mismatch"
+      ]
+    },
+    {
+      "mutant": "N1 rows unassigned",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "complete_clean",
+        "reclassified_accounted"
+      ]
+    },
+    {
+      "mutant": "N2 twins equality only",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "group_twin_quote"
+      ]
+    },
+    {
+      "mutant": "N3 other fetches unchecked",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "second_fetch_tampered"
+      ]
+    },
+    {
+      "mutant": "N4 duplicate pairs allowed",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "statements_duplicate_pair"
+      ]
+    },
+    {
+      "mutant": "N5 outside population allowed",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "statements_row_outside_population"
+      ]
+    },
+    {
+      "mutant": "N6 extra tags allowed",
+      "exit": 1,
+      "killed": true,
+      "failedCases": [
+        "statement_tags_unaccounted"
+      ]
+    }
+  ]
+}

@@ -1007,3 +1007,28 @@ The compact baseline6883f1d0/55 wording above is not a different commit.
   extractor fix (double entity decode; before copy retained). QUALITY,
   README, SKILL registry and SCORECARD appended. Measurements follow
   execution on a pushed revision.
+
+### Round-26 resume and falsify-wave integration (2026-10-21)
+
+- Replacement L1 KakeR26-2 reconstructed the dead KakeR25 session from durable
+  transcript/seat files (`.ufo/waves/round-26/resume-evidence.json`). W1
+  reported 64/64; W2 never spawned before death, so its validated payload was
+  dispatched unchanged (64 seats, `w2-spawn-result.json`). No dead-seat item
+  was replaced. One attempted residual executor dispatch was refused by the
+  background-job cap (spawned nothing); L1 did the integration.
+- Falsify findings: 37 more row-statement units judged, 4 prior STALE tags
+  reclassified as precision notes, S001 attribution and two S024 scope errors
+  appended; ledger now 313 units, 7 new STALE corrections, 4 reclassified
+  tags, 6 UNVERIFIABLE units. Earlier 8/8 figures are the pre-W2 candidate,
+  not final. S021 fragment wording is STALE already corrected in r23, not a
+  rejected finding (`statements.json`).
+- Fetch notation correction: 34 recorded row/index fetch slots, 33 distinct
+  URLs (S028/S033 share one), plus S008 retry = 35 attempts. Initial window
+  15:09-15:10 UTC; retry at 15:11 UTC. 32 row verdicts remain HOLD.
+- Counter and extractor selftests strengthened; 24 counter cases, 74 text
+  cases; 12/12 counter mutants killed plus the surviving HTML-sniff mutant
+  killed. Evidence: `verification/counter-mutation-replay.json`,
+  `verification/extractor-sniff-mutant.json`. Locator prose errata and
+  scratch-bound deviations retained in the lesson, not hidden.
+- The old `adjudicatedBy: KakeR25` was accurate for W1; the ledger now names
+  both coordinators and dates the new adjudication. No tools installed.

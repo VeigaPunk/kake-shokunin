@@ -62,3 +62,9 @@ no lane property was fetched.
 - [r26-recheck S010 STALE] Locator correction for line 1: the URL there is S009's nginx source only. S010 is RFC 9110 §8.8 — https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8 (§8.8.1 Weak versus Strong; §8.8.3 ETag), re-fetched 2026-10-21. Evidence: w1/PairS010GhpEtagAnatomy.md (C1).
 
 - [r26-recheck S010 STALE] Lines 25-28 paraphrase the §8.8.1 condition as “when changed twice within that second”. The 2026-10-21 bytes condition it on modification twice during a single second “and retrieved between those modifications”; two changes within one second are not by themselves that condition. Evidence: w1/PairS010GhpEtagAnatomy.md (C2). Current nginx lines (1.30/1.31) move the same format expression; the release-1.28.0 pin and its line anchors remain correct as pinned (w1/PairS009GhpEtagAnatomy.md).
+
+### Round-26 falsify-wave adjudication (2026-10-21, append-only)
+
+- Reclassified as a precision note (not STALE): the line-1 locator block above. Line 1 lists several source ids before one URL; that header shape was judged HOLD for eight other rows in round 26, and the defect is not a change in S010's bytes. The S010 URL stays as given there. Ledger: `reclassified: 1` (w2/Correction3S010.md).
+- Precision note on the §8.8.1 block: RFC 9110 states the condition as “if it is possible for the representation to be modified twice during a single second and retrieved between those modifications”; the block's paraphrase drops “if it is possible for” (w2/Correction4S010.md).
+- S009 note (HOLD, not STALE): the release-1.28.0 pin and its anchors hold byte-for-byte. The 1.30/1.31 line observation came from the S009 seat and was not retained; it is not evidence here (w2/Rejection13S009.md).

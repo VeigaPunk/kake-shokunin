@@ -56,6 +56,7 @@ TEXT_CASES = [
     ('sniff_doctype_without_content_type',
      b'  \n<!DOCTYPE html><html><body><p>Hi &amp; bye</p><script>x</script></body></html>', None, 'Hi & bye'),
     ('sniff_html_without_content_type', b'<html><body>Hi</body></html>', None, 'Hi'),
+    ('sniff_attributed_html_without_content_type', b'<html lang="en"><body>Hi</body></html>', None, 'Hi'),
     ('utf8_invalid_byte_plain', b'a\xffb', 'text/plain', 'a\ufffdb'),
     ('utf8_overlong_and_stray_continuation', b'\xc0\xaf', None, '\ufffd\ufffd'),
     ('utf8_truncated_sequence', b'x\xe2\x82', 'text/plain', 'x\ufffd'),

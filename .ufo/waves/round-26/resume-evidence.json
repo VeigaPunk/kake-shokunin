@@ -1,0 +1,60 @@
+{
+  "round": 26,
+  "predecessor": "KakeR25",
+  "base": "97404de4ff73d6c8a4f87385cf5fdf36dca7f006",
+  "candidate": "e28312b14b076584fedd696fae2a684e460bd11e",
+  "transcript": "/home/vgpnk/.omp/agent/sessions/-Projects-shokunin/2026-10-21T03-31-39-302Z_01a15c83-baa6-76c9-b209-ce1123c6cc22/KakeR25.jsonl",
+  "predecessorExit": {
+    "type": "custom",
+    "customType": "session_exit",
+    "data": {
+      "reason": "dispose",
+      "kind": "normal",
+      "recordedAt": "2026-10-21T16:10:15.967Z",
+      "pendingToolCalls": [
+        {
+          "toolName": "eval",
+          "assistantTimestamp": 1792598964596,
+          "toolCallId": "toolu_01Caqqxp2fKUWnd9xrfw1W7m",
+          "args": {
+            "language": "py",
+            "code": "attempts2=[]\nfor n in range(20):\n    try:\n        res=await tool.task({'i':'Dispatching validated falsify wave',**d2['taskCall']})\n    except Exception as e:\n        res={'text':f'EXC {e}'}\n    txt=res.get('text','') if isinstance(res,dict) else str(res)\n    attempts2.append({'try':n+1,'at':time.strftime('%Y-%m-%dT%H:%M:%S%z'),'head':txt[:200]})\n    if 'Background job limit' in txt or txt.startswith('EXC'):\n        print('refused',n+1,txt[:120]); time.sleep(180); continue\n    break\nprint(txt[:200])\n(base/'w2-dispatch-attempts.json').write_text(json.dumps(attempts2,indent=2)+'\\n')\nspawn2=res\n(base/'w2-spawn-result.json').write_text(json.dumps(spawn2,default=str,ensure_ascii=False,indent=2)+'\\n')\nif 'details' in spawn2:\n    assign2={p['id'].split('.')[-1].rsplit('-',1)[0] if re.search(r'-\\d+$',p['id']) else p['id'].split('.')[-1]:p['id'] for p in spawn2['details']['progress']}\n    p=subprocess.run(['node','/home/vgpnk/Projects/ufo-fsd-alpha/scripts/ufo-swarm-wave.mjs','record','--registry','.ufo/waves/round-26/w2/swarm-registry.json','--assignments',json.dumps(assign2)],cwd=root,env=env,capture_output=True,text=True)\n    print('record',p.returncode,p.stderr[:200],len(assign2))",
+            "title": "Dispatching falsify wave with cap retries",
+            "timeout": 0,
+            "reset": false
+          },
+          "startedAt": "2026-10-21T16:09:31.124Z",
+          "intent": "Dispatching falsify wave with cap retries"
+        }
+      ]
+    },
+    "id": "c4752739",
+    "parentId": "f5ac26c2",
+    "timestamp": "2026-10-21T16:10:15.968Z",
+    "runtime": {
+      "version": "18.12.5"
+    }
+  },
+  "w2SeatTranscripts": [],
+  "w1ReportCount": 64,
+  "w1SeatIds": "KakeR25.<name>-6, bound by w1-spawn-result.json / swarm-registry.json",
+  "w2Disposition": "No Spawned result before session_exit; no W2-named seat transcripts; no durable W2 spawn/attempt result. W2 validated payload inherited, dispatched unchanged by KakeR26-2. The old wave-slot reservation was released, a fresh slot acquired and released after task call returned.",
+  "inherited": [
+    "pushed e28312b candidate, 64 W1 reports and fetched evidence",
+    "verification/measure-before.json",
+    "verification/measure-candidate.json",
+    "w2-dispatch.json",
+    "w2-spec.json",
+    "w2/swarm-registry.json (unassigned, now bound via record)"
+  ],
+  "discardedOrSuperseded": [
+    "unproven W2 spawning inference discarded",
+    "four STALE classifications reclassified as precision notes",
+    "old extractor output locators superseded by receipt-locator-errata.json"
+  ],
+  "scratch": {
+    "L1PredecessorTmpFile": "/tmp/kake-r26-m.json",
+    "sha256": "0632ee9bcd05d63082de3c8be49832155ef0c5e3f16c503f63bc55fdf71c9da5",
+    "replacement": "initial /tmp/kake-r26-{verify,red,counter} clones moved/deleted after parent directive; subsequent clone and mutant scratch under /fast/scratch/hyaku/kake-r26/; all round scratch removed at landing"
+  }
+}

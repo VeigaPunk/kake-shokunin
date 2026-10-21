@@ -82,3 +82,45 @@ Pending the separate non-author closure. All seats are author-side.
 
 Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
 Results, revisions and no-harm checks are appended only after execution.
+
+## Falsify wave and resume (appended by L1 replacement KakeR26-2, 2026-10-21)
+
+KakeR25's session died (host SIGHUP 13:10:51 -03) while its validated falsify
+wave was waiting on the job cap; no W2 seat transcript existed, so W2 had spent
+nothing. KakeR26-2 dispatched the same `w2-dispatch.json` payload unchanged
+(64 seats: 36 reviewer, 23 critic, 2 mutation-tester, 2 scout, 1 scribe;
+spawned on the first try, `w2-dispatch-attempts.json`). Reports: `w2/*.md`.
+
+Adjudication of the falsify findings (`statements.json` `w2Adjudication`):
+
+- New STALE: S001's v3.0.1 attribution (was UNVERIFIABLE; S002 carries it) and
+  two S024 scope statements in static-canonical-preflight.md (first base *with
+  href*; foreign-content `base` is not S024's element).
+- Reclassified as precision notes (tags kept, append-only): the S010 line-1
+  locator, the S026 "implicit closures" wording and both S030 "self-closed"
+  labels — 4 of the 8 wave-1 admissions did not meet the STALE rule.
+- Coverage gap closed: 37 more statement units judged (S024/S025 in
+  static-canonical-preflight.md; round-20 correction lines in publish-channels,
+  sitemap-orphan-audit, ghp-subpath-spotcheck, speedrun-pipeline — all HOLD).
+- Counter hardened (`measure.py`): rows output restored; every fetch of a row
+  verified; in-group containment twins; ledger duplicate/outside-population/
+  unaccounted-tag findings; selftest 14 → 24 cases. All six surviving mutants of
+  w2/MutateCounter.md and six new-rule mutants are killed
+  (`verification/counter-mutation-replay.json`).
+- Receipt locator offsets drifted after the extractor change; corrected values
+  are in `receipt-locator-errata.json` (no verdict depends on them).
+
+### Mistakes (falsify wave)
+
+| Class | Evidence | Captured-by | Fix / fail-capable witness |
+|---|---|---|---|
+| stale-inflation | 4 of 8 wave-1 STALE admissions were consistent wording or locator shape (w2/Correction3S010, Correction6S026, Correction7S030, Correction8S030) | the STALE rule itself; no counter check | ledger `reclassified`; counter `statement_tags_unaccounted` requires tags == stale + reclassified; selftest `statement_tags_unaccounted` and `reclassified_accounted`, mutant N6 killed |
+| coverage | ledger followed `usedBy` cells only; S024/S025 statements and r20 correction lines in four entries were never judged (w2/CounterCritic, w2/UncoveredS024S025, w2/LessonAudit) | none — the counter checks only listed pairs | 37 units judged; `statements_row_outside_population` and `statements_duplicate_pair` guard the ledger's shape; completeness of the citing set is still not machine-checked (open) |
+| survivor | `rows` was never assigned in `score()`; the candidate printed `rows: []` with 32 decided (w2/FalsifyS015) | none | assignment restored; selftest asserts 32 row records on `complete_clean`; mutant N1 killed |
+| survivor | six counter mutations survived the 14-case selftest (w2/MutateCounter) | mutation testing | 10 new cases; replay kills M01, M02, M04, M05, M06, M10 |
+| derived-locator | receipts carry text-view offsets measured on the pre-amendment views (w2/FalsifyS024, S025, S027, S031, S034, S011) | none: offsets are prose | `receipt-locator-errata.json`; not yet fail-capable (offsets are not parsed) |
+| scope (L1) | KakeR25 wrote `/tmp/kake-r26-m.json` (counter output, sha256 0632ee9b…); the replacement first cloned to `/tmp`; seats S004, S011, S018, S020, S030 and S006/S007/CounterCritic disclosed transient `/tmp` or `/dev/shm` scratch (deleted) | wave context "never write /tmp" — seats self-reported; ScratchAudit missed the L1 file | scratch moved to `/fast/scratch/hyaku/kake-r26/` and deleted at landing; the L1 file is deleted at landing; future wave contexts name the scratch path |
+
+- Extractor mutation coverage: added `sniff_attributed_html_without_content_type`;
+  the `<html` → `<html>` sniff mutant now exits 1 on that case, pristine
+  74/74 exit 0 (`verification/extractor-sniff-mutant.json`, `text-selftest-final.json`).

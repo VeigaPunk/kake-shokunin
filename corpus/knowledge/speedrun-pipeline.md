@@ -93,3 +93,7 @@ These dated corrections supersede only current local-state readings of the cited
 - 2026-10-21: ~/Projects/ds4cc-marketplace/speedrun present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/speedrun-pipeline.md:78 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
 
 - Additional round-23 correction [speedrun-pipeline:c7] at line 82: the mapped authority tree is present, but its reappearance alone does not establish the public hosting origin or an upload API (w1/R23ReceiptsDs4ccStale.md).
+
+## Round-26 source recheck
+
+- Round-26 source recheck (2026-10-21, append-only; original lines unchanged). The round-20 correction lines in this entry cite S001, S002 and S004 (line 70). Each was judged against bytes re-fetched 2026-10-21 (`.ufo/waves/round-26/fetched/`, receipts `.ufo/waves/round-26/rechecks/S0NN.json`) and holds: S001 and S002 as in publish-channels.md; S004 uploads the configured path as the artifact. Ledger pairs in `.ufo/waves/round-26/statements.json`; found by the falsify wave (w2/CounterCritic.md).

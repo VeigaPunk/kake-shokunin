@@ -87,3 +87,9 @@ the exact quote lines, not an inferred release label.
 - [r26-recheck S003 STALE] The S003 bullet at lines 28-29 is not a verbatim quote. The 2026-10-21 bytes read: “the source folder can either be the root of the repository (/) on the source branch or a /docs folder on the source branch.” The root-or-/docs substance is unchanged; the earlier wording dropped “on the source branch” twice. Evidence: w1/PairS003GhpServedSet.md (C2).
 
 - UNVERIFIABLE this round (not STALE): the four upload-pages-artifact v3.0.1 statements. S001 pins only v4.0.0 and main, and no v3.0.1 bytes are retained under round 26 (w1/PairS001GhpServedSet.md). They remain historical claims until a pinned v3.0.1 source is opened.
+
+### Round-26 falsify-wave adjudication (2026-10-21, append-only)
+
+- [r26-recheck S001 STALE] Lines 21-22 attribute “v3.0.1 does not” exclude hidden paths to S001, but S001 pins only v4.0.0 (`7b1f4a7`) and main (`5f327015`); the attribution was false already at base. The v3.0.1 contrast is S002's: the retained v4.0.0 release page reads “Potentially breaking change: hidden files (specifically dotfiles) will not be included in the artifact” under “Full Changelog: v3.0.1...v4.0.0”. Read the v3.0.1 half as an S002 claim. Evidence: w2/Rejection02S001.md.
+- The UNVERIFIABLE note above therefore covers three statements (line 3 recheck command, lines 38 and 41 dated outputs), not four; no v3.0.1 `action.yml` bytes are retained.
+- Rejection rationale note: the three README/SKILL/sitemap pointers kept HOLD because each is explicitly labelled “at base `cb807bc`” (QUALITY round-26 rule); the round-21 register does not cover README.md or SKILL.md. The words “S008 via `manifest-retry.json`” in the recheck paragraph name the round's retry, not a source of this entry (w2/Rejection01S001.md, w2/Rejection07S013.md).

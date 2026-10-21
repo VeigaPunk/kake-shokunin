@@ -143,3 +143,7 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/sitemap-orphan-audi
 ## Round-24 local-source restoration correction
 
 The local-state rationale at line136 [sitemap-orphan-audit:c4] is historical. On 2026-10-21 the local sitemap is present and byte-identical to checkout HEAD 1fbdb8ed: 7,614 bytes, SHA256 18c51c45d62dd1cea99f9d88e7e19c0e9bd00c75f7e2ccf36e002a702823e53d, 97 parsed loc elements (w1/R23ReceiptsDs4ccStale.md, exact commands/output). This does not verify the earlier 93-entry count or refresh the separate round-23 HTTP observation. No publication or source change occurred.
+
+## Round-26 source recheck
+
+- Round-26 source recheck (2026-10-21, append-only; original lines unchanged). The round-20 correction lines in this entry cite S001, S002, S004 and S006 (lines 120-127). Each was judged against bytes re-fetched 2026-10-21 (`.ufo/waves/round-26/fetched/`, receipts `.ufo/waves/round-26/rechecks/S0NN.json`) and holds: S001 and S002 as above; S004 uploads the configured path as a gzip-compressed tar; S006 lists the files Jekyll does not build. The conclusions that the served set is the deployed artifact or build output, not the checkout, follow from these and stay marked [INFERENCE] where they were. Ledger pairs in `.ufo/waves/round-26/statements.json`; found by the falsify wave (w2/CounterCritic.md).

@@ -78,3 +78,7 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/publish-channels.js
 These dated corrections supersede only current local-state readings of the cited lines; original bytes and coordinates are preserved. Evidence: `.ufo/waves/round-24/c1-receipts/` and `corpus/knowledge/freshness-sidecar.json` (lane-relative).
 
 - 2026-10-21: ~/Projects/ds4cc-marketplace present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/knowledge/publish-channels.md:69 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+
+## Round-26 source recheck
+
+- Round-26 source recheck (2026-10-21, append-only; original lines unchanged). The round-20 correction lines in this entry cite S001, S002, S003, S005 and S007 (lines 58-61). Each was judged against bytes re-fetched 2026-10-21 (`.ufo/waves/round-26/fetched/`, receipts `.ufo/waves/round-26/rechecks/S0NN.json`) and holds: S001 v4.0.0 and main exclude `.git`/`.github`, v4.0.0 excludes `.[^/]*`, main makes it conditional on `include-hidden-files`; the S002 v5.0.0 release lists “feat: add include-hidden-files input”; S005 says under a custom Actions workflow “any existing CNAME file is ignored and is not required”; S003 and S007 place the domain in Pages settings / the `cname` API field. Ledger pairs in `.ufo/waves/round-26/statements.json`; found by the falsify wave (w2/CounterCritic.md).

@@ -222,3 +222,12 @@ survivor rows) and `.ufo/waves/round-26/statements.json`.
 - A text extractor decodes character references exactly once; a second
   unescape turns literal `&lt;` text into markup. Fails if
   `.ufo/waves/round-26/text_selftest.py` loses its double-escape cases.
+
+- Falsify-wave addendum (round 26): wording that is weaker than, or consistent
+  with, the source is not STALE; nor is a locator shape judged HOLD for other
+  rows. Such admitted tags stay (append-only) and are counted as
+  `reclassified`. Fails if `measure.py --selftest` loses
+  `statement_tags_unaccounted` or `reclassified_accounted`.
+- A recheck covers every corpus statement that cites a rechecked row, not only
+  files listed in `usedBy`; derived locators (offsets, digests) are re-derived
+  after any extractor change.

@@ -12,8 +12,14 @@ Exit 0: all 32 population rows decided (HOLD or STALE) and no findings.
 Exit 1: rows undecided, or findings present.
 Exit 2: an input is unavailable or tampered.
 Exit 64: usage.
---selftest exits 0 only when every synthetic fixture yields its expected exit and
-finding ids.
+Every population fetch of a row is integrity-checked, not only the receipt's fetchIndex.
+Statement ledger findings: statements_absent, statements_invalid, statements_duplicate_pair,
+statements_row_outside_population, statement_correction_absent (tags < stale) and
+statement_tags_unaccounted (tags != stale + reclassified; reclassified tags are r26 STALE
+blocks later judged precision notes, kept because the corpus is append-only).
+--selftest exits 0 only when every synthetic fixture yields its expected exit, finding
+ids and decided rows (plus statement counters and 32 row records where declared). Its
+fixture repositories live under the system temporary directory (TMPDIR), never the lane.
 """
 from __future__ import annotations
 
@@ -382,6 +388,10 @@ class Checker:
         else:
             text, view_findings = self.fetch_view(row_id, index, fetches[index])
             found.extend(view_findings)
+        # Every other population fetch of the row grounds part of its teaches: verify its bytes too.
+        for other in sorted(fetches):
+            if other != index:
+                found.extend(self.fetch_view(row_id, other, fetches[other])[1])
 
         if isinstance(quote, str):
             # 6+ alphanumeric tokens (JSON bodies carry no spaces) and at most 25 whitespace words.
@@ -406,7 +416,7 @@ class Checker:
     def specificity(self, population: list[tuple[str, dict[int, tuple[str, str]]]],
                     quotes: dict[str, str]) -> dict[str, list[tuple[str, str]]]:
         """A decided quote must not occur in another row's text outside its document group,
-        and quotes inside one group must differ (boilerplate cannot ground a row)."""
+        and quotes inside one group must not equal or contain one another (boilerplate cannot ground a row)."""
         texts: dict[str, list[str]] = {}
         for row_id, fetches in population:
             texts[row_id] = [t for t in (self.fetch_view(row_id, i, p)[0] for i, p in fetches.items()) if t is not None]
@@ -416,14 +426,19 @@ class Checker:
             mates = group.get(row_id, frozenset({row_id}))
             hits = [other for other, ts in texts.items()
                     if other not in mates and any(quote_in_text(self.module, quote, t) for t in ts)]
+            needle = self.module.normalize(quote)
             twins = [other for other in mates if other != row_id and quotes.get(other) is not None
-                     and self.module.normalize(quotes[other]) == self.module.normalize(quote)]
+                     and (needle in self.module.normalize(quotes[other])
+                          or self.module.normalize(quotes[other]) in needle)]
             if hits or twins:
                 out[row_id] = [("quote_not_row_specific", f"quote also occurs in {sorted(hits)}; same quote as {sorted(twins)}")]
         return out
 
-    def statement_ledger(self, findings: list[dict[str, Any]], output: dict[str, Any]) -> None:
-        """Every STALE knowledge statement recorded in the ledger has its tag appended in that file."""
+    def statement_ledger(self, findings: list[dict[str, Any]], output: dict[str, Any], rows: set[str]) -> None:
+        """Every STALE knowledge statement recorded in the ledger has its tag appended in that file.
+
+        A pair names a population row and a corpus file once. Tags in the file for that row must equal
+        stale + reclassified (tags the falsify wave reclassified as precision notes stay append-only)."""
         raw = self.git.blob(self.revision, self.git.path(STATEMENTS))
         if raw is None:
             findings.append(finding("statements_absent", None, f"{STATEMENTS} is absent at the revision"))
@@ -437,12 +452,22 @@ class Checker:
         if not isinstance(entries, list) or not entries:
             findings.append(finding("statements_invalid", None, "pairs must be a nonempty list"))
             return
+        seen: set[tuple[str, str]] = set()
         for entry in entries:
             row_id, path, n, stale = (field(entry, k) for k in ("row", "file", "statements", "stale"))
+            reclassified = field(entry, "reclassified") if isinstance(entry, dict) and "reclassified" in entry else 0
             if (not isinstance(row_id, str) or not ROW_ID_RE.fullmatch(row_id) or not isinstance(path, str)
                     or not path.startswith(f"{CORPUS}/") or type(n) is not int or type(stale) is not int
-                    or not 0 <= stale <= n):
+                    or type(reclassified) is not int or not 0 <= stale <= n or not 0 <= reclassified <= n):
                 findings.append(finding("statements_invalid", None, f"malformed pair entry {entry!r}"))
+                continue
+            if (row_id, path) in seen:
+                findings.append(finding("statements_duplicate_pair", row_id, f"{row_id} x {path} is listed twice"))
+                continue
+            seen.add((row_id, path))
+            if row_id not in rows:
+                findings.append(finding("statements_row_outside_population", row_id,
+                                        f"{row_id} is not a population row"))
                 continue
             output["statements"] += n
             output["statementsStale"] += stale
@@ -452,6 +477,10 @@ class Checker:
             if tags < stale:
                 findings.append(finding("statement_correction_absent", row_id,
                                         f"{path} carries {tags} of {stale} [r26-recheck {row_id} STALE] corrections"))
+            elif tags != stale + reclassified:
+                findings.append(finding("statement_tags_unaccounted", row_id,
+                                        f"{path} carries {tags} [r26-recheck {row_id} STALE] tags; ledger accounts for "
+                                        f"{stale} stale + {reclassified} reclassified"))
 
 
 def base_result(pin: str) -> dict[str, Any]:
@@ -525,7 +554,8 @@ def score(root: Path, revision: str, pin: str, output: dict[str, Any]) -> tuple[
                 output["stale"] += 1
         if verdict == "UNVERIFIABLE":
             output["unverifiable"] += 1
-    checker.statement_ledger(findings, output)
+    output["rows"] = rows
+    checker.statement_ledger(findings, output, {row_id for row_id, _ in population})
     return output, exit_code(output)
 
 
@@ -539,7 +569,6 @@ def evaluate(root: Path, revision: str, pin: str) -> tuple[dict[str, Any], int]:
         return output, 2
 
 
-HERE = Path(__file__).resolve().parent
 SELFTEST_CORPUS = f"{CORPUS}/knowledge/recheck-fixture.md"
 FIXTURE_IDS = [f"S{number:03d}" for number in range(1, EXPECTED + 1)]
 FIXTURE_SOURCE = b"""def normalize(text):
@@ -555,10 +584,16 @@ def json_bytes(document: Any) -> bytes:
     return (json.dumps(document, indent=2) + "\n").encode("utf-8")
 
 
-def fixture_raw(row_id: str) -> bytes:
+GROUP_SENTENCE = "Shared group text india juliet kilo lima mike november oscar."
+
+
+def fixture_raw(row_id: str, index: int = 1) -> bytes:
     number = int(row_id[1:])
-    return (f"Fixture {row_id} documents alpha{number} bravo charlie delta echo foxtrot golf hotel. "
-            f"Second sentence {row_id} mike november oscar papa quebec romeo sierra tango.\n").encode("utf-8")
+    # Document-group rows also share one sentence, so in-group twin quotes are expressible.
+    shared = f"{GROUP_SENTENCE} " if any(row_id in group for group in DOCUMENT_GROUPS) else ""
+    second = f" Copy {index} of {row_id}." if index != 1 else ""
+    return (f"Fixture {row_id} documents alpha{number} bravo charlie delta echo foxtrot golf hotel. {shared}"
+            f"Second sentence {row_id} mike november oscar papa quebec romeo sierra tango.{second}\n").encode("utf-8")
 
 
 def fixture_quote(row_id: str) -> str:
@@ -583,15 +618,16 @@ def receipt_key(row_id: str) -> str:
     return f"{RECHECKS}/{row_id}.json"
 
 
-def manifest_entry(row_id: str, name: str, status: int | None, raw: bytes, error: str | None) -> dict[str, Any]:
-    url = f"https://fixture.invalid/{row_id}"
-    return {"row": row_id, "index": 1, "url": url, "finalUrl": url, "status": status, "error": error,
+def manifest_entry(row_id: str, name: str, status: int | None, raw: bytes, error: str | None,
+                   index: int = 1) -> dict[str, Any]:
+    url = f"https://fixture.invalid/{row_id}/{index}"
+    return {"row": row_id, "index": index, "url": url, "finalUrl": url, "status": status, "error": error,
             "headers": {"content-type": "text/plain; charset=UTF-8"}, "bytes": len(raw),
             "sha256": hashlib.sha256(raw).hexdigest(), "file": name}
 
 
 def fixture_files() -> tuple[dict[str, bytes], str]:
-    """Synthetic round: 32 rows, S008 superseded by a retry, S031 STALE with its corpus marker.
+    """Synthetic round: 32 rows, S002 with two fetches, S008 superseded by a retry, S031 STALE with its marker.
 
     Returns the committed files and the sha256 pin of the population."""
     files: dict[str, bytes] = {SOURCE_TEXT: FIXTURE_SOURCE, f"{CORPUS}/README.md": b"fixture corpus\n"}
@@ -609,9 +645,15 @@ def fixture_files() -> tuple[dict[str, bytes], str]:
         else:
             base.append(manifest_entry(row_id, name, 200, raw, None))
         files[f"{WAVE}/fetched/{name}"] = gzip.compress(raw, mtime=0)
-        rows.append({"id": row_id, "fetches": [{"index": 1, "url": f"https://fixture.invalid/{row_id}",
-                                                "status": 200, "sha256": hashlib.sha256(raw).hexdigest(),
-                                                "file": f"fetched/{name}"}]})
+        fetches = [{"index": 1, "url": f"https://fixture.invalid/{row_id}/1",
+                    "status": 200, "sha256": hashlib.sha256(raw).hexdigest(), "file": f"fetched/{name}"}]
+        if row_id == "S002":  # a second retained document grounds part of the row; its bytes are checked too
+            raw2 = fixture_raw(row_id, 2)
+            base.append(manifest_entry(row_id, "S002-2.raw.gz", 200, raw2, None, index=2))
+            files[f"{WAVE}/fetched/S002-2.raw.gz"] = gzip.compress(raw2, mtime=0)
+            fetches.append({"index": 2, "url": f"https://fixture.invalid/{row_id}/2",
+                            "status": 200, "sha256": hashlib.sha256(raw2).hexdigest(), "file": "fetched/S002-2.raw.gz"})
+        rows.append({"id": row_id, "fetches": fetches})
         files[receipt_key(row_id)] = json_bytes(stale_receipt(row_id) if row_id == "S031" else fixture_receipt(row_id))
     files[POPULATION] = json_bytes({"round": 26, "rows": rows})
     files[MANIFEST] = json_bytes(base)
@@ -682,6 +724,33 @@ DUPLICATE_KEY_RECEIPT = (b'{"id": "S010", "verdict": "HOLD", "verdict": "STALE",
 
 LEDGER = {"pairs": [{"row": "S031", "file": SELFTEST_CORPUS, "statements": 2, "stale": 1}]}
 
+
+def manifest_sha(row_id: str, sha: str) -> Any:
+    """Mutation changing only the base manifest sha256 of one row (bytes and population untouched)."""
+
+    def mutate(files: dict[str, bytes]) -> None:
+        entries = json.loads(files[MANIFEST])
+        for entry in entries:
+            if entry["row"] == row_id:
+                entry["sha256"] = sha
+        files[MANIFEST] = json_bytes(entries)
+
+    return mutate
+
+
+def both(*mutations: Any) -> Any:
+    def mutate(files: dict[str, bytes]) -> None:
+        for mutation in mutations:
+            mutation(files)
+
+    return mutate
+
+
+EXTRA_TAG = append(SELFTEST_CORPUS, (stale_correction("S031") + "\n").encode("utf-8"))
+OUTSIDE_PAIR = {"row": "S099", "file": SELFTEST_CORPUS, "statements": 1, "stale": 0}
+# Statement counters (statements, statementsStale, statementCorrections) asserted with len(rows) == 32.
+COUNTS = {"complete_clean": (2, 1, 1), "reclassified_accounted": (2, 1, 1)}
+
 CASES: list[tuple[str, Any, int, tuple[str, ...], int, bool]] = [
     # name, mutation, expected exit, expected finding ids, expected decided rows, baseline without population
     ("complete_clean", None, 0, (), EXPECTED, False),
@@ -712,6 +781,30 @@ CASES: list[tuple[str, Any, int, tuple[str, ...], int, bool]] = [
      replace(STATEMENTS, json_bytes({"pairs": [dict(LEDGER["pairs"][0], stale=2)]})),
      1, ("statement_correction_absent",), EXPECTED, False),
     ("statements_absent", remove(STATEMENTS), 1, ("statements_absent",), EXPECTED, False),
+    ("quote_left_boundary", put("S004", dict(fixture_receipt("S004"), quote=fixture_quote("S004")[2:])),
+     1, ("quote_not_in_text",), EXPECTED - 1, False),
+    ("quote_right_boundary", put("S004", dict(fixture_receipt("S004"), quote=fixture_quote("S004")[:-2])),
+     1, ("quote_not_in_text",), EXPECTED - 1, False),
+    ("quote_26_words",
+     put("S006", dict(fixture_receipt("S006"),
+                      quote=fixture_quote("S006") + " " + " ".join(f"word{i}" for i in range(18)))),
+     1, ("quote_word_count",), EXPECTED - 1, False),
+    ("group_twin_quote",
+     both(put("S010", dict(fixture_receipt("S010"), quote="Shared group text india juliet kilo lima")),
+          put("S028", dict(fixture_receipt("S028"), quote="Shared group text india juliet kilo lima mike"))),
+     1, ("quote_not_row_specific",), EXPECTED - 2, False),
+    ("manifest_sha_mismatch", manifest_sha("S003", "0" * 64), 2, ("manifest_population_mismatch",), EXPECTED - 1, False),
+    ("second_fetch_tampered", replace(f"{WAVE}/fetched/S002-2.raw.gz", gzip.compress(b"altered copy\n", mtime=0)),
+     2, ("fetch_sha_mismatch",), EXPECTED - 1, False),
+    ("statements_duplicate_pair", replace(STATEMENTS, json_bytes({"pairs": LEDGER["pairs"] * 2})),
+     1, ("statements_duplicate_pair",), EXPECTED, False),
+    ("statements_row_outside_population",
+     replace(STATEMENTS, json_bytes({"pairs": LEDGER["pairs"] + [OUTSIDE_PAIR]})),
+     1, ("statements_row_outside_population",), EXPECTED, False),
+    ("statement_tags_unaccounted", EXTRA_TAG, 1, ("statement_tags_unaccounted",), EXPECTED, False),
+    ("reclassified_accounted",
+     both(EXTRA_TAG, replace(STATEMENTS, json_bytes({"pairs": [dict(LEDGER["pairs"][0], reclassified=1)]}))),
+     0, (), EXPECTED, False),
 ]
 
 
@@ -723,7 +816,7 @@ def run_case(name: str, mutate: Any, expect_exit: int, expect_ids: tuple[str, ..
         files = {f"{CORPUS}/README.md": b"baseline corpus\n"}
     elif mutate is not None:
         mutate(files)
-    with tempfile.TemporaryDirectory(prefix=".recheck-selftest-", dir=HERE) as scratch:
+    with tempfile.TemporaryDirectory(prefix="kake-recheck-selftest-") as scratch:
         repo = Path(scratch) / "fixture"
         revision = commit_fixture(repo, files)
         if baseline:  # the revision lacks the population, so the exact local copy is the only source
@@ -732,12 +825,15 @@ def run_case(name: str, mutate: Any, expect_exit: int, expect_ids: tuple[str, ..
         output, code = evaluate(repo, revision, pin)
     found = sorted({item["id"] for item in output["findings"]})
     source_ok = output["populationSource"] == "local" if baseline else True
+    counts = tuple(output[k] for k in ("statements", "statementsStale", "statementCorrections"))
+    counts_ok = name not in COUNTS or (counts == COUNTS[name] and len(output["rows"]) == EXPECTED)
     passed = (code == expect_exit and found == sorted(expect_ids)
-              and output["decided"] == expect_decided and source_ok)
+              and output["decided"] == expect_decided and source_ok and counts_ok)
     return {"case": name, "passed": passed, "exit": code, "expectedExit": expect_exit,
             "findings": found, "expectedFindings": sorted(expect_ids),
             "decided": output["decided"], "expectedDecided": expect_decided,
-            "populationSource": output["populationSource"]}
+            "populationSource": output["populationSource"], "statementCounts": list(counts),
+            "rows": len(output["rows"])}
 
 
 def run_selftest() -> tuple[dict[str, Any], int]:
