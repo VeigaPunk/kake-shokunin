@@ -314,7 +314,7 @@ def main() -> int:
         heading_text = heading_path.read_text(encoding="utf-8")
         if HEADING not in heading_text:
             raise AssertionError(f"fixture heading missing before mutation: {missing_heading_unit['path']}")
-        heading_path.write_text(heading_text.replace(HEADING, "", 1), encoding="utf-8")
+        heading_path.write_text(heading_text.replace(HEADING, ""), encoding="utf-8")
         missing_heading_revision = commit_fixture(
             repo,
             "counter selftest: missing C1 section heading",
