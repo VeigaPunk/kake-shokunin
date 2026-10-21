@@ -756,3 +756,26 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   operation; old paths gate reds, missing sources/history and SHONEN debt
   are not relabelled as new improvements. Final measurement and falsification
   receipts are recorded in the appended round22 measured entry.
+
+## Round 22 — recovery attempt 2: falsification integrated and measured (2026-10-21)
+
+- Motivation: attempt 1 ended without a report (`.ufo/watchdog.log`
+  `lane-dead-no-report kake round=22`, 2026-10-21T02:47:17). Its wave-2
+  reports (`.ufo/waves/round-22/w2/`, 43 of 64 seats; 21 dead, uncredited, not
+  respawned) named a false clean for `///path` canonical/base references
+  (Attack05), usage-output and repeated-`--manifest` gaps (BoundaryCLIErrors),
+  manifest symlink scope (BoundarySymlinks), a counter that repeated its
+  instrument's declared numerator and exited 0 on an unmeasurable baseline
+  (FalsifyCounting), and aggregate-only replay plus dead-seat wording
+  (FalsifyAdmissions). Eight residual seats (`.ufo/waves/round-22/residual/`)
+  added lexical `..` path collapse and a self-consistent stub matrix.
+- Landed `b539cc17c25e5f42fe8803e2aa42b4574c4b44c6`: validator, counter and
+  replay fixes, failure-capable probes (`postfix/`), S028/S029, QUALITY
+  "derived counts and resolver neighbours", knowledge-entry boundaries.
+- Measured C1 at that commit: 0/32 → 32/32 (`measure-before-v2.json`,
+  `measure-after-v2.json`). Correction to the round-22 entry above: its
+  "appended round22 measured entry" is this entry; the receipts are those
+  files plus `postfix/`, not attempt-1's `measure-after.json`.
+- Unchanged debts: paths gate red (3 targets, missSet 55), anchor census not
+  a gate, SHONEN unpromoted. No live property, account, publishing or host
+  operation; no tool installs.

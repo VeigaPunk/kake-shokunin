@@ -189,6 +189,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Capability | What it can now do | Evidence pointer | First-working round |
 |---|---|---|---|
 | Curated source registry | Keeps a contract-v1 registry of opened, scope-tiered sources (with rejections and study paths) whose mined rows back knowledge entries and appended corrections; census commands verify its shape | `corpus/SOURCES.md`; census argv/output `.ufo/round-20/resume/sources-census.txt`; mined-row citation check in `corpus/lessons/round-20.md` §Round-20 resume | 20 (resume) |
+| Offline static canonical preflight | Reads a version-1 manifest of local static HTML pages and reports, read-only and network-free, whether each page's explicit-head canonical link matches the publisher's declared expectedCanonical (clean / failed-policy / could-not-evaluate, stable finding ids, exits 0/1/2/64); no search-engine selection, rendering, headers or live-delivery claim | `scripts/canonical_audit.py`; `python3 .ufo/waves/round-22/measure.py --root . --revision b539cc17c25e5f42fe8803e2aa42b4574c4b44c6` → 32/32 (`.ufo/waves/round-22/measure-after-v2.json`); selftest 62/62 and replay per-case match in `.ufo/waves/round-22/postfix/` | 22 |
 
 Rows enter only through a round that demonstrates the capability running
 (`AXES.md` §Capabilities); none enter through this rollout.
@@ -275,3 +276,36 @@ signals or static publishing validation, chosen from PROVINCE's open ground.
 Round 21 enters no capabilities-table row; at the declared saturation line
 and one-round stagnation window the nudge permits that move. Publishing,
 restoration and remote property probes remain separately operator-gated.
+
+## Round 22 — offline static canonical preflight (recovery attempt 2)
+
+Measured commit: `b539cc17c25e5f42fe8803e2aa42b4574c4b44c6`. Baseline:
+`7c61c8cc791bde36dd5e3688bdfea2678d90146c`. Attempt-1 integration `c0fd6d5`.
+Scores remain at the legacy ceiling; C1 is a capability move on operability
+(tied-lowest owned axis at the saturation line; also the stagnation-nudge move
+planned above). Self-verdicts are author-side; admission belongs to the
+non-author closure.
+
+| Claim | Axis / score delta | Before → after | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 offline static canonical preflight | operability 10→10 (HOLD), capability entered | frozen 32-case matrix accepted 0/32 (validator absent, instrument validated) → 32/32, numerator derived from per-case rows against the digest-pinned oracle | `python3 .ufo/waves/round-22/measure.py --root . --revision <commit>` (baseline adds `--cases-root .`) | improved (capability), author-side; `.ufo/waves/round-22/measure-before-v2.json`, `measure-after-v2.json` (2 identical runs each, same runner sha256 `fa916ada…`) |
+
+Falsification integrated: wave 2 (43 of 64 seats reported) found a false
+clean for `///path` references, usage output/repeat-option gaps, symlink
+scope gaps and a counter that repeated its instrument's numerator; 8 residual
+seats found 2 more (lexical `..`, self-consistent stub). All fixed before the
+measured commit; `postfix/defect-probe` 2/8 → 8/8 and `postfix/counter-probe`
+0/3 → 3/3 rejected show each fix can fail on the `c0fd6d5` bytes.
+No owned-axis harm on exercised checks: paths gate red unchanged (3 targets,
+missSet 55, no new miss); corpus-contract exit 0 (`final-suite.txt`).
+Sources 27 → 29 rows (S028, S029; census exit 0 → 0). Expansion improved
+(new canonical-signal ground + capability); quality improved (bounded to the
+fixed defects); discernment improved locally (two mined mistakes with
+fail-capable fixes) pending the non-author spot-check.
+
+### Planned — supersedes round-22 plan
+
+Next steered round: freshness-axis or second publishing capability move; candidate:
+run the canonical preflight over an actual built artifact of an owned
+property (read-only, operator-provided build) or add redirect/header-free
+sitemap-vs-canonical consistency. Restore/retire and publishing stay operator-gated.

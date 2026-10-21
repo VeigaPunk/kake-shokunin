@@ -203,3 +203,13 @@ content) and `.ufo/state/*` belong to others and were left untouched.
 A residual seat left `scripts/__pycache__/` in the lane; removed, never committed.
 
 Tool installs/updates in recovery: none. pacman pause respected.
+
+### Measurement (recovery)
+
+`python3 .ufo/waves/round-22/measure.py --root . --revision b539cc17c25e5f42fe8803e2aa42b4574c4b44c6`
+→ exit 0, accepted 32/32 derived from rows, two identical runs
+(`measure-after-v2.json`); baseline `--revision 7c61c8c… --cases-root .` → exit 0,
+accepted 0, available false, instrumentValidated true (`measure-before-v2.json`).
+Same runner sha256 `fa916ada…` both sides. Final suite: corpus-contract exit 0;
+paths gate exit 1 with the carried 3-target / missSet-55 red and no new miss
+(`final-suite.txt`). Census after: exit 0 (`census-after.txt`).
