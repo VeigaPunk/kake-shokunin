@@ -147,3 +147,28 @@ The local-state rationale at line136 [sitemap-orphan-audit:c4] is historical. On
 ## Round-26 source recheck
 
 - Round-26 source recheck (2026-10-21, append-only; original lines unchanged). The round-20 correction lines in this entry cite S001, S002, S004 and S006 (lines 120-127). Each was judged against bytes re-fetched 2026-10-21 (`.ufo/waves/round-26/fetched/`, receipts `.ufo/waves/round-26/rechecks/S0NN.json`) and holds: S001 and S002 as above; S004 uploads the configured path as a gzip-compressed tar; S006 lists the files Jekyll does not build. The conclusions that the served set is the deployed artifact or build output, not the checkout, follow from these and stay marked [INFERENCE] where they were. Ledger pairs in `.ufo/waves/round-26/statements.json`; found by the falsify wave (w2/CounterCritic.md).
+
+## Round-27 provenance-range clarification (2026-10-21)
+
+Line2's historical `S001-S006` band is expanded, not silently reduced to
+its endpoints. The inline round20 corrections at lines120–127 use exactly
+S001, S002, S004 and S006, as their original disposition records confirm.
+The date2026-10-19 and base`cb807bc` remain historical and are not rewritten.
+
+- S003 HOLD at the contextual batch scope: round20 lesson A2 explicitly
+  connects this entry's served-set misconception with the S003-containing
+  mechanism group. This does not attribute every inline correction to S003.
+  Pair03A's evidence is admitted; Pair03B's stronger “no historical linkage”
+  conclusion is rejected. The narrower inline source set above governs.
+- [r27-recheck S005 STALE] The band over-attributes this entry's quote
+  corrections to S005. None of its eight round20 correction records uses
+  S005; the mechanism row A2 also omits it, while A3 applies it to other
+  entries' custom-domain errors. Correct support for the inline corrections
+  is S001, S002, S004 and S006. This is a partial attribution correction,
+  not stale dating, source drift, a new sitemap observation or a changed base.
+  The min/max-band alternative is preserved in both reviewers' reports;
+  the explicit entry-specific support set is chosen here.
+
+Evidence: `.ufo/round-20/resume/citation-disposition.json` platformCorrections;
+`corpus/lessons/round-20.md:261–262`; `.ufo/waves/round-27/pairs.json`,
+`w1/Pair03A.md`, `Pair03B.md`, `Pair07A.md`, `Pair07B.md` (wave-relative).

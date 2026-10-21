@@ -47,6 +47,15 @@ def count(root, revision):
     old=pinned_obj('.ufo/waves/round-26/statements.json')['pairs']
     reviewed={(p['row'],p['file']) for p in old}
     unknown={(p['row'],p['file']):{'units':p['seatUnverifiable'],'origin':'carried_unverifiable'} for p in old if p.get('seatUnverifiable',0)>0}
+    # Missing unit disclosures are new r27 evidence, never edits to r26.
+    errata_bytes=pathlib.Path(__file__).with_name('carry-errata.json').read_bytes()
+    if hashlib.sha256(errata_bytes).hexdigest()!='236d9e79b665ae997a7f8ae9a31c2d187979a7abcac0d15e60a28c51ef9d17e5':
+        raise ValueError('carry_errata_changed')
+    for item in json.loads(errata_bytes)['uncertainties']:
+        key=(item['row'],item['file'])
+        if key not in reviewed or hashlib.sha256(reference(item['evidence'])).hexdigest()!=item['evidenceSha256']:
+            raise ValueError('carry_errata_authority')
+        unknown[key]={'units':unknown.get(key,{}).get('units',0)+item['units'],'origin':'carried_unverifiable'}
     decided=reviewed-set(unknown)
     # The frozen contract makes the original obligations a minimum, even if
     # a later edit removes a citation. This adds no new expected outcome.
@@ -119,7 +128,7 @@ def count(root, revision):
     missing=sorted(pairs-decided)
     for (row,file),detail in sorted(unknown.items()):
         findings.append({'row':row,'file':file,'errors':[detail['origin']],'unverifiableUnits':detail['units']})
-    return {'revision':revision,'population':len(pop),'citingPairs':len(pairs),'reviewedPairs':len(reviewed & pairs),'decided':len(decided),'r26CarriedPairs':len(old),'r26CarriedFullyDecidedPairs':sum(p.get('seatUnverifiable',0)==0 for p in old),'carriedUnverifiableUnits':sum(p.get('seatUnverifiable',0) for p in old),'newDecided':len(new_decided),'unreviewed':[{'row':r,'file':f} for r,f in sorted(pairs-reviewed)],'missing':[{'row':r,'file':f} for r,f in missing],'findings':findings,'outcomes':outcomes,'scope':'Original41/57 baseline means durable pair reviews, not all statements HOLD. Frozen C1 after-clause requires HOLD/supported STALE and never counts UNVERIFIABLE decided. Original57 minimum plus monotone discoveries; metadata/EOF obligations retained. Structural review completeness cannot discharge six unresolved historical/local-behavior units.'}
+    return {'revision':revision,'population':len(pop),'citingPairs':len(pairs),'reviewedPairs':len(reviewed & pairs),'decided':len(decided),'r26CarriedPairs':len(old),'ledgerRecordedUnverifiableUnits':sum(p.get('seatUnverifiable',0) for p in old),'knownUnverifiableUnits':sum(x['units'] or 0 for x in unknown.values()),'knownUnverifiablePairs':len(unknown),'newDecided':len(new_decided),'unreviewed':[{'row':r,'file':f} for r,f in sorted(pairs-reviewed)],'missing':[{'row':r,'file':f} for r,f in missing],'findings':findings,'outcomes':outcomes,'scope':'Original41/57 baseline means durable pair reviews, not all statements HOLD. Frozen C1 requires HOLD/supported STALE and never counts UNVERIFIABLE decided. Original57 minimum plus discoveries; metadata/EOF retained. Raw ledger sum313 is mixed-convention; seven known unknown units across three pairs include a report-disclosed unit lost by r26 ledger fields.'}
 
 def main():
     if '--selftest' in sys.argv:

@@ -531,3 +531,24 @@ pending the independent non-author closure. Round-24 debt remains separate.
 ## Round27 — frozen repair-first claims
 
 C1 freshness (tied-lowest legacy10):41/57 citing pairs adjudicated→all frozen/discovered pairs decided, with grouped S001–S006 source-grounded this round. Count: `python3 -B .ufo/waves/round-27/count_c1.py --root . --revision <commit>`. C2 operability capability:0/16→16/16 frozen-r26 omissions detected, no false positives. Count: `python3 -B .ufo/waves/round-27/c2_count.py --root . --revision <commit>`. Base83528f7c486fd1b9a85e6c0bb643b25fa4fb9fba; contract.json/c2-oracle.json freeze expected outcomes before implementation. Source freshness score10→10, operability10→10; no numeric ceiling inflation. r26 author-side verify claim above is superseded by non-author rejected-honest-stop, corpus/lessons/round-26-verifier-spotcheck.md;313 units are not retroactively completed.
+
+### Round27 strict acceptance correction (before candidate measurement)
+
+The declared41/57 is **durable pair review coverage**, not fully supported
+status for every carried statement. Frozen contract.json:10/13 still requires
+all pairs HOLD/supported STALE and forbids counting UNVERIFIABLE decided.
+The two carried partial-UNVERIFIABLE pairs (six units) remain explicit.
+Stricter code separates reviewedPairs and decided; it must not print a clean
+C1 merely because the review set is complete. No original target, expected
+set or baseline file is rewritten. See strict-c1-disposition.json and LOG.
+C1 remains unprovable if these units remain unresolved; no credit or score
+increase is taken from review coverage alone. C2 is independently measured
+against the unchanged frozen16-pair omission set.
+
+Full-barrier erratum: the final carry audit found one additional S007
+UNVERIFIABLE unit absent from the old ledger fields. Known uncertainty is
+**7 units /3 pairs**, not the earlier six/two description; the raw old field
+sum6 stays unchanged. Original review baseline41/57 and target are preserved.
+Strict expected arithmetic is38/57→55/58, not a completed C1; actual outputs
+must be measured separately. Raw313 is a mixed-convention ledger-field sum,
+not the semantic unit denominator (`carry-errata.json`, CarryLedger report).

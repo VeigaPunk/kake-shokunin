@@ -231,3 +231,50 @@ survivor rows) and `.ufo/waves/round-26/statements.json`.
 - A recheck covers every corpus statement that cites a rechecked row, not only
   files listed in `usedBy`; derived locators (offsets, digests) are re-derived
   after any extractor change.
+
+## Complete knowledge citing sets and scoped synthesis — round27
+
+Grounding: `corpus/lessons/round-27.md` Mistakes and
+`corpus/lessons/round-26-verifier-spotcheck.md:11–13,117–123`.
+
+- Expand every member of grouped/range citations before defining the reviewed
+  knowledge-file set. Include provenance/date bands and EOF artifact references
+  at their own stated scopes; don't drop them because they are not teaching
+  claims. A new discovered obligation can enlarge, never shrink, the frozen set.
+  Failure witness: the unchanged r26 input has16 unadjudicated pairs even while
+  the old row counter exits0. `citing_set.py --selftest` exercises omitted
+  range interiors as well as literals, metadata and EOF references.
+- Judge each source's contribution to a composite recommendation, and label
+  the inferential/local-policy step. A row-level HOLD does not imply support
+  for every citing sentence. Do not invent an extra proposition to save an
+  irrelevant member of a source range. Rejecting S005's HTML-membership
+  attribution does not reject its domain-configuration teaching.
+- Historical dates/base coordinates remain historical. Incorrect source-set
+  attribution in a metadata band is a separate question: name precisely which
+  part is corrected, keep the dated observation, and retain reasonable dissent.
+  Presence of a STALE marker is not evidence that its correction is meaningful.
+- A pair review is not a universally true file or a HOLD for each statement.
+  Preserve inherited UNVERIFIABLE units by identity and do not rewrite earlier
+  units to increase a later tally. A syntactic completeness gate and a source
+  adjudication ledger are different evidences.
+- Freeze expected outcomes before implementation, and retain original counter
+  bytes. A stricter implementation repair names the motivating failure, old/new
+  source hashes and both original/corrected replays; it must not rewrite the
+  original expected set, lower the denominator or turn candidate output into
+  its own oracle. Fake/stub-echo tests are not behavioral acceptance evidence.
+
+Scope disclosure, not a weakening of the round26 criterion: this round's
+frozen inherited clause is the knowledge-entry citing set for32 prior external
+rows. The broader “every corpus statement” policy at lines231–233 remains
+open for outside-knowledge lesson/index/registry statements. Their declaration-
+revision census and the18 knowledge pairs for excluded S014/S019/S035 are
+recorded in the round27 lesson. Neither a green pair count nor this clarification
+claims that broader policy satisfied or retires it.
+
+Strict-status refinement from this round's own planning mistake: inventory
+carried UNVERIFIABLE subunits before promising all-pair HOLD/supported-STALE.
+`seatUnverifiable>0` is not erased by a durable review record. The frozen C1
+after-clause is left intact and remains unprovable while those units persist;
+the counter's current-consumer selftest must reject that real input, not
+invent a clean fixture or reinterpret a review tally as supported truth.
+Grounding: round27 lesson Strict C1 section and `strict-c1-disposition.json`.

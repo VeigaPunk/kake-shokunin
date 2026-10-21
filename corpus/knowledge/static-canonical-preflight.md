@@ -201,3 +201,47 @@ Historical round23 commands and their evidence remain valid at their named revis
 - Reclassified as a precision note (not STALE): the S026 block. Line 69's “does not … report all implicit closures” is weaker than, and consistent with, S026's sentence that the parser does not “call the end-tag handler for elements which are closed implicitly by closing an outer element”. Ledger: `reclassified: 1` (w2/Correction6S026.md).
 - Reclassified as precision notes (not STALE): both S030 blocks. “Self-closed” is the WHATWG parsing section's vocabulary (S031: a trailing solidus sets the tag token's “self-closing flag”; an unacknowledged flag on a non-void element is the parse error `non-void-html-element-start-tag-with-trailing-solidus`). Lines 110-111 cite S030 only for the 13 void names. The S030 syntax wording (“does not mark the start tag as self-closing”) remains the precise reading, and line 151 already gives it. Ledger: `reclassified: 2` (w2/Correction7S030.md, w2/Correction8S030.md).
 - S021 note: the line-21 fragment wording was STALE at base and is already corrected by the [r23-correction] at lines 140-142; the ledger records it as `staleAlreadyCorrected: 1`, not as a rejected finding (w2/Rejection10S021.md).
+
+## Round-27 grouped-citation adjudication (2026-10-21)
+
+The recommendation at lines52–54 is **local publisher policy / synthesis**:
+when an actual built/deployable artifact exists, derive the manifest from its
+HTML rather than assuming a checkout listing is the deployed set. It does
+not assert that every build differs from its checkout, or that any one
+source prescribes a canonical manifest. No production artifact or website
+is evaluated by this documentary recheck.
+
+All six members of the original S001–S006 range were opened and individually
+judged this round; the omitted range is not reduced to its endpoints.
+Observed received-body digests/access times and separately retained public
+representations: `.ufo/waves/round-27/fetched/manifest.json`. HTML is retained
+only as visible text: original attributes/received bytes are not retained,
+not reconstructable, and not claimed byte-identical. Plain action source
+may retain received bytes verbatim as the manifest explicitly distinguishes.
+Located source-specific judgments: `.ufo/waves/round-27/pairs.json` and its
+named A/B reports. This repairs new round27 evidence, not round26 admission:
+the earlier41-pair/313-unit ledger remains unchanged and its omission remains
+part of that rejected round's record.
+
+| Row | Contribution to the original recommendation | Located support (≤25 words) |
+|---|---|---|
+| S001 | HOLD, limited premise: the action archives a configured directory and excludes paths; checkout membership is not sufficient. | v4.0.0 action.yml, `inputs.path`: `description: "Path of the directory containing the static assets." required: true default: "_site/"`; archive exclusions are at lines29–36. |
+| S002 | HOLD, limited premise: artifact membership depends on version and hidden-file settings. | v4.0.0 release, What's Changed: “Potentially breaking change: hidden files (specifically dotfiles) will not be included in the artifact”. |
+| S003 | HOLD, limited premise: branch/source-folder selection and optionally built uploaded static files define publishing inputs. | Creating a custom GitHub Actions workflow, flow steps3–4: “If required by your site, build any static site files. Use the actions/upload-pages-artifact action to upload the static files as an artifact.” |
+| S004 | HOLD, limited premise: the deployment artifact is a packaged unit; this alone does not prove checkout divergence. | Configuring the upload-pages-artifact action: “The GitHub Pages artifact should be a compressed gzip archive containing a single tar file.” |
+| S005 | Rejected as support for this HTML-membership sentence; the source's own domain-configuration teaching still holds. | Configuring an apex domain, step4: “If you are publishing from a custom GitHub Actions workflow, no CNAME file is created”. |
+| S006 | HOLD, limited premise: Jekyll branch builds have default exclusions, modifiable by include/exclude settings; not every workflow uses Jekyll. | Configuring Jekyll: “By default, Jekyll doesn't build files or folders that: Are located in a folder called /node_modules or /vendor”. |
+
+- [r27-recheck S005 STALE] The source range at line54 over-includes S005.
+  It describes custom-domain/CNAME configuration, not which built HTML files
+  populate a manifest. A proposed extra host-component leg is not in the
+  original sentence and is not invented to save the attribution. Read the
+  recommendation as local synthesis supported by the scoped premises from
+  S001, S002, S003, S004 and S006 above; no CNAME servedness conclusion follows.
+- The line2 S020–S027 metadata band records historical opening dates, including
+  S022 and S023, not fresh round27 observations or individual support for
+  every body claim. Their registry/round22 records support the dates.
+  The line184 S008 retry aside is historical artifact provenance only, not
+  GNU-tar support for this entry. All three pairs are explicitly adjudicated.
+- Prior UNVERIFIABLE statement units remain disclosed; the new pair-completeness
+  count does not promote them to HOLD or establish perpetual source freshness.

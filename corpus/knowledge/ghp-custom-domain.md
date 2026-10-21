@@ -60,3 +60,14 @@ schema; no API request was made.
 ## Round-26 source recheck
 
 - Round-26 source recheck (2026-10-21, append-only; original lines unchanged). Rows S003, S005 and S007 were re-fetched by one public GET each (`.ufo/waves/round-26/fetched/manifest.json`, S008 via `manifest-retry.json`) and judged HOLD at their anchors against the retained bytes; receipts `.ufo/waves/round-26/rechecks/S0NN.json`, statement-level reviews `.ufo/waves/round-26/w1/Pair*.md`. Older verified-at/reopened dates in this entry remain the historical record of the earlier reading; they are not rewritten. Pointers labelled `at base cb807bc` stay base-scoped (QUALITY.md round-21 coordinate rule), so current-tree line movement is not a stale claim. Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
+
+## Round27 carried-uncertainty disclosure
+
+The old S007 review explicitly left the historical Markdown-representation
+claim at lines54–55 UNVERIFIABLE: that L1 Markdown artifact is not retained,
+and current HTML/schema agreement cannot prove what it exposed. The r26
+ledger omitted this unit by recording only its20 decided units and zero
+seatUnverifiable. This is one additional unresolved unit, not a fresh API
+probe or a STALE verdict. The original date/claim and all r26 bytes remain.
+R27 `carry-errata.json` records the missing uncertainty without rewriting
+the old ledger; strict C1 does not count this pair decided.

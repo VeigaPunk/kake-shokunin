@@ -1111,3 +1111,49 @@ probe/counter/target is retried to force a pass. The grouped-source repair and
 independent presence-only C2 capability continue; neither is relabelled full
 strict C1 completion. Arithmetic before execution is labelled inference in
 the disposition; real outputs are retained after runs.
+
+### Round27 — retention boundary and Git-mode regression
+
+A shape-only scan of the new uncommitted HTML observed two authenticity-form
+input shapes, never their values. Before committing captures, one bounded
+residual executor implemented public-visible-text HTML retention with separate
+received/retained digests and an offline migration. L1 ran that migration:
+exit0,8 records, eight own old filenames removed, no network helper loaded
+(`retention-shape-before.json`, `retention-migration.json`). This is data
+minimization, not an account-validity/security-incident inference or history
+purge; r26 filed bytes are untouched and HTML attributes/bytes not retained
+remain unproved. Actual selftests and independent checks are still required.
+
+L1 corrected a pre-integration manifest-path join in the delivered oracle
+selftest and made the retention note conditional for byte-preserved code.
+The source-opener/selftest remain real implementations, not stub output.
+Separately, static review found Git ls-tree text quoting unsafe for regular
+special-character filenames; L1 switched the new gate to NUL framing.
+The existing BuildGate identity authored a real isolated Git/working-tree
+identity regression without executing it. Source/report:
+`git_name_selftest.py`, `residual/GitNameRegression.md`; old prototype retained
+only as the explicit red-before input. No new identity or role replacement
+was counted for this same-identity resumption.
+
+### Round27 full-barrier corrections (original measurements preserved)
+
+All67 build identities completed with67 nonempty reports; no death/replacement.
+The final CarryLedger receipt identifies a lost S007 historical-Markdown
+uncertainty in its original r26 report. This supersedes the prior **known**
+six-unit/two-pair description: the immutable ledger fields still sum6, but
+known uncertainty is7 units across3 pairs. New hash-pinned `carry-errata.json`
+records the missing unit; no r26 byte or original57/16 oracle is rewritten.
+Strict C1 remains unprovable; revised arithmetic before execution is38/57
+strictly decided at base and55/58 at candidate, alongside41/57→58/58 reviews.
+
+The same audit reconciles raw sum(statements)=313 against318 report-attributed
+units and310 decided units inside that raw sum; one additional S025 HOLD unit
+was omitted by the ledger. These are accounting conventions, not a new semantic
+denominator. The original313 sum stays true and preserved, not relabelled.
+
+CarryLedger's reported pre-fix gate57-findings/23-of29 failures are accepted
+as before evidence, not rerun to confirm. L1 corrected the actual row-key
+versus pair-membership comparison. Author after-runs and the fresh85 payload
+will grade the fixed candidate; no pre-fix failure is laundered PASS.
+The Git-name before variant has that independent pair fix applied so its
+controlled before/after differs only in NUL-framed path enumeration.

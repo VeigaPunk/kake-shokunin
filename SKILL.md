@@ -590,3 +590,72 @@ Round-26 falsify-wave update: the counter also verifies every population fetch
 of a row, rejects in-group containment twins, and checks the statement ledger
 for duplicate pairs, rows outside the population and unaccounted tags
 (`reclassified`). Self-test: 24 cases, fixtures under `TMPDIR`, never the lane.
+
+## Knowledge-file citing-set completeness — round27
+
+Before re-verifying a publishing source, enumerate every knowledge-file
+citation, including grouped/range citations, metadata bands and appended
+provenance. `used-by` is routing information, never the reviewed denominator.
+The range-aware gate compares that finite citing set with a presence ledger;
+it cannot determine whether a quote supports its claim. Keep source-specific
+adjudications, historical/procedural artifact judgments and UNVERIFIABLE
+statement units separate (`corpus/lessons/round-27.md`, `pairs.json`).
+
+Current consumer input is derived from the unchanged r26 pair reviews plus
+round27 judgments, not a replacement for the original313-unit statement
+ledger:
+
+```sh
+python3 -B scripts/citing_set.py --root . --revision <commit> \
+  --population .ufo/waves/round-26/population.json \
+  --ledger .ufo/waves/round-27/complete-ledger.json --json
+```
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| citing-set | gate (syntactic pair completeness only) | command above; omit `--revision` for an explicit working-tree read | 0 clean; 1 failed pair/range finding; 2 could-not-evaluate input; 64 could-not-evaluate usage | `python3 -B scripts/citing_set.py --selftest`; delegates `scripts/citing_set_selftest.py` over `scripts/fixtures/citing-set/` |29 independent consumer-input cases with fixed exits/finding ids; r27 `frozen/expected.json` pins26 corpus inputs + population/ledger,28 total | normal command read-only; selftest scratch below `/fast/scratch/hyaku/kake-r27`, no network, no live Git/index/jj writes | kake |
+| knowledge-citing-count | gate (finite round27 measurement) | `python3 -B .ufo/waves/round-27/count_c1.py --root . --revision <commit>` | 0 all scoped pair review/binding conditions met; 1 missing/finding; 2 could-not-evaluate input/usage/frozen mismatch | same script `--selftest`, real disposable Git clones | original57 minimum and inherited population/ledger tied to declaration be375d9; ancestral discoveries accumulate; first committed fetch manifest/raw hashes; unchanged hash-pinned r26 extractor | read-only Git blobs; selftest writes/commits only its owned scratch clone, no network or live lane mutation | kake |
+| citing-set-frozen-count | gate (finite round27 capability measurement) | `python3 -B .ufo/waves/round-27/c2_count.py --root . --revision <commit>` | 0 candidate detects exact original16 omissions, no false positives; 1 measurement failed/absent gate; 2 could-not-evaluate input/usage/tampered snapshot | same script `--selftest`, real disposable Git clones and actual gate | original oracle/contract/28-input hash manifest at declaration be375d9; no candidate rewrite can bless new expected values | read-only Git blobs; owned scratch snapshot/clone only; no network | kake |
+
+The original count implementations remain at be375d9; stricter implementations
+and reasons are separately recorded before candidate measurement. Green
+structural results never retroactively admit r26 or discharge broader corpus,
+source-authenticity, live-site or policy-stopped round24 obligations.
+
+Strict round27 measurement note: `knowledge-citing-count` separates review
+existence from HOLD/supported-STALE status. Its exit0 requires the frozen
+after-clause, including no unresolved UNVERIFIABLE pair; review-complete
+inputs with six inherited unknown units remain exit1. This does not change
+the independent presence-only `citing-set`/C2 verdict. Exact original baseline
+and stricter interpretation: `strict-c1-disposition.json` under round27 wave.
+
+Focused Git-mode regression (part of the citing-set consumer evidence):
+
+```sh
+python3 -B .ufo/waves/round-27/git_name_selftest.py \
+  --gate scripts/citing_set.py --tmpdir /fast/scratch/hyaku/kake-r27
+```
+
+It compares exact missing/clean identities across working-tree and Git modes
+for ordinary, spaced, tabbed, newline and non-ASCII filenames. The saved
+pre-NUL-framing prototype under round27 `before/` is only a red-before test
+input, never a production alias or fallback.
+
+Source-opening retention boundary: `fetch_group.py --selftest` runs only
+non-secret offline fixtures. `--sanitize-existing --root .` performs the
+offline migration of this round's own captures, not another GET. HTML is
+retained as public visible text only; `receivedSha256/receivedBytes` record
+an observed body digest/length, while `sha256/bytes` bind the retained
+representation. Received HTML bytes/attributes are not retained, cannot be
+reconstructed from that view, and are not claimed byte-identical. Plain
+action source may retain received bytes as its manifest explicitly states.
+The earlier “raw hashes” shorthand refers to decompressed retained input,
+not an assertion of whole-HTTP-body retention or authenticity. No account
+validity or security incident follows from a public form-field shape.
+
+Final carry correction: the old uncertainty fields sum6, but a report-disclosed
+S007 unit was omitted. The strict measurement consumes hash-pinned round27
+`carry-errata.json`: known7 units/3 pairs remain undecided. The earlier six
+description is not the total. Likewise raw313 is a mixed-convention field
+sum, not a semantic unit denominator. Original57 baseline obligations and
+the16-pair C2 oracle remain unchanged.

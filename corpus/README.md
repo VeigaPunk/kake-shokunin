@@ -178,3 +178,40 @@ ghp-subpath-spotcheck and speedrun-pipeline). Final ledger: 313 row-statement
 units, 7 STALE corrections and 4 earlier tags reclassified as precision notes.
 The 8-correction figure above is the pre-falsify candidate. S024/S025 `used-by`
 now also names static-canonical-preflight; the round-26 lesson logs old→new.
+
+## Round27 repair-first source adjudication
+
+Round26 remains **rejected-honest-stop**, not admitted: its32/32 row receipts
+are real, but its full knowledge-entry citing-set clause omitted the grouped
+S001–S006 recommendation at `knowledge/static-canonical-preflight.md:53–54`.
+The non-author verifier records that gap; a structural green counter did not
+complete the claim.
+
+Round27 separately records the complete finite knowledge-file obligation in
+`.ufo/waves/round-27/{c1-before,pairs,discovered-pairs}.json`:57 original pairs
+and one conservatively included embedded evidence-report reference. The six
+grouped sources are individually source-grounded, the recommendation is labelled
+local synthesis, and unsupported attributions receive append-only corrections.
+Historical metadata and retry-provenance pairs are judged, not discarded or
+marketed as fresh platform observations.
+
+The new range-aware gate checks pair presence against a derived current input;
+it does not prove semantic source support, every statement true, perpetual
+freshness or website conformance. Lesson: `lessons/round-27.md`. The broader
+outside-knowledge corpus policy and excluded-source populations remain explicit
+scope debt, not a secretly reduced denominator. Domain frontier/ownership and
+round24's unresolved policy-stop are unchanged.
+
+Strict acceptance note: full review coverage is not full C1 success. Its
+frozen after-clause requires HOLD/supported STALE, never UNVERIFIABLE counted
+decided. Six inherited unknown statement units in two pairs remain explicit;
+C1 is unprovable if they are unresolved. The lesson/disposition and stricter
+counter distinguish reviewed from decided. No structural green, new C2
+capability or source-group repair silently lowers that bar.
+
+Final carry-audit qualification: raw r26 sum(statements)=313 remains unchanged
+but mixes counting conventions; it is not a semantic unit denominator.
+Known unresolved units are7 across3 pairs after the lost S007 historical
+representation unit is disclosed in round27 carry-errata.json. The earlier
+six-unit description is the old field sum only. C1 remains unprovable while
+these unknowns persist; complete review coverage is not strict support.
