@@ -180,3 +180,26 @@ Grounding: `corpus/lessons/round-25.md` Mistakes; S035 WCAG 2.2 section 5.2.
 - A policy-interrupted assignment stays held. Changing a role, provider or
   wording is not permission to repeat it. Round25's new accessibility
   preparation is separate work and carries no round24 admission credit.
+
+### Round-25 falsification refinements
+
+Grounding: `corpus/lessons/round-25.md` build/falsify dispositions and
+`.ufo/waves/round-25/w2/{ReviewTool,ReviewCounter,ReviewLimits,ReviewSelftest}.md`.
+
+- Source-reviewed card prose is judged by people, not a nonempty-string rule.
+  The readiness gate reports only structure and quote binding; the finite
+  measurement additionally pins the exact reviewed card bytes.
+- A candidate that ships a tool must ship its own pinned inputs. Only an
+  absent-tool baseline may use a separately pinned source oracle; a Git read
+  failure is not evidence of absent capability.
+- JSON interoperability applies to every new packet input, not merely an
+  older receipt profile: duplicate members, non-finite constants and
+  unsupported nesting are could-not-evaluate with JSON, not last-value-wins
+  or a traceback. These are local data-profile choices.
+- A heading-quote fixture must contain enough words to survive the quote
+  floor and must include raw text beside normativeText, so a haystack
+  regression can actually fail. Status fixtures include an unlisted value
+  and missing key, not only a denylist that the test itself teaches.
+- A review finding quotes the actual saved field, never a reconstructed
+  complete source sentence. Review322's reported29-word quote did not match
+  the stored25-word field; its unrelated semantic findings were still kept.

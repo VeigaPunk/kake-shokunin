@@ -25,6 +25,25 @@ def normalized(text):
     return re.sub(r'(\()\s+', r'\1', re.sub(r'\s+([,.;:)])', r'\1', text))
 
 
+def strict_json(raw):
+    def unique_object(pairs):
+        value = {}
+        for key, item in pairs:
+            if key in value:
+                raise ValueError('duplicate JSON member')
+            value[key] = item
+        return value
+
+    def reject_constant(value):
+        raise ValueError('non-finite JSON constant')
+
+    try:
+        return json.loads(raw, object_pairs_hook=unique_object,
+                          parse_constant=reject_constant)
+    except RecursionError:
+        raise ValueError('JSON nesting unsupported') from None
+
+
 def result(verdict, accepted=0, criteria=None, findings=None):
     return {'schema': SCHEMA, 'verdict': verdict, 'expected': EXPECTED,
             'accepted': accepted, 'criteria': criteria or [],
@@ -100,8 +119,8 @@ def load(root):
         if (hashlib.sha256(raw_population).hexdigest() != POPULATION_SHA256
                 or hashlib.sha256(raw_source).hexdigest() != SOURCE_SHA256):
             return result('could-not-evaluate', findings=['snapshot_tampered']), 2
-        population = json.loads(raw_population)
-        cards = json.loads((root / CARDS).read_text(encoding='utf-8'))
+        population = strict_json(raw_population)
+        cards = strict_json((root / CARDS).read_text(encoding='utf-8'))
     except (OSError, UnicodeError, ValueError):
         return result('could-not-evaluate', findings=['input_invalid']), 2
     return validate(population, cards)
@@ -110,6 +129,7 @@ def load(root):
 def selftest():
     population = {'criteria': [{'id': str(i), 'title': 'Criterion ' + str(i),
         'level': 'A', 'source': 'https://www.w3.org/example#' + str(i),
+        'text': 'Heading only words specific synthetic criterion information',
         'normativeText': 'A grounded source sentence for this criterion.'} for i in range(EXPECTED)]}
     cards = [{**{k: r[k] for k in ('id', 'title', 'level', 'source')},
         'sourceQuote': 'A grounded source sentence for this criterion.', 'publisherCheck': 'Read the complete criterion.',
@@ -130,7 +150,7 @@ def selftest():
     for name, field, value, finding in (
         ('long_quote', 'sourceQuote', 'word ' * 26, 'quote_too_long'),
         ('short_quote', 'sourceQuote', 'a', 'quote_too_short'),
-        ('heading_quote', 'sourceQuote', 'Criterion 0', 'quote_not_from_source'),
+        ('heading_quote', 'sourceQuote', 'Heading only words specific synthetic criterion information', 'quote_not_from_source'),
         ('false_result', 'status', 'passed', 'status_not_assessed')):
         changed = copy.deepcopy(cards)
         changed[0][field] = value
@@ -159,12 +179,16 @@ class Parser(argparse.ArgumentParser):
 
 
 def main(argv=None):
-    parser = Parser(description=__doc__)
+    parser = Parser(description=__doc__, add_help=False)
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--json', action='store_true')
     parser.add_argument('--selftest', action='store_true')
     try:
-        args = parser.parse_args(argv)
+        tokens = list(sys.argv[1:] if argv is None else argv)
+        for flag in ('--root', '--json', '--selftest'):
+            if sum(token == flag or token.startswith(flag + '=') for token in tokens) > 1:
+                raise UsageError('duplicate option')
+        args = parser.parse_args(tokens)
     except UsageError:
         output, code = result('could-not-evaluate', findings=['usage']), 64
     else:

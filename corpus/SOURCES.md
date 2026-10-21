@@ -52,6 +52,7 @@ This is kake's curated reading list: each row records what a source teaches, the
 - Body-level markup after the head — S030 → S031 → S024: accept void self-closing, treat SVG/MathML as foreign, and still fail closed where HTML parsing (integration points, breakout, a body base) can return.
 - Empty-authority network-path rejection — S029 → S028 → S027: read `///path` as an empty authority by URI grammar, reject an empty http(s) host by HTTP semantics, and do not trust stdlib joining to validate it.
 - Publishing receipt parsing — S032 → S033 → S034: parse observation timestamps and HTTP metadata against explicit grammars, then enforce JSON interoperability and lane-specific integrity policies; round-24 lesson separates those policies from RFC requirements.
+- Publisher accessibility preparation — S035 (success criterion → linked definitions → section 5.2): scope each review question, retain exceptions and defined terms, then separate packet readiness from full conformance and operator authorization.
 
 ## Search log
 

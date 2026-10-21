@@ -916,3 +916,28 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   assignment, probe or counter is repeated, rephrased, rerouted or replaced.
   The existing L0 policy-stop question is retained and restated for round25;
   this unrelated packet neither resolves it nor grants old-round credit.
+
+### Round-25 author-side falsification integration
+
+- Candidate landed `9f62cda0a6b71a9c0c86d2088f01673f25787715`.
+  Fresh W2 concluded64 seats:56 completed and8 capacity deaths, no
+  replacements; terminal errors and report digests are in w2-outcomes.json.
+  L1 completed the eight uncovered card reviews, not new seat identities.
+- Integrated source-semantic findings and common detached-card
+  authorization/record boundaries; the exact before/after fields and a
+  rejected false quote-count finding are in card-corrections.json.
+  All55 identities and not-assessed statuses are retained. The corrected
+  frozen-final snapshot is new; original frozen/ bytes remain intact.
+- Fixed packet JSON/CLI and counter boundaries found by ReviewTool,
+  ReviewCounter and ReviewSelftest: strict parsing, JSON usage/help output,
+  duplicate-option rejection, no fixture fallback for a present-tool
+  candidate, typed Git/tool disagreement, complete heading/status fixtures,
+  and exact reviewed-card pinning. Tests/proofs are implemented here;
+  observed execution is recorded only after the coordinator suite.
+- Delivered `corpus/handoffs/accessibility-preparation.md` to the property
+  operator as preparation, with named tabi/kagi boundaries, no target
+  evaluation or publishing authority. Updated the knowledge entry, registry,
+  QUALITY and source-study path without rewriting historical corpus lines.
+- W1/W2 report findings are author-side. Old round24 remains held; no old
+  interrupted probe/counter was executed, no model/provider policy was
+  bypassed, no seat replaced, and no system/tool install performed.

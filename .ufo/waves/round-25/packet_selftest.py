@@ -165,7 +165,7 @@ def build_cases(population_raw, source_raw, population, ids, cards):
         cases.append({
             'name': name,
             'exit': exit_code,
-            'verdict': {0: 'clean', 1: 'failed', 2: 'could-not-evaluate'}[exit_code],
+            'verdict': {0: 'clean', 1: 'failed', 2: 'could-not-evaluate', 64: 'could-not-evaluate'}[exit_code],
             'findings': sorted(finding_ids),
             'cards': cards if case_cards is DEFAULT else case_cards,
             'population': population_raw if case_population is DEFAULT else case_population,
@@ -179,6 +179,17 @@ def build_cases(population_raw, source_raw, population, ids, cards):
     add('cards_absent', 2, ['input_invalid'], ABSENT, criteria_rows=False)
     add('cards_malformed_json', 2, ['input_invalid'], b'{', criteria_rows=False)
     add('cards_wrong_top_level', 2, ['input_invalid'], {'cards': cards}, criteria_rows=False)
+    duplicate_status = json.dumps(cards).replace(
+        '"status": "not-assessed"', '"status": "passed", "status": "not-assessed"', 1)
+    add('cards_duplicate_member', 2, ['input_invalid'], duplicate_status.encode(), criteria_rows=False)
+    add('cards_nonfinite', 2, ['input_invalid'], b'[NaN]', criteria_rows=False)
+    add('cards_nested_unsupported', 2, ['input_invalid'], b'[' * 2000 + b']' * 2000, criteria_rows=False)
+    for flag in ('--help', '--unknown-option'):
+        add('usage_' + flag[2:], 64, ['usage'], cards, criteria_rows=False)
+        cases[-1]['extra_args'] = [flag]
+    for extra in (['--json'], ['--root', '.']):
+        add('duplicate_option_' + extra[0][2:], 64, ['usage'], cards, criteria_rows=False)
+        cases[-1]['extra_args'] = extra
 
     normalized_cards = copy.deepcopy(cards)
     normalized_row = next((row for row in population['criteria'] if row['id'] == '1.2.4'), None)
@@ -228,6 +239,9 @@ def build_cases(population_raw, source_raw, population, ids, cards):
     short_quote = changed(cards, 0, 'sourceQuote',
                           prefix_words(population['criteria'][0]['normativeText'], 1))
     add('quote_too_short', 1, ['quote_too_short'], short_quote)
+    heading_quote = prefix_words(population['criteria'][0]['text'], 8)
+    add('quote_heading_doclink', 1, ['quote_not_from_source'],
+        changed(cards, 0, 'sourceQuote', heading_quote))
 
     partial_words = copy.deepcopy(cards)
     first_words = list(re.finditer(r'\S+', population['criteria'][0]['normativeText']))
@@ -246,8 +260,11 @@ def build_cases(population_raw, source_raw, population, ids, cards):
         fabricated_quote += ' unique'
     not_source[0]['sourceQuote'] = fabricated_quote
     add('quote_not_from_source', 1, ['quote_not_from_source'], not_source)
-    for status in ('passed', 'failed', 'inapplicable', 'conformant'):
+    for status in ('passed', 'failed', 'inapplicable', 'conformant', 'supports'):
         add('status_' + status, 1, ['status_not_assessed'], changed(cards, 0, 'status', status))
+    missing_status = copy.deepcopy(cards)
+    del missing_status[0]['status']
+    add('status_missing', 1, ['fields_mismatch', 'status_not_assessed'], missing_status)
     return cases
 
 
@@ -256,6 +273,7 @@ def run_case(case, packet_tool, fixture_base, ids):
     command = [
         sys.executable, '-B', str(packet_tool), '--root', str(fixture_root), '--json',
     ]
+    command.extend(case.get('extra_args', []))
     completed = subprocess.run(
         command, capture_output=True, text=True, check=False, timeout=30,
     )

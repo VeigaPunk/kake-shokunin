@@ -553,3 +553,22 @@ remains operator-gated.
 | Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
 |---|---|---|---|---|---|---|---|
 | accessibility-packet | gate (packet structure only) | `python3 -B scripts/accessibility_packet.py --root . --json` | 0 structurally clean; 1 failed packet requirement; 2 could-not-evaluate input; 64 could-not-evaluate usage. Every JSON result keeps websiteConformance=not-assessed. | `python3 -B scripts/accessibility_packet.py --selftest`; focused CLI cases `python3 -B .ufo/waves/round-25/packet_selftest.py --root .` | `.ufo/waves/round-25/population.json`, source-wcag22.html and frozen/expected.json; revision-bound `measure.py` evidence in round25 lesson | ordinary path read-only; selftest synthetic in-memory fixtures; focused tests temporary fixtures; no network or website | kake |
+
+Round-25 current handoff: `corpus/handoffs/accessibility-preparation.md`.
+The operator authorizes a named property/build/process scope; tabi receives
+authorized browser/AT evaluation, kagi owns any credential custody, and
+publishing stays operator-owned. Display actual card instructions with
+`python3 -m json.tool corpus/knowledge/accessibility-review-cards.json`.
+The packet gate checks structure and quotation binding, not prose semantics
+or WCAG conformance. The finite counter pins the source-reviewed card bytes;
+new prose requires new source review rather than automatic admission.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| accessibility-packet-counter | gate (round measurement) | `python3 -B .ufo/waves/round-25/measure.py --root . --revision <commit>` | 0 clean fixed packet; 1 capability/packet failed; 2 could-not-evaluate Git/input/pin/tool disagreement; 64 could-not-evaluate usage | same script `--selftest` invokes isolated counter_selftest.py | population/source/reviewed-card SHA256 constants; final corrected snapshot `frozen-final/expected.json`; original frozen/ remains historical structure evidence | read-only Git blobs; candidate execution temporary snapshot; selftest Git writes only a disposable temporary repository with isolated config, never lane index/jj | kake |
+
+The packet row's current frozen proof is
+`python3 -B .ufo/waves/round-25/frozen_replay.py --frozen .ufo/waves/round-25/frozen-final`.
+Its `--selftest` on that snapshot checks both a clean replay and
+snapshot_tampered exit2. Quote and fixture-coverage proofs under round25
+are subordinate fixed-fixture evidence, not website checks.

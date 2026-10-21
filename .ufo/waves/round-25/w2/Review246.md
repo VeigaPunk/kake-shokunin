@@ -1,0 +1,13 @@
+# Review 2.4.6 — Headings and Labels (AA)
+
+**Verdict: AGREE — no actionable defect found.** Reviewed only this card against the saved WCAG 2.2 source, extracted population, and packet rules. No website was assessed.
+
+- **Identity and quote:** Card `id` `2.4.6`, title `Headings and Labels`, level `AA`, and source URL ending `#headings-and-labels` match the saved criterion heading and level (source section `#headings-and-labels`, lines 1494–1498). `sourceQuote` — “Headings and labels describe topic or purpose.” — is the exact seven-word criterion body at line 1500 and matches population `normativeText` (population entry 2.4.6, lines 286–292); it is within the packet's 6–25-word range.
+- **Check and evidence:** `publisherCheck` follows the criterion's requirement that headings and labels describe topic or purpose. Its label scope is grounded in the linked `label` definition (`#dfn-labels`, lines 3210–3213): text or another component with a text alternative presented to identify a component. The definition's notes say labels are presented to all users and are not limited to HTML `<label>` elements (lines 3215–3219), which supports the card's qualified examples of labels. The repeated-identical-text check is contextual and limited to cases where topic or purpose differs; it does not impose unconditional uniqueness. `evidenceNeeded` asks for reviewer judgments and rationale, rather than treating a source inventory as a conformance result.
+- **Failure example and limitation:** The `failureExample`'s “Section 1”, “Section 2”, and “Field 7” are plausible non-descriptive headings/labels for the stated content and component; it does not claim a real page failed. `limitation` correctly says this criterion does not itself require adding headings or programmatic markup, and that source review or automated detection cannot establish descriptiveness or conformance. `status` is `not-assessed`.
+
+**Findings / minimal corrections:** None.
+
+**Residual risk:** Whether a heading or label describes its topic or purpose is contextual human judgment; the card states this and does not claim to resolve it automatically.
+
+**Verification gaps:** No LSP device was available: `read xd://lsp` returned “No such tool” and its mounted-device list did not include LSP. This is a document-only criterion review, with no code callers or diagnostics in scope. No website, browser, or runtime was assessed.

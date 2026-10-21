@@ -21,6 +21,7 @@ CARDS = "corpus/knowledge/accessibility-review-cards.json"
 PACKET_TOOL = "scripts/accessibility_packet.py"
 POPULATION_SHA256 = "4751dc24db2e3698c2b276bb81bff57412c8fbf6c1c0a62f1aa2ad9e0f903058"
 SOURCE_SHA256 = "6e3c5fe397257cae509a2fb4752b73062cf8cbeb92c2cec618989b17e4cf7057"
+CARDS_SHA256 = "65aa760b0943c13b1f154f139e8b6c7c0dac5cbf40e0be5d1db232bafb479f16"
 FIELDS = frozenset({
     "id", "title", "level", "source", "sourceQuote", "publisherCheck",
     "evidenceNeeded", "failureExample", "limitation", "status",
@@ -72,11 +73,14 @@ def strict_json(raw: bytes) -> Any:
             result[key] = value
         return result
 
-    return json.loads(
-        raw.decode("utf-8"),
-        parse_constant=reject_constant,
-        object_pairs_hook=unique_object,
-    )
+    try:
+        return json.loads(
+            raw.decode("utf-8"),
+            parse_constant=reject_constant,
+            object_pairs_hook=unique_object,
+        )
+    except RecursionError:
+        raise ValueError("JSON nesting unsupported") from None
 
 
 class GitStore:
@@ -90,7 +94,8 @@ class GitStore:
                if not key.startswith("GIT_")}
         env.update(GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull)
         return subprocess.run(
-            ["git", "-c", "core.hooksPath=/dev/null", "-C", str(self.root), *args],
+            ["git", "--no-replace-objects", "--literal-pathspecs", "-c",
+             "core.hooksPath=/dev/null", "-C", str(self.root), *args],
             env=env,
             capture_output=True,
             check=False,
@@ -110,24 +115,30 @@ class GitStore:
             raise InputFailure("input_invalid") from None
 
     def read(self, revision: str, path: str) -> bytes | None:
+        listing = self.git("ls-tree", "-z", revision, "--", path)
+        if listing.returncode != 0:
+            raise InputFailure("git_unavailable")
+        if not listing.stdout:
+            return None
         done = self.git("cat-file", "blob", f"{revision}:{path}")
-        return done.stdout if done.returncode == 0 else None
+        if done.returncode != 0:
+            raise InputFailure("git_unavailable")
+        return done.stdout
 
 
 def pinned_bytes(root: Path, store: GitStore, revision: str,
-                 path: str, expected_sha256: str) -> bytes:
+                 path: str, expected_sha256: str, allow_local: bool = False) -> bytes:
     raw = store.read(revision, path)
     if raw is not None:
         if hashlib.sha256(raw).hexdigest() != expected_sha256:
             raise InputFailure("snapshot_tampered")
         return raw
 
-    # The pinned source inputs are immutable fixtures, not candidate deliverables.
-    # The baseline predates their round-25 paths, so use an exact local copy only
-    # when that revision has no blob for the fixture.
-    candidates = [root / path]
-    candidates.extend(parent / path for parent in root.parents)
-    candidates.extend(parent / path for parent in Path(__file__).resolve().parents)
+    # Only an absent-tool baseline can use the exact frozen oracle from the
+    # caller's root or this counter's repository. Candidates must ship inputs.
+    if not allow_local:
+        raise InputFailure("input_invalid")
+    candidates = [root / path, Path(__file__).resolve().parents[3] / path]
     seen: set[Path] = set()
     for candidate_path in candidates:
         try:
@@ -147,12 +158,14 @@ def pinned_bytes(root: Path, store: GitStore, revision: str,
     raise InputFailure("input_invalid")
 
 
-def pinned_population_bytes(root: Path, store: GitStore, revision: str) -> bytes:
-    return pinned_bytes(root, store, revision, POPULATION, POPULATION_SHA256)
+def pinned_population_bytes(root: Path, store: GitStore, revision: str,
+                            allow_local: bool = False) -> bytes:
+    return pinned_bytes(root, store, revision, POPULATION, POPULATION_SHA256, allow_local)
 
 
-def pinned_source_bytes(root: Path, store: GitStore, revision: str) -> bytes:
-    return pinned_bytes(root, store, revision, SOURCE, SOURCE_SHA256)
+def pinned_source_bytes(root: Path, store: GitStore, revision: str,
+                       allow_local: bool = False) -> bytes:
+    return pinned_bytes(root, store, revision, SOURCE, SOURCE_SHA256, allow_local)
 
 
 def population_rows(raw: bytes) -> list[dict[str, str]]:
@@ -310,8 +323,8 @@ def invoke_candidate(tool: bytes, cards: bytes | None, population: bytes,
 
 def capability_absent(rows: list[dict[str, str]]) -> dict[str, Any]:
     criteria = [{"id": row["id"], "accepted": False,
-                 "findings": ["input_invalid"]} for row in rows]
-    return packet_result("failed", 0, criteria, ["input_invalid"])
+                 "findings": ["capability_absent"]} for row in rows]
+    return packet_result("failed", 0, criteria, ["capability_absent"])
 
 
 def input_invalid_rows(rows: list[dict[str, str]]) -> dict[str, Any]:
@@ -326,10 +339,10 @@ def evaluate(root: Path, revision: str) -> tuple[dict[str, Any], int]:
     try:
         store = GitStore(root)
         resolved = store.resolve(revision)
-        population = pinned_population_bytes(root, store, resolved)
-        source = pinned_source_bytes(root, store, resolved)
-        rows = population_rows(population)
         tool = store.read(resolved, PACKET_TOOL)
+        population = pinned_population_bytes(root, store, resolved, tool is None)
+        source = pinned_source_bytes(root, store, resolved, tool is None)
+        rows = population_rows(population)
         cards_raw = store.read(resolved, CARDS)
     except InputFailure as exc:
         return invalid_input(exc.finding), 2
@@ -338,6 +351,8 @@ def evaluate(root: Path, revision: str) -> tuple[dict[str, Any], int]:
 
     if tool is None:
         return capability_absent(rows), 1
+    if cards_raw is not None and hashlib.sha256(cards_raw).hexdigest() != CARDS_SHA256:
+        return invalid_input("snapshot_tampered"), 2
 
     try:
         tool_result, tool_exit = invoke_candidate(
@@ -361,16 +376,28 @@ def evaluate(root: Path, revision: str) -> tuple[dict[str, Any], int]:
             expected_exit = 2
 
     if tool_exit != expected_exit or not strict_equal(tool_result, expected_result):
-        return invalid_input("input_invalid"), 2
+        return invalid_input("tool_mismatch"), 2
     return expected_result, expected_exit
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = Parser(description=__doc__)
-    parser.add_argument("--root", required=True, type=Path)
-    parser.add_argument("--revision", required=True)
+    parser = Parser(description=__doc__, add_help=False)
+    parser.add_argument("--root", type=Path)
+    parser.add_argument("--revision")
+    parser.add_argument("--selftest", action="store_true")
     try:
-        args = parser.parse_args(argv)
+        tokens = list(sys.argv[1:] if argv is None else argv)
+        for flag in ("--root", "--revision", "--selftest"):
+            if sum(token == flag or token.startswith(flag + "=") for token in tokens) > 1:
+                raise UsageError("duplicate option")
+        args = parser.parse_args(tokens)
+        if args.selftest:
+            if args.root is not None or args.revision is not None:
+                raise UsageError("selftest uses only isolated fixtures")
+            return subprocess.call([sys.executable, "-B",
+                                    str(Path(__file__).with_name("counter_selftest.py"))])
+        if args.root is None or args.revision is None:
+            raise UsageError("root and revision are required")
     except UsageError:
         output, exit_code = invalid_input("usage"), 64
     else:

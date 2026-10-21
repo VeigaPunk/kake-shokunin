@@ -113,3 +113,62 @@ measurements is recorded in `corpus/lessons/round-25.md` and the fleet report.
 Prior round-24 reconciliation/replay claims remain separate unadmitted debt;
 this packet neither repeats their interrupted probes nor resolves their
 policy-stop disposition.
+
+## Current handoff and measurement limits — round-25 review correction
+
+The concrete preparation handoff is
+`corpus/handoffs/accessibility-preparation.md`. The **operator** receives it
+and alone authorizes any later property evaluation. **tabi** receives
+authorized browser/assistive-technology work; **kagi** owns any credential
+custody. No card's imperative wording grants execution or account authority.
+The reusable card text is displayed with:
+
+```sh
+python3 -m json.tool corpus/knowledge/accessibility-review-cards.json
+```
+
+This supplements workflow steps 1–4 above: scope must include relied-upon
+technologies, accessibility-support combinations, any conforming alternate
+version and non-interference across all included content. Every later
+evaluation record needs reviewer, date, delivered build, full page/process
+scope, variants, methods, evidence, applicability and rationale, plus the
+operator's authorization. The shared handoff table applies to every card,
+in addition to its criterion-specific evidence instructions.
+
+The gate validates **structure, metadata and quotation binding only**. A
+nonempty prose field is not mechanically judged true, adequate or usable;
+the semantic card reviews are separate evidence. In particular replacing
+instructions with one character can satisfy a nonempty-field rule but cannot
+establish a useful review packet. The finite round measurement therefore
+also pins the exact source-reviewed card bytes; a later prose change requires
+new semantic review and a new measurement pin, never automatic admission.
+
+Quote length is counted **after** the documented punctuation-spacing
+normalization; punctuation separated by extraction whitespace is not an
+additional word. Local JSON loading rejects duplicate object members,
+non-finite constants and unsupported nesting as could-not-evaluate; these
+are packet interoperability choices, not WCAG requirements. Both `--help`
+and unknown options yield usage JSON with exit64, not a clean packet verdict.
+
+The source is the dated Recommendation, not an assertion about every future
+W3C revision. To recheck the release, open https://www.w3.org/TR/WCAG22/ and
+compare its This version URL with S035; the offline gate cannot observe a new
+online release. W2 ReviewSource reopened both URLs this round and reported
+identical bytes. No automatic network check or fresh website evaluation is
+performed by the packet tool.
+
+Corrected snapshot: `.ufo/waves/round-25/frozen-final/expected.json` pins
+every input to the final replay. The original `frozen/` remains historical
+packet-structure evidence, not the corrected semantic packet.
+Replay the corrected snapshot with:
+
+```sh
+python3 -B .ufo/waves/round-25/frozen_replay.py --frozen .ufo/waves/round-25/frozen-final
+```
+
+Repeated entry-tool/counter options are usage errors, not last-value-wins
+selection of a different input tree. The counter distinguishes absent
+capability, Git read failure, unavailable/tampered input and tool/oracle
+disagreement. Only an absent-tool baseline may use the separately pinned
+source oracle; a candidate that ships the tool must ship its own source
+inputs. No ancestor-directory fixture search is used.

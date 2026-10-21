@@ -1,0 +1,17 @@
+# Review: WCAG 2.2 SC 1.4.13 — Content on Hover or Focus
+
+**Verdict: Agree; no actionable semantic defects found in this card.**
+
+The card at `corpus/knowledge/accessibility-review-cards.json` has the exact `id` (`1.4.13`), title (`Content on Hover or Focus`), level (`AA`), and pinned source URL. Its `status` is `not-assessed`. `sourceQuote` is an exact 23-word substring of the extracted `normativeText`, from the criterion's opening condition; it is not merely a heading or note.
+
+The checklist tracks the scope condition in the normative criterion: additional content shown and then hidden by pointer hover or keyboard focus. It excludes user-agent-controlled presentation not modified by the author, matching the criterion's exception and Note 1's HTML `title` tooltip example. Its examples of custom tooltips, sub-menus, and popovers accord with Note 2. Its skip-link exclusion accords with Note 3, which says hidden components made visible on focus are not additional content when they do not add content.
+
+The three checks preserve the criterion's specific rules: Dismissible includes the input-error and non-obscuring/non-replacing exceptions; Hoverable applies conditionally when pointer hover can trigger the content; Persistent retains the three permitted end conditions. “Such as pressing Escape” is presented as an example mechanism, not a universal requirement. “With no timeout” does not remove the explicit allowance for information that is no longer valid. The linked definitions support this reading: `#dfn-input-error` defines rejected user-provided information (with notes covering omitted required data and data outside required format/values); `#dfn-mechanism` defines a process or technique and notes that it need not be supplied only by the content; `#dfn-user-agents` defines software that retrieves and presents web content.
+
+The failure example is criterion-specific: a tooltip that obscures adjacent content and disappears as the pointer moves onto it conflicts with Hoverable, while failure to dismiss it using Escape with the trigger still active conflicts with Dismissible; the obscuring condition means the non-obscuring exception does not apply. The evidence and limitation fields correctly require human interaction evidence for the behavioral checks, reject source/CSS/automated results as sufficient conformance evidence, and explicitly leave the criterion not assessed. No misleading blanket claim or omitted criterion exception requiring correction was found.
+
+**Source anchors:** saved pinned source `.ufo/waves/round-25/source-wcag22.html`, `#content-on-hover-or-focus` (criterion, exception, Notes 1–3; approximately lines 1069–1095); linked definitions `#dfn-input-error` (lines 3145–3164), `#dfn-mechanism` (lines 3318–3329), and `#dfn-user-agents` (lines 3954–3962); extracted population `population.json`, entry `1.4.13` (`normativeText`).
+
+**Verification gap:** No `lsp` device is mounted (`xd://lsp` returned “No such tool”), so LSP status, references, definitions, and diagnostics were unavailable. This is a data-only card review; direct reads of the card, extracted normative text, and saved source ground the semantic judgment. Grep was used only to locate source anchors, not as semantic proof.
+
+**Minimal correction:** none.

@@ -155,3 +155,11 @@ Actual accessibility evaluation, browser/assistive-technology execution,
 conformance claims and publication remain open or operator/adjacent-owned.
 Round24's interrupted reconciliation/replay falsification remains held and
 is not repeated or satisfied by this unrelated documentation capability.
+
+Round-25 concrete preparation handoff:
+`handoffs/accessibility-preparation.md`, received by the operator.
+`knowledge/accessibility-review-cards.json` carries criterion-specific
+instructions and the shared authorization/evaluation-record boundary.
+The corrected finite snapshot is `.ufo/waves/round-25/frozen-final/` relative
+to the lane root; the original frozen/ remains historical evidence only.
+No card stores an actual website result.
