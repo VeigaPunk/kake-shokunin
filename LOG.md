@@ -829,3 +829,9 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   now returns the named JSON input error, exit 2, rather than exit 1.
   Evidence: `.ufo/waves/round-23/snapshot-field-{before,after}.json`.
   No broad malformed-metadata or network-authentication claim is added.
+
+- Committed recovery re-measured at
+  `dd58390d3a0b2942ffdd8f0330c0da3dda7b87e1`: C1 17/17 exit 0,
+  C2 12/12 exit 0 (`.ufo/waves/round-23/recovery-final-counts.json`).
+  The fixed snapshot producer does not alter received page bytes, the
+  canonical validator, the claim populations or expected canonical policy.

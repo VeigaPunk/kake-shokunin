@@ -364,3 +364,8 @@ Recovery clarification: the report's canonical discernment verdict is
 outside-verification trend. The contentType follow-up changes the targeted
 snapshot probe from the inherited 11-case proof to 12 cases: same expanded
 probe red 11/12 before → green 12/12 after (`snapshot-field-*.json`).
+
+Committed recovery measurement: `dd58390d3a0b2942ffdd8f0330c0da3dda7b87e1`,
+using the same C1/C2 commands above, again yields 17/17 (exit 0) and 12/12
+(exit 0); `.ufo/waves/round-23/recovery-final-counts.json`. Baseline remains
+`6847479d404d1dd93ecb59f99ff735bd7f010a4a` (0/17 and 0/12, exit 1 each).

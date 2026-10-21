@@ -248,3 +248,21 @@ authenticate GET observations. The `live-snapshot` registry clarification now
 names caught output-I/O and integrity errors as exit 2 and records the exact
 targeted probe command. The final report distinguishes the inherited measured
 revision from the later committed-tip counter receipts; no timestamp is renewed.
+
+RecoveryClaimAudit confirmed the frozen populations, runner digests, duplicate
+receipt runs, claim arithmetic and source quotes; its complete read-only result
+is in `.ufo/waves/round-23/recovery-audits.json`. Precision clarifications:
+C2's five canonical-missing cases have verdict `failed-policy` and finding id
+`canonical_missing`, not a verdict named canonical_missing. `final-suite.json`
+was measured at `1b309c93fb0b2007ef15587100e7a1cdb9ef5573`, before the final
+metadata fix; the later recovery verification is separately recorded, and the
+known red paths result was not rerun. `postfix/stable-smoke.txt` concatenates
+intermediate records; its first counter selftest is superseded by the
+authoritative 28-case `postfix/counter-selftest-final.json`.
+
+Final code/evidence commit `dd58390d3a0b2942ffdd8f0330c0da3dda7b87e1`
+was measured with the unchanged counters: C1 17/17 exit 0 and C2 12/12 exit 0
+(`recovery-final-counts.json`); the frozen before side remains 0/17 and 0/12,
+exit 1. These author-side checks support bounded improvements only.
+Discernment's canonical trend verdict is unchanged until the separate
+non-author admit/reject spot-check; "improved locally" earlier is not that gate.
