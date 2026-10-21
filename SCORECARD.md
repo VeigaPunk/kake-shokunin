@@ -192,6 +192,13 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Offline static canonical preflight | Reads a version-1 manifest of local static HTML pages and reports, read-only and network-free, whether each page's explicit-head canonical link matches the publisher's declared expectedCanonical (clean / failed-policy / could-not-evaluate, stable finding ids, exits 0/1/2/64); no search-engine selection, rendering, headers or live-delivery claim | `scripts/canonical_audit.py`; `python3 .ufo/waves/round-22/measure.py --root . --revision b539cc17c25e5f42fe8803e2aa42b4574c4b44c6` → 32/32 (`.ufo/waves/round-22/measure-after-v2.json`); selftest 62/62 and replay per-case match in `.ufo/waves/round-22/postfix/` | 22 |
 | GET snapshot + canonical receipt replay | Captures 12 named public surfaces read-only and replays the offline canonical policy on committed served bytes; distinguishes receipt completeness from clean policy and 404s; no rendered-DOM or publication approval | `scripts/live_snapshot.py`; `.ufo/waves/round-23/{live/,measure-c2-after-v2.json,evaluability.json}` measured at `5bef55b1464d7ccbff802edab400d138597a621c`; receipt coverage 12/12, policy outcomes 3 clean / 5 canonical_missing / 4 not-served | 23 |
 
+Round-24 maintenance pointer for the existing replay capability:
+`scripts/receipt_replay.py` supersedes the historical round23 readers for
+new receipt validation. Its recorded controls stay17/17 and12/12 at
+`faace82dcf50e1c563d437f2caecb77a9a865880`; strict malformed-field results
+are in `.ufo/waves/round-24/implementation-suite.json`. First-working round
+remains23; no new capability or independent round24 admission is inferred.
+
 Rows enter only through a round that demonstrates the capability running
 (`AXES.md` §Capabilities); none enter through this rollout.
 
@@ -381,3 +388,46 @@ Claims frozen in `.ufo/waves/round-24/contract.json`; `contract-amendment.json` 
 | C2 malformed receipt replay | operability 10→10 | correct81/130; reject61/110, accept20/20; exit1 | `python3 -B .ufo/waves/round-24/measure_c2.py --root . --revision <commit> --json` | `measure-c2-before.json`; population SHA256 16da1936f30e2e7bfa405d9b51dfc18ab686edbd9f1d36f65d76626b0cab7b8f |
 
 The 130-case selection preserves candidate observations, rejects unrepresentable companion fixtures, and keeps accepted controls. It is not an exhaustive malformed-JSON proof. Original round-23 runners are historical evidence; the maintained replay is a successor, not a byte rewrite of those receipts or runners.
+
+### Round-24 recovery record — local measurements, admission withheld
+
+The implementation was pushed at `faace82dcf50e1c563d437f2caecb77a9a865880`.
+Its original coordinator executed the after measurements before the provider
+`cyber_policy` termination; the replacement audited their JSON, Git revisions
+and identical counter digests without rerunning or rerouting the interrupted
+falsify assignments. Evidence: `.ufo/waves/round-24/recovery/provenance-audit.json`.
+
+| Claim | Axis / delta | Before → after on the frozen population | Measured revisions | Local verdict |
+|---|---|---|---|---|
+| C1 paths reconciliation | freshness 10→10 HOLD | accepted 0/19→19/19; paths exit 1→0; 12 observed misses added and 4 recovered tokens removed from the pin (55→63) | `ab85dbdba4499f35f7dab9c9635b9b605679dbe5` → `faace82dcf50e1c563d437f2caecb77a9a865880` using the C1 command above | improved-bounded, author-side; no source restored or retired by kake |
+| C2 malformed-receipt replay | operability 10→10 HOLD | correct 81/130→130/130; rejection expectations 61/110→110/110; acceptance controls 20/20→20/20; command exit 1→0 | same revisions using the C2 command above | improved-bounded on this matrix, author-side; no universal schema or originating-network-truth claim |
+
+The C1-only revision `3d07733b482f88c42cb008397188237c80e42b67`
+already measures C1 19/19 while C2 remains 81/130. Counter source digests are
+identical at all three revisions. This is causal separation, not independent
+non-author admission.
+
+**Admission/progression withheld:** wave1 has 55 completed reports of 72 seats;
+wave2 spawned 64 but has zero completed report files. Its durable terminal
+records show 62 aborted, one connector quota error and one interruption
+without a final result. No dead seat was replaced. Two new documentary-only
+recovery audits are not substitutes for the unfinished falsification.
+`.ufo/waves/round-24/recovery/interruption-inventory.json` preserves the
+provider error and all seat outcomes. No new capability-table row is claimed.
+
+Sources 31→34 (A29→32, C2 unchanged); all original31 rows unchanged.
+Source census exit0→0, with the final W04 warning that S033 reuses RFC9110
+under a distinct scope. Expansion unchanged; quality improved-bounded from
+the recorded local repairs; discernment unchanged pending an outside
+admit/reject spot-check. Full-round no-harm is not independently established.
+
+Planned: retain the policy-stop and seek operator/non-author disposition
+of this same round's evidence. No next round or renewed falsify dispatch
+is authorized by this entry; the L0 question begins “Policy-stop disposition”.
+
+Documentary-audit qualification: retained sweep-selftest outputs are not
+shape-only conformant (concrete temporary/home-resolved paths; override
+shape omitted from argv). This is disclosed, not retroactively redacted or
+counted as evidence of a fully recorded isolation environment.
+`recovery/docs-audit.md` and the lesson's Documentary-audit dispositions
+carry this conformance debt and exact-command/timestamp clarifications.

@@ -70,3 +70,107 @@ The two immutable non-author cites are corrected here; their original files are 
 S032/S033/S034 used-by cells changed from `corpus/lessons/round-24.md` to `corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-24.md` when that knowledge section landed; status mined→mined and recheck365d→365d. The original31 rows remain unchanged.
 
 C1-only landing `3d07733b482f88c42cb008397188237c80e42b67`: same C1 counting command accepted19/19, sweep exit0, command exit0 (`measure-c1-c1-only.json`). At that revision C2 still uses the historical readers and remains81/130, exit1 (`measure-c2-c1-only.json`). This is observed causal separation in the C1→C2 direction, not just two axis names.
+
+## Recovery closure — policy interruption, not falsification success
+
+Replacement coordinator KakeR24R inherits the same claimed round24 attempt1.
+The original coordinator's final model error at 2026-10-21T12:22:15.004Z was:
+`Codex error event: This content was flagged for possible cybersecurity risk.`
+Its code was `cyber_policy`. The recovery does not adopt the provider's
+suggestion to rephrase or change an access tier. No refused probe is retried,
+rephrased, rerouted or replaced; no host/provider configuration is changed.
+
+The original implementation at `faace82dcf50e1c563d437f2caecb77a9a865880`
+had already run both counters before that error: C1 accepted19/19, paths0;
+C2 correct130/130 (reject110/110, accept20/20), both commands exit0.
+Original stdout/stderr/argv remain in `measure-c1-after.json`,
+`measure-c2-after.json` and `implementation-suite.json`. Recovery
+`recovery/provenance-audit.json` audits those receipt digests, the three
+committed revisions and identical counter bytes. It is documentary
+verification, not a newly executed gate result.
+
+The retained implementation suite also records replay controls17/17 and12/12,
+replay selftest129, C1selftest53 assertions, matrix selftest7, sweep35,
+canonical matrix32 and clean corpus-contract. These are inherited local
+checks, not a completed independent falsify wave or outside admission.
+
+### Corrected wave accounting
+
+- Wave1:72 seats;55 completed reports;17 deaths (16 Haiku429,1 connector
+  Antigravity429). No dead seat is credited for recovered candidate code.
+- Wave2:64 spawned;0 completed report files. Terminal JSONL projections:
+  62 `Request was aborted`,1 connector429,1 interrupted without a final
+  result. The coordinator's policy error is separate from those seat errors.
+- Two new recovery seats inspect documentation/evidence only, not the
+  refused assignments. Round total138 seats. All are author-side.
+- Evidence: `recovery/interruption-inventory.json`; original wave registries
+  and specs are retained. Wave reservations released through the host helper.
+  No source checkout, publishing/account surface or driver state is changed.
+
+### Sources & frontier census
+
+Original start output, command
+`/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`:
+`kake ok /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md`;
+exit0 (`census-before.txt`). Recovery end output for the identical argv:
+`kake W04 S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes`
+then `kake ok /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md`;
+exit0. Full tab-separated output and Git-derived before/after row histograms:
+`recovery/source-census.json`. Rows31→34, A29→32, C2 unchanged;
+mined27→30, queued2 and rejected2 unchanged. Old31 rows unchanged.
+S032–S034 used-by evolution is recorded above; no prior row cell is changed.
+The added source search-log note records the original build readings, not a
+new independent source reopening.
+
+### Additional mistake record
+
+| Class | Evidence pointer | Captured-by | Fix / limit |
+|---|---|---|---|
+| provider | recovery/interruption-inventory.json: coordinator cyber_policy plus incomplete wave2 | explicit no-reroute/no-replacement user instruction | Preserve measurements and interruption evidence; stop refused work, withhold admission/progression, file the L0 Policy-stop disposition question. This is disposition, not a claimed code repair. |
+
+The fleet-root `git status --porcelain` sweep on recovery showed only
+tracked sibling/driver state changes and no untracked file; no owned misroot
+copy was found or moved. No operator-* lesson exists in the lane at this
+sweep; round23's outside ruling is MANIFEST rounds[394] (no standalone
+round-23-verifier-spotcheck.md file exists here).
+
+### Final author-side verdicts
+
+C1 and C2 show bounded local measured improvements; full falsification and
+independent no-harm/admission remain incomplete. Expansion unchanged (no new
+uncovered knowledge entry/capability); quality improved locally on the
+recorded repaired populations; discernment unchanged pending the outside
+admit/reject spot-check. The earlier Gate “admitted candidates” heading is
+local curation, never full-round admission. “Independent C1 measurement”
+above means causal separation only. No SHONEN promotion or next round starts.
+
+### Documentary-audit dispositions
+
+- `recovery/docs-audit.md` confirms distinct units:19 path targets with101
+  frozen original citation coordinates;30 sidecar corrections (4 absent,
+  26 restored);130 malformed-matrix cases (110 rejects,20 accepts).
+  The pristine17/17 and12/12 replay controls are separate denominators.
+- **Retained conformance defect:** `implementation-suite.json` and
+  `sweep-selftest.json` expose concrete temporary/home-resolved selftest
+  paths, while their recorded argv omits the override-variable/isolation
+  shape. This fails QUALITY's shape-only probe-environment criterion.
+  Neither output is rewritten or represented as fully redacted/isolated
+  evidence. It does not by itself falsify the reported test tally; the
+  conformance defect and broader admission hold remain.
+- Frozen contract `count` strings are shorthand, not exact argv.
+  The measurement receipts carry `python3 -B ... --json` and the complete
+  root/revision arguments; use those for reproduction. The frozen contract
+  is not rewritten to hide this abbreviation.
+- Timestamp clarification: the first displayed round-open paths run was
+  11:33:15Z; `paths-before.json` was generated at11:35:35Z by a separate
+  capture. Neither is a Git commit timestamp. After-measurement receipts
+  have no `executedAt` member; the original coordinator's tool event spans
+  12:18:27.711Z–12:19:08.152Z and contains both after-counter exits0,
+  before the12:22:15.004Z policy error. The event projection is appended in
+  `recovery/provenance-audit.json`, not inferred from the commit time.
+- `recovery/evidence-audit.md` identifies one build-seat interpreter install:
+  CPython3.10.22 and3.15.0 via `uv python install 3.10 3.15`, uv0.13.0,
+  uv-managed channel, for pre-3.11/current-doc datetime comparisons
+  (`w1/SourcePythonDatetime.md:72`). No package/system upgrade is reported;
+  neither replacement coordinator nor documentary recovery seat installed
+  a tool. The original build's interpreter installs remain disclosed.

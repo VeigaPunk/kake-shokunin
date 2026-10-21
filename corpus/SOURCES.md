@@ -70,6 +70,8 @@ Round 22 recovery bounded question (2026-10-21): which primary sources decide ho
 
 Round 23 bounded question (2026-10-21): which primary text decides whether body-level SVG/MathML and self-closed void tags can change a head canonical? Opened WHATWG HTML syntax (start tags, void elements) and parsing (in body, foreign content) sections; identified 2, screened 2, included 2 (S030, S031), excluded 0. Seats also cited the WHATWG document-base-URL algorithm while attacking body bases; it was not curated as a row because the fix (reject any base after the head) does not depend on its details. Re-opened this round without row changes: S021, S023, S024, S025, S026 (w1/Reopen* reports).
 
+Round 24 bounded question (2026-10-21): which primary grammars distinguish malformed publishing-receipt fields from supported producer values? Opened RFC Editor texts RFC3339, RFC9110 and RFC8259; identified 3, screened 3, included 3 scoped tier-A rows (S032–S034), excluded 0 registry candidates. The Python datetime documentation was opened as a supplemental parser counterexample, not a fourth registry candidate. Source commands, access times, digests and quotes are retained in round24 w1/SourceRFC3339.md, SourceRFC9110MediaType.md and SourceRFC8259Json.md. Stop: timestamp, media-type and JSON grammar now have direct primary grounding; field profiles remain lane policy. The policy-interrupted wave2 source-reopening seats produced no completed reports and are not credited as independent verification.
+
 ## Leads (unopened)
 
 - GitHub Docs: Verifying your custom domain for GitHub Pages — https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages

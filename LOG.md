@@ -848,3 +848,42 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
 
 - Independently landed C1 at 3d07733b482f88c42cb008397188237c80e42b67: accepted19/19, sweep exit0; same C2 matrix remains81/130 on that C1-only revision. Receipts: `measure-c1-c1-only.json`, `measure-c2-c1-only.json`.
 - C2's executor died with provider429; recovered its uncommitted clone script as candidate code, then coordinator integrated the null-header, 204-body, UTC-bound and safe-URL corrections. `scripts/receipt_replay.py` is the maintained successor; original round23 counters/receipts and populations remain untouched. Source-backed knowledge, QUALITY criteria and SKILL gate registry are updated. Its 130-case after result is recorded only after execution against the landed revision.
+
+### Round-24 replacement recovery — policy-stop disposition
+
+- Original coordinator KakeR24 had already pushed C1
+  `3d07733b482f88c42cb008397188237c80e42b67` and C2
+  `faace82dcf50e1c563d437f2caecb77a9a865880`. Its after measurements were
+  C1 19/19 exit0 and C2 130/130 exit0, with pristine replay controls17/17
+  and12/12. Those executions predate its provider `cyber_policy` error;
+  `.ufo/waves/round-24/implementation-suite.json` retains exact outputs.
+- Same round24 attempt1 replacement KakeR24R audited measurement receipts,
+  frozen population/counter digests and commit timestamps; no refused probe
+  or interrupted falsify assignment was rerun, rephrased, rerouted or replaced.
+  `.ufo/waves/round-24/recovery/provenance-audit.json` distinguishes
+  documentary review from new execution.
+- Reconciled original wave outcomes:72 build seats,55 reports/17 deaths;
+  64 falsify seats,0 completed reports (62 aborted,1 connector429,1
+  interruption without final). Two new documentary recovery audits are
+  author-side, not replacement falsifiers; total138. Exact seat errors:
+  `recovery/interruption-inventory.json` under round24 wave evidence.
+- Source registry31→34, A29→32; original31 rows unchanged. Source census
+  exit0→0, with W04 duplicated RFC9110 URL across distinct scopes disclosed.
+  `recovery/source-census.json` records the command, output and histograms.
+  Added the missing bounded source search-log note without altering rows.
+- Appended SCORECARD/lesson recovery records, preserving earlier bytes.
+  C1/C2 local measured improvements are not full-round admission:
+  unfinished falsification, outside admit/reject review and independent
+  no-harm remain debt. L0 question begins “Policy-stop disposition”.
+  No SHONEN promotion, new round, account/publication/domain-source action,
+  host package install or global configuration change occurred in recovery.
+- Documentary audits `recovery/{docs-audit,evidence-audit}.md` confirm
+  measurement units and disclose retained shape-only selftest-path output
+  as a conformance defect (not silently rewritten). Contract count strings
+  are shorthand; receipt argv is exact. Original tool-event timestamps
+  12:18:27.711Z–12:19:08.152Z confirm both after counters completed before
+  the12:22:15.004Z policy error; see provenance-audit.json.
+- Tool-install disclosure for the original build: SourcePythonDatetime
+  installed CPython3.10.22 and3.15.0 via uv0.13.0's managed interpreter
+  channel (`uv python install 3.10 3.15`) to compare pre-3.11/current-doc
+  datetime behavior. Recovery installed nothing; no pacman/system upgrade.
