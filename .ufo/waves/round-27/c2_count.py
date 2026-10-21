@@ -2,11 +2,18 @@
 """Frozen C2 oracle: candidate gate must reject the unmodified inherited r26 citing set."""
 import argparse,hashlib,json,pathlib,subprocess,tempfile,sys
 W='.ufo/waves/round-27/'
+DECLARATIONS='be375d90afc6fc7aca369ab3cf5247bf460aeed2'
 def main():
+    if '--selftest' in sys.argv:
+        return subprocess.call([sys.executable,'-B',str(pathlib.Path(__file__).with_name('oracle_selftest.py')),'--kind','c2','--source-root',str(pathlib.Path(__file__).resolve().parents[3])])
     p=argparse.ArgumentParser();p.add_argument('--root',type=pathlib.Path,required=True);p.add_argument('--revision',required=True);a=p.parse_args()
     def b(path): return subprocess.check_output(['git','-C',str(a.root),'show',a.revision+':'+path],stderr=subprocess.DEVNULL)
     try:
-        oracle=json.loads(b(W+'c2-oracle.json'));exp=json.loads(b(W+'frozen/expected.json'))
+        originals={path:subprocess.check_output(['git','-C',str(a.root),'show',DECLARATIONS+':'+path],stderr=subprocess.DEVNULL) for path in (W+'c2-oracle.json',W+'frozen/expected.json',W+'contract.json')}
+        for path,data in originals.items():
+            if b(path)!=data:
+                print(json.dumps({'verdict':'could-not-evaluate','finding':'frozen_input_changed','file':path}));return 2
+        oracle=json.loads(originals[W+'c2-oracle.json']);exp=json.loads(originals[W+'frozen/expected.json'])
         with tempfile.TemporaryDirectory(prefix='c2-',dir='/fast/scratch/hyaku/kake-r27') as t:
             root=pathlib.Path(t)
             for path,digest in exp['sha256'].items():
@@ -23,7 +30,7 @@ def main():
     except subprocess.CalledProcessError as e:
         if e.cmd[-1].endswith(':scripts/citing_set.py'):
             print(json.dumps({'revision':a.revision,'expected':16,'detected':0,'passed':False,'finding':'gate_absent'}));return 1
-        raise
+        print(json.dumps({'verdict':'could-not-evaluate','error':'git_input_unavailable'}));return 2
     except Exception as e:
         print(json.dumps({'verdict':'could-not-evaluate','error':type(e).__name__+': '+str(e)}));return 2
 if __name__=='__main__':sys.exit(main())
