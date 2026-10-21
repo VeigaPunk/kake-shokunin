@@ -113,3 +113,21 @@ Grounding: `corpus/lessons/round-22.md` §Recovery attempt 2 Mistakes;
   path including usage errors, and an argument that can be repeated either
   has defined multi-value semantics or is a usage error; "last value wins"
   never decides a verdict.
+
+### Correction register — round 23
+
+Grounding: `corpus/lessons/round-22-verifier-spotcheck.md` routed notes 1–3.
+
+- **[r23-correction 2026-10-21]** In "Derived counts and resolver neighbours —
+  round 22 recovery" the first criterion's last sentence ("Fails if
+  `postfix/counter-probe.py` against the counter exits 0.") inverts the
+  predicate: counter-probe.py exits 0 when every counter-example is rejected.
+  Read it as: the criterion fails if `counter-probe.py` against the counter
+  exits nonzero (any counter-example accepted). The defect-probe sentence
+  ("exits 1") is correct as written. The original line stays for history.
+- A receipt that names a disposable runner path (`/tmp/...`) must carry the
+  command that recreates the runner from Git (e.g. `git show <commit>:<path>`);
+  a tmpfs path alone is not evidence. Round 22's runners are recorded in
+  `.ufo/waves/round-22/postfix/REPRODUCE.md`.
+- Recovered misroot files keep their content but live with the wave evidence
+  that produced them, not at the lane root.
