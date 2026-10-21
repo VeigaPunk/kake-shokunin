@@ -171,3 +171,10 @@ their anchors (`.ufo/waves/round-26/rechecks/`). The five platform/canonical
 knowledge entries citing them carry an appended "Round-26 source recheck"
 section: dated HOLD record plus 8 `[r26-recheck S0NN STALE]` statement
 corrections. No coverage-map ground was added; this is quality maintenance.
+
+Falsify-wave final: nine knowledge entries were rechecked (the five above plus
+the round-20 correction tails in publish-channels, sitemap-orphan-audit,
+ghp-subpath-spotcheck and speedrun-pipeline). Final ledger: 313 row-statement
+units, 7 STALE corrections and 4 earlier tags reclassified as precision notes.
+The 8-correction figure above is the pre-falsify candidate. S024/S025 `used-by`
+now also names static-canonical-preflight; the round-26 lesson logs old→new.

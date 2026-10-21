@@ -1032,3 +1032,32 @@ The compact baseline6883f1d0/55 wording above is not a different commit.
   scratch-bound deviations retained in the lesson, not hidden.
 - The old `adjudicatedBy: KakeR25` was accurate for W1; the ledger now names
   both coordinators and dates the new adjudication. No tools installed.
+
+- W2 UncoveredLessonCites additionally found the stale S024/S025 `used-by`
+  cells: lesson-only → knowledge-entry plus lesson (old→new in round-26
+  lesson). Cells repaired under SOURCES v1; no row/status/recheck change.
+
+### Round-26 measured outcome (2026-10-21)
+
+- Measured source revision `b44daedc9658d86374f1c3e3cdfc3a6951d0bdf6` (landed implementation):
+  baseline `97404de4ff73d6c8a4f87385cf5fdf36dca7f006` 0/32 exit 1 → 32/32 HOLD exit 0,
+  ledger 313 units / 7 STALE corrections / 4 reclassified tags; no findings.
+  Command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
+  Full captures: `verification/measure-before-final-counter.json`, `measure-final.json`.
+- Sandboxed gates at the landed implementation: counter selftest 24/24 exit 0;
+  extractor selftest 74/74 exit 0; corpus contract exit 0, 0 findings;
+  offline freshness sweep exit 0. Red-before extractor has 22 failures
+  against the old extractor; green-after has none. Initial red-before
+  scratch-layout error was repaired before the retained failure witness.
+- End census exit 0 with the inherited W04 S033 duplicate URL warning;
+  35→35 rows (A33/C2; mined31/queued2/rejected2), added by tier 0/0/0.
+  Only S024/S025 used-by cells changed as logged. Preservation check at
+  `verification/no-harm-final.json`: every original knowledge-file byte
+  remains a prefix; no existing domain source or gate behaviour changed.
+
+- W2 complete: 64/64 reports, zero dead seats (w2-outcomes.json); round total
+  128 seats (64 inherited W1 + 64 newly dispatched W2). L1 holds planner.
+  W1 had only two executor seats, below the prompt's three-executor role
+  minimum; this inherited conformance deficit is reported, not padded.
+- Final scratch disclosure additionally includes S032's transient /tmp file
+  (self-reported deleted). No seat/provider death and no tool install reported.

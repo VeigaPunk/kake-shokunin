@@ -510,3 +510,19 @@ Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision
 Score stays 10→10 (HOLD); measured outcomes are appended only after execution.
 Contract: `.ufo/waves/round-26/contract.json` plus `contract-amendment.json`.
 Round-24 C1/C2 remain unadmitted debt; no stopped work is repeated.
+
+### Round-26 measured outcome (replacement L1, 2026-10-21)
+
+C1 freshness **verified author-side**: baseline `97404de4ff73d6c8a4f87385cf5fdf36dca7f006` 0/32 (exit 1,
+`receipts_absent`) → first candidate `e28312b14b076584fedd696fae2a684e460bd11e` 32/32 (exit 0) →
+landed implementation `b44daedc9658d86374f1c3e3cdfc3a6951d0bdf6` 32/32 (exit 0, HOLD 32,
+UNVERIFIABLE rows 0, findings 0). Final counter ledger: 313 row-statement
+units, 7 STALE corrections, 4 earlier STALE tags reclassified as precision
+notes; 6 UNVERIFIABLE statement units disclosed separately.
+Counting command unchanged: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
+Exact outputs: `.ufo/waves/round-26/verification/measure-before-final-counter.json`,
+`measure-final.json`; selftest 24/24 exit 0, text selftest 74/74 exit 0.
+Legacy score stays freshness 10→10; operability 10→10, no new capability
+claimed. Quality maintenance is measured by the receipt delta, not a scalar
+increment. Expansion unchanged; quality improved; discernment unchanged
+pending the independent non-author closure. Round-24 debt remains separate.

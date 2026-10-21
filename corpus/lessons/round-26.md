@@ -124,3 +124,30 @@ Adjudication of the falsify findings (`statements.json` `w2Adjudication`):
 - Extractor mutation coverage: added `sniff_attributed_html_without_content_type`;
   the `<html` → `<html>` sniff mutant now exits 1 on that case, pristine
   74/74 exit 0 (`verification/extractor-sniff-mutant.json`, `text-selftest-final.json`).
+
+### Source registry routing correction (w2/UncoveredLessonCites.md)
+
+S024 and S025 `used-by`, each: `corpus/lessons/round-22.md` →
+`corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-22.md`.
+Status and recheck unchanged; no new rows. Their knowledge citations were
+added in r23 but omitted from the registry; a used-by-only routing premise
+would wrongly send corrections to a historical lesson. The S024 corrections
+went to the knowledge entry, not round-22.md. The round-22 S022–S025 quotes
+all re-verify (w2/UncoveredLessonCites.md); no historical lesson edit owed.
+Earlier “no SOURCES cell changed” statements describe the pre-W2 candidate.
+
+### Executed measurements (supersedes the pending tense above)
+
+Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
+Base `97404de4ff73d6c8a4f87385cf5fdf36dca7f006` 0/32 exit 1 → candidate `e28312b14b076584fedd696fae2a684e460bd11e`
+32/32 exit 0 → landed implementation `b44daedc9658d86374f1c3e3cdfc3a6951d0bdf6` 32/32 exit 0.
+Final ledger: 313 units, 7 STALE corrections, 4 reclassified tags,
+6 UNVERIFIABLE units. Counter selftest 24/24, extractor 74/74; corpus
+contract and offline freshness gates exit 0. Full outputs under
+`.ufo/waves/round-26/verification/`.
+
+Census before→after: 35→35 (A33/C2, mined31/queued2/rejected2), exit 0 both,
+inherited W04 S033 duplicate URL. Only S024/S025 used-by cells changed.
+Expansion unchanged; quality improved by re-verification and marked fixes;
+discernment unchanged pending the outside spot-check (all wave seats are
+author-side). Legacy freshness 10→10, no scalar increment claimed.
