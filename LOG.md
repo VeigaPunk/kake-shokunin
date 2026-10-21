@@ -779,3 +779,53 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
 - Unchanged debts: paths gate red (3 targets, missSet 55), anchor census not
   a gate, SHONEN unpromoted. No live property, account, publishing or host
   operation; no tool installs.
+
+
+## Round 23 — live re-verification and canonical preflight (2026-10-21)
+
+- Declared before dispatch: C1 freshness (17 frozen units: 16 historical knowledge entries + property map), C2 operability (12 frozen owned page URLs). Base `b5d599e`; freeze `6847479d404d1dd93ecb59f99ff735bd7f010a4a`. Counts and populations in `.ufo/waves/round-23/contract.json`. No live writes, accounts, publishing or domain-source edits.
+- End-to-end domain task: ran `scripts/live_snapshot.py` GET-only against the 12 owned URLs, committed response metadata and the eight served HTML bodies, then audited/replayed them offline. Outcomes: 3 clean, 5 canonical_missing, 4 not-served (404). Charter, ds4cc primary and Plazir GHP are clean under the explicit local policy; ds4cc Kimi, burnerchrome, vault index, ufo-fsd pro and lucario GHP lack a canonical. Upstream repairs are documented, never applied.
+- Live re-verification receipts cover 176 selected claims: 79 HOLD, 55 STALE with dated corrections, 42 UNVERIFIABLE with reasons; original knowledge bytes remain historical. A surviving burnerchrome source candidate was found at `~/Projects/burnerchrome`; its title/h1 match the served page, not a proved deploy binding.
+- Routed corrections `4e7dd1d4e52dcbdce249dd3dbc8485bc4e23cf4b`: inverted QUALITY predicate corrected by named append; lane-root misroot copies moved under round-22 evidence; tmp runner reproduction recorded. `4d95d2e9…` introduced real-page parsing; `83098b5a…` integrated wave 1; `5e5afb9e…` fixed the counter selftest; `1b309c93fb0b2007ef15587100e7a1cdb9ef5573` integrates falsifier corrections, snapshot integrity and omitted C1 claims.
+- Final counters measured at `5bef55b1464d7ccbff802edab400d138597a621c`: C1 0/17→17/17; C2 0/12→12/12 (`measure-{c1,c2}-{before,after}-v2.json`, same final runner both sides, two identical runs). Same-byte diagnostic: evaluator 4/8→8/8 at `1b309c93…` (`evaluability.json`, validator unchanged by the later metadata fix). New capability row in SCORECARD.
+- Failure-capable evidence: snapshot probe 2/11→11/11; relaxation probe 3/13→13/13; canonical selftest 82/82 (`postfix/stable-smoke.txt`), counter selftest 28/28 (`postfix/counter-selftest-final.json`). Final suite: corpus contract exit 0, frozen matrix32/32; paths red old3 unchanged, expanded missSet69 with14 new explicitly absent targets and old pin55 unchanged (`final-suite.json`).
+- Sources S030/S031 opened (WHATWG void syntax/foreign parsing); S021/S023–S026 re-opened without row changes. Source digest/locator and unquoted-attribute caveat corrected after falsification. Meta-refresh readiness is explicitly outside the canonical-policy claim.
+- No packages/global tools installed by L1. One seat used official npm/npx Eleventy3.1.2 for an actual two-page generator probe (clean), no pacman. Full seat inventory and failures are in the round-23 evidence.
+- Residual `FixSnapshotReview` exposed altered finalUrl metadata and JSON-array input; `5bef55b1…` checks redirect-chain consistency and metadata shape, with failure-capable regressions. No change to captured bytes or policy outcomes.
+
+### Round-23 same-claim replacement coordinator — KakeR23 (2026-10-21)
+
+- Inherited the pushed implementation through
+  `5bef55b1464d7ccbff802edab400d138597a621c` and unlanded final bookkeeping,
+  wave-2 reports and measurement artifacts; reused them after the bounded
+  recovery checks below, without repeating round 22 or either swarm wave.
+- Re-executed both frozen-revision counters: C1 0/17→17/17 (exits 1→0),
+  C2 0/12→12/12 (exits 1→0), with the same final runner on each side.
+  `.ufo/waves/round-23/recovery-counts.json` retains full command outputs.
+- One final recovery run of canonical/counter selftests, snapshot/relaxation
+  probes, corpus-contract and the old canonical matrix exited 0 for each
+  command; `.ufo/waves/round-23/recovery-verification.json`. No new live page
+  capture occurred; original dates and received bytes remain unchanged.
+- Reopened S030/S031 primary pages and ran the source census, exit 0.
+  `.ufo/waves/round-23/recovery-source-counts.json` derives 29→31 source rows
+  from the base and measured commit. No old mutable registry cell changed.
+  `.ufo/waves/round-23/recovery-frontier.json` records a fleet-root sweep with
+  no owned misroot files. Driver state and operator scripts were untouched.
+- The six inherited residual seats plus three read-only recovery audits are
+  author-side, never independent admission. Dead-seat coverage remains
+  explicitly incomplete; no replacement was dispatched. No source tree,
+  publishing account or host package/service was modified by this recovery.
+
+- RecoveryDocsAudit corrections: the earlier phrase "frozen matrix32/32"
+  means the current-validator 32-case matrix run, not a successful historical
+  digest-pinned replay; that separate replay stays pinned to `b539cc1`.
+  Its append-only finding also restores the original committed round-23
+  Gate lines and supersedes their source/count errors with an EOF register.
+- RecoveryDocsAudit identified a remaining contentType field-shape crash.
+  Two executor dispatches were refused by the host cap, spawning zero seats;
+  the parent explicitly directed a bounded coordinator implementation.
+  Added the non-string/non-null contentType check and one targeted loopback
+  regression. Same probe: 11/12, exit 1 → 12/12, exit 0; malformed field
+  now returns the named JSON input error, exit 2, rather than exit 1.
+  Evidence: `.ufo/waves/round-23/snapshot-field-{before,after}.json`.
+  No broad malformed-metadata or network-authentication claim is added.

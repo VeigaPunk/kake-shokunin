@@ -190,6 +190,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 |---|---|---|---|
 | Curated source registry | Keeps a contract-v1 registry of opened, scope-tiered sources (with rejections and study paths) whose mined rows back knowledge entries and appended corrections; census commands verify its shape | `corpus/SOURCES.md`; census argv/output `.ufo/round-20/resume/sources-census.txt`; mined-row citation check in `corpus/lessons/round-20.md` §Round-20 resume | 20 (resume) |
 | Offline static canonical preflight | Reads a version-1 manifest of local static HTML pages and reports, read-only and network-free, whether each page's explicit-head canonical link matches the publisher's declared expectedCanonical (clean / failed-policy / could-not-evaluate, stable finding ids, exits 0/1/2/64); no search-engine selection, rendering, headers or live-delivery claim | `scripts/canonical_audit.py`; `python3 .ufo/waves/round-22/measure.py --root . --revision b539cc17c25e5f42fe8803e2aa42b4574c4b44c6` → 32/32 (`.ufo/waves/round-22/measure-after-v2.json`); selftest 62/62 and replay per-case match in `.ufo/waves/round-22/postfix/` | 22 |
+| GET snapshot + canonical receipt replay | Captures 12 named public surfaces read-only and replays the offline canonical policy on committed served bytes; distinguishes receipt completeness from clean policy and 404s; no rendered-DOM or publication approval | `scripts/live_snapshot.py`; `.ufo/waves/round-23/{live/,measure-c2-after-v2.json,evaluability.json}` measured at `5bef55b1464d7ccbff802edab400d138597a621c`; receipt coverage 12/12, policy outcomes 3 clean / 5 canonical_missing / 4 not-served | 23 |
 
 Rows enter only through a round that demonstrates the capability running
 (`AXES.md` §Capabilities); none enter through this rollout.
@@ -309,3 +310,57 @@ Next steered round: freshness-axis or second publishing capability move; candida
 run the canonical preflight over an actual built artifact of an owned
 property (read-only, operator-provided build) or add redirect/header-free
 sitemap-vs-canonical consistency. Restore/retire and publishing stay operator-gated.
+
+## Round 23 — current-surface re-verification and live canonical preflight
+
+Base: `b5d599e19bead54b96f589444e9ec64cdf67c28a` (round-22 independently admitted).
+Before measurement: `6847479d404d1dd93ecb59f99ff735bd7f010a4a`, which freezes
+contract/populations/counters but changes no knowledge unit or served-page input.
+After: `5bef55b1464d7ccbff802edab400d138597a621c`. Both counts use the same
+final runner bytes, recorded by sha256 in the measurement receipts.
+
+| Claim | Axis / score delta | Before → after | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 live re-verification of historical knowledge + property map | freshness 10→10 (HOLD; tied-lowest owned axis) | valid current-round claim-level receipts and appended corrections 0/17 → 17/17 units; 176 selected claims (79 HOLD, 55 STALE corrected, 42 UNVERIFIABLE with reasons) | `python3 .ufo/waves/round-23/measure_c1.py --root . --revision <commit>` | improved, author-side; `measure-c1-{before,after}-v2.json` under round-23 waves; live truth rests on observations in seat reports, not structural acceptance alone |
+| C2 first live-snapshot canonical preflight | operability 10→10 (HOLD) | reproducible receipt coverage 0/12 → 12/12; separate outcomes 3 clean / 5 canonical_missing / 4 not-served (404) | `python3 .ufo/waves/round-23/measure_c2.py --root . --revision <commit>` | improved, author-side; `measure-c2-{before,after}-v2.json`; same-byte diagnostic `evaluability.py --root . --before b539cc1 --after 1b309c93…`: evaluated served pages 4/8→8/8 (not a third claim) |
+
+Controls can fail: counter selftest 28/28; canonical selftest 82/82; snapshot
+integrity probe 2/11→11/11 (5e5afb9e vs final); relaxation probe 3/13→13/13
+(4d95d2e vs final). Initial counter selftest killed 13/71 mutants and left
+58 survivors; expanded coverage is not an exhaustive mutation-kill claim.
+
+No observed harm on the previous evaluated population: corpus-contract exit 0,
+old frozen canonical matrix 32/32. Paths remains red with the same three old
+unannotated targets. Its expanded citation universe now has missSet 69 (old55),
+14 additional targets explicitly checked/annotated absent; the old pin is
+unchanged, and this new set-delta warning is disclosed, not rounded up to green
+(`.ufo/waves/round-23/final-suite.json`). Restore/retire remains operator-owned.
+
+Sources 29→31 (S030/S031); no old status/recheck/used-by cell changed. Expansion
+improved (GET-capture/replay capability); quality improved (base/foreign parser
+defects, snapshot integrity and source wording corrected); discernment improved
+locally (mistakes and rejects falsified before correction), pending non-author
+admission. Dead seats remain uncredited; report records their exact errors.
+
+### Round-23 recovery evidence and next intent
+
+The replacement coordinator reproduced both above before/after counts on
+the same named revisions (`.ufo/waves/round-23/recovery-counts.json`), and
+retained the original live timestamps, policy failures, UNVERIFIABLE reasons
+and red paths result. Verification is bounded by
+`recovery-verification.json`; author-side review does not close independent
+admission. No axis rating, claim population or expected canonical was changed
+in recovery.
+
+Planned, for the next separately steered round only: one measured freshness
+claim that reconciles the live canonical findings with the named operator
+repair/handoff queue, or an operability capability on the remaining
+publisher-side sitemap/canonical frontier. No restoration, publication,
+account operation or new round is authorized by this plan.
+
+Recovery clarification: the report's canonical discernment verdict is
+**unchanged** pending independent admit/reject spot-check. Earlier
+"improved locally" describes author-side mistake learning only, not the
+outside-verification trend. The contentType follow-up changes the targeted
+snapshot probe from the inherited 11-case proof to 12 cases: same expanded
+probe red 11/12 before → green 12/12 after (`snapshot-field-*.json`).

@@ -1,0 +1,14 @@
+{
+ "argv": [
+  "python3",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/snapshot_probe.py",
+  "--snapshot-script",
+  "/tmp/kake-r23-final-before/live_snapshot.py",
+  "--validator",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py"
+ ],
+ "exit": 1,
+ "stdout": "{\n \"script\": \"/tmp/kake-r23-final-before/live_snapshot.py\",\n \"passed\": false,\n \"met\": 2,\n \"total\": 11,\n \"cases\": [\n  {\n   \"case\": \"normal\",\n   \"exit\": 0,\n   \"ok\": true\n  },\n  {\n   \"case\": \"reaudit-unaltered\",\n   \"exit\": 0,\n   \"ok\": true\n  },\n  {\n   \"case\": \"symlink-leaf\",\n   \"exit\": 0,\n   \"outsideUnchanged\": false,\n   \"ok\": false\n  },\n  {\n   \"case\": \"hardlink-leaf\",\n   \"exit\": 0,\n   \"outsideUnchanged\": false,\n   \"ok\": false\n  },\n  {\n   \"case\": \"edited-page\",\n   \"exit\": 0,\n   \"ok\": false\n  },\n  {\n   \"case\": \"edited-digest\",\n   \"exit\": 0,\n   \"ok\": false\n  },\n  {\n   \"case\": \"missing-page\",\n   \"exit\": 0,\n   \"ok\": false\n  },\n  {\n   \"case\": \"missing-fetch\",\n   \"exit\": 1,\n   \"ok\": false\n  },\n  {\n   \"case\": \"edited-final-url\",\n   \"exit\": 0,\n   \"ok\": false\n  },\n  {\n   \"case\": \"array-metadata\",\n   \"exit\": 1,\n   \"ok\": false\n  },\n  {\n   \"case\": \"blocked-redirect-url\",\n   \"exit\": 0,\n   \"finalUrl\": \"file:///unfetched/local-sentinel\",\n   \"ok\": false\n  }\n ]\n}\n",
+ "stderr": "",
+ "reproduceBefore": "git show 5e5afb9e:scripts/live_snapshot.py > /tmp/<fresh>/live_snapshot.py"
+}

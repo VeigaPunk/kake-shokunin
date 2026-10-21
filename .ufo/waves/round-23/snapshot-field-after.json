@@ -1,0 +1,15 @@
+{
+  "baseRevision": "5bef55b1464d7ccbff802edab400d138597a621c",
+  "programSha256": "3638891d4107a57b5d3c919da41a33f3a0c97d15db257d1e9070e00f3b462a20",
+  "argv": [
+    "python3",
+    ".ufo/waves/round-23/snapshot_probe.py",
+    "--snapshot-script",
+    "scripts/live_snapshot.py",
+    "--validator",
+    "scripts/canonical_audit.py"
+  ],
+  "exit": 0,
+  "stdout": "{\n \"script\": \"/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/live_snapshot.py\",\n \"passed\": true,\n \"met\": 12,\n \"total\": 12,\n \"cases\": [\n  {\n   \"case\": \"normal\",\n   \"exit\": 0,\n   \"ok\": true\n  },\n  {\n   \"case\": \"reaudit-unaltered\",\n   \"exit\": 0,\n   \"ok\": true\n  },\n  {\n   \"case\": \"symlink-leaf\",\n   \"exit\": 2,\n   \"outsideUnchanged\": true,\n   \"ok\": true\n  },\n  {\n   \"case\": \"hardlink-leaf\",\n   \"exit\": 2,\n   \"outsideUnchanged\": true,\n   \"ok\": true\n  },\n  {\n   \"case\": \"edited-page\",\n   \"exit\": 2,\n   \"error\": \"stored page differs from captured length/digest\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"edited-digest\",\n   \"exit\": 2,\n   \"error\": \"stored page differs from captured length/digest\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"missing-page\",\n   \"exit\": 2,\n   \"error\": \"[Errno 2] No such file or directory: 'page.html'\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"missing-fetch\",\n   \"exit\": 2,\n   \"error\": \"[Errno 2] No such file or directory: 'fetch.json'\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"edited-final-url\",\n   \"exit\": 2,\n   \"error\": \"snapshot finalUrl disagrees with redirect chain\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"array-metadata\",\n   \"exit\": 2,\n   \"error\": \"snapshot fetch metadata must be a JSON object\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"content-type-metadata\",\n   \"exit\": 2,\n   \"error\": \"snapshot contentType must be a string or null\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"blocked-redirect-url\",\n   \"exit\": 0,\n   \"finalUrl\": \"http://127.0.0.1:37947/blocked\",\n   \"ok\": true\n  }\n ]\n}\n",
+  "stderr": ""
+}

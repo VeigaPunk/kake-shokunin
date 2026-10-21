@@ -494,3 +494,11 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/property-map.json` 
 
 - [property-map:c56] **STALE** — The Function-Compute ingress fingerprint in SKILL.md still describes plazir27.kimi.pro. Surface: `https://plazir27.kimi.pro/`. Correction: As of 2026-10-21, plazir27.kimi.pro redirects to the Kimi static preview-404 page rather than serving the old Function-Compute response; the historical ingress diagnosis at SKILL.md line 292 is superseded.
 - [property-map:c57] **STALE** — The mapped app.ds4cc.com source lives at ds4cc-marketplace/apps-sdk. Surface: `/home/vgpnk/Projects/ds4cc-marketplace/apps-sdk`. Correction: As of 2026-10-21, the mapped apps-sdk source path is absent; HTTP reachability of app.ds4cc.com/mcp does not identify a current local source or deployment configuration.
+
+- [r23-recovery registry clarification] `live-snapshot` exit 2 covers caught
+  input, output-I/O and stored-snapshot integrity errors, including a non-string,
+  non-null `contentType`; it is not a claim that arbitrary malformed records
+  have been exhaustively tested. Run from the lane root:
+  `python3 .ufo/waves/round-23/snapshot_probe.py --snapshot-script scripts/live_snapshot.py --validator scripts/canonical_audit.py`
+  (targeted loopback regression, 12 cases).
+  The retained counter selftest still covers receipt replay, not network truth.

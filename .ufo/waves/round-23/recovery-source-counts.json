@@ -1,0 +1,24 @@
+[
+  {
+    "argv": [
+      "python3",
+      "-c",
+      "import collections,json,subprocess,sys; text=subprocess.check_output(['git','show',sys.argv[1]+':corpus/SOURCES.md'],text=True); rows=[[c.strip() for c in s.split('|')[1:-1]] for s in text.splitlines() if s.startswith('| S') and s.split('|')[1].strip()[1:].isdigit()]; print(json.dumps({'rows':len(rows),'tiers':dict(collections.Counter(r[3] for r in rows)),'statuses':dict(collections.Counter(r[7] for r in rows))},sort_keys=True))",
+      "b5d599e19bead54b96f589444e9ec64cdf67c28a"
+    ],
+    "exit": 0,
+    "stdout": "{\"rows\": 29, \"statuses\": {\"mined\": 25, \"queued\": 2, \"rejected\": 2}, \"tiers\": {\"A\": 27, \"C\": 2}}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "python3",
+      "-c",
+      "import collections,json,subprocess,sys; text=subprocess.check_output(['git','show',sys.argv[1]+':corpus/SOURCES.md'],text=True); rows=[[c.strip() for c in s.split('|')[1:-1]] for s in text.splitlines() if s.startswith('| S') and s.split('|')[1].strip()[1:].isdigit()]; print(json.dumps({'rows':len(rows),'tiers':dict(collections.Counter(r[3] for r in rows)),'statuses':dict(collections.Counter(r[7] for r in rows))},sort_keys=True))",
+      "5bef55b1464d7ccbff802edab400d138597a621c"
+    ],
+    "exit": 0,
+    "stdout": "{\"rows\": 31, \"statuses\": {\"mined\": 27, \"queued\": 2, \"rejected\": 2}, \"tiers\": {\"A\": 29, \"C\": 2}}\n",
+    "stderr": ""
+  }
+]

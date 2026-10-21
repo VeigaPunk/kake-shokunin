@@ -25,7 +25,7 @@ passes or fails without the other. Measured numbers are in §Measurement.
 
 ## Gate
 
-Candidates from wave 1: 171 C1 claim rows from 29 seats (17 Reverify*, 12 Surface*); 12 C2
+Candidates: 168 C1 claim rows from 29 seats (17 Reverify*, 12 Surface*); 12 C2
 snapshots; validator relaxation; two WHATWG sources; five re-opened round-22 rows.
 
 Admitted:
@@ -57,8 +57,8 @@ Rejected:
 
 | Row | URL | Access | Located quote |
 |---|---|---|---|
-| S030 | https://html.spec.whatwg.org/multipage/syntax.html#start-tags | 2026-10-21 (LS 20 Oct 2026, sha256 04b65bf0…) | “On void elements, it does not mark the start tag as self-closing but instead is unnecessary and has no effect of any kind.” |
-| S031 | https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inbody | 2026-10-21 (LS 20 Oct 2026, sha256 a11dcf17…) | “Insert a foreign element for the token, with SVG namespace.” |
+| S030 | https://html.spec.whatwg.org/multipage/syntax.html#start-tags | 2026-10-21 (LS 20 Oct 2026, sha256 a11dcf17…) | “On void elements, it does not mark the start tag as self-closing but instead is unnecessary and has no effect of any kind.” |
+| S031 | https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inforeign | 2026-10-21 (LS 20 Oct 2026, sha256 04b65bf0…) | “Insert a foreign element for the token, with SVG namespace.” |
 
 Both opened by seats (w1/SourceHTMLVoidSyntax, w1/SourceHTMLForeignContent) and
 re-fetched by the L1, quotes located in the fetched text. No old row's
@@ -123,3 +123,128 @@ status/recheck/used-by changed.
   has no effect on a void start tag; a slash immediately following an unquoted
   attribute is part of that value, not that syntax. This caveat is recorded
   with S030 rather than changing its immutable registry teaching cell.
+
+
+## Measurement
+
+Measured `5bef55b1464d7ccbff802edab400d138597a621c`, before freeze
+`6847479d404d1dd93ecb59f99ff735bd7f010a4a`. Same final runner on both sides,
+two identical runs each (`measure-{c1,c2}-{before,after}-v2.json`):
+C1 exits1→0, accepted0/17→17/17; 176 selected claims (79HOLD,55STALE,42UNVERIFIABLE).
+C2 exits1→0, receipt coverage0/12→12/12; outcomes3clean/5canonical_missing/4not-served404.
+The snapshots' original fetch timestamps remain unchanged; re-audits were offline.
+
+Snapshot integrity probe2/11→11/11 (`postfix/snapshot-v2-{before,after}.json`);
+expanded relaxation probe3/13→13/13 on the rejected `4d95d2e` vs final
+(r22 validator9/13). Canonical selftest82/82 (`postfix/stable-smoke.txt`) and
+counter selftest28/28 (`postfix/counter-selftest-final.json`). Corpus contract0; old
+canonical matrix32/32. Paths remains exit1, the same three legacy unannotated
+targets, but the citation universe expanded: missSet55→69, fourteen newly cited
+targets explicitly checked and annotated absent. Old pins unchanged; the new
+set-delta warning is a disclosed result, not a source restoration or green gate
+(`final-suite.json`).
+
+Residual review: FixC1Additions found no counterexample; FixProbeWitnesses killed
+both named guard mutants (12/13, pristine/restored13/13). FixSnapshotReview
+found finalUrl metadata tamper and JSON-array handling; `5bef55b1…` fixes both
+by checking the redirect chain and metadata shape, with new regression cases.
+That last fix is L1 probe-verified, not re-reviewed by a seat. CritMetaRefreshBoundary
+and FixCounterCoverage died on Codex capacity, uncredited and not replaced.
+
+## Same-claim recovery — KakeR23 (2026-10-21)
+
+The replacement coordinator inherited the already-pushed implementation through
+`5bef55b1464d7ccbff802edab400d138597a621c`, three modified bookkeeping files
+and untracked wave-2/final evidence. The original 69-seat build and 64-seat
+falsification waves were not dispatched again; dead seats were not replaced.
+The six prior residual seats remain author-side evidence. Three bounded
+read-only recovery audits cover evidence accounting, measurement/source
+consistency and documentation; they are not independent round closure.
+
+Re-executed the same final counters against the frozen before revision and
+the pushed implementation revision: C1 exit 1, accepted 0/17 → exit 0,
+accepted 17/17; C2 exit 1, accepted 0/12 → exit 0, accepted 12/12.
+Full argv/stdout/stderr/exits: `recovery-counts.json` in this round's wave
+directory. Existing response bytes and original fetch timestamps were retained;
+no fresh property fetch or publication occurred during this recovery.
+
+One recovery verification run (`recovery-verification.json`) exercised the
+canonical selftest, counter selftest, snapshot integrity probe, relaxation
+probe, corpus-contract and the old canonical matrix; all six exited 0.
+The inherited red paths result is retained rather than rerun to confirm it.
+Reopened S030/S031 through their primary URLs; the located quotes and the
+solidus caveat remain supported. Source census exits 0, with 29→31 rows
+(A27→29/C2 unchanged; mined25→27/queued2/rejected2 unchanged).
+`recovery-frontier.json` records the commands and the fleet misroot sweep:
+only operator scripts and protected driver runtime were present, no owned
+seat report was misplaced, and no fleet file was removed.
+
+All inherited implementation/evidence is retained except candidate
+interpretations explicitly rejected in this lesson's Gate; those rejected
+artifacts also remain preserved as falsification history. No aggregator or
+non-author verifier file was edited. No tool was installed by this coordinator.
+
+Recovery accounting correction: `wave-inventory.json` now includes the three
+recovery audits (round total 142) and both named residual deaths. Their exact
+Codex capacity errors were recovered from the original coordinator's async
+notices and preserved in `residual-deaths.json`, not inferred from routing.
+RecoveryEvidenceAudit found that ExecRealGeneratorPages' surviving report
+had the shortened filename `w2/ExecGeneratorPages.md`; it was moved without
+content changes to its registry-declared `w2/ExecRealGeneratorPages.md`.
+This was a report-path correction, not a new or replacement seat.
+
+## Recovery audit errata — authoritative current reading
+
+RecoveryDocsAudit found that the corrections to the original Gate candidate
+count and source table were made in place after `5e5afb9e…`. Their original
+bytes are restored above in this new commit; that does not erase the
+intervening preservation defect. This appended register supersedes them:
+
+- Gate candidates: **171** before rejecting three absent anchors, **168**
+  admitted initially, then eight added claims: **176** final. The original
+  candidate line's 168 describes the admitted subset, not all candidates.
+- S030 correct response digest:
+  `04b65bf0b4b5f3bb3815999ab499af980fa09b8832f02c1686c544ab8e79a52d`.
+  The void-element quote is at the original syntax/start-tags URL.
+- S031 correct response digest:
+  `a11dcf1768a76e24cdf7e16060f54bcb149c529aa8bcb9297b8d1ab633b26f13`.
+  Its quoted SVG insertion sentence is at
+  https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inbody
+  (in-body svg start-tag rule), not the foreign-content quote location
+  originally printed in the table. The registry's wider in-body/foreign
+  scope is unchanged.
+- The earlier "fixed above" sentence now means this appended register,
+  not permission to rewrite the original table. FixDocsEvidence remains
+  preserved as a historical scoped author-side recommendation.
+- The routed paths row's bare `final-suite.txt` names the historical
+  `.ufo/waves/round-22/final-suite.txt`. Current round-23 paths evidence is
+  `.ufo/waves/round-23/final-suite.json` and remains red as reported.
+- "Malformed metadata returns a JSON input error" was too broad: the
+  demonstrated closure at `5bef55b1…` covered a top-level JSON array.
+  RecoveryDocsAudit identified non-string contentType as an additional
+  unexercised field-shape gap; its reproduction and disposition are recorded
+  separately below, not silently included in the original eleven cases.
+
+### Recovery field-shape disposition and mistake
+
+RecoveryDocsAudit's static contentType concern was reproduced by the added
+`content-type-metadata` case: the unchanged `5bef55b1…` producer exits 1
+with no JSON error, so the same expanded probe is red (11/12).
+A bounded coordinator-implemented check now rejects non-string, non-null
+contentType before `served()`; the case returns exit 2 with
+`snapshot contentType must be a string or null`, and the probe is green
+(12/12). Full outputs: `.ufo/waves/round-23/snapshot-field-before.json`
+and `snapshot-field-after.json`. Two zero-spawn executor job-cap refusals
+preceded the parent's explicit coordinator-direct steer; no dead seat was
+replaced and the round total stays 142.
+
+| Class | Evidence pointer | Captured-by | Fix |
+|---|---|---|---|
+| incomplete metadata-shape regression | `snapshot-field-before.json`, named case exits 1, not the documented 2 | `residual/FixSnapshotReview.md` field-type concern; initial array-only regression was insufficient | explicit contentType type check; same case requires exit 2 plus the exact JSON diagnostic (`snapshot-field-after.json`) |
+| in-place corpus correction | original Gate lines at `5e5afb9e…` versus the intermediate integration; RecoveryDocsAudit | existing QUALITY post-review byte-preservation rule | restored original count/source lines, retained the history defect and appended authoritative errata; no history rewrite or amendment |
+
+The contentType fix does not validate every possible forged metadata field or
+authenticate GET observations. The `live-snapshot` registry clarification now
+names caught output-I/O and integrity errors as exit 2 and records the exact
+targeted probe command. The final report distinguishes the inherited measured
+revision from the later committed-tip counter receipts; no timestamp is renewed.

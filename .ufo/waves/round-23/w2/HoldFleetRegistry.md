@@ -1,0 +1,28 @@
+## Verdict
+
+**Counterexample found — claim-selection gap, not a false assigned HOLD.** All four assigned HOLD checks reproduce. c2 remains UNVERIFIABLE: I found no authoritative live surface that can establish the current raw `sites[]` length. P1: none.
+
+## Findings
+
+### P2 — The selected charter-ghp reachability claim omits its more load-bearing stale marker
+
+- **Impacted claim/axis:** `fleet-registry:c8`; C1 freshness and claim selection.
+- **Evidence:** `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/fleet-registry.md` explicitly says the `charter-ghp` row failed its stale marker check (`09-26` pin vs live `09-28` beat) and says to re-probe before trusting status. Its marker-quality section says the `2026-09-26 scribe beat` is a beat-dated pin that requires re-pinning on republish. But c8 only claims the GitHub Pages canonical document is live and records `http=200 ... bytes=53660`.
+- **Exact GET batch command for c3/c4/c8:** `for u in https://veigapunk.kimi.page/ https://ds4cc.com/ https://lucario.kimi.page/ https://veigapunk.github.io/lucario/ https://veigapunk.github.io/charter-ufo-fsd/; do curl -sS -o /dev/null -L --max-time 30 -w "$u -> http=%{http_code} final=%{url_effective} bytes=%{size_download}\n" "$u" || echo "$u -> CURL_FAIL"; done`. c8 output: `https://veigapunk.github.io/charter-ufo-fsd/ -> http=200 final=https://veigapunk.github.io/charter-ufo-fsd/ bytes=53660`.
+- **Exact marker check:** `body=$(curl -sS -L --max-time 30 https://veigapunk.github.io/charter-ufo-fsd/); printf 'url=https://veigapunk.github.io/charter-ufo-fsd/ status/body-size via prior GET=200/53660\n'; for needle in '2026-09-26 scribe beat' '2026-09-28 scribe beat' '2026-09-30 scribe beat'; do count=$(printf '%s' "$body" | grep -oF "$needle" | wc -l); printf 'literal=%s count=%s\n' "$needle" "$count"; done` → `2026-09-26 scribe beat: 0`; `2026-09-28 scribe beat: 0`; `2026-09-30 scribe beat: 1`. Thus reachability holds, but the file’s more operationally important deployment-marker claim is decidably stale now; c8’s 200 does not test it.
+- **Smallest fix:** Add a separate `fleet-registry` freshness claim for the `charter-ghp` expected `2026-09-26 scribe beat` pin versus the live marker, and mark it STALE with the observed `2026-09-30` literal. Keep c8 narrowly scoped to reachability if retained.
+
+## Checked and held
+
+- **c1 — HOLD holds.** Exact check: `test -e /home/vgpnk/Projects/webzites/fleet/fleet.config.json && echo PRESENT || echo ABSENT` → `ABSENT`. The parent `/home/vgpnk/Projects/webzites/fleet/` is also absent (`ls: cannot access ... No such file or directory`).
+- **c2 — UNVERIFIABLE is honest; do not promote to HOLD/STALE.** Exact receipt command re-run: `test -f "/home/vgpnk/Projects/webzites/fleet/fleet.config.json" && node -p 'const c=require("/home/vgpnk/Projects/webzites/fleet/fleet.config.json"); [c.schema,c.updatedAt,c.sites.length].join(" ")' || echo "absent: operator must restore the fleet source or retire this entry"` → `absent: operator must restore the fleet source or retire this entry`. A local search under `/home/vgpnk` found no `fleet.config.json` or `fleet.dedupe-report.md`. Individual deployed sites can establish their own responses, not membership or cardinality of a missing raw config array. No authoritative live array surface was identified.
+- **c3 — HOLD holds.** Output from the exact GET batch command above: `https://veigapunk.kimi.page/ -> http=200 final=https://veigapunk.kimi.page/ bytes=10059`; `https://ds4cc.com/ -> http=200 final=https://ds4cc.com/ bytes=76159`.
+- **c4 — HOLD holds.** Output from the exact GET batch command above: `https://lucario.kimi.page/ -> http=404 final=https://lucario.kimi.page/ bytes=13409`; `https://veigapunk.github.io/lucario/ -> http=200 final=https://veigapunk.github.io/lucario/ bytes=3435`. This confirms only the current split, not the historical “never published” wording, as c4 correctly qualifies.
+- **c8 — HOLD holds narrowly for availability.** GET result above is 200 at the listed canonical URL with 53,660 bytes; the marker omission is the P2 finding.
+- **c2 live-mirror limit:** `https://api.github.com/users/veigapunk/repos?per_page=100` returned `HTTP=403 bytes=280`; that does not establish the absence of a public mirror. It does not change c2: no live endpoint tested exposes an authoritative current `sites[]` array.
+- **Additional row spot-checks for selection:** `plazir27runs-on.kimi.page` returned 200/63,421 bytes (title `PLAZIR-27 — the ufo-fsd charter`); `ufo-fsd.kimi.page` 200/9,966; `plazir15.kimi.page` 404/13,409; `charter-ufo-fsd.kimi.page` 404/13,409; `plazir27.kimi.pro` 200 at `https://statics.kimi.ai/pages/preview-404-en.html`/5,995; `ufo-fsd.kimi.pro` 200/612; `ds4cc.kimi.page` 200/74,641; `burnerchrome.kimi.page` 200/11,976; `veigapunk.github.io/plazir-15-site/` 200/38,337. These matched the corresponding recorded status labels (including the preview-404 body and the pruned-but-still-probed row); none yielded another false HOLD in this spot-check.
+- **Marker spot-check on c3’s veigapunk page:** live GET contained `WZ-CANARY-FIX-veigapunk` twice and `data-kimi-website-id` once.
+
+## Limits
+
+Read-only checks only; no tools installed. The local fleet source and report/r2 inputs are absent. The GitHub API returned 403, so public mirrors were not exhaustively ruled out; the conclusion for c2 is limited to no authoritative live array surface being identified. The additional URL checks are spot-checks, not a re-census of every registry row or a replay of `src/probe.mjs`’s full status/title/marker tripwire.

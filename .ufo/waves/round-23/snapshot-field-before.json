@@ -1,0 +1,15 @@
+{
+  "revision": "5bef55b1464d7ccbff802edab400d138597a621c",
+  "argv": [
+    "python3",
+    ".ufo/waves/round-23/snapshot_probe.py",
+    "--snapshot-script",
+    "scripts/live_snapshot.py",
+    "--validator",
+    "scripts/canonical_audit.py"
+  ],
+  "exit": 1,
+  "stdout": "{\n \"script\": \"/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/live_snapshot.py\",\n \"passed\": false,\n \"met\": 11,\n \"total\": 12,\n \"cases\": [\n  {\n   \"case\": \"normal\",\n   \"exit\": 0,\n   \"ok\": true\n  },\n  {\n   \"case\": \"reaudit-unaltered\",\n   \"exit\": 0,\n   \"ok\": true\n  },\n  {\n   \"case\": \"symlink-leaf\",\n   \"exit\": 2,\n   \"outsideUnchanged\": true,\n   \"ok\": true\n  },\n  {\n   \"case\": \"hardlink-leaf\",\n   \"exit\": 2,\n   \"outsideUnchanged\": true,\n   \"ok\": true\n  },\n  {\n   \"case\": \"edited-page\",\n   \"exit\": 2,\n   \"error\": \"stored page differs from captured length/digest\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"edited-digest\",\n   \"exit\": 2,\n   \"error\": \"stored page differs from captured length/digest\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"missing-page\",\n   \"exit\": 2,\n   \"error\": \"[Errno 2] No such file or directory: 'page.html'\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"missing-fetch\",\n   \"exit\": 2,\n   \"error\": \"[Errno 2] No such file or directory: 'fetch.json'\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"edited-final-url\",\n   \"exit\": 2,\n   \"error\": \"snapshot finalUrl disagrees with redirect chain\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"array-metadata\",\n   \"exit\": 2,\n   \"error\": \"snapshot fetch metadata must be a JSON object\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"content-type-metadata\",\n   \"exit\": 1,\n   \"error\": null,\n   \"ok\": false\n  },\n  {\n   \"case\": \"blocked-redirect-url\",\n   \"exit\": 0,\n   \"finalUrl\": \"http://127.0.0.1:35749/blocked\",\n   \"ok\": true\n  }\n ]\n}\n",
+  "stderr": "",
+  "implementation": "coordinator-direct following two zero-spawn executor job-cap refusals and explicit parent steer"
+}

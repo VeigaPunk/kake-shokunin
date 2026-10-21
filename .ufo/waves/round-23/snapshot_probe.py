@@ -74,24 +74,28 @@ def main():
             code, output = invoke(name)
             unchanged = outside.read_text() == 'UNCHANGED'
             rows.append({'case': name, 'exit': code, 'outsideUnchanged': unchanged, 'ok': code == 2 and unchanged})
-        for name in ['edited-page', 'edited-digest', 'missing-page', 'missing-fetch', 'edited-final-url', 'array-metadata']:
+        for name in ['edited-page', 'edited-digest', 'missing-page', 'missing-fetch', 'edited-final-url', 'array-metadata', 'content-type-metadata']:
             code, output = invoke(name)
             directory = root / name / 'page'
             if name == 'edited-page':
                 (directory / 'page.html').write_text('<head></head>')
-            elif name in {'edited-digest', 'edited-final-url', 'array-metadata'}:
+            elif name in {'edited-digest', 'edited-final-url', 'array-metadata', 'content-type-metadata'}:
                 meta = json.loads((directory / 'fetch.json').read_text())
                 if name == 'edited-digest':
                     meta['sha256'] = '0' * 64
                 elif name == 'edited-final-url':
                     meta['finalUrl'] = url + 'different-base/'
+                elif name == 'content-type-metadata':
+                    meta['contentType'] = 123
                 else:
                     meta = []
                 (directory / 'fetch.json').write_text(json.dumps(meta))
             else:
                 (directory / ('page.html' if name == 'missing-page' else 'fetch.json')).unlink()
             code, output = invoke(name, reaudit=True)
-            rows.append({'case': name, 'exit': code, 'ok': code == 2})
+            error = json.loads(output).get('error') if code == 2 else None
+            ok = code == 2 and (name != 'content-type-metadata' or error == 'snapshot contentType must be a string or null')
+            rows.append({'case': name, 'exit': code, 'error': error, 'ok': ok})
         code, output = invoke('blocked', location=url + 'blocked')
         meta = json.loads((root / 'blocked/page/fetch.json').read_text())
         rows.append({'case': 'blocked-redirect-url', 'exit': code, 'finalUrl': meta['finalUrl'],

@@ -169,6 +169,8 @@ def reaudit_body(directory_fd: int, surface: dict) -> tuple[dict, bytes | None]:
     meta = json.loads(read_file(directory_fd, "fetch.json", 1024 * 1024))
     if not isinstance(meta, dict):
         raise ValueError("snapshot fetch metadata must be a JSON object")
+    if meta.get("contentType") is not None and not isinstance(meta["contentType"], str):
+        raise ValueError("snapshot contentType must be a string or null")
     check_redirect_record(meta)
     if (meta.get("url") != surface["url"] or meta.get("method") != "GET"
             or not safe_url(str(meta.get("finalUrl"))) or type(meta.get("status")) is not int):
