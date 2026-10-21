@@ -45,14 +45,16 @@ def count(root, revision):
     for data in historical_blobs(W+'discovered-pairs.json'):
         pairs.update((p['row'],p['file']) for p in json.loads(data))
     old=pinned_obj('.ufo/waves/round-26/statements.json')['pairs']
-    decided={(p['row'],p['file']) for p in old}
+    reviewed={(p['row'],p['file']) for p in old}
+    unknown={(p['row'],p['file']):{'units':p['seatUnverifiable'],'origin':'carried_unverifiable'} for p in old if p.get('seatUnverifiable',0)>0}
+    decided=reviewed-set(unknown)
     # The frozen contract makes the original obligations a minimum, even if
     # a later edit removes a citation. This adds no new expected outcome.
     baseline=json.loads(reference(W+'c1-before.json'))
     candidate_baseline=blob(W+'c1-before.json',True)
     if candidate_baseline is not None and candidate_baseline!=reference(W+'c1-before.json'):
         raise ValueError('frozen_input_changed: c1-before.json')
-    pairs.update(decided)
+    pairs.update(reviewed)
     pairs.update((p['row'],p['file']) for p in baseline['missing'])
     if any(row not in pop for row,_ in pairs):
         raise ValueError('citing obligation outside frozen population')
@@ -105,11 +107,19 @@ def count(root, revision):
         else: errors.append('kind')
         if p.get('verdict')=='STALE' and f"[r27-recheck {p['row']} STALE]" not in blob(p['file']).decode(): errors.append('correction_missing')
         if errors: findings.append({'row':key[0],'file':key[1],'errors':errors})
-        elif p['verdict']!='UNVERIFIABLE': new_decided.add(key)
+        else:
+            reviewed.add(key)
+            if p['verdict']=='UNVERIFIABLE':
+                unknown.setdefault(key,{'units':None,'origin':'unverifiable_pair'})
+            else:
+                unknown.pop(key,None)
+                new_decided.add(key)
         outcomes.append({'row':key[0],'file':key[1],'verdict':p.get('verdict'),'valid':not errors})
     decided=(decided|new_decided)&pairs
     missing=sorted(pairs-decided)
-    return {'revision':revision,'population':len(pop),'citingPairs':len(pairs),'decided':len(decided),'r26CarriedPairs':len(old),'newDecided':len(new_decided),'missing':[{'row':r,'file':f} for r,f in missing],'findings':findings,'outcomes':outcomes,'scope':'All knowledge-file source-id literals and expanded ranges for the inherited 32-row population, plus monotone discovered pairs. Historical metadata and r26 EOF prose are INCLUDED. Pair adjudication is not proof of truth of every underlying statement.'}
+    for (row,file),detail in sorted(unknown.items()):
+        findings.append({'row':row,'file':file,'errors':[detail['origin']],'unverifiableUnits':detail['units']})
+    return {'revision':revision,'population':len(pop),'citingPairs':len(pairs),'reviewedPairs':len(reviewed & pairs),'decided':len(decided),'r26CarriedPairs':len(old),'r26CarriedFullyDecidedPairs':sum(p.get('seatUnverifiable',0)==0 for p in old),'carriedUnverifiableUnits':sum(p.get('seatUnverifiable',0) for p in old),'newDecided':len(new_decided),'unreviewed':[{'row':r,'file':f} for r,f in sorted(pairs-reviewed)],'missing':[{'row':r,'file':f} for r,f in missing],'findings':findings,'outcomes':outcomes,'scope':'Original41/57 baseline means durable pair reviews, not all statements HOLD. Frozen C1 after-clause requires HOLD/supported STALE and never counts UNVERIFIABLE decided. Original57 minimum plus monotone discoveries; metadata/EOF obligations retained. Structural review completeness cannot discharge six unresolved historical/local-behavior units.'}
 
 def main():
     if '--selftest' in sys.argv:

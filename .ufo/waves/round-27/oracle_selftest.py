@@ -20,10 +20,12 @@ def main():
    try:obj=json.loads(proc.stdout);ok=proc.returncode==expected_exit and check(obj)
    except (ValueError,KeyError,TypeError):obj={'stdout':proc.stdout};ok=False
    results.append(dict(case=name,passed=ok,exit=proc.returncode,expectedExit=expected_exit,output=obj,stderr=proc.stderr))
+  def only_carried(x):
+   return len(x['findings'])==2 and all(f['errors']==['carried_unverifiable'] for f in x['findings'])
   if a.kind=='c1':
-   measure('current_consumer_clean',0,lambda x:x['citingPairs']==58 and x['decided']==58 and not x['findings'])
+   measure('current_consumer_unverifiable_not_green',1,lambda x:x['citingPairs']==58 and x['reviewedPairs']==58 and x['decided']==56 and x['carriedUnverifiableUnits']==6 and only_carried(x))
    js(W+'discovered-pairs.json',[])
-   measure('discovered_obligation_cannot_shrink',0,lambda x:x['citingPairs']==58 and x['decided']==58)
+   measure('discovered_obligation_cannot_shrink',1,lambda x:x['citingPairs']==58 and x['reviewedPairs']==58 and x['decided']==56)
    retained={str(f.relative_to(root)):f.read_bytes() for f in (root/W/'fetched').rglob('*') if f.is_file()}
    # Branch from the real frozen declaration; previously discovered obligations
    # must not be erased in a descendant just to obtain a smaller fixture.
@@ -33,23 +35,23 @@ def main():
    baseline={path:subprocess.check_output(['git','-C',str(root),'show',DECL+':'+path],env=env) for path in paths}
    for path,data in baseline.items():write(path,data)
    js(W+'discovered-pairs.json',[]);js(W+'pairs.json',{'pairs':[]})
-   measure('baseline_missing_range',1,lambda x:x['citingPairs']==57 and x['decided']==41 and len(x['missing'])==16)
+   measure('baseline_missing_range_and_carried_unknowns',1,lambda x:x['citingPairs']==57 and x['reviewedPairs']==41 and x['decided']==39 and len(x['missing'])==18 and len(x['unreviewed'])==16)
    artifact=dict(row='S008',file='corpus/knowledge/crawl-scope-per-host.md',kind='artifact',verdict='HOLD',reason='Retained retry manifest identifies the historical fetch',evidence='.ufo/waves/round-26/fetched/manifest-retry.json',contains='S008-1-retry.raw.gz')
-   js(W+'pairs.json',{'pairs':[artifact]});measure('independent_artifact_review',1,lambda x:x['decided']==42 and x['newDecided']==1 and not x['findings'])
+   js(W+'pairs.json',{'pairs':[artifact]});measure('independent_artifact_review',1,lambda x:x['decided']==40 and x['newDecided']==1 and only_carried(x))
    bad=dict(artifact,evidence=artifact['file'],contains='S008');js(W+'pairs.json',{'pairs':[bad]});measure('artifact_self_support_rejected',1,lambda x:any('artifact_self_support' in f['errors'] for f in x['findings']))
    group=dict(artifact,row='S002',file='corpus/knowledge/static-canonical-preflight.md');js(W+'pairs.json',{'pairs':[group]});measure('group_requires_source',1,lambda x:any('group_source_required' in f['errors'] for f in x['findings']))
    js(W+'pairs.json',{'pairs':[]});path='corpus/knowledge/publish-channels.md';write(path,baseline[path].replace(b'S001-S007',b'S001'))
-   measure('deleted_citation_cannot_shrink_floor',1,lambda x:x['citingPairs']==57 and x['decided']==41);write(path,baseline[path])
+   measure('deleted_citation_cannot_shrink_floor',1,lambda x:x['citingPairs']==57 and x['reviewedPairs']==41 and x['decided']==39);write(path,baseline[path])
    record=dict(row='S002',file='corpus/knowledge/static-canonical-preflight.md',kind='source',verdict='HOLD',reason='Release-level artifact membership premise',fetchIndex=1,quote='Potentially breaking change: hidden files (specifically dotfiles) will not be included in the artifact',anchor='v4.0.0 release, What\'s Changed')
-   js(W+'pairs.json',{'pairs':[record]});measure('retained_source_review',1,lambda x:x['decided']==42 and not x['findings'])
+   js(W+'pairs.json',{'pairs':[record]});measure('retained_source_review',1,lambda x:x['decided']==40 and only_carried(x))
    q='This invented quote is not in the retained document';bad=dict(record,quote=q);js(W+'pairs.json',{'pairs':[bad]});write(W+'fetched/text/S002-1.txt',q)
    measure('forged_derived_text_not_authority',1,lambda x:any('quote' in f['errors'] for f in x['findings']))
    bad=dict(record,verdict='STALE');js(W+'pairs.json',{'pairs':[bad]});measure('stale_requires_correction',1,lambda x:any('correction_missing' in f['errors'] for f in x['findings']))
-   path=record['file'];write(path,baseline[path]+b'\n[r27-recheck S002 STALE] Corrected fixture attribution.\n');measure('stale_with_real_correction',1,lambda x:x['decided']==42 and not x['findings']);write(path,baseline[path])
+   path=record['file'];write(path,baseline[path]+b'\n[r27-recheck S002 STALE] Corrected fixture attribution.\n');measure('stale_with_real_correction',1,lambda x:x['decided']==40 and only_carried(x));write(path,baseline[path])
    rawpath=W+'fetched/S002-1.raw.gz';raw=(root/rawpath).read_bytes();write(rawpath,gzip.compress(b'Tampered bytes',mtime=0));js(W+'pairs.json',{'pairs':[record]})
    measure('raw_source_hash_mismatch',1,lambda x:any('source_hash' in f['errors'] for f in x['findings']));write(rawpath,raw)
-   override=dict(artifact,row='S001',file='corpus/knowledge/ghp-served-set.md',verdict='UNVERIFIABLE');js(W+'pairs.json',{'pairs':[override]})
-   measure('unverifiable_override_loses_carried_credit',1,lambda x:x['decided']==40)
+   override=dict(artifact,row='S003',file='corpus/knowledge/ghp-custom-domain.md',verdict='UNVERIFIABLE');js(W+'pairs.json',{'pairs':[override]})
+   measure('unverifiable_override_loses_carried_credit',1,lambda x:x['decided']==38)
    ledger_path='.ufo/waves/round-26/statements.json';ledger=json.loads((root/ledger_path).read_text());ledger['pairs'].append({'row':'S002','file':record['file']});js(ledger_path,ledger)
    measure('inherited_ledger_tamper',2,lambda x:'frozen_input_changed' in x['error'])
   else:

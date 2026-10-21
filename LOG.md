@@ -1070,3 +1070,44 @@ Repair-first motivation: corpus/lessons/round-26-verifier-spotcheck.md:9–13,11
 ### Round27 — counting implementation corrections, targets unchanged
 
 W1 CritIndependence/CritDenominator/CritClaimFit supplied consumer-input failures: shrinking citations erased obligations, inherited-ledger laundering passed, self-artifact evidence passed, UNVERIFIABLE overrides retained old credit, mutable frozen expectations could bless edits. The stricter counting implementation is committed before candidate measurement; original code remains at be375d90afc6fc7aca369ab3cf5247bf460aeed2. Exact hashes/diff and reasons: `.ufo/waves/round-27/oracle-implementation-corrections.json` and `oracle-implementation-diff.patch`. No original target, original16 missing-pair oracle, frozen input byte or r26 filed record is rewritten. New selftests consume real disposable Git clones, not stub-gate echoes. Positive results remain unasserted until executed. A conservative embedded evidence-file discovery grows C1's knowledge-file obligation57→58; it is an artifact-reference review, not S013 teaching served-set semantics.
+
+### Round27 — source adjudication and consumer gate implementation
+
+The original missing16 knowledge-file pairs now have explicit source/artifact
+judgments in `.ufo/waves/round-27/pairs.json`, plus one conservatively included
+embedded report reference and one override for a newly found numbered-step
+attribution. This is18 new review records, not a rewrite of r26's313 units.
+Three STALE attribution corrections are appended in preflight, sitemap metadata
+and served-set; source-specific holds, rejected alternate interpretations and
+historical dates remain explicit. Motivation: the r26 non-author rejection and
+W1 Pair03/07/08/06B findings. Source row routing changes S001–S006 are logged
+old→new in `corpus/lessons/round-27.md`; immutable row cells are preserved.
+
+Three isolated executor worktrees supplied `scripts/citing_set.py`,
+`scripts/citing_set_selftest.py` and29 independent fixture cases. L1 integrated
+only their assigned files. The new gate is registered in SKILL.md; its
+presence-only input `complete-ledger.json` does not claim semantic truth.
+QUALITY.md and the corpus index record the grouped-citation lesson and r26's
+rejected status. Broader outside-knowledge corpus policy and excluded-source
+populations are disclosed, not silently retired. No claim of successful
+measurement or new capability credit precedes the actual consumer-visible
+baseline/after runs and fresh falsification evidence.
+
+### Round27 — strict supported verdict is not review existence
+
+The frozen C1 after-clause (contract.json:10/13) requires HOLD or supported
+STALE and explicitly never counts UNVERIFIABLE decided. Main relayed an
+independent prospective-controls lead; direct author inspection of the actual
+contract and r26 pair reports confirms that the41 baseline are review records,
+including two partially UNVERIFIABLE pairs. The counting implementation now
+separates reviewedPairs from strictly decided and returns non-clean for those
+unresolved units. Original41/57 baseline bytes, target, denominator and r26
+records are preserved; no review-complete green substitutes for the frozen bar.
+Details: `.ufo/waves/round-27/strict-c1-disposition.json`.
+
+Six inherited units remain explicit (S001/ghp-served-set3 and S033/canonical
+entry3). C1 is unprovable if these remain unresolved; no r24 stopped
+probe/counter/target is retried to force a pass. The grouped-source repair and
+independent presence-only C2 capability continue; neither is relabelled full
+strict C1 completion. Arithmetic before execution is labelled inference in
+the disposition; real outputs are retained after runs.
