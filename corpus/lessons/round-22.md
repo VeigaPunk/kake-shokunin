@@ -213,3 +213,9 @@ accepted 0, available false, instrumentValidated true (`measure-before-v2.json`)
 Same runner sha256 `fa916ada…` both sides. Final suite: corpus-contract exit 0;
 paths gate exit 1 with the carried 3-target / missSet-55 red and no new miss
 (`final-suite.txt`). Census after: exit 0 (`census-after.txt`).
+
+### Recovery misroot (late sweep)
+
+| Class | Evidence pointer | Captured-by | Fix |
+|---|---|---|---|
+| seat misroot: relative redirect from the fleet cwd | fleet-root `err.txt`/`out.txt` (2026-10-21 03:00:47 -03), contents are the `--selftest --json` usage probe of `scripts/canonical_audit.py`, which the residual seat ResRevCliUsage ran during its probe window | wave context rule "never write relative paths" (not mechanically enforced) | copied byte-exact to `kake-shokunin/err.txt` and `out.txt`, verified with `cmp`, fleet copies deleted; the first sweep ran before the seat wrote them, so a final sweep before the report commit is the fix |
