@@ -152,3 +152,13 @@ Grounding: `corpus/lessons/round-23.md` §Mistakes; `.ufo/waves/round-23/w1/{Fal
 
 
 Round-23 falsifier clarification: canonical policy is not redirect/navigation readiness. A meta-refresh page may match its declared canonical; that never implies publish approval. A counting command validates receipt structure and replay consistency, not the truth of a claimed GET/HOLD: author seat observations and the non-author review must establish the latter. Select operationally load-bearing claims, not merely convenient live URL statuses (w2/HoldDriftDetection, HoldFleetRegistry, HoldOpsAutomation, HoldVaultProperties).
+
+
+## Receipt-field parsing and recovered-source pins — round 24
+
+Grounding: `corpus/lessons/round-24.md` Mistakes; outside r23 closure in MANIFEST rounds[394]; `.ufo/waves/round-24/w1/ReviewQualityCriteria.md` (captured-by: none for the two counter gaps).
+
+- Parse every receipt field against its documented grammar and JSON type before method calls or comparisons. Timestamp fields use real calendar/offset validation and the declared commit-time bound, never a date prefix; JSON booleans do not stand in for numeric exits/counts. Preserve producer-legal nullable headers and accepted controls. A nonzero process exit accompanied by a Python traceback is a crash, not a successful rejection. Fails if the fixed-population `python3 -B .ufo/waves/round-24/measure_c2.py --root . --revision <commit> --json` exits nonzero or either pristine C1/C2 replay control rejects.
+- Reconcile recovered tokens as well as new misses: each re-pin has a dated observation; a recovered target leaves pathsMissSet so its next disappearance is armed. Original corpus lines remain byte-identical under the round20 ruling; line-hash-bound sidecars plus separate correction blocks replace suffix edits. Restoration notes carry no absence vocabulary, preventing neighbour annotation bleed. Fails if `python3 -B .ufo/waves/round-24/measure_c1.py --root . --revision <commit> --json` is nonzero or `node scripts/freshness-sweep.mjs --selftest` loses its recovered-list/sidecar/vocabulary controls.
+
+These round-bound counters establish the named frozen expectations, not a universal schema proof or current publication readiness. A later filesystem change requires a new dated reconciliation; rerunning a historical paths measurement against a changed host need not stay green.

@@ -63,3 +63,10 @@ The two immutable non-author cites are corrected here; their original files are 
 
 - 2026-10-21: ~/Projects/webzites/scripts/kimi-surface.mjs absent (test -e exit 1); exact removal time and cause unknown, earlier W7 attribution historical. Citation corpus/lessons/round-6-aggregator-audit.md:48 is a historical record, not an executable instruction.
 - 2026-10-21: ~/Projects/ds4cc-marketplace/CNAME present (test -e exit 0; checkout 1fbdb8ed); prior local-state annotations at corpus/lessons/round-1-aggregator-audit.md:30 are historical. Deployment, chat binding and byte continuity with the historical checkout remain unverified.
+
+
+### Source usage changes and independent C1 measurement
+
+S032/S033/S034 used-by cells changed from `corpus/lessons/round-24.md` to `corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-24.md` when that knowledge section landed; status mined→mined and recheck365d→365d. The original31 rows remain unchanged.
+
+C1-only landing `3d07733b482f88c42cb008397188237c80e42b67`: same C1 counting command accepted19/19, sweep exit0, command exit0 (`measure-c1-c1-only.json`). At that revision C2 still uses the historical readers and remains81/130, exit1 (`measure-c2-c1-only.json`). This is observed causal separation in the C1→C2 direction, not just two axis names.

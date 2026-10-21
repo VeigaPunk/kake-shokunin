@@ -528,3 +528,13 @@ These dated corrections supersede only current local-state readings of the cited
 3. Record dated observations; remove recovered targets from `pathsMissSet` to re-arm their next disappearance; add newly cited misses only with a receipt. The gate is local citation conformance, not source restoration or permission to publish.
 4. Re-run the paths gate. The target reconciliation counter is `python3 -B .ufo/waves/round-24/measure_c1.py --root . --revision <commit> --json`; exit0 means all 19 frozen targets reconcile and paths exits0, exit1 a failed criterion, exit2 unreadable inputs. Selftest: `python3 -B .ufo/waves/round-24/c1_selftest.py`. Pins: `.ufo/waves/round-24/c1-population.json` and `corpus/knowledge/freshness-pins.json`; scratch writes only to temporary directories; owner kake.
 5. New sidecar/vocabulary/recovered-list fixtures are part of `node scripts/freshness-sweep.mjs --selftest`; no domain source tree is written. The current correction-register proof is revision-bound: later source changes require new dated observations, not retroactive rewrites.
+
+
+### Maintained receipt replay registry — round 24
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| receipt-replay | gate | `python3 -B scripts/receipt_replay.py c1` or `c2 --root . --revision <commit> --json` (both modes require root/revision) | 0 clean receipts; 1 failed receipt criterion; 2 could-not-evaluate input/usage/internal error | `python3 -B scripts/receipt_replay.py --selftest` | round23 populations/digests and BASE embedded in reader; round24 malformed-case population and matrix receipts | Git blobs read-only; isolated temporary validator inputs; no network | kake |
+| receipt-replay-matrix | gate (round measurement) | `python3 -B .ufo/waves/round-24/measure_c2.py --root . --revision <commit> --json` | 0 all frozen expectations; 1 failed expectation; 2 could-not-evaluate | same script `--selftest` | `.ufo/waves/round-24/c2-population.json` sha256 checked by matrix; original fixtureBase round23 | disposable clone commits only; never lane Git/jj writes | kake |
+
+Current replay commands supersede the historical round23 readers for new validation; historical examples remain tied to their original revision/digest. Source rationale and exact per-field limits: `corpus/knowledge/static-canonical-preflight.md` Receipt replay hardening (S032–S034). The gate proves structure/replay consistency, never GET provenance, live truth, domain identity or permission to publish.

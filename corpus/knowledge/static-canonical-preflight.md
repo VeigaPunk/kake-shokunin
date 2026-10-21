@@ -153,3 +153,28 @@ S030 caveat: a separate trailing solidus has no effect on a void-element start t
 A clean canonical receipt does not check HTML meta refresh, HTTP redirects, navigation/readiness or rendering. Meta refresh does not alter the declared canonical href/base, so a refresh page can match the local canonical policy while remaining unfit to publish; never treat that result as publication approval (w2/CritRelaxationProbe disagreement).
 
 The snapshot producer now opens output leaves no-follow relative to an opened directory, rejects non-regular or multiply linked leaves, and verifies stored body length/digest before re-audit. Missing or altered capture data is input error, not not-served. The counter reproduces captures, not the network event: GET provenance is in the producer invocation and independent seat observations.
+
+## Receipt replay hardening — round 24 (2026-10-21)
+
+Sources: S032 (RFC3339 §5.6–5.7), S033 (RFC9110 §8.3.1 and §5.6.6), S034 (RFC8259 §3/4/6/9), all opened this round. The former lexical timestamp prefix comparison accepted malformed and future strings; an untyped Content-Type could crash the historical counter. The round-23 producer fix did not fix that separate reader.
+
+Run the maintained reader from the lane root:
+
+```sh
+python3 -B scripts/receipt_replay.py c1 --root . --revision <commit> --json
+python3 -B scripts/receipt_replay.py c2 --root . --revision <commit> --json
+python3 -B scripts/receipt_replay.py --selftest
+```
+
+Both modes retain round23's digest-pinned populations, baseline anchors, heading and canonical replay. Exit0 means all named receipts pass, exit1 means at least one named rejection, exit2 unreadable inputs/usage or a caught internal error (one-line stderr, never a Python traceback). They read Git blobs and create only isolated temporary validator inputs; they do not GET, publish, edit source trees, or renew observation times. Raw revision options are resolved once to a commit object before blob reads.
+
+The field-specific local policy is explicit:
+
+- c1 observedAt permits RFC3339's full-date production as well as date-time, preserving historical date-only observations. c2 fetchedAt requires date-time with offset. Values are parsed, not prefix-compared: real calendar/clock fields, ASCII digits, UTC lower bound 2026-10-21 and no later than the revision's committer instant (UTC date for date-only observations). Date-only support and the bounds are lane policy, not an assertion that RFC3339 date-time is date-only. Runtime-supported calendar/seconds are the local profile; leap-second spellings are not evaluated as valid instants.
+- contentType permits null for an omitted header (not-served) or an HTTP media-type string. Type/subtype comparison is case-insensitive; semicolon parameters may be empty under RFC9110; field OWS is trimmed. Other JSON types and malformed media-type strings reject cleanly. Status/byte counts exclude booleans and audit comparison is recursively type-strict, so false cannot impersonate exit0 or true a count1.
+- JSON duplicate names are rejected as local integrity policy (RFC8259 says SHOULD-unique, not MUST). Non-standard NaN/Infinity, invalid encodings and runtime number/depth overflows reject without traceback. Unknown metadata members remain allowed; valid controls are not rejected merely for extra fields.
+- Redirect endpoints must be safe absolute HTTP URLs without controls or userinfo. A body stored for a response that cannot carry content (204/205) is rejected; canonical replay still distinguishes reproducibility from clean policy.
+
+Round24's malformed-case counter is `python3 -B .ufo/waves/round-24/measure_c2.py --root . --revision <commit> --json` (selftest: same script with `--selftest`). It grades 130 frozen single-file mutations/controls in a clone reset to the round23 fixture base. New runner bytes come from the measured revision; if absent there, the historical round23 runner supplies the actual before instrument. Population digest and the selection register are committed.
+
+Historical round23 commands and their evidence remain valid at their named revisions; the current maintained entry point above supersedes them for new structural replay. Acceptance authenticates neither the GET event nor a claim's truth; producer observations and non-author review still carry that authority. A failed-policy canonical result is not receipt incompleteness, and receipt completeness is not publication readiness.
