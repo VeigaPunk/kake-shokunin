@@ -1,0 +1,14 @@
+{
+ "round": 24,
+ "date": "2026-10-21",
+ "supersedes": "contract.json C1 after clause requiring inline suffix corrections and C1 executor w1 spec corresponding checks; rejected before any corpus edit",
+ "reason": "corpus/QUALITY.md:31-39 (round-20 non-author ruling) forbids suffix appends: every prior lesson/knowledge line remains byte-identical. Original round-24 plan and drafts overlooked this rule. No suffix proposal is integrated.",
+ "C1replacement": "All prior corpus lines remain byte-identical. A lane-authored freshness-sidecar.json binds the target, file, line and original lineSha256 to a dated note. For drift citations use kind=absent with historical/non-executable wording. For recovered citations use kind=restored without absence vocabulary. Sidecar corrections apply to both lane-authored and non-author citations; the lane-authored file receives an EOF Round-24 path reconciliation block with its notes, while non-author files remain entirely unchanged and receive their notes in the round-24 lesson correction register. The counter validates binding, note content and presence in the correction block, not a suffix on the original line.",
+ "population": "c1-population.json unchanged: 19 targets; original 101 cite coordinates remain stable",
+ "separability": "Land C1-only revision before C2 script/docs, then C2-only script delta on top; compare C1 counting result across C1-only and combined revisions. C2 measurement always resets fixtures to the round-23 base so C1 changes cannot affect its numerator.",
+ "C2clarifications": [
+  "c1 observedAt accepts RFC3339 full-date (historical receipts) or date-time; c2 fetchedAt requires date-time. Date-only bound compares to revision UTC commit date; timestamp bound compares instants. These are field-specific local policies, not a claim that RFC3339 date-time accepts a date-only value.",
+  "Producer-legal contentType:null is retained on not-served/no-page receipts; other non-string values reject cleanly.",
+  "Mutation-case op=raw + UTF-8 value is allowed for lexical JSON cases, in addition to set/delete. Case population is frozen with its digest before before-measurement, not pre-claimed frozen by contract file existence alone."
+ ]
+}

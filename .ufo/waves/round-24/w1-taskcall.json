@@ -1,0 +1,437 @@
+{
+ "context": "# Goal\nKake lane round 24 only (web properties and publishing; owned axes operability + freshness). Frozen claim contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/contract.json (read it first). Base revision f7de3ab4e9f030a15a857a5a08631bd8e690f436 (round 23, admitted).\n- C1 freshness: reconcile all 19 paths-gate targets of `node /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs --section=paths` with the current filesystem (population /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-population.json; round-open JSON /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/paths-before.json: 3 drift targets with 4 unannotated cites, 12 newMissing tokens not in pins.pathsMissSet, 4 recovered tokens because ~/Projects/ds4cc-marketplace reappeared on 2026-10-21 ~05:19 -03).\n- C2 operability: the lane's receipt replay (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py and measure_c2.py) must reject malformed receipts (exit 1 or 2, never a Python traceback) instead of accepting them; known gaps: lexical observedAt/fetchedAt prefix test (`x[:10] < \"2026-10-21\"`) accepts malformed or future strings; served() crashes on a non-string contentType. The fix lands as a maintained lane script /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/receipt_replay.py (round-23 runners stay byte-intact as historical evidence).\nThe L1 (KakeR24) holds the planner seat and is the sole integration writer; you are author-side and never claim independent admission.\n# Contract\n- All paths absolute. Lane /home/vgpnk/Projects/shokunin/kake-shokunin. Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>. Your tools start at the FLEET root /home/vgpnk/Projects/shokunin: NEVER write a relative path or redirect there; put every scratch file under a fresh `mktemp -d /tmp/kake-r24-<YourName>-XXXX`.\n- Read-only on the lane: write ONLY your own report file. Never edit lane production files, never run git/jj mutations in the lane, never touch its index/jj state, the fleet repo, sibling lanes, ~/.omp config or .ufo/state. Anything that needs a git commit (sandboxes, mutation cases) runs in your own `git clone --no-hardlinks /home/vgpnk/Projects/shokunin/kake-shokunin /tmp/kake-r24-<YourName>-clone`; record the clone's observed HEAD. Writers (executors) work only in that clone and leave produced files there, listing absolute paths plus sha256 in the report; the L1 integrates.\n- Domain source trees (~/Projects/ds4cc-marketplace, ~/Projects/ufo-fsd-alpha, ~/Projects/lucario, …) are read-only: stat/ls/git log/git show only, no fetch/pull/checkout. Web: read-only GET/HEAD of public documentation pages only.\n- No builds/lint/formatters; targeted CLI probes, the named selftests and counters are allowed. Stay a leaf: spawn no subagents (executors may spawn one read-only labrat for one falsifiable hypothesis).\n- Tooling: you and every seat may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate; record tool/version/channel/reason in your report). pacman guard: ALL pacman transactions are PAUSED host-wide (no -S/-Sy/-Syu/-U/-R, no downgrade, no host service restart); use uv tool / npx / an official binary in ~/.local/bin, or skip. No live secrets.\n- Report format: `## Verdict`, `## Findings` (severity P0–P3, exact command, exact observed output, impacted claim/axis, smallest fix), `## Checked and held`, `## Limits`. Quote exact outputs; an unrun check has not passed.\n# C1 target receipt schema (C1 target items: include exactly one fenced ```json block with this object)\n{\"id\": \"T##\", \"token\": \"<token from c1-population.json>\", \"class\": \"drift|newMissing|recovered\", \"observedAt\": \"<UTC RFC 3339 date-time of your observation, e.g. 2026-10-21T12:34:56Z>\", \"state\": \"absent|present\", \"observation\": {\"commands\": [\"<exact read-only commands>\"], \"output\": \"<exact output, abbreviated faithfully>\"}, \"event\": \"<dated event that explains the state, with its evidence, or 'unknown'>\", \"cites\": [{\"cite\": \"<file:line from the population>\", \"lineText\": \"<exact current bytes of that line>\", \"authored\": \"lane|non-author\", \"status\": \"annotated-true|annotated-stale|unannotated|presence-claim-true|presence-claim-stale\", \"action\": \"none|append-inline|sidecar\", \"text\": \"<exact text to append at the END of that line, or the sidecar note>\"}]}\nRules: non-author files are corpus/lessons/*aggregator*.md and *verifier-spotcheck*.md — never propose editing them; use action `sidecar`. Absence annotations follow the round-20 style and MUST contain an absence word matched by /absent|gone|vanished|emptied|no longer|dangling|no such file|never published|missing/i, the date 2026-10-21, the event, and the words \"historical record, not an executable instruction\". Restoration corrections (recovered targets) MUST contain NONE of those absence words (they sit within ±2 lines of other cites and would silently annotate them), must start with `*[r24 restoration 2026-10-21:` (or `<!-- r24 restoration 2026-10-21:` inside table rows / code), name what was observed present, and say which part of the earlier line stays historical/unverified. Never rewrite existing text; only append.\n# C2 malformed-case schema (C2 gap items: include exactly one fenced ```json block: an array of case objects)\n[{\"id\": \"<short-kebab-id>\", \"target\": \"c1|c2\", \"file\": \"<lane-relative path, e.g. .ufo/waves/round-23/receipts/drift-detection.json or .ufo/waves/round-23/live/ds4cc-primary/fetch.json>\", \"op\": \"set|delete\", \"jsonPath\": [\"observedAt\"], \"value\": <JSON value for set>, \"expect\": \"reject|accept\", \"why\": \"<one sentence; cite RFC section if it rests on one>\", \"r23Observed\": {\"exit\": <int>, \"traceback\": true|false, \"stdoutTail\": \"<last line>\"}}]\n`r23Observed` is what the CURRENT round-23 runner actually did when you applied the case in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436, committed it (fixed GIT_COMMITTER_DATE=2026-10-21T12:00:00Z), and ran `python3 /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py --root <clone> --revision <sandbox HEAD>` (or measure_c2.py). A case only counts when you actually ran it. `expect: accept` cases are controls that must stay accepted.\n",
+ "tasks": [
+  {
+   "name": "PathsDriftT01Plazir15Site",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nC1 target T01 `~/Projects/plazir-15-site` (class drift). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: SKILL.md:17, SKILL.md:24, SKILL.md:367, SKILL.md:423, SKILL.md:460, SKILL.md:465, corpus/knowledge/drift-detection.md:101, corpus/knowledge/drift-detection.md:77, corpus/knowledge/drift-detection.md:95, corpus/knowledge/fleet-registry.md:57, corpus/knowledge/fleet-registry.md:58, corpus/knowledge/fleet-registry.md:85, corpus/knowledge/freshness-sweep.md:97, corpus/knowledge/freshness-sweep.md:98, corpus/knowledge/publish-channels.md:69, corpus/knowledge/publish-queue.md:266, corpus/knowledge/publish-queue.md:267, corpus/knowledge/publish-queue.md:38, corpus/lessons/round-18.md:57) with ±3 lines of context, classify each cite, and propose the exact append-only text. Unannotated cites to fix: corpus/knowledge/drift-detection.md:77, corpus/knowledge/fleet-registry.md:57. Explain why the existing r18/r20 annotations did not cover them (the gate reads the citing line ±2 after blanking citation text: /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs annotate()). Emit the C1 target receipt JSON.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsDriftT01Plazir15Site.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "PathsDriftT02WebzitesMjs",
+   "agent": "revenger",
+   "task": "/skill:godspeed\n\nC1 target T02 `~/Projects/webzites/bin/webzites.mjs` (class drift). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: SKILL.md:59, corpus/README.md:86, corpus/knowledge/drift-detection.md:7, corpus/knowledge/free-read-verbs.md:1, corpus/knowledge/free-read-verbs.md:10, corpus/knowledge/free-read-verbs.md:3, corpus/knowledge/free-read-verbs.md:321, corpus/knowledge/free-read-verbs.md:483, corpus/knowledge/free-read-verbs.md:490, corpus/knowledge/probe-delta-alerting.md:120, corpus/knowledge/probe-delta-alerting.md:81, corpus/knowledge/probe-delta-alerting.md:82, corpus/lessons/round-5-aggregator-mirror-pathless-cli-invocation.md:11, corpus/lessons/round-5-aggregator-mirror-pathless-cli-invocation.md:13, corpus/lessons/round-9.md:121, corpus/lessons/round-9.md:43) with ±3 lines of context, classify each cite, and propose the exact append-only text. Unannotated cites to fix: corpus/knowledge/free-read-verbs.md:321. Explain why the existing r18/r20 annotations did not cover them (the gate reads the citing line ±2 after blanking citation text: /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs annotate()). Emit the C1 target receipt JSON.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsDriftT02WebzitesMjs.md",
+   "solutionSpace": "read-only reconstruction; cause open"
+  },
+  {
+   "name": "PathsDriftT03KimiSurfaceMjs",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nC1 target T03 `~/Projects/webzites/scripts/kimi-surface.mjs` (class drift). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: SKILL.md:111, SKILL.md:223, corpus/knowledge/drift-detection.md:7, corpus/knowledge/fire-journal-codes.md:1, corpus/knowledge/fire-journal-codes.md:3, corpus/knowledge/fire-journal-codes.md:7, corpus/knowledge/fire-journal-codes.md:8, corpus/knowledge/fire-journal-codes.md:82, corpus/knowledge/fire-journal-codes.md:83, corpus/knowledge/fire-journal-codes.md:85, corpus/knowledge/free-read-verbs.md:1, corpus/knowledge/free-read-verbs.md:10, corpus/knowledge/free-read-verbs.md:3, corpus/knowledge/free-read-verbs.md:324, corpus/knowledge/free-read-verbs.md:325, corpus/knowledge/probe-delta-alerting.md:120, corpus/knowledge/probe-delta-alerting.md:83, corpus/knowledge/probe-delta-alerting.md:84, corpus/knowledge/publish-channels.md:34, corpus/knowledge/publish-channels.md:35, corpus/knowledge/publish-channels.md:68, corpus/knowledge/vault-properties.md:103, corpus/lessons/round-4-aggregator-audit.md:31, corpus/lessons/round-4-aggregator-audit.md:32, corpus/lessons/round-4.md:4, corpus/lessons/round-4.md:5, corpus/lessons/round-6-aggregator-audit.md:145, corpus/lessons/round-6-aggregator-audit.md:48) with ±3 lines of context, classify each cite, and propose the exact append-only text. Unannotated cites to fix: corpus/lessons/round-6-aggregator-audit.md:48. Explain why the existing r18/r20 annotations did not cover them (the gate reads the citing line ±2 after blanking citation text: /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs annotate()). Emit the C1 target receipt JSON.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsDriftT03KimiSurfaceMjs.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "PathsNewT04READMEMd",
+   "agent": "revenger",
+   "task": "/skill:godspeed\n\nC1 target T04 `~/Projects/lucario/site/README.md` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: SKILL.md:458) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT04READMEMd.md",
+   "solutionSpace": "read-only reconstruction; cause open"
+  },
+  {
+   "name": "PathsNewT05PagesYml",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC1 target T05 `~/Projects/plazir-15-site/.github/workflows/pages.yml` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: SKILL.md:461) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT05PagesYml.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "PathsNewT06Speedrun",
+   "agent": "revenger",
+   "task": "/skill:godspeed\n\nC1 target T06 `~/Projects/plazir-15-site/speedrun` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/mirror-pitfalls.md:63) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT06Speedrun.md",
+   "solutionSpace": "read-only reconstruction; cause open"
+  },
+  {
+   "name": "PathsNewT07KimiSurfaceMjs",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC1 target T07 `~/Projects/shokunin/kake-shokunin/fleet/kimi-surface.mjs` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/vault-properties.md:100) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT07KimiSurfaceMjs.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "PathsNewT08VaultPropertiesJso",
+   "agent": "revenger",
+   "task": "/skill:godspeed\n\nC1 target T08 `~/Projects/shokunin/kake-shokunin/fleet/vault-properties.json` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/vault-properties.md:100) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT08VaultPropertiesJso.md",
+   "solutionSpace": "read-only reconstruction; cause open"
+  },
+  {
+   "name": "PathsNewT09KimiSurfaceMjs",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC1 target T09 `~/Projects/shokunin/kake-shokunin/kimi-surface.mjs` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/vault-properties.md:100) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT09KimiSurfaceMjs.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "PathsNewT10UfofsdbetaKimiRevi",
+   "agent": "revenger",
+   "task": "/skill:godspeed\n\nC1 target T10 `~/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/mirror-pitfalls.md:64) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT10UfofsdbetaKimiRevi.md",
+   "solutionSpace": "read-only reconstruction; cause open"
+  },
+  {
+   "name": "PathsNewT11WebzitesSpeedrunMd",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC1 target T11 `~/Projects/webzites/agents/webzites-speedrun.md` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/speedrun-pipeline.md:77) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT11WebzitesSpeedrunMd.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "PathsNewT12GrokbotsJson",
+   "agent": "revenger",
+   "task": "/skill:godspeed\n\nC1 target T12 `~/Projects/webzites/fleet/grokbots.json` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: SKILL.md:429) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT12GrokbotsJson.md",
+   "solutionSpace": "read-only reconstruction; cause open"
+  },
+  {
+   "name": "PathsNewT13Ds4ccMarketplace",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC1 target T13 `~/Projects/webzites/repos/ds4cc-marketplace` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/origin-repos.md:82) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT13Ds4ccMarketplace.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "PathsNewT14ProbeLatestJson",
+   "agent": "revenger",
+   "task": "/skill:godspeed\n\nC1 target T14 `~/Projects/webzites/state/probe-latest.json` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/ops-automation.md:141) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT14ProbeLatestJson.md",
+   "solutionSpace": "read-only reconstruction; cause open"
+  },
+  {
+   "name": "PathsNewT15RebuildCharterFire",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC1 target T15 `~/Projects/webzites/state/rebuild-charter-fire.log` (class newMissing). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/fire-journal-codes.md:86) with ±3 lines of context, classify each cite, and propose the exact append-only text. This token is already annotated absent at its cite but was never pinned in pins.pathsMissSet. Establish whether it ever existed and when it vanished (lane history: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log -S'<token tail>' --format='%h %cI %s' -- <file>`; for kake-shokunin-local paths check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all --format=%h -- <relative path>`), and whether the existing annotation text is truthful. Emit the C1 target receipt JSON (action none if the annotation is true).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsNewT15RebuildCharterFire.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "PathsRestoredDs4ccSkill",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nC1 target T16 `~/Projects/ds4cc-marketplace` (class recovered). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: SKILL.md:16, SKILL.md:19, SKILL.md:364, SKILL.md:445, SKILL.md:448, SKILL.md:449, SKILL.md:450) with ±3 lines of context, classify each cite, and propose the exact append-only text. This target exists again. For every cite decide whether the line (and its earlier r18/r20/r23 absence notes) now states something false about presence, and draft the restoration correction (no absence words!). Also compare the restored tree with what the corpus cites (CNAME value, subdirs, HEAD) and say which presence-dependent claims stay unverified. Emit the C1 target receipt JSON. Only these cites: SKILL.md:16, SKILL.md:19, SKILL.md:364, SKILL.md:445, SKILL.md:448, SKILL.md:449, SKILL.md:450 (a sibling seat covers the others).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsRestoredDs4ccSkill.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "PathsRestoredDs4ccCorpus",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nC1 target T16 `~/Projects/ds4cc-marketplace` (class recovered). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/fleet-registry.md:49, corpus/knowledge/fleet-registry.md:50, corpus/knowledge/fleet-registry.md:64, corpus/knowledge/origin-repos.md:11, corpus/knowledge/origin-repos.md:19, corpus/knowledge/origin-repos.md:70, corpus/knowledge/publish-channels.md:69, corpus/lessons/round-18.md:55) with ±3 lines of context, classify each cite, and propose the exact append-only text. This target exists again. For every cite decide whether the line (and its earlier r18/r20/r23 absence notes) now states something false about presence, and draft the restoration correction (no absence words!). Also compare the restored tree with what the corpus cites (CNAME value, subdirs, HEAD) and say which presence-dependent claims stay unverified. Emit the C1 target receipt JSON. Only these cites: corpus/knowledge/fleet-registry.md:49, corpus/knowledge/fleet-registry.md:50, corpus/knowledge/fleet-registry.md:64, corpus/knowledge/origin-repos.md:11, corpus/knowledge/origin-repos.md:19, corpus/knowledge/origin-repos.md:70, corpus/knowledge/publish-channels.md:69, corpus/lessons/round-18.md:55 (a sibling seat covers the others).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsRestoredDs4ccCorpus.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "PathsRestoredT17CNAME",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nC1 target T17 `~/Projects/ds4cc-marketplace/CNAME` (class recovered). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/lessons/round-1-aggregator-audit.md:30) with ±3 lines of context, classify each cite, and propose the exact append-only text. This target exists again. For every cite decide whether the line (and its earlier r18/r20/r23 absence notes) now states something false about presence, and draft the restoration correction (no absence words!). Also compare the restored tree with what the corpus cites (CNAME value, subdirs, HEAD) and say which presence-dependent claims stay unverified. Emit the C1 target receipt JSON.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsRestoredT17CNAME.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "PathsRestoredT18Burnerchrome",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nC1 target T18 `~/Projects/ds4cc-marketplace/burnerchrome` (class recovered). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: SKILL.md:20, SKILL.md:423, SKILL.md:431, corpus/knowledge/fleet-registry.md:51, corpus/knowledge/fleet-registry.md:66) with ±3 lines of context, classify each cite, and propose the exact append-only text. This target exists again. For every cite decide whether the line (and its earlier r18/r20/r23 absence notes) now states something false about presence, and draft the restoration correction (no absence words!). Also compare the restored tree with what the corpus cites (CNAME value, subdirs, HEAD) and say which presence-dependent claims stay unverified. Emit the C1 target receipt JSON.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsRestoredT18Burnerchrome.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "PathsRestoredT19Speedrun",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nC1 target T19 `~/Projects/ds4cc-marketplace/speedrun` (class recovered). Observe its current state with read-only commands (test -e, stat -c '%n %w %y', ls -la of the nearest existing ancestor; for a git repo `git -C <dir> log -3 --format='%H %cI %s'` and `git -C <dir> remote -v`). Read every cite line in /home/vgpnk/Projects/shokunin/kake-shokunin (cites: corpus/knowledge/mirror-pitfalls.md:63, corpus/knowledge/speedrun-pipeline.md:1, corpus/knowledge/speedrun-pipeline.md:13, corpus/knowledge/speedrun-pipeline.md:3, corpus/knowledge/speedrun-pipeline.md:78) with ±3 lines of context, classify each cite, and propose the exact append-only text. This target exists again. For every cite decide whether the line (and its earlier r18/r20/r23 absence notes) now states something false about presence, and draft the restoration correction (no absence words!). Also compare the restored tree with what the corpus cites (CNAME value, subdirs, HEAD) and say which presence-dependent claims stay unverified. Emit the C1 target receipt JSON.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/PathsRestoredT19Speedrun.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "RevengeDs4ccRestoration",
+   "agent": "revenger",
+   "task": "/skill:godspeed\n\nReconstruct the 2026-10-21 reappearance of ~/Projects/ds4cc-marketplace (read-only): stat birth/modify times of the dir, .git, CNAME, burnerchrome/, speedrun/; `git -C ~/Projects/ds4cc-marketplace log --format='%H %cI %an %s' -15`, `git -C ... reflog -10`, `remote -v`, branch tracking state. Is it the same repository the corpus cited before the 2026-10-12 prune (compare commit hashes or remotes cited in /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/fleet-registry.md, origin-repos.md, publish-channels.md)? Search /home/vgpnk/Projects/shokunin/.ufo/reports/round-2*/*.md and /home/vgpnk/Projects/shokunin/.ufo/watchdog.log read-only for any lane or operator note about the restoration. Give the most precise dated event sentence the evidence supports.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/RevengeDs4ccRestoration.md",
+   "solutionSpace": "read-only reconstruction; cause open"
+  },
+  {
+   "name": "R23ReceiptsDs4ccStale",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nFind every round-23 C1 claim and every '## Live re-verification — round 23' correction in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/*.md and /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md that asserts ~/Projects/ds4cc-marketplace (or CNAME/burnerchrome/speedrun under it) is absent (receipts under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/receipts/*.json; grep the unit files). For each, observe the current state and propose an appended round-24 correction (exact text; never rewrite the r23 observation). List file:line, the r23 claim id, and your observation.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/R23ReceiptsDs4ccStale.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "GlobsWebzitesState",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nThe paths gate cannot check glob tokens. Expand each now and report matches: ~/Projects/webzites/state/rebuild-*.json, ~/Projects/webzites/state/recreate-*.json, ~/Projects/webzites/state/recreate-plazir15-*.json, ~/Projects/webzites/state/update-*.json, ~/Projects/webzites/reports/keepers/grokbot-*.log.md (use `compgen -G` or python glob). Find their cite lines in /home/vgpnk/Projects/shokunin/kake-shokunin (grep -n) and say whether each cite carries an absence annotation; propose an annotation for any that lacks one.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GlobsWebzitesState.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "GlobsSystemdUfofsdbeta",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nExpand the two remaining glob tokens now: ~/.config/systemd/user/webzites-*.timer and ~/Projects/**/ufofsdbeta-kimi-review (python glob with recursive=True; bounded to ~/Projects depth 4). Report matches, also `systemctl --user list-timers --all | grep -i webzites` (read-only), cite lines in /home/vgpnk/Projects/shokunin/kake-shokunin, annotation status, and any proposed annotation.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GlobsSystemdUfofsdbeta.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "ProjectsChildrenDelta",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\npins.projectsChildrenSet in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-pins.json lists 14 ~/Projects children (informational). List ~/Projects now; for each added/removed child give birth time and whether any file in /home/vgpnk/Projects/shokunin/kake-shokunin cites it (grep -rn). Recommend whether the informational pin should be re-censused this round, with the exact new JSON array.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ProjectsChildrenDelta.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "CritRepinGreenwash",
+   "agent": "critic",
+   "task": "/skill:godspeed\n\nAttack C1 before it lands: is re-pinning 12 newMissing tokens into pins.pathsMissSet (and dropping 4 recovered ones) a reconciliation or greenwashing? Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/contract.json, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-sweep.md, the round-18 re-census precedent in /home/vgpnk/Projects/shokunin/kake-shokunin/SCORECARD.md move log and /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-18.md, and the r23 closure note in /home/vgpnk/Projects/shokunin/MANIFEST.json rounds[394].verification and notes (read-only). Give the exact evidence conditions under which a re-pin is legitimate and the falsifier the counter must enforce.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/CritRepinGreenwash.md",
+   "solutionSpace": "adversarial review; objections open"
+  },
+  {
+   "name": "ConnectDs4ccSiblingOverlap",
+   "agent": "connector",
+   "task": "/skill:godspeed\n\nSibling-overlap scan (read-only): which other shokunin lanes under /home/vgpnk/Projects/shokunin/*-shokunin cite ~/Projects/ds4cc-marketplace or ds4cc.com, and do any of their current rounds record its 2026-10-21 restoration or depend on its absence? grep -rln, path:line evidence; say whether kake's reconciliation conflicts with any sibling claim.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ConnectDs4ccSiblingOverlap.md",
+   "solutionSpace": "cross-lane scan; overlaps open"
+  },
+  {
+   "name": "ExecSweepSidecar",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nIn your clone of /home/vgpnk/Projects/shokunin/kake-shokunin at f7de3ab4e9f030a15a857a5a08631bd8e690f436: add a lane-authored sidecar to /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs so citations inside NON-author files (corpus/lessons/*aggregator*.md, *verifier-spotcheck*.md — reuse the predicate in /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/corpus-contract.mjs if one exists) can be annotated without editing them. File corpus/knowledge/freshness-sidecar.json, schema `kake-paths-sidecar-v1`: entries {file, line, token, lineSha256 (sha256 of the exact line text without newline), kind: absent|restored, date, note}. An `absent` entry annotates (file:line, token) only if: file is non-author, the token occurs on that line, the line's sha256 still matches, and note matches the absence regex; a `restored` entry is informational. Malformed sidecar or an entry for a lane-authored file → exit 2 (fail closed). Keep the existing selftest green and add selftest cases proving each rule can fail (stale sha, lane-authored file, wrong token, missing absence word, malformed JSON). Report: unified diff, new sha256s, `node scripts/freshness-sweep.mjs --selftest` output in the clone, and a paths run in the clone with a sidecar entry for corpus/lessons/round-6-aggregator-audit.md:48 (`~/Projects/webzites/scripts/kimi-surface.mjs`).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ExecSweepSidecar.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "ExecPathsCounter",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nIn your clone of /home/vgpnk/Projects/shokunin/kake-shokunin at f7de3ab4e9f030a15a857a5a08631bd8e690f436: write .ufo/waves/round-24/measure_c1.py (stdlib only). Usage `python3 .ufo/waves/round-24/measure_c1.py --root LANE --revision REV [--json]`. Validate REV (no leading '-', `git rev-parse --verify --end-of-options REV^{commit}`). Read .ufo/waves/round-24/c1-population.json at REV and require its sha256 == the digest at f7de3ab4e9f030a15a857a5a08631bd8e690f436-era file /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-population.json (hardcode it). `git archive REV | tar -x` into a temp dir; run that tree's `node scripts/freshness-sweep.mjs --section=paths --json` with KAKE_REPO_ROOT=<tmp> and KAKE_FRESHNESS_PINS unset; record its exit. A target passes iff: (a) .ufo/waves/round-24/c1-receipts/<id>.json at REV is a JSON object whose id/token/class match the population, observedAt is a strict RFC 3339 date-time >= 2026-10-21T00:00:00Z and <= REV's committer time, state is absent for drift/newMissing and present for recovered, observation.commands and observation.output non-empty; (b) the live filesystem now agrees with state (os.path.exists(os.path.expanduser(token))); (c) the sweep JSON lists the token in none of drift, setDelta.newMissing, setDelta.recovered; (d) drift: every unannotatedCite is fixed either inline (in a lane-authored file a line exists at REV that starts with the base line text and contains '2026-10-21' and an absence word) or by a sidecar entry in corpus/knowledge/freshness-sidecar.json at REV for that file/line/token; (e) recovered: every lane-authored cite's base line text is followed (same line) by a '[r24 restoration 2026-10-21:' or '<!-- r24 restoration 2026-10-21:' marker at REV, and every non-author cite has a `restored` sidecar entry. Print per-target verdicts and `accepted N/19 · sweep exit E`; exit 0 iff 19/19 and sweep exit 0, 1 otherwise, 2 for unreadable inputs. Also write .ufo/waves/round-24/c1_selftest.py exercising pass and each failure clause on a throwaway git repo. Report file paths in the clone, sha256s, and a run at f7de3ab4e9f030a15a857a5a08631bd8e690f436 (expected 0/19, exit 1).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ExecPathsCounter.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "ExecReceiptReplay",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nIn your clone of /home/vgpnk/Projects/shokunin/kake-shokunin at f7de3ab4e9f030a15a857a5a08631bd8e690f436: write scripts/receipt_replay.py (stdlib only) — the maintained replay of the round-23 receipt sets. `python3 scripts/receipt_replay.py c1|c2 --root LANE --revision REV [--json]` and `--selftest`. Port the exact acceptance semantics of /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py and measure_c2.py (same populations and digests, BASE, heading, ROUND paths, validator re-run) and harden: (1) revision must not start with '-' and must resolve via `git rev-parse --verify --end-of-options REV^{commit}` else exit 2; (2) observedAt/fetchedAt must be strings matching RFC 3339 §5.6 full-date or date-time (strict regex + real calendar/clock values via datetime; reject trailing garbage, missing offset on date-time, hour 24, month 13), on/after 2026-10-21 and not later than REV's committer timestamp; (3) contentType must be a string parsed as an RFC 9110 §8.3.1 media type (token '/' token, optional ';' parameters) — non-string or unparsable → not served, recorded as a problem, never a crash; (4) status must be an int but not bool; (5) every JSON field read is type-checked so any malformed receipt yields exit 1 with a named problem, unreadable revision/population exit 2, and no traceback for any JSON input; (6) --json output of per-unit problems and verdict tallies. At f7de3ab4e9f030a15a857a5a08631bd8e690f436 it must print accepted 17/17 (c1, HOLD79/STALE55/UNVERIFIABLE42) and 12/12 (c2, clean3/failed-policy5/not-served4) — run both and paste outputs, plus --selftest. Report paths in the clone and sha256s.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ExecReceiptReplay.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "ExecMalformedMatrix",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nIn your clone of /home/vgpnk/Projects/shokunin/kake-shokunin at f7de3ab4e9f030a15a857a5a08631bd8e690f436: write .ufo/waves/round-24/measure_c2.py (stdlib only), the C2 counting command. Usage `python3 .ufo/waves/round-24/measure_c2.py --root LANE --revision REV [--json]`. It reads .ufo/waves/round-24/c2-population.json at REV ({\"fixtureBase\": \"f7de3ab4e9f030a15a857a5a08631bd8e690f436\", \"cases\": [<C2 malformed-case schema objects>]}; hardcode a POPULATION_SHA256 placeholder constant the L1 fills when freezing) and selects the runner under test from REV: if scripts/receipt_replay.py exists at REV run `python3 <tmp>/receipt_replay.py c1|c2 --root SANDBOX --revision H`; otherwise the round-23 runners `.ufo/waves/round-23/measure_c1.py|measure_c2.py` read at REV. Sandbox: `git clone --quiet --no-hardlinks LANE <tmp>/sb`, checkout fixtureBase detached; per case reset hard to fixtureBase, apply the JSON mutation (set/delete at jsonPath; for set write json.dumps with the same indent the file uses), commit with fixed GIT_AUTHOR/COMMITTER_DATE=2026-10-21T12:00:00Z and a fixed identity, run the runner with a timeout, classify: expect reject → correct iff exit in {1,2} and 'Traceback' not in stderr; expect accept → correct iff exit 0. Print one line per case and `correct N/M (reject R/Rt, accept A/At)`; exit 0 iff all correct, 1 otherwise, 2 for unreadable inputs. Never touch LANE except `git clone` reads. Build a provisional c2-population.json with at least 6 cases (observedAt '2026-10-21garbage', fetchedAt '2099-01-01T00:00:00Z', contentType 200 on ds4cc-primary, contentType ['text/html'], one unmodified c1 control, one unmodified c2 control) and paste the run against the round-23 runners at f7de3ab4e9f030a15a857a5a08631bd8e690f436. Report paths in the clone and sha256s.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ExecMalformedMatrix.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "SentinelRevisionInjection",
+   "agent": "sentinel",
+   "task": "/skill:godspeed\n\nSecurity review: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py and measure_c2.py pass `f\"{revision}:{path}\"` to `git show`. In a sandbox clone (never the lane) test whether a revision such as `--output=/tmp/kake-r24-<you>-pwn` or other option-shaped strings make git write files or read outside the repo; also check subprocess/tempdir handling in measure_c2.py's validator re-run. Report exact commands/outputs and the minimal guard for scripts/receipt_replay.py.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/SentinelRevisionInjection.md",
+   "solutionSpace": "security probe in sandbox; exposures open"
+  },
+  {
+   "name": "SentinelMatrixSandbox",
+   "agent": "sentinel",
+   "task": "/skill:godspeed\n\nSecurity/safety review of the planned C2 matrix design (context above): cloning the lane into /tmp and committing mutated receipts there. Enumerate every way it could touch the real lane (/home/vgpnk/Projects/shokunin/kake-shokunin) — shared object dirs, hooks, git config inheritance (core.hooksPath, includeIf), jj colocated state, alternates, env vars (GIT_DIR, GIT_WORK_TREE, GIT_INDEX_FILE) — and verify the safest invocation empirically in a throwaway clone. Give the exact env/flags the matrix must use.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/SentinelMatrixSandbox.md",
+   "solutionSpace": "security probe in sandbox; exposures open"
+  },
+  {
+   "name": "GapC1ObservedAt",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nC2 gap audit, c1 side, focus: observedAt: malformed strings with a valid prefix ('2026-10-21garbage', '2026-10-21T25:00:00Z', '2026-10-21T12:00:00' without offset), impossible dates ('2026-02-30', '2026-13-01'), far-future ('2099-12-31'), near-future relative to the commit time ('2026-10-21T23:59:59Z' with committer date 12:00Z), non-ASCII digits, and the valid date-only control. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/receipts/<unit>.json), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC1ObservedAt.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "GapC1UnitPath",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC2 gap audit, c1 side, focus: unit/path identity: wrong unit, path with '../', path as list, unit missing, extra trailing whitespace. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/receipts/<unit>.json), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC1UnitPath.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "GapC1ClaimsShape",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC2 gap audit, c1 side, focus: claims container: claims as dict, as string, empty list, list of non-objects (int, null, string), claims missing. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/receipts/<unit>.json), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC1ClaimsShape.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "GapC1ClaimFieldTypes",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nC2 gap audit, c1 side, focus: claim field types: id/anchor/claim/surface/method/observation as int, list, null, empty string, whitespace-only; does any type make the runner crash or accept. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/receipts/<unit>.json), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC1ClaimFieldTypes.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "GapC1VerdictSet",
+   "agent": "mutation-tester",
+   "task": "/skill:godspeed\n\nC2 gap audit, c1 side, focus: verdict: lowercase 'hold', 'STALE ' with space, list ['HOLD'], STALE without correction, UNVERIFIABLE with empty reason, correction as int. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/receipts/<unit>.json), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC1VerdictSet.md",
+   "solutionSpace": "probe mutations in sandbox; survivors open"
+  },
+  {
+   "name": "GapC1AnchorBase",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC2 gap audit, c1 side, focus: anchors: empty anchor '' (substring of everything), single-character anchor, anchor present only in the measured revision not the base, anchor as int. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/receipts/<unit>.json), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC1AnchorBase.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "GapC1HeadingIds",
+   "agent": "mutation-tester",
+   "task": "/skill:godspeed\n\nC2 gap audit, c1 side, focus: the unit file heading/claim-id checks: duplicate claim ids, id containing ']' or newline, ids that collide as substrings ('c1' vs 'c11'), heading present but ids before it. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/receipts/<unit>.json), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC1HeadingIds.md",
+   "solutionSpace": "probe mutations in sandbox; survivors open"
+  },
+  {
+   "name": "GapC1PopulationEdge",
+   "agent": "mutation-tester",
+   "task": "/skill:godspeed\n\nC2 gap audit, c1 side, focus: the receipt file itself: invalid JSON, JSON array instead of object, UTF-8 BOM, NaN/Infinity tokens, duplicate keys (last-wins hiding a bad value), extremely large integers. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/receipts/<unit>.json), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC1PopulationEdge.md",
+   "solutionSpace": "probe mutations in sandbox; survivors open"
+  },
+  {
+   "name": "GapC2FetchedAt",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: fetchedAt: same malformed/future/impossible/offset-less set as observedAt, plus non-string types, on a served and a not-served surface. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2FetchedAt.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "GapC2ContentType",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: contentType: int 200, list, dict, true, false, null, '' , 'TEXT/HTML; charset=utf-8', 'text/html;', 'text/htmlx', ' text/html', 'text/html, text/plain' — RFC 9110 §8.3 media-type grammar decides each. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2ContentType.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "GapC2Status",
+   "agent": "mutation-tester",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: status: true (bool is an int in Python), 200.0, '200', 199/300 boundaries, 204 with a page, negative. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2Status.md",
+   "solutionSpace": "probe mutations in sandbox; survivors open"
+  },
+  {
+   "name": "GapC2ErrorTruncated",
+   "agent": "mutation-tester",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: error/truncated flags: error '' vs null, error 0, truncated 'false' (string, truthy), truncated 0/1, missing keys. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2ErrorTruncated.md",
+   "solutionSpace": "probe mutations in sandbox; survivors open"
+  },
+  {
+   "name": "GapC2UrlMethod",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: url/method: method 'get', 'HEAD', url with trailing slash difference, url as list, finalUrl missing/int, redirects as dict. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2UrlMethod.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "GapC2ShaPage",
+   "agent": "executor",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: sha256/page binding: uppercase hex sha, sha of a different page, page.html present for a not-served surface, sha256 as int. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2ShaPage.md",
+   "solutionSpace": "one bounded implementation; design given in task, edge cases open"
+  },
+  {
+   "name": "GapC2AuditReplay",
+   "agent": "mutation-tester",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: audit.json: verdict mismatch, exit field as string, extra keys, result missing, audit for not-served with wrong status. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2AuditReplay.md",
+   "solutionSpace": "probe mutations in sandbox; survivors open"
+  },
+  {
+   "name": "GapC2NotServedShape",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: not-served path: audit verdict 'not-served' on a served 200 text/html fetch, status 404 with contentType text/html, not-served with page.html stored. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2NotServedShape.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "GapC2FinalUrlManifest",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nC2 gap audit, c2 side, focus: manifest re-run inputs: finalUrl with control characters, javascript: scheme, very long URL, non-ASCII host; does the validator re-run crash the counter. For each case: apply it in your sandbox clone at f7de3ab4e9f030a15a857a5a08631bd8e690f436 to a committed round-23 receipt (.ufo/waves/round-23/live/<id>/fetch.json (and audit.json/page.html where relevant)), commit, run the round-23 runner, and record what it did. Decide expect reject/accept from the runner's documented contract and the RFCs (RFC 3339 §5.6, RFC 9110 §8.3.1, RFC 8259). Emit the C2 malformed-case JSON array (only cases you ran; 4-12 cases).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/GapC2FinalUrlManifest.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "SourceRFC3339",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nOpen RFC 3339 (https://www.rfc-editor.org/rfc/rfc3339.txt). Return URL, access date, sha256 of the plain-text bytes you fetched, and located ≤25-word quotes for: §5.6 full-date/full-time/date-time ABNF (time-offset required in date-time), §5.7 restrictions (date-mday by month/year; leap second), and whether a date-only string is an RFC 3339 'date-time'. Judge what a receipt validator must accept/reject.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/SourceRFC3339.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "SourceRFC9110MediaType",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nOpen RFC 9110 (https://www.rfc-editor.org/rfc/rfc9110.txt). Return URL, access date, sha256 of the bytes, and located ≤25-word quotes for §8.3 Content-Type, §8.3.1 media-type ABNF (type/subtype case-insensitive; parameters), and §5.6.2 token / §5.6.6 parameters (OWS around ';'). Judge how 'TEXT/HTML ; charset=utf-8', 'text/html;', ' text/html' and 'text/html, text/plain' parse.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/SourceRFC9110MediaType.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "SourcePythonDatetime",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nOpen https://docs.python.org/3/library/datetime.html (datetime.fromisoformat and date.fromisoformat). Return URL, access date, version shown, and located ≤25-word quotes on which ISO 8601 forms fromisoformat accepts in Python 3.11+ (e.g. basic format, week dates, 'T' optional?). Then run python3 -c checks on '20261021', '2026-W43-3', '2026-10-21T12:00', '2026-10-21 12:00:00+00:00' and state whether fromisoformat alone is a sufficient RFC 3339 validator (python3 --version).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/SourcePythonDatetime.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "SourceRFC8259Json",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nOpen RFC 8259 (https://www.rfc-editor.org/rfc/rfc8259.txt). Return URL, access date, sha256, and located ≤25-word quotes on duplicate object names (§4 'SHOULD be unique', behaviour unpredictable), and numbers/literals (§3, §6: true/false are not numbers; NaN/Infinity not permitted). Then test python3 json.loads on duplicate keys, NaN and Infinity, and say what a receipt replay must do about them.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/SourceRFC8259Json.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "MutateR23CounterSelftest",
+   "agent": "mutation-tester",
+   "task": "/skill:godspeed\n\nMutation-test the timestamp and served() guards of /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py / measure_c2.py against /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/counter_selftest.py in a sandbox copy: e.g. drop the `[:10]` slice, flip `<` to `<=`, remove the isinstance checks, remove the text/html compare. Which mutants survive? These survivors define what the new receipt_replay.py selftest must kill. Exact commands/outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/MutateR23CounterSelftest.md",
+   "solutionSpace": "probe mutations in sandbox; survivors open"
+  },
+  {
+   "name": "MutateSweepAnnotate",
+   "agent": "mutation-tester",
+   "task": "/skill:godspeed\n\nMutation-test /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs annotate()/set-delta logic (lines ~300-490) against its --selftest in a sandbox copy: window ±2 → ±1/±3, ABSENT_RE word removal, newMissing filter inversion, recovered list ignored. Which mutants survive the selftest? Report survivors the round-24 sidecar/selftest work should kill.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/MutateSweepAnnotate.md",
+   "solutionSpace": "probe mutations in sandbox; survivors open"
+  },
+  {
+   "name": "CritC2Separability",
+   "agent": "critic",
+   "task": "/skill:godspeed\n\nAttack the round's claim structure (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/contract.json): are C1 (paths reconciliation) and C2 (receipt replay hardening) causally separable and on distinct axes; could either counter pass because of the other's landing; does C2's 'before' (round-23 runners as the lane's replay instrument) make a fair baseline, or is it a strawman? Propose falsifiers.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/CritC2Separability.md",
+   "solutionSpace": "adversarial review; objections open"
+  },
+  {
+   "name": "CritAxisHarm",
+   "agent": "critic",
+   "task": "/skill:godspeed\n\nPre-mortem for axis harm: list every existing lane gate the round-24 changes could break (scripts/corpus-contract.mjs --json, scripts/freshness-sweep.mjs --selftest and sections paths/history/armed, scripts/canonical_audit.py --selftest, .ufo/waves/round-23/measure_c1.py/measure_c2.py at the base, .ufo/waves/round-22/matrix.py) and run each NOW at f7de3ab4e9f030a15a857a5a08631bd8e690f436 in a sandbox clone to record the baseline exits/counts the L1 must compare after landing. Paste exact commands and outputs.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/CritAxisHarm.md",
+   "solutionSpace": "adversarial review; objections open"
+  },
+  {
+   "name": "CritLowestAxisRule",
+   "agent": "critic",
+   "task": "/skill:godspeed\n\nCheck the round against /home/vgpnk/Projects/shokunin/AXES.md and the lane's /home/vgpnk/Projects/shokunin/kake-shokunin/SCORECARD.md (saturation, stagnation window, capabilities table): does the lowest-axis duty apply, are both claims on the tied-lowest axes, does a capability row need updating for scripts/receipt_replay.py, and is any claim secretly exploratory? Cite lines.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/CritLowestAxisRule.md",
+   "solutionSpace": "adversarial review; objections open"
+  },
+  {
+   "name": "SimplifyReplayPort",
+   "agent": "simplifier",
+   "task": "/skill:godspeed\n\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py, measure_c2.py and counter_selftest.py. Propose the smallest faithful port into one maintained scripts/receipt_replay.py: which helpers merge, what must stay byte-for-byte semantic, what is dead weight. Output a concrete outline (functions, signatures) the L1 can compare with the executor's draft; no files written.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/SimplifyReplayPort.md",
+   "solutionSpace": "advisory outline only; no edits"
+  },
+  {
+   "name": "ConnectSiblingTimestampGuards",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nRead-only scan of sibling lanes /home/vgpnk/Projects/shokunin/*-shokunin/scripts and their .ufo/waves/round-2*/ counters for timestamp parsing (fromisoformat, strptime, [:10] comparisons) and Content-Type handling. Is the lexical-prefix pattern shared elsewhere (fleet-wide mistake class) or kake-only? path:line evidence; do not edit.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ConnectSiblingTimestampGuards.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "ConnectProvinceBoundary",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md and the PROVINCE.md of tabi-shokunin, kagi-shokunin and chousa-shokunin (read-only, under /home/vgpnk/Projects/shokunin). Does reconciling ds4cc-marketplace presence or hardening receipt parsing bleed into a sibling province (rendering, credentials, research method)? path:line evidence.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ConnectProvinceBoundary.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "ConnectFrontierRows",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/README.md (## Frontier), /home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md frontier and /home/vgpnk/Projects/shokunin/kake-shokunin/SCORECARD.md planned rows. Which frontier row does each round-24 claim advance, and what new frontier ground does the ds4cc restoration open (e.g. re-verifying ds4cc presence-dependent claims, CNAME vs served ds4cc.com)? Propose exact appended rows.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ConnectFrontierRows.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "ScribeSourcesRows",
+   "agent": "scribe",
+   "task": "/skill:godspeed\n\nDraft (in your report only) SOURCES.md rows S032+ for RFC 3339 (date-time), RFC 9110 media type (scope distinct from S010/S028) and RFC 8259 (JSON) in the exact column order of /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md, tier A spec, status mined, opened 2026-10-21, recheck 365d, used-by `scripts/receipt_replay.py` / `corpus/knowledge/static-canonical-preflight.md`; leave quote/locator cells as <FROM-SOURCE-SEAT>. Read /home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md — where a shokunin learns' first and follow it.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ScribeSourcesRows.md",
+   "solutionSpace": "prose draft in report only; content open"
+  },
+  {
+   "name": "ScribeLessonDraft",
+   "agent": "scribe",
+   "task": "/skill:godspeed\n\nDraft (in your report only) /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-24.md sections '## Claims', '## Gate' (sources opened this round with <URL/date/quote> placeholders), '## Mistakes' (class · evidence pointer · captured-by · fix), '## Measurement' from /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/contract.json, following the structure of /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-23.md; numbers as <TBD>.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ScribeLessonDraft.md",
+   "solutionSpace": "prose draft in report only; content open"
+  },
+  {
+   "name": "ScribeKnowledgeReplay",
+   "agent": "scribe",
+   "task": "/skill:godspeed\n\nDraft (in your report only) an appended section '## Receipt replay hardening — round 24' for /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md: why lexical timestamp prefixes and untyped contentType are unsafe, the RFC 3339/RFC 9110 rules applied (S### placeholders), the CLI `python3 scripts/receipt_replay.py c1|c2 --root . --revision <commit>` and its exit contract, and its limits (structure is not authentication of the network event).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ScribeKnowledgeReplay.md",
+   "solutionSpace": "prose draft in report only; content open"
+  },
+  {
+   "name": "ScribeFreshnessKnowledge",
+   "agent": "scribe",
+   "task": "/skill:godspeed\n\nDraft (in your report only) an appended section '## Round-24 reconciliation and sidecar' for /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-sweep.md: the 2026-10-21 ds4cc-marketplace reappearance (stale pinned misses), the re-pin rule (only targets observed this round with a receipt), restoration corrections without absence words (±2 window side effect), and the non-author sidecar (schema kake-paths-sidecar-v1, line sha256 binding).\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ScribeFreshnessKnowledge.md",
+   "solutionSpace": "prose draft in report only; content open"
+  },
+  {
+   "name": "ScribeQualityCriterion",
+   "agent": "scribe",
+   "task": "/skill:godspeed\n\nDraft (in your report only) two appended QUALITY criteria for /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/QUALITY.md following its existing criterion shape: (1) receipt timestamps are parsed against a named grammar and bounded by the commit time, never prefix-compared; (2) an absence pin is re-armed when its target reappears (recovered tokens leave pathsMissSet) and restoration notes carry no absence vocabulary. Each needs a 'Fails if' predicate that a named probe can make fail.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ScribeQualityCriterion.md",
+   "solutionSpace": "prose draft in report only; content open"
+  },
+  {
+   "name": "ScribeLogScorecard",
+   "agent": "scribe",
+   "task": "/skill:godspeed\n\nDraft (in your report only) the round-24 LOG.md entry (style of the last entries in /home/vgpnk/Projects/shokunin/kake-shokunin/LOG.md) and the SCORECARD.md '## Round 24' section with a claims table (axis/score delta, before→after, counting command, verdict/evidence) plus a '### Planned — supersedes round-23 plan' paragraph; numbers <TBD>.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ScribeLogScorecard.md",
+   "solutionSpace": "prose draft in report only; content open"
+  },
+  {
+   "name": "ScoutMistakeSweep",
+   "agent": "scout",
+   "task": "/skill:godspeed\n\nMistake mining: read the kake closure entries for rounds 20-23 in /home/vgpnk/Projects/shokunin/MANIFEST.json (read-only; python json filter type=='closure' and lane=='kake'), /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-2*-verifier-spotcheck.md and /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-23.md '## Mistakes'. List every routed defect or disagreement, whether a later lesson/QUALITY criterion addressed it (file:line), and which remain open. Pick the single best unmined mistake for round 24 with class · evidence · captured-by · fix.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ScoutMistakeSweep.md",
+   "solutionSpace": "read-only observation; findings open"
+  },
+  {
+   "name": "ReviewQualityCriteria",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/QUALITY.md in full. Which criterion should have caught the round-23 lexical observedAt test and the non-string contentType crash before admission? If none, say so (captured-by: none). Check every 'Fails if' predicate for an inverted or unfalsifiable condition (the round-22 verifier found one). Cite lines.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability, freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ReviewQualityCriteria.md",
+   "solutionSpace": "read-only review; findings open"
+  },
+  {
+   "name": "ReviewSkillPathsRecipes",
+   "agent": "reviewer",
+   "task": "/skill:godspeed\n\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md sections that tell an agent to run the paths gate or re-pin (grep -n 'pathsMissSet\\|re-census\\|--section=paths'). Are the instructions executable today and do they say how to treat a recovered (reappeared) target? Propose exact append-only SKILL.md text (≤12 lines) for the recovered-target workflow.\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r24-build\n\nReport: write your scoped findings to .ufo/waves/round-24/w1/ReviewSkillPathsRecipes.md",
+   "solutionSpace": "read-only review; findings open"
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+{
+ "round": 24,
+ "lane": "kake",
+ "base": "f7de3ab4e9f030a15a857a5a08631bd8e690f436",
+ "frozenAt": "2026-10-21T11:45:00Z",
+ "routedFrom": "MANIFEST.json rounds[394] (kake r23 closure): restore-or-retire legacy paths and reconcile new absent-source citations; C1 counter lexical observedAt accepts malformed future-looking strings; C2 counter served() lacks non-string contentType guard",
+ "worldChangeAtOpen": "freshness-sweep --section=paths at round open (2026-10-21T11:33:15Z, exit 1): drift 3 targets / 4 unannotated cites; 12 newMissing not in pins.pathsMissSet; 4 pinned misses recovered because ~/Projects/ds4cc-marketplace reappeared (dir birth 2026-10-21 05:19:01 -03, git HEAD 1fbdb8ed, CNAME ds4cc.com). Evidence .ufo/waves/round-24/paths-before.json",
+ "claims": [
+  {
+   "id": "C1",
+   "axis": "freshness",
+   "type": "measured",
+   "name": "Reconcile every paths-gate target with the current filesystem",
+   "population": ".ufo/waves/round-24/c1-population.json (19 targets: 3 drift, 12 newMissing, 4 recovered)",
+   "before": "0/19 targets carry a round-24 dated reconciliation receipt; paths section exit 1 (drift 3, newMissing 12, recovered 4 stale-pinned)",
+   "after": "19/19 targets reconciled: each has a receipt with a dated observation; every unannotated cite carries a dated absence annotation (lane-authored files inline, non-author files through a lane-authored sidecar, never editing them); every lane-authored cite of a recovered target carries an appended dated restoration correction; pins.pathsMissSet equals the observed missSet; paths section exit 0",
+   "count": "python3 .ufo/waves/round-24/measure_c1.py --root . --revision <commit>",
+   "limits": "Filesystem truth at measurement time; a later restore or prune is new drift for a later round. Re-pinning is only credited for targets whose receipt observes the miss this round. Historical observations and earlier annotations are never rewritten; corrections are appended. Restoration of domain trees is operator-owned and read-only here."
+  },
+  {
+   "id": "C2",
+   "axis": "operability",
+   "type": "measured",
+   "sourced": "RFC 3339 date-time grammar and RFC 9110 media-type grammar, opened this round (new SOURCES rows)",
+   "name": "Receipt replay rejects malformed receipts instead of accepting or crashing",
+   "population": ".ufo/waves/round-24/c2-population.json (frozen malformed-receipt cases derived from the committed round-23 receipts, plus unmodified controls)",
+   "before": "the lane's receipt-replay instrument at the frozen revision (round-23 measure_c1.py / measure_c2.py) correctly rejects (exit 1 or 2, no traceback) only some malformed cases: lexical observedAt/fetchedAt prefix checks accept malformed or future timestamps; non-string contentType crashes",
+   "after": "the maintained lane replay scripts/receipt_replay.py rejects every frozen malformed case with exit 1 or 2 and no traceback, while unmodified controls stay accepted (c1 17/17, c2 12/12 at the base revision)",
+   "count": "python3 .ufo/waves/round-24/measure_c2.py --root . --revision <commit>",
+   "limits": "Structural/semantic receipt validation only; a well-formed receipt still does not authenticate the original network observation. Round-23 runners remain byte-intact historical evidence."
+  }
+ ],
+ "separability": "C1 touches corpus citation lines, the paths sidecar and freshness pins; C2 touches scripts/receipt_replay.py and its knowledge/capability pointer. Each counter reads only its own population and outputs.",
+ "lowestAxis": "operability and freshness tie at 10 (saturation line 10); a capability entered in round 23 (stagnation window N=1), so the lowest-axis duty applies and is met by both claims on the tied-lowest axes.",
+ "debts": "SHONEN not promoted by author. Domain source restoration, publishing and account operations stay operator-owned."
+}
