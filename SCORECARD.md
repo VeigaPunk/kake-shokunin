@@ -916,3 +916,42 @@ declared targets and both declared counters are unchanged):
 - C1 wave-1 attack seat `CriticC1Counter` ended on a provider cyber-policy
   refusal (its full text is in the round report); it produced no finding, and
   that item is not re-run under another route.
+
+## Round 31 — measured results
+
+Axis ratings stay 10 → 10 (saturated; stagnation nudge recorded in the
+declaration). No capability, rank or promotion is self-awarded; the non-author
+closure decides admission.
+
+| Claim | Axis | Before | After | Measured commits | Counting command | Evidence |
+|---|---|---|---|---|---|---|
+| C1 | operability | 0/5 at `f1ffb81`, K1 holds | 5/5, K1 holds (45 cases) | `c88b97e6b02d85357b4b1e12d4bc09669ef82035`; re-measured 5/5 at `fde133ab48086bb9a06911b4ab045e2ad9086347` (no `scripts/` change between them) | `python3 -B .ufo/waves/round-31/c1_sandbox_probes.py --root . --revision <commit>` | `.ufo/waves/round-31/verification/c1-after-c88b97e.json`, `c1-after-fde133a.json`; hostile selftest `hostile-selftest-c88b97e.json` (exit 0) and `hostile-selftest-base-runner.json` (exit 1, 0/5) |
+| C2 | freshness | 0/4 at `f1ffb81` | 4/4, control not broken | `fde133ab48086bb9a06911b4ab045e2ad9086347` | `python3 -B .ufo/waves/round-31/c2_quote_truth.py --root . --revision <commit>` | `.ufo/waves/round-31/verification/c2-after-fde133a.json` |
+| C2 strict (closure supplement) | freshness | 0/5 at `f1ffb81`; 1/5 at `c88b97e` | 5/5 | `fde133ab48086bb9a06911b4ab045e2ad9086347` | `python3 -B .ufo/waves/round-31/c2_strict_checks.py --root . --revision <commit>` | `.ufo/waves/round-31/verification/c2-strict-after-fde133a.json` |
+
+Every receipt names its counter sha256 (C1 `4707cebf…6d1a`, C2
+`de48d460…31b8`, strict `5111264f…46ad`) and the measured revision; C1
+receipts also name the runner sha256 (`5371530d…ce6c` after, `9f2d1ecb…14d3`
+before). The declared C2 closure command passes as written
+(`.ufo/waves/round-31/verification/closure-command-check.txt`).
+
+Scope and limits:
+- C1 covers the five routed shapes N1, N2, N3, N5 and N6, nothing more. Not
+  repaired and named in `SKILL.md` "Citing-set runner containment — round
+  31": option values in `argv` are not restricted; a setup `fifo` on
+  `.gitattributes` can block `git add` until the case timeout; the gate's own
+  Git calls have no timeout; dot-named entries in the fixture directory are
+  still skipped; the round-27 families, the socket label, 12 unfixtured
+  reason codes, the round-30 strict-checker holes and runner mutants m2, m4,
+  m5 stay open.
+- A wave-1 critic whose run ended after a provider safety filter switched its
+  model (`w1/seat-status.json`) reported one more route (a fixture laid out
+  as a bare Git repository read through `--revision`). It is recorded as
+  advisory and unverified; the L1 did not reproduce or repair it.
+- C2 proves sourcing and, through the strict supplement, quote location,
+  per-id use in the entry and a render.yaml key section. It does not prove
+  each sentence follows from its quote; the closure should read the entry
+  body. Nothing about the live `app.ds4cc.com` service was observed.
+- Wave 1 lost 18 of 33 seats at spawn (all executor, scribe and
+  mutation-tester seats); the L1 authored every build artifact, so no
+  non-author seat wrote any of them.
