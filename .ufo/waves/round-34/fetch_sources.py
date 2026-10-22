@@ -32,6 +32,12 @@ SOURCES = {
     "S070": "https://docs.joinmastodon.org/entities/PreviewCard/",
     "S071": "https://developer.x.com/en/docs/x-for-websites/cards/overview/markup",
     "S072": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview",
+    # Added after wave-1 ScoutMoreSourceLeads (not declared C2 ids; opened with --only S073,...):
+    "S073": "https://docs.discord.com/developers/link-previews/overview",
+    "S074": "https://core.telegram.org/bots/api",
+    "S075": "https://www.linkedin.com/post-inspector/",
+    "S076": "https://oembed.com/",
+    "S077": "https://github.com/jekyll/jekyll-seo-tag",
 }
 UA = "kake-shokunin-round-34-source-opening (one GET per page)"
 
