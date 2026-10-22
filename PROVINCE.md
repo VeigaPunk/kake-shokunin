@@ -145,3 +145,12 @@ forge's deploy-run record (S065, S066;
 and forge-record only: no operator-owned property was fetched and nothing
 was deployed. The round's only network reads were the public GitHub
 repository clone and two GitHub API run listings.
+
+Correction (round-33 wave-2 `CriticC2Verdict`): "The round's only network
+reads were the public GitHub repository clone and two GitHub API run
+listings" above is too narrow. The L1 also ran `git ls-remote`, and wave
+seats made further public github.com reads (other clones, `ls-remote`, the
+commit page, `gh api` run, deployment and workflow listings, two refused
+unauthenticated API requests; `.ufo/waves/round-33/w1/*.md`,
+`w2/ScoutUpstreamHeadNow.md`). All went to public GitHub; none reached an
+operator-owned property.

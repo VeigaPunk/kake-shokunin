@@ -1,0 +1,20 @@
+# Round 33 W1 — ExecFixtureRootStrayEntries
+
+Axis: operability.
+
+## Result
+- In sandbox clone at `bc6c4a8d435473f3c30903210be30d9d6e3ef750`, changed only `scripts/citing_set_selftest.py` discovery code (lines 695–705): non-directory fixture-root entries now return `cannot_evaluate` with their names, before running cases.
+- Decision: use `cannot_evaluate` because a stray root entry makes complete case discovery ambiguous; this also avoids treating FIFOs or files as executable fixture directories.
+- Before, an added regular file and FIFO were silently ignored. A symlink to a file was already detected by the base runner as a failed case, not silently skipped; after the patch it is reported with other non-directories at discovery.
+- Unified diff: `/fast/scratch/hyaku/kake-r33/w1/ExecFixtureRootStrayEntries/patch.diff` (SHA-256 `0af3b982c34bf371c62715408d6e514adde24652c76f380174f60b66fac29693`). Only the assigned report was written in the lane.
+
+## Commands and retained evidence
+For each command, `s=/fast/scratch/hyaku/kake-r33/w1/ExecFixtureRootStrayEntries`; respective `tmp` values were `"$s/tmp/before-file-fifo"`, `"$s/tmp/before-symlink"`, `"$s/tmp/after-strays"`, and `"$s/tmp/benign-suite"`. Each was created with `mkdir -p "$tmp"` and exported as `TMPDIR`; exact runner argv and output redirections follow.
+- Before, fixture root had committed case `01-single-literal-clean` plus `stray.txt` and `stray.pipe`: `python3 -B "$s/clone/scripts/citing_set_selftest.py" --root "$s/clone" --fixtures "$s/before-file-fifo" --tmpdir "$tmp" > "$s/before-file-fifo.stdout.json" 2> "$s/before-file-fifo.stderr.txt"` → exit 0; output `verdict=clean`, `passed=true`, `cases=1`, `failed=0`, only `01-single-literal-clean` in `caseNames`, `failures=[]`. This is the silent-skip reproduction. Output: `before-file-fifo.stdout.json:3-10,50-53`, SHA-256 `2fb6ebaab512b3fbf93b1ad33483e54e7010416c8aa252b43ee616606156ea6d`.
+- Before, fixture root had the same case plus a symlink to a file: `python3 -B "$s/clone/scripts/citing_set_selftest.py" --root "$s/clone" --fixtures "$s/before-symlink" --tmpdir "$tmp" > "$s/before-symlink.stdout.json" 2> "$s/before-symlink.stderr.txt"` → exit 1; `cases=2`, `caseNames` includes `stray-link`, failure reason `symlinked case directory refused`. Output: `before-symlink.stdout.json:3-11,50-67`, SHA-256 `8c3575d26da1b41e70c173e18817d1286fb0bb932a4be46f54f83c2a8c6689b1`.
+- After, fixture root had the committed case plus a regular file, symlink-to-file, and FIFO: `python3 -B "$s/clone/scripts/citing_set_selftest.py" --root "$s/clone" --fixtures "$s/after-strays" --tmpdir "$tmp" > "$s/after-strays.stdout.json" 2> "$s/after-strays.stderr.txt"` → exit 2; `verdict=could-not-evaluate`, `cases=0`, `failed=1`, reason `fixture directory contains non-directory entries: stray-link, stray.pipe, stray.txt`. Output: `after-strays.stdout.json:3-24`, SHA-256 `51b559104d6d286caed94f54c31d3beefe428c170d0713203298d45dea9f22e0`.
+- Patched benign suite: `python3 -B "$s/clone/scripts/citing_set_selftest.py" --root "$s/clone" --fixtures "$s/clone/scripts/fixtures/citing-set" --tmpdir "$tmp" --min-cases 12 > "$s/benign-suite.stdout.json" 2> "$s/benign-suite.stderr.txt"` → exit 0; `verdict=clean`, `passed=true`, 45 cases, zero failures, contract minimum met. Output: `benign-suite.stdout.json:3-7,55-56,1637-1639`, SHA-256 `7f3adbd9fd293c96585e8c6108807aae50258e8d669e9f27b2e3772b01653417`.
+
+Patch-generation command `git -C "$s/clone" diff -- scripts/citing_set_selftest.py > "$s/patch.diff"` exited 0. No tools installed. No additional build, lint, or formatting checks were run.
+
+Risk: hidden non-directory entries also stop discovery; symlink-to-file changes from a failed-case exit 1 to cannot-evaluate exit 2. Symlinked directories retain the existing failed-case path. No blockers or installs. LSP was not exposed in this session's tool inventory; the change was limited to the inspected discovery block.

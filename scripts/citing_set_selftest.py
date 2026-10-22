@@ -77,8 +77,10 @@ is started:
     FIFO at ``expected.json`` cannot block that read; a setup ``fifo`` step on
     a file Git reads, such as ``.gitattributes``, can still block ``git add``
     until the case timeout);
-  * a symlink in the fixture directory, dot-named or not (a symlinked case
-    is a failed case, never a silent skip).
+  * a symlink to a directory in the fixture directory, dot-named or not (a
+    symlinked case is a failed case, never a silent skip); any other
+    non-directory entry (a file, FIFO, dangling symlink or symlink to a file,
+    dot-named or not) makes the run exit 2, could not evaluate (round 33).
 
 The hostile specs probe five routed shapes (N1, N2, N3, N5, N6) and, since
 round 32, which layer refuses a ``git_commit`` with no earlier ``git_init``

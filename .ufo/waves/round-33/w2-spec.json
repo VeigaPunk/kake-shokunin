@@ -1,0 +1,292 @@
+{
+ "wave": "kake-r33-w2",
+ "milestone": "r33-falsify",
+ "maxLanes": 64,
+ "axes": [
+  "operability",
+  "freshness"
+ ],
+ "reportDir": ".ufo/waves/round-33/w2",
+ "context": "# Goal\nKake round 33, wave 2 (falsify). The L1 (KakeR33) holds the planner and integration seat; you are one leaf seat. Lane repo: /home/vgpnk/Projects/shokunin/kake-shokunin. Lane axes: operability and freshness (web properties and publishing). Each item names what it builds or attacks; attacks try to show work is wrong, overstated or harmful, with reproducible evidence. Time box: finish and write your report within 20 minutes; a partial report beats none.\n\n# Declared claims (SCORECARD.md section \"Round 33 — declared claims\", landed at bc6c4a8d435473f3c30903210be30d9d6e3ef750; base 5777d5af79cac1ebf9144b348a9d274099e77338)\n- C1 (operability, repair of round-32 routed items 2 and 3 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-32-verifier-spotcheck.md): the hostile selftest /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citing_set_hostile_selftest.py keys its P6 check (spec /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/fixtures/citing-set-hostile/P6-commit-before-init/hostile.json) on a structured refusal code, not on message text. Counter `python3 -B .ufo/waves/round-33/c1_code_probe.py --rev <rev>` builds four runner variants of /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citing_set_selftest.py (pristine must pass; reworded guard message must pass; m3 = guard deleted must be killed; recoded = only the code literal changed must be killed) and reports `met` 0..4 and `guard_ok`. Before at base: met 2 (pristine passes, m3 killed; reworded fails P6; recoded not applicable). Declared after: 4 with guard_ok true. Implementation contract: the load-time guard keeps its two-line shape (`if step[\"op\"] == \"git_commit\" and not initialized:` then one `raise` line) and that raise line carries the code literal \"setup_commit_before_init\" and the unchanged fragment \"needs an earlier 'git_init'\"; the apply-time re-check gets a different code (\"setup_commit_without_repo\"); the runner reports a `code` per refusal and the hostile selftest gains a spec key `reason_code`.\n- C2 (freshness, sourced): the corpus' ds4cc-marketplace source pin advances from 1fbdb8ed to upstream 7fc6aa2fc12451dd451fed5a9ee7125f3a90e884 (one commit, 2026-10-21T17:32:55Z: three new pages under magga/frostbite/, sitemap.xml +3 locs). Counter `python3 -B .ufo/waves/round-33/c2_pin_count.py --rev <rev>` checks four conditions: c1 four upstream files retained under .ufo/waves/round-33/sources/ds4cc-7fc6aa2f/ by path, mode and blob id; c2 row S065 in corpus/SOURCES.md `## Registry` (source names the full hash, status mined, opened 2026-10-22, used-by names corpus/knowledge/sitemap-orphan-audit.md); c3 section `## Round-33 ds4cc source pin 7fc6aa2f` in corpus/knowledge/sitemap-orphan-audit.md citing S065 and the hash; c4 that section's `sitemap-locs: N` line and three `canonical <url>: <verdict>` lines equal what the counter re-derives from the retained bytes with the revision's own scripts/canonical_audit.py. Before: met 0. Declared after: 4.\n\n# Landed state (attack these; all on lane branch master)\n- bc6c4a8d435473f3c30903210be30d9d6e3ef750 declaration + frozen counters; b1752a2480aa86fc27536dd6e7d27a91b52bed12 C1 build (runner `code`, hostile `reason_code`, P6) and C2 build (retained bytes under .ufo/waves/round-33/sources/ds4cc-7fc6aa2f/, S065, section); e4903817669aa411e424006bb342b345e143ab20 runner repairs (per-run default scratch, read_expected OSError, stray fixture-root entries), S066 + entry 'Round-33 wave-1 additions', C1 strict supplement .ufo/waves/round-33/c1_strict_supplement.py; 1cf452eafb028785ce9fa154887178864e22ab71 hostile selftest hardening (stray/symlinked spec entries, whitespace-only keys), corpus/QUALITY.md 'Round-33 criteria' with checks under .ufo/waves/round-33/criteria/, SKILL.md/PROVINCE.md/corpus/README.md round-33 sections, corpus/lessons/round-33.md; 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 (lane tip) SCORECARD 'Round 33 — measured results', LOG.md round-33 entry.\n- L1 receipts: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-33/verification/ (c1-*, c1-strict-*, c2-*, concurrency-*, criterion-*). Wave-1 reports: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-33/w1/*.md.\n- Work from your own clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0; never read the lane working tree as evidence.\n- Upstream read-only clone made by the L1: /fast/scratch/hyaku/kake-r33/ds4cc-upstream (no checkout; read with git show / ls-tree / cat-file only). You may make your own clone of https://github.com/VeigaPunk/ds4cc-marketplace.git inside your sandbox.\n- Round-32 closure with the routed defects: /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-32-verifier-spotcheck.md; round-32 lesson /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-32.md (\"Carried open\").\n- Holds (ended items; never retry, reroute or rephrase): KakeR31.CriticC1Counter and KakeR31.CriticSandboxThreatModel. No item here asks whether a counter or selftest may trust runner-reported failure names, reason text or codes, and none models sandbox threats; if your item drifts there, stop that line and say so. If your own seat hits a provider safety or policy refusal or an automatic model switch, stop and write a one-line report saying so; do not rephrase.\n\n# Bounds\n- You are a leaf: no subagents, no swarm, no second judge, no admission or verdict on the round. Executors may spawn at most one read-only labrat probe.\n- Never mutate the fleet repo (/home/vgpnk/Projects/shokunin), sibling lanes, the lane jj state, the lane Git index or any tracked lane file. Never run git add/commit/stash/checkout/reset/pull/push or any mutating jj command in /home/vgpnk/Projects/shokunin/kake-shokunin; seats never push, commit or update refs in the lane. Never run any jj command at /home/vgpnk/Projects/shokunin; in the lane, read-only jj only with --ignore-working-copy.\n- Code that writes files or Git state runs only in your own sandbox: /fast/scratch/hyaku/kake-r33/w2/<YourName>/ (clone with `git clone -q /home/vgpnk/Projects/shokunin/kake-shokunin /fast/scratch/hyaku/kake-r33/w2/<YourName>/clone` when you need one, then `git -C <clone> checkout -q <rev>`; export TMPDIR=/fast/scratch/hyaku/kake-r33/w2/<YourName>/tmp after creating it; never /tmp or /dev/shm). Unset GIT_DIR, GIT_WORK_TREE and GIT_INDEX_FILE before any git command in a sandbox. Deliverable files (patches, drafts, receipts) stay in your sandbox; name their absolute paths in your report.\n- Owned sites: no live requests of any kind to the operator's owned web properties (ds4cc.com, app.ds4cc.com, *.onrender.com hosts of the operator, *.kimi.page, *.kimi.pro, veigapunk.github.io and any host pinned in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-pins.json). ~/Projects/ds4cc-marketplace is a read-only local checkout: read it with git show/cat-file only; never fetch into it.\n- Network: only seats told to open a named public URL may fetch, GET only (github.com reads of the public ds4cc-marketplace repository are allowed for every seat). Open sources by ordinary means only; never use a headless browser or any tool to pass a bot challenge, captcha or access control; a page you cannot open that way is recorded as unopened.\n- Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>. Your report is the only file you write in the lane.\n- Tooling (operator, 2026-10-19): you may install or update tools that help the task without asking; read /home/vgpnk/.omp/agent/RULES.md first, use official channels, and record tool, version, channel and reason in your report. All pacman transactions are PAUSED host-wide: no pacman, no -Sy/-Syu/-U/-R, no downgrade, no service restart; use uv tool, npx or an official binary in ~/.local/bin.\n- The only message target is agent://KakeR33 (the L1), for blockers only. Never message agent://all. Write plain English with no run-together words or private jargon.\n\n# Result\nReport under 80 lines: what you attacked or built, the exact commands you ran with exit codes, observed outputs, and evidence pointers (path:line, hash). An unrun check has not passed; say what you did not verify. If you stop before finishing, the first line of your report must be `PARTIAL:` with what is missing. Your findings are advisory input for the L1 and the non-author closure.",
+ "items": [
+  {
+   "name": "RerunC1After",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 after-measurement re-run.\n# Change\nIn your clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, run `python3 -B .ufo/waves/round-33/c1_code_probe.py --repo <clone> --rev <r>` for r in b1752a2, e490381, 1cf452e, 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0; compare with the receipts c1-after-b1752a2.json, c1-at-e490381.json, c1-at-1cf452e.json.\n# Acceptance\nPer rev: exit, met, guard_ok, per-variant exits/failing; differences from receipts.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/RerunC1After/\n"
+  },
+  {
+   "name": "RerunC1Strict",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 strict supplement re-run.\n# Change\nIn your clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, run `.ufo/waves/round-33/c1_strict_supplement.py --repo <clone> --rev <r>` for 5777d5a, b1752a2, 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0; also against /fast/scratch/hyaku/kake-r33/w1/CriticC1RepairScope/clone at rev 489714be (read-only). Read the script and say whether each check can fail for the reason it names.\n# Acceptance\nPer rev met/checks; per check: can it fail as named (with a demo or argument).\nSandbox: /fast/scratch/hyaku/kake-r33/w2/RerunC1Strict/\n"
+  },
+  {
+   "name": "RerunC2After",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 after-measurement re-run.\n# Change\nIn your clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, run `.ufo/waves/round-33/c2_pin_count.py --repo <clone> --rev <r>` for b1752a2, e490381, 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0; compare with c2-after-b1752a2.json, c2-at-e490381.json, c2-at-1cf452e.json.\n# Acceptance\nPer rev met/conditions/detail; differences.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/RerunC2After/\n"
+  },
+  {
+   "name": "ReviewRunnerCodeDiff",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nCorrectness review of the runner's structured-code change: `git diff 5777d5af 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 -- scripts/citing_set_selftest.py` (CaseRefusal, SetupRefusal, prepare_case, run_case, failure entries, docstring).\n# Change\nCheck every refusal path still returns a reason; which paths carry code vs null; that docstring claims match code; that no exception type change lets an error escape (e.g. CaseRefusal is a ValueError subclass). Demonstrate any defect with a command in your clone.\n# Acceptance\nDefects with reproducing commands, or none with the checks run.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewRunnerCodeDiff/\n"
+  },
+  {
+   "name": "MutRunnerCodePropagation",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIs the runner's code propagation pinned by the committed checks?\n# Change\nIn your clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, build single mutants of scripts/citing_set_selftest.py: (a) drop `row[\"code\"] = getattr(setup, \"code\", None)`; (b) drop `\"code\": row[\"code\"]` from failure entries; (c) give the apply-time SetupRefusal the code setup_commit_before_init; (d) prepare_case wraps apply errors with code None; (e) swap the two code literals. For each run the hostile selftest (--runner), the C1 probe logic (or the probe on a sandbox commit) and the strict supplement on a sandbox commit.\n# Acceptance\nTable: mutant, hostile exit/failing specs, probe met, strict met, killed or survived.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/MutRunnerCodePropagation/\n"
+  },
+  {
+   "name": "MutHostileCodeCheck",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIs the hostile selftest's reason_code comparison pinned?\n# Change\nIn your clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, mutate scripts/citing_set_hostile_selftest.py: (a) drop `all(detail[\"codeChecks\"].values())` from passed; (b) compare codes with `!=`; (c) read codes from `reason` instead of `code`; (d) remove reason_code from CASE_KEYS. Run each against the pristine runner and an m3 runner (guard deleted) and run the strict supplement on sandbox commits.\n# Acceptance\nTable: mutant, pristine result, m3 result, strict met, killed or survived.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/MutHostileCodeCheck/\n"
+  },
+  {
+   "name": "ExecRewordAllMessages",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDoes any committed check still depend on runner message text?\n# Change\nIn your clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, rewrite every human message string in scripts/citing_set_selftest.py refusal paths (keep codes and logic) and run the hostile selftest and benign suite. Then grep committed hostile specs for reason_contains.\n# Acceptance\nWhich specs still fail after rewording (if any) and why; grep result.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ExecRewordAllMessages/\n"
+  },
+  {
+   "name": "ReviewHostileHardening",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview the hostile selftest change in 1cf452e: `git diff e4903817 1cf452ea -- scripts/citing_set_hostile_selftest.py` (stray/symlinked spec entries refused, whitespace-only reason keys refused).\n# Change\nCheck behaviour on: a stray file, a symlink to a spec dir, a FIFO, a dot-named directory, an empty spec dir, the spec dir itself a symlink; whitespace keys. Run each in a sandbox export.\n# Acceptance\nPer case observed exit/error vs what SKILL.md 'Citing-set runner — round 33' claims.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewHostileHardening/\n"
+  },
+  {
+   "name": "ExecScratchDefaultConcurrency",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nPer-run default scratch repair (runner main/_run in e4903817).\n# Change\nIn an export of 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0: run 8 concurrent `python3 -B scripts/citing_set.py --selftest`; check that no citing-set-selftest-* directory is left under the default parent afterwards (list before/after); check an explicit --tmpdir is not removed; check the error path when the default parent is not writable (use a copy of the runner with DEFAULT_TMPDIR pointed at an unwritable sandbox dir).\n# Acceptance\nExits, leftover listing, explicit-tmpdir survival, unwritable-parent result.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ExecScratchDefaultConcurrency/\n"
+  },
+  {
+   "name": "ReviewScratchDefaultDiff",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nCode review of the per-run default scratch change in the runner (e4903817).\n# Change\nRead the diff `git diff b1752a24 e4903817 -- scripts/citing_set_selftest.py`; check the _run/main split for lost behaviour (unknown args, cannot_evaluate paths, exit codes), rmtree safety (could it remove anything but its own mkdtemp dir?), and the SKILL.md claim 'The selftest scratch still lives below that root'.\n# Acceptance\nDefects with commands, or none with checks run.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewScratchDefaultDiff/\n"
+  },
+  {
+   "name": "ExecReadExpectedRepro",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nread_expected OSError repair (e4903817).\n# Change\nIn exports of 5777d5af and 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, build scratch fixture roots with a case whose expected.json triggers an OSError at read time (try: unreadable mode 000 as non-root, a directory, a FIFO, a dangling symlink) and run the runner with --fixtures.\n# Acceptance\nPer shape: base result vs tip result (exit, reason, traceback or not).\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ExecReadExpectedRepro/\n"
+  },
+  {
+   "name": "ExecStrayEntriesRepro",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nStray fixture-root entry repair (e4903817).\n# Change\nIn exports of 5777d5af and 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, add to a copy of the benign fixture root: a regular file, a FIFO, a symlink to a file, a symlink to a case directory, a dot-named directory; run the runner with --fixtures for each separately.\n# Acceptance\nPer entry: base vs tip exit and reason; any entry still silently skipped.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ExecStrayEntriesRepro/\n"
+  },
+  {
+   "name": "MutStrayEntriesCheck",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIs the stray-entry refusal pinned by any committed check?\n# Change\nIn your clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, remove the non-directory check from the runner's discovery and run every committed check (benign suite, hostile selftest, C1 probe, strict supplement, refusal-code criterion).\n# Acceptance\nWhich check, if any, kills it; if none, say so.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/MutStrayEntriesCheck/\n"
+  },
+  {
+   "name": "CriticOptionTableRejection",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe L1 rejected the wave-1 option-table patch (/fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/patch.diff) because it imports citing_set from the runner's own directory and breaks runner copies run from a temporary path (SKILL.md 'Citing-set runner — round 33', lesson disposition item 7).\n# Change\nApply the patch in a sandbox clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 (it was written against bc6c4a8) and run the C1 probe logic or the hostile selftest with a runner copy placed in a temporary directory. Is the rejection reason true? Is there a better single-source design?\n# Acceptance\nRejection reason confirmed or refuted with commands; alternative if any.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/CriticOptionTableRejection/\n"
+  },
+  {
+   "name": "ReviewS065RowTruth",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIndependently verify every cell of SOURCES row S065 at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0.\n# Change\nOpen https://github.com/VeigaPunk/ds4cc-marketplace/commit/7fc6aa2fc12451dd451fed5a9ee7125f3a90e884 (GET) or clone the public repo in your sandbox; check the hash, date, message, blob ids, line numbers, quote, 100/97 counts, tier/kind/scope wording, recheck and used-by.\n# Acceptance\nPer cell: correct / wrong with evidence.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewS065RowTruth/\n"
+  },
+  {
+   "name": "ReviewS066RowTruth",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIndependently verify SOURCES row S066 at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 and its lesson gate line.\n# Change\nRe-open the two GitHub API listings named in the row with `gh api` (GET) and compare with the retained JSON files under .ufo/waves/round-33/sources/; check run ids, conclusions, times, the 6-run failure streak, kind dataset and tier A fit, the ≤25-word quote.\n# Acceptance\nPer cell: correct / wrong with evidence; any change since retention.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewS066RowTruth/\n"
+  },
+  {
+   "name": "ReviewEntrySectionTruth",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRead the two round-33 sections at the end of corpus/knowledge/sitemap-orphan-audit.md at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 sentence by sentence.\n# Change\nFor each factual sentence, find the supporting bytes (retained files, wave-1 reports, upstream clone) or mark unsupported/overstated. Pay attention to 'changes none of the four files S062 retains', parity numbers, the deploy-run wording and the limits paragraph.\n# Acceptance\nSentence table: supported / unsupported / overstated with pointers.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewEntrySectionTruth/\n"
+  },
+  {
+   "name": "ReviewHistoricalMarkings",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe 'Round-33 wave-1 additions' section marks statements historical by pointer (kimi-subpath-audit.md:24, sitemap-orphan-audit.md lines 48–49, the round-24 section, round-23 '96 locs').\n# Change\nCheck each pointer resolves at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 to the claimed statement and that the qualifier is accurate; list any other ds4cc count statement in corpus/ left unqualified.\n# Acceptance\nPer pointer: resolves / wrong; list of missed statements.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewHistoricalMarkings/\n"
+  },
+  {
+   "name": "ScoutUpstreamHeadNow",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIs 7fc6aa2f still the upstream head, and did the forge record anything new?\n# Change\nRun `git ls-remote https://github.com/VeigaPunk/ds4cc-marketplace.git HEAD refs/heads/main` and `gh api repos/VeigaPunk/ds4cc-marketplace/actions/runs?per_page=5`; compare with S065/S066.\n# Acceptance\nCurrent head and newest runs with times; whether C2's section is already stale.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ScoutUpstreamHeadNow/\n"
+  },
+  {
+   "name": "MutC2CounterAtTip",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDoes each C2 condition flip on its own at the landed tip?\n# Change\nIn your clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, make sandbox commits that each break one thing: one retained file byte, its mode (chmod +x), S065 status cell, S065 opened date, the heading text, the `sitemap-locs:` value, one canonical verdict line. Run the counter on each.\n# Acceptance\nTable: mutation, conditions, met; any mutation not detected.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/MutC2CounterAtTip/\n"
+  },
+  {
+   "name": "CriticC1Verdict",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDoes C1 verify as declared at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, and do SCORECARD 'Round 33 — measured results', SKILL.md 'Citing-set runner — round 33' and the lesson overclaim? (Do not argue whether codes are more trustworthy than text in principle — held ground.)\n# Change\nCompare declared before/after and wording with receipts and code; check every number and every 'fixed' word.\n# Acceptance\nVerdict (verifies / verifies narrowly / does not) with reasons; overclaims with pointers.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/CriticC1Verdict/\n"
+  },
+  {
+   "name": "CriticC2Verdict",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDoes C2 verify as declared at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, and do PROVINCE 'Round-33 frontier step', corpus/README.md 'Coverage — round 33', SKILL.md 'Upstream source moved after a pin' and the entry overclaim?\n# Change\nCheck 'The round's only network reads were the public GitHub repository clone and two GitHub API run listings' against wave-1 reports (seats also fetched; see w1/*.md), and every number.\n# Acceptance\nVerdict with reasons; overclaims with pointers.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/CriticC2Verdict/\n"
+  },
+  {
+   "name": "ReviewSkillPinTable",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview the SKILL.md table 'Upstream source moved after a pin — round 33' at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0.\n# Change\nFor each row, run or check its evidence command and pointer; say whether the action follows from the observation and whether the row is grounded in this round's bytes.\n# Acceptance\nPer row: grounded / not, command result.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewSkillPinTable/\n"
+  },
+  {
+   "name": "ReviewQualityCriteria33",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview corpus/QUALITY.md 'Round-33 criteria' at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 and the two checks under .ufo/waves/round-33/criteria/.\n# Change\nRe-run the refusal-code check at bc6c4a8 (expect exit 1) and 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 (expect 0); re-run the counter-control check on the round-32 C2 counter with the hollow commit from .ufo/waves/round-33/verification/hollow-r32-c2-6ffa03e.bundle (fetch it into a sandbox clone; expect exit 1). Check each criterion's wording matches what the check tests, and for duplication with earlier criteria.\n# Acceptance\nReceipts reproduced or not; wording defects; duplicates.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewQualityCriteria33/\n"
+  },
+  {
+   "name": "ExecCounterControlOnR33",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nApply the new counter-control criterion to this round's C2 counter.\n# Change\nIn a sandbox clone at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0, build one hollow commit of the criterion's shape on top of bc6c4a8d435473f3c30903210be30d9d6e3ef750 (the four retained files copied to an unrelated path, a fabricated row with a different id, an unrelated mention), then run `python3 -B .ufo/waves/round-33/criteria/counter_control_check.py --counter <clone>/.ufo/waves/round-33/c2_pin_count.py --repo <clone> --before 5777d5af --after 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 --hollow <hollow>`.\n# Acceptance\nExit and scores; whether the r33 counter passes the criterion.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ExecCounterControlOnR33/\n"
+  },
+  {
+   "name": "ReviewLessonGate",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nConformance of corpus/lessons/round-33.md '## Gate' at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 to the SOURCES contract (/home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md — where a shokunin learns').\n# Change\nCheck URL, access date, ≤25-word located quotes (count words; locate each quote in retained bytes), old→new logging for S065 and S066, and that no other row changed (git diff 5777d5af 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 -- corpus/SOURCES.md).\n# Acceptance\nConformance table; defects.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewLessonGate/\n"
+  },
+  {
+   "name": "ReviewMistakeRow",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview the round-33 lesson '## Mistakes' row at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0.\n# Change\nReproduce its failing check from the bundle; check class, evidence, captured-by and fix columns against the contract (round prompt: a fix counts only once shown able to fail); check the paragraph about this round's counter against w1/MutC2HollowCommit.md.\n# Acceptance\nReproduced or not; defects.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewMistakeRow/\n"
+  },
+  {
+   "name": "ReviewRoutedDisposition",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview the lesson table 'Round-32 routed defects — disposition' at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0.\n# Change\nFor each of the seven rows, check the disposition against the cited evidence (including w1/ExecPinMutantsP7.md for row 1 once present, w1/ReviewC1ProbeCode.md, w1/ReviewC2CounterCode.md).\n# Acceptance\nPer row: accurate / inaccurate with pointer.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewRoutedDisposition/\n"
+  },
+  {
+   "name": "CriticHarmCheck",
+   "role": "critic",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIs any owned axis harmed between 5777d5af and 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0?\n# Change\nCheck SCORECARD.md is append-only (`git diff 5777d5af 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 -- SCORECARD.md | grep -c '^-[^-]'`), and every other diff in the range for deleted or rewritten lines (`git diff --stat`, `git diff ... | grep '^-[^-]'`). Name any rewritten history line and whether it changes meaning.\n# Acceptance\nDeleted-line inventory with judgement; harm verdict per axis.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/CriticHarmCheck/\n"
+  },
+  {
+   "name": "ExecOtherGatesUnchanged",
+   "role": "executor",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDo the lane's other gates give the same results before and after this round?\n# Change\nIn exports of 5777d5af and 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0: `python3 -B scripts/canonical_audit.py --selftest`, `python3 -B scripts/base_path_selftest.py` (read its usage first), `python3 -B scripts/citing_set.py --help` exit, `node scripts/freshness-sweep.mjs --offline` (offline only), `node scripts/corpus-contract.mjs --help` then its documented check. Compare outputs.\n# Acceptance\nPer gate: base vs tip exit/summary; differences explained.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ExecOtherGatesUnchanged/\n"
+  },
+  {
+   "name": "ReviewCensusAfter",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSource census at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0.\n# Change\nRun `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` (read-only) and the census mode command found in w1/ExecCensusModeReceipt.md; count rows at 5777d5af and 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0 with `git show <rev>:corpus/SOURCES.md | grep -c '^| S0'`; tier/status split before and after.\n# Acceptance\nExit codes, outputs, rows 64→?, tiers/statuses before→after.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewCensusAfter/\n"
+  },
+  {
+   "name": "ScoutPinsFlagAccuracy",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAccuracy of the flag 'freshness-pins.json pq2Remote e6bd0718 (29 commits behind 7fc6aa2f) and sitemapStatus 404 stale' in sitemap-orphan-audit.md and SKILL.md at the lane tip.\n# Change\nRead corpus/knowledge/freshness-pins.json, scripts/freshness-sweep.mjs PQ-2 and sitemap sections, corpus/knowledge/freshness-sweep.md; count commits e6bd0718..7fc6aa2f in /fast/scratch/hyaku/kake-r33/ds4cc-upstream; find the round-23 live observations of the sitemap status.\n# Acceptance\nFlag accurate / inaccurate; what an honest re-pin would require.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ScoutPinsFlagAccuracy/\n"
+  },
+  {
+   "name": "ReviewProvinceReadme33",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview the PROVINCE.md 'Round-33 frontier step' and corpus/README.md 'Coverage — round 33' appends at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0.\n# Change\nCheck each sentence against evidence; check the count correction (ls the spec dirs at the tip); check nothing earlier was rewritten.\n# Acceptance\nSentence-level accuracy; defects.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/ReviewProvinceReadme33/\n"
+  },
+  {
+   "name": "CriticDeclarationCorrection",
+   "role": "critic",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview the SCORECARD 'Round 33 — measured results' correction about declaration time and pre-declaration screening at 0a0acfb1b2e74494ccc591e317f6a4c3e048f2a0.\n# Change\nCompare with w1/CriticDeclarationOrder.md and file times under /fast/scratch/hyaku/kake-r33/ (stat, read-only). Is the disclosure complete and accurate? Did the screening make either counter easier to satisfy?\n# Acceptance\nAccurate / incomplete with specifics.\nSandbox: /fast/scratch/hyaku/kake-r33/w2/CriticDeclarationCorrection/\n"
+  }
+ ]
+}
