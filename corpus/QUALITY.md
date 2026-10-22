@@ -820,3 +820,39 @@ wave-1 `ScribeQualityCriteria`; the L1 integrated it.
   match exits 0 at `318561ef` and defeats its own acceptance. The implementing seat states it
   matches only those two cells of a table with those headers; that restriction is the
   criterion's requirement, and dropping it makes the check pass a file with no registry row.
+
+- **A knowledge counter refuses an inverted-facts entry and an unsourced entry (criterion (e),
+  added after wave 2).** Before a sourced knowledge claim is built, its frozen counter must give
+  `met` false on two retained controls. The first states the probed topics with the facts
+  inverted. The second is written from the public topic list without opening any retained
+  source text. Probes should rest on facts found only in the round's opened texts (for example
+  a registration date or a served field value), not on facts any reader could supply from
+  memory. Reject: a counter that cannot tell a negated fact from the fact, or a prior-knowledge
+  entry from a sourced one. Grounding: round-35 C2 — `retained/r35-w2-c2-inverted-facts.bundle`
+  (`dc8e1adf`, met true, 12 of 12) and `r35-w2-c2-sufficiency.bundle` (`0b7779dc`, met true,
+  11 of 12). Check:
+  ```
+  python3 -B .ufo/waves/round-35/criteria/knowledge_control_check.py --root . \
+    --counter .ufo/waves/round-35/sealed_count.py --claim c2 --key-revision 4c6be2bd \
+    --control dc8e1adf --control 0b7779dc
+  ```
+  Exit 1 on the round-35 counter (`verification/criterion-knowledge-controls-r35-c2.txt`);
+  exit 0 on the pre-build controls `04848219`, `e5263d41` and `c2e38e5d`
+  (`criterion-knowledge-controls-r35-prebuild.txt`). Limit: it checks only the controls it is
+  given. A truthful entry built from memory still meets a counter that passes this check unless
+  the probes rest on facts only the opened texts hold.
+
+## Round-35 wave-2 corrections to the round-35 criteria
+
+Limits found by wave-2 `ReviewCriteriaChecks` and `MutCriteriaChecks` (reports in
+`.ufo/waves/round-35/w2/`); the criteria stay as landed.
+- (b) `prebuild_leak_check.py` fails only when every value of the line appears as a JSON value. A
+  receipt that publishes six of seven values, or holds them as object keys, passes.
+- (c) `control_description_check.py` checks form, not support. A quoted boilerplate line such as
+  `import hashlib, json, os, sys` passes beside a false mechanism.
+- (d) `registry_row_check.py` accepts any table with Name and Entry command columns anywhere in
+  `SKILL.md`. It does not find a tool whose exit codes are not declared by name or in the
+  docstring.
+- (a) The C1 target of 22 of 24 let a whole contract bullet be skipped: (c) moves only two sealed
+  cases (`w2/ExecPartialRepairs.md`). A sealed target should be set so that no declared bullet
+  can be skipped, and each bullet needs at least one more sealed case than the slack.

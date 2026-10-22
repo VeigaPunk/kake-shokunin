@@ -1,0 +1,29 @@
+# KakeR35.ReviewSealDiscipline — seal-leak review (wave 2, falsify)
+
+Item attacks the seal: were the sealed keys outside the lane until the reveal, and did the builders (ScribeEntryDraft, ExecToolRepair) see them?
+
+## Verdict: NO leak of key content. The keys were outside the lane until the reveal; neither builder received probe text or case expectations. The seal's isolation is procedural, not enforced, and the sealed inputs replicate the builders' assignments verbatim (overlap list below).
+
+## Evidence — no key byte in lane history before reveal
+- `git log --all --name-status -- .ufo/waves/round-35/sealed/` → sealed dir first add (A) at `4c6be2b` (19:37:28); parent of reveal is `95abec21` (C2 entry build), parent `b1cbbc39` (C1 tool build), parent `bd14096a` (v2 counter). Linear chain: bd14096a → b1cbbc39 → 95abec21 → 4c6be2b (verified via `git log --format='%H %P' -1` on each; merge-base --is-ancestor exit 0 for both builds vs reveal).
+- `git ls-tree -r --name-only b1cbbc39|95abec21 | grep sealed` → only `sealed_count.py` and `sealed_count_v1.py` (the pin constants); grep for `sealed/` → 0 entries (exit 1). Base `16a6b8b8` → 0.
+- Pickaxe `git log --all -S<a861dccd…>` / `-S<111bceea…>` → first appearance at declaration `81d9fd74` (18:54) inside counter constants; nothing earlier anywhere (exit 0). Filename string `c1-cases` likewise first at declaration (counter path constant).
+- Reveal blobs: `git cat-file -s` and `git show | sha256sum` at 4c6be2b → c1-cases.json 23299 B = `a861dccdf63c21b2f731b5845ec016e216bee8bd7ad62df646d5e47e8bc1a391`, c2-probes.json 3672 B = `111bceea7766ea29ee5a31646a455f3a593053a00b4c358e367024d1b458d61d` — exactly the pins in the declaration counter and in v1 (`bd14096a:sealed_count_v1.py:48-49` = v2 `:57-58`). Key content stable from declaration through reveal; no mutation.
+- `ls -la --full-time /fast/scratch/hyaku/kake-r35/sealed/` → files `-rw-------` (600) vgpnk, mtimes 19:04/19:05, dir 700; `sealed/ref/` clone at 19:07. `sha256sum` of /fast originals = lane copies = pins. `sealed/ref/clone` is a full lane clone pinned at origin/master=16a6b8b8, contains NO key files (`test -e` → absent both), so the L1's reference scoring environment held no keys.
+- Builder sandboxes: `find /fast/scratch/hyaku/kake-r35/w1/ExecToolRepair /fast/scratch/hyaku/kake-r35/w1/ScribeEntryDraft -name 'c1-cases.json' -o -name 'c2-probes.json'` → none. `grep -rlE '<pin hashes>'` on both sandboxes → only the public `sealed_count.py` copy in ExecToolRepair's clone. No other hit.
+- Lane object sweep: `git rev-list --all --objects` shows the sealed blobs reachable only from 4c6be2b/f1599cb (jj keep, same second). This matches the committed wave-1 `SentinelKeyExposure.md` (0d52173): 3215 lane blobs incl. unreachable, 5078 fleet blobs, 71,051 /fast-scratch files, 60,765 ~/.omp files hashed → 0 key matches (one generic 64-byte HTML run of c1-cases.json is in a round-34 transcript, no expectation/probe disclosure; w1/*/keys copies are synthetic, sha `f8959be9…` ≠ real).
+
+## Builders' prompts contain no sealed content
+- ExecToolRepair prompt (`w1-spec.json:18`): contract bullets (a)(b)(c) verbatim + "keep every other round-34 rule" + selftest/matrix instructions. No case HTML, no expectations, no per-case enumeration. The private `sealed/l1-reference-patch-not-landed.diff` (reveal-only) is the L1's own implementation of the same (a)(b)(c) — it stayed inside the seal and was never landed.
+- ScribeEntryDraft prompt (`w1-spec.json:42`): enumerates topics only; no regex, no keyword lists, no thresholds. Report (`w1/ScribeEntryDraft.md`) discloses one `test -e /fast/scratch/hyaku/kake-r35/sealed` existence check (exit 1 = exists), states "12 sealed probes unread"; ExecToolRepair report states "No sealed files were accessed". Reports were committed at 19:42 (bc0304de), after reveal, but were authored before it.
+
+## Topic-overlap list (acceptance)
+C2: all 12/12 probe topics are named in the drafter's item; probes' executable phrasing was not.
+P01 well-known path ← "where the file lives"; P02 both locations/well-known wins ← "what happens with a second copy" (report: "well-known copy must win"); P03 text/plain utf-8 ← "media type, encoding"; P04 Contact required ← "which are required"; P05 Expires exactly once ← "single-use"; P06 <1 year ← "how far ahead Expires should be"; P07 RFC3339/ISO8601 ← "date format"; P08 preference order ← "contact ordering"; P09 URI not key ← "encryption" (report details it); P10 OpenPGP cleartext ← "signing"; P11 scope not subdomains ← "what the file covers (scope)"; P12 dot-directory include/.nojekyll/include-hidden-files ← "how GitHub Pages builds treat a dot-directory …".
+C1: sampled cases (01,02,04,06,07,11,12,15,19,22,23,24) map 1:1 to contract bullets (b) template/svg/math inert, (a) og_url_multiple incl. empty-duplicate guard, (c) unreadable continue + combined findings/exit 2, plus inherited rules (ftp input_invalid, canonical checks). The sealed inputs therefore test exactly what the builder was told to implement; no adversarial/trap cases beyond the assignment.
+
+## Residual risk / verification gaps
+- Permission model does not isolate: seal is 700/600 owned by vgpnk, same uid as every seat; any wave-1 seat could have read the keys pre-reveal. Nothing but the procedural instruction prevented it (also Sentinel finding 2). I cannot independently prove the two builders never opened the dir; I rely on their disclosures + post-hoc byte scans.
+- Reconstruction channels exist without the keys: committed control receipts leak which 7/24 C1 cases are clean and constrain all 12 C2 probe classes; pre-reveal SCORECARD documents the seal path and `--key-file` oracle (Sentinel findings 4-6). This weakens "sealed" to "not byte-leaked".
+- Not verified by me (cited from committed Sentinel report, not rerun): fleet-wide blob/`ingle sweeps beyond my spot-checks.
+- No tools installed; no lane mutation beyond this report.

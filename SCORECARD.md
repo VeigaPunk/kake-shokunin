@@ -1523,3 +1523,38 @@ Correction appended for round-34 "Limits found by wave 1" (routed defect 2): `dc
 key on the case directory name. Its line 10, `h = hashlib.sha256(json.dumps(argv).encode())`,
 and line 12 hash the arguments plus every relative path and file content under the current
 directory. See `corpus/lessons/round-35.md` "Correction of round-34 mistake row 4".
+
+## Round 35 — wave-2 corrections (appended)
+
+Wave 2 `kake-r35-w2` (35 seats) attacked the landed work; reports in `.ufo/waves/round-35/w2/`.
+The declaration, the counters and the measured results stay as landed. Every measured value
+reproduced field for field (`RerunC1Sealed`, `RerunC2Sealed`, `ReviewScorecardLog35`). The v2
+counter landed before any build was measured and tightened every rule except the size cap
+(`ReviewV2Timing`). The C2 entry also meets under v1.
+
+What the targets do not show:
+- C1: 22 of 24 is reachable with contract bullet (c) skipped (+2 cases only), and the sealed cases
+  hold no nested container (`ExecPartialRepairs`, `CriticC1Sufficiency`). 11 of 14 single-rule
+  mutants still meet 22 (`MutToolRepair`). Every do-nothing control stays below: base 14, lookup
+  7, constant 7. The landed tool scores 24, and the nesting rules rest on the builder's
+  selftest fixtures. The fixture `og_url_multiple_first_value_checked` (selftest 46/46) now kills
+  the one mutant that survived every detector.
+- C2: an all-false entry written with the revealed probes meets it (`CriticProbeLeniency`,
+  `dc8e1adf`, 12 of 12). So does an entry written from the public topic list with three landed
+  row ids, by a seat that had not read the primary texts (`CriticC2Sufficiency`, `0b7779dc`, 11
+  of 12). The C2 counter therefore does not show that the entry came from this round's sources,
+  or that it is true. The disclosed limit "probes test that stated facts are present" overstates
+  it: they test topic keywords near each other.
+  - None of the pre-build controls (junk, keyword, transcription, reworded) took either shape.
+  - The truth of the landed entry rests on wave-2 reads: `ReviewEntryRfcFacts` 27 of 27,
+    `ReviewEntryExamples` 11 of 11, `ReviewEntryPagesFacts` 6 of 8 with two corrected by append,
+    `ReviewProbeMatchesTruth` 10 true and 2 partly true.
+  - This is lesson mistake row 5 and QUALITY round-35 (e), with
+    `criteria/knowledge_control_check.py` exiting 1 on those two controls.
+- Harm: none found in any earlier selftest or counter (`CriticHarmCheck`). The citing-set
+  candidate gate now lists 7 findings instead of 4 (S001, S002 and S006 cited by the new
+  entry), recorded and not adjudicated. The S001 and S002 used-by cells now include the entry.
+- Post-measurement repair: the end-tag stack was quadratic on hostile input (`SentinelToolInputs`,
+  499 s). The L1 fixed it with a per-name open count; the sandbox re-measure at `e068bc4b` gives
+  24 of 24, selftest 46/46 and matrix 28/28. It counts toward no claim (lesson "Post-measurement
+  tool repair").

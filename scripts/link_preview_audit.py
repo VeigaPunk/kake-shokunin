@@ -94,10 +94,15 @@ class MetadataParser(HTMLParser):
         self.properties: dict[str, list[str]] = {name: [] for name in REQUIRED_PROPERTIES}
         self.canonical_href: str | None = None
         self.suppressed_elements: list[str] = []
+        # Open count per suppressed name, so an end tag with no open element of
+        # its name returns at once (round-35 wave 2 SentinelToolInputs: scanning
+        # the whole stack on every unmatched end tag was quadratic).
+        self.open_counts: dict[str, int] = dict.fromkeys(SUPPRESSED_ELEMENTS, 0)
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag in SUPPRESSED_ELEMENTS:
             self.suppressed_elements.append(tag)
+            self.open_counts[tag] += 1
             return
         if self.suppressed_elements:
             return
@@ -106,8 +111,12 @@ class MetadataParser(HTMLParser):
     def handle_endtag(self, tag: str) -> None:
         # A matching end tag closes that element and any nested suppressed
         # elements, while a nested same-name element keeps its parent open.
+        if not self.open_counts.get(tag):
+            return
         for index in range(len(self.suppressed_elements) - 1, -1, -1):
             if self.suppressed_elements[index] == tag:
+                for closed in self.suppressed_elements[index:]:
+                    self.open_counts[closed] -= 1
                 del self.suppressed_elements[index:]
                 break
 

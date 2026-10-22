@@ -124,3 +124,27 @@ researcher must find a reporting channel and be able to trust it.
    `include-hidden-files` for a v5 artifact build (S006, S080, S001, S002).
 6. A post-deploy read of the published URL as plain text over HTTPS, the only
    observation showing the file survived the build (S078).
+
+## Wave-2 corrections (appended in round 35, after the C2 measurement at `95abec21`)
+
+The text above stays as measured. The following come from wave-2 reviews in `.ufo/waves/round-35/w2/`:
+- Header `counter:` line: counter version 2 caps size at 2200 `[a-z0-9]+` words, not 1500
+  words. Since the reveal (`4c6be2bd`) the command refuses (exit 2) any revision that holds the
+  keys, so the falsifier's third arm can only be read from the recorded run at `95abec21`
+  (`.ufo/waves/round-35/verification/c2-at-95abec21.json`). The sentence saying the probes are
+  sealed is no longer true: they are in `.ufo/waves/round-35/sealed/` (`ReviewEntryHeader`).
+- Recheck: GitHub serves a new `Expires` with every response, 30 days after the response's
+  `Date` (`w1/ScoutGithubExpiresDynamic.md`; again at 23:00Z in `w2/ReviewEntryExamples.md`). A
+  changed S084 digest on recheck is expected churn. Compare the field lines other than
+  `Expires` before calling S084 changed. The recheck script does not re-open S001 or S002.
+- The sentence on `.nojekyll` being the lever when `include` cannot express the path is lane
+  reasoning: read it as [INFERENCE] (`ReviewEntryPagesFacts` F1).
+- "A pipeline that never sets the input ships no `/.well-known/`" holds for
+  upload-pages-artifact v4.0.0 and later only. v3.0.1 drops no dotfiles
+  (`corpus/knowledge/ghp-served-set.md`), and v4.0.0 has no input at all: its drop is
+  unconditional, and v5.0.0 adds `include-hidden-files` (`ReviewEntryPagesFacts` F2, F3;
+  `w1/ScoutPagesDotfilesSource.md`).
+- The root-copy sentence: S078 says the well-known copy MUST be used when both exist. It does not
+  require the root file to be a redirect or a byte copy. Where "Contact first" could be read as
+  field position, S078 gives an order of preference only among Contact lines
+  (`ReviewProbeMatchesTruth`, P02 and P08).

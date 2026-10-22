@@ -130,3 +130,108 @@ seen defeat it.
   of the svg and count it (`CriticC1ContractAmbiguity`).
 - Hold: wave-1 `CriticSealedDesign` ended in an automatic model switch after a safety filter.
   Its findings are not evidence, its two bundles were not scored, and the item is not retried.
+
+## Wave-2 corrections (appended)
+
+Wave 2 `kake-r35-w2` (35 seats) attacked the landed work; reports in `.ufo/waves/round-35/w2/`.
+The claims, the counters and the measured values stay as landed.
+
+- C1 sufficiency:
+  - The sealed cases hold single-level containers only. No sealed case nests a container or
+    follows `<svg/>` with metadata.
+  - The isolated repairs move (a) +3, (b) +5 and (c) +2 cases (`ExecPartialRepairs`). So the
+    target of 22 is reachable with bullet (c) skipped (`CriticC1Sufficiency`).
+  - A regex-only tool scores 24 of 24 (`CriticC1Sufficiency`), but its writer had read the
+    sealed expectations, not the sealed HTML.
+  - 11 of 14 single-rule mutants still meet 22. One mutant (M09: no absolute or canonical check
+    when a page has two og:url values) survived the selftest, the matrix and the sealed set at
+    23 (`MutToolRepair`). Its killing fixture `og_url_multiple_first_value_checked` is landed;
+    the selftest is now 46/46.
+  - The evidence for nesting and self-closing is the builder-written selftest fixtures, which
+    are not sealed.
+- C2 sufficiency:
+  - An all-false 201-word entry, written with the revealed probes, meets C2 with 12 of 12
+    (`CriticProbeLeniency`, commit `dc8e1adf`).
+  - An entry written from the public topic list plus one line naming three landed row ids meets
+    C2 with 11 of 12 (`CriticC2Sufficiency`, commit `0b7779dc`). Its writer had read S079, S081
+    and the row summaries, but not the probe text and not the primary texts.
+  - So the C2 counter shows that the topic facts co-occur in a short, non-copied entry that cites
+    rows opened this round. It does not show that the entry came from those sources or that its
+    sentences are true. "Probes test that stated facts are present" (SCORECARD round-35
+    declaration, disclosed limits) overstates this: they test topic keywords near each other.
+  - The landed entry's truth was checked by `ReviewEntryRfcFacts` (27 sentences, 0 false),
+    `ReviewEntryPagesFacts` (6 of 8 pass; 2 corrected by append in the entry),
+    `ReviewEntryExamples` (11 of 11) and `ReviewProbeMatchesTruth` (10 true, 2 partly true).
+  - Both bundles are retained (`retained/r35-w2-c2-inverted-facts.bundle`,
+    `r35-w2-c2-sufficiency.bundle`). Mistake row 5 below.
+- Counter version 2 evasions built with the revealed key (`CriticCounterV2`, `MutCounterV2`):
+  - comment closers hidden by fullwidth or zero-width characters, and link reference
+    definitions, are counted as visible text;
+  - a fence closes regardless of length;
+  - the receipt-URL and used-by checks are substring matches;
+  - the S086 and S087 texts are not pinned;
+  - no retained control holds the used-by check, the first-Registry rule, the tilde-fence rule
+    or the 0.25 threshold at verdict level.
+
+  None of these constructs occurs in the landed entry or `SOURCES.md`. The counter is not
+  changed after data. Carried to the next round's counter.
+- Counter crash paths (`w1/ReviewCounterCode.md` F1): a non-UTF-8 tool stdout, a malformed key,
+  or a missing git exit 1 with a traceback instead of exit 2. Carried.
+- Harm, both found by `CriticHarmCheck`:
+  - The citing-set gate (an unadmitted round-27 candidate) now reports 7 findings instead of 4.
+    The entry cites S001, S002 and S006, and no ledger entry adjudicates those pairs.
+  - The used-by cells of S001 and S002 lacked the entry. Old→new: S001 used-by
+    `corpus/knowledge/ghp-served-set.md, corpus/knowledge/ghp-subpath-spotcheck.md,
+    corpus/knowledge/publish-channels.md, corpus/knowledge/sitemap-orphan-audit.md,
+    corpus/knowledge/speedrun-pipeline.md, corpus/knowledge/static-canonical-preflight.md,
+    corpus/lessons/round-27.md` → the same plus `corpus/knowledge/security-txt-publishing.md`.
+    S002 used-by is the same list without `ghp-subpath-spotcheck.md` → the same plus the entry.
+    Status and recheck are unchanged in both rows.
+- Edited in place because they entered this round:
+  - SKILL registry row: the exit 64 label now reads `64=usage` (`ReviewToolDocsConsistency`).
+  - S074 note: the sha256 and size are those of the decompressed body (`ReviewS074Note`).
+- Gate and lesson pointers:
+  - The S087 quote is 12 words, not 11 (`ReopenGateQuotes`).
+  - `CriticC1ContractAmbiguity` marks 8 points undecided, not 7.
+  - The round-34 carried-open correction spans `corpus/lessons/round-34.md:167-175`.
+  - The drafter's `test -e` was on the sealed directory path itself (`ReviewLessonMistakes`).
+- Sealed-case review (`ReviewSealedCasesVsContract`): it reads case-05 (an `og:image:url`
+  alias, expected clean) as contradicting an exact-name rule. The L1 disagrees: the alias is the
+  round-34 wave-2 rule (S067, "og:image:url - Identical to og:image"), and the contract keeps
+  every other round-34 rule. Cases 17 and 24 expect no canonical comparison for a relative
+  og:url, as the round-34 tool does. Case 19 follows the literal contract, which is not the HTML
+  tree reading.
+- Tool (`ReviewToolRepairCode`): `<template/>` opens nothing, though HTML ignores a self-closing
+  flag on `template`. The comment at `scripts/link_preview_audit.py:71-72` still calls an
+  oversized page an input finding. Both carried.
+- Criteria checks (`ReviewCriteriaChecks`): four false passes, each a limit of its check.
+  - `registry_row_check.py` accepts a `Name | Entry command` table anywhere in `SKILL.md`, and
+    it misses a tool whose exits are not declared.
+  - `control_description_check.py` accepts any 20-character line, even one that does not
+    support the stated mechanism.
+  - `prebuild_leak_check.py` passes a receipt that publishes six of seven values, or holds them
+    as JSON keys.
+  - The r35-correction receipt now records its full command.
+- Seal (`SentinelKeyExposure`, `ReviewSealDiscipline`): no key byte entered any repository or
+  shared file before the reveal. The isolation is procedural only, since every seat runs as
+  the same user. The constant control's per-case passes disclose seven clean C1 expectations.
+
+### Mistakes (appended row)
+
+| Class | Evidence | Captured-by | Fix |
+|---|---|---|---|
+| a knowledge counter's probes tested topic keywords that are textbook facts, so an entry with inverted facts, or one written without opening the sources, meets it | `retained/r35-w2-c2-inverted-facts.bundle` (`dc8e1adf`, met true, 12 of 12) and `r35-w2-c2-sufficiency.bundle` (`0b7779dc`, met true, 11 of 12) | prompt §6.9's cheapest-control rule: the pre-build controls (junk, keyword, transcription, reworded) did not include an inverted-facts entry or an unsourced entry | QUALITY round-35 (e) with `.ufo/waves/round-35/criteria/knowledge_control_check.py`. It exits 1 on those two controls (`verification/criterion-knowledge-controls-r35-c2.txt`) and 0 on the pre-build controls (`criterion-knowledge-controls-r35-prebuild.txt`). Next round: seal probes on facts found only in that round's opened texts, and require both controls to score met false before the build. |
+
+### Post-measurement tool repair (appended)
+
+Wave-2 `SentinelToolInputs` found the new suppression stack quadratic: every unmatched end tag
+scanned the whole stack. A page of 100000 `<template>` opens and 100000 `</svg>` closes ran 499 s
+and was killed with no JSON, against 0.244 s for the base tool. The L1 added an open count per
+suppressed name, so an end tag with no open element of its name returns at once, while the
+closing semantics stay as they were. The same page now runs in 0.33 s. The fixed tool (sha256
+`59ad4f23…ec45`) was re-measured on a sandbox commit `e068bc4b` built on the pre-reveal
+`95abec21` (bundle `retained/r35-l1-postfix-remeasure.bundle`): sealed C1 24 of 24, selftest
+46/46, round-34 matrix 28/28 (`verification/c1-postfix-at-e068bc4b.json`,
+`selftest-link-preview-postfix-at-e068bc4b.txt`, `c1r34-matrix-postfix-at-e068bc4b.json`). C1
+is judged on `b1cbbc39`. This repair is the L1's, made after the key was public, and counts
+toward no claim.

@@ -1477,3 +1477,10 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   (`.ufo/waves/round-35/criteria/`).
 - Hold: wave-1 `CriticSealedDesign` ended in an automatic model switch after a safety filter.
   It is not evidence and is not retried.
+- Wave 2 `kake-r35-w2` (35 seats) attacked the landed work. Every measured value reproduced.
+  C1's 22 can be met with bullet (c) skipped, and the sealed set holds no nested container.
+  C2's counter meets an inverted-facts entry and a topic-list entry with landed row ids (lesson
+  mistake row 5; QUALITY (e) with `criteria/knowledge_control_check.py`). Entry truth was read
+  sentence by sentence; two Pages sentences were corrected by append. Added fixture
+  `og_url_multiple_first_value_checked` (selftest 46/46). S001 and S002 used-by cells now name
+  the entry. SKILL exit-64 label and S074 note wording fixed in place.
