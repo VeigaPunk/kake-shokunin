@@ -296,17 +296,21 @@ class GitSource:
 
     @staticmethod
     def _require_top_level(root):
-        """Refuse a root nested inside a repository: Git paths are top-relative."""
+        """Refuse a root nested inside a repository: Git paths are top-relative.
+
+        ``--show-prefix`` is empty at a work-tree top level and inside a bare
+        repository, and names the subdirectory otherwise; comparing prefixes
+        avoids realpath and whitespace-stripping mismatches on legitimate roots.
+        """
         try:
             done = subprocess.run(
-                ["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+                ["git", "-C", str(root), "rev-parse", "--show-prefix"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
             )
         except OSError as exc:
             raise InputInvalid("git_unavailable", None, "revision", detail=type(exc).__name__)
-        top = os.fsdecode(done.stdout).strip()
-        if done.returncode != 0 or not top or os.path.realpath(top) != os.path.realpath(str(root)):
+        if done.returncode != 0 or done.stdout.rstrip(b"\n"):
             raise InputInvalid("root_not_repository_top_level", str(root), "root")
 
     @staticmethod
