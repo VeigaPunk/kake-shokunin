@@ -40,6 +40,7 @@ mirrors, Pages deploys).
 | Crawl scope per host (r20) | `knowledge/crawl-scope-per-host.md` | robots.txt only at the host root; sitemap scope by location; project sites share the user-site robots policy |
 | Earlier round lessons (historical through r18) | core `round-{1,3,4,5,6,7,8,9,10,12,16,17,18}.md` plus named aggregator audits; later entries live in `lessons/` | Dated audit findings and source-era measurements, not current surface availability. |
 | Static canonical preflight (r22) | `knowledge/static-canonical-preflight.md` | Source-backed publisher-policy comparison of a named static HTML population; canonical signals versus selection, parser/URL limits; local fixture proof under `.ufo/waves/round-22/` |
+| Field performance (r28) | `knowledge/field-performance-cwv.md` (S036–S039) | LCP, INP and CLS good and poor bounds at the 75th percentile, CrUX discoverability and popularity eligibility, the CrUX API 28-day window; no property measured, no API call |
 
 ## Known gaps
 
@@ -233,3 +234,14 @@ original targets, conformance exceptions, r24 policy-stop and18out-of-population
 remain unchanged. Decision, revisions and routed defects:
 `lessons/round-27-verifier-spotcheck.md`. The round closes negatively; its full claims
 remain unproved and its scripts remain unadmitted candidate evidence.
+
+## Round-28 field-performance frontier step
+
+New entry `knowledge/field-performance-cwv.md` holds the Core Web Vitals good
+and poor thresholds, the 75th-percentile rule, the metric lifecycle, CrUX
+eligibility and the CrUX API data window, from S036–S039 opened 2026-10-22.
+It is knowledge without a gate: field performance stays in the Frontier, no
+property was measured and no API call was made. Round-27 routed defect 1 (the
+citing-set gate interface) is repaired in `scripts/citing_set.py` at
+`b5d423f`; defects 2–4 are carried as `QUALITY.md` criteria in "Counters and
+field evidence — round 28". Lesson: `lessons/round-28.md`.

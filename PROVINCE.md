@@ -21,9 +21,11 @@
 
 - Crawl hygiene per host (robots.txt, sitemap scope, canonical signals) — first
   entry `corpus/knowledge/crawl-scope-per-host.md`; canonical/JS rendering open.
-- Field performance (Core Web Vitals, CrUX eligibility), accessibility
-  conformance (WCAG 2.2), Jekyll/base-path build tooling, Render deploy
-  semantics. Ground moves to Core only with source-backed entries and a gate.
+- Field performance (Core Web Vitals, CrUX eligibility) — first entry
+  `corpus/knowledge/field-performance-cwv.md` (round 28; knowledge only, no
+  gate, no property measured); accessibility conformance (WCAG 2.2),
+  Jekyll/base-path build tooling, Render deploy semantics. Ground moves to
+  Core only with source-backed entries and a gate.
 
 ## Adjacent
 

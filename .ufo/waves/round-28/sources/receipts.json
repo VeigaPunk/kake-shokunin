@@ -1,0 +1,131 @@
+{
+ "round": 28,
+ "method": "curl -sL GET; visible text = HTML minus script/style and tags, entities unescaped, whitespace collapsed; quotes checked as exact substrings of that text",
+ "rawHtml": "retained only as sha256 here (scratch copy /fast/scratch/hyaku/kake-r28/sources/)",
+ "sources": {
+  "S036": {
+   "url": "https://web.dev/articles/vitals",
+   "accessedUtc": "2026-10-22T08:30:34Z",
+   "httpStatus": 200,
+   "bytes": 143746,
+   "sha256": "cbbfb174bfc220ab3c0fa2a2ebb611d594bb5d95950c6cc57e342d32c5d8b838",
+   "visibleTextFile": ".ufo/waves/round-28/sources/S036.txt",
+   "visibleTextSha256": "f356a5aaca2c120014e224470d9598a53435419c15ac46e7be6e1e9d59020078",
+   "quotes": [
+    {
+     "text": "a good threshold to measure is the 75th percentile of page loads, segmented across mobile and desktop devices.",
+     "words": 18,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "Tools that assess Core Web Vitals compliance should consider a page passing if it meets the recommended targets at the 75th percentile for all three",
+     "words": 25,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "Stable Core Web Vitals metrics won't change more than once per year.",
+     "words": 12,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "While lab measurement is an essential part of delivering great experiences, it is not a substitute for field measurement.",
+     "words": 19,
+     "foundInVisibleText": true
+    }
+   ]
+  },
+  "S037": {
+   "url": "https://web.dev/articles/defining-core-web-vitals-thresholds",
+   "accessedUtc": "2026-10-22T08:30:35Z",
+   "httpStatus": 200,
+   "bytes": 149322,
+   "sha256": "6c738f2e78d17b512e9712475c3bbcda06129a3d4c60ddf3b34380ccfd70c2cb",
+   "visibleTextFile": ".ufo/waves/round-28/sources/S037.txt",
+   "visibleTextSha256": "9f03ed4a54d6239fd876f2b32ae7a1250cd4ec3214bb0f8affffcd15738a2ab8",
+   "quotes": [
+    {
+     "text": "if at least 75 percent of page views to a site meet the \"good\" threshold, the site is classified as having \"good\" performance",
+     "words": 23,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "the Core Web Vitals recommended thresholds are not segregated by device and the same threshold is used for both.",
+     "words": 19,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "we conclude a 200 ms is a reasonable \"good\" threshold for most sites, and greater than 500 ms is a reasonable \"poor\" threshold.",
+     "words": 23,
+     "foundInVisibleText": true
+    }
+   ]
+  },
+  "S038": {
+   "url": "https://developer.chrome.com/docs/crux/methodology",
+   "accessedUtc": "2026-10-22T08:30:35Z",
+   "httpStatus": 200,
+   "bytes": 109246,
+   "sha256": "81611bc3af3eaa16c221d05e08a80da711e532bf780c763e6fabb5ab68f051d0",
+   "visibleTextFile": ".ufo/waves/round-28/sources/S038.txt",
+   "visibleTextSha256": "e10142c8affcc612ce1e1a9d4cde1e6ec79c3c0a1f8bf26278ab8876277ea1dd",
+   "quotes": [
+    {
+     "text": "A page must be publicly discoverable to be considered for inclusion in the CrUX dataset.",
+     "words": 15,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "The page is served with an HTTP status code other than 200 (after redirects).",
+     "words": 14,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "eligible user experiences on all of that origin's pages are aggregated at the origin-level, regardless of individual page discoverability.",
+     "words": 19,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "Origins or pages having more than 20% of their total traffic excluded due to ineligible combinations of dimensions are excluded entirely from the dataset.",
+     "words": 24,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "These identifiers are stripped from the URL in the CrUX dataset so that all user experiences on the page are aggregated together.",
+     "words": 22,
+     "foundInVisibleText": true
+    }
+   ]
+  },
+  "S039": {
+   "url": "https://developer.chrome.com/docs/crux/api",
+   "accessedUtc": "2026-10-22T08:30:36Z",
+   "httpStatus": 200,
+   "bytes": 167987,
+   "sha256": "486205cff60efa96d5a250fdc56140e4985c70244318a6ba77ed674766f579ff",
+   "visibleTextFile": ".ufo/waves/round-28/sources/S039.txt",
+   "visibleTextSha256": "cfc4035835b78ff2da9d7bee06f2fad306ab828d16411be7fc615c6ac48b0062",
+   "quotes": [
+    {
+     "text": "The data in the Chrome UX Report is a 28-day rolling average of aggregated metrics.",
+     "words": 15,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "Using the CrUX API requires a Google Cloud API key provisioned for Chrome UX Report API usage.",
+     "words": 17,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "The CrUX API is limited to 150 queries per minute per Google Cloud project, which is offered without charge.",
+     "words": 19,
+     "foundInVisibleText": true
+    },
+    {
+     "text": "Complex actions like following redirects are not handled.",
+     "words": 8,
+     "foundInVisibleText": true
+    }
+   ]
+  }
+ }
+}

@@ -294,3 +294,31 @@ bytes/attributes and general sanitizer/provenance guarantees remain unproved.
 Current qualified interpretation replaces the historical six/two pointer;
 old measurements/records are retained unchanged. Main's non-author closure,
 not any own seat, determines admission.
+
+## Counters and field evidence — round 28
+
+Grounding: `lessons/round-28.md` (Mistakes, Gate) and
+`lessons/round-27-verifier-spotcheck.md` routed defects 1–4.
+
+- **A counter must be able to reject a constant.** A counting command for a
+  repair claim carries controls on valid input (a clean input stays clean, a
+  real defect stays failed, the existing fixture suite still passes) next to its
+  defect checks. A gate that refuses everything, or returns a fixed answer, must
+  score below the declared after-value. Show it with one recorded mutant before
+  the claim is admitted (round 28: `.ufo/waves/round-28/w1a3/MutRefuseAllGate.md`).
+- **Conformance exceptions stay named.** A void smoke run earns no acceptance
+  credit, a job that times out without output proves nothing, and report-length
+  overruns stay listed by seat. State the fixture-oracle granularity on the
+  record: the round-27 runner compares only exit code and the multiset of
+  finding ids, so finer differences are outside what a passing run shows
+  (routed defect 3).
+- **No-harm keeps its measured scope.** A no-harm receipt covers the surfaces
+  it names (knowledge prefixes, prior scripts, prior wave files, logged registry
+  cells) and is never restated as universal no-harm or general CLI safety. The
+  round-24 policy stop stays open, unretried and unrouted until the operator
+  rules (routed defect 4).
+- **No field data is not a pass.** A Core Web Vitals statement about a property
+  names its field source (page-level CrUX, origin-level CrUX, or none) and its
+  28-day window end. A missing CrUX record is reported as "no field data" with
+  the S038 eligibility checks, and a lab score never stands in for the field
+  verdict (`knowledge/field-performance-cwv.md`, S036, S038).

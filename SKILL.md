@@ -676,3 +676,22 @@ capture representations were independently checked safe/integral, but received
 HTML attributes/bytes remain unproved. The unresolved findings are explicit in
 the round report and `unresolved-acceptance.json`; no code repair is claimed
 from a finite green or from the void stub smoke. Main owns independent closure.
+
+## Field performance triage — round 28
+
+Knowledge: `corpus/knowledge/field-performance-cwv.md` (S036–S039). Judge at
+the 75th percentile, per form factor, over the CrUX 28-day window.
+
+| Metric | Good (S036, S037) | Poor (S037) | Between |
+|---|---|---|---|
+| LCP | ≤ 2.5 s | > 4 s | needs improvement |
+| INP | ≤ 200 ms | > 500 ms | needs improvement |
+| CLS | ≤ 0.1 | > 0.25 | needs improvement |
+
+| Situation | kake does |
+|---|---|
+| Page-level CrUX record exists | Report p75 per metric and form factor with the window end date. |
+| Only origin-level record exists | Report it as origin data; never present it as the page's result. |
+| No CrUX record | Check final HTTP 200, no `noindex`, root page discoverable (S038); then report "no field data", not pass or fail. |
+| Only a lab score (Lighthouse, DevTools) | Use it to guide a fix; give no Core Web Vitals verdict (S036). Running the tool is tabi's work. |
+| A CrUX API query is needed | Needs an operator-provisioned Google Cloud key (S039); kake holds none and asks the operator. |
