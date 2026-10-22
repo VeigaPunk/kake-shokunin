@@ -1426,3 +1426,30 @@ publisher pages. C2 probes test that stated facts are present, not that every
 sentence is true, so the closure's read still owes the truth check. The
 security.txt claim is offline: no lane property is asked to publish one, and
 no live lane host is fetched.
+
+### Round 35 — controls scored before any build (appended)
+
+Frozen counter `.ufo/waves/round-35/sealed_count.py` as landed at `81d9fd74`.
+Run in a sandbox clone (`/fast/scratch/hyaku/kake-r35/ctl/lane`) with the sealed
+keys passed as `--key-file`, because the keys are not in the lane yet. Receipts
+are `.ufo/waves/round-35/verification/control-<name>.json` with a matching `.exit`.
+Control commits are retained as bundles `.ufo/waves/round-35/retained/r35-control-*.bundle`
+(prerequisite `81d9fd74`), and the two round-34 controls come from their round-34
+bundles.
+
+| Control | Revision | Result | Target |
+|---|---|---|---|
+| C1 base tool, no repair (do nothing) | `16a6b8b8` | passed 14 of 24, exit 1 | ≥ 22 |
+| C1 at the declaration commit | `81d9fd74` | passed 14 of 24, exit 1 | ≥ 22 |
+| C1 retained round-34 lookup tool | `dcef39b5` | passed 7 of 24, exit 1 | ≥ 22 |
+| C1 constant clean tool (exit 0, no findings) | `5f767534` | passed 7 of 24, exit 1 | ≥ 22 |
+| C2 base, no entry | `16a6b8b8` | met false, probes 0 of 12 | met true |
+| C2 at the declaration commit | `81d9fd74` | met false, probes 0 of 12 | met true |
+| C2 retained round-34 hollow commit | `0cce15f0` | met false, probes 0 (no entry at the round-35 path) | met true |
+| C2 junk entry and junk rows S078–S081 (round-34 `0cce15f0` shape) | `04848219` | met false: probes 0 of 12 (entry, size, copied and cites pass) | met true |
+| C2 keyword entry from RFC 9116's contents and field names, same junk rows | `e5263d41` | met false: probes 3 of 12 | met true |
+| C2 verbatim RFC 9116 sections 2.5–3.1 (1296 words), same junk rows | `ae9fb361` | met false: probes 8 of 12, copiedShare 0.9951 | met true |
+
+No control reaches its target. Junk rows do satisfy the `cites` condition.
+`cites` is necessary only: the probes and `copied` carry the discrimination,
+and the Gate and the non-author read owe the row truth.
