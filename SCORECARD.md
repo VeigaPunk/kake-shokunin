@@ -572,3 +572,24 @@ links: `counter-version-chain.json`. Current interpretation:
 Legacy ratings stay10→10; no new capability/repertoire entry, promotion or
 verified-round credit is self-awarded. Original57 target/before, current58
 obligations and carry erratum stay separate. Raw313 is a mixed field sum.
+
+## Round 28 — declared claims (attempt 2, before implementation lands)
+
+Base (pushed lane tip at round start): `22c1669c1fec83d1a0769de6b9ce686c75657e66`.
+Stagnation nudge applies: both owned axes sit at the 10/10 saturation line and
+no capability entered in rounds 26 or 27, so the lowest-axis rule is waived
+and the round makes a repair move plus a frontier move.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 repair-first: round-27 routed defect 1 in `scripts/citing_set.py` (unusable input documents yield the contracted JSON report and exit 2; an absent or unreachable corpus surface does not return clean) | operability | 4/15 checks pass (0/11 defect checks, 4/4 controls) | 15/15 checks pass at the landed commit | `python3 -B .ufo/waves/round-28/c1_interface_count.py --root . --revision <commit>` |
+| C2 frontier: field performance (Core Web Vitals thresholds and CrUX eligibility) enters held knowledge as `corpus/knowledge/field-performance-cwv.md`, grounded in four primary sources opened this round (S036 web.dev Web Vitals, S037 web.dev threshold definitions, S038 CrUX methodology, S039 CrUX API) | freshness | 0/4 declared rows meet every check | 4/4 declared rows meet every check at the landed commit | `python3 -B .ufo/waves/round-28/c2_source_count.py --root . --revision <commit>` |
+
+The C1 counter exports `scripts/` from the named commit and builds its own
+cases; its 4 controls (valid clean working tree, valid clean Git read, a real
+omission staying failed, and the commit's own 29-case fixture runner) fail a
+gate that refuses every input. The 11 defect checks are the round-27
+`CLI-FIFO`, `JSON-PROTOCOL` depth and `CLI-SCOPE-FALSE-GREEN` failures named in
+`.ufo/waves/round-27/unresolved-acceptance.json`. Duplicate-key and nonfinite
+JSON profiles, identity-path spelling and retention boundaries are outside C1
+and stay open. A miss on either declared value is an honest stop.
