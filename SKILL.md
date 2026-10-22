@@ -723,3 +723,86 @@ location, a root-relative reference that does not start with the base path
 | Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
 |---|---|---|---|---|---|---|---|
 | base-path-audit | gate (offline static project-site base-path policy) | `python3 -B scripts/base_path_audit.py --manifest <dir>/manifest.json` | 0 clean; 1 failed-policy (`outside_base_path`); 2 could-not-evaluate (`input_invalid`, `page_outside_base_path`); 64 usage | `python3 -B scripts/base_path_selftest.py` over `scripts/fixtures/base-path/` (30 matrix fixtures plus 15 round-29 regression fixtures `X01`–`X15`), comparing exit, verdict and reason tuples | frozen matrix `.ufo/waves/round-29/c2-matrix.json` sha256 `75c08f64…`, counted by `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision <commit>` | none (reads local files, no network, no writes) | kake |
+
+## Render static-site triage — round 30
+
+Knowledge: `corpus/knowledge/render-static-sites.md` (S049–S052). A Render
+static site is served from the build output of a linked Git repository:
+“Render automatically updates your site with every push to your specified
+branch” (S049), and “Each site receives a unique onrender.com URL” (S049) that
+a custom domain can sit in front of. This table is platform semantics read
+from Render's own documentation; it measures no owned property and makes no
+live request. Retained visible text and receipts:
+`.ufo/waves/round-30/sources/` (`S049.txt`…`S052.txt`, `receipts.json`).
+
+| Symptom | Check | Action | Cited ids |
+|---|---|---|---|
+| The site still serves the previous release after a push to the deployed branch | Read the deploy status of that build first. S049: “each build is fully atomic”, and “we deploy it and immediately invalidate our CDN caches so your users always see the latest working version of your site” — a build that succeeds is published whole and its CDN caches are invalidated at once | A failed build is fixed as a build failure, not as a caching problem. If the build succeeded and the old bytes are still served, Render's own invalidation is not the cause: look for a CDN, proxy or service worker in front of the site, and for a different branch serving the domain. [INFERENCE — no source here names a cause for stale content after a green build] | S049 (Immediate cache invalidation): “each build is fully atomic”; “we deploy it and immediately invalidate our CDN caches so your users always see the latest working version of your site” |
+| A plain HTTP request is not upgraded to HTTPS | Both pages state this as platform behaviour: S049 “Render automatically redirects HTTP traffic to HTTPS”; S052 “All HTTP traffic to a custom domain is automatically redirected to HTTPS” | Do not spend a redirect rule on the upgrade — the platform already does it. If the upgrade does not happen, the request is probably not reaching the Render site (for a custom domain: DNS and verification status), or something in front answers first. [INFERENCE] | S049 (Redirects and rewrites): “Render automatically redirects HTTP traffic to HTTPS”; S052 (Custom Domains on Render): “All HTTP traffic to a custom domain is automatically redirected to HTTPS” |
+| A redirect or rewrite rule has no effect on a path that has content | S050: “Render does not apply redirect or rewrite rules to a path if a resource exists at that path” — “Instead, Render simply serves the resource at that path” | Rename or delete the file that occupies the path, or point the rule at a path with no resource. A rule cannot shadow a file that is already deployed; the file wins | S050 (Rule matching and ordering): “Render does not apply redirect or rewrite rules to a path if a resource exists at that path”; “Instead, Render simply serves the resource at that path” |
+| A rule for the site root (`/`) cannot be created, or a root rule never fires | S050: “You can't apply redirect/rewrite rules to your domain root”, and “Each Source requires at least one URL path component” | Put the wanted behaviour in the content at the root, or in a rule whose Source carries at least one path component. The domain root is out of scope for rules | S050 (Which action to use?): “You can't apply redirect/rewrite rules to your domain root”; “Each Source requires at least one URL path component” |
+| Deep links in a client-side-routed app (react-router, Vue Router) answer 404 | S050 names this case: “you'll handle all requests from a single path like /index.html”; its matching flow ends “Return 404 Not Found” when no rule matches a path | Add a rewrite from `/*` to `/index.html` so every unmatched path serves the app shell. Keep the redirect action for real moves: a redirect “Instructs the browser (or any other client) to switch URLs to the rule's destination via a 301 Moved Permanently response code” (S050) | S050 (Which action to use?, Rule matching and ordering): “you'll handle all requests from a single path like /index.html”; “Return 404 Not Found”; “Instructs the browser (or any other client) to switch URLs to the rule's destination via a 301 Moved Permanently response code” |
+| A custom response header is missing, or missing only on the custom domain | S051: “Because static sites don't have a server-side component that can inject custom HTTP response headers”, so headers are defined in the dashboard; “The header path must be a relative path without the domain”; “It will be matched with all custom domains attached to your site”; “The header key is normalized and the value is appended to it to form the response” | Give the header a relative path (no domain in it) so it covers the custom domain as well, and read the response in its normalized lower-case form (`cache-control: public, max-age=86400`). A header missing on one host but present on another is a path-scope question, not a per-domain question | S051 (HTTP Headers for Static Sites, Header syntax): “Because static sites don't have a server-side component that can inject custom HTTP response headers”; “The header path must be a relative path without the domain”; “It will be matched with all custom domains attached to your site”; “The header key is normalized and the value is appended to it to form the response” |
+| A newly added custom domain answers 502 Bad Gateway, or verification never completes | S052: “If verification fails, your DNS settings might not have propagated yet”; “If you see a 502 Bad Gateway error, Render might still be updating routing rules for your service” | Treat both as provisioning, not as a broken site: wait a few minutes and press Verify again, and confirm that DNS points at Render. A 502 in the first minutes after adding the domain is the documented state, not a verdict | S052 (3. Verify your domain): “If verification fails, your DNS settings might not have propagated yet”; “If you see a 502 Bad Gateway error, Render might still be updating routing rules for your service” |
+| The old `onrender.com` hostname now answers 404 after a custom domain was added | S052: “After you disable your onrender.com subdomain, all requests to it receive a 404 response” — “These requests do not reach your service”; the switch is `renderSubdomainPolicy: disabled` (dashboard: Render Subdomain → Disabled) | If the subdomain was disabled on purpose, the 404 is the expected result, not a fault. Re-enable it (dashboard toggle, `render.yaml` field or API) when the fallback host is wanted again | S052 (Disabling your onrender.com subdomain): “After you disable your onrender.com subdomain, all requests to it receive a 404 response”; “These requests do not reach your service”; “renderSubdomainPolicy” |
+
+### What this table does not settle
+
+- These are Render's platform pages, opened once each at 2026-10-22T11:49Z
+  (HTTP 200). They say what the platform documents, not what any owned property
+  does; no live request to an owned site was made for this table.
+- The pages describe the static-site side only. S049: “Deploying a dynamic
+  site, such as a Rails app? Create a web service instead of a static site” —
+  the fleet's Render surface in this playbook is a web service
+  (`app.ds4cc.com`, `ds4cc-marketplace-app`, Docker), so the static-site rows
+  do not transfer to it.
+- Nothing here covers the build output, the repository, the DNS provider's
+  console, or the onrender.com fallback host's own content. Rows that need one
+  of those say which side to look at; they do not guess the answer.
+- Freshness: re-open the four pages before citing them again. The learning-claim
+  counter for this round is
+  `python3 -B .ufo/waves/round-30/c2_quote_truth.py --root . --revision <commit>`.
+
+## Citing-set reason-code registry — round 30
+
+Gate `scripts/citing_set.py`; fixture runner `scripts/citing_set_selftest.py`
+over `scripts/fixtures/citing-set/` (41 cases). A case's `expected.json` lists
+findings either as finding-id strings (legacy: the runner compares the sorted
+id multiset) or as `{"id": …, "reason": …}` objects (the runner compares the
+sorted multiset of (id, reason) pairs exactly); one form per case. An optional
+`case.json` builds run-time inputs (a FIFO, an empty directory, a Git commit,
+a nested repository root, extra arguments) in a copy under `--tmpdir`; the
+committed fixture is never changed. Since round 30 the gate also refuses
+duplicate JSON member names (`document_duplicate_key`) and NaN, Infinity,
+-Infinity or overflowing numbers (`document_nonfinite_number`) at any depth;
+population ids must match `S` plus three or more digits; any of `--root`,
+`--revision`, `--population` or `--ledger` given twice (any spelling,
+abbreviations included) is a usage error, exit 64; the corpus walk is
+iterative; and every input-document open adds `O_NOCTTY`.
+
+| Reason code | Fixture case(s) naming it |
+|---|---|
+| `document_not_regular_file` | `30-document-not-regular-file` |
+| `document_not_json` | `15-invalid-json-population`, `31-document-not-json` |
+| `corpus_directory_missing` | `32-corpus-directory-missing` |
+| `corpus_empty` | `33-corpus-empty` |
+| `not_a_directory` | `34-not-a-directory` |
+| `population_id_unreachable` | `35-population-id-unreachable`, `40-population-id-short-digits` |
+| `revision_not_found` | `36-revision-not-found` |
+| `root_not_repository_top_level` | `37-root-not-repository-top-level` |
+| `document_duplicate_key` | `38-document-duplicate-key` |
+| `document_nonfinite_number` | `39-document-nonfinite-number`, `41-document-nonfinite-overflow` |
+| `descending_range` | `13-descending-range` |
+| `span_too_large` | `14-oversize-range` |
+| `document_shape_invalid` | `16-invalid-population-shape` |
+
+Codes the gate can emit that no committed fixture names yet (12):
+`absolute_path_not_allowed`, `corpus_directory_unreadable`,
+`corpus_file_not_utf8`, `document_not_utf8`, `document_unreadable`,
+`empty_path`, `git_command_failed`, `git_unavailable`, `not_a_regular_file`,
+`path_escapes_root`, `root_not_a_directory`, `symlink_rejected`. They are
+uncovered behaviour, not regression coverage (`corpus/QUALITY.md`, "A
+committed fixture asserts the reason code"). Self-test:
+`python3 -B scripts/citing_set_selftest.py --root . --tmpdir <dir>` (exit 0
+clean, 1 a case mismatched, 2 could not evaluate). Round-30 evidence:
+`.ufo/waves/round-30/c1_reason_count.py` and `c1_strict_checks.py`.

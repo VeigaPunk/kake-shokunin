@@ -82,3 +82,27 @@ These dated corrections supersede only current local-state readings of the cited
 ## Round-26 source recheck
 
 - Round-26 source recheck (2026-10-21, append-only; original lines unchanged). The round-20 correction lines in this entry cite S001, S002, S003, S005 and S007 (lines 58-61). Each was judged against bytes re-fetched 2026-10-21 (`.ufo/waves/round-26/fetched/`, receipts `.ufo/waves/round-26/rechecks/S0NN.json`) and holds: S001 v4.0.0 and main exclude `.git`/`.github`, v4.0.0 excludes `.[^/]*`, main makes it conditional on `include-hidden-files`; the S002 v5.0.0 release lists “feat: add include-hidden-files input”; S005 says under a custom Actions workflow “any existing CNAME file is ignored and is not required”; S003 and S007 place the domain in Pages settings / the `cname` API field. Ledger pairs in `.ufo/waves/round-26/statements.json`; found by the falsify wave (w2/CounterCritic.md).
+
+## Round-30 Render recheck
+
+- Round-30 recheck of the "Render — app.ds4cc.com" section (2026-10-22,
+  append-only; the section above is unchanged). Read-only local read of
+  `~/Projects/ds4cc-marketplace` at checkout
+  `1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28`, `render.yaml` blob
+  `d17ab7e5d44b1b3a1876cf1d9b47f369e92f7252`, working tree clean for that
+  file. HOLD: lines 2-7 still declare a Docker web service
+  `ds4cc-marketplace-app` (`type: web`, `runtime: docker`,
+  `dockerfilePath: ./apps-sdk/Dockerfile`, `healthCheckPath: /health`), with
+  `APP_ORIGIN=https://app.ds4cc.com` and `ALLOWED_ORIGINS=https://chatgpt.com`.
+  ADDED: the file also sets `ALLOWED_HOSTS=ds4cc-marketplace-app.onrender.com`
+  (lines 11-12) and `MAX_UNAUTHENTICATED_SESSIONS`, `MCP_SESSION_IDLE_TIMEOUT_MS`
+  and a non-synced `OPENAI_APPS_CHALLENGE` (lines 15-20); the section above
+  omits them. The file has no `domains` key, so `app.ds4cc.com` is not attached
+  by this Blueprint [INFERENCE: attached in the dashboard or not at all]. S052
+  says a Render web service can carry a custom domain and keeps its default
+  host: “Services with a custom domain also keep their onrender.com
+  subdomain.” (S052), which is consistent with the onrender host in
+  `ALLOWED_HOSTS` [INFERENCE]. Nothing live was fetched; whether the service is
+  deployed and answers on either host is not observed here. Static-site
+  semantics for Render are in `render-static-sites.md`; they do not apply to
+  this Docker web service.

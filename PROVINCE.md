@@ -90,3 +90,17 @@ knowledge (`corpus/knowledge/pages-base-path.md`, S040–S043) with an offline
 gate (`scripts/base_path_audit.py`). The gate reads local files only; no live
 property was fetched, measured or repaired, and publishing stays with the
 operator. Render deploy semantics and accessibility conformance stay open.
+
+## Round-30 Render static-site frontier step
+
+The round-29 sentence above ("Render deploy semantics and accessibility
+conformance stay open") is historical for its date. Round 30 added Render
+static-site platform knowledge (`corpus/knowledge/render-static-sites.md`,
+S049–S052): build and deploy on push, redirect and rewrite rule order,
+dashboard response headers, custom domains and TLS. It is knowledge only, with
+no gate, and no owned property is a Render static site; Render web service
+deploys (the `app.ds4cc.com` Docker service) and the Blueprint file stay open.
+Accessibility conformance stays open. The lane's own citing-set gate
+(`scripts/citing_set.py`) gained committed reason-code fixtures and the round-27 input
+families (duplicate keys, non-finite numbers, short ids, repeated options,
+deep corpus, `O_NOCTTY`).

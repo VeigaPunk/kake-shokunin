@@ -1,0 +1,511 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/base_path_selftest.py"
+      ],
+      "cwd": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone",
+      "exitCode": 0,
+      "stderr": "45/45 fixtures passed\n",
+      "stderrPath": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/out/round-30/r29-rerun/selftest.stderr.txt",
+      "stdout": "{\n  \"selftest\": \"kake-r29-base-path-selftest\",\n  \"tool\": \"/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/scripts/base_path_audit.py\",\n  \"fixtures\": \"/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/scripts/fixtures/base-path\",\n  \"verdict\": \"clean\",\n  \"cases\": 45,\n  \"passed\": 45,\n  \"failed\": 0,\n  \"passedOverTotal\": \"45/45\",\n  \"failures\": [],\n  \"caseNames\": [\n    \"D1-root-relative-stylesheet\",\n    \"D10-form-action-and-video-poster\",\n    \"D11-nested-page-relative-resolution\",\n    \"D12-uppercase-tag-and-attribute\",\n    \"D13-whitespace-wrapped-value\",\n    \"D14-iframe-source-area-track\",\n    \"D2-root-relative-script\",\n    \"D3-srcset-one-candidate-outside\",\n    \"D4-dot-dot-escape\",\n    \"D5-protocol-relative-same-host\",\n    \"D6-absolute-same-origin-outside\",\n    \"D7-base-element-moves-relative-ref-out\",\n    \"D8-segment-prefix-not-string-prefix\",\n    \"D9-case-sensitive-path\",\n    \"I1-manifest-not-json\",\n    \"I2-unsupported-version\",\n    \"I3-base-path-without-final-slash\",\n    \"I4-page-file-missing\",\n    \"I5-page-url-outside-base\",\n    \"I6-page-file-escapes-manifest-dir\",\n    \"I7-page-url-not-http\",\n    \"I8-empty-pages-list\",\n    \"K1-relative-refs-clean\",\n    \"K2-absolute-inside-clean\",\n    \"K3-external-and-nonhttp-ignored\",\n    \"K4-base-without-final-slash-clean\",\n    \"K5-user-site-root-base-clean\",\n    \"K6-first-base-element-wins\",\n    \"K7-empty-and-whitespace-href-clean\",\n    \"U1-missing-manifest-option\",\n    \"X01-duplicate-json-key\",\n    \"X02-nonfinite-json-number\",\n    \"X03-boolean-version\",\n    \"X04-unknown-manifest-key\",\n    \"X05-duplicate-page-file\",\n    \"X06-repeated-manifest-option\",\n    \"X07-abbreviated-option\",\n    \"X08-cross-scheme-same-host-outside\",\n    \"X09-template-content-not-scanned\",\n    \"X10-audio-and-embed\",\n    \"X11-default-port-and-host-case\",\n    \"X12-backslash-and-encoded-dots\",\n    \"X13-parent-traversal-with-file-present\",\n    \"X14-resolved-field-after-whitespace-strip\",\n    \"X15-same-scheme-single-slash-relative\"\n  ]\n}\n",
+      "stdoutPath": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/out/round-30/r29-rerun/selftest.stdout.json"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        ".ufo/waves/round-29/real-input/real_input_run.py",
+        "--tool",
+        "scripts/base_path_audit.py",
+        "--sites",
+        ".ufo/waves/round-29/real-input/sites",
+        "--out",
+        "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/out/round-30/r29-rerun/real-input"
+      ],
+      "cwd": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone",
+      "exitCode": 0,
+      "stderr": "",
+      "stderrPath": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/out/round-30/r29-rerun/real-input.stderr.txt",
+      "stdout": "site          exit  verdict            pages  refs  findings\ncharter-ghp      1  failed-policy          1    67         3\nlucario-ghp      0  clean                  1     1         0\nplazir15-ghp     1  failed-policy          1    46         1\ntotals: sites=3 pagesChecked=3 referencesChecked=114 findings=4 failedSites=2 contractProblems=0\n",
+      "stdoutPath": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/out/round-30/r29-rerun/real-input.stdout.txt"
+    }
+  ],
+  "comparisonWithCommittedRound29": {
+    "committedRealInputSummary": {
+      "path": ".ufo/waves/round-29/real-input/out/summary.json",
+      "sha256": "f04238dbeae56180b22f187a0ebe8fca3061ac2e48e484ff25177dab4025ba0d"
+    },
+    "committedSelftestReceipt": {
+      "path": ".ufo/waves/round-29/verification/selftest-lane-final.json",
+      "sha256": "0bc3ebb1211971836af3910c8e13f2a399ac7cc6765885b38ff8010d23db7fbb"
+    },
+    "perSite": {
+      "charter-ghp": {
+        "exitEqual": true,
+        "newFindings": [
+          {
+            "attribute": "href",
+            "element": "a",
+            "id": "page.html#21:a[href]=https://veigapunk.github.io/horizon-halo-comma-design/",
+            "page": "https://veigapunk.github.io/charter-ufo-fsd/",
+            "reason": "outside_base_path",
+            "resolved": "https://veigapunk.github.io/horizon-halo-comma-design/",
+            "value": "https://veigapunk.github.io/horizon-halo-comma-design/"
+          },
+          {
+            "attribute": "href",
+            "element": "a",
+            "id": "page.html#27:a[href]=https://veigapunk.github.io/horizon-halo-comma-design/",
+            "page": "https://veigapunk.github.io/charter-ufo-fsd/",
+            "reason": "outside_base_path",
+            "resolved": "https://veigapunk.github.io/horizon-halo-comma-design/",
+            "value": "https://veigapunk.github.io/horizon-halo-comma-design/"
+          },
+          {
+            "attribute": "href",
+            "element": "a",
+            "id": "page.html#54:a[href]=https://veigapunk.github.io/plazir-15-site/",
+            "page": "https://veigapunk.github.io/charter-ufo-fsd/",
+            "reason": "outside_base_path",
+            "resolved": "https://veigapunk.github.io/plazir-15-site/",
+            "value": "https://veigapunk.github.io/plazir-15-site/"
+          }
+        ],
+        "newRow": {
+          "exit": 1,
+          "findings": 3,
+          "pagesChecked": 1,
+          "referencesChecked": 67,
+          "site": "charter-ghp",
+          "verdict": "failed-policy"
+        },
+        "newToolArgv": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/scripts/base_path_audit.py",
+          "--manifest",
+          "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/.ufo/waves/round-29/real-input/sites/charter-ghp/manifest.json"
+        ],
+        "oldFindings": [
+          {
+            "attribute": "href",
+            "element": "a",
+            "id": "page.html#21:a[href]=https://veigapunk.github.io/horizon-halo-comma-design/",
+            "page": "https://veigapunk.github.io/charter-ufo-fsd/",
+            "reason": "outside_base_path",
+            "resolved": "https://veigapunk.github.io/horizon-halo-comma-design/",
+            "value": "https://veigapunk.github.io/horizon-halo-comma-design/"
+          },
+          {
+            "attribute": "href",
+            "element": "a",
+            "id": "page.html#27:a[href]=https://veigapunk.github.io/horizon-halo-comma-design/",
+            "page": "https://veigapunk.github.io/charter-ufo-fsd/",
+            "reason": "outside_base_path",
+            "resolved": "https://veigapunk.github.io/horizon-halo-comma-design/",
+            "value": "https://veigapunk.github.io/horizon-halo-comma-design/"
+          },
+          {
+            "attribute": "href",
+            "element": "a",
+            "id": "page.html#54:a[href]=https://veigapunk.github.io/plazir-15-site/",
+            "page": "https://veigapunk.github.io/charter-ufo-fsd/",
+            "reason": "outside_base_path",
+            "resolved": "https://veigapunk.github.io/plazir-15-site/",
+            "value": "https://veigapunk.github.io/plazir-15-site/"
+          }
+        ],
+        "oldRow": {
+          "exit": 1,
+          "findings": 3,
+          "pagesChecked": 1,
+          "referencesChecked": 67,
+          "site": "charter-ghp",
+          "verdict": "failed-policy"
+        },
+        "oldToolArgv": [
+          "/usr/bin/python3",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/base_path_audit.py",
+          "--manifest",
+          "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-29/real-input/sites/charter-ghp/manifest.json"
+        ],
+        "resultObjectEqual": true,
+        "rowEqual": true,
+        "stderrEqual": true,
+        "stdoutEqual": true
+      },
+      "lucario-ghp": {
+        "exitEqual": true,
+        "newFindings": [],
+        "newRow": {
+          "exit": 0,
+          "findings": 0,
+          "pagesChecked": 1,
+          "referencesChecked": 1,
+          "site": "lucario-ghp",
+          "verdict": "clean"
+        },
+        "newToolArgv": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/scripts/base_path_audit.py",
+          "--manifest",
+          "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/.ufo/waves/round-29/real-input/sites/lucario-ghp/manifest.json"
+        ],
+        "oldFindings": [],
+        "oldRow": {
+          "exit": 0,
+          "findings": 0,
+          "pagesChecked": 1,
+          "referencesChecked": 1,
+          "site": "lucario-ghp",
+          "verdict": "clean"
+        },
+        "oldToolArgv": [
+          "/usr/bin/python3",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/base_path_audit.py",
+          "--manifest",
+          "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-29/real-input/sites/lucario-ghp/manifest.json"
+        ],
+        "resultObjectEqual": true,
+        "rowEqual": true,
+        "stderrEqual": true,
+        "stdoutEqual": true
+      },
+      "plazir15-ghp": {
+        "exitEqual": true,
+        "newFindings": [
+          {
+            "attribute": "href",
+            "element": "a",
+            "id": "page.html#38:a[href]=https://veigapunk.github.io/xbrd-spark/highlights.html",
+            "page": "https://veigapunk.github.io/plazir-15-site/",
+            "reason": "outside_base_path",
+            "resolved": "https://veigapunk.github.io/xbrd-spark/highlights.html",
+            "value": "https://veigapunk.github.io/xbrd-spark/highlights.html"
+          }
+        ],
+        "newRow": {
+          "exit": 1,
+          "findings": 1,
+          "pagesChecked": 1,
+          "referencesChecked": 46,
+          "site": "plazir15-ghp",
+          "verdict": "failed-policy"
+        },
+        "newToolArgv": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/scripts/base_path_audit.py",
+          "--manifest",
+          "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/.ufo/waves/round-29/real-input/sites/plazir15-ghp/manifest.json"
+        ],
+        "oldFindings": [
+          {
+            "attribute": "href",
+            "element": "a",
+            "id": "page.html#38:a[href]=https://veigapunk.github.io/xbrd-spark/highlights.html",
+            "page": "https://veigapunk.github.io/plazir-15-site/",
+            "reason": "outside_base_path",
+            "resolved": "https://veigapunk.github.io/xbrd-spark/highlights.html",
+            "value": "https://veigapunk.github.io/xbrd-spark/highlights.html"
+          }
+        ],
+        "oldRow": {
+          "exit": 1,
+          "findings": 1,
+          "pagesChecked": 1,
+          "referencesChecked": 46,
+          "site": "plazir15-ghp",
+          "verdict": "failed-policy"
+        },
+        "oldToolArgv": [
+          "/usr/bin/python3",
+          "-B",
+          "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/base_path_audit.py",
+          "--manifest",
+          "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-29/real-input/sites/plazir15-ghp/manifest.json"
+        ],
+        "resultObjectEqual": true,
+        "rowEqual": true,
+        "stderrEqual": true,
+        "stdoutEqual": true
+      }
+    },
+    "table": {
+      "contractProblems": {
+        "equal": true,
+        "new": 0,
+        "old": 0
+      },
+      "failedSites": {
+        "equal": true,
+        "new": 2,
+        "old": 2
+      },
+      "findings": {
+        "equal": true,
+        "new": 4,
+        "old": 4
+      },
+      "pagesChecked": {
+        "equal": true,
+        "new": 3,
+        "old": 3
+      },
+      "referencesChecked": {
+        "equal": true,
+        "new": 114,
+        "old": 114
+      },
+      "selftestCaseNamesEqual": true,
+      "selftestCases": {
+        "equal": true,
+        "new": 45,
+        "old": 45
+      },
+      "selftestFailed": {
+        "equal": true,
+        "new": 0,
+        "old": 0
+      },
+      "selftestPassed": {
+        "equal": true,
+        "new": 45,
+        "old": 45
+      },
+      "selftestVerdict": {
+        "equal": true,
+        "new": "clean",
+        "old": "clean"
+      },
+      "siteExits": {
+        "equal": true,
+        "new": {
+          "charter-ghp": 1,
+          "lucario-ghp": 0,
+          "plazir15-ghp": 1
+        },
+        "old": {
+          "charter-ghp": 1,
+          "lucario-ghp": 0,
+          "plazir15-ghp": 1
+        }
+      },
+      "sites": {
+        "equal": true,
+        "new": 3,
+        "old": 3
+      },
+      "totalsEqual": true
+    }
+  },
+  "createdAt": "2026-10-22T12:06:37Z",
+  "provenance": {
+    "artifacts": {
+      ".ufo/waves/round-29/real-input/real_input_run.py": {
+        "bytes": 4908,
+        "sha256": "324be40fd47e050f41cd2a65e7b4026ba3a52df8fc1ef8f131beffeeaa8d4bd0"
+      },
+      "scripts/base_path_audit.py": {
+        "bytes": 29312,
+        "sha256": "c5a13a32e7a232e1a3079ed4275333339d6c197ac42b5fbdfbbb08e1e4ba1dc0"
+      },
+      "scripts/base_path_selftest.py": {
+        "bytes": 12336,
+        "sha256": "e6f21acb654119bf17175632eaf3bcc4a27bdd8965b1e19b7aa13b1148317e4b"
+      }
+    },
+    "clonePath": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone",
+    "cloneRevision": "4580c78cca1185d059efa6970722bbcf2f9c1b0f",
+    "cloneWorkingTreeClean": true,
+    "cloneWorkingTreeStatus": "",
+    "committedReceiptAuthoring": {
+      "real-input/out/summary.json": "98dbab22ae93d325c9dcd791728c38ecf79ba0b6 2026-10-22T07:53:52-03:00 round-29: C2 offline base-path audit, committed 30-fixture selftest, real-input run on round-23 project-site snapshots",
+      "selftest-lane-final.json": "d8cd2e45a903fb05e4f34179aae8a21095a83dbb 2026-10-22T08:36:39-03:00 round-29: wave-2 repairs (entry, rows, SKILL, QUALITY, tool resolution and docs, 15 regression fixtures, witness) and wave-2 evidence"
+    },
+    "fixtureTree": {
+      "caseCount": 45,
+      "path": "scripts/fixtures/base-path",
+      "sha256": "a0dafac3b0ec033b91271450345747d77ee3b9037597d59beed3d7df53a52dad"
+    },
+    "laneRepo": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+    "laneRepoHead": "4580c78cca1185d059efa6970722bbcf2f9c1b0f",
+    "laneWorkingCopyDigests": {
+      "scripts/base_path_audit.py": "c5a13a32e7a232e1a3079ed4275333339d6c197ac42b5fbdfbbb08e1e4ba1dc0",
+      "scripts/base_path_selftest.py": "e6f21acb654119bf17175632eaf3bcc4a27bdd8965b1e19b7aa13b1148317e4b"
+    },
+    "network": "none; the run used only committed local snapshots",
+    "platform": {
+      "machine": "x86_64",
+      "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+      "release": "7.2.11-arch1-1",
+      "system": "Linux"
+    },
+    "python": {
+      "executable": "/usr/bin/python3",
+      "implementation": "CPython",
+      "version": "3.14.8 (main, Oct  2 2026, 10:23:31) [GCC 16.2.1 20260810]",
+      "versionInfo": [
+        3,
+        14,
+        8
+      ]
+    },
+    "realInputSites": {
+      "pageDigests": {
+        "charter-ghp": "7c243a1d81357cdee71520034a05d540bfe8f69c702a7a1c95f8a0bfa5237aba",
+        "lucario-ghp": "bee2d9f5b5777768e69a5b9aaa9c28dfcc4107f57a4dfb6ec8726d9685c46cff",
+        "plazir15-ghp": "d82af77aee401d2270c719c6e818256298cc8aad7a71c3e7c4d65bd41f6af18e"
+      },
+      "path": ".ufo/waves/round-29/real-input/sites",
+      "sha256": "b2c194c7f9f4b68fcc95b038cb5fb8c1d34af2c1f4936f711559f363c963986d"
+    },
+    "revision": "4580c78cca1185d059efa6970722bbcf2f9c1b0f",
+    "tmpdir": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/tmp"
+  },
+  "provenanceGapInCommittedReceipts": {
+    "claim": "the committed round-29 receipts name no revision and no tool digest",
+    "committedRealInputSiteFiles": {
+      "charter-ghp": {
+        "hasRevision": false,
+        "hasToolDigest": false,
+        "path": ".ufo/waves/round-29/real-input/out/charter-ghp.json",
+        "sha256": "34291fa856f5f3ffcd099b128bf85ed0e738808ceb085414f8daa19f731e5d78"
+      },
+      "lucario-ghp": {
+        "hasRevision": false,
+        "hasToolDigest": false,
+        "path": ".ufo/waves/round-29/real-input/out/lucario-ghp.json",
+        "sha256": "6e6ec9f0d68dcbd7247a717004bb0b68252b5c6da18828e468837e0779a85560"
+      },
+      "plazir15-ghp": {
+        "hasRevision": false,
+        "hasToolDigest": false,
+        "path": ".ufo/waves/round-29/real-input/out/plazir15-ghp.json",
+        "sha256": "6efb03bb0c4de6895fc3e6bb4b7fa02afb42a5bb810f2afbfd9ec77f0f65723b"
+      }
+    },
+    "committedRealInputSummary": {
+      "hasPythonVersion": false,
+      "hasRevision": false,
+      "hasToolDigest": false,
+      "path": ".ufo/waves/round-29/real-input/out/summary.json",
+      "sha256": "f04238dbeae56180b22f187a0ebe8fca3061ac2e48e484ff25177dab4025ba0d"
+    },
+    "committedSelftestReceipt": {
+      "hasPythonVersion": false,
+      "hasRevision": false,
+      "hasToolDigest": false,
+      "path": ".ufo/waves/round-29/verification/selftest-lane-final.json",
+      "sha256": "0bc3ebb1211971836af3910c8e13f2a399ac7cc6765885b38ff8010d23db7fbb"
+    },
+    "note": "the committed real-input site files name the interpreter only inside the recorded argv, not a version string; the summary and the selftest receipt name no interpreter at all"
+  },
+  "purpose": "round-30 re-run of the round-29 base-path selftest and the round-29 real-input demonstration, with receipts that name what they measured",
+  "receipt": "kake-r30-r29-rerun",
+  "results": {
+    "realInputSummary": {
+      "contractProblems": 0,
+      "outRoot": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/out/round-30/r29-rerun/real-input",
+      "sites": [
+        {
+          "exit": 1,
+          "findings": 3,
+          "pagesChecked": 1,
+          "referencesChecked": 67,
+          "site": "charter-ghp",
+          "verdict": "failed-policy"
+        },
+        {
+          "exit": 0,
+          "findings": 0,
+          "pagesChecked": 1,
+          "referencesChecked": 1,
+          "site": "lucario-ghp",
+          "verdict": "clean"
+        },
+        {
+          "exit": 1,
+          "findings": 1,
+          "pagesChecked": 1,
+          "referencesChecked": 46,
+          "site": "plazir15-ghp",
+          "verdict": "failed-policy"
+        }
+      ],
+      "sitesRoot": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/.ufo/waves/round-29/real-input/sites",
+      "tool": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/scripts/base_path_audit.py",
+      "totals": {
+        "failedSites": 2,
+        "findings": 4,
+        "pagesChecked": 3,
+        "referencesChecked": 114,
+        "sites": 3
+      }
+    },
+    "selftestSummary": {
+      "caseNames": [
+        "D1-root-relative-stylesheet",
+        "D10-form-action-and-video-poster",
+        "D11-nested-page-relative-resolution",
+        "D12-uppercase-tag-and-attribute",
+        "D13-whitespace-wrapped-value",
+        "D14-iframe-source-area-track",
+        "D2-root-relative-script",
+        "D3-srcset-one-candidate-outside",
+        "D4-dot-dot-escape",
+        "D5-protocol-relative-same-host",
+        "D6-absolute-same-origin-outside",
+        "D7-base-element-moves-relative-ref-out",
+        "D8-segment-prefix-not-string-prefix",
+        "D9-case-sensitive-path",
+        "I1-manifest-not-json",
+        "I2-unsupported-version",
+        "I3-base-path-without-final-slash",
+        "I4-page-file-missing",
+        "I5-page-url-outside-base",
+        "I6-page-file-escapes-manifest-dir",
+        "I7-page-url-not-http",
+        "I8-empty-pages-list",
+        "K1-relative-refs-clean",
+        "K2-absolute-inside-clean",
+        "K3-external-and-nonhttp-ignored",
+        "K4-base-without-final-slash-clean",
+        "K5-user-site-root-base-clean",
+        "K6-first-base-element-wins",
+        "K7-empty-and-whitespace-href-clean",
+        "U1-missing-manifest-option",
+        "X01-duplicate-json-key",
+        "X02-nonfinite-json-number",
+        "X03-boolean-version",
+        "X04-unknown-manifest-key",
+        "X05-duplicate-page-file",
+        "X06-repeated-manifest-option",
+        "X07-abbreviated-option",
+        "X08-cross-scheme-same-host-outside",
+        "X09-template-content-not-scanned",
+        "X10-audio-and-embed",
+        "X11-default-port-and-host-case",
+        "X12-backslash-and-encoded-dots",
+        "X13-parent-traversal-with-file-present",
+        "X14-resolved-field-after-whitespace-strip",
+        "X15-same-scheme-single-slash-relative"
+      ],
+      "cases": 45,
+      "failed": 0,
+      "failures": [],
+      "fixtures": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/scripts/fixtures/base-path",
+      "passed": 45,
+      "passedOverTotal": "45/45",
+      "selftest": "kake-r29-base-path-selftest",
+      "tool": "/fast/scratch/hyaku/kake-r30/w1/ExecR29Receipts/clone/scripts/base_path_audit.py",
+      "verdict": "clean"
+    }
+  }
+}

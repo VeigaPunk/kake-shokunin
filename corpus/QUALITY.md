@@ -399,3 +399,69 @@ history; the bullets below narrow it and do not replace it.
   is round-28 routed defect 1, carried as open debt, not a pass. Note also
   that the round-29 C1 counter compares quotes after collapsing whitespace, so
   "exact substring" above means exact after whitespace collapse.
+
+## Evidence identity, live-mode bounds and counter granularity — round 30
+
+Grounding: `corpus/lessons/round-29-verifier-spotcheck.md:230-248` (routed
+defects 2 to 5), wave-1 seats `ReviewSeatBoundsSweep` and
+`DraftLessonMistakes` (`.ufo/waves/round-30/w1/`). The witness scripts named
+below are committed at `.ufo/waves/round-30/witness/`. This section appends;
+earlier sections stay as history.
+
+- **A seat runs a lane tool that can reach a live surface only in a named
+  offline mode.** For `scripts/freshness-sweep.mjs` the only offline-safe
+  invocations are `--section=paths [--json] --offline [--repo DIR]` and
+  `--help`. No flag, `--section=armed`, `--section=plazir` and its alias
+  `--section=pq14` fetch the pinned owned sites or run `git ls-remote` unless
+  `--offline` is given; `--section=history` spawns `scripts/probe-delta.mjs`
+  and `systemctl --user` even under `--offline`; `--selftest` writes to
+  `/tmp/kake-r16/selftest` and to `$HOME` (`ReviewSeatBoundsSweep`, from
+  `scripts/freshness-sweep.mjs:137-158`, `:590`, `:603`, `:1025`, `:1215`).
+  A wave context that lets a seat run the tool names the allowed invocation;
+  round 30's wave contexts barred the three live-capable scripts entirely.
+  Fails if: `python3 -B .ufo/waves/round-30/witness/witness_sweep_live_mode.py
+  --root <lane> --round <round> --revision <commit>` exits nonzero; it does
+  for round 29 at `234524c` (naming `.ufo/waves/round-29/w2/NoHarmExistingGates.md:30`).
+  Limit: it finds reported runs only.
+- **A measurement receipt names the revision it measured and the digest of
+  the bytes it measured.** A receipt that records a tally, verdict or count
+  carries the revision and the sha256 of every tool, counter, gate or runner
+  whose bytes it depends on; an absolute tool path is not a digest. Fails if:
+  `python3 -B .ufo/waves/round-30/witness/witness_receipt_identity.py --root
+  <lane> --wave <round> --revision <commit>` exits nonzero; it does for round
+  29 at `234524c` (7 receipts: 3 with neither, 4 with one). Round-30
+  repair for the round-29 demonstration: `.ufo/waves/round-30/r29-rerun/receipt.json`
+  (revision `4580c78`, tool sha256 `c5a13a32…1dc0`, selftest `e6f21acb…7e4b`,
+  45/45; real input 3 sites, 114 references, 4 findings, exits 1/0/1, equal
+  to the round-29 numbers).
+- **A named measurement revision has a committed receipt that names it.**
+  Every revision a report or SCORECARD names as measured has a committed
+  receipt naming that revision; a glob such as `c1-after-*.json` points to
+  where receipts live and proves nothing about a named revision. Fails if:
+  `python3 -B .ufo/waves/round-30/witness/witness_claim_receipt_backing.py
+  --root <lane> --report <report> --wave all --revision <commit>` exits
+  nonzero. For the round-29 report it names `234524c` and `7697990` until the
+  round-30 receipts `.ufo/waves/round-30/verification/r29-remeasure/` are
+  committed (each names the revision, the counter blob and its sha256).
+- **A counter compares every field its expectation names, and judges a usage
+  case on the usage object.** A counter compares, per case, the exit, the
+  verdict, every finding field the expectation names and the report counts
+  when named; an exit code of 64 alone is not a usage verdict. Fails if:
+  `python3 -B .ufo/waves/round-30/witness/witness_c2_field_comparison.py
+  --root <lane> --revision <commit>` exits nonzero; it does for the round-29
+  C2 counter, which never compares `id`, `page`, `resolved`, `pagesChecked`
+  or `referencesChecked` (a mutant tool with all of them wrong still scores
+  30/30). The round-29 counter and matrix stay frozen as that round's
+  evidence. `.ufo/waves/round-30/witness/strict_c2_counter.py` over
+  `extended-matrix.json` compares those fields; the extended matrix pins the
+  tool's own output at `234524c`, so it is a regression pin, not an
+  independent oracle.
+- **Status of the round-29 first bullet ("A committed fixture asserts the
+  reason code").** For the citing-set gate the bullet now holds for 13 of
+  the 25 reason codes the gate can emit (the eight round-28 codes, the two
+  new JSON-profile codes, `descending_range`, `span_too_large` and
+  `document_shape_invalid`); the runner compares (id, reason) pairs, and
+  renaming any of the ten graded codes fails exactly the fixtures naming it
+  (`.ufo/waves/round-30/c1_strict_checks.py`, check S2). The other 12 codes
+  stay uncovered and are listed in `SKILL.md`, "Citing-set reason-code
+  registry — round 30".

@@ -1,0 +1,736 @@
+{
+ "matrixSha256": null,
+ "cases": [
+  {
+   "id": "K1-relative-refs-clean",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"style.css\"><title>t</title></head><body><a href=\"#top\">t</a><a href=\"?q=1\">q</a><a href=\"./x/\">x</a><img src=\"img/a.png\"></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": [],
+    "pagesChecked": 1,
+    "referencesChecked": 5
+   },
+   "note": "relative references stay under the base [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "K2-absolute-inside-clean",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"https://o.github.io/repo/a.html\">a</a><a href=\"/repo/b/\">b</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": [],
+    "pagesChecked": 1,
+    "referencesChecked": 2
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "K3-external-and-nonhttp-ignored",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><script src=\"https://cdn.example.net/x.js\"></script><a href=\"mailto:a@example.net\">m</a><a href=\"tel:123\">t</a><a href=\"javascript:void(0)\">j</a><img src=\"data:image/png;base64,AAAA\"></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": [],
+    "pagesChecked": 1,
+    "referencesChecked": 5
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "K4-base-without-final-slash-clean",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"/repo\">home</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": [],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": "the base path minus its final slash is treated as inside [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "K5-user-site-root-base-clean",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><link rel=\"stylesheet\" href=\"/style.css\"><a href=\"/about/\">a</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": [],
+    "pagesChecked": 1,
+    "referencesChecked": 2
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "K6-first-base-element-wins",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><base href=\"/repo/\"><base href=\"/\"><title>t</title></head><body><link rel=\"stylesheet\" href=\"a.css\"></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": [],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": "only the first base element with href applies (S024) [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "K7-empty-and-whitespace-href-clean",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"\">e</a><a href=\"   \">w</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": [],
+    "pagesChecked": 1,
+    "referencesChecked": 2
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D1-root-relative-stylesheet",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"/style.css\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "link",
+      "attribute": "href",
+      "value": "/style.css",
+      "id": "index.html#1:link[href]=/style.css",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/style.css"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D2-root-relative-script",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><script src=\"/main.js\"></script></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "script",
+      "attribute": "src",
+      "value": "/main.js",
+      "id": "index.html#1:script[src]=/main.js",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/main.js"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D3-srcset-one-candidate-outside",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><img src=\"a.png\" srcset=\"a.png 1x, /b.png 2x\"></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "img",
+      "attribute": "srcset",
+      "value": "/b.png",
+      "id": "index.html#3:img[srcset]=/b.png",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/b.png"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 3
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D4-dot-dot-escape",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"../other/\">o</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "a",
+      "attribute": "href",
+      "value": "../other/",
+      "id": "index.html#1:a[href]=../other/",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/other/"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D5-protocol-relative-same-host",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"//o.github.io/x/\">x</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "a",
+      "attribute": "href",
+      "value": "//o.github.io/x/",
+      "id": "index.html#1:a[href]=//o.github.io/x/",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/x/"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D6-absolute-same-origin-outside",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"https://o.github.io/other/\">o</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "a",
+      "attribute": "href",
+      "value": "https://o.github.io/other/",
+      "id": "index.html#1:a[href]=https://o.github.io/other/",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/other/"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D7-base-element-moves-relative-ref-out",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><base href=\"/\"><link rel=\"stylesheet\" href=\"style.css\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "link",
+      "attribute": "href",
+      "value": "style.css",
+      "id": "index.html#1:link[href]=style.css",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/style.css"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D8-segment-prefix-not-string-prefix",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"/repository/x\">x</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "a",
+      "attribute": "href",
+      "value": "/repository/x",
+      "id": "index.html#1:a[href]=/repository/x",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/repository/x"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": "a string-prefix test on the base minus slash would call this inside [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D9-case-sensitive-path",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"/Repo/x\">x</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "a",
+      "attribute": "href",
+      "value": "/Repo/x",
+      "id": "index.html#1:a[href]=/Repo/x",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/Repo/x"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D10-form-action-and-video-poster",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><form action=\"/submit\"></form><video src=\"v.mp4\" poster=\"/p.jpg\"></video></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "form",
+      "attribute": "action",
+      "value": "/submit",
+      "id": "index.html#1:form[action]=/submit",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/submit"
+     },
+     {
+      "reason": "outside_base_path",
+      "element": "video",
+      "attribute": "poster",
+      "value": "/p.jpg",
+      "id": "index.html#3:video[poster]=/p.jpg",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/p.jpg"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 3
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D11-nested-page-relative-resolution",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}, {\"file\": \"sub/page.html\", \"url\": \"https://o.github.io/repo/sub/page.html\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"sub/page.html\">s</a></body></html>\n",
+    "sub/page.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\"../a.css\">in</a><a href=\"../../x\">out</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "a",
+      "attribute": "href",
+      "value": "../../x",
+      "id": "sub/page.html#2:a[href]=../../x",
+      "page": "https://o.github.io/repo/sub/page.html",
+      "resolved": "https://o.github.io/x"
+     }
+    ],
+    "pagesChecked": 2,
+    "referencesChecked": 3
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D12-uppercase-tag-and-attribute",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><LINK REL=\"stylesheet\" HREF=\"/x.css\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "link",
+      "attribute": "href",
+      "value": "/x.css",
+      "id": "index.html#1:link[href]=/x.css",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/x.css"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D13-whitespace-wrapped-value",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><a href=\" /x.css \">x</a></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "a",
+      "attribute": "href",
+      "value": " /x.css ",
+      "id": "index.html#1:a[href]= /x.css ",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/x.css"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 1
+   },
+   "note": "value is the raw attribute value after HTML entity decoding [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "D14-iframe-source-area-track",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body><iframe src=\"/f.html\"></iframe><picture><source srcset=\"/s.webp\"></picture><map name=\"m\"><area href=\"/ar\"></map><video src=\"v.mp4\"><track src=\"/t.vtt\"></video></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "outside_base_path",
+      "element": "iframe",
+      "attribute": "src",
+      "value": "/f.html",
+      "id": "index.html#1:iframe[src]=/f.html",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/f.html"
+     },
+     {
+      "reason": "outside_base_path",
+      "element": "source",
+      "attribute": "srcset",
+      "value": "/s.webp",
+      "id": "index.html#2:source[srcset]=/s.webp",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/s.webp"
+     },
+     {
+      "reason": "outside_base_path",
+      "element": "area",
+      "attribute": "href",
+      "value": "/ar",
+      "id": "index.html#3:area[href]=/ar",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/ar"
+     },
+     {
+      "reason": "outside_base_path",
+      "element": "track",
+      "attribute": "src",
+      "value": "/t.vtt",
+      "id": "index.html#5:track[src]=/t.vtt",
+      "page": "https://o.github.io/repo/",
+      "resolved": "https://o.github.io/t.vtt"
+     }
+    ],
+    "pagesChecked": 1,
+    "referencesChecked": 5
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "I1-manifest-not-json",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{not json",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid",
+      "element": null,
+      "attribute": null,
+      "value": null,
+      "id": "input_invalid",
+      "page": null,
+      "resolved": null
+     }
+    ],
+    "pagesChecked": 0,
+    "referencesChecked": 0
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "I2-unsupported-version",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 2, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid",
+      "element": null,
+      "attribute": null,
+      "value": null,
+      "id": "input_invalid",
+      "page": null,
+      "resolved": null
+     }
+    ],
+    "pagesChecked": 0,
+    "referencesChecked": 0
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "I3-base-path-without-final-slash",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid",
+      "element": null,
+      "attribute": null,
+      "value": null,
+      "id": "input_invalid",
+      "page": null,
+      "resolved": null
+     }
+    ],
+    "pagesChecked": 0,
+    "referencesChecked": 0
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "I4-page-file-missing",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"missing.html\", \"url\": \"https://o.github.io/repo/\"}]}"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid",
+      "element": null,
+      "attribute": null,
+      "value": null,
+      "id": "input_invalid",
+      "page": "https://o.github.io/repo/",
+      "resolved": null
+     }
+    ],
+    "pagesChecked": 0,
+    "referencesChecked": 0
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "I5-page-url-outside-base",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"https://o.github.io/other/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "page_outside_base_path",
+      "element": null,
+      "attribute": null,
+      "value": null,
+      "id": "page_outside_base_path",
+      "page": "https://o.github.io/other/",
+      "resolved": null
+     }
+    ],
+    "pagesChecked": 0,
+    "referencesChecked": 0
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "I6-page-file-escapes-manifest-dir",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"../index.html\", \"url\": \"https://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid",
+      "element": null,
+      "attribute": null,
+      "value": null,
+      "id": "input_invalid",
+      "page": "https://o.github.io/repo/",
+      "resolved": null
+     }
+    ],
+    "pagesChecked": 0,
+    "referencesChecked": 0
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "I7-page-url-not-http",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": [{\"file\": \"index.html\", \"url\": \"ftp://o.github.io/repo/\"}]}",
+    "index.html": "<!doctype html><html><head><meta charset=\"utf-8\"><title>t</title></head><body></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid",
+      "element": null,
+      "attribute": null,
+      "value": null,
+      "id": "input_invalid",
+      "page": "ftp://o.github.io/repo/",
+      "resolved": null
+     }
+    ],
+    "pagesChecked": 0,
+    "referencesChecked": 0
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "I8-empty-pages-list",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"basePath\": \"/repo/\", \"pages\": []}"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid",
+      "element": null,
+      "attribute": null,
+      "value": null,
+      "id": "input_invalid",
+      "page": null,
+      "resolved": null
+     }
+    ],
+    "pagesChecked": 0,
+    "referencesChecked": 0
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]"
+  },
+  {
+   "id": "U1-missing-manifest-option",
+   "kind": "usage",
+   "files": {},
+   "expect": {
+    "exit": 64,
+    "verdict": null,
+    "findings": null
+   },
+   "note": " [r30 extended: id/page/resolved and counts pinned]",
+   "argv": []
+  }
+ ]
+}
