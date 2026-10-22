@@ -63,8 +63,13 @@ Findings
     unreadable corpus file, symlinked or non-regular corpus entry, path
     that resolves outside the root, a ``corpus/knowledge`` surface that is
     absent, empty or not a directory, a blank or unknown ``--revision``,
-    and a ``--revision`` root that is not the top level of its Git
-    repository.  Any ``input_invalid`` finding forces verdict
+    a ``--revision`` root that is not the top level of its Git repository
+    (a bare repository or the repository's own ``.git`` directory reads
+    that repository's HEAD tree and is accepted), and Git being
+    unavailable.  Git subprocesses run without inherited repository-locating
+    variables (``GIT_DIR``, ``GIT_WORK_TREE`` and the other
+    ``git rev-parse --local-env-vars`` names), so ``--root`` alone chooses
+    the repository.  Any ``input_invalid`` finding forces verdict
     ``could-not-evaluate`` (exit 2), so an absent or unreachable corpus
     surface never measures ``clean``.
 
@@ -109,6 +114,11 @@ F_INPUT_INVALID = "input_invalid"
 F_RANGE_INVALID = "citation_range_invalid"
 
 CORPUS_DIR = "corpus/knowledge"
+GIT_LOCAL_ENV = ("GIT_ALTERNATE_OBJECT_DIRECTORIES", "GIT_CONFIG", "GIT_CONFIG_PARAMETERS", "GIT_CONFIG_COUNT",
+                 "GIT_OBJECT_DIRECTORY", "GIT_DIR", "GIT_WORK_TREE", "GIT_IMPLICIT_WORK_TREE", "GIT_GRAFT_FILE",
+                 "GIT_INDEX_FILE", "GIT_NO_REPLACE_OBJECTS", "GIT_REPLACE_REF_BASE", "GIT_PREFIX",
+                 "GIT_SHALLOW_FILE", "GIT_COMMON_DIR")
+GIT_SUBPROCESS_ENV = {k: v for k, v in os.environ.items() if k not in GIT_LOCAL_ENV}
 MAX_RANGE_SPAN = 200
 SELFTEST_NAME = "citing_set_selftest.py"
 
@@ -305,6 +315,7 @@ class GitSource:
         try:
             done = subprocess.run(
                 ["git", "-C", str(root), "rev-parse", "--show-prefix"],
+                env=GIT_SUBPROCESS_ENV,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
             )
@@ -320,6 +331,7 @@ class GitSource:
         try:
             done = subprocess.run(
                 ["git", "-C", str(root), "rev-parse", "--verify", "--quiet", revision + "^{commit}"],
+                env=GIT_SUBPROCESS_ENV,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
             )
@@ -333,6 +345,7 @@ class GitSource:
         try:
             done = subprocess.run(
                 ["git", "-C", str(self.root)] + arguments,
+                env=GIT_SUBPROCESS_ENV,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
             )
