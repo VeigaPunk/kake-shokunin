@@ -213,3 +213,41 @@ fetched from ds4cc.com, so whether this commit is deployed, and what the
 live sitemap lists, is not known from this section; a `clean` verdict is the
 lane's offline canonical policy on the page's explicit head link, not a
 search-engine selection.
+
+## Round-33 wave-1 additions (append-only)
+
+Checked by round-33 wave-1 seats against `7fc6aa2f` and the lane at
+`bc6c4a8`; reports under `.ufo/waves/round-33/w1/`.
+
+- Sitemap to tree parity (`ExecSitemapTreeParity.md`): at `7fc6aa2f` all 100
+  locs map to a tracked file (86 directory locs to `index.html`, 14 explicit
+  file locs), 0 unmapped; one tracked page,
+  `benchmarks/benxshitter-frontier.html`, is in no loc (also so at
+  `1fbdb8ed`, 97 of 97 mapped). The three new pages' 21 relative or
+  same-host references all resolve to tracked files, and
+  `scripts/base_path_audit.py` with base path `/` is clean on them
+  (`ExecNewPagesRefIntegrity.md`). Static source parity only.
+- Publishing record (S066): GitHub's Pages deploy workflow run 39644779773
+  for `7fc6aa2f` concluded `success` (started 17:32:59Z, updated 17:33:42Z
+  on 2026-10-21). That is GitHub's record of the workflow, not an
+  observation of what ds4cc.com serves now. The same push's "Test Apps SDK
+  wrapper" run 39644779805 concluded `failure`, and the six most recent
+  main-branch runs of that workflow (`7fc6aa2f` back to `480dd05f`,
+  2026-10-14) all concluded `failure` (S066; second response retained at
+  `.ufo/waves/round-33/sources/gh-actions-apps-sdk-runs-main.json`, read
+  2026-10-22T20:06:32Z). The cause was not examined.
+- Statements that become historical at `7fc6aa2f`: "93 locs" as the
+  should-serve set (`kimi-subpath-audit.md:24`, this entry's lines 48–49)
+  and the round-24 "97 parsed loc elements" (this entry's round-24 section),
+  which stays exact for `1fbdb8ed` (7,614 bytes, sha256 `18c51c45…`); the
+  round-23 "96 locs" readings are a live vintage, not a source state
+  (`ScoutCorpusDs4ccPinClaims.md`).
+- Not repaired, flagged: `corpus/knowledge/freshness-pins.json` still pins
+  `pq2Remote` `e6bd0718` (29 commits behind `7fc6aa2f`) and `sitemapStatus`
+  404, which round-23 live observations already contradicted. Re-pinning
+  needs the sweep's armed section, which fetches owned sites; it was not
+  run this round.
+- One page attribute mismatch, source-side: `magga/frostbite/index.html:208`
+  declares `width="1280" height="960"` for `covers/classic.png`, whose bytes
+  are 960×768 (`ScoutUpstreamCommitAnatomy.md` F1). Rendering is governed
+  by CSS `aspect-ratio` per that report; not verified in a browser.

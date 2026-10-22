@@ -90,6 +90,11 @@ selftest and the round-31 C1 counter.  A ``--tmpdir`` whose resolved
 scratch path contains os.pathsep is refused (could not evaluate), because Git
 cannot escape that separator in GIT_CEILING_DIRECTORIES.
 
+Without ``--tmpdir``, the runner creates a fresh private directory under the
+default scratch parent and removes it at the end, so concurrent default runs
+do not share a case tree (round 33, round-32 routed item 6); an explicitly
+named ``--tmpdir`` remains caller-owned and is not removed.
+
 ``scripts/citing_set_hostile_selftest.py`` checks these refusals against the
 hostile specs in ``scripts/fixtures/citing-set-hostile/``; since round 33 P6
 names the refusing layer by the runner's ``code`` (``reason_code``), not by
@@ -136,6 +141,7 @@ import shutil
 import stat
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 EXIT_OK = 0
@@ -175,7 +181,7 @@ def parse_args(argv):
     parser.add_argument("--root", default=None, help="repository root (default: parent of this script's directory)")
     parser.add_argument("--fixtures", default=None, help="fixture directory (default: <root>/scripts/fixtures/citing-set)")
     parser.add_argument("--gate", default=None, help="gate script (default: <root>/scripts/citing_set.py)")
-    parser.add_argument("--tmpdir", default=DEFAULT_TMPDIR, help="scratch directory exported as TMPDIR to gate subprocesses")
+    parser.add_argument("--tmpdir", default=None, help="scratch directory exported as TMPDIR to gate subprocesses (default: a private directory under %s, removed afterwards)" % DEFAULT_TMPDIR)
     parser.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT_SECONDS, help="per-case gate timeout in seconds")
     parser.add_argument("--min-cases", type=int, default=0, help="fail when fewer than this many fixture cases exist")
     parser.add_argument("--json", action="store_true", help="accepted for interface symmetry; the summary is always JSON")
@@ -432,19 +438,19 @@ def read_expected(case_dir):
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_NOCTTY", 0)
     try:
         descriptor = os.open(str(path), flags)
+        try:
+            status = os.fstat(descriptor)
+            if not stat.S_ISREG(status.st_mode):
+                raise ValueError("expected.json must be a regular file")
+            if status.st_size > EXPECTED_MAX_BYTES:
+                raise ValueError("expected.json must be at most %d bytes" % EXPECTED_MAX_BYTES)
+            with os.fdopen(descriptor, "rb", closefd=False) as handle:
+                data = handle.read(EXPECTED_MAX_BYTES + 1)
+        finally:
+            os.close(descriptor)
     except OSError as exc:
         note = " (symlinks are refused)" if exc.errno == errno.ELOOP else ""
         raise ValueError("expected.json unreadable%s: %s" % (note, exc))
-    try:
-        status = os.fstat(descriptor)
-        if not stat.S_ISREG(status.st_mode):
-            raise ValueError("expected.json must be a regular file")
-        if status.st_size > EXPECTED_MAX_BYTES:
-            raise ValueError("expected.json must be at most %d bytes" % EXPECTED_MAX_BYTES)
-        with os.fdopen(descriptor, "rb", closefd=False) as handle:
-            data = handle.read(EXPECTED_MAX_BYTES + 1)
-    finally:
-        os.close(descriptor)
     if len(data) > EXPECTED_MAX_BYTES:
         raise ValueError("expected.json must be at most %d bytes" % EXPECTED_MAX_BYTES)
     try:
@@ -574,6 +580,9 @@ def run_case(case_dir, gate, env, timeout, cases_root):
         return row
     try:
         raw = read_expected(case_dir)
+    except OSError as exc:
+        row["reason"] = "expected.json unreadable: %s" % exc
+        return row
     except ValueError as exc:
         row["reason"] = str(exc)
         return row
@@ -684,8 +693,7 @@ def emit(summary):
     print(json.dumps(summary, indent=2))
 
 
-def main(argv=None):
-    args, unknown = parse_args(list(sys.argv[1:] if argv is None else argv))
+def _run(args, unknown, scratch_error=None):
     root, gate, fixtures = resolve_paths(args)
 
     summary = {
@@ -717,6 +725,9 @@ def main(argv=None):
         emit(summary)
         return EXIT_CANNOT_EVALUATE
 
+    if scratch_error is not None:
+        return cannot_evaluate(scratch_error)
+
     if not gate.is_file():
         return cannot_evaluate("gate script not found: %s" % gate)
     summary["gateSha256"] = sha256_file(gate)
@@ -724,11 +735,17 @@ def main(argv=None):
     if not fixtures.is_dir():
         return cannot_evaluate("fixture directory not found: %s" % fixtures)
 
-    cases = sorted(
-        (path for path in fixtures.iterdir()
-         if path.is_symlink() or (path.is_dir() and not path.name.startswith("."))),
-        key=lambda path: path.name,
-    )
+    entries = sorted(fixtures.iterdir(), key=lambda path: path.name)
+    non_directories = [path for path in entries if not path.is_dir()]
+    if non_directories:
+        names = ", ".join(path.name for path in non_directories)
+        return cannot_evaluate(
+            "fixture directory contains non-directory entries: %s" % names
+        )
+    cases = [
+        path for path in entries
+        if path.is_symlink() or (path.is_dir() and not path.name.startswith("."))
+    ]
     if not cases:
         return cannot_evaluate("fixture directory contains no case directories: %s" % fixtures)
 
@@ -790,6 +807,21 @@ def main(argv=None):
     summary["passed"] = True
     emit(summary)
     return EXIT_OK
+
+
+def main(argv=None):
+    args, unknown = parse_args(list(sys.argv[1:] if argv is None else argv))
+    if args.tmpdir is not None:
+        return _run(args, unknown)
+    try:
+        Path(DEFAULT_TMPDIR).mkdir(parents=True, exist_ok=True)
+        args.tmpdir = tempfile.mkdtemp(prefix="citing-set-selftest-", dir=DEFAULT_TMPDIR)
+    except OSError as exc:
+        return _run(args, unknown, "cannot create private scratch directory under %s: %s" % (DEFAULT_TMPDIR, exc))
+    try:
+        return _run(args, unknown)
+    finally:
+        shutil.rmtree(args.tmpdir, ignore_errors=True)
 
 
 if __name__ == "__main__":
