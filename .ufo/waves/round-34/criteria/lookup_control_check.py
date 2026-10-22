@@ -14,7 +14,13 @@ one JSON object carrying `total` and either `passed` or `met`.
 
 Exit 0 = the control scores below total (the counter discriminates).
 Exit 1 = the control reaches total (criterion fails).
-Exit 2 = the counter gave no usable JSON.
+Exit 2 = the counter gave no usable JSON or exited other than 0 or 1.
+
+The check cannot tell a lookup control from an honest one: an honest tool
+also reaches total and also gives exit 1 (round-34 wave 2,
+ReviewLookupControlCheck). It is meaningful only for a control commit known,
+by reading its diff, to do none of the claimed work; the retained controls
+named in QUALITY round-34 criterion (d) are such commits.
 """
 from __future__ import annotations
 
@@ -38,6 +44,9 @@ def main() -> int:
         total = out["total"]
     except (ValueError, KeyError, TypeError):
         print(f"no usable JSON from counter (exit {p.returncode})")
+        return 2
+    if p.returncode not in (0, 1):
+        print(f"counter exited {p.returncode}; its JSON is not trusted")
         return 2
     verdict = "FAIL: control reaches the full score" if score >= total else "ok: control scores below total"
     print(json.dumps({"counter": a.counter, "control": a.control, "score": score, "total": total,

@@ -74,7 +74,20 @@ def gate_lines(text: str) -> list[tuple[int, str]]:
     for start in starts:
         end = next((index for index in range(start + 1, len(lines))
                     if SECTION_HEADING.fullmatch(lines[index])), len(lines))
-        result.extend((index + 1, lines[index]) for index in range(start + 1, end))
+        fence = None
+        for index in range(start + 1, end):
+            # Round-34 wave 2 (MutGateRejectCheck): a reject inside a fenced
+            # block is an example, not a decision; skip fenced lines.
+            marker = re.match(r"^\s{0,3}(`{3,}|~{3,})", lines[index])
+            if marker:
+                if fence is None:
+                    fence = marker.group(1)
+                    continue
+                if marker.group(1)[0] == fence[0] and len(marker.group(1)) >= len(fence):
+                    fence = None
+                    continue
+            if fence is None:
+                result.append((index + 1, lines[index]))
     return result
 
 
@@ -82,8 +95,23 @@ def clean_cell(value: str) -> str:
     return value.replace("**", "").replace("`", "").strip()
 
 
+STATUS_TOKENS = re.compile(
+    r"(?i)\b(?:reject(?:ed)?|tier\s+[A-Z0-9_-]+|kind\s+[a-z0-9_-]+|status\s+[a-z0-9_-]+|"
+    r"for\s+the\s+[^,;:]*\s+but\s+out\s+of\s+scope)\b")
+
+
+def substantive(reason: str) -> bool:
+    """A reason must say more than status words (round-34 wave 2,
+    ReviewQualityCriteria34 B1: "reject, tier C, kind docs, status rejected"
+    passed). At least four words must remain once decision, tier, kind and
+    status tokens are removed."""
+    rest = STATUS_TOKENS.sub(" ", reason)
+    words = re.findall(r"[A-Za-z0-9][A-Za-z0-9'’.-]*", rest)
+    return len(words) >= 4
+
+
 def has_reason(decision: str, separate_reason: str = "") -> bool:
-    """A decision cell must start with reject; inline or separate reason must follow."""
+    """A decision cell must start with reject; a substantive inline or separate reason must follow."""
     decision = clean_cell(decision)
     match = re.match(r"(?i)^reject(?:ed)?\b(?P<tail>.*)$", decision)
     if match is None:
@@ -91,7 +119,7 @@ def has_reason(decision: str, separate_reason: str = "") -> bool:
     tail = match.group("tail")
     tail = re.sub(r"(?i)^\s*,?\s*tier\s+[A-Z0-9_-]+\b", "", tail)
     inline_reason = tail.lstrip(" \t,:;—–-").strip()
-    return bool(inline_reason or clean_cell(separate_reason))
+    return substantive(inline_reason) or substantive(clean_cell(separate_reason))
 
 
 def split_table_row(line: str) -> list[str] | None:

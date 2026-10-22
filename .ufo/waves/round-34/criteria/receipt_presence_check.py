@@ -167,6 +167,11 @@ def has_receipt(data, path, measured_hash):
     except (UnicodeDecodeError, json.JSONDecodeError):
         if path.lower().endswith(".json"):
             return False
+        # Round-34 wave 2 (MutReceiptPresenceCheck): a text file that merely
+        # mentions a hash (for example this check's own diagnostic) is not a
+        # receipt; a text receipt must also carry the hash in its file name.
+        if measured_hash[:7] not in os.path.basename(path).lower():
+            return False
         return text_names_hash(data, measured_hash)
 
     # JSON receipts count only through an explicit revision field. Existing

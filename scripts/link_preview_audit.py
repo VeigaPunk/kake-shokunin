@@ -26,9 +26,13 @@ What this tool does NOT check
 * whether an og:image can be fetched, its size or its type;
 * twitter:card tags;
 * tag position: a tag in <body> counts the same as one in <head>;
+* og:url beyond the first non-empty one: a second og:url is not compared;
 * <meta name="og:..."> forms: only the property attribute counts, although
   some consumers also read name (S073: "The key comes from name if present,
   otherwise from property");
+* which <link rel=canonical> is first: any element in the document counts,
+  including one inside <template> or <svg>, and a canonical link without href
+  is skipped;
 * a <base> element: a relative canonical href resolves against the manifest
   page URL, unlike scripts/canonical_audit.py, which honours <base>; and
 * whether og:url, the canonical link and any sitemap entry are the URL the
@@ -54,7 +58,12 @@ EXIT_INPUT = 2
 EXIT_USAGE = 64
 
 ASCII_WHITESPACE = " \t\n\r\f"
+# Round-34 wave 2 (ReviewLinkPreviewTool M2): reads are bounded so an
+# oversized file is an input finding, not a memory exhaustion.
+MAX_PAGE_BYTES = 16 * 1024 * 1024
+MAX_MANIFEST_BYTES = 4 * 1024 * 1024
 REQUIRED_PROPERTIES = ("og:title", "og:type", "og:image", "og:url")
+PROPERTY_ALIASES = {"og:image:url": "og:image"}
 
 
 class UsageError(Exception):
@@ -75,9 +84,15 @@ class MetadataParser(HTMLParser):
         self.canonical_href: str | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        attributes = dict(attrs)
+        # The first occurrence of a duplicated attribute wins, as in an HTML
+        # tree builder (round-34 wave 2: dict(attrs) kept the last one).
+        attributes: dict[str, str | None] = {}
+        for key, val in attrs:
+            attributes.setdefault(key, val)
         if tag == "meta":
             prop = attributes.get("property")
+            # S067: "og:image:url - Identical to og:image".
+            prop = PROPERTY_ALIASES.get(prop, prop) if prop is not None else None
             content = attributes.get("content")
             if prop in self.properties and content is not None:
                 value = content.strip(ASCII_WHITESPACE)
@@ -114,11 +129,24 @@ def result(verdict: str, pages_checked: int, findings: list[dict[str, object]]) 
     return {"verdict": verdict, "pagesChecked": pages_checked, "findings": findings}
 
 
+def _no_duplicate_keys(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    # Round-34 wave 2 (ReviewLinkPreviewTool L3): a duplicated JSON key is
+    # input_invalid, not "last one wins".
+    seen: dict[str, object] = {}
+    for key, value in pairs:
+        if key in seen:
+            raise ValueError("manifest repeats a JSON key")
+        seen[key] = value
+    return seen
+
+
 def load_manifest(path: str) -> tuple[Path, list[dict[str, str]]]:
     manifest = Path(path)
     manifest_dir = manifest.parent.resolve()
     try:
-        value = json.loads(manifest.read_text(encoding="utf-8"))
+        if manifest.stat().st_size > MAX_MANIFEST_BYTES:
+            raise ValueError("manifest is larger than the read bound")
+        value = json.loads(manifest.read_text(encoding="utf-8"), object_pairs_hook=_no_duplicate_keys)
     except (OSError, UnicodeError, ValueError, RecursionError) as exc:
         raise ValueError("manifest cannot be read as UTF-8 JSON") from exc
     if not isinstance(value, dict) or set(value) != {"version", "pages"}:
@@ -164,6 +192,12 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
         try:
             file_path = (manifest_dir / page["file"]).resolve()
             file_path.relative_to(manifest_dir)
+            if not file_path.is_file():
+                # A FIFO, device or directory is never opened (round-34 wave 2:
+                # a FIFO hung the read).
+                raise OSError("page is not a regular file")
+            if file_path.stat().st_size > MAX_PAGE_BYTES:
+                raise OSError("page is larger than the read bound")
             text = file_path.read_text(encoding="utf-8")
         except (OSError, UnicodeError, RuntimeError, ValueError):
             # A path escape is a manifest error; an in-directory unreadable or
@@ -215,7 +249,12 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
                     "property": "og:url",
                 })
             elif parser.canonical_href is not None:
-                canonical_url = urljoin(page_url, parser.canonical_href).strip(ASCII_WHITESPACE)
+                try:
+                    canonical_url = urljoin(page_url, parser.canonical_href).strip(ASCII_WHITESPACE)
+                except ValueError:
+                    # An unparsable canonical href cannot equal og:url (round-34
+                    # wave 2: urljoin raised and the tool exited with no JSON).
+                    canonical_url = None
                 if og_url != canonical_url:
                     findings.append({
                         "id": f"{page_url}:og_url_not_canonical:og:url",
@@ -240,6 +279,10 @@ def parse_cli(argv: list[str]) -> argparse.Namespace:
         ),
     )
     parser.add_argument("--manifest", metavar="PATH", required=True)
+    # Round-34 wave 2 (ReviewLinkPreviewTool L1): a repeated --manifest is a
+    # usage error, not "last one wins".
+    if sum(1 for token in argv if token == "--manifest" or token.startswith("--manifest=")) > 1:
+        raise UsageError("--manifest given more than once")
     return parser.parse_args(argv)
 
 
