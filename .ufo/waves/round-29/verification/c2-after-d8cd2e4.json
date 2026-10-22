@@ -1,0 +1,204 @@
+{
+ "counter": "kake-r29-c2-base-path-matrix",
+ "revision": "d8cd2e45a903fb05e4f34179aae8a21095a83dbb",
+ "tool": "scripts/base_path_audit.py",
+ "toolPresent": true,
+ "toolSha256": "c5a13a32e7a232e1a3079ed4275333339d6c197ac42b5fbdfbbb08e1e4ba1dc0",
+ "matrixSha256": "75c08f641a31356d0f3446d9e6e435c44ee02bc4cf49102904e2466dbac2e84a",
+ "passed": 30,
+ "total": 30,
+ "byKind": {
+  "control": "7/7",
+  "defect": "14/14",
+  "input": "8/8",
+  "usage": "1/1"
+ },
+ "constantGatesPassed": {
+  "constant-clean": "7/30",
+  "constant-failed-empty": "0/30",
+  "constant-refuse": "7/30"
+ },
+ "constantGatesAllRejected": true,
+ "cases": [
+  {
+   "id": "K1-relative-refs-clean",
+   "kind": "control",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "K2-absolute-inside-clean",
+   "kind": "control",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "K3-external-and-nonhttp-ignored",
+   "kind": "control",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "K4-base-without-final-slash-clean",
+   "kind": "control",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "K5-user-site-root-base-clean",
+   "kind": "control",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "K6-first-base-element-wins",
+   "kind": "control",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "K7-empty-and-whitespace-href-clean",
+   "kind": "control",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D1-root-relative-stylesheet",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D2-root-relative-script",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D3-srcset-one-candidate-outside",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D4-dot-dot-escape",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D5-protocol-relative-same-host",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D6-absolute-same-origin-outside",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D7-base-element-moves-relative-ref-out",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D8-segment-prefix-not-string-prefix",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D9-case-sensitive-path",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D10-form-action-and-video-poster",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D11-nested-page-relative-resolution",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D12-uppercase-tag-and-attribute",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D13-whitespace-wrapped-value",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "D14-iframe-source-area-track",
+   "kind": "defect",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "I1-manifest-not-json",
+   "kind": "input",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "I2-unsupported-version",
+   "kind": "input",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "I3-base-path-without-final-slash",
+   "kind": "input",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "I4-page-file-missing",
+   "kind": "input",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "I5-page-url-outside-base",
+   "kind": "input",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "I6-page-file-escapes-manifest-dir",
+   "kind": "input",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "I7-page-url-not-http",
+   "kind": "input",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "I8-empty-pages-list",
+   "kind": "input",
+   "passed": true,
+   "detail": "ok"
+  },
+  {
+   "id": "U1-missing-manifest-option",
+   "kind": "usage",
+   "passed": true,
+   "detail": "ok"
+  }
+ ]
+}

@@ -191,6 +191,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Curated source registry | Keeps a contract-v1 registry of opened, scope-tiered sources (with rejections and study paths) whose mined rows back knowledge entries and appended corrections; census commands verify its shape | `corpus/SOURCES.md`; census argv/output `.ufo/round-20/resume/sources-census.txt`; mined-row citation check in `corpus/lessons/round-20.md` §Round-20 resume | 20 (resume) |
 | Offline static canonical preflight | Reads a version-1 manifest of local static HTML pages and reports, read-only and network-free, whether each page's explicit-head canonical link matches the publisher's declared expectedCanonical (clean / failed-policy / could-not-evaluate, stable finding ids, exits 0/1/2/64); no search-engine selection, rendering, headers or live-delivery claim | `scripts/canonical_audit.py`; `python3 .ufo/waves/round-22/measure.py --root . --revision b539cc17c25e5f42fe8803e2aa42b4574c4b44c6` → 32/32 (`.ufo/waves/round-22/measure-after-v2.json`); selftest 62/62 and replay per-case match in `.ufo/waves/round-22/postfix/` | 22 |
 | GET snapshot + canonical receipt replay | Captures 12 named public surfaces read-only and replays the offline canonical policy on committed served bytes; distinguishes receipt completeness from clean policy and 404s; no rendered-DOM or publication approval | `scripts/live_snapshot.py`; `.ufo/waves/round-23/{live/,measure-c2-after-v2.json,evaluability.json}` measured at `5bef55b1464d7ccbff802edab400d138597a621c`; receipt coverage 12/12, policy outcomes 3 clean / 5 canonical_missing / 4 not-served | 23 |
+| Offline project-site base-path audit | Reads a version-1 manifest of local built HTML pages with a declared base path and reports, read-only and network-free, each same-site reference (http and https on one host count as one site) that resolves outside that base path (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no live serving, redirect, rendered-DOM or CSS/JavaScript URL claim | `scripts/base_path_audit.py`; `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision d8cd2e45a903fb05e4f34179aae8a21095a83dbb` → 30/30 with all three constant gates rejected (`.ufo/waves/round-29/verification/c2-after-d8cd2e4.json`); committed selftest 45/45 (`verification/selftest-lane-final.json`); real-input run on the round-23 snapshots of three owned project sites: 3 pages, 114 references, 4 findings, all `<a href>` to other paths on the owner host (`.ufo/waves/round-29/real-input/out/summary.json`) | 29 |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -646,3 +647,28 @@ from the quotes, so the closure should read the entry body. Counter blobs at
 `c2_matrix_count.py` 58dde0628c3e40a9794c93b03c3b9f6e665173fc,
 `c2-matrix.json` 0687433ecd7cd14eb90287121f82a99074503b84; host Python 3.14.8.
 S040's URL redirects to `…/what-is-github-pages` (receipt `finalUrl`).
+
+## Round 29 — measured results
+
+Axis ratings stay 10 → 10 (saturated; stagnation nudge recorded in the
+declaration). One capability row enters (above, "Offline project-site
+base-path audit"), as the declaration notes said it would at 30/30. No rank,
+promotion or admission is self-awarded; the non-author closure decides.
+
+| Claim | Axis | Before | After | Measured commit | Counting command | Evidence |
+|---|---|---|---|---|---|---|
+| C1 | freshness | 0/4 at `fe1805cf32a7aadf4574637a3a8912354cee2c7b` | 4/4 | `f8675e5a2aac9007ade31bf98813fcb1deee8093`; re-measured 4/4 at `98dbab2`, `7697990` and `d8cd2e45a903fb05e4f34179aae8a21095a83dbb` | `python3 -B .ufo/waves/round-29/c1_quote_truth.py --root . --revision <commit>` | `.ufo/waves/round-29/verification/c1-before-fe1805c.json`, `c1-after-f8675e5.json`, `c1-after-98dbab2.json`, `c1-after-d8cd2e4.json`; wave-2 `RerunC1Counter` |
+| C2 | operability (capability) | 0/30 at `fe1805cf32a7aadf4574637a3a8912354cee2c7b` (constant gates 7/30, 0/30, 7/30) | 30/30 (control 7/7, defect 14/14, input 8/8, usage 1/1), constant gates 7/30, 0/30, 7/30, all rejected | `98dbab22ae93d325c9dcd791728c38ecf79ba0b6`; re-measured 30/30 at `7697990` and `d8cd2e45a903fb05e4f34179aae8a21095a83dbb` | `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision <commit>` | `.ufo/waves/round-29/verification/c2-before-fe1805c.json`, `c2-after-98dbab2.json`, `c2-after-d8cd2e4.json`; wave-2 `RerunC2Counter` |
+
+The counters and the matrix are byte-identical from the declaration
+(`d18bbf3`) to `d8cd2e4` (blobs listed in the declaration notes). Limits,
+all found by wave-2 seats and recorded in `corpus/lessons/round-29.md`: C1
+proves each quote sits in the retained text and the entry cites the id below
+its header, not that each entry sentence follows from its quote (the entry
+was corrected by hand after wave 2); C2 compares exit, verdict and finding
+tuples (reason, element, attribute, value), not `id`, `page`, `resolved` or
+the counts, and passes the usage case on exit code alone. On one point the
+tool is wider than the frozen matrix wording: it treats http and https on one
+host as one site (S040's `http(s)` row), which no matrix case exercises; the
+tool help, docstring and entry state this. The committed selftest (45
+fixtures) covers the families the matrix cannot see.

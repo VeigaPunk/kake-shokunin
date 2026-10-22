@@ -1235,3 +1235,35 @@ knowledge from four Google documentation pages opened this round.
   the final lane commit (see SCORECARD "Round 28 — measured results").
 - Open, not repaired: see `corpus/lessons/round-28.md` "Open findings".
 - No misroot: no kake round-28 seat file landed at the fleet root.
+
+### Round 29 — attempt 1 (hyaku, in-session L1 KakeR29)
+
+Claims declared at `d18bbf3` before implementation, with notes at `9e541a1`
+before any after-measurement: C1 (freshness, frontier) adds project-site
+base-path knowledge from four primary pages opened this round; C2
+(operability, capability) adds an offline base-path audit with a frozen
+30-case matrix. The citing-set gate worked in rounds 27 and 28 was left alone
+(session drift sentinel); its routed defects 1 and 2 are carried as named debt.
+
+- Motivating evidence: `PROVINCE.md` Frontier listed "Jekyll/base-path build
+  tooling" as open; `corpus/` had no `baseurl` or `relative_url` statement
+  (wave-1 `ScoutPriorSubpathKnowledge`); round-28 routed defects 3 and 4
+  (counters checked ids and quote shape; the source gate rejected nothing).
+- Wave 1 (`w1`, 32 seats, v1 policy): 11 scribes, 5 critics, 5 reviewers, 4
+  scouts, 3 executors, 2 connectors, 2 mutation-testers; 0 dead.
+- Wave 2 (`w2`, 39 seats, v1 policy): 18 reviewers, 15 critics, 4
+  mutation-testers, 1 sentinel, 1 scout; 0 dead. Round total 71 seats.
+- Landed: `d18bbf3` declaration and counters; `e58b66c` source openings;
+  `9e541a1` declaration notes; `f8675e5` entry, S040–S048 rows, lesson gate;
+  `98dbab2` tool, selftest, fixtures, real-input run; `7697990` SKILL,
+  README, PROVINCE, QUALITY, lesson mistakes, wave-1 evidence; `d8cd2e4`
+  wave-2 repairs and evidence; then this LOG entry and the SCORECARD record.
+- Measurements: C1 0/4 at `fe1805cf` → 4/4 at `f8675e5`, `98dbab2`,
+  `7697990`, `d8cd2e4`; C2 0/30 → 30/30 at `98dbab2`, `7697990`,
+  `d8cd2e4` with all constant gates rejected. Census exit 0 before and
+  after (only the pre-existing W04 warning); registry rows 39 → 48.
+- Also fixed: `.gitignore` now ignores `__pycache__/` and `*.pyc`, and the
+  untracked round-26 bytecode directory was removed (round-28 routed defect 5).
+- Misroot: one wave-2 seat wrote a report copy at the fleet root and removed
+  it itself; the L1 sweep before the report found no round-29 kake file
+  there (`corpus/lessons/round-29.md` Mistakes).
