@@ -1005,3 +1005,34 @@ Limits found by wave 2 and not repaired:
   "git_init before git_commit" check) survives, because the setup re-check
   and the `--git-dir`/`--work-tree` pin still refuse the shape. Only removing
   all three layers shows harm. No fixture pins that guard alone.
+
+## Round 32 — declared claims (before implementation lands)
+
+Base (pushed lane tip at round start): `a0b0dffcd95b2215f638a5ff7591dd4fde325d27`.
+Both owned axes sit at the 10/10 saturation line, so the stagnation nudge
+applies as in rounds 28 to 31. Both claims are routed repairs from the
+round-31 closure (`corpus/lessons/round-31-verifier-spotcheck.md`, "Routed
+defects"): C1 is item 2 (mutant m3), C2 is item 5 (the unretained external
+`render.yaml`, blob `d17ab7e5`). Declared at 18:58Z, before either counting
+command was run at any revision.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 repair: the round-31 surviving mutant m3 (delete the load-time `git_commit`-needs-earlier-`git_init` guard in `scripts/citing_set_selftest.py`) is killed by the committed hostile selftest, while the unmutated runner still passes it and the benign fixtures stay clean | operability | `killed` 0 (expected; round-31 MutRunnerGuards saw exit 0) | `killed` 1 with `guard_ok` true | `python3 -B .ufo/waves/round-32/c1_m3_probe.py --rev <rev>` (reads `killed`, `guard_ok`) |
+| C2 repair (sourced): the two external ds4cc-marketplace blobs that `corpus/knowledge/render-web-services.md` reads offline at commit `1fbdb8ed` (`render.yaml` blob `d17ab7e5d44b1b3a1876cf1d9b47f369e92f7252`, `apps-sdk/Dockerfile` blob `ee0b63819a9ce71e51469796541b9075e9676ae9`) are retained byte-identical in the lane, registered as a `SOURCES.md` row opened this round, and cited by that row id in the entry | freshness | 0/3 conditions | 3/3 conditions | `python3 -B .ufo/waves/round-32/c2_retained_count.py --rev <rev>` (reads `met`) |
+
+C2 conditions, each counted over `git ls-tree`/`git show` bytes at the
+revision only: (1) both blob ids appear in `git ls-tree -r <rev>` (byte
+identity with the external blobs, so the retained copy is the read source, not
+a paraphrase); (2) `corpus/SOURCES.md` `## Registry` holds a row whose source
+cell names `ds4cc-marketplace` and `1fbdb8ed` and whose `opened` cell is
+`2026-10-22`; (3) `corpus/knowledge/render-web-services.md` cites that row's
+id at least once. Truth step (routed item 4): byte identity is checked by
+blob id, not by quote matching.
+
+Disclosed limits: C1 kills m3 by the refusal *reason* (the load-time message)
+because m3 is otherwise behaviour-equivalent (the apply-time re-check and the
+Git pins still refuse the shape); this trusts the runner's reported reason
+text for that one case, the same shape as routed item 1, so the spec also
+keeps the `h0-control` benign control. The Git-pin mutants m3d/m3f stay
+unprobed alone; they are not claimed.
