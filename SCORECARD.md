@@ -1087,3 +1087,34 @@ stays as landed):
   hand (`w1/ReviewS062Row.md`, `w1/ReviewEntryRenderYamlTruth.md`,
   `w1/ReviewEntryDockerfileTruth.md`). Lesson `corpus/lessons/round-32.md`
   "Carried open" lists what stays open.
+
+## Round 33 — declared claims (before implementation lands)
+
+Base (pushed lane tip at round start): `5777d5af79cac1ebf9144b348a9d274099e77338`.
+Both owned axes sit at the 10/10 saturation line; the stagnation nudge applies
+as in rounds 28 to 32. C1 is a routed repair from
+`corpus/lessons/round-32-verifier-spotcheck.md` "Routed defects" item 2 (pin the
+refusal by a structured field, not message text) and item 3 (the probe gates a
+kill on the guard and returns a verdict on timeout). C2 is a non-repair,
+sourced freshness claim on a different surface than the citing-set gate: the
+operator's ds4cc-marketplace upstream moved from `1fbdb8ed` (the corpus' pin
+and the local clone) to `7fc6aa2fc12451dd451fed5a9ee7125f3a90e884` (one commit,
+2026-10-21T17:32:55Z, three new `/magga/frostbite/` pages, sitemap.xml +3
+locs), read through a sandbox clone under `/fast/scratch/hyaku/kake-r33/`.
+This declaration and both counters land in one commit, before either counter
+has run at any revision; the time of the declaration is that commit's time.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 repair: the hostile selftest's P6 check keys on a structured refusal code, not on message text — a correct runner whose load-time guard message is reworded still passes, while mutant m3 (guard deleted) and a mutant that changes only the code are killed, with the pristine runner passing hostile and benign suites | operability | `met` 2 of 4 expected (pristine passes, m3 killed; reworded fails P6; recoded not applicable) | `met` 4 of 4 with `guard_ok` true | `python3 -B .ufo/waves/round-33/c1_code_probe.py --rev <rev>` (reads `met`, `guard_ok`) |
+| C2 freshness (sourced): the corpus' ds4cc-marketplace source pin advances to upstream `7fc6aa2f`: four upstream files retained by path, mode and blob id; row S065 opened this round in `## Registry`; a section `## Round-33 ds4cc source pin 7fc6aa2f` in `corpus/knowledge/sitemap-orphan-audit.md` citing S065 whose stated sitemap loc count and three page canonical verdicts equal what the counter re-derives from the retained bytes with the lane's own `scripts/canonical_audit.py` | freshness | `met` 0 of 4 | `met` 4 of 4 | `python3 -B .ufo/waves/round-33/c2_pin_count.py --rev <rev>` (reads `met`) |
+
+C1 contract for the implementation (so the counter's patterns stay valid): the
+load-time guard keeps its two-line shape (`if step["op"] == "git_commit" and
+not initialized:` then one `raise` line) and that raise line carries both the
+code literal `"setup_commit_before_init"` and the unchanged message fragment
+`needs an earlier 'git_init'`. Disclosed limits: C1 does not touch the Git-pin
+mutants m3d, m3f and m3g (routed item 1; handled outside the claims this
+round, see the round-33 lesson); C2 is source-side only — no live
+`ds4cc.com` fetch, and canonical verdicts are the lane's offline policy, not
+search-engine selection.
