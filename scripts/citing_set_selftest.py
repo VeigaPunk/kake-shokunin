@@ -91,7 +91,9 @@ scratch path contains os.pathsep is refused (could not evaluate), because Git
 cannot escape that separator in GIT_CEILING_DIRECTORIES.
 
 ``scripts/citing_set_hostile_selftest.py`` checks these refusals against the
-hostile specs in ``scripts/fixtures/citing-set-hostile/``.
+hostile specs in ``scripts/fixtures/citing-set-hostile/``; since round 33 P6
+names the refusing layer by the runner's ``code`` (``reason_code``), not by
+message text.
 
 This runner is a pure oracle.  For every fixture case it starts one gate
 subprocess and compares two observable outcomes with the frozen expectation:
@@ -112,6 +114,13 @@ Summary (one JSON object on stdout)::
 ``cases`` is the number of discovered fixture cases.  ``failed`` counts
 unsatisfied obligations: one per failing case, or one when the run could not be
 evaluated at all, so ``failed == 0`` is only ever true for a run that may pass.
+
+Each result row and each case failure entry carries ``reason`` (human text,
+free to change) and ``code`` (stable, or null where no code is assigned).
+Since round 33 the setup refusals carry codes: ``setup_commit_before_init``
+(load-time check in ``load_case_setup``), ``setup_commit_without_repo``
+(apply-time re-check in ``apply_setup``) and ``setup_failed`` (any other
+apply-time setup failure).  Other refusals report ``code`` null.
 
 Exit codes: 0 every case matched, 1 at least one case mismatched,
 2 the run could not be evaluated (gate absent, fixture directory absent/empty).
@@ -320,6 +329,27 @@ def expectation_entries(expected):
 # --------------------------------------------------------------------------
 # per-case setup (optional case.json)
 # --------------------------------------------------------------------------
+class CaseRefusal(ValueError):
+    """A case refusal that carries a stable machine-readable ``code``.
+
+    The runner reports ``code`` next to the human ``reason`` in each result
+    row and failure entry, so a check can name the refusing layer without
+    matching message text (round 33, round-32 routed item 2).
+    """
+
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code = code
+
+
+class SetupRefusal(RuntimeError):
+    """An apply-time setup refusal that carries a stable ``code``."""
+
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code = code
+
+
 def load_case_setup(case_dir):
     """Load and validate the optional case.json; return None when absent."""
     path = case_dir / CASE_SETUP_FILE
@@ -363,7 +393,7 @@ def load_case_setup(case_dir):
         if step["op"] == "git_init":
             initialized = True
         if step["op"] == "git_commit" and not initialized:
-            raise ValueError("%s setup op 'git_commit' needs an earlier 'git_init'" % CASE_SETUP_FILE)
+            raise CaseRefusal("setup_commit_before_init", "%s setup op 'git_commit' needs an earlier 'git_init'" % CASE_SETUP_FILE)
     return {"argv": argv, "root": root, "setup": setup}
 
 
@@ -490,7 +520,7 @@ def apply_setup(work_dir, setup, timeout):
             run_command(git_command(work_dir, "init", "-q"), work_dir, env, timeout)
         elif op == "git_commit":
             if not (work_dir / ".git").is_dir() or (work_dir / ".git").is_symlink():
-                raise RuntimeError("git_commit needs the repository created by git_init")
+                raise SetupRefusal("setup_commit_without_repo", "git_commit needs the repository created by git_init")
             run_command(git_command(work_dir, "add", "-A"), work_dir, env, timeout)
             run_command(git_command(work_dir, "commit", "-q", "--no-verify",
                                     "-m", str(step.get("message", "fixture"))), work_dir, env, timeout)
@@ -517,7 +547,7 @@ def prepare_case(case_dir, cases_root, timeout):
         try:
             apply_setup(work_dir, setup["setup"], timeout)
         except (OSError, RuntimeError) as exc:
-            return None, "case setup failed: %s" % exc
+            return None, CaseRefusal(getattr(exc, "code", "setup_failed"), "case setup failed: %s" % exc)
     return work_dir, setup
 
 
@@ -530,6 +560,7 @@ def run_case(case_dir, gate, env, timeout, cases_root):
         "ok": False,
         "passed": False,
         "reason": None,
+        "code": None,
         "expected": None,
         "actual": None,
         "argv": None,
@@ -561,6 +592,7 @@ def run_case(case_dir, gate, env, timeout, cases_root):
     work_dir, setup = prepare_case(case_dir, cases_root, timeout)
     if work_dir is None:
         row["reason"] = str(setup)
+        row["code"] = getattr(setup, "code", None)
         return row
     root = work_dir
     if setup:
@@ -722,6 +754,7 @@ def main(argv=None):
                 {
                     "case": row["case"],
                     "reason": row["reason"],
+                    "code": row["code"],
                     "expected": row["expected"],
                     "actual": row["actual"],
                 }

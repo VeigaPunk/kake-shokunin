@@ -41,6 +41,10 @@ Each hostile case starts as a copy of the benign fixture
                    load-time "git_commit needs an earlier git_init" check
                    behind the apply-time re-check and the Git pins, is pinned
                    by the layer that refuses first, not only by the refusal)
+  reason_code      optional string; the runner's reported failure ``code`` for
+                   this case must equal it (round 33: pins the refusing layer
+                   by the runner's structured code, so rewording a message
+                   cannot fail a correct runner; P6 uses it)
 
 ``tmpdir_in_victim`` places the runner's ``--tmpdir`` inside the victim
 repository, so a Git command that discovers an enclosing repository would
@@ -51,7 +55,8 @@ the benign case ``00-benign``, a second benign copy ``h0-control`` (named like
 a hostile case, so a runner that refuses cases by name is caught; round-31
 wave 2) and the hostile cases.  The spec passes when the runner exits 1 within
 90 s, neither benign case is a failure, every hostile case is a failure (with
-its ``reason_contains`` text, when given), no canary exists, and the victim
+its ``reason_contains`` text and its ``reason_code``, when given), no canary
+exists, and the victim
 repository's HEAD, refs and commit count are unchanged.
 
 Usage::
@@ -81,7 +86,8 @@ BENIGN = "scripts/fixtures/citing-set/01-single-literal-clean"
 CONTROL = "h0-control"
 SPEC_MAX_BYTES = 65536
 RUN_TIMEOUT = 90
-CASE_KEYS = {"name", "case_json", "planted_scripts", "dot_git", "expected", "symlink_case", "reason_contains"}
+CASE_KEYS = {"name", "case_json", "planted_scripts", "dot_git", "expected", "symlink_case", "reason_contains",
+             "reason_code"}
 SPEC_KEYS = {"description", "gap", "tmpdir_in_victim", "cases"}
 EXPECTED_SHAPES = (None, "symlink_outside", "padded", "fifo")
 PLANTED = """import os, sys
@@ -142,6 +148,8 @@ def load_spec(path: Path) -> dict:
         if "reason_contains" in case and (not isinstance(case["reason_contains"], str)
                                           or not case["reason_contains"]):
             raise ValueError("%s: reason_contains must be a non-empty string" % path)
+        if "reason_code" in case and (not isinstance(case["reason_code"], str) or not case["reason_code"]):
+            raise ValueError("%s: reason_code must be a non-empty string" % path)
     return spec
 
 
@@ -212,13 +220,18 @@ def run_spec(name: str, spec: dict, root: Path, runner: Path, tmpdir: Path) -> d
         summary = {}
     failures = [f for f in summary.get("failures", []) if isinstance(f, dict)] if isinstance(summary, dict) else []
     failed = {f.get("case"): f.get("reason") for f in failures if f.get("case") is not None}
+    codes = {f.get("case"): f.get("code") for f in failures if f.get("case") is not None}
     detail["reasons"] = failed
+    detail["codes"] = codes
     detail["canary"] = canary.exists()
     detail["victimUnchanged"] = victim_state(victim) == before
     wanted = {c["name"]: c["reason_contains"] for c in spec["cases"] if "reason_contains" in c}
     detail["reasonChecks"] = {n: isinstance(failed.get(n), str) and text in failed[n] for n, text in wanted.items()}
+    wanted_codes = {c["name"]: c["reason_code"] for c in spec["cases"] if "reason_code" in c}
+    detail["codeChecks"] = {n: n in codes and codes[n] == code for n, code in wanted_codes.items()}
     passed = (detail["exit"] == 1 and "00-benign" not in failed and CONTROL not in failed
               and all(h in failed for h in hostile) and all(detail["reasonChecks"].values())
+              and all(detail["codeChecks"].values())
               and not detail["canary"] and detail["victimUnchanged"])
     return {"case": name, "passed": passed, "detail": detail}
 

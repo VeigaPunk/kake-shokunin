@@ -180,3 +180,36 @@ but their alternatives are not identical. The chosen relevance/support rule
 and exact inline support set remain as stated; date/base and original bytes
 are preserved. The strengthened S003 artifact witness includes A2's pointer
 to this entry, not merely the adjacent fix-group cell.
+
+## Round-33 ds4cc source pin 7fc6aa2f
+
+The corpus' ds4cc-marketplace reads were pinned at `1fbdb8ed` (S062, and the
+local clone `~/Projects/ds4cc-marketplace`, which is still at that commit). The
+upstream repository moved one commit to
+`7fc6aa2fc12451dd451fed5a9ee7125f3a90e884` (2026-10-21T17:32:55Z, "magga:
+Frostbite — Classic & Remastered at /magga/frostbite/"), read on 2026-10-22
+through a sandbox clone of the public repository (S065). The commit adds
+three pages under `/magga/frostbite/` (hub, `classic/`, `remastered/`) with
+their scripts and covers, links them from `magga/index.html`, and adds three
+locs to `sitemap.xml` (lines 15–17). It changes none of the four files S062
+retains (`render.yaml`, `apps-sdk/Dockerfile`, `apps-sdk/src/server.ts`,
+`.dockerignore`).
+
+Measured from the retained bytes (`.ufo/waves/round-33/sources/ds4cc-7fc6aa2f/`;
+blob ids in S065). The sitemap count is the number of `<loc>` elements
+parsed as XML; each canonical verdict is `scripts/canonical_audit.py` run on
+one page with `expectedCanonical` equal to that page's sitemap loc:
+
+sitemap-locs: 100
+canonical https://ds4cc.com/magga/frostbite/: clean
+canonical https://ds4cc.com/magga/frostbite/classic/: clean
+canonical https://ds4cc.com/magga/frostbite/remastered/: clean
+
+At `1fbdb8ed` the same file had 97 locs. Count statements earlier in this
+entry and in `kimi-subpath-audit.md` (93 locs at `f3d2ecd`, 103 across three
+GHP rows on 2026-09-28) are historical for their dates and commits; this
+section does not re-measure them. Limits: source-side only. Nothing was
+fetched from ds4cc.com, so whether this commit is deployed, and what the
+live sitemap lists, is not known from this section; a `clean` verdict is the
+lane's offline canonical policy on the page's explicit head link, not a
+search-engine selection.
