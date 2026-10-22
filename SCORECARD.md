@@ -1352,3 +1352,77 @@ stay as landed.
   line deleted from `1e54c89` to `24a1647`; existing gates and nine earlier
   counters give the same results at base and tip. Wave-2 repairs change only
   round-34 files.
+
+## Round 35 — declared claims (before implementation lands)
+
+Base (pushed lane tip at round start): `16a6b8b8144f4d6e6187e9ecbb4fb5f4528b911a`.
+Both owned axes sit at the 10/10 saturation line; the stagnation nudge applies
+as in rounds 28 to 34. Round 34 was rejected as an honest stop because a
+do-nothing control met each declared counter (`corpus/lessons/round-34-verifier-spotcheck.md`
+routed defect 1). This round declares targets no do-nothing control can reach,
+by sealing the inputs: the C1 case set and the C2 probe set were written by the
+L1 before this declaration and before any build, are kept outside the lane
+(`/fast/scratch/hyaku/kake-r35/sealed/`, mode 0700) until the reveal commit, and
+are pinned here by sha256 in `.ufo/waves/round-35/sealed_count.py`. The tool
+builder and the entry drafter never see them. The counter refuses (exit 2) to
+measure a revision that already holds a key file, so every measured revision
+predates the reveal and cannot be a copy of a key. The controls named below are
+scored with this frozen counter, and their receipts are committed, before any
+build.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 capability repair: `scripts/link_preview_audit.py` meets the round-35 contract below on 24 sealed cases (12 on the round-34 rules, 12 on the three repairs) | operability | `passed` 14 of 24 at `16a6b8b8` | `passed` ≥ 22 of 24 | `python3 -B .ufo/waves/round-35/sealed_count.py c1 --root . --revision <commit> --key-revision <reveal commit>` (reads `passed`) |
+| C2 freshness (sourced learning claim on new ground): `corpus/knowledge/security-txt-publishing.md`, how a publisher serves a valid security.txt (RFC 9116) from a GitHub Pages site, grounded in rows opened this round (S078–S085) | freshness | `met` false, `probesPassed` 0 of 12 at `16a6b8b8` | `met` true: entry present, ≤ 1500 words, `copiedShare` ≤ 0.25 with the nine pinned source texts intact, ≥ 3 good cites of S078–S099, `probesPassed` ≥ 9 of 12 | `python3 -B .ufo/waves/round-35/sealed_count.py c2 --root . --revision <commit> --key-revision <reveal commit>` (reads `met`, `probesPassed`) |
+
+C1 contract (public; the sealed cases test exactly this and the round-34 rules):
+- (a) A page with more than one non-empty `og:url` element gets one
+  `og_url_multiple` finding (property `og:url`). The first non-empty og:url
+  still gets the absolute check and the canonical comparison. This is lane
+  policy by analogy with S068's single-og:type rule.
+- (b) A `<meta>` or `<link>` start tag inside an open `<template>`, `<svg>` or
+  `<math>` element counts neither as an Open Graph property nor as the
+  canonical link. The element closes at its matching end tag, nesting is
+  counted, and a self-closed `<svg/>` opens nothing.
+- (c) A page that cannot be read (not UTF-8, not a regular file, over the read
+  bound) gives `page_unreadable` for that page and no longer stops the other
+  pages. The readable pages are audited, and their policy findings are reported
+  beside the input findings. The verdict stays `could-not-evaluate` (exit 2), and
+  `pagesChecked` counts the readable pages. Manifest-level faults are unchanged:
+  `input_invalid` with no page, and nothing audited.
+- Every other round-34 rule, reason name, verdict and exit code is unchanged.
+  A case passes on exit code, verdict and the multiset of findings projected
+  on (reason, page, property); `id` and `pagesChecked` are not compared.
+
+C2 probes: 12 sealed questions a publisher-side entry on the bounded question
+should answer (location, file format, required and single-use fields, dates,
+contact order, encryption, signing, scope, and the GitHub Pages dot-directory
+path). Each is one or more case-insensitive regexes over the entry text with
+whitespace collapsed. The probe text stays sealed until the reveal.
+
+Controls, each scored with the frozen counter before any build (receipts under
+`.ufo/waves/round-35/verification/control-*.json`, control commits retained as
+bundles under `.ufo/waves/round-35/retained/`):
+- C1: the base tool unchanged (do nothing); the retained round-34 lookup tool
+  `dcef39b5`; a constant tool that prints a clean report and exits 0.
+- C2: the base (no entry); a junk entry shaped like the retained round-34
+  control `0cce15f0` (junk rows S078–S081 marked mined, filler, ids); a
+  keyword entry built from RFC 9116's table of contents and field names; a
+  verbatim transcription of RFC 9116 sections 2.5 to 3.1 with the same rows.
+
+Separability: C1 reads only the tool; C2 reads only the entry, `SOURCES.md` and
+the retained texts. Either verifies with the other unlanded.
+
+Pre-declaration work (disclosed): the L1 opened S078–S085 and re-opened S006 at
+22:00–22:02Z, wrote both sealed keys, ran the C1 counter at base (14 of 24) and
+the C2 counter at base (met false), and checked that the C1 key is reachable
+with a private 20-line reference patch in a sandbox clone
+(`/fast/scratch/hyaku/kake-r35/sealed/ref/`). That patch scored 24 of 24 and is
+not the landed tool. The landed repair is written by a wave seat from the
+public contract above.
+
+Disclosed limits: the C1 cases are 24 short synthetic pages, not real
+publisher pages. C2 probes test that stated facts are present, not that every
+sentence is true, so the closure's read still owes the truth check. The
+security.txt claim is offline: no lane property is asked to publish one, and
+no live lane host is fetched.
