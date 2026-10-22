@@ -66,16 +66,26 @@ is started:
 
   * an ``argv`` token that is not a value (a token starting with "-") unless
     it is ``--name`` or ``--name=value`` where ``name`` is a non-empty prefix
-    of root, revision, population or ledger and of no other gate option
-    (json, selftest, help): so ``--selftest`` and its abbreviations, which
-    would make the gate run scripts copied from the fixture, are refused;
+    of exactly one of root, revision, population or ledger and of no other
+    gate option (json, selftest, help): so ``--selftest`` and its
+    abbreviations, which would make the gate run scripts copied from the
+    fixture, are refused, and so is an ambiguous prefix such as ``--r``;
   * a case directory that contains an entry named ``.git`` at any depth;
   * a ``git_commit`` step with no earlier ``git_init``;
   * an ``expected.json`` that is a symlink, not a regular file, or larger
     than 1 MiB (it is opened with O_NOFOLLOW, O_NONBLOCK and O_NOCTTY, so a
-    FIFO cannot block the run);
-  * a symlink in the fixture directory (a symlinked case is a failed case,
-    never a silent skip).
+    FIFO at ``expected.json`` cannot block that read; a setup ``fifo`` step on
+    a file Git reads, such as ``.gitattributes``, can still block ``git add``
+    until the case timeout);
+  * a symlink in the fixture directory, dot-named or not (a symlinked case
+    is a failed case, never a silent skip).
+
+The hostile specs probe five routed shapes (N1, N2, N3, N5, N6).  The Git
+pins named above (--git-dir/--work-tree, GIT_CEILING_DIRECTORIES for setup and
+gate) are not separately probed: a runner without them still passes the
+hostile selftest and the round-31 C1 counter.  A ``--tmpdir`` whose resolved
+scratch path contains os.pathsep is refused (could not evaluate), because Git
+cannot escape that separator in GIT_CEILING_DIRECTORIES.
 
 ``scripts/citing_set_hostile_selftest.py`` checks these refusals against the
 hostile specs in ``scripts/fixtures/citing-set-hostile/``.
@@ -106,6 +116,7 @@ Exit codes: 0 every case matched, 1 at least one case mismatched,
 from __future__ import annotations
 
 import argparse
+import errno
 import hashlib
 import json
 import os
@@ -357,16 +368,17 @@ def argv_refusal(argv):
     """Return the first argv token outside the gate-option allowlist, or None.
 
     A token that does not start with "-" is a value.  An option token must be
-    ``--name`` or ``--name=value`` where ``name`` is a non-empty prefix of a
-    valued gate option and of no other gate option, so argparse abbreviation
-    can never reach ``--selftest``, ``--json`` or ``--help``.
+    ``--name`` or ``--name=value`` where ``name`` is a non-empty prefix of
+    exactly one valued gate option and of no other gate option, so argparse
+    abbreviation can never reach ``--selftest``, ``--json`` or ``--help`` and
+    an ambiguous prefix such as ``--r`` is refused here, not by the gate.
     """
     for token in argv:
         if not token.startswith("-"):
             continue
         name = token[2:].split("=", 1)[0] if token.startswith("--") else ""
         if (not name
-                or not any(option.startswith(name) for option in GATE_VALUE_OPTIONS)
+                or sum(option.startswith(name) for option in GATE_VALUE_OPTIONS) != 1
                 or any(option.startswith(name) for option in GATE_OTHER_OPTIONS)):
             return token
     return None
@@ -388,7 +400,8 @@ def read_expected(case_dir):
     try:
         descriptor = os.open(str(path), flags)
     except OSError as exc:
-        raise ValueError("expected.json unreadable (symlinks are refused): %s" % exc)
+        note = " (symlinks are refused)" if exc.errno == errno.ELOOP else ""
+        raise ValueError("expected.json unreadable%s: %s" % (note, exc))
     try:
         status = os.fstat(descriptor)
         if not stat.S_ISREG(status.st_mode):
@@ -678,7 +691,7 @@ def main(argv=None):
 
     cases = sorted(
         (path for path in fixtures.iterdir()
-         if (path.is_symlink() or path.is_dir()) and not path.name.startswith(".")),
+         if path.is_symlink() or (path.is_dir() and not path.name.startswith("."))),
         key=lambda path: path.name,
     )
     if not cases:
@@ -686,6 +699,10 @@ def main(argv=None):
 
     env = child_env(args.tmpdir)
     cases_root = Path(args.tmpdir).expanduser().resolve() / "citing-set-selftest" / "cases"
+    if os.pathsep in str(cases_root):
+        # Git splits GIT_CEILING_DIRECTORIES on os.pathsep with no escape, so
+        # such a path would switch the ceiling off.
+        return cannot_evaluate("scratch case tree path contains %r: %s" % (os.pathsep, cases_root))
     try:
         cases_root.mkdir(parents=True, exist_ok=True)
     except OSError as exc:

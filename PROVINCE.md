@@ -121,3 +121,11 @@ plan, region, domains and deploy trigger stay unknown from the file.
 Accessibility conformance stays open. The citing-set fixture runner gained
 containment for five hostile fixture shapes (`scripts/citing_set_hostile_selftest.py`);
 the round-27 families listed in round 30 stay open.
+
+Round-31 wave-2 narrowing (`.ufo/waves/round-31/a2-w2/ReviewProvinceReadme.md`
+F1, F2, F4): "nothing live was fetched" above means no operator-owned property
+was fetched or measured and no deploy was made; the round's only live fetches
+were the public Render Docs pages S057–S061 (one GET each, 15:41:23–29Z). The
+refusals live in the runner `scripts/citing_set_selftest.py`;
+`scripts/citing_set_hostile_selftest.py` is the committed check of them. S061
+also corrected `render-static-sites.md` (its "Round-31 corrections").

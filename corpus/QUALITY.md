@@ -513,3 +513,33 @@ and `corpus/lessons/round-31.md` "Mistakes".
   "lowercase" or "only" that narrows a quoted fact is either in the quote or
   marked `[INFERENCE]`. Reviewer check: for each such word in a new entry,
   search the retained text. Source: routed defect 3 (lines 271-276).
+
+## Round-31 wave-2 corrections to the round-31 criteria
+
+Grounded in `.ufo/waves/round-31/a2-w2/CriticQualityCriteria.md` (F2–F5) and
+`CriticSymlinkCases.md`. They narrow or replace the reviewer checks above; the
+criteria themselves stand.
+
+- **Containment probes cover each name shape the claim covers.** The first
+  criterion passed while a dot-named symlinked case was still skipped,
+  because spec P5 used one name shape. Reviewer check, added: for every
+  refusal the docs state without a name restriction, the spec has at least
+  one case per name class the runner filters on (here: plain and dot-named);
+  the pre-repair runner must fail that spec (`verification/a2-fixes/hostile-selftest-fde133a-runner.json`: P5 fails on `.h5b`).
+- **Closure command check, replaced (F2).** Step 1 (both revisions equal) can
+  never fail. Run instead: (a) no path argument names a directory
+  (`git ls-tree <declaration commit> -- <path>` shows a blob for each); (b) a
+  sandbox commit that adds an unrelated file beside the named paths, exit 0
+  expected; (c) a sandbox commit that changes a named file, exit 1 expected.
+  The round-30 directory command fails (a) and (b).
+- **Seat end states, set comparison (F3).** The status set is: returned,
+  returned-after-safety-filter, dead at spawn, refused, cancelled. A partial
+  report is either listed as partial or starts with `PARTIAL:`. Reviewer
+  check: the set of seats with a non-partial report equals the set of
+  returned seats (either returned status), compared by name, not by count.
+  Only dispatched waves need a `seat-status.json`.
+- **Qualifier search within the cited sentence (F4).** Search each word from
+  the list only, always, never, every, all, must, each, lowercase in the
+  sentence that holds the cited quote, not in the whole page; a claim made
+  over a list of keys is checked key by key. A mark `[INFERENCE]` placed on a
+  fact the retained text states is also a defect (round-31 line 22, PORT).

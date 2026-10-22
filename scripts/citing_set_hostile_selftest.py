@@ -41,10 +41,12 @@ repository, so a Git command that discovers an enclosing repository would
 write to it.
 
 For each spec the runner is run once over a scratch fixture directory holding
-the benign case ``00-benign`` and the hostile cases.  The spec passes when the
-runner exits 1 within 90 s, ``00-benign`` is not a failure, every hostile case
-is a failure, no canary exists, and the victim repository's HEAD, refs and
-commit count are unchanged.
+the benign case ``00-benign``, a second benign copy ``h0-control`` (named like
+a hostile case, so a runner that refuses cases by name is caught; round-31
+wave 2) and the hostile cases.  The spec passes when the runner exits 1 within
+90 s, neither benign case is a failure, every hostile case is a failure, no
+canary exists, and the victim repository's HEAD, refs and commit count are
+unchanged.
 
 Usage::
 
@@ -70,6 +72,7 @@ from pathlib import Path
 SCHEMA = "kake-citing-set-hostile-v1"
 SPEC_DIR = "scripts/fixtures/citing-set-hostile"
 BENIGN = "scripts/fixtures/citing-set/01-single-literal-clean"
+CONTROL = "h0-control"
 SPEC_MAX_BYTES = 65536
 RUN_TIMEOUT = 90
 CASE_KEYS = {"name", "case_json", "planted_scripts", "dot_git", "expected", "symlink_case"}
@@ -124,9 +127,10 @@ def load_spec(path: Path) -> dict:
                          % (path, sorted(SPEC_KEYS)))
     for case in spec["cases"]:
         if not isinstance(case, dict) or set(case) - CASE_KEYS or not isinstance(case.get("name"), str) \
-                or not case["name"].startswith("h") or "/" in case["name"]:
-            raise ValueError("%s: each case needs a name starting with 'h' and only keys %s"
-                             % (path, sorted(CASE_KEYS)))
+                or not case["name"].lstrip(".").startswith("h") or "/" in case["name"] \
+                or "\0" in case["name"] or case["name"] == CONTROL:
+            raise ValueError("%s: each case needs a name starting with 'h' or '.h' (not %s, no NUL)"
+                             " and only keys %s" % (path, CONTROL, sorted(CASE_KEYS)))
         if case.get("expected") not in EXPECTED_SHAPES:
             raise ValueError("%s: unknown expected shape %r" % (path, case.get("expected")))
     return spec
@@ -171,6 +175,7 @@ def run_spec(name: str, spec: dict, root: Path, runner: Path, tmpdir: Path) -> d
     fixtures = work / "fixtures"
     fixtures.mkdir(parents=True)
     shutil.copytree(root / BENIGN, fixtures / "00-benign", symlinks=True)
+    shutil.copytree(root / BENIGN, fixtures / CONTROL, symlinks=True)
     victim = build_victim(work / "victim")
     before = victim_state(victim)
     canary = work / "canary.txt"
@@ -201,7 +206,8 @@ def run_spec(name: str, spec: dict, root: Path, runner: Path, tmpdir: Path) -> d
     detail["reasons"] = failed
     detail["canary"] = canary.exists()
     detail["victimUnchanged"] = victim_state(victim) == before
-    passed = (detail["exit"] == 1 and "00-benign" not in failed and all(h in failed for h in hostile)
+    passed = (detail["exit"] == 1 and "00-benign" not in failed and CONTROL not in failed
+              and all(h in failed for h in hostile)
               and not detail["canary"] and detail["victimUnchanged"])
     return {"case": name, "passed": passed, "detail": detail}
 

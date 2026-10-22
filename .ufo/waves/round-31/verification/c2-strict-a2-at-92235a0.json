@@ -1,0 +1,64 @@
+{
+ "checker": "kake-r31-c2-strict",
+ "checkerSha256": "5111264f14ad74cdecf9568a7c41942fb009024210a6eb0ac82d533ec11846ad",
+ "revision": "92235a0578b04458c5eb96c966f82fa03593130e",
+ "passed": 5,
+ "total": 5,
+ "checks": {
+  "S1": true,
+  "S2": true,
+  "S3": true,
+  "S4": true,
+  "S5": true
+ },
+ "ids": [
+  {
+   "id": "S057",
+   "S1": true,
+   "S2": true,
+   "S3": true,
+   "S3lines": 13,
+   "quote": "When you update an existing Blueprint, Render ignores any environment variables with sync: false ."
+  },
+  {
+   "id": "S058",
+   "S1": true,
+   "S2": true,
+   "S3": true,
+   "S3lines": 5,
+   "quote": "Your web service must bind to a port on host 0.0.0.0 to receive HTTP requests from the public internet."
+  },
+  {
+   "id": "S059",
+   "S1": true,
+   "S2": true,
+   "S3": true,
+   "S3lines": 6,
+   "quote": "Render copies your service's secret files into the root of your build context."
+  },
+  {
+   "id": "S060",
+   "S1": true,
+   "S2": true,
+   "S3": true,
+   "S3lines": 7,
+   "quote": "If this condition is not met within 15 minutes, Render cancels the deploy and continues routing traffic to your service's existing instances."
+  }
+ ],
+ "renderYamlKeys": {
+  "type": true,
+  "runtime": true,
+  "dockerfilePath": true,
+  "dockerContext": true,
+  "healthCheckPath": true,
+  "envVars": true,
+  "sync": true
+ },
+ "retainedBytes": {
+  "S057": true,
+  "S058": true,
+  "S059": true,
+  "S060": true,
+  "S061": true
+ }
+}

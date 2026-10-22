@@ -869,3 +869,60 @@ and m5 (still surviving at `f1ffb81`, wave-1 `ScoutOpenFamiliesLedger`). New
 this round, not repaired: a setup `fifo` step on `.gitattributes` makes a
 later `git add -A` block until the case timeout (wave-1
 `ConnectSiblingOverlap`), and the gate's own Git calls have no timeout.
+
+## Citing-set runner containment — round 31, wave-2 repairs and narrowings
+
+Round-31 wave 2 (attempt 2, `.ufo/waves/round-31/a2-w2/`) attacked the section
+above. Repairs in `scripts/citing_set_selftest.py`:
+
+- A symlink in the fixture directory is now a failed case even when its name
+  starts with "." (before, a dot-named symlink such as `.h5` was skipped
+  silently: `CriticSymlinkCases`, `CriticC1Wording`). Spec P5 gained the
+  variant `.h5b`; the earlier runner fails it.
+- An `argv` option name must be a prefix of exactly one valued gate option, so
+  the ambiguous `--r` is refused by the runner instead of the gate's exit 64
+  (`CriticArgvAllowlist`, wave-1 `ReviewHostileContract` F1).
+- A `--tmpdir` whose scratch case path contains `os.pathsep` (":") is refused
+  as could-not-evaluate: Git splits `GIT_CEILING_DIRECTORIES` on it with no
+  escape, which switched the ceiling off (`CriticGitPins`).
+- The `expected.json` open error says "symlinks are refused" only for ELOOP
+  (`CriticExpectedRead`).
+
+Narrowings of the section above:
+
+- `--root=/elsewhere` cannot pass: the runner already passes `--root`,
+  `--population` and `--ledger`, and the gate refuses a repeated option (exit
+  64). Only `--revision` takes a value from a case (`CriticArgvAllowlist`,
+  `CriticC1Wording`).
+- The Git pins (`--git-dir`/`--work-tree`, setup and gate
+  `GIT_CEILING_DIRECTORIES`, the `GIT_DIR`/`GIT_WORK_TREE` drop) are not
+  probed: a runner without them still scores the C1 counter 5/5 and passes the
+  hostile selftest (`CriticC1Wording` mutant). The specs cover the five routed
+  shapes only; `--json`, `-h` and a nested `.git` are refused by code, not by a
+  committed spec.
+- "a FIFO cannot block the run" holds for a FIFO at `expected.json` only.
+
+Still open, added to the carried list: a setup `fifo` on `.gitignore` blocks
+`git add` like `.gitattributes` (`CriticOpenItemsCarried`); a Git process the
+gate starts may outlive the gate's timeout, since the runner kills only the
+gate [INFERENCE, not run]; runner mutants m2, m4 and m5 also survive at the
+`c88b97e` runner (`5371530d…`); dot-named real directories, regular files and
+FIFOs at the top of the fixture directory are skipped (harmless, documented
+here).
+
+Correction to "Render web service and Blueprint triage — round 31" (wave-2
+`ReviewSkillTriageTable` F1): the `dockerContext` row's default ("defaults to
+the repository root") comes from S057 (“If omitted, Render uses the repo
+root.”), not S059. The port row's default 10000 is S058's “The default value
+of PORT is 10000 for all Render web services.”
+
+Hostile selftest control (wave-2 `ReviewHostileSelftestCode` F1, F2): each
+spec run now also holds `h0-control`, a benign copy named like a hostile case
+that must not fail, so a runner that refuses cases by name no longer passes
+(`verification/a2-fixes/hostile-selftest-control-name-sham.json`: exit 1;
+the `c88b97e` selftest passed the same sham, exit 0). A spec case name with
+NUL is refused at load. The frozen round-31 C1 counter still trusts the
+runner's reported failure names, so a sham committed as the runner can still
+score it 5/5; read the counter with the hostile selftest and the code review.
+Open: symlinked spec directories are skipped, and the spec directory itself
+may be a symlink (F3, F4).

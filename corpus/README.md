@@ -294,3 +294,8 @@ Render deploy semantics …") is historical for its date.
 Render DNS records for root domains (S061) are added to
 `knowledge/render-static-sites.md` as a round-31 correction. Accessibility
 conformance and crawl or JS-rendered canonical signals stay open.
+
+Round-31 wave-2 narrowing (`ReviewProvinceReadme` F3): the health-check
+routing stop and restart apply after an instance "fails consecutive health
+checks" for 15 and 60 seconds (S060), not at a fixed time; "nothing live
+measured" means no operator-owned property was measured.
