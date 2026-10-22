@@ -1,0 +1,711 @@
+{
+ "cases": [
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:image",
+      "reason": "og_required_missing"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<template><meta property=\"og:image\" content=\"https://ex.org/t.png\"></template>\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R2",
+   "id": "case-01",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 0,
+    "findings": [],
+    "verdict": "clean"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<svg><link rel=\"canonical\" href=\"https://ex.org/svgref/\"/></svg>\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R2",
+   "id": "case-02",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 0,
+    "findings": [],
+    "verdict": "clean"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/z/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"../z/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-03",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/b/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 0,
+    "findings": [],
+    "verdict": "clean"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<meta property=\"og:url\" content=\"\">\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R1",
+   "id": "case-04",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 0,
+    "findings": [],
+    "verdict": "clean"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image:url\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-05",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "page": "https://ex.org/1/",
+      "property": null,
+      "reason": "page_unreadable"
+     },
+     {
+      "page": "https://ex.org/2/",
+      "property": "og:type",
+      "reason": "og_type_multiple"
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "2.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/2/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/2/\">\n</head><body><p>Body text.</p></body></html>\n"
+    },
+    "3.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/3/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/3/\">\n</head><body><p>Body text.</p></body></html>\n"
+    },
+    "d/keep.txt": {
+     "text": "x\n"
+    }
+   },
+   "group": "R3",
+   "id": "case-06",
+   "manifest": {
+    "pages": [
+     {
+      "file": "d",
+      "url": "https://ex.org/1/"
+     },
+     {
+      "file": "2.html",
+      "url": "https://ex.org/2/"
+     },
+     {
+      "file": "3.html",
+      "url": "https://ex.org/3/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "page": "https://ex.org/1/",
+      "property": null,
+      "reason": "page_unreadable"
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "1.html": {
+     "latin1": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/1/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/1/\">\n</head><body><p>Caf\u00e9 text.</p></body></html>\n"
+    },
+    "2.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/2/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/2/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R3",
+   "id": "case-07",
+   "manifest": {
+    "pages": [
+     {
+      "file": "1.html",
+      "url": "https://ex.org/1/"
+     },
+     {
+      "file": "2.html",
+      "url": "https://ex.org/2/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/2/",
+      "property": "og:type",
+      "reason": "og_required_missing"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "1.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/1/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/1/\">\n</head><body><p>Body text.</p></body></html>\n"
+    },
+    "2.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/2/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/2/\">\n</head><body><p>Body text.</p></body></html>\n"
+    },
+    "3.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/3/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/3/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-08",
+   "manifest": {
+    "pages": [
+     {
+      "file": "1.html",
+      "url": "https://ex.org/1/"
+     },
+     {
+      "file": "2.html",
+      "url": "https://ex.org/2/"
+     },
+     {
+      "file": "3.html",
+      "url": "https://ex.org/3/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 0,
+    "findings": [],
+    "verdict": "clean"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-09",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:type",
+      "reason": "og_type_multiple"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-10",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 0,
+    "findings": [],
+    "verdict": "clean"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<template><link rel=\"canonical\" href=\"https://ex.org/elsewhere/\"></template>\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R2",
+   "id": "case-11",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:url",
+      "reason": "og_url_multiple"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<meta property=\"og:url\" content=\"https://ex.org/other/\">\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R1",
+   "id": "case-12",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "page": null,
+      "property": null,
+      "reason": "input_invalid"
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {},
+   "group": "G",
+   "id": "case-13",
+   "manifest": {
+    "pages": {
+     "file": "p.html",
+     "url": "https://ex.org/a/"
+    },
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:url",
+      "reason": "og_url_not_canonical"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<template><link rel=\"canonical\" href=\"https://ex.org/a/\"></template>\n<link rel=\"canonical\" href=\"https://ex.org/real/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R2",
+   "id": "case-14",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "page": "https://ex.org/1/",
+      "property": null,
+      "reason": "page_unreadable"
+     },
+     {
+      "page": "https://ex.org/2/",
+      "property": "og:image",
+      "reason": "og_required_missing"
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "1.html": {
+     "latin1": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/1/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/1/\">\n</head><body><p>Caf\u00e9 text.</p></body></html>\n"
+    },
+    "2.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:url\" content=\"https://ex.org/2/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/2/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R3",
+   "id": "case-15",
+   "manifest": {
+    "pages": [
+     {
+      "file": "1.html",
+      "url": "https://ex.org/1/"
+     },
+     {
+      "file": "2.html",
+      "url": "https://ex.org/2/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:url",
+      "reason": "og_url_not_canonical"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"/b/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-16",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:url",
+      "reason": "og_url_not_absolute"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-17",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:title",
+      "reason": "og_required_missing"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<meta property=\"og:title\" content=\"   \">\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-18",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 0,
+    "findings": [],
+    "verdict": "clean"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<math><meta property=\"og:type\" content=\"article\"></math>\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R2",
+   "id": "case-19",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:title",
+      "reason": "og_required_missing"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<meta name=\"og:title\" content=\"Named\">\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-20",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:image",
+      "reason": "og_required_missing"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-21",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "page": null,
+      "property": null,
+      "reason": "input_invalid"
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "G",
+   "id": "case-22",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "ftp://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:url",
+      "reason": "og_url_multiple"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R1",
+   "id": "case-23",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:url",
+      "reason": "og_url_not_absolute"
+     },
+     {
+      "page": "https://ex.org/a/",
+      "property": "og:url",
+      "reason": "og_url_multiple"
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "text": "<!DOCTYPE html>\n<html><head><meta charset=\"utf-8\">\n<meta property=\"og:title\" content=\"A page\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:image\" content=\"https://ex.org/i.png\">\n<meta property=\"og:url\" content=\"/a/\">\n<meta property=\"og:description\" content=\"About a page\">\n<meta property=\"og:url\" content=\"https://ex.org/a/\">\n<link rel=\"canonical\" href=\"https://ex.org/a/\">\n</head><body><p>Body text.</p></body></html>\n"
+    }
+   },
+   "group": "R1",
+   "id": "case-24",
+   "manifest": {
+    "pages": [
+     {
+      "file": "p.html",
+      "url": "https://ex.org/a/"
+     }
+    ],
+    "version": 1
+   }
+  }
+ ],
+ "kind": "kake-r35-c1-sealed-cases",
+ "salt": "b9a1653f842b6fac863dbd364f006866"
+}

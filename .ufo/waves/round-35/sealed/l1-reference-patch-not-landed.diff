@@ -1,0 +1,64 @@
+diff --git a/scripts/link_preview_audit.py b/scripts/link_preview_audit.py
+index 4a61ce6..e893580 100755
+--- a/scripts/link_preview_audit.py
++++ b/scripts/link_preview_audit.py
+@@ -82,8 +82,19 @@ class MetadataParser(HTMLParser):
+         super().__init__(convert_charrefs=True)
+         self.properties: dict[str, list[str]] = {name: [] for name in REQUIRED_PROPERTIES}
+         self.canonical_href: str | None = None
++        self.inert = 0
+ 
+-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
++    def handle_endtag(self, tag: str) -> None:
++        if tag in ("template", "svg", "math") and self.inert:
++            self.inert -= 1
++
++    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]], selfclosing: bool = False) -> None:
++        if tag in ("template", "svg", "math"):
++            if not selfclosing:
++                self.inert += 1
++            return
++        if self.inert:
++            return
+         # The first occurrence of a duplicated attribute wins, as in an HTML
+         # tree builder (round-34 wave 2: dict(attrs) kept the last one).
+         attributes: dict[str, str | None] = {}
+@@ -105,7 +116,7 @@ class MetadataParser(HTMLParser):
+                 self.canonical_href = href.strip(ASCII_WHITESPACE)
+ 
+     def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+-        self.handle_starttag(tag, attrs)
++        self.handle_starttag(tag, attrs, True)
+ 
+ 
+ def absolute_http_url(value: str) -> bool:
+@@ -212,10 +223,7 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
+             continue
+         documents.append((page_url, text))
+ 
+-    if input_findings:
+-        return result("could-not-evaluate", 0, input_findings), EXIT_INPUT
+-
+-    findings: list[dict[str, object]] = []
++    findings: list[dict[str, object]] = list(input_findings)
+     for page_url, text in documents:
+         parser = MetadataParser()
+         parser.feed(text)
+@@ -239,6 +247,8 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
+             })
+ 
+         og_urls = parser.properties["og:url"]
++        if len(og_urls) > 1:
++            findings.append({"id": f"{page_url}:og_url_multiple:og:url", "reason": "og_url_multiple", "page": page_url, "property": "og:url"})
+         if og_urls:
+             og_url = og_urls[0]
+             if not absolute_http_url(og_url):
+@@ -263,6 +273,8 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
+                         "property": "og:url",
+                     })
+ 
++    if input_findings:
++        return result("could-not-evaluate", len(documents), findings), EXIT_INPUT
+     if findings:
+         return result("failed-policy", len(documents), findings), EXIT_POLICY
+     return result("clean", len(documents), []), EXIT_CLEAN
