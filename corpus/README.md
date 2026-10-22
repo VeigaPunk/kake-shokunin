@@ -299,3 +299,13 @@ Round-31 wave-2 narrowing (`ReviewProvinceReadme` F3): the health-check
 routing stop and restart apply after an instance "fails consecutive health
 checks" for 15 and 60 seconds (S060), not at a fixed time; "nothing live
 measured" means no operator-owned property was measured.
+
+## Coverage — round 33 (2026-10-22)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| ds4cc source pin advance | `knowledge/sitemap-orphan-audit.md` "Round-33 ds4cc source pin 7fc6aa2f" and "Round-33 wave-1 additions" (S065, S066) | Upstream `7fc6aa2f`: sitemap 100 locs re-derived from retained bytes, three new pages' canonicals clean under the offline policy, sitemap-to-tree parity, the Pages deploy run and a failing apps-sdk test workflow; older counts marked historical; live serving not observed |
+| Citing-set runner | `SKILL.md` "Citing-set runner — round 33" | Structured refusal codes and `reason_code`; per-run default scratch; routed low items repaired; Git-pin mutants still open |
+
+`freshness-pins.json` `pq2Remote` and `sitemapStatus` are flagged stale, not
+re-pinned (needs the sweep's armed section).

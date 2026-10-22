@@ -145,11 +145,9 @@ def load_spec(path: Path) -> dict:
                              " and only keys %s" % (path, CONTROL, sorted(CASE_KEYS)))
         if case.get("expected") not in EXPECTED_SHAPES:
             raise ValueError("%s: unknown expected shape %r" % (path, case.get("expected")))
-        if "reason_contains" in case and (not isinstance(case["reason_contains"], str)
-                                          or not case["reason_contains"]):
-            raise ValueError("%s: reason_contains must be a non-empty string" % path)
-        if "reason_code" in case and (not isinstance(case["reason_code"], str) or not case["reason_code"]):
-            raise ValueError("%s: reason_code must be a non-empty string" % path)
+        for key in ("reason_contains", "reason_code"):
+            if key in case and (not isinstance(case[key], str) or not case[key].strip()):
+                raise ValueError("%s: %s must be a string with a non-space character" % (path, key))
     return spec
 
 
@@ -247,7 +245,13 @@ def main(argv=None) -> int:
     tmpdir = Path(args.tmpdir).expanduser().resolve()
     out = {"schema": SCHEMA, "passed": False, "runner": str(runner), "cases": [], "error": None}
     spec_dir = root / SPEC_DIR
-    specs = sorted(p for p in spec_dir.iterdir() if p.is_dir() and not p.is_symlink()) if spec_dir.is_dir() else []
+    entries = sorted(spec_dir.iterdir()) if spec_dir.is_dir() else []
+    strays = [p.name for p in entries if p.is_symlink() or not p.is_dir()]
+    specs = [p for p in entries if p.name not in strays]
+    if strays:
+        out["error"] = "hostile spec directory holds non-directory or symlinked entries: %s" % ", ".join(strays)
+        print(json.dumps(out, indent=1))
+        return 2
     if not runner.is_file() or not (root / BENIGN).is_dir() or not specs:
         out["error"] = "runner, benign fixture or hostile specs missing"
         print(json.dumps(out, indent=1))

@@ -565,3 +565,40 @@ criteria themselves stand.
   exits 2 on other wording. A reviewer applying the criterion reads the
   stated time by hand when the check exits 2 or the commit is within minutes
   of midnight UTC.
+
+## Round-33 criteria
+
+- **A hostile spec that pins which layer refused names a structured code, not
+  message text.** When removing one guard leaves the hostile shape refused by
+  a later layer, the spec shows the intended guard refused first through a
+  `reason_code` key that the hostile selftest compares for equality with the
+  runner's reported per-case `code`. `reason_contains` may stay as a secondary
+  assertion, never as the only pin. Reject: a case pinned only by
+  `reason_contains`; a code the runner never emits; a key the loader tolerates
+  and the comparison ignores. Grounding: round-32 routed item 2
+  (`corpus/lessons/round-32-verifier-spotcheck.md`, "Routed defects" 2); at
+  `bc6c4a8` a reworded load-time message fails P6 on a correct runner. Check:
+  `python3 -B .ufo/waves/round-33/criteria/refusal_code_check.py --root . --rev <commit>`
+  (exit 1, 1 of 5 at `bc6c4a8`; exit 0, 5 of 5 at `e490381`; receipts
+  `.ufo/waves/round-33/verification/criterion-refusal-code-at-*.txt`). Limit:
+  structural over committed bytes; behaviour is the round's C1 probe and its
+  strict supplement (`.ufo/waves/round-33/c1_code_probe.py`,
+  `c1_strict_supplement.py`). This supersedes the `reason_contains` mechanism
+  and the `c1_m3_probe.py` reviewer check in the round-32 bullet above; that
+  probe does not gate a kill on `guard_ok` and raises on a timeout (round-32
+  routed item 3), so it is not reused.
+- **A repair counter pins the identity it claims, and a hollow control scores
+  below its after-value.** A counting command that grades a retention,
+  registration or citation repair names, per condition, the identity it
+  checks (registry row id, retained path, Git mode, citing section). One
+  hollow commit fakes the repair at every condition (same bytes at an
+  unrelated path, a fabricated row id, an unrelated mention of it), and the
+  counter must score it strictly below the declared after-value. Check:
+  `python3 -B .ufo/waves/round-33/criteria/counter_control_check.py --counter <counter> --repo <repo> --before <rev> --after <rev> --hollow <rev>`
+  (exit 1 when the hollow commit reaches the after-value). Round-32 evidence:
+  the frozen round-32 C2 counter scores the landed repair `e9283ec` and the
+  hollow commit `6ffa03e` (retained as
+  `.ufo/waves/round-33/verification/hollow-r32-c2-6ffa03e.bundle`) both 3,
+  exit 1 (`verification/criterion-counter-control-r32-c2.txt`). Limit: one
+  hollow commit tests discrimination for the shapes it fakes, not the truth
+  of the retained bytes.

@@ -926,3 +926,47 @@ runner's reported failure names, so a sham committed as the runner can still
 score it 5/5; read the counter with the hostile selftest and the code review.
 Open: symlinked spec directories are skipped, and the spec directory itself
 may be a symlink (F3, F4).
+
+## Upstream source moved after a pin — round 33
+
+Grounded in one observed case: S062 pins ds4cc-marketplace at `1fbdb8ed`;
+upstream `main` moved one commit to `7fc6aa2f` (S065, S066); the local
+checkout `~/Projects/ds4cc-marketplace` stayed at `1fbdb8ed`. Draft by wave-1
+seat `ScribeSkillPinAdvanceTable` (`.ufo/waves/round-33/w1/`), trimmed by the
+L1. Counts stay dated measurements (r16 rule above).
+
+| Observation | Action | Evidence command (round-33 result) |
+|---|---|---|
+| Local checkout behind the remote | Read the checkout as a witness of its own commit only; get new bytes from a sandbox clone; never fetch into the operator's checkout | `git ls-remote <url> HEAD` vs `git -C <checkout> rev-parse HEAD` (`7fc6aa2f` vs `1fbdb8ed`) |
+| Remote moved, but every path a row reads is blob-identical | Keep the old row and its statements at their commit scope; record a HOLD note; no correction | `git rev-parse <old>:<path> <new>:<path>` per path (four S062 paths identical; `w1/ScoutRenderFilesStillCurrent.md`) |
+| Remote moved and a read path changed | Re-open that path at the new commit with a located quote; append a correction only where a sentence is wrong at its stated scope | `git diff --stat <old> <new> -- <paths>` (empty this round) |
+| Sitemap population changed | Re-derive the count from retained bytes at the new commit, state it with the commit beside it, mark older counts historical | XML-parse `<loc>` of the retained sitemap (97 → 100; `c2_pin_count.py` c4) |
+| New pages under an audited path | Run the offline canonical and base-path audits on the retained pages; `clean` is a static result, not a deploy or index claim | `scripts/canonical_audit.py --manifest <m>` (3 × clean); `scripts/base_path_audit.py` base `/` (clean; `w1/ExecNewPagesRefIntegrity.md`) |
+| Whether the new commit was published | Read the forge's own run record for that commit; it says the workflow ran, not what the host serves now | `gh api repos/<o>/<r>/actions/runs?head_sha=<sha>` (Pages deploy success, run 39644779773; S066) |
+| A live predicate in `freshness-pins.json` names the old state | Flag it; re-pin only in a round that runs the sweep's armed section | `pq2Remote` `e6bd0718`, `sitemapStatus` 404 flagged, not re-pinned this round |
+
+## Citing-set runner — round 33
+
+- The runner reports `code` next to `reason` for setup refusals
+  (`setup_commit_before_init`, `setup_commit_without_repo`, `setup_failed`;
+  other refusals `null`). A hostile spec pins the refusing layer with
+  `reason_code` (P6). Probe: `.ufo/waves/round-33/c1_code_probe.py --rev <rev>`
+  (four variants; a kill counts only with `guard_ok`); strict supplement
+  `.ufo/waves/round-33/c1_strict_supplement.py --rev <rev>`.
+- Without `--tmpdir` the runner now uses a private directory under
+  `/fast/scratch/hyaku/kake-r27` and removes it, so concurrent
+  `citing_set.py --selftest` runs no longer collide (four concurrent runs:
+  0 of 4 failed after; 3 of 4 failed at base `5777d5a`; round 32 saw 4 of 4;
+  `.ufo/waves/round-33/verification/concurrency-*.txt`). The selftest scratch still lives below that root.
+- `read_expected` OSErrors and stray non-directory fixture-root entries are
+  reported, not raised or skipped. The hostile selftest refuses
+  non-directory or symlinked entries in its spec directory (exit 2) and
+  whitespace-only `reason_contains`/`reason_code` values, which closes the
+  round-31 "symlinked spec directories are skipped" note above for entries
+  inside the spec directory; a symlinked spec directory itself is still not
+  refused.
+- Open: Git-pin mutants m3d, m3f and m3g (round-33 lesson); the runner's
+  option allowlist still duplicates the gate's option names (a patch deriving
+  it from the gate parser was rejected: it imports `citing_set` from the
+  runner's own directory, which breaks runner copies the probes run from a
+  temporary path).

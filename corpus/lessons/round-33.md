@@ -34,3 +34,45 @@ both counters; the declaration states no clock time of its own). Base
 Row changes logged old→new: S065 new (`—` → `mined`, opened `2026-10-22`,
 recheck `90d`, used-by `corpus/knowledge/sitemap-orphan-audit.md`). No other
 row's status, recheck or used-by cell changed. S066 new (`—` → `mined`, opened `2026-10-22`, recheck `90d`, used-by `corpus/knowledge/sitemap-orphan-audit.md`).
+
+## Mistakes
+
+| Class | Evidence | Captured-by | Fix |
+|---|---|---|---|
+| a repair counter accepts a faked repair at its declared after-value | The round-32 C2 counter `.ufo/waves/round-32/c2_retained_count.py` (frozen at `5b32cc7`) scores 3 both on the landed repair `e9283ec` and on hollow commit `6ffa03e` (the two ds4cc blobs at `scripts/fixtures/unrelated/{a,b}.txt`, a fabricated row `S099` inside `## Registry`, one unrelated mention of it); before `a0b0dff` scores 0. Built by wave-1 seat `ScribeMistakeMine`; the hollow commit is retained as `.ufo/waves/round-33/verification/hollow-r32-c2-6ffa03e.bundle`. The round-32 closure had to re-measure C2 by hand. | none: round-32 wave-1 seats saw the looseness (`.ufo/waves/round-32/w1/CriticC2Scope.md`, `MutC2Conditions.md`), but no rule required a counter to score a hollow control below its after-value before its `met` was read as evidence. | `corpus/QUALITY.md` "Round-33 criteria", second bullet, with `.ufo/waves/round-33/criteria/counter_control_check.py`. Shown able to fail: exit 1 on the round-32 counter with the bundled hollow commit (`verification/criterion-counter-control-r32-c2.txt`). |
+
+The same criterion applied to this round's C2 counter: its hollow shape
+(bytes at an unrelated path) drops c1 and therefore c4, so it scores at most
+2 of 4. A different hollow shape still scores 4 (wave-1
+`MutC2HollowCommit.md`: a junk S065 row with the right id, status, date,
+used-by and hash, plus copied metrics; also a misplaced section and an
+even-backslash pipe). The round-33 counter checks provenance shape and the
+truth of the stated numbers against retained bytes, not that the row's
+prose came from source study; the landed row was checked by hand and by an
+independent draft that matched it cell for cell (`w1/ScribeS065RowDraft.md`).
+
+## Round-32 routed defects — disposition
+
+| # | Item | Disposition |
+|---|---|---|
+| 1 | Git-pin mutants m3d, m3f, m3g survive | Not killed. Wave-1 `ExecPinMutantsP7`: with the committed setup vocabulary, m3d and m3f leave the victim unchanged (a valid `git_init`/`git_commit` binds the copied case's own repository), so they are equivalent for every observable the harness checks; m3g changes the gate's finding for a case but both runs exit 2 and the harness reports only a generic mismatch. Killing m3g would need the harness to expose gate findings or codes per case; carried open. |
+| 2 | Refusal keyed on message text | Fixed: C1 (runner `code`, `reason_code`, P6); strict supplement; QUALITY criterion 1. |
+| 3 | Probe kill not gated, timeout raises | Fixed in the new probe `c1_code_probe.py`; the round-32 probe is not reused (QUALITY criterion 1). Wave-1 `ReviewC1ProbeCode.md` lists six low residuals (no git timeout, missing-script crash exit 1, harness-error P6 read as refusal — the strict supplement's s4 code check covers that case). |
+| 4 | Round-32 C2 counter defects | Not reused; replaced by `c2_pin_count.py` (row-id, path, mode and section pins; `w1/ReviewC2CounterCode.md`: five of seven fixed, fence-blind section split still present; new low defects N1–N5); mistake row above. |
+| 5 | PROVINCE "five hostile shapes" | Corrected by append (`PROVINCE.md` "Round-33 frontier step"). |
+| 6 | Concurrent selftest collision | Fixed: per-run private default scratch; 0 of 4 concurrent runs failed after, 3 of 4 at base. |
+| 7 | Round-31 item-3 low items | `read_expected` OSError and stray fixture-root entries fixed; duplicated option tables not fixed (the proposed patch imports the gate from the runner's directory and breaks runner copies run from a temporary path). |
+
+## Carried open
+
+- Round-31 `CriticQualityCriteria` F1–F3: still open at `bc6c4a8`; proposed
+  checks in `.ufo/waves/round-33/w1/ScoutQualityCriteriaCanFail.md`, not
+  landed this round.
+- `ReviewMistakeSweep.md` candidates 1, 2, 5–7 (counter attribution,
+  receipts captured on a census-failing tree, receipt/commit order,
+  stale docstrings, S062 header omissions); 3 and 4 were repaired this
+  round in the hostile selftest.
+- `freshness-pins.json` `pq2Remote` and `sitemapStatus` stale (needs an
+  armed sweep run).
+- Round-31 `ReviewProvinceReadme` F1/F2: resolved by the round-31 narrowing
+  paragraph (`w1/ScoutProvinceLiveFetchWording.md`); no change needed.

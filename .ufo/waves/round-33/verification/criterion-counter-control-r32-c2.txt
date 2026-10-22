@@ -1,0 +1,7 @@
+before a0b0dff -> met=0 exit=0
+after  e9283ec -> met=3 exit=0
+hollow hollow -> met=3 exit=0
+after=3 before=0 hollow=3
+FAIL: hollow commit scores the declared after-value 3 (hollow=3, before=0) - the counter does not pin row id, path, mode or cited section
+hollow detail: {"c1BlobPaths": {"render.yaml": ["scripts/fixtures/unrelated/a.txt"], "apps-sdk/Dockerfile": ["scripts/fixtures/unrelated/b.txt"]}, "c2RowIds": ["S099"], "c3Cites": {"S099": 1}}
+exit=1

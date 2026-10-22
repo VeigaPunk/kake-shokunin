@@ -129,3 +129,19 @@ were the public Render Docs pages S057–S061 (one GET each, 15:41:23–29Z). Th
 refusals live in the runner `scripts/citing_set_selftest.py`;
 `scripts/citing_set_hostile_selftest.py` is the committed check of them. S061
 also corrected `render-static-sites.md` (its "Round-31 corrections").
+
+## Round-33 frontier step
+
+Correction (round-32 routed item 5): line 122 above says "five hostile
+fixture shapes"; the committed hostile-spec set has six since round 32
+(P1–P6 under `scripts/fixtures/citing-set-hostile/`). Round 33 keyed P6 on the
+runner's structured refusal `code` (`reason_code`) instead of message text.
+
+The ds4cc-marketplace source the corpus reads moved upstream from `1fbdb8ed`
+to `7fc6aa2f` (one commit, three `/magga/frostbite/` pages, sitemap 97 → 100
+locs). The corpus now records that commit's sitemap, page canonicals and the
+forge's deploy-run record (S065, S066;
+`corpus/knowledge/sitemap-orphan-audit.md` round-33 sections). Source-side
+and forge-record only: no operator-owned property was fetched and nothing
+was deployed. The round's only network reads were the public GitHub
+repository clone and two GitHub API run listings.
