@@ -1,0 +1,523 @@
+{
+ "schema": "kake-link-preview-matrix-v1",
+ "round": 34,
+ "tool": "scripts/link_preview_audit.py",
+ "invocation": "python3 -B scripts/link_preview_audit.py --manifest <dir>/manifest.json   (cases with argv run that argv instead; cwd is the case directory)",
+ "interface": [
+  "stdout: one JSON object {verdict, pagesChecked, findings:[{id, reason, page, property}]} for exits 0, 1 and 2; exit 64 needs no JSON",
+  "exit 0 verdict clean (no findings); exit 1 verdict failed-policy (policy findings only); exit 2 verdict could-not-evaluate (any input finding; then only input findings are reported, reasons input_invalid or page_unreadable); exit 64 usage (missing --manifest, unknown argument)",
+  "manifest v1: {version:1, pages:[{file: relative path inside the manifest directory, url: absolute http(s) page URL}]} with non-empty pages; a file path that resolves outside the manifest directory is input_invalid; a listed file that cannot be read as UTF-8 is page_unreadable",
+  "an Open Graph property is a <meta> element whose property attribute equals the name exactly (og:title, og:type, og:image, og:url) and whose content attribute is non-empty after stripping ASCII whitespace; name= attributes do not count",
+  "policy findings: og_required_missing (property = the missing one of og:title, og:type, og:image, og:url; S067), og_type_multiple (more than one og:type element; S068), og_url_not_absolute (og:url value is not an absolute http or https URL with a host), og_url_not_canonical (og:url absolute, a <link rel=canonical href> exists, and og:url differs from that href resolved against the page URL; first canonical link wins; exact string comparison after stripping ASCII whitespace; S067, S068)",
+  "findings are compared on the keys the expected findings carry (reason and property for policy findings; reason for input findings), as a sorted multiset"
+ ],
+ "comparison": "per case: exit equal; for exit 0/1/2 the verdict equal and the projected findings equal as sorted multisets; exit 64 compares exit only",
+ "cases": [
+  {
+   "id": "K1-full-four-canonical-equal",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": []
+   },
+   "note": "S067 four required properties; og:url equals canonical (S067, S068)"
+  },
+  {
+   "id": "K2-og-image-array",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"><meta property=\"og:image\" content=\"https://ex.example/j.png\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": []
+   },
+   "note": "S067 arrays: repeated og:image is allowed"
+  },
+  {
+   "id": "K3-relative-canonical-resolves-equal",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": []
+   },
+   "note": "canonical href resolved against the manifest page URL"
+  },
+  {
+   "id": "K4-no-canonical-link",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": []
+   },
+   "note": "no rel=canonical: no canonical comparison"
+  },
+  {
+   "id": "K5-two-pages-clean",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}, {\"file\": \"b/index.html\", \"url\": \"https://ex.example/b/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n",
+    "b/index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/b/\"><meta property=\"og:title\" content=\"B\"><meta property=\"og:type\" content=\"article\"><meta property=\"og:image\" content=\"https://ex.example/b.png\"><meta property=\"og:url\" content=\"https://ex.example/b/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": []
+   },
+   "note": ""
+  },
+  {
+   "id": "K6-whitespace-around-values",
+   "kind": "control",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\" A \"><meta property=\"og:type\" content=\" website \"><meta property=\"og:image\" content=\" https://ex.example/i.png \"><meta property=\"og:url\" content=\" https://ex.example/a/ \"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": []
+   },
+   "note": "ASCII whitespace around content values is stripped"
+  },
+  {
+   "id": "D1-missing-og-title",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:title"
+     }
+    ]
+   },
+   "note": "S067 four required properties"
+  },
+  {
+   "id": "D2-missing-og-type",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:type"
+     }
+    ]
+   },
+   "note": "S067 four required properties"
+  },
+  {
+   "id": "D3-missing-og-image",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:image"
+     }
+    ]
+   },
+   "note": "S067 four required properties"
+  },
+  {
+   "id": "D4-missing-og-url",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:url"
+     }
+    ]
+   },
+   "note": "S067 four required properties"
+  },
+  {
+   "id": "D5-no-og-at-all",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:title"
+     },
+     {
+      "reason": "og_required_missing",
+      "property": "og:type"
+     },
+     {
+      "reason": "og_required_missing",
+      "property": "og:image"
+     },
+     {
+      "reason": "og_required_missing",
+      "property": "og:url"
+     }
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "D6-empty-og-title",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"   \"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:title"
+     }
+    ]
+   },
+   "note": "empty after stripping counts as missing"
+  },
+  {
+   "id": "D7-name-attribute-not-property",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:url\" content=\"https://ex.example/a/\"><meta name=\"og:image\" content=\"https://ex.example/i.png\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:image"
+     }
+    ]
+   },
+   "note": "only the property attribute names an Open Graph property (S067 markup)"
+  },
+  {
+   "id": "D8-og-url-differs-from-canonical",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/other/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_url_not_canonical",
+      "property": "og:url"
+     }
+    ]
+   },
+   "note": "S067/S068: og:url is the canonical URL"
+  },
+  {
+   "id": "D9-og-url-relative",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_url_not_absolute",
+      "property": "og:url"
+     }
+    ]
+   },
+   "note": "og:url must be an absolute http(s) URL; no canonical comparison then"
+  },
+  {
+   "id": "D10-og-type-twice",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"><meta property=\"og:type\" content=\"article\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_type_multiple",
+      "property": "og:type"
+     }
+    ]
+   },
+   "note": "S068: multiple og:type values are not possible"
+  },
+  {
+   "id": "D11-second-page-missing-image",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}, {\"file\": \"b/index.html\", \"url\": \"https://ex.example/b/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n",
+    "b/index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/b/\"><meta property=\"og:title\" content=\"B\"><meta property=\"og:type\" content=\"article\"><meta property=\"og:url\" content=\"https://ex.example/b/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:image"
+     }
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "D12-og-url-scheme-differs",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"http://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_url_not_canonical",
+      "property": "og:url"
+     }
+    ]
+   },
+   "note": "exact comparison: http vs https differ"
+  },
+  {
+   "id": "D13-og-type-without-content",
+   "kind": "defect",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"><meta property=\"og:type\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 1,
+    "verdict": "failed-policy",
+    "findings": [
+     {
+      "reason": "og_required_missing",
+      "property": "og:type"
+     }
+    ]
+   },
+   "note": "a meta element without content carries no value"
+  },
+  {
+   "id": "I1-manifest-not-json",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{not json",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid"
+     }
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "I2-manifest-version-2",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 2, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid"
+     }
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "I3-pages-empty",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": []}"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid"
+     }
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "I4-page-file-missing",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}, {\"file\": \"gone.html\", \"url\": \"https://ex.example/gone/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "page_unreadable"
+     }
+    ]
+   },
+   "note": "input findings only; policy findings are not reported with them"
+  },
+  {
+   "id": "I5-page-url-not-http",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"ftp://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid"
+     }
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "I6-page-file-escapes-manifest-dir",
+   "kind": "input",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"../index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid"
+     }
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "I7-manifest-file-absent",
+   "kind": "input",
+   "files": {
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "findings": [
+     {
+      "reason": "input_invalid"
+     }
+    ]
+   },
+   "note": "argv names a manifest that does not exist",
+   "argv": [
+    "--manifest",
+    "manifest.json"
+   ]
+  },
+  {
+   "id": "U1-no-arguments",
+   "kind": "usage",
+   "files": {
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 64,
+    "verdict": null,
+    "findings": []
+   },
+   "note": "",
+   "argv": []
+  },
+  {
+   "id": "U2-unknown-flag",
+   "kind": "usage",
+   "files": {
+    "manifest.json": "{\"version\": 1, \"pages\": [{\"file\": \"index.html\", \"url\": \"https://ex.example/a/\"}]}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>t</title><link rel=\"canonical\" href=\"https://ex.example/a/\"><meta property=\"og:title\" content=\"A\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:image\" content=\"https://ex.example/i.png\"><meta property=\"og:url\" content=\"https://ex.example/a/\"></head><body><p>x</p></body></html>\n"
+   },
+   "expect": {
+    "exit": 64,
+    "verdict": null,
+    "findings": []
+   },
+   "note": "",
+   "argv": [
+    "--manifest",
+    "manifest.json",
+    "--bogus"
+   ]
+  }
+ ]
+}

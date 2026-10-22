@@ -1188,3 +1188,51 @@ Wave-2 corrections (appended):
   freshness results unchanged. One behaviour change (stray symlinks exit 2)
   was undisclosed at `e490381` and is reverted for symlinks in the follow-up
   commit.
+
+## Round 34 — declared claims (before implementation lands)
+
+Base (pushed lane tip at round start): `1e54c89515b0b1f7c9d7d10e6232d15e43320713`.
+Both owned axes sit at the 10/10 saturation line; the stagnation nudge applies
+as in rounds 28 to 33. Neither claim touches the citing-set gate. Both work a
+frontier area the lane has never held: link-preview metadata (Open Graph
+protocol tags that social and chat platforms read to build a preview card for
+a shared URL). Sources were opened at 20:57Z this round with
+`.ufo/waves/round-34/fetch_sources.py` (S067 ogp.me, S068 Facebook "A Guide to
+Sharing for Webmasters", S069 Slack "Slackbot" robots page, S070 Mastodon
+PreviewCard entity; S071 and S072 opened and screened for rejection). The
+ds4cc-marketplace HTML at upstream head `7fc6aa2fc12451dd451fed5a9ee7125f3a90e884`
+(102 `.html` paths) is retained as `git archive` bytes plus a `git ls-tree`
+listing under `.ufo/waves/round-34/sources/ds4cc-7fc6aa2f/`. This declaration,
+the matrix and both counters land in one commit; the declaration time is that
+commit's committer time.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 capability: an offline link-preview audit `scripts/link_preview_audit.py` reads a version-1 manifest of local HTML pages and reports, network-free, missing Open Graph required properties (S067), more than one `og:type` (S068), a non-absolute `og:url`, and an `og:url` that differs from the page's canonical link (S067, S068), with the exit/verdict/finding contract in `.ufo/waves/round-34/c1-matrix.json` | operability | 0 of 28 frozen cases pass (tool absent); all four constant gates rejected | 28 of 28 cases pass with all four constant gates rejected; a capability row enters `## Capabilities` | `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision <commit>` (reads `passed`, `constantGatesAllRejected`) |
+| C2 freshness (sourced learning claim): link-preview metadata enters held knowledge as `corpus/knowledge/link-preview-metadata.md`, grounded in S067–S070 (rows in `## Registry`, Gate quotes of 6–25 words that are exact substrings of retained text), and the entry states the Open Graph census of ds4cc at `7fc6aa2f` in one line that equals the counter's own recount of the retained bytes | freshness | `met` 0 of 5 | `met` 5 of 5 | `python3 -B .ufo/waves/round-34/c2_source_census.py --root . --revision <commit>` (reads `met`, `controlBroken`) |
+
+Separability: the C1 counter reads only the tool and its own matrix; the C2
+counter reads only `SOURCES.md`, the entry, the lesson and retained bytes,
+and recounts with its own parser, never the C1 tool. Either verifies with the
+other unlanded.
+
+Pre-declaration screening (disclosed): before this commit the L1
+(1) fetched the six candidate pages and read the phrases the matrix rests on
+("The four required properties for every page are", "og:url The canonical URL
+for your page", "Each URL should be a single object, so multiple og:type
+values are not possible"); (2) ran `git grep -l` over `7fc6aa2f` HTML for
+`og:title`, `og:image`, `twitter:card`, `rel="canonical"` and others, and
+`git grep -h -o` over the `<meta property|name="og:...">` openings (87
+openings each for `og:title`, `og:type`, `og:url`, `og:description`; 1 for `og:image`;
+no `name="og:..."` form); (3) ran both counters at base (C1 0/28 with the
+constants rejected; C2 0/5) and the C2 `recount()` function on the retained
+bytes printing only its status and key names. Neither counter hard-codes a
+census number or a quote.
+
+Disclosed limits: offline only, no live `ds4cc.com` fetch and no platform
+render; the gate does not check image reachability, size or type, X/Twitter
+card tags (S071 rejected), JS-injected tags, or where in the document a tag
+sits (S069's range-limited fetch is knowledge, not a gate check). A census
+number is a count of tags in source bytes, not what any platform displays.
+The C2 counter checks provenance shape and the truth of stated numbers; it
+cannot tell a row's prose came from study (round-33 lesson, carried).
