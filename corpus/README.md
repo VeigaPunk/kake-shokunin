@@ -274,12 +274,12 @@ of 2026-10-21 and now carries the base-path step above.
 
 | Area | Entry | Coverage |
 |---|---|---|
-| Render static sites (r30) | `knowledge/render-static-sites.md` (S049–S052) | Render's own documentation for static sites: every push to the deployed branch rebuilds the site atomically and invalidates the CDN caches; redirect and rewrite rules apply only where no resource exists at the path, first matching rule wins, otherwise 404; custom response headers are set per relative path in the dashboard and match every attached custom domain; custom domains get automatic TLS and an HTTP to HTTPS redirect and keep the onrender.com host unless it is disabled. Knowledge only: no gate, no owned Render static site exists, nothing live was measured. |
+| Render static sites (r30) | `knowledge/render-static-sites.md` (S049–S052) | Render's own documentation for static sites: every push to the deployed branch rebuilds the site, each build is atomic, and a build that succeeds is deployed and the CDN caches are invalidated; redirect and rewrite rules apply only where no resource exists at the path, first matching rule wins, otherwise 404; custom response headers are set per relative path in the dashboard and match every attached custom domain; custom domains get automatic TLS and an HTTP to HTTPS redirect and keep the onrender.com host unless it is disabled. Knowledge only: no gate, nothing live was measured, and no owned property recorded in local checkouts or this lane's corpus is a Render static site (a site set up only in the Render dashboard would leave no local trace). |
 
 This takes the static-site part of the "Render deploy semantics" ground from
 the open list to held Frontier knowledge (no gate, so not Core). Render web
-service deploys (the lane's one Render property, `app.ds4cc.com`, is a Docker
-web service; `knowledge/publish-channels.md`) and the Blueprint file
+service deploys (the lane's one recorded Render property is the Docker web service
+`ds4cc-marketplace-app`, recorded for `app.ds4cc.com`; `knowledge/publish-channels.md`) and the Blueprint file
 (`render.yaml` fields such as `staticPublishPath`, `routes`, `headers`,
 `domains`) stay open: wave-1 scouts read those pages but the round retained
 them as leads, not registry rows. The round-29 sentence above ("Still open: …

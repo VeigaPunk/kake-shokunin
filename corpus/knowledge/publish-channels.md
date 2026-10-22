@@ -93,7 +93,8 @@ These dated corrections supersede only current local-state readings of the cited
   file. HOLD: lines 2-7 still declare a Docker web service
   `ds4cc-marketplace-app` (`type: web`, `runtime: docker`,
   `dockerfilePath: ./apps-sdk/Dockerfile`, `healthCheckPath: /health`), with
-  `APP_ORIGIN=https://app.ds4cc.com` and `ALLOWED_ORIGINS=https://chatgpt.com`.
+  `APP_ORIGIN=https://app.ds4cc.com` (lines 9-10) and
+  `ALLOWED_ORIGINS=https://chatgpt.com` (lines 13-14).
   ADDED: the file also sets `ALLOWED_HOSTS=ds4cc-marketplace-app.onrender.com`
   (lines 11-12) and `MAX_UNAUTHENTICATED_SESSIONS`, `MCP_SESSION_IDLE_TIMEOUT_MS`
   and a non-synced `OPENAI_APPS_CHALLENGE` (lines 15-20); the section above

@@ -1,6 +1,6 @@
 source: S049, S050, S051, S052 (corpus/SOURCES.md) — https://render.com/docs/static-sites; https://render.com/docs/redirects-rewrites; https://render.com/docs/static-site-headers; https://render.com/docs/custom-domains
 verified-at: 2026-10-22 (all four opened this round with one public GET each at 2026-10-22T11:49Z, HTTP 200; retained visible text and receipts under .ufo/waves/round-30/sources/, text sha256 S049 3604f8f5…, S050 1c413643…, S051 e98982ce…, S052 6c1616f8…)
-recheck: 90d, or on a Render Docs change — python3 -B .ufo/waves/round-30/c2_quote_truth.py --root . --revision <commit>
+recheck: 90d, or on a Render Docs change — re-open each page once (`.ufo/waves/round-30/fetch_sources.py` logic, in a sandbox) and compare the visible-text sha256 with `.ufo/waves/round-30/sources/receipts.json`; the counter `python3 -B .ufo/waves/round-30/c2_quote_truth.py --root . --revision <commit>` replays the retained text only and cannot see a page change
 scope: Render platform documentation for static sites only. This entry makes no live request to any operator-owned property and asserts nothing about any owned site.
 ground: the four retained Render Docs pages named above; every factual sentence below carries a curly-quoted span that is an exact substring of one retained text, with the source id in parentheses.
 coverage: publish directory and build, redirect and rewrite rule order, custom response headers, custom domains and TLS, and the contrast with GitHub Pages behaviour already held in this corpus.
@@ -28,19 +28,19 @@ S049–S052; the contrast itself is an [INFERENCE] drawn from the two sides.
 - Manual installation is opted into with an environment variable: “If you prefer to install dependencies manually, add a SKIP_INSTALL_DEPS environment variable to your site and set it to true .” (S049), after which the site's own command takes over: “You can then include your own dependency installation as part of your site's build command.” (S049).
 - Builds are per-push and atomic: “We build your site with every push to your deployed branch, and each build is fully atomic.” (S049), and a successful build is published and the CDN cache invalidated at once: “As soon as a build succeeds, we deploy it and immediately invalidate our CDN caches so your users always see the latest working version of your site.” (S049).
 - The site is served from a global CDN: “Render serves your site over a blazing-fast, reliable, and secure global CDN.” (S049), with edge caching described as “We cache your content on network edges around the world, ensuring the fastest possible load times for your users.” (S049).
-- A static site is one of several service kinds, and a server-rendered
-  application belongs to another: “Deploying a dynamic site, such as a Rails app? Create a web service instead of a static site.” (S049).
+- A static site is one of several service kinds, and a dynamic site belongs
+  to another: “Deploying a dynamic site, such as a Rails app? Create a web service instead of a static site.” (S049).
 
 ## Redirect and rewrite rule order
 
-- Rules live in the dashboard, not in the site: “Define redirect and rewrite rules for your site's paths directly from the Render Dashboard—no code required.” (S049), and each rule pairs a source with a destination: “When the path of an incoming request matches a rule's Source , Render automatically redirects or rewrites the request to the corresponding Destination .” (S050).
+- The retained pages set rules in the dashboard, with no code in the site (whether a Blueprint file can also carry them is not settled by S049–S052): “Define redirect and rewrite rules for your site's paths directly from the Render Dashboard—no code required.” (S049), and each rule pairs a source with a destination: “When the path of an incoming request matches a rule's Source , Render automatically redirects or rewrites the request to the corresponding Destination .” (S050).
 - A redirect is a client-visible 301: “Instructs the browser (or any other client) to switch URLs to the rule's destination via a 301 Moved Permanently response code.” (S050); a rewrite is not: “Does not redirect the browser. Instead, your site serves the content from the rule's destination at the original path.” (S050), so “The browser can't detect that content was served from a different path or URL.” (S050).
 - An existing resource outranks any rule, which is the first branch of the
   documented matching process: “Render does not apply redirect or rewrite rules to a path if a resource exists at that path.” (S050), after which “Render simply serves the resource at that path.” (S050).
 - Only then do rules apply, first match wins, and no match is a 404: “Apply the first matching rule (starting from the top of the list)” (S050) and “Return 404 Not Found” (S050).
-- A redirect that lands on another path re-enters the same process: “If this process results in a redirect to another site path, the process repeats with the new path.” (S050).
+- A redirect that lands on another path of the same site re-enters the same process: “If this process results in a redirect to another site path, the process repeats with the new path.” (S050).
 - The domain root cannot carry a rule: “You can't apply redirect/rewrite rules to your domain root.” (S050), and every source path needs at least one component: “Each Source requires at least one URL path component (such as /blog , or even / ).” (S050).
-- Source is a path and destination is a path or an absolute URL: “Source must be a path (not a full URL).” (S050) and “Destination can be either a path or a full, publicly accessible URL.” (S050).
+- Source is a path and destination is a path or a full, publicly accessible URL: “Source must be a path (not a full URL).” (S050) and “Destination can be either a path or a full, publicly accessible URL.” (S050).
 - Wildcards capture in the source and reappear in the destination: “In Source , * matches any string that appears starting at that position in the path.” (S050) and “In Destination , * applies the entire string captured by the wildcard in Source .” (S050).
 
 ## Custom response headers
@@ -67,28 +67,54 @@ S049–S052; the contrast itself is an [INFERENCE] drawn from the two sides.
 
 ## How this differs from GitHub Pages behaviour already held in this corpus
 
+The GitHub Pages side of each contrast is cited to the lane entry that holds
+it; the Render side is quoted from S049–S052. Where the corpus is silent on a
+Pages mechanism, that silence is a fact about this corpus, not about GitHub
+Pages. Wave-2 seat `CriticEntryContrast` corrected four contrasts in this
+section on 2026-10-22.
+
 - Redirects: GitHub Pages in this corpus redirects a slashless directory path
   to its slash form and serves `index.html` there
-  (corpus/knowledge/ghp-subpath-spotcheck.md, entry-local live evidence), while
-  Render's redirects are dashboard rules applied after the resource check and
-  before the 404 — “Apply the first matching rule (starting from the top of the list)” (S050). [INFERENCE] the two are different mechanisms: Pages' redirect is a consequence of its directory serving, Render's is an explicit ordered rule set.
+  (corpus/knowledge/ghp-subpath-spotcheck.md, entry-local live evidence).
+  Render has two kinds of redirect: platform redirects that need no rule —
+  “Render automatically redirects HTTP traffic to HTTPS” (S049), and
+  “If you add a www subdomain (e.g., www.example.org ), Render automatically adds the corresponding root domain and redirects it to the www subdomain.” (S052) —
+  and dashboard rules applied after the resource check and before the 404:
+  “Apply the first matching rule (starting from the top of the list)” (S050).
+  [INFERENCE] the slashless-directory redirect the corpus holds for Pages has
+  no stated Render counterpart in S049–S052.
 - Missing pages: the corpus holds that the Plazir GitHub Pages site serves its
   own root `404.html` bytes for a missing route
-  (corpus/knowledge/ghp-subpath-spotcheck.md, entry-local live evidence), while
-  Render's documented outcome for a path no rule matches is a plain 404:
-  “Return 404 Not Found” (S050). [INFERENCE] a custom 404 document on Render
-  depends on a file in the published output, not on the rule list, because the
-  rule list only distinguishes a match from “Return 404 Not Found” (S050).
+  (corpus/knowledge/ghp-subpath-spotcheck.md, entry-local live evidence). For
+  a path with no resource and no matching rule, S050's matching flow ends:
+  “Return 404 Not Found” (S050). The retained pages say nothing about a custom
+  404 document, and a catch-all rewrite replaces the 404 altogether for a
+  client-side-routed site: “you'll handle all requests from a single path like /index.html” (S050).
 - Rewrites and client-side routing: the corpus holds no GitHub Pages
-  URL-rewrite rule mechanism (its `rewrite` mentions are byte rewrites on the
-  Kimi mirrors), and Render names one: “Does not redirect the browser. Instead, your site serves the content from the rule's destination at the original path.” (S050). [INFERENCE] a single-path client-side-routed site can be served on Render without a Pages-side equivalent held here.
-- Response headers: the corpus holds no author-defined per-path response-header mechanism for GitHub Pages (its header material is server-generated ETag anatomy, corpus/knowledge/ghp-etag-anatomy.md), and Render names one: “You can use wildcards to match arbitrary request paths.” (S051). [INFERENCE] the header rules are a Render-only capability among the two platforms the lane holds.
-- Custom domain authority: the corpus holds the domain as GitHub Pages configuration rather than a repository file under workflow publishing — an Actions-published site ignores a repository `CNAME` file (corpus/knowledge/ghp-custom-domain.md, S005, S003, S007) — while the retained Render page describes adding the domain in the dashboard: “Add your domain in the Render Dashboard .” (S052). The four retained pages describe only that dashboard path. A wave-1 scout reports that Render's Blueprint specification (`render.yaml`, not retained this round and not a registry row) also carries a `domains` field, so whether a repository file names the domain depends on whether the site is Blueprint-managed; that question stays open here.
-- Base path: the corpus holds that a GitHub Pages project site is served under a
-  repository-name subpath and needs a build-time base
-  (corpus/knowledge/pages-base-path.md, S040, S041, S042, S043), while the four
-  retained Render pages name no subpath and say only that adding a root domain
-  adds the www subdomain with a redirect: “If you add a root domain (e.g., example.org ), Render automatically adds the corresponding www subdomain and redirects it to the root domain.” (S052). [INFERENCE] a site whose build sets a Pages project-site base such as `/<REPO>/` emits references under that prefix, so before the same build is published on a Render domain its base should be rechecked; this round retained no Render page that states the published root path, so that check is not settled here.
+  URL-rewrite rule mechanism, and Render names one: “Does not redirect the browser. Instead, your site serves the content from the rule's destination at the original path.” (S050).
+- Response headers: the corpus holds no author-defined per-path
+  response-header mechanism for GitHub Pages (its header material is
+  server-generated ETag anatomy, corpus/knowledge/ghp-etag-anatomy.md), and
+  Render names one: “You can use wildcards to match arbitrary request paths.” (S051).
+  Whether GitHub Pages has such a mechanism is not settled by this corpus.
+- Custom domain authority: the corpus holds the domain as GitHub Pages
+  configuration rather than a repository file under workflow publishing — an
+  Actions-published site ignores a repository `CNAME` file
+  (corpus/knowledge/ghp-custom-domain.md, S005, S003, S007). The retained
+  Render page adds a domain in the dashboard: “Add your domain in the Render Dashboard .” (S052).
+  The same page offers the Render Dashboard, a “Blueprint (render.yaml)” (S052)
+  and the Render API as ways to change the onrender.com subdomain setting, so
+  a repository file can carry at least some domain settings. Whether a
+  Blueprint can also attach the custom domain itself is not settled by the
+  retained pages (a wave-1 scout reports a `domains` field in the Blueprint
+  reference, which this round did not retain).
+- Base path: the corpus holds that a GitHub Pages project site is served under
+  a repository-name subpath and needs a build-time base
+  (corpus/knowledge/pages-base-path.md, S040, S041, S042, S043). The retained
+  Render pages describe a site at its own host: “Each site receives a unique onrender.com URL” (S049),
+  and name no subpath. [INFERENCE] a site whose build sets a Pages project-site
+  base such as `/<REPO>/` emits references under that prefix, so before the
+  same build is published on a Render host its base should be rechecked.
 - TLS: the corpus holds no GitHub Pages certificate issuer or renewal
   statement at all — its custom-domain entry covers the domain as a Pages
   setting, the ignored `CNAME` file and the `cname` / `build_type` API fields

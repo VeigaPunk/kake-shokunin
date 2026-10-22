@@ -230,7 +230,13 @@ def finding_pairs(report):
             )
         else:
             pairs.append((json.dumps(item, sort_keys=True), None))
-    return sorted(pairs)
+    return sorted(pairs, key=pair_order)
+
+
+def pair_order(pair):
+    """Total order for (id, reason) pairs; a missing reason (None) sorts first."""
+    identifier, reason = pair
+    return (identifier, reason is not None, reason or "")
 
 
 def expectation_entries(expected):
@@ -266,7 +272,7 @@ def expectation_entries(expected):
         raise ValueError('expected.json "findings" must be all strings or all objects, not mixed')
     if "ids" in kinds:
         return "ids", sorted(findings)
-    return "pairs", sorted((item["id"], item.get("reason")) for item in findings)
+    return "pairs", sorted(((item["id"], item.get("reason")) for item in findings), key=pair_order)
 
 
 # --------------------------------------------------------------------------
@@ -362,9 +368,12 @@ def prepare_case(case_dir, cases_root, timeout):
     except ValueError as exc:
         return None, exc
     work_dir = cases_root / case_dir.name
-    if work_dir.exists():
-        shutil.rmtree(work_dir)
-    shutil.copytree(case_dir, work_dir)
+    try:
+        if work_dir.exists():
+            shutil.rmtree(work_dir)
+        shutil.copytree(case_dir, work_dir)
+    except (OSError, shutil.Error) as exc:
+        return None, "case copy failed: %s" % exc
     if setup:
         try:
             apply_setup(work_dir, setup["setup"], timeout)
