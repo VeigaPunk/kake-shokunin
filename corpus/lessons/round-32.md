@@ -28,15 +28,18 @@ claims are routed repairs from `corpus/lessons/round-31-verifier-spotcheck.md`
 
 | id | source | opened | located quote (≤25 words) | decision |
 |---|---|---|---|---|
-| S062 | https://github.com/VeigaPunk/ds4cc-marketplace/blob/1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28/render.yaml (read through the local clone `~/Projects/ds4cc-marketplace` with `git cat-file blob d17ab7e5d44b1b3a1876cf1d9b47f369e92f7252` and `… ee0b63819a9ce71e51469796541b9075e9676ae9`) | 2026-10-22 (L1, before 18:55Z) | “type: web name: ds4cc-marketplace-app runtime: docker dockerfilePath: ./apps-sdk/Dockerfile dockerContext: . healthCheckPath: /health” (render.yaml lines 2–7, whitespace collapsed; 13 words) | admit, tier A for its own file content at that commit, status `mined` |
+| S062 | https://github.com/VeigaPunk/ds4cc-marketplace/blob/1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28/render.yaml (read through the local clone `~/Projects/ds4cc-marketplace` with `git cat-file blob d17ab7e5d44b1b3a1876cf1d9b47f369e92f7252` and `… ee0b63819a9ce71e51469796541b9075e9676ae9`) | 2026-10-22 (L1, before 18:55Z) | “type: web name: ds4cc-marketplace-app runtime: docker dockerfilePath: ./apps-sdk/Dockerfile dockerContext: . healthCheckPath: /health” (render.yaml lines 2–7, whitespace collapsed; 12 words, count corrected by wave-1 seat `CriticS062KindTier`); second quote for the row's `sync: false` clause: “- key: OPENAI_APPS_CHALLENGE sync: false” (lines 15–16; 5 words) | admit, tier A for its own file content at that commit, status `mined` |
 
 Row changes logged old→new: S062 new (`—` → `mined`, recheck `90d`, used-by
 `corpus/knowledge/render-web-services.md`). The first S062 recheck cell
 ("on ds4cc-marketplace render.yaml or Dockerfile change", `2f2f12d`) failed
 the census (`E09`); it became `90d` at `285abca` before any seat read it.
+S062 anchor cell old→new (round-32 wave-1 repair after `CriticC2Scope`): adds
+"also retained: apps-sdk/src/server.ts blob 649726df…, .dockerignore blob d650445a…";
+status, recheck and used-by unchanged.
 
 ## Mistakes
 
 | Class | Evidence | Captured-by | Fix |
 |---|---|---|---|
-| unobserved timestamp written as fact | The round-32 declaration (`SCORECARD.md`, commit `5b32cc7`) says "Declared at 18:58Z"; the commit's own time is `2026-10-22T15:54:19-03:00` (18:54:19Z), so 18:58Z was written from an estimate, not read from a clock. | none: no criterion compared a stated declaration time with the declaring commit's time. | `corpus/QUALITY.md` criterion appended this round: a stated declaration time must not be later than `git show -s --format=%cI <declaring commit>`. Shown able to fail: on `5b32cc7` the check `python3 -c` comparing 18:58Z with 18:54:19Z reports a violation (`.ufo/waves/round-32/verification/declared-time-check.txt`). SCORECARD carries an appended correction. |
+| unobserved timestamp written as fact | The round-32 declaration (`SCORECARD.md`, commit `5b32cc7`) says "Declared at 18:58Z"; the commit's own time is `2026-10-22T15:54:19-03:00` (18:54:19Z), so the stated time is 221 s after its own commit (L1 account: the time was estimated, not read; the commit order is the only committed evidence — wave-1 `ScribeMistakeDraft`). | none: no criterion compared a stated declaration time with the declaring commit's time. | `corpus/QUALITY.md` criterion appended this round: a stated declaration time must not be later than `git show -s --format=%cI <declaring commit>`. Shown able to fail: on `5b32cc7` the check `python3 -c` comparing 18:58Z with 18:54:19Z reports a violation (`.ufo/waves/round-32/verification/declared-time-check.txt`). SCORECARD carries an appended correction. |

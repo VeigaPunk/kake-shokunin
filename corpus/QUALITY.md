@@ -559,3 +559,9 @@ criteria themselves stand.
   mutation probe on the guard (`.ufo/waves/round-32/c1_m3_probe.py`); killed
   must be 1 with `guard_ok` true. Limit: this reads the runner's reported
   reason text for that case.
+- Limits of the round-32 time check (wave-1 seat `ScribeMistakeDraft`,
+  sandbox repos): it reads only the wording `Declared at HH:MMZ`, places that
+  time on the commit's UTC date (a stamp across midnight is misjudged), and
+  exits 2 on other wording. A reviewer applying the criterion reads the
+  stated time by hand when the check exits 2 or the commit is within minutes
+  of midnight UTC.

@@ -88,3 +88,22 @@ render.yaml and Dockerfile sentences in the section above against those
 copies (S062) without the external clone; `apps-sdk/src/server.ts` (blob
 `649726df…`) is not retained, so the sentence about the server's allow list
 still needs the external repository.
+
+## Round-32 wave-1 correction (appended; supersedes the last sentence of the section above)
+
+Wave-1 seat `CriticC2Scope` found that more sentences than "the server's allow
+list" rested on unretained files: `apps-sdk/src/server.ts` supports the Port,
+Host-header and listen-host sentences, and `.dockerignore` supports the secret
+file sentences. Both are now retained byte-identical as well (S062):
+`.ufo/waves/round-32/sources/ds4cc-1fbdb8ed/apps-sdk/src/server.ts`
+(`649726dfcd4bead92195992ed23e03dacd2d23ba`) and
+`.ufo/waves/round-32/sources/ds4cc-1fbdb8ed/.dockerignore`
+(`d650445a62b723cb8331eb0159756d3cbfacc502`), so every ds4cc-marketplace
+fact in this entry can be re-checked from lane bytes. Drift check
+2026-10-22T19:00Z (read-only): the local clone's HEAD is `1fbdb8ed` and its
+tree holds the same four blob ids; the remote `main` is `7fc6aa2`, one commit
+ahead, which wave-1 seat `ScoutGithubPin` reports touches only `magga/**` and
+`sitemap.xml` (not re-checked by the L1).
+Re-check step for S062 (no network needed beyond a fetch the operator
+allows): `git -C ~/Projects/ds4cc-marketplace diff --stat 1fbdb8ed <new HEAD> -- render.yaml apps-sdk/Dockerfile apps-sdk/src/server.ts .dockerignore`;
+an empty result means the retained copies still match the repository.
