@@ -80,10 +80,13 @@ is started:
   * a symlink in the fixture directory, dot-named or not (a symlinked case
     is a failed case, never a silent skip).
 
-The hostile specs probe five routed shapes (N1, N2, N3, N5, N6).  The Git
-pins named above (--git-dir/--work-tree, GIT_CEILING_DIRECTORIES for setup and
-gate) are not separately probed: a runner without them still passes the
-hostile selftest and the round-31 C1 counter.  A ``--tmpdir`` whose resolved
+The hostile specs probe five routed shapes (N1, N2, N3, N5, N6) and, since
+round 32, which layer refuses a ``git_commit`` with no earlier ``git_init``
+(P6, mutant m3: the load-time check in ``load_case_setup`` must refuse before
+the apply-time re-check in ``apply_setup`` is reached).  The Git pins named
+above (--git-dir/--work-tree, GIT_CEILING_DIRECTORIES for setup and gate) are
+not separately probed: a runner without them still passes the hostile
+selftest and the round-31 C1 counter.  A ``--tmpdir`` whose resolved
 scratch path contains os.pathsep is refused (could not evaluate), because Git
 cannot escape that separator in GIT_CEILING_DIRECTORIES.
 
