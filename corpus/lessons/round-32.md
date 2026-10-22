@@ -44,6 +44,7 @@ the census (`E09`); it became `90d` at `285abca` before any seat read it.
 S062 anchor cell old→new (round-32 wave-1 repair after `CriticC2Scope`): adds
 "also retained: apps-sdk/src/server.ts blob 649726df…, .dockerignore blob d650445a…";
 status, recheck and used-by unchanged.
+S062 source and scope cells old→new (after wave-1 `ReviewS062Row`): "render.yaml and apps-sdk/Dockerfile" → "render.yaml, apps-sdk/Dockerfile, apps-sdk/src/server.ts and .dockerignore"; "Blueprint file and Dockerfile" → "Blueprint file, Dockerfile, server entry and .dockerignore".
 S063 and S064 new (`—` → `rejected`, recheck `90d`, used-by `—`).
 
 ## Mistakes

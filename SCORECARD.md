@@ -1042,3 +1042,37 @@ Correction (appended, round 32): the declaration above says "Declared at
 was made at 2026-10-22T18:54:19Z, before which the declaration was written
 and no counting command had run. Lesson `corpus/lessons/round-32.md`
 `## Mistakes`.
+
+## Round 32 — measured results (author-side; admission belongs to the non-author closure)
+
+| Claim | Before (rev) | After (rev) | Counting command | Receipts |
+|---|---|---|---|---|
+| C1 m3 killed | killed 0, guard_ok true (`a0b0dff`) | killed 1, guard_ok true; mutant fails P6 only; pristine 6/6; benign 45/0 (`2f2f12d`, `285abca`, `d061f38`, `df31d30`) | `python3 -B .ufo/waves/round-32/c1_m3_probe.py --rev <rev>` | `.ufo/waves/round-32/verification/c1-*.json` |
+| C2 retained and cited | met 0/3 (`a0b0dff`) | met 3/3 (`2f2f12d`, `d061f38`, `df31d30`) | `python3 -B .ufo/waves/round-32/c2_retained_count.py --rev <rev>` | `.ufo/waves/round-32/verification/c2-*.json` |
+
+Counters unchanged since the declaration `5b32cc7` (wave-1 `RerunC1After`,
+`RerunC2After`, `ReviewDeclarationOrder`: sha256 equal, diff empty). Wave-1
+reruns reproduce the before and after receipts field for field
+(`w1/RerunC1Before.md`, `w1/RerunC1After.md`, `w1/RerunC2Before.md`,
+`w1/RerunC2After.md`). Axis ratings unchanged (10 → 10, saturation line).
+
+Wave-1 corrections to the declaration (appended; the declaration text above
+stays as landed):
+- "m3 is otherwise behaviour-equivalent" should read "refusal-equivalent":
+  under m3 the setup steps before `git_commit` run in the scratch copy before
+  the apply-time re-check refuses (`w1/CriticC1Wording.md`). "the spec also
+  keeps the `h0-control` benign control" should read "the harness adds the
+  `h0-control` control to every spec".
+- C1 is a layer check, not new containment: P3 with `reason_contains` would
+  kill m3 equally; P6's commit-before-init order additionally catches an
+  order-insensitive guard mutant that P3 cannot (`w1/CriticP6VsP3.md`). The
+  Git-pin half of routed item 2 (m3d/m3f) stays open.
+- C2's three conditions are one act, and the frozen counter is weak: a hollow
+  commit (blobs at unrelated paths, junk row, junk cite) scores 3
+  (`w1/CriticC2Scope.md`); a wrong opened cell drops c2 and c3 together; the
+  counter pins no path, section or row blob id (`w1/MutC2Conditions.md`). The
+  landed commit is not hollow (`w1/ReviewEntryDockerfileTruth.md`: 6 of 6
+  checkable Dockerfile sentences supported, 0 wrong). Freshness fit is weak:
+  C2 is re-checkability of a pinned snapshot; a drift step was appended to the
+  entry after `CriticC2Scope`, and two more blobs the entry relied on
+  (`server.ts`, `.dockerignore`) are now retained (`4d13e68`).
