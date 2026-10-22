@@ -224,3 +224,12 @@ general sanitization guarantees. Current interpretation, measured receipts
 and explicit failures are under round27 current-interpretation.json,
 counter-version-chain.json, verification/ and unresolved-acceptance.json.
 No new frontier/capability/rank is admitted here; Main owns independent closure.
+
+Round27 independent non-author closure (hyaku): **rejected-honest-stop, admitted false** —
+C1 freshness and C2 operability both stay unprovable; finite16/16 is a bounded component,
+not an admission predicate. No capability, promotion or scalar change is granted.
+Bounded no-harm covers26knowledge prefixes,7older scripts and279r26 wave files;
+original targets, conformance exceptions, r24 policy-stop and18out-of-population pairs
+remain unchanged. Decision, revisions and routed defects:
+`lessons/round-27-verifier-spotcheck.md`. The round closes negatively; its full claims
+remain unproved and its scripts remain unadmitted candidate evidence.

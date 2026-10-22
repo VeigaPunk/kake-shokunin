@@ -1186,3 +1186,17 @@ a new commit without changing keys/verdicts, original oracles or r26 bytes.
 Outside-scope policy debt stays explicit. No r24 stopped work/target was
 retried, no next round/state/admission/promotion was dispatched by this L1.
 Main owns independent closure; the author ends this round honestly stopped.
+
+### Round27 — independent non-author closure (hyaku)
+
+Parent (Main), on three independent advisories, closed round 27 rejected-honest-stop /
+admitted false — C1 freshness and C2 operability both unprovable, other axes unchanged,
+no-harm bounded to measured surfaces, expansion unchanged, no scalar grant. Pins: base
+`83528f7c…` prior closed negative base (r26 was rejected too); declarations `be375d90…`
+pre-implementation targets/oracles; candidate `ac46a74…` measured pin with the bounded
+after-receipts; `cd2e95b…` final C1 measurement revision; head `62aeddf…` final lane head.
+Review was canonical read-only; Parent publication is the new verifier note plus append-only
+LOG/index entries, prior records untouched. The 153/0-dead/0-replacement census comes
+from recorded registries/outcomes; the three Root advisories are separate late seats, not
+pre-wave ids. No candidate gate/counter/fixture re-executed, no cleanup, no r24 retry,
+no dispatch claimed; detail: `corpus/lessons/round-27-verifier-spotcheck.md`.
