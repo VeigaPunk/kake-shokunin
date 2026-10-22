@@ -31,10 +31,12 @@ A range expands to every id between its endpoints, inclusive.
 Population
 ----------
 Only ids present in the population document are part of the citing set.
-Ids are compared numerically when they look like ``S<digits>`` (``S001`` and
-``S0001`` are the same id); every other id is compared as an exact string.
-Ids cited outside the population are counted (``outsidePopulation``) but
-never become findings.
+Ids are compared numerically (``S001`` and ``S0001`` are the same id).  A
+population id that is not ``S`` followed by digits can never be produced
+by the citation grammar, so it is unreachable and the population is
+rejected with ``input_invalid`` (``population_id_unreachable``) instead of
+being measured clean.  Ids cited outside the population are counted
+(``outsidePopulation``) but never become findings.
 
 Findings
 --------
@@ -55,10 +57,16 @@ Findings
     citations.  The evaluation still completes, so this finding yields the
     ``failed`` verdict (exit 1).
 ``input_invalid``
-    One per unusable input: missing or unreadable document, malformed
-    JSON, wrong document shape, unreadable corpus file, symlinked or
-    non-regular corpus entry, path that resolves outside the root.  Any
-    ``input_invalid`` finding forces verdict ``could-not-evaluate``.
+    One per unusable input: missing, unreadable or non-regular document
+    (a FIFO or device is refused without blocking), malformed or too
+    deeply nested JSON, wrong document shape, unreachable population id,
+    unreadable corpus file, symlinked or non-regular corpus entry, path
+    that resolves outside the root, a ``corpus/knowledge`` surface that is
+    absent, empty or not a directory, a blank or unknown ``--revision``,
+    and a ``--revision`` root that is not the top level of its Git
+    repository.  Any ``input_invalid`` finding forces verdict
+    ``could-not-evaluate`` (exit 2), so an absent or unreachable corpus
+    surface never measures ``clean``.
 
 Exit codes
 ----------
@@ -206,20 +214,35 @@ class WorkingTreeSource:
         target = os.path.join(str(self.root), relative)
         if not is_inside(self.root, target):
             raise InputInvalid("path_escapes_root", relative, "document")
+        # Open without blocking and check the opened object: a FIFO or a
+        # device must be refused as unusable input, never waited on.
+        flags = os.O_RDONLY | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_CLOEXEC", 0)
         try:
-            with open(target, "rb") as handle:
+            descriptor = os.open(target, flags)
+        except OSError as exc:
+            raise InputInvalid(
+                "document_unreadable", relative, "document", detail=exc.strerror or type(exc).__name__
+            )
+        try:
+            if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+                raise InputInvalid("document_not_regular_file", relative, "document")
+            with os.fdopen(descriptor, "rb") as handle:
+                descriptor = None
                 return handle.read()
         except OSError as exc:
             raise InputInvalid(
                 "document_unreadable", relative, "document", detail=exc.strerror or type(exc).__name__
             )
+        finally:
+            if descriptor is not None:
+                os.close(descriptor)
 
     def corpus_files(self):
         base = os.path.join(str(self.root), CORPUS_DIR)
         try:
             info = os.lstat(base)
         except FileNotFoundError:
-            return []
+            raise InputInvalid("corpus_directory_missing", CORPUS_DIR, "corpus")
         except OSError as exc:
             raise InputInvalid(
                 "corpus_directory_unreadable",
@@ -233,6 +256,8 @@ class WorkingTreeSource:
             raise InputInvalid("not_a_directory", CORPUS_DIR, "corpus")
         found = []
         self._walk(base, found)
+        if not found:
+            raise InputInvalid("corpus_empty", CORPUS_DIR, "corpus")
         return sorted(found)
 
     def _walk(self, directory, found):
@@ -267,6 +292,22 @@ class GitSource:
     def __init__(self, root, revision):
         self.root = root
         self.revision = self._resolve(root, revision)
+        self._require_top_level(root)
+
+    @staticmethod
+    def _require_top_level(root):
+        """Refuse a root nested inside a repository: Git paths are top-relative."""
+        try:
+            done = subprocess.run(
+                ["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+        except OSError as exc:
+            raise InputInvalid("git_unavailable", None, "revision", detail=type(exc).__name__)
+        top = os.fsdecode(done.stdout).strip()
+        if done.returncode != 0 or not top or os.path.realpath(top) != os.path.realpath(str(root)):
+            raise InputInvalid("root_not_repository_top_level", str(root), "root")
 
     @staticmethod
     def _resolve(root, revision):
@@ -313,11 +354,15 @@ class GitSource:
             if not separator or len(fields) < 2:
                 raise InputInvalid("not_a_regular_file", path or None, "corpus")
             mode, kind = fields[0], fields[1]
+            if path == CORPUS_DIR:
+                raise InputInvalid("not_a_directory", CORPUS_DIR, "corpus")
             if mode == "120000":
                 raise InputInvalid("symlink_rejected", path or None, "corpus")
             if kind != "blob" or mode == "160000":
                 raise InputInvalid("not_a_regular_file", path or None, "corpus")
             files.append(path)
+        if not files:
+            raise InputInvalid("corpus_directory_missing", CORPUS_DIR, "corpus")
         return sorted(files)
 
 
@@ -353,8 +398,8 @@ def load_json_document(raw, relative, scope):
         raise InputInvalid("document_not_utf8", relative, scope)
     try:
         document = json.loads(text)
-    except ValueError as exc:
-        raise InputInvalid("document_not_json", relative, scope, detail=str(exc)[:120])
+    except (ValueError, RecursionError) as exc:
+        raise InputInvalid("document_not_json", relative, scope, detail=(str(exc) or type(exc).__name__)[:120])
     if not isinstance(document, dict):
         raise InputInvalid("document_shape_invalid", relative, scope)
     return document
@@ -373,6 +418,8 @@ def load_population(document, relative):
         if not isinstance(identifier, str) or not identifier.strip():
             raise InputInvalid("document_shape_invalid", relative, "population")
         key = id_key(identifier)
+        if key[0] != "n":
+            raise InputInvalid("population_id_unreachable", relative, "population", row=identifier)
         mapping.setdefault(key, []).append(identifier)
         if key not in display:
             display[key] = identifier
@@ -647,7 +694,7 @@ def main(argv=None):
             raise InputInvalid("root_not_a_directory", arguments.root, "root")
         population_relative = normalize_relative(arguments.population, "--population")
         ledger_relative = normalize_relative(arguments.ledger, "--ledger")
-        if arguments.revision:
+        if arguments.revision is not None:
             source = GitSource(root, arguments.revision)
         else:
             source = WorkingTreeSource(root)
