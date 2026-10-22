@@ -1030,3 +1030,25 @@ now counts `og:image:url` as `og:image` and keeps the first of duplicated
 attributes; for `bloat.html` and `exa.html`, fix the canonical-versus-sitemap
 split before adding `og:url` (`corpus/knowledge/link-preview-metadata.md`,
 wave-2 corrections).
+
+
+### Link-preview audit gate registry — round 35
+
+Offline static Open Graph link-preview policy over a version-1 JSON manifest of local HTML
+pages: `scripts/link_preview_audit.py`. The round-35 contract (SCORECARD "Round 35 — declared
+claims", C1 contract bullets a–c) landed at `b1cbbc39`. This row closes round-34 closure routed
+defect 3. `.ufo/waves/round-35/criteria/registry_row_check.py` flags the missing row at
+`318561ef` and passes once it exists.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| link-preview-audit | gate (offline static Open Graph link-preview policy; no network) | `python3 -B scripts/link_preview_audit.py --manifest <dir>/manifest.json` | `0=clean`; `1=failed-policy` (`og_required_missing`, `og_type_multiple`, `og_url_not_absolute`, `og_url_not_canonical`, and `og_url_multiple` from round 35); `2=could-not-evaluate` (`input_invalid` manifest-level, `page_unreadable` per page); `64=could-not-evaluate` usage (message on stderr, no JSON on stdout) | `python3 -B scripts/link_preview_selftest.py` (`--tool`, `--fixtures`) over `scripts/fixtures/link-preview/` (45 fixture directories at `b1cbbc39`, `MIN_FIXTURES` 20), comparing each case's exit, verdict and finding (reason, property) tuples; exit `0` all pass, `1` a case fails, `2` could-not-evaluate (tool or fixture root absent, fewer than 20 fixtures) | frozen round-34 matrix `.ufo/waves/round-34/c1-matrix.json` sha256 `246a6a3ba67a842c408f56b0240d2ad36969330c5a414b715f04b7e56fac14f7`, counted by `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision <commit>`; receipt `.ufo/waves/round-34/verification/c1-at-76fac3b.json` (28/28, four constant gates rejected); selftest receipt `.ufo/waves/round-34/verification/selftest-link-preview-at-76fac3b.txt`; round-35 sealed cases `python3 -B .ufo/waves/round-35/sealed_count.py c1 --root . --revision <commit> --key-revision <reveal commit>` (target `passed` ≥ 22 of 24; reveal commit `4c6be2bd`; at `b1cbbc39` 24 of 24, receipt `.ufo/waves/round-35/verification/c1-at-b1cbbc39.json`), pre-build control receipts `.ufo/waves/round-35/verification/control-c1-*.json` | none: reads the manifest and the pages it names, never opens a network connection, never writes to disk, and `PYTHONDONTWRITEBYTECODE=1` in the self-test runner's tool environment | kake |
+
+Correction to the "Exit 2, `could-not-evaluate`" row above (appended in round 35; that row
+stays as landed). From `b1cbbc39` on, exit 2 with `page_unreadable` no longer means input
+findings only. The readable pages are still audited, and their policy findings are listed beside
+the input findings. `pagesChecked` counts the readable pages. A manifest-level `input_invalid`
+still reports that finding alone and audits nothing. Two more round-35 rules: `og_url_multiple`
+(exit 1) when a page has more than one non-empty `og:url`, and metadata inside an open
+`<template>`, `<svg>` or `<math>` element is ignored. The round-34 fixture
+`input_policy_suppressed_on_input` keeps its name but now expects the readable page's findings.
