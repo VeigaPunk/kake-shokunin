@@ -725,3 +725,45 @@ is a substring of the retained visible text whose sha256 matches
 sourcing, not that each entry sentence follows from its quote; the closure
 should read the entry body. A miss on either declared value is an honest
 stop.
+
+Declaration notes (added before any after-measurement, from wave-1 seats
+`CriticC1Counter`, `ReviewC1Before`, `CriticFamilyOutcomes`, `CriticC2Sizing`
+and `CriticLearningClaim`; the declared targets and both declared counters are
+unchanged):
+
+- C1 strict supplement. Wave-1 critics built stub gates and runners that
+  reach 14/14 on the declared counter without the declared property (a gate
+  listing every code in one refusal; a runner comparing ids only while a
+  separate source check names each code; repeats rejected only in the space
+  form; F05 compared on the finding id only; F06 passed by a gate that never
+  opens the device). The declared counter stays the measure. A second
+  closure check, `.ufo/waves/round-30/c1_strict_checks.py`, must also pass
+  at the landed commit: S1 exactly one finding per refusal; S2 the renamed
+  gate emits `<code>_mutated`, the runner exits 1, and every committed
+  fixture naming the code is among its failing cases; S3 repeats in every
+  spelling (same usable value twice, `--name=value` twice, mixed, prefix
+  abbreviation) exit 64 with the usage object; S4 the deep finding carries
+  row S001 and the deep file path; S5 the terminal device is opened through
+  `os.open` with `O_NOCTTY`; S6 duplicate keys and non-finite numbers
+  (including `1e999`) refused in the ledger and inside row and pair objects.
+  Base evidence `.ufo/waves/round-30/verification/c1-strict-before-0356681.json`:
+  0/6, checker sha256 `96e7bbcd…500f`. A strict miss is reported with the
+  declared result, not hidden by it.
+- C2 closure checks. The C2 counter sha256 is `a2cd3164…5e7a`; the
+  after-receipt must carry that hash and equal
+  `git show <commit>:.ufo/waves/round-30/c2_quote_truth.py | sha256sum`. The
+  retained sources must be unchanged since the declaration:
+  `git diff --quiet 4580c78 <commit> -- .ufo/waves/round-30/sources/ .ufo/waves/round-30/fetch_sources.py`
+  exits 0. Each registry row's URL must equal its receipt URL exactly.
+- C2 counter limits disclosed. The citation check skips the first 8 lines of
+  the entry; most lane entries carry a 3-line header, so the rule is stricter
+  than "below the header", and the Render entry puts its first body citation
+  of each id below line 8. Quotes are matched after whitespace collapse
+  against the tag-stripped text, which keeps the site navigation, so a
+  navigation string or a one-word quote would also pass; a wave-1 critic
+  scored a hollow entry 4/4. The closure should read the entry body and match
+  each quote to the sentence that relies on it.
+- Scope. The lane's only Render property is the `app.ds4cc.com` Docker web
+  service (`corpus/knowledge/publish-channels.md`); no owned property is a
+  Render static site. C2 is platform knowledge for static sites; Render web
+  service deploys stay open frontier.
