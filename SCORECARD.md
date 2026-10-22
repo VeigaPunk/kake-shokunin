@@ -955,3 +955,53 @@ Scope and limits:
 - Wave 1 lost 18 of 33 seats at spawn (all executor, scribe and
   mutation-tester seats); the L1 authored every build artifact, so no
   non-author seat wrote any of them.
+
+## Round 31 — attempt 2 re-measure and wave-2 repairs
+
+Attempt 1 (L1 `KakeR31`) died in an omp process restart at 17:26Z after
+pushing `92235a0`; attempt 2 (L1 `KakeR31a2`) inherited that tip and two
+untracked paths (`.ufo/waves/round-31/census-after.txt`, byte-identical to a
+fresh validate run, and `w2/swarm-registry.json`, an attempt-1 wave-2 registry
+with no seat spawned). Both were committed at `9a7f5be`. Axis ratings stay
+10 → 10; no capability, rank or promotion is self-awarded.
+
+| Claim | Counting command | At `92235a0` (attempt-1 tip) | At `9a7f5be2b2091fc9b76adc803b8b442d5c292d08` (after wave-2 repairs) | Receipts |
+|---|---|---|---|---|
+| C1 | `python3 -B .ufo/waves/round-31/c1_sandbox_probes.py --root . --revision <commit>` | 5/5, K1 holds (runner `5371530d…`) | 5/5, K1 holds (runner `7c95a18e…8969`) | `verification/c1-a2-at-92235a0.json`, `c1-a2-at-9a7f5be.json` |
+| C1 hostile selftest | `python3 -B scripts/citing_set_hostile_selftest.py --root <export> --tmpdir <dir> [--runner <base runner>]` | — | exit 0, 5/5; base runner exit 1, 0/5 | `verification/hostile-selftest-a2-at-9a7f5be.json`, `hostile-selftest-a2-base-runner.json` |
+| C2 | `python3 -B .ufo/waves/round-31/c2_quote_truth.py --root . --revision <commit>` | 4/4 | 4/4, control not broken | `verification/c2-a2-at-92235a0.json`, `c2-a2-at-9a7f5be.json` |
+| C2 strict | `python3 -B .ufo/waves/round-31/c2_strict_checks.py --root . --revision <commit>` | 5/5 | 5/5 | `verification/c2-strict-a2-at-92235a0.json`, `c2-strict-a2-at-9a7f5be.json` |
+
+The 45 committed fixtures stay clean at `9a7f5be` (`verification/benign-a2-at-9a7f5be.json`).
+Census mode before → after: rows 56 → 61, tier A 47 → 52, mined 43 → 48
+(`census-mode-before-f1ffb81.txt`, `census-mode-after-a2.txt`).
+
+Wave 2 (`kake-r31-a2-w2`, 36 seats) findings that changed committed bytes at
+`9a7f5be` (each repair checked in `verification/a2-fixes/README.txt`):
+dot-named symlinked cases now fail (spec P5 gained `.h5b`, which the `fde133a`
+runner fails); the ambiguous `--r` is refused; a scratch path holding ":" is
+refused; the hostile selftest holds a benign `h0-control` copy so a runner
+that refuses cases by name fails it (the `c88b97e` selftest passed such a
+sham); entry, SKILL, QUALITY, PROVINCE, README and SOURCES corrections are
+appended, not rewritten.
+
+Limits found by wave 2 and not repaired:
+- The frozen C1 counter trusts the runner's reported failure names: a sham
+  runner committed in place of the real one scores 5/5
+  (`a2-w2/ReviewHostileSelftestCode.md` F1). The Git pins and several
+  defence-in-depth checks are not probed by any spec
+  (`a2-w2/CriticC1Wording.md`, `a2-w2/CriticHostileSpecsFit.md`).
+- The C2 strict supplement certifies quote provenance, not truth: three
+  constructed hollow or false commits score 5/5
+  (`a2-w2/ReviewC2StrictChecker.md`). Wave-2 readers found the entry's
+  claims supported except two inferences contradicted by the retained text
+  (PORT at line 22, secret files at line 61) and two overbroad lines (23,
+  67); all are corrected in the entry's appended section.
+- Wave-1 record notes (`a2-w2/CriticSeatAccounting.md`): four wave-1 scouts
+  finished after provider fallbacks (429, then 402) on the same model, and
+  the wave-1 dispatch time was 15:54:35Z, not 15:54:40Z.
+- Guard mutation (`a2-w2/MutRunnerGuards.md`): single-guard mutants m1, m2,
+  m4, m5 are killed by the hostile selftest and the C1 counter; m3 (drop the
+  "git_init before git_commit" check) survives, because the setup re-check
+  and the `--git-dir`/`--work-tree` pin still refuse the shape. Only removing
+  all three layers shows harm. No fixture pins that guard alone.

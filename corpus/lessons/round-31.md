@@ -86,3 +86,9 @@ gate Git calls with no timeout and a Git child that may outlive the gate
 [INFERENCE]; the Git pins not probed by any spec (`CriticC1Wording`); the
 advisory, unverified bare-repository route from the held
 `KakeR31.CriticSandboxThreatModel` seat.
+
+Row notes (wave-2 `ReviewMistakesRows`): row 1's "(N1–N6)" means the five
+routed labels N1, N2, N3, N5 and N6 (no N4 exists). Row 4's dead-seat record
+for wave 2 is `.ufo/waves/round-31/a2-w2/seat-status.json`: the attempt-1 wave
+2 was never dispatched, and the attempt-2 wave 2 lost no seat at spawn after
+the route was restored.

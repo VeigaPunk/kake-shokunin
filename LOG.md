@@ -1326,3 +1326,29 @@ this round (S057–S060) and checks the lane's own `render.yaml` key by key.
   (15 complete, 5 partial); (6) the declared closure command names files and
   was shown to pass as written and able to fail
   (`verification/closure-command-check.txt`).
+
+### Round 31 — attempt 2 (hyaku, in-session L1 KakeR31a2)
+
+Attempt 1 died in an omp process restart at 17:26Z after landing `92235a0`.
+Attempt 2 re-measured the inherited tip (C1 5/5 K1 holds, C2 4/4, strict
+5/5; `verification/*-a2-at-92235a0.json`), committed the two inherited
+untracked paths, and ran wave 2 (falsify) as `kake-r31-a2-w2`: 36 seats
+(23 reviewer, 11 critic, 1 scout, 1 mutation-tester), dispatched 18:04Z.
+
+- Motivating evidence for the repairs: a dot-named symlinked case was still
+  skipped (`a2-w2/CriticSymlinkCases.md`); `--r` passed the allowlist and
+  reached the gate (`CriticArgvAllowlist.md`); a ":" in the scratch path
+  switched the Git ceiling off (`CriticGitPins.md`); a runner that refused
+  cases by name passed the hostile selftest and the C1 counter
+  (`ReviewHostileSelftestCode.md`); the entry marked a stated fact (PORT) as
+  inference and contradicted S059 on secret files (`CriticLearningClaimAfter.md`,
+  `CriticEntryInferences.md`).
+- Landed at `9a7f5be`: runner and selftest repairs, P5 `.h5b`, appended
+  corrections to the entry, SKILL, QUALITY, PROVINCE, README and SOURCES, four
+  lesson Mistakes rows, census-mode receipts, fix receipts
+  (`verification/a2-fixes/`). After: C1 5/5 K1 holds, hostile selftest exit 0
+  (base runner exit 1), 45 fixtures clean, C2 4/4, strict 5/5
+  (`verification/*-a2-at-9a7f5be.json`).
+- Not repaired, named in SCORECARD "Round 31 — attempt 2 re-measure and
+  wave-2 repairs": the frozen C1 counter trusts reported names; the strict
+  C2 supplement passes hollow commits; mutant m3 survives.
