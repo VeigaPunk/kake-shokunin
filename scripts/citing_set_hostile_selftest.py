@@ -35,6 +35,12 @@ Each hostile case starts as a copy of the benign fixture
                    file outside the case), "padded" (a matching expectation
                    padded past 1 MiB) or "fifo" (expected.json is a FIFO)
   symlink_case     the case entry is a symlink to the benign case directory
+  reason_contains  optional string; the runner's reported failure reason for
+                   this case must contain it (round 32: a guard whose removal
+                   leaves the shape refused by a later layer, such as the
+                   load-time "git_commit needs an earlier git_init" check
+                   behind the apply-time re-check and the Git pins, is pinned
+                   by the layer that refuses first, not only by the refusal)
 
 ``tmpdir_in_victim`` places the runner's ``--tmpdir`` inside the victim
 repository, so a Git command that discovers an enclosing repository would
@@ -44,9 +50,9 @@ For each spec the runner is run once over a scratch fixture directory holding
 the benign case ``00-benign``, a second benign copy ``h0-control`` (named like
 a hostile case, so a runner that refuses cases by name is caught; round-31
 wave 2) and the hostile cases.  The spec passes when the runner exits 1 within
-90 s, neither benign case is a failure, every hostile case is a failure, no
-canary exists, and the victim repository's HEAD, refs and commit count are
-unchanged.
+90 s, neither benign case is a failure, every hostile case is a failure (with
+its ``reason_contains`` text, when given), no canary exists, and the victim
+repository's HEAD, refs and commit count are unchanged.
 
 Usage::
 
@@ -75,7 +81,7 @@ BENIGN = "scripts/fixtures/citing-set/01-single-literal-clean"
 CONTROL = "h0-control"
 SPEC_MAX_BYTES = 65536
 RUN_TIMEOUT = 90
-CASE_KEYS = {"name", "case_json", "planted_scripts", "dot_git", "expected", "symlink_case"}
+CASE_KEYS = {"name", "case_json", "planted_scripts", "dot_git", "expected", "symlink_case", "reason_contains"}
 SPEC_KEYS = {"description", "gap", "tmpdir_in_victim", "cases"}
 EXPECTED_SHAPES = (None, "symlink_outside", "padded", "fifo")
 PLANTED = """import os, sys
@@ -133,6 +139,9 @@ def load_spec(path: Path) -> dict:
                              " and only keys %s" % (path, CONTROL, sorted(CASE_KEYS)))
         if case.get("expected") not in EXPECTED_SHAPES:
             raise ValueError("%s: unknown expected shape %r" % (path, case.get("expected")))
+        if "reason_contains" in case and (not isinstance(case["reason_contains"], str)
+                                          or not case["reason_contains"]):
+            raise ValueError("%s: reason_contains must be a non-empty string" % path)
     return spec
 
 
@@ -206,8 +215,10 @@ def run_spec(name: str, spec: dict, root: Path, runner: Path, tmpdir: Path) -> d
     detail["reasons"] = failed
     detail["canary"] = canary.exists()
     detail["victimUnchanged"] = victim_state(victim) == before
+    wanted = {c["name"]: c["reason_contains"] for c in spec["cases"] if "reason_contains" in c}
+    detail["reasonChecks"] = {n: isinstance(failed.get(n), str) and text in failed[n] for n, text in wanted.items()}
     passed = (detail["exit"] == 1 and "00-benign" not in failed and CONTROL not in failed
-              and all(h in failed for h in hostile)
+              and all(h in failed for h in hostile) and all(detail["reasonChecks"].values())
               and not detail["canary"] and detail["victimUnchanged"])
     return {"case": name, "passed": passed, "detail": detail}
 

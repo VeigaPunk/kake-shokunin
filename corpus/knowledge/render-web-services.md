@@ -75,3 +75,16 @@ Nothing was fetched from the service.
 - Narrows line 67. S057 states a retain rule field by field, not for every omitted field: “Render retains the current IP ranges for an existing service.” (S057) is one such field text, while for `region` it gives only a new-service default: “If omitted for other service types, the default value is oregon” (S057). This entry did not check a retain rule for `domains` or `renderSubdomainPolicy`, so line 67's “keep their current values” is an [INFERENCE] for those fields, and it assumes the live service is managed by this Blueprint, which was not observed.
 - Narrows line 23: the onrender.com host is kept only while `renderSubdomainPolicy` allows it (line 48 of this entry); the live value of that field is not known from the file.
 - Marks line 39 (wave-2 seats `ReviewEntryHealthBlueprint`, `CriticQualityCriteria`): "the app must accept" that Host header is an [INFERENCE]; S060 states only which Host value Render sends, not an obligation on the app. Line 48's reading also omits that disabling the onrender.com subdomain applies to a service with a custom domain, per S057's `renderSubdomainPolicy` text.
+
+## Retained copies (round 32, append-only)
+
+The two ds4cc-marketplace files read offline above are now retained in this
+lane byte-identical to the external blobs (S062):
+`.ufo/waves/round-32/sources/ds4cc-1fbdb8ed/render.yaml` (`git hash-object`
+prints `d17ab7e5d44b1b3a1876cf1d9b47f369e92f7252`) and
+`.ufo/waves/round-32/sources/ds4cc-1fbdb8ed/apps-sdk/Dockerfile`
+(`ee0b63819a9ce71e51469796541b9075e9676ae9`). A fresh session re-checks the
+render.yaml and Dockerfile sentences in the section above against those
+copies (S062) without the external clone; `apps-sdk/src/server.ts` (blob
+`649726df…`) is not retained, so the sentence about the server's allow list
+still needs the external repository.
