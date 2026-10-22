@@ -1267,3 +1267,29 @@ base-path knowledge from four primary pages opened this round; C2
 - Misroot: one wave-2 seat wrote a report copy at the fleet root and removed
   it itself; the L1 sweep before the report found no round-29 kake file
   there (`corpus/lessons/round-29.md` Mistakes).
+
+### Round 30 — attempt 1 (hyaku, in-session L1 KakeR30)
+
+Claims declared at `4580c78` before implementation, with notes and a strict
+C1 supplement at `04637bd` before any after-measurement: C1 (operability,
+repair) makes the citing-set runner compare reason codes with committed
+fixtures and repairs the round-27 families round 28 routed; C2 (freshness,
+frontier, learning claim) adds Render static-site knowledge from four Render
+Docs pages opened this round (S049–S052).
+
+- Motivating evidence: round-29 spot-check routed defects 1–5
+  (`corpus/lessons/round-29-verifier-spotcheck.md:230-248`); `PROVINCE.md`
+  Frontier listed Render deploy semantics as open.
+- Wave 1 (`w1`, 34 seats, v1): 10 scribes, 8 reviewers, 5 critics, 4 scouts,
+  3 executors, 3 mutation-testers, 1 connector; 0 dead.
+- Wave 2 (`w2`, 34 seats, v1): 19 reviewers, 7 critics, 6 mutation-testers, 1
+  sentinel, 1 scout; 15 returned, 19 cancelled by the L1 at wrap-up (run
+  budget), 0 dead. Round total 68 seats.
+- Landed: `4580c78`, `04637bd`, `71c6bfa` (C1), `451e98f` (C2 and evidence),
+  `1c7773e` and `f80bd8f` (wave-2 repairs), then this record. Foreign commit
+  in range: `636dddd` (operator daily reflection).
+- Measurements: C1 0/14 → 14/14 (strict 0/6 → 6/6); C2 0/4 → 4/4. Census
+  exit 0 before and after (only the pre-existing S033 W04 warning); registry
+  rows 48 → 56.
+- Base mutant ledger: 23 reason-code renames, 0 killed at `0356681`
+  (`.ufo/waves/round-30/mutant-ledger/`).

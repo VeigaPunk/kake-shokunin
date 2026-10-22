@@ -105,3 +105,30 @@ Bodies, text and receipts are in `.ufo/waves/round-30/sources/screened/`
    `strict_c2_counter.py` compares them (a mutant with all of them wrong:
    9/30, exit 1); the pin records the tool's own output at `234524c`, so it
    guards against change, not against an error the tool already had.
+
+## Wave-2 falsification and the repairs it caused
+
+- Runner harms repaired: mixed-reason expectations crashed the runner, an
+  unwritable case copy crashed it (`w2/ScoutNoHarmDiff.md`, fixed at
+  `1c7773e`); `case.json` setup could escape `--tmpdir`, run fixture Git
+  hooks, read outside the case and accept 100,000 steps
+  (`w2/SentinelRunnerSetup.md`, fixed at `f80bd8f`: contained relative paths,
+  no fixture `.git`, `core.hooksPath=/dev/null`, symlinked cases skipped,
+  at most 64 steps and 64 KiB).
+- Fixture gap narrowed: repeated options gained fixtures 42–45 (exit 64);
+  deep corpus and `O_NOCTTY` stay guarded by the counters only
+  (`w2/MutGateRepeatsWalkTty.md`).
+- Entry corrected: four contrasts with GitHub Pages (`w2/CriticEntryContrast.md`),
+  four wording overreaches (`w2/ReviewEntryBuildRules.md`), the recheck line
+  (`w2/CriticMeasurementLimits.md`).
+- Rows corrected: S053 and S054 reasons and flips, S055 flip and dynamic-site
+  caveat (`w2/CriticRejects.md`); README, PROVINCE and SKILL scope wording
+  (`w2/CriticFrontierWording.md`, `w2/CriticC1Scope.md`); QUALITY round-30
+  bullets rewritten with witness limits (`w2/CriticQualityCriteria.md`).
+- Not repaired, recorded: strict-checker holes (`w2/CriticStrictChecker.md`),
+  runner survivors m2, m4, m5 (`w2/MutRunnerCompare.md`), the round-30
+  receipt-identity witness miss on `r29-rerun/real-input/summary.json`.
+- Seat process: `ScreenRenderCandidates` sent 15 GETs to third-party hosts
+  (3 retained); `ScoutRenderChangelog` sent 77 GETs to render.com; no seat
+  contacted an owned site. Nineteen wave-2 seats were cancelled at wrap-up;
+  their partial reports, where present, are unverified.

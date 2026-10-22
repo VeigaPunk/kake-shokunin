@@ -767,3 +767,51 @@ unchanged):
   service (`corpus/knowledge/publish-channels.md`); no owned property is a
   Render static site. C2 is platform knowledge for static sites; Render web
   service deploys stay open frontier.
+
+## Round 30 — measured results
+
+Axis ratings stay 10 → 10 (saturated; stagnation nudge recorded in the
+declaration). No capability, rank or promotion is self-awarded; the non-author
+closure decides admission.
+
+| Claim | Axis | Before | After | Measured commits | Counting command | Evidence |
+|---|---|---|---|---|---|---|
+| C1 | operability | 0/14 at `0356681` (strict 0/6) | 14/14, controls 3/3, constant gates 0/14 and 0/14 (strict 6/6) | `71c6bfabd7aa957d15732d9224888bb32849238a`; re-measured 14/14 and 6/6 at `1c7773e68a041a5c9335d7f78223ed04bdabf779` and `f80bd8fabe51eb97c0211bfdef8d108ed0793aec` (after wave-2 runner repairs) | `python3 -B .ufo/waves/round-30/c1_reason_count.py --root . --revision <commit>` | `.ufo/waves/round-30/verification/c1-after-71c6bfa.json`, `c1-after-1c7773e.json`, `c1-after-f80bd8f.json`, `c1-strict-after-*.json` |
+| C2 | freshness | 0/4 at `0356681` | 4/4, control not broken | `451e98fc8415edf10f41b2aad656318e7edc84ca`; re-measured 4/4 at `1c7773e` and `f80bd8f` | `python3 -B .ufo/waves/round-30/c2_quote_truth.py --root . --revision <commit>` | `.ufo/waves/round-30/verification/c2-after-451e98f.json`, `c2-after-1c7773e.json`, `c2-after-f80bd8f.json` |
+
+Every receipt names the counter sha256 (C1 `be2a1287…c53e`, strict
+`96e7bbcd…500f`, C2 `a2cd3164…5e7a`) and the measured revision; C1 receipts
+also name the gate (`dbfade45…7f02`) and runner sha256 (`0fc87d5b…` at
+`71c6bfa`, `9f2d1ecb…14d3` at `f80bd8f`).
+
+Scope and limits (wave 2):
+- C1 repairs the round-27 families round 28 routed (duplicate keys,
+  non-finite numbers, short ids, repeated options) and two round-28 residual
+  findings (deep corpus, `O_NOCTTY`). Still open: the round-27
+  IDENTITY-PATHS, RETENTION-FRAGMENT, RETENTION-TRUST-BOUNDARY and
+  C1-UNIT-OVERRIDE families, the socket `document_unreadable` label, and 12
+  of 25 reason codes without a fixture (`CriticC1Scope`).
+- The deep-corpus and `O_NOCTTY` repairs are guarded by the round counters
+  only, not by committed fixtures; repeated options gained fixtures 42–45 in
+  wave 2. The declared counter does not test abbreviations; the strict
+  supplement does (`MutGateRepeatsWalkTty`).
+- The strict supplement loads the declared counter from its own directory;
+  the closure should check `declaredCounterSha256` equals `be2a1287…c53e`.
+  Wave-2 `CriticStrictChecker` built stubs passing 6/6 through four holes
+  (unchecked counter hash, S2 not requiring the other cases to pass, S3 no
+  once-only control for `=value` and abbreviated spellings, S6 overflow at
+  one depth only); the landed gate and runner are not such stubs, but the
+  checker's verdict alone does not prove the property.
+- Runner survivors (`MutRunnerCompare`): a runner that treats a missing
+  reason as a wildcard, ignores the exit for object cases, or accepts mixed
+  oracles still passes every instrument.
+- The declared C2 closure command `git diff --quiet 4580c78 <commit> --
+  .ufo/waves/round-30/sources/ …` exits 1 because `sources/screened/` was
+  added; limited to the S049–S052 files, `receipts.json` and the fetcher it
+  exits 0 (`RerunC2Counter`).
+- Harms found by wave 2 and repaired before this record: the runner crashed
+  on mixed-reason expectations and on an unwritable case copy
+  (`ScoutNoHarmDiff`, fixed at `1c7773e`), and `case.json` setup could write
+  outside `--tmpdir`, run fixture Git hooks, read outside the case and accept
+  unbounded setups (`SentinelRunnerSetup`, fixed at `f80bd8f`; the sentinel's
+  probes now each fail with a refusal reason).
