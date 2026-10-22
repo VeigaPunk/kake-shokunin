@@ -672,3 +672,56 @@ tool is wider than the frozen matrix wording: it treats http and https on one
 host as one site (S040's `http(s)` row), which no matrix case exercises; the
 tool help, docstring and entry state this. The committed selftest (45
 fixtures) covers the families the matrix cannot see.
+
+## Round 30 — declared claims (before implementation lands)
+
+Base (pushed lane tip at round start): `035668132250b75b38d399e86e540b0a0371efbc`.
+Both owned axes sit at the 10/10 saturation line, so the stagnation nudge
+applies as in rounds 28 and 29: the round makes a repair move (operability)
+and a frontier move (freshness). The repair works the citing-set gate, which
+round 29 left alone; it is the debt routed by the round-28 and round-29
+spot-checks (`corpus/lessons/round-29-verifier-spotcheck.md`, "Routed
+defects", item 1). The frontier move takes Render static-site deploy
+semantics, which `PROVINCE.md` lists as open Frontier ground.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 repair-first: the citing-set gate's reason codes are asserted by committed fixtures that its runner compares, and the round-27 failure families left open by round 28 are repaired in `scripts/citing_set.py` | operability | 0/14 checks pass (R01–R08 0/8, F01–F06 0/6) | 14/14 checks pass at the landed commit, with the 3 controls holding and both constant gates below 14 | `python3 -B .ufo/waves/round-30/c1_reason_count.py --root . --revision <commit>` |
+| C2 frontier: Render static-site deploy semantics enter held knowledge as `corpus/knowledge/render-static-sites.md`, grounded in four primary sources opened this round (S049 Render Docs Static Sites, S050 Render Docs Redirects and Rewrites, S051 Render Docs Static Site Headers, S052 Render Docs Custom Domains) | freshness | 0/4 declared ids pass | 4/4 declared ids pass at the landed commit | `python3 -B .ufo/waves/round-30/c2_quote_truth.py --root . --revision <commit>` |
+
+C1 checks. R01–R08 are the eight round-28 reason codes
+(`document_not_regular_file`, `document_not_json`, `corpus_directory_missing`,
+`corpus_empty`, `not_a_directory`, `population_id_unreachable`,
+`revision_not_found`, `root_not_repository_top_level`). Each passes only when
+a case the counter builds returns the full tuple (exit 2, verdict
+`could-not-evaluate`, finding id `input_invalid` with that reason), a
+committed `scripts/fixtures/citing-set/*/expected.json` names the finding as
+`{"id": "input_invalid", "reason": <code>}`, and the committed runner exits 0
+on the exported tree but non-zero once the code is renamed in the gate. At
+base the behaviour holds and the other two parts fail. F01–F06 are the
+round-27 families: duplicate JSON member names refused with reason
+`document_duplicate_key` (plus fixture and rename conditions); NaN, Infinity
+and -Infinity refused with reason `document_nonfinite_number` (plus fixture and
+rename conditions); population ids such as `S01` or `S1` (fewer than three
+digits, so the scanner never reads them) refused with
+`population_id_unreachable`; each of the four valued options given twice
+refused with exit 64; a corpus 1000 directories deep measured without a
+traceback (exit 1, one `unadjudicated_citing_pair`); and a terminal device
+opened as an input document refused without becoming the controlling
+terminal (`O_NOCTTY`). Base evidence:
+`.ufo/waves/round-30/verification/c1-before-0356681.json` (0/14; controls
+3/3; constant-clean stub 0/14, refuse-everything stub 0/14; counter sha256
+`be2a1287…c53e`, gate sha256 `d7e79ba1…9d48`, runner sha256 `3c167895…2a1c`).
+
+C2 is the round-29 quote-truth counter with new ids and paths, and it names its
+own sha256 in its output. An id passes only when its registry row is `mined`
+and opened 2026-10-22, the entry cites the id below its 8-line metadata header,
+the lesson `## Gate` line carries one quote of at most 25 words, and the quote
+is a substring of the retained visible text whose sha256 matches
+`.ufo/waves/round-30/sources/receipts.json`. The sources were opened at
+2026-10-22T11:49Z, one GET each, by `.ufo/waves/round-30/fetch_sources.py`
+(each receipt names the fetcher sha256). Base evidence:
+`.ufo/waves/round-30/verification/c2-before-0356681.json` (0/4). C2 proves
+sourcing, not that each entry sentence follows from its quote; the closure
+should read the entry body. A miss on either declared value is an honest
+stop.
