@@ -1376,3 +1376,31 @@ declared at `5b32cc7` with both counters before any measurement.
   (`verification/declared-time-check.txt`, exit 1).
 - Wave 1 `kake-r32-w1`: 34 seats dispatched (16 reviewer, 5 critic,
   4 mutation-tester, 3 executor, 3 scribe, 2 scout, 1 connector).
+
+### Round 33 (hyaku, in-session L1 KakeR33)
+
+Declared at `bc6c4a8` (both counters frozen there, before any run).
+
+- Motivating evidence, C1: round-32 closure routed items 2 and 3
+  (`corpus/lessons/round-32-verifier-spotcheck.md`): the P6 kill rested on
+  message text, and a reworded load-time message failed a correct runner
+  (`.ufo/waves/round-32/w1/ExecBaseRunnerVsP6.md`). Before at `5777d5a`: met
+  2 of 4 (`verification/c1-before-5777d5a.json`). Landed at `b1752a2`:
+  runner `code` field, hostile `reason_code`, P6 keyed on it; after met 4 of
+  4, guard_ok true; strict supplement 4 of 4 (`c1-strict-at-*.json`).
+- Motivating evidence, C2: upstream ds4cc-marketplace moved to `7fc6aa2f`
+  while the corpus and the local checkout stayed at `1fbdb8ed`
+  (`git ls-remote` at round start). Before: met 0 of 4. Landed at
+  `b1752a2`: four retained blobs, S065, section; `e490381` adds S066 (Pages
+  deploy run record, failing apps-sdk test workflow) and the wave-1
+  additions; after met 4 of 4.
+- Routed repairs landed outside the claims: per-run default scratch
+  (`e490381`; concurrency 3 of 4 failing at base → 0 of 4,
+  `verification/concurrency-*.txt`), `read_expected` OSError, stray
+  fixture-root entries, hostile spec-dir strays and whitespace keys
+  (`1cf452e`), PROVINCE count correction.
+- Mistake mined: a repair counter scored a faked repair at its after-value
+  (round-32 C2); QUALITY round-33 criterion with a check shown failing on
+  the bundled hollow commit.
+- Wave 1 `kake-r33-w1`: 35 seats (11 executor, 6 scribe, 6 reviewer,
+  5 scout, 3 critic, 2 mutation-tester, 1 connector, 1 revenger).

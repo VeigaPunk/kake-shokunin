@@ -1,0 +1,30 @@
+{
+ "schema": "kake-r33-c1-strict-v1",
+ "rev": "1cf452eafb028785ce9fa154887178864e22ab71",
+ "checks": {
+  "s1_spec": true,
+  "s2_field": true,
+  "s3_message": true,
+  "s4_layer": true
+ },
+ "detail": {
+  "pristine": {
+   "exit": 0,
+   "h6code": "setup_commit_before_init",
+   "h6reason": "case.json setup op 'git_commit' needs an earlier 'git_init'"
+  },
+  "messageArgMatches": 1,
+  "messageVariant": {
+   "exit": 0,
+   "failing": [],
+   "raise": "raise CaseRefusal(\"setup_commit_before_init\", \"refused\")"
+  },
+  "m3": {
+   "exit": 1,
+   "h6code": "setup_commit_without_repo",
+   "p6passed": false
+  }
+ },
+ "met": 4,
+ "of": 4
+}

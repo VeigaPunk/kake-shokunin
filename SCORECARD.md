@@ -1118,3 +1118,47 @@ mutants m3d, m3f and m3g (routed item 1; handled outside the claims this
 round, see the round-33 lesson); C2 is source-side only — no live
 `ds4cc.com` fetch, and canonical verdicts are the lane's offline policy, not
 search-engine selection.
+
+## Round 33 — measured results (author-side; admission belongs to the non-author closure)
+
+| Claim | Before (rev) | After (rev) | Counting command | Receipts |
+|---|---|---|---|---|
+| C1 refusal keyed on a structured code | met 2 of 4, guard_ok true (`5777d5a`, also `bc6c4a8`) | met 4 of 4, guard_ok true, benign 45/0 (`b1752a2`, `e490381`, `1cf452e`) | `python3 -B .ufo/waves/round-33/c1_code_probe.py --rev <rev>` | `.ufo/waves/round-33/verification/c1-*.json` |
+| C2 ds4cc pin advanced to `7fc6aa2f` | met 0 of 4 (`5777d5a`, `bc6c4a8`) | met 4 of 4 (`b1752a2`, `e490381`, `1cf452e`) | `python3 -B .ufo/waves/round-33/c2_pin_count.py --rev <rev>` | `.ufo/waves/round-33/verification/c2-*.json` |
+
+Axis ratings unchanged (10 → 10, saturation line); no capability row is
+claimed. Both counters are unchanged since `bc6c4a8` (wave-1
+`CriticDeclarationOrder`: sha256 equal to the committed blobs). Wave-1
+re-runs reproduce the before receipts byte for byte (`w1/RerunC1Base.md`,
+`w1/RerunC2Base.md`).
+
+Corrections and limits found by wave 1 (appended; the declaration stays as
+landed):
+- Declaration time. "The time of the declaration is that commit's time"
+  means the committer time of `bc6c4a8`, 2026-10-22T19:52:44Z; its author
+  time (16:26:05 -03:00) is the jj change-creation time and is not the
+  declaration time. Before the declaration the L1 screened C2's inputs: it
+  cloned upstream (19:49:58Z) and ran `scripts/canonical_audit.py` on two of
+  the three frostbite pages (19:52:01Z, verdict clean). No counter had run
+  (`w1/CriticDeclarationOrder.md`).
+- C1 counter scope. The frozen probe also scores 4 for a commit that moves
+  the code into the message text and keeps `reason_contains`
+  (`w1/CriticC1RepairScope.md`, sandbox commit `489714be`). A strict
+  supplement, written after that finding, checks the spec key, the reported
+  `code` field apart from the reason text, a whole-message rewrite and the
+  apply-time layer's own code: `python3 -B .ufo/waves/round-33/c1_strict_supplement.py --rev <rev>`
+  gives 0 of 4 at `5777d5a`, 4 of 4 at `b1752a2`, `e490381` and `1cf452e`,
+  and 1 of 4 on `489714be`. Other refusal sites carry `code` null; P1–P5
+  still do not pin a refusing layer.
+- C2 counter scope. A junk S065 row with the right id, status, date,
+  used-by and hash plus copied metrics scores 4; so do a misplaced section
+  and an even-backslash pipe (`w1/MutC2HollowCommit.md`). Fence-blind section
+  splitting, a substring cite (`S0650`) and crash paths on malformed input
+  are open (`w1/ReviewC2CounterCode.md`). The landed row matches an
+  independent draft cell for cell (`w1/ScribeS065RowDraft.md`), and the
+  counted facts were re-derived by three seats (`ExecRecountSitemapAt7fc6`,
+  `ExecCanonicalNewPages`, `ScoutUpstreamCommitAnatomy`).
+- C2 freshness fit is bounded (`w1/CriticC2FreshnessFit.md`): it adds the new
+  state and marks older counts historical (wave-1 additions section), records
+  the forge's deploy run (S066), and leaves `freshness-pins.json` pins stale
+  and flagged, not re-pinned.
