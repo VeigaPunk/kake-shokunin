@@ -54,9 +54,31 @@ Supported setup ops:
   mkdir      create a directory (parents included)
   fifo       replace the file at ``path`` with a FIFO
   git_init   initialize a Git repository at the copy root
-  git_commit stage everything and commit (Git identity is set by the runner;
-             the environment is isolated: inherited GIT_* variables are
-             dropped and GIT_CONFIG_GLOBAL is pinned to /dev/null)
+  git_commit stage everything and commit; it must follow a git_init in the
+             same setup list (Git identity is set by the runner; the
+             environment is isolated: inherited GIT_* variables are dropped,
+             GIT_CONFIG_GLOBAL is pinned to /dev/null, GIT_CEILING_DIRECTORIES
+             is the copy's parent, and every command names --git-dir and
+             --work-tree inside the copy)
+
+Containment (round 31).  The runner refuses, as a failed case, before the gate
+is started:
+
+  * an ``argv`` token that is not a value (a token starting with "-") unless
+    it is ``--name`` or ``--name=value`` where ``name`` is a non-empty prefix
+    of root, revision, population or ledger and of no other gate option
+    (json, selftest, help): so ``--selftest`` and its abbreviations, which
+    would make the gate run scripts copied from the fixture, are refused;
+  * a case directory that contains an entry named ``.git`` at any depth;
+  * a ``git_commit`` step with no earlier ``git_init``;
+  * an ``expected.json`` that is a symlink, not a regular file, or larger
+    than 1 MiB (it is opened with O_NOFOLLOW, O_NONBLOCK and O_NOCTTY, so a
+    FIFO cannot block the run);
+  * a symlink in the fixture directory (a symlinked case is a failed case,
+    never a silent skip).
+
+``scripts/citing_set_hostile_selftest.py`` checks these refusals against the
+hostile specs in ``scripts/fixtures/citing-set-hostile/``.
 
 This runner is a pure oracle.  For every fixture case it starts one gate
 subprocess and compares two observable outcomes with the frozen expectation:
@@ -88,6 +110,7 @@ import hashlib
 import json
 import os
 import shutil
+import stat
 import subprocess
 import sys
 from pathlib import Path
@@ -104,7 +127,10 @@ TAIL_BYTES = 800
 CASE_SETUP_FILE = "case.json"
 CASE_SETUP_MAX_BYTES = 65536
 CASE_SETUP_MAX_OPS = 64
+EXPECTED_MAX_BYTES = 1048576
 SETUP_OPS = ("mkdir", "fifo", "git_init", "git_commit")
+GATE_VALUE_OPTIONS = ("root", "revision", "population", "ledger")
+GATE_OTHER_OPTIONS = ("json", "selftest", "help")
 GIT_IDENTITY = {
     "GIT_AUTHOR_NAME": "citing-set-selftest",
     "GIT_AUTHOR_EMAIL": "citing-set-selftest@invalid",
@@ -300,12 +326,16 @@ def load_case_setup(case_dir):
     argv = document.get("argv", [])
     if not isinstance(argv, list) or not all(isinstance(item, str) for item in argv):
         raise ValueError('%s "argv" must be a list of strings' % CASE_SETUP_FILE)
+    refused = argv_refusal(argv)
+    if refused is not None:
+        raise ValueError("%s argv refused: %s" % (CASE_SETUP_FILE, refused))
     root = document.get("root", ".")
     if not isinstance(root, str) or not root.strip() or not contained_relative(root):
         raise ValueError('%s "root" must be a non-empty relative path with no ".." part' % CASE_SETUP_FILE)
     setup = document.get("setup", [])
     if not isinstance(setup, list) or len(setup) > CASE_SETUP_MAX_OPS:
         raise ValueError('%s "setup" must be a list of at most %d steps' % (CASE_SETUP_FILE, CASE_SETUP_MAX_OPS))
+    initialized = False
     for step in setup:
         if not isinstance(step, dict) or not isinstance(step.get("op"), str):
             raise ValueError('%s "setup" entries must be objects with a string "op"' % CASE_SETUP_FILE)
@@ -314,7 +344,67 @@ def load_case_setup(case_dir):
         if step["op"] in ("mkdir", "fifo"):
             if not isinstance(step.get("path"), str) or not step["path"].strip() or not contained_relative(step["path"]):
                 raise ValueError('%s setup op %r needs a non-empty relative "path" with no ".." part' % (CASE_SETUP_FILE, step["op"]))
+            if ".git" in step["path"].split("/"):
+                raise ValueError('%s setup op %r may not create a .git path' % (CASE_SETUP_FILE, step["op"]))
+        if step["op"] == "git_init":
+            initialized = True
+        if step["op"] == "git_commit" and not initialized:
+            raise ValueError("%s setup op 'git_commit' needs an earlier 'git_init'" % CASE_SETUP_FILE)
     return {"argv": argv, "root": root, "setup": setup}
+
+
+def argv_refusal(argv):
+    """Return the first argv token outside the gate-option allowlist, or None.
+
+    A token that does not start with "-" is a value.  An option token must be
+    ``--name`` or ``--name=value`` where ``name`` is a non-empty prefix of a
+    valued gate option and of no other gate option, so argparse abbreviation
+    can never reach ``--selftest``, ``--json`` or ``--help``.
+    """
+    for token in argv:
+        if not token.startswith("-"):
+            continue
+        name = token[2:].split("=", 1)[0] if token.startswith("--") else ""
+        if (not name
+                or not any(option.startswith(name) for option in GATE_VALUE_OPTIONS)
+                or any(option.startswith(name) for option in GATE_OTHER_OPTIONS)):
+            return token
+    return None
+
+
+def dot_git_entry(case_dir):
+    """Return the relative path of the first entry named .git in a case, or None."""
+    for current, dirs, files in os.walk(case_dir, followlinks=False):
+        for name in sorted(dirs + files):
+            if name == ".git":
+                return os.path.relpath(os.path.join(current, name), case_dir)
+    return None
+
+
+def read_expected(case_dir):
+    """Read expected.json without following a symlink or blocking on a FIFO."""
+    path = case_dir / "expected.json"
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_NOCTTY", 0)
+    try:
+        descriptor = os.open(str(path), flags)
+    except OSError as exc:
+        raise ValueError("expected.json unreadable (symlinks are refused): %s" % exc)
+    try:
+        status = os.fstat(descriptor)
+        if not stat.S_ISREG(status.st_mode):
+            raise ValueError("expected.json must be a regular file")
+        if status.st_size > EXPECTED_MAX_BYTES:
+            raise ValueError("expected.json must be at most %d bytes" % EXPECTED_MAX_BYTES)
+        with os.fdopen(descriptor, "rb", closefd=False) as handle:
+            data = handle.read(EXPECTED_MAX_BYTES + 1)
+    finally:
+        os.close(descriptor)
+    if len(data) > EXPECTED_MAX_BYTES:
+        raise ValueError("expected.json must be at most %d bytes" % EXPECTED_MAX_BYTES)
+    try:
+        return data.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise ValueError("expected.json is not UTF-8: %s" % exc)
 
 
 def contained_relative(value):
@@ -333,11 +423,19 @@ def inside(work_dir, relative):
     return Path(target)
 
 
-def git_env():
-    """Isolated environment for setup Git commands."""
+def git_env(work_dir):
+    """Isolated environment for setup Git commands in one case copy."""
     env = {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
     env.update(GIT_IDENTITY)
+    env["GIT_CEILING_DIRECTORIES"] = os.path.dirname(os.path.realpath(work_dir))
     return env
+
+
+def git_command(work_dir, *args):
+    """A Git command bound to the copy's own repository and work tree."""
+    base = os.path.realpath(work_dir)
+    return ["git", "--git-dir=" + os.path.join(base, ".git"), "--work-tree=" + base,
+            "-c", "core.hooksPath=/dev/null", *args]
 
 
 def run_command(command, cwd, env, timeout):
@@ -360,7 +458,7 @@ def run_command(command, cwd, env, timeout):
 
 
 def apply_setup(work_dir, setup, timeout):
-    env = git_env()
+    env = git_env(work_dir)
     for step in setup:
         op = step["op"]
         if op == "mkdir":
@@ -373,11 +471,13 @@ def apply_setup(work_dir, setup, timeout):
         elif op == "git_init":
             if (work_dir / ".git").exists() or (work_dir / ".git").is_symlink():
                 raise RuntimeError("a fixture may not carry its own .git")
-            run_command(["git", "-c", "core.hooksPath=/dev/null", "init", "-q"], work_dir, env, timeout)
+            run_command(git_command(work_dir, "init", "-q"), work_dir, env, timeout)
         elif op == "git_commit":
-            run_command(["git", "-c", "core.hooksPath=/dev/null", "add", "-A"], work_dir, env, timeout)
-            run_command(["git", "-c", "core.hooksPath=/dev/null", "commit", "-q", "--no-verify",
-                         "-m", str(step.get("message", "fixture"))], work_dir, env, timeout)
+            if not (work_dir / ".git").is_dir() or (work_dir / ".git").is_symlink():
+                raise RuntimeError("git_commit needs the repository created by git_init")
+            run_command(git_command(work_dir, "add", "-A"), work_dir, env, timeout)
+            run_command(git_command(work_dir, "commit", "-q", "--no-verify",
+                                    "-m", str(step.get("message", "fixture"))), work_dir, env, timeout)
 
 
 def prepare_case(case_dir, cases_root, timeout):
@@ -418,11 +518,17 @@ def run_case(case_dir, gate, env, timeout, cases_root):
         "actual": None,
         "argv": None,
     }
-    expected_file = case_dir / "expected.json"
+    if case_dir.is_symlink():
+        row["reason"] = "symlinked case directory refused"
+        return row
+    dot_git = dot_git_entry(case_dir)
+    if dot_git is not None:
+        row["reason"] = "fixture carries a .git entry, refused: %s" % dot_git
+        return row
     try:
-        raw = expected_file.read_text(encoding="utf-8")
-    except OSError as exc:
-        row["reason"] = "expected.json unreadable: %s" % exc
+        raw = read_expected(case_dir)
+    except ValueError as exc:
+        row["reason"] = str(exc)
         return row
     try:
         expected = json.loads(raw)
@@ -572,7 +678,7 @@ def main(argv=None):
 
     cases = sorted(
         (path for path in fixtures.iterdir()
-         if path.is_dir() and not path.is_symlink() and not path.name.startswith(".")),
+         if (path.is_symlink() or path.is_dir()) and not path.name.startswith(".")),
         key=lambda path: path.name,
     )
     if not cases:
@@ -584,6 +690,8 @@ def main(argv=None):
         cases_root.mkdir(parents=True, exist_ok=True)
     except OSError as exc:
         return cannot_evaluate("cannot create scratch case tree %s: %s" % (cases_root, exc))
+    env = {key: value for key, value in env.items() if key not in ("GIT_DIR", "GIT_WORK_TREE")}
+    env["GIT_CEILING_DIRECTORIES"] = str(cases_root)
 
     for case_dir in cases:
         row = run_case(case_dir, gate, env, args.timeout, cases_root)

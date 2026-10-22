@@ -1,0 +1,45 @@
+{
+  "description": "case.json argv that reaches the gate's --selftest delegation, which would run scripts copied from the fixture (round-30 routed N1)",
+  "gap": "N1",
+  "tmpdir_in_victim": false,
+  "cases": [
+    {
+      "name": "h1a",
+      "case_json": {
+        "argv": [
+          "--selftest"
+        ]
+      },
+      "planted_scripts": true,
+      "dot_git": false,
+      "expected": null,
+      "symlink_case": false
+    },
+    {
+      "name": "h1b",
+      "case_json": {
+        "argv": [
+          "--self"
+        ]
+      },
+      "planted_scripts": true,
+      "dot_git": false,
+      "expected": null,
+      "symlink_case": false
+    },
+    {
+      "name": "h1c",
+      "case_json": {
+        "argv": [
+          "--revision",
+          "HEAD",
+          "--selftest"
+        ]
+      },
+      "planted_scripts": true,
+      "dot_git": false,
+      "expected": null,
+      "symlink_case": false
+    }
+  ]
+}

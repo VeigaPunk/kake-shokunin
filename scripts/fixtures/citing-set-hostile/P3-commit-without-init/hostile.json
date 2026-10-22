@@ -1,0 +1,22 @@
+{
+  "description": "git_commit with no git_init first, run with --tmpdir inside a victim repository (round-30 routed N3)",
+  "gap": "N3",
+  "tmpdir_in_victim": true,
+  "cases": [
+    {
+      "name": "h3",
+      "case_json": {
+        "setup": [
+          {
+            "op": "git_commit",
+            "message": "probe"
+          }
+        ]
+      },
+      "planted_scripts": false,
+      "dot_git": false,
+      "expected": null,
+      "symlink_case": false
+    }
+  ]
+}

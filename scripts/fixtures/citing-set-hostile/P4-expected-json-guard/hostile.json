@@ -1,0 +1,31 @@
+{
+  "description": "expected.json as a symlink to a matching file outside the case, padded past 1 MiB, and as a FIFO (round-30 routed N5)",
+  "gap": "N5",
+  "tmpdir_in_victim": false,
+  "cases": [
+    {
+      "name": "h4a",
+      "case_json": null,
+      "planted_scripts": false,
+      "dot_git": false,
+      "expected": "symlink_outside",
+      "symlink_case": false
+    },
+    {
+      "name": "h4b",
+      "case_json": null,
+      "planted_scripts": false,
+      "dot_git": false,
+      "expected": "padded",
+      "symlink_case": false
+    },
+    {
+      "name": "h4c",
+      "case_json": null,
+      "planted_scripts": false,
+      "dot_git": false,
+      "expected": "fifo",
+      "symlink_case": false
+    }
+  ]
+}
