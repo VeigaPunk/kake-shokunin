@@ -32,11 +32,45 @@ Population
 ----------
 Only ids present in the population document are part of the citing set.
 Ids are compared numerically (``S001`` and ``S0001`` are the same id).  A
-population id that is not ``S`` followed by digits can never be produced
-by the citation grammar, so it is unreachable and the population is
-rejected with ``input_invalid`` (``population_id_unreachable``) instead of
-being measured clean.  Ids cited outside the population are counted
+population id that the citation grammar can never produce is unreachable
+and the population is rejected with ``input_invalid``
+(``population_id_unreachable``) instead of being measured clean.  The
+grammar produces exactly ``S`` followed by at least three ASCII digits
+(``^S[0-9]{3,}$``, the token rule above), so a population id that does
+not match that pattern -- ``S1``, ``S01``, ``X001``, ``s001`` -- is
+unreachable.  Ids cited outside the population are counted
 (``outsidePopulation``) but never become findings.
+
+Accepted JSON profile
+---------------------
+The population and ledger documents must be UTF-8 JSON objects.  The
+parser accepts the ordinary JSON grammar and rejects two shapes that
+plain ``json.loads`` would silently accept:
+
+* a member name that repeats inside one JSON object, at any depth
+  (``{"rows": [], "rows": []}``), is rejected as ``input_invalid`` with
+  reason ``document_duplicate_key`` -- the later member would otherwise
+  silently replace the earlier one;
+* a non-finite number (``NaN``, ``Infinity``, ``-Infinity``), at any
+  depth, is rejected as ``input_invalid`` with reason
+  ``document_nonfinite_number`` -- those literals are not JSON, and a
+  non-finite value cannot be adjudicated.  A number literal outside the
+  finite double range (``1e999``) is refused the same way.
+
+Both reasons are decided while the document is parsed, before any shape
+check, so a document that is both malformed in shape and duplicated or
+non-finite reports the duplicate or non-finite reason.
+
+Usage
+-----
+Each valued option (``--root``, ``--revision``, ``--population``,
+``--ledger``) may be given at most once.  A repeated option -- in the
+``--name value`` form, the ``--name=value`` form, or a mix of the two
+spellings, including the abbreviated spellings argparse accepts, such as
+``--rev x --revision HEAD`` -- is a usage error: the gate writes its
+usual JSON usage object to stdout and exits 64 instead of silently
+keeping the last value.  A single occurrence of an option, abbreviated
+or not, is read exactly as before.
 
 Findings
 --------
@@ -59,7 +93,10 @@ Findings
 ``input_invalid``
     One per unusable input: missing, unreadable or non-regular document
     (a FIFO or device is refused without blocking), malformed or too
-    deeply nested JSON, wrong document shape, unreachable population id,
+    deeply nested JSON, a JSON object that repeats a member name
+    (``document_duplicate_key``), a JSON document that carries a
+    non-finite number (``document_nonfinite_number``), wrong document
+    shape, unreachable population id,
     unreadable corpus file, symlinked or non-regular corpus entry, path
     that resolves outside the root, a ``corpus/knowledge`` surface that is
     absent, empty or not a directory, a blank or unknown ``--revision``,
@@ -76,6 +113,15 @@ Findings
 Exit codes
 ----------
 0 clean, 1 failed (findings present), 2 could-not-evaluate, 64 usage.
+64 covers an unknown or missing option and a repeated valued option.
+
+Safety
+------
+The corpus walk is iterative, so a deeply nested corpus directory is
+measured instead of raising ``RecursionError``.  Every document is opened
+with ``O_NONBLOCK`` and ``O_NOCTTY``, so opening a terminal device as an
+input document is refused as ``document_not_regular_file`` and never
+makes the gate's process the controlling terminal of that device.
 
 Finding multiplicity
 --------------------
@@ -96,6 +142,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import re
 import stat
@@ -112,6 +159,8 @@ F_LEDGER_NOT_CITED = "ledger_pair_not_cited"
 F_LEDGER_DUPLICATE = "ledger_duplicate_pair"
 F_INPUT_INVALID = "input_invalid"
 F_RANGE_INVALID = "citation_range_invalid"
+F_DUPLICATE_KEY = "document_duplicate_key"
+F_NONFINITE_NUMBER = "document_nonfinite_number"
 
 CORPUS_DIR = "corpus/knowledge"
 GIT_LOCAL_ENV = ("GIT_ALTERNATE_OBJECT_DIRECTORIES", "GIT_CONFIG", "GIT_CONFIG_PARAMETERS", "GIT_CONFIG_COUNT",
@@ -133,6 +182,11 @@ _TOKEN_RE = re.compile(r"(?<!\w)S([0-9]{3,})(?!\w)")
 _RANGE_RE = re.compile(r"\bS([0-9]{3,})\s*(?:-|–|—|\.\.|through|to)\s*S([0-9]{3,})\b")
 # Ids that are numerically comparable (S001 == S0001).
 _NUMERIC_ID_RE = re.compile(r"^S([0-9]+)$")
+# The population ids the citation grammar can produce: the scanner's own
+# token rule.  Anything else is unreachable (population_id_unreachable).
+# fullmatch is used, not match, so a trailing newline ("S001\n") is
+# refused instead of being read as "S001".
+_POPULATION_ID_RE = re.compile(r"S[0-9]{3,}")
 
 
 class InputInvalid(Exception):
@@ -226,7 +280,14 @@ class WorkingTreeSource:
             raise InputInvalid("path_escapes_root", relative, "document")
         # Open without blocking and check the opened object: a FIFO or a
         # device must be refused as unusable input, never waited on.
-        flags = os.O_RDONLY | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_CLOEXEC", 0)
+        # O_NOCTTY keeps the open device from becoming the controlling
+        # terminal of this process.
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_NONBLOCK", 0)
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_NOCTTY", 0)
+        )
         try:
             descriptor = os.open(target, flags)
         except OSError as exc:
@@ -265,12 +326,38 @@ class WorkingTreeSource:
         if not stat.S_ISDIR(info.st_mode):
             raise InputInvalid("not_a_directory", CORPUS_DIR, "corpus")
         found = []
-        self._walk(base, found)
+        # Iterative depth-first walk.  A corpus nested thousands of levels
+        # deep must be measured, not raise RecursionError, so the walk
+        # keeps its own stack of directory frames instead of recursing.
+        stack = [[base, self._scan_entries(base), 0]]
+        while stack:
+            frame = stack[-1]
+            entries = frame[1]
+            index = frame[2]
+            descended = False
+            while index < len(entries):
+                entry = entries[index]
+                index += 1
+                frame[2] = index
+                relative = os.path.relpath(entry.path, str(self.root)).replace(os.sep, "/")
+                if entry.is_symlink():
+                    raise InputInvalid("symlink_rejected", relative, "corpus")
+                if entry.is_dir(follow_symlinks=False):
+                    stack.append([entry.path, self._scan_entries(entry.path), 0])
+                    descended = True
+                    break
+                if entry.is_file(follow_symlinks=False):
+                    found.append(relative)
+                    continue
+                raise InputInvalid("not_a_regular_file", relative, "corpus")
+            if not descended:
+                stack.pop()
         if not found:
             raise InputInvalid("corpus_empty", CORPUS_DIR, "corpus")
         return sorted(found)
 
-    def _walk(self, directory, found):
+    def _scan_entries(self, directory):
+        """Return the sorted entries of one directory, refusing unreadable ones."""
         try:
             with os.scandir(directory) as scan:
                 entries = sorted(scan, key=lambda entry: entry.name)
@@ -282,16 +369,7 @@ class WorkingTreeSource:
                 "corpus",
                 detail=exc.strerror or type(exc).__name__,
             )
-        for entry in entries:
-            relative = os.path.relpath(entry.path, str(self.root)).replace(os.sep, "/")
-            if entry.is_symlink():
-                raise InputInvalid("symlink_rejected", relative, "corpus")
-            if entry.is_dir(follow_symlinks=False):
-                self._walk(entry.path, found)
-            elif entry.is_file(follow_symlinks=False):
-                found.append(relative)
-            else:
-                raise InputInvalid("not_a_regular_file", relative, "corpus")
+        return entries
 
 
 class GitSource:
@@ -408,17 +486,100 @@ def scan_text(text):
 # --------------------------------------------------------------------------
 
 
+class _DuplicateMember(Exception):
+    """A JSON object repeated a member name."""
+
+    def __init__(self, member):
+        super().__init__(member)
+        self.member = member
+
+
+class _NonfiniteNumber(Exception):
+    """A JSON document carried a non-finite number."""
+
+    def __init__(self, literal):
+        super().__init__(literal)
+        self.literal = literal
+
+
+def _reject_duplicate_members(pairs):
+    """object_pairs_hook: refuse a member name that repeats in one object.
+
+    Plain ``json.loads`` keeps the last member and drops the earlier one,
+    so a document like ``{"rows": [], "rows": []}`` would be read as the
+    second member alone.  The hook sees every object of the document,
+    at any depth, before the shape checks run.
+    """
+    members = {}
+    for name, value in pairs:
+        if name in members:
+            raise _DuplicateMember(name)
+        members[name] = value
+    return members
+
+
+def _reject_nonfinite(literal):
+    """parse_constant: refuse the non-JSON literals NaN, Infinity, -Infinity."""
+    raise _NonfiniteNumber(literal)
+
+
+def _finite(literal):
+    """parse_float: refuse a number literal outside the finite double range.
+
+    ``1e999`` parses as an infinity in IEEE double arithmetic; a document
+    that carries such a value cannot be adjudicated, so it is refused
+    like the ``Infinity`` literal.
+    """
+    number = float(literal)
+    if not math.isfinite(number):
+        raise _NonfiniteNumber(literal)
+    return number
+
+
+def _first_nonfinite(value):
+    """Return the first non-finite float inside a parsed document, or None.
+
+    The walk is iterative, so a deeply nested document cannot raise
+    ``RecursionError`` here either.
+    """
+    stack = [value]
+    while stack:
+        item = stack.pop()
+        if isinstance(item, float):
+            if not math.isfinite(item):
+                return item
+            continue
+        if isinstance(item, dict):
+            stack.extend(item.values())
+            continue
+        if isinstance(item, list):
+            stack.extend(item)
+    return None
+
+
 def load_json_document(raw, relative, scope):
     try:
         text = raw.decode("utf-8")
     except UnicodeDecodeError:
         raise InputInvalid("document_not_utf8", relative, scope)
     try:
-        document = json.loads(text)
+        document = json.loads(
+            text,
+            object_pairs_hook=_reject_duplicate_members,
+            parse_constant=_reject_nonfinite,
+            parse_float=_finite,
+        )
+    except _DuplicateMember as exc:
+        raise InputInvalid(F_DUPLICATE_KEY, relative, scope, member=exc.member)
+    except _NonfiniteNumber as exc:
+        raise InputInvalid(F_NONFINITE_NUMBER, relative, scope, literal=exc.literal)
     except (ValueError, RecursionError, MemoryError) as exc:
         raise InputInvalid("document_not_json", relative, scope, detail=(str(exc) or type(exc).__name__)[:120])
     if not isinstance(document, dict):
         raise InputInvalid("document_shape_invalid", relative, scope)
+    overflow = _first_nonfinite(document)
+    if overflow is not None:
+        raise InputInvalid(F_NONFINITE_NUMBER, relative, scope, literal=repr(overflow))
     return document
 
 
@@ -434,9 +595,9 @@ def load_population(document, relative):
         identifier = row.get("id")
         if not isinstance(identifier, str) or not identifier.strip():
             raise InputInvalid("document_shape_invalid", relative, "population")
-        key = id_key(identifier)
-        if key[0] != "n":
+        if not _POPULATION_ID_RE.fullmatch(identifier):
             raise InputInvalid("population_id_unreachable", relative, "population", row=identifier)
+        key = id_key(identifier)
         mapping.setdefault(key, []).append(identifier)
         if key not in display:
             display[key] = identifier
@@ -636,12 +797,35 @@ class GateParser(argparse.ArgumentParser):
         raise SystemExit(EXIT_USAGE)
 
 
+class StoreOnce(argparse.Action):
+    """A valued option that may be given at most once, in any spelling.
+
+    argparse keeps the last value of a repeated option and says nothing,
+    so ``--root a --root b`` would silently measure ``b``.  The gate
+    refuses the repetition instead: it is a usage error (exit 64) with
+    the usual JSON usage object.  The check lives in the action, so it
+    also catches a repetition written with an abbreviation
+    (``--rev x --revision HEAD``) or with the ``--name=value`` form.
+    """
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        if getattr(namespace, self.dest, None) is not None:
+            raise argparse.ArgumentError(
+                self, "option %s given more than once" % (option_string or self.dest)
+            )
+        setattr(namespace, self.dest, values)
+
+
 def build_parser():
     parser = GateParser(prog="citing_set.py", description="Range-aware citing-set completeness gate.")
-    parser.add_argument("--root", help="root directory holding corpus/ and the input documents")
-    parser.add_argument("--revision", help="read Git blobs at this revision instead of the working tree")
-    parser.add_argument("--population", help="relative path of the population document")
-    parser.add_argument("--ledger", help="relative path of the adjudication ledger document")
+    parser.add_argument("--root", action=StoreOnce,
+                        help="root directory holding corpus/ and the input documents")
+    parser.add_argument("--revision", action=StoreOnce,
+                        help="read Git blobs at this revision instead of the working tree")
+    parser.add_argument("--population", action=StoreOnce,
+                        help="relative path of the population document")
+    parser.add_argument("--ledger", action=StoreOnce,
+                        help="relative path of the adjudication ledger document")
     parser.add_argument("--json", action="store_true", help="emit JSON (always on)")
     parser.add_argument("--selftest", action="store_true", help="delegate to the sibling selftest runner")
     return parser

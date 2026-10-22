@@ -1,0 +1,17 @@
+{
+  "description": "a disposable Git repository is created at the scratch copy root while the gate root is the nested sub/ directory, which is not the repository top level.",
+  "root": "sub",
+  "argv": [
+    "--revision",
+    "HEAD"
+  ],
+  "setup": [
+    {
+      "op": "git_init"
+    },
+    {
+      "op": "git_commit",
+      "message": "fixture"
+    }
+  ]
+}
