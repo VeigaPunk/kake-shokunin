@@ -4,21 +4,27 @@
 Read local HTML pages named by a version-1 JSON manifest and check the
 Open Graph properties used in link previews. The required og:title,
 og:type, og:image and og:url properties follow S067 ("The four required
-properties for every page are"). The single og:type rule follows S068.
+properties for every page are"). The single og:type rule follows S068. The
+`og:url` multiplicity rule follows round-35 C1 lane policy by analogy with
+S068's single-og:type rule. Ignoring metadata and canonical links inside open
+`<template>`, `<svg>` or `<math>` elements is also round-35 lane policy; no
+opened source states that parser rule.
 The og:url-versus-canonical-link comparison is lane policy: S067 and S068
 define og:url as "the canonical URL" of the object or page, but neither names
-a <link rel=canonical> element, so equating the two is the lane's inference.
+a `<link rel=canonical>` element, so equating the two is the lane's inference.
 The absolute-og:url rule is also lane policy (no opened source states it).
 This tool never opens a network connection and never writes to disk.
 
 What this tool checks
 ---------------------
 The source HTML for each manifest page, parsed with html.parser. It reports
-missing required Open Graph properties, multiple non-empty og:type elements,
-an og:url that is not an absolute HTTP(S) URL with a host, and an og:url that
-differs from the first canonical link after resolving that link against the
-manifest page URL. Canonical comparison is an exact string comparison after
-stripping ASCII whitespace.
+missing required Open Graph properties, multiple non-empty og:type and og:url
+elements, an og:url that is not an absolute HTTP(S) URL with a host, and an
+og:url that differs from the first eligible canonical link after resolving that
+link against the manifest page URL. Meta and link start tags inside an open
+template, svg or math element are ignored. Containers close at matching end
+tags, nesting is counted, and a self-closed svg opens nothing. Canonical
+comparison is an exact string comparison after stripping ASCII whitespace.
 
 What this tool does NOT check
 -----------------------------
@@ -26,21 +32,25 @@ What this tool does NOT check
 * whether an og:image can be fetched, its size or its type;
 * twitter:card tags;
 * tag position: a tag in <body> counts the same as one in <head>;
-* og:url beyond the first non-empty one: a second og:url is not compared;
+* the absolute-URL and canonical checks beyond the first non-empty og:url;
+  later values are counted only for the lane-policy `og_url_multiple` finding;
 * <meta name="og:..."> forms: only the property attribute counts, although
   some consumers also read name (S073: "The key comes from name if present,
   otherwise from property");
-* which <link rel=canonical> is first: any element in the document counts,
-  including one inside <template> or <svg>, and a canonical link without href
-  is skipped;
+* which <link rel=canonical> is first: the first eligible link in the document
+  counts, except links inside an open <template>, <svg> or <math>; a canonical
+  link without href is skipped;
 * a <base> element: a relative canonical href resolves against the manifest
   page URL, unlike scripts/canonical_audit.py, which honours <base>; and
 * whether og:url, the canonical link and any sitemap entry are the URL the
   host actually serves.
 
-Manifest files and referenced HTML are read locally only. Input problems
-produce a could-not-evaluate result; policy findings produce failed-policy.
-Exit codes: 0 clean, 1 failed-policy, 2 could-not-evaluate, 64 usage.
+Manifest files and referenced HTML are read locally only. Manifest-level input
+problems produce a could-not-evaluate result without auditing pages. An
+unreadable page produces a could-not-evaluate result while readable pages are
+still audited and their policy findings are reported beside the input finding.
+Policy findings without input problems produce failed-policy. Exit codes: 0
+clean, 1 failed-policy, 2 could-not-evaluate, 64 usage.
 """
 from __future__ import annotations
 
@@ -64,6 +74,7 @@ MAX_PAGE_BYTES = 16 * 1024 * 1024
 MAX_MANIFEST_BYTES = 4 * 1024 * 1024
 REQUIRED_PROPERTIES = ("og:title", "og:type", "og:image", "og:url")
 PROPERTY_ALIASES = {"og:image:url": "og:image"}
+SUPPRESSED_ELEMENTS = frozenset(("template", "svg", "math"))
 
 
 class UsageError(Exception):
@@ -76,14 +87,36 @@ class LinkPreviewArgumentParser(argparse.ArgumentParser):
 
 
 class MetadataParser(HTMLParser):
-    """Collect relevant meta properties and the first canonical link."""
+    """Collect relevant tags outside open template, svg and math elements."""
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.properties: dict[str, list[str]] = {name: [] for name in REQUIRED_PROPERTIES}
         self.canonical_href: str | None = None
+        self.suppressed_elements: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag in SUPPRESSED_ELEMENTS:
+            self.suppressed_elements.append(tag)
+            return
+        if self.suppressed_elements:
+            return
+        self._collect_metadata(tag, attrs)
+
+    def handle_endtag(self, tag: str) -> None:
+        # A matching end tag closes that element and any nested suppressed
+        # elements, while a nested same-name element keeps its parent open.
+        for index in range(len(self.suppressed_elements) - 1, -1, -1):
+            if self.suppressed_elements[index] == tag:
+                del self.suppressed_elements[index:]
+                break
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        # Self-closed tags open nothing, including <svg/>.
+        if not self.suppressed_elements and tag not in SUPPRESSED_ELEMENTS:
+            self._collect_metadata(tag, attrs)
+
+    def _collect_metadata(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         # The first occurrence of a duplicated attribute wins, as in an HTML
         # tree builder (round-34 wave 2: dict(attrs) kept the last one).
         attributes: dict[str, str | None] = {}
@@ -103,10 +136,6 @@ class MetadataParser(HTMLParser):
             href = attributes.get("href")
             if rel is not None and href is not None and "canonical" in rel.lower().split():
                 self.canonical_href = href.strip(ASCII_WHITESPACE)
-
-    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        self.handle_starttag(tag, attrs)
-
 
 def absolute_http_url(value: str) -> bool:
     try:
@@ -212,7 +241,7 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
             continue
         documents.append((page_url, text))
 
-    if input_findings:
+    if any(finding["reason"] == "input_invalid" for finding in input_findings):
         return result("could-not-evaluate", 0, input_findings), EXIT_INPUT
 
     findings: list[dict[str, object]] = []
@@ -239,6 +268,13 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
             })
 
         og_urls = parser.properties["og:url"]
+        if len(og_urls) > 1:
+            findings.append({
+                "id": f"{page_url}:og_url_multiple:og:url",
+                "reason": "og_url_multiple",
+                "page": page_url,
+                "property": "og:url",
+            })
         if og_urls:
             og_url = og_urls[0]
             if not absolute_http_url(og_url):
@@ -263,6 +299,8 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
                         "property": "og:url",
                     })
 
+    if input_findings:
+        return result("could-not-evaluate", len(documents), input_findings + findings), EXIT_INPUT
     if findings:
         return result("failed-policy", len(documents), findings), EXIT_POLICY
     return result("clean", len(documents), []), EXIT_CLEAN

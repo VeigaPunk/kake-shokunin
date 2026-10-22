@@ -96,6 +96,30 @@ def check_case(tool, case_dir):
                         "verdict mismatch: expected %r, observed %r"
                         % (want_verdict, payload.get("verdict"))
                     )
+                if (
+                    "pagesChecked" in expected
+                    and payload.get("pagesChecked") != expected["pagesChecked"]
+                ):
+                    problems.append(
+                        "pagesChecked mismatch: expected %r, observed %r"
+                        % (expected["pagesChecked"], payload.get("pagesChecked"))
+                    )
+                if "findingIds" in expected:
+                    want_ids = expected["findingIds"]
+                    payload_findings = payload.get("findings")
+                    got_ids = (
+                        [finding.get("id") for finding in payload_findings if isinstance(finding, dict)]
+                        if isinstance(payload_findings, list)
+                        else None
+                    )
+                    if (
+                        not isinstance(want_ids, list)
+                        or not all(isinstance(item, str) for item in want_ids)
+                        or got_ids != want_ids
+                    ):
+                        problems.append(
+                            "finding ids mismatch: expected %r, observed %r" % (want_ids, got_ids)
+                        )
                 try:
                     want_findings = projected_findings(expected.get("findings"))
                     got_findings = projected_findings(payload.get("findings"))
