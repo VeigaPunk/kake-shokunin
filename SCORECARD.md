@@ -1558,3 +1558,108 @@ What the targets do not show:
   499 s). The L1 fixed it with a per-name open count; the sandbox re-measure at `e068bc4b` gives
   24 of 24, selftest 46/46 and matrix 28/28. It counts toward no claim (lesson "Post-measurement
   tool repair").
+
+## Round 36 — declared claims (before implementation lands)
+
+Base `b720d79976a1fb8fe6a8eb4b9f50e946b0cd5e07`. One claim. Rounds 34 and 35 were rejected
+because a cheap control met a knowledge-entry counter (round-35 closure routed defect 1). This
+round makes no knowledge-entry claim. It works a different surface: the lane's source registry
+has a shape census (`scripts/sources-census.sh`) but no tool that re-checks a row's quote against
+a fetched copy of its source. Axis by the surface it changes: **freshness** — a new tool
+(operation) for drift detection of `SOURCES.md` rows. The command that would show the surface
+unmoved: `git ls-tree <rev> -- scripts/source_recheck.py` prints nothing, and the counter below
+scores 0 of 28.
+
+**C1 — freshness (capability): offline source re-check audit `scripts/source_recheck.py`.**
+Frozen predicate, the same sentence here, in `.ufo/waves/round-36/sealed_count.py` (`PREDICATE`,
+`met = cases == 28 and passed >= 25`) and in every receipt's `predicate` field:
+
+    met: passed >= 25 of 28 sealed cases
+
+- Before: 0 of 28 at the base (the tool is absent). After: `met` true at the build commit.
+- Counting command (exit 0 met, 1 not met, 2 cannot evaluate):
+  `python3 -B .ufo/waves/round-36/sealed_count.py --root . --revision <rev> --key-revision <reveal>`
+- The 28 cases were written by the L1 before this declaration and stay outside the lane until a
+  reveal commit; the counter pins their sha256 and refuses a revision that holds them. Seven
+  contract bullets, four cases each. Every case of a bullet carries one check per rule of that
+  bullet. Each of the 34 rule ablations of the L1's private reference fails at least the four
+  cases of its bullet (at most 24 of 28, below target), and the reference scores 28 of 28. The
+  ablation receipts are committed before any build.
+- On every run the counter replaces every check id and body file name with fresh random ones, so
+  no tool can key on ids, file names or labels.
+- Sourced: the contract rests on rows opened this round, S088 (RFC 9110 status and redirect
+  semantics), S089 (RFC 3986 reference resolution), S090 (WHATWG Encoding), S091 (UAX #15) and
+  S092 (WHATWG HTML syntax), plus the existing S025 (template contents) and S033 (media types).
+- Limits: the cases are synthetic fetch records, not live fetches. The tool reads a recorded
+  snapshot; it does not fetch. A passing tool shows the contract below is implemented, not that
+  any registry row is fresh.
+
+C1 contract (public; the sealed cases test exactly this):
+
+- Usage: `python3 scripts/source_recheck.py --manifest PATH` prints one JSON report on stdout:
+  `{"version": 1, "verdict": V, "checksEvaluated": N, "findings": [F, ...]}`, where each finding is
+  `{"check": <check id or null>, "reason": R, "target": <URL or null>}`. Exit 0 when V is `clean`,
+  1 when `failed-policy`, 2 when `could-not-evaluate`, 64 on a usage error. It reads only the
+  manifest and the body files it names; no network, no writes.
+- Manifest (UTF-8 JSON): `{"version": 1, "checks": [check, ...]}`. A check is an object with
+  `id` (non-empty string), `url` (absolute URL, scheme `http` or `https`, non-empty host), `quote`
+  (non-empty string) and `hops` (non-empty list of `{"status": <integer 100-599>, "location":
+  <string>}`). 301, 302, 303, 307 and 308 are redirect statuses; a redirect hop needs `location`;
+  every hop but the last is a redirect and the last is not. When the last hop's status is 200
+  the check also has `contentType` (string) and `body` (a relative path to a regular file inside
+  the manifest's directory).
+- (a) Final status. The last hop decides. 200: the quote rules (c)-(f) apply. 404 or 410: one
+  `gone` finding. Any other status (including other 2xx): one `http_error` finding. No quote
+  check unless the final status is 200. (S088 sections 15.5.5 and 15.5.11.)
+- (b) Redirects. 301 and 308 are permanent; 302, 303 and 307 are temporary (S088 section 15.4).
+  Each `location` is resolved against the URL that hop answered (the check `url` for the first
+  hop, then the previous resolved location) by RFC 3986 section 5.2 (S089; S088 section 10.2.2),
+  with no further normalization. When the chain starts with one or more permanent hops, the check
+  gets one `moved` finding whose `target` is the resolved location of the last hop of that
+  leading permanent run. A chain that starts with a temporary hop gets no `moved` finding,
+  whatever follows. `moved` comes in addition to the final-status outcome. Fragment inheritance
+  (S088 section 10.2.2) is out of scope.
+- (c) HTML text. When the media type is `text/html` or `application/xhtml+xml`, the text is the
+  decoded body with, in this order: comments removed (`<!--` to the next `-->`); the contents of
+  `script`, `style` and `template` elements removed (start tag to the next end tag of the same
+  name, ASCII case-insensitive; S092 raw text elements, S025 template contents); every remaining
+  tag removed (`<` followed by an ASCII letter, `/` or `!`, up to the next `>`); character
+  references decoded as HTML does (named, decimal and hexadecimal; Python `html.unescape`
+  conforms). Text inside `title` and every other element is kept.
+- (d) Quote match. The text and the quote are both normalized to NFKC (S091), then every
+  character for which Python `str.isspace()` is true is deleted from both. The check holds when
+  the normalized quote is a substring of the normalized text; matching is case-sensitive.
+  Otherwise one `quote_missing` finding.
+- (e) Media types. The media type is the part of `contentType` before any `;`, trimmed and
+  compared ASCII case-insensitively; parameter names are case-insensitive too (S033). `text/plain`:
+  the text is the decoded body as is (no comment, tag or reference processing), then (d). Any
+  other media type: one `unsupported_type` finding and no quote check.
+- (f) Decoding (S090). A body starting with a byte order mark (EF BB BF UTF-8, FE FF UTF-16BE,
+  FF FE UTF-16LE) is decoded in that encoding with the mark dropped, whatever `charset` says.
+  Otherwise the `charset` parameter, trimmed, with surrounding double quotes removed and matched
+  ASCII case-insensitively, picks the encoding by the WHATWG Encoding label table; the tool
+  supports the labels of UTF-8, UTF-16BE, UTF-16LE and windows-1252 (so `iso-8859-1`, `latin1`,
+  `ascii` and `us-ascii` mean windows-1252). Any other label, even one valid in the table, gives
+  one `charset_unsupported` finding and no quote check. No BOM and no `charset`: UTF-8. Bytes
+  invalid in the chosen encoding decode to U+FFFD.
+- (g) Input faults. An unreadable or non-JSON manifest, a non-object, `version` other than 1, or
+  `checks` not a list: one `input_invalid` finding with check null, nothing evaluated. A check
+  that breaks any manifest rule above (including a body path that is absolute, escapes the
+  manifest directory, or is missing or not a regular file): one `check_invalid` finding for it
+  (check = its id when it is an object with a non-empty string id, else null) and no other
+  finding for it; the other checks are still evaluated and their findings reported.
+  `checksEvaluated` counts the checks that are not `check_invalid`.
+- Verdict: any `input_invalid`, `check_invalid` or `charset_unsupported` finding gives
+  `could-not-evaluate`; otherwise any finding gives `failed-policy`; otherwise `clean`.
+- A case passes on exit code, `verdict` and the multiset of findings projected on (check,
+  reason, target); `target` is compared for `moved` only. Field order, `checksEvaluated` and
+  extra fields are not compared.
+
+Controls (receipts under `.ufo/waves/round-36/verification/control-*.json`, committed before any
+build): the base (do nothing); a constant clean tool; an all-false tool (every check
+`quote_missing`); a no-reader tool (status and redirect rules only, never opens a body); a junk
+tool (non-JSON output); a shortcut tool keyed on ids, URL words and quote words; a naive reader
+(raw substring over the UTF-8 body, no HTML, normalization or decoding rules); and the L1's
+private reference with each of its 34 rule ablations. The non-ablation controls are built by a
+pre-freeze control wave of fresh critic and mutation-tester seats from this public text only.
+A control that meets the predicate means the counter is wrong, and it is fixed before any build.
