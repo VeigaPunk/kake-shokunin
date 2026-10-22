@@ -610,3 +610,28 @@ Limits: the C1 counter checks finding ids, not reason codes (reason codes at
 quote shape, not quote truth (quote truth was checked separately in
 `residual/ReviewGateQuotes.md`). Open findings are listed in
 `corpus/lessons/round-28.md`.
+
+## Round 29 — declared claims (before implementation lands)
+
+Base (pushed lane tip at round start): `fe1805cf32a7aadf4574637a3a8912354cee2c7b`.
+Both owned axes sit at the 10/10 saturation line and round 28 entered no
+capability, so the stagnation nudge applies: the round makes a frontier move
+(freshness) and a capability move (operability). The frontier area is new:
+project-site base paths (PROVINCE Frontier, "Jekyll/base-path build tooling"),
+not the citing-set gate that rounds 27 and 28 worked.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 frontier: project-site base-path knowledge enters as `corpus/knowledge/pages-base-path.md`, grounded in four primary sources opened this round (S040 GitHub Docs About GitHub Pages, S041 Jekyll Docs GitHub Pages, S042 Jekyll Docs Liquid filters, S043 Vite Docs Deploying a Static Site) | freshness | 0/4 declared ids pass | 4/4 declared ids pass at the landed commit | `python3 -B .ufo/waves/round-29/c1_quote_truth.py --root . --revision <commit>` |
+| C2 capability: offline base-path audit `scripts/base_path_audit.py` (built HTML of a project site, declared base path, same-origin references that resolve outside it) | operability | 0/30 frozen matrix cases pass (tool absent) | 30/30 cases pass at the landed commit, with all three constant gates rejected | `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision <commit>` |
+
+C1 passes an id only when the registry row is `mined` and opened 2026-10-22,
+the entry cites the id below its metadata header, the lesson `## Gate` line
+carries one quote of at most 25 words, and that quote is an exact substring of
+the retained visible text whose sha256 matches the round's receipt (round-28
+routed defect 3: quote truth, not quote shape). C2 compares exit code, verdict
+and finding reason tuples (reason codes, not ids) on 30 cases: 7 controls, 14
+defects, 8 input faults, 1 usage fault; the matrix file is digest-pinned in the
+counter. At base the constant gates pass 7/30, 0/30 and 7/30, so each is
+rejected. Evidence: `.ufo/waves/round-29/verification/c1-before-fe1805c.json`,
+`c2-before-fe1805c.json`. A miss on either declared value is an honest stop.
