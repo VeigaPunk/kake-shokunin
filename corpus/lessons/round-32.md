@@ -52,3 +52,17 @@ S063 and S064 new (`—` → `rejected`, recheck `90d`, used-by `—`).
 | Class | Evidence | Captured-by | Fix |
 |---|---|---|---|
 | unobserved timestamp written as fact | The round-32 declaration (`SCORECARD.md`, commit `5b32cc7`) says "Declared at 18:58Z"; the commit's own time is `2026-10-22T15:54:19-03:00` (18:54:19Z), so the stated time is 221 s after its own commit (L1 account: the time was estimated, not read; the commit order is the only committed evidence — wave-1 `ScribeMistakeDraft`). | none: no criterion compared a stated declaration time with the declaring commit's time. | `corpus/QUALITY.md` criterion appended this round: a stated declaration time must not be later than `git show -s --format=%cI <declaring commit>`. Shown able to fail: on `5b32cc7` the check `python3 -c` comparing 18:58Z with 18:54:19Z reports a violation (`.ufo/waves/round-32/verification/declared-time-check.txt`). SCORECARD carries an appended correction. |
+
+## Carried open (wave-1 sweep, not mined this round)
+
+Wave-1 seat `ReviewMistakeSweep` (`.ufo/waves/round-32/w1/ReviewMistakeSweep.md`) lists
+round-31 wave-2 findings with no lesson `## Mistakes` row. Carried here by pointer, not
+judged this round:
+- `.ufo/waves/round-31/a2-w2/CriticQualityCriteria.md` F1–F3 (criterion checks that cannot fail or fail the round's own wave).
+- `.ufo/waves/round-31/a2-w2/ReviewProvinceReadme.md` F1 (PROVINCE "nothing live was fetched" vs five live GETs) and F2.
+- `.ufo/waves/round-31/a2-w2/ReviewCensusAfter.md` F1 (census before/after transcripts byte-identical; no census-mode receipt).
+- `.ufo/waves/round-31/a2-w2/ReviewHostileSelftestCode.md` F2 (NUL crash; repaired in code, no row).
+- Routed item 3 sub-items (`round-31-verifier-spotcheck.md` "Routed defects" 3): `read_expected` OSError escape, silent skip of stray fixture-root entries, duplicated option tables — still open at `df31d30` (`w1/ReviewRoutedItemsStatus.md`).
+- Git-pin mutants m3d, m3f, m3g survive the hostile selftest (`w1/MutM3Variants.md`).
+- New, pre-existing at base and tip (`w1/ExecBenignSuiteTip.md`): the runner's default scratch path is a fixed shared directory (`scripts/citing_set_selftest.py:133`) and the gate's `--selftest` delegation cannot pass `--tmpdir`, so two concurrent `citing_set.py --selftest` runs fail falsely (4/4 at both revisions; distinct `--tmpdir` values: clean).
+- C1 counter code notes (`w1/ReviewC1ProbeCode.md`, frozen counter, not changed): `killed` is not gated on `guard_ok` in code (receipts all carry guard_ok true); a timeout raises instead of exit 2; exit 1 from a crashed harness would also read as killed.

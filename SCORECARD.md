@@ -1076,3 +1076,14 @@ stays as landed):
   C2 is re-checkability of a pinned snapshot; a drift step was appended to the
   entry after `CriticC2Scope`, and two more blobs the entry relied on
   (`server.ts`, `.dockerignore`) are now retained (`4d13e68`).
+- Late wave-1 findings (all 34 seats returned): m3g also survives with m3d
+  and m3f (`w1/MutM3Variants.md`; the declaration named two of three);
+  m3, m3b, m3c and m3e are killed. The m3 kill rests on the reason pin alone
+  (`w1/MutReasonCheckGate.md`: dropping the check, forcing it true or removing
+  the key restores survival). The C2 counter has seven reproduced defects
+  (`w1/ReviewC2CounterCode.md`: no row-id pin, substring registry window,
+  naive cell split, path- and mode-blind blob check, anywhere-cite); the
+  counter stays frozen as declared, and the landed bytes were checked by
+  hand (`w1/ReviewS062Row.md`, `w1/ReviewEntryRenderYamlTruth.md`,
+  `w1/ReviewEntryDockerfileTruth.md`). Lesson `corpus/lessons/round-32.md`
+  "Carried open" lists what stays open.
