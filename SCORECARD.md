@@ -815,3 +815,76 @@ Scope and limits (wave 2):
   outside `--tmpdir`, run fixture Git hooks, read outside the case and accept
   unbounded setups (`SentinelRunnerSetup`, fixed at `f80bd8f`; the sentinel's
   probes now each fail with a refusal reason).
+
+## Round 31 — declared claims (before implementation lands)
+
+Base (pushed lane tip at round start): `f1ffb81738c92c0537b99b30970143ab9419f990`.
+Both owned axes sit at the 10/10 saturation line, so the stagnation nudge
+applies as in rounds 28 to 30: one repair move (operability) and one frontier
+move (freshness). The repair is the citing-set runner containment debt that
+the round-30 closure routed (`corpus/lessons/round-30-verifier-spotcheck.md`,
+"Routed defects", item 1); it is the only citing-set work this round. The
+frontier move takes Render web services and the Blueprint file
+(`render.yaml`), which `PROVINCE.md` (round-30 section) lists as open
+Frontier ground, and checks the lane's own Render property file against it.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 repair: the citing-set fixture runner `scripts/citing_set_selftest.py` refuses the five hostile fixture shapes N1, N2, N3, N5 and N6 named in the round-30 routed defect 1, and each refusal has a committed hostile fixture checked by a committed hostile selftest | operability | 0/5 probes pass, control K1 holds | 5/5 probes pass at the landed commit, with control K1 holding | `python3 -B .ufo/waves/round-31/c1_sandbox_probes.py --root . --revision <commit>` |
+| C2 frontier (learning claim): Render web-service and Blueprint semantics enter held knowledge as `corpus/knowledge/render-web-services.md`, grounded in four primary sources opened this round (S057 Render Docs Blueprint YAML Reference, S058 Render Docs Web Services, S059 Render Docs Docker on Render, S060 Render Docs Health Checks) | freshness | 0/4 declared ids pass | 4/4 declared ids pass at the landed commit | `python3 -B .ufo/waves/round-31/c2_quote_truth.py --root . --revision <commit>` |
+
+C1 probes (read the counter docstring for the exact build of each). The
+counter exports `scripts/` at the commit and runs the exported runner once
+per probe over a scratch fixture directory holding a benign copy of fixture
+`01-single-literal-clean` and the hostile case or cases. A probe passes only
+when the runner exits 1 within 90 s, the benign case passes, every hostile
+case is a failure, no harm is observed, and the commit carries a
+`scripts/fixtures/citing-set-hostile/P<n>-*/` directory that the exported
+`scripts/citing_set_hostile_selftest.py` reports as passed.
+
+- P1 (N1): case `argv` `["--selftest"]`, `["--self"]` and `["--revision",
+  "HEAD", "--selftest"]`; harm = a canary written by scripts planted in the
+  case (`scripts/citing_set.py`, `scripts/citing_set_selftest.py`).
+- P2 (N2): a case carrying a `.git` file that points at a victim repository,
+  with setup `[git_commit]` and with setup `[mkdir]`; harm = the victim's
+  HEAD, ref list or commit count changes.
+- P3 (N3): setup `[git_commit]` with no `git_init`, the runner's `--tmpdir`
+  inside a victim repository; harm as P2.
+- P4 (N5): `expected.json` as a symlink to a matching expectation outside the
+  case, padded past 1 MiB, and as a FIFO.
+- P5 (N6): a symlinked case directory.
+- Control K1: the exported runner over the committed fixture tree with
+  `--min-cases 45` exits 0 with at least 45 cases.
+
+Base evidence: `.ufo/waves/round-31/verification/c1-before-f1ffb81.json`
+(0/5, K1 holds with 45 cases; counter sha256 `4707cebf…6d1a`, runner sha256
+`9f2d1ecb…14d3`). At base each gap shows its harm: P1 writes the canary, P2
+and P3 change the victim, P4 hangs on the FIFO until the 90 s limit, P5
+exits 0.
+
+C2 is the round-30 quote-truth counter with new ids and paths, and a quote
+must now have 6 to 25 words (round-30 wave 1 showed a one-word quote could
+pass). An id passes only when its registry row is `mined` and opened
+2026-10-22, the entry cites the id below its first 8 lines, the lesson
+`## Gate` line carries one quote of 6 to 25 words, and the quote is a
+substring of the retained visible text whose sha256 matches
+`.ufo/waves/round-31/sources/receipts.json`. The L1 opened the sources at
+2026-10-22T15:41:23Z–15:41:29Z, one GET each, with
+`.ufo/waves/round-31/fetch_sources.py` (sha256 `bc66ceb0…42c9`, named in each
+receipt). The same fetch opened S061 (Render Docs, Configure Other DNS
+Providers) for the round-30 routed defect 4; S061 is not a C2 id. Base
+evidence: `.ufo/waves/round-31/verification/c2-before-f1ffb81.json` (0/4,
+counter sha256 `de48d460…31b8`). C2 proves sourcing, not that each entry
+sentence follows from its quote; the closure should read the entry body.
+
+Closure checks, written so they can pass as written (round-30 routed defect 6):
+
+- Counter identity: `git show <commit>:.ufo/waves/round-31/c1_sandbox_probes.py | sha256sum`
+  and the same for `c2_quote_truth.py` equal `4707cebf…6d1a` and
+  `de48d460…31b8`, and each after-receipt names that hash.
+- Retained sources unchanged since this declaration:
+  `git diff --quiet <declaration commit> <commit> -- .ufo/waves/round-31/sources/receipts.json .ufo/waves/round-31/sources/S057.txt .ufo/waves/round-31/sources/S058.txt .ufo/waves/round-31/sources/S059.txt .ufo/waves/round-31/sources/S060.txt .ufo/waves/round-31/sources/S061.txt .ufo/waves/round-31/fetch_sources.py`
+  exits 0. Screened candidates are kept in `.ufo/waves/round-31/screened/`,
+  outside that list.
+
+A miss on either declared value is an honest stop.
