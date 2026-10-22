@@ -1,0 +1,82 @@
+diff --git i/scripts/citing_set_selftest.py w/scripts/citing_set_selftest.py
+index 200030d..5a36f76 100755
+--- i/scripts/citing_set_selftest.py
++++ w/scripts/citing_set_selftest.py
+@@ -66,10 +66,10 @@ is started:
+ 
+   * an ``argv`` token that is not a value (a token starting with "-") unless
+     it is ``--name`` or ``--name=value`` where ``name`` is a non-empty prefix
+-    of exactly one of root, revision, population or ledger and of no other
+-    gate option (json, selftest, help): so ``--selftest`` and its
+-    abbreviations, which would make the gate run scripts copied from the
+-    fixture, are refused, and so is an ambiguous prefix such as ``--r``;
++    of exactly one value-taking option declared by the gate parser and no
++    non-valued gate option. This prevents an abbreviation from reaching
++    ``--selftest`` or another no-value option and refuses an ambiguous prefix
++    such as ``--r`` before the gate runs;
+   * a case directory that contains an entry named ``.git`` at any depth;
+   * a ``git_commit`` step with no earlier ``git_init``;
+   * an ``expected.json`` that is a symlink, not a regular file, or larger
+@@ -127,6 +127,7 @@ import shutil
+ import stat
+ import subprocess
+ import sys
++from functools import lru_cache
+ from pathlib import Path
+ 
+ EXIT_OK = 0
+@@ -143,8 +144,6 @@ CASE_SETUP_MAX_BYTES = 65536
+ CASE_SETUP_MAX_OPS = 64
+ EXPECTED_MAX_BYTES = 1048576
+ SETUP_OPS = ("mkdir", "fifo", "git_init", "git_commit")
+-GATE_VALUE_OPTIONS = ("root", "revision", "population", "ledger")
+-GATE_OTHER_OPTIONS = ("json", "selftest", "help")
+ GIT_IDENTITY = {
+     "GIT_AUTHOR_NAME": "citing-set-selftest",
+     "GIT_AUTHOR_EMAIL": "citing-set-selftest@invalid",
+@@ -367,22 +366,40 @@ def load_case_setup(case_dir):
+     return {"argv": argv, "root": root, "setup": setup}
+ 
+ 
++@lru_cache(maxsize=1)
++def gate_option_names():
++    """Return the gate parser's long options partitioned by value-taking."""
++    from citing_set import build_parser
++
++    value_options = []
++    other_options = []
++    for action in build_parser()._actions:
++        options = other_options if action.nargs == 0 else value_options
++        options.extend(
++            option[2:] for option in action.option_strings if option.startswith("--")
++        )
++    return tuple(value_options), tuple(other_options)
++
++
+ def argv_refusal(argv):
+     """Return the first argv token outside the gate-option allowlist, or None.
+ 
+     A token that does not start with "-" is a value.  An option token must be
+     ``--name`` or ``--name=value`` where ``name`` is a non-empty prefix of
+-    exactly one valued gate option and of no other gate option, so argparse
+-    abbreviation can never reach ``--selftest``, ``--json`` or ``--help`` and
+-    an ambiguous prefix such as ``--r`` is refused here, not by the gate.
++    exactly one valued gate option and of no non-valued gate option, so
++    argparse abbreviation can never reach a no-value option and an ambiguous
++    prefix such as ``--r`` is refused here, not by the gate.
+     """
++    value_options = other_options = None
+     for token in argv:
+         if not token.startswith("-"):
+             continue
++        if value_options is None:
++            value_options, other_options = gate_option_names()
+         name = token[2:].split("=", 1)[0] if token.startswith("--") else ""
+         if (not name
+-                or sum(option.startswith(name) for option in GATE_VALUE_OPTIONS) != 1
+-                or any(option.startswith(name) for option in GATE_OTHER_OPTIONS)):
++                or sum(option.startswith(name) for option in value_options) != 1
++                or any(option.startswith(name) for option in other_options)):
+             return token
+     return None
+ 
