@@ -142,3 +142,37 @@ Probe evidence: `/fast/scratch/hyaku/kake-r34/w1/ScribeCarriedOpenNames/probe_sh
   instead of 2 (D4). The landed `9ef758c` entry, rows and lesson use none of
   these shapes (the census line and every cite sit in unfenced body text; no
   row carries an escaped pipe), which the non-author read can confirm.
+
+## Wave-2 corrections (appended)
+
+- Row change: S077 tier B → A at `76fac3b` (the row's scope is the plugin's
+  own README, which is primary for that scope; wave-2 `ReviewSourcesRows`
+  L1). No status, recheck or used-by cell changed.
+- Gate check repairs at `76fac3b`: a reject inside a fenced block no longer
+  counts (wave-2 `MutGateRejectCheck`), and a reason must keep four words
+  after decision, tier, kind and status tokens are removed (wave-2
+  `ReviewQualityCriteria34` B1). Receipts: retained fixtures under
+  `.ufo/waves/round-34/retained/gate-reject-fixtures/` give the expected
+  exits (`verification/criterion-gate-reject-fixtures-at-76fac3b.txt`);
+  rounds 28–34 give the same results as before the repair.
+- Receipt check repair: a text file counts as a receipt only when its file
+  name carries the hash; before, this check's own diagnostic
+  (`criterion-receipt-presence-r33-report.txt`, which names `93359ff` as
+  missing) satisfied it (wave-2 `MutReceiptPresenceCheck`;
+  `verification/criterion-receipt-presence-after-w2-repair.txt`, exit 1).
+- Lookup check: the docstring now says an honest tool also exits 1, so the
+  check means something only for a control known to do none of the work, and
+  a counter exit other than 0 or 1 is exit 2 (wave-2
+  `ReviewLookupControlCheck`).
+- Carried-open names (wave-2 `ReviewCarriedOpenShapes`): the routed shapes
+  "misplaced section", "`S0650` substring cite" and "N1" are carried here by
+  name. Misplaced section: carried, folded into the anywhere-cite bullet
+  (C34:208,219). `S0650` substring cite: avoided by the word-boundary cite
+  (C34:219). N1 (non-UTF-8 crash): avoided by `errors="replace"`
+  (C34:199-201). Pointer fix: the bigint bullet's `(\d+)` capture is at C34:73,
+  not C34:66. The section's header "all sit in the registry/entry layer" is
+  wrong for the mode-blind and self-consistent-pair shapes, and duplicate-row
+  makes four regressions, not three.
+- Mistake row 4 retrieval note: the two round-34 bundles carry
+  `refs/heads/*`, not tags; fetch them with `git fetch <bundle>
+  'refs/heads/*:refs/heads/*'` (wave-2 `ReviewMistakesRows`).

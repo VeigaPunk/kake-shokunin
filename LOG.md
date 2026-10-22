@@ -1445,3 +1445,14 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   equals `a2fe31b`; the committed `9ef758c` file holds the L1's rows).
 - Wave 1 `kake-r34-w1`: 32 seats (10 executor, 7 scribe, 5 scout,
   4 reviewer, 3 critic, 2 mutation-tester, 1 connector), all returned.
+
+- Wave 2 `kake-r34-w2`: 35 seats (19 reviewer, 5 executor, 5 critic,
+  3 mutation-tester, 2 scout, 1 sentinel), all returned. Repairs landed at
+  `76fac3b`: tool (first-wins attributes, `og:image:url` alias, FIFO and
+  oversized pages, unparsable canonical, repeated `--manifest`, duplicate
+  JSON keys), six selftest fixtures (35 total; the three mutants that
+  survived the counter and the selftest are now killed), criterion-check
+  repairs (fenced Gate lines, status-word reasons, text receipts, lookup
+  check exit contract), S077 tier A. Receipts at `76fac3b`: C1 28 of 28,
+  C2 5 of 5, selftest 35 of 35, real-input agrees. Corrections appended to
+  SCORECARD, the entry, the lesson, QUALITY and SKILL.

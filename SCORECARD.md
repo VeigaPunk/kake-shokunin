@@ -192,7 +192,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Offline static canonical preflight | Reads a version-1 manifest of local static HTML pages and reports, read-only and network-free, whether each page's explicit-head canonical link matches the publisher's declared expectedCanonical (clean / failed-policy / could-not-evaluate, stable finding ids, exits 0/1/2/64); no search-engine selection, rendering, headers or live-delivery claim | `scripts/canonical_audit.py`; `python3 .ufo/waves/round-22/measure.py --root . --revision b539cc17c25e5f42fe8803e2aa42b4574c4b44c6` → 32/32 (`.ufo/waves/round-22/measure-after-v2.json`); selftest 62/62 and replay per-case match in `.ufo/waves/round-22/postfix/` | 22 |
 | GET snapshot + canonical receipt replay | Captures 12 named public surfaces read-only and replays the offline canonical policy on committed served bytes; distinguishes receipt completeness from clean policy and 404s; no rendered-DOM or publication approval | `scripts/live_snapshot.py`; `.ufo/waves/round-23/{live/,measure-c2-after-v2.json,evaluability.json}` measured at `5bef55b1464d7ccbff802edab400d138597a621c`; receipt coverage 12/12, policy outcomes 3 clean / 5 canonical_missing / 4 not-served | 23 |
 | Offline project-site base-path audit | Reads a version-1 manifest of local built HTML pages with a declared base path and reports, read-only and network-free, each same-site reference (http and https on one host count as one site) that resolves outside that base path (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no live serving, redirect, rendered-DOM or CSS/JavaScript URL claim | `scripts/base_path_audit.py`; `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision d8cd2e45a903fb05e4f34179aae8a21095a83dbb` → 30/30 with all three constant gates rejected (`.ufo/waves/round-29/verification/c2-after-d8cd2e4.json`); committed selftest 45/45 (`verification/selftest-lane-final.json`); real-input run on the round-23 snapshots of three owned project sites: 3 pages, 114 references, 4 findings, all `<a href>` to other paths on the owner host (`.ufo/waves/round-29/real-input/out/summary.json`) | 29 |
-| Offline link-preview (Open Graph) audit | Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim | `scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`); committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4) | 34 |
+| Offline link-preview (Open Graph) audit | Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim | `scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`; the declared measure, necessary but not sufficient), and at the wave-2 repair `76fac3b` (`c1-at-76fac3b.json`); evidence below was added after the declaration and does not count toward C1: committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4) | 34 |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -1282,3 +1282,73 @@ Limits found by wave 1 (appended; the declaration stays as landed):
   current knowledge, the upstream head unchanged since round 33
   (`ExecUpstreamBlobExact`: head still `7fc6aa2f`, retained tar byte-identical
   to a fresh `git archive`).
+
+## Round 34 — wave-2 corrections and repairs (appended)
+
+Wave 2 `kake-r34-w2` (35 seats) attacked the landed work; reports in
+`.ufo/waves/round-34/w2/`. The declaration and the measured-results table
+stay as landed.
+
+- Capability row: its evidence cell now says the 28/28 is the declared
+  measure (necessary, not sufficient) and that the selftest, real-input run
+  and code read came after the declaration (`w2/CriticCapabilityClaim.md`
+  findings 1–2; edited in place because the row entered this round). The
+  real-input run exercises only the missing-property rule: a tool with the
+  canonical comparison deleted, or one that flags the wrong 15 pages, also
+  gives `agrees: true` (`w2/ReviewRealInputRun.md` F1, F2). The og:type,
+  absolute-og:url and canonical rules are shown on fixtures only.
+- Tool repairs at `76fac3b` (after the C1 measurement; the C1 counter still
+  gives 28/28 with all constants rejected, `verification/c1-at-76fac3b.json`):
+  duplicate attributes now keep the first value (`w2/ReviewLinkPreviewTool.md`
+  M1, `w2/CriticCapabilityClaim.md` 7); `og:image:url` satisfies `og:image`
+  as S067 says it is identical (`CriticCapabilityClaim` 4); a non-regular
+  page (FIFO) and a page over 16 MiB are `page_unreadable`
+  (`w2/SentinelToolInputs.md` F2, `ReviewLinkPreviewTool` M2); an unparsable
+  canonical href is `og_url_not_canonical` instead of a traceback with no
+  JSON (`SentinelToolInputs` F1); a repeated `--manifest` is exit 64 and a
+  duplicated manifest key is `input_invalid` (`ReviewLinkPreviewTool` L1,
+  L3). Probes: `verification/tool-w2-repairs-probes.txt`.
+- Selftest: 35 fixtures at `76fac3b` (35/35,
+  `verification/selftest-link-preview-at-76fac3b.txt`). Of 13 single-rule
+  mutants built by `w2/MutToolRuleBreaks.md`, three survived both the counter
+  and the 29-fixture selftest (case-insensitive og:url comparison,
+  trailing-slash normalisation, non-UTF-8 page read with replacement); three
+  new fixtures kill each (34/35 for each mutant,
+  `verification/selftest-w2-survivor-mutants.txt`).
+- Still open on the tool: the first non-empty og:url is the only one
+  compared; any `<link rel=canonical>` in the document counts as first,
+  including inside `<template>` or `<svg>`; one non-UTF-8 page stops the whole
+  manifest at exit 2; containment is path-based (hardlinks, check-then-use).
+  `w2/ExecDifferentialOracle.md`: on 512 generated pages the tool and the
+  wave-1 lxml implementation disagree on 171, all from vertical tab handling
+  (the tool strips the WHATWG ASCII whitespace set, which excludes vertical
+  tab) or a second og:url; on the 102 ds4cc pages they agree.
+- Network-free and write-free held under strace for the 102 pages and the 28
+  matrix cases (`w2/ExecNetworkFreeProof.md`) and under poisoned sockets
+  (`ReviewLinkPreviewTool`).
+- Pointer fix: the "name no `<link rel=canonical>`" point is
+  `w1/CriticSeparability.md` finding 6, not 5 (`w2/ReviewScorecard34.md`).
+  "No opened source requires an absolute og:url" understates S067: its URL
+  type is "All valid URLs that utilize the http:// or https:// protocols",
+  from which the entry infers (labelled) that a relative og:url fails the
+  type (`w2/CriticC2Sufficiency.md`).
+- Timing labels (`w2/CriticDeclarationTiming.md`): the selftest and the
+  wave-1 real-input run were assigned at dispatch and mostly written before
+  the lookup finding; only their lane receipts came after it. The tool
+  docstring at `5613071` quotes S073, which was registered at `9ef758c`.
+- C2 sufficiency (`w2/CriticC2Sufficiency.md`): the transcription control
+  `0cce15f0` and the landed `9ef758c` both score 5 of 5; the landed entry
+  carries 45 quoted spans, every one an exact match in retained text, against
+  the control's four. The census totals were seen before the declaration
+  (disclosed there); what the round learned is the per-page breakdown and the
+  platform behaviour.
+- Separability re-tested at the tip (`w2/ExecSeparabilityAtTip.md`): tip
+  without the tool gives C1 0/28 and C2 5/5; tip without the entry and the
+  S067–S070 rows gives C1 28/28 and C2 0/5.
+- Re-runs: both counters reproduce every L1 receipt field for field
+  (`w2/RerunC1Counter.md`, `w2/RerunC2Counter.md`); a third census method
+  (html5lib) matches all seven numbers (`w2/ExecCensusThirdMethod.md`).
+- Harm check (`w2/CriticHarmCheck.md`, `w2/ExecOtherGatesUnchanged.md`): no
+  line deleted from `1e54c89` to `24a1647`; existing gates and nine earlier
+  counters give the same results at base and tip. Wave-2 repairs change only
+  round-34 files.

@@ -1022,3 +1022,11 @@ census `og:image=1` of `pages=102`); 5 single object — S068@3896; 6 absolute �
 S067@1303; 7 canonical compare — interface + S068@2626; 8 exit 2 — interface; 9 exit 64 —
 
 Round-34 additions after wave 1: the committed selftest `python3 -B scripts/link_preview_selftest.py` (29 fixtures under `scripts/fixtures/link-preview/`, none copied from the matrix) runs the tool at `scripts/link_preview_audit.py` or `--tool <path>`; a 28/28 counter score alone does not show a working audit (a lookup-table tool also scores it, `corpus/lessons/round-34.md` mistake row 4), so read the tool and run the selftest. Discord reads `name=` before `property` (S073), so the tool's property-only rule is stricter than that consumer.
+
+Round-34 wave-2 corrections to the table above: the four S068 byte offsets
+are stale; the phrases sit at 6821, 3906, 2634 and 4558 (wave-2
+`ReviewSkillTable34`). The selftest has 35 fixtures at `76fac3b`. The tool
+now counts `og:image:url` as `og:image` and keeps the first of duplicated
+attributes; for `bloat.html` and `exa.html`, fix the canonical-versus-sitemap
+split before adding `og:url` (`corpus/knowledge/link-preview-metadata.md`,
+wave-2 corrections).

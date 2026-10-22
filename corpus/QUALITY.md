@@ -673,3 +673,19 @@ criteria themselves stand.
   control tests the leak it exploits; a counter that hides case names can still be
   satisfied by other transcription paths, so the non-author read of the landed work stays
   part of admission.
+
+## Round-34 wave-2 corrections to the round-34 criteria
+
+- (b): "its docstring states the exit contract" is wrong; the exits are in
+  the code (0 a reasoned reject found, 1 none, 2 bad input). At `76fac3b` the
+  check also skips fenced lines and requires a reason of at least four words
+  beyond decision, tier, kind and status tokens, so "reject, tier C, kind
+  docs, status rejected" now fails (wave-2 `ReviewQualityCriteria34` B1,
+  `MutGateRejectCheck`; `.ufo/waves/round-34/verification/criterion-gate-reject-fixtures-at-76fac3b.txt`).
+  A present reason is still not shown true.
+- (c): text receipts count only when the file name carries the hash (wave-2
+  `MutReceiptPresenceCheck`); the check prefix-matches the JSON `revision`
+  rather than requiring equality.
+- (d): an honest tool also reaches the full score and exits 1; the check
+  only means something for a control whose diff shows it does none of the
+  work (wave-2 `ReviewLookupControlCheck`).

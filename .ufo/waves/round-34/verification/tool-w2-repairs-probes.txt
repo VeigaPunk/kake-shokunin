@@ -1,0 +1,9 @@
+$ python3 -B scripts/link_preview_audit.py --manifest a --manifest b
+link_preview_audit.py: --manifest given more than once
+exit=64
+$ manifest with a repeated "version" key
+{"findings":[{"id":"input_invalid:","page":null,"property":null,"reason":"input_invalid"}],"pagesChecked":0,"verdict":"could-not-evaluate"}
+exit=2
+$ FIFO page (mkfifo p.html)
+{"findings":[{"id":"page_unreadable:https://x.example/","page":"https://x.example/","property":null,"reason":"page_unreadable"}],"pagesChecked":0,"verdict":"could-not-evaluate"}
+exit=2

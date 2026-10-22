@@ -220,3 +220,37 @@ claim evidence.
   canonical link; the burnerchrome and veigapunk kimi.page roots, the lucario
   Pages root and the ufo-fsd kimi.pro shell carry no Open Graph tags. These are
   one-day-old captured bytes, not today's live state.
+
+## Round-34 wave-2 corrections (appended; the sections above stay as landed)
+
+- The wave-1 additions preamble says "The C2 counter does not read them".
+  That is wrong: the counter reads the whole entry. C2 was measured at
+  `9ef758c`, before that section existed, and at later revisions those lines
+  change no condition (wave-2 `CriticDeclarationTiming`).
+- Header `coverage`: S069 states no "tag preference" between oEmbed and Open
+  Graph; it says only that both families are read (wave-2
+  `CriticC2Sufficiency`).
+- Slack cache bullet: it is the old cached copy that can persist for about
+  half an hour after a fix, not the corrected scrape.
+- "Any non-marked up webpage should be treated as og:type website." (S067) is
+  the protocol's instruction to consumers; that a given platform does so is
+  [INFERENCE].
+- "Types are shared, not invented per page" overstates S067, which also
+  allows custom namespaced types; the operative point stays the labelled
+  inference that an off-list type obliges no platform (wave-2
+  `ReviewEntryCoreSections`).
+- Fixing the source, first step (wave-2 `CriticFrontierValue`): fix the
+  canonical-versus-sitemap split on `bloat.html` and `exa.html` before adding
+  `og:url` there, or shares collect at `https://ds4cc.com/bloat` and
+  `https://ds4cc.com/exa`, which no one has shown to resolve; the lane's
+  `scripts/canonical_audit.py` already flags both against the sitemap URL.
+  Other gaps it named: the 86 image-less pages need one new image asset; the
+  tool does not check that an `og:image` file exists in the tree; the
+  ds4cc.kimi.page relative `og:url` is not in the ds4cc source (a Kimi-side
+  re-publish, operator-owned); the burnerchrome pages are also mirrored on
+  Vercel; S068 lists `og:description` among its basic tags, which the census
+  does not count; no freshness pin watches the ds4cc commit behind the census.
+- The audit tool now counts `og:image:url` as `og:image` ("og:image:url -
+  Identical to og:image", S067) and keeps the first of duplicated attributes
+  (`76fac3b`); the census line above is unaffected (no ds4cc page uses either
+  form; the real-input run at `76fac3b` gives the same 101/15/15/15).
