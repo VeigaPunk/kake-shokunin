@@ -137,3 +137,26 @@ section on 2026-10-22.
 - Nothing here changes the lane's property map or its publish channels: the
   Render row the lane holds is a Docker web service, not a static site
   (corpus/knowledge/publish-channels.md, `app.ds4cc.com`).
+
+## Round-31 corrections
+
+Append-only; the lines above are unchanged. Routed by the round-30 closure
+(`corpus/lessons/round-30-verifier-spotcheck.md`, routed defects 3 and 4).
+
+- Supersedes line 26 ("the only build-time setting it names besides the
+  branch is dependency installation"). S049 also names the site's build
+  command: “You can then include your own dependency installation as part of your site's build command.” (S049).
+  The retained page names the branch, dependency installation and the build
+  command; it still names no publish-directory field.
+- Supersedes the word "lowercase" on line 53 ("The response carries the
+  normalized lowercase name"). S051 says only that the key is normalized:
+  “The header key is normalized and the value is appended to it to form the response:” (S051).
+  [INFERENCE] The example response keys it shows (`cache-control`,
+  `x-frame-options`, `referrer-policy`) are lowercase, so the normalization is
+  probably lowercasing, but the page does not say so.
+- Adds root-domain DNS records, which the custom-domains section above did
+  not state. For a provider without its own Render page, S061 says “When you're pointing a root domain like example.com to your Render subdomain, you can use ANAME or ALIAS records if your DNS provider supports them.” (S061),
+  and otherwise an A record: “A records point to IP addresses, and you can use 216.24.57.1 to point your root domain to Render's load balancer IP.” (S061).
+  It also warns against IPv6 records: “Remove any AAAA records from your domain while configuring DNS.” (S061).
+  These are Render's own values as of 2026-10-22; no owned domain's DNS was
+  queried.

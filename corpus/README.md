@@ -284,3 +284,13 @@ service deploys (the lane's one recorded Render property is the Docker web servi
 `domains`) stay open: wave-1 scouts read those pages but the round retained
 them as leads, not registry rows. The round-29 sentence above ("Still open: …
 Render deploy semantics …") is historical for its date.
+
+## Coverage — round 31 (2026-10-22)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Render web services and Blueprint (r31) | `knowledge/render-web-services.md` (S057–S060) | Render's own documentation for web services: deploy on push, bind host 0.0.0.0 and default port 10000; Docker builds from the repository Dockerfile with build arguments and `.dockerignore`; health checks (2xx or 3xx within five seconds, deploy cancel after 15 minutes, routing stop at 15 seconds and restart at 60 seconds, Host header); Blueprint file location, the keys the lane's `render.yaml` uses, `sync: false` and the values an existing service keeps. Includes an offline check of `render.yaml` blob `d17ab7e5` at ds4cc-marketplace `1fbdb8ed`. Knowledge only: no gate, nothing live measured. |
+
+Render DNS records for root domains (S061) are added to
+`knowledge/render-static-sites.md` as a round-31 correction. Accessibility
+conformance and crawl or JS-rendered canonical signals stay open.

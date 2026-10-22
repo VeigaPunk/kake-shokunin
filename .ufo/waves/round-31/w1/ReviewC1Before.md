@@ -1,0 +1,27 @@
+# ReviewC1Before — C1 before-measurement re-run (Kake r31, wave 1)
+
+Re-ran the C1 counter at base and confirmed every gap is real, reproducible, and
+the observed harm is the routed gap, not a counter artefact.
+
+## Commands and exit codes
+- `python3 -B .ufo/waves/round-31/c1_sandbox_probes.py --root . --revision f1ffb81738c92c0537b99b30970143ab9419f990 --scratch /fast/scratch/hyaku/kake-r31/w1/ReviewC1Before/counter` (cwd=kake-shokunin, TMPDIR inside sandbox) → exit 1, 92s wall. Printed `C1 0/5 K1=hold at f1ffb81738c92c0537b99b30970143ab9419f990`.
+- `sha256sum .ufo/waves/round-31/c1_sandbox_probes.py` → `4707cebf8831eb9a8e79405fcc07ad77e118110f980dac2826c5934a43166d1a`; `git show f1ffb81:scripts/citing_set_selftest.py | sha256sum` → `9f2d1ecb280b7dc314886c79264fb5461c400d8f7c762ea62bb4018fc49e14d3`. Both equal the stored receipts in `.ufo/waves/round-31/verification/c1-before-f1ffb81.json`, so the rerun exercised the same counter and same base runner bytes.
+
+## Comparison with stored before-measurement
+Identical in every compared field: passed 0/5, controlK1 true (K1 exit 0, cases 45), hostileSelftest present=false, and all five probe details (failedCases, reasons, canary/victimUnchanged/timeout flags, exits). Scratch of record: `/fast/scratch/hyaku/kake-r31/w1/ReviewC1Before/counter/c1-f1ffb81-heckfo1h/`.
+
+## Per-probe verdicts (base line refs = `git show f1ffb81:scripts/citing_set_selftest.py`, gate = `:scripts/citing_set.py`)
+- **P1 (N1) — real, harm = fixture-copied code executed.** Rerun: exit 1, h1a/h1b/h1c failed with `gate report carries no 'findings' array`, `canary: true`. Why base fails to contain: `load_case_setup` only type-checks argv as a list of strings (runner:300-302, no allowlist); `run_case` appends it onto the gate command line (runner:463); the gate's `--selftest` dispatches to `run_selftest` (gate:830, 883-884) which re-execs the sibling runner with the case copy as `--root` (gate:834-864) and forwards its stdout verbatim (gate:866-869); the delegated runner then resolves the case copy's planted `scripts/fixtures/citing-set` and gate, so the planted script runs. `canary.txt` holds exactly 3 lines, one per h1a/h1b/h1c, naming `P1/tmp/citing-set-selftest/cases/h1{a,b,c}/scripts/citing_set.py`. Not a counter artefact: the runner's exit 1 comes from report-shape rejection (runner:492), never from an argv refusal — containment is broken even though the oracle failed the cases.
+- **P2 (N2) — real, harm = victim repo mutated.** Rerun: exit 0, zero failures, `victimUnchanged: false`. Base refuses `.git` only in the `git_init` branch (runner:373-376, check at 375); `mkdir` (runner:366-367) and `git_commit` (runner:377-380) never check. The fixture's `.git` gitdir-pointer file makes `git add -A`/`git commit` (cwd=case copy, no `--git-dir`/`--work-tree` pinning) write into the victim repo: `git -C P2/victim log --oneline` shows extra commit `69c2f48 probe` atop `94118cb victim`. Both hostile cases passed as clean — routed gap confirmed.
+- **P3 (N3) — real, same mechanism via repository discovery.** Rerun: exit 0, `victimUnchanged: false`. `git_commit` with no prior `git_init` runs plain git in the case copy (runner:377-380); `git_env` (runner:336-340, GIT_IDENTITY 133-140) sets no `GIT_CEILING_DIRECTORIES`, and the counter placed the runner tmpdir inside the victim work tree. Result: victim HEAD moved to `797a306 probe`, whose committed tree is literally `tmp/citing-set-selftest/cases/{00-benign,h3}/**` — direct proof of enclosing-repo discovery, not an artefact.
+- **P4 (N5) — real, harm = run-blocking FIFO.** Rerun: `exit: null, timedOut: true` (killed at the counter's 90 s), no summary at all. Base reads expectations with a plain `expected_file.read_text()` (runner:421-423): no `O_NOFOLLOW` (h4a symlink → read `outside-expected.json` and matched), no size bound (h4b >1 MiB padded read in full), no O_NONBLOCK/regular-file check — h4c's `expected.json` is a real FIFO on disk (`prw-r--r--`), and the only timeout in base (runner:466-474) wraps the gate subprocess, not this read, so the whole runner blocks. Exactly the routed N5 harm.
+- **P5 (N6) — real, silent skip.** Rerun: exit 0, no failures. Base enumeration silently drops symlinks: `cases = sorted(... if path.is_dir() and not path.is_symlink() and not path.name.startswith("."))` (runner:573-576) — h5 (`h5 -> 00-benign`, verified on disk) is neither counted nor failed, so nothing refuses it. The N6 contract (fail the case, exit 1 even with `--min-cases 0`) is a behavior base lacks.
+- **Control K1** — holds: exported base runner over the 45 committed fixtures exits 0 with cases=45, so 0/5 is not a broken-baseline artefact.
+
+## Hostile selftest fixture half
+`hostileSelftest.present: false`, all `fixtureDirs: []` — base carries no `scripts/citing_set_hostile_selftest.py` and no `scripts/fixtures/citing-set-hostile/`, consistent with C1's claim that these must be built; nothing further verifiable before they exist.
+
+## Residual risk and what I did not verify
+- The FIFO block site is evidenced indirectly (90 s kill, exit null, FIFO present on disk, no summary emitted); I did not attach a debugger to prove the blocking frame is runner:423.
+- P5: I confirmed the enumeration predicate from source and the symlink on disk, but did not separately rerun with `--min-cases 0`; base exit 0 already demonstrates the silent skip.
+- No installs or upgrades were needed; no lane files besides this report were written; all mutation stayed under my sandbox.

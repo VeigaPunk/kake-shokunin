@@ -806,3 +806,66 @@ committed fixture asserts the reason code"). Self-test:
 `python3 -B scripts/citing_set_selftest.py --root . --tmpdir <dir>` (exit 0
 clean, 1 a case mismatched, 2 could not evaluate). Round-30 evidence:
 `.ufo/waves/round-30/c1_reason_count.py` and `c1_strict_checks.py`.
+
+## Render web service and Blueprint triage — round 31
+
+Source entry: `corpus/knowledge/render-web-services.md` (S057–S060). Use it
+for the lane's one Render property, the `app.ds4cc.com` Docker web service
+(`render.yaml` in `~/Projects/ds4cc-marketplace`). Read-only: kake prepares
+and checks, the operator deploys.
+
+| Symptom | Check first | Source |
+|---|---|---|
+| Deploy never goes live and is cancelled | Do all new instances pass the health check together? A deploy that does not reach that within 15 minutes is cancelled and the old instances keep serving | “If this condition is not met within 15 minutes, Render cancels the deploy and continues routing traffic to your service's existing instances.” (S060) |
+| Service gets no public traffic | Does the app listen on host 0.0.0.0, on the port Render expects (default 10000)? | “Your web service must bind to a port on host 0.0.0.0 to receive HTTP requests from the public internet.” (S058) |
+| Health check fails although the route exists | Does the route answer 2xx or 3xx within five seconds, and does the app accept the Host header Render sends (a verified custom domain, else the onrender.com host)? | “For HTTP checks , Render considers a check successful if the instance responds with a 2xx or 3xx status code within five seconds.” (S060) |
+| A running instance drops out, then restarts | Failing checks for 15 seconds stop routing; 60 seconds restart it | “If an instance fails consecutive health checks for 60 seconds, Render automatically restarts the instance .” (S060) |
+| A secret changed in render.yaml did not reach the service | `sync: false` values are asked for only when the Blueprint is created; set them in the dashboard | “When you update an existing Blueprint, Render ignores any environment variables with sync: false .” (S057) |
+| Build cannot find the Dockerfile | `dockerfilePath` is relative to the repository root; default `./Dockerfile` | “The path to the service's Dockerfile , relative to the repo root.” (S057) |
+| A file the image needs is missing at build | `.dockerignore` filters the build context; `dockerContext` defaults to the repository root | “Render omits files and directories from your build context based on your .dockerignore file.” (S059) |
+| A secret appears in image layers | Service variables become build arguments; use secret files for build-time secrets | “In your Dockerfile, do not reference any build arguments that contain sensitive values (such as passwords or API keys).” (S059) |
+
+What this table does not settle: the live service's plan, region, deploy
+trigger and attached domains (omitted keys keep their current values, S057),
+health-check interval and timeout settings (not in the retained pages), and
+whether the service is deployed at all. Nothing here was observed live.
+
+## Citing-set runner containment — round 31
+
+`scripts/citing_set_selftest.py` refuses, as a failed case and before the
+gate starts:
+
+- a `case.json` `argv` option that is not `--name` or `--name=value` with
+  `name` a prefix of root, revision, population or ledger and of no other gate
+  option (json, selftest, help); values (tokens not starting with "-") pass.
+  `--selftest`, `--self`, `--json`, `-h` are refused. Option values are not
+  restricted: a case could still pass `--root=/elsewhere`; that path is read
+  only (wave-1 `ReviewHostileContract` F2, not routed).
+- a case directory holding an entry named `.git` at any depth;
+- a `git_commit` with no earlier `git_init`; setup Git commands name
+  `--git-dir`/`--work-tree` inside the copy and set `GIT_CEILING_DIRECTORIES`
+  to the copy's parent; the gate subprocess gets `GIT_CEILING_DIRECTORIES` set
+  to the scratch case root;
+- an `expected.json` that is a symlink, not a regular file, or over 1 MiB
+  (opened with `O_NOFOLLOW | O_NONBLOCK | O_NOCTTY`);
+- a symlink in the fixture directory (a failed case, never a skip).
+
+Check the refusals:
+
+    python3 -B scripts/citing_set_hostile_selftest.py --root <tree> --tmpdir <scratch dir> [--runner <path>]
+
+Exit 0 every hostile spec refused with no harm; 1 a spec not refused (or harm
+seen); 2 bad input. Specs live in `scripts/fixtures/citing-set-hostile/P<n>-*/hostile.json`;
+the hostile files themselves are built at run time, never committed. Probe
+numbers follow the specs, not the closure's gap numbers: P1=N1, P2=N2, P3=N3,
+P4=N5, P5=N6.
+
+Still open, carried by name (none closed this round): the round-27
+IDENTITY-PATHS, RETENTION-FRAGMENT, RETENTION-TRUST-BOUNDARY and
+C1-UNIT-OVERRIDE families; the socket `document_unreadable` label; 12 of 25
+reason codes without a fixture; deep corpus and `O_NOCTTY` guarded by round
+counters only; the four round-30 strict-checker holes; runner mutants m2, m4
+and m5 (still surviving at `f1ffb81`, wave-1 `ScoutOpenFamiliesLedger`). New
+this round, not repaired: a setup `fifo` step on `.gitattributes` makes a
+later `git add -A` block until the case timeout (wave-1
+`ConnectSiblingOverlap`), and the gate's own Git calls have no timeout.

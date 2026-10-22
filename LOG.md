@@ -1293,3 +1293,36 @@ Docs pages opened this round (S049–S052).
   rows 48 → 56.
 - Base mutant ledger: 23 reason-code renames, 0 killed at `0356681`
   (`.ufo/waves/round-30/mutant-ledger/`).
+
+### Round 31 — attempt 1 (hyaku, in-session L1 KakeR31)
+
+Claims declared at `a16602a` before implementation, with a C2 strict
+supplement at `b801ac8` before any C2 after-measurement: C1 (operability,
+repair) makes the citing-set fixture runner refuse the five hostile fixture
+shapes the round-30 closure routed (N1, N2, N3, N5, N6), each with a committed
+hostile spec and selftest; C2 (freshness, frontier, learning claim) adds
+Render web-service and Blueprint knowledge from four Render Docs pages opened
+this round (S057–S060) and checks the lane's own `render.yaml` key by key.
+
+- Motivating evidence: at base `f1ffb81` the C1 counter showed each routed
+  gap doing harm (a planted script ran, two victim repositories gained
+  commits, a FIFO hung the runner, a symlinked case vanished;
+  `.ufo/waves/round-31/verification/c1-before-f1ffb81.json`). `PROVINCE.md`
+  listed Render web services and the Blueprint file as open.
+- Wave 1 (`kake-r31-w1`, 33 seats): 18 seats on the executor, scribe and
+  mutation-tester roles died at spawn with "No model selected"
+  (`.ufo/waves/round-31/w1/dead-seats.json`); one critic was refused by a
+  provider cyber-content filter, and one returned after a safety filter
+  switched its model (`w1/seat-status.json`). The L1 wrote the runner repair,
+  the hostile selftest, the entry, rows, lesson and docs itself.
+- C1 after: 5/5 with K1 holding at `c88b97e`
+  (`verification/c1-after-c88b97e.json`); the hostile selftest exits 1
+  against the base runner and 0 against the repaired one
+  (`verification/hostile-selftest-*.json`).
+- Round-30 routed defects: (1) C1; (2) open families carried by name in SKILL
+  "Citing-set runner containment — round 31"; (3) and (4)
+  `render-static-sites.md` "Round-31 corrections" and S061, with the S053 and
+  S054 flips resolved (both stay rejected); (5) `.ufo/waves/round-30/w2/partial-reports.json`
+  (15 complete, 5 partial); (6) the declared closure command names files and
+  was shown to pass as written and able to fail
+  (`verification/closure-command-check.txt`).

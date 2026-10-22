@@ -107,3 +107,17 @@ families that round 28 routed (duplicate keys, non-finite numbers, short ids,
 repeated options) and for two round-28 residual findings (deep corpus,
 `O_NOCTTY`). The round-27 identity-path, retention and unit-override families
 stay open.
+
+## Round-31 Render web-service frontier step
+
+The round-30 sentence above ("Render web service deploys … and the Blueprint
+file stay open") is historical for its date. Round 31 added Render
+web-service and Blueprint knowledge (`corpus/knowledge/render-web-services.md`,
+S057–S060): port binding, Docker builds, health-check rules and the
+Blueprint keys, with an offline key-by-key check of the lane's own
+`render.yaml` at ds4cc-marketplace `1fbdb8ed`. It is knowledge only, with no
+gate; nothing live was fetched and no deploy was made. The live service's
+plan, region, domains and deploy trigger stay unknown from the file.
+Accessibility conformance stays open. The citing-set fixture runner gained
+containment for five hostile fixture shapes (`scripts/citing_set_hostile_selftest.py`);
+the round-27 families listed in round 30 stay open.

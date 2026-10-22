@@ -484,3 +484,32 @@ earlier sections stay as history.
   the 25 codes, so a new uncovered code would make this count stale silently. The other 12 codes
   stay uncovered and are listed in `SKILL.md`, "Citing-set reason-code
   registry — round 30".
+
+## Round-31 criteria (from the round-30 spot-check)
+
+Grounded in `corpus/lessons/round-30-verifier-spotcheck.md` "Routed defects"
+and `corpus/lessons/round-31.md` "Mistakes".
+
+- **A containment repair is backed by one hostile probe per shape it
+  claims.** A commit that says a runner or gate refuses hostile input names
+  the shapes, and each shape has a committed spec run by a selftest that also
+  checks for harm (code ran, a repository outside the case changed, the run
+  hung). Reviewer check: run `scripts/citing_set_hostile_selftest.py` with
+  `--runner` set to the pre-repair runner; it must exit 1. Source: routed
+  defect 1 (lines 250-262).
+- **A declared closure command is run once before it is declared, and names
+  files, not a directory that will grow.** Reviewer check: run the command
+  as written with both revisions equal to the declaration commit (exit 0
+  expected), and once on a sandbox commit that changes a named file (exit 1
+  expected); `.ufo/waves/round-31/verification/closure-command-check.txt`.
+  Source: routed defect 6 (lines 283-286).
+- **Every seat's end state is recorded.** Each wave commits a
+  `seat-status.json` naming every seat as returned, dead at spawn, refused or
+  cancelled, and a report written by a seat that stopped early is listed as
+  partial. Reviewer check: the count of returned seats equals the number of
+  reports not listed as partial. Source: routed defect 5 (lines 280-282);
+  round-30 list in `.ufo/waves/round-30/w2/partial-reports.json`.
+- **A qualifier a source does not state is marked.** A word such as
+  "lowercase" or "only" that narrows a quoted fact is either in the quote or
+  marked `[INFERENCE]`. Reviewer check: for each such word in a new entry,
+  search the retained text. Source: routed defect 3 (lines 271-276).
