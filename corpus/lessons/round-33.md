@@ -40,6 +40,7 @@ row's status, recheck or used-by cell changed. S066 new (`—` → `mined`, open
 | Class | Evidence | Captured-by | Fix |
 |---|---|---|---|
 | a repair counter accepts a faked repair at its declared after-value | The round-32 C2 counter `.ufo/waves/round-32/c2_retained_count.py` (frozen at `5b32cc7`) scores 3 both on the landed repair `e9283ec` and on hollow commit `6ffa03e` (the two ds4cc blobs at `scripts/fixtures/unrelated/{a,b}.txt`, a fabricated row `S099` inside `## Registry`, one unrelated mention of it); before `a0b0dff` scores 0. Built by wave-1 seat `ScribeMistakeMine`; the hollow commit is retained as `.ufo/waves/round-33/verification/hollow-r32-c2-6ffa03e.bundle`. The round-32 closure had to re-measure C2 by hand. | none: round-32 wave-1 seats saw the looseness (`.ufo/waves/round-32/w1/CriticC2Scope.md`, `MutC2Conditions.md`), but no rule required a counter to score a hollow control below its after-value before its `met` was read as evidence. | `corpus/QUALITY.md` "Round-33 criteria", second bullet, with `.ufo/waves/round-33/criteria/counter_control_check.py`. Shown able to fail: exit 1 on the round-32 counter with the bundled hollow commit (`verification/criterion-counter-control-r32-c2.txt`). |
+| seat report misrooted into the fleet repo | Wave-2 seat `ScoutPinsFlagAccuracy` wrote its report at `/home/vgpnk/Projects/shokunin/.ufo/waves/round-33/w2/ScoutPinsFlagAccuracy.md` (fleet root) instead of under the lane, although the wave context said every `Report:` path is relative to the lane; found by the misroot sweep (`git -C /home/vgpnk/Projects/shokunin status --porcelain`), copied byte-exact into the lane (`cmp` identical) and the fleet copy deleted. | the round prompt's misroot sweep (§6.3) caught it after the fact; nothing prevents it at write time. | none landed this round: the sweep stays the catch. The wave context already carries the rule; a seat-side check is not in the lane's write scope. |
 
 The same criterion applied to this round's C2 counter: its hollow shape
 (bytes at an unrelated path) drops c1 and therefore c4, so it scores at most
@@ -76,3 +77,35 @@ independent draft that matched it cell for cell (`w1/ScribeS065RowDraft.md`).
   armed sweep run).
 - Round-31 `ReviewProvinceReadme` F1/F2: resolved by the round-31 narrowing
   paragraph (`w1/ScoutProvinceLiveFetchWording.md`); no change needed.
+
+## Wave-2 corrections (appended)
+
+- Row 1 above: the harness already reports per-case `codes`; what m3f/m3g
+  would need is the runner populating `code` for gate-run refusals (null
+  outside setup refusals today) and a spec asserting it
+  (`w2/ReviewRoutedDisposition.md`).
+- Row 3: five low residuals and one latent note, not six low.
+- Row 4: `ReviewC2CounterCode` N1 (non-UTF-8 `SOURCES.md` crash) is rated
+  medium there, not low; F2 and F3 are partly fixed.
+- Row 7: the `read_expected` change is defensive. No tried shape raised an
+  OSError past it at base (`w2/ExecReadExpectedRepro.md`), and the new
+  `except OSError` branch in `run_case` is unreachable
+  (`w2/ReviewScratchDefaultDiff.md`). The stray-entry refusal is not pinned
+  by any committed check (`w2/MutStrayEntriesCheck.md`); at `e490381` it also
+  turned stray symlinks into exit 2, reverted for symlinks at `3abfc44`.
+- Code propagation mutants: all five killed by the hostile selftest, the C1
+  probe and the strict supplement together; mutant D passes the hostile
+  selftest and the frozen probe and is caught only by the strict supplement
+  (`w2/MutRunnerCodePropagation.md`).
+
+## Carried open (wave 2)
+
+- Pre-existing at base and tip: a NUL byte in a `git_commit` message or an
+  argv value escapes as `ValueError` and crashes the runner with no JSON
+  summary (`w2/ReviewRunnerCodeDiff.md`).
+- Run-level failure entries (`case: null`) carry no `code` key.
+- A dot-named stray file such as `.gitignore` in the fixture root now makes
+  the runner exit 2 while dot-named directories are skipped
+  (`w2/ReviewScratchDefaultDiff.md`).
+- `freshness-pins.json` re-pin (three values) and the unqualified count
+  statements listed in the entry's wave-2 corrections.

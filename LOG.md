@@ -1404,3 +1404,9 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   the bundled hollow commit.
 - Wave 1 `kake-r33-w1`: 35 seats (11 executor, 6 scribe, 6 reviewer,
   5 scout, 3 critic, 2 mutation-tester, 1 connector, 1 revenger).
+- Wave 2 `kake-r33-w2`: 34 seats (17 reviewer, 6 executor, 5 critic,
+  4 mutation-tester, 2 scout), all returned. Repairs landed at `3abfc44`:
+  stray symlinks back to per-case refusals, unreadable hostile spec
+  directory exit 2, docstrings; corrections appended to SKILL, SCORECARD,
+  PROVINCE, the entry and the lesson. Receipts at `3abfc44`: C1 4 of 4,
+  strict 4 of 4, C2 4 of 4, concurrency 0 of 4 failing.
