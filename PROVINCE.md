@@ -197,3 +197,99 @@ non-empty `og:image` (no fetch, MIME, dimension, HTTPS or reachability test);
 `name=` meta forms, the other `og:*` properties and per-type extra required
 properties (S067). The census observes source bytes and repairs nothing: 101
 of 102 pages carry no non-empty `og:image`.
+
+
+## Round-35 security.txt publishing frontier step
+
+Serving a `security.txt` file from a GitHub Pages site — placing RFC 9116's
+machine-readable pointer to a vulnerability-reporting channel where a
+researcher can find it, and getting that path past the site's build — enters
+the Frontier as held ground with a source-backed entry and no gate. The
+entry, `corpus/knowledge/security-txt-publishing.md`, is grounded in S078
+RFC 9116, S079 securitytxt.org, S080 Jekyll's configuration options, S082
+RFC 8615, S083 the IANA "Well-Known URIs" registry and the re-opened S006
+GitHub Pages/Jekyll page, with S084
+(`https://github.com/.well-known/security.txt`) and S085
+(`https://www.google.com/.well-known/security.txt`) as published examples,
+retained as body text only; S081 (Wikipedia) is rejected as secondary and
+grounds no claim.
+
+The placement rule is the RFC's, not the lane's: a publisher “MUST place the
+"security.txt" file under the "/.well-known/" path” of the domain (S078); a
+legacy top-level copy may be served or redirected, but “the one in the
+"/.well-known/" path MUST be used” when both exist (S078). That prefix is the
+reserved well-known space of RFC 8615 (S082), and the registry lists
+`security.txt` against RFC 9116 as a permanent registration (S083). What the
+file must carry is sourced the same way: `Contact` “MUST always be present in
+a "security.txt" file” (S078); `Expires` “MUST always be present and MUST NOT
+appear more than once”, in RFC 3339 form, and it is “RECOMMENDED that the
+value of this field be less than a year into the future to avoid staleness”
+(S078); `Canonical` is https-only for web URIs, and a file whose retrieval URI
+is not listed there is one whose contents “SHOULD NOT be trusted” (S078); the
+response “MUST have a Content-Type of "text/plain" with the default charset
+parameter set to "utf-8"” and the file must be served over HTTPS, where
+“implementors MUST use HTTPS” (S078); it is “RECOMMENDED that a "security.txt"
+file be digitally signed using an OpenPGP cleartext signature” (S078); and
+scope is the retrieval URI's domain, “not to any of its subdomains or parent
+domains” (S078). S078 is current: a wave-1 check of the RFC-Editor errata page
+and the datatracker document page found no update or obsoletion relation, and
+no erratum that changes a publisher rule — the one verified erratum is a
+comment cross-reference and the two reported ones touch the `Expires` example's
+lowercase `z` and the ABNF line separator
+(`.ufo/waves/round-35/w1/ScoutRfc9116Errata.md`).
+
+The Pages half of the question is a build-path question. A branch build
+through Jekyll does not publish paths starting with a dot (S006), and
+`include:` is the documented escape for dotfiles — “.htaccess is a good
+example since dotfiles are excluded by default” (S080) — with Jekyll 4's
+include entries overriding exclude entries (S080). An Actions artifact build
+instead packages the tree before upload, and that archive hard-codes a
+hidden-dotfile exclusion at v4.0.0, gains an `include-hidden-files` input
+(default false) at v5.0.0, and never archives `.git` or `.github` (S001, S002;
+recorded with its quotes in `corpus/knowledge/ghp-served-set.md`). A project
+site is served under `https://<owner>.github.io/<repo>/` (S040–S043,
+`corpus/knowledge/pages-base-path.md`), so whether a project-site subpath can
+satisfy a domain-level well-known placement is not settled by any opened row;
+the entry must not assert that it does. A wave-1 source-side census of the
+public ds4cc-marketplace tree at `7fc6aa2f` reports no `.well-known` path and
+no `security.txt`, no `_config.yml` (so no `include:` list exists for a Jekyll
+build of that tree), a root `.nojekyll`, and a single Pages workflow pinned to
+`actions/upload-pages-artifact@v3` with `include-hidden-files` unset
+(`.ufo/waves/round-35/w1/ScoutDs4ccWellKnown.md`; read-only clone, no owned
+host probed). Whether that pinned revision already includes hidden files —
+the dotfile exclusion is documented as a v4.0.0 change (S002, as recorded in
+`corpus/knowledge/ghp-served-set.md`) — is not established by the opened rows
+and is open below.
+
+This puts new publisher-side ground — where a Pages site has to keep a
+`security.txt` file, and what the file has to say — into held Frontier ground,
+not Core. The Frontier section above says ground moves to Core only with
+source-backed entries and a gate; this ground gets the entry, and the round's
+only instrument for it is the C2 counter, which reads the entry text, its
+cites, its size and the retained source texts rather than a served file. No
+gate is declared and no Core line is added, and no older line is rewritten.
+
+No owned property was observed. The corpus rows were opened with one public
+GET each at 2026-10-22T22:00:48–22:02:20Z
+(`.ufo/waves/round-35/sources/receipts.json`), and S084/S085 were retained as
+body text only: no response headers, TLS chain, redirect chain or
+Content-Type was recorded, so their conformance to the RFC's serving
+requirements is not observed. Wave-1 seats made further public reads — the
+GitHub Pages and Jekyll documentation, the RFC-Editor errata and datatracker
+pages, the action's released `action.yml` files, and a ten-host public
+`/.well-known/security.txt` census — reported in their own files under
+`.ufo/waves/round-35/w1/`; none reached an operator-owned property, and this
+section restates none of their counts. No `security.txt` was authored, added,
+built or published on any owned site. Writing one, editing a site's `include:` list, changing a deploy workflow and
+deploying are operator-owned actions. Vulnerability handling itself stays out
+of province: report intake, triage, remediation, disclosure timing, bounty and
+policy operation, and whether any named contact channel works, are not kake's
+ground, and this ground does not claim that publishing a file improves
+security. Open: whether an `include:` entry for a dot directory is actually
+served by a Pages branch build (no build was run); whether the ds4cc workflow's
+pinned `upload-pages-artifact@v3` includes a hidden path, which its `action.yml`
+at that tag would settle and no opened row does; project-site placement
+(above); a live `/.well-known/security.txt` request against any owned host;
+response-header, TLS and redirect conformance of the two published examples;
+signature generation and verification, with key custody adjacent to `kagi`;
+and expiry monitoring, since the RFC's warning is that the data goes stale.

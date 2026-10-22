@@ -1,0 +1,526 @@
+{
+  "generated_by": "build_census.py",
+  "request_ts": "2026-10-22T22:25:07Z",
+  "probe": {
+    "method": "GET",
+    "redirects_followed": true,
+    "max_redirects": 5,
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0",
+    "definition": "served_security_txt = final HTTP status 200 AND at least one RFC-9116-style 'Name: value' field parsed from the body; expires_in_days measured against request_ts"
+  },
+  "rfc9116_fields_checked": [
+    "Contact",
+    "Expires",
+    "Encryption",
+    "Acknowledgments",
+    "Preferred-Languages",
+    "Canonical",
+    "Policy",
+    "Hiring"
+  ],
+  "rows": [
+    {
+      "host": "github.com",
+      "requested_url": "https://github.com/.well-known/security.txt",
+      "http_status": 200,
+      "curl_rc": 0,
+      "final_url": "https://github.com/.well-known/security.txt",
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 269,
+      "served_security_txt": true,
+      "signed_pgp": false,
+      "field_names": [
+        "Contact",
+        "Acknowledgments",
+        "Preferred-Languages",
+        "Canonical",
+        "Policy",
+        "Hiring",
+        "Expires"
+      ],
+      "fields": {
+        "Contact": [
+          "https://hackerone.com/github"
+        ],
+        "Acknowledgments": [
+          "https://hackerone.com/github/hacktivity"
+        ],
+        "Preferred-Languages": [
+          "en"
+        ],
+        "Canonical": [
+          "https://github.com/.well-known/security.txt"
+        ],
+        "Policy": [
+          "https://bounty.github.com"
+        ],
+        "Hiring": [
+          "https://github.careers"
+        ],
+        "Expires": [
+          "2026-11-21T22:25:07z"
+        ]
+      },
+      "unparsed_lines": 0,
+      "expires_present": true,
+      "expires_raw": "2026-11-21T22:25:07z",
+      "expires_utc": "2026-11-21T22:25:07Z",
+      "expires_format_note": "lowercase-z",
+      "expires_in_days": 30.0,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": false,
+      "canonical_present": true,
+      "canonical_value": "https://github.com/.well-known/security.txt",
+      "contact_count": 1,
+      "missing_required_fields": []
+    },
+    {
+      "host": "www.google.com",
+      "requested_url": "https://www.google.com/.well-known/security.txt",
+      "http_status": 200,
+      "curl_rc": 0,
+      "final_url": "https://www.google.com/.well-known/security.txt",
+      "content_type": "text/plain",
+      "bytes": 275,
+      "served_security_txt": true,
+      "signed_pgp": false,
+      "field_names": [
+        "Contact",
+        "Encryption",
+        "Acknowledgments",
+        "Policy",
+        "Hiring",
+        "Expires"
+      ],
+      "fields": {
+        "Contact": [
+          "https://g.co/vulnz",
+          "mailto:security@google.com"
+        ],
+        "Encryption": [
+          "https://services.google.com/corporate/publickey.txt"
+        ],
+        "Acknowledgments": [
+          "https://bughunters.google.com/"
+        ],
+        "Policy": [
+          "https://g.co/vrp"
+        ],
+        "Hiring": [
+          "https://g.co/SecurityPrivacyEngJobs"
+        ],
+        "Expires": [
+          "2030-04-01T00:00:00z"
+        ]
+      },
+      "unparsed_lines": 0,
+      "expires_present": true,
+      "expires_raw": "2030-04-01T00:00:00z",
+      "expires_utc": "2030-04-01T00:00:00Z",
+      "expires_format_note": "lowercase-z",
+      "expires_in_days": 1256.066,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": true,
+      "canonical_present": false,
+      "canonical_value": null,
+      "contact_count": 2,
+      "missing_required_fields": []
+    },
+    {
+      "host": "www.cloudflare.com",
+      "requested_url": "https://www.cloudflare.com/.well-known/security.txt",
+      "http_status": 200,
+      "curl_rc": 0,
+      "final_url": "https://www.cloudflare.com/.well-known/security.txt",
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 368,
+      "served_security_txt": true,
+      "signed_pgp": false,
+      "field_names": [
+        "Contact",
+        "Policy",
+        "Hiring",
+        "Preferred-Languages",
+        "Canonical"
+      ],
+      "fields": {
+        "Contact": [
+          "https://hackerone.com/cloudflare",
+          "https://www.cloudflare.com/abuse/"
+        ],
+        "Policy": [
+          "https://www.cloudflare.com/disclosure/"
+        ],
+        "Hiring": [
+          "https://www.cloudflare.com/careers/jobs/"
+        ],
+        "Preferred-Languages": [
+          "en"
+        ],
+        "Canonical": [
+          "https://www.cloudflare.com/.well-known/security.txt"
+        ]
+      },
+      "unparsed_lines": 0,
+      "expires_present": false,
+      "expires_raw": null,
+      "expires_utc": null,
+      "expires_format_note": "",
+      "expires_in_days": null,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": false,
+      "canonical_present": true,
+      "canonical_value": "https://www.cloudflare.com/.well-known/security.txt",
+      "contact_count": 2,
+      "missing_required_fields": [
+        "Expires"
+      ]
+    },
+    {
+      "host": "www.mozilla.org",
+      "requested_url": "https://www.mozilla.org/.well-known/security.txt",
+      "http_status": 200,
+      "curl_rc": 0,
+      "final_url": "https://www.mozilla.org/.well-known/security.txt",
+      "content_type": "text/plain",
+      "bytes": 282,
+      "served_security_txt": true,
+      "signed_pgp": false,
+      "field_names": [
+        "Contact",
+        "Expires",
+        "Policy",
+        "Preferred-Languages",
+        "Canonical"
+      ],
+      "fields": {
+        "Contact": [
+          "mailto:security@mozilla.org"
+        ],
+        "Expires": [
+          "2037-09-19T00:00:00.000Z"
+        ],
+        "Policy": [
+          "https://www.mozilla.org/en-US/security/bug-bounty/"
+        ],
+        "Preferred-Languages": [
+          "en"
+        ],
+        "Canonical": [
+          "https://www.mozilla.org/.well-known/security.txt"
+        ]
+      },
+      "unparsed_lines": 0,
+      "expires_present": true,
+      "expires_raw": "2037-09-19T00:00:00.000Z",
+      "expires_utc": "2037-09-19T00:00:00Z",
+      "expires_format_note": "",
+      "expires_in_days": 3984.066,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": true,
+      "canonical_present": true,
+      "canonical_value": "https://www.mozilla.org/.well-known/security.txt",
+      "contact_count": 1,
+      "missing_required_fields": []
+    },
+    {
+      "host": "gitlab.com",
+      "requested_url": "https://gitlab.com/.well-known/security.txt",
+      "http_status": 200,
+      "curl_rc": 0,
+      "final_url": "https://gitlab.com/.well-known/security.txt",
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 1413,
+      "served_security_txt": true,
+      "signed_pgp": true,
+      "field_names": [
+        "Contact",
+        "Policy",
+        "Acknowledgments",
+        "Canonical",
+        "Preferred-Languages",
+        "Hiring",
+        "Expires"
+      ],
+      "fields": {
+        "Contact": [
+          "https://hackerone.com/gitlab/",
+          "https://about.gitlab.com/security/disclosure/"
+        ],
+        "Policy": [
+          "https://hackerone.com/gitlab/"
+        ],
+        "Acknowledgments": [
+          "https://hackerone.com/gitlab/thanks",
+          "https://about.gitlab.com/security/vulnerability-acknowledgements/"
+        ],
+        "Canonical": [
+          "https://gitlab.com/.well-known/security.txt"
+        ],
+        "Preferred-Languages": [
+          "en"
+        ],
+        "Hiring": [
+          "https://about.gitlab.com/jobs/"
+        ],
+        "Expires": [
+          "2027-01-31T05:00:00.000Z"
+        ]
+      },
+      "unparsed_lines": 0,
+      "expires_present": true,
+      "expires_raw": "2027-01-31T05:00:00.000Z",
+      "expires_utc": "2027-01-31T05:00:00Z",
+      "expires_format_note": "",
+      "expires_in_days": 100.274,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": false,
+      "canonical_present": true,
+      "canonical_value": "https://gitlab.com/.well-known/security.txt",
+      "contact_count": 2,
+      "missing_required_fields": []
+    },
+    {
+      "host": "www.python.org",
+      "requested_url": "https://www.python.org/.well-known/security.txt",
+      "http_status": 404,
+      "curl_rc": 0,
+      "final_url": "https://www.python.org/.well-known/security.txt",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 32590,
+      "served_security_txt": false,
+      "signed_pgp": false,
+      "field_names": [],
+      "fields": {},
+      "unparsed_lines": 404,
+      "expires_present": false,
+      "expires_raw": null,
+      "expires_utc": null,
+      "expires_format_note": "",
+      "expires_in_days": null,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": false,
+      "canonical_present": false,
+      "canonical_value": null,
+      "contact_count": 0,
+      "missing_required_fields": []
+    },
+    {
+      "host": "www.wikipedia.org",
+      "requested_url": "https://www.wikipedia.org/.well-known/security.txt",
+      "http_status": 200,
+      "curl_rc": 0,
+      "final_url": "https://en.wikipedia.org/.well-known/security.txt",
+      "content_type": "text/plain",
+      "bytes": 222,
+      "served_security_txt": true,
+      "signed_pgp": false,
+      "field_names": [
+        "Contact",
+        "Expires",
+        "Acknowledgments",
+        "Preferred-Languages",
+        "Policy"
+      ],
+      "fields": {
+        "Contact": [
+          "mailto:security@wikimedia.org"
+        ],
+        "Expires": [
+          "2029-03-31T09:00:00.000Z"
+        ],
+        "Acknowledgments": [
+          "https://security.wikimedia.org/hall-of-fame/"
+        ],
+        "Preferred-Languages": [
+          "en"
+        ],
+        "Policy": [
+          "https://www.mediawiki.org/wiki/Reporting_security_bugs"
+        ]
+      },
+      "unparsed_lines": 0,
+      "expires_present": true,
+      "expires_raw": "2029-03-31T09:00:00.000Z",
+      "expires_utc": "2029-03-31T09:00:00Z",
+      "expires_format_note": "",
+      "expires_in_days": 890.441,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": true,
+      "canonical_present": false,
+      "canonical_value": null,
+      "contact_count": 1,
+      "missing_required_fields": []
+    },
+    {
+      "host": "www.apple.com",
+      "requested_url": "https://www.apple.com/.well-known/security.txt",
+      "http_status": 200,
+      "curl_rc": 0,
+      "final_url": "https://www.apple.com/.well-known/security.txt",
+      "content_type": "text/plain",
+      "bytes": 337,
+      "served_security_txt": true,
+      "signed_pgp": false,
+      "field_names": [
+        "Contact",
+        "Acknowledgments",
+        "Policy",
+        "Expires"
+      ],
+      "fields": {
+        "Contact": [
+          "https://security.apple.com"
+        ],
+        "Acknowledgments": [
+          "https://support.apple.com/HT201222",
+          "https://support.apple.com/HT201536"
+        ],
+        "Policy": [
+          "https://security.apple.com/bounty/guidelines/"
+        ],
+        "Expires": [
+          "2027-10-19T01:00:00.000Z"
+        ]
+      },
+      "unparsed_lines": 0,
+      "expires_present": true,
+      "expires_raw": "2027-10-19T01:00:00.000Z",
+      "expires_utc": "2027-10-19T01:00:00Z",
+      "expires_format_note": "",
+      "expires_in_days": 361.108,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": false,
+      "canonical_present": false,
+      "canonical_value": null,
+      "contact_count": 1,
+      "missing_required_fields": []
+    },
+    {
+      "host": "www.microsoft.com",
+      "requested_url": "https://www.microsoft.com/.well-known/security.txt",
+      "http_status": 200,
+      "curl_rc": 0,
+      "final_url": "https://www.microsoft.com/.well-known/security.txt",
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 868,
+      "served_security_txt": true,
+      "signed_pgp": false,
+      "field_names": [
+        "Acknowledgments",
+        "Canonical",
+        "Contact",
+        "Encryption",
+        "Expires",
+        "Policy",
+        "CSAF",
+        "Preferred-Languages"
+      ],
+      "fields": {
+        "Acknowledgments": [
+          "https://msrc.microsoft.com/update-guide/acknowledgement"
+        ],
+        "Canonical": [
+          "https://www.microsoft.com/.well-known/security.txt"
+        ],
+        "Contact": [
+          "https://msrc.microsoft.com/report/vulnerability/new"
+        ],
+        "Encryption": [
+          "https://msrc.microsoft.com/.well-known/csaf/openpgp/998D7EC1A516E3D17FF90480EF148D3CDE714E0D.asc"
+        ],
+        "Expires": [
+          "2026-09-23T16:00:00.000Z"
+        ],
+        "Policy": [
+          "https://www.microsoft.com/en-us/msrc/bounty/",
+          "https://www.microsoft.com/en-us/msrc/cvd",
+          "https://www.microsoft.com/en-us/msrc/bounty-safe-harbor"
+        ],
+        "CSAF": [
+          "https://msrc.microsoft.com/csaf/provider-metadata.json"
+        ],
+        "Preferred-Languages": [
+          "en"
+        ]
+      },
+      "unparsed_lines": 0,
+      "expires_present": true,
+      "expires_raw": "2026-09-23T16:00:00.000Z",
+      "expires_utc": "2026-09-23T16:00:00Z",
+      "expires_format_note": "",
+      "expires_in_days": -29.267,
+      "expires_in_past": true,
+      "expires_more_than_365_days_ahead": false,
+      "canonical_present": true,
+      "canonical_value": "https://www.microsoft.com/.well-known/security.txt",
+      "contact_count": 1,
+      "missing_required_fields": []
+    },
+    {
+      "host": "www.facebook.com",
+      "requested_url": "https://www.facebook.com/.well-known/security.txt",
+      "http_status": 400,
+      "curl_rc": 0,
+      "final_url": "https://www.facebook.com/.well-known/security.txt",
+      "content_type": "text/html; charset=\"utf-8\"",
+      "bytes": 1542,
+      "served_security_txt": false,
+      "signed_pgp": false,
+      "field_names": [],
+      "fields": {},
+      "unparsed_lines": 12,
+      "expires_present": false,
+      "expires_raw": null,
+      "expires_utc": null,
+      "expires_format_note": "",
+      "expires_in_days": null,
+      "expires_in_past": false,
+      "expires_more_than_365_days_ahead": false,
+      "canonical_present": false,
+      "canonical_value": null,
+      "contact_count": 0,
+      "missing_required_fields": []
+    }
+  ],
+  "summary": {
+    "hosts_probed": 10,
+    "hosts_serving_security_txt": 8,
+    "hosts_not_serving": [
+      "www.python.org",
+      "www.facebook.com"
+    ],
+    "hosts_signed_pgp": [
+      "gitlab.com"
+    ],
+    "hosts_expires_missing": [
+      "www.cloudflare.com"
+    ],
+    "hosts_expires_more_than_365_days_ahead": [
+      "www.google.com",
+      "www.mozilla.org",
+      "www.wikipedia.org"
+    ],
+    "hosts_expires_in_past": [
+      "www.microsoft.com"
+    ],
+    "hosts_canonical_present": [
+      "github.com",
+      "www.cloudflare.com",
+      "www.mozilla.org",
+      "gitlab.com",
+      "www.microsoft.com"
+    ],
+    "hosts_missing_required_fields": {
+      "www.cloudflare.com": [
+        "Expires"
+      ]
+    },
+    "hosts_serving_with_all_required_fields": 7,
+    "counts": {
+      "serving": 8,
+      "expires_more_than_365_days_ahead": 3,
+      "signed_pgp": 1
+    }
+  }
+}

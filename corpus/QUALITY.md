@@ -689,3 +689,134 @@ criteria themselves stand.
 - (d): an honest tool also reaches the full score and exits 1; the check
   only means something for a control whose diff shows it does none of the
   work (wave-2 `ReviewLookupControlCheck`).
+
+## Round-35 criteria
+
+Round 34 was rejected because a do-nothing control met each declared counter
+(`corpus/lessons/round-34-verifier-spotcheck.md`, routed defect 1). Round 35
+answers with sealed test inputs and controls scored before any build. These
+four criteria carry that design into the bar. Each names a check. The three new
+scripts landed at `fd0d53b2` under `.ufo/waves/round-35/criteria/`, and their
+receipts are under `.ufo/waves/round-35/verification/criterion-*.txt`. Drafted by
+wave-1 `ScribeQualityCriteria`; the L1 integrated it.
+
+- **A declared target is out of reach of the cheapest do-nothing controls, scored
+  with the frozen counter and committed before the build.** The declaring round names its
+  counter by sha256, and before the first build commit it scores at least three controls with
+  that same counter: the base tree or a no-op, the previous round's retained hollow control,
+  and a constant tool that prints a clean result and exits 0. Each control's receipt records a
+  value below the declared target. Where a lookup or transcription control could reach the
+  target, the round seals its test inputs before the declaration, keeps them outside the lane
+  until a reveal commit, pins them by sha256 inside the counter, and the counter refuses
+  (exit 2) to measure a revision that holds a key file. Reject: a target a retained or trivial
+  control reaches; controls scored after the build; a control receipt whose counter sha256
+  differs from the declaration's; a target stated only in a report or narrowed after landing.
+  Grounding: round-34 routed defect 1 (`dcef39b5` C1 28/28 and `0cce15f0` C2 5/5 on the frozen
+  round-34 counters). Round 35: sealed keys `/fast/scratch/hyaku/kake-r35/sealed/` (mode 0700,
+  outside the lane), declaration `81d9fd74`, controls `318561ef`, counter sha256
+  `c4d58daea09d27a15f7792aae320cd56ac44dc1a6911307d6320f0a2c04349ef`; receipts
+  `.ufo/waves/round-35/verification/control-*.json` with matching `.exit`; control commits
+  retained as `.ufo/waves/round-35/retained/r35-control-*.bundle` (prerequisite `81d9fd74`).
+  Check (after fetching the bundles into the clone):
+  ```
+  git merge-base --is-ancestor 81d9fd74f1460ba8cff007fc42f8fb8265aa2d4d 318561efa67206699fdaf259ffb86e39f2d916a8
+  git merge-base --is-ancestor 318561efa67206699fdaf259ffb86e39f2d916a8 <first build commit>
+  python3 -B .ufo/waves/round-35/sealed_count.py c1 --root . --revision 5f767534f4cacb8d041f51dfb1854c2a14395389 --key-revision <reveal commit>
+  python3 -B .ufo/waves/round-35/sealed_count.py c2 --root . --revision ae9fb36146474fbac513930e61e116de6ac96904 --key-revision <reveal commit>
+  ```
+  Observed from the committed receipts: C1 constant clean `passed` 7 of 24 against target 22
+  (exit 1), C1 lookup 7, C1 base and declaration 14; C2 junk 0 of 12, keyword 3, transcript 8
+  against target 9, transcript `copiedShare` 0.9951. No control reaches its target. Counter
+  version 2 (`bd14096a`, before any build was measured) rescored every control
+  (`verification/control-v2-*.json`). Under it the critic's hidden-padding and zero-width
+  transcriptions and a mechanically reworded transcription also stay below target (8, 8 and 6
+  probes). Limit: it
+  scores only the controls the round names, so a cheaper control it did not build can still
+  reach the target; the seal refuses revisions that contain the key path, but a control can
+  read a key by path, or reconstruct expected findings from the public contract (the C1 cases
+  are 24 short synthetic pages), and still score; ancestry is commit order, not wall-clock
+  order, so a rebase can place controls before a build that was written first; a frozen
+  counter can still be wrong, and the non-author read stays part of admission.
+
+- **No pre-build receipt publishes a value the build is later measured by.** A receipt
+  committed before the build does not carry the numbers that a committed measured-result line
+  will state, so copying the receipt cannot satisfy the condition. Thresholds (`target`,
+  `probeTarget`) and control scores are the receipt's own content and are not measured values.
+  Reject: a pre-build receipt with a `derived` census or per-condition counts that the entry
+  later restates; a measurement line assembled from receipt values; a receipt named for the
+  measured revision but committed after the build. Grounding: round-34 routed defect 4.
+  `.ufo/waves/round-34/verification/c2-at-d08d8de.json` (file added at `a2fe31b`; its
+  `revision` field is `d08d8de`) carries `census.derived`
+  `pages=102 og:title=87 og:type=87 og:image=1 og:url=87 all-four=1 og-url-equals-canonical=87`
+  before any entry existed, and the entry at `ce72dd1b` restates them at
+  `corpus/knowledge/link-preview-metadata.md:128`. Check:
+  ```
+  python3 -B .ufo/waves/round-35/criteria/prebuild_leak_check.py --repo . \
+    --receipt-rev a2fe31b --receipt .ufo/waves/round-34/verification/c2-at-d08d8de.json \
+    --entry-rev ce72dd1b --entry corpus/knowledge/link-preview-metadata.md \
+    --line-regex '^ds4cc-7fc6aa2f-og-census:'
+  ```
+  Exit 1 with the matched values on that pair; exit 0 with `c1-at-d08d8de.json` as the
+  receipt, because that receipt holds none of the line's numbers (`passed` 0 of 28). The
+  check reads the receipt from the revision named by `--receipt-rev`; `d08d8de` does not hold
+  the file (exit 2), so the file-holding revision is the one that resolves. Limit: literal
+  key=value matching only; prose, arrays, `perCase`/`perProbe` booleans, rounded or
+  renormalised numbers, or the same quantity in another unit leak without matching; it reads
+  one entry line, so the same numbers stated elsewhere in the entry or in another committed
+  file are invisible; a receipt may legitimately carry the target threshold, so running the
+  check on a threshold line gives a false fail. Run it on the measured-result line.
+
+- **A retained control is described by quoting its own bytes.** A paragraph or table row that
+  names a retained control (bundle and revision) quotes at least one whole non-blank line of
+  the control file, backticked and at least 20 characters, and names that line's number. A
+  correction is appended; the earlier wrong sentence survives byte-identically. Reject: a
+  description of what the control "keys on" or "does" with no quoted line; a quote from a
+  different control or a line that does not support the stated mechanism; a correction that
+  rewrites the earlier line instead of appending. Grounding: round-34 routed defect 2.
+  `corpus/lessons/round-34.md:68` says `dcef39b5` "keys on the case directory name the C1
+  counter chooses"; its bytes at `scripts/link_preview_audit.py:5-15` hash argv plus every
+  relative path and file content under the cwd (`:8`
+  `files[p] = open(p, encoding="utf-8", errors="surrogateescape").read()`; `:12`
+  `h.update(rel.encode() + b"\0" + files[rel].encode("utf-8", "surrogateescape") + b"\0")`),
+  and a one-comment HTML perturbation drops it to 7 of 28. Check:
+  ```
+  python3 -B .ufo/waves/round-35/criteria/control_description_check.py --repo . \
+    --bundle .ufo/waves/round-34/retained/r34-c1-lookup-dcef39b5.bundle \
+    --revision dcef39b5f4e8373970eb74858d2c6175524cdfd0 \
+    --path scripts/link_preview_audit.py \
+    --doc corpus/lessons/round-34.md --doc-rev fd0d53b2 --anchor dcef39b5
+  ```
+  Exit 1 on that row (no quoted line); exit 0 on an appended paragraph that quotes line 8 and
+  names it. Limit: one quoted line shows bytes at that line, not that the quotation is
+  representative or that the described mechanism causes the control's score; a long irrelevant
+  line (an import, a print) can satisfy it; it reads only the paragraph or row containing the
+  anchor, so a quoted line elsewhere does not count and an unquoted overclaim beside a quoted
+  line survives; it does not check append-only, which needs a stripped diff against the base
+  file.
+
+- **Every lane tool with an exit contract has a gate registry row.** Each `scripts/*.py` that
+  defines `EXIT_` constants or documents exit codes 0/1/2/64 has a row in the 8-column gate
+  registry table of `SKILL.md` (`Name | Kind | Entry command | Verdict map | Self-test |
+  Pinned values / frozen proof | Write scope | Owner`; header at `SKILL.md:409`, precedents
+  `canonical-audit` at `:411` and `base-path-audit` at `:725`), with the row's name the tool's
+  kebab name and its exit map matching the code. Selftests are out of scope. Reject: a tool
+  with exits and a selftest but no row; a row that exists only in a task table; a row whose
+  exit map omits an exit the code returns. Grounding: round-34 routed defect 3;
+  `scripts/link_preview_audit.py` documents `Exit codes: 0 clean, 1 failed-policy,
+  2 could-not-evaluate, 64 usage` (`:43`, constants `:55-58`) and has
+  `scripts/link_preview_selftest.py`, yet no registry row exists at `318561ef`. Check:
+  ```
+  python3 -B .ufo/waves/round-35/criteria/registry_row_check.py --repo . --rev 318561ef
+  ```
+  Exit 1 listing `scripts/link_preview_audit.py`; exit 0 at the commit that lands the
+  round-35 row. Every other tool the check flags is a finding, not a waiver. Limit: presence
+  and name matching only; a row with stale exits, a wrong verdict map or an unimplemented
+  command passes, and a tool whose exit codes are implicit (`sys.exit(1)` with no constant or
+  docstring line) is not discovered. It also cannot tell a gate registry row from any markdown
+  table row that merely names the command unless it restricts itself to the registry table's
+  exact `Name` and `Entry command` columns: `SKILL.md:1003` already names
+  `python3 -B scripts/link_preview_audit.py --manifest ...` in the round-34 task table
+  (`Situation | What to check | Evidence command | Grounding phrase`), so a path-in-any-cell
+  match exits 0 at `318561ef` and defeats its own acceptance. The implementing seat states it
+  matches only those two cells of a table with those headers; that restriction is the
+  criterion's requirement, and dropping it makes the check pass a file with no registry row.

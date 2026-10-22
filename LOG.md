@@ -1456,3 +1456,24 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   check exit contract), S077 tier A. Receipts at `76fac3b`: C1 28 of 28,
   C2 5 of 5, selftest 35 of 35, real-input agrees. Corrections appended to
   SCORECARD, the entry, the lesson, QUALITY and SKILL.
+
+## Round 35 (2026-10-22) — sealed targets: link-preview audit repair and a security.txt entry
+
+- Repair-first after the round-34 honest stop. Declared at `81d9fd74` with sealed C1 cases and
+  C2 probes pinned by sha256, outside the lane until the reveal `4c6be2bd`. Controls were scored
+  before any build (`318561ef`): C1 base 14, lookup `dcef39b5` 7, constant 7 of 24 against
+  target 22; C2 junk 0, keyword 3, transcription 8 of 12 probes (copied fails).
+- Wave 1 `kake-r35-w1` (36 seats). `CriticC2Conditions` showed hidden bytes passing C2 version
+  1, so counter version 2 (`bd14096a`) cleans comments and format characters before any build
+  was measured. All controls were rescored, plus a reworded-transcription control (6 probes).
+- C1 build `b1cbbc39` (wave-1 `ExecToolRepair`): `og_url_multiple`, template/svg/math metadata
+  ignored, unreadable page no longer stops the audit; selftest 45/45; round-34 matrix 28/28.
+  Sealed 14 → 24 of 24.
+- C2 build `95abec21` (wave-1 `ScribeEntryDraft`, unedited): `corpus/knowledge/security-txt-publishing.md`,
+  rows S078–S087 (8 mined, 2 rejected), S006 re-opened (used-by). Sealed met false → true,
+  12 of 12 probes.
+- Round-34 routed defects: SKILL registry row (`fd0d53b2`); S074 correction note; `dcef39b5`
+  description corrected by append; three criteria checks shown able to fail
+  (`.ufo/waves/round-35/criteria/`).
+- Hold: wave-1 `CriticSealedDesign` ended in an automatic model switch after a safety filter.
+  It is not evidence and is not retried.

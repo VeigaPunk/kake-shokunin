@@ -324,3 +324,37 @@ generic documentation index), S072 (GitHub repository social preview), S074
 (oEmbed) and S077 (jekyll-seo-tag) queued. X card tagging stays open. The census is
 source-side: no operator-owned property was fetched, no card was rendered and
 no page was repaired.
+
+
+## Coverage — round 35 (2026-10-22)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| security.txt publishing on GitHub Pages (r35) | `knowledge/security-txt-publishing.md` (S078–S080, S082–S085, plus S006 re-opened) | RFC 9116's placement rule — the file belongs under the domain's `/.well-known/` path, a legacy top-level copy may exist or redirect, and the well-known copy wins when both exist — on the reserved well-known prefix of RFC 8615 and the registry's permanent `security.txt` entry; the fields a publisher must or may carry: `Contact` always present, a single `Expires` in RFC 3339 form with the recommendation to keep it under a year ahead, an https-only `Canonical` naming the retrieval URI and the rule that a file not listing its own URI should not be trusted, `Encryption`, `Acknowledgments`, `Policy`, `Hiring` and `Preferred-Languages`; `text/plain` with default `utf-8`, HTTPS serving, domain-only scope and the recommended OpenPGP cleartext signature (S078). The publisher-facing generator's step that creates the file under the `.well-known` directory of the project (S079), and the GitHub Pages build path: Jekyll branch builds skip dot-leading paths by default (S006) with `include:` forcing them back in (S080), while Actions artifact uploads exclude dotfiles at v4.0.0 and expose `include-hidden-files` at v5.0.0 (S001, S002). Two published files, `github.com` and `www.google.com`, are recorded as body text only (S084, S085) |
+
+`corpus/SOURCES.md` gains rows S078–S085 opened 2026-10-22T22:00:48–22:02:20Z
+with one public GET each (`.ufo/waves/round-35/sources/receipts.json`): S078
+(RFC 9116), S079 (securitytxt.org), S080 (Jekyll configuration options), S082
+(RFC 8615), S083 (IANA well-known URIs registry), S084 and S085 (the two
+published files) ground the entry; S081 (Wikipedia's security.txt article) is
+rejected as secondary and grounds no claim. S006 is a re-open of an existing
+row, not a new one. Each of the nine retained rows carries a body sha256 and a
+visible-text sha256 in the round-35 receipts, so a later re-open compares
+digests instead of re-reading prose. The entry is offline publisher knowledge
+and carries no gate: the round-35 counter for it reads the entry text, its
+cites, its size and the retained source texts, so it cannot observe a served
+file. A wave-1 source-side census of the public ds4cc-marketplace tree at
+`7fc6aa2f` reports no `.well-known` path, no `security.txt` and no
+`_config.yml`, with a root `.nojekyll` and a single Pages workflow pinned to
+`upload-pages-artifact@v3`
+(`.ufo/waves/round-35/w1/ScoutDs4ccWellKnown.md`). Wave-1 seats also read
+public documentation, the RFC-Editor errata and a ten-host public
+`/.well-known/security.txt` census (their reports under
+`.ufo/waves/round-35/w1/`); none of those reads reached an operator-owned
+property, and no security.txt was authored, added to a site, built or
+deployed. S084/S085 were retained as body text, so their
+response headers, TLS and redirects are unobserved and no conformance to the
+RFC's serving requirements is claimed for them. Vulnerability handling itself
+(report intake, triage, remediation, disclosure timing, bounty and policy
+operation) stays outside this province, and writing, building or deploying the
+file on an owned site is an operator-owned publishing action.

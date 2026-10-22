@@ -193,6 +193,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | GET snapshot + canonical receipt replay | Captures 12 named public surfaces read-only and replays the offline canonical policy on committed served bytes; distinguishes receipt completeness from clean policy and 404s; no rendered-DOM or publication approval | `scripts/live_snapshot.py`; `.ufo/waves/round-23/{live/,measure-c2-after-v2.json,evaluability.json}` measured at `5bef55b1464d7ccbff802edab400d138597a621c`; receipt coverage 12/12, policy outcomes 3 clean / 5 canonical_missing / 4 not-served | 23 |
 | Offline project-site base-path audit | Reads a version-1 manifest of local built HTML pages with a declared base path and reports, read-only and network-free, each same-site reference (http and https on one host count as one site) that resolves outside that base path (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no live serving, redirect, rendered-DOM or CSS/JavaScript URL claim | `scripts/base_path_audit.py`; `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision d8cd2e45a903fb05e4f34179aae8a21095a83dbb` → 30/30 with all three constant gates rejected (`.ufo/waves/round-29/verification/c2-after-d8cd2e4.json`); committed selftest 45/45 (`verification/selftest-lane-final.json`); real-input run on the round-23 snapshots of three owned project sites: 3 pages, 114 references, 4 findings, all `<a href>` to other paths on the owner host (`.ufo/waves/round-29/real-input/out/summary.json`) | 29 |
 | Offline link-preview (Open Graph) audit | Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim | `scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`; the declared measure, necessary but not sufficient), and at the wave-2 repair `76fac3b` (`c1-at-76fac3b.json`); evidence below was added after the declaration and does not count toward C1: committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4) | 34 |
+| Link-preview audit, round-35 contract | The same audit also reports more than one non-empty og:url (`og_url_multiple`), ignores meta and link tags inside an open `<template>`, `<svg>` or `<math>` element, and keeps auditing the readable pages when one page cannot be read (exit 2 with input and policy findings together) | `scripts/link_preview_audit.py` at `b1cbbc39`; sealed counter 24 of 24 (`.ufo/waves/round-35/verification/c1-at-b1cbbc39.json`, reveal `4c6be2bd`) against 14 of 24 at base and 7 of 24 for the lookup and constant controls; selftest 45/45 and round-34 matrix 28/28 at `b1cbbc39` (`verification/selftest-link-preview-at-b1cbbc39.txt`, `c1r34-matrix-at-b1cbbc39.json`) | 35 |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -1492,3 +1493,33 @@ bundles are retained beside it. Limit carried: a mechanical rewording passes `co
 junk rows that copy a retained URL pass `cites`. So only the probes separate the reworded
 control from `met`. The closure's read of entry truth and row truth stays owed. This revision
 is attacked again in wave 2.
+
+## Round 35 — measured results (author-side; admission belongs to the non-author closure)
+
+Keys revealed at `4c6be2bdec5630166c4013e53c226b1119ec63cc`. Both targets were declared at
+`81d9fd74` and are unchanged. C2 is judged on counter version 2 (`bd14096a`), landed before any
+build was measured. Receipts are `.ufo/waves/round-35/verification/<claim>-at-<rev>.json` with
+matching `.exit` files.
+
+| Claim | Before (rev) | After (rev) | Counting command | Target |
+|---|---|---|---|---|
+| C1 link-preview audit repair (capability) | passed 14 of 24 (`16a6b8b8`, `bd14096a`) | passed 24 of 24 (`b1cbbc39`, `95abec21`) | `python3 -B .ufo/waves/round-35/sealed_count.py c1 --root . --revision <rev> --key-revision 4c6be2bd` | ≥ 22 of 24: met |
+| C2 security.txt publishing entry (sourced) | met false, probes 0 of 12 (`16a6b8b8`, `bd14096a`, `b1cbbc39`) | met true at `95abec21`: probes 12 of 12, 1388 words, copiedShare 0.0, good cites S078 S079 S080 S082 S083 S084 S085 S086 | `python3 -B .ufo/waves/round-35/sealed_count.py c2 --root . --revision <rev> --key-revision 4c6be2bd` | met true: met |
+
+- Counter version 1 at `95abec21` gives met true too (12 of 12, 1298 words; `verification/c2-v1-at-95abec21.json`).
+- Measuring the reveal commit itself is refused with exit 2 (`verification/c1-at-4c6be2bd.json`).
+- Separability: at `b1cbbc39` (tool landed, no entry) C1 is 24 of 24 and C2 met false. C2 reads
+  no tool byte.
+- The landed tool came from wave-1 `ExecToolRepair` (patch sha256 `7e463fa7…3a13`, applied byte
+  for byte). The entry came from wave-1 `ScribeEntryDraft` (sha256 `0b5ac7e8…c397`), landed
+  unedited. Neither seat read the keys.
+- Axis ratings unchanged (10 → 10). Capability row "Link-preview audit, round-35 contract"
+  entered `## Capabilities`.
+- Limits: see `corpus/lessons/round-35.md` "Carried open". The probe topics were public, and the
+  L1 also named them in the drafter's item. A mechanical rewording passes `copied`, and junk rows
+  that copy a retained URL pass `cites`.
+
+Correction appended for round-34 "Limits found by wave 1" (routed defect 2): `dcef39b5` does not
+key on the case directory name. Its line 10, `h = hashlib.sha256(json.dumps(argv).encode())`,
+and line 12 hash the arguments plus every relative path and file content under the current
+directory. See `corpus/lessons/round-35.md` "Correction of round-34 mistake row 4".
