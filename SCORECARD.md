@@ -192,6 +192,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Offline static canonical preflight | Reads a version-1 manifest of local static HTML pages and reports, read-only and network-free, whether each page's explicit-head canonical link matches the publisher's declared expectedCanonical (clean / failed-policy / could-not-evaluate, stable finding ids, exits 0/1/2/64); no search-engine selection, rendering, headers or live-delivery claim | `scripts/canonical_audit.py`; `python3 .ufo/waves/round-22/measure.py --root . --revision b539cc17c25e5f42fe8803e2aa42b4574c4b44c6` → 32/32 (`.ufo/waves/round-22/measure-after-v2.json`); selftest 62/62 and replay per-case match in `.ufo/waves/round-22/postfix/` | 22 |
 | GET snapshot + canonical receipt replay | Captures 12 named public surfaces read-only and replays the offline canonical policy on committed served bytes; distinguishes receipt completeness from clean policy and 404s; no rendered-DOM or publication approval | `scripts/live_snapshot.py`; `.ufo/waves/round-23/{live/,measure-c2-after-v2.json,evaluability.json}` measured at `5bef55b1464d7ccbff802edab400d138597a621c`; receipt coverage 12/12, policy outcomes 3 clean / 5 canonical_missing / 4 not-served | 23 |
 | Offline project-site base-path audit | Reads a version-1 manifest of local built HTML pages with a declared base path and reports, read-only and network-free, each same-site reference (http and https on one host count as one site) that resolves outside that base path (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no live serving, redirect, rendered-DOM or CSS/JavaScript URL claim | `scripts/base_path_audit.py`; `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision d8cd2e45a903fb05e4f34179aae8a21095a83dbb` → 30/30 with all three constant gates rejected (`.ufo/waves/round-29/verification/c2-after-d8cd2e4.json`); committed selftest 45/45 (`verification/selftest-lane-final.json`); real-input run on the round-23 snapshots of three owned project sites: 3 pages, 114 references, 4 findings, all `<a href>` to other paths on the owner host (`.ufo/waves/round-29/real-input/out/summary.json`) | 29 |
+| Offline link-preview (Open Graph) audit | Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim | `scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`); committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4) | 34 |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -1236,3 +1237,48 @@ sits (S069's range-limited fetch is knowledge, not a gate check). A census
 number is a count of tags in source bytes, not what any platform displays.
 The C2 counter checks provenance shape and the truth of stated numbers; it
 cannot tell a row's prose came from study (round-33 lesson, carried).
+
+## Round 34 — measured results (author-side; admission belongs to the non-author closure)
+
+| Claim | Before (rev) | After (rev) | Counting command | Receipts |
+|---|---|---|---|---|
+| C1 offline link-preview audit (capability) | 0 of 28, constants rejected (`1e54c89`, `d08d8de`) | 28 of 28, all four constants rejected (`5613071`, `9ef758c`) | `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision <rev>` | `.ufo/waves/round-34/verification/c1-at-*.json` |
+| C2 link-preview knowledge + ds4cc census | met 0 of 5 (`1e54c89`, `d08d8de`) | met 5 of 5, controlBroken false (`9ef758c`) | `python3 -B .ufo/waves/round-34/c2_source_census.py --root . --revision <rev>` | `.ufo/waves/round-34/verification/c2-at-*.json` |
+
+Axis ratings unchanged (10 → 10, saturation line). One capability row enters
+`## Capabilities` ("Offline link-preview (Open Graph) audit", first-working
+round 34). Both counters are byte-identical to their declaring commit
+`d08d8de` (sha256 in each receipt's `counterSha256`).
+
+Limits found by wave 1 (appended; the declaration stays as landed):
+- Both counters are necessary, not sufficient. Wave-1 `CriticDeclarationFit`
+  built a C1 tool that parses no HTML and replays the matrix by case
+  directory name (`dcef39b5`, 28 of 28) and a C2 commit with junk rows, a
+  census copied from the published before-receipt and first-six-word quotes
+  (`0cce15f0`, 5 of 5). Both are retained under
+  `.ufo/waves/round-34/retained/`; receipts
+  `verification/criterion-lookup-control-c1-dcef39b.txt` and
+  `verification/c2-at-critic-hollow-0cce15f.json`. The landed tool is not
+  that shape: it parses each page with `html.parser`, passes a 29-fixture
+  selftest none of whose fixtures copy a matrix case, and over the 102
+  retained ds4cc pages reports exactly the missing counts the C2 recount
+  implies (`verification/real-input-at-5613071.json`). These three checks were
+  written after the finding and do not count toward C1; they are disclosed
+  corroboration for the non-author read.
+- An independent implementation from the interface text alone (wave-1
+  `ExecIndependentOracle`, lxml) scored 28 of 28 on its first attempt, and an
+  independent recount of the census with lxml (`ExecCensusIndependentRecount`)
+  matched all seven numbers. Wave-1 `MutC1CounterWrongGates` built one
+  single-rule-wrong tool of the ten asked (`name=` counted as `property`): it
+  scores 27 of 28, killed by D7; the other rule breaks are left to wave 2.
+- The og:url-versus-canonical-link rule and the absolute-og:url rule are lane
+  policy: S067 and S068 define og:url as the canonical URL but name no
+  `<link rel=canonical>`, and no opened source requires an absolute og:url
+  (`CriticDeclarationFit` 3, `CriticSeparability` 5). The tool docstring says
+  so at `5613071`.
+- C2's census condition re-measures the same tag rules as C1 on real pages;
+  conditions a–d (source rows, cites, quotes) are separate
+  (`CriticSeparability`). C2's freshness fit is the round-29/30/31 shape: new
+  current knowledge, the upstream head unchanged since round 33
+  (`ExecUpstreamBlobExact`: head still `7fc6aa2f`, retained tar byte-identical
+  to a fresh `git archive`).

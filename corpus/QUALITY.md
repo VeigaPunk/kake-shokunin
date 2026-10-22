@@ -602,3 +602,74 @@ criteria themselves stand.
   exit 1 (`verification/criterion-counter-control-r32-c2.txt`). Limit: one
   hollow commit tests discrimination for the shapes it fakes, not the truth
   of the retained bytes.
+
+## Round-34 criteria
+
+- **A cited artifact resolves from committed lane bytes, not a seat's sandbox.** A cited
+  counterexample commit, patch, retained source or receipt is committed under the lane; the
+  citing line names a lane-relative path that `git cat-file -e <revision>:<path>` resolves at
+  the revision it is added or corrected in. A `/fast/scratch/...` or `/tmp/...` path stands
+  beside that path as provenance, never as the only pointer; a preserved earlier line stays
+  byte-identical and the lane path arrives as an appended correction. Reject: a pointer that
+  resolves only in a seat's sandbox; a retained file no committed line cites; a citing line
+  whose retained path is absent at the citing revision. Grounding: routed item 2
+  (`corpus/lessons/round-33-verifier-spotcheck.md:192-196`), where `489714be` and the
+  option-table patch were cited from `/fast/scratch/hyaku/kake-r33/w1/...` only; round 34 now
+  retains them at `.ufo/waves/round-34/retained/` as
+  `r33-c1-counterexample-489714be.bundle` (`a2fe31b2`, sha256 `6ff6c403…77c00`, head
+  `489714be413c…` on tag `r33-c1-counterexample`), `r33-option-table-dedup-patch.diff`
+  (`28fd9adf…47d6e`) and `r33-option-table-alt-patch.diff` (`daeaa738…0ce6e`), beside the
+  pinned ds4cc bytes under `.ufo/waves/round-34/sources/`. Check: per cited sandbox path,
+  `git cat-file -e <revision>:<retained path>` for each retained file the section names;
+  able to fail at `d08d8de` (exit 128) and pass at `a2fe31b2` (exit 0). Limit: retention
+  makes bytes reachable, not proved; whether the bundled commit or patch says what the
+  citing line claims stays with the round's probes and the non-author read.
+- **A round's `## Gate` records at least one screened reject with its reason.** Every
+  candidate the Gate screens carries a decision, and each reject states the located fact
+  that failed it (the quote or byte that did not match), not a status word or the verdict
+  again. Reject: a Gate whose decisions are all admits; a reject with no reason; a screened
+  rejection recorded only in a wave report. Grounding: routed item 3
+  (`corpus/lessons/round-33-verifier-spotcheck.md:197-198`); the round-33 Gate
+  (`corpus/lessons/round-33.md:25-37`) holds two `admit` rows and no `reject` word
+  (`grep -c reject` there: 0), so the LEARNING admit+reject sample used a code patch; round
+  34 screened S071 and S072 as rejection candidates (`SCORECARD.md:1202-1203`). Check:
+  `python3 -B .ufo/waves/round-34/criteria/gate_reject_check.py --repo . --rev <commit> --lesson <path>`
+  (its docstring states the exit contract; this criterion requires it to fail a Gate with no
+  reject and a reject with no located reason). Receipts: exit 1 on
+  `corpus/lessons/round-33.md` at `93359ff`
+  (`.ufo/waves/round-34/verification/criterion-gate-reject-r33-at-93359ff.txt`), exit 0 on
+  `corpus/lessons/round-29.md` (`criterion-gate-reject-r29-at-a2fe31b.txt`). Limit: structural over the
+  lesson text at `--rev`; a present reason is not a true reason.
+- **Every run a report cites ships a committed receipt.** A report line stating that a
+  command ran at a revision names the receipt committed in that round whose `revision` field
+  equals the stated revision; a run without one is written as not run, and "run, not
+  committed" is not a result. Reject: a tally with no receipt; a glob (`c1-after-*.json`)
+  offered for a named revision; a receipt naming a different commit than the citing line.
+  Grounding: routed item 4 (`corpus/lessons/round-33-verifier-spotcheck.md:199-201`) and its
+  quoted line `/home/vgpnk/Projects/shokunin/.ufo/reports/round-33/kake.md:62`
+  ("`93359ff`: 4/4 (run, not committed)"), harmless only because `git diff 3abfc44 93359ff
+  --stat -- scripts/` is empty. It extends the round-30 bullet at `corpus/QUALITY.md:450-460`
+  to every run a report cites; that witness reads the working tree and stays for claim
+  revisions. Check:
+  `python3 -B .ufo/waves/round-34/criteria/receipt_presence_check.py --report <md> --repo . --rev <commit> --round <N>`
+  (report read from disk, possibly the fleet path; receipts resolved in `--repo` at `--rev`).
+  Receipts: exit 1 naming `93359ff` on the round-33 report
+  (`.ufo/waves/round-34/verification/criterion-receipt-presence-r33-report.txt`). Limit: presence and revision agreement, not replay or tally truth.
+- **A counter scores a lookup-table control below its full score, and this is
+  run before the counter is frozen.** A control commit that does none of the claimed work
+  and only replays what the counter makes visible (for a matrix counter, a tool that reads
+  the case directory name and prints the published expected output; for a source counter,
+  rows and an entry copied from a published receipt) must score below the declared
+  after-value; the declaring round runs that control before the counter is committed.
+  Reject: a counter that materializes cases under directory names equal to case ids next to
+  a published matrix; a counter whose before-receipt prints the full recount the after-state
+  must state; a declaration that freezes a counter with no hollow or lookup control run.
+  Grounding: round-34 mistake row 4 (`corpus/lessons/round-34.md`); wave-1
+  `CriticDeclarationFit` built `dcef39b5` (C1 lookup tool, 28/28) and `0cce15f0` (C2
+  transcription, 5/5), both retained in `.ufo/waves/round-34/retained/`. Check:
+  `python3 -B .ufo/waves/round-34/criteria/lookup_control_check.py --counter <counter> --repo <repo> --control <rev>`
+  (exit 1 on the frozen round-34 C1 counter with control `dcef39b5`:
+  `.ufo/waves/round-34/verification/criterion-lookup-control-c1-dcef39b.txt`). Limit: one
+  control tests the leak it exploits; a counter that hides case names can still be
+  satisfied by other transcription paths, so the non-author read of the landed work stays
+  part of admission.

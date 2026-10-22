@@ -1410,3 +1410,38 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   directory exit 2, docstrings; corrections appended to SKILL, SCORECARD,
   PROVINCE, the entry and the lesson. Receipts at `3abfc44`: C1 4 of 4,
   strict 4 of 4, C2 4 of 4, concurrency 0 of 4 failing.
+
+### Round 34 (hyaku, in-session L1 KakeR34)
+
+- Base `1e54c89515b0b1f7c9d7d10e6232d15e43320713`; declaration, frozen
+  matrix, both counters and retained sources at `d08d8de`. Frontier move off
+  the citing-set gate (rounds 31–33 used it; hyaku goal-file drift rule):
+  link-preview metadata (Open Graph), a lane-new area.
+- Motivating evidence, C1: no lane tool checked the metadata a shared URL
+  exposes. Screening of ds4cc-marketplace at `7fc6aa2f` (upstream head,
+  unchanged since round 33) found Open Graph tags on 87 of 102 pages but
+  `og:image` on one. Landed `scripts/link_preview_audit.py` at `5613071`
+  (wave-1 `ExecLinkPreviewGate`; docstring sourcing corrected by the L1):
+  C1 counter 0 of 28 → 28 of 28 with all four constant gates rejected.
+  Committed selftest `scripts/link_preview_selftest.py` (29 fixtures, wave-1
+  `ExecLinkPreviewSelftest`) 29 of 29 against the landed tool.
+- Motivating evidence, C2: the corpus held no Open Graph knowledge (wave-1
+  `CriticFrontierNovelty`). Landed `corpus/knowledge/link-preview-metadata.md`
+  (wave-1 `ScribeEntryDraft`), rows S067–S077 (5 mined, 4 rejected, 2 queued)
+  and the round-34 lesson at `9ef758c`: C2 met 0 of 5 → 5 of 5. Census line
+  `pages=102 og:title=87 og:type=87 og:image=1 og:url=87 all-four=1
+  og-url-equals-canonical=87`, matched by an independent lxml recount and by
+  the landed tool's real-input run.
+- Round-33 routed defects: sandbox-only evidence retained in
+  `.ufo/waves/round-34/retained/` (`a2fe31b`); the Gate records four rejects;
+  two checks shown able to fail (`criteria/gate_reject_check.py`,
+  `criteria/receipt_presence_check.py`); hollow shapes carried by name.
+- Mistake mined in-round: both declared counters give full score to a
+  control that does none of the work (C1 lookup tool `dcef39b5` 28/28; C2
+  transcription `0cce15f0` 5/5); QUALITY round-34 criterion (d) with
+  `criteria/lookup_control_check.py`, exit 1 on the frozen C1 counter.
+- Seat boundary: wave-1 `MutC2CounterConditions` briefly wrote rows into the
+  lane's `corpus/SOURCES.md` and removed them (self-disclosed; restored hash
+  equals `a2fe31b`; the committed `9ef758c` file holds the L1's rows).
+- Wave 1 `kake-r34-w1`: 32 seats (10 executor, 7 scribe, 5 scout,
+  4 reviewer, 3 critic, 2 mutation-tester, 1 connector), all returned.

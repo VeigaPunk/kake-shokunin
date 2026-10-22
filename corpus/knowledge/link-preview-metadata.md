@@ -177,3 +177,46 @@ ds4cc-7fc6aa2f-og-census: pages=102 og:title=87 og:type=87 og:image=1 og:url=87 
   S072 (GitHub repository social-preview docs) were opened for screening and
   are not used here; see `.ufo/waves/round-34/sources/receipts.json` for their
   final URLs.
+
+## Round-34 wave-1 additions (appended after the declaration; not counted toward C2)
+
+These come from wave-1 seat reports and one source (S073) opened after the
+declaration. The C2 counter does not read them; they are knowledge, not
+claim evidence.
+
+- One more consumer contract (S073, Discord): the tags must be in what the
+  server sends — “No code is executed, so tags added by a client-side script
+  after load are never seen.” (S073) — and Discord's Tag Reference says “The
+  key comes from name if present, otherwise from property” (S073). So a
+  `<meta name="og:image">` counts on Discord although the protocol's own markup
+  uses `property` (S067). The lane's audit counts only `property` (lane
+  policy, stated in `scripts/link_preview_audit.py`); a page relying on
+  `name=` would be flagged there and could still preview on Discord.
+- Where ds4cc's tags come from (wave-1 `ScoutDs4ccTemplateSource`): the 102
+  pages are hand-authored static HTML; the Pages workflow uploads the
+  directory as-is and no script emits Open Graph tags. The 15 pages without
+  the title/type/url triple are the 11 `burnerchrome/` pages, `bloat.html`,
+  `burnerchrome.html` (a zero-second refresh shim), `exa.html` and
+  `benchmarks/benxshitter-frontier.html`. The tree has no site-wide default
+  raster image, so adding `og:image` to the other 86 pages needs a new image
+  asset as well as a tag per page.
+- Canonical versus sitemap (wave-1 `ScoutOgUrlCanonicalSitemap`): all 87
+  `og:url` values equal their canonical link and their own sitemap loc, but
+  `bloat.html` and `exa.html` declare canonicals `https://ds4cc.com/bloat` and
+  `https://ds4cc.com/exa` while the sitemap lists `…/bloat.html` and
+  `…/exa.html`. Neither page has `og:url`, so an Open Graph audit cannot see
+  this; it belongs to the canonical preflight (`static-canonical-preflight.md`).
+  Whether the extensionless URLs resolve was not checked (owned host, no live
+  request).
+- The audit on real input (`.ufo/waves/round-34/real_input_run.py`, receipt
+  `.ufo/waves/round-34/verification/real-input-at-5613071.json`): over the
+  same 102 retained pages the landed tool exits 1 with 101 missing `og:image`
+  and 15 each missing `og:title`, `og:type` and `og:url`, and no other
+  finding — the census above, seen through the tool.
+- Other owned properties, from the round-23 served snapshots of 2026-10-21
+  (wave-1 `ScoutOwnedPropertiesOG`): the plazir-15 and charter-ufo-fsd GitHub
+  Pages roots carry all four properties; the ds4cc.com root carries no
+  `og:image`; the ds4cc kimi.page mirror has a relative `og:url` (`./`) and no
+  canonical link; the burnerchrome and veigapunk kimi.page roots, the lucario
+  Pages root and the ufo-fsd kimi.pro shell carry no Open Graph tags. These are
+  one-day-old captured bytes, not today's live state.

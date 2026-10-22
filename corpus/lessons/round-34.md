@@ -133,3 +133,12 @@ Probe evidence: `/fast/scratch/hyaku/kake-r34/w1/ScribeCarriedOpenNames/probe_sh
   case for a non-UTF-8 page, a second canonical link, a protocol-relative
   og:url, or policy findings co-present with an input fault
   (`ReviewC1Matrix`).
+- C2 counter (`ReviewC2CounterCode`, sandbox commits in that report): fence
+  tracking starts after the entry's 8-line header, so a fence opened there
+  hides nothing (D1, 5/5 with cites and census inside a fence); the Registry
+  row search is fence-blind (D2); a naive `|` split lets `x\|mined` pass a
+  row whose rendered status cell differs (D3); a non-string receipt URL, a
+  5000-digit census number and an unparsable canonical href crash with exit 1
+  instead of 2 (D4). The landed `9ef758c` entry, rows and lesson use none of
+  these shapes (the census line and every cite sit in unfenced body text; no
+  row carries an escaped pipe), which the non-author read can confirm.

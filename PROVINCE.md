@@ -154,3 +154,46 @@ commit page, `gh api` run, deployment and workflow listings, two refused
 unauthenticated API requests; `.ufo/waves/round-33/w1/*.md`,
 `w2/ScoutUpstreamHeadNow.md`). All went to public GitHub; none reached an
 operator-owned property.
+
+## Round-34 link-preview frontier step
+
+Link-preview metadata — the Open Graph properties a platform reads to build a
+card for a shared URL — enters the Frontier as held ground with a source-backed
+entry and an offline gate. The entry,
+`corpus/knowledge/link-preview-metadata.md`, is grounded in S067 ogp.me, S068
+Meta's sharing guide for webmasters, S069 Slack's robots page and S070
+Mastodon's PreviewCard entity, and states the ds4cc Open Graph census of the
+retained upstream tree at `7fc6aa2f`: 102 pages, 87 with `og:title`, 87 with
+`og:type`, 87 with `og:url`, 1 with `og:image`, 1 with all four, and 87 whose
+`og:url` equals the page canonical. The gate, `scripts/link_preview_audit.py`,
+reads a version-1 manifest of local HTML pages and absolute page URLs and,
+network-free, reports a missing one of the four required properties (S067),
+more than one `og:type` (S068), a non-absolute `og:url`, and an `og:url`
+differing from the first `<link rel=canonical>` resolved against the page URL.
+Exit, verdict and finding shapes and the 28 frozen cases are in
+`.ufo/waves/round-34/c1-matrix.json`; the counters are
+`.ufo/waves/round-34/c1_matrix_count.py` and `c2_source_census.py`.
+
+The Frontier paragraph at line 30 says ground moves to Core only with
+source-backed entries and a gate. Both conditions are supplied: the entry's
+quotes are exact substrings of the retained text, and the gate has a frozen
+case matrix and a counter that rejects four constant implementations (although a
+lookup-table tool also scores it; `corpus/lessons/round-34.md` mistake row 4), plus a
+29-fixture selftest `scripts/link_preview_selftest.py`. The
+round takes this ground from open to held Frontier ground, not Core; no Core
+line is added and no older line is rewritten.
+
+Nothing live was observed: the gate reads local files only, and the sources
+were opened with one public GET each at 20:57Z (S067–S072) and 21:08–21:09Z
+(S073–S077) (`.ufo/waves/round-34/sources/receipts.json`); wave-1 seats made further
+ordinary GETs of public documentation and the public ds4cc-marketplace repository, listed
+in their reports. No
+operator-owned property was fetched. Open: live platform rendering (no card
+was requested or observed; Slack's link robot reads tags over HTTP Range and
+fetches referenced media, S069; Mastodon generates a PreviewCard from Open
+Graph tags, S070); X card tags, whose markup URL S071 now redirects to a
+generic documentation index and so grounds nothing; image checks beyond a
+non-empty `og:image` (no fetch, MIME, dimension, HTTPS or reachability test);
+`name=` meta forms, the other `og:*` properties and per-type extra required
+properties (S067). The census observes source bytes and repairs nothing: 101
+of 102 pages carry no non-empty `og:image`.

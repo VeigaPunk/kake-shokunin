@@ -309,3 +309,18 @@ measured" means no operator-owned property was measured.
 
 `freshness-pins.json` `pq2Remote` and `sitemapStatus` are flagged stale, not
 re-pinned (needs the sweep's armed section).
+
+## Coverage — round 34 (2026-10-22)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Link-preview metadata (r34) | `knowledge/link-preview-metadata.md` (S067–S070) | The Open Graph properties a platform reads to build a card for a shared URL: the four required properties and their meanings (S067); each URL is a single object, so multiple `og:type` values are not possible, and `og:url` is the canonical URL without session variables or counters (S068); Slack's link-expanding robot reads oEmbed and Twitter Card / Open Graph tags with HTTP Range requests and fetches referenced media to check validity (S069); Mastodon's PreviewCard is generated from Open Graph tags (S070). States the ds4cc census of the retained `7fc6aa2f` tree: 102 pages, `og:title` 87, `og:type` 87, `og:url` 87, `og:image` 1, all four 1, `og:url` equal to canonical 87. Platform rendering, X card tags and image validity are not covered |
+| Offline link-preview audit (r34) | `scripts/link_preview_audit.py` and `.ufo/waves/round-34/c1-matrix.json` | A version-1 manifest of local HTML pages and absolute page URLs is audited network-free for a missing required property, more than one `og:type`, a non-absolute `og:url` and an `og:url` differing from the first canonical link resolved against the page URL; clean exits 0, policy findings 1, input findings 2, usage 64. 28 frozen cases, four constants each required to fail at least one case; counters `c1_matrix_count.py` and `c2_source_census.py` |
+
+`corpus/SOURCES.md` gains rows S067–S077 opened 2026-10-22: S067–S070 and
+S073 (Discord link previews) mined; S071 (X card markup, now a redirect to a
+generic documentation index), S072 (GitHub repository social preview), S074
+(Telegram Bot API) and S075 (LinkedIn Post Inspector shell) rejected; S076
+(oEmbed) and S077 (jekyll-seo-tag) queued. X card tagging stays open. The census is
+source-side: no operator-owned property was fetched, no card was rendered and
+no page was repaired.
