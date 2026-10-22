@@ -298,7 +298,11 @@ not any own seat, determines admission.
 ## Counters and field evidence — round 28
 
 Grounding: `lessons/round-28.md` (Mistakes, Gate) and
-`lessons/round-27-verifier-spotcheck.md` routed defects 1–4.
+`lessons/round-27-verifier-spotcheck.md` routed defects. Defect 1 is repaired
+in `scripts/citing_set.py` (round-28 C1); defect 2 is already carried by the
+strict-status refinement above; defects 3 and 4 are the second and third
+bullets below; the out-of-population debt stays where the round-27 section
+records it.
 
 - **A counter must be able to reject a constant.** A counting command for a
   repair claim carries controls on valid input (a clean input stays clean, a
@@ -306,6 +310,10 @@ Grounding: `lessons/round-28.md` (Mistakes, Gate) and
   defect checks. A gate that refuses everything, or returns a fixed answer, must
   score below the declared after-value. Show it with one recorded mutant before
   the claim is admitted (round 28: `.ufo/waves/round-28/w1a3/MutRefuseAllGate.md`).
+  Fails if: the counter, run at a sandbox commit whose gate refuses every
+  input, exits 0 (round 28 observed 11/15, exit 1). Limit: the round-28 K1 and
+  K2 controls check the verdict, not pair counts, so an always-clean gate is
+  rejected only by K3 and K4.
 - **Conformance exceptions stay named.** A void smoke run earns no acceptance
   credit, a job that times out without output proves nothing, and report-length
   overruns stay listed by seat. State the fixture-oracle granularity on the
@@ -319,6 +327,6 @@ Grounding: `lessons/round-28.md` (Mistakes, Gate) and
   rules (routed defect 4).
 - **No field data is not a pass.** A Core Web Vitals statement about a property
   names its field source (page-level CrUX, origin-level CrUX, or none) and its
-  28-day window end. A missing CrUX record is reported as "no field data" with
-  the S038 eligibility checks, and a lab score never stands in for the field
-  verdict (`knowledge/field-performance-cwv.md`, S036, S038).
+  28-day window end (S039). A missing CrUX record is reported as "no field data"
+  with the S038 eligibility checks, and a lab score never stands in for the
+  field verdict (`knowledge/field-performance-cwv.md`, S036, S038).

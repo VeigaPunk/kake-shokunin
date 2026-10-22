@@ -692,6 +692,6 @@ the 75th percentile, per form factor, over the CrUX 28-day window.
 |---|---|
 | Page-level CrUX record exists | Report p75 per metric and form factor with the window end date. |
 | Only origin-level record exists | Report it as origin data; never present it as the page's result. |
-| No CrUX record | Check final HTTP 200, no `noindex`, root page discoverable (S038); then report "no field data", not pass or fail. |
+| No CrUX record | Check the S038 exclusions (final status other than 200, `noindex` or equivalent, root page not discoverable); a raw 200 is not proof. Otherwise too few eligible Chrome visitors is likely but unconfirmed (low traffic, or iOS, WebView or other Chromium audiences send no data). Report "no field data", not pass or fail. |
 | Only a lab score (Lighthouse, DevTools) | Use it to guide a fix; give no Core Web Vitals verdict (S036). Running the tool is tabi's work. |
 | A CrUX API query is needed | Needs an operator-provisioned Google Cloud key (S039); kake holds none and asks the operator. |

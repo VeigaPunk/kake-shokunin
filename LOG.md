@@ -1200,3 +1200,38 @@ LOG/index entries, prior records untouched. The 153/0-dead/0-replacement census 
 from recorded registries/outcomes; the three Root advisories are separate late seats, not
 pre-wave ids. No candidate gate/counter/fixture re-executed, no cleanup, no r24 retry,
 no dispatch claimed; detail: `corpus/lessons/round-27-verifier-spotcheck.md`.
+
+### Round 28 — attempt 3 (hyaku, in-session L1 KakeR28a3)
+
+Claims declared at `84ea5b1` before implementation and kept unchanged:
+C1 (operability, repair-first) repairs round-27 routed defect 1 in
+`scripts/citing_set.py`; C2 (freshness, frontier) adds field-performance
+knowledge from four Google documentation pages opened this round.
+
+- Inherited from attempt 2 and re-verified: repair commit `b5d423f` (C1
+  counter re-run 15/15, same per-case vector as the attempt-2 receipt; base
+  `22c1669` re-run 4/15), source snapshots S036–S039 (all 16 receipt quotes
+  found again on a fresh GET at 09:29Z), the 38-seat wave spec (re-rendered
+  as `w1a3-spec.json` with attempt-3 names and scratch paths). The refused
+  attempt-2 dispatch record and its spec are kept as evidence.
+- Wave 1 (`w1a3`, 38 seats, v1 policy): 11 scribes, 8 reviewers, 8
+  mutation-testers, 4 critics, 4 executors, 2 connectors, 1 scout; 0 dead.
+  All 7 C1 revert mutants and both constant gates were killed by the counter.
+  Falsifiers found an over-refusal in `b5d423f` (bare repositories,
+  trailing-space roots) and several adjacent gaps.
+- Residual call (8 seats: 5 reviewers, 3 critics; 0 dead) attacked the C2
+  entry, rows, Gate quotes, counters, criteria and no-harm scope.
+- Landed: `e57f601` (C2 entry, S036–S039 rows, lesson, QUALITY criteria,
+  README, SKILL table, PROVINCE pointer); C1 follow-ups `8ecbefe`
+  (top-level check by `--show-prefix`), `5a83d13` (inherited Git variables
+  ignored), `e73d48b` (MemoryError and corpus-path reason labels); then the
+  review corrections to the entry, lesson, QUALITY section and S037 anchor,
+  this LOG entry, the SCORECARD record and the wave evidence.
+- Motivating evidence: `corpus/lessons/round-27-verifier-spotcheck.md`
+  routed defects; `PROVINCE.md` Frontier listed field performance as open
+  ground; `corpus/SOURCES.md` had only a rejected S018 row on it.
+- Measurements: C1 4/15 at `22c1669` → 15/15 at `b5d423f`, `8ecbefe`,
+  `5a83d13` and `e73d48b`; C2 0/4 at `b5d423f` → 4/4 at `e57f601` and at
+  the final lane commit (see SCORECARD "Round 28 — measured results").
+- Open, not repaired: see `corpus/lessons/round-28.md` "Open findings".
+- No misroot: no kake round-28 seat file landed at the fleet root.

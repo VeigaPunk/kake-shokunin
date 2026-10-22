@@ -593,3 +593,20 @@ gate that refuses every input. The 11 defect checks are the round-27
 `.ufo/waves/round-27/unresolved-acceptance.json`. Duplicate-key and nonfinite
 JSON profiles, identity-path spelling and retention boundaries are outside C1
 and stay open. A miss on either declared value is an honest stop.
+
+## Round 28 — measured results (attempt 3)
+
+Axis ratings stay 10 → 10 (saturated; stagnation nudge recorded in the
+declaration). No capability, rank or promotion is self-awarded; the
+non-author closure decides admission.
+
+| Claim | Axis | Before | After | Measured commit | Counting command | Evidence |
+|---|---|---|---|---|---|---|
+| C1 | operability | 4/15 at `22c1669c1fec83d1a0769de6b9ce686c75657e66` | 15/15 (11/11 defect, 4/4 control) | `b5d423fc02057f67a6f3a255808313ce40d29069`; re-measured 15/15 at `8ecbefe31b81462239c572fbe23d21404442a177`, `5a83d13b28024cef461c0ef497e28681684555ac` and `e73d48bbf20759fc7758afaebf841fa02e5cfbbf` | `python3 -B .ufo/waves/round-28/c1_interface_count.py --root . --revision <commit>` | `.ufo/waves/round-28/verification/c1-before-22c1669-a3.json`, `c1-after-b5d423f-a3.json`, `c1-after-8ecbefe.json`, `c1-after-5a83d13.json`, `c1-after-e73d48b.json` |
+| C2 | freshness | 0/4 at `b5d423fc02057f67a6f3a255808313ce40d29069` | 4/4 | `e57f601bd0148bb7dce9052f0cade3fd11751375`; re-measured at the final lane commit named in the round report | `python3 -B .ufo/waves/round-28/c2_source_count.py --root . --revision <commit>` | `.ufo/waves/round-28/verification/c2-before-b5d423f-a3.json`, `c2-after-e57f601.json` |
+
+Limits: the C1 counter checks finding ids, not reason codes (reason codes at
+`e73d48b` are recorded in `c1-after-e73d48b.json`); the C2 counter checks
+quote shape, not quote truth (quote truth was checked separately in
+`residual/ReviewGateQuotes.md`). Open findings are listed in
+`corpus/lessons/round-28.md`.

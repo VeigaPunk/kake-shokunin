@@ -1,0 +1,230 @@
+{
+  "counter": ".ufo/waves/round-28/c1_interface_count.py",
+  "revision": "8ecbefe31b81462239c572fbe23d21404442a177",
+  "passed": 15,
+  "total": 15,
+  "defectPassed": 11,
+  "defectTotal": 11,
+  "controlPassed": 4,
+  "controlTotal": 4,
+  "cases": [
+    {
+      "id": "U1-population-fifo",
+      "kind": "defect",
+      "attacks": "unusable input document (CLI-FIFO)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "document_not_regular_file"
+        ]
+      }
+    },
+    {
+      "id": "U2-ledger-fifo",
+      "kind": "defect",
+      "attacks": "unusable input document (CLI-FIFO)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "document_not_regular_file"
+        ]
+      }
+    },
+    {
+      "id": "U3-population-deep-json",
+      "kind": "defect",
+      "attacks": "unusable input document (JSON-PROTOCOL depth)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "document_not_json"
+        ]
+      }
+    },
+    {
+      "id": "U4-ledger-deep-json",
+      "kind": "defect",
+      "attacks": "unusable input document (JSON-PROTOCOL depth)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "document_not_json"
+        ]
+      }
+    },
+    {
+      "id": "A1-corpus-absent-working-tree",
+      "kind": "defect",
+      "attacks": "absent corpus surface (CLI-SCOPE-FALSE-GREEN)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "corpus_directory_missing"
+        ]
+      }
+    },
+    {
+      "id": "A2-corpus-absent-git",
+      "kind": "defect",
+      "attacks": "absent corpus surface at a revision (CLI-SCOPE-FALSE-GREEN)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "corpus_directory_missing"
+        ]
+      }
+    },
+    {
+      "id": "A3-corpus-empty-working-tree",
+      "kind": "defect",
+      "attacks": "empty corpus surface (CLI-SCOPE-FALSE-GREEN)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "corpus_empty"
+        ]
+      }
+    },
+    {
+      "id": "A4-corpus-blob-git",
+      "kind": "defect",
+      "attacks": "corpus surface is a blob at a revision (CLI-SCOPE-FALSE-GREEN)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "not_a_directory"
+        ]
+      }
+    },
+    {
+      "id": "A5-population-unreachable-id",
+      "kind": "defect",
+      "attacks": "unreachable population ids (CLI-SCOPE-FALSE-GREEN)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "population_id_unreachable"
+        ]
+      }
+    },
+    {
+      "id": "A6-blank-revision",
+      "kind": "defect",
+      "attacks": "blank revision measures the working tree (CLI-SCOPE-FALSE-GREEN)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "revision_not_found"
+        ]
+      }
+    },
+    {
+      "id": "A7-nested-git-root",
+      "kind": "defect",
+      "attacks": "nested Git root reads a wrong surface (CLI-SCOPE-FALSE-GREEN)",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 2,
+        "timedOut": false,
+        "verdict": "could-not-evaluate",
+        "findingReasons": [
+          "root_not_repository_top_level"
+        ]
+      }
+    },
+    {
+      "id": "K1-valid-clean-working-tree",
+      "kind": "control",
+      "attacks": "gate that refuses valid input",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "K2-valid-clean-git",
+      "kind": "control",
+      "attacks": "gate that refuses valid Git input",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "K3-valid-failed-missing-pair",
+      "kind": "control",
+      "attacks": "gate that hides a real omission",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 1,
+        "timedOut": false,
+        "verdict": "failed",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "K4-fixture-selftest",
+      "kind": "control",
+      "attacks": "gate that breaks the 29 fixture outcomes",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "passed": true,
+        "failed": 0,
+        "cases": 29
+      }
+    }
+  ]
+}
