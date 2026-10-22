@@ -102,6 +102,8 @@ DEFAULT_TIMEOUT_SECONDS = 120.0
 TAIL_BYTES = 800
 
 CASE_SETUP_FILE = "case.json"
+CASE_SETUP_MAX_BYTES = 65536
+CASE_SETUP_MAX_OPS = 64
 SETUP_OPS = ("mkdir", "fifo", "git_init", "git_commit")
 GIT_IDENTITY = {
     "GIT_AUTHOR_NAME": "citing-set-selftest",
@@ -284,6 +286,8 @@ def load_case_setup(case_dir):
     if not path.is_file():
         return None
     try:
+        if path.is_symlink() or path.stat().st_size > CASE_SETUP_MAX_BYTES:
+            raise ValueError("%s must be a regular file of at most %d bytes" % (CASE_SETUP_FILE, CASE_SETUP_MAX_BYTES))
         raw = path.read_text(encoding="utf-8")
     except OSError as exc:
         raise ValueError("%s unreadable: %s" % (CASE_SETUP_FILE, exc))
@@ -297,20 +301,36 @@ def load_case_setup(case_dir):
     if not isinstance(argv, list) or not all(isinstance(item, str) for item in argv):
         raise ValueError('%s "argv" must be a list of strings' % CASE_SETUP_FILE)
     root = document.get("root", ".")
-    if not isinstance(root, str) or not root.strip() or root.startswith("/"):
-        raise ValueError('%s "root" must be a non-empty relative path' % CASE_SETUP_FILE)
+    if not isinstance(root, str) or not root.strip() or not contained_relative(root):
+        raise ValueError('%s "root" must be a non-empty relative path with no ".." part' % CASE_SETUP_FILE)
     setup = document.get("setup", [])
-    if not isinstance(setup, list):
-        raise ValueError('%s "setup" must be a list' % CASE_SETUP_FILE)
+    if not isinstance(setup, list) or len(setup) > CASE_SETUP_MAX_OPS:
+        raise ValueError('%s "setup" must be a list of at most %d steps' % (CASE_SETUP_FILE, CASE_SETUP_MAX_OPS))
     for step in setup:
         if not isinstance(step, dict) or not isinstance(step.get("op"), str):
             raise ValueError('%s "setup" entries must be objects with a string "op"' % CASE_SETUP_FILE)
         if step["op"] not in SETUP_OPS:
             raise ValueError('%s names an unknown setup op %r' % (CASE_SETUP_FILE, step["op"]))
         if step["op"] in ("mkdir", "fifo"):
-            if not isinstance(step.get("path"), str) or not step["path"].strip():
-                raise ValueError('%s setup op %r needs a non-empty "path"' % (CASE_SETUP_FILE, step["op"]))
+            if not isinstance(step.get("path"), str) or not step["path"].strip() or not contained_relative(step["path"]):
+                raise ValueError('%s setup op %r needs a non-empty relative "path" with no ".." part' % (CASE_SETUP_FILE, step["op"]))
     return {"argv": argv, "root": root, "setup": setup}
+
+
+def contained_relative(value):
+    """True for a relative POSIX path with no '..' part and no NUL byte."""
+    if "\x00" in value or value.startswith("/") or "\\" in value:
+        return False
+    return ".." not in value.split("/")
+
+
+def inside(work_dir, relative):
+    """Resolve ``relative`` under ``work_dir``; refuse anything that escapes it."""
+    base = os.path.realpath(work_dir)
+    target = os.path.realpath(os.path.join(base, relative))
+    if target != base and not target.startswith(base + os.sep):
+        raise RuntimeError("setup path escapes the case copy: %s" % relative)
+    return Path(target)
 
 
 def git_env():
@@ -344,17 +364,20 @@ def apply_setup(work_dir, setup, timeout):
     for step in setup:
         op = step["op"]
         if op == "mkdir":
-            (work_dir / step["path"]).mkdir(parents=True, exist_ok=True)
+            inside(work_dir, step["path"]).mkdir(parents=True, exist_ok=True)
         elif op == "fifo":
-            target = work_dir / step["path"]
+            target = inside(work_dir, step["path"])
             if target.exists() or target.is_symlink():
                 target.unlink()
             os.mkfifo(target)
         elif op == "git_init":
-            run_command(["git", "init", "-q"], work_dir, env, timeout)
+            if (work_dir / ".git").exists() or (work_dir / ".git").is_symlink():
+                raise RuntimeError("a fixture may not carry its own .git")
+            run_command(["git", "-c", "core.hooksPath=/dev/null", "init", "-q"], work_dir, env, timeout)
         elif op == "git_commit":
-            run_command(["git", "add", "-A"], work_dir, env, timeout)
-            run_command(["git", "commit", "-q", "-m", step.get("message", "fixture")], work_dir, env, timeout)
+            run_command(["git", "-c", "core.hooksPath=/dev/null", "add", "-A"], work_dir, env, timeout)
+            run_command(["git", "-c", "core.hooksPath=/dev/null", "commit", "-q", "--no-verify",
+                         "-m", str(step.get("message", "fixture"))], work_dir, env, timeout)
 
 
 def prepare_case(case_dir, cases_root, timeout):
@@ -371,7 +394,7 @@ def prepare_case(case_dir, cases_root, timeout):
     try:
         if work_dir.exists():
             shutil.rmtree(work_dir)
-        shutil.copytree(case_dir, work_dir)
+        shutil.copytree(case_dir, work_dir, symlinks=True)
     except (OSError, shutil.Error) as exc:
         return None, "case copy failed: %s" % exc
     if setup:
@@ -419,7 +442,11 @@ def run_case(case_dir, gate, env, timeout, cases_root):
         return row
     root = work_dir
     if setup:
-        root = work_dir / setup["root"]
+        try:
+            root = inside(work_dir, setup["root"])
+        except RuntimeError as exc:
+            row["reason"] = str(exc)
+            return row
     argv = [
         sys.executable,
         "-B",
@@ -544,7 +571,8 @@ def main(argv=None):
         return cannot_evaluate("fixture directory not found: %s" % fixtures)
 
     cases = sorted(
-        (path for path in fixtures.iterdir() if path.is_dir() and not path.name.startswith(".")),
+        (path for path in fixtures.iterdir()
+         if path.is_dir() and not path.is_symlink() and not path.name.startswith(".")),
         key=lambda path: path.name,
     )
     if not cases:
