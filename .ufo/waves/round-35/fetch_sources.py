@@ -33,6 +33,9 @@ SOURCES = {
     "S081": "https://en.wikipedia.org/wiki/Security.txt",
     "S084": "https://github.com/.well-known/security.txt",
     "S085": "https://www.google.com/.well-known/security.txt",
+    # Added after wave-1 ScoutPagesDotfilesSource (opened with --only S086,S087):
+    "S086": "https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site",
+    "S087": "https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/bypassing-jekyll-with-nojekyll",
     "S082": "https://www.rfc-editor.org/rfc/rfc8615.txt",
     "S083": "https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml",
 }
