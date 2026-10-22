@@ -635,3 +635,14 @@ defects, 8 input faults, 1 usage fault; the matrix file is digest-pinned in the
 counter. At base the constant gates pass 7/30, 0/30 and 7/30, so each is
 rejected. Evidence: `.ufo/waves/round-29/verification/c1-before-fe1805c.json`,
 `c2-before-fe1805c.json`. A miss on either declared value is an honest stop.
+
+Declaration notes (added before any after-measurement, from wave-1 critic
+`CriticClaimSizing`; targets and counters unchanged): at 30/30 with the
+constant gates rejected, C2 enters a SCORECARD Capabilities row in this round.
+C1's 4/4 is necessary, not sufficient: the counter proves sourcing (row,
+body cite, quote found in retained bytes), not that the entry's claims follow
+from the quotes, so the closure should read the entry body. Counter blobs at
+`d18bbf3`: `c1_quote_truth.py` 139ede1efbbfeed612201239a4244b43aeda855d,
+`c2_matrix_count.py` 58dde0628c3e40a9794c93b03c3b9f6e665173fc,
+`c2-matrix.json` 0687433ecd7cd14eb90287121f82a99074503b84; host Python 3.14.8.
+S040's URL redirects to `…/what-is-github-pages` (receipt `finalUrl`).
