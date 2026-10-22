@@ -18,15 +18,23 @@ expectation. Declared target: passed >= 22 of 24 (exit 0 when met, 1 when not).
 
 C2: the entry `corpus/knowledge/security-txt-publishing.md` at REV is judged on five conditions:
   entry      the file exists;
-  size       at most 1500 whitespace-separated words;
+  size       at most 2200 words, counted as [a-z0-9]+ runs (version 2; version 1 counted 1500
+             whitespace-separated words);
   copied     the nine retained source texts pinned below are intact at REV, and at most 25% of
              the entry's 8-word shingles occur in the retained round-35 source texts
              (`.ufo/waves/round-35/sources/*.txt` at REV), so a transcription fails;
-  cites      it cites at least 3 distinct ids S078-S099 (word boundary), each a single
-             `## Registry` row of `corpus/SOURCES.md` at REV with status `mined`, opened
-             `2026-10-22` and the entry path in its used-by cell;
+  cites      it cites at least 3 distinct ids S078-S099 (word boundary), each a single row of
+             the first `## Registry` section of `corpus/SOURCES.md` at REV (outside backtick and
+             tilde fences) with status `mined`, opened `2026-10-22`, the entry path in its used-by
+             cell, an id retained in `.ufo/waves/round-35/sources/receipts.json` and that
+             receipt's URL in its source cell (version 2);
   probes     at least 9 of the 12 sealed probes match the normalized entry text.
 `met` is all five. Declared target: met true (exit 0 when met, 1 when not).
+Version 2 (before any build was measured, after wave-1 CriticC2Conditions): every condition reads
+the entry and `SOURCES.md` after `clean()` removes HTML comments and Unicode format characters,
+so hidden padding, hidden rows and zero-width splits no longer count. The probes, the C1 path
+and both key pins are unchanged from version 1 (`/fast/scratch/hyaku/kake-r35/sealed_count.v1.py`
+retained in the lane as `sealed_count_v1.py`).
 
 Exit 2: could not evaluate (unresolved revision, key sha256 mismatch, key visible at REV).
 """
@@ -40,6 +48,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import unicodedata
 import uuid
 from pathlib import Path
 
@@ -53,7 +62,7 @@ SOURCES_MD = "corpus/SOURCES.md"
 SOURCE_TEXT_DIR = ".ufo/waves/round-35/sources/"
 C1_TARGET = 22
 C2_PROBE_TARGET = 9
-C2_MAX_WORDS = 1500
+C2_MAX_WORDS = 2200
 C2_MAX_COPIED = 0.25
 C2_MIN_CITES = 3
 SHINGLE = 8
@@ -185,17 +194,30 @@ def split_row(line: str) -> list[str]:
     return [c.strip() for c in re.split(r"(?<!\\)\|", body)]
 
 
+def clean(text: str) -> str:
+    """Version 2: what a reader sees. NFKC, Unicode format characters (Cf, such as U+200B)
+    removed, and HTML comments removed (an unterminated comment runs to the end)."""
+    text = unicodedata.normalize("NFKC", text)
+    text = "".join(ch for ch in text if unicodedata.category(ch) != "Cf")
+    return re.sub(r"(?s)<!--.*?(?:-->|\Z)", " ", text)
+
+
 def registry_rows(text: str) -> dict[str, list[list[str]]]:
+    """Rows of the first `## Registry` section only, outside backtick and tilde fences."""
     rows: dict[str, list[list[str]]] = {}
-    in_registry, fence = False, False
-    for line in text.splitlines():
-        if line.lstrip().startswith("```"):
-            fence = not fence
+    in_registry, seen_registry, fence = False, False, None
+    for line in clean(text).splitlines():
+        marker = re.match(r"^\s{0,3}(`{3,}|~{3,})", line)
+        if marker:
+            kind = marker.group(1)[0]
+            fence = None if fence == kind else (fence or kind)
             continue
         if fence:
             continue
         if re.match(r"^##\s", line):
-            in_registry = re.match(r"^##\s+Registry\s*$", line) is not None
+            is_registry = re.match(r"^##\s+Registry\s*$", line) is not None
+            in_registry = is_registry and not seen_registry
+            seen_registry = seen_registry or is_registry
             continue
         if in_registry and re.match(r"^\|\s*S\d{3}\s*\|", line):
             cells = split_row(line)
@@ -216,9 +238,9 @@ def run_c2(args: argparse.Namespace, rev: str) -> tuple[dict, int]:
     if key is None:
         return {"error": why}, 2
     raw = show(args.root, rev, ENTRY)
-    text = raw.decode("utf-8", "replace") if raw is not None else ""
+    text = clean(raw.decode("utf-8", "replace")) if raw is not None else ""
     cond: dict[str, bool] = {"entry": raw is not None}
-    word_count = len(text.split())
+    word_count = len(words(text))
     cond["size"] = raw is not None and word_count <= C2_MAX_WORDS
     src_shingles: set[tuple[str, ...]] = set()
     pinned_ok = True
@@ -232,13 +254,19 @@ def run_c2(args: argparse.Namespace, rev: str) -> tuple[dict, int]:
     copied = (len(entry_sh & src_shingles) / len(entry_sh)) if entry_sh else 1.0
     cond["copied"] = raw is not None and pinned_ok and copied <= C2_MAX_COPIED
     reg = registry_rows((show(args.root, rev, SOURCES_MD) or b"").decode("utf-8", "replace"))
+    try:
+        receipts = json.loads(show(args.root, rev, SOURCE_TEXT_DIR + "receipts.json") or b"{}")
+    except ValueError:
+        receipts = {}
     cited = sorted(set(re.findall(r"\b(S0(?:7[89]|8\d|9\d))\b", text)))
     good = []
     for sid in cited:
         rows = reg.get(sid, [])
-        if len(rows) == 1 and len(rows[0]) >= 11:
+        receipt = receipts.get(sid) if isinstance(receipts, dict) else None
+        url = receipt.get("url") if isinstance(receipt, dict) else None
+        if len(rows) == 1 and len(rows[0]) >= 11 and isinstance(url, str) and url:
             c = rows[0]
-            if c[7] == "mined" and c[8] == "2026-10-22" and ENTRY in c[10]:
+            if c[7] == "mined" and c[8] == "2026-10-22" and ENTRY in c[10] and url in c[1]:
                 good.append(sid)
     cond["cites"] = len(good) >= C2_MIN_CITES
     norm = re.sub(r"\s+", " ", text.lower())
@@ -247,7 +275,7 @@ def run_c2(args: argparse.Namespace, rev: str) -> tuple[dict, int]:
     cond["probes"] = probes_passed >= C2_PROBE_TARGET
     met = all(cond.values())
     out = {"claim": "C2", "entrySha256": hashlib.sha256(raw).hexdigest() if raw is not None else None,
-           "words": word_count, "pinnedTextsIntact": pinned_ok, "copiedShare": round(copied, 4), "citedIds": cited, "goodCites": good,
+           "words": word_count, "counterVersion": 2, "pinnedTextsIntact": pinned_ok, "copiedShare": round(copied, 4), "citedIds": cited, "goodCites": good,
            "probes": len(probes), "probesPassed": probes_passed, "probeTarget": C2_PROBE_TARGET,
            "conditions": cond, "met": met, "perProbe": probes}
     return out, 0 if met else 1

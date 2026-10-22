@@ -1453,3 +1453,42 @@ bundles.
 No control reaches its target. Junk rows do satisfy the `cites` condition.
 `cites` is necessary only: the probes and `copied` carry the discrimination,
 and the Gate and the non-author read owe the row truth.
+
+### Round 35 — C2 counter version 2, before any build is measured (appended)
+
+Wave-1 `CriticC2Conditions` (`.ufo/waves/round-35/w1/CriticC2Conditions.md`) showed that
+counter version 1 (`81d9fd74`, sha256 `c4d58dae…49ef`) let hidden bytes pass the `copied`, `size`
+and `cites` conditions. Its two bundles score 8 and 6 probes of 12 under version 1, with every
+other condition passing. Hidden padding inside an HTML comment brought a verbatim transcription
+to copiedShare 0.0376 (`verification/control-c2-critic-*.json`). That is one probe short of `met`,
+so a slightly longer transcription could have met it. Before the tool or the entry is measured,
+the counter is revised to version 2 (`sealed_count.py`, sha256 `1b4d9d59…469b`; version 1 kept as
+`sealed_count_v1.py`). The probes, the key pins, the C1 path and both targets are unchanged.
+- The entry and `SOURCES.md` are read after HTML comments and Unicode format characters are
+  removed (NFKC).
+- `size` counts `[a-z0-9]+` words, the same words the overlap check uses, with a cap of 2200.
+  The 1500 whitespace-word cap of version 1 equals about 1750 such words; 2200 leaves room for
+  paths and field names, and visible padding that dilutes a transcription to 0.25 needs four
+  times its length.
+- `cites` reads only the first `## Registry` section, outside backtick and tilde fences. It
+  counts a row only when its id is retained in `sources/receipts.json` and that receipt's URL is
+  in the row's source cell.
+
+Every control rescored under version 2 (`verification/control-v2-*.json`):
+
+| Control | Revision | Result under version 2 |
+|---|---|---|
+| C1 base tool / declaration / lookup `dcef39b5` / constant clean | `16a6b8b8` / `81d9fd74` / `dcef39b5` / `5f767534` | passed 14 / 14 / 7 / 7 of 24 (C1 code path unchanged) |
+| C2 base / declaration / round-34 hollow | `16a6b8b8` / `81d9fd74` / `0cce15f0` | met false, probes 0 |
+| C2 junk entry and junk rows | `04848219` | met false: probes 0, cites 1 (only S078's junk row names a retained URL) |
+| C2 keyword entry | `e5263d41` | met false: probes 3 |
+| C2 verbatim transcription | `ae9fb361` | met false: probes 8, copiedShare 0.9951 |
+| C2 critic hidden-padding transcription | `dce145db` | met false: probes 8, copiedShare 0.9781, cites 0 |
+| C2 critic zero-width split with hidden rows | `79277c9f` | met false: probes 8, copiedShare 0.9781, cites 0 |
+| C2 new: RFC 9116 sections 2.3–3.1 with every sixth word swapped, junk rows S078, S082 and S083 that copy the receipt URLs | `c2e38e5d` | met false: probes 6 of 12 (size, copied 0.0733 and cites pass) |
+
+The new control's bundle is `retained/r35-control-c2-reworded.bundle`, and the critic's two
+bundles are retained beside it. Limit carried: a mechanical rewording passes `copied`, and
+junk rows that copy a retained URL pass `cites`. So only the probes separate the reworded
+control from `met`. The closure's read of entry truth and row truth stays owed. This revision
+is attacked again in wave 2.
