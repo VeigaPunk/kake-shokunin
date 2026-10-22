@@ -77,10 +77,10 @@ is started:
     FIFO at ``expected.json`` cannot block that read; a setup ``fifo`` step on
     a file Git reads, such as ``.gitattributes``, can still block ``git add``
     until the case timeout);
-  * a symlink to a directory in the fixture directory, dot-named or not (a
-    symlinked case is a failed case, never a silent skip); any other
-    non-directory entry (a file, FIFO, dangling symlink or symlink to a file,
-    dot-named or not) makes the run exit 2, could not evaluate (round 33).
+  * a symlink in the fixture directory, dot-named or not (a symlinked case
+    is a failed case, never a silent skip); a regular file or FIFO there,
+    dot-named or not, makes the run exit 2, could not evaluate (round 33).
+    A dot-named directory is still skipped by design.
 
 The hostile specs probe five routed shapes (N1, N2, N3, N5, N6) and, since
 round 32, which layer refuses a ``git_commit`` with no earlier ``git_init``
@@ -124,10 +124,15 @@ evaluated at all, so ``failed == 0`` is only ever true for a run that may pass.
 
 Each result row and each case failure entry carries ``reason`` (human text,
 free to change) and ``code`` (stable, or null where no code is assigned).
-Since round 33 the setup refusals carry codes: ``setup_commit_before_init``
-(load-time check in ``load_case_setup``), ``setup_commit_without_repo``
+Since round 33 three refusal paths carry codes: ``setup_commit_before_init``
+(the load-time commit-before-init check in ``load_case_setup``; the other
+``case.json`` load checks report null), ``setup_commit_without_repo``
 (apply-time re-check in ``apply_setup``) and ``setup_failed`` (any other
-apply-time setup failure).  Other refusals report ``code`` null.
+apply-time setup failure).  Every other refusal reports ``code`` null.
+
+A non-directory entry in the fixture directory that is not a symlink (a
+file or FIFO) makes the run exit 2 (round 33); a symlink of any kind stays a
+per-case refusal (exit 1).
 
 Exit codes: 0 every case matched, 1 at least one case mismatched,
 2 the run could not be evaluated (gate absent, fixture directory absent/empty).
@@ -738,7 +743,7 @@ def _run(args, unknown, scratch_error=None):
         return cannot_evaluate("fixture directory not found: %s" % fixtures)
 
     entries = sorted(fixtures.iterdir(), key=lambda path: path.name)
-    non_directories = [path for path in entries if not path.is_dir()]
+    non_directories = [path for path in entries if not path.is_dir() and not path.is_symlink()]
     if non_directories:
         names = ", ".join(path.name for path in non_directories)
         return cannot_evaluate(

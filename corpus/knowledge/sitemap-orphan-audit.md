@@ -251,3 +251,24 @@ Checked by round-33 wave-1 seats against `7fc6aa2f` and the lane at
   declares `width="1280" height="960"` for `covers/classic.png`, whose bytes
   are 960×768 (`ScoutUpstreamCommitAnatomy.md` F1). Rendering is governed
   by CSS `aspect-ratio` per that report; not verified in a browser.
+
+## Round-33 wave-2 corrections (append-only)
+
+- The stale-pin flag above names two values; a third is stale too:
+  `pq2Unpushed` 20, where the local checkout now has 0 unpushed commits
+  (`w2/ScoutPinsFlagAccuracy.md`). "Which round-23 live observations already
+  contradicted" applies to `sitemapStatus` only; `pq2Remote` and
+  `pq2Unpushed` are settled by public `git ls-remote` and the read-only
+  checkout, with no owned-site request. An armed sweep on this host would
+  still not be green (`fleet.config.json` and `probe-history.jsonl` are
+  absent).
+- Other ds4cc count statements in the corpus not qualified by the section
+  above, all historical for their dates (`w2/ReviewHistoricalMarkings.md`):
+  `corpus/README.md:29` ("75/93 canonical locs missing"), `corpus/README.md:62-63`
+  (103 live / 102 source locs), `publish-queue.md:26` (PQ-2: 19/93, 20
+  unpushed, remote `e6bd071`), `ghp-subpath-spotcheck.md:89` ("2 614 files";
+  the tree has 2,630 files at `1fbdb8ed` and 2,639 at `7fc6aa2f`), and the
+  detector pins quoted in `freshness-sweep.md:61,90,121`.
+- `7fc6aa2f` was still the upstream head at 2026-10-22T20:14:58Z, and the
+  retained run listing was byte-identical to a fresh read
+  (`w2/ScoutUpstreamHeadNow.md`, `w2/ReviewS066RowTruth.md`).

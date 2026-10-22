@@ -970,3 +970,22 @@ L1. Counts stay dated measurements (r16 rule above).
   it from the gate parser was rejected: it imports `citing_set` from the
   runner's own directory, which breaks runner copies the probes run from a
   temporary path).
+
+Round-33 wave-2 corrections to "Citing-set runner — round 33" above
+(`w2/CriticC1Verdict.md`, `w2/ExecStrayEntriesRepro.md`,
+`w2/MutStrayEntriesCheck.md`, `w2/ExecReadExpectedRepro.md`):
+- "for setup refusals" is too broad: only the load-time commit-before-init
+  check and apply-time setup failures carry codes; the other `case.json`
+  load checks, argv refusals and copy failures report `code` null.
+- Concurrency units: round 33 counts failing runs in one trial of four
+  concurrent default runs; round 32's "4 of 4" counted two-run pairs.
+- Stray fixture-root entries: at `e490381` a dangling symlink or a symlink to
+  a file also made the run exit 2; since the follow-up commit a symlink of
+  any kind is again a per-case refusal (exit 1), and only regular files and
+  FIFOs make the run exit 2. Dot-named directories are skipped by design. No
+  committed check fails when the stray-entry refusal is removed.
+- The `read_expected` change is defensive: no tried shape (mode 000,
+  directory, FIFO, dangling symlink) raised an OSError at base either.
+- The hostile selftest now reports an unreadable spec directory as exit 2
+  with a JSON error instead of a traceback (`w2/ReviewHostileHardening.md`
+  F1).

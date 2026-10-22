@@ -1162,3 +1162,29 @@ landed):
   state and marks older counts historical (wave-1 additions section), records
   the forge's deploy run (S066), and leaves `freshness-pins.json` pins stale
   and flagged, not re-pinned.
+
+Wave-2 corrections (appended):
+- Declaration screening, completed (`w2/CriticDeclarationCorrection.md`):
+  at 19:50:57Z, before the declaring commit, one L1 command also read the
+  four pinned blob ids, the sitemap loc counts at both commits (100 and 97)
+  and all three pages' canonical links; the 19:52:01Z probe saved all three
+  pages though its manifest named two. The C2 counter hard-codes no count or
+  verdict, so knowing them did not make it easier to satisfy; the seat's
+  counterfactual (a non-clean page stated as such) scores 2 on the frozen
+  counter because the bytes no longer match upstream. C1 had no screening
+  run.
+- C1 code scope (`w2/CriticC1Verdict.md`): only the load-time
+  commit-before-init check and apply-time setup failures carry codes. C1 is
+  judged by that seat "verifies narrowly"; probe and strict supplement
+  reproduce at every receipt revision (`w2/RerunC1After.md`).
+- C2: all 26 factual sentences of the two entry sections supported
+  (`w2/ReviewEntrySectionTruth.md`); S065 and S066 cells verified
+  (`w2/ReviewS065RowTruth.md`, `w2/ReviewS066RowTruth.md`); seven
+  single-condition mutations at the tip all detected
+  (`w2/MutC2CounterAtTip.md`); the counter passes the round-33 hollow-control
+  criterion (`w2/ExecCounterControlOnR33.md`: hollow 0 of 4).
+- Harm check (`w2/CriticHarmCheck.md`, `w2/ExecOtherGatesUnchanged.md`): no
+  history line rewritten; canonical, base-path, corpus-contract and offline
+  freshness results unchanged. One behaviour change (stray symlinks exit 2)
+  was undisclosed at `e490381` and is reverted for symlinks in the follow-up
+  commit.

@@ -245,7 +245,12 @@ def main(argv=None) -> int:
     tmpdir = Path(args.tmpdir).expanduser().resolve()
     out = {"schema": SCHEMA, "passed": False, "runner": str(runner), "cases": [], "error": None}
     spec_dir = root / SPEC_DIR
-    entries = sorted(spec_dir.iterdir()) if spec_dir.is_dir() else []
+    try:
+        entries = sorted(spec_dir.iterdir()) if spec_dir.is_dir() else []
+    except OSError as exc:
+        out["error"] = "hostile spec directory unreadable: %s" % exc
+        print(json.dumps(out, indent=1))
+        return 2
     strays = [p.name for p in entries if p.is_symlink() or not p.is_dir()]
     specs = [p for p in entries if p.name not in strays]
     if strays:
