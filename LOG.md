@@ -1352,3 +1352,27 @@ untracked paths, and ran wave 2 (falsify) as `kake-r31-a2-w2`: 36 seats
 - Not repaired, named in SCORECARD "Round 31 — attempt 2 re-measure and
   wave-2 repairs": the frozen C1 counter trusts reported names; the strict
   C2 supplement passes hollow commits; mutant m3 survives.
+
+### Round 32 (hyaku, in-session L1 KakeR32)
+
+Two routed repairs from the round-31 closure
+(`corpus/lessons/round-31-verifier-spotcheck.md`, "Routed defects" items 2 and 5),
+declared at `5b32cc7` with both counters before any measurement.
+
+- Motivating evidence, C1: round-31 `a2-w2/MutRunnerGuards.md` — m3 (drop the
+  load-time "git_commit needs an earlier git_init" guard) survived the hostile
+  selftest with exit 0; the apply-time re-check and Git pins still refused the
+  shape, so only the refusal reason distinguished it. Before at `a0b0dff`:
+  killed 0 (`verification/c1-before-a0b0dff.json`). Landed at `2f2f12d`:
+  `reason_contains` spec key and P6; after: killed 1, guard_ok true
+  (`verification/c1-after-2f2f12d.json`).
+- Motivating evidence, C2: the round-31 closure said the entry's
+  ds4cc-marketplace `render.yaml` facts rest on an external blob the lane does
+  not retain (`d17ab7e5`). Before at `a0b0dff`: met 0/3. Landed at `2f2f12d`
+  (+ `285abca` census fix): retained render.yaml and Dockerfile, S062, entry
+  append; after: met 3/3 (`verification/c2-after-2f2f12d.json`).
+- Mistake mined: an estimated declaration time (18:58Z vs commit 18:54:19Z);
+  QUALITY round-32 criterion with a check shown able to fail
+  (`verification/declared-time-check.txt`, exit 1).
+- Wave 1 `kake-r32-w1`: 34 seats dispatched (16 reviewer, 5 critic,
+  4 mutation-tester, 3 executor, 3 scribe, 2 scout, 1 connector).

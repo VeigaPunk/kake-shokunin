@@ -543,3 +543,19 @@ criteria themselves stand.
   sentence that holds the cited quote, not in the whole page; a claim made
   over a list of keys is checked key by key. A mark `[INFERENCE]` placed on a
   fact the retained text states is also a defect (round-31 line 22, PORT).
+
+## Round-32 criteria
+
+- **Stated times are read, not estimated.** A declaration that states the
+  time it was declared must state a time no later than its declaring commit
+  (`git show -s --format=%cI <commit>`). Check:
+  `python3 -B .ufo/waves/round-32/declared_time_check.py --rev <commit> --section "<heading>"`
+  (exit 1 on a violation; it reports one on the round-32 declaration at
+  `5b32cc7`, which said 18:58Z for a commit made at 18:54:19Z).
+- **A defence-in-depth guard is pinned by the layer that refuses first.** When
+  removing one guard leaves a hostile shape refused by a later layer, a probe
+  that only asks "was it refused" cannot kill that mutant; the spec names the
+  refusing layer's reason (`reason_contains`). Reviewer check: run the round's
+  mutation probe on the guard (`.ufo/waves/round-32/c1_m3_probe.py`); killed
+  must be 1 with `guard_ok` true. Limit: this reads the runner's reported
+  reason text for that case.

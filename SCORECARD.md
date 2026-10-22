@@ -1036,3 +1036,9 @@ Git pins still refuse the shape); this trusts the runner's reported reason
 text for that one case, the same shape as routed item 1, so the spec also
 keeps the `h0-control` benign control. The Git-pin mutants m3d/m3f stay
 unprobed alone; they are not claimed.
+
+Correction (appended, round 32): the declaration above says "Declared at
+18:58Z". That time was estimated, not read; the declaring commit `5b32cc7`
+was made at 2026-10-22T18:54:19Z, before which the declaration was written
+and no counting command had run. Lesson `corpus/lessons/round-32.md`
+`## Mistakes`.
