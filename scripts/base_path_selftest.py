@@ -49,8 +49,10 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 DEFAULT_TOOL = HERE / "base_path_audit.py"
 DEFAULT_FIXTURES = HERE / "fixtures" / "base-path"
-FINDING_KEYS = ("reason", "element", "attribute", "value")
+# Round 29 wave 2: page and resolved are compared when a fixture names them.
+FINDING_KEYS = ("reason", "element", "attribute", "value", "page", "resolved")
 TIMEOUT_SECONDS = 120
+MIN_DEFAULT_CASES = 45
 
 
 def parse_json_object(text):
@@ -208,6 +210,12 @@ def check_case(tool, case_dir, python_exe):
                     problems.append("findings contains non-object entries: %r" % (bad,))
                 else:
                     problems.extend(compare_findings(want_findings or [], observed))
+            for count_key in ("pagesChecked", "referencesChecked"):
+                if count_key in expected and payload.get(count_key) != expected[count_key]:
+                    problems.append(
+                        "%s mismatch: expected %r, observed %r"
+                        % (count_key, expected[count_key], payload.get(count_key))
+                    )
     elif want_exit == 64:
         pass
     else:
@@ -258,6 +266,14 @@ def main(argv):
     )
     if args.case:
         case_dirs = [path for path in case_dirs if args.case in path.name]
+    elif fixtures.resolve() == DEFAULT_FIXTURES.resolve() and len(case_dirs) < MIN_DEFAULT_CASES:
+        # Round 29 wave 2 (SelftestFixtureDrift): a deleted fixture must not pass silently.
+        summary["verdict"] = "could-not-evaluate"
+        summary["failed"] = 1
+        summary["failures"] = [{"case": None, "reason": "only %d fixtures, expected at least %d" % (len(case_dirs), MIN_DEFAULT_CASES)}]
+        print(json.dumps(summary, indent=2))
+        print("could-not-evaluate: only %d fixtures, expected at least %d" % (len(case_dirs), MIN_DEFAULT_CASES), file=sys.stderr)
+        return 2
     if not case_dirs:
         summary["verdict"] = "could-not-evaluate"
         summary["failed"] = 1

@@ -1,0 +1,19 @@
+{
+  "argv": null,
+  "exit": 1,
+  "findings": [
+    {
+      "attribute": "href",
+      "element": "a",
+      "reason": "outside_base_path",
+      "resolved": "https://o.github.io/x",
+      "value": "https:/../x"
+    }
+  ],
+  "id": "X15-same-scheme-single-slash-relative",
+  "kind": "regression",
+  "note": "round-29 wave-2 regression fixture; not part of the frozen C2 matrix",
+  "referencesChecked": 2,
+  "tool": "scripts/base_path_audit.py",
+  "verdict": "failed-policy"
+}

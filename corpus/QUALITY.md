@@ -334,7 +334,7 @@ records it.
 ## Fixtures, reason codes and quote truth — round 29
 
 Grounding: `corpus/lessons/round-28-verifier-spotcheck.md:208-230` (routed
-defects 1 to 3), `PROTOCOL.md:398-402` (§Gate standard, Self-test), the
+defects 1 to 3), fleet `PROTOCOL.md:385-389` (§Gate standard, Self-test), the
 committed fixture set `scripts/fixtures/citing-set/` (29 cases, each
 `expected.json` holding an exit code and a finding-id list only) and the
 round-28 counters `.ufo/waves/round-28/c1_interface_count.py` and
@@ -354,8 +354,8 @@ history; the bullets below narrow it and do not replace it.
   `root_not_repository_top_level`; `corpus/lessons/round-28-verifier-spotcheck.md:70-74`),
   while all 29 committed fixtures assert only the exit code and the
   finding-id list. Fails if: the committed fixture runner passes while no
-  committed fixture expectation names a reason code. Round 28 observed
-  `grep -rl reason scripts/fixtures/citing-set` → 0 files, and in code and
+  committed fixture expectation names a reason code. A round-29 wave-1 seat
+  observed `grep -rl reason scripts/fixtures/citing-set` → 0 files, and in code and
   fixtures the reason labels appear only in `scripts/citing_set.py` (the other
   mentions are the round-28 lesson and spot-check prose). Limit: a fixture set that
   names a reason code while the runner never compares it fails the same way.
@@ -370,8 +370,8 @@ history; the bullets below narrow it and do not replace it.
   returned the right id with the wrong reason scored a full pass. Fails if:
   the counter exits 0 on a case whose gate output carries the expected
   finding id with an absent or different reason. This bar applies to the
-  next round that works the surface; round 29 did not work it (see the
-  round-29 note below).
+  next round that works the surface; round 29 did not work it (see
+  `corpus/lessons/round-29.md`, "Not repaired this round").
 - **A Gate quote is found in retained source text.** A Gate quote counts
   only when it is an exact substring of retained visible source text whose
   digest the counter verifies against the round's committed receipt before
@@ -388,7 +388,14 @@ history; the bullets below narrow it and do not replace it.
   later rounds.
 - **A new gate ships its fixtures in the same round.** Round 29 applied the
   first bullet at birth: `scripts/base_path_selftest.py` runs 30 committed
-  fixtures under `scripts/fixtures/base-path/`, each `expected.json` naming
-  exit, verdict and reason codes. Fails if: the runner passes a constant-clean
+  fixtures under `scripts/fixtures/base-path/`; each `expected.json` names
+  exit and verdict, and the 22 defect and input fixtures also name reason
+  codes (the 7 controls and 1 usage case pin an empty or absent finding list). Fails if: the runner passes a constant-clean
   or refuse-everything stub (observed 7/30 each, exit 1, in
   `.ufo/waves/round-29/w1/BuildBasePathSelftest.md`).
+- **Status of the first bullet today.** The citing-set fixtures fail it now
+  (29 fixtures, 0 naming a reason code; wave-2 `QualityCriteriaCheck` also
+  showed the selftest still exits 0 with all eight reason codes renamed). That
+  is round-28 routed defect 1, carried as open debt, not a pass. Note also
+  that the round-29 C1 counter compares quotes after collapsing whitespace, so
+  "exact substring" above means exact after whitespace collapse.

@@ -80,3 +80,13 @@ No actual website accessibility is evaluated. Browser/assistive-technology
 execution stays separately authorized adjacent work; publishing stays with
 the operator. The remaining field-performance, Jekyll and Render frontier
 is unchanged. Round24's policy-stop disposition remains separate open debt.
+
+## Round-29 base-path frontier step
+
+The round-25 sentence above ("The remaining field-performance, Jekyll and
+Render frontier is unchanged") is historical for its date. Round 28 added
+field-performance knowledge, and round 29 added project-site base-path
+knowledge (`corpus/knowledge/pages-base-path.md`, S040–S043) with an offline
+gate (`scripts/base_path_audit.py`). The gate reads local files only; no live
+property was fetched, measured or repaired, and publishing stays with the
+operator. Render deploy semantics and accessibility conformance stay open.

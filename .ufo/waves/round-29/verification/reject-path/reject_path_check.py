@@ -118,13 +118,17 @@ def main():
         results.append({"id": sid, "url": b["url"], "candidate": f"C{b['cid']}",
                         "quotes": b["quotes"], "passed": not problems, "problems": problems})
     rejected_rows = sum(1 for c in rows.values() if c[7] == "rejected")
+    rejected_screened = sum(1 for sid, b in bullets.items()
+                            if b["rejected"] and rows.get(sid) is not None and rows[sid][7] == "rejected")
     passed = sum(r["passed"] for r in results)
     out = {"check": "kake-r29-reject-path", "screenedCandidates": len(results),
-           "rejectedRowsInRegistry": rejected_rows, "passed": passed, "rows": results}
+           "rejectedRowsInRegistry": rejected_rows, "rejectedScreenedCandidates": rejected_screened,
+           "passed": passed, "rows": results}
     print(json.dumps(out, indent=1, ensure_ascii=False))
     if a.out:
         pathlib.Path(a.out).write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
-    return 0 if results and passed == len(results) else 1
+    # Round-29 wave-2 MistakesRowsCheck: a screen with zero rejections must fail.
+    return 0 if results and passed == len(results) and rejected_screened >= 1 else 1
 
 if __name__ == "__main__":
     sys.exit(main())

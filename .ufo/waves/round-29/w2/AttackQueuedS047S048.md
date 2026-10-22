@@ -1,0 +1,36 @@
+# KakeR29.AttackQueuedS047S048 — queued rows S047 and S048 (round 29, wave 2, falsify)
+
+Target: `corpus/SOURCES.md:55` (S047, Currin cheatsheet, community, C, queued) and `:56` (S048, Hugo docs, docs, A, queued) at lane commit `7697990cbca20291f3b0367b8ff4220e93b38b03`. Contract: `/home/vgpnk/Projects/shokunin/CORPUS.md:64-148` (SOURCES contract v1). Axes: freshness first, then operability. Read-only: every read was `git -C <lane> show 7697990:<path>`. No files written except this report, no network, no installs, no sandbox writes needed.
+
+## Commands (all exit 0 unless stated)
+1. `git show 7697990:.ufo/waves/round-29/sources/screened/{C4,C6}.txt | sha256sum` gave `38c2af90…667e7` and `dc221f2e…3d98f`, which match `textSha256` in `screened/receipts.json`. The gunzipped `.html.gz` bodies match `bodySha256` (`a58d16ac…8648`, `47000e14…f890`). The `verification/reject-path/cand/` copies are byte-identical.
+2. `git log 7697990 -- corpus/SOURCES.md` plus `rg '^\| S048 '` at each commit: S048 first appears in `f8675e5` already at tier A and status queued. It was never landed as C and then edited, so append-only rule 2 is not touched.
+3. The frozen census commands from the contract, run on the committed registry: `malformed 0`; tiers `A=42 C=6`; statuses `mined=39 queued=4 rejected=5`; the enum and tier-inflation check printed nothing (exit 0).
+4. A Python exact-substring check against the whitespace-collapsed C4 and C6 text came back True for every quote below.
+5. `rg` over `corpus/knowledge/pages-base-path.md` (S047, S048, Hugo, post_url, Jekyll 4, 3.10): neither row is cited, and the entry never mentions link tags.
+
+## S047: tier C is right and queued is right, but the row has a freshness defect (fixable)
+- Tier: `kind=community`, so A is barred by the contract (CORPUS.md tier bullet). C ("lead only") fits better than B because the page has no date or revision and hedges itself: "Maybe only in Jekyll 4?" (C4.txt). Status: the page was opened this round (receipts C4, 10:34:14Z, HTTP 200), it is cited by no landed file, and `used-by` is `—`, so queued is correct.
+- Counterexample (freshness): the teaches cell pairs "the GitHub Pages project prefix" with "since Jekyll 4.0 the link and post_url tags carry the prefix without a manual site.baseurl". Row S016 (`corpus/SOURCES.md:24`, tier A, fetched 2026-10-19, still inside its 90d recheck) says GitHub Pages' build catalog lists Jekyll 3.10.0. The page itself shows the Jekyll 3 form still needs the prefix: "Jekyll 3 [ Link text ]( {{ site.baseurl }}{% link about.md %})". So a reader who follows S047 on a branch-built Pages project site (Jekyll 3.10.0) drops `site.baseurl` and the links leave the subpath. The scope cell's "no GitHub Pages platform authority" warns about authority, not about version. [INFERENCE] The S048 Actions recipe and a self-pinned Jekyll 4 avoid this; the default branch build does not.
+- Scope/Gate mismatch (rule 1): the scope is "Jekyll link and post_url tag prefix behavior only", but the Gate quote (`corpus/lessons/round-29.md:54`) is the relative_url filter sentence, which falls outside that scope. The in-scope quote exists and is exact (15 words): "Since Jekyll 4.0, you don’t need to prepend the link or post_url tags with site.baseurl".
+- Smaller gaps: the anchor gives no page revision, only the opened date. That matches lane habit (S003 and others) but is weak for an undated page; the receipt body sha256 is the only pin. The Gate line also gives no section location.
+- Smallest safe correction: state the version boundary, for example "Jekyll 4.0 or later only; GitHub Pages branch builds run Jekyll 3.10.0 (S016), where site.baseurl is still prepended". Swap or add the in-scope Gate quote. If the L1 counts `f8675e5` as landed, rule 2 allows the teaches change only as a new row opening "supersedes S047 —". Tier and status stay as they are.
+
+## S048: queued holds, and tier A is defensible for its stated scope; Gate grounding is broken (fixable)
+- Tier A defense: `kind=docs`, the page is gohugo.io's own documentation ("By the Hugo Authors", "Built with Hugo v0.168.0", C6.txt), and the contract lists official docs as A, scoped. The scope "Hugo's own GitHub Pages recipe and where its build takes the base URL from" is Hugo-owned behavior. That matches the S043 precedent (Vite docs, tier A, scoped to Vite's own config, `:51`) and differs from S017 (Astro docs at C, because its scope was a platform claim GitHub contradicted). The teaches cell fences off platform claims ("does not establish what GitHub Pages serves"), as `corpus/QUALITY.md:15` requires.
+- Limit on that A: the value comes from `actions/configure-pages@v6` (`id : pages`, C6.txt). Hugo docs are A for "the recipe passes `steps.pages.outputs.base_url` to `--baseURL`", not for what `base_url` contains per site kind. Any later mining for that value needs a GitHub-side tier-A row.
+- Counterexample (rule 1, Gate must ground teaches): the S048 Gate quote (`corpus/lessons/round-29.md:55`) is "Project sites are connected to a specific project hosted on GitHub.", which grounds only the Types of sites anchor. Nothing in the Gate grounds the teaches claim (base URL from configure-pages output). The grounding quote exists and is exact: `--baseURL "${{ steps.pages.outputs.base_url }}/"`. The screening seat had it as its first quote (`w1/ScreenRejectCandidates.md`, C6 block). The Gate line also omits the tier (A) and the section location, though the tier change is logged at `round-29.md:65-67`.
+- Mild overreach: "rather than a hand-written repository subpath" is the author's contrast. C6.txt has zero hits for "subpath" or "hand", and the page never discusses the alternative. Separately, the screening seat's advisory note called this "the same requirement S043 states for Vite", but S043 says to hand-write `base '/<REPO>/'`, which is the opposite approach. The committed row does not repeat that claim.
+- Freshness: the anchor "last updated October 13, 2026" matches C6.txt ("Last updated: October 13, 2026 : content: Miscellaneous updates (00a0baa60)"). The commit `00a0baa60` would be a stronger pin. A 90d recheck fits a page that pins action majors (`@v6`, `@v5`).
+- Smallest safe correction: add the `--baseURL` quote to the S048 Gate line, with location "Procedure, Step 2, Build step", and write "tier A" there. Tier and status stay as they are.
+
+## Verdicts
+- S047: tier C holds; status queued holds. The row is broken on freshness until it states the Jekyll 4.0+ boundary against S016's Jekyll 3.10.0, and its Gate quote sits outside its scope.
+- S048: status queued holds; the L1's tier A is defensible for its Hugo-owned scope. The row is broken under rule 1 until the Gate carries a quote that grounds its teaches.
+- Impacted axes: freshness (S047 version boundary, S048 Gate grounding). Operability is unaffected because no landed knowledge cites either row.
+
+## Not verified
+- I did not open any URL, so the live pages.github.com/versions.json (S016) was not rechecked today. The Jekyll 3.10.0 figure is the registry's value from 2026-10-19.
+- I did not check Jekyll's own tags documentation or changelog for the 4.0 link-tag change. That claim rests only on C4 text.
+- I did not run c1_quote_truth.py, c2_matrix_count.py or the selftest; they are out of scope for these rows.
+- Tooling: no install or update.

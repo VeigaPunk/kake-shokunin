@@ -31,6 +31,22 @@ What this tool does NOT check
   no scripting model;
 * <template> contents are NOT scanned: a browser does not fetch resources
   inside template content, so such references are deliberately not reported.
+* other URL-bearing attributes: formaction, object[data], input[type=image]
+  src, SVG href, frame src and link imagesrcset are not read;
+* known resolution gaps found in round-29 falsification (WHATWG via Node as
+  reference): a cross-scheme reference without "//" (http:host/path on an
+  https page), percent-encoded or non-ASCII host spellings, and an
+  unparseable base element are treated as not on this site, so they can be
+  missed; srcset density descriptors are read with a narrower grammar than
+  the HTML parser (for example ".5x" drops the candidate);
+* the finding "page" field is the page URL from the manifest; the page file
+  name is the prefix of the finding id. Input findings use the reason as id.
+* tokenizer edges where html.parser differs from a browser (round-29
+  wave-2 HtmlParsingEdges, parse5 and Chromium as reference): a base element
+  inside SVG is taken as the document base, CDATA outside SVG hides later
+  markup, <image src> is not mapped to img, and a self-closed <script/>,
+  script double-escape text or <template/> can make enclosed text count as
+  references. These can cause both misses and false findings.
 
 Reference resolution follows browser behaviour rather than bare RFC 3986:
 hosts compare case-insensitively, default ports are normalized, http and
@@ -138,7 +154,10 @@ DETAILS = (
     "form[action]. The first base element with href sets the document\n"
     "base; the base element itself is not a reference. Values that are\n"
     "empty after stripping ASCII whitespace, use a non-HTTP(S) scheme, or\n"
-    "point at another site are ignored.\n"
+    "point at another site are ignored. Same site means the same host\n"
+    "(case-insensitive) and the same port after default ports are folded;\n"
+    "http and https on one host count as the same site, so a cross-scheme\n"
+    "reference is still checked against the base path.\n"
     "\n"
     "Except --help, stdout is always one JSON object: verdict,\n"
     "pagesChecked, referencesChecked, findings. Each finding carries id,\n"
@@ -395,9 +414,20 @@ def resolve_url(value: str, base_url: str) -> dict[str, object] | None:
         return None
     match = SCHEME_RE.match(cleaned)
     if match:
-        if ascii_lower(match.group(0)[:-1]) not in {"http", "https"}:
+        scheme = ascii_lower(match.group(0)[:-1])
+        if scheme not in {"http", "https"}:
             return None
-        target = cleaned
+        rest = cleaned[len(match.group(0)):]
+        base_scheme = ascii_lower(urlsplit(base_url).scheme)
+        if scheme == base_scheme and not rest.startswith("//"):
+            # WHATWG: a special-scheme reference with the base's scheme and no
+            # "//" is relative to the base ("https:/../x", "https:x").
+            try:
+                target = urljoin(base_url, rest) if rest else base_url
+            except ValueError:
+                return None
+        else:
+            target = cleaned
     else:
         if cleaned.startswith("//"):
             authority = cleaned[2:].split("/", 1)[0].split("?", 1)[0].split("#", 1)[0]

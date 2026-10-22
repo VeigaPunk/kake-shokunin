@@ -1,0 +1,23 @@
+{
+  "argv": null,
+  "exit": 1,
+  "findings": [
+    {
+      "attribute": "src",
+      "element": "audio",
+      "reason": "outside_base_path",
+      "value": "/a.mp3"
+    },
+    {
+      "attribute": "src",
+      "element": "embed",
+      "reason": "outside_base_path",
+      "value": "/e.swf"
+    }
+  ],
+  "id": "X10-audio-and-embed",
+  "kind": "regression",
+  "note": "round-29 wave-2 regression fixture; not part of the frozen C2 matrix",
+  "tool": "scripts/base_path_audit.py",
+  "verdict": "failed-policy"
+}

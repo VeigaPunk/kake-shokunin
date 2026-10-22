@@ -252,7 +252,7 @@ field evidence — round 28". Lesson: `lessons/round-28.md`.
 |---|---|---|
 | Project-site base paths (r29) | `knowledge/pages-base-path.md` (S040–S043) + `scripts/base_path_audit.py` | A GitHub Pages project site is served under `https://<owner>.github.io/<repo>/`, so a root-relative reference such as `/style.css` leaves the site; the source-backed parts are the two site kinds and the project-site default location `http(s)://<owner>.github.io/<repositoryname>` (S040), the `username.github.io` repository-naming rule, project pages in a `gh-pages` branch or `docs` folder, and the local `jekyll serve --baseurl ""` override (S041), the Liquid `relative_url` and `absolute_url` filters that prepend the `baseurl` (S042), and the Vite `base` option, which defaults to `/` and must be `/<REPO>/` for a project site (S043). The gate part is an offline, manifest-driven audit of page references against a declared base path, with its 30-case frozen matrix and tool contract at `.ufo/waves/round-29/c2-matrix.json` (relative to the lane root); no live property was fetched, measured or repaired |
 
-This is the Jekyll/base-path build-tooling ground leaving the open list. The
+This moves the Jekyll/base-path build-tooling ground from the open list to held Frontier ground (PROVINCE.md: first entry plus offline gate; not Core). The
 entry is grounded in four primary sources opened with one public GET each on
 2026-10-22 (HTTP 200); retained bodies, visible text and receipts are at
 `.ufo/waves/round-29/sources/` (lane root: `S040.txt` … `S043.txt`,
