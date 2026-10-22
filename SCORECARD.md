@@ -888,3 +888,31 @@ Closure checks, written so they can pass as written (round-30 routed defect 6):
   outside that list.
 
 A miss on either declared value is an honest stop.
+
+Declaration notes (added before any C2 after-measurement, from wave-1 seats
+`CriticC2Sizing`, `CriticRoutedDispositions` and `CriticLearningClaim`; the
+declared targets and both declared counters are unchanged):
+
+- C2 strict supplement. `CriticC2Sizing` built a hollow commit (sandbox
+  `b6580c79`) that the declared C2 counter scores 4/4: quotes taken from page
+  navigation or a code example, rows after the Registry table, an entry whose
+  only body line is a comment. The declared counter stays the measure. A
+  second closure check, `.ufo/waves/round-31/c2_strict_checks.py` (sha256
+  `5111264f…46ad`), must also pass at the landed commit: S1 each Gate quote
+  lies in the page body and in no other retained page, with at least 4
+  lettered words; S2 each row lies inside `## Registry` with the receipt URL;
+  S3 the entry, comments removed, has at least 2 lines per id that carry a
+  verified 6-word or longer quote of that id; S4 the entry's render.yaml
+  section names blob `d17ab7e5` and gives each key (type, runtime,
+  dockerfilePath, dockerContext, healthCheckPath, envVars, sync) a line with
+  a verified quote; S5 the retained `.html.gz` bodies and `.txt` files match
+  the receipts and the text re-derives from the body. Before: 0/5 at
+  `f1ffb81` and 1/5 (S5 only) at `c88b97e`
+  (`.ufo/waves/round-31/verification/c2-strict-before-*.json`). The two
+  sandbox commits of `CriticC2Sizing` score 1/5 and 2/5. A strict miss is
+  reported with the declared result, not hidden by it.
+- The `.html.gz` bodies are outside the declared no-change list
+  (`CriticRoutedDispositions`); S5 covers them.
+- C1 wave-1 attack seat `CriticC1Counter` ended on a provider cyber-policy
+  refusal (its full text is in the round report); it produced no finding, and
+  that item is not re-run under another route.
