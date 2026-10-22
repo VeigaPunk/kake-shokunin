@@ -695,3 +695,24 @@ the 75th percentile, per form factor, over the CrUX 28-day window.
 | No CrUX record | Check the S038 exclusions (final status other than 200, `noindex` or equivalent, root page not discoverable); a raw 200 is not proof. Otherwise too few eligible Chrome visitors is likely but unconfirmed (low traffic, or iOS, WebView or other Chromium audiences send no data). Report "no field data", not pass or fail. |
 | Only a lab score (Lighthouse, DevTools) | Use it to guide a fix; give no Core Web Vitals verdict (S036). Running the tool is tabi's work. |
 | A CrUX API query is needed | Needs an operator-provisioned Google Cloud key (S039); kake holds none and asks the operator. |
+
+## Project-site base-path triage — round 29
+
+Knowledge: `corpus/knowledge/pages-base-path.md` (S040–S043). A GitHub Pages
+project site is served under the owner host plus the repository name — the
+default site location is `http(s)://<owner>.github.io/<repositoryname>`
+(S040) — while a user or organization site is served at
+`http(s)://<owner>.github.io` (S040). Every root-relative reference in the
+built HTML therefore points outside the project site unless the build or the
+template adds the base path. Offline gate: `scripts/base_path_audit.py`
+(contract frozen in `.ufo/waves/round-29/c2-matrix.json`, `interface` field).
+
+| Symptom | Check | Remedy | Cited ids |
+|---|---|---|---|
+| Asset 404s only on the project site; the same file loads from a local root server | Run `python3 -B scripts/base_path_audit.py --manifest <dir>/manifest.json` with `basePath` `/<repositoryname>/` and one page per built HTML file; exit 1 with reason `outside_base_path` names the element, attribute and value | Make the reference relative or base-path-prefixed. Jekyll: set `baseurl` and write the reference through `relative_url` (S041, S042). Vite: set `base: '/<REPO>/'` in `vite.config.js` (S043) | S040, S041, S042, S043 |
+| Links jump to the owner root (`https://<owner>.github.io/…`) instead of staying under `/<repositoryname>/` | Same audit run: a root-relative `href` such as `/about/` resolves to the owner host root, outside the base path, and is reported as `outside_base_path` | Do not hand-write the project path. Jekyll `relative_url` prepends the `baseurl` config value (S042); Vite `base: '/<REPO>/'` (S043) | S040, S042, S043, S041 |
+| Site is correct on its custom domain and broken at the `github.io` project URL (or the reverse) | Compare the URL the site is served under with the configured base path. Vite needs `base: '/'` for `https://<USERNAME>.github.io/` or a custom domain and `base: '/<REPO>/'` for `https://<USERNAME>.github.io/<REPO>/` (S043); Jekyll project output is available under a subpath of the user-pages subdomain "unless a custom domain is specified" (S041) | Set the base path for the mode that is actually serving: custom domain or user site → root base; project site → repository subpath. A custom domain does not change the repository name (S041) | S040, S041, S043, S042 |
+| A `base` element in the head rewrites relative references | Inspect the first `base` element with an `href`; it alone sets the document base (S024), so `base href="/"` moves a relative `style.css` outside the project path even though the reference itself looks relative | Keep the base element inside the base path (or remove it) and re-run the audit; the tool reports the moved reference with reason `outside_base_path` | S040, S024, S043 |
+| Local preview is green but the deployed project site is not | A local root preview cannot show the failure: Jekyll is previewed with `bundle exec jekyll serve --baseurl = ""` (S041) and Vite with `npm run preview` over `dist` (S043) | Treat the local run as non-evidence for base-path correctness; the audit over built HTML is the check | S040, S041, S043 |
+| Audit returns exit 2 `could-not-evaluate` or exit 64 | Read the JSON on stdout: exit 2 means `input_invalid` or `page_outside_base_path`, exit 64 is a usage fault; neither is a clean verdict | Fix the manifest (`version` 1, `basePath` starting and ending with `/`, non-empty `pages`, each page URL under the base path) and re-run; do not report "clean" | S040, S043 |
+| The audit reports `outside_base_path` on an `<a href>` pointing to another project on the same owner host (for example `https://<owner>.github.io/<other-repo>/`) | Read the element: a navigation link to a sibling project is intended to leave this project's base path; a subresource (`link`, `script`, `img`, `source`, `iframe`) outside it is the breakage class. Round-29 real-input run: all 4 findings on the round-23 snapshots of three owned project sites were such sibling links (`.ufo/waves/round-29/real-input/out/`) | Keep intended sibling links and record them as reviewed; fix only references meant to stay inside the project | S040 |

@@ -245,3 +245,27 @@ property was measured and no API call was made. Round-27 routed defect 1 (the
 citing-set gate interface) is repaired in `scripts/citing_set.py` at
 `b5d423f`; defects 2–4 are carried as `QUALITY.md` criteria in "Counters and
 field evidence — round 28". Lesson: `lessons/round-28.md`.
+
+## Round-29 base-path frontier step
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Project-site base paths (r29) | `knowledge/pages-base-path.md` (S040–S043) + `scripts/base_path_audit.py` | A GitHub Pages project site is served under `https://<owner>.github.io/<repo>/`, so a root-relative reference such as `/style.css` leaves the site; the source-backed parts are the two site kinds and the project-site default location `http(s)://<owner>.github.io/<repositoryname>` (S040), the `username.github.io` repository-naming rule, project pages in a `gh-pages` branch or `docs` folder, and the local `jekyll serve --baseurl ""` override (S041), the Liquid `relative_url` and `absolute_url` filters that prepend the `baseurl` (S042), and the Vite `base` option, which defaults to `/` and must be `/<REPO>/` for a project site (S043). The gate part is an offline, manifest-driven audit of page references against a declared base path, with its 30-case frozen matrix and tool contract at `.ufo/waves/round-29/c2-matrix.json` (relative to the lane root); no live property was fetched, measured or repaired |
+
+This is the Jekyll/base-path build-tooling ground leaving the open list. The
+entry is grounded in four primary sources opened with one public GET each on
+2026-10-22 (HTTP 200); retained bodies, visible text and receipts are at
+`.ufo/waves/round-29/sources/` (lane root: `S040.txt` … `S043.txt`,
+`receipts.json`). The gate is offline by contract: it reads a local manifest
+and local HTML files and never contacts a property, so the round repaired
+nothing live and published nothing. Counters:
+`.ufo/waves/round-29/c1_quote_truth.py` (a quote must be an exact substring of
+the retained visible text, at most 25 words) and
+`.ufo/waves/round-29/c2_matrix_count.py` (the 30 frozen matrix cases, compared
+on exit, verdict and finding tuples).
+
+Still open: Jekyll and Liquid base-path handling on a real Pages build, Render
+deploy semantics, accessibility conformance, and the operator-authorized reads
+named in the Frontier above. The round-25 statement "the remaining
+field-performance, Jekyll and Render frontier is unchanged" is historical as
+of 2026-10-21 and now carries the base-path step above.

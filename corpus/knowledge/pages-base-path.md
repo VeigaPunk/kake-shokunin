@@ -54,3 +54,7 @@ Vite (S043).
 - Can: the frozen 30-case matrix is `.ufo/waves/round-29/c2-matrix.json`; the counter is `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision <commit>`.
 - Cannot: the audit reads local files only. It cannot show what a server returns, confirm the base path a deployed site is served under, verify a custom-domain mapping, tell whether an out-of-base reference is missing or merely redirected, or identify which repository publishes a site. A clean audit says only that the audited files match the declared base path.
 - Not established here: the base path, domain or build mode of any owned property; that needs an authorized read of the published property or of the Pages configuration.
+
+## Reading a finding
+
+- An `outside_base_path` finding means the reference leaves this project's base path, not that it is broken. On a shared owner host, an `<a href>` to another project (`https://<owner>.github.io/<other-repo>/`) leaves the base path on purpose; a subresource (`link`, `script`, `img`, `source`, `iframe`, `track`) outside it is the breakage class the remedies above address. The round-29 run over the round-23 GET snapshots of three owned project sites found 4 such findings, all navigation links to sibling projects and no subresource (`.ufo/waves/round-29/real-input/out/summary.json`); that run reads saved bytes from 2026-10-21, not the live sites.

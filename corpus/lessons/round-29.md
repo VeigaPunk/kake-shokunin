@@ -68,3 +68,58 @@ is an exact substring of that retained text.
 - No pre-existing row's status, recheck or used-by cell changed. One Paths
   line (Project-site base paths) and one Search log paragraph (Round 29) were
   appended.
+
+## Mistakes
+
+Drafted by wave-1 seat `DraftLessonMistakes` (`.ufo/waves/round-29/w1/DraftLessonMistakes.md`).
+Each fix was shown able to fail: the round-29 C1 counter drops to 3/4 when one
+letter of a Gate quote changes (sandbox commit `609e6777`), while the round-28
+C2 counter still scored 4/4 on the same kind of change (sandbox commit
+`1f9ffdc`); the reject-path witness
+`.ufo/waves/round-29/verification/reject-path/reject_path_check.py` passes on
+the landed rows and fails on each named mutation (for example
+`--registry mut/M2-no-flip.md` exits 1).
+
+| Class | Evidence | Captured-by | Fix |
+|---|---|---|---|
+| vacuous | The round-28 C2 counter graded quote shape, not quote truth: `.ufo/waves/round-28/c2_source_count.py:126-127` counted one curly-quoted span of 1–25 words per Gate line and never opened a source, so a quote that is worded correctly but is not in the source scored the same as a true one. `corpus/lessons/round-28.md:107-110` and `corpus/lessons/round-28-verifier-spotcheck.md:225-227` (routed defect 3) record the defect; quote truth was checked outside the counter by `residual/ReviewGateQuotes.md`. | none — the round-28 `QUALITY.md` section "Counters and field evidence — round 28" (`corpus/QUALITY.md:298-332`) requires a counter to reject a constant and to keep its scope named, but no criterion required a quote to be found in retained text, so a shape-only check passed review. | The round-29 C1 counter `.ufo/waves/round-29/c1_quote_truth.py` checks check `d_quote_in_retained_text`: the Gate quote must be an exact substring of the retained visible text `.ufo/waves/round-29/sources/S0NN.txt`, whose sha256 must equal the committed receipt (`receipts.json`) before the comparison. Shown able to fail: at the landed commit `f8675e5` the counter scores 4/4, exit 0; at the sandbox commit `609e6777fe3836ec813f499186248ff1992c6e99`, which changes exactly one letter of the S042 Gate quote and nothing else, it scores 3/4, exit 1, with `d_quote_in_retained_text` false on S042 alone. The round-28 counter cannot see that state: at the sandbox commit `1f9ffdcffcad9fa78a41aad60c00b6576d0dcfbc`, which changes exactly one letter of the round-28 S036 Gate quote, `.ufo/waves/round-28/c2_source_count.py` still scores 4/4, exit 0, although the flipped quote is not an exact substring of the retained `.ufo/waves/round-28/sources/S036.txt`. |
+| vacuous | The round-28 source gate screened only the four sources it then admitted and rejected none, so no outside reviewer could draw a reject sample from the gate itself: `corpus/SOURCES.md` search log for round 28 records "Identified 4, screened 4, included 4 (S036–S039, scoped tier A), excluded 0", and `corpus/lessons/round-28-verifier-spotcheck.md:228-231` (routed defect 4) records that the reject sample had to come from outside the source gate. | none — `corpus/QUALITY.md` had no criterion requiring a screened source step to produce a checkable rejection, and the round-28 `## Gate` section had no rejected line to point at. | The round-29 lesson `## Gate` section carries a "Screened candidates (round-28 routed defect 4)" block with three rejected candidates (S044, S045, S046) and two queued ones (S047, S048), each with a quote, a one-line reason and a flip condition, and the registry rows S044–S046 read `REJECTED: … ; flip: …` with status `rejected`. Shown able to fail: the check `reject_path_check.py` reads the committed registry, lesson and entry and fails when a rejected candidate's quote is not an exact substring of that candidate's own retained text (`.ufo/waves/round-29/sources/screened/C*.txt`), when the teaches cell loses its `flip:` clause, when the row's status is not `rejected`, when a cited primary id is not tier A mined with retained text, when a rejected candidate URL appears in the entry body or in an admitting Gate line, or when no candidate is rejected at all. It scores 5/5, exit 0 on the landed bytes at `f8675e5`, and exit 1 on each of five sandbox mutations: one letter changed in the S044 quote, the S044 flip clause removed, the S044 status changed to `mined`, all three rejections relabelled as queued, and the S044 URL appended to the entry body. |
+
+## Not repaired this round (routed defects 1 and 2)
+
+Round 28 routed two defects on the citing-set surface. Round 29 repaired
+neither and says so plainly.
+
+Routed defect 1 — committed fixtures for the round-28 reason codes — stays
+open. All 29 committed fixtures under `scripts/fixtures/citing-set/` still
+assert only an exit code and a finding-id list; `grep -rl reason
+scripts/fixtures/citing-set` returns 0 files, and in code and fixtures the
+eight round-28 reason codes exist only in `scripts/citing_set.py`. The regression coverage for
+those codes still lives only in the round-scoped counter
+`.ufo/waves/round-28/c1_interface_count.py`, which is not a committed
+fixture and is not run by the gate's own self-test.
+
+Routed defect 2 — the round-27 failure families outside the declared C1 set
+— stays open on the terms round 28 recorded: the `JSON-PROTOCOL`
+duplicate-key and nonfinite cases; `S01`-style ids that measure clean;
+repeated CLI options resolved by last value wins; the deep-corpus traceback;
+and the missing `O_NOCTTY`.
+
+Why this round did not repair them: the session drift sentinel for "same
+axis+surface claim or same routed defect class in a lane 3 rounds running"
+(`/home/vgpnk/Projects/shokunin/.scratch/goal-20261022-hyaku-12h.md:173`)
+requires the lane's next round to work a different frontier area. The
+citing-set surface was worked in round 27 (the round-27 C1 citing-set
+completeness claim, its counter and its fixture tree) and again in round 28
+(the C1 interface repair of `scripts/citing_set.py`); repairing it a third
+round running is the case that sentinel names. Round 29 therefore took a
+different frontier area, project-site base paths for GitHub Pages, and
+carried both defects forward as named debt.
+
+Consequence for the record: the first half of routed defect 3, that the
+round-28 C1 counter checks finding ids and not reason codes, is unchanged for
+the citing-set surface; this round's own C2 counter does compare reason codes. The round-29
+C1 counter measures the new base-path source rows S040 to S043, not the
+citing-set surface. Nothing in this round changes the citing-set gate, its
+fixture set or its counters. The next round that works the citing-set
+surface inherits both defects, and the round-29 criteria in `corpus/QUALITY.md` apply to it.

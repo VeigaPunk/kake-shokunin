@@ -330,3 +330,65 @@ records it.
   28-day window end (S039). A missing CrUX record is reported as "no field data"
   with the S038 eligibility checks, and a lab score never stands in for the
   field verdict (`knowledge/field-performance-cwv.md`, S036, S038).
+
+## Fixtures, reason codes and quote truth — round 29
+
+Grounding: `corpus/lessons/round-28-verifier-spotcheck.md:208-230` (routed
+defects 1 to 3), `PROTOCOL.md:398-402` (§Gate standard, Self-test), the
+committed fixture set `scripts/fixtures/citing-set/` (29 cases, each
+`expected.json` holding an exit code and a finding-id list only) and the
+round-28 counters `.ufo/waves/round-28/c1_interface_count.py` and
+`.ufo/waves/round-28/c2_source_count.py`. This section appends to "Counters
+and field evidence — round 28" (`corpus/QUALITY.md:298`). The round-28
+bullet "Conformance exceptions stay named" (`corpus/QUALITY.md:317`) stays as
+history; the bullets below narrow it and do not replace it.
+
+- **A committed fixture asserts the reason code, not only the finding id.**
+  A gate that can emit more than one reason under the same finding id ships
+  committed fixtures whose expected values name the reason code next to the
+  finding id, and the fixture runner compares it. Reason codes that exist
+  only in the gate source are uncovered behaviour, not regression coverage.
+  Round 28's gate emitted eight new reason codes (`document_not_regular_file`,
+  `document_not_json`, `corpus_directory_missing`, `corpus_empty`,
+  `not_a_directory`, `population_id_unreachable`, `revision_not_found`,
+  `root_not_repository_top_level`; `corpus/lessons/round-28-verifier-spotcheck.md:70-74`),
+  while all 29 committed fixtures assert only the exit code and the
+  finding-id list. Fails if: the committed fixture runner passes while no
+  committed fixture expectation names a reason code. Round 28 observed
+  `grep -rl reason scripts/fixtures/citing-set` → 0 files, and in code and
+  fixtures the reason labels appear only in `scripts/citing_set.py` (the other
+  mentions are the round-28 lesson and spot-check prose). Limit: a fixture set that
+  names a reason code while the runner never compares it fails the same way.
+- **A counter compares the reason code, not only the id.** A counting
+  command that grades a repair asserts, per case, the expected exit, the
+  expected verdict and the expected reason code of the finding it grades.
+  Collecting the observed reason into a summary for display is not a
+  comparison. The round-28 counter matched on the finding id only
+  (`.ufo/waves/round-28/c1_interface_count.py:141`) and carried the observed
+  reason in a display field
+  (`.ufo/waves/round-28/c1_interface_count.py:150-151`), so a gate that
+  returned the right id with the wrong reason scored a full pass. Fails if:
+  the counter exits 0 on a case whose gate output carries the expected
+  finding id with an absent or different reason. This bar applies to the
+  next round that works the surface; round 29 did not work it (see the
+  round-29 note below).
+- **A Gate quote is found in retained source text.** A Gate quote counts
+  only when it is an exact substring of retained visible source text whose
+  digest the counter verifies against the round's committed receipt before
+  comparing. A shape check (one quote per Gate line, the id, the URL, the
+  access date, 1 to 25 words) is quote shape, not quote truth: the round-28 C2
+  counter read the quote out of the entry line and counted its words
+  (`.ufo/waves/round-28/c2_source_count.py:126-131`) without opening the
+  source. Fails if: the counter that grades Gate quotes exits 0 on a
+  committed row whose quote is not a substring of the retained text, or whose
+  retained text digest differs from the receipt digest. The round-scoped
+  counter `.ufo/waves/round-29/c1_quote_truth.py` (digest verification plus
+  a one-letter-flip control) shows the shape of such a check; it is
+  round-scoped evidence and does not by itself satisfy this standing bar for
+  later rounds.
+- **A new gate ships its fixtures in the same round.** Round 29 applied the
+  first bullet at birth: `scripts/base_path_selftest.py` runs 30 committed
+  fixtures under `scripts/fixtures/base-path/`, each `expected.json` naming
+  exit, verdict and reason codes. Fails if: the runner passes a constant-clean
+  or refuse-everything stub (observed 7/30 each, exit 1, in
+  `.ufo/waves/round-29/w1/BuildBasePathSelftest.md`).

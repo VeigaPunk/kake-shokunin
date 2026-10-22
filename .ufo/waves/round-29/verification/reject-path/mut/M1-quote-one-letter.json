@@ -1,0 +1,41 @@
+[
+ {
+  "id": "C1",
+  "url": "https://mademistakes.com/mastering-jekyll/site-url-baseurl/",
+  "decision": "reject",
+  "reason": "2021 tutorial: stale GitHub Pages build-version claim and raw site.baseurl concatenation presented as an equal alternative to relative_url.",
+  "flip": "a current tier-A source confirms the page's version claims, or the page is refreshed to current GitHub Pages dependencies and restated in relative_url terms.",
+  "contradicted_by": "S042",
+  "marker": "Prepend baseurl config value to the input to convert a URL path into a relative URL.",
+  "quotes": [
+   "GitHub Pages does not use the latest version of Jekyll to build sites. It is currently locke at 3.9.0",
+   "{{ site.baseurl }}/images/pizza.jpg"
+  ]
+ },
+ {
+  "id": "C3",
+  "url": "https://github.com/jekyll/jekyll/issues/332",
+  "decision": "reject",
+  "reason": "2011 issue: obsolete .github.com host and obsolete base-url config key, both superseded by S040 and S042.",
+  "flip": "a current primary source documents site.base-url or the github.com Pages host, or the issue is reopened with maintainer guidance.",
+  "contradicted_by": "S040",
+  "marker": "http(s):/ / <owner>.github.io/ <repositoryname>",
+  "quotes": [
+   "If you're not using a CNAME and hosting your Project Page on GitHub Pages it's served out of a \"project-name\" subfolder",
+   "http://user-name.github.com/project-name"
+  ]
+ },
+ {
+  "id": "C5",
+  "url": "https://talk.jekyllrb.com/t/relative-url-and-baseurl/2051",
+  "decision": "reject",
+  "reason": "2018 to 2020 forum answers give Jekyll 3 era baseurl and SCSS $baseurl advice for GitLab Pages and localhost rather than the GitHub Pages project-site case.",
+  "flip": "the thread is updated with current Jekyll version guidance, or a tier-A source confirms its advice.",
+  "contradicted_by": "S041",
+  "marker": "the output will become available under a subpath of your user pages subdomain",
+  "quotes": [
+   "relative_url ensures proper links by: ensuring the url to have a single leading slash always",
+   "Users can configure baseurl: to be a string with containing variable numbers of slashes"
+  ]
+ }
+]
