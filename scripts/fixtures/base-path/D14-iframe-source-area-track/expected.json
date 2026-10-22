@@ -1,0 +1,35 @@
+{
+  "argv": null,
+  "exit": 1,
+  "findings": [
+    {
+      "attribute": "src",
+      "element": "iframe",
+      "reason": "outside_base_path",
+      "value": "/f.html"
+    },
+    {
+      "attribute": "srcset",
+      "element": "source",
+      "reason": "outside_base_path",
+      "value": "/s.webp"
+    },
+    {
+      "attribute": "href",
+      "element": "area",
+      "reason": "outside_base_path",
+      "value": "/ar"
+    },
+    {
+      "attribute": "src",
+      "element": "track",
+      "reason": "outside_base_path",
+      "value": "/t.vtt"
+    }
+  ],
+  "id": "D14-iframe-source-area-track",
+  "kind": "defect",
+  "note": "",
+  "tool": "scripts/base_path_audit.py",
+  "verdict": "failed-policy"
+}
