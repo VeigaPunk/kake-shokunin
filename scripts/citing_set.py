@@ -371,12 +371,12 @@ class GitSource:
             if not separator or len(fields) < 2:
                 raise InputInvalid("not_a_regular_file", path or None, "corpus")
             mode, kind = fields[0], fields[1]
-            if path == CORPUS_DIR:
-                raise InputInvalid("not_a_directory", CORPUS_DIR, "corpus")
             if mode == "120000":
                 raise InputInvalid("symlink_rejected", path or None, "corpus")
             if kind != "blob" or mode == "160000":
                 raise InputInvalid("not_a_regular_file", path or None, "corpus")
+            if path == CORPUS_DIR:
+                raise InputInvalid("not_a_directory", CORPUS_DIR, "corpus")
             files.append(path)
         if not files:
             raise InputInvalid("corpus_directory_missing", CORPUS_DIR, "corpus")
@@ -415,7 +415,7 @@ def load_json_document(raw, relative, scope):
         raise InputInvalid("document_not_utf8", relative, scope)
     try:
         document = json.loads(text)
-    except (ValueError, RecursionError) as exc:
+    except (ValueError, RecursionError, MemoryError) as exc:
         raise InputInvalid("document_not_json", relative, scope, detail=(str(exc) or type(exc).__name__)[:120])
     if not isinstance(document, dict):
         raise InputInvalid("document_shape_invalid", relative, scope)
