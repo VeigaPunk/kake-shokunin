@@ -91,3 +91,18 @@ visible text match. Corrections (rows are append-only; the corrected reading is 
   U+0027.
 - **S105, S108:** hold as written.
 Row changes this round: S105–S109 added; no `status`, `recheck` or `used-by` change to an existing row.
+
+## Gate — rejects (attempt 3)
+
+- **Rejected: the sealed 24-case counter as C1's admission instrument.** Reason: 16 controls meet
+  its predicate before any build (15 single-sentence reference mutants, each judged a valid control by a
+  wave-2 reviewer, and the regex reader `w1a3-CtlRegexTweak`). Consequence applied as frozen: kill rule
+  (1), C1 exploratory (`SCORECARD.md` "Round 39 — kill rule (1) fired").
+- **Rejected for adoption: the draft criterion-(o) inventory checker**
+  (`.ufo/waves/round-39/criteria/draft-o/check_control_inventory.py`). Reason: `MutCriterionO` found 5 false
+  accepts in 15 adversarial samples (`.ufo/waves/round-39/w2a3/MutCriterionO.md`). QUALITY (o) cites
+  it as a draft only; its enforced half is the content check.
+- **Rejected as wrong: S106's `teaches` clause "'ignored' in sentence 14 comes from S102".** Reason:
+  neither S102 nor S106 says "ignored" (`w2a3/ReopenS106.md`); recorded under Wave-2 corrections.
+- **Not landed: `RerunCcCheckFinal`'s fixture patch for (j) survivor M06.** Reason: it arrived after the
+  build was judged; changing the (j) check now would change a gate after data. Carried.
