@@ -1160,9 +1160,10 @@ Tool `scripts/sitemap_audit.py` sha256 `50287ac6…1dde7d` (round 41; revised af
 inside an IP literal stays invalid). A `loc` (after sentence 21's strip)
 or a manifest `sitemapUrl` is first judged as written against RFC 3986 `URI` with an authority and a
 non-empty host (S117, Appendix A; S102 "follow the RFC-3986 standard for URIs"); only then does `urlsplit`
-split it for the scope rule. So a space, `"<>\^`{|}`, DEL, any C0 control, a `[` or `]` outside an IP
-literal, a second `#`, an `@` inside userinfo, or a `%` not followed by two hex digits gives
-`loc_not_absolute` / `check_invalid`, where the round-40 tool accepted them (selftest `r41_*`, 204
+split it for the scope rule. So a space, `"<>\^`{|}`, DEL, a C0 control (in `sitemapUrl`; in a `loc`
+the XML parser already gives `xml_malformed` for C0 other than TAB, LF, CR), a `[` or `]` in the path,
+query or fragment, a second `#`, an `@` inside userinfo, or a `%` not followed by two hex digits gives
+`loc_not_absolute` / `check_invalid`, where the round-40 tool accepted them (selftest `r41_*`, 225
 fixtures). Unchanged on purpose, and not claimed as conformance: code points U+0080 and above are still
 accepted wherever RFC 3986 allows `unreserved` (broader than RFC 3987 `ucschar`); IP-literal contents and
 ports above 65535 are still judged by `urlsplit` (it rejects a port above 65535, RFC 3986 does not).

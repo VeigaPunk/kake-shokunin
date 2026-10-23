@@ -108,3 +108,42 @@ this lesson and the SCORECARD kill-rule section.
 - Routed defect 4 (interior C0 controls other than TAB/CR/LF in `loc` and `sitemapUrl`): decided against
   RFC 3986 by C1 — every C0 control and DEL is rejected in `sitemapUrl`; in `loc` they cannot occur in
   well-formed XML 1.0 at all, so sentence 8 (`xml_malformed`) already decides them there.
+
+## Wave 2 — falsify (33 seats) and what changed
+
+33 seats attacked the landed build `eae5ae2c` (reports `.ufo/waves/round-41/w2/`). Held: every counter rerun
+(v1 at seed 41001 and three random seeds, v2 three random seeds: 1434; base 1057–1083), the wave-1 tallies
+(15/141 under v1, 10/141 under v2; no receipt from a dead or refused seat), the commit order
+(`ReviewReceiptOrder`), the oracle cross-check on ten new seeds (0 disagreements), harm scope (only the five
+claimed files outside `.ufo/waves/round-41/`; robots selftest 204/204), the real run (byte-identical raw
+output), out-of-class parity for non-ASCII, ports and empty components (`ReviewBuildOutOfClass`), and every
+re-opened source (S102, S117, S118, S119).
+
+**Regression found and fixed.** `CriticExploratoryBetter` and, independently, `ReviewBuildDiffFresh`: TAB, LF
+or CR inside an IP literal was accepted by `0b485431…` (its IP-literal branch admitted any character and
+`urlsplit` deletes those three), where the round-40 tool rejected it. The revised build `50287ac6…`
+(`0c5ad2f6`) admits only RFC 3986 IP-literal characters plus `%` in the brackets; six fixtures red on
+`0b485431…`, green now. The selftest also gained fixtures for the survivors of `MutSelftestStructure` and
+`MutSelftestRepertoire` (225 fixtures; 29 red on the base, all `r41_*`).
+
+**Not changed, recorded:** `ReviewBuildPerformance` — the URL check is linear but costs ×3–40 on adversarial
+values (worst 2.2 s on a 52 MB file at the byte cap, real run +22%); `ReviewBuildVsIndependent` — `%` inside
+an IP literal (zone ids) and ports above 65535 still follow `urlsplit` (documented exclusions);
+`SentinelBuildInput` — symlinked manifest `file` paths can read outside the manifest directory, a surrogate
+file name aborts a check, input sizes are unbounded (all pre-existing in the round-40 tool, outside C1);
+`ReviewLessonDraftCheck` / `MutCriteriaFreshReview` — (t)'s check passes on a mere sha quotation (now said in
+its docstring and in QUALITY (t)); `MutCriteriaLiveTally` — 7 of 7 mutants killed.
+
+**Harm rule read literally** (`CriticClaimSizing` F3): 13 of 42 `r41_*` fixtures are green on the base, so
+the clause "the round's new ones … must be red on `8eb121c8`" is not met; SCORECARD records that the rule
+then reads "operability is harmed" and leaves the ruling to the closure.
+
+Row changes this round (same-round corrections of rows added this round, before the report):
+- S117 `anchor` "Appendix A Collected ABNF (lines 2690–2760)" → "(lines 2695–2788)" (`ReopenS117Fresh`);
+  `teaches` "…; a value `urlsplit` accepts can still fail this grammar" → "… (that a value `urlsplit`
+  accepts can still fail this grammar is the lane's observation, not the RFC's)".
+- S118 `teaches` "…, which the counter reads as valid or invalid" → "…; the counter reads ParseError as
+  invalid and a successful parse as valid only with an http(s) scheme and a non-empty host" (`ReopenS118Fresh`).
+- S119 `teaches` "whose `match(value, rule="URI")`" → "whose RFC 3986 `URI` pattern
+  (`get_compiled_pattern("%(URI)s").fullmatch` …)" (`ReopenS119Fresh`).
+- S117, S118, S119 `used-by`: `SCORECARD.md "Round 41"` → `SCORECARD.md` (census E11, `ReviewSourcesRows`).
