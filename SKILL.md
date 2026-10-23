@@ -1156,12 +1156,13 @@ extension element no longer makes a `loc` invalid. Selftest 183 fixtures.
 
 ### Sitemap file audit — round-41 URL rule (amendment to the rows above)
 
-Tool `scripts/sitemap_audit.py` sha256 `0b485431…13edbf` (round 41). A `loc` (after sentence 21's strip)
+Tool `scripts/sitemap_audit.py` sha256 `50287ac6…1dde7d` (round 41; revised after wave 2 so TAB, LF or CR
+inside an IP literal stays invalid). A `loc` (after sentence 21's strip)
 or a manifest `sitemapUrl` is first judged as written against RFC 3986 `URI` with an authority and a
 non-empty host (S117, Appendix A; S102 "follow the RFC-3986 standard for URIs"); only then does `urlsplit`
 split it for the scope rule. So a space, `"<>\^`{|}`, DEL, any C0 control, a `[` or `]` outside an IP
 literal, a second `#`, an `@` inside userinfo, or a `%` not followed by two hex digits gives
-`loc_not_absolute` / `check_invalid`, where the round-40 tool accepted them (selftest `r41_*`, 198
+`loc_not_absolute` / `check_invalid`, where the round-40 tool accepted them (selftest `r41_*`, 204
 fixtures). Unchanged on purpose, and not claimed as conformance: code points U+0080 and above are still
 accepted wherever RFC 3986 allows `unreserved` (broader than RFC 3987 `ucschar`); IP-literal contents and
 ports above 65535 are still judged by `urlsplit` (it rejects a port above 65535, RFC 3986 does not).

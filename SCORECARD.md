@@ -2854,3 +2854,15 @@ rest on that order.
 Corrections to the kill-rule section (appended; `CriticKillRuleRecord`, `RerunW1TallyV2`): `terminal_pct`
 accepts a lone terminal `%` (not `%2`); `m07_query_hash` is not behaviour-equivalent — it fails counter v2
 (1432–1433); the ten tools still meeting v2 also include `CtlNoUserinfoPort` `no-port-v2`.
+
+Selftest extended after the wave-2 mutation seats (`MutSelftestStructure`: one-hex percent and a second
+`#` after a query survived; `MutSelftestRepertoire`: 14 of 17 one-character repertoire mutants of userinfo,
+host, query and fragment survived the 198 fixtures): 21 more `r41_*` fixtures (one-hex and terminal
+one-hex percent, `?q#x#y`, space / `|` / `^` / backtick in userinfo, host, query and fragment, and `/?`
+clean in query and fragment). Selftest now **225** fixtures (sha256 `18752057…01bf8`): final tool
+`50287ac6…` `PASS 225/225`; base `PASS 196/225` (29 red, all `r41_*`); the first build `0b485431…`
+`PASS 219/225` (the six IP-literal whitespace fixtures) (`verification/build3/selftest-final-*.txt`).
+Correction to the harm paragraph above: of the 42 `r41_*` fixtures, **29** are red on the base and 13 are
+green on both tools — four valid-value controls, two `/?` positives, the port-letter parity guard and the
+six IP-literal whitespace guards (red only on `0b485431…`). The literal clause "must be red on
+`8eb121c8`" is not met for those 13; reported as above, not relabelled.

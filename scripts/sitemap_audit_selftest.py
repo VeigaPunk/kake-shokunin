@@ -960,6 +960,33 @@ def build_cases():
             {"a.xml": urlset(url(L("http://[::1]/a")))}, [4],
             manifest=mf(ck("a", "a.xml", "http://[::%s1]/" % raw)), expect_exit=2,
             verdict="could-not-evaluate", checks=[E("a", "error", "check_invalid")])
+    # Round 41 wave 2 (MutSelftestStructure survivors): a percent sign with one
+    # hex digit, and a second `#` after a query, are invalid.
+    for tag, value in (("one_hex_percent", "http://example.com/a%4g"),
+                       ("terminal_one_hex_percent", "http://example.com/a%4"),
+                       ("query_then_second_hash", "http://example.com/a?q#x#y")):
+        add("r41_loc_%s" % tag,
+            {"a.xml": urlset(url(L(value)))}, [22],
+            rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+            verdict="failed-policy",
+            checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    # Round 41 wave 2 (MutSelftestRepertoire survivors): each component's
+    # repertoire, not only the path's; `/` and `?` stay valid in a query and a
+    # fragment.
+    shapes = (("userinfo", "http://a%sb@example.com/a"), ("host", "http://exa%smple.com/a"),
+              ("query", "http://example.com/a?q%sr"), ("fragment", "http://example.com/a#f%sg"))
+    for comp, shape in shapes:
+        for name, ch in (("space", " "), ("pipe", "|"), ("caret", "^"), ("backtick", "`")):
+            add("r41_loc_%s_%s" % (comp, name),
+                {"a.xml": urlset(url(L(shape % ch)))}, [22],
+                rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+                verdict="failed-policy",
+                checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    for comp, value in (("query", "http://example.com/a?q/?r"), ("fragment", "http://example.com/a#f/?g")):
+        add("r41_loc_%s_slash_question_clean" % comp,
+            {"a.xml": urlset(url(L(value)))}, [22],
+            rules=[("g", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean",
+            checks=[E("a", "clean")])
 
     return cases
 
