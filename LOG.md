@@ -1504,3 +1504,21 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
 - Round-35 routed defects: QUALITY round-36 (a)–(f) with four criteria checks shown able to
   fail; S084 and Preferred-Languages corrections appended; SKILL registry rows for
   source-recheck-audit and source-snapshot.
+
+## Round 37 — 2026-10-23 (kake L1 `KakeR37`, hyaku in-session)
+
+- Base `621fb528`. Declared C1 (operability capability, offline robots.txt expectation audit,
+  sealed 28 cases, predicate `met: passed >= 25 of 28 sealed cases`) and C2 (selftest fixtures kill
+  the 32 round-36 mutants) at `202d625a`. Sources S011 (re-open), S095–S097 opened 02:50Z.
+- Control call (8 seats): C1 controls ≤ 20; C2's snapshot control met (32 of 32) → C2 withdrawn
+  before data (`4b089da6`). `CtlC1Shortcut` dead (429 quota); follow-up shortcut by the living
+  `CtlC1NoReader` met 28 with the stdlib parser plus six rule patches; disposition recorded before
+  any build was measured (`ccc3b2b9`).
+- Wave 1 `kake-r37-w1` (32 seats; 4 critics dead on the same quota error). Non-claim repairs at
+  `528a6d02`: five selftest fixtures (C2 evidence 27 → 32), `source_recheck.py` hardening (FIFO,
+  size, MemoryError, attribute `<script`, resolved body path), criteria v2, knowledge entry
+  `robots-txt-rules.md`, SOURCES S095–S097, QUALITY/PROVINCE/README round 37.
+- Build `9dbc88bb` (`scripts/robots_audit.py`, unedited seat file); reveal `424aa248`; C1 28 of 28,
+  met. Independent blind implementation 28 of 28; selftest 131/131. Live run 55 checks over 12
+  robots.txt files, clean.
+- Lesson `corpus/lessons/round-37.md`; motivating evidence: round-36 closure routed defects 1–8.

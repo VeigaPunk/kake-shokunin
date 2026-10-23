@@ -1970,3 +1970,40 @@ a non-final `$`, how `*` and `$` count toward rule length, per the naive-reader 
 the 28 single-point reference mutants of `MutRefPass`. A tool meeting 25 of 28 is shown to follow
 the tested rules of (a)–(g), not every contract sentence; the robots selftest is the instrument for
 the rest.
+
+## Round 37 — measured results (author-side; admission belongs to the non-author closure)
+
+Key revealed at `424aa2480bcbac1832b2aa9da49c51b78ec5092f` (sha256 `93ad9ee6…0a90`, equal to the
+pin). The predicate was declared at `202d625a` and is unchanged; the counter, key and target are
+unchanged since then. Receipts: `.ufo/waves/round-37/verification/c1-*.json` with `.exit` files.
+
+| Claim | Before (rev) | After (rev) | Counting command | Predicate |
+|---|---|---|---|---|
+| C1 robots.txt expectation audit (operability, capability) | passed 0 of 28 (`621fb528`, `202d625a`, `4b089da6`, `ccc3b2b9`, `528a6d02`) | passed 28 of 28 (`9dbc88bb`) | `python3 -B .ufo/waves/round-37/sealed_count.py --root . --revision <rev> --key-revision 424aa248` | `met: passed >= 25 of 28 sealed cases`: met |
+
+- Measuring the reveal commit is refused with exit 2 (`c1-keyrev-at-424aa248….json`). The build was
+  also measured before the reveal with the key file (`c1-at-9dbc88bb.json`, 28 of 28).
+- The tool is wave-1 `ExecRobotsTool`'s file (sha256 `5eb767ec…cabae`), landed unedited. An
+  independent blind implementation by wave-1 `ExecRobotsSelftest` scores 28 of 28 too
+  (`verification/independent-selftest-reference.json`).
+- Selftest `scripts/robots_audit_selftest.py` (131 fixtures, written blind from the contract):
+  131/131 on the landed tool; on the shortcut follow-up 126/131 (fails space/tab-only trim of
+  key and value, ASCII-only group-name folding, non-final `$`, `$` counted in specificity); on
+  the stock parser 119/131; on the L1's private reference 130/131 (the reference folds
+  group names with Unicode `lower()`, a reference defect the sealed cases do not reach).
+- Controls under the same counter: base 0; constant clean 0; junk 0; no-reader 0; all-false 4;
+  stock parser 20; shortcut follow-up 28 (disposition at `ccc3b2b9`); 34 reference ablations
+  16–24. Mutation pass on the reference: 28 of 42 meet.
+- Real input (evidence, not a claim): 55 checks over 12 live robots.txt files, `clean`, exit 0
+  (`realrun/audit.json`).
+- C2 withdrawn before data (`4b089da6`). As non-claim evidence the C2 counter reads 27 → 32 of 32
+  (`verification/c2-at-621fb528.json` → `c2-evidence-at-528a6d02.json`).
+- Capability row "Offline robots.txt expectation audit" entered `## Capabilities` below. Axis
+  ratings unchanged (10 → 10).
+- Limits: `corpus/lessons/round-37.md` "Carried open".
+
+### Capabilities acquired in round 37
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Offline robots.txt expectation audit | Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose RFC 9309 decision under the lane readings differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim; the sealed cases certify the tested rules of (a)–(g), not every contract sentence | `scripts/robots_audit.py` at `9dbc88bb`; sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base and at most 20 for the controls that skip rules; selftest 131/131 (`verification/robots-selftest-at-9dbc88bb-tool.json`); live run over 12 robots.txt files (`realrun/audit.json`) | 37 |

@@ -1,0 +1,496 @@
+[
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b01-limit-keeps-last-permitted-byte"
+    ],
+    "id": "M01",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "LIMIT 512000 -> 511999",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b02-limit-drops-byte-512001"
+    ],
+    "id": "M02",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "LIMIT 512000 -> 512001",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b09-key-trims-only-space-tab"
+    ],
+    "id": "M03",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "key SP/TAB trim -> strip()",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b10-value-trims-only-space-tab"
+    ],
+    "id": "M04",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "value SP/TAB trim -> strip()",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b06-first-hash-starts-comment"
+    ],
+    "id": "M05",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "first # -> rfind(#)",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b16-unicode-line-separator-is-not-line-end",
+      "b17-vertical-tab-is-not-line-end"
+    ],
+    "id": "M06",
+    "killed": true,
+    "passedOverTotal": "129/131",
+    "sentence": "CR/LF split -> splitlines()",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "d15-colon-inside-rule-value"
+    ],
+    "id": "M07",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "first colon -> last colon",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b18-key-ascii-fold-not-unicode-casefold"
+    ],
+    "id": "M08",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "ASCII key lower -> casefold",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "c10-group-name-ascii-only-case-folding"
+    ],
+    "id": "M09",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "ASCII agent compare -> casefold",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "c09-group-name-is-not-a-substring"
+    ],
+    "id": "M10",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "agent equality -> substring",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "a01-status-200-file-decides",
+      "a06-status-204-file-decides",
+      "a12-status-299-file-decides",
+      "b02-limit-drops-byte-512001",
+      "b03-bom-dropped",
+      "b05-invalid-utf8-becomes-replacement"
+    ],
+    "id": "M11",
+    "killed": true,
+    "passedOverTotal": "86/131",
+    "sentence": "wildcard fallback inverted",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "c08-matching-groups-combined"
+    ],
+    "id": "M12",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "combine groups -> last group only",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b13-other-record-does-not-end-group",
+      "c06-consecutive-agents-one-group"
+    ],
+    "id": "M13",
+    "killed": true,
+    "passedOverTotal": "129/131",
+    "sentence": "agent after rule starts group -> always new group",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "c05-star-not-combined-when-exact-match",
+      "c07-agent-after-rule-starts-new-group"
+    ],
+    "id": "M14",
+    "killed": true,
+    "passedOverTotal": "129/131",
+    "sentence": "consecutive agents share group -> never",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "d03-star-matches-empty-sequence",
+      "d14-star-with-terminal-anchor"
+    ],
+    "id": "M15",
+    "killed": true,
+    "passedOverTotal": "129/131",
+    "sentence": "wildcard .* -> .+",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b02-limit-drops-byte-512001",
+      "d05-terminal-dollar-anchors",
+      "d13-specificity-counts-dollar",
+      "d14-star-with-terminal-anchor",
+      "e03-empty-query-not-appended",
+      "e04-fragment-never-included"
+    ],
+    "id": "M16",
+    "killed": true,
+    "passedOverTotal": "125/131",
+    "sentence": "anchor endswith($) -> startswith($)",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "d16-unanchored-rule-matches-shorter-prefix"
+    ],
+    "id": "M17",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "prefix re.match -> re.fullmatch",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "d08-prefix-starts-at-first-character"
+    ],
+    "id": "M18",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "prefix re.match -> re.search",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "e14-specificity-uses-normalized-length"
+    ],
+    "id": "M19",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "normalized length -> raw length",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "d10-tie-allow-wins-allow-first",
+      "e14-specificity-uses-normalized-length"
+    ],
+    "id": "M20",
+    "killed": true,
+    "passedOverTotal": "129/131",
+    "sentence": "longest tie: > -> >=",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "b01-limit-keeps-last-permitted-byte",
+      "d10-tie-allow-wins-allow-first",
+      "d11-tie-allow-wins-disallow-first",
+      "e14-specificity-uses-normalized-length"
+    ],
+    "id": "M21",
+    "killed": true,
+    "passedOverTotal": "127/131",
+    "sentence": "tie kind allow -> disallow",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "e07-reserved-escape-differs-from-slash"
+    ],
+    "id": "M22",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "decode unreserved -> also %2F",
+    "verdict": "failed"
+  },
+  {
+    "exit": 0,
+    "firstFailures": [],
+    "id": "M23",
+    "killed": false,
+    "passedOverTotal": "131/131",
+    "sentence": "kept escape hex upper -> lower",
+    "verdict": "clean"
+  },
+  {
+    "exit": 0,
+    "firstFailures": [],
+    "id": "M24",
+    "killed": false,
+    "passedOverTotal": "131/131",
+    "sentence": "UTF-8 escape hex %02X -> %02x",
+    "verdict": "clean"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "e01-empty-path-becomes-slash"
+    ],
+    "id": "M25",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "empty path default / -> empty",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "e02-non-empty-query-included"
+    ],
+    "id": "M26",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "append ?query -> append empty",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "e04-fragment-never-included"
+    ],
+    "id": "M27",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "fragment included",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "e11-robots-txt-exemption-is-exact"
+    ],
+    "id": "M28",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "robots.txt comparison case-insensitive",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "g12-manifest-version-true"
+    ],
+    "id": "M29",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "version exact int -> isinstance",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "f11-user-agent-with-digit-invalid",
+      "f12-user-agent-trailing-punctuation-invalid"
+    ],
+    "id": "M30",
+    "killed": true,
+    "passedOverTotal": "129/131",
+    "sentence": "product token anchored -> prefix match",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "f11-user-agent-with-digit-invalid"
+    ],
+    "id": "M31",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "product token alphabet adds digits",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "f06-status-300-invalid",
+      "f27-invalid-check-does-not-stop-others",
+      "v05-could-not-evaluate-check-invalid"
+    ],
+    "id": "M32",
+    "killed": true,
+    "passedOverTotal": "128/131",
+    "sentence": "status 300 accepted",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "f07-status-399-invalid"
+    ],
+    "id": "M33",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "status 399 accepted",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "f09-status-float-invalid"
+    ],
+    "id": "M34",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "status accepts floats",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "a01-status-200-file-decides",
+      "b01-limit-keeps-last-permitted-byte",
+      "b02-limit-drops-byte-512001",
+      "b03-bom-dropped",
+      "b04-bom-only-dropped-at-start",
+      "b05-invalid-utf8-becomes-replacement"
+    ],
+    "id": "M35",
+    "killed": true,
+    "passedOverTotal": "63/131",
+    "sentence": "status lower bound 200 -> 201",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "a05-status-599-unreachable-blocked"
+    ],
+    "id": "M36",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "status upper bound 599 -> 598",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "f23-robots-symlink-outside-invalid"
+    ],
+    "id": "M37",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "realpath -> abspath for containment",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "f20-robots-escapes-to-sibling-prefix"
+    ],
+    "id": "M38",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "containment prefix drops separator",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "g05-manifest-exactly-64-mib-valid"
+    ],
+    "id": "M39",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "manifest max 64 MiB -> 64 MiB - 1",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "g06-manifest-not-utf8"
+    ],
+    "id": "M40",
+    "killed": true,
+    "passedOverTotal": "130/131",
+    "sentence": "manifest UTF-8 strict -> replacement",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "a01-status-200-file-decides",
+      "a02-status-404-unavailable-allowed",
+      "a03-status-410-unavailable-allowed",
+      "a04-status-500-unreachable-blocked",
+      "a05-status-599-unreachable-blocked",
+      "a06-status-204-file-decides"
+    ],
+    "id": "M41",
+    "killed": true,
+    "passedOverTotal": "48/131",
+    "sentence": "checksEvaluated increment 1 -> 2",
+    "verdict": "failed"
+  },
+  {
+    "exit": 1,
+    "firstFailures": [
+      "a01-status-200-file-decides",
+      "a02-status-404-unavailable-allowed",
+      "a03-status-410-unavailable-allowed",
+      "a04-status-500-unreachable-blocked",
+      "a05-status-599-unreachable-blocked",
+      "a06-status-204-file-decides"
+    ],
+    "id": "M42",
+    "killed": true,
+    "passedOverTotal": "7/131",
+    "sentence": "report version 1 -> 2",
+    "verdict": "failed"
+  }
+]
