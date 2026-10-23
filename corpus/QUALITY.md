@@ -1045,3 +1045,26 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
   still meets, and the classification cannot be settled after scores. Name control classes by the behaviour
   they skip (a position, a component, a sub-shape the class generates), and decide equivalence by a
   frozen differential before scores, not by how the tool is written.
+
+## Round-42 criteria
+
+- **(v) A frozen harm rule names each new fixture's class and prices cost, before data.** A change
+  fixture is red on the base, a guard is green on the base (or "guards only" is declared), and the rule
+  carries a numeric cost bound against a named baseline. A rule that demands every new fixture red cannot be
+  met by a round that adds guards, and a rule without a cost bound leaves cost unpriced. Grounding: round-41
+  spot-check routed defect 1 (13 of 42 guards green on the base; ×12.87 cost unpriced); lesson round-42
+  Mistake 1. Check: `.ufo/waves/round-42/criteria/harm_rule_check.py <SCORECARD> <round>` — red on round 41
+  (exit 1, `verification/criteria/harm-rule-r41.txt`), green on round 42 (exit 0, `harm-rule-r42.txt`).
+  Weakness: the check is lexical; a reviewer still reads the rule.
+- **(w) A cost counter reads CPU through a channel the measured tool cannot write.** The measuring process
+  is non-dumpable before it starts the tool, the timing record is appended after every descendant is
+  reaped, and a forging control is a standing control. Grounding: wave-1 `CtlCpuHide`/`SentinelCounterSandbox`
+  (lesson round-42 Mistake 2). Check: `controls/w1/CtlCpuHide/ctl_fake_timing.py` meets counter v1
+  (`verification/criteria/fake-timing-c42_count.py.json`, ratios 0.003–0.026, met) and fails counter v3
+  (`verification/w1v3/CtlCpuHide__ctl_fake_timing.json`, honest CPU T1 3.903, not met).
+- **(x) A counter that tests "keeps every judgment" by sampling inserts every unit of the repertoire it
+  guards into every slot, Unicode look-alikes of ASCII classes included.** Random samples of a few
+  non-ASCII characters miss one-member mutants of a range (U+0080–U+009F, surrogates, U+FFFE/U+FFFF), of a
+  zone-id set (`~`) and of a widened class (`\d` admitting `١`). Grounding: wave-1 `MutRegexNonAscii`,
+  `MutRegexIP`, `MutRegexPct` (met v1 with witnesses); lesson round-42 Mistake 2. Check: those five mutants are
+  standing controls — met v1 (`w1/MutRegex*.md`), fail v3 run E (`verification/w1v3/`).

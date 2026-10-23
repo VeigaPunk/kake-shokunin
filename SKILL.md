@@ -1172,3 +1172,14 @@ are now rejected inside the brackets, where the round-40 tool accepted some of t
 Proof status: exploratory — the round-41 oracle counter (`.ufo/waves/round-41/c1_count.py`, labels from
 abnf 2.9.1's RFC 3986 grammar, S118) was met by 15 of 141 wave-1 controls before the build (SCORECARD
 "Round 41 — kill rule (1) fired"); use the selftest, and treat the counter as information.
+
+### Sitemap file audit — round-42 scanner (amendment to the rows above)
+
+Tool sha256 `914ebdee…cd021` (build `020bc457`): the round-41 URL rule is unchanged in what it judges, but it
+is matched by a byte-table scanner instead of one regular expression whose `\u0080-\U0010ffff` class made
+long values slow (round 41: ×4–10 the round-40 CPU on long adversarial values). The zone-id behaviour is
+declared, not accidental: RFC 9844 (S124) obsoletes RFC 6874's zone-id URI syntax, so rejecting a non-ASCII
+character or `|` inside `[ ]` rejects only values RFC 3986 does not allow; `%25eth0` and `%eth0` stay
+accepted (legacy laxity). Python 3.10 still runs it (selftest 235 fixtures, ten `r42_*` guards).
+Measured by `.ufo/waves/round-42/c42_count_v3.py` (no `--seed`): output equal to the round-41 tool on ten
+generated runs and CPU ≤ 2.0× the round-40 tool on five timing shapes (SCORECARD round 42).

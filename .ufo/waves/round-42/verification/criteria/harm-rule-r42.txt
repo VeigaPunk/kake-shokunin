@@ -1,0 +1,22 @@
+round 42, bytes SCORECARD.md (3108 lines)
+section: line 2907 ## Round 42 — C1 counter candidate (pre-freeze: the control wave scores it before the declaration) (lines 2907-2992)
+harm-rule bullet: lines 2976-2987
+fixture-class evidence:
+  change\s+fixture line 2979: 'change fixture'
+  \bred\s+on\b   line 2979: 'red on'
+  change\s+fixture line 2980: 'change fixture'
+  \bguards?\b    line 2978: 'guards'
+  \bguards?\b    line 2979: 'guards'
+  \bguards?\b    line 2981: 'guards'
+  \bgreen\s+on\b line 2981: 'green on'
+  \bguards?\b    line 2982: 'guard'
+  \bguards?\b    line 2982: 'guards'
+  guards?\s+only line 2978: 'guards only'
+  no\s+change\s+fi… line 2979: 'no change fixture'
+  fixture classes: OK (change fixture and guard both named; 'guards only'; 'no change fixture')
+cost-bound evidence:
+  (?:≤|<=|at\s+mos… line 2983: '≤ 2.0'
+  numeric cost bound: OK
+advisory: the bullet says 'frozen' at line 2976
+VERDICT: pass - harm rule names fixture classes and a numeric cost bound
+exit=0
