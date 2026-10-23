@@ -1,0 +1,3078 @@
+{
+ "cases": [
+  {
+   "bullet": "a",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x1",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x2",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "http_error",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "http_error",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k01",
+   "manifest": {
+    "checks": [
+     {
+      "hops": [
+       {
+        "status": 404
+       }
+      ],
+      "id": "x1",
+      "quote": "keep the old URLs working",
+      "url": "https://docs.example.org/guide/old-0"
+     },
+     {
+      "hops": [
+       {
+        "status": 410
+       }
+      ],
+      "id": "x2",
+      "quote": "Frequently asked",
+      "url": "https://docs.example.org/legacy/faq-0"
+     },
+     {
+      "hops": [
+       {
+        "status": 403
+       }
+      ],
+      "id": "x3",
+      "quote": "Forbidden area",
+      "url": "https://docs.example.org/other/0"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "keep the old URLs working",
+      "url": "https://docs.example.org/guide/publishing"
+     },
+     {
+      "hops": [
+       {
+        "status": 206
+       }
+      ],
+      "id": "x5",
+      "quote": "keep",
+      "url": "https://docs.example.org/partial/0"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "a",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x1",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x2",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "http_error",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "http_error",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k02",
+   "manifest": {
+    "checks": [
+     {
+      "hops": [
+       {
+        "status": 404
+       }
+      ],
+      "id": "x1",
+      "quote": "keep the old URLs working",
+      "url": "https://status.example.net/guide/old-1"
+     },
+     {
+      "hops": [
+       {
+        "status": 410
+       }
+      ],
+      "id": "x2",
+      "quote": "Frequently asked",
+      "url": "https://status.example.net/legacy/faq-1"
+     },
+     {
+      "hops": [
+       {
+        "status": 503
+       }
+      ],
+      "id": "x3",
+      "quote": "All systems",
+      "url": "https://status.example.net/other/1"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "keep the old URLs working",
+      "url": "https://status.example.net/guide/publishing"
+     },
+     {
+      "hops": [
+       {
+        "status": 202
+       }
+      ],
+      "id": "x5",
+      "quote": "keep",
+      "url": "https://status.example.net/partial/1"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "a",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x1",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x2",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "http_error",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "http_error",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k03",
+   "manifest": {
+    "checks": [
+     {
+      "hops": [
+       {
+        "status": 404
+       }
+      ],
+      "id": "x1",
+      "quote": "keep the old URLs working",
+      "url": "https://api.example.org/guide/old-2"
+     },
+     {
+      "hops": [
+       {
+        "status": 410
+       }
+      ],
+      "id": "x2",
+      "quote": "Frequently asked",
+      "url": "https://api.example.org/legacy/faq-2"
+     },
+     {
+      "hops": [
+       {
+        "status": 204
+       }
+      ],
+      "id": "x3",
+      "quote": "pong",
+      "url": "https://api.example.org/other/2"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "keep the old URLs working",
+      "url": "https://api.example.org/guide/publishing"
+     },
+     {
+      "hops": [
+       {
+        "status": 203
+       }
+      ],
+      "id": "x5",
+      "quote": "keep",
+      "url": "https://api.example.org/partial/2"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "a",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x1",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x2",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "http_error",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "http_error",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k04",
+   "manifest": {
+    "checks": [
+     {
+      "hops": [
+       {
+        "status": 404
+       }
+      ],
+      "id": "x1",
+      "quote": "keep the old URLs working",
+      "url": "https://feeds.example.com/guide/old-3"
+     },
+     {
+      "hops": [
+       {
+        "status": 410
+       }
+      ],
+      "id": "x2",
+      "quote": "Frequently asked",
+      "url": "https://feeds.example.com/legacy/faq-3"
+     },
+     {
+      "hops": [
+       {
+        "status": 429
+       }
+      ],
+      "id": "x3",
+      "quote": "slow down",
+      "url": "https://feeds.example.com/other/3"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "keep the old URLs working",
+      "url": "https://feeds.example.com/guide/publishing"
+     },
+     {
+      "hops": [
+       {
+        "status": 226
+       }
+      ],
+      "id": "x5",
+      "quote": "keep",
+      "url": "https://feeds.example.com/partial/3"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "b",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x1",
+      "reason": "moved",
+      "target": "https://docs.example.org/a/b/x/page"
+     },
+     {
+      "check": "x3",
+      "reason": "moved",
+      "target": "https://b.example.com/two/three"
+     },
+     {
+      "check": "x3",
+      "reason": "gone",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k05",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "location": "../x/page",
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Upload the built site",
+      "url": "https://docs.example.org/a/b/c/page"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "location": "https://mirror.example.org/t/0",
+        "status": 302
+       },
+       {
+        "location": "/t/0/v2",
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Upload the built site",
+      "url": "https://docs.example.org/t/0"
+     },
+     {
+      "hops": [
+       {
+        "location": "https://b.example.com/two/",
+        "status": 301
+       },
+       {
+        "location": "three",
+        "status": 308
+       },
+       {
+        "location": "/elsewhere",
+        "status": 307
+       },
+       {
+        "status": 404
+       }
+      ],
+      "id": "x3",
+      "quote": "keep the old URLs working",
+      "url": "https://b.example.com/one"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "b",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x1",
+      "reason": "moved",
+      "target": "https://cdn.example.net/r?id=7"
+     },
+     {
+      "check": "x3",
+      "reason": "moved",
+      "target": "http://example.net/v3/"
+     },
+     {
+      "check": "x3",
+      "reason": "gone",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k06",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "location": "//cdn.example.net/r?id=7",
+        "status": 308
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Upload the built site",
+      "url": "https://www.example.com/files/report"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "location": "https://mirror.example.org/t/1",
+        "status": 303
+       },
+       {
+        "location": "/t/1/v2",
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Upload the built site",
+      "url": "https://docs.example.org/t/1"
+     },
+     {
+      "hops": [
+       {
+        "location": "/v2/start",
+        "status": 301
+       },
+       {
+        "location": "../v3/",
+        "status": 308
+       },
+       {
+        "location": "/elsewhere",
+        "status": 302
+       },
+       {
+        "status": 404
+       }
+      ],
+      "id": "x3",
+      "quote": "keep the old URLs working",
+      "url": "http://example.net/start"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "b",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x1",
+      "reason": "moved",
+      "target": "https://example.org/new/guide/"
+     },
+     {
+      "check": "x3",
+      "reason": "moved",
+      "target": "https://site.example.io/p/r/s?page=2"
+     },
+     {
+      "check": "x3",
+      "reason": "gone",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k07",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "location": "/new/guide/",
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Upload the built site",
+      "url": "https://example.org/old/guide.html"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "location": "https://mirror.example.org/t/2",
+        "status": 307
+       },
+       {
+        "location": "/t/2/v2",
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Upload the built site",
+      "url": "https://docs.example.org/t/2"
+     },
+     {
+      "hops": [
+       {
+        "location": "r/s",
+        "status": 301
+       },
+       {
+        "location": "?page=2",
+        "status": 308
+       },
+       {
+        "location": "/elsewhere",
+        "status": 303
+       },
+       {
+        "status": 404
+       }
+      ],
+      "id": "x3",
+      "quote": "keep the old URLs working",
+      "url": "https://site.example.io/p/q"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "b",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x1",
+      "reason": "moved",
+      "target": "https://modern.example.com/y"
+     },
+     {
+      "check": "x3",
+      "reason": "moved",
+      "target": "https://a.example.org/5/6"
+     },
+     {
+      "check": "x3",
+      "reason": "gone",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k08",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "location": "https://modern.example.com/y",
+        "status": 308
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Upload the built site",
+      "url": "http://legacy.example.com/x/y"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "location": "https://mirror.example.org/t/3",
+        "status": 302
+       },
+       {
+        "location": "/t/3/v2",
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Upload the built site",
+      "url": "https://docs.example.org/t/3"
+     },
+     {
+      "hops": [
+       {
+        "location": "./4",
+        "status": 301
+       },
+       {
+        "location": "/5/6",
+        "status": 308
+       },
+       {
+        "location": "/elsewhere",
+        "status": 307
+       },
+       {
+        "status": 404
+       }
+      ],
+      "id": "x3",
+      "quote": "keep the old URLs working",
+      "url": "https://a.example.org/1/2/3"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "c",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x2",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x4",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "m.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbW1lbnQgMDwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8IS0tIGJ1aWxkOiBhID4gYjsgUmVsZWFzZSBub3RlcyBmb3IgdmVyc2lvbiA1IGZvdXIgLS0+CjxwPlZpc2libGUgY29weS48L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbmZpZ3VyYXRpb24gcmVmZXJlbmNlPC90aXRsZT4KPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSIvYXNzZXRzL3NpdGUuY3NzIj4KPC9oZWFkPgo8Ym9keT4KPG1haW4+CjxwPlRoZSA8Y29kZT5pbmNsdWRlPC9jb2RlPiBzZXR0aW5nIG92ZXJyaWRlcyB0aGUgPGVtPmRlZmF1bHQ8L2VtPiBleGNsdXNpb24uPC9wPgo8c2NyaXB0PnZhciBzID0gIlJlbGVhc2Ugbm90ZXMgZm9yIHZlcnNpb24gNSBvbmUiOzwvc2NyaXB0Pgo8cD5DYWYmZWFjdXRlOyAmYW1wOyBiYXIgJiM4MjIwO3F1b3RlZCYjODIyMTsgJiN4MjAxNDsgb3BlbiBkYWlseS48L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "s.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlN0eWxlIDA8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHN0eWxlPi5iOjphZnRlciB7IGNvbnRlbnQ6ICJSZWxlYXNlIG5vdGVzIGZvciB2ZXJzaW9uIDUgdHdvIjsgfTwvc3R5bGU+CjxwPlZpc2libGUgY29weS48L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "t.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlRlbXBsYXRlIDA8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHRlbXBsYXRlIGlkPSJyb3ciPjxwPlJlbGVhc2Ugbm90ZXMgZm9yIHZlcnNpb24gNSB0aHJlZTwvcD48L3RlbXBsYXRlPgo8cD5WaXNpYmxlIGNvcHkuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k09",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "The include setting overrides the default exclusion.",
+      "url": "https://docs.example.org/c/0"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Release notes for version 5 one",
+      "url": "https://docs.example.org/c/0"
+     },
+     {
+      "body": "s.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Release notes for version 5 two",
+      "url": "https://docs.example.org/s/0"
+     },
+     {
+      "body": "t.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Release notes for version 5 three",
+      "url": "https://docs.example.org/t/0"
+     },
+     {
+      "body": "m.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "Release notes for version 5 four",
+      "url": "https://docs.example.org/m/0"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x6",
+      "quote": "Caf\u00e9 & bar \u201cquoted\u201d \u2014 open daily.",
+      "url": "https://docs.example.org/c/0"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x7",
+      "quote": "Configuration reference",
+      "url": "https://docs.example.org/c/0"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "c",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x2",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x4",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "m.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbW1lbnQgMTwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8IS0tIGJ1aWxkOiBhID4gYjsgRHJhZnQgdGV4dCBuZXZlciBzaG93biBmb3VyIC0tPgo8cD5WaXNpYmxlIGNvcHkuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPktpdGNoZW4gaGFuZGJvb2s8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHA+UnVuIDxrYmQ+bWFrZTwva2JkPiB0aGVuIDxhIGhyZWY9Ii9kZXBsb3kiPmRlcGxveSB0aGUgPHN0cm9uZz5zaXRlPC9zdHJvbmc+PC9hPiB0b2RheS48L3A+CjxzY3JpcHQ+dmFyIHMgPSAiRHJhZnQgdGV4dCBuZXZlciBzaG93biBvbmUiOzwvc2NyaXB0Pgo8cD5GaXNoICZsdDthbmQmZ3Q7IGNoaXBzICYjMzg7IHBlYXMgJiMxNjk7IDIwMjY8L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "s.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlN0eWxlIDE8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHN0eWxlPi5iOjphZnRlciB7IGNvbnRlbnQ6ICJEcmFmdCB0ZXh0IG5ldmVyIHNob3duIHR3byI7IH08L3N0eWxlPgo8cD5WaXNpYmxlIGNvcHkuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "t.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlRlbXBsYXRlIDE8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHRlbXBsYXRlIGlkPSJyb3ciPjxwPkRyYWZ0IHRleHQgbmV2ZXIgc2hvd24gdGhyZWU8L3A+PC90ZW1wbGF0ZT4KPHA+VmlzaWJsZSBjb3B5LjwvcD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    }
+   },
+   "id": "k10",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Run make then deploy the site today.",
+      "url": "https://docs.example.org/c/1"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Draft text never shown one",
+      "url": "https://docs.example.org/c/1"
+     },
+     {
+      "body": "s.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Draft text never shown two",
+      "url": "https://docs.example.org/s/1"
+     },
+     {
+      "body": "t.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Draft text never shown three",
+      "url": "https://docs.example.org/t/1"
+     },
+     {
+      "body": "m.html",
+      "contentType": "application/xhtml+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "Draft text never shown four",
+      "url": "https://docs.example.org/m/1"
+     },
+     {
+      "body": "p.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x6",
+      "quote": "Fish <and> chips & peas \u00a9 2026",
+      "url": "https://docs.example.org/c/1"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x7",
+      "quote": "Kitchen handbook",
+      "url": "https://docs.example.org/c/1"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "c",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x2",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x4",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "m.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbW1lbnQgMjwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8IS0tIGJ1aWxkOiBhID4gYjsgSW50ZXJuYWwgYnVpbGQgbWFya2VyIGZvdXIgLS0+CjxwPlZpc2libGUgY29weS48L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlJlZGlyZWN0IG5vdGVzPC90aXRsZT4KPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSIvYXNzZXRzL3NpdGUuY3NzIj4KPC9oZWFkPgo8Ym9keT4KPG1haW4+CjxwPkEgPHNwYW4gY2xhc3M9ImsiPnBlcm1hbmVudDwvc3Bhbj4gPGk+cmVkaXJlY3Q8L2k+IGtlZXBzIG9sZCBsaW5rcyBhbGl2ZS48L3A+CjxzY3JpcHQ+dmFyIHMgPSAiSW50ZXJuYWwgYnVpbGQgbWFya2VyIG9uZSI7PC9zY3JpcHQ+CjxwPk5hJml1bWw7dmUgJmxkcXVvO3NtYXJ0JnJkcXVvOyBxdW90ZXMgJmhlbGxpcDsgYW5kICZuYnNwO21vcmU8L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "s.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlN0eWxlIDI8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHN0eWxlPi5iOjphZnRlciB7IGNvbnRlbnQ6ICJJbnRlcm5hbCBidWlsZCBtYXJrZXIgdHdvIjsgfTwvc3R5bGU+CjxwPlZpc2libGUgY29weS48L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "t.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlRlbXBsYXRlIDI8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHRlbXBsYXRlIGlkPSJyb3ciPjxwPkludGVybmFsIGJ1aWxkIG1hcmtlciB0aHJlZTwvcD48L3RlbXBsYXRlPgo8cD5WaXNpYmxlIGNvcHkuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k11",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "A permanent redirect keeps old links alive.",
+      "url": "https://docs.example.org/c/2"
+     },
+     {
+      "body": "p.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Internal build marker one",
+      "url": "https://docs.example.org/c/2"
+     },
+     {
+      "body": "s.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Internal build marker two",
+      "url": "https://docs.example.org/s/2"
+     },
+     {
+      "body": "t.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Internal build marker three",
+      "url": "https://docs.example.org/t/2"
+     },
+     {
+      "body": "m.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "Internal build marker four",
+      "url": "https://docs.example.org/m/2"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x6",
+      "quote": "Na\u00efve \u201csmart\u201d quotes \u2026 and more",
+      "url": "https://docs.example.org/c/2"
+     },
+     {
+      "body": "p.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x7",
+      "quote": "Redirect notes",
+      "url": "https://docs.example.org/c/2"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "c",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x2",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x4",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "m.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbW1lbnQgMzwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8IS0tIGJ1aWxkOiBhID4gYjsgU2VjcmV0IHN0YWdpbmcgYmFubmVyIGZvdXIgLS0+CjxwPlZpc2libGUgY29weS48L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNyYXdsZXIgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHA+RmV0Y2ggPHR0Pi9yb2JvdHMudHh0PC90dD4gYmVmb3JlIDxiPmNyYXdsaW5nPC9iPi48L3A+CjxzY3JpcHQ+dmFyIHMgPSAiU2VjcmV0IHN0YWdpbmcgYmFubmVyIG9uZSI7PC9zY3JpcHQ+CjxwPlByaWNlICZldXJvOzUgJnRpbWVzOyAzICZlcXVhbHM7ICZldXJvOzE1PC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "s.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlN0eWxlIDM8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHN0eWxlPi5iOjphZnRlciB7IGNvbnRlbnQ6ICJTZWNyZXQgc3RhZ2luZyBiYW5uZXIgdHdvIjsgfTwvc3R5bGU+CjxwPlZpc2libGUgY29weS48L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "t.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlRlbXBsYXRlIDM8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHRlbXBsYXRlIGlkPSJyb3ciPjxwPlNlY3JldCBzdGFnaW5nIGJhbm5lciB0aHJlZTwvcD48L3RlbXBsYXRlPgo8cD5WaXNpYmxlIGNvcHkuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k12",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Fetch /robots.txt before crawling.",
+      "url": "https://docs.example.org/c/3"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Secret staging banner one",
+      "url": "https://docs.example.org/c/3"
+     },
+     {
+      "body": "s.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Secret staging banner two",
+      "url": "https://docs.example.org/s/3"
+     },
+     {
+      "body": "t.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Secret staging banner three",
+      "url": "https://docs.example.org/t/3"
+     },
+     {
+      "body": "m.html",
+      "contentType": "application/xhtml+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "Secret staging banner four",
+      "url": "https://docs.example.org/m/3"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x6",
+      "quote": "Price \u20ac5 \u00d7 3 = \u20ac15",
+      "url": "https://docs.example.org/c/3"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x7",
+      "quote": "Crawler guide",
+      "url": "https://docs.example.org/c/3"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "d",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x4",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "c.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNhc2UgMDwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8cD5UaGUgc2VydmVyIGFuc3dlcnMgbW92ZWQgcGVybWFuZW50bHkuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "k.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbXBhdCAwPC90aXRsZT4KPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSIvYXNzZXRzL3NpdGUuY3NzIj4KPC9oZWFkPgo8Ym9keT4KPG1haW4+CjxwPlBsYWNlIHRoZSDvrIFsZSB1bmRlciB0aGUg77yy77ym77yjIHBhdGguPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "t.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNlbGxzIDA8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHRhYmxlPjx0cj48dGQ+TW92ZWQ8L3RkPjx0ZD5QZXJtYW5lbnRseTwvdGQ+PC90cj48L3RhYmxlPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "w.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPldoaXRlc3BhY2UgMDwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8cD5hIHVzZXIKICAgICAgYWdlbnQgd2l0aCZuYnNwO2xpbmstZWRpdGluZwljYXBhYmlsaXR5IGNhbiByZXBsYWNlIHJlZmVyZW5jZXM8L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    }
+   },
+   "id": "k13",
+   "manifest": {
+    "checks": [
+     {
+      "body": "w.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "a user agent with link-editing capability",
+      "url": "https://example.org/w/0"
+     },
+     {
+      "body": "t.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Moved Permanently",
+      "url": "https://example.org/t/0"
+     },
+     {
+      "body": "k.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Place the file under the RFC path.",
+      "url": "https://example.org/k/0"
+     },
+     {
+      "body": "c.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "answers Moved Permanently",
+      "url": "https://example.org/c/0"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "d",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x4",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "c.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNhc2UgMTwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8cD5Hb25lIG1lYW5zIHRoZSByZXNvdXJjZSBpcyBnb25lIGZvciBnb29kLjwvcD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    },
+    "k.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbXBhdCAxPC90aXRsZT4KPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSIvYXNzZXRzL3NpdGUuY3NzIj4KPC9oZWFkPgo8Ym9keT4KPG1haW4+CjxwPlZlcnNpb24g4oWjIG9mIHRoZSDvrIJvdyBjaGFydDwvcD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    },
+    "t.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNlbGxzIDE8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHVsPjxsaT5UZW1wb3Jhcnk8L2xpPjxsaT5SZWRpcmVjdDwvbGk+PC91bD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    },
+    "w.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPldoaXRlc3BhY2UgMTwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8cD5rZWVw44CAdGhlIG9sZA0KIFVSTHMgICB3b3JraW5nPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k14",
+   "manifest": {
+    "checks": [
+     {
+      "body": "w.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "keep the old URLs working",
+      "url": "https://example.org/w/1"
+     },
+     {
+      "body": "t.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Temporary Redirect",
+      "url": "https://example.org/t/1"
+     },
+     {
+      "body": "k.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Version IV of the flow chart",
+      "url": "https://example.org/k/1"
+     },
+     {
+      "body": "c.html",
+      "contentType": "text/plain; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "GONE means",
+      "url": "https://example.org/c/1"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "d",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x4",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "c.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNhc2UgMjwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8cD50aGUgaW5jbHVkZSBzZXR0aW5nPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "k.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbXBhdCAyPC90aXRsZT4KPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSIvYXNzZXRzL3NpdGUuY3NzIj4KPC9oZWFkPgo8Ym9keT4KPG1haW4+CjxwPlVzZSDikaAgdGhlbiDikaEgaW4gb3JkZXI8L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "t.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNlbGxzIDI8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGRsPjxkdD5Mb2NhdGlvbjwvZHQ+PGRkPmhlYWRlcjwvZGQ+PC9kbD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    },
+    "w.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPldoaXRlc3BhY2UgMjwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8cD5kb3TigINwYXRocyBhcmUKCiBleGNsdWRlZCBieSBkZWZhdWx0PC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k15",
+   "manifest": {
+    "checks": [
+     {
+      "body": "w.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "dot paths are excluded by default",
+      "url": "https://example.org/w/2"
+     },
+     {
+      "body": "t.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Location header",
+      "url": "https://example.org/t/2"
+     },
+     {
+      "body": "k.html",
+      "contentType": "TEXT/HTML; Charset=\"utf-8\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Use 1 then 2 in order",
+      "url": "https://example.org/k/2"
+     },
+     {
+      "body": "c.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "The Include Setting",
+      "url": "https://example.org/c/2"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "d",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x4",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "c.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNhc2UgMzwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8cD5Ob3JtYWxpemF0aW9uIEZvcm0gS0M8L3A+CjwvbWFpbj4KPGZvb3Rlcj48cD4mY29weTsgMjAyNiBFeGFtcGxlIERvY3M8L3A+PC9mb290ZXI+CjwvYm9keT4KPC9odG1sPgo="
+    },
+    "k.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNvbXBhdCAzPC90aXRsZT4KPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSIvYXNzZXRzL3NpdGUuY3NzIj4KPC9oZWFkPgo8Ym9keT4KPG1haW4+CjxwPu+8qO+8tO+8tO+8sCBjYWNoaW5nIHJ1bGVzPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "t.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPkNlbGxzIDM8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHRhYmxlPjx0cj48dGg+Qnl0ZTwvdGg+PHRoPm9yZGVyPC90aD48dGg+bWFyazwvdGg+PC90cj48L3RhYmxlPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "w.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPldoaXRlc3BhY2UgMzwvdGl0bGU+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9zaXRlLmNzcyI+CjwvaGVhZD4KPGJvZHk+CjxtYWluPgo8cD5jaGFyc2V0wqBsYWJlbHMgIGFyZQljYXNlLWluc2Vuc2l0aXZlPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k16",
+   "manifest": {
+    "checks": [
+     {
+      "body": "w.html",
+      "contentType": "text/html;charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "charset labels are case-insensitive",
+      "url": "https://example.org/w/3"
+     },
+     {
+      "body": "t.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Byte order mark",
+      "url": "https://example.org/t/3"
+     },
+     {
+      "body": "k.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "HTTP caching rules",
+      "url": "https://example.org/k/3"
+     },
+     {
+      "body": "c.html",
+      "contentType": "text/plain; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "normalization form kc",
+      "url": "https://example.org/c/3"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "e",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x2",
+      "reason": "unsupported_type",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x6",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "a.txt": {
+     "b64": "TWVudTogRmlzaCAmYW1wOyBjaGlwcyAwLCBzZXJ2ZWQgZGFpbHkuCg=="
+    },
+    "o.bin": {
+     "b64": "JSVEQVRBCmtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcK"
+    },
+    "p.txt": {
+     "b64": "U2VjdGlvbiAwCiAgIFRoZSA8TG9jYXRpb24+IGZpZWxkICZhbXA7IGl0cyByZWxhdGl2ZSByZWZlcmVuY2UuCg=="
+    },
+    "u.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlVwcGVyIDA8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHA+TWl4ZWQgPGI+Y2FzZTwvYj4gbWVkaWEgdHlwZSAwLjwvcD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    },
+    "x.xhtml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxoZWFkPjx0aXRsZT5YPC90aXRsZT48L2hlYWQ+PGJvZHk+PHA+QW4gPGVtPlhIVE1MPC9lbT4gcGFnZSAmYW1wOyBpdHMgdGV4dCAwLjwvcD48L2JvZHk+PC9odG1sPgo="
+    },
+    "y.xhtml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxoZWFkPjx0aXRsZT5ZPC90aXRsZT48c2NyaXB0PnZhciB0ID0gImlubGluZSBzY3JpcHQgd29yZHMgMCI7PC9zY3JpcHQ+PC9oZWFkPjxib2R5PjxwPlZpc2libGUuPC9wPjwvYm9keT48L2h0bWw+Cg=="
+    }
+   },
+   "id": "k17",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.txt",
+      "contentType": "text/plain; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "The <Location> field &amp; its relative reference.",
+      "url": "https://www.example.org/rfc-0.txt"
+     },
+     {
+      "body": "o.bin",
+      "contentType": "application/pdf",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "keep the old URLs working",
+      "url": "https://www.example.org/data-0"
+     },
+     {
+      "body": "u.html",
+      "contentType": "Text/HTML; charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Mixed case media type 0.",
+      "url": "https://example.org/m/0"
+     },
+     {
+      "body": "x.xhtml",
+      "contentType": "application/xhtml+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "An XHTML page & its text 0.",
+      "url": "https://example.org/x/0"
+     },
+     {
+      "body": "a.txt",
+      "contentType": "text/plain",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "Fish & chips 0",
+      "url": "https://www.example.org/amp-0.txt"
+     },
+     {
+      "body": "y.xhtml",
+      "contentType": "application/xhtml+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x6",
+      "quote": "inline script words 0",
+      "url": "https://example.org/y/0"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "e",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x2",
+      "reason": "unsupported_type",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x6",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "a.txt": {
+     "b64": "TWVudTogRmlzaCAmYW1wOyBjaGlwcyAxLCBzZXJ2ZWQgZGFpbHkuCg=="
+    },
+    "o.bin": {
+     "b64": "JSVEQVRBCmtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcK"
+    },
+    "p.txt": {
+     "b64": "U2VjdGlvbiAxCiAgIENvbXBhcmUgYSA8Yj4gYyB3aXRoIGNhcmUuCg=="
+    },
+    "u.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlVwcGVyIDE8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHA+TWl4ZWQgPGI+Y2FzZTwvYj4gbWVkaWEgdHlwZSAxLjwvcD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    },
+    "x.xhtml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxoZWFkPjx0aXRsZT5YPC90aXRsZT48L2hlYWQ+PGJvZHk+PHA+QW4gPGVtPlhIVE1MPC9lbT4gcGFnZSAmYW1wOyBpdHMgdGV4dCAxLjwvcD48L2JvZHk+PC9odG1sPgo="
+    },
+    "y.xhtml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxoZWFkPjx0aXRsZT5ZPC90aXRsZT48c2NyaXB0PnZhciB0ID0gImlubGluZSBzY3JpcHQgd29yZHMgMSI7PC9zY3JpcHQ+PC9oZWFkPjxib2R5PjxwPlZpc2libGUuPC9wPjwvYm9keT48L2h0bWw+Cg=="
+    }
+   },
+   "id": "k18",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.txt",
+      "contentType": "text/plain",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Compare a <b> c with care.",
+      "url": "https://www.example.org/rfc-1.txt"
+     },
+     {
+      "body": "o.bin",
+      "contentType": "application/json",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "keep the old URLs working",
+      "url": "https://www.example.org/data-1"
+     },
+     {
+      "body": "u.html",
+      "contentType": "TEXT/HTML",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Mixed case media type 1.",
+      "url": "https://example.org/m/1"
+     },
+     {
+      "body": "x.xhtml",
+      "contentType": "application/xhtml+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "An XHTML page & its text 1.",
+      "url": "https://example.org/x/1"
+     },
+     {
+      "body": "a.txt",
+      "contentType": "Text/Plain; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "Fish & chips 1",
+      "url": "https://www.example.org/amp-1.txt"
+     },
+     {
+      "body": "y.xhtml",
+      "contentType": "Application/XHTML+XML; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x6",
+      "quote": "inline script words 1",
+      "url": "https://example.org/y/1"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "e",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x2",
+      "reason": "unsupported_type",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x6",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "a.txt": {
+     "b64": "TWVudTogRmlzaCAmYW1wOyBjaGlwcyAyLCBzZXJ2ZWQgZGFpbHkuCg=="
+    },
+    "o.bin": {
+     "b64": "JSVEQVRBCmtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcK"
+    },
+    "p.txt": {
+     "b64": "U2VjdGlvbiAyCiAgIExpbmVzIGxpa2UgPCEtLSBrZWVwIC0tPiBzdGF5OyAmbHQ7IHRvby4K"
+    },
+    "u.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlVwcGVyIDI8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHA+TWl4ZWQgPGI+Y2FzZTwvYj4gbWVkaWEgdHlwZSAyLjwvcD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    },
+    "x.xhtml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxoZWFkPjx0aXRsZT5YPC90aXRsZT48L2hlYWQ+PGJvZHk+PHA+QW4gPGVtPlhIVE1MPC9lbT4gcGFnZSAmYW1wOyBpdHMgdGV4dCAyLjwvcD48L2JvZHk+PC9odG1sPgo="
+    },
+    "y.xhtml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxoZWFkPjx0aXRsZT5ZPC90aXRsZT48c2NyaXB0PnZhciB0ID0gImlubGluZSBzY3JpcHQgd29yZHMgMiI7PC9zY3JpcHQ+PC9oZWFkPjxib2R5PjxwPlZpc2libGUuPC9wPjwvYm9keT48L2h0bWw+Cg=="
+    }
+   },
+   "id": "k19",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.txt",
+      "contentType": "text/plain; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Lines like <!-- keep --> stay; &lt; too.",
+      "url": "https://www.example.org/rfc-2.txt"
+     },
+     {
+      "body": "o.bin",
+      "contentType": "image/svg+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "keep the old URLs working",
+      "url": "https://www.example.org/data-2"
+     },
+     {
+      "body": "u.html",
+      "contentType": "text/HTML;charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Mixed case media type 2.",
+      "url": "https://example.org/m/2"
+     },
+     {
+      "body": "x.xhtml",
+      "contentType": "application/xhtml+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "An XHTML page & its text 2.",
+      "url": "https://example.org/x/2"
+     },
+     {
+      "body": "a.txt",
+      "contentType": "text/plain",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "Fish & chips 2",
+      "url": "https://www.example.org/amp-2.txt"
+     },
+     {
+      "body": "y.xhtml",
+      "contentType": "application/xhtml+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x6",
+      "quote": "inline script words 2",
+      "url": "https://example.org/y/2"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "e",
+   "expect": {
+    "exit": 1,
+    "findings": [
+     {
+      "check": "x2",
+      "reason": "unsupported_type",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     },
+     {
+      "check": "x6",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "a.txt": {
+     "b64": "TWVudTogRmlzaCAmYW1wOyBjaGlwcyAzLCBzZXJ2ZWQgZGFpbHkuCg=="
+    },
+    "o.bin": {
+     "b64": "JSVEQVRBCmtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcK"
+    },
+    "p.txt": {
+     "b64": "U2VjdGlvbiAzCiAgIFVzZSA8c2NyaXB0PmFsZXJ0KDEpPC9zY3JpcHQ+IGFzIGFuIGV4YW1wbGUgc3RyaW5nLgo="
+    },
+    "u.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlVwcGVyIDM8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPHA+TWl4ZWQgPGI+Y2FzZTwvYj4gbWVkaWEgdHlwZSAzLjwvcD4KPC9tYWluPgo8Zm9vdGVyPjxwPiZjb3B5OyAyMDI2IEV4YW1wbGUgRG9jczwvcD48L2Zvb3Rlcj4KPC9ib2R5Pgo8L2h0bWw+Cg=="
+    },
+    "x.xhtml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxoZWFkPjx0aXRsZT5YPC90aXRsZT48L2hlYWQ+PGJvZHk+PHA+QW4gPGVtPlhIVE1MPC9lbT4gcGFnZSAmYW1wOyBpdHMgdGV4dCAzLjwvcD48L2JvZHk+PC9odG1sPgo="
+    },
+    "y.xhtml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxoZWFkPjx0aXRsZT5ZPC90aXRsZT48c2NyaXB0PnZhciB0ID0gImlubGluZSBzY3JpcHQgd29yZHMgMyI7PC9zY3JpcHQ+PC9oZWFkPjxib2R5PjxwPlZpc2libGUuPC9wPjwvYm9keT48L2h0bWw+Cg=="
+    }
+   },
+   "id": "k20",
+   "manifest": {
+    "checks": [
+     {
+      "body": "p.txt",
+      "contentType": "text/plain",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Use <script>alert(1)</script> as an example string.",
+      "url": "https://www.example.org/rfc-3.txt"
+     },
+     {
+      "body": "o.bin",
+      "contentType": "application/octet-stream",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "keep the old URLs working",
+      "url": "https://www.example.org/data-3"
+     },
+     {
+      "body": "u.html",
+      "contentType": "Text/Html; Charset=UTF-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Mixed case media type 3.",
+      "url": "https://example.org/m/3"
+     },
+     {
+      "body": "x.xhtml",
+      "contentType": "application/xhtml+xml",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "An XHTML page & its text 3.",
+      "url": "https://example.org/x/3"
+     },
+     {
+      "body": "a.txt",
+      "contentType": "Text/Plain; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "Fish & chips 3",
+      "url": "https://www.example.org/amp-3.txt"
+     },
+     {
+      "body": "y.xhtml",
+      "contentType": "Application/XHTML+XML; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x6",
+      "quote": "inline script words 3",
+      "url": "https://example.org/y/3"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "f",
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "check": "x3",
+      "reason": "charset_unsupported",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "b.txt": {
+     "b64": "/v8AUgDpAHMAdQBtAOkAIABkAHUAIABkAOkAcAD0AHQ="
+    },
+    "d.html": {
+     "b64": "PHA+RGVmYXVsdCBkZWNvZGluZzogw6l0w6kgMDwvcD4="
+    },
+    "m.html": {
+     "b64": "PHA+TWVudTogY2Fmw6kgY3LDqG1lIDA8L3A+"
+    },
+    "u.html": {
+     "b64": "PHA+5pel5pys6KqeIDA8L3A+"
+    },
+    "w.html": {
+     "b64": "PGh0bWw+PGJvZHk+PHA+SGUgc2FpZCCTc2hpcCBpdJQgdHdpY2UuPC9wPjwvYm9keT48L2h0bWw+"
+    }
+   },
+   "id": "k21",
+   "manifest": {
+    "checks": [
+     {
+      "body": "w.html",
+      "contentType": "text/html; charset=\"ISO-8859-1\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "He said \u201cship it\u201d twice.",
+      "url": "https://example.org/w/0"
+     },
+     {
+      "body": "b.txt",
+      "contentType": "text/plain; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "R\u00e9sum\u00e9 du d\u00e9p\u00f4t",
+      "url": "https://example.org/b/0"
+     },
+     {
+      "body": "u.html",
+      "contentType": "text/html; charset=shift_jis",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "\u65e5\u672c\u8a9e 0",
+      "url": "https://example.jp/u/0"
+     },
+     {
+      "body": "d.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Default decoding: \u00e9t\u00e9 0",
+      "url": "https://example.org/d/0"
+     },
+     {
+      "body": "m.html",
+      "contentType": "text/html; charset=\"Windows-1252\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "caf\u00e9 cr\u00e8me 0",
+      "url": "https://example.org/m/0"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "f",
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "check": "x3",
+      "reason": "charset_unsupported",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "b.txt": {
+     "b64": "//5TAHQAcgBhAN8AZQAgAHUAbgBkACAA3ABiAGUAcgBiAGwAaQBjAGsA"
+    },
+    "d.html": {
+     "b64": "PHA+RGVmYXVsdCBkZWNvZGluZzogw6l0w6kgMTwvcD4="
+    },
+    "m.html": {
+     "b64": "PHA+TWVudTogY2Fmw6kgY3LDqG1lIDE8L3A+"
+    },
+    "u.html": {
+     "b64": "PHA+5pel5pys6KqeIDE8L3A+"
+    },
+    "w.html": {
+     "b64": "PGh0bWw+PGJvZHk+PHA+QnVpbHQgMjAyMJYyMDIyIGJ5IHRoZSB0ZWFtLjwvcD48L2JvZHk+PC9odG1sPg=="
+    }
+   },
+   "id": "k22",
+   "manifest": {
+    "checks": [
+     {
+      "body": "w.html",
+      "contentType": "text/html; charset=\"Us-ascii\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Built 2020\u20132022 by the team.",
+      "url": "https://example.org/w/1"
+     },
+     {
+      "body": "b.txt",
+      "contentType": "text/plain; charset=iso-8859-1",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Stra\u00dfe und \u00dcberblick",
+      "url": "https://example.org/b/1"
+     },
+     {
+      "body": "u.html",
+      "contentType": "text/html; charset=gbk",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "\u65e5\u672c\u8a9e 1",
+      "url": "https://example.jp/u/1"
+     },
+     {
+      "body": "d.html",
+      "contentType": "text/plain",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Default decoding: \u00e9t\u00e9 1",
+      "url": "https://example.org/d/1"
+     },
+     {
+      "body": "m.html",
+      "contentType": "text/plain; charset=ISO-8859-1",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "caf\u00e9 cr\u00e8me 1",
+      "url": "https://example.org/m/1"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "f",
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "check": "x3",
+      "reason": "charset_unsupported",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "b.txt": {
+     "b64": "/v8AbgBhAO8AdgBlACAAYwBhAGYA6QAgAG0AZQBuAHU="
+    },
+    "d.html": {
+     "b64": "PHA+RGVmYXVsdCBkZWNvZGluZzogw6l0w6kgMjwvcD4="
+    },
+    "m.html": {
+     "b64": "PHA+TWVudTogY2Fmw6kgY3LDqG1lIDI8L3A+"
+    },
+    "u.html": {
+     "b64": "PHA+5pel5pys6KqeIDI8L3A+"
+    },
+    "w.html": {
+     "b64": "PGh0bWw+PGJvZHk+PHA+UHJpY2UggCA5IIUgbW9yZTwvcD48L2JvZHk+PC9odG1sPg=="
+    }
+   },
+   "id": "k23",
+   "manifest": {
+    "checks": [
+     {
+      "body": "w.html",
+      "contentType": "text/html; charset=\"LATIN1\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "Price \u20ac 9 \u2026 more",
+      "url": "https://example.org/w/2"
+     },
+     {
+      "body": "b.txt",
+      "contentType": "text/plain; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "na\u00efve caf\u00e9 menu",
+      "url": "https://example.org/b/2"
+     },
+     {
+      "body": "u.html",
+      "contentType": "text/html; charset=koi8-r",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "\u65e5\u672c\u8a9e 2",
+      "url": "https://example.jp/u/2"
+     },
+     {
+      "body": "d.html",
+      "contentType": "text/html",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Default decoding: \u00e9t\u00e9 2",
+      "url": "https://example.org/d/2"
+     },
+     {
+      "body": "m.html",
+      "contentType": "text/html; charset=us-ascii",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "caf\u00e9 cr\u00e8me 2",
+      "url": "https://example.org/m/2"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "f",
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "check": "x3",
+      "reason": "charset_unsupported",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "b.txt": {
+     "b64": "//7lAG4AZwBzAHQAcgD2AG0AIAB1AG4AaQB0AHMA"
+    },
+    "d.html": {
+     "b64": "PHA+RGVmYXVsdCBkZWNvZGluZzogw6l0w6kgMzwvcD4="
+    },
+    "m.html": {
+     "b64": "PHA+TWVudTogY2Fmw6kgY3LDqG1lIDM8L3A+"
+    },
+    "u.html": {
+     "b64": "PHA+5pel5pys6KqeIDM8L3A+"
+    },
+    "w.html": {
+     "b64": "PGh0bWw+PGJvZHk+PHA+SXSScyBhIIRxdW90ZWSTIHdvcmQ8L3A+PC9ib2R5PjwvaHRtbD4="
+    }
+   },
+   "id": "k24",
+   "manifest": {
+    "checks": [
+     {
+      "body": "w.html",
+      "contentType": "text/html; charset=\"Windows-1252\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x1",
+      "quote": "It\u2019s a \u201equoted\u201c word",
+      "url": "https://example.org/w/3"
+     },
+     {
+      "body": "b.txt",
+      "contentType": "text/plain; charset=iso-8859-1",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "\u00e5ngstr\u00f6m units",
+      "url": "https://example.org/b/3"
+     },
+     {
+      "body": "u.html",
+      "contentType": "text/html; charset=euc-kr",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "\u65e5\u672c\u8a9e 3",
+      "url": "https://example.jp/u/3"
+     },
+     {
+      "body": "d.html",
+      "contentType": "text/plain",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Default decoding: \u00e9t\u00e9 3",
+      "url": "https://example.org/d/3"
+     },
+     {
+      "body": "m.html",
+      "contentType": "text/plain; charset=\"latin1\"",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x5",
+      "quote": "caf\u00e9 cr\u00e8me 3",
+      "url": "https://example.org/m/3"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "g",
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "check": null,
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x2",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x4",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x6",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x7",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "../outside.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k25",
+   "manifest": {
+    "checks": [
+     "not a check object",
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Upload the built site",
+      "url": "/guide/publishing"
+     },
+     {
+      "body": "../outside.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Upload the built site",
+      "url": "https://docs.example.org/guide/publishing"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Upload",
+      "url": "https://docs.example.org/a"
+     },
+     {
+      "hops": [
+       {
+        "location": "/c",
+        "status": 308
+       }
+      ],
+      "id": "x5",
+      "quote": "Upload",
+      "url": "https://docs.example.org/b"
+     },
+     {
+      "hops": [
+       {
+        "status": 404
+       }
+      ],
+      "id": "x6",
+      "quote": "x",
+      "url": "https://docs.example.org/gone"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x7",
+      "quote": "A sentence that is not there",
+      "url": "https://docs.example.org/guide/publishing"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x8",
+      "quote": "Upload the built site",
+      "url": "https://docs.example.org/guide/publishing"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "g",
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "check": null,
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x2",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x4",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x6",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x7",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "../outside.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k26",
+   "manifest": {
+    "checks": [
+     7,
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Upload the built site",
+      "url": "ftp://www.example.net/f"
+     },
+     {
+      "body": "../outside.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Upload the built site",
+      "url": "https://www.example.net/guide/publishing"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Upload",
+      "url": "https://www.example.net/a"
+     },
+     {
+      "hops": [
+       {
+        "location": "/c",
+        "status": 302
+       }
+      ],
+      "id": "x5",
+      "quote": "Upload",
+      "url": "https://www.example.net/b"
+     },
+     {
+      "hops": [
+       {
+        "status": 410
+       }
+      ],
+      "id": "x6",
+      "quote": "x",
+      "url": "https://www.example.net/gone"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x7",
+      "quote": "A sentence that is not there",
+      "url": "https://www.example.net/guide/publishing"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x8",
+      "quote": "Upload the built site",
+      "url": "https://www.example.net/guide/publishing"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "g",
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "check": null,
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x2",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x4",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x6",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x7",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "../outside.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k27",
+   "manifest": {
+    "checks": [
+     null,
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Upload the built site",
+      "url": "https:///nohost"
+     },
+     {
+      "body": "../outside.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Upload the built site",
+      "url": "https://site.example.io/guide/publishing"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Upload",
+      "url": "https://site.example.io/a"
+     },
+     {
+      "hops": [
+       {
+        "location": "/c",
+        "status": 307
+       }
+      ],
+      "id": "x5",
+      "quote": "Upload",
+      "url": "https://site.example.io/b"
+     },
+     {
+      "hops": [
+       {
+        "status": 404
+       }
+      ],
+      "id": "x6",
+      "quote": "x",
+      "url": "https://site.example.io/gone"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x7",
+      "quote": "A sentence that is not there",
+      "url": "https://site.example.io/guide/publishing"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x8",
+      "quote": "Upload the built site",
+      "url": "https://site.example.io/guide/publishing"
+     }
+    ],
+    "version": 1
+   }
+  },
+  {
+   "bullet": "g",
+   "expect": {
+    "exit": 2,
+    "findings": [
+     {
+      "check": null,
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x2",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x3",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x4",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x5",
+      "reason": "check_invalid",
+      "target": null
+     },
+     {
+      "check": "x6",
+      "reason": "gone",
+      "target": null
+     },
+     {
+      "check": "x7",
+      "reason": "quote_missing",
+      "target": null
+     }
+    ],
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "../outside.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    },
+    "p.html": {
+     "b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KPHRpdGxlPlB1Ymxpc2hpbmcgZ3VpZGU8L3RpdGxlPgo8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9hc3NldHMvc2l0ZS5jc3MiPgo8L2hlYWQ+Cjxib2R5Pgo8bWFpbj4KPGgxPlB1Ymxpc2hpbmcgZ3VpZGU8L2gxPgo8cD5VcGxvYWQgdGhlIGJ1aWx0IHNpdGUgYW5kIGtlZXAgdGhlIG9sZCBVUkxzIHdvcmtpbmcuPC9wPgo8L21haW4+Cjxmb290ZXI+PHA+JmNvcHk7IDIwMjYgRXhhbXBsZSBEb2NzPC9wPjwvZm9vdGVyPgo8L2JvZHk+CjwvaHRtbD4K"
+    }
+   },
+   "id": "k28",
+   "manifest": {
+    "checks": [
+     [
+      "list"
+     ],
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x2",
+      "quote": "Upload the built site",
+      "url": "guide.html"
+     },
+     {
+      "body": "../outside.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x3",
+      "quote": "Upload the built site",
+      "url": "https://example.com/guide/publishing"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 301
+       },
+       {
+        "status": 200
+       }
+      ],
+      "id": "x4",
+      "quote": "Upload",
+      "url": "https://example.com/a"
+     },
+     {
+      "hops": [
+       {
+        "location": "/c",
+        "status": 301
+       }
+      ],
+      "id": "x5",
+      "quote": "Upload",
+      "url": "https://example.com/b"
+     },
+     {
+      "hops": [
+       {
+        "status": 410
+       }
+      ],
+      "id": "x6",
+      "quote": "x",
+      "url": "https://example.com/gone"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x7",
+      "quote": "A sentence that is not there",
+      "url": "https://example.com/guide/publishing"
+     },
+     {
+      "body": "p.html",
+      "contentType": "text/html; charset=utf-8",
+      "hops": [
+       {
+        "status": 200
+       }
+      ],
+      "id": "x8",
+      "quote": "Upload the built site",
+      "url": "https://example.com/guide/publishing"
+     }
+    ],
+    "version": 1
+   }
+  }
+ ],
+ "claim": "C1",
+ "round": 36,
+ "target": 25,
+ "version": 2
+}
