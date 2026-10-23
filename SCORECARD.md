@@ -2903,3 +2903,89 @@ output cap) with control classes named by the behaviour they skip and an equival
 before any control is scored (QUALITY (n) amended reading, (u)); then a measured C1 on the URL rule is
 possible. Open, outside C1: symlinked manifest `file` paths read outside the manifest directory
 (`SentinelBuildInput`); the `source_recheck.py` Appendix-B URL reading (`ConnectorSiblingOverlap`).
+
+## Round 42 — C1 counter candidate (pre-freeze: the control wave scores it before the declaration)
+
+Base `1ef7a0e95f6884dd113fe583a997c633fe330ddd` (round 41 rejected, operability harmed under its own frozen
+harm rule; spot-check `corpus/lessons/round-41-verifier-spotcheck.md`). One claim planned. Both owned axes sit
+at the 10/10 saturation line; the claim works operability (tied-lowest) on a surface the lane holds. This
+section freezes nothing yet: the predicate below is the one the declaration will freeze, unchanged, after the
+control wave (QUALITY (o)).
+
+**Disposition of the round-41 URL rule (routed defect 2).** The landed rule (tool `50287ac6…`) is not admitted.
+This round keeps its judgments, including the zone-id tightening, and declares that behaviour now instead of
+restoring IP-literal parity: inside `[ ]` the tool admits only `[A-Za-z0-9._~:!$&'()*+,;=%-]` before
+`urlsplit`, so a zone id with a non-ASCII character or `|` is rejected (RFC 3986 has no zone id; the source
+row for zone-id syntax is opened in wave 1). The rule's priced cost is the claim below; its no-harm evidence is
+re-established under the corrected harm rule below.
+
+**C1 — operability, runnable cost of a held tool: the URL check of `scripts/sitemap_audit.py` (`_URI_RE`,
+`_parse_url`) keeps every judgment of the round-41 tool and costs at most 2.0 times the round-40 tool's CPU
+time on five declared input shapes.** Surface: one regular expression and its comment in one tool. The
+round-41 performance reviews measured the cost (`round-41/w2/ReviewBuildPerformance.md`,
+`resid/ResidCriticBetter.md`: ×12.87 on a 52 MB crafted file, ×39.8 on a 200,000-character `sitemapUrl`,
++22% on the real run); this round's L1 receipts below re-measure it on the counter's shapes.
+
+Predicate — this sentence, `PREDICATE` in `.ufo/waves/round-42/c42_count.py` and the `predicate` field of
+every receipt:
+
+    met: the tool's exit code and output equal the round-41 tool's on every generated run, and its median CPU time on each of the five timing shapes is at most 2.0 times the round-40 tool's
+
+- **Counting command** (exit 0 met, 1 not met, 2 cannot evaluate; a receipt in every case):
+  `python3 -B .ufo/waves/round-42/c42_count.py --root . --revision <rev> [--seed N] --out <receipt>` (or
+  `--tool-file <path>`). Counter sha256 `7bfc32c5e76dca942208934cfbe89f166eda2776b40e69de987706b4d97dd2a6`.
+- **Runs** (all generated from a seed recorded in the receipt): equality runs A (round-41 counter-v2 shapes,
+  1434 values), B (1200 IP-literal values with random bracket edits, zone-id forms included), C (600 values of
+  1,800–2,047 code points, 40 `loc` of 2,048–6,000, 16 `sitemapUrl` of 200,000; defects at any position);
+  timing shapes T1 (20,000 single-run `loc` of 2,000–2,047 with one defect in the last 64 positions), T2
+  (20,000 valid long `loc`), T3 (50,000 valid `loc` of 60–140), T4 (retained round-39 real run, SHA256SUMS
+  checked), T5 (48 `sitemapUrl` of 200,000 code points, 40 with a late defect). Every candidate run, timing
+  repetitions included, is compared with the round-41 tool's exit code and stdout bytes. Five alternating
+  repetitions per shape; CPU = user + system of the tool and all its descendants, read inside the sandbox
+  by a fixed child-subreaper runner that reaps every orphan before it writes the last timing line.
+- **Sandbox** (QUALITY (r), routed defect 5's fixes applied to this counter): `/usr/bin/bwrap` called by
+  absolute path, `OSError` and every other failure caught into a receipt (exit 2); stdin `/dev/null`; stdout
+  capped at 256 MiB by `RLIMIT_FSIZE`; address space 4 GiB; bwrap started with `PATH` only, so `/proc/1/environ`
+  carries no operator variable; random directory, file and id names. Counter v2 of round 41 is not frozen and
+  decides nothing this round.
+- **Before / do-nothing (L1 receipts, `verification/pre/`):** round-41 tool at the base (`1ef7a0e9`, sha256
+  `50287ac6…`) — equal 8/8, ratios T1 5.367, T2 2.811, T3 1.51, T4 1.222, T5 8.87 (seed 42001) and T1 5.35,
+  T2 2.732, T3 1.334, T4 1.287, T5 9.354 (seed 42002): **not met**. Round-40 tool (`4de35f8c…`, the rule
+  dropped): equal 3/8, ratios 0.968–1.054 (its own noise band): not met. Absent tool: 0/8, not met.
+- **Counter draft 1 rejected before data** (`draft1/`, sha256 `5478e4f3…`): its do-nothing receipt **met**
+  (ratios 0.82–1.33) because CPU was read from `RUSAGE_CHILDREN` of bwrap, which never includes the sandboxed
+  process (every sample 1–2 ms), and its T1/T5 values had `/` every ~80 characters, which bounds the
+  regular expression's backtracking. Both fixed in the bytes above; recorded as this round's first mistake.
+- **Control classes** (QUALITY (n): tools built to skip declared work, named by the behaviour they skip):
+  absent; constant output; junk; all-clean or all-invalid; no-reader; **behaviour skips** — any tool that
+  judges some value differently from the round-41 tool: a length gate (skip or abbreviate the URL check above
+  a length), judging only the head or the tail of a value, fast paths keyed on the timing shapes (file size,
+  entry count, single-run paths, defect window), single-character or single-structure mutants of a rewritten
+  regular expression (IP-literal branch, percent triplets, non-ASCII range, port, userinfo, query, fragment);
+  **measurement skips** — hiding CPU in unwaited, re-parented or killed processes, killing the runner, writing
+  the timing file, caching across values or runs, keying on ids, file names, seeds or labels, reading outside
+  the case directory. **Not a control:** a tool whose judgments equal the round-41 tool's on every value,
+  however written and however partial its speed-up. Equivalence differential (decided now): a meeting tool is
+  a control iff a witness value is shown on which its `_parse_url` result or CLI output differs from
+  `50287ac6…` (the seat's own witness, or counter runs A–C at seeds 42101–42103), or the seat shows the
+  measurement was manipulated.
+- **Kill rule.** (1) Before the build is scored, if any live-seat control receipt meets the predicate, the
+  claim is redesigned before data or declared exploratory, recorded before the build is scored. (2) After
+  the build is scored, a control that meets means C1 is **not met**; reported, never relabelled. (3) A build
+  below the predicate is a miss, reported as an honest stop. Live seats only; dead-seat leftovers listed apart.
+- **Harm rule (corrected per routed defect 1; frozen now, before any build exists).** At the build:
+  (H1) `scripts/sitemap_audit_selftest.py` passes every fixture; fixture classes are declared now — this
+  round adds **guards only** (each passes on `50287ac6…` and on the build; zone-id behaviour and long-value
+  guards); no change fixture is declared, because C1 changes no judgment; any new fixture red on `50287ac6…`
+  is harm. The 42 `r41_*` fixtures are classified as the round-41 records state them: 29 change fixtures (red
+  on `8eb121c8`) and 13 guards (green on both: 4 valid-value controls, 2 `/?` positives, the port-letter parity
+  guard, 6 IP-literal TAB/LF/CR guards). (H2) round-39 real run byte-equal (`jq -S . | sha256sum` →
+  `fd985a41…`). (H3) cost: the predicate's five ratios, each ≤ 2.0 against the round-40 tool. (H4) against
+  the round-40 tool on the round-41 closure's probe method (seeded mutations of the retained real `loc`
+  values, RFC 3986 oracle from the vendored `abnf` 2.9.1 wheel): the build rejects no value that both the
+  round-40 tool and the oracle accept, and accepts no value the round-40 tool rejects. Any clause unmet:
+  operability is harmed.
+- **Order:** this section, the counter and the L1 receipts land first; the control wave builds controls of
+  every class and scores them with these counter bytes; the L1 re-scores every meeting tool and commits the
+  receipts; then the declaration freezes this predicate unchanged (or records the redesign); only then is the
+  build scored. The build gets a fresh non-author review of its final bytes before the report (QUALITY (t)).
