@@ -1,0 +1,656 @@
+{
+  "version": 1,
+  "contract": "SCORECARD.md round-38 C2 rules (h), (i), (k); round-37 contract otherwise",
+  "sealedKeyNote": "these expectations are derived from the public contract, not from any sealed case",
+  "manifests": {
+    "manifest.json": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "checksEvaluated": 79,
+      "findings": [
+        {
+          "check": "r38-i-www_rfc-editor_org-space",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-developers_google_com-quote",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-github_com-caret",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-docs_github_com-backslash",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-ds4cc_com-braceopen",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-en_wikipedia_org-pipe",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-html_spec_whatwg_org-backtick",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-pages_github_com-braceclose",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-veigapunk_github_io-gt",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-www_robotstxt_org-lt",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-www_sitemaps_org-ctl",
+          "reason": "check_invalid"
+        },
+        {
+          "check": "r38-i-developer_mozilla_org-del",
+          "reason": "check_invalid"
+        }
+      ],
+      "basis": "The 12 (i) checks are check faults; the other 79 checks (55 round-37 + 13 (k) allow + 11 ordinary percent-encoded path) have no finding. Any check_invalid makes the verdict could-not-evaluate and exit 2 (round-37 verdict rule)."
+    },
+    "manifest.h-long-status.json": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "checksEvaluated": 1,
+      "findings": [
+        {
+          "check": "h-long-status-5000",
+          "reason": "check_invalid"
+        }
+      ],
+      "basis": "(h): a 5,000-digit out-of-range integer status is a check fault for that check only; the neighbour is evaluated and allowed."
+    },
+    "manifest.h-unused-bigint.json": {
+      "exit": 0,
+      "verdict": "clean",
+      "checksEvaluated": 2,
+      "findings": [],
+      "basis": "(h): a 5,000-digit integer in a field the contract does not read changes nothing; both checks are evaluated and allowed."
+    },
+    "manifest.h-nan-unused.json": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "checksEvaluated": 0,
+      "findings": [
+        {
+          "check": null,
+          "reason": "input_invalid"
+        }
+      ],
+      "basis": "(h): NaN outside a string is not JSON, so the manifest is input_invalid and nothing is evaluated -- even though the NaN sits in a field no rule reads."
+    },
+    "manifest.h-infinity-status.json": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "checksEvaluated": 0,
+      "findings": [
+        {
+          "check": null,
+          "reason": "input_invalid"
+        }
+      ],
+      "basis": "(h): Infinity outside a string is not JSON, so the manifest is input_invalid and nothing is evaluated."
+    },
+    "manifest.h-neginfinity-status.json": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "checksEvaluated": 0,
+      "findings": [
+        {
+          "check": null,
+          "reason": "input_invalid"
+        }
+      ],
+      "basis": "(h): -Infinity outside a string is not JSON, so the manifest is input_invalid and nothing is evaluated."
+    },
+    "manifest.h-float-status.json": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "checksEvaluated": 1,
+      "findings": [
+        {
+          "check": "h-float-status-1e400",
+          "reason": "check_invalid"
+        }
+      ],
+      "basis": "(h) clarification: 1e400 is JSON but not an integer, so the status is a check fault for that check; the neighbour is evaluated and allowed."
+    }
+  },
+  "newChecks": {
+    "r38-k-www_rfc-editor_org-pct2e": {
+      "host": "www.rfc-editor.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/robots%2Etxt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /rfc/authors/"
+        },
+        {
+          "line": 3,
+          "text": "Disallow: /rfc/rerendered/"
+        },
+        {
+          "line": 4,
+          "text": "Disallow: /rfc/v3test/"
+        }
+      ],
+      "why": "Contract (k): %2E is an unreserved escape of '.', so the path to match normalizes to exactly /robots.txt; a URL whose normalized path is /robots.txt is allowed. The raw path /robots%2Etxt is not /robots.txt, so a raw-path comparison would fall through to these three Disallow rules (none of which matches it) instead of the implicit allow."
+    },
+    "r38-i-www_rfc-editor_org-space": {
+      "host": "www.rfc-editor.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/rfc 9309.html",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /rfc/authors/"
+        },
+        {
+          "line": 3,
+          "text": "Disallow: /rfc/rerendered/"
+        },
+        {
+          "line": 4,
+          "text": "Disallow: /rfc/v3test/"
+        }
+      ],
+      "why": "Contract (i): the space (U+0020) is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid) and no access result is evaluated. Were it admitted, the path would be outside the three disallowed subtrees; the space cannot make any of them a prefix."
+    },
+    "r38-e-www_rfc-editor_org-authors": {
+      "host": "www.rfc-editor.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/%61uthors/team",
+      "declaredOutcome": "disallow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /rfc/authors/"
+        }
+      ],
+      "why": "Contract (e): %61 is an unreserved escape of 'a' and is decoded before matching, so the path to match is /rfc/authors/team, which begins with the disallowed /rfc/authors/ subtree."
+    },
+    "r38-k-developers_google_com-pct72": {
+      "host": "developers.google.com",
+      "userAgent": "Googlebot",
+      "url": "https://developers.google.com/%72obots.txt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /youtube/partner/"
+        }
+      ],
+      "why": "Contract (k): %72 is an unreserved escape of 'r' and decodes, so the path to match is exactly /robots.txt and the URL is allowed. The file's only rule covers /youtube/partner/, so no rule matches either the raw path or the normalized one; (k) makes the allow independent of that."
+    },
+    "r38-i-developers_google_com-quote": {
+      "host": "developers.google.com",
+      "userAgent": "Googlebot",
+      "url": "https://developers.google.com/search/docs/robots\"txt",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /youtube/partner/"
+        }
+      ],
+      "why": "Contract (i): the double quote is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no allow or disallow is evaluated. The path is outside the only disallowed subtree either way."
+    },
+    "r38-e-developers_google_com-partner": {
+      "host": "developers.google.com",
+      "userAgent": "Googlebot",
+      "url": "https://developers.google.com/youtube/%70artner/docs",
+      "declaredOutcome": "disallow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /youtube/partner/"
+        }
+      ],
+      "why": "Contract (e): %70 is an unreserved escape of 'p', decoded before matching, so the path is /youtube/partner/docs and begins with the disallowed partner subtree."
+    },
+    "r38-k-github_com-pct2e": {
+      "host": "github.com",
+      "userAgent": "Googlebot",
+      "url": "https://github.com/robots%2Etxt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 360,
+          "text": "User-agent: *"
+        }
+      ],
+      "why": "Contract (k): %2E decodes to '.', so the path to match is exactly /robots.txt and the URL is allowed. No Googlebot group exists, so the * group's 165 rules decide the raw path /robots%2Etxt; none of them matches /robots.txt (the closest shapes are anchored records such as Disallow: /search$), so the allow holds either way and (k) states it on the normalized path."
+    },
+    "r38-i-github_com-caret": {
+      "host": "github.com",
+      "userAgent": "Googlebot",
+      "url": "https://github.com/veigapunk^kake",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 360,
+          "text": "User-agent: *"
+        }
+      ],
+      "why": "Contract (i): '^' is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated. The path /veigapunk^kake matches none of the * group's rules."
+    },
+    "r38-e-github_com-gist": {
+      "host": "github.com",
+      "userAgent": "Googlebot",
+      "url": "https://github.com/gist/veigapunk/%61bc",
+      "declaredOutcome": "disallow",
+      "quotes": [
+        {
+          "line": 360,
+          "text": "User-agent: *"
+        },
+        {
+          "line": 370,
+          "text": "Disallow: /gist/"
+        }
+      ],
+      "why": "Contract (e): %61 is an unreserved escape of 'a', decoded before matching, so the path is /gist/veigapunk/abc, which begins with the disallowed /gist/ subtree."
+    },
+    "r38-k-docs_github_com-pct2e": {
+      "host": "docs.github.com",
+      "userAgent": "Googlebot",
+      "url": "https://docs.github.com/robots%2Etxt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "User-agent: *"
+        }
+      ],
+      "why": "Contract (k): %2E decodes to '.', so the path to match is exactly /robots.txt and the URL is allowed. The 13-byte file holds one user-agent record and no rule record, so the raw path is unrestricted as well; (k) fixes the allow on the normalized path."
+    },
+    "r38-i-docs_github_com-backslash": {
+      "host": "docs.github.com",
+      "userAgent": "Googlebot",
+      "url": "https://docs.github.com/en\\pages",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "User-agent: *"
+        }
+      ],
+      "why": "Contract (i): the backslash is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated. The file declares no rule record."
+    },
+    "r38-e-docs_github_com-escslash": {
+      "host": "docs.github.com",
+      "userAgent": "Googlebot",
+      "url": "https://docs.github.com/en/pages%2Findex",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "User-agent: *"
+        }
+      ],
+      "why": "Contract (e): %2F is a reserved escape and is kept as %2F (uppercased), not decoded to '/', so the path is /en/pages%2Findex; the file holds no Allow or Disallow record, so it is allowed."
+    },
+    "r38-k-ds4cc_com-pct72": {
+      "host": "ds4cc.com",
+      "userAgent": "Googlebot",
+      "url": "https://ds4cc.com/%72obots.txt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Allow: /"
+        }
+      ],
+      "why": "Contract (k): %72 decodes to 'r', so the path to match is exactly /robots.txt and the URL is allowed. The group's Allow: / would allow it in any case; (k) makes the allow independent of the rule."
+    },
+    "r38-i-ds4cc_com-braceopen": {
+      "host": "ds4cc.com",
+      "userAgent": "Googlebot",
+      "url": "https://ds4cc.com/posts/{2026",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Allow: /"
+        }
+      ],
+      "why": "Contract (i): '{' is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated. The Allow: / prefix would otherwise allow it."
+    },
+    "r38-e-ds4cc_com-index": {
+      "host": "ds4cc.com",
+      "userAgent": "Googlebot",
+      "url": "https://ds4cc.com/index%2Ehtml",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Allow: /"
+        }
+      ],
+      "why": "Contract (e): %2E decodes to '.', so the path is /index.html; the group's Allow: / is a prefix rule covering every path on the host."
+    },
+    "r38-k-en_wikipedia_org-pct2e": {
+      "host": "en.wikipedia.org",
+      "userAgent": "UbiCrawler",
+      "url": "https://en.wikipedia.org/robots%2Etxt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 27,
+          "text": "User-agent: UbiCrawler"
+        },
+        {
+          "line": 28,
+          "text": "Disallow: /"
+        }
+      ],
+      "why": "Contract (k): UbiCrawler has its own group whose only rule is Disallow: /. The raw path /robots%2Etxt is not /robots.txt, so comparing before normalization applies that rule and disallows; %2E is an unreserved escape of '.', so the path to match normalizes to exactly /robots.txt and the URL is allowed."
+    },
+    "r38-k-en_wikipedia_org-pct72": {
+      "host": "en.wikipedia.org",
+      "userAgent": "UbiCrawler",
+      "url": "https://en.wikipedia.org/%72obots.txt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 27,
+          "text": "User-agent: UbiCrawler"
+        },
+        {
+          "line": 28,
+          "text": "Disallow: /"
+        }
+      ],
+      "why": "Contract (k): %72 is an unreserved escape of 'r'; the path to match normalizes to exactly /robots.txt, which is allowed, while the raw path /%72obots.txt would be caught by the group's Disallow: /."
+    },
+    "r38-i-en_wikipedia_org-pipe": {
+      "host": "en.wikipedia.org",
+      "userAgent": "Googlebot",
+      "url": "https://en.wikipedia.org/wiki/A|B",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 148,
+          "text": "User-agent: *"
+        },
+        {
+          "line": 156,
+          "text": "Disallow: /wiki/Special:"
+        }
+      ],
+      "why": "Contract (i): '|' is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated. No Googlebot group exists, the * group decides, and /wiki/A|B matches no rule of it (e.g. the Special: prefix does not apply)."
+    },
+    "r38-k-html_spec_whatwg_org-pct2e": {
+      "host": "html.spec.whatwg.org",
+      "userAgent": "Googlebot",
+      "url": "https://html.spec.whatwg.org/robots%2Etxt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /commit-snapshots/"
+        },
+        {
+          "line": 3,
+          "text": "Disallow: /review-drafts/"
+        }
+      ],
+      "why": "Contract (k): %2E decodes to '.', so the path to match is exactly /robots.txt and the URL is allowed. The two disallowed working-draft trees do not cover it either way; (k) fixes the allow on the normalized path."
+    },
+    "r38-i-html_spec_whatwg_org-backtick": {
+      "host": "html.spec.whatwg.org",
+      "userAgent": "Googlebot",
+      "url": "https://html.spec.whatwg.org/x`y",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /commit-snapshots/"
+        },
+        {
+          "line": 3,
+          "text": "Disallow: /review-drafts/"
+        }
+      ],
+      "why": "Contract (i): the backtick is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated. Neither disallowed tree covers the path."
+    },
+    "r38-e-html_spec_whatwg_org-commit": {
+      "host": "html.spec.whatwg.org",
+      "userAgent": "Googlebot",
+      "url": "https://html.spec.whatwg.org/commit-snapshots%2F1234",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow: /commit-snapshots/"
+        }
+      ],
+      "why": "Contract (e): %2F is a reserved escape and is kept, so the path is /commit-snapshots%2F1234, which does not begin with /commit-snapshots/ (the character after the name is '%', not '/'); the rule is a prefix rule and does not match."
+    },
+    "r38-k-pages_github_com-pct2e": {
+      "host": "pages.github.com",
+      "userAgent": "Googlebot",
+      "url": "https://pages.github.com/robots%2Etxt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "Sitemap: https://pages.github.com/sitemap.xml"
+        }
+      ],
+      "why": "Contract (k): %2E decodes to '.', so the path to match is exactly /robots.txt and the URL is allowed. The only record is a Sitemap record, which opens no group, so the raw path is unrestricted as well."
+    },
+    "r38-i-pages_github_com-braceclose": {
+      "host": "pages.github.com",
+      "userAgent": "Googlebot",
+      "url": "https://pages.github.com/a}b",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "Sitemap: https://pages.github.com/sitemap.xml"
+        }
+      ],
+      "why": "Contract (i): '}' is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated. No group exists in the file."
+    },
+    "r38-e-pages_github_com-project": {
+      "host": "pages.github.com",
+      "userAgent": "Googlebot",
+      "url": "https://pages.github.com/project%2Fpage",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "Sitemap: https://pages.github.com/sitemap.xml"
+        }
+      ],
+      "why": "Contract (e): %2F is a reserved escape and is kept as %2F, so the path is /project%2Fpage; the file holds no user-agent record, hence no rule, so the URL is allowed."
+    },
+    "r38-k-veigapunk_github_io-pct72": {
+      "host": "veigapunk.github.io",
+      "userAgent": "Googlebot",
+      "url": "https://veigapunk.github.io/%72obots.txt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Allow: /"
+        }
+      ],
+      "why": "Contract (k): %72 decodes to 'r', so the path to match is exactly /robots.txt and the URL is allowed. The group's Allow: / covers it in any case; (k) fixes the allow on the normalized path."
+    },
+    "r38-i-veigapunk_github_io-gt": {
+      "host": "veigapunk.github.io",
+      "userAgent": "Googlebot",
+      "url": "https://veigapunk.github.io/a>b",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Allow: /"
+        }
+      ],
+      "why": "Contract (i): '>' is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated. Allow: / would otherwise allow it."
+    },
+    "r38-e-veigapunk_github_io-index": {
+      "host": "veigapunk.github.io",
+      "userAgent": "Googlebot",
+      "url": "https://veigapunk.github.io/index%2Ehtml",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Allow: /"
+        }
+      ],
+      "why": "Contract (e): %2E decodes to '.', so the path is /index.html and the group's Allow: / prefix rule covers it."
+    },
+    "r38-k-www_robotstxt_org-pct2e": {
+      "host": "www.robotstxt.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.robotstxt.org/robots%2Etxt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow:"
+        }
+      ],
+      "why": "Contract (k): %2E decodes to '.', so the path to match is exactly /robots.txt and the URL is allowed. The group's only rule has an empty value, which never matches, so the raw path is unrestricted as well."
+    },
+    "r38-i-www_robotstxt_org-lt": {
+      "host": "www.robotstxt.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.robotstxt.org/a<b",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow:"
+        }
+      ],
+      "why": "Contract (i): '<' is ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated."
+    },
+    "r38-e-www_robotstxt_org-tilde": {
+      "host": "www.robotstxt.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.robotstxt.org/%7Euser/page",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 2,
+          "text": "Disallow:"
+        }
+      ],
+      "why": "Contract (e): %7E is an unreserved escape of '~' and is decoded, so the path is /~user/page; the group's only rule has an empty value, which never matches, so the URL is allowed."
+    },
+    "r38-k-www_sitemaps_org-pct72": {
+      "host": "www.sitemaps.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.sitemaps.org/%72obots.txt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "Sitemap: https://www.sitemaps.org/sitemap.xml"
+        }
+      ],
+      "why": "Contract (k): %72 decodes to 'r', so the path to match is exactly /robots.txt and the URL is allowed. The only record is a Sitemap record, which opens no group."
+    },
+    "r38-i-www_sitemaps_org-ctl": {
+      "host": "www.sitemaps.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.sitemaps.org/protocol.html\u0001",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "Sitemap: https://www.sitemaps.org/sitemap.xml"
+        }
+      ],
+      "why": "Contract (i): U+0001 is a control character, ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated."
+    },
+    "r38-e-www_sitemaps_org-xml": {
+      "host": "www.sitemaps.org",
+      "userAgent": "Googlebot",
+      "url": "https://www.sitemaps.org/sitemap%2Exml",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 1,
+          "text": "Sitemap: https://www.sitemaps.org/sitemap.xml"
+        }
+      ],
+      "why": "Contract (e): %2E decodes to '.', so the path is /sitemap.xml; the file holds no rule record, so the URL is allowed."
+    },
+    "r38-k-developer_mozilla_org-pct2e": {
+      "host": "developer.mozilla.org",
+      "userAgent": "Googlebot",
+      "url": "https://developer.mozilla.org/robots%2Etxt",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 4,
+          "text": "Disallow: /api/"
+        },
+        {
+          "line": 5,
+          "text": "Disallow: /*/files/"
+        },
+        {
+          "line": 6,
+          "text": "Disallow: /media"
+        }
+      ],
+      "why": "Contract (k): %2E decodes to '.', so the path to match is exactly /robots.txt and the URL is allowed. The group's three rules (/api/, /*/files/, /media) do not cover it either way; (k) fixes the allow on the normalized path."
+    },
+    "r38-i-developer_mozilla_org-del": {
+      "host": "developer.mozilla.org",
+      "userAgent": "Googlebot",
+      "url": "https://developer.mozilla.org/en-US/docs/Web",
+      "declaredOutcome": "check_invalid",
+      "quotes": [
+        {
+          "line": 4,
+          "text": "Disallow: /api/"
+        },
+        {
+          "line": 5,
+          "text": "Disallow: /*/files/"
+        },
+        {
+          "line": 6,
+          "text": "Disallow: /media"
+        }
+      ],
+      "why": "Contract (i): U+007F is a control character, ASCII outside the RFC 3986 character set, so the check is a check fault (check_invalid); no access result is evaluated. The path is outside all three disallowed rules."
+    },
+    "r38-e-developer_mozilla_org-api": {
+      "host": "developer.mozilla.org",
+      "userAgent": "Googlebot",
+      "url": "https://developer.mozilla.org/api%2Fv1",
+      "declaredOutcome": "allow",
+      "quotes": [
+        {
+          "line": 4,
+          "text": "Disallow: /api/"
+        }
+      ],
+      "why": "Contract (e): %2F is a reserved escape and is kept, so the path is /api%2Fv1; the rule value /api/ ends in '/', which the path does not have at that position, so the prefix rule does not match and the URL is allowed."
+    }
+  }
+}

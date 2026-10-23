@@ -1,0 +1,57 @@
+{
+  "manifest": "manifest.h-neginfinity-status.json",
+  "manifestSha256": "6c5e269be5bffe787fd44e9bd50c05e352ef43c0ff920c0f829617f2b265920a",
+  "tool": "/fast/scratch/hyaku/kake-r38w1/ExecRealRunPrep/base-tool/robots_audit.py",
+  "toolSha256": "944d2f51f396fb6e1ba3c7cf07112eb3f55d011e9bbc16bb1a59af517be1d3e5",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/fast/scratch/hyaku/kake-r38w1/ExecRealRunPrep/base-tool/robots_audit.py",
+    "--manifest",
+    "manifest.h-neginfinity-status.json"
+  ],
+  "cwd": "/fast/scratch/hyaku/kake-r38w1/ExecRealRunPrep/realrun",
+  "python": "3.14.8 (main, Oct  2 2026, 10:23:31) [GCC 16.2.1 20260810]",
+  "pythonExecutable": "/usr/bin/python3",
+  "environment": {
+    "PATH": "/run/user/1000/fnm_multishells/3646615_1792716929813/bin:/home/vgpnk/.local/share/fnm:/home/vgpnk/.opencode/bin:/home/vgpnk/.local/bin:/home/vgpnk/.minimax/bin:/home/vgpnk/.minimax-code/bin:/home/vgpnk/.grok/bin:/home/vgpnk/.kimi-code/bin:/home/vgpnk/.local/share/mise/installs/node/latest/bin:/home/vgpnk/.local/share/mise/shims:/run/user/1000/fnm_multishells/1005927_1792690495004/bin:/home/vgpnk/.local/share/omarchy/bin:/run/user/1000/fnm_multishells/1543_1792655744400/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl",
+    "HOME": "/home/vgpnk",
+    "TMPDIR": "/fast/scratch/hyaku/kake-r38w1/ExecRealRunPrep/tmp",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "LANG": "C.UTF-8"
+  },
+  "expected": {
+    "exit": 2,
+    "verdict": "could-not-evaluate",
+    "checksEvaluated": 0,
+    "findings": [
+      {
+        "check": null,
+        "reason": "input_invalid"
+      }
+    ]
+  },
+  "expectedBasis": "(h): -Infinity outside a string is not JSON, so the manifest is input_invalid and nothing is evaluated.",
+  "status": "ran",
+  "exit": 2,
+  "stdout": "{\"version\":1,\"verdict\":\"could-not-evaluate\",\"checksEvaluated\":1,\"findings\":[{\"check\":\"h-neginfinity-status\",\"reason\":\"check_invalid\"}]}\n",
+  "stderr": "",
+  "observed": {
+    "version": 1,
+    "verdict": "could-not-evaluate",
+    "checksEvaluated": 1,
+    "findings": [
+      {
+        "check": "h-neginfinity-status",
+        "reason": "check_invalid"
+      }
+    ],
+    "exit": 2
+  },
+  "matches": false,
+  "diffs": [
+    "checksEvaluated: expected 0, observed 1",
+    "findings missing: [[null, \"input_invalid\"]]",
+    "findings extra: [[\"h-neginfinity-status\", \"check_invalid\"]]"
+  ]
+}

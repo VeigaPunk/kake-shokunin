@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "checks": [
+    {
+      "id": "h-infinity-status",
+      "robotsStatus": Infinity,
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "expect": "allow",
+      "robots": "robots/www_rfc-editor_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.rfc-editor.org/robots.txt",
+        "finalUrl": "https://www.rfc-editor.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:15Z",
+        "bodySha256": "df052cf390448ea2916ce4d3b5f6e42880cd246ea2bf1d5efce5596b1b2e3827",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /rfc/authors/"
+          }
+        ],
+        "why": "Contract (h): Infinity outside a string is not JSON, so a manifest holding it gives one input_invalid finding (check null) and nothing is evaluated; the neighbour is not evaluated either."
+      }
+    },
+    {
+      "id": "h-neighbour-rfc",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "expect": "allow",
+      "robots": "robots/www_rfc-editor_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.rfc-editor.org/robots.txt",
+        "finalUrl": "https://www.rfc-editor.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:15Z",
+        "bodySha256": "df052cf390448ea2916ce4d3b5f6e42880cd246ea2bf1d5efce5596b1b2e3827",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /rfc/authors/"
+          }
+        ],
+        "why": "Ordinary control check: the RFC 9309 page is outside the three disallowed subtrees, so it is allowed; it is evaluated while a sibling fault check faults, and is untouched by an unused long integer."
+      }
+    }
+  ]
+}
