@@ -873,6 +873,82 @@ def build_cases():
         {"a.xml": urlset(url('<loc><x:n xmlns:x="urn:x">ftp:</x:n>http://example.com/a</loc>'))},
         [14, 22], [("d", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean", checks=[E("a", "clean")])
 
+    # Round 41 (claim C1, sentences 4 and 22): the value must parse as an
+    # RFC 3986 `URI` with scheme http/https and a non-empty host, judged as
+    # written.  urlsplit alone accepts every invalid case below except the
+    # letter port, which it already rejects.
+    add("r41_manifest_url_c0_interior",
+        clean_case_files, [4, 22],
+        manifest=mf(ck("a", "a.xml", "http://exam\u0001ple.com/")), expect_exit=2,
+        verdict="could-not-evaluate", checks=[E("a", "error", "check_invalid")])
+    add("r41_loc_path_space",
+        {"a.xml": urlset(url(L("http://example.com/a b")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_path_pipe",
+        {"a.xml": urlset(url(L("http://example.com/a|b")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_path_caret",
+        {"a.xml": urlset(url(L("http://example.com/a^b")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_path_brace",
+        {"a.xml": urlset(url(L("http://example.com/a{b")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_path_del",
+        {"a.xml": urlset(url(L("http://example.com/a\x7fb")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_fragment_second_hash",
+        {"a.xml": urlset(url(L("http://example.com/a#x#y")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_path_bracket",
+        {"a.xml": urlset(url(L("http://example.com/a[b")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_bad_percent_triplet",
+        {"a.xml": urlset(url(L("http://example.com/a%zz")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_userinfo_second_at",
+        {"a.xml": urlset(url(L("http://a@b@example.com/")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_port_letter",
+        {"a.xml": urlset(url(L("http://example.com:80a/a")))}, [22],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r41_loc_path_sub_delims",
+        {"a.xml": urlset(url(L("http://example.com/a!$&amp;'()*+,;=b")))}, [22],
+        rules=[("g", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean",
+        checks=[E("a", "clean")])
+    add("r41_loc_path_pct_7e",
+        {"a.xml": urlset(url(L("http://example.com/a%7eb")))}, [22],
+        rules=[("g", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean",
+        checks=[E("a", "clean")])
+    add("r41_loc_ipv6_literal_host",
+        {"a.xml": urlset(url(L("http://[2001:db8::1]/a")))}, [22],
+        rules=[("g", "pos")],
+        manifest=mf(ck("a", "a.xml", "http://[2001:db8::1]/")), verdict="clean",
+        checks=[E("a", "clean")])
+    add("r41_loc_userinfo_with_colon",
+        {"a.xml": urlset(url(L("http://user:pass@example.com/a")))}, [22],
+        rules=[("g", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean",
+        checks=[E("a", "clean")])
+
     return cases
 
 

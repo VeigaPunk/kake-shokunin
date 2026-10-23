@@ -64,11 +64,33 @@ _ENC_ATTR_RE = re.compile(
 # URL handling (sentences 22, 24-27)
 # --------------------------------------------------------------------------
 
+# Round 41: a value is first judged as written against RFC 3986 Appendix A
+# `URI` with an authority (lane reading of sentence 22's "absolute URL"; S117),
+# for every ASCII character. Not changed from round 40, and not RFC 3987
+# conformance: code points U+0080 and above stay accepted wherever RFC 3986
+# allows `unreserved`; an IP literal's contents and the port range are still
+# judged only by urlsplit below.
+_UNRESERVED = "A-Za-z0-9._~\\-\u0080-\U0010ffff"
+_SUB_DELIMS = "!$&'()*+,;="
+_PCT = "%[0-9A-Fa-f]{2}"
+_PCHAR = "(?:[" + _UNRESERVED + _SUB_DELIMS + ":@]|" + _PCT + ")"
+_URI_RE = re.compile(
+    "\\A[A-Za-z][A-Za-z0-9+.\\-]*:"                                  # scheme ":"
+    "//(?:(?:[" + _UNRESERVED + _SUB_DELIMS + ":]|" + _PCT + ")*@)?"  # userinfo "@"
+    "(?:\\[[^\\]]*\\]"                                                # IP-literal
+    "|(?:[" + _UNRESERVED + _SUB_DELIMS + "]|" + _PCT + ")+)"         # reg-name, IPv4
+    "(?::[0-9]*)?"                                                    # ":" port
+    "(?:/" + _PCHAR + "*)*"                                           # path-abempty
+    "(?:\\?(?:" + _PCHAR + "|[/?])*)?"                                # "?" query
+    "(?:\\#(?:" + _PCHAR + "|[/?])*)?\\Z"                             # "#" fragment
+)
+
+
 def _parse_url(value):
     """Return (scheme, host, port, path) or None when not an absolute
     http/https URL with a host (sentence 22, extended by sentence 4)."""
-    if value[:1] <= " " or "\t" in value or "\r" in value or "\n" in value:
-        return None                    # urlsplit would strip or drop these
+    if _URI_RE.match(value) is None:
+        return None                    # judged as written, before urlsplit
     try:
         parts = urlsplit(value)
         scheme = parts.scheme.lower()

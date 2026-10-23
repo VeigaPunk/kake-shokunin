@@ -1153,3 +1153,18 @@ UTF-16 check now runs after the declared-encoding and DOCTYPE checks (a non-UTF-
 gives `encoding_invalid`, a DOCTYPE still gives `doctype_present`, as before round 40), and element values
 leave out elements of other namespaces with their text (sentence 14), so a TAB inside an ignored
 extension element no longer makes a `loc` invalid. Selftest 183 fixtures.
+
+### Sitemap file audit — round-41 URL rule (amendment to the rows above)
+
+Tool `scripts/sitemap_audit.py` sha256 `0b485431…13edbf` (round 41). A `loc` (after sentence 21's strip)
+or a manifest `sitemapUrl` is first judged as written against RFC 3986 `URI` with an authority and a
+non-empty host (S117, Appendix A; S102 "follow the RFC-3986 standard for URIs"); only then does `urlsplit`
+split it for the scope rule. So a space, `"<>\^`{|}`, DEL, any C0 control, a `[` or `]` outside an IP
+literal, a second `#`, an `@` inside userinfo, or a `%` not followed by two hex digits gives
+`loc_not_absolute` / `check_invalid`, where the round-40 tool accepted them (selftest `r41_*`, 198
+fixtures). Unchanged on purpose, and not claimed as conformance: code points U+0080 and above are still
+accepted wherever RFC 3986 allows `unreserved` (broader than RFC 3987 `ucschar`); IP-literal contents and
+ports above 65535 are still judged by `urlsplit` (it rejects a port above 65535, RFC 3986 does not).
+Proof status: exploratory — the round-41 oracle counter (`.ufo/waves/round-41/c1_count.py`, labels from
+abnf 2.9.1's RFC 3986 grammar, S118) was met by 15 of 141 wave-1 controls before the build (SCORECARD
+"Round 41 — kill rule (1) fired"); use the selftest, and treat the counter as information.
