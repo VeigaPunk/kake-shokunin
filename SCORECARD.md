@@ -2066,3 +2066,107 @@ measured result stay as landed; details in `corpus/lessons/round-37.md` "Wave-2 
   matching group falls back to `*`) also passed the selftest. Three fixtures added (b19, c14,
   c15); each kills its mutant (`verification/postfix/mutrobots-survivors/`), 137/137 on the tool
   and on the independent implementation.
+
+## Round 37 — closure correction (appended in round 38)
+
+The non-author closure (`corpus/lessons/round-37-verifier-spotcheck.md`, routed defect 1) did
+**not admit round-37 C1**: a control (`retained/controls/CtlC1Shortcut-followup-robots_audit.py`,
+stdlib `urllib.robotparser` plus six patches) met the frozen predicate (28 of 28,
+`verification/control-CtlC1Shortcut-followup.json`) at `ccc3b2b9`, before the build, and the
+declaration said such a control means the counter is wrong and is fixed before any build. The lane
+kept the claim by reclassifying the control; that was a rule change after a seat had scored.
+Round-37 C1 status: **not admitted**. The `## Capabilities` row "Offline robots.txt expectation
+audit" (added at `b99b6679`) and the "Capabilities acquired in round 37" row carry that status: the
+tool, its selftest and the independent implementation stand as non-claim work; no capability was
+admitted in round 37. The round-37 counter (`.ufo/waves/round-37/sealed_count.py`, key
+`424aa248`) stays the rule of record for round-37 C1 and is not re-scored here. Round-37 per-axis
+verdicts are the closure's (operability and freshness `unprovable-but-better`).
+
+## Round 38 — declared claims (before implementation lands)
+
+Base `af43a50fa399881eead9381d835b78a015e277a6` (pushed lane tip at round start; round 37 not
+admitted). One claim. Prior frontier: r36 freshness (`source_recheck.py`), r37 operability
+(`robots_audit.py`). This round re-claims `robots_audit.py` under a redesigned counter: the routed
+repair (closure routed defect 2). The round-37 shortcut scores below this round's target before any
+data (below).
+
+**C1 — operability (tool repair, not a new capability): `scripts/robots_audit.py` gains three
+contract rules it lacks at the base, under a counter that also separates it from a
+stdlib-delegating reader.** Axis by the surface it changes: the robots audit tool's manifest and
+check validation and its implicit-allow comparison (three edge classes: non-JSON number literals
+and long integers (h), URL characters (i), the implicit `/robots.txt` allow on the normalized path
+(k)); not a new tool, not coverage of new domain ground. The command that would show the surface
+unmoved: the counter below at a revision whose `scripts/robots_audit.py` is the base bytes (sha256
+`944d2f51…d3e5`) scores 8 of 20. Frozen predicate, the same sentence here, in
+`.ufo/waves/round-38/sealed_count.py` (`PREDICATE`, `met = cases == 20 and passed >= 19`) and in
+every receipt's `predicate` field:
+
+    met: passed >= 19 of 20 sealed cases
+
+- Before: 8 of 20 at the base `af43a50f` (`.ufo/waves/round-38/verification/c1-at-af43a50f.json`,
+  exit 1; the base tool fails every case of bullets (h), (i), (k)). After: `met` true at the build
+  commit.
+- Counting command (exit 0 met, 1 not met, 2 cannot evaluate):
+  `python3 -B .ufo/waves/round-38/sealed_count.py --root . --revision <rev> --key-revision <reveal>`
+  (before the reveal, the L1 runs it with `--key-file` on the key outside the lane).
+- The 20 cases (5 bullets, 4 cases each) were written by the L1 before this declaration from the
+  contract text, and stay outside the lane until a reveal commit; the counter pins their sha256
+  (`8b3fac55…2941`) and refuses a revision that holds them. Counter sha256 at this declaration
+  `52daff55…6e7b` (round-37 counter plus a `rawTemplate` run kind; same jail, same fresh ids and
+  file names on every run, same judge). Bullets: (g) groups and (d) rules, where
+  `urllib.robotparser` departs from the contract (substring user-agent match, Unicode folding,
+  first-group-only, groups ended by non-record lines, wildcard rules ranked by matched length,
+  non-final `$`), each case with at least one such check; (h), (i), (k) the new rules below, each
+  case with at least one check the base tool gets wrong. Every case of (g), (d), (i), (k) has a
+  check whose correct outcome is a finding and one whose correct outcome is none; (h) cases with a
+  manifest-fault run have no holding check in that run.
+- Separation, measured before this declaration with `--tool-file` (receipts committed with the
+  control receipts): the L1's private reference (base tool plus the three rules) 20; the base tool
+  8; round-37 controls: stdlib-plus-six-patches shortcut 7, stock `urllib.robotparser` 5, all-false
+  1, no-reader 1, constant clean 0, junk 0; eight ablations of the reference 16–18 (no non-JSON
+  constant rejection 18, no long-integer rule 18, no URL character rule 16, controls-and-space only
+  16, printable-only 17, raw-path implicit allow 16, query ignored in the implicit allow 18, case
+  folded in the implicit allow 18). Coverage statement, nothing more: each listed ablation scores
+  at most 18. A tool that delegates (g)/(d) to the stdlib cannot reach 19 even with every other
+  rule right: the stdlib fails all 8 (g)/(d) cases but g3 (the round-37 shortcut passes g3, fails
+  the other 7).
+- Harm instruments (not the claim): at the build commit the round-37 counter with key `424aa248`
+  must still read 28 of 28 and `scripts/robots_audit_selftest.py` 137/137 (both read 28 and 137 on
+  the reference). Every post-measurement receipt names the tool's sha256 (routed defect 5).
+- Sourced: S034 (RFC 8259 section 6) and S029/S089's RFC 3986 (section 2, characters) re-opened
+  this round, and S011 (RFC 9309 section 2.2.2) re-opened; row decisions in the lesson Gate.
+- Limits: synthetic manifests and robots files; the tool reads local files and makes no fetch,
+  redirect, cache or crawler-specific claim; (i) is a character-set rule, not a full RFC 3986
+  grammar check.
+
+Round-38 contract amendments (public; the round-37 contract in "Round 37 — declared claims" holds
+except where these change it; the sealed cases test (g), (d) of that contract and (h), (i), (k)):
+
+- (h) JSON numbers (RFC 8259 section 6, S034). The manifest is JSON as RFC 8259 defines it:
+  `NaN`, `Infinity` and `-Infinity` outside a string are not JSON, so a manifest holding any of
+  them gives one `input_invalid` finding (check null) and nothing is evaluated. A JSON number of any
+  length is JSON: an integer `robotsStatus` outside the three ranges, however many digits it has,
+  is a check fault (`check_invalid` for that check; the other checks are still evaluated), and a
+  number of any length in a field the contract does not read changes nothing. Bounded: a manifest
+  of up to 64 MiB of digits must still finish within the counter's 20 s.
+- (i) URL characters (RFC 3986 section 2). A check's `url` holds, besides non-ASCII characters
+  (kept; lane reading of rule (e)), only ASCII letters, digits, `-` `.` `_` `~`, the reserved
+  characters `:` `/` `?` `#` `[` `]` `@` `!` `$` `&` `'` `(` `)` `*` `+` `,` `;` `=` and `%`. A
+  `url` holding any other ASCII character anywhere (a space, a control character U+0000–U+001F or
+  U+007F, `"` `<` `>` `\` `^` `` ` `` `{` `|` `}`), including a leading or trailing one, is a
+  check fault (`check_invalid`). The characters are judged as written, before any parsing.
+- (k) Implicit allow on the normalized path (amends (e); RFC 9309 section 2.2.2, S011). When (a)
+  says the file decides, a URL whose path to match, normalized by rule (e), is exactly
+  `/robots.txt` is allowed (so `/robots%2Etxt` and `/%72obots.txt` are allowed). A path to match
+  with a query (`/robots.txt?x=1`), another case (`/ROBOTS.TXT`) or a kept reserved escape
+  (`/robots%2Ftxt`) is decided by the rules. The fragment is never part of the path (as before).
+
+Controls (committed before any build seat is dispatched; QUALITY (j) applies as declared): the
+base (do nothing), the round-37 retained controls re-scored, and a pre-freeze control call of fresh
+critic and mutation-tester seats building from this public text only: constant clean, junk,
+all-false, no-reader, a shortcut keyed on ids, file names, URL words and user-agent names, a
+stdlib-delegating shortcut patched for every non-(g)/(d) rule, a cheapest-wrapper shortcut around
+the base tool, and a mutation pass on the private reference. **A control that meets the predicate
+means this counter or target is wrong: C1 is then redesigned before any build seat is dispatched
+or withdrawn; no reclassification of the control is an option.** This round-38 counter does not
+replace the round-37 counter as round 37's rule of record.
