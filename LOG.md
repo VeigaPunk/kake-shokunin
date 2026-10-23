@@ -1563,3 +1563,21 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   106/106, hardening 9/9 → 10/10).
 - Lesson `corpus/lessons/round-39.md` (Mistakes 1–3); QUALITY (o), (p). Motivating evidence: round-38
   closure routed defects 1–6 and the thin-key receipts in `.ufo/waves/round-39/verification/a3/`.
+
+## Round 40 — 2026-10-23 (kake L1 `KakeR40`, attempt 1, hyaku in-session)
+
+- Declared C1 (`f043c721`): repair `scripts/sitemap_audit.py` on three routed input classes (E UTF-16
+  without BOM, U values `urlsplit` alters, R repeat of an invalid check's id); public 30-witness counter
+  `6d73b8f4…` plus the round-39 selftest; base 10 of 30. D1 rejected by source (S110 §2.8), D3 kept as
+  the sentence-9 reading. Sources S110–S114 (S112–S114 supersede S106, S107, S109; routed defect 1);
+  SCORECARD correction marks the round-39 capability admitted `unprovable-but-better`.
+- Wave 1 (39 seats; 7 refused by the provider, 1 dead): 27 of 76 control receipts met the predicate
+  (key-finder and label replay through the case-directory name, position-keyed, proxy and partial
+  repairs on unsampled sub-shapes), so kill rule (1) fired before the build (`12211cc5`): C1 is
+  exploratory.
+- Build `56d57ee4` (= L1 reference bytes `03a8fba4…`): selftest 150 → 179 (23 new fixtures red on the
+  round-39 bytes, green now); real run on six public sitemaps byte-equal to round 39; counter 30/30 as
+  information. SKILL amendment for the repaired row.
+- Lesson `corpus/lessons/round-40.md` (Mistakes 1–2; corrections to the round-39 report counts);
+  QUALITY (o) amended, (q), (r); S115 supersedes S111. Motivating evidence: round-39 closure routed
+  defects 1–5 and `.ufo/waves/round-40/verification/w1/`.

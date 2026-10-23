@@ -987,3 +987,28 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
   (`.ufo/waves/round-39/criteria/control_consequence_check.py`); it decides by receipt bytes (frozen
   counter, predicate, key; rows; build by tool bytes), never by file name, label or class text
   (round-38 closure routed defect 4).
+
+## Round-40 criteria
+
+- **(o) amended, round 40: it applies to every counter, public or sealed.** A counter (witness set,
+  fixture key or sealed key) is admitted only when non-author control receipts scored with the same
+  counter bytes are committed at or before the declaration revision. Grounding: lesson round-40
+  Mistake 1 (round-40 declaration frozen on L1-only controls; 27 of 76 later non-author controls met it;
+  round-39 spot-check routed defect 4 had named this duty). Check:
+  `.ufo/waves/round-40/criteria/preseal_order_check.py --revision <declaration> --counter <path>
+  --receipts <dir>` — red at `f043c721` and at round 39's `ceecb1b1`, green at `12211cc5`
+  (`.ufo/waves/round-40/verification/criteria/preseal-*.txt`).
+- **(q) A routed defect is re-derived from its source or contract sentence before a fix is built.** A
+  fix the source contradicts is recorded as a reject with the quote, not built. Grounding: lesson
+  round-40 Mistake 2 (routed "fix D1" contradicted by S110 §2.8; a D1-"fixed" mutant meets the round's
+  counter, so only a dedicated check catches it). Check for the D1 instance:
+  `.ufo/waves/round-40/criteria/d1_check.py --tool <tool>` (exit 1 on `criteria/mutant_d1_fixed.py`,
+  exit 0 on the base and the build) and selftest fixture `r40_d1_version_1_1_clean`.
+- **(r) A counter's sandbox exposes no witness identity.** Case directories, mount sources, argv and
+  environment visible to the tool carry no witness id or label, and the regression half runs under the
+  same sandbox. Grounding: lesson round-40 Mistake 1 evidence (`CtlKeyFinder`: witness id read from
+  `/proc/1/cmdline` and `/proc/self/mountinfo`; selftest case directory names key a 150-row table;
+  `CtlLabelKeyed`: same leak). Check: the committed `CtlKeyFinder` and `CtlLabelKeyed` tools
+  (`.ufo/waves/round-40/controls/w1/`) are standing controls — a future counter must score them below
+  its target; the round-40 counter scores them 30 of 30 (`verification/w1/CtlKeyFinder__*.json`,
+  `CtlLabelKeyed__ctl_label_keyed.json`), so this check is red on it.

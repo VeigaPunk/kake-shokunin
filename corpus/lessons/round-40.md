@@ -30,3 +30,81 @@ Rejects this round (recorded before data):
 - **Not changed: D3** (`doctype_present` over a malformed remainder). Reason: sentence 9 is the lane's
   safety reading and the round-39 build declared this precedence; the contract does not order (b)'s two
   sentences, and changing it would be a contract change, not a repair.
+
+## Wave 1 — source re-opens and row corrections
+
+Fresh scouts re-opened S110–S114 (`.ufo/waves/round-40/w1/Reopen*.md`; live sha256 equal to the retained
+bytes for S110–S113; S114's page bytes vary, visible text equal). Decisions:
+- **S110, S112, S113 hold** as written (every `teaches` clause located).
+- **S111 `teaches` "must reject those values before splitting" — accepted as overstated** (`ReopenS111`):
+  the page says what `urlsplit` strips and warns "urlsplit() does not perform validation"; the rejection is
+  the lane's contract reading. Correction row **S115** (`supersedes S111 —`), written after the L1 re-read
+  the retained bytes (`.ufo/waves/round-40/sources/py-urllib-parse.html`, sha256 `835af739…`, the Warning
+  at line 419).
+- **S114 "same-domain URLs only" — scout's "overstated" rejected.** Reason: the page says "Specify only
+  page links of the domain where the file will be located." (retained `yandex-sitemap.html`, located in the
+  stripped text by the L1); that is same-domain URLs only. The scout read "same domain" as file placement
+  only; the sentence before the placement sentence is about the listed links. S114 stands.
+Row changes: S115 added. No `status`, `recheck` or `used-by` change to an existing row.
+
+| Row | URL | Accessed | Located quote (≤25 words) | Decision |
+|---|---|---|---|---|
+| S115 | https://docs.python.org/3/library/urllib.parse.html | 2026-10-23T08:28:47Z (retained), re-fetched 08:38:34Z by `ReopenS111`, same sha256 | "urlsplit() does not perform validation." (Warning under `urlsplit`) | admit, supersedes S111 |
+
+## Wave 1 — the control wave fired the kill rule
+
+27 of 76 control receipts meet the frozen predicate (`SCORECARD.md` "Round 40 — kill rule (1) fired";
+`.ufo/waves/round-40/verification/w1/`). C1 is exploratory. The build still landed (`56d57ee4`): selftest
+150 → 179 fixtures, 23 new fixtures red on the round-39 bytes (`verification/build/selftest-new-on-base.txt`,
+`PASS 156/179`, exit 1) and green on the build (`selftest-new-on-build.txt`, `PASS 179/179`, exit 0); the
+new fixtures include the sub-shapes five meeting controls exploited (LF in `sitemapUrl`, leading NUL and
+U+001F, TAB in a query, LF in a fragment, UTF-16 index, upper-case repeated id). Real run on the six
+round-39 public sitemaps: byte-equal JSON to the round-39 build (`jq -S . | sha256sum` →
+`fd985a41…`, `verification/harm/realrun-build-56d57ee4.json`). Counter at the build: 30 of 30, selftest
+150/150, met — information only (`verification/c1-at-56d57ee4*.json`).
+
+Other wave-1 findings carried to the report: `CriticD1Reject` holds the D1 rejection;
+`ReviewD3Reading` holds "D3 not changed" (its F1: the round-39 D3 wording is broader than the behaviour —
+a parse must reach the DOCTYPE); `ReviewWitnessContract` agrees with all 30 witnesses (F3: no witness
+repeats a valid check's id); `ReviewCounterCode`: environment failures exit 1 without a receipt instead
+of 2 (MEDIUM), judge leniencies (LOW); `ExecIndependentOracle`: libxml2 agrees with the contract on E only
+partly (it re-sniffs UTF-16 when a declaration is present) and has no leverage on U, so an oracle-backed
+measured claim next round needs an RFC 3986 absolute-URI checker, not xmllint.
+
+## Mistakes
+
+1. **Class: a counter frozen on author-only controls, against a routed defect.** Evidence: the
+   declaration `f043c721` names only L1 controls and the L1 reference (`SCORECARD.md` "Round 40 — C1
+   declared"); the round-39 spot-check routed "any later countable sitemap claim must first pass
+   QUALITY (o): non-author mutant families and a tweaked shortcut scored below target before the
+   declaration freezes the key" (`round-39-verifier-spotcheck.md` routed defect 4); after the freeze,
+   27 of 76 non-author controls met it, including a key-finder and a label replay through the
+   `case-<witness id>` directory name visible in `/proc` (`CtlKeyFinder.md`, `CtlLabelKeyed.md`).
+   The L1 read (o) as applying to sealed keys only. Captured-by: QUALITY (o) — the rule existed and the
+   routed defect named it; not applied. Fix: QUALITY (o) amended for round 40 (any counter, public or
+   sealed) with an executable check `.ufo/waves/round-40/criteria/preseal_order_check.py`. Shown able to
+   fail: red at the round-40 declaration `f043c721` (0 non-author receipts with the counter's sha256,
+   exit 1) and at the round-39 declaration `ceecb1b1` (exit 1); green at `12211cc5` (76 receipts, exit 0)
+   (`.ufo/waves/round-40/verification/criteria/preseal-*.txt`).
+2. **Class: a routed defect taken as a requirement without re-deriving it from its source (near-miss).**
+   Evidence: spot-check routed defect 2 said "fix D1" (XML 1.x accepted); S110 §2.8 says an XML 1.0
+   processor processes a 1.x document as 1.0, so the fix would have made the tool reject well-formed
+   XML 1.0. A D1-"fixed" mutant meets the C1 counter (`ExecD1Check`: 30/30, 150/150), so nothing the
+   round measured would have caught it. Captured-by: none. Fix: QUALITY (q) and
+   `.ufo/waves/round-40/criteria/d1_check.py` plus selftest fixture `r40_d1_version_1_1_clean`. Shown able
+   to fail: `d1_check.py` exit 1 on `criteria/mutant_d1_fixed.py`, exit 0 on the base and the build
+   (`verification/w1/d1check-{base,ref,mutant}.txt`).
+
+Sweep for others (`ScribeMistake.md`, read-only over rounds 38–39 lessons and spot-checks): QUALITY (n)
+still has no check; the round-39 lesson's "5 false accepts in 15" and "seven returned source or diffs" are
+corrected below.
+
+## Corrections to round 39 (appended; the round-39 report and lesson are not edited)
+
+Re-derived from committed bytes by `ScribeR39ReportCorrections` (commands in its report):
+1. Report "surface unmoved": `git ls-tree -r --name-only 565ef4c9 scripts/ | grep -c sitemap_audit` gives
+   **2** (tool and selftest); `grep -cx scripts/sitemap_audit.py` gives 1.
+2. Report and lesson Mistake 3: **six** critic seats returned source or diffs (three source, three diffs);
+   `CtlValuesOnly` and `CtlHandTokenizer` wrote their files; `CtlStructureOnly` was refused.
+3. Lesson Gate rejects: the criterion-(o) draft checker gave **5 false accepts in 7 adversarial samples**
+   (`w2a3/MutCriterionO.md`), not "in 15".
