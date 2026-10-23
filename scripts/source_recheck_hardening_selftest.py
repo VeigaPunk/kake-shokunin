@@ -19,6 +19,12 @@ Round 38 adds the two carried read-cap defects (round-37 w2/SentinelHardening.md
   g35  a manifest inside the 64 MiB cap (~60 MiB) whose parse cannot fit the address space is one
        input_invalid with a report, not a MemoryError with no stdout (base: exit 1, no JSON).
 
+Round 39 pins one defect carried from round 38 (SCORECARD.md "Defects carried to round 39"):
+
+  g36  an oversized body on a chain that starts with a permanent hop is one check_invalid, not
+       `moved` plus `check_invalid`, and the check is not counted in checksEvaluated (base for
+       the fixture: two findings for that check and checksEvaluated 2).
+
 Two page-text fixtures pin the contract (c) amendment implemented with them:
 
   c-attributed-script         `<script` inside another tag's quoted attribute value opens nothing
@@ -91,6 +97,13 @@ CONTRACT = {
         'as evaluated." No body, however large, is read into memory or reported as a crash, and '
         'a manifest inside the 64 MiB cap whose JSON parse cannot fit the address space is an '
         'unreadable manifest: one input_invalid with check null.'
+    ),
+    "body-cap-moved": (
+        '(g) "A check that breaks any manifest rule above ...: one check_invalid finding for it '
+        '... and no other finding for it; the other checks are still evaluated and their '
+        'findings reported. checksEvaluated counts the checks that are not check_invalid." '
+        'Round-39: a body over the stated 16 MiB cap is that input fault even when the chain '
+        'starts with a permanent hop, so the check gets no moved finding and is not counted.'
     ),
     "c": (
         '(c) HTML text. "the contents of script, style and template elements removed (start tag '
@@ -215,22 +228,34 @@ def build_fixtures():
     # Round-38: carried read-cap defects. A body over the stated cap is one check_invalid for
     # that check; no body is read into memory; a near-cap manifest that cannot be parsed in the
     # address space is one input_invalid with a report.
-    # checksEvaluated is left unpinned for g33/g34: contract (g) says it "counts the checks that
-    # are not check_invalid" while the tool increments before an evaluate-time check_invalid
-    # (unreadable body), a reading no round-36 fixture pins (18 undecided points). The caps
-    # themselves are pinned by exit, verdict and findings; the round-36 counter does not compare
-    # checksEvaluated either.
+    # Round-39 decides what this file left unpinned: contract (g) says checksEvaluated "counts
+    # the checks that are not check_invalid", so an evaluate-time check_invalid (unreadable or
+    # oversized body) is not counted; g33/g34 now pin 0 and g36 pins the moved finding.
     add("g33-body-over-cap", CONTRACT["body-cap"],
         manifest=mf([chk(quote=QUOTE, contentType="text/html", body="body.html")]),
         files={"body.html": b"<p>" + b"A" * (BODY_CAP + 1) + b"</p>"},
         exit_code=2, verdict="could-not-evaluate",
-        findings=[f("k1", "check_invalid")])
+        findings=[f("k1", "check_invalid")], evaluated=0)
     add("g34-body-1g", CONTRACT["body-cap"],
         manifest=mf([chk(quote=QUOTE, contentType="text/html", body="body.bin")]),
         sparse={"body.bin": 1024 * 1024 * 1024},
         exit_code=2, verdict="could-not-evaluate",
-        findings=[f("k1", "check_invalid")],
+        findings=[f("k1", "check_invalid")], evaluated=0,
         rlimit_as=MEMORY_LIMIT, timeout=30)
+    # Round-39: a body over the cap is an input fault for that check, so contract (g)'s "no
+    # other finding for it" also drops the moved finding of a leading permanent run, and
+    # checksEvaluated counts the other check only.
+    add("g36-body-over-cap-with-moved", CONTRACT["body-cap-moved"],
+        manifest=mf([
+            chk("kbad", quote=QUOTE, contentType="text/html", body="big.html",
+                hops=[{"status": 301, "location": "/final"},
+                      {"status": 200, "location": NON_REDIRECT_LOCATION}]),
+            chk("kgood", quote=QUOTE, contentType="text/html", body="small.html"),
+        ]),
+        files={"big.html": b"<p>" + b"A" * (BODY_CAP + 1) + b"</p>",
+               "small.html": b"<p>VISIBLE</p>"},
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("kbad", "check_invalid")], evaluated=1)
     add("g35-near-cap-manifest", CONTRACT["body-cap"], raw=NEAR_CAP_MANIFEST,
         exit_code=2, verdict="could-not-evaluate",
         findings=[f(None, "input_invalid")], evaluated=0,

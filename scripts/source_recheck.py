@@ -9,8 +9,9 @@ library only.
 
 Stated input caps (round-38 repair of bullet (g)): a manifest larger than 64 MiB
 is refused as an unreadable manifest (one input_invalid); a body file larger than
-16 MiB is an input fault for that check (one check_invalid).  Neither is ever read
-into memory, so a hostile input cannot turn into a MemoryError with no report.
+16 MiB is an input fault for that check (one check_invalid, no other finding for
+it, and the check is not counted as evaluated).  Neither is ever read into memory,
+so a hostile input cannot turn into a MemoryError with no report.
 
 Usage:
     python3 scripts/source_recheck.py --manifest PATH
@@ -580,8 +581,16 @@ def moved_target(check) -> str | None:
     return resolved
 
 
-def evaluate_check(check, manifest_dir: str) -> list:
-    """Findings for one valid check."""
+def evaluate_check(check, manifest_dir: str):
+    """Findings for one valid check, or None when the check is an input fault.
+
+    Round-39 (contract (g)): an input fault for a check is "one check_invalid
+    finding for it ... and no other finding for it", and checksEvaluated "counts
+    the checks that are not check_invalid". The caller reports the None case as
+    that one check_invalid and does not count the check. A body that cannot be
+    opened or read, or is over MAX_BODY_BYTES, is such a fault, so the moved
+    finding of a leading permanent run is never reported beside it.
+    """
     findings = []
     cid = check["id"]
     target = moved_target(check)
@@ -606,11 +615,9 @@ def evaluate_check(check, manifest_dir: str) -> list:
                 # memory and never crashes the run (round-37 defect 1).
                 data = handle.read(MAX_BODY_BYTES + 1)
         except (OSError, MemoryError, ValueError):
-            findings.append(finding(cid, "check_invalid"))
-            return findings
+            return None
         if len(data) > MAX_BODY_BYTES:
-            findings.append(finding(cid, "check_invalid"))
-            return findings
+            return None
         codec, payload = pick_encoding(data, params.get("charset"))
         if codec is None:
             findings.append(finding(cid, "charset_unsupported"))
@@ -751,8 +758,14 @@ def main(argv) -> int:
         if not validate_check(check, manifest_dir):
             findings.append(finding(check_id_of(check), "check_invalid"))
             continue
+        produced = evaluate_check(check, manifest_dir)
+        if produced is None:
+            # Round-39: an evaluate-time input fault is one check_invalid for the
+            # check, and the check is not counted (contract (g)).
+            findings.append(finding(check_id_of(check), "check_invalid"))
+            continue
         evaluated += 1
-        findings.extend(evaluate_check(check, manifest_dir))
+        findings.extend(produced)
     return emit(decide_verdict(findings), evaluated, findings)
 
 
