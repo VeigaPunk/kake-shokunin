@@ -194,6 +194,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Offline project-site base-path audit | Reads a version-1 manifest of local built HTML pages with a declared base path and reports, read-only and network-free, each same-site reference (http and https on one host count as one site) that resolves outside that base path (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no live serving, redirect, rendered-DOM or CSS/JavaScript URL claim | `scripts/base_path_audit.py`; `python3 -B .ufo/waves/round-29/c2_matrix_count.py --root . --revision d8cd2e45a903fb05e4f34179aae8a21095a83dbb` → 30/30 with all three constant gates rejected (`.ufo/waves/round-29/verification/c2-after-d8cd2e4.json`); committed selftest 45/45 (`verification/selftest-lane-final.json`); real-input run on the round-23 snapshots of three owned project sites: 3 pages, 114 references, 4 findings, all `<a href>` to other paths on the owner host (`.ufo/waves/round-29/real-input/out/summary.json`) | 29 |
 | Offline link-preview (Open Graph) audit | Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim | `scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`; the declared measure, necessary but not sufficient), and at the wave-2 repair `76fac3b` (`c1-at-76fac3b.json`); evidence below was added after the declaration and does not count toward C1: committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4) | 34 |
 | Link-preview audit, round-35 contract | The same audit also reports more than one non-empty og:url (`og_url_multiple`), ignores meta and link tags inside an open `<template>`, `<svg>` or `<math>` element, and keeps auditing the readable pages when one page cannot be read (exit 2 with input and policy findings together) | `scripts/link_preview_audit.py` at `b1cbbc39`; sealed counter 24 of 24 (`.ufo/waves/round-35/verification/c1-at-b1cbbc39.json`, reveal `4c6be2bd`) against 14 of 24 at base and 7 of 24 for the lookup and constant controls; selftest 45/45 and round-34 matrix 28/28 at `b1cbbc39` (`verification/selftest-link-preview-at-b1cbbc39.txt`, `c1r34-matrix-at-b1cbbc39.json`) | 35 |
+| Offline source re-check audit | Reads a version-1 manifest of recorded fetches (hops, contentType, body) of registry sources and reports, read-only and network-free, whether each row's quote still occurs in its source: final status (gone, http_error), permanent redirects with the resolved new URL (moved), HTML text rules, NFKC and whitespace-deleted case-sensitive matching (quote_missing), media types and WHATWG charset decoding (unsupported_type, charset_unsupported), per-check input faults (exits 0/1/2/64); with `scripts/source_snapshot.py` it re-checks live Gate quotes | `scripts/source_recheck.py` at `4d5b3d55`; sealed counter 28 of 28 (`.ufo/waves/round-36/verification/c1-keyrev-at-4d5b3d55.json`, reveal `fd1fb723`) against 0 at base and at most 12 for the control seats; selftest 101/101; real-input run on 90 Gate quotes (`.ufo/waves/round-36/realrun/audit.json`) | 36 |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -1705,3 +1706,27 @@ no decoding with every undecodable body called a hold (24).
 Correction of the declaration's base line: the full base hash is
 `b720d799ae99c19a7c97f2b1391d4fe928be0e11`. The hash written at `3555f63f` after "Base" is wrong
 (an L1 typing error); every receipt used the short form `b720d799` or the hash above.
+
+## Round 36 — measured results (author-side; admission belongs to the non-author closure)
+
+Key v2 revealed at `fd1fb723624b742a00a6e8e908f3b42901d627f8`. The predicate was declared at
+`3555f63f` and is unchanged; counter version 3 (`cd321279`) landed before any build. Receipts are
+`.ufo/waves/round-36/verification/c1-*.json` with matching `.exit` files.
+
+| Claim | Before (rev) | After (rev) | Counting command | Predicate |
+|---|---|---|---|---|
+| C1 source re-check audit (freshness, capability) | passed 0 of 28 (`b720d799`, `cd321279`) | passed 28 of 28 (`4d5b3d55`) | `python3 -B .ufo/waves/round-36/sealed_count.py --root . --revision <rev> --key-revision fd1fb723` | `met: passed >= 25 of 28 sealed cases`: met |
+
+- Measuring the reveal commit is refused with exit 2 (`c1-keyrev-at-fd1fb723.json`).
+- The tool is wave-1 `ExecToolBuild`'s file (sha256 `577b2d7d…0d48`), landed unedited. An
+  independent blind implementation by wave-1 `ExecSelftest` also scores 28 of 28
+  (`verification/independent-selftest-reference.json`).
+- Controls under the same counter: base 0; constant clean 0; all-false 0; no-reader 8; naive
+  reader 12; shortcut 9; 36 reference ablations 13 to 24. None met.
+- Selftest `scripts/source_recheck_selftest.py` 101/101 on the landed tool (fixture f08 corrected
+  by the L1; lesson mistake row 4).
+- Freshness evidence (not a counted claim): the first live re-check of 90 Gate quotes found 14
+  findings on 13 rows (lesson "Real-input run"); wave 2 re-opens each by hand.
+- Capability row "Offline source re-check audit" entered `## Capabilities`. Axis ratings
+  unchanged (10 → 10).
+- Limits: lesson `corpus/lessons/round-36.md` "Carried open".

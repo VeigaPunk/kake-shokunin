@@ -1484,3 +1484,23 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   sentence by sentence; two Pages sentences were corrected by append. Added fixture
   `og_url_multiple_first_value_checked` (selftest 46/46). S001 and S002 used-by cells now name
   the entry. SKILL exit-64 label and S074 note wording fixed in place.
+
+## Round 36 (2026-10-23) — source re-check audit on sealed cases
+
+- Repair-first after two rejections. One claim on a new surface (no knowledge-entry claim):
+  `scripts/source_recheck.py`, an offline re-check of a registry row's quote against a recorded
+  fetch. Declared at `3555f63f` with 28 sealed cases pinned by sha256; predicate
+  `met: passed >= 25 of 28 sealed cases`.
+- Sources S088–S094 opened at 01:08Z before the declaration (5 mined, 2 rejected), each
+  re-opened live by an independent wave-1 scout: all byte-identical.
+- Before any build: counter v2 jails the tool (the L1's own review); the 7-seat control wave
+  (`kake-r36-ctl`; 2 seats ended on a cyber-policy filter, holds) built five controls; the
+  shortcut passed every (e) and (f) case under key v1, so key v2 and counter v3 (pin only)
+  landed at `cd321279`. Controls under v3: 0, 0, 8, 12, 9; 36 ablations 13–24.
+- Wave 1 `kake-r36-w1` (36 seats). Build `4d5b3d55` (`ExecToolBuild`, unedited): sealed 0 → 28
+  of 28; an independent blind implementation also 28. Selftest 101/101. Reveal `fd1fb723`.
+- Re-verification result: the first live re-check of 90 Gate quotes (`realrun/audit.json`)
+  flagged 9 quote_missing, 2 moved (S040, S068), 1 gone (S087), 2 unsupported_type.
+- Round-35 routed defects: QUALITY round-36 (a)–(f) with four criteria checks shown able to
+  fail; S084 and Preferred-Languages corrections appended; SKILL registry rows for
+  source-recheck-audit and source-snapshot.
