@@ -119,3 +119,59 @@ corrections, each check shown able to fail:
   (D1); duplicate check ids split (D2, no sealed case has one); a missing `--tool-file` exits 1.
   Earlier case directories are visible to later cases inside the jail (`w1/ReviewJailIsolation.md`).
 - 18 contract points are undecided by the text (`w1/CriticContractAmbiguity.md`).
+
+## Wave-2 corrections (appended)
+
+Wave 2 `kake-r36-w2` (34 seats) attacked the landed work; reports in `.ufo/waves/round-36/w2/`.
+The declaration, the counter and the measured result stay as landed.
+
+- Reproduced: `RerunC1Sealed` (four runs byte-identical to the receipts), `RerunControls` (five
+  controls, the independent implementation, byte-identical), `RerunAblations` (36 of 36),
+  `ReviewLessonAndScorecard` (every headline number), `ReviewRealRunInput` (audit byte-identical).
+- The build also meets under the earlier counters: counter v1 and v2 with key v1 give 28 of 28 at
+  `4d5b3d55` (`verification/c1-counter-v1-keyv1-at-4d5b3d55.json`, `c1-counter-v2-keyv1-…`). So the
+  measured result does not depend on the v2 or v3 change.
+- Overstated in the declaration: "every case of a bullet carries one check per rule of that bullet,
+  so a tool that skips any one rule fails all four cases". That held for the L1's 36 ablations, not
+  for every rule. `MutTool`: 9 of 32 single-point mutants of the landed tool still meet 25 (redirect
+  base from the original URL, dot segments kept, case-sensitive raw start tags, case-sensitive
+  parameter names, BOM mark kept, `ascii` as ASCII, invalid bytes dropped, empty id accepted,
+  version unchecked); 3 of them also pass the selftest (M07, M08, M24). `RerunAblations`: 5 of 6
+  new reference mutants meet 28 (manifest-level faults, version, missing body file, uppercase
+  `<SCRIPT>`, references without semicolon). `CriticKeyV2Change`: an HTML-only casefold defect
+  scores 24 under key v1 and 26 under key v2, because two case checks moved to `text/plain`.
+  No do-nothing, junk, all-false, no-reader or shortcut control reached 25 under any version.
+- Contract imprecision found (no sealed case depends on any of them, `CriticSealedCasesFairness`):
+  `html.unescape` deletes 94 control and noncharacter code points the HTML tokenizer keeps
+  (`w1/ExecProbeUnescape.md`); RFC 9110 never calls 303 temporary; the terminal hop's `location`
+  is shown in the manifest shape but is optional in every case.
+- Tool defects outside the sealed set: a `<script` string inside an attribute value opens a
+  script element and truncates the page (`ReopenFlagS025`; this caused the S025 real-run miss);
+  a body symlink inside the manifest directory pointing outside it was read (`ExecDifferential`
+  C9). The L1 repaired the symlink case after measurement: `realpath` containment in `body_path`;
+  reproducer `verification/postfix-symlink-reproducer.txt` (old tool `clean`, new `check_invalid`),
+  selftest 101/101, sealed 28 of 28 on a sandbox commit built on `4d5b3d55`
+  (`verification/c1-postfix-at-bf9b2089.json`, bundle `retained/r36-l1-postfix-remeasure.bundle`).
+  It counts toward no claim. The attribute case is carried to round 37.
+- Recorder: `scripts/source_snapshot.py` sent no `Accept-Language`, so developers.facebook.com
+  served Portuguese (`ReopenFlagS068`). The L1 added `Accept-Language: en-US,en;q=0.9`.
+- Real-input run, re-opened by hand (13 seats): S040 and S068 moved are real (301 to a new URL);
+  S087 gone is real (already rejected); S004, S005, S006, S008 and S017 are markdown backticks in
+  the round-20 Gate quotes, not drift; S007 is a schema transcription already corrected in
+  `ghp-custom-domain.md`; S025 is the tool defect above; S065 names a page that loads diffs by
+  script; S016 and S066 are JSON endpoints. Run 2 (Accept-Language set, backticks removed;
+  `realrun/audit-run2.json`): 8 findings — S007, S025, S065 quote_missing; S016, S066
+  unsupported_type; S040, S068 moved; S087 gone. Notes appended to `corpus/SOURCES.md`.
+- Nits fixed by reading: the S068 arrow in "Real-input run" above names the origin URL; the
+  target is `https://developers.facebook.com/documentation/sharing/webmasters`. Receipt
+  `predicate` fields omit the `met:` prefix of the declared sentence; the condition is the same.
+  Mistake row 2's "pre-freeze control wave" means after the declaration and before any build.
+  The extra L1 files in the working tree during wave 2 were the L1's own, not seats'.
+- Hold: wave-2 `CriticClaimSufficiency` ended at once on a provider cyber-policy filter; not
+  retried, no findings.
+
+### Mistakes (appended row)
+
+| Class | Evidence | Captured-by | Fix |
+|---|---|---|---|
+| a declaration claimed that skipping any one rule fails a bullet, but measured only the L1's own ablations | SCORECARD "Round 36 — declared claims" sentence; `w2/MutTool.md` (9 of 32 survive), `w2/RerunAblations.md` (5 of 6 survive) | wave-2 mutation seats; no pre-build check | next declaration states coverage as "each of the N listed ablations scores at most …" and ships a mutation pass on the reference before the freeze; `criteria/ablation_floor_check.py` already fails a receipt set where a listed ablation meets target (`verification/criterion-ablation-floor-r35-shape.txt`) |

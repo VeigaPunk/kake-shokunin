@@ -399,6 +399,12 @@ def body_path(manifest_dir: str, body: str):
     candidate = os.path.normpath(os.path.join(root, body))
     if candidate != root and not candidate.startswith(root + os.sep):
         return None
+    # Round-36 post-measurement repair (L1, after wave-2 ExecDifferential C9): a
+    # symlink inside the directory must not lead outside it (contract (g)).
+    real_root = os.path.realpath(root)
+    real = os.path.realpath(candidate)
+    if real != real_root and not real.startswith(real_root + os.sep):
+        return None
     try:
         if not os.path.isfile(candidate):
             return None

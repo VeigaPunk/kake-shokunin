@@ -1730,3 +1730,23 @@ Key v2 revealed at `fd1fb723624b742a00a6e8e908f3b42901d627f8`. The predicate was
 - Capability row "Offline source re-check audit" entered `## Capabilities`. Axis ratings
   unchanged (10 → 10).
 - Limits: lesson `corpus/lessons/round-36.md` "Carried open".
+
+## Round 36 — wave-2 corrections (appended)
+
+Wave 2 `kake-r36-w2` (34 seats; `CriticClaimSufficiency` ended on a cyber-policy filter, a hold)
+attacked the landed work; reports in `.ufo/waves/round-36/w2/`. The declaration, the counter and
+the measured result stay as landed; details in `corpus/lessons/round-36.md` "Wave-2 corrections".
+- Every receipt reproduced (C1 runs, controls, ablations, real-run audit). The build also meets
+  under counters v1 and v2 with key v1 (28 of 28), so the result does not rest on the v2 or v3
+  change.
+- The declaration's sentence "a tool that skips any one rule fails all four cases of its bullet"
+  is overstated: it held for the 36 listed ablations, while 9 of 32 single-point mutants of the
+  landed tool and 5 of 6 new reference mutants still meet 25 (`w2/MutTool.md`,
+  `w2/RerunAblations.md`), and an HTML-only casefold defect scores 26 under key v2
+  (`w2/CriticKeyV2Change.md`). No do-nothing, junk, all-false, no-reader or shortcut control met 25.
+- Tool defects outside the sealed set: attribute-embedded `<script` truncates a page (carried);
+  body symlink escape (repaired after measurement, sandbox re-measure 28 of 28 at `bf9b2089`,
+  counts toward no claim). Recorder now sends `Accept-Language`.
+- Freshness result after hand re-opens: 2 rows moved (S040, S068; notes appended to SOURCES.md),
+  S087 still gone; 5 Gate quotes carry markdown backticks (no drift); run 2 gives 8 findings, each
+  explained (`realrun/audit-run2.json`).

@@ -96,7 +96,9 @@ def fetch_once(opener, url: str, timeout: float) -> tuple[int, object, bytes]:
     global _LAST_REQUEST
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": UA, "Accept": "*/*"},
+        # Accept-Language added by the L1 after wave-2 ReopenFlagS068: without it
+        # developers.facebook.com served a Portuguese page; matches fetch_sources.py.
+        headers={"User-Agent": UA, "Accept": "*/*", "Accept-Language": "en-US,en;q=0.9"},
         method="GET",
     )
     try:
