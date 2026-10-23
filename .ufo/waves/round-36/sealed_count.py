@@ -25,6 +25,12 @@ code, the report's `verdict` and the multiset of findings projected on (check, r
 equal the sealed expectation; `target` is compared for `moved` findings only (others project to
 null). `checksEvaluated` and any other field are not compared.
 
+Version 2 (before any build and before any control seat's tool was scored; version 1 is kept
+as `sealed_count_v1.py`): the L1's own review found that a tool run by version 1 could read this
+counter's command line through /proc and so learn the key path or key revision, then read the key
+from the lane. Version 2 runs the tool in a bubblewrap jail (see `jail`). The cases, the key pin,
+the projection, the judge and the predicate are unchanged.
+
 Exit 0 when met, 1 when not met, 2 when it cannot evaluate (unresolved revision, key sha256
 mismatch, key visible at REV).
 """
@@ -35,6 +41,7 @@ import base64
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -143,6 +150,18 @@ def judge(case: dict, proc: subprocess.CompletedProcess | None, idmap: dict) -> 
     return observed == expected
 
 
+def jail(scratch: str, work: Path) -> list[str]:
+    """Version 2: the tool runs in a bubblewrap jail that sees only /usr and the scratch
+    directory (its case, the tool file and the escaping body file). No /home, no other
+    /fast path, no network, its own pid namespace, so it cannot read the key file, the lane
+    repository or this counter's command line (which names the key path or key revision)."""
+    return ["bwrap", "--ro-bind", "/usr", "/usr", "--symlink", "usr/lib", "/lib", "--symlink", "usr/lib64",
+            "/lib64", "--symlink", "usr/bin", "/bin", "--proc", "/proc", "--dev", "/dev", "--tmpfs", "/tmp",
+            "--bind", scratch, scratch, "--chdir", str(work), "--unshare-all", "--die-with-parent",
+            "--clearenv", "--setenv", "PATH", "/usr/bin", "--setenv", "HOME", scratch,
+            "--setenv", "LC_ALL", "C.UTF-8", "--setenv", "PYTHONDONTWRITEBYTECODE", "1"]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=".")
@@ -170,6 +189,10 @@ def main() -> int:
     else:
         out["toolFile"] = args.tool_file
         tool = Path(args.tool_file).read_bytes()
+    if shutil.which("bwrap") is None or not Path("/usr/bin/python3").is_file():
+        out["error"] = "bwrap or /usr/bin/python3 missing: the tool cannot be jailed"
+        print(json.dumps(out, indent=1))
+        return 2
     key, why = load_key(args)
     if key is None:
         out["error"] = why
@@ -187,11 +210,10 @@ def main() -> int:
                 work = Path(scratch) / uuid.uuid4().hex
                 work.mkdir()
                 mpath, idmap = materialize(case, work)
-                env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": scratch,
-                       "LC_ALL": "C.UTF-8", "PYTHONDONTWRITEBYTECODE": "1"}
                 try:
-                    proc = subprocess.run([sys.executable, "-B", str(tool_path), "--manifest", str(mpath)],
-                                          cwd=work, capture_output=True, timeout=TIMEOUT, env=env)
+                    proc = subprocess.run(jail(scratch, work) + ["/usr/bin/python3", "-B", str(tool_path),
+                                          "--manifest", str(mpath)], cwd=work, capture_output=True,
+                                          timeout=TIMEOUT, env={})
                     proc.stdout = proc.stdout.decode("utf-8", "replace")
                 except subprocess.TimeoutExpired:
                     proc = None

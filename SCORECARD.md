@@ -1663,3 +1663,16 @@ tool (non-JSON output); a shortcut tool keyed on ids, URL words and quote words;
 private reference with each of its 34 rule ablations. The non-ablation controls are built by a
 pre-freeze control wave of fresh critic and mutation-tester seats from this public text only.
 A control that meets the predicate means the counter is wrong, and it is fixed before any build.
+
+### Round 36 — counter version 2, before any build or control seat is scored (appended)
+
+The L1's own review of the frozen counter (`sealed_count.py` at `3555f63f`, kept as
+`sealed_count_v1.py`, sha256 `28169d95…9728`) found that a tool it runs could read the counter's
+command line through /proc, learn the key path or key revision, and read the key from the lane.
+Version 2 (sha256 `1bf16734…162c`) runs the tool in a bubblewrap jail that sees only `/usr` and
+the scratch directory, with no network and its own pid namespace; without `bwrap` it exits 2. The
+cases, the key pin, the projection, the judge and the predicate (`met: passed >= 25 of 28 sealed
+cases`) are unchanged. No build exists and no control seat's tool had been scored. Rescored under
+version 2 (`.ufo/waves/round-36/verification/`): base `b720d799` 0 of 28 and declaration
+`3555f63f` 0 of 28, exit 1; the private reference 28 of 28; each of the 34 rule ablations 16 to
+24 of 28, none met (`verification/ablations/`).
