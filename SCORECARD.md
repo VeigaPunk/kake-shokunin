@@ -2328,3 +2328,76 @@ Wave 2 `kake-r38-w2` (34 seats: 19 reviewer, 5 scout, 4 mutation-tester, 3 criti
   (`ReviewTimelineCheck`).
 - Source and knowledge-entry wording fixes are logged in `corpus/lessons/round-38.md`
   "Wave-2 corrections".
+
+## Round 38 — closure correction (appended in round 39)
+
+The non-author closure (`corpus/lessons/round-38-verifier-spotcheck.md`, routed defect 1) did **not
+admit round-38 C2**. The sentence that kept the four full-rule tools out of the control set ("a
+tool implementing all three rules is a build … not as controls", `2dab7f31:SCORECARD.md:2250`) was
+first written in the commit that also landed those tools' 20-of-20 scores: a rule changed after
+seats scored. Counter v3 (`.ufo/waves/round-38/sealed_count_v3.py`, sha256 `28b120a5…0f38f9e4`)
+and key v3 (`749ef6a6…77b63aa6`) stay C2's rule of record; 8 → 20 of 20 stands as a measurement,
+not an admission. Round 38's verdicts: C1 withdrawn before any build (agreed by the closure); C2
+not admitted. The wave-2 tools and receipts the closure re-hashed (`CriticKeyExpectations`,
+`MutBuildTool`, `MutCcCheck`) are lane evidence at `.ufo/waves/round-39/r38w2-evidence/` (routed
+defect 5; sums `.ufo/waves/round-39/r38w2-evidence.SHA256SUMS`, 147 files; seat clones, `tmp/` and
+the 64 MiB `t/big.json`, sha256 `4594bb30…2b50b`, are not copied: `r38w2-evidence.NOTE.txt`).
+
+## Round 39 — C1 declared (before any seat is dispatched)
+
+Base `2909f1dcf2a4e411394a5093c4ed811a81809895`. Attempt 1 of this round died with the
+orchestrator and landed nothing; its uncommitted files were moved out of the lane unread into
+`/fast/scratch/hyaku/kake-r39a2/attempt1-leftovers/` and nothing here derives from them. Rounds 37
+and 38 claimed `scripts/robots_audit.py`; this round does not touch it. Both owned axes sit at the
+10/10 saturation line, so the stagnation nudge applies and the claim is a capability move.
+
+**C1 — operability, capability acquisition: a new tool `scripts/sitemap_audit.py` audits local
+sitemap and sitemap-index files against `.ufo/waves/round-39/c1-contract.md` (sentences 1–34,
+rules (a)–(k)).** Surface: a new tool on a new edge class (sitemap file encoding, root, entries,
+limits, `loc` form and scope, `lastmod`, `changefreq`, `priority`). PROVINCE Frontier lists
+"sitemap scope" and round 38 lists sitemaps as still open; the lane has no sitemap-file
+validator (`git ls-tree -r --name-only 2909f1dc scripts/ | grep -c sitemap_audit` → 0). Command
+that shows the surface unmoved: the counter below at any revision without the tool → 0 of 24.
+Sourced: S102–S104 (opened this round, `corpus/lessons/round-39.md` Gate).
+
+Frozen predicate — this sentence, `PREDICATE` in `.ufo/waves/round-39/sealed_count.py` (with
+`met = len(rec["rows"]) == CASES and passed >= TARGET`, `CASES = TARGET = 24`) and the
+`predicate` field of every receipt:
+
+    met: passed >= 24 of 24 sealed cases
+
+- **Counting command** (exit 0 met, 1 not met, 2 cannot evaluate):
+  `python3 -B .ufo/waves/round-39/sealed_count.py --root . --revision <rev> --key-revision <reveal>`
+  (before the reveal the L1 uses `--key-file` on the key outside the lane). Counter sha256
+  `f3a0cd6053497cd05b6a57ab712552146960c1efe2f8fb50eee36bace6084593`. Each case runs the tool in
+  bubblewrap with only `/usr`, the case files and the tool visible (no network, lane or key).
+- **Key** (`.ufo/waves/round-39/sealed/cases.json` at the reveal; sha256 `16440f62…4767c10b`,
+  pinned in the counter): 24 cases written by the L1 by hand from the contract before this
+  declaration; a case passes only if exit, verdict, error and every check's status, error and
+  finding set match. Every rule group (a)–(k) has checks of both polarities.
+- **Before:** 0 of 24 at the base and at this declaration commit (tool absent;
+  `.ufo/waves/round-39/verification/base-2909f1dc.json`). **After:** `met` true at the build commit.
+- **Key-design evidence, L1 alone, before this declaration** (summaries
+  `.ufo/waves/round-39/verification/pre-summary.jsonl`; full rows withheld until the reveal because
+  they quote expectations): the private reference scores 24; each of 34 single-sentence ablations
+  of it scores 6–23 (none 24); constant-clean 1, junk 0, manifest-only no-reader 1, ElementTree
+  root-only reader 5.
+- **Control classes, frozen now, before any control seat is dispatched.** Every tool scored with
+  this counter other than the exact bytes of `scripts/sitemap_audit.py` at the build commit is a
+  control, whoever wrote it and however much of the contract it implements; no tool is
+  reclassified as a build after it scores. Named shapes: absent tool; constant output (all clean,
+  all findings, all errors); junk output; manifest-only readers; label shortcuts keyed on check
+  ids, file names, positions, directory names or `sitemapUrl` strings; shallow readers
+  (well-formedness or root only, stdlib or XSD delegation without the contract rules); regex
+  readers without an XML parser; key finders (anything reading outside the case files); every
+  mutant or ablation of the reference or of any build that changes one contract sentence.
+- **Kill rule, frozen now.** (1) Before the build is dispatched, if any control receipt meets the
+  predicate, C1 is **declared exploratory** (no counter, verdict from a named non-author
+  reviewer); the key, counter, predicate and target are never changed after this commit. (2)
+  After the build is scored, a control (any class above) that meets the predicate means C1 is
+  **not met**; it is reported, never relabelled. (3) A build that scores below 24 is a miss,
+  reported as an honest stop.
+- **Order:** this declaration and the counter land first; the control wave (key-blind control and
+  mutant seats; the L1 scores every returned tool) next, with every receipt committed; then the
+  content-based control-consequence check (QUALITY (j), routed defect 4) lands; only then is the
+  build seat (key-blind, contract only) dispatched. The key is revealed after the build is scored.
