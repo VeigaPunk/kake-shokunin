@@ -195,6 +195,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Offline link-preview (Open Graph) audit | Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim | `scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`; the declared measure, necessary but not sufficient), and at the wave-2 repair `76fac3b` (`c1-at-76fac3b.json`); evidence below was added after the declaration and does not count toward C1: committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4) | 34 |
 | Link-preview audit, round-35 contract | The same audit also reports more than one non-empty og:url (`og_url_multiple`), ignores meta and link tags inside an open `<template>`, `<svg>` or `<math>` element, and keeps auditing the readable pages when one page cannot be read (exit 2 with input and policy findings together) | `scripts/link_preview_audit.py` at `b1cbbc39`; sealed counter 24 of 24 (`.ufo/waves/round-35/verification/c1-at-b1cbbc39.json`, reveal `4c6be2bd`) against 14 of 24 at base and 7 of 24 for the lookup and constant controls; selftest 45/45 and round-34 matrix 28/28 at `b1cbbc39` (`verification/selftest-link-preview-at-b1cbbc39.txt`, `c1r34-matrix-at-b1cbbc39.json`) | 35 |
 | Offline source re-check audit | Reads a version-1 manifest of recorded fetches (hops, contentType, body) of registry sources and reports, read-only and network-free, whether each row's quote still occurs in its source: final status (gone, http_error), permanent redirects with the resolved new URL (moved), HTML text rules, NFKC and whitespace-deleted case-sensitive matching (quote_missing), media types and WHATWG charset decoding (unsupported_type, charset_unsupported), per-check input faults (exits 0/1/2/64); with `scripts/source_snapshot.py` it re-checks live Gate quotes | `scripts/source_recheck.py` at `4d5b3d55`; sealed counter 28 of 28 (`.ufo/waves/round-36/verification/c1-keyrev-at-4d5b3d55.json`, reveal `fd1fb723`) against 0 at base and at most 12 for the control seats; selftest 101/101; real-input run on 90 Gate quotes (`.ufo/waves/round-36/realrun/audit.json`) | 36 |
+| Offline robots.txt expectation audit | Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose decision under the round-37 contract's reading of RFC 9309 differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim | `scripts/robots_audit.py` at `9dbc88bb` (wildcard matcher repaired after measurement, see round-37 wave-2 corrections); sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base, at most 4 for the do-nothing, junk, constant, all-false and no-reader controls, 20 for the stock `urllib.robotparser` and at most 24 for the 34 listed reference ablations; a stock-parser-plus-six-rule-patches control also scored 28 (disposition and its contest in the round-37 sections), so 28 of 28 does not separate the contract from that parser; selftest `scripts/robots_audit_selftest.py` does (127/134 on that control, 134/134 on the tool); live run over 12 robots.txt files (`.ufo/waves/round-37/realrun/audit.json`) | 37 |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -2007,3 +2008,56 @@ unchanged since then. Receipts: `.ufo/waves/round-37/verification/c1-*.json` wit
 | Capability | What it can now do | Evidence pointer | First-working round |
 |---|---|---|---|
 | Offline robots.txt expectation audit | Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose RFC 9309 decision under the lane readings differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim; the sealed cases certify the tested rules of (a)–(g), not every contract sentence | `scripts/robots_audit.py` at `9dbc88bb`; sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base and at most 20 for the controls that skip rules; selftest 131/131 (`verification/robots-selftest-at-9dbc88bb-tool.json`); live run over 12 robots.txt files (`realrun/audit.json`) | 37 |
+
+## Round 37 — wave-2 corrections (appended)
+
+Wave 2 `kake-r37-w2` (34 seats; reviewer, mutation-tester, scout, sentinel, revenger; no critic
+seat because the critic route was exhausted, `.ufo/waves/round-37/dead-seats.txt`) attacked the
+landed work; reports in `.ufo/waves/round-37/w2/`. The declaration, the counter, the key and the
+measured result stay as landed; details in `corpus/lessons/round-37.md` "Wave-2 corrections".
+
+- Reproduced byte for byte: every C1 receipt at the seven revisions (`RerunC1Sealed`), every
+  control and the independent implementation (`RerunControls`), the 34 ablations and the coverage
+  sentence (`RerunAblations`), the C2 evidence and the snapshot control (`RerunC2Evidence`).
+- **The shortcut disposition at `ccc3b2b9` is contested and is not a pass under the round rule.**
+  `ReviewShortcutDisposition`: the stdlib-plus-six-patches control delegates group selection and
+  matching to `urllib.robotparser`, which is wrong on 6 of 9 contract checks written by the
+  reviewer (substring user agents, wildcard rules ranked by matched length, non-final `$`), so it
+  skips part of the claimed work and still scores 28 of 28; with the six patches removed it
+  scores 20. `ReviewTimeline`: the declaration said a control meeting the predicate means the
+  counter or target "is fixed before any build"; the L1 instead kept C1 by a written judgment
+  (landed 7 min after the build seat was dispatched, 10 min before the build landed, before any
+  measurement). Under the round rule the C1 counter is shown not to separate the contract from a
+  control that skips (c)/(d) work. C1's self-verdict is therefore **measured met, admission
+  contested** — the closure rules.
+- Overstated wording, corrected here: "25 of 28 certifies the tested rules of (a)–(g)" — it
+  excludes the 34 listed ablations, not every violation of a listed rule (reference mutant M20
+  breaks the tie rule at 26). The measured-results capability row's "at most 20 for the controls
+  that skip rules" — ablations reach 24 and one control met 28; the main-table row now says so.
+  "Every case has at least one check that holds and one that does not" — the (g) cases' manifest-
+  fault runs have no holding check (`ReviewWithdrawalAndWording`). "Before: 0 of 28" means the
+  tool is absent at those revisions.
+- Post-measurement repairs (count toward no claim): the landed tool's `*` matcher used a
+  backtracking regex; a 191-byte manifest hung it (`SentinelRobotsInputs`, `ReviewRobotsTool`).
+  Replaced by a linear leftmost segment scan; receipt
+  `verification/postfix/wildcard-backtracking-receipt.txt` (old: killed at 10 s; new: 18 ms;
+  selftest 134/134; sealed 28 of 28; 200 000-pair fuzz against the old matcher, 0 mismatches).
+  The `source_recheck.py` quote handling added in wave 1 let a stray `'` or `"` in a tag disable
+  script/style removal (`ReviewHardening`); a quote now opens only after `=` (seat prototype,
+  106/106, 6/6, round-36 sealed 28 of 28). Three robots selftest fixtures added for the stdlib
+  gaps (c12, c13, d17): 134/134 on the tool and the independent implementation, 127/134 on the
+  shortcut control.
+- Carried: `source_recheck.py` body reads are uncapped (1 GiB body → `MemoryError`) and the
+  body-path race is narrowed, not closed (`SentinelHardening`, `ReviewRoutedClosure`); a ~60 MiB
+  manifest can still raise `MemoryError` inside `json.loads`; the robots tool accepts `NaN` and
+  malformed URLs (`ReviewRobotsTool`); the criteria checks each have constructed false passes and
+  fails (`ReviewCriteriaV2`); two contract points split the L1 reference from the tool and the
+  independent implementation (symlinked manifest directory, `/robots%2Etxt`), and the reference
+  folds group names with Unicode `lower()` (`ScoutContractAmbiguityR37`, `DiffToolVsIndependent`:
+  8192 checks, 0 tool/independent disagreements).
+- Round-36 routed defect 3, limit line for the round-36 capability row "Offline source re-check
+  audit": 28 of 28 there did not certify every contract rule — 9 of 32 one-change tool mutants met
+  the sealed target and M24 (BOM mark kept) also passed the round-36 selftest; round 37's five
+  fixtures make the selftest kill all 32 (evidence only, `verification/c2-evidence-at-528a6d02.json`).
+- Round-36 routed defect 8, the 18 contract points the round-36 text leaves undecided
+  (`.ufo/waves/round-36/w1/CriticContractAmbiguity.md`), stay undecided; carried.

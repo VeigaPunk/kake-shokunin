@@ -369,6 +369,20 @@ def build_fixtures():
         manifest=mf([chk()]),
         files=robots("user-agent: *\ndisallow: /x\n"),
         exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    # Round-37 wave-2 additions (ReviewShortcutDisposition): inputs on which the stock
+    # urllib.robotparser plus the six (b)/(e) patches disagrees with the contract.
+    add("c12-longer-token-not-matched-by-shorter-group-name", CONTRACT["c"],
+        manifest=mf([chk(ua="googlebot-image", url="https://example.com/admin")]),
+        files=robots("user-agent: googlebot\nallow: /\n\nuser-agent: *\ndisallow: /admin\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    add("c13-ignored-record-between-agents-keeps-one-group", CONTRACT["c"],
+        manifest=mf([chk(ua="abot", url="https://example.com/x")]),
+        files=robots("user-agent: abot\ncrawl-delay: 5\nuser-agent: bot\ndisallow: /x\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    add("d17-wildcard-specificity-is-rule-length", CONTRACT["d"],
+        manifest=mf([chk(url="https://example.com/private/a.html")]),
+        files=robots("user-agent: *\ndisallow: /private/\nallow: /*.html\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
 
     # ---- (d) rules --------------------------------------------------------
     add("d01-empty-value-never-matches", CONTRACT["d"],

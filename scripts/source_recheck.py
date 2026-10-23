@@ -290,15 +290,21 @@ def tag_end(text: str, start: int) -> int:
     index = start + 1
     length = len(text)
     quote = None
+    after_equals = False
     while index < length:
         char = text[index]
         if quote is not None:
             if char == quote:
                 quote = None
-        elif char == '"' or char == "'":
+        elif after_equals and (char == '"' or char == "'"):
             quote = char
+            after_equals = False
         elif char == ">":
             return index + 1
+        elif char == "=":
+            after_equals = True
+        elif char not in " \t\n\f\r":
+            after_equals = False
         index += 1
     return -1
 

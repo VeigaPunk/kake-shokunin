@@ -182,3 +182,59 @@ not that it is more correct than the stdlib on them.
   (`ReviewC2Counter`, `MutC2Counter`: 2 of 13 counter mutants equivalent on tested inputs).
 - The contract's U+FFFD sentence is unsourced; status 3xx is a check fault although S011 2.3.1.2
   describes following redirects.
+
+## Wave-2 corrections (appended)
+
+Wave 2 `kake-r37-w2` (34 seats, reports in `.ufo/waves/round-37/w2/`) attacked the landed work.
+The declaration, counter, key and measured result stay as landed; SCORECARD "Round 37 — wave-2
+corrections" lists the measured items.
+
+- Reproduced byte for byte: C1 receipts at seven revisions, all controls, the independent
+  implementation, the 34 ablations, the C2 evidence and the snapshot control, the junk receipt,
+  the criteria receipts (with wave-1 fixtures, now committed under `criteria/fixtures/`).
+- **Shortcut disposition contested** (`ReviewShortcutDisposition`, `ReviewTimeline`): the
+  follow-up control delegates (c)/(d) to `urllib.robotparser`, which is wrong on 6 of 9 contract
+  checks, and still met the predicate; the declared consequence ("fixed before any build") was
+  replaced by a written judgment landed after the build seat was dispatched and before any
+  measurement. C1: measured met, admission contested.
+- Lesson text corrected: the S097 quote is 11 words, not 10; S095 says "most specific group" /
+  "the group with the most specific user agent", not "most specific matching group" (the
+  correction's point, that S011 does not say it, stands); "RFC 9309 grounds every rule of
+  (a)–(e)" is overstated — the reserved-escape reading, the 3xx check fault and the U+FFFD rule
+  are lane choices against or beyond S011; S096 "settles … normalization" is overstated — its
+  README and code decline URL normalization; "every expectation quotes the line that justifies
+  it" (real-input run) is overstated for 4 checks whose decision is "no rule matches"
+  (`ReviewRealRun`), and check 33 is decided by Wikipedia's percent-encoded rule, not the raw
+  `ö` line; "each of 28 cases has a holding and a failing check" fails for the (g) fault runs.
+- The real-input set separates little: of 10 single-change mutants only one is caught by the 55
+  checks; 8 extra checks on the same live files separate the tool from the stock parser on all 8
+  and from the shortcut control on 2 (`ReviewRealRun`). Live files unchanged at 03:45Z, also
+  under a Googlebot user agent (`ScoutRobotsRefetch`).
+- Knowledge entry corrected after `ReviewKnowledgeEntry` and `ReopenGateS096`: Figure 4's
+  reserved-character row, the `/robots.txt` lane-reading marker, the usage paragraph, the BOM as
+  a Google-specific choice, "equivalent" not "equally specific", S095 cited for key case, code
+  claims pinned to `22b355ff` and marked as not retained.
+- Post-measurement repairs (no claim): linear wildcard matcher in `scripts/robots_audit.py`
+  (backtracking hang, `SentinelRobotsInputs`, `ReviewRobotsTool`); quote opens only after `=` in
+  `scripts/source_recheck.py` (`ReviewHardening` regressions R1–R7); three robots selftest
+  fixtures (c12, c13, d17). The round-36 real-run S025 `quote_missing` was the attribute defect:
+  the hardened tool drops it on both round-36 runs (`ReviewHardening`).
+- Containment (`ReviewContainment`): no lane file outside reports, no landed fleet-root misroot;
+  three attempted misroots by wave-1 scribes were refused by the edit tool. Eleven out-of-bounds
+  actions, ten not recorded above: `/tmp` files by SimplifierCounters, ScoutPriorTools,
+  ReviewC2Counter, ReviewRoutedDisposition, CtlC1NoReader and wave-2 ReviewSourcesRows,
+  ReviewKnowledgeEntry, ReopenGateS097, ReviewLessonNumbers; six wave-1 seats replied to a stray
+  broadcast from another lane's L1 (`MadoR24`, text "x") with status text only. L1 lane-state
+  checks after each wave: wave 1 left only `w1/` reports untracked (`jj-lane.sh state`
+  `untracked=1`, committed at `a5ae0280`); wave 2 likewise (`w2/`).
+- Late results: `MutRefPassVsSelftest` — the selftest separates 41 of 42 reference mutants from the
+  reference (M09 not); `DiffToolVsIndependent` — 8192 checks, 0 tool/independent disagreements;
+  `MutSealedCounter` 13 of 14 counter mutants killed (1 equivalent); `ReviewRobotsSelftest` — all
+  131 expectations follow the contract, write detection only sees new files in its temp tree.
+
+### Mistakes (appended rows)
+
+| Class | Evidence | Captured-by | Fix |
+|---|---|---|---|
+| a control met the predicate and the L1 kept the claim by a written judgment instead of the declared consequence | SCORECARD `ccc3b2b9` section vs the declaration's "fixed before any build"; `w2/ReviewTimeline.md`, `w2/ReviewShortcutDisposition.md` | wave-2 review; none before | next declaration states, before any control runs, which control classes count as skipping work (any control that delegates a bullet's rules to a library counts as skipping that bullet unless the library is shown to implement the bullet on the selftest) and applies the consequence mechanically; QUALITY round-37 (j) |
+| post-wave containment record named one out-of-bounds action of eleven | lesson "Claims" (one `test -e`); `w2/ReviewContainment.md` table | wave-2 review | the L1's per-wave containment line lists every seat-disclosed out-of-bounds action from the reports, and the wave context requires `/tmp`-free runs (TMPDIR in the sandbox) — already in the context, not followed; no check yet |

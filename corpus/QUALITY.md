@@ -923,3 +923,8 @@ bare-id entry and 0 on the knowledge directory. These replace the "no check yet"
   not rest on instructions alone. Grounding: round-37 wave-1 `ReviewRoutedDisposition` G2 (the
   control sandboxes sat under `/fast/scratch/hyaku/kake-r37/`, beside `private/`). Check: none
   yet; the wave-1 sandboxes moved to `/fast/scratch/hyaku/kake-r37w1/`.
+- **(j) The consequence of a control meeting a predicate is applied as declared.** If a control
+  meets the predicate before data, the counter is redesigned (with the original kept as the rule
+  of record) or the claim is dropped or declared exploratory; a disposition that reclassifies the
+  control is not an option unless the declaration named that class beforehand. Grounding: round-37
+  shortcut follow-up (`SCORECARD.md` `ccc3b2b9` section; `w2/ReviewTimeline.md`). Check: none yet.

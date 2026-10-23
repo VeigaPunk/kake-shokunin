@@ -194,3 +194,13 @@ Round-36 re-check notes (first run of `scripts/source_recheck.py` on live record
 - S065: the commit page loads file diffs by script, so no file quote can hold against it; the `.diff` URL carries the quoted line.
 - S016, S066: JSON endpoints; `unsupported_type` by contract (e). The values the rows teach still hold.
 - S087: still 404 (already rejected).
+
+Round-37 correction notes (append-only; anchor, scope and teaches cells change only through superseding rows, CORPUS.md SOURCES rules):
+- S091: the quoted sentence sits at Section 7 Design Goals, item 2, not Section 1.2 (round-36 closure; `.ufo/waves/round-36/sources/S091.txt`).
+- S093: the rejected row's `teaches` lacks the `flip:` form; read it as "flip: a needed fact unavailable from any primary source is verified in the article".
+- S094: read the reject reason as "overbroad" for 304 (RFC 9110 15.4.5 does not require Location; it does not forbid it), not "contradicts".
+- S088–S092: `used-by` names `scripts/source_recheck.py`; contract v1 asks for knowledge-entry or lesson paths — read them as `corpus/lessons/round-36.md`.
+- S011: the row's scope (host-root scope, Sections 2.3 and 2.3.1.4) is narrower than its round-37 use (Sections 2.1–2.5 by `corpus/knowledge/robots-txt-rules.md`); a superseding row with the wider scope is owed (round-37 wave-2 `ReviewSourcesRows`).
+- S096: the anchor names README sections without a commit; the code statements in `robots-txt-rules.md` rest on `robots.cc`/`robots.h` at master `22b355ff855419e6a3ff8ff09c0ad7fdb17116f9`, which the lane does not retain; read the anchor with that commit.
+- S095: the requested Search Central URL answers 301 to `https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec` (the row records the final URL); the body hash varies per fetch (analytics script), the visible-text hash does not.
+- S097: the flip ("RFC 9309 is withdrawn and this text becomes the operative primary REP specification") has no observable second half; read it as "flip: RFC 9309 is withdrawn or obsoleted without a successor" (round-37 wave-2 `ReopenGateS097`).

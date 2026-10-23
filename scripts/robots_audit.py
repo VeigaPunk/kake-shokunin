@@ -217,7 +217,7 @@ class Rule:
         "anchored",
         "has_star",
         "literal",
-        "regex",
+        "segments",
     )
 
     def __init__(self, kind: str, value: str) -> None:
@@ -227,7 +227,7 @@ class Rule:
         self.pattern = value[:-1] if self.anchored else value
         self.has_star = "*" in self.pattern
         self.literal = self.pattern.split("*", 1)[0]
-        self.regex: "re.Pattern[str] | None" = None
+        self.segments = self.pattern.split("*")
 
 
 class RobotsFile:
@@ -273,22 +273,35 @@ class RobotsFile:
 
 
 def rule_matches(rule: Rule, path: str) -> bool:
-    """Contract (d): `*` any run, trailing `$` anchors, otherwise a prefix."""
-    if rule.has_star:
-        if rule.literal and not path.startswith(rule.literal):
-            return False
-        regex = rule.regex
-        if regex is None:
-            regex = re.compile(
-                re.escape(rule.pattern).replace("\\*", ".*"), re.DOTALL
-            )
-            rule.regex = regex
+    """Contract (d): `*` any run, trailing `$` anchors, otherwise a prefix.
+
+    Round-37 wave-2 repair (`SentinelRobotsInputs`): wildcard rules are matched by a
+    greedy leftmost segment scan instead of a backtracking regex, so a rule such as
+    `/*a*a*...*z$` cannot take exponential time. For `*`-only globs the leftmost scan
+    finds a match whenever one exists.
+    """
+    if not rule.has_star:
         if rule.anchored:
-            return regex.fullmatch(path) is not None
-        return regex.match(path) is not None
+            return path == rule.pattern
+        return path.startswith(rule.pattern)
+    segments = rule.segments
+    if not path.startswith(segments[0]):
+        return False
+    pos = len(segments[0])
     if rule.anchored:
-        return path == rule.pattern
-    return path.startswith(rule.pattern)
+        last = segments[-1]
+        for segment in segments[1:-1]:
+            found = path.find(segment, pos)
+            if found < 0:
+                return False
+            pos = found + len(segment)
+        return len(path) - len(last) >= pos and path.endswith(last)
+    for segment in segments[1:]:
+        found = path.find(segment, pos)
+        if found < 0:
+            return False
+        pos = found + len(segment)
+    return True
 
 
 def decide(rules: list[Rule], path: str) -> str:
