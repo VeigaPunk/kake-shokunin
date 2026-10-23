@@ -3053,3 +3053,41 @@ percent mutant was 9/10 (run E) and under `a58e6349…` the three non-ASCII-rang
 were 9/10 and 8/10 (`verification/v3probe-a58e/`). The L1 now re-scores every returned control tool with v3
 (`score_v3.sh`, `score-list-b.txt`, receipts `verification/w1v3/`); kill rule (1) is applied to those
 receipts before the build is scored.
+
+## Round 42 — C1 declared (frozen before the build is scored)
+
+Control tally under counter v3 (`ce2d5a0c…`, live seats only; wave 1 `kake-r42-w1`, 33 seats, 0 dead, 0
+refused): the L1 re-scored **86** returned control tools from 13 control seats plus the L1's own 2
+(`score-list-b.txt`, `score-list-c.txt`, `score_v3.sh`; each run with its own `os.urandom` seed; receipts
+`.ufo/waves/round-42/verification/w1v3/`). `jq -s 'map(select(.met))|length' verification/w1v3/*.json` → **3**:
+`MutRegexPct/portpct`, `MutRegexStructure/mutant_empty_host`, `MutRegexStructure/mutant_port_letters`. The
+frozen equivalence differential (`equivalence/equiv_diff.py`, 31,415 values: runs A–E at seeds 42101–42103
+plus 240 targeted port/host/percent values) finds **0** values on which their `_parse_url` differs from the
+round-41 tool's, and their seats found no witness (`w1/MutRegexPct.md`, `w1/MutRegexStructure.md`: `urlsplit`
+rejects downstream what the widened regex admits). By the rule frozen at `d1c3f372` they are **not controls**
+(behaviour-equal rewrites). Every other v3 receipt is not met, including the five tools that met v1 with a
+witness (non-ASCII range ×3, `~` in the zone id, `\d` in percent triplets), the shape-keyed tail-window tools,
+the seed-keyed table (`CtlCache`), the timing forger (`CtlCpuHide/ctl_fake_timing`: honest CPU now, T1 3.903,
+T5 10.327) and the keyed manifest (`CtlIdKeyed`). Kill rule (1) does not fire under v3. (Under v1, 9 receipts
+met with a witness or a manipulation; they forced the v2 and v3 redesigns above, before any build was scored.)
+
+**C1 frozen:** operability, runnable cost of the held tool's URL check (`scripts/sitemap_audit.py`, URL
+section). Predicate (= `PREDICATE` in `c42_count_v3.py`, = every receipt's `predicate`):
+
+    met: the tool's exit code and output equal the round-41 tool's on every generated run, and its median CPU time on each of the five timing shapes is at most 2.0 times the round-40 tool's
+
+Counting command: `python3 -B .ufo/waves/round-42/c42_count_v3.py --root . --revision <rev> --out <receipt>`
+(no `--seed`; exit 0 met, 1 not met, 2 cannot evaluate). Target: met at the build revision on each of three
+scorings (three independent random seeds); any one not met is a miss. Before: round-41 tool at `1ef7a0e9`
+not met (T1 4.17–4.28, T5 7.81, `verification/v3probe/`).
+
+**The build, chosen before it is scored.** Two non-author builds returned: `ExecBuildRegex` (possessive
+quantifiers, tool `8a30432d…`) and `ExecBuildIndependent` (byte-table scanner, tool `438afaf0…`). Neither has
+been scored with any counter. The L1 ran the selftest under Python 3.10.22 (uv-managed interpreter already on
+the host) on both and on the round-41 tool: round-41 tool `PASS 225/225`, `ExecBuildIndependent` `PASS
+225/225`, `ExecBuildRegex` `PASS 0/225` (possessive quantifiers need Python 3.11; the contract says "Python 3
+standard library" with no version floor). **The build is `ExecBuildIndependent`'s tool** (its comment at the
+round-41 paragraph corrected by the L1 per routed defect 3, comment-only), with `ExecBuildRegex`'s ten `r42_*`
+guard fixtures (selftest 235). Harm clause **H5 added now, stricter, before the build is scored:** the
+selftest passes under Python 3.10.22 as it does for the round-41 tool (no interpreter floor added).
+`ExecBuildRegex` is scored as information only.
