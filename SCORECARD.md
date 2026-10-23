@@ -2463,3 +2463,12 @@ capability; its verdict comes from a named non-author reviewer (`unprovable-but-
 `unprovable`), and the counter's score of the build is reported as information, not as C1's verdict.
 The other wave-1 controls so far: CodeGuess+tweak 23, XsdDelegate+tweak 20, HTML-parser reader 20,
 structure-only 16 (refused seat's leftover file), values-only 14; none meets.
+- **Wave-1 additions (07:05Z, still before any build):** nine more reference mutants meet the
+  predicate (`w1a3-MutNamespaceBinding__M02,M03,M04,M07,M08,M09,M10,M11`, `w1a3-MutStdlibSubstitution__M09`;
+  15 of 54 scored mutants in all), and one **parser-free shortcut control meets it**:
+  `w1a3-CtlRegexTweak` (attempt 2's dead-seat regex reader, 19, plus a 39-changed-line key-blind tweak
+  written from the contract; no `xml.*` or `html.*` import) scores 24 of 24. Other new controls:
+  CodeGuess tweak 23, hand tokenizer 23, stdlib-convenience 21, XSD tweak 20, HTML-parser reader 20,
+  structure-only 16, values-only 14, lenient engine 14. The 24-case key cannot tell the contract from
+  a regex reader or from 15 single-sentence breaks. This is the counter failing, recorded as such;
+  C1 stays exploratory, and nothing about the key, counter, predicate or target changes.
