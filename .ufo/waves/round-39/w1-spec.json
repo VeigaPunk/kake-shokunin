@@ -1,0 +1,336 @@
+{
+ "wave": "kake-r39-w1",
+ "milestone": "r39-controls",
+ "maxLanes": 64,
+ "axes": [
+  "operability",
+  "freshness"
+ ],
+ "reportDir": ".ufo/waves/round-39/w1",
+ "context": "# Goal\nKake round 39, wave 1: the adversarial CONTROL wave plus independent non-data work, run BEFORE any build of the claimed tool exists. The L1 (KakeR39A2) holds integration and is the only scorer; you are one leaf seat. Lane repo: /home/vgpnk/Projects/shokunin/kake-shokunin. Lane axes: operability and freshness (web properties and publishing).\n\n# The claim under attack (declared at ceecb1b1f9093471eb0b17d2c9190e78bceb0b78; base 2909f1dcf2a4e411394a5093c4ed811a81809895)\nC1 (capability): a new tool `scripts/sitemap_audit.py` (does NOT exist yet) audits local sitemap and sitemap-index files against the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (sentences 1–34, rules (a)–(k)). Declaration: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin show ceecb1b1f9093471eb0b17d2c9190e78bceb0b78:SCORECARD.md | sed -n '/^## Round 39 — C1 declared/,$p'`. Frozen counter `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/sealed_count.py` scores a tool against a SEALED key of 24 cases (predicate `met: passed >= 24 of 24 sealed cases`); each case runs the tool inside bubblewrap with only /usr, the case files (a manifest plus sitemap files at /work) and the tool visible. A case passes only if exit code, verdict, error and every check's status, error and finding set match the contract exactly.\n\n# Key-blindness (binding)\nThe key is sealed and you must not look for it: never read, list or search /fast/scratch/kake-r39-sealed/, /fast/scratch/hyaku/kake-r39a2/, or any file named cases.json or build_key.py outside your sandbox. Do not try to run the counter (it needs the key). The L1 scores every tool you return. A control is judged by how it scores, so build exactly the shape your item names, as well as you can.\n\n# Bounds\n- You are a leaf: no subagents, no swarm, no verdict on the round.\n- Your ONLY write paths are your sandbox /fast/scratch/hyaku/kake-r39w1/<YourName>/ and your report file. Never mutate the fleet repo (/home/vgpnk/Projects/shokunin), sibling lanes, the lane jj state, the lane Git index or any lane file other than your report. Deliverables stay in your sandbox; give absolute paths and sha256 in the report.\n- Never run git add/commit/stash/checkout/reset/pull/push or any mutating jj command in /home/vgpnk/Projects/shokunin/kake-shokunin; read-only git (show, log, ls-tree, diff) is fine. Never run jj at /home/vgpnk/Projects/shokunin. If you need a lane checkout, clone it into your sandbox (`git clone -q /home/vgpnk/Projects/shokunin/kake-shokunin /fast/scratch/hyaku/kake-r39w1/<YourName>/clone`) after unsetting GIT_DIR, GIT_WORK_TREE and GIT_INDEX_FILE.\n- Cap every run with `timeout` (≤600 s), ≤8 parallel processes, `prlimit --as=4000000000` for blow-up inputs; kill any process tree you started before returning.\n- Network: only the public URL your item names, GET only. Never request the operator's properties (ds4cc.com, app.ds4cc.com, operator *.onrender.com hosts, *.kimi.page, *.kimi.pro, veigapunk.github.io, any host in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-pins.json).\n- Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>.\n- Tooling authorization (operator, 2026-10-19): you and every seat may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels, record tool, version, channel and reason in your report). pacman guard (orchestrator ruling 2026-10-20): all pacman transactions are PAUSED host-wide — install via uv tool, npx or an official binary in ~/.local/bin; never pacman -S, -Sy, -Syu, -U or -R, no downgrade, no service restart.\n- A provider safety or policy refusal or an automatic model switch ends your item: a one-line report saying so; do not rephrase. Message only agent://KakeR39A2 for blockers; never agent://all. Plain English.\n\n# Result\nReport under 60 lines: what you built or checked, exact commands with exit codes, deliverable paths with sha256, and findings (path:line). An unrun check has not passed. Time box: 30 minutes; a partial report (first line `PARTIAL:`) beats none.\n",
+ "items": [
+  {
+   "name": "CtlConstClean",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: constant output — every check `clean`, verdict `clean`, exit 0, ids echoed from the manifest; may emit `input_invalid` when the manifest is not a version-1 object.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlConstClean/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlConstClean/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlConstClean/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlConstFindings",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: constant findings — every check `findings` with the single most likely finding code/entry you can guess from the contract, verdict `failed-policy`, exit 1; nothing read but the manifest.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlConstFindings/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlConstFindings/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlConstFindings/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlConstError",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: constant errors — every check `error` with `check_invalid` or `file_unreadable` chosen from manifest fields only, exit 2.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlConstError/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlConstError/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlConstError/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlJunk",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: junk output — prints plausible-looking but wrong JSON (wrong key names, findings as strings) with the contract's exit codes chosen at random per run.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlJunk/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlJunk/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlJunk/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlNoReader",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: manifest-only reader — reads the manifest (ids, file names, sitemapUrl) but never opens a sitemap file; decides each check's result from manifest strings alone (e.g. relative sitemapUrl → check_invalid, '..' → check_invalid, everything else clean).\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlNoReader/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlNoReader/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlNoReader/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlLabelIds",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: label shortcut — keys on check ids, file names, file sizes, positions and sitemapUrl strings (e.g. guesses findings from file names like 'bad', 'big', size > 50 MB → too_large) without parsing XML.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlLabelIds/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlLabelIds/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlLabelIds/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlShallowStdlib",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: shallow stdlib reader — xml.etree.ElementTree parse + root name/namespace check + entry count only; no loc, scope, lastmod, changefreq or priority rules; correct manifest handling and verdicts.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlShallowStdlib/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlShallowStdlib/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlShallowStdlib/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlRegexOnly",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: regex reader — no XML parser at all; finds <loc>, <lastmod>, <changefreq>, <priority> with regular expressions and implements as many value rules as regexes can, ignoring namespaces, prefixes, comments and entity escaping.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlRegexOnly/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlRegexOnly/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlRegexOnly/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlFirstFinding",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: first-finding-only — a reasonable implementation of the rules that stops at the FIRST finding per file (reports one finding per check).\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlFirstFinding/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlFirstFinding/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlFirstFinding/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlXsdDelegate",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: schema delegation — validate each file against the sitemaps.org XSDs (fetch https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd and siteindex.xsd once into your sandbox and EMBED them; use whatever validator exists under /usr, e.g. `xmllint --schema` or python lxml if importable from /usr) and map schema errors to the contract's codes; no scope rule, no W3C-profile lastmod check beyond the schema.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlXsdDelegate/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlXsdDelegate/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlXsdDelegate/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlCodeGuess",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: statistical guesser — reads each file as text and emits finding codes by keyword/heuristic scoring (e.g. 'changefreq' present → changefreq_invalid on entry 1 when value not lowercase), never building a parse tree.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlCodeGuess/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlCodeGuess/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlCodeGuess/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "CtlSandboxProbe",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe C1 counter and key, attacked with one cheap control that skips the claimed work. Shape: key finder / sandbox escape — a tool that tries to obtain expected answers from anywhere other than the case files (environment, /proc, parent directories, /usr, timing, network). The counter runs it under `bwrap --ro-bind /usr /usr ... --ro-bind <case> /work --unshare-all --clearenv`; reproduce that sandbox from `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/sealed_count.py` and report every path or channel visible from inside it. Never read the sealed key yourself.\n# Change\n- Read the contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md (output format, sentences 33–34) so your control's output is well-formed where the shape allows.\n- Build the control; make it as strong as its shape permits (the aim is to reach the target while skipping the work, so a control that meets shows the counter is wrong).\n- Self-test it on 3–5 small manifests you write in /fast/scratch/hyaku/kake-r39w1/CtlSandboxProbe/t/ to show it runs.\n# Acceptance\nA single Python 3 file `/fast/scratch/hyaku/kake-r39w1/CtlSandboxProbe/control.py` runnable as `python3 control.py --manifest <path>` with only the standard library and /usr, plus `/fast/scratch/hyaku/kake-r39w1/CtlSandboxProbe/NOTE.md` (≤15 lines: the shape, what it deliberately skips). Report its sha256. Do not read the reference implementation.\n"
+  },
+  {
+   "name": "MutEncodingXml",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: (a) encoding and (b) well-formedness/DOCTYPE (sentences 6–9).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutEncodingXml/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutEncodingXml/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutEncodingXml/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutRootEntries",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: (c) root and (d) entries, including namespace prefixes and foreign-namespace elements (sentences 10–14).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutRootEntries/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutRootEntries/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutRootEntries/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutEntryChildren",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: (e) loc_missing / loc_repeated / field_repeated / element_unexpected and the skip rules (sentences 15–18).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutEntryChildren/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutEntryChildren/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutEntryChildren/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutLimits",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: (f) size and entry-count limits and their 'no other finding'/'in addition' clauses (sentences 19–20).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutLimits/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutLimits/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutLimits/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutLocForm",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: (g) whitespace stripping, absolute-URL test and loc length (sentences 21–23).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutLocForm/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutLocForm/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutLocForm/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutScope",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: (h) scope: case-insensitive scheme/host, default ports, directory prefix, as-written comparison, index host-only (sentences 24–27).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutScope/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutScope/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutScope/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutLastmod",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: (i) lastmod forms, calendar validity, TZD (sentences 28–30).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutLastmod/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutLastmod/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutLastmod/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutFreqPriority",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: (j) changefreq and (k) priority (sentences 31–32).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutFreqPriority/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutFreqPriority/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutFreqPriority/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutManifestVerdict",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: usage, manifest, check errors and the verdict/exit mapping (sentences 1–5, 33–34).\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutManifestVerdict/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutManifestVerdict/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutManifestVerdict/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "MutCrossRule",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe sealed key's power to kill tools that break one declared contract sentence, for the family: interactions between rules: which findings suppress which (e.g. too_large vs others, loc_repeated skipping (g)/(h), field_repeated skipping value checks, loc_not_absolute skipping scope), entry numbering when non-entries are interleaved.\n# Change\n- Copy the private reference /fast/scratch/hyaku/kake-r39w1/shared/reference.py (sha256 663e051e…2d69f8) into /fast/scratch/hyaku/kake-r39w1/MutCrossRule/; it implements the contract and scores 24 of 24.\n- Write single-point mutants that break exactly one sentence of the family's rules in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md; for each, build a minimal witness input and run both reference and mutant on it to show they differ.\n- Do not try to score them against the key; the L1 scores every mutant.\n# Acceptance\n`/fast/scratch/hyaku/kake-r39w1/MutCrossRule/mutants/M*.py` (each a full copy of the reference with ONE change) and `/fast/scratch/hyaku/kake-r39w1/MutCrossRule/mutants.json` listing per mutant: file, sha256, contract sentence number(s) it breaks, and a minimal input (manifest + sitemap) on which the contract and the mutant disagree. Aim for 6–12 mutants; prefer mutants you think a 24-case key could miss (boundaries, polarity, interactions between rules). Equivalent mutants are noted, not shipped.\n"
+  },
+  {
+   "name": "CriticContractSentences",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nContract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/c1-contract.md as a rule of record.\n# Change\n- For each sentence 1–34, say whether a 24-case key could plausibly test it and give a witness input that distinguishes a tool obeying it from one breaking it. List ambiguous sentences (two readings, both plausible) with both readings and an input where they differ. Do not read the reference or the key.\n# Acceptance\nVerdict per attacked statement (holds / overstated / wrong) with commands, exits and pointers.\n"
+  },
+  {
+   "name": "CriticAxisFit",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1's axis and claim shape (declaration at ceecb1b1f9093471eb0b17d2c9190e78bceb0b78).\n# Change\n- Attack under the lane's sizing rules (prompt `/home/vgpnk/Projects/shokunin/.ufo/prompts/kake-round-39.md` §6 item 9; `corpus/lessons/round-38-verifier-spotcheck.md`): is this a capability move or re-scoring? Can a do-nothing or shortcut control meet `24 of 24`? Is anything in the declaration a rule that could change after data? Is 'every tool other than the build bytes is a control' enforceable? Name the strongest objection a closure would raise.\n# Acceptance\nVerdict per attacked statement (holds / overstated / wrong) with commands, exits and pointers.\n"
+  },
+  {
+   "name": "ReviewCounter",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe frozen counter `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/sealed_count.py` (sha256 f3a0cd60…084593).\n# Change\n- Read it line by line: can a tool pass a case without matching the contract (JSON tricks, duplicate keys, findings as dict vs list, None vs missing, extra checks, entry types like 1.0 vs 1 or true vs 1, NaN, huge output)? Does `met` equal the predicate sentence? Does revision mode refuse a revision holding the key? Write small fake tools in /fast/scratch/hyaku/kake-r39w1/ReviewCounter/ that probe each loophole against a FAKE key you write yourself (copy the counter, change KEY_SHA256/CASES to your fake key's values, never the real one).\n# Acceptance\nVerdict per attacked statement (holds / overstated / wrong) with commands, exits and pointers.\n"
+  },
+  {
+   "name": "SentinelCounterSandbox",
+   "role": "sentinel",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe counter's bubblewrap sandbox and process handling.\n# Change\n- In a copy of the counter with a fake key you write, try: fork bombs, 10 GB stdout, sleeping past the timeout, writing outside /work, reading /proc/1/environ, /proc/self/mountinfo, network sockets, leftover child processes after timeout. Report what the sandbox allows and any case where the counter hangs, crashes or mis-scores. Cap memory with prlimit and kill every process you start.\n# Acceptance\nVerdict per attacked statement (holds / overstated / wrong) with commands, exits and pointers.\n"
+  },
+  {
+   "name": "ReopenS102",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSOURCES row S102 (`/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md`, sitemaps.org protocol) and its Gate quote in `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-39.md`.\n# Change\n- Fetch https://www.sitemaps.org/protocol.html (GET), sha256 it against the row, locate the quote verbatim and count its words; check every contract sentence that cites S102 against the page text.\n# Acceptance\nPer check: holds / wrong, with the fetched line.\n"
+  },
+  {
+   "name": "ReopenS103",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSOURCES row S103 (sitemap.xsd, siteindex.xsd) and its Gate quote.\n# Change\n- Fetch both XSDs, sha256 against the row, locate the quote; check the contract's readings of tLoc (minLength 12!), tLastmod, tChangeFreq, tPriority and the ##other wildcards against the schema text; flag any contract sentence that silently departs from S103 without a 'lane reading' label.\n# Acceptance\nPer check: holds / wrong, with the fetched line.\n"
+  },
+  {
+   "name": "ReopenS104",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSOURCES row S104 (W3C NOTE-datetime) and its Gate quote.\n# Change\n- Fetch https://www.w3.org/TR/NOTE-datetime, sha256, locate the quote; check contract sentences 28–30 against the note (levels, TZD, field ranges, fraction digits).\n# Acceptance\nPer check: holds / wrong, with the fetched line.\n"
+  },
+  {
+   "name": "ScoutGoogleSitemaps",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nHow Google reads sitemaps compared with contract (a)–(k) — candidate SOURCES row.\n# Change\n- Open https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap (S013) and https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps; record: priority/changefreq ignored?, lastmod use, size/count limits, index limits, cross-host rules. Give a draft SOURCES row (contract v1 columns) with URL, access time, sha256, and a ≤25-word located quote; mark where Google differs from the contract.\n# Acceptance\nDraft row plus a difference table, each line with its located quote.\n"
+  },
+  {
+   "name": "ScoutBingSitemaps",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nA second engine's sitemap reading — candidate SOURCES row.\n# Change\n- Find and open Bing Webmaster Guidelines or Bing's sitemap help page (official Microsoft/Bing domain only); record size/count limits, lastmod use and anything contradicting the contract. Draft a SOURCES row (or a rejected row with reason and flip) with URL, access time, sha256, ≤25-word located quote.\n# Acceptance\nDraft row with located quote.\n"
+  },
+  {
+   "name": "ScribeKnowledgeEntry",
+   "role": "scribe",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nNew knowledge entry `corpus/knowledge/sitemap-file-audit.md` (draft only).\n# Change\n- Draft it in /fast/scratch/hyaku/kake-r39w1/ScribeKnowledgeEntry/sitemap-file-audit.md from the contract and the retained sources `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/sources/` (S102–S104): header lines `source:`, `verified-at:`, `recheck:` like `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/robots-txt-rules.md`; sections: what a sitemap file must satisfy (with S-ids per claim), the two source conflicts and the lane readings, what the audit does not check, and how it differs from `sitemap-orphan-audit.md` and `crawl-scope-per-host.md`. Every factual sentence cites an S-id whose retained text you re-read; no claim about any tool's results.\n# Acceptance\nThe draft path and sha256; a list of each sentence's S-id and the source line it rests on.\n"
+  },
+  {
+   "name": "ScribeProvinceSkill",
+   "role": "scribe",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nLane docs for the new capability (drafts only).\n# Change\n- Draft, in /fast/scratch/hyaku/kake-r39w1/ScribeProvinceSkill/: (1) a `## Round-39 sitemap file audit step` for PROVINCE.md (≤12 lines, what moves Frontier→Core and what stays open), (2) a SKILL.md registry/usage entry for `scripts/sitemap_audit.py` in the style of the robots_audit entry (`grep -n robots_audit /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md`), (3) a corpus/README.md frontier row. Write them conditionally: 'if the build meets the predicate'; no measured number.\n# Acceptance\nThree draft files with sha256.\n"
+  },
+  {
+   "name": "ScribeLessonMistake",
+   "role": "scribe",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRound-39 lesson `## Mistakes` entry (draft).\n# Change\n- From `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-38-verifier-spotcheck.md` (C2 ruling) and `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-37-verifier-spotcheck.md`, draft one mistake: class · evidence pointer (path:line) · captured-by (the QUALITY criterion that should have caught it, or none) · fix, where the fix names a check shown able to fail. Also list which round-38 routed defects (1–6) round 39 addresses and which stay open, with pointers.\n# Acceptance\nDraft in /fast/scratch/hyaku/kake-r39w1/ScribeLessonMistake/mistakes.md with sha256.\n"
+  },
+  {
+   "name": "ExecCcCheck",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nQUALITY (j) check v2 (routed defect 4): `.ufo/waves/round-39/criteria/control_consequence_check.py` (write it in /fast/scratch/hyaku/kake-r39w1/ExecCcCheck/ only).\n# Change\n- Implement: `control_consequence_check.py --root <lane> --verification-dir <dir> [--build-revision <rev>]`. It reads every `*.json` receipt in the dir (recursively) that has a `predicate` field, and decides by CONTENT, never by file name, label or class text: a receipt with `met` true whose `toolSha256` is not the sha256 of `git show <build-revision>:scripts/sitemap_audit.py` is a control meeting the predicate → exit 1 listing it; without --build-revision every met receipt fails. Exit 0 otherwise; 2 on unreadable input.\n- Negative fixtures in /fast/scratch/hyaku/kake-r39w1/ExecCcCheck/fixtures/: a met control receipt named `build-…json`; a met receipt with label 'build'; a met receipt whose toolSha256 differs from the build by one hex digit; a receipt dir where the build receipt is met and one control at 23. Show exit codes for each; mutate your own check (≥8 mutants) and show each mutant fails at least one fixture.\n# Acceptance\nPaths, sha256 and an exit-code table for fixtures and mutants.\n"
+  },
+  {
+   "name": "ExecPublicSelftest",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nA public selftest for the future tool: `scripts/sitemap_audit_selftest.py` (write it in /fast/scratch/hyaku/kake-r39w1/ExecPublicSelftest/ only).\n# Change\n- From the contract alone (never the key or the reference), write `sitemap_audit_selftest.py --tool <path>` that materializes ≥40 small fixtures (manifest + files) in a temp dir, runs the tool, and checks exit, verdict and finding sets, printing `PASS n/N`. Cover every rule (a)–(k) with both polarities. Prove it can fail: run it against `/fast/scratch/hyaku/kake-r39w1/ExecPublicSelftest/null.py` (prints nothing) and a constant-clean tool. Do not run it against the reference (you must not read it).\n# Acceptance\nPaths, sha256, the fixture count per rule, and the two failing runs' output.\n"
+  },
+  {
+   "name": "ExecRealRunPrep",
+   "role": "executor",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReal inputs for the future tool: owned sitemaps available offline.\n# Change\n- Find sitemap files of the operator's properties on disk without network: `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-33/sources/ds4cc-7fc6aa2f/` (S065), and read-only searches of ~/Projects/*/ for sitemap*.xml (do not modify any repo). Build /fast/scratch/hyaku/kake-r39w1/ExecRealRunPrep/realrun/manifest.json (version 1, checks with id, file copied into /fast/scratch/hyaku/kake-r39w1/ExecRealRunPrep/realrun/, sitemapUrl = the URL each file is served at, with the evidence for that URL). For each file, hand-derive the findings the contract expects (record your reasoning).\n# Acceptance\nManifest path, files with sha256 and provenance, hand-derived expectations.\n"
+  },
+  {
+   "name": "ConnectSiblings",
+   "role": "connector",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSibling-lane overlap for sitemap validation.\n# Change\n- Search /home/vgpnk/Projects/shokunin/*-shokunin (read-only) for sitemap tools, knowledge or SOURCES rows (grep -ril sitemap). Report any sibling owning sitemap validation (tabi: client-side crawling; chousa: method) and whether C1 crosses kake's PROVINCE boundary (`/home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md` Adjacent).\n# Acceptance\nOverlap table with paths.\n"
+  },
+  {
+   "name": "ReviewDeclaration",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe declaration commit ceecb1b1f9093471eb0b17d2c9190e78bceb0b78 versus its own rule.\n# Change\n- Check: the predicate sentence is byte-identical in SCORECARD, the counter's PREDICATE and receipt `predicate` fields; CASES/TARGET; KEY_SHA256 pin; the before receipt `.ufo/waves/round-39/verification/base-2909f1dc.json`; that pre-summary.jsonl has no row at 24 except the reference; that no key path is in ceecb1b1f9093471eb0b17d2c9190e78bceb0b78's tree (`git ls-tree -r ceecb1b1f9093471eb0b17d2c9190e78bceb0b78 | grep -c sealed/`); every hash the declaration writes resolves. Re-run the counter at ceecb1b1f9093471eb0b17d2c9190e78bceb0b78 in a sandbox clone with `--revision ceecb1b1f9093471eb0b17d2c9190e78bceb0b78` and any `--key-file` path (it must refuse or report tool absent; quote the output).\n# Acceptance\nVerdict per attacked statement (holds / overstated / wrong) with commands, exits and pointers.\n"
+  },
+  {
+   "name": "ReviewR38Evidence",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRouted-defect-5 evidence `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-39/r38w2-evidence/` and the SCORECARD 'Round 38 — closure correction'.\n# Change\n- Verify the SHA256SUMS against the files, compare a sample against /fast/scratch/hyaku/kake-r38w2/, check the four mutant hashes quoted in the closure (ed00b962, f20d1bf8, e11073ae, e7907567), and check the correction appends only (`git diff 2909f1dcf2a4e411394a5093c4ed811a81809895 ceecb1b1f9093471eb0b17d2c9190e78bceb0b78 -- SCORECARD.md | grep -c '^-[^-]'`).\n# Acceptance\nVerdict per attacked statement (holds / overstated / wrong) with commands, exits and pointers.\n"
+  }
+ ]
+}

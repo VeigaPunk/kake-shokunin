@@ -2401,3 +2401,14 @@ Frozen predicate — this sentence, `PREDICATE` in `.ufo/waves/round-39/sealed_c
   mutant seats; the L1 scores every returned tool) next, with every receipt committed; then the
   content-based control-consequence check (QUALITY (j), routed defect 4) lands; only then is the
   build seat (key-blind, contract only) dispatched. The key is revealed after the build is scored.
+- **Drafting defect in the control-class sentence, recorded at 05:4xZ before any wave-1 seat has
+  returned and before any control has been scored** (wave 1 started 05:44:02Z,
+  `.ufo/waves/round-39/w1-dispatch-log.txt`). "Every tool scored with this counter other than the
+  exact bytes of `scripts/sitemap_audit.py` at the build commit is a control" was written for
+  tools scored after the declaration. Read literally, it also covers the private reference
+  (`/fast/scratch/hyaku/kake-r39w1/shared/reference.py`, sha256 `663e051e…2d69f8`). The reference
+  was scored before the declaration and is recorded in the same declaration as the key's oracle
+  at 24. Under that literal reading, kill rule (1) makes C1 exploratory. The L1 does not settle
+  this in its own favour. Nothing in the declaration is changed. The closure rules on both
+  readings, and the report carries C1's verdict under each. No other pre-declaration tool scored
+  24 (`verification/pre-summary.jsonl`).
