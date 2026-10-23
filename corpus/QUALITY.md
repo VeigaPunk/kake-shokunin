@@ -963,3 +963,27 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
   fire on a correct build. Grounding: round-38 C1, withdrawn before any build
   (`SCORECARD.md` "Round 38 — control call results"). Check: none yet; read the control list
   against the claimed rules before freezing.
+
+## Round-39 criteria
+
+- **(o) The key's power is measured by non-author seats before the declaration freezes it.** A sealed
+  key is admitted as a counter only after independent mutant families of the reference (one seat
+  per family, written from the contract) and at least one tweaked shortcut control (a parser-free or
+  convenience reader improved key-blind toward the target) have been scored against it, and none
+  meets the predicate. The declaration names, by sha256, every tool scored with the counter before
+  it (oracle, reference, ablations) and the class each belongs to. Grounding: round 39 (lesson
+  `corpus/lessons/round-39.md` Mistakes 1–2): 15 of 54 single-sentence mutants and a regex reader
+  reach 24 of 24 on a key whose pre-declaration evidence was L1-written ablations only; the class
+  sentence covered the pre-declaration reference. Check: the round's receipts under
+  `.ufo/waves/round-39/criteria/control_consequence_check.py` v2.1 (content-only; red on round 39,
+  exit 1 under both readings, `verification/a3-jcheck/v21-{A,B}.txt`). The inventory half has a draft
+  checker, not yet adopted (`.ufo/waves/round-39/criteria/draft-o/`, reported in
+  `.ufo/waves/round-39/w1a3/ScribeQualityCriterion.md`).
+- **(p) Code-writing or code-running items are never routed to critic seats.** Grounding: lesson
+  round 39 Mistake 3. Check: `.ufo/waves/round-39/criteria/route_check.py <spec>` — red on
+  `w1-spec.json` (12) and `w1a3-spec.json` (11), green on `w2a3-spec.json`
+  (`verification/a3-jcheck/route_check.txt`).
+- **(j) amended reading, round 39:** the content check is v2.1
+  (`.ufo/waves/round-39/criteria/control_consequence_check.py`); it decides by receipt bytes (frozen
+  counter, predicate, key; rows; build by tool bytes), never by file name, label or class text
+  (round-38 closure routed defect 4).
