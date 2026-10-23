@@ -59,3 +59,5 @@ Correct `PROVINCE.md:103-106` so deep corpus and `O_NOCTTY` are not called round
 ## Not verified
 
 I did not re-run either C1 counter. I did not re-run the deep-corpus, `O_NOCTTY`, or `--name=value` and abbreviated-repeat spellings. I did not probe stack-size dependence or `--revision` (Git-blob) mode for I1–I3. I did not exercise the retention families. Their open status is static: `git diff --stat 0356681 451e98f -- .ufo/waves/round-27/` is empty (exit 0), so the tracked `fetch_group.py` is unchanged.
+
+<!-- 2026-10-23 round-43 movement census: corpus/lessons/round-29.md gained one annotation row (line 104) after its round-29 FieldsAndCounts row; this file's pointer "round-29.md:118-122" now reads "round-29.md:119-123". Cited content unchanged; the new row itself carries absence wording. -->

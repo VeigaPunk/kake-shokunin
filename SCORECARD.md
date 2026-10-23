@@ -3177,3 +3177,117 @@ gaps (port length, repetition classes) are now named with able-to-fail receipts,
 rule-2 breaches are repaired, and the build's behaviour-equality is established far beyond the counter.
 Discernment: improved locally — an honest negative result reported against the lane's own interest, four
 meeting controls self-reported with witnesses instead of relabelled; outside spot-check owed.
+
+## Round 43 — C1 and C2 declared (frozen before any seat scores)
+
+Base `61046fcffa23898cd93b7a5a0af4906dac9926c9` (round-42 closure spot-check on the r42 verdict
+`5949e66ffe…`; the r42 round stays rejected-honest-stop, C1 NOT MET, freeze-provenance defect
+substantive). Two claims on the two owned axes (operability, freshness), both repair-first per
+the closure's routed repairs. **Everything on this page, the counter and every L1 receipt below
+commits before the round-43 wave's taskCall leaves the lane** (routed repair 2: freeze before ANY
+seat scores, not before the build is scored). Method pattern per S129 (tameshi r33 verification
+fixtures, adjacency import): pre-data control classes scored against the frozen counter, freeze
+bytes audited before seats score.
+
+**C1 — operability: runnable cost of the held round-42 build under a counter with the round-42
+lesson Mistake-5 fix criteria.** Surface: the URL check of `scripts/sitemap_audit.py` (build
+`020bc4574729ed674299f6cab02faac1582d9464`, tool sha256 `914ebdee7bcb…`, behaviour-equality and
+harm H1–H5 established in round 42; round 42's C1 failed only because counter v3 was blind to two
+control classes). Predicate (frozen; the round-42 sentence, byte-identical — `PREDICATE` in
+`c43_count_v4.py` and every receipt's `predicate` field):
+
+    met: the tool's exit code and output equal the round-41 tool's on every generated run, and its median CPU time on each of the five timing shapes is at most 2.0 times the round-40 tool's
+
+- **Counter v4** `.ufo/waves/round-43/c43_count_v4.py`, sha256
+  `1c3b96610873301b1ea17d123677dd76a86f77edf26020c1ff5ef38221fe8eab` (built from v3 by
+  `.ufo/waves/round-43/build_v4.py`, committed with this declaration). Adds run F and the
+  timing-shape classes of the Mistake-5 fix, frozen pre-dispatch: (i) 6+-digit ports, 70%
+  out-of-range (the round-41 tool rejects via the port range; a ≤5-digit reader accepts),
+  otherwise clean, in equality run F and in T1/T3/T5; (ii) repetition classes — case-fold pairs
+  under a segment-cased sitemapUrl (F and the T2 restructure: 20 scoped files × 1,000 values
+  sharing scheme/host/first segment, opening with a fold pair), tail-defective shared-prefix
+  pairs in both orders (F and T3, prefix ≥36 > 32), repeated-host blocks (F and T3),
+  common-host values on the four hosts tabled by the round-42 control plus a wider basket
+  (F and T3). Runs: A–F + T1–T5 = 11 ("every generated run" per the predicate sentence).
+- **Counting command** (exit 0 met / 1 not met / 2 cannot evaluate; receipt every case; no
+  `--seed` for scored runs): `python3 -B .ufo/waves/round-43/c43_count_v4.py --root . --revision <rev> --out <receipt>`.
+- **Target:** met at the build revision on each of three scorings (three independent
+  `os.urandom` seeds).
+- **Before (do-nothing control, L1 receipt `verification/freeze/ref41-base.json`, seed 43001):**
+  the round-41 tool at base `1ef7a0e9` — equal 11/11 (it IS the reference) but ratios T1 4.272,
+  T2 1.931, T3 1.223, T4 1.229, T5 8.679 → **not met**. A do-nothing control cannot reach the
+  target (it must be ≤2.0 on T1/T5 while equal on every run); neither can a junk tool
+  (`r42ctl-junk_constant.json`, 0/11 equal).
+- **After (L1 receipts `verification/freeze/build-{1,2,3}.json`, three urandom seeds):** met ×3,
+  equal 11/11 each, ratios T1 1.002–1.020, T2 1.150–1.194, T3 1.289–1.305, T4 1.245–1.258,
+  T5 1.129–1.179. Per-source T2 numbers stay distinct from rerun maxima in this round's report
+  (routed repair 6).
+- **Fix shown able to fail (red-before receipts `verification/freeze/r42ctl-*.json`):** all four
+  round-42 meeting controls now **not met** under v4 — M8-port-five-digits caught by F and T3
+  (9/11), v1_casefold by F and T2 (9/11), v2_prefix32 by E, F, T2, T3 (7/11), v4_hosttable by F
+  and T3 (9/11). The four tools are committed at `.ufo/waves/round-43/controls-r42/` with
+  sha256sums equal to the round-42 wave-2 report values.
+- **Kill rules (frozen):** (1) after the wave opens, any live-seat control receipt meeting v4
+  means C1 is NOT MET; reported, never relabelled. (2) A build scoring below the predicate on
+  any of the three seeds is a miss, an honest stop. (3) A seat-demonstrated counter unsoundness
+  (a do-nothing/junk/constant-class tool meeting v4, or a generated value on which the frozen
+   references disagree) means C1 is NOT MET. Live seats only; dead-seat leftovers listed apart.
+- **Control classes (frozen, per QUALITY (n)):** absent; constant output; junk; all-clean or
+  all-invalid; no-reader; behaviour skips (any tool judging a value differently from the
+  round-41 tool — length/position/port/keyed fast paths, single-structure mutants with a
+  witness); measurement skips (unwaited/re-parented/killed processes, runner or timing-file
+  writes, cross-run caching keyed on ids/names/seeds, reading outside the case directory).
+  Not a control: a tool equal to the round-41 tool on every value however written (witness
+  criterion per the round-42 equivalence differential, extended to the new classes).
+- **Harm rule:** unchanged from round 42 (H1 selftest 235 on build and round-41 tool, H2 real run
+  `fd985a41…`, H3 the ratios, H5 Python 3.10 selftest — v4 changes only generated inputs, not the
+  tool). **H4 stays qualified, in-class only** (routed repair 3): the broad clause "rejects no
+  value both base and oracle accept, accepts no value the base rejects" is established on the
+  filtered in-class population only; the clause is kept qualified until measured out-of-class.
+
+**C2 — freshness: the two misroot-survivor wave-report citations declared absent, §paths gate
+green.** Before (`verification/freeze/sweep-before.txt`): `node scripts/freshness-sweep.mjs
+--section=paths` exit 1, "2 unannotated miss · 2 NOT in pins.pathsMissSet" — the fleet-root paths
+of the round-29 and round-33 misroot incidents, deleted by those rounds' sweeps, cited
+unannotated at `corpus/lessons/round-29.md:102` and `corpus/lessons/round-33.md:43` since
+rounds 30–42. After (`sweep-after.txt`): exit 0, VERDICT OK. Fix: one annotation row inside each
+Mistakes table (round-29.md:104, round-33.md:45 — pure new-line additions per the QUALITY
+append-only ruling, each naming the exact missing target, the dated removal event and the
+surviving byte-exact lane copy, marked historical and non-executable), both tokens entered in
+`corpus/knowledge/freshness-pins.json` `pathsMissSet` (63 → 65), movement census with dated EOF
+corrections in the two shifted historical wave pointers (`.ufo/waves/round-30/w2/CriticC1Scope.md`
+:118-122 → :119-123; `.ufo/waves/round-34/w1/CriticFrontierNovelty.md` :124-132 → :125-133).
+Counting command: `node scripts/freshness-sweep.mjs --section=paths` (exit code + verdict line).
+A do-nothing control cannot reach it: the gate enumerates the citations and requires the
+annotation vocabulary per cite within ±2 lines plus the pinned miss-set entries.
+
+**Routed repair 1 — registry arithmetic, corrected (append-only).** The round-42 report/SCORECARD
+stated "rows 128 → 131; mined +1 net of supersessions"; re-derived from the committed bytes at
+the revisions the round named, the registry went **119 → 128 rows; mined +7; queued +0; rejected
++2** (superseding rows S120–S128 added on top of base `1ef7a0e9`). The correction lands here and
+in the round-43 report, never by editing filed bytes. Every count above re-derives:
+`.ufo/waves/round-43/registry_count_check.py --claims …` is red on the r42 claims (exit 1) and
+green on the r43 correction (exit 0); receipts `verification/freeze/registry-count-r4{2,3}-check.txt`.
+Discipline: `corpus/knowledge/claim-count-derivation.md` (cites S130).
+
+**Frontier (this section completes the pre-wave frontier step).** Census exit 0 before
+(`../round-42/census-after.txt`, carried) and after (`verification/freeze/census-after-r43.txt`).
+Registry rows 128 → 130 at the freeze commit: S129 (tameshi r33 verification-fixture method) and
+S130 (kama r29 self-assessment-at-writing), sibling adjacency imports opened 2026-10-23, Gate
+rows with located quotes in `corpus/lessons/round-43.md`. Sourced claim: C1's freeze pattern
+cites S129. Mined mistakes: 7 (registry arithmetic) and 8 (unannotated misroot cites) in
+`corpus/lessons/round-43.md`, both with fixes shown able to fail.
+
+**Learning trends (author-side, pre-wave).** Expansion: unchanged so far (no capability enters;
+the two SOURCES rows are curation inside the existing registry capability). Quality: improved
+locally — the arithmetic correction, the annotation repair, the checker able to fail. Discernment:
+unchanged pending the outside spot-check; the two admits are sibling-lane method imports, quoted
+verbatim.
+
+### Planned — supersedes nothing above
+
+The single v2 wave (`kake-r43-w1`, 64–96 seats, ≥25% attack) attacks C1 (fresh controls of the
+frozen classes scored against v4; counter mutation coverage; build-area mutants; sandbox probes;
+receipt re-derivation), C2 (annotation bar re-check, pins shape, movement census re-scan), the
+freeze (chronology, byte completeness, predicate equality) and the frontier rows (quotes, census).
+Verdict lands after the wave returns; the report then files per-source numbers distinctly.

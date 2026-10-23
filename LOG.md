@@ -1650,3 +1650,26 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   H4 in-class-only counters, H5 chronology, unpriced wall/RSS, QUALITY (v) fooled-as-gate, run-E support
   gaps. Frontier: S126–S128 landed; census exit 0 before and after; lesson Mistakes 5–6 mined.
 - No tool installs this attempt (host `jq`, `python3` 3.14.8, uv Python 3.10.22 already present).
+
+## Round 43 — 2026-10-23 (kake L1 `KakeR43`, hyaku run 5 in-session, attempt 1)
+
+- C1 (operability, cost of the held round-42 build): counter v4 `.ufo/waves/round-43/c43_count_v4.py`
+  (sha256 `1c3b9661…`) = v3 + the round-42 lesson Mistake-5 fix classes (6+-digit ports; case-fold
+  pairs under segment-cased sitemapUrls; tail-defective shared-prefix pairs; repeated-host blocks;
+  common-host tables), frozen and committed BEFORE any seat scores (routed repair 2; method per
+  S129, tameshi r33). L1 receipts: build `020bc457` met ×3 (11/11 equal, T1 1.00–1.02, T5 1.13–1.18,
+  `verification/freeze/build-{1,2,3}.json`); do-nothing (round-41 tool at base) not met (T1 4.27,
+  T5 8.68); all four round-42 meeting controls now not met under v4 (M8: F,T3; v1_casefold: F,T2;
+  v2_prefix32: E,F,T2,T3; v4_hosttable: F,T3); junk control 0/11. H4 stays in-class qualified.
+- C2 (freshness): the round-29/33 misroot-incident fleet paths, unannotated since rounds 30–42,
+  declared absent (annotation rows round-29.md:104 / round-33.md:45, pins `pathsMissSet` 63→65,
+  movement census + two dated EOF pointer corrections); `freshness-sweep --section=paths` exit
+  1 → 0. Motivating evidence: sweep-before/-after receipts.
+- Routed repair 1 (registry arithmetic): the r42 "128→131, mined +1" corrected to the re-derived
+  119→128, mined +7, rejected +2; able-to-fail checker `registry_count_check.py` red on the r42
+  claims, green on the correction; discipline in `corpus/knowledge/claim-count-derivation.md`
+  (cites S130, kama r29 adjacency import).
+- Frontier: SOURCES S129/S130 admitted (sibling method imports, Gate quotes in
+  `corpus/lessons/round-43.md`); census exit 0; registry 128 → 130 rows. Lesson `round-43.md`
+  Mistakes 7–8.
+- Tool installs: none (host python3 3.14.8, git, node already present; no pacman).

@@ -105,3 +105,5 @@ I did not read S067–S070 retained text or check any quote, and I did not run e
 did not read `link-preview-metadata.md` or `link_preview_audit.py`, which have not landed. I read
 goal file lines 1-94 only through grep. No sandbox was needed and no tools were installed. No
 operator-owned property was contacted.
+
+<!-- 2026-10-23 round-43 movement census: corpus/lessons/round-29.md gained one annotation row (line 104) after its round-29 FieldsAndCounts row; this file's pointer "corpus/lessons/round-29.md:124-132" now reads "125-133". Cited content unchanged; the new row itself carries absence wording. -->
