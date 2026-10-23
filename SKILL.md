@@ -1111,3 +1111,25 @@ clarifications. Tool: `scripts/robots_audit.py` at `3ed8e15c` (sha256 `f4d057c4�
 refuses any revision that holds a revealed key. Round-37 C1 was not admitted; the 28-of-28 control
 that met it was the stdlib parser plus six patches (`CtlC1Shortcut-followup`), not the stock
 parser (20 of 28).
+
+The robots selftest now has 204 fixtures (round 39, routed defect 3): ten fixtures for the round-38
+declared sentences and the six MutBuildTool survivors; the tool bytes are unchanged (`f4d057c4…`).
+
+### Sitemap file audit — round 39 (exploratory capability)
+
+Use it before publishing a sitemap or sitemap index, or when a crawl report says a sitemap was
+rejected. Contract: `.ufo/waves/round-39/c1-contract.md` (sentences 1–34, rules (a)–(k); sources
+S102–S108, lane readings marked). Tool `scripts/sitemap_audit.py` at `565ef4c9` (sha256
+`6d86c8ce…a240ec`).
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| sitemap-file-audit | gate (offline; no network) | `python3 -B scripts/sitemap_audit.py --manifest PATH` (manifest v1: checks of `id`, `file`, `sitemapUrl`) | `0=clean`; `1=failed-policy` (findings such as `loc_out_of_scope`, `lastmod_invalid`, `too_large`); `2=could-not-evaluate` (`input_invalid`, `check_invalid`, `file_unreadable`); `64=usage` | `python3 -B scripts/sitemap_audit_selftest.py --tool scripts/sitemap_audit.py` (150 fixtures, all 34 sentences) | none admitted: the sealed 24-case counter (`.ufo/waves/round-39/sealed_count.py`, key `aa73d919`) does not separate the contract from a regex reader or from 15 single-sentence mutants; use the selftest | none (reads the manifest and the files it names) | kake |
+
+Procedure:
+1. Put the sitemap's served URL in `sitemapUrl` (scope is judged against its directory, sentence 25;
+   an index only needs the same scheme, host and port, sentence 27).
+2. Run it on the uncompressed file (gzip is out of scope). `loc_out_of_scope` most often means
+   `http` versus `https` or another host (round-39 real run: fsf.org 212, nodejs.org 8).
+3. A clean report is a protocol check, not an engine's acceptance: Yandex splits the 2,048-character
+   `loc` limit (S109) and engines may ignore optional tags (S102).

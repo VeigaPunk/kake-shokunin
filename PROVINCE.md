@@ -322,3 +322,17 @@ at `3ed8e15c`.
 Still open: live fetch, redirects, caching, crawler extensions, sitemaps, the symlinked manifest
 directory and U+FFFD per byte. Client-side crawler discipline stays with tabi; kake keeps
 publisher-side placement.
+
+## Round-39 sitemap file audit step
+
+Round 39 opens the sitemap surface left open by rounds 37–38 ("sitemaps" in their Still-open lines).
+`scripts/sitemap_audit.py` (build `565ef4c9`) audits local sitemap and sitemap-index files against
+`.ufo/waves/round-39/c1-contract.md`: UTF-8 and encoding declaration, well-formedness and DOCTYPE,
+root and entries in the 0.9 namespace (other namespaces ignored), entry children, the 50,000-entry
+and 52,428,800-byte limits, `loc` form and length, `loc` scope against the sitemap's own URL, and
+`lastmod`, `changefreq` and `priority` values (S102–S108). It reads files only; it does not fetch,
+gunzip, follow robots `Sitemap:` lines or judge any engine's acceptance (S109 shows one engine
+reading `loc` limits differently). The claim (C1) is exploratory: its sealed 24-case counter could not
+separate the contract from a regex reader or from 15 single-sentence breaks. Still open: gzip, live
+fetch, text/RSS sitemaps, robots cross-submission, and a key that kills those 15 breaks.
+Boundary unchanged: publisher-side placement is kake's; client-side crawling stays with tabi.

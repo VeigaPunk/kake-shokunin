@@ -369,3 +369,12 @@ file on an owned site is an operator-owned publishing action.
 The contract reads local inputs only and makes no network requests or writes; its cases are synthetic, not live fetch observations. Live fetch/redirect behavior, caching, crawler-specific extension behavior and sitemap handling remain open; unknown records including `Sitemap` and `crawl-delay` are ignored. Browser-driven/client-side crawler discipline remains tabi's province; kake's boundary is publisher-side robots/sitemap placement (Round-37 C1 contract; PROVINCE.md, Adjacent; S012–S013).
 
 Knowledge entry: `corpus/knowledge/robots-txt-rules.md`.
+
+## Round-39 frontier step
+
+Sitemap files moved from Frontier to an exploratory capability: `scripts/sitemap_audit.py` (round 39,
+not counter-admitted; `../SCORECARD.md` "Round 39 — C1 verdict"). Sources S102–S109 (protocol, XSDs,
+W3C Datetime, XML 1.0, Namespaces, XSD Datatypes, sitemaps.org FAQ, Yandex). Still frontier: a sealed
+key that kills the 15 round-39 single-sentence breaks and the regex reader; gzip; live fetch; text and
+RSS sitemaps; robots `Sitemap:` cross-submission; the five build deviations in the round-39 SCORECARD
+corrections.

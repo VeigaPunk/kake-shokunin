@@ -196,6 +196,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Link-preview audit, round-35 contract | The same audit also reports more than one non-empty og:url (`og_url_multiple`), ignores meta and link tags inside an open `<template>`, `<svg>` or `<math>` element, and keeps auditing the readable pages when one page cannot be read (exit 2 with input and policy findings together) | `scripts/link_preview_audit.py` at `b1cbbc39`; sealed counter 24 of 24 (`.ufo/waves/round-35/verification/c1-at-b1cbbc39.json`, reveal `4c6be2bd`) against 14 of 24 at base and 7 of 24 for the lookup and constant controls; selftest 45/45 and round-34 matrix 28/28 at `b1cbbc39` (`verification/selftest-link-preview-at-b1cbbc39.txt`, `c1r34-matrix-at-b1cbbc39.json`) | 35 |
 | Offline source re-check audit | Reads a version-1 manifest of recorded fetches (hops, contentType, body) of registry sources and reports, read-only and network-free, whether each row's quote still occurs in its source: final status (gone, http_error), permanent redirects with the resolved new URL (moved), HTML text rules, NFKC and whitespace-deleted case-sensitive matching (quote_missing), media types and WHATWG charset decoding (unsupported_type, charset_unsupported), per-check input faults (exits 0/1/2/64); with `scripts/source_snapshot.py` it re-checks live Gate quotes | `scripts/source_recheck.py` at `4d5b3d55`; sealed counter 28 of 28 (`.ufo/waves/round-36/verification/c1-keyrev-at-4d5b3d55.json`, reveal `fd1fb723`) against 0 at base and at most 12 for the control seats; selftest 101/101; real-input run on 90 Gate quotes (`.ufo/waves/round-36/realrun/audit.json`) | 36 |
 | Offline robots.txt expectation audit | Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose decision under the round-37 contract's reading of RFC 9309 differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim | `scripts/robots_audit.py` at `9dbc88bb` (wildcard matcher repaired after measurement, see round-37 wave-2 corrections); sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base, at most 4 for the do-nothing, junk, constant, all-false and no-reader controls, 20 for the stock `urllib.robotparser` and at most 24 for the 34 listed reference ablations; a stock-parser-plus-six-rule-patches control also scored 28 (disposition and its contest in the round-37 sections), so 28 of 28 does not separate the contract from that parser; selftest `scripts/robots_audit_selftest.py` does (127/134 on that control, 134/134 on the tool); live run over 12 robots.txt files (`.ufo/waves/round-37/realrun/audit.json`) | 37 — **not admitted** (round-37 closure; "Round 37 — closure correction") |
+| Offline sitemap file audit (round 39, exploratory) | Reads a version-1 manifest of (id, local sitemap or sitemap-index file, served `sitemapUrl`) and reports, read-only and network-free, encoding, well-formedness and DOCTYPE, root and entries in the 0.9 namespace (other namespaces ignored), entry children and repeats, the 50,000-entry and 52,428,800-byte limits, `loc` form, length and scope, and `lastmod`, `changefreq`, `priority` values (contract `.ufo/waves/round-39/c1-contract.md`; exits 0/1/2/64); no gzip, fetch, robots cross-submission or engine-acceptance claim | `scripts/sitemap_audit.py` at `565ef4c9`; selftest 150/150 (`.ufo/waves/round-39/verification/build/selftest.txt`); 18/18 contract-decided witnesses (`.ufo/waves/round-39/resid/ReviewBuildWitnesses.md`); real run 6/6 equal to an independent reference, findings checked (`verification/realrun/`, `resid/ReviewRealRun.md`). **No counter admits it:** the sealed 24-case counter is met by 15 reference mutants and a regex reader (kill rule (1), C1 exploratory). Verdict `unprovable-but-better`, non-author reviewer `KakeR39A3.ExploratoryVerdictC1` (`.ufo/waves/round-39/resid/ExploratoryVerdictC1.md`) | 39 — exploratory, pending closure |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -2493,3 +2494,44 @@ rule (1) fired before the build (16 controls meet; 17 with the reference), so C1
 the controls (`verification/a3-jcheck/postbuild-{A,B}.txt`). Mutant bytes are committed now
 (`a3-controls/w1a3-mutants/`, 54 files), after the build, as `score_a3.sh` declared. Wave 2's 15
 `Verify*` reviewers each judged their met mutant a `valid control` (`.ufo/waves/round-39/w2a3/`).
+
+## Round 39 — C1 verdict and wave-2 corrections (appended)
+
+**C1 (operability; capability: sitemap file audit) — exploratory under kill rule (1); self-verdict
+`unprovable-but-better`.** Non-author reviewer `KakeR39A3.ExploratoryVerdictC1` (reviewer seat;
+author of the build was `BuildSitemapAudit`) judged `unprovable-but-better`: the prior state had no
+sitemap-file validator (`git ls-tree -r --name-only 2909f1dc scripts/ | grep -c sitemap_audit` → 0;
+robots audit ignores `Sitemap` records, PROVINCE "Still open: … sitemaps"), and the build matched
+the contract on five fresh inputs including two rule classes the key misses
+(`.ufo/waves/round-39/resid/ExploratoryVerdictC1.md`). Supporting runs, not a counter: selftest
+150/150; 18/18 contract-decided witnesses (`resid/ReviewBuildWitnesses.md`); real run 6/6 equal to the
+reference, findings sampled and right (`resid/ReviewRealRun.md`). Counter score of the build (24 of 24
+at `565ef4c9`, key-file and key-revision `aa73d919`) is information only. No axis score changes.
+
+Corrections from wave 2 and the residual call (append-only; earlier lines stand as written):
+- "copy guard against the reference and all 22 committed controls" — it was the reference and **21**
+  controls (22 pairs; `CriticRoundFraming`).
+- Section times "06:59Z", "07:05Z", "07:12Z" are when the L1 drafted them; the commits carrying them
+  are `4c080d3d` 06:59:44Z, `57bdd802` 07:01:41Z, `77b2a86e` 07:03:37Z (`ReviewKillRuleRecord` F2). Order
+  is unchanged: every control receipt and (j) v2.1 landed before the build seat was dispatched (07:40:56Z).
+- "15 of 54 scored mutants": 54 receipts are 53 distinct tools (`MutNumericBoundaries__M06` and
+  `MutStdlibSubstitution__M04` are the same bytes); the 15 that meet are distinct (`ReviewKillRuleRecord` F1).
+- The met-mutant sentence numbers the L1 wrote into wave-2 prompts for NamespaceBinding were guesses;
+  each `Verify*` reviewer named the sentence from the seat's `mutants.json` and the contract (M07, M08, M09,
+  M10 break 14; M11 breaks 17; M02, M03 break 10; M04 breaks 11). All 15 are valid controls.
+- The copy guard is weak evidence of independence: `MutCopyGuard` found six evasions
+  (`w2a3/MutCopyGuard.md`); the build's independence rests also on the seat's key- and reference-blind
+  instructions and on the 0.29 maximum ratio.
+- Non-claim repairs reviewed: robots selftest +10 (`ReviewRobotsFixtures`: holds, 204/204, each new
+  fixture kills its mutant); source_recheck fix (`ReviewRecheckOversize`: correct and minimal; the
+  shipped hardening selftest is red in three cases on base, not one); `MutRecheckOversize`: two
+  boundary mutants survive g36 (carried). (j) v2.1: `RerunCcCheckFinal` reproduced A = 17, B = 16 and
+  killed survivor M06 with an added fixture (patch in its report; not landed).
+- Still carried from round 38 (routed defect 6): items 2–10 open, item 1 fixed (`VerifyCarriedDefects`).
+- **Build deviations found after judgment (carried; the build is not changed this round):**
+  `ReviewBuildContract` (`resid/ReviewBuildContract.md`) ran ~160 probes and found all 34 sentences
+  implemented with four deviations and one ambiguity: XML version 1.1 accepted (s8, low); UTF-16 without
+  BOM reads clean because the decoded text is re-sniffed by expat (s6/s8, medium); malformed plus DOCTYPE
+  gives `doctype_present` (s8/s9 precedence, the seat's declared reading); `urlsplit` drops interior tab/CR/LF
+  in `loc` and `sitemapUrl` (s21/s22/s4, low); a repeated id of an earlier invalid check is not flagged (s4,
+  low). None is covered by the sealed key. They are the next round's repair list.

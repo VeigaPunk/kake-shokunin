@@ -1545,3 +1545,21 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   runner. Then SOURCES S098–S101, knowledge-entry round-38 section, QUALITY round-38 (j)–(n),
   PROVINCE, README and SKILL amendments.
 - Lesson `corpus/lessons/round-38.md`. Motivating evidence: round-37 closure routed defects 1–6.
+
+## Round 39 — 2026-10-23 (kake L1 `KakeR39A3`, attempt 3, hyaku in-session)
+
+- Attempts 1 and 2 died with the orchestrator; attempt 2 landed the C1 declaration (`ceecb1b1`,
+  sitemap_audit capability, counter `f3a0cd60…`, key `16440f62…`, predicate `met: passed >= 24 of 24
+  sealed cases`) and a drafting-defect record (`915e9e87`). Attempt 3 re-hashed and kept both, scored
+  attempt 2's twelve dead-seat control tools (max 23), landed (j) check v2 (`72edf212`).
+- Wave 1 (32 seats, 3 refused by the provider): 15 of 54 reference mutants and a parser-free regex
+  control met the predicate, so kill rule (1) fired before any build (`4c080d3d`, `57bdd802`): C1 is
+  exploratory. (j) v2.1 (`77b2a86e`). Sources S105–S109 added after L1 re-open.
+- Wave 2 (39 seats in four gated chunks): build `565ef4c9` (key-blind; selftest 150/150; copy guard
+  clean), 24 of 24 as information; reveal `aa73d919`; the 15 met mutants each verified a valid control;
+  real run on six public sitemaps: build = reference on 6/6.
+- Non-claim repairs: robots selftest 194 → 204 (routed defect 3, tool unchanged, `f2b70119`);
+  `source_recheck.py` evaluate-time input fault → one uncounted `check_invalid` (`b78a1ea4`; selftest
+  106/106, hardening 9/9 → 10/10).
+- Lesson `corpus/lessons/round-39.md` (Mistakes 1–3); QUALITY (o), (p). Motivating evidence: round-38
+  closure routed defects 1–6 and the thin-key receipts in `.ufo/waves/round-39/verification/a3/`.

@@ -77,3 +77,17 @@ not an engine-acceptance check. Row changes: none to existing rows; S105–S109 
    or runs code") — not applied. Fix: `criteria/route_check.py` (exit 1 on a critic item with a code
    deliverable). Shown able to fail: `w1-spec.json` exit 1 (12), `w1a3-spec.json` exit 1 (11),
    `w2a3-spec.json` exit 0 (`verification/a3-jcheck/route_check.txt`).
+
+## Wave-2 corrections to the Gate and rows
+
+Fresh scouts re-opened S105–S109 (`.ufo/waves/round-39/w2a3/Reopen*.md`); all five fetched bytes or
+visible text match. Corrections (rows are append-only; the corrected reading is recorded here):
+- **S106 `teaches`:** "'ignored' in sentence 14 comes from S102" is wrong. S102's "Extending the
+  Sitemaps protocol" only says a sitemap may use another namespace; neither S102 nor S106 says
+  "ignored". Sentence 14's "ignored" is a lane reading. "(sentences 10–11)" is overstated: S106 grounds
+  how namespace membership is decided, not what those sentences require.
+- **S107 `teaches`:** `24:00:00` and required seconds belong to `xsd:dateTime`, not `xsd:date`.
+- **S109 `anchor` and Gate quote:** the page's apostrophe is U+2019 ("site’s"); the row and Gate typed
+  U+0027.
+- **S105, S108:** hold as written.
+Row changes this round: S105–S109 added; no `status`, `recheck` or `used-by` change to an existing row.
