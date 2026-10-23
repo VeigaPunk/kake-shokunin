@@ -2989,3 +2989,29 @@ every receipt:
   every class and scores them with these counter bytes; the L1 re-scores every meeting tool and commits the
   receipts; then the declaration freezes this predicate unchanged (or records the redesign); only then is the
   build scored. The build gets a fresh non-author review of its final bytes before the report (QUALITY (t)).
+
+### Round 42 — counter v2 replaces v1 before freeze (appended; the section above is not edited)
+
+Wave-1 attacks on counter v1 (`w1/CriticPredicate.md`, `w1/CriticHarmRule.md`; no build exists, none scored)
+found defects that a control could exploit: the ratio was rounded to three decimals before the `≤ 2.0` test
+(2.0004 → met); T4 kept the real run's file names and check ids (`rfc-editor`, `mdn`, …), against QUALITY
+(r); schemes were spelled only `http`, `https`, `HTTP`, `Https`, so a tool rejecting `hTtP://` would pass;
+userinfo units were never inserted in the password. **Counter v2** `.ufo/waves/round-42/c42_count_v2.py`
+(sha256 `01d3fb8de064cd86f5ec05be4641f154bb23a7961ff36e542a3777809208808e`) fixes all four (exact median
+ratio, raw CPU samples; T4 under random names and ids; random-case schemes plus 3% odd schemes; password
+insertion) and adds equality run D (2,000 run-A values with one to three edits at any position). The
+predicate sentence is unchanged and is v2's `PREDICATE`; "every generated run" now counts nine runs.
+C1's headline reads, as the counter enumerates it: the build keeps the round-41 tool's exit code and output
+**on every generated run** (not "every judgment"; `CriticPredicate`).
+
+L1 receipts under v2 (`verification/pre-v2/`): do-nothing (round-41 tool) equal 9/9, ratios T1 5.469 / 5.368,
+T2 2.719 / 2.847, T3 1.395 / 1.36, T4 1.181 / 1.206, T5 10.124 / 10.356 (seeds 42001, 42002): **not met**;
+round-40 tool 3/9, ratios 0.906–1.007: not met; absent 0/9: not met. The wave-1 control seats score with v1
+bytes; the L1 re-scores every returned control tool with v2 and commits those receipts before the
+declaration; v1 receipts stay as seat evidence and decide nothing.
+
+Freeze provenance (`CriticHarmRule`): the harm rule H1–H4 is binding from `d1c3f372` as written; the
+predicate freezes at the declaration. The 29/13 classification of the `r41_*` fixtures is a historical
+observation re-run by `ReviewR41FixtureClasses` (base40 `PASS 196/225`, 29 red all `r41_*`; tip41 225/225),
+not a pre-data round-41 rule: round 41 stays rejected-harmed. H4's run contract is pinned when its script
+lands, before the build is scored.
