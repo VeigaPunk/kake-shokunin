@@ -195,7 +195,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Offline link-preview (Open Graph) audit | Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim | `scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`; the declared measure, necessary but not sufficient), and at the wave-2 repair `76fac3b` (`c1-at-76fac3b.json`); evidence below was added after the declaration and does not count toward C1: committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4) | 34 |
 | Link-preview audit, round-35 contract | The same audit also reports more than one non-empty og:url (`og_url_multiple`), ignores meta and link tags inside an open `<template>`, `<svg>` or `<math>` element, and keeps auditing the readable pages when one page cannot be read (exit 2 with input and policy findings together) | `scripts/link_preview_audit.py` at `b1cbbc39`; sealed counter 24 of 24 (`.ufo/waves/round-35/verification/c1-at-b1cbbc39.json`, reveal `4c6be2bd`) against 14 of 24 at base and 7 of 24 for the lookup and constant controls; selftest 45/45 and round-34 matrix 28/28 at `b1cbbc39` (`verification/selftest-link-preview-at-b1cbbc39.txt`, `c1r34-matrix-at-b1cbbc39.json`) | 35 |
 | Offline source re-check audit | Reads a version-1 manifest of recorded fetches (hops, contentType, body) of registry sources and reports, read-only and network-free, whether each row's quote still occurs in its source: final status (gone, http_error), permanent redirects with the resolved new URL (moved), HTML text rules, NFKC and whitespace-deleted case-sensitive matching (quote_missing), media types and WHATWG charset decoding (unsupported_type, charset_unsupported), per-check input faults (exits 0/1/2/64); with `scripts/source_snapshot.py` it re-checks live Gate quotes | `scripts/source_recheck.py` at `4d5b3d55`; sealed counter 28 of 28 (`.ufo/waves/round-36/verification/c1-keyrev-at-4d5b3d55.json`, reveal `fd1fb723`) against 0 at base and at most 12 for the control seats; selftest 101/101; real-input run on 90 Gate quotes (`.ufo/waves/round-36/realrun/audit.json`) | 36 |
-| Offline robots.txt expectation audit | Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose decision under the round-37 contract's reading of RFC 9309 differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim | `scripts/robots_audit.py` at `9dbc88bb` (wildcard matcher repaired after measurement, see round-37 wave-2 corrections); sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base, at most 4 for the do-nothing, junk, constant, all-false and no-reader controls, 20 for the stock `urllib.robotparser` and at most 24 for the 34 listed reference ablations; a stock-parser-plus-six-rule-patches control also scored 28 (disposition and its contest in the round-37 sections), so 28 of 28 does not separate the contract from that parser; selftest `scripts/robots_audit_selftest.py` does (127/134 on that control, 134/134 on the tool); live run over 12 robots.txt files (`.ufo/waves/round-37/realrun/audit.json`) | 37 |
+| Offline robots.txt expectation audit | Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose decision under the round-37 contract's reading of RFC 9309 differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim | `scripts/robots_audit.py` at `9dbc88bb` (wildcard matcher repaired after measurement, see round-37 wave-2 corrections); sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base, at most 4 for the do-nothing, junk, constant, all-false and no-reader controls, 20 for the stock `urllib.robotparser` and at most 24 for the 34 listed reference ablations; a stock-parser-plus-six-rule-patches control also scored 28 (disposition and its contest in the round-37 sections), so 28 of 28 does not separate the contract from that parser; selftest `scripts/robots_audit_selftest.py` does (127/134 on that control, 134/134 on the tool); live run over 12 robots.txt files (`.ufo/waves/round-37/realrun/audit.json`) | 37 — **not admitted** (round-37 closure; "Round 37 — closure correction") |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -2007,7 +2007,7 @@ unchanged since then. Receipts: `.ufo/waves/round-37/verification/c1-*.json` wit
 
 | Capability | What it can now do | Evidence pointer | First-working round |
 |---|---|---|---|
-| Offline robots.txt expectation audit | Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose RFC 9309 decision under the lane readings differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim; the sealed cases certify the tested rules of (a)–(g), not every contract sentence | `scripts/robots_audit.py` at `9dbc88bb`; sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base and at most 20 for the controls that skip rules; selftest 131/131 (`verification/robots-selftest-at-9dbc88bb-tool.json`); live run over 12 robots.txt files (`realrun/audit.json`) | 37 |
+| Offline robots.txt expectation audit | Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose RFC 9309 decision under the lane readings differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim; the sealed cases certify the tested rules of (a)–(g), not every contract sentence | `scripts/robots_audit.py` at `9dbc88bb`; sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base and at most 20 for the controls that skip rules; selftest 131/131 (`verification/robots-selftest-at-9dbc88bb-tool.json`); live run over 12 robots.txt files (`realrun/audit.json`) | 37 — **not admitted** (round-37 closure; "Round 37 — closure correction") |
 
 ## Round 37 — wave-2 corrections (appended)
 
@@ -2170,3 +2170,90 @@ the base tool, and a mutation pass on the private reference. **A control that me
 means this counter or target is wrong: C1 is then redesigned before any build seat is dispatched
 or withdrawn; no reclassification of the control is an option.** This round-38 counter does not
 replace the round-37 counter as round 37's rule of record.
+
+## Round 38 — control call results; C1 withdrawn before any build (appended)
+
+Control call `kake-r38-ctl` (7 seats: 5 critic, 2 mutation-tester; dispatched 04:15:37Z, all 7
+returned, reports in `.ufo/waves/round-38/ctl/`; `CtlStdlibV2` discloses one existence test of the
+sealed directory's path, nothing inside it observed). Every tool a seat named was scored by the L1 with the frozen v2
+counter (`sealed_count.py`, sha256 `52daff55…6e7b`, predicate `passed >= 19 of 20 sealed cases`);
+receipts `.ufo/waves/round-38/verification/control-*.json` and `.exit`, the tools in
+`.ufo/waves/round-38/retained/controls/`, mutant receipts in `verification/mutref/`:
+
+| Control (seat) | passed of 20 | met |
+|---|---|---|
+| base `af43a50f` (do nothing) | 8 | false |
+| constant clean, junk, all-false (`CtlTrivial`) | 0, 0, 0 | false |
+| no-reader with (a), (f), (g), (h), (i) (`CtlTrivial`) | 1 | false |
+| label shortcut, pooled rules (`CtlLabelShortcut`) | 16 | false |
+| base plus all three rules as wrappers (`CtlLabelShortcut` delegate ceiling) | 20 | **true** |
+| base wrapper, minimal textual hacks (`CtlBaseWrapper` min) | 18 | false |
+| stdlib `urllib.robotparser` for (c)/(d), patched for every other rule (`CtlStdlibV2`) | 13 | false |
+| base wrapper, careful (`CtlBaseWrapper` care, all three rules) | 20 | **true** |
+| base plus (h), (i), (k) as read (`CriticPredicate` rulepatch, rulepatch_pct) | 20, 20 | **true** |
+| 42 single-point mutants of the private reference (`MutRefPass`) | 16–20; 28 meet | **true** |
+
+**C1 is withdrawn before any build.** The declaration listed "a cheapest-wrapper shortcut around
+the base tool, and a mutation pass on the private reference" among the controls and said a control
+that meets the predicate means the counter or target is wrong, with no reclassification. Controls of
+both listed kinds met it: 28 of 42 mutants (each breaks one contract sentence; 13 pass all 20) and
+the wrapper arms that implement all three rules. The wrapper arms do the claimed work, so no counter
+can put them below target; the declared consequence therefore leaves withdrawal, not a counter fix,
+for C1 as declared. The v2 counter and receipts stay C1's rule of record. No build seat had been
+dispatched. Counter defects found by the call: a tool echoing an original check id was accepted
+(`MutCounterV2` F1, reproducer in its report), a missing `--tool-file` gave a traceback without a
+receipt (F2), `checksEvaluated` was not compared (`CtlBaseWrapper`); declaration defects
+(`CriticPredicate`): the groups bullet was labelled (g) (it is rule (c); (g) is manifest faults),
+`PREDICATE` lacked the `met: ` prefix of the declared sentence, 19 of 20 tolerated one failed
+held-rule case, (h)'s "64 MiB of digits" bound collides with the 64 MiB manifest cap, and the
+capability rows did not carry the not-admitted status (now appended to both rows).
+
+## Round 38 — C2 declared (redesign of C1, before any build)
+
+**C2 — operability (tool repair): `scripts/robots_audit.py` gains rules (h), (i), (k) of the
+round-38 amendments above, under counter v3.** Same surface as C1 (manifest and check validation
+and the implicit-allow comparison of the robots audit tool); same contract amendments (h), (i),
+(k), with the clarifications below. The command that would show the surface unmoved: counter v3 at
+a revision whose tool is the base bytes scores 8 of 20. Frozen predicate, the same sentence here,
+in `.ufo/waves/round-38/sealed_count_v3.py` (`PREDICATE` is this sentence verbatim; `met = cases ==
+20 and passed >= 20`) and in every receipt's `predicate` field:
+
+    met: passed >= 20 of 20 sealed cases
+
+- Counting command (exit 0 met, 1 not met, 2 cannot evaluate):
+  `python3 -B .ufo/waves/round-38/sealed_count_v3.py --root . --revision <rev> --key-revision <reveal>`
+  (before the reveal the L1 uses `--key-file` on the key outside the lane). Before: 8 of 20 at the
+  base `af43a50f` (`verification/c2-at-af43a50f.json`). After: `met` true at the build commit.
+- Key v3 (sha256 `749ef6a6…3aa6`, pinned in the counter; outside the lane until the reveal): the
+  20 cases of C1's key with bullets renamed (c) groups, (d) rules, (h) as j, (i) as u, (k) as r, and
+  added checks: one check per excluded ASCII URL character (43, each alone in its URL, at six
+  positions: path, query, fragment, leading, trailing, host), two `*` groups combined, a matching
+  group with no rules, length ties with `*` and with a final `$`, a three-octet escape outranking a
+  wildcard, allow listed before an equal disallow, a full-length wildcard rule, `*` matching
+  nothing, prefix (not substring) matching, `/robots.txt/`, a `1e400` status. Every run states
+  `checksEvaluated`.
+- Counter v3 (sha256 in each receipt's `counterSha256`): v2 plus the fixes for F1, F2 and the
+  `checksEvaluated` comparison; same jail, same fresh ids and file names on every run.
+- Measured with `--tool-file` before this declaration (receipts `verification/v3/*.json`): the
+  private reference 20; base 8; every C1 control except the full-rule wrappers at most 16 (label
+  shortcut 16, minimal wrapper 14, stdlib for (c)/(d) patched for (h), (i), (k) 13,
+  stdlib-plus-six-patches 7, stock parser 5, no-reader 1, others
+  0); all 42 `MutRefPass` mutants 16–19 (none meets); the 8 reference ablations 16–18. Tools that
+  implement all three rules (delegate ceiling, careful wrapper, rulepatch, rulepatch_pct) 20.
+- Control classes, named before any v3 control score is read as a control: (1) do nothing (the
+  base); (2) constant, junk, all-false; (3) no-reader; (4) label shortcuts keyed on ids, file
+  names, URL words, user-agent names or byte patterns; (5) a tool that leaves (c)/(d) to
+  `urllib.robotparser`; (6) a tool that implements at most two of (h), (i), (k); (7) the round-37
+  retained controls. **A tool of any of these classes meeting the predicate withdraws C2; there is
+  no further redesign this round.** Single-point mutants of the reference are coverage evidence with
+  a declared bar: each of the 42 scores below 20 (measured: all do). A tool implementing all three
+  rules is a build, whatever its packaging (patch, wrapper, rewrite); the four such tools above are
+  recorded as builds that reach the target, not as controls.
+- Clarifications of (h), (i), (k) (from `CriticPredicate`; no rule changes): (h) the bound reads
+  "a manifest within the 64 MiB cap, however long its numbers, finishes within 20 s"; `1e400` and
+  other non-integer numbers stay floats (round-37 (f): not integers). (i) judges characters only:
+  a `%` not followed by two hex digits is allowed by (i) and kept by (e). (k) `/robots.txt?` has an
+  empty query, so its path to match is `/robots.txt` (allowed); an explicit `Disallow: /robots.txt`
+  does not override the implicit allow. Duplicate JSON member names stay undecided and untested.
+- Harm instruments and sources as declared for C1. Limits as for C1; 20 of 20 tolerates no failed
+  case.
