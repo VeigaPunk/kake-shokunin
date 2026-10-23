@@ -19,18 +19,21 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--seeds", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--counter", default=os.path.join(HERE, "c1_count.py"))
     a = ap.parse_args()
     if hashlib.sha256(open(SECOND, "rb").read()).hexdigest() != SECOND_SHA256:
         sys.exit("second oracle sha256 mismatch")
-    spec = importlib.util.spec_from_file_location("c1_count", os.path.join(HERE, "c1_count.py"))
+    spec = importlib.util.spec_from_file_location("c1_count", a.counter)
     cc = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(cc)
     valid = cc.load_oracle()
     sys.path.insert(0, SECOND)
     import rfc3987
 
+    whole = rfc3987.get_compiled_pattern("%(URI)s")
+
     def second(value):
-        if rfc3987.match(value, rule="URI") is None:
+        if whole.fullmatch(value) is None:      # `match` uses `$`, which admits a trailing LF
             return False
         parts = rfc3987.parse(value, rule="URI")
         if (parts.get("scheme") or "").lower() not in ("http", "https"):
@@ -48,10 +51,11 @@ def main():
     rows = []
     for seed in [int(s) for s in a.seeds.split(",")]:
         cases = cc.generate(random.Random(seed), valid)
-        dis = [c for c in cases if second(c["value"]) != c["valid"]]
+        dis = [c for c in cases
+               if second(c["value"].strip(" \t\r\n") if c["field"] == "loc" else c["value"]) != c["valid"]]
         rows.append({"seed": seed, "cases": len(cases), "abnfInvalid": sum(not c["valid"] for c in cases),
                      "disagree": len(dis), "examples": [{"value": c["value"], "abnf": c["valid"]} for c in dis[:20]]})
-    out = {"counterSha256": hashlib.sha256(open(os.path.join(HERE, "c1_count.py"), "rb").read()).hexdigest(),
+    out = {"counterSha256": hashlib.sha256(open(a.counter, "rb").read()).hexdigest(),
            "secondOracleSha256": SECOND_SHA256, "rows": rows,
            "totalCases": sum(r["cases"] for r in rows), "totalDisagree": sum(r["disagree"] for r in rows)}
     with open(a.out, "w") as fh:

@@ -2751,3 +2751,67 @@ Predicate — this sentence, `PREDICATE` in `.ufo/waves/round-41/c1_count.py` (w
   re-scores every returned tool with these counter bytes and commits the receipts; then the declaration
   freezes this predicate unchanged (or records the redesign); only then does the build land and get scored.
   The build gets a fresh non-author review seat before the report (routed defect 2).
+
+## Round 41 — kill rule (1) fired on counter v1: C1 is exploratory (recorded before the build lands)
+
+Wave 1 (`kake-r41-w1`, 37 seats, dispatched 09:47:43Z, settled 10:03:28Z; 37 returned, **0 dead, 0
+refused**; `.ufo/waves/round-41/w1-dispatch-log.txt`) built controls of the classes frozen at `abf457d0` and
+reviewed the counter, oracles and reference. The L1 re-scored every returned tool with the unchanged
+counter v1 (`c1_count.py`, sha256 `2acc443a…67b4`; `score.sh`; copies `controls/w1/<Seat>/`, receipts
+`verification/w1/`): **15 of 141 receipts meet** `met: the tool's judgment of loc and sitemapUrl agrees
+with the RFC 3986 URI oracle on 1434 of 1434 generated cases` (`jq -s 'map(select(.met))|length'
+.ufo/waves/round-41/verification/w1/*.json`). All 141 are from live seats; no dead-seat output exists
+(routed defect 1). The meeting tools, by what they skip:
+
+| Meeting receipt(s) | Seat | Class (frozen at `abf457d0`) | What it skips; why v1 missed it |
+|---|---|---|---|
+| `terminal_pct` | CtlNoPct | partial repair (percent-triplet rule) | accepts `%`, `%2` at the very end of the value; v1 inserts at interior positions only, so no case ends in a broken triplet |
+| `v1_shape` | CtlGeneratorShape | generator-shape keyed | accepts the one IP-literal template v1 generates (`[2001:db8::hex]`) and no other; rejects RFC-valid empty ports, which v1 never generates |
+| `strip`, `first2048`, `locLong16` | MutPlacement | partial repair (placement) | judge a stripped, truncated or length-gated value; behaviour on v1's cases is identical to the reference, because v1 never puts whitespace at either end of a `sitemapUrl`, never generates a value of 2048 characters or more, and every value it generates is longer than 16 |
+| `delimiter_proxy`, `charset_pct_rules`, `v11_charset_netloc_brackets` | CtlConstantFamily, CtlCharsetProxy, CtlAllowList | proxy repair (allow-list / repertoire plus delimiter counts), as the seats built them | a global repertoire, percent triplets, at most one `#`, one `@` and one bracket pair in the authority, port digits through `urlsplit`; the seats found disagreements with RFC 3986 only outside the class (zone ids, non-ASCII) |
+| `V3_decode_probe` | CtlRawBytes | not a control (the seat says so) | decodes character references and applies the full RFC 3986 check |
+| `M05-port-letter`, `m03_empty_host`, `m06_path_question`, `m07_query_hash`, `m08_scheme_leading_digit`, `no-port-v2` | MutRepertoireAdd, MutStructure, CtlNoUserinfoPort | single-structure mutants | equivalent in behaviour: `urlsplit`'s port and host checks and the http/https test downstream reject what the regex now admits, or the regex language is unchanged |
+
+Classes that did not meet (best receipt): id/file-name keyed 1051, position keyed 1011, no-reader 1193,
+isolation probe 1059 (base-level: it found nothing label-bearing), per-character table 1309, raw bytes
+without decoding 1277, `loc` only 1162, `sitemapUrl` only 1321, no host 1355, no query/fragment 1349,
+printable only 1212, delimiters only 1066, every repertoire-drop mutant (28) ≤ 1424, constant outputs ≤ 802.
+
+**Kill rule (1) applies: C1 is declared exploratory.** At least `terminal_pct` (a percent-rule partial repair)
+and `v1_shape` (generator-shape keyed) are controls of the frozen classes that meet the predicate. The
+counter, predicate and target of C1 are not changed; the classification of the proxy-plus-delimiter tools
+and of the equivalent mutants is recorded, not used to rescue the counter. The build still lands as the
+repair; its v1 score is information only, and C1's verdict comes from a named non-author reviewer.
+
+Wave-1 corrections to the pre-freeze section (appended; that section is not edited): the RFC 3987 wording
+is wrong as source justification (`ScoutIRIRule`, `CriticClassScope` 7): code points U+0080 and above stay
+accepted as the round-40 tool accepted them, which is broader than RFC 3987 `ucschar` (it starts at U+00A0
+and has holes) — unchanged legacy behaviour, not IRI conformance. IP-literal contents and ports above 65535
+are measurement bounds, not source decisions (`CriticClassScope` 8). `URI` with an authority is the lane's
+reading of sentence 22's "absolute URL", not RFC 3986 `absolute-URI` (which has no fragment;
+`CriticClassScope` 2). "random seed 1035" means a score of 1035 at seed `43258815593301`
+(`CriticPredicate`). Base scores vary with the seed (1028–1078 measured). The sandbox's empty environment
+does not reach `/proc/1/environ` (bubblewrap's own environment, `SentinelSandbox`, `CtlIsolationProbe`);
+nothing label-bearing was in it.
+
+**Build revised before it lands** (`ReviewReferenceDiff`, `CriticClassScope` 8): the reference
+`6d7c2dd4…` added its own IP-literal check, outside the class and untested by the counter; the build
+`0b485431d96268d46c8dc9052eec92520248a03989896bd83f4521f15f13edbf` drops it, so IP-literal contents and
+the port range stay judged by `urlsplit` exactly as in the base, and its comment no longer claims RFC 3987
+conformance. Scored before landing: counter v1 1434/1434 on seeds 41001–41003 and a random seed
+(`verification/pre/reference2-*.json`); selftest with the 15 `r41_*` fixtures drafted by
+`ExecSelftestFixtures` `PASS 198/198` (base `PASS 188/198`, the ten red fixtures all `r41_*`; the
+port-letter fixture is a parity guard, green on both, because `urlsplit` already rejects a non-digit port);
+round-39 real run `jq -S . | sha256sum` → `fd985a41867ed31b02ab03797562a1f01969aa3fc01c293eda145c2a7a4bc8a5`,
+equal to round 40. Independent build (`ExecIndependentBuild`, written from RFC 3986 without reading the
+reference): 1434/1434 on four seeds, 0 ASCII disagreements with the oracle over 31,528 values.
+
+**Counter v2 (information for the next round, not C1's instrument):** `c1_count_v2.py` inserts at any
+position (ends included), generates absent and empty optional components, varied IP literals, judges
+`loc` after sentence 21's strip, and starts bubblewrap with a minimal environment. Second oracle agrees on
+14,340 of 14,340 v2 cases (`verification/pre/oracle-crosscheck-v2.json`). Scores of the wave-1 tools under
+v2: `verification/w1v2/` — 10 of 141 meet: `terminal_pct`, `v1_shape`, `strip`, `delimiter_proxy` and
+`m07_query_hash` now fail; still meeting are the two allow-list-plus-delimiter tools, `V3_decode_probe`,
+the two length-gated mutants and the equivalent mutants. Build `0b485431…`, the reference and the
+independent build score 1434 on seeds 41101–41103 under v2; base 1065–1076 (`verification/pre/v2-*.json`).
+It is not frozen and decides nothing this round.
