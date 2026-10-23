@@ -1,0 +1,367 @@
+{
+  "build": "4d5b3d550748e5b52af31646b74c1aa435942bde",
+  "axes": [
+    "operability",
+    "freshness"
+  ],
+  "sourceHashes": {
+    "/fast/scratch/hyaku/kake-r36w2/MutTool/pristine.py": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+    "/fast/scratch/hyaku/kake-r36w2/MutTool/clone/.ufo/waves/round-36/sealed_count.py": "88ec59140258ce759107b7472fdd07a005b7c1bb8b3ba5218347e4518342ff8e",
+    "/fast/scratch/hyaku/kake-r36w2/MutTool/clone/scripts/source_recheck_selftest.py": "0ad5623b9bbfafccd0f9f558c927d90651fabb5da4fd003e9fa2e73c96d5e419",
+    "/fast/scratch/hyaku/kake-r36w2/MutTool/clone/.ufo/waves/round-36/sealed/cases.json": "44c94838f31af6740a3f1bb4123abe6cbb8df0bbdd3414de7acbb3838863ef1d"
+  },
+  "mutants": [
+    {
+      "id": "M01",
+      "bullet": "a",
+      "skippedRule": "410 is not gone",
+      "line": 38,
+      "old": "GONE_STATUSES = frozenset((404, 410))",
+      "new": "GONE_STATUSES = frozenset((404,))",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M01.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "2acf7446f07282e2e669a597f312a812a26ca0aa4be5e3a3eb80fde6bc2d33e7"
+    },
+    {
+      "id": "M02",
+      "bullet": "a",
+      "skippedRule": "first hop decides final status",
+      "line": 501,
+      "old": "    status = hops[-1][\"status\"]",
+      "new": "    status = hops[0][\"status\"]",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M02.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "7934fcad83a0d7dced6d8adb8ae12e1108a015d335602867ae6382b2bf1bdf9b"
+    },
+    {
+      "id": "M03",
+      "bullet": "a",
+      "skippedRule": "all 2xx enter quote processing",
+      "line": 502,
+      "old": "    if status == 200:\n        media, params",
+      "new": "    if 200 <= status < 300:\n        media, params",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M03.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "5867fa38069ecfb416a0bd08cc893def5f3905d4e132639ca8d6e1440c1a78ea"
+    },
+    {
+      "id": "M04",
+      "bullet": "a",
+      "skippedRule": "404 is not gone",
+      "line": 38,
+      "old": "GONE_STATUSES = frozenset((404, 410))",
+      "new": "GONE_STATUSES = frozenset((410,))",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M04.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "13a8494472a1829216cf4f4ad035b7c3b4a02a8b22d038f339b45d3cba7b4385"
+    },
+    {
+      "id": "M05",
+      "bullet": "b",
+      "skippedRule": "302 permanent instead of 301",
+      "line": 37,
+      "old": "PERMANENT_STATUSES = frozenset((301, 308))",
+      "new": "PERMANENT_STATUSES = frozenset((302, 308))",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M05.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "f8d4344b12d46b632753c8ed78485c47f70901259267e905129267cc9b20d01c"
+    },
+    {
+      "id": "M06",
+      "bullet": "b",
+      "skippedRule": "only first leading permanent hop",
+      "line": 483,
+      "old": "    while end < len(hops) and hops[end].get(\"status\") in PERMANENT_STATUSES:",
+      "new": "    while end < min(1, len(hops)) and hops[end].get(\"status\") in PERMANENT_STATUSES:",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M06.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "db9ddcc1884a1f0d9ce0f472666c5b6bbe1d360c4456b275c5ff79f4c5fc9d4b"
+    },
+    {
+      "id": "M07",
+      "bullet": "b",
+      "skippedRule": "each redirect resolved from original URL",
+      "line": 488,
+      "old": "        resolved = resolve_reference(base, hops[index][\"location\"])",
+      "new": "        resolved = resolve_reference(check[\"url\"], hops[index][\"location\"])",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M07.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "e06ee96362c761937b64a70b4a306df341f8329783155f81dee57a8e6ef0b53b"
+    },
+    {
+      "id": "M08",
+      "bullet": "b",
+      "skippedRule": "relative redirects retain dot segments",
+      "line": 178,
+      "old": "            path = remove_dot_segments(_merge(b_authority, b_path, r_path))",
+      "new": "            path = _merge(b_authority, b_path, r_path)",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M08.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "3d6713ddb43b615af1c6e3942fa7caa02f67ef85ac9fd59c323cd26ea7530cf3"
+    },
+    {
+      "id": "M09",
+      "bullet": "c",
+      "skippedRule": "retain HTML comments",
+      "line": 343,
+      "old": "    text = remove_comments(text)\n",
+      "new": "",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M09.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "aba84e1dabf69975efcc00d56a3edaf38116eeb6e71a1043870cc68365fa7ead"
+    },
+    {
+      "id": "M10",
+      "bullet": "c",
+      "skippedRule": "retain all raw-element contents",
+      "line": 344,
+      "old": "    text = remove_raw_elements(text)\n",
+      "new": "",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M10.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "6c5e48853e7d4e09d7ae4d77eab0fceda858031ac514f757003a6cc9c482058a"
+    },
+    {
+      "id": "M11",
+      "bullet": "c",
+      "skippedRule": "retain ordinary HTML tags",
+      "line": 345,
+      "old": "    text = strip_tags(text)\n",
+      "new": "",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M11.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "00d17e228ee00f3e47ba1301f04ad52bb4c4506a98fe50fc3f792e06f5c30e3e"
+    },
+    {
+      "id": "M12",
+      "bullet": "c",
+      "skippedRule": "do not decode HTML references",
+      "line": 346,
+      "old": "    return unescape(text)",
+      "new": "    return text",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M12.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "657a32fa51f49aaec39648b0064438b514deaa792a755983d12dde67a206f5e2"
+    },
+    {
+      "id": "M13",
+      "bullet": "c",
+      "skippedRule": "raw start tags case-sensitive",
+      "line": 271,
+      "old": "_RAW_START_RE = re.compile(r\"<(script|style|template)(?=[\\s/>])\", re.IGNORECASE)",
+      "new": "_RAW_START_RE = re.compile(r\"<(script|style|template)(?=[\\s/>])\")",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M13.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "635fc32d2043b59b20662baf327c598448f94043ca9449014ab90f883bfb5473"
+    },
+    {
+      "id": "M14",
+      "bullet": "c",
+      "skippedRule": "retain style contents",
+      "line": 271,
+      "old": "_RAW_START_RE = re.compile(r\"<(script|style|template)(?=[\\s/>])\", re.IGNORECASE)",
+      "new": "_RAW_START_RE = re.compile(r\"<(script|template)(?=[\\s/>])\", re.IGNORECASE)",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M14.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "7f61c95a5f1a20d6111fe234e7e41c5d18186b09b53842b51090623a422d10e9"
+    },
+    {
+      "id": "M15",
+      "bullet": "d",
+      "skippedRule": "NFC instead of NFKC",
+      "line": 366,
+      "old": "    return unicodedata.normalize(\"NFKC\", text).translate(_WHITESPACE_TABLE)",
+      "new": "    return unicodedata.normalize(\"NFC\", text).translate(_WHITESPACE_TABLE)",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M15.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "be615e1ef04c01f7f0c323331c595be7266984f0869fe080eec85002ef2f343e"
+    },
+    {
+      "id": "M16",
+      "bullet": "d",
+      "skippedRule": "do not delete whitespace",
+      "line": 366,
+      "old": "    return unicodedata.normalize(\"NFKC\", text).translate(_WHITESPACE_TABLE)",
+      "new": "    return unicodedata.normalize(\"NFKC\", text)",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M16.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "a6d45ffa96d23e828fd3d4799bbfaa469c8a8d79df7096ce0df44a48fc1448f7"
+    },
+    {
+      "id": "M17",
+      "bullet": "d",
+      "skippedRule": "case-insensitive quote match",
+      "line": 525,
+      "old": "        if normalize(check[\"quote\"]) not in normalize(text):",
+      "new": "        if normalize(check[\"quote\"]).casefold() not in normalize(text).casefold():",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M17.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "ab2d473c3ce0233cc62c65d821cb5d825cb3e05c24fd41bc7bdf63a80648ca36"
+    },
+    {
+      "id": "M18",
+      "bullet": "d",
+      "skippedRule": "whole-text equality instead of substring",
+      "line": 525,
+      "old": "        if normalize(check[\"quote\"]) not in normalize(text):",
+      "new": "        if normalize(check[\"quote\"]) != normalize(text):",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M18.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "784804b01ef64bc1b46cc3936a400e2431593d9f878131b224b2bf08d8f87692"
+    },
+    {
+      "id": "M19",
+      "bullet": "e",
+      "skippedRule": "media type case-sensitive",
+      "line": 381,
+      "old": "    media = ascii_lower(parts[0].strip())",
+      "new": "    media = parts[0].strip()",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M19.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "38de227aadc0166c1329d044eb1c779a51bd1177d1ec5e8f151a95981730099d"
+    },
+    {
+      "id": "M20",
+      "bullet": "e",
+      "skippedRule": "parameter names case-sensitive",
+      "line": 387,
+      "old": "        key = ascii_lower(name.strip())",
+      "new": "        key = name.strip()",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M20.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "6efb1404e000d8609305747605b7fbcbe22112ab945d9df52c9450d3bb5068c6"
+    },
+    {
+      "id": "M21",
+      "bullet": "e",
+      "skippedRule": "apply HTML processing to text/plain",
+      "line": 507,
+      "old": "            mode = \"plain\"",
+      "new": "            mode = \"html\"",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M21.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "1df34a561614a2e3cf5875ed98a7fca94cc9fddbd9b84b9e3fa307128444a2f7"
+    },
+    {
+      "id": "M22",
+      "bullet": "e",
+      "skippedRule": "xhtml not a supported HTML type",
+      "line": 39,
+      "old": "HTML_MEDIA_TYPES = frozenset((\"text/html\", \"application/xhtml+xml\"))",
+      "new": "HTML_MEDIA_TYPES = frozenset((\"text/html\",))",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M22.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "57e0db025c09ba4fe2ffe9f40ccbf33625738fc526cb99424e6b774a56b6dc9d"
+    },
+    {
+      "id": "M23",
+      "bullet": "f",
+      "skippedRule": "ignore all BOM encoding overrides",
+      "line": 253,
+      "old": "    for mark, codec in BOMS:",
+      "new": "    for mark, codec in ():",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M23.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "05cc5fabd5db92b8875c9180b41a850ccd886c3396bec81d157594ddc6f0af27"
+    },
+    {
+      "id": "M24",
+      "bullet": "f",
+      "skippedRule": "decode BOM but do not drop its mark",
+      "line": 255,
+      "old": "            return codec, data[len(mark):]",
+      "new": "            return codec, data",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M24.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "eaac16cc0962169df4b24fbf634784d551873e09bbada475c45f79f0e498eef2"
+    },
+    {
+      "id": "M25",
+      "bullet": "f",
+      "skippedRule": "do not remove charset double quotes",
+      "line": 260,
+      "old": "        label = label[1:-1].strip()",
+      "new": "        label = label",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M25.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "5c933e4d4798bb06ebcf8cbc8fbb5519c28fad9d18858de3b88e295da8d4590a"
+    },
+    {
+      "id": "M26",
+      "bullet": "f",
+      "skippedRule": "ascii label means ASCII not windows-1252",
+      "line": 223,
+      "old": "    \"ascii\": \"cp1252\",",
+      "new": "    \"ascii\": \"ascii\",",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M26.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "b37995ac4801807330f9c678d7f37bbaae32b3c242ce5c447b94118d99b7288e"
+    },
+    {
+      "id": "M27",
+      "bullet": "f",
+      "skippedRule": "default encoding windows-1252 not UTF-8",
+      "line": 257,
+      "old": "        return \"utf-8\", data",
+      "new": "        return \"cp1252\", data",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M27.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "4d2ec1446587a263c989ae315c5a9bb33cf727967780b29c98bd74b089a251ab"
+    },
+    {
+      "id": "M28",
+      "bullet": "f",
+      "skippedRule": "discard invalid bytes instead of replacement",
+      "line": 522,
+      "old": "        text = payload.decode(codec, errors=\"replace\")",
+      "new": "        text = payload.decode(codec, errors=\"ignore\")",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M28.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "a5583ac628cdf2fff726a71579b9ceefd4326a37ea4c5fc725ddcb8d94782d4d"
+    },
+    {
+      "id": "M29",
+      "bullet": "g",
+      "skippedRule": "stop after first check_invalid",
+      "line": 621,
+      "old": "            findings.append(finding(check_id_of(check), \"check_invalid\"))\n            continue",
+      "new": "            findings.append(finding(check_id_of(check), \"check_invalid\"))\n            break",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M29.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "4233a1e54e1524659b1e56e39edc2a4455d32808085f760e04a2f3d9098d2a46"
+    },
+    {
+      "id": "M30",
+      "bullet": "g",
+      "skippedRule": "do not reject relative path escape",
+      "line": 400,
+      "old": "    if candidate != root and not candidate.startswith(root + os.sep):",
+      "new": "    if False:",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M30.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "8fadc1fe71ed8cf030fa9dd066b1cf539e0cd1cd8d2ed8007cdb0e4fe6d2dede"
+    },
+    {
+      "id": "M31",
+      "bullet": "g",
+      "skippedRule": "accept empty check id",
+      "line": 423,
+      "old": "    if not isinstance(cid, str) or not cid:",
+      "new": "    if not isinstance(cid, str):",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M31.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "2ae64725ad2f59ad2e9aa71a39648e0675bd835013d36bd9181d768d3e152a7b"
+    },
+    {
+      "id": "M32",
+      "bullet": "g",
+      "skippedRule": "do not validate manifest version",
+      "line": 553,
+      "old": "    if isinstance(version, bool) or not isinstance(version, (int, float)) or version != 1:",
+      "new": "    if False:",
+      "path": "/fast/scratch/hyaku/kake-r36w2/MutTool/mutants/M32.py",
+      "pristineSha256": "577b2d7d028964e06152f5a7b792141e586045eaa8ec9262ee7f416ba5510d48",
+      "mutantSha256": "2afc98ec71b8e30cf0d2fb7cce029d596d0b2e6ddeb261fed348e58d5464111b"
+    }
+  ]
+}
