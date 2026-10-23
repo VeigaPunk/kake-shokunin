@@ -2481,3 +2481,15 @@ structure-only 16 (refused seat's leftover file), values-only 14; none meets.
   is not killed by the selftest and is carried. The three critic seats whose role forbade running code
   returned source or diffs in their reports; the L1 materialized them byte-for-byte
   (`a3-controls/w1a3-materialized/*.diff`; CtlEngineLenient source sha256 matches the report's).
+
+## Round 39 — build scored (key-file mode, before the reveal)
+
+Build `565ef4c9` (`scripts/sitemap_audit.py` sha256 `6d86c8ce…a240ec`, written key-blind by seat
+`BuildSitemapAudit` from the contract and S102–S104 only; selftest 150/150; copy guard against the
+reference and all 22 committed controls: max ratio 0.29, clean — `verification/build/`). Frozen counter:
+**24 of 24, met** (`verification/c1-at-565ef4c9.json`). This is information, not C1's verdict: kill
+rule (1) fired before the build (16 controls meet; 17 with the reference), so C1 is exploratory. The
+(j) check v2.1 with `--build-revision 565ef4c9` lists the build receipt as BUILD and still exits 1 on
+the controls (`verification/a3-jcheck/postbuild-{A,B}.txt`). Mutant bytes are committed now
+(`a3-controls/w1a3-mutants/`, 54 files), after the build, as `score_a3.sh` declared. Wave 2's 15
+`Verify*` reviewers each judged their met mutant a `valid control` (`.ufo/waves/round-39/w2a3/`).
