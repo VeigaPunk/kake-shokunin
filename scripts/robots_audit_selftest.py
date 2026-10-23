@@ -28,6 +28,22 @@ status disallows /robots.txt. `c-exact` and `d-match` pin the (c)/(d) sentences 
 `urllib.robotparser` departs: substring user-agent match, `crawl-delay` ending a group, Unicode
 name folding, `*` rules ranked by matched length instead of rule length, non-final `$`, ties.
 
+Round-39 additions (10 fixtures, the 194 round-38 fixtures above them unchanged): the four
+round-38 C2 clarifications the sealed key does not exercise are now named fixtures, and each one
+kills the reference mutant that breaks exactly it: `/robots.txt?` empty query
+(`k10`, `m_emptyq`), a bare `%` (`i27`, `m_barepct`), an explicit `Disallow: /robots.txt`
+(`k11`, `m_explicit`), and the 20 s bound on a 64 MiB integer literal (`h11`, `m_unguarded`;
+the fixture carries its own 20 s subprocess timeout). The six round-38 `MutBuildTool` survivors
+get one fixture each: sign of short integers (`h12`, `H03`), truncation to three decimal digits
+(`h13`, `H04`), `_` rejected (`i28`, `I13`), U+00A0 rejected (`i29`, `I16`), implicit allow
+limited to HTTPS (`k12`, `K08`), implicit allow below another directory (`k13`, `K09`).
+Expected values are the contract's, not the mutants': (h) "an integer robotsStatus outside the
+three ranges, however many digits it has, is a check fault"; (i) "_ ... and %" are allowed
+characters and "A `%` not followed by two hex digits is allowed by (i) and kept by (e)"; (k)
+"the implicit allow ... is compared on the normalized path-to-match" with the clarification
+"`/robots.txt?` has an empty query, so its path to match is `/robots.txt` (allowed); an explicit
+`Disallow: /robots.txt` does not override the implicit allow".
+
 The fixtures deliberately cover the edges the round-37 control mutation pass found the sealed
 cases do not separate (`.ufo/waves/round-37/ctl/MutRefPass.md`, "contract sentence broken" and
 "one-line diff" columns): the exact 512000-byte read limit (one byte on either side), SP/TAB-only
@@ -57,8 +73,10 @@ DEFAULT_TOOL = HERE / "robots_audit.py"
 MIN_FIXTURES = 60
 MIN_PER_CONTRACT = 6
 REQUIRED_CONTRACTS = ("a", "b", "c", "d", "e", "f", "g", "verdict",
-                      "h", "i", "k", "c-exact", "d-match")
-MIN_BY_CONTRACT = {"h": 6, "i": 20, "k": 8, "c-exact": 4, "d-match": 4}
+                      "h", "i", "k", "c-exact", "d-match",
+                      "h-bound", "i-clar", "k-clar")
+MIN_BY_CONTRACT = {"h": 6, "i": 20, "k": 8, "c-exact": 4, "d-match": 4,
+                   "h-bound": 1, "i-clar": 1, "k-clar": 2}
 TIMEOUT_SECONDS = 120
 REASONS = ("blocked", "exposed", "check_invalid", "input_invalid")
 
@@ -172,6 +190,20 @@ CONTRACT = {
         '(/robots.txt?x=1), another case (/ROBOTS.TXT) or a kept reserved escape (/robots%2Ftxt) '
         'is decided by the rules. The fragment is never part of the path (as before)."'
     ),
+    "h-bound": (
+        '(h) Bound (C2 clarification, round 38). "a manifest within the 64 MiB cap, however long '
+        'its numbers, finishes within 20 s"; a number of any length in a field the contract does '
+        'not read changes nothing."'
+    ),
+    "i-clar": (
+        '(i) Clarification (C2, round 38). (i) judges characters only: "a `%` not followed by two '
+        'hex digits is allowed by (i) and kept by (e)".'
+    ),
+    "k-clar": (
+        '(k) Clarifications (C2, round 38). "`/robots.txt?` has an empty query, so its path to '
+        'match is `/robots.txt` (allowed); an explicit `Disallow: /robots.txt` does not override '
+        'the implicit allow".'
+    ),
     "c-exact": (
         '(c) Groups, exact match and record boundaries. "A user-agent line starts a new group '
         'unless the previous record was also a user-agent line (blank, comment and ignored lines '
@@ -199,7 +231,7 @@ FIXTURES = []
 def add(name, contract, manifest=None, raw=None, raw_size=None, manifest_missing=False,
         manifest_fifo=False, manifest_directory=False, argv=None, exit_code=0,
         verdict="clean", findings=(), evaluated=None, files=None, dirs=(), symlinks=None,
-        fifos=(), chmods=None, shape=True, accept=None):
+        fifos=(), chmods=None, shape=True, accept=None, timeout=TIMEOUT_SECONDS):
     FIXTURES.append({
         "name": name,
         "contract": contract,
@@ -221,6 +253,7 @@ def add(name, contract, manifest=None, raw=None, raw_size=None, manifest_missing
         "chmods": dict(chmods or {}),
         "shape": shape,
         "accept": list(accept or []),
+        "timeout": timeout,
     })
 
 
@@ -858,6 +891,23 @@ def build_fixtures():
         exit_code=2, verdict="could-not-evaluate",
         findings=[f("k1", "check_invalid")], evaluated=1)
 
+    h11_prefix = b'{"version": 1, "checks": [], "unread": '
+    add("h11-64mib-integer-literal-within-20s", CONTRACT["h-bound"],
+        raw=h11_prefix + b"9" * (64 * 1024 * 1024 - len(h11_prefix) - 1) + b"}",
+        timeout=20, exit_code=0, verdict="clean", evaluated=0)
+    add("h12-negative-short-status-check-invalid", CONTRACT["h"],
+        manifest=mf([chk("bad", status=-200, url="https://example.com/x", expect="disallow"),
+                     chk("good", status=200, url="https://example.com/x", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /x\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("bad", "check_invalid")], evaluated=1)
+    add("h13-four-digit-status-truncation-check-invalid", CONTRACT["h"],
+        manifest=mf([chk("bad", status=1200, url="https://example.com/x", expect="disallow"),
+                     chk("good", status=200, url="https://example.com/x", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /x\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("bad", "check_invalid")], evaluated=1)
+
     # ---- (i) URL characters (r38) ----------------------------------------
     i_files = robots("user-agent: *\ndisallow: /zzz\n")
     for i_name, i_url in (
@@ -912,6 +962,20 @@ def build_fixtures():
         files=robots("user-agent: *\ndisallow: /x!$&'()*+,;=:@[y]\n"),
         exit_code=2, verdict="could-not-evaluate",
         findings=[f("k1", "blocked"), f("k2", "check_invalid")], evaluated=1)
+    add("i27-bare-percent-kept-and-matched", CONTRACT["i-clar"],
+        manifest=mf([chk("k1", url="https://example.com/a%"),
+                     chk("k2", url="https://example.com/a b")]),
+        files=robots("user-agent: *\ndisallow: /a%\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "blocked"), f("k2", "check_invalid")], evaluated=1)
+    add("i28-underscore-in-path-valid", CONTRACT["i"],
+        manifest=mf([chk("k1", url="https://example.com/some_path")]),
+        files=robots("user-agent: *\ndisallow: /some_path\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    add("i29-nbsp-valid-and-normalized", CONTRACT["i"],
+        manifest=mf([chk("k1", url="https://example.com/a\u00a0b")]),
+        files=robots("user-agent: *\ndisallow: /a\u00a0b\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
 
     # ---- (k) implicit /robots.txt allow on the normalized path (r38) ------
     add("k01-implicit-allow-escaped-dot-upper", CONTRACT["k"],
@@ -966,6 +1030,23 @@ def build_fixtures():
         files=robots("user-agent: *\ndisallow: /robots%2Etxt\n"),
         exit_code=1, verdict="failed-policy",
         findings=[f("k2", "exposed")], evaluated=2)
+
+    add("k10-empty-query-empty-path-rule", CONTRACT["k-clar"],
+        manifest=mf([chk("k1", url="https://example.com/robots.txt?")]),
+        files=robots("user-agent: *\ndisallow: /\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("k11-explicit-disallow-robots-txt-does-not-override", CONTRACT["k-clar"],
+        manifest=mf([chk("k1", url="https://example.com/robots.txt")]),
+        files=robots("user-agent: *\ndisallow: /robots.txt\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("k12-implicit-allow-http-scheme", CONTRACT["k"],
+        manifest=mf([chk("k1", url="http://example.com/robots.txt")]),
+        files=robots("user-agent: *\ndisallow: /\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("k13-nested-robots-txt-not-implicit", CONTRACT["k"],
+        manifest=mf([chk("k1", url="https://example.com/nested/robots.txt")]),
+        files=robots("user-agent: *\ndisallow: /\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
 
     # ---- (c) exact user-agent matching and record boundaries (r38) --------
     add("c21-substring-agent-not-equal-group-name", CONTRACT["c-exact"],
@@ -1119,7 +1200,7 @@ def run_case(tool, fixture, work):
             cwd=str(case_dir),
             capture_output=True,
             text=True,
-            timeout=TIMEOUT_SECONDS,
+            timeout=fixture["timeout"],
             env=tool_environment(),
         )
     except (OSError, subprocess.TimeoutExpired) as exc:
