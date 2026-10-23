@@ -1,0 +1,470 @@
+{
+ "claim": "C2",
+ "predicate": "killed >= 32 of 32 round-36 tool mutants",
+ "counterSha256": "d72e232e4d4f120b6b45139958c40e9364d44d3d902207c0705ac97c1b6d5cb6",
+ "revision": "5ee6bb05b91be6977ffa59a218b82dd5868187d2",
+ "selftestSha256": "d3591c740c3b0be69243ff677e8eaa4ce8672fcc862edbaa70796947f4791557",
+ "fixtures": 400,
+ "validFixtures": 396,
+ "failedOnE1": [],
+ "failedOnE2": [
+  "random-222",
+  "random-259",
+  "random-273",
+  "random-363"
+ ],
+ "mutants": 32,
+ "killed": 27,
+ "target": 32,
+ "met": false,
+ "survivors": [
+  "M09",
+  "M13",
+  "M14",
+  "M17",
+  "M26"
+ ],
+ "perMutant": [
+  {
+   "id": "M01",
+   "bullet": "a",
+   "skippedRule": "410 is not gone",
+   "killed": true,
+   "killers": [
+    "random-007",
+    "random-015",
+    "random-016",
+    "random-018",
+    "random-020",
+    "random-025",
+    "random-029",
+    "random-044"
+   ],
+   "killerCount": 74
+  },
+  {
+   "id": "M02",
+   "bullet": "a",
+   "skippedRule": "first hop decides final status",
+   "killed": true,
+   "killers": [
+    "random-003",
+    "random-008",
+    "random-009",
+    "random-010",
+    "random-011",
+    "random-012",
+    "random-014",
+    "random-015"
+   ],
+   "killerCount": 213
+  },
+  {
+   "id": "M03",
+   "bullet": "a",
+   "skippedRule": "all 2xx enter quote processing",
+   "killed": true,
+   "killers": [
+    "random-001",
+    "random-002",
+    "random-008",
+    "random-009",
+    "random-010",
+    "random-014",
+    "random-021",
+    "random-022"
+   ],
+   "killerCount": 131
+  },
+  {
+   "id": "M04",
+   "bullet": "a",
+   "skippedRule": "404 is not gone",
+   "killed": true,
+   "killers": [
+    "random-003",
+    "random-011",
+    "random-014",
+    "random-033",
+    "random-036",
+    "random-039",
+    "random-040",
+    "random-046"
+   ],
+   "killerCount": 53
+  },
+  {
+   "id": "M05",
+   "bullet": "b",
+   "skippedRule": "302 permanent instead of 301",
+   "killed": true,
+   "killers": [
+    "random-002",
+    "random-003",
+    "random-007",
+    "random-008",
+    "random-009",
+    "random-011",
+    "random-012",
+    "random-014"
+   ],
+   "killerCount": 189
+  },
+  {
+   "id": "M06",
+   "bullet": "b",
+   "skippedRule": "only first leading permanent hop",
+   "killed": true,
+   "killers": [
+    "random-003",
+    "random-008",
+    "random-025",
+    "random-028",
+    "random-031",
+    "random-033",
+    "random-055",
+    "random-059"
+   ],
+   "killerCount": 60
+  },
+  {
+   "id": "M07",
+   "bullet": "b",
+   "skippedRule": "each redirect resolved from original URL",
+   "killed": true,
+   "killers": [
+    "random-025",
+    "random-031",
+    "random-033",
+    "random-101",
+    "random-115",
+    "random-129",
+    "random-133",
+    "random-147"
+   ],
+   "killerCount": 22
+  },
+  {
+   "id": "M08",
+   "bullet": "b",
+   "skippedRule": "relative redirects retain dot segments",
+   "killed": true,
+   "killers": [
+    "random-003",
+    "random-008",
+    "random-011",
+    "random-015",
+    "random-016",
+    "random-021",
+    "random-023",
+    "random-025"
+   ],
+   "killerCount": 74
+  },
+  {
+   "id": "M09",
+   "bullet": "c",
+   "skippedRule": "retain HTML comments",
+   "killed": false,
+   "killers": [],
+   "killerCount": 0
+  },
+  {
+   "id": "M10",
+   "bullet": "c",
+   "skippedRule": "retain all raw-element contents",
+   "killed": true,
+   "killers": [
+    "random-223",
+    "random-277"
+   ],
+   "killerCount": 2
+  },
+  {
+   "id": "M11",
+   "bullet": "c",
+   "skippedRule": "retain ordinary HTML tags",
+   "killed": true,
+   "killers": [
+    "random-017"
+   ],
+   "killerCount": 1
+  },
+  {
+   "id": "M12",
+   "bullet": "c",
+   "skippedRule": "do not decode HTML references",
+   "killed": true,
+   "killers": [
+    "random-251",
+    "random-278"
+   ],
+   "killerCount": 2
+  },
+  {
+   "id": "M13",
+   "bullet": "c",
+   "skippedRule": "raw start tags case-sensitive",
+   "killed": false,
+   "killers": [],
+   "killerCount": 0
+  },
+  {
+   "id": "M14",
+   "bullet": "c",
+   "skippedRule": "retain style contents",
+   "killed": false,
+   "killers": [],
+   "killerCount": 0
+  },
+  {
+   "id": "M15",
+   "bullet": "d",
+   "skippedRule": "NFC instead of NFKC",
+   "killed": true,
+   "killers": [
+    "random-105"
+   ],
+   "killerCount": 1
+  },
+  {
+   "id": "M16",
+   "bullet": "d",
+   "skippedRule": "do not delete whitespace",
+   "killed": true,
+   "killers": [
+    "random-109",
+    "random-278",
+    "random-316"
+   ],
+   "killerCount": 3
+  },
+  {
+   "id": "M17",
+   "bullet": "d",
+   "skippedRule": "case-insensitive quote match",
+   "killed": false,
+   "killers": [],
+   "killerCount": 0
+  },
+  {
+   "id": "M18",
+   "bullet": "d",
+   "skippedRule": "whole-text equality instead of substring",
+   "killed": true,
+   "killers": [
+    "random-064",
+    "random-096",
+    "random-104",
+    "random-105",
+    "random-109",
+    "random-110",
+    "random-112",
+    "random-117"
+   ],
+   "killerCount": 23
+  },
+  {
+   "id": "M19",
+   "bullet": "e",
+   "skippedRule": "media type case-sensitive",
+   "killed": true,
+   "killers": [
+    "random-001",
+    "random-003",
+    "random-009",
+    "random-012",
+    "random-017",
+    "random-018",
+    "random-022",
+    "random-026"
+   ],
+   "killerCount": 130
+  },
+  {
+   "id": "M20",
+   "bullet": "e",
+   "skippedRule": "parameter names case-sensitive",
+   "killed": true,
+   "killers": [
+    "random-123",
+    "random-205"
+   ],
+   "killerCount": 2
+  },
+  {
+   "id": "M21",
+   "bullet": "e",
+   "skippedRule": "apply HTML processing to text/plain",
+   "killed": true,
+   "killers": [
+    "random-064",
+    "random-105"
+   ],
+   "killerCount": 2
+  },
+  {
+   "id": "M22",
+   "bullet": "e",
+   "skippedRule": "xhtml not a supported HTML type",
+   "killed": true,
+   "killers": [
+    "random-001",
+    "random-007",
+    "random-016",
+    "random-023",
+    "random-034",
+    "random-035",
+    "random-039",
+    "random-069"
+   ],
+   "killerCount": 47
+  },
+  {
+   "id": "M23",
+   "bullet": "f",
+   "skippedRule": "ignore all BOM encoding overrides",
+   "killed": true,
+   "killers": [
+    "random-017",
+    "random-018",
+    "random-022",
+    "random-059",
+    "random-067",
+    "random-086",
+    "random-104",
+    "random-129"
+   ],
+   "killerCount": 30
+  },
+  {
+   "id": "M24",
+   "bullet": "f",
+   "skippedRule": "decode BOM but do not drop its mark",
+   "killed": true,
+   "killers": [
+    "random-041",
+    "random-085",
+    "random-315"
+   ],
+   "killerCount": 3
+  },
+  {
+   "id": "M25",
+   "bullet": "f",
+   "skippedRule": "do not remove charset double quotes",
+   "killed": true,
+   "killers": [
+    "random-001",
+    "random-003",
+    "random-008",
+    "random-026",
+    "random-058",
+    "random-062",
+    "random-064",
+    "random-106"
+   ],
+   "killerCount": 33
+  },
+  {
+   "id": "M26",
+   "bullet": "f",
+   "skippedRule": "ascii label means ASCII not windows-1252",
+   "killed": false,
+   "killers": [],
+   "killerCount": 0
+  },
+  {
+   "id": "M27",
+   "bullet": "f",
+   "skippedRule": "default encoding windows-1252 not UTF-8",
+   "killed": true,
+   "killers": [
+    "random-174"
+   ],
+   "killerCount": 1
+  },
+  {
+   "id": "M28",
+   "bullet": "f",
+   "skippedRule": "discard invalid bytes instead of replacement",
+   "killed": true,
+   "killers": [
+    "random-104",
+    "random-174",
+    "random-257",
+    "random-299",
+    "random-364"
+   ],
+   "killerCount": 5
+  },
+  {
+   "id": "M29",
+   "bullet": "g",
+   "skippedRule": "stop after first check_invalid",
+   "killed": true,
+   "killers": [
+    "random-006",
+    "random-007",
+    "random-011",
+    "random-019",
+    "random-021",
+    "random-026",
+    "random-031",
+    "random-035"
+   ],
+   "killerCount": 93
+  },
+  {
+   "id": "M30",
+   "bullet": "g",
+   "skippedRule": "do not reject relative path escape",
+   "killed": true,
+   "killers": [
+    "random-031",
+    "random-048",
+    "random-054",
+    "random-057",
+    "random-082",
+    "random-093",
+    "random-103",
+    "random-110"
+   ],
+   "killerCount": 32
+  },
+  {
+   "id": "M31",
+   "bullet": "g",
+   "skippedRule": "accept empty check id",
+   "killed": true,
+   "killers": [
+    "random-019",
+    "random-026",
+    "random-046",
+    "random-050",
+    "random-060",
+    "random-062",
+    "random-074",
+    "random-086"
+   ],
+   "killerCount": 30
+  },
+  {
+   "id": "M32",
+   "bullet": "g",
+   "skippedRule": "do not validate manifest version",
+   "killed": true,
+   "killers": [
+    "random-000",
+    "random-005",
+    "random-013",
+    "random-038",
+    "random-047",
+    "random-077",
+    "random-079",
+    "random-080"
+   ],
+   "killerCount": 36
+  }
+ ]
+}

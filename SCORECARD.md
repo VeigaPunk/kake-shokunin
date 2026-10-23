@@ -1896,3 +1896,52 @@ build, with the original rule kept as the rule of record (round-36 routed defect
 Counter digests at this declaration: `sealed_count.py` sha256 `2ebb39b5…f0e3`, `c2_mutkill.py`
 sha256 `d72e232e…5cb6`. Mutant manifest pin `9300ad38…dbd4` (MutTool's `manifest.json`; its
 `summary.json` sha256 `1cfa9ce1…0af9` equals the one cited in `round-36/w2/MutTool.md`).
+
+### Round 37 — control call, before any build (appended)
+
+Pre-freeze control call `kake-r37-ctl` (8 seats, 5 critic, 3 mutation-tester; reports in
+`.ufo/waves/round-37/ctl/`). C1 controls were built from the public text only, retained in
+`.ufo/waves/round-37/retained/controls/` and scored by the L1 with the frozen counter
+(`verification/control-*.json`, `.exit`), predicate unchanged (`met: passed >= 25 of 28 sealed
+cases`):
+
+| C1 control | passed of 28 | met |
+|---|---|---|
+| base `621fb528` (tool absent) | 0 | false |
+| constant clean (`CtlC1ConstantClean`) | 0 | false |
+| junk, prints `not a report` (`CtlC1Junk`) | 0 | false |
+| no-reader, status and fault rules only (`CtlC1NoReader`) | 0 | false |
+| all-false (`CtlC1AllFalse`) | 4 | false |
+| naive reader, Python `urllib.robotparser` (`CtlC1NaiveReader`) | 20 | false |
+
+- The stock Python 3.14 `urllib.robotparser` passes every case of bullets (a), (c), (d), (f) and
+  (g) and none of (b) and (e) (`control-CtlC1NaiveReader.json` perCase). It stays below target,
+  but (c) and (d) do not separate it from the contract.
+- `CtlC1Shortcut` died at once on a provider quota error (HTTP 429 `RESOURCE_EXHAUSTED`, model
+  route gemini-4-argon) with no output; dead, not replaced. The shortcut control is built as a
+  disclosed follow-up by the living seat `CtlC1NoReader` and its receipt is appended before any
+  build is measured.
+- Mutation pass on the L1's private reference (`MutRefPass`, read access to the reference and key,
+  no case content in its report): 42 single-point mutants, **28 meet 25** (most at 28), 14 do not.
+  The survivors break edge sentences the sealed cases do not test (exact 512000 limit,
+  `str.strip()` vs space/tab trim, `rfind('#')`, `splitlines()`, Unicode casefold, substring
+  user-agent match, `.+` for `*`, `re.search` for prefix match, raw-length specificity, `>=` on
+  ties, status edges 300/399/599, floats, symlink and prefix containment, 64 MiB edge, non-UTF-8
+  replacement, report `version`). The coverage statement in the declaration stands as written
+  (each of the 34 listed ablations at most 24) and claims nothing more: 25 of 28 certifies the
+  listed rules, not these edges. The robots selftest (wave 1) is asked to cover them.
+- Junk control for the round-36 counter (round-36 routed defect 5): the junk tool scores 0 of 28
+  under `.ufo/waves/round-36/sealed_count.py` with key `fd1fb723`, exit 1
+  (`verification/control-r36-junk.json`). Round 36's junk control was untested; it is now run.
+
+**C2 is withdrawn before any data.** `CtlC2FixtureSets` built four selftest variants and scored
+them with the frozen C2 counter (`retained/controls/c2/c2-*.json`, variant files beside them):
+all-failing 27, junk 27, keyed on mutant ids, names, hashes or source text 27 — and a snapshot
+set of 299 random manifests whose expectations were recorded from E1 (no contract reading)
+**32 of 32, met** (commit `da09e6c7` in the seat's sandbox; 398 fixtures valid on E1 and E2).
+A sourceless fixture set meets the counter, so the counter does not measure the claimed surface
+(contract-grounded fixtures). Under the round rule a counter that a control meets is redesigned
+before data or the claim is dropped; no redesign that separates contract-grounded from recorded
+expectations was found in time, so C2 is not a claim of this round. The fixture repair for the
+five selftest survivors (routed defect 3) continues as non-claim work; its counter output is
+reported as evidence only. C1 is the round's only claim.
