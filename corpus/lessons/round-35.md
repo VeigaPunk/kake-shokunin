@@ -235,3 +235,11 @@ closing semantics stay as they were. The same page now runs in 0.33 s. The fixed
 `selftest-link-preview-postfix-at-e068bc4b.txt`, `c1r34-matrix-postfix-at-e068bc4b.json`). C1
 is judged on `b1cbbc39`. This repair is the L1's, made after the key was public, and counts
 toward no claim.
+
+## Round-36 correction of the S084 Gate line (appended)
+
+Round-35 closure routed defect 5. The S084 Gate line above (`:50`) calls its quote the "whole
+served body, field lines". The quote holds 4 of the 7 field lines of the retained text
+`.ufo/waves/round-35/sources/S084.txt`, which also carries `Contact`, `Hiring` and `Expires`.
+Read it as "four of the seven served field lines". The admit, tier and status stand. Drafted by
+round-36 wave-1 `ScribeCorrectionsR35`; the original line is not rewritten.

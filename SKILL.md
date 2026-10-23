@@ -1052,3 +1052,27 @@ still reports that finding alone and audits nothing. Two more round-35 rules: `o
 (exit 1) when a page has more than one non-empty `og:url`, and metadata inside an open
 `<template>`, `<svg>` or `<math>` element is ignored. The round-34 fixture
 `input_policy_suppressed_on_input` keeps its name but now expects the readable page's findings.
+
+### Source re-check audit gate registry — round 36
+
+Offline re-check of a `SOURCES.md` row's Gate quote against a recorded fetch of its source:
+`scripts/source_recheck.py` (round-36 C1, built at `4d5b3d55` by wave-1 `ExecToolBuild`). The
+contract is SCORECARD "Round 36 — declared claims", bullets (a)–(g). A `clean` report means the
+recorded quote occurs in the recorded text under the contract's rules (NFKC, every whitespace
+character deleted, case-sensitive); it does not mean the quote is complete or reader-visible.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| source-recheck-audit | gate (offline source-quote re-check against recorded fetches; no network) | `python3 -B scripts/source_recheck.py --manifest PATH` | `0=clean`; `1=failed-policy` (`gone`, `http_error`, `moved`, `quote_missing`, `unsupported_type`); `2=could-not-evaluate` (`input_invalid`, `check_invalid`, `charset_unsupported`); `64=usage` | `python3 -B scripts/source_recheck_selftest.py` (101 fixtures) | `python3 -B .ufo/waves/round-36/sealed_count.py --root . --revision <rev> --key-revision fd1fb723`; predicate `met: passed >= 25 of 28 sealed cases` | none (reads the manifest and its named body files) | kake |
+| source-snapshot | probe (live GET recorder; network) | `python3 -B scripts/source_snapshot.py --input IN.json --out-dir DIR --manifest DIR/manifest.json` | writes a version-1 manifest plus bodies; skipped checks go to its receipts file | offline local-server test in `.ufo/waves/round-36/w1/ExecSnapshotFetcher.md` | none | `--out-dir` only | kake |
+
+Procedure:
+1. Build `IN.json` (`id`, `url`, `quote`) from the lesson Gate lines; never include an
+   operator-owned host (`corpus/knowledge/freshness-pins.json`).
+2. Record with `source_snapshot.py`, then run `source_recheck.py --manifest` on the result.
+3. `moved`: verify the destination and record the new URL by an appended correction or a
+   superseding row; never edit the source cell in place.
+4. `gone`: flip the row's status in the next round's Gate and log old→new.
+5. `quote_missing`: re-open the source by hand before any change; the quote may have moved
+   inside the page.
+6. Exit 2 or 64 is never clean: fix the input and run again.

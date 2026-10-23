@@ -148,3 +148,9 @@ The text above stays as measured. The following come from wave-2 reviews in `.uf
   require the root file to be a redirect or a byte copy. Where "Contact first" could be read as
   field position, S078 gives an order of preference only among Contact lines
   (`ReviewProbeMatchesTruth`, P02 and P08).
+
+**Round-36 correction (appended; round-35 closure routed defect 5).** The `Preferred-Languages`
+bullet above says "if absent, English may be assumed (S078, S079)". Only S078 carries it: RFC
+9116 section 2.5.8, "If this field is absent, security researchers may assume that English is
+the language to be used" (retained `.ufo/waves/round-35/sources/S078.txt`). Read that clause as
+citing S078 alone.

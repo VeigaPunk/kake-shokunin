@@ -856,3 +856,32 @@ Limits found by wave-2 `ReviewCriteriaChecks` and `MutCriteriaChecks` (reports i
 - (a) The C1 target of 22 of 24 let a whole contract bullet be skipped: (c) moves only two sealed
   cases (`w2/ExecPartialRepairs.md`). A sealed target should be set so that no declared bullet
   can be skipped, and each bullet needs at least one more sealed case than the slack.
+
+## Round-36 criteria
+
+Round 35's routed defects 1–4 set these bars. Apply (c) to the frozen C1 counter and its declared target of 25/28; retain each check's inputs and output under `.ufo/waves/round-36/verification/`.
+
+- **(a) A sourced-learning counter distinguishes true, sourced claims from cheap controls.** It refuses an inverted-facts entry and an entry written without opening retained source text; a bare source-id line alone does not satisfy a `cites` condition. Reject: either the inverted or unsourced control meets the target, or a bare-id-only citation earns a cite. Grounding: round-35 routed defect 1 (`corpus/lessons/round-35-verifier-spotcheck.md:185-189`); controls `dc8e1adf` and `0b7779dc` met the old counter (`.ufo/waves/round-35/verification/criterion-knowledge-controls-r35-c2.txt`). Check: `.ufo/waves/round-35/criteria/knowledge_control_check.py`, run against separately identified inverted-facts, unsourced, and bare-id-only controls. It is shown able to fail by its recorded exit 1 on the round-35 controls; acceptance of any of those controls, including a bare-id-only control run alone, must likewise produce its failing result. The candidate counter must refuse all three. Limit: the checker only tests the controls supplied to it.
+
+- **(b) A counter version bump preserves the declared predicate.** A version bump changes no target, threshold, cap, pin, or predicate unless a scored control forced that exact change and the round's note names the control, its score, and the reason. Reject: an unexplained change in any of those values, or a post-measurement change not remeasured against the declared bound. Grounding: round-35 routed defect 2; v1's 1500-whitespace-word cap became a 2200-overlap-word cap in v2 without any control forcing it (`corpus/lessons/round-35-verifier-spotcheck.md:190-193`). Check: `.ufo/waves/round-36/criteria/version_bump_check.py`. It is shown able to fail on that round-35 v1→v2 change (nonzero/fail); it must also fail a negative fixture that changes a pinned value without a named scored control, and pass only a change whose forcing control and score are documented.
+
+- **(c) Every C1 contract bullet is necessary to reach the frozen target.** For each contract bullet (a)–(g), the corresponding one-bullet ablation scores below 25/28. Reject: any ablation reaches or exceeds 25/28, including an omitted bullet whose behavior is not exercised by the sealed cases. Grounding: round-35 routed defect 3, where 22/24 met target with bullet (c) skipped and the sealed set lacked a nested `<template>`, `<svg>`, or `<math>` case (`corpus/lessons/round-35-verifier-spotcheck.md:194-196`). Check: `.ufo/waves/round-36/criteria/ablation_floor_check.py`; it is shown able to fail with a negative fixture in which any one ablation is at or above 25/28 (including the prior 22/24-at-22 slack pattern), while the round-36 receipt must show all seven ablations below 25/28.
+
+- **(d) Every control is built from a key-free tree.** For each control, preserve the source-tree identity and its listing; that listing must contain no sealed-key path, and the control must be built from that listed tree. Reject: a missing listing or any control tree whose listing contains a key path. Grounding: round-35 routed defect 4; the post-reveal control clone `0b7779dc` held `sealed/c2-probes.json` (`corpus/lessons/round-35-verifier-spotcheck.md:197-198`). Check: `.ufo/waves/round-36/criteria/control_tree_check.py`; it is shown able to fail on a negative listing containing `sealed/c2-probes.json` (as in `0b7779dc`), and must pass only when every control's recorded listing is key-free.
+
+- **(e) Every full commit hash a declaration writes resolves.** Reject: a 40-hex hash in a
+  SCORECARD declaration section that names no commit. Grounding: the round-36 declaration's
+  "Base" line (`3555f63f`) carried a hash that names no object (lesson round-36 mistake row 1).
+  Check: `.ufo/waves/round-36/criteria/hash_resolve_check.py`, exit 1 on that section
+  (`verification/criterion-hash-resolve-r36-decl-at-3555f63f.txt`), exit 0 on the round-35
+  declaration (`criterion-hash-resolve-r35-decl-at-cd321279.txt`).
+- **(f) Each sealed bullet carries both answer polarities.** For every contract bullet whose
+  rules read a body, at least one check per case expects a finding that a skipped rule would
+  turn into a hold, and the checks do not share one fixed label (contentType, file name) that a
+  tool could key on. Reject: a bullet whose checks all expect the same polarity, or a shortcut
+  control that passes a bullet's cases without opening a body. Grounding: round-36 key version 1,
+  where `CtlShortcut` passed every (e) and (f) case without opening a body
+  (`verification/v2/control-CtlShortcut.json`, 17 of 28; lesson round-36 mistake row 2). Check:
+  the shortcut ablations `verification/ablations/ablation-s_ctkey.json` (13) and
+  `ablation-s_unsure.json` (24) against `criteria/ablation_floor_check.py`, and the control-wave
+  rescore (`verification/control-CtlShortcut.json`, 9).
