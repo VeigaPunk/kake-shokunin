@@ -67,6 +67,8 @@ _ENC_ATTR_RE = re.compile(
 def _parse_url(value):
     """Return (scheme, host, port, path) or None when not an absolute
     http/https URL with a host (sentence 22, extended by sentence 4)."""
+    if value[:1] <= " " or "\t" in value or "\r" in value or "\n" in value:
+        return None                    # urlsplit would strip or drop these
     try:
         parts = urlsplit(value)
         scheme = parts.scheme.lower()
@@ -184,6 +186,8 @@ def _audit_file(path, sitemap_url):
         return (None, {("encoding_invalid", None)})
     if text[:1] == "\ufeff":
         text = text[1:]
+    if "\x00" in text:
+        return (None, {("xml_malformed", None)})   # U+0000 is not an XML Char
     declared = _declared_encoding(text)
     if declared is not None and declared.lower() != "utf-8":
         return (None, {("encoding_invalid", None)})
@@ -330,14 +334,16 @@ def _evaluate_check(raw, base_dir, seen_ids):
 
     ident = raw.get("id")
     ident_out = ident if isinstance(ident, str) else None
+    duplicate = False
+    if isinstance(ident, str):
+        duplicate = ident in seen_ids
+        seen_ids.add(ident)
     file_value = raw.get("file")
     url_value = raw.get("sitemapUrl")
-    if not (isinstance(ident, str) and isinstance(file_value, str) and isinstance(url_value, str)):
+    if duplicate or not (isinstance(ident, str) and isinstance(file_value, str) and isinstance(url_value, str)):
         return {"id": ident_out, "status": "error", "error": "check_invalid", "findings": []}
 
-    duplicate = ident in seen_ids
-    seen_ids.add(ident)
-    if duplicate or _file_value_invalid(file_value):
+    if _file_value_invalid(file_value):
         return {"id": ident_out, "status": "error", "error": "check_invalid", "findings": []}
 
     sitemap_url = _parse_url(url_value)

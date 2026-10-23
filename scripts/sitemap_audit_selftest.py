@@ -789,6 +789,73 @@ def build_cases():
         manifest=mf(ck("a", "a.xml")), expect_exit=1, verdict="failed-policy",
         checks=[E("a", "findings", None, [("element_unexpected", 1)])])
 
+
+    # --- round 40: repairs E, U, R (spot-check routed defect 2) and the D1 reading ----------
+    # E: UTF-16 without a BOM decodes as UTF-8 but carries U+0000, not an XML Char (S110).
+    u8_text = clean_url.decode("utf-8")
+    nodecl = urlset(url(L("http://example.com/a")), decl="").decode("utf-8")
+    for tag, data in (("le", u8_text.encode("utf-16-le")), ("be", u8_text.encode("utf-16-be")),
+                      ("le_nodecl", nodecl.encode("utf-16-le")), ("be_nodecl", nodecl.encode("utf-16-be"))):
+        add("r40_e_utf16_%s_without_bom" % tag, {"a.xml": data}, [6, 8], [("b", "neg")],
+            manifest=mf(ck("a", "a.xml")), expect_exit=1, verdict="failed-policy",
+            checks=[E("a", "findings", None, [("xml_malformed", None)])])
+    add("r40_e_utf16_with_bom_unchanged", {"a.xml": b"\xff\xfe" + u8_text.encode("utf-16-le")}, [6],
+        [("a", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("encoding_invalid", None)])])
+    # U: values urlsplit would alter are judged as written (S111).
+    for tag, loc in (("tab", "http://example.com/a\tb"), ("lf", "http://example.com/a\nb"),
+                     ("cr_ref", "http://example.com/a&#13;b"), ("host_tab", "http://exa\tmple.com/a")):
+        add("r40_u_loc_%s" % tag, {"a.xml": urlset(url(L(loc)))}, [21, 22], [("g", "neg")],
+            manifest=mf(ck("a", "a.xml")), expect_exit=1, verdict="failed-policy",
+            checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r40_u_loc_strip_set_still_clean", {"a.xml": urlset(url(L("\thttp://example.com/a\r\n")))},
+        [21, 22], [("g", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean", checks=[E("a", "clean")])
+    for tag, su in (("tab", "http://example.com/\tsitemap.xml"), ("cr", "http://example.com/site\rmap.xml"),
+                    ("leading_space", " http://example.com/"), ("leading_c0", "\x01http://example.com/")):
+        add("r40_u_sitemapurl_%s" % tag, clean_case_files, [4],
+            manifest=mf(ck("a", "a.xml", su)), expect_exit=2, verdict="could-not-evaluate",
+            checks=[E("a", "error", "check_invalid")])
+    # R: a repeat of an earlier invalid check's string id (sentence 4).
+    add("r40_r_repeat_of_invalid_check", clean_case_files, [4],
+        manifest={"version": 1, "checks": [{"id": "a", "sitemapUrl": "http://example.com/"},
+                                           ck("a", "a.xml")]},
+        expect_exit=2, verdict="could-not-evaluate",
+        checks=[E("a", "error", "check_invalid"), E("a", "error", "check_invalid")])
+    add("r40_r_integer_id_then_string_clean", clean_case_files, [4],
+        manifest={"version": 1, "checks": [{"id": 7, "file": "a.xml", "sitemapUrl": "http://example.com/"},
+                                           ck("7", "a.xml")]},
+        expect_exit=2, verdict="could-not-evaluate",
+        checks=[E(None, "error", "check_invalid"), E("7", "clean")])
+    # D1 is not a deviation: an XML 1.0 processor reads a 1.x declaration as 1.0 (S110 §2.8).
+    add("r40_d1_version_1_1_clean",
+        {"a.xml": urlset(url(L("http://example.com/a")), decl='<?xml version="1.1" encoding="UTF-8"?>\n')},
+        [8], [("b", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean", checks=[E("a", "clean")])
+    # Sub-shapes the round-40 wave-1 controls showed the 30 witnesses did not sample.
+    for tag, su in (("lf", "http://example.com/site\nmap.xml"), ("leading_nul", "\x00http://example.com/"),
+                    ("leading_unit_separator", "\x1fhttp://example.com/"), ("query_tab", "http://example.com/?a\tb"),
+                    ("fragment_lf", "http://example.com/#a\nb")):
+        add("r40_u_sitemapurl_more_%s" % tag, clean_case_files, [4],
+            manifest=mf(ck("a", "a.xml", su)), expect_exit=2, verdict="could-not-evaluate",
+            checks=[E("a", "error", "check_invalid")])
+    for tag, loc in (("query_tab", "http://example.com/a?x\ty"), ("fragment_lf", "http://example.com/a#x\ny"),
+                     ("https_tab", "https://example.com/a\tb")):
+        add("r40_u_loc_more_%s" % tag, {"a.xml": urlset(url(L(loc)))}, [21, 22], [("g", "neg")],
+            manifest=mf(ck("a", "a.xml", "https://example.com/" if tag == "https_tab" else "http://example.com/")),
+            expect_exit=1, verdict="failed-policy",
+            checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    index_text = index(smap(L("http://example.com/s.xml"))).decode("utf-8")
+    add("r40_e_utf16_index_without_bom", {"a.xml": index_text.encode("utf-16-le")}, [6, 8], [("b", "neg")],
+        manifest=mf(ck("a", "a.xml")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("xml_malformed", None)])])
+    for tag, first in (("absolute_file", {"id": "a", "file": "/a.xml", "sitemapUrl": "http://example.com/"}),
+                       ("bad_url", {"id": "a", "file": "a.xml", "sitemapUrl": "ftp://example.com/"}),
+                       ("upper_id", {"id": "A", "sitemapUrl": "http://example.com/"})):
+        rid = first["id"]
+        add("r40_r_repeat_after_%s" % tag, clean_case_files, [4],
+            manifest={"version": 1, "checks": [first, ck(rid, "a.xml")]},
+            expect_exit=2, verdict="could-not-evaluate",
+            checks=[E(rid, "error", "check_invalid"), E(rid, "error", "check_invalid")])
+
     return cases
 
 

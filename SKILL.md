@@ -1133,3 +1133,17 @@ Procedure:
    `http` versus `https` or another host (round-39 real run: fsf.org 212, nodejs.org 8).
 3. A clean report is a protocol check, not an engine's acceptance: Yandex splits the 2,048-character
    `loc` limit (S109) and engines may ignore optional tags (S102).
+
+### Sitemap file audit — round-40 repairs (amendment to the row above)
+
+Tool `scripts/sitemap_audit.py` sha256 `03a8fba4…7b22b` (round 40). Three repairs, each red on the
+round-39 bytes and green now in the selftest (now 179 fixtures, `r40_*`): UTF-16 without a BOM gives
+`xml_malformed` (it decodes as UTF-8 but carries U+0000, not an XML Char, S110); a `loc` or
+`sitemapUrl` with TAB, CR or LF anywhere, or a `sitemapUrl` starting with a C0 control or space, is
+judged as written, not as `urlsplit` cleans it (S111): `loc_not_absolute` / `check_invalid`; a check
+repeating the string `id` of an earlier invalid check is `check_invalid` (sentence 4). Decided by
+source, not changed: `version="1.1"` with 1.0 content stays clean (S110 §2.8; guard
+`.ufo/waves/round-40/criteria/d1_check.py`), and `doctype_present` still wins over a malformed
+remainder (sentence 9 reading). Proof status: exploratory — the round-40 30-witness counter was met by
+27 controls before the build (SCORECARD "Round 40 — kill rule (1) fired"); use the selftest, not the
+counter.

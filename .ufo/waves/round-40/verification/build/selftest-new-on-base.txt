@@ -1,0 +1,113 @@
+FAIL r40_e_utf16_le_without_bom
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('xml_malformed', None)]
+FAIL r40_e_utf16_be_without_bom
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('xml_malformed', None)]
+FAIL r40_e_utf16_le_nodecl_without_bom
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('xml_malformed', None)]
+FAIL r40_e_utf16_be_nodecl_without_bom
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('xml_malformed', None)]
+FAIL r40_u_loc_tab
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('loc_not_absolute', 1)]
+FAIL r40_u_loc_lf
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('loc_not_absolute', 1)]
+FAIL r40_u_loc_cr_ref
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('loc_not_absolute', 1)]
+FAIL r40_u_loc_host_tab
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('loc_not_absolute', 1)]
+FAIL r40_u_sitemapurl_tab
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_u_sitemapurl_cr
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_u_sitemapurl_leading_space
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_u_sitemapurl_leading_c0
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_r_repeat_of_invalid_check
+     check 2 status 'clean' != 'error'
+     check 2 error None != 'check_invalid'
+FAIL r40_u_sitemapurl_more_lf
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_u_sitemapurl_more_leading_nul
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_u_sitemapurl_more_leading_unit_separator
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_u_sitemapurl_more_query_tab
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_u_sitemapurl_more_fragment_lf
+     exit 0 != 2
+     verdict 'clean' != 'could-not-evaluate'
+     check 1 status 'clean' != 'error'
+     check 1 error None != 'check_invalid'
+FAIL r40_u_loc_more_query_tab
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('loc_not_absolute', 1)]
+FAIL r40_u_loc_more_fragment_lf
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('loc_not_absolute', 1)]
+FAIL r40_u_loc_more_https_tab
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('loc_not_absolute', 1)]
+FAIL r40_e_utf16_index_without_bom
+     exit 0 != 1
+     verdict 'clean' != 'failed-policy'
+     check 1 status 'clean' != 'findings'
+     check 1 findings [] != [('xml_malformed', None)]
+FAIL r40_r_repeat_after_upper_id
+     check 2 status 'clean' != 'error'
+     check 2 error None != 'check_invalid'
+PASS 156/179
+exit=1
