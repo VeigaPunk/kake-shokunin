@@ -1076,3 +1076,27 @@ Procedure:
 5. `quote_missing`: re-open the source by hand before any change; the quote may have moved
    inside the page.
 6. Exit 2 or 64 is never clean: fix the input and run again.
+
+### Robots.txt expectation audit gate registry — round 37
+
+Offline check that the robots.txt a publisher will serve allows or disallows the URLs it intends:
+`scripts/robots_audit.py` (round-37 C1, built at `9dbc88bb` by wave-1 `ExecRobotsTool`; wildcard
+matcher made linear after measurement at `b99b6679`). The contract is SCORECARD "Round 37 —
+declared claims" (RFC 9309, S011, with lane readings marked in
+`corpus/knowledge/robots-txt-rules.md`). A `clean` report means every check's decision under the
+contract equals its declared expectation; it says nothing about a fetch, a redirect, a cache or
+what any particular crawler does.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| robots-expectation-audit | gate (offline; no network) | `python3 -B scripts/robots_audit.py --manifest PATH` | `0=clean`; `1=failed-policy` (`blocked`, `exposed`); `2=could-not-evaluate` (`input_invalid`, `check_invalid`); `64=usage` | `python3 -B scripts/robots_audit_selftest.py [--tool PATH]` (137 fixtures) | `python3 -B .ufo/waves/round-37/sealed_count.py --root . --revision <rev> --key-revision 424aa248`; predicate `met: passed >= 25 of 28 sealed cases` (does not separate the contract from the stock Python parser; the selftest does) | none (reads the manifest and its named robots files) | kake |
+
+Procedure:
+1. Record the served `/robots.txt` (status and body) of the host; for an operator-owned host only
+   with an operator-authorized read (`.ufo/waves/round-37/realrun/fetch_robots.py` shows the shape).
+2. Write one check per (product token, URL, intended decision); quote the robots line that should
+   decide it, and say so when the decision is "no rule matches".
+3. `blocked`: the publisher's file disallows a URL it wants crawled; `exposed`: it allows a URL it
+   wants kept out — fix the file, never the expectation, unless the intent changed.
+4. 3xx statuses are check faults: record the final status after redirects yourself.
+5. Exit 2 or 64 is never clean: fix the input and run again.
