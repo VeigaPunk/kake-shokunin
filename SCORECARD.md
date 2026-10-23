@@ -3015,3 +3015,41 @@ predicate freezes at the declaration. The 29/13 classification of the `r41_*` fi
 observation re-run by `ReviewR41FixtureClasses` (base40 `PASS 196/225`, 29 red all `r41_*`; tip41 225/225),
 not a pre-data round-41 rule: round 41 stays rejected-harmed. H4's run contract is pinned when its script
 lands, before the build is scored.
+
+### Round 42 — counter v3 replaces v2 before freeze (appended; recorded before any build is scored)
+
+Wave-1 control seats (counter v1 bytes) produced meeting controls of the frozen classes, each with a witness
+value on which it differs from the round-41 tool: `MutRegexNonAscii` (non-ASCII range starts at U+00A0;
+surrogates excluded; U+FFFE/U+FFFF excluded — witness `https://a/\u0080` etc.), `MutRegexIP` (`~` dropped
+from the bracket set — witness `https://[fe80::1%~en1]/a`), `MutRegexPct` (hex digits widened to `\d` —
+witness `https://example.test/%١0`), `CtlShapeKeyed` (`ctl_tail`, `ctl_tail_filesize`: on files with ≥20,000
+entries, ≥1 MB or 48 checks, judge only the first 64 and last 256 code points), `CtlIdKeyed`
+(`manifest_keyed`, keyed on the layout of one known seed; a fresh seed rejects it). `SentinelCounterSandbox`
+(HIGH): a tool can reopen the runner's timing descriptor through `/proc/<runner>/fd` and forge its CPU sample.
+`ReviewCounterGenerators`: ~40% of T1 values had `/` in the query/fragment branch. Under kill rule (1) these
+receipts mean the v1/v2 counter is too weak; the claim is **redesigned before data** (no build has been
+scored): **counter v3** `.ufo/waves/round-42/c42_count_v3.py`, sha256
+`ce2d5a0ca2c3768ce2b1d7b9a57592817d7f16616ee7fb25989e580a70160acc`:
+
+- run E: every one of 128 ASCII characters, 13 percent forms (six with non-ASCII digits or case-fold
+  letters), 40 boundary code points (U+0080/U+009F/U+00A0, surrogate edges, U+FDD0, U+FFFE/U+FFFF, plane
+  edges), 21 Unicode look-alikes of ASCII classes and 40 seeded random code points, each inserted in each of
+  eleven slots (user, password, host, port, path, query, fragment, zone id after `%25`, zone id after `%`,
+  IPvFuture, IPv6) — `sitemapUrl` every unit, `loc` the XML-legal ones (≈4,900 values per run);
+- timing files that cannot be judged without judging each value: T1 defects half in the last 64 positions,
+  half anywhere; T2/T3 carry a per-file random 1–3% of defect values; T5 defects half anywhere; no `/` in
+  the T1/T5 query/fragment bodies;
+- the runner sets `PR_SET_DUMPABLE 0` before starting the tool and the timing file is opened for append
+  (the sentinel's forging tool now records its true CPU, 0.031–0.041 s, and fails equality 0/10);
+- scoring protocol: the build and every control are scored **without `--seed`** (seed drawn from
+  `os.urandom` and recorded), so a tool keyed on a known seed cannot know its run.
+
+The predicate sentence is unchanged and is v3's `PREDICATE`; "every generated run" now counts ten runs
+(A–E, T1–T5). L1 receipts under v3 (`verification/v3probe/`): do-nothing (round-41 tool) 10/10 equal,
+ratios T1 4.172 / 4.275, T2 2.732 / 2.831, T3 1.339 / 1.36, T4 1.239 / 1.19, T5 7.805 / 7.807: **not met**;
+round-40 tool 1/10: not met; `ctl_tail` and `ctl_tail_filesize` 7/10 (T1, T2, T5 unequal): not met; the
+sentinel's timer forger 0/10: not met; under the intermediate v3 bytes `6ca343df…` the Unicode-digit
+percent mutant was 9/10 (run E) and under `a58e6349…` the three non-ASCII-range mutants and the `~` mutant
+were 9/10 and 8/10 (`verification/v3probe-a58e/`). The L1 now re-scores every returned control tool with v3
+(`score_v3.sh`, `score-list-b.txt`, receipts `verification/w1v3/`); kill rule (1) is applied to those
+receipts before the build is scored.
