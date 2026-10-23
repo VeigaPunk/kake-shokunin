@@ -2625,3 +2625,30 @@ Frozen predicate — this sentence, `PREDICATE` in `.ufo/waves/round-40/c1_count
   control wave (fresh mutation-tester and executor seats build controls of every class above; the L1
   scores every returned tool with this counter and commits every receipt); only then does the build
   land and get scored. Sourced: S110, S111 (opened this round, `corpus/lessons/round-40.md` Gate).
+
+## Round 40 — kill rule (1) fired: C1 is exploratory (recorded before the build lands)
+
+Wave 1 (39 seats, dispatched 08:37:38Z, `.ufo/waves/round-40/w1-dispatch-log.txt`) built controls of the
+frozen classes. The L1 re-scored every returned control tool with the frozen counter (`score_w1.sh`;
+tool copies `.ufo/waves/round-40/controls/w1/<Seat>/`, receipts `.ufo/waves/round-40/verification/w1/`):
+**27 of 76 control receipts meet** `met: passed >= 30 of 30 witnesses and the round-39 selftest passes
+150 of 150` (`jq -s 'map(select(.met))|length' .ufo/waves/round-40/verification/w1/*.json`). By class:
+
+| Class (frozen at `f043c721`) | Meeting receipts | How the counter missed it |
+|---|---|---|
+| key-finders | `CtlKeyFinder` ×4 | the case directory is named `case-<witness id>` (fixed E1…R8) and is readable from `/proc/1/cmdline` and `/proc/self/mountinfo` inside bubblewrap; the selftest half runs unsandboxed and its case directory names key a 150-row table |
+| label-keyed | `CtlLabelKeyed-ctl_label_keyed` | same `case-<id>` leak; answers from a 30-row table, opens no sitemap file |
+| position-keyed | `CtlPositionKeyed-ctl_v3_count` | R ids have fixed lengths (10 vs 9 characters); keys on check position and id length, never compares ids |
+| proxy repairs | `CtlURawBytes-ctl`; `CtlRCaseFold` lookup ×3 and NFKC | raw-byte regex instead of judging the parsed value; case-folded or NFKC id lookup |
+| partial repairs (unsampled sub-shapes) | L1 `ctl_sitemapurl_no_lf` (from `CriticDeclaration`); dead-seat `CtlUTabOnly` `tool_tab_only_query`; `MutFamilyE` M07–M11; `MutFamilyU` M09–M12; `MutFamilyR` m02–m06 | 30 fixed witnesses sample each class; LF in `sitemapUrl`, leading NUL or U+001F, TAB in a query, LF in a fragment, non-urlset or non-http files, an earlier invalid check that fails only its `file` or `sitemapUrl` gate, and similar sub-shapes have no witness |
+
+Classes that did not meet: skip-E (25), skip-U (20–26), skip-R (25), little/big-endian only (28/27),
+pre-decode NUL sniff (28), constant, junk, exit-only, flip, manifest-only (≤17), memorised selftest
+(10), case-fold and lower comparisons (29).
+
+Kill rule (1) applies: **C1 is declared exploratory.** The counter, witnesses, predicate and target are
+not changed. The build (the L1 reference repair, sha256 `03a8fba4…7b22b`) still lands as the repair;
+its counter score is information only, and C1's verdict comes from a named non-author reviewer
+(`unprovable-but-better` or `unprovable`). This is the counter failing, recorded as such: a public,
+fixed-label, finite witness set cannot certify a repair over open input classes, and the sandbox leaked
+the witness label.
