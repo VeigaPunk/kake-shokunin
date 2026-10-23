@@ -1612,3 +1612,25 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   not fixed: the frozen harm clause "new fixtures red on the base" is not met for 13 of 42; ×3–40 cost on
   adversarial values; zone ids with non-ASCII or `|` now rejected. C1 stays exploratory; verdict is the
   closure's.
+
+## Round 42 — 2026-10-23 (kake L1 `KakeR42`, attempt 1, hyaku in-session)
+
+- Repair-first, from the round-41 closure (`corpus/lessons/round-41-verifier-spotcheck.md`, rejected-harmed):
+  the landed URL rule `50287ac6…` is kept, its zone-id tightening declared (RFC 9844, S124, obsoletes RFC
+  6874's zone-id URI syntax; RFC 6874 row S125 rejected), and its cost repriced as C1. Harm rule corrected
+  before data (H1 guards only, H3 a 2.0 cost bound, H4 the closure's probe, H5 Python 3.10 added before
+  scoring); QUALITY (v) with a check red on round 41 and green on round 42.
+- C1 (operability, runnable cost of the URL check): counter `c42_count*.py` — output equal to the round-41
+  tool on every generated run and CPU ≤ 2.0× the round-40 tool on five timing shapes. Draft 1 rejected (the
+  do-nothing tool met it: bwrap's `RUSAGE_CHILDREN` never saw the sandboxed tool). Pre-freeze control wave
+  `kake-r42-w1` (33 seats, 0 dead): nine controls met v1 with witnesses or a forged timing line → v2, then v3
+  (run E: every ASCII unit, boundary code point and Unicode look-alike in eleven slots; per-value timing
+  files; non-dumpable runner; random seeds). 86 control receipts under v3: 3 meet, all behaviour-equal by the
+  frozen differential. Declared `1e1da697`.
+- Build `020bc457` (tool `914ebdee…`, `ExecBuildIndependent`'s byte-table scanner; `ExecBuildRegex` rejected:
+  0/225 under Python 3.10): v3 met on three random seeds (T1 0.98–1.06, T5 1.09–1.17 vs round 41's 4.2 / 7.8);
+  selftest 235 on build and round-41 tool, Python 3.10 too; real run `fd985a41…`; H4 0/0 at two seeds.
+  Motivating evidence: round-41 `w2/ReviewBuildPerformance.md`, `resid/ResidCriticBetter.md` (×12.87).
+- Frontier: S117–S119 cells restored to `9e3c31d2`, superseding rows S120–S122; S123 (Python `re`), S124
+  (RFC 9844), S125 (RFC 6874, rejected). Census exit 0 before and after. Lesson `round-42.md` Mistakes 1–4;
+  QUALITY (v), (w), (x); SKILL "round-42 scanner".

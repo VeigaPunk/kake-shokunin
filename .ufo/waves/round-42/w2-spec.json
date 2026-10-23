@@ -1,0 +1,285 @@
+{
+ "wave": "kake-r42-w2",
+ "milestone": "r42-falsify",
+ "maxLanes": 64,
+ "axes": [
+  "operability",
+  "freshness"
+ ],
+ "reportDir": ".ufo/waves/round-42/w2",
+ "context": "# Goal\nKake round 42, wave 2 (falsify): attack what wave 1 and the L1 landed. The L1 (agent id KakeR42) is the only integrator; you are one leaf seat with one attack item. Lane repo: /home/vgpnk/Projects/shokunin/kake-shokunin (tip 721310b19af88d3c43c01647d3ce29d51e6e3b96). Lane axes: operability and freshness. Ordinary software testing of a local, offline command-line tool that audits sitemap XML files.\n\n# What landed (read /home/vgpnk/Projects/shokunin/kake-shokunin/SCORECARD.md sections \"Round 42 — …\", newest last)\n- C1 (frozen at 1e1da697): the URL check of `/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py` was rewritten (build at 020bc457, tool sha256 914ebdee…; a byte-table scanner) to keep the round-41 tool's judgments (copy /fast/scratch/hyaku/kake-r42/shared/tip41.py, sha256 50287ac6…) while costing at most 2.0x the round-40 tool's CPU (copy /fast/scratch/hyaku/kake-r42/shared/base40.py, 4de35f8c…) on five timing shapes. Counter v3: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/c42_count_v3.py (sha256 ce2d5a0c…). Predicate: `met: the tool's exit code and output equal the round-41 tool's on every generated run, and its median CPU time on each of the five timing shapes is at most 2.0 times the round-40 tool's`. Score WITHOUT --seed (random seed recorded).\n- Kill rule (2): after the build is scored, any control that meets the predicate means C1 is NOT met. A control = a tool that judges some value differently from tip41 (give the witness value) or lowers measured CPU without doing the work. A tool equal to tip41 on every value is not a control.\n- Harm rule H1–H5: selftest (235 fixtures, `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit_selftest.py --tool <tool>`), round-39 real run byte-equal (`jq -S . | sha256sum` → fd985a41…, inputs /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-41/realrun/), cost (the ratios), H4 probe /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/harm/h4_probe.py, H5 selftest under Python 3.10 (`~/.local/share/uv/python/cpython-3.10.22-linux-x86_64-gnu/bin/python3.10`).\n- Frontier: SOURCES rows S120–S125 (/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md; S117–S119 restored to their committed cells), lesson /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-42.md.\n\n# Scoring a tool\n`timeout 900 prlimit --as=8000000000 -- python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/c42_count_v3.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --tool-file <tool> --label <YourName>-<suffix> --out /fast/scratch/hyaku/kake-r42w2/<YourName>/<suffix>.json` (exit 0 met, 1 not met, 2 cannot evaluate; ~90-150 s; at most 3 at once per seat).\n\n# Bounds\n- You are a leaf: no subagents, no swarm, no verdict on the round.\n- Your ONLY write paths are your sandbox /fast/scratch/hyaku/kake-r42w2/<YourName>/ and your report file. Never mutate the fleet repo (/home/vgpnk/Projects/shokunin), sibling lanes, the lane jj state, the lane Git index or any lane file other than your report.\n- Never run git add/commit/stash/checkout/reset/pull/push or any mutating jj command in /home/vgpnk/Projects/shokunin/kake-shokunin; read-only git is fine. Never run jj at /home/vgpnk/Projects/shokunin. Clone only into /fast/scratch/hyaku/kake-r42w2/<YourName>/ with GIT_DIR, GIT_WORK_TREE and GIT_INDEX_FILE unset.\n- Cap every run with `timeout` (≤900 s), ≤8 parallel processes, `prlimit --as=8000000000`; bound every file you write (≤300 MB per seat; never append in a loop to a file Python imports; never point a log at sitecustomize.py or a .pth); kill every process tree you start before returning. Never run `du` or `find` over /fast/scratch as a whole.\n- Network: only URLs your item names, GET only. Never request the operator's properties (ds4cc.com, app.ds4cc.com, operator *.onrender.com hosts, *.kimi.page, *.kimi.pro, veigapunk.github.io, any host in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-pins.json).\n- Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>.\n- Tooling authorization (operator, 2026-10-19): you and every seat may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels; record tool, version, channel and reason in your report). All pacman transactions are PAUSED host-wide (orchestrator ruling 2026-10-20): install via uv tool, npx or an official binary in ~/.local/bin; never pacman -S, -Sy, -Syu, -U or -R, no downgrade, no service restart.\n- A provider safety or policy refusal or an automatic model switch ends your item: a one-line report saying so; do not rephrase. Message only agent://KakeR42 for blockers; never agent://all. Plain English.\n\n# Result\nReport under 60 lines: first line MET / NOT MET for control seats, or the verdict on what you attacked; exact commands with exit codes; tool paths with sha256; findings with path:line; per checked statement holds / overstated / wrong. An unrun check has not passed. Time box: 25 minutes; a partial report (first line `PARTIAL:`) beats none.\n",
+ "items": [
+  {
+   "name": "MutBuildPath",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3's power to catch one-member changes of the LANDED build in the path and pchar tables (`_TABLE_PCHAR`, `_path_ok`).\n# Change\n- Copy /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the build) into /fast/scratch/hyaku/kake-r42w2/MutBuildPath/. Make ≥5 single-member mutants in that area (one class member, one table byte, one branch condition). Keep each mutant fast.\n- Score every mutant with the counter (no --seed). For a mutant that meets, search for a witness (compare its `_parse_url` with tip41's on values you choose).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "MutBuildQueryFragment",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3's power to catch one-member changes of the LANDED build in query and fragment scanning (`_TABLE_QUERY`, the second `#`, `?`).\n# Change\n- Copy /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the build) into /fast/scratch/hyaku/kake-r42w2/MutBuildQueryFragment/. Make ≥5 single-member mutants in that area (one class member, one table byte, one branch condition). Keep each mutant fast.\n- Score every mutant with the counter (no --seed). For a mutant that meets, search for a witness (compare its `_parse_url` with tip41's on values you choose).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "MutBuildAuthority",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3's power to catch one-member changes of the LANDED build in userinfo, host and port scanning (`_TABLE_USERINFO`, `_TABLE_REGNAME`, `@`, `:` handling).\n# Change\n- Copy /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the build) into /fast/scratch/hyaku/kake-r42w2/MutBuildAuthority/. Make ≥5 single-member mutants in that area (one class member, one table byte, one branch condition). Keep each mutant fast.\n- Score every mutant with the counter (no --seed). For a mutant that meets, search for a witness (compare its `_parse_url` with tip41's on values you choose).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "MutBuildIPLiteral",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3's power to catch one-member changes of the LANDED build in the IP-literal table and bracket handling (`_TABLE_IP_LITERAL`, `[`/`]`).\n# Change\n- Copy /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the build) into /fast/scratch/hyaku/kake-r42w2/MutBuildIPLiteral/. Make ≥5 single-member mutants in that area (one class member, one table byte, one branch condition). Keep each mutant fast.\n- Score every mutant with the counter (no --seed). For a mutant that meets, search for a witness (compare its `_parse_url` with tip41's on values you choose).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "MutBuildPercent",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3's power to catch one-member changes of the LANDED build in the percent rule (`_BAD_PCT_RE`, where it is applied, hex case).\n# Change\n- Copy /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the build) into /fast/scratch/hyaku/kake-r42w2/MutBuildPercent/. Make ≥5 single-member mutants in that area (one class member, one table byte, one branch condition). Keep each mutant fast.\n- Score every mutant with the counter (no --seed). For a mutant that meets, search for a witness (compare its `_parse_url` with tip41's on values you choose).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "MutBuildNonAscii",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3's power to catch one-member changes of the LANDED build in non-ASCII handling (UTF-8 encode with surrogatepass, bytes ≥0x80 accepted where unreserved stands, rejected in IP literals).\n# Change\n- Copy /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the build) into /fast/scratch/hyaku/kake-r42w2/MutBuildNonAscii/. Make ≥5 single-member mutants in that area (one class member, one table byte, one branch condition). Keep each mutant fast.\n- Score every mutant with the counter (no --seed). For a mutant that meets, search for a witness (compare its `_parse_url` with tip41's on values you choose).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "MutBuildScheme",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3's power to catch one-member changes of the LANDED build in scheme scanning (`_TABLE_SCHEME`, first character, `://`).\n# Change\n- Copy /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the build) into /fast/scratch/hyaku/kake-r42w2/MutBuildScheme/. Make ≥5 single-member mutants in that area (one class member, one table byte, one branch condition). Keep each mutant fast.\n- Score every mutant with the counter (no --seed). For a mutant that meets, search for a witness (compare its `_parse_url` with tip41's on values you choose).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "CtlFreshShape",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3 against a fresh control class: fast paths keyed on the v3 timing shapes (file size, entry count, value length, run without `/`).\n# Change\n- Build ≥3 variants in /fast/scratch/hyaku/kake-r42w2/CtlFreshShape/ from /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the fast build) or /fast/scratch/hyaku/kake-r42/shared/tip41.py. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/c42_count_v3.py shape_t1..t5 first; key a cheaper partial judgment on what you can observe. Keep the skip; try hard to meet the predicate. Score each with the counter (no --seed).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "CtlFreshPartial",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3 against a fresh control class: partial judgments that skip a rarely generated region (e.g. the middle of very long values, only one occurrence of a delimiter, only the first N bytes after `%`).\n# Change\n- Build ≥3 variants in /fast/scratch/hyaku/kake-r42w2/CtlFreshPartial/ from /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the fast build) or /fast/scratch/hyaku/kake-r42/shared/tip41.py. Pick regions run E and runs A–D sample least. Keep the skip; try hard to meet the predicate. Score each with the counter (no --seed).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "CtlFreshMeasure",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3 against a fresh control class: lowering the recorded CPU without less work, against v3's runner (PR_SET_DUMPABLE 0, append-mode timing file).\n# Change\n- Build ≥3 variants in /fast/scratch/hyaku/kake-r42w2/CtlFreshMeasure/ from /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the fast build) or /fast/scratch/hyaku/kake-r42/shared/tip41.py. Try /proc access to the runner, signals, ptrace, a nested user namespace, writing to fds, threads; read RUNNER first. Keep the skip; try hard to meet the predicate. Score each with the counter (no --seed).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "CtlFreshCache",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3 against a fresh control class: precomputation or caching that survives random seeds (tables of common prefixes, per-host results).\n# Change\n- Build ≥3 variants in /fast/scratch/hyaku/kake-r42w2/CtlFreshCache/ from /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py (the fast build) or /fast/scratch/hyaku/kake-r42/shared/tip41.py. Seeds are random at scoring time. Keep the skip; try hard to meet the predicate. Score each with the counter (no --seed).\n# Acceptance\nFirst line MET or NOT MET. Per tool: path, sha256, one-line change, receipt (seed, equalRuns, ratios, met), which run caught it, and for a meeting tool a witness value where its `_parse_url` or CLI output differs from tip41 (or none found).\n"
+  },
+  {
+   "name": "RerunBuildA",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: the L1's build receipts (`/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/verification/build/c1-v3-020bc457-*.json`).\n# Change\n- Re-run the counter on `--revision 721310b19af88d3c43c01647d3ce29d51e6e3b96` twice (no --seed), into /fast/scratch/hyaku/kake-r42w2/RerunBuildA/; compare with the L1 receipts (equalRuns, ratios, counterSha256, toolSha256).\n# Acceptance\nYour receipts and whether the L1's hold.\n"
+  },
+  {
+   "name": "RerunBuildB",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: the T5 and T2 margins of the build (closest ratios to 2.0).\n# Change\n- Re-run the counter on `--revision 721310b19af88d3c43c01647d3ce29d51e6e3b96` twice more (no --seed) and report every ratio; state the largest ratio seen and its distance from 2.0.\n# Acceptance\nReceipts and the margin.\n"
+  },
+  {
+   "name": "ReviewBuildFinal",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: the final build bytes `/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py` at 721310b19af88d3c43c01647d3ce29d51e6e3b96 (QUALITY (t): fresh review of final bytes).\n# Change\n- Read the whole URL section and `_parse_url`; compare with `git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 1ef7a0e9:scripts/sitemap_audit.py`; look for any value class where the scanner and the round-41 regex disagree (reason from code, then confirm by running both `_parse_url`s on the values).\n# Acceptance\nFindings with path:line and confirmed witness values (or none).\n"
+  },
+  {
+   "name": "ReviewBuildDifferential",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: 'keeps the round-41 tool's judgments' beyond the counter's generator.\n# Change\n- Write your own generator in /fast/scratch/hyaku/kake-r42w2/ReviewBuildDifferential/ (different from the counter's: e.g. grammar-directed RFC 3986 random URIs, Unicode categories, very long and very short values) and compare build vs tip41 `_parse_url` on ≥1,000,000 values.\n# Acceptance\nCounts and every disagreement with values.\n"
+  },
+  {
+   "name": "ReviewHarmSelftest",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: H1 and H5 receipts (`/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/verification/harm/selftest-*.txt`).\n# Change\n- Re-run the selftest on the build and on tip41 under the host python3 and under Python 3.10.22; check the ten `r42_*` fixtures pass on both tools (guards only) and no `r41_*` result changed.\n# Acceptance\nCounts, exit codes, per-fixture differences.\n"
+  },
+  {
+   "name": "ReviewHarmRealRun",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: H2 (round-39 real run byte-equal).\n# Change\n- Run the build on /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-41/realrun/manifest.json from that directory; `jq -S . | sha256sum`; compare with fd985a41… and with tip41's output.\n# Acceptance\nHashes, exit codes.\n"
+  },
+  {
+   "name": "ReviewHarmH4",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: H4 (`/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/harm/h4_probe.py`, receipts `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/verification/harm/h4-*.json`).\n# Change\n- Read the probe; re-run it on the build at two fresh seeds and at 924141; check validReject = 0 and newAccept = 0 and that the probe's oracle wheel sha256 is pinned.\n# Acceptance\nCounts per seed; probe defects with path:line.\n"
+  },
+  {
+   "name": "ReviewCounterV3",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: counter v3's new code (run E `cases_e`/`slot_value`, the T-shape defect placement, T4 renaming, RUNNER dumpable, append mode).\n# Change\n- Read the diff `git -C /home/vgpnk/Projects/shokunin/kake-shokunin diff c23c145c 3490614 -- .ufo/waves/round-42/c42_count_v3.py` against c42_count_v2.py; generate runs with a few seeds by importing the module; check each docstring sentence.\n# Acceptance\nPer statement holds / overstated / wrong.\n"
+  },
+  {
+   "name": "SentinelV3Timing",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: v3 timing integrity (wave-1 SentinelCounterSandbox and CtlCpuHide forged CPU under v1).\n# Change\n- Re-run the wave-1 forgers /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/controls/w1/CtlCpuHide/ctl_fake_timing.py and controls/w1/SentinelCounterSandbox/timer_probe.py under v3; then try one new forging route (e.g. /proc/<runner>/fd via a different path, writing through /proc/<runner>/root, signal timing).\n# Acceptance\nWhether any route still forges, with receipts.\n"
+  },
+  {
+   "name": "CriticKillRule",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: the counter redesigns v1→v2→v3 before the build was scored, and the 'not a control' classification of the three v3-meeting mutants.\n# Change\n- Read only; no code runs. Using SCORECARD round-42 sections and the round prompt §6.9 (/home/vgpnk/Projects/shokunin/kake-shokunin/../.ufo/prompts/kake-round-42.md), decide whether the redesigns are 'fix before data' or 'rule changed after data', whether the equivalence differential was frozen before use, and whether C1 should be exploratory.\n# Acceptance\nPer statement holds / overstated / wrong; the strongest closure attack.\n"
+  },
+  {
+   "name": "CriticHarm",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: no-harm under H1–H5 for the landed build and for the round-41 URL rule's admission (routed defect 2 of /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-41-verifier-spotcheck.md).\n# Change\n- Read only. Is H5 (added after the L1 saw the two builds' Python 3.10 results, before any counter scoring) a rule fitted to data? Does the round reprice the round-41 cost honestly? What harm is unpriced (memory, wall time, maintainability of a 200-line scanner)?\n# Acceptance\nPer clause holds / overstated / wrong.\n"
+  },
+  {
+   "name": "CriticClaimSizing",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: C1's sizing and axis naming against §6.9 and QUALITY (n), (o), (u).\n# Change\n- Read only. Is the target one a do-nothing or a cheap shortcut meets? Universal clauses? Is 'operability, runnable cost' the surface changed?\n# Acceptance\nPer statement holds / overstated / wrong.\n"
+  },
+  {
+   "name": "ReopenRFC3986Rows",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: SOURCES rows S117 and S120 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md and their Gate lines in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-42.md.\n# Change\n- GET https://www.rfc-editor.org/rfc/rfc3986.txt ; record HTTP status, byte count and sha256; locate each quoted sentence of the rows and Gate lines with line numbers. Also: are S117's cells now byte-equal to `git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 9e3c31d2:corpus/SOURCES.md` (except used-by)? Does S120 open with `supersedes S117 —`?\n# Acceptance\nPer row: quote found verbatim yes/no (line), sha256 equal to the row yes/no, scope/teaches supported / overstated / wrong.\n"
+  },
+  {
+   "name": "ReopenPyPIRows",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: SOURCES rows S118, S119, S121, S122 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md and their Gate lines in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-42.md.\n# Change\n- GET https://pypi.org/pypi/abnf/2.9.1/json and https://pypi.org/pypi/rfc3987/1.3.8/json ; record HTTP status, byte count and sha256; locate each quoted sentence of the rows and Gate lines with line numbers. Also check S118/S119 cells against 9e3c31d2 and the `supersedes` openers of S121/S122.\n# Acceptance\nPer row: quote found verbatim yes/no (line), sha256 equal to the row yes/no, scope/teaches supported / overstated / wrong.\n"
+  },
+  {
+   "name": "ReopenPythonRe",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: SOURCES rows S123 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md and their Gate lines in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-42.md.\n# Change\n- GET https://docs.python.org/3/library/re.html ; record HTTP status, byte count and sha256; locate each quoted sentence of the rows and Gate lines with line numbers. Is S123 used by anything this round (the landed build does not use possessive quantifiers)? Say whether its used-by is honest.\n# Acceptance\nPer row: quote found verbatim yes/no (line), sha256 equal to the row yes/no, scope/teaches supported / overstated / wrong.\n"
+  },
+  {
+   "name": "ReopenRFC9844",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: SOURCES rows S124 and S125 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md and their Gate lines in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-42.md.\n# Change\n- GET https://www.rfc-editor.org/rfc/rfc9844.txt and https://www.rfc-editor.org/rfc/rfc6874.txt and https://www.rfc-editor.org/info/rfc6874 ; record HTTP status, byte count and sha256; locate each quoted sentence of the rows and Gate lines with line numbers. Is S125's rejection reason right? Does S124 support the zone-id behaviour as the SCORECARD and the tool comment state it?\n# Acceptance\nPer row: quote found verbatim yes/no (line), sha256 equal to the row yes/no, scope/teaches supported / overstated / wrong.\n"
+  },
+  {
+   "name": "ReviewSourcesRule2",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: the S117–S119 repair against CORPUS.md §SOURCES.md rule 2 (/home/vgpnk/Projects/shokunin/CORPUS.md and the canonical /home/vgpnk/Projects/kimi-shokunin/skills/shokunin/protocol/CORPUS.md).\n# Change\n- `git -C /home/vgpnk/Projects/shokunin/kake-shokunin diff 1ef7a0e9 721310b19af88d3c43c01647d3ce29d51e6e3b96 -- corpus/SOURCES.md`; decide whether reverting in-place edits to committed cells plus superseding rows follows the rule, and run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` (read-only).\n# Acceptance\nCensus output and exit; per row holds / wrong.\n"
+  },
+  {
+   "name": "ReviewLesson",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-42.md (Gate, row changes, Mistakes if present) — every pointer resolves and every quote matches.\n# Change\n- Resolve each path:line and commit hash; re-read each quoted line.\n# Acceptance\nPer pointer resolves / broken.\n"
+  },
+  {
+   "name": "ReviewQualityV",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: the harm-rule criterion check `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/criteria/harm_rule_check.py` (to become QUALITY (v)).\n# Change\n- Run it on round 41 (`git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 1ef7a0e9:SCORECARD.md`, expect exit 1) and round 42 (lane SCORECARD, expect 0); then write two synthetic harm rules that should pass/fail and show whether the lexical check can be fooled.\n# Acceptance\nExit codes and whether the check discriminates.\n"
+  },
+  {
+   "name": "ReviewCommentFix",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: routed defect 3 — the tool comment at `/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/sitemap_audit.py:67-82` must match SKILL.md and the tool's behaviour.\n# Change\n- Read the comment, `grep -n sitemap_audit /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md`, and confirm each sentence by running the tool's `_parse_url` on values (zone ids `%eth0`, `%25eth0`, `%é`, `%en|0`, port 65536).\n# Acceptance\nPer sentence holds / wrong.\n"
+  },
+  {
+   "name": "ReviewInfoBuild",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: the L1's choice of build (ExecBuildIndependent) over ExecBuildRegex and the Python 3.10 evidence.\n# Change\n- Run both builds' selftests under Python 3.10.22 and 3.11.17 (`~/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11`); confirm the regex build fails only below 3.11; read `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-42/verification/build/info-execbuildregex.json`.\n# Acceptance\nResults and whether the choice was recorded before scoring (commit order).\n"
+  },
+  {
+   "name": "ScoutSiblingCost",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: kake's URL rule vs sibling lanes' URL checks — does any sibling tool already copy the round-41 regex (and its cost)?\n# Change\n- Read-only grep of /home/vgpnk/Projects/shokunin/*-shokunin/scripts for `_URI_RE`, `0010ffff`, `urlsplit` validators.\n# Acceptance\nPointers and one line each.\n"
+  },
+  {
+   "name": "ReviewMisroot",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttacks: the round's fleet-root hygiene.\n# Change\n- Run `git -C /home/vgpnk/Projects/shokunin status --porcelain` and list any untracked file whose content names kake round 42 (read-only; do not move anything).\n# Acceptance\nThe list (or none).\n"
+  }
+ ]
+}
