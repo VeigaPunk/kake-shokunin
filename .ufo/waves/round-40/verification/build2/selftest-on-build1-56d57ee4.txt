@@ -1,0 +1,16 @@
+FAIL r40_e_nul_after_non_utf8_declaration
+     check 1 findings [('xml_malformed', None)] != [('encoding_invalid', None)]
+FAIL r40_e_nul_after_doctype
+     check 1 findings [('xml_malformed', None)] != [('doctype_present', None)]
+FAIL r40_u_foreign_tab_inside_loc_ignored
+     exit 1 != 0
+     verdict 'failed-policy' != 'clean'
+     check 1 status 'findings' != 'clean'
+     check 1 findings [('loc_not_absolute', 1)] != []
+FAIL r40_foreign_text_inside_loc_ignored
+     exit 1 != 0
+     verdict 'failed-policy' != 'clean'
+     check 1 status 'findings' != 'clean'
+     check 1 findings [('loc_not_absolute', 1)] != []
+PASS 179/183
+exit=1

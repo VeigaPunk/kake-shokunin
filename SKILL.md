@@ -1147,3 +1147,9 @@ source, not changed: `version="1.1"` with 1.0 content stays clean (S110 §2.8; g
 remainder (sentence 9 reading). Proof status: exploratory — the round-40 30-witness counter was met by
 27 controls before the build (SCORECARD "Round 40 — kill rule (1) fired"); use the selftest, not the
 counter.
+
+Round-40 revision after the residual attack (`CriticBetterClaim`): tool sha256 `4de35f8c…1460e`. The
+UTF-16 check now runs after the declared-encoding and DOCTYPE checks (a non-UTF-8 declaration still
+gives `encoding_invalid`, a DOCTYPE still gives `doctype_present`, as before round 40), and element values
+leave out elements of other namespaces with their text (sentence 14), so a TAB inside an ignored
+extension element no longer makes a `loc` invalid. Selftest 183 fixtures.

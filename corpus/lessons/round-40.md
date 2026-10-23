@@ -108,3 +108,28 @@ Re-derived from committed bytes by `ScribeR39ReportCorrections` (commands in its
    `CtlValuesOnly` and `CtlHandTokenizer` wrote their files; `CtlStructureOnly` was refused.
 3. Lesson Gate rejects: the criterion-(o) draft checker gave **5 false accepts in 7 adversarial samples**
    (`w2a3/MutCriterionO.md`), not "in 15".
+
+## Residual call — findings and what changed
+
+Eight seats (`.ufo/waves/round-40/resid/`). Holds: the 27-of-76 tally and commit order
+(`RerunKillAndBuild`, `ReviewRoutedDefects`), harm sweep (`ReviewHarm`: no deletions outside the
+repaired branches, other tools' bytes equal, robots selftest 204/204, real run byte-equal), Mistakes and
+criteria checks re-run red/green (`ReviewLessonQuality`), source decisions (`CriticSourcesDecisions`,
+with one fixable defect: S115's scope still says "not S027's 'parsing is not validation' scope" while its
+`teaches` now includes the non-validation warning — corrected by S116). Advisory exploratory judgment
+(lane seat, not of record): `unprovable-but-better` (`KakeR40.ExploratoryVerdictC1.md`).
+**Regressions found and fixed:** `CriticBetterClaim` F1–F3 (NUL vs declared encoding, NUL vs DOCTYPE,
+foreign TAB inside `loc`) — confirmed red on `56d57ee4` by four new fixtures and fixed (SCORECARD
+"build revised after the residual attack"). Not fixed, recorded: `ReviewBuildRepairs` — interior C0
+controls other than TAB/CR/LF and a trailing space in `sitemapUrl` still pass (both builds; outside the
+declared class; sentence 4 with S102's RFC 3986 rule would exclude them); `ReviewCounterCode` —
+environment failures exit 1 without a receipt.
+
+Carried, still open (verified at `f043c721` by `w1/ScoutCarriedItems.md`): round-38 routed defect 6 items
+2–10; (j) survivor M06; `MutRecheckOversize` M4 and M8.
+
+| Row | URL | Accessed | Located quote (≤25 words) | Decision |
+|---|---|---|---|---|
+| S116 | https://docs.python.org/3/library/urllib.parse.html | 2026-10-23T08:28:47Z (retained bytes `835af739…`, re-read by the L1 at line 419) | "urlsplit() does not perform validation." | admit, supersedes S115 (scope wording) |
+
+Row changes: S116 added. No `status`, `recheck` or `used-by` change to an existing row.

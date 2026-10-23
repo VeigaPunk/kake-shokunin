@@ -98,8 +98,19 @@ def _directory_of(path):
 # Value rules (sentences 21, 28-32)
 # --------------------------------------------------------------------------
 
+def _value_text(element):
+    """Element text with elements of other namespaces left out (sentence 14):
+    their text is ignored, the text after them is kept."""
+    parts = [element.text or ""]
+    for child in element:
+        if isinstance(child.tag, str) and child.tag.startswith(SM_PREFIX):
+            parts.append(_value_text(child))
+        parts.append(child.tail or "")
+    return "".join(parts)
+
+
 def _text_of(element):
-    return "".join(element.itertext()).strip(XML_WS)
+    return _value_text(element).strip(XML_WS)
 
 
 def _valid_lastmod(value):
@@ -186,13 +197,13 @@ def _audit_file(path, sitemap_url):
         return (None, {("encoding_invalid", None)})
     if text[:1] == "\ufeff":
         text = text[1:]
-    if "\x00" in text:
-        return (None, {("xml_malformed", None)})   # U+0000 is not an XML Char
     declared = _declared_encoding(text)
     if declared is not None and declared.lower() != "utf-8":
         return (None, {("encoding_invalid", None)})
     if _has_doctype(text):
         return (None, {("doctype_present", None)})
+    if "\x00" in text:
+        return (None, {("xml_malformed", None)})   # U+0000 is not an XML Char
     try:
         root = ElementTree.fromstring(text)
     except Exception:

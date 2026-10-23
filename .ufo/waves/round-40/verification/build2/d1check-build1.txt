@@ -1,0 +1,44 @@
+{
+  "check": "D1",
+  "reading": "version=\"1.1\" with 1.0-only content is clean; version=\"2.0\" is xml_malformed",
+  "tool": "/fast/scratch/hyaku/kake-r40/l1/build1.py",
+  "tool_sha256": "03a8fba4930ad7628a569e7aa30b3ece728fbb6eb3fa4ac7c9a78dfbeb07b22b",
+  "python": "3.14.8",
+  "exists": true,
+  "documents_isolated": true,
+  "cases": [
+    {
+      "case": "v11",
+      "version": "1.1",
+      "ran": true,
+      "exit": 0,
+      "verdict": "clean",
+      "status": "clean",
+      "error": null,
+      "findings": [],
+      "stderr_bytes": 0,
+      "expected": "clean",
+      "pass": true
+    },
+    {
+      "case": "v20",
+      "version": "2.0",
+      "ran": true,
+      "exit": 1,
+      "verdict": "failed-policy",
+      "status": "findings",
+      "error": null,
+      "findings": [
+        [
+          "xml_malformed",
+          null
+        ]
+      ],
+      "stderr_bytes": 0,
+      "expected": "xml_malformed",
+      "pass": true
+    }
+  ],
+  "result": "green"
+}
+exit=0

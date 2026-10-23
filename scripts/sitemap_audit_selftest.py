@@ -856,6 +856,23 @@ def build_cases():
             expect_exit=2, verdict="could-not-evaluate",
             checks=[E(rid, "error", "check_invalid"), E(rid, "error", "check_invalid")])
 
+    # Residual attack (CriticBetterClaim): orderings and foreign elements inside a value.
+    x_body = urlset(url(L("http://example.com/ab")), decl="").decode("utf-8")
+    add("r40_e_nul_after_non_utf8_declaration",
+        {"a.xml": ('<?xml version="1.0" encoding="ISO-8859-1"?>\n' + x_body).encode("utf-8") + b"\x00"},
+        [7], [("a", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("encoding_invalid", None)])])
+    add("r40_e_nul_after_doctype",
+        {"a.xml": ("<!DOCTYPE urlset>" + x_body).encode("utf-8") + b"\x00"},
+        [9], [("b", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("doctype_present", None)])])
+    add("r40_u_foreign_tab_inside_loc_ignored",
+        {"a.xml": urlset(url('<loc>http://example.com/a<x:n xmlns:x="urn:x">&#9;</x:n>b</loc>'))},
+        [14, 21, 22], [("d", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean", checks=[E("a", "clean")])
+    add("r40_foreign_text_inside_loc_ignored",
+        {"a.xml": urlset(url('<loc><x:n xmlns:x="urn:x">ftp:</x:n>http://example.com/a</loc>'))},
+        [14, 22], [("d", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean", checks=[E("a", "clean")])
+
     return cases
 
 

@@ -2652,3 +2652,19 @@ its counter score is information only, and C1's verdict comes from a named non-a
 (`unprovable-but-better` or `unprovable`). This is the counter failing, recorded as such: a public,
 fixed-label, finite witness set cannot certify a repair over open input classes, and the sandbox leaked
 the witness label.
+
+## Round 40 — build revised after the residual attack (C1 stays exploratory)
+
+The residual call (8 seats, `.ufo/waves/round-40/resid-dispatch-log.txt`) found three regressions of the
+first build `56d57ee4` against the round-39 tool (`resid/CriticBetterClaim.md`, F1–F3): a NUL after a
+non-UTF-8 declaration gave `xml_malformed` instead of sentence 7's `encoding_invalid`; a NUL after a
+DOCTYPE gave `xml_malformed` instead of the retained sentence-9 reading; a TAB inside an ignored
+foreign-namespace element inside `loc` gave `loc_not_absolute` (sentence 14). Revision (tool sha256
+`4de35f8c9d3e7849b6c19e9cfb3c9466f604545a143e29d8480dffcb55a1460e`): the NUL check moves after the
+encoding and DOCTYPE checks; element values leave out foreign-namespace elements and their text. Four
+fixtures added (183): red on `56d57ee4` (`PASS 179/183`, exit 1) and green now (`PASS 183/183`, exit 0);
+the round-39 bytes give `PASS 159/183` (`.ufo/waves/round-40/verification/build2/`). Real run on the six
+round-39 public sitemaps still byte-equal (`jq -S . | sha256sum` → `fd985a41…`,
+`verification/harm/realrun-build2.json`); D1 check green (`build2/d1check-build2.txt`). The kill rule
+had already fired; this revision changes no counter, witness or predicate, and C1's verdict remains the
+non-author reviewer's.
