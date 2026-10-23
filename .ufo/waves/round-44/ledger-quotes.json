@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "figures": [
+    {
+      "id": "rescore-tally",
+      "file": "SCORECARD.md",
+      "pattern": "re-scored\\s+(\\d+)\\s+of\\s+the\\s+27",
+      "receipt": ".ufo/waves/round-43/verification/l1-rescores/*.json",
+      "derive": {
+        "kind": "distinct-tool-sha256",
+        "field": "toolSha256"
+      }
+    },
+    {
+      "id": "donothing-ratios",
+      "file": "LOG.md",
+      "pattern": "not met \\(T1\\s+([\\d.]+),\\s*T5\\s+([\\d.]+)\\)",
+      "receipt": ".ufo/waves/round-43/verification/freeze/ref41-base.json",
+      "derive": {
+        "kind": "ratios",
+        "fields": ["T1", "T5"]
+      }
+    },
+    {
+      "id": "build-ratio-range",
+      "file": "LOG.md",
+      "pattern": "T1\\s+([\\d.]+)–([\\d.]+), T5\\s+([\\d.]+)–([\\d.]+)",
+      "receipt": [
+        ".ufo/waves/round-43/verification/freeze/build-1.json",
+        ".ufo/waves/round-43/verification/freeze/build-2.json",
+        ".ufo/waves/round-43/verification/freeze/build-3.json"
+      ],
+      "derive": {
+        "kind": "ratio-extrema",
+        "fields": ["T1", "T5"]
+      }
+    }
+  ]
+}

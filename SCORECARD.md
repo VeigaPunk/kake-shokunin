@@ -212,6 +212,11 @@ Round-20 resume (2026-10-19): the registry row above entered in this round,
 whose report carries the census run. The 2026-10-16 placeholder row
 `| — none yet — | | | |` was a current-value cell and is replaced, not kept.
 
+Round 44 (2026-10-23): the witness-class gate capability row below entered in
+this round; its first working demonstration is the C1 before/after pair.
+
+| Witness-class gate (differential counter observation set) | Proves, in one command over committed bytes, that a shortcut class (27 live-seat controls across ten class shapes G1–G10) is inside a frozen differential counter's observation set: each registered control witnesses (exit/stdout divergence on ≥1 class run, no timing-only/legacy-only/error witnesses accepted), while the do-nothing placebo counter reaches only seed-luck k<27, the held build still meets the counter 3/3 unseeded, and the four round-42 canaries plus a junk control stay red; per-row receipts re-derive at their recorded seeds | `.ufo/waves/round-44/c44_count_v5.py` (sha `5cedaa3b…`) + `c44_audit.py` + `classes/gN_*.py`; after: `python3 -B .ufo/waves/round-44/c44_audit.py --root . --controls .ufo/waves/round-44/controls-27.tsv --counter .ufo/waves/round-44/c44_count_v5.py --classes v5 --expect witnessed --build-rev 020bc457 --build-runs 3 --workers 4 --out .ufo/waves/round-44/verification/claim/after-final/after-v5.json` → witnessed 27/27, build 3/3, exit 0 (cohorts `verification/claim/{after-final,placebo-final,v4-final,canary-final}/`); before: placebo `--expect witnessed` exit 1, k=0/27 fresh (k∈{0,1} over 7 audits); wave-2 falsification: `.ufo/waves/round-44/w2/` | 44 |
+
 ## Saturation
 
 The lane's saturation line + stagnation window N are to be declared by the
@@ -3399,3 +3404,223 @@ Deep observability finding (`CtlPortValue`): the predicate compares CLI output b
 predicate even when it fires in-corpus. Verdict unchanged: **C1 NOT MET, kill rule (1)**.
 CtlPrefixCache was still live at settle; its scratch receipt and the L1 re-score stand, and
 its final report is folded to the closure.
+
+## Round 44 — C1 and C2 declared (frozen before any claim receipt is produced)
+
+Round base: `18cb2c28f47c3ec3732ffa06c456e61b3444b1a2` (round-43 settle tip). This section is
+written before the freeze commit and is not edited after it; measurements, verdicts and
+corrections are appended below it. Wave 1 (`kake-r44-w1`, 35 seats) is the build/calibration
+wave: its seats score single-class probes, never the claim. **No claim receipt exists at the
+time this section is written**; the frozen counter, class corpus and audit driver are committed
+together with this section, and every claim receipt is produced afterwards against those bytes.
+
+Both axes this lane owns sit at the 10/10 saturation line and no capability entered since
+round 37; the stagnation nudge (AXES.md) applies, so this round is a capability/frontier move.
+The work is the round-43 verifier spot-check's routed core defect: the frozen counter v4 was
+blind to **27 live-seat controls** (round-43 final tally), so every control-class claim the lane
+froze was scored by an instrument that could not see the classes it was meant to close.
+
+### C1 — operability (capability acquisition): the witness-class gate
+
+**Claim.** The frozen counter v5 witnesses, through its class runs G1–G10, all 27 round-43
+controls registered in `.ufo/waves/round-44/controls-27.tsv`, while its v4 corpus (the same
+counter bytes with `--classes v4`) witnesses none; the held build at revision `020bc457`
+(tool `914ebdee…`) still meets v5 on three unseeded runs, and the four round-42 canaries plus
+the junk control remain not met.
+
+**Predicate** (byte-identical here, in `c44_audit.py`'s `--expect` semantics and in every
+receipt): *met: for each of the 27 registered controls, at least one class run of the counter's
+v5 run set differs from the round-41 tool in exit code or stdout bytes, and no v4-corpus run
+does; the held build meets the counter's predicate on three unseeded runs; the four round-42
+canaries and the junk control do not meet it.* A witness carried only by a timing ratio is not
+a witness; a divergence on a v4-corpus run is not a class witness.
+
+**Counting command** (one command, two modes, both re-runnable from committed bytes):
+
+    python3 -B .ufo/waves/round-44/c44_audit.py --root . \
+      --controls .ufo/waves/round-44/controls-27.tsv \
+      --counter .ufo/waves/round-44/c44_count_v5.py --classes v4 --expect blind --workers 4 \
+      --out .ufo/waves/round-44/verification/before-v4.json
+    python3 -B .ufo/waves/round-44/c44_audit.py --root . \
+      --controls .ufo/waves/round-44/controls-27.tsv \
+      --counter .ufo/waves/round-44/c44_count_v5.py --classes v5 --expect witnessed \
+      --build-rev 020bc457 --build-runs 3 --workers 4 \
+      --out .ufo/waves/round-44/verification/after-v5.json
+
+Before: `witnessed 0/27`, `ok=true`, exit 0 (the v4 corpus is blind). After: `witnessed 27/27`,
+`build met 3/3`, `ok=true`, exit 0. Canaries (`controls-canary.tsv`, `--expect not-met`):
+`notMet 5/5`, exit 0.
+
+**Skip-work control** (claim-sizing rule 9, built before this declaration): the same counter
+bytes with `--classes v4`. If the before receipt is not 27/27 blind, the counter or the claim
+is wrong and the round stops. The class runs are the claimed work; disabling them reproduces
+the blind baseline.
+
+**Kill rules.** (1) Any registered control not witnessed under v5 → C1 NOT MET. (2) Any
+witness that is a timing-only failure, a v4-corpus divergence, or a counter error → not a
+witness; if it was the only one, C1 NOT MET. (3) The build failing any of its three unseeded
+runs → harm; C1 NOT MET. (4) A class module reading a control's file at run time (rather than
+generating values) → the capability claim is circular; C1 NOT MET.
+
+**Capability row** (AXES.md §Capabilities): `witness-class gate` — the lane can now prove, in
+one command, that a shortcut class is inside its differential counter's observation set, with
+the before/after pair above as the first working demonstration.
+
+**Sourced.** S129 (tameshi r33: control classes scored against a frozen counter before any
+build is judged) is re-opened this round; the G1–G10 classes are its method applied to the
+counter rather than the build.
+
+### C2 — freshness: the r43 ledger's receipt-derived figures re-derive
+
+**Claim.** For each of the three r43 ledger figures routed by the verifier spot-check (§8.1,
+§8.5), the LAST statement in the lane's ledger matches the value re-derived from the committed
+receipt: `SCORECARD.md` re-score tally, `LOG.md` do-nothing ratios, `LOG.md` build ratio range.
+Mismatches 3 → 0.
+
+**Predicate** (stated here, in `ledger-quotes.json` and in the checker's output): *met: every
+spec entry resolves its expected value from the committed receipt bytes and the last matching
+statement in its ledger, rounded to the quoted precision, equals it; the checker exits 0.*
+
+**Counting command:**
+
+    python3 -B scripts/ledger_latest_check.py --root . \
+      --spec .ufo/waves/round-44/ledger-quotes.json
+
+Before: `3 figures, 3 mismatches`, exit 1. After: `3 figures, 0 mismatches`, exit 0.
+
+**Skip-work control.** The rule is "last statement wins"; a bare appended number with no
+receipt pointer would satisfy it, so each repair line must name the receipt file and the
+derived value, and the checker's `--selftest` must show a matching fixture green and a
+mismatching fixture red. The base revision's four routed figures are the before state; a
+checker with an empty spec is not a repair.
+
+**Kill rules.** (1) Any receipt edited to fit a quoted number → C2 NOT MET. (2) Any of the
+three figures dropped from the spec → C2 NOT MET. (3) A correction that states a value the
+receipt does not contain → C2 NOT MET.
+
+**Sourced.** S130 (kama r29: a stated count must re-derive from committed bytes at the
+revision it was measured over) is re-opened this round; the r43 tally is its second failure.
+
+### Causality and harm
+
+C1 needs no ledger edit; C2 needs no class file: either can land without the other. Harm guard:
+the reference tool, the held build's bytes, the four r42 canaries, the v4 corpus semantics
+(`--classes v4` runs A–F, T1–T5 unchanged) and the round-43 receipts are read-only this round;
+the class runs are additive to the counter and cannot change a v4-mode verdict.
+
+### Round 44 — pre-freeze amendment (recorded before any claim receipt; the declaration above is not edited)
+
+**A. C1 before-state corrected by the inherited attempt-1 calibration.** The inherited receipt
+`.ufo/waves/round-44/verification/freeze/control-v4blind.json` (counter `5cedaa3b…`, classesMode
+`v4`, unseeded, 27 rows) reports `witnessed=2, ok=false`: `buildscope-m5` diverged on run D
+(seed 181346457990762) and `repeat-depth-deep` on run C (seed 5994504518804). The round-43
+tally's "27/27 met v4" is therefore **seed-dependent**, not a property of the corpus: two
+controls already fail v4 under a fresh unseeded run. That is a finding to report, and it
+replaces the "27/27 blind" premise. The frozen claim is now:
+
+- **Before (able-to-fail):** the placebo counter `.ufo/waves/round-44/c44_placebo.py`
+  (byte-copy of v5 whose ten class modules all delegate to `cases_f`, sha256 `9ce3acd4…`):
+  `--classes v5 --expect witnessed` witnesses **k/27** class runs, exit 1. k is measured, not
+  targeted; if k = 27 the classes are not what does the work and C1 is NOT MET.
+- **After:** the frozen counter v5 `5cedaa3b…`: `--classes v5 --expect witnessed
+  --build-rev 020bc457 --build-runs 3` witnesses **27/27**, build met 3/3, exit 0.
+- **Supporting controls:** `--classes v4` on the real counter (0 class witnesses by
+  construction; its met count j/27 is reported and the two seed-dependent divergences named);
+  the five-row canary TSV under `--expect not-met` (`notMet 5/5`).
+
+**B. C2 scope fixed after the critic's containment objection.** The checker compares each
+quoted number and each range endpoint to the receipt-derived value rounded to the quoted
+precision — **exact equality, not containment** — so the build-ratio entry mismatches on both
+endpoints (quoted T1 1.00–1.02 vs recorded 1.004–1.009; quoted T5 1.13–1.18 vs recorded
+1.105–1.215). C2 covers **three** receipt-derived figures: spot-check §8.1 tally, §8.5
+do-nothing ratios, §8.5 build ratio range. **§8.4 wave composition is excluded and stays
+routed**: its ground truth is the `w1/` directory (50 md at the historical revision, 51 in the
+worktree after a late report) plus settle prose — a denominator that moves with the revision is
+not a receipt-derived figure; the correction is landed as routed work and reported, not
+counted. **§8.7** (SOURCES anchor locators) is carried by the contract-rule-2 superseding rows
+S131/S132, not by this count. Each repair line must name the receipt file(s) and the derived
+value; a bare number does not repair.
+
+### Round 44 — pre-freeze correction 2 (recorded before any claim receipt; the two sections above are not edited)
+
+Three instrument/claim-text defects, all found by the inherited attempt-1 wave-1 seats, are corrected
+here — before the freeze commit and before any claim receipt exists (`verification/claim/` is empty).
+
+1. **Witness classifier (CriticClaimC1 attack a2).** `c44_audit.py`'s `semantic_witness` required
+   *every* `caughtBy` key to be a class run, so a control diverging on both a v4 run and a class run
+   (`["D","G3"]`) was not witnessed. Corrected to *at least one* class key (`any(k in class_keys …)`),
+   with `classCaught` / `legacyCaught` exposed per row and a mixed-key fixture added to `--selftest`
+   (the old bytes pass the mixed-key case as false; the new bytes pass it as true, and a legacy-only
+   + a timing-only row still fail). New sha256 `8ee2c8bf9333206963236b023048ae2b560bbec703adef4d448bd5529c2d0c75`.
+   No receipt that decides anything was produced under the old classifier.
+2. **One manifest row misattributed (CriticClaimC1 a3, CriticMathDenominator finding 2).**
+   `controls-27.tsv` row `buildport-m6` read `portdigit / G9`; its source flips the **default-port
+   branch** (`controls-r43/buildport-m6-default-branch.py:303-304`), so the row now reads
+   `default_port / G2`. The class *label* was never the witness gate — the predicate requires any
+   class-run divergence — but the causal description must not claim a port-digit memo.
+3. **C2 counting command (owner-observed).** `scripts/ledger_latest_check.py` deliberately takes no
+   `--spec`: its three-figure contract is fixed in code so a JSON edit cannot narrow the claim. The
+   counting command is `python3 -B scripts/ledger_latest_check.py --root .` (exit 0 met / 1 mismatch /
+   2 unreadable); `--selftest` (2/2: matching fixture green, mismatching fixture red) is the
+   able-to-fail check. The `--spec` token in the declaration above is superseded by this line.
+
+**Predicate reading frozen now, before data (removes the ambiguity in C1's sentence).** The clause
+"and no v4-corpus run does" is read as *a v4-corpus divergence is never a class witness*, not as *a
+control may not diverge on any v4 run*: the 27 controls' v4 behaviour is seed-dependent (attempt-1
+calibration found 2/27 diverging on fresh unseeded v4 runs), so a universal v4-blindness requirement
+would be a claim about a seed, not about the corpus. The before-state remains the placebo counter (a
+byte-copy of v5 whose ten class modules all delegate to `cases_f`): its class runs carry no
+class evidence, so any witness it reaches is seed-luck, not shape — the measured k/27 is
+reported, not targeted (inherited receipt: k=1, `verification/placebo/before.json`). Attempt-1 receipts
+(`verification/freeze/control-v4blind.json`, `verification/placebo/*`) are inherited seat evidence and
+are re-scored with the frozen bytes; they are not the claim's receipts.
+
+### Round 44 — C2 repair and measurement (appended after the freeze amendments; the declaration above is not edited)
+
+Routed repair for the round-43 verifier spot-check §8.1 (receipt-derived, value re-derived by
+`scripts/ledger_latest_check.py` from the committed receipts at `master`): the L1 re-scored
+14 of the 27 live-seat controls — the committed receipts
+`.ufo/waves/round-43/verification/l1-rescores/*.json` at master carry 14 distinct
+`toolSha256` values; the "18" in the round-43 correction above is superseded — the
+receipt-derived tally of re-scored controls is 14. This line is the last statement of the
+rescore-tally figure.
+
+C2 measurement (counting command `python3 -B scripts/ledger_latest_check.py --root .`):
+before — `ledger-quotes: 3 figures, 3 mismatches`, exit 1
+(`.ufo/waves/round-44/verification/ledger-before.txt`); after — `3 figures, 0 mismatches`,
+exit 0 (`.ufo/waves/round-44/verification/claim/ledger-after.txt`, measured against the
+uncommitted ledger; the checker re-derives the receipts from `master`).
+
+### Round 44 — C1 measurement (post-G6, claim receipts in isolated cohorts)
+
+The G6 build item landed 2026-10-23 (L1, from the verified derivations in
+`.ufo/waves/round-44/w2/ReviewG6Semantics.md` + `w2/MutG6Placebo.md` after the ExecG6FoldFix
+seat stood down): `classes/g6_fold_pairs.py` now generates IP-literal zone-id KELVIN pairs
+(v3/v4, ≤64 cps) and first-segment KELVIN/long-s pairs (v7; v8-only via long-s). Probe matrix:
+all four casememo controls witness (exit 1) on seeds 7, 99, 1234, 5555, 777777.
+
+Counting command (verbatim from the C1 declaration, `--out` pointed at its own cohort):
+
+    python3 -B .ufo/waves/round-44/c44_audit.py --root . \
+      --controls .ufo/waves/round-44/controls-27.tsv \
+      --counter .ufo/waves/round-44/c44_count_v5.py --classes v5 --expect witnessed \
+      --build-rev 020bc457 --build-runs 3 --workers 4 \
+      --out .ufo/waves/round-44/verification/claim/after-final/after-v5.json
+
+After — `AUDIT kake-r44 classes=v5 witnessed=27/27 notMet=27 build_met=3/3 ok=True`, exit 0
+(receipt `.ufo/waves/round-44/verification/claim/after-final/`, cohort-isolated per lesson 13).
+Before — placebo cohort `.ufo/waves/round-44/verification/claim/placebo-final/`
+(`--expect witnessed`, exit 1, k<27; fresh measured 0/27, seven wave-2 audits k∈{0,1});
+v4 supporting cohort `v4-final/` (0 class witnesses by construction; v4 met count j/27 is
+seed-dependent — 26/27 and 25/27 measured across wave-2 cohorts, 27/27 in the
+`v4-final` draw; divergences on legacy keys only, both attempt-1 divergences
+reproduced at their recorded seeds). Canary cohort
+`canary-final/`: notMet 5/5, exit 0. Wave-2 re-runs reproduced 23/27 pre-G1-fix baseline
+(`w2-baseline/`), proving the before-state.
+
+Routed (not claimed), preserved in `.ufo/waves/round-44/w2/`: `ReviewCounterContract.md`
+three HIGH latent gate defects (counter-error/tool-absent receipts can witness; stale planted
+receipts accepted — none exercised by this round's receipts, all rows exit 0/1 with tools
+present); `CriticHarmGuard.md` (v4-mode predicate text names ten unexecuted class runs);
+`CriticC1Predicate.md` (repeat-len-band is a mixed v4+class witness — predicate counts it,
+the incremental-closure reading does not).

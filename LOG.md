@@ -1685,3 +1685,30 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - Corrections appended to SCORECARD (stale freeze-section numbers — true values quoted from the
   committed receipts; movement census +2; T2 manifest defect; port-causal gloss; process order/
   seed defects; checker overclaim; locator erratum; exit-code receipts). Mistakes 9–11 mined.
+
+## Round 44
+
+- C1 (operability, capability acquisition — witness-class gate): the frozen counter v5
+  `.ufo/waves/round-44/c44_count_v5.py` (sha256 `5cedaa3b…`) + audit driver
+  `.ufo/waves/round-44/c44_audit.py` (sha256 `8ee2c8bf…`) + class corpus
+  `.ufo/waves/round-44/classes/gN_*.py` witness the 27 round-43 controls registered in
+  `.ufo/waves/round-44/controls-27.tsv` under `--classes v5`; the placebo counter
+  `.ufo/waves/round-44/c44_placebo.py` (sha256 `9ce3acd4…`, byte-copy of v5 whose ten class
+  modules delegate to `cases_f`) is the do-nothing control; the held build at revision
+  `020bc457` (tool sha256 `914ebdee…`) still meets the counter's predicate. Receipts:
+  `.ufo/waves/round-44/verification/claim/` (before: `placebo-before.*`, `v4-support.*`;
+  after: `after-v5.*`; canary: `canary.*`).
+- C2 (freshness, routed repairs for the round-43 verifier spot-check §8.1/§8.5, each line
+  naming its receipt and derived value): (1) the do-nothing (round-41 tool at base) remains
+  not met (T1 4.21, T5 7.05) per `.ufo/waves/round-43/verification/freeze/ref41-base.json`
+  (supersedes the "4.27, 8.68" entry above; the receipt-derived ratios are 4.21 and 7.05). (2) The held build `020bc457` met ×3 with ratio range
+  T1 1.00–1.01, T5 1.11–1.22 over
+  `.ufo/waves/round-43/verification/freeze/build-{1,2,3}.json` (supersedes the
+  "1.00–1.02, 1.13–1.18" entry above; the receipt-derived extrema are 1.00–1.01 and
+  1.11–1.22). (3) The rescore
+  tally repair is recorded in SCORECARD.md under "Round 44 — C2 repair and measurement".
+  §8.4 stays routed (denominator moves with revision — excluded by amendment B);
+  §8.7 is carried by the S131/S132 superseding rows.
+- Frontier: S129/S130 re-opened 2026-10-23 (lesson `corpus/lessons/round-44.md` Gate);
+  superseding rows S131/S132 appended to `corpus/SOURCES.md` (contract rule 2). Mistake
+  mined into the same lesson.
