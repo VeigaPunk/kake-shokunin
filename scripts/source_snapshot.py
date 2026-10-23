@@ -133,7 +133,7 @@ def record(opener, url: str, timeout: float, delay: float, max_hops: int):
             time.sleep(wait)
         try:
             status, headers, body = fetch_once(opener, current, timeout)
-        except (urllib.error.URLError, http.client.HTTPException, OSError) as exc:
+        except (urllib.error.URLError, http.client.HTTPException, OSError, ValueError) as exc:
             return {
                 "ok": False,
                 "reason": f"fetch_error: {type(exc).__name__}: {exc}",
@@ -166,9 +166,25 @@ def record(opener, url: str, timeout: float, delay: float, max_hops: int):
                     "status": status,
                 }
             hops.append({"status": status, "location": location})
-            resolved.append(urllib.parse.urljoin(current, location))
+            try:
+                target = urllib.parse.urljoin(current, location)
+                target_ok = urllib.parse.urlsplit(target).scheme in ("http", "https")
+            except ValueError:
+                target, target_ok = location, False
+            resolved.append(target)
+            if not target_ok:
+                # Round-36 L1 repair (wave-2 ReviewSnapshotTool F1, F2): never follow a
+                # redirect to a non-http(s) or unparseable Location; record and stop.
+                return {
+                    "ok": False,
+                    "reason": "redirect_target_not_http",
+                    "hops": hops,
+                    "resolved": resolved,
+                    "finalUrl": current,
+                    "status": status,
+                }
             followed += 1
-            current = urllib.parse.urljoin(current, location)
+            current = target
             continue
         return {
             "ok": True,

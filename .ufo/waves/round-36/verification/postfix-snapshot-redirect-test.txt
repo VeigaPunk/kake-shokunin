@@ -1,0 +1,60 @@
+offline 127.0.0.1 server .ufo/waves/round-36/verification/postfix-snapshot-redirect-server.py: /f -> 301 file:///etc/hostname, /v -> 301 http://[, /ok -> 200
+result: checks 1 of 3; F redirect_target_not_http; V fetch_error ValueError; O recorded; exit 0 (before the repair: F followed into file:, V crashed the run, per w2/ReviewSnapshotTool.md F1/F2)
+{
+ "manifest": "/fast/scratch/hyaku/kake-r36ctl/snaptest.Wm8S/out/manifest.json",
+ "writtenUtc": "2026-10-23T02:21:44Z",
+ "items": [
+  {
+   "id": "F",
+   "url": "http://127.0.0.1:18736/f",
+   "quote": "x",
+   "fetchedUtc": "2026-10-23T02:21:43Z",
+   "finalUrl": "http://127.0.0.1:18736/f",
+   "status": 301,
+   "hops": [
+    {
+     "status": 301,
+     "location": "file:///etc/hostname"
+    }
+   ],
+   "resolvedLocations": [
+    "file:///etc/hostname"
+   ],
+   "recorded": false,
+   "reason": "redirect_target_not_http"
+  },
+  {
+   "id": "V",
+   "url": "http://127.0.0.1:18736/v",
+   "quote": "x",
+   "fetchedUtc": "2026-10-23T02:21:44Z",
+   "finalUrl": "http://127.0.0.1:18736/v",
+   "status": null,
+   "hops": [],
+   "resolvedLocations": [],
+   "recorded": false,
+   "reason": "fetch_error: ValueError: Invalid IPv6 URL"
+  },
+  {
+   "id": "O",
+   "url": "http://127.0.0.1:18736/ok",
+   "quote": "hello world",
+   "fetchedUtc": "2026-10-23T02:21:44Z",
+   "finalUrl": "http://127.0.0.1:18736/ok",
+   "status": 200,
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "resolvedLocations": [
+    "http://127.0.0.1:18736/ok"
+   ],
+   "bodyBytes": 11,
+   "bodySha256": "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
+   "recorded": true,
+   "reason": null
+  }
+ ]
+}

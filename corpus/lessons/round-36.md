@@ -175,3 +175,24 @@ The declaration, the counter and the measured result stay as landed.
 | Class | Evidence | Captured-by | Fix |
 |---|---|---|---|
 | a declaration claimed that skipping any one rule fails a bullet, but measured only the L1's own ablations | SCORECARD "Round 36 — declared claims" sentence; `w2/MutTool.md` (9 of 32 survive), `w2/RerunAblations.md` (5 of 6 survive) | wave-2 mutation seats; no pre-build check | next declaration states coverage as "each of the N listed ablations scores at most …" and ships a mutation pass on the reference before the freeze; `criteria/ablation_floor_check.py` already fails a receipt set where a listed ablation meets target (`verification/criterion-ablation-floor-r35-shape.txt`) |
+
+### Late wave-2 results (appended)
+
+- `ReviewSnapshotTool`: the recorder followed redirects into any scheme (`file:`, `data:`,
+  `ftp:`) and a malformed Location crashed the whole run. The L1 repaired both after measurement:
+  a non-http(s) or unparseable target is recorded and not followed, and `ValueError` is caught
+  per check (`verification/postfix-snapshot-redirect-test.txt`, offline 127.0.0.1 server).
+  Carried: duplicate ids share a body file; writes follow `--manifest`, not `--out-dir`; a
+  credential-bearing Location lands in receipts.
+- `SentinelToolInputs` on the tool at `4d5b3d55`: the symlink escape (repaired above; the check
+  then opens the unresolved path, a check-then-open race carried); a FIFO manifest blocks forever;
+  a 1 GB or `/dev/zero` manifest raises `MemoryError` with no JSON and exit 1. Carried to round 37
+  with the attribute-embedded `<script` defect. Linear on every hostile HTML shape tried.
+- `ReviewCriteriaChecks`: each of the four round-36 checks has a constructed false pass (renamed
+  receipt, root listing of a tree holding a key, a loosened comparison hidden in a helper, an
+  uppercase hash). `ReviewQualityAndSkill`: QUALITY (b) says more than `version_bump_check.py`
+  enforces (it flags every pin change; the forcing control is a human read). The key-path failing
+  receipt QUALITY (d) names is now committed
+  (`verification/criterion-control-tree-r35-keypath-listing.txt`, exit 1).
+- `ReviewToolCode`: no case-specific code (436 key strings checked), reads only the manifest and
+  bodies, every contract sentence has implementing lines.
