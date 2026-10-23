@@ -61,3 +61,38 @@ verification-fixture and calibration method rows were the two admitted candidate
 6. Report T2 range wording → the round-43 report keeps L1-receipt T2 (1.28–1.382) distinct from
    any rerun maximum, per source; the round-42 report's mixed range is corrected by this
    round's report erratum, not by editing filed bytes.
+
+## Gate locator erratum (appended at wave settle, 2026-10-23)
+
+The S129/S130 Gate rows above name "paragraph 2" for both located quotes, and the SOURCES rows
+repeat the locator (S130's parenthetical 'statement classes P, H, N, C, T, Q' sits in paragraph
+3 under file-wide blank-block counting). Under section-prose counting both quotes are in the
+FIRST paragraph of their sections (tameshi `CtlDoNothing.md` §Verdict; kama
+`self-assessment-at-writing.md` §Checking self-assessment statements at writing). The quotes
+themselves are verbatim in the named files (wave seats `CriticFrontier`, `ReviewSourcesRows` and
+`ExecCensus` independently verified). This erratum is appended, not a rewrite of the Gate rows.
+
+## Mistakes (settle append)
+
+9. **Class: stated numbers drift from the committed receipts (this round, in-round recurrence of
+   Mistake 7).** Evidence: `RevengerFreeze` + `CriticC1Sizing` — the freeze section quoted ratio
+   ranges from discarded pre-T2-fix receipts; the movement-census notes said +1 where the
+   insertion shifts +2 (`ExecSweepFull` F3, `ReviewC2B`); the first `sweep-after.txt` was taken
+   over a tree that gained files minutes later (`ExecSweepFull` F2). Captured-by: none at writing
+   — the seats caught every instance. Fix (applied): per-source numbers quoted from the committed
+   receipts with seeds; superseding movement-census notes; receipt re-takes at the committed tip
+   (`sweep-after-at-7c07079`, `census-at-7c07079`) with `.exit` companions; able to fail — the
+   pre-fix prose fails re-derivation against the receipts, the corrections match byte-for-byte.
+10. **Class: counter generator defects shipped in a frozen instrument (this round).** Evidence:
+    `MutCounterT2`, `MutCounterFold`, `CtlHeadTail` — `shape_t2` returns only the last of 20
+    manifests (19,000 values unscored); fold pairs degenerate when the cased position is a digit
+    (24–27% of draws); the M8 kill is carried by the 30% padded in-range ports, not the
+    out-of-range majority (`ScoutPortMath`, `MutCounterPort`); the prefix-pair cut caps at 44 cp;
+    no generated value pairs a long port with a grammar defect. Captured-by: none — QUALITY (x)
+    covered slots, not casing degeneration or manifest reach. Fix (routed, frozen text cannot
+    change post-freeze): the r44 counter criteria list in the SCORECARD verdict section.
+11. **Class: frozen rule text ambiguous (this round).** Evidence: `ReviewKillRule` — kill rule
+    (3)'s "the frozen references disagree" is literally satisfiable by ref41-vs-base40 on the
+    generated `%4G`; the intended reading (the equality oracle) is not the written text.
+    Captured-by: none (rule text reviewed by the L1 alone pre-freeze). Fix: routed to r44 —
+    name the equality oracle in the rule text; the literal reading is disclosed, not exercised.

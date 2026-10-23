@@ -3291,3 +3291,111 @@ frozen classes scored against v4; counter mutation coverage; build-area mutants;
 receipt re-derivation), C2 (annotation bar re-check, pins shape, movement census re-scan), the
 freeze (chronology, byte completeness, predicate equality) and the frontier rows (quotes, census).
 Verdict lands after the wave returns; the report then files per-source numbers distinctly.
+
+## Round 43 — wave attack results, verdict and corrections (appended at settle; admission belongs to the non-author closure)
+
+Wave `kake-r43-w1` (one v2 wave, 66 seats, 47 reports landed, 15 dead-with-no-output, 4 live at
+settle folded to the closure; dispatch + grant in `w1-dispatch-log.txt`, settle line below).
+§3 planner seat held by the L1 per the frozen-topology ruling; a bounded planning data-walk rode
+the connector/scout items.
+
+**Verdict: C1 NOT MET — frozen kill rule (1) fires.** The build remains verified (met ×3 on
+fresh seeds by `ExecRerunBuild`, equal 11/11 each; the four round-42 controls all red under v4
+×8 runs by `ExecRerunControls`; semantic determinism proven by `ReviewCounterDet`), but the wave
+produced **fourteen live-seat controls that meet the frozen v4 while judging URL values
+differently from the round-41 tool**, each with a demonstrated witness and each re-scored met by
+the L1 under fresh `os.urandom` seeds (receipts `verification/l1-rescores/`):
+
+| Class | Meeting controls (seat report) | Witness shape |
+|---|---|---|
+| head/tail windows ×5 | CtlHeadTail V1/V2/V4/V7/V8 | head-64/45/48 caches, long-port windows — blind spot: no generated value pairs a long port with a defect; prefix-pair cut caps at 44 cp |
+| port-length gates ×3 | CtlPortLen v1/v4/v5 | ≥6-digit-port grammar skip, port-length memo, 64-cp window — blind spot: zero generated long-port values are grammar-rejected |
+| case-fold memos ×4 | CtlCaseMemo v3/v4/v7/v8 | validity-only and non-ASCII/Kelvin fold memos — blind spot: the fold class is ASCII-only and run E never forms folded pairs |
+| band memos ×3 | CtlRepeat len/depth/defpos `_band` (+2 more from the same report) | skip confined to a corpus-absent band (len 6001–199999, depth≥64∧len≤1799, defpos≥1000∧len≤1799) |
+| build mutants ×4 | MutBuildScope m4/m5, MutBuildScheme M5, MutBuildPort m6 | explicit-default-port scope, empty-path, default-port inversion — blind spots: no explicit-default-port locs, no empty-path locs |
+
+Kill-rule receipts of record: `w1/CtlHeadTail.md`, `w1/CtlPortLen.md`, `w1/CtlCaseMemo.md`,
+`w1/CtlRepeat.md` plus the mutant survivor sections of `w1/MutBuild{Scope,Scheme,Port}.md`; the
+L1 re-scores (`verification/l1-rescores/*.json`) confirm met 11/11 for all fourteen. Reported,
+never relabelled. The r44 hardening list (routed): generated values that pair long ports with
+grammar defects; explicit-default-port and empty-path loc/sitemapUrl pairs; prefix-pair cuts ≥45
+cp; non-degenerating fold pairs (digit no-op) and non-ASCII/Kelvin fold pairs; validity-only memo
+coverage; band-memo coverage (or a named band enumeration in the claim). Kill rule (3)'s text is
+defective (`ReviewKillRule`: "the frozen references" is literally satisfiable — base40 and ref41
+disagree on the generated `%4G`; the intended reading is the equality oracle; the text cannot be
+amended post-freeze — disclosed here and routed to r44).
+
+**C2 verified on the evidence, bounded.** `ReviewC2A`, `CriticC2Sizing`, `ExecSweepFull` and
+`ReviewC2B` confirm: sweep §paths exit 1→0 with every cite annotated within ±2 lines, pins
+entries present, before/after receipts committed. Bounds disclosed: the claim is `--section=paths`
+only — the FULL sweep is red at §armed (PQ-2 GATE-OPENED, sitemap LISTED-LIVE, plazir-gate-anomaly),
+all pre-existing at base `61046fc` (`ExecSweepFull` F1; the claim never asserted more).
+
+**Corrections (appended; the freeze section above is not rewritten).**
+1. Stale prose numbers (found by `RevengerFreeze` + `CriticC1Sizing`): the freeze section's quoted
+   ratios came from discarded pre-T2-fix receipts. True committed values: ref41-base (seed 43001)
+   T1 4.207, T2 1.917, T3 1.152, T4 1.228, T5 7.047; build-1..3 (seeds 9325990526163,
+   265206435053987, 269853680553917) T1 1.004–1.009, T2 1.201–1.250, T3 1.318–1.334,
+   T4 1.211–1.266, T5 1.105–1.215. Verdicts unchanged. Per-source numbers stay distinct hereafter.
+2. Movement census off-by-one (found by `ExecSweepFull` F3 + `ReviewC2B`): the round-29.md
+   insertion adds TWO lines (annotation row + separating blank); correct targets
+   `:120-124` and `:126-134`; superseding dated notes appended to both wave files; the
+   SCORECARD/lesson `:119-123`/`:125-133` figures are superseded by this entry.
+3. Counter v4 defects found by the wave (do not change receipts; routed to r44):
+   `shape_t2` writes 20 files but the returned manifest scores only the last (19,000 values
+   unscored — `MutCounterT2`); fold pairs degenerate when the cased position is a digit (24–27%
+   of draws — `MutCounterFold`, `CtlHeadTail`); the M8 kill is carried by the 30% zero-padded
+   in-range ports, not the out-of-range majority (`ScoutPortMath`, `MutCounterPort`) — the
+   freeze section's causal gloss is corrected accordingly; T3's repeated-host docstring claim is
+   overstated (the class is carried by T2/B/E/F — `MutCounterHost`).
+4. Process defects disclosed (`CriticC1Sizing`): the nine freeze scorings ran concurrently in
+   one batch (build receipts written before the do-nothing control's) — the sizing rule's
+   control-before-build order was not observed; the ref41-base control was scored with the
+   fixed seed 43001 (the unseeded norm applies to scored runs); the "before" state pins revision
+   `1ef7a0e9` (the round base `61046fc` already holds the build bytes). Receipts stand; the
+   ordering/seed discipline is routed to r44.
+5. `registry_count_check.py` is overclaimed as a gate (`ReviewQualityV`: revision-identity,
+   whitespace-row, status-typo, short-ID and bad-rev bypasses) — its r42-red/r43-green receipts
+   reproduce, and the correction's numbers rest on the independent census-command derivation
+   (`RevengerMath`, `ExecCensus`), but the checker itself is a smoke aid, not a gate; the
+   freeze-transition pair 61046fc→b49cba9 (128→130, mined +2) now has its own claims receipt
+   (`registry-count-r43-freeze-claims.json`, exit 0).
+6. S129/S130 Gate locators: quotes verbatim; "paragraph 2" should read paragraph 1 under
+   section-prose counting (erratum appended to `corpus/lessons/round-43.md`).
+7. Census/sweep exit codes now carry `.exit` receipts beside the stdout captures
+   (`census-at-7c07079`, `sweep-after-at-7c07079` — both exit 0; the earlier `sweep-after.txt`
+   predates the freeze commit's own new files and is superseded for count claims; its verdict
+   line and drift/missSet reproduce).
+
+**Frontier at settle.** Census exit 0 (validator + manual commands; `ExecCensus`); registry
+128 → 130 rows at the freeze commit with the transition receipt; S129/S130 admitted (locator
+erratum above); no other rows touched. Mined mistakes this round: 7 (registry arithmetic, r42
+import), 8 (unannotated misroot cites), 9 (stale prose numbers — the Mistake-7 class recurring
+in-round; fix: per-source numbers and a receipt-at-tip re-take), 10 (T2 unscored manifests +
+fold degeneration), 11 (kill-rule (3) text ambiguity) — `corpus/lessons/round-43.md`.
+
+**Learning trends (author-side).** Expansion: unchanged (no capability enters; registry growth is
+curation inside the existing SOURCES capability; the coverage-gap findings are quality signal,
+not expansion). Quality: improved with bounds — v4 closes all four r42 classes ×8 reruns and the
+build/determinism/harm evidence reproduces; the wave named the remaining generator blind spots
+with witnesses and red receipts. Discernment: improved locally — fourteen meeting controls
+reported by the seats and confirmed by L1 re-scores, not relabelled; the checker overclaim and
+the prose/number drift disclosed against the lane's own interest; outside spot-check owed.
+
+### Round 43 — final kill-rule tally correction (appended at settle, supersedes the "fourteen" figure above)
+
+Late seat reports raise the tally: **27 witnessed live-seat controls meet the frozen counter v4
+while judging URL values differently from the round-41 tool** — CtlHeadTail ×5 (head/tail
+windows), CtlPortLen ×3 (port-length gates), CtlCaseMemo ×4 (case-fold memos), CtlRepeat ×5
+(band memos), CtlHostTable ×3 (host tables over hosts outside the generator's population),
+CtlPortValue ×2 (port-digit caches), CtlPrefixCache ×1 (48-cp prefix cache, p48_noreval), and
+the four build mutants (MutBuildScope m4/m5, MutBuildScheme M5, MutBuildPort m6). The L1
+re-scored 18 of the 27 with fresh `os.urandom` seeds (receipts `verification/l1-rescores/`,
+all met 11/11); every seat report carries its own seeds and witnesses. CtlTiming's three
+measurement-channel attacks all FAILED (the runner's `PR_SET_DUMPABLE 0`, orphan reaping and
+tmpfs isolation hold) — the equality channel, not the timing channel, is where v4 is blind.
+Deep observability finding (`CtlPortValue`): the predicate compares CLI output bytes, not
+`_parse_url` results — a cache whose substitution never flips a finding is invisible to the
+predicate even when it fires in-corpus. Verdict unchanged: **C1 NOT MET, kill rule (1)**.
+CtlPrefixCache was still live at settle; its scratch receipt and the L1 re-score stand, and
+its final report is folded to the closure.

@@ -1673,3 +1673,15 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `corpus/lessons/round-43.md`); census exit 0; registry 128 → 130 rows. Lesson `round-43.md`
   Mistakes 7–8.
 - Tool installs: none (host python3 3.14.8, git, node already present; no pacman).
+
+## Round 43 correction (2026-10-23, appended at wave settle)
+
+- Wave kake-r43-w1 (66 seats, 47 reports, 15 dead-no-output, 4 live-at-settle): **C1 NOT MET** —
+  frozen kill rule (1) fires on fourteen witnessed live-seat controls meeting counter v4
+  (head/tail windows, port-length gates, case-fold memos, band memos, four build mutants);
+  L1 re-scores `verification/l1-rescores/` confirm met 11/11 for all fourteen. The build itself
+  remains verified (met ×3 fresh seeds; four r42 controls red ×8; semantic determinism proven).
+- C2 verified with bounds (paths-only; full sweep red at §armed is pre-existing base debt).
+- Corrections appended to SCORECARD (stale freeze-section numbers — true values quoted from the
+  committed receipts; movement census +2; T2 manifest defect; port-causal gloss; process order/
+  seed defects; checker overclaim; locator erratum; exit-code receipts). Mistakes 9–11 mined.

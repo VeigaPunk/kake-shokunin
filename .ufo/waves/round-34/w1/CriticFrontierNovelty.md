@@ -107,3 +107,5 @@ goal file lines 1-94 only through grep. No sandbox was needed and no tools were 
 operator-owned property was contacted.
 
 <!-- 2026-10-23 round-43 movement census: corpus/lessons/round-29.md gained one annotation row (line 104) after its round-29 FieldsAndCounts row; this file's pointer "corpus/lessons/round-29.md:124-132" now reads "125-133". Cited content unchanged; the new row itself carries absence wording. -->
+
+<!-- 2026-10-23 r43 movement-census CORRECTION (supersedes the note above, which said +1 and :125-133): the round-29.md insertion adds TWO lines, so this file's pointer "corpus/lessons/round-29.md:124-132" now reads "126-134". Verified by blob export (md5 match of base 124-132 == freeze 126-134). -->
