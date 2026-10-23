@@ -1,4 +1,4 @@
-source: S011, S095, S096, S034, S098, S099, S100 (corpus/SOURCES.md; S034, S098–S100 added round 38) — S011 RFC 9309, §§1–3; S095 Google, “How Google Interprets the robots.txt Specification”, named sections below; S096 google/robotstxt, README “Quickstart” and “Notes”
+source: S011, S095, S096, S034, S098, S099, S100 (corpus/SOURCES.md; S034 re-opened and S098–S100 added in round 38) — S011 RFC 9309, §§1–3; S095 Google, “How Google Interprets the robots.txt Specification”, named sections below; S096 google/robotstxt, README “Quickstart” and “Notes”
 verified-at: 2026-10-23 (S011, S095 and S096 retained round-37 retrievals; `.ufo/waves/round-37/sources/receipts.json`)
 recheck: 90d, or on an RFC 9309 revision/erratum, Google documentation update, or google/robotstxt parser change; re-open the cited anchors and compare the retained source receipts
 
@@ -97,7 +97,7 @@ an implementation limit the range and precision of numbers (S034 §§6, 9), so t
 the lane's choice, not an RFC requirement: an integer of any length parses, an out-of-range
 `robotsStatus` of any length is `check_invalid` for that check, and a long number in a field the
 contract does not read changes nothing. Python's default 4300-digit conversion limit would make a
-5000-digit integer an `input_invalid` manifest instead (S100 points to that limit).
+5000-digit integer an `input_invalid` manifest instead (measured on Python 3.14.8, round-38 wave-1 `ProbeDigits`; the limit is documented with `int`, not on the S100 page).
 
 **(i) URL characters, lane reading.** RFC 3986 builds URIs from unreserved characters, reserved
 delimiters and percent-encoding (S098 §§2.1–2.3). The audit therefore rejects (`check_invalid`) a

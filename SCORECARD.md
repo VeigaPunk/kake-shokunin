@@ -2285,3 +2285,46 @@ commit). Predicate, counter v3 and key unchanged since `2dab7f31`. Receipts
   only for the two escapes the declaration names): 19 of 20, not met
   (`verification/w1attack/CtlExampleK.json`).
 - Axis ratings unchanged (10 → 10). No capability row: C2 is a repair of an existing tool.
+
+## Round 38 — wave-2 corrections (appended)
+
+Wave 2 `kake-r38-w2` (34 seats: 19 reviewer, 5 scout, 4 mutation-tester, 3 critic, 2 sentinel,
+1 revenger; all returned) attacked the landed work at `adab4c7e`; reports are in
+`.ufo/waves/round-38/w2/`. The declaration, counter, key and measured result stay as landed.
+
+- **Reproduced:** every C2 receipt at five revisions (`RerunC2Receipts`); 63 of 64 retained tools
+  against their v2 receipts and 64 of 64 against v3, plus `CtlExampleK` 19
+  (`RerunC1Withdrawal`, `RerunControlsV3`). Also reproduced: the key audit (20 cases, 43 of 43
+  single-character checks, `checksEvaluated` on 22 of 22 runs; `AuditKeyV3`), every key expectation
+  re-derived by hand (22 of 22; `CriticKeyExpectations`), and harm base vs tip (all selftests and the
+  round-36/37 counters; `ReviewHarm`). The real run gave the build 7 of 7 against the wave-1
+  oracle (`ReviewRealRun`). The independent blind implementation scores 20 of 20 under v3
+  (`verification/w2/independent-v3.json`). A sweep of every v3 receipt is in
+  `verification/v3-sweep.txt`: the only 20-of-20 tools are the build, the reference, the
+  independent implementation and the four full-rule tools.
+- **The four full-rule tools are builds by measurement:** removing (h), (i) or (k) from any of
+  them scores 16 of 20 (12 of 12 ablations, `AblateBuilds`).
+- **Contested, for the closure:** `CriticReclassification` holds that the "implements all three
+  rules ⇒ build" class did not exist when C1 was declared and was written after those four tools
+  had scored 20 under v2. On a strict reading of the round-37 ruling it is a reclassification, and
+  C2 would not be admitted. On the substance (ablations above, 13 v2 false passes closed by v3) it
+  holds. C2's self-verdict is therefore **measured met; admission contested**.
+- **Overstated, corrected here:** 20 of 20 certifies the 22 sealed runs, not every sentence of (h),
+  (i), (k). Untested sentences: four single-point reference mutants reach 20 of 20 (empty query
+  `/robots.txt?`, bare `%`, explicit `Disallow: /robots.txt`, an unguarded `parse_int` that breaks
+  the 20 s bound on a 64 MiB literal; `CriticKeyExpectations`). Six build mutants survive both the
+  selftest and the key (`MutBuildTool`: sign or truncation of short integers, `_` rejected, U+00A0
+  rejected, implicit allow limited to https, implicit allow below a directory). "Every control of
+  the named classes ≤ 16" means every scored control of the seven classes. "29 of 42" stands (not
+  28).
+- **Defects carried to round 39:** `source_recheck.py` oversized bodies can emit `moved` alongside
+  `check_invalid` and count in `checksEvaluated` (`ReviewRecheckCaps`, P2). The (j) check has 11 of
+  15 surviving mutants and is name-based (`MutCcCheck`, `ReviewCcCheck`). The tool's lone-surrogate
+  URL reading differs from the independent implementation, which gives `check_invalid`
+  (`DiffToolVsIndependent`, `RevengerReadings`; the contract is silent). `https://[not-ipv6]/p` is
+  `check_invalid` (`ReviewToolDiff`, P3). The two counter harm receipts name `toolFile` without
+  `toolRevision`. The `pinned_selftest.py` `runner` field can be forged by a summary
+  (`ReviewPinnedSelftest`). `timeline_check` receipts omit their invocation
+  (`ReviewTimelineCheck`).
+- Source and knowledge-entry wording fixes are logged in `corpus/lessons/round-38.md`
+  "Wave-2 corrections".

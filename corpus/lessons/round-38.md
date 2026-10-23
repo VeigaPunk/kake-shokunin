@@ -25,30 +25,30 @@ a redesigned counter (routed defect 2) and appends the closure correction (route
 ### Source openings (2026-10-23, wave 1)
 
 - S034 RFC 8259 — https://www.rfc-editor.org/rfc/rfc8259.txt — accessed 2026-10-23T04:30:20Z, HTTP 200,
-  sha256 `61a5378f…2cd2d7` (identical to the 2026-10-21 opening) — re-open, keep, tier A, spec,
+  sha256 `61a5378f…9b4cd2d7` (identical to the 2026-10-21 opening) — re-open, keep, tier A, spec,
   mined. Quote “Numeric values that cannot be represented in the grammar below (such as Infinity
   and NaN) are not permitted.” (§6). `used-by` widened (below).
 - S098 RFC 3986 §§2.1–2.3 — https://www.rfc-editor.org/rfc/rfc3986.txt — accessed 2026-10-23T04:30:17Z,
   HTTP 200, sha256 `3102dae4…b2d683` (same bytes as S029) — admit, tier A, spec, mined. This scope
   is one S029 (§3) and S089 (§5.2) do not hold. Quote “Characters that are allowed in a URI but do
   not have a reserved purpose are called unreserved.” (§2.3). Per-character check of rule (i)
-  against §§2.2/2.3: 85 allowed, 43 excluded, 0 mismatches (`w1/ScoutReopenRFC3986s2.md`).
+  against §§2.2/2.3 plus §2.1 `%`: 85 allowed, 43 excluded, 0 mismatches (`w1/ScoutReopenRFC3986s2.md`).
 - S011 RFC 9309 — https://www.rfc-editor.org/rfc/rfc9309.html — accessed 2026-10-23T04:30:20Z, HTTP 200,
   sha256 `bbaa2806…dc1a87` (the same bytes as the round-37 retained copy) — re-open, keep, mined.
   Quote “The /robots.txt URI is implicitly allowed.” (§2.2.2).
 - S099 RFC 9309 §§1–5 — https://www.rfc-editor.org/rfc/rfc9309.html — accessed 2026-10-23T04:30:34Z,
   HTTP 200 — admit, tier A, spec, mined. It supersedes S011's host-root scope (the round-37 owed
-  superseding row). Quote “use case-insensitive matching to find the group that matches the
+  superseding row). Quote (sentence fragment) “use case-insensitive matching to find the group that matches the
   product token” (§2.2.1).
 - S100 Python json docs — https://docs.python.org/3/library/json.html — accessed 2026-10-23T04:30:22Z,
   HTTP 200, sha256 `234b80bf…a07f792e` — admit, tier A, docs, mined. Quote “It also understands NaN,
   Infinity, and -Infinity as their corresponding float values, which is outside the JSON spec.”
-  (`json.loads`; `w1/ScoutPythonJson.md`).
+  (`class json.JSONDecoder`; `w1/ScoutPythonJson.md`, location corrected by wave-2 `ReopenGateS100`).
 - S101 WHATWG URL Standard — https://url.spec.whatwg.org/ — accessed 2026-10-23T04:30:17Z, HTTP 200,
   sha256 `08cb42a9…` — **reject**, tier A, spec: the contract is RFC 3986, and the tool does not use
-  a WHATWG parser; WHATWG strips and removes the characters (i) rejects. Flip: the lane adopts
+  a WHATWG parser; WHATWG normalizes several of the characters (i) rejects (strips boundary C0/space, removes tab/LF/CR, percent-encodes most others) with non-fatal validation errors. Flip: the lane adopts
   WHATWG parsing or requires browser-equivalent normalization. Quote “The URL parser takes an
-  arbitrary scalar value string and returns either failure or a URL.” (§4.4).
+  arbitrary scalar value string and returns either failure or a URL.” (§4 lead-in).
 - Not a row: Google's parser (S096, `robots.cc` at `22b355ff`) has no implicit allow and does not
   decode the path (`w1/ScoutGoogleImplicit.md`). The knowledge entry records this as a difference.
 
@@ -64,7 +64,7 @@ used-by unchanged.
   `MutRefPass` mutants, plus `CtlLabelShortcut` delegate ceiling, `CtlBaseWrapper` care and
   `CriticPredicate` rulepatch(_pct) at 20 of 20. Withdrawn before any build seat was dispatched
   (receipts `.ufo/waves/round-38/verification/control-*.json`, `mutref/`).
-- **Admit for measurement: C2** (`2dab7f31`). Every control of the named classes scored at most
+- **Admit for measurement: C2** (`2dab7f31`). Every scored control of the seven named classes scored at most
   16 of 20 under v3, and all 42 mutants and 8 ablations scored at most 19 (`verification/v3/`).
   Control receipts landed at 04:28:54Z, 58 s before wave 1 was dispatched (`w1-dispatched-at.txt`;
   `criteria/receipts/timeline-r38.txt`).
@@ -108,7 +108,7 @@ opened anything inside it. A third, `CriticControlReceipts`, listed the child na
 
 ## Holds and dead seats
 
-No dead seats and no refusals in the control call or wave 1 (wave 2 in the report).
+No dead seats and no refusals: control call 7 of 7, wave 1 32 of 32, wave 2 34 of 34 returned.
 
 ## Carried open
 
@@ -118,3 +118,31 @@ No dead seats and no refusals in the control call or wave 1 (wave 2 in the repor
 - `source_recheck.py` body-path race (narrowed, not closed); criteria false passes/fails (round-37
   `ReviewCriteriaV2`).
 - The control-consequence check classifies receipts by file name.
+
+## Wave-2 corrections (appended)
+
+Applied to this round's own text (lesson Gate and knowledge entry) after wave 2:
+- S034 digest tail `…9b4cd2d7` (was misprinted `…2cd2d7`; `ReopenGateS034`).
+- S098: the 85th allowed character `%` comes from §2.1, not §§2.2/2.3 (`ReopenGateS098`).
+- S100: the quoted sentence is under `class json.JSONDecoder`, not `json.loads`
+  (`ReopenGateS100`). Its row scope does not cover the 4300-digit limit; the knowledge entry now
+  cites the measurement (`ProbeDigits`) instead of S100 for it (`ReviewKnowledgeEntry` F2).
+- S101: the quote is the §4 lead-in, not §4.4. WHATWG normalizes rather than "strips and removes"
+  most of the characters (`ReopenGateS101`).
+- S099: the quote is a sentence fragment. The knowledge entry still cites S011 for sections
+  outside S011's scope (`ReopenGateS099`; carried). RFC 9309 has four Reported errata (7124, 7128,
+  7995, 8895), none Verified.
+- Knowledge-entry source line: S034 was re-opened, not added (`ReviewKnowledgeEntry` F1).
+- SOURCES `used-by`: S034 gains `corpus/lessons/round-38.md` and S101 gains
+  `corpus/knowledge/robots-txt-rules.md` (`ReviewSourcesRows` P2). Old → new: S034
+  `…, corpus/knowledge/robots-txt-rules.md` → `…, corpus/knowledge/robots-txt-rules.md,
+  corpus/lessons/round-38.md`; S101 `corpus/lessons/round-38.md` →
+  `corpus/knowledge/robots-txt-rules.md, corpus/lessons/round-38.md`.
+- The private reference's docstring still describes the raw-path implicit allow; its code
+  implements (k) (`CriticKeyExpectations`). It is retained as-is, as evidence.
+
+### Mistakes (appended row)
+
+| Class | Evidence | Captured-by | Fix |
+|---|---|---|---|
+| Sealed cases certify sampled sentences only; a 20-of-20 target read as "the rules" | `w2/CriticKeyExpectations.md` (4 reference mutants at 20), `w2/MutBuildTool.md` (6 survivors) | wave-2 mutation pass | SCORECARD wave-2 corrections scope the claim to the 22 runs. Round 39: add those sentences to the selftest or key before any new claim on this tool |
