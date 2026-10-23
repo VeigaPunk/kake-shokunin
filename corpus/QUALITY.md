@@ -1012,3 +1012,36 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
   (`.ufo/waves/round-40/controls/w1/`) are standing controls — a future counter must score them below
   its target; the round-40 counter scores them 30 of 30 (`verification/w1/CtlKeyFinder__*.json`,
   `CtlLabelKeyed__ctl_label_keyed.json`), so this check is red on it.
+- **(r) status, round 41:** green on the round-41 counter (`.ufo/waves/round-41/c1_count.py`): the
+  standing `CtlKeyFinder` tools score 0 of 1434, `CtlLabelKeyed` 1012 and 1023, `CtlPositionKeyed` ≤1051
+  (`.ufo/waves/round-41/verification/r40standing/`). Still open on it: bubblewrap's own environment at
+  `/proc/1/environ` (counter v2 passes a minimal one), inherited stdin, no output byte cap
+  (`.ufo/waves/round-41/w1/SentinelSandbox.md`).
+
+## Round-41 criteria
+
+- **(s) A control tally counts live seats only.** Receipts of a seat the dispatch log records as dead are
+  listed apart and never counted as independent controls. Grounding: round-40 spot-check routed defect 1
+  (lesson round-41 Mistake 2: "27 of 76" included four dead-seat receipts; live seats only 26 of 72).
+  Check: `.ufo/waves/round-41/criteria/live_tally_check.py --dispatch-log <log>... --receipts <dir>` —
+  red on round 40 (exit 1, four `CtlUTabOnly-dead__*` receipts,
+  `.ufo/waves/round-41/verification/criteria/live-tally-r40.txt`), green on round 41 wave 1 (no dead seat).
+- **(t) A build changed after any attack gets a fresh seat's review of its final bytes before the report.**
+  A seat report (not the L1's reruns) names the final tool's sha256. Grounding: round-40 spot-check routed
+  defect 2 (lesson round-41 Mistake 3). Check: `.ufo/waves/round-41/criteria/fresh_review_check.py
+  --tool-sha <sha256> --reports <dir>...` — red on round 40's final tool `4de35f8c…`
+  (`verification/criteria/fresh-review-r40.txt`, 0 seat reports). Weakness to test: a report that only
+  quotes the sha passes it; read the report as well.
+- **(u) A generated counter covers the support of the class it names.** Units are inserted at every
+  position of a component, both ends included; optional components are generated absent and present-empty;
+  every non-target part varies over its forms (no single template). A control that is right only on a
+  skipped position or template meets a counter that lacks this. Grounding: lesson round-41 Mistake 1
+  (`terminal_pct` and `v1_shape` met counter v1). Check: those two tools
+  (`.ufo/waves/round-41/controls/w1/CtlNoPct/terminal_pct.py`,
+  `controls/w1/CtlGeneratorShape/v1_shape.py`) are standing controls — red on counter v1 (both meet),
+  green on counter v2 (both fail; `verification/w1v2/`).
+- **(n) amended reading, round 41:** when a control list names a construction ("an allow-list", "a
+  repertoire test"), a tool of that construction that agrees with the oracle on the whole generated class
+  still meets, and the classification cannot be settled after scores. Name control classes by the behaviour
+  they skip (a position, a component, a sub-shape the class generates), and decide equivalence by a
+  frozen differential before scores, not by how the tool is written.

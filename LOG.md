@@ -1582,3 +1582,26 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   QUALITY (o) amended, (q), (r); S115 supersedes S111. Motivating evidence: round-39 closure routed
   defects 1–5 and `.ufo/waves/round-40/verification/w1/`.
 - Correction (appended): wave 1 had **8** provider refusals, not 7 (`w1-dispatch-log.txt`: CtlENulSniff, CtlUSitemapUrlOnly, CtlUAnyWhitespace, CtlROneKind, CtlRAnyRepeat, CtlEDeclOnly, CtlULocOnly, CtlEWrongCode), and 1 dead seat (CtlUTabOnly).
+
+## Round 41 — 2026-10-23 (kake L1 `KakeR41`, attempt 1, hyaku in-session)
+
+- Pre-freeze (`abf457d0`): C1 planned — `scripts/sitemap_audit.py` judges `loc` and `sitemapUrl` by the
+  RFC 3986 `URI` grammar (S117) before `urlsplit`, answering round-40 routed defect 4 and widening it to
+  every ASCII character. Counter v1 `c1_count.py` (`2acc443a…`): 1434 cases per run, labels from a
+  published RFC 3986 grammar (abnf 2.9.1, S118); a second published implementation (rfc3987 1.3.8, S119)
+  agrees on 14,340 of 14,340 cases. Base 1049, L1 cheap controls ≤1290, round-40 key-finders 0.
+- Wave 1 (37 seats, 0 dead, 0 refused; `w1-dispatch-log.txt`): 15 of 141 live-seat control receipts met
+  v1 — a trailing-`%` partial repair and a generator-template tool among them — so kill rule (1) fired
+  before the build (`9e3c31d2`): C1 is exploratory. Every one-component, one-field, keyed, no-reader,
+  per-character and repertoire-drop control stayed below.
+- Build `eae5ae2c` (tool `0b485431…`, the reference revised before landing to leave IP literals to
+  `urlsplit`): counter v1 1434 as information; selftest 183 → 198 (15 `r41_*`, ten red on the base);
+  real run on the six round-39 sitemaps byte-equal (`fd985a41…`); an independent build written from
+  RFC 3986 alone also scores 1434. SKILL amendment "round-41 URL rule".
+- Counter v2 (information): ends-included insertion, empty components, varied IP literals, `loc` judged
+  after sentence 21's strip, minimal bubblewrap environment; the two found gaps fail it.
+- Lesson `corpus/lessons/round-41.md` (Mistakes 1–3; round-40 tally restated 26 of 72 live-seat receipts);
+  QUALITY (s), (t), (u), (n) amended reading, (r) status. Motivating evidence: round-40 closure routed
+  defects 1–4 and `.ufo/waves/round-41/verification/w1/`.
+- Re-verification result (freshness): S102 page sha256 unchanged (`ReopenS102Quote`), RFC 3986 bytes equal
+  to S098's pin (`ScoutReopenS117`), both oracle wheels equal to PyPI's digests (`ScoutReopenOracles`).
