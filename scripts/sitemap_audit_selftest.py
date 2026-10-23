@@ -988,6 +988,53 @@ def build_cases():
             rules=[("g", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean",
             checks=[E("a", "clean")])
 
+    # Round 42 (claim C1, guards only): the URL rule keeps the round-41 tool's
+    # judgments, so these fixtures are green on both tools.  They pin
+    # the declared zone-id behaviour (inside `[ ]` only
+    # `[A-Za-z0-9._~:!$&'()*+,;=%-]` is admitted, so a zone id with a
+    # non-ASCII character or `|` is rejected before `urlsplit`) and the
+    # length of a long single-segment value.
+    for field in ("loc", "sitemapUrl"):
+        for tag, zone in (("eth0", "%eth0"), ("pct25_eth0", "%25eth0")):
+            zone_url = "http://[fe80::1" + zone + "]/a"
+            if field == "loc":
+                add("r42_%s_zone_id_%s" % (field, tag),
+                    {"a.xml": urlset(url(L(zone_url)))}, [4, 22],
+                    rules=[("g", "pos")],
+                    manifest=mf(ck("a", "a.xml", "http://[fe80::1" + zone + "]/")),
+                    verdict="clean", checks=[E("a", "clean")])
+            else:
+                add("r42_%s_zone_id_%s" % (field, tag),
+                    {"a.xml": urlset(url(L("http://[fe80::1" + zone + "]/a")))}, [4],
+                    manifest=mf(ck("a", "a.xml", zone_url)), verdict="clean",
+                    checks=[E("a", "clean")])
+        for tag, zone in (("non_ascii", "%\u00e9"), ("pipe", "%en|0")):
+            zone_url = "http://[fe80::1" + zone + "]/a"
+            if field == "loc":
+                add("r42_%s_zone_id_%s" % (field, tag),
+                    {"a.xml": urlset(url(L(zone_url)))}, [4, 22],
+                    rules=[("g", "neg")], manifest=mf(ck("a", "a.xml")),
+                    expect_exit=1, verdict="failed-policy",
+                    checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+            else:
+                add("r42_%s_zone_id_%s" % (field, tag),
+                    {"a.xml": urlset(url(L("http://example.com/a")))}, [4],
+                    manifest=mf(ck("a", "a.xml", zone_url)), expect_exit=2,
+                    verdict="could-not-evaluate", checks=[E("a", "error", "check_invalid")])
+    # A 2 047-code-point single-segment value: the trailing `%` is not a
+    # percent triplet, so the value is not an absolute URL; the same value
+    # without it is.
+    long_base = "http://example.com/" + "a" * 2027
+    add("r42_loc_long_2047_trailing_percent",
+        {"a.xml": urlset(url(L(long_base + "%")))}, [22, 23],
+        rules=[("g", "neg")], manifest=mf(ck("a", "a.xml", "http://example.com/")),
+        expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+    add("r42_loc_long_2047_valid",
+        {"a.xml": urlset(url(L(long_base + "b")))}, [22, 23],
+        rules=[("g", "pos")], manifest=mf(ck("a", "a.xml", "http://example.com/")),
+        verdict="clean", checks=[E("a", "clean")])
+
     return cases
 
 

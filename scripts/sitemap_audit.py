@@ -68,28 +68,226 @@ _ENC_ATTR_RE = re.compile(
 # `URI` with an authority (lane reading of sentence 22's "absolute URL"; S117),
 # for every ASCII character. Not changed from round 40, and not RFC 3987
 # conformance: code points U+0080 and above stay accepted wherever RFC 3986
-# allows `unreserved`; an IP literal's contents and the port range are still
-# judged only by urlsplit below.
-_UNRESERVED = "A-Za-z0-9._~\\-\u0080-\U0010ffff"
-_SUB_DELIMS = "!$&'()*+,;="
-_PCT = "%[0-9A-Fa-f]{2}"
-_PCHAR = "(?:[" + _UNRESERVED + _SUB_DELIMS + ":@]|" + _PCT + ")"
-_URI_RE = re.compile(
-    "\\A[A-Za-z][A-Za-z0-9+.\\-]*:"                                  # scheme ":"
-    "//(?:(?:[" + _UNRESERVED + _SUB_DELIMS + ":]|" + _PCT + ")*@)?"  # userinfo "@"
-    "(?:\\[[A-Za-z0-9._~:!$&'()*+,;=%\\-]*\\]"                         # IP-literal (contents: urlsplit)
-    "|(?:[" + _UNRESERVED + _SUB_DELIMS + "]|" + _PCT + ")+)"         # reg-name, IPv4
-    "(?::[0-9]*)?"                                                    # ":" port
-    "(?:/" + _PCHAR + "*)*"                                           # path-abempty
-    "(?:\\?(?:" + _PCHAR + "|[/?])*)?"                                # "?" query
-    "(?:\\#(?:" + _PCHAR + "|[/?])*)?\\Z"                             # "#" fragment
-)
+# allows `unreserved`. Inside `[ ]` only `[A-Za-z0-9._~:!$&'()*+,;=%-]` is
+# admitted before urlsplit, so a zone id with a non-ASCII character or `|` is
+# rejected (RFC 3986 has no zone id; RFC 6874 is obsoleted by RFC 9844, S124);
+# urlsplit then judges the literal's address and the port range.
+#
+# Round 42 (independent rewrite; seat ExecBuildIndependent): the same grammar,
+# matched by a byte-oriented scanner instead of one regular expression whose
+# `\u0080-\U0010ffff` class made long values slow. It keeps the round-41
+# tool's judgments on every value the round-42 counter generated (claim C1);
+# only the technique differs. Possessive quantifiers (Python 3.11+) are not
+# used; the selftest passes under Python 3.10 as it did for the round-41 tool.
+# The grammar, spelled out:
+#
+#   scheme      = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
+#   authority   = [ userinfo "@" ] host [ ":" port ]
+#   userinfo    = *( unreserved / sub-delims / ":" / pct )
+#   host        = IP-literal / reg-name
+#   reg-name    = 1*( unreserved / sub-delims / pct )
+#   IP-literal  = "[" 0*( IP-literal-char ) "]"      (contents judged as written)
+#   port        = *DIGIT
+#   path        = *( "/" pchar )
+#   pchar       = unreserved / sub-delims / ":" / "@" / pct
+#   query       = *( pchar / "/" / "?" )
+#   fragment    = *( pchar / "/" / "?" )
+#
+#   unreserved  = ALPHA / DIGIT / "-" / "." / "_" / "~" / U+0080..U+10FFFF
+#   sub-delims  = "!" / "$" / "&" / "'" / "(" / ")" / "*" / "+" / "," / ";" / "="
+#   pct         = "%" HEXDIG HEXDIG
+#
+# A code point in U+0080..U+10FFFF is one UTF-8 sequence whose bytes are all
+# >= 0x80; such a run of bytes is accepted wherever `unreserved` is accepted
+# and rejected inside an IP-literal, exactly as the round-41 character class
+# does.  Inside an IP-literal a "%" is a literal character (the round-41
+# character class does not require a percent triplet there).
+def _class_table(allowed, non_ascii=True):
+    """A 256-byte translation table: an allowed byte maps to 0x00, any other
+    byte maps to 0x01, so `bytes.translate(table).find(b"\\x01")` is the
+    offset of the first byte outside the class."""
+    table = bytearray(b"\x01" * 256)
+    for byte in allowed:
+        table[byte] = 0
+    if non_ascii:
+        for byte in range(0x80, 0x100):
+            table[byte] = 0
+    return bytes(table)
+
+
+_UNRESERVED_ASCII = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~"
+_SUB_DELIMS_ASCII = b"!$&'()*+,;="
+_USERINFO_ASCII = _UNRESERVED_ASCII + _SUB_DELIMS_ASCII + b":%"
+_REGNAME_ASCII = _UNRESERVED_ASCII + _SUB_DELIMS_ASCII + b"%"
+_PCHAR_ASCII = _USERINFO_ASCII + b"@"
+_QUERY_ASCII = _PCHAR_ASCII + b"/?"
+_IP_LITERAL_ASCII = _USERINFO_ASCII            # unreserved / sub-delims / ":" / "%"
+
+_TABLE_USERINFO = _class_table(_USERINFO_ASCII)
+_TABLE_REGNAME = _class_table(_REGNAME_ASCII)
+_TABLE_PCHAR = _class_table(_PCHAR_ASCII)
+_TABLE_QUERY = _class_table(_QUERY_ASCII)
+_TABLE_IP_LITERAL = _class_table(_IP_LITERAL_ASCII, non_ascii=False)
+
+_SCHEME_ASCII = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+.-"
+_TABLE_SCHEME = _class_table(_SCHEME_ASCII, non_ascii=False)
+_BAD_PCT_RE = re.compile(rb"%(?![0-9A-Fa-f]{2})")
+
+
+def _run_end(raw, start, stop, table):
+    """The end of the maximal run of class members in raw[start:stop].
+
+    A "%" is a class member only as the head of a percent triplet, so a
+    malformed triplet ends the run where it stands."""
+    segment = raw[start:stop]
+    masked = segment.translate(table)
+    bad = masked.find(b"\x01")
+    end = stop if bad < 0 else start + bad
+    broken = _BAD_PCT_RE.search(segment)
+    if broken is not None:
+        cut = start + broken.start()
+        if cut < end:
+            end = cut
+    return end
+
+
+def _region_ok(raw, start, stop, table):
+    """True when raw[start:stop] holds class members only, percent
+    triplets included."""
+    segment = raw[start:stop]
+    if _BAD_PCT_RE.search(segment) is not None:
+        return False
+    return segment.translate(table).find(b"\x01") < 0
+
+
+def _path_ok(raw, start, stop):
+    """True when raw[start:stop] is a path: segments of "/" and pchar."""
+    segment = raw[start:stop]
+    if _BAD_PCT_RE.search(segment) is not None:
+        return False               # a malformed triplet ends the path early
+    masked = segment.translate(_TABLE_PCHAR)
+    size = len(masked)
+    at = 0
+    while at < size:
+        if segment[at] != 0x2F:                            # "/"
+            return False
+        at += 1
+        edge = masked.find(b"\x01", at)
+        at = size if edge < 0 else edge
+    return True
+
+
+def _scan(raw, size, host_start, authority_end, after_authority,
+          path_start, path_end, query_start, query_end, fragment_start):
+    """Scan the authority from host_start and the rest of the value.
+
+    Return True when the whole value matches the grammar."""
+    if host_start < authority_end and raw[host_start] == 0x5B:        # "["
+        close = raw.find(b"]", host_start + 1)
+        if close < 0 or close >= authority_end:
+            return False
+        if raw[host_start + 1:close].translate(_TABLE_IP_LITERAL).find(b"\x01") >= 0:
+            return False
+        at = close + 1
+    else:
+        at = _run_end(raw, host_start, authority_end, _TABLE_REGNAME)
+        if at == host_start:
+            return False                  # a reg-name needs one character
+    if at < authority_end and raw[at] == 0x3A:                       # ":" port
+        at += 1
+        while at < size and 0x30 <= raw[at] <= 0x39:
+            at += 1
+    if at != after_authority:
+        return False
+    if path_start >= 0 and not _path_ok(raw, path_start, path_end):
+        return False
+    if query_start >= 0 and not _region_ok(raw, query_start + 1, query_end, _TABLE_QUERY):
+        return False
+    if fragment_start >= 0 and not _region_ok(raw, fragment_start + 1, size, _TABLE_QUERY):
+        return False
+    return True
+
+
+def _uri_ok(value):
+    """True when value matches the round-41 `URI`-with-authority grammar."""
+    if not value:
+        return False
+    raw = value.encode("utf-8", "surrogatepass")
+    size = len(raw)
+    colon = raw.find(b":")
+    if colon < 1:
+        return False
+    head = raw[0]
+    if not (0x41 <= head <= 0x5A or 0x61 <= head <= 0x7A):
+        return False
+    if raw[1:colon].translate(_TABLE_SCHEME).find(b"\x01") >= 0:
+        return False
+    at = colon + 1
+    if raw[at:at + 2] != b"//":
+        return False
+    at += 2
+    # the authority ends at the first "/", "?" or "#"
+    slash = raw.find(b"/", at)
+    question = raw.find(b"?", at)
+    mark = raw.find(b"#", at)
+    marks = [m for m in (slash, question, mark) if m >= 0]
+    if not marks:
+        authority_end = size
+        path_start = path_end = -1
+        query_start = query_end = -1
+        fragment_start = -1
+    else:
+        authority_end = min(marks)
+        if authority_end == slash:                                   # "/"
+            path_start = authority_end
+            edges = [m for m in (question, mark) if m >= 0]
+            if not edges:
+                path_end = size
+                query_start = query_end = -1
+                fragment_start = -1
+            else:
+                path_end = min(edges)
+                if path_end == question:                             # "?"
+                    query_start = path_end
+                    fragment_start = mark if mark >= 0 else -1
+                    query_end = size if fragment_start < 0 else fragment_start
+                else:                                               # "#"
+                    query_start = query_end = -1
+                    fragment_start = path_end
+        elif authority_end == question:                             # "?"
+            path_start = path_end = -1
+            query_start = authority_end
+            fragment_start = mark if mark >= 0 else -1
+            query_end = size if fragment_start < 0 else fragment_start
+        else:                                                       # "#"
+            path_start = path_end = -1
+            query_start = query_end = -1
+            fragment_start = authority_end
+    if path_start >= 0:
+        after_authority = path_start
+    elif query_start >= 0:
+        after_authority = query_start
+    elif fragment_start >= 0:
+        after_authority = fragment_start
+    else:
+        after_authority = size
+    # the userinfo is the maximal run of its class at the head of the authority
+    info_end = _run_end(raw, at, authority_end, _TABLE_USERINFO)
+    if info_end < authority_end and raw[info_end] == 0x40:           # "@"
+        starts = (info_end + 1, at)
+    else:
+        starts = (at,)
+    for host_start in starts:
+        if _scan(raw, size, host_start, authority_end, after_authority,
+                 path_start, path_end, query_start, query_end, fragment_start):
+            return True
+    return False
 
 
 def _parse_url(value):
     """Return (scheme, host, port, path) or None when not an absolute
     http/https URL with a host (sentence 22, extended by sentence 4)."""
-    if _URI_RE.match(value) is None:
+    if not _uri_ok(value):
         return None                    # judged as written, before urlsplit
     try:
         parts = urlsplit(value)
