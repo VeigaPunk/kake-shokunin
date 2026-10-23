@@ -303,3 +303,22 @@ Unknown records, including `Sitemap` and `crawl-delay`, are ignored; sitemap par
 This contract does not observe live fetches, redirects, caching, or crawler behavior (C1 contract, Limits).
 Boundary: kake owns publisher-side robots/sitemap placement at the host it serves, while browser-driving and client-side crawler discipline belong to tabi (PROVINCE.md, Adjacent); this audit does not probe or publish an owned property.
 Knowledge entry: `corpus/knowledge/robots-txt-rules.md` (S011, S095, S096; lane readings marked).
+
+## Round-38 robots audit repair step
+
+Round-37 C1 was not admitted (`corpus/lessons/round-37-verifier-spotcheck.md`). Its audit, selftest
+and independent implementation stay as non-claim work. Round 38 re-claims `scripts/robots_audit.py`
+as a tool repair (C2), not new domain ground. The repair covers three surfaces: manifest and check
+validation, and the implicit-allow comparison.
+(h) `NaN`, `Infinity` and `-Infinity` outside strings make the manifest `input_invalid`. An
+out-of-range `robotsStatus` of any length is `check_invalid`, and unused long numbers change nothing
+(S034, S100). (i) Any ASCII character outside RFC 3986's set, anywhere in `url`, is `check_invalid`.
+Non-ASCII is kept; this is not a full URI grammar check (S098). (k) A path to match that is exactly
+`/robots.txt` after rule-(e) normalization is implicitly allowed; query, case and kept reserved
+escapes leave it to the rules (S099; Google differs, S096).
+Counter v3 (20 of 20) separates the tool from stdlib-delegating readers. Before the build it scored
+13 for the stdlib reader patched for (h), (i) and (k), and 7 for the round-37 shortcut. Measured: 8 → 20
+at `3ed8e15c`.
+Still open: live fetch, redirects, caching, crawler extensions, sitemaps, the symlinked manifest
+directory and U+FFFD per byte. Client-side crawler discipline stays with tabi; kake keeps
+publisher-side placement.

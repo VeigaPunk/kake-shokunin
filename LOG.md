@@ -1528,3 +1528,20 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   selftest 131 → 137 fixtures (stdlib gaps and three mutant survivors), knowledge-entry
   corrections, SOURCES round-37 notes, QUALITY (j). Containment: no lane write outside reports, no
   landed misroot; eleven seat out-of-bounds actions recorded in the lesson.
+
+## Round 38 — 2026-10-23 (kake L1 `KakeR38`, hyaku in-session)
+
+- Base `af43a50f` (round 37 not admitted). Round-37 closure correction and C1 declaration landed
+  at `b0ab7f60` (counter v2, `met: passed >= 19 of 20 sealed cases`, before 8 of 20).
+- Control call `kake-r38-ctl` (7 seats, all returned). 29 of 42 reference mutants and three
+  full-rule wrappers met C1's predicate, so C1 was withdrawn before any build. C2 was declared at
+  `2dab7f31` (counter v3, key v3, `met: passed >= 20 of 20 sealed cases`, control classes named,
+  before 8 of 20).
+- Wave 1 `kake-r38-w1` (32 seats) was dispatched 04:29:52Z, 58 s after the control receipts
+  landed. Build `3ed8e15c` (wave-1 `ExecRobotsTool` file, unedited); reveal `99357694`; C2 20 of
+  20, met. Harm instruments held: round-37 counter 28 of 28, selftest 137/137.
+- Non-claim repairs at `145a6468`: robots selftest 194 fixtures, `source_recheck.py` caps (16 MiB
+  body, `MemoryError` → `input_invalid`), QUALITY (j) check, timeline check, pinned selftest
+  runner. Then SOURCES S098–S101, knowledge-entry round-38 section, QUALITY round-38 (j)–(n),
+  PROVINCE, README and SKILL amendments.
+- Lesson `corpus/lessons/round-38.md`. Motivating evidence: round-37 closure routed defects 1–6.

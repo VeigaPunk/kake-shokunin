@@ -2257,3 +2257,31 @@ in `.ufo/waves/round-38/sealed_count_v3.py` (`PREDICATE` is this sentence verbat
   does not override the implicit allow. Duplicate JSON member names stay undecided and untested.
 - Harm instruments and sources as declared for C1. Limits as for C1; 20 of 20 tolerates no failed
   case.
+
+## Round 38 — measured results (author-side; admission belongs to the non-author closure)
+
+Key v3 revealed at `99357694f68886d3175fc6c386979c350be789bc` (`.ufo/waves/round-38/sealed/cases_v3.json`,
+sha256 `749ef6a6…3aa6`, equal to the pin; C1's key `cases.json`, `8b3fac55…2941`, revealed in the same
+commit). Predicate, counter v3 and key unchanged since `2dab7f31`. Receipts
+`.ufo/waves/round-38/verification/c2-*.json` with `.exit` files.
+
+| Claim | Before (rev) | After (rev) | Counting command | Predicate |
+|---|---|---|---|---|
+| C2 robots_audit rules (h), (i), (k) (operability, tool repair) | passed 8 of 20 (`af43a50f`, `b0ab7f60`, `2dab7f31`) | passed 20 of 20 (`3ed8e15c2707ac4cec88f48fc9be48b35be4f2b0`, tool sha256 `f4d057c4…baace`) | `python3 -B .ufo/waves/round-38/sealed_count_v3.py --root . --revision <rev> --key-revision 99357694` | `met: passed >= 20 of 20 sealed cases`: met |
+
+- The build is wave-1 `ExecRobotsTool`'s file, landed unedited (`3ed8e15c`, only
+  `scripts/robots_audit.py` changed). Measured before the reveal with the key file too
+  (`c2-at-3ed8e15c.json`, 20 of 20); measuring the reveal commit is refused (exit 2).
+- Harm instruments (pinned receipts, `verification/harm/`): round-37 counter on the build's tool 28
+  of 28 (key `424aa248`); `robots_audit_selftest.py` 137/137 at `3ed8e15c` and 194/194 at `145a6468`
+  (57 new fixtures, blind, wave-1 `ExecRobotsSelftest`; the base tool fails exactly the 45 (h), (i), (k)
+  fixtures); `source_recheck_selftest.py` 106/106, hardening 9/9 and round-36 counter 28 of 28 on the
+  capped `source_recheck.py` (`6629d800…9c6b`).
+- Independent blind implementation (wave-1 `ExecIndependent`, `ee78ba46…95b1`): round-37 counter 28
+  of 28, selftest 137/137 (C2 counter result in `verification/w2/` once scored).
+- Correction to "Round 38 — control call results": **29** of 42 mutants met C1's v2 predicate, not
+  28 (13 at 20, 16 at 19; `verification/mutref/`; wave-1 `CriticControlReceipts`, `CriticClaimSizing`).
+- After the C2 freeze, wave-1 `CriticControlReceipts` built `CtlExampleK` (all of (h), (i) and (k)
+  only for the two escapes the declaration names): 19 of 20, not met
+  (`verification/w1attack/CtlExampleK.json`).
+- Axis ratings unchanged (10 → 10). No capability row: C2 is a repair of an existing tool.

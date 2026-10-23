@@ -1,4 +1,4 @@
-source: S011, S095, S096 (corpus/SOURCES.md) — S011 RFC 9309, §§1–3; S095 Google, “How Google Interprets the robots.txt Specification”, named sections below; S096 google/robotstxt, README “Quickstart” and “Notes”
+source: S011, S095, S096, S034, S098, S099, S100 (corpus/SOURCES.md; S034, S098–S100 added round 38) — S011 RFC 9309, §§1–3; S095 Google, “How Google Interprets the robots.txt Specification”, named sections below; S096 google/robotstxt, README “Quickstart” and “Notes”
 verified-at: 2026-10-23 (S011, S095 and S096 retained round-37 retrievals; `.ufo/waves/round-37/sources/receipts.json`)
 recheck: 90d, or on an RFC 9309 revision/erratum, Google documentation update, or google/robotstxt parser change; re-open the cited anchors and compare the retained source receipts
 
@@ -81,3 +81,43 @@ Robots rules do not grant or deny authorization, and listing a path makes that p
 This entry infers no behavior for any particular crawler; S095 describes Google's interpretation only, and S096 explicitly excludes crawler implementation logic outside parsing and matching (S095 opening “How Google Interprets the robots.txt Specification”; S096 README “Notes”). One lane reading matches a Google-specific choice rather than the RFC: dropping a leading UTF-8 BOM (S011 is silent; Google's parser calls it a Google-specific optimization, `robots.cc:435` per wave-1 `ScoutReopenS096`).
 
 **Evidence boundary:** the described C1 rules are a public lane contract, not evidence that an implementation passed any check; the sealed synthetic cases are not live fetches (SCORECARD.md, Round 37 C1 contract, “Frozen predicate” and “Limits”).
+
+## Round 38 amendments — lane readings (appended)
+
+Lane readings of the offline audit, added in round 38 (`SCORECARD.md` "Round 38 — C2 declared",
+rules (h), (i), (k)). They describe this lane's checker, not what any crawler does. Sources opened
+2026-10-23: S034, S098, S099, S100 (`corpus/SOURCES.md`; Gate lines in `corpus/lessons/round-38.md`).
+
+**(h) JSON numbers, lane reading.** RFC 8259 says numeric values such as Infinity and NaN "are not
+permitted" (S034 §6), so a manifest holding `NaN`, `Infinity` or `-Infinity` outside a string is not
+JSON and gets one `input_invalid` finding with nothing evaluated. Python's json module accepts all
+three by default and offers `parse_constant` to raise on them (S100, "Infinite and NaN Number
+Values", `parse_constant`); the round-37 tool used the default and let them through. RFC 8259 lets
+an implementation limit the range and precision of numbers (S034 §§6, 9), so the next sentence is
+the lane's choice, not an RFC requirement: an integer of any length parses, an out-of-range
+`robotsStatus` of any length is `check_invalid` for that check, and a long number in a field the
+contract does not read changes nothing. Python's default 4300-digit conversion limit would make a
+5000-digit integer an `input_invalid` manifest instead (S100 points to that limit).
+
+**(i) URL characters, lane reading.** RFC 3986 builds URIs from unreserved characters, reserved
+delimiters and percent-encoding (S098 §§2.1–2.3). The audit therefore rejects (`check_invalid`) a
+`url` that holds any other ASCII character: space, a C0 control, DEL, `"`, `<`, `>`, `\`, `^`,
+`` ` ``, `{`, `|` or `}`, wherever it sits (leading, trailing, path, query, fragment, host). The
+characters are judged as written, before parsing. Non-ASCII characters are kept (rule (e) encodes
+them), and a `%` without two hex digits passes this rule. It checks the character set only, not
+the full URI grammar. The WHATWG URL parser and Python's `urlsplit` strip or drop some of these
+characters instead of rejecting them (round-38 wave-1 `ScoutWhatwgUrl`, `ProbeUrlsplit`; WHATWG
+registry row S101 rejected as this contract's source). A publisher-side audit flags them rather than
+guessing what a crawler's parser would do.
+
+**(k) Implicit `/robots.txt` allow on the normalized path, lane reading.** "The /robots.txt URI is
+implicitly allowed" (S099 §2.2.2), and the same section unencodes percent-encoded unreserved octets
+before comparison. So when the file decides (status 2xx), the path to match is normalized by rule
+(e) before it is compared with `/robots.txt`: `/robots%2Etxt` and `/%72obots.txt` are allowed.
+`/robots.txt?x=1` (non-empty query), `/ROBOTS.TXT` (case) and `/robots%2Ftxt` (kept reserved escape)
+are decided by the rules. `/robots.txt?` has an empty query and is allowed. Dot segments are not
+removed (`/a/../robots.txt` is decided by the rules). This replaces the round-37 tool's raw-path
+comparison. The sentence above about 500–599 still holds: under 5xx every URL is disallowed.
+Google differs: its parser has no implicit allow and does not decode the path, so under
+`Disallow: /` it blocks `/robots%2Etxt` (round-38 wave-1 `ScoutGoogleImplicit`, S096 `robots.cc`
+at `22b355ff`, lines 537–546).

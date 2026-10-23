@@ -928,3 +928,38 @@ bare-id entry and 0 on the knowledge directory. These replace the "no check yet"
   of record) or the claim is dropped or declared exploratory; a disposition that reclassifies the
   control is not an option unless the declaration named that class beforehand. Grounding: round-37
   shortcut follow-up (`SCORECARD.md` `ccc3b2b9` section; `w2/ReviewTimeline.md`). Check: none yet.
+
+## Round-38 criteria
+
+Grounding: `corpus/lessons/round-37-verifier-spotcheck.md` (round-37 C1 not admitted; routed
+defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
+`ScribeQualityCriteria`; checks landed by `ExecQualityJCheck`, `ScribeMistakeMine` and
+`ExecReceiptPin` (`.ufo/waves/round-38/criteria/`).
+
+- **(j) check (fills "Check: none yet").** `.ufo/waves/round-38/criteria/control_consequence_check.py`
+  groups a round's receipts by `counterSha256`; a `control-*` receipt (or a control-seat-named
+  receipt under `controls/` or `pre/`) with `met: true` taints its counter, and a claim receipt
+  (`c<N>-*`, `claim-*`) with `met: true` under a tainted counter fails (exit 1). Red: round 37
+  (`criteria/receipts/ccc-r37-at-99357694.txt`, exit 1: `c1-at-9dbc88bb` and `c1-keyrev-at-9dbc88bb`
+  under the counter the shortcut control met). Green: round 36 and round 38 (exit 0); selftest
+  10/10. Limit: classification is by file name, so a renamed control escapes it; round 38's
+  full-rule tools are named under `v3/` and printed as notes, per the C2 declaration's build
+  class (that class is itself open to the closure's ruling).
+- **(k) A dead seat's item is reported unbuilt, never handed to a living seat.** Grounding:
+  round-37 spot-check routed defect 4 (`CtlC1Shortcut` died; `CtlC1NoReader` built its control).
+  Check: none yet (round 38 had no dead seat to test it on).
+- **(l) A post-measurement receipt pins the measured tool bytes** (revision and sha256, re-derivable
+  from the revision). Check: `.ufo/waves/round-38/pinned_selftest.py` writes `toolRevision`,
+  `toolSha256`, `selftestSha256`; red: the round-37 postfix receipt has a path only; its pinned
+  re-run `verification/postfix/r37-postfix-selftest-pinned.json` (137/137 on `944d2f51…d3e5`).
+- **(m) Control receipts are committed before the build wave is dispatched.** Check:
+  `.ufo/waves/round-38/criteria/timeline_check.py` compares the receipt's add-commit time with
+  `w1-dispatched-at.txt`. Red: round 37 (`criteria/receipts/timeline-r37.txt`, exit 1, 435 s
+  late). Green: round 38 (`timeline-r38.txt`, three control receipts, exit 0, 58 s before
+  dispatch).
+- **(n) A control list names only tools that skip declared work.** A declaration that lists, as
+  controls, tools that may do all of the claimed work (a wrapper that implements every declared
+  rule) or near-complete work (single-point mutants of the reference) makes its own consequence
+  fire on a correct build. Grounding: round-38 C1, withdrawn before any build
+  (`SCORECARD.md` "Round 38 — control call results"). Check: none yet; read the control list
+  against the claimed rules before freezing.

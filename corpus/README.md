@@ -364,6 +364,7 @@ file on an owned site is an operator-owned publishing action.
 | Area | Entry | Coverage |
 |---|---|---|
 | Offline robots.txt expectation audit (r37) | `scripts/robots_audit.py` (S011, S095) | A local manifest supplies each check's URL, user agent, expected decision, status and (for 2xx) local robots file; the offline audit compares the expected decision with RFC 9309 access rules and reports policy or input findings. |
+| Offline robots.txt expectation audit repair (r38) | `scripts/robots_audit.py` (S011, S034, S098, S099, S100) | Round-37 C1 was not admitted; round 38 re-claims the tool as C2: (h) non-JSON constants and any-length integers, (i) RFC 3986 ASCII character set in `url`, (k) implicit `/robots.txt` allow on the normalized path. Counter v3 (20 of 20) puts every stdlib-delegating control at or below 13; measured 8 → 20 at `3ed8e15c`. Synthetic, offline; no fetch, redirect, cache or crawler-extension claim. |
 
 The contract reads local inputs only and makes no network requests or writes; its cases are synthetic, not live fetch observations. Live fetch/redirect behavior, caching, crawler-specific extension behavior and sitemap handling remain open; unknown records including `Sitemap` and `crawl-delay` are ignored. Browser-driven/client-side crawler discipline remains tabi's province; kake's boundary is publisher-side robots/sitemap placement (Round-37 C1 contract; PROVINCE.md, Adjacent; S012–S013).
 

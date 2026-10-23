@@ -1100,3 +1100,14 @@ Procedure:
    wants kept out — fix the file, never the expectation, unless the intent changed.
 4. 3xx statuses are check faults: record the final status after redirects yourself.
 5. Exit 2 or 64 is never clean: fix the input and run again.
+
+### Robots.txt expectation audit — round-38 amendment to the gate registry row
+
+The `robots-expectation-audit` row above holds, with three amendments. Contract: SCORECARD
+"Round 37 — declared claims" plus "Round 38 — declared claims" (h), (i), (k), with the C2
+clarifications. Tool: `scripts/robots_audit.py` at `3ed8e15c` (sha256 `f4d057c4…baace`). Selftest:
+`scripts/robots_audit_selftest.py`, 194 fixtures. Frozen proof: `.ufo/waves/round-38/sealed_count_v3.py`
+(key `99357694`), 20 of 20, plus the round-37 counter 28 of 28 run in `--tool-file` mode. Revision mode
+refuses any revision that holds a revealed key. Round-37 C1 was not admitted; the 28-of-28 control
+that met it was the stdlib parser plus six patches (`CtlC1Shortcut-followup`), not the stock
+parser (20 of 28).
