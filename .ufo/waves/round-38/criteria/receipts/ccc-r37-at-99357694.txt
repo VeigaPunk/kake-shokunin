@@ -1,0 +1,31 @@
+control_consequence_check
+verification: .ufo/waves/round-37/verification @ 99357694f68886d3175fc6c386979c350be789bc
+receipts: 54  controls: 7  non-control: 47  skipped: 13  counters: 3
+skipped (not a receipt): postfix/mutrobots-survivors/selftest-137-on-M04.json (no counterSha256)
+skipped (not a receipt): postfix/mutrobots-survivors/selftest-137-on-M14.json (no counterSha256)
+skipped (not a receipt): postfix/mutrobots-survivors/selftest-137-on-M15.json (no counterSha256)
+skipped (not a receipt): postfix/robots-selftest-134-on-independent.json (no counterSha256)
+skipped (not a receipt): postfix/robots-selftest-134-on-postfix-tool.json (no counterSha256)
+skipped (not a receipt): postfix/robots-selftest-134-on-shortcut.json (no counterSha256)
+skipped (not a receipt): postfix/robots-selftest-137-on-independent.json (no counterSha256)
+skipped (not a receipt): postfix/robots-selftest-137-on-postfix-tool.json (no counterSha256)
+skipped (not a receipt): postfix/wildcard-backtracking-manifest.json (no counterSha256)
+skipped (not a receipt): robots-selftest-at-9dbc88bb-tool.json (no counterSha256)
+skipped (not a receipt): robots-selftest-on-CtlC1NaiveReader.json (no counterSha256)
+skipped (not a receipt): robots-selftest-on-CtlC1Shortcut-followup.json (no counterSha256)
+skipped (not a receipt): robots-selftest-on-L1-reference.json (not JSON)
+
+counter 2ebb39b585e2a35f16ff71397f2fb22477a7a3c0e95da4415a26b0430b0cf0e3  receipts=51  TAINTED by 1 control(s)
+  taint: control-CtlC1Shortcut-followup.json  met=true  passed 28/28
+  met (not a claim receipt): ablations/reference.json  met=true  passed 28/28
+  VIOLATION: c1-at-9dbc88bb.json  met=true  passed 28/28
+  VIOLATION: c1-keyrev-at-9dbc88bb.json  met=true  passed 28/28
+  met (not a claim receipt): independent-selftest-reference.json  met=true  passed 28/28
+  met not evaluated: c1-keyrev-at-424aa2480bcbac1832b2aa9da49c51b78ec5092f.json
+
+counter 88ec59140258ce759107b7472fdd07a005b7c1bb8b3ba5218347e4518342ff8e  receipts=1
+
+counter d72e232e4d4f120b6b45139958c40e9364d44d3d902207c0705ac97c1b6d5cb6  receipts=2
+
+RESULT: FAIL exit=1  tainted_counters=1  violations=2
+exit=1

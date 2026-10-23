@@ -7,6 +7,11 @@ construction: it reads only the manifest and the body files the manifest names.
 No network, no writes, no subprocesses, no environment reads.  Python standard
 library only.
 
+Stated input caps (round-38 repair of bullet (g)): a manifest larger than 64 MiB
+is refused as an unreadable manifest (one input_invalid); a body file larger than
+16 MiB is an input fault for that check (one check_invalid).  Neither is ever read
+into memory, so a hostile input cannot turn into a MemoryError with no report.
+
 Usage:
     python3 scripts/source_recheck.py --manifest PATH
 
@@ -38,6 +43,13 @@ REPORT_VERSION = 1
 # (contract (g), "unreadable"); a huge or endless input never becomes a
 # MemoryError with no report.
 MAX_MANIFEST_BYTES = 64 * 1024 * 1024
+
+# Round-38 hardening: a body file larger than this is an input fault for that
+# check (check_invalid, contract (g)), not an allocation. Contract: a body over
+# the stated cap is never read into memory; the largest real page this audit has
+# seen is under 5 MiB, so the cap is stated generously and nothing legitimate is
+# refused (round-37 w2/SentinelHardening.md, defect 1).
+MAX_BODY_BYTES = 16 * 1024 * 1024
 
 REDIRECT_STATUSES = frozenset((301, 302, 303, 307, 308))
 PERMANENT_STATUSES = frozenset((301, 308))
@@ -589,8 +601,14 @@ def evaluate_check(check, manifest_dir: str) -> list:
         path = body_path(manifest_dir, check["body"])
         try:
             with open(path, "rb") as handle:
-                data = handle.read()
-        except OSError:
+                # Round-38 hardening: bounded read; a body over MAX_BODY_BYTES is
+                # an input fault for this check, so a huge body is never read into
+                # memory and never crashes the run (round-37 defect 1).
+                data = handle.read(MAX_BODY_BYTES + 1)
+        except (OSError, MemoryError, ValueError):
+            findings.append(finding(cid, "check_invalid"))
+            return findings
+        if len(data) > MAX_BODY_BYTES:
             findings.append(finding(cid, "check_invalid"))
             return findings
         codec, payload = pick_encoding(data, params.get("charset"))
@@ -649,11 +667,16 @@ def load_manifest(path: str):
         return None
     try:
         text = raw.decode("utf-8")
-    except UnicodeDecodeError:
+    except (UnicodeDecodeError, MemoryError):
         return None
+    # Round-38 hardening: the cap still admits a ~60 MiB manifest whose parse can
+    # raise MemoryError inside json.loads under a constrained address space. That
+    # is an unreadable manifest (input_invalid with a report), never a crash with
+    # no JSON on stdout. Dropping the raw bytes first lowers the parse peak.
+    del raw
     try:
         data = json.loads(text)
-    except (ValueError, RecursionError):
+    except (ValueError, RecursionError, MemoryError):
         return None
     if not isinstance(data, dict):
         return None

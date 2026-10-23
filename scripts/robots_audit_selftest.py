@@ -1,15 +1,32 @@
 #!/usr/bin/env python3
-"""Self-test for the offline robots.txt expectation audit (round 37, claim C1).
+"""Self-test for the offline robots.txt expectation audit (round 37 C1 contract, round-38
+amendments (h), (i), (k)).
 
-Written from the public C1 contract in SCORECARD.md only (section "Round 37 -- declared
-claims", C1 contract). It never reads the tool under test: every fixture is materialized into a
-temporary directory, the tool runs as a black box, and the run is judged on the exit code, the
-report `version`, the report verdict and the multiset of findings projected on (check, reason),
-plus `checksEvaluated` where the fixture states it.
+Written from the public contract in SCORECARD.md only (section "Round 37 -- declared claims",
+C1 contract, plus "Round 38 -- C2 declared" amendments (h), (i), (k)). It never reads the tool
+under test: every fixture is materialized into a temporary directory, the tool runs as a black
+box, and the run is judged on the exit code, the report `version`, the report verdict and the
+multiset of findings projected on (check, reason), plus `checksEvaluated` where the fixture
+states it.
 
 Every fixture names the contract sentence it tests (the `contract` field, quoted from
-SCORECARD.md). At least six fixtures per bullet (a)-(g) and for the verdict rule; the coverage
-counts are checked at run time and printed in the summary.
+SCORECARD.md). At least six fixtures per bullet (a)-(g) and for the verdict rule; the round-38
+groups (h), (i), (k) carry their own minimums, and the (c)/(d) departure groups (`c-exact`,
+`d-match`) carry four each. The coverage counts are checked at run time and printed in the
+summary.
+
+Round-38 additions (57 fixtures, the 137 round-37 fixtures above them unchanged):
+(h) `NaN`, `Infinity`, `-Infinity` outside a string make the manifest not JSON, inside a string
+they are ordinary text; a 5000-digit and a negated 5000-digit status are check faults with the
+other checks still evaluated; a 6000-digit number in an unread field changes nothing; `1e400`
+stays a float and is a check fault. (i) one fixture per excluded ASCII class (space, controls
+U+0000-U+001F, DEL, `" < > \\ ^ ` { | }`) at path, query, fragment, host, leading and trailing
+positions; non-ASCII, `%7C` and a lone `%` are valid. (k) `%2E`/`%2e`/`%72` spellings of
+/robots.txt are allowed, a kept `%2F`, a query, another case and a fragment are decided by the
+rules (fragment never part of the path), an empty query normalizes to /robots.txt, and a 5xx
+status disallows /robots.txt. `c-exact` and `d-match` pin the (c)/(d) sentences where
+`urllib.robotparser` departs: substring user-agent match, `crawl-delay` ending a group, Unicode
+name folding, `*` rules ranked by matched length instead of rule length, non-final `$`, ties.
 
 The fixtures deliberately cover the edges the round-37 control mutation pass found the sealed
 cases do not separate (`.ufo/waves/round-37/ctl/MutRefPass.md`, "contract sentence broken" and
@@ -39,7 +56,9 @@ HERE = Path(__file__).resolve().parent
 DEFAULT_TOOL = HERE / "robots_audit.py"
 MIN_FIXTURES = 60
 MIN_PER_CONTRACT = 6
-REQUIRED_CONTRACTS = ("a", "b", "c", "d", "e", "f", "g", "verdict")
+REQUIRED_CONTRACTS = ("a", "b", "c", "d", "e", "f", "g", "verdict",
+                      "h", "i", "k", "c-exact", "d-match")
+MIN_BY_CONTRACT = {"h": 6, "i": 20, "k": 8, "c-exact": 4, "d-match": 4}
 TIMEOUT_SECONDS = 120
 REASONS = ("blocked", "exposed", "check_invalid", "input_invalid")
 
@@ -128,6 +147,49 @@ CONTRACT = {
     "verdict": (
         'Verdict. "Any input_invalid or check_invalid finding gives could-not-evaluate; otherwise '
         'any finding gives failed-policy; otherwise clean."'
+    ),
+    "h": (
+        '(h) JSON numbers (RFC 8259 section 6). "The manifest is JSON as RFC 8259 defines it: '
+        'NaN, Infinity and -Infinity outside a string are not JSON, so a manifest holding any of '
+        'them gives one input_invalid finding (check null) and nothing is evaluated. A JSON '
+        'number of any length is JSON: an integer robotsStatus outside the three ranges, however '
+        'many digits it has, is a check fault (check_invalid for that check; the other checks '
+        'are still evaluated), and a number of any length in a field the contract does not read '
+        'changes nothing."'
+    ),
+    "i": (
+        '(i) URL characters (RFC 3986 section 2). "A check\'s url holds, besides non-ASCII '
+        'characters (kept), only ASCII letters, digits, -, ., _, ~, the reserved characters '
+        ':/?#[]@!$&\'()*+,;= and %. A url holding any other ASCII character anywhere (a space, a '
+        'control character U+0000-U+001F or U+007F, " < > \\ ^ ` { | }), including a leading or '
+        'trailing one, is a check fault (check_invalid). The characters are judged as written, '
+        'before any parsing."'
+    ),
+    "k": (
+        '(k) Implicit allow on the normalized path (amends (e)). "When (a) says the file decides, '
+        'a URL whose path to match, normalized by rule (e), is exactly /robots.txt is allowed '
+        '(so /robots%2Etxt and /%72obots.txt are allowed). A path to match with a query '
+        '(/robots.txt?x=1), another case (/ROBOTS.TXT) or a kept reserved escape (/robots%2Ftxt) '
+        'is decided by the rules. The fragment is never part of the path (as before)."'
+    ),
+    "c-exact": (
+        '(c) Groups, exact match and record boundaries. "A user-agent line starts a new group '
+        'unless the previous record was also a user-agent line (blank, comment and ignored lines '
+        'between them do not count), in which case it adds a name to the current group. The '
+        'check\'s userAgent matches a group when it equals one of the group\'s names compared '
+        'ASCII case-insensitively. The rules of every matching group are combined. If no group '
+        'matches, the rules of every group named * are combined. If there is none, no rules '
+        'apply and every URL is allowed."'
+    ),
+    "d-match": (
+        '(d) Rules, wildcard, anchor and specificity. "A rule with an empty value never matches. '
+        '* in a rule matches any sequence of characters (also none); a $ that is the last '
+        'character of the rule anchors the match at the end of the path (any other $ is '
+        'literal). A rule matches when it matches a prefix of the path starting at its first '
+        'character (or the whole path when anchored). Of the matching rules the one with the '
+        'longest normalized value (rule (e), counted in octets, * and $ included) decides; when '
+        'an allow and a disallow of that length both match, allow decides. No matching rule: '
+        'allowed."'
     ),
 }
 
@@ -722,6 +784,243 @@ def build_fixtures():
         argv=["--manifest", "manifest.json"],
         exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
 
+    # ---- (h) non-JSON number literals and integers of any length (r38) ----
+    add("h01-nan-top-level-is-not-json", CONTRACT["h"],
+        raw=b'{"version": 1, "checks": [], "note": NaN}',
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f(None, "input_invalid")], evaluated=0)
+    add("h02-infinity-top-level-is-not-json", CONTRACT["h"],
+        raw=b'{"version": 1, "checks": [], "note": Infinity}',
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f(None, "input_invalid")], evaluated=0)
+    add("h03-neg-infinity-top-level-is-not-json", CONTRACT["h"],
+        raw=b'{"version": 1, "checks": [], "note": -Infinity}',
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f(None, "input_invalid")], evaluated=0)
+    add("h04-nan-in-check-field-is-not-json", CONTRACT["h"],
+        raw=(b'{"version": 1, "checks": [{"id": "k1", "robotsStatus": 200, '
+             b'"userAgent": "bot", "url": "https://example.com/x", "expect": "allow", '
+             b'"robots": "robots.txt", "weight": NaN}]}'),
+        files=robots("user-agent: *\ndisallow: /other\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f(None, "input_invalid")], evaluated=0)
+    add("h05-infinity-in-check-field-is-not-json", CONTRACT["h"],
+        raw=(b'{"version": 1, "checks": [{"id": "k1", "robotsStatus": Infinity, '
+             b'"userAgent": "bot", "url": "https://example.com/x", "expect": "allow", '
+             b'"robots": "robots.txt"}]}'),
+        files=robots("user-agent: *\ndisallow: /other\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f(None, "input_invalid")], evaluated=0)
+    add("h06-literals-inside-strings-valid", CONTRACT["h"],
+        raw=(b'{"version": 1, "checks": ['
+             b'{"id": "k1", "robotsStatus": 200, "userAgent": "bot", '
+             b'"url": "https://example.com/x", "expect": "allow", "robots": "robots.txt", '
+             b'"note": "NaN Infinity -Infinity"}, '
+             b'{"id": "k2", "robotsStatus": 200, "userAgent": "bot", '
+             b'"url": "https://example.com/other", "expect": "allow", "robots": "robots.txt"}], '
+             b'"unused": ' + b"7" * 6000 + b"}"),
+        files=robots("user-agent: *\ndisallow: /x\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "blocked")], evaluated=2)
+    add("h07-5000-digit-status-check-invalid", CONTRACT["h"],
+        raw=(b'{"version": 1, "checks": ['
+             b'{"id": "k1", "robotsStatus": ' + b"9" * 5000 + b', "userAgent": "bot", '
+             b'"url": "https://example.com/x", "expect": "allow", "robots": "robots.txt"}, '
+             b'{"id": "k2", "robotsStatus": 200, "userAgent": "bot", '
+             b'"url": "https://example.com/x", "expect": "allow", "robots": "robots.txt"}]}'),
+        files=robots("user-agent: *\ndisallow: /x\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "check_invalid"), f("k2", "blocked")], evaluated=1)
+    add("h08-6000-digit-unused-number-no-effect", CONTRACT["h"],
+        raw=(b'{"version": 1, "checks": [{"id": "k1", "robotsStatus": 200, '
+             b'"userAgent": "bot", "url": "https://example.com/x", "expect": "allow", '
+             b'"robots": "robots.txt"}], "unused": ' + b"8" * 6000 + b"}"),
+        files=robots("user-agent: *\ndisallow: /x\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "blocked")], evaluated=1)
+    add("h09-1e400-status-check-invalid", CONTRACT["h"],
+        raw=(b'{"version": 1, "checks": ['
+             b'{"id": "k1", "robotsStatus": 1e400, "userAgent": "bot", '
+             b'"url": "https://example.com/x", "expect": "allow", "robots": "robots.txt"}, '
+             b'{"id": "k2", "robotsStatus": 200, "userAgent": "bot", '
+             b'"url": "https://example.com/other", "expect": "allow", "robots": "robots.txt"}], '
+             b'"unused": ' + b"5" * 6000 + b"}"),
+        files=robots("user-agent: *\ndisallow: /x\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "check_invalid")], evaluated=1)
+    add("h10-negative-5000-digit-status-check-invalid", CONTRACT["h"],
+        raw=(b'{"version": 1, "checks": ['
+             b'{"id": "k1", "robotsStatus": -' + b"4" * 5000 + b', "userAgent": "bot", '
+             b'"url": "https://example.com/x", "expect": "allow", "robots": "robots.txt"}, '
+             b'{"id": "k2", "robotsStatus": 200, "userAgent": "bot", '
+             b'"url": "https://example.com/x", "expect": "allow", "robots": "robots.txt"}]}'),
+        files=robots("user-agent: *\ndisallow: /other\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "check_invalid")], evaluated=1)
+
+    # ---- (i) URL characters (r38) ----------------------------------------
+    i_files = robots("user-agent: *\ndisallow: /zzz\n")
+    for i_name, i_url in (
+        ("i01-space-in-path", "https://example.com/a b"),
+        ("i02-space-leading", " https://example.com/ab"),
+        ("i03-space-trailing", "https://example.com/ab "),
+        ("i04-space-in-query", "https://example.com/ab?x=1 2"),
+        ("i05-space-in-fragment", "https://example.com/ab#x y"),
+        ("i06-space-in-host", "https://exa mple.com/ab"),
+        ("i07-nul-in-path", "https://example.com/a\x00b"),
+        ("i08-control-01-in-path", "https://example.com/a\x01b"),
+        ("i09-tab-in-query", "https://example.com/ab?x=\t1"),
+        ("i10-line-feed-in-fragment", "https://example.com/ab#x\n"),
+        ("i11-carriage-return-in-path", "https://example.com/a\rb"),
+        ("i12-control-1f-in-path", "https://example.com/a\x1fb"),
+        ("i13-delete-in-path", "https://example.com/a\x7fb"),
+        ("i14-double-quote-in-path", 'https://example.com/a"b'),
+        ("i15-less-than-in-path", "https://example.com/a<b"),
+        ("i16-greater-than-in-path", "https://example.com/a>b"),
+        ("i17-backslash-in-path", "https://example.com/a\\b"),
+        ("i18-caret-in-query", "https://example.com/ab?x=1^2"),
+        ("i19-backtick-in-path", "https://example.com/a`b"),
+        ("i20-left-brace-in-path", "https://example.com/a{b"),
+        ("i21-pipe-in-query", "https://example.com/ab?x=1|2"),
+        ("i22-right-brace-in-path", "https://example.com/a}b"),
+    ):
+        add(i_name, CONTRACT["i"],
+            manifest=mf([chk(url=i_url)]), files=i_files,
+            exit_code=2, verdict="could-not-evaluate",
+            findings=[f("k1", "check_invalid")], evaluated=0)
+    add("i23-non-ascii-kept-and-evaluated", CONTRACT["i"],
+        manifest=mf([chk("k1", url="https://example.com/caf\u00e9"),
+                     chk("k2", url="https://example.com/a b")]),
+        files=robots("user-agent: *\ndisallow: /caf\u00e9\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "blocked"), f("k2", "check_invalid")], evaluated=1)
+    add("i24-percent-escape-kept-valid", CONTRACT["i"],
+        manifest=mf([chk("k1", url="https://example.com/a%7Cb"),
+                     chk("k2", url="https://example.com/a b")]),
+        files=robots("user-agent: *\ndisallow: /a%7Cb\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "blocked"), f("k2", "check_invalid")], evaluated=1)
+    add("i25-percent-not-hex-allowed", CONTRACT["i"],
+        manifest=mf([chk("k1", url="https://example.com/a%zzb"),
+                     chk("k2", url="https://example.com/a b")]),
+        files=robots("user-agent: *\ndisallow: /a%zzb\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "blocked"), f("k2", "check_invalid")], evaluated=1)
+    add("i26-reserved-characters-allowed", CONTRACT["i"],
+        manifest=mf([chk("k1", url="https://example.com/x!$&'()*+,;=:@[y]"),
+                     chk("k2", url="https://example.com/a b")]),
+        files=robots("user-agent: *\ndisallow: /x!$&'()*+,;=:@[y]\n"),
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "blocked"), f("k2", "check_invalid")], evaluated=1)
+
+    # ---- (k) implicit /robots.txt allow on the normalized path (r38) ------
+    add("k01-implicit-allow-escaped-dot-upper", CONTRACT["k"],
+        manifest=mf([chk(url="https://example.com/robots%2Etxt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "exposed")], evaluated=1)
+    add("k02-implicit-allow-escaped-r", CONTRACT["k"],
+        manifest=mf([chk(url="https://example.com/%72obots.txt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "exposed")], evaluated=1)
+    add("k03-implicit-allow-escaped-dot-lower", CONTRACT["k"],
+        manifest=mf([chk(url="https://example.com/robots%2etxt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "exposed")], evaluated=1)
+    add("k04-kept-reserved-escape-decided-by-rules", CONTRACT["k"],
+        manifest=mf([chk("k1", url="https://example.com/robots%2Ftxt"),
+                     chk("k2", url="https://example.com/robots%2Etxt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /robots%2Ftxt\ndisallow: /robots%2Etxt\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "blocked"), f("k2", "exposed")], evaluated=2)
+    add("k05-empty-query-normalizes-to-robots-txt", CONTRACT["k"],
+        manifest=mf([chk("k1", url="https://example.com/robots.txt?"),
+                     chk("k2", url="https://example.com/robots%2Etxt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /robots.txt\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k2", "exposed")], evaluated=2)
+    add("k06-query-decided-by-rules", CONTRACT["k"],
+        manifest=mf([chk("k1", url="https://example.com/robots.txt?x=1"),
+                     chk("k2", url="https://example.com/robots%2Etxt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /robots.txt?x=1\ndisallow: /robots%2Etxt\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "blocked"), f("k2", "exposed")], evaluated=2)
+    add("k07-other-case-decided-by-rules", CONTRACT["k"],
+        manifest=mf([chk("k1", url="https://example.com/ROBOTS.TXT"),
+                     chk("k2", url="https://example.com/robots%2Etxt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /ROBOTS.TXT\ndisallow: /robots%2Etxt\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "blocked"), f("k2", "exposed")], evaluated=2)
+    add("k08-fragment-never-part-of-the-path", CONTRACT["k"],
+        manifest=mf([chk("k1", url="https://example.com/robots.txt#x"),
+                     chk("k2", url="https://example.com/robots%2Etxt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /robots.txt\ndisallow: /robots%2Etxt\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k2", "exposed")], evaluated=2)
+    add("k09-status-5xx-disallows-robots-txt", CONTRACT["k"],
+        manifest=mf([chk("k1", status=500, robots=None,
+                         url="https://example.com/robots.txt", expect="disallow"),
+                     chk("k2", url="https://example.com/robots%2Etxt", expect="disallow")]),
+        files=robots("user-agent: *\ndisallow: /robots%2Etxt\n"),
+        exit_code=1, verdict="failed-policy",
+        findings=[f("k2", "exposed")], evaluated=2)
+
+    # ---- (c) exact user-agent matching and record boundaries (r38) --------
+    add("c21-substring-agent-not-equal-group-name", CONTRACT["c-exact"],
+        manifest=mf([chk(ua="googlebot-news", url="https://example.com/x")]),
+        files=robots("user-agent: googlebot\ndisallow: /x\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("c22-group-name-not-a-substring-of-agent", CONTRACT["c-exact"],
+        manifest=mf([chk(ua="googlebot", url="https://example.com/x")]),
+        files=robots("user-agent: googlebot-news\ndisallow: /x\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("c23-ignored-crawl-delay-does-not-end-group", CONTRACT["c-exact"],
+        manifest=mf([chk(ua="bot", url="https://example.com/x")]),
+        files=robots("user-agent: bot\ncrawl-delay: 5\nuser-agent: other\ndisallow: /x\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    add("c24-same-name-groups-combined", CONTRACT["c-exact"],
+        manifest=mf([chk(ua="bot", url="https://example.com/b")]),
+        files=robots("user-agent: bot\ndisallow: /a\n\nuser-agent: bot\ndisallow: /b\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    add("c25-kelvin-sign-is-not-ascii-k", CONTRACT["c-exact"],
+        manifest=mf([chk(ua="kelvin", url="https://example.com/x")]),
+        files=robots("user-agent: \u212Aelvin\ndisallow: /x\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("c26-matching-group-with-no-rules-allows", CONTRACT["c-exact"],
+        manifest=mf([chk(ua="bot", url="https://example.com/x")]),
+        files=robots("user-agent: *\ndisallow: /x\n\nuser-agent: other\ndisallow: /y\n\n"
+                     "user-agent: bot\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+
+    # ---- (d) wildcard, anchor and specificity ranking (r38) ---------------
+    add("d18-wildcard-ranked-by-rule-length", CONTRACT["d-match"],
+        manifest=mf([chk(url="https://example.com/abcdef")]),
+        files=robots("user-agent: *\nallow: /abc\ndisallow: /*\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("d19-private-dir-beats-wildcard-html", CONTRACT["d-match"],
+        manifest=mf([chk(url="https://example.com/private/a.html")]),
+        files=robots("user-agent: *\ndisallow: /private/\nallow: /*.html\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    add("d20-equal-length-tie-allows", CONTRACT["d-match"],
+        manifest=mf([chk(url="https://example.com/index.php")]),
+        files=robots("user-agent: *\ndisallow: /*.php\nallow: /index\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("d21-non-final-dollar-is-literal", CONTRACT["d-match"],
+        manifest=mf([chk(url="https://example.com/a$b")]),
+        files=robots("user-agent: *\ndisallow: /a$b\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    add("d22-final-dollar-anchors", CONTRACT["d-match"],
+        manifest=mf([chk("k1", url="https://example.com/a"),
+                     chk("k2", url="https://example.com/ab")]),
+        files=robots("user-agent: *\ndisallow: /a$\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=2)
+    add("d23-star-matches-empty-sequence", CONTRACT["d-match"],
+        manifest=mf([chk(url="https://example.com/ab")]),
+        files=robots("user-agent: *\ndisallow: /a*b\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+
     # ---- usage: exit 64 ---------------------------------------------------
     usage_manifest = mf([])
     for name, argv in (
@@ -932,7 +1231,7 @@ def main(argv=None):
     tool = Path(args.tool).resolve()
     counts = coverage()
     summary = {
-        "selftest": "kake-r37-robots-audit-selftest",
+        "selftest": "kake-r38-robots-audit-selftest",
         "tool": str(tool),
         "cases": len(FIXTURES),
         "passed": 0,
@@ -947,9 +1246,10 @@ def main(argv=None):
         shortfalls.append("only %d fixtures; expected at least %d"
                           % (len(FIXTURES), MIN_FIXTURES))
     for key in REQUIRED_CONTRACTS:
-        if counts.get(key, 0) < MIN_PER_CONTRACT:
+        minimum = MIN_BY_CONTRACT.get(key, MIN_PER_CONTRACT)
+        if counts.get(key, 0) < minimum:
             shortfalls.append("contract %s has %d fixtures; expected at least %d"
-                              % (key, counts.get(key, 0), MIN_PER_CONTRACT))
+                              % (key, counts.get(key, 0), minimum))
     if shortfalls:
         summary["verdict"] = "could-not-evaluate"
         summary["failed"] = 1

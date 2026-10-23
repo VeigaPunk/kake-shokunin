@@ -10,6 +10,15 @@ round-36 tool defects are pinned here, each with a fixture that is red on the ro
   g31  a `/dev/zero` manifest must not be read into memory: exit 2, one input_invalid.
   g32  the body is opened at the resolved path that was validated, not at the unresolved one.
 
+Round 38 adds the two carried read-cap defects (round-37 w2/SentinelHardening.md, defect 1):
+
+  g33  a body larger than the stated 16 MiB cap is one check_invalid for that check, not a read
+       into memory and not a truncated quote test: exit 2, one check_invalid, nothing evaluated.
+  g34  a 1 GiB body must not be read into memory: exit 2, one check_invalid (base: MemoryError,
+       exit 1, no JSON).
+  g35  a manifest inside the 64 MiB cap (~60 MiB) whose parse cannot fit the address space is one
+       input_invalid with a report, not a MemoryError with no stdout (base: exit 1, no JSON).
+
 Two page-text fixtures pin the contract (c) amendment implemented with them:
 
   c-attributed-script         `<script` inside another tag's quoted attribute value opens nothing
@@ -50,6 +59,14 @@ DEFAULT_TOOL = HERE / "source_recheck.py"
 MIN_FIXTURES = 6
 TIMEOUT_SECONDS = 60
 MEMORY_LIMIT = 512 * 1024 * 1024
+# Round-38: the tool's stated body cap, and a manifest just under the 64 MiB cap whose flat
+# array of small objects cannot fit MEMORY_LIMIT during json.loads (~7.9M dicts, >1 GiB).
+BODY_CAP = 16 * 1024 * 1024
+NEAR_CAP_MANIFEST = (
+    b'{"version": 1, "checks": [], "junk": ['
+    + b'{"a":1},' * ((60 * 1024 * 1024) // 8)
+    + b'{"a":1}]}'
+)
 NON_REDIRECT_LOCATION = "/final"
 URL = "https://example.test/page"
 QUOTE = "VISIBLE"
@@ -67,6 +84,13 @@ CONTRACT = {
         '(g) "It reads only the manifest and the body files it names; no network, no writes." '
         'Round-37 hardening: the body is opened at the path that was validated (the resolved '
         'one), so no check-then-open race re-resolves a symlink.'
+    ),
+    "body-cap": (
+        'Round-38 repair carried from round-37 (g) reads: "A body larger than the stated cap '
+        '(16 MiB) is an input fault for that check: one check_invalid finding, nothing counted '
+        'as evaluated." No body, however large, is read into memory or reported as a crash, and '
+        'a manifest inside the 64 MiB cap whose JSON parse cannot fit the address space is an '
+        'unreadable manifest: one input_invalid with check null.'
     ),
     "c": (
         '(c) HTML text. "the contents of script, style and template elements removed (start tag '
@@ -187,6 +211,31 @@ def build_fixtures():
         evaluated=1,
         open_expectation={"must_include": ["real-body.html"],
                           "must_exclude": ["body.html"]})
+
+    # Round-38: carried read-cap defects. A body over the stated cap is one check_invalid for
+    # that check; no body is read into memory; a near-cap manifest that cannot be parsed in the
+    # address space is one input_invalid with a report.
+    # checksEvaluated is left unpinned for g33/g34: contract (g) says it "counts the checks that
+    # are not check_invalid" while the tool increments before an evaluate-time check_invalid
+    # (unreadable body), a reading no round-36 fixture pins (18 undecided points). The caps
+    # themselves are pinned by exit, verdict and findings; the round-36 counter does not compare
+    # checksEvaluated either.
+    add("g33-body-over-cap", CONTRACT["body-cap"],
+        manifest=mf([chk(quote=QUOTE, contentType="text/html", body="body.html")]),
+        files={"body.html": b"<p>" + b"A" * (BODY_CAP + 1) + b"</p>"},
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "check_invalid")])
+    add("g34-body-1g", CONTRACT["body-cap"],
+        manifest=mf([chk(quote=QUOTE, contentType="text/html", body="body.bin")]),
+        sparse={"body.bin": 1024 * 1024 * 1024},
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f("k1", "check_invalid")],
+        rlimit_as=MEMORY_LIMIT, timeout=30)
+    add("g35-near-cap-manifest", CONTRACT["body-cap"], raw=NEAR_CAP_MANIFEST,
+        exit_code=2, verdict="could-not-evaluate",
+        findings=[f(None, "input_invalid")], evaluated=0,
+        rlimit_as=MEMORY_LIMIT, timeout=60,
+        accept=[alt(0, "clean", evaluated=0)])
 
 
 build_fixtures()
