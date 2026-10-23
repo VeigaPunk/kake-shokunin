@@ -147,3 +147,14 @@ Row changes this round (same-round corrections of rows added this round, before 
 - S119 `teaches` "whose `match(value, rule="URI")`" → "whose RFC 3986 `URI` pattern
   (`get_compiled_pattern("%(URI)s").fullmatch` …)" (`ReopenS119Fresh`).
 - S117, S118, S119 `used-by`: `SCORECARD.md "Round 41"` → `SCORECARD.md` (census E11, `ReviewSourcesRows`).
+
+## Residual call — the final bytes
+
+Eight fresh seats (`.ufo/waves/round-41/resid/`) reviewed tool `50287ac6…` at `b9bf1a39`: no new acceptance
+over the base on 770 IP-literal values, no RFC-valid value of 60,100 newly rejected, counters, selftest,
+real run, census and records reproduced. `ResidCriticHarmReading` corrected one wording: inside an IP literal
+the final tool also rejects non-ASCII and `|` in a zone id, which the base accepted (RFC-invalid values);
+SCORECARD and SKILL now say so. `ResidCriticBetter` (advisory, a lane seat): not better as an unconditional
+no-harm move — the literal harm clause, the adversarial-input cost and that zone-id change. QUALITY (t) is
+green on round 41 through these reports (`fresh_review_check.py --tool-sha 50287ac6… --reports
+.ufo/waves/round-41/resid`).

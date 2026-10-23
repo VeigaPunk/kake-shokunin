@@ -1165,8 +1165,10 @@ the XML parser already gives `xml_malformed` for C0 other than TAB, LF, CR), a `
 query or fragment, a second `#`, an `@` inside userinfo, or a `%` not followed by two hex digits gives
 `loc_not_absolute` / `check_invalid`, where the round-40 tool accepted them (selftest `r41_*`, 225
 fixtures). Unchanged on purpose, and not claimed as conformance: code points U+0080 and above are still
-accepted wherever RFC 3986 allows `unreserved` (broader than RFC 3987 `ucschar`); IP-literal contents and
-ports above 65535 are still judged by `urlsplit` (it rejects a port above 65535, RFC 3986 does not).
+accepted wherever RFC 3986 allows `unreserved` (broader than RFC 3987 `ucschar`); ports above 65535 are
+still judged by `urlsplit` (it rejects them, RFC 3986 does not), and so is an IP literal's shape — but
+characters outside the RFC 3986 IP-literal repertoire plus `%` (TAB, LF, CR, non-ASCII, `|` in a zone id)
+are now rejected inside the brackets, where the round-40 tool accepted some of them.
 Proof status: exploratory — the round-41 oracle counter (`.ufo/waves/round-41/c1_count.py`, labels from
 abnf 2.9.1's RFC 3986 grammar, S118) was met by 15 of 141 wave-1 controls before the build (SCORECARD
 "Round 41 — kill rule (1) fired"); use the selftest, and treat the counter as information.

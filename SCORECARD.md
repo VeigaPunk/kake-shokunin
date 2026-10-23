@@ -2866,3 +2866,40 @@ Correction to the harm paragraph above: of the 42 `r41_*` fixtures, **29** are r
 green on both tools — four valid-value controls, two `/?` positives, the port-letter parity guard and the
 six IP-literal whitespace guards (red only on `0b485431…`). The literal clause "must be red on
 `8eb121c8`" is not met for those 13; reported as above, not relabelled.
+
+## Round 41 — residual call and measured results (author-side; admission belongs to the non-author closure)
+
+Residual call (8 seats: 6 reviewer, 2 critic; dispatched 10:24:19Z on tip `b9bf1a39`, all returned, 0 dead,
+0 refused; reports `.ufo/waves/round-41/resid/`) reviewed the final tool `50287ac6…1dde7d`:
+`ResidFinalBuildReview` (class-by-class against Appendix A, 60,100-value differential: 0 RFC-valid values
+the base accepts are rejected, 0 new acceptances outside the documented classes), `ResidIPLiteralProbe`
+(770 bracket-content values × `loc`/`sitemapUrl`: the final tool accepts nothing the base rejects; the first
+build's 18 were exactly TAB/LF/CR), `ResidHarmRerun` (selftest 225/225, base 196/225, first build 219/225;
+real run `fd985a41…` for base and final; no deleted line in SCORECARD, LOG, SOURCES), `ResidCounterRerun`
+(v1 and v2 1434 at `b9bf1a39`), `ResidSourcesCensus` (census exit 0), `ResidReviewRecords` (lesson
+pointers 23/23, QUALITY (s)/(t)/(u) red on round 40 and green on round 41, as written).
+
+| Claim | Axis / surface | Before (rev) | After (rev) | Counting command | Verdict |
+|---|---|---|---|---|---|
+| C1 | operability — URL judgment of `scripts/sitemap_audit.py` (`_parse_url`, sentences 4 and 22) | counter v1 1049/1434 at `8eb121c8` (seed 41001; 1028–1078 over seeds) | counter v1 1434/1434 at `b9bf1a39` (tool `50287ac6…`; seeds 41001–41003 and random) — information only | `python3 -B .ufo/waves/round-41/c1_count.py --root . --revision <rev> [--seed N] --out <receipt>` | **exploratory** (kill rule (1) fired before the build: 15 of 141 live-seat controls met v1). Verdict of record: the non-author closure's. No score change: operability 10, freshness 10 |
+
+Advisory lane-seat judgments (not of record): `CriticExploratoryBetter` (wave 2, on `0b485431…`): not better
+— the TAB/LF/CR regression, since fixed; `ResidCriticBetter` (on the final bytes): "not better as an
+unconditional no-harm move" — the URL rule improves and the regression is fixed, but (a) the frozen harm
+clause is not met as written (13 of 42 `r41_*` fixtures green on the base), (b) the URL check costs ×3–40
+on adversarial values (×12.9 on the 52 MB bounded case; linear; `ReviewBuildPerformance`), (c) out-of-class
+IP-literal behaviour is not fully unchanged: the final tool rejects non-ASCII and `|` inside a zone id
+(`http://[fe80::1%é]/a`), which the base accepted — RFC-invalid values, but the "IP-literal contents are
+still judged by `urlsplit`" wording above, in SKILL.md and in the tool comment is therefore overstated
+(`ResidCriticHarmReading`). The L1 reports these and does not self-award a verdict.
+
+Freshness: no claim. Re-verification this round: S102 page sha256 unchanged; RFC 3986 bytes equal to
+S098's pin; both oracle wheels equal to PyPI's digests (wave-1 and wave-2 scouts).
+
+### Planned — supersedes the round-40 plan
+
+Next round: freeze counter v2 (`c1_count_v2.py`, after fixing its uncaught `FileNotFoundError`, stdin and
+output cap) with control classes named by the behaviour they skip and an equivalence differential decided
+before any control is scored (QUALITY (n) amended reading, (u)); then a measured C1 on the URL rule is
+possible. Open, outside C1: symlinked manifest `file` paths read outside the manifest directory
+(`SentinelBuildInput`); the `source_recheck.py` Appendix-B URL reading (`ConnectorSiblingOverlap`).

@@ -1605,3 +1605,10 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   defects 1–4 and `.ufo/waves/round-41/verification/w1/`.
 - Re-verification result (freshness): S102 page sha256 unchanged (`ReopenS102Quote`), RFC 3986 bytes equal
   to S098's pin (`ScoutReopenS117`), both oracle wheels equal to PyPI's digests (`ScoutReopenOracles`).
+- Wave 2 (33 seats, 0 dead, 0 refused) found a regression in the first build (TAB/LF/CR inside an IP literal
+  accepted; `CriticExploratoryBetter`, `ReviewBuildDiffFresh`): revised build `0c5ad2f6` (tool `50287ac6…`),
+  selftest 225 (29 red on the base), real run byte-equal. Residual call (8 seats) reviewed the final bytes:
+  no new acceptance over the base on 770 bracket values, 0 RFC-valid regressions on 60,100 values. Recorded,
+  not fixed: the frozen harm clause "new fixtures red on the base" is not met for 13 of 42; ×3–40 cost on
+  adversarial values; zone ids with non-ASCII or `|` now rejected. C1 stays exploratory; verdict is the
+  closure's.
