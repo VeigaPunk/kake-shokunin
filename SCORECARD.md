@@ -2535,3 +2535,93 @@ Corrections from wave 2 and the residual call (append-only; earlier lines stand 
   gives `doctype_present` (s8/s9 precedence, the seat's declared reading); `urlsplit` drops interior tab/CR/LF
   in `loc` and `sitemapUrl` (s21/s22/s4, low); a repeated id of an earlier invalid check is not flagged (s4,
   low). None is covered by the sealed key. They are the next round's repair list.
+
+## Round 39 — closure correction (appended in round 40)
+
+The round-39 capability row above ("Offline sitemap file audit (round 39, exploratory)") still reads
+"pending closure". The non-author closure admitted it: **C1 `unprovable-but-better`**, reviewer of record
+the hyaku closure integrator (`corpus/lessons/round-39-verifier-spotcheck.md`, "Non-author verdict on
+C1"; MANIFEST `rounds[523]`, spot-check `f171c58b`). Read that row as admitted, exploratory,
+`unprovable-but-better`; the lane's own `ExploratoryVerdictC1` is not the verdict of record. Axis scores
+unchanged.
+
+## Round 40 — C1 declared (before any seat is dispatched)
+
+Base `f171c58b918f705ca875b6cb42b9e75489cd3589`. One claim this round. Both owned axes sit at the
+10/10 saturation line; the claim works operability (the tied-lowest axis) on a surface the lane holds.
+
+**C1 — operability, repair of a held tool: `scripts/sitemap_audit.py` is repaired on three input
+classes the round-39 closure routed (spot-check routed defect 2: D2, D4, D5).** Surface: three
+branches of the tool — (E) the decode-to-parse path for UTF-16 bytes without a byte-order mark,
+(U) URL judgment of `loc` and `sitemapUrl` values that `urlsplit` alters before splitting,
+(R) the repeated-`id` rule for earlier checks that were invalid. This is quality work on an
+admitted capability (round 39), not a new capability and not coverage. Readings, from the frozen
+round-39 contract (`.ufo/waves/round-39/c1-contract.md`):
+- E: every byte of ASCII text in UTF-16 without a BOM is below 0x80, so the bytes decode as UTF-8
+  (sentence 6 holds) and the text carries U+0000, which is not an XML Char (S110, XML 1.0 §2.2
+  production [2]): sentence 8 gives `xml_malformed`. With a BOM the bytes are not UTF-8:
+  `encoding_invalid`, unchanged.
+- U: S111 (Python `urllib.parse`): `urlsplit` strips leading C0 control and space characters and
+  removes TAB, CR and LF anywhere, so the tool judged a different string than was written. A value
+  carrying TAB, CR or LF after the sentence-21 strip, or (for `sitemapUrl`) a leading C0 control or
+  space, is not an absolute URL as written: `loc_not_absolute` (sentence 22) or `check_invalid`
+  (sentence 4). S102: URLs must "follow the RFC-3986 standard for URIs".
+- R: sentence 4 says "repeats an earlier check's `id`"; an earlier check that is invalid for another
+  reason still has an `id` when that member is a string.
+- Not claimed, decided by source: **D1 is not a deviation.** S110 §2.8: "When an XML 1.0 processor
+  encounters a document that specifies a 1.x version number other than '1.0', it will process it as a
+  1.0 document." `version="1.1"` with 1.0 content is well-formed XML 1.0 (sentence 8); `version="2.0"`
+  already gives `xml_malformed` (`.ufo/waves/round-40/l1-probe.py`, row `v20`). **D3** stays the
+  contract reading recorded by the round-39 build (sentence 9's `doctype_present` wins over a
+  malformed remainder); no change.
+
+Frozen predicate — this sentence, `PREDICATE` in `.ufo/waves/round-40/c1_count.py` (with
+`met = len(rows) == 30 and passed >= 30 and selftest exit 0 with summary "PASS 150/150"`) and the
+`predicate` field of every receipt:
+
+    met: passed >= 30 of 30 witnesses and the round-39 selftest passes 150 of 150
+
+- **Counting command** (exit 0 met, 1 not met, 2 cannot evaluate):
+  `python3 -B .ufo/waves/round-40/c1_count.py --root . --revision <rev> [--seed N] --out <receipt>`
+  (or `--tool-file <path>` for a control). Counter sha256
+  `6d73b8f498a29a5a86c9a7f1ce5d87cd135c40f1b634d869d14659cc10bee8d8`. Witnesses are public and built
+  in the counter: E 9 (5 must give `xml_malformed`; UTF-8, UTF-8+BOM clean; UTF-16+BOM and BOM-less
+  UTF-16 carrying a non-ASCII character `encoding_invalid`), U 13 (10 must give `loc_not_absolute` or
+  `check_invalid`; a sentence-21 leading TAB/trailing CRLF, `%09`/`%0A` escapes and a TAB inside a
+  foreign-namespace element stay clean), R 8 (5 must give `check_invalid` on the repeat; an integer
+  id followed by its string, a non-object check, and a case-different id stay clean). Hosts,
+  directories, file names and ids are drawn at random per run (the seed is in the receipt; `--seed`
+  replays). The tool runs in bubblewrap (`/usr`, the case directory and the tool only; no network).
+  The regression half runs `scripts/sitemap_audit_selftest.py` at `f171c58b` (sha256 pinned in the
+  counter, `99ee9bbf…93351db`) against the tool.
+- **Before:** 10 of 30 at the base, E 4/9, U 3/13, R 3/8, selftest 150/150, not met
+  (`.ufo/waves/round-40/verification/pre/base-f171c58b.json`, seed 40001; a random-seed run gives the
+  same totals, `base-f171c58b-seed2.json`). **After:** `met` true at the build commit.
+- **Tools scored with this counter before this declaration** (QUALITY (o), by sha256): base
+  `6d86c8ce…a240ec` (do-nothing, 10); L1 cheap controls in `.ufo/waves/round-40/controls/l1/` —
+  constant-clean `700ef41f…` 5, junk `71a2d79c…` 0, all-false `165028d9…` 8, manifest-only no-reader
+  `a8beaab1…` 8, absent 0 (`verification/pre/l1-*.json`); and the **L1 reference repair**
+  `03a8fba4930ad7628a569e7aa30b3ece728fbb6eb3fa4ac7c9a78dfbeb07b22b` (outside the lane until the
+  build lands), 30 of 30, selftest 150/150. The reference is the build candidate, not a control: it
+  is landed unchanged as the build after the control receipts are committed, or the round says
+  otherwise.
+- **Control classes, frozen now (QUALITY (n): tools built to skip declared work).** Absent tool;
+  constant output (all clean, all findings, all errors); junk; all-false; manifest-only no-reader;
+  shortcuts keyed on check ids, file names, positions, hosts or labels; key-finders (anything that
+  reads outside the case directory); **partial repairs** — any tool built to skip at least one of
+  E, U, R or one sub-shape inside a class (TAB but not CR/LF, raw characters but not character
+  references, `loc` but not `sitemapUrl`, little-endian only, declaration-present only, one invalid
+  kind of earlier check only); **proxy repairs** — a cheaper signal standing in for the declared
+  behaviour (any NUL byte or `<\0` sniff before decoding, any whitespace anywhere in the file, any
+  repeated id regardless of type, error codes other than the contract's). A mutant of the build that
+  keeps all three repairs but breaks another sentence is not a control of C1; the regression half
+  and wave 2 report it as harm.
+- **Kill rule, frozen now.** (1) Before the build lands, if any control receipt meets the predicate,
+  C1 is **declared exploratory** (verdict from a named non-author reviewer); the counter, witnesses,
+  predicate and target are never changed after this commit. (2) After the build is scored, a control
+  that meets the predicate means C1 is **not met**; reported, never relabelled. (3) A build below
+  the predicate is a miss, reported as an honest stop.
+- **Order:** this declaration, the counter and the L1 receipts land first; then the adversarial
+  control wave (fresh mutation-tester and executor seats build controls of every class above; the L1
+  scores every returned tool with this counter and commits every receipt); only then does the build
+  land and get scored. Sourced: S110, S111 (opened this round, `corpus/lessons/round-40.md` Gate).
