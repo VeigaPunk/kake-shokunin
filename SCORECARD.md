@@ -2438,3 +2438,28 @@ re-hashed 06:46Z).
   reading A (no exemption) exit 1, the reference listed as a control meeting the predicate; reading B
   (`--oracle-sha 663e051e…`) exit 0 (`verification/a3-jcheck/{A,B}.txt`). Both readings stay open for
   the closure, as recorded at `915e9e87`.
+
+## Round 39 — kill rule (1) fired: C1 is exploratory (recorded 06:59Z, before any build is dispatched)
+
+Wave 1 of attempt 3 (32 seats, dispatched 06:52:48Z, `.ufo/waves/round-39/w1a3-dispatch-log.txt`)
+returned single-sentence mutants of the private reference. The L1 scored them with the frozen counter
+and key (receipts `.ufo/waves/round-39/verification/a3/w1a3-*.json`). Six meet the predicate
+`met: passed >= 24 of 24 sealed cases`:
+
+| Receipt | Mutant change (seat's own description) | Contract sentence broken |
+|---|---|---|
+| `w1a3-MutUrlAuthority__M03` | rejects a `sitemapUrl` with an empty port | 4 |
+| `w1a3-MutUrlAuthority__M04` | rejects a `loc` containing userinfo | 22 |
+| `w1a3-MutUrlAuthority__M05` | rejects a `loc` with an IPv6 literal host | 22 |
+| `w1a3-MutUrlAuthority__M09` | rejects a `sitemapUrl` carrying a fragment | 4 |
+| `w1a3-MutUrlAuthority__M10` | strips a trailing `/` before taking the `sitemapUrl` directory | 25 |
+| `w1a3-MutEntryNumbering__M02` | (entry-numbering family; see the seat's `mutants.json`) | 11/33 |
+
+Each is a control under the class frozen at `ceecb1b1` ("every mutant or ablation of the reference …
+that changes one contract sentence"). Kill rule (1) applies, and it applies under both readings of
+the `915e9e87` drafting defect, so that question no longer decides anything: **C1 is declared
+exploratory.** The key, counter, predicate and target are not changed. The build still lands as a
+capability; its verdict comes from a named non-author reviewer (`unprovable-but-better` or
+`unprovable`), and the counter's score of the build is reported as information, not as C1's verdict.
+The other wave-1 controls so far: CodeGuess+tweak 23, XsdDelegate+tweak 20, HTML-parser reader 20,
+structure-only 16 (refused seat's leftover file), values-only 14; none meets.
