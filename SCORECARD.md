@@ -3091,3 +3091,17 @@ round-41 paragraph corrected by the L1 per routed defect 3, comment-only), with 
 guard fixtures (selftest 235). Harm clause **H5 added now, stricter, before the build is scored:** the
 selftest passes under Python 3.10.22 as it does for the round-41 tool (no interpreter floor added).
 `ExecBuildRegex` is scored as information only.
+
+## Round 42 — build scored (L1 receipts; wave 2 attacks follow)
+
+Build `020bc4574729ed674299f6cab02faac1582d9464` (tool sha256 `914ebdee7bcb25e877bed2bc19cd15642d0373f1526a9535123e3e0fc02cd021`,
+selftest `bebd834b…`). Counter v3, three random seeds (`verification/build/c1-v3-020bc457-{1,2,3}.json`): equal
+**10/10** each (10,218–10,229 generated values plus five timing files), ratios T1 1.058 / 1.006 / 0.976, T2 1.28 /
+1.319 / 1.382, T3 1.396 / 1.39 / 1.427, T4 1.264 / 1.235 / 1.276, T5 1.168 / 1.093 / 1.096: **met ×3**. Information
+only: `ExecBuildRegex` `8a30432d…` also met (T1 0.937 … T5 1.203) but fails H5.
+Harm (`verification/harm/`): H1 selftest `PASS 235/235` on the build and on the round-41 tool (the ten `r42_*`
+guards green on both); H2 real run `jq -S . | sha256sum` → `fd985a41…` (exit 1, equal to rounds 39–41); H3 the
+ratios above; H4 (`harm/h4_probe.py` `e067e5d4…` with the lane wheel path; 20,000 values) seed 924141: in-class
+19,750, validReject 0, newAccept 0, oracle disagreements 0 (round-40 tool 4,015); seed 42001: 19,720, 0, 0, 0
+(3,989); H5 selftest under Python 3.10.22 `PASS 235/235` (round-41 tool also 235/235). Kill rule (2) is open to
+wave 2's fresh controls; the verdict section follows the wave.
