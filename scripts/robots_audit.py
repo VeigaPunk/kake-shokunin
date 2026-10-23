@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Round-37 C1 offline robots.txt expectation audit (`scripts/robots_audit.py`).
+"""Offline robots.txt expectation audit (`scripts/robots_audit.py`).
+
+The round-37 C1 contract plus the round-38 C2 rules (h), (i) and (k).
 
 Tells a publisher, offline, whether the robots.txt file they describe allows or
 disallows the URLs they say it should, under RFC 9309 (S011) and the round-37
@@ -21,8 +23,12 @@ Contract summary (SCORECARD.md, round 37, "Round 37 - declared claims", C1):
 (a) access result by robotsStatus range, (b) lines and the 512000-byte read,
 (c) groups and user-agent selection, (d) rule matching and specificity,
 (e) path construction, normalization and the implicit /robots.txt allow,
-(f) check faults, (g) manifest faults, plus the verdict rule. Sources: S011
-(RFC 9309, re-opened this round), S095 (Google's robots.txt specification).
+(f) check faults, (g) manifest faults, plus the verdict rule. Round-38 C2 adds
+(h) non-JSON number literals and integers of any length, (i) the URL character
+set, and (k) the implicit allow on the normalized path; the round-37 contract
+holds except where those three rules change it. Sources: S011 (RFC 9309),
+S095 (Google's robots.txt specification), S034 (RFC 8259 section 6), S029 and
+S089 (RFC 3986 section 2).
 
 Lane readings where the contract leaves a point open
 ----------------------------------------------------
@@ -44,10 +50,34 @@ Lane readings where the contract leaves a point open
 * URL validity is exactly what the contract lists: scheme http or https
   (case-insensitive) and a non-empty host. Port syntax, userinfo and host
   syntax beyond non-emptiness are not judged.
-* The implicit /robots.txt allow is compared on the raw path-to-match, before
-  normalization (the contract sentence precedes the normalization sentence), so
-  `/robots.txt?x=1` and `/robots%2Etxt` are not implicitly allowed; rules
-  decide them.
+* The implicit /robots.txt allow (rule (k)) is compared on the path to match
+  after normalization, and the comparison is exact: `/robots.txt`, and the
+  escapes (e) decodes to it (`/robots%2Etxt`, `/%72obots.txt`), are allowed;
+  `/robots.txt?x=1` (a non-empty query is part of the path to match),
+  `/ROBOTS.TXT` (no case folding) and `/robots%2Ftxt` (a reserved escape is
+  kept) are decided by the rules. An empty query disappears from the path to
+  match, so `/robots.txt?` is `/robots.txt` and is allowed. An explicit
+  `Disallow: /robots.txt` cannot override the implicit allow.
+* The manifest is JSON as RFC 8259 section 6 defines it (rule (h)): `NaN`,
+  `Infinity` and `-Infinity` outside a string are not JSON, so the whole
+  manifest is an input fault (one `input_invalid`, nothing evaluated).
+  `1e400` is a JSON number and stays a float, which is not an integer status.
+* Every JSON integer parses, however many digits it has (rule (h)). The
+  manifest is byte-capped at 64 MiB, so an integer token can be tens of
+  millions of digits; converting such a token with `int()` both raises above
+  Python's 4300-digit limit and is quadratic, so an integer token longer than
+  `_INT_TOKEN_DIGITS` (15) digits becomes one shared `_LONG_INTEGER` sentinel
+  instead. The only integers the contract reads are `robotsStatus` (three
+  digits inside its ranges) and `version` (1), so the sentinel is observably
+  exact: it is not an `int`, so a long `robotsStatus` is a `check_invalid`
+  and a long `version` is an `input_invalid`, while a long number in a field
+  the contract does not read changes nothing.
+* A check's `url` is judged as written, before any parsing (rule (i)): besides
+  non-ASCII characters (kept), only ASCII letters, digits, `-` `.` `_` `~`,
+  `:` `/` `?` `#` `[` `]` `@` `!` `$` `&` `'` `(` `)` `*` `+` `,` `;` `=` and
+  `%` are allowed; any other ASCII character anywhere in the string is a
+  check fault. A `%` not followed by two hex digits is allowed by (i) and kept
+  by (e).
 * A robots file that passed validation but cannot be read at open time is a
   check fault for that check (one `check_invalid`), because the check cannot be
   evaluated; it is not silently treated as allow or disallow.
@@ -110,6 +140,18 @@ _UNRESERVED = frozenset(
     "0123456789-._~"
 )
 _UNRESERVED_BYTES = frozenset(ord(char) for char in _UNRESERVED)
+
+# Rule (i): the characters a check's `url` may not hold. ASCII letters,
+# digits, `-` `.` `_` `~`, the reserved characters `:` `/` `?` `#` `[` `]` `@`
+# `!` `$` `&` `'` `(` `)` `*` `+` `,` `;` `=` and `%` are allowed; the other 43
+# ASCII characters (space, U+0000-U+001F, U+007F, `"` `<` `>` `\` `^` `` ` ``
+# `{` `|` `}`) are excluded. Non-ASCII characters are kept.
+_URL_FORBIDDEN_RE = re.compile(r"[\x00-\x20\x7f\"<>\\^`{|}]")
+
+# Rule (h): the only integers the contract reads are `version` (1) and
+# `robotsStatus` (three digits in its ranges), so a JSON integer token longer
+# than this many digits is represented by one sentinel rather than converted.
+_INT_TOKEN_DIGITS = 15
 
 # Cache of parsed robots files, keyed by the resolved file path.
 _FILE_CACHE: dict[str, "RobotsFile | None"] = {}
@@ -364,6 +406,31 @@ def read_robots_bytes(path: str) -> bytes | None:
         os.close(fd)
 
 
+class _LongInteger:
+    """Sentinel for a JSON integer token too long to be any value read here."""
+
+    __slots__ = ()
+
+    def __repr__(self) -> str:
+        return "<long integer>"
+
+
+_LONG_INTEGER = _LongInteger()
+
+
+def parse_json_int(token: str) -> object:
+    """Rule (h): parse any JSON integer token without int() on long tokens."""
+    digits = token[1:] if token[:1] == "-" else token
+    if len(digits) > _INT_TOKEN_DIGITS:
+        return _LONG_INTEGER
+    return int(token)
+
+
+def reject_json_constant(token: str) -> object:
+    """Rule (h): `NaN`, `Infinity` and `-Infinity` are not JSON."""
+    raise ValueError("not a JSON number: %s" % (token,))
+
+
 def load_manifest(path: str) -> list | None:
     """Read and validate a manifest, returning its checks list or None (g)."""
     try:
@@ -394,7 +461,9 @@ def load_manifest(path: str) -> list | None:
     except UnicodeDecodeError:
         return None
     try:
-        document = json.loads(text)
+        document = json.loads(
+            text, parse_int=parse_json_int, parse_constant=reject_json_constant
+        )
     except (ValueError, RecursionError):
         return None
     if not isinstance(document, dict):
@@ -436,9 +505,16 @@ def resolve_robots_path(manifest_dir: str, value: object) -> str | None:
     return candidate
 
 
+def url_characters_ok(value: str) -> bool:
+    """Rule (i): judge the URL's characters as written, before any parsing."""
+    return _URL_FORBIDDEN_RE.search(value) is None
+
+
 def parse_http_url(value: object):
     """Return urlsplit parts for an absolute http(s) URL with a host, or None."""
     if not isinstance(value, str):
+        return None
+    if not url_characters_ok(value):
         return None
     try:
         parts = urlsplit(value)
@@ -526,11 +602,11 @@ def audit_manifest(manifest_path: str) -> tuple[dict[str, object], int]:
                 findings.append(finding(check_id, REASON_CHECK_INVALID))
                 continue
             rules = available.rules_for(token)
-            path = path_to_match(parts)
+            path = normalize(path_to_match(parts))
             if path == IMPLICIT_ALLOWED_PATH:
                 allowed = True
             else:
-                allowed = decide(rules, normalize(path)) == "allow"
+                allowed = decide(rules, path) == "allow"
         elif 400 <= status <= 499:
             allowed = True
         else:  # 500 <= status <= 599
