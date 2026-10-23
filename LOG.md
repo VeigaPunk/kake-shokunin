@@ -1581,3 +1581,4 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
 - Lesson `corpus/lessons/round-40.md` (Mistakes 1–2; corrections to the round-39 report counts);
   QUALITY (o) amended, (q), (r); S115 supersedes S111. Motivating evidence: round-39 closure routed
   defects 1–5 and `.ufo/waves/round-40/verification/w1/`.
+- Correction (appended): wave 1 had **8** provider refusals, not 7 (`w1-dispatch-log.txt`: CtlENulSniff, CtlUSitemapUrlOnly, CtlUAnyWhitespace, CtlROneKind, CtlRAnyRepeat, CtlEDeclOnly, CtlULocOnly, CtlEWrongCode), and 1 dead seat (CtlUTabOnly).
