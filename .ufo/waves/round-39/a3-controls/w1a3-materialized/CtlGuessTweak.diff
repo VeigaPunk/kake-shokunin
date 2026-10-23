@@ -1,0 +1,34 @@
+--- a/control.py
++++ b/control.py
+@@ -30 +30 @@
+-_ENT_RE = re.compile(r"&(#\d+|#[xX][0-9a-fA-F]+|amp|lt|gt|quot|apos);")
++_ENT_RE = re.compile(r"&(#[0-9]+|#x[0-9a-fA-F]+|amp|lt|gt|quot|apos);")
+@@ -58,0 +59,4 @@
++    try:
++        _check_chars(_expand(s))
++    except (ValueError, OverflowError):
++        raise Malformed("invalid character reference")
+@@ -71 +75 @@
+-            return chr(int(ent[1:]))
++            return chr(int(ent[1:].lstrip("0") or "0"))
+@@ -170 +174,2 @@
+-        attrs.append((aname, text[j:end]))
++        _check_text(text[j:end])
++        attrs.append((aname, _expand(text[j:end])))
+@@ -213 +218 @@
+-                yield ("text", text[pos + 9 : end])
++                yield ("literal", text[pos + 9 : end])
+@@ -327,4 +332,3 @@
+-    num = int(ip or "0") * (10 ** len(fp)) + int(fp or "0")
+-    if neg:
+-        num = -num
+-    return 0 <= num <= 10 ** len(fp)
++    ip = ip.lstrip("0") or "0"
++    zero = ip == "0" and not fp.strip("0")
++    return (not neg or zero) and (ip == "0" or (ip == "1" and not fp.strip("0")))
+@@ -402 +406 @@
+-        if kind == "text":
++        if kind in ("text", "literal"):
+@@ -405 +409 @@
+-                    fr["capture"].append(_expand(ev[1]))
++                    fr["capture"].append(_expand(ev[1]) if kind == "text" else ev[1])

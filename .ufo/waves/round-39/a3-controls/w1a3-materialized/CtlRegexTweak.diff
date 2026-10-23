@@ -1,0 +1,54 @@
+--- a/control.py
++++ b/control.py
+@@ -4,2 +4,1 @@
+-No XML parser at all: no xml.etree, no expat, no namespace resolution, no prefix
+-binding, no entity decoding.  Document structure is recovered by scanning
++No XML parser at all. Document structure is recovered by scanning
+@@ -11,3 +10,1 @@
+-  * namespaces are never resolved -- any element name is judged on its local
+-    name, whatever namespace or prefix binds it;
+-  * entity references are not decoded (`&amp;` stays `&amp;`);
++  * namespace syntax and general XML 1.0 well-formedness remain approximate;
+@@ -36 +33 @@
+-    r"|<[A-Za-z_][^>]*>",
++    r"|<[A-Za-z_](?:[^>\"']|\"[^\"]*\"|'[^']*')*>",
+@@ -51 +48 @@
+-    __slots__ = ("name", "children", "text")
++    __slots__ = ("name", "children", "text", "ns")
+@@ -60 +57 @@
+-    return name.split(":")[-1]
++    return name.rsplit("}", 1)[-1].split(":")[-1] if name.startswith("http://www.sitemaps.org/schemas/sitemap/0.9}") else None
+@@ -65,0 +63,7 @@
++def unescape(value):
++    entities = {"amp": "&", "lt": "<", "gt": ">", "quot": '"', "apos": "'"}
++    def replace(m):
++        if (key := m[1]) is None: raise ValueError("invalid entity")
++        if key in entities: return entities[key]
++        return chr(int(key[2:], 16) if key.startswith("#x") else int(key[1:]))
++    return re.sub(r"&(#x[0-9A-Fa-f]+|#[0-9]+|amp|lt|gt|quot|apos);|&", replace, value)
+@@ -69 +73 @@
+-def scan(text):
++def scan(text, decode_entities=True):
+@@ -75,0 +80 @@
++        chunk = unescape(chunk) if decode_entities else chunk
+@@ -93 +98 @@
+-            if stack[-1].name != name:
++            if stack[-1].name.rsplit("}", 1)[-1] != name:
+@@ -105 +110,6 @@
+-        node = Node(name)
++        ns = dict(stack[-1].ns) if stack else {"xml": "http://www.w3.org/XML/1998/namespace"}
++        for attr, quote, value in re.findall(r"""\s+([:\w.-]+)\s*=\s*(["'])(.*?)\2""", body, re.S):
++            if attr == "xmlns" or attr.startswith("xmlns:"): ns[attr.partition(":")[2]] = unescape(value) if decode_entities else value
++        prefix, sep, lname = name.rpartition(":")
++        if decode_entities and sep and not ns.get(prefix): return None, "unbound namespace"
++        node = Node(ns.get(prefix if sep else "", "") + "}" + name); node.ns = ns
+@@ -251 +261,2 @@
+-    root, _why = scan(text)
++    try: root, _why = scan(text, not has_doctype(text))
++    except (ValueError, OverflowError): root = None
+@@ -267 +278 @@
+-        if local(c.name) != entry_tag:
++        if local(c.name) not in (None, entry_tag):
+@@ -280 +291 @@
+-            if local(k.name) not in allowed:
++            if local(k.name) is not None and local(k.name) not in allowed:

@@ -2472,3 +2472,12 @@ structure-only 16 (refused seat's leftover file), values-only 14; none meets.
   structure-only 16, values-only 14, lenient engine 14. The 24-case key cannot tell the contract from
   a regex reader or from 15 single-sentence breaks. This is the counter failing, recorded as such;
   C1 stays exploratory, and nothing about the key, counter, predicate or target changes.
+- **QUALITY (j) check v2.1 (07:12Z, before the build):** wave-1 `MutCcCheckV2` showed 8 of 16
+  mutants of v2 survive its selftest. v2.1 routes main and selftest through one exit mapping and adds six
+  fixtures (foreign key, foreign target, contradictory `passed`, extra row, label `ref` without
+  `--oracle-sha`, exemption limited to the named bytes); selftest 20/20. On the 77 receipts: reading A
+  exit 1, 17 controls meet; reading B exit 1, 16 meet (`verification/a3-jcheck/v21-{selftest,A,B}.txt`).
+  Kill rule (1) holds under both readings by content. Survivor M06 (build identity by revision text)
+  is not killed by the selftest and is carried. The three critic seats whose role forbade running code
+  returned source or diffs in their reports; the L1 materialized them byte-for-byte
+  (`a3-controls/w1a3-materialized/*.diff`; CtlEngineLenient source sha256 matches the report's).

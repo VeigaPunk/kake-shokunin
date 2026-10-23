@@ -115,6 +115,11 @@ def main(argv=None):
     for tag, lst in (("BUILD", builds), ("EXEMPT", exempt), ("CONTROL-MEETS", controls), ("PROBLEM", problems)):
         for x in lst:
             print(f"{tag} {x}")
+    return exit_code(n, controls, problems)
+
+
+def exit_code(n, controls, problems):
+    """The one exit mapping, shared by main and the selftest."""
     if problems or n == 0:
         return 2
     return 1 if controls else 0
@@ -152,6 +157,13 @@ def selftest():
         ("oracle not named", {"o.json": rec("f" * 64, [1, 1, 1])}, [], 1),
         ("no receipts", {}, [], 2),
         ("pass as string 'true' is not a pass", {"c.json": rec("e" * 64, [1, 1, 1], rows=[{"pass": "true"}] * 3, passed=None, met=False)}, [], 0),
+        # v2.1 (round 39, MutCcCheckV2 survivors M05, M07, M09-M12, M14):
+        ("foreign key sha", {"c.json": rec("e" * 64, [1, 1, 1], keySha256="0" * 64)}, [], 2),
+        ("foreign target", {"c.json": rec("e" * 64, [1, 1, 1], target=2)}, [], 2),
+        ("passed total contradicts rows", {"c.json": rec("e" * 64, [1, 1, 1], passed=2)}, [], 2),
+        ("extra row is not a meet", {"c.json": rec("e" * 64, [1, 1, 1, 0], met=False, passed=3)}, [], 0),
+        ("label 'ref' without --oracle-sha is a control", {"ref.json": rec("f" * 64, [1, 1, 1], label="ref")}, [], 1),
+        ("oracle exemption covers only the named bytes", {"o.json": rec("f" * 64, [1, 1, 1]), "p.json": rec("a" * 64, [1, 1, 1])}, ["f" * 64], 1),
     ]
     ok = 0
     for name, files, oracles, want in cases:
@@ -160,7 +172,7 @@ def selftest():
             os.makedirs(os.path.dirname(os.path.join(d, fn)), exist_ok=True)
             json.dump(r, open(os.path.join(d, fn), "w"))
         n, controls, builds, exempt, problems = evaluate(d, k, B, set(oracles))
-        got = 2 if (problems or n == 0) else (1 if controls else 0)
+        got = exit_code(n, controls, problems)
         ok += got == want
         print(f"{'ok  ' if got == want else 'FAIL'} {name}: exit {got} want {want}")
     print(f"PASS {ok}/{len(cases)}")

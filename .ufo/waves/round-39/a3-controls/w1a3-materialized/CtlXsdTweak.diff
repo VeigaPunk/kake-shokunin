@@ -1,0 +1,54 @@
+--- a/.ufo/waves/round-39/a3-controls/dead-w1/CtlXsdDelegate.py
++++ b/control.py
+@@ -281,11 +280,0 @@
+-    try:
+-        from lxml import etree
+-    except Exception:
+-        etree = None
+-    if etree is not None:
+-        try:
+-            parser = etree.XMLParser(resolve_entities=False, no_network=True,
+-                                     load_dtd=False, recover=False, huge_tree=False)
+-            return etree.fromstring(data, parser)
+-        except Exception:
+-            return None
+@@ -301,10 +289,0 @@
+-    try:
+-        from lxml import etree
+-    except Exception:
+-        etree = None
+-    if etree is not None:
+-        root = etree.Element("{%s}%s" % (NS, rootname), nsmap={None: NS})
+-        ent = etree.SubElement(root, "{%s}%s" % (NS, entname))
+-        etree.SubElement(ent, "{%s}loc" % NS).text = "http://example.com/a"
+-        etree.SubElement(ent, "{%s}%s" % (NS, field)).text = value
+-        return etree.tostring(root, encoding="utf-8")
+@@ -328,11 +306,0 @@
+-        try:
+-            from lxml import etree
+-        except Exception:
+-            etree = None
+-        if etree is not None:
+-            try:
+-                self.schemas["urlset"] = etree.XMLSchema(etree.fromstring(XSD_URLSET.encode("utf-8")))
+-                self.schemas["sitemapindex"] = etree.XMLSchema(etree.fromstring(XSD_SITEMAPINDEX.encode("utf-8")))
+-                self.mode = "lxml"
+-            except Exception:
+-                self.schemas = {}
+@@ -355,10 +322,0 @@
+-        if self.mode == "lxml":
+-            from lxml import etree
+-            try:
+-                parsed = etree.fromstring(doc)
+-            except Exception:
+-                return False
+-            try:
+-                return bool(self.schemas[kind].validate(parsed))
+-            except Exception:
+-                return True
+@@ -395 +353 @@
+-    except OSError:
++    except (OSError, ValueError):
+@@ -407 +365 @@
+-    if enc is not None and enc.strip().lower() != "utf-8":
++    if enc is not None and enc.lower() != "utf-8":
