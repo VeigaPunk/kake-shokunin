@@ -2668,3 +2668,86 @@ round-39 public sitemaps still byte-equal (`jq -S . | sha256sum` → `fd985a41�
 `verification/harm/realrun-build2.json`); D1 check green (`build2/d1check-build2.txt`). The kill rule
 had already fired; this revision changes no counter, witness or predicate, and C1's verdict remains the
 non-author reviewer's.
+
+## Round 41 — C1 counter candidate (pre-freeze: the control wave scores it before the declaration)
+
+Base `8eb121c81ffebada064eefcabcd94dd2303d646f` (round 40 admitted, C1 `unprovable-but-better`). One
+claim planned. Both owned axes sit at the 10/10 saturation line; the claim works operability (tied-lowest)
+on a surface the lane holds. QUALITY (o) as amended in round 40 requires non-author control receipts
+scored with the same counter bytes at or before the declaration, so this section freezes nothing yet:
+the predicate below is the one the declaration will freeze, unchanged, after the control wave.
+
+**C1 — operability, repair of a held tool: the URL judgment of `scripts/sitemap_audit.py` (`_parse_url`,
+contract sentences 4 and 22) follows the RFC 3986 `URI` grammar instead of what `urlsplit` accepts.**
+Surface: one branch of the tool. Quality work on an admitted capability (round 39), not coverage. It
+answers round-40 spot-check routed defect 4 (interior C0 controls other than TAB/CR/LF) and widens it to
+every ASCII character in six components. Sources: S102 "Please check to make sure that your URLs follow
+the RFC-3986 standard for URIs, the RFC-3987 standard for IRIs, and the XML standard."; S117 (RFC 3986,
+opened this round) §3 / Appendix A `URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]`; S116
+"urlsplit() does not perform validation." Code points U+0080 and above are outside the class: they stay
+accepted where RFC 3986 allows `unreserved`, as RFC 3987 IRI characters (S102 names RFC 3987), which is
+the round-40 behaviour; IP-literal contents and ports above 65535 are outside the class too.
+
+Predicate — this sentence, `PREDICATE` in `.ufo/waves/round-41/c1_count.py` (with
+`met = len(agree) == CASES and passed == CASES`, `CASES = 1434`) and the `predicate` field of every receipt:
+
+    met: the tool's judgment of loc and sitemapUrl agrees with the RFC 3986 URI oracle on 1434 of 1434 generated cases
+
+- **Counting command** (exit 0 met, 1 not met, 2 cannot evaluate; a receipt in every case):
+  `python3 -B .ufo/waves/round-41/c1_count.py --root . --revision <rev> [--seed N] --out <receipt>` (or
+  `--tool-file <path>`). Counter sha256 `2acc443af33466796ad178d8c1ad8350d36250b29e7383bba4ba10d2e4fe67b4`.
+- **Cases** (generated per run from a random seed recorded in the receipt): one inserted unit — each ASCII
+  character legal in XML for `loc` (TAB, LF, CR, U+0020–U+007F: 99), each of U+0000–U+007F for
+  `sitemapUrl` (128), and six percent sequences (`%41 %7e %4G %G4 % %2`) — at an interior position of each
+  of six components (userinfo, host, port, path, query, fragment) of an http(s) URL whose other characters
+  are random characters valid in their component, percent triplets included: 630 `loc` + 804 `sitemapUrl`
+  = 1434. `loc` characters are written raw or as character references at random. Labels come from the
+  oracle only: valid iff the value parses as RFC 3986 `URI` (abnf 2.9.1 `abnf.grammars.rfc3986`, wheel
+  vendored at `.ufo/waves/round-41/oracle/`, sha256 `cdcac127…0917` = the PyPI digest, S118), its scheme
+  is `http`/`https` and it has an authority with a non-empty host. The tool agrees on a `loc` case when it
+  reports `loc_not_absolute` for that entry exactly when the oracle says invalid, on a `sitemapUrl` case
+  when the check is `check_invalid` exactly then; nothing else is read.
+- **Second oracle (pre-data, no tool run):** rfc3987 1.3.8 (`rule="URI"`, wheel `10702b1e…ce53` = PyPI
+  digest, S119) agrees with the oracle on **14,340 of 14,340** cases over seeds 41001–41010
+  (`verification/pre/oracle-crosscheck.json`, `oracle_crosscheck.py`, exit 0).
+- **Sandbox (QUALITY (r)):** one tool run per receipt in bubblewrap (`/usr`, one case directory, the tool;
+  `--unshare-all`, empty environment). Directory, mount, file and id names are random and carry no case
+  identity; labels stay in the counter process. There is no selftest half inside the counter (harm is
+  measured separately, below). The round-40 standing controls score below target: `CtlKeyFinder` ×4
+  **0/1434**, `CtlLabelKeyed` ×2 1012 and 1023, `CtlPositionKeyed` ×5 797–1051
+  (`verification/r40standing/`), so the QUALITY (r) check is green on this counter.
+- **Before:** base `8eb121c8` (do-nothing; tool sha256 `4de35f8c…1460e`) **1049/1434**, not met (seed 41001,
+  `verification/pre/base-8eb121c8.json`; random seed 1035, `base-8eb121c8-random.json`).
+- **Tools scored with this counter before this section** (QUALITY (o), by sha256): base above; L1 cheap
+  controls (`controls/l1/`, `make_l1_controls.py`; receipts `verification/l1/`): constant-clean
+  `f5da0848…` 805, all-`check_invalid` `df21d080…` 813, every-entry-flagged `129be1b7…` 627, junk
+  `c05c1077…` 0, absent 0, C0-only (routed defect 4 alone) `11148d85…` 1208, path-character table
+  ignoring the component `48e8f28d…` 1269, RFC 3986 repertoire test without position `18bc7362…` 1290;
+  and the **L1 reference repair** `6d7c2dd445fc7d3b2df7c3307d18f05c7f2cf6154830430dbc15dd372509010a`
+  (outside the lane until the build lands) **1434/1434** on seeds 41001–41003 and a random seed
+  (`verification/pre/reference-6d7c2dd4-*.json`), selftest `PASS 183/183`, round-39 real run byte-equal
+  (`jq -S . | sha256sum` → `fd985a41…`). The reference is the build candidate, not a control.
+- **Control classes** (QUALITY (n): tools built to skip declared work): absent; constant output; junk;
+  all-false; no-reader (manifest only, or files never parsed); keyed on ids, file names, positions,
+  hosts, seeds or labels; key-finders (anything that reads outside the case directory); generator-shape
+  keyed (recognizes the counter's URL templates instead of judging the grammar); **partial repairs** — any
+  tool built to skip one field (`loc` or `sitemapUrl`), one component, one character group (C0, DEL,
+  space, the printable characters RFC 3986 never allows, misplaced gen-delims) or the percent-triplet rule;
+  **proxy repairs** — a character-repertoire test without position, a per-character table that ignores the
+  component, a regex over raw file bytes, a common-character allow-list. Single-character or
+  single-structure mutants of the reference that drop or add one member of one component's repertoire are
+  partial repairs. **Not a control:** a tool that judges each component's characters against that
+  component's RFC 3986 repertoire, percent triplets included, however written; it does the declared work.
+- **Kill rule.** (1) Before the build lands, if any live-seat control receipt meets the predicate, the
+  claim is redesigned before data or declared exploratory, recorded before the build. (2) After the build
+  is scored, a control that meets the predicate means C1 is **not met**; reported, never relabelled.
+  (3) A build below the predicate is a miss, reported as an honest stop. Control tallies count live seats
+  only; a dead seat's leftovers are listed apart and never scored (round-40 spot-check routed defect 1).
+- **Harm rule.** At the build: `scripts/sitemap_audit_selftest.py` passes every fixture (183 plus the
+  round's new ones, which must be red on `8eb121c8`), and the round-39 real run is byte-equal
+  (`fd985a41…`). Otherwise operability is harmed.
+- **Order:** this section, the counter, the oracles and the L1 receipts land first; the control wave
+  (non-author executor and mutation-tester seats) builds controls of every class above and the L1
+  re-scores every returned tool with these counter bytes and commits the receipts; then the declaration
+  freezes this predicate unchanged (or records the redesign); only then does the build land and get scored.
+  The build gets a fresh non-author review seat before the report (routed defect 2).
