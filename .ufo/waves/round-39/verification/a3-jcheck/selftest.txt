@@ -1,0 +1,17 @@
+$ python3 -B .ufo/waves/round-39/criteria/control_consequence_check.py --selftest
+ok   build only meets: exit 0 want 0
+ok   control named build-*.json meets: exit 1 want 1
+ok   control one hex digit off the build: exit 1 want 1
+ok   control in subdir labelled build: exit 1 want 1
+ok   control at 2 of 3: exit 0 want 0
+ok   met field lies false: exit 2 want 2
+ok   met field lies true: exit 2 want 2
+ok   foreign predicate: exit 2 want 2
+ok   foreign counter sha: exit 2 want 2
+ok   short rows meet nothing: exit 0 want 0
+ok   oracle exempt only when named: exit 0 want 0
+ok   oracle not named: exit 1 want 1
+ok   no receipts: exit 2 want 2
+ok   pass as string 'true' is not a pass: exit 0 want 0
+PASS 14/14
+exit=0

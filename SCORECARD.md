@@ -2412,3 +2412,29 @@ Frozen predicate — this sentence, `PREDICATE` in `.ufo/waves/round-39/sealed_c
   this in its own favour. Nothing in the declaration is changed. The closure rules on both
   readings, and the report carries C1's verdict under each. No other pre-declaration tool scored
   24 (`verification/pre-summary.jsonl`).
+
+## Round 39 — attempt 3: pre-wave control record (appended before any attempt-3 seat is dispatched)
+
+Attempt 2 (`KakeR39A2`) died with the orchestrator at 06:19:06Z after `915e9e87`. Its 40 wave-1
+seats are dead and none is resent. Its uncommitted lane files (`make_w2_spec.py`,
+`verification/c1-at-*.json`, `w1/`) were moved out of the lane unread to
+`/fast/scratch/hyaku/kake-r39a3/attempt2-leftovers/`; nothing here derives from them. Nothing in the
+declaration (`ceecb1b1`) or the drafting-defect record (`915e9e87`) is changed. The sealed key was moved
+to a private path outside every seat's instructions; its sha256 is unchanged (`16440f62…4767c10b`,
+re-hashed 06:46Z).
+
+- **Control receipts, frozen counter, attempt 3 (L1 scorer, key-file mode):**
+  `.ufo/waves/round-39/verification/a3/*.json`. The twelve tools that attempt 2's dead control seats
+  left under `/fast/scratch/hyaku/kake-r39w1/` are scored as controls, whoever wrote them (copies:
+  `.ufo/waves/round-39/a3-controls/dead-w1/`): CodeGuess 23, XsdDelegate 19, RegexOnly 19,
+  ShallowStdlib 13, FirstFinding 12, LabelIds 7, ConstClean manifest-only 6, NoReader 5, ConstClean 5,
+  ConstError 4, Junk 2, ConstFindings 1; none meets. Tool absent at `915e9e87`: 0. The private reference
+  (`663e051e…2d69f8`) re-scores 24 (`ref.json`), which re-derives the declaration's oracle statement.
+- **Margin, recorded before data:** a parser-free keyword guesser reaches 23 of 24. The key is thin at
+  its top; wave 1 attacks this margin with tweaked shortcut controls and new mutants.
+- **QUALITY (j) check v2** (routed defect 4): `.ufo/waves/round-39/criteria/control_consequence_check.py`
+  decides by receipt content (frozen counter, predicate and key; `meets` recomputed from rows; build
+  identified by bytes only); selftest 14/14 (`verification/a3-jcheck/selftest.txt`). On the a3 receipts:
+  reading A (no exemption) exit 1, the reference listed as a control meeting the predicate; reading B
+  (`--oracle-sha 663e051e…`) exit 0 (`verification/a3-jcheck/{A,B}.txt`). Both readings stay open for
+  the closure, as recorded at `915e9e87`.
