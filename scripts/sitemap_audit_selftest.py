@@ -948,6 +948,18 @@ def build_cases():
         {"a.xml": urlset(url(L("http://user:pass@example.com/a")))}, [22],
         rules=[("g", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean",
         checks=[E("a", "clean")])
+    # Round 41 wave 2 (CriticExploratoryBetter): TAB, LF or CR inside an IP
+    # literal stays invalid; urlsplit would delete it and see a valid host.
+    for tag, ref, raw in (("tab", "&#9;", "\t"), ("lf", "&#10;", "\n"), ("cr", "&#13;", "\r")):
+        add("r41_loc_ipv6_literal_%s" % tag,
+            {"a.xml": urlset(url(L("http://[::%s1]/a" % ref)))}, [21, 22],
+            rules=[("g", "neg")], manifest=mf(ck("a", "a.xml", "http://[::1]/")), expect_exit=1,
+            verdict="failed-policy",
+            checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+        add("r41_manifest_url_ipv6_literal_%s" % tag,
+            {"a.xml": urlset(url(L("http://[::1]/a")))}, [4],
+            manifest=mf(ck("a", "a.xml", "http://[::%s1]/" % raw)), expect_exit=2,
+            verdict="could-not-evaluate", checks=[E("a", "error", "check_invalid")])
 
     return cases
 

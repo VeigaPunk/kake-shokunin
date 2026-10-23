@@ -2815,3 +2815,42 @@ v2: `verification/w1v2/` — 10 of 141 meet: `terminal_pct`, `v1_shape`, `strip`
 the two length-gated mutants and the equivalent mutants. Build `0b485431…`, the reference and the
 independent build score 1434 on seeds 41101–41103 under v2; base 1065–1076 (`verification/pre/v2-*.json`).
 It is not frozen and decides nothing this round.
+
+## Round 40 — closure correction (appended in round 41)
+
+Round-40 spot-check routed defect 1: the wave-1 control tally of "Round 40 — kill rule (1) fired" above is
+restated over live seats only — **26 of 72** receipts meet the frozen 30-witness predicate; the dead seat
+`KakeR40.CtlUTabOnly`'s four leftover tools are listed apart (1 of 4 met: `tool_tab_only_query` 30/30) and
+are not independent controls. 26 ≥ 1, so kill rule (1) still fired before `56d57ee4`; no round-40
+conclusion changes (`.ufo/waves/round-41/w1/ReviewR40Restatement.md`, `w2/ReviewR40Correction.md`). The
+round-40 C1 verdict of record is the closure's `unprovable-but-better` (MANIFEST closure, spot-check `8eb121c8`).
+
+## Round 41 — build revised after the wave-2 attack (C1 stays exploratory)
+
+Wave 2 (`kake-r41-w2`, 33 seats, dispatched 10:08:16Z) attacked the landed build `eae5ae2c` (tool
+`0b485431…`). `CriticExploratoryBetter` found a regression against the round-40 tool: TAB, LF or CR inside
+an IP literal (`http://[::<TAB>1]/a`) is accepted, because the build's IP-literal branch admitted any
+character and `urlsplit` then deletes the three characters — six CLI cases (`loc` and `sitemapUrl` × TAB,
+LF, CR) went from rejected to clean. Revision (tool sha256
+`50287ac6de5600ab1fca5a4cb77d9f3b8a170ad0a63f287512f9403bdb1dde7d`): the IP-literal branch admits only
+RFC 3986 IP-literal characters plus `%` (`[A-Za-z0-9._~:!$&'()*+,;=%-]`; contents still judged by `urlsplit`,
+so zone ids keep their round-40 acceptance). Six fixtures `r41_*ipv6_literal_{tab,lf,cr}` added (204):
+red on `eae5ae2c` (`PASS 198/204`, exit 1) and on the base (`PASS 194/204`), green now (`PASS 204/204`,
+exit 0); counter v1 and v2 1434 on seeds 41001–41003; round-39 real run still `fd985a41…`
+(`.ufo/waves/round-41/verification/build3/`). The revised bytes get a fresh seat review in the residual
+call before the report (QUALITY (t)).
+
+**Harm rule, as frozen at `abf457d0`, read literally:** "the round's new [fixtures] must be red on
+`8eb121c8`". Of the 21 `r41_*` fixtures, 16 are red on the base; five are green on both — four valid-value
+controls (`r41_loc_path_sub_delims`, `r41_loc_path_pct_7e`, `r41_loc_ipv6_literal_host`,
+`r41_loc_userinfo_with_colon`) and the parity guard `r41_loc_port_letter` (`CriticClaimSizing` F3,
+`CriticPredicate`). The clause is therefore **not met as written**; by the rule's own last sentence that
+reads "operability is harmed". Reported, not relabelled; no behaviour regression is attributed to those
+five fixtures (they pass on both tools), and the other two harm clauses hold (selftest passes every fixture
+at the build; real run byte-equal). Chronology (`CriticClaimSizing` F1): the reference candidate
+`6d7c2dd4…` was scored 1434 before the control wave, at `abf457d0`; the exploratory disposition does not
+rest on that order.
+
+Corrections to the kill-rule section (appended; `CriticKillRuleRecord`, `RerunW1TallyV2`): `terminal_pct`
+accepts a lone terminal `%` (not `%2`); `m07_query_hash` is not behaviour-equivalent — it fails counter v2
+(1432–1433); the ten tools still meeting v2 also include `CtlNoUserinfoPort` `no-port-v2`.

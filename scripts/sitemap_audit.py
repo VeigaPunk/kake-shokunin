@@ -77,7 +77,7 @@ _PCHAR = "(?:[" + _UNRESERVED + _SUB_DELIMS + ":@]|" + _PCT + ")"
 _URI_RE = re.compile(
     "\\A[A-Za-z][A-Za-z0-9+.\\-]*:"                                  # scheme ":"
     "//(?:(?:[" + _UNRESERVED + _SUB_DELIMS + ":]|" + _PCT + ")*@)?"  # userinfo "@"
-    "(?:\\[[^\\]]*\\]"                                                # IP-literal
+    "(?:\\[[A-Za-z0-9._~:!$&'()*+,;=%\\-]*\\]"                         # IP-literal (contents: urlsplit)
     "|(?:[" + _UNRESERVED + _SUB_DELIMS + "]|" + _PCT + ")+)"         # reg-name, IPv4
     "(?::[0-9]*)?"                                                    # ":" port
     "(?:/" + _PCHAR + "*)*"                                           # path-abempty
