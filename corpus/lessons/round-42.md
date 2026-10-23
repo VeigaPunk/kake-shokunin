@@ -19,6 +19,9 @@ there; fetched 2026-10-23T11:24:53Z; each body equal to the wave-1 scouts' fetch
 | S123 | https://docs.python.org/3/library/re.html | 2026-10-23T11:24:53Z, HTTP 200, 251,811 bytes, sha256 `1559698e…8f17e2` | "these do not allow back-tracking when the expression following it fails to match" (lines 357–373; "Added in version 3.11.") | admit — grounds the build technique |
 | S124 | https://www.rfc-editor.org/rfc/rfc9844.txt | 2026-10-23T11:24:53Z, HTTP 200, 19,292 bytes, sha256 `7585b9a9…c4b135` | "This document completely obsoletes [RFC6874]" (line 192); obsoleting it "reverts the change that it made to the URI syntax" (195–196) | admit — grounds the declared zone-id behaviour |
 | S125 | https://www.rfc-editor.org/rfc/rfc6874.txt | 2026-10-23T11:24:53Z, HTTP 200, 19,361 bytes, sha256 `5f54b04f…9380d5` | "ZoneID = 1*( unreserved / pct-encoded )" (line 200) | **reject** — obsoleted by RFC 9844 (S124); cannot ground current URI syntax |
+| S126 | https://docs.python.org/3/library/re.html | re-opened 2026-10-23T12:13:37Z by wave-2 `ReopenPythonRe` (HTTP 200, 251,811 bytes, sha256 `1559698e…8f17e2`, bytes equal to 11:24:53Z retention) | "these do not allow back-tracking when the expression following it fails to match" (lines 357–373) | admit — supersedes S123; corrects the teaches wording and the Gate decision (the possessive-quantifier build was rejected, `8a30432d…` fails H5; the row documents the technique, not the landed build) |
+| S127 | https://www.rfc-editor.org/rfc/rfc9844.txt | re-opened 2026-10-23T12:13Z by wave-2 `ReopenRFC9844` (HTTP 200, 19,292 bytes, sha256 `7585b9a9…c4b135`, bytes equal) | "reverts the change that it made to the URI syntax" (lines 195–197) | admit — supersedes S124; zone suffixes incl. `%25eth0` are outside URI syntax; the non-ASCII/`\|` rejection is the lane's RFC 3986 charset declaration, which S127 does not itself single out |
+| S128 | https://www.rfc-editor.org/rfc/rfc6874.txt | re-opened 2026-10-23T12:13Z by wave-2 `ReopenRFC9844` (HTTP 200, 19,361 bytes, sha256 `5f54b04f…9380d5`, bytes equal) | "ZoneID = 1*( unreserved / pct-encoded )" (lines 198–202) | **reject** — as S125, with the contract-required `flip:` added; flip: an un-obsoleted zone-id URI grammar or an operator ruling that legacy zone-id acceptance grounds the behaviour would reverse it |
 
 Row changes this round (CORPUS.md §SOURCES.md rule 2: only `status`, `recheck`, `used-by` change in place; a
 correction is a superseding row whose `teaches` opens `supersedes S0NN —`):
@@ -26,8 +29,24 @@ correction is a superseding row whose `teaches` opens `supersedes S0NN —`):
 - S117 `anchor` and `teaches`, S118 `teaches`, S119 `teaches`: the in-place edits of round 41 (`2653b629`,
   `0c5ad2f6`) are reverted to the cells committed at `9e3c31d2`; the corrected text is carried by S120, S121,
   S122 (`w1/ScribeSupersedingRows.md`). `used-by` of S117–S119 stays `SCORECARD.md, corpus/lessons/round-41.md`
-  (an allowed change, logged in round 41).
-- S120–S125 added (5 admitted, 1 rejected). No other `status`, `recheck` or `used-by` change.
+  (an allowed change, logged in round 41). [attempt-2 correction: that `used-by` string is S117's only; S118's
+  is `.ufo/waves/round-41/c1_count.py, SCORECARD.md` and S119's is `.ufo/waves/round-41/oracle_crosscheck.py,
+  SCORECARD.md` — flagged by wave-2 `ReopenPyPIRows`/`ReviewSourcesRule2`; substantive claim (unchanged since
+  round 41) holds.]
+- S120–S125 added (5 admitted, 1 rejected). No other `status`, `recheck` or `used-by` change at that
+  commit. Appended by attempt 2 (inherited uncommitted edits, re-verified before commit):
+- S123 `used-by` old→new: `SCORECARD.md, corpus/lessons/round-42.md` → `corpus/lessons/round-42.md`
+  (SCORECARD never cites S123 — wave-2 `ReopenPythonRe`; the row's own lesson cite remains). S124 `used-by`
+  old→new: `SCORECARD.md, corpus/lessons/round-42.md` → `SKILL.md, corpus/lessons/round-42.md` (SKILL.md:1181
+  cites S124; SCORECARD does not). Rule-2-permitted cells, logged here.
+- S126–S128 added as superseding rows (corrections; teaches is not an in-place cell): S126 supersedes S123
+  (`ReopenPythonRe`: "as many **times** as possible", "are equivalent to", and the Gate decision "grounds the
+  build technique" corrected — the technique was rejected as the build, `8a30432d…` fails H5); S127 supersedes
+  S124 (`ReopenRFC9844`: zone suffixes incl. `%25eth0` are outside URI syntax; RFC 9844 does not itself name
+  non-ASCII/`|`, it explains the revert); S128 supersedes S125 (`ReviewSourcesRule2`: adds the missing `flip:`
+  clause; corrects "cannot ground the declared zone-id behaviour" — RFC 6874's grammar does reject raw
+  non-ASCII/`|`, it is the obsolescence that disqualifies it). Sources re-opened by wave-2 seats
+  2026-10-23T12:13Z (HTTP 200, bytes equal to the 11:24:53Z retentions); Gate rows below.
 
 Rejects this round (each recorded before the build was scored):
 
@@ -81,3 +100,21 @@ Rejects this round (each recorded before the build was scored):
 4. **Class: wrong clock read by the L1 (this round).** Evidence: `w1-dispatch-log.txt` settle line; a
    "deadline passed" notice went to five live seats at 11:41Z, 18 minutes early, corrected at 11:42Z.
    Captured-by: none. Fix: read `date -u` before any deadline message (applied for the rest of the round).
+5. **Class: counter coverage silent on named control classes (this round, found by wave 2).** Evidence:
+   `w2/MutBuildAuthority.md` M8-port-five-digits meets v3 (10/10, two seeds; L1 re-score
+   `verification/w2v3/L1-M8-port-five-digits.json`) with witness `http://host.example:0000080/` — the
+   counter never generates a port longer than 5 digits; `w2/CtlFreshCache.md` v1/v2/v4 meet v3 (L1 re-scores
+   `L1-v1_casefold.json`, `L1-v2_prefix32.json`, `L1-v4_hosttable.json`, 10/10 each) with witnesses — no
+   generated value repeats structure (case variants, shared 32-code-point prefixes, static-table hosts),
+   although the retained real run repeats prefixes at 99.2%. Captured-by: none — QUALITY (x) covered
+   repertoire units in slots, not value lengths or repetition classes; the pre-freeze control wave attacked
+   the counter with regex mutants, not generator coverage. Fix (next round's counter criteria, frozen before
+   any seat scores): timing/equality shapes must include 6+-digit ports and repetition classes (case-fold
+   pairs, shared-prefix pairs, repeated hosts, common-host tables); able to fail — all four tools meet v3
+   today and would fail such a counter.
+6. **Class: instrument redesigned after seats scored (this round; freeze provenance).** Evidence:
+   `w2/CriticKillRule.md` (ATTACK SUPPORTED): v1→v2→v3 redesigns followed wave-1 scores, while the round
+   prompt freezes the counter before any seat scores; the lane substituted "before the build is scored".
+   Captured-by: the prompt's own freeze sentence — read as binding before the first control score, not
+   before the build score. Fix: none this round (another post-data change would repeat the defect);
+   disclosed in SCORECARD and left to the canonical closure. The predicate sentence itself never changed.

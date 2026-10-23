@@ -3105,3 +3105,75 @@ ratios above; H4 (`harm/h4_probe.py` `e067e5d4…` with the lane wheel path; 20,
 19,750, validReject 0, newAccept 0, oracle disagreements 0 (round-40 tool 4,015); seed 42001: 19,720, 0, 0, 0
 (3,989); H5 selftest under Python 3.10.22 `PASS 235/235` (round-41 tool also 235/235). Kill rule (2) is open to
 wave 2's fresh controls; the verdict section follows the wave.
+
+## Round 42 — wave-2 attack results and verdict (appended by attempt 2; admission belongs to the non-author closure)
+
+Wave 2 (`kake-r42-w2`, one `task` call, 34 seats — 15 reviewer, 7 mutation-tester, 5 scout, 4 executor,
+3 critic; dispatched 12:13:10Z, settled, 0 dead, 0 refused). Attack outputs: `w2/`. **Kill rule (2) fires:
+four live-seat controls meet the frozen predicate under counter v3, each with a witness** per the equivalence
+differential frozen at `d1c3f372`:
+
+| Control | Class (frozen list) | sha256 | Seat receipts (met) | L1 re-score (`verification/w2v3/`, fresh `os.urandom` seeds) | Witness (round-41 tool vs control) |
+|---|---|---|---|---|---|
+| `MutBuildAuthority/M8-port-five-digits` | single-structure mutant, port | `391608309640…` | 10/10 ×2 seeds | `L1-M8-port-five-digits.json` — met, 10/10, ratios ≤1.475, seed 215890093716836 | `http://host.example:0000080/` — round-41 tool parses (port 80), M8 `None`; CLI clean → failed-policy |
+| `CtlFreshCache/v1_casefold` | caching across values | `9993b842…` | 10/10 | `L1-v1_casefold.json` — met, 10/10, ratios ≤1.796, seed 204644689653110 | `http://h.example/abdir/x` answered from case-folded memo (`/ABdir/x`); CLI entry flips |
+| `CtlFreshCache/v2_prefix32` | caching across values | `eadf5df4…` | 10/10 | `L1-v2_prefix32.json` — met, 10/10, ratios ≤1.602, seed 234865355777660 | second value sharing a 32-code-point prefix answered from table; two `loc_not_absolute` instead of one |
+| `CtlFreshCache/v4_hosttable` | caching / skipped URI check | `dc8b6ecd…` | 10/10 | `L1-v4_hosttable.json` — met, 10/10, ratios ≤1.664, seed 129858960042458 | `http://localhost/%zz` answered from static host table; CLI `loc_not_absolute` → clean |
+
+Coverage gaps in counter v3 that let them through (mined as lesson Mistake 5): no generated port exceeds 5
+digits (`c42_count_v3.py` port construction; T4's retained real run has none either), and no generated value
+repeats structure — no case variants, no shared 32-code-point prefixes (T4 repeats prefixes at 99.2% in the
+real run, but always identical full values), no static-table hosts. The fourth CtlFreshCache tool
+(`v3_perhost`) was caught 3/10.
+
+**Verdict: C1 is NOT MET** — under the frozen kill rule, "after the build is scored, a control that meets
+means C1 is not met; reported, never relabelled." Reported as a miss, not an honest-stop withdrawal: the
+build itself remains verified on the evidence — wave-2 `ReviewBuildFinal` (~5.8M differential values, 0
+mismatches), `ReviewBuildDifferential` (1,380,000 gate + 1,380,000 `_parse_url` comparisons, 0 mismatches),
+`RerunBuildA`/`RerunBuildB` (both reproduce the L1 build receipts: met, 10/10, max ratio 1.720 vs 2.0),
+`ReviewHarmSelftest` (52/52 fixture equality build-vs-tip41 on both interpreters), `ReviewHarmRealRun`
+(H2 byte-equal `fd985a41…`), `ReviewHarmH4` (in-class zeros at three seeds), `SentinelV3Timing` (no CPU forge
+route survives v3). Mutation coverage elsewhere: 40+ one-member mutants killed across authority, IP-literal,
+non-ASCII, path, percent, query/fragment and scheme surfaces (`w2/MutBuild*.md`); the surviving meeting
+mutants without witnesses (M7, m4, mut7, M1–M7/M10 scheme) are behaviour-equal rewrites, not controls, per
+the frozen differential. H1–H5 hold as scored, with the scope qualifications in the routed defects below.
+Round 41 stays rejected-harmed; its tool `50287ac6…` is not admitted by this round.
+
+**Routed defects recorded for the canonical closure** (disclosure, not self-repair; changing the scored rule
+after data would repeat defect 1):
+
+1. **Freeze provenance (CriticKillRule, ATTACK SUPPORTED).** Counters v1→v2→v3 were redesigned after wave-1
+   seats had scored (nine v1 meetings forced it), while the round prompt §6.9 freezes the counter before any
+   seat scores; the lane substituted "before the build is scored". The predicate sentence, kill rule and
+   harm rule are unchanged; the evaluated population grew 8→9→10 runs. The seat's recommendation —
+   present C1 as an exploratory engineering improvement or rule the provenance defect — belongs to the
+   closure. The measured result above stands on the frozen v3 bytes with the chronology disclosed.
+2. **H4 counters are in-class only (ReviewHarmH4; CriticHarm).** The unqualified H4 clause ("rejects no
+   value both base and oracle accept, accepts no value the base rejects") is established on the filtered
+   in-class population (19,7xx/20,000 per seed); out-of-class changed cases observed were all
+   base-reject/candidate-accept-none contrary. No contrary case observed; the broad clause is not fully
+   measured.
+3. **H5 provenance (CriticHarm).** H5 was added after the L1 observed the Python 3.10 incompatibility,
+   before counter scoring; a defensible stricter safeguard, not pre-data, not a relaxation.
+4. **Unpriced dimensions (CriticHarm).** The counter prices CPU (user+system) only; wall time, RSS and
+   maintainability are unpriced. No regression asserted; disclosed.
+5. **QUALITY (v) fooled-as-gate (ReviewQualityV).** `harm_rule_check.py` is lexical and bypassable in both
+   directions (four synthetic probes); retained as smoke evidence only (it is correctly red on round 41,
+   green on round 42 bytes).
+6. **Q(u) support gaps in run E (CriticClaimSizing).** Optional components (absent/empty path, bracket-host
+   query) are not varied as non-target forms; no surviving control — the witness criterion is unaffected.
+7. **Wave-1 equivalence exclusions stand.** `portpct`, `mutant_empty_host`, `mutant_port_letters` remain
+   not-controls under the frozen differential (31,415 values, 0 differences; seats found no witness).
+
+**Frontier (this section completes the round's frontier step).** S123/S124 `used-by` repaired in place
+(allowed cells; old→new logged in `corpus/lessons/round-42.md`); S126–S128 landed as superseding rows for
+S123 (teaches wording per `ReopenPythonRe`), S124 (zone-id grounding per `ReopenRFC9844`) and S125 (missing
+`flip:` clause per `ReviewSourcesRule2`); wave-2 reopen bytes equal the retained bytes. Census exit 0 before
+(`census-before.txt`) and after (`census-after.txt`); rows 128 → 131, mined rows +1 net of supersessions.
+
+**Learning trends (author-side).** Expansion unchanged (no capability enters the table; C1 is not met).
+Quality: harmed-bound — the round's claimed improvement does not verify, but the counter's real coverage
+gaps (port length, repetition classes) are now named with able-to-fail receipts, the registry's round-41
+rule-2 breaches are repaired, and the build's behaviour-equality is established far beyond the counter.
+Discernment: improved locally — an honest negative result reported against the lane's own interest, four
+meeting controls self-reported with witnesses instead of relabelled; outside spot-check owed.
