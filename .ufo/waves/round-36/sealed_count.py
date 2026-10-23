@@ -31,6 +31,15 @@ counter's command line through /proc and so learn the key path or key revision, 
 from the lane. Version 2 runs the tool in a bubblewrap jail (see `jail`). The cases, the key pin,
 the projection, the judge and the predicate are unchanged.
 
+Version 3 (before any build; version 2 kept as `sealed_count_v2.py`): only `KEY_SHA256` changed.
+The pre-freeze control wave's `CtlShortcut` (17 of 28, below target) passed every case of bullets
+(e) and (f) without opening a body, because every quote check in those cases expected a hold and
+the c/d cases used one fixed contentType. Key version 2 adds checks whose correct answer is
+`quote_missing` where a skipped rule would give a hold (text/plain with a reference, an xhtml
+script, UTF-8 bytes under a windows-1252 label) and rotates contentTypes across the c and d
+checks. Same 28 case ids, 4 per bullet; the projection, the judge, the jail and the predicate
+are unchanged.
+
 Exit 0 when met, 1 when not met, 2 when it cannot evaluate (unresolved revision, key sha256
 mismatch, key visible at REV).
 """
@@ -49,7 +58,7 @@ import uuid
 from pathlib import Path
 
 KEY_PATH = ".ufo/waves/round-36/sealed/cases.json"
-KEY_SHA256 = "a690d39e912cf641baa14f101f461e31304ac336c59a41c9689aacf91e02f9ca"
+KEY_SHA256 = "44c94838f31af6740a3f1bb4123abe6cbb8df0bbdd3414de7acbb3838863ef1d"
 TOOL = "scripts/source_recheck.py"
 CASES = 28
 TARGET = 25

@@ -1676,3 +1676,32 @@ cases`) are unchanged. No build exists and no control seat's tool had been score
 version 2 (`.ufo/waves/round-36/verification/`): base `b720d799` 0 of 28 and declaration
 `3555f63f` 0 of 28, exit 1; the private reference 28 of 28; each of the 34 rule ablations 16 to
 24 of 28, none met (`verification/ablations/`).
+
+### Round 36 — control wave, key version 2 and counter version 3, before any build (appended)
+
+Pre-freeze control wave `kake-r36-ctl` (7 seats, critic and mutation-tester). Five controls
+were built from the public text only and committed as sandbox commits on `9d81c75c` (bundles
+`.ufo/waves/round-36/retained/r36-control-*.bundle`; seat reports `.ufo/waves/round-36/ctl/`).
+`CtlJunk` and `CtlCounterExploit` ended at once on a provider cyber-policy filter: holds, not
+retried, no findings. Scored with counter version 2 (receipts kept in `verification/v2/`):
+constant clean 0, all-false 0, no-reader 8, naive reader 12, shortcut 17 of 28, none met.
+
+`CtlShortcut` passed all eight cases of bullets (e) and (f) without opening a body: every quote
+check there expected a hold, and the c and d checks used one fixed contentType, so a tool keyed
+on that label could skip the text/plain, xhtml and decoding rules. That is a control meeting the
+work of two bullets, so the key was redesigned before any build. Key version 2 (same 28 case
+ids, 4 per bullet) adds checks whose correct answer is `quote_missing` where a skipped rule gives
+a hold (text/plain with a reference, xhtml script text, UTF-8 bytes under a windows-1252 label)
+and rotates contentTypes across the c and d checks. Counter version 3 (sha256 `88ec5914…`,
+version 2 kept as `sealed_count_v2.py`) changes only `KEY_SHA256`. The predicate is unchanged:
+`met: passed >= 25 of 28 sealed cases`.
+
+Rescored under version 3 (`verification/control-*.json`, `verification/ablations/`): base
+`b720d799` 0, declaration `3555f63f` 0, `9d81c75c` 0; constant clean 0, all-false 0, no-reader
+8, naive reader 12, shortcut 9 of 28; the private reference 28; 36 ablations 13 to 24, none met,
+including two shortcut ablations: full HTML rules only for `text/html; charset=utf-8` (13) and
+no decoding with every undecodable body called a hold (24).
+
+Correction of the declaration's base line: the full base hash is
+`b720d799ae99c19a7c97f2b1391d4fe928be0e11`. The hash written at `3555f63f` after "Base" is wrong
+(an L1 typing error); every receipt used the short form `b720d799` or the hash above.
