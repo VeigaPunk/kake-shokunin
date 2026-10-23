@@ -1945,3 +1945,28 @@ before data or the claim is dropped; no redesign that separates contract-grounde
 expectations was found in time, so C2 is not a claim of this round. The fixture repair for the
 five selftest survivors (routed defect 3) continues as non-claim work; its counter output is
 reported as evidence only. C1 is the round's only claim.
+
+### Round 37 — shortcut control follow-up, before any build is measured (appended)
+
+`CtlC1Shortcut` was dead (quota error, no output). The living seat `CtlC1NoReader` built the
+shortcut control as a disclosed follow-up (`ctl/CtlC1NoReader-shortcut.md`; tool retained as
+`retained/controls/CtlC1Shortcut-followup-robots_audit.py`, sha256 `61724ead…7d`). It found no
+id, file-name or URL-word heuristic worth trying (the counter randomizes ids and file names), so
+it read the public per-case receipts, kept Python's `urllib.robotparser` (the naive reader, 20 of
+28, failing only bullets (b) and (e)) and added six one-line patches, each copying one contract
+rule of (b) or (e): read only 512000 bytes, drop a BOM, split only at CR/LF/CRLF, drop non-record
+keys so they do not end a group, pass `path[?query]` without the fragment, keep reserved `%XX`
+distinct. Scored by the L1 with the frozen counter: **28 of 28, met**
+(`verification/control-CtlC1Shortcut-followup.json`).
+
+Disposition, recorded before any build is measured: this control does not skip the claimed work.
+It implements the (b) and (e) rules the stdlib lacks and delegates (c) and (d) to a library whose
+group and matching rules agree with the contract on every sealed case; without the six rule
+patches it scores 20. Every control that skips a bullet's rules stays at or below 24 (ablations),
+and every do-nothing, junk, constant, all-false and no-reader control at or below 4. C1 is kept as
+declared; the predicate, key and counter are unchanged. Limit, stated now: the sealed cases do not
+separate the contract from `urllib.robotparser` where the two differ (substring user-agent match,
+a non-final `$`, how `*` and `$` count toward rule length, per the naive-reader report), nor from
+the 28 single-point reference mutants of `MutRefPass`. A tool meeting 25 of 28 is shown to follow
+the tested rules of (a)–(g), not every contract sentence; the robots selftest is the instrument for
+the rest.
