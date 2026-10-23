@@ -1,0 +1,1224 @@
+{
+  "version": 1,
+  "checks": [
+    {
+      "id": "rfc-editor-rfc9309-html",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "expect": "allow",
+      "robots": "www_rfc-editor_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.rfc-editor.org/robots.txt",
+        "finalUrl": "https://www.rfc-editor.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:15Z",
+        "bodySha256": "df052cf390448ea2916ce4d3b5f6e42880cd246ea2bf1d5efce5596b1b2e3827",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /rfc/authors/"
+          },
+          {
+            "line": 3,
+            "text": "Disallow: /rfc/rerendered/"
+          },
+          {
+            "line": 4,
+            "text": "Disallow: /rfc/v3test/"
+          }
+        ],
+        "why": "The group's only rule values are the three Disallow paths; none of them is a prefix of /rfc/rfc9309.html, so the published spec page is meant to stay crawlable (the file also advertises a sitemap)."
+      }
+    },
+    {
+      "id": "rfc-editor-rerendered",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/rerendered/rfc9309.html",
+      "expect": "disallow",
+      "robots": "www_rfc-editor_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.rfc-editor.org/robots.txt",
+        "finalUrl": "https://www.rfc-editor.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:15Z",
+        "bodySha256": "df052cf390448ea2916ce4d3b5f6e42880cd246ea2bf1d5efce5596b1b2e3827",
+        "quotes": [
+          {
+            "line": 3,
+            "text": "Disallow: /rfc/rerendered/"
+          }
+        ],
+        "why": "The path begins with the disallowed /rfc/rerendered/ subtree, which the publisher keeps out of crawlers."
+      }
+    },
+    {
+      "id": "rfc-editor-authors",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/authors/",
+      "expect": "disallow",
+      "robots": "www_rfc-editor_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.rfc-editor.org/robots.txt",
+        "finalUrl": "https://www.rfc-editor.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:15Z",
+        "bodySha256": "df052cf390448ea2916ce4d3b5f6e42880cd246ea2bf1d5efce5596b1b2e3827",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /rfc/authors/"
+          }
+        ],
+        "why": "The URL path is exactly the disallowed authoring area, which the publisher hides from crawlers."
+      }
+    },
+    {
+      "id": "rfc-editor-v3test",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/v3test/42/experiment",
+      "expect": "disallow",
+      "robots": "www_rfc-editor_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.rfc-editor.org/robots.txt",
+        "finalUrl": "https://www.rfc-editor.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:15Z",
+        "bodySha256": "df052cf390448ea2916ce4d3b5f6e42880cd246ea2bf1d5efce5596b1b2e3827",
+        "quotes": [
+          {
+            "line": 4,
+            "text": "Disallow: /rfc/v3test/"
+          }
+        ],
+        "why": "The test tree under /rfc/v3test/ is disallowed and the URL sits inside it."
+      }
+    },
+    {
+      "id": "rfc-editor-rfc-index",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.rfc-editor.org/rfc/",
+      "expect": "allow",
+      "robots": "www_rfc-editor_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.rfc-editor.org/robots.txt",
+        "finalUrl": "https://www.rfc-editor.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:15Z",
+        "bodySha256": "df052cf390448ea2916ce4d3b5f6e42880cd246ea2bf1d5efce5596b1b2e3827",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /rfc/authors/"
+          },
+          {
+            "line": 3,
+            "text": "Disallow: /rfc/rerendered/"
+          },
+          {
+            "line": 4,
+            "text": "Disallow: /rfc/v3test/"
+          }
+        ],
+        "why": "The RFC index is outside all three disallowed subtrees, so a publisher intends it to be indexed."
+      }
+    },
+    {
+      "id": "google-youtube-partner-docs",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developers.google.com/youtube/partner/docs",
+      "expect": "disallow",
+      "robots": "developers_google_com.txt",
+      "evidence": {
+        "sourceUrl": "https://developers.google.com/robots.txt",
+        "finalUrl": "https://developers.google.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:16Z",
+        "bodySha256": "2d1ba1920a0abea6cc98c20c6e461c379f6582740e0a6bd2a852dcb762edcdba",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /youtube/partner/"
+          }
+        ],
+        "why": "The partner documentation subtree is the file's only rule and the URL is inside it."
+      }
+    },
+    {
+      "id": "google-youtube-partner-hub",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developers.google.com/youtube/partner",
+      "expect": "allow",
+      "robots": "developers_google_com.txt",
+      "evidence": {
+        "sourceUrl": "https://developers.google.com/robots.txt",
+        "finalUrl": "https://developers.google.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:16Z",
+        "bodySha256": "2d1ba1920a0abea6cc98c20c6e461c379f6582740e0a6bd2a852dcb762edcdba",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /youtube/partner/"
+          }
+        ],
+        "why": "The rule value ends in a slash, so the hub path /youtube/partner (no trailing slash) is not covered; the publisher blocks the documentation subtree, not the hub."
+      }
+    },
+    {
+      "id": "google-search-robots-txt-doc",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt",
+      "expect": "allow",
+      "robots": "developers_google_com.txt",
+      "evidence": {
+        "sourceUrl": "https://developers.google.com/robots.txt",
+        "finalUrl": "https://developers.google.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:16Z",
+        "bodySha256": "2d1ba1920a0abea6cc98c20c6e461c379f6582740e0a6bd2a852dcb762edcdba",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /youtube/partner/"
+          }
+        ],
+        "why": "The only rule covers /youtube/partner/, so Google's own robots.txt specification page stays crawlable."
+      }
+    },
+    {
+      "id": "google-sitemap-xml",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developers.google.com/sitemap.xml",
+      "expect": "allow",
+      "robots": "developers_google_com.txt",
+      "evidence": {
+        "sourceUrl": "https://developers.google.com/robots.txt",
+        "finalUrl": "https://developers.google.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:16Z",
+        "bodySha256": "2d1ba1920a0abea6cc98c20c6e461c379f6582740e0a6bd2a852dcb762edcdba",
+        "quotes": [
+          {
+            "line": 3,
+            "text": "Sitemap: https://developers.google.com/sitemap.xml"
+          }
+        ],
+        "why": "The publisher advertises this file in the ignored Sitemap record; no rule disallows it."
+      }
+    },
+    {
+      "id": "github-account-login",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://github.com/account-login",
+      "expect": "disallow",
+      "robots": "github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://github.com/robots.txt",
+        "finalUrl": "https://github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:18Z",
+        "bodySha256": "b622e2dd9b60e8540ffd1f4b0974c9dbee73bce606f9660c6344d09357889956",
+        "quotes": [
+          {
+            "line": 360,
+            "text": "User-agent: *"
+          },
+          {
+            "line": 364,
+            "text": "Disallow: /account-login"
+          }
+        ],
+        "why": "Googlebot has no group of its own here, so the * group decides, and it disallows /account-login."
+      }
+    },
+    {
+      "id": "github-search",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://github.com/search",
+      "expect": "disallow",
+      "robots": "github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://github.com/robots.txt",
+        "finalUrl": "https://github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:18Z",
+        "bodySha256": "b622e2dd9b60e8540ffd1f4b0974c9dbee73bce606f9660c6344d09357889956",
+        "quotes": [
+          {
+            "line": 360,
+            "text": "User-agent: *"
+          },
+          {
+            "line": 372,
+            "text": "Disallow: /search$"
+          }
+        ],
+        "why": "The anchored rule matches the path /search exactly, which the publisher keeps out of crawlers."
+      }
+    },
+    {
+      "id": "github-gist",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://github.com/gist/veigapunk/abc123",
+      "expect": "disallow",
+      "robots": "github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://github.com/robots.txt",
+        "finalUrl": "https://github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:18Z",
+        "bodySha256": "b622e2dd9b60e8540ffd1f4b0974c9dbee73bce606f9660c6344d09357889956",
+        "quotes": [
+          {
+            "line": 360,
+            "text": "User-agent: *"
+          },
+          {
+            "line": 370,
+            "text": "Disallow: /gist/"
+          }
+        ],
+        "why": "The gist subtree is disallowed for the * group and the URL is inside it."
+      }
+    },
+    {
+      "id": "github-raw-file",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://github.com/veigapunk/kake-shokunin/raw/main/README.md",
+      "expect": "disallow",
+      "robots": "github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://github.com/robots.txt",
+        "finalUrl": "https://github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:18Z",
+        "bodySha256": "b622e2dd9b60e8540ffd1f4b0974c9dbee73bce606f9660c6344d09357889956",
+        "quotes": [
+          {
+            "line": 360,
+            "text": "User-agent: *"
+          },
+          {
+            "line": 378,
+            "text": "Disallow: /*/raw/"
+          }
+        ],
+        "why": "With * standing for owner/repository the rule matches the /raw/ path inside the repository."
+      }
+    },
+    {
+      "id": "github-features-page",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://github.com/features",
+      "expect": "allow",
+      "robots": "github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://github.com/robots.txt",
+        "finalUrl": "https://github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:18Z",
+        "bodySha256": "b622e2dd9b60e8540ffd1f4b0974c9dbee73bce606f9660c6344d09357889956",
+        "quotes": [
+          {
+            "line": 360,
+            "text": "User-agent: *"
+          }
+        ],
+        "why": "The * group holds 165 rule records (all anchored on path words such as /account-login, /search, /*/raw/ or /*?tab=*); none of them matches the single-segment path /features, so the product page is indexable."
+      }
+    },
+    {
+      "id": "github-repository-page",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://github.com/veigapunk/kake-shokunin",
+      "expect": "allow",
+      "robots": "github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://github.com/robots.txt",
+        "finalUrl": "https://github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:18Z",
+        "bodySha256": "b622e2dd9b60e8540ffd1f4b0974c9dbee73bce606f9660c6344d09357889956",
+        "quotes": [
+          {
+            "line": 360,
+            "text": "User-agent: *"
+          }
+        ],
+        "why": "A two-segment repository path matches none of the group's rules (the /*/*/ records all require a third segment such as commits/ or archive/), so repository pages are meant to be crawled."
+      }
+    },
+    {
+      "id": "github-achievements-tab",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://github.com/veigapunk?tab=achievements&achievement=foo",
+      "expect": "allow",
+      "robots": "github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://github.com/robots.txt",
+        "finalUrl": "https://github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:18Z",
+        "bodySha256": "b622e2dd9b60e8540ffd1f4b0974c9dbee73bce606f9660c6344d09357889956",
+        "quotes": [
+          {
+            "line": 361,
+            "text": "Allow: /*?tab=achievements&achievement=*"
+          },
+          {
+            "line": 522,
+            "text": "Disallow: /*?tab=*"
+          }
+        ],
+        "why": "Both rules match the path plus query; the Allow value is longer (33 vs 8 octets), so it decides and the achievements tab the publisher singles out stays reachable."
+      }
+    },
+    {
+      "id": "docs-pages-landing",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://docs.github.com/en/pages",
+      "expect": "allow",
+      "robots": "docs_github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://docs.github.com/robots.txt",
+        "finalUrl": "https://docs.github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:19Z",
+        "bodySha256": "d9066d29c1dfed62e1bbde2c102079a5ccc0c1e9f669644fd89fd652cdc156bb",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "User-agent: *"
+          }
+        ],
+        "why": "The 13-byte file holds a single user-agent record and no Allow or Disallow record, so no path is restricted."
+      }
+    },
+    {
+      "id": "docs-pages-configuring-source",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+      "expect": "allow",
+      "robots": "docs_github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://docs.github.com/robots.txt",
+        "finalUrl": "https://docs.github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:19Z",
+        "bodySha256": "d9066d29c1dfed62e1bbde2c102079a5ccc0c1e9f669644fd89fd652cdc156bb",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "User-agent: *"
+          }
+        ],
+        "why": "Same single-record file: the documented Pages page has no matching rule and is meant to be indexed."
+      }
+    },
+    {
+      "id": "docs-rest-pages",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://docs.github.com/en/rest/pages/pages",
+      "expect": "allow",
+      "robots": "docs_github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://docs.github.com/robots.txt",
+        "finalUrl": "https://docs.github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:19Z",
+        "bodySha256": "d9066d29c1dfed62e1bbde2c102079a5ccc0c1e9f669644fd89fd652cdc156bb",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "User-agent: *"
+          }
+        ],
+        "why": "The REST reference page has no matching rule in a file that declares none."
+      }
+    },
+    {
+      "id": "docs-robots-itself",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://docs.github.com/robots.txt",
+      "expect": "allow",
+      "robots": "docs_github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://docs.github.com/robots.txt",
+        "finalUrl": "https://docs.github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:19Z",
+        "bodySha256": "d9066d29c1dfed62e1bbde2c102079a5ccc0c1e9f669644fd89fd652cdc156bb",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "User-agent: *"
+          }
+        ],
+        "why": "No rule restricts it and /robots.txt is allowed whenever the served file decides."
+      }
+    },
+    {
+      "id": "sitemaps-protocol",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.sitemaps.org/protocol.html",
+      "expect": "allow",
+      "robots": "www_sitemaps_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.sitemaps.org/robots.txt",
+        "finalUrl": "https://www.sitemaps.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:20Z",
+        "bodySha256": "19edcf7d91eacae4843aa8537e1dcd7bb9ebbc14c4c0fc869cfdcbe11703dd2d",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "Sitemap: https://www.sitemaps.org/sitemap.xml"
+          }
+        ],
+        "why": "The file's only record is a Sitemap, which is ignored and does not open a group; with no group at all no rule applies and the protocol page is meant to be indexed."
+      }
+    },
+    {
+      "id": "sitemaps-sitemap-xml",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.sitemaps.org/sitemap.xml",
+      "expect": "allow",
+      "robots": "www_sitemaps_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.sitemaps.org/robots.txt",
+        "finalUrl": "https://www.sitemaps.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:20Z",
+        "bodySha256": "19edcf7d91eacae4843aa8537e1dcd7bb9ebbc14c4c0fc869cfdcbe11703dd2d",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "Sitemap: https://www.sitemaps.org/sitemap.xml"
+          }
+        ],
+        "why": "No group exists and the publisher advertises the sitemap, so it is meant to be fetched."
+      }
+    },
+    {
+      "id": "sitemaps-protocol-fragment",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.sitemaps.org/protocol.html#location",
+      "expect": "allow",
+      "robots": "www_sitemaps_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.sitemaps.org/robots.txt",
+        "finalUrl": "https://www.sitemaps.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:20Z",
+        "bodySha256": "19edcf7d91eacae4843aa8537e1dcd7bb9ebbc14c4c0fc869cfdcbe11703dd2d",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "Sitemap: https://www.sitemaps.org/sitemap.xml"
+          }
+        ],
+        "why": "The fragment is never part of the matched path and the file holds no rule, so the anchored section URL is allowed."
+      }
+    },
+    {
+      "id": "sitemaps-zh-protocol",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.sitemaps.org/zh/protocol.html",
+      "expect": "allow",
+      "robots": "www_sitemaps_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.sitemaps.org/robots.txt",
+        "finalUrl": "https://www.sitemaps.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:20Z",
+        "bodySha256": "19edcf7d91eacae4843aa8537e1dcd7bb9ebbc14c4c0fc869cfdcbe11703dd2d",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "Sitemap: https://www.sitemaps.org/sitemap.xml"
+          }
+        ],
+        "why": "One translated protocol page; the file has no rule records, so it is allowed."
+      }
+    },
+    {
+      "id": "mdn-api",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developer.mozilla.org/api/v1/search",
+      "expect": "disallow",
+      "robots": "developer_mozilla_org.txt",
+      "evidence": {
+        "sourceUrl": "https://developer.mozilla.org/robots.txt",
+        "finalUrl": "https://developer.mozilla.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:22Z",
+        "bodySha256": "8f2712e11105e549aa4fa1ea4de6a9fd5292ee805d773d669ca98a9e0e54273a",
+        "quotes": [
+          {
+            "line": 4,
+            "text": "Disallow: /api/"
+          }
+        ],
+        "why": "The API subtree is disallowed, and the Sitemap record above it does not end the group."
+      }
+    },
+    {
+      "id": "mdn-files-in-docs",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developer.mozilla.org/en-US/docs/files/example.png",
+      "expect": "disallow",
+      "robots": "developer_mozilla_org.txt",
+      "evidence": {
+        "sourceUrl": "https://developer.mozilla.org/robots.txt",
+        "finalUrl": "https://developer.mozilla.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:22Z",
+        "bodySha256": "8f2712e11105e549aa4fa1ea4de6a9fd5292ee805d773d669ca98a9e0e54273a",
+        "quotes": [
+          {
+            "line": 5,
+            "text": "Disallow: /*/files/"
+          }
+        ],
+        "why": "With * matching en-US/docs, the wildcard rule covers the /files/ subtree under any section."
+      }
+    },
+    {
+      "id": "mdn-media",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developer.mozilla.org/media/",
+      "expect": "disallow",
+      "robots": "developer_mozilla_org.txt",
+      "evidence": {
+        "sourceUrl": "https://developer.mozilla.org/robots.txt",
+        "finalUrl": "https://developer.mozilla.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:22Z",
+        "bodySha256": "8f2712e11105e549aa4fa1ea4de6a9fd5292ee805d773d669ca98a9e0e54273a",
+        "quotes": [
+          {
+            "line": 6,
+            "text": "Disallow: /media"
+          }
+        ],
+        "why": "The unanchored /media rule is a prefix rule, so the media directory is disallowed."
+      }
+    },
+    {
+      "id": "mdn-redirections-guide",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Redirections",
+      "expect": "allow",
+      "robots": "developer_mozilla_org.txt",
+      "evidence": {
+        "sourceUrl": "https://developer.mozilla.org/robots.txt",
+        "finalUrl": "https://developer.mozilla.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:22Z",
+        "bodySha256": "8f2712e11105e549aa4fa1ea4de6a9fd5292ee805d773d669ca98a9e0e54273a",
+        "quotes": [
+          {
+            "line": 4,
+            "text": "Disallow: /api/"
+          },
+          {
+            "line": 5,
+            "text": "Disallow: /*/files/"
+          },
+          {
+            "line": 6,
+            "text": "Disallow: /media"
+          }
+        ],
+        "why": "The guide path matches none of the three disallowed subtrees, so the documentation page is indexable."
+      }
+    },
+    {
+      "id": "mdn-locale-root",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://developer.mozilla.org/en-US/",
+      "expect": "allow",
+      "robots": "developer_mozilla_org.txt",
+      "evidence": {
+        "sourceUrl": "https://developer.mozilla.org/robots.txt",
+        "finalUrl": "https://developer.mozilla.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:22Z",
+        "bodySha256": "8f2712e11105e549aa4fa1ea4de6a9fd5292ee805d773d669ca98a9e0e54273a",
+        "quotes": [
+          {
+            "line": 4,
+            "text": "Disallow: /api/"
+          },
+          {
+            "line": 5,
+            "text": "Disallow: /*/files/"
+          },
+          {
+            "line": 6,
+            "text": "Disallow: /media"
+          }
+        ],
+        "why": "The locale landing path contains no /files/ segment and is outside /api/ and /media."
+      }
+    },
+    {
+      "id": "wiki-main-page",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://en.wikipedia.org/wiki/Main_Page",
+      "expect": "allow",
+      "robots": "en_wikipedia_org.txt",
+      "evidence": {
+        "sourceUrl": "https://en.wikipedia.org/robots.txt",
+        "finalUrl": "https://en.wikipedia.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:23Z",
+        "bodySha256": "48b98d80c8444d37cdf50cc9a4d2257b66039477e581066d2356062a4cbd678f",
+        "quotes": [
+          {
+            "line": 148,
+            "text": "User-agent: *"
+          }
+        ],
+        "why": "No Googlebot group exists, so the * group decides; its /wiki/M… rules are MediaWiki:/Module: prefixes (lines 218-221, 700-701), none of which is a prefix of /wiki/Main_Page, so the main page is meant to be indexed."
+      }
+    },
+    {
+      "id": "wiki-special-search",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://en.wikipedia.org/wiki/Special:Search",
+      "expect": "disallow",
+      "robots": "en_wikipedia_org.txt",
+      "evidence": {
+        "sourceUrl": "https://en.wikipedia.org/robots.txt",
+        "finalUrl": "https://en.wikipedia.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:23Z",
+        "bodySha256": "48b98d80c8444d37cdf50cc9a4d2257b66039477e581066d2356062a4cbd678f",
+        "quotes": [
+          {
+            "line": 156,
+            "text": "Disallow: /wiki/Special:"
+          }
+        ],
+        "why": "The Special: namespace is disallowed for every agent and the path starts with it."
+      }
+    },
+    {
+      "id": "wiki-articles-for-deletion",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion/Example_article",
+      "expect": "disallow",
+      "robots": "en_wikipedia_org.txt",
+      "evidence": {
+        "sourceUrl": "https://en.wikipedia.org/robots.txt",
+        "finalUrl": "https://en.wikipedia.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:23Z",
+        "bodySha256": "48b98d80c8444d37cdf50cc9a4d2257b66039477e581066d2356062a4cbd678f",
+        "quotes": [
+          {
+            "line": 200,
+            "text": "Disallow: /wiki/Wikipedia:Articles_for_deletion/"
+          }
+        ],
+        "why": "The publisher hides deletion discussions from search results and the URL is inside that subtree."
+      }
+    },
+    {
+      "id": "wiki-loesungkandidaten",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:L%C3%B6schkandidaten/Beispiel",
+      "expect": "disallow",
+      "robots": "en_wikipedia_org.txt",
+      "evidence": {
+        "sourceUrl": "https://en.wikipedia.org/robots.txt",
+        "finalUrl": "https://en.wikipedia.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:23Z",
+        "bodySha256": "48b98d80c8444d37cdf50cc9a4d2257b66039477e581066d2356062a4cbd678f",
+        "quotes": [
+          {
+            "line": 171,
+            "text": "Disallow: /wiki/Wikipedia:Löschkandidaten/"
+          }
+        ],
+        "why": "The percent-encoded ö is preserved as an escape (not an unreserved character), so the path matches the disallowed German deletion-discussion subtree."
+      }
+    },
+    {
+      "id": "wiki-mobileview-api",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://en.wikipedia.org/w/api.php?action=mobileview&page=Robots.txt",
+      "expect": "allow",
+      "robots": "en_wikipedia_org.txt",
+      "evidence": {
+        "sourceUrl": "https://en.wikipedia.org/robots.txt",
+        "finalUrl": "https://en.wikipedia.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:23Z",
+        "bodySha256": "48b98d80c8444d37cdf50cc9a4d2257b66039477e581066d2356062a4cbd678f",
+        "quotes": [
+          {
+            "line": 149,
+            "text": "Allow: /w/api.php?action=mobileview&"
+          },
+          {
+            "line": 153,
+            "text": "Disallow: /w/"
+          }
+        ],
+        "why": "Both the Allow and the /w/ Disallow match; the Allow value is longer (29 vs 3 octets), so the documented mobileview exception remains reachable."
+      }
+    },
+    {
+      "id": "wiki-api-query",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://en.wikipedia.org/w/api.php?action=query&titles=Robots.txt",
+      "expect": "disallow",
+      "robots": "en_wikipedia_org.txt",
+      "evidence": {
+        "sourceUrl": "https://en.wikipedia.org/robots.txt",
+        "finalUrl": "https://en.wikipedia.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:23Z",
+        "bodySha256": "48b98d80c8444d37cdf50cc9a4d2257b66039477e581066d2356062a4cbd678f",
+        "quotes": [
+          {
+            "line": 153,
+            "text": "Disallow: /w/"
+          }
+        ],
+        "why": "The /w/ tree is disallowed apart from the listed Allow exceptions, and a general query action is not one of them."
+      }
+    },
+    {
+      "id": "robotstxt-home",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.robotstxt.org/",
+      "expect": "allow",
+      "robots": "www_robotstxt_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.robotstxt.org/robots.txt",
+        "finalUrl": "https://www.robotstxt.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:25Z",
+        "bodySha256": "e5c4b84484ee4216e9373be99380320c25dd94805f99f0a805846f087636553f",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow:"
+          }
+        ],
+        "why": "A rule with an empty value never matches, so the home page is allowed."
+      }
+    },
+    {
+      "id": "robotstxt-spec-page",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.robotstxt.org/robotstxt.html",
+      "expect": "allow",
+      "robots": "www_robotstxt_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.robotstxt.org/robots.txt",
+        "finalUrl": "https://www.robotstxt.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:25Z",
+        "bodySha256": "e5c4b84484ee4216e9373be99380320c25dd94805f99f0a805846f087636553f",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow:"
+          }
+        ],
+        "why": "The empty Disallow value restricts nothing, so the specification page stays crawlable."
+      }
+    },
+    {
+      "id": "robotstxt-orig",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.robotstxt.org/orig.html",
+      "expect": "allow",
+      "robots": "www_robotstxt_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.robotstxt.org/robots.txt",
+        "finalUrl": "https://www.robotstxt.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:25Z",
+        "bodySha256": "e5c4b84484ee4216e9373be99380320c25dd94805f99f0a805846f087636553f",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow:"
+          }
+        ],
+        "why": "Same empty rule; the 1994 proposal page is allowed."
+      }
+    },
+    {
+      "id": "robotstxt-monster",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://www.robotstxt.org/monster/",
+      "expect": "allow",
+      "robots": "www_robotstxt_org.txt",
+      "evidence": {
+        "sourceUrl": "https://www.robotstxt.org/robots.txt",
+        "finalUrl": "https://www.robotstxt.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:25Z",
+        "bodySha256": "e5c4b84484ee4216e9373be99380320c25dd94805f99f0a805846f087636553f",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow:"
+          }
+        ],
+        "why": "Empty value, no restriction; the directory is allowed."
+      }
+    },
+    {
+      "id": "whatwg-multipage-syntax",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://html.spec.whatwg.org/multipage/syntax.html",
+      "expect": "allow",
+      "robots": "html_spec_whatwg_org.txt",
+      "evidence": {
+        "sourceUrl": "https://html.spec.whatwg.org/robots.txt",
+        "finalUrl": "https://html.spec.whatwg.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:26Z",
+        "bodySha256": "6d81a8c020871991c2133f8c5d79db4b6eebe93fb2669a7906361efb6f929b72",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /commit-snapshots/"
+          },
+          {
+            "line": 3,
+            "text": "Disallow: /review-drafts/"
+          }
+        ],
+        "why": "Only the two working-draft trees are disallowed; the multipage specification is meant to be indexed."
+      }
+    },
+    {
+      "id": "whatwg-multipage-links-fragment",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://html.spec.whatwg.org/multipage/links.html#link-type-canonical",
+      "expect": "allow",
+      "robots": "html_spec_whatwg_org.txt",
+      "evidence": {
+        "sourceUrl": "https://html.spec.whatwg.org/robots.txt",
+        "finalUrl": "https://html.spec.whatwg.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:26Z",
+        "bodySha256": "6d81a8c020871991c2133f8c5d79db4b6eebe93fb2669a7906361efb6f929b72",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /commit-snapshots/"
+          },
+          {
+            "line": 3,
+            "text": "Disallow: /review-drafts/"
+          }
+        ],
+        "why": "The fragment is not part of the matched path and neither rule covers /multipage/."
+      }
+    },
+    {
+      "id": "whatwg-commit-snapshots",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://html.spec.whatwg.org/commit-snapshots/abc123/",
+      "expect": "disallow",
+      "robots": "html_spec_whatwg_org.txt",
+      "evidence": {
+        "sourceUrl": "https://html.spec.whatwg.org/robots.txt",
+        "finalUrl": "https://html.spec.whatwg.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:26Z",
+        "bodySha256": "6d81a8c020871991c2133f8c5d79db4b6eebe93fb2669a7906361efb6f929b72",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Disallow: /commit-snapshots/"
+          }
+        ],
+        "why": "The immutable snapshot tree is disallowed and the URL is inside it."
+      }
+    },
+    {
+      "id": "whatwg-review-drafts",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://html.spec.whatwg.org/review-drafts/2026-10/",
+      "expect": "disallow",
+      "robots": "html_spec_whatwg_org.txt",
+      "evidence": {
+        "sourceUrl": "https://html.spec.whatwg.org/robots.txt",
+        "finalUrl": "https://html.spec.whatwg.org/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:26Z",
+        "bodySha256": "6d81a8c020871991c2133f8c5d79db4b6eebe93fb2669a7906361efb6f929b72",
+        "quotes": [
+          {
+            "line": 3,
+            "text": "Disallow: /review-drafts/"
+          }
+        ],
+        "why": "Review drafts are disallowed and the URL is inside that tree."
+      }
+    },
+    {
+      "id": "pages-github-home",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://pages.github.com/",
+      "expect": "allow",
+      "robots": "pages_github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://pages.github.com/robots.txt",
+        "finalUrl": "https://pages.github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:28Z",
+        "bodySha256": "e87ca891cd149e504546c0431a91ac9a2ae6a9289c4114417c26f89daaf84ac5",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "Sitemap: https://pages.github.com/sitemap.xml"
+          }
+        ],
+        "why": "The only record is a Sitemap one, which opens no group; with no group, no rule applies and the landing page is crawlable."
+      }
+    },
+    {
+      "id": "pages-github-versions-json",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://pages.github.com/versions.json",
+      "expect": "allow",
+      "robots": "pages_github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://pages.github.com/robots.txt",
+        "finalUrl": "https://pages.github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:28Z",
+        "bodySha256": "e87ca891cd149e504546c0431a91ac9a2ae6a9289c4114417c26f89daaf84ac5",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "Sitemap: https://pages.github.com/sitemap.xml"
+          }
+        ],
+        "why": "The build-catalog dataset has no governing rule, so it is meant to be fetched (S016 cites it)."
+      }
+    },
+    {
+      "id": "pages-github-versions",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://pages.github.com/versions/",
+      "expect": "allow",
+      "robots": "pages_github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://pages.github.com/robots.txt",
+        "finalUrl": "https://pages.github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:28Z",
+        "bodySha256": "e87ca891cd149e504546c0431a91ac9a2ae6a9289c4114417c26f89daaf84ac5",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "Sitemap: https://pages.github.com/sitemap.xml"
+          }
+        ],
+        "why": "No rule records exist; the dependency page is allowed."
+      }
+    },
+    {
+      "id": "pages-github-robots",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://pages.github.com/robots.txt",
+      "expect": "allow",
+      "robots": "pages_github_com.txt",
+      "evidence": {
+        "sourceUrl": "https://pages.github.com/robots.txt",
+        "finalUrl": "https://pages.github.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:28Z",
+        "bodySha256": "e87ca891cd149e504546c0431a91ac9a2ae6a9289c4114417c26f89daaf84ac5",
+        "quotes": [
+          {
+            "line": 1,
+            "text": "Sitemap: https://pages.github.com/sitemap.xml"
+          }
+        ],
+        "why": "No rule restricts /robots.txt, and it is allowed whenever the served file decides."
+      }
+    },
+    {
+      "id": "ds4cc-home",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://ds4cc.com/",
+      "expect": "allow",
+      "robots": "ds4cc_com.txt",
+      "evidence": {
+        "sourceUrl": "https://ds4cc.com/robots.txt",
+        "finalUrl": "https://ds4cc.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:29Z",
+        "bodySha256": "70f9ea2885def1b2d2117946b6e6256e666f970f018189d8f5414b1ad0264c05",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Allow: /"
+          }
+        ],
+        "why": "The single * group allows the whole root and carries no Disallow, so the home page is meant to be indexed."
+      }
+    },
+    {
+      "id": "ds4cc-robots",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://ds4cc.com/robots.txt",
+      "expect": "allow",
+      "robots": "ds4cc_com.txt",
+      "evidence": {
+        "sourceUrl": "https://ds4cc.com/robots.txt",
+        "finalUrl": "https://ds4cc.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:29Z",
+        "bodySha256": "70f9ea2885def1b2d2117946b6e6256e666f970f018189d8f5414b1ad0264c05",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Allow: /"
+          }
+        ],
+        "why": "Allow: / covers the file itself, which is also always allowed when the served file decides."
+      }
+    },
+    {
+      "id": "ds4cc-index",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://ds4cc.com/index.html",
+      "expect": "allow",
+      "robots": "ds4cc_com.txt",
+      "evidence": {
+        "sourceUrl": "https://ds4cc.com/robots.txt",
+        "finalUrl": "https://ds4cc.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:29Z",
+        "bodySha256": "70f9ea2885def1b2d2117946b6e6256e666f970f018189d8f5414b1ad0264c05",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Allow: /"
+          }
+        ],
+        "why": "The root Allow is a prefix rule covering every path on the host."
+      }
+    },
+    {
+      "id": "ds4cc-deep-note",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://ds4cc.com/posts/2026/10/note.html",
+      "expect": "allow",
+      "robots": "ds4cc_com.txt",
+      "evidence": {
+        "sourceUrl": "https://ds4cc.com/robots.txt",
+        "finalUrl": "https://ds4cc.com/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:29Z",
+        "bodySha256": "70f9ea2885def1b2d2117946b6e6256e666f970f018189d8f5414b1ad0264c05",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Allow: /"
+          }
+        ],
+        "why": "Every path is allowed and the publisher advertises a sitemap, so article paths are meant to be crawled."
+      }
+    },
+    {
+      "id": "veiga-home",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://veigapunk.github.io/",
+      "expect": "allow",
+      "robots": "veigapunk_github_io.txt",
+      "evidence": {
+        "sourceUrl": "https://veigapunk.github.io/robots.txt",
+        "finalUrl": "https://veigapunk.github.io/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:31Z",
+        "bodySha256": "cdeee3065f3c35394996629097e7fc5098e9a1167ceecec05340a39065274c89",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Allow: /"
+          }
+        ],
+        "why": "One * group with Allow: / and no Disallow; the site root is open to crawlers."
+      }
+    },
+    {
+      "id": "veiga-robots",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://veigapunk.github.io/robots.txt",
+      "expect": "allow",
+      "robots": "veigapunk_github_io.txt",
+      "evidence": {
+        "sourceUrl": "https://veigapunk.github.io/robots.txt",
+        "finalUrl": "https://veigapunk.github.io/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:31Z",
+        "bodySha256": "cdeee3065f3c35394996629097e7fc5098e9a1167ceecec05340a39065274c89",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Allow: /"
+          }
+        ],
+        "why": "Allow: / covers the file itself."
+      }
+    },
+    {
+      "id": "veiga-index",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://veigapunk.github.io/index.html",
+      "expect": "allow",
+      "robots": "veigapunk_github_io.txt",
+      "evidence": {
+        "sourceUrl": "https://veigapunk.github.io/robots.txt",
+        "finalUrl": "https://veigapunk.github.io/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:31Z",
+        "bodySha256": "cdeee3065f3c35394996629097e7fc5098e9a1167ceecec05340a39065274c89",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Allow: /"
+          }
+        ],
+        "why": "The prefix rule covers every path on this Pages site."
+      }
+    },
+    {
+      "id": "veiga-deep-page",
+      "robotsStatus": 200,
+      "userAgent": "Googlebot",
+      "url": "https://veigapunk.github.io/kake/round-37.html",
+      "expect": "allow",
+      "robots": "veigapunk_github_io.txt",
+      "evidence": {
+        "sourceUrl": "https://veigapunk.github.io/robots.txt",
+        "finalUrl": "https://veigapunk.github.io/robots.txt",
+        "fetchedUtc": "2026-10-23T03:23:31Z",
+        "bodySha256": "cdeee3065f3c35394996629097e7fc5098e9a1167ceecec05340a39065274c89",
+        "quotes": [
+          {
+            "line": 2,
+            "text": "Allow: /"
+          }
+        ],
+        "why": "No rule narrows the root Allow, so a nested page is meant to be crawled."
+      }
+    }
+  ]
+}

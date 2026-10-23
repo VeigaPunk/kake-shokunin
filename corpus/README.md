@@ -358,3 +358,13 @@ RFC's serving requirements is claimed for them. Vulnerability handling itself
 (report intake, triage, remediation, disclosure timing, bounty and policy
 operation) stays outside this province, and writing, building or deploying the
 file on an owned site is an operator-owned publishing action.
+
+## Coverage — round 37 (2026-10-23)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Offline robots.txt expectation audit (r37) | `scripts/robots_audit.py` (S011, S095) | A local manifest supplies each check's URL, user agent, expected decision, status and (for 2xx) local robots file; the offline audit compares the expected decision with RFC 9309 access rules and reports policy or input findings. |
+
+The contract reads local inputs only and makes no network requests or writes; its cases are synthetic, not live fetch observations. Live fetch/redirect behavior, caching, crawler-specific extension behavior and sitemap handling remain open; unknown records including `Sitemap` and `crawl-delay` are ignored. Browser-driven/client-side crawler discipline remains tabi's province; kake's boundary is publisher-side robots/sitemap placement (Round-37 C1 contract; PROVINCE.md, Adjacent; S012–S013).
+
+Knowledge entry: `corpus/knowledge/robots-txt-rules.md`.

@@ -337,6 +337,21 @@ def build_fixtures():
                          contentType="text/html", body="body.html", **html(b"<p>Hello world</p>"))]),
         files=html(b"<p>Hello world</p>"), exit_code=1, verdict="failed-policy",
         findings=[f("k1", "moved", "https://other.example/x")], evaluated=1)
+    # Round-37 routed repair: the mutant table's M07 resolves every relative location against
+    # the check url; contract (b) resolves each against the url the hop answered.
+    add("b12-relative-redirect-resolved-against-previous-hop", CONTRACT["b"],
+        manifest=mf([chk(url=URL_DIR,
+                         hops=[hop(301, "next/step"), hop(301, "final"), hop(200)],
+                         contentType="text/html", body="body.html", **html(b"<p>Hello world</p>"))]),
+        files=html(b"<p>Hello world</p>"), exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "moved", "https://example.com/dir/next/final")], evaluated=1)
+    # M08 merges a relative reference without section 5.2.4; contract (b) applies section 5.2.
+    add("b13-dot-segments-in-relative-location-removed", CONTRACT["b"],
+        manifest=mf([chk(url=URL_DIR,
+                         hops=[hop(301, "../final"), hop(200)],
+                         contentType="text/html", body="body.html", **html(b"<p>Hello world</p>"))]),
+        files=html(b"<p>Hello world</p>"), exit_code=1, verdict="failed-policy",
+        findings=[f("k1", "moved", "https://example.com/final")], evaluated=1)
 
     # ---- (c) HTML text ----------------------------------------------------
     add("c01-script-contents-removed", CONTRACT["c"],
@@ -385,6 +400,19 @@ def build_fixtures():
                          **html(b"<html><script>bad()</script><p>ok</p></html>"))]),
         files=html(b"<html><script>bad()</script><p>ok</p></html>"),
         exit_code=1, verdict="failed-policy", findings=[f("k1", "quote_missing")], evaluated=1)
+    # M09 keeps comments; contract (c) removes `<!--` to the next `-->`, so a `>` inside a
+    # comment does not end it early and the whole comment (and its text) is gone.
+    add("c11-comment-with-inner-greater-than-removed-whole", CONTRACT["c"],
+        manifest=mf([chk(quote="hidden note", contentType="text/html", body="body.html",
+                         **html(b"<p>ok</p><!-- x > hidden note -->"))]),
+        files=html(b"<p>ok</p><!-- x > hidden note -->"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "quote_missing")], evaluated=1)
+    # M11 keeps ordinary tags; contract (c) removes every remaining tag, so text split by a tag
+    # is joined and the quote still matches.
+    add("c12-tag-between-text-removed-before-match", CONTRACT["c"],
+        manifest=mf([chk(quote="Hello world", contentType="text/html", body="body.html",
+                         **html(b"<b>Hel</b>lo world"))]),
+        files=html(b"<b>Hel</b>lo world"), exit_code=0, verdict="clean", evaluated=1)
 
     # ---- (d) quote match --------------------------------------------------
     add("d01-nfkc-fullwidth", CONTRACT["d"],
@@ -522,6 +550,13 @@ def build_fixtures():
         manifest=mf([chk(quote="�abc", contentType="text/html; charset=utf-8",
                          body="body.html", **html(b"\xffabc"))]),
         files=html(b"\xffabc"), exit_code=0, verdict="clean", evaluated=1)
+    # M24 decodes the BOM but keeps the mark; contract (f) decodes "in that encoding with the
+    # mark dropped", so a UTF-8 BOM body whose quote carries U+FEFF has no match.
+    add("f17-utf8-bom-mark-dropped-from-text", CONTRACT["f"],
+        manifest=mf([chk(quote="\ufeffHello world", contentType="text/html",
+                         body="body.html", **html(b"\xef\xbb\xbfHello world"))]),
+        files=html(b"\xef\xbb\xbfHello world"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "quote_missing")], evaluated=1)
 
     # ---- (g) input faults -------------------------------------------------
     add("g01-manifest-not-json", CONTRACT["g"], raw=b"this is not json",

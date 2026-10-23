@@ -27,11 +27,17 @@ from __future__ import annotations
 import json
 import os
 import re
+import stat
 import sys
 import unicodedata
 from html import unescape
 
 REPORT_VERSION = 1
+
+# Round-37 hardening: a manifest larger than this is refused before it is read
+# (contract (g), "unreadable"); a huge or endless input never becomes a
+# MemoryError with no report.
+MAX_MANIFEST_BYTES = 64 * 1024 * 1024
 
 REDIRECT_STATUSES = frozenset((301, 302, 303, 307, 308))
 PERMANENT_STATUSES = frozenset((301, 308))
@@ -268,11 +274,48 @@ def pick_encoding(data: bytes, charset):
 # HTML text extraction (contract bullet c)
 # --------------------------------------------------------------------------
 
-_RAW_START_RE = re.compile(r"<(script|style|template)(?=[\s/>])", re.IGNORECASE)
+_RAW_TAG_NAMES = frozenset(("script", "style", "template"))
+# Round-37 amendment to contract (c): "A raw-element start tag counts only where
+# a tag can start, not inside another tag's attribute value."  A tag therefore
+# ends at the first `>` outside a quoted attribute value (`"` or `'`), and only a
+# `<` seen outside a tag may open a raw element.
 _RAW_END_RES = {
     name: re.compile(r"</" + name + r"(?=[\s/>])", re.IGNORECASE)
-    for name in ("script", "style", "template")
+    for name in _RAW_TAG_NAMES
 }
+
+
+def tag_end(text: str, start: int) -> int:
+    """Index just past the `>` that closes the tag at `start`, or -1."""
+    index = start + 1
+    length = len(text)
+    quote = None
+    while index < length:
+        char = text[index]
+        if quote is not None:
+            if char == quote:
+                quote = None
+        elif char == '"' or char == "'":
+            quote = char
+        elif char == ">":
+            return index + 1
+        index += 1
+    return -1
+
+
+def raw_tag_name(text: str, start: int):
+    """The raw-element name of the start tag at `start`, or None."""
+    index = start + 1
+    length = len(text)
+    name_start = index
+    while index < length and ascii_is_letter(text[index]):
+        index += 1
+    name = ascii_lower(text[name_start:index])
+    if name not in _RAW_TAG_NAMES:
+        return None
+    if index < length and not (text[index].isspace() or text[index] in "/>"):
+        return None
+    return name
 
 
 def remove_comments(text: str) -> str:
@@ -293,23 +336,44 @@ def remove_comments(text: str) -> str:
 
 def remove_raw_elements(text: str) -> str:
     """Drop script, style and template elements (start tag to the next end tag
-    of the same name, ASCII case-insensitive)."""
+    of the same name, ASCII case-insensitive).
+
+    A start tag counts only where a tag can start: `<` inside another tag's
+    quoted attribute value opens nothing (round-37 contract (c) amendment)."""
     out = []
     index = 0
-    while True:
-        match = _RAW_START_RE.search(text, index)
-        if match is None:
+    length = len(text)
+    while index < length:
+        start = text.find("<", index)
+        if start == -1:
             out.append(text[index:])
             return "".join(out)
-        out.append(text[index:match.start()])
-        end_match = _RAW_END_RES[match.group(1).lower()].search(text, match.end())
+        out.append(text[index:start])
+        if start + 1 >= length or not (
+            ascii_is_letter(text[start + 1]) or text[start + 1] in "/!"
+        ):
+            out.append(text[start])
+            index = start + 1
+            continue
+        end = tag_end(text, start)
+        if end == -1:
+            # No `>` outside a quoted value: no further tag can be closed.
+            out.append(text[start:])
+            return "".join(out)
+        name = raw_tag_name(text, start)
+        if name is None:
+            out.append(text[start:end])
+            index = end
+            continue
+        end_match = _RAW_END_RES[name].search(text, end)
         if end_match is None:
             # No end tag: the element runs to the end of the document.
             return "".join(out)
-        close = text.find(">", end_match.end())
+        close = tag_end(text, end_match.start())
         if close == -1:
             return "".join(out)
-        index = close + 1
+        index = close
+    return "".join(out)
 
 
 def strip_tags(text: str) -> str:
@@ -406,11 +470,13 @@ def body_path(manifest_dir: str, body: str):
     if real != real_root and not real.startswith(real_root + os.sep):
         return None
     try:
-        if not os.path.isfile(candidate):
+        if not os.path.isfile(real):
             return None
     except (OSError, ValueError):
         return None
-    return candidate
+    # Round-37 hardening: return the path that was validated, so the caller opens
+    # the resolved file and no check-then-open race re-resolves a symlink.
+    return real
 
 
 def check_id_of(check):
@@ -540,10 +606,40 @@ def evaluate_check(check, manifest_dir: str) -> list:
 
 def load_manifest(path: str):
     """Return the manifest object or None when it is unusable."""
+    # Round-37 hardening (contract (g), "unreadable"): stat before open, so a
+    # FIFO, a device or an oversized file is refused instead of blocking forever
+    # or raising MemoryError with no report on stdout.
     try:
-        with open(path, "rb") as handle:
-            raw = handle.read()
-    except OSError:
+        info = os.stat(path)
+    except (OSError, ValueError):
+        return None
+    if not stat.S_ISREG(info.st_mode) or info.st_size > MAX_MANIFEST_BYTES:
+        return None
+    try:
+        # O_NONBLOCK: a path swapped to a FIFO after the stat cannot block the
+        # open; the fstat below then refuses it as not a regular file.
+        descriptor = os.open(path, os.O_RDONLY | os.O_NONBLOCK)
+    except (OSError, ValueError):
+        return None
+    try:
+        info = os.fstat(descriptor)
+        usable = stat.S_ISREG(info.st_mode) and info.st_size <= MAX_MANIFEST_BYTES
+    except (OSError, ValueError):
+        usable = False
+    if not usable:
+        os.close(descriptor)
+        return None
+    try:
+        handle = os.fdopen(descriptor, "rb")
+    except (OSError, ValueError):
+        os.close(descriptor)
+        return None
+    with handle:
+        try:
+            raw = handle.read(MAX_MANIFEST_BYTES + 1)
+        except (OSError, MemoryError, ValueError):
+            return None
+    if len(raw) > MAX_MANIFEST_BYTES:
         return None
     try:
         text = raw.decode("utf-8")

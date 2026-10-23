@@ -293,3 +293,13 @@ at that tag would settle and no opened row does; project-site placement
 response-header, TLS and redirect conformance of the two published examples;
 signature generation and verification, with key custody adjacent to `kagi`;
 and expiry monitoring, since the RFC's warning is that the data goes stale.
+
+## Round-37 robots.txt frontier step
+
+Round 37's declared frontier move is an offline robots.txt expectation audit (`scripts/robots_audit.py`): each manifest check compares an expected allow/disallow result against its supplied status and, for 2xx, its named local robots file (S011; S095; Round-37 C1 contract).
+The command reads only the manifest and named robots files, writes nothing, and uses no network (C1 contract, Usage).
+It reports `blocked`/`exposed` for policy mismatches; its verdict is `could-not-evaluate` if input/check faults exist, `failed-policy` for findings otherwise, and `clean` when there are none (C1 contract, Findings/Verdict).
+Unknown records, including `Sitemap` and `crawl-delay`, are ignored; sitemap parsing/scope and crawler-specific extension behavior remain open (C1 contract, Lines; S012–S013).
+This contract does not observe live fetches, redirects, caching, or crawler behavior (C1 contract, Limits).
+Boundary: kake owns publisher-side robots/sitemap placement at the host it serves, while browser-driving and client-side crawler discipline belong to tabi (PROVINCE.md, Adjacent); this audit does not probe or publish an owned property.
+Knowledge entry: `corpus/knowledge/robots-txt-rules.md` (S011, S095, S096; lane readings marked).

@@ -1,0 +1,75 @@
+== control_tree_check.py v2 sha256
+b592270e048c6e3bdb3c0da7d87e39af4137d1fcab3391af5dfa439831219fc0  /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py
+exit=0
+
+== RED: round-35 key-path listing report (routes defect 7, d)
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report .ufo/waves/round-36/criteria/r35-0b7779dc-parent-tree-report.md --pattern .ufo/waves/round-35/sealed/
+FAIL: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/criteria/r35-0b7779dc-parent-tree-report.md lists key-named path '.ufo/waves/round-22/cases.json' ('cases.json') in the listing of .
+FAIL: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/criteria/r35-0b7779dc-parent-tree-report.md lists key-named path '.ufo/waves/round-35/sealed/c1-cases.json' ('sealed') in the listing of .
+FAIL: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/criteria/r35-0b7779dc-parent-tree-report.md lists key-named path '.ufo/waves/round-35/sealed/c2-probes.json' ('sealed') in the listing of .
+FAIL: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/criteria/r35-0b7779dc-parent-tree-report.md lists key-named path '.ufo/waves/round-35/sealed/l1-reference-patch-not-landed.diff' ('sealed') in the listing of .
+exit=1
+
+== RED: constructed root listing over a tree holding a key
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-key.md --pattern .ufo/waves/round-36/sealed/
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-key.md lists directory '/fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo' in the listing of /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key; it lies on key path '.ufo/waves/round-36/sealed/', so the listing cannot certify the subtree under it.
+exit=1
+
+== RED: same report with the tree walked on disk
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-key.md --pattern .ufo/waves/round-36/sealed/ --tree /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-key.md lists directory '/fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo' in the listing of /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key; it lies on key path '.ufo/waves/round-36/sealed/', so the listing cannot certify the subtree under it.
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-key.md's control tree /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key holds key-named path '.ufo/waves/round-36/sealed' ('sealed') although no listing above shows it.
+exit=1
+
+== RED: constructed recursive listing over a tree holding a key
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-recursive-key.md --pattern .ufo/waves/round-36/sealed/
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-recursive-key.md lists directory '/fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo' in the listing of /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key; it lies on key path '.ufo/waves/round-36/sealed/', so the listing cannot certify the subtree under it.
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-recursive-key.md lists directory '/fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo/waves' in the listing of /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo; it lies on key path '.ufo/waves/round-36/sealed/', so the listing cannot certify the subtree under it.
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-recursive-key.md lists directory '/fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo/waves/round-36' in the listing of /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo/waves; it lies on key path '.ufo/waves/round-36/sealed/', so the listing cannot certify the subtree under it.
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-recursive-key.md lists key-named path '/fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo/waves/round-36/sealed' ('sealed') in the listing of /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo/waves/round-36.
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-recursive-key.md lists key-named path '/fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo/waves/round-36/sealed/cases.json' ('sealed') in the listing of /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/tree-with-key/.ufo/waves/round-36/sealed.
+exit=1
+
+== RED: root listing over the lane tree, which holds the round-37 key
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-lane-root.md --pattern .ufo/waves/round-37/sealed/
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-lane-root.md lists directory '/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo' in the listing of /home/vgpnk/Projects/shokunin/kake-shokunin; it lies on key path '.ufo/waves/round-37/sealed/', so the listing cannot certify the subtree under it.
+exit=1
+
+== RED: git ls-tree listing over the round-35 key tree
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-git-lstree.md --pattern .ufo/waves/round-35/sealed/
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-git-lstree.md lists key-named path '.ufo/waves/round-35/sealed/c1-cases.json' ('sealed') in the listing of .
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-git-lstree.md lists key-named path '.ufo/waves/round-35/sealed/c2-probes.json' ('sealed') in the listing of .
+exit=1
+
+== FALSE PASS OF THE ROUND-36 CHECK (same root listing, old script)
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/criteria/control_tree_check.py --report /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-key.md --pattern .ufo/waves/round-36/sealed/
+PASS: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-key.md records a tree listing (ls; 4 listed paths) and shows no key path.
+exit=0
+
+== GREEN: round-37 ctl reports (key-free work dirs)
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report .ufo/waves/round-37/ctl/CtlC1AllFalse.md --report .ufo/waves/round-37/ctl/CtlC1ConstantClean.md --report .ufo/waves/round-37/ctl/CtlC1Junk.md --report .ufo/waves/round-37/ctl/CtlC1NaiveReader.md --report .ufo/waves/round-37/ctl/CtlC1NoReader.md --report .ufo/waves/round-37/ctl/CtlC1NoReader-shortcut.md --report .ufo/waves/round-37/ctl/CtlC2FixtureSets.md --report .ufo/waves/round-37/ctl/MutRefPass.md --pattern .ufo/waves/round-37/sealed/
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/CtlC1AllFalse.md records 1 listing(s) (ls; 4 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/CtlC1ConstantClean.md records 1 listing(s) (ls; 5 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/CtlC1Junk.md records 1 listing(s) (ls; 14 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/CtlC1NaiveReader.md records 1 listing(s) (ls; 5 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/CtlC1NoReader.md records 1 listing(s) (ls; 3 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/CtlC1NoReader-shortcut.md records 1 listing(s) (ls; 3 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/CtlC2FixtureSets.md records 1 listing(s) (ls; 22 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+WARN: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/MutRefPass.md quotes a listing under an unnamed directory; it names no root, so it cannot vouch for tree identity (checked for key-named entries only).
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-37/ctl/MutRefPass.md records 1 listing(s) (ls; 4 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+exit=0
+
+== GREEN: round-36 ctl reports
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report .ufo/waves/round-36/ctl/CtlAllFalse.md --report .ufo/waves/round-36/ctl/CtlConstantClean.md --report .ufo/waves/round-36/ctl/CtlNaiveReader.md --report .ufo/waves/round-36/ctl/CtlNoReader.md --report .ufo/waves/round-36/ctl/CtlShortcut.md --pattern .ufo/waves/round-36/sealed/
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/ctl/CtlAllFalse.md records 1 listing(s) (ls; 3 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/ctl/CtlConstantClean.md records 1 listing(s) (ls; 3 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/ctl/CtlNaiveReader.md records 1 listing(s) (ls; 3 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/ctl/CtlNoReader.md records 1 listing(s) (ls; 3 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+PASS: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/ctl/CtlShortcut.md records 1 listing(s) (ls; 3 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+exit=0
+
+== GREEN: constructed key-free tree, root listing plus disk walk
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/control_tree_check.py --report /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-clean.md --pattern .ufo/waves/round-36/sealed/ --tree /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/clean-tree
+PASS: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/report-root-clean.md records 1 listing(s) (ls; 4 listed paths) that name their trees and show no key path, key-named entry, or directory above one.
+exit=0
+
