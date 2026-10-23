@@ -2061,3 +2061,8 @@ measured result stay as landed; details in `corpus/lessons/round-37.md` "Wave-2 
   fixtures make the selftest kill all 32 (evidence only, `verification/c2-evidence-at-528a6d02.json`).
 - Round-36 routed defect 8, the 18 contract points the round-36 text leaves undecided
   (`.ufo/waves/round-36/w1/CriticContractAmbiguity.md`), stay undecided; carried.
+- Late wave-2 result (`MutRobotsTool`): of 42 single-point mutants of the landed tool, 23 meet
+  the sealed target and 3 (M04 drop invalid UTF-8 bytes, M14 first `*` group only, M15 an empty
+  matching group falls back to `*`) also passed the selftest. Three fixtures added (b19, c14,
+  c15); each kills its mutant (`verification/postfix/mutrobots-survivors/`), 137/137 on the tool
+  and on the independent implementation.

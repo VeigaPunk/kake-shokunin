@@ -238,3 +238,8 @@ corrections" lists the measured items.
 |---|---|---|---|
 | a control met the predicate and the L1 kept the claim by a written judgment instead of the declared consequence | SCORECARD `ccc3b2b9` section vs the declaration's "fixed before any build"; `w2/ReviewTimeline.md`, `w2/ReviewShortcutDisposition.md` | wave-2 review; none before | next declaration states, before any control runs, which control classes count as skipping work (any control that delegates a bullet's rules to a library counts as skipping that bullet unless the library is shown to implement the bullet on the selftest) and applies the consequence mechanically; QUALITY round-37 (j) |
 | post-wave containment record named one out-of-bounds action of eleven | lesson "Claims" (one `test -e`); `w2/ReviewContainment.md` table | wave-2 review | the L1's per-wave containment line lists every seat-disclosed out-of-bounds action from the reports, and the wave context requires `/tmp`-free runs (TMPDIR in the sandbox) — already in the context, not followed; no check yet |
+- Late: `MutRobotsTool` — 42 mutants of the landed tool, 23 meet the sealed target, 3 also pass
+  the selftest (M04, M14, M15); fixtures b19, c14, c15 kill each (137/137 on the tool and the
+  independent implementation; `verification/postfix/mutrobots-survivors/`). `RevengerToolReadings`
+  — the tool's 12 open-point readings all hold; the L1 reference and the independent
+  implementation crash on a lone-surrogate URL that the tool reports.

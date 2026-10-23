@@ -383,6 +383,19 @@ def build_fixtures():
         manifest=mf([chk(url="https://example.com/private/a.html")]),
         files=robots("user-agent: *\ndisallow: /private/\nallow: /*.html\n"),
         exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    # Round-37 wave-2 additions (MutRobotsTool survivors of both detectors).
+    add("c14-every-star-group-combined", CONTRACT["c"],
+        manifest=mf([chk(url="https://example.com/b")]),
+        files=robots("user-agent: *\ndisallow: /a\n\nuser-agent: other\nallow: /\n\nuser-agent: *\ndisallow: /b\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
+    add("c15-empty-matching-group-suppresses-star", CONTRACT["c"],
+        manifest=mf([chk(url="https://example.com/x")]),
+        files=robots("user-agent: bot\ndisallow:\n\nuser-agent: *\ndisallow: /x\n"),
+        exit_code=0, verdict="clean", evaluated=1)
+    add("b19-invalid-utf8-becomes-replacement-character", CONTRACT["b"],
+        manifest=mf([chk(url="https://example.com/a%EF%BF%BDb")]),
+        files=robots(b"user-agent: *\ndisallow: /a\xffb\n"),
+        exit_code=1, verdict="failed-policy", findings=[f("k1", "blocked")], evaluated=1)
 
     # ---- (d) rules --------------------------------------------------------
     add("d01-empty-value-never-matches", CONTRACT["d"],

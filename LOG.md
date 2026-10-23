@@ -1522,3 +1522,9 @@ Declared at `bc6c4a8` (both counters frozen there, before any run).
   met. Independent blind implementation 28 of 28; selftest 131/131. Live run 55 checks over 12
   robots.txt files, clean.
 - Lesson `corpus/lessons/round-37.md`; motivating evidence: round-36 closure routed defects 1–8.
+- Wave 2 `kake-r37-w2` (34 seats; no critic: route exhausted): receipts reproduced; the shortcut
+  disposition contested (C1: measured met, admission contested); post-measurement repairs —
+  linear wildcard matcher (backtracking hang), quote-after-`=` in `source_recheck.py`, robots
+  selftest 131 → 137 fixtures (stdlib gaps and three mutant survivors), knowledge-entry
+  corrections, SOURCES round-37 notes, QUALITY (j). Containment: no lane write outside reports, no
+  landed misroot; eleven seat out-of-bounds actions recorded in the lesson.
