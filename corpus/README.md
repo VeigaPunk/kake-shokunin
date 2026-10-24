@@ -35,6 +35,7 @@ mirrors, Pages deploys).
 | Free-read verbs | `knowledge/free-read-verbs.md` | probe/status/reconcile/sync-check (r11) + status --json/grokbots --check/bots list/bots report (r12 live): exit contracts, gap/stale predicates, 18/21/20/21 universes, clobber + corrected merge patch |
 | Handoffs (webzites owner) | `handoffs/cmdProbe-merge-fix.md` | verified one-line cmdProbe merge patch (r11 F1 guard refuted; `probe <id> --all` edge covered), owner test recipe |
 | Citation-local absence | `lessons/round-20.md` + `QUALITY.md` | Baseline/candidate CLI proof, exact unannotated locations, frozen input digests; round admission blocked by host route bindings. |
+| Commit-citation hygiene (round 47) | `knowledge/commit-citation-hygiene.md` + `scripts/citation_lint.py` | repository-scoped object-name resolution, exclusions, ledger reason fidelity and committed receipt identity; S136 grounds Git revision semantics only |
 | GHP served-set semantics (r20) | `knowledge/ghp-served-set.md` | what an Actions artifact or branch build actually serves: .git/.github always excluded, dot paths from upload-pages-artifact v4.0.0, Jekyll skips; tar depth repro |
 | GHP custom-domain source (r20) | `knowledge/ghp-custom-domain.md` | under Actions publishing the repo CNAME is ignored; the domain is the Pages setting (`cname`, `build_type` in the REST API) |
 | ETag anatomy (r20) | `knowledge/ghp-etag-anatomy.md` | the recorded root ETag decodes to mtime-length (nginx format, backend identity [INFERENCE]); validator, never identity |
@@ -107,6 +108,8 @@ mirrors, Pages deploys).
   checks needing an operator-authorized free read: each Pages repo's
   `build_type` and workflow action pins; whether `/CNAME` is served under
   Actions; the user-site robots.txt.
+
+- Round-47 S136 admit and a rejected-source-candidate spot-check remains owed to a non-author: this seat recorded no rejection and its prepared L2 wave was undispatched (`lessons/round-47.md` §Gate).
 
 ## Round-21 corpus maintenance
 

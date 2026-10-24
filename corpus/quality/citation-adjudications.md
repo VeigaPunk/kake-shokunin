@@ -27,3 +27,28 @@ non-resolving in the lane repository at round 46 (`git rev-parse -q --verify`).
 | `c814526` | LOG.md | external-repo commit | plazir-15-site repo HEAD, 2026-09-26 (external, absent). |
 | `bd02d10` | LOG.md | external-repo commit | plazir-15-site repo remote HEAD, 2026-09-26 (external, absent). |
 | `481d28cb` | LOG.md | external-repo commit | Fleet-repo commit where the round-20 S009 anchor moved (external to the lane, absent from its object store). |
+
+## Round-47 corrections (r46 closure routed defect R4, append-only)
+
+The five table rows above stay byte-identical; their classes are correct and
+`scripts/citation_lint.py` reads only token + file + class. This block corrects
+their reason prose, per the round-20 post-review ruling (pure new-line
+additions citing the old line, never an in-place cell edit).
+
+- Row `b74190e` | LOG.md — reason says "ds4cc-marketplace repo commit from the
+  2026-09-28 push series"; the citing line (LOG.md, round-13 entry, charter-ghp
+  clause) names the **charter** repo's 2026-09-28 HUMAN push series. Corrected
+  reason: charter repo commit from the 2026-09-28 push series (external, absent);
+  historical live-audit record.
+- Row `d69dd22` | LOG.md — same misattribution; corrected reason: charter repo
+  commit in the 2026-09-28 push series (external, absent).
+- Row `0c767c2` | LOG.md — same misattribution; corrected reason: charter repo
+  commit in the same 2026-09-28 push series (external, absent).
+- Row `b9db4b1` | LOG.md — same misattribution; corrected reason: charter repo
+  commit in the same 2026-09-28 push series (external, absent).
+- Row `dc8e1adf` | SCORECARD.md — reason says "(`CriticC2Sufficiency` re-score,
+  12 of 12)"; the commit is the `CriticProbeLeniency` all-false/inverted-facts
+  control (met true, 12 of 12 — `corpus/lessons/round-35.md`; QUALITY round-35
+  (a)). `CriticC2Sufficiency` is the separate `0b7779dc` row (11 of 12).
+  Corrected reason: Round-34/35 seat-sandbox commit (`CriticProbeLeniency`
+  all-false entry, met true, 12 of 12); control label of record.

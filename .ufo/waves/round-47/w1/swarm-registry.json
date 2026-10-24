@@ -1,0 +1,332 @@
+{
+  "schema": "ufo-swarm-registry-v1",
+  "wave": "kake-r47-w1",
+  "createdAt": "2026-10-24T06:51:24.944Z",
+  "updatedAt": "2026-10-24T07:03:27.884Z",
+  "reportDir": ".ufo/waves/round-47/w1",
+  "members": {
+    "ExecBaseC1": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Run `python3 -B .ufo/waves/round-47/c47_registry_count.py --root . --revision cd42e3c310ba442e89dde638ba6401adaefaf3e8` and compare it with `verification/c1-before-cd42e3c.json`. Confirm the do-nothing base is 0/2 registry rows and 0/2 receipts, exit 1.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ExecBaseC2": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Run `python3 -B .ufo/waves/round-47/c47_routed_count.py --root . --revision cd42e3c310ba442e89dde638ba6401adaefaf3e8` and compare it with `verification/c2-before-cd42e3c.json`. Confirm the do-nothing base is 4/4 outstanding, exit 1.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ExecReceiptReplay": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "At the committed round-47 lane tip, independently run the C1 counter and verify both selftest receipt files under `.ufo/waves/round-47/verification/` include the exact tool path, 64-hex tool sha256, observed tally and exit=0. Record receipt paths and receipt-file sha256 values.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ScribePopulation": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Recount the adjudication ledger's table data rows only; verify 20 total = 12 LOG.md + 8 SCORECARD.md and check the append-only R3 correction in LOG.md and SCORECARD.md names those units accurately.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ScoutS136Quote": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Re-open `.ufo/waves/round-47/sources/S136.txt`; locate the exact gitrevisions quote in the S136 row/Gate, count its words, verify HTTP/byte/hash receipt, and assess whether the scoped teaching stays within Git's repo-local abbreviation semantics.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewCharterBake": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Compare ledger row `b74190e` and its R4 correction with the exact LOG.md charter-ghp citing line. Decide whether the corrected reason names charter (not ds4cc-marketplace) and preserves the correct class.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "CriticDoNothingC1": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack C1's cheapest do-nothing control: score the frozen counter at base and determine whether old LOG prose tallies or a junk tally-only file can reach 2/2. Name any false-green path.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ConnectorBoundary": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "connector",
+      "item": "Bounded sibling-overlap scan using only kake `PROVINCE.md`, `corpus/README.md`, `corpus/SOURCES.md`, and the new knowledge entry: does S136 claim only Git revision semantics needed by kake's own citation gate, or absorb another province's research method? Do not read sibling repos.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewCharterOgBlock": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Compare ledger row `d69dd22` with the exact LOG.md charter-ghp push-series clause and R4 correction; determine whether the reason correctly identifies the charter repo and historical commit.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewCharterWindowSync": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Compare ledger row `0c767c2` with LOG.md's charter-ghp push-series clause and correction. Verify the repo attribution and reason are faithful to the cited sequence.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewCharterCorrection": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Compare ledger row `b9db4b1` with LOG.md's charter-ghp push-series clause and correction. Verify the repo attribution and the correction's append-only pointer.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewCriticIdentity": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Trace `dc8e1adf` through round-35 lesson/spot-check evidence and inspect the R4 correction. Confirm `CriticProbeLeniency` (12/12) is distinguished from `CriticC2Sufficiency` (`0b7779dc`, 11/12).",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "CriticReasonFidelity": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Adversarially test the append-only R4 block: for each of its five named rows, does the correction state the precise citing line/repo/critic, avoid silently changing the original row, and preserve the class? Report any unresolved ambiguity.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ScribeR3Correction": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Verify the LOG/SCORECARD R3 corrections identify the ledger population as 20 data rows and explicitly split 12 LOG.md + 8 SCORECARD.md; flag any remaining unqualified '12 rows' statement in the touched round-47 material.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewR5Hashes": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Resolve the full r46 build, verdict and wave-spec hashes from LOG.md with `git cat-file -t`; check the build/verdict hashes are ancestors of the lane branch tip. Confirm the R5 same-line correction contains the two full landing hashes.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewR6Withdrawal": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Inspect the r46 report's unreceipted verdict-time offline claim and round-47 appended corrections. Confirm the original claim is explicitly withdrawn and `offline-sweep-r47-rerun.txt` is clearly a separate r47 run, not retroactive evidence.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "MutationC1Row": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In a disposable copy of committed bytes only, remove the redirect-audit registry row and re-run the C1 counter. Confirm it loses one row and cannot return C1_MET; do not mutate the lane checkout.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "MutationC1Receipt": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In a disposable copy of committed bytes only, strip the tool sha256 from one selftest receipt and re-run the C1 counter. Confirm the receipt no longer counts; do not mutate the lane checkout.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "MutationC2R3": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In a disposable copy of committed bytes only, remove the R3 correction line from LOG.md and re-run the C2 counter. Confirm R3 is outstanding; do not mutate the lane checkout.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "MutationC2R4": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Run `python3 -B .ufo/waves/round-47/c47_r4_mutation_check.py --root . --revision <commit>` on the committed round-47 build. Confirm the original R4 reason block passes and five in-memory old-reason mutants are all rejected; no file writes are expected.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "MutationC2R5": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In a disposable copy of committed bytes only, split the two r46 landing hashes across separate LOG.md lines and re-run the C2 counter. Confirm the frozen R5 same-line predicate fails; do not mutate the lane checkout.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "MutationC2R6": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In disposable copies of committed bytes, independently remove the R6 withdrawal marker and remove the 'R47 rerun only' receipt label. Re-run the C2 counter and confirm either mutant leaves R6 outstanding; do not mutate the lane checkout.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "CriticPredicateMatch": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Compare each frozen predicate sentence in SCORECARD.md with its counter docstring/conditions and the C1_MET/C2_MET receipt labels. Flag any changed condition, unannounced scope narrowing, or label mismatch.",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "CriticClaimSeparation": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Falsify causal separation: determine whether C1 can pass without any C2 fixes and whether C2 can pass without either C1 registry row or selftest receipt. Use the counters' actual inputs, not prose.",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewRedirectRegistry": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Compare the `redirect-expectation-audit` SKILL.md row with `scripts/redirect_audit.py` and the r46 matrix. Check command, exit map, selftest spelling, pinned proof, write scope and owner against Gate standard.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewCitationRegistry": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Compare the `commit-citation-lint` SKILL.md row with `scripts/citation_lint.py`; check frozen population, `--root` requirement, exit map, selftest spelling, ledger reference, write scope and owner.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ScoutKnowledgeEntry": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Audit `corpus/knowledge/commit-citation-hygiene.md` provenance trio and S136 usage. Verify the entry limits the rule to repository-local object names and does not claim a dead token is globally nonexistent.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ScribeLessonGate": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Check `corpus/lessons/round-47.md` Gate for S136 URL/access date/located quote ≤25 words, candidate/admit/reject counts, no-rejection honesty and the explicitly owed non-author admit+reject spot-check.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ReviewQualityCriteria": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Review the new QUALITY.md criteria 'Citation reason fidelity' and 'Verdicts carry committed receipts'; verify both are grounded in round-47 mistakes and their evidence pointers resolve.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ExecNoHarmGates": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "At the committed round-47 lane tip, re-run `node scripts/freshness-sweep.mjs --selftest`, `python3 -B scripts/citation_lint.py --selftest`, and `python3 -B scripts/citation_lint.py --root .`; record exact outputs/exits and any difference from committed receipts.",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "SentinelWriteScope": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "sentinel",
+      "item": "Read-only scope review of the committed round-47 diff and wave artifacts. Confirm no domain source tree, sibling repo, fleet-root file, `.ufo/state/`, watchdog log, lane index or jj state was changed; report only observed path evidence.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    },
+    "ScribeReportCompleteness": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Review the round-47 report against the required section order, evidence pointers, SHONEN four-box lines, stale-lane line, tool-install note, trends, census before/after and prepared-but-undispatched wave size/role mix. Flag unsupported claims only.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 47 v1 wave 1: independent verification and first falsifiers for claims C1 operability (R1+R2) and C2 freshness (R3-R6); 32 distinct seats, prepared but not dispatched by this L1."
+    }
+  }
+}

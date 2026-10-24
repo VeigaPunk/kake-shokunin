@@ -1790,3 +1790,55 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   audit), not as build output; residual attack seats prepared under
   `.ufo/waves/round-46/residual-spec.json` for orchestrator dispatch (host mapping:
   this seat prepares waves; the orchestrator dispatches).
+- [r47-correction R3] The adjudication ledger's population is **20 data rows**
+  (12 naming LOG.md + 8 naming SCORECARD.md), not the "12 rows" written in this
+  entry and the round-46 report; the correction is append-only per the
+  round-20 post-review ruling. Same correction appended to SCORECARD.md's
+  round-46 section.
+- [r47-correction R5] This entry cites the landing commits only by abbrev; the
+  full hashes are: build commit
+  `ee43e66367bf23e386ff29029b9ea60515efd9d1`, verdict commit
+  `861113eb0eea4d51bd0614c542aa6ecb7cc9a843`, inherited wave-spec commit
+  `ded938d2f23aba265d1acf1fdd4b3ab028020037` (each an ancestor of master,
+  re-verified at round 47 by `git merge-base --is-ancestor`).
+- [r47-correction R4] The ledger's five misattributed reason cells (charter vs
+  ds4cc-marketplace on the `b74190e`/`d69dd22`/`0c767c2`/`b9db4b1` rows naming
+  the charter repo's 2026-09-28 push series, and `dc8e1adf` naming the wrong
+  critic) are corrected append-only in `corpus/quality/citation-adjudications.md`
+  "## Round-47 corrections"; classes were and stay correct.
+- [r47-correction R6] The round-46 verdict-time claim "`node
+  scripts/freshness-sweep.mjs --offline` exit 0" now carries a committed
+  receipt: `.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt`
+  (exit=0, partial as declared; §armed/§history skipped, never counted as pass).
+- [r47-correction R5 identity] Full hashes of the round-46 build and verdict commits are `ee43e66367bf23e386ff29029b9ea60515efd9d1` and `861113eb0eea4d51bd0614c542aa6ecb7cc9a843`.
+- [r47-correction R6 withdrawal] The round-46 report's verdict-time "`node scripts/freshness-sweep.mjs --offline` exit 0" claim is withdrawn: no contemporaneous r46 output was committed, and a round-47 rerun cannot retroactively prove it. The distinct r47 rerun receipt is `.ufo/waves/round-47/verification/offline-sweep-r47-rerun.txt` (exit=0, partial; §armed/§history skipped, never counted as pass); it is evidence only for the r47 rerun.
+- [r47-correction R6 supersession] This withdrawal supersedes the immediately preceding `[r47-correction R6]` wording and its old path: the saved output was a round-47 rerun, renamed to `offline-sweep-r47-rerun.txt`, not a round-46 verdict-time receipt.
+
+## Round 47 (attempt 1; closure-routed repair round)
+
+- Declared at base `cd42e3c310ba442e89dde638ba6401adaefaf3e8`, before any
+  after-state receipt: C1 (operability; r46 routed R1+R2) — both round-46
+  gates have SKILL.md registry rows and committed selftest receipts; C2
+  (freshness; r46 routed R3–R6) — the population/reason/hash/receipt defects
+  are repaired append-only, with the r46 offline verdict-time claim
+  withdrawn rather than falsely retro-receipted. Predicates and the frozen
+  before-state are in SCORECARD.md and the two C47 counters.
+- C1 artifacts: two gate-registry rows appended to SKILL.md; selftest receipts
+  record `redirect_audit.py` 23/23 and `citation_lint.py` 8/8, each with its
+  tool sha256 and exit=0 (`.ufo/waves/round-47/verification/selftest-*.txt`).
+- C2 artifacts: the ledger retains its original table bytes and has an
+  append-only R4 correction block with all five corrected reasons; R3's
+  20-data-row (12 LOG.md + 8 SCORECARD.md) correction is appended here and in
+  SCORECARD.md; R5 full r46 landing hashes are appended on one line; R6's
+  unreceipted r46 verdict-time claim is withdrawn and a distinct r47 offline
+  rerun receipt is filed (`verification/offline-sweep-r47-rerun.txt`), not
+  offered as retroactive evidence.
+- Frozen before measurements at the base: C1
+  `python3 -B .ufo/waves/round-47/c47_registry_count.py --root . --revision cd42e3c310ba442e89dde638ba6401adaefaf3e8`
+  → `registry_rows=0/2 receipts=0/2 C1_NOT_MET`, exit 1; C2
+  `python3 -B .ufo/waves/round-47/c47_routed_count.py --root . --revision cd42e3c310ba442e89dde638ba6401adaefaf3e8`
+  → `outstanding=4/4 C2_NOT_MET`, exit 1. Receipts:
+  `verification/c1-before-cd42e3c.json`,
+  `verification/c2-before-cd42e3c.json`.
+- Frontier: opened Git Documentation `gitrevisions` as S136 (tier A, 2026-10-24T06:31:20Z, HTTP 200); added one `SOURCES.md` row and the sourced knowledge entry `corpus/knowledge/commit-citation-hygiene.md`. New QUALITY criteria are grounded in this round's lesson.
+- Swarm: one v1 wave-1 spec, 32 seats, prepared but not dispatched per host mapping; validator's `taskCall` is committed as `.ufo/waves/round-47/w47-taskcall.json`, registry under `w1/swarm-registry.json`. Role mix is executors 4, scribes 4, scouts 2, reviewers 10, critics 4, mutation-testers 6, connector 1, sentinel 1. No wave 2 or residual call: no wave-1 results were dispatched/returned; 0 dead seats (undispatched).

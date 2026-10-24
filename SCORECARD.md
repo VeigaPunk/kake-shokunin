@@ -3915,3 +3915,60 @@ target re-verified non-resolving in the lane repo at round 46).
 Capabilities row entered this round:
 
 | Offline redirect/rewrite expectation audit | Reads a version-1 manifest of static-host redirect/rewrite rules, resources and independently authored request→expectation checks and reports, read-only and network-free, every check whose decided outcome (resource-precedence, first-match, status, splat/placeholder expansion, percent-decoded matching) differs from its expectation (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); semantics declared per manifest (Render-style resource precedence vs Cloudflare Pages always-follow) per `corpus/knowledge/redirect-rewrite-rules.md` (S050, S135); no live-serving, deploy or dashboard claim | `scripts/redirect_audit.py` at the C1 measured commit; `python3 -B .ufo/waves/round-46/c46_matrix.py --root . --revision <commit> --stage after` → MATRIX_AFTER_PASS; selftest 23/23 | 46 |
+
+## Round 47 — declared claims (frozen at base cd42e3c, before any claim receipt)
+
+Routed from the round-46 verifier spot-check §"Routed defects for kake round 47"
+(R1–R6; R7 is orchestrator-owned). Two claims on the lane's two owned axes,
+causally separable: C1 never reads the ledger or LOG population, C2 never
+reads the registry rows or selftest receipts.
+
+- **C1 — operability (routed defects R1+R2).** Predicate sentence: *"Both
+  round-46 gates are registered and receipted:
+  `python3 -B .ufo/waves/round-47/c47_registry_count.py --root . --revision <commit>`
+  decides: before = at base `cd42e3c310ba442e89dde638ba6401adaefaf3e8` neither
+  `scripts/redirect_audit.py` nor `scripts/citation_lint.py` has a SKILL.md
+  gate-registry row nor a committed selftest receipt; after = at the round-47
+  tip both tools have a gate-registry row and a committed selftest receipt
+  under `.ufo/waves/round-47/verification/` that names the tool path, the tool
+  sha256, the selftest tally and exit=0."* Do-nothing control: the base
+  revision itself (a do-nothing round leaves the repo at base and scores
+  0/2 rows, 0/2 receipts, exit 1); junk control: a tally without the tool
+  sha256 is not a receipt — the counter requires all four fields.
+- **C2 — freshness (routed defects R3+R4+R5+R6).** Predicate sentence: *"The
+  r46 closure-routed prose defects are repaired append-only:
+  `python3 -B .ufo/waves/round-47/c47_routed_count.py --root . --revision <commit>`
+  decides: before = at base `cd42e3c310ba442e89dde638ba6401adaefaf3e8` all four
+  routed defects R3 (ledger population misstated as '12 rows'), R4 (five ledger
+  reason cells misattribute charter vs ds4cc-marketplace / the wrong critic),
+  R5 (the LOG round-46 entry names no landing-commit full hash) and R6 (the
+  unreceipted round-46 verdict-time `freshness-sweep --offline exit 0` claim)
+  are outstanding; after = at the round-47 tip each defect has a committed
+  append-only fix — an R3 correction line naming the 20 data rows
+  (12 LOG.md + 8 SCORECARD.md) in LOG.md, an R4 '## Round-47 corrections' block
+  in `corpus/quality/citation-adjudications.md` naming all five tokens and the
+  corrected reason phrase for each, an R5
+  line in LOG.md naming the full hashes
+  `ee43e66367bf23e386ff29029b9ea60515efd9d1` and
+  `861113eb0eea4d51bd0614c542aa6ecb7cc9a843`, and R6 closed by an explicit
+  withdrawal in LOG.md plus a committed
+  `.ufo/waves/round-47/verification/offline-sweep-r47-rerun.txt` labelled
+  'R47 rerun only; not contemporaneous r46 verdict-time evidence' and recording
+  `--offline` exit=0; the rerun is not retroactive evidence for r46."*
+  Do-nothing control: the base revision scores 4/4 outstanding, exit 1.
+
+No third claim. Scores hold at the 10/10 ceiling on both owned axes (HOLD):
+the routed repairs are bounded evidenced moves, not numeric increases.
+[r47-correction R3] The round-46 section's "adjudication ledger … (12 rows)"
+above is misstated: the ledger holds 20 data rows (12 naming LOG.md + 8
+SCORECARD.md); corrected append-only here and in LOG.md.
+
+
+## Planned — round 48
+
+Steered by the round-47 closure. Standing candidates: the orchestrator-owned
+dispatch of the prepared r47 wave (`.ufo/waves/round-47/w47-spec.json`) and
+the round-46 residual wave (`.ufo/waves/round-46/residual-spec.json`); the
+r45 C1 trust-boundary L0 question stays operator-owned. If the r47 closure
+routes new defects, those take priority. Otherwise a source-backed
+frontier/capability move in static publishing validation per PROVINCE.

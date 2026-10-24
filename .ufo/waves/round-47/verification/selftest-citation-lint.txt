@@ -1,0 +1,16 @@
+command: python3 -B scripts/citation_lint.py --selftest
+run_at_utc: 2026-10-24T06:46:10Z
+tool_path: scripts/citation_lint.py
+tool_sha256: 3c78a0a82f70b166776f7f7626dc7afbf9f9916a4399ae879287e4bf9662987f
+stdout:
+citation_lint --selftest
+  PASS  planted dead citations flagged (2/2)
+  PASS  resolving commit not flagged
+  PASS  no false positives on the exclusion classes
+  PASS  mutant F (no resolution) false-green on dead token (diverges)
+  PASS  mutant G (no context filter) overreaches on plain hex (diverges)
+  PASS  mutant H (no digest exclusion) flags the sha256 token (diverges)
+  PASS  mutant E (no ellipsis rule) overreaches on digest prefixes (diverges)
+  PASS  adjudication ledger suppresses named token/file only
+selftest: 8/8 passed
+exit=0

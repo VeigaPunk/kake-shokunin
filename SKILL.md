@@ -1183,3 +1183,16 @@ character or `|` inside `[ ]` rejects only values RFC 3986 does not allow; `%25e
 accepted (legacy laxity). Python 3.10 still runs it (selftest 235 fixtures, ten `r42_*` guards).
 Measured by `.ufo/waves/round-42/c42_count_v3.py` (no `--seed`): output equal to the round-41 tool on ten
 generated runs and CPU ≤ 2.0× the round-40 tool on five timing shapes (SCORECARD round 42).
+
+### Round 47 gate registry additions (r46 closure routed defect R1)
+
+Neither round-46 tool carried a registry row at landing; this section closes
+that defect. Receipts for both rows' selftests are committed under
+`.ufo/waves/round-47/verification/` (routed defect R2); the completeness
+counter is `.ufo/waves/round-47/c47_registry_count.py` (2/2 rows, 2/2
+receipts at the round-47 tip).
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| redirect-expectation-audit | gate (offline; no network) | `python3 -B scripts/redirect_audit.py --manifest PATH` (manifest v1: `rules`, `resources`, `checks`; `resourcePrecedence` and `defaultStatus` host fields) | `0=clean`; `1=failed-policy` (a check's decided outcome differs from its expectation); `2=could-not-evaluate` (input); `64=usage` | `python3 -B scripts/redirect_audit.py --selftest` (23/23; receipt `.ufo/waves/round-47/verification/selftest-redirect-audit.txt` names tool path + sha256 + tally) | `python3 -B .ufo/waves/round-46/c46_matrix.py --root . --revision <rev> --stage before\|after` — 11/11 witnesses caught, 0 clean false positives, 3/3 controls rejected, wall <120 s; contract `corpus/knowledge/redirect-rewrite-rules.md` (S050, S135) | reads the manifest; writes only an optional `--json` report path | kake |
+| commit-citation-lint | gate (offline; no network) | `python3 -B scripts/citation_lint.py --root . [--revision REV] [--adjudications PATH]` (frozen population {SCORECARD.md, LOG.md}) | `0=clean` (no unadjudicated violation); `1=violations found` (file, line, token); `2=could-not-evaluate` (population unreadable); `64=usage` | `python3 -B scripts/citation_lint.py --selftest` (8/8; receipt `.ufo/waves/round-47/verification/selftest-citation-lint.txt` names tool path + sha256 + tally) | base `7cdbaefd…`: exit 1, 28 violations (17 unique tokens); tip `ee43e66…`: exit 0, 30 adjudicated occurrences — receipts `.ufo/waves/round-46/verification/c2-{before,after}-*.json`; adjudication ledger `corpus/quality/citation-adjudications.md` | reads population + ledger; writes only an optional `--json` report path | kake |
