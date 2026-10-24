@@ -1,0 +1,23 @@
+Independent mutant recipe (authored by reviewer L2 W2RoundKake.K2xReviewer; re-run by the L1 2026-10-19 on the
+working tree before commit). Each mutant inserts `if (process.env.KAKE_NEVER_SET_X === '1') { <T> }` as the first
+body line of the anchor function, then runs `--selftest` with HOME and KAKE_SELFTEST_DIR isolated to a fresh
+mktemp dir (values not recorded) and KAKE_REPO_ROOT = the lane root.
+
+old = git show cb807bc:scripts/freshness-sweep.mjs ; new = working-tree scripts/freshness-sweep.mjs
+
+old m1 [function parseArgs(argv) {] fs.writeFileSync: selftest: 14/14 passed
+old m2 [function parseArgs(argv) {] fs.copyFileSync: selftest: 14/14 passed
+old m3 [function parseArgs(argv) {] execFileSync: selftest: 14/14 passed
+old m4 [async function main() {] fs.writeFileSync: selftest: 14/14 passed
+old m5 [async function main() {] fs.copyFileSync: selftest: 14/14 passed
+old m6 [async function main() {] execFileSync: selftest: 14/14 passed
+new m1 [function parseArgs(argv) {] fs.writeFileSync: selftest: 13/15 passed
+new m2 [function parseArgs(argv) {] fs.copyFileSync: selftest: 13/15 passed
+new m3 [function parseArgs(argv) {] execFileSync: selftest: 15/15 passed
+new m4 [async function main() {] fs.writeFileSync: selftest: 13/15 passed
+new m5 [async function main() {] fs.copyFileSync: selftest: 13/15 passed
+new m6 [async function main() {] execFileSync: selftest: 15/15 passed
+
+Verdict: direct fs write mutants killed 4/4 (old 0/4); child-process writes (execFileSync) survive in both
+revisions — a named residual bypass, together with aliasing/bracket access (see the source comment above
+the checker). The claim is scoped to direct fs write APIs at every out-of-region top-level function.

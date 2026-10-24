@@ -1,0 +1,13 @@
+{
+  "rows": 19,
+  "tiers": {
+    "A": 17,
+    "C": 2
+  },
+  "statuses": {
+    "mined": 15,
+    "queued": 2,
+    "rejected": 2
+  },
+  "counting_command": "python3 -c 'from pathlib import Path; import re,collections; rows=[x.split(\"|\")[1:-1] for x in Path(\"corpus/SOURCES.md\").read_text().splitlines() if re.match(r\"^\\|\\s*S[0-9]{3,}\\s*\\|\",x)]; print(len(rows),collections.Counter(r[3].strip() for r in rows),collections.Counter(r[7].strip() for r in rows))'"
+}

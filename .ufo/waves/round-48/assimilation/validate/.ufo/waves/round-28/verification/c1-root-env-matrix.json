@@ -1,0 +1,218 @@
+[
+ {
+  "case": "N1 <repo>/sub",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "2 could-not-evaluate root_not_repository_top_level",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "N2 <repo> top (control)",
+  "want": "0 clean",
+  "22c1669": "0 clean ",
+  "b5d423f": "0 clean ",
+  "8ecbefe": "0 clean ",
+  "lane": "0 clean "
+ },
+ {
+  "case": "K1 valid top clean",
+  "want": "0 clean",
+  "22c1669": "0 clean ",
+  "b5d423f": "0 clean ",
+  "8ecbefe": "0 clean ",
+  "lane": "0 clean "
+ },
+ {
+  "case": "K2 valid top failed",
+  "want": "1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "1 failed unadjudicated_citing_pair",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "B1 bare repo (clean content)",
+  "want": "0 clean",
+  "22c1669": "0 clean ",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "0 clean ",
+  "lane": "0 clean "
+ },
+ {
+  "case": "B2 bare repo (failed content)",
+  "want": "1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "B3 bare repo subdir refs/",
+  "want": "refuse",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "T1 top level named 'space ' (failed content)",
+  "want": "1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "T2 'spacenest '/sub",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "2 could-not-evaluate root_not_repository_top_level",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "T3 top level name ends in newline (failed content)",
+  "want": "1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "T4 <repo>/'x\\n' nested",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "2 could-not-evaluate root_not_repository_top_level",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "L1 symlink to top level (failed content)",
+  "want": "1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "1 failed unadjudicated_citing_pair",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "L2 symlink to <repo>/sub",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "2 could-not-evaluate root_not_repository_top_level",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "L3 <symlink-to-repo>/sub",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "2 could-not-evaluate root_not_repository_top_level",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "W1 linked worktree top (its HEAD failed, main HEAD clean)",
+  "want": "1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "1 failed unadjudicated_citing_pair",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "W2 linked worktree <wt>/sub",
+  "want": "refuse",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "2 could-not-evaluate root_not_repository_top_level",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "G1 <repo>/.git (repo HEAD failed)",
+  "want": "refuse or 1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "G2 <repo>/.git/refs",
+  "want": "refuse or 1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "G3 <nested>/.git (top tree clean, wants sub?)",
+  "want": "refuse or 0 clean",
+  "22c1669": "0 clean ",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "0 clean ",
+  "lane": "0 clean "
+ },
+ {
+  "case": "R1 directory that is not a repository",
+  "want": "refuse",
+  "22c1669": "2 could-not-evaluate revision_not_found",
+  "b5d423f": "2 could-not-evaluate revision_not_found",
+  "8ecbefe": "2 could-not-evaluate revision_not_found",
+  "lane": "2 could-not-evaluate revision_not_found"
+ },
+ {
+  "case": "E1 GIT_DIR=<repo>/.git, root <repo>/sub",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "0 clean ",
+  "8ecbefe": "0 clean ",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "E2 GIT_WORK_TREE=<repo>/sub, root <repo>/sub",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "0 clean ",
+  "8ecbefe": "0 clean ",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "E3 GIT_DIR+GIT_WORK_TREE=<repo>/sub, root <repo>/sub",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "0 clean ",
+  "8ecbefe": "0 clean ",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "E4 GIT_DIR=<clean repo>/.git, root non-repo (failed content)",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "0 clean ",
+  "8ecbefe": "0 clean ",
+  "lane": "2 could-not-evaluate revision_not_found"
+ },
+ {
+  "case": "E5 GIT_WORK_TREE=<repo>, root <repo>/sub",
+  "want": "refuse",
+  "22c1669": "0 clean ",
+  "b5d423f": "2 could-not-evaluate root_not_repository_top_level",
+  "8ecbefe": "2 could-not-evaluate root_not_repository_top_level",
+  "lane": "2 could-not-evaluate root_not_repository_top_level"
+ },
+ {
+  "case": "E6 GIT_DIR=<repo>/.git, root <repo> (control)",
+  "want": "1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "1 failed unadjudicated_citing_pair",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ },
+ {
+  "case": "E7 GIT_WORK_TREE=<repo>, root <repo> (control)",
+  "want": "1 failed",
+  "22c1669": "1 failed unadjudicated_citing_pair",
+  "b5d423f": "1 failed unadjudicated_citing_pair",
+  "8ecbefe": "1 failed unadjudicated_citing_pair",
+  "lane": "1 failed unadjudicated_citing_pair"
+ }
+]

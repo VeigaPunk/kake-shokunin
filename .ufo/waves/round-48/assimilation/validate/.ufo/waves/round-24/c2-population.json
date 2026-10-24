@@ -1,0 +1,2335 @@
+{
+ "round": 24,
+ "fixtureBase": "f7de3ab4e9f030a15a857a5a08631bd8e690f436",
+ "cases": [
+  {
+   "id": "c1-observedat-garbage",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-10-21garbage",
+   "expect": "reject",
+   "why": "RFC 3339 section 5.6 requires a complete date-time rather than a date prefix followed by arbitrary text.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c1-unmodified-control",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/fire-journal-codes.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-10-21",
+   "expect": "accept",
+   "why": "The existing date-only receipt is a control for preserving acceptance of the unmodified round-23 fixture.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c2-future-fetchedat",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2099-01-01T00:00:00Z",
+   "expect": "reject",
+   "why": "A well-formed RFC 3339 timestamp in the future cannot establish an observation made at the measurement time.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c2-contenttype-number",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "replace",
+   "replace": {
+    "old": "\"text/html; charset=utf-8\"",
+    "new": "200"
+   },
+   "expect": "reject",
+   "why": "RFC 9110 section 8.3 defines Content-Type as a media-type string, not a number.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c2-contenttype-array",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": [
+    "text/html"
+   ],
+   "expect": "reject",
+   "why": "RFC 9110 section 8.3 defines Content-Type as a media-type string, not an array.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c2-unmodified-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-10-21T06:33:03Z",
+   "expect": "accept",
+   "why": "The existing fetch receipt is a control for preserving acceptance of the unmodified round-23 fixture.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c2-contenttype-nan-token",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "raw",
+   "value": "{\n \"bytes\": 76159,\n \"contentType\": NaN,\n \"error\": null,\n \"fetchedAt\": \"2026-10-21T06:33:03Z\",\n \"finalUrl\": \"https://ds4cc.com/\",\n \"method\": \"GET\",\n \"redirects\": [],\n \"sha256\": \"ccb3f46eda1ce3270df1e3373d49c4034025c4f475a6999142279e03b00b2bb8\",\n \"status\": 200,\n \"truncated\": false,\n \"url\": \"https://ds4cc.com/\"\n}\n",
+   "expect": "reject",
+   "why": "RFC 8259 sections 6 and 9 exclude NaN from JSON numbers and a receipt parser must reject the non-JSON token without crashing.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c2-contenttype-infinity-token",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "raw",
+   "value": "{\n \"bytes\": 76159,\n \"contentType\": Infinity,\n \"error\": null,\n \"fetchedAt\": \"2026-10-21T06:33:03Z\",\n \"finalUrl\": \"https://ds4cc.com/\",\n \"method\": \"GET\",\n \"redirects\": [],\n \"sha256\": \"ccb3f46eda1ce3270df1e3373d49c4034025c4f475a6999142279e03b00b2bb8\",\n \"status\": 200,\n \"truncated\": false,\n \"url\": \"https://ds4cc.com/\"\n}\n",
+   "expect": "reject",
+   "why": "RFC 8259 sections 6 and 9 exclude Infinity from JSON numbers and a receipt parser must reject the non-JSON token without crashing.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c2-duplicate-contenttype-key",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "raw",
+   "value": "{\n \"bytes\": 76159,\n \"contentType\": \"text/html; charset=utf-8\",\n \"contentType\": 200,\n \"error\": null,\n \"fetchedAt\": \"2026-10-21T06:33:03Z\",\n \"finalUrl\": \"https://ds4cc.com/\",\n \"method\": \"GET\",\n \"redirects\": [],\n \"sha256\": \"ccb3f46eda1ce3270df1e3373d49c4034025c4f475a6999142279e03b00b2bb8\",\n \"status\": 200,\n \"truncated\": false,\n \"url\": \"https://ds4cc.com/\"\n}\n",
+   "expect": "reject",
+   "why": "RFC 8259 section 4 says object names SHOULD be unique; duplicate receipt keys make the selected value ambiguous and must not be accepted as a valid measurement.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "c2-truncated-fetch-json",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "raw",
+   "value": "{\n \"bytes\": 76159,\n \"contentType\": \"text/html; charset=utf-8\",\n \"error\": null,\n \"fetchedAt\": \"2026-10-21T06:33:03Z\",\n \"finalUrl\": \"https://ds4cc.com/\",\n \"method\": \"GET\",\n \"redirects\": [],\n \"sha256\": \"ccb3f46eda1ce3270df1e3373d49c4034025c4f475a6999142279e03b00b2bb8\",\n \"status\": 200,\n \"truncated\": false,\n \"url\": \"https://ds4cc.com/\"\n",
+   "expect": "reject",
+   "why": "A truncated fetch receipt does not satisfy JSON syntax or provide a complete observation object.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/ExecMalformedMatrix.md"
+  },
+  {
+   "id": "heading-id-duplicate",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/fire-journal-codes.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "1",
+    "id"
+   ],
+   "value": "c1",
+   "expect": "reject",
+   "why": "The runner requires claim ids to be unique (measure_c1.py:68-75); RFC 8259 section 5 permits repeated array values but does not override this receipt-level uniqueness rule.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1HeadingIds.md"
+  },
+  {
+   "id": "heading-id-close-bracket-uncited",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/fire-journal-codes.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "0",
+    "id"
+   ],
+   "value": "c1]",
+   "expect": "reject",
+   "why": "RFC 8259 section 7 permits ] in a string, but the documented literal citation becomes [fire-journal-codes:c1]] and that exact token is not present after the heading.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1HeadingIds.md"
+  },
+  {
+   "id": "heading-id-newline-uncited",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/fire-journal-codes.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "0",
+    "id"
+   ],
+   "value": "c1\n",
+   "expect": "reject",
+   "why": "RFC 8259 section 7 permits an escaped LF in a string, but the documented literal citation includes that decoded LF and does not occur after the heading.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1HeadingIds.md"
+  },
+  {
+   "id": "heading-id-c11-not-c1",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/fire-journal-codes.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "0",
+    "id"
+   ],
+   "value": "c11",
+   "expect": "reject",
+   "why": "The contract requires the complete [unit:id] literal, so the existing [fire-journal-codes:c1] cannot satisfy id c11; RFC 8259 section 8.3 compares decoded strings rather than prefixes.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1HeadingIds.md"
+  },
+  {
+   "id": "c1-obs-hour-25",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/fire-journal-codes.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-10-21T25:00:00Z",
+   "expect": "reject",
+   "why": "RFC 3339 section 5.6 defines time-hour as 2DIGIT ; 00-23, so hour 25 is not a valid date-time; the round-23 prefix test never reads the time part.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-no-offset",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/fleet-registry.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-10-21T12:00:00",
+   "expect": "reject",
+   "why": "RFC 3339 section 5.6 full-time requires a time-offset (Z or numeric), and section 4.4 calls unqualified local time unacceptable for Internet timestamps; the round-23 prefix test accepts it.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-impossible-feb-30",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/free-read-verbs.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-02-30",
+   "expect": "reject",
+   "why": "RFC 3339 section 5.7 caps February date-mday at 28 (29 in leap years), so 2026-02-30 is not a valid full-date; the round-23 runner rejects it only because '02' sorts before '10', so the impossible day is never tested.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-impossible-month-13",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/ghp-subpath-spotcheck.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-13-01",
+   "expect": "reject",
+   "why": "RFC 3339 section 5.6 defines date-month as 2DIGIT ; 01-12; the round-23 prefix test accepts 2026-13-01 because '3' sorts after '0' at the sixth character.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-far-future-2099",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/keeper-timer-inert.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2099-12-31",
+   "expect": "reject",
+   "why": "A valid RFC 3339 full-date (section 5.6) dated after the sandbox commit 2026-10-21T12:00:00Z that records it; the lane's own gap statement names future-looking observedAt strings as malformed.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-after-commit-2359",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/kimi-subpath-audit.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-10-21T23:59:59Z",
+   "expect": "reject",
+   "why": "A valid RFC 3339 date-time (section 5.6) 11h59m59s after the committer time 2026-10-21T12:00:00Z that records it; an observation cannot postdate its commit, so the bound must compare instants, not calendar days.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-nonascii-digits",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/mirror-pitfalls.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "\uff12\uff10\uff12\uff16-\uff11\uff10-\uff12\uff11T\uff11\uff12:\uff10\uff10:\uff10\uff10Z",
+   "expect": "reject",
+   "why": "RFC 3339 section 5.6 is built on ABNF DIGIT, defined in RFC 5234 Appendix B.1 as %x30-39 (ASCII 0-9 only); RFC 8259 section 8.1 requires UTF-8 JSON, so the bytes parse and only the date grammar can reject them.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-free-text",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/ops-automation.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "unknown",
+   "expect": "reject",
+   "why": "Neither an RFC 3339 full-date nor date-time (section 5.6); the round-23 prefix test accepts it because 'u' sorts after '2'.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-dateonly-control",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/origin-repos.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-10-21",
+   "expect": "accept",
+   "why": "Control: the date-only form 2026-10-21 is what all 17 round-23 population receipts carry (an RFC 3339 section 5.6 full-date); the replacement must keep the 17/17 control accepted. The sandbox commit is empty because the value is unchanged.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-datetime-control",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/publish-channels.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-10-21T11:59:59Z",
+   "expect": "accept",
+   "why": "Control: a valid RFC 3339 date-time (section 5.6, time-offset Z) inside the window and before the committer time 2026-10-21T12:00:00Z.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "c1-obs-lowercase-rfc-control",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/publish-queue.json",
+   "op": "set",
+   "jsonPath": [
+    "observedAt"
+   ],
+   "value": "2026-10-21t11:59:59z",
+   "expect": "accept",
+   "why": "Control: RFC 3339 section 5.6 NOTE allows lower-case 't' and 'z' (ABNF string literals are case-insensitive, RFC 5234 section 2.3); Python's datetime.fromisoformat rejects this form, so a naive stdlib parse would over-reject.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1ObservedAt.md"
+  },
+  {
+   "id": "receipt-invalid-json-truncated",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "{\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n\n",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a74 requires an object end delimiter; the documented C1 receipt must be a JSON object.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-array-not-object",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "[{\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}]\n",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a75 permits arrays as JSON, but measure_c1.py lines 8 and 51\u201352 explicitly require a receipt object.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-utf8-bom",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "\ufeff{\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a78.1 permits a parser to ignore a BOM but does not require it; preserving the current strict UTF-8 JSON-text rejection is allowed.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-nan-token",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "{\n \"edgeProbe\": NaN,\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a76 forbids the NaN numeric token, even in an otherwise ignored extension member.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-infinity-token",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "{\n \"edgeProbe\": Infinity,\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a76 forbids the Infinity numeric token, even in an otherwise ignored extension member.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-negative-infinity-token",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "{\n \"edgeProbe\": -Infinity,\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a76 forbids the -Infinity numeric token, even in an otherwise ignored extension member.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-duplicate-unit-bad-first",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "{\n \"unit\": \"wrong-unit\",\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a74 recommends unique names; rejecting conflicting unit members is the proposed unambiguous-evidence policy, not an RFC MUST.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-duplicate-unit-bad-last",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "{\n \"unit\": \"drift-detection\",\n \"unit\": \"wrong-unit\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a74 recommends unique names and the final unit value violates the documented unit/population match.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-large-integer-1000-digits",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "{\n \"edgeProbe\": 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}",
+   "expect": "accept",
+   "why": "RFC 8259 \u00a7\u00a76 and 9 allow this integer, it is below the observed 4300-digit parser limit, and the C1 contract does not constrain extra metadata.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "receipt-large-integer-5000-digits",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "raw",
+   "value": "{\n \"edgeProbe\": 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,\n \"unit\": \"drift-detection\",\n \"path\": \"corpus/knowledge/drift-detection.md\",\n \"observedAt\": \"2026-10-21\",\n \"claims\": [\n  {\n   \"id\": \"c1\",\n   \"anchor\": \"the webzites and plazir source trees remain absent after the 2026-10-12 prune.\",\n   \"claim\": \"The documented webzites and plazir-15-site source trees are absent locally.\",\n   \"surface\": \"/home/vgpnk/Projects/webzites; /home/vgpnk/Projects/plazir-15-site\",\n   \"method\": \"test -e\",\n   \"observation\": \"absent /home/vgpnk/Projects/webzites\\nabsent /home/vgpnk/Projects/plazir-15-site\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c2\",\n   \"anchor\": \"`ufo-fsd.kimi.pro`\\n  is a 612B React shell\",\n   \"claim\": \"GET of ufo-fsd.kimi.pro still serves the cited 612-byte React-shell HTML.\",\n   \"surface\": \"GET https://ufo-fsd.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://ufo-fsd.kimi.pro/ size_download=612 content_type=text/html; charset=utf-8; body includes <title>DS4CC</title>, /assets/index-Bw9NLFv4.js and <div id=\\\"root\\\"></div>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c3\",\n   \"anchor\": \"GET it, don't HEAD (HEAD\u2192403).\",\n   \"claim\": \"HEAD of ufo-fsd.kimi.pro still returns 403, so GET is required to inspect the page.\",\n   \"surface\": \"HEAD https://ufo-fsd.kimi.pro\",\n   \"method\": \"HEAD\",\n   \"observation\": \"http_code=403 url=https://ufo-fsd.kimi.pro/ content_type=application/json; charset=utf-8\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c4\",\n   \"anchor\": \"`plazir27.kimi.pro` returns 200 with a 5,995B\\n  preview-404 body (x-fc-request-id, Function-Compute ingress).\",\n   \"claim\": \"The current preview-404 response uses the cited Function-Compute ingress and x-fc-request-id header.\",\n   \"surface\": \"GET https://plazir27.kimi.pro\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://statics.kimi.ai/pages/preview-404-en.html size_download=5995 content_type=text/html; headers show HTTP/2 302 with location https://statics.kimi.ai/pages/preview-404-en.html and server cloudflare, then HTTP/2 200 with server Byte-nginx, content-length 5995, x-request-id d006fefde588a635fd54dbba470aa211; body title is 404.\",\n   \"verdict\": \"STALE\",\n   \"correction\": \"As of 2026-10-21, GET https://plazir27.kimi.pro returns HTTP/2 302 to https://statics.kimi.ai/pages/preview-404-en.html and then HTTP/2 200 from Byte-nginx with a 5,995-byte HTML page titled 404 carrying x-request-id (not observed x-fc-request-id), so the old Function-Compute ingress label is not supported by this response.\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c5\",\n   \"anchor\": \"canonical = `veigapunk.github.io/lucario/` (live)\",\n   \"claim\": \"The cited canonical GitHub Pages Lucario URL still serves the page.\",\n   \"surface\": \"GET https://veigapunk.github.io/lucario/\",\n   \"method\": \"GET\",\n   \"observation\": \"http_code=200 url=https://veigapunk.github.io/lucario/ size_download=3435 content_type=text/html; charset=utf-8; body includes <title>lucario</title> and <h1>lucario<span>.</span></h1>.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c6\",\n   \"anchor\": \"plazir15.kimi.page / charter-ufo-fsd.kimi.page | 404 dead slots, RECREATE path\",\n   \"claim\": \"Both explicitly named dead-slot Kimi pages still return HTTP 404.\",\n   \"surface\": \"GET https://plazir15.kimi.page; GET https://charter-ufo-fsd.kimi.page\",\n   \"method\": \"GET\",\n   \"observation\": \"https://plazir15.kimi.page: http_code=404 url=https://plazir15.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8. https://charter-ufo-fsd.kimi.page: http_code=404 url=https://charter-ufo-fsd.kimi.page/ size_download=13409 content_type=text/html; charset=utf-8.\",\n   \"verdict\": \"HOLD\",\n   \"seat\": \"ReverifyDriftDetection\"\n  },\n  {\n   \"id\": \"c7\",\n   \"anchor\": \"**8** (incl. `/tetris/`,\",\n   \"claim\": \"The r16 live Plazir sitemap contained eight locations including tetris.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/sitemap.xml\",\n   \"method\": \"GET\",\n   \"observation\": \"200; 7 loc entries; tetris absent from sitemap although tetris/ returns 200\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, the live Plazir sitemap lists seven locations and omits tetris; tetris/ still returns 200, so the r16 eight-loc count and 103-vs-102 cross-source arithmetic remain dated history, not current totals.\"\n  },\n  {\n   \"id\": \"c8\",\n   \"anchor\": \"| `snake/index.html` `og:url` | 0 hits\",\n   \"claim\": \"The r16 live snake page had no og:url and speedrun had a Plazir self-canonical.\",\n   \"surface\": \"https://veigapunk.github.io/plazir-15-site/snake/index.html; https://veigapunk.github.io/plazir-15-site/speedrun/\",\n   \"method\": \"GET\",\n   \"observation\": \"snake 200 og:url https://veigapunk.github.io/plazir-15-site/snake/; speedrun 200 canonical https://ds4cc.com/speedrun/\",\n   \"verdict\": \"STALE\",\n   \"seat\": \"w2/HoldDriftDetection\",\n   \"correction\": \"As of 2026-10-21, live snake/index.html has one og:url to the Plazir snake URL and speedrun/ declares https://ds4cc.com/speedrun/ canonical; the absent checkout prevents a current source-vs-live synchronization verdict.\"\n  }\n ]\n}",
+   "expect": "reject",
+   "why": "RFC 8259 \u00a7\u00a76 and 9 permit numeric limits; the observed 4300-digit implementation limit may reject 5000 digits but C2 requires exit 1 or 2 without traceback.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1PopulationEdge.md"
+  },
+  {
+   "id": "wrong-unit",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "unit"
+   ],
+   "value": "fleet-registry",
+   "expect": "reject",
+   "why": "The documented C1 receipt contract requires unit to equal the population unit, so this mismatch must reject.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1UnitPath.md"
+  },
+  {
+   "id": "path-dotdot",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "path"
+   ],
+   "value": "corpus/knowledge/../knowledge/drift-detection.md",
+   "expect": "reject",
+   "why": "The documented C1 receipt contract requires the exact population path; RFC 8259 \u00a77 treats this as a valid string but does not normalize its value.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1UnitPath.md"
+  },
+  {
+   "id": "path-list",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "path"
+   ],
+   "value": [
+    "corpus/knowledge/drift-detection.md"
+   ],
+   "expect": "reject",
+   "why": "RFC 8259 \u00a75 permits arrays as JSON values, but the documented C1 receipt contract requires path to match the population's string value.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1UnitPath.md"
+  },
+  {
+   "id": "unit-missing",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "delete",
+   "jsonPath": [
+    "unit"
+   ],
+   "expect": "reject",
+   "why": "The documented C1 receipt contract requires the receipt unit to match the population unit, and an omitted member cannot match.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1UnitPath.md"
+  },
+  {
+   "id": "unit-trailing-space",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "unit"
+   ],
+   "value": "drift-detection ",
+   "expect": "reject",
+   "why": "The unit string's trailing space is valid JSON under RFC 8259 \u00a77 but differs from the exact population identity required by the runner.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1UnitPath.md"
+  },
+  {
+   "id": "path-trailing-space",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "path"
+   ],
+   "value": "corpus/knowledge/drift-detection.md ",
+   "expect": "reject",
+   "why": "The path string's trailing space is valid JSON under RFC 8259 \u00a77 but differs from the exact population identity required by the runner.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1UnitPath.md"
+  },
+  {
+   "id": "verdict-lowercase-hold",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "0",
+    "verdict"
+   ],
+   "value": "hold",
+   "expect": "reject",
+   "why": "The runner's documented verdict set is exactly HOLD/STALE/UNVERIFIABLE, so lowercase hold is outside the receipt contract.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1VerdictSet.md"
+  },
+  {
+   "id": "verdict-stale-trailing-space",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "3",
+    "verdict"
+   ],
+   "value": "STALE ",
+   "expect": "reject",
+   "why": "The runner's documented verdict set does not include STALE followed by a space; whitespace inside a JSON string is data, not the insignificant token whitespace of RFC 8259 section 2.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1VerdictSet.md"
+  },
+  {
+   "id": "verdict-array-hold",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "0",
+    "verdict"
+   ],
+   "value": [
+    "HOLD"
+   ],
+   "expect": "reject",
+   "why": "RFC 8259 sections 3 and 5 distinguish an array from a string, and the receipt contract requires verdict to be a nonempty string in HOLD/STALE/UNVERIFIABLE.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1VerdictSet.md"
+  },
+  {
+   "id": "stale-missing-correction",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "delete",
+   "jsonPath": [
+    "claims",
+    "3",
+    "correction"
+   ],
+   "expect": "reject",
+   "why": "The runner's documented contract requires every STALE claim to include correction text that appears verbatim in the unit's round-23 section.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1VerdictSet.md"
+  },
+  {
+   "id": "unverifiable-empty-reason",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/fleet-registry.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "1",
+    "reason"
+   ],
+   "value": "",
+   "expect": "reject",
+   "why": "The runner's documented contract requires a reason for UNVERIFIABLE, and an empty string supplies no reason.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1VerdictSet.md"
+  },
+  {
+   "id": "stale-integer-correction",
+   "target": "c1",
+   "file": ".ufo/waves/round-23/receipts/drift-detection.json",
+   "op": "set",
+   "jsonPath": [
+    "claims",
+    "3",
+    "correction"
+   ],
+   "value": 42,
+   "expect": "reject",
+   "why": "RFC 8259 sections 3 and 6 distinguish a number from correction text, and the receipt contract requires a nonempty STALE correction that occurs verbatim in the round-23 section.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC1VerdictSet.md"
+  },
+  {
+   "id": "audit-verdict-mismatch",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "result",
+    "verdict"
+   ],
+   "value": "failed-policy",
+   "expect": "reject",
+   "why": "The served receipt must reproduce canonical_audit.py result exactly (round-23 measure_c2.py lines 9-12); the unmodified page reproduces clean, not failed-policy.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "audit-exit-string",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "exit"
+   ],
+   "value": "0",
+   "expect": "reject",
+   "why": "The served receipt must reproduce the numeric process exit exactly; RFC 8259 sections 3, 6 and 7 distinguish a string from a number.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "audit-extra-top-key",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "unexpected"
+   ],
+   "value": true,
+   "expect": "reject",
+   "why": "An extra top-level member violates the documented exact served-receipt replay, although it remains valid JSON under RFC 8259 section 4.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "audit-extra-result-key",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "result",
+    "unexpected"
+   ],
+   "value": true,
+   "expect": "reject",
+   "why": "An extra result member violates exact reproduction of the validator result; RFC 8259 section 4 permits arbitrary object members but does not override the local receipt contract.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "audit-result-missing",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "delete",
+   "jsonPath": [
+    "result"
+   ],
+   "expect": "reject",
+   "why": "The served receipt must contain both the reproduced exit and result (round-23 measure_c2.py lines 9-12), so an absent result is not a matching receipt.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "notserved-audit-status-mismatch",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 503,
+   "expect": "reject",
+   "why": "The not-served receipt must carry fetch.status exactly (round-23 measure_c2.py lines 13-14), which remains 404 rather than 503.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "audit-exit-boolean",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "exit"
+   ],
+   "value": false,
+   "expect": "reject",
+   "why": "A boolean false is not the reproduced numeric exit 0 under the exact replay contract and the distinct JSON value types in RFC 8259 section 3.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "audit-pagecount-boolean",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "result",
+    "pagesChecked"
+   ],
+   "value": true,
+   "expect": "reject",
+   "why": "A boolean true is not the reproduced numeric pagesChecked value 1 under exact result replay and the distinct JSON value types in RFC 8259 section 3.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "notserved-audit-verdict-mismatch",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "verdict"
+   ],
+   "value": "clean",
+   "expect": "reject",
+   "why": "A 404 response without page.html requires the documented not-served audit verdict, not a clean canonical-policy result (round-23 measure_c2.py lines 13-14).",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "audit-served-unchanged-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "exit"
+   ],
+   "value": 0,
+   "expect": "accept",
+   "why": "This identity set retains the committed served audit byte-for-byte, including its numeric exit and exactly reproduced result.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "audit-notserved-unchanged-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 404,
+   "expect": "accept",
+   "why": "This identity set retains the committed not-served audit byte-for-byte, matching the numeric 404 fetch status with no page.html.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2AuditReplay.md"
+  },
+  {
+   "id": "ctype-int-200",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": 200,
+   "expect": "reject",
+   "why": "RFC 9110 \u00a78.3 requires a media-type field value, while RFC 8259 \u00a73 makes 200 a JSON number rather than a string.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-list",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": [
+    200
+   ],
+   "expect": "reject",
+   "why": "RFC 8259 \u00a73 distinguishes arrays from strings, and an array cannot satisfy RFC 9110 \u00a78.3.1's media-type grammar.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-dict",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": {
+    "type": "text/html"
+   },
+   "expect": "reject",
+   "why": "RFC 8259 \u00a73 distinguishes objects from strings, and an object cannot satisfy RFC 9110 \u00a78.3.1's media-type grammar.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-true",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": true,
+   "expect": "reject",
+   "why": "RFC 8259 \u00a73 distinguishes a boolean from a string, and true cannot satisfy RFC 9110 \u00a78.3.1's media-type grammar.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-false",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": false,
+   "expect": "reject",
+   "why": "The lane receipt shape permits a string or absent-header null, not false, and RFC 9110 \u00a78.3 requires a media-type field value when Content-Type is present.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-null-absent",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": null,
+   "expect": "accept",
+   "why": "The lane producer permits null for an absent Content-Type and RFC 9110 \u00a78.3 permits the field to be absent, so this is a valid non-served control.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-empty-string",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": "",
+   "expect": "reject",
+   "why": "An explicitly present empty string is not RFC 9110 \u00a78.3.1's required type slash subtype media-type, unlike an absent field represented as null.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-uppercase-html",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": "TEXT/HTML; charset=utf-8",
+   "expect": "accept",
+   "why": "RFC 9110 \u00a78.3.1 makes type and subtype tokens case-insensitive, so this is a valid text/html served-response control.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-trailing-semicolon",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": "text/html;",
+   "expect": "accept",
+   "why": "RFC 9110 \u00a75.6.6 permits empty trailing parameters, so text/html; is valid media-type syntax for this served-response control.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-htmlx",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": "text/htmlx",
+   "expect": "accept",
+   "why": "text/htmlx is a syntactically valid distinct subtype under RFC 9110 \u00a78.3.1 and should be accepted as a valid not-served response.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-leading-ows",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": " text/html",
+   "expect": "accept",
+   "why": "RFC 9110 \u00a75.5 requires allowed leading field whitespace to be excluded before evaluating the field value, yielding valid text/html.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "ctype-comma-list",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": "text/html, text/plain",
+   "expect": "reject",
+   "why": "RFC 9110 \u00a78.3 defines Content-Type as a singleton media-type field, whose \u00a78.3.1 grammar does not admit a comma-separated list.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ContentType.md"
+  },
+  {
+   "id": "error-null-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "error"
+   ],
+   "expect": "accept",
+   "why": "The committed usable HTTP response records error:null, the no-error value required by served() and emitted by live_snapshot.py; RFC 8259 section 3 defines null distinctly from strings and numbers.",
+   "value": null,
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "error-empty-string",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "error"
+   ],
+   "expect": "reject",
+   "why": "served() requires error to be JSON null for the stored 2xx HTML body, and the empty string is a distinct JSON string rather than null under RFC 8259 sections 3 and 7.",
+   "value": "",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "error-zero",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "error"
+   ],
+   "expect": "reject",
+   "why": "The stored successful HTML response requires error:null rather than a numeric flag; RFC 8259 sections 3 and 6 make the number 0 distinct from null and an error string.",
+   "value": 0,
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "error-key-missing",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "delete",
+   "jsonPath": [
+    "error"
+   ],
+   "expect": "reject",
+   "why": "The snapshot producer always emits the error member and the handoff says missing capture data is input error; RFC 8259 section 4 does not equate an omitted object member with an explicit null value.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "truncated-false-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "truncated"
+   ],
+   "expect": "accept",
+   "why": "The committed full HTML snapshot records the JSON boolean false produced by len(body)>MAX_BODY, with matching body digest and audit; RFC 8259 section 3 defines false as a boolean literal.",
+   "value": false,
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "truncated-string-false",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "truncated"
+   ],
+   "expect": "reject",
+   "why": "truncated is the producer boolean cap flag and a stored full HTML body requires false, not the truthy JSON string \"false\"; RFC 8259 sections 3 and 7 distinguish these types.",
+   "value": "false",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "truncated-zero",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "truncated"
+   ],
+   "expect": "reject",
+   "why": "The producer emits a boolean truncated flag, so numeric 0 is malformed even though Python treats it like false; RFC 8259 sections 3 and 6 distinguish boolean false from a number.",
+   "value": 0,
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "truncated-one",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "truncated"
+   ],
+   "expect": "reject",
+   "why": "Numeric 1 is not the producer boolean truncated flag under RFC 8259 sections 3 and 6, and treating it as true is inconsistent with the stored full HTML page and served audit.",
+   "value": 1,
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "truncated-key-missing",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "delete",
+   "jsonPath": [
+    "truncated"
+   ],
+   "expect": "reject",
+   "why": "The snapshot producer always records whether its body cap truncated the response and the handoff calls missing capture data input error; RFC 8259 section 4 does not supply an omitted member with boolean false.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "error-zero-not-served",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "error"
+   ],
+   "expect": "reject",
+   "why": "The producer records null for this usable 404 HTTP response or a diagnostic string for a fetch error, never a number; RFC 8259 sections 3 and 6 distinguish numeric 0 from either permitted representation.",
+   "value": 0,
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "truncated-string-not-served",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "truncated"
+   ],
+   "expect": "reject",
+   "why": "The producer emits a JSON boolean cap flag for every response including 404, and RFC 8259 sections 3 and 7 distinguish the string \"false\" from that boolean even when no page is stored.",
+   "value": "false",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "error-empty-not-served",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "error"
+   ],
+   "expect": "reject",
+   "why": "This completed 404 response uses error:null and producer errors are nonempty diagnostics, so the empty string must not alias null in replay; RFC 8259 sections 3 and 7 keep strings distinct from null.",
+   "value": "",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ErrorTruncated.md"
+  },
+  {
+   "id": "served-malformed",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-10-21T06:33:03Z trailing",
+   "expect": "reject",
+   "why": "RFC 3339 \u00a75.6 defines the date-time grammar; trailing text is not a fetchedAt timestamp.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "served-future",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2099-12-31T23:59:59Z",
+   "expect": "reject",
+   "why": "This valid RFC 3339 instant is after the completed 2026-10-21 GET, so it cannot truthfully attest that fetch event (\u00a75.6 represents a date-time as an instant).",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "served-impossible",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-11-31T06:33:03Z",
+   "expect": "reject",
+   "why": "RFC 3339 \u00a75.7 caps November at day 30, so this impossible calendar date is not a timestamp.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "served-offsetless",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-10-21T06:33:03",
+   "expect": "reject",
+   "why": "RFC 3339 \u00a75.6 requires full-time to include a time-offset, so this offset-less value is not a complete timestamp.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "not-served-malformed",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-10-21T06:33:17Z trailing",
+   "expect": "reject",
+   "why": "RFC 3339 \u00a75.6 defines the date-time grammar; trailing text is not a fetchedAt timestamp.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "not-served-future",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2099-12-31T23:59:59Z",
+   "expect": "reject",
+   "why": "This valid RFC 3339 instant is after the completed 2026-10-21 GET, so it cannot truthfully attest that fetch event (\u00a75.6 represents a date-time as an instant).",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "not-served-impossible",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-11-31T06:33:17Z",
+   "expect": "reject",
+   "why": "RFC 3339 \u00a75.7 caps November at day 30, so this impossible calendar date is not a timestamp.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "not-served-offsetless",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-10-21T06:33:17",
+   "expect": "reject",
+   "why": "RFC 3339 \u00a75.6 requires full-time to include a time-offset, so this offset-less value is not a complete timestamp.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "served-null",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": null,
+   "expect": "reject",
+   "why": "The receipt contract requires fetchedAt to be a timestamp string; RFC 8259 \u00a73 permits null as a JSON value, but it is not that string.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "served-number",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": 7,
+   "expect": "reject",
+   "why": "The receipt contract requires fetchedAt to be a timestamp string; RFC 8259 \u00a73 permits numbers as JSON values, but a number is not that string.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "not-served-array",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": [],
+   "expect": "reject",
+   "why": "The receipt contract requires fetchedAt to be a timestamp string; RFC 8259 \u00a73 permits arrays as JSON values, but an array is not that string.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "not-served-object",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/lucario-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": {},
+   "expect": "reject",
+   "why": "The receipt contract requires fetchedAt to be a timestamp string; RFC 8259 \u00a73 permits objects as JSON values, but an object is not that string.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FetchedAt.md"
+  },
+  {
+   "id": "finalurl-c0-lf-single",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "finalUrl"
+   ],
+   "value": "https://ds4cc.com/\n",
+   "expect": "reject",
+   "why": "Reject: with redirects empty, finalUrl no longer equals the chain endpoint; RFC 8259 \u00a77 requires the LF to be escaped in JSON, but escaping does not make the decoded URI control valid.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FinalUrlManifest.md"
+  },
+  {
+   "id": "finalurl-javascript",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "finalUrl"
+   ],
+   "value": "javascript:alert(1)",
+   "expect": "reject",
+   "why": "Reject: with redirects empty, finalUrl no longer equals the chain endpoint; the replayed canonical-audit contract only accepts HTTP(S) URLs, while RFC 9110 \u00a78.3.1 specifies media types rather than URL schemes.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FinalUrlManifest.md"
+  },
+  {
+   "id": "finalurl-long-8210",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "finalUrl"
+   ],
+   "value": "https://ds4cc.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "expect": "reject",
+   "why": "Reject: with redirects empty, finalUrl no longer equals the chain endpoint; the 8,210-octet value is not invalid solely by length because RFC 9112 \u00a73 sets no predefined request-line limit and RFC 8259 \u00a79 permits implementation-specific limits.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FinalUrlManifest.md"
+  },
+  {
+   "id": "finalurl-nonascii-host",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "finalUrl"
+   ],
+   "value": "https://b\u00fccher.example/",
+   "expect": "reject",
+   "why": "Reject: with redirects empty, finalUrl no longer equals the chain endpoint; RFC 3986 \u00a73.2.2 requires non-ASCII registered-name data to be UTF-8 percent-encoded and IDN names to be transformed to IDNA before lookup.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FinalUrlManifest.md"
+  },
+  {
+   "id": "finalurl-unchanged-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "finalUrl"
+   ],
+   "value": "https://ds4cc.com/",
+   "expect": "accept",
+   "why": "Accept: the set preserves the original finalUrl, empty redirects, and matching replay receipt.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2FinalUrlManifest.md"
+  },
+  {
+   "id": "not-served-audit-on-served-200",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/audit.json",
+   "op": "set",
+   "jsonPath": [],
+   "value": {
+    "verdict": "not-served",
+    "status": 200,
+    "exit": null,
+    "error": null
+   },
+   "expect": "reject",
+   "why": "The runner contract requires a 2xx text/html fetch to have the reproduced audit result, not a not-served receipt; RFC 9110 \u00a78.3.1 defines text/html as a media type.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "not-served-404-page-html-stored",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/page.html",
+   "op": "raw",
+   "value": "<!doctype html><html><body>unexpected stored page</body></html>\n",
+   "expect": "reject",
+   "why": "The runner's documented not-served branch requires that page.html not be stored for a non-2xx text/html fetch.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "not-served-404-case-insensitive-html-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": "TEXT/HTML; CHARSET=UTF-8",
+   "expect": "accept",
+   "why": "RFC 9110 \u00a78.3.1 treats media type type/subtype tokens case-insensitively; the 404 status remains non-served regardless.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "not-served-404-numeric-content-type",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": 5,
+   "expect": "reject",
+   "why": "The producer's reaudit contract accepts contentType only as a string or null; a number is not an RFC 9110 \u00a78.3.1 media type, though valid as an RFC 8259 JSON number.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "served-200-truthy-numeric-content-type",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": 5,
+   "expect": "reject",
+   "why": "The producer's reaudit contract permits contentType only as a string or null; a truthy number must be rejected cleanly rather than passed to media-type parsing.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": true,
+    "stdoutTail": ""
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "not-served-404-invalid-media-type-string",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "contentType"
+   ],
+   "value": "text html",
+   "expect": "reject",
+   "why": "RFC 9110 \u00a78.3.1 media-type grammar requires type slash subtype; this malformed Content-Type must not pass as an ordinary not-served receipt.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "not-served-audit-float-status",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/audit.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 404.0,
+   "expect": "reject",
+   "why": "RFC 9110 \u00a715 defines status-code as a three-digit integer; RFC 8259 permits this JSON number spelling, but the audit receipt status must remain an integer.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "not-served-fetched-at-missing-offset",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-10-21T06:33:20",
+   "expect": "reject",
+   "why": "RFC 3339 \u00a75.6 requires full-time to include a time-offset (Z or plus/minus HH:MM); this timestamp is not a complete date-time.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "not-served-fetched-at-invalid-month",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "fetchedAt"
+   ],
+   "value": "2026-13-21T06:33:20Z",
+   "expect": "reject",
+   "why": "RFC 3339 \u00a75.6 defines date-month as 01-12; lexical prefix comparison accepts this invalid month.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2NotServedShape.md"
+  },
+  {
+   "id": "sha256-from-different-page",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "sha256"
+   ],
+   "value": "108f5aca89b9cac35df0ea24930618045be142ed24fc696580f9fc6dff1574c5",
+   "expect": "reject",
+   "why": "The round-23 contract requires the digest of the stored page bytes; this value was hashed from the different committed ds4cc-kimi page.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ShaPage.md"
+  },
+  {
+   "id": "page-present-not-served",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/charter-kimi/page.html",
+   "op": "raw",
+   "value": "",
+   "expect": "reject",
+   "why": "The round-23 contract requires no page.html for a not-served response; a 404 is not served merely because a response has a media type (RFC 9110 \u00a78.3.1).",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ShaPage.md"
+  },
+  {
+   "id": "sha256-as-integer",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "sha256"
+   ],
+   "value": 123,
+   "expect": "reject",
+   "why": "A JSON number is not the receipt's hexadecimal digest string; RFC 8259 \u00a73 defines number and string as distinct JSON value types.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2ShaPage.md"
+  },
+  {
+   "id": "status-boolean-true",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": true,
+   "expect": "reject",
+   "why": "The historical receipt contract requires type(status) is int; RFC 8259 \u00a73 distinguishes true from a number, and RFC 9110 \u00a715 requires a three-digit integer status code.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "status-float-200",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 200.0,
+   "expect": "reject",
+   "why": "The historical runner requires type(status) is int rather than coercing a floating-point value; RFC 8259 \u00a76 permits 200.0 as JSON but does not require this application to accept that receipt representation.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "status-string-200",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": "200",
+   "expect": "reject",
+   "why": "The historical receipt contract requires an integer status without string coercion; RFC 8259 \u00a73 distinguishes strings from numbers and RFC 9110 \u00a715 describes an integer status code.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "status-199-page",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 199,
+   "expect": "reject",
+   "why": "The runner documents stored page.html only for 2xx text/html responses, while RFC 9110 \u00a715 classifies 199 as informational rather than a final served response.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "status-300-page",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 300,
+   "expect": "reject",
+   "why": "The runner documents stored page.html only for 2xx text/html responses, and RFC 9110 \u00a715 classifies 300 as redirection rather than 2xx success.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "status-204-page",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 204,
+   "expect": "reject",
+   "why": "The unchanged receipt claims a 76159-byte page body, but RFC 9110 \u00a715.3.5 says a 204 response cannot contain content or trailers, despite the historical runner\u2019s broader 2xx text/html shorthand.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "status-negative",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": -1,
+   "expect": "reject",
+   "why": "RFC 9110 \u00a715 limits valid HTTP status codes to 100 through 599 inclusive, so -1 cannot record a usable HTTP response.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "status-200-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 200,
+   "expect": "accept",
+   "why": "This is the unmodified positive control: the original 200 text/html page, matching digest and audit satisfy the documented served-response branch and RFC 9110 \u00a715.3.1.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "status-299-control",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "status"
+   ],
+   "value": 299,
+   "expect": "accept",
+   "why": "The integer 299 remains inside the documented 2xx served-response range, and RFC 9110 \u00a715 requires treating an unrecognized status as the x00 status of its class.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2Status.md"
+  },
+  {
+   "id": "method-get-lowercase",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "method"
+   ],
+   "value": "get",
+   "expect": "reject",
+   "why": "The contract documents fetch.json must record a GET and RFC 9110 \u00a79.1 makes method tokens case-sensitive, so \"get\" is a different token that documents no GET observation.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "method-head",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "method"
+   ],
+   "value": "HEAD",
+   "expect": "reject",
+   "why": "The contract requires a GET receipt and RFC 9110 \u00a79.3.2 defines HEAD as carrying no response body content, which could not support the stored page.html sha256.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "url-trailing-slash-diff",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "url"
+   ],
+   "value": "https://ds4cc.com",
+   "expect": "reject",
+   "why": "The contract requires the receipt to name the population url and RFC 3986 \u00a76.2.3 slash normalization is not part of the contract, so the receipt must record the requested target byte-exactly.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "url-as-list",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "url"
+   ],
+   "value": [
+    "https://ds4cc.com/"
+   ],
+   "expect": "reject",
+   "why": "Per RFC 8259 the url is a JSON string member of the receipt and an array is a different JSON value type that names no resource.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "finalurl-missing",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "delete",
+   "jsonPath": [
+    "finalUrl"
+   ],
+   "value": null,
+   "expect": "reject",
+   "why": "The contract derives the validator manifest url from fetch.finalUrl and requires it to equal the redirect-chain end, so an absent finalUrl makes every replay input_invalid.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "finalurl-int",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "finalUrl"
+   ],
+   "value": 42,
+   "expect": "reject",
+   "why": "RFC 8259 makes 42 a number where the contract requires a string naming the final resource, and the reproduced audit can never match input_invalid.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "redirects-as-dict",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "redirects"
+   ],
+   "value": {},
+   "expect": "reject",
+   "why": "The contract requires the redirect chain as a JSON array and RFC 8259 \u00a75 keeps objects and arrays distinct types.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "redirects-as-hop-dict",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "redirects"
+   ],
+   "value": {
+    "from": "https://ds4cc.com",
+    "status": 301,
+    "to": "https://ds4cc.com/"
+   },
+   "expect": "reject",
+   "why": "A correctly shaped hop is still malformed as an object where the contract's array is required (RFC 8259 \u00a75), pinning the check as type-based rather than content-based.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "finalurl-trailing-slash-diff",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "finalUrl"
+   ],
+   "value": "https://ds4cc.com",
+   "expect": "reject",
+   "why": "With an empty chain the chain end is the requested url byte-exactly, so a slash-differing finalUrl contradicts the receipt's own redirect record.",
+   "r23Observed": {
+    "exit": 1,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  },
+  {
+   "id": "extra-member-note",
+   "target": "c2",
+   "file": ".ufo/waves/round-23/live/ds4cc-primary/fetch.json",
+   "op": "set",
+   "jsonPath": [
+    "note"
+   ],
+   "value": "r24 probe",
+   "expect": "accept",
+   "why": "RFC 8259 objects are unordered name/value sets and the contract forbids no extra members, so an unknown member must not flip the verdict \u2014 control against an over-strict maintained script.",
+   "r23Observed": {
+    "exit": 0,
+    "traceback": false,
+    "stdoutTail": "}"
+   },
+   "source": ".ufo/waves/round-24/w1/GapC2UrlMethod.md"
+  }
+ ]
+}

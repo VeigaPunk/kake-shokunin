@@ -1,0 +1,16 @@
+COMMAND: HOME=$(mktemp -d) KAKE_SELFTEST_DIR=$(mktemp -d) node scripts/freshness-sweep.mjs --selftest
+EXIT: 0
+  PASS  e write-API call sites confined to SELFTEST-WRITES region
+        got:    0 outside · errors 0 (regions B1154,E1225,B1515,E1517)
+  PASS  e2 write confinement mutation proof (in memory)
+        got:    caught 26/26 mutants · apis 31/31 pin=match · regions B1154,E1225,B1515,E1517 · controls positive=PASS decoy=PASS unbalanced=error nested=error loneEnd=error junkMarker=rejected suffix=clean inSelftest=yes
+selftest: 15/15 passed
+COMMAND: node .ufo/round-20/resume/confinement-mutants.mjs
+MUTANTS cb807bc: killed 0/25 survived 25/25
+MUTANTS working-tree: killed 25/25 survived 0/25
+EXIT: 0
+COMMAND: node .ufo/round-20/replay-proof.mjs
+CITATION_LOCALITY_PROOF: PASS (cases=7, failures=0)
+COMMAND: same-tree comparison, base program (git show cb807bc:scripts/freshness-sweep.mjs) vs working-tree program, JSON with generatedAt removed
+--section=paths --json old=0 new=0 IDENTICAL
+--offline --json old=0 new=0 IDENTICAL

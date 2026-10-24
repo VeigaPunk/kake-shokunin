@@ -1,0 +1,10 @@
+# round-22 recovery final suite at landed b539cc17c25e5f42fe8803e2aa42b4574c4b44c6 (2026-10-21)
+$ node scripts/corpus-contract.mjs --json
+{"tool": "corpus-contract", "contract": "S019", "root": "/home/vgpnk/Projects/shokunin/kake-shokunin", "ok": true, "code": 0}
+exit: 0
+$ TZ=UTC node scripts/freshness-sweep.mjs --section=paths
+  citation base: 73 targets · missSet 55 · files 53
+  set-delta miss: no new miss
+  set-delta files: +13 / -0 — added: corpus/QUALITY.md · corpus/SOURCES.md · corpus/knowledge/crawl-scope-per-host.md · corpus/knowledge/ghp-custom-domain.md · corpus/knowledge/ghp-etag-anatomy.md · corpus/knowledge/ghp-served-set.md · corpus/knowledge/static-canonical-preflight.md · corpus/lessons/round-19-recensus.md · corpus/lessons/round-20-verifier-spotcheck.md · corpus/lessons/round-20.md · corpus/lessons/round-21-verifier-spotcheck.md · corpus/lessons/round-21.md · corpus/lessons/round-22.md
+VERDICT: DRIFT — §paths: 3 unannotated miss · 0 NOT in pins.pathsMissSet (exit 1)
+exit: 1 (expected carried red: 3 targets / missSet 55 / no new miss)

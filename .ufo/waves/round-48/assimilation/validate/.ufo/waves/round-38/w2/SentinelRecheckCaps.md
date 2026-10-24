@@ -1,0 +1,27 @@
+# Round 38 W2 — source_recheck body-cap falsification
+
+- **Surface / axes:** `scripts/source_recheck.py` at `adab4c7e9ec2178657395f49346f18800ff4796f`; operability and freshness.
+- **Severity:** No exploitable cap bypass observed; **Low** documentation precision issue.
+- **Exploit path:** Attacker-controlled manifest body path to symlink `/dev/zero`, FIFO, sparse 2 GiB file, a file grown after validation/open, and 24 dense 15 MiB files in one manifest.
+- **Impact:** Every oversized case returned JSON `check_invalid`/`could-not-evaluate` (exit 2); no hang or crash. The many-body case completed all 24 checks (exit 1 only for expected `quote_missing`) with 60,116 KiB maximum RSS under 4,000,000,000-byte `RLIMIT_AS`.
+- **Verdicts:** Symlink, FIFO, post-stat growth and sparse-file cap defenses **hold**. Cumulative processing of many under-cap bodies **holds** for the tested 24-case manifest. The literal claim “a body over the stated cap is never read into memory” is **overstated**: implementation reads up to `MAX_BODY_BYTES + 1` (16,777,217) bytes before rejecting; it does not read the full oversized file.
+- **Smallest remediation:** No runtime change indicated by these cases. Clarify the docstring/comments to say “never read in full; at most `MAX_BODY_BYTES + 1` bytes are read to detect overflow.”
+
+## Commands and observations
+
+All commands ran against the sandbox clone at the stated commit, with `GIT_DIR`, `GIT_WORK_TREE`, and `GIT_INDEX_FILE` unset and `TMPDIR=/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/tmp`. Resource runs used `timeout` and `prlimit --as=4000000000`; `/home/vgpnk/.local/bin/time -v` reported maximum RSS.
+
+- Fixture setup: `timeout 120s prlimit --as=4000000000 -- python3 /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/prepare_cases.py` → **0**; dense-body setup `timeout 120s prlimit --as=4000000000 -- python3 /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fill_many.py` → **0**.
+- Symlink: `timeout 60s prlimit --as=4000000000 -- /home/vgpnk/.local/bin/time -v python3 /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/clone/scripts/source_recheck.py --manifest /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fixtures/symlink/manifest.json` → target **2**, 13,464 KiB RSS; `checksEvaluated:0`, `check_invalid` (outside-root `/dev/zero` rejected).
+- FIFO: same command with `fixtures/fifo/manifest.json` → target **2**, 13,464 KiB RSS; `checksEvaluated:0`, `check_invalid` (FIFO rejected before open; no block).
+- Sparse: same command with `fixtures/sparse/manifest.json` → target **2**, 30,080 KiB RSS; 2,147,483,648-byte sparse body (`blocks=0`) yielded `check_invalid`.
+- Post-stat growth: `timeout 120s prlimit --as=4000000000 -- python3 /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/race_driver.py` → driver **0**; child target **2**, 30,320 KiB RSS. Gate held after body `open` and before `read`: size 1,048,576 at open, then grew to 17,825,792 bytes; output was `checksEvaluated:1`, `check_invalid`.
+- Many bodies: `timeout 180s prlimit --as=4000000000 -- /home/vgpnk/.local/bin/time -v python3 /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/clone/scripts/source_recheck.py --manifest /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fixtures/many/manifest.json > /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/many.stdout.json 2> /fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/many.stderr.txt` → target **1**, 60,116 KiB RSS, 0.61 s; `checksEvaluated:24`, all 24 findings `quote_missing`. Bodies were dense, 15,728,640 bytes each (377,487,360 total).
+
+## Evidence
+
+- Source: `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/clone/scripts/source_recheck.py:47-52,475-497,552-559,601-613`; SHA-256 `6629d8000ac661ef7340137dc026cbdcc79ab0c81d845ed499376b4c1b0f9c6b`.
+- Race artifacts: `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/race_driver.py` SHA-256 `1c8ad9c09c1221341b194de95ca33cbdeba4f348057445166397265634252f8d`; `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/sitecustomize.py` SHA-256 `7e6084e2502ff1850afb6906761da5e9422a0ad927dcf40641a18b7f647c4891`.
+- Fixture generators: `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/prepare_cases.py` SHA-256 `812e15118766e0c58abd32aff79506d51c3aa5e844059b706eafff61616853c4`; `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fill_many.py` SHA-256 `e8612f577c35640175d24fa7bf790e5f821888165ce409f1153d17e91264ec4e`.
+- Manifests: `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fixtures/symlink/manifest.json` `71b56f6922979ad5a24f91349a07569b418bbe4bd91a275871936eb9cae813f9`; `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fixtures/fifo/manifest.json` `3e08018c0d0ea37ca6fdf8184898b3bbff539cd1c9b883255f6b3f784bc44d41`; `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fixtures/sparse/manifest.json` `384da9b1b2b19dfd50e0e46e8c739a6dea4dd81a310833edff104af18b679180`; `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fixtures/many/manifest.json` `0f29c2f48b93db0ab0fbc98e4085549879706648743b8f710f0b54e713bc8351`; `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/fixtures/grow/manifest.json` `dd5d1d502484c341dbae46d2f404db92f96828d373d0a185132178401aa47f58`.
+- Captured output: `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/many.stdout.json` SHA-256 `12a12e9c7d9af65b94bc89b782a707cb0a24d04b0becf1a0c02925c55a98f60d`; `/fast/scratch/hyaku/kake-r38w2/SentinelRecheckCaps/many.stderr.txt` SHA-256 `1e2b9bc5f40cf0355c806ae8f42abf6e915caf21e70668f4e41b3d1075c69f73`.

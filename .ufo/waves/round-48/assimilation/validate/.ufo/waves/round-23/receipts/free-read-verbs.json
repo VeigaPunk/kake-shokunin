@@ -1,0 +1,92 @@
+{
+ "unit": "free-read-verbs",
+ "path": "corpus/knowledge/free-read-verbs.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "tree absent since the 2026-10-12 ~/Projects prune",
+   "claim": "The documented webzites source tree remains absent at its ~/Projects path.",
+   "surface": "test -e /home/vgpnk/Projects/webzites",
+   "method": "test -e",
+   "observation": "ABSENT  /home/vgpnk/Projects/webzites",
+   "verdict": "HOLD",
+   "seat": "ReverifyFreeReadVerbs"
+  },
+  {
+   "id": "c2",
+   "anchor": "Invocation is always the absolute node path from any cwd",
+   "claim": "The documented absolute Node invocation is currently runnable from any cwd because its script is present.",
+   "surface": "test -e /home/vgpnk/Projects/webzites/bin/webzites.mjs",
+   "method": "test -e",
+   "observation": "ABSENT  /home/vgpnk/Projects/webzites/bin/webzites.mjs",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, /home/vgpnk/Projects/webzites/bin/webzites.mjs is absent, so the documented absolute Node invocation cannot run from any cwd.",
+   "seat": "ReverifyFreeReadVerbs"
+  },
+  {
+   "id": "c3",
+   "anchor": "bare `webzites` is not\non PATH on this host",
+   "claim": "The bare `webzites` command is still unavailable on PATH.",
+   "surface": "command -v webzites || echo \"webzites: not on PATH\"",
+   "method": "run",
+   "observation": "webzites: not on PATH",
+   "verdict": "HOLD",
+   "seat": "ReverifyFreeReadVerbs"
+  },
+  {
+   "id": "c4",
+   "anchor": "Read straight off `fleet/fleet.config.json` (21 rows, `schema`",
+   "claim": "The present-day fleet universe is the recorded 21-row population with 18 URL-bearing rows, 15 kimi-surface rows, and 13 sourceDir rows.",
+   "surface": "test -e /home/vgpnk/Projects/webzites/fleet/fleet.config.json",
+   "method": "test -e",
+   "observation": "ABSENT  /home/vgpnk/Projects/webzites/fleet/fleet.config.json",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The live fleet/fleet.config.json surface is absent, so its present-day contents and counts cannot be checked.",
+   "seat": "ReverifyFreeReadVerbs"
+  },
+  {
+   "id": "c5",
+   "anchor": "Therefore `probe <id>` replaces the 18-row fleet snapshot with a\n**1-row** file;",
+   "claim": "A single-id `probe` currently replaces an 18-row snapshot with one row and appends a history entry.",
+   "surface": "test -e /home/vgpnk/Projects/webzites/src/cli.mjs; test -e /tmp/kake-r11/probe-ds4cc.out; test -e /tmp/kake-r11/labrat-probe.md",
+   "method": "test -e",
+   "observation": "ABSENT  /home/vgpnk/Projects/webzites/src/cli.mjs\nABSENT  /tmp/kake-r11/probe-ds4cc.out\nABSENT  /tmp/kake-r11/labrat-probe.md",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The source file and cited round-11 probe captures are absent; no current executable or retained transcript can reproduce the reported state mutation.",
+   "seat": "ReverifyFreeReadVerbs"
+  },
+  {
+   "id": "c6",
+   "anchor": "**Exit asymmetry — snapshot-relative, not fleet-relative.** `status --json`",
+   "claim": "`status --json` always exits 0, while plain `status` is snapshot-relative.",
+   "surface": "test -e /home/vgpnk/Projects/webzites/src/cli.mjs; test -e /tmp/kake-r12/live/status-json.out; test -e /tmp/kake-r12/labrat.md",
+   "method": "test -e",
+   "observation": "ABSENT  /home/vgpnk/Projects/webzites/src/cli.mjs\nABSENT  /tmp/kake-r12/live/status-json.out\nABSENT  /tmp/kake-r12/labrat.md",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The CLI source and cited round-12 status/run captures are absent, so the exit branches cannot be checked against current execution or retained output.",
+   "seat": "ReverifyFreeReadVerbs"
+  },
+  {
+   "id": "c7",
+   "anchor": "except the 6h `webzites-probe.timer` sweep,",
+   "claim": "A six-hour `webzites-probe.timer` is installed and re-widens narrowed snapshots.",
+   "surface": "systemctl --user show webzites-probe.timer --property=LoadState,ActiveState,SubState,NextElapseUSecRealtime,FragmentPath --no-pager; systemctl show webzites-probe.timer --property=LoadState,ActiveState,SubState,NextElapseUSecRealtime,FragmentPath --no-pager",
+   "method": "run",
+   "observation": "--- user systemd timer ---\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath=\nNextElapseUSecRealtime=\nuser_rc=0\n--- system systemd timer ---\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath=\nNextElapseUSecRealtime=\nsystem_rc=0",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, neither systemd manager has a `webzites-probe.timer` unit (`LoadState=not-found`), so no such six-hour sweep is available to re-widen narrowed snapshots.",
+   "seat": "ReverifyFreeReadVerbs"
+  },
+  {
+   "id": "c8",
+   "anchor": "`reconcile plazir15-ghp --json` → **exit 0, match** (sha `d82af77a…`, 38 337 B",
+   "claim": "The `plazir15-ghp` public page currently serves HTTP 200 with a 38,337-byte response; this GET does not reverify equality with the historical local source body.",
+   "surface": "https://veigapunk.github.io/plazir-15-site/",
+   "method": "GET",
+   "observation": "status=200 effective_url=https://veigapunk.github.io/plazir-15-site/ size_download=38337 content_type=text/html; charset=utf-8 redirects=0",
+   "verdict": "HOLD",
+   "seat": "ReverifyFreeReadVerbs"
+  }
+ ]
+}

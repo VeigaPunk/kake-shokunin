@@ -1,0 +1,18 @@
+{
+  "actualRecoverySeats": [
+    {"name":"RecoveryEvidenceAudit","agentId":"KakeR23.RecoveryEvidenceAudit","role":"scout"},
+    {"name":"RecoveryClaimAudit","agentId":"KakeR23.RecoveryClaimAudit","role":"reviewer"},
+    {"name":"RecoveryDocsAudit","agentId":"KakeR23.RecoveryDocsAudit","role":"reviewer"}
+  ],
+  "refusedRepairAttempts": [
+    {"name":"KakeR23.SnapshotFieldRepair","error":"Background job limit reached (100)","spawned":0},
+    {"name":"KakeR23.SnapshotFieldRepair-2","error":"Background job limit reached (100)","spawned":0}
+  ],
+  "repairImplementation":"coordinator-direct",
+  "authority":"Main explicitly directed the bounded contentType-to-split fix coordinator-direct after the two zero-spawn job-cap refusals.",
+  "scope":["scripts/live_snapshot.py",".ufo/waves/round-23/snapshot_probe.py"],
+  "beforeEvidence":"snapshot-field-before.json",
+  "afterEvidence":"snapshot-field-after.json",
+  "replacedDeadSeats":false,
+  "actualRoundSeats":142
+}

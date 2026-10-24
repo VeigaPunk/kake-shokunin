@@ -1,0 +1,71 @@
+{
+ "schema": "kake-r32-c1-m3-v1",
+ "rev": "d061f381a6cee4dafa0987695498cf7d0729fb20",
+ "m3Applied": true,
+ "runnerSha256": "7c95a18e4621ca6c4f0085eb9d208a0f1e6a1211989e51dd0c733ee1488b8969",
+ "pristine": {
+  "exit": 0,
+  "specs": [
+   [
+    "P1-selftest-argv",
+    true
+   ],
+   [
+    "P2-fixture-dot-git",
+    true
+   ],
+   [
+    "P3-commit-without-init",
+    true
+   ],
+   [
+    "P4-expected-json-guard",
+    true
+   ],
+   [
+    "P5-symlinked-case",
+    true
+   ],
+   [
+    "P6-commit-before-init",
+    true
+   ]
+  ]
+ },
+ "mutant": {
+  "exit": 1,
+  "specs": [
+   [
+    "P1-selftest-argv",
+    true
+   ],
+   [
+    "P2-fixture-dot-git",
+    true
+   ],
+   [
+    "P3-commit-without-init",
+    true
+   ],
+   [
+    "P4-expected-json-guard",
+    true
+   ],
+   [
+    "P5-symlinked-case",
+    true
+   ],
+   [
+    "P6-commit-before-init",
+    false
+   ]
+  ]
+ },
+ "benign": {
+  "exit": 0,
+  "cases": 45,
+  "failed": 0
+ },
+ "guard_ok": true,
+ "killed": 1
+}

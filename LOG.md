@@ -1891,3 +1891,58 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - Final no-harm recheck after the round-47 document edits: `node scripts/freshness-sweep.mjs --selftest` → `selftest: 35/35 passed`, exit 0; `python3 -B scripts/citation_lint.py --selftest` → `selftest: 8/8 passed`, exit 0; `python3 -B scripts/citation_lint.py --root .` exit 0; `python3 -B scripts/ledger_latest_check.py` → `ledger-quotes: 3 figures, 0 mismatches`, exit 0.
 
 - Re-opened the orchestrator-owned R46 residual reports per the parent steer: `CriticCitationOverreach.md` reports full-40 `rev-parse` false-greens, capitalized `Base` context misses and coarse ledger suppression; `ReviewWitnessOracle.md` finds the fixtures mirror `_witnesses()` and W12 expects unsupported redirect 200; `CriticMatrixBlindness.md` shows basename/doctored-index shortcuts pass; `MutationSemanticsGap.md` reports 3 semantic mutants survive; `ReviewReceiptIdentity.md` distinguishes filed-side path+sha from a stricter receipt-internal binding. These are advisory findings, not closure verdicts. R47 made no tool/fixture semantic changes; its C1/C2 claims remain limited to registry/receipts and routed-record repair. Append-only scope notes are in SKILL.md, SCORECARD.md and `corpus/knowledge/commit-citation-hygiene.md`; all five reports remain unmodified and orchestrator-owned.
+
+## Round 48 — client-rendering theme re-grounded (C1) and the citation lint's existence check (C2)
+
+- **C1 (freshness).** The client-rendering crawl-contract theme entered held knowledge as
+  `corpus/knowledge/js-rendering-queue.md` and
+  `corpus/knowledge/dynamic-rendering-workaround-limits.md`, grounded in four rows the L1
+  opened in this round: S137, S138, S139 (Google's JavaScript SEO basics in English,
+  Simplified Chinese and Japanese) and S249 (Google's dynamic-rendering page). Each row
+  was fetched once on 2026-10-24 (`curl` via
+  `.ufo/waves/round-48/sources/fetch_sources.py`; receipts
+  `.ufo/waves/round-48/sources/receipts.json`, HTTP 200 for all four, each receipt naming
+  the fetcher's sha256), the raw bodies and the visible text are retained under
+  `.ufo/waves/round-48/sources/`, and each Gate quote is the L1's own located quote with
+  its line number (`corpus/lessons/round-48.md` § Gate). Registry rows 136 -> 140
+  (S137, S138, S139, S249; mined, tier A, opened 2026-10-24, recheck `180d`); the
+  staged rows' prose recheck conditions are recorded in the lesson's Gate block instead
+  of in the schema's cadence cell. No existing row's status, recheck or used-by cell
+  changed.
+- **Assimilation contract (item 10).** `/home/vgpnk/Projects/shokuknow/merge/kake/` was
+  read only; nothing was written, committed, fetched or pushed there and no campaign tool
+  was run there. Id collision check in scratch
+  (`.ufo/waves/round-48/assimilation/{reg-ids,staged-ids,collisions}`): registry 136 ids
+  (S001-S136), staged 115 ids (S137-S251), **0 collisions**; the guard was proven able to
+  fail on an indented colliding row (`guard-collisions` names S137; a column-zero-only
+  scan misses it). The append block was transformed in scratch
+  (`append-block.md`: prose recheck stripped to `180d`, no literal or escaped pipe in any
+  cell, `used-by` naming exactly the admitted entries) and gated on a full-repo mirror
+  whose census exits 0 with only the twelve pre-existing W04 warnings — no E03/E04 —
+  before the append. The kake quarantine slice (12 rows) was hand-checked by fetching
+  each cited source and locating each quote: nine `absent` (refused — fabrication class)
+  and three `unreachable` (unverifiable, never fabrication); none of the twelve is a row
+  this round appends (receipt
+  `.ufo/waves/round-48/assimilation/quarantine-handcheck.json`).
+- **C2 (operability).** `scripts/citation_lint.py` resolved a citation with
+  `git rev-parse -q --verify`, which echoes a full-40-hex token that no object carries
+  with exit 0, so a dead 40-hex citation passed the gate
+  (`.ufo/waves/round-46/residual/CriticCitationOverreach.md`, Finding 1). The resolver
+  now asks whether the object exists (`git cat-file -e`), the shipped selftest gains a
+  planted dead full-40 token (8/8 -> 9/9), and the one new live occurrence
+  (`SCORECARD.md`, the ds4cc-marketplace upstream commit in its full-40 spelling) is
+  adjudicated append-only in `corpus/quality/citation-adjudications.md` with the reason
+  and the correction of the ledger's own header sentence.
+- **Inherited state.** Nine tracked-modified paths at the round start: eight were
+  mode-only drift (100644 -> 100755) and were reverted with `chmod 644` without touching
+  a byte; the ninth was `.ufo/waves/round-47/w1/swarm-registry.json`, rewritten by the
+  round-47 wave's own dispatch (every member's `agentId` filled), together with that
+  wave's 30 seat reports, which are committed here as inherited lane evidence. The eight
+  reports under `.ufo/waves/round-46/residual/` are orchestrator-owned (dispatched by the
+  orchestrator, not by this lane) and stay uncommitted and untouched; the round report
+  names them as the closure's durable queue.
+- **Wave.** One v2 wave of 64 seats under `scripts/hyaku/ufo-wave-policy-v2.json` (band
+  64-128), validated by `ufo-swarm-wave.mjs plan|run`; the L1 holds the canonical
+  planner seat (planner is frozen topology and is not a swarm role); 27 of 64 seats are
+  attack roles (42 percent). Spec, registry and dispatch payload under
+  `.ufo/waves/round-48/`.

@@ -1,0 +1,48 @@
+{
+  "originalTargetsRetained": true,
+  "nodes": [
+    {
+      "stage": "declarations",
+      "revision": "be375d90afc6fc7aca369ab3cf5247bf460aeed2",
+      "sha256": {
+        "count_c1.py": "a1e46d19b438fc254689dc42f474664864b7fd7fecc6a992ad70f5d5da44a14c",
+        "c2_count.py": "93f39b0f7187fa084abd220d8c3734ce02b11b64cd940a1953347f37fa304686",
+        "oracle_selftest.py": {
+          "status": "not_yet_introduced",
+          "gitExit": 128
+        }
+      }
+    },
+    {
+      "stage": "guard-correction",
+      "revision": "08014ce6186b16574fdf458ad4a9fd6b95a49366",
+      "sha256": {
+        "count_c1.py": "26fd8bbb96dad961bd3378ebe8bb59fd572b590502eca7ceb06f523fae4b457f",
+        "c2_count.py": "913a797fdfcbd25d328c2291a14cb84620f4ebfe348d6fd1016415674b8ca055",
+        "oracle_selftest.py": "0a146563890e31256b0cf00267bc4dcb4ff36c9a0db20666d11d4db4173b2c4f"
+      }
+    },
+    {
+      "stage": "ledger-uncertainty-correction",
+      "revision": "9ba102d4a0175c927adb54a005464ce2aa722099",
+      "sha256": {
+        "count_c1.py": "f2632131c5dc72c0cb7b79d1da3eac651d59a80386ef20f360766eb7eb894664",
+        "c2_count.py": "913a797fdfcbd25d328c2291a14cb84620f4ebfe348d6fd1016415674b8ca055",
+        "oracle_selftest.py": "7266a97ec3260ca96f282ee7fc44d36b01f556cf9b80ce98d83bacb81c2142ce"
+      }
+    },
+    {
+      "stage": "measured-candidate",
+      "revision": "ac46a7472d945a6d7ff135e4d7f07b0b6913d835",
+      "sha256": {
+        "count_c1.py": "8d4c22efa884468daead75aa4b9d6143d38986a83c3069747d146ee0daf942a5",
+        "c2_count.py": "913a797fdfcbd25d328c2291a14cb84620f4ebfe348d6fd1016415674b8ca055",
+        "oracle_selftest.py": "943db49c69dd908d0d56678dd4c9af231d00850a1aea092f90b441caafe3e460"
+      }
+    }
+  ],
+  "currentCarryErrataSha256": "236d9e79b665ae997a7f8ae9a31c2d187979a7abcac0d15e60a28c51ef9d17e5",
+  "originalBefore": "c1-before.json; c2-before.json; r26-fail-open-before.json",
+  "actualReplays": "verification/author-run-index.json and named version/candidate receipts",
+  "meaning": "Separate preserved code versions. Current38/55 strict counts apply later-known errata, not a retroactive relabel of original41/57 review measurement. Full claim not proved by an old green."
+}

@@ -1,0 +1,9 @@
+{
+  "id": "S031",
+  "verdict": "HOLD",
+  "fetchIndex": 1,
+  "quote": "Reprocess the token according to the rules given in the section corresponding to the current insertion mode in HTML content.",
+  "anchorObserved": "13.2.6.5 The rules for parsing tokens in foreign content — dd shared by the breakout start-tag list (b/big/…/head/…/var), the font-with-attrs start tag and the br/p end tag; single-line text view char 236181, immediately before the “Any other start tag” dt (raw HTML id=parsing-main-inforeign at 664526); heading also in TOC char 5259 and body char 234791",
+  "reason": "Status 200; decoded body sha256 a11dcf17… equals round-23's registered S031 digest and the page still reads “Last Updated 20 October 2026”, so the pinned version is the same document. 13.2.6.4.7 still has math/svg start-tag branches that insert foreign elements (MathML/SVG namespace), and 13.2.6.5's breakout start-tag list still includes head and body; those tokens pop to a MathML text/HTML integration point or HTML element and are reprocessed under the HTML insertion mode, while integration-point start tags still route to HTML content. Scope, teaches and anchor all hold.",
+  "correction": null
+}

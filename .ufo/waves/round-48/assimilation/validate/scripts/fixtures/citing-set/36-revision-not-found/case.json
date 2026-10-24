@@ -1,0 +1,16 @@
+{
+  "description": "a disposable Git repository is created in the scratch copy (git init + commit) and the gate is asked for a bogus revision.",
+  "argv": [
+    "--revision",
+    "no-such-revision"
+  ],
+  "setup": [
+    {
+      "op": "git_init"
+    },
+    {
+      "op": "git_commit",
+      "message": "fixture"
+    }
+  ]
+}

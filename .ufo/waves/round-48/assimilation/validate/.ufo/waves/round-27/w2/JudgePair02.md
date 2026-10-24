@@ -1,0 +1,56 @@
+# JudgePair02 — r27 fresh falsification, pair (S002, corpus/knowledge/static-canonical-preflight.md)
+
+Seat: KakeR27.JudgePair02 (reviewer, leaf, read-only). Axis: freshness. Milestone: r27-fresh-falsification. Repo /home/vgpnk/Projects/shokunin/kake-shokunin. Frozen candidate ac46a7472d945a6d7ff135e4d7f07b0b6913d835 (== HEAD at inspection). Attacked file blob at candidate 7bcf31ddab3689e269ca5d085d5543dad6a2daac; worktree sha256 40ebd1da…ca8a12 == `git cat-file blob ac46a747:corpus/knowledge/static-canonical-preflight.md | sha256sum` (worktree == candidate blob). No source/ledger/manifest edit, no subagent, no tool install, no pacman transaction; scratch only under /fast/scratch/hyaku/kake-r27/judgepair02/. Network limited to the two named public GitHub release documents plus one tagged public action.yml (no account, credential, cookie or publication operation).
+
+## 1. Attacked item
+
+`.ufo/waves/round-27/pairs.json` row S002 / file `corpus/knowledge/static-canonical-preflight.md`, kind=source, verdict=HOLD, fetchIndex=1, quote="Potentially breaking change: hidden files (specifically dotfiles) will not be included in the artifact", anchor="v4.0.0 release, What's Changed", reason="Release-specific dotfile exclusion supplies a counterexample to assumed checkout membership; the built-HTML manifest instruction is local synthesis, not stated by this release."
+
+Original citing sentence (base 83528f7 and candidate, identical, lines 52–54; `grep -n S001` on base blob → line 54 only, so S002 enters only via the en-dash range): "… Prepare the / manifest over actual built/deployable HTML when that artifact exists, not over / an assumed checkout served set (S001–S006, `ghp-served-set.md`)."
+
+## 2. Verdict
+
+**HOLD confirmed — the pair's semantic judgment survives independent falsification.** No stale premise, no UNVERIFIABLE, no over-claim needing correction. Three low-severity notes (F1–F3); none changes the verdict.
+
+## 3. Probes (expected declared before running → actual)
+
+**P1 source authenticity.** Expected: v4.0.0 body carries the sentence verbatim under "What's Changed"; published 2025-08-14. Actual (`read https://api.github.com/repos/actions/upload-pages-artifact/releases?per_page=10`): `"tag_name":"v4.0.0"`, `"published_at":"2025-08-14T19:21:06Z"`, body `## What's Changed\r\n* Potentially breaking change: hidden files (specifically dotfiles) will not be included in the artifact by @tsusdere in …/pull/102` + `If you need to include dotfiles in your artifact: instead of using this action, create your own artifact according to these requirements` + `Full Changelog: …/compare/v3.0.1...v4.0.0`. Independent channel from the retained HTML-filtered text → same sentence.
+
+**P2 freshness (axis under test).** Expected: no release newer than v5.0.0 on 2026-10-21; the row's `recheck: on-release` trigger has no unfired event; dotfile behavior not reversed. Actual (same read): newest = `v5.0.0`, `"published_at":"2026-04-10T18:22:59Z"`, body ``feat: add `include-hidden-files` input @jonchurch (#137)``; then v4.0.0, then v3.0.1; no v6. Registry row corpus/SOURCES.md:9 records both halves → not stale. Corroboration of the "settings" half (`read https://raw.githubusercontent.com/actions/upload-pages-artifact/fc324d3547104276b827a68afc52ff2a11cc49c9/action.yml`): `include-hidden-files: … default: "false"`, archive step `${{ inputs.include-hidden-files != 'true' && '--exclude=.[^/]*' || '' }}` → v5 still excludes dotfiles by default; v4.0.0's statement stands.
+
+**P3 quote/anchor in the retained bytes the pair cites.** Expected: quote ⊂ retained text at the candidate revision, anchor adjacent. Actual (python3 over `.ufo/waves/round-27/fetched/text/S002-1.txt`): containment True; context "… What's Changed Potentially breaking change: hidden files (specifically dotfiles) will not be included in the artifact by @tsusdere in #102 …"; tag line "v4.0.0 7b1f4a7"; "Full Changelog: v3.0.1...v4.0.0" present. Retained text sha256 21eb9c92…8713d (3496 B) == manifest `sha256` (S002/index 1); gzip payload decompresses byte-identical to text/S002-1.txt; manifest `receivedSha256` 43d5e22d… / receivedBytes 200835 = the filtered HTML body, not retained. Anchor + quote hold.
+
+**P4 synthesis test.** Expected: release text contains no manifest/canonical/preflight/HTML terms → "local synthesis" true. Actual: grep `manifest|canonical|preflight|href|serve` over text/S002-1.txt and text/S002-2.txt → **zero** hits in both. The manifest step is not stated by the release; the record's "local synthesis, not stated by this release" is accurate.
+
+**P5 semantic transfer (does it bear on line 54 at all?).** Expected for HOLD: source establishes a file-set difference between what the deployed artifact contains and what a checkout enumeration contains, without entailing the manifest step. Actual: v4.0.0 note (dotfiles excluded) + retained text/S001-1.txt:35 (`--exclude=".[^/]*"` in the v4.0.0 archive step) + v5 opt-in `include-hidden-files` (default false) → artifact membership is version/config dependent; a checkout enumeration (contains `.git`, `.github`, `.nojekyll`, possibly dot-path HTML) is not the artifact's membership. Non-vacuous, directly supported; the recommendation step stays local synthesis (P4).
+
+**P6 consumer command rerun at the candidate revision.** Expected: exit 1 (3 carried UNVERIFIABLE pairs keep C1 non-green) and the S002 outcome valid/HOLD. Actual (`TMPDIR=/fast/scratch/hyaku/kake-r27/judgepair02 python3 -B .ufo/waves/round-27/count_c1.py --root . --revision ac46a7472d945a6d7ff135e4d7f07b0b6913d835`; stdout captured, stderr empty): exit=1; population=32, citingPairs=58, reviewedPairs=58, decided=55, r26CarriedPairs=41, knownUnverifiableUnits=7, knownUnverifiablePairs=3, newDecided=18, unreviewed=[]; findings/missing = exactly S001/ghp-served-set.md, S007/ghp-custom-domain.md, S033/static-canonical-preflight.md with error `carried_unverifiable` (3+1+3 units); **S002 outcome {'row':'S002','file':'corpus/knowledge/static-canonical-preflight.md','verdict':'HOLD','valid':True}** — matches the contract's "observed 55/58, reviewed 58; unprovable, never green" (review count not presented as 58 decided).
+
+**P7 evidence integrity.** Expected: all S001–S006 fetch artifacts present in the candidate commit; S002 has both indices. Actual: `git ls-tree -r ac46a747 -- .ufo/waves/round-27/fetched` → S001×2, S002×2, S003, S004, S005, S006 + manifest + text/; `git cat-file -e ac46a747:<path>` for all 16 paths → all present (no MISSING). Manifest: S002/1 status 200 bytes 3496 (receivedBytes 200835); S002/2 status 200 bytes 3592 (receivedBytes 205035). The append's "all six members … were opened and individually judged this round" is backed.
+
+## 4. Findings (severity order)
+
+**F1 — LOW (traceability, not truth).** The record's only located quote (fetchIndex 1) contains no "setting", and the candidate file's r27 table cell for S002 reads "artifact membership depends on version and hidden-file settings" while citing only that v4.0.0 quote. The "hidden-file settings" half is true and grounded in retained bytes (manifest S002/index 2; tagged v5.0.0 action.yml `include-hidden-files default "false"`), but is cited nowhere in the S002 record or cell. Append-only fix: cite S002 index 2 there. No verdict impact.
+
+**F2 — LOW (scope of the inferential step).** The note constrains what the action archives from `$INPUT_PATH` (default `_site/`, the build output), so strictly it shows artifact ≠ build-output-directory in the dotfile dimension; the checkout→artifact divergence proper is S001/S003/S006's. "Counterexample to assumed checkout membership" is directionally right (a checkout enumeration includes dotfiles the deployed artifact omits) but is one inference step beyond the quoted sentence and bites in practice only when the build output carries dot-path HTML. The record already labels the manifest step local synthesis, so this is a scope note, not a defect.
+
+**F3 — INFO (cross-lane; byte binding, not semantics).** w1/Pair02A.md §3/§9 and w1/Pair02B.md cite `fetched/S002-1.raw.gz` with sha256 43d5e22d…/200835 B. The candidate retains `fetched/S002-1.public.txt.gz` (sha256 21eb9c92…, 3496 B of visible text); 43d5e22d… is the manifest's `receivedSha256` of the filtered HTML body, explicitly not retained and not reconstructable. The adjudicated pair record cites no digest, so the record mislabels nothing; only the W1 evidence reports' file/digest language drifts from the committed artifacts.
+
+## 5. Dissent tested
+
+**D1 — S005 preflight STALE (grouped range over-includes S005).** Its criterion is subject mismatch: the retained S005 text is entirely custom-domain/CNAME configuration (hits: "custom domain", "Configuring an apex domain", "Configuring a subdomain"; no file-membership content), while S002's retained text is entirely artifact file-set content. The criterion rejecting S005 does not transfer to S002, and S005's rejection does not undercut S002's HOLD (each row judged on its own scoped contribution). The candidate append is consistent: "Read the recommendation as local synthesis supported by the scoped premises from S001, S002, S003, S004 and S006 above".
+
+**D2 — S005/S003 sitemap-orphan-audit rows:** artifact-kind obligations about r20 correction records and date metadata; they make no claim about S002's source semantics and do not bear on this pair.
+
+**D3 — S004 ghp steps STALE (steps 4–5 belong to S003, not S004):** a different failure mode — attribution of step numbering within one document, not subject relevance; checked whether S002 suffers the same over-inclusion — S002's contribution (which files enter the deployed artifact) is the premise the sentence's "actual built/deployable HTML … vs an assumed checkout served set" contrast depends on, so no S004-style over-inclusion. S002's registry scope ("Artifact packaging behavior across v4.0.0 and v5.0.0") and teaches line are verified verbatim (P1/P2).
+
+## 6. Residual risk / verification gaps
+
+- Pages-side serving semantics not checked (does Pages serve dotfiles present in an artifact?) — outside the quoted source and this lane; converting artifact-level divergence into served-set divergence would need it. The HOLD does not depend on it.
+- The dotfile dimension is the narrowest possible divergence for a Pages HTML manifest: S002's practical weight for a manifest-population decision is low although the logical counterexample holds; the candidate labels it "limited premise", matching both W1 seats.
+- Not run: `scripts/canonical_audit.py` / round-22 fixtures (out of lane; the pair makes no tool-behaviour claim).
+- Pair-count and quote-presence were not treated as support: P4/P5 test the semantic link independently of the counter pass.
+
+## 7. Report trailer
+
+Read: corpus/knowledge/static-canonical-preflight.md (blob 7bcf31dd…), corpus/SOURCES.md:9–14, .ufo/waves/round-27/pairs.json, fetched/manifest.json + text/S002-{1,2}.txt + text/S001-{1,2}.txt, count_c1.py, w1/Pair02A.md, w1/Pair02B.md. Live public docs opened: api.github.com/repos/actions/upload-pages-artifact/releases?per_page=10; raw.githubusercontent.com/…/fc324d3547104276b827a68afc52ff2a11cc49c9/action.yml. Scratch: /fast/scratch/hyaku/kake-r27/judgepair02/count_c1.{out,err}. Only this report was written by this seat.

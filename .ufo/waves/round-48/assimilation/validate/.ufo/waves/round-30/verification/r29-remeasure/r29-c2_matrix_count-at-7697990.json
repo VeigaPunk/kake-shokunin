@@ -1,0 +1,213 @@
+{
+ "measuredBy": "round-30 L1 (KakeR30), routed defect 4 of the round-29 spot-check",
+ "counterPath": ".ufo/waves/round-29/c2_matrix_count.py",
+ "counterBlobFrom": "234524cdc06167ad14477e0956a8786cc3fc752d",
+ "counterSha256": "62732c8685678e0f0a7073bb39caf8402c8db60196421aa9dffe28eefac2d273",
+ "revision": "7697990cbca20291f3b0367b8ff4220e93b38b03",
+ "exit": 0,
+ "python": "3.14.8",
+ "output": {
+  "counter": "kake-r29-c2-base-path-matrix",
+  "revision": "7697990cbca20291f3b0367b8ff4220e93b38b03",
+  "tool": "scripts/base_path_audit.py",
+  "toolPresent": true,
+  "toolSha256": "e32646159b652710be4053bbdb001c3d11929ef63b055b7f57545231ac6965aa",
+  "matrixSha256": "75c08f641a31356d0f3446d9e6e435c44ee02bc4cf49102904e2466dbac2e84a",
+  "passed": 30,
+  "total": 30,
+  "byKind": {
+   "control": "7/7",
+   "defect": "14/14",
+   "input": "8/8",
+   "usage": "1/1"
+  },
+  "constantGatesPassed": {
+   "constant-clean": "7/30",
+   "constant-failed-empty": "0/30",
+   "constant-refuse": "7/30"
+  },
+  "constantGatesAllRejected": true,
+  "cases": [
+   {
+    "id": "K1-relative-refs-clean",
+    "kind": "control",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "K2-absolute-inside-clean",
+    "kind": "control",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "K3-external-and-nonhttp-ignored",
+    "kind": "control",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "K4-base-without-final-slash-clean",
+    "kind": "control",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "K5-user-site-root-base-clean",
+    "kind": "control",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "K6-first-base-element-wins",
+    "kind": "control",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "K7-empty-and-whitespace-href-clean",
+    "kind": "control",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D1-root-relative-stylesheet",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D2-root-relative-script",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D3-srcset-one-candidate-outside",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D4-dot-dot-escape",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D5-protocol-relative-same-host",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D6-absolute-same-origin-outside",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D7-base-element-moves-relative-ref-out",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D8-segment-prefix-not-string-prefix",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D9-case-sensitive-path",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D10-form-action-and-video-poster",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D11-nested-page-relative-resolution",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D12-uppercase-tag-and-attribute",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D13-whitespace-wrapped-value",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "D14-iframe-source-area-track",
+    "kind": "defect",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "I1-manifest-not-json",
+    "kind": "input",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "I2-unsupported-version",
+    "kind": "input",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "I3-base-path-without-final-slash",
+    "kind": "input",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "I4-page-file-missing",
+    "kind": "input",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "I5-page-url-outside-base",
+    "kind": "input",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "I6-page-file-escapes-manifest-dir",
+    "kind": "input",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "I7-page-url-not-http",
+    "kind": "input",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "I8-empty-pages-list",
+    "kind": "input",
+    "passed": true,
+    "detail": "ok"
+   },
+   {
+    "id": "U1-missing-manifest-option",
+    "kind": "usage",
+    "passed": true,
+    "detail": "ok"
+   }
+  ]
+ }
+}

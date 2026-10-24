@@ -1,0 +1,94 @@
+{
+ "unit": "keeper-timer-inert",
+ "path": "corpus/knowledge/keeper-timer-inert.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "the\ntimer is loaded but disabled + inactive (dead), with zero journal entries.",
+   "claim": "The keeper timer is loaded but disabled and inactive, and the keeper service has never produced a journal entry.",
+   "surface": "systemctl --user is-enabled webzites-keeper.timer; systemctl --user is-active webzites-keeper.timer; systemctl --user status webzites-keeper.timer --no-pager; journalctl --user -u webzites-keeper.service --no-pager",
+   "method": "run",
+   "observation": "is-enabled: not-found (rc=4); is-active: inactive (rc=4); status: Unit webzites-keeper.timer could not be found. (rc=4); journalctl: -- No entries -- (rc=0).",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21 the keeper timer is not loaded: systemd reports it not-found and inactive while webzites-keeper.service still has no journal entries.",
+   "seat": "ReverifyKeeperTimerInert"
+  },
+  {
+   "id": "c2",
+   "anchor": "the probe half is alive: `webzites-probe.timer` is\n`enabled`, `active (waiting) since Mon",
+   "claim": "The probe timer remains enabled and waiting, and charter-scribe.timer remains active.",
+   "surface": "systemctl --user is-enabled webzites-probe.timer; systemctl --user is-active webzites-probe.timer; systemctl --user is-enabled charter-scribe.timer; systemctl --user is-active charter-scribe.timer",
+   "method": "run",
+   "observation": "probe: is-enabled not-found (rc=4), is-active inactive (rc=4); scribe: is-enabled not-found (rc=4), is-active inactive (rc=4).",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21 both webzites-probe.timer and charter-scribe.timer are not found and inactive, not enabled/active.",
+   "seat": "ReverifyKeeperTimerInert"
+  },
+  {
+   "id": "c3",
+   "anchor": "# 3 listed: ai-usage.timer,",
+   "claim": "The user timer inventory lists ai-usage, webzites-probe, and charter-scribe, with keeper absent.",
+   "surface": "systemctl --user list-timers --all --no-pager",
+   "method": "run",
+   "observation": "Rows list ai-usage.timer and cursor-shim-healthcheck.timer; footer: 2 timers listed.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21 systemctl --user list-timers --all lists ai-usage.timer and cursor-shim-healthcheck.timer only; webzites-probe.timer, charter-scribe.timer, and webzites-keeper.timer are absent.",
+   "seat": "ReverifyKeeperTimerInert"
+  },
+  {
+   "id": "c4",
+   "anchor": "~/.config/systemd/user/webzites-keeper.timer absent — gone in the 2026-10-12 ~/Projects prune/migration",
+   "claim": "The keeper timer and service unit files are absent after the 2026-10-12 prune.",
+   "surface": "/home/vgpnk/.config/systemd/user/webzites-keeper.timer; /home/vgpnk/.config/systemd/user/webzites-keeper.service",
+   "method": "test -e",
+   "observation": "Both paths were absent on 2026-10-21.",
+   "verdict": "HOLD",
+   "seat": "ReverifyKeeperTimerInert"
+  },
+  {
+   "id": "c5",
+   "anchor": "All 20\n   `reports/keepers/grokbot-*.log.md` files exist; their newest entries are the\n   mint-round bullets",
+   "claim": "All 20 keeper logs exist at the cited path, with newest entries from the 2026-09-21 mint round.",
+   "surface": "/home/vgpnk/Projects/webzites/reports/keepers",
+   "method": "test -e",
+   "observation": "absent  /home/vgpnk/Projects/webzites/reports/keepers",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21 the cited reports/keepers directory is absent, so the 20-file existence assertion is no longer true at that path.",
+   "seat": "ReverifyKeeperTimerInert"
+  },
+  {
+   "id": "c6",
+   "anchor": "the r12 amendment that replaced it lives at `SKILL.md:68-75`",
+   "claim": "The keeper-status amendment in SKILL.md is at lines 68–75.",
+   "surface": "/home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md:71-78",
+   "method": "read",
+   "observation": "Lines 71–78 contain the keeper paragraph; the relevant status text is at 73–75 and the operator-question text at 77–78.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21 the keeper paragraph occupies SKILL.md lines 71–78, not 68–75, and it still describes the timers and operator decision using stale status wording.",
+   "seat": "ReverifyKeeperTimerInert"
+  },
+  {
+   "id": "c7",
+   "anchor": "The pin in\n   `fleet/fleet.config.json` is `expect.marker: \"2026-09-26 scribe beat\"`",
+   "claim": "The current charter-ghp config pin is 2026-09-26 scribe beat in fleet/fleet.config.json.",
+   "surface": "/home/vgpnk/Projects/webzites/fleet/fleet.config.json",
+   "method": "test -e",
+   "observation": "absent  /home/vgpnk/Projects/webzites/fleet/fleet.config.json",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21 the cited fleet/fleet.config.json source is absent, so the stated 2026-09-26 pin is not a current configuration observation and must be rechecked after restoration.",
+   "seat": "ReverifyKeeperTimerInert"
+  },
+  {
+   "id": "c8",
+   "anchor": "live literal has churned to\n   `2026-09-28 scribe beat (`",
+   "claim": "The current public charter-ghp page marker is 2026-09-28 scribe beat.",
+   "surface": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "method": "GET",
+   "observation": "Page text: 2026-09-30 scribe beat (**the-scribe** via `local-fallback`): **12 local commits...; title: PLAZIR-27 — the ufo-fsd charter.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21 the public charter page contains a 2026-09-30 scribe beat, so the cited 2026-09-28 marker has advanced.",
+   "seat": "ReverifyKeeperTimerInert"
+  }
+ ]
+}

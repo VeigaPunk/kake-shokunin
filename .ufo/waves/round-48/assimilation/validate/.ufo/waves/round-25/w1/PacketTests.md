@@ -1,0 +1,11 @@
+# Round 25 packet selftest
+
+Axes: **operability** and **freshness**.
+
+Implemented `.ufo/waves/round-25/packet_selftest.py` in the tests sandbox. It builds a hand-authored 55-card clean control from the pinned population metadata and `normativeText` only, then runs the production CLI against isolated `TemporaryDirectory` fixtures. Each fixture contains copies of `population.json` and `source-wcag22.html`; packet variants are written only inside the temporary tree. The test neither reads the candidate card corpus nor changes repository inputs.
+
+Coverage includes pristine 55, normalized punctuation whitespace in a source quote, missing/malformed/wrong-shaped card inputs, missing/malformed inputs and tampered population/source snapshots, duplicate and missing IDs, changed id/title/level/source metadata, an extra card field, empty prose, short/over-25-word/out-of-word-boundary/non-source quotes, and a false status. It asserts exact exit codes, verdicts, stable finding IDs, output schema/rows/totals, and the fixed `websiteConformance: not-assessed` field.
+
+Evidence retained: `.ufo/waves/round-25/population.json` supplies the 55 criterion metadata and `normativeText`; `.ufo/waves/round-25/source-wcag22.html` is copied as the local source snapshot. The coordinated interface specifies population SHA-256 `4751dc24db2e3698c2b276bb81bff57412c8fbf6c1c0a62f1aa2ad9e0f903058` and source SHA-256 `6e3c5fe397257cae509a2fb4752b73062cf8cbeb92c2cec618989b17e4cf7057`. The agreed finding IDs exercised are `input_invalid`, `snapshot_tampered`, `duplicate_id`, `missing_id`, `metadata_mismatch`, `fields_mismatch`, `empty_field`, `quote_too_short`, `quote_too_long`, `quote_not_from_source`, and `status_not_assessed`.
+
+No tests or other checks were run, as required during this wave. Main should run the packet selftest after the production CLI and assembled cards are integrated. No tools were installed or updated. No live website, browser, account, network, security test, or r24 artifact was accessed.

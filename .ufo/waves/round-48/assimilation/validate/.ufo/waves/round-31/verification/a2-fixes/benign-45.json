@@ -1,0 +1,1639 @@
+{
+  "schema": "kake-citing-set-selftest-v1",
+  "verdict": "clean",
+  "passed": true,
+  "cases": 45,
+  "failed": 0,
+  "failedCases": 0,
+  "caseNames": [
+    "01-single-literal-clean",
+    "02-single-literal-missing",
+    "03-en-dash-group-range-interior-omission",
+    "04-hyphen-range-omission",
+    "05-ascii-dotdot-range-omission",
+    "06-to-range-omission",
+    "07-through-range-omission",
+    "08-comma-list-omission",
+    "09-metadata-header-reference",
+    "10-eof-prose-reference",
+    "11-duplicate-ledger-pair",
+    "12-noncited-ledger-pair",
+    "13-descending-range",
+    "14-oversize-range",
+    "15-invalid-json-population",
+    "16-invalid-population-shape",
+    "17-ledger-row-outside-population",
+    "18-working-tree-input-no-revision",
+    "19-mixed-positive-negative-controls",
+    "20-range-with-population-gap",
+    "21-no-citations-empty-citing-set",
+    "22-json-knowledge-file-citation",
+    "23-glued-to-range-separator",
+    "24-range-separator-across-linebreak",
+    "25-em-dash-range-omission",
+    "26-ledger-pair-file-absent",
+    "27-range-endpoint-outside-population",
+    "28-ledger-row-numeric-spelling",
+    "29-ledger-pair-two-numeric-spellings",
+    "30-document-not-regular-file",
+    "31-document-not-json",
+    "32-corpus-directory-missing",
+    "33-corpus-empty",
+    "34-not-a-directory",
+    "35-population-id-unreachable",
+    "36-revision-not-found",
+    "37-root-not-repository-top-level",
+    "38-document-duplicate-key",
+    "39-document-nonfinite-number",
+    "40-population-id-short-digits",
+    "41-document-nonfinite-overflow",
+    "42-repeated-population-option",
+    "43-repeated-ledger-equals-form",
+    "44-repeated-root-abbreviated",
+    "45-repeated-revision-abbreviated"
+  ],
+  "contractMinimumCases": 12,
+  "meetsContractMinimum": true,
+  "root": "/tmp/kake-r31-a2/fix2/tree",
+  "runner": "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set_selftest.py",
+  "runnerSha256": "7c95a18e4621ca6c4f0085eb9d208a0f1e6a1211989e51dd0c733ee1488b8969",
+  "gate": "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+  "gateSha256": "dbfade45e59351fb5edc010dfc45a4e15e1213fdb6fad9ec1668ffd3b77b7f02",
+  "fixtures": "/tmp/kake-r31-a2/fix2/tree/scripts/fixtures/citing-set",
+  "results": [
+    {
+      "case": "01-single-literal-clean",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 0,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 0,
+        "verdict": "clean",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/01-single-literal-clean",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "02-single-literal-missing",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/02-single-literal-missing",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "03-en-dash-group-range-interior-omission",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/03-en-dash-group-range-interior-omission",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "04-hyphen-range-omission",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/04-hyphen-range-omission",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "05-ascii-dotdot-range-omission",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/05-ascii-dotdot-range-omission",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "06-to-range-omission",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/06-to-range-omission",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "07-through-range-omission",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/07-through-range-omission",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "08-comma-list-omission",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/08-comma-list-omission",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "09-metadata-header-reference",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/09-metadata-header-reference",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "10-eof-prose-reference",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/10-eof-prose-reference",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "11-duplicate-ledger-pair",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "ledger_duplicate_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "ledger_duplicate_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/11-duplicate-ledger-pair",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "12-noncited-ledger-pair",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "ledger_pair_not_cited"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "ledger_pair_not_cited"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/12-noncited-ledger-pair",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "13-descending-range",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          [
+            "citation_range_invalid",
+            "descending_range"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          [
+            "citation_range_invalid",
+            "descending_range"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/13-descending-range",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "14-oversize-range",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          [
+            "citation_range_invalid",
+            "span_too_large"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          [
+            "citation_range_invalid",
+            "span_too_large"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/14-oversize-range",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "15-invalid-json-population",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "document_not_json"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "document_not_json"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/15-invalid-json-population",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "16-invalid-population-shape",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "document_shape_invalid"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "document_shape_invalid"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/16-invalid-population-shape",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "17-ledger-row-outside-population",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "ledger_pair_not_cited"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "ledger_pair_not_cited"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/17-ledger-row-outside-population",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "18-working-tree-input-no-revision",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 0,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 0,
+        "verdict": "clean",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/18-working-tree-input-no-revision",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "19-mixed-positive-negative-controls",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "ledger_duplicate_pair",
+          "ledger_pair_not_cited",
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "ledger_duplicate_pair",
+          "ledger_pair_not_cited",
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/19-mixed-positive-negative-controls",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "20-range-with-population-gap",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 0,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 0,
+        "verdict": "clean",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/20-range-with-population-gap",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "21-no-citations-empty-citing-set",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 0,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 0,
+        "verdict": "clean",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/21-no-citations-empty-citing-set",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "22-json-knowledge-file-citation",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/22-json-knowledge-file-citation",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "23-glued-to-range-separator",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair",
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/23-glued-to-range-separator",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "24-range-separator-across-linebreak",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/24-range-separator-across-linebreak",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "25-em-dash-range-omission",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/25-em-dash-range-omission",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "26-ledger-pair-file-absent",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "ledger_pair_not_cited"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "ledger_pair_not_cited"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/26-ledger-pair-file-absent",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "27-range-endpoint-outside-population",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "unadjudicated_citing_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/27-range-endpoint-outside-population",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "28-ledger-row-numeric-spelling",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 0,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 0,
+        "verdict": "clean",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/28-ledger-row-numeric-spelling",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "29-ledger-pair-two-numeric-spellings",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 1,
+        "findings": [
+          "ledger_duplicate_pair"
+        ],
+        "mode": "ids"
+      },
+      "actual": {
+        "exit": 1,
+        "verdict": "failed",
+        "findings": [
+          "ledger_duplicate_pair"
+        ],
+        "mode": "ids"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/29-ledger-pair-two-numeric-spellings",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "30-document-not-regular-file",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "document_not_regular_file"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "document_not_regular_file"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/30-document-not-regular-file",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "31-document-not-json",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "document_not_json"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "document_not_json"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/31-document-not-json",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "32-corpus-directory-missing",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "corpus_directory_missing"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "corpus_directory_missing"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/32-corpus-directory-missing",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "33-corpus-empty",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "corpus_empty"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "corpus_empty"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/33-corpus-empty",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "34-not-a-directory",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "not_a_directory"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "not_a_directory"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/34-not-a-directory",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "35-population-id-unreachable",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "population_id_unreachable"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "population_id_unreachable"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/35-population-id-unreachable",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "36-revision-not-found",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "revision_not_found"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "revision_not_found"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/36-revision-not-found",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json",
+        "--revision",
+        "no-such-revision"
+      ]
+    },
+    {
+      "case": "37-root-not-repository-top-level",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "root_not_repository_top_level"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "root_not_repository_top_level"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/37-root-not-repository-top-level/sub",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json",
+        "--revision",
+        "HEAD"
+      ]
+    },
+    {
+      "case": "38-document-duplicate-key",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "document_duplicate_key"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "document_duplicate_key"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/38-document-duplicate-key",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "39-document-nonfinite-number",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "document_nonfinite_number"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "document_nonfinite_number"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/39-document-nonfinite-number",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "40-population-id-short-digits",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "population_id_unreachable"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "population_id_unreachable"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/40-population-id-short-digits",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "41-document-nonfinite-overflow",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 2,
+        "findings": [
+          [
+            "input_invalid",
+            "document_nonfinite_number"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 2,
+        "verdict": "could-not-evaluate",
+        "findings": [
+          [
+            "input_invalid",
+            "document_nonfinite_number"
+          ]
+        ],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/41-document-nonfinite-overflow",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json"
+      ]
+    },
+    {
+      "case": "42-repeated-population-option",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 64,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 64,
+        "verdict": "could-not-evaluate",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/42-repeated-population-option",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json",
+        "--population",
+        "population.json"
+      ]
+    },
+    {
+      "case": "43-repeated-ledger-equals-form",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 64,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 64,
+        "verdict": "could-not-evaluate",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/43-repeated-ledger-equals-form",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json",
+        "--ledger=ledger.json"
+      ]
+    },
+    {
+      "case": "44-repeated-root-abbreviated",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 64,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 64,
+        "verdict": "could-not-evaluate",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/44-repeated-root-abbreviated",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json",
+        "--roo",
+        "."
+      ]
+    },
+    {
+      "case": "45-repeated-revision-abbreviated",
+      "ok": true,
+      "passed": true,
+      "reason": null,
+      "expected": {
+        "exit": 64,
+        "findings": [],
+        "mode": "pairs"
+      },
+      "actual": {
+        "exit": 64,
+        "verdict": "could-not-evaluate",
+        "findings": [],
+        "mode": "pairs"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/kake-r31-a2/fix2/tree/scripts/citing_set.py",
+        "--root",
+        "/tmp/kake-r31-a2/fix2/t3/citing-set-selftest/cases/45-repeated-revision-abbreviated",
+        "--population",
+        "population.json",
+        "--ledger",
+        "ledger.json",
+        "--json",
+        "--revision",
+        "HEAD",
+        "--rev",
+        "HEAD"
+      ]
+    }
+  ],
+  "failures": [],
+  "notes": []
+}

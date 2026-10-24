@@ -1,0 +1,31 @@
+command: python3 -B scripts/redirect_audit.py --selftest
+run_at_utc: 2026-10-24T06:46:10Z
+tool_path: scripts/redirect_audit.py
+tool_sha256: 1e1dff18030c9028d833ab108bff140102343f4c5198c35984e7838e54bb748a
+stdout:
+redirect_audit --selftest
+  PASS  w1_shadowed_redirect flagged
+  PASS  w2_first_match_shadow flagged
+  PASS  w3_redirect_vs_rewrite flagged
+  PASS  w4_splat_destination flagged
+  PASS  w5_status_mismatch flagged
+  PASS  w7_placeholders flagged
+  PASS  w8_unmatched_none flagged
+  PASS  w9_no_resource_precedence flagged
+  PASS  w10_default_status flagged
+  PASS  w11_malformed_rule flagged
+  PASS  w12_malformed_status flagged
+  PASS  c6_encoded_path clean
+  PASS  c7_placeholders_correct clean
+  PASS  c8_first_match_correct clean
+  PASS  mutant drop_status_check killed on w5_status_mismatch
+  PASS  mutant drop_first_match killed on w2_first_match_shadow
+  PASS  mutant drop_resource_precedence killed on w1_shadowed_redirect
+  PASS  mutant accept_malformed_rules killed on w12_malformed_status
+  PASS  mutant always_clean blind to all flag witnesses
+  PASS  mutant skip_url_decoding killed on c6_encoded_path
+  PASS  cli positive control (exit 1, one finding)
+  PASS  cli negative control (exit 0, clean)
+  PASS  cli bad input (exit 2)
+selftest: 23/23 passed
+exit=0

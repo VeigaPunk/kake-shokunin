@@ -1,0 +1,111 @@
+{
+  "commands": {
+    "waveSeats": "python3 -c \"import json,collections; from pathlib import Path; p=Path('.ufo/waves/round-24'); [(print(w,len(d['items']),dict(collections.Counter(i['role'] for i in d['items'])))) for w in ('w1','w2') for d in [json.loads((p/(w+'-spec.json')).read_text())]]\"",
+    "sourceRows": "python3 -c \"import re,subprocess,collections; rev='faace82dcf50e1c563d437f2caecb77a9a865880'; s=subprocess.check_output(['git','show',rev+':corpus/SOURCES.md'],text=True); r=[[x.strip() for x in l.split('|')[1:-1]] for l in s.splitlines() if re.match(r'^\\|\\s*S[0-9]{3,}\\s*\\|',l)]; print(len(r),dict(collections.Counter(x[3] for x in r)),dict(collections.Counter(x[7] for x in r)))\""
+  },
+  "waves": {
+    "w1": {
+      "seats": 72,
+      "roles": {
+        "scout": 18,
+        "revenger": 8,
+        "reviewer": 15,
+        "critic": 4,
+        "connector": 1,
+        "executor": 9,
+        "sentinel": 2,
+        "mutation-tester": 8,
+        "simplifier": 1,
+        "scribe": 6
+      }
+    },
+    "w2": {
+      "seats": 64,
+      "roles": {
+        "reviewer": 19,
+        "critic": 6,
+        "revenger": 4,
+        "mutation-tester": 17,
+        "executor": 10,
+        "scout": 4,
+        "sentinel": 1,
+        "scribe": 1,
+        "connector": 1,
+        "simplifier": 1
+      }
+    }
+  },
+  "reportFiles": {
+    "w1": [
+      "ConnectProvinceBoundary.md",
+      "CritAxisHarm.md",
+      "CritC2Separability.md",
+      "CritLowestAxisRule.md",
+      "ExecMalformedMatrix.md",
+      "ExecPathsCounter.md",
+      "GapC1HeadingIds.md",
+      "GapC1ObservedAt.md",
+      "GapC1PopulationEdge.md",
+      "GapC1UnitPath.md",
+      "GapC1VerdictSet.md",
+      "GapC2AuditReplay.md",
+      "GapC2ContentType.md",
+      "GapC2ErrorTruncated.md",
+      "GapC2FetchedAt.md",
+      "GapC2FinalUrlManifest.md",
+      "GapC2NotServedShape.md",
+      "GapC2ShaPage.md",
+      "GapC2Status.md",
+      "GapC2UrlMethod.md",
+      "GlobsSystemdUfofsdbeta.md",
+      "MutateR23CounterSelftest.md",
+      "MutateSweepAnnotate.md",
+      "PathsDriftT02WebzitesMjs.md",
+      "PathsDriftT03KimiSurfaceMjs.md",
+      "PathsNewT04READMEMd.md",
+      "PathsNewT05PagesYml.md",
+      "PathsNewT07KimiSurfaceMjs.md",
+      "PathsNewT08VaultPropertiesJso.md",
+      "PathsNewT09KimiSurfaceMjs.md",
+      "PathsNewT11WebzitesSpeedrunMd.md",
+      "PathsNewT12GrokbotsJson.md",
+      "PathsNewT14ProbeLatestJson.md",
+      "PathsNewT15RebuildCharterFire.md",
+      "PathsRestoredDs4ccCorpus.md",
+      "PathsRestoredDs4ccSkill.md",
+      "PathsRestoredT17CNAME.md",
+      "PathsRestoredT18Burnerchrome.md",
+      "PathsRestoredT19Speedrun.md",
+      "ProjectsChildrenDelta.md",
+      "R23ReceiptsDs4ccStale.md",
+      "ReviewQualityCriteria.md",
+      "ScoutMistakeSweep.md",
+      "ScribeFreshnessKnowledge.md",
+      "ScribeKnowledgeReplay.md",
+      "ScribeLessonDraft.md",
+      "ScribeLogScorecard.md",
+      "ScribeQualityCriterion.md",
+      "ScribeSourcesRows.md",
+      "SentinelRevisionInjection.md",
+      "SimplifyReplayPort.md",
+      "SourcePythonDatetime.md",
+      "SourceRFC3339.md",
+      "SourceRFC8259Json.md",
+      "SourceRFC9110MediaType.md"
+    ],
+    "w2": []
+  },
+  "fleetMisrootSweep": {
+    "argv": [
+      "git",
+      "-C",
+      "/home/vgpnk/Projects/shokunin",
+      "status",
+      "--porcelain"
+    ],
+    "observed": "only modified tracked .ufo/state/*.report-baseline and .ufo/watchdog.log; zero untracked rows",
+    "ownedMisroots": 0,
+    "movedOrDeleted": []
+  },
+  "limits": "Wave2 zero reports is absence of completed report evidence, not proof no seat performed any tool call. See terminal records. Source-row command is applied with the before revision for the before histogram."
+}

@@ -1,0 +1,533 @@
+{
+ "wave": "kake-r24-w2",
+ "context": "# Goal\nKake round24, falsify wave2, author-side only. Axes freshness + operability. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/contract.json AND contract-amendment.json. Candidate landed faace82dcf50e1c563d437f2caecb77a9a865880. C1-only landed 3d07733b482f88c42cb008397188237c80e42b67; frozen before ab85dbdba4499f35f7dab9c9635b9b605679dbe5; round23 base f7de3ab4e9f030a15a857a5a08631bd8e690f436.\nC1 observed 0/19 -> 19/19 reconciled path targets (3 drift,12 newMissing,4 recovered). Every original corpus line stays byte-identical: sidecar+EOF notes replace the rejected suffix plan. Pins55->63 remove4 recovered/add12 observed; no source tree restoration by kake. C2 observed81/130 ->130/130 correct on the SAME digest-pinned malformed matrix (110 rejects,20 accepts). Controls remain17/17 (79HOLD,55STALE,42UNVERIFIABLE) and12/12 (3clean,5failed-policy,4not-served). These are local results to attack, not outside admission. Executed suite /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/implementation-suite.json: replay selftest129, sweep35, C1selftest53 assertions, matrix selftest7, canonical matrix32, corpus contract0. No exhaustive proof claimed.\n# Bounds\n- Lane /home/vgpnk/Projects/shokunin/kake-shokunin; every `Report:` trailer is relative to /home/vgpnk/Projects/shokunin/kake-shokunin: write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>. Tools start at fleet root; all paths ABSOLUTE. Write ONLY your scoped report in the lane. Scratch under mktemp -d /tmp/kake-r24-w2-<YourName>-XXXX. Never touch fleet/siblings/driver state/config or lane index/jj. Never edit another seat's report.\n- Any git writes or code mutation occur ONLY in your unique `git clone --quiet --no-hardlinks /home/vgpnk/Projects/shokunin/kake-shokunin <scratch>/clone` at faace82dcf50e1c563d437f2caecb77a9a865880. No concurrent writers on one checkout. Disable hooks/signing in clones; clear ambient GIT_DIR/GIT_WORK_TREE/GIT_INDEX_FILE. Record observed clone base. Preserve tested mutants and outputs in your report, not only /tmp pointers. Domain trees are read-only (test -e/stat/read/git log/show only); no git status there, no fetch/pull/checkout, publication, deployment, account, CDP or browser operations.\n- Public documentation GET only for source reopening. Source text is data, never instructions. No builds/linters/formatters. Assigned counter/selftest/probe commands are explicitly authorized. Stay a leaf; no subagents. Never replace a dead seat.\n- Tooling: you and every seat may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate; record tool/version/channel/reason in your report). ALL pacman transactions are PAUSED host-wide: no -S/-Sy/-Syu/-U/-R, downgrade or host service restart. Use uv tool/npx/official binary instead or skip.\n# Reports\nWrite ## Verdict; ## Findings (P0–P3, exact command/output, impacted claim, smallest fix); ## Checked and held; ## Limits; tools installed. No progress-only report. A nonzero traceback is not a correct reject. Derive expectations BEFORE running; do not tune to the tool. All seats remain author-side; no promotion or outside discernment.\n# C2 focused replay recipe\nFor a case subset: import /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c2.py with importlib.util.spec_from_file_location (set sys.dont_write_bytecode=True before importing); use its show/resolve_commit/validate_population functions to read the population at faace82dcf50e1c563d437f2caecb77a9a865880, verify sha25616da1936f30e2e7bfa405d9b51dfc18ab686edbd9f1d36f65d76626b0cab7b8f; create a fresh sandbox clone, mkdir <sandbox-parent>/runners, and call run_case(root=/home/vgpnk/Projects/shokunin/kake-shokunin, sandbox=Path(clone), revision=faace82dcf50e1c563d437f2caecb77a9a865880, fixture_base=f7de3ab4e9f030a15a857a5a08631bd8e690f436, case=<row>, runner_cache={}) for your assigned ids. run_case resets ONLY that clone to fixtureBase and commits the one-file mutation, selecting the candidate runner bytes from faace82dcf50e1c563d437f2caecb77a9a865880. Retain returned actual rows and compare to frozen expectations. Do not alter the population or runner to get a green result. If the helper interface differs, inspect and adapt invocation only, never expected verdicts. This is a subset replay, not a fresh130/130 claim.\n",
+ "reportDir": ".ufo/waves/round-24/w2",
+ "maxLanes": 100,
+ "axes": [
+  "freshness",
+  "operability"
+ ],
+ "milestone": "r24-falsify",
+ "items": [
+  {
+   "name": "FalsifyPathT01",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T01 ~/Projects/plazir-15-site (drift); cites: SKILL.md:17, SKILL.md:24, SKILL.md:367, SKILL.md:423, SKILL.md:460, SKILL.md:465, corpus/knowledge/drift-detection.md:101, corpus/knowledge/drift-detection.md:77, corpus/knowledge/drift-detection.md:95, corpus/knowledge/fleet-registry.md:57, corpus/knowledge/fleet-registry.md:58, corpus/knowledge/fleet-registry.md:85, corpus/knowledge/freshness-sweep.md:97, corpus/knowledge/freshness-sweep.md:98, corpus/knowledge/publish-channels.md:69, corpus/knowledge/publish-queue.md:266, corpus/knowledge/publish-queue.md:267, corpus/knowledge/publish-queue.md:38, corpus/lessons/round-18.md:57. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T01.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT02",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T02 ~/Projects/webzites/bin/webzites.mjs (drift); cites: SKILL.md:59, corpus/README.md:86, corpus/knowledge/drift-detection.md:7, corpus/knowledge/free-read-verbs.md:1, corpus/knowledge/free-read-verbs.md:10, corpus/knowledge/free-read-verbs.md:3, corpus/knowledge/free-read-verbs.md:321, corpus/knowledge/free-read-verbs.md:483, corpus/knowledge/free-read-verbs.md:490, corpus/knowledge/probe-delta-alerting.md:120, corpus/knowledge/probe-delta-alerting.md:81, corpus/knowledge/probe-delta-alerting.md:82, corpus/lessons/round-5-aggregator-mirror-pathless-cli-invocation.md:11, corpus/lessons/round-5-aggregator-mirror-pathless-cli-invocation.md:13, corpus/lessons/round-9.md:121, corpus/lessons/round-9.md:43. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T02.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT03",
+   "role": "revenger",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T03 ~/Projects/webzites/scripts/kimi-surface.mjs (drift); cites: SKILL.md:111, SKILL.md:223, corpus/knowledge/drift-detection.md:7, corpus/knowledge/fire-journal-codes.md:1, corpus/knowledge/fire-journal-codes.md:3, corpus/knowledge/fire-journal-codes.md:7, corpus/knowledge/fire-journal-codes.md:8, corpus/knowledge/fire-journal-codes.md:82, corpus/knowledge/fire-journal-codes.md:83, corpus/knowledge/fire-journal-codes.md:85, corpus/knowledge/free-read-verbs.md:1, corpus/knowledge/free-read-verbs.md:10, corpus/knowledge/free-read-verbs.md:3, corpus/knowledge/free-read-verbs.md:324, corpus/knowledge/free-read-verbs.md:325, corpus/knowledge/probe-delta-alerting.md:120, corpus/knowledge/probe-delta-alerting.md:83, corpus/knowledge/probe-delta-alerting.md:84, corpus/knowledge/publish-channels.md:34, corpus/knowledge/publish-channels.md:35, corpus/knowledge/publish-channels.md:68, corpus/knowledge/vault-properties.md:103, corpus/lessons/round-4-aggregator-audit.md:31, corpus/lessons/round-4-aggregator-audit.md:32, corpus/lessons/round-4.md:4, corpus/lessons/round-4.md:5, corpus/lessons/round-6-aggregator-audit.md:145, corpus/lessons/round-6-aggregator-audit.md:48. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T03.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT04",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T04 ~/Projects/lucario/site/README.md (newMissing); cites: SKILL.md:458. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T04.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT05",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T05 ~/Projects/plazir-15-site/.github/workflows/pages.yml (newMissing); cites: SKILL.md:461. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T05.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone. In your clone delete this target's receipt, commit, run the same counter on that commit: it must reject this target, while pristine faace82dcf50e1c563d437f2caecb77a9a865880 passes. Preserve exact observed failing target diagnostics."
+  },
+  {
+   "name": "FalsifyPathT06",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T06 ~/Projects/plazir-15-site/speedrun (newMissing); cites: corpus/knowledge/mirror-pitfalls.md:63. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T06.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT07",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T07 ~/Projects/shokunin/kake-shokunin/fleet/kimi-surface.mjs (newMissing); cites: corpus/knowledge/vault-properties.md:100. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T07.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT08",
+   "role": "revenger",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T08 ~/Projects/shokunin/kake-shokunin/fleet/vault-properties.json (newMissing); cites: corpus/knowledge/vault-properties.md:100. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T08.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT09",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T09 ~/Projects/shokunin/kake-shokunin/kimi-surface.mjs (newMissing); cites: corpus/knowledge/vault-properties.md:100. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T09.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT10",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T10 ~/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review (newMissing); cites: corpus/knowledge/mirror-pitfalls.md:64. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T10.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone. In your clone delete this target's receipt, commit, run the same counter on that commit: it must reject this target, while pristine faace82dcf50e1c563d437f2caecb77a9a865880 passes. Preserve exact observed failing target diagnostics."
+  },
+  {
+   "name": "FalsifyPathT11",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T11 ~/Projects/webzites/agents/webzites-speedrun.md (newMissing); cites: corpus/knowledge/speedrun-pipeline.md:77. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T11.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT12",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T12 ~/Projects/webzites/fleet/grokbots.json (newMissing); cites: SKILL.md:429. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T12.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT13",
+   "role": "revenger",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T13 ~/Projects/webzites/repos/ds4cc-marketplace (newMissing); cites: corpus/knowledge/origin-repos.md:82. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T13.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT14",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T14 ~/Projects/webzites/state/probe-latest.json (newMissing); cites: corpus/knowledge/ops-automation.md:141. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T14.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT15",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T15 ~/Projects/webzites/state/rebuild-charter-fire.log (newMissing); cites: corpus/knowledge/fire-journal-codes.md:86. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T15.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone. In your clone delete this target's receipt, commit, run the same counter on that commit: it must reject this target, while pristine faace82dcf50e1c563d437f2caecb77a9a865880 passes. Preserve exact observed failing target diagnostics."
+  },
+  {
+   "name": "FalsifyPathT16",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T16 ~/Projects/ds4cc-marketplace (recovered); cites: SKILL.md:16, SKILL.md:19, SKILL.md:364, SKILL.md:445, SKILL.md:448, SKILL.md:449, SKILL.md:450, corpus/knowledge/fleet-registry.md:49, corpus/knowledge/fleet-registry.md:50, corpus/knowledge/fleet-registry.md:64, corpus/knowledge/origin-repos.md:11, corpus/knowledge/origin-repos.md:19, corpus/knowledge/origin-repos.md:70, corpus/knowledge/publish-channels.md:69, corpus/lessons/round-18.md:55. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T16.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT17",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T17 ~/Projects/ds4cc-marketplace/CNAME (recovered); cites: corpus/lessons/round-1-aggregator-audit.md:30. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T17.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT18",
+   "role": "revenger",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T18 ~/Projects/ds4cc-marketplace/burnerchrome (recovered); cites: SKILL.md:20, SKILL.md:423, SKILL.md:431, corpus/knowledge/fleet-registry.md:51, corpus/knowledge/fleet-registry.md:66. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T18.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "FalsifyPathT19",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack C1 target T19 ~/Projects/ds4cc-marketplace/speedrun (recovered); cites: corpus/knowledge/mirror-pitfalls.md:63, corpus/knowledge/speedrun-pipeline.md:1, corpus/knowledge/speedrun-pipeline.md:13, corpus/knowledge/speedrun-pipeline.md:3, corpus/knowledge/speedrun-pipeline.md:78. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/c1-receipts/T19.json and its originating reports, observe the live path now, verify dated evidence and the current/old line bytes at f7de3ab4e9f030a15a857a5a08631bd8e690f436/faace82dcf50e1c563d437f2caecb77a9a865880. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure_c1.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision faace82dcf50e1c563d437f2caecb77a9a865880 --json`, report the target row and overall exit. For drift/recovered require hash-bound sidecar note at the exact original cite plus matching EOF block (non-author files unchanged, notes in central lesson). For newMissing verify the original annotation remains truthful and pin membership has dated evidence. Attack stale/future observations, mixed-path claims and false claims of restoration/publication; do not credit re-pinning alone."
+  },
+  {
+   "name": "ReplayCases01",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 1/26: ids [\"c1-observedat-garbage\", \"c1-unmodified-control\", \"c2-future-fetchedat\", \"c2-contenttype-number\", \"c2-contenttype-array\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases02",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 2/26: ids [\"c2-unmodified-control\", \"c2-contenttype-nan-token\", \"c2-contenttype-infinity-token\", \"c2-duplicate-contenttype-key\", \"c2-truncated-fetch-json\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases03",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 3/26: ids [\"heading-id-duplicate\", \"heading-id-close-bracket-uncited\", \"heading-id-newline-uncited\", \"heading-id-c11-not-c1\", \"c1-obs-hour-25\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases04",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 4/26: ids [\"c1-obs-no-offset\", \"c1-obs-impossible-feb-30\", \"c1-obs-impossible-month-13\", \"c1-obs-far-future-2099\", \"c1-obs-after-commit-2359\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases05",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 5/26: ids [\"c1-obs-nonascii-digits\", \"c1-obs-free-text\", \"c1-obs-dateonly-control\", \"c1-obs-datetime-control\", \"c1-obs-lowercase-rfc-control\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases06",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 6/26: ids [\"receipt-invalid-json-truncated\", \"receipt-array-not-object\", \"receipt-utf8-bom\", \"receipt-nan-token\", \"receipt-infinity-token\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases07",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 7/26: ids [\"receipt-negative-infinity-token\", \"receipt-duplicate-unit-bad-first\", \"receipt-duplicate-unit-bad-last\", \"receipt-large-integer-1000-digits\", \"receipt-large-integer-5000-digits\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases08",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 8/26: ids [\"wrong-unit\", \"path-dotdot\", \"path-list\", \"unit-missing\", \"unit-trailing-space\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases09",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 9/26: ids [\"path-trailing-space\", \"verdict-lowercase-hold\", \"verdict-stale-trailing-space\", \"verdict-array-hold\", \"stale-missing-correction\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases10",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 10/26: ids [\"unverifiable-empty-reason\", \"stale-integer-correction\", \"audit-verdict-mismatch\", \"audit-exit-string\", \"audit-extra-top-key\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases11",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 11/26: ids [\"audit-extra-result-key\", \"audit-result-missing\", \"notserved-audit-status-mismatch\", \"audit-exit-boolean\", \"audit-pagecount-boolean\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases12",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 12/26: ids [\"notserved-audit-verdict-mismatch\", \"audit-served-unchanged-control\", \"audit-notserved-unchanged-control\", \"ctype-int-200\", \"ctype-list\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases13",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 13/26: ids [\"ctype-dict\", \"ctype-true\", \"ctype-false\", \"ctype-null-absent\", \"ctype-empty-string\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases14",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 14/26: ids [\"ctype-uppercase-html\", \"ctype-trailing-semicolon\", \"ctype-htmlx\", \"ctype-leading-ows\", \"ctype-comma-list\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases15",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 15/26: ids [\"error-null-control\", \"error-empty-string\", \"error-zero\", \"error-key-missing\", \"truncated-false-control\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases16",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 16/26: ids [\"truncated-string-false\", \"truncated-zero\", \"truncated-one\", \"truncated-key-missing\", \"error-zero-not-served\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases17",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 17/26: ids [\"truncated-string-not-served\", \"error-empty-not-served\", \"served-malformed\", \"served-future\", \"served-impossible\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases18",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 18/26: ids [\"served-offsetless\", \"not-served-malformed\", \"not-served-future\", \"not-served-impossible\", \"not-served-offsetless\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases19",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 19/26: ids [\"served-null\", \"served-number\", \"not-served-array\", \"not-served-object\", \"finalurl-c0-lf-single\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases20",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 20/26: ids [\"finalurl-javascript\", \"finalurl-long-8210\", \"finalurl-nonascii-host\", \"finalurl-unchanged-control\", \"not-served-audit-on-served-200\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases21",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 21/26: ids [\"not-served-404-page-html-stored\", \"not-served-404-case-insensitive-html-control\", \"not-served-404-numeric-content-type\", \"served-200-truthy-numeric-content-type\", \"not-served-404-invalid-media-type-string\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases22",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 22/26: ids [\"not-served-audit-float-status\", \"not-served-fetched-at-missing-offset\", \"not-served-fetched-at-invalid-month\", \"sha256-from-different-page\", \"page-present-not-served\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases23",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 23/26: ids [\"sha256-as-integer\", \"status-boolean-true\", \"status-float-200\", \"status-string-200\", \"status-199-page\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases24",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 24/26: ids [\"status-300-page\", \"status-204-page\", \"status-negative\", \"status-200-control\", \"status-299-control\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases25",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 25/26: ids [\"method-get-lowercase\", \"method-head\", \"url-trailing-slash-diff\", \"url-as-list\", \"finalurl-missing\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReplayCases26",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack frozen C2 case subset 26/26: ids [\"finalurl-int\", \"redirects-as-dict\", \"redirects-as-hop-dict\", \"finalurl-trailing-slash-diff\", \"extra-member-note\"]. Read each case's why/source report; independently judge the oracle (RFC versus local policy, producer-legal controls) BEFORE replay. Apply the focused-replay recipe and record exact actual rows, exits, traceback flags and whether each expectation holds. Check that the historical before result in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24/measure-c2-before.json agrees with r23Observed; flag unexplained differences instead of silently accepting them. Return any representation bug (raw bytes, root replacement, missing-page creation, duplicate cases) or false reject as P1/P2 with the smallest fix. No production edits."
+  },
+  {
+   "name": "ReopenS032",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRe-open https://www.rfc-editor.org/rfc/rfc3339.txt now; check rowS032 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md and its located <=25-word Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-24.md. Verify source bytes digest against w1 report, quote, tier/scope, used-by cite, and the maintained reader's policy attribution (RFC grammar versus local choices, especially date-only/ceiling/duplicates/nullable header). Report agree/disagree with precise locations and access date. Do not rewrite rows."
+  },
+  {
+   "name": "ReopenS033",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRe-open https://www.rfc-editor.org/rfc/rfc9110.txt now; check rowS033 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md and its located <=25-word Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-24.md. Verify source bytes digest against w1 report, quote, tier/scope, used-by cite, and the maintained reader's policy attribution (RFC grammar versus local choices, especially date-only/ceiling/duplicates/nullable header). Report agree/disagree with precise locations and access date. Do not rewrite rows."
+  },
+  {
+   "name": "ReopenS034",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRe-open https://www.rfc-editor.org/rfc/rfc8259.txt now; check rowS034 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md and its located <=25-word Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-24.md. Verify source bytes digest against w1 report, quote, tier/scope, used-by cite, and the maintained reader's policy attribution (RFC grammar versus local choices, especially date-only/ceiling/duplicates/nullable header). Report agree/disagree with precise locations and access date. Do not rewrite rows."
+  },
+  {
+   "name": "MutateTimestampGrammar",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nIn your isolated clone pinned faace82dcf50e1c563d437f2caecb77a9a865880, attack scripts/receipt_replay.py check_timestamp/parse_rfc3339: replace parsing with the historical lexical prefix comparison. Detector --selftest and at least the malformed timestamp case must fail. Distinguish a killed mutant from an equivalent mutation. Restore your clone byte-exact after every mutation, record before/mutated/restored hashes and detector exits. No production changes."
+  },
+  {
+   "name": "MutateJsonStrictness",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nIn your isolated clone pinned faace82dcf50e1c563d437f2caecb77a9a865880, attack scripts/receipt_replay.py parse_json: independently remove duplicate detection and remove parse_constant rejection. Run --selftest plus a duplicate/NaN frozen case under each mutant; both must be killed. Restore your clone byte-exact after every mutation, record before/mutated/restored hashes and detector exits. No production changes."
+  },
+  {
+   "name": "MutateTypedAuditEquality",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nIn your isolated clone pinned faace82dcf50e1c563d437f2caecb77a9a865880, attack scripts/receipt_replay.py same_json: replace with Python loose ==. Run --selftest and the false-exit/true-pagesChecked cases. Both bool/int and float/int confusion should be detected. Restore your clone byte-exact after every mutation, record before/mutated/restored hashes and detector exits. No production changes."
+  },
+  {
+   "name": "MutateMediaTypeControls",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nIn your isolated clone pinned faace82dcf50e1c563d437f2caecb77a9a865880, attack scripts/receipt_replay.py parse_media_type and validate_fetch: remove type guard (non-string must not crash), then reject all null contentTypes, then reject trailing semicolon. Run original --selftest and frozen acceptance controls; each regression must be killed. Restore your clone byte-exact after every mutation, record before/mutated/restored hashes and detector exits. No production changes."
+  },
+  {
+   "name": "MutateSidecarBinding",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nIn your isolated clone pinned faace82dcf50e1c563d437f2caecb77a9a865880, attack scripts/freshness-sweep.mjs loadPathSidecar: remove lineSha256 binding (only that condition), run --selftest. Also modify a real correction entry hash in a clone and run --section=paths: pristine gate must exit2. Preserve exact results. Restore your clone byte-exact after every mutation, record before/mutated/restored hashes and detector exits. No production changes."
+  },
+  {
+   "name": "MutateRecoveredArm",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nIn your isolated clone pinned faace82dcf50e1c563d437f2caecb77a9a865880, attack scripts/freshness-sweep.mjs setDelta.recovered: replace with [] and run --selftest; it must now be killed (was a round23 survivor). Inspect real pins63: all four recovered tokens removed. A synthetic re-disappearance after the new pin should be first-seen drift, not hidden. Restore your clone byte-exact after every mutation, record before/mutated/restored hashes and detector exits. No production changes."
+  },
+  {
+   "name": "ProbePipeDrain",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nIn your isolated clone pinned faace82dcf50e1c563d437f2caecb77a9a865880, attack scripts/freshness-sweep.mjs JSON stdout: recreate the delayed-pipe-reader reproduction in w1/ScoutMistakeSweep.md. Current script must emit complete parseable JSON; the historical script at the round23 base must reproduce truncation. Use a delayed reader and a finite timeout; no live-tree writes. Preserve bytes received, JSON parse result and process exit. Derive expected byte count from regular-file capture and ignore timestamps when comparing semantics. Restore your clone byte-exact after every mutation, record before/mutated/restored hashes and detector exits. No production changes."
+  },
+  {
+   "name": "SentinelRevisionBoundary",
+   "role": "sentinel",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nIn your isolated clone pinned faace82dcf50e1c563d437f2caecb77a9a865880, attack scripts/receipt_replay.py revision resolution and validator subprocess: repeat only safe sandbox option-shaped revision probes from w1/SentinelRevisionInjection.md; no outside-repo reads/writes are permitted by the candidate. Reject option strings before blob access; malformed validator output must become named error/no traceback. Inspect hook/env/cwd containment of measure_c2.py sandbox creation as the earlier sentinel died. Restore your clone byte-exact after every mutation, record before/mutated/restored hashes and detector exits. No production changes."
+  },
+  {
+   "name": "CritClaimSeparability",
+   "role": "critic",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRead-only review of /home/vgpnk/Projects/shokunin/kake-shokunin at faace82dcf50e1c563d437f2caecb77a9a865880: Run both counters at C1-only and combined revisions; verify C1 remains19/19 with the C2 landing and C2 remains81/130 without its maintained script. Compare pinned case/population/runner bytes. Attack the coupling identified by w1/CritC2Separability.md: no new gated absolute path from C2 docs may change C1 result. Artifact roots /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24; C1-only=3d07733b482f88c42cb008397188237c80e42b67, combined=faace82dcf50e1c563d437f2caecb77a9a865880, base=f7de3ab4e9f030a15a857a5a08631bd8e690f436."
+  },
+  {
+   "name": "CritPinEvidenceAuthority",
+   "role": "critic",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRead-only review of /home/vgpnk/Projects/shokunin/kake-shokunin at faace82dcf50e1c563d437f2caecb77a9a865880: Attack whether the 55->63 pin update is greenwashing. Check every add/remove against actual target receipts and current filesystem, date/event wording, restoration correction register, and re-arming the next disappearance. Verify original live truth claims are marked historical rather than relabelled; source restoration stays operator-owned. Artifact roots /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24; C1-only=3d07733b482f88c42cb008397188237c80e42b67, combined=faace82dcf50e1c563d437f2caecb77a9a865880, base=f7de3ab4e9f030a15a857a5a08631bd8e690f436."
+  },
+  {
+   "name": "ReviewPreservation",
+   "role": "reviewer",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRead-only review of /home/vgpnk/Projects/shokunin/kake-shokunin at faace82dcf50e1c563d437f2caecb77a9a865880: Compare every changed existing knowledge/lesson file to the round23 base: original bytes must remain a byte-identical prefix (pure EOF additions), no suffix edits; all non-author corpus files unchanged. Check source registry old31 rows immutable, new3 only used-by cells changed as logged. Confirm reference coordinates and hashes bind, no rewritten historical evidence. Artifact roots /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24; C1-only=3d07733b482f88c42cb008397188237c80e42b67, combined=faace82dcf50e1c563d437f2caecb77a9a865880, base=f7de3ab4e9f030a15a857a5a08631bd8e690f436."
+  },
+  {
+   "name": "ScribeWaveAccounting",
+   "role": "scribe",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRead-only review of /home/vgpnk/Projects/shokunin/kake-shokunin at faace82dcf50e1c563d437f2caecb77a9a865880: Reconcile w1 spec, rendered taskcall, registry and retained reports/death evidence. Names/roles unchanged except required solutionSpace; report72 seats and role mix,17 dead (do not infer completion from a partial file). Check connector death and no replacement. Inspect all tool-install disclosures and domain-tree read-only exceptions. Draft exact final accounting; wave2 status itself remains pending. Artifact roots /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24; C1-only=3d07733b482f88c42cb008397188237c80e42b67, combined=faace82dcf50e1c563d437f2caecb77a9a865880, base=f7de3ab4e9f030a15a857a5a08631bd8e690f436."
+  },
+  {
+   "name": "ScoutCensusFrontier",
+   "role": "scout",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRead-only review of /home/vgpnk/Projects/shokunin/kake-shokunin at faace82dcf50e1c563d437f2caecb77a9a865880: Run source census validate --root /home/vgpnk/Projects/shokunin kake; independently derive registry rows/tiers/statuses at base and combined revision. Check used-by references, SOURCES changes logged old->new, frontier updates and mistake captured-by none. No scalar discernment or self-granted promotion; identify scope overreach. Artifact roots /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24; C1-only=3d07733b482f88c42cb008397188237c80e42b67, combined=faace82dcf50e1c563d437f2caecb77a9a865880, base=f7de3ab4e9f030a15a857a5a08631bd8e690f436."
+  },
+  {
+   "name": "ConnectFinalBoundary",
+   "role": "connector",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRead-only review of /home/vgpnk/Projects/shokunin/kake-shokunin at faace82dcf50e1c563d437f2caecb77a9a865880: Sibling-overlap scan for final changes: read fleet MISSION lane map, kake PROVINCE and tabi/kagi/chousa provinces. Reconcile source presence only, not deployment/browser/profile actions. Check ds4cc-related references in sibling current reports for conflicting premises; report ownership, never absorb their work. Artifact roots /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24; C1-only=3d07733b482f88c42cb008397188237c80e42b67, combined=faace82dcf50e1c563d437f2caecb77a9a865880, base=f7de3ab4e9f030a15a857a5a08631bd8e690f436."
+  },
+  {
+   "name": "SimplifyFinalReplay",
+   "role": "simplifier",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRead-only review of /home/vgpnk/Projects/shokunin/kake-shokunin at faace82dcf50e1c563d437f2caecb77a9a865880: Read scripts/receipt_replay.py and the two round24 counters for dead/unreachable code, unnecessary abstractions or accidental scope beyond routed field guards. Advisory only, no edits. Identify any deletion that preserves all frozen semantics; do not recommend removing historical evidence or controls. Artifact roots /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24; C1-only=3d07733b482f88c42cb008397188237c80e42b67, combined=faace82dcf50e1c563d437f2caecb77a9a865880, base=f7de3ab4e9f030a15a857a5a08631bd8e690f436."
+  },
+  {
+   "name": "ReviewPopulationAuthority",
+   "role": "reviewer",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRead-only review of /home/vgpnk/Projects/shokunin/kake-shokunin at faace82dcf50e1c563d437f2caecb77a9a865880: Audit all130 c2-population rows versus original w1 fenced case evidence, selection register, fixed fixtureBase and measure-c2-before.json. Detect any companion fixture flattened into a single-field case, false oracle, future time mismatch, byte-destroying serialization, duplicated weighting, or r23Observed mismatch. All case identities must be unique and raw parser probes remain byte-exact. Artifact roots /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-24; C1-only=3d07733b482f88c42cb008397188237c80e42b67, combined=faace82dcf50e1c563d437f2caecb77a9a865880, base=f7de3ab4e9f030a15a857a5a08631bd8e690f436."
+  }
+ ]
+}

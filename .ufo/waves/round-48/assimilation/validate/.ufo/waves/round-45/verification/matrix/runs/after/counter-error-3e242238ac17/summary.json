@@ -1,0 +1,109 @@
+{
+ "label": "",
+ "classesMode": "v5",
+ "expect": "witnessed",
+ "counter": ".ufo/waves/round-45/fixtures/counter-error/fake_counter.py",
+ "counterSha256": "15363b71eaa0389e4023b896e8b980fdd3a1735af9a9932e4d3d1e9b58984412",
+ "predicate": "met: the tool's exit code and output equal the round-41 tool's on every generated run (the eleven v4 runs and the ten class runs), and its median CPU time on each of the five timing shapes is at most 2.0 times the round-40 tool's",
+ "controls": 0,
+ "classKeys": [
+  "G1",
+  "G2",
+  "G3",
+  "G4",
+  "G5",
+  "G6",
+  "G7",
+  "G8",
+  "G9",
+  "G10"
+ ],
+ "witnessed": 0,
+ "witnessedNames": [],
+ "witnessedByClass": {},
+ "notMet": 0,
+ "notMetNames": [],
+ "metNames": [],
+ "errors": [
+  "ctl1:counter_error",
+  "build#1:stale_receipt",
+  "build#2:stale_receipt",
+  "build#3:stale_receipt"
+ ],
+ "build": [
+  {
+   "run": 1,
+   "exit": 0,
+   "met": true,
+   "seed": 93543170178044,
+   "equalRuns": "21/21",
+   "ratios": {
+    "T1": 1.005,
+    "T2": 1.217,
+    "T3": 1.355,
+    "T4": 1.256,
+    "T5": 1.123
+   },
+   "receipt": "build-1.json",
+   "error": "stale_receipt"
+  },
+  {
+   "run": 2,
+   "exit": 0,
+   "met": true,
+   "seed": 93543170178044,
+   "equalRuns": "21/21",
+   "ratios": {
+    "T1": 1.005,
+    "T2": 1.217,
+    "T3": 1.355,
+    "T4": 1.256,
+    "T5": 1.123
+   },
+   "receipt": "build-2.json",
+   "error": "stale_receipt"
+  },
+  {
+   "run": 3,
+   "exit": 0,
+   "met": true,
+   "seed": 93543170178044,
+   "equalRuns": "21/21",
+   "ratios": {
+    "T1": 1.005,
+    "T2": 1.217,
+    "T3": 1.355,
+    "T4": 1.256,
+    "T5": 1.123
+   },
+   "receipt": "build-3.json",
+   "error": "stale_receipt"
+  }
+ ],
+ "rows": [
+  {
+   "name": "ctl1",
+   "family": "prefix",
+   "class": "G5",
+   "path": ".ufo/waves/round-45/fixtures/counter-error/ctl1.py",
+   "sha256": "00ece64886137a23b1b6a8e7f7795885d2e23ae3c1c2a0dfdb8f05f085503238",
+   "exit": 2,
+   "met": false,
+   "equalRuns": null,
+   "seed": 224408754848177,
+   "caughtBy": [
+    "G5",
+    "G7"
+   ],
+   "receipt": "tools/ctl1.json",
+   "error": "counter_error",
+   "classCaught": [
+    "G5",
+    "G7"
+   ],
+   "legacyCaught": []
+  }
+ ],
+ "ok": false,
+ "verdict": "witnessed 0/0 notMet=0 build met 0/3"
+}

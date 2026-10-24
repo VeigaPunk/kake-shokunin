@@ -1,0 +1,17 @@
+{
+  "name": "source-quotes",
+  "executedAt": "2026-10-21T14:00:56.014992+00:00",
+  "argv": [
+    "python3",
+    "-B",
+    "-c",
+    "from html.parser import HTMLParser\nfrom pathlib import Path\nimport hashlib,json,re\nclass Text(HTMLParser):\n def __init__(self): super().__init__();self.parts=[]\n def handle_data(self,d): self.parts.append(d)\ndef norm(t): return re.sub(r'(\\()\\s+',r'\\1',re.sub(r'\\s+([,.;:)])',r'\\1',' '.join(t.split())))\nraw=Path('.ufo/waves/round-25/source-wcag22.html').read_bytes();p=Text();p.feed(raw.decode());text=norm(' '.join(p.parts))\nquotes={'cc1':'the web page satisfies all the Level A and Level AA success criteria, or a Level AA conforming alternate version is provided.','cc2':'Conformance (and conformance level) is for full web page(s) only','cc3':'all web pages in the process conform at the specified level or better.','cc4':'Only accessibility-supported ways of using technologies are relied upon to satisfy the success criteria.','cc5':'then they do not block the ability of users to access the rest of the page.'}\nrows=[{'anchor':k,'words':len(q.split()),'occurrences':text.count(norm(q)),'anchorPresent':('id=\"'+k+'\"') in raw.decode()} for k,q in quotes.items()]\npassed=hashlib.sha256(raw).hexdigest()=='6e3c5fe397257cae509a2fb4752b73062cf8cbeb92c2cec618989b17e4cf7057' and all(r['words']<=25 and r['occurrences']==1 and r['anchorPresent'] for r in rows)\nprint(json.dumps({'sourceSha256':hashlib.sha256(raw).hexdigest(),'rows':rows,'passed':passed},sort_keys=True))\nraise SystemExit(0 if passed else 1)\n"
+  ],
+  "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+  "sourceRevision": "be362b7808ea2350a4340cfa2cfde481269037f4",
+  "exit": 0,
+  "stdout": "{\"passed\": true, \"rows\": [{\"anchor\": \"cc1\", \"anchorPresent\": true, \"occurrences\": 1, \"words\": 22}, {\"anchor\": \"cc2\", \"anchorPresent\": true, \"occurrences\": 1, \"words\": 10}, {\"anchor\": \"cc3\", \"anchorPresent\": true, \"occurrences\": 1, \"words\": 13}, {\"anchor\": \"cc4\", \"anchorPresent\": true, \"occurrences\": 1, \"words\": 14}, {\"anchor\": \"cc5\", \"anchorPresent\": true, \"occurrences\": 1, \"words\": 16}], \"sourceSha256\": \"6e3c5fe397257cae509a2fb4752b73062cf8cbeb92c2cec618989b17e4cf7057\"}\n",
+  "stderr": "",
+  "expectedExit": 0,
+  "matchedExpectedExit": true
+}

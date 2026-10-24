@@ -1,0 +1,37 @@
+{
+  "description": "a fixture carrying its own .git (a pointer file to a victim repository) with setup ops other than git_init (round-30 routed N2)",
+  "gap": "N2",
+  "tmpdir_in_victim": false,
+  "cases": [
+    {
+      "name": "h2a",
+      "case_json": {
+        "setup": [
+          {
+            "op": "git_commit",
+            "message": "probe"
+          }
+        ]
+      },
+      "planted_scripts": false,
+      "dot_git": true,
+      "expected": null,
+      "symlink_case": false
+    },
+    {
+      "name": "h2b",
+      "case_json": {
+        "setup": [
+          {
+            "op": "mkdir",
+            "path": "extra"
+          }
+        ]
+      },
+      "planted_scripts": false,
+      "dot_git": true,
+      "expected": null,
+      "symlink_case": false
+    }
+  ]
+}

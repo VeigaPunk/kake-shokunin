@@ -1,0 +1,576 @@
+{
+ "counter": ".ufo/waves/round-30/c1_reason_count.py",
+ "counterSha256": "be2a1287ab7f2abdca8695d8274504d14b9e1c6b0afe95e940c890bfb8bcc53e",
+ "revision": "71c6bfabd7aa957d15732d9224888bb32849238a",
+ "gateSha256": "dbfade45e59351fb5edc010dfc45a4e15e1213fdb6fad9ec1668ffd3b77b7f02",
+ "runnerSha256": "0fc87d5b8134c841b02d0db33d8a3262fb774d0c8aacaefc6b6811f190b6530a",
+ "python": "3.14.8",
+ "passed": 14,
+ "total": 14,
+ "rPassed": 8,
+ "fPassed": 6,
+ "controlsHold": true,
+ "constantGates": {
+  "constantClean": {
+   "passed": 0,
+   "runnerExit": 1
+  },
+  "refuseEverything": {
+   "passed": 0,
+   "runnerExit": 1
+  }
+ },
+ "constantGatesRejected": true,
+ "runnerBaseline": {
+  "exit": 0,
+  "cases": 41,
+  "failed": 0
+ },
+ "controls": [
+  {
+   "id": "K1",
+   "passed": true,
+   "problems": [],
+   "observed": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": []
+   }
+  },
+  {
+   "id": "K2",
+   "passed": true,
+   "problems": [],
+   "observed": {
+    "exit": 0,
+    "verdict": "clean",
+    "findings": []
+   }
+  },
+  {
+   "id": "K3",
+   "passed": true,
+   "problems": [],
+   "observed": {
+    "exit": 1,
+    "verdict": "failed",
+    "findings": [
+     [
+      "unadjudicated_citing_pair",
+      "None"
+     ]
+    ]
+   }
+  }
+ ],
+ "checks": [
+  {
+   "id": "R01",
+   "code": "document_not_regular_file",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "30-document-not-regular-file"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 1,
+    "renamedOccurrences": 1
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "document_not_regular_file"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "R02",
+   "code": "document_not_json",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "15-invalid-json-population",
+    "31-document-not-json"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 2,
+    "renamedOccurrences": 1
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "document_not_json"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "R03",
+   "code": "corpus_directory_missing",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "32-corpus-directory-missing"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 1,
+    "renamedOccurrences": 2
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "corpus_directory_missing"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "R04",
+   "code": "corpus_empty",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "33-corpus-empty"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 1,
+    "renamedOccurrences": 1
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "corpus_empty"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "R05",
+   "code": "not_a_directory",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "34-not-a-directory"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 1,
+    "renamedOccurrences": 2
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "not_a_directory"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "R06",
+   "code": "population_id_unreachable",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "35-population-id-unreachable",
+    "40-population-id-short-digits"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 2,
+    "renamedOccurrences": 1
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "population_id_unreachable"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "R07",
+   "code": "revision_not_found",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "36-revision-not-found"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 1,
+    "renamedOccurrences": 2
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "revision_not_found"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "R08",
+   "code": "root_not_repository_top_level",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "37-root-not-repository-top-level"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 1,
+    "renamedOccurrences": 1
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "root_not_repository_top_level"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "F01",
+   "code": "document_duplicate_key",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "38-document-duplicate-key"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 1,
+    "renamedOccurrences": 1
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "document_duplicate_key"
+       ]
+      ]
+     }
+    },
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "document_duplicate_key"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "F02",
+   "code": "document_nonfinite_number",
+   "passed": true,
+   "parts": {
+    "behaviour": true,
+    "fixture": true,
+    "compared": true
+   },
+   "fixtures": [
+    "39-document-nonfinite-number",
+    "41-document-nonfinite-overflow"
+   ],
+   "mutantRunner": {
+    "exit": 1,
+    "cases": 41,
+    "failed": 2,
+    "renamedOccurrences": 1
+   },
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "document_nonfinite_number"
+       ]
+      ]
+     }
+    },
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "document_nonfinite_number"
+       ]
+      ]
+     }
+    },
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "document_nonfinite_number"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "F03",
+   "passed": true,
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "population_id_unreachable"
+       ]
+      ]
+     }
+    },
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "verdict": "could-not-evaluate",
+      "findings": [
+       [
+        "input_invalid",
+        "population_id_unreachable"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "F04",
+   "passed": true,
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 64,
+      "stdoutHead": "{\n  \"verdict\": \"could-not-evaluate\",\n  \"citingPairs\": 0,\n  \"ledgerPairs\": 0,\n  \"findings\": [],\n  \"error\": \"usage: argument --population: option --population giv"
+     }
+    },
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 64,
+      "stdoutHead": "{\n  \"verdict\": \"could-not-evaluate\",\n  \"citingPairs\": 0,\n  \"ledgerPairs\": 0,\n  \"findings\": [],\n  \"error\": \"usage: argument --ledger: option --ledger given more "
+     }
+    },
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 64,
+      "stdoutHead": "{\n  \"verdict\": \"could-not-evaluate\",\n  \"citingPairs\": 0,\n  \"ledgerPairs\": 0,\n  \"findings\": [],\n  \"error\": \"usage: argument --revision: option --revision given m"
+     }
+    },
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 64,
+      "stdoutHead": "{\n  \"verdict\": \"could-not-evaluate\",\n  \"citingPairs\": 0,\n  \"ledgerPairs\": 0,\n  \"findings\": [],\n  \"error\": \"usage: argument --root: option --root given more than"
+     }
+    }
+   ]
+  },
+  {
+   "id": "F05",
+   "passed": true,
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 1,
+      "verdict": "failed",
+      "findings": [
+       [
+        "unadjudicated_citing_pair",
+        "None"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "F06",
+   "passed": true,
+   "cases": [
+    {
+     "passed": true,
+     "problems": [],
+     "observed": {
+      "exit": 2,
+      "ttyNr": 0,
+      "device": "/dev/pts/1",
+      "findings": [
+       [
+        "input_invalid",
+        "document_not_regular_file"
+       ]
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "kake-evidence-redaction-check-v1",
+  "supersededCommit": "f405166a33878cab32bff18dce3f39c9d9d3e463",
+  "historyRewritten": false,
+  "programChanged": false,
+  "checks": [
+    {
+      "artifact": "acceptance.json",
+      "runs": 5,
+      "outputsParse": true,
+      "controlledOverrideValuesAbsentFromCapturedOutput": true,
+      "verdictLinesAndExitCodesPreserved": true
+    },
+    {
+      "artifact": "baseline-proof.json",
+      "runs": 7,
+      "outputsParse": true,
+      "controlledOverrideValuesAbsentFromCapturedOutput": true,
+      "verdictLinesAndExitCodesPreserved": true
+    },
+    {
+      "artifact": "candidate-proof.json",
+      "runs": 8,
+      "outputsParse": true,
+      "controlledOverrideValuesAbsentFromCapturedOutput": true,
+      "verdictLinesAndExitCodesPreserved": true
+    }
+  ],
+  "scope": "controlled fixture environment values in evidence and documented selftest assignments; not an assurance that immutable history has no earlier violation",
+  "result": "PASS"
+}

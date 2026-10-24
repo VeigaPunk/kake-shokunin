@@ -1,0 +1,526 @@
+{
+ "wave": "kake-r46-w1",
+ "milestone": "round-46 single v2 wave (build+attack, 64 seats): C1 redirect/rewrite audit capability, C2 citation-hygiene gate",
+ "maxLanes": 64,
+ "axes": [
+  "operability",
+  "freshness"
+ ],
+ "reportDir": ".ufo/waves/round-46/w1",
+ "context": "# Goal\nKake round 46, ONE v2 wave of 64 seats (build + attack together). Lane: kake-shokunin (axes:\noperability, freshness; offline audit instruments over committed bytes, local CLI tools only).\nYou are one independent leaf seat with one item; the L1 (kake-r46) is sole writer of lane\nhistory and the only integrator \u2014 you do NOT commit, push, or edit files outside your named\nwrite paths. Never call ask; never `agent://all` (message your seat id only if ever needed).\n\nLane repo: /home/vgpnk/Projects/shokunin/kake-shokunin. Scratch: /fast/scratch/hyaku/kake-r46/<YourSeatName>/ (create it; temp files there only).\nEvery `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin \u2014 write your report at /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/w1/<YourSeatName>.md.\n\n# Round claims (frozen at bd86ee80; the frozen sentences below are quoted from SCORECARD.md \u2014 do not re-declare, attack them)\n- C1 (operability, capability acquisition): \"The committed tool scripts/redirect_audit.py\n  reads a version-1 manifest of static-host redirect/rewrite checks and reports, read-only\n  and network-free, every check whose decided outcome differs from its expectation; the\n  frozen counting command python3 -B .ufo/waves/round-46/c46_matrix.py --root . --revision\n  <commit> --stage before|after decides before = at least one planted witness uncaught or\n  one do-nothing/constant/junk control accepted, after = sealed matrix with every planted\n  witness caught and every do-nothing, constant and junk control rejected.\"\n  Ground: PROVINCE frontier \u2014 Render redirect/rewrite semantics are knowledge-only since\n  round 30 (corpus/knowledge/render-static-sites.md, S050/S088); no gate exists. Matrix must\n  stay under 120 s wall (routed defect 4).\n- C2 (freshness): \"The committed gate scripts/citation_lint.py resolves every lane commit\n  citation over the frozen population {SCORECARD.md, LOG.md} and reports each violation with\n  file, line and token; python3 -B scripts/citation_lint.py --root . --revision <commit>\n  exits 1 with at least one named violation at base 7cdbaefd\u2026 and exits 0 at the round-46\n  tip with every base violation repaired append-only or adjudicated in the committed ledger;\n  and corpus/QUALITY.md carries the receipt-identity criterion, counting grep -c '^- .*\n  receipt.*\\(path\\|sha256\\)' corpus/QUALITY.md 0 \u2192 1.\"\n  Routed from r45 closure defects: dead short-hash e5455253 (the commit is\n  e54552553eaff4d7033dc2df299300fc056f4a0d; note e545525 x7 resolves, e5455253 x8 does not)\n  and receipt-identity binding (any filed count against a receipt cites path + sha256).\n  Known hard case the rule must classify correctly: sha256-digest prefixes like\n  d7e79ba1\u20269d48 are NOT commit citations; foreign-repo commits (ufo-fsd-alpha HEAD 964f443e,\n  Pages repo pins like 7c243a1d, deploy pins like a8f1e2b) must resolve OR be line-adjudicated\n  in the ledger. Protected non-author files (corpus/lessons/round-*-verifier-spotcheck.md)\n  are OUTSIDE the frozen population.\n\n# Frozen \u2014 never edit (any pre-existing committed file; sha-guarded by SentinelWriteBounds)\nEspecially: .ufo/waves/round-4{3,4,5}/ everything, scripts/* (existing tools), corpus/**\n(corpus is L1-write-only this wave \u2014 scribes deliver drafts under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/drafts/).\nNew tool files scripts/redirect_audit.py and scripts/citation_lint.py are created ONLY by the\nseats whose items name them (new files, disjoint paths).\n\n# Report\nWrite /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/w1/<YourSeatName>.md: what you did, exact commands, verbatim decisive\noutput, files written, blockers. Unrun check = reported unrun; never fabricate.\n\n# Bounds\nYou may write only: the lane paths your item names, your scratch dir, your report.\nRead-only: fleet repo /home/vgpnk/Projects/shokunin (you may read sibling lanes' cited files),\nsibling lane repos, .ufo/state/, watchdog logs. Never git commit/jj/push; never edit\nMANIFEST.json, templates/, fleet scripts/, route tables, mcp.json.\nTooling authorization (operator, 2026-10-19): you and every seat may install or upgrade\ntools that help the task \u2014 read /home/vgpnk/.omp/agent/RULES.md first (official channels,\nupdate-safety gate, record tool/version/channel/reason in your report).\nPACMAN IS PAUSED host-wide: all pacman transactions are paused; install via\nuv tool / npx / an official binary in ~/.local/bin, or file an L0 question; never\n-Sy/-Syu/-U/-R. Report dead ends as dead ends.\n",
+ "items": [
+  {
+   "name": "ScoutRoutedLedger",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nBuild the canonical routed-defect ledger for round 46. Read: corpus/lessons/round-45-verifier-spotcheck.md (routed defects 1-4 with line cites), corpus/lessons/round-45.md Mistakes 14-15, SCORECARD.md round-46 declarations, LOG.md round-46 entry. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/routed-ledger.md: each defect with its source line cite, the r46 item(s) that answer it, and the frozen claim sentence each answers.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScoutRedirectSemantics",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMap the redirect/rewrite semantics ground for C1. Read corpus/knowledge/render-static-sites.md, corpus/SOURCES.md rows S050 and S088 (their located quotes), and scripts/robots_audit.py + scripts/sitemap_audit.py for the established v1-manifest tool shape. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/redirect-semantics-map.md: the expectation types a v1 redirect/rewrite manifest must express (status, target resolution, rewrite pass-through, existing-resource precedence, rule order, malformed rules), each with its S-row grounding, and the rule-syntax classes S050's retained text does NOT cover (these become the new-source candidates).\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScoutSourceCandidates",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nScreen candidate NEW sources for C1's opened-this-round rows. Requirements: primary/docs tier A/B; must cover Render static-site _redirects rule SYNTAX (splats, placeholders, forced rules, rewrite/proxy flag) and/or HTML meta-refresh publisher-side redirects; must not duplicate existing row URLs in corpus/SOURCES.md (check W04 duplicate-url warnings: rfc9110.txt/html, whatwg syntax, rfc3986, rfc9309, sitemaps protocol, w3.org/TR/xml, urllib.parse docs, rfc9844). Fetch each candidate read-only (GET only, no credentials) and retain raw text under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/sources/ with sha256. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/source-candidates.md: per candidate \u2014 URL, final URL, HTTP status, byte count, sha256, tier, the \u226425-word located quote, and admit/screen-out with reason.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScoutBasePopulation",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMeasure the C2 frozen population at base. Population = SCORECARD.md and LOG.md at revision 7cdbaefd3ecbbc8814eca1f013fcee101a6157b0 (git show <rev>:<path> to read base bytes; do not trust the working tree). Inventory every hex token 7-40 chars that is a commit citation (citation context: commit/landed/HEAD/tip/pin/beat/base/revision/deploy/sha words on the same line), classify each: resolves-as-lane-commit (git rev-parse --verify <tok>^{commit}), foreign-repo commit (name the repo on the line), sha256-digest prefix (the \u2026 ellipsis form or a sha256 label \u2014 NOT a commit citation), or unresolved. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/base-population.json: per-file, per-token records {file, line, token, class, evidence-line} plus summary counts. This is the before-state for C2; be exact, the ledger must reconcile.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScoutFixtureDesign",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDesign the C1 witness matrix. 14-18 planted witness classes over a v1 manifest family, each class a distinct rule-evaluation behavior, e.g.: exact match redirect; wildcard splat capture; placeholder forwarding :splat/:path segments; forced rule (existing resource overridden); rewrite/proxy pass-through flag; rule order (first match wins); existing-resource precedence (no rule applied where resource exists); 301 vs 302 vs 307 vs 308 status expectation; relative target resolution; malformed rules file (bad status, missing target, 4-segment splat); URL-encoded path match; circular redirect chain; trailing-slash handling. For each class: 2-3 manifest rows, the expected outcome, and which semantic source grounds it (S050/S088/new rows). Keep total matrix runs < 120 s. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/fixture-design.md + fixture-design.json (machine form).\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ConnectorSiblingOverlap",
+   "role": "connector",
+   "axes": [
+    "adjacency"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSibling-overlap scan: does any other lane own redirect/rewrite-rule auditing or citation-resolution linting? Read sibling SKILL.md/PROVINCE.md headers only (kasegi, kengaku, kumitate, kotoba, kagi, kama, tabi, chousa, mori, tameshi under /home/vgpnk/Projects/shokunin/). Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/connector-overlap.md: per sibling, contested or clean with one-line evidence.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "RevengerRound45Leftovers",
+   "role": "revenger",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSweep for round-45 leftovers: untracked or uncommitted files in the lane working tree (git status --porcelain), stray __pycache__ under .ufo/waves/round-45/, files newer than the r45 tip outside .ufo/waves/round-46/, and seat reports missing from .ufo/waves/round-45/w1|w2 against their registries. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/r45-leftovers.md with findings; delete nothing.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "SentinelWriteBounds",
+   "role": "sentinel",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDefine the r46 write-bounds guard. Emit /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/frozen-manifest.json: sha256 of every pre-existing committed file under .ufo/waves/round-43/, round-44/, round-45/ and every existing scripts/ and corpus/ file (find + sha256sum), plus the population freeze for C2 ({SCORECARD.md, LOG.md} at bd86ee80). Include a check script .ufo/waves/round-46/build/frozen-check.sh that re-hashes and reports any drift (read-only, exit 0/1). Verify it runs clean now; later seats re-run it as no-harm evidence.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "SimplifierContractShape",
+   "role": "simplifier",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nPropose the minimal v1 manifest + CLI contract for scripts/redirect_audit.py, shaped exactly like the prior tools (read scripts/robots_audit.py header + SCHEMA + argparse block; scripts/sitemap_audit.py for the exits 0/1/2/64 contract). Decisions to make and justify in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/contract-minimal.md: manifest JSON schema name and fields, how a check row expresses expectation, what 'decided outcome' means per check type, output finding shape, exit codes, --selftest hook. Keep it minimal \u2014 no live fetch, no rendering, no DNS.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecRedirectTool",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nWrite the C1 tool: NEW FILE /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/redirect_audit.py only. Implement the contract from SimplifierContractShape's artifact if present (else scripts/robots_audit.py shape): strict JSON manifest read, version-1 schema, per-check decided outcome vs expectation, findings with stable ids, exits 0/1/2/64, --selftest with planted able-to-fail fixtures, --root/--revision/--json/--manifest flags. Semantics per corpus/knowledge/render-static-sites.md + S050/S088: rule parsing (splats, placeholders, force flag, rewrite flag), first-match order, existing-resource precedence, status/target checks, relative-target resolution, malformed-rules faults. NO network, NO file writes outside the audit's own output flag. Selftest must FAIL if any planted witness is uncaught (prove by temporarily breaking one assertion and showing exit change, then restore). Report exact commands + outputs.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecCitationLint",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nWrite the C2 gate: NEW FILE /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citation_lint.py only. Frozen population {SCORECARD.md, LOG.md}; --root/--revision flags read base bytes via git show <rev>:<path>. Rule (commit citation = hex token 7-40 chars with a citation-context word on the same line: commit|landed|HEAD|tip|pin|beat|base|revision|deploy; exclude sha256-digest forms: token followed/preceded by \u2026 OR line carries a 'sha256' label; exclude protected round-*-verifier-spotcheck.md files \u2014 they are outside the population anyway). For each citation: resolves-as-lane-commit (git rev-parse --verify) OR line-adjudicated (the line names a foreign repo) \u2014 else violation {file, line, token, line-text}. Output JSON ledger + human summary; exits 0 (no violations) / 1 (violations) / 2 (input fault) / 64 (usage). --selftest with planted fixtures: a dead short hash (e5455253-class), a resolving hash, a sha256 prefix that must NOT flag, a foreign-repo commit that must NOT flag \u2014 each proven able-to-fail. Report exact commands + outputs.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecRedirectSelftest",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nWrite /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/redirect-selftest.md AND extend-prove ExecRedirectTool's selftest: run scripts/redirect_audit.py --selftest, capture verbatim output + exit; then apply each of 6 mutants to a COPY under your scratch (drop status check; drop first-match order; drop existing-resource precedence; accept malformed rules; always-clean return; skip URL-decoding) and show the selftest kills each (exit/stdout change). Deliver the mutant-kill table; if a mutant survives, report it as a finding with the surviving behavior \u2014 do not patch the tool yourself.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecCitationSelftest",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutation-test the C2 gate: run scripts/citation_lint.py --selftest (built by ExecCitationLint) against 5 mutants on a scratch copy (drop git-resolution check; drop citation-context filter; drop sha256 exclusion; always exit 0; flag every token). Show killed/survived per mutant with verbatim output. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/citation-mutants.md; survivors are findings, do not patch.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecMatrixCounter",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nWrite the C1 frozen counter: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/c46_matrix.py. It runs scripts/redirect_audit.py over the committed fixture manifests (population from ExecFixtureFiles; design from ScoutFixtureDesign) at --stage before (tool = a baseline copy with one witness class deliberately uncaught, kept under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/controls/before-tool.py) and --stage after (tool = scripts/redirect_audit.py), plus three controls scored per stage: do-nothing (always-clean counter), constant (reports every row violated), junk (reports a fixed nonsense finding). Receipt: {stage, witnesses_caught, witnesses_total, controls: {name: accepted|rejected}, wall_s, tool_sha256, matrix_sha256, revision, claim: '<the frozen C1 sentence>'}. Before receipt MUST show >=1 uncaught witness OR >=1 accepted control; after MUST show all witnesses caught and all controls rejected, wall_s < 120. Report both receipts verbatim.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecFixtureFiles",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nWrite the committed C1 fixtures: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/fixtures/ \u2014 rules files (_redirects-form for the Render static-site profile), existing-resource path lists, and manifest-v1 JSON implementing ScoutFixtureDesign's matrix (or your own 14-18 classes if that artifact is absent, naming your source ground per class). Include a fixtures README. Every planted witness must be decidable from the files alone (no network). Report the class inventory + the manifest sha256.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecMatrixPlacebo",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nBuild and score the C1 do-nothing control BEFORE data: write /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/controls/placebo.py \u2014 a counter that reads the manifest and reports clean for every row without evaluating rules. Run ExecMatrixCounter's scoring shape against it manually (or write /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/controls/score-placebo.py doing the same receipt shape): the placebo MUST be rejected (it reports clean while planted witnesses exist \u2014 show the receipt proving rejection). Deliver the placebo receipt; this is the claim-sizing control receipt committed before data.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecCitationDoNothing",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nBuild and score the C2 do-nothing control: write /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/controls/always0.py \u2014 a lint stub that exits 0 with an empty ledger regardless of input \u2014 and score it against the frozen C2 sentence at base: show it would certify the base population that contains unresolved citations, i.e. the do-nothing control cannot reach the after-state. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/controls/always0-receipt.json + a written verdict. This is the C2 claim-sizing control receipt before data.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecRunReceipts",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nWrite the r46 run-receipt stamper: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/stamp_receipt.py \u2014 wraps any counting command, captures {argv, exit, stdout_tail, started_at, wall_s} and writes a receipt naming the measured revision, the tool path and the tool sha256 (path + sha256 per the receipt-identity rule). Use it to produce /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/verification/census-before.json receipt and the freshness-sweep baseline receipt (node scripts/freshness-sweep.mjs --section=paths) at base \u2014 paste both verbatim; honest red drift state is expected and must be recorded, not 'fixed'.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecLedgerBaseline",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nProduce the no-harm baselines: run scripts/ledger_latest_check.py and node scripts/freshness-sweep.mjs --selftest at the current tip; capture verbatim exits and outputs into /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/verification/no-harm-baseline.md. Also re-run SentinelWriteBounds' frozen-check.sh and append the result. Any failure is a finding.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecBudgetSizing",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSize the C1 matrix wall clock (routed defect 4: r45 honest-cohort re-cert exceeded 4 min). Run ExecMatrixCounter's after-stage shape once with timing; if wall_s >= 120, deliver a shrink plan (fixture count, parallel rows) that keeps every witness class represented and re-measure. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/budget-sizing.md with the measured wall and the final recipe.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecContractDoc",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nWrite /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/c1-contract.md: the C1 audit contract v1 \u2014 manifest schema, check/expectation semantics per class, decided-outcome definitions, finding shape, exit codes, explicit non-claims (no live fetch, no DNS, no rendered-DOM, no publication approval; Render static-site _redirects profile only), and the frozen C1 sentence as the contract's claim label.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecQualityCriterion",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDraft the QUALITY.md receipt-identity criterion (routed defect 3) as /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/drafts/quality-criterion.md \u2014 a single bullet in the established QUALITY.md voice: any filed count/verdict against a receipt cites the receipt path + sha256; a receipt citation without sha256 is a violation of this criterion; the r45 closure language (per Mistake 15's fix) is the anchor. Also draft the application check: a grep/shape command counting criterion occurrences (before 0 \u2192 after 1) with its frozen output shape.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecReproReadme",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nWrite /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/README.md: how to re-run every r46 counting command from a clean clone at the tip (exact commands, expected exits, expected receipt paths, wall budgets). Include the frozen C1/C2 sentences verbatim and the claim-sizing control receipts' locations.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecSanityReplay",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReplay-proof the C1 after-state: run the after-stage matrix twice (fresh temp outputs) and diff the receipts modulo {started_at, wall_s}; they must agree on every counted field. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/replay-proof.md with both receipts and the normalized diff. If they disagree, that is a finding.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecRepairPlanner",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nBuild the C2 repair plan: run scripts/citation_lint.py --root . --revision 7cdbaefd3ecbbc8814eca1f013fcee101a6157b0 over the frozen population and, for each violation, produce the append-only repair or adjudication the L1 must land (exact new line text per file, quoting the existing line; adjudications carry the foreign-repo/digest evidence). Write the plan as /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/repair-plan.md plus repair-plan.json (machine form: file, line, token, action, replacement-text). Every proposed edit must be append-only or errata-style; flag any violation that cannot be repaired without rewriting history as routed.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ExecLedgerReconcile",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReconcile the C2 ledger with ScoutBasePopulation's inventory: every inventory token the lint did not classify as a violation must have a stated reason in the lint's output or your reconciliation notes (foreign-repo, sha256-digest, resolves). Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/build/ledger-reconcile.md with the full reconciliation table and any inventory/lint disagreement called out as a finding.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScribeKnowledgeDraft",
+   "role": "scribe",
+   "axes": [
+    "depth"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDraft the C1 knowledge entry: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/drafts/redirect-rules-audit.md \u2014 shaped like corpus/knowledge/robots-txt-rules.md: what the audit decides, the v1 manifest shape, the expectation classes with their S-grounding (S050/S088 + the new rows ScoutSourceCandidates admits), limits (Render static-site profile only, offline), and source:/verified-at:/recheck: metadata front-matter in the exact lowercase trio form used by corpus/knowledge/receipt-integrity.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScribeSourcesRows",
+   "role": "scribe",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDraft the new SOURCES.md rows for the sources ScoutSourceCandidates admitted: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/drafts/sources-rows.md \u2014 one row per source in the exact table shape of corpus/SOURCES.md (id S135\u2026, name, URL, kind, tier, scope, sections-opened, opened evidence line with fetch date/HTTP/sha256, teaches, status, recheck, used-by). Include any rejection rows with reason + flip, in the established rejection wording.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScribeLessonMistakes",
+   "role": "scribe",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMine the round-46 lesson mistakes from wave evidence as it exists so far: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/drafts/lesson-mistakes.md \u2014 candidates (class, evidence pointer, captured-by, fix) drawn from the honest-stop re-declaration discipline (r45 closure), the citation-hygiene rule design, and any wave findings; each fix must be shown able to fail by a named check. If a candidate lacks evidence, mark it candidate-only.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScribeCapabilityRow",
+   "role": "scribe",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDraft the SCORECARD capabilities-table row for C1: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/drafts/capability-row.md \u2014 name, one-line what-it-can-do, evidence pointer (tool + matrix receipt + selftest), first-working round 46, in the exact voice of the existing rows.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScribeReportEvidence",
+   "role": "scribe",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAssemble the before-measurement evidence pack for the L1 report: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/drafts/report-evidence.md \u2014 census before output (from ExecRunReceipts' receipt or run it yourself: /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake), SOURCES row count before (grep -c '^| S' corpus/SOURCES.md), base-population summary from ScoutBasePopulation, and the frozen claim sentences. Everything verbatim; no invented numbers.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScribeGateDraft",
+   "role": "scribe",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDraft the round-46 lesson Gate: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/drafts/lesson-gate.md \u2014 per CORPUS.md SOURCES contract v1: for every new row, URL + access date + \u226425-word located quote; admits/rejects with reasons; spot-check status placeholders for the L1 to fill.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewFrozenSentences",
+   "role": "reviewer",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack the frozen claim sentences themselves (C1 and C2, quoted in the context above). For each: find any clause a do-nothing control could reach, any universal without an enumerated set, any term that is not decidable over committed bytes (the r45 C1 'over the invoked counter bytes' failure mode). Verdict per sentence: sound / overreach with the exact clause. Deliver /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewFrozenSentences.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewCounterSeparation",
+   "role": "reviewer",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nProve or refute causal separability: run the C1 matrix receipt check without the citation lint existing, and the C2 lint without the redirect tool existing; each must be independently decidable. Report exact commands. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewCounterSeparation.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewToolSemantics",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nFidelity-attack ExecRedirectTool: read scripts/redirect_audit.py and compare every decided outcome against corpus/knowledge/render-static-sites.md + S050/S088 located quotes (retained text under .ufo/waves/round-30/sources/ if present, else the row quotes). Any behavior not grounded in a cited row is a finding. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewToolSemantics.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewSelftestCoverage",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack both selftests' able-to-fail claim: for each planted fixture in redirect_audit.py --selftest and citation_lint.py --selftest, demonstrate (on a scratch copy) that breaking the corresponding assertion flips the exit; list any fixture that cannot fail (decorative assertion). /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewSelftestCoverage.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewReceiptIdentity",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack the ExecQualityCriterion draft: does the criterion sentence unambiguously require path + sha256 for ANY filed count against a receipt (including matrix receipts, census receipts, report figures)? Check every receipt produced so far in .ufo/waves/round-46/ for compliance; list violators with paths. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewReceiptIdentity.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewPopulationFreeze",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack the C2 population: is {SCORECARD.md, LOG.md} complete for 'standing records' as the sentence claims, or does the sentence overreach/underreach? Independently re-derive ScoutBasePopulation's inventory (your own scan script, scratch only); any token disagreement is a finding. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewPopulationFreeze.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewClaimLabels",
+   "role": "reviewer",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nVerify the frozen-sentence discipline: the C1 receipt's claim field and the C2 ledger/README must carry the SAME sentence as SCORECARD round-46 (diff them). Any paraphrase is a finding. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewClaimLabels.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewPlacebo",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIndependently re-score the C1 do-nothing placebo and constant/junk controls from committed bytes; verify the after-receipt truly rejects each (a rejected control that the receipt accidentally accepts = the r44 defect class). /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewPlacebo.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewAlways0Control",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIndependently re-score the C2 always-0 control: at base bytes it must be shown unable to reach the after-state (it certifies violations away). Also attack the lint for false negatives: plant 3 NEW dead-cite shapes it might miss (e.g. uppercase hex, 40-char dead full hash, citation split across a line break) and report which the rule catches. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewAlways0Control.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewBudget",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRe-run the C1 after-stage matrix yourself with timing; verify wall_s < 120 and that the receipt's counts match ExecMatrixCounter's receipt. Report divergence. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewBudget.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewNoHarm",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nNo-harm sweep: re-run frozen-check.sh, scripts/ledger_latest_check.py, node scripts/freshness-sweep.mjs --selftest, and git status --porcelain in the lane; every pre-existing byte must be untouched (module gitignored __pycache__ drift, report it). /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewNoHarm.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewSourcesRows",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack the new SOURCES row drafts: each located quote \u226425 words and verbatim in the retained text (sha256-check); tier and scope honest; no duplicate URL against corpus/SOURCES.md; rejection rows carry reason + flip. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewSourcesRows.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewSourcedClaim",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nVerify the sourced-claim requirement: C1's knowledge entry draft must cite at least one row OPENED THIS ROUND (new S-id), and the audit semantics it teaches must rest on that row (not only on S050/S088). If the draft only re-uses old rows, that is a finding. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewSourcedClaim.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ReviewLessonQuality",
+   "role": "reviewer",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack the lesson drafts: each mined mistake needs class, evidence pointer, captured-by (the criterion/rule that should have caught it), and a fix shown able to fail. Candidate-only rows are acceptable only with that label. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ReviewLessonQuality.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "CriticC1Predicate",
+   "role": "critic",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAdversarially falsify the C1 after-state: find any way the after-receipt's 'witnesses caught / controls rejected' can hold while the tool is wrong (e.g. witnesses decidable by construction, controls mis-scored, receipt fields unverifiable from committed bytes). Model-demonstrate the strongest shortcut you find. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/CriticC1Predicate.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "CriticC2Predicate",
+   "role": "critic",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAdversarially falsify the C2 after-state: can the lint exit 0 at the tip while a dead citation remains (rule gap), or a live citation is flagged (rule overreach that would make exit 0 unreachable without history rewriting)? Demonstrate the strongest case. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/CriticC2Predicate.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "CriticHarmGuard",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nHunt for harmed axes: any r46 artifact that weakens an existing gate, loosens a frozen receipt, rewrites history, or pushes unscoped bytes into scripts/ or corpus/. Deliver the harm list (empty = say so with the sweep commands). /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/CriticHarmGuard.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "CriticGateDesign",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack the redirect audit's usefulness: is a manifest-driven expectation audit on a publisher-side rules file a real capability, or does it reduce to 'JSON says what JSON says'? Name what observable publishing failure class it catches that the existing tools (base_path, canonical, link-preview) do not. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/CriticGateDesign.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "CriticCitationRule",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAdversarially classify the citation rule's error modes: enumerate 10 citation shapes in SCORECARD/LOG-style lines and decide each by the rule (in your head + test where cheap); count false-positive and false-negative classes; any class that flips the exit code outcome is a finding. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/CriticCitationRule.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "CriticCoverage",
+   "role": "critic",
+   "axes": [
+    "calibration"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nCoverage attack: name any genuine round-46 obligation (routed defects 1-4, frontier step \u00a72b: census, mistake mining, sourced claim, trend verdicts, SHONEN, report sections) that NO seat item covers. Deliver the gap list. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/CriticCoverage.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "MutRedirectStatus",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutation-test scripts/redirect_audit.py: mutant A drops the 301/302/307/308 status comparison (always pass status). Build a manifest row where status differs; the matrix/selftest must reject the mutant. Score killed/survived with verbatim output. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/MutRedirectStatus.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "MutRedirectOrder",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutant B reverses rule-match order (last match wins). Plant two overlapping rules with different targets; show the mutant's decided outcome differs and the selftest or matrix kills it. Score + evidence. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/MutRedirectOrder.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "MutRedirectPrecedence",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutant C removes existing-resource precedence (rules apply even where a resource exists). Plant a resource + a rule at the same path; kill evidence required. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/MutRedirectPrecedence.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "MutRedirectMalformed",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutant D accepts malformed rules (bad status line kept instead of faulted). Plant a malformed rules file; kill evidence required. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/MutRedirectMalformed.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "MutRedirectClean",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutant E returns always-clean (zero findings regardless of manifest). Score against the matrix after-stage: must be rejected. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/MutRedirectClean.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "MutCitationResolution",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutant F: scripts/citation_lint.py variant that skips git resolution (treats every token as resolving). At base bytes it must exit 0 \u2014 show the do-nothing-style false-green, then show the committed selftest kills it. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/MutCitationResolution.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "MutCitationContext",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutant G drops the citation-context filter (every 7-40 hex token is a citation). Show it explodes the violation count on real population bytes (overreach) and that the selftest kills it. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/MutCitationContext.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "MutCitationShaExclusion",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutant H removes the sha256-digest exclusion: sha256 prefixes in SCORECARD must start flagging (overreach proof) and the selftest must kill it. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/MutCitationShaExclusion.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScoutReopenNewRows",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nIndependently re-open each NEW source row (live GET, read-only) retained under .ufo/waves/round-46/sources/: verify the draft row's quote occurs verbatim (\u226425 words) in the CURRENT page, record HTTP status + fetch time; if the page changed, report the drift (do not silently re-pin). /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ScoutReopenNewRows.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "ScoutMisrootPattern",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMisroot sweep: check the FLEET repo working tree (/home/vgpnk/Projects/shokunin) for any kake-r46-authored files at the fleet root (git status --porcelain there, look for seat-note style files naming kake/r46). Report findings; move nothing yourself. /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/ScoutMisrootPattern.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "SentinelFinalAudit",
+   "role": "sentinel",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nFinal bounds audit: re-run frozen-check.sh over all guarded paths, verify every seat report exists against the wave's 64 seats, verify every receipt names path + sha256, and confirm the only new lane files are the ones items name (git status --porcelain). /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/SentinelFinalAudit.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  },
+  {
+   "name": "RevengerDeadWeight",
+   "role": "revenger",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can be parallelized. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDead-weight scan over the new .ufo/waves/round-46 artifacts: scratch copies that escaped scratch, duplicate fixtures, unused drafts, oversized retained sources (>2 MB without justification). List candidates for deletion (L1 decides; delete nothing). /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/attack/RevengerDeadWeight.md.\nTime-box: return within 15 minutes with your best findings+evidence; partial results are acceptable.\nYou are an independent leaf: never block on or wait for another seat; if a needed artifact is absent, record the dependency as a finding and return.\n# Acceptance\nPaste the decisive command output into your report; state pass/fail against the item's named attack; name every file you wrote.\n"
+  }
+ ]
+}

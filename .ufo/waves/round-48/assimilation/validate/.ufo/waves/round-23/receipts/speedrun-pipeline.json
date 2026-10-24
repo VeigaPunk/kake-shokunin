@@ -1,0 +1,91 @@
+{
+ "unit": "speedrun-pipeline",
+ "path": "corpus/knowledge/speedrun-pipeline.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "absence flags (re-census 2026-10-14) cover SPEEDRUN-PROTOCOL.md, speedrun.mjs",
+   "claim": "The previously flagged local runbook and implementation paths remain absent.",
+   "surface": "/home/vgpnk/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md; /home/vgpnk/Projects/webzites/src/speedrun.mjs",
+   "method": "test -e",
+   "observation": "absent /home/vgpnk/Projects/webzites/docs/SPEEDRUN-PROTOCOL.md\nabsent /home/vgpnk/Projects/webzites/src/speedrun.mjs",
+   "verdict": "HOLD",
+   "seat": "ReverifySpeedrunPipeline"
+  },
+  {
+   "id": "c2",
+   "anchor": "while the keeper card and speedrun-r1 carry no absence flag",
+   "claim": "The unflagged keeper-card and keeper-report references remain extant current source files.",
+   "surface": "/home/vgpnk/Projects/webzites/agents/webzites-speedrun.md; /home/vgpnk/Projects/webzites/reports/keepers/speedrun-r1.md",
+   "method": "test -e",
+   "observation": "absent /home/vgpnk/Projects/webzites/agents/webzites-speedrun.md\nabsent /home/vgpnk/Projects/webzites/reports/keepers/speedrun-r1.md",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, `/home/vgpnk/Projects/webzites/agents/webzites-speedrun.md` and `/home/vgpnk/Projects/webzites/reports/keepers/speedrun-r1.md` are absent and should be marked unavailable rather than unflagged current sources.",
+   "seat": "ReverifySpeedrunPipeline"
+  },
+  {
+   "id": "c3",
+   "anchor": "Authority:\n`~/Projects/ds4cc-marketplace/speedrun/` ONLY;",
+   "claim": "The historically designated local authority path remains absent.",
+   "surface": "/home/vgpnk/Projects/ds4cc-marketplace/speedrun",
+   "method": "test -e",
+   "observation": "absent /home/vgpnk/Projects/ds4cc-marketplace/speedrun",
+   "verdict": "HOLD",
+   "seat": "ReverifySpeedrunPipeline"
+  },
+  {
+   "id": "c4",
+   "anchor": "refuses `--out` outside it.",
+   "claim": "The live `prep --write` implementation refuses output paths outside the keeper mission root.",
+   "surface": "/home/vgpnk/Projects/webzites and /home/vgpnk/Projects/webzites/src/speedrun.mjs",
+   "method": "test -e",
+   "observation": "absent /home/vgpnk/Projects/webzites\nabsent /home/vgpnk/Projects/webzites/src/speedrun.mjs",
+   "verdict": "UNVERIFIABLE",
+   "reason": "Both the named mission root and the implementation path are absent, so no current CLI is available to execute this guard and decide the behavior.",
+   "seat": "ReverifySpeedrunPipeline"
+  },
+  {
+   "id": "c5",
+   "anchor": "Board pollers ran at 5min;",
+   "claim": "The cited board poller currently runs on a five-minute cadence.",
+   "surface": "systemctl --user list-timers --all --no-pager; systemctl list-timers --all --no-pager; crontab -l",
+   "method": "run",
+   "observation": "User timers: ai-usage.timer last Wed 2026-10-21 03:58:28 -03, next Wed 2026-10-21 04:03:28 -03; cursor-shim-healthcheck.timer. System timers: 9 listed, none named speedrun. `crontab -l`: `error: command not found: crontab` (exit 127).",
+   "verdict": "UNVERIFIABLE",
+   "reason": "No current timer is identified as a speedrun/board poller, and the five-minute `ai-usage.timer` cannot be attributed to that poller from the available evidence.",
+   "seat": "ReverifySpeedrunPipeline"
+  },
+  {
+   "id": "c6",
+   "anchor": "`speedrun/data/run-*.json` (18 keys; `budget_usd` nullable in 4/9 runs;",
+   "claim": "The primary board's currently served run records still have 18 common top-level keys and `budget_usd` explicitly null in four of nine records.",
+   "surface": "GET https://ds4cc.com/speedrun/data/manifest.json and its nine `runs[]` JSON URLs",
+   "method": "GET",
+   "observation": "records=9\nnullable_budget_usd=4\nintersection_keys=18\nbudget_usd\ncategory\ncurrency\nduration\nid\nlinks\nmetrics\nnot_a_grant\npaid\nproduct\nprovider\nrunner\nstatus\nsummary\ntags\ntimeline\ntitle\nvenue",
+   "verdict": "HOLD",
+   "seat": "ReverifySpeedrunPipeline"
+  },
+  {
+   "id": "c7",
+   "anchor": "there is **no HTTP upload API**.",
+   "claim": "The public board is served from GitHub Pages and has no HTTP upload API.",
+   "surface": "GET https://ds4cc.com/speedrun/; GET https://ds4cc.com/speedrun/main.js; GET https://ds4cc.com/speedrun/data/manifest.json",
+   "method": "GET",
+   "observation": "Primary page 200 (13,521 bytes); manifest 200 (1,296 bytes); HTML contains `<script src=\"main.js\" type=\"module\"></script>`; `main.js` uses `fetch(path, { cache: \"no-store\" })` and parses JSON.",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The local source/authority tree is absent; public GETs show a JSON-backed page but cannot establish its GitHub Pages origin or prove that no separate upload endpoint exists.",
+   "seat": "ReverifySpeedrunPipeline"
+  },
+  {
+   "id": "c8",
+   "anchor": "is a frozen `rel=canonical` copy — never stage into it.",
+   "claim": "The live Pages mirror declares `https://ds4cc.com/speedrun/` as its canonical URL.",
+   "surface": "GET https://veigapunk.github.io/plazir-15-site/speedrun/",
+   "method": "GET",
+   "observation": "200; raw HTML contains `<link rel=\"canonical\" href=\"https://ds4cc.com/speedrun/\" />`; mirror manifest has 3 `runs[]` entries while the primary has 9.",
+   "verdict": "HOLD",
+   "seat": "ReverifySpeedrunPipeline"
+  }
+ ]
+}

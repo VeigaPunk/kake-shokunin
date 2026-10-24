@@ -1,0 +1,14 @@
+{
+ "argv": [
+  "python3",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/snapshot_probe.py",
+  "--snapshot-script",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/live_snapshot.py",
+  "--validator",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py"
+ ],
+ "exit": 0,
+ "stdout": "{\n \"script\": \"/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/live_snapshot.py\",\n \"passed\": true,\n \"met\": 9,\n \"total\": 9,\n \"cases\": [\n  {\n   \"case\": \"normal\",\n   \"exit\": 0,\n   \"ok\": true\n  },\n  {\n   \"case\": \"reaudit-unaltered\",\n   \"exit\": 0,\n   \"ok\": true\n  },\n  {\n   \"case\": \"symlink-leaf\",\n   \"exit\": 2,\n   \"outsideUnchanged\": true,\n   \"ok\": true\n  },\n  {\n   \"case\": \"hardlink-leaf\",\n   \"exit\": 2,\n   \"outsideUnchanged\": true,\n   \"ok\": true\n  },\n  {\n   \"case\": \"edited-page\",\n   \"exit\": 2,\n   \"ok\": true\n  },\n  {\n   \"case\": \"edited-digest\",\n   \"exit\": 2,\n   \"ok\": true\n  },\n  {\n   \"case\": \"missing-page\",\n   \"exit\": 2,\n   \"ok\": true\n  },\n  {\n   \"case\": \"missing-fetch\",\n   \"exit\": 2,\n   \"ok\": true\n  },\n  {\n   \"case\": \"blocked-redirect-url\",\n   \"exit\": 0,\n   \"finalUrl\": \"http://127.0.0.1:43997/blocked\",\n   \"ok\": true\n  }\n ]\n}\n",
+ "stderr": "",
+ "runnerReproduction": "working tree pending landed measurement"
+}

@@ -1,0 +1,6 @@
+# round-31 declared C2 closure command, run as written; then shown able to fail on a sandbox clone (/fast/scratch/hyaku/kake-r31/l1/cc)
+exact-file form, a16602a..a16602a: exit=0 (expected 0)
+exact-file form, a16602a..b801ac8: exit=0 (expected 0)
+sandbox, directory form (round-30 style) after adding sources/screened/x.txt: exit=1 (expected 1: the old form fails as written)
+sandbox, exact-file form after the same addition: exit=0 (expected 0)
+sandbox, exact-file form after altering S057.txt: exit=1 (expected 1: the check can fail)

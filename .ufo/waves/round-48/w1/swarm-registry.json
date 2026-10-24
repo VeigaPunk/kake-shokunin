@@ -1,0 +1,651 @@
+{
+  "schema": "ufo-swarm-registry-v1",
+  "wave": "kake-r48-w1",
+  "createdAt": "2026-10-24T23:53:23.093Z",
+  "updatedAt": "2026-10-24T23:53:23.093Z",
+  "reportDir": ".ufo/waves/round-48/w1",
+  "members": {
+    "ScoutS137Anchor": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "In /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-48/sources/S137.txt locate the Google 'Rendering' section passage about the rendering queue. Report the exact line numbers and the exact sentences that say a 200-status page is queued for rendering and that a non-200 status may skip rendering. Quote each sentence verbatim (no paraphrase) and give the line number. Do not fetch anything.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScoutS138Anchor": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "In /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-48/sources/S138.txt (Simplified Chinese edition) locate the passage stating the rendering-queue rule. Report the exact line numbers and the verbatim Chinese sentence(s) that carry the rule, plus a working character-count of each candidate quote. Do not fetch anything.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScoutS139Anchor": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "In /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-48/sources/S139.txt (Japanese edition) locate the passage stating the rendering-queue rule. Report the exact line numbers and the verbatim Japanese sentence(s) that carry the rule, plus a working character-count of each candidate quote. Do not fetch anything.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScoutS249Anchor": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "In /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-48/sources/S249.txt locate the passage that states dynamic rendering is a workaround and the passage stating when rendering is not treated as cloaking. Report exact line numbers and the verbatim sentences. Do not fetch anything.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecS137FetchAudit": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Audit /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-48/sources/receipts.json against the retained files: recompute sha256 of S137.html and S137.txt and of the other three ids, compare with the receipt, and report any mismatch. Report the fetcher's own sha256 and whether the receipt's fetcherSha256 matches the sha256 of fetch_sources.py.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecC1CounterBuild": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "In your scratch, write a prototype counter implementing C1's frozen predicate exactly: it reads the registry rows of SOURCES.md, the two theme entries and the round-48 lesson, and for each of the four ids checks row-mined-and-opened, entry-cites-id, gate-quote-length, and quote-is-substring-of-the-pinned-retained-text. Report the prototype source, its own exit-code contract (0 met, 1 not met, 2 cannot evaluate) and the result of running it against the current lane tip (expected 0 of 4, because the entries and rows do not exist yet).",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecC1JunkControl": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "In your scratch, build the C1 junk control: four registry rows for S137, S138, S139, S249 with the right id, kind, tier, status and opened date, plus two entry files that cite the right ids, but with the Gate quotes cross-wired so each quote is a substring of a DIFFERENT id's retained text. Report the exact files and which quote is wired to which id, and state which of C1's rules must reject it.",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecC1BaseMeasure": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Measure C1's do-nothing state at the base revision 766f4610b64f35a0f402b37eb1d8be2d4d634c0f: confirm that neither theme entry file exists, that no registry row for S137/S138/S139/S249 exists, and that no round-48 lesson exists, using git ls-tree and git show at that revision. Report the exact commands, their output and their exit codes.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "MutationC1RuleRow": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation test for C1 rule 'the row must be mined and opened 2026-10-24': build in your scratch a variant of the C1 counter that drops the opened-date and status checks, and show which of the junk control's rows that variant would accept that the unmutated counter rejects. Report the exact diff and the divergence.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "MutationC1RuleCite": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation test for C1 rule 'the entry must cite the id below its 8-line metadata header': build a variant that accepts a citation anywhere in the entry, and show what it accepts that the unmutated counter rejects on a copy of the junk control where the citation is moved into the header. Report the exact diff and the divergence.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "MutationC1RuleQuote": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation test for C1 rule 'the Gate quote must be an exact substring of the pinned retained text for that id': build a variant that matches the quote against ANY of the four retained texts instead of that id's own text, and show that the cross-wired junk control passes it. Report the exact diff, the mutated counter's score on the junk control, and the conclusion that only the per-id binding separates the two.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "MutationC1RuleLength": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation test for C1 rule 'the quote length rule': build a variant that accepts a one-word quote, and show it accepts a navigation word such as 'Introduction' as a Gate quote for every id, where the unmutated counter rejects it. Report the exact diff and the divergence.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScribeC1Entry1": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the round-48 entry `corpus/knowledge/js-rendering-queue.md` in your scratch: provenance trio first (`source:` citing S137, S138, S139 with URL and anchor, `verified-at: 2026-10-24`, `recheck:`), then the grounded body. Use only claims the retained S137/S138/S139 text supports, mark the locale editions as locale evidence, and bound the entry to Google's contract only (no other engine, no canonical-selection claim). Report the draft text and the file path in your scratch.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScribeC1Entry2": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the round-48 entry `corpus/knowledge/dynamic-rendering-workaround-limits.md` in your scratch: provenance trio first (`source:` citing S249 with URL and anchor, `verified-at: 2026-10-24`, `recheck:`), then the grounded body on rendering-as-workaround and the content-equality condition against cloaking. Report the draft text and the file path in your scratch.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ReviewerC1Entry1": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Read the staged entry /home/vgpnk/Projects/shokuknow/merge/kake/knowledge/corpus/knowledge/js-rendering-queue.md (read-only) and check every factual sentence against the retained S137/S138/S139 text. Report each sentence as supported or unsupported with the retained line number, and flag every sentence that goes beyond its quotes.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ReviewerC1Entry2": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Read the staged entry /home/vgpnk/Projects/shokuknow/merge/kake/knowledge/corpus/knowledge/dynamic-rendering-workaround-limits.md (read-only) and check every factual sentence against the retained S249 text. Report each sentence as supported or unsupported with the retained line number, and flag every sentence that goes beyond its quotes.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "CriticC1Entry1": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the staged js-rendering-queue entry for scope overreach: name every claim in it that is not Google's own published contract, that belongs to another engine, that is a lane inference presented as a source claim, or that would need a live observation to hold. Report the attack list with the retained-line evidence.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "CriticC1Entry2": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the staged dynamic-rendering entry for the same reasons, and additionally judge whether its Baidu comparison is sourced from a row the lane holds, from a staged row, or from neither. Report the attack list with evidence.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecTransform": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "In your scratch, write the staged-to-fleet row transformation for the four ids S137, S138, S139, S249 read from /home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md: strip the prose from the `recheck` cell to the bare cadence `180d`, rewrite any cell containing a literal or escaped pipe so the row parses as 11 columns, set `status` to `mined`, set `used-by` to exactly the admitted entry paths that cite the row, and report the transformed rows verbatim.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecAppendBlock": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Produce the exact text of the append block for corpus/SOURCES.md (the four transformed rows, in id order, as markdown table rows) and report it verbatim. The block must contain no literal or escaped pipe inside any cell and no prose in the recheck cell.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecCensusMirror": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Build in your scratch a mirror of the lane corpus: copy /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/ to <scratch>/validate/corpus/, apply the four-row append block to the mirror's SOURCES.md, and run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file <scratch>/validate/corpus/SOURCES.md`. Report the full output and the exit code, and whether any E03/E04 finding appears.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecIdCollision": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Reproduce the assimilation id-collision check from scratch: extract the registry ids from /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md and the staged ids from /home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md using the 0-3-leading-spaces pattern, and report both id lists, their sizes, their ranges and the comm-12 collision count. Then prove the guard is able to fail: build a scratch registry holding an INDENTED row whose id collides with a staged id and show that the 0-3-space pattern finds it while a column-zero-only pattern does not.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecQuarantineAll": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Hand-check every row of the kake quarantine slice /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-48/assimilation/quarantine-slice: for each id, fetch its cited source (bounded, one fetch), locate the quote it is registered with, and give a verdict: quote located (with the located anchor), quote absent (fabrication class), or source unreachable (unverifiable). Report a table of id, cited source, fetch status, located or not, and the verdict reason.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecQuarantinePackage": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Narrow the quarantine hand-check to the ids that appear in the kake staged package itself (S142, S143, S148 are among the slice): fetch each cited source, locate its registered quote, and report the verdict per id with the located anchor or the reason it is refused. These three ids are not in this round's theme, so a refusal verdict is expected and welcome; do not adopt them.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ReviewerRows": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Check the four append-block rows against contract v1 in /home/vgpnk/Projects/shokunin/CORPUS.md: 11 columns, no literal or escaped pipe in any cell, id format, kind and tier enums, scope non-empty, anchor non-empty, status enum, ISO opened date, a recheck that is an ISO date or a bare cadence, and used-by paths that will exist. Report each row's verdict per column.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "CriticRows": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the four append-block rows for duplicate-id and within-scope duplicate-URL risk against the lane's existing 136 rows in corpus/SOURCES.md: name the nearest existing row for each staged row, say whether the staged row adds an aspect the held row does not carry, and state whether any staged row should be refused instead of appended.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScribeGate": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the round-48 lesson `## Gate` block in your scratch: the candidates considered, the admitted entries with their located quotes, at least one rejected candidate from the assimilation set with its reason and its flip condition, the stripped recheck prose for each admitted row, the quarantine hand-check verdicts, and the non-author spot-check status. Report the draft text.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScribeLessonMistake": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the round-48 lesson `## Mistakes` rows in your scratch from evidence you can observe in the lane: the r47 wave evidence that was untracked and the mode drift in the lane working tree. For each row give class, evidence pointer, captured-by (the criterion or rule that should have caught it, or `none`) and fix. Report the draft text.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScribeCoverage": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the corpus/README.md coverage-map addition for the client-rendering crawl-contract theme in your scratch: one row naming the entries, their ids and what they teach, and one sentence on the ground that was previously open. Check the existing map first so your row does not duplicate an existing row. Report the draft text.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScribeConsiderthese": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Read /home/vgpnk/Projects/shokunin/kake-shokunin/considerthese/2026-10-23.md (read-only) and identify exactly ONE proposal in its 'Self-improvement proposals (not acted on)' list that is still unimplemented in the lane today. Ground it by opening what it points at (the source-re-check debt list, the control-meet ratio, the three-rounds-without-admission flag, the seat-failure breakdown, the prediction calibration, the own-sites run) and report which one you chose, why, and what evidence in the lane shows it is still unimplemented.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "CriticConsiderthese": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the considerthese proposal discipline: for the proposal that best fits this round, state why a reflection file is a pointer and not evidence, what would falsify the proposal's premise, and what the lane must actually measure or open to land it as a lesson, a QUALITY criterion or a SOURCES row. Do not edit considerthese/.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecSearchLog": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the `## Search log` entry for this round in your scratch following contract v1 rule 5: the question, where it was searched, the date, identified/screened/included/excluded counts, the exclusion reasons and the stop rationale. Report the draft text.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecLintDead40": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Demonstrate the C2 defect on this host in your scratch: run `git rev-parse -q --verify deadbeefdeadbeefdeadbeefdeadbeefdeadbeef` and `git cat-file -e deadbeefdeadbeefdeadbeefdeadbeefdeadbeef` inside a throwaway git repository you create, and report both exit codes and both stdout/stderr byte-exactly. Then run the same two commands against a token that IS a commit in the lane repo and report the outputs. Do not modify the lane repo.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecLintRepair": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "In your scratch, copy /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citation_lint.py and write the minimal repair that resolves a full-40-hex token by object existence rather than by `rev-parse --verify`. Report the exact diff, the repaired selftest tally (the shipped `--selftest` must still pass), and the new selftest case you add for the dead full-40 token.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecLintCounter": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "In your scratch, write the C2 frozen counter prototype: a 10-case set (dead full-40 token detected; dead short hash detected; live full-40 token clean; live short hash clean; sha256 digest excluded; ellipsis digest prefix excluded; beat/pin excluded; UUID fragment excluded; pure-digit token excluded; plain hex without commit context excluded), each case run against a named tool version. Report the prototype source, the scoring rule (both dead cases detected and all 8 control cases clean) and its result against the base tool and against your repaired copy.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecLintControls": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Build the three C2 controls in your scratch: a constant-clean tool that reports no violation, a flag-everything tool that reports every token, and a junk-output tool that prints non-JSON. Score each with the C2 counter prototype and report the three scores and the verdicts. Also score the base tool (the unmutated `rev-parse` resolver) as the do-nothing control and report its score.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "MutationLintResolve": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation test for the C2 repair: revert the repaired resolver to `git rev-parse -q --verify` in your scratch and show that the dead full-40 case is then accepted (the mutant survives the counter). Report the exact diff and the counter's score for the mutant.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "MutationLintType": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation test for the C2 repair's strictness: build a variant that resolves the token with `git cat-file -e <tok>^{tree}` (object type tree) and one that resolves with `git cat-file -e <tok>^{blob}`, and show whether either changes the dead full-40 verdict. Report the exact diffs and the outcomes.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ReviewerLintRepair": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Review the blast radius of the C2 repair against the lane's live population: enumerate EVERY occurrence in SCORECARD.md and LOG.md that the repaired resolver newly flags (run your scratch copy of the repaired tool with --json over the live files), and for each give the file, line, token, the exact citing line, and the adjudication reason you would record in corpus/quality/citation-adjudications.md.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ReviewerLintLedger": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/quality/citation-adjudications.md (read-only) and report: the number of data rows, the exact column shape of a row, the (token,file) key semantics, and whether the ledger's keying would suppress a NEW dead full-40 token that already appears as an adjudicated short token. Report the concrete risk, if any.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "CriticLintPredicate": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack C2's frozen predicate: name the cheapest tool that meets it without doing the claimed work (for example one that resolves tokens by asking git only about the first 8 hex characters of every token), score it with the counter prototype if you can, and report whether the predicate as written can be met by a shortcut.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "CriticLintSideEffect": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Check the no-harm surface of the C2 repair: run the lane's other standing counters and selftests (scripts/citation_lint.py --selftest, scripts/ledger_latest_check.py, node scripts/freshness-sweep.mjs --selftest, and the round-47 counters c47_registry_count.py and c47_routed_count.py) in the lane checkout READ-ONLY and report each exit code and tally. Do not write anything.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "SentinelLintScope": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "sentinel",
+      "item": "Audit the trust boundary of the proposed C2 repair: what does it read, does it run git inside the lane checkout, does it write anywhere, could it read a secret or a credential path, and what happens when the token is an object in another repository. Report the concrete failure scenarios you find and the narrowest safe scope.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecLintNoHarm": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "In your scratch, run the repaired copy of the citation lint over the lane's live SCORECARD.md and LOG.md and over a scratch copy of the two files, and report: the exit code before the repair, the exit code after the repair, the number of violations before and after, and the exact list of newly flagged (file, line, token) triples.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "RevengerLintHistory": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "revenger",
+      "item": "Reconstruct the citation-lint gate's history from the committed bytes: what did rounds 46 and 47 each claim about it, which receipt files back those claims, and would the C2 repair contradict any filed claim? Report the file paths, the claimed numbers and the answer with evidence.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "RevengerR47Wave": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "revenger",
+      "item": "Reconstruct what the round-47 wave actually produced: read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-47/w1/*.md (30 seat reports) and the registry diff of .ufo/waves/round-47/w1/swarm-registry.json, and report: how many seats returned a report, which findings bear on round 48's claims, and whether the wave's dispatch evidence is now durable in the lane repo or still untracked.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecResidualDisposition": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Read the eight inherited residual reports in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-46/residual/ (read-only) and build a disposition table: each finding id, its one-line statement, and whether round 48 picks it up (name the claim) or explicitly routes it (name the reason). Report the table.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScoutSiblingOverlap": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Sibling-overlap scan (read-only): check whether the sibling lane repos under /home/vgpnk/Projects/shokunin/ hold the client-rendering crawl-contract ground or the commit-citation-lint ground. Look at their PROVINCE.md and corpus/knowledge listings for render-queue, rendering queue, JS rendering, citation lint and commit-citation. Report which lane owns which surface, whether this lane's theme is contested, and the exact paths you checked.",
+      "axes": [
+        "adjacency"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ConnectorSiblingOverlap": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "connector",
+      "item": "From the lane's own committed knowledge and the theme's staged material, find ONE non-obvious move that improves a declared axis of this round without harming another, and state the second-order effects on the corpus contract, the registry and the verification surface. Report the move, the axes it touches and the risks. Do not implement it.",
+      "axes": [
+        "adjacency"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecCensusBefore": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Run the source census at the current lane tip and paste the FULL output and the exit code: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`. Do not modify anything; this is the before-state receipt for the round's Sources and frontier section.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecCensusAfter": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Run the source census over the scratch mirror that carries the four-row append block (build the mirror in your scratch if you need one) and paste the FULL output and the exit code. Compare it with the lane-tip census and report every finding the append block introduces. Do not modify the lane repo.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ReviewerCoverageMap": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Check the expansion-credit premise of C1: read the coverage map in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/README.md and the held entries it names, and decide whether the client-rendering crawl-contract ground (the crawl/render/index phase contract and the rendering queue) is genuinely uncovered by the lane's held entries, or whether a held entry already carries it. Report the verdict with the entries you checked.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "CriticExpansionCredit": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Test the expansion-credit rule (CORPUS.md rule 4) against this round's plan: expansion counts admitted knowledge entries on coverage-map ground the lane did not hold, each citing a mined row. Report whether the planned admits would count, which of the two entries carries the credit, and what would make them not count.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScribeQualityCriteria": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the QUALITY.md criteria additions for this round in your scratch, each citing the lesson row that produced it: one on re-grounding a staged row under contract v1 rule 1 (my access date and my located quote), one on the per-id binding of a quote to its own retained text, and one on the existence check for a full-40-hex citation. Report the draft text.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ReviewerQualityCriteria": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Review the drafted QUALITY criteria against the lesson rows they cite: does each criterion name the lesson that produced it, is it checkable, and does it avoid a universal clause the counting command cannot enumerate? Report per-criterion verdicts.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecReportWork": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Draft the round-48 report's 'Work performed' and 'Landed changes' sections in your scratch: the two declared claims with their target axes, then one bullet per work item, each with an evidence pointer (path:line, command output, or commit hash). Report the draft text; do not write to the fleet report path.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecReportSources": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Draft the round-48 report's 'Sources and frontier' section text in your scratch from the census receipts: rows before and after with the counting command, rows added by tier, rows touched old-to-new, and the frontier rows advanced. Report the draft text.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecReportTrends": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Draft the round-48 report's 'Trend verdicts' section in your scratch: one verdict each for expansion, quality and discernment, each with evidence and no scalar, using only the vocabulary improved / harmed / unchanged / unprovable-but-better. Report the draft text.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "SentinelWriteScope": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "sentinel",
+      "item": "Write-scope audit of the round so far: check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin status --porcelain` and `git -C /home/vgpnk/Projects/shokunin status --porcelain` and report every path that is modified or untracked, classifying each as lane-authored round-48 work, inherited round-46/47 wave evidence, operator or driver runtime, or a misrooted file at the fleet root. Do not delete or modify anything.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "RevengerShonen": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "revenger",
+      "item": "Read /home/vgpnk/Projects/shokunin/kake-shokunin/SHONEN.md and the round-47 verifier spot-check, then assess each of the four boxes against the evidence that exists today in the lane repo. For each box give the mark the author may honestly write and the resolvable pointer, and say which boxes a non-author verifier could check. Report only; do not edit SHONEN.md.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ExecGatesLedger": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Run the lane's standing ledger and lint gates at the current tip and report each exit code and tally: `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/ledger_latest_check.py --root /home/vgpnk/Projects/shokunin/kake-shokunin` and `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citation_lint.py --root /home/vgpnk/Projects/shokunin/kake-shokunin`. Report the outputs verbatim.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "ScoutCorpusDebt": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "The lane carries a source-re-check debt list (the first live re-check of 90 Gate quotes produced findings on several rows). Find the committed evidence of that debt under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-36/ and the registry, count how many of those findings are closed today (the row's status or an appended correction proves closure) and how many are open. Report the counts, the row ids and the evidence paths.",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "CriticClaimSizing": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the sizing of both round-48 claims against the claim-sizing rule: is each after-state one concrete value that the closure can re-derive with one command over committed bytes, does each have a do-nothing control that cannot reach it, and does either claim use a universal clause its counting command does not enumerate? Report the verdict per claim and the exact fix if either fails.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    },
+    "RevengerRoundShape": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "revenger",
+      "item": "Check this round's wave shape against the host contract: the wave spec at /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-48/w48-spec.json must carry 64 distinct seats inside the policy v2 band (64-128) with at least 25 percent attack roles, and no frozen-topology role (planner, distiller, labrat, Main) may appear as a swarm role. Report the seat count, the role histogram, the attack share, the band verdict, and any seat whose item duplicates another.",
+      "axes": [
+        "calibration"
+      ],
+      "milestone": "Round 48: one v2 wave of 64 seats — C1 freshness (client-rendering crawl-contract theme re-grounded) and C2 operability (citation lint resolves a 40-hex token by object existence), plus the frontier step and the item-10 assimilation contract."
+    }
+  }
+}

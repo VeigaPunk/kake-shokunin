@@ -3992,3 +3992,57 @@ frontier/capability move in static publishing validation per PROVINCE.
 
 The R46 residual reports re-opened this round weaken the prior capability row's "independently authored" oracle wording and show that the sealed matrix is not a general semantic-coverage certificate. R47 C1 is only registry/receipt delivery; it does not re-score or claim to close the R46 semantic-oracle and citation-linter blind spots. The prior row is preserved byte-for-byte; see `corpus/lessons/round-47.md` §Inherited R46 residual scope.
 
+## Round 48 — declared claims (frozen at base `766f461`, before any claim receipt)
+
+Base (pushed lane tip at round start): `766f4610b64f35a0f402b37eb1d8be2d4d634c0f`.
+Both owned axes sit at the 10/10 saturation line and round 47 entered no capability, so
+the stagnation nudge (`AXES.md`) applies: the round makes one frontier move (freshness)
+and one repair move (operability). Two claims, on distinct axes, causally separable:
+C1 reads the corpus (registry rows, two entries, the lesson, the retained source bytes)
+and never runs the lint; C2 reads only `scripts/citation_lint.py` and a scratch
+repository, never the corpus entries.
+
+| Claim | Axis | Before (at base) | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 — the client-rendering crawl-contract theme enters held knowledge, re-grounded in-round | freshness | 0 of 4 declared ids pass | 4 of 4 declared ids pass | `python3 -B .ufo/waves/round-48/c48_quote_truth.py --root . --revision <commit>` |
+| C2 — the commit-citation lint resolves a token by object existence, not by `git rev-parse --verify` | operability | `dead_full_40` 0 (the dead 40-hex token is accepted) | `dead_full_40` 1, `dead_short` 1, `live_full_40` 0, `live_short` 0, `exclusions_clean` 1 | `python3 -B .ufo/waves/round-48/c48_lint_count.py --root . --revision <commit>` |
+
+**C1 frozen predicate** (the same sentence in the declaration, in the counter's
+`PREDICATE` constant and in every receipt): *met: passed >= 4 of 4 declared ids* — an id
+passes only when (R1) its row is in the `## Registry` of `corpus/SOURCES.md` with status
+`mined` and opened 2026-10-24, (R2) the entry cites the id below its 8-line metadata
+header, (R3) the round-48 lesson's `## Gate` block carries a quote for that id whose
+length rule holds (6-25 whitespace tokens, or 12-120 characters with fewer than 6
+whitespace tokens), and (R4) the quote is an exact substring of **that id's** retained
+source text, whose sha256 the round-48 source receipt pins. R4 is per id: a quote is
+never matched against another id's retained text.
+
+**C2 frozen predicate** (same sentence in the counter's `PREDICATE` constant and in every
+receipt): *met: dead_full_40 == 1 and dead_short == 1 and live_full_40 == 0 and
+live_short == 0 and exclusions_clean == 1* — the counter builds a scratch repository with
+one commit, plants a dead 40-hex token, a dead short token, the repository's own live
+commit (full and short form) and six exclusion-class tokens, and reads what the lint
+reports.
+
+**Do-nothing controls, scored before any build.** C1: the base revision itself (a
+do-nothing round leaves the repo at base and scores 0 of 4); the junk control — the same
+four registry rows and the same two entry files with each Gate quote cross-wired to
+another id's retained text — must score below the target, because R4 binds a quote to
+its own id's bytes. C2: the base tool is the do-nothing control (`dead_full_40` 0); a
+constant-clean tool and a junk-output tool must each be rejected by the same counter.
+
+**Sourced.** C1's four rows (S137, S138, S139, S249) were opened by the L1 in this round;
+the receipts, the retained bodies and the visible-text digests are under
+`.ufo/waves/round-48/sources/`. C2's defect is the round-46 residual report's Finding 1
+(`.ufo/waves/round-46/residual/CriticCitationOverreach.md`), routed to this lane by the
+round-47 closure.
+
+### Planned — round 49
+
+A source-backed frontier or capability move on ground the lane does not hold, or the
+repair of the next routed citation-lint defect (the residual reports' Findings 2-7:
+the capitalized-`Base` context miss, the `(token, file)` ledger overreach, the
+all-digit-token rule, the asymmetric ellipsis rule, the one-line context window and the
+ledger's own provenance). Publication, restoration, live crawl observation and any
+domain-facing action stay operator-owned.
+

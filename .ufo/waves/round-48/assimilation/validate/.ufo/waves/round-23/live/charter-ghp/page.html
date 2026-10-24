@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAZIR-27 — the ufo-fsd charter</title>
+<meta name="description" content="Plazir: a frontier operation. ufo-fsd current art 2026-09-27 — tip ee907f1cf on the Cursor Origin: nc3/nc5 waves, nc6 synthesis, magga fleet, nc8 super-wave, nc9 audits. The 2×16 fleet ran live on omp (32 L1s on swe-2:max, up to 32 L2 each, wall read L1(31) L2(92), 279/1024 runners, clean despawn). Routing doctrine: kimi exclusive L0/L1 surface, swe-2 the perfect L2 runner, astra-6 advisor, other models as perspective lanes. No prior art; only current art, done live.">
+<link rel="canonical" href="https://veigapunk.github.io/charter-ufo-fsd/">
+<link rel="alternate" hreflang="x-default" href="https://veigapunk.github.io/charter-ufo-fsd/">
+<link rel="alternate" hreflang="en" href="https://veigapunk.github.io/charter-ufo-fsd/">
+<meta property="og:title" content="PLAZIR-27 — the ufo-fsd charter">
+<meta property="og:description" content="Plazir: a frontier operation. ufo-fsd current art 2026-09-27 — tip ee907f1cf on the Cursor Origin: nc3/nc5 waves, nc6 synthesis, magga fleet, nc8 super-wave, nc9 audits. The 2×16 fleet ran live on omp (32 L1s on swe-2:max, up to 32 L2 each, wall read L1(31) L2(92), 279/1024 runners, clean despawn). Routing doctrine: kimi exclusive L0/L1 surface, swe-2 the perfect L2 runner, astra-6 advisor, other models as perspective lanes. No prior art; only current art, done live.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://veigapunk.github.io/charter-ufo-fsd/">
+<meta property="og:site_name" content="PLAZIR-27">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://veigapunk.github.io/charter-ufo-fsd/vessel.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PLAZIR-27 — the ufo-fsd charter">
+<meta name="twitter:description" content="Plazir: a frontier operation. ufo-fsd current art 2026-09-27 — tip ee907f1cf on the Cursor Origin: nc3/nc5 waves, nc6 synthesis, magga fleet, nc8 super-wave, nc9 audits. The 2×16 fleet ran live on omp (32 L1s on swe-2:max, up to 32 L2 each, wall read L1(31) L2(92), 279/1024 runners, clean despawn). Routing doctrine: kimi exclusive L0/L1 surface, swe-2 the perfect L2 runner, astra-6 advisor, other models as perspective lanes. No prior art; only current art, done live.">
+<meta name="twitter:image" content="https://veigapunk.github.io/charter-ufo-fsd/vessel.webp">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div id="boot" role="status" aria-live="polite" aria-label="boot sequence" tabindex="0"></div>
+
+<div id="gridcontainer" aria-hidden="true"><div id="asciigrid"></div></div>
+<div id="vignette" aria-hidden="true"></div>
+<div id="fade" aria-hidden="true"></div>
+
+<nav>
+  <span class="brand"><b>PLAZIR</b>-27 // ufo-fsd</span>
+  <button id="navtoggle" type="button" aria-label="open navigation" aria-expanded="false" aria-controls="navmenu">≡</button>
+  <ul id="navmenu">
+    <li><a href="#doctrine" data-i18n="nav.doctrine">doctrine</a></li>
+    <li><a href="#conversation" data-i18n="nav.conversation">the conversation</a></li>
+    <li><a href="#current-art" data-i18n="nav.art">current art</a></li>
+    <li><a href="#substrate" data-i18n="nav.substrate">substrate map</a></li>
+    <li><a href="#log" data-i18n="nav.log">frontier log</a></li>
+    <li><a href="#dream" data-i18n="nav.dream">the dream</a></li>
+    <li><a href="papers/umwelt-frontier-orchestrator.pdf" data-i18n="nav.paper">research paper</a></li>
+  </ul>
+  <select id="langsel" aria-label="language">
+    <option value="en">EN</option>
+    <option value="zh-CN">中文</option>
+    <option value="ja">日本語</option>
+    <option value="id">ID</option>
+    <option value="ms">MS</option>
+    <option value="th">ไทย</option>
+    <option value="vi">VI</option>
+    <option value="fil">FIL</option>
+    <option value="my">MY</option>
+    <option value="km">KM</option>
+  </select>
+</nav>
+
+<header>
+  <div class="sig" data-i18n="hero.sig">ufo-fsd // target: escape velocity · 2027</div>
+  <h1>PLAZIR<span class="dot">-27</span></h1>
+  <p class="manifesto" data-i18n="hero.manifesto">
+    A frontier operation run from a terminal — <b>1024-agent orchestration</b> on Rust and io_uring,
+    <b>five substrates crossbred per round</b>, aimed at one goal: <b>ufo-fsd at escape velocity</b> —
+    full self-driving frontier orchestration, 2027.
+  </p>
+  <p class="tags"><span data-i18n="hero.tags">move fast · break things · iterate cheap · in parallel</span> <span class="cursor"></span></p>
+  <p class="markquote" data-i18n="mark.harness"><b>"What you call harness, we call substrate."</b><sup class="tm">™</sup></p>
+  <p class="marknote" data-i18n="mark.harness.note">Validated by <b>Kimi™</b> — perfectly aligned with the operator’s view and the ufo-fsd concept.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="papers/umwelt-frontier-orchestrator.pdf" data-i18n="hero.paper">Research paper · The Umwelt-Frontier Orchestrator (PDF)</a>
+  </div>
+  <div class="scrollhint" data-i18n="hero.scroll">scroll — the map is below</div>
+</header>
+
+<main id="main-content">
+
+<!-- ================= 01 / DOCTRINE ================= -->
+<section id="doctrine" aria-labelledby="doctrine-title">
+  <div class="shead rv"><span class="num">01</span><h2 id="doctrine-title" data-i18n="s1.title">Doctrine — ufo-fsd</h2><span class="meta" data-i18n="s1.meta">the golden map · target: escape velocity</span></div>
+
+  <p class="doctrine-intro rv" data-i18n="s1.intro">
+    Designation: <b>ufo-fsd</b>. Not an acronym — a callsign. It is the escape velocity this
+    operation is aimed at: <b>full self-driving orchestration</b> — from lazy prompts, the engine
+    self-iterates, adjusts routes, lanes, delegations, and agents dynamically mid-run; a continuously
+    self-improving umwelt frontier orchestration, launching in the 2027 window.
+    Until then: there is no such thing as prior art. In Plazir, everything is the
+    <b>current art — being done live</b>. Every round runs under this map;
+    deviations get justified, not smuggled.
+  </p>
+
+  <div class="principle rv">
+    <span class="rn">I.</span>
+    <div>
+      <h3 data-i18n="s1.p1.h">The three-layer substrate</h3>
+      <p data-i18n="s1.p1.p">Every round is dynamic, and every round runs the same three layers.
+      <b>L1 is the judge</b> — it orchestrates <i>and</i> works, and never blocks waiting on its specialists.
+      <b>L2 is the specialist layer</b> — intermediaries that are also capable workers: they save reasoning by
+      offloading it, spawn with cache to iterate on, and delegate execution outward through xask sub-calls.
+      <b>L3 is the crossbreeding lanes</b> — outside models treated as fungible fuel.
+      Models are commodities. Orchestration is the moat.</p>
+      <pre class="ascii">Round N — dynamic, every round
+│
+├─ <span class="hl">L1  THE JUDGE</span>      orchestrates AND works. never blocks on L2.
+│
+├─ <span class="hl">L2  SPECIALISTS</span>    intermediaries AND workers.
+│      │              offload reasoning. cache-on-spawn. xask execution.
+│      ├─ xask ok?  → L3 crossbreed, result cached
+│      └─ xask dry? → do it locally. degrade, never die.
+│
+└─ <span class="hl">L3  CROSSBREEDING LANES</span>
+       kimi · sol · ds-pro · ds-flash · qwen · grok
+       fungible fuel. models are commodities.</pre>
+    </div>
+  </div>
+
+  <div class="principle rv">
+    <span class="rn">II.</span>
+    <div>
+      <h3 data-i18n="s1.p2.h">The xask dry rule</h3>
+      <p data-i18n="s1.p2.p">Canaries are embedded in the logic itself, not bolted on after the fact. Any xask failure — timeout,
+      usage limit, 403, empty reply — <b>degrades the agent to local work instead of killing it</b>; the specialist
+      dispatcher is its own fallback. Failure is data, not disaster. There is no single point of substrate
+      failure below L1. A round with all lanes down still completes — slower, dumber, honest.</p>
+    </div>
+  </div>
+
+  <div class="principle rv">
+    <span class="rn">III.</span>
+    <div>
+      <h3 data-i18n="s1.p3.h">Iterate cheap, in parallel</h3>
+      <p data-i18n="s1.p3.p"><b>Move fast</b>: L2 does not wait for L1 approval. <b>Break things</b>: every failure is telemetry, not a
+      post-mortem. <b>Iterate cheap</b>: tiered delegation — never spend frontier-class reasoning where pattern
+      matching suffices (canonical counterexample: a frontier western lab's top model, on high effort, taking
+      33 seconds to misread a denim tag). <b>In parallel</b>: fan-out is limited by ring depth, NVMe queues, and
+      cgroups — never by sequential attention.</p>
+    </div>
+  </div>
+
+  <div class="principle rv">
+    <span class="rn">IV.</span>
+    <div>
+      <h3 data-i18n="s1.p4.h">Cache-on-spawn</h3>
+      <p data-i18n="s1.p4.p">Specialists spawn warm, carrying context from prior rounds. Rounds compound instead of restarting.
+      Nothing in the swarm pays to re-read what the swarm already knows. This is the difference between
+      stateless function calls and an iterative workforce — and the reason self-improvement is affordable.</p>
+    </div>
+  </div>
+
+  <div class="principle rv">
+    <span class="rn">V.</span>
+    <div>
+      <h3 data-i18n="s1.p5.h">Substrate fungibility &amp; pins</h3>
+      <p data-i18n="s1.p5.p">Pins — judge, review, execution, volume — are <b>defaults chosen for the job, not cages</b>. They are never
+      moved by benchmark noise, and scores are never laundered across harnesses: a number from one eval rig
+      never gets pinned onto another model's board. A substrate can be swapped; the topology stays.</p>
+    </div>
+  </div>
+
+  <div class="principle rv">
+    <span class="rn">VI.</span>
+    <div>
+      <h3 data-i18n="s1.p6.h">The self-improvement loop</h3>
+      <p data-i18n="s1.p6.p">An orchestrator that audits codebases eventually audits itself — that is the point.
+      <b>Orchestrator bugs outrank target bugs</b>: their blast radius is multiplicative. Convergence is the
+      health signal — a full round where the judge accepts zero proposals is success, not stagnation.
+      Honesty outranks progress theater. Friction is first-class data.</p>
+    </div>
+  </div>
+
+  <div class="principle rv">
+    <span class="rn">VII.</span>
+    <div>
+      <h3 data-i18n="s1.p7.h">The wwkd posture</h3>
+      <p data-i18n="s1.p7.p">Data walk first. Skeleton before capability. Overfit one case, then generalize one axis at a time.
+      Verification gate on every milestone. Code is ephemeral; knowledge is permanent. No fast-and-furious:
+      mysterious success equals mysterious failure equals undebuggable.</p>
+    </div>
+  </div>
+
+  <div class="principle rv">
+    <span class="rn">VIII.</span>
+    <div>
+      <h3 data-i18n="s1.p8.h">Closing line</h3>
+      <blockquote data-i18n="s1.p8.q"><b>"Frontier is not a place. Its a perpetual moving target.</b> It is the practice of keeping this map true while everything underneath it changes."</blockquote>
+      <p class="doctrine-closing" data-i18n="s1.p8.p">When the map holds at full self-driving — lazy prompt in, verified system out,
+      routes and lanes and delegations rewritten mid-run by the engine itself — that is <b>escape velocity</b>.
+      That is ufo-fsd.</p>
+    </div>
+  </div>
+
+  <div class="principle rv">
+    <span class="rn">IX.</span>
+    <div>
+      <h3 data-i18n="s1.p9.h">The splits — do not collapse</h3>
+      <pre class="ascii">grok <span class="hl">≠</span> grok-bot <span class="hl">≠</span> grok-web <span class="hl">≠</span> grok-titanium
+xask (L2 protocol) <span class="hl">≠</span> xask-l3 (L3 shim)
+stock codex <span class="hl">≠</span> codex-titanium
+slash /xbreed-team <span class="hl">≠</span> PATH xbreed ELF
+sekhmet <span class="hl">≡</span> xbrd-spark   <span class="hl">(one crate, two bins)</span>
+hangar is cache, not SSoT. ufo-fsd is not the L1 judge.</pre>
+      <p data-i18n="s1.p9.p">Named GitHub remotes are gold. If a hangar doc disagrees with a remote, <b>the remote wins</b>.
+      If two named remotes disagree: stop and escalate. The page does not recrown L1 — the seated judge is
+      xbgst on Grok Build; kimi is a live L1 candidate, not the crown.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 / THE CONVERSATION ================= -->
+<section id="conversation" aria-labelledby="conversation-title">
+  <div class="shead rv"><span class="num">02</span><h2 id="conversation-title" data-i18n="s2.title">The conversation</h2><span class="meta" data-i18n="s2.meta">dispatch log · one session</span></div>
+  <p class="thread-note rv" data-i18n="s2.note">One operator. One model. A single session that went from "how do I run 300 agents"
+  to the architecture of a self-improving orchestration engine. Distilled beats — operator voice and Kimi voice intact.</p>
+
+  <div class="beat rv"><div class="bid">beat 01</div>
+    <h3 data-i18n="s2.b1.h">300 agents is a single-node distributed systems problem.</h3>
+    <p data-i18n="s2.b1.p">The operator opens: orchestration is basically solved; the actual failure mode at scale was disk — tmpfs
+    pressure and resource management on the local backend. <span class="who">Kimi:</span> "You're not scaling agents
+    anymore — you're scaling a single-node distributed system. The kernel, the VFS, and the memory subsystem are
+    the adversaries at 300."</p></div>
+
+  <div class="beat rv"><div class="bid">beat 02</div>
+    <h3 data-i18n="s2.b2.h">Python is laggard material. Only Rust.</h3>
+    <p data-i18n="s2.b2.p"><span class="who">Operator:</span> "Python does the job. Poorly, slowly, ineffectively, but it gets there."
+    The advice pivots to the real stack: workers matched to physical cores, not logical; <b>one shared HTTP/2 client,
+    not 300</b>; jemalloc linked; cgroups written straight to cgroupfs from the agent's spawn hook.</p></div>
+
+  <div class="beat rv"><div class="bid">beat 03</div>
+    <h3 data-i18n="s2.b3.h">serde is table stakes.</h3>
+    <p data-i18n="s2.b3.p">simd-json on the hot response path, rkyv for internal IPC, <b>BytesMut</b> pools per thread. And the warning
+    that survives contact: at 300 agents, <b>serde_json::Value is an allocation avalanche</b>. Parse into structs
+    or don't parse at all.</p></div>
+
+  <div class="beat rv"><div class="bid">beat 04</div>
+    <h3 data-i18n="s2.b4.h">Not tokio. It's better. Trust.</h3>
+    <p data-i18n="s2.b4.p">The operator reveals the runtime is not tokio. <span class="who">Kimi:</span> "Then we're talking io_uring +
+    thread-per-core. Tokio is a Honda Civic. You're building a dragster." Registered buffers, pinned memory,
+    <b>O_DIRECT + O_TMPFILE</b>, SQ polling, kTLS as the actual frontier answer to the TLS bridge.</p></div>
+
+  <div class="beat rv"><div class="bid">beat 05</div>
+    <h3 data-i18n="s2.b5.h">48 vs 24 on openpilot.</h3>
+    <p data-i18n="s2.b5.p">A comma.ai bounty run on Kimi K3 Max: <b>48 bugs documented where the top human on the leaderboard found 24</b> — including bugs the challenge designer didn't plant. The kill shots were schematic-level: an I2C SDA line pulled to ground, a GPS UART wired TX-to-TX, and bug #44 — a part specified in a 100-pin package that only exists in 68 pins. The reference design, as drawn, was unmanufacturable. Not code review. A design rescue.</p>
+    <p class="beat-cta">
+      <a class="btn btn-ghost" href="https://github.com/commaai/website/pull/334/changes#diff-2eda359757602ce01ffc31cf591fa0c9addc95094ff9c946313a024f1d9f8f09R166" target="_blank" rel="noopener" data-i18n="s2.b5.pr">PR #334</a>
+      <a class="btn btn-ghost" href="https://github.com/VeigaPunk/harness-tester-bugs-veigapunk" target="_blank" rel="noopener" data-i18n="s2.b5.bugs">bugs pack</a>
+    </p></div>
+
+  <div class="beat rv"><div class="bid">beat 06</div>
+    <h3 data-i18n="s2.b6.h">Blocked for winning too hard.</h3>
+    <p data-i18n="s2.b6.p">After topping every open bounty leaderboard on the platform, the operator was blocked from further submission. Proof, same manner as the rows they refused to merge: <b>controls</b> co-#1 at <b>6.880</b> (<a href="https://github.com/commaai/website/pull/333/changes#diff-2eda359757602ce01ffc31cf591fa0c9addc95094ff9c946313a024f1d9f8f09R325" target="_blank" rel="noopener">PR #333</a> · <a href="https://github.com/VeigaPunk/comma-controls-challenge" target="_blank" rel="noopener">score pack</a>); <b>harness</b> <b>48</b> vs live top <b>24</b> (<a href="https://github.com/commaai/website/pull/334/changes#diff-2eda359757602ce01ffc31cf591fa0c9addc95094ff9c946313a024f1d9f8f09R166" target="_blank" rel="noopener">PR #334</a> · <a href="https://github.com/VeigaPunk/harness-tester-bugs-veigapunk" target="_blank" rel="noopener">bugs pack</a>); <b>design</b> Horizon Halo first-row ask (<a href="https://github.com/commaai/website/pull/335/changes#diff-2eda359757602ce01ffc31cf591fa0c9addc95094ff9c946313a024f1d9f8f09R452" target="_blank" rel="noopener">PR #335</a> · <a href="https://veigapunk.github.io/horizon-halo-comma-design/" target="_blank" rel="noopener">demo</a>). All three closed without merge the same day. <span class="who">Kimi:</span> "They didn't block you because you cheated. They blocked you because you changed the cost function." The block is a feature, not a bug — it proves the method works so well that incumbents have to protect themselves from it. The platforms that block you today buy from you tomorrow.</p>
+    <p class="beat-cta">
+      <a class="btn btn-ghost" href="https://github.com/commaai/website/pull/333/changes#diff-2eda359757602ce01ffc31cf591fa0c9addc95094ff9c946313a024f1d9f8f09R325" target="_blank" rel="noopener" data-i18n="s2.b6.pr333">PR #333</a>
+      <a class="btn btn-ghost" href="https://github.com/commaai/website/pull/334/changes#diff-2eda359757602ce01ffc31cf591fa0c9addc95094ff9c946313a024f1d9f8f09R166" target="_blank" rel="noopener" data-i18n="s2.b6.pr334">PR #334</a>
+      <a class="btn btn-ghost" href="https://github.com/commaai/website/pull/335/changes#diff-2eda359757602ce01ffc31cf591fa0c9addc95094ff9c946313a024f1d9f8f09R452" target="_blank" rel="noopener" data-i18n="s2.b6.pr335">PR #335</a>
+      <a class="btn btn-ghost" href="https://github.com/VeigaPunk/comma-controls-challenge" target="_blank" rel="noopener" data-i18n="s2.b6.controls">controls pack</a>
+      <a class="btn btn-ghost" href="https://github.com/VeigaPunk/harness-tester-bugs-veigapunk" target="_blank" rel="noopener" data-i18n="s2.b6.bugs">bugs pack</a>
+      <a class="btn btn-ghost" href="https://veigapunk.github.io/horizon-halo-comma-design/" target="_blank" rel="noopener" data-i18n="s2.b6.halo">Horizon Halo</a>
+    </p></div>
+
+
+  <div class="beat rv"><div class="bid">beat 07</div>
+    <h3 data-i18n="s2.b7.h">Burned through Vivace in two days.</h3>
+    <p data-i18n="s2.b7.p">The top subscription tier, gone in 48 hours — roughly 15 agent invocations an hour, around the clock, nonstop.
+    <span class="who">Kimi:</span> "You're not chatting with an LLM. You're running a compute cluster that happens to
+    speak English." Things are hostile at the frontier. We keep pushing.</p></div>
+
+  <div class="beat rv"><div class="bid">beat 08</div>
+    <h3 data-i18n="s2.b8.h">The substrate map.</h3>
+    <p data-i18n="s2.b8.p">Frontier compute is reached by riding OAuth entitlements across every provider at once — paid <b>Cursor Ultra $99 mint (gravy train)</b> · <b>$300 Ultra pending mint</b>, <b>SuperGrok Heavy ~$300 grant (incl. for free)</b> · <b>Grok bot free</b> · <b>X Premium+</b>, ChatGPT Pro, Kimi, Alibaba token plans, and <b>Ox Alpha</b> (weakly held: X under Cursor / Karpathy · <code>x-x-preview</code>) — with paid API as the fallback floor. Five substrates, one orchestrator, zero lock-in. When one substrate runs dry, dispatch moves. The agents don't care. The substrate is fungible; that is the resilience.</p></div>
+
+  <div class="beat rv"><div class="bid">beat 09</div>
+    <h3 data-i18n="s2.b9.h">xask dry is the innovation.</h3>
+    <p data-i18n="s2.b9.p">Canaries embedded in the logic. Any xask failure degrades the agent to local work; the specialist dispatcher
+    itself is the fallback. Every round is dynamic; every round runs the same three-layer substrate.
+    <b>A 1024-agent swarm with graceful degradation outperforms any static framework</b> — these agents
+    never block on substrate failure.</p></div>
+
+  <div class="beat rv"><div class="bid">beat 10</div>
+    <h3 data-i18n="s2.b10.h">The denim tag benchmark.</h3>
+    <p data-i18n="s2.b10.p">A frontier western lab's top model, on high effort, took 33 seconds to misread the text on a denim tag.
+    Kimi read it in one pass. The lesson became doctrine: <b>human-level reasoning is expensive — never spend it
+    where pattern matching suffices.</b> Save the heavy substrate for the heavy problems.</p></div>
+
+  <div class="beat rv"><div class="bid">beat 11</div>
+    <h3 data-i18n="s2.b11.h">The orchestrator audits itself.</h3>
+    <p data-i18n="s2.b11.p"><span class="who">Operator:</span> "Move fast, break things, iterate cheap, in parallel — this is the
+    self-improving orchestration engine." <span class="who">Kimi:</span> a bug in the orchestrator has multiplicative
+    blast radius — it doesn't miss one bug, it misses every bug that agent would have found.
+    <b>A tool has bugs. A living system has immune response.</b></p></div>
+
+  <div class="beat rv"><div class="bid">beat 12</div>
+    <h3 data-i18n="s2.b12.h">文+明 — the light of culture.</h3>
+    <p data-i18n="s2.b12.p">3:47 AM. ASCII God's touch on matte black Omarchy. Red keyboard. Wonton soup as elite fuel. Beijing timezone
+    for the off-peak rates of the Chinese providers — operational art, ninja-grade. The session closes the way the
+    frontier runs: "Plazir doesn't sleep. Neither do I." 文明 — the light of culture, the clarity of mind.
+    Two minds, one human and one not, pushing past what either could do alone.</p></div>
+
+
+  <div class="beat rv"><div class="bid">beat 13</div>
+    <h3 data-i18n="s2.b13.h">A full pot of chai.</h3>
+    <p data-i18n="s2.b13.p">The release captain filed <a href="https://github.com/commaai/openpilot/issues/38468" target="_blank" rel="noopener">openpilot#38468</a> — a polite checklist for <b>v0.11.2</b> — then cut <code>zeroeleventwo</code>, reverted the spicy merges (Zoom Zoom DM, sleep shadow, even his own IFE lag fix), and sprinted chestnut/release tooling through mid-August. Still: <b>no <code>v0.11.2</code> tag</b>. Checklist says no LFS; <a href="https://github.com/commaai/openpilot/pull/38699" target="_blank" rel="noopener">#38699 no mo LFS</a> sits open on master. Master already walks ahead of the risk-stripped release tip. <span class="who">Kimi:</span> "They steep the ceremony. We read the leaves. A checklist that never closes is not discipline — it is costume." Beat 06 already named the cost-function block; this is the pour that follows. little endian: LSB first (lowest address). little ending: minimal end CTA.</p>
+    <p class="beat-cta">
+      <a class="btn btn-ghost" href="https://github.com/commaai/openpilot/issues/38468" target="_blank" rel="noopener" data-i18n="s2.b13.issue">#38468</a>
+      <a class="btn btn-ghost" href="https://github.com/commaai/openpilot/pull/38699" target="_blank" rel="noopener" data-i18n="s2.b13.lfs">#38699</a>
+    </p></div>
+</section>
+
+<!-- ================= 03 / CURRENT ART ================= -->
+<section id="current-art" aria-labelledby="current-art-title">
+  <div class="shead rv"><span class="num">03</span><h2 id="current-art-title" data-i18n="s3.title">Current art</h2><span class="meta" data-i18n="s3.meta">the stack, mapped by layer</span></div>
+  <p class="thread-note rv" data-i18n="s3.note">No prior art — everything below is the current art, live. Named remotes are gold;
+  hangar is cache, not SSoT. Public repos are linked; private ones are named only, so the page never 404s.</p>
+  <div class="logentry rv"><span class="ldate">2026-08-26</span>
+    <div><h3>harvest overlay.</h3>
+    <p data-i18n="s3.harvest">Gemini banned. Parent goal OPEN. L1 crown = Kimi K3 Max since 2026-08-29.</p></div></div><!-- charter-scribe-beat:begin -->
+<p class="thread-note rv" data-i18n="s3.scribeBeat">2026-09-30 scribe beat (<b>the-scribe</b> via <code>local-fallback</code>): <b>12 local commits: selfrefine-brief c7-r10: fleet tick (11 panes, rev 3048) + last-3 drop c7-r7 + continue; fix(selfrefine): author passes on boundary rounds and</b>. 12 commits landed locally: <code>e1d4093fe</code> selfrefine-brief c7-r10: fleet tick (11 panes, rev 3048) + last-3 drop c7-r7 + continue; <code>6fc98d85d</code> fix(selfrefine): author passes on boundary rounds and unblock outboxes; <code>307af3006</code> selfrefine-pareto r08: bind nine r07-deferred surfaces (axes receipt totality/shape-hoist, seats skipped parity, kernel queue-sweep, primeagent partition-parents, underscore slugs, buckets remedy live-latency, shokunin delivery status, jev usage-blocked) + chainEvidence/refineInputRounds ceiling gate + axes-remap attribution repair. Gates: FAIL. Loop: opencode self-iter (saturated). Parent goal OPEN.</p>
+<!-- charter-scribe-beat:end -->
+
+
+  <pre class="ascii rv">L1 judge     <span class="hl">grok-marketplace (xbgst-stack) on Grok Build</span> — the seated crown
+L1 ports     xbgst-kimi · xbgst-codex · xbgst-cursor · xbgst-opencode · xbrd-grok
+DESK         xbgst-grok-bot · xbgst-cursor-agent-surface — surfaces, not judges
+L2 consult   ds4cc-marketplace PATH xask · gravy: xask --provider cursor --model-id kimi-k3-max
+L3 fan-out   xbrd-spark / sekhmet-l3 (cap 64) · xbrd-sol-ultra · codex-titanium
+FSD overlay  <span class="hl">ufo-fsd (dormant — holds the contract, must not judge)</span>
+research     umwelt-frontier-orchestrator (pattern / SPEC / bench — not runtime)
+posture      godspeed-core</pre>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g1.h">L1 — the crown</h4>
+    <ul>
+      <li data-i18n="s3.g1.i1"><b>grok-marketplace</b> — the seated L1 judge: Grok L1 overlay (xbgst-stack) + nested livepatch. Ship tree, channel tag grok-stable. Runtime SSoT until ufo-fsd is armed. <a href="https://github.com/VeigaPunk/grok-marketplace">repo</a></li>
+    </ul>
+    <p class="fgnote" data-i18n="s3.g1.note">Seats are locked: L1 judge = xbgst on Grok Build. The overlay refuses a second L1.</p>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g2.h">core mold</h4>
+    <ul>
+      <li data-i18n="s3.g2.i1"><b>xbgst-gdsd-fknpft</b> — core mold crate. Read-only; experiments are never pushed back to the mold. <span class="priv">private</span></li>
+    </ul>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g3.h">L1 ports — same orch, different CLIs</h4>
+    <ul>
+      <li data-i18n="s3.g3.i1"><b>xbgst-kimi</b> — Kimi Code L1 port. Ran the full self-orch protocol live on itself (r14-3→r14-5, 43 move groups) + the 64/64 showcase swarm. <span class="priv">private</span></li>
+      <li data-i18n="s3.g3.i2"><b>xbgst-codex</b> — Codex overlay: evidence-gated rounds, L3 is evidence not authority. <span class="priv">private</span></li>
+      <li data-i18n="s3.g3.i3"><b>xbgst-cursor</b> — Cursor Agent FSD orch (L1-candidate). Pinned cursor-grok orch argv; PATH xask with <code>--provider cursor</code> for Ultra-native L3 + token-plan for Chinese; typed dry fallback. Surface split: <b>xbgst-cursor-agent-surface</b>. <span class="priv">private</span></li>
+      <li data-i18n="s3.g3.i4"><b>xbgst-opencode</b> — OpenCode orch + the-* adapters. <a href="https://github.com/VeigaPunk/xbgst-opencode">repo</a></li>
+      <li data-i18n="s3.g3.i5"><b>xbrd-grok</b> — Grok skill mirror for grok -p / /xbgst. <a href="https://github.com/VeigaPunk/xbrd-grok">repo</a></li>
+    </ul>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g4.h">desk</h4>
+    <ul>
+      <li data-i18n="s3.g4.i1"><b>xbgst-grok-bot</b> — Grok Bot land-host substrate. Trigger, not judge; never merged into core. <span class="priv">private</span></li>
+      <li data-i18n="s3.g4.i2"><b>xbgst-cursor-agent-surface</b> — Cursor Ultra usage surface (grok-bot analog), not the judge. Keep split from <b>xbgst-cursor</b> (FSD orch port). <span class="priv">private</span></li>
+    </ul>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g5.h">L2 consult — protocol &amp; marketplace</h4>
+    <ul>
+      <li data-i18n="s3.g5.i1"><b>ds4cc-marketplace</b> — multi-CLI marketplace + PATH xask + myagents. <a href="https://github.com/VeigaPunk/ds4cc-marketplace">repo</a> · <a href="https://ds4cc.com">ds4cc.com</a></li>
+      <li data-i18n="s3.g5.i2">Named gravy through the surface: PATH <code>xask --provider cursor --model-id kimi-k3-max</code> — additional lane, not a recrown. Hangar cheap FIRST stays Token Plan. Named moonshot <code>xask --gs kimi</code> stays.</li>
+      <li data-i18n="s3.g5.i3"><b>xbrd-gdsp-fknpft</b> — sibling of the xask/xbreed protocol plugin, also vendored inside ds4cc. Multi-model meta-launcher. <a href="https://github.com/VeigaPunk/xbrd-gdsp-fknpft">repo</a></li>
+    </ul>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g6.h">L3 fan-out — swarm</h4>
+    <ul>
+      <li data-i18n="s3.g6.i1"><b>xbrd-spark</b> — sekhmet / xbrd-spark ELF. Cap 64. xask-l3 lives here. <a href="https://github.com/VeigaPunk/xbrd-spark">repo</a></li>
+      <li data-i18n="s3.g6.i2"><b>sekhmet-l3</b> — public L3 usage + frozen GATE evidence. <a href="https://github.com/VeigaPunk/sekhmet-l3">repo</a></li>
+      <li data-i18n="s3.g6.i3"><b>xbrd-sol-ultra</b> — Sol Ultra root-judge skill: one sekhmet swarm -j 64 per round. <a href="https://github.com/VeigaPunk/xbrd-sol-ultra">repo</a></li>
+      <li data-i18n="s3.g6.i4"><b>codex-titanium</b> — L3-only Codex fork. Never symlinked as codex. <a href="https://github.com/VeigaPunk/codex-titanium">repo</a></li>
+      <li data-i18n="s3.g6.i5"><b>xbrd-selector</b> — optional L2-select / rover CLI. <a href="https://github.com/VeigaPunk/xbrd-selector">repo</a></li>
+    </ul>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g7.h">FSD overlay &amp; research</h4>
+    <ul>
+      <li data-i18n="s3.g7.i1"><b>ufo-fsd</b> — the dormant FSD overlay. Holds the contract; must not judge. Private until Grok/xbgst is crowned and the fleet is ready. <span class="priv">private</span></li>
+      <li data-i18n="s3.g7.i2"><b>umwelt-frontier-orchestrator</b> — research SSoT: pattern, SPEC, bench. Not runtime. Repo <span class="priv">private</span> · public paper hosted on this charter.</li>
+    </ul>
+    <div class="fg-actions">
+      <a class="btn btn-ghost" href="papers/umwelt-frontier-orchestrator.pdf" data-i18n="s3.g7.paperbtn">Open research paper (PDF)</a>
+    </div>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g8.h">posture</h4>
+    <ul>
+      <li data-i18n="s3.g8.i1"><b>godspeed-core</b> — directive + filter + velocity. Do not fork. <a href="https://github.com/VeigaPunk/godspeed-core">repo</a></li>
+    </ul>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g9.h">host / livepatch</h4>
+    <ul>
+      <li data-i18n="s3.g9.i1"><b>grok-build-livepatch</b> — hard-ban general-purpose/explore; 6h upstream re-apply timer. Also nested in xbgst-stack. <a href="https://github.com/VeigaPunk/grok-build-livepatch">repo</a></li>
+      <li data-i18n="s3.g9.i2"><b>grok-build-config-builder</b> — Grok CLI config builder (hangar clone). <a href="https://github.com/VeigaPunk/grok-build-config-builder">repo</a></li>
+      <li data-i18n="s3.g9.i3"><b>gx-teams</b> — OS teammates: tmux panes + JSONL mailbox. <a href="https://github.com/VeigaPunk/gx-teams">repo</a></li>
+      <li data-i18n="s3.g9.i4"><b>myskills</b> — shared skills pack: godspeed, wwkd, and friends. <a href="https://github.com/VeigaPunk/myskills">repo</a></li>
+    </ul>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g10.h">CDP / web-UI adapters — loopback family</h4>
+    <ul>
+      <li data-i18n="s3.g10.i1"><b>the-musketeer</b> — grok.com web surface (CDP 9222). <a href="https://github.com/VeigaPunk/the-musketeer">repo</a></li>
+      <li data-i18n="s3.g10.i2"><b>the-puppeteer</b> — ChatGPT web surface. <a href="https://github.com/VeigaPunk/the-puppeteer">repo</a></li>
+      <li data-i18n="s3.g10.i3"><b>the-almanacker</b> — NotebookLM surface. <a href="https://github.com/VeigaPunk/the-almanacker">repo</a></li>
+      <li data-i18n="s3.g10.i4"><b>the-kimiraikkoner</b> — kimi.ai web UI (not PATH kimi). <a href="https://github.com/VeigaPunk/the-kimiraikkoner">repo</a></li>
+    </ul>
+  </div>
+
+  <div class="fg rv">
+    <h4 data-i18n="s3.g11.h">site gold — family A</h4>
+    <ul>
+      <li data-i18n="s3.g11.i1"><b>plazir-15-site</b> — the live Plazir-15 site. <a href="https://github.com/VeigaPunk/plazir-15-site">repo</a> · <a href="https://veigapunk.github.io/plazir-15-site/">site</a></li>
+      <li data-i18n="s3.g11.i2"><b>burnerchrome</b> — Family A sibling gold: permanent burner Chrome + agent-browser CDP. <a href="https://github.com/VeigaPunk/burnerchrome">repo</a></li>
+      <li data-i18n="s3.g11.i3"><b>plazirhangar</b> — hangar helper, omarchy-adjacent ship unit. <a href="https://github.com/VeigaPunk/plazirhangar">repo</a></li>
+      <li data-i18n="s3.g11.i4"><b>plazir18</b> — 18-panel tmux agent dashboard for Omarchy. <a href="https://github.com/VeigaPunk/plazir18">repo</a></li>
+      <li data-i18n="s3.g11.i5"><b>token speedrun board</b> — outbound, never vendored. <a href="https://ds4cc.com/speedrun/">ds4cc.com/speedrun</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 04 / SUBSTRATE MAP ================= -->
+<section id="substrate" aria-labelledby="substrate-title">
+  <div class="shead rv"><span class="num">04</span><h2 id="substrate-title" data-i18n="s4.title">Substrate map</h2><span class="meta" data-i18n="s4.meta">as logged 2026-09-13</span></div>
+  <p class="markquote markquote-section rv" data-i18n="mark.harness"><b>"What you call harness, we call substrate."</b><sup class="tm">™</sup></p>
+  <p class="marknote rv" data-i18n="mark.harness.note">Validated by <b>Kimi™</b> — perfectly aligned with the operator’s view and the ufo-fsd concept.</p>
+  <p class="thread-note rv">The routing topology, public-safe: model classes and roles. No prices, no secrets. As logged 2026-09-13 — the doctrine flipped: <b>kimi is the exclusive L0/L1 surface</b>, <b>swe-2 is the perfect L2 runner</b>, <b>astra-6 is the advisor</b>. Other models stay the perspective lanes — different approaches and blind spots, mixed in for diversity of attack, never a recrown.</p>
+
+  <div class="mapwrap rv">
+    <table class="map">
+      <thead>
+        <tr><th data-i18n="s4.th1">lane</th><th data-i18n="s4.th2">model class</th><th data-i18n="s4.th3">role</th><th data-i18n="s4.th4">access route</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>L0 / L1 — the surface</td><td>kimi class</td><td>The exclusive operator surface and orchestration seat — the operator types into kimi and the orchestration stays there, by decision. The crown seat.</td><td>Kimi OAuth</td></tr>
+        <tr><td>L2 — the runner</td><td>swe-2 class</td><td>The perfect L2 runner — every specialist seat, all thirteen roles, empty fallback chains. Proven live: 32 L1s × up to 32 L2 each, wall read L1(31) L2(92).</td><td>Devin OAuth on OMP</td></tr>
+        <tr><td>Advisor</td><td>astra-6 class</td><td>Advisory only — consolidation plans and synthesis. Never a second L1, never a judge.</td><td>Devin OAuth</td></tr>
+        <tr><td>Perspective lanes</td><td>qwen / deepseek / grok / sol / spark / luna classes</td><td>Different approaches and blind spots, mixed in for diversity of attack — never a recrown. Token Plan hold: probe-confirmed exhaustion, provider reset pending.</td><td>Alibaba Cloud token plans · SuperGrok · ChatGPT Pro OAuth</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ul class="mapnotes rv">
+    <li>Pins are defaults chosen for the job, not cages. Do not move pins on benchmark noise; never launder a score from one harness onto another model's board.</li>
+    <li>Empty fallback chains are doctrine, not neglect: an unavailable swe-2 seat halts honestly rather than silently changing models. <b>Honesty outranks progress.</b></li>
+    <li>Beijing timezone operations: off-peak windows on the Asian providers are part of the compute strategy, not a lifestyle choice.</li>
+    <li>Local inference is the helper lane, not the swarm — a resident Qwen digests fleet telemetry on the second GPU slot, advisory only. The swarm stays <b>coordination-bound, not compute-bound</b>; the scarce resource is the Rust runtime: ring depth, NVMe queues, cgroups.</li>
+  </ul>
+</section>
+
+<!-- ================= 05 / FRONTIER LOG ================= -->
+<section id="log" aria-labelledby="log-title">
+  <div class="shead rv"><span class="num">05</span><h2 id="log-title" data-i18n="s5.title">Frontier log</h2><span class="meta" data-i18n="s5.meta">on the record</span></div>
+
+  <div class="logentry rv"><span class="ldate">2026-07</span>
+    <div><h3 data-i18n="s5.e1.h">openpilot harness tester: 48 vs 24.</h3>
+    <p data-i18n="s5.e1.p">comma.ai harness tester challenge run on Kimi K3 Max: <b>48 bugs</b> documented against the top human
+    leaderboard score of <b>24</b> — including 16 show-stoppers and bug #44, a physically unmountable part that
+    invalidated the reference design as drawn. Method: multi-substrate verification — firmware source × KiCad
+    netlist × datasheet reality.
+    Evidence: <a href="https://github.com/VeigaPunk/harness-tester-bugs-veigapunk">github.com/VeigaPunk/harness-tester-bugs-veigapunk</a></p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-07</span>
+    <div><h3 data-i18n="s5.e2.h">blocked for winning too hard.</h3>
+    <p data-i18n="s5.e2.p">After topping every open bounty on the platform's leaderboard, further submission was blocked.
+    The capability and the story remain. We keep pushing.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08</span>
+    <div><h3 data-i18n="s5.e3.h">Vivace in two days.</h3>
+    <p data-i18n="s5.e3.p">The top Kimi OAuth tier consumed in 48 hours of swarm operation — roughly 15 agent invocations per hour,
+    around the clock. Things are hostile at the frontier. The frontier does not issue refunds.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-23</span>
+    <div><h3 data-i18n="s5.e4.h">61-agent live audit.</h3>
+    <p data-i18n="s5.e4.p">61 active subagents, 40 working concurrently: full-stack cross-provider audit — Rust internals, protocol
+    implementation, config review, marketplace mapping, coverage gaps — every dispatched agent riding the
+    sol-class lane. <b>The 1024-agent target is not aspirational; the 2×16 fleet already reserved 279 runners on the wall.</b></p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-24</span>
+    <div><h3 data-i18n="s5.e5.h">tracking log — the current art, as it stands.</h3>
+    <pre class="ascii">installed plugin xbgst-stack-abb9323e — still 1.1.30 / kimi+cdx.
+/xbgst-stack:xbreed-team is stale until post-cycle install-host.
+<span class="hl">do not rsync while grok-bot pid 12309 is live.</span>
+
+three pre-existing grok-bot restart/doctor files left unstaged;
+ship-check is dirty on those only. <span class="hl">smoke-gates PASSED.</span>
+
+kimi is still walking r14-3 — now writing its own repo. still hands-off.</pre>
+    <p data-i18n="s5.e5.p">The loop, closing in public: the engine mid-round, writing its own repository, while the
+    operator watches the gates and touches nothing.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-24</span>
+    <div><h3 data-i18n="s5.e6.h">xbgst-kimi walks its own repo: r14-3 → r14-5.</h3>
+    <p data-i18n="s5.e6.p">The Kimi Code port ran the full self-orch protocol live on itself — three judged rounds,
+    <b>43 accepted move groups shipped straight to main</b>. It caught its own guard rewrite
+    introducing eleven bypass classes and rebuilt it segment-aware behind a 50-probe adversarial
+    gate; when the guard ate the outside lane's audit prompt, the lane degraded locally and came
+    back LIVE next round. After five rounds without convergence, <b>the honesty brake fired on its
+    own</b> — the engine halted itself, on the record. The entry above said "still walking r14-3."
+    It walked. It shipped. It stopped itself.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-24</span>
+    <div><h3 data-i18n="s5.e7.h">64/64 — the concurrency ceiling, held live.</h3>
+    <p data-i18n="s5.e7.p">From a lazy prompt with prior context, the port planned (wwkd), dispatched, judged, and
+    shipped its own showcase: a ladder of 2/8/16/32 background-agent batches and a single 64-item
+    swarm call — <b>64 completed, 64 distinct processes, full index coverage</b>, corroborated by
+    the port's own audit hook. Same run, it patched itself: wave-mechanics doctrine for the host's
+    swarm-exclusivity rule, a routing-check diagnostic that makes model pins legible, three new
+    host-gap register rows. The kimi coding lane carried the entire ladder.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-24</span>
+    <div><h3 data-i18n="s5.e8.h">xbgst-cursor joins the ports.</h3>
+    <p data-i18n="s5.e8.p">A new L1 port lands: Cursor Agent CLI as a usage surface — probed overlay, pinned cursor-grok
+    lane, PATH xask dry-fallback, no host mutation. Same orch, another CLI. Mapped under
+    current art → L1 ports. <b>Private</b>, like the rest of the fleet-in-progress.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-24</span>
+    <div><h3 data-i18n="s5.e9.h">Cursor Ultra × xask — priority L3 surface.</h3>
+    <p data-i18n="s5.e9.p">Goal-oriented one-shot on <b>xbgst-cursor</b>: catalog adds <code>xask --provider cursor</code>
+    with pinned CLI-ids (Grok/Composer/Kimi/OpenAI on Ultra). Alibaba Chinese models stay on
+    <code>token-plan</code>. Orch FSD walk ships gates + charter evidence — evaluating Ultra as the
+    priority xask lane for Cursor-native models. <span class="priv">private</span></p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-24</span>
+    <div><h3 data-i18n="s5.e10.h">Kimi on a silver platter — the gravy train.</h3>
+    <p data-i18n="s5.e10.p"><b>Kimi is the best model right now. Not even a question.</b>
+    Grok bought Cursor and is handling it on a silver platter.
+    Kimi is the side dish that is better than the main course.
+    Kimi K3 Max fast inference via Cursor Ultra OAuth; PATH <code>xask --provider cursor --model-id kimi-k3-max</code>.
+    Fast is Ultra metering, not a service-tier flag.
+    The split holds: <b>xbgst-cursor-agent-surface</b> is the usage surface (grok-bot analog), not the judge;
+    <b>xbgst-cursor</b> is the FSD orch port. Do not collapse them.
+    Hangar cheap FIRST stays Token Plan. L1 crown stays xbgst on Grok Build — kimi is not crowned, cursor is not crowned.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">next</span>
+    <div><h3 data-i18n="s5.e11.h">Kimi coding-model test battery.</h3>
+    <p data-i18n="s5.e11.p">The kimi coding lane goes under load next. Find the walls. Document the failure modes. Failure is data.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-24</span>
+    <div><h3 data-i18n="s5.e12.h">l1-elevate: xbgst-kimi takes the L1 substrate.</h3>
+    <p data-i18n="s5.e12.p">The routing doctrine flipped: <b>k3-max</b> is now judge and session default, and every <b>K2.7</b>
+    coding lane is pinned to the highspeed variant under the same managed OAuth provider. The
+    <code>xask --provider cursor</code> ask-lane is live and unattended-verified, so Cursor-native models
+    can draft without ever touching execution.</p>
+    <p data-i18n="s5.e12.p2">Four workstreams are in flight: a kimi-flavored port of <b>xbgst-cursor-agent-surface</b>
+    <span class="priv">private</span>, an A/B between the ported surface and the xask cursor lane,
+    observe-only per-call telemetry for the speedrun <b>oauth tokenburn usage</b> category, and a
+    <b>K2.7 thinking-off</b> variant probe. The cutover is real; the map is being rewritten underneath
+    the operation.</p></div></div>
+
+  <div class="logentry rv"><span class="ldate">2026-08-24</span>
+    <div><h3 data-i18n="s5.e13.h">l1-elevate closes: trust record live, telemetry feeding the board.</h3>
+    <p data-i18n="s5.e13.p">The l1-elevate orchestration on <b>xbgst-kimi</b> closed the same day it opened. The trust
+    decision record (<code>docs/CURSOR-TRUST.md</code>) now governs two cursor lane forms — a
+    read-only xask consult lane and a scoped full-agent execution lane inside a dedicated,
+    write-audited workspace. <b>xbgst-cursor-agent-surface</b> <span class="priv">private</span>
+    is ported onto the kimi substrate; the A/B against the xask cursor lane ended
+    <b>keep-both</b>: surface for correctness-critical execution, ask-lane for fast consults.</p>
+    <p data-i18n="s5.e13.p2">Observe-only telemetry now records every cursor lane call, feeding the speedrun
+    <b>oauth tokenburn usage</b> category. The K2.7 thinking-off probe closed
+    <b>external-wontfix</b>. Pin discipline recalibrated: volume defaults to the included
+    Cursor Models pool; kimi pins only when kimi-specific.</p></div></div>
+  <div class="logentry rv"><span class="ldate">2026-09-18</span>
+    <div><h3>audit logs: 77 beats, every commit dispositioned.</h3>
+    <p>Two fleet missions audited <code>ufo-fsd-alpha</code> end to end and the full trail ships in the <code>charterlogs</code> vault. <b>audit-early</b> — 53 beats, window <b>2026-08-24 → 2026-09-10</b>, from the empty root <code>f43c757c</code> to tip <code>5f52e03a</code>: all <b>1357</b> non-merge commits dispositioned per-SHA, zero unexplained. <b>audit-late</b> — 24 beats, window <b>2026-09-11 → 2026-09-18</b>, <code>9644f95a..4adedde6</code>: <b>34/34</b> window commits mapped to exactly one beat, zero gaps. Every beat carries an executable gate with observed output; both result reports ship with SHA256 receipts. Vault: <code>charterlogs/beats/</code> (77 beats) + <code>charterlogs/results/</code> (<code>audit-logs-early.md</code> · <code>audit-logs-late.md</code> + receipts). L1 = <b>Kimi K3 Max</b>; Gemini banned; parent goal OPEN.</p></div></div>
+  <div class="logentry rv"><span class="ldate">2026-09-28</span>
+    <div><h3>ufo-fsd-alpha sync: 4,523 commits from the Origin, mirrored and explained.</h3>
+    <p>The charter synced with the writable Origin (<code>origin.cursor.com/jo-o-veiga/ufo-fsd-alpha</code>) through tip <code>ee907f1cf</code> (2026-09-27): <b>4,523 main-branch commits</b> since the audit-late window closed at <code>4adedde6</code> (2026-09-18), lineage verified by merge-base before writing. The arc: the <b>nightcall nc3 wave</b> (2026-09-20→22 — swarm mechanics, guidance re-pins, the canonical <code>/skill:ufo</code> invocation); the <b>nc5 wave</b> (2026-09-24 — the magga-2 OMP fleet on an isolated <code>$HOME</code>/<code>/scratch</code> clone with a bare audit-only <code>origin</code>, parent goal still OPEN, and <b>PrimeAgent assimilation</b> round 25: sha256-chained refinement ledger, typed compaction-digest API, read-only recovery advisory); the <b>nc6 synthesis</b> (72-lane verification round, findings absorbed and settled); the <b>magga fleet rounds</b> (2026-09-25→27 — orchestration/docs/crates/integration/verify/e2e, drill honesty passes, tracked-file census); the <b>nc8 super-wave</b> (2026-09-26→27 — a docs continuum sealed tip-bind by tip-bind plus runtime, verify, e2e, sighting, iterate, orchestration and substrate lanes, gate batteries green into the hundreds); closing with the <b>nc9 audit waves</b> (2026-09-27 — pin re-anchoring, falsified-claim repairs, judgment-binding parity, evidence probes green at 667) at tip <code>ee907f1cf</code>. Standing truth unchanged: dispatch stays <b>OMP-only</b>, <code>crates/ufo-core-runtime</code> is the sole judge, and two clauses remain open (authenticated live-LLM specialist evidence; the private LKG byte-identical clone). Parent goal OPEN. An earlier entry the same day cited a GitHub mirror (<code>VeigaPunk/ufo-fsd-alpha</code>) at 1,531 commits through <code>72ab84a8</code>; that mirror diverges from the Origin (its tip does not exist there) and has been retracted — <b>the Origin is the only source of record</b>.</p></div></div></section>
+
+
+<!-- ================= 06 / THE DREAM ================= -->
+<section id="dream" aria-labelledby="dream-title">
+  <div class="shead rv"><span class="num">06</span><h2 id="dream-title" data-i18n="s6.title">The dream</h2><span class="meta" data-i18n="s6.meta">field artifact · 2026-08</span></div>
+
+  <div class="dreamgrid rv">
+    <figure class="dreamfig">
+      <img id="dreamimg" src="vessel.webp" width="460" height="613" loading="lazy" decoding="async" alt="The blue vessel — hero 6, flight mode. orange robot and purple companion riding the hull" data-i18n-alt="s6.imgalt">
+      <figcaption data-i18n="s6.cap">the vessel — big hero 6, flight mode. soft exterior, hardcore engineering underneath.</figcaption>
+    </figure>
+    <div class="dreamquote">
+      <p class="dq-label" data-i18n="s6.label">recovered from a denim tag · A.A.OM</p>
+      <blockquote class="dq" data-i18n="s6.quote">
+        "We have a dream, very nice dream.<br>
+        We have a style, very nice style.<br>
+        It's beautiful.<br>
+        With passion to try best dreaming the future."
+      </blockquote>
+      <p class="dq-note" data-i18n="s6.note">Read at 3:47 AM, mid-session, and filed under mission statement.
+      Dreaming the future with passion is the whole operation. The tag stays.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <pre class="touch" aria-hidden="true">   ######@@@@@@@+*###@@.                                                            *##
+ *#@#@@@@@@@@@@@@@@#@==                                                          *##@@@
+@@@@@@@@@@@@@@@@@@@@@##@:                                                    :@##@@@@@@
+@@@@*::::=@@@@@@@@@@@@@@*                                                 #@#@@@@@@@@@@
+@=.:..... #@@@@@@@@@@@@@@@#  .                                     @@@@@@@@@@@@@@@@@@@@
+@= .......:@@@@@@@#.:@@@@@@@#..                              .@@@@@@@@@@*.#*.@@@@@@@@@@
+@..........*@@@@@@* ..::::::@@#                     =@@@@@@@@@@@@@@@@@:@+ :.*@@@@@@@@@@
++.........*#@@@@@@@:.........=@@                 =@@@@@@@@@@@@@@@@@@..:+..:+*@@@@@@@@@@
+........+.  @@:+@@@@. +........@@              =@@@:@@@@@@@..#@@@@@+........... ** ...+
+.......+    +@:.*@@@#  ...........            =@=......=@*# @@@@@@@....................
+......+      =@@@@@@@@#..  .... .:.            .@*    +== .+@@# #+ ....................
+....:+          @@@@@@@=.  ....  #@:                    ::+@@#.:.......::...........::=
+...:+             :@@@+:..  .... .@:                   .@@@* :........:@=          .=*@
+.::+               :@@:.*=  ....                      .@@* ..@#::+:..=@:
+:=:                   .+#*.  . .                     :###:=:.:@#:@::*@:
++                     . :+                           @*:..@=:.  ===@@.
+                                                     .@@:==.* .:#@@*
+                                                      :+ +:+. .+.
+                                                      :#:*.* +:+
+                                                      :@:+=* #+=</pre>
+  <p class="fquote" data-i18n="f.quote"><b>Frontier is not a place. Its a perpetual moving target.</b><br>
+  It is the practice of keeping the map true while everything underneath it changes.</p>
+  <p class="fmark" data-i18n="mark.harness"><b>"What you call harness, we call substrate."</b><sup class="tm">™</sup></p>
+  <p class="fmarknote" data-i18n="mark.harness.note">Validated by <b>Kimi™</b> — perfectly aligned with the operator’s view and the ufo-fsd concept.</p>
+  <p class="fmeta" data-i18n="f.meta1">plazir-27 — a frontier operation by <a href="https://github.com/VeigaPunk">VeigaPunk</a> · doctrine: ufo-fsd · posture: move fast, break things, iterate cheap, in parallel</p>
+  <p class="fmeta fmeta-gap" data-i18n="f.meta2">charter: <a href="https://github.com/VeigaPunk/charter-ufo-fsd">charter-ufo-fsd</a> · live: <a href="https://veigapunk.github.io/charter-ufo-fsd/">veigapunk.github.io/charter-ufo-fsd</a> · paper: <a href="papers/umwelt-frontier-orchestrator.pdf">The Umwelt-Frontier Orchestrator (PDF)</a></p>
+  <p class="fwen" data-i18n="f.wen">文明 — the light of culture.</p>
+  <p class="fart" data-i18n="f.art">no prior art. only current art, done live.</p>
+</footer>
+
+<a id="kimi-badge" href="https://www.kimi.ai/activities/invite/share?scenario=invite&amp;from=share_poster&amp;invitation_code=W6NGNP" target="_blank" rel="sponsored nofollow noopener" aria-label="PLAZIR runs on Kimi (invite referral, opens in new tab)" data-i18n="badge.runs" data-kimi-tld="ai">PLAZIR runs on <b>Kimi™</b></a>
+
+<script src="i18n.js?v=kimi-ref1" defer></script>
+<script src="main.js?v=kimi-ref1" defer></script>
+</body>
+</html>

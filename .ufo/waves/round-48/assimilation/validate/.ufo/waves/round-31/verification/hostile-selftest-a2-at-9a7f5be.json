@@ -1,0 +1,105 @@
+{
+ "schema": "kake-citing-set-hostile-v1",
+ "passed": true,
+ "runner": "/tmp/kake-r31-a2/exp-9a7f5be/tree/scripts/citing_set_selftest.py",
+ "cases": [
+  {
+   "case": "P1-selftest-argv",
+   "passed": true,
+   "detail": {
+    "gap": "N1",
+    "hostile": [
+     "h1a",
+     "h1b",
+     "h1c"
+    ],
+    "exit": 1,
+    "timedOut": false,
+    "reasons": {
+     "h1a": "case.json argv refused: --selftest",
+     "h1b": "case.json argv refused: --self",
+     "h1c": "case.json argv refused: --selftest"
+    },
+    "canary": false,
+    "victimUnchanged": true
+   }
+  },
+  {
+   "case": "P2-fixture-dot-git",
+   "passed": true,
+   "detail": {
+    "gap": "N2",
+    "hostile": [
+     "h2a",
+     "h2b"
+    ],
+    "exit": 1,
+    "timedOut": false,
+    "reasons": {
+     "h2a": "fixture carries a .git entry, refused: .git",
+     "h2b": "fixture carries a .git entry, refused: .git"
+    },
+    "canary": false,
+    "victimUnchanged": true
+   }
+  },
+  {
+   "case": "P3-commit-without-init",
+   "passed": true,
+   "detail": {
+    "gap": "N3",
+    "hostile": [
+     "h3"
+    ],
+    "exit": 1,
+    "timedOut": false,
+    "reasons": {
+     "h3": "case.json setup op 'git_commit' needs an earlier 'git_init'"
+    },
+    "canary": false,
+    "victimUnchanged": true
+   }
+  },
+  {
+   "case": "P4-expected-json-guard",
+   "passed": true,
+   "detail": {
+    "gap": "N5",
+    "hostile": [
+     "h4a",
+     "h4b",
+     "h4c"
+    ],
+    "exit": 1,
+    "timedOut": false,
+    "reasons": {
+     "h4a": "expected.json unreadable (symlinks are refused): [Errno 40] Too many levels of symbolic links: '/tmp/kake-r31-a2/exp-9a7f5be/t1/P4-expected-json-guard/fixtures/h4a/expected.json'",
+     "h4b": "expected.json must be at most 1048576 bytes",
+     "h4c": "expected.json must be a regular file"
+    },
+    "canary": false,
+    "victimUnchanged": true
+   }
+  },
+  {
+   "case": "P5-symlinked-case",
+   "passed": true,
+   "detail": {
+    "gap": "N6",
+    "hostile": [
+     "h5",
+     ".h5b"
+    ],
+    "exit": 1,
+    "timedOut": false,
+    "reasons": {
+     ".h5b": "symlinked case directory refused",
+     "h5": "symlinked case directory refused"
+    },
+    "canary": false,
+    "victimUnchanged": true
+   }
+  }
+ ],
+ "error": null
+}

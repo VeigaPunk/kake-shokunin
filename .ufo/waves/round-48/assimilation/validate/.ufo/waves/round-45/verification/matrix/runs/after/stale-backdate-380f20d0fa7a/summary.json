@@ -1,0 +1,90 @@
+{
+ "label": "",
+ "classesMode": "v5",
+ "expect": "witnessed",
+ "counter": ".ufo/waves/round-45/fixtures/stale-backdate/fake_counter.py",
+ "counterSha256": "77aa39c7eefa7b7cab366f42d141a49a72cea5060deca118e88a307b4cd9e129",
+ "driverSha256": "9b824d958d1494471f45ad84d6ae38ce600518311b1fb95af51b1098aac8a400",
+ "predicate": "stale-backdate fixture counter",
+ "controls": 0,
+ "classKeys": [
+  "G1",
+  "G2",
+  "G3",
+  "G4",
+  "G5",
+  "G6",
+  "G7",
+  "G8",
+  "G9",
+  "G10"
+ ],
+ "witnessed": 0,
+ "witnessedNames": [],
+ "witnessedByClass": {},
+ "notMet": 0,
+ "notMetNames": [],
+ "metNames": [],
+ "errors": [
+  "ctl1:stale_receipt",
+  "build#1:stale_receipt",
+  "build#2:stale_receipt",
+  "build#3:stale_receipt"
+ ],
+ "build": [
+  {
+   "run": 1,
+   "exit": 0,
+   "met": false,
+   "seed": 424242,
+   "equalRuns": null,
+   "ratios": null,
+   "receipt": "build-1.json",
+   "error": "stale_receipt"
+  },
+  {
+   "run": 2,
+   "exit": 0,
+   "met": false,
+   "seed": 424242,
+   "equalRuns": null,
+   "ratios": null,
+   "receipt": "build-2.json",
+   "error": "stale_receipt"
+  },
+  {
+   "run": 3,
+   "exit": 0,
+   "met": false,
+   "seed": 424242,
+   "equalRuns": null,
+   "ratios": null,
+   "receipt": "build-3.json",
+   "error": "stale_receipt"
+  }
+ ],
+ "rows": [
+  {
+   "name": "ctl1",
+   "family": "prefix",
+   "class": "G5",
+   "path": ".ufo/waves/round-45/fixtures/stale-backdate/ctl1.py",
+   "sha256": "00ece64886137a23b1b6a8e7f7795885d2e23ae3c1c2a0dfdb8f05f085503238",
+   "exit": 0,
+   "met": false,
+   "equalRuns": null,
+   "seed": 424242,
+   "caughtBy": [
+    "G2"
+   ],
+   "receipt": "tools/ctl1.json",
+   "error": "stale_receipt",
+   "classCaught": [
+    "G2"
+   ],
+   "legacyCaught": []
+  }
+ ],
+ "ok": false,
+ "verdict": "witnessed 0/0 notMet=0 build met 0/3"
+}

@@ -1,0 +1,783 @@
+{
+ "schema": "kake-mutant-ledger-v1",
+ "seat": "KakeR30.MutBaseRunnerLedger",
+ "base": {
+  "lane": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+  "revision": "035668132250b75b38d399e86e540b0a0371efbc",
+  "gate": "scripts/citing_set.py",
+  "gateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+  "gateSha256AfterLedger": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+  "runner": "scripts/citing_set_selftest.py",
+  "runnerSha256": "3c167895c7f3a4acf531886816bffcbf189d299d6137ca12096265855dd62a1c",
+  "fixtureCases": 29
+ },
+ "detector": {
+  "command": "python3 -B <tree>/scripts/citing_set_selftest.py --root <tree> --tmpdir <scratch>",
+  "killed": "runner exit code != 0",
+  "survived": "runner exit code == 0",
+  "baseline": "pristine exported tree: runner exit 0, 29 cases, 0 failed"
+ },
+ "mutation": {
+  "operator": "every double-quoted occurrence of \"<code>\" in the gate becomes \"<code>_mutated\"",
+  "scope": "one reason code per mutant, one tree copy per mutant",
+  "restoration": "each mutant ran in its own copy of the exported tree; the base tree bytes were never written"
+ },
+ "codes": 23,
+ "killed": 0,
+ "survived": 23,
+ "controls": [
+  {
+   "id": "K-baseline",
+   "what": "pristine exported tree, unmodified gate",
+   "command": "python3 -B base/scripts/citing_set_selftest.py --root base --tmpdir scratch/base-tmp",
+   "runnerExit": 0,
+   "verdict": "clean",
+   "cases": 29,
+   "failed": 0,
+   "meaning": "the detector passes on pristine bytes, so a non-zero exit is a real detection"
+  },
+  {
+   "id": "K-positive",
+   "what": "finding id renamed: \"input_invalid\" -> \"input_invalid_control\"",
+   "command": "cp -r base ctrl && sed -i 's/\"input_invalid\"/\"input_invalid_control\"/g' ctrl/scripts/citing_set.py && python3 -B ctrl/scripts/citing_set_selftest.py --root ctrl --tmpdir scratch/tmp-ctrl",
+   "runnerExit": 1,
+   "verdict": "failed",
+   "cases": 29,
+   "failed": 2,
+   "meaning": "the detector does kill a mutation of the field it compares (the finding id), so the 23 survivors are a coverage gap in the compared field, not a broken detector"
+  }
+ ],
+ "summary": {
+  "verdict": "survived-all",
+  "statement": "Every reason code in the base gate survives renaming under the committed fixture runner: the runner compares finding ids and exit codes only, never the reason field, so a renamed reason code leaves all 29 fixture expectations satisfied.",
+  "codesWithEquivalentMutant": [],
+  "codesProvokedByProbe": 23,
+  "codesChangingGateOutput": 23,
+  "codesNamedByCommittedFixtures": [
+   "descending_range",
+   "document_not_json",
+   "document_shape_invalid",
+   "span_too_large"
+  ]
+ },
+ "rows": [
+  {
+   "code": "absolute_path_not_allowed",
+   "gateLines": [
+    183
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "7d0effc065febb212a81a3eba895da9a17c47a271f3c827e1fc8b0e47969032d",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-absolute_path_not_allowed && sed -i 's/\"absolute_path_not_allowed\"/\"absolute_path_not_allowed_mutated\"/g' work/mut-absolute_path_not_allowed/scripts/citing_set.py",
+    "python3 -B work/mut-absolute_path_not_allowed/scripts/citing_set_selftest.py --root work/mut-absolute_path_not_allowed --tmpdir scratch/tmp-absolute_path_not_allowed",
+    "python3 -B work/mut-absolute_path_not_allowed/scripts/citing_set.py --root work/mut-absolute_path_not_allowed/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "absolute_path_not_allowed"
+   ],
+   "probeMutantReasons": [
+    "absolute_path_not_allowed_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "corpus_directory_missing",
+   "gateLines": [
+    255,
+    382
+   ],
+   "renamedOccurrences": 2,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "c5b56407273f8b880ea80b007b4e9623b82d2db56c9bed0bb53ea59603bd1d97",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-corpus_directory_missing && sed -i 's/\"corpus_directory_missing\"/\"corpus_directory_missing_mutated\"/g' work/mut-corpus_directory_missing/scripts/citing_set.py",
+    "python3 -B work/mut-corpus_directory_missing/scripts/citing_set_selftest.py --root work/mut-corpus_directory_missing --tmpdir scratch/tmp-corpus_directory_missing",
+    "python3 -B work/mut-corpus_directory_missing/scripts/citing_set.py --root work/mut-corpus_directory_missing/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "corpus_directory_missing"
+   ],
+   "probeMutantReasons": [
+    "corpus_directory_missing_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "corpus_directory_unreadable",
+   "gateLines": [
+    258,
+    280
+   ],
+   "renamedOccurrences": 2,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "bfebd6e312d03284a1b92f4ed25e8592b2f5c026ea61eacf7b9ef5ef025c0134",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-corpus_directory_unreadable && sed -i 's/\"corpus_directory_unreadable\"/\"corpus_directory_unreadable_mutated\"/g' work/mut-corpus_directory_unreadable/scripts/citing_set.py",
+    "python3 -B work/mut-corpus_directory_unreadable/scripts/citing_set_selftest.py --root work/mut-corpus_directory_unreadable --tmpdir scratch/tmp-corpus_directory_unreadable",
+    "python3 -B work/mut-corpus_directory_unreadable/scripts/citing_set.py --root work/mut-corpus_directory_unreadable/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "corpus_directory_unreadable"
+   ],
+   "probeMutantReasons": [
+    "corpus_directory_unreadable_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "corpus_empty",
+   "gateLines": [
+    270
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "c76f2258a78e5268ab3a1f5e482260aa07c481a6b3e94e95361e6339bed5aa1c",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-corpus_empty && sed -i 's/\"corpus_empty\"/\"corpus_empty_mutated\"/g' work/mut-corpus_empty/scripts/citing_set.py",
+    "python3 -B work/mut-corpus_empty/scripts/citing_set_selftest.py --root work/mut-corpus_empty --tmpdir scratch/tmp-corpus_empty",
+    "python3 -B work/mut-corpus_empty/scripts/citing_set.py --root work/mut-corpus_empty/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "corpus_empty"
+   ],
+   "probeMutantReasons": [
+    "corpus_empty_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "corpus_file_not_utf8",
+   "gateLines": [
+    496
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "c7f32ba3b7f689dda3f843b6f52d7be600b91ab856a7ce8137143cc7c57a8e6e",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-corpus_file_not_utf8 && sed -i 's/\"corpus_file_not_utf8\"/\"corpus_file_not_utf8_mutated\"/g' work/mut-corpus_file_not_utf8/scripts/citing_set.py",
+    "python3 -B work/mut-corpus_file_not_utf8/scripts/citing_set_selftest.py --root work/mut-corpus_file_not_utf8 --tmpdir scratch/tmp-corpus_file_not_utf8",
+    "python3 -B work/mut-corpus_file_not_utf8/scripts/citing_set.py --root work/mut-corpus_file_not_utf8/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "corpus_file_not_utf8"
+   ],
+   "probeMutantReasons": [
+    "corpus_file_not_utf8_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "descending_range",
+   "gateLines": [
+    517
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "87727fa35b97e74671113133b5a824a427af8b3697b962ae7ea625f67376dea0",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [
+    "13-descending-range"
+   ],
+   "commands": [
+    "cp -r base work/mut-descending_range && sed -i 's/\"descending_range\"/\"descending_range_mutated\"/g' work/mut-descending_range/scripts/citing_set.py",
+    "python3 -B work/mut-descending_range/scripts/citing_set_selftest.py --root work/mut-descending_range --tmpdir scratch/tmp-descending_range",
+    "python3 -B work/mut-descending_range/scripts/citing_set.py --root work/mut-descending_range/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "descending_range"
+   ],
+   "probeMutantReasons": [
+    "descending_range_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "document_not_json",
+   "gateLines": [
+    419
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "7c575fcd245696bfed99144eaac3b2e3726affc4ab8209af2ab2095f9c2d4ecd",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [
+    "15-invalid-json-population"
+   ],
+   "commands": [
+    "cp -r base work/mut-document_not_json && sed -i 's/\"document_not_json\"/\"document_not_json_mutated\"/g' work/mut-document_not_json/scripts/citing_set.py",
+    "python3 -B work/mut-document_not_json/scripts/citing_set_selftest.py --root work/mut-document_not_json --tmpdir scratch/tmp-document_not_json",
+    "python3 -B work/mut-document_not_json/scripts/citing_set.py --root work/mut-document_not_json/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "document_not_json"
+   ],
+   "probeMutantReasons": [
+    "document_not_json_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "document_not_regular_file",
+   "gateLines": [
+    238
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "d1b460726ae7a731723653948ebcc7ea3a0e9dce3ab1044e932dc0330abeba6b",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-document_not_regular_file && sed -i 's/\"document_not_regular_file\"/\"document_not_regular_file_mutated\"/g' work/mut-document_not_regular_file/scripts/citing_set.py",
+    "python3 -B work/mut-document_not_regular_file/scripts/citing_set_selftest.py --root work/mut-document_not_regular_file --tmpdir scratch/tmp-document_not_regular_file",
+    "python3 -B work/mut-document_not_regular_file/scripts/citing_set.py --root work/mut-document_not_regular_file/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "document_not_regular_file"
+   ],
+   "probeMutantReasons": [
+    "document_not_regular_file_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "document_not_utf8",
+   "gateLines": [
+    415
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "aacd542a6b6940f57b64df3795de422f3644c70eb5b1ddab8c8535899c7174ac",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-document_not_utf8 && sed -i 's/\"document_not_utf8\"/\"document_not_utf8_mutated\"/g' work/mut-document_not_utf8/scripts/citing_set.py",
+    "python3 -B work/mut-document_not_utf8/scripts/citing_set_selftest.py --root work/mut-document_not_utf8 --tmpdir scratch/tmp-document_not_utf8",
+    "python3 -B work/mut-document_not_utf8/scripts/citing_set.py --root work/mut-document_not_utf8/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "document_not_utf8"
+   ],
+   "probeMutantReasons": [
+    "document_not_utf8_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "document_shape_invalid",
+   "gateLines": [
+    421,
+    428,
+    433,
+    436,
+    449,
+    453,
+    457,
+    459
+   ],
+   "renamedOccurrences": 8,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "9e0e892aa89e61732478d5d3e3f32959d9def2d2f4ab6d639e2c6b60db5c3885",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [
+    "16-invalid-population-shape"
+   ],
+   "commands": [
+    "cp -r base work/mut-document_shape_invalid && sed -i 's/\"document_shape_invalid\"/\"document_shape_invalid_mutated\"/g' work/mut-document_shape_invalid/scripts/citing_set.py",
+    "python3 -B work/mut-document_shape_invalid/scripts/citing_set_selftest.py --root work/mut-document_shape_invalid --tmpdir scratch/tmp-document_shape_invalid",
+    "python3 -B work/mut-document_shape_invalid/scripts/citing_set.py --root work/mut-document_shape_invalid/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "document_shape_invalid"
+   ],
+   "probeMutantReasons": [
+    "document_shape_invalid_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "document_unreadable",
+   "gateLines": [
+    234,
+    244
+   ],
+   "renamedOccurrences": 2,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "1750e37aad6459d024c67b8b689548693b47f541b0c530e8ec6d268c2771bc49",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-document_unreadable && sed -i 's/\"document_unreadable\"/\"document_unreadable_mutated\"/g' work/mut-document_unreadable/scripts/citing_set.py",
+    "python3 -B work/mut-document_unreadable/scripts/citing_set_selftest.py --root work/mut-document_unreadable --tmpdir scratch/tmp-document_unreadable",
+    "python3 -B work/mut-document_unreadable/scripts/citing_set.py --root work/mut-document_unreadable/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "document_unreadable"
+   ],
+   "probeMutantReasons": [
+    "document_unreadable_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "empty_path",
+   "gateLines": [
+    180,
+    188
+   ],
+   "renamedOccurrences": 2,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "8d11054f9190021a44ec8d9c51de44cc6ca73949425351da2bad250882244c08",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-empty_path && sed -i 's/\"empty_path\"/\"empty_path_mutated\"/g' work/mut-empty_path/scripts/citing_set.py",
+    "python3 -B work/mut-empty_path/scripts/citing_set_selftest.py --root work/mut-empty_path --tmpdir scratch/tmp-empty_path",
+    "python3 -B work/mut-empty_path/scripts/citing_set.py --root work/mut-empty_path/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "empty_path"
+   ],
+   "probeMutantReasons": [
+    "empty_path_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "git_command_failed",
+   "gateLines": [
+    355
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "ca578bf69e01767e874bc700515a42c6a3f0cd5a32224c0b74dce66e77bce7c0",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-git_command_failed && sed -i 's/\"git_command_failed\"/\"git_command_failed_mutated\"/g' work/mut-git_command_failed/scripts/citing_set.py",
+    "python3 -B work/mut-git_command_failed/scripts/citing_set_selftest.py --root work/mut-git_command_failed --tmpdir scratch/tmp-git_command_failed",
+    "python3 -B work/mut-git_command_failed/scripts/citing_set.py --root work/mut-git_command_failed/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "git_command_failed"
+   ],
+   "probeMutantReasons": [
+    "git_command_failed_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "git_unavailable",
+   "gateLines": [
+    323,
+    339,
+    353
+   ],
+   "renamedOccurrences": 3,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "307b12be19fda22f2e7b44ba8aa67063936dbfebfdbf730dab2e7d77cffb529a",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-git_unavailable && sed -i 's/\"git_unavailable\"/\"git_unavailable_mutated\"/g' work/mut-git_unavailable/scripts/citing_set.py",
+    "python3 -B work/mut-git_unavailable/scripts/citing_set_selftest.py --root work/mut-git_unavailable --tmpdir scratch/tmp-git_unavailable",
+    "python3 -B work/mut-git_unavailable/scripts/citing_set.py --root work/mut-git_unavailable/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "git_unavailable"
+   ],
+   "probeMutantReasons": [
+    "git_unavailable_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "not_a_directory",
+   "gateLines": [
+    266,
+    379
+   ],
+   "renamedOccurrences": 2,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "1f5adbca43c2a0e487fff6674f2d36c1aa9bd91fe44ea819750be3f692cd364d",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-not_a_directory && sed -i 's/\"not_a_directory\"/\"not_a_directory_mutated\"/g' work/mut-not_a_directory/scripts/citing_set.py",
+    "python3 -B work/mut-not_a_directory/scripts/citing_set_selftest.py --root work/mut-not_a_directory --tmpdir scratch/tmp-not_a_directory",
+    "python3 -B work/mut-not_a_directory/scripts/citing_set.py --root work/mut-not_a_directory/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "not_a_directory"
+   ],
+   "probeMutantReasons": [
+    "not_a_directory_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "not_a_regular_file",
+   "gateLines": [
+    294,
+    372,
+    377
+   ],
+   "renamedOccurrences": 3,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "90311e42c20b0f90ae9ab7df888f1b8c24054b57cb83da8872b3ca140cac871f",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-not_a_regular_file && sed -i 's/\"not_a_regular_file\"/\"not_a_regular_file_mutated\"/g' work/mut-not_a_regular_file/scripts/citing_set.py",
+    "python3 -B work/mut-not_a_regular_file/scripts/citing_set_selftest.py --root work/mut-not_a_regular_file --tmpdir scratch/tmp-not_a_regular_file",
+    "python3 -B work/mut-not_a_regular_file/scripts/citing_set.py --root work/mut-not_a_regular_file/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "not_a_regular_file"
+   ],
+   "probeMutantReasons": [
+    "not_a_regular_file_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "path_escapes_root",
+   "gateLines": [
+    186,
+    226
+   ],
+   "renamedOccurrences": 2,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "70023e076de3d4a32da6089b896faebf53ac5e2e1d284fcf52c9ad0e0ee5a03c",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-path_escapes_root && sed -i 's/\"path_escapes_root\"/\"path_escapes_root_mutated\"/g' work/mut-path_escapes_root/scripts/citing_set.py",
+    "python3 -B work/mut-path_escapes_root/scripts/citing_set_selftest.py --root work/mut-path_escapes_root --tmpdir scratch/tmp-path_escapes_root",
+    "python3 -B work/mut-path_escapes_root/scripts/citing_set.py --root work/mut-path_escapes_root/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "path_escapes_root"
+   ],
+   "probeMutantReasons": [
+    "path_escapes_root_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "population_id_unreachable",
+   "gateLines": [
+    439
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "e46a3e52fba9eafd05742a1bd3879acfca95ec5f8a4e40e346273a78e5ba3b97",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-population_id_unreachable && sed -i 's/\"population_id_unreachable\"/\"population_id_unreachable_mutated\"/g' work/mut-population_id_unreachable/scripts/citing_set.py",
+    "python3 -B work/mut-population_id_unreachable/scripts/citing_set_selftest.py --root work/mut-population_id_unreachable --tmpdir scratch/tmp-population_id_unreachable",
+    "python3 -B work/mut-population_id_unreachable/scripts/citing_set.py --root work/mut-population_id_unreachable/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "population_id_unreachable"
+   ],
+   "probeMutantReasons": [
+    "population_id_unreachable_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "revision_not_found",
+   "gateLines": [
+    330,
+    341
+   ],
+   "renamedOccurrences": 2,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "f5dc7bcb44e0ac047e6c9daad361a8fb11389d6a8889c449e74d88cf6290426f",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-revision_not_found && sed -i 's/\"revision_not_found\"/\"revision_not_found_mutated\"/g' work/mut-revision_not_found/scripts/citing_set.py",
+    "python3 -B work/mut-revision_not_found/scripts/citing_set_selftest.py --root work/mut-revision_not_found --tmpdir scratch/tmp-revision_not_found",
+    "python3 -B work/mut-revision_not_found/scripts/citing_set.py --root work/mut-revision_not_found/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "revision_not_found"
+   ],
+   "probeMutantReasons": [
+    "revision_not_found_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "root_not_a_directory",
+   "gateLines": [
+    711
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "827b6475d3502f3c83c5ab8a8a60b443c4aa6112209317ec13ec138c053bda3d",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-root_not_a_directory && sed -i 's/\"root_not_a_directory\"/\"root_not_a_directory_mutated\"/g' work/mut-root_not_a_directory/scripts/citing_set.py",
+    "python3 -B work/mut-root_not_a_directory/scripts/citing_set_selftest.py --root work/mut-root_not_a_directory --tmpdir scratch/tmp-root_not_a_directory",
+    "python3 -B work/mut-root_not_a_directory/scripts/citing_set.py --root work/mut-root_not_a_directory/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "root_not_a_directory"
+   ],
+   "probeMutantReasons": [
+    "root_not_a_directory_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "root_not_repository_top_level",
+   "gateLines": [
+    325
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "5e76f19730df3e8071d8b092f27ab2772847320b88c94670808a439957aa3dd1",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-root_not_repository_top_level && sed -i 's/\"root_not_repository_top_level\"/\"root_not_repository_top_level_mutated\"/g' work/mut-root_not_repository_top_level/scripts/citing_set.py",
+    "python3 -B work/mut-root_not_repository_top_level/scripts/citing_set_selftest.py --root work/mut-root_not_repository_top_level --tmpdir scratch/tmp-root_not_repository_top_level",
+    "python3 -B work/mut-root_not_repository_top_level/scripts/citing_set.py --root work/mut-root_not_repository_top_level/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "root_not_repository_top_level"
+   ],
+   "probeMutantReasons": [
+    "root_not_repository_top_level_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "span_too_large",
+   "gateLines": [
+    529
+   ],
+   "renamedOccurrences": 1,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "4557044994a5c5c1255c0fa33231af40b5dd36e2929998aa908102fe295603d1",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [
+    "14-oversize-range"
+   ],
+   "commands": [
+    "cp -r base work/mut-span_too_large && sed -i 's/\"span_too_large\"/\"span_too_large_mutated\"/g' work/mut-span_too_large/scripts/citing_set.py",
+    "python3 -B work/mut-span_too_large/scripts/citing_set_selftest.py --root work/mut-span_too_large --tmpdir scratch/tmp-span_too_large",
+    "python3 -B work/mut-span_too_large/scripts/citing_set.py --root work/mut-span_too_large/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "span_too_large"
+   ],
+   "probeMutantReasons": [
+    "span_too_large_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  },
+  {
+   "code": "symlink_rejected",
+   "gateLines": [
+    264,
+    288,
+    375
+   ],
+   "renamedOccurrences": 3,
+   "pristineGateSha256": "d7e79ba102ff27761d830f95ad91e1970ebfcc942eea9728a0bdf3b0c3479d48",
+   "mutantGateSha256": "e4996e4e034cd2fc459280aecd7dd69c97b77c9dad6b237dfa2c2d354eb2d959",
+   "runnerExit": 0,
+   "runnerCases": 29,
+   "runnerFailed": 0,
+   "runnerVerdict": "clean",
+   "status": "Survived",
+   "statusReason": "committed runner exited 0 on the renamed gate",
+   "observedByCommittedFixtures": [],
+   "commands": [
+    "cp -r base work/mut-symlink_rejected && sed -i 's/\"symlink_rejected\"/\"symlink_rejected_mutated\"/g' work/mut-symlink_rejected/scripts/citing_set.py",
+    "python3 -B work/mut-symlink_rejected/scripts/citing_set_selftest.py --root work/mut-symlink_rejected --tmpdir scratch/tmp-symlink_rejected",
+    "python3 -B work/mut-symlink_rejected/scripts/citing_set.py --root work/mut-symlink_rejected/scripts/fixtures/citing-set/<case> --population population.json --ledger ledger.json --json"
+   ],
+   "probeProvokesCode": true,
+   "probePristineReasons": [
+    "symlink_rejected"
+   ],
+   "probeMutantReasons": [
+    "symlink_rejected_mutated"
+   ],
+   "probeOutputChanged": true,
+   "equivalentMutant": false
+  }
+ ]
+}

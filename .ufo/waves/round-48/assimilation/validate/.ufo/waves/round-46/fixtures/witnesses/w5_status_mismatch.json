@@ -1,0 +1,24 @@
+{
+ "checks": [
+  {
+   "expect": {
+    "action": "redirect",
+    "location": "/b",
+    "status": 301
+   },
+   "id": "c1",
+   "path": "/a"
+  }
+ ],
+ "defaultStatus": 301,
+ "resourcePrecedence": true,
+ "rules": [
+  {
+   "action": "redirect",
+   "destination": "/b",
+   "source": "/a",
+   "status": 302
+  }
+ ],
+ "version": 1
+}

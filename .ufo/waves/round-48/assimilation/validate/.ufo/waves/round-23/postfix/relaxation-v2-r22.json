@@ -1,0 +1,12 @@
+{
+ "argv": [
+  "python3",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/relaxation_probe.py",
+  "--validator",
+  "/tmp/kake-r23-final-before/r22-canonical.py"
+ ],
+ "exit": 1,
+ "stdout": "{\n \"validator\": \"/tmp/kake-r23-final-before/r22-canonical.py\",\n \"passed\": false,\n \"met\": 9,\n \"total\": 13,\n \"cases\": [\n  {\n   \"case\": \"body_base\",\n   \"expect\": \"not clean\",\n   \"exit\": 0,\n   \"verdict\": \"clean\",\n   \"ok\": false\n  },\n  {\n   \"case\": \"body_base_selfclose\",\n   \"expect\": \"not clean\",\n   \"exit\": 0,\n   \"verdict\": \"clean\",\n   \"ok\": false\n  },\n  {\n   \"case\": \"foreignobject_base\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"svg_head_breakout_base\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"svg_mismatched_end_base\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"svg_title_hidden_base\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"svg_style_hidden_base\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"svg_script_hidden_base\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"math_annotation_base\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"foreign_canonical\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"foreign_stray_end\",\n   \"expect\": \"not clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": true\n  },\n  {\n   \"case\": \"control_body_svg\",\n   \"expect\": \"clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": false\n  },\n  {\n   \"case\": \"control_void_selfclose\",\n   \"expect\": \"clean\",\n   \"exit\": 2,\n   \"verdict\": \"could-not-evaluate\",\n   \"ok\": false\n  }\n ]\n}\n",
+ "stderr": "",
+ "reproduceRunner": "git show b539cc1:scripts/canonical_audit.py > /tmp/<fresh>/r22-canonical.py"
+}

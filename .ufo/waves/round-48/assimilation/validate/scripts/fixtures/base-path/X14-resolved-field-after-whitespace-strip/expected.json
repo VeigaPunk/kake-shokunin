@@ -1,0 +1,29 @@
+{
+  "argv": null,
+  "exit": 1,
+  "findings": [
+    {
+      "attribute": "href",
+      "element": "a",
+      "page": "https://o.github.io/repo/",
+      "reason": "outside_base_path",
+      "resolved": "https://o.github.io/x.css",
+      "value": " /x.css "
+    },
+    {
+      "attribute": "href",
+      "element": "a",
+      "page": "https://o.github.io/repo/",
+      "reason": "outside_base_path",
+      "resolved": "https://o.github.io/z",
+      "value": "/repo/%2e%2e/z"
+    }
+  ],
+  "id": "X14-resolved-field-after-whitespace-strip",
+  "kind": "regression",
+  "note": "round-29 wave-2 regression fixture; not part of the frozen C2 matrix",
+  "pagesChecked": 1,
+  "referencesChecked": 2,
+  "tool": "scripts/base_path_audit.py",
+  "verdict": "failed-policy"
+}

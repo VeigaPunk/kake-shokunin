@@ -1,0 +1,35 @@
+== polarity_check.py sha256
+7ebc5d6787ea9e037bbd35e0d86bbff73e212f7f9e74728162f260763ba96083  /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/polarity_check.py
+exit=0
+
+== key hashes (read as JSON only; the round-37 key is not touched)
+a690d39e912cf641baa14f101f461e31304ac336c59a41c9689aacf91e02f9ca  .ufo/waves/round-36/sealed/cases-v1.json
+44c94838f31af6740a3f1bb4123abe6cbb8df0bbdd3414de7acbb3838863ef1d  .ufo/waves/round-36/sealed/cases.json
+exit=0
+
+== RED: round-36 key v1 (bullets e and f have no body-decided finding)
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/polarity_check.py --key .ufo/waves/round-36/sealed/cases-v1.json
+PASS: bullet c: 4 case(s) each carry a body-decided finding and a body-decided hold (16 findings, 12 holds).
+PASS: bullet d: 4 case(s) each carry a body-decided finding and a body-decided hold (4 findings, 12 holds).
+FAIL: bullet e: 4 of 4 case(s) lack both polarities (k17, k18, k19, k20); body-decided findings 0, body-decided holds 12. A check whose correct outcome is a finding that only a body read can produce is required, and likewise a hold.
+FAIL: bullet f: 4 of 4 case(s) lack both polarities (k21, k22, k23, k24); body-decided findings 0, body-decided holds 12. A check whose correct outcome is a finding that only a body read can produce is required, and likewise a hold.
+exit=1
+
+== GREEN: round-36 key v2
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/polarity_check.py --key .ufo/waves/round-36/sealed/cases.json
+PASS: bullet c: 4 case(s) each carry a body-decided finding and a body-decided hold (16 findings, 12 holds).
+PASS: bullet d: 4 case(s) each carry a body-decided finding and a body-decided hold (4 findings, 12 holds).
+PASS: bullet e: 4 case(s) each carry a body-decided finding and a body-decided hold (8 findings, 12 holds).
+PASS: bullet f: 4 case(s) each carry a body-decided finding and a body-decided hold (4 findings, 12 holds).
+exit=0
+
+== RED on a constructed key whose only (e) finding is metadata-decided
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/polarity_check.py --key /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/key-metadata-only.json --body-bullets e
+FAIL: bullet e: 1 of 1 case(s) lack both polarities (z01); body-decided findings 0, body-decided holds 1. A check whose correct outcome is a finding that only a body read can produce is required, and likewise a hold.
+exit=1
+
+== GREEN on a constructed key carrying a body-decided finding and hold in (e)
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/polarity_check.py --key /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/key-both-polarities.json --body-bullets e
+PASS: bullet e: 1 case(s) each carry a body-decided finding and a body-decided hold (1 findings, 1 holds).
+exit=0
+

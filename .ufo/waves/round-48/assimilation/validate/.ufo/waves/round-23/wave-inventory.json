@@ -1,0 +1,98 @@
+{
+ "round": 23,
+ "planner": "L1-held",
+ "waves": [
+  {
+   "wave": "w1",
+   "seats": 69,
+   "roles": {
+    "reviewer": 33,
+    "scout": 19,
+    "connector": 5,
+    "critic": 2,
+    "mutation-tester": 2,
+    "sentinel": 1,
+    "simplifier": 1,
+    "scribe": 3,
+    "executor": 3
+   },
+   "dead": [],
+   "reports": 69
+  },
+  {
+   "wave": "w2",
+   "seats": 64,
+   "roles": {
+    "reviewer": 42,
+    "scout": 14,
+    "mutation-tester": 2,
+    "sentinel": 1,
+    "critic": 3,
+    "connector": 1,
+    "executor": 1
+   },
+   "dead": [
+    "HoldFireJournalCodes",
+    "StaleFreeReadVerbs",
+    "StaleGhpSubpathSpotcheck",
+    "HoldGhpSubpathSpotcheck",
+    "StaleKeeperTimerInert",
+    "HoldKeeperTimerInert",
+    "HoldKimiSubpathAudit",
+    "StaleMirrorPitfalls",
+    "HoldMirrorPitfalls",
+    "StaleOpsAutomation",
+    "StaleOriginRepos",
+    "HoldOriginRepos",
+    "StaleProbeDeltaAlerting",
+    "HoldProbeDeltaAlerting",
+    "StalePublishChannels",
+    "HoldPublishChannels",
+    "StalePublishQueue",
+    "HoldPublishQueue",
+    "HoldSitemapOrphanAudit",
+    "StaleSpeedrunPipeline",
+    "HoldSpeedrunPipeline",
+    "StaleVaultProperties",
+    "HoldPropertyMap",
+    "RecheckPlazir15Ghp",
+    "RecheckCharterGhp",
+    "RecheckDs4ccKimi",
+    "RecheckBurnerchromeKimi",
+    "RecheckVaultIndexKimi",
+    "RecheckLucarioGhp",
+    "RecheckPlazir15Kimi",
+    "RecheckCharterKimi",
+    "AttackBaseGuard",
+    "AttackForeignStack",
+    "AttackControlChars",
+    "AttackDuplicatePages",
+    "ReopenS031",
+    "ReviewKnowledgeDelta",
+    "ConnectR23Axes",
+    "ReviewUpstreamFixes"
+   ],
+   "reports": 25
+  }
+ ],
+ "residual": {
+  "seats": 6,
+  "roles": {
+   "reviewer": 5,
+   "critic": 1
+  },
+  "purpose": "new post-wave-2 fixes only, not replacing failed seats",
+  "dead": ["CritMetaRefreshBoundary", "FixCounterCoverage"],
+  "reports": 4
+ },
+ "recovery": {
+  "seats": 3,
+  "roles": {"reviewer": 2, "scout": 1},
+  "purpose": "read-only inherited evidence, claim and documentation audits; not replacing failed seats",
+  "names": ["RecoveryEvidenceAudit", "RecoveryClaimAudit", "RecoveryDocsAudit"],
+  "reports": 3,
+  "dead": [],
+  "evidence": "recovery-audits.json"
+ },
+ "dispatchedTotal": 142
+}

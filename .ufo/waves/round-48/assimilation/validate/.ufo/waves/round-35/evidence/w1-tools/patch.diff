@@ -1,0 +1,420 @@
+diff --git c/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/expected.json w/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/expected.json
+new file mode 100644
+index 0000000..905ac99
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/expected.json
+@@ -0,0 +1 @@
++{"exit":2,"verdict":"could-not-evaluate","pagesChecked":1,"findings":[{"reason":"page_unreadable"},{"reason":"page_unreadable"},{"reason":"og_type_multiple","property":"og:type"}],"findingIds":["page_unreadable:https://cards.example/input-multiple-unreadable/missing-a","page_unreadable:https://cards.example/input-multiple-unreadable/missing-b","https://cards.example/input-multiple-unreadable/policy:og_type_multiple:og:type"]}
+diff --git c/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/manifest.json w/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/manifest.json
+new file mode 100644
+index 0000000..7feeb17
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"missing-a.html","url":"https://cards.example/input-multiple-unreadable/missing-a"},{"file":"policy.html","url":"https://cards.example/input-multiple-unreadable/policy"},{"file":"missing-b.html","url":"https://cards.example/input-multiple-unreadable/missing-b"}]}
+diff --git c/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/policy.html w/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/policy.html
+new file mode 100644
+index 0000000..fc58773
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_multiple_unreadable_with_policy/policy.html
+@@ -0,0 +1 @@
++<html><head><link rel="canonical" href="https://cards.example/input-multiple-unreadable/policy"><meta property="og:title" content="Title"><meta property="og:type" content="website"><meta property="og:type" content="article"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/input-multiple-unreadable/policy"></head></html>
+diff --git c/scripts/fixtures/link-preview/input_non_regular_with_policy/expected.json w/scripts/fixtures/link-preview/input_non_regular_with_policy/expected.json
+new file mode 100644
+index 0000000..1e5d8b4
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_non_regular_with_policy/expected.json
+@@ -0,0 +1 @@
++{"exit":2,"verdict":"could-not-evaluate","pagesChecked":1,"findings":[{"reason":"page_unreadable"},{"reason":"og_required_missing","property":"og:type"},{"reason":"og_required_missing","property":"og:image"},{"reason":"og_required_missing","property":"og:url"}],"findingIds":["page_unreadable:https://cards.example/input-non-regular-with-policy/directory","https://cards.example/input-non-regular-with-policy/partial:og_required_missing:og:type","https://cards.example/input-non-regular-with-policy/partial:og_required_missing:og:image","https://cards.example/input-non-regular-with-policy/partial:og_required_missing:og:url"]}
+diff --git c/scripts/fixtures/link-preview/input_non_regular_with_policy/manifest.json w/scripts/fixtures/link-preview/input_non_regular_with_policy/manifest.json
+new file mode 100644
+index 0000000..000c68f
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_non_regular_with_policy/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"not-a-file","url":"https://cards.example/input-non-regular-with-policy/directory"},{"file":"partial.html","url":"https://cards.example/input-non-regular-with-policy/partial"}]}
+diff --git c/scripts/fixtures/link-preview/input_non_regular_with_policy/not-a-file/placeholder.txt w/scripts/fixtures/link-preview/input_non_regular_with_policy/not-a-file/placeholder.txt
+new file mode 100644
+index 0000000..dc5cccd
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_non_regular_with_policy/not-a-file/placeholder.txt
+@@ -0,0 +1 @@
++This tracked placeholder makes not-a-file a directory for the fixture.
+diff --git c/scripts/fixtures/link-preview/input_non_regular_with_policy/partial.html w/scripts/fixtures/link-preview/input_non_regular_with_policy/partial.html
+new file mode 100644
+index 0000000..b8a511d
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_non_regular_with_policy/partial.html
+@@ -0,0 +1 @@
++<html><head><meta property="og:title" content="Only title"></head><body>missing required metadata</body></html>
+diff --git c/scripts/fixtures/link-preview/input_policy_suppressed_on_input/expected.json w/scripts/fixtures/link-preview/input_policy_suppressed_on_input/expected.json
+index 78c48cc..c36dba7 100644
+--- c/scripts/fixtures/link-preview/input_policy_suppressed_on_input/expected.json
++++ w/scripts/fixtures/link-preview/input_policy_suppressed_on_input/expected.json
+@@ -1 +1 @@
+-{"exit":2,"verdict":"could-not-evaluate","findings":[{"reason":"page_unreadable"}]}
++{"exit":2,"verdict":"could-not-evaluate","pagesChecked":1,"findings":[{"reason":"page_unreadable"},{"reason":"og_required_missing","property":"og:type"},{"reason":"og_required_missing","property":"og:image"},{"reason":"og_required_missing","property":"og:url"}],"findingIds":["page_unreadable:https://cards.example/gone","https://cards.example/partial:og_required_missing:og:type","https://cards.example/partial:og_required_missing:og:image","https://cards.example/partial:og_required_missing:og:url"]}
+diff --git c/scripts/fixtures/link-preview/input_unreadable_with_clean_page/clean.html w/scripts/fixtures/link-preview/input_unreadable_with_clean_page/clean.html
+new file mode 100644
+index 0000000..b0a0b60
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_unreadable_with_clean_page/clean.html
+@@ -0,0 +1 @@
++<html><head><link rel="canonical" href="https://cards.example/input-unreadable-with-clean-page/clean"><meta property="og:title" content="Title"><meta property="og:type" content="website"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/input-unreadable-with-clean-page/clean"></head></html>
+diff --git c/scripts/fixtures/link-preview/input_unreadable_with_clean_page/expected.json w/scripts/fixtures/link-preview/input_unreadable_with_clean_page/expected.json
+new file mode 100644
+index 0000000..21feb9c
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_unreadable_with_clean_page/expected.json
+@@ -0,0 +1 @@
++{"exit":2,"verdict":"could-not-evaluate","pagesChecked":1,"findings":[{"reason":"page_unreadable"}],"findingIds":["page_unreadable:https://cards.example/input-unreadable-with-clean-page/missing"]}
+diff --git c/scripts/fixtures/link-preview/input_unreadable_with_clean_page/manifest.json w/scripts/fixtures/link-preview/input_unreadable_with_clean_page/manifest.json
+new file mode 100644
+index 0000000..da5f844
+--- /dev/null
++++ w/scripts/fixtures/link-preview/input_unreadable_with_clean_page/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"clean.html","url":"https://cards.example/input-unreadable-with-clean-page/clean"},{"file":"missing.html","url":"https://cards.example/input-unreadable-with-clean-page/missing"}]}
+diff --git c/scripts/fixtures/link-preview/math_suppressed_metadata/expected.json w/scripts/fixtures/link-preview/math_suppressed_metadata/expected.json
+new file mode 100644
+index 0000000..7055298
+--- /dev/null
++++ w/scripts/fixtures/link-preview/math_suppressed_metadata/expected.json
+@@ -0,0 +1 @@
++{"exit":1,"verdict":"failed-policy","pagesChecked":1,"findings":[{"reason":"og_required_missing","property":"og:title"}],"findingIds":["https://cards.example/math-suppressed-metadata:og_required_missing:og:title"]}
+diff --git c/scripts/fixtures/link-preview/math_suppressed_metadata/index.html w/scripts/fixtures/link-preview/math_suppressed_metadata/index.html
+new file mode 100644
+index 0000000..0f406de
+--- /dev/null
++++ w/scripts/fixtures/link-preview/math_suppressed_metadata/index.html
+@@ -0,0 +1 @@
++<html><head><math><meta property="og:title" content="hidden"><link rel="canonical" href="https://wrong.example/math"></math><meta property="og:type" content="website"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/math-suppressed-metadata"><link rel="canonical" href="https://cards.example/math-suppressed-metadata"></head></html>
+diff --git c/scripts/fixtures/link-preview/math_suppressed_metadata/manifest.json w/scripts/fixtures/link-preview/math_suppressed_metadata/manifest.json
+new file mode 100644
+index 0000000..1fc6c1e
+--- /dev/null
++++ w/scripts/fixtures/link-preview/math_suppressed_metadata/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"index.html","url":"https://cards.example/math-suppressed-metadata"}]}
+diff --git c/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/expected.json w/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/expected.json
+new file mode 100644
+index 0000000..40b03a4
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/expected.json
+@@ -0,0 +1 @@
++{"exit":0,"verdict":"clean","pagesChecked":1,"findings":[],"findingIds":[]}
+diff --git c/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/index.html w/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/index.html
+new file mode 100644
+index 0000000..de2d1fb
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/index.html
+@@ -0,0 +1 @@
++<html><head><link rel="canonical" href="https://cards.example/og-url-empty-duplicate-guard"><meta property="og:title" content="Title"><meta property="og:type" content="website"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/og-url-empty-duplicate-guard"><meta property="og:url" content=" 	 "></head></html>
+diff --git c/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/manifest.json w/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/manifest.json
+new file mode 100644
+index 0000000..1243b4f
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_empty_duplicate_guard/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"index.html","url":"https://cards.example/og-url-empty-duplicate-guard"}]}
+diff --git c/scripts/fixtures/link-preview/og_url_multiple_distinct/expected.json w/scripts/fixtures/link-preview/og_url_multiple_distinct/expected.json
+new file mode 100644
+index 0000000..67480a4
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_multiple_distinct/expected.json
+@@ -0,0 +1 @@
++{"exit":1,"verdict":"failed-policy","pagesChecked":1,"findings":[{"reason":"og_url_multiple","property":"og:url"}],"findingIds":["https://cards.example/og-url-multiple-distinct:og_url_multiple:og:url"]}
+diff --git c/scripts/fixtures/link-preview/og_url_multiple_distinct/index.html w/scripts/fixtures/link-preview/og_url_multiple_distinct/index.html
+new file mode 100644
+index 0000000..1341dc9
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_multiple_distinct/index.html
+@@ -0,0 +1 @@
++<html><head><link rel="canonical" href="https://cards.example/og-url-multiple-distinct"><meta property="og:title" content="Title"><meta property="og:type" content="website"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/og-url-multiple-distinct"><meta property="og:url" content="https://cards.example/other"></head></html>
+diff --git c/scripts/fixtures/link-preview/og_url_multiple_distinct/manifest.json w/scripts/fixtures/link-preview/og_url_multiple_distinct/manifest.json
+new file mode 100644
+index 0000000..01de9b9
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_multiple_distinct/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"index.html","url":"https://cards.example/og-url-multiple-distinct"}]}
+diff --git c/scripts/fixtures/link-preview/og_url_multiple_same_value/expected.json w/scripts/fixtures/link-preview/og_url_multiple_same_value/expected.json
+new file mode 100644
+index 0000000..7bfe8ab
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_multiple_same_value/expected.json
+@@ -0,0 +1 @@
++{"exit":1,"verdict":"failed-policy","pagesChecked":1,"findings":[{"reason":"og_url_multiple","property":"og:url"}],"findingIds":["https://cards.example/og-url-multiple-same-value:og_url_multiple:og:url"]}
+diff --git c/scripts/fixtures/link-preview/og_url_multiple_same_value/index.html w/scripts/fixtures/link-preview/og_url_multiple_same_value/index.html
+new file mode 100644
+index 0000000..8f9d4b0
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_multiple_same_value/index.html
+@@ -0,0 +1 @@
++<html><head><meta property="og:title" content="Title"><meta property="og:type" content="website"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/og-url-multiple-same-value"><meta property="og:url" content="https://cards.example/og-url-multiple-same-value"><link rel="canonical" href="https://cards.example/og-url-multiple-same-value"></head></html>
+diff --git c/scripts/fixtures/link-preview/og_url_multiple_same_value/manifest.json w/scripts/fixtures/link-preview/og_url_multiple_same_value/manifest.json
+new file mode 100644
+index 0000000..c7be763
+--- /dev/null
++++ w/scripts/fixtures/link-preview/og_url_multiple_same_value/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"index.html","url":"https://cards.example/og-url-multiple-same-value"}]}
+diff --git c/scripts/fixtures/link-preview/svg_nested_suppression/expected.json w/scripts/fixtures/link-preview/svg_nested_suppression/expected.json
+new file mode 100644
+index 0000000..40b03a4
+--- /dev/null
++++ w/scripts/fixtures/link-preview/svg_nested_suppression/expected.json
+@@ -0,0 +1 @@
++{"exit":0,"verdict":"clean","pagesChecked":1,"findings":[],"findingIds":[]}
+diff --git c/scripts/fixtures/link-preview/svg_nested_suppression/index.html w/scripts/fixtures/link-preview/svg_nested_suppression/index.html
+new file mode 100644
+index 0000000..89a3851
+--- /dev/null
++++ w/scripts/fixtures/link-preview/svg_nested_suppression/index.html
+@@ -0,0 +1 @@
++<html><head><svg><svg><meta property="og:type" content="article"><link rel="canonical" href="https://wrong.example/inner"></svg><meta property="og:type" content="other"><link rel="canonical" href="https://wrong.example/outer"></svg><meta property="og:title" content="Title"><meta property="og:type" content="website"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/svg-nested-suppression"><link rel="canonical" href="https://cards.example/svg-nested-suppression"></head></html>
+diff --git c/scripts/fixtures/link-preview/svg_nested_suppression/manifest.json w/scripts/fixtures/link-preview/svg_nested_suppression/manifest.json
+new file mode 100644
+index 0000000..ba9a8d1
+--- /dev/null
++++ w/scripts/fixtures/link-preview/svg_nested_suppression/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"index.html","url":"https://cards.example/svg-nested-suppression"}]}
+diff --git c/scripts/fixtures/link-preview/svg_self_closing_guard/expected.json w/scripts/fixtures/link-preview/svg_self_closing_guard/expected.json
+new file mode 100644
+index 0000000..40b03a4
+--- /dev/null
++++ w/scripts/fixtures/link-preview/svg_self_closing_guard/expected.json
+@@ -0,0 +1 @@
++{"exit":0,"verdict":"clean","pagesChecked":1,"findings":[],"findingIds":[]}
+diff --git c/scripts/fixtures/link-preview/svg_self_closing_guard/index.html w/scripts/fixtures/link-preview/svg_self_closing_guard/index.html
+new file mode 100644
+index 0000000..eeb725b
+--- /dev/null
++++ w/scripts/fixtures/link-preview/svg_self_closing_guard/index.html
+@@ -0,0 +1 @@
++<html><head><svg/><meta property="og:title" content="Title"><meta property="og:type" content="website"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/svg-self-closing-guard"><link rel="canonical" href="https://cards.example/svg-self-closing-guard"></head></html>
+diff --git c/scripts/fixtures/link-preview/svg_self_closing_guard/manifest.json w/scripts/fixtures/link-preview/svg_self_closing_guard/manifest.json
+new file mode 100644
+index 0000000..a776915
+--- /dev/null
++++ w/scripts/fixtures/link-preview/svg_self_closing_guard/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"index.html","url":"https://cards.example/svg-self-closing-guard"}]}
+diff --git c/scripts/fixtures/link-preview/template_suppressed_metadata/expected.json w/scripts/fixtures/link-preview/template_suppressed_metadata/expected.json
+new file mode 100644
+index 0000000..0318157
+--- /dev/null
++++ w/scripts/fixtures/link-preview/template_suppressed_metadata/expected.json
+@@ -0,0 +1 @@
++{"exit":1,"verdict":"failed-policy","pagesChecked":1,"findings":[{"reason":"og_required_missing","property":"og:title"}],"findingIds":["https://cards.example/template-suppressed-metadata:og_required_missing:og:title"]}
+diff --git c/scripts/fixtures/link-preview/template_suppressed_metadata/index.html w/scripts/fixtures/link-preview/template_suppressed_metadata/index.html
+new file mode 100644
+index 0000000..5beb609
+--- /dev/null
++++ w/scripts/fixtures/link-preview/template_suppressed_metadata/index.html
+@@ -0,0 +1 @@
++<html><head><template><template><meta property="og:title" content="hidden-inner"><link rel="canonical" href="https://wrong.example/inner"></template><meta property="og:title" content="hidden-after-inner"><link rel="canonical" href="https://wrong.example/outer"></template><meta property="og:type" content="website"><meta property="og:image" content="https://cards.example/image.png"><meta property="og:url" content="https://cards.example/template-suppressed-metadata"><link rel="canonical" href="https://cards.example/template-suppressed-metadata"></head></html>
+diff --git c/scripts/fixtures/link-preview/template_suppressed_metadata/manifest.json w/scripts/fixtures/link-preview/template_suppressed_metadata/manifest.json
+new file mode 100644
+index 0000000..4c100c3
+--- /dev/null
++++ w/scripts/fixtures/link-preview/template_suppressed_metadata/manifest.json
+@@ -0,0 +1 @@
++{"version":1,"pages":[{"file":"index.html","url":"https://cards.example/template-suppressed-metadata"}]}
+diff --git c/scripts/link_preview_audit.py w/scripts/link_preview_audit.py
+index 4a61ce6..cab2364 100755
+--- c/scripts/link_preview_audit.py
++++ w/scripts/link_preview_audit.py
+@@ -4,21 +4,27 @@
+ Read local HTML pages named by a version-1 JSON manifest and check the
+ Open Graph properties used in link previews. The required og:title,
+ og:type, og:image and og:url properties follow S067 ("The four required
+-properties for every page are"). The single og:type rule follows S068.
++properties for every page are"). The single og:type rule follows S068. The
++`og:url` multiplicity rule follows round-35 C1 lane policy by analogy with
++S068's single-og:type rule. Ignoring metadata and canonical links inside open
++`<template>`, `<svg>` or `<math>` elements is also round-35 lane policy; no
++opened source states that parser rule.
+ The og:url-versus-canonical-link comparison is lane policy: S067 and S068
+ define og:url as "the canonical URL" of the object or page, but neither names
+-a <link rel=canonical> element, so equating the two is the lane's inference.
++a `<link rel=canonical>` element, so equating the two is the lane's inference.
+ The absolute-og:url rule is also lane policy (no opened source states it).
+ This tool never opens a network connection and never writes to disk.
+ 
+ What this tool checks
+ ---------------------
+ The source HTML for each manifest page, parsed with html.parser. It reports
+-missing required Open Graph properties, multiple non-empty og:type elements,
+-an og:url that is not an absolute HTTP(S) URL with a host, and an og:url that
+-differs from the first canonical link after resolving that link against the
+-manifest page URL. Canonical comparison is an exact string comparison after
+-stripping ASCII whitespace.
++missing required Open Graph properties, multiple non-empty og:type and og:url
++elements, an og:url that is not an absolute HTTP(S) URL with a host, and an
++og:url that differs from the first eligible canonical link after resolving that
++link against the manifest page URL. Meta and link start tags inside an open
++template, svg or math element are ignored. Containers close at matching end
++tags, nesting is counted, and a self-closed svg opens nothing. Canonical
++comparison is an exact string comparison after stripping ASCII whitespace.
+ 
+ What this tool does NOT check
+ -----------------------------
+@@ -26,21 +32,25 @@ What this tool does NOT check
+ * whether an og:image can be fetched, its size or its type;
+ * twitter:card tags;
+ * tag position: a tag in <body> counts the same as one in <head>;
+-* og:url beyond the first non-empty one: a second og:url is not compared;
++* the absolute-URL and canonical checks beyond the first non-empty og:url;
++  later values are counted only for the lane-policy `og_url_multiple` finding;
+ * <meta name="og:..."> forms: only the property attribute counts, although
+   some consumers also read name (S073: "The key comes from name if present,
+   otherwise from property");
+-* which <link rel=canonical> is first: any element in the document counts,
+-  including one inside <template> or <svg>, and a canonical link without href
+-  is skipped;
++* which <link rel=canonical> is first: the first eligible link in the document
++  counts, except links inside an open <template>, <svg> or <math>; a canonical
++  link without href is skipped;
+ * a <base> element: a relative canonical href resolves against the manifest
+   page URL, unlike scripts/canonical_audit.py, which honours <base>; and
+ * whether og:url, the canonical link and any sitemap entry are the URL the
+   host actually serves.
+ 
+-Manifest files and referenced HTML are read locally only. Input problems
+-produce a could-not-evaluate result; policy findings produce failed-policy.
+-Exit codes: 0 clean, 1 failed-policy, 2 could-not-evaluate, 64 usage.
++Manifest files and referenced HTML are read locally only. Manifest-level input
++problems produce a could-not-evaluate result without auditing pages. An
++unreadable page produces a could-not-evaluate result while readable pages are
++still audited and their policy findings are reported beside the input finding.
++Policy findings without input problems produce failed-policy. Exit codes: 0
++clean, 1 failed-policy, 2 could-not-evaluate, 64 usage.
+ """
+ from __future__ import annotations
+ 
+@@ -64,6 +74,7 @@ MAX_PAGE_BYTES = 16 * 1024 * 1024
+ MAX_MANIFEST_BYTES = 4 * 1024 * 1024
+ REQUIRED_PROPERTIES = ("og:title", "og:type", "og:image", "og:url")
+ PROPERTY_ALIASES = {"og:image:url": "og:image"}
++SUPPRESSED_ELEMENTS = frozenset(("template", "svg", "math"))
+ 
+ 
+ class UsageError(Exception):
+@@ -76,14 +87,36 @@ class LinkPreviewArgumentParser(argparse.ArgumentParser):
+ 
+ 
+ class MetadataParser(HTMLParser):
+-    """Collect relevant meta properties and the first canonical link."""
++    """Collect relevant tags outside open template, svg and math elements."""
+ 
+     def __init__(self) -> None:
+         super().__init__(convert_charrefs=True)
+         self.properties: dict[str, list[str]] = {name: [] for name in REQUIRED_PROPERTIES}
+         self.canonical_href: str | None = None
++        self.suppressed_elements: list[str] = []
+ 
+     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
++        if tag in SUPPRESSED_ELEMENTS:
++            self.suppressed_elements.append(tag)
++            return
++        if self.suppressed_elements:
++            return
++        self._collect_metadata(tag, attrs)
++
++    def handle_endtag(self, tag: str) -> None:
++        # A matching end tag closes that element and any nested suppressed
++        # elements, while a nested same-name element keeps its parent open.
++        for index in range(len(self.suppressed_elements) - 1, -1, -1):
++            if self.suppressed_elements[index] == tag:
++                del self.suppressed_elements[index:]
++                break
++
++    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
++        # Self-closed tags open nothing, including <svg/>.
++        if not self.suppressed_elements and tag not in SUPPRESSED_ELEMENTS:
++            self._collect_metadata(tag, attrs)
++
++    def _collect_metadata(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+         # The first occurrence of a duplicated attribute wins, as in an HTML
+         # tree builder (round-34 wave 2: dict(attrs) kept the last one).
+         attributes: dict[str, str | None] = {}
+@@ -104,10 +137,6 @@ class MetadataParser(HTMLParser):
+             if rel is not None and href is not None and "canonical" in rel.lower().split():
+                 self.canonical_href = href.strip(ASCII_WHITESPACE)
+ 
+-    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+-        self.handle_starttag(tag, attrs)
+-
+-
+ def absolute_http_url(value: str) -> bool:
+     try:
+         parsed = urlsplit(value)
+@@ -212,7 +241,7 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
+             continue
+         documents.append((page_url, text))
+ 
+-    if input_findings:
++    if any(finding["reason"] == "input_invalid" for finding in input_findings):
+         return result("could-not-evaluate", 0, input_findings), EXIT_INPUT
+ 
+     findings: list[dict[str, object]] = []
+@@ -239,6 +268,13 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
+             })
+ 
+         og_urls = parser.properties["og:url"]
++        if len(og_urls) > 1:
++            findings.append({
++                "id": f"{page_url}:og_url_multiple:og:url",
++                "reason": "og_url_multiple",
++                "page": page_url,
++                "property": "og:url",
++            })
+         if og_urls:
+             og_url = og_urls[0]
+             if not absolute_http_url(og_url):
+@@ -263,6 +299,8 @@ def audit_manifest(path: str) -> tuple[dict[str, object], int]:
+                         "property": "og:url",
+                     })
+ 
++    if input_findings:
++        return result("could-not-evaluate", len(documents), input_findings + findings), EXIT_INPUT
+     if findings:
+         return result("failed-policy", len(documents), findings), EXIT_POLICY
+     return result("clean", len(documents), []), EXIT_CLEAN
+diff --git c/scripts/link_preview_selftest.py w/scripts/link_preview_selftest.py
+index 41d7e06..0baa39c 100755
+--- c/scripts/link_preview_selftest.py
++++ w/scripts/link_preview_selftest.py
+@@ -96,6 +96,30 @@ def check_case(tool, case_dir):
+                         "verdict mismatch: expected %r, observed %r"
+                         % (want_verdict, payload.get("verdict"))
+                     )
++                if (
++                    "pagesChecked" in expected
++                    and payload.get("pagesChecked") != expected["pagesChecked"]
++                ):
++                    problems.append(
++                        "pagesChecked mismatch: expected %r, observed %r"
++                        % (expected["pagesChecked"], payload.get("pagesChecked"))
++                    )
++                if "findingIds" in expected:
++                    want_ids = expected["findingIds"]
++                    payload_findings = payload.get("findings")
++                    got_ids = (
++                        [finding.get("id") for finding in payload_findings if isinstance(finding, dict)]
++                        if isinstance(payload_findings, list)
++                        else None
++                    )
++                    if (
++                        not isinstance(want_ids, list)
++                        or not all(isinstance(item, str) for item in want_ids)
++                        or got_ids != want_ids
++                    ):
++                        problems.append(
++                            "finding ids mismatch: expected %r, observed %r" % (want_ids, got_ids)
++                        )
+                 try:
+                     want_findings = projected_findings(expected.get("findings"))
+                     got_findings = projected_findings(payload.get("findings"))

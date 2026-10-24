@@ -1,0 +1,35 @@
+canonical_audit.py: --json is only valid with --manifest
+usage: canonical_audit.py --manifest PATH [--json] | --selftest
+--help prints standard CLI help, exits 0, and emits no publishing verdict.
+
+Read UTF-8 JSON manifest v1 and bounded local UTF-8 HTML only. The
+manifest limit is 1 MiB; each HTML file is limited to 2 MiB.
+HTML files are relative to the manifest directory; absolute paths,
+traversal, symlinks, and non-regular files are rejected. The manifest
+file itself must not be a symlink; its directory path is the caller's
+chosen location and is opened as given, once, for manifest and pages.
+No network access or writes occur in manifest mode.
+
+URLs use this tool's conservative HTTP(S) normalization: lowercase ASCII
+scheme/host, accept ASCII DNS labels, strict dotted IPv4, or bracketed
+IPv6, remove default ports and dot segments, and serialize empty paths
+as '/'. Non-ASCII path/query text is UTF-8 percent-escaped; existing
+escapes and legal ASCII query spelling, including a final empty '?', persist.
+Credentials, fragments, backslashes, whitespace, malformed authorities,
+and network-path references with an empty authority ('///path') are
+rejected. The first head base[href] resolves relative
+links; invalid first base is base_url_invalid, not browser fallback.
+This is a conservative RFC-style subset, not a WHATWG URL implementation.
+
+HTMLParser is not an HTML5 tree builder. It does not perform browser
+encoding sniffing or implied-element repair; only explicit, properly
+closed head markup with supported head children is evaluated. Comments,
+raw-text elements, and template descendants do not contribute links.
+Any SVG/Math markup, and canonical/base inside noscript, is unsupported.
+Oversize, non-UTF-8, or structurally ambiguous HTML is unsupported.
+This compares publisher policy only, not Google or other search-engine
+canonical selection. It does not assess readiness or HTTP responses.
+
+Except --help, stdout is always one JSON object: verdict, pagesChecked,
+findings. Usage errors report could-not-evaluate with no findings.
+Exit: 0 clean; 1 policy finding; 2 input/unsupported; 64 usage.

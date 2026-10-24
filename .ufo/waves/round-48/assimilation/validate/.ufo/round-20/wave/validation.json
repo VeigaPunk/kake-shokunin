@@ -1,0 +1,39 @@
+{
+  "planCommand": [
+    "node",
+    "/home/vgpnk/Projects/ufo-fsd-alpha/scripts/ufo-swarm-wave.mjs",
+    "plan",
+    "--spec",
+    "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/round-20/wave/spec.json"
+  ],
+  "planExit": 0,
+  "planStderr": "",
+  "renderCommand": [
+    "node",
+    "--input-type=module",
+    "-e",
+    "import { planToDispatchPayload } from './scripts/ufo-swarm-wave.mjs'; let s=''; for await (const c of process.stdin) s+=c; console.log(JSON.stringify(planToDispatchPayload(JSON.parse(s)),null,2));"
+  ],
+  "renderExit": 0,
+  "renderStderr": "",
+  "memberCount": 32,
+  "distinctNames": 32,
+  "distinctPrompts": 32,
+  "godspeedLeadingInvocations": 32,
+  "dispatched": false,
+  "nativeTaskCalls": 0,
+  "registryPersisted": false,
+  "reason": "required effective host bindings absent; no routing mutation authorized",
+  "policy": {
+    "source": "config",
+    "maxLanes": 32,
+    "minLanes": 16,
+    "waveMinLanes": 16,
+    "waveMaxLanes": 32,
+    "declaredMaxLanes": 32,
+    "hardCeiling": 100,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  }
+}

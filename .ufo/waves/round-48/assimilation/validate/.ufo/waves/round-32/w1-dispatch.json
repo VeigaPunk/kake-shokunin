@@ -1,0 +1,553 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kake-r32-w1",
+  "policy": {
+    "source": "config",
+    "maxLanes": 64,
+    "minLanes": 16,
+    "waveMinLanes": 32,
+    "waveMaxLanes": 64,
+    "declaredMaxLanes": 64,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 34,
+    "resume": 0,
+    "total": 34
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-32/w1/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-32/w1",
+    "members": {
+      "RerunC1Before": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "RerunC1After": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewC1ProbeCode": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "MutReasonCheckGate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "MutPriorMutantsStillKilled": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "MutM3Variants": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewHostileSelftestDiff": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ExecReasonContainsNegatives": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ExecBenignSuiteTip": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ExecBaseRunnerVsP6": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "CriticP6VsP3": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "CriticC1Wording": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewRunnerDocstringPins": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "RerunC2Before": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "RerunC2After": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewC2CounterCode": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "MutC2Conditions": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewS062Row": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewEntryRenderYamlTruth": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewEntryDockerfileTruth": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewEntryAppend": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "CriticC2Scope": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "CriticS062KindTier": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ScoutGithubPin": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ScribeScreenBlueprintCandidate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ScribeScreenDockerCandidate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ScribeMistakeDraft": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewMistakeSweep": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ScoutLeadsDataWalk": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "ConnectorSiblingOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewCensusShape": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "freshness"
+        ],
+        "milestone": "r32-build"
+      },
+      "CriticNoHarmDiff": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewDeclarationOrder": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      },
+      "ReviewRoutedItemsStatus": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": null,
+        "axes": [
+          "operability"
+        ],
+        "milestone": "r32-build"
+      }
+    }
+  },
+  "compaction": {
+    "applied": false,
+    "mechanism": null,
+    "reason": null,
+    "savedBytes": 0,
+    "payloadBytesBefore": 0,
+    "payloadBytesAfter": 0
+  },
+  "taskCall": {
+    "context": "# Goal\nKake round 32, wave 1 (build + first falsifiers). The L1 (KakeR32) holds the planner and integration seat; you are one leaf seat. Lane repo: /home/vgpnk/Projects/shokunin/kake-shokunin. Lane axes: operability and freshness (web properties and publishing). Each item names what it builds or attacks; attacks try to show landed work is wrong, overstated or harmful, with reproducible evidence. Time box: finish and write your report within 15 minutes; a partial report beats none.\n\n# Declared claims (SCORECARD.md section \"Round 32 — declared claims\", landed at 5b32cc7c4f6494a92912df5a19f589f04f7160a8; base a0b0dffcd95b2215f638a5ff7591dd4fde325d27)\n- C1 (operability, repair of round-31 routed item 2): mutant m3 (delete the load-time guard `if step[\"op\"] == \"git_commit\" and not initialized: raise ValueError(...)` in /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citing_set_selftest.py) is killed by the committed hostile selftest /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citing_set_hostile_selftest.py, while the unmutated runner still passes it and the 45 benign fixtures stay clean. Counter: `python3 -B .ufo/waves/round-32/c1_m3_probe.py --rev <rev>` (fields killed, guard_ok). Before 0 at base; declared after 1 with guard_ok true. The repair: new optional per-case spec key `reason_contains` in the hostile selftest, and spec /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/fixtures/citing-set-hostile/P6-commit-before-init/hostile.json (setup git_commit then git_init, reason_contains \"needs an earlier 'git_init'\").\n- C2 (freshness, repair of round-31 routed item 5, sourced): the external ds4cc-marketplace blobs read offline by /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/render-web-services.md at commit 1fbdb8ed (render.yaml blob d17ab7e5d44b1b3a1876cf1d9b47f369e92f7252; apps-sdk/Dockerfile blob ee0b63819a9ce71e51469796541b9075e9676ae9) are retained byte-identical at /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-32/sources/ds4cc-1fbdb8ed/, registered as SOURCES row S062 (opened 2026-10-22) in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md, and cited by S062 in an appended entry section. Counter: `python3 -B .ufo/waves/round-32/c2_retained_count.py --rev <rev>` (field met, 0..3). Before 0; declared after 3.\n\n# Landed state (lane branch master)\n- 5b32cc7c4f6494a92912df5a19f589f04f7160a8 declaration + both counters; 2f2f12deb0fe33d8fa7d9bd14c75d855f005f71a build (C1 selftest + P6 spec, C2 retained copies, S062, entry append, before receipts); 285abcad632e3c1c57bb402232e7d218054db383 (lane tip) S062 recheck cell 90d after a census E09, after receipts at 2f2f12deb0fe33d8fa7d9bd14c75d855f005f71a.\n- L1 receipts in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-32/verification/: c1-before-a0b0dff.json (killed 0, guard_ok true), c1-after-2f2f12d.json (killed 1, guard_ok true, mutant P6 fails only), c2-before-a0b0dff.json (met 0), c2-after-2f2f12d.json (met 3).\n- Round-31 closure with the routed defects: /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-31-verifier-spotcheck.md. Round-31 mutation report: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-31/a2-w2/MutRunnerGuards.md.\n- Holds (ended items; never retry, reroute or rephrase): KakeR31.CriticC1Counter and KakeR31.CriticSandboxThreatModel. No item here repeats them, and no item attacks whether a counter or selftest trusts runner-reported failure names or reason text; if your item drifts there, stop that line and say so. If your own seat hits a provider safety or policy refusal or an automatic model switch, stop and write a one-line report saying so; do not rephrase.\n\n# Bounds\n- You are a leaf: no subagents, no swarm, no second judge, no admission or verdict on the round. Executors may spawn at most one read-only labrat probe.\n- Never mutate the fleet repo (/home/vgpnk/Projects/shokunin), sibling lanes, the lane jj state, the lane Git index or any tracked lane file. Never run git add/commit/stash/checkout/reset/pull/push or any mutating jj command in /home/vgpnk/Projects/shokunin/kake-shokunin; seats never push, commit or update refs in the lane. Never run any jj command at /home/vgpnk/Projects/shokunin; in the lane, read-only jj only with --ignore-working-copy.\n- Code that writes files or Git state runs only in your own sandbox: /fast/scratch/hyaku/kake-r32/w1/<YourName>/ (clone with `git clone -q /home/vgpnk/Projects/shokunin/kake-shokunin /fast/scratch/hyaku/kake-r32/w1/<YourName>/clone` when you need one, then `git -C <clone> checkout -q <rev>`; export TMPDIR=/fast/scratch/hyaku/kake-r32/w1/<YourName>/tmp after creating it; never /tmp or /dev/shm). Deliverable files stay in your sandbox; name their absolute paths in your report.\n- Owned sites: no live requests of any kind to the operator's owned web properties (ds4cc.com, app.ds4cc.com, *.onrender.com hosts of the operator, *.kimi.page, *.kimi.pro, veigapunk.github.io and any host pinned in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-pins.json). ~/Projects/ds4cc-marketplace is a read-only local checkout: read it with git show/cat-file only.\n- Network: only seats told to open a named public URL may fetch, GET only. Open sources by ordinary means only; never use a headless browser or any tool to pass a bot challenge, captcha or access control; a page you cannot open that way is recorded as unopened.\n- Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>. Your report is the only file you write in the lane.\n- Tooling (operator, 2026-10-19): you may install or update tools that help the task without asking; read /home/vgpnk/.omp/agent/RULES.md first, use official channels, and record tool, version, channel and reason in your report. All pacman transactions are PAUSED host-wide: no pacman, no -Sy/-Syu/-U/-R, no downgrade, no service restart; use uv tool, npx or an official binary in ~/.local/bin.\n- The only message target is agent://KakeR32 (the L1), for blockers only. Never message agent://all. Write plain English with no run-together words or private jargon.\n\n# Result\nReport under 80 lines: what you attacked or built, the exact commands you ran with exit codes, observed outputs, and evidence pointers (path:line, hash). An unrun check has not passed; say what you did not verify. If you stop before finishing, the first line of your report must be `PARTIAL:` with what is missing. Your findings are advisory input for the L1 and the non-author closure.",
+    "tasks": [
+      {
+        "name": "RerunC1Before",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 before-measurement: re-run the declared counter at the base.\n# Change\nIn your clone at 285abcad632e3c1c57bb402232e7d218054db383, run `python3 -B .ufo/waves/round-32/c1_m3_probe.py --repo <clone> --rev a0b0dffcd95b2215f638a5ff7591dd4fde325d27` with TMPDIR in your sandbox. Compare with /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-32/verification/c1-before-a0b0dff.json.\n# Acceptance\nReport exit, killed, guard_ok, pristine/mutant/benign exits and any field that differs from the receipt.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/RerunC1Before/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/RerunC1Before.md"
+      },
+      {
+        "name": "RerunC1After",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 after-measurement: re-run the declared counter at the build commit and the lane tip.\n# Change\nIn your clone run `python3 -B .ufo/waves/round-32/c1_m3_probe.py --repo <clone> --rev <r>` for r = 2f2f12deb0fe33d8fa7d9bd14c75d855f005f71a and 285abcad632e3c1c57bb402232e7d218054db383. Compare with c1-after-2f2f12d.json. Check `git show <r>:.ufo/waves/round-32/c1_m3_probe.py | sha256sum` is the same at 5b32cc7c4f6494a92912df5a19f589f04f7160a8 and 285abcad632e3c1c57bb402232e7d218054db383.\n# Acceptance\nReport each run's fields, sha256 equality, and any difference from the receipt.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/RerunC1After/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/RerunC1After.md"
+      },
+      {
+        "name": "ReviewC1ProbeCode",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 counter correctness: attack .ufo/waves/round-32/c1_m3_probe.py.\n# Change\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-32/c1_m3_probe.py. Look for counting bugs: the GUARD regex matching the wrong lines or more than the guard, the mutant run scoring killed for a reason other than the hostile selftest failing (exit 2 from bad input, timeouts, crash), guard_ok missing a failure mode, the export not reflecting the revision (git archive, export-ignore attributes), the selftest loading specs from somewhere other than the export.\n# Acceptance\nList each defect with a reproducing command in your sandbox, or state none found with what you checked.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewC1ProbeCode/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewC1ProbeCode.md"
+      },
+      {
+        "name": "MutReasonCheckGate",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 repair able to fail: mutate the new reason check in the hostile selftest.\n# Change\nIn your clone at 285abcad632e3c1c57bb402232e7d218054db383, make mutants of scripts/citing_set_hostile_selftest.py: (a) drop `and all(detail[\"reasonChecks\"].values())` from `passed`; (b) make reasonChecks always True; (c) remove `reason_contains` from the P6 spec; (d) change P6 to the same setup as P3 (git_commit only). For each, commit in your clone and run the counter `python3 -B .ufo/waves/round-32/c1_m3_probe.py --repo <clone> --rev HEAD`.\n# Acceptance\nReport killed/guard_ok per mutant: which mutants make m3 survive again (they must, for the repair to be the thing that kills m3).\nSandbox: /fast/scratch/hyaku/kake-r32/w1/MutReasonCheckGate/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/MutReasonCheckGate.md"
+      },
+      {
+        "name": "MutPriorMutantsStillKilled",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 no-harm: round-31 single-guard mutants m1, m2, m4, m5 stay killed at the lane tip.\n# Change\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-31/a2-w2/MutRunnerGuards.md for the mutant definitions. In your clone at 285abcad632e3c1c57bb402232e7d218054db383, apply each of m1, m2, m4, m5 to a copy of scripts/citing_set_selftest.py and run `python3 -B scripts/citing_set_hostile_selftest.py --root <clone> --tmpdir <sandbox>/h --runner <mutant>`.\n# Acceptance\nReport hostile exit and failing specs per mutant; all four should exit 1.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/MutPriorMutantsStillKilled/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/MutPriorMutantsStillKilled.md"
+      },
+      {
+        "name": "MutM3Variants",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 scope: which of the round-31 m3 variants (m3b, m3c, m3d, m3e, m3f, m3g) the P6 spec now kills.\n# Change\nUse the definitions in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-31/a2-w2/MutRunnerGuards.md (section 'Attribution of the m3 survivor'). Apply each to a copy of the runner at 285abcad632e3c1c57bb402232e7d218054db383 and run the hostile selftest with --runner.\n# Acceptance\nTable of variant, hostile exit, failing specs. The declaration disclaims m3d/m3f (pins); report whether that disclaimer is accurate.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/MutM3Variants/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/MutM3Variants.md"
+      },
+      {
+        "name": "ReviewHostileSelftestDiff",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 code review: the diff to scripts/citing_set_hostile_selftest.py.\n# Change\nRun `git -C /home/vgpnk/Projects/shokunin/kake-shokunin diff a0b0dffcd95b2215f638a5ff7591dd4fde325d27 285abcad632e3c1c57bb402232e7d218054db383 -- scripts/citing_set_hostile_selftest.py scripts/fixtures/citing-set-hostile/`. Check validation of reason_contains in load_spec, the passed predicate, docstring accuracy, JSON output shape (reasonChecks), and whether any existing spec changes meaning.\n# Acceptance\nList defects with line numbers and severity, or none found.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewHostileSelftestDiff/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewHostileSelftestDiff.md"
+      },
+      {
+        "name": "ExecReasonContainsNegatives",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 input validation: malformed reason_contains specs are refused.\n# Change\nIn your clone at 285abcad632e3c1c57bb402232e7d218054db383, write sandbox spec variants under scripts/fixtures/citing-set-hostile/ in the clone: reason_contains as a number, empty string, null, list; and a case with reason_contains text the runner never reports. Run the hostile selftest for each.\n# Acceptance\nReport exit code per variant: malformed ones must exit 2 (bad input); the never-reported text must make the spec fail (exit 1). Paste outputs.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ExecReasonContainsNegatives/\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ExecReasonContainsNegatives.md"
+      },
+      {
+        "name": "ExecBenignSuiteTip",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 no-harm: benign fixtures and gate selftest at the lane tip.\n# Change\nIn your clone at 285abcad632e3c1c57bb402232e7d218054db383 run `python3 -B scripts/citing_set_selftest.py --root <clone> --tmpdir <sandbox>/b` and the gate's own selftest delegation `python3 -B scripts/citing_set.py --selftest` if it supports it (read its --help first). Repeat at a0b0dffcd95b2215f638a5ff7591dd4fde325d27.\n# Acceptance\nReport cases and failures at both revisions; they should match (45 cases, 0 failed).\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ExecBenignSuiteTip/\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ExecBenignSuiteTip.md"
+      },
+      {
+        "name": "ExecBaseRunnerVsP6",
+        "agent": "executor",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 discrimination: the P6 spec against older runners.\n# Change\nIn your clone, run the tip hostile selftest (`--root` = clone at 285abcad632e3c1c57bb402232e7d218054db383) with --runner set to scripts/citing_set_selftest.py exported from f1ffb81738c92c0537b99b30970143ab9419f990 (pre-repair) and from a0b0dffcd95b2215f638a5ff7591dd4fde325d27.\n# Acceptance\nReport per-spec pass/fail for both runners; P6 should fail on the pre-repair runner and pass on the base runner. Explain any surprise.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ExecBaseRunnerVsP6/\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ExecBaseRunnerVsP6.md"
+      },
+      {
+        "name": "CriticP6VsP3",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 claim: is P6 a distinct probe from P3, or a duplicate that only adds a text check?\n# Change\nCompare P3 and P6 specs and what each refuses at which layer of the runner (load_case_setup vs apply_setup vs Git pins). Argue whether the after-state 'm3 killed' is a real operability gain or a relabel, using the runner source at the tip.\n# Acceptance\nVerdict (supported / overstated / wrong) with line-cited reasoning.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/CriticP6VsP3/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/CriticP6VsP3.md"
+      },
+      {
+        "name": "CriticC1Wording",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 declaration wording: overclaims or universal clauses.\n# Change\nRead the 'Round 32 — declared claims' section in /home/vgpnk/Projects/shokunin/kake-shokunin/SCORECARD.md at 285abcad632e3c1c57bb402232e7d218054db383. Check every sentence of C1 and its disclosed limits against the receipts and the code.\n# Acceptance\nList each overstated sentence with the evidence that contradicts it, or none.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/CriticC1Wording/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/CriticC1Wording.md"
+      },
+      {
+        "name": "ReviewRunnerDocstringPins",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC1 consistency: runner docstring statements about what is probed.\n# Change\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citing_set_selftest.py lines 60-110 at 285abcad632e3c1c57bb402232e7d218054db383 (the docstring that says Git pins are not separately probed) and the hostile selftest docstring. After P6, is any sentence now stale or wrong?\n# Acceptance\nList stale sentences with line numbers and a suggested replacement; do not edit.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewRunnerDocstringPins/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewRunnerDocstringPins.md"
+      },
+      {
+        "name": "RerunC2Before",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 before-measurement.\n# Change\nRun `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-32/c2_retained_count.py --repo /home/vgpnk/Projects/shokunin/kake-shokunin --rev a0b0dffcd95b2215f638a5ff7591dd4fde325d27` (read-only) and compare with c2-before-a0b0dff.json.\n# Acceptance\nReport fields and differences.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/RerunC2Before/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/RerunC2Before.md"
+      },
+      {
+        "name": "RerunC2After",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 after-measurement.\n# Change\nRun the C2 counter at 2f2f12deb0fe33d8fa7d9bd14c75d855f005f71a and 285abcad632e3c1c57bb402232e7d218054db383; compare with c2-after-2f2f12d.json; check the counter sha256 is equal at 5b32cc7c4f6494a92912df5a19f589f04f7160a8 and 285abcad632e3c1c57bb402232e7d218054db383. Independently check `git -C /home/vgpnk/Projects/shokunin/kake-shokunin ls-tree -r 285abcad632e3c1c57bb402232e7d218054db383 | grep -c d17ab7e5d44b1b3a1876cf1d9b47f369e92f7252` and the same for ee0b6381.\n# Acceptance\nReport met and each condition, plus your independent counts.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/RerunC2After/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/RerunC2After.md"
+      },
+      {
+        "name": "ReviewC2CounterCode",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 counter correctness: attack .ufo/waves/round-32/c2_retained_count.py.\n# Change\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-32/c2_retained_count.py. Look for: a row outside ## Registry being counted, cell-count assumptions (11 cells) that break on a pipe inside a cell, the \\b regex matching S0620 or similar, c3 counting citations outside the entry, blob detection passing on a symlink or a submodule entry.\n# Acceptance\nDefects with reproducing input, or none found with what you checked.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewC2CounterCode/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewC2CounterCode.md"
+      },
+      {
+        "name": "MutC2Conditions",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 counter able to fail: each condition can go false.\n# Change\nIn your clone at 285abcad632e3c1c57bb402232e7d218054db383, make three commits each breaking one condition: flip one byte of the retained render.yaml; change S062's opened cell to 2026-10-21; remove S062 from the entry append. Run the C2 counter with --repo <clone> --rev HEAD after each.\n# Acceptance\nReport met per mutant (should drop by exactly one each time).\nSandbox: /fast/scratch/hyaku/kake-r32/w1/MutC2Conditions/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/MutC2Conditions.md"
+      },
+      {
+        "name": "ReviewS062Row",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 source row S062: re-open the source and check every cell.\n# Change\nRead the S062 row in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md. Re-open the source with `git -C ~/Projects/ds4cc-marketplace cat-file -p 1fbdb8ed:render.yaml` and `...:apps-sdk/Dockerfile` (read-only) and compare with the retained copies (cmp). Check anchor, teaches, scope, line count, and the commit hash cells.\n# Acceptance\nPer cell: accurate / wrong with evidence.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewS062Row/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewS062Row.md"
+      },
+      {
+        "name": "ReviewEntryRenderYamlTruth",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 truth sampling (routed item 4): render.yaml sentences in the entry against the retained bytes.\n# Change\nIn /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/render-web-services.md, section 'The lane\\'s render.yaml at ds4cc-marketplace 1fbdb8ed', check every sentence that states a fact about render.yaml (line numbers, keys, values) against /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-32/sources/ds4cc-1fbdb8ed/render.yaml.\n# Acceptance\nCount supported / wrong / not checkable, with the sentence and the line it rests on.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewEntryRenderYamlTruth/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewEntryRenderYamlTruth.md"
+      },
+      {
+        "name": "ReviewEntryDockerfileTruth",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 truth sampling: Dockerfile sentences in the entry against the retained bytes.\n# Change\nCheck every sentence in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/render-web-services.md that states a fact about apps-sdk/Dockerfile (for example the ARG count) against /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-32/sources/ds4cc-1fbdb8ed/apps-sdk/Dockerfile.\n# Acceptance\nCount supported / wrong / not checkable with evidence.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewEntryDockerfileTruth/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewEntryDockerfileTruth.md"
+      },
+      {
+        "name": "ReviewEntryAppend",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 entry append: the new 'Retained copies (round 32, append-only)' section.\n# Change\nRead the appended section at the end of /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/render-web-services.md and `git -C /home/vgpnk/Projects/shokunin/kake-shokunin diff a0b0dffcd95b2215f638a5ff7591dd4fde325d27 285abcad632e3c1c57bb402232e7d218054db383 -- corpus/knowledge/render-web-services.md` (must be pure addition). Check each sentence (hash-object values, which sentences need the external repo still).\n# Acceptance\nList errors or none.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewEntryAppend/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewEntryAppend.md"
+      },
+      {
+        "name": "CriticC2Scope",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 claim fit: is retaining two blobs a freshness move with a real before-to-after?\n# Change\nRead the C2 declaration in /home/vgpnk/Projects/shokunin/kake-shokunin/SCORECARD.md, AXES.md at /home/vgpnk/Projects/shokunin/AXES.md and the round-31 routed item 5. Argue whether the claim matches the routed item, whether the server.ts gap undercuts it, and whether the 0/3 to 3/3 framing overstates.\n# Acceptance\nVerdict with reasons.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/CriticC2Scope/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/CriticC2Scope.md"
+      },
+      {
+        "name": "CriticS062KindTier",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 row contract: is S062 kind `code`, tier A, status mined, recheck 90d right under the SOURCES contract?\n# Change\nRead /home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md — where a shokunin learns' and compare S062 with similar rows (S014, S019 own-work; S056 sibling lane).\n# Acceptance\nVerdict per cell with the contract sentence it rests on.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/CriticS062KindTier/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/CriticS062KindTier.md"
+      },
+      {
+        "name": "ScoutGithubPin",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nC2 row URL cell: does the GitHub URL in S062 resolve publicly?\n# Change\nGET https://github.com/VeigaPunk/ds4cc-marketplace/blob/1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28/render.yaml once with curl -sI then -sL (this is GitHub, not an owned web property). Also check `git -C ~/Projects/ds4cc-marketplace branch -a --contains 1fbdb8ed` read-only.\n# Acceptance\nReport HTTP status and whether the commit is on a pushed branch; if the URL does not resolve publicly, say what the row should state instead.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ScoutGithubPin/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ScoutGithubPin.md"
+      },
+      {
+        "name": "ScribeScreenBlueprintCandidate",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nFrontier step (routed item 7): screen one non-primary candidate on Render Blueprint files.\n# Change\nFind one non-primary (community/blog/forum) page about render.yaml Blueprints with web search; open it once by plain GET. Decide admit or reject against the vendor primary S057 (https://render.com/docs/blueprint-spec). Draft a SOURCES row in the 11-cell registry shape (id S063), status rejected or queued, with reason and flip condition, plus a located quote of at most 25 words from the page.\n# Acceptance\nReturn the URL, access time UTC, the drafted row and quote, and why; write nothing to SOURCES.md.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ScribeScreenBlueprintCandidate/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ScribeScreenBlueprintCandidate.md"
+      },
+      {
+        "name": "ScribeScreenDockerCandidate",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nFrontier step (routed item 7): screen one non-primary candidate on Docker web services or health checks on Render.\n# Change\nFind one non-primary page (community post, Stack Overflow answer, blog) about Docker services or health checks on Render; open it once by plain GET; decide admit or reject against S059 (https://render.com/docs/docker) or S060 (https://render.com/docs/health-checks). Draft a row with id S064 in the 11-cell shape with reason and flip condition, plus a located quote of at most 25 words.\n# Acceptance\nReturn the URL, access time UTC, the drafted row and quote; write nothing to SOURCES.md.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ScribeScreenDockerCandidate/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ScribeScreenDockerCandidate.md"
+      },
+      {
+        "name": "ScribeMistakeDraft",
+        "agent": "scribe",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nFrontier step: mine one mistake for corpus/lessons/round-32.md ## Mistakes.\n# Change\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-31.md (## Mistakes) and /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-31-verifier-spotcheck.md. Also: the round-32 declaration in SCORECARD.md says 'Declared at 18:58Z' while the declaration commit 5b32cc7c4f6494a92912df5a19f589f04f7160a8 has its own commit time (`git -C /home/vgpnk/Projects/shokunin/kake-shokunin show -s --format=%cI 5b32cc7c4f6494a92912df5a19f589f04f7160a8`). Draft one or two Mistakes rows: class · evidence pointer · captured-by · fix, where the fix is shown able to fail.\n# Acceptance\nReturn the drafted rows; write nothing in the lane except your report.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ScribeMistakeDraft/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ScribeMistakeDraft.md"
+      },
+      {
+        "name": "ReviewMistakeSweep",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nFrontier step: sweep for errata the lane has not yet mined.\n# Change\nGrep /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-3*.md and /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-31/a2-w2/*.md for findings marked HIGH/MEDIUM or 'not repaired' and check which are absent from any lesson ## Mistakes row.\n# Acceptance\nList unmined items with pointers, or paste the sweep commands and output that found none.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewMistakeSweep/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewMistakeSweep.md"
+      },
+      {
+        "name": "ScoutLeadsDataWalk",
+        "agent": "scout",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nPlanning data walk (the L1 holds the planner seat): next frontier ground.\n# Change\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md '## Leads (unopened)' and /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/README.md '## Frontier'. List the three leads or frontier rows best placed for a next freshness claim that is not on the citing-set gate, with why.\n# Acceptance\nRanked list with pointers.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ScoutLeadsDataWalk/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ScoutLeadsDataWalk.md"
+      },
+      {
+        "name": "ConnectorSiblingOverlap",
+        "agent": "connector",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSibling-overlap scan for both claims.\n# Change\nSearch sibling lanes under /home/vgpnk/Projects/shokunin/*-shokunin (read-only) for hostile-fixture selftests, mutation ledgers (tameshi), retained external blobs, or Render knowledge entries that overlap kake's C1/C2 work this round.\n# Acceptance\nList overlaps with paths and whether kake should reuse or cite them; no edits.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ConnectorSiblingOverlap/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ConnectorSiblingOverlap.md"
+      },
+      {
+        "name": "ReviewCensusShape",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nCensus and registry shape after S062.\n# Change\nRun `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` and count rows `git -C /home/vgpnk/Projects/shokunin/kake-shokunin show <r>:corpus/SOURCES.md | grep -c '^| S0'` at a0b0dffcd95b2215f638a5ff7591dd4fde325d27 and 285abcad632e3c1c57bb402232e7d218054db383.\n# Acceptance\nPaste outputs with exit codes; flag any new warning or error.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewCensusShape/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: freshness\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewCensusShape.md"
+      },
+      {
+        "name": "CriticNoHarmDiff",
+        "agent": "critic",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nNo-harm scan across the round's diff.\n# Change\nRun `git -C /home/vgpnk/Projects/shokunin/kake-shokunin diff --stat a0b0dffcd95b2215f638a5ff7591dd4fde325d27 285abcad632e3c1c57bb402232e7d218054db383` and inspect each changed file: SCORECARD.md and the entry must be append-only, SOURCES.md must change only by the S062 row, scripts/ only by the hostile selftest and P6 spec.\n# Acceptance\nList any deletion or out-of-scope change with the diff hunk, or none.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/CriticNoHarmDiff/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/CriticNoHarmDiff.md"
+      },
+      {
+        "name": "ReviewDeclarationOrder",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nClaim discipline: declaration before data.\n# Change\nCheck that 5b32cc7c4f6494a92912df5a19f589f04f7160a8 (declaration with both counters) precedes the before receipts and the build: `git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --format='%H %cI %s' a0b0dffcd95b2215f638a5ff7591dd4fde325d27..285abcad632e3c1c57bb402232e7d218054db383`, and that no counter file changed after the declaration (`git -C /home/vgpnk/Projects/shokunin/kake-shokunin diff 5b32cc7c4f6494a92912df5a19f589f04f7160a8 285abcad632e3c1c57bb402232e7d218054db383 -- .ufo/waves/round-32/c1_m3_probe.py .ufo/waves/round-32/c2_retained_count.py`).\n# Acceptance\nReport the commit order, times and the diff result.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewDeclarationOrder/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewDeclarationOrder.md"
+      },
+      {
+        "name": "ReviewRoutedItemsStatus",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReport honesty: status of the round-31 routed items this round did not claim.\n# Change\nFor routed items 1, 3, 4, 6 and 7 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-31-verifier-spotcheck.md, check at 285abcad632e3c1c57bb402232e7d218054db383 whether each is still open (for item 3, read read_expected and the fixture-root discovery in scripts/citing_set_selftest.py; for item 6 grep the lane for history://KakeR30).\n# Acceptance\nOne line per item: open / addressed, with evidence.\nSandbox: /fast/scratch/hyaku/kake-r32/w1/ReviewRoutedItemsStatus/\n\nLane bounds: leaf member — no subagent dispatch.\nJudged on: operability\nMilestone: r32-build\n\nReport: write your scoped findings to .ufo/waves/round-32/w1/ReviewRoutedItemsStatus.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

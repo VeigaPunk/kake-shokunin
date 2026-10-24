@@ -1,0 +1,8 @@
+{"claim":"constructed","round":0,"target":1,"version":9,
+ "cases":[{"id":"z01","bullet":"e",
+  "manifest":{"version":1,"checks":[
+    {"id":"q1","url":"https://example.org/a","quote":"present quote","hops":[{"status":200}],"contentType":"text/html; charset=utf-8","body":"a.html"},
+    {"id":"q2","url":"https://example.org/b","quote":"any quote","hops":[{"status":200}],"contentType":"application/pdf","body":"b.bin"},
+    {"id":"q3","url":"https://example.org/c","quote":"missing quote","hops":[{"status":200}],"contentType":"text/html; charset=utf-8","body":"c.html"}]},
+  "files":{"a.html":{"b64":"eA=="},"b.bin":{"b64":"eA=="},"c.html":{"b64":"eA=="}},
+  "expect":{"exit":1,"verdict":"failed-policy","findings":[{"check":"q2","reason":"unsupported_type","target":null},{"check":"q3","reason":"quote_missing","target":null}]}}]}

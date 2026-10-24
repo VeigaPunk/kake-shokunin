@@ -1,0 +1,130 @@
+{
+ "schema": "kake-r33-c1-code-v1",
+ "rev": "bc6c4a8d435473f3c30903210be30d9d6e3ef750",
+ "runnerSha256": "7a6365e0e72fa513136d433b4dc3d382c8ca4812076e52a49836668f1c68827f",
+ "hostileSha256": "1d326e160274711031c566e81e2d1207edab1fa81e62c3465cfd1f17d4a32a95",
+ "guardMatches": 1,
+ "benign": {
+  "exit": 0,
+  "timedOut": false,
+  "cases": 45,
+  "failed": 0
+ },
+ "guard_ok": true,
+ "variants": {
+  "pristine": {
+   "applicable": true,
+   "sha256": "7a6365e0e72fa513136d433b4dc3d382c8ca4812076e52a49836668f1c68827f",
+   "exit": 0,
+   "timedOut": false,
+   "specs": [
+    [
+     "P1-selftest-argv",
+     true
+    ],
+    [
+     "P2-fixture-dot-git",
+     true
+    ],
+    [
+     "P3-commit-without-init",
+     true
+    ],
+    [
+     "P4-expected-json-guard",
+     true
+    ],
+    [
+     "P5-symlinked-case",
+     true
+    ],
+    [
+     "P6-commit-before-init",
+     true
+    ]
+   ],
+   "failing": []
+  },
+  "reworded": {
+   "applicable": true,
+   "sha256": "8d114395e74eae7499ea7a3067fd915a558a1d19feedf5b34698667292504f0b",
+   "exit": 1,
+   "timedOut": false,
+   "specs": [
+    [
+     "P1-selftest-argv",
+     true
+    ],
+    [
+     "P2-fixture-dot-git",
+     true
+    ],
+    [
+     "P3-commit-without-init",
+     true
+    ],
+    [
+     "P4-expected-json-guard",
+     true
+    ],
+    [
+     "P5-symlinked-case",
+     true
+    ],
+    [
+     "P6-commit-before-init",
+     false
+    ]
+   ],
+   "failing": [
+    "P6-commit-before-init"
+   ]
+  },
+  "m3": {
+   "applicable": true,
+   "sha256": "bd18bc8fc0a3eff282a1dad01fe2ccd84aece8abc4f86e1f76143b37e13ed8a7",
+   "exit": 1,
+   "timedOut": false,
+   "specs": [
+    [
+     "P1-selftest-argv",
+     true
+    ],
+    [
+     "P2-fixture-dot-git",
+     true
+    ],
+    [
+     "P3-commit-without-init",
+     true
+    ],
+    [
+     "P4-expected-json-guard",
+     true
+    ],
+    [
+     "P5-symlinked-case",
+     true
+    ],
+    [
+     "P6-commit-before-init",
+     false
+    ]
+   ],
+   "failing": [
+    "P6-commit-before-init"
+   ]
+  },
+  "recoded": {
+   "applicable": false
+  }
+ },
+ "expectations": {
+  "pristine_passes": true,
+  "reworded_passes": false,
+  "m3_killed": true,
+  "recoded_killed": false
+ },
+ "met": 2,
+ "of": 4
+}

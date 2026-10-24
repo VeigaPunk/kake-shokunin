@@ -1,0 +1,11 @@
+{
+ "kind":"shape-only pre-retention-remediation observation, not an authentication probe",
+ "source":"new uncommitted r27 public GET captures only; no r26 file changed",
+ "method":"gzip decompress each manifest file in memory; count meta[name=csrf-token], input[name=authenticity_token], document.cookie assignments/Set-Cookie literals, URL userinfo and vault-reference shapes; print COUNTS ONLY, never field values",
+ "observed":{"S002-1":{"csrf_meta":0,"authenticity_form":1,"cookie_assignment":0,"url_userinfo":0,"vault_ref":0},"S002-2":{"csrf_meta":0,"authenticity_form":1,"cookie_assignment":0,"url_userinfo":0,"vault_ref":0}},
+ "otherSixSlots":"all five shape counters zero",
+ "interpretation":"Credential-like public form-state shapes, not proof of a logged-in credential or account session. Values were not inspected, copied into reports or used. Conservative retention minimization is required before committing these new artifacts.",
+ "decision":"Retain HTML as public visible text only, preserve original received digest/length separately from retained representation digest/length, remove old own uncommitted raw files after safe replacement. No raw form/header/session state will be committed as new r27 evidence.",
+ "producerRepair":"ordinary residual executor PrivacyBoundary in actual separate worktree/branch kake-r27-privacy at observed9ba102d; author integrates and runs no-network migration/real checks after full barrier",
+ "scope":"No account/auth/cookie/browser/property workflow or new external fetch performed by this scan; no values serialized; no r24 policy-stopped material read/retried. Historical files remain owned by their recorded round and untouched."
+}

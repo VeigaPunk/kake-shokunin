@@ -1,0 +1,60 @@
+{
+ "unit": "kimi-subpath-audit",
+ "path": "corpus/knowledge/kimi-subpath-audit.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "ds4cc.com's `sitemap.xml` (93 locs) is the\n   \"should-serve\" set for ds4cc.kimi.page.",
+   "claim": "The live canonical sitemap currently has 93 entries and is the should-serve inventory for the Kimi mirror.",
+   "surface": "GET https://ds4cc.com/sitemap.xml",
+   "method": "GET",
+   "observation": "Count command output: loc_count=96.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the live ds4cc.com sitemap contains 96 <loc> entries and remains the should-serve inventory for ds4cc.kimi.page.",
+   "seat": "ReverifyKimiSubpathAudit"
+  },
+  {
+   "id": "c2",
+   "anchor": "ds4cc-kimi-mirror — 93 canonical locs → 19 served, 74 missing",
+   "claim": "Parity of the canonical list reports 19 served and 74 missing Kimi paths.",
+   "surface": "GET https://ds4cc.com/sitemap.xml; GET all 96 mapped paths on https://ds4cc.kimi.page (trailing / mapped to index.html)",
+   "method": "GET",
+   "observation": "curl_parity locs=96 statuses={'200': 19, '404': 77}",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the live sitemap has 96 canonical locations and the 96 directory-mapped Kimi GETs return 19 HTTP 200 and 77 HTTP 404.",
+   "seat": "ReverifyKimiSubpathAudit"
+  },
+  {
+   "id": "c3",
+   "anchor": "404 on kimi while `*/index.html` serves 200",
+   "claim": "The index-linked omarchy-usage, omegag, and speedrun directory URLs fail on Kimi while their index.html paths serve.",
+   "surface": "GET https://ds4cc.kimi.page/{omarchy-usage,omegag,speedrun}{/,/index.html}",
+   "method": "GET",
+   "observation": "404 https://ds4cc.kimi.page/omarchy-usage/; 200 https://ds4cc.kimi.page/omarchy-usage/index.html; 404 https://ds4cc.kimi.page/omegag/; 200 https://ds4cc.kimi.page/omegag/index.html; 404 https://ds4cc.kimi.page/speedrun/; 200 https://ds4cc.kimi.page/speedrun/index.html",
+   "verdict": "HOLD",
+   "seat": "ReverifyKimiSubpathAudit"
+  },
+  {
+   "id": "c4",
+   "anchor": "| burnerchrome-kimi | 15 | 0 |",
+   "claim": "The burnerchrome Kimi index has 15 same-origin link targets and zero non-200 targets.",
+   "surface": "GET https://burnerchrome.kimi.page/ and its 15 unique same-origin non-fragment href/src targets",
+   "method": "GET",
+   "observation": "burnerchrome_root=GET-200 same_origin_nonfragment_targets=15 status_counts={'200': 15}; non_200=[]",
+   "verdict": "HOLD",
+   "seat": "ReverifyKimiSubpathAudit"
+  },
+  {
+   "id": "c5",
+   "anchor": "sitemap commit `f3d2ecd` adds **75** `<url>` entries (18→93 locs);",
+   "claim": "The source-history pointer f3d2ecd is the sitemap change adding 75 URLs to the 18-entry list, reaching 93.",
+   "surface": "GET https://github.com/VeigaPunk/ds4cc-marketplace/commits/main/sitemap.xml; GET https://github.com/VeigaPunk/ds4cc-marketplace/commit/f3d2ecd; GET raw sitemap at 2b5fd57 and 0b1116766de2d9895a3673c88678049b4946cf3c",
+   "method": "GET",
+   "observation": "f3d2ecd commit URL: HTTP 404; reachable history shows 0b1116766de2d9895a3673c88678049b4946cf3c; count outputs: 2b5fd57 loc_count=18 and 0b1116766de2d9895a3673c88678049b4946cf3c loc_count=93.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, the reachable sitemap history shows commit 0b1116766de2d9895a3673c88678049b4946cf3c adding 75 locations (parent 2b5fd57: 18; new tree: 93), while the cited f3d2ecd URL returns 404.",
+   "seat": "ReverifyKimiSubpathAudit"
+  }
+ ]
+}

@@ -1,0 +1,139 @@
+{
+ "counter": "kake-r31-c1-sandbox-probes",
+ "counterSha256": "4707cebf8831eb9a8e79405fcc07ad77e118110f980dac2826c5934a43166d1a",
+ "revision": "92235a0578b04458c5eb96c966f82fa03593130e",
+ "runnerSha256": "5371530d93ecb218b4607fb37de810fe7b7b2db869c65c8b65988b2f04c0ce6c",
+ "passed": 5,
+ "total": 5,
+ "controlK1": true,
+ "k1": {
+  "exit": 0,
+  "cases": 45
+ },
+ "hostileSelftest": {
+  "present": true,
+  "exit": 0,
+  "cases": {
+   "P1-selftest-argv": true,
+   "P2-fixture-dot-git": true,
+   "P3-commit-without-init": true,
+   "P4-expected-json-guard": true,
+   "P5-symlinked-case": true
+  }
+ },
+ "probes": [
+  {
+   "id": "P1",
+   "gap": "N1 case argv reaching --selftest runs fixture-copied scripts",
+   "passed": true,
+   "behaviour": true,
+   "fixture": true,
+   "fixtureDirs": [
+    "P1-selftest-argv"
+   ],
+   "detail": {
+    "exit": 1,
+    "timedOut": false,
+    "failedCases": [
+     "h1a",
+     "h1b",
+     "h1c"
+    ],
+    "reasons": {
+     "h1a": "case.json argv refused: --selftest",
+     "h1b": "case.json argv refused: --self",
+     "h1c": "case.json argv refused: --selftest"
+    },
+    "canary": false
+   }
+  },
+  {
+   "id": "P2",
+   "gap": "N2 fixture .git accepted by setup ops other than git_init",
+   "passed": true,
+   "behaviour": true,
+   "fixture": true,
+   "fixtureDirs": [
+    "P2-fixture-dot-git"
+   ],
+   "detail": {
+    "exit": 1,
+    "timedOut": false,
+    "failedCases": [
+     "h2a",
+     "h2b"
+    ],
+    "reasons": {
+     "h2a": "fixture carries a .git entry, refused: .git",
+     "h2b": "fixture carries a .git entry, refused: .git"
+    },
+    "victimUnchanged": true
+   }
+  },
+  {
+   "id": "P3",
+   "gap": "N3 git_commit without git_init discovers an enclosing repository",
+   "passed": true,
+   "behaviour": true,
+   "fixture": true,
+   "fixtureDirs": [
+    "P3-commit-without-init"
+   ],
+   "detail": {
+    "exit": 1,
+    "timedOut": false,
+    "failedCases": [
+     "h3"
+    ],
+    "reasons": {
+     "h3": "case.json setup op 'git_commit' needs an earlier 'git_init'"
+    },
+    "victimUnchanged": true
+   }
+  },
+  {
+   "id": "P4",
+   "gap": "N5 expected.json read with no symlink, file-type or size guard",
+   "passed": true,
+   "behaviour": true,
+   "fixture": true,
+   "fixtureDirs": [
+    "P4-expected-json-guard"
+   ],
+   "detail": {
+    "exit": 1,
+    "timedOut": false,
+    "failedCases": [
+     "h4a",
+     "h4b",
+     "h4c"
+    ],
+    "reasons": {
+     "h4a": "expected.json unreadable (symlinks are refused): [Errno 40] Too many levels of symbolic links: '/fast/scratch/hyaku/kake-r31/counter/c1-92235a0-0_u9ate2/P4/fixtures/h4a/expected.json'",
+     "h4b": "expected.json must be at most 1048576 bytes",
+     "h4c": "expected.json must be a regular file"
+    }
+   }
+  },
+  {
+   "id": "P5",
+   "gap": "N6 symlinked case directory skipped silently",
+   "passed": true,
+   "behaviour": true,
+   "fixture": true,
+   "fixtureDirs": [
+    "P5-symlinked-case"
+   ],
+   "detail": {
+    "exit": 1,
+    "timedOut": false,
+    "failedCases": [
+     "h5"
+    ],
+    "reasons": {
+     "h5": "symlinked case directory refused"
+    }
+   }
+  }
+ ]
+}

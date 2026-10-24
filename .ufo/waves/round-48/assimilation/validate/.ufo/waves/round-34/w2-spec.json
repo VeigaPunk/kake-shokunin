@@ -1,0 +1,307 @@
+{
+ "wave": "kake-r34-w2",
+ "milestone": "r34-falsify",
+ "maxLanes": 64,
+ "axes": [
+  "operability",
+  "freshness"
+ ],
+ "reportDir": ".ufo/waves/round-34/w2",
+ "context": "# Goal\nKake round 34, wave 2 (falsify what wave 1 built and the L1 landed). The L1 (KakeR34) holds the planner and integration seat; you are one leaf seat. Lane repo: /home/vgpnk/Projects/shokunin/kake-shokunin. Lane axes: operability and freshness (web properties and publishing). This round opens a new frontier area: link-preview metadata (Open Graph protocol tags that social and chat platforms read to build a preview card for a shared URL). Each item names what it builds or attacks; attacks try to show work is wrong, overstated or harmful, with reproducible evidence. Time box: finish and write your report within 20 minutes; a partial report beats none.\n\n# Declared claims (SCORECARD.md section \"Round 34 — declared claims\", landed at d08d8de26c9a4290c44282b0eee2b860e8ea4ecc; base 1e54c89515b0b1f7c9d7d10e6232d15e43320713)\n- C1 (operability, capability): an offline link-preview audit `scripts/link_preview_audit.py` (landed at 5613071e0107544d825e37db1e98f0bfcfb61465) reads a version-1 manifest of local HTML pages and reports, network-free, missing Open Graph required properties og:title, og:type, og:image, og:url (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the page's canonical link (S067, S068). The full exit/verdict/finding contract and 28 frozen cases are in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/c1-matrix.json (key \"interface\"). Counter: `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root <repo> --revision <commit>` (reads the tool from the commit, the matrix from the counter's own directory pinned by sha256; four constant gates must each fail a case). Before 0/28; declared after 28/28 with all constants rejected.\n- C2 (freshness, sourced learning claim): `corpus/knowledge/link-preview-metadata.md` (landed at 9ef758c95d5e2e4d983df53ad00a084e2c5fb36f) grounded in S067 https://ogp.me/, S068 Facebook \"A Guide to Sharing for Webmasters\", S069 Slack robots page, S070 Mastodon PreviewCard entity; and one entry line `ds4cc-7fc6aa2f-og-census: pages=N og:title=N og:type=N og:image=N og:url=N all-four=N og-url-equals-canonical=N` equal to the counter's recount of retained ds4cc HTML. Counter: `python3 -B .ufo/waves/round-34/c2_source_census.py --root <repo> --revision <commit>` (read its docstring for conditions a-e). Before met 0/5; declared after 5/5.\n\n# Landed state\n- Lane branch master: 24a16474ee73e20453f3e1be9d2f33573c5196d9. Commits this round: d08d8de (declaration, matrix, counters, sources S067–S072, ds4cc archive), a2fe31b (before receipts; round-33 evidence retained), 5613071 (C1 tool), 9ef758c (C2 entry, SOURCES S067–S077, lesson round-34), 24a1647 (selftest + 29 fixtures, criteria checks, retained critic controls, receipts, QUALITY/SKILL/PROVINCE/README/SCORECARD/LOG round-34 sections, wave-1 reports). Read landed state with `git show <rev>:<path>` or your own clone at 24a16474ee73e20453f3e1be9d2f33573c5196d9; never the lane working tree.\n- L1 receipts in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/verification/: c1-at-*.json (0/28 at 1e54c89 and d08d8de; 28/28 constants rejected at 5613071, 9ef758c, 24a1647), c2-at-*.json (0/5 before; 5/5 at 9ef758c and 24a1647), real-input-at-5613071.json, selftest-link-preview-at-5613071-tool.txt, criterion-*.txt, c2-at-critic-hollow-0cce15f.json.\n- Wave-1 reports (what you attack): /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/w1/*.md. Key wave-1 findings already disclosed by the L1: a lookup-table tool scores the C1 counter 28/28 (retained /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/retained/r34-c1-lookup-dcef39b5.bundle) and a transcription commit scores C2 5/5 (r34-c2-hollow-0cce15f0.bundle); both counters are declared necessary-not-sufficient in SCORECARD \"Round 34 — measured results\" and the lesson's mistake row 4. Do not re-report those two as new; attack what is landed.\n- Retained sources: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/ (S067–S077 text, bodies, receipts.json; ds4cc-7fc6aa2f/html.tar.xz and tree.txt). Upstream read-only clone: /fast/scratch/hyaku/kake-r33/ds4cc-upstream (git show / ls-tree / cat-file only); you may clone https://github.com/VeigaPunk/ds4cc-marketplace.git into your sandbox.\n- Round-33 closure with routed defects: /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-33-verifier-spotcheck.md.\n- Holds (ended items; never retry, reroute or rephrase): KakeR31.CriticC1Counter and KakeR31.CriticSandboxThreatModel. No item here asks whether a counter or selftest may trust runner-reported failure names, reason text or codes, and none models sandbox threats; if your item drifts there, stop that line and say so. If your own seat hits a provider safety or policy refusal or an automatic model switch, stop and write a one-line report saying so; do not rephrase.\n- Wave-1 seat MutC2CounterConditions briefly wrote into a tracked lane file and reverted it. Never edit any lane file other than your own report; build everything in your sandbox.\n\n# Bounds\n- You are a leaf: no subagents, no swarm, no second judge, no admission or verdict on the round. Executors may spawn at most one read-only labrat probe.\n- Never mutate the fleet repo (/home/vgpnk/Projects/shokunin), sibling lanes, the lane jj state, the lane Git index or any tracked lane file. Never run git add/commit/stash/checkout/reset/pull/push or any mutating jj command in /home/vgpnk/Projects/shokunin/kake-shokunin; seats never push, commit or update refs in the lane. Never run any jj command at /home/vgpnk/Projects/shokunin; in the lane, read-only jj only with --ignore-working-copy.\n- Code that writes files or Git state runs only in your own sandbox: /fast/scratch/hyaku/kake-r34/w2/<YourName>/ (clone with `git clone -q /home/vgpnk/Projects/shokunin/kake-shokunin /fast/scratch/hyaku/kake-r34/w2/<YourName>/clone` when you need one, then `git -C <clone> checkout -q <rev>`; export TMPDIR=/fast/scratch/hyaku/kake-r34/w2/<YourName>/tmp after creating it; never /tmp or /dev/shm). Unset GIT_DIR, GIT_WORK_TREE and GIT_INDEX_FILE before any git command in a sandbox. Deliverable files (code, patches, drafts, receipts) stay in your sandbox; name their absolute paths in your report.\n- Owned sites: no live requests of any kind to the operator's owned web properties (ds4cc.com, app.ds4cc.com, *.onrender.com hosts of the operator, *.kimi.page, *.kimi.pro, veigapunk.github.io and any host pinned in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-pins.json). ~/Projects/ds4cc-marketplace is a read-only local checkout: read it with git show/cat-file only; never fetch into it.\n- Network: only seats told to open a named public URL may fetch, GET only (github.com reads of the public ds4cc-marketplace repository are allowed for every seat). Open sources by ordinary means only; never use a headless browser or any tool to pass a bot challenge, captcha or access control; a page you cannot open that way is recorded as unopened.\n- Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>. Your report is the only file you write in the lane.\n- Tooling (operator, 2026-10-19): you and every seat may install or update tools that help the task without asking; read /home/vgpnk/.omp/agent/RULES.md first, use official channels, and record tool, version, channel and reason in your report. All pacman transactions are PAUSED host-wide: no pacman, no -Sy/-Syu/-U/-R, no downgrade, no service restart; use uv tool, npx or an official binary in ~/.local/bin.\n- The only message target is agent://KakeR34 (the L1), for blockers only. Never message agent://all. Write plain English with no run-together words or private jargon.\n\n# Result\nReport under 80 lines: what you attacked or built, the exact commands you ran with exit codes, observed outputs, and evidence pointers (path:line, hash). An unrun check has not passed; say what you did not verify. If you stop before finishing, the first line of your report must be `PARTIAL:` with what is missing. Your findings are advisory input for the L1 and the non-author closure.",
+ "items": [
+  {
+   "name": "RerunC1Counter",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRe-run the C1 counter and compare with the L1's receipts.\n# Change\nIn a sandbox clone /fast/scratch/hyaku/kake-r34/w2/RerunC1Counter/clone at 24a16474ee73e20453f3e1be9d2f33573c5196d9, run `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root <clone> --revision <rev>` for 1e54c895, d08d8de, 5613071, 9ef758c, 24a1647; diff each output field by field against /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/verification/c1-at-*.json; confirm the counter and matrix sha256 equal their bytes at d08d8de.\n# Acceptance\nTable: revision, passed, constants, toolSha256, equal-to-receipt yes/no; any mismatch with both outputs."
+  },
+  {
+   "name": "RerunC2Counter",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRe-run the C2 counter and compare with the L1's receipts.\n# Change\nIn a sandbox clone /fast/scratch/hyaku/kake-r34/w2/RerunC2Counter/clone at 24a16474ee73e20453f3e1be9d2f33573c5196d9, run `python3 -B .ufo/waves/round-34/c2_source_census.py --root <clone> --revision <rev>` for 1e54c895, d08d8de, 9ef758c, 24a1647; diff field by field against /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/verification/c2-at-*.json; confirm the counter bytes equal d08d8de's.\n# Acceptance\nTable per revision with met, per-id checks, census derived/stated, equal-to-receipt."
+  },
+  {
+   "name": "ReviewLinkPreviewTool",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nCode review of the landed tool /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/link_preview_audit.py at 5613071 (unchanged at 24a1647).\n# Change\nCheck every interface sentence in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/c1-matrix.json \"interface\" against the code; docstring claims (network-free, no writes, the NOT-check list, lane-policy statements) against the code; error handling (argparse -h exit code, manifest shapes, encoding, path resolution, symlinks); comparison with conventions of /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/base_path_audit.py.\n# Acceptance\nSeverity-ranked defects with a cheap reproduction each (sandbox only)."
+  },
+  {
+   "name": "MutToolRuleBreaks",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nMutation-test the landed tool against the frozen C1 counter AND the committed selftest.\n# Change\nIn a sandbox clone /fast/scratch/hyaku/kake-r34/w2/MutToolRuleBreaks/clone at 24a16474ee73e20453f3e1be9d2f33573c5196d9, make at least 12 single-change mutants of scripts/link_preview_audit.py (each one rule: name= counted; og:type multiplicity off; empty content counted; whitespace not stripped; canonical not resolved; first canonical not winning; og:url compare case-insensitive; trailing slash normalised; input+policy findings mixed; exit code swaps; path-escape allowed; non-UTF-8 page not page_unreadable; only first page audited). Commit each in the sandbox; run the C1 counter at that commit and `python3 -B scripts/link_preview_selftest.py --tool scripts/link_preview_audit.py` in that checkout.\n# Acceptance\nTable: mutant, counter score, selftest passed/total, killed-by (counter / selftest / both / none). List survivors of both."
+  },
+  {
+   "name": "ReviewSelftestFixtures",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview the committed selftest /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/link_preview_selftest.py and its 29 fixtures under /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/fixtures/link-preview/ (landed at 24a1647).\n# Change\nFor each fixture: is expected.json right per the interface in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/c1-matrix.json; does it copy a matrix case (the L1 says none does — check); does the runner compare what it says (exit, verdict, findings multiset); runner failure modes (missing tool, non-JSON output, timeouts).\n# Acceptance\nPer-fixture table (rule, correct yes/no, copies matrix yes/no) and runner defects ranked."
+  },
+  {
+   "name": "ExecDifferentialOracle",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDifferential test: landed tool vs wave-1's independent lxml implementation.\n# Change\nIn /fast/scratch/hyaku/kake-r34/w2/ExecDifferentialOracle: take the landed tool (git show 24a16474ee73e20453f3e1be9d2f33573c5196d9:scripts/link_preview_audit.py) and the independent implementation at /fast/scratch/hyaku/kake-r34/w1/ExecIndependentOracle/clone/scripts/link_preview_audit.py (read-only; copy it). Generate at least 300 pages (random combinations of the four og properties, empty/whitespace values, name= forms, duplicate og:type, relative/absolute/protocol-relative og:url, zero/one/two canonical links, uppercase tags, entities, self-closing meta, tags in body) plus the 102 retained ds4cc pages; run both; compare exit, verdict and (reason, property) multisets.\n# Acceptance\nDisagreement count by class with minimal reproductions and which implementation is right per the interface text."
+  },
+  {
+   "name": "SentinelToolInputs",
+   "role": "sentinel",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nInput-handling review of /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/link_preview_audit.py at 24a1647 (a read-only offline auditor run by operators on local files).\n# Change\nCheck: path escape via `..`, absolute paths and symlinks inside the manifest directory pointing outside; very large or deeply nested HTML; non-UTF-8 and BOM; manifest with huge page lists; whether the tool can be made to write files or open sockets. Reproduce in your sandbox /fast/scratch/hyaku/kake-r34/w2/SentinelToolInputs only.\n# Acceptance\nFindings with severity and reproduction; state what you did not test."
+  },
+  {
+   "name": "ExecNetworkFreeProof",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRuntime proof of the tool's \"never opens a network connection and never writes to disk\" claim.\n# Change\nIn /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof: extract the 102 retained ds4cc pages and the 28 matrix cases (from /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/c1-matrix.json) into your sandbox with manifests; run the landed tool (git show 24a16474ee73e20453f3e1be9d2f33573c5196d9:scripts/link_preview_audit.py) under `strace -f -e trace=network,openat,creat,rename,unlink` (install strace via uv/official binary only if absent; no pacman) and, if available without privilege changes, `unshare -rn`; report any socket call or write-mode open.\n# Acceptance\nCommands, exit codes, and a summary of every syscall class observed."
+  },
+  {
+   "name": "ReviewRealInputRun",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/real_input_run.py and its receipt /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/verification/real-input-at-5613071.json.\n# Change\nRe-run it in a sandbox clone at 24a16474ee73e20453f3e1be9d2f33573c5196d9 (`python3 -B .ufo/waves/round-34/real_input_run.py --root <clone> --revision 5613071 --census <clone>/.ufo/waves/round-34/verification/c2-at-d08d8de.json`); check its logic: could it report agrees=true for a wrong tool (for example one that ignores og:url canonical)? Is the claim in SCORECARD \"Round 34 — measured results\" about it accurate?\n# Acceptance\nRe-run output, logic defects ranked, and whether the SCORECARD sentence holds."
+  },
+  {
+   "name": "CriticCapabilityClaim",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack C1's capability claim at 24a1647.\n# Change\nRead AXES.md section Capabilities (/home/vgpnk/Projects/kimi-shokunin/skills/shokunin/protocol/AXES.md or /home/vgpnk/Projects/shokunin/AXES.md), the SCORECARD capability row \"Offline link-preview (Open Graph) audit\" and the measured-results section, the landed tool, and the wave-1 lookup finding. Is the capability earned (runs, output verifies, row entered same round)? Is the declared after-value (28/28) still a fair measure given the lookup finding, and is the disclosure adequate? Any overclaim in the row text?\n# Acceptance\nNumbered findings with evidence; a recommended wording for any overclaim."
+  },
+  {
+   "name": "ReviewEntryCoreSections",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nTruth of the C2 entry /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/link-preview-metadata.md at 24a1647: header and sections \"What a link preview reads (S067)\" and \"Platform guidance (S068)\".\n# Change\nEvery curly-quoted span must be an exact substring (whitespace collapsed) of /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/S067.txt or S068.txt as attributed; every sentence must be supported by its quote or labelled [INFERENCE]; flag inferences presented as facts.\n# Acceptance\nSentence table: supported / inference-labelled / unsupported, with the failing sentences quoted."
+  },
+  {
+   "name": "ReviewEntryCrawlerCensus",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nTruth of the C2 entry /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/link-preview-metadata.md at 24a1647: sections on S069, S070, the ds4cc census, fixing the source, and limits.\n# Change\nCheck quotes against /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/S069.txt and S070.txt; check every census-section number and page claim (15 pages, 14 with canonical and no og:url, benchmarks page with no canonical, omegag only image page, all 87 typed `website`) against the retained archive /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/ds4cc-7fc6aa2f/html.tar.xz with your own commands.\n# Acceptance\nSentence table with verdicts and the commands used."
+  },
+  {
+   "name": "ReviewEntryWave1Additions",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nTruth of the appended section \"Round-34 wave-1 additions\" in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/link-preview-metadata.md at 24a1647.\n# Change\nCheck the S073 quotes against /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/S073.txt; check every ds4cc claim (hand-authored, Pages workflow, 15 pages listed, no default raster image, bloat/exa canonical vs sitemap) against the upstream clone /fast/scratch/hyaku/kake-r33/ds4cc-upstream at 7fc6aa2f and the round-33 retained sitemap /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-33/sources/ds4cc-7fc6aa2f/sitemap.xml; check the owned-properties paragraph against the round-23 snapshots the wave-1 report ScoutOwnedPropertiesOG.md names.\n# Acceptance\nPer-claim verdict with evidence."
+  },
+  {
+   "name": "ReviewSourcesRows",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSOURCES.md rows S067–S077 at 24a1647 (/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md `## Registry`).\n# Change\nCell by cell: source URL and final URL vs /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/receipts.json; kind and tier vs the contract in /home/vgpnk/Projects/shokunin/CORPUS.md \"SOURCES.md — where a shokunin learns\"; anchor and teaches supported by the retained text; text sha256 prefixes; rejected rows carry reason and flip; used-by paths exist; run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` read-only and report.\n# Acceptance\nPer-row defect list."
+  },
+  {
+   "name": "ReopenSourcesMined",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRe-open the mined sources now and compare with the retained receipts.\n# Change\nOne ordinary GET each (same User-Agent idea, Accept-Language en) of the URLs of S067, S068, S069, S070, S073 in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/receipts.json, in /fast/scratch/hyaku/kake-r34/w2/ReopenSourcesMined; build visible text with the fetcher's rule (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/fetch_sources.py visible_text); compare text sha256 with receipts; check each Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-34.md is still present.\n# Acceptance\nPer source: status, final URL, sha equal yes/no, quote present yes/no; for any change, the differing span."
+  },
+  {
+   "name": "ReopenSourcesRejected",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRe-open the rejected and queued sources and test each rejection reason.\n# Change\nOne ordinary GET each of S071, S072, S074, S075, S076, S077 (URLs in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/receipts.json) in /fast/scratch/hyaku/kake-r34/w2/ReopenSourcesRejected; for each rejection reason in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md rows, state whether the fresh bytes still support it (for S074, search the page for og:, meta, property; for S075 count visible words).\n# Acceptance\nPer source: status, final URL, reason holds yes/no with evidence."
+  },
+  {
+   "name": "ReviewGateAndRowLog",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe round-34 lesson `## Gate` (/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-34.md at 24a1647).\n# Change\nPer Gate line: URL, access date, decision, one located quote ≤25 words that is an exact substring of the retained text; every new SOURCES row has a Gate line; every status/recheck/used-by change is logged old→new; rejects carry located reasons. Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/criteria/gate_reject_check.py --repo /home/vgpnk/Projects/shokunin/kake-shokunin --rev 24a16474ee73e20453f3e1be9d2f33573c5196d9 --lesson corpus/lessons/round-34.md` and report.\n# Acceptance\nDefect list and the check's output."
+  },
+  {
+   "name": "CriticC2Sufficiency",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nGiven that a transcription commit scores C2 5/5 (retained r34-c2-hollow-0cce15f0.bundle), does the landed C2 work show learning beyond what the counter measures?\n# Change\nCompare the landed entry /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/link-preview-metadata.md at 9ef758c with the hollow commit's entry (fetch the bundle into your sandbox clone /fast/scratch/hyaku/kake-r34/w2/CriticC2Sufficiency/clone). Judge: new knowledge the lane did not hold, correct grounding, honest inference labels, frontier value. Also: is the freshness axis fit honest?\n# Acceptance\nNumbered findings; a verdict recommendation (improved / unprovable / not improved) with reasons, advisory only."
+  },
+  {
+   "name": "ExecCensusThirdMethod",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRecount the census a third way at the tip.\n# Change\nIn /fast/scratch/hyaku/kake-r34/w2/ExecCensusThirdMethod: from `git show 24a16474ee73e20453f3e1be9d2f33573c5196d9:.ufo/waves/round-34/sources/ds4cc-7fc6aa2f/html.tar.xz`, recount the seven census numbers with a method neither the C2 counter (html.parser) nor wave-1 (lxml) used — for example Node with parse5 via `npx`, or html5lib via `uv run --with html5lib` — and compare with the entry's census line at 24a16474ee73e20453f3e1be9d2f33573c5196d9.\n# Acceptance\nBoth sets of numbers and per-page evidence for any difference."
+  },
+  {
+   "name": "ReviewMistakesRows",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe round-34 lesson `## Mistakes` rows (/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-34.md at 24a1647).\n# Change\nFor each row: evidence pointers resolve in committed bytes; captured-by is accurate; the fix is shown able to fail by a committed receipt (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/verification/criterion-*.txt) — re-run each named check command in your sandbox clone /fast/scratch/hyaku/kake-r34/w2/ReviewMistakesRows/clone and compare.\n# Acceptance\nPer-row verdict with re-run outputs."
+  },
+  {
+   "name": "MutGateRejectCheck",
+   "role": "mutation-tester",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/criteria/gate_reject_check.py (landed at 24a1647).\n# Change\nIn /fast/scratch/hyaku/kake-r34/w2/MutGateRejectCheck: build lesson variants committed in a sandbox clone that should FAIL (reject inside a fenced block; \"rejected\" only in prose outside a decision; reject with empty reason; reject in a different section after ## Gate) and should PASS (table-row reject; list-line reject); run the check on each and report false passes and false fails. Also mutate the check (single-line edits) and see whether its own receipts would notice.\n# Acceptance\nTable of variants with expected vs observed exit."
+  },
+  {
+   "name": "MutReceiptPresenceCheck",
+   "role": "mutation-tester",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nAttack /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/criteria/receipt_presence_check.py (landed at 24a1647).\n# Change\nIn /fast/scratch/hyaku/kake-r34/w2/MutReceiptPresenceCheck: write report variants (hash in a table vs prose, full vs 7-char vs 8-char hash, hash with receipt naming a different commit, measurement section renamed, receipts only as .txt) and run the check with --repo /home/vgpnk/Projects/shokunin/kake-shokunin --rev 24a16474ee73e20453f3e1be9d2f33573c5196d9 --round 34 or 33; report false passes and false fails.\n# Acceptance\nTable of variants with expected vs observed exit, and the blind spots that matter for the round-34 report."
+  },
+  {
+   "name": "ReviewLookupControlCheck",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nReview /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/criteria/lookup_control_check.py and its receipt verification/criterion-lookup-control-c1-dcef39b.txt.\n# Change\nRe-run it in a sandbox clone /fast/scratch/hyaku/kake-r34/w2/ReviewLookupControlCheck/clone at 24a16474ee73e20453f3e1be9d2f33573c5196d9 after fetching /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/retained/r34-c1-lookup-dcef39b5.bundle (`git fetch <bundle> lookup-c1:lookup-c1`); also run it with control = 5613071 (the honest tool; must exit 1 too, since an honest tool reaches total — say whether the check's name and docstring make that clear) and with the C2 counter against 0cce15f0. Check the QUALITY round-34 criterion (d) text in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/QUALITY.md matches what the check does.\n# Acceptance\nOutputs and defects ranked."
+  },
+  {
+   "name": "ReviewQualityCriteria34",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nQUALITY.md \"Round-34 criteria\" (a)–(d) at 24a1647.\n# Change\nEach criterion: grounding pointers resolve; named checks exist at the named paths; receipts exist and say what the text says; each criterion can fail (receipt shows a failing run); no criterion contradicts an earlier QUALITY criterion.\n# Acceptance\nPer-criterion verdict with evidence."
+  },
+  {
+   "name": "ReviewSkillTable34",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSKILL.md section \"Link-preview metadata — round 34\" at 24a1647.\n# Change\nEvery row grounded (phrase present in the retained text or interface); stale numbers or receipt states (for example a row citing \"met 0/5\" as current); commands executable as written (run each read-only command in your sandbox clone /fast/scratch/hyaku/kake-r34/w2/ReviewSkillTable34/clone).\n# Acceptance\nPer-row verdict."
+  },
+  {
+   "name": "ReviewProvinceReadme34",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nPROVINCE.md \"Round-34 link-preview frontier step\" and corpus/README.md \"Coverage — round 34\" at 24a1647.\n# Change\nEvery factual statement true at the tip (counts, source ids and statuses, what was fetched and when — compare with receipts.json and the wave-1 reports' fetch lists); Core vs Frontier statement consistent with PROVINCE line 30; no older line rewritten (`git diff 1e54c895 24a16474ee73e20453f3e1be9d2f33573c5196d9 -- PROVINCE.md corpus/README.md` adds only).\n# Acceptance\nPer-statement defects."
+  },
+  {
+   "name": "ReviewScorecard34",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nSCORECARD.md round-34 sections (declaration and \"Round 34 — measured results\") and the new capability row at 24a1647.\n# Change\nEvery number and revision re-derivable from a committed receipt in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/verification/; disclosed limits accurate against the wave-1 reports they cite; the declaration unchanged since d08d8de except appends (`git diff d08d8de 24a16474ee73e20453f3e1be9d2f33573c5196d9 -- SCORECARD.md`).\n# Acceptance\nDefect list with pointers."
+  },
+  {
+   "name": "CriticHarmCheck",
+   "role": "critic",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nHarm check for round 34: base 1e54c89515b0b1f7c9d7d10e6232d15e43320713 to 24a16474ee73e20453f3e1be9d2f33573c5196d9.\n# Change\n`git diff --numstat` and `--name-status` over the range; any deleted line in a ledger, doc or corpus file (history rewritten?); any behaviour change in existing scripts; any axis score lowered; any source row status changed. Name each deletion and judge it.\n# Acceptance\nNumbered findings; harm found yes/no with evidence."
+  },
+  {
+   "name": "ExecOtherGatesUnchanged",
+   "role": "executor",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nShow existing lane gates behave the same at base and tip.\n# Change\nIn sandbox clones /fast/scratch/hyaku/kake-r34/w2/ExecOtherGatesUnchanged/base (1e54c895) and /tip (24a16474ee73e20453f3e1be9d2f33573c5196d9): run `python3 -B scripts/base_path_selftest.py`, `python3 -B scripts/citing_set.py --selftest`, `python3 -B scripts/citing_set_hostile_selftest.py`, `node scripts/corpus-contract.mjs` (read its usage first; offline modes only), and the canonical audit selftest if one exists; compare exit codes and summaries. No live requests: skip any mode that fetches.\n# Acceptance\nTable: gate, base exit/summary, tip exit/summary, same yes/no."
+  },
+  {
+   "name": "ReviewCarriedOpenShapes",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe lesson section \"Carried open — round-33 C2 counter shapes\" in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-34.md at 24a1647.\n# Change\nCheck each named shape's pointer (C34:<line> means /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/c2_source_census.py line numbers; C33 means /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-33/c2_pin_count.py) and each avoid/carry mark against the code; check that every shape named in the round-33 spot-check routed item 1 (/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-33-verifier-spotcheck.md lines 187-191) appears by name.\n# Acceptance\nPer-shape verdict; any routed shape missing."
+  },
+  {
+   "name": "ReviewRetainedControls",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nThe retained round-34 control bundles and their receipts.\n# Change\nIn /fast/scratch/hyaku/kake-r34/w2/ReviewRetainedControls/clone at 24a16474ee73e20453f3e1be9d2f33573c5196d9: verify and fetch /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/retained/r34-c1-lookup-dcef39b5.bundle and r34-c2-hollow-0cce15f0.bundle; show each commit's parent and diff; re-run the C1 counter on dcef39b5 and the C2 counter on 0cce15f0 and compare with /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/verification/criterion-lookup-control-c1-dcef39b.txt and c2-at-critic-hollow-0cce15f.json.\n# Acceptance\nEach check with command and result."
+  },
+  {
+   "name": "CriticDeclarationTiming",
+   "role": "critic",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDeclared-before-data and post-finding discipline for round 34.\n# Change\nTimeline from commit times (`git log --format='%H %aI %cI %s' 1e54c895..24a16474ee73e20453f3e1be9d2f33573c5196d9`), receipts accessedUtc, wave-1 dispatch time (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/w1-dispatched-at.txt) and seat reports: was anything that counts toward C1 or C2 written after a finding? (S073–S077 and the entry's wave-1 additions were added after; the tool docstring was edited by the L1 before commit; the selftest, real-input run and lookup check came after the lookup finding.) Is each such item correctly labelled as not counted?\n# Acceptance\nNumbered findings with timestamps."
+  },
+  {
+   "name": "ExecSeparabilityAtTip",
+   "role": "executor",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nRe-test claim separability on the landed bytes.\n# Change\nIn a sandbox clone /fast/scratch/hyaku/kake-r34/w2/ExecSeparabilityAtTip/clone at 24a16474ee73e20453f3e1be9d2f33573c5196d9: commit A = tip with scripts/link_preview_audit.py removed; commit B = tip with corpus/knowledge/link-preview-metadata.md and the S067–S070 rows removed. Run both counters on A and B.\n# Acceptance\nScores for each counter on A and B; does either claim's score depend on the other's files?"
+  },
+  {
+   "name": "ReviewLogEntry34",
+   "role": "reviewer",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nLOG.md \"Round 34\" entry at 24a1647.\n# Change\nEach statement true against commits, receipts and wave-1 reports (seat counts and role mix against /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/w1/swarm-registry.json; hashes; numbers).\n# Acceptance\nPer-statement verdict."
+  },
+  {
+   "name": "CriticFrontierValue",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim — let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n# Target\nDid the round advance the lane's web-properties-and-publishing frontier in a way an operator can use?\n# Change\nRead the entry, the tool, SKILL section and wave-1 scout reports (ScoutDs4ccTemplateSource, ScoutOgUrlCanonicalSitemap, ScoutOwnedPropertiesOG). Judge: is the source-fix guidance actionable and correctly operator-gated; are the ds4cc findings (101/102 pages without og:image; bloat/exa canonical vs sitemap) correctly scoped; what is the next frontier step and what would falsify this one?\n# Acceptance\nNumbered findings, advisory only."
+  }
+ ]
+}

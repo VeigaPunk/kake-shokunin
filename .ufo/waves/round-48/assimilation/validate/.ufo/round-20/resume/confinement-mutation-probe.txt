@@ -1,0 +1,31 @@
+Post-land mutation probe of writeConfinement (mutation-tester L2 W2RoundKake.K5xMutation, scratch copies only,
+detector = the script's own --selftest under isolated HOME/KAKE_SELFTEST_DIR):
+
+  first landing: 9/18 valid mutants killed. Survivors: m2 (dead END-branch writeAllowed statement, equivalent),
+  m3/m15/m16 (API names unpinned — e2 planted only writeFileSync), m9/m10 (nested-BEGIN and lone-END error
+  branches never exercised), m12 (identifier-boundary guard unpinned), m17/m18 (startsWith instead of exact
+  marker anchoring accepted).
+
+L1 follow-up before commit (scripts/freshness-sweep.mjs, case e2 only): removed the dead statement; e2 now plants
+every covered API name (31/31), pins the name list (count + sorted sha256 prefix), and asserts nested-BEGIN,
+lone-END, trailing-junk BEGIN/END and suffix-named-call fixtures. Re-run of the survivors on scratch copies
+(same isolation):
+
+m3 drop mkdir: exit 1 selftest: 14/15 passed
+m9 drop nested error: exit 1 selftest: 14/15 passed
+m10 drop lone END error: exit 1 selftest: 14/15 passed
+m12 drop boundary: exit 1 selftest: 14/15 passed
+m16 drop directNames: exit 1 selftest: 14/15 passed
+m17 BEGIN startsWith: exit 1 selftest: 14/15 passed
+m18 END startsWith: exit 1 selftest: 14/15 passed
+m19 swap name: exit 1 selftest: 14/15 passed
+control (no mutation): exit 0 selftest: 15/15 passed
+
+Remaining residual bypasses (named, not claimed covered): aliasing (`const { writeFileSync: w } = fs`), bracket
+access (`fs['writeFileSync']`), child-process side effects (execFileSync/spawn) — see
+confinement-reviewer-recipe.txt.
+
+Reviewer finding (region placement unchecked) — e2 now requires every region to open after the
+`async function selftest()` declaration. Mutant: a BEGIN/write/END triple inserted at the top of main():
+inSelftest=NO
+selftest: 14/15 passed

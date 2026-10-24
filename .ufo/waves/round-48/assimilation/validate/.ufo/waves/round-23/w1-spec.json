@@ -1,0 +1,583 @@
+{
+ "wave": "kake-r23-w1",
+ "context": "# Goal\nKake lane round 23 only (web properties and publishing; axes operability + freshness). Frozen contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/contract.json: C1 freshness = live re-verification of 16 historical knowledge entries + the SKILL.md property map (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/c1-population.json); C2 operability = first end-to-end canonical preflight over 12 live owned surfaces (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/c2-population.json). Candidate code commit 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc (base b5d599e19bead54b96f589444e9ec64cdf67c28a): scripts/canonical_audit.py (now evaluates SVG/MathML and self-closed HTML void tags after a closed head) and scripts/live_snapshot.py. The L1 (KakeR22Recovery) holds the planner seat and is the sole integration writer. You are author-side; never claim independent admission.\n# Contract\n- All paths absolute. Lane /home/vgpnk/Projects/shokunin/kake-shokunin. Every `Report:` trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>. Your tools start at the FLEET root /home/vgpnk/Projects/shokunin: NEVER write a relative path or redirect (`> out.txt`) there; put every scratch file under a fresh `mktemp -d /tmp/kake-r23-<YourName>-XXXX`.\n- Read-only on the lane: write ONLY your own report file. Never edit production files, never run git/jj mutations in the lane, never touch its index/jj state, the fleet repo, sibling lanes, ~/.omp config, .ufo/state. Writers (executors) work only in `git clone --no-hardlinks /home/vgpnk/Projects/shokunin/kake-shokunin /tmp/kake-r23-<YourName>-clone`, record the clone's observed HEAD, and put the produced files/diff inline in their report; the L1 integrates.\n- Web properties: read-only HTTP GET/HEAD of public URLs only (no auth, cookies, forms, POST, publishing, deploys, account or DNS actions). Never send anything into a Kimi chat. Public documentation sites may be fetched. Domain source trees (e.g. ~/Projects/ufo-fsd-alpha, ~/Projects/lucario) are read-only.\n- No builds/lint/formatters; targeted CLI probes and the named selftests/matrices/counters are allowed. Stay a leaf: spawn no subagents (executors may spawn one read-only labrat for one falsifiable hypothesis).\n- Tooling: you may install or upgrade tools that help the task — read /home/vgpnk/.omp/agent/RULES.md first (official channels, update-safety gate; record tool/version/channel/reason in your report). pacman guard: ALL pacman transactions are PAUSED host-wide (no -S/-Sy/-Syu/-U/-R, no host service restarts); use uv tool / npx / an official binary in ~/.local/bin, or skip. No live secrets.\n- Report format: `## Verdict`, `## Findings` (severity P0–P3, exact command, exact observed output, impacted claim/axis, smallest fix), `## Checked and held`, `## Limits`. Quote exact outputs; an unrun check has not passed.\n# C1 receipt schema (C1 items must include exactly one fenced ```json block with this object)\n{\"unit\": \"<unit name from c1-population.json>\", \"path\": \"<unit path>\", \"observedAt\": \"2026-10-21\", \"claims\": [{\"id\": \"c1\", \"anchor\": \"<exact substring of the unit file as it is at b5d599e19bead54b96f589444e9ec64cdf67c28a (copy bytes, 20-160 chars, unique if possible)>\", \"claim\": \"<the load-bearing claim in your words>\", \"surface\": \"<URL / absolute path / exact command checked>\", \"method\": \"GET|HEAD|test -e|git|read|run\", \"observation\": \"<exact observed output, abbreviated faithfully>\", \"verdict\": \"HOLD|STALE|UNVERIFIABLE\", \"correction\": \"<STALE only: one self-contained sentence stating what is true now, dated 2026-10-21>\", \"reason\": \"<UNVERIFIABLE only: why no live surface can decide it now>\"}]}\nChoose 3-8 claims that carry the unit's operational weight (live URLs, statuses, paths, counts, commands, behaviours). A surface that no longer exists makes its claim UNVERIFIABLE (with reason) unless the claim asserts presence (then STALE). Never run a write/publish verb of any tool; read-only commands only.\n",
+ "reportDir": ".ufo/waves/round-23/w1",
+ "maxLanes": 100,
+ "axes": [
+  "operability",
+  "freshness"
+ ],
+ "milestone": "r23-build",
+ "items": [
+  {
+   "name": "ReverifyDriftDetection",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `drift-detection`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/drift-detection.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `drift-detection`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyFireJournalCodes",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `fire-journal-codes`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/fire-journal-codes.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `fire-journal-codes`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyFleetRegistry",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `fleet-registry`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/fleet-registry.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `fleet-registry`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyFreeReadVerbs",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `free-read-verbs`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/free-read-verbs.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `free-read-verbs`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyGhpSubpathSpotcheck",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `ghp-subpath-spotcheck`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/ghp-subpath-spotcheck.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `ghp-subpath-spotcheck`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyKeeperTimerInert",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `keeper-timer-inert`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/keeper-timer-inert.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `keeper-timer-inert`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyKimiSubpathAudit",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `kimi-subpath-audit`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/kimi-subpath-audit.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `kimi-subpath-audit`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyMirrorPitfalls",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `mirror-pitfalls`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/mirror-pitfalls.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `mirror-pitfalls`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyOpsAutomation",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `ops-automation`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/ops-automation.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `ops-automation`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyOriginRepos",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `origin-repos`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/origin-repos.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `origin-repos`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyProbeDeltaAlerting",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `probe-delta-alerting`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/probe-delta-alerting.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `probe-delta-alerting`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyPublishChannels",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `publish-channels`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/publish-channels.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `publish-channels`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyPublishQueue",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `publish-queue`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/publish-queue.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `publish-queue`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifySitemapOrphanAudit",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `sitemap-orphan-audit`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/sitemap-orphan-audit.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `sitemap-orphan-audit`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifySpeedrunPipeline",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `speedrun-pipeline`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/speedrun-pipeline.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `speedrun-pipeline`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyVaultProperties",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `vault-properties`: read /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/vault-properties.md in full. Pick its 3-8 load-bearing live claims and re-verify each NOW against its live surface (local paths/repos/timers via read-only commands; public URLs via GET/HEAD). Emit the C1 receipt JSON for unit `vault-properties`. For each STALE claim give the correction sentence; for UNVERIFIABLE the reason. Also list any claim you skipped and why."
+  },
+  {
+   "name": "ReverifyPropertyMapRegistry",
+   "role": "reviewer",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC1 unit `property-map` (/home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md section '## Property map' and the 'Registry of record' paragraph after it). Re-verify the NON-page claims only: each row's source dir (test -e), publish path statements checkable read-only (e.g. a repo's .github/workflows presence, CNAME file), app.ds4cc.com/mcp reachability by a single GET/HEAD status (no MCP calls), the registry-of-record paths. Page-serving status of the 12 surfaces is covered by sibling items; do not duplicate it. Emit the C1 receipt JSON (unit property-map, path SKILL.md)."
+  },
+  {
+   "name": "SurfaceDs4ccPrimary",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `ds4cc-primary` url https://ds4cc.com/ expectedCanonical https://ds4cc.com/ (policy basis: primary self-canonical). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfacePlazir15Ghp",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `plazir15-ghp` url https://veigapunk.github.io/plazir-15-site/ expectedCanonical https://veigapunk.github.io/plazir-15-site/ (policy basis: GHP front self-canonical). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfaceCharterGhp",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `charter-ghp` url https://veigapunk.github.io/charter-ufo-fsd/ expectedCanonical https://veigapunk.github.io/charter-ufo-fsd/ (policy basis: canonical charter doc, self-canonical). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfaceDs4ccKimi",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `ds4cc-kimi` url https://ds4cc.kimi.page/ expectedCanonical https://ds4cc.com/ (policy basis: mirror declares its primary). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfaceBurnerchromeKimi",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `burnerchrome-kimi` url https://burnerchrome.kimi.page/ expectedCanonical https://burnerchrome.kimi.page/ (policy basis: no primary on record: self-canonical). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfaceVaultIndexKimi",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `vault-index-kimi` url https://veigapunk.kimi.page/ expectedCanonical https://veigapunk.kimi.page/ (policy basis: no primary on record: self-canonical). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfacePlazir27Kimi",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `plazir27-kimi` url https://plazir27.kimi.page/ expectedCanonical https://veigapunk.github.io/charter-ufo-fsd/ (policy basis: property map: all kimi charter variants rel=canonical to charter GHP). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfaceUfoFsdKimiPro",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `ufo-fsd-kimi-pro` url https://ufo-fsd.kimi.pro/ expectedCanonical https://ufo-fsd.kimi.pro/ (policy basis: no primary on record: self-canonical). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfaceLucarioGhp",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `lucario-ghp` url https://veigapunk.github.io/lucario/ expectedCanonical https://veigapunk.github.io/lucario/ (policy basis: property map: lucario GHP is canonical). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfaceLucarioKimi",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `lucario-kimi` url https://lucario.kimi.page/ expectedCanonical https://veigapunk.github.io/lucario/ (policy basis: mirror declares its primary (map: never published, expected not served)). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfacePlazir15Kimi",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `plazir15-kimi` url https://plazir15.kimi.page/ expectedCanonical https://veigapunk.github.io/plazir-15-site/ (policy basis: mirror declares its primary (map: 404 dead slot)). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "SurfaceCharterKimi",
+   "role": "scout",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nC2 surface `charter-kimi` url https://charter-ufo-fsd.kimi.page/ expectedCanonical https://veigapunk.github.io/charter-ufo-fsd/ (policy basis: kimi charter variant (map: 404 dead slot)). Independently of the L1: (1) one read-only GET (curl -sS -L --max-redirs 5 -A 'kake-r23-readonly' -D <tmp>/h -o <tmp>/b) and record status, final URL, content-type, sha256 of the body; (2) read the head by eye and derive, BEFORE running any tool, which canonical_audit verdict/finding id the frozen policy implies (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/contract.json policy; head-only, one canonical equal to expectedCanonical); (3) run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --manifest <tmp>/manifest.json --json on your snapshot and compare; (4) judge whether expectedCanonical is the right local policy for this surface given /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md property map and what the page itself declares; (5) emit C1 property-map claim rows for this surface (unit property-map, anchors from the SKILL.md property-map row text) in a fenced json block shaped like the C1 receipt; (6) name the upstream fix (documented only, never applied)."
+  },
+  {
+   "name": "FalsifyForeignContent",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack the validator refinement in 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc (scripts/canonical_audit.py, CanonicalHTMLParser foreign_depth / HTML_VOID_ELEMENTS / handle_startendtag): SVG/MathML after a closed head: nested svg/math, mismatched end tags, </svg> missing, <foreignObject> containing HTML, svg <title>/<style>/<script>, a canonical link inside foreignObject, CDATA, a second <head> or <base> inside svg. Build fixtures in your /tmp dir, invoke the public CLI, derive expected verdicts before running. A false clean (canonical signal could differ in a browser but tool says clean) is P1."
+  },
+  {
+   "name": "FalsifyVoidSelfClose",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack the validator refinement in 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc (scripts/canonical_audit.py, CanonicalHTMLParser foreign_depth / HTML_VOID_ELEMENTS / handle_startendtag): self-closed HTML void tags after the head (<input/>, <img/>, <br/>, <hr/>, <source/>, <wbr/>), non-void self-closing (<div/>, <span/>, <p/>), self-closed tags before </head>, uppercase tag names, attributes with '/>' in values. Build fixtures in your /tmp dir, invoke the public CLI, derive expected verdicts before running. A false clean (canonical signal could differ in a browser but tool says clean) is P1."
+  },
+  {
+   "name": "FalsifyRefinementRegression",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack the validator refinement in 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc (scripts/canonical_audit.py, CanonicalHTMLParser foreign_depth / HTML_VOID_ELEMENTS / handle_startendtag): regression: run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/matrix.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --json (must be 32/32), python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py --selftest, and diff `git -C /home/vgpnk/Projects/shokunin/kake-shokunin show b539cc1:scripts/canonical_audit.py` against 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc; argue whether any previously unsupported input now becomes a false clean. Build fixtures in your /tmp dir, invoke the public CLI, derive expected verdicts before running. A false clean (canonical signal could differ in a browser but tool says clean) is P1."
+  },
+  {
+   "name": "ReopenGoogleCanonical",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat (never ran). Re-open https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls and attack row S021 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md plus its round-22 Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22.md: exact quote location (≤25 words), access date/version, tier scope, used-by paths exist and actually cite S021; check /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md for overclaim from this source. Report agree/disagree per field."
+  },
+  {
+   "name": "ReopenHTMLLink",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat (never ran). Re-open https://html.spec.whatwg.org/multipage/links.html#link-type-canonical and attack row S023 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md plus its round-22 Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22.md: exact quote location (≤25 words), access date/version, tier scope, used-by paths exist and actually cite S023; check /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md for overclaim from this source. Report agree/disagree per field."
+  },
+  {
+   "name": "ReopenHTMLBase",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat (never ran). Re-open https://html.spec.whatwg.org/multipage/semantics.html#the-base-element and attack row S024 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md plus its round-22 Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22.md: exact quote location (≤25 words), access date/version, tier scope, used-by paths exist and actually cite S024; check /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md for overclaim from this source. Report agree/disagree per field."
+  },
+  {
+   "name": "ReopenHTMLTemplate",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat (never ran). Re-open https://html.spec.whatwg.org/multipage/scripting.html#the-template-element and attack row S025 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md plus its round-22 Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22.md: exact quote location (≤25 words), access date/version, tier scope, used-by paths exist and actually cite S025; check /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md for overclaim from this source. Report agree/disagree per field."
+  },
+  {
+   "name": "ReopenPythonParser",
+   "role": "scout",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat (never ran). Re-open https://docs.python.org/3/library/html.parser.html and attack row S026 in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md plus its round-22 Gate quote in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22.md: exact quote location (≤25 words), access date/version, tier scope, used-by paths exist and actually cite S026; check /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md for overclaim from this source. Report agree/disagree per field."
+  },
+  {
+   "name": "Attack23WrongHost",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat Attack23. Attack frozen case 'wrong_host' at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc: read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/cases.json and its fixture, derive expected exit/id before running, run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/matrix.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --case wrong_host, then build one nearest-neighbour host fixture (IDN/punycode, trailing dot, port, uppercase) in /tmp and run the public CLI."
+  },
+  {
+   "name": "BoundaryManifestKeys",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat BoundaryManifestKeys. Attack scripts/canonical_audit.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc on: unknown keys, version true vs 1, empty pages, duplicate page entries, page url not absolute. Own /tmp fixtures, public CLI, exact outputs; one positive and one negative control; do not conflate unsupported with clean."
+  },
+  {
+   "name": "BoundaryTraversal",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat BoundaryTraversal. Attack scripts/canonical_audit.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc on: absolute/parent/dot/backslash/NUL page paths and manifest-relative confinement. Own /tmp fixtures, public CLI, exact outputs; one positive and one negative control; do not conflate unsupported with clean."
+  },
+  {
+   "name": "BoundaryURLAuthority",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat BoundaryURLAuthority. Attack scripts/canonical_audit.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc on: credential URLs, empty host, invalid/huge ports, IPv6 zones, whitespace and control characters. Own /tmp fixtures, public CLI, exact outputs; one positive and one negative control; do not conflate unsupported with clean."
+  },
+  {
+   "name": "BoundaryHeadRecovery",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat BoundaryHeadRecovery. Attack scripts/canonical_audit.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc on: invalid head children, second head, omitted </head>, body transitions, text in head. Own /tmp fixtures, public CLI, exact outputs; one positive and one negative control; do not conflate unsupported with clean."
+  },
+  {
+   "name": "BoundaryInertContexts",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat BoundaryInertContexts. Attack scripts/canonical_audit.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc on: title/style/noscript/template/script/textarea/iframe false canonical tokens. Own /tmp fixtures, public CLI, exact outputs; one positive and one negative control; do not conflate unsupported with clean."
+  },
+  {
+   "name": "BoundaryAttributes",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat BoundaryAttributes. Attack scripts/canonical_audit.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc on: duplicate attributes, ASCII vs Unicode whitespace in rel, hreflang/media/type on canonical links. Own /tmp fixtures, public CLI, exact outputs; one positive and one negative control; do not conflate unsupported with clean."
+  },
+  {
+   "name": "BoundaryReadOnly",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat BoundaryReadOnly. Attack scripts/canonical_audit.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc on: normal clean and red invocations leave fixture byte/mode inventory unchanged (sha256 + stat before/after); no network-capable imports in scripts/canonical_audit.py. Own /tmp fixtures, public CLI, exact outputs; one positive and one negative control; do not conflate unsupported with clean."
+  },
+  {
+   "name": "BoundaryReplayIntegrity",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat BoundaryReplayIntegrity. Attack scripts/canonical_audit.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc on: round-22 replay (/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/replay.py) is pinned to the b539cc1 validator: in a /tmp copy of the b539cc1 tree show tamper → snapshot_tampered exit 2 and untampered → frozen_replay_match; state what replay proves at the current tip 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc. Own /tmp fixtures, public CLI, exact outputs; one positive and one negative control; do not conflate unsupported with clean."
+  },
+  {
+   "name": "ConnectBrowser",
+   "role": "connector",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat ConnectBrowser. Cross-axis attack: publisher static HTML preflight vs tabi browser/JS frontier and the new live-snapshot step (who owns rendered-DOM canonicals?). Read /home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/README.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md, /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md gate registry and /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/contract.json. Concrete path:line evidence and one counterexample to any broad assertion."
+  },
+  {
+   "name": "ConnectSource",
+   "role": "connector",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat ConnectSource. Cross-axis attack: source hierarchy: explicit local policy vs RFC 6596/WHATWG/Google semantics, incl. the new foreign-content rule. Read /home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/README.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md, /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md gate registry and /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/contract.json. Concrete path:line evidence and one counterexample to any broad assertion."
+  },
+  {
+   "name": "ConnectCapability",
+   "role": "connector",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat ConnectCapability. Cross-axis attack: canonical capability (r22) vs this round's end-to-end use on live owned surfaces: does C2 add operability or only re-run r22?. Read /home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/README.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md, /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md gate registry and /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/contract.json. Concrete path:line evidence and one counterexample to any broad assertion."
+  },
+  {
+   "name": "ConnectProof",
+   "role": "connector",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nCarried from round-22 dead wave-2 seat ConnectProof. Cross-axis attack: selftest vs frozen matrix vs live snapshots vs archived domain snapshot: which proves what, no substitutes. Read /home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/README.md, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md, /home/vgpnk/Projects/shokunin/kake-shokunin/SKILL.md gate registry and /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/contract.json. Concrete path:line evidence and one counterexample to any broad assertion."
+  },
+  {
+   "name": "ReviewDotdotSplit",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRound-22 fix verified only by probes (routed by the round-22 verifier, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22-verifier-spotcheck.md note 4): manifest path split without abspath (kernel resolves `..` once) in read_manifest_bytes. Seat-review it at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc: read the code, build adversarial probes in /tmp, report exact results."
+  },
+  {
+   "name": "ReviewHelpSynopsis",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRound-22 fix verified only by probes (routed by the round-22 verifier, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22-verifier-spotcheck.md note 4): explicit argparse usage string vs actual accepted argument combinations and --help output. Seat-review it at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc: read the code, build adversarial probes in /tmp, report exact results."
+  },
+  {
+   "name": "ReviewFdOwnership",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRound-22 fix verified only by probes (routed by the round-22 verifier, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22-verifier-spotcheck.md note 4): fd ownership transfer in read_page_bytes intermediate-directory loop; fd balance on every exception path. Seat-review it at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc: read the code, build adversarial probes in /tmp, report exact results."
+  },
+  {
+   "name": "ReviewCounterPins",
+   "role": "reviewer",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nRound-22 fix verified only by probes (routed by the round-22 verifier, /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22-verifier-spotcheck.md note 4): round-22 counter /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/measure.py PINNED_INSTRUMENT_SHA256 and executed>=derived floor: hostile matrices in a /tmp clone. Seat-review it at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc: read the code, build adversarial probes in /tmp, report exact results."
+  },
+  {
+   "name": "CritCounterC1",
+   "role": "critic",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py and the C1 framing in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/contract.json: can a receipt pass without real live re-verification (e.g. trivial anchors, HOLD with no observation, UNVERIFIABLE as escape hatch)? Is 0/17 at the freeze commit 6847479 a failure-capable before? Is the population (historical-not-live-reverified entries + property map) honestly frozen? Propose tightening that keeps the frozen population."
+  },
+  {
+   "name": "CritCounterC2",
+   "role": "critic",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nAttack /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c2.py and C2 in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/contract.json: does a reproducible receipt prove an end-to-end preflight or only that a file round-trips? Are expectedCanonical choices in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/c2-population.json defensible policy? Is counting not-served surfaces as passing honest? Propose the strongest admissible reading."
+  },
+  {
+   "name": "MutateCounterC1",
+   "role": "mutation-tester",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nMutation-test /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py in a /tmp clone of /home/vgpnk/Projects/shokunin/kake-shokunin: create a probe commit with deliberately bad receipts (missing heading, anchor absent at base, STALE without correction in section, wrong unit, duplicate ids, observedAt 2026-10-20) under .ufo/waves/round-23/receipts/ and confirm each is rejected; mutate the counter (drop each check) and report which mutants survive the bad-receipt set."
+  },
+  {
+   "name": "MutateCounterC2",
+   "role": "mutation-tester",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nMutation-test /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c2.py in a /tmp clone: run python3 /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/live_snapshot.py --population /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/c2-population.json --out <clone>/.ufo/waves/round-23/live in the clone (read-only GETs), commit there, confirm the counter passes; then commit tampered variants (edited page.html, edited audit.json, served page relabelled not-served, wrong url, stale fetchedAt) and confirm each fails; mutate counter checks and report survivors."
+  },
+  {
+   "name": "SentinelLiveSnapshot",
+   "role": "sentinel",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nSecurity/safety review of /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/live_snapshot.py at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc: confirm GET-only including redirects (method preservation, 307/308), no credentials/cookies, body cap, timeout, output confinement to --out (surface ids with ../ or /), content-type handling, behaviour on TLS errors; no write outside out dir. Use local probes (python -m http.server on 127.0.0.1) only."
+  },
+  {
+   "name": "SimplifyR23Tools",
+   "role": "simplifier",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nYAGNI review of /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/live_snapshot.py, /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c1.py, /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/measure_c2.py: list deletions/simplifications that preserve verified behaviour, as a diff in your report (no lane edits)."
+  },
+  {
+   "name": "ScribeLessonDraft",
+   "role": "scribe",
+   "axes": [
+    "freshness",
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nDraft prose (in your report only) for /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-23.md sections '## Claims' and '## Gate' from /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-23/contract.json and the round-22 verifier notes in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22-verifier-spotcheck.md; leave measured numbers as <TBD>. Follow the round-22 lesson's structure."
+  },
+  {
+   "name": "ScribeKnowledgeDelta",
+   "role": "scribe",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nDraft an appended section (in your report only) for /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/static-canonical-preflight.md explaining the round-23 parser boundary change (SVG/MathML and void self-closing after a closed head are evaluated; foreign content before head and canonical links inside foreign content stay unsupported) and the live-snapshot handoff, with S### placeholders for HTML-spec sources."
+  },
+  {
+   "name": "ScribeQualityCorrections",
+   "role": "scribe",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nDraft append-only correction text (in your report only) for routed round-22 defects in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-22-verifier-spotcheck.md notes 1-3: the inverted 'Fails if counter-probe.py exits 0' predicate in /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/QUALITY.md, lane-root err.txt/out.txt placement, and /tmp runner paths in postfix receipts (with the `git -C /home/vgpnk/Projects/shokunin/kake-shokunin show c0fd6d5:<path>` reproduction commands)."
+  },
+  {
+   "name": "ExecRealPageFixtures",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nIn a /tmp clone of /home/vgpnk/Projects/shokunin/kake-shokunin at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc: build 12+ realistic static-site fixtures (Hugo, Jekyll, Astro, Eleventy, Next static export, plain hand-written) each as page.html + manifest.json, including inline SVG icons, <input />, <img />, preload links and JSON-LD; derive the expected canonical_audit verdict for each before running; run the public CLI; report a table and the fixture files (inline or as a tarball base64 if small)."
+  },
+  {
+   "name": "ExecCounterSelftest",
+   "role": "executor",
+   "axes": [
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nIn a /tmp clone of /home/vgpnk/Projects/shokunin/kake-shokunin at 4d95d2e9a7fa41735b064ebfd92ce1a25e84b0cc: write ./.ufo/waves/round-23/counter_selftest.py that builds a throwaway git repo in a temp dir with good and bad C1 receipts and C2 live receipts, runs measure_c1.py/measure_c2.py against it and asserts pass/fail per case (exit 0 iff all expectations met). Report the file content inline and its run output."
+  },
+  {
+   "name": "ExecReproduceBefore",
+   "role": "executor",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nIn a /tmp clone of /home/vgpnk/Projects/shokunin/kake-shokunin: write .ufo/waves/round-23/routed/reproduce-r22-before.sh that recreates the round-22 before-fix runners via `git show c0fd6d5:scripts/canonical_audit.py` and `git show c0fd6d5:.ufo/waves/round-22/measure.py` into a mktemp dir and re-runs /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-22/postfix/defect-probe.py and counter-probe.py against them, comparing with the committed -before.json verdicts (met counts / rejected flags). Report the script inline and its output."
+  },
+  {
+   "name": "ConnectSiblingOverlap",
+   "role": "connector",
+   "axes": [
+    "operability",
+    "freshness"
+   ],
+   "prompt": "/skill:godspeed\n\nSibling-overlap scan: read /home/vgpnk/Projects/shokunin/MISSION.md lane table and the SKILL.md/PROVINCE.md of tabi-shokunin and chousa-shokunin (read-only) and say where round-23's live snapshots, property-map re-verification and canonical policy overlap or conflict with sibling provinces; path:line evidence."
+  },
+  {
+   "name": "SourceHTMLVoidSyntax",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nOpen the WHATWG HTML Living Standard section on void elements and the self-closing start-tag syntax (https://html.spec.whatwg.org/multipage/syntax.html#void-elements and #start-tags). Return the URL, access date, a located ≤25-word quote showing the slash on void elements is allowed/ignored and that it is not allowed on non-void HTML elements, and the exact list of void elements; compare with HTML_VOID_ELEMENTS in /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py."
+  },
+  {
+   "name": "SourceHTMLForeignContent",
+   "role": "scout",
+   "axes": [
+    "operability"
+   ],
+   "prompt": "/skill:godspeed\n\nOpen the WHATWG HTML parsing rules for foreign content (https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inforeign and the in-body svg/math start-tag rule) plus the 'in head' insertion mode. Return URL, access date, located ≤25-word quotes establishing (a) svg/math start tags in body insert foreign elements, (b) a <link> inside svg is an SVG-namespace element, not an HTML link, (c) whether any foreign-content path can move elements into head. Judge the validator rule at /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/canonical_audit.py against it."
+  }
+ ]
+}

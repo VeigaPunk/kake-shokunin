@@ -1,0 +1,46 @@
+freshness-sweep --selftest
+fixtures: <TMPDIR>/st (hermetic; re-runnable)
+  PASS  a annotated-missing -> declaredAbsent, exit-neutral
+        expect: exit 0 · declaredAbsent contains selftest-missing.md · drift [] · resolve contains selftest-present.md
+        got:    exit 0 · declaredAbsent ["~/Projects/webzites/selftest-missing.md"] · drift [] · resolve ["~/.kake-freshness-selftest-1708442/selftest-present.md"]
+  PASS  b unannotated-missing -> drift, exit 1
+        expect: exit 1 · drift contains selftest-gone.md
+        got:    exit 1 · drift ["~/Projects/webzites/selftest-gone.md"]
+  PASS  f (documented limitation) unrelated absent-word in ±2 lines -> declaredAbsent
+        expect: exit 0 · declaredAbsent contains selftest-unrelated.md · drift [] — spec-mandated window semantics
+        got:    exit 0 · declaredAbsent ["~/Projects/webzites/selftest-unrelated.md"] · drift []
+  PASS  g pinned-empty pathsMissSet -> first-seen miss fails (set-delta verdict)
+        expect: exit 1 · setDelta.newMissing contains selftest-missing.md · drift []
+        got:    exit 1 · newMissing ["~/Projects/webzites/selftest-missing.md"] · drift []
+  PASS  h1 spec-literal ±2 window: trailing annotation -> declaredAbsent, exit 0
+        expect: exit 0 · declaredAbsent has trailing+named · drift []
+        got:    exit 0 · declaredAbsent ["~/Projects/webzites/selftest-named.md","~/Projects/webzites/selftest-trailing.md"] · drift []
+  PASS  h2 strict pin (pathsAbsenceStrictSameLine): unnamed trailing annotation -> drift, exit 1
+        expect: exit 1 · drift has trailing · declaredAbsent has named · evidence.direct/mentions recorded
+        got:    exit 1 · drift ["~/Projects/webzites/selftest-trailing.md"] · declaredAbsent ["~/Projects/webzites/selftest-named.md"]
+  PASS  m cross-citation leak -> drift, exit 1; annotated dup control stays declaredAbsent
+        expect: exit 1 · canonical leak target · unannotatedCites ['SKILL.md:3'] · cites lists both locations · annotated duplicate stays declaredAbsent
+        got:    exit 1 · drift [["~/Projects/webzites/selftest-leak.md",["SKILL.md:3","corpus/knowledge/note.md:1"],["SKILL.md:3"]]] · declaredAbsent [["~/Projects/webzites/selftest-dup.md",["SKILL.md:6","corpus/knowledge/note.md:3"]]]
+  PASS  c malformed JSONL -> exit 2
+        expect: exit 2 · error names malformed JSONL
+        got:    exit 2 · stderr/stdout "{\n  \"generatedAt\": \"2026-10-19T21:28:49Z\",\n  \"node\": \"v24.21.0\",\n  \"repoRoot\": \"/home/vgpnk/Projects/shokunin/.tower/wor"
+  PASS  j probeHistoryAbsent + canonical default missing -> SUSPENDED, exit 0
+        expect: exit 0 · historySuspended true · file is selftest-rebound canonical
+        got:    exit 0 · suspended true · file <TMPDIR>/st/canonical-absent-history.jsonl
+  PASS  k probeHistoryAbsent + explicit missing KAKE_PROBE_HISTORY -> exit 2 (fail-closed)
+        expect: exit 2 · error cannot read · not historySuspended
+        got:    exit 2 · suspended undefined · error cannot read <TMPDIR>/st/explicit-missing-history.jsonl
+  PASS  l probeHistoryAbsent pin is known/consumed (not listed unused)
+        expect: pins._unused excludes probeHistoryAbsent
+        got:    unused []
+  PASS  i malformed pins JSON -> exit 2 (never silent defaults)
+        expect: exit 2 · stderr names pins file invalid and parse error
+        got:    exit 2 · "freshness-sweep: pins file invalid — <TMPDIR>/st/bad-pins.json: Unexpected end of JSON input"
+  PASS  d unknown flag -> exit 64
+        expect: exit 64
+        got:    exit 64 · "freshness-sweep: unknown flag: --bogus-flag"
+  PASS  e write-API call sites confined to SELFTEST-WRITES region
+        expect: 0 call sites outside the region(s)
+        got:    0 outside (regions B19,B1095,E1166,B1346,E1348,B1366,E1368)
+selftest: 14/14 passed
+exit=0 (HOME and KAKE_SELFTEST_DIR isolated to a fresh mktemp dir; values redacted)

@@ -124,8 +124,14 @@ def load_adjudications(root: str, rel_path: str, revision: str | None) -> dict[t
 
 
 def resolves(root: str, token: str) -> bool:
+    # `rev-parse -q --verify` answers "is this a well-formed object name", not
+    # "does this object exist": a full-40-hex token that no object carries is
+    # echoed back with exit 0 (git 2.56.0), so a dead 40-hex citation used to
+    # pass this gate. A citation claims that a commit exists, so ask for
+    # existence. Round-48 C2; the defect is recorded in
+    # .ufo/waves/round-46/residual/CriticCitationOverreach.md, Finding 1.
     proc = subprocess.run(
-        ["git", "-C", root, "rev-parse", "-q", "--verify", token],
+        ["git", "-C", root, "cat-file", "-e", token],
         capture_output=True)
     return proc.returncode == 0
 
@@ -203,11 +209,13 @@ def selftest() -> int:
         good = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo, check=True,
                               capture_output=True, env=env).stdout.decode().strip()
         dead = "e5455253"  # matches no object
+        dead40 = "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef"  # full-40 dead token
 
         population = {
             "SCORECARD.md": [
                 f"measured at commit `{good}` resolves",                    # resolving
                 f"report cites commit `{dead}` (wave registry) which does not resolve",  # DEAD
+                f"report cites commit `{dead40}` (full-40) which does not resolve",     # DEAD 40
                 "counter sha256 `5cedaa3b` pins the revision bytes",           # digest exclusion (H)
                 "strict check `5111264f…46ad` sets the revision",           # ellipsis digest (E)
                 "beat `9c28d29` landed on the scribe remote",               # pin exclusion
@@ -235,11 +243,15 @@ def selftest() -> int:
             failures.append(f"committed gate missed planted dead citations: {flagged}")
         else:
             passed.append("planted dead citations flagged (2/2)")
+        if ("SCORECARD.md", dead40) not in flagged:
+            failures.append(f"committed gate missed the planted dead full-40 token: {flagged}")
+        else:
+            passed.append("planted dead full-40-hex token flagged (1/1)")
         if any(t == good for (_f, t) in flagged):
             failures.append("committed gate flagged the resolving commit")
         else:
             passed.append("resolving commit not flagged")
-        false_positives = [t for (_f, t) in flagged if t != dead]
+        false_positives = [t for (_f, t) in flagged if t not in (dead, dead40)]
         if false_positives:
             failures.append(f"committed gate false-positived: {sorted(set(false_positives))}")
         else:

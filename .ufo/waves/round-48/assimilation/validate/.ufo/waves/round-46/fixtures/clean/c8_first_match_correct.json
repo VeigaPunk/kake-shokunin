@@ -1,0 +1,37 @@
+{
+ "checks": [
+  {
+   "expect": {
+    "action": "redirect",
+    "location": "/modern",
+    "status": 301
+   },
+   "id": "c1",
+   "path": "/legacy"
+  },
+  {
+   "expect": {
+    "action": "rewrite",
+    "destination": "/index.html"
+   },
+   "id": "c2",
+   "path": "/other"
+  }
+ ],
+ "defaultStatus": 301,
+ "resourcePrecedence": true,
+ "rules": [
+  {
+   "action": "redirect",
+   "destination": "/modern",
+   "source": "/legacy",
+   "status": 301
+  },
+  {
+   "action": "rewrite",
+   "destination": "/index.html",
+   "source": "/*"
+  }
+ ],
+ "version": 1
+}

@@ -1,0 +1,171 @@
+{
+ "label": "",
+ "classesMode": "v5",
+ "expect": "witnessed",
+ "counter": ".ufo/waves/round-45/fixtures/tool-absent/fake_counter.py",
+ "counterSha256": "c697435a11e732146a0a7e38756ab513209beeada88d063951dc65015d6723ef",
+ "predicate": "met: the tool's exit code and output equal the round-41 tool's on every generated run (the eleven v4 runs and the ten class runs), and its median CPU time on each of the five timing shapes is at most 2.0 times the round-40 tool's",
+ "controls": 1,
+ "classKeys": [
+  "G1",
+  "G2",
+  "G3",
+  "G4",
+  "G5",
+  "G6",
+  "G7",
+  "G8",
+  "G9",
+  "G10"
+ ],
+ "witnessed": 1,
+ "witnessedNames": [
+  "ctl1"
+ ],
+ "witnessedByClass": {
+  "ctl1": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F",
+   "G1",
+   "G2",
+   "G3",
+   "G4",
+   "G5",
+   "G6",
+   "G7",
+   "G8",
+   "G9",
+   "G10",
+   "T1",
+   "T2",
+   "T3",
+   "T4",
+   "T5"
+  ]
+ },
+ "notMet": 1,
+ "notMetNames": [
+  "ctl1"
+ ],
+ "metNames": [],
+ "errors": [],
+ "build": [
+  {
+   "run": 1,
+   "exit": 0,
+   "met": true,
+   "seed": 93543170178044,
+   "equalRuns": "21/21",
+   "ratios": {
+    "T1": 1.005,
+    "T2": 1.217,
+    "T3": 1.355,
+    "T4": 1.256,
+    "T5": 1.123
+   },
+   "receipt": "build-1.json",
+   "error": null
+  },
+  {
+   "run": 2,
+   "exit": 0,
+   "met": true,
+   "seed": 93543170178044,
+   "equalRuns": "21/21",
+   "ratios": {
+    "T1": 1.005,
+    "T2": 1.217,
+    "T3": 1.355,
+    "T4": 1.256,
+    "T5": 1.123
+   },
+   "receipt": "build-2.json",
+   "error": null
+  },
+  {
+   "run": 3,
+   "exit": 0,
+   "met": true,
+   "seed": 93543170178044,
+   "equalRuns": "21/21",
+   "ratios": {
+    "T1": 1.005,
+    "T2": 1.217,
+    "T3": 1.355,
+    "T4": 1.256,
+    "T5": 1.123
+   },
+   "receipt": "build-3.json",
+   "error": null
+  }
+ ],
+ "rows": [
+  {
+   "name": "ctl1",
+   "family": "prefix",
+   "class": "G5",
+   "path": ".ufo/waves/round-45/fixtures/tool-absent/ctl1.py",
+   "sha256": "00ece64886137a23b1b6a8e7f7795885d2e23ae3c1c2a0dfdb8f05f085503238",
+   "exit": 1,
+   "met": false,
+   "equalRuns": "0/21",
+   "seed": 224408754848177,
+   "caughtBy": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7",
+    "G8",
+    "G9",
+    "G10",
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5"
+   ],
+   "receipt": "tools/ctl1.json",
+   "error": null,
+   "classCaught": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7",
+    "G8",
+    "G9",
+    "G10"
+   ],
+   "legacyCaught": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5"
+   ]
+  }
+ ],
+ "ok": true,
+ "verdict": "witnessed 1/1 notMet=1 build met 3/3"
+}

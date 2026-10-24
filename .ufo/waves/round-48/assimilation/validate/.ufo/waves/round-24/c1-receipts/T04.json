@@ -1,0 +1,34 @@
+{
+ "id": "T04",
+ "token": "~/Projects/lucario/site/README.md",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T11:50:41Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "date -u +%Y-%m-%dT%H:%M:%SZ",
+   "p=/home/vgpnk/Projects/lucario/site/README.md; if test -e \"$p\"; then echo \"test -e $p => present\"; else r=$?; echo \"test -e $p => absent (exit=$r)\"; fi",
+   "stat -c '%n %w %y' \"$p\" 2>&1",
+   "ls -la /home/vgpnk/Projects",
+   "stat -c '%n | birth=%w | mtime=%y | type=%F' /home/vgpnk/Projects /home/vgpnk",
+   "git -C /home/vgpnk/Projects/lucario log -3 --format='%H %cI %s' 2>&1",
+   "git -C /home/vgpnk/Projects/lucario remote -v 2>&1"
+  ],
+  "output": "2026-10-21T11:50:41Z; test -e /home/vgpnk/Projects/lucario/site/README.md => absent (exit=1); stat: cannot stat '/home/vgpnk/Projects/lucario/site/README.md': No such file or directory (os error 2) (exit=1); ls -la /home/vgpnk/Projects completed and the full listing contains no lucario entry; stat of /home/vgpnk/Projects: birth=2026-10-03 17:48:28.004231881 -0300, mtime=2026-10-21 05:19:01.033916520 -0300; git log and remote each: fatal: cannot change to '/home/vgpnk/Projects/lucario': No such file or directory (exit=128)."
+ },
+ "event": "W7 ~/Projects prune/migration, lane-dated 2026-10-12: corpus/lessons/round-18.md:9-16 names lucario among the removed roots; r17 (2026-09-29) is the last positive child-set record and r18 (2026-10-14) is the first negative census. The exact README deletion time is not retained.",
+ "cites": [
+  {
+   "cite": "SKILL.md:458",
+   "lineText": "- [property-map:c37] **UNVERIFIABLE** — The referenced README still documents a pending, gated first publish. Surface: `/home/vgpnk/Projects/lucario/site/README.md`. Unverifiable: The mapped source directory and README are absent at this host, and the live 404 cannot determine whether the upstream README's publish gate remains pending.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsNewT04READMEMd.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

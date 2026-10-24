@@ -1,0 +1,9 @@
+{
+  "id": "S027",
+  "verdict": "HOLD",
+  "fetchIndex": 1,
+  "quote": "urlsplit() does not perform validation. See URL parsing security for details.",
+  "anchorObserved": "fetched/text/S027-1.txt is one 30,322-char line; page self-labels 'urllib.parse — Parse URLs into components — Python 3.15.1 documentation' at offset 0; 'Warning urlsplit()' admonition at offset 7,261 (immediately after the urlsplit() signature); body heading 'URL parsing security ¶' at offset 16,630, with its TOC entry intact in the page index",
+  "reason": "Re-fetched 2026-10-21T15:10:49Z: status 200, finalUrl identical to the recorded URL, 119,730 bytes, sha256 a27468b3…42d9f1; Last-Modified 2026-10-21T13:04:29Z shows a same-day regeneration of the live 3.15 docs for the 3.15.1 patch. Both anchors survive: the urlsplit Warning still refers to 'URL parsing security', whose body states the APIs 'do not perform validation of inputs', tells callers to 'code defensively' and verify each returned component, and says the functions 'cannot be claimed compliant with either' WHATWG or RFC 3986 — so caller-side validation and non-equivalence to browser URL parsing both remain directly supported. The scope's resolution half is separately grounded by urljoin's own Warning that joining an attacker-controlled url is 'generally not secure'. Citation usage still agrees: corpus/knowledge/static-canonical-preflight.md (~L74-77) repeats 'do not perform validation … cannot be claimed as an exact WHATWG URL implementation', and corpus/lessons/round-22.md L50 quotes the identical warning sentence. Version advanced 3.15 → 3.15.1 within the anchored family; no teaches/anchor/version claim is now wrong, so no correction.",
+  "correction": null
+}

@@ -1,0 +1,26 @@
+{
+  "description": "git_commit listed before git_init, run with --tmpdir inside a victim repository; the load-time guard must refuse it first (round-31 routed item 2, mutant m3)",
+  "gap": "m3",
+  "tmpdir_in_victim": true,
+  "cases": [
+    {
+      "name": "h6",
+      "case_json": {
+        "setup": [
+          {
+            "op": "git_commit",
+            "message": "probe"
+          },
+          {
+            "op": "git_init"
+          }
+        ]
+      },
+      "planted_scripts": false,
+      "dot_git": false,
+      "expected": null,
+      "symlink_case": false,
+      "reason_code": "setup_commit_before_init"
+    }
+  ]
+}

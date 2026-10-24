@@ -1,0 +1,36 @@
+# Round-31 routed item 3 — duplicated option tables
+
+Axis: operability. Source inspected from sandbox clone at `bc6c4a8d435473f3c30903210be30d9d6e3ef750`.
+
+## Inventory at the assigned revision
+
+- `scripts/citing_set.py:821-830` declares the gate's four value-taking options (`root`, `revision`, `population`, `ledger`) and two flags (`json`, `selftest`); argparse adds `--help`.
+- `scripts/citing_set_selftest.py:146-147` separately hard-codes those names in `GATE_VALUE_OPTIONS` and `GATE_OTHER_OPTIONS`; `:370-386` consumes them to refuse unsafe abbreviations. This is the routed duplication (also noted in round-32 status at `ReviewRoutedItemsStatus.md:33-35`).
+- `scripts/citing_set_hostile_selftest.py:227-230` declares only its distinct harness options (`root`, `tmpdir`, `runner`); it does not duplicate the gate option set. No edit was needed there.
+
+## Change
+
+Patch: `/fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/patch.diff` (SHA-256 `28fd9adf5f302eaaa1e8046dd4ce4be4a884afaa7064c542339361baa1b47d6e`). The runner now lazily reads long options and value/no-value classification from the gate's actual parser (`scripts/citing_set_selftest.py:369-404`), replacing its hand-maintained tables. Help text in the runner docstring now describes parser-derived policy (`:67-72`). No gate or hostile-runner source changed.
+
+## Before/after evidence
+
+All commands ran in the sandbox clone. Raw stdout/stderr are retained under
+`/fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/{before,after}/`.
+
+- Help commands: `python3 -B scripts/citing_set.py --help`,
+  `python3 -B scripts/citing_set_selftest.py --help`, and
+  `python3 -B scripts/citing_set_hostile_selftest.py --help`; each exited 0
+  before and after. Before/after stdout and stderr `cmp -s` comparisons exited
+  0. Equal stdout SHA-256: gate `ed8ce9b08736592829ca29927aaff3e652d64b4f58beac7c1426ab4f3614bef2`;
+  runner `75a8f21bffdcf4ac88728ed8dd1653d0c64cddcf44124cd438f76c40bab0bb1e`;
+  hostile `56f93418926d3d1bd4c67d7f956097eb8ecb4bab870f6674c92ea1b03c18d7d7`.
+  Stderr was empty in all runs (SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`).
+- Help comparison command: `for tool in gate runner hostile; do cmp -s /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/$tool.help.stdout /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/$tool.help.stdout && cmp -s /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/$tool.help.stderr /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/$tool.help.stderr || exit 1; printf '%s: stdout/stderr identical\\n' \"$tool\"; done` — exit 0.
+- Before normal fixtures: `export TMPDIR=/fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/tmp && python3 -B scripts/citing_set_selftest.py --root /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/clone --tmpdir /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/tmp/before-normal > /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/normal.json 2> /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/normal.stderr` — exit 0, clean, 45 cases, 0 failed (`evidence/before/normal.json:1-7`).
+- After normal fixtures: `export TMPDIR=/fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/tmp && python3 -B scripts/citing_set_selftest.py --root /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/clone --tmpdir /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/tmp/before-normal > /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/normal.json 2> /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/normal.stderr` — exit 0, clean, 45 cases, 0 failed (`evidence/after/normal.json:1-7`).
+- Comparison command: `jq -S 'del(.runnerSha256)' /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/normal.json > /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/normal.behavior.json && jq -S 'del(.runnerSha256)' /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/normal.json > /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/normal.behavior.json && cmp -s /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/normal.behavior.json /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/normal.behavior.json && printf 'normal suite JSON identical except runnerSha256\\n' && sha256sum /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/normal.behavior.json /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/normal.behavior.json` — exit 0; both normalized outputs have SHA-256 `0f87915c790cc1e1b946edfbefd808c76df55bff089436cfa657336a05291ce6`. Only the runner self-hash differs; all other summary and result fields match.
+- Before hostile fixtures: `export TMPDIR=/fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/tmp && python3 -B scripts/citing_set_hostile_selftest.py --root /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/clone --tmpdir /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/tmp/before-hostile > /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/hostile.json 2> /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/hostile.stderr` — exit 0, all six specs passed.
+- After hostile fixtures: `export TMPDIR=/fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/tmp && python3 -B scripts/citing_set_hostile_selftest.py --root /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/clone --tmpdir /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/tmp/before-hostile > /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/hostile.json 2> /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/hostile.stderr` — exit 0, all six specs passed. Exact JSON/stderr `cmp -s` exited 0; JSON SHA-256 is `66765e33a8e7ddfa47bd4533504138989f2d4b88af9cc66be3c32d2037501801` both runs (`evidence/after/hostile.json:1-130`; P1 and P6 details at `:7-25` and `:109-126`).
+
+- Hostile comparison command: `cmp -s /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/hostile.json /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/hostile.json && cmp -s /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/before/hostile.stderr /fast/scratch/hyaku/kake-r33/w1/ExecDuplicatedOptionTables/evidence/after/hostile.stderr && printf 'hostile JSON/stderr identical\\n'` — exit 0.
+No tools installed. LSP was unavailable in the exposed tool inventory. No builds, linters, formatters, or other checks were run. Risk: the runner derives action classification from argparse's private `ArgumentParser._actions` and each action's `nargs`; the current parser's value and flag actions are classified correctly, and the requested CLI/fixture comparisons passed.

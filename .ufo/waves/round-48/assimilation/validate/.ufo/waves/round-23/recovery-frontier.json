@@ -1,0 +1,53 @@
+{
+  "sourceCensus": {
+    "argv": [
+      "/home/vgpnk/Projects/shokunin/scripts/sources-census.sh",
+      "validate",
+      "--root",
+      "/home/vgpnk/Projects/shokunin",
+      "kake"
+    ],
+    "exit": 0,
+    "stdout": "kake\tok\t/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md\n",
+    "stderr": ""
+  },
+  "sourceRows": {
+    "b5d599e19bead54b96f589444e9ec64cdf67c28a": {
+      "rows": 29,
+      "tiers": {
+        "A": 27,
+        "C": 2
+      },
+      "statuses": {
+        "mined": 25,
+        "queued": 2,
+        "rejected": 2
+      }
+    },
+    "5bef55b1464d7ccbff802edab400d138597a621c": {
+      "rows": 31,
+      "tiers": {
+        "A": 29,
+        "C": 2
+      },
+      "statuses": {
+        "mined": 27,
+        "queued": 2,
+        "rejected": 2
+      }
+    }
+  },
+  "rowCountingMethod": "git show REV:corpus/SOURCES.md; split pipe-delimited S-number registry rows; histogram tier column 4 and status column 8",
+  "misrootSweep": {
+    "argv": [
+      "git",
+      "-C",
+      "/home/vgpnk/Projects/shokunin",
+      "status",
+      "--porcelain"
+    ],
+    "exit": 0,
+    "stdout": " M .ufo/watchdog.log\n?? .ufo/state/chousa.report-baseline\n?? .ufo/state/kagi.report-baseline\n?? .ufo/state/kaidoku.report-baseline\n?? .ufo/state/kake.report-baseline\n?? .ufo/state/kama.report-baseline\n?? .ufo/state/kasegi.report-baseline\n?? .ufo/state/kengaku.report-baseline\n?? .ufo/state/kumitate.report-baseline\n?? .ufo/state/mado.report-baseline\n?? .ufo/state/mori.report-baseline\n?? .ufo/state/souji.report-baseline\n?? .ufo/state/tabi.report-baseline\n?? .ufo/state/tameshi.report-baseline\n?? .ufo/state/tsukuroi.report-baseline\n",
+    "disposition": "Only operator scripts and protected driver state are present; no owned seat report misroot found; no fleet file removed."
+  }
+}

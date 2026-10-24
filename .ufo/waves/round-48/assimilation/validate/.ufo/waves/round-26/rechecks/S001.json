@@ -1,0 +1,9 @@
+{
+  "id": "S001",
+  "verdict": "HOLD",
+  "fetchIndex": 2,
+  "quote": "(those starting with a dot) in the artifact. Excludes.git and.github regardless.",
+  "anchorObserved": "Main-commit copy (S001-2): inputs.include-hidden-files lines 17-20; Linux Archive artifact exclusion block lines 37-39 (same unconditional .git/.github pair repeats at 55-56 macOS and 73-74 Windows)",
+  "reason": "Main-commit copy exposes include-hidden-files (default \"false\") that gates only the dotfile exclude, while --exclude=.git and --exclude=.github remain unconditional in all three OS archive steps; the v4.0.0 copy (S001-1) has no such input and hard-codes --exclude=\".[^/]*\" three times, exactly the split the row attributes to S002. Scope and teaches still hold.",
+  "correction": null
+}

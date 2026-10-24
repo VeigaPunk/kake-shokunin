@@ -1,0 +1,30 @@
+{
+ "id": "T10",
+ "token": "~/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T12:13:05Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "test -e /home/vgpnk/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review",
+   "stat -c %n|birth=%w|mtime=%y /home/vgpnk/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review"
+  ],
+  "output": "test -e exit 1; stat exit 1: stat: cannot statx '/home/vgpnk/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review': No such file or directory\n"
+ },
+ "event": "2026-10-21 direct recheck; exact removal time and cause unknown. Earlier corpus W7 attribution remains historical.",
+ "cites": [
+  {
+   "cite": "corpus/knowledge/mirror-pitfalls.md:64",
+   "lineText": "- [mirror-pitfalls:c5] **UNVERIFIABLE** — The named tree is a non-git review snapshot, is not a source, and has remained absent from the filesystem since the r15 sweep. Surface: `test -e /home/vgpnk/Projects/ufofsdbeta-kimi-review; test -e /home/vgpnk/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review; glob /home/vgpnk/Projects/**/ufofsdbeta-kimi-review`. Unverifiable: The unit gives only a relative directory name and makes a filesystem-wide absence/non-git assertion. The checked project-root candidates were absent, but without an exact canonical absolute path or the tree itself I cannot verify the global absence or its former git status.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "observer": "KakeR24 coordinator; dead seat not replaced",
+ "reportSources": [
+  "coordinator direct observation recorded in receipt"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

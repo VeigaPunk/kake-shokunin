@@ -1,0 +1,71 @@
+{
+ "unit": "mirror-pitfalls",
+ "path": "corpus/knowledge/mirror-pitfalls.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "`ufo-fsd.kimi.pro` = 612B SPA shell.",
+   "claim": "The public root currently serves a 612-byte HTML client SPA shell.",
+   "surface": "GET https://ufo-fsd.kimi.pro/",
+   "method": "GET",
+   "observation": "status=200 url=https://ufo-fsd.kimi.pro/ bytes=612; raw HTML contains <title>DS4CC</title>, a module script at /assets/index-Bw9NLFv4.js, <div id=\"root\"></div>, and https://www.kimi.com/sdk-seed.js.",
+   "verdict": "HOLD",
+   "seat": "ReverifyMirrorPitfalls"
+  },
+  {
+   "id": "c2",
+   "anchor": "`ufo-fsd.kimi.page` = vault twin; `ufofsd.kimi.page` = frozen landing;",
+   "claim": "The two named public roots currently serve distinct pages: a central vault and a work-in-progress ufofsd landing page.",
+   "surface": "GET https://ufo-fsd.kimi.page/; GET https://ufofsd.kimi.page/",
+   "method": "GET",
+   "observation": "status=200 url=https://ufo-fsd.kimi.page/ bytes=9966; title `VEIGAPUNK — Central Vault`. status=200 url=https://ufofsd.kimi.page/ bytes=1913; title `ufofsd — work in progress`; text `Work in progress — the full ds4cc.com mirror lands here. ETA WINTER 2027`.",
+   "verdict": "HOLD",
+   "seat": "ReverifyMirrorPitfalls"
+  },
+  {
+   "id": "c3",
+   "anchor": "plazir15.kimi.page\n  and charter-ufo-fsd.kimi.page have no bound chat;",
+   "claim": "The two named Kimi sites have no chat bound to them.",
+   "surface": "GET https://plazir15.kimi.page/; GET https://charter-ufo-fsd.kimi.page/",
+   "method": "GET",
+   "observation": "status=404 url=https://plazir15.kimi.page/ bytes=13409; status=404 url=https://charter-ufo-fsd.kimi.page/ bytes=13409. The public responses do not expose chat-binding state.",
+   "verdict": "UNVERIFIABLE",
+   "reason": "Unauthenticated public GET establishes only the current 404 responses, not the private Kimi chat-to-site binding. No authenticated API or browser operation was used.",
+   "seat": "ReverifyMirrorPitfalls"
+  },
+  {
+   "id": "c4",
+   "anchor": "`plazir-15-site/speedrun/` = frozen 3-run copy; canonical is\n  `ds4cc-marketplace/speedrun/` (`rel=canonical` in the plazir copy confirms).",
+   "claim": "The frozen three-run copy and its canonical repository path are present locally, with a rel=canonical link from the copy.",
+   "surface": "test -e /home/vgpnk/Projects/plazir-15-site/speedrun; test -e /home/vgpnk/Projects/ds4cc-marketplace/speedrun",
+   "method": "test -e",
+   "observation": "ABSENT /home/vgpnk/Projects/plazir-15-site/speedrun; ABSENT /home/vgpnk/Projects/ds4cc-marketplace/speedrun.",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, neither /home/vgpnk/Projects/plazir-15-site/speedrun nor /home/vgpnk/Projects/ds4cc-marketplace/speedrun exists under /home/vgpnk/Projects, so this workstation cannot substantiate the asserted copy or canonical link.",
+   "seat": "ReverifyMirrorPitfalls"
+  },
+  {
+   "id": "c5",
+   "anchor": "`ufofsdbeta-kimi-review/` = non-git review snapshot, never a source —\n  **absent from FS since 2026-09-28T23:51:31Z** (r15 sweep).",
+   "claim": "The named tree is a non-git review snapshot, is not a source, and has remained absent from the filesystem since the r15 sweep.",
+   "surface": "test -e /home/vgpnk/Projects/ufofsdbeta-kimi-review; test -e /home/vgpnk/Projects/ufo-fsd-alpha/ufofsdbeta-kimi-review; glob /home/vgpnk/Projects/**/ufofsdbeta-kimi-review",
+   "method": "test -e",
+   "observation": "Both exact test -e candidates returned ABSENT; the project-root glob returned `No files found matching pattern`.",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The unit gives only a relative directory name and makes a filesystem-wide absence/non-git assertion. The checked project-root candidates were absent, but without an exact canonical absolute path or the tree itself I cannot verify the global absence or its former git status.",
+   "seat": "ReverifyMirrorPitfalls"
+  },
+  {
+   "id": "c6",
+   "anchor": "**Bytes are rewritten.** sdk-seed.js injection + cfemail/entity rewriting",
+   "claim": "Kimi's served bytes are rewritten by the listed mechanisms, making source-versus-served SHA comparison unsuitable without normalization.",
+   "surface": "GET https://ufo-fsd.kimi.pro/ plus its raw response; paired pre-publish source bytes unavailable",
+   "method": "GET",
+   "observation": "The raw 612-byte response includes the published `https://www.kimi.com/sdk-seed.js` script; no corresponding original source bytes were found for a byte comparison.",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The public response confirms SDK-seed injection on this page, but neither the named historical source documents nor paired pre-publish bytes are available to verify cfemail/entity rewriting or the broader digest conclusion.",
+   "seat": "ReverifyMirrorPitfalls"
+  }
+ ]
+}

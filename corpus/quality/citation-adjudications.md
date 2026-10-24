@@ -52,3 +52,8 @@ additions citing the old line, never an in-place cell edit).
   (a)). `CriticC2Sufficiency` is the separate `0b7779dc` row (11 of 12).
   Corrected reason: Round-34/35 seat-sandbox commit (`CriticProbeLeniency`
   all-false entry, met true, 12 of 12); control label of record.
+| `7fc6aa2fc12451dd451fed5a9ee7125f3a90e884` | SCORECARD.md | external-repo commit | ds4cc-marketplace upstream commit, the full-40 spelling of the `7fc6aa2f` row above; non-resolving in the lane repository by an existence check (`git cat-file -e`), which the old `git rev-parse -q --verify` resolution accepted with exit 0 (round-48 C2). |
+
+## Round-48 corrections (append-only)
+
+- The header sentence above says every target was re-verified with `git rev-parse -q --verify`. That method answers "is this a well-formed object name", not "does this object exist": a full-40-hex token that no object carries is echoed back with exit 0 on git 2.56.0 (`.ufo/waves/round-46/residual/CriticCitationOverreach.md`, Finding 1). The short-token rows above were unaffected (a short prefix that matches no object does fail `rev-parse`), but the full-40 spelling was accepted by the gate as a resolving citation. The round-48 C2 repair resolves a token by existence (`git cat-file -e`); the one new occurrence it surfaces is the row appended above.

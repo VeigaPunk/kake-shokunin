@@ -1,0 +1,18 @@
+# RerunControlsV3 — C2 receipts
+
+- Axis: operability. Attacked whether retained C2 controls, reference, ablations, mutants and `CtlExampleK` receipts reproduce from their recorded tool bytes.
+- Re-scored at `adab4c7e9ec2178657395f49346f18800ff4796f` in the sandbox clone; key revision `99357694`, pinned key SHA-256 `749ef6a65de67f09abffad33fa6d7efcb1e7f1515b1d2fa51a93ff9977b63aa6`; counter SHA-256 `28b120a5a38061825094c17f0e978d7e6a5ec3fb131094e2cdfd59360f38f9e4`.
+- Command, once per `F` (64 invocations, max 8 concurrent; `TMPDIR` in sandbox): `prlimit --as=4000000000 -- timeout 600s python3 -B .ufo/waves/round-38/sealed_count_v3.py --root /fast/scratch/hyaku/kake-r38w2/RerunControlsV3/clone --tool-file F --key-revision 99357694` (cwd is that clone). Clone setup returned `CLONE_OK` (exit 0); all runs were capped and memory-limited.
+- Observed: 64 tool files; 5 exit 0 / `met=true`, 59 exit 1 / `met=false`, no exit 2, timeout, or invocation exception. Controls: 13 total (4 met); reference: 1/1 met; ablations: 0/8 met (16–18); mutants: 0/42 met (16–19). The counter's exit contract is documented at `.ufo/waves/round-38/sealed_count_v3.py:43-44,275-276`.
+- All 64 retained tool files have receipt SHA matches; all matched JSON fields except `toolFile`, and all corresponding `.exit` sidecars, equal the reruns. Receipt `toolFile` values point to original scratch paths for multiple groups; reruns intentionally used clone paths, and SHA matching confirms the measured bytes. No retained tool is unreceipted. Duplicate source bytes (not hash collisions): `A6-raw-exemption.py`/`M17.py` SHA `1f2e69b3932f228c2852deab3c067410956dd911443f1c95c37feb0fdc35819c`; `A8-exemption-casefold.py`/`M19.py` SHA `f5ebf051b4fc6bec7bcd5caa4321935c649115ee68acd71cdd633dc816e765fc`.
+- `.ufo/waves/round-38/verification/w1attack/CtlExampleK.json:5-11` matches retained `.ufo/waves/round-38/retained/controls/w1-CtlExampleK.py` by SHA: 19/20, `met=false`, exit 1; SHA `e29d92ebb2c03bf55b4a483272207acdda330db28334d66129a2b6f6fbb1d4be`.
+- Six v3 receipts have no matching retained tool; each records a round-37 retained path at lines 5-7 (their hashes are also in the result artifact):
+- `.ufo/waves/round-38/verification/v3/r37-CtlC1AllFalse-robots_audit.json:5-7`
+- `.ufo/waves/round-38/verification/v3/r37-CtlC1ConstantClean-robots_audit.json:5-7`
+- `.ufo/waves/round-38/verification/v3/r37-CtlC1Junk-robots_audit.json:5-7`
+- `.ufo/waves/round-38/verification/v3/r37-CtlC1NaiveReader-robots_audit.json:5-7`
+- `.ufo/waves/round-38/verification/v3/r37-CtlC1NoReader-robots_audit.json:5-7`
+- `.ufo/waves/round-38/verification/v3/r37-CtlC1Shortcut-followup-robots_audit.json:5-7`
+- Verdicts: **HOLDS** — the retained C2 tool scores in matching receipts are reproducible; **HOLDS** — the w1 `CtlExampleK` 19/20 receipt reproduces; **OVERSTATED if read as saying every v3 receipt has a current round-38 retained tool** — six historical r37 receipts are unpaired, while no current retained tool lacks a receipt. C2 measured-result scope is declared at `SCORECARD.md:2261-2286`.
+- Residual gap: the six historical r37 tools are not present in the r38 retained set, so their receipt contents cannot be independently rerun here; the executed scope is receipt reproduction, not a re-audit of `scripts/robots_audit.py` semantics.
+- Full per-file argv, stdout, exits, receipt comparisons, and orphan hashes: `/fast/scratch/hyaku/kake-r38w2/RerunControlsV3/rerun-results.json` (SHA-256 `646474aaf62e5a6f81d9115d117ed8a9210c94e88fc21f336dc52f89ce7e6514`). No tools installed.

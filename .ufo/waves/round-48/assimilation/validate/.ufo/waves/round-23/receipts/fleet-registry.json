@@ -1,0 +1,102 @@
+{
+ "unit": "fleet-registry",
+ "path": "corpus/knowledge/fleet-registry.md",
+ "observedAt": "2026-10-21",
+ "claims": [
+  {
+   "id": "c1",
+   "anchor": "<!-- r18 re-census 2026-10-14: ~/Projects/webzites/fleet/fleet.config.json absent — gone in the 2026-10-12",
+   "claim": "The canonical fleet configuration is currently absent at its recorded source path.",
+   "surface": "test -e /home/vgpnk/Projects/webzites/fleet/fleet.config.json",
+   "method": "test -e",
+   "observation": "absent: /home/vgpnk/Projects/webzites/fleet/fleet.config.json",
+   "verdict": "HOLD",
+   "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c2",
+   "anchor": "Verified 2026-09-28: `len(sites)` = **21 rows**",
+   "claim": "The current raw sites[] array contains 21 rows.",
+   "surface": "test -f \"/home/vgpnk/Projects/webzites/fleet/fleet.config.json\" && node -p 'const c=require(\"/home/vgpnk/Projects/webzites/fleet/fleet.config.json\"); [c.schema,c.updatedAt,c.sites.length].join(\" \")' || echo \"absent: operator must restore the fleet source or retire this entry\"",
+   "method": "run",
+   "observation": "absent: operator must restore the fleet source or retire this entry",
+   "verdict": "UNVERIFIABLE",
+   "reason": "The canonical fleet.config.json is absent, so there is no current sites[] array to count; the command took its absent-file branch and the 21-row value remains historical evidence only.",
+   "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c3",
+   "anchor": "`high` (revenue/brand: veigapunk-page, ds4cc-com)",
+   "claim": "Both named high-priority endpoints remain publicly reachable at their listed URLs.",
+   "surface": "GET https://veigapunk.kimi.page/; GET https://ds4cc.com/",
+   "method": "GET",
+   "observation": "http=200 final=https://veigapunk.kimi.page/ bytes=10059; http=200 final=https://ds4cc.com/ bytes=76159",
+   "verdict": "HOLD",
+   "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c4",
+   "anchor": "lucario.kimi.page | **broken (404, never published — see warning)** | `~/Projects/lucario` (canonical: `veigapunk.github.io/lucario/`)",
+   "claim": "The current endpoint split remains a 404 at the Kimi alias and a live GitHub Pages canonical; this does not re-prove the historical ‘never published’ wording.",
+   "surface": "GET https://lucario.kimi.page/; GET https://veigapunk.github.io/lucario/",
+   "method": "GET",
+   "observation": "http=404 final=https://lucario.kimi.page/ bytes=13409; http=200 final=https://veigapunk.github.io/lucario/ bytes=3435",
+   "verdict": "HOLD",
+   "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c5",
+   "anchor": "| plazir27-kimi-page | plazir27.kimi.page | live (canonical kimi charter) | charter repo |",
+   "claim": "The plazir27.kimi.page row remains live as the canonical Kimi charter.",
+   "surface": "GET https://plazir27.kimi.page/",
+   "method": "GET",
+   "observation": "http=404 final=https://plazir27.kimi.page/ bytes=13409; body contains <title>404</title> and 404 Page Not Found",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, https://plazir27.kimi.page/ returns HTTP 404 (404 Page Not Found) rather than serving a live canonical Kimi charter.",
+   "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c6",
+   "anchor": "| plazir27runson | plazir27runson.kimi.page | live (Night Trilogy) | none |",
+   "claim": "The plazir27runson.kimi.page row is live (Night Trilogy).",
+   "surface": "GET https://plazir27runson.kimi.page/",
+   "method": "GET",
+   "observation": "http=404 final=https://plazir27runson.kimi.page/ bytes=13409; body contains <title>404</title> and 404 Page Not Found",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, https://plazir27runson.kimi.page/ returns HTTP 404 (404 Page Not Found), so its live (Night Trilogy) status is stale.",
+   "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c7",
+   "anchor": "| xsnapshot-app | xsnapshot.app | queued (NXDOMAIN) | none |",
+   "claim": "The xsnapshot-app row is queued because xsnapshot.app is NXDOMAIN.",
+   "surface": "GET https://xsnapshot.app/",
+   "method": "GET",
+   "observation": "http=200 final=https://xsnapshot.app/ bytes=1985; title: xsnapshot — your X profile, persistent and crawlable; page tag: domain live · build in progress",
+   "verdict": "STALE",
+   "correction": "As of 2026-10-21, https://xsnapshot.app/ resolves and returns HTTP 200 with a page stating domain live · build in progress, so NXDOMAIN is no longer an accurate basis for its queued status.",
+   "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c8",
+   "anchor": "| charter-ghp | veigapunk.github.io/charter-ufo-fsd | live (canonical doc) |",
+   "claim": "The listed GitHub Pages canonical charter document is currently live.",
+   "surface": "GET https://veigapunk.github.io/charter-ufo-fsd/",
+   "method": "GET",
+   "observation": "http=200 final=https://veigapunk.github.io/charter-ufo-fsd/ bytes=53660",
+   "verdict": "HOLD",
+   "seat": "ReverifyFleetRegistry"
+  },
+  {
+   "id": "c9",
+   "anchor": "`charter-ghp` FAIL on stale marker (09-26 pin vs live",
+   "claim": "The historical charter marker discrepancy remained a 09-26 pin versus a 09-28 live beat.",
+   "surface": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "method": "GET",
+   "observation": "200; 2026-09-26 scribe beat absent; 2026-09-30 scribe beat present",
+   "verdict": "STALE",
+   "seat": "w2/HoldFleetRegistry",
+   "correction": "As of 2026-10-21, the live charter page has a 2026-09-30 scribe beat, not the historical 09-28 beat; the current config pin cannot be checked while its source is absent."
+  }
+ ]
+}

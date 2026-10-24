@@ -1,0 +1,524 @@
+{
+ "schemaVersion": "1",
+ "thresholds": {
+  "high": 80,
+  "low": 60
+ },
+ "framework": {
+  "name": "kake citing-set committed runner (scripts/citing_set_selftest.py)"
+ },
+ "config": {
+  "baseRevision": "035668132250b75b38d399e86e540b0a0371efbc",
+  "lane": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+  "detector": {
+   "command": "python3 -B <tree>/scripts/citing_set_selftest.py --root <tree> --tmpdir <scratch>",
+   "killed": "runner exit code != 0",
+   "survived": "runner exit code == 0",
+   "baseline": "pristine exported tree: runner exit 0, 29 cases, 0 failed"
+  },
+  "mutation": {
+   "operator": "every double-quoted occurrence of \"<code>\" in the gate becomes \"<code>_mutated\"",
+   "scope": "one reason code per mutant, one tree copy per mutant",
+   "restoration": "each mutant ran in its own copy of the exported tree; the base tree bytes were never written"
+  }
+ },
+ "files": {
+  "scripts/citing_set.py": {
+   "language": "python",
+   "source": "#!/usr/bin/env python3\n\"\"\"Range-aware citing-set completeness gate for the kake corpus (round 27, C2).\n\nInterface (frozen by .ufo/waves/round-27/contract.json):\n\n    python3 -B scripts/citing_set.py --root <dir> [--revision <commit>] \\\n        --population <relative-json> --ledger <relative-json> [--json]\n    python3 -B scripts/citing_set.py --selftest [extra args]\n\nThe gate enumerates the complete expanded citing set of the corpus and\ncompares it with the adjudication ledger.  Every regular file under\n``corpus/knowledge`` is read whole: front-matter metadata lines and the\nhistorical / round-26 EOF prose are part of the citing set, exactly like\nin-body citations.  Only pair-level presence is measured; a pair being\npresent says nothing about the truth of the statement it carries.\n\nCitation form\n-------------\nA citation token is ``S`` followed by at least three ASCII digits, with no\nword character immediately before the ``S`` and none immediately after the\ndigits.  Tokens are recognised anywhere in the file text.\n\nA range is two ids joined by one of: hyphen-minus, en dash (U+2013),\nem dash (U+2014), ``..``, ``to`` or ``through``.  Any whitespace, newlines\nincluded, may sit around the separator, and the separator may abut the\ndigits (``S001toS006`` is a range).  The left endpoint only needs a word\nboundary before its ``S``; the right endpoint needs a word boundary after\nits digits.  Ranges are scanned independently of the literal token rule.\nA range expands to every id between its endpoints, inclusive.\n\nPopulation\n----------\nOnly ids present in the population document are part of the citing set.\nIds are compared numerically (``S001`` and ``S0001`` are the same id).  A\npopulation id that is not ``S`` followed by digits can never be produced\nby the citation grammar, so it is unreachable and the population is\nrejected with ``input_invalid`` (``population_id_unreachable``) instead of\nbeing measured clean.  Ids cited outside the population are counted\n(``outsidePopulation``) but never become findings.\n\nFindings\n--------\n``unadjudicated_citing_pair``\n    One per expanded citing pair (row, file) that the ledger does not\n    contain.  ``row`` is the population id, ``file`` the corpus-relative\n    path.  This is the red condition of the gate.\n``ledger_pair_not_cited``\n    One per distinct ledger pair (row, file) that the citing set does not\n    contain.\n``ledger_duplicate_pair``\n    One per distinct ledger pair that occurs more than once; ``occurrences``\n    reports how often it was seen.  A duplicated pair still counts as\n    adjudicated.\n``citation_range_invalid``\n    One per range that is descending (end < start) or spans more than 200\n    ids.  An invalid range is not expanded; its endpoints remain literal\n    citations.  The evaluation still completes, so this finding yields the\n    ``failed`` verdict (exit 1).\n``input_invalid``\n    One per unusable input: missing, unreadable or non-regular document\n    (a FIFO or device is refused without blocking), malformed or too\n    deeply nested JSON, wrong document shape, unreachable population id,\n    unreadable corpus file, symlinked or non-regular corpus entry, path\n    that resolves outside the root, a ``corpus/knowledge`` surface that is\n    absent, empty or not a directory, a blank or unknown ``--revision``,\n    a ``--revision`` root that is not the top level of its Git repository\n    (a bare repository or the repository's own ``.git`` directory reads\n    that repository's HEAD tree and is accepted), and Git being\n    unavailable.  Git subprocesses run without inherited repository-locating\n    variables (``GIT_DIR``, ``GIT_WORK_TREE`` and the other\n    ``git rev-parse --local-env-vars`` names), so ``--root`` alone chooses\n    the repository.  Any ``input_invalid`` finding forces verdict\n    ``could-not-evaluate`` (exit 2), so an absent or unreachable corpus\n    surface never measures ``clean``.\n\nExit codes\n----------\n0 clean, 1 failed (findings present), 2 could-not-evaluate, 64 usage.\n\nFinding multiplicity\n--------------------\nOne finding per distinct object: one ``unadjudicated_citing_pair`` per\ndistinct (row, file) of the expanded citing set, one\n``ledger_pair_not_cited`` and one ``ledger_duplicate_pair`` per distinct\nledger pair (a pair repeated three times still yields one duplicate\nfinding, carrying ``occurrences``).\n\nThe JSON document is written to stdout in every mode:\n``{\"verdict\":..., \"citingPairs\":int, \"ledgerPairs\":int, \"findings\":[...]}``.\nNo network access, no execution of corpus content, no writes outside this\nprocess.  ``--selftest`` delegates to the sibling runner\n``scripts/citing_set_selftest.py`` with an explicit root.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport json\nimport os\nimport re\nimport stat\nimport subprocess\nimport sys\n\nEXIT_CLEAN = 0\nEXIT_FAILED = 1\nEXIT_CANNOT_EVALUATE = 2\nEXIT_USAGE = 64\n\nF_UNADJUDICATED = \"unadjudicated_citing_pair\"\nF_LEDGER_NOT_CITED = \"ledger_pair_not_cited\"\nF_LEDGER_DUPLICATE = \"ledger_duplicate_pair\"\nF_INPUT_INVALID = \"input_invalid\"\nF_RANGE_INVALID = \"citation_range_invalid\"\n\nCORPUS_DIR = \"corpus/knowledge\"\nGIT_LOCAL_ENV = (\"GIT_ALTERNATE_OBJECT_DIRECTORIES\", \"GIT_CONFIG\", \"GIT_CONFIG_PARAMETERS\", \"GIT_CONFIG_COUNT\",\n                 \"GIT_OBJECT_DIRECTORY\", \"GIT_DIR\", \"GIT_WORK_TREE\", \"GIT_IMPLICIT_WORK_TREE\", \"GIT_GRAFT_FILE\",\n                 \"GIT_INDEX_FILE\", \"GIT_NO_REPLACE_OBJECTS\", \"GIT_REPLACE_REF_BASE\", \"GIT_PREFIX\",\n                 \"GIT_SHALLOW_FILE\", \"GIT_COMMON_DIR\")\nGIT_SUBPROCESS_ENV = {k: v for k, v in os.environ.items() if k not in GIT_LOCAL_ENV}\nMAX_RANGE_SPAN = 200\nSELFTEST_NAME = \"citing_set_selftest.py\"\n\n# A citation token: \"S\" + >=3 ASCII digits, delimited by non-word characters.\n_TOKEN_RE = re.compile(r\"(?<!\\w)S([0-9]{3,})(?!\\w)\")\n# A citation range: two ids joined by one declared separator.  Any\n# whitespace (newlines included) may surround the separator and the\n# separator may abut the digits (\"S001toS006\" is a range).  The left\n# endpoint only needs a word boundary before its \"S\"; the right endpoint\n# needs a word boundary after its digits.  Scanned independently of the\n# literal token rule, as the declared grammar requires.\n_RANGE_RE = re.compile(r\"\\bS([0-9]{3,})\\s*(?:-|\u2013|\u2014|\\.\\.|through|to)\\s*S([0-9]{3,})\\b\")\n# Ids that are numerically comparable (S001 == S0001).\n_NUMERIC_ID_RE = re.compile(r\"^S([0-9]+)$\")\n\n\nclass InputInvalid(Exception):\n    \"\"\"An input the gate cannot evaluate safely.\"\"\"\n\n    def __init__(self, reason, path=None, scope=None, **detail):\n        super().__init__(reason)\n        self.reason = reason\n        self.path = path\n        self.scope = scope\n        self.detail = detail\n\n    def as_finding(self):\n        finding = {\"id\": F_INPUT_INVALID, \"reason\": self.reason}\n        if self.scope is not None:\n            finding[\"scope\"] = self.scope\n        if self.path is not None:\n            finding[\"path\"] = self.path\n        for key in sorted(self.detail):\n            if self.detail[key] is not None:\n                finding[key] = self.detail[key]\n        return finding\n\n\n# --------------------------------------------------------------------------\n# identifiers and path helpers\n# --------------------------------------------------------------------------\n\n\ndef id_key(value):\n    \"\"\"Comparable key for a row id.\n\n    ``S001`` and ``S0001`` share the key ``(\"n\", 1)``; anything else keeps\n    its exact text so that unrelated ids never collide.\n    \"\"\"\n    match = _NUMERIC_ID_RE.match(value) if isinstance(value, str) else None\n    if match is not None:\n        return (\"n\", int(match.group(1)))\n    return (\"s\", value)\n\n\ndef normalize_relative(value, label):\n    \"\"\"Validate a caller-supplied relative path and normalise it.\"\"\"\n    if not isinstance(value, str) or not value.strip():\n        raise InputInvalid(\"empty_path\", None, \"argument\", argument=label)\n    text = value.replace(\"\\\\\", \"/\").strip()\n    if text.startswith(\"/\"):\n        raise InputInvalid(\"absolute_path_not_allowed\", value, \"argument\", argument=label)\n    parts = [part for part in text.split(\"/\") if part not in (\"\", \".\")]\n    if any(part == \"..\" for part in parts):\n        raise InputInvalid(\"path_escapes_root\", value, \"argument\", argument=label)\n    if not parts:\n        raise InputInvalid(\"empty_path\", value, \"argument\", argument=label)\n    return \"/\".join(parts)\n\n\ndef normalize_ledger_file(value):\n    \"\"\"Normalise a ledger file reference for comparison with corpus paths.\"\"\"\n    if not isinstance(value, str):\n        return \"\"\n    text = value.replace(\"\\\\\", \"/\").strip()\n    while text.startswith(\"./\"):\n        text = text[2:]\n    return text\n\n\ndef is_inside(root, candidate):\n    root_real = os.path.realpath(str(root))\n    candidate_real = os.path.realpath(str(candidate))\n    if candidate_real == root_real:\n        return True\n    return candidate_real.startswith(root_real + os.sep)\n\n\n# --------------------------------------------------------------------------\n# corpus sources\n# --------------------------------------------------------------------------\n\n\nclass WorkingTreeSource:\n    \"\"\"Reads documents from a working tree below ``root``.\"\"\"\n\n    mode = \"working-tree\"\n\n    def __init__(self, root):\n        self.root = root\n\n    def read_document(self, relative):\n        target = os.path.join(str(self.root), relative)\n        if not is_inside(self.root, target):\n            raise InputInvalid(\"path_escapes_root\", relative, \"document\")\n        # Open without blocking and check the opened object: a FIFO or a\n        # device must be refused as unusable input, never waited on.\n        flags = os.O_RDONLY | getattr(os, \"O_NONBLOCK\", 0) | getattr(os, \"O_CLOEXEC\", 0)\n        try:\n            descriptor = os.open(target, flags)\n        except OSError as exc:\n            raise InputInvalid(\n                \"document_unreadable\", relative, \"document\", detail=exc.strerror or type(exc).__name__\n            )\n        try:\n            if not stat.S_ISREG(os.fstat(descriptor).st_mode):\n                raise InputInvalid(\"document_not_regular_file\", relative, \"document\")\n            with os.fdopen(descriptor, \"rb\") as handle:\n                descriptor = None\n                return handle.read()\n        except OSError as exc:\n            raise InputInvalid(\n                \"document_unreadable\", relative, \"document\", detail=exc.strerror or type(exc).__name__\n            )\n        finally:\n            if descriptor is not None:\n                os.close(descriptor)\n\n    def corpus_files(self):\n        base = os.path.join(str(self.root), CORPUS_DIR)\n        try:\n            info = os.lstat(base)\n        except FileNotFoundError:\n            raise InputInvalid(\"corpus_directory_missing\", CORPUS_DIR, \"corpus\")\n        except OSError as exc:\n            raise InputInvalid(\n                \"corpus_directory_unreadable\",\n                CORPUS_DIR,\n                \"corpus\",\n                detail=exc.strerror or type(exc).__name__,\n            )\n        if stat.S_ISLNK(info.st_mode):\n            raise InputInvalid(\"symlink_rejected\", CORPUS_DIR, \"corpus\")\n        if not stat.S_ISDIR(info.st_mode):\n            raise InputInvalid(\"not_a_directory\", CORPUS_DIR, \"corpus\")\n        found = []\n        self._walk(base, found)\n        if not found:\n            raise InputInvalid(\"corpus_empty\", CORPUS_DIR, \"corpus\")\n        return sorted(found)\n\n    def _walk(self, directory, found):\n        try:\n            with os.scandir(directory) as scan:\n                entries = sorted(scan, key=lambda entry: entry.name)\n        except OSError as exc:\n            relative = os.path.relpath(directory, str(self.root)).replace(os.sep, \"/\")\n            raise InputInvalid(\n                \"corpus_directory_unreadable\",\n                relative,\n                \"corpus\",\n                detail=exc.strerror or type(exc).__name__,\n            )\n        for entry in entries:\n            relative = os.path.relpath(entry.path, str(self.root)).replace(os.sep, \"/\")\n            if entry.is_symlink():\n                raise InputInvalid(\"symlink_rejected\", relative, \"corpus\")\n            if entry.is_dir(follow_symlinks=False):\n                self._walk(entry.path, found)\n            elif entry.is_file(follow_symlinks=False):\n                found.append(relative)\n            else:\n                raise InputInvalid(\"not_a_regular_file\", relative, \"corpus\")\n\n\nclass GitSource:\n    \"\"\"Reads documents as Git blobs at one resolved commit.\"\"\"\n\n    mode = \"git\"\n\n    def __init__(self, root, revision):\n        self.root = root\n        self.revision = self._resolve(root, revision)\n        self._require_top_level(root)\n\n    @staticmethod\n    def _require_top_level(root):\n        \"\"\"Refuse a root nested inside a repository: Git paths are top-relative.\n\n        ``--show-prefix`` is empty at a work-tree top level and inside a bare\n        repository, and names the subdirectory otherwise; comparing prefixes\n        avoids realpath and whitespace-stripping mismatches on legitimate roots.\n        \"\"\"\n        try:\n            done = subprocess.run(\n                [\"git\", \"-C\", str(root), \"rev-parse\", \"--show-prefix\"],\n                env=GIT_SUBPROCESS_ENV,\n                stdout=subprocess.PIPE,\n                stderr=subprocess.PIPE,\n            )\n        except OSError as exc:\n            raise InputInvalid(\"git_unavailable\", None, \"revision\", detail=type(exc).__name__)\n        if done.returncode != 0 or done.stdout.rstrip(b\"\\n\"):\n            raise InputInvalid(\"root_not_repository_top_level\", str(root), \"root\")\n\n    @staticmethod\n    def _resolve(root, revision):\n        if not isinstance(revision, str) or not revision.strip():\n            raise InputInvalid(\"revision_not_found\", revision, \"revision\")\n        try:\n            done = subprocess.run(\n                [\"git\", \"-C\", str(root), \"rev-parse\", \"--verify\", \"--quiet\", revision + \"^{commit}\"],\n                env=GIT_SUBPROCESS_ENV,\n                stdout=subprocess.PIPE,\n                stderr=subprocess.PIPE,\n            )\n        except OSError as exc:\n            raise InputInvalid(\"git_unavailable\", revision, \"revision\", detail=type(exc).__name__)\n        if done.returncode != 0:\n            raise InputInvalid(\"revision_not_found\", revision, \"revision\")\n        return done.stdout.decode(\"utf-8\", \"replace\").strip()\n\n    def _git(self, arguments):\n        try:\n            done = subprocess.run(\n                [\"git\", \"-C\", str(self.root)] + arguments,\n                env=GIT_SUBPROCESS_ENV,\n                stdout=subprocess.PIPE,\n                stderr=subprocess.PIPE,\n            )\n        except OSError as exc:\n            raise InputInvalid(\"git_unavailable\", None, \"revision\", detail=type(exc).__name__)\n        if done.returncode != 0:\n            raise InputInvalid(\"git_command_failed\", None, \"revision\", command=\" \".join(arguments[:3]))\n        return done.stdout\n\n    def read_document(self, relative):\n        return self._git([\"show\", self.revision + \":\" + relative])\n\n    def corpus_files(self):\n        raw = self._git([\"ls-tree\", \"-rz\", self.revision, \"--\", CORPUS_DIR])\n        files = []\n        # NUL framing preserves Git paths containing tabs, newlines or Unicode.\n        for record in raw.split(b\"\\0\"):\n            if not record:\n                continue\n            meta, separator, encoded_path = record.partition(b\"\\t\")\n            path = os.fsdecode(encoded_path)\n            fields = meta.decode(\"ascii\", \"replace\").split()\n            if not separator or len(fields) < 2:\n                raise InputInvalid(\"not_a_regular_file\", path or None, \"corpus\")\n            mode, kind = fields[0], fields[1]\n            if mode == \"120000\":\n                raise InputInvalid(\"symlink_rejected\", path or None, \"corpus\")\n            if kind != \"blob\" or mode == \"160000\":\n                raise InputInvalid(\"not_a_regular_file\", path or None, \"corpus\")\n            if path == CORPUS_DIR:\n                raise InputInvalid(\"not_a_directory\", CORPUS_DIR, \"corpus\")\n            files.append(path)\n        if not files:\n            raise InputInvalid(\"corpus_directory_missing\", CORPUS_DIR, \"corpus\")\n        return sorted(files)\n\n\n# --------------------------------------------------------------------------\n# citation scanning\n# --------------------------------------------------------------------------\n\n\ndef scan_text(text):\n    \"\"\"Return the citation tokens and the ranges found in one document.\n\n    Literals and ranges are scanned independently: a range is recognised by\n    the declared separator grammar, not by the standalone-token rule, so\n    ``S001toS006`` and a range broken across lines are both ranges.\n    \"\"\"\n    tokens = [match.group(0) for match in _TOKEN_RE.finditer(text)]\n    ranges = [\n        (int(match.group(1)), int(match.group(2)), match.group(0))\n        for match in _RANGE_RE.finditer(text)\n    ]\n    return tokens, ranges\n\n\n# --------------------------------------------------------------------------\n# documents\n# --------------------------------------------------------------------------\n\n\ndef load_json_document(raw, relative, scope):\n    try:\n        text = raw.decode(\"utf-8\")\n    except UnicodeDecodeError:\n        raise InputInvalid(\"document_not_utf8\", relative, scope)\n    try:\n        document = json.loads(text)\n    except (ValueError, RecursionError, MemoryError) as exc:\n        raise InputInvalid(\"document_not_json\", relative, scope, detail=(str(exc) or type(exc).__name__)[:120])\n    if not isinstance(document, dict):\n        raise InputInvalid(\"document_shape_invalid\", relative, scope)\n    return document\n\n\ndef load_population(document, relative):\n    rows = document.get(\"rows\")\n    if not isinstance(rows, list):\n        raise InputInvalid(\"document_shape_invalid\", relative, \"population\")\n    mapping = {}\n    display = {}\n    for row in rows:\n        if not isinstance(row, dict):\n            raise InputInvalid(\"document_shape_invalid\", relative, \"population\")\n        identifier = row.get(\"id\")\n        if not isinstance(identifier, str) or not identifier.strip():\n            raise InputInvalid(\"document_shape_invalid\", relative, \"population\")\n        key = id_key(identifier)\n        if key[0] != \"n\":\n            raise InputInvalid(\"population_id_unreachable\", relative, \"population\", row=identifier)\n        mapping.setdefault(key, []).append(identifier)\n        if key not in display:\n            display[key] = identifier\n    return mapping, display\n\n\ndef load_ledger(document, relative):\n    pairs = document.get(\"pairs\")\n    if not isinstance(pairs, list):\n        raise InputInvalid(\"document_shape_invalid\", relative, \"ledger\")\n    entries = []\n    for pair in pairs:\n        if not isinstance(pair, dict):\n            raise InputInvalid(\"document_shape_invalid\", relative, \"ledger\")\n        row = pair.get(\"row\")\n        name = pair.get(\"file\")\n        if not isinstance(row, str) or not row.strip():\n            raise InputInvalid(\"document_shape_invalid\", relative, \"ledger\")\n        if not isinstance(name, str) or not name.strip():\n            raise InputInvalid(\"document_shape_invalid\", relative, \"ledger\")\n        entries.append((row, normalize_ledger_file(name)))\n    return entries\n\n\n# --------------------------------------------------------------------------\n# evaluation\n# --------------------------------------------------------------------------\n\n\ndef evaluate(source, population_relative, ledger_relative):\n    \"\"\"Return (result, exit code) for one evaluation.\"\"\"\n    findings = []\n    input_errors = []\n    range_errors = []\n\n    population_document = load_json_document(\n        source.read_document(population_relative), population_relative, \"population\"\n    )\n    ledger_document = load_json_document(source.read_document(ledger_relative), ledger_relative, \"ledger\")\n    population, display = load_population(population_document, population_relative)\n    ledger_entries = load_ledger(ledger_document, ledger_relative)\n\n    corpus_files = source.corpus_files()\n\n    citing = set()\n    outside = set()\n    for relative in corpus_files:\n        try:\n            raw = source.read_document(relative)\n        except InputInvalid as exc:\n            input_errors.append(exc.as_finding())\n            continue\n        try:\n            text = raw.decode(\"utf-8\")\n        except UnicodeDecodeError:\n            input_errors.append(\n                InputInvalid(\"corpus_file_not_utf8\", relative, \"corpus\").as_finding()\n            )\n            continue\n        tokens, ranges = scan_text(text)\n        for token in tokens:\n            key = id_key(token)\n            if key in population:\n                for identifier in population[key]:\n                    citing.add((key, relative))\n                    break\n            else:\n                outside.add((key, relative))\n        for start, end, raw_range in ranges:\n            if end < start:\n                range_errors.append(\n                    {\n                        \"id\": F_RANGE_INVALID,\n                        \"file\": relative,\n                        \"range\": raw_range,\n                        \"start\": start,\n                        \"end\": end,\n                        \"reason\": \"descending_range\",\n                    }\n                )\n                continue\n            if end - start > MAX_RANGE_SPAN:\n                range_errors.append(\n                    {\n                        \"id\": F_RANGE_INVALID,\n                        \"file\": relative,\n                        \"range\": raw_range,\n                        \"start\": start,\n                        \"end\": end,\n                        \"reason\": \"span_too_large\",\n                    }\n                )\n                continue\n            for value in range(start, end + 1):\n                key = (\"n\", value)\n                if key in population:\n                    citing.add((key, relative))\n                else:\n                    outside.add((key, relative))\n\n    ledger_keys = [(id_key(row), name) for row, name in ledger_entries]\n    ledger_counts = {}\n    for key in ledger_keys:\n        ledger_counts[key] = ledger_counts.get(key, 0) + 1\n    ledger_present = set(ledger_counts)\n\n    for key, relative in sorted(citing):\n        if (key, relative) in ledger_present:\n            continue\n        findings.append(\n            {\n                \"id\": F_UNADJUDICATED,\n                \"row\": display.get(key, key[1] if isinstance(key[1], str) else str(key[1])),\n                \"file\": relative,\n            }\n        )\n\n    for key in sorted(ledger_present):\n        if key in citing:\n            continue\n        row = key[0]\n        findings.append(\n            {\n                \"id\": F_LEDGER_NOT_CITED,\n                \"row\": display.get(row, row[1] if isinstance(row[1], str) else str(row[1])),\n                \"file\": key[1],\n            }\n        )\n\n    for key in sorted(ledger_counts):\n        count = ledger_counts[key]\n        if count < 2:\n            continue\n        row = key[0]\n        findings.append(\n            {\n                \"id\": F_LEDGER_DUPLICATE,\n                \"row\": display.get(row, row[1] if isinstance(row[1], str) else str(row[1])),\n                \"file\": key[1],\n                \"occurrences\": count,\n            }\n        )\n\n    findings.extend(input_errors)\n    findings.extend(range_errors)\n    findings.sort(key=lambda item: (item.get(\"id\", \"\"), str(item.get(\"row\", \"\")), str(item.get(\"file\", \"\"))))\n\n    if input_errors:\n        verdict = \"could-not-evaluate\"\n        code = EXIT_CANNOT_EVALUATE\n    elif findings:\n        verdict = \"failed\"\n        code = EXIT_FAILED\n    else:\n        verdict = \"clean\"\n        code = EXIT_CLEAN\n\n    result = {\n        \"verdict\": verdict,\n        \"citingPairs\": len(citing),\n        \"ledgerPairs\": len(ledger_entries),\n        \"findings\": findings,\n        \"populationRows\": sum(len(value) for value in population.values()),\n        \"corpusFiles\": len(corpus_files),\n        \"outsidePopulation\": len(outside),\n        \"source\": source.mode,\n    }\n    if isinstance(source, GitSource):\n        result[\"revision\"] = source.revision\n    else:\n        result[\"revision\"] = None\n    return result, code\n\n\n# --------------------------------------------------------------------------\n# command line\n# --------------------------------------------------------------------------\n\n\ndef emit(payload):\n    sys.stdout.write(json.dumps(payload, indent=2) + \"\\n\")\n    sys.stdout.flush()\n\n\nclass GateParser(argparse.ArgumentParser):\n    def error(self, message):\n        emit(\n            {\n                \"verdict\": \"could-not-evaluate\",\n                \"citingPairs\": 0,\n                \"ledgerPairs\": 0,\n                \"findings\": [],\n                \"error\": \"usage: \" + message,\n            }\n        )\n        sys.stderr.write(\"citing_set.py: \" + message + \"\\n\")\n        raise SystemExit(EXIT_USAGE)\n\n\ndef build_parser():\n    parser = GateParser(prog=\"citing_set.py\", description=\"Range-aware citing-set completeness gate.\")\n    parser.add_argument(\"--root\", help=\"root directory holding corpus/ and the input documents\")\n    parser.add_argument(\"--revision\", help=\"read Git blobs at this revision instead of the working tree\")\n    parser.add_argument(\"--population\", help=\"relative path of the population document\")\n    parser.add_argument(\"--ledger\", help=\"relative path of the adjudication ledger document\")\n    parser.add_argument(\"--json\", action=\"store_true\", help=\"emit JSON (always on)\")\n    parser.add_argument(\"--selftest\", action=\"store_true\", help=\"delegate to the sibling selftest runner\")\n    return parser\n\n\ndef run_selftest(arguments, argv):\n    \"\"\"Delegate to the sibling selftest runner with an explicit root.\"\"\"\n    sibling = os.path.join(os.path.dirname(os.path.abspath(__file__)), SELFTEST_NAME)\n    if not os.path.isfile(sibling):\n        emit(\n            {\n                \"verdict\": \"could-not-evaluate\",\n                \"citingPairs\": 0,\n                \"ledgerPairs\": 0,\n                \"findings\": [],\n                \"error\": \"selftest_runner_missing\",\n            }\n        )\n        sys.stderr.write(\"citing_set.py: missing sibling runner \" + SELFTEST_NAME + \"\\n\")\n        return EXIT_CANNOT_EVALUATE\n    root = arguments.root\n    if not root:\n        root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))\n    root = os.path.abspath(root)\n    extra = []\n    skip = False\n    for item in argv:\n        if skip:\n            skip = False\n            continue\n        if item == \"--selftest\":\n            continue\n        if item == \"--root\" or item.startswith(\"--root=\"):\n            skip = item == \"--root\"\n            continue\n        extra.append(item)\n    command = [sys.executable, \"-B\", sibling, \"--root\", root] + extra\n    done = subprocess.run(command, cwd=root, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)\n    if done.returncode != 0 and \"unrecognized arguments\" in (done.stderr or \"\"):\n        command = [sys.executable, \"-B\", sibling] + extra\n        done = subprocess.run(command, cwd=root, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)\n    if done.stdout:\n        sys.stdout.write(done.stdout)\n        sys.stdout.flush()\n    if done.stderr:\n        sys.stderr.write(done.stderr)\n        sys.stderr.flush()\n    return done.returncode\n\n\ndef main(argv=None):\n    argv = list(sys.argv[1:] if argv is None else argv)\n    parser = build_parser()\n    arguments = parser.parse_args(argv)\n    if arguments.selftest:\n        return run_selftest(arguments, argv)\n    missing = [\n        name\n        for name in (\"root\", \"population\", \"ledger\")\n        if not getattr(arguments, name)\n    ]\n    if missing:\n        parser.error(\"missing required option(s): \" + \", \".join(\"--\" + name for name in missing))\n    try:\n        root = os.path.abspath(arguments.root)\n        if not os.path.isdir(root):\n            raise InputInvalid(\"root_not_a_directory\", arguments.root, \"root\")\n        population_relative = normalize_relative(arguments.population, \"--population\")\n        ledger_relative = normalize_relative(arguments.ledger, \"--ledger\")\n        if arguments.revision is not None:\n            source = GitSource(root, arguments.revision)\n        else:\n            source = WorkingTreeSource(root)\n        result, code = evaluate(source, population_relative, ledger_relative)\n    except InputInvalid as exc:\n        result = {\n            \"verdict\": \"could-not-evaluate\",\n            \"citingPairs\": 0,\n            \"ledgerPairs\": 0,\n            \"findings\": [exc.as_finding()],\n        }\n        code = EXIT_CANNOT_EVALUATE\n    emit(result)\n    return code\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n",
+   "mutants": [
+    {
+     "id": "citing_set-reason-absolute_path_not_allowed",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code absolute_path_not_allowed",
+     "replacement": "\"absolute_path_not_allowed\" -> \"absolute_path_not_allowed_mutated\"",
+     "location": {
+      "start": {
+       "line": 183,
+       "column": 28
+      },
+      "end": {
+       "line": 183,
+       "column": 55
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-corpus_directory_missing",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code corpus_directory_missing",
+     "replacement": "\"corpus_directory_missing\" -> \"corpus_directory_missing_mutated\"",
+     "location": {
+      "start": {
+       "line": 255,
+       "column": 32
+      },
+      "end": {
+       "line": 255,
+       "column": 58
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 2,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-corpus_directory_unreadable",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code corpus_directory_unreadable",
+     "replacement": "\"corpus_directory_unreadable\" -> \"corpus_directory_unreadable_mutated\"",
+     "location": {
+      "start": {
+       "line": 258,
+       "column": 17
+      },
+      "end": {
+       "line": 258,
+       "column": 46
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 2,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-corpus_empty",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code corpus_empty",
+     "replacement": "\"corpus_empty\" -> \"corpus_empty_mutated\"",
+     "location": {
+      "start": {
+       "line": 270,
+       "column": 32
+      },
+      "end": {
+       "line": 270,
+       "column": 46
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-corpus_file_not_utf8",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code corpus_file_not_utf8",
+     "replacement": "\"corpus_file_not_utf8\" -> \"corpus_file_not_utf8_mutated\"",
+     "location": {
+      "start": {
+       "line": 496,
+       "column": 30
+      },
+      "end": {
+       "line": 496,
+       "column": 52
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-descending_range",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code descending_range",
+     "replacement": "\"descending_range\" -> \"descending_range_mutated\"",
+     "location": {
+      "start": {
+       "line": 517,
+       "column": 35
+      },
+      "end": {
+       "line": 517,
+       "column": 53
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [
+      "13-descending-range"
+     ],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-document_not_json",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code document_not_json",
+     "replacement": "\"document_not_json\" -> \"document_not_json_mutated\"",
+     "location": {
+      "start": {
+       "line": 419,
+       "column": 28
+      },
+      "end": {
+       "line": 419,
+       "column": 47
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [
+      "15-invalid-json-population"
+     ],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-document_not_regular_file",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code document_not_regular_file",
+     "replacement": "\"document_not_regular_file\" -> \"document_not_regular_file_mutated\"",
+     "location": {
+      "start": {
+       "line": 238,
+       "column": 36
+      },
+      "end": {
+       "line": 238,
+       "column": 63
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-document_not_utf8",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code document_not_utf8",
+     "replacement": "\"document_not_utf8\" -> \"document_not_utf8_mutated\"",
+     "location": {
+      "start": {
+       "line": 415,
+       "column": 28
+      },
+      "end": {
+       "line": 415,
+       "column": 47
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-document_shape_invalid",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code document_shape_invalid",
+     "replacement": "\"document_shape_invalid\" -> \"document_shape_invalid_mutated\"",
+     "location": {
+      "start": {
+       "line": 421,
+       "column": 28
+      },
+      "end": {
+       "line": 421,
+       "column": 52
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 8,
+     "observedByCommittedFixtures": [
+      "16-invalid-population-shape"
+     ],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-document_unreadable",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code document_unreadable",
+     "replacement": "\"document_unreadable\" -> \"document_unreadable_mutated\"",
+     "location": {
+      "start": {
+       "line": 234,
+       "column": 17
+      },
+      "end": {
+       "line": 234,
+       "column": 38
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 2,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-empty_path",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code empty_path",
+     "replacement": "\"empty_path\" -> \"empty_path_mutated\"",
+     "location": {
+      "start": {
+       "line": 180,
+       "column": 28
+      },
+      "end": {
+       "line": 180,
+       "column": 40
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 2,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-git_command_failed",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code git_command_failed",
+     "replacement": "\"git_command_failed\" -> \"git_command_failed_mutated\"",
+     "location": {
+      "start": {
+       "line": 355,
+       "column": 32
+      },
+      "end": {
+       "line": 355,
+       "column": 52
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-git_unavailable",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code git_unavailable",
+     "replacement": "\"git_unavailable\" -> \"git_unavailable_mutated\"",
+     "location": {
+      "start": {
+       "line": 323,
+       "column": 32
+      },
+      "end": {
+       "line": 323,
+       "column": 49
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 3,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-not_a_directory",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code not_a_directory",
+     "replacement": "\"not_a_directory\" -> \"not_a_directory_mutated\"",
+     "location": {
+      "start": {
+       "line": 266,
+       "column": 32
+      },
+      "end": {
+       "line": 266,
+       "column": 49
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 2,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-not_a_regular_file",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code not_a_regular_file",
+     "replacement": "\"not_a_regular_file\" -> \"not_a_regular_file_mutated\"",
+     "location": {
+      "start": {
+       "line": 294,
+       "column": 36
+      },
+      "end": {
+       "line": 294,
+       "column": 56
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 3,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-path_escapes_root",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code path_escapes_root",
+     "replacement": "\"path_escapes_root\" -> \"path_escapes_root_mutated\"",
+     "location": {
+      "start": {
+       "line": 186,
+       "column": 28
+      },
+      "end": {
+       "line": 186,
+       "column": 47
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 2,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-population_id_unreachable",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code population_id_unreachable",
+     "replacement": "\"population_id_unreachable\" -> \"population_id_unreachable_mutated\"",
+     "location": {
+      "start": {
+       "line": 439,
+       "column": 32
+      },
+      "end": {
+       "line": 439,
+       "column": 59
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-revision_not_found",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code revision_not_found",
+     "replacement": "\"revision_not_found\" -> \"revision_not_found_mutated\"",
+     "location": {
+      "start": {
+       "line": 330,
+       "column": 32
+      },
+      "end": {
+       "line": 330,
+       "column": 52
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 2,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-root_not_a_directory",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code root_not_a_directory",
+     "replacement": "\"root_not_a_directory\" -> \"root_not_a_directory_mutated\"",
+     "location": {
+      "start": {
+       "line": 711,
+       "column": 32
+      },
+      "end": {
+       "line": 711,
+       "column": 54
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-root_not_repository_top_level",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code root_not_repository_top_level",
+     "replacement": "\"root_not_repository_top_level\" -> \"root_not_repository_top_level_mutated\"",
+     "location": {
+      "start": {
+       "line": 325,
+       "column": 32
+      },
+      "end": {
+       "line": 325,
+       "column": 63
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-span_too_large",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code span_too_large",
+     "replacement": "\"span_too_large\" -> \"span_too_large_mutated\"",
+     "location": {
+      "start": {
+       "line": 529,
+       "column": 35
+      },
+      "end": {
+       "line": 529,
+       "column": 51
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 1,
+     "observedByCommittedFixtures": [
+      "14-oversize-range"
+     ],
+     "probeOutputChanged": true
+    },
+    {
+     "id": "citing_set-reason-symlink_rejected",
+     "mutatorName": "kake-reason-rename",
+     "description": "rename every double-quoted occurrence of the reason code symlink_rejected",
+     "replacement": "\"symlink_rejected\" -> \"symlink_rejected_mutated\"",
+     "location": {
+      "start": {
+       "line": 264,
+       "column": 32
+      },
+      "end": {
+       "line": 264,
+       "column": 50
+      }
+     },
+     "status": "Survived",
+     "statusReason": "committed runner exited 0 on the renamed gate",
+     "occurrencesRenamed": 3,
+     "observedByCommittedFixtures": [],
+     "probeOutputChanged": true
+    }
+   ]
+  }
+ }
+}

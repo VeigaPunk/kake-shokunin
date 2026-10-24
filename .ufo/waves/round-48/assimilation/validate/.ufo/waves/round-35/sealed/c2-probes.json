@@ -1,0 +1,106 @@
+{
+ "kind": "kake-r35-c2-sealed-probes",
+ "normalize": "lowercase, then every whitespace run collapsed to one space; a probe passes when any of its regexes matches (re.search); the gap class (?:[^.]|\\.(?!\\s)) lets a gap cross a period inside a token such as security.txt but not a sentence end",
+ "probes": [
+  {
+   "id": "P01",
+   "label": "location under the well-known path",
+   "regex": [
+    "/\\.well-known/security\\.txt"
+   ]
+  },
+  {
+   "id": "P02",
+   "label": "both locations: the well-known file wins",
+   "regex": [
+    "(both|two) (locations|paths|places)(?:[^.]|\\.(?!\\s)){0,200}well-known(?:[^.]|\\.(?!\\s)){0,120}(must be used|is used|takes precedence|wins|prevails|preferred|is authoritative)",
+    "well-known(?:[^.]|\\.(?!\\s)){0,160}(takes precedence|wins|prevails|is authoritative|must be used)(?:[^.]|\\.(?!\\s)){0,160}(top-level|root|legacy)",
+    "(top-level|root|legacy)(?:[^.]|\\.(?!\\s)){0,200}(well-known)(?:[^.]|\\.(?!\\s)){0,80}(takes precedence|wins|prevails|must be used|is used)"
+   ]
+  },
+  {
+   "id": "P03",
+   "label": "served as text/plain with utf-8",
+   "regex": [
+    "text/plain[^\\n]{0,120}utf-8",
+    "utf-8[^\\n]{0,120}text/plain"
+   ]
+  },
+  {
+   "id": "P04",
+   "label": "Contact is required",
+   "regex": [
+    "contact(?:[^.]|\\.(?!\\s)){0,120}(required|mandatory|must (always )?(be present|appear)|at least once)",
+    "(required|mandatory)(?:[^.]|\\.(?!\\s)){0,80}\\bcontact\\b"
+   ]
+  },
+  {
+   "id": "P05",
+   "label": "Expires appears exactly once",
+   "regex": [
+    "expires(?:[^.]|\\.(?!\\s)){0,200}(only once|at most once|no more than once|more than once|exactly once|once only|only one|single)",
+    "(exactly|only) one(?:[^.]|\\.(?!\\s)){0,40}expires"
+   ]
+  },
+  {
+   "id": "P06",
+   "label": "Expires less than a year ahead",
+   "regex": [
+    "(less than|under|within|no more than|at most|shorter than) (a|one|1) year",
+    "(less than|under|within|at most) (12|twelve) months"
+   ]
+  },
+  {
+   "id": "P07",
+   "label": "Expires uses RFC 3339 / ISO 8601 date-time",
+   "regex": [
+    "rfc ?3339",
+    "iso ?8601"
+   ]
+  },
+  {
+   "id": "P08",
+   "label": "several Contact lines are in order of preference",
+   "regex": [
+    "(order of preference|preference order|in preference order|ordered by preference)",
+    "first(?:[^.]|\\.(?!\\s)){0,80}(most )?preferred",
+    "(order|first)(?:[^.]|\\.(?!\\s)){0,80}(priority)(?:[^.]|\\.(?!\\s)){0,80}contact",
+    "contact(?:[^.]|\\.(?!\\s)){0,160}(order|first)(?:[^.]|\\.(?!\\s)){0,60}(priority|preferred)"
+   ]
+  },
+  {
+   "id": "P09",
+   "label": "Encryption names a URI, never the key itself",
+   "regex": [
+    "(keys? (must not|never|cannot|should not)|not the key|never the key|(not|never) (contain|include|embed|inline|hold)s? the key|key itself|not (the )?key material)"
+   ]
+  },
+  {
+   "id": "P10",
+   "label": "signing with an OpenPGP cleartext signature",
+   "regex": [
+    "(openpgp|pgp)(?:[^.]|\\.(?!\\s)){0,80}clear ?(text|sign)",
+    "clear ?(text|sign)(?:[^.]|\\.(?!\\s)){0,80}(openpgp|pgp)"
+   ]
+  },
+  {
+   "id": "P11",
+   "label": "scope: the retrieved host only, not subdomains",
+   "regex": [
+    "(not|never|neither|nor)(?:[^.]|\\.(?!\\s)){0,80}sub-?domains?",
+    "sub-?domains?(?:[^.]|\\.(?!\\s)){0,120}(need|needs|get|gets|require|requires|its own|their own|separate|not covered|does not|do not)"
+   ]
+  },
+  {
+   "id": "P12",
+   "label": "GitHub Pages: a dot-directory needs include or is dropped",
+   "regex": [
+    "include(?:[^.]|\\.(?!\\s)){0,160}(_config|well-known|dot)",
+    "_config\\.yml(?:[^.]|\\.(?!\\s)){0,160}include",
+    "include-hidden-files",
+    "\\.nojekyll"
+   ]
+  }
+ ],
+ "salt": "6d24606c3aa4674aebbba8b59d5130dd"
+}

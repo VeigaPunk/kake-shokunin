@@ -1,0 +1,86 @@
+{
+  "round": 26,
+  "by": "KakeR26-2 (L1 replacement)",
+  "date": "2026-10-21",
+  "scope": "anchorObserved prose in rechecks/S0NN.json; receipts stay as committed (evidence written at 13:04 -03). measure.py never parses offsets, so no verdict or count changes.",
+  "cause": "source_text.py changed at 13:02:13 and 18 text views were re-extracted at 13:02:14; w1 row seats had measured offsets on the earlier views (before/source_text.py) and the receipts inherited them.",
+  "quoteOffsetsComputedFromCommittedViews": {
+    "S011": 14677,
+    "S024": 10172,
+    "S025": 62638,
+    "S027": 7274,
+    "S031": 236219,
+    "S034": 8864,
+    "S030": 9514,
+    "S023": 41679
+  },
+  "entries": [
+    {
+      "row": "S011",
+      "stale": "heading 14630 / quote 14663 / Access Method 12993",
+      "corrected": "heading 14644 / quote 14677 / Access Method 13004",
+      "evidence": "w2/FalsifyS011.md"
+    },
+    {
+      "row": "S024",
+      "stale": "text-view 10160-10248; heading 8390",
+      "corrected": "quote 10172-10260; heading 8398",
+      "evidence": "w2/FalsifyS024.md"
+    },
+    {
+      "row": "S025",
+      "stale": "text-view offset 62596; raw <p> at byte 211509",
+      "corrected": "quote at char 62638; raw <p> at byte 211372 (clause at 211622)",
+      "evidence": "w2/FalsifyS025.md"
+    },
+    {
+      "row": "S027",
+      "stale": "30,322-char line; warning 7,261 'immediately after the urlsplit() signature'; heading 16,630",
+      "corrected": "30,328-char line; warning 7,266, the last admonition of the urlsplit() entry before 'Changed in version 3.2'; heading 16,637",
+      "evidence": "w2/FalsifyS027.md"
+    },
+    {
+      "row": "S031",
+      "stale": "quote char 236181; body heading 234791",
+      "corrected": "quote 236219-236343; body heading 234829",
+      "evidence": "w2/FalsifyS031.md"
+    },
+    {
+      "row": "S034",
+      "stale": "offset 8863",
+      "corrected": "offset 8864",
+      "evidence": "w2/FalsifyS034.md"
+    },
+    {
+      "row": "S030",
+      "stale": "raw <h4 id=start-tags> at byte 23907; item 6 begins 25801; <dfn id=void-elements> at byte 12265",
+      "corrected": "the heading is <h5 id=start-tags> (byte 23917); item 6 begins at char 25419 / byte 25433; void-elements id at byte 12270",
+      "evidence": "w2/FalsifyS030.md"
+    },
+    {
+      "row": "S023",
+      "stale": "§4.6.8.4 'body follows at the same heading level'",
+      "corrected": "§4.6.8 is an <h4>, §4.6.8.4 an <h5>",
+      "evidence": "w2/FalsifyS023.md"
+    },
+    {
+      "row": "S008",
+      "stale": "'all inside the cited 8478-8617 range'",
+      "corrected": "teaching lines 8587-8588 and 8602-8604 are inside 8478-8617; summary lines 8618-8619 lie just outside",
+      "evidence": "w2/FalsifyS008.md"
+    },
+    {
+      "row": "S009",
+      "stale": "quote span 1708-1710",
+      "corrected": "quote spans raw lines 1708-1711",
+      "evidence": "w2/FalsifyS009.md"
+    },
+    {
+      "row": "S032",
+      "stale": "sections 5.6 pp.7-8 / 5.7 pp.8-9; reason Z or numeric",
+      "corrected": "ABNF section 5.6 printed p.8, section 5.7 printed p.9; note permits lower-case z too",
+      "evidence": "w2/FalsifyS032.md"
+    }
+  ],
+  "alsoStale": "w1 pair/row reports for S006, S010, S011, S012, S016, S020, S023, S028, S030, S031, S033, S034 publish text-view digests/sizes/offsets from the pre-amendment extractor (w2/FalsifyS028.md, w2/FalsifyS006.md, w2/FalsifyS010.md); the committed views and fetched/manifest.json are authoritative."
+}

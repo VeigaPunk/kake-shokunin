@@ -1,0 +1,1193 @@
+{
+ "version": 1,
+ "checks": [
+  {
+   "id": "S001",
+   "url": "https://raw.githubusercontent.com/actions/upload-pages-artifact/5f327015a708106f6f1b7c9a633901af30fe80cb/action.yml",
+   "quote": "Include hidden files and directories (those starting with a dot) in the artifact. Excludes .git and .github regardless.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain; charset=utf-8",
+   "body": "S001.body"
+  },
+  {
+   "id": "S002",
+   "url": "https://github.com/actions/upload-pages-artifact/releases/tag/v4.0.0",
+   "quote": "Potentially breaking change: hidden files (specifically dotfiles) will not be included in the artifact",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S002.body"
+  },
+  {
+   "id": "S003",
+   "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+   "quote": "You can publish your site when changes are pushed to a specific branch, or you can write a GitHub Actions workflow to publish your site.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S003.body"
+  },
+  {
+   "id": "S004",
+   "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages",
+   "quote": "compressed `gzip` archive containing a single `tar` file",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S004.body"
+  },
+  {
+   "id": "S005",
+   "url": "https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site",
+   "quote": "any existing `CNAME` file is ignored and is not required.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S005.body"
+  },
+  {
+   "id": "S006",
+   "url": "https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll",
+   "quote": "Are located in a folder called `/node_modules` or `/vendor`",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S006.body"
+  },
+  {
+   "id": "S007",
+   "url": "https://docs.github.com/en/rest/pages/pages",
+   "quote": "`cname`: required, string or null",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S007.body"
+  },
+  {
+   "id": "S008",
+   "url": "https://cgit.git.savannah.gnu.org/cgit/tar.git/plain/doc/tar.texi?id=cfdb891bbd68c920ea75210977593f3cd08f0418",
+   "quote": "Default is `@option{--no-anchored}` for exclusion members",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain; charset=UTF-8",
+   "body": "S008.body"
+  },
+  {
+   "id": "S009",
+   "url": "https://raw.githubusercontent.com/nginx/nginx/release-1.28.0/src/http/ngx_http_core_module.c",
+   "quote": "etag->value.len = ngx_sprintf(etag->value.data, \"\\\"%xT-%xO\\\"\", r->headers_out.last_modified_time, r->headers_out.content_length_n)",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain; charset=utf-8",
+   "body": "S009.body"
+  },
+  {
+   "id": "S010",
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8",
+   "quote": "An entity tag is an opaque validator",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S010.body"
+  },
+  {
+   "id": "S011",
+   "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+   "quote": "The rules MUST be accessible in a file named \"/robots.txt\" (all lowercase) in the top-level path of the service.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S011.body"
+  },
+  {
+   "id": "S012",
+   "url": "https://www.sitemaps.org/protocol.html",
+   "quote": "The location of a Sitemap file determines the set of URLs that can be included in that Sitemap.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S012.body"
+  },
+  {
+   "id": "S013",
+   "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+   "quote": "unless you submit your sitemap through Search Console, a sitemap affects only descendants of the parent directory.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S013.body"
+  },
+  {
+   "id": "S015",
+   "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
+   "quote": "Published GitHub Pages sites may be no larger than 1 GB.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S015.body"
+  },
+  {
+   "id": "S016",
+   "url": "https://pages.github.com/versions.json",
+   "quote": "\"jekyll\": \"3.10.0\", \"github-pages\": \"232\"",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "application/json; charset=utf-8",
+   "body": "S016.body"
+  },
+  {
+   "id": "S017",
+   "url": "https://docs.astro.build/en/guides/deploy/github/",
+   "quote": "Add a `./public/CNAME` record to your project.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S017.body"
+  },
+  {
+   "id": "S018",
+   "url": "https://www.debugbear.com/blog/firefox-safari-web-vitals",
+   "quote": "Mozilla released version 114 of Firefox on the 14th of October 2025.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S018.body"
+  },
+  {
+   "id": "S020",
+   "url": "https://www.rfc-editor.org/rfc/rfc6596.html",
+   "quote": "Specify a relative IRI (see [RFC3986], Section 4.2).",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S020.body"
+  },
+  {
+   "id": "S021",
+   "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+   "quote": "Even though relative paths are supported by Google, they can cause problems in the long run",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S021.body"
+  },
+  {
+   "id": "S022",
+   "url": "https://developers.google.com/search/docs/crawling-indexing/canonicalization-troubleshooting",
+   "quote": "Even if you explicitly designate a canonical page, Google might choose a different canonical for various reasons",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S022.body"
+  },
+  {
+   "id": "S023",
+   "url": "https://html.spec.whatwg.org/multipage/links.html#link-type-canonical",
+   "quote": "The canonical keyword indicates that URL given by the href attribute is the preferred URL for the current document.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S023.body"
+  },
+  {
+   "id": "S024",
+   "url": "https://html.spec.whatwg.org/multipage/semantics.html#the-base-element",
+   "quote": "If there are multiple base elements with href attributes, all but the first are ignored.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S024.body"
+  },
+  {
+   "id": "S025",
+   "url": "https://html.spec.whatwg.org/multipage/scripting.html#the-template-element",
+   "quote": "The template contents of a template element are not children of the element itself.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S025.body"
+  },
+  {
+   "id": "S026",
+   "url": "https://docs.python.org/3/library/html.parser.html",
+   "quote": "This parser does not check that end tags match start tags",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S026.body"
+  },
+  {
+   "id": "S027",
+   "url": "https://docs.python.org/3/library/urllib.parse.html",
+   "quote": "urlsplit() does not perform validation.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S027.body"
+  },
+  {
+   "id": "S028",
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+   "quote": "A recipient that processes such a URI reference MUST reject it as invalid.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain;charset=utf-8",
+   "body": "S028.body"
+  },
+  {
+   "id": "S029",
+   "url": "https://www.rfc-editor.org/rfc/rfc3986.txt",
+   "quote": "When authority is not present, the path cannot begin with two slash characters (\"//\").",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain;charset=utf-8",
+   "body": "S029.body"
+  },
+  {
+   "id": "S030",
+   "url": "https://html.spec.whatwg.org/multipage/syntax.html#start-tags",
+   "quote": "On void elements, it does not mark the start tag as self-closing but instead is unnecessary and has no effect of any kind.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S030.body"
+  },
+  {
+   "id": "S031",
+   "url": "https://html.spec.whatwg.org/multipage/parsing.html#parsing-main-inforeign",
+   "quote": "Insert a foreign element for the token, with SVG namespace.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S031.body"
+  },
+  {
+   "id": "S032",
+   "url": "https://www.rfc-editor.org/rfc/rfc3339.txt",
+   "quote": "full-time = partial-time time-offset",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain;charset=utf-8",
+   "body": "S032.body"
+  },
+  {
+   "id": "S033",
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+   "quote": "media-type = type \"/\" subtype parameters",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain;charset=utf-8",
+   "body": "S033.body"
+  },
+  {
+   "id": "S034",
+   "url": "https://www.rfc-editor.org/rfc/rfc8259.txt",
+   "quote": "The names within an object SHOULD be unique.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain;charset=utf-8",
+   "body": "S034.body"
+  },
+  {
+   "id": "S036",
+   "url": "https://web.dev/articles/vitals",
+   "quote": "a good threshold to measure is the 75th percentile of page loads, segmented across mobile and desktop devices.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S036.body"
+  },
+  {
+   "id": "S037",
+   "url": "https://web.dev/articles/defining-core-web-vitals-thresholds",
+   "quote": "if at least 75 percent of page views to a site meet the \"good\" threshold, the site is classified as having \"good\" performance",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S037.body"
+  },
+  {
+   "id": "S038",
+   "url": "https://developer.chrome.com/docs/crux/methodology",
+   "quote": "A page must be publicly discoverable to be considered for inclusion in the CrUX dataset.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S038.body"
+  },
+  {
+   "id": "S039",
+   "url": "https://developer.chrome.com/docs/crux/api",
+   "quote": "The data in the Chrome UX Report is a 28-day rolling average of aggregated metrics.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S039.body"
+  },
+  {
+   "id": "S040",
+   "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages",
+   "quote": "Default site location http(s):/ / <owner>.github.io http(s):/ / <owner>.github.io/ <repositoryname>",
+   "hops": [
+    {
+     "status": 301,
+     "location": "/en/pages/getting-started-with-github-pages/what-is-github-pages"
+    },
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S040.body"
+  },
+  {
+   "id": "S041",
+   "url": "https://jekyllrb.com/docs/github-pages/",
+   "quote": "will become available under a subpath of your user pages subdomain, such as username.github.io/project (unless a custom domain is specified)",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S041.body"
+  },
+  {
+   "id": "S042",
+   "url": "https://jekyllrb.com/docs/liquid/filters/",
+   "quote": "Prepend baseurl config value to the input to convert a URL path into a relative URL.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S042.body"
+  },
+  {
+   "id": "S043",
+   "url": "https://vite.dev/guide/static-deploy.html",
+   "quote": "If you are deploying to https://<USERNAME>.github.io/<REPO>/ (eg. your repository is at https://github.com/<USERNAME>/<REPO> ), then set base to '/<REPO>/' .",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=UTF-8",
+   "body": "S043.body"
+  },
+  {
+   "id": "S044",
+   "url": "https://mademistakes.com/mastering-jekyll/site-url-baseurl/",
+   "quote": "GitHub Pages does not use the latest version of Jekyll to build sites. It is currently locked at 3.9.0",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S044.body"
+  },
+  {
+   "id": "S045",
+   "url": "https://github.com/jekyll/jekyll/issues/332",
+   "quote": "If you're not using a CNAME and hosting your Project Page on GitHub Pages it's served out of a \"project-name\" subfolder",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S045.body"
+  },
+  {
+   "id": "S046",
+   "url": "https://talk.jekyllrb.com/t/relative-url-and-baseurl/2051",
+   "quote": "relative_url ensures proper links by: ensuring the url to have a single leading slash always",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S046.body"
+  },
+  {
+   "id": "S047",
+   "url": "https://michaelcurrin.github.io/dev-cheatsheets/cheatsheets/jekyll/templating/links.html",
+   "quote": "Use the relative_url filter to ensure you get a GitHub Pages project prefix added.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S047.body"
+  },
+  {
+   "id": "S048",
+   "url": "https://gohugo.io/host-and-deploy/deploy-to-github-pages/",
+   "quote": "Project sites are connected to a specific project hosted on GitHub.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=UTF-8",
+   "body": "S048.body"
+  },
+  {
+   "id": "S049",
+   "url": "https://render.com/docs/static-sites",
+   "quote": "We build your site with every push to your deployed branch, and each build is fully atomic.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S049.body"
+  },
+  {
+   "id": "S050",
+   "url": "https://render.com/docs/redirects-rewrites",
+   "quote": "Render does not apply redirect or rewrite rules to a path if a resource exists at that path.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S050.body"
+  },
+  {
+   "id": "S051",
+   "url": "https://render.com/docs/static-site-headers",
+   "quote": "The header path must be a relative path without the domain. It will be matched with all custom domains attached to your site.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S051.body"
+  },
+  {
+   "id": "S052",
+   "url": "https://render.com/docs/custom-domains",
+   "quote": "You can apply your own custom domains to Render web services and static sites . Services with a custom domain also keep their onrender.com subdomain.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S052.body"
+  },
+  {
+   "id": "S053",
+   "url": "https://dev.to/stephengade/how-to-deploy-static-website-for-free-on-render-with-custom-domain-4efo",
+   "quote": "Grab your CNAME and ALIAS to add to your domain name",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S053.body"
+  },
+  {
+   "id": "S054",
+   "url": "https://www.namesilo.com/blog/en/dns/how-to-connect-a-custom-domain-to-rendercom",
+   "quote": "Add an A record: Type: A Host: @ Value: 216.24.57.1 TTL: 3600",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S054.body"
+  },
+  {
+   "id": "S055",
+   "url": "https://docs.astro.build/en/guides/deploy/render/",
+   "quote": "Build Command: npm run build Publish Directory: dist , for static sites",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S055.body"
+  },
+  {
+   "id": "S057",
+   "url": "https://render.com/docs/blueprint-spec",
+   "quote": "When you update an existing Blueprint, Render ignores any environment variables with sync: false .",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S057.body"
+  },
+  {
+   "id": "S058",
+   "url": "https://render.com/docs/web-services",
+   "quote": "Your web service must bind to a port on host 0.0.0.0 to receive HTTP requests from the public internet.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S058.body"
+  },
+  {
+   "id": "S059",
+   "url": "https://render.com/docs/docker",
+   "quote": "Render copies your service's secret files into the root of your build context.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S059.body"
+  },
+  {
+   "id": "S060",
+   "url": "https://render.com/docs/health-checks",
+   "quote": "If this condition is not met within 15 minutes, Render cancels the deploy and continues routing traffic to your service's existing instances.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S060.body"
+  },
+  {
+   "id": "S061",
+   "url": "https://render.com/docs/configure-other-dns",
+   "quote": "A records point to IP addresses, and you can use 216.24.57.1 to point your root domain to Render's load balancer IP.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S061.body"
+  },
+  {
+   "id": "S062",
+   "url": "https://github.com/VeigaPunk/ds4cc-marketplace/blob/1fbdb8ed2dfe29cbb79eea6f644302f4d0fa5e28/render.yaml",
+   "quote": "type: web name: ds4cc-marketplace-app runtime: docker dockerfilePath: ./apps-sdk/Dockerfile dockerContext: . healthCheckPath: /health",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S062.body"
+  },
+  {
+   "id": "S063",
+   "url": "https://flueframework.com/docs/ecosystem/deploy/render/",
+   "quote": "To auto-deploy on every push, set autoDeployTrigger: commit on the service (this replaces the deprecated autoDeploy field).",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S063.body"
+  },
+  {
+   "id": "S064",
+   "url": "https://osher.com.au/blog/how-to-host-n8n-on-render-com/",
+   "quote": "Rewritten to reflect Render’s current pricing, the move to native Docker support, and the production patterns we run for clients.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S064.body"
+  },
+  {
+   "id": "S065",
+   "url": "https://github.com/VeigaPunk/ds4cc-marketplace/commit/7fc6aa2fc12451dd451fed5a9ee7125f3a90e884",
+   "quote": "`<link rel=\"canonical\" href=\"https://ds4cc.com/magga/frostbite/\">`",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S065.body"
+  },
+  {
+   "id": "S066",
+   "url": "https://api.github.com/repos/VeigaPunk/ds4cc-marketplace/actions/runs?head_sha=7fc6aa2fc12451dd451fed5a9ee7125f3a90e884",
+   "quote": "\"name\":\"Deploy marketplace to GitHub Pages\" … \"status\":\"completed\",\"conclusion\":\"success\"",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "application/json; charset=utf-8",
+   "body": "S066.body"
+  },
+  {
+   "id": "S067",
+   "url": "https://ogp.me/",
+   "quote": "The four required properties for every page are",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S067.body"
+  },
+  {
+   "id": "S068",
+   "url": "https://developers.facebook.com/docs/sharing/webmasters/",
+   "quote": "Without these Open Graph tags, the Facebook Crawler uses internal heuristics to make a best guess about the title, description, and preview image",
+   "hops": [
+    {
+     "status": 301,
+     "location": "https://developers.facebook.com/documentation/sharing/webmasters"
+    },
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=\"utf-8\"",
+   "body": "S068.body"
+  },
+  {
+   "id": "S069",
+   "url": "https://api.slack.com/robots",
+   "quote": "Specifically, we are looking for oEmbed and Twitter Card / Open Graph tags.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S069.body"
+  },
+  {
+   "id": "S070",
+   "url": "https://docs.joinmastodon.org/entities/PreviewCard/",
+   "quote": "Represents a rich preview card that is generated using OpenGraph tags from a URL.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S070.body"
+  },
+  {
+   "id": "S071",
+   "url": "https://developer.x.com/en/docs/x-for-websites/cards/overview/markup",
+   "quote": "Fetch the complete documentation index at: /llms.txt Use this file to discover all available pages",
+   "hops": [
+    {
+     "status": 307,
+     "location": "https://docs.x.com"
+    },
+    {
+     "status": 308,
+     "location": "/overview"
+    },
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S071.body"
+  },
+  {
+   "id": "S072",
+   "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview",
+   "quote": "You can customize the image displayed on social media platforms when someone links to your repository.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S072.body"
+  },
+  {
+   "id": "S073",
+   "url": "https://docs.discord.com/developers/link-previews/overview",
+   "quote": "No code is executed, so tags added by a client-side script after load are never seen.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S073.body"
+  },
+  {
+   "id": "S074",
+   "url": "https://core.telegram.org/bots/api",
+   "quote": "Options used for link preview generation for the message, if it is a text message and link preview options were changed",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S074.body"
+  },
+  {
+   "id": "S075",
+   "url": "https://www.linkedin.com/post-inspector/",
+   "quote": "Post Inspector",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S075.body"
+  },
+  {
+   "id": "S076",
+   "url": "https://oembed.com/",
+   "quote": "oEmbed is a format for allowing an embedded representation of a URL on third party sites.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=UTF-8",
+   "body": "S076.body"
+  },
+  {
+   "id": "S077",
+   "url": "https://github.com/jekyll/jekyll-seo-tag",
+   "quote": "Open Graph title, description, site title, and URL (for Facebook, LinkedIn, etc.)",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S077.body"
+  },
+  {
+   "id": "S078",
+   "url": "https://www.rfc-editor.org/rfc/rfc9116.txt",
+   "quote": "For web-based services, organizations MUST place the \"security.txt\" file under the \"/.well-known/\" path",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain;charset=utf-8",
+   "body": "S078.body"
+  },
+  {
+   "id": "S079",
+   "url": "https://securitytxt.org/",
+   "quote": "Create a text file called security.txt under the .well-known directory of your project.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S079.body"
+  },
+  {
+   "id": "S080",
+   "url": "https://jekyllrb.com/docs/configuration/options/",
+   "quote": ".htaccess is a good example since dotfiles are excluded by default.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S080.body"
+  },
+  {
+   "id": "S081",
+   "url": "https://en.wikipedia.org/wiki/Security.txt",
+   "quote": "security.txt files can be served under the /.well-known/ directory (i.e. /.well-known/security.txt ) or the top-level directory (i.e. /security.txt ) of a website.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=UTF-8",
+   "body": "S081.body"
+  },
+  {
+   "id": "S082",
+   "url": "https://www.rfc-editor.org/rfc/rfc8615.txt",
+   "quote": "A well-known URI is a URI [RFC3986] whose path component begins with the characters \"/.well-known/\"",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain;charset=utf-8",
+   "body": "S082.body"
+  },
+  {
+   "id": "S083",
+   "url": "https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml",
+   "quote": "security.txt RFC 9116 permanent IETF 2021-07-13",
+   "hops": [
+    {
+     "status": 302,
+     "location": "/assignments/well-known-uris"
+    },
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=UTF-8",
+   "body": "S083.body"
+  },
+  {
+   "id": "S084",
+   "url": "https://github.com/.well-known/security.txt",
+   "quote": "Acknowledgments: https://hackerone.com/github/hacktivity Preferred-Languages: en Canonical: https://github.com/.well-known/security.txt Policy: https://bounty.github.com",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain; charset=utf-8",
+   "body": "S084.body"
+  },
+  {
+   "id": "S085",
+   "url": "https://www.google.com/.well-known/security.txt",
+   "quote": "Contact: https://g.co/vulnz Contact: mailto:security@google.com Encryption: https://services.google.com/corporate/publickey.txt",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/plain",
+   "body": "S085.body"
+  },
+  {
+   "id": "S086",
+   "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site",
+   "quote": "disable the Jekyll build process by creating an empty file called .nojekyll in the root of your publishing source",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S086.body"
+  },
+  {
+   "id": "S087",
+   "url": "https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/bypassing-jekyll-with-nojekyll",
+   "quote": "404 - GitHub Docs GitHub Docs Page not found. Return to home.",
+   "hops": [
+    {
+     "status": 404,
+     "location": ""
+    }
+   ]
+  },
+  {
+   "id": "S088",
+   "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15.4",
+   "quote": "the target resource has been assigned a new permanent URI",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S088.body"
+  },
+  {
+   "id": "S089",
+   "url": "https://www.rfc-editor.org/rfc/rfc3986.html#section-5.2",
+   "quote": "For each URI reference (R), the following pseudocode describes an algorithm for transforming R into its target URI (T):",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S089.body"
+  },
+  {
+   "id": "S090",
+   "url": "https://encoding.spec.whatwg.org/",
+   "quote": "A byte order mark has priority over a label",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S090.body"
+  },
+  {
+   "id": "S091",
+   "url": "https://www.unicode.org/reports/tr15/",
+   "quote": "If two strings are compatibility equivalents, then toNFKC(x) = toNFKC(y)",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=UTF-8",
+   "body": "S091.body"
+  },
+  {
+   "id": "S092",
+   "url": "https://html.spec.whatwg.org/multipage/syntax.html#elements-2",
+   "quote": "Raw text elements script",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=utf-8",
+   "body": "S092.body"
+  },
+  {
+   "id": "S093",
+   "url": "https://en.wikipedia.org/wiki/HTTP_301",
+   "quote": "the HTTP status code used for permanent redirecting",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html; charset=UTF-8",
+   "body": "S093.body"
+  },
+  {
+   "id": "S094",
+   "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Redirections",
+   "quote": "These redirections are meant to last forever.",
+   "hops": [
+    {
+     "status": 200,
+     "location": ""
+    }
+   ],
+   "contentType": "text/html",
+   "body": "S094.body"
+  }
+ ]
+}

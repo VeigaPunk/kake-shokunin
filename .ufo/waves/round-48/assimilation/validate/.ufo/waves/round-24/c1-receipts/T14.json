@@ -1,0 +1,35 @@
+{
+ "id": "T14",
+ "token": "~/Projects/webzites/state/probe-latest.json",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T11:52:48Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "date -u +%Y-%m-%dT%H:%M:%SZ",
+   "test -e /home/vgpnk/Projects/webzites/state/probe-latest.json && echo EXISTS || echo ABSENT",
+   "stat -c '%n %w %y' /home/vgpnk/Projects",
+   "ls -la /home/vgpnk/Projects/webzites",
+   "ls -la /home/vgpnk/Projects",
+   "git -C /home/vgpnk/Projects/webzites log -3 --format='%H %cI %s'",
+   "git -C /home/vgpnk/Projects/webzites remote -v",
+   "command -v webzites"
+  ],
+  "output": "date: 2026-10-21T11:52:48Z; test -e: ABSENT; stat: /home/vgpnk/Projects 2026-10-03 17:48:28.004231881 -0300 2026-10-21 05:19:01.033916520 -0300; ls -la /home/vgpnk/Projects/webzites: ls: cannot access '/home/vgpnk/Projects/webzites': No such file or directory; ls -la /home/vgpnk/Projects: total 0; existing directory listing includes ds4cc-marketplace but no webzites entry; git log: fatal: cannot change to '/home/vgpnk/Projects/webzites': No such file or directory (exit 128); git remote: fatal: cannot change to '/home/vgpnk/Projects/webzites': No such file or directory (exit 128); command -v webzites: NOT_FOUND_webzites"
+ },
+ "event": "The lane records probe-latest data in the 2026-09-29 round-15 observation and the webzites/state 33-file set present at r17 (2026-09-29T03:2xZ), then records webzites removed by the 2026-10-14T12:40Z r18 census. R18 attributes the removal to the 2026-10-12 W7 prune/migration; that exact date and mechanism were not independently established. Disappearance is bounded after the r17 observation and by the r18 census.",
+ "cites": [
+  {
+   "cite": "corpus/knowledge/ops-automation.md:141",
+   "lineText": "- [ops-automation:c7] **UNVERIFIABLE** — The pre-probe freshness gate reads the last snapshot at field rather than mtime. Surface: `/home/vgpnk/Projects/webzites/state/probe-latest.json`. Unverifiable: The snapshot and implementation are absent, so neither current last-run age nor implementation enforcement can be established; reading at rather than mtime remains a safety recommendation, not live verified behaviour.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsNewT14ProbeLatestJson.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

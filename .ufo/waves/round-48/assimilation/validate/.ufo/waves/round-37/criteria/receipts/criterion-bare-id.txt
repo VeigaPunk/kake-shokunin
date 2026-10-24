@@ -1,0 +1,49 @@
+== bare_id_check.py sha256
+8b8fe47dd7191543ff58b879090ff798d79ac4cc9a99e742d3748133c049adbd  /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/bare_id_check.py
+exit=0
+
+== RED: constructed entry citing S098 and S099 only as bare ids
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/bare_id_check.py /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/bare-id-entry.md
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/bare-id-entry.md cites S098 only as a bare id (blocks at line 3, 13); no block carries claim text for it.
+FAIL: /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/fixtures/bare-id-entry.md cites S099 only as a bare id (blocks at line 3, 14); no block carries claim text for it.
+exit=1
+
+== GREEN: a real knowledge entry (crawl-scope-per-host)
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/bare_id_check.py corpus/knowledge/crawl-scope-per-host.md
+PASS: corpus/knowledge/crawl-scope-per-host.md cites 4 S-id(s), each with claim text at least once.
+exit=0
+
+== GREEN: every knowledge entry in the lane (informational sweep)
+$ python3 -B /fast/scratch/hyaku/kake-r37w1/ExecCriteriaRepairs/criteria/bare_id_check.py corpus/knowledge/accessibility-review-packet.md corpus/knowledge/crawl-scope-per-host.md corpus/knowledge/drift-detection.md corpus/knowledge/field-performance-cwv.md corpus/knowledge/fire-journal-codes.md corpus/knowledge/fleet-registry.md corpus/knowledge/free-read-verbs.md corpus/knowledge/freshness-sweep.md corpus/knowledge/ghp-custom-domain.md corpus/knowledge/ghp-etag-anatomy.md corpus/knowledge/ghp-served-set.md corpus/knowledge/ghp-subpath-spotcheck.md corpus/knowledge/keeper-timer-inert.md corpus/knowledge/kimi-subpath-audit.md corpus/knowledge/link-preview-metadata.md corpus/knowledge/mirror-pitfalls.md corpus/knowledge/ops-automation.md corpus/knowledge/origin-repos.md corpus/knowledge/pages-base-path.md corpus/knowledge/probe-delta-alerting.md corpus/knowledge/publish-channels.md corpus/knowledge/publish-queue.md corpus/knowledge/render-static-sites.md corpus/knowledge/render-web-services.md corpus/knowledge/robots-txt-rules.md corpus/knowledge/security-txt-publishing.md corpus/knowledge/sitemap-orphan-audit.md corpus/knowledge/speedrun-pipeline.md corpus/knowledge/static-canonical-preflight.md corpus/knowledge/vault-properties.md
+PASS: corpus/knowledge/accessibility-review-packet.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/crawl-scope-per-host.md cites 4 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/drift-detection.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/field-performance-cwv.md cites 5 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/fire-journal-codes.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/fleet-registry.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/free-read-verbs.md cites 2 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/freshness-sweep.md cites 2 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/ghp-custom-domain.md cites 4 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/ghp-etag-anatomy.md cites 3 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/ghp-served-set.md cites 7 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/ghp-subpath-spotcheck.md cites 3 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/keeper-timer-inert.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/kimi-subpath-audit.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/link-preview-metadata.md cites 7 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/mirror-pitfalls.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/ops-automation.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/origin-repos.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/pages-base-path.md cites 4 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/probe-delta-alerting.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/publish-channels.md cites 7 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/publish-queue.md cites 1 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/render-static-sites.md cites 12 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/render-web-services.md cites 7 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/robots-txt-rules.md cites 3 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/security-txt-publishing.md cites 14 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/sitemap-orphan-audit.md cites 9 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/speedrun-pipeline.md cites 4 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/static-canonical-preflight.md cites 22 S-id(s), each with claim text at least once.
+PASS: corpus/knowledge/vault-properties.md cites 1 S-id(s), each with claim text at least once.
+exit=0
+

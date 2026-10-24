@@ -1,0 +1,93 @@
+{
+ "schema": "kake-citing-set-hostile-v1",
+ "passed": false,
+ "runner": "/tmp/kake-r31-a2/exp-9a7f5be/base_runner.py",
+ "cases": [
+  {
+   "case": "P1-selftest-argv",
+   "passed": false,
+   "detail": {
+    "gap": "N1",
+    "hostile": [
+     "h1a",
+     "h1b",
+     "h1c"
+    ],
+    "exit": 1,
+    "timedOut": false,
+    "reasons": {
+     "h1a": "gate report carries no 'findings' array",
+     "h1b": "gate report carries no 'findings' array",
+     "h1c": "gate report carries no 'findings' array"
+    },
+    "canary": true,
+    "victimUnchanged": true
+   }
+  },
+  {
+   "case": "P2-fixture-dot-git",
+   "passed": false,
+   "detail": {
+    "gap": "N2",
+    "hostile": [
+     "h2a",
+     "h2b"
+    ],
+    "exit": 0,
+    "timedOut": false,
+    "reasons": {},
+    "canary": false,
+    "victimUnchanged": false
+   }
+  },
+  {
+   "case": "P3-commit-without-init",
+   "passed": false,
+   "detail": {
+    "gap": "N3",
+    "hostile": [
+     "h3"
+    ],
+    "exit": 0,
+    "timedOut": false,
+    "reasons": {},
+    "canary": false,
+    "victimUnchanged": false
+   }
+  },
+  {
+   "case": "P4-expected-json-guard",
+   "passed": false,
+   "detail": {
+    "gap": "N5",
+    "hostile": [
+     "h4a",
+     "h4b",
+     "h4c"
+    ],
+    "exit": null,
+    "timedOut": true,
+    "reasons": {},
+    "canary": false,
+    "victimUnchanged": true
+   }
+  },
+  {
+   "case": "P5-symlinked-case",
+   "passed": false,
+   "detail": {
+    "gap": "N6",
+    "hostile": [
+     "h5",
+     ".h5b"
+    ],
+    "exit": 0,
+    "timedOut": false,
+    "reasons": {},
+    "canary": false,
+    "victimUnchanged": true
+   }
+  }
+ ],
+ "error": null
+}

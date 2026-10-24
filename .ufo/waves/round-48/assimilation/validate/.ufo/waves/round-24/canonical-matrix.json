@@ -1,0 +1,14 @@
+{
+ "label": "canonical-matrix",
+ "argv": [
+  "python3",
+  "-B",
+  ".ufo/waves/round-22/matrix.py",
+  "--root",
+  "."
+ ],
+ "revision": "faace82dcf50e1c563d437f2caecb77a9a865880",
+ "exit": 0,
+ "stdout": "PASS caseId=absolute_match exit=0 findings=clean\nPASS caseId=relative_same_dir exit=0 findings=clean\nPASS caseId=relative_parent exit=0 findings=clean\nPASS caseId=root_relative exit=0 findings=clean\nPASS caseId=scheme_relative exit=0 findings=clean\nPASS caseId=first_base exit=0 findings=clean\nPASS caseId=second_base_ignored exit=0 findings=clean\nPASS caseId=rel_token_list exit=0 findings=clean\nPASS caseId=rel_uppercase exit=0 findings=clean\nPASS caseId=attr_uppercase exit=0 findings=clean\nPASS caseId=entity_href exit=0 findings=clean\nPASS caseId=query_preserved exit=0 findings=clean\nPASS caseId=missing_link exit=1 findings=canonical_missing\nPASS caseId=duplicate_same exit=1 findings=canonical_multiple\nPASS caseId=duplicate_different exit=1 findings=canonical_multiple\nPASS caseId=body_link exit=1 findings=canonical_outside_head\nPASS caseId=href_absent exit=1 findings=canonical_href_missing\nPASS caseId=href_empty exit=1 findings=canonical_href_missing\nPASS caseId=invalid_url exit=1 findings=canonical_url_invalid\nPASS caseId=javascript_url exit=1 findings=canonical_url_invalid\nPASS caseId=data_url exit=1 findings=canonical_url_invalid\nPASS caseId=fragment_url exit=1 findings=canonical_fragment\nPASS caseId=wrong_host exit=1 findings=canonical_mismatch\nPASS caseId=wrong_path exit=1 findings=canonical_mismatch\nPASS caseId=wrong_query exit=1 findings=canonical_mismatch\nPASS caseId=base_invalid exit=1 findings=base_url_invalid\nPASS caseId=comment_decoy exit=0 findings=clean\nPASS caseId=script_decoy exit=0 findings=clean\nPASS caseId=template_decoy exit=0 findings=clean\nPASS caseId=missing_head exit=2 findings=html_unsupported\nPASS caseId=manifest_traversal exit=2 findings=input_invalid\nPASS caseId=symlink_html exit=2 findings=input_invalid\nSUMMARY selection=all accepted=32 total=32 executed=32 discrepancies=0 tool_missing=0\n",
+ "stderr": ""
+}

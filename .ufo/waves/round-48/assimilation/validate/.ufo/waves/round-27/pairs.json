@@ -1,0 +1,223 @@
+{
+  "round": 27,
+  "base": "83528f7c486fd1b9a85e6c0bb643b25fa4fb9fba",
+  "r26CarriedLedger": ".ufo/waves/round-26/statements.json",
+  "r26CarriedMeaning": "41 pair review records; sum(statements)=313 is mixed-convention, not a semantic unit denominator or universally true files. Raw seatUnverifiable sum6 is preserved; carry-errata.json adds the report-disclosed missing S007 unit, giving7 known unknown units across3 pairs. R26 is not admitted and no old unit/count/file is rewritten.",
+  "newPairReviews": 17,
+  "carriedPairOverrideReviews": 1,
+  "pairs": [
+    {
+      "row": "S001",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair01A.md",
+      "reviewB": "w1/Pair01B.md",
+      "kind": "source",
+      "verdict": "HOLD",
+      "fetchIndex": 1,
+      "quote": "tar \\ --dereference --hard-dereference \\ --directory \"$INPUT_PATH\" \\ -cvf \"$RUNNER_TEMP/artifact.tar\" \\ --exclude=.git \\ --exclude=.github \\ --exclude=\".[^/]*\"",
+      "anchor": "v4.0.0 action.yml Archive artifact, Linux tar command lines29\u201336",
+      "reason": "Configured input path and unconditional .git/.github/default dot-path exclusions can make artifact membership differ from a checkout; the manifest instruction is local synthesis."
+    },
+    {
+      "row": "S002",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair02A.md",
+      "reviewB": "w1/Pair02B.md",
+      "kind": "source",
+      "verdict": "HOLD",
+      "fetchIndex": 1,
+      "quote": "Potentially breaking change: hidden files (specifically dotfiles) will not be included in the artifact",
+      "anchor": "v4.0.0 release, What's Changed",
+      "reason": "Release-specific dotfile exclusion supplies a counterexample to assumed checkout membership; the built-HTML manifest instruction is local synthesis, not stated by this release."
+    },
+    {
+      "row": "S003",
+      "file": "corpus/knowledge/sitemap-orphan-audit.md",
+      "reviewA": "w1/Pair03A.md",
+      "reviewB": "w1/Pair03B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": "corpus/lessons/round-20.md",
+      "contains": "| A2 | Platform mechanism inferred from workflow shape: the served set equated with the `origin/main` tree (deploy taken as the whole tree) | `corpus/README.md:26,52-53`; `SKILL.md:227`; `corpus/lessons/round-7.md:21-25`; `corpus/knowledge/sitemap-orphan-audit.md:20-24` | `none` | C3: S001/S002/S003/S004/S006/S008 rows plus `ghp-served-set`; annotate `round-7.md` append-only |",
+      "reason": "Scoped contextual relevance, not a claim of inline application: r20 A2 names this entry and includes S003 in the mechanism group; S003 branch-versus-workflow teaching bears on its base112 branch-deployment conditional. None of the eight inline correction records uses S003, and no such claim is made. The same relevance rule excludes S005, whose custom-domain teaching has no role in the entry. Date/base preserved; min/max and consulted-batch alternatives remain disclosed. Full pointer-bearing A2 row is now the witness."
+    },
+    {
+      "row": "S003",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair04A.md",
+      "reviewB": "w1/Pair04B.md",
+      "kind": "source",
+      "verdict": "HOLD",
+      "fetchIndex": 1,
+      "quote": "If required by your site, build any static site files. Use the actions/upload-pages-artifact action to upload the static files as an artifact.",
+      "anchor": "Creating a custom GitHub Actions workflow to publish your site, general workflow flow steps3\u20134",
+      "reason": "Publishing mode/source selection and optionally built uploaded static files supply the deployment-input premise; the canonical-manifest instruction is local synthesis."
+    },
+    {
+      "row": "S004",
+      "file": "corpus/knowledge/publish-channels.md",
+      "reviewA": "w1/Pair05A.md",
+      "reviewB": "w1/Pair05B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": "corpus/SOURCES.md",
+      "contains": "| S004 | GitHub Docs: Using custom workflows with GitHub Pages \u2014 https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages | docs | A | Artifact shape and deployment requirements for custom workflows | Configuring the upload-pages-artifact action; fetched 2026-10-19 | Pages artifacts are gzip-compressed tar files under 10GB and should contain no symbolic or hard links | mined | 2026-10-19 | 90d |",
+      "reason": "Historical opened-date metadata only: 2026-10-19 for the r20 opened batch. The registry and historical lesson records agree. The date/range is not a claim that this row supports every body correction and is not relabelled a fresh r27 source observation."
+    },
+    {
+      "row": "S004",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair06A.md",
+      "reviewB": "w1/Pair06B.md",
+      "kind": "source",
+      "verdict": "HOLD",
+      "fetchIndex": 1,
+      "quote": "The GitHub Pages artifact should be a compressed gzip archive containing a single tar file.",
+      "anchor": "Configuring the upload-pages-artifact action",
+      "reason": "Defines the packaged deployment artifact; does not alone prove checkout divergence or prescribe a canonical manifest. Combined recommendation is local synthesis."
+    },
+    {
+      "row": "S005",
+      "file": "corpus/knowledge/sitemap-orphan-audit.md",
+      "reviewA": "w1/Pair07A.md",
+      "reviewB": "w1/Pair07B.md",
+      "kind": "artifact",
+      "verdict": "STALE",
+      "evidence": ".ufo/round-20/resume/citation-disposition.json",
+      "contains": "\"supersededClaim\": \"Each deployment snapshots the entire checked-out tree.\"",
+      "reason": "Partial stale attribution only: line2 calls the S001-S006 band quote corrections for this entry, but all8 r20 correction records use S001/S004 or S001/S002/S004/S006. A2 in r20 lesson names the mechanism group without S005; A3 maps S005 to custom-domain errors in other entries. Both reviewers propose STALE; Pair07A discloses a min/max-interval alternative, while Pair07B discloses the different consulted-batch/opened-date reading. Choose the actual entry support set and append correction; the historical date/base remain HOLD, not rewritten."
+    },
+    {
+      "row": "S005",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair08A.md",
+      "reviewB": "w1/Pair08B.md",
+      "kind": "source",
+      "verdict": "STALE",
+      "fetchIndex": 1,
+      "quote": "If you are publishing from a custom GitHub Actions workflow, no CNAME file is created",
+      "anchor": "Configuring an apex domain step4; repeated under Configuring a subdomain step4",
+      "reason": "STALE attribution at line54: this document concerns domain configuration, not which built/deployable HTML files populate a manifest. Reject the A/source-opener proposed extra host-component leg because it is absent from the frozen sentence. Row teaching itself HOLD; the grouped citation over-includes this source, not a finding of source drift."
+    },
+    {
+      "row": "S006",
+      "file": "corpus/knowledge/publish-channels.md",
+      "reviewA": "w1/Pair09A.md",
+      "reviewB": "w1/Pair09B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": "corpus/SOURCES.md",
+      "contains": "| S006 | GitHub Docs: About GitHub Pages and Jekyll \u2014 https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll | docs | A | Default file exclusions in GitHub Pages Jekyll branch builds | Configuring Jekyll in your GitHub Pages site; fetched 2026-10-19 | By default Jekyll skips paths starting with underscore, dot, or hash, paths ending in tilde, node_modules, and vendor | mined | 2026-10-19 | 90d |",
+      "reason": "Historical opened-date metadata only: 2026-10-19 for the r20 opened batch. The registry and historical lesson records agree. The date/range is not a claim that this row supports every body correction and is not relabelled a fresh r27 source observation."
+    },
+    {
+      "row": "S006",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair10A.md",
+      "reviewB": "w1/Pair10B.md",
+      "kind": "source",
+      "verdict": "HOLD",
+      "fetchIndex": 1,
+      "quote": "By default, Jekyll doesn't build files or folders that: Are located in a folder called /node_modules or /vendor",
+      "anchor": "Configuring Jekyll in your GitHub Pages site, default exclusions paragraph",
+      "reason": "Jekyll branch builds omit specified paths by default (include/exclude configuration can change that). This supports only the Jekyll leg, not every Actions workflow; manifest advice is local synthesis."
+    },
+    {
+      "row": "S008",
+      "file": "corpus/knowledge/crawl-scope-per-host.md",
+      "reviewA": "w1/Pair11A.md",
+      "reviewB": "w1/Pair11B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": ".ufo/waves/round-26/fetched/manifest-retry.json",
+      "contains": "\"file\": \"S008-1-retry.raw.gz\"",
+      "reason": "The only row mention is r26 EOF retrieval provenance locating S008 in the retry manifest, not attribution of any platform claim to GNU tar. The named subject rows exclude S008. Historical retry fact is verified from retained r26 artifacts, not a fresh S008 opening."
+    },
+    {
+      "row": "S008",
+      "file": "corpus/knowledge/ghp-custom-domain.md",
+      "reviewA": "w1/Pair12A.md",
+      "reviewB": "w1/Pair12B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": ".ufo/waves/round-26/fetched/manifest-retry.json",
+      "contains": "\"file\": \"S008-1-retry.raw.gz\"",
+      "reason": "The only row mention is r26 EOF retrieval provenance locating S008 in the retry manifest, not attribution of any platform claim to GNU tar. The named subject rows exclude S008. Historical retry fact is verified from retained r26 artifacts, not a fresh S008 opening."
+    },
+    {
+      "row": "S008",
+      "file": "corpus/knowledge/ghp-etag-anatomy.md",
+      "reviewA": "w1/Pair13A.md",
+      "reviewB": "w1/Pair13B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": ".ufo/waves/round-26/fetched/manifest-retry.json",
+      "contains": "\"file\": \"S008-1-retry.raw.gz\"",
+      "reason": "The only row mention is r26 EOF retrieval provenance locating S008 in the retry manifest, not attribution of any platform claim to GNU tar. The named subject rows exclude S008. Historical retry fact is verified from retained r26 artifacts, not a fresh S008 opening."
+    },
+    {
+      "row": "S008",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair14A.md",
+      "reviewB": "w1/Pair14B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": ".ufo/waves/round-26/fetched/manifest-retry.json",
+      "contains": "\"file\": \"S008-1-retry.raw.gz\"",
+      "reason": "Original r26 mention at line184 locates the S008 retry; the r27 clarification adds a second mention at candidate line244 affirming that provenance-only scope. Neither attributes canonical-policy content to GNU tar. The independent r26 retry artifact, not either new mention, binds the historical fetch fact; no fresh S008 opening is claimed."
+    },
+    {
+      "row": "S022",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair15A.md",
+      "reviewB": "w1/Pair15B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": "corpus/SOURCES.md",
+      "contains": "| S022 | Google Search Central: Fix canonicalization issues \u2014 https://developers.google.com/search/docs/crawling-indexing/canonicalization-troubleshooting | docs | A | Declared canonical versus Google-selected canonical | Opening paragraph, updated 2026-08-21; opened 2026-10-20 | Google may choose a different canonical even when the publisher explicitly designates one | mined | 2026-10-20 | 90d |",
+      "reason": "Historical opened-date metadata only: 2026-10-20 for the r22 S020-S027 batch. The registry and historical lesson records agree. The date/range is not a claim that this row supports every body correction and is not relabelled a fresh r27 source observation."
+    },
+    {
+      "row": "S023",
+      "file": "corpus/knowledge/static-canonical-preflight.md",
+      "reviewA": "w1/Pair16A.md",
+      "reviewB": "w1/Pair16B.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": "corpus/SOURCES.md",
+      "contains": "| S023 | WHATWG HTML: Link type canonical \u2014 https://html.spec.whatwg.org/multipage/links.html#link-type-canonical | spec | A | HTML link-type keyword semantics | Section 4.6.8 Link types and 4.6.8.4 canonical; Living Standard accessed 2026-10-20 | Canonical indicates the preferred URL; link-type keywords compare ASCII case-insensitively | mined | 2026-10-20 | 90d |",
+      "reason": "Historical opened-date metadata only: 2026-10-20 for the r22 S020-S027 batch. The registry and historical lesson records agree. The date/range is not a claim that this row supports every body correction and is not relabelled a fresh r27 source observation."
+    },
+    {
+      "row": "S013",
+      "file": "corpus/knowledge/ghp-served-set.md",
+      "kind": "artifact",
+      "verdict": "HOLD",
+      "evidence": ".ufo/waves/round-26/w2/Rejection07S013.md",
+      "contains": "row S013, `crawl-scope-per-host.md`",
+      "reason": "Conservatively included base filename-embedded report label, later made explicit in r27 prose. The witness is the report Target identifying S013 of crawl-scope-per-host, not its context-dependent phrase this entry. It proves the report-label identity only, not S013 teaching served-set mechanics or universal applicability of its boilerplate sentence to ghp-served-set.",
+      "reviews": [
+        "w1/CritFailOpen.md",
+        "w1/CritDenominator.md",
+        "w1/SourceCensus.md"
+      ]
+    },
+    {
+      "row": "S004",
+      "file": "corpus/knowledge/ghp-served-set.md",
+      "kind": "source",
+      "verdict": "STALE",
+      "fetchIndex": 1,
+      "quote": "The GitHub Pages artifact should be a compressed gzip archive containing a single tar file.",
+      "anchor": "Configuring the upload-pages-artifact action",
+      "reason": "Override only of the newly identified locator attribution: old lines29\u201330 say S004 steps4\u20135 upload static files and deploy. The numbered general-flow items4\u20135 are in S003, not S004's unnumbered artifact configuration section. Substance remains true; append explicit S003 attribution and retain old r26 review/units without rewriting it.",
+      "reviews": [
+        "w1/Pair06B.md",
+        "w1/SourceOpenS003.md",
+        "w1/SourceOpenS004.md"
+      ]
+    }
+  ],
+  "scope": "Inherited32-row knowledge-file citing set;57 frozen syntactic pairs plus1 conservatively added embedded artifact reference. This is not all corpus/lesson/SKILL/registry statements, perpetual source freshness or live-site conformance.",
+  "reviewViewNotice": "W1 reports describe named pre-integration/pre-filter views; their received-body hashes and then-current routing are historical observations, not current retained byte identity. W2 reports evaluate ac46. These metadata corrections strengthen witnesses/wording without changing keys, verdicts, original57 scope,16 oracle, or known7 unknown units."
+}

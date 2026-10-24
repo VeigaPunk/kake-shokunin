@@ -1,0 +1,160 @@
+{
+ "schema": "kake-r33-c1-code-v1",
+ "rev": "3abfc44fb18c6284067a860880b8a5fe8baeec81",
+ "runnerSha256": "66a2be79526e84a00465781d262f2f0d06d47ead9183cb2875baaa9729c500c0",
+ "hostileSha256": "10b8fc547d437d51f5c5ad5047eefde3ff36d27ac7dc9a7c94aea6f9612a351a",
+ "guardMatches": 1,
+ "benign": {
+  "exit": 0,
+  "timedOut": false,
+  "cases": 45,
+  "failed": 0
+ },
+ "guard_ok": true,
+ "variants": {
+  "pristine": {
+   "applicable": true,
+   "sha256": "66a2be79526e84a00465781d262f2f0d06d47ead9183cb2875baaa9729c500c0",
+   "exit": 0,
+   "timedOut": false,
+   "specs": [
+    [
+     "P1-selftest-argv",
+     true
+    ],
+    [
+     "P2-fixture-dot-git",
+     true
+    ],
+    [
+     "P3-commit-without-init",
+     true
+    ],
+    [
+     "P4-expected-json-guard",
+     true
+    ],
+    [
+     "P5-symlinked-case",
+     true
+    ],
+    [
+     "P6-commit-before-init",
+     true
+    ]
+   ],
+   "failing": []
+  },
+  "reworded": {
+   "applicable": true,
+   "sha256": "bb5c1b9cadcb26e175e9ff7354dfbe621bf332d0d83b9021b5f25f81c1cc6aa6",
+   "exit": 0,
+   "timedOut": false,
+   "specs": [
+    [
+     "P1-selftest-argv",
+     true
+    ],
+    [
+     "P2-fixture-dot-git",
+     true
+    ],
+    [
+     "P3-commit-without-init",
+     true
+    ],
+    [
+     "P4-expected-json-guard",
+     true
+    ],
+    [
+     "P5-symlinked-case",
+     true
+    ],
+    [
+     "P6-commit-before-init",
+     true
+    ]
+   ],
+   "failing": []
+  },
+  "m3": {
+   "applicable": true,
+   "sha256": "c5217d8dfe03c866a75e03003b5a5c3362715be5839b9dd2b870f4af93ba060e",
+   "exit": 1,
+   "timedOut": false,
+   "specs": [
+    [
+     "P1-selftest-argv",
+     true
+    ],
+    [
+     "P2-fixture-dot-git",
+     true
+    ],
+    [
+     "P3-commit-without-init",
+     true
+    ],
+    [
+     "P4-expected-json-guard",
+     true
+    ],
+    [
+     "P5-symlinked-case",
+     true
+    ],
+    [
+     "P6-commit-before-init",
+     false
+    ]
+   ],
+   "failing": [
+    "P6-commit-before-init"
+   ]
+  },
+  "recoded": {
+   "applicable": true,
+   "sha256": "682e5c06fe59599837f38e4105b1d6dea9294a6ec6e4b450415ab73fe16ade3a",
+   "exit": 1,
+   "timedOut": false,
+   "specs": [
+    [
+     "P1-selftest-argv",
+     true
+    ],
+    [
+     "P2-fixture-dot-git",
+     true
+    ],
+    [
+     "P3-commit-without-init",
+     true
+    ],
+    [
+     "P4-expected-json-guard",
+     true
+    ],
+    [
+     "P5-symlinked-case",
+     true
+    ],
+    [
+     "P6-commit-before-init",
+     false
+    ]
+   ],
+   "failing": [
+    "P6-commit-before-init"
+   ]
+  }
+ },
+ "expectations": {
+  "pristine_passes": true,
+  "reworded_passes": true,
+  "m3_killed": true,
+  "recoded_killed": true
+ },
+ "met": 4,
+ "of": 4
+}

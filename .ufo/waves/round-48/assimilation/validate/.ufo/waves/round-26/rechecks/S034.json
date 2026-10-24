@@ -1,0 +1,9 @@
+{
+  "id": "S034",
+  "verdict": "HOLD",
+  "fetchIndex": 1,
+  "quote": "The names within an object SHOULD be unique.",
+  "anchorObserved": "RFC 8259 Section 4 (Objects), raw line 322; fetched/text/S034-1.txt is whitespace-collapsed onto line 1 (offset 8863), where the sentence still sits under the '4. Objects' heading",
+  "reason": "Live GET today returned 200 with body sha256 61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7, byte-identical to the digest recorded when the row was opened (corpus/lessons/round-24.md:33), so there is no drift to test. Header still reads December 2017 and 'Obsoletes: 7159' with no 'Obsoleted by'. All four cited sections exist (3 Values, 4 Objects, 6 Numbers, 9 Parsers); §4 keeps SHOULD uniqueness and calls non-unique behavior unpredictable, §6 keeps 'as Infinity and NaN) are not permitted', §3 keeps false/true/null as literal names distinct from number. Duplicate rejection stays local policy because §9 requires parsers to accept all grammar-conforming texts. Teaches, scope and anchor unchanged.",
+  "correction": null
+}

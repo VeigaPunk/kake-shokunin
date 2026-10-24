@@ -1,0 +1,33 @@
+{
+ "id": "T11",
+ "token": "~/Projects/webzites/agents/webzites-speedrun.md",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T11:50:48Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "for p in \"$HOME/Projects/webzites/agents/webzites-speedrun.md\" \"$HOME/Projects/webzites\"; do if test -e \"$p\"; then echo \"EXISTS $p\"; else echo \"ABSENT $p\"; fi; done",
+   "stat -c '%n %w %y' \"$HOME/Projects\"",
+   "ls -la \"$HOME/Projects\"",
+   "git -C \"$HOME/Projects\" log -3 --format='%H %cI %s'",
+   "git -C \"$HOME/Projects\" remote -v",
+   "git -C /home/vgpnk/Projects/shokunin/kake-shokunin log --all -S'webzites-speedrun' --format='%h %cI %s' -- corpus/knowledge/speedrun-pipeline.md"
+  ],
+  "output": "2026-10-21T11:50:48Z; test -e target: ABSENT; ~/Projects/webzites: ABSENT; stat: /home/vgpnk/Projects 2026-10-03 17:48:28.004231881 -0300 2026-10-21 05:19:01.033916520 -0300; ls: total 0, no webzites entry; ~/Projects ancestor git log -3 returned 870a97615b8a700e0679a21c131595a584b11d21 (2026-10-08T19:06:06-03:00), 33e63498e7bbebf03f3cf5f73605de993b1eb3b2 (2026-10-08T18:54:22-03:00), 325c6b12e182345291cb7e51e57745efaa1dcc97 (2026-10-08T18:52:25-03:00); remote -v: empty; lane -S mentions include round-5 18537e9 (2026-09-28) and absolute cite introduced in e3e3aee (2026-10-21)."
+ },
+ "event": "W7 ~/Projects prune/migration recorded as 2026-10-12 in round-18 commit b0feb30; round-18 census on 2026-10-14 records webzites gone. Round-5 commit 18537e9 (2026-09-28) cites agents/webzites-speedrun.md as the keeper card. [INFERENCE] The card was removed with the webzites tree; exact subfile deletion time is not separately recorded.",
+ "cites": [
+  {
+   "cite": "corpus/knowledge/speedrun-pipeline.md:77",
+   "lineText": "- [speedrun-pipeline:c2] **STALE** — The unflagged keeper-card and keeper-report references remain extant current source files. Surface: `/home/vgpnk/Projects/webzites/agents/webzites-speedrun.md; /home/vgpnk/Projects/webzites/reports/keepers/speedrun-r1.md`. Correction: As of 2026-10-21, `/home/vgpnk/Projects/webzites/agents/webzites-speedrun.md` and `/home/vgpnk/Projects/webzites/reports/keepers/speedrun-r1.md` are absent and should be marked unavailable rather than unflagged current sources.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsNewT11WebzitesSpeedrunMd.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

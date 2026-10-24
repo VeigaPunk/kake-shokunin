@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "tool": "/fast/scratch/hyaku/kake-r38w1/ExecRealRunPrep/base-tool/robots_audit.py",
+  "toolSha256": "944d2f51f396fb6e1ba3c7cf07112eb3f55d011e9bbc16bb1a59af517be1d3e5",
+  "python": "3.14.8 (main, Oct  2 2026, 10:23:31) [GCC 16.2.1 20260810]",
+  "pythonExecutable": "/usr/bin/python3",
+  "timeoutSeconds": 20.0,
+  "runs": [
+    {
+      "manifest": "manifest.h-float-status.json",
+      "matches": true,
+      "exit": 2,
+      "expectedExit": 2,
+      "expectedVerdict": "could-not-evaluate",
+      "observedVerdict": "could-not-evaluate",
+      "expectedChecksEvaluated": 1,
+      "observedChecksEvaluated": 1,
+      "diffs": []
+    },
+    {
+      "manifest": "manifest.h-infinity-status.json",
+      "matches": false,
+      "exit": 2,
+      "expectedExit": 2,
+      "expectedVerdict": "could-not-evaluate",
+      "observedVerdict": "could-not-evaluate",
+      "expectedChecksEvaluated": 0,
+      "observedChecksEvaluated": 1,
+      "diffs": [
+        "checksEvaluated: expected 0, observed 1",
+        "findings missing: [[null, \"input_invalid\"]]",
+        "findings extra: [[\"h-infinity-status\", \"check_invalid\"]]"
+      ]
+    },
+    {
+      "manifest": "manifest.h-long-status.json",
+      "matches": false,
+      "exit": 2,
+      "expectedExit": 2,
+      "expectedVerdict": "could-not-evaluate",
+      "observedVerdict": "could-not-evaluate",
+      "expectedChecksEvaluated": 1,
+      "observedChecksEvaluated": 0,
+      "diffs": [
+        "checksEvaluated: expected 1, observed 0",
+        "findings missing: [[\"h-long-status-5000\", \"check_invalid\"]]",
+        "findings extra: [[null, \"input_invalid\"]]"
+      ]
+    },
+    {
+      "manifest": "manifest.h-nan-unused.json",
+      "matches": false,
+      "exit": 0,
+      "expectedExit": 2,
+      "expectedVerdict": "could-not-evaluate",
+      "observedVerdict": "clean",
+      "expectedChecksEvaluated": 0,
+      "observedChecksEvaluated": 2,
+      "diffs": [
+        "exit: expected 2, observed 0",
+        "verdict: expected 'could-not-evaluate', observed 'clean'",
+        "checksEvaluated: expected 0, observed 2",
+        "findings missing: [[null, \"input_invalid\"]]"
+      ]
+    },
+    {
+      "manifest": "manifest.h-neginfinity-status.json",
+      "matches": false,
+      "exit": 2,
+      "expectedExit": 2,
+      "expectedVerdict": "could-not-evaluate",
+      "observedVerdict": "could-not-evaluate",
+      "expectedChecksEvaluated": 0,
+      "observedChecksEvaluated": 1,
+      "diffs": [
+        "checksEvaluated: expected 0, observed 1",
+        "findings missing: [[null, \"input_invalid\"]]",
+        "findings extra: [[\"h-neginfinity-status\", \"check_invalid\"]]"
+      ]
+    },
+    {
+      "manifest": "manifest.h-unused-bigint.json",
+      "matches": false,
+      "exit": 2,
+      "expectedExit": 0,
+      "expectedVerdict": "clean",
+      "observedVerdict": "could-not-evaluate",
+      "expectedChecksEvaluated": 2,
+      "observedChecksEvaluated": 0,
+      "diffs": [
+        "exit: expected 0, observed 2",
+        "verdict: expected 'clean', observed 'could-not-evaluate'",
+        "checksEvaluated: expected 2, observed 0",
+        "findings extra: [[null, \"input_invalid\"]]"
+      ]
+    },
+    {
+      "manifest": "manifest.json",
+      "matches": false,
+      "exit": 1,
+      "expectedExit": 2,
+      "expectedVerdict": "could-not-evaluate",
+      "observedVerdict": "failed-policy",
+      "expectedChecksEvaluated": 79,
+      "observedChecksEvaluated": 91,
+      "diffs": [
+        "exit: expected 2, observed 1",
+        "verdict: expected 'could-not-evaluate', observed 'failed-policy'",
+        "checksEvaluated: expected 79, observed 91",
+        "findings missing: [[\"r38-i-developer_mozilla_org-del\", \"check_invalid\"], [\"r38-i-developers_google_com-quote\", \"check_invalid\"], [\"r38-i-docs_github_com-backslash\", \"check_invalid\"], [\"r38-i-ds4cc_com-braceopen\", \"check_invalid\"], [\"r38-i-en_wikipedia_org-pipe\", \"check_invalid\"], [\"r38-i-github_com-caret\", \"check_invalid\"], [\"r38-i-html_spec_whatwg_org-backtick\", \"check_invalid\"], [\"r38-i-pages_github_com-braceclose\", \"check_invalid\"], [\"r38-i-veigapunk_github_io-gt\", \"check_invalid\"], [\"r38-i-www_rfc-editor_org-space\", \"check_invalid\"], [\"r38-i-www_robotstxt_org-lt\", \"check_invalid\"], [\"r38-i-www_sitemaps_org-ctl\", \"check_invalid\"]]",
+        "findings extra: [[\"r38-k-en_wikipedia_org-pct2e\", \"blocked\"], [\"r38-k-en_wikipedia_org-pct72\", \"blocked\"]]"
+      ]
+    }
+  ],
+  "unrunnable": [],
+  "allMatch": false,
+  "worst": 1
+}

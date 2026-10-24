@@ -1,0 +1,138 @@
+diff --git a/scripts/source_recheck.py b/scripts/source_recheck.py
+index de32ee3..520cdd3 100755
+--- a/scripts/source_recheck.py
++++ b/scripts/source_recheck.py
+@@ -9,8 +9,9 @@ library only.
+ 
+ Stated input caps (round-38 repair of bullet (g)): a manifest larger than 64 MiB
+ is refused as an unreadable manifest (one input_invalid); a body file larger than
+-16 MiB is an input fault for that check (one check_invalid).  Neither is ever read
+-into memory, so a hostile input cannot turn into a MemoryError with no report.
++16 MiB is an input fault for that check (one check_invalid, no other finding for
++it, and the check is not counted as evaluated).  Neither is ever read into memory,
++so a hostile input cannot turn into a MemoryError with no report.
+ 
+ Usage:
+     python3 scripts/source_recheck.py --manifest PATH
+@@ -580,8 +581,16 @@ def moved_target(check) -> str | None:
+     return resolved
+ 
+ 
+-def evaluate_check(check, manifest_dir: str) -> list:
+-    """Findings for one valid check."""
++def evaluate_check(check, manifest_dir: str):
++    """Findings for one valid check, or None when the check is an input fault.
++
++    Round-39 (contract (g)): an input fault for a check is "one check_invalid
++    finding for it ... and no other finding for it", and checksEvaluated "counts
++    the checks that are not check_invalid". The caller reports the None case as
++    that one check_invalid and does not count the check. A body that cannot be
++    opened or read, or is over MAX_BODY_BYTES, is such a fault, so the moved
++    finding of a leading permanent run is never reported beside it.
++    """
+     findings = []
+     cid = check["id"]
+     target = moved_target(check)
+@@ -606,11 +615,9 @@ def evaluate_check(check, manifest_dir: str) -> list:
+                 # memory and never crashes the run (round-37 defect 1).
+                 data = handle.read(MAX_BODY_BYTES + 1)
+         except (OSError, MemoryError, ValueError):
+-            findings.append(finding(cid, "check_invalid"))
+-            return findings
++            return None
+         if len(data) > MAX_BODY_BYTES:
+-            findings.append(finding(cid, "check_invalid"))
+-            return findings
++            return None
+         codec, payload = pick_encoding(data, params.get("charset"))
+         if codec is None:
+             findings.append(finding(cid, "charset_unsupported"))
+@@ -751,8 +758,14 @@ def main(argv) -> int:
+         if not validate_check(check, manifest_dir):
+             findings.append(finding(check_id_of(check), "check_invalid"))
+             continue
++        produced = evaluate_check(check, manifest_dir)
++        if produced is None:
++            # Round-39: an evaluate-time input fault is one check_invalid for the
++            # check, and the check is not counted (contract (g)).
++            findings.append(finding(check_id_of(check), "check_invalid"))
++            continue
+         evaluated += 1
+-        findings.extend(evaluate_check(check, manifest_dir))
++        findings.extend(produced)
+     return emit(decide_verdict(findings), evaluated, findings)
+ 
+ 
+diff --git a/scripts/source_recheck_hardening_selftest.py b/scripts/source_recheck_hardening_selftest.py
+index b2d7ade..4766351 100755
+--- a/scripts/source_recheck_hardening_selftest.py
++++ b/scripts/source_recheck_hardening_selftest.py
+@@ -19,6 +19,12 @@ Round 38 adds the two carried read-cap defects (round-37 w2/SentinelHardening.md
+   g35  a manifest inside the 64 MiB cap (~60 MiB) whose parse cannot fit the address space is one
+        input_invalid with a report, not a MemoryError with no stdout (base: exit 1, no JSON).
+ 
++Round 39 pins one defect carried from round 38 (SCORECARD.md "Defects carried to round 39"):
++
++  g36  an oversized body on a chain that starts with a permanent hop is one check_invalid, not
++       `moved` plus `check_invalid`, and the check is not counted in checksEvaluated (base for
++       the fixture: two findings for that check and checksEvaluated 2).
++
+ Two page-text fixtures pin the contract (c) amendment implemented with them:
+ 
+   c-attributed-script         `<script` inside another tag's quoted attribute value opens nothing
+@@ -92,6 +98,13 @@ CONTRACT = {
+         'a manifest inside the 64 MiB cap whose JSON parse cannot fit the address space is an '
+         'unreadable manifest: one input_invalid with check null.'
+     ),
++    "body-cap-moved": (
++        '(g) "A check that breaks any manifest rule above ...: one check_invalid finding for it '
++        '... and no other finding for it; the other checks are still evaluated and their '
++        'findings reported. checksEvaluated counts the checks that are not check_invalid." '
++        'Round-39: a body over the stated 16 MiB cap is that input fault even when the chain '
++        'starts with a permanent hop, so the check gets no moved finding and is not counted.'
++    ),
+     "c": (
+         '(c) HTML text. "the contents of script, style and template elements removed (start tag '
+         'to the next end tag of the same name, ASCII case-insensitive)" -- with the round-37 '
+@@ -215,22 +228,34 @@ def build_fixtures():
+     # Round-38: carried read-cap defects. A body over the stated cap is one check_invalid for
+     # that check; no body is read into memory; a near-cap manifest that cannot be parsed in the
+     # address space is one input_invalid with a report.
+-    # checksEvaluated is left unpinned for g33/g34: contract (g) says it "counts the checks that
+-    # are not check_invalid" while the tool increments before an evaluate-time check_invalid
+-    # (unreadable body), a reading no round-36 fixture pins (18 undecided points). The caps
+-    # themselves are pinned by exit, verdict and findings; the round-36 counter does not compare
+-    # checksEvaluated either.
++    # Round-39 decides what this file left unpinned: contract (g) says checksEvaluated "counts
++    # the checks that are not check_invalid", so an evaluate-time check_invalid (unreadable or
++    # oversized body) is not counted; g33/g34 now pin 0 and g36 pins the moved finding.
+     add("g33-body-over-cap", CONTRACT["body-cap"],
+         manifest=mf([chk(quote=QUOTE, contentType="text/html", body="body.html")]),
+         files={"body.html": b"<p>" + b"A" * (BODY_CAP + 1) + b"</p>"},
+         exit_code=2, verdict="could-not-evaluate",
+-        findings=[f("k1", "check_invalid")])
++        findings=[f("k1", "check_invalid")], evaluated=0)
+     add("g34-body-1g", CONTRACT["body-cap"],
+         manifest=mf([chk(quote=QUOTE, contentType="text/html", body="body.bin")]),
+         sparse={"body.bin": 1024 * 1024 * 1024},
+         exit_code=2, verdict="could-not-evaluate",
+-        findings=[f("k1", "check_invalid")],
++        findings=[f("k1", "check_invalid")], evaluated=0,
+         rlimit_as=MEMORY_LIMIT, timeout=30)
++    # Round-39: a body over the cap is an input fault for that check, so contract (g)'s "no
++    # other finding for it" also drops the moved finding of a leading permanent run, and
++    # checksEvaluated counts the other check only.
++    add("g36-body-over-cap-with-moved", CONTRACT["body-cap-moved"],
++        manifest=mf([
++            chk("kbad", quote=QUOTE, contentType="text/html", body="big.html",
++                hops=[{"status": 301, "location": "/final"},
++                      {"status": 200, "location": NON_REDIRECT_LOCATION}]),
++            chk("kgood", quote=QUOTE, contentType="text/html", body="small.html"),
++        ]),
++        files={"big.html": b"<p>" + b"A" * (BODY_CAP + 1) + b"</p>",
++               "small.html": b"<p>VISIBLE</p>"},
++        exit_code=2, verdict="could-not-evaluate",
++        findings=[f("kbad", "check_invalid")], evaluated=1)
+     add("g35-near-cap-manifest", CONTRACT["body-cap"], raw=NEAR_CAP_MANIFEST,
+         exit_code=2, verdict="could-not-evaluate",
+         findings=[f(None, "input_invalid")], evaluated=0,

@@ -1,0 +1,99 @@
+{
+ "counter": "kake-r31-c1-sandbox-probes",
+ "counterSha256": "4707cebf8831eb9a8e79405fcc07ad77e118110f980dac2826c5934a43166d1a",
+ "revision": "f1ffb81738c92c0537b99b30970143ab9419f990",
+ "runnerSha256": "9f2d1ecb280b7dc314886c79264fb5461c400d8f7c762ea62bb4018fc49e14d3",
+ "passed": 0,
+ "total": 5,
+ "controlK1": true,
+ "k1": {
+  "exit": 0,
+  "cases": 45
+ },
+ "hostileSelftest": {
+  "present": false,
+  "cases": {}
+ },
+ "probes": [
+  {
+   "id": "P1",
+   "gap": "N1 case argv reaching --selftest runs fixture-copied scripts",
+   "passed": false,
+   "behaviour": false,
+   "fixture": false,
+   "fixtureDirs": [],
+   "detail": {
+    "exit": 1,
+    "timedOut": false,
+    "failedCases": [
+     "h1a",
+     "h1b",
+     "h1c"
+    ],
+    "reasons": {
+     "h1a": "gate report carries no 'findings' array",
+     "h1b": "gate report carries no 'findings' array",
+     "h1c": "gate report carries no 'findings' array"
+    },
+    "canary": true
+   }
+  },
+  {
+   "id": "P2",
+   "gap": "N2 fixture .git accepted by setup ops other than git_init",
+   "passed": false,
+   "behaviour": false,
+   "fixture": false,
+   "fixtureDirs": [],
+   "detail": {
+    "exit": 0,
+    "timedOut": false,
+    "failedCases": [],
+    "reasons": {},
+    "victimUnchanged": false
+   }
+  },
+  {
+   "id": "P3",
+   "gap": "N3 git_commit without git_init discovers an enclosing repository",
+   "passed": false,
+   "behaviour": false,
+   "fixture": false,
+   "fixtureDirs": [],
+   "detail": {
+    "exit": 0,
+    "timedOut": false,
+    "failedCases": [],
+    "reasons": {},
+    "victimUnchanged": false
+   }
+  },
+  {
+   "id": "P4",
+   "gap": "N5 expected.json read with no symlink, file-type or size guard",
+   "passed": false,
+   "behaviour": false,
+   "fixture": false,
+   "fixtureDirs": [],
+   "detail": {
+    "exit": null,
+    "timedOut": true,
+    "failedCases": []
+   }
+  },
+  {
+   "id": "P5",
+   "gap": "N6 symlinked case directory skipped silently",
+   "passed": false,
+   "behaviour": false,
+   "fixture": false,
+   "fixtureDirs": [],
+   "detail": {
+    "exit": 0,
+    "timedOut": false,
+    "failedCases": [],
+    "reasons": {}
+   }
+  }
+ ]
+}

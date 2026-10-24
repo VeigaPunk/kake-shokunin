@@ -1,0 +1,44 @@
+{
+ "predicate": "met: the tool's judgment of loc and sitemapUrl agrees with the RFC 3986 URI oracle on 1434 of 1434 generated cases",
+ "cases": 1434,
+ "passed": 1432,
+ "met": false,
+ "revision": null,
+ "toolFile": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-41/controls/w1/CtlAllowList/v9_pct_hash_brackets_at.py",
+ "label": "w1-CtlAllowList-v9_pct_hash_brackets_at",
+ "seed": 65174378622336,
+ "counterSha256": "2acc443af33466796ad178d8c1ad8350d36250b29e7383bba4ba10d2e4fe67b4",
+ "oracleSha256": "cdcac127b3693ded2b00565878d8ed2b96d34b29f0ee199c06d7b40baaf60917",
+ "toolSha256": "1b7a8572261a8e9f30b8b411614c9c65ad0cbfe5e37200a9ee66778ba13a7041",
+ "toolExit": 2,
+ "byField": {
+  "loc": "629/630",
+  "sitemapUrl": "803/804"
+ },
+ "byComponent": {
+  "fragment": "239/239",
+  "host": "239/239",
+  "path": "239/239",
+  "port": "239/239",
+  "query": "239/239",
+  "userinfo": "237/239"
+ },
+ "oracleInvalid": 632,
+ "note": null,
+ "misses": [
+  {
+   "field": "loc",
+   "component": "userinfo",
+   "unit": "/",
+   "value": "http://ou/r4Di%2D@[2001:db8::a29e]/bpegHF9Y/cf0ei&+kV/1s'%8a3hah?0zN0",
+   "oracleValid": false
+  },
+  {
+   "field": "sitemapUrl",
+   "component": "userinfo",
+   "unit": "?",
+   "value": "HTTP://2?hP33r1qv:24+oa@[2001:db8::12ad]/rwhu7?quxd%B9%6C=rl(",
+   "oracleValid": false
+  }
+ ]
+}

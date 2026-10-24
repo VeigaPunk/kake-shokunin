@@ -1,0 +1,1577 @@
+{
+ "cases": [
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "encoding_invalid",
+        null
+       ]
+      ],
+      "id": "r7",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "b2",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "encoding_invalid",
+        null
+       ]
+      ],
+      "id": "m9",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "encoding_invalid",
+        null
+       ]
+      ],
+      "id": "p4",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "z1",
+      "status": "clean"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "f1.xml": {
+     "b64": "//48AD8AeABtAGwAIAB2AGUAcgBzAGkAbwBuAD0AIgAxAC4AMAAiACAAZQBuAGMAbwBkAGkAbgBnAD0AIgBVAFQARgAtADEANgAiAD8APgAKADwAdQByAGwAcwBlAHQAIAB4AG0AbABuAHMAPQAiAGgAdAB0AHAAOgAvAC8AdwB3AHcALgBzAGkAdABlAG0AYQBwAHMALgBvAHIAZwAvAHMAYwBoAGUAbQBhAHMALwBzAGkAdABlAG0AYQBwAC8AMAAuADkAIgA+ADwAdQByAGwAPgA8AGwAbwBjAD4AaAB0AHQAcABzADoALwAvAGUAeAAuAHQAZQBzAHQALwBhADwALwBsAG8AYwA+ADwALwB1AHIAbAA+ADwALwB1AHIAbABzAGUAdAA+AAoA"
+    },
+    "f2.xml": {
+     "b64": "77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHVybHNldCB4bWxucz0iaHR0cDovL3d3dy5zaXRlbWFwcy5vcmcvc2NoZW1hcy9zaXRlbWFwLzAuOSI+PHVybD48bG9jPmh0dHBzOi8vZXgudGVzdC9hPC9sb2M+PC91cmw+PC91cmxzZXQ+Cg=="
+    },
+    "f3.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc></url></urlset>\n"
+    },
+    "f4.xml": {
+     "text": "<?xml version=\"1.0\" encoding='utf8'?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc></url></urlset>\n"
+    },
+    "f5.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/%C3%BCmlat?q=1&amp;r=2</loc></url></urlset>\n"
+    }
+   },
+   "id": "k01",
+   "manifest": {
+    "checks": [
+     {
+      "file": "f1.xml",
+      "id": "r7",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "f2.xml",
+      "id": "b2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "f3.xml",
+      "id": "m9",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "f4.xml",
+      "id": "p4",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "f5.xml",
+      "id": "z1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "a"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "encoding_invalid",
+        null
+       ]
+      ],
+      "id": "q1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "xml_malformed",
+        null
+       ]
+      ],
+      "id": "q2",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "q3",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "q4",
+      "status": "clean"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "a.xml": {
+     "b64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHVybHNldCB4bWxucz0iaHR0cDovL3d3dy5zaXRlbWFwcy5vcmcvc2NoZW1hcy9zaXRlbWFwLzAuOSI+PHVybD48bG9jPmh0dHBzOi8vZXgudGVzdC/8PC9sb2M+PC91cmw+PC91cmxzZXQ+Cg=="
+    },
+    "b.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/x?a=1&b=2</loc></url></urlset>\n"
+    },
+    "c.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/\u00fcmlat</loc></url></urlset>\n"
+    },
+    "d.xml": {
+     "text": "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/n</loc></url></urlset>"
+    }
+   },
+   "id": "k02",
+   "manifest": {
+    "checks": [
+     {
+      "file": "a.xml",
+      "id": "q1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "b.xml",
+      "id": "q2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "c.xml",
+      "id": "q3",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "d.xml",
+      "id": "q4",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "a,b"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "doctype_present",
+        null
+       ]
+      ],
+      "id": "w1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "w2",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "xml_malformed",
+        null
+       ]
+      ],
+      "id": "w3",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "xml_malformed",
+        null
+       ]
+      ],
+      "id": "w4",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "c.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- generated --><?pi data?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><!-- x --><url><loc>https://ex.test/c</loc></url></urlset>"
+    },
+    "d.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE urlset [<!ENTITY e \"https://ex.test/e\">]><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>&e;</loc></url></urlset>"
+    },
+    "e.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/e</url></loc></urlset>"
+    },
+    "t.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/t</loc></url>"
+    }
+   },
+   "id": "k03",
+   "manifest": {
+    "checks": [
+     {
+      "file": "d.xml",
+      "id": "w1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "c.xml",
+      "id": "w2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "t.xml",
+      "id": "w3",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "e.xml",
+      "id": "w4",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "b"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "root_invalid",
+        null
+       ]
+      ],
+      "id": "a1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "root_invalid",
+        null
+       ]
+      ],
+      "id": "a2",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "a3",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "a4",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "root_invalid",
+        null
+       ]
+      ],
+      "id": "a5",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "root_invalid",
+        null
+       ]
+      ],
+      "id": "a6",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "1.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.google.com/schemas/sitemap/0.84\"><url><loc>https://ex.test/a</loc></url></urlset>"
+    },
+    "2.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset><url><loc>https://ex.test/a</loc></url></urlset>"
+    },
+    "3.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sm:urlset xmlns:sm=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sm:url><sm:loc>https://ex.test/p</sm:loc></sm:url></sm:urlset>"
+    },
+    "4.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ex.test/s1.xml</loc></sitemap></sitemapindex>\n"
+    },
+    "5.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlSet xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc></url></urlSet>"
+    },
+    "6.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<x:urlset xmlns:x=\"http://other.test/ns\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc></url></x:urlset>"
+    }
+   },
+   "id": "k04",
+   "manifest": {
+    "checks": [
+     {
+      "file": "1.xml",
+      "id": "a1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "2.xml",
+      "id": "a2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "3.xml",
+      "id": "a3",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "4.xml",
+      "id": "a4",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "5.xml",
+      "id": "a5",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "6.xml",
+      "id": "a6",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "c"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "no_entries",
+        null
+       ]
+      ],
+      "id": "e1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "no_entries",
+        null
+       ]
+      ],
+      "id": "e2",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "e3",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "element_unexpected",
+        null
+       ],
+       [
+        "no_entries",
+        null
+       ]
+      ],
+      "id": "e4",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "e.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"></urlset>"
+    },
+    "o.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><i:meta xmlns:i=\"http://img.test/1\">m</i:meta><url><loc>https://ex.test/o</loc></url></urlset>\n"
+    },
+    "w.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/u</loc></url></sitemapindex>"
+    },
+    "x.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:i=\"http://img.test/1\"><i:image>https://ex.test/i.png</i:image></urlset>"
+    }
+   },
+   "id": "k05",
+   "manifest": {
+    "checks": [
+     {
+      "file": "e.xml",
+      "id": "e1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "x.xml",
+      "id": "e2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "o.xml",
+      "id": "e3",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "w.xml",
+      "id": "e4",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "d"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "element_unexpected",
+        null
+       ],
+       [
+        "element_unexpected",
+        2
+       ]
+      ],
+      "id": "u1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "u2",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "element_unexpected",
+        2
+       ]
+      ],
+      "id": "u3",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "element_unexpected",
+        1
+       ]
+      ],
+      "id": "u4",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "g.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/g</loc><image:image xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\"><image:loc>https://cdn.other.test/i.png</image:loc></image:image></url></urlset>\n"
+    },
+    "i.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ex.test/a.xml</loc></sitemap><sitemap><loc>https://ex.test/b.xml</loc><changefreq>daily</changefreq></sitemap></sitemapindex>\n"
+    },
+    "m.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/1</loc></url><sitemap><loc>https://ex.test/s.xml</loc></sitemap><url><loc>https://ex.test/2</loc><title>t</title></url></urlset>\n"
+    },
+    "p.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ex.test/c.xml</loc><priority>0.5</priority><lastmod>2024-01-01</lastmod></sitemap></sitemapindex>\n"
+    }
+   },
+   "id": "k06",
+   "manifest": {
+    "checks": [
+     {
+      "file": "m.xml",
+      "id": "u1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "g.xml",
+      "id": "u2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "i.xml",
+      "id": "u3",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "p.xml",
+      "id": "u4",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "d,e"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "loc_missing",
+        2
+       ],
+       [
+        "loc_repeated",
+        3
+       ],
+       [
+        "loc_missing",
+        4
+       ]
+      ],
+      "id": "v1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "v2",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "loc_repeated",
+        1
+       ]
+      ],
+      "id": "v3",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "l.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/1</loc></url><url><lastmod>2024-01-01</lastmod></url><url><loc>https://ex.test/3</loc><loc>https://ex.test/3b</loc></url><url><o:loc xmlns:o=\"http://other.test/ns\">https://ex.test/4</o:loc></url></urlset>\n"
+    },
+    "q.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:s=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><s:loc>https://ex.test/q</s:loc></url></urlset>"
+    },
+    "r.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>ftp://bad</loc><loc>https://ex.test/r</loc></url></urlset>\n"
+    }
+   },
+   "id": "k07",
+   "manifest": {
+    "checks": [
+     {
+      "file": "l.xml",
+      "id": "v1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "q.xml",
+      "id": "v2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "r.xml",
+      "id": "v3",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "e"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "field_repeated",
+        1
+       ],
+       [
+        "field_repeated",
+        2
+       ],
+       [
+        "field_repeated",
+        3
+       ]
+      ],
+      "id": "f1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "f2",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "field_repeated",
+        1
+       ]
+      ],
+      "id": "f3",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "i.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ex.test/s.xml</loc><lastmod>2024-01-01</lastmod><lastmod>2024-01-02</lastmod></sitemap></sitemapindex>\n"
+    },
+    "o.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><priority>0.4</priority><changefreq>never</changefreq><lastmod>2020-02-29</lastmod><loc>https://ex.test/o</loc></url></urlset>\n"
+    },
+    "r.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/1</loc><lastmod>bad</lastmod><lastmod>worse</lastmod></url><url><loc>https://ex.test/2</loc><priority>0.1</priority><priority>0.2</priority></url><url><loc>https://ex.test/3</loc><changefreq>daily</changefreq><changefreq>daily</changefreq></url></urlset>\n"
+    }
+   },
+   "id": "k08",
+   "manifest": {
+    "checks": [
+     {
+      "file": "r.xml",
+      "id": "f1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "o.xml",
+      "id": "f2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "i.xml",
+      "id": "f3",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "e"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [],
+      "id": "c0",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "too_many_entries",
+        null
+       ]
+      ],
+      "id": "c1",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "n0.xml": {
+     "gen": {
+      "base": "https://ex.test/p/",
+      "kind": "entries",
+      "n": 50000
+     }
+    },
+    "n1.xml": {
+     "gen": {
+      "base": "https://ex.test/p/",
+      "kind": "entries",
+      "n": 50001
+     }
+    }
+   },
+   "id": "k09",
+   "manifest": {
+    "checks": [
+     {
+      "file": "n0.xml",
+      "id": "c0",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "n1.xml",
+      "id": "c1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "f"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [],
+      "id": "g0",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "too_large",
+        null
+       ]
+      ],
+      "id": "g1",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "s0.xml": {
+     "gen": {
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/s0</loc></url></urlset>\n",
+      "bytes": 52428800,
+      "kind": "padded"
+     }
+    },
+    "s1.xml": {
+     "gen": {
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>ftp://bad</loc></url></urlset>\n",
+      "bytes": 52428801,
+      "kind": "padded"
+     }
+    }
+   },
+   "id": "k10",
+   "manifest": {
+    "checks": [
+     {
+      "file": "s0.xml",
+      "id": "g0",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "s1.xml",
+      "id": "g1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "f"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "loc_not_absolute",
+        1
+       ],
+       [
+        "loc_not_absolute",
+        2
+       ],
+       [
+        "loc_not_absolute",
+        4
+       ],
+       [
+        "loc_not_absolute",
+        6
+       ]
+      ],
+      "id": "h1",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "a.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>/rel</loc></url><url><loc>ftp://ex.test/f</loc></url><url><loc>HTTPS://EX.test/up</loc></url><url><loc>https:///nohost</loc></url><url><loc>\n\t https://ex.test/ws \r\n</loc></url><url><loc>ex.test/noscheme</loc></url></urlset>\n"
+    }
+   },
+   "id": "k11",
+   "manifest": {
+    "checks": [
+     {
+      "file": "a.xml",
+      "id": "h1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "g"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "loc_too_long",
+        2
+       ],
+       [
+        "loc_too_long",
+        5
+       ]
+      ],
+      "id": "L1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "L2",
+      "status": "clean"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "k.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/k</loc></url></urlset>\n"
+    },
+    "l.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</loc></url><url><loc>https://ex.test/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</loc></url><url><loc>https://ex.test/\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9\u00e9</loc></url><url><loc>  https://ex.test/ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc  </loc></url><url><loc>https://ex.test/dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</loc></url></urlset>\n"
+    }
+   },
+   "id": "k12",
+   "manifest": {
+    "checks": [
+     {
+      "file": "l.xml",
+      "id": "L1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "k.xml",
+      "id": "L2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "g"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "loc_out_of_scope",
+        2
+       ],
+       [
+        "loc_out_of_scope",
+        4
+       ],
+       [
+        "loc_out_of_scope",
+        5
+       ],
+       [
+        "loc_out_of_scope",
+        6
+       ],
+       [
+        "loc_out_of_scope",
+        7
+       ],
+       [
+        "loc_out_of_scope",
+        9
+       ],
+       [
+        "loc_out_of_scope",
+        11
+       ]
+      ],
+      "id": "s1",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "s.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>http://ex.test/cat/x</loc></url><url><loc>http://ex.test/catalog/x</loc></url><url><loc>http://EX.test:80/cat/y</loc></url><url><loc>https://ex.test/cat/z</loc></url><url><loc>http://sub.ex.test/cat/</loc></url><url><loc>http://ex.test/Cat/x</loc></url><url><loc>http://ex.test:8080/cat/x</loc></url><url><loc>http://ex.test/cat/</loc></url><url><loc>http://ex.test/cat</loc></url><url><loc>http://ex.test/cat/../img/x</loc></url><url><loc>http://ex.test/%63at/x</loc></url></urlset>\n"
+    }
+   },
+   "id": "k13",
+   "manifest": {
+    "checks": [
+     {
+      "file": "s.xml",
+      "id": "s1",
+      "sitemapUrl": "http://ex.test/cat/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "h"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "loc_out_of_scope",
+        3
+       ],
+       [
+        "loc_out_of_scope",
+        4
+       ]
+      ],
+      "id": "t1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "loc_out_of_scope",
+        2
+       ]
+      ],
+      "id": "t2",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>http://ex.test:8443/m/a</loc></url><url><loc>http://ex.test/m/b</loc></url></urlset>\n"
+    },
+    "r.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test</loc></url><url><loc>https://ex.test:443/a</loc></url><url><loc>http://ex.test/a</loc></url><url><loc>https://ex.test:80/a</loc></url><url><loc>https://ex.test/deep/er/x?y=1</loc></url></urlset>\n"
+    }
+   },
+   "id": "k14",
+   "manifest": {
+    "checks": [
+     {
+      "file": "r.xml",
+      "id": "t1",
+      "sitemapUrl": "https://ex.test/sitemap.xml?v=2"
+     },
+     {
+      "file": "p.xml",
+      "id": "t2",
+      "sitemapUrl": "http://ex.test:8443/m/s.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "h"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "loc_out_of_scope",
+        2
+       ],
+       [
+        "loc_out_of_scope",
+        4
+       ]
+      ],
+      "id": "i1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "i2",
+      "status": "clean"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "i.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ex.test/other/s.xml</loc></sitemap><sitemap><loc>https://cdn.ex.test/s.xml</loc></sitemap><sitemap><loc>https://ex.test/maps/s2.xml</loc></sitemap><sitemap><loc>http://ex.test/maps/s3.xml</loc></sitemap></sitemapindex>\n"
+    },
+    "j.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://EX.TEST:443/z.xml</loc></sitemap></sitemapindex>\n"
+    }
+   },
+   "id": "k15",
+   "manifest": {
+    "checks": [
+     {
+      "file": "i.xml",
+      "id": "i1",
+      "sitemapUrl": "https://ex.test/maps/index.xml"
+     },
+     {
+      "file": "j.xml",
+      "id": "i2",
+      "sitemapUrl": "https://ex.test/maps/index.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "h"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "lastmod_invalid",
+        7
+       ],
+       [
+        "lastmod_invalid",
+        8
+       ],
+       [
+        "lastmod_invalid",
+        9
+       ],
+       [
+        "lastmod_invalid",
+        10
+       ],
+       [
+        "lastmod_invalid",
+        11
+       ],
+       [
+        "lastmod_invalid",
+        12
+       ],
+       [
+        "lastmod_invalid",
+        13
+       ],
+       [
+        "lastmod_invalid",
+        14
+       ],
+       [
+        "lastmod_invalid",
+        15
+       ],
+       [
+        "lastmod_invalid",
+        16
+       ],
+       [
+        "lastmod_invalid",
+        17
+       ],
+       [
+        "lastmod_invalid",
+        18
+       ],
+       [
+        "lastmod_invalid",
+        19
+       ],
+       [
+        "lastmod_invalid",
+        20
+       ]
+      ],
+      "id": "d1",
+      "status": "findings"
+     },
+     {
+      "error": null,
+      "findings": [
+       [
+        "lastmod_invalid",
+        1
+       ]
+      ],
+      "id": "d2",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "i.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ex.test/a.xml</loc><lastmod>2005-01</lastmod></sitemap><sitemap><loc>https://ex.test/b.xml</loc><lastmod>2005-01-01</lastmod></sitemap></sitemapindex>\n"
+    },
+    "l.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/l0</loc><lastmod>2024-02-29</lastmod></url><url><loc>https://ex.test/l1</loc><lastmod>2005-01-01T18:00+00:00</lastmod></url><url><loc>https://ex.test/l2</loc><lastmod>2004-12-23T18:00:15Z</lastmod></url><url><loc>https://ex.test/l3</loc><lastmod>1997-07-16T19:20:30.45+01:00</lastmod></url><url><loc>https://ex.test/l4</loc><lastmod> 2000-02-29T23:59:59-12:30 </lastmod></url><url><loc>https://ex.test/l5</loc><lastmod>2005-01-01T00:00:00.1Z</lastmod></url><url><loc>https://ex.test/l6</loc><lastmod>2023-02-29</lastmod></url><url><loc>https://ex.test/l7</loc><lastmod>2005-01</lastmod></url><url><loc>https://ex.test/l8</loc><lastmod>2005</lastmod></url><url><loc>https://ex.test/l9</loc><lastmod>2005-01-01T18:00:15</lastmod></url><url><loc>https://ex.test/l10</loc><lastmod>2005-13-01</lastmod></url><url><loc>https://ex.test/l11</loc><lastmod>2005-01-01T24:00Z</lastmod></url><url><loc>https://ex.test/l12</loc><lastmod>1900-02-29</lastmod></url><url><loc>https://ex.test/l13</loc><lastmod>2005-01-01T18:60Z</lastmod></url><url><loc>https://ex.test/l14</loc><lastmod>2005-01-01T18:00:60Z</lastmod></url><url><loc>https://ex.test/l15</loc><lastmod>2005-01-01T18:00+0100</lastmod></url><url><loc>https://ex.test/l16</loc><lastmod>2005-1-01</lastmod></url><url><loc>https://ex.test/l17</loc><lastmod>2005-01-01 18:00Z</lastmod></url><url><loc>https://ex.test/l18</loc><lastmod>2005-04-31</lastmod></url><url><loc>https://ex.test/l19</loc><lastmod>2005-01-01T18:00:15.Z</lastmod></url></urlset>\n"
+    }
+   },
+   "id": "k16",
+   "manifest": {
+    "checks": [
+     {
+      "file": "l.xml",
+      "id": "d1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "i.xml",
+      "id": "d2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "i"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "changefreq_invalid",
+        3
+       ],
+       [
+        "changefreq_invalid",
+        4
+       ],
+       [
+        "changefreq_invalid",
+        6
+       ],
+       [
+        "changefreq_invalid",
+        7
+       ],
+       [
+        "changefreq_invalid",
+        9
+       ]
+      ],
+      "id": "j1",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "c.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/c0</loc><changefreq>weekly</changefreq></url><url><loc>https://ex.test/c1</loc><changefreq> daily\n</changefreq></url><url><loc>https://ex.test/c2</loc><changefreq>Daily</changefreq></url><url><loc>https://ex.test/c3</loc><changefreq>fortnightly</changefreq></url><url><loc>https://ex.test/c4</loc><changefreq>never</changefreq></url><url><loc>https://ex.test/c5</loc><changefreq>weekly\u00a0</changefreq></url><url><loc>https://ex.test/c6</loc><changefreq></changefreq></url><url><loc>https://ex.test/c7</loc><changefreq>always</changefreq></url><url><loc>https://ex.test/c8</loc><changefreq>HOURLY</changefreq></url></urlset>\n"
+    }
+   },
+   "id": "k17",
+   "manifest": {
+    "checks": [
+     {
+      "file": "c.xml",
+      "id": "j1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "j"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [
+       [
+        "priority_invalid",
+        5
+       ],
+       [
+        "priority_invalid",
+        6
+       ],
+       [
+        "priority_invalid",
+        7
+       ],
+       [
+        "priority_invalid",
+        9
+       ],
+       [
+        "priority_invalid",
+        11
+       ],
+       [
+        "priority_invalid",
+        13
+       ],
+       [
+        "priority_invalid",
+        14
+       ]
+      ],
+      "id": "y1",
+      "status": "findings"
+     }
+    ],
+    "exit": 1,
+    "verdict": "failed-policy"
+   },
+   "files": {
+    "p.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/p0</loc><priority>1.0</priority></url><url><loc>https://ex.test/p1</loc><priority>.5</priority></url><url><loc>https://ex.test/p2</loc><priority>1.</priority></url><url><loc>https://ex.test/p3</loc><priority>+0.3</priority></url><url><loc>https://ex.test/p4</loc><priority>1.01</priority></url><url><loc>https://ex.test/p5</loc><priority>-0.1</priority></url><url><loc>https://ex.test/p6</loc><priority>1e-1</priority></url><url><loc>https://ex.test/p7</loc><priority> 0.5 </priority></url><url><loc>https://ex.test/p8</loc><priority>NaN</priority></url><url><loc>https://ex.test/p9</loc><priority>-0.0</priority></url><url><loc>https://ex.test/p10</loc><priority>1.0000000000000000001</priority></url><url><loc>https://ex.test/p11</loc><priority>0</priority></url><url><loc>https://ex.test/p12</loc><priority></priority></url><url><loc>https://ex.test/p13</loc><priority>0,5</priority></url><url><loc>https://ex.test/p14</loc><priority>1.00000</priority></url></urlset>\n"
+    }
+   },
+   "id": "k18",
+   "manifest": {
+    "checks": [
+     {
+      "file": "p.xml",
+      "id": "y1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "k"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [],
+      "id": "o1",
+      "status": "clean"
+     },
+     {
+      "error": "file_unreadable",
+      "findings": [],
+      "id": "o2",
+      "status": "error"
+     },
+     {
+      "error": "check_invalid",
+      "findings": [],
+      "id": "o3",
+      "status": "error"
+     },
+     {
+      "error": "check_invalid",
+      "findings": [],
+      "id": "o1",
+      "status": "error"
+     },
+     {
+      "error": "check_invalid",
+      "findings": [],
+      "id": "o5",
+      "status": "error"
+     },
+     {
+      "error": "check_invalid",
+      "findings": [],
+      "id": "o6",
+      "status": "error"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "o7",
+      "status": "clean"
+     }
+    ],
+    "exit": 2,
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "ok.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/ok</loc></url></urlset>\n"
+    },
+    "sub/n.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/n</loc></url></urlset>\n"
+    }
+   },
+   "id": "k19",
+   "manifest": {
+    "checks": [
+     {
+      "file": "ok.xml",
+      "id": "o1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "missing.xml",
+      "id": "o2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "ok.xml",
+      "id": "o3",
+      "sitemapUrl": "/sitemap.xml"
+     },
+     {
+      "file": "ok.xml",
+      "id": "o1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "sub/../ok.xml",
+      "id": "o5",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "ok.xml",
+      "id": "o6",
+      "sitemapUrl": 5
+     },
+     {
+      "file": "sub/n.xml",
+      "id": "o7",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "manifest"
+  },
+  {
+   "expect": {
+    "checks": [],
+    "error": "input_invalid",
+    "exit": 2,
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "ok.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc></url></urlset>\n"
+    }
+   },
+   "id": "k20",
+   "manifest": {
+    "checks": [
+     {
+      "file": "ok.xml",
+      "id": "x1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 2
+   },
+   "rule": "manifest"
+  },
+  {
+   "expect": {
+    "checks": [
+     {
+      "error": null,
+      "findings": [],
+      "id": "n1",
+      "status": "clean"
+     },
+     {
+      "error": null,
+      "findings": [],
+      "id": "n2",
+      "status": "clean"
+     }
+    ],
+    "exit": 0,
+    "verdict": "clean"
+   },
+   "files": {
+    "a.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc><lastmod>2024-01-01</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url></urlset>\n"
+    },
+    "b.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><sitemap><loc>https://ex.test/a.xml</loc><lastmod>2024-01-01T10:00:00Z</lastmod></sitemap></sitemapindex>\n"
+    }
+   },
+   "id": "k21",
+   "manifest": {
+    "checks": [
+     {
+      "file": "a.xml",
+      "id": "n1",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     },
+     {
+      "file": "b.xml",
+      "id": "n2",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "verdict"
+  },
+  {
+   "expect": {
+    "checks": [],
+    "error": "input_invalid",
+    "exit": 2,
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "ok.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc></url></urlset>\n"
+    }
+   },
+   "id": "k22",
+   "manifestRaw": "{version: 1, checks: []",
+   "rule": "manifest"
+  },
+  {
+   "expect": {
+    "checks": [],
+    "error": "input_invalid",
+    "exit": 2,
+    "verdict": "could-not-evaluate"
+   },
+   "files": {
+    "ok.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc></url></urlset>\n"
+    }
+   },
+   "id": "k23",
+   "manifest": {
+    "checks": [],
+    "version": 1
+   },
+   "rule": "manifest"
+  },
+  {
+   "argv": [
+    "--manifest"
+   ],
+   "expect": {
+    "exit": 64
+   },
+   "files": {
+    "ok.xml": {
+     "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://ex.test/a</loc></url></urlset>\n"
+    }
+   },
+   "id": "k24",
+   "manifest": {
+    "checks": [
+     {
+      "file": "ok.xml",
+      "id": "x",
+      "sitemapUrl": "https://ex.test/sitemap.xml"
+     }
+    ],
+    "version": 1
+   },
+   "rule": "usage"
+  }
+ ],
+ "version": 1
+}

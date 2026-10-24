@@ -1,0 +1,57 @@
+{
+ "schema": "kake-r33-refusal-code-criterion/1",
+ "revision": "bc6c4a8",
+ "checks": [
+  {
+   "id": "S1_specs_name_code",
+   "met": false,
+   "detail": {
+    "cases": 12,
+    "reason_contains_cases": 1,
+    "violations": [
+     "scripts/fixtures/citing-set-hostile/P6-commit-before-init/hostile.json case 'h6'"
+    ]
+   }
+  },
+  {
+   "id": "S2_schema_accepts_code",
+   "met": false,
+   "detail": {
+    "case_keys": [
+     "case_json",
+     "dot_git",
+     "expected",
+     "name",
+     "planted_scripts",
+     "reason_contains",
+     "symlink_case"
+    ]
+   }
+  },
+  {
+   "id": "S3_selftest_compares_code",
+   "met": false,
+   "detail": {
+    "comparison_involving_code": false
+   }
+  },
+  {
+   "id": "S4_runner_emits_code",
+   "met": false,
+   "detail": {
+    "per_case_code_field": false
+   }
+  },
+  {
+   "id": "S5_code_literal_in_runner",
+   "met": true,
+   "detail": {
+    "named_codes": [],
+    "absent_from_runner": []
+   }
+  }
+ ],
+ "met": 1,
+ "total": 5,
+ "passed": false
+}

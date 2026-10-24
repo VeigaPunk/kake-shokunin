@@ -1,0 +1,26 @@
+# ExecNetworkFreeProof
+
+Axis: operability (runtime behavior). Freshness was not assessed.
+
+## Result
+Ran the landed `scripts/link_preview_audit.py` against all 102 retained ds4cc pages and all 28 frozen matrix cases. All 29 campaign executions ran inside `unshare -rn` under `strace -f -e trace=network,openat,creat,rename,unlink`; one additional K1 namespace-availability probe also succeeded. Across 30 traces: no network syscall (including no socket call), no write-mode `openat`, and no `creat`, `rename`, or `unlink`. The only observed syscall was `openat`, 5,284 calls, with flags exclusively `O_RDONLY` (210), `O_RDONLY|O_CLOEXEC` (4,594), and `O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY` (480).
+
+The retained-page invocation checked 102 pages and returned exit 1 / `failed-policy` (expected policy findings in the archived site data). Matrix exits matched all expected values: K1–K6 exit 0; D1–D13 exit 1; I1–I7 exit 2; U1–U2 exit 64. No tools were installed and no sudo or host privilege escalation was used; `unshare -rn` succeeded in an unprivileged user/network namespace.
+
+## Commands and exit codes
+- Tool discovery/version command (`command -v strace; strace --version; command -v unshare; unshare --version; command -v python3; python3 --version; command -v tar; command -v xz`) — exit 0; strace 7.2, util-linux unshare 2.42.4, Python 3.14.8.
+- Sandbox checkout and extraction: `git clone -q /home/vgpnk/Projects/shokunin/kake-shokunin /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/clone`; `git -C /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/clone checkout -q 24a16474ee73e20453f3e1be9d2f33573c5196d9`; `git -C /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/clone show 24a16474ee73e20453f3e1be9d2f33573c5196d9:scripts/link_preview_audit.py > /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/link_preview_audit.py`; `tar -xJf /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-34/sources/ds4cc-7fc6aa2f/html.tar.xz -C /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/inputs/ds4cc` — each exit 0. Copied the retained matrix, tree, and archive into `inputs/` (copy/extraction chain exit 0). The tool blob ID was `93f3a2a7453f7de00580a4b37ffd8b1669eb33b6`.
+- `python3 -B /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/prepare_inputs.py` — first attempt exit 1 (`retained page count/missing mismatch: 0, []`) because the helper split the tree rows incorrectly; after correcting the parser, rerun exit 0: `retained_pages=102`, `matrix_cases=28`.
+- Namespace probe: `unshare -rn strace -f -e trace=network,openat,creat,rename,unlink -o /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/inputs/matrix_cases/K1-full-four-canonical-equal/unshare-probe.strace python3 -B /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/link_preview_audit.py --manifest manifest.json` — exit 0; stdout `{"findings":[],"pagesChecked":1,"verdict":"clean"}`.
+- `python3 -B /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/trace_runs.py` — exit 0; 29 campaign runs, 0 exit mismatches. Each actual invocation used `unshare -rn strace -f -e trace=network,openat,creat,rename,unlink -o <run>/trace.strace python3 -B /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/link_preview_audit.py <argv>`. Literal per-run commands, arguments, exit codes, and paths are in `inputs/traces/summary.json`.
+- `python3 -B /fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/summarize_traces.py` — exit 0; 30 traces summarized (campaign plus namespace probe), syscall counts as above.
+- `sha256sum` of the evidence files below — exit 0.
+
+## Evidence
+All paths below are in `/fast/scratch/hyaku/kake-r34/w2/ExecNetworkFreeProof/`.
+- Inputs: `inputs/tree.txt` records source commit and 102 HTML blobs; SHA-256 `2d5d047ff6db6c697a587b965d31847bf6de3f9bdcf3bf45ffb0c32f5f573516`. Archive `inputs/html.tar.xz` SHA-256 `818f06443470f6dcb4118cbb1ada15fd7880faeba40ac85e4418e0455d2fe7a3`. Matrix `inputs/c1-matrix.json` SHA-256 `246a6a3ba67a842c408f56b0240d2ad36969330c5a414b715f04b7e56fac14f7`. Retained manifest `inputs/ds4cc/manifest.json` SHA-256 `30ebc69eb72361b2864cbc29662307b94491edae5a46e06dfd5bc93eb8c2eea5`.
+- Exit evidence: `inputs/traces/summary.json:10-38,849-852`, SHA-256 `71cd9ebf5b1eba6e59b21aa972975ba42129b53b9cc20c223ad4ddc6c07118e3`; retained output contains `pagesChecked:102` and `verdict:failed-policy` (`inputs/traces/retained-ds4cc-102/stdout.txt`).
+- Syscall aggregate: `inputs/traces/syscall-summary.json:1-19`, SHA-256 `1c1fe6410e3480c75200bfb8292146c2ca4a23fb83596ffa5876f3e8c77d5bbf`. Retained raw trace SHA-256 `5a5e4e14acf889acfa372fe4e7225e348663342a928c0fdee0c7eca0ab82ff90`; K1 raw trace SHA-256 `a448d811bbd5a6c767743e1078b501e2f0cb11f0443451b49c4d7d5b6c3cb91c`; namespace-probe trace SHA-256 `688a086f8425d8b8dee2f34995460cccb3e70891f41933c90adb64a41fcce0f4`.
+
+## Limits
+This is evidence for these executions on this Linux/Python build, not a universal proof for all inputs or platforms. The requested filter observes network calls and the listed open/create/rename/unlink calls; it does not trace every possible disk mutation primitive (for example, `write`, `open`, `openat2`, or truncation syscalls). No build, lint, or unrelated tests were run.

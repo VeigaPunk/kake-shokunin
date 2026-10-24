@@ -1,0 +1,33 @@
+{
+ "id": "T05",
+ "token": "~/Projects/plazir-15-site/.github/workflows/pages.yml",
+ "class": "newMissing",
+ "observedAt": "2026-10-21T11:49:43Z",
+ "state": "absent",
+ "observation": {
+  "commands": [
+   "date -u +%Y-%m-%dT%H:%M:%SZ",
+   "test -e /home/vgpnk/Projects/plazir-15-site/.github/workflows/pages.yml",
+   "stat -c '%n %w %y' /home/vgpnk/Projects/plazir-15-site/.github/workflows/pages.yml",
+   "ls -la /home/vgpnk/Projects",
+   "git -C /home/vgpnk/Projects/plazir-15-site log -3 --format='%H %cI %s'",
+   "git -C /home/vgpnk/Projects/plazir-15-site remote -v"
+  ],
+  "output": "2026-10-21T11:49:43Z; test_exit=1; stat: cannot stat '/home/vgpnk/Projects/plazir-15-site/.github/workflows/pages.yml': No such file or directory (os error 2); stat_exit=1; ls -la /home/vgpnk/Projects: 0 files, 24 dirs, no plazir-15-site entry; ls_exit=0; git log and remote both failed with fatal: cannot change to '/home/vgpnk/Projects/plazir-15-site': No such file or directory; each exit 128. Output abbreviated faithfully."
+ },
+ "event": "W7 ~/Projects prune/migration: later lane annotations attribute the removal to 2026-10-12; the primary round-18 census records the checkout absent on 2026-10-14 after the round-17 present observation (~2026-09-29), so the exact removal time is not independently established.",
+ "cites": [
+  {
+   "cite": "SKILL.md:461",
+   "lineText": "- [property-map:c40] **UNVERIFIABLE** — The front is currently published by GitHub Actions on pushes to `main`. Surface: `/home/vgpnk/Projects/plazir-15-site/.github/workflows/pages.yml`. Unverifiable: The mapped checkout and workflow are absent locally; the one public page GET confirms served HTML but cannot establish the current GitHub Actions or Pages deployment configuration.",
+   "authored": "lane",
+   "status": "annotated-true",
+   "action": "none",
+   "text": ""
+  }
+ ],
+ "reportSources": [
+  ".ufo/waves/round-24/w1/PathsNewT05PagesYml.md"
+ ],
+ "integrationDisposition": "Original suffix proposals are rejected; authoritative correction is the hash-bound sidecar and EOF correction block, per contract-amendment.json."
+}

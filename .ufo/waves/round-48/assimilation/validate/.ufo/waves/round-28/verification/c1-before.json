@@ -1,0 +1,258 @@
+{
+  "counter": ".ufo/waves/round-28/c1_interface_count.py",
+  "revision": "22c1669c1fec83d1a0769de6b9ce686c75657e66",
+  "passed": 4,
+  "total": 15,
+  "defectPassed": 0,
+  "defectTotal": 11,
+  "controlPassed": 4,
+  "controlTotal": 4,
+  "cases": [
+    {
+      "id": "U1-population-fifo",
+      "kind": "defect",
+      "attacks": "unusable input document (CLI-FIFO)",
+      "passed": false,
+      "reasons": [
+        "timed out after 20s",
+        "exit None, want 2",
+        "stdout is not one JSON object"
+      ],
+      "observed": {
+        "exit": null,
+        "timedOut": true,
+        "verdict": null,
+        "findingReasons": [],
+        "stdoutHead": "",
+        "stderrTail": ""
+      }
+    },
+    {
+      "id": "U2-ledger-fifo",
+      "kind": "defect",
+      "attacks": "unusable input document (CLI-FIFO)",
+      "passed": false,
+      "reasons": [
+        "timed out after 20s",
+        "exit None, want 2",
+        "stdout is not one JSON object"
+      ],
+      "observed": {
+        "exit": null,
+        "timedOut": true,
+        "verdict": null,
+        "findingReasons": [],
+        "stdoutHead": "",
+        "stderrTail": ""
+      }
+    },
+    {
+      "id": "U3-population-deep-json",
+      "kind": "defect",
+      "attacks": "unusable input document (JSON-PROTOCOL depth)",
+      "passed": false,
+      "reasons": [
+        "exit 1, want 2",
+        "stdout is not one JSON object"
+      ],
+      "observed": {
+        "exit": 1,
+        "timedOut": false,
+        "verdict": null,
+        "findingReasons": [],
+        "stdoutHead": "",
+        "stderrTail": "/python3.14/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/json/decoder.py\", line 361, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ~~~~~~~~~~~~~~^^^^^^^^\nRecursionError: Stack overflow (used 8144 kB) while decoding a JSON array from a unicode string\n"
+      }
+    },
+    {
+      "id": "U4-ledger-deep-json",
+      "kind": "defect",
+      "attacks": "unusable input document (JSON-PROTOCOL depth)",
+      "passed": false,
+      "reasons": [
+        "exit 1, want 2",
+        "stdout is not one JSON object"
+      ],
+      "observed": {
+        "exit": 1,
+        "timedOut": false,
+        "verdict": null,
+        "findingReasons": [],
+        "stdoutHead": "",
+        "stderrTail": "/python3.14/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/json/decoder.py\", line 361, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ~~~~~~~~~~~~~~^^^^^^^^\nRecursionError: Stack overflow (used 8140 kB) while decoding a JSON array from a unicode string\n"
+      }
+    },
+    {
+      "id": "A1-corpus-absent-working-tree",
+      "kind": "defect",
+      "attacks": "absent corpus surface (CLI-SCOPE-FALSE-GREEN)",
+      "passed": false,
+      "reasons": [
+        "exit 0, want 2",
+        "verdict 'clean', want 'could-not-evaluate'",
+        "no input_invalid finding"
+      ],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "A2-corpus-absent-git",
+      "kind": "defect",
+      "attacks": "absent corpus surface at a revision (CLI-SCOPE-FALSE-GREEN)",
+      "passed": false,
+      "reasons": [
+        "exit 0, want 2",
+        "verdict 'clean', want 'could-not-evaluate'",
+        "no input_invalid finding"
+      ],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "A3-corpus-empty-working-tree",
+      "kind": "defect",
+      "attacks": "empty corpus surface (CLI-SCOPE-FALSE-GREEN)",
+      "passed": false,
+      "reasons": [
+        "exit 0, want 2",
+        "verdict 'clean', want 'could-not-evaluate'",
+        "no input_invalid finding"
+      ],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "A4-corpus-blob-git",
+      "kind": "defect",
+      "attacks": "corpus surface is a blob at a revision (CLI-SCOPE-FALSE-GREEN)",
+      "passed": false,
+      "reasons": [
+        "exit 0, want 2",
+        "verdict 'clean', want 'could-not-evaluate'",
+        "no input_invalid finding"
+      ],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "A5-population-unreachable-id",
+      "kind": "defect",
+      "attacks": "unreachable population ids (CLI-SCOPE-FALSE-GREEN)",
+      "passed": false,
+      "reasons": [
+        "exit 0, want 2",
+        "verdict 'clean', want 'could-not-evaluate'",
+        "no input_invalid finding"
+      ],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "A6-blank-revision",
+      "kind": "defect",
+      "attacks": "blank revision measures the working tree (CLI-SCOPE-FALSE-GREEN)",
+      "passed": false,
+      "reasons": [
+        "exit 0, want 2",
+        "verdict 'clean', want 'could-not-evaluate'",
+        "no input_invalid finding"
+      ],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "A7-nested-git-root",
+      "kind": "defect",
+      "attacks": "nested Git root reads a wrong surface (CLI-SCOPE-FALSE-GREEN)",
+      "passed": false,
+      "reasons": [
+        "exit 0, want 2",
+        "verdict 'clean', want 'could-not-evaluate'",
+        "no input_invalid finding"
+      ],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "K1-valid-clean-working-tree",
+      "kind": "control",
+      "attacks": "gate that refuses valid input",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "K2-valid-clean-git",
+      "kind": "control",
+      "attacks": "gate that refuses valid Git input",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "verdict": "clean",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "K3-valid-failed-missing-pair",
+      "kind": "control",
+      "attacks": "gate that hides a real omission",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 1,
+        "timedOut": false,
+        "verdict": "failed",
+        "findingReasons": []
+      }
+    },
+    {
+      "id": "K4-fixture-selftest",
+      "kind": "control",
+      "attacks": "gate that breaks the 29 fixture outcomes",
+      "passed": true,
+      "reasons": [],
+      "observed": {
+        "exit": 0,
+        "timedOut": false,
+        "passed": true,
+        "failed": 0,
+        "cases": 29
+      }
+    }
+  ]
+}
