@@ -1,0 +1,13 @@
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/ledger_latest_check.py --root .
+rescore-tally MATCH quoted=14 derived=14 SCORECARD.md:3581
+donothing-ratios MATCH quoted=T1 4.21, T5 7.05 derived=T1 4.21, T5 7.05 LOG.md:1703
+build-ratio-range MATCH quoted=T1 1.00–1.01, T5 1.11–1.22 derived=T1 1.00–1.01, T5 1.11–1.22 LOG.md:1705
+ledger-quotes: 3 figures, 0 mismatches
+exit status: 0
+
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/ledger_latest_check.py --selftest
+ledger_latest_check --selftest
+  PASS matching fixture MATCH quoted=14 derived=14
+  RED MISMATCH mismatching fixture quoted=18 derived=14
+selftest: 2/2 passed
+exit status: 0

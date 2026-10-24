@@ -1,0 +1,56 @@
+{
+ "stage": "after",
+ "driver": ".ufo/waves/round-45/c45_audit.py",
+ "driver_sha256": "f3c3171b658abccd05bcbf35059243b607ff9979cb88055eed6920f7f4e0a076",
+ "ran_at_ns": 1792813796057423544,
+ "fixtures": {
+  "counter-error": {
+   "fixture": "counter-error",
+   "exit": 1,
+   "ok": false,
+   "rejection_classes": [
+    "counter_error"
+   ],
+   "cohort": ".ufo/waves/round-45/verification/matrix/runs/after/counter-error-bfdcbac53c48",
+   "summary": ".ufo/waves/round-45/verification/matrix/runs/after/counter-error-bfdcbac53c48/summary.json"
+  },
+  "tool-absent": {
+   "fixture": "tool-absent",
+   "exit": 1,
+   "ok": false,
+   "rejection_classes": [
+    "tool_absent"
+   ],
+   "cohort": ".ufo/waves/round-45/verification/matrix/runs/after/tool-absent-754d72a556bf",
+   "summary": ".ufo/waves/round-45/verification/matrix/runs/after/tool-absent-754d72a556bf/summary.json"
+  },
+  "stale-planted": {
+   "fixture": "stale-backdate",
+   "exit": 1,
+   "ok": false,
+   "rejection_classes": [
+    "stale_receipt"
+   ],
+   "cohort": ".ufo/waves/round-45/verification/matrix/runs/after/stale-planted-47bd82ade247",
+   "summary": ".ufo/waves/round-45/verification/matrix/runs/after/stale-planted-47bd82ade247/summary.json"
+  }
+ },
+ "honest": {
+  "exit": 0,
+  "valid": true,
+  "problems": [],
+  "witnessed": 27,
+  "build_met": 3,
+  "cohort": ".ufo/waves/round-45/verification/matrix/runs/after/honest-8e7184ba711d",
+  "summary": ".ufo/waves/round-45/verification/matrix/runs/after/honest-8e7184ba711d/after-v5-v2.json"
+ },
+ "invalid_accepted": 0,
+ "rejections_named": 3,
+ "named_classes": [
+  "counter_error",
+  "stale_receipt",
+  "tool_absent"
+ ],
+ "honest_witnessed": 27,
+ "honest_build_met": 3
+}

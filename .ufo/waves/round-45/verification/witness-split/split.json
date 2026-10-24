@@ -1,0 +1,6 @@
+{
+  "command": "jq -r '.rows | {class_only: map(select(.met==false and (.classCaught|length)>0 and (.legacyCaught|length)==0))|length, mixed: map(select(.met==false and (.classCaught|length)>0 and (.legacyCaught|length)>0))|length, met: map(select(.met==true))|length, other: map(select(.met==false and (.classCaught|length)==0))|length}' .ufo/waves/round-44/verification/claim/after-final/after-v5.json",
+  "receipt": ".ufo/waves/round-44/verification/claim/after-final/after-v5.json",
+  "receipt_sha256": "9dead4d7d65d10f268f37efba185f12bb4f8e8942e8e81e98df4b1c8fdc076d1",
+  "jq_output_verbatim": "{\n  \"class_only\": 26,\n  \"mixed\": 1,\n  \"met\": 0,\n  \"other\": 0\n}\n"
+}
