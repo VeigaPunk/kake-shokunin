@@ -3707,3 +3707,69 @@ receipt re-derives from committed bytes (`classRuns` empty, no G-runs in `runs`)
 the m1–m4 mutants are reconstructions of the round-44 MutClassGate report's four
 mutants, each documented with its source-line target; (4) no frozen byte is edited
 (same sha guard as C1).
+
+### Round 45 — C1 and C2 measured (appended after the freeze; the declarations above are not edited)
+
+Measured at tip during round 45; wave-1 build seats integrated by the L1 (driver v2 sha256
+`f3c3171b658abccd05bcbf35059243b607ff9979cb88055eed6920f7f4e0a076`; counter v6 sha256
+`e17b5dc8a6bd710cd5b4c27569c0972730cf0048d8db4842e115945982cf403b`; matrix runner and
+freshness runner as committed). Scores stay at the declared saturation line 10/10 (HOLD).
+
+**C1 — measured.** Counting command `python3 -B .ufo/waves/round-45/c45_matrix.py --stage before|after`:
+- before — `verification/matrix/before.json`: invalid_accepted=3 (frozen v1 certifies all three
+  invalid fixture classes, honest 27/27 + build 3/3 also certified, proving the before receipts are
+  not degenerate); MATRIX_BEFORE_PASS, exit 0.
+- after — `verification/matrix/after.json`: invalid_accepted=0, rejections_named=3
+  (counter_error, tool_absent, stale_receipt — the stale class refused by the mtime window with a
+  valid exit 0 via the committed `fixtures/stale-backdate/` fake), honest_witnessed=27,
+  honest_build_met=3 with identity validation (counter sha == frozen v5, controls==27, ok, no
+  errors); MATRIX_AFTER_PASS, exit 0.
+- The bounded MET condition as frozen is met: invalid_accepted 3 → 0, each rejection named,
+  honest certification unchanged. Kill-rule evidence: sha guard clean after pycache remediation
+  (`w1/SentinelFrozen.md`, `w1/ReviewScopeBound.md` F1 — generated `__pycache__` bytes removed,
+  committed frozen bytes untouched); receipts re-derive (rerun the counting command); v2 reads no
+  control file beyond v1's; v2's honest verdict equals v1's on the same inputs (27/27, build 3/3);
+  fixtures match real receipt shapes (`w1/ScoutReceiptShape.md`, `w1/CriticFixtures.md` — the
+  counter-error receipt is a byte copy of a real committed receipt, exit overridden).
+- **Verdict: NOT MET as declared.** The frozen predicate sentence asserts refusal for "any
+  control whose receipt ... was not written inside the driver's own run window **over the invoked
+  counter bytes**"; the implemented checks (exit set, note, counter-sha self-report, run-window
+  mtime with 1 s wall-clock tolerance, seed) cannot establish that causal clause — a receipt
+  written during the window by different bytes carrying the expected sha is indistinguishable
+  (`w1/CriticC1Predicate.md`, claim-breaking for the literal reading; a model demonstrates
+  identical gate inputs for both writer histories). The bounded three-fixture claim with an
+  explicit trusted-local-counter boundary is verified above; the causal/universal reading is
+  routed to the operator (`.ufo/l0-questions.md`). No post-hoc narrowing: this append records
+  the falsification, the verified bounded repair, and the named residual hole.
+
+**C2 — measured.** Counting command `python3 -B .ufo/waves/round-45/c45_freshness.py`
+(`verification/freshness/freshness.json`):
+- leg (a) selftest kills: before=2/4 (m1/m3 killed, m2 timing-only and m4 error-witness survive
+  the frozen v1 shipped selftest, `verification/selftest-coverage/before/`), after=4/4 (the same
+  four one-line mutations against driver v2's shipped selftest, `mutants/m1..4_v2.py`,
+  `verification/selftest-coverage/after/`; v2's selftest gained the timing-only and errored-row
+  fixtures plus an end-to-end temp cohort that drives `main()` itself, so an unwired-gate mutant
+  also dies — `w1/MutDriverV2Spec.md` coverage findings closed).
+- leg (b) v4 receipt predicate names class runs: before=true (committed round-44 v4 receipt
+  `verification/claim/v4-final/v4.json` names "the ten class runs" while carrying
+  `classesMode:"v4"`, `classRuns:[]`), after=false (fresh counter-v6 v4 receipt
+  `verification/v6v4/counter-v4.json`: eleven runs only, no class-runs phrase, exit 0;
+  v5→v6 diff = 3 hunks, docstring + predicate-text classes only, PREDICATE_V5 byte-identical —
+  `v6diff/v5-v6.diff`, `w1/CriticV6Minimal.md`, `w1/MutCounterV6Spec.md` 4/4 mutants killed).
+- leg (c) witness split: **FALSIFIED as declared.** The frozen tuple `22 class-only + 1 mixed +
+  4 met` does not re-derive from the named claim receipt
+  `.ufo/waves/round-44/verification/claim/after-final/after-v5.json` (sha256
+  `9dead4d7d65d10f268f37efba185f12bb4f8e8942e8e81e98df4b1c8fdc076d1`), which re-derives as
+  **26 class-only + 1 mixed + 0 met** (`verification/witness-split/split.json`). The 22/1/4 tuple
+  belongs to the earlier 23-witness receipt `verification/claim/after-v5.json` (sha256
+  `2383efae…ce0902`) — found independently by four wave-1 seats. Correction filed append-only
+  (lesson entry 15; the runner prints the measured truth, never the frozen target).
+- **Verdict: NOT MET as declared** (conjunctive MET fails on leg (c)); legs (a) and (b) verify.
+  The receipt-identity mistake is the round's second instance of the receipt-trust class
+  (entry 15 in `corpus/lessons/round-45.md`).
+
+**Round verdict.** Both claims NOT MET as declared; every falsified element is corrected
+append-only with re-derivable evidence, the bounded repairs verify, and no owned axis is harmed
+(ledger gate green at 3 figures / 0 mismatches after all edits — `python3 -B
+scripts/ledger_latest_check.py --root .` exit 0; frozen round-43/44 bytes byte-identical).
+Admission is the operator's call; per the honesty rules nothing here is rerolled.

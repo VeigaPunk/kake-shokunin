@@ -1729,3 +1729,19 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   runs, and (c) the claim receipt's 27 witnessed controls re-derive as 22 class-only +
   1 mixed + 4 met, filed with the re-derivation command. Routed from `MutClassGate.md`,
   `CriticHarmGuard.md`, `CriticC1Predicate.md`.
+- Measured (same round, appended): C1's bounded MET condition met by driver v2
+  (`c45_audit.py` sha `f3c3171b…`, exit/note/counter-sha/run-window/seed validity gate, shared
+  row builders, end-to-end cohort selftest): the frozen counting command records
+  invalid_accepted 3→0 with three named rejections and an unchanged honest cohort (27/27,
+  build 3/3, identity-validated) — `verification/matrix/{before,after}.json`. The frozen
+  predicate sentence's causal clause ("over the invoked counter bytes") is falsified as
+  declared (`w1/CriticC1Predicate.md`): mtime + self-reported sha cannot prove the writing
+  bytes; routed to the operator via `.ufo/l0-questions.md`. C2 legs (a) 2/4→4/4 and (b)
+  true→false verify (`c45_freshness.py`, `verification/v6v4/counter-v4.json`,
+  `verification/selftest-coverage/`); leg (c) is falsified as declared — the named claim
+  receipt re-derives 26 class-only + 1 mixed + 0 met, not the frozen 22/1/4 (that tuple is the
+  earlier 23-witness receipt's). Both claims NOT MET as declared; corrections append-only;
+  no axis harmed (ledger gate exit 0 at tip; frozen bytes byte-identical after pycache
+  remediation). Frontier: S133 admitted (Python subprocess docs, grounds C1), S134 rejected
+  (SO answer, duplicate of the tier-A point); lesson round-45 Mistakes 14-15; knowledge entry
+  `receipt-integrity.md`; registry 132 → 134 rows, census exit 0.

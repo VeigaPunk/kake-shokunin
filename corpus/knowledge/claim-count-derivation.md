@@ -27,3 +27,10 @@ Rules landed with this entry (round 43):
    rows/mined/queued/rejected at two revisions from a claims file and exits 1 on any mismatch.
    It is red on the round-42 claims (`verification/freeze/registry-count-r42-check.txt`,
    exit 1) and green on the round-43 correction (`registry-count-r43-check.txt`, exit 0).
+
+Correction (2026-10-24, kake round 45, appended per the corrections-are-new-entries rule): the
+`source:` line above names S130; S130 was superseded by S132 in round 44 under SOURCES.md contract
+rule 2 (a correction is a new row whose teaches opens `supersedes S0NN —`). The writing-revision
+method this entry cites is now carried by S132 (`corpus/SOURCES.md` row S132, kama round 29
+adjacency import); read the `source:` line's S130 as S132 from this correction forward. Routed
+defect fixed: the round-44 closure's "claim-count-derivation.md still declares source: S130".
