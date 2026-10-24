@@ -1712,3 +1712,20 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - Frontier: S129/S130 re-opened 2026-10-23 (lesson `corpus/lessons/round-44.md` Gate);
   superseding rows S131/S132 appended to `corpus/SOURCES.md` (contract rule 2). Mistake
   mined into the same lesson.
+
+## Round 45
+
+- Declared (frozen at base `35b35f41ba8782872bec42a4df77407c76e7926e`, before any claim
+  receipt): C1 (operability) — audit driver v2 `.ufo/waves/round-45/c45_audit.py`
+  refuses witness/not-met credit for receipts with counter exit other than 0/1, note
+  "tool absent", or written outside the driver's run window over the invoked counter
+  bytes; invalid-class acceptance 3/3 → 0/3 with named rejections, honest cohort
+  certification unchanged (27/27 witnessed, build 3/3 at `020bc457`). Routed from
+  round-44 wave-2 `ReviewCounterContract.md` defects 1a/1b/1c.
+- C2 (freshness) — two standing self-claims of the round-44 gate fail re-derivation:
+  (a) shipped v1 `--selftest` kills 2/4 witness-class mutants (timing-only and error
+  survive), (b) v4-mode receipt predicate names ten class runs v4 never executes; after
+  repair (a) v2 selftest kills 4/4, (b) counter v6 v4 receipt names only the eleven v4
+  runs, and (c) the claim receipt's 27 witnessed controls re-derive as 22 class-only +
+  1 mixed + 4 met, filed with the re-derivation command. Routed from `MutClassGate.md`,
+  `CriticHarmGuard.md`, `CriticC1Predicate.md`.

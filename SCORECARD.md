@@ -3624,3 +3624,86 @@ receipts accepted — none exercised by this round's receipts, all rows exit 0/1
 present); `CriticHarmGuard.md` (v4-mode predicate text names ten unexecuted class runs);
 `CriticC1Predicate.md` (repeat-len-band is a mixed v4+class witness — predicate counts it,
 the incremental-closure reading does not).
+
+## Round 45 — C1 and C2 declared (frozen before any claim receipt is produced)
+
+Base: `35b35f41ba8782872bec42a4df77407c76e7926e` (round-44 tip, pushed). Two measured
+claims, zero exploratory; both owned axes sit at the declared saturation line (10/10),
+so each row records a bounded evidenced move at HOLD, not a numeric rise.
+
+### C1 — operability: witness-gate audit driver v2 (receipt-integrity hardening)
+
+Routed from round-44 wave-2 `ReviewCounterContract.md` defects 1a/1b/1c (three HIGH
+latent gate defects), honored as claim material per the round-44 closure.
+
+**Claim (frozen sentence — the same sentence in this declaration, the matrix runner and
+the receipts):** the audit driver v2 at `.ufo/waves/round-45/c45_audit.py` refuses to
+count as a witness, and refuses to count as not-met, any control whose receipt
+(i) records a counter exit other than 0 or 1, or (ii) records the note "tool absent",
+or (iii) was not written inside the driver's own run window over the invoked counter
+bytes; and it still certifies the honest round-44 cohort (all 27 controls witnessed
+under `--classes v5` and three build runs met at revision `020bc457`).
+
+Before → after: invalid-receipt acceptance over the three committed invalid fixture
+classes — frozen v1 driver `.ufo/waves/round-44/c44_audit.py` (sha256
+`8ee2c8bf9333206963236b023048ae2b560bbec703adef4d448bd5529c2d0c75`) accepts 3/3;
+driver v2 accepts 0/3, each rejection named with its defect class; honest-cohort
+certification unchanged (exit 0, witnessed 27/27, build_met 3/3).
+
+Counting command (frozen):
+`python3 -B .ufo/waves/round-45/c45_matrix.py --stage before|after`
+— before runs the frozen v1 driver over the three fixture classes; after runs v2 over
+the same fixtures plus the honest regression cohort. Claim MET iff the before receipt
+records `invalid_accepted=3` and the after receipt records `invalid_accepted=0`,
+`rejections_named=3`, `honest_witnessed=27`, `honest_build_met=3`.
+
+Kill rules (frozen): (1) frozen round-44 bytes untouched — sha256 guard over
+`c44_audit.py`, `c44_count_v5.py`, `c44_placebo.py`, `controls-27.tsv`,
+`controls-r43/`, and every round-43/44 receipt; (2) every receipt cited re-derives
+from committed bytes at its recorded inputs; (3) v2 reads no control file beyond v1's
+reads (no circular reads); (4) v2's honest-cohort verdict on the same inputs equals
+v1's (27/27, build 3/3, exit 0); (5) each invalid fixture matches a real
+v1-observable receipt shape (a shape real bytes cannot produce is a strawman and
+voids that leg).
+
+Do-nothing control: the frozen v1 driver itself cannot reach the after-state (it
+accepts all three classes — demonstrated end-to-end in round-44 wave 2 and re-derived
+this round). Junk control: the honest fixture cohort must certify green under both
+drivers.
+
+### C2 — freshness: gate standing-claim re-verification and repair
+
+Routed from the round-44 wave-2 coverage caveat (`MutClassGate.md` — the frozen shipped
+selftest has no timing-only/error fixture), receipt-text finding (`CriticHarmGuard.md`
+— v4 receipts name ten class runs they never execute), and mixed-witness caveat
+(`CriticC1Predicate.md` — 23 class witnesses = 22 class-only + 1 mixed).
+
+**Claim (frozen sentence):** two standing self-claims of the round-44 witness gate fail
+re-derivation against committed bytes — (a) the shipped v1 `--selftest` kills only 2 of
+the 4 witness-class mutants (timing-only and error witnesses survive), and (b) a
+v4-mode receipt's predicate text names ten class runs that v4 mode never executes —
+and after the repair (a) the v2 driver's shipped selftest kills 4 of 4 mutants and
+(b) the counter v6 `.ufo/waves/round-45/c45_count.py` in v4 mode emits a receipt whose
+predicate names only the eleven v4 runs; and (c) the round-44 claim receipt's 27
+witnessed controls re-derive as 22 class-only + 1 mixed + 4 met, a split filed in this
+SCORECARD with its re-derivation command.
+
+Before → after: selftest mutant coverage 2/4 → 4/4 (same m1–m4 mutants, shipped
+selftest bytes); v4 receipt predicate names class runs: true → false (committed
+round-44 v4 receipt vs fresh v6 v4 receipt); filed witness split: absent →
+`22 class-only + 1 mixed + 4 met` re-derived by command from the committed claim
+receipt.
+
+Counting command (frozen):
+`python3 -B .ufo/waves/round-45/c45_freshness.py`
+— prints `selftest_kills before=2/4 after=4/4`,
+`v4_predicate_names_class_runs before=true after=false`,
+`witness_split class_only=22 mixed=1 met=4`. Claim MET iff after=(4/4, false, 22/1/4).
+
+Kill rules (frozen): (1) counter v6 differs from frozen v5 only in mode-conditional
+predicate text and the corrected docstring header — a hunk-classified diff proves no
+other change (the v5-mode predicate string stays byte-identical); (2) the v6 v4
+receipt re-derives from committed bytes (`classRuns` empty, no G-runs in `runs`); (3)
+the m1–m4 mutants are reconstructions of the round-44 MutClassGate report's four
+mutants, each documented with its source-line target; (4) no frozen byte is edited
+(same sha guard as C1).
