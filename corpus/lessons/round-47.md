@@ -96,3 +96,8 @@ Round shape per the host mapping: the L1 holds the canonical planner seat
 policy v1 and committed as prepared-but-undispatched evidence, together with
 its validator taskCall. The lane-scope build and repairs were executed by the
 L1 as integration owner (round-46 lesson, mistake 2's fix).
+
+## Inherited R46 residual scope (advisory, not a closure verdict)
+
+Re-opened the five orchestrator-owned reports under `.ufo/waves/round-46/residual/` after the parent steer. `CriticCitationOverreach.md` found false-green paths for dead full-40-hex tokens, capitalized `Base` context, and coarse `(token,file)` ledger suppression; `ReviewWitnessOracle.md` found the redirect fixtures mirror tool selftest data and W12 expects unsupported redirect status 200; `CriticMatrixBlindness.md` showed basename-matcher and doctored-index shortcuts can pass; `MutationSemanticsGap.md` found 3 decision-logic mutants survive both detectors; `ReviewReceiptIdentity.md` raised an alternate, stricter receipt-internal binding reading. These findings are advisory, not closure verdicts. R47 does not change the tools or fixtures and makes no semantic-completeness claim: C1 is registry/receipt delivery and C2 repairs the routed records. The eight residual reports are untracked orchestrator-owned files and were left untouched.
+

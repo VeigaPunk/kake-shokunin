@@ -3987,3 +3987,8 @@ the round-46 residual wave (`.ufo/waves/round-46/residual-spec.json`); the
 r45 C1 trust-boundary L0 question stays operator-owned. If the r47 closure
 routes new defects, those take priority. Otherwise a source-backed
 frontier/capability move in static publishing validation per PROVINCE.
+
+## Round-47 residual scope note (advisory, not a new claim)
+
+The R46 residual reports re-opened this round weaken the prior capability row's "independently authored" oracle wording and show that the sealed matrix is not a general semantic-coverage certificate. R47 C1 is only registry/receipt delivery; it does not re-score or claim to close the R46 semantic-oracle and citation-linter blind spots. The prior row is preserved byte-for-byte; see `corpus/lessons/round-47.md` §Inherited R46 residual scope.
+

@@ -59,3 +59,8 @@ that a citing line's prose is faithful to its target. Class fidelity is
 mechanical; reason fidelity is editorial and is kept by the round-47
 QUALITY criterion "Citation reason fidelity" plus the lesson mined each time
 a closure catches a drift.
+
+## Round-46 residual scope note (advisory; round 47)
+
+The paragraphs above state Git's repository-local abbreviation rule; they do not claim the current `citation_lint.py` scanner detects every dead commit citation. The orchestrator-dispatched R46 residual review found full-40-hex dead tokens can pass `git rev-parse --verify`, case-sensitive context misses `Base`, and the `(token,file)` ledger key suppresses all matching occurrences. R47 did not change that tool behavior: C1 is registry/receipt delivery and C2 is record repair, not a complete citation-hygiene certification. Durable summary: `corpus/lessons/round-47.md` §Inherited R46 residual scope.
+
