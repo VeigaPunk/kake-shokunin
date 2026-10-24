@@ -1753,3 +1753,19 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   selftest kills 4/4 witness-class mutants; both counting commands re-derive their
   receipts. Frontier: S133/S134 + lesson Mistakes 14-15 + receipt-integrity entry;
   registry 132 -> 134, census exit 0. Waves: 2 x 32 seats, 0 dead.
+
+## Round 46 (attempt 1, frozen 2026-10-24)
+
+- Declared at base `7cdbaefd3ecbbc8814eca1f013fcee101a6157b0`, before any claim receipt:
+  C1 (operability, capability) — offline static-host redirect/rewrite expectation audit
+  (`scripts/redirect_audit.py` + sealed matrix), frozen sentence in SCORECARD round-46;
+  routed from the stagnation nudge (r45 entered no capability) and PROVINCE frontier ground
+  (Render redirect/rewrite semantics knowledge-only since round 30). C2 (freshness) —
+  standing-records citation-hygiene gate (`scripts/citation_lint.py`) + QUALITY.md
+  receipt-identity criterion; routed from the round-45 closure defects 1 (dead short-hash
+  `e5455253`) and 3 (receipt-identity binding), defect 4 (matrix budget <120 s) honored in the
+  C1 matrix design. The round-45 C1 trust-boundary L0 question (fleet 03a0f94c) stays
+  operator-owned; r46 routes around it and no claim rests on either reading.
+- Round shape: ONE v2 wave of exactly 64 seats (policy v2 band 64–128), ≥25% attack roles
+  (reviewer/critic/mutation-tester; labrat is a frozen-topology probe the swarm validator
+  rejects as a lane, so it rides as executor-spawned depth-2 probes where a seat needs one).

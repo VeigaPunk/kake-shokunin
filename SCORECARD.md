@@ -3858,3 +3858,38 @@ excludes generated `__pycache__` bytes (`w2/SentinelFinal.md`; caches regenerate
 under any non-`-B` import and are gitignored — committed frozen bytes are
 byte-identical, `git status` clean). No verdict changes: C1 and C2 remain NOT MET as
 declared; all bounded repairs and measurements verify at the final bytes.
+
+## Round 46 — declarations (frozen 2026-10-24, attempt 1, before any claim receipt)
+
+Base for all before-measurements: `7cdbaefd3ecbbc8814eca1f013fcee101a6157b0` (r45 spotcheck tip).
+Round shape per operator directive: ONE v2 wave of exactly 64 seats under
+`ufo-wave-policy-v2.json`. Routed-defect ledger (r45 closure): (1) dead short-hash citation
+`e5455253` → citation hygiene; (2) C1 trust-boundary ruling operator-owned via L0 (fleet
+`03a0f94c`) → routed around, not blocking, no r46 claim rests on either reading; (3)
+receipt-identity binding (path + sha256) → QUALITY.md criterion; (4) matrix re-run budget
+(honest-cohort re-cert >4 min at r45) → r46 matrix sized <120 s.
+
+Frozen claim sentences (identical in plan, counter code and receipt label):
+
+- **C1 — operability, capability acquisition (frontier move; stagnation nudge: r45 entered no
+  capability).** Predicate sentence: *"The committed tool `scripts/redirect_audit.py` reads a
+  version-1 manifest of static-host redirect/rewrite checks and reports, read-only and
+  network-free, every check whose decided outcome differs from its expectation; the frozen
+  counting command `python3 -B .ufo/waves/round-46/c46_matrix.py --root . --revision <commit>
+  --stage before|after` decides `before` = at least one planted witness uncaught or one
+  do-nothing/constant/junk control accepted, `after` = sealed matrix with every planted
+  witness caught and every do-nothing, constant and junk control rejected."* Ground: PROVINCE
+  frontier (Render redirect/rewrite semantics are knowledge-only since round 30, S050/S088; no
+  gate exists). Do-nothing control must be scored before data and rejected. Receipts cite path
+  + sha256 per the C2 criterion.
+- **C2 — freshness (routed defects 1+3).** Predicate sentence: *"The committed gate
+  `scripts/citation_lint.py` resolves every lane commit citation over the frozen population
+  {SCORECARD.md, LOG.md} and reports each violation with file, line and token;
+  `python3 -B scripts/citation_lint.py --root . --revision <commit>` exits 1 with at least one
+  named violation at base `7cdbaefd…` and exits 0 at the round-46 tip with every base violation
+  repaired append-only or adjudicated in the committed ledger; and `corpus/QUALITY.md` carries
+  the receipt-identity criterion, counting `grep -c '^- .*receipt.*\(path\|sha256\)' corpus/QUALITY.md`
+  0 → 1."* Do-nothing control: gate absent / always-exit-0 stub must be scored and rejected.
+
+No third claim. Both claims on distinct axes (operability, freshness) as the lane owns them;
+causally separable (C1 receipts never cite the lint; C2 never runs the redirect matrix).
