@@ -1,0 +1,23 @@
+{
+ "checks": [
+  {
+   "expect": {
+    "action": "redirect",
+    "location": "/docs/",
+    "status": 301
+   },
+   "id": "c1",
+   "path": "/docs"
+  }
+ ],
+ "defaultStatus": 301,
+ "resourcePrecedence": true,
+ "rules": [
+  {
+   "action": "rewrite",
+   "destination": "/docs/",
+   "source": "/docs"
+  }
+ ],
+ "version": 1
+}

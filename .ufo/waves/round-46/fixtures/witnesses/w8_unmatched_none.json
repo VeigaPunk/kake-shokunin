@@ -1,0 +1,25 @@
+{
+ "checks": [
+  {
+   "expect": {
+    "action": "serve"
+   },
+   "id": "c1",
+   "path": "/missing"
+  }
+ ],
+ "defaultStatus": 301,
+ "resourcePrecedence": true,
+ "resources": [
+  "/index.html"
+ ],
+ "rules": [
+  {
+   "action": "redirect",
+   "destination": "/b",
+   "source": "/a",
+   "status": 301
+  }
+ ],
+ "version": 1
+}

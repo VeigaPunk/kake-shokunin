@@ -1,0 +1,26 @@
+{
+  "schema": "ufo-swarm-wave-spec-v2",
+  "wave": "kake-r46-residual",
+  "policy": "/home/vgpnk/Projects/shokunin/scripts/hyaku/ufo-wave-policy-v2.json",
+  "note": "RESIDUAL attack wave, PREPARED but NOT DISPATCHED (host mapping: this seat has no dispatch tool; the orchestrator dispatches prepared waves between rounds). 8 seats, all attack roles, counted in the round-46 total (64 + 8 = 72 <= 128). Every Report: trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>.",
+  "reportDir": ".ufo/waves/round-46/residual",
+  "context": "You are a kake round-46 residual attack seat (wave kake-r46-residual, PREPARED by the L1, dispatched by the orchestrator). Lane repo: /home/vgpnk/Projects/shokunin/kake-shokunin (work read-only over it; write ONLY your report under .ufo/waves/round-46/residual/ and scratch under /fast/scratch/hyaku/kake-r46-residual/<SeatName>/). Claims under attack: C1 scripts/redirect_audit.py + sealed counter .ufo/waves/round-46/c46_matrix.py (receipts verification/c1-before-7cdbaefd.json, c1-after-<tip>.json); C2 scripts/citation_lint.py + corpus/quality/citation-adjudications.md (receipts c2-before/c2-after). Tooling authorization (operator 2026-10-19): seats may install tools that help via official channels; pacman is PAUSED host-wide — use uv tool / npx / official binaries only. Seats never mutate the lane jj state, the lane git index, sibling lanes, or the fleet repo; never edit .ufo/state or .ufo/watchdog.log. Every Report: trailer path is relative to /home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path>.",
+  "tasks": [
+    {"name": "ReviewWitnessOracle", "agent": "reviewer",
+     "task": "/skill:godspeed\nAttack: are the 11 C1 witness fixtures genuinely independent of the tool's implementation (expectations not reverse-engineered from decide())? Re-derive each expectation from the manifest's stated publisher intent alone; flag any witness whose expect is only 'what the tool happens to decide'. Report: .ufo/waves/round-46/residual/ReviewWitnessOracle.md"},
+    {"name": "CriticMatrixBlindness", "agent": "critic",
+     "task": "/skill:godspeed\nAttack: run python3 -B .ufo/waves/round-46/c46_matrix.py --root . --revision <round-46 build commit> --stage after; then construct the strongest shortcut you can (e.g. a tool that pattern-matches the fixture filenames) and show the counter accepts or rejects it. The counter must reject any control that does not run the audit semantics. Report: .ufo/waves/round-46/residual/CriticMatrixBlindness.md"},
+    {"name": "CriticCitationOverreach", "agent": "critic",
+     "task": "/skill:godspeed\nAttack: citation_lint.py over {SCORECARD.md, LOG.md} — hunt false positives the gate MISSES: dead citations in code-span context-free shapes, tokens split across lines, 40-hex edge cases, ledger rows that assert a false class (verify each of the 12 adjudication rows against its citing line). Report: .ufo/waves/round-46/residual/CriticCitationOverreach.md"},
+    {"name": "MutationSemanticsGap", "agent": "mutation-tester",
+     "task": "/skill:godspeed\nAttack: design 3 NEW mutants of scripts/redirect_audit.py decision logic beyond the 6 selftested ones (e.g. greedy vs lazy splat, double-decode, placeholder named 'splat' collision); show whether the sealed matrix or selftest kills each; if one survives, that is your finding. Report: .ufo/waves/round-46/residual/MutationSemanticsGap.md"},
+    {"name": "ReviewReceiptIdentity", "agent": "reviewer",
+     "task": "/skill:godspeed\nAttack: verify every round-46 filed receipt names path + sha256 per the new QUALITY criterion — check c1/c2 receipts, the S135 source receipt, and the SCORECARD verdict section's own citations. Flag any count filed against a receipt without sha256. Report: .ufo/waves/round-46/residual/ReviewReceiptIdentity.md"},
+    {"name": "ScoutSiblingOverlap", "agent": "scout",
+     "task": "/skill:godspeed\nScan sibling lanes' round-46 reports/work for overlap with kake's C1/C2 (redirect/rewrite audit, citation hygiene, Cloudflare Pages redirects row): is any sibling lane building the same gate or opening the same source? Report contested scope, move nothing. Report: .ufo/waves/round-46/residual/ScoutSiblingOverlap.md"},
+    {"name": "ReviewQualityCriterion", "agent": "reviewer",
+     "task": "/skill:godspeed\nAttack: the C2 criterion-leg correction — frozen broad grep 2->3 vs sealed narrow 0->1. Verify the narrow counter cannot be satisfied by a do-nothing round (it must fail at base), and that the falsified frozen leg is reported NOT MET, not silently re-pinned. Report: .ufo/waves/round-46/residual/ReviewQualityCriterion.md"},
+    {"name": "SentinelBounds", "agent": "sentinel",
+     "task": "/skill:godspeed\nFinal bounds audit: run bash-level checks that the round-46 commit(s) touch only kake lane paths (no fleet-root files, no sibling lanes), that .ufo/state and .ufo/watchdog.log are untouched, and that git status --porcelain in the lane shows no unexpected untracked files. Report: .ufo/waves/round-46/residual/SentinelBounds.md"}
+  ]
+}

@@ -1,0 +1,24 @@
+{
+ "checks": [
+  {
+   "expect": {
+    "action": "redirect",
+    "location": "https://blog.example.com/a/b/c",
+    "status": 301
+   },
+   "id": "c1",
+   "path": "/blog/a/b"
+  }
+ ],
+ "defaultStatus": 301,
+ "resourcePrecedence": true,
+ "rules": [
+  {
+   "action": "redirect",
+   "destination": "https://blog.example.com/:splat",
+   "source": "/blog/*",
+   "status": 301
+  }
+ ],
+ "version": 1
+}

@@ -1,0 +1,25 @@
+{
+ "checks": [
+  {
+   "expect": {
+    "action": "serve"
+   },
+   "id": "c1",
+   "path": "/home"
+  }
+ ],
+ "defaultStatus": 301,
+ "resourcePrecedence": false,
+ "resources": [
+  "/home"
+ ],
+ "rules": [
+  {
+   "action": "redirect",
+   "destination": "/",
+   "source": "/home",
+   "status": 301
+  }
+ ],
+ "version": 1
+}

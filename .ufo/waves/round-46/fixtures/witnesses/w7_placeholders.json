@@ -1,0 +1,24 @@
+{
+ "checks": [
+  {
+   "expect": {
+    "action": "redirect",
+    "location": "/changelog/03/2024",
+    "status": 301
+   },
+   "id": "c1",
+   "path": "/updates/03/2024"
+  }
+ ],
+ "defaultStatus": 301,
+ "resourcePrecedence": true,
+ "rules": [
+  {
+   "action": "redirect",
+   "destination": "/changelog/:year/:month",
+   "source": "/updates/:month/:year",
+   "status": 301
+  }
+ ],
+ "version": 1
+}

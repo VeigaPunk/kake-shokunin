@@ -1068,3 +1068,4 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
   zone-id set (`~`) and of a widened class (`\d` admitting `١`). Grounding: wave-1 `MutRegexNonAscii`,
   `MutRegexIP`, `MutRegexPct` (met v1 with witnesses); lesson round-42 Mistake 2. Check: those five mutants are
   standing controls — met v1 (`w1/MutRegex*.md`), fail v3 run E (`verification/w1v3/`).
+- **Receipt identity for filed counts (round 46).** Any filed count or verdict against a receipt cites that receipt's path + sha256; a receipt citation without sha256 violates this criterion. Grounding: round-45 Mistake 15's fix says a count against "the claim receipt" must bind to that receipt's identity (path + sha256), and the count must be re-derived from the named receipt's committed bytes rather than another same-named receipt's values.

@@ -3893,3 +3893,25 @@ Frozen claim sentences (identical in plan, counter code and receipt label):
 
 No third claim. Both claims on distinct axes (operability, freshness) as the lane owns them;
 causally separable (C1 receipts never cite the lint; C2 never runs the redirect matrix).
+
+## Round 46 — measured verdicts (2026-10-24, attempt 1 resumed)
+
+Measured commits: base `7cdbaefd3ecbbc8814eca1f013fcee101a6157b0` (r45 spotcheck
+tip); build commit and verdict commit recorded in the round report and LOG.
+Base for all before/after pairs below: the frozen command and the revision
+named in its receipt.
+
+| Claim | Axis / score delta | Before → after | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 offline redirect/rewrite expectation audit (capability) | operability 10→10 (HOLD); capability entered | before: 11 planted witnesses uncaught (tool absent at base) → after: 11/11 witnesses caught, 0 clean-case false positives, 3/3 controls rejected, matrix wall <120 s | `python3 -B .ufo/waves/round-46/c46_matrix.py --root . --revision <commit> --stage before\|after` | MET as declared; receipts `verification/c1-before-7cdbaefd.json`, `verification/c1-after-<tip>.json`; tool selftest 23/23 |
+| C2 commit-citation hygiene gate | freshness 10→10 (HOLD) | gate: before exit 1 with 28 named violations (17 unique tokens) over {SCORECARD.md, LOG.md} → after exit 0, 30 adjudicated occurrences, 0 violations; QUALITY criterion: frozen broad grep 2→3 (falsified as declared, 0→1 claimed) → sealed narrow counter `grep -c '^- \*\*Receipt identity for filed counts' corpus/QUALITY.md` 0→1 | `python3 -B scripts/citation_lint.py --root . --revision <commit>`; receipts `verification/c2-before-7cdbaefd.json`, `verification/c2-after-<tip>.json` | PARTLY MET as declared: gate legs MET; the criterion's frozen counting command falsified (base 2, not 0) — corrected append-only with the sealed narrow counter, discrepancy recorded in `verification/quality-broad-{base,tip}.txt` and the round-46 lesson |
+
+No owned axis harmed: the standing gates stay honestly red/green as before
+(freshness-sweep §paths drift state unchanged; ledger_latest_check green at
+verdict time). The frozen C2 predicate's adjudication mechanism is the
+committed ledger `corpus/quality/citation-adjudications.md` (12 rows, every
+target re-verified non-resolving in the lane repo at round 46).
+
+Capabilities row entered this round:
+
+| Offline redirect/rewrite expectation audit | Reads a version-1 manifest of static-host redirect/rewrite rules, resources and independently authored request→expectation checks and reports, read-only and network-free, every check whose decided outcome (resource-precedence, first-match, status, splat/placeholder expansion, percent-decoded matching) differs from its expectation (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); semantics declared per manifest (Render-style resource precedence vs Cloudflare Pages always-follow) per `corpus/knowledge/redirect-rewrite-rules.md` (S050, S135); no live-serving, deploy or dashboard claim | `scripts/redirect_audit.py` at the C1 measured commit; `python3 -B .ufo/waves/round-46/c46_matrix.py --root . --revision <commit> --stage after` → MATRIX_AFTER_PASS; selftest 23/23 | 46 |

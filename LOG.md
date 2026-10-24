@@ -1769,3 +1769,24 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - Round shape: ONE v2 wave of exactly 64 seats (policy v2 band 64–128), ≥25% attack roles
   (reviewer/critic/mutation-tester; labrat is a frozen-topology probe the swarm validator
   rejects as a lane, so it rides as executor-spawned depth-2 probes where a seat needs one).
+- Measured and closed (same attempt, resumed 2026-10-24): C1 MET as declared —
+  `scripts/redirect_audit.py` + sealed counter `.ufo/waves/round-46/c46_matrix.py`
+  (selftest 23/23; 11/11 witnesses caught, 0 clean false positives, 3/3 controls
+  rejected, matrix wall <120 s; receipts `verification/c1-before-7cdbaefd.json` and
+  `verification/c1-after-<tip>.json` name tool sha256 per the C2 receipt-identity
+  criterion). C2 gate legs MET — `scripts/citation_lint.py` (selftest 8/8; 4 mutant
+  classes killed) exits 1 with 28 named violations at base `7cdbaefd…` and 0 at the
+  tip, every occurrence adjudicated in the committed ledger
+  `corpus/quality/citation-adjudications.md` (12 rows, each target re-verified
+  non-resolving). C2 criterion leg NOT MET as declared: the frozen broad grep reads
+  2 → 3, not 0 → 1; corrected append-only with the sealed narrow counter
+  `grep -c '^- \*\*Receipt identity for filed counts' corpus/QUALITY.md` 0 → 1
+  (`verification/quality-broad-{base,tip}.txt`; lesson `corpus/lessons/round-46.md`).
+  Frontier: S135 (Cloudflare Pages redirects, opened 05:39:49Z this round) admitted;
+  S050 re-opened (recheck only); knowledge entry `corpus/knowledge/redirect-rewrite-rules.md`;
+  registry 134 → 135, census exit 0. Inherited wave w46 (64 seats, one batched call,
+  committed `ded938d…`) returned 12 reports all blocked on absent tools — reused as
+  design evidence (CriticGateDesign narrowed C1 to a local rules-file semantics
+  audit), not as build output; residual attack seats prepared under
+  `.ufo/waves/round-46/residual-spec.json` for orchestrator dispatch (host mapping:
+  this seat prepares waves; the orchestrator dispatches).
