@@ -60,9 +60,10 @@ cohort directory itself and refuses a non-empty one):
   (`MTIME_EPS_NS = 1_000_000_000`, wall clock `time.time_ns()`); else `stale_receipt`;
 - **seed recorded** — a receipt without a `seed` is `stale_receipt`.
 
-Every control row is built through one shared `build_control_row()` (`:98-119`) and every build row
-through `build_build_row()` (`:122-137`), so the gate cannot be unwired from one path and not the
-other. An invalid row joins `errors[]` under its named class; `expectation_ok` fails if any control
+Every counter-run row is built through one shared `build_control_row()` (`:107-129`; the
+control-sha mismatch early return sets `_valid=False` without one, by design) and every
+build row through `build_build_row()` (`:131-146`), so the gate cannot be unwired from one
+counter-run path and not the other. An invalid row joins `errors[]` under its named class; `expectation_ok` fails if any control
 row or any build row is invalid; `--expect not-met` counts only valid `met is False` rows; the
 requested build count is pinned (`len(build) == --build-runs`). The v1 CLI, row fields, summary
 fields and exit codes are unchanged, so the honest cohort's certification does not move. The shipped
@@ -84,17 +85,25 @@ must fail the same command). The instrument's own do-nothing lookalike (v2 with 
 mutation-tested able-to-fail: the witness-class mutants `mutants/m{1..4}_v2.py` and the spec mutants
 in `w1/MutDriverV2Spec.md` all die against the shipped selftest.
 
-*Opinion (marked as opinion):* the run window is the load-bearing clause. Exit, note and counter-sha
-are cheap corroboration that a receipt is well-formed and from the right code, but only the window
-makes it evidence of *this* invocation; a gate with exit+note+sha alone still accepts a byte-valid
-receipt left over from a previous run.
+*Opinion (marked as opinion):* the run window is the load-bearing clause. Exit, note,
+counter-sha and tool-sha are cheap corroboration that a receipt is well-formed and from
+the right code, but only the window makes it evidence of *this* invocation; a gate with
+exit+note+sha alone still accepts a byte-valid receipt left over from a previous run. Two
+limits stay open after the wave-2 repairs, and both are named rather than closed: the
+window's start is cohort-wide (a receipt written by any child of this invocation passes
+it — the toolSha256 binding closes the receipt→control leg), and the window plus
+self-reported shas cannot prove causal provenance: a receipt written during the window by
+different bytes carrying the expected shas is indistinguishable from an honest one.
 
-*Named residual limit (from `w1/CriticC1Predicate.md`):* the window + self-reported sha binding
-cannot prove causal provenance — a receipt written during the window by different bytes carrying the
-expected sha is indistinguishable from an honest one, and mtime is mutable metadata. Closing that
-hole needs counter-side cooperation (a driver-issued nonce echoed into the receipt) or an explicit
-trusted-local-counter boundary; the claim text that asserted the stronger reading is recorded as
-falsified in `SCORECARD.md` (round 45), and the trust-boundary question is routed to the operator.
+*Named residual limit (from `w1/CriticC1Predicate.md`, confirmed by
+`w2/AttackKnowledgeEntry.md` F1):* closing that hole needs a mechanism that binds the
+receipt to the executed bytes — per `w1/CriticC1Predicate.md`, an echoed public nonce or
+another receipt field alone is NOT that mechanism; the options are an explicit
+trusted-local-counter boundary (the disposition SCORECARD records, routed to the operator
+at the fleet repo's `.ufo/l0-questions.md`) or a future counter that signs or
+driver-associates its receipts cryptographically. The driver writes a manifest nonce
+that the frozen counter never echoes; that nonce alone was never claimed to close the
+hole.
 
 ## Counts
 

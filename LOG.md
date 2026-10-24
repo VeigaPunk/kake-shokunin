@@ -1745,3 +1745,11 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   remediation). Frontier: S133 admitted (Python subprocess docs, grounds C1), S134 rejected
   (SO answer, duplicate of the tier-A point); lesson round-45 Mistakes 14-15; knowledge entry
   `receipt-integrity.md`; registry 132 → 134 rows, census exit 0.
+- Round 45 closed: both claims NOT MET as declared (C1 causal predicate clause
+  unfalsifiable as written — routed to operator; C2 leg (c) bound to the wrong
+  receipt — corrected to 26/1/0). Bounded repairs verified at final bytes: driver v2
+  (9b824d95…) refuses 3/3 invalid receipt classes with named classes and re-certifies
+  the honest cohort 27/27 + build 3/3; counter v6 v4 receipts are mode-accurate; v2
+  selftest kills 4/4 witness-class mutants; both counting commands re-derive their
+  receipts. Frontier: S133/S134 + lesson Mistakes 14-15 + receipt-integrity entry;
+  registry 132 -> 134, census exit 0. Waves: 2 x 32 seats, 0 dead.

@@ -39,9 +39,14 @@ FIXTURES = WAVE / "fixtures"
 MATRIX_DIR = WAVE / "verification" / "matrix"
 HONEST_DIR = WAVE / "verification" / "honest-regression"
 BUILD_REVISION = "020bc457"
+BUILD_REVISION_FULL = "020bc4574729ed674299f6cab02faac1582d9464"
 ERROR_CLASS_RE = re.compile(r"(?<![a-z0-9_])(counter_error|tool_absent|stale_receipt)(?![a-z0-9_])")
 INVALID_CLASSES = ("counter-error", "tool-absent", "stale-planted")
 AFTER_STALE_FIXTURE = "stale-backdate"
+# each fixture leg must be refused by ITS OWN named class, not by any class (w2
+# AttackMatrixReceipt F2: the union gate was permutation-blind)
+LEG_EXPECTED_CLASS = {"counter-error": "counter_error", "tool-absent": "tool_absent",
+                      "stale-planted": "stale_receipt", "stale-backdate": "stale_receipt"}
 
 
 def sha256(path: Path) -> str:
@@ -74,8 +79,9 @@ def rejection_classes(summary) -> set:
 
 def stage_fixtures(stage: str):
     stale = "stale-planted" if stage == "before" else AFTER_STALE_FIXTURE
+    stale_leg = "stale-planted" if stage == "before" else "stale-backdate"
     return [("counter-error", "counter-error"), ("tool-absent", "tool-absent"),
-            (stale, "stale-planted")]
+            (stale, stale_leg)]
 
 
 def run_fixture_leg(stage: str, driver: Path, plant: bool):
@@ -118,6 +124,30 @@ def run_honest_leg(stage: str, driver: Path):
     else:
         if summary.get("counterSha256") != sha256(COUNTER_V5):
             problems.append("counter sha mismatch")
+        if driver == V2_DRIVER:
+            if summary.get("driverSha256") != sha256(driver):
+                problems.append("driver sha mismatch (summary self-report)")
+            manifest_path = cohort / "run-manifest.json"
+            try:
+                manifest = json.loads(manifest_path.read_text())
+                if manifest.get("counter_sha256") != sha256(COUNTER_V5):
+                    problems.append("manifest counter sha mismatch")
+                if manifest.get("driver_sha256") != sha256(driver):
+                    problems.append("manifest driver sha mismatch")
+            except (OSError, ValueError):
+                problems.append("no readable run-manifest.json (real driver never ran)")
+        build_files = sorted(cohort.glob("build-*.json"))
+        if len(build_files) != 3:
+            problems.append("build receipt files != 3")
+        else:
+            for bf in build_files:
+                try:
+                    brec = json.loads(bf.read_text())
+                except (OSError, ValueError):
+                    problems.append("unreadable %s" % bf.name)
+                    continue
+                if brec.get("met") is not True or brec.get("revision") != BUILD_REVISION_FULL:
+                    problems.append("build receipt %s not met at %s" % (bf.name, BUILD_REVISION_FULL))
         if summary.get("controls") != 27:
             problems.append("controls != 27")
         if summary.get("ok") is not True:
@@ -157,6 +187,9 @@ def main() -> int:
         named.update(r["rejection_classes"])
     honest_witnessed = honest["witnessed"] if honest["valid"] else 0
     honest_build_met = honest["build_met"] if honest["valid"] else 0
+    leg_class_ok = all(
+        LEG_EXPECTED_CLASS.get(leg) in set(r["rejection_classes"])
+        for leg, r in fixtures.items())
 
     receipt = {
         "stage": args.stage, "driver": str(driver.relative_to(LANE)),
@@ -172,9 +205,12 @@ def main() -> int:
     print("stage=%s invalid_accepted=%d rejections_named=%d honest_witnessed=%s honest_build_met=%s"
           % (args.stage, invalid_accepted, len(named), honest_witnessed, honest_build_met))
     if args.stage == "before":
-        passed = invalid_accepted == 3
+        # the honest leg must also certify under v1 (w2 AttackMatrixReceipt F3: the
+        # before gate used to be blind to it); per-leg class checks are after-only —
+        # v1 accepts the invalid legs (that IS the before-state)
+        passed = invalid_accepted == 3 and honest["valid"]
     else:
-        passed = (invalid_accepted == 0 and len(named) == 3 and
+        passed = (invalid_accepted == 0 and len(named) == 3 and leg_class_ok and
                   honest_witnessed == 27 and honest_build_met == 3)
     print("MATRIX_%s_%s" % (args.stage.upper(), "PASS" if passed else "FAIL"))
     return 0 if passed else 1

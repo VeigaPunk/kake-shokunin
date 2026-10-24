@@ -1,6 +1,11 @@
 stage=before invalid_accepted=3 rejections_named=0 honest_witnessed=27 honest_build_met=3
-MATRIX_BEFORE_PASS
-BEFORE_EXIT=0
+MATRIX_BEFORE_FAIL
+BEFORE_EXIT=1
 stage=after invalid_accepted=0 rejections_named=3 honest_witnessed=27 honest_build_met=3
 MATRIX_AFTER_PASS
 AFTER_EXIT=0
+selftest_kills before=2/4 after=4/4
+v4_predicate_names_class_runs before=true after=false
+witness_split class_only=26 mixed=1 met=0 other=0
+FRESHNESS_MEASURED_OK
+FRESH_EXIT=0

@@ -65,8 +65,14 @@ def run_counter(counter, root, out, classes, tool=None, revision=None, timeout=9
     return code, rec, _tail(stdout), _tail(stderr), finish_ns, mtime_ns
 
 
-def receipt_validity(receipt, exit_code, mtime_bounds, counter_sha):
-    """Return (valid, error class); mtime_bounds is (receipt mtime, lower, upper), in ns."""
+def receipt_validity(receipt, exit_code, mtime_bounds, counter_sha, expected_tool_sha=None):
+    """Return (valid, error class); mtime_bounds is (receipt mtime, lower, upper), in ns.
+
+    expected_tool_sha (control rows only) binds the receipt to the control whose run
+    produced it: a receipt copied from another control of the same cohort carries the
+    wrong toolSha256 and is refused as stale_receipt. Build rows pass None (their
+    receipts name a revision tool, not a control).
+    """
     if exit_code not in (0, 1):
         return False, "counter_error"
     if not isinstance(receipt, dict):
@@ -74,6 +80,9 @@ def receipt_validity(receipt, exit_code, mtime_bounds, counter_sha):
     if receipt.get("note") == "tool absent":
         return False, "tool_absent"
     if receipt.get("counterSha256") != counter_sha:
+        return False, "stale_receipt"
+    if expected_tool_sha is not None and \
+            receipt.get("toolSha256") not in (None, expected_tool_sha):
         return False, "stale_receipt"
     if "seed" not in receipt or receipt["seed"] is None:
         return False, "stale_receipt"
@@ -105,7 +114,7 @@ def build_control_row(base, tool_sha, code, rec, mtime_ns, started_ns, finish_ns
     """
     valid, validity_error = receipt_validity(
         rec, code, (mtime_ns, started_ns - MTIME_EPS_NS, finish_ns + MTIME_EPS_NS),
-        counter_sha)
+        counter_sha, expected_tool_sha=tool_sha)
     receipt_data = rec if isinstance(rec, dict) else {}
     caught = []
     runs = receipt_data.get("runs", {})
@@ -116,7 +125,8 @@ def build_control_row(base, tool_sha, code, rec, mtime_ns, started_ns, finish_ns
     return dict(base, toolSha256=tool_sha, met=receipt_data.get("met"), exit=code,
                 equalRuns=receipt_data.get("equalRuns"), caughtBy=caught,
                 seed=receipt_data.get("seed"), receipt=receipt_rel,
-                error=validity_error, _valid=valid)
+                error=validity_error, _valid=valid,
+                _receipt_predicate=receipt_data.get("predicate"))
 
 
 def build_build_row(i, code, rec, mtime_ns, started_ns, finish_ns, counter_sha,
@@ -168,6 +178,8 @@ def expectation_ok(expect, results, build, expected_rows, class_keys, build_runs
 
 
 def selftest():
+    if not __debug__:
+        raise SystemExit("SELFTEST ERROR: asserts are disabled (python -O); rerun without -O")
     passing = {"name": "pass-all", "met": True, "caughtBy": []}
     class_divergence = {"name": "class-divergence", "met": False, "caughtBy": ["G2"]}
     v4_divergence = {"name": "v4-divergence", "met": False, "caughtBy": ["D"]}
@@ -260,6 +272,12 @@ def main():
         json.dump(rec, open(out, "w"))
         past = time.time() - 5
         os.utime(out, (past, past)); sys.exit(0)
+    if mode == "bad-build":
+        # only reachable via --revision (the build leg): a build receipt that claims
+        # met=True but exits 2 must never count toward build_met
+        rec = {"counterSha256": sha, "seed": 1, "note": None, "met": True,
+               "runs": {"A": {"equal": True}}}
+        json.dump(rec, open(out, "w")); sys.exit(2)
     # honest: a real legacy-only divergence the gate must credit as not-met
     rec = {"counterSha256": sha, "seed": 1, "note": None, "met": False,
            "runs": {"C": {"equal": False}}}
@@ -303,6 +321,30 @@ if __name__ == "__main__":
     with open(os.path.join(cohort, "summary.json")) as fh:
         summary = json.load(fh)
     assert summary["ok"] is True and summary["notMet"] == 1 and summary["witnessed"] == 0
+
+    # Build leg: a build receipt that claims met=True but exits 2 must never count
+    # toward build_met (the m10 unwired-build-gate mutant class).
+    cdir = os.path.join(tmp, "bad-build")
+    os.makedirs(cdir)
+    fake_path = os.path.join(cdir, "fake_counter.py")
+    _write(fake_path, fake)
+    cohort = os.path.join(tmp, "out-bad-build")
+    p = subprocess.run(
+        [sys.executable, "-B", me, "--root", root, "--controls",
+         os.path.join(tmp, "controls.tsv"), "--counter", fake_path,
+         "--classes", "v5", "--expect", "witnessed", "--build-rev", "stubrev",
+         "--build-runs", "3", "--out", os.path.join(cohort, "summary.json")],
+        capture_output=True, stdin=subprocess.DEVNULL, timeout=120)
+    assert p.returncode == 1, (p.returncode, p.stdout[-500:], p.stderr[-500:])
+    with open(os.path.join(cohort, "summary.json")) as fh:
+        summary = json.load(fh)
+    assert summary["ok"] is False
+    assert all(b.get("error") == "counter_error" for b in summary["build"]), summary["build"]
+    # invalid rows keep their claimed met as evidence but must not count: the AUDIT
+    # line's build_met must be 0/3
+    audit_line = [ln for ln in p.stdout.decode("utf-8", "replace").splitlines()
+                  if ln.startswith("AUDIT ")][0]
+    assert "build_met=0/3" in audit_line, audit_line
 
 
 def main():
@@ -403,10 +445,12 @@ def main():
     errors += [(("build#%d:" % b["run"]) + b["error"] if b.get("error") in RECEIPT_ERRORS
                 else "build#%d" % b["run"])
                for b in build if b.get("error")]
+    first_receipt = next((r for r in results if isinstance(r, dict) and r.get("_receipt_predicate")), None)
     summary = {
         "label": a.label, "classesMode": a.classes, "expect": a.expect,
         "counter": os.path.relpath(counter, root), "counterSha256": counter_sha,
-        "predicate": counter_mod.PREDICATE,
+        "driverSha256": sha256_file(os.path.abspath(__file__)),
+        "predicate": (first_receipt or {}).get("_receipt_predicate") or counter_mod.PREDICATE,
         "controls": total, "classKeys": class_keys,
         "witnessed": len(witnessed), "witnessedNames": witnessed_names,
         "witnessedByClass": {r["name"]: r.get("caughtBy") for r in witnessed},

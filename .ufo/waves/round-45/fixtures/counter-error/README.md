@@ -1,7 +1,16 @@
 # counter-error fixture
 
-`ctl1.py` is a byte copy of `.ufo/waves/round-44/controls-r43/headtail-V1-prefix-cache64.py`; `controls.tsv` carries the committed source SHA-256 and one G5 row.
+A fake counter that writes a receipt copied from a REAL committed receipt
+(`verification/claim/after-final/tools/repeat-len-band.json`, byte-exact except the
+runs map is truncated to the A-G runs) and then exits 2 — simulating the frozen
+counter's `CannotEvaluate` path (`c44_count_v5.py:1097-1098`, reachable after the
+class-run entries are recorded at `:1108`). The receipt keeps its real
+`counterSha256` (the frozen v5 sha), real seed and a real G-class divergence.
 
-`control-receipt.json` is copied byte-for-byte from `.ufo/waves/round-44/verification/claim/after-final/tools/headtail-V1.json`. The fake counter copies it unchanged to the requested receipt path and exits 2. Thus every top-level field (`predicate`, `met`, `ratioLimit`, `reps`, `revision`, `toolFile`, `label`, `seed`, `counterSha256`, `ref41Sha256`, `base40Sha256`, `classesMode`, `classRuns`, `toolSha256`, `equalRuns`, `equalValues`, `runs`, `ratios`, `ratiosExact`, `note`) and every nested run/ratio value has the committed frozen-counter receipt's provenance; none is synthesized or edited. The raw receipt has no `caughtBy` field: frozen `c44_audit.py` derives the summary's `caughtBy` from false `runs[*].equal` keys and `CLASS_MODULES`.
+Under the frozen v1 driver this receipt is credited as a witness (round-44 defect 1a).
+Under driver v2 it is refused with class `counter_error` (the exit gate fires first).
 
-For the three build invocations, `build-receipt.json` is copied byte-for-byte from `.ufo/waves/round-44/verification/claim/after-final/build-1.json`; every receipt field is unchanged and real-counter sourced. The fake exits 0 for these build invocations so the fixture isolates the control-call exit-code defect.
+Shape fidelity: the receipt was rewritten to the partial shape a real
+`CannotEvaluate` produces (A-G runs only, no T runs, `equalRuns` null, an
+error note); `w2/AttackFixtureShapes.md` documented the original full-receipt
+shape as an unreachable combination and this correction lands it.

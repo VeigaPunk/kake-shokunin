@@ -3773,3 +3773,88 @@ append-only with re-derivable evidence, the bounded repairs verify, and no owned
 (ledger gate green at 3 figures / 0 mismatches after all edits — `python3 -B
 scripts/ledger_latest_check.py --root .` exit 0; frozen round-43/44 bytes byte-identical).
 Admission is the operator's call; per the honesty rules nothing here is rerolled.
+
+### Round 45 — wave-2 corrections (appended after the falsify wave; the declarations and the
+### first measurement append are not edited)
+
+Wave 2 (32 attack seats, all returned) found and closed five instrument defects; every
+correction re-measured after landing:
+
+1. **Driver v2 selftest coverage extended** (`w2/MutV2GateFinal.md` finding): the shipped
+   `--selftest` could not kill a mutant that unwired the gate from the BUILD row path
+   (m10) because the end-to-end cohort never passed `--build-rev/--build-runs`. The
+   cohort gained a build leg (a build receipt claiming met=True with exit 2 must not
+   count; AUDIT line shows build_met=0/3), and an asserts-enabled guard now fails loudly
+   under `python -O` (`w2/RederiveMutantsV2.md` F2). Driver v2 final sha256
+   `64bc33248c9ba2088f5447d7c3064cb2aea3f2dce9e2ba4ec4dd514a6a07841e`; the four witness-class mutants were rebuilt against it and 4/4 are killed
+   (`verification/selftest-coverage/after/` now populated).
+2. **Receipt→control binding added** (`w2/AttackKnowledgeEntry.md` F1): the run window
+   was cohort-wide for its start, so a receipt copied from a sibling control of the same
+   cohort passed. `receipt_validity` now also requires the receipt's `toolSha256` to
+   match the invoked control's sha (control rows; build rows exempt). The knowledge
+   entry's opinion and remedy were corrected to match (window necessary, not sufficient;
+   a nonce echo alone is not causal proof, per `w1/CriticC1Predicate.md`).
+3. **Freshness runner made able-to-fail** (`w2/MutFreshnessRunner.md`,
+   `w2/RederiveMutantsV1.md` MEDIUM): a kill is exit 1 exactly (rc>=2 is an evaluation
+   error, never a kill); the three receipt inputs are pinned by path + sha256 in
+   `freshness.json`; stable expectations are enforced (before_kills==2, after_kills==4,
+   v4_before true, v4_after false, split totals its rows); leg (c) still prints the
+   measured truth only. All four w2 mutants now fail the runner where they survived it.
+4. **Fixture fidelity corrections** (`w2/AttackFixtureShapes.md`): `stale-backdate`
+   now exits 1 with met False (the reachable not-met shape; it exited 0 with met False,
+   an unreachable combination) and both new fixtures carry READMEs; the
+   `counter-error` receipt was rewritten to the partial shape a real
+   `CannotEvaluate` produces (A-G runs only, error note). The `tool-absent` template's
+   carried-over reference hashes are recorded as a routed producer-path fixture
+   refinement (the seat's report carries the evidence; the refusal behavior is
+   unaffected — the v2 note gate fires first).
+5. **Summary predicate truthfulness** (`w2/RederiveV4Receipt.md` F1): driver v2 stamped
+   the module-level PREDICATE alias into its summary; the summary now stamps the
+   receipt's own predicate field, so a v4-mode run with counter v6 reports the
+   mode-accurate text while a v4-mode run with the frozen v5 counter truthfully reports
+   the stale text (the frozen counter is not edited; the repair is opt-in via
+   `--counter .ufo/waves/round-45/c45_count.py`).
+
+Declared v2-vs-v1 interface deltas (intentional, from the frozen mechanism; the honest
+VERDICT semantics are unchanged, kill rule 4 holds on the same inputs): v2 refuses a
+non-empty output cohort (round-44 lesson 13), writes `run-manifest.json`
+(`{started_ns, counter_sha256, driver_sha256, nonce}`), adds the `error` row field
+(invalid rows keep their claimed `met` as evidence), pins the build count, prints the
+AUDIT line under the `kake-r45` default label, and stamps the receipt predicate.
+`w2/AttackV2Regression.md` documented these; none changes the honest-cohort verdict.
+
+Measurements re-run after the corrections: `c45_matrix.py --stage before|after` fresh
+receipts at the final driver (invalid_accepted 3 -> 0, rejections_named 3,
+honest 27/3 identity-validated), `c45_freshness.py` exit 0 with the measured triple
+(2/4 -> 4/4, true -> false, 26/1/0). Wave-2 re-derivations by independent seats agree
+with every committed receipt (matrix re-runs, split re-derivation with an exclusivity
+scan over 2,384 JSON files, v4 receipt field checks, mutant kill tables, census 134
+rows exit 0, ledger gate 3/0, frozen-set guard clean). Routed, not closed here: the
+tool-absent producer-path fixture refinement; the S133 raw-page sha is a
+build-timestamp snapshot (visible-text hash is the stable pin, as for S095); S056's
+ASCII `-` used-by; the v4-mode frozen-v5 pair still emitting the stale predicate text
+(frozen bytes, repair opt-in); the matrix records `driver_sha256` without re-validating
+it on re-run. The C1/C2 verdicts stand: both NOT MET as declared, bounded repairs
+verified, no owned axis harmed.
+
+### Round 45 — final measurement state (appended last; supersedes no prior text)
+
+Driver v2 final sha256 `9b824d958d1494471f45ad84d6ae38ce600518311b1fb95af51b1098aac8a400` (wave-2 hardening: build-leg cohort selftest,
+asserts-enabled guard, toolSha256 receipt-to-control binding, receipt-predicate summary
+stamping, driverSha256 summary field). Counter v6 sha256
+`e17b5dc8a6bd710cd5b4c27569c0972730cf0048d8db4842e115945982cf403b`. Final receipts:
+`verification/matrix/{before,after}.json` (before: invalid_accepted=3, honest 27/3
+valid; after: invalid_accepted=0, rejections_named=3 per-leg, honest 27/3 with
+manifest + on-disk build-receipt binding), `verification/freshness/freshness.json`
+(2/4 -> 4/4, true -> false, 26/1/0 with input pins), `verification/honest-regression/
+after-v5-v2.json` at the final driver. Matrix gate hardening from wave 2
+(AttackMatrixReceipt F2/F3, AttackHonestIdentity): per-leg class gating (after stage),
+before-stage honest-leg gate, manifest + build-receipt identity binding (v2 legs).
+Ledger gate re-run green at tip (`w2/ReRunLedgerGate.md`; 3 figures, 0 mismatches).
+Micro-corrections: the before receipt's `classRuns` key is null (not `[]`) — the
+append above reads "carrying classesMode:'v4', classRuns:[]" for the committed r44
+`v4.json`; the `[]` value belongs to the v6 counter receipt. The frozen-set guard
+excludes generated `__pycache__` bytes (`w2/SentinelFinal.md`; caches regenerate
+under any non-`-B` import and are gitignored — committed frozen bytes are
+byte-identical, `git status` clean). No verdict changes: C1 and C2 remain NOT MET as
+declared; all bounded repairs and measurements verify at the final bytes.
