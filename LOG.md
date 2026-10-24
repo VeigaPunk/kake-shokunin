@@ -1773,7 +1773,7 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `scripts/redirect_audit.py` + sealed counter `.ufo/waves/round-46/c46_matrix.py`
   (selftest 23/23; 11/11 witnesses caught, 0 clean false positives, 3/3 controls
   rejected, matrix wall <120 s; receipts `verification/c1-before-7cdbaefd.json` and
-  `verification/c1-after-<tip>.json` name tool sha256 per the C2 receipt-identity
+  `verification/c1-after-ee43e66.json` name tool sha256 per the C2 receipt-identity
   criterion). C2 gate legs MET — `scripts/citation_lint.py` (selftest 8/8; 4 mutant
   classes killed) exits 1 with 28 named violations at base `7cdbaefd…` and 0 at the
   tip, every occurrence adjudicated in the committed ledger
