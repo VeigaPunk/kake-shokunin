@@ -144,7 +144,8 @@ def main(argv: list[str]) -> int:
             continue
         text = git_show(args.root, args.revision, rel)
         if (text and "R47 rerun only; not contemporaneous r46 verdict-time evidence" in text
-                and "exit=0" in text and "--offline" in text):
+                and ("exit=0" in text or "OFFLINE_EXIT=0" in text)
+                and "--offline" in text):
             r6_rerun_receipted = True
             break
     r6_fixed = r6_withdrawn and r6_rerun_receipted
