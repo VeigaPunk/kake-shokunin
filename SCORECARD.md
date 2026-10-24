@@ -3615,8 +3615,8 @@ v4 supporting cohort `v4-final/` (0 class witnesses by construction; v4 met coun
 seed-dependent — 26/27 and 25/27 measured across wave-2 cohorts, 27/27 in the
 `v4-final` draw; divergences on legacy keys only, both attempt-1 divergences
 reproduced at their recorded seeds). Canary cohort
-`canary-final/`: notMet 5/5, exit 0. Wave-2 re-runs reproduced 23/27 pre-G1-fix baseline
-(`w2-baseline/`), proving the before-state.
+`canary-final/`: notMet 5/5, exit 0. Wave-2 re-runs reproduced the 23/27 pre-G6-fix
+baseline (`w2-baseline/`), proving the before-state.
 
 Routed (not claimed), preserved in `.ufo/waves/round-44/w2/`: `ReviewCounterContract.md`
 three HIGH latent gate defects (counter-error/tool-absent receipts can witness; stale planted
