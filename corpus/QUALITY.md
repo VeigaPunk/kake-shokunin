@@ -1074,4 +1074,12 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
 
 ## Round-47 pointer correction — R6
 
-The preceding criterion's initial working filename `offline-sweep-r46-verdict-time.txt` was withdrawn as misleading: the retained run is a round-47 rerun, not contemporaneous r46 evidence. Current receipt: `.ufo/waves/round-47/verification/offline-sweep-r47-rerun.txt` (2026-10-24T06:46:36Z); it does not retroactively receipt the r46 claim.
+The preceding criterion's initial working filename `offline-sweep-r46-verdict-time.txt` was withdrawn as misleading: the retained run is a round-47 rerun, not contemporaneous r46 evidence. Current receipt: `.ufo/waves/round-47/verification/offline-sweep-r47-rerun.txt` (2026-10-24T06:46:36Z, sha256 `b86bc45992aa4f93c2c6d55d972a7d1a84ac0ffb46bedb7a674afd4a9822a717`); it does not retroactively receipt the r46 claim.
+
+## Round-47 criterion grounding note
+
+The round-47 criteria above are motivated and shown able to fail in `corpus/lessons/round-47.md`: Mistake 2 (R4 reason drift; `.ufo/waves/round-47/verification/c2-r4-mutation.txt`, sha256 `1e7636ecb023b2d2fa61d5bb6904166ebe84337514beed175c8010675cd507c3`, rejects 5/5 old-reason mutants) and Mistake 3 (the withdrawn r46 verdict-time claim and separate r47 rerun receipt). This note adds their motivating lesson pointer without changing either criterion.
+
+## Round-47 counter receipt-label criterion
+
+- **Counter matches the receipt's explicit exit label (round 47).** A count over a committed receipt accepts the explicit exit field the receipt records (`exit=0` or `OFFLINE_EXIT=0`), rather than hard-coding a spelling absent from the artifact; the `--offline` argv and the receipt's non-retroactive scope still have to match. Grounding: `corpus/lessons/round-47.md` Mistake 4; `verification/c2-after-846138c.json` (R6 false, sha256 `af6fcdbfd48927dab3662b420ef1dd2e967d1238d271c77e0b2553f693fb1674`) and `verification/c2-after-714e707.json` (C2_MET, sha256 `141ede64f4539481557c946dfc40fa5af574771b3a15a1cc58a0a2299d1b5dba`).

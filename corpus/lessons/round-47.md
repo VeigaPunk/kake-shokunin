@@ -23,9 +23,12 @@
    it (round-46 closure routed defect R4) · **captured-by:** none — the
    citation gate checks token resolution and class only · **fix:** the
    round-47 QUALITY criterion "Citation reason fidelity" + the append-only
-   §Round-47 corrections block naming each old line; the fix is shown able
-   to fail — the corrections name the exact citing lines, and a future
-   closure can re-read citing line vs reason the same way.
+   §Round-47 corrections block with the corrected phrase per row. The fix is
+   shown able to fail: `python3 -B .ufo/waves/round-47/c47_r4_mutation_check.py
+   --root . --revision 714e7074110469a9ed2a3594677197baa0890905` reports
+   `R4_REASON_FIDELITY base=pass mutants=5/5_rejected PASS`, exit 0; receipt
+   `.ufo/waves/round-47/verification/c2-r4-mutation.txt` sha256
+   `1e7636ecb023b2d2fa61d5bb6904166ebe84337514beed175c8010675cd507c3`.
 3. **class:** verdict filed without a committed receipt (operability) ·
    **evidence:** the round-46 report filed "freshness-sweep --offline exit 0
    at verdict time" with no committed output (round-46 closure routed defect
@@ -33,11 +36,27 @@
    full verdict + exit), but nothing required the output file itself ·
    **fix:** withdraw the unreceipted r46 verdict-time claim append-only in
    LOG.md; retain `.ufo/waves/round-47/verification/offline-sweep-r47-rerun.txt`
+   (sha256 `b86bc45992aa4f93c2c6d55d972a7d1a84ac0ffb46bedb7a674afd4a9822a717`)
    solely as a contemporaneous r47 rerun, explicitly not retroactive evidence.
    The "Verdicts carry committed receipts" criterion and counter prove a
    prose tally is not a receipt; C1's base measurement read 0/2 selftest
    receipts despite the tallies existing in LOG prose, while C2's base
    measurement read 4/4 routed defects outstanding.
+
+4. **class:** C2 counter misread the offline receipt's explicit exit label
+   (operability) · **evidence:** first after run at build commit
+   `846138c99043505592adc9a7cbffcc31e044cd35` left R6 false and
+   `outstanding=1/4` in `verification/c2-after-846138c.json` (sha256
+   `af6fcdbfd48927dab3662b420ef1dd2e967d1238d271c77e0b2553f693fb1674`),
+   while the committed r47 rerun receipt ended `OFFLINE_EXIT=0` ·
+   **captured-by:** none — the counter matched only the literal `exit=0`,
+   not the receipt's actual explicit label · **fix:** accept either
+   `exit=0` or `OFFLINE_EXIT=0` while still requiring the `--offline` argv
+   and the non-retroactive r47 label. Shown able to fail: the same receipt is
+   `C2_NOT_MET` under `846138c` and `C2_MET` under counter-fix commit
+   `714e7074110469a9ed2a3594677197baa0890905`; after receipt
+   `verification/c2-after-714e707.json` sha256
+   `141ede64f4539481557c946dfc40fa5af574771b3a15a1cc58a0a2299d1b5dba`.
 
 ## Gate
 

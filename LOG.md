@@ -1842,3 +1842,50 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `verification/c2-before-cd42e3c.json`.
 - Frontier: opened Git Documentation `gitrevisions` as S136 (tier A, 2026-10-24T06:31:20Z, HTTP 200); added one `SOURCES.md` row and the sourced knowledge entry `corpus/knowledge/commit-citation-hygiene.md`. New QUALITY criteria are grounded in this round's lesson.
 - Swarm: one v1 wave-1 spec, 32 seats, prepared but not dispatched per host mapping; validator's `taskCall` is committed as `.ufo/waves/round-47/w47-taskcall.json`, registry under `w1/swarm-registry.json`. Role mix is executors 4, scribes 4, scouts 2, reviewers 10, critics 4, mutation-testers 6, connector 1, sentinel 1. No wave 2 or residual call: no wave-1 results were dispatched/returned; 0 dead seats (undispatched).
+
+### Round 47 — measurements and receipt identities (append-only)
+
+- C1 after at `714e7074110469a9ed2a3594677197baa0890905`:
+  `python3 -B .ufo/waves/round-47/c47_registry_count.py --root . --revision 714e7074110469a9ed2a3594677197baa0890905`
+  → `registry_rows=2/2 receipts=2/2 C1_MET`, exit 0. Receipt
+  `verification/c1-after-714e707.json`, sha256
+  `cc71cc9b9a9dcea7a0e6a3082543fbf461628b1d759d2824878581f07314f711`.
+  Before at `cd42e3c310ba442e89dde638ba6401adaefaf3e8`: 0/2, 0/2, exit 1;
+  receipt `verification/c1-before-cd42e3c.json`, sha256
+  `c98ff62486a90e88034c618f4a93443bfc9d4e4ac538e3aad167b290656acd13`.
+- C2 first after candidate at build `846138c99043505592adc9a7cbffcc31e044cd35`
+  returned `outstanding=1/4` because the counter matched literal `exit=0`
+  instead of the rerun receipt's explicit `OFFLINE_EXIT=0` field. Receipt
+  `verification/c2-after-846138c.json`, sha256
+  `af6fcdbfd48927dab3662b420ef1dd2e967d1238d271c77e0b2553f693fb1674`,
+  preserves that failed measurement. The counter change landed at
+  `714e7074110469a9ed2a3594677197baa0890905` and accepts either explicit
+  spelling; predicate and threshold unchanged. C2 after at that commit:
+  `python3 -B .ufo/waves/round-47/c47_routed_count.py --root . --revision 714e7074110469a9ed2a3594677197baa0890905`
+  → `outstanding=0/4 C2_MET`, exit 0. Receipt
+  `verification/c2-after-714e707.json`, sha256
+  `141ede64f4539481557c946dfc40fa5af574771b3a15a1cc58a0a2299d1b5dba`.
+  Before at base: `outstanding=4/4 C2_NOT_MET`, exit 1; receipt
+  `verification/c2-before-cd42e3c.json`, sha256
+  `866b91be24d6f9c0b84df7d7cf132088ea21ceb219369bad3f871ef6321d7fb4`.
+- R4 correction's able-to-fail control at `714e707`: the committed ledger
+  reason helper passes the original block and rejects 5/5 single-row
+  old-reason mutations in memory. Command:
+  `python3 -B .ufo/waves/round-47/c47_r4_mutation_check.py --root . --revision 714e7074110469a9ed2a3594677197baa0890905`
+  → `R4_REASON_FIDELITY base=pass mutants=5/5_rejected PASS`, exit 0.
+  Receipt `verification/c2-r4-mutation.txt`, sha256
+  `1e7636ecb023b2d2fa61d5bb6904166ebe84337514beed175c8010675cd507c3`.
+- R2 selftest receipts at 2026-10-24T06:46:10Z: `selftest-redirect-audit.txt`
+  sha256 `0760b0310b166e45585794fb889431e2d5577af76e70cebfbe85d213428ef056`
+  (23/23, exit 0, tool sha256
+  `1e1dff18030c9028d833ab108bff140102343f4c5198c35984e7838e54bb748a`) and
+  `selftest-citation-lint.txt` sha256
+  `b3902de66b5b0ed56af51e2b8611d5505aab1585a496194b5746881b4ea0b735`
+  (8/8, exit 0, tool sha256
+  `3c78a0a82f70b166776f7f7626dc7afbf9f9916a4399ae879287e4bf9662987f`).
+- Frontier counts: base `git show cd42e3c310ba442e89dde638ba6401adaefaf3e8:corpus/SOURCES.md | grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|'` → 135; current `grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md` → 136. Added one tier-A row S136; no existing row cells touched. Census start/end both exit 0: receipts `verification/census-start.txt` sha256 `4f389ac2178fceb007bf587a5bb7c16e1720bdc3e8c4efcd7fa085d386169380`, `verification/census-end.txt` sha256 `7f60991ec96f6a434ce90e592b519ba6e1c675fefd6a31a045fbd571caf85e46`.
+- Standing gates after the edits: freshness selftest 35/35 exit 0; citation-lint selftest 8/8 and `citation_lint.py --root .` exit 0; `ledger_latest_check.py` reports 0 mismatches, exit 0.
+- Validator evidence: v1 plan/run under policy `/home/vgpnk/Projects/shokunin/scripts/hyaku/ufo-wave-policy.json`, 32 spawn / 0 resume / 32 total, one batched task call, 0 dead seats (not dispatched). Spec `w47-spec.json` sha256 `ecebfc9746800c00562b869f1b92c8f30de0a23f1b608c70b5d0afceb4af0c1b`; taskCall `w47-taskcall.json` sha256 `9cda7de1fd461abd4f5c4daf55ec29b9ef0f9013237c5490bb9704c23a08d6c6`; registry `w1/swarm-registry.json` sha256 `bce58d7f93f64cdec17e3ebe68678c8382bc4b0e262bc2786237d11051635582`.
+- Required fleet misroot sweep found no untracked path containing kake/round-47 markers; receipt `verification/misroot-sweep.txt` sha256 `0bd8b94f7fd4a711e81b11c2845c68dd0f10a7ebe9c5d2d77dc26597b1f47853`. Driver `.ufo/state/*`/watchdog churn and all other-root untracked files were left untouched.
+- R6 rerun receipt identity: `.ufo/waves/round-47/verification/offline-sweep-r47-rerun.txt`, sha256 `b86bc45992aa4f93c2c6d55d972a7d1a84ac0ffb46bedb7a674afd4a9822a717`; it records `OFFLINE_EXIT=0` for the distinct round-47 rerun only.
+- Final no-harm recheck after the round-47 document edits: `node scripts/freshness-sweep.mjs --selftest` → `selftest: 35/35 passed`, exit 0; `python3 -B scripts/citation_lint.py --selftest` → `selftest: 8/8 passed`, exit 0; `python3 -B scripts/citation_lint.py --root .` exit 0; `python3 -B scripts/ledger_latest_check.py` → `ledger-quotes: 3 figures, 0 mismatches`, exit 0.

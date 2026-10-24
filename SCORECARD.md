@@ -3964,6 +3964,21 @@ above is misstated: the ledger holds 20 data rows (12 naming LOG.md + 8
 SCORECARD.md); corrected append-only here and in LOG.md.
 
 
+
+## Round 47 — measured verdicts
+
+Base for both frozen counters: `cd42e3c310ba442e89dde638ba6401adaefaf3e8`.
+C1 and the repaired C2 counter were both re-derived at `714e7074110469a9ed2a3594677197baa0890905`.
+
+| Claim | Axis / score delta | Before → after | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 gates registered + receipted | operability 10→10 (HOLD) | registry rows 0/2, selftest receipts 0/2 → 2/2, 2/2 | `python3 -B .ufo/waves/round-47/c47_registry_count.py --root . --revision <commit>` | MET at `714e707`; base receipt `verification/c1-before-cd42e3c.json` sha256 `c98ff62486a90e88034c618f4a93443bfc9d4e4ac538e3aad167b290656acd13`; after receipt `verification/c1-after-714e707.json` sha256 `cc71cc9b9a9dcea7a0e6a3082543fbf461628b1d759d2824878581f07314f711`; selftest receipts: redirect `selftest-redirect-audit.txt` sha256 `0760b0310b166e45585794fb889431e2d5577af76e70cebfbe85d213428ef056`, citation `selftest-citation-lint.txt` sha256 `b3902de66b5b0ed56af51e2b8611d5505aab1585a496194b5746881b4ea0b735`. |
+| C2 routed-record repairs | freshness 10→10 (HOLD) | outstanding R3–R6 4/4 → 0/4 | `python3 -B .ufo/waves/round-47/c47_routed_count.py --root . --revision <commit>` | MET at `714e707`; base receipt `verification/c2-before-cd42e3c.json` sha256 `866b91be24d6f9c0b84df7d7cf132088ea21ceb219369bad3f871ef6321d7fb4`; after receipt `verification/c2-after-714e707.json` sha256 `141ede64f4539481557c946dfc40fa5af574771b3a15a1cc58a0a2299d1b5dba`. R4 mutation proof: `verification/c2-r4-mutation.txt` sha256 `1e7636ecb023b2d2fa61d5bb6904166ebe84337514beed175c8010675cd507c3` (5/5 wrong-reason mutants rejected). R6 rerun receipt `verification/offline-sweep-r47-rerun.txt` sha256 `b86bc45992aa4f93c2c6d55d972a7d1a84ac0ffb46bedb7a674afd4a9822a717`; it is not retroactive r46 evidence. |
+
+Counter instrumentation note (not a predicate change): the first C2 after attempt at build commit `846138c99043505592adc9a7cbffcc31e044cd35` returned `outstanding=1/4` because R6's explicit receipt label is `OFFLINE_EXIT=0`, not the counter's first literal `exit=0` matcher. The initial result is retained at `verification/c2-after-846138c.json` (sha256 `af6fcdbfd48927dab3662b420ef1dd2e967d1238d271c77e0b2553f693fb1674`). The counter now accepts either explicit spelling; its frozen claim and threshold are unchanged, and the corrected counter at `714e707` returns `C2_MET`.
+
+No owned axis harmed on exercised checks: `node scripts/freshness-sweep.mjs --selftest` → 35/35, exit 0; `python3 -B scripts/citation_lint.py --selftest` → 8/8, exit 0; `python3 -B scripts/citation_lint.py --root .` → exit 0; `python3 -B scripts/ledger_latest_check.py` → zero mismatches, exit 0. No capability entered this round.
+
 ## Planned — round 48
 
 Steered by the round-47 closure. Standing candidates: the orchestrator-owned
