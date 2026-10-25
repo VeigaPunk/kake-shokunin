@@ -1967,3 +1967,9 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Uncommitted, left untouched.** Eight orchestrator-owned
   `.ufo/waves/round-46/residual/` reports, and nine `>1MiB` copies under
   `.ufo/waves/round-48/assimilation/validate/`. Not force-added.
+- **Round-49 measurements.** C1 at `1c846ed2d67b1692ea966be064f0fc04542763c6`:
+  `order 1/1 met=True`, exit 0. C2 at the same revision: `passed 2/2 met=True`,
+  exit 0. Base `090ce8f1cfbae2dfb8bfa65dedd2c72861c48166`: C1 order 0/1 exit 1,
+  C2 0/2 exit 1. Census `validate --root` exit 0. Wave: one v1 batch of 32
+  Kimi prompts after `granted lane=kake wave=r49-w1 seats=32`; 23 exit 0, 9
+  timeout-killed, not replaced. AgentSwarm was not bound on this L1.

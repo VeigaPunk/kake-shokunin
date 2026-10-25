@@ -4089,3 +4089,14 @@ the base: C1 order 0/1 exit 1 (proof absent); C2 passed 0/2 exit 1.
 
 C1 predicate: `met: order == 1 of 1`. C2 predicate: `met: passed >= 2 of 2 declared ids` (S273, S274). A miss is an honest stop. The mirror validation is `--file` only and is not a full-repo validation.
 
+## Round 49 — measured results
+
+Axis ratings stay 10 → 10. No capability row, rank, or promotion is self-awarded.
+
+| Claim | Axis | Before | After | Measured commit | Counting command | Evidence |
+|---|---|---|---|---|---|---|
+| C1 | operability | order 0/1 at `090ce8f1cfbae2dfb8bfa65dedd2c72861c48166` | order 1/1 | `1c846ed2d67b1692ea966be064f0fc04542763c6` | `python3 -B .ufo/waves/round-49/c49_order.py --root . --revision <commit>` | `.ufo/waves/round-49/verification/c1-before-090ce8f1.json`, `c1-after-1c846ed2.json`; wave `ExecRerunC1` |
+| C2 | freshness | 0/2 at the same base | 2/2 | `1c846ed2d67b1692ea966be064f0fc04542763c6` | `python3 -B .ufo/waves/round-49/c49_quote_truth.py --root . --revision <commit>` | `.ufo/waves/round-49/verification/c2-before-090ce8f1.json`, `c2-after-1c846ed2.json`; wave `ExecRerunC2` |
+
+Limits, not predicate changes: the S273 quote is a substring of the whitespace-collapsed retained text, not of the raw HTML (`w1/ScoutReopenS273.md`). The entry heading is a gloss; the admitted sentences are the two Gate quotes (`w1/CriticQuoteOverclaim.md`). The census mirror is `--file` only (`w1/ReviewMirrorScope.md`).
+

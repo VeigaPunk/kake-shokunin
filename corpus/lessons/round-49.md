@@ -26,3 +26,9 @@ Quarantine slice re-derived (12 rows: S142, S143, S148, S154, S156, S161, S178, 
 ## considerthese
 
 Mined, not edited: `considerthese/2026-10-24.md` (2026-10-24), first unimplemented proposal — track open residual-attack findings against each admitted tool so admission does not close them. Opened the pointer: `.ufo/waves/round-46/residual/CriticCitationOverreach.md` still exists, uncommitted, orchestrator-owned. Round 48 closed that file's Finding 1 (full-40 existence). This round does not claim the other residual findings closed. Criterion appended to `corpus/QUALITY.md`. The eight residual reports stay uncommitted and untouched.
+
+## Wave notes
+
+`CriticQuoteOverclaim` says the entry heading uses words the two Gate quotes do not contain. The heading is a gloss. The admitted sentences stay the two quotes. Predicate unchanged.
+
+`ScoutReopenS273` fetched HTTP 200, 74323 bytes. The S273 quote is a substring after whitespace collapse, not of the raw HTML. The counter scores the collapsed blob committed at `.ufo/waves/round-49/sources/S273.txt`.
