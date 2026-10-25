@@ -1,0 +1,22 @@
+{
+  "round": 49,
+  "base": "090ce8f1cfbae2dfb8bfa65dedd2c72861c48166",
+  "declaredBeforeScoring": true,
+  "claims": [
+    {
+      "id": "C1",
+      "axis": "operability",
+      "predicate": "met: order == 1 of 1",
+      "countingCommand": "python3 -B .ufo/waves/round-49/c49_order.py --root . --revision <commit>",
+      "doNothing": "the same command at base 090ce8f1cfbae2dfb8bfa65dedd2c72861c48166, which has no order-proof"
+    },
+    {
+      "id": "C2",
+      "axis": "freshness",
+      "predicate": "met: passed >= 2 of 2 declared ids",
+      "declaredIds": ["S273", "S274"],
+      "countingCommand": "python3 -B .ufo/waves/round-49/c49_quote_truth.py --root . --revision <commit>",
+      "doNothing": "the same command at base 090ce8f1cfbae2dfb8bfa65dedd2c72861c48166, which has neither row"
+    }
+  ]
+}
