@@ -1,0 +1,492 @@
+{
+  "schema": "ufo-swarm-registry-v1",
+  "wave": "kake-r51-w1",
+  "createdAt": "2026-10-25T06:29:05.814Z",
+  "updatedAt": "2026-10-25T06:29:05.814Z",
+  "reportDir": ".ufo/waves/round-51/w1",
+  "members": {
+    "ScoutCensusBefore": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Run the frozen census command read-only: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`. Record the exact argv, stdout, stderr and exit code, and the registry row count it reports. Do not modify the registry. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScoutCensusBefore.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScoutCounterC1Base": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_wave_ledger.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision 007d66e4e8360a5f88d29a93eeedd8066dad4434` and record the full stdout and exit code. State which of L1/L2/L3 fail and the exact note each prints. This is the do-nothing control for C1. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScoutCounterC1Base.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScoutCounterC2Base": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_quote_truth.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision 007d66e4e8360a5f88d29a93eeedd8066dad4434` and record the full stdout and exit code. State which conditions fail. This is the do-nothing control for C2. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScoutCounterC2Base.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScoutCounterC2Tip": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_quote_truth.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision 9d13768c4fdd0e9a2688d2ecf1616b539cf57658` and record the full stdout and exit code. Independently re-check one of the eight conditions by hand (name which) so the 8/8 is not taken on the counter's word alone. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScoutCounterC2Tip.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScoutQuarantineSlice": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Read-only: re-derive the lane's slice of `/home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md` with the awk filter in the round prompt and compare it with the committed `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/assimilation/quarantine-slice`. Report the row count, whether every line carries an S-id, and list every S-id. Adopt nothing. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScoutQuarantineSlice.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScoutMisroot": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Run `git -C /home/vgpnk/Projects/shokunin status --porcelain` with no pathspec. For every untracked path, say whether its content names kake or round-51 (read the file; do not guess from the name). Report the classification table. Touch nothing. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScoutMisroot.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ConnectorSiblingOverlap": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "connector",
+      "item": "Scan the sibling lanes' committed round-50/round-51 material under `/home/vgpnk/Projects/shokunin/{kumitate,kotoba,kotodama,tabi,revenger,chousa,souji,mado,kasegi}-shokunin` (git log/show only) for a wave-evidence ledger, a route-probe receipt shape or a canonical/crawler-identity knowledge entry that kake round 51 duplicates or contradicts. Name each overlap with path and line; say `none found` with the command you ran if there is none. Do not write in any sibling repo. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ConnectorSiblingOverlap.md",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecLedgerMutants": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Copy `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_wave_ledger.py` into `/tmp/r51-mut-l1/`. If the committed wave evidence (settlement, route map, timing, accounting) is not on disk yet, construct the minimal passing fixture the counter's own code requires under `/tmp` and say you did; then run at least five mutants against the C1 counter and record the exit code and note for each: (a) a settlement whose `reports_written` is inflated by one, (b) a settlement with one seat marked `report: true` but no file, (c) a route receipt whose `httpStatus` is a string, (d) a used route with `ok: false`, (e) an accounting artifact whose `wall_clock_seconds` differs by one from the timing pair. Every mutant must be rejected (exit 1) with a named note. Write only under `/tmp` and your report path. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecLedgerMutants.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecQuoteCounterMutants": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Copy `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_quote_truth.py` and the committed corpus bytes into `/tmp/r51-mut-l2/`, then run at least five mutants and record exit code plus failing condition for each: (a) swap the two Gate quotes between S262 and S263, (b) corrupt one retained body's sha256 in the receipt, (c) drop one id from a row's `used-by`, (d) make one registry row 12 cells, (e) point the receipt URL at the other row's URL. Every mutant must be rejected (exit 1). Write only under `/tmp` and your report path. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecQuoteCounterMutants.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecCensusMirrorValidate": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Rebuild the pre-append census check from committed bytes: copy `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/` to `/tmp/r51-mirror/`, remove the two adopted rows, run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /tmp/r51-mirror/SOURCES.md` and record argv/stdout/exit. Then confirm the committed mirror output at `.ufo/waves/round-51/assimilation/pre-append/` names `--file` and not `--root`. Report whether the two agree. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecCensusMirrorValidate.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecRowShape": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Parse `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md` with the census parser's own 0-to-3-leading-space pattern and report, for S262 and S263: cell count, whether any cell holds a literal or escaped pipe, status, opened, recheck, and the `used-by` value. Then state whether the two rows would parse as eleven cells. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecRowShape.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecSourceDigest": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Recompute sha256 over `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/sources/S262.html` and `S263.html`, compare with `sources/receipts.json`, and report each body's byte size, digest match, and the receipt's URL. Flag any mismatch as a defect. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecSourceDigest.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecQuoteRawScan": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "For every quote in `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/canonical-selection.md` and `crawler-identity.md`, classify it against the retained body of the row the entry cites: raw substring, whitespace-collapsed-only, or absent. Write a small script under `/tmp` and report a table (entry, quote head, class). An `absent` quote is a defect; name it. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecQuoteRawScan.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecRegistryDiff": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Prove the registry append is append-only: diff `git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 007d66e4e8360a5f88d29a93eeedd8066dad4434:corpus/SOURCES.md` against the tip file at the row level and report the added row ids, the removed row ids and the count of changed pre-existing rows. Any changed pre-existing row is a defect; name it with the id. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecRegistryDiff.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecAccountingPrototype": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Build a `/tmp` fixture settlement/timing pair whose wall clock is a known integer and whose aggregate and dead-seat seconds are known, then run `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_wave_ledger.py` L3 logic against it (import the module or copy the function) and report whether it accepts and whether it rejects the same fixture with the wall clock off by one. Report the exact numbers used. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecAccountingPrototype.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ExecSpecLint": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Validate the round's own dispatch payload once it exists: read `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w51-taskcall.json` and report seat count, unique-name check, role histogram, whether every item text names an absolute report path under `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1`, and whether the band 32-64 holds. If the file does not exist yet, lint `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w51-spec.json` instead and say which file you linted. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ExecSpecLint.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScribeEntryAudit": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Read `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/canonical-selection.md` and `crawler-identity.md` as prose. For each entry list every sentence that asserts more than its cited row supports, and every quote whose class label does not match a raw scan you ran yourself. Propose append-ready wording in your report; do not edit the entries. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScribeEntryAudit.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScribeLessonShape": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Read `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-51.md` and the lesson contract in `/home/vgpnk/Projects/shokunin/LEARNING.md`. List every required section that is absent, every section present but empty, and whether `## Gate` carries at least one admit and one reject with reason and flip. Name line numbers. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScribeLessonShape.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScribeSourcesCells": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Read the SOURCES.md registry schema in `/home/vgpnk/Projects/shokunin/CORPUS.md` and the two new rows for S262/S263. For each cell, quote the schema rule and the row's value side by side, and name any cell whose value would violate a rule a reader can check by eye (dates, cadence, tier, status vocabulary). No edits. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScribeSourcesCells.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ScribeReportSources": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Using only committed bytes, draft the `Sources & frontier` paragraph the round report needs: census before and after (argv + exit), rows added by tier, rows touched old-to-new, frontier rows advanced, and the at-least-one-sourced-claim statement naming S262/S263. Write the draft under `/tmp` and reproduce it in your report; the L1 owns the real report. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ScribeReportSources.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewC1Predicate": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Read `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/contract.json` C1 and the `PREDICATE` constant plus docstring in `c51_wave_ledger.py`. Report whether the same sentence appears in both, whether the threshold is 3 of 3 in both, and whether the counter's three checks match the three condition sentences L1/L2/L3 word for word. Name any divergence with line numbers. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewC1Predicate.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewL1Accounting": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Adversarially read `check_l1` in `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_wave_ledger.py`. Construct, on paper, a settlement and report set that passes L1 while attesting a wave that never ran. If one exists, name the missing guard precisely; if none exists after your attempt, name the guard that blocks each attempt you tried. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewL1Accounting.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewL2Routes": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Adversarially read `check_l2`. Report: can a failing probe receipt be used by a role without failing? can a receipt omit its excerpt and still pass? can a role's alias be absent from every receipt? Name each guard and the line that implements it, or the hole. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewL2Routes.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewL3Time": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Adversarially read `check_l3`. Report whether the wall clock is re-derived from the timing pair or copied from the accounting artifact, whether every figure the accounting carries is cross-checked, and whether a dead seat can record an impossible duration. Name lines. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewL3Time.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewC2Conditions": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Read the eight conditions in `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_quote_truth.py` and the eight sentences in `contract.json`. Match them one to one; name any condition the code does not implement, or any code check the contract does not declare. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewC2Conditions.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewEntryScope": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Apply `/home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md` to each of the two admitted entries: does the ground belong to kake's core or frontier, or to a sibling lane (tabi for crawler discipline, chousa for method, kagi for secrets)? Give a per-entry verdict with the PROVINCE line that decides it. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewEntryScope.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewQualityBar": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Apply `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/QUALITY.md` to each entry and to the lesson. List every criterion the round's artifacts meet, and every criterion that is not met or not evidenced, with the criterion's own wording. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewQualityBar.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewAppendOnly": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Verify the round's own append-only discipline over committed bytes: compare `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md`, `SCORECARD.md` and `LOG.md` between `007d66e4e8360a5f88d29a93eeedd8066dad4434` and `9d13768c4fdd0e9a2688d2ecf1616b539cf57658` and report, per file, the count of removed or rewritten lines that are not part of a new section. A rewritten historical line is a defect; name it with its text. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewAppendOnly.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewReportContract": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Read `/home/vgpnk/Projects/shokunin/.ufo/prompts/kake-round-51.md` section 4 and produce a checklist of the six required report sections with the exact heading text and what evidence each needs. Say which sections the round's committed artifacts can already support and which need a measurement that does not exist yet. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewReportContract.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "ReviewShonen": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Read `/home/vgpnk/Projects/shokunin/kake-shokunin/SHONEN.md` and report one line per box: the box text, what evidence would mark it `[x]`, and the evidence that exists now at `9d13768c4fdd0e9a2688d2ecf1616b539cf57658`. Mark `[x]` only where a named non-author verifier exists, `[~]` where a pointer exists, `[ ]` otherwise. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/ReviewShonen.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticZeroControl": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Falsify the do-nothing controls. Run both counters at the base and at the tip, then argue whether a round that committed nothing but the wave evidence could still reach C1 3/3, and whether a round that copied the retained bodies without opening the URLs could reach C2 8/8. Name the guard that blocks each, or the hole. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticZeroControl.md",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticTautology": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack C1 as self-attestation: the L1 authors the settlement the counter then certifies. Decide whether any check in the ledger is independent of a number the L1 typed, and say which. If every figure is self-authored, say so plainly and name the cheapest independent cross-check the lane could add next round. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticTautology.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticStaleRows": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "The rows carry `opened 2026-10-24` while this run is 2026-10-25. Decide whether that is a defect under CORPUS.md rule 1 as written, and whether the Gate's access dates match the commit dates of the commits that carry them. Give the ruling and the rule text you relied on. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticStaleRows.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticQuarantine": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the quarantine handling: the slice was re-derived and adopted nothing. Is an unadopted slice acceptable under the round prompt's quarantine clause, or does the clause require a verdict per row this round? Quote the clause and give your ruling. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticQuarantine.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticHarm": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attempt to show an owned axis is harmed by this round's committed changes. Run the standing gates a reader can run (`node /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs --selftest`, `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citation_lint.py --root /home/vgpnk/Projects/shokunin/kake-shokunin`, `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/ledger_latest_check.py`) and report each exit code. Name any harm, or say none observed with the exits you got. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticHarm.md",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticCapability": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Argue both sides of whether C1 is a capability acquisition or instrumentation theater: what can the lane now do that it could not do at the base, and what does the ledger not prove about a wave. Give a verdict with the strongest counter-argument stated fairly. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticCapability.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticAbsence": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack every proof-by-absence in the round's artifacts: name each claim that rests on a file being absent at the base, and say what a later reader would need to re-check it. Report at least three such claims with their commit. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticAbsence.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticIds": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the id-collision evidence: the staged package's S273, S274 and S286 overlap the lane registry and were not adopted. Is the overlap resolved or merely noted? What breaks if a later round adopts the staged rows under those ids? Name the scratch evidence you relied on. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticIds.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticGateCriterion": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Read the `## Mistakes` block in `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-51.md`. Decide whether its fix is testable — can a command show the fix able to fail? If not, propose the command. Give a ruling on each mistake row. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticGateCriterion.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "CriticShape": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Read the round prompt's section 2 wave-shape options and the lesson's declared shape. Decide whether one v1 wave of 48 seats plus a residual call satisfies the named default shape, and whether a second 32-seat wave is required when wave 1 yields fewer than 32 distinct attack items. Give the ruling and the clause. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/CriticShape.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "MutationDropReport": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In `/tmp`, copy the C1 counter and build (or copy, if it now exists) the minimal passing wave-evidence fixture, then delete one seat report file and re-run the L1 check. Report the exact note and exit code. The mutant must be rejected; if it is accepted, the L1 guard is broken and you must say so. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/MutationDropReport.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "MutationSwapIds": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In `/tmp`, swap the S262 and S263 rows' `used-by` cells and re-run C2. Report which condition fails and its note. The mutant must be rejected. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/MutationSwapIds.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "MutationWallClock": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In `/tmp`, build (or copy) the minimal passing fixture, change the timing pair's `settledAt` by 60 seconds without touching the accounting artifact, and re-run C1's L3. Report the note and exit. The mutant must be rejected. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/MutationWallClock.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "MutationRoute": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In `/tmp`, build (or copy) the minimal passing fixture, flip a used route's receipt to `ok: false` keeping the excerpt, and re-run C1's L2. Report the note and exit. The mutant must be rejected; if it is accepted, name the hole. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/MutationRoute.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "MutationSourceSha": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "In `/tmp`, alter one byte of a retained body (keeping the receipt) and re-run C2. Report the failing condition and exit. The mutant must be rejected. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/MutationSourceSha.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "SentinelWriteScope": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "sentinel",
+      "item": "Security-review the wave's write scope: list every path a seat was permitted to write, then check the lane and fleet worktrees for any file outside that set with a round-51 mtime. Report the out-of-scope writes and the commands you used. Do not delete anything. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/SentinelWriteScope.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "RevengerR50": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "revenger",
+      "item": "Re-derive the round-50 routed defects r50-1..r50-4 from the committed round-50 material (`/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-50/`, `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-50*.md`, the fleet report `/home/vgpnk/Projects/shokunin/.ufo/reports/round-50/kake.md`) and state, per defect, whether round 51's committed artifacts address it, partly address it, or leave it open. Quote the defect text you relied on. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/RevengerR50.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    },
+    "SimplifierCounters": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "simplifier",
+      "item": "Attempt to delete code from `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/c51_wave_ledger.py` and `c51_quote_truth.py` that no condition needs, and name each deletion candidate with the lines it covers and whether the frozen predicate still evaluates the same. Do not edit the committed files; work on a `/tmp` copy. Report dead code or `none found`. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/w1/SimplifierCounters.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 51 wave 1: verify and attack the two frozen claims (the wave-evidence ledger and the two assimilated entries) plus the frontier step"
+    }
+  }
+}

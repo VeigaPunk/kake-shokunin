@@ -1,0 +1,62 @@
+# Pre-append mirror correction — kake round 51, attempt 2 (2026-10-25)
+
+What was wrong
+--------------
+The mirror committed by attempt 1 at 19a99bd8c30d36a4d664871236ba2015d893b5b9
+(`.ufo/waves/round-51/assimilation/pre-append/corpus/SOURCES.md`) was NOT the
+pre-append registry. Its blob was byte-identical to the post-append registry:
+258 lines, 145 data rows, already carrying S262 and S263. The lane's live
+`corpus/SOURCES.md` at that same commit was still 143 rows, so the append itself
+was real; only the "before" snapshot was contaminated — a copy taken after the
+append.
+
+Found by the wave-1 seat ExecRegistryDiff (report: w1/ExecRegistryDiff.md),
+which compared the mirror blob with the live registry at the mirror commit.
+
+What was done
+-------------
+1. The mirror file was rewritten from the *live* registry at the mirror commit:
+
+       git show 19a99bd8c30d36a4d664871236ba2015d893b5b9:corpus/SOURCES.md \
+         > .ufo/waves/round-51/assimilation/pre-append/corpus/SOURCES.md
+
+   sha256 4ea81a5ae79029cbb7ec424a51ec1d31e06650f5072d8c58cea878f558449fe3 (contaminated,
+   post-append content)
+   ->     cd9ee4cf951f9708f12d9bfb26c6afb783842960d8698c20184fd12292189117 (pre-append, 143 rows)
+
+2. The attempt-1 census receipt files were moved to `superseded/` unchanged, and
+   the census was re-run on the corrected mirror:
+
+       /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate \
+         --file /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-51/assimilation/pre-append/corpus/SOURCES.md
+
+   exit 0; stdout carries W04 warnings only (duplicate URLs across scopes), no
+   E03 and no E04. `census-argv.txt`, `census-stdout.txt`, `census-stderr.txt`
+   and `census-exit.txt` are this corrected run's receipt; the argv line is the
+   exact command executed.
+
+What did NOT change
+-------------------
+The C2 predicate (`met: conditions_passed == 8 of 8`), its eight condition
+sentences, the C7 check's rules and the C8 subject are unchanged. This is an
+evidence repair, not a rule change: `c51_quote_truth.py` C7 reads the receipt's
+shape (argv names `--file` and the mirror path, exit 0, no E03/E04), and C8
+reads the live registry at the mirror commit, so both scored exactly as declared
+before and after the repair.
+
+Final tree after the repair (as committed)
+------------------------------------------
+- `corpus/SOURCES.md`              the reconstructed pre-append registry: 143 data rows,
+                                   sha256 cd9ee4cf951f9708f12d9bfb26c6afb783842960d8698c20184fd12292189117,
+                                   byte-identical to `19a99bd:corpus/SOURCES.md` and to base `007d66e`.
+- `census-argv.txt` / `-stdout.txt` / `-stderr.txt` / `-exit.txt`
+                                   the corrected validate run: `--file`, exit `0`, W04 warnings only,
+                                   no E03 and no E04.
+- `census-count-argv.txt` / `-stdout.txt` / `-stderr.txt` / `-exit.txt`
+                                   the discriminating `census` run: `rows 143`, tier.A 120, tier.B 6,
+                                   tier.C 17, status.mined 113. `validate` alone cannot tell a
+                                   143-row registry from a 145-row one, so this receipt is what
+                                   binds the count to the bytes.
+- `superseded/`                    attempt 1's four receipt files, unchanged. Their stdout was
+                                   byte-identical to the corrected run because both registries
+                                   validate clean; their subject was the post-append blob.

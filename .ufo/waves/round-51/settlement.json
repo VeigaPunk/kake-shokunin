@@ -1,0 +1,594 @@
+{
+  "schema": "kake-r51-settlement-v1",
+  "wave": "r51-w1",
+  "transport": "omp/task (one batched task call)",
+  "routeTable": "/home/vgpnk/.omp/agent/config.yml",
+  "dispatchPayload": ".ufo/waves/round-51/w51-taskcall.json",
+  "timeout_seconds": 3600,
+  "spawn": 48,
+  "replacements": [],
+  "settled": [
+    {
+      "name": "ScoutCensusBefore",
+      "role": "scout",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 357,
+      "report": true
+    },
+    {
+      "name": "ScoutCounterC1Base",
+      "role": "scout",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 171,
+      "report": true
+    },
+    {
+      "name": "ScoutCounterC2Base",
+      "role": "scout",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 173,
+      "report": true
+    },
+    {
+      "name": "ScoutCounterC2Tip",
+      "role": "scout",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 307,
+      "report": true
+    },
+    {
+      "name": "ScoutQuarantineSlice",
+      "role": "scout",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 630,
+      "report": true
+    },
+    {
+      "name": "ScoutMisroot",
+      "role": "scout",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 260,
+      "report": true
+    },
+    {
+      "name": "ConnectorSiblingOverlap",
+      "role": "connector",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 834,
+      "report": true
+    },
+    {
+      "name": "ExecLedgerMutants",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 161,
+      "report": true
+    },
+    {
+      "name": "ExecQuoteCounterMutants",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 403,
+      "report": true
+    },
+    {
+      "name": "ExecCensusMirrorValidate",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 263,
+      "report": true
+    },
+    {
+      "name": "ExecRowShape",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 152,
+      "report": true
+    },
+    {
+      "name": "ExecSourceDigest",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 139,
+      "report": true
+    },
+    {
+      "name": "ExecQuoteRawScan",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 864,
+      "report": true
+    },
+    {
+      "name": "ExecRegistryDiff",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 806,
+      "report": true
+    },
+    {
+      "name": "ExecAccountingPrototype",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 155,
+      "report": true
+    },
+    {
+      "name": "ExecSpecLint",
+      "role": "executor",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 244,
+      "report": true
+    },
+    {
+      "name": "ScribeEntryAudit",
+      "role": "scribe",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 844,
+      "report": true
+    },
+    {
+      "name": "ScribeLessonShape",
+      "role": "scribe",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 420,
+      "report": true
+    },
+    {
+      "name": "ScribeSourcesCells",
+      "role": "scribe",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 600,
+      "report": true
+    },
+    {
+      "name": "ScribeReportSources",
+      "role": "scribe",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 397,
+      "report": true
+    },
+    {
+      "name": "ReviewC1Predicate",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 380,
+      "report": true
+    },
+    {
+      "name": "ReviewL1Accounting",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 278,
+      "report": true
+    },
+    {
+      "name": "ReviewL2Routes",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 294,
+      "report": true
+    },
+    {
+      "name": "ReviewL3Time",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 380,
+      "report": true
+    },
+    {
+      "name": "ReviewC2Conditions",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 843,
+      "report": true
+    },
+    {
+      "name": "ReviewEntryScope",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 289,
+      "report": true
+    },
+    {
+      "name": "ReviewQualityBar",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 895,
+      "report": true
+    },
+    {
+      "name": "ReviewAppendOnly",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 568,
+      "report": true
+    },
+    {
+      "name": "ReviewReportContract",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 265,
+      "report": true
+    },
+    {
+      "name": "ReviewShonen",
+      "role": "reviewer",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 840,
+      "report": true
+    },
+    {
+      "name": "CriticZeroControl",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 486,
+      "report": true
+    },
+    {
+      "name": "CriticTautology",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 827,
+      "report": true
+    },
+    {
+      "name": "CriticStaleRows",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 833,
+      "report": true
+    },
+    {
+      "name": "CriticQuarantine",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 831,
+      "report": true
+    },
+    {
+      "name": "CriticHarm",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 837,
+      "report": true
+    },
+    {
+      "name": "CriticCapability",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 833,
+      "report": true
+    },
+    {
+      "name": "CriticAbsence",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 879,
+      "report": true
+    },
+    {
+      "name": "CriticIds",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 852,
+      "report": true
+    },
+    {
+      "name": "CriticGateCriterion",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 441,
+      "report": true
+    },
+    {
+      "name": "CriticShape",
+      "role": "critic",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 404,
+      "report": true
+    },
+    {
+      "name": "MutationDropReport",
+      "role": "mutation-tester",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 134,
+      "report": true
+    },
+    {
+      "name": "MutationSwapIds",
+      "role": "mutation-tester",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 132,
+      "report": true
+    },
+    {
+      "name": "MutationWallClock",
+      "role": "mutation-tester",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 169,
+      "report": true
+    },
+    {
+      "name": "MutationRoute",
+      "role": "mutation-tester",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 153,
+      "report": true
+    },
+    {
+      "name": "MutationSourceSha",
+      "role": "mutation-tester",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 166,
+      "report": true
+    },
+    {
+      "name": "SentinelWriteScope",
+      "role": "sentinel",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 889,
+      "report": true
+    },
+    {
+      "name": "RevengerR50",
+      "role": "revenger",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 645,
+      "report": true
+    },
+    {
+      "name": "SimplifierCounters",
+      "role": "simplifier",
+      "model": "commandcode/deepseek/deepseek-v4.1-flash",
+      "exit": 0,
+      "seconds": 831,
+      "report": true
+    }
+  ],
+  "dead": [],
+  "settled_count": 48,
+  "dead_count": 0,
+  "reports_written": 48,
+  "seats": [
+    {
+      "name": "ScoutCensusBefore",
+      "role": "scout"
+    },
+    {
+      "name": "ScoutCounterC1Base",
+      "role": "scout"
+    },
+    {
+      "name": "ScoutCounterC2Base",
+      "role": "scout"
+    },
+    {
+      "name": "ScoutCounterC2Tip",
+      "role": "scout"
+    },
+    {
+      "name": "ScoutQuarantineSlice",
+      "role": "scout"
+    },
+    {
+      "name": "ScoutMisroot",
+      "role": "scout"
+    },
+    {
+      "name": "ConnectorSiblingOverlap",
+      "role": "connector"
+    },
+    {
+      "name": "ExecLedgerMutants",
+      "role": "executor"
+    },
+    {
+      "name": "ExecQuoteCounterMutants",
+      "role": "executor"
+    },
+    {
+      "name": "ExecCensusMirrorValidate",
+      "role": "executor"
+    },
+    {
+      "name": "ExecRowShape",
+      "role": "executor"
+    },
+    {
+      "name": "ExecSourceDigest",
+      "role": "executor"
+    },
+    {
+      "name": "ExecQuoteRawScan",
+      "role": "executor"
+    },
+    {
+      "name": "ExecRegistryDiff",
+      "role": "executor"
+    },
+    {
+      "name": "ExecAccountingPrototype",
+      "role": "executor"
+    },
+    {
+      "name": "ExecSpecLint",
+      "role": "executor"
+    },
+    {
+      "name": "ScribeEntryAudit",
+      "role": "scribe"
+    },
+    {
+      "name": "ScribeLessonShape",
+      "role": "scribe"
+    },
+    {
+      "name": "ScribeSourcesCells",
+      "role": "scribe"
+    },
+    {
+      "name": "ScribeReportSources",
+      "role": "scribe"
+    },
+    {
+      "name": "ReviewC1Predicate",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewL1Accounting",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewL2Routes",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewL3Time",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewC2Conditions",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewEntryScope",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewQualityBar",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewAppendOnly",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewReportContract",
+      "role": "reviewer"
+    },
+    {
+      "name": "ReviewShonen",
+      "role": "reviewer"
+    },
+    {
+      "name": "CriticZeroControl",
+      "role": "critic"
+    },
+    {
+      "name": "CriticTautology",
+      "role": "critic"
+    },
+    {
+      "name": "CriticStaleRows",
+      "role": "critic"
+    },
+    {
+      "name": "CriticQuarantine",
+      "role": "critic"
+    },
+    {
+      "name": "CriticHarm",
+      "role": "critic"
+    },
+    {
+      "name": "CriticCapability",
+      "role": "critic"
+    },
+    {
+      "name": "CriticAbsence",
+      "role": "critic"
+    },
+    {
+      "name": "CriticIds",
+      "role": "critic"
+    },
+    {
+      "name": "CriticGateCriterion",
+      "role": "critic"
+    },
+    {
+      "name": "CriticShape",
+      "role": "critic"
+    },
+    {
+      "name": "MutationDropReport",
+      "role": "mutation-tester"
+    },
+    {
+      "name": "MutationSwapIds",
+      "role": "mutation-tester"
+    },
+    {
+      "name": "MutationWallClock",
+      "role": "mutation-tester"
+    },
+    {
+      "name": "MutationRoute",
+      "role": "mutation-tester"
+    },
+    {
+      "name": "MutationSourceSha",
+      "role": "mutation-tester"
+    },
+    {
+      "name": "SentinelWriteScope",
+      "role": "sentinel"
+    },
+    {
+      "name": "RevengerR50",
+      "role": "revenger"
+    },
+    {
+      "name": "SimplifierCounters",
+      "role": "simplifier"
+    }
+  ]
+}

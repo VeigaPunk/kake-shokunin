@@ -348,3 +348,18 @@ backoff reduces the crawl rate across the whole hostname (S274). Publishing
 stays operator-owned. The Jekyll url/baseurl staged row was refused because
 its URL is already S080. The Ollama OpenAPI staged row was refused as kama's
 province.
+
+## Round-51 canonical-selection and crawler-identity frontier step
+
+Round 51 adds two source-backed entries and narrows Frontier line 23: `canonical/JS rendering
+open` is now partly held. `corpus/knowledge/canonical-selection.md` (S262) holds the selection
+half of the canonical signal — what a declared canonical is worth, which signals Google weighs,
+and which variant classes create duplicates; the lane's held `static-canonical-preflight.md`
+covers only the declaration side and explicitly disclaims selection. `corpus/knowledge/crawler-identity.md`
+(S263) holds the identity half of the crawl signal — "Googlebot" names two crawlers, the subtype
+is read from the HTTP user-agent request header, and both obey the same robots product token.
+Both are Frontier knowledge: no gate, no owned property audited, no publish action. JS rendering
+stays open and stays tabi's adjacent province for anything that executes a browser. Held entries
+that still speak of a bare "Googlebot" (js-rendering-queue, dynamic-rendering-workaround-limits,
+crawl-error-status-table) stay true as vendor sentences but inherit subtype ambiguity; a round
+that closes that must cross-reference the new entry, not re-derive it.

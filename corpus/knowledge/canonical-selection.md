@@ -34,7 +34,9 @@ The page also says plainly [S262] (collapsed-only quote):
 
 ## Why duplicates exist at all [S262]
 
-The page lists the variant classes it recognises, each quoted raw from the page:
+The page lists the variant classes it recognises, each quoted below as rendered text — the
+inline markup is removed, so the space before each colon is this entry's rendering, not the
+source's bytes (round-51 correction; see § "Quote classes"):
 
 - "Device variants : for example, a page with both a mobile and a desktop version"
 - "Protocol variants : for example, the HTTP and HTTPS versions of a site"
@@ -75,3 +77,20 @@ and notes that the choice can follow the searcher rather than the declaration [S
 - It is not a live measurement: no owned property was fetched, and no engine's selection was
   observed. The page's own revision line ("Last updated 2026-08-20 UTC") was read from the
   retained body this round.
+
+## Quote classes (round-51 correction)
+
+Every quotation in this entry is a **rendering** of the page, not a byte slice of it: inline markup
+is removed and whitespace collapsed. The one raw substring this entry relies on is the sentence the
+round-51 lesson Gate pins, "indicating a canonical preference is a hint, not a rule" (retained body
+S262.html, sha256 `79222433…`).
+
+Corrections landed this round, both to this entry's own labels: the variant-class bullets were
+introduced as "each quoted raw from the page", which is false — the page puts the class name and its
+gloss in separate inline elements, so the space before each colon is this entry's rendering; and two
+of those four bullets were labelled "collapsed-only", which is also false, because whitespace
+collapse alone does not recover them.
+
+Measured by the round-51 wave-1 seat `ExecQuoteRawScan`: of 15 body quotations across both admitted
+entries, 3 are raw substrings, 2 survive collapse only and 10 need markup removal; none is
+fabricated. Evidence: `.ufo/waves/round-51/w1/ExecQuoteRawScan.md`.

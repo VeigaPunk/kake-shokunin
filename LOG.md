@@ -2081,3 +2081,22 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   evidence are unchanged; only the receipt lookup was corrected. Re-run at the append commit
   `55915579563a781adcebc2e269cff57470ce2a8e`: C2 8 of 8 (exit 0). The junk control still
   fails 3 of 8 and the base control still 0 of 8, both re-run with the corrected counter.
+
+- **Round 51 — measured verdicts at the round-51 commit.** C1 (operability, capability) `C1 ledger
+  3/3 met=True` exit 0; C2 (freshness) `C2 quote-truth 8/8 met=True` exit 0. Both at base
+  `007d66e4e8360a5f88d29a93eeedd8066dad4434` score 0 of 3 and 0 of 8, exit 1. Wave: one v1 wave of
+  48 seats, 48 settled, 0 dead, 48 committed reports, wall clock **897 s**, aggregate seat seconds
+  **23 554**, dead-seat seconds 0; every role routed `@m_flash`, one used route with a committed
+  probe receipt and one recorded deviation. Sources: `.ufo/waves/round-51/`.
+- **Round 51 — the pre-append mirror is rebuilt, and the repair is disclosed.** Attempt 1's mirror
+  snapshot was byte-identical to the post-append registry; it was discarded and rebuilt from
+  `git show 19a99bd:corpus/SOURCES.md` (143 rows, sha256 `cd9ee4cf…`), the census re-run on it
+  (exit 0, W04 only), a `census` receipt added (`rows 143`) and attempt 1's receipt files kept in
+  `superseded/`. `assimilation/pre-append/census-correction.txt` records it. The predicate and the
+  eight condition sentences are unchanged.
+- **Round 51 — the ledger's and the quote counter's gaps are routed, not patched.** Four seats scored
+  C1 `3/3` on synthetic evidence (vacuity floor absent, no binding from `spawn` to the grant, no
+  report-content read); C2's C8 reads the live registry at the mirror commit rather than the mirror,
+  and C6 accepts URL containment and never reads `httpStatus`/`bytes`/`fetchedAt`. A rule changed
+  after an item has scored is not the claim's rule, so both counters keep their frozen bytes and the
+  concrete fixes are routed to round 52 (`corpus/lessons/round-51.md` § Mistakes (attempt 2)).

@@ -114,3 +114,88 @@ is not used as an adoption basis. Evidence:
   criterion "Operator-owned and inherited artifacts are not swept to zero a count".
   **fix:** they stay uncommitted and untouched this round; the count is reported as it
   stands.
+
+## Corrections — attempt 2 (append-only; the rows above stand as written)
+
+Two `## Mistakes` rows above assert facts the wave falsified. They are corrected here, not
+rewritten:
+
+- **Row 1 (staged quote mis-transcription).** The claim that "Google chooses the most complete and
+  useful page as the canonical URL" is absent from the source is **false**: it is a raw substring of
+  the retained `S262.html` once, inside `<template class="devsite-content-data-template">` (seat
+  `CriticGateCriterion`). The claim that the page "renders 'Googlebot Smartphone :'" with a space
+  before the colon is also false: the bytes read `</b></a>:` and the space is this lane's markup
+  substitution (seats `ExecQuoteRawScan`, `ScribeEntryAudit`, `CriticAbsence`). The real defect
+  class is **quote-class mislabelling**, not fabrication: 10 of 13 source-relation labels in the
+  two admitted entries were wrong, and 7 of 15 body quotations exist only if every HTML tag is
+  replaced by a space. Both entries now carry a `## Quote classes (round-51 correction)` block,
+  and the two false labels were replaced in place. The 16 over-assertions the audit named are
+  **not** repaired this round; they are routed, with `w1/ScribeEntryAudit.md` as the pointer.
+- **Row 3 (route substitution recorded in prose only).** Partly addressed at best: the L2 condition
+  is committed, but the only failing receipt this round (`xai-oauth/grok-4.7-fast`, HTTP 403) is a
+  probe the wave did not substitute for — every role routes `@m_flash` — so the round proves the
+  guard, not a handled substitution (`RevengerR50`). L2's `receipts.setdefault` also lets filename
+  order decide which receipt of a duplicated alias survives, with the passing direction discarding a
+  committed failure (`CriticTautology`, `ReviewL2Routes`).
+
+## Wave accounting (attempt 2, measured)
+
+One v1 wave of **48 seats** under `scripts/hyaku/ufo-wave-policy.json` (band 32-64), dispatched as
+exactly one `task` call from the validator's `ufo-swarm-wave-dispatch-v1` payload
+(`.ufo/waves/round-51/w51-taskcall.json`, `counts.spawn 48`, validator exit 0). Role mix: reviewer
+10, critic 10, executor 9, scout 6, mutation-tester 5, scribe 4, connector 1, sentinel 1, revenger 1,
+simplifier 1. The L1 holds the canonical planner seat.
+
+Seats settled **48**, dead **0**, committed reports **48**. Wall clock **897 s**; aggregate seat
+seconds **23 554**; dead-seat seconds **0**. Route mix: every role resolved to `@m_flash`
+(`commandcode/deepseek/deepseek-v4.1-flash`) through the operator's `task.agentModelOverrides`;
+one route used, one committed probe receipt, no substitution. Sources:
+`.ufo/waves/round-51/{settlement.json,wave-timing.json,round-time-accounting.json,route-map.json,route-probes/}`.
+
+Attempt 1's orphaned outputs were inherited and re-verified: the contract, both counters, the two
+rows, both entries and the pre-append mirror are reused; the counters were re-run at the base and
+the tip by seats `ScoutCounterC1Base`, `ScoutCounterC2Base`, `ScoutCounterC2Tip`; the pre-append
+mirror was **discarded and rebuilt** (see below). Attempt 1 committed no wave evidence, so nothing of
+it was reused for C1.
+
+## Mistakes (attempt 2)
+
+- **class:** evidence file named for a state it does not hold. **evidence:** the mirror committed at
+  `19a99bd` as `.ufo/waves/round-51/assimilation/pre-append/corpus/SOURCES.md` was byte-identical to
+  the *post*-append registry (145 rows, both adopted ids) while the live registry at that commit was
+  143 rows; C7's census therefore validated post-append bytes under a "before append" name, and C8
+  escaped only because it reads the live registry at the mirror commit. Found by seat
+  `ExecRegistryDiff`, confirmed by `ScoutCounterC2Tip`, `ReviewC2Conditions`, `CriticAbsence`,
+  `CriticZeroControl`. **captured-by:** nothing in the round — C7 checks receipt shape, never the
+  receipt's subject. **fix:** the mirror was rebuilt from `git show 19a99bd:corpus/SOURCES.md`
+  (143 rows, sha256 `cd9ee4cf…`), the census re-run on it (exit 0, W04 only) and the discriminating
+  `census` run added (`rows 143`, `census-count-*`), attempt 1's four receipt files kept verbatim in
+  `superseded/`, all recorded in `assimilation/pre-append/census-correction.txt`. The round-52 fix is
+  the counter-side one: C8 must read `MIRROR` at the mirror commit and the census receipt must pin
+  the mirror's sha256.
+- **class:** a checker that certifies agreement between numbers one author typed. **evidence:** four
+  independent seats (`ExecLedgerMutants`, `ReviewL1Accounting`, `CriticCapability`, `CriticZeroControl`)
+  scored C1 `3/3 met=True, exit 0` on synthetic evidence: an empty wave (`spawn 0`, no seats), a
+  48-seat wave with an empty `w1/`, zero-byte reports, an unreported seat silently dropped from both
+  `settled` and `dead`, a role bound to a receipt whose `httpStatus` is 500 with `ok: true`, and a
+  wall clock shifted with its accounting artifact and the LOG line. Nothing binds `spawn` to the
+  grant's `seats=48`, nothing requires `spawn >= 1`, and no check reads a report's bytes.
+  **captured-by:** nothing — the frozen L1 sentence asks for equality, not independence, so the
+  contract sentence itself is the gap. **fix:** routed to round 52 with the seats' concrete list;
+  the round-51 rule is **not** changed after scoring. C1's verdict is therefore "met as declared,
+  certifying agreement between the evidence artifacts, not that the wave ran".
+- **class:** a frozen artifact scored by a later-amended instrument. **evidence:** the counter
+  frozen at `19a99bd` reads `7/8` at the measured revision (C6 fails on the receipt's nested
+  `sources` key); `9d13768` fixes only the lookup, after the data commit. **captured-by:** LOG.md
+  already discloses the fix as pre-scoring (`LOG.md`, round-51 bullet 4) and the predicate, the eight
+  condition sentences and every counted test are unchanged. **fix:** name the counter's blob sha256
+  in the report (below) so a reader scores the bytes that produced the number.
+- **class:** concurrent writers on one working tree. **evidence:** between 03:33 and 03:40 the live
+  `corpus/SOURCES.md` transiently held a staged `S149` row and an `S160` lead row (both malformed for
+  the census), and two seats' mutation writes reached it before being restored byte-identically
+  (`ScoutCensusBefore`, `CriticIds`, `CriticHarm`, `SentinelWriteScope`). Every committed claim in
+  this round is measured with `git show`, not the worktree, and the registry at the tip is
+  byte-identical to its blob. **captured-by:** the round's own seats, which is why every item told
+  them to read committed bytes. **fix:** round 52 must give each writing seat its own worktree; a
+  lead row belongs outside `## Registry` and a staged row must be normalised before it is ever
+  written into the registry file.

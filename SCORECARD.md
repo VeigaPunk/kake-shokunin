@@ -4144,3 +4144,64 @@ substring — the two classes are different facts and the ledger records them se
 (`w1/ScoutReopenS273.md`, `w1/ScoutReopenS274.md`, `w1/ScoutReopenS286.md`). The mirror validation
 is `--file` only and is not a full-repo validation (`w1/ExecCensusMirror.md`). The census over the
 live lane is exit 0 over 143 rows.
+
+## Round 51 — declared claims (frozen at base `007d66e`, before any claim receipt)
+
+Base (pushed lane tip at round start): `007d66e4e8360a5f88d29a93eeedd8066dad4434`.
+Both owned axes sit on the legacy 10/10 line, so each is tied-lowest; C1 works operability and C2
+works freshness, one axis each. The stagnation nudge does not apply: both claims are moves, not a
+third capability-only round. Predicates were frozen in `.ufo/waves/round-51/contract.json` and in
+the counters' `PREDICATE` constants before any after score.
+
+| Claim | Axis | Before | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 wave-evidence ledger (capability acquisition) | operability | `ledger_checks_passed` 0 of 3 | 3 of 3 | `python3 -B .ufo/waves/round-51/c51_wave_ledger.py --root . --revision <commit>` |
+| C2 canonical selection and crawler identity, re-grounded | freshness | `conditions_passed` 0 of 8 | 8 of 8 | `python3 -B .ufo/waves/round-51/c51_quote_truth.py --root . --revision <commit>` |
+
+C1 predicate: `met: ledger_checks_passed == 3 of 3` — L1 seat accounting (committed seat reports equal
+the settlement's `reports_written`, the settlement's spawn equals the payload's seat count, every
+seat marked as reported has exactly one committed file), L2 route receipts (every route a role used
+has a committed probe receipt with an integer HTTP status; a failing receipt carries a body excerpt
+and is bound to no role; every failing receipt is a deviation in the route map), L3 time accounting
+(aggregate seat seconds, dead-seat seconds and the wall clock re-derive from the settlement and
+timing bytes; the accounting artifact carries the same three figures; LOG.md names the wall clock).
+C2 predicate: `met: conditions_passed == 8 of 8` over the eight conditions in the counter's
+docstring. A miss on any condition is an honest stop. Both counters read committed bytes only
+(`git show`/`git ls-tree`) and neither reads the other's inputs.
+
+Do-nothing controls at the base `007d66e`: C1 0 of 3 (exit 1, no ledger instrument, no route
+receipts, no timing) and C2 0 of 8 (exit 1, neither entry, neither row, no retained source). Junk
+controls that reach neither predicate are committed under `.ufo/waves/round-51/controls/`
+(`c1-junk-wave.txt`, `c2-junk-entries.txt`).
+
+Round shape: one v1 wave of 48 seats under `scripts/hyaku/ufo-wave-policy.json` (band 32-64), plus a
+residual reviewer/critic call for items wave 1 does not attack. The L1 holds the canonical planner
+seat; a bounded planning data-walk rides the scout and connector items.
+
+## Round 51 — measured results (author-side; admission belongs to the non-author closure)
+
+Measured commit: the lane commit that carries this section and the wave evidence; base for both
+before-measurements: `007d66e4e8360a5f88d29a93eeedd8066dad4434`.
+
+| Claim | Axis / score delta | Before → after | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 wave-evidence ledger (capability acquisition) | operability 10→10 (HOLD) | `ledger_checks_passed` 0 of 3 at the base (exit 1) → 3 of 3 at the measured commit (exit 0) | `python3 -B .ufo/waves/round-51/c51_wave_ledger.py --root . --revision <commit>` | MET as declared. L1 48 seats / 48 reports / 0 dead; L2 one used route with a committed probe receipt (HTTP 200) and one recorded deviation; L3 wall clock 897 s, aggregate 23 554 seat-seconds, dead 0, all re-derived from the timing pair and named in LOG.md |
+| C2 canonical selection and crawler identity, re-grounded | freshness 10→10 (HOLD) | `conditions_passed` 0 of 8 at the base (exit 1) → 8 of 8 at the measured commit (exit 0) | `python3 -B .ufo/waves/round-51/c51_quote_truth.py --root . --revision <commit>` | MET at the counter's reading, with the C8 limitation below; the mirror was rebuilt this round and both readings now agree |
+
+Known gaps in the two frozen counters, measured by the wave and **not** repaired (a rule changed
+after an item has scored is not the claim's rule): C1 has no vacuity floor, no independence between
+`spawn`, the grant and the settlement, and no read of a report's bytes; C2's C8 reads the live
+registry at the mirror commit rather than the mirror file, C6 tests URL containment rather than
+equality and never checks `httpStatus`, `bytes` or `fetchedAt`, and C5 checks only the lesson Gate
+quote, so entry-level quote classes are unguarded. Routed to round 52; evidence in
+`corpus/lessons/round-51.md` § Mistakes (attempt 2) and the wave-1 seat reports it names.
+
+No owned axis is observed harmed: `node scripts/freshness-sweep.mjs --selftest` 35/35 exit 0,
+`python3 -B scripts/citation_lint.py --root .` exit 0, `python3 -B scripts/ledger_latest_check.py`
+exit 0, census exit 0 over 145 rows (seat `CriticHarm`).
+
+### Capabilities
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Wave-evidence ledger | Re-derives a round's own seat accounting, route receipts and time accounting from committed bytes in one command, and names the exact contract clause each check enforces; certifies agreement between the settlement, the payload, the route map, the probe receipts, the timing pair and LOG.md — not that the wave ran, and not the content of any seat report | `scripts/../.ufo/waves/round-51/c51_wave_ledger.py`; `settlement.json`, `wave-timing.json`, `round-time-accounting.json`, `route-map.json`, `route-probes/`; receipts re-run by `ScoutCounterC1Base`, `ExecLedgerMutants`, `ReviewL3Time` | 51 |

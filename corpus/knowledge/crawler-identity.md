@@ -9,8 +9,9 @@ Google's crawler documentation states [S263], quoted raw from the page:
 
 > "Googlebot is the generic name for two types of"
 
-and names the two types beneath it [S263] (collapsed-only quotes; the source puts a space
-before the colon and breaks the lines):
+and names the two types beneath it [S263] (rendered-text quotes; the inline markup is removed
+and the space before each colon is this entry's rendering, not the source's bytes — the page
+closes the link element immediately before the colon; see § "Quote classes"):
 
 > "Googlebot Smartphone : a mobile crawler that simulates a user on a mobile device"
 
@@ -52,3 +53,21 @@ and states the consequence for robots.txt [S263] (collapsed-only quote):
   lane property: no operator-owned property was fetched this round.
 - The page's own revision line ("Last updated 2026-02-03 UTC") was read from the retained
   body this round; the entry is a documentation reading, not a live observation.
+
+## Quote classes (round-51 correction)
+
+Every quotation in this entry is a **rendering** of the page, not a byte slice of it: the inline
+markup is removed and whitespace is collapsed. Only the first quotation, "Googlebot is the generic
+name for two types of", is also an exact raw substring of the retained body (S263.html, sha256
+`6afbdc82…`), and that is the string the round-51 lesson Gate pins.
+
+Two claims this entry previously made are corrected here. (1) The parenthetical that called the
+two subtype quotations "collapsed-only" and said "the source puts a space before the colon" was
+false: the page closes the link element immediately before the colon (`</b></a>:`), so the space is
+this entry's rendering. (2) The label "collapsed-only" was wrong for the same quotations: whitespace
+collapse alone does not recover them; removing inline markup does.
+
+Measured by the round-51 wave-1 seat `ExecQuoteRawScan` over both admitted entries: of 15 body
+quotations, 3 are raw substrings, 2 survive whitespace collapse only, and 10 need markup removal;
+7 of the 10 stay absent under the rendered-text reading because of the inserted space above. None is
+fabricated. Evidence: `.ufo/waves/round-51/w1/ExecQuoteRawScan.md`.
