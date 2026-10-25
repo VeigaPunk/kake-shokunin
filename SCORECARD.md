@@ -4073,3 +4073,19 @@ No owned axis is harmed on the exercised checks: the citation lint's own selftes
 (exit 0) and its live run over `{SCORECARD.md, LOG.md}` is green again after the one new
 occurrence was adjudicated append-only; the source census is exit 0 over 140 rows.
 
+## Round 49 — declared claims (before the after measurement)
+
+Base: `090ce8f1cfbae2dfb8bfa65dedd2c72861c48166`. Both owned axes sit at the
+legacy 10/10 line, so each is tied-lowest. Round 48 entered no capability, so
+the stagnation nudge would waive the lowest-axis rule; this round works
+operability anyway. Predicates were frozen in `.ufo/waves/round-49/contract.json`
+and in the counter constants before any after score. Do-nothing controls at
+the base: C1 order 0/1 exit 1 (proof absent); C2 passed 0/2 exit 1.
+
+| Claim | Axis | Before | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 pre-append order, committed bytes only | operability | order 0/1 | order 1/1 | `python3 -B .ufo/waves/round-49/c49_order.py --root . --revision <commit>` |
+| C2 crawl-budget quote truth, committed bytes only | freshness | 0/2 | 2/2 | `python3 -B .ufo/waves/round-49/c49_quote_truth.py --root . --revision <commit>` |
+
+C1 predicate: `met: order == 1 of 1`. C2 predicate: `met: passed >= 2 of 2 declared ids` (S273, S274). A miss is an honest stop. The mirror validation is `--file` only and is not a full-repo validation.
+

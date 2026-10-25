@@ -1948,3 +1948,22 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `.ufo/waves/round-48/`.
 
 - **Round-48 measurements (author-side).** C1: `python3 -B .ufo/waves/round-48/c48_quote_truth.py --root . --revision af7b217c9b0837428e50c944adfab9f5c692a50f` -> `passed 4/4 met True`, exit 0 (receipt `.ufo/waves/round-48/verification/c1-after-af7b217.json`); the same command at the base `766f4610b64f35a0f402b37eb1d8be2d4d634c0f` -> `passed 0/4 met False`, exit 1. C2: `python3 -B .ufo/waves/round-48/c48_lint_count.py --root . --revision af7b217c9b0837428e50c944adfab9f5c692a50f` -> `dead_full_40 1, dead_short 1, live_full_40 0, live_short 0, exclusions_clean 1, met true`, exit 0 (receipt `.ufo/waves/round-48/verification/c2-after-af7b217.json`); the same command at the base -> `dead_full_40 0`, exit 1 (the base tool's sha256 `3c78a0a82f70b166776f7f7626dc7afbf9f9916a4399ae879287e4bf9662987f`). The landed tool's sha256 is `0beba6478ce4e840b9220d9414c3d9ca888747267599e8a345b4eb67bf211235` and its selftest is 9/9, exit 0.
+
+## Round 49 — 2026-10-24
+
+- **Motivating evidence.** Round-48 verifier spot-check routed defects 1 and 2
+  (`corpus/lessons/round-48-verifier-spotcheck.md`): the committed census mirror
+  was post-append, and C1 R4 still opened worktree bytes. The 64-seat wave
+  produced 0 reports and is not claim validation.
+- **Repair.** Pre-append mirror and `--file` census stdout committed at
+  `99fa9d3fcaafbdb6bb1a2518c21e27698199b4c9` before this registry append. The
+  mirror is not a full-repo validation. `c49_quote_truth.py` reads retained
+  text with `git show` only.
+- **Assimilation.** One theme, crawl-budget consequences. Admitted S273 and
+  S274 into `corpus/knowledge/crawl-budget-consequences.md` after scratch
+  collision (0), guard (indented S273 caught), row normalization (recheck
+  `180d`, no pipes), and validate-before-append exit 0. Refused S259 (duplicate
+  URL of S080) and the Ollama OpenAPI entry (kama's province).
+- **Uncommitted, left untouched.** Eight orchestrator-owned
+  `.ufo/waves/round-46/residual/` reports, and nine `>1MiB` copies under
+  `.ufo/waves/round-48/assimilation/validate/`. Not force-added.

@@ -336,3 +336,15 @@ reading `loc` limits differently). The claim (C1) is exploratory: its sealed 24-
 separate the contract from a regex reader or from 15 single-sentence breaks. Still open: gzip, live
 fetch, text/RSS sitemaps, robots cross-submission, and a key that kills those 15 breaks.
 Boundary unchanged: publisher-side placement is kake's; client-side crawling stays with tabi.
+
+## Round-49 crawl-budget frontier step
+
+Round 49 adds publisher-side crawl-budget consequence knowledge
+(`corpus/knowledge/crawl-budget-consequences.md`, S273, S274), re-opened this
+round. It is knowledge only, with no gate and no property measured. The
+checked sentences are: Google will not shift newly available crawl budget to
+other pages unless the capacity limit is already hit (S273), and the emergency
+backoff reduces the crawl rate across the whole hostname (S274). Publishing
+stays operator-owned. The Jekyll url/baseurl staged row was refused because
+its URL is already S080. The Ollama OpenAPI staged row was refused as kama's
+province.
