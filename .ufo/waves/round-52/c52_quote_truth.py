@@ -344,7 +344,7 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
                 if code in stdout:
                     c7.append(f"pre-append census stdout carries an {code} finding")
             tail = [l for l in stdout.splitlines() if l.strip()]
-            if not tail or not tail[-1].endswith("\tok"):
+            if not tail or tail[-1].split("\t")[1:2] != ["ok"]:
                 c7.append("pre-append census stdout does not end in an ok line")
         add("C7_validate_before_append", c7)
 
