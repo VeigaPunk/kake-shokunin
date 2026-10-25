@@ -134,7 +134,7 @@ Held, but ungated or unmeasured (an entry exists; no gate, no owned property
 observed): field performance `PROVINCE.md:25-26`, crawl budget
 `PROVINCE.md:344`, canonical selection and crawler identity `PROVINCE.md:361`,
 the nine per-engine entries (the round-52 trio `PROVINCE.md:382`, the round-55 Yahoo! robots trio
-`PROVINCE.md:397`, the round-56 crawl-handling trio `PROVINCE.md:408`). The "Untouched ground" lines about
+`PROVINCE.md:397`, the round-56 crawl-handling trio `PROVINCE.md:423`). The "Untouched ground" lines about
 crawler-specific extensions and robots `Sitemap:` cross-submission predate round 55: one operator's own
 pattern-syntax and sitemap-location statements are now held
 (`knowledge/yahoo-japan-robots-pattern-syntax.md`,

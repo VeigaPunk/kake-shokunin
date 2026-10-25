@@ -2173,3 +2173,26 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   semantics, article-bound quotes, whole-text append-only).
 - **Swarm.** Two v1 waves, 40 + 36 = 76 seats, no residual call; `settlement.md`. One W1 seat (`ScribeQuality`) returned
   another lane's round and no report. No tools installed.
+
+## Round 56 — 2026-10-25
+
+- **Evidence.** 7 of the 10 `SKILL.md` gate-registry rows that state a selftest tally disagreed with what their documented command prints at base
+  (`c56_selftally.py` at `e48354b7`: claimed 101/137/150/8/35/47 against observed 106/204/235/9/44/54; the round-52 quote-truth selftest printed
+  17/18 because its fixtures rebuild from `HEAD` and the row named no pin). The version-1 counters were satisfiable by junk and the version-1 C2 counter
+  rejected a truthful build (7 of 8: the held S367 row's title is not a substring of the page); the staged Yahoo! crawl-handling candidates had 2 of 3
+  spans over 25 units and one claim the page does not state.
+- **C1 calibration.** Seven Self-test cells rewritten from the printed tallies (101→106, 137→204, 150→235, 8/8→9/9, 35→44, 47→54, and the pin
+  `KAKE_R52_SELFTEST_REV=1ae8de5d4dee` added to the round-52 row; the round-55 row gained its pin too); two stale statements outside the ten
+  corrected (`freshness-sweep` 15/15 → 36/36 at base, citing-set 41 → 45 cases; not claimed). Base `tally_mismatches=7`, exit 1; after `0`, exit 0 at
+  `@R@`. Counter version 2.1 after 4 pre-data attacks and 4 post-build attacks (selftest 20 → 59 checks).
+- **C2 freshness / assimilation.** Entries `yahoo-japan-link-target-crawl-restriction` (S367 re-opened; `used-by` old → new in
+  `corpus/lessons/round-56.md`), `yahoo-japan-deleted-url-recrawl` (S419 new), `yahoo-japan-nonexistent-url-recrawl` (S420 new; staged S375/S376
+  renumbered by document, staged soft-404 name not carried). Base 0/8, exit 1; after 8/8, exit 0. Fresh GETs equal the retained bodies (no drift;
+  S367 equals the round-53 body); recheck commands re-run (count 1 each). Census 156 → 158 rows, exit 0. Rejected as staged: S388, S389, S387.
+- **Repairs from wave 2.** Entries re-cut after 3 critics and 3 reviewers (modal on the deleted-URL title and outcome, a false negative about
+  `name="robots"`, "third surface" miscount, ほかに/のほかに gloss, the S420 condition and verb, page-silence sweeps with commands, quote-class wording),
+  S419 row headline and teaches hedged, PROVINCE check-vs-set wording, lesson counts; counters C1 version 2.1 (one command per cell, one exact pin per row,
+  fixture trees pinned) and C2 selftest fixtures; QUALITY falsifier lines.
+- **Considerthese.** Proposal 1 (landed-vs-claimed check) implemented as `scripts/landed_check.py` (14-check selftest; run on the round-55 report: 10 cited hashes,
+  10 ancestors of `master`); mutation-tested in wave 2.
+- **Swarm.** Two v1 waves, 43 + 41 = 84 seats, no residual call; `settlement.md`. 0 dead seats in wave 1. No tools installed.

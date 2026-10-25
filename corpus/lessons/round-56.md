@@ -73,13 +73,13 @@ implemented as `scripts/landed_check.py` with a selftest and run on the round-55
   indented row `  | S287 | x |` yields `S287` with the 0–3-space pattern and nothing with a column-zero-only pattern; a 4-space row is outside
   both the guard and the census.
 - Normalization of the appended rows: staged recheck `180d — curl …` → `180d`; the grep command each row's entry carries in its own
-  `recheck:` line; staged `opened 2026-10-24` → 2026-10-25; the staged S367 section label (`サーバーで設定する方法` alone, 0 hits in the
-  body as a whole label, `w1/ExecStagedQuoteAudit.md`) is replaced by the page's h2 plus both sub-headings, and the S375/S376 labels
+  `recheck:` line; staged `opened 2026-10-24` → 2026-10-25; the staged S367 section label (the composite `… → サーバーで設定する方法`, 0 raw hits in the
+  body; its last part occurs once as the page's own h3, `w1/ExecStagedQuoteAudit.md`) is replaced by the page's h2 plus both sub-headings, and the S375/S376 labels
   (3 raw hits each) are kept as the pages' own h2; no cell holds a pipe. Dry run before the append:
   `w1/ExecRowDryRun.md` (census exit 0, 158 rows, three deliberate breaks caught as E03/E01/E11).
 - Quarantine slice (12 rows: S142 S143 S148 S156 S161 S193 S194 S195 S206 payload-absent; S154 S178 S184 unreachable —
   `wc -l assimilation/quarantine-slice`): not adopted, not appended, not hand-checked this round.
-- Not adopted (single-theme limit): 101 of the package's 104 knowledge entries and 126 of its 129 staged rows; no row is appended that
+- Not adopted this round (single-theme limit): 3 entries and 3 staged rows are adopted (104 − 3 and 129 − 3 remain; the package state as a whole is not recounted here — `w2/ExecLessonNumbers.md` measured 97 and 119 not adopted counting every adoption of rounds 53–56); no row is appended that
   no admitted entry cites (CORPUS.md rule 4).
 
 ## Mistakes
@@ -88,7 +88,7 @@ implemented as `scripts/landed_check.py` with a selftest and run on the round-55
 |---|---|---|---|
 | number-drift | 7 of the 10 `SKILL.md` gate-registry rows that state a selftest tally disagreed with what their documented command prints at the round base (claimed 101/137/150/8/35/47 against observed 106/204/235/9/44/54; the r52 row's selftest printed 17/18) — `python3 -B .ufo/waves/round-56/c56_selftally.py --root . --revision e48354b7…` → `tally_mismatches=7`, exit 1, 2026-10-25 (a snapshot at the base, not a count over earlier rounds); the round-55 spot-check routed two of them (defect 1) | `corpus/knowledge/claim-count-derivation.md` (written for entry counts; not applied to registry rows, and the same class recurred inside round 55's own report) | C1 counter + QUALITY round-56 criterion 1; red-before: `controls/base-c1-selftally-v2.txt` exit 1; cells rewritten from the printed tallies |
 | stale-premise | The r52 quote-truth selftest is documented as 18 fixtures with a passing receipt, but its fixtures rebuild from the checked-out `HEAD`; at the round base it prints 17/18 (C5: S374 quote edited after round 52; C8: registry grew) and passes only under the pin `KAKE_R52_SELFTEST_REV=1ae8de5d4dee` that the registry row never named (`w1/ExecPinProof.md`) | none | the row names the pin; the counter runs the documented command under a fixed environment, so a host-exported pin cannot rescue a row that omits it (selftest case `env_pin_removed`); QUALITY round-56 criterion 2 |
-| vacuous | The version-1 C1 counter met its frozen predicate under a fake `python3 -c` command in the row (script blob untouched), a duplicate earlier row, a host-exported pin, two junk claims summing to the tally, and a rewritten helper beside the script (`w1/CriticC1Contract.md` A1–A9); six of 16 mutants survived its 20-check selftest (`w1/MutC1Counter.md`); the C2 counter at version 1 rejected a truthful build (7 of 8: the held S367 row's title is not a substring of the page) and accepted a 3-character body edit (`w1/CriticC2Contract.md` A1, WR-1) | QUALITY round-55 criterion "A counter is attacked before it scores" (it caught these: the attacks ran before any data) | counters version 2 (documented command pinned exactly, fixed environment, duplicate rows counted, helpers pinned, one claim per cell, rows_checked counts valid rows; C2: held-row body pinned by sha256, character ceiling 40, verified-at/recheck/kind/tier checks, staged name absence) |
+| vacuous | The version-1 C1 counter met its frozen predicate under a fake `python3 -c` command in the row (script blob untouched), a duplicate earlier row, a host-exported pin, two junk claims summing to the tally, and a rewritten helper beside the script (`w1/CriticC1Contract.md` A1–A10); six of 16 mutants survived its 20-check selftest (`w1/MutC1Counter.md`); the C2 counter at version 1 rejected a truthful build (7 of 8: the held S367 row's title is not a substring of the page) and accepted a 3-character body edit (`w1/CriticC2Contract.md` A1, WR-1) | QUALITY round-55 criterion "A counter is attacked before it scores" (it caught these: the attacks ran before any data) | counters version 2 (documented command pinned exactly, fixed environment, duplicate rows counted, helpers pinned, one claim per cell, rows_checked counts valid rows; C2: held-row body pinned by sha256, character ceiling 40, verified-at/recheck/kind/tier checks, staged name absence) |
 | attribution | See `settlement.md` for any W1/W2 seat whose output named another lane or round; the misroot sweep result is recorded there | settlement check | seat output not used when it names another lane's evidence |
 
 ## Trend inputs
@@ -96,5 +96,5 @@ implemented as `scripts/landed_check.py` with a selftest and run on the round-55
 expansion: three entries on per-engine crawl-hygiene ground (server status answers and link-target refusal), each citing a `mined`
 row (S367 re-opened, S419 and S420 new), on ground the coverage map did not hold for Yahoo! JAPAN; quality: the self-test tallies of ten
 gates now equal what their commands print (C1 counter) and one selftest that rotted with the tree is pinned in its row; counters
-attacked by 6 critic/reviewer/mutation seats before they scored; discernment: author-side admits and rejects listed above, the
+attacked by 7 critic, reviewer and mutation-tester seats before they scored; discernment: author-side admits and rejects listed above, the
 non-author spot-check belongs to the closure.

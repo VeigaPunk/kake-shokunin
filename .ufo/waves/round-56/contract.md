@@ -95,7 +95,7 @@ The contract commit `2d308e808bfd` froze both counters at version 1 and the pred
   claim per cell (two for the one declared sum row); the tally line is anchored; `rows_checked` counts rows whose command was found and
   valid (v1 counted rows looked up). Selftest 20 -> 59 checks (generated sandbox repos; includes the mutants that survived v1 and v2: first claim only, first tally line, last row wins, timeout swallowed, no clone, indented table, header column, escaped pipe, prefixed noise line, exit code, uncommitted worktree edit). Base
   control re-run under version 2: `tally_mismatches=7 rows_checked=10`, exit 1 (`controls/base-c1-selftally-v2.txt`). Version-1 junk that
-  met the frozen predicate (`w1/CritCheatC1.md` experiments 5-8, `w1/CriticC1Contract.md` A1-A9) is closed by version 2, except one
+  met the frozen predicate (`w1/CritCheatC1.md` experiments 5-8, `w1/CriticC1Contract.md` A1-A10) is closed by version 2, except one
   disclosed limit: a helper outside the pinned script's directory is not pinned.
 - **C2 counter version 2** (`c56_quote_truth.py`; version 1.1 had added the ported selftest): the held row S367's retained body is pinned by
   its sha256 instead of a title substring (v1 rejected a truthful build at 7 of 8: the held row's title uses fullwidth punctuation the page

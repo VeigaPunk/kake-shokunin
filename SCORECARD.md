@@ -4317,3 +4317,31 @@ after wave 2; each is disclosed in the contract's appended sections. Admission b
 |---|---|---|---|
 | Coverage-map index gate | Re-derives from committed bytes whether every knowledge file is named and described by a coverage-map row and no pointer dangles; fails on mega-rows, constant cells, population swaps, truncated bodies; certifies structure, not row truth | `.ufo/waves/round-55/c55_readme_index.py`, `controls/c1-selftest-v2.txt` | 55 |
 | Append-block quote-truth gate (article-bound) | Verifies quote spans, unit ceiling, page-unique spans, receipts, validated-append equality and mirror append-onlyness for assimilated entries in one command | `.ufo/waves/round-55/c55_quote_truth.py`, `controls/c2-selftest.txt` | 55 |
+
+## Round 56 — declared and measured claims
+
+Frozen contract: `.ufo/waves/round-56/contract.md` / `contract.json` (lane base `e48354b7c26bb6dc544ab6bbdc534fabe0daf7b6`, contract commit
+`2d308e808bfd`; counter versions in its §Counter versions); measured content commit `@R@`. Axis note: C1 is declared on **calibration**, the
+round-54 bounded sub-axis (score 1, the lowest-scoring non-retired score), as in round 55; the surface it changes is the `SKILL.md` gate registry,
+and `w1/CriticAxisClaim.md` and `w2/CriticClaimsAdmission.md` argue it is operability (a checklist item that can be run and produces the stated
+outcome) rather than calibration as `AXES.md` defines it (SCORECARD/SHONEN against observed state). The declaration stands; the operator may rule.
+C2 is declared on freshness; the same critics argue its counter has no drift condition and the surface is new admitted entries (coverage/expansion).
+Calibration stays 1/10 (no inflation); operability and freshness stay 10/10. The lowest-axis obligation is therefore reported as open pending
+the ownership ruling.
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| The ten tally-bearing SKILL.md gate-registry rows state what their documented selftest prints | calibration (declared; operability argued) | `tally_mismatches` 7 → 0, `rows_checked` 10 → 10 | `python3 -B .ufo/waves/round-56/c56_selftally.py --root . --revision <commit>` | counter met (version 2.1; attacked by 6 seats before it scored and 4 after); score stays 1/10 |
+| Three Yahoo! JAPAN crawl-handling entries on rows opened or re-opened this round (S367 re-opened; S419, S420 new) | freshness (declared; coverage/expansion argued) | `conditions_passed` 0 of 8 → 8 of 8; registry rows 156 → 158 | `python3 -B .ufo/waves/round-56/c56_quote_truth.py --root . --revision <commit>` | counter met (quote-literal, not support: rendering fidelity by 3 reviewers and 3 critics, several corrected); sources re-fetched with no drift |
+
+Receipts under `.ufo/waves/round-56/controls/`: base `base-c1-selftally.txt` (version 1, exit 1), `base-c1-selftally-v2.txt` (version 2, exit 1,
+7/10), `base-c2-quote-truth.txt` (0/8, exit 1); after `after-c1-selftally.txt`, `after-c2-quote-truth.txt` (exit 0); selftests `c1-selftest.txt`
+(59/59), `c2-selftest.txt` (86/86); `census-before.txt`, `census-after.txt`. Admission belongs to the non-author closure.
+
+### Capabilities acquired in round 56
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Selftest-tally gate | Runs each pinned registry row's documented selftest command in a clean clone of a revision under a fixed environment and compares the printed tally with the row's stated number; fails on stale counts, fake or narrowed commands, duplicate rows, rewritten selftests or helpers, host-exported pins | `.ufo/waves/round-56/c56_selftally.py`, `controls/c1-selftest.txt` | 56 |
+| Crawl-handling quote-truth gate (held-row pinned) | The round-55 article-bound quote-truth conditions, with a sha256 pin for a held row, a 40-character ceiling, header and row-cell checks, and page-uniqueness against every retained body | `.ufo/waves/round-56/c56_quote_truth.py`, `controls/c2-selftest.txt` | 56 |
+| Landed-vs-claimed check | Compares every commit hash a report cites with branch ancestry (considerthese proposal 1); run on the round-55 report (10 hashes, 10 ancestors) | `scripts/landed_check.py`, `w1/ExecLandedCheck.files/selftest.txt` | 56 |

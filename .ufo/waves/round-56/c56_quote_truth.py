@@ -907,6 +907,73 @@ def selftest() -> int:
         keep = [ln for ln in f[ADOPTED["S419"]].split("\n") if '"' not in ln]
         f[ADOPTED["S419"]] = "\n".join(keep) + "".join(f'\n> "{t}"' for t in ("が設定されている場合、クローラーは", "が設定されている場合、クローラー", "設定されている場合、クローラーは"))
 
+    # --- version 2.1: dual-edit fixtures from w2/MutC2Selftest.md (edit the landed file AND its validated scratch copy so C7 stays satisfied)
+    def dual(f, rel, a, b):
+        f[rel] = f[rel].replace(a, b, 1)
+        if rel == REGISTRY: f[VALIDATE_REG] = f[VALIDATE_REG].replace(a, b, 1)
+        elif rel in ADOPTED.values(): f[f"{VALIDATE}/{rel}"] = f[f"{VALIDATE}/{rel}"].replace(a, b, 1)
+
+    @case("fail_row_opened_not_round_date")
+    def _(f): dual(f, REGISTRY, row(f, "S419"), row(f, "S419").replace("| 2026-10-25 |", "| 2026-10-24 |", 1))  # kills M02
+    @case("fail_row_recheck_junk_dual")
+    def _(f): dual(f, REGISTRY, row(f, "S419"), row(f, "S419").replace("| 180d |", "| soon |", 1))              # kills M03
+    @case("fail_new_row_junk_kind_tier_dual")
+    def _(f): dual(f, REGISTRY, row(f, "S419"), row(f, "S419").replace("| docs | A |", "| spec | Z |", 1))       # kills M04
+    @case("fail_row_teaches_too_short")
+    def _(f):
+        r = row(f, "S420"); parts = r.split("|"); parts[7] = " 短い "
+        dual(f, REGISTRY, r, "|".join(parts))                                                                    # kills M05
+    @case("fail_verified_at_wrong_date_dual")
+    def _(f): dual(f, ADOPTED["S420"], "verified-at: 2026-10-25", "verified-at: 1999-01-01")                     # kills M10
+    @case("fail_recheck_junk_cadence_dual")
+    def _(f): dual(f, ADOPTED["S420"], "recheck: 180d", "recheck: soon")                                         # kills M11
+    @case("fail_source_line_unnamed_dual")
+    def _(f):
+        ln = next(l for l in f[ADOPTED["S367"]].splitlines()[:8] if re.match(r"^[-* ]*source *:", l))
+        dual(f, ADOPTED["S367"], ln, ln.replace("S367", "S368", 1))                                              # kills M12
+    @case("fail_gate_quote_outside_content")
+    def _(f):
+        g = gate_line_of(f, "S367"); q = re.findall(r'"([^"]+)"', g)[-1]
+        f[LESSON] = f[LESSON].replace(g, g.replace(q, "特定のリンク先ウェブページの"))  # real S367 nav string, outside the content window  # kills M13
+    @case("fail_entry_two_unique_spans")
+    def _(f):
+        body = f[ADOPTED["S419"]]; text = f[f"{SOURCES_DIR}/S419.html"]
+        others = [f[f"{SOURCES_DIR}/{s}.html"] for s in ("S367", "S420")]
+        spans = [s for s in re.findall(r'"([^"]+)"', "\n".join(body.splitlines()[8:]))
+                 if units(s) >= 6 and text.count(s) == 1 and not any(s in t for t in others)][:2]
+        new = "\n".join(ln for ln in body.split("\n") if '"' not in ln) + "".join(f'\n> "{s}"' for s in spans)
+        f[ADOPTED["S419"]] = new; f[f"{VALIDATE}/{ADOPTED['S419']}"] = new                                        # kills M15
+    @case("fail_char_ceiling_dual")
+    def _(f): dual(f, ADOPTED["S419"], "recheck: 180d", 'recheck: 180d\n> "続けるときには、サーバーが「HTTP 404 Not Found」のステータスを返すよう"')  # kills M17
+    @case("fail_entry_nonunique_verbatim_spans")
+    def _(f):
+        body = f[ADOPTED["S420"]]
+        keep = [ln for ln in body.split("\n") if '"' not in ln]
+        spans = ("存在しないウェブページが巡回される", "存在しないウェブページを表示しようとしたときに", "このような設定ができない場合には")
+        new = "\n".join(keep) + "".join(f'\n> "{s}"' for s in spans)  # verbatim, but duplicated or sibling-shared
+        f[ADOPTED["S420"]] = new; f[f"{VALIDATE}/{ADOPTED['S420']}"] = new                                        # kills M19
+    @case("fail_gate_no_url")
+    def _(f):
+        g = gate_line_of(f, "S367"); f[LESSON] = f[LESSON].replace(g, g.replace(ROW_URL["S367"], ""))             # kills M20
+    @case("fail_gate_curly_quote")
+    def _(f):
+        g = gate_line_of(f, "S367"); f[LESSON] = f[LESSON].replace(g, g + " 補足 “この説明は補足ですよ”")          # kills M22
+    @case("fail_anchor_heading_not_in_body_dual")
+    def _(f): dual(f, REGISTRY, row(f, "S420"), row(f, "S420").replace("§ 存在しないウェブページが巡回される (更新日", "§ 存在しない見出し (更新日", 1))  # kills M24
+    @case("fail_receipt_bytes_off")
+    def _(f):
+        r = jload(f, RECEIPTS); r["sources"]["S367"]["bytes"] += 1; f[RECEIPTS] = jdump(r)                        # kills M28
+    @case("fail_validate_e04_midstream")
+    def _(f):
+        p = f"{VALIDATE}/census-stdout.txt"; lines = f[p].rstrip("\n").split("\n")
+        lines.insert(len(lines) - 1, "file\tE04\tS420 duplicate source row"); f[p] = "\n".join(lines) + "\n"      # kills M30
+    @case("fail_validate_root_and_file_argv")
+    def _(f): f[f"{VALIDATE}/census-argv.txt"] = f"/x/sources-census.sh validate --file {VALIDATE_REG} --root /x\n"  # kills M32
+    @case("fail_not_append_only_cell_dual")
+    def _(f): dual(f, REGISTRY, row(f, "S263"), row(f, "S263").replace("| docs | A |", "| docs | B |", 1))        # kills M34
+    @case("fail_used_by_not_extended_dual")
+    def _(f): dual(f, REGISTRY, row(f, "S367"), set_used_by(row(f, "S367"), ADOPTED["S367"]))                     # kills M38
+
     unit_checks = {"halfwidth kana counted one per character": units("ｱ" * 30) == 30,
                    "non-BMP CJK counted": units("𠮷野家") == 3,
                    "latin tokens counted per word": units("a b c") == 3}
