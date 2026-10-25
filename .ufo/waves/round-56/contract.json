@@ -1,0 +1,41 @@
+{
+ "schema": "kake-r56-contract-v1",
+ "baseRevision": "e48354b7c26bb6dc544ab6bbdc534fabe0daf7b6",
+ "roundDate": "2026-10-25",
+ "axisDeclaration": {
+  "C1": "calibration (round-54 sub-axis; deviation from prompt axes named)",
+  "C2": "freshness"
+ },
+ "claims": {
+  "C1": {
+   "predicate": "met: tally_mismatches == 0 AND rows_checked == 10",
+   "counter": "python3 -B .ufo/waves/round-56/c56_selftally.py --root <lane> --revision <rev>",
+   "baseControl": "tally_mismatches=7 rows_checked=10 met=False exit 1",
+   "kill": "exit 0 iff met; 1 not met; 2 unevaluable; 64 usage"
+  },
+  "C2": {
+   "predicate": "met: conditions_passed == 8 of 8",
+   "counter": "python3 -B .ufo/waves/round-56/c56_quote_truth.py --root <lane> --revision <rev>",
+   "baseControl": "0/8 met=False exit 1",
+   "kill": "exit 0 iff met; 1 not met; 2 unevaluable; 64 usage"
+  }
+ },
+ "unitCeiling": 25,
+ "registryRowsBefore": 156,
+ "registryRowsAfterExpected": 158,
+ "renumberMap": {
+  "S375": "S419",
+  "S376": "S420",
+  "S367": "S367"
+ },
+ "collisions": [
+  "S312",
+  "S329",
+  "S367",
+  "S372",
+  "S373",
+  "S374",
+  "S390",
+  "S409"
+ ]
+}

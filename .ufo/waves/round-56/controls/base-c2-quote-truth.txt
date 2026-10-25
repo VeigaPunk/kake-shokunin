@@ -1,0 +1,31 @@
+C2 quote-truth 0/8 met=False  (met: conditions_passed == 8 of 8)
+  C1_entries_exist FAIL
+    - S367: knowledge entry corpus/knowledge/yahoo-japan-link-target-crawl-restriction.md absent at the measured revision
+    - S419: knowledge entry corpus/knowledge/yahoo-japan-deleted-url-recrawl.md absent at the measured revision
+    - S420: knowledge entry corpus/knowledge/yahoo-japan-nonexistent-url-recrawl.md absent at the measured revision
+  C2_entry_provenance FAIL
+    - S367: entry absent
+    - S419: entry absent
+    - S420: entry absent
+  C3_row_shape FAIL
+    - S419: no registry row at the measured revision
+    - S420: no registry row at the measured revision
+  C4_used_by FAIL
+    - S367: used-by is ['corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md'], expected ['corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md', 'corpus/knowledge/yahoo-japan-link-target-crawl-restriction.md']
+    - S419: no usable registry row
+    - S420: no usable registry row
+  C5_quote_truth FAIL
+    - S367: retained body absent
+    - S419: retained body absent
+    - S420: retained body absent
+  C6_receipt_pins FAIL
+    - .ufo/waves/round-56/sources/receipts.json absent
+    - S367: no receipt in .ufo/waves/round-56/sources/receipts.json
+    - S419: no receipt in .ufo/waves/round-56/sources/receipts.json
+    - S420: no receipt in .ufo/waves/round-56/sources/receipts.json
+  C7_validate_before_append FAIL
+    - append-block validation receipt is incomplete
+  C8_mirror_bytes FAIL
+    - mirror .ufo/waves/round-56/assimilation/pre-append/corpus/SOURCES.md absent at the measured revision
+  revision: e48354b7c26bb6dc544ab6bbdc534fabe0daf7b6
+EXIT=1
