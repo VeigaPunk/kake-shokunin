@@ -40,3 +40,17 @@ Five missing kake rows identified in the round-52 verifier review were opened by
 - S417 — https://ziyuan.baidu.com/college/courseinfo?id=267&page=15 — accessed 2026-10-25 — § 移动适配 → 如何提升移动适配效果, list introduced by 以下是常见的对应不准确错误 (course-header 最新更新章节 2020-08-14; no section date) — quote: "手机页使用了ajax等异步加载的方法加载内容主体" (retained body `.ufo/waves/round-53/sources/S312-reread.html`, 46056 bytes, sha256 `2b4d8116f42b7d661568a59595413ac504afd815107549fc48eb2b40b9e415c5`; quote occurs once).
 
 These two superseding rows correct anchor/date metadata only; they do not amend the previously admitted source claims or claim that the S312 list is a formal rejection-cause list.
+
+## Round-52 routed-defect disposition
+
+1. Push/ancestry: round-52 closure pushed the six round-52 commits; this round's branch was brought to a verified remote tip. Final lane report cites the exact landed commit.
+2. Missing LOG: round-52 correction and round-53 entries are appended in `LOG.md`; hashes appear in subsequent appended lines.
+3. Report sections: the round-53 fleet report uses the required section order and one measured revision.
+4. Unregistered S367/S372/S373/S390/S409 references: corrected by opening and registering those sources; these are kake's staged ids, not cross-lane evidence. A broader automated citation checker is not added this round.
+5. S329/S312 locators and date scope: append-only superseding rows S416/S417 plus correction blocks in both knowledge entries; round-52 lesson and entries remain historical.
+6. Refusal reasons: decisions remain refusals. CrUX sources were unopened/unregistered; Jekyll source was unopened in-round. The duplicate-in-scope/E04 explanation is withdrawn as unsupported; no substitute claim of E04 is made.
+7. Gate registry descriptions: not repaired; the existing counter checks row shape, not truth of registry cells. A robust registry-content gate would require a separately frozen claim and controls.
+8. Receipt reproducibility: not repaired. The inherited mutation-ladder receipt was committed as it stood; its throwaway revision strings are nondeterministic. No reproducibility credit is claimed.
+9. `final-verify.txt` fidelity: not regenerated; the round-52 receipt remains historical and its mismatch is not relabelled as verified.
+10. Freshness-pin premises: not changed. The round-52 plazir/ds4cc pin rationale needs a fresh source-side recheck; no new pin verdict is claimed.
+11. Dirty mutation-ladder receipt: committed with the round-53 evidence set, but this only resolves the uncommitted-file state; it does not repair the nondeterminism in item 8.
