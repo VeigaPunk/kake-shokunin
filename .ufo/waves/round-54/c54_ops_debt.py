@@ -21,6 +21,11 @@ import re
 import subprocess
 import sys
 
+class UsageParser(argparse.ArgumentParser):
+    def error(self, message: str) -> None:
+        self.print_usage(sys.stderr)
+        self.exit(64, f"{self.prog}: error: {message}\n")
+
 REQUIRED_SEAT_NAMES = {
     "ReviewerProvenance.md", "CriticCrossLane.md", "ScoutS329.md",
     "ScoutS312.md", "CriticLocators.md", "ScribeGate.md", "ScoutQuarantine.md",
@@ -140,7 +145,7 @@ def run_checks(root: str, rev: str) -> tuple[int, dict]:
     }
     return (0 if registry_present and manifest_ok else 1), result
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Round-54 round-53 ops-debt counter")
+    parser = UsageParser(description="Round-54 round-53 ops-debt counter")
     parser.add_argument("--root", default=".", help="lane root")
     parser.add_argument("--revision", required=True, help="committed revision")
     args = parser.parse_args()

@@ -37,6 +37,11 @@ import re
 import subprocess
 import sys
 
+class UsageParser(argparse.ArgumentParser):
+    def error(self, message: str) -> None:
+        self.print_usage(sys.stderr)
+        self.exit(64, f"{self.prog}: error: {message}\n")
+
 PREDICATE = "S374 qualifier: mismatches = rendered cells missing the crawl qualifier and not superseded by an r54 correction block; met when 0."
 ENTRY = "corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md"
 BODY = ".ufo/waves/round-52/sources/S374.html"
@@ -213,7 +218,7 @@ def run_checks_fix(fix) -> tuple[int, list[dict]]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Round-54 S374 calibration counter")
+    parser = UsageParser(description="Round-54 S374 calibration counter")
     parser.add_argument("--root", default=".", help="lane root (git -C)")
     parser.add_argument("--revision", default=None, help="committed revision")
     parser.add_argument("--selftest", action="store_true")
