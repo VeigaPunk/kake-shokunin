@@ -4205,3 +4205,30 @@ exit 0, census exit 0 over 145 rows (seat `CriticHarm`).
 | Capability | What it can now do | Evidence pointer | First-working round |
 |---|---|---|---|
 | Wave-evidence ledger | Re-derives a round's own seat accounting, route receipts and time accounting from committed bytes in one command, and names the exact contract clause each check enforces; certifies agreement between the settlement, the payload, the route map, the probe receipts, the timing pair and LOG.md — not that the wave ran, and not the content of any seat report | `scripts/../.ufo/waves/round-51/c51_wave_ledger.py`; `settlement.json`, `wave-timing.json`, `round-time-accounting.json`, `route-map.json`, `route-probes/`; receipts re-run by `ScoutCounterC1Base`, `ExecLedgerMutants`, `ReviewL3Time` | 51 |
+## Round 52 — declared claims (frozen at base `93d7fdb`, before any claim receipt)
+
+C1 (operability, capability deepening): the two round-51 counters are registered in SKILL.md's
+gate registry and hardened — self-test modes with committed receipts, frozen baselines, a C1
+vacuity floor (spawn/grant/settlement bound, reports read, dead-seat receipts), C2's C8 mirror-read
+fix (`show(root, rev, MIRROR)` + pinned mirror sha256) and C6 receipt-field checks (httpStatus / bytes
+/ fetchedAt). Predicate: `met: registry_rows == 2 AND selftest_receipts == 2 AND
+vacuity_mutant_families_killed >= 10 AND real_data_reruns_pass == 2 of 2`. Counting commands in
+`.ufo/waves/round-52/contract.json`. Before: 0 registry rows, no selftest, C1 3/3 on the residual
+M1–M12 vacuity mutants, C8 reads the live registry not the mirror. After: 2 rows, selftest receipts,
+>=10 mutant families rejected by the new ledger while the old ledger stays green on the same fixtures
+(red-before committed), C8 fixed, real r51 data still 3/3 and 8/8.
+
+C2 (freshness, sourced learning + drift reconciliation): three per-engine crawl-hygiene entries
+(Yahoo! JAPAN link-attribute semantics; Baidu crawler guidance; Baidu mobile-matching error causes)
+enter held ground on rows S374/S329/S312 opened this round; the sweep's two closable armed drift legs
+(PQ-2 remote advance, ds4cc sitemap listed) are reconciled from observed evidence, leaving only the
+operator-owned plazir absence red. Predicate: `met: admitted_entries_citing_mined_rows == 3 AND
+registry_rows_delta == +3 AND census_validate_exit == 0 AND sweep_drift_legs_before == 3 AND
+sweep_drift_legs_after == 1`. Before: 145 rows, zero Yahoo/Baidu rows, sweep exit 1 with 3 drift legs
+(base-clone control identical). After: 148 rows, census exit 0, sweep exit 1 with only
+`plazir-gate-anomaly` (operator-owned, disclosed).
+
+Both claims target the two owned axes at the 10/10 saturation line; the stagnation nudge is satisfied
+by round-51 capabilities and this round's capability-deepening C1. Routed defects r51-1…r51-9 from
+`corpus/lessons/round-51-verifier-spotcheck.md` are addressed per the contract's
+`routedDefectsAddressed`.

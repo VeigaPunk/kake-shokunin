@@ -1201,3 +1201,21 @@ receipts at the round-47 tip).
 
 The round-46 `c46_matrix.py` figures above are observed fixture outcomes, not a semantic certificate or evidence of an independent publisher-intent oracle. The orchestrator-dispatched R46 residual reports found that fixtures mirror `redirect_audit.py::_witnesses()`, W12 expects unsupported redirect status 200, a basename matcher/doctored-index control can pass, and three decision-logic mutants survive the matrix and tool selftest. Read the pinned 11/11 and 3/3 values as bounded counts only; R47's C1 claim is registry/receipt delivery, not a claim that these semantic-oracle gaps are closed. Durable summary: `corpus/lessons/round-47.md` §Inherited R46 residual scope.
 
+
+### Round 52 gate registry additions (r51 closure routed defect 1)
+
+Round 51 shipped two counters with no registry row, no self-test and no frozen baseline, so
+PROTOCOL §Gate graded them non-conformant as gates and their junk controls named revisions the
+repo does not contain (r51-4). This section registers both instruments at the registry home and
+replaces the junk controls with a replayable mutation ladder. Receipts: `.ufo/waves/round-52/control/`.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| wave-evidence-ledger | gate (offline, committed bytes only; no network) | `python3 -B .ufo/waves/round-52/c52_wave_ledger.py --root . --revision <commit>` | `0=met` (`ledger_checks_passed == 3 of 3`); `1=not met` (any L1/L2/L3 sub-condition fails, including absent evidence); `2=could-not-evaluate` (malformed JSON, unparsable numbers, exception); `64=usage` | `python3 -B .ufo/waves/round-52/c52_wave_ledger.py --selftest` (19 fixtures, sandbox repos; receipt `.ufo/waves/round-52/control/c1-ledger-selftest.txt`) | `.ufo/waves/round-52/baselines.json` pins the counter sha256 and the nine round-51 input blob sha256s; `python3 -B .ufo/waves/round-52/c52_mutation_ladder.py` is the red-before ladder (13 of 18 families rejected by this counter and accepted by `c51_wave_ledger.py`; receipt `control/c1-mutation-ladder.json`) | read-only `git show`/`git ls-tree`; selftest writes only sandbox fixture repos under `.ufo/waves/round-52/selftest/` and removes them | kake |
+| quote-truth-counter | gate (offline, committed bytes only; no network) | `python3 -B .ufo/waves/round-52/c52_quote_truth.py --root . --revision <commit>` | `0=met` (`conditions_passed == 8 of 8`); `1=not met` (any C1–C8 sub-condition fails); `2=could-not-evaluate` (malformed receipt or mirror-pin JSON, exception); `64=usage` | `python3 -B .ufo/waves/round-52/c52_quote_truth.py --selftest` (18 fixtures, sandbox repos; receipt `.ufo/waves/round-52/control/c2-quote-selftest.txt`) | `.ufo/waves/round-52/baselines.json` pins the counter sha256, the three retained-body sha256s, the mirror-pin sha256 and both receipt digests; C8 reads the mirror BYTES (`show(root, rev, MIRROR)`) and requires append-only equality with the measured registry minus the adopted rows | read-only `git show`/`git ls-tree`/`git log`; selftest writes only sandbox fixture repos under `.ufo/waves/round-52/selftest/` and removes them | kake |
+
+The completeness counter is `.ufo/waves/round-52/c52_gate_registry.py`
+(`python3 -B … --root . --revision <commit>`): it requires both rows to carry all eight cells
+with the counter path named, both `--selftest` modes to be present, both committed selftest
+receipts to hash to their pinned digests and to report exit 0, and both counter scripts to hash
+to their pinned baselines. Withdrawal rule: the row goes when the counter leaves the tree.
