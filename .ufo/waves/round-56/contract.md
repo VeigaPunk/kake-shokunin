@@ -80,3 +80,41 @@ in-round: `yahoo-japan-link-target-crawl-restriction` (row S367, a held row re-o
   by seat settlement before each wave hand-off; defect 4 (S367 31 units) is addressed by re-cutting S367's quotes to <= 25 units
   in the new entry (the row's own cells are unchanged).
 - Frontier step: census before/after, one mined mistake, sourced claim — in `corpus/lessons/round-56.md`.
+
+## Counter versions (appended after wave 1, before the final measurement)
+
+The contract commit `2d308e808bfd` froze both counters at version 1 and the predicate sentences, which are byte-identical in
+`contract.md`, `contract.json` and both counters since. Wave 1 attacked both counters before any claim was measured
+(`w1/CriticC1Contract.md`, `w1/MutC1Counter.md`, `w1/ReviewerSelftallyCode.md`, `w1/CriticC2Contract.md`, `w1/CriticControls.md`,
+`w1/CritCheatC1.md`, `w1/CritCheatC2.md`). What changed, with the evidence:
+
+- **C1 counter version 2** (`c56_selftally.py`): the documented command must be exactly `[KAKE_R5N_SELFTEST_REV=<hex>] python3 -B
+  <script> <pinned args>` and sit in the row's `Self-test` column (a fake `python3 -c`, extra arguments, a command in another column are
+  `command_invalid`/`command_missing`); the environment is fixed instead of inherited (a host-exported pin cannot rescue a row);
+  duplicate row names are mismatches; every `*.py` beside the pinned script at the base revision must be byte-identical; exactly one
+  claim per cell (two for the one declared sum row); the tally line is anchored; `rows_checked` counts rows whose command was found and
+  valid (v1 counted rows looked up). Selftest 20 -> 47 checks (generated sandbox repos; includes the six mutants that survived v1). Base
+  control re-run under version 2: `tally_mismatches=7 rows_checked=10`, exit 1 (`controls/base-c1-selftally-v2.txt`). Version-1 junk that
+  met the frozen predicate (`w1/CritCheatC1.md` experiments 5-8, `w1/CriticC1Contract.md` A1-A9) is closed by version 2, except one
+  disclosed limit: a helper outside the pinned script's directory is not pinned.
+- **C2 counter version 2** (`c56_quote_truth.py`; version 1.1 had added the ported selftest): the held row S367's retained body is pinned by
+  its sha256 instead of a title substring (v1 rejected a truthful build at 7 of 8: the held row's title uses fullwidth punctuation the page
+  does not print; `w1/CriticC2Contract.md` WR-1, `w1/CritCheatC2.md`); Gate quotes must occur once in their own body; a 40-character
+  ceiling beside the 25-unit ceiling (punctuation and markup entities cost 0 or 1 unit); one-token quoted spans of 12+ characters are
+  substring-checked; `verified-at` must carry the round date; `recheck` must open with NNd, an ISO date or on-release; kind, tier, scope and
+  teaches cells are checked; the staged candidate name must be absent; page-uniqueness is judged against every retained body. Selftest 54
+  (round 55) -> 67 checks (64 fixtures + 3 unit checks), run with `KAKE_R56_SELFTEST_REV=<measured content revision>`.
+- A first C2 measurement was taken at `d5afc48acd72` (8/8) before the Gate-uniqueness change and the C1 version-2 column rule; it is
+  recorded here, not cited as the final measurement. The final measurements are at the revision named in the report.
+- **After-state correction.** The C2 after-state's clause "`sources-census.sh validate --root ... kake` exits 0" is satisfied at base
+  (`controls/census-before.txt`), so a do-nothing control meets it: it is a no-harm check, not part of the predicate. C2's predicate
+  measures three facts: the 3 entries (C1-C6), 158 registry rows with S367 changed in `used-by` only (C3/C8), and the validated append
+  (C7).
+- **What the C2 counter does not test.** Quote truth is substring truth, not support: three arbitrary page-unique spans satisfy C5
+  (`w1/CritCheatC2.md` builds a one-commit junk tree that reaches 8 of 8 under version 1; rendering fidelity, relevance and whether the
+  entry says anything are reviewers' terms); C6 is receipt-shaped, not a fetch proof; C7 is a receipt of agreement, not proof the census
+  ran (re-run by wave-2 executors); a quote that contains a raw `"` (the S367 meta-tag examples) is split by the quote regex and cannot
+  be verified whole, so the entries do not quote those lines.
+- **Axis note.** `w1/CriticAxisClaim.md` argues C1 is operability (the surface is the gate registry's runnable-command claims) and C2 is
+  coverage/expansion (the counter has no drift condition). The frozen declarations stand; the report states both views and the
+  lowest-axis obligation is reported as open pending the operator's ownership ruling. SCORECARD calibration stays at 1.

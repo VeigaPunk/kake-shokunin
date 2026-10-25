@@ -58,20 +58,20 @@ DOC = "SKILL.md"
 TIMEOUT = 300
 PIN_RX = r"KAKE_R5[0-9]_SELFTEST_REV=[0-9a-f]{7,40}"
 
-# (row name, pinned script, pinned args, claim regex, sum_ok). The documented command must be exactly
-# `[pin ...] python3 -B <script> <args...>`; the claim regex must match exactly one integer unless `sum_ok`.
+# (row name, pinned script, pinned args, claim regex, nclaims). The documented command must sit in the row's `Self-test` cell and be exactly
+# `[pin ...] python3 -B <script> <args...>`; the claim regex must match exactly `nclaims` integers (their sum is the claim).
 POP = [
-    ("base-path-audit", "scripts/base_path_selftest.py", [], r"(\d+) (?:matrix |round-29 regression )?fixtures", True),
-    ("source-recheck-audit", "scripts/source_recheck_selftest.py", [], r"\((\d+) fixtures\)", False),
-    ("robots-expectation-audit", "scripts/robots_audit_selftest.py", [], r"\((\d+) fixtures\)", False),
-    ("sitemap-file-audit", "scripts/sitemap_audit_selftest.py", ["--tool", "scripts/sitemap_audit.py"], r"\((\d+) fixtures", False),
-    ("redirect-expectation-audit", "scripts/redirect_audit.py", ["--selftest"], r"\((\d+)/\d+;", False),
-    ("commit-citation-lint", "scripts/citation_lint.py", ["--selftest"], r"\((\d+)/\d+;", False),
-    ("wave-evidence-ledger", ".ufo/waves/round-52/c52_wave_ledger.py", ["--selftest"], r"\((\d+) fixtures", False),
-    ("quote-truth-counter", ".ufo/waves/round-52/c52_quote_truth.py", ["--selftest"], r"\((\d+) fixtures", False),
-    ("readme-index-counter", ".ufo/waves/round-55/c55_readme_index.py", ["--selftest"], r"\((\d+) (?:fixtures|checks)", False),
+    ("base-path-audit", "scripts/base_path_selftest.py", [], r"(\d+) (?:matrix |round-29 regression )?fixtures", 2),
+    ("source-recheck-audit", "scripts/source_recheck_selftest.py", [], r"\((\d+) fixtures\)", 1),
+    ("robots-expectation-audit", "scripts/robots_audit_selftest.py", [], r"\((\d+) fixtures\)", 1),
+    ("sitemap-file-audit", "scripts/sitemap_audit_selftest.py", ["--tool", "scripts/sitemap_audit.py"], r"\((\d+) fixtures", 1),
+    ("redirect-expectation-audit", "scripts/redirect_audit.py", ["--selftest"], r"\((\d+)/\d+;", 1),
+    ("commit-citation-lint", "scripts/citation_lint.py", ["--selftest"], r"\((\d+)/\d+;", 1),
+    ("wave-evidence-ledger", ".ufo/waves/round-52/c52_wave_ledger.py", ["--selftest"], r"\((\d+) fixtures", 1),
+    ("quote-truth-counter", ".ufo/waves/round-52/c52_quote_truth.py", ["--selftest"], r"\((\d+) fixtures", 1),
+    ("readme-index-counter", ".ufo/waves/round-55/c55_readme_index.py", ["--selftest"], r"\((\d+) (?:fixtures|checks)", 1),
     ("yahoo-robots-quote-truth-counter", ".ufo/waves/round-55/c55_quote_truth.py", ["--selftest"],
-     r"\((\d+) (?:sandbox-repo )?(?:fixtures|checks)", False),
+     r"\((\d+) (?:sandbox-repo )?(?:fixtures|checks)", 1),
 ]
 EXPECTED_ROWS = 10
 TALLY_RES = [
@@ -103,16 +103,25 @@ def blob(root: str, rev: str, path: str) -> str | None:
     return out.strip() if rc == 0 and out.strip() else None
 
 
-def table_rows(text: str) -> dict[str, list[list[str]]]:
-    """Markdown table rows by first cell, every occurrence kept (a duplicate name is a mismatch). Cells split on
-    unescaped pipes; 0-3 leading spaces tolerated."""
-    out: dict[str, list[list[str]]] = {}
-    for line in text.split("\n"):
+def table_rows(text: str) -> dict[str, list[tuple[list[str], list[str] | None]]]:
+    """Markdown table rows by first cell, every occurrence kept as (cells, header cells of its own table or None).
+    Cells split on unescaped pipes; 0-3 leading spaces tolerated; a duplicated name is a mismatch."""
+    out: dict[str, list[tuple[list[str], list[str] | None]]] = {}
+    lines = text.split("\n")
+    header: list[str] | None = None
+    for i, line in enumerate(lines):
         if not re.match(r"^ {0,3}\|", line):
+            header = None
             continue
         cells = [c.strip() for c in re.split(r"(?<!\\)\|", line.strip().strip("|"))]
+        if re.fullmatch(r"[\s:|-]+", line.strip()):
+            continue
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        if re.match(r"^ {0,3}\|[\s:|-]+\|?\s*$", nxt) and re.search(r"-", nxt):
+            header = [c.lower() for c in cells]
+            continue
         if cells:
-            out.setdefault(cells[0], []).append(cells)
+            out.setdefault(cells[0], []).append((cells, header))
     return out
 
 
@@ -135,13 +144,20 @@ def _is_selftest_words(words: list[str], script: str) -> bool:
     return script in words and ("--selftest" in words or "selftest" in os.path.basename(script))
 
 
-def documented_command(cells: list[str], script: str) -> tuple[list[str], str] | None:
-    """(words, cell) of the first backticked command in some cell that runs `script` as a selftest."""
-    for cell in cells[1:]:
-        for span in re.findall(r"`([^`]+)`", cell):
-            words = _words(span)
-            if words is not None and _is_selftest_words(words, script):
-                return words, cell
+def documented_command(row: tuple[list[str], list[str] | None], script: str) -> tuple[list[str], str] | None:
+    """(words, cell) of the first backticked command in the row's `Self-test` cell that runs `script` as a selftest.
+    A command written in any other cell (Entry command, notes) is never read."""
+    cells, header = row
+    if not header:
+        return None
+    idx = next((k for k, h in enumerate(header) if h.startswith("self-test")), None)
+    if idx is None or idx >= len(cells):
+        return None
+    cell = cells[idx]
+    for span in re.findall(r"`([^`]+)`", cell):
+        words = _words(span)
+        if words is not None and _is_selftest_words(words, script):
+            return words, cell
     return None
 
 
@@ -218,7 +234,7 @@ def measure(root: str, rev: str, pop=None, base_rev: str = BASE_REV, expected: i
     results: list[dict] = []
     clone = None
     try:
-        for name, script, args, rx, sum_ok in pop:
+        for name, script, args, rx, nclaims in pop:
             problems: list[str] = []
             facts: dict = {"script": script}
             occ = rows.get(name, [])
@@ -241,7 +257,7 @@ def measure(root: str, rev: str, pop=None, base_rev: str = BASE_REV, expected: i
             claim = None
             if not nums:
                 problems.append("claim_missing")
-            elif len(nums) > 1 and not sum_ok:
+            elif len(nums) != nclaims:
                 problems.append("claim_ambiguous")
             else:
                 claim = sum(nums)
@@ -333,8 +349,8 @@ def _sandbox(skill: str, scripts: dict, base_scripts: dict | None = None) -> tup
 
 def selftest() -> int:
     global TIMEOUT
-    pop = [("alpha", "t/alpha_selftest.py", [], r"\((\d+) fixtures\)", False),
-           ("beta", "t/beta_selftest.py", [], r"\((\d+) fixtures\)", False)]
+    pop = [("alpha", "t/alpha_selftest.py", [], r"\((\d+) fixtures\)", 1),
+           ("beta", "t/beta_selftest.py", [], r"\((\d+) fixtures\)", 1)]
     alpha, beta = FAKE_OK % (4, 4), FAKE_ENV
     A_CMD, B_CMD = "`python3 -B t/alpha_selftest.py`", "`PIN=1 python3 -B t/beta_selftest.py`"
 
@@ -354,7 +370,7 @@ def selftest() -> int:
     add("pass", skill(), want=0)
     add("pass_indented_table", skill(indent="  "), want=0)
     add("pass_claim_sum_declared", skill(a_cell=f"{A_CMD} (2 fixtures) (2 fixtures)"), want=0,
-        p=[("alpha", "t/alpha_selftest.py", [], r"\((\d+) fixtures\)", True), pop[1]])
+        p=[("alpha", "t/alpha_selftest.py", [], r"\((\d+) fixtures\)", 2), pop[1]])
     add("pass_last_tally_line_wins", skill(), scripts={**good, "t/alpha_selftest.py": 'print("stage1 selftest: 3/3 passed")\nprint("selftest: 4/4 passed")\n'}, want=0)
     add("pass_quoted_script_path", skill(a_cell='`python3 -B "t/alpha_selftest.py"` (4 fixtures)'), want=0)
     add("pass_escaped_pipe_in_later_cell", skill(extra="| x | a \\| b |\n"), want=0)
@@ -382,6 +398,9 @@ def selftest() -> int:
     add("row_moved_to_other_section_duplicate", skill(extra="\n## Notes\n\n| alpha | `python3 -B t/alpha_selftest.py` (4 fixtures) |\n"), sub="duplicate_row")
     add("timeout_is_unevaluable", skill(), scripts={**good, "t/alpha_selftest.py": 'import time\ntime.sleep(30)\nprint("selftest: 4/4 passed")\n'},
         base={**good, "t/alpha_selftest.py": 'import time\ntime.sleep(30)\nprint("selftest: 4/4 passed")\n'}, want=2, sub="timeout", timeout=1)
+    add("command_in_other_column_shadows_selftest_cell", "| Name | Entry command | Self-test |\n|---|---|---|\n| alpha | `python3 -B t/alpha_selftest.py` (4 fixtures) | stale (9 fixtures) |\n| beta | x | `PIN=1 python3 -B t/beta_selftest.py` (3 fixtures) |\n", sub="command_missing")
+    add("sum_row_padded_to_three_claims", skill(a_cell=f"{A_CMD} (2 fixtures) (2 fixtures) (0 fixtures)"), sub="claim_ambiguous",
+        p=[("alpha", "t/alpha_selftest.py", [], r"\((\d+) fixtures\)", 2), pop[1]])
     add("rows_checked_counts_found_rows_only", skill(b_name=""), p=pop, n=2, sub="row_missing")
     add("diagnostic_line_not_a_tally", skill(), scripts={**good, "t/alpha_selftest.py": 'print("selftest ran on 2026/10/25")\nprint("selftest: 4/4 passed")\n'}, want=0)
     add("diagnostic_only_is_unparsable", skill(), scripts={**good, "t/alpha_selftest.py": 'print("selftest ran on 2026/10/25")\n'},
@@ -409,6 +428,7 @@ def selftest() -> int:
                 fails.append(f"{name}: expected {want} with {sub!r}, got {code} {text[:240]}")
     finally:
         os.environ.pop("PIN", None)
+    H = ["name", "self-test"]
     unit = {
         "parse_json_tally": parse_tally('{"passedOverTotal": "106/106", "x": 1}') == (106, 106),
         "parse_pass_line": parse_tally("PASS 235/235") == (235, 235),
@@ -417,17 +437,19 @@ def selftest() -> int:
         "parse_none": parse_tally("no tally here") is None,
         "parse_date_is_not_a_tally": parse_tally("selftest ran on 2026/10/25") is None,
         "parse_dash_name_line": parse_tally("selftest: missing fixture 12/20") is None,
-        "env_prefix_split": documented_command(["x", "`KAKE_R52_SELFTEST_REV=abc1234 python3 -B a/b.py --selftest` (3 fixtures)"], "a/b.py")
+        "env_prefix_split": documented_command((["x", "`KAKE_R52_SELFTEST_REV=abc1234 python3 -B a/b.py --selftest` (3 fixtures)"], H), "a/b.py")
         == (["KAKE_R52_SELFTEST_REV=abc1234", "python3", "-B", "a/b.py", "--selftest"], "`KAKE_R52_SELFTEST_REV=abc1234 python3 -B a/b.py --selftest` (3 fixtures)"),
-        "brackets_stripped": (documented_command(["x", "`python3 -B a/b_selftest.py [--tool PATH]`"], "a/b_selftest.py") or ([],))[0]
+        "brackets_stripped": (documented_command((["x", "`python3 -B a/b_selftest.py [--tool PATH]`"], H), "a/b_selftest.py") or ([],))[0]
         == ["python3", "-B", "a/b_selftest.py"],
-        "nested_brackets_stripped": (documented_command(["x", "`python3 -B a/b_selftest.py [--tool [PATH]]`"], "a/b_selftest.py") or ([],))[0]
+        "nested_brackets_stripped": (documented_command((["x", "`python3 -B a/b_selftest.py [--tool [PATH]]`"], H), "a/b_selftest.py") or ([],))[0]
         == ["python3", "-B", "a/b_selftest.py"],
         "entry_command_not_selftest": (documented_command(
-            ["x", "`python3 -B a/b.py --manifest PATH`", "`python3 -B a/b.py --selftest` (3 fixtures)"], "a/b.py") or ([],))[0]
+            (["x", "`python3 -B a/b.py --manifest PATH` `python3 -B a/b.py --selftest` (3 fixtures)"], H), "a/b.py") or ([],))[0]
         == ["python3", "-B", "a/b.py", "--selftest"],
         "shlex_error_span_skipped": documented_command(
-            ["x", "`python3 -B t/a_selftest.py '`", "ok", "`python3 -B t/a_selftest.py` (1 fixtures)"], "t/a_selftest.py") is not None,
+            (["x", "`python3 -B t/a_selftest.py '` `python3 -B t/a_selftest.py` (1 fixtures)"], H), "t/a_selftest.py") is not None,
+        "other_column_never_read": documented_command((["x", "ok", "`python3 -B t/a_selftest.py` (1 fixtures)"], ["name", "self-test", "notes"]), "t/a_selftest.py") is None,
+        "no_header_no_command": documented_command((["x", "`python3 -B t/a_selftest.py` (1 fixtures)"], None), "t/a_selftest.py") is None,
         "clone_cleanup_on_failure": _clone_cleans_up(),
     }
     for label, ok in unit.items():
