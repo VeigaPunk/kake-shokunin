@@ -2109,3 +2109,4 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Round 53 — refused-entry rationale correction.** `corpus/lessons/round-52.md` now preserves both round-52 refusal decisions while superseding their incorrect grounds: both staged sources were unopened in-round; Jekyll's different scope produces W04 rather than E04, and the CrUX source was quarantined.
 - The refusal-ground correction landed at `3835c2ffbff66aa2db4745d9c44b03905c61e9d9`.
 - **Round 53 — considerthese proposal boundary.** The 2026-10-25 reflection's cross-registry resolver proposal was only partially addressed by a lane-local QUALITY criterion and one measurement; no daily script or automated resolver was implemented (`corpus/lessons/round-53.md`).
+- The consideration-boundary update landed at `31dc3ef0b76e5aa3aeaab28c8ebd8b705fd904a0`.
