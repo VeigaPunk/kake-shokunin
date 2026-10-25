@@ -4100,3 +4100,31 @@ Axis ratings stay 10 → 10. No capability row, rank, or promotion is self-award
 
 Limits, not predicate changes: the S273 quote is a substring of the whitespace-collapsed retained text, not of the raw HTML (`w1/ScoutReopenS273.md`). The entry heading is a gloss; the admitted sentences are the two Gate quotes (`w1/CriticQuoteOverclaim.md`). The census mirror is `--file` only (`w1/ReviewMirrorScope.md`).
 
+
+## Round 50 — declared claims (before the after measurement)
+
+Base: `9619af67c52939daac502ca7a24c9d714f3f51db`. Both owned axes sit at the
+legacy 10/10 line, so each is tied-lowest. Round 49 entered no capability, so
+the stagnation nudge would waive the lowest-axis rule; this round works
+operability anyway because the routed repair is operability. Predicates were
+frozen in `.ufo/waves/round-50/contract.json` and in the counter constants
+before any after score. Do-nothing controls at the base: C1 `classed 0/3 met=False`
+exit 1 (class ledger absent, lesson absent, S286 row absent); C2 `durable 0/1
+met=False` exit 1 (order proof absent, wave-cite proof absent, settlement absent).
+
+| Claim | Axis | Before | Declared after | Counting command |
+|---|---|---|---|---|
+| C1 quote class, committed bytes only | freshness | classed 0/3 | classed 3/3 | `python3 -B .ufo/waves/round-50/c50_quote_class.py --root . --revision <commit>` |
+| C2 pre-append order and wave-grant durability | operability | durable 0/1 | durable 1/1 | `python3 -B .ufo/waves/round-50/c50_durable.py --root . --revision <commit>` |
+
+C1 predicate: `met: classed == 3 of 3 declared ids` (S273, S274, S286). C2
+predicate: `met: durable == 1 of 1`. A miss is an honest stop. The mirror
+validation is `--file` only and is not a full-repo validation.
+
+C1 is a capability acquisition: `.ufo/waves/round-50/quote-classes.json` is a new
+instrument that names, per id, the frozen quote, the derived match class and the
+sha256 of both retained blobs, and `c50_quote_class.py` reads only committed bytes
+(`git show`). The class is derived, never asserted: `raw-substring` when the span is
+a substring of the retained HTML, `collapsed-only` when it survives only whitespace
+collapse. S273 is collapsed-only and S274 is a raw substring; the two are different
+facts and a swapped label fails the check.

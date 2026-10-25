@@ -1,0 +1,316 @@
+{
+  "schema": "kake-r50-settlement-v1",
+  "wave": "r50-w1",
+  "transport": "kimi --prompt",
+  "routeTable": "/home/vgpnk/.omp/agent/config.yml",
+  "timeout_seconds": 300,
+  "spawn": 36,
+  "replacements": [],
+  "settled": [
+    {
+      "name": "ScoutReopenS286",
+      "role": "scout",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 92,
+      "report": true
+    },
+    {
+      "name": "ScoutReopenS273",
+      "role": "scout",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 93,
+      "report": true
+    },
+    {
+      "name": "ScoutReopenS274",
+      "role": "scout",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 111,
+      "report": true
+    },
+    {
+      "name": "ScoutQuarantineSlice",
+      "role": "scout",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 101,
+      "report": true
+    },
+    {
+      "name": "ScoutUncommitted",
+      "role": "scout",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 169,
+      "report": true
+    },
+    {
+      "name": "ExecCensusMirror",
+      "role": "executor",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 136,
+      "report": true
+    },
+    {
+      "name": "ExecCensusLive",
+      "role": "executor",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 85,
+      "report": true
+    },
+    {
+      "name": "ExecRerunC1Base",
+      "role": "executor",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 63,
+      "report": true
+    },
+    {
+      "name": "ExecRerunC1Pre",
+      "role": "executor",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 58,
+      "report": true
+    },
+    {
+      "name": "ExecRerunC2Base",
+      "role": "executor",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 47,
+      "report": true
+    },
+    {
+      "name": "ExecCensusParse",
+      "role": "executor",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 108,
+      "report": true
+    },
+    {
+      "name": "CriticSwappedLabel",
+      "role": "critic",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 170,
+      "report": true
+    },
+    {
+      "name": "CriticCrossWire",
+      "role": "critic",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 164,
+      "report": true
+    },
+    {
+      "name": "CriticPredicateSizing",
+      "role": "critic",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 159,
+      "report": true
+    },
+    {
+      "name": "CriticExpandCredit",
+      "role": "critic",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 196,
+      "report": true
+    },
+    {
+      "name": "CriticProvince",
+      "role": "critic",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 148,
+      "report": true
+    },
+    {
+      "name": "MutationDropSha",
+      "role": "mutation-tester",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 204,
+      "report": true
+    },
+    {
+      "name": "MutationWrongPath",
+      "role": "mutation-tester",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 201,
+      "report": true
+    },
+    {
+      "name": "MutationGrantDrop",
+      "role": "mutation-tester",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 222,
+      "report": true
+    },
+    {
+      "name": "MutationOrderSwap",
+      "role": "mutation-tester",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 184,
+      "report": true
+    },
+    {
+      "name": "SentinelBounds",
+      "role": "sentinel",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 203,
+      "report": true
+    },
+    {
+      "name": "SentinelWriteScope",
+      "role": "sentinel",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 159,
+      "report": true
+    },
+    {
+      "name": "SentinelLargeFiles",
+      "role": "sentinel",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 162,
+      "report": true
+    },
+    {
+      "name": "ConnectorSiblingOverlap",
+      "role": "connector",
+      "model": "devin/swe-2-max",
+      "exit": 0,
+      "seconds": 253,
+      "report": true
+    }
+  ],
+  "dead": [
+    {
+      "name": "ScribeGateQuotes",
+      "role": "scribe",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "ScribeRowShape",
+      "role": "scribe",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": true,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "ScribeLessonShape",
+      "role": "scribe",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "ScribeConsider",
+      "role": "scribe",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "ReviewClassLedger",
+      "role": "reviewer",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "ReviewOrderProof",
+      "role": "reviewer",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "ReviewEntryCite",
+      "role": "reviewer",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "ReviewReportContract",
+      "role": "reviewer",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "ReviewShonen",
+      "role": "reviewer",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "RevengerR49",
+      "role": "revenger",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "RevengerR48",
+      "role": "revenger",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    },
+    {
+      "name": "SimplifierCounters",
+      "role": "simplifier",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "exit": 124,
+      "seconds": 300,
+      "report": false,
+      "reason": "timeout-300s"
+    }
+  ],
+  "settled_count": 24,
+  "dead_count": 12,
+  "reports_written": 25
+}

@@ -1084,3 +1084,31 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
 
 - **Counter matches the receipt's explicit exit label (round 47).** A count over a committed receipt accepts the explicit exit field the receipt records (`exit=0` or `OFFLINE_EXIT=0`), rather than hard-coding a spelling absent from the artifact; the `--offline` argv and the receipt's non-retroactive scope still have to match. Grounding: `corpus/lessons/round-47.md` Mistake 4; `verification/c2-after-846138c.json` (R6 false, sha256 `af6fcdbfd48927dab3662b420ef1dd2e967d1238d271c77e0b2553f693fb1674`) and `verification/c2-after-714e707.json` (C2_MET, sha256 `141ede64f4539481557c946dfc40fa5af574771b3a15a1cc58a0a2299d1b5dba`).
 - **Open residual findings stay open after admission (round 49).** An admitted tool's residual-attack findings are named, with a count, in the next lesson; admission does not close them, and orchestrator-owned residual reports are not swept into a lane commit to make the count zero. Grounding: `considerthese/2026-10-24.md` (2026-10-24), first unimplemented proposal; opened pointer `.ufo/waves/round-46/residual/CriticCitationOverreach.md` (eight reports remain uncommitted; round 48 closed that file's Finding 1 only).
+
+## Round-50 criteria
+
+- **A wave citation carries its own grant (round 50).** A round that cites a dispatched wave commits
+  the wave-slot grant stdout and the exact dispatch command as committed bytes at a revision that is
+  a strict ancestor of the revision the citation is made in. The grant line names the lane, the wave,
+  the seat count and the live/pending/cap triple; the dispatch command names the transport. A grant
+  line that exists only in a report, in a LOG entry or in a `/tmp` file is not evidence, and `live=`
+  is never re-derived by hand. Grounding: round-49 verifier routed defect 1 (the grant and the
+  `kimi --prompt` transport lived only in the report and the LOG; `live=39` was never re-derived);
+  lesson round-50 Mistake 1; check
+  `python3 -B .ufo/waves/round-50/c50_durable.py --root . --revision <commit>`, which is durable 0 at
+  the base and met only when the grant commit is a strict ancestor of the measured revision.
+- **A quote's match class is derived from its own two blobs, never asserted (round 50).** A quoted
+  span's class is derived by comparing the span against both retained blobs of that id: a span that
+  is a substring of the retained HTML is `raw-substring`, a span that survives only whitespace
+  collapse is `collapsed-only`. The class is recorded together with the sha256 of both blobs, and a
+  collapsed-only span is never described as a raw substring nor the reverse — the two classes are
+  different facts and a swapped label fails the check. Grounding: round-49 verifier spot-check
+  (S273 collapsed-only, S274 a raw substring); lesson round-50 Mistake 2; check
+  `python3 -B .ufo/waves/round-50/c50_quote_class.py --root . --revision <commit>`, with the
+  swapped-label control in `.ufo/waves/round-50/verification/blur-control.txt`.
+- **Operator-owned and inherited artifacts are not swept to zero a count (round 50).** Files the lane
+  did not author — orchestrator-owned residual reports and inherited validation copies — stay
+  uncommitted and untouched. A count is reported as it stands; it is never reduced by committing
+  somebody else's file. Grounding: round-49 verifier routed defect 3; lesson round-50 (eight
+  `.ufo/waves/round-46/residual/` reports and nine `>1MiB` copies under
+  `.ufo/waves/round-48/assimilation/validate/` left uncommitted and untouched).

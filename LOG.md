@@ -2031,3 +2031,13 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   seat: the validator's task payload carries the taxonomy role under `agent`, not `role`. The fix
   reads either key and is committed here; the dispatch command line is unchanged, so the grant
   commit's `dispatch-command.txt` still names the command that ran.
+- **The wave settled and the row is appended after the mirror.** The 36-seat wave named in the
+  grant committed at `89096c387622785af59312bd2ee3b169202f1d4e` ran under that grant
+  (`granted lane=kake wave=r50-w1 seats=36 live=54 pending=0 cap=256`); its settlement is
+  `.ufo/waves/round-50/settlement.json` (spawn 36, 24 exited 0, 12 killed at 300s and not
+  replaced, 25 report files, `replacements` empty). The slot was released after settlement. The
+  S286 row is appended to `corpus/SOURCES.md` in this commit, after the pre-append mirror
+  committed at `33eec7f2cecfdbb9c7a1f85c3d8efae8dacd7dd1`; the order proof is
+  `.ufo/waves/round-50/assimilation/order-proof.json` and the wave-citation proof is
+  `.ufo/waves/round-50/wave-cite-proof.json`. Dead seats stayed dead; no seat was replaced and no
+  wave was split.
