@@ -4276,3 +4276,20 @@ Base: `3994101dba28896830604fd0b08c7f00faca8ed6`. Lowest-scoring owned axes are 
 | Re-ground the five staged-only source ids cited as held ground | freshness | dangling ids 5 → 0; registry rows 148 → 155 | `python3 -c 'import re,subprocess; from pathlib import Path; r=Path("corpus/SOURCES.md").read_text(); ids=set(re.findall(r"(?m)^\|\s*(S\d{3,})\s*\|",r)); cited=set(); [cited.update(re.findall(r"\bS\d{3,}\b",p.read_text())) for p in Path("corpus/knowledge").glob("*.md")]; print(f"rows={len(ids)} dangling={sorted(cited-ids)}")'` | improved (10→10 HOLD); five sources opened and registered this round |
 
 Measurement boundary: this claim is only about the five ids called out in round-52 knowledge entries; it does not claim that every citation is semantically supported. At base the five ids are absent from kake's registry; after this round they resolve to freshly opened Yahoo/Baidu sources. The sources census is a structural gate and is not the citation-resolution counter.
+
+## Round 54 — declared and measured claims
+
+Frozen counter contract: `.ufo/waves/round-54/contract.md`; lane base
+`68228b2d74e7930ae4f07e90e382a0d03ab80c7b`; measured commit
+`a631cc0246b97f2a949d61186c7466468faf94d6`.
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| S374 crawl-qualifier calibration | calibration (new bounded owned sub-axis, score 0→1) | mismatch count 1 → 0; base rendering preserved once | `python3 -B .ufo/waves/round-54/c54_s374_calib.py --root . --revision <commit>` | improved; score 1/10 reflects one corrected measured mismatch, not broad translation accuracy |
+| Round-53 settlement and gate registry operational debt | operability | registry absent / manifest absent / uncovered report names 7 → registry present / manifest complete / uncovered 0 | `python3 -B .ufo/waves/round-54/c54_ops_debt.py --root . --revision <commit>` | improved (10→10 HOLD) |
+
+Baseline receipts are `.ufo/waves/round-54/controls/base-c1-s374.txt` and
+`base-c2-ops-debt.txt`; target receipts are committed under
+`.ufo/waves/round-54/controls/`. C1's retained-body quote check and selftest
+are separate from the calibration mismatch count. C2 reports `resolved` only
+when the path exists in the measured Git tree and `lost` only when absent.

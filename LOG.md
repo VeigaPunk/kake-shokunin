@@ -2110,3 +2110,48 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - The refusal-ground correction landed at `3835c2ffbff66aa2db4745d9c44b03905c61e9d9`.
 - **Round 53 — considerthese proposal boundary.** The 2026-10-25 reflection's cross-registry resolver proposal was only partially addressed by a lane-local QUALITY criterion and one measurement; no daily script or automated resolver was implemented (`corpus/lessons/round-53.md`).
 - The consideration-boundary update landed at `31dc3ef0b76e5aa3aeaab28c8ebd8b705fd904a0`.
+
+## Round 54 — 2026-10-25
+
+- **Declared claims and frozen controls.** Calibration C1: the source-to-gloss
+  mismatch on S374 must fall from 1 to 0 while the original rendering stays
+  byte-present exactly once; operability C2: the round-53 settlement and
+  `c53_gate_truth.py` registry row must verify from committed bytes. Contract:
+  `.ufo/waves/round-54/contract.md`, frozen at base
+  `68228b2d74e7930ae4f07e90e382a0d03ab80c7b`. Both do-nothing controls exit 1
+  at base; receipts are under `.ufo/waves/round-54/controls/`.
+- **C1 source correction.** S374 was re-opened locally from the retained
+  HTTP-200 body (SHA-256 `3ad358bdbe7a74798df151c282e4b57af7475686dc405b3f8bad08f68881aecb`);
+  the exact quoted phrase includes the crawling qualifier. The original gloss
+  remains untouched; the appended correction says the site owner does not
+  recommend crawling the target and explicitly distinguishes this from a
+  crawl refusal. Final counter at `a631cc0246b97f2a949d61186c7466468faf94d6`:
+  base `mismatches=1 met=False`, exit 1; after `mismatches=0 met=True`, exit 0;
+  final selftest 9/9, exit 0.
+- **C2 settlement and registry.** The round-53 closure's seven missing seat
+  filenames are recorded as lost pointers; the committed evidence supports 40
+  declared/spawned seats and 0 committed seat reports, while individual deaths
+  remain explicitly unverified. `SKILL.md` now lists the gate under its exact
+  filename. Final counter at `a631cc0246b97f2a949d61186c7466468faf94d6`:
+  base `registry=absent manifest=absent uncovered=7`, exit 1; after
+  `registry=present manifest=present uncovered=0`, exit 0.
+- **Counter attack repairs.** The wave found that the first C1 matcher accepted
+  unrelated marker text and its selftest had a duplicate line-wise parser;
+  C2 initially missed backtick-wrapped filenames, reasons and tree-state
+  checks. The final implementations preserve the frozen predicate sentences
+  and use one shared C1 matcher, anchored/bound correction evidence, exact
+  base-render preservation, reason-bearing C2 rows, and Git-tree validation of
+  `lost`/`resolved`. Intermediate drafts were not treated as passing results;
+  both base controls and the final C1 selftest were rerun after repair.
+- **CJK quote-length accounting.** Round-53's 31/27/27 values are the inherited
+  CJK-character/token *unit* counts, not lexical word counts. The round-54
+  QUALITY criterion and lesson explicitly do not claim those quotes satisfy
+  CORPUS's ≤25-word rule; Japanese segmentation remains unresolved. The S374
+  Gate quote is reported as 24 units.
+- **Swarm and frontier.** One validated v1 wave, 33 seats; roles executor 3,
+  connector 1, scout 3 (L1 planner/data-walk mapped to `PlannerCalibrationWalk`),
+  scribe 3, reviewer 12, critic 11. All 33 assigned reports exist; 0 dead
+  seats. Role routes observed as `@m_flash`; one task call only. No SOURCES rows
+  were added or edited. The census remained 155 rows, 14 W04 warnings, exit 0
+  before and after (`.ufo/waves/round-54/controls/sources-census.txt`). No
+  tools installed or updated.
