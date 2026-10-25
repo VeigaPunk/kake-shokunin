@@ -49,3 +49,20 @@ Both quotations above are exact raw substrings of the retained body
 `(S374.html, sha256 3ad358bd…)`: the source text is Japanese, the UTF-8 bytes carry no inline
 markup inside either sentence, and the only rendering this entry applies is the English gloss in
 parentheses, which is unquoted. The lesson Gate pins the first of the two.
+## Round-54 correction — S374 crawl qualifier (2026-10-25)
+
+**[r54-correction 2026-10-25]** The earlier rendering glosses the source phrase
+「このリンク先のウェブページの巡回を推奨していない」 as only an endorsement
+statement. The phrase includes a crawl qualifier: the site owner is taken to
+**not recommend the crawling of the link target's web page** (or to consider
+the link untrustworthy). The subject is crawl restriction of linked pages,
+as also stated in the source title リンク先のウェブページの巡回制限; this
+does **not** assert that the crawler refuses to fetch the URL, and the source
+continues that the URL may be used to discover new pages. The old prose above
+is preserved as historical text; this correction supersedes its gloss.
+
+Evidence reopened this round: retained body
+`.ufo/waves/round-52/sources/S374.html`, SHA-256
+`3ad358bdbe7a74798df151c282e4b57af7475686dc405b3f8bad08f68881aecb`;
+the exact quote occurs once at the source's rel=nofollow paragraph. This was a
+local re-open of the retained round-52 HTTP-200 body, not a fresh network fetch.

@@ -44,7 +44,7 @@ QUOTE = "このリンク先のウェブページの巡回を推奨していな�
 CORRECTION_MARK = "[r54-correction 2026-10-25]"
 SEMANTIC_RE = re.compile(r"recommend|vouch|endorse|refusal|refuse", re.I)
 CRAWL_RE = re.compile(r"crawl|巡回", re.I)
-EN_CRAWL_RE = re.compile(r"\bcrawl\b", re.I)
+NEGATIVE_CRAWL_RE = re.compile(r"\bnot\s+recommend(?:\s+the)?\s+(?:crawl|crawling)\b", re.I)
 RENDER_RE = re.compile(r"\(rendered: ([^)]+)\)", re.S)
 
 
@@ -56,6 +56,21 @@ def git(root: str, *args: str) -> subprocess.CompletedProcess:
 def show(root: str, rev: str, path: str) -> bytes | None:
     p = git(root, "show", f"{rev}:{path}")
     return p.stdout if p.returncode == 0 else None
+
+def qualifier_findings(entry: str) -> tuple[list[int], int]:
+    """Return suspect-render offsets and the first source-bound correction."""
+    suspects = [
+        match.start()
+        for match in RENDER_RE.finditer(entry)
+        if SEMANTIC_RE.search(match.group(1)) and not CRAWL_RE.search(match.group(1))
+    ]
+    correction_at = -1
+    for match in re.finditer(re.escape(CORRECTION_MARK), entry):
+        window = entry[match.start():match.start() + 1200]
+        if QUOTE in window and NEGATIVE_CRAWL_RE.search(window):
+            correction_at = match.start()
+            break
+    return suspects, correction_at
 
 
 def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
@@ -82,28 +97,14 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
         add("C1.2_entry", False, [f"{ENTRY} missing at {rev}"])
         return 2, results
     entry = entry_raw.decode("utf-8", errors="replace")
-    lines = entry.splitlines()
-
-    suspects = []
-    for m in RENDER_RE.finditer(entry):
-        cell = m.group(1)
-        if SEMANTIC_RE.search(cell) and not CRAWL_RE.search(cell):
-            suspects.append(m.start())
+    suspects, corr_at = qualifier_findings(entry)
+    corr_ok = corr_at >= 0
     add("C1.2_cells", True, [], {"suspect_cells": len(suspects)})
-
-    corr_at = -1
-    corr_ok = False
-    for m in re.finditer(re.escape(CORRECTION_MARK), entry):
-        window = entry[m.start():m.start() + 1200]
-        if QUOTE in window and EN_CRAWL_RE.search(window):
-            corr_at = m.start()
-            corr_ok = True
-            break
     add("C1.3_correction", corr_ok,
         [] if corr_ok else ["no valid r54 correction block (exact quote + crawl token)"],
         {"block_offset": corr_at})
 
-    mismatch = sum(1 for pos in suspects if corr_at == -1 or pos < corr_at)
+    mismatch = sum(1 for pos in suspects if corr_at == -1 or corr_at < pos)
     add("C1.4_mismatch", mismatch == 0, [] if mismatch == 0 else [f"mismatches={mismatch}"],
         {"mismatches": mismatch})
 
@@ -112,8 +113,7 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
 
 
 def selftest() -> int:
-    """Inline fixtures: a base-like entry, a corrected entry, and two broken
-    correction blocks (one missing quote, one missing crawl token)."""
+    """Inline fixtures for the same parser used by committed-byte checks."""
     base_entry = (
         "source: S374 — https://example.invalid/x — fetched 2026-10-25\n"
         "> \"このリンク先のウェブページの巡回を推奨していない\"\n"
@@ -132,6 +132,14 @@ def selftest() -> int:
         "\n## Round-54 correction (2026-10-25)\n"
         "[r54-correction 2026-10-25] このリンク先のウェブページの巡回を推奨していない  means not recommended.\n"
     )
+    wrong_polarity = base_entry + (
+        "\n## Round-54 correction (2026-10-25)\n"
+        "[r54-correction 2026-10-25] 「このリンク先のウェブページの巡回を推奨していない」 says the owner recommends crawling the link target.\n"
+    )
+    correction_before = (
+        "## Round-54 correction (2026-10-25)\n"
+        "[r54-correction 2026-10-25] 「このリンク先のウェブページの巡回を推奨していない」 means the site owner is taken to **not recommend the crawl** of the link target's page.\n"
+    ) + base_entry
 
     class Fix:
         def __init__(self, entry: str, body: str | None = None) -> None:
@@ -154,6 +162,8 @@ def selftest() -> int:
         ("correction_missing_quote", Fix(missing_quote), 1, "met=False"),
         ("correction_missing_crawl", Fix(missing_crawl), 1, "met=False"),
         ("body_missing_quote", Fix(base_entry, body_plain), 2, "unevaluable"),
+        ("correction_wrong_polarity", Fix(wrong_polarity), 1, "met=False"),
+        ("correction_before_render", Fix(correction_before), 1, "met=False"),
     ]
     failed = 0
     for name, fix, want_code, want_label in cases:
@@ -177,16 +187,8 @@ def run_checks_fix(fix) -> tuple[int, list[dict]]:
     if QUOTE not in body_t:
         return 2, []
     entry_t = fix.read(ENTRY).decode("utf-8", errors="replace")
-    lines = entry_t.splitlines()
-    suspects = [idx for idx, line in enumerate(lines)
-                for m in RENDER_RE.finditer(line)
-                if SEMANTIC_RE.search(m.group(1)) and not CRAWL_RE.search(m.group(1))]
-    corr_at = -1
-    for idx, line in enumerate(lines):
-        if CORRECTION_MARK in line and QUOTE in line and EN_CRAWL_RE.search(line):
-            corr_at = idx
-            break
-    mismatch = sum(1 for idx in suspects if corr_at == -1 or idx < corr_at)
+    suspects, corr_at = qualifier_findings(entry_t)
+    mismatch = sum(1 for pos in suspects if corr_at == -1 or corr_at < pos)
     return (0 if corr_at >= 0 and mismatch == 0 else 1), []
 
 

@@ -1114,3 +1114,31 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   `.ufo/waves/round-48/assimilation/validate/` left uncommitted and untouched).
 - **A source id cited as held ground resolves in this lane's own registry (round 53).** Every `S###` cited in `corpus/knowledge/` as supporting a claim or describing lane-held ground names a row in this lane's `corpus/SOURCES.md` at the citing revision; another lane's or a staged package's identically numbered row is not a substitute. A source that is not registered must be opened and registered under CORPUS rule 1 before it is cited, or the unsupported claim must be withdrawn by an append-only correction. Grounding: `corpus/lessons/round-53.md` §Mistakes (staged ids presented as held ground); the source census validates registry rows but does not resolve prose citations.
 - **A source locator points to the section containing its quote (round 53).** For a retained HTML source, the cited heading text must occur in the body and identify the section containing the quoted span; a page-header date is not a section date. Corrected source anchors use superseding registry rows (`CORPUS.md` SOURCES rule 2), and corrections to admitted prose are appended rather than rewritten. Grounding: `corpus/lessons/round-53.md` § Mistakes; the locator falsifier `c53_gate_truth.py --revision 3994101` rejects the round-52 S329/S312 Gate and registry anchors (2 of 7 checks pass, exit 1), while its corrected-input selftest includes passing and failing heading/date cases.
+
+## Round-54 criteria
+
+- **A translation preserves a material source qualifier (S374).** A gloss of
+  a quoted source phrase preserves each material action/subject qualifier
+  from the located source context; when the source states that an operator
+  does not recommend crawling a link target, the gloss must retain the crawl
+  qualifier and must not collapse it into endorsement alone. Correct a
+  historical gloss with an appended, source-anchored correction; never
+  rewrite the old wording. Grounding: `corpus/lessons/round-53-verifier-spotcheck.md`
+  §Discernment (S374, disagreement); retained body
+  `.ufo/waves/round-52/sources/S374.html` (source title and paragraph);
+  round-54 S374 correction in `corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md`.
+  Falsifier: `python3 -B .ufo/waves/round-54/c54_s374_calib.py --root . --revision <commit>`;
+  the committed base control must report `mismatches=1 met=False`, and the corrected
+  entry must report `mismatches=0 met=True`.
+- **CJK quote length names its unit and does not imply word-rule compliance.**
+  For a source quote whose script does not use whitespace-delimited words,
+  report the exact counting convention and the gate's accepted range. The
+  inherited counter's `units()` counts each CJK character as one unit and each
+  non-CJK whitespace token as one unit. A 6–40-unit Gate result is a local
+  source-truth floor/ceiling; it does not prove conformance to CORPUS.md's
+  ≤25-word rule. In particular S367/S372/S373 were measured at 31/27/27 units,
+  above 25 units; their CJK lexical segmentation remains unresolved by that
+  counter. Grounding: round-53 verifier spot-check §Discernment quote-length
+  note; `.ufo/waves/round-52/c52_quote_truth.py` `units()` and its 6–40 Gate
+  check; `CORPUS.md` SOURCES rule 1. Re-derive each CJK quote's count from its
+  exact stored Gate span and report it as units, never as “words”.

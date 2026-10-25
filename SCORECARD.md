@@ -1,7 +1,10 @@
 # kake-shokunin — Scorecard
 
-Axes owned by this lane: **operability + freshness** (MISSION.md fleet-2;
-depth/coverage/calibration/adjacency belong to other lanes — not scored here).
+Axes owned by this lane: **operability + freshness**, plus calibration as a
+round-54 evidence-backed sub-axis addition. Kake's domain prose includes
+self-assessment of published-source meaning; the round-53 non-author S374
+finding demonstrated a measurable calibration failure in this lane's corpus.
+Depth/coverage/adjacency remain outside this lane's scored ownership.
 
 The numeric ratings below are legacy round-17/18 assessments, not a fresh
 proof that the current corpus is clean. Round 20 is a blocked attempt;
@@ -13,6 +16,7 @@ claims; ratings stay at the 10/10 ceiling.
 |---|---|---|---|
 | operability | 10 | Every free-read verb in the domain is now **live-executed on the real repo with a byte-level write-free proof**: r11 closed probe/status/reconcile/sync-check; r12 closed the last 4 (`status --json` exit 0 with 5 violated+1 error in snapshot; `grokbots --check` exit 1 lucario; `bots list` exit 0 20 keepers; `bots report` exit 1 gaps) — 31-file state sha guard identical before/after, re-verified by 2 independent L2 re-runs. Exit-1 predicates pinned to code (gaps `cli.mjs:935`, stale-only-with-flag `:836-839`/`:932`, checked=21 `:393`); replica edge matrix (corrupt/deleted snapshot, registry faults, `--stale` variants) landed. The automation layer is now runtime-verified, not unit-file-trusted: keeper timer never fired (enable-vs-retire at L0), scribe push-gate failing (N1), lucario registry gap at L0. Corrected cmdProbe merge patch replica-verified and staged for the webzites owner (`corpus/handoffs/cmdProbe-merge-fix.md` — r11 F1 guard refuted on the `probe <id> --all` edge). Full verb free-read/writer classification (35 rows) code-verified. | round 12 |
 | freshness | 10 | **r17 HOLD 10:** the standing instrument caught a real between-sweep world change before prose repair: lowercase `~/projects` was consolidated into `~/Projects` and removed, making a cited descendant miss; cite corrected to the surviving canonical report, `pathsMissSet` 9→10. Full r16 inventory re-run: 160 claims (117/117 HOLD; 15/15 r16 stale repairs still correct; 7 carried UNVERIFIABLE; 21 HISTORICAL-OK) + 16/16 new claims HOLD; 9 new deltas found and resolved/qualified (W6 path+mtime/child rename, ETag edge flip, 2 r17 self-stale counts, inode wording, dangling `corpus/claims`, ledger locus, README range gloss). Instrument integrity also improved: `projectsChildrenSet` 36 informational set; `pathsFiles` count→39-entry evaluated list; bad pins now fail closed exit 2 with a permanent case (`--selftest` **10/10**). Final §paths = 66 targets / 49 resolve / 10 declared-absent / 0 drift / 39 files; 33-file state sha guard identical. Live exit 1 remains solely expected PQ-14 `plazir-live-source-gap`. Evidence: `corpus/knowledge/freshness-sweep.md` §r17, `corpus/lessons/round-17.md`, `LOG.md` r17, `/tmp/kake-r17/{scout-claims.md,claims-delta.tsv,critic.md,reviewer-cites.md,scout-pins.md,scout-live.md}`. | 17 |
+| calibration | 1 | Round-54 calibration addition: the S374 source-to-gloss mismatch is countable on committed bytes (1→0) by `.ufo/waves/round-54/c54_s374_calib.py`; this is one bounded calibration correction, not a broad accuracy claim. | 54 |
 
 ## Planned
 
