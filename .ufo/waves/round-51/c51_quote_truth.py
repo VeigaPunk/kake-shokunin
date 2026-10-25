@@ -223,6 +223,8 @@ def main() -> int:
     c6_notes = []
     receipts_text = show(root, rev, RECEIPTS)
     receipts = json.loads(receipts_text) if receipts_text else {}
+    if isinstance(receipts.get("sources"), dict):
+        receipts = receipts["sources"]
     for sid in ADOPTED:
         receipt = receipts.get(sid)
         raw = bodies.get(sid)

@@ -2074,3 +2074,10 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `corpus/knowledge/canonical-selection.md` (S262) and `corpus/knowledge/crawler-identity.md`
   (S263); the round lesson is `corpus/lessons/round-51.md`. The retained source bodies and
   their sha256 receipts are `.ufo/waves/round-51/sources/`.
+- **Round 51 — counter fix before any wave seat scored.** The C2 counter read the source
+  receipts at the top level of `receipts.json` while the committed receipt file carries them
+  under its `sources` key, so condition C6 reported "no receipt" for both ids. The predicate
+  (`met: conditions_passed == 8 of 8`), the eight condition sentences and the counted
+  evidence are unchanged; only the receipt lookup was corrected. Re-run at the append commit
+  `55915579563a781adcebc2e269cff57470ce2a8e`: C2 8 of 8 (exit 0). The junk control still
+  fails 3 of 8 and the base control still 0 of 8, both re-run with the corrected counter.
