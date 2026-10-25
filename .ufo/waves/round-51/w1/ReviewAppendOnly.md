@@ -21,9 +21,13 @@ discipline holds at the line level, and it holds by three different kinds of pro
 by a single `--numstat` 0 that could be an artifact of diff alignment.
 
 One caveat, stated up front and kept strictly separate from the verdict: the lane **worktree** was being
-edited concurrently while I read it, and in that uncommitted state two of these three files diverge from the
-commits I compared. That divergence is reported in *In-flight worktree correction* below. It does not change
-the answer, which is a statement about committed bytes only.
+edited concurrently while I read it, and in that uncommitted state two of these three files diverged from the
+commits I compared. That correction has since landed as `907790c` ("round-51: land the wave evidence, the
+ledger verdict and the mirror repair"), and I re-ran the same three proofs against it: the answer is
+**0/0/0 at both tips** — `git diff --numstat 007d66e 907790c` is `2 0` for `corpus/SOURCES.md`, `61 0` for
+`SCORECARD.md` and `59 0` for `LOG.md`, with both large files still exact byte-prefix appends (+5471 B and
++5230 B) and `sed '152,153d'` on the new tip still reproducing base byte-for-byte. Details in *In-flight
+worktree correction* below.
 
 ## Revisions under comparison
 
@@ -223,7 +227,7 @@ by this receipt. Two consequences worth stating:
 | mirror "is the lane's `corpus/` plus the two new rows and the two admitted knowledge files" | **INCOMPLETE** | F3: also adds `corpus/lessons/round-51.md` (+116) |
 | "only the receipt lookup was corrected" (4th bullet) | **TRUE for these files** | `9d13768` touches `c51_quote_truth.py` + 7 appended `LOG.md` lines, 0 deletions |
 
-## In-flight worktree correction (uncommitted; observed 2026-10-25 03:34–03:43, still moving)
+## In-flight worktree correction (observed 2026-10-25 03:34–03:43; **landed** as `907790c`)
 
 Everything above is *committed* bytes, which is what the assignment asks for. This section is separate: the
 lane worktree was being edited concurrently while I read it (mtimes 03:34–03:36 fall inside my read window),
@@ -242,6 +246,14 @@ Modified tracked files at first observation (`git status --porcelain`, 03:36):
 | `corpus/knowledge/canonical-selection.md` | +21 / **−1** (appeared after 03:41) |
 | `corpus/knowledge/crawler-identity.md` | +23 / **−2** (appeared after 03:41) |
 | `LOG.md` | **unchanged** at every observation |
+
+Every row above landed in `907790c`, but the deltas are the **observation-time** worktree-vs-`9d13768`
+values, not the final ones — the worktree kept growing after I read it, so the landing is larger:
+`SCORECARD.md` finished at **+61** lines (not +33) and `LOG.md` at **+19** (not 0). The committed
+base→tip numbers are in *Answer to the assigned question*. The landing commit reports **14 301 insertions,
+5 deletions** across 88 files; the 5 deletions are exactly the 3 entry-label lines and the 2 mirror lines
+named in this section, and the live `corpus/SOURCES.md` is untouched by it
+(`git diff --numstat 9d13768 907790c -- corpus/SOURCES.md` is empty).
 
 ### The mirror repair deletes two committed lines — and it is done correctly
 
@@ -342,29 +354,40 @@ Three things are worth separating:
   false, the 8/8 predicate does not cover quotation labelling: it could not have caught what this correction
   fixes. I did not run the counter (out of scope, sibling-owned) and I do not assert the predicate is
   wrong; I assert only that its 8/8 and this correction are mutually consistent only if labelling falls
-  outside the eight conditions.
+  outside the eight conditions. The round's own landing text converges with that reading: its third new
+  `LOG.md` bullet records that "C2's C8 reads the live registry at the mirror commit rather than the mirror,
+  and C6 accepts URL containment and never reads `httpStatus`/`bytes`/`fetchedAt`", and routes the fixes to
+  round 52 — i.e. the counter's conditions leave this labelling unmeasured, which is why it is being fixed by
+  hand in the entries.
 
-### Residual: the correction is not yet in the round's own chronicle (LOW)
+### Residual — CLOSED by the landing commit `907790c` (was LOW; resolved)
 
-`git diff --quiet -- LOG.md` → **unchanged**. The correction is documented in
-`.ufo/waves/round-51/assimilation/pre-append/census-correction.txt` (untracked at observation), and that is
-a good record: it names what was wrong, the sha256 pair `4ea81a5a… → cd9ee4cf…`, the repair command, the
-supersession, and what did not change ("an evidence repair, not a rule change"). But `LOG.md` is the round's
-append-only chronicle, and the round's own precedent is to record a correction **there**: the C2 counter fix
-got a dedicated bullet stating the defect in its own terms. The mirror repair has no such entry yet.
+At observation (03:43) `LOG.md` was **unchanged** and the repair had no chronicle entry. That gap is now
+closed. The lane advanced to `907790c`, and `LOG.md` gained **19 appended lines, 0 deletions** across three
+new bullets — one of which is exactly the disclosure that was missing:
 
-Deleting two committed lines from a committed evidence artifact is precisely the class of move the round
-handled correctly for the counter — correct forward by appending an entry that states the defect — and has
-not yet handled in `LOG.md` for the mirror. Recommendation: before or with the commit that lands the repair,
-append a `LOG.md` entry recording (a) the contamination, (b) the removal of the two rows from the *mirror
-copy* only, (c) the `4ea81a5a… → cd9ee4cf…` sha256 change, and (d) the **final** receipt layout — that the
-attempt-1 receipts are left intact and the corrected run is the additive `census-count-*` set reporting
-`rows 143`, rather than the supersession layout `census-correction.txt` step 2 still describes, with the
-absent `census-count-exit.txt` supplied so the count run carries an exit code like the `validate` run does.
+> - **Round 51 — the pre-append mirror is rebuilt, and the repair is disclosed.** Attempt 1's mirror
+>   snapshot was byte-identical to the post-append registry; it was discarded and rebuilt from
+>   `git show 19a99bd:corpus/SOURCES.md` (143 rows, sha256 `cd9ee4cf…`), the census re-run on it
+>   (exit 0, W04 only), a `census` receipt added (`rows 143`) and attempt 1's receipt files kept in
+>   `superseded/`. `assimilation/pre-append/census-correction.txt` records it. The predicate and the
+>   eight condition sentences are unchanged.
 
-At observation time this is **incomplete, not violated**: the repair and its side-record exist, `LOG.md` is
-still clean, and the chronicle append may simply be pending. My verdict on the three assigned files is
-unaffected — it rests on committed bytes, where `LOG.md` remains a pure 40-line tail append.
+That satisfies (a) contamination, (b) mirror-copy-only removal, (c) the `4ea81a5a… → cd9ee4cf…` change and
+(d) the final receipt layout, including the `census` receipt reporting `rows 143`. The mirror in the landing
+commit is byte-identical to the base registry (`cmp` clean), so the repair is complete and correct, and the
+repair commit is itself append-only where it touches my files: `LOG.md` +19/0, `SCORECARD.md` +61/0,
+`corpus/lessons/round-51.md` +85/0 all pure-tail, with the only 5 deletions in the whole 88-file commit being
+the 3 entry-label lines and the 2 mirror lines named above.
+
+Two smaller items from this section were **not** picked up by the landing and remain open:
+
+- `census-count-exit.txt` is still absent — the count run carries argv, stdout and stderr but no exit code.
+- `census-correction.txt` step 2 still describes the superseded layout ("the attempt-1 census receipt files
+  were moved to `superseded/` unchanged, and the census was re-run … `census-exit.txt` are this corrected
+  run's receipt") rather than the additive `census-count-*` layout the tree actually has.
+
+Neither affects any predicate; both are one-line fixes if a later seat wants the evidence self-describing.
 
 ## What I did not verify, and why
 

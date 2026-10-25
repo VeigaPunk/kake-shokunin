@@ -19,10 +19,19 @@ $ python3 -B .ufo/waves/round-51/c51_wave_ledger.py   --root . --revision 007d66
 $ python3 -B .ufo/waves/round-51/c51_quote_truth.py   --root . --revision 007d66e  -> C2 quote-truth 0/8 met=False exit 1
 ```
 
-The dispatch figures reproduce exactly. C1 at the tip reads `L1/L2/L3 FAIL - settlement receipt absent
+The dispatch figures reproduce exactly. C1 at the tip reads `L1/L3 FAIL - settlement receipt absent
 / route map absent`; `route-map.json`, `route-probes/`, `settlement.json` are present in the worktree
 but untracked, so the counter is right to score 0/3 at a commit. That 0/3 is **absence of bytes**, not
 absence of work — which is the whole subject of this report.
+
+**Post-landing re-run.** The L1 landed the wave evidence during this review
+(`907790c78008819fc95c988431188f90b81f0d5f`, "land the wave evidence, the ledger verdict and the mirror
+repair"). At that tip both counters pass: **C1 `3/3 met=True` exit 0**, **C2 `8/8 met=True` exit 0**.
+The landed wave is real and substantive: `spawn 48`, `settled 48`, `dead 0`, `reports_written 48`, 48
+committed `.md` reports, **48 distinct sha256**, smallest 5,062 B, 749,513 B total, every settled seat
+carries `report: true`, wall clock 897 s named in `LOG.md:2088`. Sections 2–5 are measurements of what
+the *predicates* can and cannot distinguish; that the real wave scores the same 3/3 and 8/8 as the
+fixtures below is the finding, not a contradiction of it.
 
 ## 1. The base control is only an absence control
 
@@ -97,7 +106,13 @@ the instrument that is itself the operability claim.
    `str(wall) in text`.
 4. Wrap each check in `try/except` → exit 2, as documented.
 
-All four are satisfied by a real 48-seat wave, so they cost this round's claim nothing.
+Measured against the landed wave (`907790c`), not assumed: 1 passes (`settled 48`, every one
+`report: true`, `reports_written 48`, `dead 0`); 2 passes (48 reports, 48 distinct sha256, smallest
+5,062 B — no stub, no duplicate); 3 passes (`LOG.md:2088` names "wall clock **897 s**", and 897 is also
+what `settlement`/`wave-timing` re-derive); 4 is a code change with no evidence dependency. So all four
+are satisfied by the real round and would have to be defeated deliberately — the strengthening costs the
+claim nothing, which is why the frozen predicate's silence about them is a defect rather than a
+trade-off.
 
 ## 3. C2 — could a round that copied the bodies without opening the URLs reach 8/8? YES.
 
@@ -216,6 +231,16 @@ Because the contract and the counter are frozen, the smallest safe move this rou
 as a commit, record the corrected sha256 in the census receipt, and disclose in the verification report
 that C8 at `9d13768` passed a sentence that the bytes contradicted.
 
+**Status after the landing (`907790c`).** The repair did land: the mirror at the new tip is
+`cd9ee4cf…`, 143 rows, **0** adopted rows, so the C8 sentence is now true of the committed artifact —
+but only because a seat found the contamination by hand (`ExecRegistryDiff`), not because C8 can detect
+it. Both residuals survive the landing, re-measured at `907790c`:
+
+- `git log --diff-filter=A … -- MIRROR` still resolves to `19a99bd`, whose blob is `4ea81a5a…`
+  (contaminated, 145 rows). Trap 1 is live.
+- `grep -c 'cd9ee4cf\|sha256'` over `census-argv.txt` and `census-stdout.txt` = **0 / 0**. Trap 2 is
+  live: the receipt still binds no bytes.
+
 ## 5. C2's entry labels two quotes as raw that derive collapsed-only
 
 `corpus/knowledge/canonical-selection.md` says "The page lists the variant classes it recognises,
@@ -243,11 +268,11 @@ Fix (small, no predicate change): move "(collapsed-only quote)" onto those two b
 from the sentence; carry the class derivation into the counter as a ninth condition next round.
 
 State at the measured revision vs the worktree: the finding is measured on `9d13768` (the committed
-entry still says "each quoted raw"). A worktree repair of the same sentence appeared during this review
-(`canonical-selection.md` now says "each quoted below as rendered text … the inline markup is removed";
-`crawler-identity.md` relabels its two bullets), uncommitted. Same audit point as §4b: uncommitted
-repairs do not move the measured revision, and the predicate still has no condition that would have
-caught the original label.
+entry still said "each quoted raw"). A worktree repair of the same sentence appeared during this review
+and **landed at `907790c`**: `canonical-selection.md` now reads "each quoted below as rendered text —
+the inline markup is removed … (round-51 correction; see § Quote classes)", and `crawler-identity.md`
+relabels its two bullets the same way. The artifact is fixed; the predicate still has no condition that
+would have caught the original label, so the same mislabel can pass again next round.
 
 ## 6. Claim facts I could confirm
 
@@ -268,16 +293,167 @@ caught the original label.
 | proposition | verdict | guard |
 |---|---|---|
 | base `007d66e` scores 0/3 and 0/8 | holds, reproduced | absence of evidence |
+| landed tip `907790c` scores 3/3 and 8/8 on a real 48-seat wave (48 distinct reports, 0 dead) | holds, reproduced | — |
 | a round that commits nothing but the wave evidence reaches C1 3/3 | **holds (hole)** — 3 fixtures, incl. 48 zero-byte reports | **none** |
 | a round that copies/fabricates bodies without opening the URLs reaches C2 8/8 | **holds (hole)** — 8/8 with 404/500 receipts and 1999 fetch time | none for provenance; C5/C6 bind quote→bytes only |
-| C2's C8 sentence "the mirror carries none of the adopted ids" | **false on the bytes**; the code checks a different, true property | counter reads `REGISTRY`, not `MIRROR` |
+| C2's C8 sentence "the mirror carries none of the adopted ids" | **false at `9d13768`, true at `907790c` after a hand-found repair** | counter reads `REGISTRY`, not `MIRROR`; it can see neither state |
 
 Impacted axes: **operability** (C1's vacuity, the LOG substring, exit-code contract, uncounted stub
 reports) and **freshness** (C2's unpinned fetch time/status/URL, unread mirror, blurred quote class).
 
 The two claims' *counted artifacts* exist and the counters do what their code says. What the predicates
 cannot do is distinguish a wave from a well-formed account of one (C1), or a fetched page from a
-well-formed copy of one (C2). C1's predicate is frozen and read literally, so the point is a disclosure
-and a next-round strengthening, not a miss. C2's 8/8 is defensible only alongside the C8 sentence
-correction and the two quote labels in §5 — both fixable in artefacts, neither requiring the frozen
-predicate to move.
+well-formed copy of one (C2). Both claim-level defects found by reading bytes were repaired in artefacts
+at `907790c` — the mirror regenerated from the pre-append registry (`9d13768` blob `4ea81a5a…` →
+`cd9ee4cf…`), the two quote labels corrected — **without the frozen predicate moving**. That is the
+right shape of repair, and it is also the proof that the predicates do not perform it: each repair came
+from a seat reading bytes, not from a counter condition. C1's 3/3 and C2's 8/8 stand as declared; the
+residual exposure is that next round's fabricated-but-consistent evidence would score identically.
+
+## Appendix A — the fixtures, reproducible from this report alone
+
+Scratch is not durable (a round-35 sweep moved and re-created seat dirs during this round; `/tmp` is
+worse). The two counterexample repos are therefore specified here as an executable builder, so a reader
+can re-run both holes without any file this report does not carry. Verified: run from a clean directory,
+it prints `C1 ledger 3/3 met=True exit=0` and `C2 quote-truth 8/8 met=True exit=0`.
+
+```
+$ python3 -B repro_critic_zerocontrol.py /tmp/cc-repro-test
+--- C1 (48 claimed seats, zero reports)
+exit=0
+C1 ledger 3/3 met=True  (met: ledger_checks_passed == 3 of 3)
+--- C2 (fabricated bodies, 404/500 receipts, 1999 fetch)
+exit=0
+C2 quote-truth 8/8 met=True  (met: conditions_passed == 8 of 8)
+```
+
+Builder as measured: 124 lines, 6071 bytes, sha256
+`a4f36e52414ee06442bf2762de896e6d252dbb740244cdcb48e43d129382af30`. The empty-wave variant in §2 is the
+same builder with `n = 0` and no `w1/` directory.
+
+```python
+#!/usr/bin/env python3
+"""Rebuild the two /tmp counterexample repos from round-51 w1/CriticZeroControl.md.
+
+Usage: python3 repro_critic_zerocontrol.py <scratch-dir>
+Prints the two counter invocations and their scores.
+"""
+import hashlib, json, pathlib, subprocess, sys
+
+LANE = "/home/vgpnk/Projects/shokunin/kake-shokunin"
+C1 = f"{LANE}/.ufo/waves/round-51/c51_wave_ledger.py"
+C2 = f"{LANE}/.ufo/waves/round-51/c51_quote_truth.py"
+
+
+def sh(*args, cwd):
+    return subprocess.run(args, cwd=cwd, check=True, capture_output=True, text=True).stdout
+
+
+def init(root):
+    root = pathlib.Path(root)
+    if root.exists():
+        subprocess.run(["rm", "-rf", str(root)], check=True)
+    root.mkdir(parents=True)
+    sh("git", "init", "-q", cwd=root)
+    sh("git", "config", "user.email", "fixture@invalid", cwd=root)
+    sh("git", "config", "user.name", "fixture", cwd=root)
+    return root
+
+
+def commit(root, msg):
+    sh("git", "add", "-A", cwd=root)
+    sh("git", "commit", "-qm", msg, cwd=root)
+    return sh("git", "rev-parse", "HEAD", cwd=root).strip()
+
+
+def build_c1(root):
+    w = root / ".ufo/waves/round-51"
+    (w / "route-probes").mkdir(parents=True)
+    (w / "w1").mkdir(parents=True)
+    n = 48
+    (w / "settlement.json").write_text(json.dumps({
+        "spawn": n, "settled": [{"name": f"seat{i}", "seconds": 40} for i in range(n)],
+        "dead": [], "reports_written": 0, "settled_count": n, "dead_count": 0,
+        "timeout_seconds": 600}))
+    (w / "w51-taskcall.json").write_text(json.dumps({
+        "taskCall": {"tasks": [{"name": f"seat{i}"} for i in range(n)]},
+        "counts": {"spawn": n}}))
+    (w / "route-map.json").write_text(json.dumps({
+        "roles": {"scout": {"kimiModel": "fabricated/alias"}}}))
+    (w / "route-probes/p.json").write_text(json.dumps({
+        "alias": "fabricated/alias", "httpStatus": 200, "ok": True}))
+    (w / "wave-timing.json").write_text(json.dumps({
+        "startedAt": "2026-10-25T00:00:00+00:00", "settledAt": "2026-10-25T00:31:00+00:00"}))
+    (w / "round-time-accounting.json").write_text(json.dumps({
+        "aggregate_seat_seconds": 1920, "dead_seat_seconds": 0, "wall_clock_seconds": 1860}))
+    (w / "wave-grant.txt").write_text("granted lane=kake wave=r51-w1 seats=48\n")
+    (root / "LOG.md").write_text("wall clock 1860s\n")
+    return commit(root, "c1 fixture: 48 claimed seats, zero reports")
+
+
+def build_c2(scratch):
+    root = init(pathlib.Path(scratch) / "c52copy")
+    for d in ("corpus/knowledge", "corpus/lessons", ".ufo/waves/round-51/sources",
+              ".ufo/waves/round-51/assimilation/pre-append/corpus"):
+        (root / d).mkdir(parents=True, exist_ok=True)
+    reg = root / "corpus/SOURCES.md"
+    reg.write_text(
+        "# SOURCES\n\n## Registry\n\n"
+        "| id | title — url | kind | tier | note | section | gist | status | opened | recheck | used-by |\n"
+        "|---|---|---|---|---|---|---|---|---|---|---|\n"
+        "| S001 | Old — https://example.com/old | docs | A | x | y | z | mined | 2026-01-01 | on-release | corpus/knowledge/old.md |\n")
+    mirror = root / ".ufo/waves/round-51/assimilation/pre-append/corpus/SOURCES.md"
+    mirror.write_text(reg.read_text())
+    cen = root / ".ufo/waves/round-51/assimilation/pre-append"
+    (cen / "census-argv.txt").write_text(
+        "--file .ufo/waves/round-51/assimilation/pre-append/corpus/SOURCES.md\n")
+    (cen / "census-stdout.txt").write_text("census: 0 findings\n")
+    (cen / "census-exit.txt").write_text("0\n")
+    commit(root, "mirror + census receipt")
+    bodies = {
+        "S262": "local text copied from anywhere, never fetched: the engine treats a "
+                "canonical declaration as a hint\n",
+        "S263": "local text copied from anywhere, never fetched: the crawler identity is "
+                "declared in the request header\n",
+    }
+    for sid, text in bodies.items():
+        (root / f".ufo/waves/round-51/sources/{sid}.html").write_text(text)
+    receipts = {"sources": {
+        sid: {"url": "https://developers.google.com/",
+              "httpStatus": 404 if sid == "S262" else 500,
+              "fetchedAt": "1999-01-01T00:00:00Z",
+              "sha256": hashlib.sha256(text.encode()).hexdigest()}
+        for sid, text in bodies.items()}}
+    (root / ".ufo/waves/round-51/sources/receipts.json").write_text(json.dumps(receipts))
+    reg.write_text(reg.read_text() +
+        "| S262 | What is URL canonicalization — https://developers.google.com/search/docs/crawling-indexing/canonicalization | docs | A | gist | § x | y | mined | 2026-10-24 | 180d | corpus/knowledge/canonical-selection.md |\n"
+        "| S263 | Googlebot — https://developers.google.com/search/docs/crawling-indexing/googlebot | docs | A | gist | § x | y | mined | 2026-10-24 | 180d | corpus/knowledge/crawler-identity.md |\n")
+    head = "# t\n\n" + "\n" * 8
+    (root / "corpus/knowledge/canonical-selection.md").write_text(head + "S262 body\n")
+    (root / "corpus/knowledge/crawler-identity.md").write_text(head + "S263 body\n")
+    (root / "corpus/lessons/round-51.md").write_text(
+        '## Gate\n\n'
+        '- S262 — x — quote: "the engine treats a canonical declaration as a hint" (9 words)\n'
+        '- S263 — x — quote: "the crawler identity is declared in the request header" (9 words)\n')
+    return commit(root, "fabricated bodies + 404/500 receipts")
+
+
+def main():
+    scratch = sys.argv[1] if len(sys.argv) > 1 else "/tmp/critic-zerocontrol-repro"
+    base = pathlib.Path(scratch) / "c51zero2"
+    init(base)
+    c1_rev = build_c1(base)
+    c2_rev = build_c2(scratch)
+    for label, cmd, root, rev in (
+        ("C1 (48 claimed seats, zero reports)", C1, base, c1_rev),
+        ("C2 (fabricated bodies, 404/500 receipts, 1999 fetch)", C2,
+         pathlib.Path(scratch) / "c52copy", c2_rev),
+    ):
+        out = subprocess.run([sys.executable, "-B", cmd, "--root", str(root), "--revision", rev],
+                             capture_output=True, text=True)
+        print(f"--- {label}\nexit={out.returncode}\n{out.stdout}")
+
+
+if __name__ == "__main__":
+    main()
+```

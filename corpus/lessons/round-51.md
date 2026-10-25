@@ -10,10 +10,17 @@ Lane: `kake-shokunin`. Author: Kimi fresh L1 (this session). Round shape: one v1
 
 Both rows are re-grounded in this round: the L1 fetched each URL once (2026-10-24,
 23:16 -03:00), kept the response body under `.ufo/waves/round-51/sources/`, and pinned its
-sha256 in `.ufo/waves/round-51/sources/receipts.json`. Every quote in the two admitted
-entries is an exact substring of the retained body after whitespace collapse; the two
-quotes above are raw substrings, and each entry marks the class of every other quote it
-carries.
+sha256 in `.ufo/waves/round-51/sources/receipts.json`. The two quotes above are raw
+substrings of those bodies. The other quotations in the two entries are **not** all raw: the
+round-51 wave measured 15 body quotations as 3 raw, 2 whitespace-collapsed-only and 10 that need
+inline-markup removal, and 10 of the 13 source-relation labels the entries carried were wrong
+(wave seat `ExecQuoteRawScan`; audit `ScribeEntryAudit`). Both entries now carry a `## Quote
+classes (round-51 correction)` block that states the true classes; the earlier claim in this
+section that every quote survives whitespace collapse, and that each entry marks the class of
+every other quote, was false.
+
+- reject — `corpus/knowledge/engine-crawl-contracts.md` (staged round 1, staged ids S250/S253/S254): refused because its Google half cites a URL this lane already mines as S137 (within-scope duplicate, census E04) and its two Baidu sources were not opened by this lane this round. Flip: adopt only in a round that opens both Baidu pages itself and cites the lane's own S137.
+- reject — `corpus/knowledge/crux-eligibility-route.md` (staged round 2): refused as covered ground, because `corpus/knowledge/field-performance-cwv.md` already holds CrUX eligibility (S038, S039). Flip: admit only if that entry is superseded in place, never as a second row for the same ground.
 
 ## Admitted entries
 
@@ -171,8 +178,11 @@ it was reused for C1.
   (143 rows, sha256 `cd9ee4cf…`), the census re-run on it (exit 0, W04 only) and the discriminating
   `census` run added (`rows 143`, `census-count-*`), attempt 1's four receipt files kept verbatim in
   `superseded/`, all recorded in `assimilation/pre-append/census-correction.txt`. The round-52 fix is
-  the counter-side one: C8 must read `MIRROR` at the mirror commit and the census receipt must pin
-  the mirror's sha256.
+  the counter-side one, and its exact form matters: C8 must read `show(root, rev, MIRROR)` — the
+  mirror bytes **at the measured revision** — together with the live registry at the mirror's
+  add-commit, and the census receipt must pin the mirror's sha256. Reading `show(root,
+  mirror_commit, MIRROR)` is unsatisfiable: the blob committed at `19a99bd` is immutably the
+  contaminated `4ea81a5a…`, so that form prints 7/8 forever (residual seat `ResidualC2Rerun`, probe A).
 - **class:** a checker that certifies agreement between numbers one author typed. **evidence:** four
   independent seats (`ExecLedgerMutants`, `ReviewL1Accounting`, `CriticCapability`, `CriticZeroControl`)
   scored C1 `3/3 met=True, exit 0` on synthetic evidence: an empty wave (`spawn 0`, no seats), a

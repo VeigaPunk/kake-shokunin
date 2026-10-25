@@ -4,6 +4,10 @@ Seat: `L1Kake51.ExecRegistryDiff-2` (leaf). Assigned question only: diff the bas
 registry at the **row** level, report added ids, removed ids and changed pre-existing rows. Judged axis:
 freshness. Read-only; the only file written by this seat is this report.
 
+Path resolution: every path below is relative to the lane root
+`/home/vgpnk/Projects/shokunin/kake-shokunin` unless written absolute. The only out-of-lane strings are the
+`/tmp/…` names inside the reproduction block, which are commands to run rather than retained artifacts.
+
 ## Verdict on the assigned question
 
 **The registry append is append-only. Zero pre-existing rows changed.**
@@ -62,7 +66,7 @@ Corroborating multiset check: `only in base: []`, `only in tip:` exactly the two
 - Id order at the tail is therefore `…, S274, S286, S262, S263`. This is the pre-existing convention
   (S274/S286 already trailed S0xx–S127); appending S262/S263 after S286 is correct append-only behaviour and
   is **not** a reorder of any pre-existing row.
-- Guard against the indented-row trap that `assimilation/guard/guard-registry.md` models: neither revision
+- Guard against the indented-row trap that `.ufo/waves/round-51/assimilation/guard/guard-registry.md` models: neither revision
   contains any indented `|` row and no line containing `| S` sits off column 0, so a column-zero parser
   (the one used here) sees the whole registry in both revisions.
 - Row shape of both new rows (raw `|`-split → **11 cells** each, no literal/escaped pipe):

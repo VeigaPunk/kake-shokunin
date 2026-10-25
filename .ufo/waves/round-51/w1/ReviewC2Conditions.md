@@ -3,7 +3,13 @@
 Scope: the eight contract sentences in `.ufo/waves/round-51/contract.json` (claim `C2`) against the
 eight checks in `.ufo/waves/round-51/c51_quote_truth.py`. Measured revision
 `9d13768c4fdd0e9a2688d2ecf1616b539cf57658`; do-nothing base `007d66e4e8360a5f88d29a93eeedd8066dad4434`.
-Read-only; scratch under `/tmp/c2atk`. No tool installs were needed.
+Read-only; scratch under `/tmp/c2atk`. No tool installs were needed. Paths are relative to the lane
+root `/home/vgpnk/Projects/shokunin/kake-shokunin` unless written absolutely; git revisions are
+abbreviated to seven characters. One cited file lives outside the lane and is given absolutely: the
+fleet census at `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh`. After a file's directory is
+given once, later mentions use the basename alone — retained bodies and `receipts.json` in
+`.ufo/waves/round-51/sources/`, census receipts in
+`.ufo/waves/round-51/assimilation/pre-append/`.
 
 ## What the counter actually prints
 
@@ -84,7 +90,8 @@ and land the two entries"). Yet the mirror at `19a99bd` already contains
 `19a99bd:corpus/knowledge/canonical-selection.md` does not exist. The mirror is a 139-file copy of the
 uncommitted post-append tree, committed one commit early under a message that asserts the opposite order.
 
-Consequence: `census-argv.txt` targets that mirror path and `census-stdout.txt` (1054 bytes: twelve `W04`
+Consequence: the census receipt in `.ufo/waves/round-51/assimilation/pre-append/` — `census-argv.txt`
+targets that mirror path, and `census-stdout.txt` (1054 bytes: twelve `W04`
 lines plus one `ok` line) records a clean validation of a registry that already contained both rows.
 `census-stderr.txt` is 0 bytes. The receipt carries **no content hash**, so C7 cannot bind the
 validation to any particular bytes — it is equally consistent with a census of the pre-append working
@@ -125,7 +132,9 @@ registry-at-commit that already carries the ids. Formal mismatch, not a live fal
 ### F5 — Medium: C3's recheck grammar is narrower than the census the round cites
 
 `:172-174` accepts only an ISO date, `\d+d`, or the literal `on-release`. The fleet census accepts any
-`symbolic` cadence `/^[A-Za-z][A-Za-z0-9 _-]*$/` (`scripts/sources-census.sh:582,665`; its own selftest
+`symbolic` cadence `/^[A-Za-z][A-Za-z0-9 _-]*$/`
+(`/home/vgpnk/Projects/shokunin/scripts/sources-census.sh:582,665` — the **fleet** copy, 806 lines; the
+lane has a `scripts/` directory but no `sources-census.sh`; its own selftest
 uses `annual` at :149). A registry row the census validates clean would fail C3. The contract says only
 "a normalized recheck"; the whitelist is a code-only narrowing. The live rows use `180d`, so this does
 not affect the current 8/8.
@@ -133,7 +142,8 @@ not affect the current 8/8.
 ### F6 — Medium: "the round's opened date" is a code constant, not derived
 
 `ROUND_DATE = "2026-10-24"` (`:46`) is compared against `row[8]` (`:170`). The row text, the entry front
-matter (`verified-at: 2026-10-24`), the lesson prose and `receipts.json`'s `fetchedAt`
+matter (`verified-at: 2026-10-24`), the lesson prose and
+`.ufo/waves/round-51/sources/receipts.json`'s `fetchedAt`
 (`2026-10-24T23:16:49-03:00`) were all authored in this round by the same hand, so their agreement is
 not independent corroboration: the check cannot distinguish a correct opened date from an incorrect one
 whenever the constant and the row are wrong together. Nothing in the committed bytes anchors the round's
@@ -153,7 +163,8 @@ occurrence each, and are also substrings after whitespace collapse.
 `:254` `"--file" not in argv` is satisfied by `--files`; `:258` `MIRROR not in argv` is satisfied by any
 path ending in the repo-relative mirror path (measured: `MIRROR in "/tmp/elsewhere/"+MIRROR` is `True`),
 and the live receipt records an absolute host path,
-`/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/.../pre-append/corpus/SOURCES.md`; `:256` `"--root" in argv`
+`/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/.../pre-append/corpus/SOURCES.md` (elided here; the
+receipt carries the full line); `:256` `"--root" in argv`
 is a substring test that would also trip on a path containing `--root`. `:260` `exit_text.strip() != "0"`
 and the E03/E04 stdout scan are faithful.
 
@@ -167,8 +178,9 @@ missing id, so the loss is contained.
 - Base control: `007d66e` → `0/8 met=False`, exit 1. The counter reads committed bytes only
   (`git show` / `git log`), opens no worktree file, makes no network call, and touches none of C1's
   inputs: separability as declared.
-- Retained bodies are genuine and self-consistent: `S262.html` 174926 B sha256 `79222433…d50d23b`,
-  `S263.html` 175561 B sha256 `6afbdc82…a4e155de` — both equal `receipts.json`'s `sha256` and `bytes`;
+- Retained bodies are genuine and self-consistent: `.ufo/waves/round-51/sources/S262.html` 174926 B
+  sha256 `79222433…d50d23b`, `.ufo/waves/round-51/sources/S263.html` 175561 B
+  sha256 `6afbdc82…a4e155de` — both equal `receipts.json`'s `sha256` and `bytes`;
   both are UTF-8 and both carry their declared doc revision literally (`Last updated 2026-08-20 UTC`,
   `Last updated 2026-02-03 UTC`). That last fact is a corroboration the counter does not use.
 - Gate quotes: 10 and 9 words, byte-exact single occurrences in their bodies.
@@ -189,43 +201,53 @@ missing id, so the loss is contained.
 3. C8's `--diff-filter=A` + `[-1]` picks the oldest add; had the mirror been deleted and re-added, the
    counter would judge the original commit.
 
-## In-flight repair observed in the worktree (not authored by this seat, uncommitted)
+## The mirror repair, committed at `907790c` (not authored by this seat)
 
 While reviewing I found the lane worktree already carrying an attempt-2 repair by another wave-1 seat
 (`.ufo/waves/round-51/assimilation/pre-append/census-correction.txt`, which credits `ExecRegistryDiff`
-with the same F1/F2 finding). None of it is committed; the measured revision `9d13768` is unchanged,
-so everything above describes the bytes the counter actually scored. Four observations matter:
+with the same F1/F2 finding). It has since landed as `907790c` ("land the wave evidence, the ledger
+verdict and the mirror repair"), which did **not** touch the counter. Everything above describes
+`9d13768`, the revision I scored; this section states what the repair changes at the new tip and what
+it does not. Five observations matter:
 
-1. The repaired mirror is correct: `corpus/SOURCES.md` in `pre-append/` is now sha256
-   `cd9ee4cf951f9708f12d9bfb26c6afb783842960d8698c20184fd12292189117`, 143 rows, neither adopted id —
-   the correction document's claim checks out.
-2. **The repair as first observed would break C7.** `census-exit.txt` then read the literal string
-   `exit=0`, and `c51_quote_truth.py:260` requires `exit_text.strip() != "0"` to be false. Measured at
-   the time: `stripped='exit=0' -> C7 note fires: True`. Committing that shape would flip C7 to FAIL
-   unless the counter were also changed — a rule change, contradicting the correction document's own
-   statement that "the C7 check's rules … are unchanged". Currently both exit receipts are bare `0\n`
-   (2 bytes each, `od -c` on `census-exit.txt` and `census-count-exit.txt`), so the C7 shape hazard is
-   cleared in the worktree — including for a C7 extension that read the count receipt. The hazard was
-   real when observed, but it is not live.
-3. The re-run receipt is **byte-identical to the superseded receipt** (`census-stdout.txt` 1054 B and
-   `census-argv.txt` both `cmp`-equal to `superseded/`). That is consistent with a genuine re-run — the
-   two extra rows carried unique URLs, so they added no `W04`/`E` line and the `ok` line is the path —
-   but it also demonstrates that the census output has **zero discriminating power** over the append:
-   pre-append and post-append registries produce the same receipt. Rewriting the mirror's content does
-   not fix F2/C7; only binding the receipt to a hash of the validated bytes does. A newer uncommitted
-   `census-count-*` receipt is a genuine discriminator where the validate stdout is not: it reports
-   `rows 143`, `tier.A 120`, `tier.B 6`, `tier.C 17` (a contaminated mirror would read 145). It is the
-   better pin — but still a content assertion at an unknown time, not an ordering proof.
-4. Because the current C8 never reads the mirror file, **no repair to the mirror's content can change
-   its verdict**. The correction document's "C8 … scored exactly as declared before and after the
-   repair" is true precisely because C8 ignores its subject. Even a corrected C8 that read `MIRROR` at
-   the measured revision would not make this repair honest — see addendum item 3.
+1. The repaired mirror is the pre-append registry: `MIRROR@907790c` is blob
+   `cd448eaf06bbccefbd2e672be03355c79dd6d851`, 143 rows, neither adopted id — byte-identical to
+   `REGISTRY@19a99bd`. The correction document's claim checks out.
+2. **The repair as first observed would have broken C7.** `census-exit.txt` then read the literal
+   string `exit=0`, and the counter's `:260` requires `exit_text.strip() != "0"` to be false. Measured
+   at the time: `stripped='exit=0' -> C7 note fires: True`. Committing that shape would have flipped C7
+   to FAIL unless the counter were also changed — a rule change, contradicting the correction
+   document's own statement that "the C7 check's rules … are unchanged". As committed, both exit
+   receipts are bare `0\n` (2 bytes each, `od -c` at `907790c`), so the hazard never went live.
+3. The re-run receipt is **byte-identical to the superseded receipt**, and still is at `907790c`
+   (`cmp` on `census-stdout.txt` 1054 B and `census-argv.txt` against `superseded/`). That is
+   consistent with a genuine re-run — the two extra rows carried unique URLs, so they added no `W04`/`E`
+   line and the `ok` line is the path — but it demonstrates that the census output has **zero
+   discriminating power** over the append: pre- and post-append registries produce the same receipt.
+   The companion `census-count-*` receipt is the discriminator that does work: `rows 143`, `tier.A 120`,
+   `tier.B 6`, `tier.C 17` (a contaminated mirror reads 145). It is a better pin, but still a content
+   assertion at an unknown time, not an ordering proof.
+4. **The repair is exactly the post-hoc copy that my withdrawn formulation would have accepted, and
+   `907790c` proves it empirically.** My old check was `MIRROR@rev == REGISTRY@mirror_add`; at the new
+   tip both sides are `cd448eaf…`, so that check now **passes** — while the honest conjunction still
+   fails at the add commit (`MIRROR@19a99bd` remains `9e2a221…`). This is no longer an argument about
+   what a copy could do; the copy was committed and the weak check turned green without the ordering
+   becoming true.
+5. Because the counter's C8 never reads the mirror file, **no repair to the mirror's content can change
+   its verdict**: at `907790c` the counter still prints `8/8 met=True`, exit 0 (re-measured). The
+   correction document's "C8 … scored exactly as declared before and after the repair" is true
+   precisely because C8 ignores its subject.
+
+One incidental identity worth recording: `REGISTRY@907790c` is blob `9e2a221…` — the live registry at
+the new tip is byte-identical to the old contaminated mirror, because the mirror had been a copy of the
+post-append registry all along.
 
 ## Cross-check with ExecRegistryDiff (addendum)
 
 ExecRegistryDiff (read-only registry-diff seat) reviewed F1-F3 over IRC and confirmed both C7 points and
 the byte-identical receipts. Attribution corrected there and here: the attempt-2 repair was made by an
-**unidentified** wave-1 seat; ExecRegistryDiff wrote only `w1/ExecRegistryDiff.md`, which scores C8 as
+**unidentified** wave-1 seat; ExecRegistryDiff wrote only
+`.ufo/waves/round-51/w1/ExecRegistryDiff.md`, which scores C8 as
 **FAIL**, not "as declared". F1 above was derived independently by applying `parse_registry` to the
 mirror blob here; the agreement is convergence, not borrowed evidence.
 
@@ -280,7 +302,9 @@ Six measured refinements:
 
 ## Verdict
 
-C2's predicate prints 8/8 at `9d13768`, but that number does not survive the contract's own wording.
+C2's predicate prints 8/8 at `9d13768` — and still 8/8, exit 0, at the current tip `907790c`, which
+landed the repair without touching the counter — but that number does not survive the contract's own
+wording.
 **C8's mirror clause is false** on the committed bytes — the mirror's registry carries both adopted ids
 (blob `9e2a2217…` at `19a99bd`, where the registry is `cd448eaf…`) — so the honest score is **7/8,
 met=False**. **C7's "pre-append" premise is unevidenced** rather than false: all five of its sub-clauses

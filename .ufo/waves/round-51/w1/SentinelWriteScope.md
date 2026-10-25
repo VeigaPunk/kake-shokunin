@@ -6,7 +6,9 @@ final state must be re-derived at scoring time with §7's commands. No file was 
 reverted by this seat; the only path written is this report.
 
 Lane: `/home/vgpnk/Projects/shokunin/kake-shokunin`
-Lane tip at dispatch / at this snapshot: `9d13768c4fdd0e9a2688d2ecf1616b539cf57658` (HEAD unchanged, `git log -1`).
+Lane tip at dispatch, and through §1–§9 of this report: `9d13768c4fdd0e9a2688d2ecf1616b539cf57658`.
+HEAD advanced to `907790c` (the wave-evidence commit) at 03:48:10, *after* this audit's body was
+written — the landed state and what it does to §4 are recorded in §10.
 Round-51 birth (`.ufo/waves/round-51/` dir birth): `2026-10-24T23:16:48 -03:00`.
 Wave-1 seat window start (`.ufo/waves/round-51/wave-start-utc.txt` = `2026-10-25T06:32:17Z`): `2026-10-25T03:32:17 -03:00`.
 
@@ -306,9 +308,9 @@ Tooling: nothing installed or upgraded; no package manager was invoked.
 ## 9. Limitations of this report
 
 - **Two snapshots, both kept.** The body of this report (§1–§7) describes the state at 03:40:15, when
-  39/48 reports existed and S2 had landed 24 s earlier; §10 adds the state at 03:46:30 (48/48
-  reports, eight further out-of-scope files). Re-run §7 at scoring time. Anything written after
-  03:46:30 is in neither count.
+  39/48 reports existed and S2 had landed 24 s earlier; §10 adds 03:46:30 (48/48 reports, eight
+  further out-of-scope files) and then the 03:48:10 evidence commit, at which both frozen claims
+  verify `true`. Re-run §7 at scoring time. Anything written after 03:48:10 is in neither count.
 - **Attribution is inferential for S1–S4.** Bytes show *what* and *when*, not *who*: all writers are
   UID `vgpnk`. S1/S1b are a single 187 ms process burst in the `pre-append` tree; S2 is one
   nanosecond-identical pair across two corpus files; S4 is a filesystem-level burst with no git
@@ -323,7 +325,7 @@ Tooling: nothing installed or upgraded; no package manager was invoked.
 
 ---
 
-## 10. Post-snapshot delta (03:40:15 → 03:46:30) — the wave finished while this was being written
+## 10. Post-snapshot delta (03:40:15 → 03:48:10) — the wave finished, then landed its commit
 
 Everything below was re-derived with §7's commands after the snapshot; nothing earlier in this
 report is retracted.
@@ -352,10 +354,36 @@ read-only register into the lane, touches no claim input and no committed blob. 
 the L1, outside every seat's set); they do not change C1's score at `9d13768`, which remains 0/3
 because they are uncommitted.
 
-**Stable state.** HEAD is still `9d13768c…` (no commit, add, ref or index change during the whole
-audit); the tracked-modified set is unchanged at five: the pre-append mirror (S1), `SCORECARD.md`
-(S5), `PROVINCE.md` (S6), and the two C2 entries (S2). The untracked additions are exactly the 8
-rows above plus the pre-existing round-51 setup.
+**The wave-evidence commit landed while this was being written (03:48:10).** HEAD advanced from
+`9d13768` to `907790c` — *"round-51: land the wave evidence, the ledger verdict and the mirror
+repair"*, 88 files, +14301/−5. Verified at that commit with my own runs of both counters:
+
+- **`C1 ledger 3/3 met=True` (L1, L2, L3 all pass)** and **`C2 quote-truth 8/8 met=True`**. The two
+  frozen claims hold at the landed revision.
+- **§4's C7 provenance defect is repaired in the landed bytes.** The mirror at `907790c` is
+  `cd9ee4cf951f9708…` — 143 rows, **zero** adopted ids — not the contaminated `4ea81a5a…`; the
+  committed `census-exit.txt` is `0`. C7 now attests a genuinely pre-append file. The defect was
+  real at `9d13768` and is closed at `907790c`; both statements are true of their own revisions.
+- S2's corrected entries are the landed entries (`e167e3ee…`, `2ea606a0…`); `corpus/lessons/round-51.md`
+  (+85) and `LOG.md` (+19, wall clock **897 s**) are landed; `settlement.json` carries
+  `spawn 48 / settled 48 / dead 0 / reports_written 48`.
+- **The LOG verdict precedes the commit that makes it true by 11 s** (`LOG.md` mtime 03:47:59;
+  commit 03:48:10). At the observation instant, "`C1 ledger 3/3 met=True` … at the round-51 commit"
+  named a commit that did not exist, and the only existing revision (`9d13768`) printed 0/3. It is
+  true at `907790c` and derivable now. Recorded as an ordering fact, not an accusation.
+- **This report is inside that commit**, at the revision preceding this addendum
+  (sha256 `3fad33d0a68c58bb21d75637c6069dc610b4f2c8b5308f7b654040df031659ea`). The addendum is
+  worktree-only until/unless the L1 commits again; a reader diffing committed against live sees
+  exactly this delta.
+- Worktree after the commit: two seats rewrote **their own** reports post-commit
+  (`w1/CriticZeroControl.md`, `w1/ReviewC2Conditions.md`). In-scope writes, but the live text now
+  differs from the committed bytes the ledger scored — the same "report body is the durable locus"
+  point, one layer up.
+
+**Stable through 03:47:47.** Between the 03:40:15 snapshot and the commit, HEAD stayed `9d13768`
+(no add, ref or index change), and the tracked-modified set grew from five to seven only with the
+L1's own evidence assembly: `LOG.md` (C1-L3's named figure, 03:47:59) and
+`corpus/lessons/round-51.md` (+85, "Corrections — attempt 2 (append-only)", 03:47:47).
 
 **On the sibling-lane scratch relocation — not kake, and a move, not a deletion.** Two peer messages
 about `.ufo/waves/round-35/scratch/` (first "removed by an external sweep", then corrected to

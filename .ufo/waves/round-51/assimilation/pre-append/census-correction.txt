@@ -60,3 +60,18 @@ Final tree after the repair (as committed)
 - `superseded/`                    attempt 1's four receipt files, unchanged. Their stdout was
                                    byte-identical to the corrected run because both registries
                                    validate clean; their subject was the post-append blob.
+
+Three documentation limits named by the round-51 residual seat `ResidualMirror`
+-----------------------------------------------------------------------------
+1. The C7 census receipt is **path-and-shape level, not content level**. Validating the 145-row
+   post-append bytes inside a faithful copy of this pre-append tree yields stdout byte-identical to
+   the receipt, exit 0, no E03/E04. What binds the count is `census-count-*` and C8's own parse of
+   the registry; C7 never reads either.
+2. `superseded/` is a **duplicate, not a witness**: its four files hash identically to the corrected
+   receipts, and no retained receipt pins the contaminated `4ea81a5a…` blob. That blob survives only
+   in git history (`19a99bd`).
+3. C8's sentence has a third referent that fails **permanently**: the mirror *blob at* `19a99bd` is
+   `4ea81a5a…` (145 rows, both ids). The counter reads the live registry at that commit instead, and
+   the measured revision's mirror file is the repaired `cd9ee4cf…`. At the measured revision the two
+   named readings coincide; a literal reader of "the mirror's registry" as "the bytes committed at
+   the mirror's add-commit" scores C2 7/8 and cannot be satisfied without rewriting history.
