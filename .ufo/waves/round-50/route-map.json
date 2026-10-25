@@ -1,0 +1,70 @@
+{
+  "schema": "kake-r50-route-map-v1",
+  "operatorRouteTable": "/home/vgpnk/.omp/agent/config.yml",
+  "substrateConfig": "/home/vgpnk/.kimi-code/config.toml",
+  "transport": "kimi --prompt",
+  "roles": {
+    "scout": {
+      "operatorAlias": "@m_sol",
+      "operatorModel": "devin/swe-2:max",
+      "kimiModel": "devin/swe-2-max",
+      "probe": "devin/swe-2-max answered a one-line prompt (exit 0)"
+    },
+    "reviewer": {
+      "operatorAlias": "@m_zfl",
+      "operatorModel": "zai/glm-5.3-flash:max",
+      "kimiModel": "zai-coding-plan/glm-5.3-flash",
+      "probe": "zai-coding-plan/glm-5.3-flash answered a one-line prompt (exit 0)"
+    },
+    "critic": {
+      "operatorAlias": "@m_sol",
+      "operatorModel": "devin/swe-2:max",
+      "kimiModel": "devin/swe-2-max",
+      "probe": "devin/swe-2-max answered a one-line prompt (exit 0)"
+    },
+    "connector": {
+      "operatorAlias": "@m_grok",
+      "operatorModel": "xai-oauth/grok-4.7-build-fast:high",
+      "kimiModel": "devin/swe-2-max",
+      "probe": "devin/swe-2-max answered a one-line prompt (exit 0); own bucket unreachable on this substrate"
+    },
+    "sentinel": {
+      "operatorAlias": "@m_flash",
+      "operatorModel": "commandcode/deepseek/deepseek-v4.1-flash:max",
+      "kimiModel": "devin/swe-2-max",
+      "probe": "devin/swe-2-max answered a one-line prompt (exit 0); own bucket unreachable on this substrate"
+    },
+    "executor": {
+      "operatorAlias": "@m_flash",
+      "operatorModel": "commandcode/deepseek/deepseek-v4.1-flash:max",
+      "kimiModel": "devin/swe-2-max",
+      "probe": "devin/swe-2-max answered a one-line prompt (exit 0); own bucket unreachable on this substrate"
+    },
+    "mutation-tester": {
+      "operatorAlias": "@m_flash",
+      "operatorModel": "commandcode/deepseek/deepseek-v4.1-flash:max",
+      "kimiModel": "devin/swe-2-max",
+      "probe": "devin/swe-2-max answered a one-line prompt (exit 0); own bucket unreachable on this substrate"
+    },
+    "revenger": {
+      "operatorAlias": "@m_zfl",
+      "operatorModel": "zai/glm-5.3-flash:max",
+      "kimiModel": "zai-coding-plan/glm-5.3-flash",
+      "probe": "zai-coding-plan/glm-5.3-flash answered a one-line prompt (exit 0)"
+    },
+    "simplifier": {
+      "operatorAlias": "@m_zfl",
+      "operatorModel": "zai/glm-5.3-flash:max",
+      "kimiModel": "zai-coding-plan/glm-5.3-flash",
+      "probe": "zai-coding-plan/glm-5.3-flash answered a one-line prompt (exit 0)"
+    },
+    "scribe": {
+      "operatorAlias": "@m_zfl",
+      "operatorModel": "zai/glm-5.3-flash:max",
+      "kimiModel": "zai-coding-plan/glm-5.3-flash",
+      "probe": "zai-coding-plan/glm-5.3-flash answered a one-line prompt (exit 0)"
+    }
+  },
+  "fallback": "minimax-coding-plan/MiniMax-M3.1-Flash",
+  "note": "Resolved by reading the operator's task.agentModelOverrides and modelRoles tables and projecting each role's bucket onto this substrate's configured aliases; a bucket whose whole projection is unusable falls back to the one alias that answered a live one-line prompt, and the fallback is recorded."
+}

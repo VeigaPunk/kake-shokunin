@@ -2017,3 +2017,12 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `.ufo/waves/round-50/assimilation/pre-append/corpus/SOURCES.md`; the live registry at this
   commit still holds 142 rows and no S286 row. The live append happens in a later commit,
   after the wave settles.
+- **Wave evidence committed before the wave is cited.** The wave-slot grant stdout
+  (`.ufo/waves/round-50/wave-grant.txt`) and the exact dispatch command
+  (`.ufo/waves/round-50/dispatch-command.txt`) are committed in this commit, so the grant is
+  durable before any later entry cites the wave. The wave identifier and this commit's hash
+  are cited in the round's measurement entry, not here. The payload is the validator's
+  `ufo-swarm-wave-dispatch-v1` output for `.ufo/waves/round-50/w50-spec.json` under the v1
+  policy (spawn 36, resume 0, band 32-64, hard ceiling 256); the per-seat model is resolved
+  from the operator's own route table by `.ufo/waves/round-50/make_route_map.py` and recorded
+  in `.ufo/waves/round-50/route-map.json`.
