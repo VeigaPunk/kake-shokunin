@@ -4293,3 +4293,27 @@ Baseline receipts are `.ufo/waves/round-54/controls/base-c1-s374.txt` and
 `.ufo/waves/round-54/controls/`. C1's retained-body quote check and selftest
 are separate from the calibration mismatch count. C2 reports `resolved` only
 when the path exists in the measured Git tree and `lost` only when absent.
+
+## Round 55 — declared and measured claims
+
+Frozen contract: `.ufo/waves/round-55/contract.md` / `contract.json` (lane base `fcaf4b85ce32dbe2a88ce9924a4994e8cd93212d`);
+measured commit `faf9abe81d1ef5925733f756a918527483073fe8`. Axis note: C1 is declared on **calibration**, the round-54
+bounded sub-axis (score 1, the lowest non-retired score); it is outside the prompt-declared operability + freshness axes
+and the operator may rule on that ownership. C2 is freshness. Operability and freshness stay at 10 (no change claimed).
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| README coverage map names and describes every knowledge file | calibration | `index_mismatches` 21 → 0 (`knowledge_files` 46 → 49) | `python3 -B .ufo/waves/round-55/c55_readme_index.py --root . --revision <commit>` | counter met (structure only; row truth by 7 executor checks: 20 of 21 rows supported, 1 stale statement corrected). Score stays 1/10: one more corrected mismatch class, not broad accuracy |
+| Yahoo! JAPAN robots.txt rules held as three quote-true entries | freshness | `conditions_passed` 0 of 8 → 8 of 8; registry rows 155 → 156 | `python3 -B .ufo/waves/round-55/c55_quote_truth.py --root . --revision <commit>` | counter met; sources re-fetched with no drift; rendering fidelity by 3 reviewers (1 inflation corrected) |
+
+Receipts under `.ufo/waves/round-55/controls/`: base `base-c1-readme-index-v2.txt` (exit 1), `base-c2-quote-truth-v2.txt`
+(0/8, exit 1); after `after-c1-readme-index.txt`, `after-c2-quote-truth.txt` (exit 0); selftests `c1-selftest-v2.txt`
+(44/44), `c2-selftest.txt` (54/54); `census-after.txt` (exit 0). Counter versions: v1 at `b467ac3`, v2 with the build, v2.1
+after wave 2; each is disclosed in the contract's appended sections. Admission belongs to the non-author closure.
+
+### Capabilities acquired in round 55
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Coverage-map index gate | Re-derives from committed bytes whether every knowledge file is named and described by a coverage-map row and no pointer dangles; fails on mega-rows, constant cells, population swaps, truncated bodies; certifies structure, not row truth | `.ufo/waves/round-55/c55_readme_index.py`, `controls/c1-selftest-v2.txt` | 55 |
+| Append-block quote-truth gate (article-bound) | Verifies quote spans, unit ceiling, page-unique spans, receipts, validated-append equality and mirror append-onlyness for assimilated entries in one command | `.ufo/waves/round-55/c55_quote_truth.py`, `controls/c2-selftest.txt` | 55 |

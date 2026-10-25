@@ -2155,3 +2155,21 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   were added or edited. The census remained 155 rows, 14 W04 warnings, exit 0
   before and after (`.ufo/waves/round-54/controls/sources-census.txt`). No
   tools installed or updated.
+
+## Round 55 — 2026-10-25
+
+- **Evidence.** The README coverage map named 25 of 46 knowledge files at base (21 unindexed — `c55_readme_index.py`
+  at `fcaf4b85`, exit 1). The version-1 counters were satisfiable by junk (wave-1 critics and mutation-tester). The staged
+  Yahoo! robots entries had 3 of 3 quotes and 3 of 3 recheck strings over 25 units.
+- **C1 calibration.** 24 rows added (21 unindexed files + 3 new entries) and a frontier ground map
+  (considerthese proposal 4) in `corpus/README.md`; one stale statement (`freshness-sidecar.json`) corrected before the
+  final measurement. Base `index_mismatches=21`, exit 1; after `0`, exit 0 at `faf9abe`.
+- **C2 freshness / assimilation.** Entries `yahoo-japan-robots-txt-refusal-rules`, `-pattern-syntax`, `-txt-basics`
+  (S372, S373 re-opened, S418 new; staged S380 renumbered by document); `used-by` of S372/S373 extended old→new in
+  `corpus/lessons/round-55.md`. Base 0/8, exit 1; after 8/8, exit 0. Re-verification: fresh GETs equal the retained bodies
+  (no drift), the three recheck commands re-run (`w2/ExecReopenS372.md`, `S373`, `S418`). Census 155 → 156 rows, exit 0.
+- **Repairs from wave 2.** S418 "per crawl" inflation removed; S373 and S418 and S372 restored page-stated examples/links;
+  appended cross-reference notes in three existing entries; README pointer lines corrected; counters to v2.1 (exit 64/2
+  semantics, article-bound quotes, whole-text append-only).
+- **Swarm.** Two v1 waves, 40 + 36 = 76 seats, no residual call; `settlement.md`. One W1 seat (`ScribeQuality`) returned
+  another lane's round and no report. No tools installed.

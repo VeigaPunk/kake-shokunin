@@ -9,8 +9,10 @@ the canonical planner seat. Seat accounting: `.ufo/waves/round-55/settlement.md`
 
 ## Gate
 
-Rows opened this round. Unit rule: one unit per CJK character, one per non-CJK whitespace token; every
-quote is at most 25 units, so the CORPUS.md ≤25-word ceiling holds under any word segmentation.
+Rows opened this round. Unit rule (the counter's `units()`): one unit per kana/kanji/halfwidth-kana character, one per
+non-CJK whitespace token; every quote is at most 25 units under it. Caveat (`w2/ReviewerEntryRefusal.md` D1): if
+fullwidth punctuation counted as characters, one S372 entry span (`巡回の拒否（Disallow:）、クローラーの受け入れ（Allow:）の記述の前には`)
+would measure 27; the three Gate quotes stay at or under 25 either way. The word-segmentation question stays unresolved for S367.
 
 - S372 — https://info-search.yahoo.co.jp/archives/002849.php — accessed 2026-10-25 — § サイト単位、ディレクトリ単位での巡回の拒否設定 1 (更新日 2010年11月24日) — quote: "サイトに対する巡回の制限はないものとみなされます" (24 units; raw substring of the retained body, sha256 ee8c9defeeee7abf3f2f6bd4bfb8dbb86c69cf9a272551264aa3f99f76200111, 10168 bytes, HTTP 200)
 - S373 — https://info-search.yahoo.co.jp/archives/002850.php — accessed 2026-10-25 — § 「$」記号 → 注意 (更新日 2010年11月24日) — quote: "記述された文字列を含むURLがすべてマッチします。" (21 units; raw substring of the retained body, sha256 3173d9613128e1aaa7cb55919fa52438602095bd7bc54d4437760ee8b1c03885, 9402 bytes, HTTP 200)

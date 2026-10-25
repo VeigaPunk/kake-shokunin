@@ -18,7 +18,7 @@ The lane holds the protocol and its offline reading (`corpus/knowledge/robots-tx
 
 > "サイトの一番上の階層を指します"
 
-(rendered: it refers to the site's topmost tier — the site's topmost directory level.) Its example shows a root at `http://example.com/` and a first-level directory at `http://example.com/foo/`, and asks that the file be stored so that it sits at `http://example.com/robots.txt` [S372]. Directory scope is a property of the refusal value, not of the file, quoted raw:
+(rendered: it refers to the site's topmost tier — the site's topmost directory level.) Its example shows a root at `http://example.com/` and a first-level directory at `http://example.com/foo/`, and asks that the file be stored so that it sits at `http://example.com/robots.txt` [S372]. Directory scope is stated through the refusal value, quoted raw:
 
 > "特定のディレクトリ内のみの巡回を拒否したい場合は"
 > "「Disallow: /」に続いてそのディレクトリ名を指定します"
@@ -60,7 +60,7 @@ The page's central negation, quoted raw:
 
 > "この記述がないときはすべてのクローラーに対する指示"
 
-(rendered: when this record is absent, the rule is an instruction addressed to all crawlers.)
+(rendered: when this record is absent, the rule is taken to be an instruction addressed to all crawlers — the page adds that this is the same as `*`, a modal and annotation outside the quoted span.)
 
 **Contrast with the RFC side.** `corpus/knowledge/robots-txt-rules.md` states RFC 9309's group rules as it reads them: a product token is matched case-insensitively, the rules of every matching group are combined, and the `*` group applies only when no group matches (its S011 §2.2.1 reading). [S372] states one narrower thing — a record with no user-agent line is an instruction for all crawlers — and states neither group combination nor the fallback condition. The two are compatible; the page is not a second source for the RFC rule.
 
