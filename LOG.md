@@ -2100,3 +2100,4 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   and C6 accepts URL containment and never reads `httpStatus`/`bytes`/`fetchedAt`. A rule changed
   after an item has scored is not the claim's rule, so both counters keep their frozen bytes and the
   concrete fixes are routed to round 52 (`corpus/lessons/round-51.md` § Mistakes (attempt 2)).
+- **Round 52 — verifier defects corrected in round 53.** The non-author spot-check found missing citations to `LOG.md`, incorrect source locators and false refusal grounds (`corpus/lessons/round-52-verifier-spotcheck.md`). Round-53 lesson records corrected evidence and what remains open; the dated round-52 source bodies confirm S329 and S312 headings. This entry is appended as a correction; round-52 committed history is unchanged.

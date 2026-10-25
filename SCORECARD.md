@@ -4262,3 +4262,13 @@ is a valid pinned state instead of a mislabelled PRE-PUSH.
 
 The wave-1 dispatch (46 seats) was refused at the background-job cap and spawned nothing; no seat
 evidence is claimed anywhere in this round (lesson § Wave accounting).
+
+## Round 53 — declared and measured claim
+
+Base: `3994101dba28896830604fd0b08c7f00faca8ed6`. Lowest-scoring owned axes are tied at 10/10; this claim targets freshness and is independently verifiable from the registry and knowledge bytes.
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| Re-ground the five staged-only source ids cited as held ground and correct two source locators | freshness | dangling ids 5 → 0; registry rows 148 → 155 | `python3 -c 'import re,subprocess; from pathlib import Path; r=Path("corpus/SOURCES.md").read_text(); ids=set(re.findall(r"(?m)^\|\s*(S\d{3,})\s*\|",r)); cited=set(); [cited.update(re.findall(r"\bS\d{3,}\b",p.read_text())) for p in Path("corpus/knowledge").glob("*.md")]; print(f"rows={len(ids)} dangling={sorted(cited-ids)}")'` | improved (10→10 HOLD); five sources opened, five rows added, plus two superseding source locators |
+
+Measurement boundary: this claim is only about the five ids called out in round-52 knowledge entries; it does not claim that every citation is semantically supported. At base the five ids are absent from kake's registry; after this round they resolve to freshly opened Yahoo/Baidu sources. The sources census is a structural gate and is not the citation-resolution counter.

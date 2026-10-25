@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+
+<html class="expanded">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="icon" sizes="any" mask href="//www.baidu.com/img/baidu.svg">
+<title>百度Spider渲染UA在移动端全流量上线_搜索资讯_百度搜索资源平台</title>
+<script>
+        // 已经在DP注册的页面，没注册的扔到默认里
+        var pageNameArr = [
+            'site',
+            'prompt',
+            'mobiletools',
+            'tools',
+            'linksubmit',
+            'badlink',
+            'robots',
+            'pressure',
+            'crawltools',
+            'crawl',
+            'indexs',
+            'sitelink',
+            'itemannotator',
+            'schema',
+            'dataplug',
+            'keywords',
+            'inbound',
+            'safe',
+            'leakdetect',
+            'rewrite',
+            'guide',
+            'tongji',
+            'feedback',
+            'siteclose',
+            'dashboard',
+            'appattribute'
+        ];
+        var pageName = '';
+        if (window.location.pathname !== '/') {
+            if (window.location.pathname.match('/([^/]+)/') === null) {
+                pageName = window.location.pathname.match('/([^/]+)')[1];
+            }
+            else {
+                pageName = window.location.pathname.match('/([^/]+)/')[1];
+            }
+            var inArray = function (needle,array){
+                var len=array.length;
+                for(var i=0;i<len;i++){
+                    if(needle===array[i]){
+                        return true;
+                    }
+                }
+                return false;
+            };
+            if (!inArray(pageName, pageNameArr)) {
+                pageName = '675_1';
+            }
+        }
+        else {
+            pageName = '675_1';
+        }
+        window.alogObjectConfig = {
+            sample: '1',
+
+            product: '657',
+            page: pageName,
+            monkey_page: '',
+            speed_page: '',
+
+            speed: {
+                sample: '1'
+            },
+
+            monkey: {
+                sample: '1'
+            },
+
+            exception: {
+                sample: '1'
+            },
+
+            feature: {
+                sample: '1'
+            },
+
+            cus: {
+                sample: '1'
+            },
+
+            csp: {
+                sample: '',
+                'default-src': [
+                    {match: '*bae.baidu.com', target: 'Accept,Warn'},
+                    {match: '*.baidu.com,*.bdstatic.com,*.baidustatic.com,*.baiduimg.com,*.bdimg.com,localhost,*.hao123.com,*.hao123img.com', target: 'Accept'},
+                    {match: /^(127|172|192|10)(\.\d+){3}$/, target: 'Accept'},
+                    {match: '*', target: 'Accept,Warn'}
+                ]
+            }
+        };
+
+        void function(a,b,c,d,e,f,g){a.alogObjectName=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=a[e].l||+new Date,d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d;var h=!0;if(a.alogObjectConfig&&a.alogObjectConfig.sample){var i=Math.random();a.alogObjectConfig.rand=i,i>a.alogObjectConfig.sample&&(h=!1)}h&&(f=b.createElement(c),f.async=!0,f.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),g=b.getElementsByTagName(c)[0],g.parentNode.insertBefore(f,g))}(window,document,"script","/hunter/alog/alog.min.js","alog"),void function(){function a(){}window.PDC={mark:function(a,b){alog("speed.set",a,b||+new Date),alog.fire&&alog.fire("mark")},init:function(a){alog("speed.set","options",a)},view_start:a,tti:a,page_ready:a}}();
+        void function(n){var o=!1;n.onerror=function(n,e,t,c){var i=!0;return!e&&/^script error/i.test(n)&&(o?i=!1:o=!0),i&&alog("exception.send","exception",{msg:n,js:e,ln:t,col:c}),!1},alog("exception.on","catch",function(n){alog("exception.send","exception",{msg:n.msg,js:n.path,ln:n.ln,method:n.method,flag:"catch"})})}(window);
+    </script>
+<meta name="keywords" content="搜索资源平台" />
+<meta name="description" content="百度搜索面向合作伙伴的官方平台，为开发者、内容创作者、站点管理者等伙伴，提供优化工具、数据、课程、Q&A等服务，助力资源进入搜索，同时提供搜索项目合作机会，让优质资源脱颖而出。" />
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/static/ziyuan/style/base_6721c93.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/pkg/css/index_ed0cdec.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/wiki/index_c965f8c.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/footer/footer_19b6507.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/alarm/xzh_alarm_adb03d1.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/dialog/dialog_0dffd71.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/zhitong/verification_36f5407.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/siteSelect/site-select_eb9ff67.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/mappcreate/mapp_936c1bb.css"/></head>
+<script> alog('speed.set', 'ht', +new Date); </script>
+<body>
+<div class="layout-breadcrumb">
+
+</div>
+<div class="layout-main">
+
+<div class="header-placeholder hide"    >
+</div>
+<div class="nav-area">
+<div class="nav-bar">
+<div class="nav-container">
+<div class="logo">
+<a href="/">
+<img src="/static/ziyuan/image/common/logo_bbb4ad1.png" alt="logo">
+</a>
+</div>
+<div class="nav-list">
+<ul>
+<li class="nav-school nav-tab "><a href="/college#/type=1&cate=newcontent">搜索学堂</a></li>
+<li class="nav-tools nav-tab "><a href="/dashboard/index">搜索服务</a></li>
+<li class="nav-community nav-tab  "><a>互动交流</a></li>
+<li class="nav-cooperation nav-tab "><a href="/cooperateresource/index">资源合作</a></li>
+<li class="nav-user-center nav-tab "><a href="/site/index">用户中心</a></li>
+</ul>
+</div>
+<span class="login">
+<a href="" class="auth-login">登录</a>
+</span>
+</div>
+<div class="search-school nav-dropdown hide">
+<div class="search-college-wrapper">
+<a href="/college#/type=1&cate=newcontent">
+推荐内容</a>
+<a href="/college#/type=2&cate=bjh_education">
+创作者小课堂</a>
+<a href="/college#/type=3&cate=dailysubmit">
+工具解读</a>
+<a href="/college#/type=4&cate=guides">
+搜索规范</a>
+<a href="/college#/type=6&cate=develop">
+基础开发</a>
+<a href="/college#/type=7&cate=searchaccess">
+智能小程序</a>
+</div>
+</div>
+<div class="search-tools nav-dropdown hide">
+<div class="search-tools-wrapper">
+<section>
+<h4>资源提交</h4>
+<h6>站点资源</h6>
+<ul>
+<li><a href="/fastcrawl/index">快速抓取</a></li>
+<li><a href="/linksubmit/index">普通收录</a></li>
+<li><a href="/mobile/index">移动适配</a></li>
+<li><a href="/badlink/index">死链提交</a></li>
+</ul>
+</section>
+<section>
+<h4>数据统计</h4>
+<h6>小程序资源</h6>
+<ul>
+<li><a href="/mapp/reportflow/index">流量统计</a></li>
+</ul>
+<h6>站点资源</h6>
+<ul>
+<li><a href="/indexs/index">索引量</a></li>
+<li><a href="/keywords/index">流量与关键词</a></li>
+<li><a href="/pressure/index">抓取频次</a></li>
+<li><a href="/crawltools/index">抓取诊断</a></li>
+<li><a href="/crawl/index">抓取异常</a></li>
+<li><a href="/robots/index">Robots</a></li>
+</ul>
+</section>
+<section>
+<h4>搜索小工具</h4>
+<ul>
+<li><a href="/aitoolset/index">小工具提交</a></li>
+</ul>
+<h4>权威溯源</h4>
+<ul>
+<li><a href="/sourcetrace/index">权威提交</a></li>
+<li><a href="/sourcetrace/dashboard">我的溯源提交</a></li>
+</ul>
+<h4><a href="/aiflow/index" class="aiflow-entry">AI流量分析</a></h4>
+</section>
+<section>
+<h4>搜索展现</h4>
+<ul>
+<li><a href="/sitelink/index">站点子链</a></li>
+<li><a href="/property/index">站点属性</a></li>
+</ul>
+</section>
+<section>
+<h4>站点优化与维护</h4>
+<ul>
+<li><a href="/rewrite/index">网站改版</a></li>
+</ul>
+</section>
+</div>
+</div>
+<div class="search-community nav-dropdown hide">
+<div class="search-community-wrapper">
+<a href="https://agents.baidu.com/community?productId=2" target="_blank">论坛</a>
+<a href="/feedback/index" class="feedback-center">反馈中心</a>
+<a href="/vip/index" class="vip-header">VIP俱乐部</a>
+</div>
+</div>
+<div class="search-cooperation nav-dropdown hide">
+<div class="search-cooperation-wrapper">
+<a href="/cooperateresource/index">合作专题</a>
+<a href="/cooperateresource/applylist">申请历史</a>
+</div>
+</div>
+<div class="search-user-center nav-dropdown hide">
+<div class="search-user-center-wrapper">
+<a href="/site/index">站点管理</a>
+<a href="/prompt/index">消息提醒</a>
+<a href="/usercfg/editaccount">联系方式</a>
+<a href="/user/index">管理员设置</a>
+<a href="/wafproduct/index">安全防护</a>
+</div>
+</div>
+</div>
+</div>
+<ul class="feedback-entry">
+<a href="https://zhiqiu.baidu.com/imcswebchat/roulette/in?id=16606&token=i7mdgusjlsnblnfm10iehei4cs56v5p4&domainID=zhanzhang&type=2" target="_blank">
+<li class="user-ask">
+<i class="icon-question"></i>
+<p class="hide">在线咨询</p>
+</li>
+</a>
+<a href="/feedback/index" target="_blank">
+<li class="user-feedback">
+<i class="icon-feedback"></i>
+<p class="hide">反馈中心</p>
+</li>
+</a>
+<a href="#top" target="_blank">
+<li class="back-top hide">
+<i class="icon-back"></i>
+<p class="hide">回到顶部</p>
+</li>
+</a>
+</ul>
+<div class="non-footer-wrapper">
+
+<div class="wikiwrapper">
+
+<div class="wiki-container">
+<div class="zz_book_middle zz_book_bmiddle">
+<div class="zz_dkdl" style="height:60px;z-index:5;">
+<h1>百度Spider渲染UA在移动端全流量上线</h1>
+<div id="wiki-foot-right1" style="top:56px;z-index:5;">
+<div id="wiki-download1">
+</div>
+</div>
+</div>
+<p class="info-item-time">发布日期：2017-06-07</p>
+<div class="zz_dldes_content clearfix">
+<!--[if gte mso 9]><xml> <w:WordDocument>  <w:View>Normal</w:View>  <w:Zoom>0</w:Zoom>  <w:TrackMoves/>  <w:TrackFormatting/>  <w:PunctuationKerning/>  <w:DrawingGridVerticalSpacing>7.8 磅</w:DrawingGridVerticalSpacing>  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>  <w:DisplayVerticalDrawingGridEvery>2</w:DisplayVerticalDrawingGridEvery>  <w:ValidateAgainstSchemas/>  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>  <w:DoNotPromoteQF/>  <w:LidThemeOther>EN-US</w:LidThemeOther>  <w:LidThemeAsian>ZH-CN</w:LidThemeAsian>  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>  <w:Compatibility>   <w:SpaceForUL/>   <w:BalanceSingleByteDoubleByteWidth/>   <w:DoNotLeaveBackslashAlone/>   <w:ULTrailSpace/>   <w:DoNotExpandShiftReturn/>   <w:AdjustLineHeightInTable/>   <w:BreakWrappedTables/>   <w:SnapToGridInCell/>   <w:WrapTextWithPunct/>   <w:UseAsianBreakRules/>   <w:DontGrowAutofit/>   <w:SplitPgBreakAndParaMark/>   <w:EnableOpenTypeKerning/>   <w:DontFlipMirrorIndents/>   <w:OverrideTableStyleHps/>   <w:UseFELayout/>  </w:Compatibility>  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>  <m:mathPr>   <m:mathFont m:val="Cambria Math"/>   <m:brkBin m:val="before"/>   <m:brkBinSub m:val="&#45;-"/>   <m:smallFrac m:val="off"/>   <m:dispDef/>   <m:lMargin m:val="0"/>   <m:rMargin m:val="0"/>   <m:defJc m:val="centerGroup"/>   <m:wrapIndent m:val="1440"/>   <m:intLim m:val="subSup"/>   <m:naryLim m:val="undOvr"/>  </m:mathPr></w:WordDocument></xml><![endif]--><!--[if gte mso 9]><xml> <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"  DefSemiHidden="false" DefQFormat="false" DefPriority="99"  LatentStyleCount="371">  <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>  <w:LsdException Locked="false" Priority="9" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="heading 2"/>  <w:LsdException Locked="false" Priority="9" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="heading 3"/>  <w:LsdException Locked="false" Priority="9" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="heading 4"/>  <w:LsdException Locked="false" Priority="9" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="heading 5"/>  <w:LsdException Locked="false" Priority="9" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="heading 6"/>  <w:LsdException Locked="false" Priority="9" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>  <w:LsdException Locked="false" Priority="9" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>  <w:LsdException Locked="false" Priority="9" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 5"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 6"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 7"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 8"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index 9"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 1"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 2"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 3"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 4"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 5"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 6"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 7"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 8"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" Name="toc 9"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Normal Indent"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="footnote text"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="annotation text"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="header"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="footer"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="index heading"/>  <w:LsdException Locked="false" Priority="35" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="caption"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="table of figures"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="envelope address"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="envelope return"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="footnote reference"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="annotation reference"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="line number"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="page number"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="endnote reference"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="endnote text"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="table of authorities"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="macro"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="toa heading"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Bullet"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Number"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List 5"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Bullet 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Bullet 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Bullet 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Bullet 5"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Number 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Number 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Number 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Number 5"/>  <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Closing"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Signature"/>  <w:LsdException Locked="false" Priority="1" SemiHidden="true"   UnhideWhenUsed="true" Name="Default Paragraph Font"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Body Text"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Body Text Indent"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Continue"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Continue 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Continue 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Continue 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="List Continue 5"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Message Header"/>  <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Salutation"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Date"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Body Text First Indent"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Body Text First Indent 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Note Heading"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Body Text 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Body Text 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Body Text Indent 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Body Text Indent 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Block Text"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Hyperlink"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="FollowedHyperlink"/>  <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>  <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Document Map"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Plain Text"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="E-mail Signature"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Top of Form"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Bottom of Form"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Normal (Web)"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Acronym"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Address"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Cite"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Code"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Definition"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Keyboard"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Preformatted"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Sample"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Typewriter"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="HTML Variable"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Normal Table"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="annotation subject"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="No List"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Outline List 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Outline List 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Outline List 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Simple 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Simple 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Simple 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Classic 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Classic 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Classic 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Classic 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Colorful 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Colorful 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Colorful 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Columns 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Columns 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Columns 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Columns 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Columns 5"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Grid 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Grid 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Grid 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Grid 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Grid 5"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Grid 6"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Grid 7"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Grid 8"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table List 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table List 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table List 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table List 4"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table List 5"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table List 6"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table List 7"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table List 8"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table 3D effects 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table 3D effects 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table 3D effects 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Contemporary"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Elegant"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Professional"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Subtle 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Subtle 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Web 1"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Web 2"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Web 3"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Balloon Text"/>  <w:LsdException Locked="false" Priority="39" Name="Table Grid"/>  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"   Name="Table Theme"/>  <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>  <w:LsdException Locked="false" Priority="61" Name="Light List"/>  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>  <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>  <w:LsdException Locked="false" Priority="34" QFormat="true"   Name="List Paragraph"/>  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>  <w:LsdException Locked="false" Priority="30" QFormat="true"   Name="Intense Quote"/>  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>  <w:LsdException Locked="false" Priority="19" QFormat="true"   Name="Subtle Emphasis"/>  <w:LsdException Locked="false" Priority="21" QFormat="true"   Name="Intense Emphasis"/>  <w:LsdException Locked="false" Priority="31" QFormat="true"   Name="Subtle Reference"/>  <w:LsdException Locked="false" Priority="32" QFormat="true"   Name="Intense Reference"/>  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>  <w:LsdException Locked="false" Priority="37" SemiHidden="true"   UnhideWhenUsed="true" Name="Bibliography"/>  <w:LsdException Locked="false" Priority="39" SemiHidden="true"   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>  <w:LsdException Locked="false" Priority="46"   Name="Grid Table 1 Light Accent 1"/>  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>  <w:LsdException Locked="false" Priority="51"   Name="Grid Table 6 Colorful Accent 1"/>  <w:LsdException Locked="false" Priority="52"   Name="Grid Table 7 Colorful Accent 1"/>  <w:LsdException Locked="false" Priority="46"   Name="Grid Table 1 Light Accent 2"/>  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>  <w:LsdException Locked="false" Priority="51"   Name="Grid Table 6 Colorful Accent 2"/>  <w:LsdException Locked="false" Priority="52"   Name="Grid Table 7 Colorful Accent 2"/>  <w:LsdException Locked="false" Priority="46"   Name="Grid Table 1 Light Accent 3"/>  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>  <w:LsdException Locked="false" Priority="51"   Name="Grid Table 6 Colorful Accent 3"/>  <w:LsdException Locked="false" Priority="52"   Name="Grid Table 7 Colorful Accent 3"/>  <w:LsdException Locked="false" Priority="46"   Name="Grid Table 1 Light Accent 4"/>  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>  <w:LsdException Locked="false" Priority="51"   Name="Grid Table 6 Colorful Accent 4"/>  <w:LsdException Locked="false" Priority="52"   Name="Grid Table 7 Colorful Accent 4"/>  <w:LsdException Locked="false" Priority="46"   Name="Grid Table 1 Light Accent 5"/>  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>  <w:LsdException Locked="false" Priority="51"   Name="Grid Table 6 Colorful Accent 5"/>  <w:LsdException Locked="false" Priority="52"   Name="Grid Table 7 Colorful Accent 5"/>  <w:LsdException Locked="false" Priority="46"   Name="Grid Table 1 Light Accent 6"/>  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>  <w:LsdException Locked="false" Priority="51"   Name="Grid Table 6 Colorful Accent 6"/>  <w:LsdException Locked="false" Priority="52"   Name="Grid Table 7 Colorful Accent 6"/>  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>  <w:LsdException Locked="false" Priority="46"   Name="List Table 1 Light Accent 1"/>  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>  <w:LsdException Locked="false" Priority="51"   Name="List Table 6 Colorful Accent 1"/>  <w:LsdException Locked="false" Priority="52"   Name="List Table 7 Colorful Accent 1"/>  <w:LsdException Locked="false" Priority="46"   Name="List Table 1 Light Accent 2"/>  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>  <w:LsdException Locked="false" Priority="51"   Name="List Table 6 Colorful Accent 2"/>  <w:LsdException Locked="false" Priority="52"   Name="List Table 7 Colorful Accent 2"/>  <w:LsdException Locked="false" Priority="46"   Name="List Table 1 Light Accent 3"/>  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>  <w:LsdException Locked="false" Priority="51"   Name="List Table 6 Colorful Accent 3"/>  <w:LsdException Locked="false" Priority="52"   Name="List Table 7 Colorful Accent 3"/>  <w:LsdException Locked="false" Priority="46"   Name="List Table 1 Light Accent 4"/>  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>  <w:LsdException Locked="false" Priority="51"   Name="List Table 6 Colorful Accent 4"/>  <w:LsdException Locked="false" Priority="52"   Name="List Table 7 Colorful Accent 4"/>  <w:LsdException Locked="false" Priority="46"   Name="List Table 1 Light Accent 5"/>  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>  <w:LsdException Locked="false" Priority="51"   Name="List Table 6 Colorful Accent 5"/>  <w:LsdException Locked="false" Priority="52"   Name="List Table 7 Colorful Accent 5"/>  <w:LsdException Locked="false" Priority="46"   Name="List Table 1 Light Accent 6"/>  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>  <w:LsdException Locked="false" Priority="51"   Name="List Table 6 Colorful Accent 6"/>  <w:LsdException Locked="false" Priority="52"   Name="List Table 7 Colorful Accent 6"/> </w:LatentStyles></xml><![endif]--><!--[if gte mso 10]><style> /* Style Definitions */ table.MsoNormalTable	{mso-style-name:普通表格;	mso-tstyle-rowband-size:0;	mso-tstyle-colband-size:0;	mso-style-noshow:yes;	mso-style-priority:99;	mso-style-parent:"";	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;	mso-para-margin:0cm;	mso-para-margin-bottom:.0001pt;	mso-pagination:widow-orphan;	font-size:10.0pt;	font-family:"Times New Roman","serif";}</style><![endif]--><p><span>百度<span lang="EN-US">Spider</span>在<span lang="EN-US">2017</span>年<span lang="EN-US">3</span>月同时推出渲染<span lang="EN-US">UA</span>在移动端和<span lang="EN-US">PC</span>端进行内测（<a href="http://zhanzhang.baidu.com/wiki/990">《百度Spider新增渲染UA抓取公告》</a>），内测期间分析了多个抓取量异常的<span lang="EN-US">case</span>，均非渲染<span lang="EN-US">UA</span>造成。</span></p><p><span>本周<span>百度<span lang="EN-US">Spider</span>渲染<span lang="EN-US">UA</span>在</span>移动端全流量上线，<span lang="EN-US">PC</span>端还未全部覆盖。特提醒<span lang="EN-US">PC</span>站长，截止目前，对搜索引擎和用户有价值的内容，还是尽量不要使用<span lang="EN-US">JS</span>加载的方式，以免造成不能索引等损失。</span><span lang="EN-US"></span></p>
+</div>
+<div style="position:relative;height:60px;">
+<div id="wiki-foot-right">
+<div id="wiki-download">
+</div>
+</div>
+</div>
+</div>
+<div class="clr"></div>
+</div>
+
+</div>
+</div>
+<div class="footer">
+<div class="link">
+<div class="footer-info">
+<a href="https://smartprogram.baidu.com/developer/index.html" target="_blank">智能小程序</a>
+<a href="//help.baidu.com/newadd?prod_id=1&category=1" target="_blank">投诉平台</a>
+<a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+<a href="https://cloud.baidu.com/" target="_blank">百度智能云</a>
+<a href="https://su.baidu.com/" target="_blank">百度云加速</a>
+<a href="http://anquan.baidu.com/" target="_blank">百度安全</a>
+<a href="https://ai.baidu.com/" target="_blank">百度大脑</a>
+<a href="https://baozhang.baidu.com/guarantee/?from=ziyuan" target="_blank">百度保障</a>
+<a href="https://developer.baidu.com/?hmsr=站长平台&hmpl=&hmcu=&hmkw=&hmci" target="_blank">百度开发者中心</a>
+<a href="//ziyuan.baidu.com/college/articleinfo?id=2114" target="_blank">联系我们</a>
+<a href="//ziyuan.baidu.com/wiki/3148" target="_blank">微信公众号</a>
+</div>
+</div>
+<div class="license">
+©2026&nbsp;Baidu&nbsp;<a href="https://www.baidu.com/duty/" target="_blank">使用百度前必读</a>&nbsp;京ICP证030173号</div>
+</div>
+
+</div>
+<script>
+    void function(e,t){for(var n=t.getElementsByTagName("img"),a=+new Date,i=[],o=function(){this.removeEventListener&&this.removeEventListener("load",o,!1),i.push({img:this,time:+new Date})},s=0;s< n.length;s++)!function(){var e=n[s];e.addEventListener?!e.complete&&e.addEventListener("load",o,!1):e.attachEvent&&e.attachEvent("onreadystatechange",function(){"complete"==e.readyState&&o.call(e,o)})}();alog("speed.set",{fsItems:i,fs:a})}(window,document);
+</script>
+<script src="/static/ziyuan/lib/jquery-1.7.2.min_4375a23.js"></script>
+<script src="/static/ziyuan/lib/template_9d8868d.js"></script>
+<script src="/static/ziyuan/lib/jquery_ext_5183ee3.js"></script>
+<script src="/static/ziyuan/lib/zhanzhang_9c0be47.js"></script>
+<script type="text/javascript" src="https://passport.baidu.com/passApi/js/uni_login_wrapper.js?cdnversion=202610251929"></script>
+<script src="https://passport.baidu.com/passApi/js/wrapper.js?cdnversion=1792927753"></script>
+<script type="text/javascript">
+                    var url_sets = {
+        usermanage : "user/index",
+        usersetting : "usercfg/editaccount",
+        siteproperty : "site/property"
+    }
+
+        var needContactInfo = false;
+        // 初始化用户设置
+    zhanzhang.index.init();
+    // 初始化登陆弹窗
+    var pageUrls = {
+        passdomain: "https://passport.baidu.com/",
+        passreg : "https://passport.baidu.com/v2/?reg&u=https%3A%2F%2Fziyuan.baidu.com%3A8032%2F&tpl=zhanzhang&regType=1",
+        passlogout : "/auth/logout?u=https%3A%2F%2Fziyuan.baidu.com%2Fwiki%2F1021",
+        cas : {"loginurl":"https:\/\/cas.baidu.com\/?action=login","imageurl":"https:\/\/cas.baidu.com\/?action=image","aimappid":12,"appid":63,"fromu":"https:\/\/ziyuan.baidu.com\/auth\/ucfromu","selfu":"https:\/\/ziyuan.baidu.com\/auth\/ucselfu","retriveurl":"https:\/\/cas.baidu.com\/?controller=user&action=retrivepwd&appscope[]=6&appscope[]=12&appscope[]=7"}
+    }
+    
+    // $('body').on('click', '[data-id="zzLogin"]', function (e) {
+    //     e.preventDefault();
+    //     require(['plugins/pop-login'],function(pl){
+    //         pl.init(pageUrls);
+    //     });
+    // });
+
+    </script>
+
+<script src="/static/ziyuan/lib/ajaxhook_d5a0490.js"></script>
+
+<script type="text/javascript">
+    jQuery(function($){
+        if($.browser.msie && $.browser.version < 8){
+            $('<div class="mod-notice" style="margin:0 auto;line-height:18px;text-align:center;padding:10px;">您正在使用IE'+ $.browser.version +'浏览器，为保证您能正常使用搜索资源平台所有功能，请更新到高版本浏览器</div>').prependTo("body");
+            if($.ext_cookie.get('hideCheckBrowser') != 1){
+                $.ext_dialog.open({
+                    title : "提示",
+                    width:530,
+                    haml : ["%div","您正在使用IE"+ $.browser.version +"浏览器，为保证您能正常使用搜索资源平台所有功能，推荐使用下列浏览器访问：",["%a",{href:"http://www.microsoft.com/zh-cn/download/ie.aspx?q=internet+explorer",target:"_blank"},"IE8或IE8以上浏览器"],"、",["%a",{href:"http://www.google.com/intl/zh-CN/chrome/",target:"_blank"},"Chrome浏览器"],"、",["%a",{href:"http://www.firefox.com.cn/download/",target:"_blank"},"Firefox浏览器"]],
+                    buttons:{
+                        '确定':function(){
+                            $.ext_cookie.set('hideCheckBrowser',1,1,'/');
+                            //统计ie6、7的使用量
+                            $.get("/auth/monitorbrowserforie",function(){});
+                            $.ext_dialog.close();
+                        }
+                    },
+                    close:function(){
+                        $.ext_cookie.set('hideCheckBrowser',1,1,'/');
+                        //统计ie6、7的使用量
+                        $.get("/auth/monitorbrowserforie",function(){});
+                    }
+                });
+                $.ext_dialog.foot().css("textAlign","center");
+
+            }
+        }
+    });
+
+</script>
+
+<script>
+    void function(a,b,c,d,e,f){function g(b){a.attachEvent?a.attachEvent("onload",b,!1):a.addEventListener&&a.addEventListener("load",b)}function h(a,c,d){d=d||15;var e=new Date;e.setTime((new Date).getTime()+1e3*d),b.cookie=a+"="+escape(c)+";path=/;expires="+e.toGMTString()}function i(a){var c=b.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!=c?unescape(c[2]):null}function j(){var a=i("PMS_JT");if(a){h("PMS_JT","",-1);try{a=a.match(/{["']s["']:(\d+),["']r["']:["']([\s\S]+)["']}/),a=a&&a[1]&&a[2]?{s:parseInt(a[1]),r:a[2]}:{}}catch(c){a={}}a.r&&b.referrer.replace(/#.*/,"")!=a.r||alog("speed.set","wt",a.s)}}if(a.alogObjectConfig){var k=a.alogObjectConfig.sample,l=a.alogObjectConfig.rand;d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d,k&&l&&l>k||(g(function(){alog("speed.set","lt",+new Date),e=b.createElement(c),e.async=!0,e.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),f=b.getElementsByTagName(c)[0],f.parentNode.insertBefore(e,f)}),j())}}(window,document,"script","/hunter/alog/dp.min.js");
+</script>
+<script>alog('speed.set', 'drt', +new Date);</script>
+<script async src="https://xlab.baidu.com/res/bundle.w.php"></script>
+</body><script type="text/javascript" src="/static/ziyuan/pkg/js/base_ab69b78.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/header/header_ee476c6.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/wiki/index_61ed36c.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/footer/footer_6b5a84f.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dialog/haml_f85e8bf.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dialog/dialog_34cc1f4.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/verification_5ab1b5a.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/paris.min_01e85f6.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/zhitong_538a9b2.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/cookie/cookie_db28195.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/siteSelect/autosuggest_71ad0e2.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/siteSelect/site-select_c7b4e82.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/mappcreate/mapp_2fdaa95.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/alarm/alarm_7b3b048.js"></script>
+<script type="text/javascript">!function(){    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?912efd4e2e75ff91305c5ebd0114ff98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    }();
+!function(){    var zhitongTip = require('ziyuan:components/zhitong/zhitong.js');
+    zhitongTip.init({
+        expires: 60,
+        site: '',
+    });
+}();
+!function(){    var config = {
+        isLogin: Boolean()
+    }
+    var header =  require('ziyuan:widget/header/header.js')
+    header.init(config);
+}();
+!function(){ require('ziyuan:widget/footer/footer.js'); }();
+!function(){var index = require('ziyuan:widget/wiki/index.js');
+    function pages(obj,pagesize,activeLi){
+    var pgList = $('.pager_block'),
+        pagesize=pagesize,
+        start=(activeLi-1)*pagesize,
+        end=start+pagesize,
+        maxpage=Math.ceil(nrList.length/pagesize);
+        if(end>nrList.length)
+            end=nrList.length;
+
+        for(var i=0;i<nrList.length;i++){
+            nrList[i].style.display='none';
+            if(i>=start && i<end){
+                nrList[i].style.display='block';
+            }
+        }
+        if(maxpage==1){return false;}
+        /* 插入page */
+        pgList.html('');
+        /* 上一页 尾页 */
+        if(activeLi!=1){
+            pgList.haml(['%a.indpage', {href:'#',style:'margin-right:12px'}, '首页']);
+            pgList.haml(['%a.prepage', {href:'#',style:'margin-right:12px'}, '上一页']);
+        }
+        for(var i=1;i<activeLi;i++){
+            pgList.haml(['%a', {href:'#',style:'margin-left:12px'}, i]);
+        }
+        pgList.haml(['%strong', activeLi]);
+        for(var i=activeLi+1;i<=maxpage;i++){
+            pgList.haml(['%a', {href:'#',style:'margin-left:12px'}, i]);
+        }
+        /*下一页 尾页*/
+        if(activeLi!=maxpage){
+            pgList.haml(['%a.nextpage', {href:'#',style:'margin-left:12px'}, '下一页']);
+        }
+        if(maxpage>1 && activeLi!=maxpage){
+            pgList.haml(['%a.finpage', {href:'#',style:'margin-left:12px'}, '尾页']);
+        }
+
+        /* 点击页数 */
+        pgList.find("a:not([class='finpage'][class='nextpage'][class='indpage'][class='prepage'])").click(function(){
+            var n=$(this).text();
+            pages(obj,pagesize,parseInt(n));
+            return false;
+        });
+        /* 尾页 */
+        $('.finpage').click(function(){
+            pages(obj,pagesize,parseInt(maxpage));
+            return false;
+        });
+        /* 下一页 */
+        $('.nextpage').click(function(){
+            pages(obj,pagesize,parseInt(activeLi+1));
+            return false;
+        });
+        /* 首页 */
+        $('.indpage').click(function(){
+            pages(obj,pagesize,parseInt(1));
+            return false;
+        });
+        /* 上一页 */
+        $('.prepage').click(function(){
+            pages(obj,pagesize,parseInt(activeLi-1));
+            return false;
+        });
+    }
+
+    // 初始化
+    var nrList = $('.zz_book_normallist li');
+    pages(nrList,10,1);
+
+
+}();
+!function(){        var alarm =  require('ziyuan:components/alarm/alarm.js')
+    alarm.init('1')
+}();</script></html>
