@@ -1,0 +1,25 @@
+{
+  "round": 50,
+  "base": "9619af67c52939daac502ca7a24c9d714f3f51db",
+  "declaredBeforeScoring": true,
+  "author": "Kimi fresh L1",
+  "lowestAxis": "operability, tied with freshness at 10; stagnation nudge would waive the lowest-axis obligation because round 49 entered no capability inside N=1. C2 works that surface anyway because the routed repair is operability. C1 is the frontier move.",
+  "claims": [
+    {
+      "id": "C1",
+      "axis": "freshness",
+      "type": "capability",
+      "predicate": "met: classed == 3 of 3 declared ids",
+      "declaredIds": ["S273", "S274", "S286"],
+      "countingCommand": "python3 -B .ufo/waves/round-50/c50_quote_class.py --root . --revision <commit>",
+      "doNothing": "the same command at base 9619af67c52939daac502ca7a24c9d714f3f51db, which has no class ledger and no S286 row"
+    },
+    {
+      "id": "C2",
+      "axis": "operability",
+      "predicate": "met: durable == 1 of 1",
+      "countingCommand": "python3 -B .ufo/waves/round-50/c50_durable.py --root . --revision <commit>",
+      "doNothing": "the same command at base 9619af67c52939daac502ca7a24c9d714f3f51db, which has no order proof and no wave-grant stdout"
+    }
+  ]
+}

@@ -1973,3 +1973,47 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   C2 0/2 exit 1. Census `validate --root` exit 0. Wave: one v1 batch of 32
   Kimi prompts after `granted lane=kake wave=r49-w1 seats=32`; 23 exit 0, 9
   timeout-killed, not replaced. AgentSwarm was not bound on this L1.
+
+## Round 50 — 2026-10-24
+
+- **Declared claims, frozen before any score.** Two claims, one per owned axis, each with a
+  one-command counter over committed bytes and a do-nothing control at the base
+  `9619af67c52939daac502ca7a24c9d714f3f51db`. C1 (freshness, capability acquisition):
+  `met: classed == 3 of 3 declared ids` over S273, S274 and S286 —
+  `python3 -B .ufo/waves/round-50/c50_quote_class.py --root . --revision <commit>`. C2
+  (operability): `met: durable == 1 of 1` —
+  `python3 -B .ufo/waves/round-50/c50_durable.py --root . --revision <commit>`. At the base
+  the two counters print `classed 0/3 met=False` and `durable 0/1 met=False`, both exit 1.
+  The frozen contract is `.ufo/waves/round-50/contract.json`; the frozen quote classes and
+  their blob sha256 pins are `.ufo/waves/round-50/quote-classes.json`. Both owned axes sit
+  on the legacy 10/10 line, so the lowest-axis obligation is met by construction; the
+  stagnation nudge would waive it (round 49 entered no capability inside N=1), and C2 works
+  the operability surface anyway because the routed repair is operability.
+- **The round-49 routed defects, addressed.** Routed defect 1 (a wave citation with no
+  durable grant) is what C2 exists to catch: the grant stdout and the exact dispatch command
+  are committed at a strict ancestor of the measured revision, and the LOG cites the wave
+  only after that ancestor exists. Routed defect 2 (the 12 quarantine ids were never
+  re-fetched) is honoured by adopting none of them: the slice was re-derived read-only and
+  no id was hand-checked, so no id was appended. Routed defect 3 (operator-owned files) is
+  honoured by leaving the eight `.ufo/waves/round-46/residual/` reports and the nine `>1MiB`
+  copies under `.ufo/waves/round-48/assimilation/validate/` uncommitted and untouched.
+- **Assimilation, one theme.** Theme: the crawl-error status layer. One entry,
+  `corpus/knowledge/crawl-error-status-table.md`, grounded on S286 only. Scratch collision
+  check with the census parser's own 0-to-3-leading-space pattern: the staged ids that
+  overlap the lane registry are S273 and S274 only, so the adopted id S286 is free; the
+  guard was proven able to fail on an indented `S286` row (`guard/guard-collisions` is
+  non-empty, the column-zero-only fixture `guard/guard-col0` is empty). Row normalization:
+  recheck `180d`, with the staged prose `curl ... | grep -c 'scale back its crawling'`
+  stripped and recorded in the lesson's Gate block; no literal or escaped pipe in any cell;
+  status `mined`; opened re-grounded to this round's access date 2026-10-24; `used-by`
+  exactly the one admitted entry. Validate-before-append: the mirrored registry
+  `sources-census.sh validate --file ...` exits 0 with warnings only and no E03 or E04
+  (`.ufo/waves/round-50/assimilation/pre-append/census-argv.txt`, `census-exit.txt`,
+  `census-stdout.txt`). Two staged entries were refused with reason and flip: the Jekyll
+  url/baseurl row (duplicate URL of the held S080) and the Ollama OpenAPI entry (kama's
+  province). The 12-row quarantine slice was re-derived and left unadopted.
+- **Pre-append mirror committed before any registry append.** The mirror is the lane's
+  `corpus/` plus the S286 row, at
+  `.ufo/waves/round-50/assimilation/pre-append/corpus/SOURCES.md`; the live registry at this
+  commit still holds 142 rows and no S286 row. The live append happens in a later commit,
+  after the wave settles.
