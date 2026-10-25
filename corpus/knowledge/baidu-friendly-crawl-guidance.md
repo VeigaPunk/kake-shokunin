@@ -62,3 +62,7 @@ The three quotations are exact raw substrings of the retained body `(S329.html, 
 452aabc3…)`. The wildcard quotation is one continuous run of bytes; the two symbols it introduces
 appear on the same page as `*` and `$` inside separate spans, so this entry names them in
 backticks rather than quoting each symbol. Nothing in this entry is a rendered-text reconstruction.
+
+## Round-53 source corrections (append-only)
+
+The round-52 `source:` line's locator is superseded for the quoted PC/mobile clause by S416: it sits under `如何正确识别Baiduspider移动ua`. The other two quoted passages sit under `robots写法` (wildcards) and `使用robots巧妙避免蜘蛛黑洞` (spider trap); “the same section” must not be read to cover all three. The page-level header prints `最新更新章节：2019-09-18`; the earlier “no revision date” statement above is withdrawn. The Baidu and Google crawler cases are parallel on the shared robots token and user-agent subtype distinction; the earlier “opposite consequence” comparison is withdrawn. The original lines remain for history.

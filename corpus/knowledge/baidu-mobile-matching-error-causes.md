@@ -55,3 +55,7 @@ page) [S312].
 Both quotations are exact raw substrings of the retained body `(S312.html, sha256 126c3da4…)`.
 The list items around them are plain paragraphs whose numbering this entry renders as prose; no
 quotation is a reconstructed sentence.
+
+## Round-53 source correction (append-only)
+
+The round-52 `source:` line's locator is superseded by S417: both quoted items sit under `如何提升移动适配效果`, in the list introduced by `以下是常见的对应不准确错误`. `对应关系错误` is only the label of item 5, and `常见原因` is not a section heading. The `2020-08-14` string is the page-header `最新更新章节` marker, not a timestamp on the quoted section. This list describes common correspondence errors; it is not the separate formal `校验失败` list of submission failures. The original lines remain for history.
