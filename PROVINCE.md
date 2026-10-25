@@ -363,3 +363,21 @@ stays open and stays tabi's adjacent province for anything that executes a brows
 that still speak of a bare "Googlebot" (js-rendering-queue, dynamic-rendering-workaround-limits,
 crawl-error-status-table) stay true as vendor sentences but inherit subtype ambiguity; a round
 that closes that must cross-reference the new entry, not re-derive it.
+
+## Round-52 per-engine crawl hygiene (and a correction to the round-51 wording)
+
+Round 51's block above says it "narrows Frontier line 23". The bytes of line 23 are identical
+before and after round 51; what changed is this document's reading of it, added as that block.
+Read the sentence that way (round-51 closure routed defect 6).
+
+Round 52 adds three entries on per-engine crawl hygiene beyond Google, on rows opened this round.
+`corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md` (S374): a link attribute states
+non-endorsement and is not weighed when results are ordered — it is not a crawl refusal, and the
+tagged URL is still used to find new pages. `corpus/knowledge/baidu-friendly-crawl-guidance.md`
+(S329): one `User-agent: Baiduspider` block binds the PC and mobile crawlers together, the crawler
+honours the `*` and `$` wildcards, and the spider trap is the site's own low-cost generation of
+near-identical parameter URLs that the refusal file is to cover.
+`corpus/knowledge/baidu-mobile-matching-error-causes.md` (S312): the five causes of a failed
+PC↔mobile correspondence, including a mobile main body loaded by ajax and a robots block on
+Baiduspider. All three are Frontier knowledge: no gate, no owned property audited, no publish
+action. Publishing stays operator-owned.

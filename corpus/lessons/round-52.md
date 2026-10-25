@@ -106,3 +106,23 @@ be produced by a plain GET). Nothing in this round's three admissions comes from
 No seat time is claimed, so the C1 predicate is not a statement about a wave: it is a
 statement about the instruments (registry rows, selftest receipts, mutation ladder, real-data
 reruns), each of which has a committed receipt under `.ufo/waves/round-52/control/`.
+
+## Drift reconciliation (observed, not re-pinned over a live divergence)
+
+The sweep entered this round at `VERDICT: DRIFT` with three legs (`control/drift-before.txt`).
+
+- **PQ-2 push gate** — the remote had advanced `e6bd071…` → `24991e44c74d1061db55652be4a27db56efc8791`
+  and the local clone was 0 commits ahead (pin said 20). Re-pinned to the observed remote and 0
+  unpushed, with the transition recorded in `freshness-pins.json` (`pq2Reconciled`); the sweep now
+  reports `GATE-CLOSED`. This is a pin advancing to an observed state, not a red state hidden.
+- **ds4cc sitemap** — the listing answered 200/7810 B where the pin held 404 (pre-push). Because a
+  published listing is a legitimate steady state, the instrument gained a pure
+  `sitemapVerdict(status, bytes, pinStatus, pinBytes)` with a `LISTED-STEADY` branch (bytes are the
+  predicate once the pinned status is 200) and a six-case selftest, taking the sweep selftest to
+  36/36. The pin now records 200/7810 B and the sweep reports `LISTED-STEADY`.
+- **plazir-gate-anomaly** — left red and disclosed: the source directory exists but its sitemap
+  source is absent (`source skipped(no-source-file)`) and the live sitemap carries 7 locs against a
+  pin of 8. Re-pinning it would hide an operator-owned absence.
+
+Result: the live sweep exits 1 with one leg (`control/sweep-after.txt`). The C2 predicate's
+`after == 1` counts that leg, not a clean sweep.

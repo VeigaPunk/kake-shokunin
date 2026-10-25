@@ -4232,3 +4232,33 @@ Both claims target the two owned axes at the 10/10 saturation line; the stagnati
 by round-51 capabilities and this round's capability-deepening C1. Routed defects r51-1…r51-9 from
 `corpus/lessons/round-51-verifier-spotcheck.md` are addressed per the contract's
 `routedDefectsAddressed`.
+
+### Round 52 — measured claims and receipts
+
+Predicates frozen in `.ufo/waves/round-52/contract.json` before any data. Measured revision
+`1ae8de5d4dee8300624b0db2a94497ff905942c5`; every receipt below lives under
+`.ufo/waves/round-52/control/`.
+
+| Claim | Frozen predicate | Measured | Receipt |
+|---|---|---|---|
+| C1 operability | `registry_rows == 2 AND selftest_receipts == 2 AND vacuity_mutant_families_killed >= 10 AND real_data_reruns_pass == 2 of 2` | 2 rows, 2 receipts (`c1-registry.txt`, exit 0); 13 of 18 mutant families rejected by the new ledger and accepted by the old one (`c1-mutation-ladder.txt`, exit 0); real data 3/3 (`c1-ledger-real.txt`) and 8/8 (`c2-quote-real.txt`); selftests 19/19 (`c1-ledger-selftest.txt`) and 18/18 (`c2-quote-selftest.txt`) | as named |
+| C2 freshness | `admitted_entries_citing_mined_rows == 3 AND registry_rows_delta == +3 AND census_validate_exit == 0 AND sweep_drift_legs_before == 3 AND sweep_drift_legs_after == 1` | 3 entries on S374/S329/S312 (C1–C8 all pass, `c2-quote-real.txt`); 145 → 148 rows (`census-after.txt`, exit 0, no E-codes); drift legs 3 (`drift-before.txt`) → 1 (`sweep-after.txt`, only `plazir-gate-anomaly`) | as named |
+
+Controls: the ledger at the pre-wave revision `007d66e4` scores 0/3, exit 1
+(`c1-ledger-control-absent.txt`); at the contract base `93d7fdb` it scores 3/3 because the
+round-51 wave evidence is present there (`c1-ledger-at-contract-base.txt`) — the meaningful C1
+control is the pre-wave revision. The quote counter at the contract base scores 0/8, exit 1
+(`c2-quote-base.txt`).
+
+No-harm evidence (round-51 routed defect 7): the live sweep exits 1 with exactly one leg,
+`plazir-gate-anomaly`, an operator-owned source absence (`~/Projects/plazir-15-site` source sitemap
+absent, live 7 locs vs pin 8); it is not re-pinned and stays disclosed. The two legs this round
+inherited were reconciled from observed state, each recorded in `corpus/knowledge/freshness-pins.json`:
+`pq2Reconciled` (remote `e6bd071…` → `24991e4…`, local 0 unpushed) and `sitemapReconciled`
+(listing live 200/7810 B; the source tree was pruned 2026-10-12, so it is pinned as the observed
+published state and cannot be source-verified). The sweep's sitemap verdict gained a pure
+`LISTED-STEADY` branch with one selftest case (36/36, `sweep-selftest.txt`) so a published listing
+is a valid pinned state instead of a mislabelled PRE-PUSH.
+
+The wave-1 dispatch (46 seats) was refused at the background-job cap and spawned nothing; no seat
+evidence is claimed anywhere in this round (lesson § Wave accounting).

@@ -5,7 +5,7 @@
 //   §paths    every cited FS path in SKILL.md + corpus/**/*.md vs the live FS
 //   §history  probe-history.jsonl shape (pinned) + probe-delta event shape
 //   §armed    PQ-12 charter-ghp beat pin · PQ-5 kimi dead slot · PQ-2 push
-//             gate · ds4cc.com pre-push sitemap
+//             gate · ds4cc.com sitemap listing (pin 404 = pre-push, pin 200 = published)
 //
 // A standing claim is a PIN, not prose: pins live in
 // corpus/knowledge/freshness-pins.json (loaded when present, else the
@@ -89,6 +89,16 @@ const DEFAULT_PINS = {
     pathsDriftMax: 0,
   },
 };
+
+// Round 52: the sitemap pin may legitimately record either an unpublished state
+// (status 404 = pre-push) or a published listing (status 200, bytes pinned). The
+// verdict is a pure function of the observed status/bytes and the pin, so it can be
+// asserted in --selftest without a network fetch.
+function sitemapVerdict(status, bytes, pinStatus, pinBytes) {
+  if (status !== pinStatus) return status === 200 ? 'LISTED-LIVE' : `NOTE-${status}`;
+  if (pinStatus === 200) return bytes === pinBytes ? 'LISTED-STEADY' : 'LISTED-CHANGED';
+  return 'PRE-PUSH';
+}
 
 // r15's live charter-ghp body sha, per /tmp/kake-r15/charter-live.html +
 // the round-15 LOG entry (live 2026-09-29T00:48:51Z: 200, 53,386B,
@@ -903,14 +913,13 @@ async function sectionArmed({ pins, offline, repoRoot, timeoutMs, only = null })
     if (pq2.unpushed !== pins.pq2Unpushed) pq2.note = `unpushed count ${pq2.unpushed} != pin ${pins.pq2Unpushed} (informational unless remote also moved)`;
   } catch (e) { pq2.gitError = e.message; pq2.verdict = 'ANOMALY'; }
 
-  // ── sitemap: ds4cc.com listing preview (404 = pre-push, expected)
-  const sitemap = { url: pins.sitemapUrl, expected: pins.sitemapStatus, pinnedBytes: pins.sitemapBytes, pinnedBytesIsInformational: true };  // status is the predicate; bytes recorded
+  // ── sitemap: ds4cc.com listing (404 = pre-push, 200 = published listing)
+  const sitemap = { url: pins.sitemapUrl, expected: { status: pins.sitemapStatus, bytes: pins.sitemapBytes } };
   try {
     const r = await fetchBody(pins.sitemapUrl, timeoutMs);
     Object.assign(sitemap, { status: r.status, bytes: r.bytes });
-    sitemap.verdict = r.status === pins.sitemapStatus ? 'PRE-PUSH'
-      : r.status === 200 ? 'LISTED-LIVE' : `NOTE-${r.status}`;
-    sitemap.ok = r.status === pins.sitemapStatus;
+    sitemap.verdict = sitemapVerdict(r.status, r.bytes, pins.sitemapStatus, pins.sitemapBytes);
+    sitemap.ok = sitemap.verdict === 'PRE-PUSH' || sitemap.verdict === 'LISTED-STEADY';
   } catch (e) { sitemap.fetchError = e.message; sitemap.verdict = 'ERROR'; sitemap.ok = false; }
 
   const plazir = await checkPlazir({ pins, offline, timeoutMs, });
@@ -920,7 +929,7 @@ async function sectionArmed({ pins, offline, repoRoot, timeoutMs, only = null })
   if (pq12.pinStale) driftVerdicts.push('PQ-12 EDIT-LANDED fired — sha pin re-baseline required');
   if (pq5.verdict !== 'PENDING') driftVerdicts.push(`PQ-5 ${pq5.verdict}`);
   if (pq2.verdict !== 'GATE-CLOSED') driftVerdicts.push(`PQ-2 ${pq2.verdict}`);
-  if (sitemap.verdict !== 'PRE-PUSH') driftVerdicts.push(`sitemap ${sitemap.verdict}`);
+  if (!sitemap.ok) driftVerdicts.push(`sitemap ${sitemap.verdict}`);
   for (const r of plazir.driftReasons) driftVerdicts.push(r);
 
   out.pq12 = pq12; out.pq5 = pq5; out.pq2 = pq2; out.sitemap = sitemap; out.plazir = plazir;
@@ -999,7 +1008,8 @@ function printArmed(a) {
   if (p2.warning) console.log(`    ${p2.warning}`);
   if (p2.note) console.log(`    note: ${p2.note}`);
   const sm = a.sitemap;
-  console.log(`  ds4cc sitemap  ${sm.verdict}${sm.verdict === 'PRE-PUSH' ? '' : '  (listing changed)'} — status ${sm.status}${sm.bytes !== undefined ? `/${sm.bytes}B` : ''}`);
+  const smNote = sm.verdict === 'PRE-PUSH' || sm.verdict === 'LISTED-STEADY' ? '' : '  (listing changed)';
+  console.log(`  ds4cc sitemap  ${sm.verdict}${smNote} — status ${sm.status}${sm.bytes !== undefined ? `/${sm.bytes}B` : ''}`);
   if (a.driftVerdicts && a.driftVerdicts.length) console.log(`  !! DRIFT verdicts: ${a.driftVerdicts.join(' · ')}`);
   if (a.plazir) printPlazir(a.plazir);
 }
@@ -1280,6 +1290,25 @@ async function selftest() {
       && j.sections.paths.declaredAbsent.some((d) => d.path.endsWith('selftest-missing.md'))
       && !j.sections.paths.declaredAbsent.some((d) => d.path.endsWith('selftest-present.md'))
       && j.sections.paths.resolve.some((d) => d.path.endsWith('selftest-present.md')),
+  });
+
+  // Round 52: the sitemap pin may hold an unpublished state (404) or a published
+  // listing (200 + pinned bytes). Assert the pure verdict table, including the two
+  // drift directions, so a re-pin cannot silently turn drift into steady.
+  const svCases = [
+    ['404 pinned, 404 live', sitemapVerdict(404, 0, 404, 9379), 'PRE-PUSH'],
+    ['404 pinned, 200 live', sitemapVerdict(200, 7810, 404, 9379), 'LISTED-LIVE'],
+    ['404 pinned, 500 live', sitemapVerdict(500, 0, 404, 9379), 'NOTE-500'],
+    ['200 pinned, 200 same bytes', sitemapVerdict(200, 7810, 200, 7810), 'LISTED-STEADY'],
+    ['200 pinned, 200 changed bytes', sitemapVerdict(200, 7900, 200, 7810), 'LISTED-CHANGED'],
+    ['200 pinned, 404 live', sitemapVerdict(404, 0, 200, 7810), 'NOTE-404'],
+  ];
+  const svWrong = svCases.filter(([, got, want]) => got !== want);
+  cases.push({
+    id: 's sitemap verdict table (round 52)',
+    expect: 'all six cases match: PRE-PUSH · LISTED-LIVE · NOTE-500 · LISTED-STEADY · LISTED-CHANGED · NOTE-404',
+    got: svWrong.length ? svWrong.map(([n, g, w]) => `${n}: ${g} (want ${w})`).join(' · ') : 'all six match',
+    pass: svWrong.length === 0,
   });
 
   const envB = { KAKE_REPO_ROOT: unannotated, KAKE_FRESHNESS_PINS: pins, KAKE_FETCH_TIMEOUT: '2000' };
