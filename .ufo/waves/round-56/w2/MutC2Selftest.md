@@ -94,14 +94,12 @@ def _(f):
     ln = next(l for l in f[ADOPTED["S367"]].splitlines()[:8] if re.match(r"^[-* ]*source *:", l)); dual(f, ADOPTED["S367"], ln, ln.replace("S367", "S368", 1))  # kills M12
 @case("fail_gate_quote_outside_content")
 def _(f):
-    g = gate_line_of(f, "S367"); q = re.findall(r'"([^"]+)"', g)[-1]
-    f[LESSON] = f[LESSON].replace(g, g.replace(q, "特定のリンク先ウェブページの"))  # real S367 nav string, outside the content window; kills M13
+    g = gate_line_of(f, "S367"); q = re.findall(r'"([^"]+)"', g)[-1]; f[LESSON] = f[LESSON].replace(g, g.replace(q, "特定のリンク先ウェブページの"))  # real S367 nav string, outside the content window; kills M13
 @case("fail_entry_two_unique_spans")
 def _(f):
     body = f[ADOPTED["S419"]]; text = f[f"{SOURCES_DIR}/S419.html"]
     others = [f[f"{SOURCES_DIR}/{s}.html"] for s in ("S367", "S420")]
-    spans = [s for s in re.findall(r'"([^"]+)"', "\n".join(body.splitlines()[8:]))
-             if units(s) >= 6 and text.count(s) == 1 and not any(s in t for t in others)][:2]
+    spans = [s for s in re.findall(r'"([^"]+)"', "\n".join(body.splitlines()[8:])) if units(s) >= 6 and text.count(s) == 1 and not any(s in t for t in others)][:2]
     new = "\n".join(ln for ln in body.split("\n") if '"' not in ln) + "".join(f'\n> "{s}"' for s in spans)
     f[ADOPTED["S419"]] = new; f[f"{VALIDATE}/{ADOPTED['S419']}"] = new                                        # kills M15
 @case("fail_char_ceiling_dual")
@@ -110,9 +108,9 @@ def _(f): dual(f, ADOPTED["S419"], "recheck: 180d", 'recheck: 180d\n> "続ける
 def _(f):
     body = f[ADOPTED["S420"]]
     keep = [ln for ln in body.split("\n") if '"' not in ln]
+    # spans verbatim in the retained body, but duplicated or shared with the S419 sibling body
     spans = ("存在しないウェブページが巡回される", "存在しないウェブページを表示しようとしたときに", "このような設定ができない場合には")
-    new = "\n".join(keep) + "".join(f'\n> "{s}"' for s in spans)  # verbatim, but duplicated or sibling-shared
-    f[ADOPTED["S420"]] = new; f[f"{VALIDATE}/{ADOPTED['S420']}"] = new                                        # kills M19
+    new = "\n".join(keep) + "".join(f'\n> "{s}"' for s in spans); f[ADOPTED["S420"]] = new; f[f"{VALIDATE}/{ADOPTED['S420']}"] = new  # kills M19
 @case("fail_gate_no_url")
 def _(f):
     g = gate_line_of(f, "S367"); f[LESSON] = f[LESSON].replace(g, g.replace(ROW_URL["S367"], ""))             # kills M20
@@ -148,9 +146,9 @@ mirror added at the tip commit (M33); mirror rewritten post-add-commit with an u
 EVIDENCE:
 
 - Clone `/tmp/mutc2.HrchmC` @ `a450e43e696d032e3ac308383f6b3394e0c92860` (toplevel = clone root); baseline
-  `c56 quote-truth selftest: 67/67`, exit 0.
-- Pristine counter sha256 `e874e3005de88218a7710b7b654288e0006cef11d8793a3c2d095756e2b37196`, re-verified
-  byte-identical after every mutant and validation run and at wave end (73 runs; each mutation asserted unique).
+  `c56 quote-truth selftest: 67/67`, exit 0. Pristine counter sha256
+  `e874e3005de88218a7710b7b654288e0006cef11d8793a3c2d095756e2b37196`, re-verified byte-identical after every
+  mutant and validation run and at wave end (73 runs; each mutation asserted unique).
 - No lane file, lane git index, or jj state touched; this report is the only lane write. Logs: `/tmp/mutc2.logs/`.
 
 VERDICT: 40 mutants → 14 killed, 26 survive; 19 survivor kills delivered as validated `@case` fixtures (dual-edit pattern defeats the C7 mask), 7 structurally masked — the selftest needs check-id assertions and `_build` variants, not just more file fixtures.
