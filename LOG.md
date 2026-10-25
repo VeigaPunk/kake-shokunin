@@ -2065,3 +2065,12 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   able to fail on an indented fixture (`guard/guard-collisions` is non-empty while the
   column-zero-only fixture `guard/guard-col0` is empty). The 12-row quarantine slice was
   re-derived read-only and left unadopted (`assimilation/quarantine-slice`).
+- **Round 51 — the registry append lands after the mirror, with the two entries and the
+  lesson.** Rows S262 and S263 are appended to `corpus/SOURCES.md` (143 rows to 145 rows;
+  no existing row's cell changed) after the pre-append mirror committed at
+  `19a99bd8c30d36a4d664871236ba2015d893b5b9`, and both rows are re-grounded: `opened`
+  2026-10-24 (the date this lane fetched them), `recheck` `180d`, `status` `mined`, and
+  `used-by` exactly the one admitted entry that cites each row. The admitted entries are
+  `corpus/knowledge/canonical-selection.md` (S262) and `corpus/knowledge/crawler-identity.md`
+  (S263); the round lesson is `corpus/lessons/round-51.md`. The retained source bodies and
+  their sha256 receipts are `.ufo/waves/round-51/sources/`.
