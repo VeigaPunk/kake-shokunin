@@ -1,0 +1,55 @@
+{
+ "schema": "kake-r57-contract-v1",
+ "baseRevision": "28fa0b23e699303725aba2727094531f5e44494d",
+ "roundDate": "2026-10-25",
+ "axisDeclaration": {
+  "C1": "calibration (round-54 sub-axis; lowest-scoring non-retired; ownership question open)",
+  "C2": "operability (capability acquisition)",
+  "C3": "freshness (sourced)"
+ },
+ "claims": {
+  "C1": {
+   "predicate": "met: undisclosed_relabels == 0 AND phantom_errata == 0 AND deleted_receipts == 0 AND new_relabelled == 0 AND new_unpinned == 0 AND new_receipts == 3 AND scorecard_pin == 1",
+   "counter": "python3 -B .ufo/waves/round-57/c57_receipt_pins.py --root <lane> --revision <tip>",
+   "baseControl": "undisclosed_relabels=6 new_receipts=0 scorecard_pin=0 met=False exit 1",
+   "kill": "exit 0 iff met; 1 not met; 2 unevaluable; 64 usage"
+  },
+  "C2": {
+   "predicate": "met: gate_conditions_passed == 5 of 5",
+   "counter": "python3 -B .ufo/waves/round-57/c57_idresolver_gate.py --root <lane> --revision <rev>",
+   "baseControl": "0/5 met=False exit 1",
+   "kill": "exit 0 iff met; 1 not met; 2 unevaluable; 64 usage"
+  },
+  "C3": {
+   "predicate": "met: conditions_passed == 8 of 8",
+   "counter": "python3 -B .ufo/waves/round-57/c57_quote_truth.py --root <lane> --revision <rev>",
+   "baseControl": "0/8 met=False exit 1",
+   "kill": "exit 0 iff met; 1 not met; 2 unevaluable; 64 usage"
+  }
+ },
+ "unitCeiling": 25,
+ "registryRowsBefore": 158,
+ "registryRowsAfterExpected": 160,
+ "renumberMap": {
+  "S403": "S421",
+  "S408": "S422"
+ },
+ "collisions": [
+  "S312",
+  "S329",
+  "S367",
+  "S372",
+  "S373",
+  "S374",
+  "S390",
+  "S409"
+ ],
+ "redRevision": "3994101dba28896830604fd0b08c7f00faca8ed6",
+ "redIds": [
+  "S367",
+  "S372",
+  "S373",
+  "S390",
+  "S409"
+ ]
+}

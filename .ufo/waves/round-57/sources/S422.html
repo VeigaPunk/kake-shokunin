@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+
+<html class="expanded">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="icon" sizes="any" mask href="//www.baidu.com/img/baidu.svg">
+<title>百度搜索Spider3.0升级对站点有什么好处_搜索资讯_百度搜索资源平台</title>
+<script>
+        // 已经在DP注册的页面，没注册的扔到默认里
+        var pageNameArr = [
+            'site',
+            'prompt',
+            'mobiletools',
+            'tools',
+            'linksubmit',
+            'badlink',
+            'robots',
+            'pressure',
+            'crawltools',
+            'crawl',
+            'indexs',
+            'sitelink',
+            'itemannotator',
+            'schema',
+            'dataplug',
+            'keywords',
+            'inbound',
+            'safe',
+            'leakdetect',
+            'rewrite',
+            'guide',
+            'tongji',
+            'feedback',
+            'siteclose',
+            'dashboard',
+            'appattribute'
+        ];
+        var pageName = '';
+        if (window.location.pathname !== '/') {
+            if (window.location.pathname.match('/([^/]+)/') === null) {
+                pageName = window.location.pathname.match('/([^/]+)')[1];
+            }
+            else {
+                pageName = window.location.pathname.match('/([^/]+)/')[1];
+            }
+            var inArray = function (needle,array){
+                var len=array.length;
+                for(var i=0;i<len;i++){
+                    if(needle===array[i]){
+                        return true;
+                    }
+                }
+                return false;
+            };
+            if (!inArray(pageName, pageNameArr)) {
+                pageName = '675_1';
+            }
+        }
+        else {
+            pageName = '675_1';
+        }
+        window.alogObjectConfig = {
+            sample: '1',
+
+            product: '657',
+            page: pageName,
+            monkey_page: '',
+            speed_page: '',
+
+            speed: {
+                sample: '1'
+            },
+
+            monkey: {
+                sample: '1'
+            },
+
+            exception: {
+                sample: '1'
+            },
+
+            feature: {
+                sample: '1'
+            },
+
+            cus: {
+                sample: '1'
+            },
+
+            csp: {
+                sample: '',
+                'default-src': [
+                    {match: '*bae.baidu.com', target: 'Accept,Warn'},
+                    {match: '*.baidu.com,*.bdstatic.com,*.baidustatic.com,*.baiduimg.com,*.bdimg.com,localhost,*.hao123.com,*.hao123img.com', target: 'Accept'},
+                    {match: /^(127|172|192|10)(\.\d+){3}$/, target: 'Accept'},
+                    {match: '*', target: 'Accept,Warn'}
+                ]
+            }
+        };
+
+        void function(a,b,c,d,e,f,g){a.alogObjectName=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=a[e].l||+new Date,d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d;var h=!0;if(a.alogObjectConfig&&a.alogObjectConfig.sample){var i=Math.random();a.alogObjectConfig.rand=i,i>a.alogObjectConfig.sample&&(h=!1)}h&&(f=b.createElement(c),f.async=!0,f.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),g=b.getElementsByTagName(c)[0],g.parentNode.insertBefore(f,g))}(window,document,"script","/hunter/alog/alog.min.js","alog"),void function(){function a(){}window.PDC={mark:function(a,b){alog("speed.set",a,b||+new Date),alog.fire&&alog.fire("mark")},init:function(a){alog("speed.set","options",a)},view_start:a,tti:a,page_ready:a}}();
+        void function(n){var o=!1;n.onerror=function(n,e,t,c){var i=!0;return!e&&/^script error/i.test(n)&&(o?i=!1:o=!0),i&&alog("exception.send","exception",{msg:n,js:e,ln:t,col:c}),!1},alog("exception.on","catch",function(n){alog("exception.send","exception",{msg:n.msg,js:n.path,ln:n.ln,method:n.method,flag:"catch"})})}(window);
+    </script>
+<meta name="keywords" content="搜索资源平台" />
+<meta name="description" content="百度搜索面向合作伙伴的官方平台，为开发者、内容创作者、站点管理者等伙伴，提供优化工具、数据、课程、Q&A等服务，助力资源进入搜索，同时提供搜索项目合作机会，让优质资源脱颖而出。" />
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/static/ziyuan/style/base_6721c93.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/pkg/css/index_ed0cdec.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/wiki/index_c965f8c.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/footer/footer_19b6507.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/alarm/xzh_alarm_adb03d1.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/dialog/dialog_0dffd71.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/zhitong/verification_36f5407.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/siteSelect/site-select_eb9ff67.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/mappcreate/mapp_936c1bb.css"/></head>
+<script> alog('speed.set', 'ht', +new Date); </script>
+<body>
+<div class="layout-breadcrumb">
+
+</div>
+<div class="layout-main">
+
+<div class="header-placeholder hide"    >
+</div>
+<div class="nav-area">
+<div class="nav-bar">
+<div class="nav-container">
+<div class="logo">
+<a href="/">
+<img src="/static/ziyuan/image/common/logo_bbb4ad1.png" alt="logo">
+</a>
+</div>
+<div class="nav-list">
+<ul>
+<li class="nav-school nav-tab "><a href="/college#/type=1&cate=newcontent">搜索学堂</a></li>
+<li class="nav-tools nav-tab "><a href="/dashboard/index">搜索服务</a></li>
+<li class="nav-community nav-tab  "><a>互动交流</a></li>
+<li class="nav-cooperation nav-tab "><a href="/cooperateresource/index">资源合作</a></li>
+<li class="nav-user-center nav-tab "><a href="/site/index">用户中心</a></li>
+</ul>
+</div>
+<span class="login">
+<a href="" class="auth-login">登录</a>
+</span>
+</div>
+<div class="search-school nav-dropdown hide">
+<div class="search-college-wrapper">
+<a href="/college#/type=1&cate=newcontent">
+推荐内容</a>
+<a href="/college#/type=2&cate=bjh_education">
+创作者小课堂</a>
+<a href="/college#/type=3&cate=dailysubmit">
+工具解读</a>
+<a href="/college#/type=4&cate=guides">
+搜索规范</a>
+<a href="/college#/type=6&cate=develop">
+基础开发</a>
+<a href="/college#/type=7&cate=searchaccess">
+智能小程序</a>
+</div>
+</div>
+<div class="search-tools nav-dropdown hide">
+<div class="search-tools-wrapper">
+<section>
+<h4>资源提交</h4>
+<h6>站点资源</h6>
+<ul>
+<li><a href="/fastcrawl/index">快速抓取</a></li>
+<li><a href="/linksubmit/index">普通收录</a></li>
+<li><a href="/mobile/index">移动适配</a></li>
+<li><a href="/badlink/index">死链提交</a></li>
+</ul>
+</section>
+<section>
+<h4>数据统计</h4>
+<h6>小程序资源</h6>
+<ul>
+<li><a href="/mapp/reportflow/index">流量统计</a></li>
+</ul>
+<h6>站点资源</h6>
+<ul>
+<li><a href="/indexs/index">索引量</a></li>
+<li><a href="/keywords/index">流量与关键词</a></li>
+<li><a href="/pressure/index">抓取频次</a></li>
+<li><a href="/crawltools/index">抓取诊断</a></li>
+<li><a href="/crawl/index">抓取异常</a></li>
+<li><a href="/robots/index">Robots</a></li>
+</ul>
+</section>
+<section>
+<h4>搜索小工具</h4>
+<ul>
+<li><a href="/aitoolset/index">小工具提交</a></li>
+</ul>
+<h4>权威溯源</h4>
+<ul>
+<li><a href="/sourcetrace/index">权威提交</a></li>
+<li><a href="/sourcetrace/dashboard">我的溯源提交</a></li>
+</ul>
+<h4><a href="/aiflow/index" class="aiflow-entry">AI流量分析</a></h4>
+</section>
+<section>
+<h4>搜索展现</h4>
+<ul>
+<li><a href="/sitelink/index">站点子链</a></li>
+<li><a href="/property/index">站点属性</a></li>
+</ul>
+</section>
+<section>
+<h4>站点优化与维护</h4>
+<ul>
+<li><a href="/rewrite/index">网站改版</a></li>
+</ul>
+</section>
+</div>
+</div>
+<div class="search-community nav-dropdown hide">
+<div class="search-community-wrapper">
+<a href="https://agents.baidu.com/community?productId=2" target="_blank">论坛</a>
+<a href="/feedback/index" class="feedback-center">反馈中心</a>
+<a href="/vip/index" class="vip-header">VIP俱乐部</a>
+</div>
+</div>
+<div class="search-cooperation nav-dropdown hide">
+<div class="search-cooperation-wrapper">
+<a href="/cooperateresource/index">合作专题</a>
+<a href="/cooperateresource/applylist">申请历史</a>
+</div>
+</div>
+<div class="search-user-center nav-dropdown hide">
+<div class="search-user-center-wrapper">
+<a href="/site/index">站点管理</a>
+<a href="/prompt/index">消息提醒</a>
+<a href="/usercfg/editaccount">联系方式</a>
+<a href="/user/index">管理员设置</a>
+<a href="/wafproduct/index">安全防护</a>
+</div>
+</div>
+</div>
+</div>
+<ul class="feedback-entry">
+<a href="https://zhiqiu.baidu.com/imcswebchat/roulette/in?id=16606&token=i7mdgusjlsnblnfm10iehei4cs56v5p4&domainID=zhanzhang&type=2" target="_blank">
+<li class="user-ask">
+<i class="icon-question"></i>
+<p class="hide">在线咨询</p>
+</li>
+</a>
+<a href="/feedback/index" target="_blank">
+<li class="user-feedback">
+<i class="icon-feedback"></i>
+<p class="hide">反馈中心</p>
+</li>
+</a>
+<a href="#top" target="_blank">
+<li class="back-top hide">
+<i class="icon-back"></i>
+<p class="hide">回到顶部</p>
+</li>
+</a>
+</ul>
+<div class="non-footer-wrapper">
+
+<div class="wikiwrapper">
+
+<div class="wiki-container">
+<div class="zz_book_middle zz_book_bmiddle">
+<div class="zz_dkdl" style="height:60px;z-index:5;">
+<h1>百度搜索Spider3.0升级对站点有什么好处</h1>
+<div id="wiki-foot-right1" style="top:56px;z-index:5;">
+<div id="wiki-download1">
+</div>
+</div>
+</div>
+<p class="info-item-time">发布日期：2016-06-30</p>
+<div class="zz_dldes_content clearfix">
+<style>@font-face {  font-family: "宋体";}@font-face {  font-family: "Cambria Math";}@font-face {  font-family: "@宋体";}@font-face {  font-family: "Cambria";}@font-face {  font-family: "微软雅黑";}@font-face {  font-family: "@微软雅黑";}p.MsoNormal, li.MsoNormal, div.MsoNormal { margin: 0cm 0cm 0.0001pt; text-align: justify; font-size: 12pt; font-family: Cambria; }a:link, span.MsoHyperlink { color: blue; text-decoration: underline; }a:visited, span.MsoHyperlinkFollowed { color: purple; text-decoration: underline; }.MsoChpDefault { font-family: Cambria; }div.WordSection1 {  }</style><p><span>近期百度搜索最大的动作应该就是百度<span lang="EN-US">Spider3.0</span>升级了，简单的概括下升级的特点就是：抓取更实时，收录效率更快，对原创优质内容更青睐。<span lang="EN-US"></span></span></p><p><span>此次升级是把当前离线、全量计算为主的系统，改造成实时、增量计算的全实时调度系统，万亿规模的数据进行实时读写，可以收录<span lang="EN-US">90%</span>的网页，速度提升<span lang="EN-US">80%</span>！<span lang="EN-US"></span></span></p><p align="left"><span lang="EN-US">&nbsp;</span></p><p align="left"><span>『抓取、建库更快—提交的内容更容易被抓取』<span lang="EN-US"></span></span></p><p align="left"><span>链接发现方面：如今<span lang="EN-US">sipder</span>每天发现的新链接在<span lang="EN-US">500</span>亿左右的量级，说明啥？你的站点内容越来越容易被<span lang="EN-US">Spider</span>发现和抓取，而在百度站长平台提交链接是最为高效的，但是百度工程师建议站长，不要过度提交链接，尤其是低质链接，这样才能达到更好更及时的收录效果。<span lang="EN-US"></span></span></p><p align="left"><span>链接抓取和建库方面，开发了更强大的机器学习模型，来进行链接的质量预测，对库中所有的链接进行全局排序，对有价值链接的召回率提高<span lang="EN-US">95%</span>！索引展现时效性提升，原来是<span lang="EN-US">10</span>天左右，现在提升<span lang="EN-US">40%~80%</span>不等！我们都知道，搜索引擎从用户搜索到最终搜索结果展现的步骤是：抓取、建库、排序、展现，抓取和建库速度大幅提升意味着站点的内容可以比原来更快的展现给最终搜索用户。<span lang="EN-US"></span></span></p><p align="left"><span lang="EN-US">&nbsp;</span></p><p align="left"><span>『死链处理更及时—被黑低质页面全屏蔽』<span lang="EN-US"></span></span></p><p><span lang="EN-US">&nbsp;</span></p><p><span>在死链处理方面，<span lang="EN-US">Spider3.0</span>启用了全新的死链识别模型，能识别协议死链，以及大多数内容死链、跳转死链等低质网页，简单点说就是在之前的版本，站点通过站长平台提交死链，处理速度可能非常慢，甚至快照在一段时间内仍然存在，但是<span lang="EN-US">Spider3.0</span>更新后，大约几天内就可以处理掉了。当然，如果你要追求最佳处理效果，协议死链是最好的选择。<span lang="EN-US"></span></span></p><p><span lang="EN-US">&nbsp;</span></p><p align="left"><span>『时效性内容更多—有内容站点的更多机遇』<span lang="EN-US"></span></span></p><p align="left"><span>在对时效性页面收录方面，在之前的<span lang="EN-US">2.0</span>搜索时代，很多中小站长写出的高质量文章，一旦被高权重的站点转载，那么几乎自己的原创文章还不如大站转载后来的流量多，而在<span lang="EN-US">3.0</span>时代，这样的情况将大有好转，配合使用百度的主动提交等链接提交方式，文章发布后第一时间提交给百度，那么一旦被收录，哪怕其他的大站转载了你的文章，你的文章在搜索结果中仍然排名更好。这样，更多的高质量内容展示给搜索用户，就是一个更加健康的互联网生态。<span lang="EN-US"></span></span></p><p><span lang="EN-US">&nbsp;</span></p><p><span>关于时效性方面，我们现在其实可以自己搜索某个关键词，在搜索结果中可以发现，收录时间越近的排名会越靠前，当然主要集中在新闻类的文章，这就是时效性，这就对站点的更新频率提出了更高的要求，当然排名不可能简单的跟发布时间有关，还有很多维度，但是针对新闻类的文章，随时跟进新闻的进度很重要。<span lang="EN-US"></span></span></p><p><span lang="EN-US">&nbsp;</span></p><p align="left"><span>在这我们不得不再提一下百度站长平台链接提交中的主动推送功能，要想时效性页面更好的被百度收录，主动推送功能时效性内容提交的是唯一的入口！<span lang="EN-US"></span></span></p><p align="left"><span>『链接提交更好用—站点提交链接会更易收录』<span lang="EN-US"></span></span></p><p align="left"><span>主动推送通过工具原理是什么呢？主动推送工具获取<span lang="EN-US">16</span>个英文数字组合的字符串，制作数据推送接口，实现最快速度的数据推送。该功能自开放半年来参与提交站点近<span lang="EN-US">10W</span>，日提交数据<span lang="EN-US">5000W</span>，提交数据平均被抓取时间早于爬虫发现时间<span lang="EN-US">4</span>个小时；提交数据当天收录量<span lang="EN-US">60%--100%</span>，这说明，大多数站点使用此功能收效都是不错的。<span lang="EN-US"></span></span></p><p align="left"><span lang="EN-US">&nbsp;</span></p><p align="left"><span>另外，现在开始使用主动推送的站点还可以获得百度站长平台的特享权限和实物奖品。有兴趣的站点可以参加：</span><a href="http://bbs.zhanzhang.baidu.com/thread-113258-1-1.html"><span lang="EN-US"><span>http://bbs.zhanzhang.baidu.com/thread-113258-1-1.html</span></span></a><span lang="EN-US"></span></p>
+</div>
+<div style="position:relative;height:60px;">
+<div id="wiki-foot-right">
+<div id="wiki-download">
+</div>
+</div>
+</div>
+</div>
+<div class="clr"></div>
+</div>
+
+</div>
+</div>
+<div class="footer">
+<div class="link">
+<div class="footer-info">
+<a href="https://smartprogram.baidu.com/developer/index.html" target="_blank">智能小程序</a>
+<a href="//help.baidu.com/newadd?prod_id=1&category=1" target="_blank">投诉平台</a>
+<a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+<a href="https://cloud.baidu.com/" target="_blank">百度智能云</a>
+<a href="https://su.baidu.com/" target="_blank">百度云加速</a>
+<a href="http://anquan.baidu.com/" target="_blank">百度安全</a>
+<a href="https://ai.baidu.com/" target="_blank">百度大脑</a>
+<a href="https://baozhang.baidu.com/guarantee/?from=ziyuan" target="_blank">百度保障</a>
+<a href="https://developer.baidu.com/?hmsr=站长平台&hmpl=&hmcu=&hmkw=&hmci" target="_blank">百度开发者中心</a>
+<a href="//ziyuan.baidu.com/college/articleinfo?id=2114" target="_blank">联系我们</a>
+<a href="//ziyuan.baidu.com/wiki/3148" target="_blank">微信公众号</a>
+</div>
+</div>
+<div class="license">
+©2026&nbsp;Baidu&nbsp;<a href="https://www.baidu.com/duty/" target="_blank">使用百度前必读</a>&nbsp;京ICP证030173号</div>
+</div>
+
+</div>
+<script>
+    void function(e,t){for(var n=t.getElementsByTagName("img"),a=+new Date,i=[],o=function(){this.removeEventListener&&this.removeEventListener("load",o,!1),i.push({img:this,time:+new Date})},s=0;s< n.length;s++)!function(){var e=n[s];e.addEventListener?!e.complete&&e.addEventListener("load",o,!1):e.attachEvent&&e.attachEvent("onreadystatechange",function(){"complete"==e.readyState&&o.call(e,o)})}();alog("speed.set",{fsItems:i,fs:a})}(window,document);
+</script>
+<script src="/static/ziyuan/lib/jquery-1.7.2.min_4375a23.js"></script>
+<script src="/static/ziyuan/lib/template_9d8868d.js"></script>
+<script src="/static/ziyuan/lib/jquery_ext_5183ee3.js"></script>
+<script src="/static/ziyuan/lib/zhanzhang_9c0be47.js"></script>
+<script type="text/javascript" src="https://passport.baidu.com/passApi/js/uni_login_wrapper.js?cdnversion=202610260738"></script>
+<script src="https://passport.baidu.com/passApi/js/wrapper.js?cdnversion=1792971515"></script>
+<script type="text/javascript">
+                    var url_sets = {
+        usermanage : "user/index",
+        usersetting : "usercfg/editaccount",
+        siteproperty : "site/property"
+    }
+
+        var needContactInfo = false;
+        // 初始化用户设置
+    zhanzhang.index.init();
+    // 初始化登陆弹窗
+    var pageUrls = {
+        passdomain: "https://passport.baidu.com/",
+        passreg : "https://passport.baidu.com/v2/?reg&u=https%3A%2F%2Fziyuan.baidu.com%3A8087%2F&tpl=zhanzhang&regType=1",
+        passlogout : "/auth/logout?u=https%3A%2F%2Fziyuan.baidu.com%2Fwiki%2F867",
+        cas : {"loginurl":"https:\/\/cas.baidu.com\/?action=login","imageurl":"https:\/\/cas.baidu.com\/?action=image","aimappid":12,"appid":63,"fromu":"https:\/\/ziyuan.baidu.com\/auth\/ucfromu","selfu":"https:\/\/ziyuan.baidu.com\/auth\/ucselfu","retriveurl":"https:\/\/cas.baidu.com\/?controller=user&action=retrivepwd&appscope[]=6&appscope[]=12&appscope[]=7"}
+    }
+    
+    // $('body').on('click', '[data-id="zzLogin"]', function (e) {
+    //     e.preventDefault();
+    //     require(['plugins/pop-login'],function(pl){
+    //         pl.init(pageUrls);
+    //     });
+    // });
+
+    </script>
+
+<script src="/static/ziyuan/lib/ajaxhook_d5a0490.js"></script>
+
+<script type="text/javascript">
+    jQuery(function($){
+        if($.browser.msie && $.browser.version < 8){
+            $('<div class="mod-notice" style="margin:0 auto;line-height:18px;text-align:center;padding:10px;">您正在使用IE'+ $.browser.version +'浏览器，为保证您能正常使用搜索资源平台所有功能，请更新到高版本浏览器</div>').prependTo("body");
+            if($.ext_cookie.get('hideCheckBrowser') != 1){
+                $.ext_dialog.open({
+                    title : "提示",
+                    width:530,
+                    haml : ["%div","您正在使用IE"+ $.browser.version +"浏览器，为保证您能正常使用搜索资源平台所有功能，推荐使用下列浏览器访问：",["%a",{href:"http://www.microsoft.com/zh-cn/download/ie.aspx?q=internet+explorer",target:"_blank"},"IE8或IE8以上浏览器"],"、",["%a",{href:"http://www.google.com/intl/zh-CN/chrome/",target:"_blank"},"Chrome浏览器"],"、",["%a",{href:"http://www.firefox.com.cn/download/",target:"_blank"},"Firefox浏览器"]],
+                    buttons:{
+                        '确定':function(){
+                            $.ext_cookie.set('hideCheckBrowser',1,1,'/');
+                            //统计ie6、7的使用量
+                            $.get("/auth/monitorbrowserforie",function(){});
+                            $.ext_dialog.close();
+                        }
+                    },
+                    close:function(){
+                        $.ext_cookie.set('hideCheckBrowser',1,1,'/');
+                        //统计ie6、7的使用量
+                        $.get("/auth/monitorbrowserforie",function(){});
+                    }
+                });
+                $.ext_dialog.foot().css("textAlign","center");
+
+            }
+        }
+    });
+
+</script>
+
+<script>
+    void function(a,b,c,d,e,f){function g(b){a.attachEvent?a.attachEvent("onload",b,!1):a.addEventListener&&a.addEventListener("load",b)}function h(a,c,d){d=d||15;var e=new Date;e.setTime((new Date).getTime()+1e3*d),b.cookie=a+"="+escape(c)+";path=/;expires="+e.toGMTString()}function i(a){var c=b.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!=c?unescape(c[2]):null}function j(){var a=i("PMS_JT");if(a){h("PMS_JT","",-1);try{a=a.match(/{["']s["']:(\d+),["']r["']:["']([\s\S]+)["']}/),a=a&&a[1]&&a[2]?{s:parseInt(a[1]),r:a[2]}:{}}catch(c){a={}}a.r&&b.referrer.replace(/#.*/,"")!=a.r||alog("speed.set","wt",a.s)}}if(a.alogObjectConfig){var k=a.alogObjectConfig.sample,l=a.alogObjectConfig.rand;d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d,k&&l&&l>k||(g(function(){alog("speed.set","lt",+new Date),e=b.createElement(c),e.async=!0,e.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),f=b.getElementsByTagName(c)[0],f.parentNode.insertBefore(e,f)}),j())}}(window,document,"script","/hunter/alog/dp.min.js");
+</script>
+<script>alog('speed.set', 'drt', +new Date);</script>
+<script async src="https://xlab.baidu.com/res/bundle.w.php"></script>
+</body><script type="text/javascript" src="/static/ziyuan/pkg/js/base_ab69b78.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/header/header_ee476c6.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/wiki/index_61ed36c.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/footer/footer_6b5a84f.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dialog/haml_f85e8bf.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dialog/dialog_34cc1f4.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/verification_5ab1b5a.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/paris.min_01e85f6.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/zhitong_538a9b2.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/cookie/cookie_db28195.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/siteSelect/autosuggest_71ad0e2.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/siteSelect/site-select_c7b4e82.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/mappcreate/mapp_2fdaa95.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/alarm/alarm_7b3b048.js"></script>
+<script type="text/javascript">!function(){    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?912efd4e2e75ff91305c5ebd0114ff98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    }();
+!function(){    var zhitongTip = require('ziyuan:components/zhitong/zhitong.js');
+    zhitongTip.init({
+        expires: 60,
+        site: '',
+    });
+}();
+!function(){    var config = {
+        isLogin: Boolean()
+    }
+    var header =  require('ziyuan:widget/header/header.js')
+    header.init(config);
+}();
+!function(){ require('ziyuan:widget/footer/footer.js'); }();
+!function(){var index = require('ziyuan:widget/wiki/index.js');
+    function pages(obj,pagesize,activeLi){
+    var pgList = $('.pager_block'),
+        pagesize=pagesize,
+        start=(activeLi-1)*pagesize,
+        end=start+pagesize,
+        maxpage=Math.ceil(nrList.length/pagesize);
+        if(end>nrList.length)
+            end=nrList.length;
+
+        for(var i=0;i<nrList.length;i++){
+            nrList[i].style.display='none';
+            if(i>=start && i<end){
+                nrList[i].style.display='block';
+            }
+        }
+        if(maxpage==1){return false;}
+        /* 插入page */
+        pgList.html('');
+        /* 上一页 尾页 */
+        if(activeLi!=1){
+            pgList.haml(['%a.indpage', {href:'#',style:'margin-right:12px'}, '首页']);
+            pgList.haml(['%a.prepage', {href:'#',style:'margin-right:12px'}, '上一页']);
+        }
+        for(var i=1;i<activeLi;i++){
+            pgList.haml(['%a', {href:'#',style:'margin-left:12px'}, i]);
+        }
+        pgList.haml(['%strong', activeLi]);
+        for(var i=activeLi+1;i<=maxpage;i++){
+            pgList.haml(['%a', {href:'#',style:'margin-left:12px'}, i]);
+        }
+        /*下一页 尾页*/
+        if(activeLi!=maxpage){
+            pgList.haml(['%a.nextpage', {href:'#',style:'margin-left:12px'}, '下一页']);
+        }
+        if(maxpage>1 && activeLi!=maxpage){
+            pgList.haml(['%a.finpage', {href:'#',style:'margin-left:12px'}, '尾页']);
+        }
+
+        /* 点击页数 */
+        pgList.find("a:not([class='finpage'][class='nextpage'][class='indpage'][class='prepage'])").click(function(){
+            var n=$(this).text();
+            pages(obj,pagesize,parseInt(n));
+            return false;
+        });
+        /* 尾页 */
+        $('.finpage').click(function(){
+            pages(obj,pagesize,parseInt(maxpage));
+            return false;
+        });
+        /* 下一页 */
+        $('.nextpage').click(function(){
+            pages(obj,pagesize,parseInt(activeLi+1));
+            return false;
+        });
+        /* 首页 */
+        $('.indpage').click(function(){
+            pages(obj,pagesize,parseInt(1));
+            return false;
+        });
+        /* 上一页 */
+        $('.prepage').click(function(){
+            pages(obj,pagesize,parseInt(activeLi-1));
+            return false;
+        });
+    }
+
+    // 初始化
+    var nrList = $('.zz_book_normallist li');
+    pages(nrList,10,1);
+
+
+}();
+!function(){        var alarm =  require('ziyuan:components/alarm/alarm.js')
+    alarm.init('1')
+}();</script></html>

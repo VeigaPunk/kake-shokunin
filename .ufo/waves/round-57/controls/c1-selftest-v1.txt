@@ -1,0 +1,21 @@
+PASS honest, no relabel: met=True undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS old relabel undisclosed: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS old relabel disclosed with matching errata: met=True undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS errata names nothing git shows: met=False undisclosed_relabels=0 phantom_errata=1 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS errata wrong 'to': met=False undisclosed_relabels=1 phantom_errata=1 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS errata wrong commit: met=False undisclosed_relabels=1 phantom_errata=1 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS receipt deleted: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=1 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS new receipt relabelled: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=1 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS new receipt missing claim 3: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=2 scorecard_pin=1
+PASS new receipt wrong revision: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=3 new_receipts=0 scorecard_pin=1
+PASS measured revision is not an ancestor of the receipts: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=3 new_receipts=0 scorecard_pin=1
+PASS new receipt with two revision lines: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=3 new_receipts=0 scorecard_pin=1
+PASS measured.json names another commit: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=3 new_receipts=0 scorecard_pin=1
+PASS SCORECARD omits the pin: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=0
+PASS errata unparsable: unevaluable .ufo/waves/round-57/receipt-errata.json unparsable: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+PASS = form relabel detected: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS edit that keeps the pin is not a relabel: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS pin line stripped later counts as relabel: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS round outside 52-57 is out of population: met=True undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+c57 receipt-pins selftest: 19/19
+EXIT=0
