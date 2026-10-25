@@ -22,6 +22,12 @@ An id passes only when all four rules hold for it:
 
 R4 is per id: a quote is never matched against another id's retained text.
 
+Instrumentation note (round 48, disclosed): the first run of this counter at the
+landed commit read the retained text at `<root>/<textPath>` while the receipt stores
+the file name next to the receipt itself; the path resolution was corrected to the
+receipt's own directory. The predicate, the four rules and the threshold are
+unchanged, and no seat had scored when the fix landed.
+
 Exit codes: 0 met, 1 not met, 2 could-not-evaluate, 64 usage.
 """
 from __future__ import annotations
@@ -196,7 +202,7 @@ def run(root: str, revision: str) -> dict:
             if receipt is None:
                 reasons.append("no source receipt")
             else:
-                path = os.path.join(root, receipt["textPath"])
+                path = os.path.join(root, os.path.dirname(RECEIPTS), receipt["textPath"])
                 try:
                     with open(path, "rb") as fh:
                         raw = fh.read()

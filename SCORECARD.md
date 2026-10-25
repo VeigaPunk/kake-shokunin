@@ -4046,3 +4046,30 @@ all-digit-token rule, the asymmetric ellipsis rule, the one-line context window 
 ledger's own provenance). Publication, restoration, live crawl observation and any
 domain-facing action stay operator-owned.
 
+## Round 48 — measured verdicts (author-side; admission belongs to the non-author closure)
+
+Measured commit: `af7b217c9b0837428e50c944adfab9f5c692a50f` (the lane commit that carries
+the declaration, the two counters, the two entries, the four registry rows, the lesson, the
+repair and the adjudication). Base for both before-measurements:
+`766f4610b64f35a0f402b37eb1d8be2d4d634c0f`.
+
+| Claim | Axis / score delta | Before → after | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 — the client-rendering crawl-contract theme, re-grounded | freshness 10→10 (HOLD) | 0 of 4 declared ids (no registry row, no entry, no Gate quote, no receipt at the base) → 4 of 4 (S137, S138, S139, S249 each pass R1-R4) | `python3 -B .ufo/waves/round-48/c48_quote_truth.py --root . --revision <commit>` | MET, author-side; before receipt `/tmp` run at the base (0 of 4, exit 1), after receipt `.ufo/waves/round-48/verification/c1-after-af7b217.json` (4 of 4, exit 0) |
+| C2 — the citation lint resolves a token by existence | operability 10→10 (HOLD) | `dead_full_40` 0 → 1 (`dead_short` 1 → 1, `live_full_40` 0, `live_short` 0, `exclusions_clean` 1 → 1) | `python3 -B .ufo/waves/round-48/c48_lint_count.py --root . --revision <commit>` | MET, author-side; before receipt (base tool, sha256 `3c78a0a8…`, `dead_full_40` 0, exit 1), after receipt `.ufo/waves/round-48/verification/c2-after-af7b217.json` (tool sha256 `0beba647…`, exit 0) |
+
+Do-nothing controls: C1's base revision scores 0 of 4 and the cross-wired junk control
+cannot pass R4, because a quote is matched only against its own id's retained bytes; C2's
+base tool (the unmutated `rev-parse` resolver) scores `dead_full_40` 0 and is rejected.
+The counters' predicates, thresholds and rules are unchanged since the declaration.
+
+Instrumentation fix, disclosed: the first C1 run at the landed commit failed with
+"retained text absent" — the counter read the retained text at `<root>/<textPath>` while
+the receipt stores the file name beside the receipt. The path resolution was corrected to
+the receipt's own directory (`.ufo/waves/round-48/c48_quote_truth.py`); the predicate, the
+four rules and the threshold are unchanged, and no seat had scored when the fix landed.
+
+No owned axis is harmed on the exercised checks: the citation lint's own selftest is 9/9
+(exit 0) and its live run over `{SCORECARD.md, LOG.md}` is green again after the one new
+occurrence was adjudicated append-only; the source census is exit 0 over 140 rows.
+
