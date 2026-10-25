@@ -4297,7 +4297,7 @@ when the path exists in the measured Git tree and `lost` only when absent.
 ## Round 55 — declared and measured claims
 
 Frozen contract: `.ufo/waves/round-55/contract.md` / `contract.json` (lane base `fcaf4b85ce32dbe2a88ce9924a4994e8cd93212d`);
-measured commit `faf9abe81d1ef5925733f756a918527483073fe8`. Axis note: C1 is declared on **calibration**, the round-54
+measured commit `64c0ce12ffe3ca4d6d1891a3e3e33933a95380f6`. Axis note: C1 is declared on **calibration**, the round-54
 bounded sub-axis (score 1, the lowest non-retired score); it is outside the prompt-declared operability + freshness axes
 and the operator may rule on that ownership. C2 is freshness. Operability and freshness stay at 10 (no change claimed).
 
