@@ -1199,19 +1199,19 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
 - **A selftest that rebuilds from `HEAD` names its fixture revision in its row.** A selftest whose fixtures are `git show` of the
   checked-out tree rots as the tree grows: the round-52 quote-truth selftest printed 17/18 at the round-56 base while its row and receipt
   said 18/18. The row's documented command carries the pin (`KAKE_R52_SELFTEST_REV=1ae8de5d4dee`, `KAKE_R55_SELFTEST_REV=64c0ce12…`); the
-  counter reads only pins written in the row. Grounding: `.ufo/waves/round-56/w1/ExecPinProof.md`; lesson §Mistakes (stale-premise).
+  counter reads only the one pin its population entry names. Grounding: `.ufo/waves/round-56/w1/ExecPinProof.md`; `corpus/lessons/round-56.md` §Mistakes (stale-premise). Falsifier: `KAKE_R52_SELFTEST_REV=1ae8de5d4dee python3 -B .ufo/waves/round-52/c52_quote_truth.py --selftest` prints 18/18 and the unpinned form 17/18; the C1 selftest cases `env_pin_removed`, `pin_added_to_a_no_pin_row` and `pin_swapped_for_a_different_word` are `command_invalid`.
 - **A held row reused by a new entry is re-opened by pinning its body, not by matching its title.** The held S367 row's title uses
   fullwidth punctuation the page does not print, so a title-substring check rejected the truthful build (7 of 8) and a three-character edit
   of the retained body satisfied it. The held row's body is pinned by the sha256 recorded when the row was opened. Grounding:
-  `.ufo/waves/round-56/w1/CriticC2Contract.md` WR-1/A1, `CritCheatC2.md`; counter C5 `HELD_BODY_SHA256`.
+  `.ufo/waves/round-56/w1/CriticC2Contract.md` WR-1/A1, `CritCheatC2.md`; `corpus/lessons/round-56.md` §Mistakes (vacuous); counter C5 `HELD_BODY_SHA256`. Falsifier: `c56_quote_truth.py --selftest` case `fail_held_body_edited` (a one-comment edit of the retained S367 body, receipt recomputed, exits 1).
 - **Sibling pages share phrases; page-unique means unique across every retained body, and a Gate quote occurs once in its own page.**
   The deleted-URL and non-existent-URL pages share four spans (the 404 status clause, the fallback clause, the head-tag clause); an entry
   may quote them for fidelity but they do not count toward the three page-unique spans, and the located Gate quote is chosen from the
-  unique ones. Grounding: `.ufo/waves/round-56/w1/EntryDeletedUrl.md` §Quote classes; `CriticControls.md` (Gate repeat inside the article block).
+  unique ones. Grounding: `.ufo/waves/round-56/w1/EntryDeletedUrl.md` §Quote classes; `CriticControls.md` (Gate repeat inside the article block); `corpus/lessons/round-56.md` §Gate. Falsifier: `c56_quote_truth.py --selftest` cases `fail_gate_quote_shared_with_sibling`, `fail_entry_only_sibling_shared_spans`, `fail_entry_only_spans_shared_with_unadopted_body`.
 - **A staged candidate is re-derived, not renamed.** The page for S376 never says soft 404; the landed entry is
   `yahoo-japan-nonexistent-url-recrawl` and keeps the term only as a tagged lane reading; the staged file name must be absent from the
   tree. A staged claim the page does not state (a per-link-URL refusal on the S367 page, "the crawl loop follows what the server
-  answers") is dropped, not softened. Grounding: `w1/ScoutClaimsAudit.md`, `w1/ReviewerStaged.md`, `w1/CritCheatC2.md` (staged name survives).
+  answers") is dropped, not softened. Grounding: `w1/ScoutClaimsAudit.md`, `w1/ReviewerStaged.md`, `w1/CritCheatC2.md` (staged name survives); `corpus/lessons/round-56.md` §Gate (rejects). Falsifier: `c56_quote_truth.py --selftest` case `fail_staged_name_survives`.
 - **A quote is not taken from a line that contains a raw double quote.** The S367 meta-tag examples carry `name="robots"`; the ASCII
   quote regex splits them and the value-bearing piece is never verified. Describe such lines in prose and tag the description; quote the
-  sentence around them. Grounding: `w1/CriticC2Contract.md` A6/WR-2.
+  sentence around them. Grounding: `w1/CriticC2Contract.md` A6/WR-2; `corpus/lessons/round-56.md` §Mistakes (vacuous). Falsifier: `c56_quote_truth.py --selftest` cases `fail_entity_span_decoded` and `fail_long_single_token_fabricated`.

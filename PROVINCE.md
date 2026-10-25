@@ -412,10 +412,11 @@ re-grounded against a fresh retained body fetched 2026-10-25: `corpus/knowledge/
 (S367, a held row re-opened: a page refuses the crawl of the link targets it contains from its own head
 with `index,nofollow` or `noindex,nofollow`, or from the server with `X-Robots-Tag: NOFOLLOW`; the first value
 leaves the page's own registration permitted), `corpus/knowledge/yahoo-japan-deleted-url-recrawl.md` (S419,
-a new row: a deleted URL that answers `HTTP 200 OK` may keep being crawled; the page asks that the server
-return `HTTP 404 Not Found`, with an index-refusal meta tag in the error page's head where that cannot be
-set) and `corpus/knowledge/yahoo-japan-nonexistent-url-recrawl.md` (S420, a new row: an error page served
-under `HTTP 200 OK` is not read as an error page and the crawl continues; the same 404 request and fallback).
+a new row: a deleted URL that answers `HTTP 200 OK` may keep being crawled; the page asks the publisher to confirm
+that the server returns `HTTP 404 Not Found`, with an index-refusal meta tag in the error page's head where that
+cannot be set) and `corpus/knowledge/yahoo-japan-nonexistent-url-recrawl.md` (S420, a new row: an error page served
+under `HTTP 200 OK` is not read as an error page and the crawl continues; this page asks that the server be
+set to return 404, with the same fallback).
 They continue the per-engine crawl-hygiene ground of rounds 52 and 55 from link attributes (S374) and the
 refusal file (S372, S373, S418) to the server's own status answer. They state what the operator's
 documentation says (the pages print 更新日 2010年11月24日); no URL was served under test and no crawl was

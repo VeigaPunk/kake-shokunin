@@ -91,9 +91,9 @@ The contract commit `2d308e808bfd` froze both counters at version 1 and the pred
 - **C1 counter version 2** (`c56_selftally.py`): the documented command must be exactly `[KAKE_R5N_SELFTEST_REV=<hex>] python3 -B
   <script> <pinned args>` and sit in the row's `Self-test` column (a fake `python3 -c`, extra arguments, a command in another column are
   `command_invalid`/`command_missing`); the environment is fixed instead of inherited (a host-exported pin cannot rescue a row);
-  duplicate row names are mismatches; every `*.py` beside the pinned script at the base revision must be byte-identical; exactly one
+  duplicate row names are mismatches; every `*.py` beside the pinned script at the base revision and the `scripts/fixtures` tree must be byte-identical (version 2.1, after wave 2: `w2/CriticJunkC1v2.md` R1-R3); exactly one selftest command per cell; the pin is one exact word per row (`KAKE_R52_SELFTEST_REV=1ae8de5d4dee`, `KAKE_R55_SELFTEST_REV=64c0ce12…`, none elsewhere); exactly one
   claim per cell (two for the one declared sum row); the tally line is anchored; `rows_checked` counts rows whose command was found and
-  valid (v1 counted rows looked up). Selftest 20 -> 47 checks (generated sandbox repos; includes the six mutants that survived v1). Base
+  valid (v1 counted rows looked up). Selftest 20 -> 59 checks (generated sandbox repos; includes the mutants that survived v1 and v2: first claim only, first tally line, last row wins, timeout swallowed, no clone, indented table, header column, escaped pipe, prefixed noise line, exit code, uncommitted worktree edit). Base
   control re-run under version 2: `tally_mismatches=7 rows_checked=10`, exit 1 (`controls/base-c1-selftally-v2.txt`). Version-1 junk that
   met the frozen predicate (`w1/CritCheatC1.md` experiments 5-8, `w1/CriticC1Contract.md` A1-A9) is closed by version 2, except one
   disclosed limit: a helper outside the pinned script's directory is not pinned.

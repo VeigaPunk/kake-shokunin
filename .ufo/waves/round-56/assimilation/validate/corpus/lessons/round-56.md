@@ -35,7 +35,7 @@ Candidates considered, admitted, rejected:
     for the page, the real h3 as locator, three page-unique spans of at most 25 units, the Google/Bing clause deleted or tagged.
   - staged `yahoo-japan-redirect-indexed-url` (S389, archives/002865.php) — REJECT as staged (`w1/ScoutRejectRedirect.md`):
     zero located quotes, the `本文（…）` wrapper of its label is not a heading in the body, one prose claim (the transfer rather
-    than the crawler decides) contradicts the page, recheck string 90 units. No merit rejection of the page itself. Flip: seven
+    than the crawler decides) contradicts the page, recheck grep string 84 units. No merit rejection of the page itself. Flip: seven
     fixes listed in the report plus a lane row.
   - staged `yahoo-japan-dynamic-page-indexing` (S387, archives/002867.php) — REJECT as staged (`w1/ScoutRejectDynamic.md`): zero
     quoted spans, a false statement that the lane holds the crawl-category page, an inference passed as operator wording. No merit
