@@ -1,0 +1,13 @@
+C1 selftest-tally tally_mismatches=7 rows_checked=10 met=False  (met: tally_mismatches == 0 AND rows_checked == 10)
+  base-path-audit: claim=45 observed=45/45 OK
+  source-recheck-audit: claim=101 observed=106/106 MISMATCH claim_ne_observed
+  robots-expectation-audit: claim=137 observed=204/204 MISMATCH claim_ne_observed
+  sitemap-file-audit: claim=150 observed=235/235 MISMATCH claim_ne_observed
+  redirect-expectation-audit: claim=23 observed=23/23 OK
+  commit-citation-lint: claim=8 observed=9/9 MISMATCH claim_ne_observed
+  wave-evidence-ledger: claim=19 observed=19/19 OK
+  quote-truth-counter: claim=18 observed=17/18 MISMATCH selftest_failed
+  readme-index-counter: claim=35 observed=44/44 MISMATCH claim_ne_observed
+  yahoo-robots-quote-truth-counter: claim=47 observed=54/54 MISMATCH claim_ne_observed
+  revision: e48354b7c26bb6dc544ab6bbdc534fabe0daf7b6
+EXIT=1

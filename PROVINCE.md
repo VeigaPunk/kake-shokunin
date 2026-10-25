@@ -404,3 +404,23 @@ each of the 21 knowledge files the map did not name at the round base, plus rows
 entries (24 rows added). The table's `Untouched ground` list is the
 reading of the Frontier that this round could evidence; it is not a statement that the ground stays
 untouched.
+
+## Round-56 Yahoo! JAPAN crawl handling: link-target restriction, deleted URL, non-existent URL
+
+Round 56 adds three entries on what one operator's pages say a server's answer does to the crawl, each
+re-grounded against a fresh retained body fetched 2026-10-25: `corpus/knowledge/yahoo-japan-link-target-crawl-restriction.md`
+(S367, a held row re-opened: a page refuses the crawl of the link targets it contains from its own head
+with `index,nofollow` or `noindex,nofollow`, or from the server with `X-Robots-Tag: NOFOLLOW`; the first value
+leaves the page's own registration permitted), `corpus/knowledge/yahoo-japan-deleted-url-recrawl.md` (S419,
+a new row: a deleted URL that answers `HTTP 200 OK` may keep being crawled; the page asks that the server
+return `HTTP 404 Not Found`, with an index-refusal meta tag in the error page's head where that cannot be
+set) and `corpus/knowledge/yahoo-japan-nonexistent-url-recrawl.md` (S420, a new row: an error page served
+under `HTTP 200 OK` is not read as an error page and the crawl continues; the same 404 request and fallback).
+They continue the per-engine crawl-hygiene ground of rounds 52 and 55 from link attributes (S374) and the
+refusal file (S372, S373, S418) to the server's own status answer. They state what the operator's
+documentation says (the pages print 更新日 2010年11月24日); no URL was served under test and no crawl was
+observed. Frontier knowledge: no gate, no owned property audited, no publish action; publishing stays
+operator-owned. The round-55 sentence that the deleted-URL page "is not adopted this round" is superseded
+for that page by this round. Not adopted from the same staging package: the canonical-notification (S388),
+redirect-and-indexed-URL (S389) and dynamic-page-indexing (S387) candidates — rejected as staged, reasons
+and flip conditions in `corpus/lessons/round-56.md` § Gate.

@@ -1,0 +1,27 @@
+# ExecIdGuard scratch commands (run 2026-10-25, scratch=/tmp/tmp.g1BbNBe0B1, git top-level verified)
+
+$ git -C "$D" init -q && git -C "$D" rev-parse --show-toplevel
+/tmp/tmp.g1BbNBe0B1
+
+$ grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' corpus/SOURCES.md | grep -oE 'S[0-9]+' | sort
+  ->     156     780
+$ grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' SOURCES.append.md | grep -oE 'S[0-9]+' | sort
+  ->     129     645
+$ comm -12 out/reg-ids out/staged-ids
+  ->       8      40 : S312 S329 S367 S372 S373 S374 S390 S409 
+$ cmp -s out/{reg-ids,staged-ids,collisions} assimilation/{...}
+  reg-ids: IDENTICAL
+  staged-ids: IDENTICAL
+  collisions: IDENTICAL
+
+$ awk -F"|" -v l=kake ... absent-defect-register.md
+  ->      12     453
+  quarantine-slice: IDENTICAL
+
+$ grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' <fixture with "  | S287 | x |">
+  0-3-space: 1 line(s): S287 
+  col0-only: 0 line(s): []
+
+$ scratch registry = corpus/SOURCES.md + indented staged S287 row, then comm -12 with staged ids
+  0-3-space collisions: 9 : S287 S312 S329 S367 S372 S373 S374 S390 S409 
+  col0-only collisions: 8 : S312 S329 S367 S372 S373 S374 S390 S409 

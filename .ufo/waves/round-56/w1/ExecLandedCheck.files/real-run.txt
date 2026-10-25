@@ -1,0 +1,41 @@
+# real-run receipt, generated 2026-10-25T19:34:04-03:00
+# git 2.56.0, python3 3.14.8
+
+## primary: --branch master
+ANCESTOR fcaf4b85ce32dbe2a88ce9924a4994e8cd93212d round-54 verifier spot-check (integrator, hyaku): non-author admit/reject
+ANCESTOR 64c0ce12ffe3ca4d6d1891a3e3e33933a95380f6 round-55: content revision — reviewer repairs, lesson caveat, validation receipts
+ANCESTOR 5515f8bbcd69ef5ddd51ed0f7bccebd76a8485fc round-55: W2 settlement, remaining seat reports
+ANCESTOR b467ac3a89c8 round-55: frozen contract, counters, base controls, retained sources
+ANCESTOR 143e59293896 round-55: W1 spec and dispatch, pre-append registry mirror pin
+ANCESTOR 2bda8e4227a7 round-55: build — three Yahoo robots entries, S418 row, coverage-map rows, counters v2, W1 reports
+ANCESTOR a7a548e102b7 round-55: QUALITY criteria, gate registry rows, PROVINCE step, counter selftests
+ANCESTOR 78963ae28e1c round-55: W1 settlement results, ScoutScopeOverlap report, W2 spec
+ANCESTOR faf9abe81d1e round-55: wave-2 repairs — entries, README rows, lesson, counters v2.1, validation receipts
+ANCESTOR 955e3d7bd6d1 round-55: measurement receipts, settlement, SCORECARD and LOG
+cited=10 landed=10 missing=0 unknown=0
+landed_check: suppressed 3 digest-labelled non-commit token(s)
+EXIT=0
+
+## supplemental: --branch origin/master
+ANCESTOR fcaf4b85ce32dbe2a88ce9924a4994e8cd93212d round-54 verifier spot-check (integrator, hyaku): non-author admit/reject
+ANCESTOR 64c0ce12ffe3ca4d6d1891a3e3e33933a95380f6 round-55: content revision — reviewer repairs, lesson caveat, validation receipts
+ANCESTOR 5515f8bbcd69ef5ddd51ed0f7bccebd76a8485fc round-55: W2 settlement, remaining seat reports
+ANCESTOR b467ac3a89c8 round-55: frozen contract, counters, base controls, retained sources
+ANCESTOR 143e59293896 round-55: W1 spec and dispatch, pre-append registry mirror pin
+ANCESTOR 2bda8e4227a7 round-55: build — three Yahoo robots entries, S418 row, coverage-map rows, counters v2, W1 reports
+ANCESTOR a7a548e102b7 round-55: QUALITY criteria, gate registry rows, PROVINCE step, counter selftests
+ANCESTOR 78963ae28e1c round-55: W1 settlement results, ScoutScopeOverlap report, W2 spec
+ANCESTOR faf9abe81d1e round-55: wave-2 repairs — entries, README rows, lesson, counters v2.1, validation receipts
+ANCESTOR 955e3d7bd6d1 round-55: measurement receipts, settlement, SCORECARD and LOG
+cited=10 landed=10 missing=0 unknown=0
+landed_check: suppressed 3 digest-labelled non-commit token(s)
+EXIT=0
+
+## negative control on the real repo (ancestor + jj-keep commit outside master)
+ANCESTOR 955e3d7bd6d1 round-55: measurement receipts, settlement, SCORECARD and LOG
+NOT-ANCESTOR d1ac21ee860b -
+cited=2 landed=1 missing=1 unknown=0
+EXIT=1
+
+## usage (no arguments)
+EXIT=64

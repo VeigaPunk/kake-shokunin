@@ -67,13 +67,17 @@ mirrors, Pages deploys).
 | Yahoo! JAPAN robots refusal rules (r55) | `knowledge/yahoo-japan-robots-txt-refusal-rules.md` (S372) | root placement, directory scope, absent-file negation, case-sensitive names, meta-tag fallback |
 | Yahoo! JAPAN robots pattern syntax (r55) | `knowledge/yahoo-japan-robots-pattern-syntax.md` (S373) | prefix versus end marker, wildcard scope, and the equivalence of a trailing wildcard |
 | Yahoo! JAPAN robots.txt basics (r55) | `knowledge/yahoo-japan-robots-txt-basics.md` (S418) | request channel with two payloads (pages, sitemap location); root-directory lookup on each crawl, absent file = no restriction, present = follow contents |
+| Yahoo! JAPAN link-target crawl restriction (r56) | `knowledge/yahoo-japan-link-target-crawl-restriction.md` (S367) | meta tag and server routes, page-vs-link-target indexing split, two glossed values |
+| Yahoo! JAPAN deleted URL crawl handling (r56) | `knowledge/yahoo-japan-deleted-url-recrawl.md` (S419) | deleted URL status 200 OK vs 404 Not Found check, error-page head meta tag with unnamed value, possibility and cannot-be-configured qualifiers |
+| Yahoo! JAPAN non-existent URL crawl handling (r56) | `knowledge/yahoo-japan-nonexistent-url-recrawl.md` (S420) | error page served with HTTP 200 OK is not read as an error page, the crawl continues; HTTP 404 Not Found requested instead; meta-tag index-refusal fallback where that setting cannot be made |
 
-### Frontier ground map (round 55)
+### Frontier ground map (round 55; round-56 update)
 
 One row per `PROVINCE.md` §Frontier ground that a held entry can be dated to
 (`PROVINCE.md:22-30`): the round it entered, the entry, and the `used-by` rows
 that entry names in `corpus/SOURCES.md` at base `fcaf4b85…` (155 rows); the round-55 row is
-measured at the round's final revision (156 rows, S418 added), not at base. Ranges
+measured at the round's final revision (156 rows, S418 added), the round-56 row at the round-56
+final revision (158 rows, S419 and S420 added), not at base `e48354b7…`. Ranges
 are inclusive and each id was checked individually; a row set is the entry's
 `used-by` cells, not a re-adjudication of any source.
 
@@ -93,6 +97,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Baidu crawl guidance | r52; locators superseded r53 | `knowledge/baidu-friendly-crawl-guidance.md` | S329 S373 S390 S409 |
 | Baidu mobile matching | r52; locators superseded r53 | `knowledge/baidu-mobile-matching-error-causes.md` | S312 S390 S409 |
 | Yahoo! JAPAN robots refusal file, pattern syntax, basics | r55 (lands this round) | `knowledge/yahoo-japan-robots-txt-refusal-rules.md` `knowledge/yahoo-japan-robots-pattern-syntax.md` `knowledge/yahoo-japan-robots-txt-basics.md` | S372 S373 S418 |
+| Yahoo! JAPAN crawl handling (link-target restriction, deleted URL, non-existent URL) | r56 (lands this round) | `knowledge/yahoo-japan-link-target-crawl-restriction.md` `knowledge/yahoo-japan-deleted-url-recrawl.md` `knowledge/yahoo-japan-nonexistent-url-recrawl.md` | S367 S419 S420 |
 | Field performance (CWV, CrUX) | r28 | `knowledge/field-performance-cwv.md` | S036–S039 |
 | Jekyll/base-path build tooling | r29 | `knowledge/pages-base-path.md` | S040–S043 |
 | Render static sites | r30 | `knowledge/render-static-sites.md` | S049–S052 S061 |
@@ -106,7 +111,8 @@ Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
 `scripts/sitemap_audit.py`) and the round-53 superseding rows S416/S417
 (`used-by` only `corpus/lessons/round-53.md`, correcting the S329/S312
 locators). The round-55 row's three entry paths are absent at base by design,
-and S418 is not in the base registry.
+and S418 is not in the base registry; the round-56 row's three entry paths are
+absent at its base `e48354b7…`, and S419 and S420 are not in that registry.
 
 **Untouched ground** — PROVINCE frontier items no entry holds yet:
 
@@ -127,10 +133,11 @@ and S418 is not in the base registry.
 Held, but ungated or unmeasured (an entry exists; no gate, no owned property
 observed): field performance `PROVINCE.md:25-26`, crawl budget
 `PROVINCE.md:344`, canonical selection and crawler identity `PROVINCE.md:361`,
-the six per-engine entries (the round-52 trio `PROVINCE.md:382`, the round-55 Yahoo! robots trio
-`PROVINCE.md:397`). The "Untouched ground" lines about crawler-specific extensions and robots
-`Sitemap:` cross-submission predate round 55: one operator's own pattern-syntax and sitemap-location
-statements are now held (`knowledge/yahoo-japan-robots-pattern-syntax.md`,
+the nine per-engine entries (the round-52 trio `PROVINCE.md:382`, the round-55 Yahoo! robots trio
+`PROVINCE.md:397`, the round-56 crawl-handling trio `PROVINCE.md:408`). The "Untouched ground" lines about
+crawler-specific extensions and robots `Sitemap:` cross-submission predate round 55: one operator's own
+pattern-syntax and sitemap-location statements are now held
+(`knowledge/yahoo-japan-robots-pattern-syntax.md`,
 `knowledge/yahoo-japan-robots-txt-basics.md`), as documentation only, not observed crawler behaviour.
 
 ## Known gaps
