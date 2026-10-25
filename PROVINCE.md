@@ -381,3 +381,25 @@ near-identical parameter URLs that the refusal file is to cover.
 PC↔mobile correspondence, including a mobile main body loaded by ajax and a robots block on
 Baiduspider. All three are Frontier knowledge: no gate, no owned property audited, no publish
 action. Publishing stays operator-owned.
+
+## Round-55 Yahoo! JAPAN robots.txt rules, and the coverage map's frontier ground map
+
+Round 55 adds three entries on one operator's robots.txt rules, each re-grounded against a fresh
+retained body fetched 2026-10-25: `corpus/knowledge/yahoo-japan-robots-txt-refusal-rules.md` (S372:
+where the file goes, what an absent file means, case-sensitive path names, `Allow:` beside
+`Disallow:`, the meta-tag fallback), `corpus/knowledge/yahoo-japan-robots-pattern-syntax.md` (S373:
+the wildcard, the end marker, and the prefix rule that makes a line without the end marker match
+every URL containing its string) and `corpus/knowledge/yahoo-japan-robots-txt-basics.md` (S418, a new
+row: robots.txt as a request channel for the refused pages and the sitemap location, read from the
+site root). They extend the per-engine crawl-hygiene ground of round 52 from link attributes
+(S374) to the refusal file itself. They state what the operator's documentation says (the pages print
+更新日 2010年11月24日); no robots.txt was served and no crawl was observed, so no crawler behaviour is
+claimed. Frontier knowledge: no gate, no owned property audited, no publish action; publishing stays
+operator-owned. Yahoo! JAPAN crawler-address, user-agent-list and deleted-URL pages in the staging
+package are not adopted this round.
+
+`corpus/README.md` §Coverage map now carries a running table of this section's frontier items against
+the rounds and entries that entered them (`considerthese/2026-10-25.md` proposal 4), and a row for
+each of the 24 knowledge files the map did not name. The table's `Untouched ground` list is the
+reading of the Frontier that this round could evidence; it is not a statement that the ground stays
+untouched.
