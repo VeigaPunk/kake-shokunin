@@ -2,8 +2,8 @@
 
 Round-56 W2 mutation probe: 40 single-point mutants of the eight `run_checks` condition blocks in
 `c56_quote_truth.py` @ `a450e43e`, each run against its own selftest (`KAKE_R56_SELFTEST_REV=a450e43e...
-python3 -B <mutant> --selftest`, exit != 0 = KILLED) in a private clone (`/tmp/mutc2.HrchmC`), the mutant
-written in place at the counter's own path one at a time. Baseline: `67/67`, exit 0.
+python3 -B <mutant> --selftest`, exit != 0 = KILLED) in a private clone, the mutant written in place at the
+counter's own path one at a time. Baseline: `67/67`, exit 0.
 
 MUTANTS:
 
@@ -50,8 +50,7 @@ MUTANTS:
 | M39 | :60 | `ROUND_DATE` → "2026-10-24" | KILLED | `pass` case (all date checks flip) |
 | M40 | :162 | `units()` drops non-CJK tokens | KILLED | unit rule "latin tokens counted per word" |
 
-Tally: 14 KILLED, 26 SURVIVED. Attack points are line numbers in `.ufo/waves/round-56/c56_quote_truth.py` at
-`a450e43e`; every mutant was asserted to match its old text exactly once before application.
+Tally: 14 KILLED, 26 SURVIVED. Attack points are `c56_quote_truth.py` line numbers at `a450e43e`; every mutant's old text was asserted to match exactly once before application.
 
 SURVIVORS:
 
@@ -138,19 +137,19 @@ def _(f): dual(f, REGISTRY, row(f, "S367"), set_used_by(row(f, "S367"), ADOPTED[
 ```
 
 Behavioral backup for M16 (already assert-killed): appending the real in-content unique S419 span of 31 units
-`メタタグを使ったインデックスへの登録拒否の設定を行ってください` to entry+validated copy flips pristine to exit 1
-("quotes 31 units, ceiling 25") and the ceiling-50 mutant to exit 0 — proven with a direct `run_checks` driver,
-since the fixture-build assert fires before any case runs inside the selftest itself.
+`メタタグを使ったインデックスへの登録拒否の設定を行ってください` to entry+validated copy flips pristine to exit 1 ("quotes 31
+units, ceiling 25") and the ceiling-50 mutant to exit 0 (direct `run_checks` driver; the fixture-build assert
+fires before any case inside the selftest itself).
 
 For the 7 structural survivors the selftest needs runner-level power, not file fixtures: assert the expected
-failing check id (e.g. `case(..., want=("C1_entries_exist", 1))`) for M06/M07/M09/M23, and `_build` variants —
-mirror added at the tip commit (M33); mirror rewritten after its add-commit with an updated pin (M36/M37).
+failing check id (`case(..., want=("C1_entries_exist", 1))`) for M06/M07/M09/M23, and `_build` variants —
+mirror added at the tip commit (M33); mirror rewritten post-add-commit with an updated pin (M36/M37).
 
 EVIDENCE:
 
-- Clone `/tmp/mutc2.HrchmC` @ `a450e43e696d032e3ac308383f6b3394e0c92860`; `git rev-parse --show-toplevel` = clone root.
-- Baseline: `c56 quote-truth selftest: 67/67 (fixture revision a450e43e696d)`, exit 0.
-- Pristine counter sha256 `e874e3005de88218a7710b7b654288e0006cef11d8793a3c2d095756e2b37196`; re-verified
+- Clone `/tmp/mutc2.HrchmC` @ `a450e43e696d032e3ac308383f6b3394e0c92860` (toplevel = clone root); baseline
+  `c56 quote-truth selftest: 67/67`, exit 0.
+- Pristine counter sha256 `e874e3005de88218a7710b7b654288e0006cef11d8793a3c2d095756e2b37196`, re-verified
   byte-identical after every mutant and validation run and at wave end (73 runs; each mutation asserted unique).
 - No lane file, lane git index, or jj state touched; this report is the only lane write. Logs: `/tmp/mutc2.logs/`.
 

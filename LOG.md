@@ -2184,7 +2184,7 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **C1 calibration.** Seven Self-test cells rewritten from the printed tallies (101→106, 137→204, 150→235, 8/8→9/9, 35→44, 47→54, and the pin
   `KAKE_R52_SELFTEST_REV=1ae8de5d4dee` added to the round-52 row; the round-55 row gained its pin too); two stale statements outside the ten
   corrected (`freshness-sweep` 15/15 → 36/36 at base, citing-set 41 → 45 cases; not claimed). Base `tally_mismatches=7`, exit 1; after `0`, exit 0 at
-  `@R@`. Counter version 2.1 after 4 pre-data attacks and 4 post-build attacks (selftest 20 → 59 checks).
+  `4cb225fb032b04166fb0232bc98a7bcce72675ec`. Counter version 2.1 after 4 pre-data attacks and 4 post-build attacks (selftest 20 → 59 checks).
 - **C2 freshness / assimilation.** Entries `yahoo-japan-link-target-crawl-restriction` (S367 re-opened; `used-by` old → new in
   `corpus/lessons/round-56.md`), `yahoo-japan-deleted-url-recrawl` (S419 new), `yahoo-japan-nonexistent-url-recrawl` (S420 new; staged S375/S376
   renumbered by document, staged soft-404 name not carried). Base 0/8, exit 1; after 8/8, exit 0. Fresh GETs equal the retained bodies (no drift;

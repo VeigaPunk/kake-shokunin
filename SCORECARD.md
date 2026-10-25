@@ -4321,7 +4321,7 @@ after wave 2; each is disclosed in the contract's appended sections. Admission b
 ## Round 56 — declared and measured claims
 
 Frozen contract: `.ufo/waves/round-56/contract.md` / `contract.json` (lane base `e48354b7c26bb6dc544ab6bbdc534fabe0daf7b6`, contract commit
-`2d308e808bfd`; counter versions in its §Counter versions); measured content commit `@R@`. Axis note: C1 is declared on **calibration**, the
+`2d308e808bfd`; counter versions in its §Counter versions); measured content commit `4cb225fb032b04166fb0232bc98a7bcce72675ec`. Axis note: C1 is declared on **calibration**, the
 round-54 bounded sub-axis (score 1, the lowest-scoring non-retired score), as in round 55; the surface it changes is the `SKILL.md` gate registry,
 and `w1/CriticAxisClaim.md` and `w2/CriticClaimsAdmission.md` argue it is operability (a checklist item that can be run and produces the stated
 outcome) rather than calibration as `AXES.md` defines it (SCORECARD/SHONEN against observed state). The declaration stands; the operator may rule.
