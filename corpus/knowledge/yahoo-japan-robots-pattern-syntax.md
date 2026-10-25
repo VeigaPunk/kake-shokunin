@@ -21,11 +21,19 @@ The operator's second refusal page [S373] documents the two pattern symbols its 
 > "任意の長さの、任意のURL文字列にマッチ"
 > "URL文字列のいずれの部分にも使えます。"
 
-(rendered: it matches a URL string of any length, an arbitrary URL string, and it can be used in any part of the URL string.) The worked example puts it at the end of a path under the allow directive [S373]:
+(rendered: it matches a URL string of any length, an arbitrary URL string, and it can be used in any part of the URL string.) The page's worked examples use it after a prefix, inside a path and before a query string [S373]:
 
 > "「public」で始まるすべてのディレクトリへの巡回を許可"
 
-(rendered: allow — 許可 — the crawl of every directory that begins with `public`.)
+(rendered: allow — 許可 — the crawl of every directory that begins with `public`; the example line is `Allow: /public*/`.)
+
+> "「_print」を含むすべてのファイルとディレクトリへの巡回を拒否"
+
+(rendered: refuse — 拒否 — the crawl of every file and directory that contains `_print`; the example line is `Disallow: /*_print*.html`, with `*` both before and inside the string.)
+
+> "URL文字列に「?sessionid」を含むすべてのファイルへの巡回を拒否"
+
+(rendered: refuse the crawl of every file whose URL string contains `?sessionid`; the example line is `Disallow: /*?sessionid`.)
 
 ## The end marker, and the scope of the rule that carries it
 
@@ -43,6 +51,12 @@ The operator's second refusal page [S373] documents the two pattern symbols its 
 > "末尾であると判断し、以降の文字列を無視します。"
 
 (rendered: the `$` symbol has meaning only at the end of the string; and the crawler — the sentence's subject — judges that point to be the end and ignores the string after it.)
+
+The page's one example of the end marker under the allow directive is `Allow: /*?$` [S373]:
+
+> "「?」で終わるすべてのファイルへの巡回を許可"
+
+(rendered: allow the crawl of every file that ends in `?` — the end marker is not only a refusal tool.)
 
 ## The prefix rule
 

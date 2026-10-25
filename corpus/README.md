@@ -52,7 +52,7 @@ mirrors, Pages deploys).
 | Error-status crawl layer | `knowledge/crawl-error-status-table.md` (S286) | One admitted Googlebot sentence: crawling scales back when server trouble is detected; the admitted quote is a raw substring of the retained page, unlike S273's collapsed-only crawl-budget quote; no soft-404 remedy claimed. |
 | Crawler identity (Googlebot subtypes) | `knowledge/crawler-identity.md` (S263) | Googlebot names two crawlers, Smartphone and Desktop; the HTTP user-agent header identifies the subtype, and both types obey the same robots.txt product token; it also lists what the entry does not establish. |
 | Dynamic rendering workaround limits | `knowledge/dynamic-rendering-workaround-limits.md` (S249) | One engine's own account of dynamic rendering as a workaround, not a recommended solution: the cloaking boundary is a content condition, not a technique; error pages inherit the rendering-queue status-code rule; nothing was observed on a live crawl. |
-| Local-path freshness sidecar | `knowledge/freshness-sidecar.json` | 30 entries, each naming a cited file and line number, a `~/Projects/...` path token, the line SHA-256, kind `absent` or `restored`, date 2026-10-21, and a note carrying the `test -e` exit code and marking the citation historical. |
+| Local-path freshness sidecar | `knowledge/freshness-sidecar.json` | 30 entries dated 2026-10-21, each naming a cited file and line number, a `~/Projects/...` path token, the line SHA-256 as of that date, kind `absent` or `restored`, and a note carrying the `test -e` exit code and marking the citation historical. |
 | Render queue status-code contract | `knowledge/js-rendering-queue.md` (S137–S139) | Status-code rule: 200 responses queue for rendering regardless of JavaScript, non-200 may skip; robots.txt check precedes the request; four publisher rules; zh-CN and ja locale restatements. |
 | Link-preview metadata (r34) | `knowledge/link-preview-metadata.md` (S067–S070) | Four required Open Graph properties and what each preview field means; Facebook's undecorated canonical og:url, one og:type per URL, URL-keyed image caching and Sharing Debugger re-scrape; Slack's range-limited fetch and 30-minute global cache; Mastodon's PreviewCard entity; a source-byte census of 102 ds4cc pages. |
 | Project-site base paths | `knowledge/pages-base-path.md` (S040–S043) | Publisher-side ground that a project site is published under a base path: two site kinds (S040), Liquid `relative_url`/`absolute_url` filters (S042), Vite's `base` option (S043), an offline audit over a frozen 30-case matrix; root-relative breakage is inference, no property measured. |
@@ -72,7 +72,8 @@ mirrors, Pages deploys).
 
 One row per `PROVINCE.md` §Frontier ground that a held entry can be dated to
 (`PROVINCE.md:22-30`): the round it entered, the entry, and the `used-by` rows
-that entry names in `corpus/SOURCES.md` at base `fcaf4b85…` (155 rows). Ranges
+that entry names in `corpus/SOURCES.md` at base `fcaf4b85…` (155 rows); the round-55 row is
+measured at the round's final revision (156 rows, S418 added), not at base. Ranges
 are inclusive and each id was checked individually; a row set is the entry's
 `used-by` cells, not a re-adjudication of any source.
 
@@ -111,7 +112,7 @@ and S418 is not in the base registry.
 
 - Accessibility conformance (WCAG 2.2) — `PROVINCE.md:29`. Only the round-25
   preparation packet exists, its cards are `not-assessed`, and
-  `PROVINCE.md:78-79` says the packet is not conformance and no website was
+  `PROVINCE.md:77-78` says the packet is not conformance and no website was
   evaluated.
 - JS-rendered canonical and rendered-DOM observation — `PROVINCE.md:23`
   ("canonical/JS rendering open"); `PROVINCE.md:361-362` keeps JS rendering open
@@ -119,14 +120,18 @@ and S418 is not in the base registry.
 - Render live deploy facts (plan, region, domains, deploy trigger) —
   `PROVINCE.md:29`; `PROVINCE.md:120` records they stay unknown from the file.
 - Sitemap parsing/scope, crawler-specific extensions, live fetch, redirects and
-  caching — `PROVINCE.md:302`.
+  caching — `PROVINCE.md:302-303`.
 - Sitemap gzip, text/RSS sitemaps, robots `Sitemap:` cross-submission —
-  `PROVINCE.md:336`.
+  `PROVINCE.md:335-336`.
 
 Held, but ungated or unmeasured (an entry exists; no gate, no owned property
 observed): field performance `PROVINCE.md:25-26`, crawl budget
 `PROVINCE.md:344`, canonical selection and crawler identity `PROVINCE.md:361`,
-the three per-engine entries `PROVINCE.md:382`.
+the six per-engine entries (the round-52 trio `PROVINCE.md:382`, the round-55 Yahoo! robots trio
+`PROVINCE.md:397`). The "Untouched ground" lines about crawler-specific extensions and robots
+`Sitemap:` cross-submission predate round 55: one operator's own pattern-syntax and sitemap-location
+statements are now held (`knowledge/yahoo-japan-robots-pattern-syntax.md`,
+`knowledge/yahoo-japan-robots-txt-basics.md`), as documentation only, not observed crawler behaviour.
 
 ## Known gaps
 

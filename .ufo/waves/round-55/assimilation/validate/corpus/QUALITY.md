@@ -1142,3 +1142,45 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   note; `.ufo/waves/round-52/c52_quote_truth.py` `units()` and its 6–40 Gate
   check; `CORPUS.md` SOURCES rule 1. Re-derive each CJK quote's count from its
   exact stored Gate span and report it as units, never as “words”.
+
+## Round-55 criteria
+
+- **An entry lands with its index row.** A knowledge file is not held until a
+  row of `corpus/README.md` §Coverage map names it as `knowledge/<path>` in the
+  Entry cell and describes it (5+ tokens, sharing a non-common word with the
+  file's own head). An index row is a claim (`CORPUS.md` rules from the
+  round-1/2 audits); 21 of 46 knowledge files had none across rounds 21–54.
+  Grounding: `corpus/lessons/round-55.md` §Mistakes (reference-drift);
+  `.ufo/waves/round-55/controls/base-c1-readme-index-v2.txt` (exit 1,
+  `unindexed=21`). Falsifier:
+  `python3 -B .ufo/waves/round-55/c55_readme_index.py --root . --revision <commit>`
+  must print `index_mismatches=0`; its `--selftest` carries the junk cases (a
+  mega-row, a constant cell, a swapped population, an entry edited to fit its
+  row) that the version-1 counter accepted.
+- **New quotes stay at or under 25 units, so no word-segmentation ruling is
+  needed.** A Gate quote and every quoted span in a new entry is at most 25
+  units (one per CJK character, one per non-CJK whitespace token), a raw
+  substring of the retained body, inside the page's content block; at least
+  three page-unique spans per entry keep a navigation string from passing as a
+  rule quote. This does not resolve the S367 (31 units) overrun; it stops the
+  ambiguity from growing. Grounding:
+  `corpus/lessons/round-54-verifier-spotcheck.md` routed defect 3;
+  `.ufo/waves/round-55/w1/ExecStagedQuoteAudit.md` (6 of 6 staged spans over
+  25 units); `.ufo/waves/round-55/w1/CriticC2Contract.md` A1.
+- **A held row reused by a new entry changes `used-by` only.** The other ten
+  cells stay byte-equal to the base row and each `used-by` change is logged
+  old→new in the round lesson. Grounding: `CORPUS.md` SOURCES rule 2;
+  counter condition C3/C4 in `.ufo/waves/round-55/c55_quote_truth.py`.
+- **A validated append block is the appended block.** The scratch registry that
+  the census validated before the append is byte-equal to the landed registry,
+  and its three entries are byte-equal to the landed entries; a receipt of a
+  census run is not a run. Grounding:
+  `.ufo/waves/round-55/w1/CriticC2Contract.md` A6/A8; condition C7. Falsifier:
+  the C2 counter's `--selftest` (`fail_validated_doc_differs`,
+  `fail_census_forged_shape`, `fail_validated_entry_differs`).
+- **A counter is attacked before it scores.** A counter that gates a claim is
+  run against do-nothing and junk changes by a critic and a mutation-tester
+  before any build is measured; a survivor becomes a selftest fixture in the
+  same round. Grounding: `.ufo/waves/round-55/w1/MutC1Counter.md` (9 of 16
+  mutants survived the version-1 selftest); `corpus/lessons/round-55.md`
+  §Mistakes (vacuous).

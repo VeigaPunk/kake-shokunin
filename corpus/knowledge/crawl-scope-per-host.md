@@ -55,3 +55,10 @@ An operator-authorized free read can settle this; no lane property was probed.
 ## Round-26 source recheck
 
 - Round-26 source recheck (2026-10-21, append-only; original lines unchanged). Rows S011, S012 and S013 were re-fetched by one public GET each (`.ufo/waves/round-26/fetched/manifest.json`, S008 via `manifest-retry.json`) and judged HOLD at their anchors against the retained bytes; receipts `.ufo/waves/round-26/rechecks/S0NN.json`, statement-level reviews `.ufo/waves/round-26/w1/Pair*.md`. Older verified-at/reopened dates in this entry remain the historical record of the earlier reading; they are not rewritten. Pointers labelled `at base cb807bc` stay base-scoped (QUALITY.md round-21 coordinate rule), so current-tree line movement is not a stale claim. Counting command: `python3 -B .ufo/waves/round-26/measure.py --root . --revision <commit>`.
+
+## Round-55 cross-reference (2026-10-25, appended)
+
+Yahoo! JAPAN's own statements about where its crawler looks for the refusal file (the site root) and
+what an absent file means are held in `yahoo-japan-robots-txt-basics.md` (S418) and
+`yahoo-japan-robots-txt-refusal-rules.md` (S372); they are one operator's documentation, not a second
+source for the RFC host-root rule above.

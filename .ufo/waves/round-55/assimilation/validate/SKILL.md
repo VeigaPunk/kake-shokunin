@@ -1220,3 +1220,22 @@ The completeness counter is `.ufo/waves/round-52/c52_gate_registry.py`
 with the counter path named, both `--selftest` modes to be present, both committed selftest
 receipts to hash to their pinned digests and to report exit 0, and both counter scripts to hash
 to their pinned baselines. Withdrawal rule: the row goes when the counter leaves the tree.
+
+### Round 55 gate registry additions
+
+Round 55 ships two counters whose predicates are frozen in `.ufo/waves/round-55/contract.json`
+before any data, each attacked by a critic and a mutation-tester before it scored (version 2,
+committed before any build was measured; version-1 receipts stay as history). Both are offline
+and read committed bytes only. Receipts: `.ufo/waves/round-55/controls/`.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| readme-index-counter | gate (offline, committed bytes only; no network) | `python3 -B .ufo/waves/round-55/c55_readme_index.py --root . --revision <commit>` | `0=met` (`index_mismatches == 0 AND knowledge_files >= 46`); `1=not met` (any unindexed, multi, thin, duplicate, head_changed, deleted or dangling item, or fewer than 46 knowledge files); `2=could-not-evaluate` (tree or `corpus/README.md` unreadable, no or more than one `## Coverage map` section, no table); usage errors also exit 2 (`ap.error`) | `python3 -B .ufo/waves/round-55/c55_readme_index.py --selftest` (35 fixtures, generated sandbox repos; receipt `.ufo/waves/round-55/controls/c1-selftest-v2.txt`) | `contract.json` `claims.C1.predicate`; base control `.ufo/waves/round-55/controls/base-c1-readme-index-v2.txt` (`index_mismatches=21`, exit 1 at `fcaf4b85`); version-1 control kept as history | none (reads `git show` / `git ls-tree` only; selftest writes only `mktemp -d` sandboxes) | kake |
+| yahoo-robots-quote-truth-counter | gate (offline, committed bytes only; no network) | `python3 -B .ufo/waves/round-55/c55_quote_truth.py --root . --revision <commit>` | `0=met` (`conditions_passed == 8 of 8`); `1=not met` (any C1–C8 sub-condition fails); `2=could-not-evaluate` (malformed receipt or mirror-pin JSON, an exception); usage errors also exit 2 (`ap.error`) | `python3 -B .ufo/waves/round-55/c55_quote_truth.py --selftest` (47 sandbox-repo fixtures built from the committed round-55 evidence at `HEAD` or `KAKE_R55_SELFTEST_REV`, plus 3 unit-rule checks; receipt `.ufo/waves/round-55/controls/c2-selftest.txt`) | `contract.json` `claims.C2`; base control `.ufo/waves/round-55/controls/base-c2-quote-truth-v2.txt` (`0/8`, exit 1); retained-body receipts `.ufo/waves/round-55/sources/receipts.json`; pre-append mirror pin `.ufo/waves/round-55/assimilation/mirror-pin.json` | none (reads `git show` / `git log` only; selftest writes only `mktemp -d` sandboxes) | kake |
+
+C7 is a receipt check: it certifies that the committed census receipt, the validated scratch registry
+and the landed registry agree, not that the census ran. `.ufo/waves/round-55/validate_append.sh`
+regenerates the receipts and must be re-run after any edit to `corpus/SOURCES.md` or the three
+adopted entries. No round-55 gate-completeness counter exists (round 52 shipped
+`c52_gate_registry.py` for its own two rows); the eight-cell schema of these rows is checked by
+reading, not by code. Withdrawal rule: a row goes when its counter leaves the tree.

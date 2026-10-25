@@ -27,8 +27,8 @@ Frozen predicate (the same sentence appears in `contract.md`, here and in every 
              ASCII words outside the stoplist and outside any word found in 40%+ of the knowledge
              files' heads, or a CJK bigram).
   duplicate  rows whose normalized Coverage cell repeats an earlier row's cell.
-  head_changed files present at the base revision whose first 1500 characters (or whole text when
-             shorter) are not preserved byte-for-byte at the measured revision.
+  head_changed files present at the base revision whose full base text is not preserved
+             byte-for-byte as a prefix at the measured revision (entries change only by appended text).
   deleted    files present at the base revision and absent at the measured revision.
   dangling   backticked path tokens in the section (extensions md py mjs json sh txt csv yml yaml
              toml html xml, brace sets expanded) that resolve nowhere under corpus/,
@@ -61,14 +61,16 @@ BASE_REV = "fcaf4b85ce32dbe2a88ce9924a4994e8cd93212d"
 README = "corpus/README.md"
 KNOW_DIR = "corpus/knowledge/"
 BASES = ("corpus/", "corpus/knowledge/", "corpus/lessons/", "")
-EXTS = ("md", "py", "mjs", "json", "sh", "txt", "csv", "yml", "yaml", "toml", "html", "xml")
+EXTS = ("md", "py", "mjs", "json", "sh", "txt", "csv", "yml", "yaml", "toml", "html", "xml",
+        "png", "svg", "jpg", "jpeg", "gif", "pdf", "log", "jsonl", "ndjson", "tsv")
 PROTOCOL_NAMES = {"robots.txt", "security.txt", "sitemap.xml", "humans.txt", "ads.txt", "llms.txt"}
 MAX_FILES_PER_ROW = 2
 STOP = {"source", "knowledge", "verified", "recheck", "ground", "entry", "round", "notes", "about",
         "which", "their", "there", "these", "those", "other"}
 CJK = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
 REF_RE = re.compile(r"knowledge/([A-Za-z0-9_./-]+?\.(?:md|json))(?![A-Za-z0-9_-])(?!\.[A-Za-z0-9])")
-TOKEN_RE = re.compile(r"`([^`\s]+)`")
+TOKEN_RE = re.compile(r"`([^`\s]+)`|\]\(([^)\s]+)\)")
+LINESUFFIX_RE = re.compile(r"(?::\d+(?:-\d+)?|#[^/]*)$")
 
 
 def git(root: str, *args: str) -> tuple[int, str]:
@@ -194,11 +196,12 @@ def measure(root: str, rev: str, base_rev: str = BASE_REV) -> tuple[int, dict]:
         if (KNOW_DIR + rel) in files:
             old = show(root, base_rev, KNOW_DIR + rel) or ""
             new = show(root, rev, KNOW_DIR + rel) or ""
-            if not new.startswith(old[:1500]):
+            if not new.startswith(old):
                 head_changed.append(rel)
     deleted = [rel for rel in base_know if (KNOW_DIR + rel) not in files]
     dangling: list[str] = []
-    for tok in sorted(set(TOKEN_RE.findall(section))):
+    toks = {a or b for a, b in TOKEN_RE.findall(section)}
+    for tok in sorted(LINESUFFIX_RE.sub("", t) for t in toks):
         name = tok.rsplit("/", 1)[-1]
         has_ext = "." in name and name.rsplit(".", 1)[-1] in EXTS
         if name in PROTOCOL_NAMES or not has_ext:
@@ -227,7 +230,8 @@ TERMS = ("unindexed", "multi", "thin", "duplicate", "head_changed", "deleted", "
 
 
 def _fixture(files: dict[str, str], later: dict[str, str] | None = None,
-             tip_know: dict[str, str] | None = None) -> tuple[str, str, str]:
+             tip_know: dict[str, str] | None = None,
+             gone: tuple[str, ...] = ()) -> tuple[str, str, str]:
     d = tempfile.mkdtemp(prefix="c55-idx-")
     subprocess.run(["git", "-C", d, "init", "-q"], check=True)
     top = git(d, "rev-parse", "--show-toplevel")[1].strip()
@@ -246,6 +250,8 @@ def _fixture(files: dict[str, str], later: dict[str, str] | None = None,
         return git(d, "rev-parse", "HEAD")[1].strip()
 
     base = commit({k: v for k, v in files.items() if k.startswith(KNOW_DIR)}, "base")
+    for rel in gone:  # committed at base, removed before the tip commit (`git add -A` records the deletion)
+        os.remove(os.path.join(d, rel))
     tip = commit({**{k: v for k, v in files.items() if not k.startswith(KNOW_DIR)}, **(tip_know or {})}, "tip")
     if later:  # worktree edit after the commit: committed bytes must stay authoritative
         for rel, text in later.items():
@@ -270,8 +276,8 @@ def selftest() -> int:
     rows = [good(i) for i in range(N)]
     cases: dict[str, tuple] = {}
 
-    def case(name, files, want, expect=None, later=None, tip_know=None):
-        cases[name] = (files, want, expect, later, tip_know)
+    def case(name, files, want, expect=None, later=None, tip_know=None, gone=()):
+        cases[name] = (files, want, expect, later, tip_know, gone)
 
     case("pass", {**ents, README: readme(rows)}, 0, {"knowledge_files": N, "coverage_rows": N})
     case("fail_unindexed", {**ents, README: readme(rows[1:])}, 1, {"unindexed": 1})
@@ -331,6 +337,23 @@ def selftest() -> int:
     case("pass_second_table_pointers_checked", {**ents, README: readme(rows, "\n### Map\n\n| G | R | E |\n|---|---|---|\n| x | r1 | `knowledge/e3.md` |\n")}, 0)
     case("fail_second_table_does_not_index", {**ents, README: readme(rows[1:], "\n### Map\n\n| G | Entry | Coverage |\n|---|---|---|\n| x | `knowledge/e0.md` | Widget0 cache invalidation rules described in full |\n")}, 1, {"unindexed": 1})
     case("fail_second_table_dangling", {**ents, README: readme(rows, "\n### Map\n\n| G | R | E |\n|---|---|---|\n| x | r1 | `knowledge/ghost.md` |\n")}, 1, {"dangling": 1})
+    case("fail_deleted_base_file", {**ents, f"{KNOW_DIR}zz-old.md": body(98), README: readme(rows)}, 1,
+         {"deleted": 1}, None, None, (f"{KNOW_DIR}zz-old.md",))
+    case("fail_four_token_cell", {**ents, README: readme(
+        rows[:1] + ["| a1 | `knowledge/e1.md` | Widget1 cache invalidation rules |"] + rows[2:])}, 1, {"thin": 1})
+    case("fail_duplicate_sole_term", {**ents, README: readme(
+        rows[:1] + ["| a1 | `knowledge/e1.md` | Widget1 and Widget2 cache invalidation rules described in full |",
+                    "| a2 | `knowledge/e2.md` | Widget1 and Widget2 cache invalidation rules described in full |"] + rows[3:])}, 1,
+         {"duplicate": 1, "thin": 0})
+    case("fail_multi_sole_term", {**ents, README: readme(
+        rows[:1] + ["| m | `knowledge/e1.md` `knowledge/e2.md` `knowledge/e3.md` | Widget1 Widget2 Widget3 cache invalidation rules described in full |"]
+        + rows[4:])}, 1, {"multi": 1, "thin": 0})
+    case("fail_body_truncated", {**ents, README: readme(rows)}, 1, {"head_changed": 1}, None,
+         {f"{KNOW_DIR}e1.md": "# Widget1 cache invalidation rules\n"})
+    case("fail_markdown_link_dangling", {**ents, README: readme(rows, "See [old map](knowledge/ghost-index.md).\n")}, 1, {"dangling": 1})
+    case("fail_line_suffix_pointer_dangling", {**ents, README: readme(rows, "See `knowledge/nope.md:9999-10000`.\n")}, 1, {"dangling": 1})
+    case("pass_line_suffix_pointer_resolves", {**ents, README: readme(rows, "See `knowledge/e1.md:3-4`.\n")}, 0)
+    case("fail_image_pointer_dangling", {**ents, README: readme(rows, "See `knowledge/ghost.png`.\n")}, 1, {"dangling": 1})
     case("pass_head_only_committed_bytes", {**ents, README: readme(rows)}, 0, None,
          {README: readme(rows[:1] + ["| a1 | `knowledge/e1.md` | TBD |"] + rows[2:])})
     case("pass_cjk_bigram", {**{k: v for k, v in ents.items() if k != f"{KNOW_DIR}e0.md"},
@@ -338,8 +361,8 @@ def selftest() -> int:
                              README: readme(["| a0 | `knowledge/e0.md` | ロボット の 拒否 規則 と パターン 構文 |"] + rows[1:])}, 0)
 
     passed, fails = 0, []
-    for name, (files, want, expect, later, tip_know) in sorted(cases.items()):
-        d, base, tip = _fixture(files, later, tip_know)
+    for name, (files, want, expect, later, tip_know, gone) in sorted(cases.items()):
+        d, base, tip = _fixture(files, later, tip_know, gone)
         try:
             code, facts = measure(d, tip, base)
         finally:
@@ -372,7 +395,8 @@ def main() -> int:
     if args.selftest:
         return selftest()
     if not args.revision:
-        ap.error("--revision is required unless --selftest is used")
+        print("usage: --revision is required unless --selftest is used", file=sys.stderr)
+        return 64
     code, facts = measure(args.root, args.revision)
     if code == 2:
         print(f"C1 unevaluable: {facts.get('error')}")

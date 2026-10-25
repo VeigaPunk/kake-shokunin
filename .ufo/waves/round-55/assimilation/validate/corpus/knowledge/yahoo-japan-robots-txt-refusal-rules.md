@@ -66,8 +66,10 @@ The page's central negation, quoted raw:
 
 ## Case in the path names
 
-The page's case rule, quoted raw:
+The page's case rule, quoted raw (the subject of the rule, then the rule):
 
+> "Disallow（拒否）、"
+> "Allow（許可）のあとに記述されたディレクトリ名は、"
 > "大文字と小文字の違いがあった場合"
 > "別のものとして扱います"
 

@@ -92,3 +92,32 @@ the C1 v2 count is the same 21 (all `unindexed`; the new terms `multi`, `thin`, 
 `head_changed`, `deleted`, `dangling` are all 0 over the real tree) and C2 v2 is 0 of 8.
 Counter bugs found after this point are repaired in code and disclosed in the report; the sentence
 stays.
+
+## Corrections and counter version 2.1 (appended after wave 2, before the final measurement)
+
+- **Correction of the version-2 paragraph above.** It says version 2 "was committed with fresh base-control
+  receipts before any build edit". By commit graph that is wrong: at `b467ac3` and `143e592` the counters are
+  version 1; the version-2 counters, their base receipts, this section's predecessor and the build all land in
+  `2bda8e4` (`git log -S 'Version 2 of both counters' -- .ufo/waves/round-55/contract.md` → `2bda8e4`). What holds:
+  version 2 existed before any build was measured by any counter, and the predicate sentences are byte-identical
+  at `b467ac3` and later. (`w2/CriticClaimsAdmission.md` item 1.)
+- **Fixture counts.** The "30 fixtures" in §C2 is version-1 wording. The committed C2 selftest carries 47 fixtures plus
+  3 unit-rule checks (50/50); the C1 selftest carries 44 (version 2.1). Both are higher than frozen, so the junk-control
+  surface is not weaker than declared.
+- **Usage exit.** The kill rules say `64 usage`; version 1 and 2 exited 2 through `argparse`. Version 2.1 returns 64
+  for a missing `--revision`, and 2 for a revision that does not resolve (so a broken measurement is not read as
+  `not met`). `--json` prints one pure JSON document, with the exit code inside it.
+- **Version 2.1 hardening (wave-2 attacks, `w2/CriticJunkC1.md`, `w2/CriticJunkC2.md`, `w2/MutC1V2Counter.md`,
+  `w2/ReviewerEntry*.md`).** C1: `head_changed` now means the full base text is preserved as a prefix (kills body
+  truncation); markdown-link and `path:line` pointers and more file extensions are checked by `dangling`; four
+  fixtures from the mutation seat (`deleted`, the 4-token boundary, `duplicate` and `multi` as sole terms). C2: the
+  content block is bounded to the article (from the first `<h2` to the page's `個別リンクURL` widget, which excludes
+  sidebar, tag area and footer); a unique span must occur exactly once in its own page; spans of 2+ units are
+  substring-checked, not only 6+; every Gate span must be page-unique; the new row's anchor heading must occur in
+  the retained body; the receipt `userAgent` must carry the round tag.
+- **What no counter here tests.** C1 proves that every knowledge file is named by a described row, not that the
+  description is true: ten junk variants pass the counter (`w2/CriticJunkC1.md`) and only a reader tells them
+  apart. Row truth is the executors' and reviewers' term (`w2/ExecRows*.md`). C2's "quote-true" means quote-literal
+  (raw substring, ceiling, article block, page-unique); rendering fidelity and relevance are the reviewers' term
+  (`w2/ReviewerEntry*.md`). `freshness` in C2 means a fresh GET equal to the retained body plus re-run recheck
+  commands, not a claim about the operator's current documentation beyond that fetch. C7 is a receipt of agreement.

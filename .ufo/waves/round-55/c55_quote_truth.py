@@ -169,14 +169,23 @@ def units(text: str) -> int:
     return len(CJK_RE.findall(text)) + len([t for t in text.split() if not CJK_RE.search(t)])
 
 
-def in_content(text: str, span: str) -> bool:
-    """True when some occurrence of `span` starts at or after the first <h2 (the content block)."""
+def content_window(text: str) -> tuple[int, int] | None:
+    """The article block: from the page's `更新日` line to the `個別リンクURL` widget (nav, sidebar, footer excluded)."""
+    lo, hi = text.find("更新日"), text.find("個別リンクURL")
     h2 = text.find("<h2")
-    if h2 < 0:
+    if lo < 0 or hi < 0 or h2 < 0 or hi <= lo:
+        return None
+    return h2, hi
+
+
+def in_content(text: str, span: str) -> bool:
+    """True when some occurrence of `span` starts inside the article block."""
+    win = content_window(text)
+    if win is None:
         return False
     start = text.find(span)
     while start >= 0:
-        if start >= h2:
+        if win[0] <= start < win[1]:
             return True
         start = text.find(span, start + 1)
     return False
@@ -329,8 +338,12 @@ def run_checks(root: str, rev: str, base_rev: str = BASE_REV) -> tuple[int, list
                 c5.append(f"{sid}: retained body does not carry the row's page title {title!r}")
             if f'value="{ROW_URL[sid]}"' not in texts[sid]:
                 c5.append(f"{sid}: retained body does not carry its own URL field value=\"{ROW_URL[sid]}\"")
-            if "<h2" not in texts[sid]:
-                c5.append(f"{sid}: retained body has no content block (<h2) marker")
+            if content_window(texts[sid]) is None:
+                c5.append(f"{sid}: retained body has no article block (<h2 .. 更新日 .. 個別リンクURL)")
+            if sid in NEW_ROWS and row and len(row) > 5:
+                anchor = row[5].split("§", 1)[1].split(" (")[0].strip() if "§" in row[5] else ""
+                if not anchor or anchor not in texts[sid]:
+                    c5.append(f"{sid}: row anchor heading {anchor!r} does not occur in the retained body")
         for sid in ADOPTED:
             text = texts.get(sid)
             if text is None:
@@ -364,8 +377,8 @@ def run_checks(root: str, rev: str, base_rev: str = BASE_REV) -> tuple[int, list
                         if not 6 <= units(q) <= UNIT_CEILING:
                             c5.append(f"{sid}: Gate quote is {units(q)} units, expected 6 to {UNIT_CEILING}")
                         verify("Gate line", q, c5)
-                    if spans and any(q in t for q in spans[-1:] for t in others):
-                        c5.append(f"{sid}: Gate located quote also occurs in another retained body (not page-unique)")
+                    if any(q in t for q in spans for t in others) or any(text.count(q) != 1 and not in_content(text, q) for q in spans):
+                        c5.append(f"{sid}: a Gate quote also occurs in another retained body or only outside the article block (not page-unique)")
                     if ROW_URL[sid] not in line:
                         c5.append(f"{sid}: Gate line does not carry the URL")
                     if ROUND_DATE not in line:
@@ -378,12 +391,12 @@ def run_checks(root: str, rev: str, base_rev: str = BASE_REV) -> tuple[int, list
                 if CURLY.search(line):
                     c5.append(f"{sid}: entry line {lineno} uses curly double quotes; the declared form is ASCII")
                 for span in re.findall(r'"([^"]+)"', line):
-                    if units(span) < 6:
+                    if units(span) < 2:
                         continue
                     notes: list[str] = []
                     found = verify(f"entry line {lineno}", span, notes)
                     c5.extend(notes)
-                    if found and not any(span in t for t in others):
+                    if found and units(span) >= 6 and text.count(span) == 1 and not any(span in t for t in others):
                         unique_spans.add(span)
             if len(unique_spans) < MIN_UNIQUE_SPANS:
                 c5.append(f"{sid}: entry carries {len(unique_spans)} page-unique quoted spans, expected {MIN_UNIQUE_SPANS}+")
@@ -421,6 +434,8 @@ def run_checks(root: str, rev: str, base_rev: str = BASE_REV) -> tuple[int, list
                 c6.append(f"{sid}: receipt fetchedAt {receipt.get('fetchedAt')!r} is not ISO 8601")
             elif stamp.date().isoformat() != ROUND_DATE or not str(receipt.get("fetchedAt")).endswith(("Z", "+00:00")):
                 c6.append(f"{sid}: receipt fetchedAt {receipt.get('fetchedAt')!r} is not a UTC stamp on {ROUND_DATE}")
+            if "round55" not in str(receipt.get("userAgent", "")):
+                c6.append(f"{sid}: receipt userAgent {receipt.get('userAgent')!r} does not carry the round tag round55")
             row = rows.get(sid)
             url = row_url(row) if row else None
             if url is None:
@@ -791,6 +806,21 @@ def selftest() -> int:
     def _(f):
         r = jload(f, RECEIPTS); r["sources"]["S372"]["fetchedAt"] = "2026-10-25T08:00:00+09:00"; f[RECEIPTS] = jdump(r)
 
+    @case("fail_anchor_heading_not_in_body")
+    def _(f): f[REGISTRY] = f[REGISTRY].replace("§ robots.txtとは？ (h2)", "§ 存在しない見出し (h2)")
+
+    @case("fail_receipt_useragent_untagged")
+    def _(f):
+        r = jload(f, RECEIPTS); r["sources"]["S372"]["userAgent"] = "curl/8"; f[RECEIPTS] = jdump(r)
+
+    @case("fail_short_span_fabricated")
+    def _(f): f[ADOPTED["S373"]] += '\n> "存在しない語"\n'
+
+    @case("fail_gate_second_quote_not_unique")
+    def _(f):
+        g = gate_line_of(f, "S372")
+        f[LESSON] = f[LESSON].replace(g, g + ' and "ここから本文です"')
+
     @case("fail_mirror_crlf")
     def _(f): f[MIRROR] = f[MIRROR].replace("\n", "\r\n")
 
@@ -835,16 +865,22 @@ def main() -> int:
     if args.selftest:
         return selftest()
     if not args.revision:
-        ap.error("--revision is required unless --selftest is used")
+        print("usage: --revision is required unless --selftest is used", file=sys.stderr)
+        return 64
+    if git(args.root, "rev-parse", "--verify", "--quiet", f"{args.revision}^{{commit}}")[0] != 0:
+        print(f"unevaluable: revision {args.revision!r} does not resolve in {args.root!r}")
+        print("EXIT=2")
+        return 2
     code, results = run_checks(args.root, args.revision)
     passed = sum(1 for r in results if r["state"] == "pass")
     if args.json:
         print(json.dumps({
-            "schema": "kake-r55-c2-quote-truth-v1", "predicate": PREDICATE, "revision": args.revision,
+            "schema": "kake-r55-c2-quote-truth-v2", "predicate": PREDICATE, "revision": args.revision,
             "adopted": ADOPTED,
             "checks": {r["check"]: {"passed": r["state"] == "pass", "state": r["state"],
                                     "notes": r["notes"], "facts": r["facts"]} for r in results},
-            "conditions_passed": passed, "met": code == 0}, indent=1, ensure_ascii=False))
+            "conditions_passed": passed, "exit": code, "met": code == 0}, indent=1, ensure_ascii=False))
+        return code
     else:
         print(f"C2 quote-truth {passed}/8 met={code == 0}  ({PREDICATE})")
         for r in results:

@@ -400,6 +400,7 @@ package are not adopted this round.
 
 `corpus/README.md` §Coverage map now carries a running table of this section's frontier items against
 the rounds and entries that entered them (`considerthese/2026-10-25.md` proposal 4), and a row for
-each of the 24 knowledge files the map did not name. The table's `Untouched ground` list is the
+each of the 21 knowledge files the map did not name at the round base, plus rows for the three new
+entries (24 rows added). The table's `Untouched ground` list is the
 reading of the Frontier that this round could evidence; it is not a statement that the ground stays
 untouched.

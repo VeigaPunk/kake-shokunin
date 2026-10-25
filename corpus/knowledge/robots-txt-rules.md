@@ -121,3 +121,10 @@ comparison. The sentence above about 500–599 still holds: under 5xx every URL 
 Google differs: its parser has no implicit allow and does not decode the path, so under
 `Disallow: /` it blocks `/robots%2Etxt` (round-38 wave-1 `ScoutGoogleImplicit`, S096 `robots.cc`
 at `22b355ff`, lines 537–546).
+
+## Round-55 cross-reference (2026-10-25, appended)
+
+One operator's own robots.txt rules are held separately and are not part of the RFC 9309 reading
+above: `yahoo-japan-robots-txt-refusal-rules.md` (S372), `yahoo-japan-robots-pattern-syntax.md` (S373)
+and `yahoo-japan-robots-txt-basics.md` (S418). Each contrasts its page with this entry's readings and
+marks the contrast as the lane's own mapping.

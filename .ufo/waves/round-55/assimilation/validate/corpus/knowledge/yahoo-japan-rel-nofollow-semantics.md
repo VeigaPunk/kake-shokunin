@@ -66,3 +66,10 @@ Evidence reopened this round: retained body
 `3ad358bdbe7a74798df151c282e4b57af7475686dc405b3f8bad08f68881aecb`;
 the exact quote occurs once at the source's rel=nofollow paragraph. This was a
 local re-open of the retained round-52 HTTP-200 body, not a fresh network fetch.
+
+## Round-55 cross-reference (2026-10-25, appended)
+
+The line "the lane's robots-refusal ground (S372, S373)" above named two registry rows that had no
+knowledge entry of their own. Round 55 adds them: `yahoo-japan-robots-txt-refusal-rules.md` (S372),
+`yahoo-japan-robots-pattern-syntax.md` (S373) and `yahoo-japan-robots-txt-basics.md` (S418). They state
+what the operator's own pages say about the refusal file, not about the link attribute above.

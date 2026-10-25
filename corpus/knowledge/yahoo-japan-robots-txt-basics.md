@@ -1,6 +1,6 @@
 source: S418 — https://info-search.yahoo.co.jp/archives/002885.php — § robots.txtとは？ (更新日 2010年11月24日) — fetched 2026-10-25
 verified-at: 2026-10-25
-recheck: 180d — curl -fsSL 'https://info-search.yahoo.co.jp/archives/002885.php' | grep -F -c '検索エンジンに対する要求を伝えるファイルです'
+recheck: 180d — curl -fsSL 'https://info-search.yahoo.co.jp/archives/002885.php' | grep -F -c '検索エンジンに対する要求を伝えるファイルです' -> 1 (curl form and the same grep against the retained body, both 1, 2026-10-25)
 ground: per-engine crawl hygiene — what the operator's refusal file is for, where the crawler looks for it on a crawl, and what an unplaced file is taken to mean
 
 # robots.txt is a request channel the crawler looks for at the site root
@@ -39,7 +39,7 @@ pointer — and the page gives the syntax of neither line [S418].
 
 > "クローラーによる巡回の際は"
 
-(rendered: on the occasion of a crawl by the crawler — per crawl, not once per site lifetime).
+(rendered: on the occasion of a crawl by the crawler — the page binds the lookup to the crawl; it states no lookup frequency).
 
 > "まずサイトのルートディレクトリ"
 
@@ -82,7 +82,12 @@ scope is the service (protocol, authority, port) — see `robots-txt-rules.md`, 
 
 - No directive name, wildcard, end marker or case rule: the page carries no directive token and
   points at its own refusal-settings pages サイト単位、ディレクトリ単位での巡回の拒否設定 1 and 2
-  (rows S372, S373) [S418].
+  (rows S372, S373) and at a third page on the sitemap, quoted raw [S418]:
+
+> "サイトマップによる効率的な巡回"
+
+  (rendered: the page's third link — efficient crawling by means of a sitemap; its content is not read
+  here and no row is held for it).
 - No HTTP-status, redirect or caching rule; no sitemap format or sitemap-line support [S418].
 - Nothing about the per-link attribute (`yahoo-japan-rel-nofollow-semantics.md`, S374): a file-level list
   and a link-level attribute are different surfaces.
@@ -94,7 +99,7 @@ scope is the service (protocol, authority, port) — see `robots-txt-rules.md`, 
 
 Each quotation is a raw substring of `.ufo/waves/round-55/sources/S418.html` (sha256 `2b146a72…`, 7559
 bytes, HTTP 200 in `receipts.json`), occurs once, and is at most 25 units (one unit per CJK character).
-Renderings are unquoted and keep the source's qualifiers: まず (first), 巡回の際は (per crawl), そのサイト
+Renderings are unquoted and keep the source's qualifiers: まず (first), 巡回の際は (on the occasion of a crawl), そのサイト
 に対する (for that site), みなして (treated as), 設置 (placement), サイト内 (inside the site).
 
 Scope note: a claim about what the operator's documentation states on one page of its info centre;
