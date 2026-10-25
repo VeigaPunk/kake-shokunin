@@ -1,0 +1,474 @@
+{
+  "schema": "ufo-swarm-registry-v1",
+  "wave": "kake-r52-w1",
+  "createdAt": "2026-10-25T10:10:41.938Z",
+  "updatedAt": "2026-10-25T10:11:38.506Z",
+  "reportDir": ".ufo/waves/round-52/w1",
+  "members": {
+    "ScoutCensusBefore": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Run the frozen census command read-only: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`. Record exact argv, stdout, stderr and exit code. Also run the row count `grep -cE '^\\|[[:space:]]*S[0-9]{3,}[[:space:]]*\\|' /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md` and the duplicate-id check. Do NOT modify the registry. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScoutCensusBefore.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScoutDriftControl": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Run `node /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs` (live) and save stdout/exit. Then build a base-clone control: `git clone --shared /home/vgpnk/Projects/shokunin/kake-shokunin /tmp/kake-r52-drift-base` (read-only; verify HEAD == 93d7fdbd45b0e5698927e7f9cb3dafca24ace416) and run the sweep there with the same pins; record its verdict lines. Purpose: prove the §armed drift legs are external and pre-existing (round-51 CriticHarm precedent). Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScoutDriftControl.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScoutSiblingOverlap": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "connector",
+      "item": "Scan sibling lanes' committed material under /home/vgpnk/Projects/shokunin/*-shokunin (git log/show only) for: (a) a wave-evidence ledger or route-receipt checker that kake's c52 ledger duplicates or contradicts; (b) gate-registry rows in SKILL.md with the same tool names; (c) knowledge entries on Yahoo! JAPAN or Baidu crawl rules kake is about to admit (avoid duplicate coverage). Name each overlap with path:line or say `none found` with the command you ran. Never write in a sibling repo. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ConnectorSiblingOverlap.md",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScoutSourceS374": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Open the row-S374 source in THIS round: fetch `https://info-search.yahoo.co.jp/archives/002851.php` (UA: Mozilla/5.0), retain the response body at /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/sources/S374.html, record HTTP status, bytes, fetchedAt and sha256 in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/sources/receipts.json (keys under \"sources\"). Verify the Gate quote `このリンク先のウェブページの巡回を推奨していない` is a raw substring (grep -F -c -> 1) and count its words (<=25). This is the re-grounding evidence for the S374 row and the Yahoo entry. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScoutSourceS374.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScoutSourceS329": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Open the row-S329 source: fetch `https://ziyuan.baidu.com/college/courseinfo?id=1399` (UA: Mozilla/5.0), retain body at /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/sources/S329.html, record status/bytes/fetchedAt/sha256 in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/sources/receipts.json. Verify these raw substrings occur (grep -F -c -> 1 each): `对于robots封禁，如果封禁的agent是Baiduspider，会对PC和移动同时生效`, `支持使用通配符`, `蜘蛛黑洞`, `即禁止搜索引擎访问网站中所有的动态页面`. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScoutSourceS329.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScoutSourceS312": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Open the row-S312 source: fetch `https://ziyuan.baidu.com/college/courseinfo?id=267&page=15` (UA: Mozilla/5.0), retain body at /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/sources/S312.html, record status/bytes/fetchedAt/sha256 in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/sources/receipts.json. Verify the raw substring `手机页使用了ajax等异步加载的方法加载内容主体` occurs (grep -F -c -> 1). If the section heading `对应关系错误的五类原因` is absent from the body, say so (the entry must not overstate). Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScoutSourceS312.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "RevengerQuarantineHandcheck": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "revenger",
+      "item": "Hand-check kake's full 12-row quarantine slice (read-only register `/home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md`; derive your slice yourself with the awk filter in the prompt: $2 matches `kake`, $3 round cell, $4 S-id). For each of the 9 `payload-absent` rows (S142, S143, S148, S156, S161, S193, S194, S195, S206): fetch the cited source (or for the 4 rows citing github.com/VeigaPunk/kake-shokunin.git, search the lane repo at /home/vgpnk/Projects/shokunin/kake-shokunin), attempt to locate the quoted span raw, and land a verdict: quote-present / quote-absent-refused / unreachable. For the 3 prose-class rows (S154, S178, S184) mark them unverifiable (unreachable is not fabrication). Verdicts land in THIS report; never edit the register. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/RevengerQuarantineHandcheck.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "RevengerR51Routed": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "revenger",
+      "item": "Trace each routed defect from `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-51-verifier-spotcheck.md` §6 (r51-1 … r51-9) to the artifact this round must land for it: (1) registry rows + selftest + baselines; (2) C8/C6 fixes; (3) C1 vacuity floor; (4) junk controls replayable; (5) measured commit hashed; (6) frontier-line wording; (7) live drift verdict + control in report; (8) package revision pinned; (9) leftovers committed. For each, state the target path and whether the round's declared work covers it; flag any that are NOT covered by C1/C2. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/RevengerR51Routed.md",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ExecLedgerV2": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Implement the hardened C1 ledger in YOUR scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ExecLedgerV2/c52_wave_ledger.py. Copy `.ufo/waves/round-51/c51_wave_ledger.py` as the base. Changes: (L1) require spawn>0; require settlement['seats'] == ordered list of task names+roles from the payload; parse `seats=(\\d+)` from wave-grant.txt and require it equals spawn and len(tasks); require reports_written == len(settled) == spawn; require dead == [] unless the settlement carries a per-dead-seat dispatch receipt; per seat, read the report blob (git show) and require non-empty body, unique sha256 across reports, and the seat name appearing in the body. (L2) deterministic receipts: if two receipts share an alias, require identical httpStatus (reject conflicts); require the used route's receipt to carry integer httpStatus, `ok: true`, and a body excerpt. (L3) match the LOG token with regex `wall clock[: ]+\\*{0,2}[0-9]+\\*{0,2} s` or `wall_clock_seconds=[0-9]+`; require any dead seat's duration to match its recorded reason. Exit-code contract: wrap checks; unevaluable evidence -> exit 2, genuine miss -> exit 1, met -> exit 0. Add `--selftest` mode that runs committed fixtures under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/selftest/ledger/ (create them: one passing fixture, and one failing fixture per new condition) and exits 0 only when all pass. IMPORTANT: run your counter on the real round-51 evidence: `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ExecLedgerV2/c52_wave_ledger.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision 907790c78008819fc95c988431188f90b81f0d5f` MUST print 3/3 met=True exit 0. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ExecLedgerV2.md (plus your scratch files).",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ExecQuoteV2": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Implement the hardened C2 quote counter in your scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ExecQuoteV2/c52_quote_truth.py. Copy `.ufo/waves/round-51/c51_quote_truth.py` as the base. Changes: (C8) mirror registry must read `show(root, rev, MIRROR)` — the mirror bytes at the MEASURED revision — AND the mirror's sha256 must equal a pinned sha in the census receipt (read the receipt's sha field); keep the strict-ancestor check for the mirror add-commit. (C6) require receipt httpStatus == 200 (int), receipt bytes == blob size (git cat-file -s), fetchedAt present, and URL suffix-equality with the registry row's URL cell. (C5) scan ALL lesson Gate quotes for the adopted ids (not just one): each must be 6–25 words and a raw substring of the retained body. Add `--selftest` mode over fixtures under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/selftest/quote/ (passing fixture + a failing fixture per changed condition). IMPORTANT: run on the real round-51 evidence at `907790c78008819fc95c988431188f90b81f0d5f` — MUST print 8/8 met=True exit 0; and at base `93d7fdbd45b0e5698927e7f9cb3dafca24ace416` you MUST get 0/8 exit 1. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ExecQuoteV2.md (plus scratch files).",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ExecGateRegistryCheck": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Implement `c52_gate_registry.py` in your scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ExecGateRegistryCheck/. It reads committed bytes only (git show at a revision) and asserts: (a) SKILL.md contains two gate-registry rows named `wave-evidence-ledger` and `quote-truth-counter` with ALL eight columns non-empty (Name|Kind|Entry command|Verdict map|Self-test|Pinned values/frozen proof|Write scope|Owner) following the round-47 row shape in SKILL.md; (b) the two selftest receipts exist under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/verification/ and are non-empty; (c) the instrument sha256 pins match the committed counter blobs at that revision. Prove able-to-fail: build a fixture repo (sandbox clone) with one row missing and show the checker exits 1. Exit 0 only when all assertions hold. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ExecGateRegistryCheck.md (plus scratch files).",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ExecMutantLadder": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Build the reusable, committed vacuity ladder for the C1 ledger: `c52_vacuity_ladder.py` in your scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ExecMutantLadder/. It generates fixture repos (sandbox clones of the r51 wave evidence at 907790c) for the class families: (1) empty wave spawn=0; (2) phantom seats (settlement names not in payload); (3) zero-byte reports; (4) 48 seats 0 reports; (5) multiset->set collapse (duplicate name); (6) LOG token deleted; (7) time tautology (all seconds 0); (8) `seats` field renamed; (9) 47-of-48 delivery with dead reason no-report; (10) grant seats=1 vs spawn=48; (11) missing `name` key (expect exit 2, not 1); (12) duplicate report digests. For each family run BOTH the old counter (`c51_wave_ledger.py`) and the new counter (from ExecLedgerV2's scratch) and print old-result/new-result; the ladder PASSES only when old is green (3/3 exit 0) and new is red (exit 1 or 2) for every family. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ExecMutantLadder.md (plus scratch files).",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ExecDriftPins": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "With evidence only, produce a patch for `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/freshness-pins.json`: (1) PQ-2: measure the current remote of the read-only ds4cc-marketplace checkout — `git -C /home/vgpnk/Projects/ds4cc-marketplace ls-remote origin refs/heads/main` (do NOT run from the lane; if the checkout is absent, use `git ls-remote https://github.com/VeigaPunk/ds4cc-marketplace.git refs/heads/main` read-only) and the unpushed count `git -C /home/vgpnk/Projects/ds4cc-marketplace rev-list --count origin/main..HEAD` (if checkout absent, report n/a and do not change the pin). Update `pq2Remote` to the measured remote sha and `pq2Unpushed` to the measured count ONLY if measured. (2) sitemap: fetch `https://ds4cc.com/sitemap.xml` and record status/bytes; update `sitemapStatus` to the observed status ONLY if 200 (record the observed bytes in your report). (3) Do NOT touch `plazir*` pins (operator-owned absence must stay red). Write the complete new pins JSON at /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ExecDriftPins/freshness-pins.patch.json. Then apply it to a COPY of the lane and run `node /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs` in that copy; confirm the only remaining §armed drift leg is plazir-gate-anomaly. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ExecDriftPins.md (plus scratch files).",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ExecJunkControls": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Resolve the unreplayable junk controls `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/../round-51/controls/c1-junk-wave.txt` and `c2-junk-entries.txt` (they cite revisions the repo does not contain). Choose one disposition: (a) commit the junk fixture trees in a sandbox so every cited revision exists and the files become replayable; or (b) remove the two files in favour of the mutation ladder (ExecMutantLadder) and state so. Produce the disposition artifact in your scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ExecJunkControls/ and clearly state which option you implemented and why. Never edit the round-51 evidence directory directly; put your replacement/justification files in scratch. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ExecJunkControls.md.",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScribeRowNormalize": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Build the normalized SOURCES append block for rows S374, S329, S312 in your scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ScribeRowNormalize/. Source rows: `/home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md` lines for S312/S329/S374. Normalize per CORPUS.md rule: 11 cells exactly, no literal or escaped `|` in any cell, `recheck` becomes `180d` (no prose), `status` `mined`, `opened` 2026-10-25, `used-by` lists exactly the admitting entry paths (`corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md`, `corpus/knowledge/baidu-crawler-guidance.md`, `corpus/knowledge/baidu-mobile-matching.md`), anchor rewritten to carry your own located quote (<=25 words, raw from the fetched bodies). Record the stripped recheck prose (the curl commands) in your report for the lesson Gate. Then mirror the lane in scratch: copy /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/ + the append block into the Registry table + the three knowledge files at their repo-relative paths, and run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ScribeRowNormalize/validate/corpus/SOURCES.md` — exit 0 (warnings allowed), no E03/E04. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScribeRowNormalize.md (plus scratch files).",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScribeEntryDraft": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the three final knowledge entries in your scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ScribeEntryDraft/: `corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md`, `corpus/knowledge/baidu-crawler-guidance.md`, `corpus/knowledge/baidu-mobile-matching.md`. Use the staged drafts at `/home/vgpnk/Projects/shokuknow/merge/kake/knowledge/corpus/knowledge/` as raw material, but RE-GROUND against the bodies fetched this round (see ScoutSourceS374/S329/S312 receipts under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/sources/): each entry opens with the provenance trio (`source:` citing its S### row + URL + anchor, `verified-at:` 2026-10-25, `recheck:` 180d); every quote used must be a raw substring of the retained body (quote classes block if any quote is collapsed-only); add `## What this entry does not establish`. Scope: per-host crawl hygiene (Yahoo link-target semantics; Baidu robots/wildcards/spider-trap; Baidu mobile-matching error causes). Keep to the staged entry's factual assertions unless the fetched body contradicts them (say so). Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScribeEntryDraft.md (plus scratch files).",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScribeLessonDraft": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the round-52 lesson `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/lessons/round-52.md` in your scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ScribeLessonDraft/. Sections: `## Gate` (admits S374/S329/S312 with URL, access date 2026-10-25, <=25-word located quote each; rejections/quarantine verdicts from RevengerQuarantineHandcheck; the id-collision guard proof from .ufo/waves/round-52/assimilation/guard-proof/; stripped staged prose log; superseded rows log old->new); `## Mistakes` with one row per mistake mined this round or earlier (class · evidence pointer · captured-by · fix), including at least: the L1 misroot append to the fleet SCORECARD.md (class: misroot; captured-by: none — always use absolute paths for edits; fix: restore + re-append to the lane file), and the round-51 mirror contamination class; checkquant accounting (wave size, roles, dead seats) once wave results exist. Do NOT write the file into the lane — only your scratch copy. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScribeLessonDraft.md (plus scratch files).",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScribeRegistrySkillDraft": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the two SKILL.md gate-registry rows in your scratch dir /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ScribeRegistrySkillDraft/. Follow the round-47 row shape exactly (columns: Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner). Row 1 `wave-evidence-ledger`: entry `python3 -B .ufo/waves/round-52/c52_wave_ledger.py --root . --revision <commit>`; verdict map 0=met 3/3, 1=miss, 2=unevaluable, 64=usage; self-test `python3 -B .ufo/waves/round-52/c52_wave_ledger.py --selftest`; pinned values = instrument sha256 + the r51 real-data baseline (3/3 at 907790c, 0/3 at base) + the vacuity ladder families (>=10 red). Row 2 `quote-truth-counter`: entry `python3 -B .ufo/waves/round-52/c52_quote_truth.py --root . --revision <commit>`; verdict map 0=met 8/8, 1=miss, 2=unevaluable, 64=usage; self-test `python3 -B .ufo/waves/round-52/c52_quote_truth.py --selftest`; pinned values = instrument sha256 + real-data baseline (8/8 at 907790c, 0/8 at base) + the mirror sha256 pin. Both rows note they supersede the r51 unregistered counters. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScribeRegistrySkillDraft.md (plus scratch files).",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ScribeScorecardDraft": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the round-52 measured-results section for `/home/vgpnk/Projects/shokunin/kake-shokunin/SCORECARD.md` (under `## Round 52 — measured results`): per claim a row with axis/score delta (10→10 HOLD), before→after, counting command, verdict/evidence. Include the C1 sub-values (registry rows 0→2, selftest receipts 0→2, vacuity families killed >=10, real-data reruns 2/2) and C2 sub-values (rows 145→148, entries 0→3, census exit 0, drift legs 3→1). Include the no-harm sentence with the LIVE sweep verdict and the base-clone control, per routed defect r51-7. Include the measured commit line (filled in by the L1 after integration — leave a placeholder `MEASURED_COMMIT`). The L1 will verify numbers before committing. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ScribeScorecardDraft.md (plus scratch files).",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewC1Predicate": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Compare the frozen C1 predicate in /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/contract.json with the counting commands and with the actual counter code (ExecLedgerV2 scratch + ExecGateRegistryCheck scratch): the same sentence must appear in the plan (contract), the counter's code condition and the receipt label. Flag any mismatch. Also verify the kill rule will fire when each sub-value misses. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewC1Predicate.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewLedgerCode": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Review the new C1 ledger code (ExecLedgerV2 scratch c52_wave_ledger.py) line by line against the required fixes: (a) spawn>0, seats-list equality, grant parse, coverage floor, dead==[] or receipts; (b) report blob read with non-empty/unique-digest/seat-name-in-body; (c) deterministic receipt conflict handling; (d) labelled LOG token; (e) exit-code contract 0/1/2. Run it on the real r51 evidence (must be 3/3) and on 3 of the mutant families. Report any guard that can be bypassed or that false-kills real data. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewLedgerCode.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewQuoteCounterCode": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Review the new C2 quote counter (ExecQuoteV2 scratch c52_quote_truth.py): C8 must read show(root, rev, MIRROR) and compare sha with the census receipt's pin; C6 must check httpStatus/bytes/fetchedAt plus URL suffix; C5 must cover all Gate quotes. Run on real r51 data (8/8) and base (0/8). Verify the mirror sha pin is actually read (not just printed). Report bypasses or false fails. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewQuoteCounterCode.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewSelftestAdequacy": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Attack the adequacy of each new `--selftest` mode (ledger and quote): copy each counter, delete ONE guard (e.g., the spawn>0 check; the C8 sha compare), and show the selftest FAILS on that copy (exit != 0). Do this for at least 4 distinct guards total; each deletion must change the selftest outcome. Report per-guard red results. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewSelftestAdequacy.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewEntriesScope": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Review the three drafted entries (ScribeEntryDraft scratch) against PROVINCE.md scope (`/home/vgpnk/Projects/shokunin/kake-shokunin/PROVINCE.md` — web properties & publishing; crawl hygiene per host is Frontier ground) and `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/QUALITY.md` (each criterion: platform mechanism requires tier-A row citations; provenance trio; no second method; expansion = new coverage-map ground). Confirm each entry's coverage-map novelty vs `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/README.md` (no existing Yahoo/Baidu entry). Refuse any entry that is generic or duplicates held ground; state the refusal and flip. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewEntriesScope.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewRowsCensus": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Verify the normalized SOURCES append block (ScribeRowNormalize scratch) by hand: each of S374/S329/S312 has exactly 11 cells (awk -F'|' NF==13), no literal or escaped pipe in any cell, ISO/valid recheck, status mined, opened 2026-10-25, used-by exactly the admitting entry. Re-run the census on the mirror: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/scratch/ScribeRowNormalize/validate/corpus/SOURCES.md` and confirm exit 0 with no E03/E04. Check the adopted ids are absent from the lane registry (grep) — no collision. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewRowsCensus.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewDriftPatch": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Review the pins patch (ExecDriftPins scratch). Diff it against the committed `freshness-pins.json`: only `pq2Remote`, `pq2Unpushed`, `sitemapStatus` may change; `plazir*` must be untouched. Verify the evidence behind each change (ls-remote/rev-list outputs, HTTP status observed) is reproduced in the seat report. Run `node /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs` with the patched pins in a copy and confirm the only remaining §armed leg is plazir-gate-anomaly and that the patched run did not hide it (the leg is still reported). Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewDriftPatch.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewQuarantineVerdicts": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Audit the 12 quarantine verdicts (RevengerQuarantineHandcheck) against the register bytes and the fetched sources: for each `payload-absent` row, re-fetch or re-search the cited source and confirm the quoted span is present or absent; for the 3 prose-class rows confirm they are marked unverifiable/unreachable, not fabrication. Flag any verdict not supported. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewQuarantineVerdicts.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewReportContract": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Read the round contract (lines 99-135 of /home/vgpnk/Projects/shokunin/kake-shokunin/../.ufo/prompts/kake-round-52.md) and produce the checklist the round report must satisfy: required sections in order, SHONEN heading with one line per box, evidence pointers, before→after measurements per claim with counting commands and commits, Sources & frontier with census before→after exit codes, trend verdicts, Stale-lane line, tool installs. Note any section the planned work could miss. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewReportContract.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "ReviewNoHarmGates": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Run the lane's standing no-harm gates and record exact outputs/exits: (1) `node /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/freshness-sweep.mjs --selftest` (expect 35/35 exit 0); (2) `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/citation_lint.py --root /home/vgpnk/Projects/shokunin/kake-shokunin` (expect exit 0); (3) `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/ledger_latest_check.py` (expect exit 0); (4) the frozen census `validate --root /home/vgpnk/Projects/shokunin kake` (expect exit 0). Also run `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/robots_audit_selftest.py` and `python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/link_preview_selftest.py` if they exist and report exits. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/ReviewNoHarmGates.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticC1VacuityRedo": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Re-run the full ResidualSettlement mutant family against the NEW ledger (ExecLedgerV2 scratch): empty wave, phantom seats, zero-byte reports, 48/0 delivery, multiset collapse, LOG substring deletion, time tautology, seats renamed, 47-of-48, grant drift, missing name, duplicate digests. Every family must be RED (exit 1 or 2) on the new counter and GREEN on the old counter. Then attempt NEW holes: a report that is a byte-copy of another seat's report with both names present, a settlement with 49 entries (one duplicate) and 48 files, a receipt with httpStatus 500 ok:true bound to a role. If ANY hole stays green, report it as a claim-killing finding. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticC1VacuityRedo.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticC2MirrorAttack": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the new C8: build fixtures where (a) the mirror at the measured revision carries an adopted id (contaminated) — the counter must fail; (b) the mirror sha256 differs from the census receipt pin (comp) the mirror's add-commit is not a strict ancestor — must fail; (d) the id rows are indented with 2 leading spaces — must still be detected. Run each against the new quote counter (ExecQuoteV2 scratch) and confirm red. If any passes, report it. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticC2MirrorAttack.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticC2ReceiptsAttack": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the new C6: mutate the receipt JSON in fixtures so that (a) httpStatus is a string \"200\"; (b) bytes differ from the blob size; (c) fetchedAt is missing; (d) the receipt URL is only a prefix of the row URL. Each must fail the new quote counter. Also verify a correct receipt passes. Report results. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticC2ReceiptsAttack.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticCausalSeparability": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Audit causal separability: C1's counters must read only wave evidence/registry rows/selftest fixtures/r51 data; C2's counter must read only registry/entries/lesson/bodies/sweep output. Trace every file read in both new counters (grep open/show calls) and verify the input sets are disjoint; also verify that landing only C1 (without entries/rows) still verifies C1 and vice versa. Report any cross-read. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticCausalSeparability.md",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticDoNothingTarget": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attempt to satisfy each claim's after-state WITHOUT doing the claimed work, using only committed-bytes fixtures: (C1) create a SKILL.md with two dummy rows and fake receipts — the gate-registry checker must still fail on the sha pins; an empty wave must still fail; (C2) append three rows with no opened source/no retained body — the quote counter must still fail; self-citing entries must fail. Report exactly which do-nothing path is still able to pass. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticDoNothingTarget.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticSourcedAntiFake": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the sourced-claim requirement: craft an entry that cites row S374 but quotes text NOT in the retained S374 body (fabricated), and an entry citing a row that was never opened (no receipt). Both must fail the new quote counter's C5/C6 conditions. Also verify a genuine entry passes. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticSourcedAntiFake.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticDriftAntiHide": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the drift reconciliation: attempt to make the sweep exit 0 by editing ONLY the pins (e.g., set plazirLiveSitemapLocs to 7, plazirRemote to n/a, or clear the source dir pin). Run the sweep with each edit in a copy and show that either the leg stays red (because the gate reads the live source/remote) or the edit would require falsifying the observed absence — i.e., the operator-owned leg cannot be quietly hidden. Verify the patched pins (ExecDriftPins) do NOT hide it. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticDriftAntiHide.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticQualityBar": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Grade the three drafted entries against EVERY criterion in `/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/QUALITY.md` (citation-local absence, replayable claim, missing substrate visible, admission authority, shape-only probe environment, absence annotation, platform mechanism, validator-not-identity, self-source confinement, population unit, index continuity, append-only tails). Flag any criterion violated, including over-assertions or unsourced thresholds. Also check the staged drafts' 'does not establish' sections are honest. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticQualityBar.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticNoHarm": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Search for harmed axes: run the lane's standing gates (freshness sweep selftest 35/35, citation lint, ledger latest check, census) BEFORE and AFTER applying this round's changes (use scratch copies of the changed files to simulate after). Also verify the new counter code does not modify or shadow the r51 evidence, and that the pins patch does not alter the paths section. Report any regression or harm. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticNoHarm.md",
+      "axes": [
+        "operability",
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "CriticGateRegistryShape": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Attack the SKILL.md gate-registry rows (ScribeRegistrySkillDraft): for each of: missing row, one column empty, wrong verdict-map, wrong owner, entry command pointing at a nonexistent path, self-test command non-running — show the `c52_gate_registry.py` checker (ExecGateRegistryCheck scratch) fails. Confirm the proper rows pass. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/CriticGateRegistryShape.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "MutationLedgerGuards": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation-test the new ledger: copy ExecLedgerV2's c52_wave_ledger.py; introduce 6 single-line mutants — (1) drop spawn>0 check; (2) drop seats-list equality; (3) drop grant parse; (4) drop report-body read; (5) weaken LOG token regex to plain substring; (6) change exit-code path to return 1 on unevaluable. Run the selftest and the vacuity ladder on each mutant; every mutant must be caught (selftest or ladder red). Report per-mutant results. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/MutationLedgerGuards.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "MutationQuoteGuards": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation-test the new quote counter: copy ExecQuoteV2's c52_quote_truth.py; introduce 5 single-line mutants — (1) C8 reads REGISTRY instead of MIRROR; (2) C8 drops the sha compare; (3) C6 drops httpStatus check; (4) C6 drops bytes check; (5) C5 limits to one quote. Each must be caught by the selftest or by re-running the real-data check. Report per-mutant results. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/MutationQuoteGuards.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "MutationRegistryGuard": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation-test the gate-registry checker (ExecGateRegistryCheck scratch): mutants — (1) row name changed; (2) a column emptied; (3) receipt path wrong; (4) instrument sha pin wrong. Each must flip the checker to exit 1. Report per-mutant results. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/MutationRegistryGuard.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "MutationPinsDrift": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation-test the pins patch: take the patched pins (ExecDriftPins scratch) and revert individual values — (1) pq2Remote back to the old e6bd071; (2) sitemapStatus back to 404; (3) pq2Unpushed back to 20. Each revert must bring the corresponding drift leg back in a sweep copy run (i.e., the patch is what cleared them). Report per-revert results. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/MutationPinsDrift.md",
+      "axes": [
+        "freshness"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "SentinelWriteScope": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "sentinel",
+      "item": "Monitor write scope during/after this wave: run `git -C /home/vgpnk/Projects/shokunin status --porcelain` (no pathspec) and `git -C /home/vgpnk/Projects/shokunin/kake-shokunin status --porcelain -uall`; classify every untracked/modified path at the fleet root — for each fleet-root path, read its content and say whether it names kake/round-52 (a misroot) or belongs to another lane/round. Also verify no sibling repo, no lane git/jj index, and no .ufo/state or .scratch files were modified by this wave. Do not touch anything. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/SentinelWriteScope.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "SimplifierCounters": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "simplifier",
+      "item": "Review the new counters (ExecLedgerV2, ExecQuoteV2 scratch) for dead code, redundancy or divergence from c51 that adds no protection: identify at least the lines that can be removed without changing behavior on the real data and the mutant ladder (verify by removal in a copy). Deliver a minimal-cleanup proposal. Do NOT edit the lane. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/SimplifierCounters.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    },
+    "SimplifierWaveEvidence": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "simplifier",
+      "item": "Review the wave-evidence footprint this round will land (scratch dirs, sources, selftest fixtures, verification receipts): name files that duplicate each other or the r51 evidence, and suggest the minimal committed set (with paths). Do NOT edit the lane. Write ONLY /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-52/w1/SimplifierWaveEvidence.md",
+      "axes": [
+        "operability"
+      ],
+      "milestone": "Round 52 wave 1: register+harden the r51 counters (C1), open S374/S329/S312 and draft the per-engine crawl-hygiene entries + drift reconciliation (C2), plus the frontier step"
+    }
+  }
+}

@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+
+<html class="expanded">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="icon" sizes="any" mask href="//www.baidu.com/img/baidu.svg">
+<title>网站建设_友好抓取_搜索学堂_百度搜索资源平台</title>
+<script>
+        // 已经在DP注册的页面，没注册的扔到默认里
+        var pageNameArr = [
+            'site',
+            'prompt',
+            'mobiletools',
+            'tools',
+            'linksubmit',
+            'badlink',
+            'robots',
+            'pressure',
+            'crawltools',
+            'crawl',
+            'indexs',
+            'sitelink',
+            'itemannotator',
+            'schema',
+            'dataplug',
+            'keywords',
+            'inbound',
+            'safe',
+            'leakdetect',
+            'rewrite',
+            'guide',
+            'tongji',
+            'feedback',
+            'siteclose',
+            'dashboard',
+            'appattribute'
+        ];
+        var pageName = '';
+        if (window.location.pathname !== '/') {
+            if (window.location.pathname.match('/([^/]+)/') === null) {
+                pageName = window.location.pathname.match('/([^/]+)')[1];
+            }
+            else {
+                pageName = window.location.pathname.match('/([^/]+)/')[1];
+            }
+            var inArray = function (needle,array){
+                var len=array.length;
+                for(var i=0;i<len;i++){
+                    if(needle===array[i]){
+                        return true;
+                    }
+                }
+                return false;
+            };
+            if (!inArray(pageName, pageNameArr)) {
+                pageName = '675_1';
+            }
+        }
+        else {
+            pageName = '675_1';
+        }
+        window.alogObjectConfig = {
+            sample: '1',
+
+            product: '657',
+            page: pageName,
+            monkey_page: '',
+            speed_page: '',
+
+            speed: {
+                sample: '1'
+            },
+
+            monkey: {
+                sample: '1'
+            },
+
+            exception: {
+                sample: '1'
+            },
+
+            feature: {
+                sample: '1'
+            },
+
+            cus: {
+                sample: '1'
+            },
+
+            csp: {
+                sample: '',
+                'default-src': [
+                    {match: '*bae.baidu.com', target: 'Accept,Warn'},
+                    {match: '*.baidu.com,*.bdstatic.com,*.baidustatic.com,*.baiduimg.com,*.bdimg.com,localhost,*.hao123.com,*.hao123img.com', target: 'Accept'},
+                    {match: /^(127|172|192|10)(\.\d+){3}$/, target: 'Accept'},
+                    {match: '*', target: 'Accept,Warn'}
+                ]
+            }
+        };
+
+        void function(a,b,c,d,e,f,g){a.alogObjectName=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=a[e].l||+new Date,d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d;var h=!0;if(a.alogObjectConfig&&a.alogObjectConfig.sample){var i=Math.random();a.alogObjectConfig.rand=i,i>a.alogObjectConfig.sample&&(h=!1)}h&&(f=b.createElement(c),f.async=!0,f.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),g=b.getElementsByTagName(c)[0],g.parentNode.insertBefore(f,g))}(window,document,"script","/hunter/alog/alog.min.js","alog"),void function(){function a(){}window.PDC={mark:function(a,b){alog("speed.set",a,b||+new Date),alog.fire&&alog.fire("mark")},init:function(a){alog("speed.set","options",a)},view_start:a,tti:a,page_ready:a}}();
+        void function(n){var o=!1;n.onerror=function(n,e,t,c){var i=!0;return!e&&/^script error/i.test(n)&&(o?i=!1:o=!0),i&&alog("exception.send","exception",{msg:n,js:e,ln:t,col:c}),!1},alog("exception.on","catch",function(n){alog("exception.send","exception",{msg:n.msg,js:n.path,ln:n.ln,method:n.method,flag:"catch"})})}(window);
+    </script>
+<meta name="keywords" content="搜索资源平台" />
+<meta name="description" content="        我们可以借用郭小四的名言来形容现今的搜索引擎时代——这是一个最好的时代，也是最坏的时代。搜索引擎技术飞速发展，对网站的解析越来越充分，而各家网站也面临着强劲的对手竞品，如何让自己的网站对搜索引擎对百度更加友好，是站长要充分考虑的问题。  本篇的主旨就告诉站长：怎样建设对搜索引擎友好的站点，目前分为五个章节：友好抓取；链接建设；网站安全；网站变更；其他。" />
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/static/ziyuan/style/base_6721c93.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/pkg/css/index_ed0cdec.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/breadcrumb/breadcrumb_07d7313.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/dropdown/dropdown_462013a.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/college/courseinfo_46676da.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/footer/footer_19b6507.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/alarm/xzh_alarm_adb03d1.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/dialog/dialog_0dffd71.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/zhitong/verification_36f5407.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/siteSelect/site-select_eb9ff67.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/mappcreate/mapp_936c1bb.css"/></head>
+<script> alog('speed.set', 'ht', +new Date); </script>
+<body>
+<div class="layout-breadcrumb">
+
+</div>
+<div class="layout-main">
+
+<div class="header-placeholder hide"    >
+</div>
+<div class="nav-area">
+<div class="nav-bar">
+<div class="nav-container">
+<div class="logo">
+<a href="/">
+<img src="/static/ziyuan/image/common/logo_bbb4ad1.png" alt="logo">
+</a>
+</div>
+<div class="nav-list">
+<ul>
+<li class="nav-school nav-tab item-on"><a href="/college#/type=1&cate=newcontent">搜索学堂</a></li>
+<li class="nav-tools nav-tab "><a href="/dashboard/index">搜索服务</a></li>
+<li class="nav-community nav-tab  "><a>互动交流</a></li>
+<li class="nav-cooperation nav-tab "><a href="/cooperateresource/index">资源合作</a></li>
+<li class="nav-user-center nav-tab "><a href="/site/index">用户中心</a></li>
+</ul>
+</div>
+<span class="login">
+<a href="" class="auth-login">登录</a>
+</span>
+</div>
+<div class="search-school nav-dropdown hide">
+<div class="search-college-wrapper">
+<a href="/college#/type=1&cate=newcontent">
+推荐内容</a>
+<a href="/college#/type=2&cate=bjh_education">
+创作者小课堂</a>
+<a href="/college#/type=3&cate=dailysubmit">
+工具解读</a>
+<a href="/college#/type=4&cate=guides">
+搜索规范</a>
+<a href="/college#/type=6&cate=develop">
+基础开发</a>
+<a href="/college#/type=7&cate=searchaccess">
+智能小程序</a>
+</div>
+</div>
+<div class="search-tools nav-dropdown hide">
+<div class="search-tools-wrapper">
+<section>
+<h4>资源提交</h4>
+<h6>站点资源</h6>
+<ul>
+<li><a href="/fastcrawl/index">快速抓取</a></li>
+<li><a href="/linksubmit/index">普通收录</a></li>
+<li><a href="/mobile/index">移动适配</a></li>
+<li><a href="/badlink/index">死链提交</a></li>
+</ul>
+</section>
+<section>
+<h4>数据统计</h4>
+<h6>小程序资源</h6>
+<ul>
+<li><a href="/mapp/reportflow/index">流量统计</a></li>
+</ul>
+<h6>站点资源</h6>
+<ul>
+<li><a href="/indexs/index">索引量</a></li>
+<li><a href="/keywords/index">流量与关键词</a></li>
+<li><a href="/pressure/index">抓取频次</a></li>
+<li><a href="/crawltools/index">抓取诊断</a></li>
+<li><a href="/crawl/index">抓取异常</a></li>
+<li><a href="/robots/index">Robots</a></li>
+</ul>
+</section>
+<section>
+<h4>搜索小工具</h4>
+<ul>
+<li><a href="/aitoolset/index">小工具提交</a></li>
+</ul>
+<h4>权威溯源</h4>
+<ul>
+<li><a href="/sourcetrace/index">权威提交</a></li>
+<li><a href="/sourcetrace/dashboard">我的溯源提交</a></li>
+</ul>
+<h4><a href="/aiflow/index" class="aiflow-entry">AI流量分析</a></h4>
+</section>
+<section>
+<h4>搜索展现</h4>
+<ul>
+<li><a href="/sitelink/index">站点子链</a></li>
+<li><a href="/property/index">站点属性</a></li>
+</ul>
+</section>
+<section>
+<h4>站点优化与维护</h4>
+<ul>
+<li><a href="/rewrite/index">网站改版</a></li>
+</ul>
+</section>
+</div>
+</div>
+<div class="search-community nav-dropdown hide">
+<div class="search-community-wrapper">
+<a href="https://agents.baidu.com/community?productId=2" target="_blank">论坛</a>
+<a href="/feedback/index" class="feedback-center">反馈中心</a>
+<a href="/vip/index" class="vip-header">VIP俱乐部</a>
+</div>
+</div>
+<div class="search-cooperation nav-dropdown hide">
+<div class="search-cooperation-wrapper">
+<a href="/cooperateresource/index">合作专题</a>
+<a href="/cooperateresource/applylist">申请历史</a>
+</div>
+</div>
+<div class="search-user-center nav-dropdown hide">
+<div class="search-user-center-wrapper">
+<a href="/site/index">站点管理</a>
+<a href="/prompt/index">消息提醒</a>
+<a href="/usercfg/editaccount">联系方式</a>
+<a href="/user/index">管理员设置</a>
+<a href="/wafproduct/index">安全防护</a>
+</div>
+</div>
+</div>
+</div>
+<ul class="feedback-entry">
+<a href="https://zhiqiu.baidu.com/imcswebchat/roulette/in?id=16606&token=i7mdgusjlsnblnfm10iehei4cs56v5p4&domainID=zhanzhang&type=2" target="_blank">
+<li class="user-ask">
+<i class="icon-question"></i>
+<p class="hide">在线咨询</p>
+</li>
+</a>
+<a href="/feedback/index" target="_blank">
+<li class="user-feedback">
+<i class="icon-feedback"></i>
+<p class="hide">反馈中心</p>
+</li>
+</a>
+<a href="#top" target="_blank">
+<li class="back-top hide">
+<i class="icon-back"></i>
+<p class="hide">回到顶部</p>
+</li>
+</a>
+</ul>
+<script type="text/javascript" src="//ziyuan.baidu.com/static/ziyuan/lib/player/cyberplayer.js"></script>
+<div class="college-main">
+<div class="mod-crumbs" id="toolsBreadcrumbs">
+<a href="/college/index" class="crumbs-link">搜索学堂</a>
+<i class="icon-angle-right"></i>网站建设
+</div>
+<div class="main-info">
+<div class="course-title">
+<div class="title-main">
+<img src="https://zhanzhang.bj.bcebos.com/files/087061418723976.jpg" class="title-pic"/>
+<div class="title-info clearfix">
+<div class="title-con">
+<span class="title-s">网站建设</span>
+<span class="title-time">最新更新章节：<span class="time">2019-09-18</span></span>
+</div>
+<p>        我们可以借用郭小四的名言来形容现今的搜索引擎时代——这是一个最好的时代，也是最坏的时代。搜索引擎技术飞速发展，对网站的解析越来越充分，而各家网站也面临着强劲的对手竞品，如何让自己的网站对搜索引擎对百度更加友好，是站长要充分考虑的问题。  本篇的主旨就告诉站长：怎样建设对搜索引擎友好的站点，目前分为五个章节：友好抓取；链接建设；网站安全；网站变更；其他。</p>
+</div>
+</div>
+<div class="title-footer clearfix" id="titleFooter">
+<div class="title-page">
+<div class="page-btn" id="pageUp"><i class="up "></i></div>
+<div class="page-text"><span class="page-curr">1</span>/5</div>
+<div class="page-btn" id="pageDown"><i class="down down-active"></i></div>
+</div>
+<div class="drop-down page-drop-down">
+<input type="text" class="submit-input online-input" readonly='readonly' value="友好抓取"/>
+<span class="icon-drop-down"></span>
+<ul style="display:none;" class="_autohide college-down-a">
+<li><a href="/college/courseinfo?id=1399&page=1">友好抓取</a></li>
+<li><a href="/college/courseinfo?id=1399&page=2">链接建设</a></li>
+<li><a href="/college/courseinfo?id=1399&page=3">网站变更</a></li>
+<li><a href="/college/courseinfo?id=1399&page=4">网站安全</a></li>
+<li><a href="/college/courseinfo?id=1399&page=5">其他</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="course-info">
+<a name="h2_article_title15" href="#h2_article_title15" class="college-a-link">如何正确识别Baiduspider移动ua</a><div><p>新版移动ua:<br>Mozilla/5.0 (Linux;u;Android 4.2.2;zh-cn;) AppleWebKit/534.46 (KHTML,like Gecko) Version/5.1 Mobile Safari/10600.6.3 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)<br>PC ua:<br>Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html）</p><p>之前通过“+http://www.baidu.com/search/spider.html”进行识别的网站请注意！您需要修改识别方式，新的正确的识别Baiduspider移动ua的方法如下：<br>　　1. 通过关键词“Android”或者“Mobile”来进行识别，判断为移动访问或者抓取。<br>　　2. 通过关键词“Baiduspider/2.0”,判断为百度爬虫。</p><p>另外需要强调的是，对于robots封禁，如果封禁的agent是Baiduspider，会对PC和移动同时生效。即，无论是PC还是移动Baiduspider，都不会对封禁对象进行抓取。之所以要强调这一点，是发现有些代码适配站点（同一个url，PC ua打开的时候是PC页，移动ua打开的时候是移动页），想通过设置robots的agent封禁达到只让移动Baiduspider抓取的目的，但由于PC和移动Baiduspider的agent都是Baiduspider,这种方法是非常不可取的。</p></div><div><br></div><a name="h2_article_title15" href="#h2_article_title15" class="college-a-link">如何识别百度蜘蛛</a><p>百度蜘蛛对于站长来说可谓上宾，可是我们曾经遇到站长这样提问：我们如何判断疯狂抓我们网站内容的蜘蛛是不是百度的？其实站长可以通过<span lang="EN-US">DNS</span>反查<span lang="EN-US">IP</span>的方式判断某只<span lang="EN-US">spider</span>是否来自百度搜索引擎。根据平台不同验证方法不同，如<span lang="EN-US">linux/windows/os</span>三种平台下的验证方法分别如下：</p><p><span lang="EN-US">1、</span>在<span lang="EN-US">linux</span>平台下，您可以使用<span lang="EN-US">host&nbsp;ip</span>命令反解<span lang="EN-US">ip</span>来判断是否来自<span lang="EN-US">Baiduspider</span>的抓取。<span lang="EN-US">Baiduspider</span>的<span lang="EN-US">hostname</span>以<span><span lang="EN-US">&nbsp;*.baidu.com</span></span><span lang="EN-US">&nbsp;</span>或<span><span lang="EN-US">&nbsp;*.baidu.jp&nbsp;</span></span>的格式命名，非<span lang="EN-US">&nbsp;*.baidu.com&nbsp;</span>或<span lang="EN-US">&nbsp;*.baidu.jp&nbsp;</span>即为冒充。<br><img src="https://zhanzhang.bj.bcebos.com/files/039791418724093.jpg"><br></p><p><span lang="EN-US">2、</span>在<span lang="EN-US">windows</span>平台或者<span lang="EN-US">IBM&nbsp;OS/2</span>平台下，您可以使用<span lang="EN-US">nslookup&nbsp;ip</span>命令反解<span lang="EN-US">ip</span>来<span lang="EN-US">&nbsp;</span>判断是否来自<span lang="EN-US">Baiduspider</span>的抓取。打开命令处理器<span lang="EN-US">&nbsp;</span>输入<span lang="EN-US">nslookup&nbsp;xxx.xxx.xxx.xxx</span>（<span lang="EN-US">IP</span>地<span lang="EN-US">&nbsp;</span>址）就能解析<span lang="EN-US">ip</span>，<span lang="EN-US">&nbsp;</span>来判断是否来自<span lang="EN-US">Baiduspider</span>的抓取，<span lang="EN-US">Baiduspider</span>的<span lang="EN-US">hostname</span>以<span><span lang="EN-US">*.baidu.com</span></span><span lang="EN-US">&nbsp;</span>或<span><span lang="EN-US">*.baidu.jp</span></span><span lang="EN-US">&nbsp;</span>的格式命名，非<span lang="EN-US">&nbsp;*.baidu.com&nbsp;</span>或<span lang="EN-US">&nbsp;*.baidu.jp&nbsp;</span>即为冒充。</p><p><span lang="EN-US">3、&nbsp;</span>在<span lang="EN-US">mac&nbsp;os</span>平台下，您可以使用<span lang="EN-US">dig&nbsp;</span>命令反解<span lang="EN-US">ip</span>来<span lang="EN-US">&nbsp;</span>判断是否来自<span lang="EN-US">Baiduspider</span>的抓取。打开命令处理器<span lang="EN-US">&nbsp;</span>输入<span lang="EN-US">dig&nbsp;xxx.xxx.xxx.xxx</span>（<span lang="EN-US">IP</span>地<span lang="EN-US">&nbsp;</span>址）就能解析<span lang="EN-US">ip</span>，<span lang="EN-US">&nbsp;</span>来判断是否来自<span lang="EN-US">Baiduspider</span>的抓取，<span lang="EN-US">Baiduspider</span>的<span lang="EN-US">hostname</span>以<span><span lang="EN-US">&nbsp;*.baidu.com</span></span><span lang="EN-US">&nbsp;</span>或<span><span lang="EN-US">*.baidu.jp</span></span><span lang="EN-US">&nbsp;</span>的格式命名，非<span lang="EN-US">&nbsp;*.baidu.com&nbsp;</span>或<span lang="EN-US">&nbsp;*.baidu.jp&nbsp;</span>即为冒充。</p><p><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<o:p></o:p></span></p><p><span lang="EN-US">&nbsp;</span></p><a name="h2_article_title16" href="#h2_article_title16" class="college-a-link">Baiduspider IP是多少</a><p>即便很多站长知道了如何判断百度蜘蛛，仍然会不断地问“百度蜘蛛<span lang="EN-US">IP</span>是多少”。我们理解站长的意思，是想将百度蜘蛛所在<span lang="EN-US">IP</span>加入白名单，只准白名单下<span lang="EN-US">IP</span>对网站进行抓取，避免被采集等行为。</p><p>但我们不建议站长这样做。虽然百度蜘蛛的确有一个<span lang="EN-US">IP</span>池，真实<span lang="EN-US">IP</span>在这个<span lang="EN-US">IP</span>池内切换，但是我们无法保证这个<span lang="EN-US">IP</span>池整体不会发生变化。所以，我们建议站长勤看日志，发现恶意蜘蛛后放入黑名单，以保证百度的正常抓取。</p><p>同时，我们再次强调，通过<span lang="EN-US">IP</span>来分辨百度蜘蛛的属性是非常可笑的事情，所谓的“沙盒蜘蛛”“降权蜘蛛”等等是从来都不存在的。</p><p><br><br><span lang="EN-US"><o:p></o:p></span></p><a name="h2_article_title18" href="#h2_article_title18" class="college-a-link">robots写法</a><p><span lang="EN-US">robots</span>是站点与<span lang="EN-US">spider</span>沟通的重要渠道，站点通过<span lang="EN-US">robots</span>文件声明该网站中不想被搜索引擎收录的部分或者指定搜索引擎只收录特定的部分。请注意，仅当您的网站包含不希望被搜索引擎收录的内容时，才需要使用<span lang="EN-US">robots.txt</span>文件。如果您希望搜索引擎收录网站上所有内容，请勿建立<span lang="EN-US">robots.txt</span>文件。</p><p><span lang="EN-US">&nbsp;robots</span>文件往往放置于根目录下，包含一条或更多的记录，这些记录通过空行分开（以<span lang="EN-US">CR,CR/NL,&nbsp;or&nbsp;NL</span>作为结束符），每一条记录的格式如下所示：<br>&nbsp; &nbsp; &nbsp; &nbsp; "&lt;field&gt;:&lt;optional&nbsp;space&gt;&lt;value&gt;&lt;optionalspace&gt;"</p><p>&nbsp;在该文件中可以使用<span lang="EN-US">#</span>进行注解，具体使用方法和<span lang="EN-US">UNIX</span>中的惯例一样。该文件中的记录通常以一行或多行<span lang="EN-US">User-agent</span>开始，后面加上若干<span lang="EN-US">Disallow</span>和<span lang="EN-US">Allow</span>行<span lang="EN-US">,</span>详细情况如下：<br><span><span lang="EN-US">&nbsp; &nbsp; &nbsp; &nbsp; User-agent:</span></span>该项的值用于描述搜索引擎<span lang="EN-US">robot</span>的名字。在<span lang="EN-US">"robots.txt"</span>文件中，如果有多条<span lang="EN-US">User-agent</span>记录说明有多个<span lang="EN-US">robot</span>会受到<span lang="EN-US">"robots.txt"</span>的限制，对该文件来说，至少要有一条<span lang="EN-US">User-agent</span>记录。如果该项的值设为<span lang="EN-US">*</span>，则对任何<span lang="EN-US">robot</span>均有效，在<span lang="EN-US">"robots.txt"</span>文件中，<span lang="EN-US">"User-agent:*"</span>这样的记录只能有一条。如果在<span lang="EN-US">"robots.txt"</span>文件中，加入<span lang="EN-US">"User-agent:SomeBot"</span>和若干<span lang="EN-US">Disallow</span>、<span lang="EN-US">Allow</span>行，那么名为<span lang="EN-US">"SomeBot"</span>只受到<span lang="EN-US">"User-agent:SomeBot"</span>后面的<span lang="EN-US">&nbsp;Disallow</span>和<span lang="EN-US">Allow</span>行的限制。<br><span lang="EN-US"><br><span>&nbsp; &nbsp; &nbsp; &nbsp; Disallow:</span></span>该项的值用于描述不希望被访问的一组<span lang="EN-US">URL</span>，这个值可以是一条完整的路径，也可以是路径的非空前缀，以<span lang="EN-US">Disallow</span>项的值开头的<span lang="EN-US">URL</span>不会被<span lang="EN-US">&nbsp;robot</span>访问。例如<span lang="EN-US">"Disallow:/help"</span>禁止<span lang="EN-US">robot</span>访问<span lang="EN-US">/help.html</span>、<span lang="EN-US">/helpabc.html</span>、<span lang="EN-US">/help/index.html</span>，而<span lang="EN-US">"Disallow:/help/"</span>则允许<span lang="EN-US">robot</span>访问<span lang="EN-US">/help.html</span>、<span lang="EN-US">/helpabc.html</span>，不能访问<span lang="EN-US">/help/index.html</span>。<span lang="EN-US">"Disallow:"</span>说明允许<span lang="EN-US">robot</span>访问该网站的所有<span lang="EN-US">url</span>，在<span lang="EN-US">"/robots.txt"</span>文件中，至少要有一条<span lang="EN-US">Disallow</span>记录。如果<span lang="EN-US">"/robots.txt"</span>不存在或者为空文件，则对于所有的搜索引擎<span lang="EN-US">robot</span>，该网站都是开放的。<br><span><span lang="EN-US"><br>&nbsp; &nbsp; &nbsp; &nbsp; Allow:</span></span>该项的值用于描述希望被访问的一组<span lang="EN-US">URL</span>，与<span lang="EN-US">Disallow</span>项相似，这个值可以是一条完整的路径，也可以是路径的前缀，以<span lang="EN-US">Allow</span>项的值开头的<span lang="EN-US">URL&nbsp;</span>是允许<span lang="EN-US">robot</span>访问的。例如<span lang="EN-US">"Allow:/hibaidu"</span>允许<span lang="EN-US">robot</span>访问<span lang="EN-US">/hibaidu.htm</span>、<span lang="EN-US">/hibaiducom.html</span>、<span lang="EN-US">/hibaidu/com.html</span>。一个网站的所有<span lang="EN-US">URL</span>默认是<span lang="EN-US">Allow</span>的，所以<span lang="EN-US">Allow</span>通常与<span lang="EN-US">Disallow</span>搭配使用，实现允许访问一部分网页同时禁止访问其它所有<span lang="EN-US">URL</span>的功能。<br><span><br>&nbsp; &nbsp; &nbsp; &nbsp; 使用<span lang="EN-US">"*"and"$"</span>：</span><span lang="EN-US">Baiduspider</span>支持使用通配符<span lang="EN-US">"*"</span>和<span lang="EN-US">"$"</span>来模糊匹配<span lang="EN-US">url</span>。<br><span lang="EN-US">&nbsp; &nbsp; &nbsp; &nbsp; "*"&nbsp;</span>匹配<span lang="EN-US">0</span>或多个任意字符<br><span lang="EN-US">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"$"&nbsp;</span>匹配行结束符。<br></p><p>最后需要说明的是：百度会严格遵守<span lang="EN-US">robots</span>的相关协议，请注意区分您不想被抓取或收录的目录的大小写，百度会对<span lang="EN-US">robots</span>中所写的文件和您不想被抓取和收录的目录做精确匹配，否则<span lang="EN-US">robots</span>协议无法生效。</p><p><span lang="EN-US"><o:p></o:p></span></p><p><span lang="EN-US">&nbsp;</span></p><p><span lang="EN-US"><br></span></p><a name="h2_article_title19" href="#h2_article_title19" class="college-a-link">robots需求用法对应表</a><p>上面说了那么多理论，有没有简单对照表格告诉我，怎样的需求场景下应该怎样撰写robots文件？有的：<br><img src="https://zhanzhang.bj.bcebos.com/files/083761418877336.png"><br><br><br></p><p></p><a name="h2_article_title20" href="#h2_article_title20" class="college-a-link">除robots外其它禁止百度收录的方法</a><span lang="EN-US">Meta robots</span><span>标签是页面</span><span lang="EN-US">head</span><span>部分标签的一种，也是一种用于禁止搜索引擎索引页面内容的指令。目前百度仅支持</span><span lang="EN-US">nofollow</span><span>和</span><span lang="EN-US">noarchive<br></span><span lang="EN-US"><span><br>nofollow：</span></span><span>禁止搜索引擎跟踪本页面上的链接</span><p>如果您不想搜索引擎追踪此网页上的链接，且不传递链接的权重，请将此元标记置入网页的<em><span lang="EN-US">&lt;HEAD&gt;</span></em><span lang="EN-US">&nbsp;</span>部分：<em><span lang="EN-US">&lt;meta&nbsp;name="robots"&nbsp;content="nofollow"&gt;</span></em><span lang="EN-US"><br></span>如果您不想百度追踪某一条特定链接，百度还支持更精确的控制，请将此标记直接写在某条链接上：<em><span lang="EN-US">&lt;a&nbsp;href="signin.php"&nbsp;rel="nofollow"&gt;signin&lt;/a&gt;</span></em><span lang="EN-US"><br></span>要允许其他搜索引擎跟踪，但仅防止百度跟踪您网页的链接，请将此元标记置入网页的<em><span lang="EN-US">&lt;HEAD&gt;</span></em><span lang="EN-US">&nbsp;</span>部分：<em><span lang="EN-US">&lt;meta&nbsp;name="Baiduspider"&nbsp;content="nofollow"&gt;</span></em><span lang="EN-US">&nbsp;<br></span><span><span lang="EN-US"><br>noarchive</span>：</span>禁止搜索引擎在搜索结果中显示网页快照<br>&nbsp; &nbsp; &nbsp; &nbsp; 要防止所有搜索引擎显示您网站的快照，请将此元标记置入网页的<em><span lang="EN-US">&lt;HEAD&gt;</span></em>部分：<em><span lang="EN-US">&lt;meta&nbsp;name="robots"&nbsp;content="noarchive"&gt;<br></span></em><span><i>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</i></span>要允许其他搜索引擎显示快照，但仅防止百度显示，请使用以下标记：<em>&lt;meta&nbsp;name="Baiduspider"&nbsp;content="noarchive"&gt;<br></em><span><i>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</i></span>注：此标记只是禁止百度显示该网页的快照，百度会继续为网页建索引，并在搜索结果中显示网页摘要。</p><p><br><br></p><a name="h2_article_title21" href="#h2_article_title21" class="college-a-link">使用robots巧妙避免蜘蛛黑洞</a><p align="left">对于百度搜索引擎来说，蜘蛛黑洞特指网站通过极低的成本制造出大量参数过多、内容类同但<span lang="EN-US">url</span>不同的动态<span lang="EN-US">URL&nbsp;</span>，就像一个无限循环的“黑洞“，将<span lang="EN-US">spider</span>困住。<span lang="EN-US">spider</span>浪费了大量资源抓取的却是无效网页。</p><p align="left">&nbsp;如很多网站都有筛选功能，通过筛选功能产生的网页经常会被搜索引擎大量抓取，而这其中很大一部分是检索价值低质的页面。如“<span lang="EN-US">500-1000</span>之间价格的租房”，首先网站（包括现实中）上基本没有相关资源，其次站内用户和搜索引擎用户都没有这种检索习惯。这种网页被搜索引擎大量抓取，只能是占用网站宝贵的抓取配额，那么该如何避免这种情况呢？</p><p align="left"></p><ol><li>我们以北京美团网为例，看看美团网是如何利用<span lang="EN-US">robots</span>巧妙避免这种蜘蛛黑洞的：<br></li><li>对于普通的筛选结果页，使用了静态链接，如：<br></li><li>http://bj.meituan.com/category/zizhucan/weigongcun<br></li><li>同样是条件筛选结果页，当用户选择不同排序条件后，会生成带有不同参数的动态链接，而且即使是同一种排序条件（如：都是按销量降序排列），生成的参数也都是不同的。如：<a href="http://bj.meituan.com/category/zizhucan/weigongcun/hot?mtt=1.index%2Fpoi.0.0.i1afqhek">http://bj.meituan.com/category/zizhucan/weigongcun/hot?mtt=1.index%2Fpoi.0.0.i1afqhek</a><a href="http://bj.meituan.com/category/zizhucan/weigongcun/hot?mtt=1.index%2Fpoi.0.0.i1afqi5c">http://bj.meituan.com/category/zizhucan/weigongcun/hot?mtt=1.index%2Fpoi.0.0.i1afqi5c</a><br></li></ol><p></p><p align="left">对于美团网来说，只让搜索引擎抓取筛选结果页就可以了，而各种带参数的结果排序页面则通过<span lang="EN-US">robots</span>规则拒绝提供给搜索引擎。在<span lang="EN-US">robots.txt</span>的文件用法中有这样一条规则：<span lang="EN-US">Disallow: /*?*&nbsp;</span>，即禁止搜索引擎访问网站中所有的动态页面。美团网恰是通过这种方式，对<span lang="EN-US">spider</span>优先展示高质量页面、屏蔽了低质量页面，为<span lang="EN-US">spider</span>提供了更友好的网站结构，避免了黑洞的形成。</p><p align="left"><br><br></p><p></p><a name="h2_article_title22" href="#h2_article_title22" class="college-a-link">禁止百度图片搜索收录某些图片的方法</a><span>目前百度图片搜索也使用了与百度网页搜索相同的</span><span lang="EN-US">spider</span><span>，如果想</span><span>禁止</span><span lang="EN-US">Baiduspider</span><span>抓取网站上所有图片、禁止或允许</span><span lang="EN-US">Baiduspider</span><span>抓取网站上的某种特定格式的图片文件可以通过设置</span><span lang="EN-US">robots</span><span>实现：</span><span lang="EN-US"><o:p></o:p></span><p></p><p align="left"></p><table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr><td width="292"><p align="left"><span><span lang="EN-US">&nbsp;</span></span><span>禁止</span><span><span lang="EN-US">Baiduspider</span></span><span>抓取网站上所有图片</span><span lang="EN-US"><br></span>仅允许抓取网页，禁止抓取任何图片。<span lang="EN-US"><br><br></span><span lang="EN-US"><o:p></o:p></span></p></td><td width="281"><p align="left"><span lang="EN-US">User-agent:&nbsp;Baiduspider<br>Disallow:&nbsp;/*.jpg$<br>Disallow:&nbsp;/*.jpeg$<br>Disallow:&nbsp;/*.gif$<br>Disallow:&nbsp;/*.png$<br>Disallow:&nbsp;/*.bmp$<br><br></span><span lang="EN-US"><o:p></o:p></span></p></td></tr><tr><td width="292"><p align="left"><span>仅允许</span><span><span lang="EN-US">Baiduspider</span></span><span>抓取网页和</span><span><span lang="EN-US">.gif</span></span><span>格式图片</span><span lang="EN-US"><br></span>允许抓取网页和<span lang="EN-US">gif</span>格式图片，不允许抓取其他格式图片<span lang="EN-US"><br><br></span><span lang="EN-US"><o:p></o:p></span></p></td><td width="281"><p align="left"><span lang="EN-US">User-agent:&nbsp;Baiduspider<br>Allow:&nbsp;/*.gif$<br>Disallow:&nbsp;/*.jpg$<br>Disallow:&nbsp;/*.jpeg$<br>Disallow:&nbsp;/*.png$<br>Disallow:&nbsp;/*.bmp$<br><br></span><span lang="EN-US"><o:p></o:p></span></p></td></tr><tr><td width="292"><p align="left"><span>仅禁止</span><span><span lang="EN-US">Baiduspider</span></span><span>抓取</span><span><span lang="EN-US">.jpg</span></span><span>格式图片</span><span lang="EN-US"><o:p></o:p></span></p></td><td width="281"><p align="left"><span lang="EN-US">User-agent:&nbsp;Baiduspider<br>Disallow:&nbsp;/*.jpg$<br><br></span><span lang="EN-US"><o:p></o:p></span></p></td></tr></tbody></table><br><br><a name="h2_article_title23" href="#h2_article_title23" class="college-a-link">503状态码的使用场景及与404的区别</a><p><span lang="EN-US">Html</span>状态码也是网站与<span lang="EN-US">spider</span>进行交流的渠道之一，会告诉<span lang="EN-US">spider</span>网页目前的状态，<span lang="EN-US">spider</span>再来决定下一步该怎么做——抓<span lang="EN-US">or</span>不抓<span lang="EN-US">or</span>下次再来看看。对于<span lang="EN-US">200</span>状态码大家已经很熟了，那么我们来介绍几种常见的失效网页使用的状态码：<br>【<span lang="EN-US">404</span>】<span lang="EN-US">404</span>返回码的含义是<span lang="EN-US">“NOT&nbsp;FOUND”</span>，百度会认为网页已经失效，那么通常会从搜索结果中删除，并且短期内<span lang="EN-US">spider</span>再次发现这条<span lang="EN-US">url</span>也不会抓取。<br>【<span lang="EN-US">503</span>】<span lang="EN-US">503</span>返回码的含义是<span lang="EN-US">“Service&nbsp;Unavailable”</span>，百度会认为该网页临时不可访问，通常网站临时关闭，带宽有限等会产生这种情况。对于网页返回<span lang="EN-US">503</span>，百度<span lang="EN-US">spider</span>不会把这条<span lang="EN-US">url</span>直接删除，短期内会再访问。届时如果网页已恢复，则正常抓取；如果继续返回<span lang="EN-US">503</span>，短期内还会反复访问几次。但是如果网页长期返回<span lang="EN-US">503</span>，那么这个<span lang="EN-US">url</span>仍会被百度认为是失效链接，从搜索结果中删除。<br>【<span lang="EN-US">301</span>】<span lang="EN-US">301</span>返回码的含义是<span lang="EN-US">“Moved&nbsp;Permanently”</span>，百度会认为网页当前跳转至新<span lang="EN-US">url</span>。当遇到站点迁移，域名更换、站点改版的情况时，推荐使用<span lang="EN-US">301</span>返回码，尽量减少改版带来的流量损失。虽然百度<span lang="EN-US">spider</span>现在对<span lang="EN-US">301</span>跳转的响应周期较长，但我们还是推荐大家这么做。</p><p>一些网站把未建好的页面放到线上，并且这些页面在被百度抓取的时候返回码是<span lang="EN-US">404</span>，于是页面被百度抓取后会被当成死链直接删除。但是这个页面在第二天或者过几天就会建好，并上线到网站内展现出来，但是由于之前已经被百度当做死链删除，所以要再次等这些链接被发现，然后抓取才能展现，这样的操作最终会导致一些页面在一段时间内不会在百度出现。比如某个大型门户网站爆出大量新闻时效性很强的专题未被百度及时收录的问题，经检查验证后发现就是因为页面未建成就放置在线上，并返回<span lang="EN-US">404</span>状态码，被百度当成死链删除，造成收录和流量损失。</p><p>对于这样的问题，建议网站使用<span lang="EN-US">503</span>返回码，这样百度的抓取器接到<span lang="EN-US">503</span>返回码后，会在隔一段时间再去访问这个地址，在您的页面建好上线后，就又能被重新抓取，保证页面及时被抓取和索引，避免未建好的内容设为<span lang="EN-US">404</span>后带来不必要的收录和流量损失。</p><p>其它建议和总结：<br><span lang="EN-US">&nbsp; &nbsp; &nbsp; &nbsp; 1</span>、如果百度<span lang="EN-US">spider</span>对您的站点抓取压力过大，请尽量不要使用<span lang="EN-US">404</span>，同样建议返回<span lang="EN-US">503</span>。这样百度<span lang="EN-US">spider</span>会过段时间再来尝试抓取这个链接，如果那个时间站点空闲，那它就会被成功抓取了&nbsp;<br><span lang="EN-US">&nbsp; &nbsp; &nbsp; &nbsp; 2</span>、如果站点临时关闭或者页面暂未建好上线，当网页不能打开时以及没有建好时，不要立即返回<span lang="EN-US">404</span>，建议使用<span lang="EN-US">503</span>状态。<span lang="EN-US">503</span>可以告知百度<span lang="EN-US">spider</span>该页面临时不可访问，请过段时间再重试。</p><p><br></p><p><br></p><a name="h2_article_title1" href="#h2_article_title1" class="college-a-link">连通率为0的前因后果及预防补救措施<br></a><p>在百度site站点时，遇到“连通率为0”说明Baiduspider在访问站点时发现了问题，该问题非常严重，如果Baiduspider持续一天时间无法访问有可能给站点带来灾难性的损失。</p><p>一、何谓连通率<br>　　既然为率，那么就是一个统计相关概念。我们不妨可以这样理解一个网站的连通率：百度蜘蛛在抓取网站页面的时候计算的一个概率，比如它抓取某网站中的N个页面，这N个页面都能打开并被蜘蛛成功抓取，这样的连通率就是N/N=100%，反之蜘蛛抓取N个页面有M个页面能成功抓取，连通率就是M/N<br><br>这里先说明几个常识：<br>　　1、不是网站被某算法惩罚而导致连通率为0，也不是网站流量下降而导致连通率数值很低；<br>　　2、连通率代表着百度蜘蛛获取网站数据的情况，如果连通率数值很低或为0，那么可能连维持网站的正常收录等都成问题；<br>　　3、假如网站被判定连通不了，那么如果让一个连通不了的站点在百度中获取排名，就会大大影响搜索用户的体验，于是百度就会采取对该站点有效引流的索引清除操作，一些站长就会发现自己的网站索引量突然大幅度下降，甚至索引被短暂清0了，接着就是网站百度搜索流量大幅度下降，这种突发性的事件又会造成站长们的揣测，以为自己的网站被百度惩罚了，其实站长们先应该注意的是站点的连通情况。<br><br>二、提取核心词<br>　　上述概念中，我们需要注意的几个词有：”百度蜘蛛”； ”在抓取”； ”N个页面”； ”M个页面”； ”都能打开并被成功抓取”。<br><img src="http://bbs.zhanzhang.baidu.com/data/attachment/forum/201501/21/112650o4p4iprh4hm9b2ii.jpg"><br><br>三、连通率很低或为0时<br>我们抓住上述5个提取出的核心词进行分析。<br></p><p>（一）百度蜘蛛<br>1、谨防百度蜘蛛访问被操控或禁止<br>（1）由于百度蜘蛛的抓取量等原因对一些服务器造成压力，而这些网络商或网站运营方从某利益角度考虑，无意或有意的屏蔽百度蜘蛛，导致部分或全部百度蜘蛛ip获取不到网站数据；<br>（2）一些网站运营方或网络商对蜘蛛进行区别对待，比如国外蜘蛛ip、山东蜘蛛ip、北京蜘蛛ip等返回不同的数据，移花接木的手段层出不穷，而这个过程很可能造成百度蜘蛛的异常行为或异常状态返回；</p><p><br>所以我们首先要确保百度蜘蛛的访问有没有被操控或禁止。<br><br>2、预防措施<br>（1）完善联系方式获得百度站长工具消息提醒<br><br><img src="https://zhanzhang.bj.bcebos.com/files/090381433686446.png"><br>　　虽然一些网站异常情况会收到百度站长工具消息提醒，然而我想告诉大家不是所有自己站点异常都可以寄希望于消息提醒的，自己心里要知道连发邮件都可能出现收不到的情况，更何况各种复杂的异常情况，因此不要出问题了只会问“为什么站长工具没有给我发消息”。<br><br>（2）利用抓取异常和抓取频次工具观察抓取情况<br>↓抓取异常工具的网址异常情况<img src="https://zhanzhang.bj.bcebos.com/files/085061433687125.png"><br><br><br>↓抓取频次工具的抓取统计情况<img src="https://zhanzhang.bj.bcebos.com/files/079461433687198.png"><br><br><img src="https://zhanzhang.bj.bcebos.com/files/091191433687263.png"><br><br><br>↓每个工具页面的右侧下方都有使用说明，如下<br><img src="http://bbs.zhanzhang.baidu.com/data/attachment/forum/201501/21/112851o91kaa8kg4aaae1u.jpg"><br><br>（3）抓取诊断工具是重中之重<img src="https://zhanzhang.bj.bcebos.com/files/079491433687445.png"><br><br></p><p>为了保证网站对百度蜘蛛的稳定访问性能，日常我们需要养成定期抓取诊断的习惯，另外抓取诊断不是说光看看状态是否“抓取成功”就行了。有下面几步进行：<br>　　第一步：下拉选择分”pc”、 ”移动”进行抓取，”pc”意味着一般意义上的电脑端访问诊断，”移动”则是如手机、平板等移动设备端访问诊断；<br>　　第二步：网站主要的引流页，如首页、详情页、内容页、专题页等都要进行抓取，另外可以重点几个时间段（比如网站高峰时间段）每天定期进行测试；<br>　　第三步：抓取失败了，点击”抓取失败”查看提示信息，如果自己没有技术能力解决问题，可以跟空间商进行沟通，然后向工具提交报错；<br>　　<img src="http://bbs.zhanzhang.baidu.com/data/attachment/forum/201501/21/112931e69gl60w9viklqnn.jpg"><br>　　第四步：抓取成功后，也不能说就万事大吉了，还要点击”抓取成功”进去注意：提交网址、抓取网址、抓取UA、网站ip、下载时长、头部信息（服务器返回状态码、gzip等相关信息）、网页源码是否都正常。<br><img src="http://bbs.zhanzhang.baidu.com/data/attachment/forum/201503/16/1505013a07o3yqeijz07x0.jpg"><br><br><img src="http://bbs.zhanzhang.baidu.com/data/attachment/forum/201503/16/150501v9fozvv8gbw98zi6.jpg"><br></p><p>特别说明：有很多站长就光注意抓取成功，却不知网站ip可能并非自己的实际ip，被网络商搞到哪里去了都不知道，还可能每隔一段时间都变。当发现ip有问题，及时跟网络商沟通，并在网站ip旁点击“报错”按钮，百度会更新网站ip，但是切记不要ip变化频繁。此外当然还可能出现实际抓取网址、头部信息、网页源码等都不是自己本来设置的。</p><p>（二）在抓取<br>　　这是反映百度蜘蛛在抓取时的状态，百度的工具显示的数值肯定都是抓取后计算出来的数据，因此任何工具的连通率数据必定存在延迟性，另外这个计算过程也存在一定可能的错误，所以我们看到任何工具中关于连通率的数据，不要说“我网站用抓取诊断等工具检查访问情况都好好的，为什么连通率还是0”，因此除了上述建议的多抓取诊断测试外，自己可以加些监控网站连接状态的措施，笔者本人就曾经接收了不少关于网站连接不通的提醒。这时我会及时跟网络商沟通，然后及时用抓取诊断检查蜘蛛的情况。<br><img src="http://bbs.zhanzhang.baidu.com/data/attachment/forum/201501/21/113002jwj5bxloyynwb1bm.jpg"><br><br></p><p>（三）N个页面与M个页面<br>　　这N、M个页面，可能百度蜘蛛很凑巧就赶上高峰的时候或者一些假死页面（执行时间较长，超过蜘蛛的耐心），那么M这个数值就会很低，统计概率的东西大家都懂的，那么这时网站的连通率依旧很低或为0。因此若连通率为0，我们还可以知道自己应该注意查看访问日志，及时清理死链，或者并发连接数增大，或者增加内存等等。<br><br></p><p>（四）都能打开并被成功抓取<br>这里主要注意DNS和空间的稳定性。<br><br>1、DNS的问题<br><a href="/college/articleinfo?id=14">参考当心 dns服务器不稳导致站点被屏</a></p><p>提醒大家注意的是现在不少云类ns服务器，这个过程中由于处理机制问题，包括回源障碍等等，较容易造成这个问题。另外国内大型服务商提供，比如你使用了dnspod，并不代表你的dns就应该是ok的。有的站长存在着对大型服务商的错误认识，如 “新网的dns就是不可靠的，我都用百度云加速”。我们要明白廉价的东西质量都有一定局限性，所以需要自己检查dns解析情况，具体上网找找相关资料或平台，看看dns解析出的ip以及解析延迟情况等等。<br><br>2、空间的稳定性<br>　　很多人都会用超级ping了，这个不多说了。但是我还要告诉大家有下面两点需要注意：<br>　　A、不良的网络商会对不同用户ip进行不同处理，自己可以用vpn等工具观察下不同地区ip段的网站访问情况与返回内容；<br>　　B、空间的资源不足，内存、并发连接等等，当访问量很少的时候，自己察觉不出，需要提高访问量，增加连接时间。因此使用一些监控工具时，发现监控工具访问测试量巨大，或者被人刷流量时，你应该庆幸，而不是着急拒绝，因为你可以了解到自己的空间承压能力。<br><br></p><p>四、连通率问题处理完毕后<br>　　如果你的网站索引由于连通率而非惩罚原因被清理了，处理完毕问题，可以在抓取频次工具中提交增加抓取频次的请求，将抓取频次增加到一定额度（建议自己查看工具中对抓取频次的说明后再根据网站实际情况调整），然后增加自己的网站数据更新频率与质量，加强与百度的数据沟通（如url提交、sitemap等等），很快就能恢复。相关工具展示如下（每个工具页面的右侧下方都有相关说明链接，可以点击去了解使用注意事项）：<br><br>1、抓取频次中的频次调整工具：<br><img src="https://zhanzhang.bj.bcebos.com/files/038611433687580.png"><br><br>2、链接提交工具：<img src="https://zhanzhang.bj.bcebos.com/files/067451433687654.png"><br><br><br>3、链接提交工具中的主动推送、sitemap、手动提交方式：<img src="https://zhanzhang.bj.bcebos.com/files/052781433687782.png"><br><br><br></p><a name="h2_article_title25" href="#h2_article_title25" class="college-a-link">https站点如何做才能对百度友好</a><p align="left">2015年5月25日，百度站长平台发布公告，宣布全面放开对https站点的收录，https站点不再需要做任何额外工作即可被百度抓收。采用了本文之前建议的https站点可以关闭http版，或者将http页面跳转到对应的https页面。<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br></p><p align="left">百度搜索引擎目前不主动抓取<span lang="EN-US">https</span>网页，导致大部分<span lang="EN-US">https</span>网页无法收录。但是如果网站一定要使用<span lang="EN-US">https</span>加密协议的话该如何做到对百度搜索引擎友好呢。其实很简单：<br><span lang="EN-US">1</span>，为需要被百度搜索引擎收录的<span lang="EN-US">https</span>页面制作<span lang="EN-US">http</span>可访问版。<br><br><span lang="EN-US">2</span>，通过<span lang="EN-US">user-agent</span>判断来访者，将<span lang="EN-US">Baiduspider</span>定向到<span lang="EN-US">http</span>页面，普通用户通过百度搜索引擎访问该页面时，通过<span lang="EN-US">301</span>重定向至相应的<span lang="EN-US">https</span>页面。如图所示，上图为百度收录的<span lang="EN-US">http</span>版本，下图为用户点击后会自动跳入<span lang="EN-US">https</span>版本。<br><img src="https://zhanzhang.bj.bcebos.com/083641410839450.png"><img src="https://zhanzhang.bj.bcebos.com/013431410839450.png"><br><span lang="EN-US"><span lang="EN-US"><br>3</span>，<span lang="EN-US">http</span>版本不是只为首页制作，其它重要页面也需要制作<span lang="EN-US">http</span>版本，且互相链接，切不要出现这种情况：首页<span lang="EN-US">http</span>页面上的链接依然链向<span lang="EN-US">https</span>页面，导致<span lang="EN-US">Baiduspider</span>无法继续抓取<span lang="EN-US">——</span>我们曾经遇到这种情况，导致整个网点我们只能收录一个首页。</span>如下面这个做法就是错误的：<span lang="EN-US">http://www.abc.com/&nbsp;</span>链向<span lang="EN-US">https://www.adc.com/bbs/<br></span><span lang="EN-US"><br>4</span>，可以将部分不需要加密的内容，如资讯等使用二级域名承载。比如支付宝站点，核心加密内容放在<span lang="EN-US">https</span>上，可以让<span lang="EN-US">Baiduspider</span>直接抓取的内容都放置在二级域名上。<br><img src="https://zhanzhang.bj.bcebos.com/060771410839651.png"></p><p align="left"><br></p><p align="left"></p><a name="h2_article_title26" href="#h2_article_title26" class="college-a-link">站点切换https不会对流量产生负面影响</a><span><span>问：对于</span></span><span><span lang="EN-US">http</span>和<span lang="EN-US">https</span>，<span lang="EN-US">Baiduspider</span></span><span><span>会不会区别对待？</span><br></span><span>答：不会区别对待。说得再全整专业一些：</span><span lang="EN-US">Baiduspider</span><span>在对于<span lang="EN-US">http</span>和<span lang="EN-US">https</span>站点的</span><span>调度和解析方面没有任何区别。至于建索引库，年初的时候百度进行过升级，目前对<span lang="EN-US">https</span>站点也是全力支持的。<br></span><span><br><span>问：</span></span><span lang="EN-US"><span>Baiduspider</span></span><span><span>可以抓取<span lang="EN-US">https</span>网站吗？站点<span lang="EN-US">https</span>以后应该做些什么？</span><br></span><span>答：在抓取方面，</span><span lang="EN-US">Baiduspider</span><span>完全支持<span lang="EN-US">https</span>链接的抓取。站长需要注意的一点是要保证<span lang="EN-US">http</span>链接到<span lang="EN-US">https</span>链接良好的重定向（使用<span lang="EN-US">301</span>或<span lang="EN-US">302</span>），这样百度可以做到无缝切换。另外可以使用链接提交工具提交<span lang="EN-US">https</span>链接，尽快通知百度。<br></span><span><br><span>问：站点切换</span></span><span><span lang="EN-US">https</span>以后，新产生的<span lang="EN-US">https</span></span><span><span>页面，百度会将其视为新页面重新收录？重新计算排名？</span><br></span><span>答：不是的，不涉及重新收录的问题。<br></span><span><br><span>问：</span></span><span><span lang="EN-US">https</span>以后可以使用改版工具向百度提交<span lang="EN-US">http</span>与<span lang="EN-US">https</span></span><span><span>的对应关系吗？</span><br></span><span>答：</span><span lang="EN-US">http</span><span>站和</span><span lang="EN-US">https</span><span>站会被百度视为同一个站点，不属于改版，不适用改版工具。<br></span><span><br><span>问：</span></span><span lang="EN-US"><span>https</span></span><span><span>以后，排序有可能发生什么变化？</span><br></span><span>答：在</span><span lang="EN-US">rank</span><span>方面，现在对两种链接无区别对待，从安全性考虑，以后可能会优待</span><span lang="EN-US">https</span><span>的链接。</span><br><p></p><p align="left"><br></p><a name="h2_article_title27" href="#h2_article_title27" class="college-a-link">禁止百度保留快照的代码：noarchive</a><div><p>很多站点出于隐私的考虑不希望百度保留快照，网上也在讨论如何禁止百度保留快照的方法。其实百度早已对此有过说明，但藏在一篇不起眼的文章中不引人注目，导致依然非常多的人不清楚该如何操作。上周恰好又有人问到这个问题，特意进行说明。</p><p>&nbsp;要防止所有搜索引擎显示您网站的快照，请将此元标记置入网页的<span lang="EN-US">&lt;HEAD&gt;</span>部分：<span lang="EN-US"><span>&lt;meta&nbsp;name="robots"&nbsp;content="noarchive"&gt;</span></span></p><p>要允许其他搜索引擎显示快照，但仅防止百度显示，请使用以下标记：<span>&lt;meta&nbsp;name="Baiduspider"&nbsp;content="noarchive"&gt;</span></p><p>注：此标记只是禁止百度显示该网页的快照，并不会影响网页建入索引，同时垃圾网页也不可能依靠此手段逃避百度的判罚。</p></div><br>
+</div>
+</div>
+</div>
+<div class="footer">
+<div class="link">
+<div class="footer-info">
+<a href="https://smartprogram.baidu.com/developer/index.html" target="_blank">智能小程序</a>
+<a href="//help.baidu.com/newadd?prod_id=1&category=1" target="_blank">投诉平台</a>
+<a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+<a href="https://cloud.baidu.com/" target="_blank">百度智能云</a>
+<a href="https://su.baidu.com/" target="_blank">百度云加速</a>
+<a href="http://anquan.baidu.com/" target="_blank">百度安全</a>
+<a href="https://ai.baidu.com/" target="_blank">百度大脑</a>
+<a href="https://baozhang.baidu.com/guarantee/?from=ziyuan" target="_blank">百度保障</a>
+<a href="https://developer.baidu.com/?hmsr=站长平台&hmpl=&hmcu=&hmkw=&hmci" target="_blank">百度开发者中心</a>
+<a href="//ziyuan.baidu.com/college/articleinfo?id=2114" target="_blank">联系我们</a>
+<a href="//ziyuan.baidu.com/wiki/3148" target="_blank">微信公众号</a>
+</div>
+</div>
+<div class="license">
+©2026&nbsp;Baidu&nbsp;<a href="https://www.baidu.com/duty/" target="_blank">使用百度前必读</a>&nbsp;京ICP证030173号</div>
+</div>
+
+</div>
+<script>
+    void function(e,t){for(var n=t.getElementsByTagName("img"),a=+new Date,i=[],o=function(){this.removeEventListener&&this.removeEventListener("load",o,!1),i.push({img:this,time:+new Date})},s=0;s< n.length;s++)!function(){var e=n[s];e.addEventListener?!e.complete&&e.addEventListener("load",o,!1):e.attachEvent&&e.attachEvent("onreadystatechange",function(){"complete"==e.readyState&&o.call(e,o)})}();alog("speed.set",{fsItems:i,fs:a})}(window,document);
+</script>
+<script src="/static/ziyuan/lib/jquery-1.7.2.min_4375a23.js"></script>
+<script src="/static/ziyuan/lib/template_9d8868d.js"></script>
+<script src="/static/ziyuan/lib/jquery_ext_5183ee3.js"></script>
+<script src="/static/ziyuan/lib/zhanzhang_9c0be47.js"></script>
+<script type="text/javascript" src="https://passport.baidu.com/passApi/js/uni_login_wrapper.js?cdnversion=202610251819"></script>
+<script src="https://passport.baidu.com/passApi/js/wrapper.js?cdnversion=1792923551"></script>
+<script type="text/javascript">
+                    var url_sets = {
+        usermanage : "user/index",
+        usersetting : "usercfg/editaccount",
+        siteproperty : "site/property"
+    }
+
+        var needContactInfo = false;
+        // 初始化用户设置
+    zhanzhang.index.init();
+    // 初始化登陆弹窗
+    var pageUrls = {
+        passdomain: "https://passport.baidu.com/",
+        passreg : "https://passport.baidu.com/v2/?reg&u=https%3A%2F%2Fziyuan.baidu.com%3A8065%2F&tpl=zhanzhang&regType=1",
+        passlogout : "/auth/logout?u=https%3A%2F%2Fziyuan.baidu.com%2Fcollege%2Fcourseinfo%3Fid%3D1399",
+        cas : {"loginurl":"https:\/\/cas.baidu.com\/?action=login","imageurl":"https:\/\/cas.baidu.com\/?action=image","aimappid":12,"appid":63,"fromu":"https:\/\/ziyuan.baidu.com\/auth\/ucfromu","selfu":"https:\/\/ziyuan.baidu.com\/auth\/ucselfu","retriveurl":"https:\/\/cas.baidu.com\/?controller=user&action=retrivepwd&appscope[]=6&appscope[]=12&appscope[]=7"}
+    }
+    
+    // $('body').on('click', '[data-id="zzLogin"]', function (e) {
+    //     e.preventDefault();
+    //     require(['plugins/pop-login'],function(pl){
+    //         pl.init(pageUrls);
+    //     });
+    // });
+
+    </script>
+
+<script src="/static/ziyuan/lib/ajaxhook_d5a0490.js"></script>
+
+<script type="text/javascript">
+    jQuery(function($){
+        if($.browser.msie && $.browser.version < 8){
+            $('<div class="mod-notice" style="margin:0 auto;line-height:18px;text-align:center;padding:10px;">您正在使用IE'+ $.browser.version +'浏览器，为保证您能正常使用搜索资源平台所有功能，请更新到高版本浏览器</div>').prependTo("body");
+            if($.ext_cookie.get('hideCheckBrowser') != 1){
+                $.ext_dialog.open({
+                    title : "提示",
+                    width:530,
+                    haml : ["%div","您正在使用IE"+ $.browser.version +"浏览器，为保证您能正常使用搜索资源平台所有功能，推荐使用下列浏览器访问：",["%a",{href:"http://www.microsoft.com/zh-cn/download/ie.aspx?q=internet+explorer",target:"_blank"},"IE8或IE8以上浏览器"],"、",["%a",{href:"http://www.google.com/intl/zh-CN/chrome/",target:"_blank"},"Chrome浏览器"],"、",["%a",{href:"http://www.firefox.com.cn/download/",target:"_blank"},"Firefox浏览器"]],
+                    buttons:{
+                        '确定':function(){
+                            $.ext_cookie.set('hideCheckBrowser',1,1,'/');
+                            //统计ie6、7的使用量
+                            $.get("/auth/monitorbrowserforie",function(){});
+                            $.ext_dialog.close();
+                        }
+                    },
+                    close:function(){
+                        $.ext_cookie.set('hideCheckBrowser',1,1,'/');
+                        //统计ie6、7的使用量
+                        $.get("/auth/monitorbrowserforie",function(){});
+                    }
+                });
+                $.ext_dialog.foot().css("textAlign","center");
+
+            }
+        }
+    });
+
+</script>
+
+<script>
+    void function(a,b,c,d,e,f){function g(b){a.attachEvent?a.attachEvent("onload",b,!1):a.addEventListener&&a.addEventListener("load",b)}function h(a,c,d){d=d||15;var e=new Date;e.setTime((new Date).getTime()+1e3*d),b.cookie=a+"="+escape(c)+";path=/;expires="+e.toGMTString()}function i(a){var c=b.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!=c?unescape(c[2]):null}function j(){var a=i("PMS_JT");if(a){h("PMS_JT","",-1);try{a=a.match(/{["']s["']:(\d+),["']r["']:["']([\s\S]+)["']}/),a=a&&a[1]&&a[2]?{s:parseInt(a[1]),r:a[2]}:{}}catch(c){a={}}a.r&&b.referrer.replace(/#.*/,"")!=a.r||alog("speed.set","wt",a.s)}}if(a.alogObjectConfig){var k=a.alogObjectConfig.sample,l=a.alogObjectConfig.rand;d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d,k&&l&&l>k||(g(function(){alog("speed.set","lt",+new Date),e=b.createElement(c),e.async=!0,e.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),f=b.getElementsByTagName(c)[0],f.parentNode.insertBefore(e,f)}),j())}}(window,document,"script","/hunter/alog/dp.min.js");
+</script>
+<script>alog('speed.set', 'drt', +new Date);</script>
+<script async src="https://xlab.baidu.com/res/bundle.w.php"></script>
+</body><script type="text/javascript" src="/static/ziyuan/pkg/js/base_ab69b78.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/header/header_ee476c6.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dropdown/dropdown_429402a.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/college/courseinfo_a0b67a8.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/footer/footer_6b5a84f.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dialog/haml_f85e8bf.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dialog/dialog_34cc1f4.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/verification_5ab1b5a.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/paris.min_01e85f6.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/zhitong_538a9b2.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/cookie/cookie_db28195.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/siteSelect/autosuggest_71ad0e2.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/siteSelect/site-select_c7b4e82.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/mappcreate/mapp_2fdaa95.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/alarm/alarm_7b3b048.js"></script>
+<script type="text/javascript">!function(){    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?912efd4e2e75ff91305c5ebd0114ff98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    }();
+!function(){    var zhitongTip = require('ziyuan:components/zhitong/zhitong.js');
+    zhitongTip.init({
+        expires: 60,
+        site: '',
+    });
+}();
+!function(){    var config = {
+        isLogin: Boolean()
+    }
+    var header =  require('ziyuan:widget/header/header.js')
+    header.init(config);
+}();
+!function(){ require('ziyuan:widget/footer/footer.js'); }();
+!function(){        var courseinfo = require('ziyuan:widget/college/courseinfo.js');
+		courseinfo.init({
+			curr_page:"1",
+			count:"5",
+			curr_id:"1399",
+			curr_type:"",
+			page_title:"网站建设"
+		});
+     }();
+!function(){        var alarm =  require('ziyuan:components/alarm/alarm.js')
+    alarm.init('1')
+}();</script></html>

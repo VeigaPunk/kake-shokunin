@@ -1,0 +1,51 @@
+{
+  "schema": "kake-r52-contract-v1",
+  "round": 52,
+  "lane": "kake",
+  "author": "L1Kake52",
+  "declaredBeforeScoring": true,
+  "base": "93d7fdbd45b0e5698927e7f9cb3dafca24ace416",
+  "axesOwned": ["operability", "freshness"],
+  "saturationLine": "10/10 on both owned axes",
+  "stagnationWindowN": 1,
+  "lowestAxisObligation": "Both owned axes sit on the 10/10 saturation line; C1 works operability and C2 works freshness, one axis each.",
+  "claims": [
+    {
+      "id": "C1",
+      "axis": "operability",
+      "kind": "capability deepening",
+      "title": "The two round-51 counters are registered in SKILL.md's gate registry and hardened: self-test modes with committed receipts, frozen baselines, a C1 vacuity floor, C2's C8 mirror-read fix and C6 receipt-field checks",
+      "predicate": "met: registry_rows == 2 AND selftest_receipts == 2 AND vacuity_mutant_families_killed >= 10 AND real_data_reruns_pass == 2 of 2",
+      "countingCommand": "python3 -B .ufo/waves/round-52/c52_gate_registry.py --root . --revision <commit>; python3 -B .ufo/waves/round-52/c52_wave_ledger.py --selftest; python3 -B .ufo/waves/round-52/c52_quote_truth.py --selftest; python3 -B .ufo/waves/round-52/c52_wave_ledger.py --root . --revision <commit>; python3 -B .ufo/waves/round-52/c52_quote_truth.py --root . --revision <commit>",
+      "before": "0 registry rows in SKILL.md for either counter (grep -cE '^\\| (wave-evidence-ledger|quote-truth-counter) \\|' SKILL.md -> 0); no --selftest mode on either r51 counter; C1 scores 3/3 on empty-wave/phantom-seat/zero-byte-report/47-of-48 mutants (ResidualSettlement M1-M12 all green at 907790c); C2's C8 reads the live registry at the mirror commit instead of the mirror bytes",
+      "after": "2 registry rows; each counter has a --selftest mode whose committed receipt shows exit 0; the vacuity ladder's >=10 families are rejected by the new ledger (exit 1) while the old ledger still passes them (red-before committed); C8 reads show(root, rev, MIRROR) plus a pinned mirror sha256; both counters re-run on the real round-51 data at the measured commit and pass full marks (3/3 and 8/8)",
+      "doNothingControl": "the base revision 93d7fdb scores 0 registry rows; the old counters keep their vacuity holes; the counter reads committed bytes only",
+      "killRule": "any registry row missing, any selftest non-clean, any vacuity family still green on the new ledger, or either real-data rerun below full marks is an honest stop for C1"
+    },
+    {
+      "id": "C2",
+      "axis": "freshness",
+      "kind": "sourced learning claim (assimilation of one theme) + drift reconciliation",
+      "title": "Three per-engine crawl-hygiene entries (Yahoo! JAPAN link-attribute semantics; Baidu crawler guidance; Baidu mobile-matching error causes) enter held ground on rows S374/S329/S312 opened this round; the sweep's two closable armed drift legs (PQ-2 remote advance, ds4cc sitemap listed) are reconciled from observed evidence, leaving only the operator-owned plazir absence red",
+      "predicate": "met: admitted_entries_citing_mined_rows == 3 AND registry_rows_delta == +3 AND census_validate_exit == 0 AND sweep_drift_legs_before == 3 AND sweep_drift_legs_after == 1",
+      "countingCommand": "python3 -B .ufo/waves/round-52/c52_quote_truth.py --root . --revision <commit>; /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake; node scripts/freshness-sweep.mjs",
+      "before": "registry 145 rows with zero Yahoo/Baidu rows; 0 entries on that ground; sweep `VERDICT: DRIFT — §armed: PQ-2 GATE-OPENED, sitemap LISTED-LIVE, plazir-gate-anomaly` exit 1 (3 legs), with a base-clone control showing the same verdict lines (external drift pre-existing)",
+      "after": "registry 148 rows (S374/S329/S312 appended, 11 cells each, mined, opened 2026-10-25, recheck 180d, used-by exactly the admitting entry); the three entries cite those rows on coverage-map ground the lane did not hold; census validate exit 0 over 148 rows; sweep exits 1 with only `plazir-gate-anomaly` remaining (operator-owned source absence, disclosed, not hidden)",
+      "doNothingControl": "a round that opens no source and appends no rows scores 0/3 entries and stays at 145 rows; the sweep remains red on the same three legs",
+      "killRule": "any admitted entry whose cited row was not opened this round, any census E03/E04, any appended row not 11 cells, or the sweep losing a leg by re-pinning a still-red external state is an honest stop for C2"
+    }
+  ],
+  "separability": "C1's counters read only the wave evidence, the registry rows, the selftest fixtures and the round-51 committed data; C2 reads the registry, the three entries, the lesson Gate, the retained bodies and the sweep output. Neither counter reads the other's inputs.",
+  "theme": "per-engine crawl hygiene beyond Google — Yahoo! JAPAN link-target semantics and Baidu crawler/mobile-matching rules",
+  "routedDefectsAddressed": {
+    "r51-1": "gate-registry rows + self-test modes + frozen baselines for both counters (C1)",
+    "r51-2": "C8 reads show(root, rev, MIRROR) and pins the mirror sha256; C6 adds httpStatus/bytes/fetchedAt (C1)",
+    "r51-3": "C1 vacuity floor: spawn/grant/settlement bound, report bytes read, dead-seat receipts (C1)",
+    "r51-4": "junk controls made replayable or replaced by the mutation ladder (C1)",
+    "r51-5": "measured commit run and hashed at the tip in SCORECARD (report/SCORECARD)",
+    "r51-6": "frontier-line narrowing wording corrected in PROVINCE/SCORECARD prose (report)",
+    "r51-7": "live sweep verdict + base-clone control placed in the report's no-harm evidence (C2/report)",
+    "r51-8": "shokuknow package revision pinned; staged entry files committed under .ufo/waves/round-52/assimilation/ (report)",
+    "r51-9": "24 untracked leftover files from rounds 46/48 committed as historical wave evidence (report)"
+  }
+}
