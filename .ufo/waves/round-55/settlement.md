@@ -13,3 +13,10 @@ Per-seat status of W2 is recorded in the report (§Work performed) from `w2-resu
 
 Round total: 76 seats (40 + 36), no residual call. Never replaced a dead seat. Seat reports in `w1/` and `w2/`
 were committed at settlement, before later work cited them.
+
+## Wave 2 settlement (from `w2-results.json`, 36 settled)
+
+34 committed seat reports in `w2/` (`ls .ufo/waves/round-55/w2/*.md | wc -l`). `ScribeScorecard` and `ScribeLog` settled
+with outputs about other lanes/rounds (mori round 47; a round-49 LOG entry) and no report file in the lane — misdirected seats, like W1 `ScribeQuality` (their drafts were not used; the SCORECARD and LOG entries were written by the L1 from
+the receipts). No seat was replaced. `MutC2Counter` reported 52 mutants, 44 killed, 8 redundant survivors; its 29 proposed
+kill fixtures were not ported into the selftest (disclosed in the report).
