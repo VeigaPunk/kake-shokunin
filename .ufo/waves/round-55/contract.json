@@ -1,0 +1,41 @@
+{
+ "schema": "kake-r55-contract-v1",
+ "baseRevision": "fcaf4b85ce32dbe2a88ce9924a4994e8cd93212d",
+ "roundDate": "2026-10-25",
+ "axisDeclaration": {
+  "C1": "calibration (round-54 sub-axis; deviation from prompt axes named)",
+  "C2": "freshness"
+ },
+ "claims": {
+  "C1": {
+   "predicate": "met: index_mismatches == 0 AND knowledge_files >= 46",
+   "counter": "python3 -B .ufo/waves/round-55/c55_readme_index.py --root <lane> --revision <rev>",
+   "baseControl": "index_mismatches=21 knowledge_files=46 met=False exit 1",
+   "kill": "exit 0 iff met; 1 not met; 2 unevaluable; 64 usage"
+  },
+  "C2": {
+   "predicate": "met: conditions_passed == 8 of 8",
+   "counter": "python3 -B .ufo/waves/round-55/c55_quote_truth.py --root <lane> --revision <rev>",
+   "baseControl": "0/8 met=False exit 1",
+   "kill": "exit 0 iff met; 1 not met; 2 unevaluable; 64 usage"
+  }
+ },
+ "unitCeiling": 25,
+ "registryRowsBefore": 155,
+ "registryRowsAfterExpected": 156,
+ "renumberMap": {
+  "S380": "S418",
+  "S372": "S372",
+  "S373": "S373"
+ },
+ "collisions": [
+  "S312",
+  "S329",
+  "S367",
+  "S372",
+  "S373",
+  "S374",
+  "S390",
+  "S409"
+ ]
+}

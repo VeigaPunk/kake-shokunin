@@ -1,0 +1,30 @@
+C2 quote-truth 0/8 met=False  (met: conditions_passed == 8 of 8)
+  C1_entries_exist FAIL
+    - S372: knowledge entry corpus/knowledge/yahoo-japan-robots-txt-refusal-rules.md absent at the measured revision
+    - S373: knowledge entry corpus/knowledge/yahoo-japan-robots-pattern-syntax.md absent at the measured revision
+    - S418: knowledge entry corpus/knowledge/yahoo-japan-robots-txt-basics.md absent at the measured revision
+  C2_entry_provenance FAIL
+    - S372: entry absent
+    - S373: entry absent
+    - S418: entry absent
+  C3_row_shape FAIL
+    - S418: no registry row at the measured revision
+  C4_used_by FAIL
+    - S372: used-by is ['corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md'], expected ['corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md', 'corpus/knowledge/yahoo-japan-robots-txt-refusal-rules.md']
+    - S373: used-by is ['corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md', 'corpus/knowledge/baidu-friendly-crawl-guidance.md'], expected ['corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md', 'corpus/knowledge/baidu-friendly-crawl-guidance.md', 'corpus/knowledge/yahoo-japan-robots-pattern-syntax.md']
+    - S418: no usable registry row
+  C5_quote_truth FAIL
+    - S372: retained body absent
+    - S373: retained body absent
+    - S418: retained body absent
+  C6_receipt_pins FAIL
+    - .ufo/waves/round-55/sources/receipts.json absent
+    - S372: no receipt in .ufo/waves/round-55/sources/receipts.json
+    - S373: no receipt in .ufo/waves/round-55/sources/receipts.json
+    - S418: no receipt in .ufo/waves/round-55/sources/receipts.json
+  C7_validate_before_append FAIL
+    - append-block validation receipt is incomplete
+  C8_mirror_bytes FAIL
+    - mirror .ufo/waves/round-55/assimilation/pre-append/corpus/SOURCES.md absent at the measured revision
+  revision: fcaf4b85ce32dbe2a88ce9924a4994e8cd93212d
+EXIT=1
