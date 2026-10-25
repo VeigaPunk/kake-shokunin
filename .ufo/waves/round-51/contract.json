@@ -1,0 +1,61 @@
+{
+  "schema": "kake-r51-contract-v1",
+  "round": 51,
+  "lane": "kake",
+  "author": "Kimi fresh L1",
+  "declaredBeforeScoring": true,
+  "base": "007d66e4e8360a5f88d29a93eeedd8066dad4434",
+  "axesOwned": ["operability", "freshness"],
+  "saturationLine": "10/10 on both owned axes",
+  "stagnationWindowN": 1,
+  "lowestAxisObligation": "Both owned axes sit on the 10/10 saturation line, so the lowest-axis rule is met by construction: C1 works operability and C2 works freshness, one axis each.",
+  "claims": [
+    {
+      "id": "C1",
+      "axis": "operability",
+      "kind": "capability acquisition",
+      "title": "A wave-evidence ledger that re-derives the round's own seat accounting, route deviations and time accounting from committed bytes",
+      "predicate": "met: ledger_checks_passed == 3 of 3",
+      "countingCommand": "python3 -B .ufo/waves/round-51/c51_wave_ledger.py --root . --revision <commit>",
+      "before": "0 of 3 at the base 007d66e (no ledger instrument, no route receipts, no time accounting)",
+      "after": "3 of 3 at the measured commit (the settlement, the route receipts, the time-accounting artifact and the LOG figure are all committed)",
+      "conditions": {
+        "L1": "seat accounting: the committed seat-report count under .ufo/waves/round-51/w1/ equals the settlement's reports_written, the settlement's spawn equals the payload's seat count, and every seat marked as having a report has exactly one committed report file",
+        "L2": "route receipts: every route the wave used has a committed probe receipt with an integer HTTP status, a failing receipt carries a body excerpt and is not used by a role, and every failing receipt is recorded as a deviation in the route map",
+        "L3": "time accounting: the aggregate seat seconds, the dead-seat seconds and the wave wall clock are re-derivable from the committed settlement and wave-timing bytes, the committed time-accounting artifact carries the same figures, LOG.md names the wall-clock figure, and every dead seat's duration matches its recorded reason"
+      },
+      "doNothingControl": "the base revision 007d66e scores 0 of 3; the counter reads committed bytes only",
+      "killRule": "a miss on any of L1, L2 or L3 is an honest stop for C1 and is reported as such"
+    },
+    {
+      "id": "C2",
+      "axis": "freshness",
+      "kind": "sourced learning claim (assimilation of one theme)",
+      "title": "Google's canonical selection and crawler identity enter held ground as two source-backed entries on rows S262 and S263, re-grounded in this round",
+      "predicate": "met: conditions_passed == 8 of 8",
+      "countingCommand": "python3 -B .ufo/waves/round-51/c51_quote_truth.py --root . --revision <commit>",
+      "before": "0 of 8 at the base 007d66e (neither entry, neither row, no retained source, no pre-append mirror)",
+      "after": "8 of 8 at the measured commit (two rows appended, two entries landed, both Gate quotes raw in the retained bodies, the mirror census-validated with --file before the append)",
+      "conditions": {
+        "C1": "both admitted entries exist at their repo-relative paths",
+        "C2": "each entry cites its own row id below its 8-line metadata header",
+        "C3": "each registry row has 11 cells, no literal or escaped pipe, status mined, the round's opened date and a normalized recheck",
+        "C4": "each row's used-by lists exactly the admitted entry that cites it",
+        "C5": "each lesson Gate quote is 6 to 25 words and an exact raw substring of the retained body",
+        "C6": "each retained body's sha256 equals its receipt's sha256 and its receipt URL is the registry row's URL",
+        "C7": "the pre-append census receipt names --file and the mirror path and not --root, its exit is 0 and its stdout carries no E03 and no E04",
+        "C8": "the pre-append mirror commit is a strict ancestor of the measured revision, the mirror's registry carries none of the adopted ids and the measured revision's registry carries all of them"
+      },
+      "doNothingControl": "the base revision 007d66e scores 0 of 8; the counter reads committed bytes only",
+      "killRule": "a miss on any of C1..C8 is an honest stop for C2 and is reported as such"
+    }
+  ],
+  "separability": "C1's counter reads only the wave evidence (settlement, payload, route map, probe receipts, timing, time accounting, LOG.md); C2's counter reads only the registry, the two entries, the lesson, the retained bodies and the pre-append mirror. Neither counter reads the other's inputs, so either claim verifies with the other unlanded.",
+  "theme": "one theme: what the engine does with a publisher's canonical declaration and with its own crawler identity — the selection half of the canonical signal and the identity half of the crawl signal",
+  "routedDefectsAddressed": {
+    "r50-1": "the seat-report count is now a committed, re-derivable ledger condition (L1) instead of prose",
+    "r50-2": "the route substitutions now carry committed probe receipts with an HTTP status and a body excerpt (L2)",
+    "r50-3": "the aggregate round-overrun figure is now derived from committed bytes and named in LOG.md (L3)",
+    "r50-4": "the ten inherited paths stay untouched and uncommitted"
+  }
+}

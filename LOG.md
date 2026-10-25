@@ -2041,3 +2041,27 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `.ufo/waves/round-50/assimilation/order-proof.json` and the wave-citation proof is
   `.ufo/waves/round-50/wave-cite-proof.json`. Dead seats stayed dead; no seat was replaced and no
   wave was split.
+- **Round 51 — the two claims were declared and frozen before any score.** The contract is
+  `.ufo/waves/round-51/contract.json`. C1 (operability, capability acquisition) — a
+  wave-evidence ledger that re-derives the round's own seat accounting, route deviations and
+  time accounting from committed bytes; predicate `met: ledger_checks_passed == 3 of 3`;
+  counting command `python3 -B .ufo/waves/round-51/c51_wave_ledger.py --root . --revision
+  <commit>`. C2 (freshness, sourced learning claim) — one assimilated theme (what the engine
+  does with a publisher's canonical declaration and with its own crawler identity), grounded
+  on rows S262 and S263 re-grounded in this round; predicate `met: conditions_passed == 8 of
+  8`; counting command `python3 -B .ufo/waves/round-51/c51_quote_truth.py --root . --revision
+  <commit>`. Both counters read committed bytes only and neither reads the other's inputs.
+  Do-nothing controls at the base `007d66e4e8360a5f88d29a93eeedd8066dad4434`: C1 0 of 3
+  (exit 1) and C2 0 of 8 (exit 1). Controls that reach neither predicate are committed under
+  `.ufo/waves/round-51/controls/` (`c1-junk-wave.txt`, `c2-junk-entries.txt`).
+- **Round 51 — the pre-append mirror is committed before any registry append.** The mirror is
+  the lane's `corpus/` plus the two new rows and the two admitted knowledge files, at
+  `.ufo/waves/round-51/assimilation/pre-append/corpus/SOURCES.md`; the live registry at this
+  commit still holds 143 rows and carries neither S262 nor S263. The census ran on the mirror
+  with `--file` only: argv, stdout and exit 0 are committed at
+  `.ufo/waves/round-51/assimilation/pre-append/`. The id collision check ran in scratch with
+  the census parser's own 0-to-3-leading-space pattern: the staged ids overlapping the lane
+  registry are S273, S274 and S286, none of them adopted this round, and the guard was shown
+  able to fail on an indented fixture (`guard/guard-collisions` is non-empty while the
+  column-zero-only fixture `guard/guard-col0` is empty). The 12-row quarantine slice was
+  re-derived read-only and left unadopted (`assimilation/quarantine-slice`).
