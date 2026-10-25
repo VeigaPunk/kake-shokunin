@@ -1,0 +1,71 @@
+measured revision: a4a890cf1381a194891689dcbba0bf524350926b
+=== c52_gate_registry.py --root . --revision a4a890cf1381a194891689dcbba0bf524350926b ===
+C1 registry rows=2 receipts=2 met=True  (met: registry_rows == 2 AND selftest_receipts == 2)
+  registry_rows PASS
+  frozen_baselines PASS
+  selftest_receipts PASS
+  revision: a4a890cf1381a194891689dcbba0bf524350926b
+EXIT=0
+EXIT=0
+=== c52_wave_ledger.py --root . --revision a4a890cf1381a194891689dcbba0bf524350926b ===
+C1 ledger 3/3 met=True  (met: ledger_checks_passed == 3 of 3)
+  L1 PASS
+  L2 PASS
+  L3 PASS
+  revision: a4a890cf1381a194891689dcbba0bf524350926b
+EXIT=0
+EXIT=0
+=== c52_quote_truth.py --root . --revision a4a890cf1381a194891689dcbba0bf524350926b ===
+C2 quote-truth 8/8 met=True  (met: conditions_passed == 8 of 8)
+  C1_entries_exist PASS
+  C2_entry_cites_id PASS
+  C3_row_shape PASS
+  C4_used_by PASS
+  C5_quote_truth PASS
+  C6_receipt_pins PASS
+  C7_validate_before_append PASS
+  C8_mirror_bytes PASS
+  revision: a4a890cf1381a194891689dcbba0bf524350926b
+EXIT=0
+EXIT=0
+=== c52_wave_ledger.py --selftest ===
+c52 ledger selftest: 19/19
+EXIT=0
+=== c52_quote_truth.py --selftest ===
+c52 quote-truth selftest: 18/18 (fixture revision a4a890cf1381)
+EXIT=0
+=== c52_mutation_ladder.py ===
+  fail_47of48            old=1 new=1  MISSED
+  fail_48of0             old=0 new=1  caught
+  fail_acctroster        old=0 new=1  caught
+  fail_deadreason        old=0 new=1  caught
+  fail_dupdigest         old=0 new=1  caught
+  fail_grant             old=0 new=1  caught
+  fail_logtoken          old=0 new=1  caught
+  fail_multiset          old=1 new=1  MISSED
+  fail_namekey           old=1 new=2  MISSED
+  fail_phantom           old=1 new=1  MISSED
+  fail_roledrift         old=0 new=1  caught
+  fail_seatsrename       old=0 new=1  caught
+  fail_spawn0            old=1 new=1  MISSED
+  fail_statusconflict    old=0 new=1  caught
+  fail_statusok          old=0 new=1  caught
+  fail_timetautology     old=0 new=1  caught
+  fail_timingcarry       old=0 new=1  caught
+  fail_zerobyte          old=0 new=1  caught
+  pass                   old=0 new=0  control
+C1 ladder families=18 caught=13/18 pass_agrees=True met=True  (met: families_with_old_pass_and_new_reject >= 10 and pass_fixture_agrees)
+  receipt: .ufo/waves/round-52/control/c1-mutation-ladder.json
+EXIT=0
+=== node scripts/freshness-sweep.mjs ===
+    dir /home/vgpnk/Projects/plazir-15-site
+!! WARN r15 charter snapshot absent (/tmp/kake-r15/charter-live.html) — the R15_LIVE_SHA cross-check did not run on this host; PERSIST rests on the pinned sha alone
+skipped(offline): §history (probe-history source absent — pin-declared) — complete=false, never counted as pass
+VERDICT: DRIFT — §armed: plazir-gate-anomaly (exit 1)
+EXIT=1
+=== census validate ===
+kake	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+kake	ok	/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md
+EXIT=0
+=== SOURCES rows ===
+148
