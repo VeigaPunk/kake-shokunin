@@ -19,11 +19,11 @@ Checks:
          is a suspect when it describes the phrase with endorsement/refusal
          vocabulary (recommend|vouch|endorse|refusal|refuse) and has no crawl
          vocabulary (crawl|巡回).
-  C1.3  a correction block is an entry line starting with
-         `[r54-correction 2026-10-25]`; it must contain the exact source quote
-         and at least one crawl token.
-  C1.4  mismatch = number of suspect cells that appear BEFORE any valid
-         correction block in the file.
+  C1.3  a correction block starts with the anchored, bold `[r54-correction
+         2026-10-25]` marker; in that same section it contains the exact source
+         quote, an explicit negative crawl recommendation, and language binding
+         the correction to superseding the earlier endorsement-only rendering.
+  C1.4  mismatch = each suspect cell with no such valid correction after it.
 
 Predicate met iff mismatch == 0 and at least one valid correction block exists.
 
@@ -37,14 +37,19 @@ import re
 import subprocess
 import sys
 
-PREDICATE = "S374 qualifier: mismatches = rendered cells missing the crawl qualifier and not superseded by an r54 correction block; met when 0"
+PREDICATE = "S374 qualifier: mismatches = rendered cells missing the crawl qualifier and not superseded by an r54 correction block; met when 0."
 ENTRY = "corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md"
 BODY = ".ufo/waves/round-52/sources/S374.html"
 QUOTE = "このリンク先のウェブページの巡回を推奨していない"
-CORRECTION_MARK = "[r54-correction 2026-10-25]"
+BASE_RENDER = (
+    "(rendered: the site owner is taken to consider the link target's page one it does not recommend,\n"
+    "or a link it cannot vouch for)."
+)
+CORRECTION_MARK_RE = re.compile(r"(?m)^\*\*\[r54-correction 2026-10-25\]\*\*")
 SEMANTIC_RE = re.compile(r"recommend|vouch|endorse|refusal|refuse", re.I)
 CRAWL_RE = re.compile(r"crawl|巡回", re.I)
 NEGATIVE_CRAWL_RE = re.compile(r"\bnot\s+recommend(?:\s+the)?\s+(?:crawl|crawling)\b", re.I)
+BOUND_CORRECTION_RE = re.compile(r"earlier rendering.*?endorsement.*?supersedes.*?gloss", re.I | re.S)
 RENDER_RE = re.compile(r"\(rendered: ([^)]+)\)", re.S)
 
 
@@ -57,20 +62,23 @@ def show(root: str, rev: str, path: str) -> bytes | None:
     p = git(root, "show", f"{rev}:{path}")
     return p.stdout if p.returncode == 0 else None
 
-def qualifier_findings(entry: str) -> tuple[list[int], int]:
-    """Return suspect-render offsets and the first source-bound correction."""
+def qualifier_findings(entry: str) -> tuple[list[tuple[int, int]], int, int]:
+    """Return suspect-render spans, a bound superseding correction, and base-copy count."""
     suspects = [
-        match.start()
+        (match.start(), match.end())
         for match in RENDER_RE.finditer(entry)
         if SEMANTIC_RE.search(match.group(1)) and not CRAWL_RE.search(match.group(1))
     ]
     correction_at = -1
-    for match in re.finditer(re.escape(CORRECTION_MARK), entry):
-        window = entry[match.start():match.start() + 1200]
-        if QUOTE in window and NEGATIVE_CRAWL_RE.search(window):
+    for match in CORRECTION_MARK_RE.finditer(entry):
+        next_heading = re.search(r"(?m)^## ", entry[match.end():])
+        block_end = match.end() + next_heading.start() if next_heading else len(entry)
+        block = entry[match.start():block_end]
+        if (QUOTE in block and NEGATIVE_CRAWL_RE.search(block)
+                and BOUND_CORRECTION_RE.search(block)):
             correction_at = match.start()
             break
-    return suspects, correction_at
+    return suspects, correction_at, entry.count(BASE_RENDER)
 
 
 def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
@@ -97,14 +105,18 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
         add("C1.2_entry", False, [f"{ENTRY} missing at {rev}"])
         return 2, results
     entry = entry_raw.decode("utf-8", errors="replace")
-    suspects, corr_at = qualifier_findings(entry)
+    suspects, corr_at, base_copy_count = qualifier_findings(entry)
     corr_ok = corr_at >= 0
-    add("C1.2_cells", True, [], {"suspect_cells": len(suspects)})
+    add("C1.2_cells", base_copy_count == 1,
+        [] if base_copy_count == 1 else ["round-open rendering is not preserved exactly once"],
+        {"suspect_cells": len(suspects), "base_render_count": base_copy_count})
     add("C1.3_correction", corr_ok,
-        [] if corr_ok else ["no valid r54 correction block (exact quote + crawl token)"],
+        [] if corr_ok else ["no anchored correction bound to the exact quote and earlier gloss"],
         {"block_offset": corr_at})
+    mismatch = sum(1 for start, end in suspects if corr_at == -1 or corr_at <= end)
 
-    mismatch = sum(1 for pos in suspects if corr_at == -1 or corr_at < pos)
+    if base_copy_count != 1:
+        mismatch += 1
     add("C1.4_mismatch", mismatch == 0, [] if mismatch == 0 else [f"mismatches={mismatch}"],
         {"mismatches": mismatch})
 
@@ -117,28 +129,32 @@ def selftest() -> int:
     base_entry = (
         "source: S374 — https://example.invalid/x — fetched 2026-10-25\n"
         "> \"このリンク先のウェブページの巡回を推奨していない\"\n"
-        "(rendered: the site owner is taken to consider the link target's page one it\n"
-        " does not recommend, or a link it cannot vouch for).\n"
+        + BASE_RENDER + "\n"
     )
     corrected_entry = base_entry + (
         "\n## Round-54 correction (2026-10-25)\n"
-        "[r54-correction 2026-10-25] 「このリンク先のウェブページの巡回を推奨していない」 means the site owner is taken to **not recommend the crawl** of the link target's page; the rendering above dropped the crawl qualifier.\n"
+        "**[r54-correction 2026-10-25]** The earlier rendering glosses 「このリンク先のウェブページの巡回を推奨していない」 as endorsement-only. It means the site owner is taken to **not recommend the crawling** of the link target's web page. This correction supersedes the earlier gloss.\n"
     )
+    correction_removed_render = corrected_entry.replace(BASE_RENDER, "")
     missing_quote = base_entry + (
         "\n## Round-54 correction (2026-10-25)\n"
-        "[r54-correction 2026-10-25] crawl qualifier noted.\n"
+        "**[r54-correction 2026-10-25]** The earlier rendering is endorsement-only and is superseded by a not-recommend-crawling correction.\n"
     )
     missing_crawl = base_entry + (
         "\n## Round-54 correction (2026-10-25)\n"
-        "[r54-correction 2026-10-25] このリンク先のウェブページの巡回を推奨していない  means not recommended.\n"
+        "**[r54-correction 2026-10-25]** The earlier rendering is endorsement-only; 「このリンク先のウェブページの巡回を推奨していない」 means not recommended. This correction supersedes the earlier gloss.\n"
     )
     wrong_polarity = base_entry + (
         "\n## Round-54 correction (2026-10-25)\n"
-        "[r54-correction 2026-10-25] 「このリンク先のウェブページの巡回を推奨していない」 says the owner recommends crawling the link target.\n"
+        "**[r54-correction 2026-10-25]** The earlier rendering is endorsement-only; 「このリンク先のウェブページの巡回を推奨していない」 says the owner recommends crawling the link target. This correction supersedes the earlier gloss.\n"
+    )
+    unrelated_marker = base_entry + (
+        "\n## Round-54 note\n"
+        "**[r54-correction 2026-10-25]** 「このリンク先のウェブページの巡回を推奨していない」 means the site owner does not recommend crawling.\n"
     )
     correction_before = (
         "## Round-54 correction (2026-10-25)\n"
-        "[r54-correction 2026-10-25] 「このリンク先のウェブページの巡回を推奨していない」 means the site owner is taken to **not recommend the crawl** of the link target's page.\n"
+        "**[r54-correction 2026-10-25]** The earlier rendering is endorsement-only; 「このリンク先のウェブページの巡回を推奨していない」 means the owner does not recommend crawling. This correction supersedes the earlier gloss.\n"
     ) + base_entry
 
     class Fix:
@@ -164,6 +180,8 @@ def selftest() -> int:
         ("body_missing_quote", Fix(base_entry, body_plain), 2, "unevaluable"),
         ("correction_wrong_polarity", Fix(wrong_polarity), 1, "met=False"),
         ("correction_before_render", Fix(correction_before), 1, "met=False"),
+        ("unrelated_marker", Fix(unrelated_marker), 1, "met=False"),
+        ("correction_removed_render", Fix(correction_removed_render), 1, "met=False"),
     ]
     failed = 0
     for name, fix, want_code, want_label in cases:
@@ -187,8 +205,10 @@ def run_checks_fix(fix) -> tuple[int, list[dict]]:
     if QUOTE not in body_t:
         return 2, []
     entry_t = fix.read(ENTRY).decode("utf-8", errors="replace")
-    suspects, corr_at = qualifier_findings(entry_t)
-    mismatch = sum(1 for pos in suspects if corr_at == -1 or corr_at < pos)
+    suspects, corr_at, base_copy_count = qualifier_findings(entry_t)
+    mismatch = sum(1 for start, end in suspects if corr_at == -1 or corr_at <= end)
+    if base_copy_count != 1:
+        mismatch += 1
     return (0 if corr_at >= 0 and mismatch == 0 else 1), []
 
 

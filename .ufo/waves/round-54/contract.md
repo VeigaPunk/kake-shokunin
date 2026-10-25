@@ -54,8 +54,8 @@ registry" table, and round-53 dispatch/settlement evidence (40 seats spawned,
 - Kill rule: exit 0 iff all three hold; exit 1 otherwise; exit 2 unevaluable;
   64 usage.
 - Do-nothing control: run at base `68228b2d` must print
-  `registry=absent manifest=absent uncovered=4` and exit 1 (committed receipt; the 4
-  are the names explicitly cited in the lane's round-53 lesson/closure file bytes).
+  `registry=absent manifest=absent uncovered=7` and exit 1 (committed receipt; the seven
+  report filenames are enumerated in the closure's `w1/` loss list).
 
 ## Maintenance item (not a claim): CJK quote-length accounting
 
