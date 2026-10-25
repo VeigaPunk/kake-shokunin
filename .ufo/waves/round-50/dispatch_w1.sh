@@ -53,7 +53,7 @@ launch() {
 }
 
 : >"$SEATS/exit-codes.tsv"
-mapfile -t SEAT_ROWS < <(python3 -c "import json,sys;print('\n'.join(t['name']+'\t'+t['role'] for t in json.load(open(sys.argv[1]))['taskCall']['tasks']))" "$TASKCALL")
+mapfile -t SEAT_ROWS < <(python3 -c "import json,sys;print('\n'.join(t['name']+'\t'+(t.get('role') or t.get('agent')) for t in json.load(open(sys.argv[1]))['taskCall']['tasks']))" "$TASKCALL")
 declare -A ROLE_MODEL
 while IFS=$'\t' read -r role model; do
   [ -n "${role:-}" ] || continue
@@ -93,7 +93,7 @@ settled = []
 dead = []
 for t in tasks:
     name = t["name"]
-    rc, secs, role, model = codes.get(name, (-1, timeout, t["role"], routes["fallback"]))
+    rc, secs, role, model = codes.get(name, (-1, timeout, t.get("role") or t.get("agent"), routes["fallback"]))
     report = os.path.join(report_dir, name + ".md")
     has_report = os.path.isfile(report)
     entry = {"name": name, "role": role, "model": model, "exit": rc,

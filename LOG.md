@@ -2026,3 +2026,8 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   policy (spawn 36, resume 0, band 32-64, hard ceiling 256); the per-seat model is resolved
   from the operator's own route table by `.ufo/waves/round-50/make_route_map.py` and recorded
   in `.ufo/waves/round-50/route-map.json`.
+- **Dispatch script defect, found and fixed before the wave launched.** The first launch of
+  `.ufo/waves/round-50/dispatch_w1.sh` exited in 0.08 s with `KeyError: 'role'` and launched no
+  seat: the validator's task payload carries the taxonomy role under `agent`, not `role`. The fix
+  reads either key and is committed here; the dispatch command line is unchanged, so the grant
+  commit's `dispatch-command.txt` still names the command that ran.
