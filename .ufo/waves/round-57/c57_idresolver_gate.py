@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Round-57 C2 counter — operability (capability acquisition): the cross-registry source-id resolver.
 
-Version 1 (frozen before any seat scored).
+Version 1 (frozen before any seat scored; an optional `--fleet` argument, default the parent of `--root`, was added before dispatch so a scratch clone can name the real fleet — no condition or predicate changed).
 
 The capability (considerthese proposal 2, `considerthese/2026-10-25.md`): `scripts/id_resolver.py` lists every `S###` id
 cited in `corpus/knowledge/**/*.md` that does not resolve in the lane's own `corpus/SOURCES.md`, and names which sibling
@@ -135,7 +135,7 @@ EXPECT_FIXTURE = {
 EXPECT_SUMMARY = (6, 2, 4, 3, 1)  # cited S001 S002 S101 S200 S0300 S777; resolved S001 S002; dangling 4; owned elsewhere 3; unowned 1
 
 
-def evaluate(root: str, rev: str) -> tuple[int, list[tuple[str, bool, str]]]:
+def evaluate(root: str, rev: str, fleet_real: str) -> tuple[int, list[tuple[str, bool, str]]]:
     results: list[tuple[str, bool, str]] = []
     present = git("-C", root, "cat-file", "-e", f"{rev}:{TOOL}").returncode == 0
     results.append(("G1_tool_present", present, "" if present else f"{TOOL} absent at {rev[:12]}"))
@@ -164,7 +164,6 @@ def evaluate(root: str, rev: str) -> tuple[int, list[tuple[str, bool, str]]]:
             note += f"; clean exit={rc2} summary={s2}"
         results.append(("G3_fixture", ok, note))
 
-        fleet_real = os.path.dirname(os.path.abspath(root))
         rc, out = run_tool(clone, "--root", root, "--revision", RED_REV, "--fleet", fleet_real)
         dang, summ = parse(out)
         ok = (rc == 1 and sorted(dang) == RED_IDS and all(RED_OWNER in v[1].split(",") for v in dang.values())
@@ -189,6 +188,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Round-57 C2 gate (cross-registry id resolver)")
     ap.add_argument("--root", default=".")
     ap.add_argument("--revision")
+    ap.add_argument("--fleet", help="fleet root holding the sibling lanes (default: the parent of --root)")
     try:
         args = ap.parse_args()
     except SystemExit:
@@ -202,7 +202,8 @@ def main() -> int:
         print(f"C2 id-resolver-gate unevaluable: revision {args.revision} unresolved")
         return 2
     rev = p.stdout.strip()
-    code, results = evaluate(root, rev)
+    fleet = os.path.abspath(args.fleet) if args.fleet else os.path.dirname(root)
+    code, results = evaluate(root, rev, fleet)
     if code == 2:
         return 2
     passed = sum(1 for r in results if r[1])

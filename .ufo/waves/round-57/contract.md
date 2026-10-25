@@ -85,6 +85,11 @@ the entries are written from the retained pages, not copied).
   C7 is a receipt of agreement, not proof the census ran; the dead-link *definitions* are the operator's text as quoted, and the entries
   state no measurement of any property.
 
+## Pre-dispatch note (before any seat is dispatched)
+
+`c57_idresolver_gate.py` gained an optional `--fleet <fleet root>` argument (default: the parent of `--root`, the previous behavior) so a
+scratch clone can name the real fleet. No condition, expected value or predicate changed; the base control is unchanged (`0/5`, exit 1).
+
 ## Assimilation and considerthese ledger
 
 - Theme: Baidu dead-link handling from `merge/kake/` (two entries). Id lists `assimilation/reg-ids` (158), `assimilation/staged-ids` (129),
