@@ -28,7 +28,7 @@ The two refusals remain refusals. CrUX keyless sources S303/S304 were unopened a
 
 Assimilation: none. The kake package is stale against the lane's 148-row registry and includes the twelve quarantine-slice rows; no package rows were adopted. The quarantine slice has 12 ids (S142, S143, S148, S156, S161, S193, S194, S195, S206, S154, S178, S184), with nine payload-absent and three unreachable classes; no rows were hand-checked this round (seat `.ufo/waves/round-53/w1/ScoutQuarantine.md`).
 
-Considerthese: `considerthese/2026-10-24.md` was opened read-only. Its proposal to compare unmerged branches by tree diff is not implemented this round; recorded here as an unimplemented proposal, not evidence or a source row.
+Considerthese: `considerthese/2026-10-25.md` was opened read-only. Proposal 2, a daily cross-registry id resolver, was partially addressed by the new lane-local citation QUALITY criterion and this round's 5→0 measurement; no daily script or automated cross-registry tool was implemented. The proposal remains open beyond that bounded criterion; no second proposal was adopted.
 
 No tools were installed or updated.
 
