@@ -43,6 +43,90 @@ mirrors, Pages deploys).
 | Earlier round lessons (historical through r18) | core `round-{1,3,4,5,6,7,8,9,10,12,16,17,18}.md` plus named aggregator audits; later entries live in `lessons/` | Dated audit findings and source-era measurements, not current surface availability. |
 | Static canonical preflight (r22) | `knowledge/static-canonical-preflight.md` | Source-backed publisher-policy comparison of a named static HTML population; canonical signals versus selection, parser/URL limits; local fixture proof under `.ufo/waves/round-22/` |
 | Field performance (r28) | `knowledge/field-performance-cwv.md` (S036–S039) | LCP, INP and CLS good and poor bounds at the 75th percentile, CrUX discoverability and popularity eligibility, the CrUX API 28-day window; no property measured, no API call |
+| WCAG 2.2 criterion review cards | `knowledge/accessibility-review-cards.json` | Preparation-only WCAG 2.2 success-criterion cards: a source quote, publisher check procedure, evidence needed, failure example and limitation per card; status is not-assessed and each names the shared handoff record. |
+| WCAG 2.2 accessibility review packet | `knowledge/accessibility-review-packet.md` (S035) | Fixed Level A/AA WCAG 2.2 criterion population: one `not-assessed` card per criterion with located quote, publisher check, evidence needed, failure example, limitation; a local gate validates structure, metadata and quote binding, never website conformance |
+| Baiduspider robots scope, wildcards and spider trap | `knowledge/baidu-friendly-crawl-guidance.md` (S329) | Baiduspider robots scope: a block on that agent binds the desktop and mobile crawlers; wildcard symbols `*` and `$`; the spider trap as a parameter-generated URL space with a robots remedy. |
+| Baidu mobile-matching correspondence errors | `knowledge/baidu-mobile-matching-error-causes.md` (S312) | Baidu's mobile-matching correspondence-error list: an ajax-loaded mobile body and a Baiduspider robots block, both quoted raw; the five-item list also names an unusable mobile page, a rule-pattern format error and a wrong PC-mobile mapping; no matching algorithm or threshold stated. |
+| Canonical selection vs declaration | `knowledge/canonical-selection.md` (S262) | Google's selection mechanism: a declared canonical is a hint, weighed against HTTPS, redirects and sitemap inclusion; four recognised variant classes; quotation rendering classes and the round-51 correction. |
+| Per-host crawl hygiene | `knowledge/crawl-budget-consequences.md` (S273, S274) | Two admitted Google sentences: a robots block does not make Google shift the spared crawl budget to other pages unless the capacity limit is already hit (S273); emergency backoff reduces crawl rate across the whole hostname (S274); status codes unadmitted; no lane property measured. |
+| Error-status crawl layer | `knowledge/crawl-error-status-table.md` (S286) | One admitted Googlebot sentence: crawling scales back when server trouble is detected; the admitted quote is a raw substring of the retained page, unlike S273's collapsed-only crawl-budget quote; no soft-404 remedy claimed. |
+| Crawler identity (Googlebot subtypes) | `knowledge/crawler-identity.md` (S263) | Googlebot names two crawlers, Smartphone and Desktop; the HTTP user-agent header identifies the subtype, and both types obey the same robots.txt product token; it also lists what the entry does not establish. |
+| Dynamic rendering workaround limits | `knowledge/dynamic-rendering-workaround-limits.md` (S249) | One engine's own account of dynamic rendering as a workaround, not a recommended solution: the cloaking boundary is a content condition, not a technique; error pages inherit the rendering-queue status-code rule; nothing was observed on a live crawl. |
+| Local-path freshness sidecar | `knowledge/freshness-sidecar.json` | 30 entries, each naming a cited file and line number, a `~/Projects/...` path token, the line SHA-256, kind `absent` or `restored`, date 2026-10-21, and a note carrying the `test -e` exit code and marking the citation historical. |
+| Render queue status-code contract | `knowledge/js-rendering-queue.md` (S137–S139) | Status-code rule: 200 responses queue for rendering regardless of JavaScript, non-200 may skip; robots.txt check precedes the request; four publisher rules; zh-CN and ja locale restatements. |
+| Link-preview metadata (r34) | `knowledge/link-preview-metadata.md` (S067–S070) | Four required Open Graph properties and what each preview field means; Facebook's undecorated canonical og:url, one og:type per URL, URL-keyed image caching and Sharing Debugger re-scrape; Slack's range-limited fetch and 30-minute global cache; Mastodon's PreviewCard entity; a source-byte census of 102 ds4cc pages. |
+| Project-site base paths | `knowledge/pages-base-path.md` (S040–S043) | Publisher-side ground that a project site is published under a base path: two site kinds (S040), Liquid `relative_url`/`absolute_url` filters (S042), Vite's `base` option (S043), an offline audit over a frozen 30-case matrix; root-relative breakage is inference, no property measured. |
+| Receipt integrity (round 45) | `knowledge/receipt-integrity.md` (S133) | Three receipt defect classes (counter-error, tool-absent, stale planted), the v2 binding rule's exit, note, counter-sha, mtime-window and seed gates plus a toolSha256 control binding, do-nothing reachability, 27-control and fixture counts, two named residual limits |
+| Redirect/rewrite rule semantics (r46) | `knowledge/redirect-rewrite-rules.md` (S050, S135) | Render and Cloudflare Pages redirect/rewrite rule semantics: resource precedence, first-match order, dashboard versus `_redirects` placement, Cloudflare's status codes 301, 302, 303, 307, 308 with 302 default, splat and placeholder expansion; manifest fields declaring which precedence an offline audit applies. No live serving claim. |
+| Render web services and Blueprint (r31) | `knowledge/render-web-services.md` (S057, S058, S059, S060) | Render's documentation for web services: the required 0.0.0.0 port bind, a Docker build context filtered by .dockerignore, health-check success at 2xx or 3xx within five seconds, and an offline key-by-key check of the lane's own render.yaml at ds4cc-marketplace commit 1fbdb8ed. |
+| Render static-site deploy semantics (r30) | `knowledge/render-static-sites.md` (S049–S052) | Render Docs reading of a static site: build details and dependency install, redirect/rewrite rule matching order, dashboard response headers, custom domains and TLS, and contrasts with the GitHub Pages entries already held; four retained pages, no owned property measured |
+| Offline robots.txt expectation rules | `knowledge/robots-txt-rules.md` (S011, S095, S096, S034, S098, S099, S100) | RFC 9309 robots.txt rules and this lane's offline expectation readings: access-result status handling, line and group parsing, rule matching with URL normalization, plus round-38 amendments (h) JSON numbers, (i) URL characters, (k) implicit /robots.txt allow. |
+| security.txt publishing on GitHub Pages (r35) | `knowledge/security-txt-publishing.md` (S078–S080, S082–S086, S001–S002, S006) | Where `/.well-known/security.txt` lives and the duplicate rule, HTTPS and `text/plain` serving, the registered fields with cardinality, the `Expires` horizon, contact order, encryption and signing, host scope, two live files, and dot-directory handling for a Jekyll branch build versus an Actions artifact build |
+| Vault PROPERTIES[] surface audit (r23) | `knowledge/vault-properties.md` (S019) | Static GET exposes the client-rendered PROPERTIES literal, so rot-checking needs no rendered DOM: 13 entries, 3 null URLs, seed-tag byte normalization, and round-23 HOLD/STALE corrections where URLs marked live are not 200. |
+| Yahoo! JAPAN rel=nofollow semantics | `knowledge/yahoo-japan-rel-nofollow-semantics.md` (S374) | One operator's rel=nofollow reading: the phrase is a crawl qualifier on the link target's page, the URL may still be used to discover new pages, and the attribute is not weighed in result ordering; other operators and attribute values out of scope. |
+| Yahoo! JAPAN robots refusal rules (r55) | `knowledge/yahoo-japan-robots-txt-refusal-rules.md` (S372) | root placement, directory scope, absent-file negation, case-sensitive names, meta-tag fallback |
+| Yahoo! JAPAN robots pattern syntax (r55) | `knowledge/yahoo-japan-robots-pattern-syntax.md` (S373) | prefix versus end marker, wildcard scope, and the equivalence of a trailing wildcard |
+| Yahoo! JAPAN robots.txt basics (r55) | `knowledge/yahoo-japan-robots-txt-basics.md` (S418) | request channel with two payloads (pages, sitemap location); root-directory lookup on each crawl, absent file = no restriction, present = follow contents |
+
+### Frontier ground map (round 55)
+
+One row per `PROVINCE.md` §Frontier ground that a held entry can be dated to
+(`PROVINCE.md:22-30`): the round it entered, the entry, and the `used-by` rows
+that entry names in `corpus/SOURCES.md` at base `fcaf4b85…` (155 rows). Ranges
+are inclusive and each id was checked individually; a row set is the entry's
+`used-by` cells, not a re-adjudication of any source.
+
+| Frontier ground | Entered in round | Entries | Rows |
+|---|---|---|---|
+| Crawl hygiene per host (robots.txt location, sitemap scope) | r20 | `knowledge/crawl-scope-per-host.md` | S011–S013 |
+| robots.txt rule semantics, offline expectation audit | r37; repaired r38 | `knowledge/robots-txt-rules.md` | S011 S034 S095 S096 S098–S101 |
+| Sitemap and orphan parity | r7; r33 source pin | `knowledge/sitemap-orphan-audit.md` | S001–S006 S065 S066 |
+| Static canonical declaration | r22 | `knowledge/static-canonical-preflight.md` | S001–S006 S020 S021 S024–S034 |
+| Canonical selection | r51 | `knowledge/canonical-selection.md` | S262 |
+| Crawler identity (Googlebot subtypes) | r51 | `knowledge/crawler-identity.md` | S263 |
+| JS rendering queue | r48 | `knowledge/js-rendering-queue.md` | S137–S139 |
+| Dynamic rendering limits | r48 | `knowledge/dynamic-rendering-workaround-limits.md` | S249 |
+| Crawl budget | r49 | `knowledge/crawl-budget-consequences.md` | S273 S274 |
+| Crawl-error status | r50 | `knowledge/crawl-error-status-table.md` | S286 |
+| Yahoo! JAPAN link attribute (`rel`) | r52; S374 re-read r54 | `knowledge/yahoo-japan-rel-nofollow-semantics.md` | S367 S372 S373 S374 |
+| Baidu crawl guidance | r52; locators superseded r53 | `knowledge/baidu-friendly-crawl-guidance.md` | S329 S373 S390 S409 |
+| Baidu mobile matching | r52; locators superseded r53 | `knowledge/baidu-mobile-matching-error-causes.md` | S312 S390 S409 |
+| Yahoo! JAPAN robots refusal file, pattern syntax, basics | r55 (lands this round) | `knowledge/yahoo-japan-robots-txt-refusal-rules.md` `knowledge/yahoo-japan-robots-pattern-syntax.md` `knowledge/yahoo-japan-robots-txt-basics.md` | S372 S373 S418 |
+| Field performance (CWV, CrUX) | r28 | `knowledge/field-performance-cwv.md` | S036–S039 |
+| Jekyll/base-path build tooling | r29 | `knowledge/pages-base-path.md` | S040–S043 |
+| Render static sites | r30 | `knowledge/render-static-sites.md` | S049–S052 S061 |
+| Render web services and Blueprint | r31 | `knowledge/render-web-services.md` | S057–S060 S062 |
+| Link-preview metadata | r34 | `knowledge/link-preview-metadata.md` | S067–S070 S073 |
+| security.txt publishing | r35 | `knowledge/security-txt-publishing.md` | S001 S002 S006 S078–S080 S082–S086 |
+| Accessibility review preparation | r25 | `knowledge/accessibility-review-packet.md` | S035 |
+
+Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
+(S102–S109, `used-by` only `corpus/lessons/round-39.md`; tool
+`scripts/sitemap_audit.py`) and the round-53 superseding rows S416/S417
+(`used-by` only `corpus/lessons/round-53.md`, correcting the S329/S312
+locators). The round-55 row's three entry paths are absent at base by design,
+and S418 is not in the base registry.
+
+**Untouched ground** — PROVINCE frontier items no entry holds yet:
+
+- Accessibility conformance (WCAG 2.2) — `PROVINCE.md:29`. Only the round-25
+  preparation packet exists, its cards are `not-assessed`, and
+  `PROVINCE.md:78-79` says the packet is not conformance and no website was
+  evaluated.
+- JS-rendered canonical and rendered-DOM observation — `PROVINCE.md:23`
+  ("canonical/JS rendering open"); `PROVINCE.md:361-362` keeps JS rendering open
+  and leaves anything that executes a browser to tabi.
+- Render live deploy facts (plan, region, domains, deploy trigger) —
+  `PROVINCE.md:29`; `PROVINCE.md:120` records they stay unknown from the file.
+- Sitemap parsing/scope, crawler-specific extensions, live fetch, redirects and
+  caching — `PROVINCE.md:302`.
+- Sitemap gzip, text/RSS sitemaps, robots `Sitemap:` cross-submission —
+  `PROVINCE.md:336`.
+
+Held, but ungated or unmeasured (an entry exists; no gate, no owned property
+observed): field performance `PROVINCE.md:25-26`, crawl budget
+`PROVINCE.md:344`, canonical selection and crawler identity `PROVINCE.md:361`,
+the three per-engine entries `PROVINCE.md:382`.
 
 ## Known gaps
 

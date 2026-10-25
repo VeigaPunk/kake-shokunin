@@ -76,3 +76,19 @@ column-zero pattern (`assimilation/guard-proof/`).
 - Quarantine slice: 12 payload-absent / unreachable rows for this lane
   (`assimilation/quarantine-slice`); none adopted this round, none appended; hand-check verdicts are
   not claimed (record in the lesson Gate as "not adopted — unchecked").
+
+## Counter version 2 (appended before any build was measured)
+
+Wave 1 attacked both counters before any claim data existed (`w1/CriticC1Contract.md`,
+`w1/MutC1Counter.md`, `w1/CriticC2Contract.md`, `w1/ReviewerC2CounterCode.md`): a do-nothing or
+junk change met the version-1 predicate for C1 (one mega-row, a constant cell, a population swap)
+and for C2 (a skip-navigation string as every quote, an `[INFERENCE]` escape, a swapped body, a
+forged census receipt). Version 2 of both counters closes those paths and was committed with fresh
+base-control receipts before any build edit. The predicate sentences are unchanged; only the terms
+inside the counters tightened; version-1 receipts stay as history:
+`controls/base-c1-readme-index.txt`, `controls/base-c2-quote-truth.txt` (version 1) and
+`controls/base-c1-readme-index-v2.txt`, `controls/base-c2-quote-truth-v2.txt` (version 2). At base
+the C1 v2 count is the same 21 (all `unindexed`; the new terms `multi`, `thin`, `duplicate`,
+`head_changed`, `deleted`, `dangling` are all 0 over the real tree) and C2 v2 is 0 of 8.
+Counter bugs found after this point are repaired in code and disclosed in the report; the sentence
+stays.

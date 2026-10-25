@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 """Round-55 C2 counter — freshness: Yahoo! JAPAN robots.txt assimilation, quote truth.
 
+Version 2 (before any build was measured): folds in the wave-1 pre-data attacks
+(`w1/CriticC2Contract.md` A1..A9 / W1..W6, `w1/ReviewerC2CounterCode.md` F1..F13): quotes must sit in
+the page's content block and at least three per entry must be page-unique (a skip-navigation string
+is not a rule quote); inference-tagged lines, header lines, unbounded spans and curly quotes are no
+longer escape hatches; the retained body must carry the row's own title and URL field; the validated
+scratch registry must equal the landed registry as a whole and the census receipt must carry the
+real output shape; the pin must be a dict; byte-exact decoding (no newline translation). The frozen
+predicate sentence is unchanged.
+
 Successor of `.ufo/waves/round-52/c52_quote_truth.py` (same committed-bytes-only discipline:
 `git show`, `git ls-tree`, `git log`; no worktree reads, no network). Differences from r52:
 
@@ -22,15 +31,21 @@ Conditions (frozen in `contract.json` before any data):
      = the round date, recheck normalised); S418 carries the page URL; S372 and S373 differ
      from their base-revision row in `used-by` only.
   C4 used-by: S372 = prior + entry 1; S373 = prior + entry 2; S418 = exactly entry 3.
-  C5 quote truth: lesson `## Gate` quote per id (6..25 units, raw substring of the retained
-     body, URL and access date present) and every double-quoted span of 6+ units below each
-     entry header (at most 25 units, raw substring of that row's retained body).
+  C5 quote truth: lesson `## Gate` line per id carries the URL, the access date and one or more
+     double-quoted spans of 6+ units (each 6..25 units, a raw substring of the retained body,
+     inside its content block, at least the located quote page-unique); every double-quoted span of
+     6+ units anywhere in each entry (header and `[INFERENCE]` lines included) is at most 25
+     units, a raw substring of that row's retained body and inside the content block; each entry
+     carries at least 3 distinct page-unique spans; curly double quotes are refused; the retained
+     body carries the row's title and its own URL field.
   C6 the retained body is pinned by its receipt (sha256, bytes, httpStatus 200, fetchedAt on
      the round date) and the receipt URL is exactly the registry row's URL.
   C7 the append block was census-validated before the append: argv names `--file` and the
-     validated scratch registry, not `--root`; exit 0; no E03/E04; last line `ok`; the
-     scratch registry's S418 row and the three scratch entries are byte-equal to the landed
-     ones.
+     validated scratch registry (path-normalised), not `--root`; exit 0; no E03/E04; the last
+     stdout line is `file<TAB>ok<TAB><path of the validated registry>` (the census prints `file` in --file mode); the scratch registry is
+     byte-equal to the landed registry as a whole and the three scratch entries are byte-equal to
+     the landed ones. (A receipt check: it certifies agreement of the receipts, not that the run
+     happened; wave-2 executors re-run it.)
   C8 the pre-append mirror equals the base-revision registry (pinned sha256), its add-commit
      is a strict ancestor of the measured revision, and the measured registry minus the S418
      row, with S372/S373 used-by restored to the prior value, reproduces the mirror bytes.
@@ -84,7 +99,9 @@ ROW_URL = {
     "S418": "https://info-search.yahoo.co.jp/archives/002885.php",
 }
 
-CJK_RE = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
+CURLY = re.compile("[\u201c\u201d\u201e\u201f]")
+MIN_UNIQUE_SPANS = 3
+CJK_RE = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff65-\uff9f\U00020000-\U0002ffff]")
 ROW_RE = r"^ {0,3}\| *(%s) *\|"
 
 
@@ -95,8 +112,14 @@ def git(root: str, *args: str) -> tuple[int, str]:
 
 
 def show(root: str, rev: str, path: str) -> str | None:
-    rc, out = git(root, "show", f"{rev}:{path}")
-    return out if rc == 0 else None
+    """Byte-exact: UTF-8 strict decode, no newline translation."""
+    raw = show_bytes(root, rev, path)
+    if raw is None:
+        return None
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return None
 
 
 def show_bytes(root: str, rev: str, path: str) -> bytes | None:
@@ -122,10 +145,17 @@ def parse_registry(text: str) -> dict[str, list[str]]:
 
 
 def row_lines(text: str) -> dict[str, str]:
+    """First registry-table line per id, scoped to `## Registry` like parse_registry."""
     out: dict[str, str] = {}
+    in_registry = False
     for line in text.split("\n"):
+        if line.strip().startswith("## "):
+            in_registry = line.strip().lower().startswith("## registry")
+            continue
+        if not in_registry:
+            continue
         m = re.match(ROW_RE % r"S[0-9]{3,}", line)
-        if m:
+        if m and m.group(1) not in out:
             out[m.group(1)] = line
     return out
 
@@ -137,6 +167,19 @@ def used_by(cell: str) -> list[str]:
 def units(text: str) -> int:
     """One unit per CJK character, one per non-CJK whitespace token."""
     return len(CJK_RE.findall(text)) + len([t for t in text.split() if not CJK_RE.search(t)])
+
+
+def in_content(text: str, span: str) -> bool:
+    """True when some occurrence of `span` starts at or after the first <h2 (the content block)."""
+    h2 = text.find("<h2")
+    if h2 < 0:
+        return False
+    start = text.find(span)
+    while start >= 0:
+        if start >= h2:
+            return True
+        start = text.find(span, start + 1)
+    return False
 
 
 def gate_lines(lesson: str) -> list[str]:
@@ -164,7 +207,7 @@ def parse_iso(value) -> datetime | None:
         stamp = datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError:
         return None
-    return stamp.astimezone(timezone.utc) if stamp.tzinfo else None
+    return stamp if stamp.tzinfo else None
 
 
 def row_url(row: list[str]) -> str | None:
@@ -180,7 +223,7 @@ def set_used_by(line: str, value: str) -> str:
     return f"{head}| {value} |"
 
 
-def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
+def run_checks(root: str, rev: str, base_rev: str = BASE_REV) -> tuple[int, list[dict]]:
     results: list[dict] = []
 
     def add(check: str, notes: list[str], facts: dict | None = None) -> None:
@@ -222,7 +265,7 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
         add("C2_entry_provenance", c2)
 
         c3: list[str] = []
-        base_registry = show(root, BASE_REV, REGISTRY)
+        base_registry = show(root, base_rev, REGISTRY)
         base_rows = parse_registry(base_registry) if base_registry else {}
         for sid in ADOPTED:
             row = rows.get(sid)
@@ -232,7 +275,7 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
             if len(row) != 11:
                 c3.append(f"{sid}: registry row has {len(row)} cells, expected 11")
                 continue
-            if any("\\|" in cell for cell in row):
+            if any(cell.endswith("\\") for cell in row):
                 c3.append(f"{sid}: registry row carries an escaped pipe")
             if row[7] != "mined":
                 c3.append(f"{sid}: status is {row[7]!r}, expected 'mined'")
@@ -266,6 +309,7 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
         add("C4_used_by", c4)
 
         c5: list[str] = []
+        texts: dict[str, str] = {}
         for sid in ADOPTED:
             raw = show_bytes(root, rev, f"{SOURCES_DIR}/{sid}.html")
             bodies[sid] = raw
@@ -273,12 +317,37 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
                 c5.append(f"{sid}: retained body absent")
                 continue
             try:
-                text = raw.decode("utf-8")
+                texts[sid] = raw.decode("utf-8")
             except UnicodeDecodeError:
                 c5.append(f"{sid}: retained body is not UTF-8")
                 continue
             if len(raw) < 1000:
                 c5.append(f"{sid}: retained body is {len(raw)} bytes, below the 1000-byte floor")
+            row = rows.get(sid)
+            title = " — ".join(row[1].split(" — ")[1:-1]) if row and len(row) > 1 else ""
+            if not title or title not in texts[sid]:
+                c5.append(f"{sid}: retained body does not carry the row's page title {title!r}")
+            if f'value="{ROW_URL[sid]}"' not in texts[sid]:
+                c5.append(f"{sid}: retained body does not carry its own URL field value=\"{ROW_URL[sid]}\"")
+            if "<h2" not in texts[sid]:
+                c5.append(f"{sid}: retained body has no content block (<h2) marker")
+        for sid in ADOPTED:
+            text = texts.get(sid)
+            if text is None:
+                continue
+            others = [t for k, t in texts.items() if k != sid]
+
+            def verify(label: str, span: str, notes: list[str]) -> bool:
+                u = units(span)
+                if u > UNIT_CEILING:
+                    notes.append(f"{sid}: {label} quotes {u} units, ceiling {UNIT_CEILING}")
+                if span not in text:
+                    notes.append(f"{sid}: {label} quotes {span[:40]!r}… which is not a raw substring of the retained body")
+                    return False
+                if not in_content(text, span):
+                    notes.append(f"{sid}: {label} quotes {span[:40]!r}… which sits outside the page's content block")
+                return True
+
             if lesson_text is None:
                 c5.append(f"{sid}: lesson {LESSON} absent")
             else:
@@ -286,16 +355,17 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
                 if line is None:
                     c5.append(f"{sid}: no `- {sid} ` line in the lesson ## Gate")
                 else:
-                    quotes = re.findall(r'"([^"]+)"', line)
-                    if not quotes:
-                        c5.append(f"{sid}: Gate line carries no double-quoted located quote")
-                    else:
-                        q = quotes[-1]
-                        u = units(q)
-                        if not 6 <= u <= UNIT_CEILING:
-                            c5.append(f"{sid}: Gate quote is {u} units, expected 6 to {UNIT_CEILING}")
-                        if q not in text:
-                            c5.append(f"{sid}: Gate quote is not a raw substring of the retained body")
+                    if CURLY.search(line):
+                        c5.append(f"{sid}: Gate line uses curly double quotes; the declared form is ASCII")
+                    spans = [q for q in re.findall(r'"([^"]+)"', line) if units(q) >= 6]
+                    if not spans:
+                        c5.append(f"{sid}: Gate line carries no double-quoted located quote of 6+ units")
+                    for q in spans:
+                        if not 6 <= units(q) <= UNIT_CEILING:
+                            c5.append(f"{sid}: Gate quote is {units(q)} units, expected 6 to {UNIT_CEILING}")
+                        verify("Gate line", q, c5)
+                    if spans and any(q in t for q in spans[-1:] for t in others):
+                        c5.append(f"{sid}: Gate located quote also occurs in another retained body (not page-unique)")
                     if ROW_URL[sid] not in line:
                         c5.append(f"{sid}: Gate line does not carry the URL")
                     if ROUND_DATE not in line:
@@ -303,18 +373,20 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
             body = entries.get(sid)
             if body is None:
                 continue
-            for lineno, line in enumerate(body.splitlines()[8:], start=9):
-                if "[INFERENCE" in line:
-                    continue
-                for span in re.findall(r'"([^"]{1,400})"', line):
-                    u = units(span)
-                    if u < 6:
+            unique_spans: set[str] = set()
+            for lineno, line in enumerate(body.splitlines(), start=1):
+                if CURLY.search(line):
+                    c5.append(f"{sid}: entry line {lineno} uses curly double quotes; the declared form is ASCII")
+                for span in re.findall(r'"([^"]+)"', line):
+                    if units(span) < 6:
                         continue
-                    if u > UNIT_CEILING:
-                        c5.append(f"{sid}: entry line {lineno} quotes {u} units, ceiling {UNIT_CEILING}")
-                    if span not in text:
-                        c5.append(f"{sid}: entry line {lineno} quotes {span[:40]!r}… "
-                                  "which is not a raw substring of the retained body")
+                    notes: list[str] = []
+                    found = verify(f"entry line {lineno}", span, notes)
+                    c5.extend(notes)
+                    if found and not any(span in t for t in others):
+                        unique_spans.add(span)
+            if len(unique_spans) < MIN_UNIQUE_SPANS:
+                c5.append(f"{sid}: entry carries {len(unique_spans)} page-unique quoted spans, expected {MIN_UNIQUE_SPANS}+")
         add("C5_quote_truth", c5)
 
         c6: list[str] = []
@@ -347,8 +419,8 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
             stamp = parse_iso(receipt.get("fetchedAt"))
             if stamp is None:
                 c6.append(f"{sid}: receipt fetchedAt {receipt.get('fetchedAt')!r} is not ISO 8601")
-            elif stamp.date().isoformat() != ROUND_DATE:
-                c6.append(f"{sid}: receipt fetchedAt date {stamp.date()} != round date {ROUND_DATE}")
+            elif stamp.date().isoformat() != ROUND_DATE or not str(receipt.get("fetchedAt")).endswith(("Z", "+00:00")):
+                c6.append(f"{sid}: receipt fetchedAt {receipt.get('fetchedAt')!r} is not a UTC stamp on {ROUND_DATE}")
             row = rows.get(sid)
             url = row_url(row) if row else None
             if url is None:
@@ -365,26 +437,30 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
         if None in (argv, stdout, exit_text, validated):
             c7.append("append-block validation receipt is incomplete")
         else:
-            if "--file" not in argv:
+            tokens = argv.split()
+            if "--file" not in tokens:
                 c7.append("validation argv does not use --file")
-            if "--root" in argv:
+            elif "--root" in tokens:
                 c7.append("validation argv names --root, not a single file")
-            if VALIDATE_REG not in argv:
-                c7.append("validation argv does not name the validated scratch registry")
+            else:
+                idx = tokens.index("--file")
+                target = os.path.normpath(tokens[idx + 1]) if idx + 1 < len(tokens) else ""
+                if not (target == VALIDATE_REG or target.endswith("/" + VALIDATE_REG)):
+                    c7.append(f"validation --file argument {target!r} is not the validated scratch registry")
+            if not any(t.endswith("sources-census.sh") for t in tokens):
+                c7.append("validation argv does not run sources-census.sh")
             if exit_text.strip() != "exit=0":
                 c7.append(f"validation exit is {exit_text.strip()!r}, expected 'exit=0'")
             for code in ("E03", "E04"):
                 if code in stdout:
                     c7.append(f"validation stdout carries an {code} finding")
             tail = [ln for ln in stdout.splitlines() if ln.strip()]
-            if not tail or tail[-1].split("\t")[1:2] != ["ok"]:
-                c7.append("validation stdout does not end in an ok line")
-            vlines, llines = row_lines(validated), row_lines(registry_text or "")
-            for sid in ADOPTED:
-                if vlines.get(sid) is None:
-                    c7.append(f"{sid}: validated scratch registry carries no row")
-                elif vlines.get(sid) != llines.get(sid):
-                    c7.append(f"{sid}: validated row bytes differ from the landed row")
+            fields = tail[-1].split("\t") if tail else []
+            if len(fields) != 3 or fields[0] != "file" or fields[1] != "ok" or not (
+                    os.path.normpath(fields[2]) == VALIDATE_REG or os.path.normpath(fields[2]).endswith("/" + VALIDATE_REG)):
+                c7.append("validation stdout does not end in `file<TAB>ok<TAB><validated registry path>`")
+            if validated != registry_text:
+                c7.append("validated scratch registry is not byte-equal to the landed registry")
             for sid, path in ADOPTED.items():
                 scratch = show(root, rev, f"{VALIDATE}/{path}")
                 if scratch is None or scratch != entries.get(sid):
@@ -404,6 +480,9 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
                 pin = json.loads(pin_text)
             except json.JSONDecodeError:
                 return unevaluable("C8_mirror_bytes", f"{MIRROR_PIN} is not JSON")
+            if not isinstance(pin, dict) or not pin.get("sha256") or not isinstance(pin.get("rows"), int):
+                c8.append(f"{MIRROR_PIN} is not an object carrying sha256 and rows")
+                pin = {}
         if mirror_text is not None and pin:
             mirror_rows = parse_registry(mirror_text)
             if base_registry is None or base_registry != mirror_text:
@@ -429,7 +508,8 @@ def run_checks(root: str, rev: str) -> tuple[int, list[dict]]:
                     mrow = [c.strip() for c in mlines[sid].strip().strip("|").split("|")]
                     line = set_used_by(line, mrow[10])
                 restored.append(line)
-            if "\n".join(restored) != mirror_text:
+            if "\n".join(restored).rstrip("\n") != mirror_text.rstrip("\n") or (
+                    (registry_text or "").endswith("\n") != mirror_text.endswith("\n")):
                 c8.append("append-only: measured registry minus new rows, used-by restored, != mirror bytes")
             rc, out = git(root, "log", "--diff-filter=A", "--format=%H", rev, "--", MIRROR)
             commits = [ln.strip() for ln in out.splitlines() if ln.strip()]
@@ -495,8 +575,11 @@ def _build(files: dict[str, str], pre_keys: set[str]) -> tuple[str, str]:
 
 
 def selftest() -> int:
-    global BASE_REV
-    rev = os.environ.get("KAKE_R55_SELFTEST_REV") or git(os.getcwd(), "rev-parse", "HEAD")[1].strip()
+    rc, head = git(os.getcwd(), "rev-parse", "HEAD")
+    if rc != 0 and not os.environ.get("KAKE_R55_SELFTEST_REV"):
+        print("selftest: not a git repository; run from the lane root", file=sys.stderr)
+        return 2
+    rev = os.environ.get("KAKE_R55_SELFTEST_REV") or head.strip()
     root = os.getcwd()
     keys = [REGISTRY, LESSON, RECEIPTS, MIRROR, MIRROR_PIN, VALIDATE_REG,
             f"{VALIDATE}/census-argv.txt", f"{VALIDATE}/census-stdout.txt", f"{VALIDATE}/census-exit.txt",
@@ -641,15 +724,87 @@ def selftest() -> int:
     @case("fail_bad_receipts", 2)
     def _(f): f[RECEIPTS] = "{not json"
 
+    def gate_line_of(f, sid):
+        return next(ln for ln in f[LESSON].split("\n") if ln.strip().startswith(f"- {sid} "))
+
+    @case("fail_boilerplate_quotes")
+    def _(f):
+        g = gate_line_of(f, "S372")
+        q = re.findall(r'"([^"]+)"', g)[-1]
+        f[LESSON] = f[LESSON].replace(g, g.replace(q, "ここから本文です"))
+        f[ADOPTED["S372"]] = "\n".join(ln for ln in f[ADOPTED["S372"]].split("\n") if '"' not in ln) + '\n> "ここから本文です"\n'
+
+    @case("fail_inference_line_fabricated")
+    def _(f): f[ADOPTED["S373"]] += '\n> [INFERENCE] "この文字列は保持本文に存在しません"\n'
+
+    @case("fail_header_fabricated_quote")
+    def _(f): f[ADOPTED["S373"]] = f[ADOPTED["S373"]].replace("verified-at: ", 'verified-at: "この文字列は保持本文に存在しません" ', 1)
+
+    @case("fail_long_span_fabricated")
+    def _(f): f[ADOPTED["S373"]] += '\n> "' + "存在しない文字列" * 60 + '"\n'
+
+    @case("fail_curly_quote")
+    def _(f): f[ADOPTED["S373"]] += "\n> \u201c" + "あ" * 8 + "\u201d\n"
+
+    @case("fail_gate_first_quote_fabricated")
+    def _(f):
+        g = gate_line_of(f, "S418")
+        f[LESSON] = f[LESSON].replace(g, g.replace("quote:", 'quote: "存在しない文字列ですよ" and', 1))
+
+    @case("pass_gate_extra_short_quote", 0)
+    def _(f):
+        g = gate_line_of(f, "S418")
+        f[LESSON] = f[LESSON].replace(g, g + ' status "200"')
+
+    @case("fail_body_swapped")
+    def _(f):
+        raw = f[f"{SOURCES_DIR}/S372.html"]
+        f[f"{SOURCES_DIR}/S418.html"] = raw
+        r = jload(f, RECEIPTS)
+        r["sources"]["S418"]["sha256"] = hashlib.sha256(raw.encode("utf-8")).hexdigest()
+        r["sources"]["S418"]["bytes"] = len(raw.encode("utf-8"))
+        f[RECEIPTS] = jdump(r)
+
+    @case("fail_census_forged_shape")
+    def _(f): f[f"{VALIDATE}/census-stdout.txt"] = "file\trows\t156\nfile\tok\n"
+
+    @case("fail_census_wrong_file_argv")
+    def _(f): f[f"{VALIDATE}/census-argv.txt"] = "/x/sources-census.sh validate --file corpus/SOURCES.md\n"
+
+    @case("pass_census_relative_argv", 0)
+    def _(f): f[f"{VALIDATE}/census-argv.txt"] = f"/x/sources-census.sh validate --file {VALIDATE_REG}\n"
+
+    @case("fail_validated_doc_differs")
+    def _(f): f[VALIDATE_REG] = f[VALIDATE_REG].replace("| S263 |", "| S263x |", 1)
+
+    @case("fail_pin_empty")
+    def _(f): f[MIRROR_PIN] = "{}"
+
+    @case("fail_pin_null")
+    def _(f): f[MIRROR_PIN] = "null"
+
+    @case("fail_receipt_offset_stale")
+    def _(f):
+        r = jload(f, RECEIPTS); r["sources"]["S372"]["fetchedAt"] = "2026-10-24T20:00:00-05:00"; f[RECEIPTS] = jdump(r)
+
+    @case("fail_receipt_offset_nonutc")
+    def _(f):
+        r = jload(f, RECEIPTS); r["sources"]["S372"]["fetchedAt"] = "2026-10-25T08:00:00+09:00"; f[RECEIPTS] = jdump(r)
+
+    @case("fail_mirror_crlf")
+    def _(f): f[MIRROR] = f[MIRROR].replace("\n", "\r\n")
+
+    unit_checks = {"halfwidth kana counted one per character": units("ｱ" * 30) == 30,
+                   "non-BMP CJK counted": units("𠮷野家") == 3,
+                   "latin tokens counted per word": units("a b c") == 3}
     passed, fails = 0, []
     pre = {MIRROR, MIRROR_PIN, VALIDATE_REG, f"{VALIDATE}/census-argv.txt", f"{VALIDATE}/census-stdout.txt",
            f"{VALIDATE}/census-exit.txt", *(f"{VALIDATE}/{p}" for p in ADOPTED.values())}
     for name in sorted(cases):
         files, want = cases[name]
         d, tip, base_sha = _build(files, pre)
-        BASE_REV = base_sha
         try:
-            code, results = run_checks(d, tip)
+            code, results = run_checks(d, tip, base_sha)
         finally:
             shutil.rmtree(d, ignore_errors=True)
         if code == want:
@@ -658,10 +813,16 @@ def selftest() -> int:
             fails.append(f"{name}: expected {want}, got {code}")
             for r in results:
                 fails.extend(f"    {r['check']}: {n}" for n in r["notes"][:2])
-    print(f"c55 quote-truth selftest: {passed}/{len(cases)} (fixture revision {rev[:12]})")
+    for label, ok in unit_checks.items():
+        if ok:
+            passed += 1
+        else:
+            fails.append(f"unit rule: {label}")
+    total = len(cases) + len(unit_checks)
+    print(f"c55 quote-truth selftest: {passed}/{total} (fixture revision {rev[:12]})")
     for line in fails:
         print("  FAIL", line)
-    return 0 if passed == len(cases) else 1
+    return 0 if passed == total else 1
 
 
 def main() -> int:
