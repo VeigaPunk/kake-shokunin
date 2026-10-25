@@ -1239,3 +1239,23 @@ regenerates the receipts and must be re-run after any edit to `corpus/SOURCES.md
 adopted entries. No round-55 gate-completeness counter exists (round 52 shipped
 `c52_gate_registry.py` for its own two rows); the eight-cell schema of these rows is checked by
 reading, not by code. Withdrawal rule: a row goes when its counter leaves the tree.
+
+### Round 56 gate registry additions
+
+Round 56 ships two counters whose predicates are frozen in `.ufo/waves/round-56/contract.json` before any data (version 2 of
+each, after the wave-1 attacks; version-1 receipts stay as history); both are offline and read committed bytes only. C1 calibrates
+the ten self-test tallies in the registry above (the round-55 routed defect) and C2 is the freshness claim for three Yahoo! JAPAN
+crawl-handling entries. Receipts: `.ufo/waves/round-56/controls/`. `scripts/landed_check.py` is a tool, not a gate: it compares the commit
+hashes a report cites with branch ancestry (considerthese proposal 1).
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| selftest-tally-counter | gate (offline, committed bytes only; runs the ten documented selftests in a clone of the revision) | `python3 -B .ufo/waves/round-56/c56_selftally.py --root . --revision <commit>` | `0=met` (`tally_mismatches == 0 AND rows_checked == 10`); `1=not met` (any row_missing, duplicate_row, command_missing, command_invalid, claim_missing, claim_ambiguous, tool_changed, selftest_failed, claim_ne_observed or command_unrunnable); `2=could-not-evaluate` (revision unresolved, clone failure, unparsable tally, timeout); `64=usage` | `python3 -B .ufo/waves/round-56/c56_selftally.py --selftest` (47 checks, generated sandbox repos) | `contract.json` `claims.C1`; base control `.ufo/waves/round-56/controls/base-c1-selftally-v2.txt` (`tally_mismatches=7 rows_checked=10`, exit 1 at `e48354b7c26b`); population is ten named rows (link-preview-audit excluded: its row counts fixture directories, not cases) | none (clones the revision under `mktemp -d`) | kake |
+| yahoo-crawl-handling-quote-truth-counter | gate (offline, committed bytes only; no network) | `python3 -B .ufo/waves/round-56/c56_quote_truth.py --root . --revision <commit>` | `0=met` (`conditions_passed == 8 of 8`); `1=not met` (any C1-C8 sub-condition fails); `2=could-not-evaluate` (malformed receipt or mirror-pin JSON, an exception); usage errors also exit 2 (`ap.error`) | `KAKE_R56_SELFTEST_REV=3691e9689a0358fc671d948d39dae3546ba5c01d python3 -B .ufo/waves/round-56/c56_quote_truth.py --selftest` (67 checks: 64 sandbox-repo fixtures built from the committed round-56 evidence at the pinned revision, plus 3 unit-rule checks) | `contract.json` `claims.C2`; base control `.ufo/waves/round-56/controls/base-c2-quote-truth.txt` (`0/8`, exit 1); retained bodies `.ufo/waves/round-56/sources/` with `receipts.json`; held-row body pin `HELD_BODY_SHA256` (S367); pre-append mirror pin `.ufo/waves/round-56/assimilation/mirror-pin.json` | none (reads `git show` / `git log` only; selftest writes only `mktemp -d` sandboxes) | kake |
+
+The C1 counter runs each row's documented self-test command from the row's `Self-test` cell (a leading `KAKE_R5N_SELFTEST_REV=<hex>`
+word is part of the command; the environment is otherwise fixed) in a `git clone` of the measured revision and compares the claim in that
+cell with the printed tally. A rewritten selftest is a different claim: the pinned script and every `*.py` beside it must be byte-equal
+to their blobs at `e48354b7c26b`. Round 56 rewrote the seven Self-test cells whose claim disagreed with the printed tally and left the three
+that agreed. C7 of the C2 counter is a receipt check: `.ufo/waves/round-56/validate_append.sh` regenerates the receipts and must be re-run
+after any edit to `corpus/SOURCES.md` or the three adopted entries. Withdrawal rule: a row goes when its counter leaves the tree.
