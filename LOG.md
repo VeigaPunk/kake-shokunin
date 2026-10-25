@@ -2106,3 +2106,4 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - The append-only locator-correction commit landed at `755914926e350d64efcf7b563defdb8c54839b04`.
 - **Round 53 — routed-defect ledger.** `corpus/lessons/round-53.md` now records dispositions for all 11 round-52 routed defects: items 1–6 and 11 are fixed or explicitly corrected; gate-row truth, receipt reproducibility, final-verify fidelity and freshness-pin premises remain open and receive no passing credit.
 - The routed-defect disposition update landed at `ceb5c7b2ffa6461691eec56e56e43f37d17455b2`.
+- **Round 53 — refused-entry rationale correction.** `corpus/lessons/round-52.md` now preserves both round-52 refusal decisions while superseding their incorrect grounds: both staged sources were unopened in-round; Jekyll's different scope produces W04 rather than E04, and the CrUX source was quarantined.

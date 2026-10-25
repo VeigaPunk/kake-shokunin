@@ -126,3 +126,12 @@ The sweep entered this round at `VERDICT: DRIFT` with three legs (`control/drift
 
 Result: the live sweep exits 1 with one leg (`control/sweep-after.txt`). The C2 predicate's
 `after == 1` counts that leg, not a clean sweep.
+
+## Round-53 correction — refused-entry grounds (append-only)
+
+The refusal decisions above stand; their reasons are corrected here, not rewritten.
+
+- `crux-keyless-check.md`: the round-52 receipt set contains only S374, S329 and S312, so the staged CrUX Vis and API sources were not opened in-round (CORPUS SOURCES rule 1); neither source was registered. The held `field-performance-cwv.md` covers CrUX eligibility and the key-requiring API, not the keyless CrUX Vis route. S304 also maps to the quarantined `queryRecord` source. The refusal is not justified by claiming the entire topic was already held.
+- `jekyll-url-baseurl-options.md`: the staged source was not opened in-round, which is sufficient under rule 1. The staged row's distinct scope would produce a W04 cross-scope duplicate warning, not E04; the earlier E04/duplicate-in-scope rationale is withdrawn. The refusal is not a claim that S080 is a same-scope duplicate.
+
+Evidence: `.ufo/waves/round-52/sources/receipts.json` lists the three opened sources; `.ufo/waves/round-52/assimilation/quarantine-slice` lists the CrUX queryRecord source. Round-53 falsifier `.ufo/waves/round-53/exec-quality-gate/c53_gate_truth.py` covers the staged ids and true procedural grounds, but the uncommitted shokuknow package snapshot was never pinned in round 52.
