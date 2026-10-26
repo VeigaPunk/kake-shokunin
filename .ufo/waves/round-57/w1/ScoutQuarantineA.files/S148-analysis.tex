@@ -1,0 +1,440 @@
+\section{Analysis}\label{sec:analysis}
+
+
+For analysis of temporal data, the dataset is segmented along the date dimension which aggregates data by month.
+The CrUX real-life data behaves as expected considering definitions (see Section \ref{sec:methodology}) and assumptions regarding the timing metrics, with the order of timings being \textit{first paint}, \textit{first contentful paint}, \textit{DOM content loaded} and \textit{onload}. The \textit{first paint} timing is usually very close to the \textit{first contentful paint} timing. As an example, the medians are less than one bin size (less than 100 ms) apart. %(see Table \ref{tab:cdf-all-metrics}). 
+As the \textit{first contentful paint} timing is considered as meaningful as the \textit{first paint} timing \cite{gtMet}%\footnote{\url{https://gtmetrix.com/blog/first-contentful-paint-explained/}}
+, interpretation will be considered applicable on both; additionally, both generally correlate with established notions of delivery time in a quality of experience context. %\cite{khirman}\cite{Aaltodoc:http://urn.fi/URN:NBN:fi:aalto-201806293887}.
+%The timeframe spans from October 2017, the first available month of CrUX data, to March 2019 \texthl{[update this data and analysis]}, the data last available at the time of this paper submission.
+
+%\subsection{Data size}\label{sec:datasize}
+%The fastest rate of growth can be observed in the first three months for which CrUX data is available, which is from October to and including December 2017, aggregating close to and sometimes over 1 million unique origins per month (see Fig. \ref{fig:originsincruxpermonth}). From January 2018 onwards, the growth amounts to mostly hundreds of thousands at a time (see Table \ref{tab:cruxdatapermonth-unique}). Regressions in data size to the previous month can be seen in September, October and December of 2018 respectively, hinting at some kind of threshold regarding the breadth of distinct origin space navigated to and breaking the overall growing trend \texthl{[check this and add the more recent dataset information]}. The ratio of total to distinct number of data entries describes the average dimension values the metrics can be segmented by for each origin. Excluding data from October 2017 as a potential outlier given data size difference in magnitudes of $10^2$, the ratio peaks in April 2018 at 2.56 and decreases steadily up to the the latest dataset as of the end of this analysis (see Table \ref{tab:cruxdatapermonth-unique}). This development is in line with the marginal tablet use (Subsection \ref{metdevtemp}) as well as the regression of relative use of all connection speed types except for 4G (Subsection \ref{sec:metcon}).
+
+
+%\begin{table}[!t]
+%  \begin{center}
+%    \caption{Number of data entries in CrUX per month \texthl{I think a plot might be a better depiction of this}}
+%    \label{tab:cruxdatapermonth-unique}
+%
+%    \resizebox{\linewidth}{!}{%
+%    \begin{tabular}{l|r|r|l}
+%    \toprule
+%      \textbf{Date} & \textbf{distinct origins} & \textbf{total number of origins} & \textbf{ratio of total to distinct}\\
+%      \midrule
+%		2017-10&10000&32573&3.26\\
+%		2017-11&1241019&3001596&2.42\\
+%		2017-12&1939945&4552715&2.35\\
+%		2018-01&3086603&7429099&2.41\\
+%		2018-02&3237524&7851683&2.43\\
+%		2018-03&3589954&9111351&2.54\\
+%		2018-04&3970181&10178441&2.56\\
+%		2018-05&4162633&10342779&2.48\\
+%		2018-06&4134123&10183592&2.46\\
+%		2018-07&4202945&10319325&2.46\\
+%		2018-08&4386422&10616800&2.42\\
+%		2018-09&4375805&10577348&2.42\\
+%		2018-10&4374729&10385725&2.37\\
+%		2018-11&4697003&11097238&2.36\\
+%		2018-12&4654112&10712564&2.30\\
+%		2019-01&5351287&12126123&2.27\\
+%		2019-02&5464560&12283055&2.25\\
+%		2019-03&5703255&12632356&2.21\\
+%    \bottomrule
+%    \end{tabular}
+%    }
+%  \end{center}
+%\end{table}
+
+% \begin{figure}[t!]
+%   \includegraphics[width=\linewidth]{figures/Tanya_figures/origin.jpg}
+%   \caption[Unique and total origin entries in CrUX over time]{Number of data entries for unique and total origins in CrUX per month, showcasing distinct growth rates. Origins can have several data entries in the dataset due to two additional table level dimensions (device type and effective connection type).}
+%   \label{fig:originsincruxpermonth}
+% \end{figure}
+
+%\subsection{Metrics across all dimensions}\label{sec:metalldim}
+%The CrUX real-life data behaves as expected considering definitions (see Section \ref{sec:methodology}) and assumptions regarding the timing metrics, with the order of timings being \textit{first paint}, \textit{first contentful paint}, \textit{DOM content loaded} and \textit{onload}. The \textit{first paint} timing is usually very close to the \textit{first contentful paint} timing. As an example, the medians are less than one bin size (less than 100 ms) apart (see Table \ref{tab:cdf-all-metrics}). As the \textit{first contentful paint} timing is considered as meaningful as the \textit{first paint} timing \cite{gtMet}, interpretation will be considered applicable on both; additionally, both generally correlate with established notions of delivery time in a quality of experience context \cite{khirman}\cite{Aaltodoc:http://urn.fi/URN:NBN:fi:aalto-201806293887}.
+
+%\texthl{I am not sure if this is the correct interpretation of the results. Needs discussion.}In comparison over time, for this case with the earliest sample at January of 2018 in consideration as the earliest point after a potential "mass aggregation" phase (2017-10 to 2017-12, see Fig. \ref{fig:originsincruxpermonth}) and the latest sample from March of 2019 when analysis for this part concluded, the results show a steady improvement of all metrics in all sampled percentiles except for the 99th percentile sample (see Tables \ref{tab:cdf-all-metrics}). Median value deltas for \textit{first paint}, \textit{first contentful paint} and \textit{DOM content loaded} are all within and smaller than two bins (a bin having a width of 100 after 2018-06), while the \textit{onload} timing medians' delta shows an improvement of 500ms, at the higher ceiling of a maximum distance of five bins. Considering the payloads the timings are defined for as well as steady improvements and adoption in 4G type connections (Subsection \ref{sec:metcon})\cite{cazanas}\cite{itu}, the real-life data supports and quantifies this visibly in the large \textit{onload} timing delta, a timing known to be most dependent on downspeed bandwidth \cite{DBLP:journals/ccr/Ford14}. The other metrics have a median improvement of only $\leq100$ ms, $\leq100$ ms and 200 ms (FP, FCP and DCL respectively); paired with their definitions \cite{netAPI} and Internet infrastructure developments usually improving bandwidth rather than latency \cite{DBLP:journals/ccr/Ford14}, this is expected behaviour.
+
+% \begin{table}
+% \centering
+%  \begin{subfigure}[b]{\linewidth}
+%    \centering
+%  	\begin{tabular}{l|l|l|l|l}
+%  	\toprule
+%  	\textbf{CDF} &\textbf{FP} & \textbf{FCP} & \textbf{DCL} & \textbf{OL} \\
+%  	\textbf{density} & & & &\\
+%  	\midrule
+%  	0.01 & 0 & 0 & 0 & 0\\
+%  	0.25 & 600 & 600 & 600 & 1400\\
+%  	\textbf{0.50} & 1200 & 1200 & 1600 & 3000\\
+%  	0.75 & 2400 & 2400 & 3000 & 6000\\
+%  	0.99 & 10000 & 10000 & 15000 & 40000\\
+%  	%\midrule
+%  	%\textbf{mean} & 1950.9 & 1988.2 & 2457.9 & 5104.9\\
+%  	\bottomrule
+%  	\end{tabular}
+%   \caption{2018-01}
+% \end{subfigure}
+
+% \begin{subfigure}[b]{\linewidth}
+%    \centering
+%    	\begin{tabular}{l|l|l|l|l}
+%  	\toprule
+%  	\textbf{CDF} &\textbf{FP} & \textbf{FCP} & \textbf{DCL} & \textbf{OL} \\
+%  	\textbf{density} & & & & \\
+%  	\midrule
+%  	0.01 & 0 & 0 & 0 & 100\\
+%  	0.25 & 600 & 600 & 700 & 1200\\
+%  	\textbf{0.50} & 1200 & 1200 & 1400 & 2500\\
+%  	0.75 & 2200 & 2200 & 2800 & 4900\\
+%  	0.99 & 12900 & 13100 & 16400 & 32300\\
+%  	%\midrule
+%  	%\textbf{mean} & 1878.8 & 1904.2 & 2388.8 & 4397.1\\
+%  	\midrule
+ 	
+%  	\textbf{$\Delta$ to median} & & & & \\
+%  	\textbf{of 2018-01} & 0 & 0 & -200 & -500 \\
+%  	\bottomrule
+%  	\end{tabular}
+%  	\caption{2019-03}
+%  \end{subfigure}
+%  \caption[All metrics CDF data]{Select data for CDFs of all timing metrics at different months (in milliseconds), 13 months apart starting at 2018-01. Median deltas show a sub-bin (less than 100ms) development for FP and FCP while DCL and OL improved by two and five bins distance.}
+%  \label{tab:cdf-all-metrics}
+% \end{table}
+%
+%\begin{figure}[t!]
+%  \begin{subfigure}[b]{0.45\linewidth}
+%    \includegraphics[width=\linewidth]{figures/allmetrics-cdf/2018-01-all-metrics.pdf}
+%    \caption{2018-01}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.45\linewidth}
+%    \includegraphics[width=\linewidth]{figures/allmetrics-cdf/2019-03-all-metrics.pdf}
+%    \caption{2019-03}
+%  \end{subfigure}
+%  \caption[CDFs of all metrics]{CDFs of all metrics showcasing relative timings of the metrics for different months. Visibly, the onload (OL) curve shifted to the left, indicating improved timings. Note the increase in bins for data after 2018-07. \texthl{[A plot having a couple of months in between jan 2018-mar 2019 and dedicate a particular sub-plot for each metric. It would be interesting to see a shift in median timings. If this is not observed, the above explanation falls apart. Legends and axis are not visible in the current plot.]}}
+%  \label{fig:cdf-all-metrics}
+%\end{figure}
+%
+%
+%%\begin{figure}[t!]
+%%  \includegraphics[width=\linewidth]{figures/fig_timeseries-CDF-FCP-cumulative.pdf}
+%%  \caption{Development of FCPs per month}
+%%  \label{fig:fcppermonth}
+%%\end{figure}
+%
+
+
+\subsection{Metrics Across Device Types}\label{sec:metdev}
+
+The devices dimension has a clear three value classification with no semi-open interval ranges.
+
+\subsubsection{General Analysis}
+%In contrast to the connection speed dimension (see \ref{sec:metcon}),  
+Data for tablets in the CrUX dataset make up less than 1\% at all time samples. %(see Fig. \ref{fig:dd-overtime}). 
+Correspondingly, desktop density averages to 35.1\% leaving phone density at about 64.8\%. %Early trends of websites delivering a mobile version depending on device type show stake and quick adaption of content hosters \cite{cazanas}.
+Looking at all metrics segmented by devices, desktop devices display a distinct lead over other device types in any metric (see Fig.  \ref{fig:metrics-among-devices}), which can be assumed to correlate with generally higher network speeds (see §~\ref{sec:metcon}) usually used on a desktop via landline Internet connections. %This is further reinforced when comparing connection speed densities (see Fig. \ref{fig:PC-Conn-for-dev}), where desktop devices are shown to use 6.1\% (2019-03) to 8.2\% (2018-02) more 4G type connections than phone devices. 
+As phones are known to be used with mobile Internet more than desktop and tablet devices are \cite{itu}, there are quality of service aspects \cite{DBLP:journals/network/FiedlerHT10}\cite{DBLP:conf/wwic/KuipersKVB10} 
+to be considered as a factor responsible for slower timings.
+Although tablet devices have an even higher 4G usage density than desktop devices, they have the slowest timings among all devices, hence, requiring further investigation.
+
+\subsubsection{Temporal Analysis}\label{metdevtemp}
+Over the analyzed time period, %which spans from October 2017 to April 2019, 
+tablet usage is always below 1\% when compared to phone and desktop usage, indicating a strong and steady preference of devices towards phones in the area of mobile Internet browsing usage. When looking at phone-to-desktop-ratio, there is no clear trend visible but %excluding data from October 2017, 
+desktop devices never amounted to more than 46.67\% of devices used to browse the web via Google Chrome and averages to 35.09\% over the complete timespan, making phones the most prevalent device as has been previously predicted \cite{DBLP:journals/jcmc/HumphreysPK13}\cite{meeker10} 
+and observed \cite{itu}\cite{meeker19} 
+in research. In line with observations made in §~\ref{sec:metcon}, the density of 4G type connections is ever rising for each device type segmented by month. As expected, availability of 4G speeds on mobile Internet lags behind that of desktop devices (see Fig. \ref{fig:PC-Conn-for-dev}) \cite{itu}, especially due to the latter's usual connection via landline.  
+
+
+%--DEV DENSITY OVER TIME
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=\linewidth]{figures/fig-Barplot-devices-over-time.pdf}
+% \caption[Density of devices over time]{Bar graph showcasing the density of devices used over time. The blue horizontal line indicates the mean value for desktop device density at $0.351$ with a standard deviation of $\sigma = 0.081$. Tablet data is at all times below $0.01$.}
+% \label{fig:dd-overtime}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=\linewidth]{figures/dd-crux-vs-statcounter.pdf}
+% \caption[Device densities for CrUX and statcounter]{Graph showcasing the CrUX report's bias towards devices using Google Chrome browser, due to aggregation methodology. Data from statcounter \cite{statCounter} factors all browsers in. More desktop devices are registered when factoring in other browsers.}
+% \label{fig:cruxvssc}
+% \end{figure}
+
+\noindent\textbf{First Paint:}
+The median of the first paint timings, %similar to results in the subsection about connection speeds,
+remain fairly stead within 1000ms to 2000ms range for all device types, with desktop being slightly faster than its mobile counterparts. This supports the findings in §~\ref{sec:metcon}, given the prevalence of 4G connection types (see Fig. \ref{fig:PC-Conn-for-dev}), being mainly limited by a baseline network latency \cite{DBLP:journals/comsur/BriscoeBPHRTGFG16} %\cite{Aaltodoc:http://urn.fi/URN:NBN:fi:aalto-201806293887} 
+rather than the device type. 
+
+%-- Boxplots -- Over time -- by device
+%\begin{figure}[t!]
+%  \centering
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-phone-FP.pdf}
+%    \caption{Phone}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-desktop-FP.pdf}
+%    \caption{Desktop}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-tablet-FP.pdf}
+%    \caption{Tablet}
+%  \end{subfigure}
+%  \caption{Boxplots of first paint values among speeds over time.}
+%  \label{fig:BP-FP-by-speeds}
+%\end{figure}
+
+\noindent\textbf{First Contentful Paint:}
+First contentful paint analysis yields, again, similar results to first paint analysis according to the similar nature of the timings. %\cite{W3CAPI}. %(see Fig. \ref{fig:BP-FCP-by-device}). 
+Steady timings over the entire timeframe for each device type is expected considering consolidation of connection speeds. Median timings near the 1000ms mark coincide with general notions of short delays or fast response times in Internet browsing \cite{walton}\cite{DBLP:journals/jais/GallettaHMP04}.
+
+\begin{table*}[!t]
+\centering
+\vspace{5mm}
+\caption{\small Country-wise connection distribution in percent. Sweden and Finland have the highest (shown in blue) 4G connection requests, whereas France and Italy having the lowest (shown in grey) percentage of requests.}
+\label{tab:CD_country}
+\resizebox{0.90\textwidth}{!}{%
+\begin{tabular}{|c|ccccccccc|}
+\hline
+ & \multicolumn{9}{c|}{\textbf{Countries (\%)}} \\ \cline{2-10} 
+\multirow{-2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Connection\\ Types\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Germany}} & \multicolumn{1}{c|}{\textbf{Great Britain}} & \multicolumn{1}{c|}{\textbf{France}} & \multicolumn{1}{c|}{\textbf{Italy}} & \multicolumn{1}{c|}{\textbf{Spain}} & \multicolumn{1}{c|}{\textbf{Sweden}} & \multicolumn{1}{c|}{\textbf{Finland}} & \multicolumn{1}{c|}{\textbf{Poland}} & \textbf{Romania} \\ \hline
+4G & \multicolumn{1}{c|}{78.4} & \multicolumn{1}{c|}{78.44} & \multicolumn{1}{c|}{\cellcolor[HTML]{9B9B9B}70.25} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}69.7} & \multicolumn{1}{c|}{76.52} & \multicolumn{1}{c|}{\cellcolor[HTML]{38FFF8}85.99} & \multicolumn{1}{c|}{\cellcolor[HTML]{96FFFB}81.41} & \multicolumn{1}{c|}{73.86} & 75.06 \\ \hline
+3G & \multicolumn{1}{c|}{21.12} & \multicolumn{1}{c|}{21.01} & \multicolumn{1}{c|}{29.0} & \multicolumn{1}{c|}{29.29} & \multicolumn{1}{c|}{23.33} & \multicolumn{1}{c|}{13.96} & \multicolumn{1}{c|}{18.57} & \multicolumn{1}{c|}{25.56} & 24.5 \\ \hline
+2G & \multicolumn{1}{c|}{0.19} & \multicolumn{1}{c|}{0.3} & \multicolumn{1}{c|}{0.54} & \multicolumn{1}{c|}{0.85} & \multicolumn{1}{c|}{0.1} & \multicolumn{1}{c|}{0.02} & \multicolumn{1}{c|}{0.01} & \multicolumn{1}{c|}{0.38} & 0.2 \\ \hline
+slow-2G & \multicolumn{1}{c|}{0.29} & \multicolumn{1}{c|}{0.24} & \multicolumn{1}{c|}{0.21} & \multicolumn{1}{c|}{0.17} & \multicolumn{1}{c|}{0.04} & \multicolumn{1}{c|}{0.03} & \multicolumn{1}{c|}{0.01} & \multicolumn{1}{c|}{0.2} & 0.24 \\ \hline
+offline & \multicolumn{1}{c|}{0.02} & \multicolumn{1}{c|}{0.0} & \multicolumn{1}{c|}{0.01} & \multicolumn{1}{c|}{0.0} & \multicolumn{1}{c|}{0.0} & \multicolumn{1}{c|}{0.0} & \multicolumn{1}{c|}{0.0} & \multicolumn{1}{c|}{0.0} & 0.01 \\ \hline
+\end{tabular}%
+}
+\end{table*}
+
+% \begin{figure}[t!]
+%  \centering
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-phone-FCP.pdf}
+%    \caption{Phone}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-desktop-FCP.pdf}
+%    \caption{Desktop}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-tablet-FCP.pdf}
+%    \caption{Tablet}
+%  \end{subfigure}
+%  \caption{Boxplots of first contentful paint values among devices over time.}
+%  \label{fig:BP-FCP-by-device}
+% \end{figure}
+
+\noindent\textbf{DOM Content Loaded:}
+%generally occurs after the HTML document is loaded and there are no parser blocking stylesheets or Javascripts running \cite{dclVarvy}. 
+DCL  timing is dependent on network speed, latency and especially structure of the webpage%\cite{Aaltodoc:http://urn.fi/URN:NBN:fi:aalto-201806293887}
+, suggesting most devices not being a bottleneck in hardware aspects. As this segmentation aggregates without considering connection speed types, barely any change can be seen from the start of the non-mass-aggregation part of the data.
+%starting in January 2018.} %(see Fig. \ref{fig:BP-DCL-by-device}). 
+This observation, among all devices, is congruent to the premise of median website data fetched barely changing (increase in 12.5\% for mobile and 9.1\% for desktop) in the observed timeframe \cite{HTMLarchive}.
+
+%\begin{figure}[t!]
+%  \centering
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-phone-DCL.pdf}
+%    \caption{Phone}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-desktop-DCL.pdf}
+%    \caption{Desktop}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-tablet-DCL.pdf}
+%    \caption{Tablet}
+%  \end{subfigure}
+%  \caption{Boxplots of DOM content loaded values among devices over time.}
+%  \label{fig:BP-DCL-by-device}
+%\end{figure}
+
+\noindent\textbf{Onload:}
+The onload metric %specifying the point in time when the requested webpage finished loading all resources, 
+shows varying degrees of improvements over time. Mobile devices (phone and tablet) are seen to have visible improvements, going from ~3200 to ~2700 and ~5800 to ~3500 respectively. %(see Fig.\ref{fig:BP-OL-by-device} (a) and (c)). 
+Interestingly enough, desktop devices have a very flat downwards curve, %(see Fig.\ref{fig:BP-OL-by-device} (b)), 
+finishing most onloads in the median ~2400 range.
+This suggests several possible hypotheses:
+\begin{itemize}[leftmargin=*]
+\item Desktop PCs are usually connected via fast %\cite{itu}
+and stable fixed Internet connections, thus providing best OL performances with least variance (among devices). %CITE it
+\item Tablet devices predominantly use home WIFI connections usually connected via the same fast and stable landline Internet connections too, they differ to desktop PCs in two aspects: machine power and general defaulting to mobile versions of websites.
+\item Thus, the notable bigger improvements of mobile device OL performance could indicate optimization or even just emerging availability of mobile website versions \cite{cazanas2017strategies} or responsive design advancements. %\cite{almeida}.
+\item Mobile Internet availability and speeds are improving. %\cite{itu}\cite{DBLP:journals/jcmc/HumphreysPK13}.
+\end{itemize}
+
+\begin{summary}
+\takeaway{Phone density is highest at around $64.8\%$, followed by desktop density at $31.5\%$. Looking at all metrics segmented by devices, desktop devices display a distinct lead over other types. Although tablet devices have an even higher 4G usage density than desktop devices, they have the slowest timings amongst all.}
+\end{summary}
+
+%\begin{figure}[t!]
+%  \centering
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-phone-OL.pdf}
+%    \caption{Phone}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-desktop-OL.pdf}
+%    \caption{Desktop}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.8\linewidth}
+%    \includegraphics[width=\linewidth]{figures/Boxplots-log/Boxplot-tablet-OL.pdf}
+%    \caption{Tablet}
+%  \end{subfigure}
+%  \caption{Boxplots of onload values among devices over time.}
+%  \label{fig:BP-OL-by-device}
+%\end{figure}
+
+%deprecate----------------
+
+
+
+
+%--------------------------------------------------------
+%--------------------------------------------------------
+
+
+%--- All Metrics on one connection type
+%\begin{figure}[t!]
+%  \centering
+%  \begin{subfigure}[b]{0.9\linewidth}
+%    \includegraphics[width=\linewidth]{figures/replace/2019-4-22-hists-on-3G.pdf}
+%    \caption{3G type connections}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.9\linewidth}
+%    \includegraphics[width=\linewidth]{figures/replace/2019-4-22-hists-on-4G.pdf}
+%    \caption{4G type connections}
+%  \end{subfigure}
+%  \caption{Metrics in comparison for different connection types}
+%  \label{fig:hists-on-speeds}
+%\end{figure}
+
+
+
+%--- Metric among Devices in 4G only
+%\begin{figure}[t!]
+%  \centering
+%  \begin{subfigure}[b]{0.9\linewidth}
+%    \includegraphics[width=\linewidth]{figures/replace/2019-5-20-first-paint-among-devices-4g.pdf}
+%    \caption{first paint}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.9\linewidth}
+%    \includegraphics[width=\linewidth]{figures/replace/2019-5-20-fcp-among-devices-4g.pdf}
+%    \caption{first contentful paint}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.9\linewidth}
+%    \includegraphics[width=\linewidth]{figures/replace/2019-5-20-dcl-among-devices-4g.pdf}
+%    \caption{dom\_content\_loaded}
+%  \end{subfigure}
+%  \begin{subfigure}[b]{0.9\linewidth}
+%    \includegraphics[width=\linewidth]{figures/replace/2019-5-20-onload-among-devices-4g.pdf}
+%    \caption{onload}
+%  \end{subfigure}
+%  \caption{\label{fig:metric-among-d-4g}%
+%  Devices in comparison on 4G type connections, for different metrics.}
+%  \label{fig:metric-among-d-4g}
+%\end{figure}
+
+\subsection{Metrics across different European countries}
+
+This section analyses how different European countries compete with each other in terms of mobile QoE. For the analysis following countries were chosen: Germany (DE), Great Britain (GB), France (FR), Spain (ES), Italy (IT), Sweden (SE), Finland (FI), Poland (PL), Romania (RO). 
+
+% \begin{figure*}[!t]
+%     \centering
+%     \includegraphics[width=0.90\textwidth]{figures/piecharts/CD_country.png}
+%     \caption{Connection distribution by country in percent. Sweden and Finland have the highest 4G and 3G connection requests, whereas France and Italy having the lowest percentage of requests. }
+%     \label{fig:CD_country}
+% \end{figure*}
+
+\subsubsection{General Analysis} The distribution of different connection types across countries within the EU is shown in Table  \ref{tab:CD_country}. Looking at the data, it is evident that only a very small percentile comes from connections, which are slower than `3G’ namely `offline’, `slow-2G’ or `2G’. It is observed that most connections of these types combined are found in Italy with 1.02\% and France with 0.75\%. Great Britain, Germany, Romania and Poland are in the middle with 0.54\%, 0.5\%, 0.45\% and 0.4\% respectively. Spain has fewer requests than the middle of the pack with 0.14\%, but the two countries with the lowest amount of connections slower than `3G’ are in Sweden and Finland with 0.05\% and 0.02\% by quite a bit. As majority of the requests come from the connection types `3G’ and `4G’ they correlate with each other. Just as with the slower connection types, Sweden and Finland are also ahead here with 85.99\% `4G’ and 13.96\% `3G’ requests and 81.41\% `4G’ and 18.57\% `3G’ requests respectively. Great Britain and Germany follow after that with 78.44\% `4G’ and 21.01\% `3G’ requests and 78.4\% `4G’ and 21.12\% `3G’ requests respectively. Spain, Romania and Poland are the next contenders having 76.52\% `4G’ and 23.33\% `3G’ requests, 75.06\% `4G’ and 24.5\% `3G’ requests and 73.86\% `4G’ and 25.56\% `3G’ requests correspondingly. Again, France and Italy are last in the list with the lowest amount of `3G’ and `4G’ requests, France with 70.25\% `4G’ and 29.0\% `3G’ requests and Italy with 69.7\% `4G’ and 29.29\% `3G’ requests. Overall, the countries differ a lot when it comes to the distribution of the different connection types.
+
+
+
+\subsubsection{Temporal Analysis} As observed from the above analysis, the amount of `3G' connections is too low to be compared, hence in this section, the measurement is restricted to `4G' only. %\textcolor{red}{JS: Adding a line here about why FP is not measured, might be useful.}
+
+\noindent\textbf{First Contentful Paint:} Fig. \ref{fig:Boxplot-FCP-country} shows the normalized distribution where all countries share the same minimum at 0ms. The ${25}^{th}$ percentile is fixed at 600ms for all countries except Italy which is 800ms. Germany and Sweden have a median at 1000 ms, whereas others are worse by 200ms, except Italy and Spain which records the highest median values at 1400 ms. When looking at the ${75}^{th}$ percentile the graphs start to differ more with Germany, Sweden and Finland at 2000ms whereas Italy at 2600 ms. The same picture is reflected for the maximum with the same three countries on top of the standings at 4000 ms, whereas  Italy has the worst connections with 5200ms. All other countries have metrics in between these values with Spain performing worse compared to others.
+
+For this metric, Google proposes to interpret the key indicators at the ${75}^{th}$ percentile as%\footnote{\url{https://web.dev/defining-core-web-vitals-thresholds/}}
+\cite{WebVitalsGoogle}
+: loading the paint can be fast (< 2 seconds), moderate (2-4 seconds) and slow (> 4 seconds). Thus, only Sweden, Finland and Germany have a `good’ user experience (i.e. fast FCP loading) while barely managing to reach the goal. All other countries lack a bit behind and might need improvement. However, it is important to mention that even the worst country, Italy, is only 600ms behind the best Sweden at the ${75}^{th}$ percentile.
+
+\begin{figure}[!t]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/Boxplots/Boxplot-FCP-country.png}
+        \caption{First Contentful Paint}
+        \label{fig:Boxplot-FCP-country}
+    \end{subfigure}%
+    \vspace{1em}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/Boxplots/Boxplot-DCL-country.png}
+        \caption{DOMContentLoaded}
+        \label{fig:Boxplot-DCL-country}
+    \end{subfigure}
+    \vspace{1em}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/Boxplots/Boxplot-OL-country.png}
+        \caption{Onload}
+        \label{fig:Boxplot-OL-country}
+    \end{subfigure}
+    \caption{\small Country-wise distribution of different metrics for 4G connection type. Sweden and Finalnd are the best performing countries providing good user experience while Italy is the worst.}
+    \vspace{-1em}
+\end{figure}
+
+\noindent\textbf{DOM Content Loaded:} Similar to the previous observation, the minimum is again at 0ms for all countries. The ${25}^{th}$ percentile is at 600ms for Germany, Great Britain, France, Sweden and Finland and at 800ms for the other countries. At the median, the results start varying slightly, with Germany, Sweden and Finland having the best results at 1200ms, followed by Great Britain, France, Poland and Romania at 1400ms, and finally Italy and Spain where the median is another 200ms higher. The ${75}^{th}$ percentile has a wider spread with Sweden and Finland having the lowest median at 2200ms. Germany is 200ms higher whereas Great Britain, France, Poland and Romania have a 400ms higher average ${75}^{th}$ percentile than the best ones. The percentile increases again by 200ms for Spain and another 200ms for Italy. The maximum can be grouped in a similar way with Sweden and Finland having a maximum of 4600ms, %followed by Germany with 5000ms, then Poland and Romania with 5200ms, next Great Britain and France with 5600ms and lastly Spain with 5800ms.
+whereas Italy is the worst performing amongst all with 6200ms. All other countries have metrics in between these values.
+
+
+Even for the metric DCL, Sweden and Finland have the best user experience, closely followed by Germany. %The countries Great Britain, France, Poland and Romania are slightly behind that by only 400ms compared to Sweden and Finland. 
+Again, Italy lacks behind other countries and provides a relatively worse user experience.
+
+\noindent\textbf{Onload:} Again, as for all the other metrics the minimum is at 0ms for every country. The ${25}^{th}$ percentile is below the 1600ms threshold for all countries. The lowest percentile is achieved in Germany, Sweden and Finland with 1000ms, followed by Great Britain, France, Spain and Poland with 1200ms. The remaining countries have a ${25}^{th}$ percentile of 1400ms. Germany, Sweden and Finland had all together the lowest median as well with 2200ms. Great Britain, France, Spain and Poland is next with 2400ms, followed by Romania at 2600ms and Italy at 2800ms. The ${75}^{th}$ percentile is dispersed even further. Its lowest value is 4000ms for Sweden and Finland while highest is recorded for Italy with 5000ms. The other countries rank in the same order as for the median, except Germany which is at 4200ms. The same trend is observed for the maximum. Again, Sweden and Finland have the lowest maximum at 8400ms whereas Italy has the highest maximum at 10400ms. The other countries also maintain their order here.
+
+The metric Onload follows the global trend and QoE order as previously discussed for all the countries. The data shows that OL lacks only a few 100 milliseconds behind the previously analysed metrics, like DCL. This suggests a great improvement in user experience when browsing on a mobile device. The data also suggests that the difference between the metrics will get smaller in the future. Combined with an Onload which gets even smaller, this is a good sign for the overall QoE when measuring loading times. 
+  
+To summarize, the northern countries (Sweden and Finland) perform well when it comes to user experience. Germany has been able to come close to these countries and increase its mobile user experience, which is great as it has the most number of distinct origins. Countries like Italy improved as well in terms of QoE, but it still has a long road ahead to close the gap with other countries.
+
+
+\begin{summary}
+\takeaway{The country-wise grouping of connection distribution types, shows Sweden topping the list with maximum 4G connection requests (>85\%), followed by Finland ($\approx$81\%) whereas Italy is at the bottom ($\approx$69\%). The temporal analysis at the ${75}^{th}$ percentile shows Sweden and Finland performing 30\% (FCP), 36.36\% (DCL) and 25\% (OL) better than Italy. This reaffirms that Sweden and Finland indeed provide good user experience.
+%The temporal analysis  across different metrics also reaffirms Sweden and Finlnd as the best performing countries, thereby providing good user experience. %Corresponding, faster connection types exhibit faster timings across all metrics when segmenting the dataset by connection speeds. 
+}
+\end{summary}
+
+% \subsection{Further Observations}
+
+% \begin{figure}[t!]
+%   \centering
+%     \includegraphics[width=\linewidth]{figures/fig_201902-heatmap.pdf}
+%   \caption{Heatmap for fast FCPs over time.}
+%   \label{fig:heatmaps}
+% \end{figure}
+
+% %\subsubsection{Geographic segmentation}
+% Geographic segmentation offers analysis depth and makes CrUX data an even powerful support set for any geographical research. Heatmap showcasing density of fast ($\leq100$ ms) first contentful paints have been generated (see Figure \ref{fig:heatmaps}). It showed a slight increase in fast first contentful paint density in most areas, being in line with the FCP results discussed earlier. Apart from that, continental differences in network speed can be seen, with Africa and South America visibly slower than North America and Europe which aligns with current notions of said regions \cite{doi:10.1080/23738871.2016.1157619}\cite{DBLP:conf/infocom/FormosoCPST18}\cite{meeker19}. The exceptionally high performance of China is suspected to result from their firewall blocking various foreign sites \cite{DBLP:journals/tis/TanejaW14}, keeping origins navigated to geographically close (i.e. in-land) origins and as such minimizing physical latency.
+%--- Heatmaps
+% \begin{figure}[t!]
+%   \centering
+%   \begin{subfigure}[b]{0.9\linewidth}
+%     \includegraphics[width=\linewidth]{figures/fig_201801-heatmap.pdf}
+%     \caption{January of 2018}
+%   \end{subfigure}
+%   \begin{subfigure}[b]{0.9\linewidth}
+%     \includegraphics[width=\linewidth]{figures/fig_201902-heatmap.pdf}
+%     \caption{February of 2019}
+%   \end{subfigure}
+%   \caption{ \label{fig:heatmaps}%
+%   Heatmaps for fast FCPs at different points in time.}
+%   \label{fig:heatmaps}
+% \end{figure}
+
+
+
+%\subsubsection{Segmentation by origin}
+

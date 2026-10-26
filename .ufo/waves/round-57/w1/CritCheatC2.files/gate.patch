@@ -1,0 +1,176 @@
+--- a/.ufo/waves/round-57/c57_idresolver_gate.py
++++ b/.ufo/waves/round-57/c57_idresolver_gate.py
+@@ -29,10 +29,12 @@
+   G3 gate-owned fixture (built here, not by the tool): a lane with registry rows at 0 and 2 leading spaces, knowledge that
+      cites a resolved id, a 4-digit id, an id held by one sibling (with the sibling's URL quoted in the citing file), an
+      id held by two siblings and an id held by none, plus a decoy `S12`, `AS500` and `S500x`: the tool must print exactly the
+-     expected lines and totals and exit 1; the same fixture with the dangling citations removed must exit 0.
++     expected lines and totals and exit 1; the same fixture with the dangling citations removed must exit 0. The lane name,
++     the two sibling names and every id are drawn per run, so the expected output cannot be hardcoded.
+   G4 red-before: the tool run over the lane revision `3994101` (the round-52 verifier commit, base of the round-53 repair)
+      with the real fleet reports exactly the five ids S367 S372 S373 S390 S409 dangling, each owned by `kotodama-shokunin`, exit 1.
+-  G5 green: the tool run over the measured revision itself reports dangling == 0 with ids_cited >= 100, exit 0.
++  G5 green: the tool run over the measured revision itself reports dangling == 0 with ids_cited >= 100, exit 0; and over a
++     copy of that revision carrying one committed, per-run random dangling citation it reports exactly that id dangling and exits 1.
+ 
+ Predicate (frozen in `contract.json`):
+ 
+@@ -44,6 +46,7 @@
+ 
+ import argparse
+ import os
++import random
+ import re
+ import shutil
+ import subprocess
+@@ -94,10 +97,28 @@
+     return dang, summ
+ 
+ 
+-def build_fixture() -> tuple[str, str, str]:
+-    """Return (fleet root, lane dir, lane dir with the dangling citations removed)."""
++def build_fixture() -> tuple[str, str, str, dict[str, tuple[str, str, str]], tuple[int, ...]]:
++    """Return (fleet root, lane dir, lane dir with the dangling citations removed, expected dangling rows, expected summary).
++
++    Lane, sibling and source-id names are drawn per run: the expected output is computed here, never printed from constants
++    a tool could reproduce without resolving anything.
++    """
+     fleet = tempfile.mkdtemp(prefix="c57-fixture-")
++    rng = random.SystemRandom()
++    tok = "".join(rng.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(8))
++    lane_name, alpha, beta = f"lane{tok}-shokunin", f"aa{tok}-shokunin", f"bb{tok}-shokunin"
++    seen: set[str] = set()
+ 
++    def nid(digits: int) -> str:
++        while True:
++            sid = "S" + "".join(rng.choice("0123456789") for _ in range(digits))
++            if sid not in seen:
++                seen.add(sid)
++                return sid
++
++    s_here, s_here2 = nid(3), nid(3)
++    s_alpha, s_two, s_none, s_four = nid(3), nid(3), nid(3), nid(4)
++
+     def reg(path: str, rows: list[tuple[str, str]], indent: str = "") -> None:
+         os.makedirs(os.path.dirname(path), exist_ok=True)
+         body = "# SOURCES\n## Registry\n| id | source | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n"
+@@ -105,34 +126,69 @@
+             body += f"{indent}| {sid} | t — {url} | docs | A | s | a | x | mined | 2026-10-25 | 90d | — |\n"
+         open(path, "w").write(body)
+ 
+-    lane = os.path.join(fleet, "demo-shokunin")
+-    reg(os.path.join(lane, "corpus/SOURCES.md"), [("S001", "https://e.example/1")])
++    lane = os.path.join(fleet, lane_name)
++    reg(os.path.join(lane, "corpus/SOURCES.md"), [(s_here, "https://e.example/1")])
+     with open(os.path.join(lane, "corpus/SOURCES.md"), "a") as f:
+-        f.write("  | S002 | t — https://e.example/2 | docs | A | s | a | x | mined | 2026-10-25 | 90d | — |\n")
+-    reg(os.path.join(fleet, "alpha-shokunin/corpus/SOURCES.md"), [("S101", "https://a.example/101"), ("S200", "https://a.example/200"), ("S0300", "https://a.example/300")])
+-    reg(os.path.join(fleet, "beta-shokunin/corpus/SOURCES.md"), [("S200", "https://b.example/200")], indent="   ")
++        f.write(f"  | {s_here2} | t — https://e.example/2 | docs | A | s | a | x | mined | 2026-10-25 | 90d | — |\n")
++    reg(os.path.join(fleet, alpha, "corpus/SOURCES.md"),
++        [(s_alpha, "https://a.example/101"), (s_two, "https://a.example/200"), (s_four, "https://a.example/300")])
++    reg(os.path.join(fleet, beta, "corpus/SOURCES.md"), [(s_two, "https://b.example/200")], indent="   ")
+     os.makedirs(os.path.join(lane, "corpus/knowledge/sub"), exist_ok=True)
+-    good = "source: S001 — https://e.example/1\nverified-at: 2026-10-25\nrecheck: 90d\n\nCites S001 and S002 (resolved, the second row is indented two spaces).\n"
++    good = (f"source: {s_here} — https://e.example/1\nverified-at: 2026-10-25\nrecheck: 90d\n\n"
++            f"Cites {s_here} and {s_here2} (resolved, the second row is indented two spaces).\n")
+     open(os.path.join(lane, "corpus/knowledge/good.md"), "w").write(good)
+-    bad_a = ("source: S101 — https://a.example/101\n\nHeld by alpha only: S101, quoted at https://a.example/101.\nHeld by two siblings: S200.\n"
+-             "Held by none: S777. A four-digit id S0300 is alpha's five-character id and does not resolve here.\n"
++    bad_a = (f"source: {s_alpha} — https://a.example/101\n\nHeld by alpha only: {s_alpha}, quoted at https://a.example/101.\nHeld by two siblings: {s_two}.\n"
++             f"Held by none: {s_none}. A four-digit id {s_four} is alpha's five-character id and does not resolve here.\n"
+              "Decoys that are not ids: S12, AS500, S500x, s101.\n")
+     open(os.path.join(lane, "corpus/knowledge/sub/bad.md"), "w").write(bad_a)
++
+     clean = tempfile.mkdtemp(prefix="c57-fixture-clean-")
+-    shutil.copytree(os.path.join(fleet, "alpha-shokunin"), os.path.join(clean, "alpha-shokunin"))
+-    shutil.copytree(os.path.join(fleet, "beta-shokunin"), os.path.join(clean, "beta-shokunin"))
+-    shutil.copytree(lane, os.path.join(clean, "demo-shokunin"))
+-    os.remove(os.path.join(clean, "demo-shokunin/corpus/knowledge/sub/bad.md"))
+-    return fleet, lane, os.path.join(clean, "demo-shokunin")
++    shutil.copytree(os.path.join(fleet, alpha), os.path.join(clean, alpha))
++    shutil.copytree(os.path.join(fleet, beta), os.path.join(clean, beta))
++    shutil.copytree(lane, os.path.join(clean, lane_name))
++    os.remove(os.path.join(clean, lane_name, "corpus/knowledge/sub/bad.md"))
++    expect = {
++        s_alpha: ("corpus/knowledge/sub/bad.md", alpha, alpha),
++        s_two: ("corpus/knowledge/sub/bad.md", f"{alpha},{beta}", "-"),
++        s_four: ("corpus/knowledge/sub/bad.md", alpha, "-"),
++        s_none: ("corpus/knowledge/sub/bad.md", "-", "-"),
++    }
++    return fleet, lane, os.path.join(clean, lane_name), expect, (6, 2, 4, 3, 1)
+ 
+ 
+-EXPECT_FIXTURE = {
+-    "S101": ("corpus/knowledge/sub/bad.md", "alpha-shokunin", "alpha-shokunin"),
+-    "S200": ("corpus/knowledge/sub/bad.md", "alpha-shokunin,beta-shokunin", "-"),
+-    "S0300": ("corpus/knowledge/sub/bad.md", "alpha-shokunin", "-"),
+-    "S777": ("corpus/knowledge/sub/bad.md", "-", "-"),
+-}
+-EXPECT_SUMMARY = (6, 2, 4, 3, 1)  # cited S001 S002 S101 S200 S0300 S777; resolved S001 S002; dangling 4; owned elsewhere 3; unowned 1
++def plant_dangling(root: str, rev: str, fleet_real: str, tmp: list[str]) -> tuple[str, int, dict[str, tuple[str, str, str]], tuple[int, ...] | None]:
++    """Commit one per-run random citation of an id the lane registry lacks into a copy of `root`@`rev`, then run the tool there."""
++    d = sandbox_clone(root, rev)
++    tmp.append(d)
++    kdir = os.path.join(d, "corpus/knowledge")
++    files = sorted(os.path.join(dp, f) for dp, _, fs in os.walk(kdir) for f in fs if f.endswith(".md"))
++    if not files:
++        raise RuntimeError("no knowledge file to plant into")
++    registry = git("-C", d, "show", f"{rev}:corpus/SOURCES.md").stdout
++    known = set(re.findall(r"^ {0,3}\| (S\d{3,}) \|", registry, re.MULTILINE))
++    rng = random.SystemRandom()
++    for digits in (4, 5):
++        for _ in range(50):
++            planted = "S" + "".join(rng.choice("0123456789") for _ in range(digits))
++            if planted not in known:
++                break
++        else:
++            continue
++        break
++    else:
++        raise RuntimeError("could not draw an unregistered id")
++    target = max(files, key=os.path.getsize)
++    with open(target, "a") as f:
++        f.write(f"\nPlanted dangling citation {planted}.\n")
++    ident = ["-c", "user.name=selftest", "-c", "user.email=selftest@local", "-c", "commit.gpgsign=false"]
++    for cmd in (["add", "-A"], ["commit", "-q", "-m", "gate planted dangling id"]):
++        p = git(*ident, "-C", d, *cmd)
++        if p.returncode != 0:
++            raise RuntimeError(f"git {' '.join(cmd)}: {p.stderr.strip()}")
++    nrev = git("-C", d, "rev-parse", "HEAD").stdout.strip()
++    rc, out = run_tool(d, "--root", d, "--revision", nrev, "--fleet", fleet_real)
++    dang, summ = parse(out)
++    return planted, rc, dang, summ
+ 
+ 
+ def evaluate(root: str, rev: str, fleet_real: str) -> tuple[int, list[tuple[str, bool, str]]]:
+@@ -151,12 +207,12 @@
+         ok = bool(m) and rc == 0 and m.group(1) == m.group(2) and int(m.group(2)) >= MIN_SELFTEST
+         results.append(("G2_selftest", ok, out[-1] if out else f"no output (exit {rc})"))
+ 
+-        fleet, lane, clean = build_fixture()
++        fleet, lane, clean, expect_fixture, expect_summary = build_fixture()
+         tmp += [fleet, os.path.dirname(clean)]
+         rc, out = run_tool(clone, "--root", lane, "--fleet", fleet)
+         dang, summ = parse(out)
+-        ok = rc == 1 and dang == EXPECT_FIXTURE and summ == EXPECT_SUMMARY
+-        note = f"exit={rc} dangling={sorted(dang)} summary={summ}"
++        ok = rc == 1 and dang == expect_fixture and summ == expect_summary
++        note = f"exit={rc} dangling={sorted(dang)} summary={summ} expected={sorted(expect_fixture)} {expect_summary}"
+         if ok:
+             rc2, out2 = run_tool(clone, "--root", clean, "--fleet", os.path.dirname(clean))
+             d2, s2 = parse(out2)
+@@ -173,7 +229,12 @@
+         rc, out = run_tool(clone, "--root", root, "--revision", rev, "--fleet", fleet_real)
+         dang, summ = parse(out)
+         ok = rc == 0 and not dang and summ is not None and summ[2] == 0 and summ[0] >= MIN_CITED
+-        results.append(("G5_green", ok, f"exit={rc} summary={summ}"))
++        note = f"exit={rc} summary={summ}"
++        if ok:
++            planted, prc, pdang, psumm = plant_dangling(root, rev, fleet_real, tmp)
++            ok = prc == 1 and sorted(pdang) == [planted] and psumm is not None and psumm[2] == len(pdang)
++            note += f"; planted {planted} exit={prc} dangling={sorted(pdang)} summary={psumm}"
++        results.append(("G5_green", ok, note))
+     except (RuntimeError, subprocess.TimeoutExpired, OSError) as exc:
+         for d in tmp:
+             shutil.rmtree(d, ignore_errors=True)

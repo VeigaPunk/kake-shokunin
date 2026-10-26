@@ -425,3 +425,23 @@ operator-owned. The round-55 sentence that the deleted-URL page "is not adopted 
 for that page by this round. Not adopted from the same staging package: the canonical-notification (S388),
 redirect-and-indexed-URL (S389) and dynamic-page-indexing (S387) candidates — rejected as staged, reasons
 and flip conditions in `corpus/lessons/round-56.md` § Gate.
+
+## Round-57 Baidu dead-link handling: dead-link types, Spider 3.0 recognition model
+
+Round 57 adds two entries on what one operator's own pages say a dead link is and how its crawler treats one, each re-grounded against a
+fresh retained body fetched 2026-10-25: `corpus/knowledge/baidu-dead-link-types.md` (S421, a new row: Baidu's college page divides dead links
+into protocol dead links, shown by the page's TCP/HTTP status, and content dead links, where the server answers normally but the content has
+become nonexistent, deleted or permission-gated; it states the content kind answers HTTP 200 and cannot be set to 404, that handled pages
+should be set to 404, and that its submission tool recognises 404 only) and `corpus/knowledge/baidu-spider3-dead-link-model.md` (S422, a new
+row: the 2016 Spider 3.0 announcement says a new dead-link recognition model recognises protocol dead links and most content dead links and
+redirect dead links, states a few-days handling time after the update and calls a protocol dead link the best choice; its 10-day and 40–80%
+figure belongs to index display, not to dead-link handling). They continue the per-engine crawl-hygiene ground of rounds 52, 55 and 56
+from Yahoo! JAPAN's server-status answers to the same class on Baidu's side (a gone page that still answers success). They state what the
+operator's pages say (the pages print 发布日期 2022-09-09 and 2016-06-30); no URL was served under test and no crawl was observed.
+Frontier knowledge: no gate, no owned property audited, no publish action; publishing stays operator-owned. Not adopted from the same
+staging package this round: the other Baidu candidates (render-agent announcements S390, S409/S410, and entries citing campaign-internal
+evidence paths) — reasons and flip conditions in `corpus/lessons/round-57.md` § Rejects.
+
+`corpus/README.md` §Coverage map gains two rows and a round-57 row in its frontier ground map; the sibling-registry resolver
+`scripts/id_resolver.py` (round-57 capability, `considerthese/2026-10-25.md` proposal 2) reads this lane's knowledge entries and the
+other lanes' registries and changes no owned ground.

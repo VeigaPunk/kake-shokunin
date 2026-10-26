@@ -1,0 +1,56 @@
+# ExecIdGuard — replication commands (run 2026-10-25 UTC)
+# scratch: D=/tmp/execidguard.G2qCsK ; `git -C "$D" rev-parse --show-toplevel` printed /tmp/execidguard.G2qCsK
+# lane (read-only):  LANE=/home/vgpnk/Projects/shokunin/kake-shokunin
+# staged (read-only): APP=/home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md
+# all commands below ran with cwd=$D except the explicit -C/absolute-path reads
+
+git -C "$D" init -q && git -C "$D" rev-parse --show-toplevel
+
+# 1. id lists (the guard pattern is the 0-3-space form)
+grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' "$LANE/corpus/SOURCES.md" | grep -oE 'S[0-9]+' | sort > reg-ids
+grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' "$APP"                     | grep -oE 'S[0-9]+' | sort > staged-ids
+comm -12 reg-ids staged-ids > collisions
+wc -lc reg-ids staged-ids collisions          # 158 790 / 129 645 / 8 40
+cmp -s reg-ids     "$LANE/.ufo/waves/round-57/assimilation/reg-ids"     && echo IDENTICAL
+cmp -s staged-ids  "$LANE/.ufo/waves/round-57/assimilation/staged-ids"  && echo IDENTICAL
+cmp -s collisions  "$LANE/.ufo/waves/round-57/assimilation/collisions"  && echo IDENTICAL
+
+# 2. quarantine slice
+awk -F'|' -v l='kake' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ {print $4, $5}' \
+  /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md > quarantine-slice
+wc -lc quarantine-slice                        # 12 453
+cmp -s quarantine-slice "$LANE/.ufo/waves/round-57/assimilation/quarantine-slice" && echo IDENTICAL
+
+# 3. guard proof — small fixture holding "  | S403 | x |" (0-3 leading spaces)
+printf '| id | source | kind |\n|---|---|---|\n  | S403 | x |\n' > fixtures/registry-indented-S403.md
+printf '| id | source | kind |\n|---|---|---|\n    | S403 | x |\n' > fixtures/registry-4space-S403.md
+grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' fixtures/registry-indented-S403.md | grep -oE 'S[0-9]+' | sort   # S403
+grep -oE '^\|[[:space:]]*S[0-9]{3,}'       fixtures/registry-indented-S403.md | grep -oE 'S[0-9]+' | sort   # (empty)
+grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' fixtures/registry-4space-S403.md  | grep -oE 'S[0-9]+' | sort   # (empty)
+grep -oE '^ *\|[[:space:]]*S[0-9]{3,}'     fixtures/registry-4space-S403.md  | grep -oE 'S[0-9]+' | sort   # S403 (unbounded over-matches)
+
+# 4. guard proof — the same row inside a scratch copy of the real registry
+cp "$LANE/corpus/SOURCES.md" fixtures/registry-with-indented-S403.md
+printf '  | S403 | x |\n' >> fixtures/registry-with-indented-S403.md
+grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' fixtures/registry-with-indented-S403.md | grep -oE 'S[0-9]+' | sort > out/scratch-reg-ids-0to3   # 159 795
+comm -12 out/scratch-reg-ids-0to3 staged-ids > out/scratch-collisions-0to3   # 9 45 : adds S403
+grep -oE '^\|[[:space:]]*S[0-9]{3,}'       fixtures/registry-with-indented-S403.md | grep -oE 'S[0-9]+' | sort > out/scratch-reg-ids-col0    # 158 790
+comm -12 out/scratch-reg-ids-col0 staged-ids > out/scratch-collisions-col0   # 8 40 : misses S403
+# out/scratch-reg-ids-col0 md5 b1ff10592de374a22de8e6c2854b8541 == committed reg-ids
+# out/scratch-collisions-col0 md5 636715189e691c9eb3c3924f538c3ada == committed collisions
+
+# 5. same-document comparison (URL cell = cell 3; markdown split honours "\|")
+python3 - "$LANE/corpus/SOURCES.md" "$APP"   # cells = re.split(r'(?<!\\)\|', row) ; compare cells 1..11 per collision id
+
+# 6. id-space facts
+grep -cE '^ {0,3}\|[[:space:]]*S403[[:space:]]*\|' "$LANE/corpus/SOURCES.md"   # 0
+grep -cE '^ {0,3}\|[[:space:]]*S408[[:space:]]*\|' "$LANE/corpus/SOURCES.md"   # 0
+grep -c 'S403' "$LANE/corpus/SOURCES.md"                                        # 0 (token anywhere)
+grep -c 'S408' "$LANE/corpus/SOURCES.md"                                        # 0
+grep -c -F 'https://ziyuan.baidu.com/college/articleinfo?id=3458' "$LANE/corpus/SOURCES.md"  # 0
+grep -c -F 'https://ziyuan.baidu.com/wiki/867'                    "$LANE/corpus/SOURCES.md"  # 0
+
+# 7. input identity at read time (2026-10-25 ~20:53 local)
+sha256sum "$LANE/corpus/SOURCES.md"   # 010af792...be81 (== pre-append mirror, 158 rows, 273 lines)
+sha256sum "$APP"                      # 5f0cd4c4...f0cc
+git -C "$LANE" rev-parse HEAD         # f7c98ff269286723077848f3caf1422c4004f46d

@@ -1,0 +1,50 @@
+PASS honest, no relabel: met=True undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS old relabel undisclosed: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS old relabel disclosed with matching errata: met=True undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS errata names nothing git shows: met=False undisclosed_relabels=0 phantom_errata=1 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS errata wrong 'to': met=False undisclosed_relabels=1 phantom_errata=1 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS errata wrong commit: met=False undisclosed_relabels=1 phantom_errata=1 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS errata duplicate entries are malformed: unevaluable .ufo/waves/round-57/receipt-errata.json: duplicate entries
+PASS errata entry of ints is malformed (exit 2, not a traceback): unevaluable .ufo/waves/round-57/receipt-errata.json: entry is not an object of four strings: {'path': 1, 'from': 2, 'to': 3, 'commit
+PASS errata unparsable: unevaluable .ufo/waves/round-57/receipt-errata.json is not JSON: Expecting property name enclosed in double quotes: line 1 column 2 
+PASS empty errata file is malformed: unevaluable .ufo/waves/round-57/receipt-errata.json is not JSON: Expecting value: line 1 column 1 (char 0)
+PASS measured.json is a list: unevaluable .ufo/waves/round-57/measured.json: not an object with a string `revision`
+PASS receipt deleted: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=1 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS new receipt relabelled: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=1 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS new receipt missing claim 3 (claim 1 cannot record a met run either): met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=1 scorecard_pin=1
+PASS new receipt wrong revision: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=4 new_receipts=0 scorecard_pin=1
+PASS measured revision is not an ancestor of the receipts: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=3 new_receipts=0 scorecard_pin=1
+PASS measured revision predates the counter: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=2 new_receipts=2 scorecard_pin=1
+PASS new receipt with two identical revision lines: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=3 new_receipts=0 scorecard_pin=1
+PASS measured.json missing: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=3 new_receipts=0 scorecard_pin=0
+PASS SCORECARD omits the pin: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=0
+PASS SCORECARD negates the run: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=0
+PASS SCORECARD names a second measured revision: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=0
+PASS malformed after-* name: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=2 new_receipts=2 scorecard_pin=1
+PASS second receipt for claim 2: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=2 new_receipts=2 scorecard_pin=1
+PASS claim 2 body records a failed run: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS claim 3 body is a bare pin: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS claim 1 body records met=False (the base control copied): met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS claim 1 body without a tip line: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS claim 1 tip predates the receipts it is said to have scored: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS = form relabel detected: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS quoted JSON key relabel detected: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS edit that keeps the pin is not a relabel: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS stripped then re-pinned yields two relabels: met=False undisclosed_relabels=2 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS deleted then re-added with another pin is a relabel: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS rename plus relabel in one commit is seen under the new path: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS a receipt moved out of the population counts as vanished: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=1 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS deleted and re-added identically leaves no latch: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS relabel on a merged side branch is seen at its own commit: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=0 scorecard_pin=0
+PASS a new receipt relabelled on a merged side branch is seen: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=2 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS round outside 52-57 is out of population: met=True undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS round-54 relabel undisclosed: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS round-57 non-claim control relabelled: met=False undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=1 new_unpinned=1 new_receipts=2 scorecard_pin=1
+PASS the mutation-ladder JSON is excluded from the population: met=True undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 new_relabelled=0 new_unpinned=0 new_receipts=3 scorecard_pin=1
+PASS history without the base revision is flagged: new_unpinned=2 met=False
+PASS CLI met repo exits 0: exit=0
+PASS CLI unmet repo exits 1: exit=1
+PASS CLI malformed errata exits 2: exit=2
+PASS CLI usage error exits 64: exit=64
+c57 receipt-pins selftest: 48/48
+EXIT=0

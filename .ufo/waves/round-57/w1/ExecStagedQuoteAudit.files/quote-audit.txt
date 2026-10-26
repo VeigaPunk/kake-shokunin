@@ -1,0 +1,29 @@
+=== QUOTED SPANS (ASCII double-quoted, units >= 2) ===
+S421 (staged S403) baidu-dead-link-taxonomy.md: ascii_double_quoted_spans_ge2=0 curly_quotes=0 backticks=2
+S422 (staged S408) baidu-spider3-dead-link-recognition.md: ascii_double_quoted_spans_ge2=0 curly_quotes=0 backticks=2
+
+=== RECHECK grep -F STRINGS ===
+S421 recheck-pattern units=29 chars=31 raw_substring=True in_content=True page_unique=True count_in_page=1 in_other_body=False over_units=True over_chars=False
+  grep -F -c -> 1 (staged row claims 1)   pattern=死链一般是指页面已经无效，无法对用户提供任何有价值信息的页面。
+S422 recheck-pattern units=37 chars=40 raw_substring=True in_content=True page_unique=True count_in_page=1 in_other_body=False over_units=True over_chars=False
+  grep -F -c -> 1 (staged row claims 1)   pattern=启用了全新的死链识别模型，能识别协议死链，以及大多数内容死链、跳转死链等低质网页
+
+=== source: SECTION LABELS ===
+S421: label='§ 一、了解死链 → 1、死链都有哪些类型？ A：'
+  full_label occurrences_in_body=0 units=16 chars=25 in_content=False page_unique=False
+  body 'A：' occurrences=10 page_unique=False
+  label_without_'§ '_occurrences=0
+  piece '一、了解死链': units=5 chars=6 raw_substring=True in_content=True count_in_page=1 page_unique=True over_units=False over_chars=False
+  piece '1、死链都有哪些类型？ A：': units=9 chars=14 raw_substring=False in_content=False count_in_page=0 page_unique=False over_units=False over_chars=False
+  piece '1、死链都有哪些类型？': units=8 chars=11 raw_substring=True in_content=True count_in_page=1 page_unique=True over_units=False over_chars=False
+    (label writes '1、死链都有哪些类型？ A：'; the '？ A：' space is not in the body)
+  body has '→' : 0   body has '§' : 0
+S422: label="§ the article body's dead-link section"
+  full_label occurrences_in_body=0 units=6 chars=38 in_content=False page_unique=False
+  body 'A：' occurrences=0 page_unique=False
+  label_without_'§ '_occurrences=0
+  piece "the article body's dead-link section": units=5 chars=36 raw_substring=False in_content=False count_in_page=0 page_unique=False over_units=False over_chars=False
+  body has '→' : 0   body has '§' : 0
+
+=== SUMMARY ===
+spans_tested=0 over_ceiling=0 non_substring=0 labels_with_0_hits=2 S421,S422

@@ -1,0 +1,621 @@
+                                                  Through the Lens of Google CrUX: Dissecting Web
+                                                  Browsing Experience Across Devices and Countries
+                                                   Jayasree Sengupta∗ , Tanya Shreedhar† , Dinh Nguyen‡ , Robert Kramer‡ , and Vaibhav Bajpai§
+                                                                      ∗ BIT Mesra, India; † The University of Edinburgh, UK
+                                                         ‡ Technical University of Munich, Germany; § Hasso-Plattner Institute, Germany
+
+
+
+
+                                            Abstract—User quality of experience in the context of Web
+                                         browsing is being researched widely, with plenty of develop-
+
+
+                                                                                                             Sample Size (URLs)
+                                         ments occurring alongside technological advances, not seldom
+                                         driven by big industry players. With Google’s huge reach and
+                                         infrastructure, the Chrome User Experience Report (CrUX)
+                                         provides quantitative real-life measurement data of a vast mag-
+                                         nitude. Analysis of this steadily expanding dataset aggregating
+                                         different user experience metrics, yields tangible insights into
+
+
+
+
+arXiv:2308.06409v2 [cs.NI] 18 Apr 2024
+                                         actual trends and developments. Hence, this paper is the first                            (a) Timeseries of Sample Size
+                                         to study the CrUX dataset from the viewpoint of relevant
+                                         metrics by quantitative evaluation of users’ Web browsing ex-
+                                         perience across three device types and nine European countries.
+
+
+                                                                                                             Total Kilobytes
+                                         Analysis of data segmented by connection type in the device
+                                         dimension shows desktops outperforming other device types for
+                                         all metrics. Similar analysis in the country dimension, shows
+                                         North European countries (Sweden, Finland) having maximum
+                                         4G connections (85.99%, 81.41% respectively) and steadily
+                                         performing 25%-36% better at the 75th percentile across all
+                                         metrics compared to the worst performing country. Such a high-
+                                         level longitudinal analysis of real-life Web browsing experience                         (b) Timeseries of Total Kilobytes
+                                         provides an extensive base for future research.
+                                                                                                            Fig. 1: Growth of the Internet from 2010 to 2023 both in terms
+                                                              I. I NTRODUCTION                              of number of URLs (a, top) and median website size in KB (b,
+                                                                                                            bottom) as detected by HTTParchive [15].
+                                            User Quality of Experience (QoE) can be described as "a
+                                         subjective measure of customer’s experiences" [1]. With the
+                                         growth and development of the Internet, the desire for better      velopments. This makes for a powerful resource as it will
+                                         understanding and metrication of the quality of experience         provide important insights to the site owners for further
+                                         now exists for many domains in the Internet ecosystem [2].         development, especially as there is an emerging interest in
+                                         User QoE for browsing the Internet is an actively researched       in-the-wild measurements [11][12][13][14].
+                                         field with particular interest from various big players such          The Internet has grown tremendously over the years (see
+                                         as Internet Service Providers (ISPs), Content Distribution         Fig. 1), especially in the last decade (from 2018 onwards)
+                                         Networks (CDNs), infrastructure providers, content origi-          with an exponential increase in URLs. With the popularity
+                                         nators like YouTube and Google, as well as the end-users           of smartphones, mobile Internet has also seen a steady
+                                         themselves. With web browsing being one of the most                development and received widespread user acceptance as
+                                         dominant activities on cellular networks [3], accompanied          already predicted in [16]. The explosive growth of the mobile
+                                         by an increase of mobile web data usage over the years             Internet, followed by a linear increase in tablet ownership
+                                         [4][5][6] and mobile phones steadily having the highest            further reinforced the mobile Internet user base. The Internet
+                                         usage densities worldwide [7], research highly benefits from       has now reached a penetration of over 3.8 billion people, the
+                                         measuring the user quality of experience.                          first time numerically over 50% of the world’s population
+                                            In this context, the Google CrUX dataset is a vastly            is using the Internet according to Meeker [4] which has
+                                         large public dataset that uses Google’s large-scale Internet       seen a steady increase from 24% in 2009. According to
+                                         measurement architecture [8] to aggregate browsing data            independent data from StatCounter [7], mobile Internet and
+                                         and derive invaluable real-life user quality of experience         desktop Internet users have a similar share at 48% and
+                                         metrics across all device types. Yet, the CrUX report has          49% respectively, showcasing the dichotomy in the current
+                                         limited scientific work [9][10] done on it to date (see: §V).      Internet device landscape. Thus, efforts (see: §V) have been
+                                         Additionally, the raw metrics, such as First Paint (FP), DOM       made to factor users in more real-life data measurements
+                                         Content Loaded (DCL), etc. gathered through browser, i.e.          such as those conducted by Ickin et al. [13] for mobile
+                                         Google Chrome usage is yet to be explored in depth. It can         application quality of experience. Also, efforts to improve
+                                         be put into applicable contexts and paired with the dataset’s      user experience in mobile Internet browsing regarding load-
+                                         ongoing aggregation over time, capturing longitudinal de-          ing times and latency have been reviewed by Cazanas et
+Fig. 2: Performance graph generated by Google Chrome’s built-in developer tools for https://www.google.com load timings, showcasing
+its relative temporal relation on a 4G type connection across different metrics.
+
+
+al. [17], identifying major web design strategies aimed at                                 II. M ETHODOLOGY
+heightening mobile user quality of experience. However,                   The Chrome User Experience Report (CrUX Report)
+such a comprehensive study on users browsing experience                aggregates real-life Internet usage quality of experience data
+(in Google Chrome) across different metrics and dimensions             collected from Google Chrome users who opted to send
+over the CrUX dataset has not been conducted yet, which                their Google usage statistics [18]. While the usage statistics
+serves as the main motivation for this paper.                          encompass data about system information, preferences, user
+                                                                       interface feature usage, responsiveness, performance, and
+   This paper utilizes real-life user measurement data aggre-
+                                                                       memory usage [19], the CrUX report enlists only a subset
+gated in the Google CrUX dataset and highlights various
+                                                                       or derivative of such data. Google exposes the data via
+trends and developments, providing a longitudinal overview
+                                                                       PageSpeed Insights providing URL-level data derived from
+of user quality of experience to enable future research. Fur-
+                                                                       CrUX via web frontend or API [20], and BigQuery [21],
+thermore, analysis near the top level of the data among given
+                                                                       providing the whole dataset as well as an SQL-like interface
+dimensions showcases different aspects and areas of research
+                                                                       to perform queries on the dataset [22]. On the highest level,
+where the CrUX dataset will be useful. This is achieved
+                                                                       the data is either available as a globally aggregated set
+by analyzing all metrics in the dataset segmented along
+                                                                       called all, or segmented by countries. In either dataset, there
+with all dimensions. In addition, we further reaffirm existing
+                                                                       are tables for each month in which the actual metrics and
+observations and developments in research. In summary, we
+                                                                       dimensions are included, aggregated by origins.
+make the following key contributions in this paper:
+                                                                       A. Metrics
+                                                                          The metrics available in the CrUX dataset [18] mainly
+• Measurement: The convoluted methods and options of
+                                                                       load performance-focused data exclusively on a time-based
+  acquiring, aggregating and segmenting the CrUX dataset
+                                                                       measurement. Due to the data collection process, metrics
+  are explored (see: §II) with a focus on reproducibility. The
+                                                                       are comprised of key timings in the Critical Rendering
+  dataset is segmented by effective connection type to study
+                                                                       Path and enable deeper insight and optimization in website
+  development of user experience across three device types
+                                                                       engineering (see: Fig. 2). Each metric is represented as a
+  and nine European countries. We are the first to conduct a
+                                                                       histogram nested into a structure yielding three nodes having:
+  detailed metric-wise analysis and compare its performance
+  in these dimensions. This yields tangible insights into              • start: Lower time boundary of the bin in milliseconds.
+
+  users’ actual Web browsing experiences under different                  Data: Integer value
+  scenarios.                                                           • end: Upper time boundary of the bin in milliseconds. Data:
+
+• Findings: We show (see: §III) that despite phone density                Integer value
+  (64.8%) being higher than desktops (31.5%) in the CrUX               • density: Normalized density in the current bin. Data:
+
+  dataset, the measurement across metrics reveals that desk-              Floating point number between 0 to 1
+  top devices outperform other device types. We also observe              1) First Paint (FP) [23]: Describes the point in time
+  that North European countries, i.e. Sweden and Finland               when anything visually discerning (to an empty page) is
+  have maximum 4G connections (85.99% and 81.41%,                      rendered on the screen. This, together with first contentful
+  respectively). At the 75th percentile, these two countries           paint generally marks the quality of experience notion of
+  perform 25%-36% better than the worst performing coun-               first visual feedback, notifying the user that "something is
+  try Italy, across all metrics. These findings reflect new            happening" and is thus a measurable property for delay in
+  insights into the device usage patterns and user experience          user perception.
+  along with the leading countries and geographical locations             2) First Contentful Paint (FCP): Refers to the point in
+  driving such patterns. To support reproducibility, we will           time when the first content from the Document Object Model
+  release the measurement setup and analysis scripts publicly          (DOM) is rendered. Both FP and FCP impact traditional
+  on GitHub.                                                           quality of experience notions of user-perceived latency [24]
+                         CDFs for first paint timing among speeds                           CDFs for first contentful paint timing among speeds
+        1.0                                                                     1.0
+
+        0.8                                                                     0.8
+
+        0.6                                                                     0.6
+ CDF                                                        4G            CDF                                                        4G
+        0.4                                                 3G                  0.4                                                  3G
+        0.2
+                                                            2G                  0.2
+                                                                                                                                     2G
+                                                            slow-2G                                                                  slow-2G
+        0.0                                                                     0.0
+              102                103                  104           105               102                 103                  104           105
+                                        fp time(ms)                                                             fcp time(ms)
+                    CDFs for DOM  content loaded timing among speeds
+                              (a) First Paint (FP)                                          CDFs(b)forFirst
+                                                                                                       DOMContentful
+                                                                                                            content loaded
+                                                                                                                       Painttiming
+                                                                                                                              (FCP)among speeds
+        1.0                                                                     1.0
+                                                                                                     4G
+        0.8                                                                     0.8                  3G
+        0.6                                                                     0.6
+                                                                                                     2G
+                                                            4G                                       slow-2G
+ CDF                                                                      CDF
+        0.4                                                 3G                  0.4
+
+        0.2
+                                                            2G                  0.2
+                                                            slow-2G
+        0.0                                                                     0.0
+              102                103                  104           105               102                 103                  104           105
+                                       dcl time(ms)                                                             ol time(ms)
+                      (c) DOM Content Loaded (DCL)                                                     (d) Onload (OL)
+         Fig. 3: Metrics across connection types for the dataset. Higher speeds result in direct improvement for every metric.
+
+and start-up time [25], affecting quality of experience directly            while a data entry marked as "2G" could be a high bandwidth
+[26]. Particularly more than other metrics, FCP correlates to               connection with unusually high round-trip-times. As defined
+the delay users tolerate in general web usage [27].                         by the W3C Network API [32]. "Offline" and "slow-2G"
+   3) DOMContentLoaded [28]: Exact time when the com-                       will be considered fringe cases in this paper. While "slow-
+plete HTML file has been parsed, regardless of other ongoing                2G" limits itself to a very slow down speed bandwidth of
+loading processes. After this event finishes, the render tree               50 kbps and round-trip-time of 2000 ms, "offline" includes
+can be built. Websites achieve better speed and quality                     Progressive Web Application’s support for offline usage [33]
+of experience by optimizing prior DCL events [29]. For                      which was deemed unrepresentative for current work
+engineering purposes, minimising DCL timing results in                      Device Type: Classified via User-Agent string [34] from the
+earlier onload timings due to faster rendering. While both                  Chrome browser [35]. In the dataset, this dimension is simply
+metrics either directly or indirectly affect the overall load               injected into three possible string values: "desktop", "phone"
+time of a website, DOM content loaded timings are improved                  and "tablet".
+solely by website engineering [30].                                         Country: Dependent on the IP address of the device where
+   4) Onload (OL): Specifies the point in time when the                     the content is being delivered to. Notably, this dimension is
+whole page including all dependent resources have been                      not modeled inside of the tables but rather achieved through
+loaded, both in terms of content as well as visibly. This plays             aggregation of country-specific sub-datasets of aforemen-
+well into quality of experience metrics such as successful                  tioned metrics.
+download completion probabilities and availability of service               Origin: An origin is a website, as known to Google’s web
+[2] aside from being a self-defined load time metric for                    crawlers. Metrics are aggregated by origin where the data is
+websites, capturing the impact of bandwidth [31].                           a string containing web address of the site.
+                                                                            Timeframe: CrUX data can be dissected into time spans
+B. Dimensions                                                               of whole months by aligning with the Gregorian Calendar.
+                                                                            However, the time frame is not embedded into the tables,
+   Dimensions provide useful segmentation possibilities of
+                                                                            it is rather aggregated by months at the lowest extra-tabular
+the metrics.
+                                                                            level.
+Effective Connection Type: It is not necessarily the actual
+connection type, but classified by down speeds and round-                   C. Distribution of Connection Types
+trip-times. This means a data entry marked as "3G" could                      There is an increase of 4G density with time and net-
+be a slow desktop fixed connection despite all connotations,                work infrastructure improvement both for landline [16] and
+                         CDFs for first paint timing among devices                            CDFs for first contentful paint timing among devices
+        1.0                                                                      1.0
+
+        0.8                                                                      0.8
+
+        0.6                                                                      0.6
+ CDF                                                                       CDF
+        0.4                                                 desktop              0.4                                                   desktop
+        0.2
+                                                            phone                0.2
+                                                                                                                                       phone
+                                                            tablet                                                                     tablet
+        0.0                                                                      0.0
+              102                 103                 104            105                102                 103                104              105
+                                        fp time(ms)                                                               fcp time(ms)
+                    CDFs for DOM  content loaded timing among devices                               CDFs for onload timing among devices
+                             (a) First Paint (FP)                                               (b) First Contentful Paint (FCP)
+        1.0                                                                       1.0
+                                                                                                       desktop
+        0.8                                                                       0.8                  phone
+                                                                                  0.6
+                                                                                                       tablet
+        0.6
+ CDF                                                                       CDF
+        0.4                                                 desktop               0.4
+
+        0.2
+                                                            phone                 0.2
+                                                            tablet
+        0.0                                                                       0.0
+              102                 103                 104            105                102                 103                  104            105
+                                    dcl time(ms)                                                                   ol time(ms)
+                     (c) DOM Content Loaded (DCL)                                                       (d) Onload (OL)
+Fig. 4: CDFs of all metrics across devices types, for the whole dataset duration. A clear classification is visible - desktop outperforms
+phones, which in turn outperform tablets - for all metrics.
+
+mobile Internet [5][36][37]. Owing to the high variance                      aligns with the notion of FP being infeasible much earlier
+in bandwidth between the connection types, segmentation                      due to unsolved network latency constraints caused by adding
+by connection types provides useful insight. The metrics                     bandwidth [26]. Analysis of 3G as well as 2G speeds
+exhibit a predictable pattern as in faster speeds provide                    showcase an increase in average FP time, suggesting website
+faster timings across all metrics (see Fig. 3), which translates             and content distribution development following the general
+directly to more favourable quality of experience, showcasing                Internet speed trends.
+a correlation; a finding congruent with existing notions of
+                                                                             First Contentful Paint: FCP timings in the CrUX dataset
+higher bandwidths, thereby improving quality of experience
+                                                                             behave similarly to the FP ones. Thus, for connection type
+by reducing user cancellation rates. It is stressed that this
+                                                                             segmentation, FCP and FP metrics can be used for the same
+pattern might implicitly result from the effective connection
+                                                                             analyses.
+type classification not only by bandwidth but also by round-
+trip-time [32]. When comparing the betterment of the metrics                 DOM Content Loaded: This metric is more important for
+along the different connection types, a slight rate decrease                 front-end engineers, as the timing is often waited for by
+can be observed for all metrics while the onload metric                      Javascript frameworks before executing scripts [39]. As the
+continues improving at a better rate than all other metrics,                 DOM-tree’s complexity impacts (browser) computing and
+reaffirming the implication that the onload timing is more                   secondary effects more so than it effects network bandwidth
+bandwidth-dependent than the other metrics, not to mention                   [40], the timings are mostly steady albeit at different scales
+subject to quality of service related implications like jitters or           for 4G and 3G. For 2G connection types, which are defined to
+packet loss[38][25][1]. Given the steady increase of 4G data                 have a maximum downspeed of 70 kbit/s, average DOM-tree
+compared to stagnating data of all other connection types,                   sizes seem to impact the timing, showing a slow increase.
+this also means that general research will carry most meaning                Onload: This metric shows slight improvement over time for
+for 4G type connections while the other speeds are special                   4G connections. Expectantly, 3G data shows about constant
+or fringe case analyses.                                                     rates up to a slight decrease in onload performance near the
+First Paint: Segmentation along the speed dimension shows                    end of the observed timeframe, while 2G speeds showcase
+a roughly steady, slightly downwards trend towards the                       worse performance over time, reaffirming speeds being a
+1000 ms mark for 4G connections. The steady FP timing                        deciding factor for the onload metric [26].
+Connection speed densities (phone) (2019-03)         Connection speed densities (desktop) (2019-03)        Connection speed densities (tablet) (2019-03)
+                                         Connection                                           Connection                                              Connection
+                                         2G - 0.03 %        4G                                2G - 0.00 %        4G                                   2G - 0.00 %
+     4G                                  3G - 6.89 %                                          3G - 1.30 %                                             3G - 0.62 %
+                                         4G - 93.05 %                                         4G - 98.70 %                                            4G - 99.38 %
+                                         offline - 0.00 %                                     offline - 0.00 %                                        offline - 0.00 %
+                                         slow-2G - 0.04 %                                     slow-2G - 0.00 %                                        slow-2G - 0.00 %
+
+                                    3G
+                                                                                         3G                                                      3G
+
+                        (a) Phone                                            (b) Desktop                                            (c) Tablet
+  Fig. 5: Proportions of connection speed type segmented by device. A common trend among all devices is the increasing predominance
+  of 4G type connections.
+
+
+                               III. A NALYSIS                                        in research. In line with observations made in § II-C, the
+                                                                                     density of 4G type connections is ever rising for each device
+     For analysis of temporal data, the dataset is segmented
+                                                                                     type segmented by month. As expected, availability of 4G
+  along the date dimension which aggregates data by month.
+                                                                                     speeds on mobile Internet lags behind that of desktop devices
+  The CrUX real-life data behaves as expected considering
+                                                                                     (see Fig. 5) [5], especially due to the latter’s usual connection
+  definitions (see Section II) and assumptions regarding the
+                                                                                     via landline.
+  timing metrics, with the order of timings being first paint,
+  first contentful paint, DOM content loaded and onload. The                         First Paint: The median of the first paint timings, remain
+  first paint timing is usually very close to the first contentful                   fairly stead within 1000ms to 2000ms range for all device
+  paint timing. As an example, the medians are less than one                         types, with desktop being slightly faster than its mobile
+  bin size (less than 100 ms) apart. As the first contentful paint                   counterparts. This supports the findings in § II-C, given the
+  timing is considered as meaningful as the first paint timing                       prevalence of 4G connection types (see Fig. 5), being mainly
+  [41], interpretation will be considered applicable on both;                        limited by a baseline network latency [26] rather than the
+  additionally, both generally correlate with established notions                    device type.
+  of delivery time in a quality of experience context.                               First Contentful Paint: First contentful paint analysis
+                                                                                     yields, again, similar results to first paint analysis according
+  A. Metrics Across Device Types                                                     to the similar nature of the timings. Steady timings over the
+                                                                                     entire timeframe for each device type is expected considering
+     The devices dimension has a clear three value classifica-
+                                                                                     consolidation of connection speeds. Median timings near the
+  tion with no semi-open interval ranges.
+                                                                                     1000ms mark coincide with general notions of short delays
+     1) General Analysis: Data for tablets in the CrUX dataset
+                                                                                     or fast response times in Internet browsing [43][27].
+  make up less than 1% at all time samples. Correspondingly,
+  desktop density averages to 35.1% leaving phone density at                         DOM Content Loaded: DCL timing is dependent on net-
+  about 64.8%. Looking at all metrics segmented by devices,                          work speed, latency and especially structure of the webpage,
+  desktop devices display a distinct lead over other device                          suggesting most devices not being a bottleneck in hardware
+  types in any metric (see Fig. 4), which can be assumed to                          aspects. As this segmentation aggregates without considering
+  correlate with generally higher network speeds (see § II-C)                        connection speed types, barely any change can be seen from
+  usually used on a desktop via landline Internet connections.                       the start of the non-mass-aggregation part of the data. This
+  As phones are known to be used with mobile Internet more                           observation, among all devices, is congruent to the premise
+  than desktop and tablet devices are [5], there are quality                         of median website data fetched barely changing (increase in
+  of service aspects [38][25] to be considered as a factor                           12.5% for mobile and 9.1% for desktop) in the observed
+  responsible for slower timings. Although tablet devices have                       timeframe [44].
+  an even higher 4G usage density than desktop devices, they                         Onload: The onload metric shows varying degrees of im-
+  have the slowest timings among all devices, hence, requiring                       provements over time. Mobile devices (phone and tablet)
+  further investigation.                                                             are seen to have visible improvements, going from 3200 to
+     2) Temporal Analysis: Over the analyzed time period,                            2700 and 5800 to 3500 respectively. Interestingly enough,
+  tablet usage is always below 1% when compared to phone                             desktop devices have a very flat downwards curve, finishing
+  and desktop usage, indicating a strong and steady preference                       most onloads in the median 2400 range. This suggests
+  of devices towards phones in the area of mobile Internet                           several possible hypotheses:
+  browsing usage. When looking at phone-to-desktop-ratio,                            • Desktop PCs are usually connected via fast and stable fixed
+  there is no clear trend visible but desktop devices never                            Internet connections, thus providing best OL performances
+  amounted to more than 46.67% of devices used to browse                               with least variance (among devices).
+  the web via Google Chrome and averages to 35.09% over the                          • Tablet devices predominantly use home WIFI connections
+  complete timespan, making phones the most prevalent device                           usually connected via the same fast and stable landline
+  as has been previously predicted [36][42] and observed [5][4]                        Internet connections too, they differ to desktop PCs in two
+TABLE I: Country-wise connection distribution in percent. Sweden and Finland have the highest (shown in blue) 4G connection requests,
+whereas France and Italy having the lowest (shown in grey) percentage of requests.
+        Connection                                                Countries (%)
+          Types        Germany      Great Britain    France     Italy  Spain    Sweden       Finland    Poland     Romania
+            4G           78.4          78.44          70.25     69.7   76.52     85.99        81.41      73.86      75.06
+            3G          21.12          21.01          29.0      29.29  23.33     13.96        18.57      25.56       24.5
+            2G           0.19            0.3          0.54      0.85     0.1     0.02          0.01      0.38        0.2
+         slow-2G         0.29           0.24          0.21      0.17    0.04     0.03          0.01       0.2        0.24
+          offline        0.02            0.0          0.01       0.0     0.0      0.0           0.0       0.0        0.01
+
+
+  aspects: machine power and general defaulting to mobile           ‘3G’ requests and Italy with 69.7% ‘4G’ and 29.29% ‘3G’
+  versions of websites.                                             requests. Overall, the countries differ a lot when it comes to
+• Thus, the notable bigger improvements of mobile device            the distribution of the different connection types.
+  OL performance could indicate optimization or even just              2) Temporal Analysis: As observed from the above anal-
+  emerging availability of mobile website versions [17] or          ysis, the amount of ‘3G’ connections is too low to be com-
+  responsive design advancements.                                   pared, hence in this section, the measurement is restricted to
+• Mobile Internet availability and speeds are improving.            ‘4G’ only.
+                                                                    First Contentful Paint: Fig. 6a shows the normalized
+ Takeaway: Phone density is highest at around 64.8%,                distribution where all countries share the same minimum at
+ followed by desktop density at 31.5%. Looking at all               0ms. The 25th percentile is fixed at 600ms for all countries
+ metrics segmented by devices, desktop devices display a            except Italy which is 800ms. Germany and Sweden have a
+ distinct lead over other types. Although tablet devices have       median at 1000 ms, whereas others are worse by 200ms,
+ an even higher 4G usage density than desktop devices, they         except Italy and Spain which records the highest median
+ have the slowest timings amongst all.                              values at 1400 ms. When looking at the 75th percentile
+                                                                    the graphs start to differ more with Germany, Sweden and
+B. Metrics across different European countries                      Finland at 2000ms whereas Italy at 2600 ms. The same
+   This section analyses how different European countries           picture is reflected for the maximum with the same three
+compete with each other in terms of mobile QoE. For the             countries on top of the standings at 4000 ms, whereas Italy
+analysis following countries were chosen: Germany (DE),             has the worst connections with 5200ms. All other countries
+Great Britain (GB), France (FR), Spain (ES), Italy (IT),            have metrics in between these values with Spain performing
+Sweden (SE), Finland (FI), Poland (PL), Romania (RO).               worse compared to others.
+   1) General Analysis: The distribution of different connec-          For this metric, Google proposes to interpret the key
+tion types across countries within the EU is shown in Table         indicators at the 75th percentile as[45] : loading the paint
+I. Looking at the data, it is evident that only a very small        can be fast (< 2 seconds), moderate (2-4 seconds) and slow
+percentile comes from connections, which are slower than            (> 4 seconds). Thus, only Sweden, Finland and Germany
+‘3G’ namely ‘offline’, ‘slow-2G’ or ‘2G’. It is observed that       have a ‘good’ user experience (i.e. fast FCP loading) while
+most connections of these types combined are found in Italy         barely managing to reach the goal. All other countries lack
+with 1.02% and France with 0.75%. Great Britain, Germany,           a bit behind and might need improvement. However, it is
+Romania and Poland are in the middle with 0.54%, 0.5%,              important to mention that even the worst country, Italy, is
+0.45% and 0.4% respectively. Spain has fewer requests than          only 600ms behind the best Sweden at the 75th percentile.
+the middle of the pack with 0.14%, but the two countries            DOM Content Loaded: Similar to the previous observation,
+with the lowest amount of connections slower than ‘3G’ are          the minimum is again at 0ms for all countries. The 25th
+in Sweden and Finland with 0.05% and 0.02% by quite a               percentile is at 600ms for Germany, Great Britain, France,
+bit. As majority of the requests come from the connection           Sweden and Finland and at 800ms for the other countries. At
+types ‘3G’ and ‘4G’ they correlate with each other. Just as         the median, the results start varying slightly, with Germany,
+with the slower connection types, Sweden and Finland are            Sweden and Finland having the best results at 1200ms,
+also ahead here with 85.99% ‘4G’ and 13.96% ‘3G’ requests           followed by Great Britain, France, Poland and Romania
+and 81.41% ‘4G’ and 18.57% ‘3G’ requests respectively.              at 1400ms, and finally Italy and Spain where the median
+Great Britain and Germany follow after that with 78.44%             is another 200ms higher. The 75th percentile has a wider
+‘4G’ and 21.01% ‘3G’ requests and 78.4% ‘4G’ and 21.12%             spread with Sweden and Finland having the lowest median
+‘3G’ requests respectively. Spain, Romania and Poland are           at 2200ms. Germany is 200ms higher whereas Great Britain,
+the next contenders having 76.52% ‘4G’ and 23.33% ‘3G’              France, Poland and Romania have a 400ms higher average
+requests, 75.06% ‘4G’ and 24.5% ‘3G’ requests and 73.86%            75th percentile than the best ones. The percentile increases
+‘4G’ and 25.56% ‘3G’ requests correspondingly. Again,               again by 200ms for Spain and another 200ms for Italy. The
+France and Italy are last in the list with the lowest amount of     maximum can be grouped in a similar way with Sweden
+‘3G’ and ‘4G’ requests, France with 70.25% ‘4G’ and 29.0%           and Finland having a maximum of 4600ms, whereas Italy
+                                                                     land) perform well when it comes to user experience. Ger-
+                                                                     many has been able to come close to these countries and
+                                                                     increase its mobile user experience, which is great as it
+                                                                     has the most number of distinct origins. Countries like Italy
+                                                                     improved as well in terms of QoE, but it still has a long road
+                    (a) First Contentful Paint                       ahead to close the gap with other countries.
+
+
+                                                                      Takeaway: The country-wise grouping of connection distri-
+                                                                      bution types, shows Sweden topping the list with maximum
+                                                                      4G connection requests (>85%), followed by Finland
+                                                                      (≈81%) whereas Italy is at the bottom (≈69%). The
+                    (b) DOMContentLoaded                              temporal analysis at the 75th percentile shows Sweden
+                                                                      and Finland performing 30% (FCP), 36.36% (DCL) and
+                                                                      25% (OL) better than Italy. This reaffirms that Sweden and
+                                                                      Finland indeed provide good user experience.
+
+                                                                               IV. L IMITATIONS AND F UTURE W ORK
+                           (c) Onload
+                                                                        All metrics in the CrUX dataset are aggregated by origin
+                                                                     as statistical data in the form of normalized histograms. As a
+Fig. 6: Country-wise distribution of different metrics for 4G        result, it is not discernible whether an origin’s metric quality
+connection type. Sweden and Finalnd are the best performing          has increased over time or not. Thus, any improvement on the
+countries providing good user experience while Italy is the worst.
+                                                                     metrics would purely be of qualitative (i.e. more accurate)
+                                                                     nature. There are a few other factors that limit the general
+is the worst performing amongst all with 6200ms. All other           validity of these results. Firstly, as the data source for this
+countries have metrics in between these values.                      dataset is the Google Chrome browser which is not the
+   Even for the metric DCL, Sweden and Finland have the              default browser on most available mobile phone OS, users
+best user experience, closely followed by Germany. Again,            have to actively use/select Google Chrome as their default
+Italy lacks behind other countries and provides a relatively         browser. Secondly, this measurement is only based on a
+worse user experience.                                               subset of users who particularly did not opt out from sharing
+Onload: Again, as for all the other metrics the minimum              their browser history with Google. Lastly, only websites
+is at 0ms for every country. The 25th percentile is below            known to the Google web crawler are used as input data by
+the 1600ms threshold for all countries. The lowest percentile        the CrUX report. This may lead to new websites not being
+is achieved in Germany, Sweden and Finland with 1000ms,              considered while older unused websites still providing data.
+followed by Great Britain, France, Spain and Poland with                As a future extension, it would be interesting to explore
+1200ms. The remaining countries have a 25th percentile of            a diverse categorization for connection speeds faster than
+1400ms. Germany, Sweden and Finland had all together the             700Kbps. It could lead to a more precise analysis of quality
+lowest median as well with 2200ms. Great Britain, France,            of experience (QoE) and thereby to more concise results.
+Spain and Poland is next with 2400ms, followed by Romania            Further research can be focused on origin-specific segmen-
+at 2600ms and Italy at 2800ms. The 75th percentile is                tation, as classification of origins can be used for implicit
+dispersed even further. Its lowest value is 4000ms for Sweden        classification of the CrUX data. Going deeper into the origin
+and Finland while highest is recorded for Italy with 5000ms.         values, it is possible to measure performance of mobile-
+The other countries rank in the same order as for the median,        specific origins in contrast to their desktop counterparts. A
+except Germany which is at 4200ms. The same trend is                 possible follow-up study could also validate the results with
+observed for the maximum. Again, Sweden and Finland have             a different web browser across all device types. It would be
+the lowest maximum at 8400ms whereas Italy has the highest           especially interesting for browsers used as default for mobile
+maximum at 10400ms. The other countries also maintain                devices such as Safari. Lastly, studies could investigate
+their order here.                                                    factors that explain why the user experience differs between
+   The metric Onload follows the global trend and QoE                European countries and possibly try to give explanations on
+order as previously discussed for all the countries. The data        which factors to improve on in order to enhance the user
+shows that OL lacks only a few 100 milliseconds behind the           QoE.
+previously analysed metrics, like DCL. This suggests a great
+improvement in user experience when browsing on a mobile                                 V. R ELATED W ORK
+device. The data also suggests that the difference between              The understanding of user QoE is vital for the real-world
+the metrics will get smaller in the future. Combined with an         deployment of new products, technologies and processes.
+Onload which gets even smaller, this is a good sign for the          The QoE metric that encompasses the objectiveness of
+overall QoE when measuring loading times.                            the user and methodologies for quantification of human’s
+   To summarize, the northern countries (Sweden and Fin-             perception of the metric have been discussed in [2][25][1].
+The effort to factor in more users, highlighted the need for                                   R EFERENCES
+real world data measurements such as the one conducted by
+Ickin et al. [13] for mobile application quality of experience.    [1] I. Martinez-Yelmo, I. Seoane, and C. Guerrero, “Fair quality
+                                                                       of experience (qoe) measurements related with networking
+Initially, time-based metrics such as response timings [46] or         technologies,” in Wired/Wireless Internet Communications, 8th
+delays were used in QoE measurements, which are dependent              International Conference, WWIC 2010, Luleå, Sweden, June 1-
+on the service layer aspects such as network access quality            3, 2010. Proceedings, 2010, pp. 228–239. [Online]. Available:
+                                                                       https://doi.org/10.1007/978-3-642-13315-2_19
+[13][47].                                                          [2] A. Van Moorsel, “Metrics for the internet age: Quality of experi-
+   Due to the timing-based QoE metrics, Briscoe et al. [26]            ence and quality of business,” in Fifth International Workshop on
+surveyed techniques to reduce Internet latency. As real-life           Performability Modeling of Computer and Communication Systems,
+                                                                       Arbeitsberichte des Instituts für Informatik, Universität Erlangen-
+active user data measurements often involved high user cost,           Nürnberg, Germany, vol. 34, no. 13. Citeseer, 2001, pp. 26–31.
+Ravindranath et al. [48] proposed a utility measuring mobile       [3] A. Balachandran, V. Aggarwal, E. Halepovic, J. Pang, S. Seshan,
+application critical path during usage, while Aggarwal et al.          S. Venkataraman, and H. Yan, “Modeling web quality-of-experience
+[49] proposed a system utilizing passive network measure-              on cellular networks,” in The 20th Annual International Conference
+                                                                       on Mobile Computing and Networking, MobiCom’14, Maui, HI,
+ments to estimate the quality of experience.                           USA, September 7-11, 2014, 2014, pp. 213–224. [Online]. Available:
+   Efforts to improve user experience in mobile Internet               https://doi.org/10.1145/2639108.2639137
+browsing regarding loading times and latency have been             [4] “Internet trends 2019 by mary meeker,” Retrieved from https://www.
+                                                                       bondcap.com/report/itr19/, accessed: 2023-05-21.
+gathered and reviewed by Cazanas et al. [17], identifying          [5] “The state of broadband 2018: Broadband catalyzing sustainable
+three major web design strategies aimed at heightening                 development,”                 https://www.itu.int/dms_pub/itu-s/opb/pol/
+mobile user quality of experience: Responsive web design               S-POL-BROADBAND.19-2018-PDF-E.pdf, accessed: 2023-05-
+                                                                       21.
+on which work has also been done by Almeida et al. [50],           [6] “Cisco Visual Networking Index: Global Mobile Data Traffic Forecast
+adaptive web design and separate site deployment. Novel                Update, 2017-2022,” Accessed: 2023-05-21. [Online]. Available:
+approaches such as cognitive networks to handle the quality            https://www.cisco.com/c/en/us/solutions/collateral/service-provider/
+                                                                       visual-networking-index-vni/white-paper-c11-738429.html
+of experience requirements in future Internet evolution have       [7] “Desktop vs mobile vs tablet market share worldwide | stat-
+been presented in [51]. Koester et al. [52] presented and              counter global stats,” http://gs.statcounter.com/platform-market-share/
+evaluated the quality of experience modeling techniques                desktop-mobile-tablet, accessed: 2023-05-21.
+based on underlying technical quality dimensions.                  [8] V. Paxson, J. Mahdavi, A. Adams, and M. Mathis, “An Architecture for
+                                                                       Large Scale Internet Measurement,” IEEE Communications Magazine,
+   Very limited work has been done on the Google CrUX                  vol. 36, pp. 48 – 54, 09 1998.
+dataset till date. In one such work [10], Ruth et al. evaluates    [9] K. Ruth, A. Fass, J. Azose, M. Pearson, E. Thomas, C. Sadowski,
+the relative accuracy of the most popular top lists of websites        and Z. Durumeric, “A World Wide View of Browsing the
+                                                                       World Wide Web,” in Proceedings of the 22nd ACM Internet
+using a set of popularity metrics derived from server- side            Measurement Conference, 2022, p. 317–336. [Online]. Available:
+requests seen at Cloudflare. They observe that only the CrUX           https://doi.org/10.1145/3517745.3561418
+dataset accurately captures the top list of websites compared     [10] K. Ruth, D. Kumar, B. Wang, L. Valenta, and Z. Durumeric,
+                                                                       “Toppling top lists: Evaluating the accuracy of popular website
+to Cloudflare across all metrics. Another work [9], studies            lists,” in Proceedings of the 22nd ACM Internet Measurement
+the CrUX dataset to analyze how people spend time on the               Conference, 2022, p. 374–387. [Online]. Available: https://doi.org/10.
+web. They study the dataset to investigate the distribution of         1145/3517745.3561444
+                                                                  [11] A. Balachandran, V. Sekar, A. Akella, S. Seshan, I. Stoica, and
+web traffic, the types of websites that people visit often and         H. Zhang, “A quest for an internet video quality-of-experience
+spend the most time on and also the most popular websites              metric,” in 11th ACM Workshop on Hot Topics in Networks, HotNets-
+in different regions of the world. However, to the best of our         XI, Redmond, WA, USA - October 29 - 30, 2012, 2012, pp. 97–102.
+                                                                       [Online]. Available: https://doi.org/10.1145/2390231.2390248
+knowledge, there is no such comprehensive study on users
+                                                                  [12] F. E. Bustamante, D. Clark, and N. Feamster, “Workshop on tracking
+browsing experience across different metrics and dimensions            quality of experience in the internet: Summary and outcomes,”
+over the CrUX dataset.                                                 Computer Communication Review, vol. 47, no. 1, pp. 55–60, 2017.
+                                                                       [Online]. Available: https://doi.org/10.1145/3041027.3041035
+                     VI. C ONCLUSION                              [13] S. Ickin, K. Wac, M. Fiedler, L. Janowski, J. Hong, and A. K.
+                                                                       Dey, “Factors influencing Quality of Experience of Commonly used
+   The paper utilized the CrUX dataset to extensively evalu-           Mobile Applications,” IEEE Communications Magazine, vol. 50,
+ate users’ Web browsing experience for four different QoE              no. 4, pp. 48–56, 2012. [Online]. Available: https://doi.org/10.1109/
+metrics. Segmenting the dataset by connection type, we                 MCOM.2012.6178833
+                                                                  [14] M. J. Khokhar, N. A. Saber, T. Spetebroot, and C. Barakat, “On
+quantitatively evaluated users’ experience across three types          Active Sampling of Controlled Experiments for QoE Modeling,”
+of devices (desktop, phone and tablet) and nine European               in SIGCOMM Workshops, 2017, pp. 31–36. [Online]. Available:
+countries. Our study revealed that desktops significantly              https://doi.org/10.1145/3098603.3098609
+                                                                  [15] “Http archive | state of the web report,” http://beta.httparchive.
+outperformed phones, which in turn outperformed tablets                org/reports/state-of-the-web?start=earliest&end=latest&view=list, ac-
+across all metrics. Analysis along the country dimension               cessed: 2023-05-21.
+reflected the dominance of North European countries, such         [16] H. Kim, H. C. Chan, and S. Gupta, “Value-based adoption of
+                                                                       mobile internet: An empirical investigation,” Decision Support
+as Sweden and Finland over the South European ones like                Systems, vol. 43, no. 1, pp. 111–126, 2007. [Online]. Available:
+Italy. These two North European countries performed 25%-               https://doi.org/10.1016/j.dss.2005.05.009
+36% better than Italy at the 75th percentile for all of the       [17] A. Cazañas and E. Parra, “Strategies for Mobile Web Design,” Enfoque
+popular user experience metrics in the CrUX dataset. This              UTE, vol. 7, no. 1, pp. 344–357, 2017.
+                                                                  [18] “Chrome       User    Experience       Report,”    accessed:   2023-05-
+reaffirmed existing observations while strengthening the base          21. [Online]. Available: https://developers.google.com/web/tools/
+for future research.                                                   chrome-user-experience-report/
+[19] “Google Chrome Privacy Whitepaper,” accessed: 2023-05-                      [44] “Http archive | page weight,” https://beta.httparchive.org/reports/
+     21. [Online]. Available: https://www.google.com/chrome/privacy/                  page-weight?start=2017_10_01&end=2019_04_01&view=list,
+     whitepaper.html                                                                  accessed: 2023-05-21.
+[20] “About pagespeed insights | pagespeed insights | google developers,”        [45] “Defining      the    Core    Web     Vitals   metrics     Thresholds,”
+     https://developers.google.com/speed/docs/insights/v5/about, accessed:            accessed: 2023-05-21. [Online]. Available: https://web.dev/
+     2023-05-21.                                                                      defining-core-web-vitals-thresholds/
+[21] “Google BigQuery Documentation | BigQuery | Google Cloud,”                  [46] N. T. Bhatti, A. Bouch, and A. Kuchinsky, “Integrating user-
+     accessed: 2023-05-21. [Online]. Available: https://cloud.google.com/             perceived quality into web server design,” Computer Networks,
+     bigquery/docs/                                                                   vol. 33, no. 1-6, pp. 1–16, 2000. [Online]. Available: https:
+[22] “Google bigquery,” https://bigquery.cloud.google.com/, accessed:                 //doi.org/10.1016/S1389-1286(00)00087-6
+     2023-05-21.                                                                 [47] Y. M. Shin, S. C. Lee, B. Shin, and H. G. Lee, “Examining
+[23] “W3c paint timing api,” https://w3c.github.io/paint-timing/, accessed:           influencing factors of post-adoption usage of mobile internet: Focus
+     2023-05-21.                                                                      on the user perception of supplier-side attributes,” Information
+[24] Z. M. Mao, “Diagnosing Mobile Apps’ Quality of Experience:                       Systems Frontiers, vol. 12, no. 5, pp. 595–606, 2010. [Online].
+     Challenges and Promising Directions,” IEEE Internet Computing,                   Available: https://doi.org/10.1007/s10796-009-9184-x
+     vol. 20, no. 1, pp. 66–69, 2016. [Online]. Available: https:                [48] L. Ravindranath, J. Padhye, S. Agarwal, R. Mahajan, I. Obermiller,
+     //doi.org/10.1109/MIC.2016.1                                                     and S. Shayandeh, “Appinsight: Mobile app performance monitoring
+[25] F. A. Kuipers, R. E. Kooij, D. D. Vleeschauwer, and K. Brunnström,               in the wild,” in 10th USENIX Symposium on Operating Systems Design
+     “Techniques for measuring quality of experience,” in Wired/Wireless              and Implementation, OSDI 2012, Hollywood, CA, USA, October 8-10,
+     Internet Communications, 8th International Conference, WWIC 2010,                2012, 2012, pp. 107–120. [Online]. Available: https://www.usenix.
+     Luleå, Sweden, June 1-3, 2010. Proceedings, 2010, pp. 216–227.                   org/conference/osdi12/technical-sessions/presentation/ravindranath
+     [Online]. Available: https://doi.org/10.1007/978-3-642-13315-2_18           [49] V. Aggarwal, E. Halepovic, J. Pang, S. Venkataraman, and H. Yan,
+                                                                                      “Prometheus: toward quality-of-experience estimation for mobile apps
+[26] B. Briscoe, A. Brunström, A. Petlund, D. A. Hayes, D. Ros,
+                                                                                      from passive network measurements,” in 15th Workshop on Mobile
+     I. Tsang, S. Gjessing, G. Fairhurst, C. Griwodz, and M. Welzl,
+                                                                                      Computing Systems and Applications, HotMobile ’14, Santa Barbara,
+     “Reducing Internet Latency: A Survey of Techniques and Their
+                                                                                      CA, USA, February 26-27, 2014, 2014, pp. 18:1–18:6. [Online].
+     Merits,” IEEE Communications Surveys and Tutorials, vol. 18, no. 3,
+                                                                                      Available: https://doi.org/10.1145/2565585.2565600
+     pp. 2149–2196, 2016. [Online]. Available: https://doi.org/10.1109/
+                                                                                 [50] F. Almeida and J. Monteiro, “The role of responsive design in web
+     COMST.2014.2375213
+                                                                                      development,” Webology, vol. 14, pp. 48–65, 12 2017.
+[27] D. F. Galletta, R. M. Henry, S. McCoy, and P. Polak, “Web site
+                                                                                 [51] C. Bruni, F. D. Priscoli, G. Koch, A. Palo, and A. Pietrabissa,
+     delays: How tolerant are users?” J. AIS, vol. 5, no. 1, p. 1, 2004.
+                                                                                      “Quality of experience provision in the future internet,” IEEE Systems
+     [Online]. Available: http://aisel.aisnet.org/jais/vol5/iss1/1
+                                                                                      Journal, vol. 10, no. 1, pp. 302–312, 2016. [Online]. Available:
+[28] “Html              specification,”          https://html.spec.whatwg.org/        https://doi.org/10.1109/JSYST.2014.2344658
+     event-domcontentloaded, accessed: 2023-05-21.                               [52] F. Köster, G. Mittag, and S. Möller, “Modeling the overall quality
+[29] “What is domcontentloaded? | performance metrics,” https://varvy.                of experience on the basis of underlying quality dimensions,” in
+     com/performance/domcontentloaded.html, accessed: 2023-05-21.                     Ninth International Conference on Quality of Multimedia Experience,
+[30] “Dom content loaded - event reference | mdn,” https:                             QoMEX 2017, Erfurt, Germany, May 31 - June 2, 2017, 2017, pp. 1–6.
+     //developer.mozilla.org/de/docs/Web/Events/DOMContentLoaded,                     [Online]. Available: https://doi.org/10.1109/QoMEX.2017.7965647
+     accessed: 2023-05-21.
+[31] M. Ford, “Workshop report: reducing internet latency, 2013,”
+     Computer Communication Review, vol. 44, no. 2, pp. 80–86, 2014.
+     [Online]. Available: https://doi.org/10.1145/2602204.2602218
+[32] “W3c network information api,” https://wicg.github.io/netinfo/, ac-
+     cessed: 2023-05-21.
+[33] D. A. Hume, Progressive Web Apps. Manning, 2017.
+[34] “Hypertext transfer protocol (http/1.1): Semantics and content,” https:
+     //tools.ietf.org/html/rfc7231, accessed: 2023-05-21.
+[35] “User agent strings - google chrome,” https://developer.chrome.com/
+     multidevice/user-agent, accessed: 2023-05-21.
+[36] L. Humphreys, T. V. Pape, and V. Karnowski, “Evolving mobile
+     media: Uses and conceptualizations of the mobile internet,” J.
+     Computer-Mediated Communication, vol. 18, no. 4, pp. 491–507,
+     2013. [Online]. Available: https://doi.org/10.1111/jcc4.12019
+[37] G. P. Fettweis and S. M. Alamouti, “5G: Personal Mobile Internet
+     beyond what Cellular did to Telephony,” IEEE Communications
+     Magazine, vol. 52, no. 2, pp. 140–145, 2014. [Online]. Available:
+     https://doi.org/10.1109/MCOM.2014.6736754
+[38] M. Fiedler, T. Hoßfeld, and P. Tran-Gia, “A Generic Quantitative
+     Relationship between Quality of Experience and Quality of Service,”
+     IEEE Network, vol. 24, no. 2, pp. 36–41, 2010. [Online]. Available:
+     https://doi.org/10.1109/MNET.2010.5430142
+[39] “Analyzing critical rendering path performance | web fundamentals |
+     google developers,” https://developers.google.com/web/fundamentals/
+     performance/critical-rendering-path/analyzing-crp, accessed: 2023-
+     05-21.
+[40] “Uses an excessive dom size | tools for web devolopers | google de-
+     velopers,” https://developers.google.com/web/tools/lighthouse/audits/
+     dom-size, accessed: 2023-05-21.
+[41] “First     Contentful      Paint    Explained       |   GTmetrix,”    ac-
+     cessed: 2023-05-21. [Online]. Available: https://gtmetrix.com/blog/
+     first-contentful-paint-explained/
+[42] “Internet trends 2010 by mary meeker,” Retrieved from https://www.
+     bondcap.com/report/it10, accessed: 2023-05-21.
+[43] “User-centric performance metrics | web fundamentals | google devel-
+     opers,” https://developers.google.com/web/fundamentals/performance/
+     user-centric-performance-metrics, accessed: 2023-05-21.
+

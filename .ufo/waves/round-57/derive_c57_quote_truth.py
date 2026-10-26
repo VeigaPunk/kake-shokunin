@@ -129,6 +129,88 @@ sub('''            if f'value="{ROW_URL[sid]}"' not in texts[sid]:
 sub('"round56" not in str(receipt.get("userAgent", ""))', '"round57" not in str(receipt.get("userAgent", ""))')
 sub("does not carry the round tag round56", "does not carry the round tag round57")
 sub('"schema": "kake-r56-c2-quote-truth-v2"', '"schema": "kake-r57-c3-quote-truth-v1"') if '"schema": "kake-r56-c2-quote-truth-v2"' in body else None
+# ---- version 2 (after wave 1, before any claim was measured): attacks w1/CriticC3Counter, w1/CritCheatC3, w1/CriticControlsSizing ----
+sub('HELD_BODY_SHA256: dict = {}', 'BODY_SHA256 = {"S421": "32eaf8b74012c99dff8ae6cc3db0658d3f7520b04045336b8228461dab447182", "S422": "7cf2e27dc7e6dcba4e7bbeba09ed6f23a7c6322dc2a377e3cd36dee8c1de71ff"}  # frozen at the contract commit b9a5d012f7fd (sources/receipts.json)')
+a = body.index("ARTICLE_START = ")
+b = body.index("ROW_KINDS = ")
+body = body[:a] + '''ARTICLE_START = {"S421": 'class="article-info"', "S422": 'class="info-item-time"'}
+ARTICLE_END = {"S421": "往期回顾", "S422": "wiki-foot-right"}  # S421: the promo block after the article; S422: the empty foot block (searched after the start)
+
+''' + body[b:]
+a = body.index("def content_window(")
+b = body.index("def gate_lines(")
+body = body[:a] + '''def content_window(text: str, sid: str) -> tuple[int, int] | None:
+    """The article block: from the page's identity/byline container to the end marker (header, navigation, sidebar, promo and footer excluded)."""
+    lo = text.find(ARTICLE_START[sid])
+    if lo < 0:
+        return None
+    hi = text.find(ARTICLE_END[sid], lo + 1)
+    return (lo, hi) if hi > lo else None
+
+
+def text_segments(text: str, sid: str) -> list[str]:
+    """Text nodes of the article block (tags, attribute values and <style>/<script> bodies are not text): a span qualifies only when it lies
+    inside one of them, as written (entities are not decoded)."""
+    win = content_window(text, sid)
+    if win is None:
+        return []
+    chunk = re.sub(r"(?is)<(style|script)\\b.*?</\\1>", "<>", text[win[0]:win[1]])
+    return re.findall(r">([^<>]+)(?=<)", chunk)
+
+
+def in_content(text: str, span: str, sid: str) -> bool:
+    """True when `span` is a raw substring of one text node of the article block."""
+    return any(span in seg for seg in text_segments(text, sid))
+
+
+''' + body[b:]
+sub('''            if sid in NEW_ROWS:
+                if not title or title not in texts[sid]:
+                    c5.append(f"{sid}: retained body does not carry the row's page title {title!r}")
+            elif hashlib.sha256(raw).hexdigest() != HELD_BODY_SHA256.get(sid):
+                c5.append(f"{sid}: held-row retained body sha256 {hashlib.sha256(raw).hexdigest()} != pinned {HELD_BODY_SHA256.get(sid)}")''',
+    '''            if hashlib.sha256(raw).hexdigest() != BODY_SHA256.get(sid):
+                c5.append(f"{sid}: retained body sha256 {hashlib.sha256(raw).hexdigest()} != the digest frozen at the contract commit {BODY_SHA256.get(sid)}")
+            page_title = (re.search(r"<title>([^<]*)</title>", texts[sid]) or [None, ""])[1].split("_")[0]
+            if not title or units(title) < 6 or title != page_title:
+                c5.append(f"{sid}: row title {title!r} is not the page's <title> text before the site suffix {page_title!r} (6+ units)")''')
+sub('''            pub = re.search(r"发布日期 (\\d{4}-\\d{2}-\\d{2})", anchor_cell)
+            if not pub:
+                c5.append(f"{sid}: row anchor carries no `发布日期 YYYY-MM-DD` printed date")
+            elif f"发布日期：{pub.group(1)}" not in texts[sid]:
+                c5.append(f"{sid}: retained body does not print 发布日期：{pub.group(1)}")
+            window = content_window(texts[sid])''',
+    '''            pub = re.search(r"发布日期[：: ]\\s*(\\d{4}-\\d{2}-\\d{2})", anchor_cell)
+            if not pub:
+                c5.append(f"{sid}: row anchor carries no `发布日期 YYYY-MM-DD` printed date (the form `发布日期：YYYY-MM-DD` is also read)")
+            elif not in_content(texts[sid], f"发布日期：{pub.group(1)}", sid):
+                c5.append(f"{sid}: the article block does not print 发布日期：{pub.group(1)} in a text node")
+            window = content_window(texts[sid], sid)''')
+sub('''                if not anchor or anchor not in texts[sid]:
+                    c5.append(f"{sid}: row anchor heading {anchor!r} does not occur in the retained body")''',
+    '''                if not anchor or units(anchor) < 4 or texts[sid].count(anchor) != 1 or not in_content(texts[sid], anchor, sid):
+                    c5.append(f"{sid}: row anchor heading {anchor!r} is not 4+ units, page-unique and inside an article text node")''')
+a = body.index("        _rc, _ls = git(root, \"ls-tree\", \"--name-only\", rev, f\"{SOURCES_DIR}/\")")
+b = body.index("        for sid in ADOPTED:\n            text = texts.get(sid)")
+body = body[:a] + body[b:]  # the sibling set is the adopted bodies only, never the live sources/ directory (w1/CriticC3Counter A4)
+sub("                if not in_content(text, span):", "                if not in_content(text, span, sid):")
+sub('''                    spans = [q for q in re.findall(r'"([^"]+)"', line) if units(q) >= 6]
+                    if not spans:
+                        c5.append(f"{sid}: Gate line carries no double-quoted located quote of 6+ units")
+                    for q in spans:
+                        if not 6 <= units(q) <= UNIT_CEILING:
+                            c5.append(f"{sid}: Gate quote is {units(q)} units, expected 6 to {UNIT_CEILING}")
+                        verify("Gate line", q, c5)''',
+    '''                    allq = [q for q in re.findall(r'"([^"]+)"', line) if not (units(q) < 2 and len(q) < 12)]
+                    spans = [q for q in allq if units(q) >= 6]
+                    if not spans:
+                        c5.append(f"{sid}: Gate line carries no double-quoted located quote of 6+ units")
+                    for q in spans:
+                        if not 6 <= units(q) <= UNIT_CEILING:
+                            c5.append(f"{sid}: Gate quote is {units(q)} units, expected 6 to {UNIT_CEILING}")
+                    for q in allq:
+                        verify("Gate line", q, c5)''')
+body = body.replace('"schema": "kake-r57-c2-quote-truth-v1"', '"schema": "kake-r57-c3-quote-truth-v2"')
 a = body.index("# --------------------------------------------------------------------------- selftest")
 b = body.index("def main() -> int:")
 body = body[:a] + '''# --------------------------------------------------------------------------- selftest

@@ -1,0 +1,40 @@
+=== STAGED ROWS (as-is) ===
+S403 line=123 cells=12 (want 11) escaped_pipes=1 gawk_NF=14 (want 13) E01=YES
+  anchor_cell=' § 一、了解死链 → 1、死链都有哪些类型？ A： (发布日期 2022-09-09) '
+  recheck_cell=" 180d — `curl -fsSL --compressed 'https://ziyuan.baidu.com/college/articleinfo?id=3458' \\| grep -F -c '死链一般是指页面已经无效，无法对用户提供任何有价值信息的页面。'` -> 1 (ran 2026-10-24) "
+  recheck_prose=YES contains_backtick=True contains_'->'=True E09_if_NF13=YES
+  parsed_used_by_with_shift=" grep -F -c '死链一般是指页面已经无效，无法对用户提供任何有价值信息的页面。'` -> 1 (ran 2026-10-24) "  real_used_by_ignored=' corpus/knowledge/baidu-dead-link-taxonomy.md '
+S408 line=128 cells=12 (want 11) escaped_pipes=1 gawk_NF=14 (want 13) E01=YES
+  anchor_cell=" § the article body's dead-link section (the passage headed 死链处理更及时) (发布日期 2016-06-30) "
+  recheck_cell=" 180d — `curl -fsSL --compressed 'https://ziyuan.baidu.com/wiki/867' \\| grep -F -c '启用了全新的死链识别模型，能识别协议死链，以及大多数内容死链、跳转死链等低质网页'` -> 1 (ran 2026-10-24) "
+  recheck_prose=YES contains_backtick=True contains_'->'=True E09_if_NF13=YES
+  parsed_used_by_with_shift=" grep -F -c '启用了全新的死链识别模型，能识别协议死链，以及大多数内容死链、跳转死链等低质网页'` -> 1 (ran 2026-10-24) "  real_used_by_ignored=' corpus/knowledge/baidu-spider3-dead-link-recognition.md '
+
+=== c57_quote_truth.py C5 clauses emulated on the staged rows (title / anchor heading / printed date) ===
+S403 (-> lane S421)
+S403: title='搜索问答剧场【六】“死链”常见问题解析' occurrences_in_body=0 -> FAIL
+  anchor_heading='一、了解死链 → 1、死链都有哪些类型？ A：' occurrences_in_body=0 -> FAIL
+  printed_date=发布日期：2022-09-09 occurrences_in_body=1 -> PASS
+  opened_cell=' 2026-10-24 ' (round date 2026-10-25) -> FAIL
+S408 (-> lane S422)
+S408: title='百度搜索Spider3.0升级对站点有什么好处' occurrences_in_body=2 -> PASS
+  anchor_heading="the article body's dead-link section" occurrences_in_body=0 -> FAIL
+  printed_date=发布日期：2016-06-30 occurrences_in_body=1 -> PASS
+  opened_cell=' 2026-10-24 ' (round date 2026-10-25) -> FAIL
+
+=== maintained census parser, validate, staged rows AS-IS ===
+argv: bash sources-census.sh validate --today 2026-10-25 --file /tmp/census-staged-iuu_qmc8/corpus/SOURCES.md
+exit=1
+stdout:
+file	E01	S403 fields=12
+file	E01	S408 fields=12
+file	E11	S403 missing used-by grep -F -c '死链一般是指页面已经无效，无法对用户提供任何有价值信息的页面。'` -> 1 (ran 2026-10-24)
+file	E11	S408 missing used-by grep -F -c '启用了全新的死链识别模型，能识别协议死链，以及大多数内容死链、跳转死链等低质网页'` -> 1 (ran 2026-10-24)
+
+
+=== control: same rows with '\|' replaced by '/' (isolates the pipe failure) ===
+exit=1
+stdout:
+file	E09	S403 recheck=180d — `curl -fsSL --compressed 'https://ziyuan.baidu.com/college/articleinfo?id=3458' / grep -F -c '死链一般是指页面已经无效，无法对用户提供任何有价值信息的页面。'` -> 1 (ran 2026-10-24)
+file	E09	S408 recheck=180d — `curl -fsSL --compressed 'https://ziyuan.baidu.com/wiki/867' / grep -F -c '启用了全新的死链识别模型，能识别协议死链，以及大多数内容死链、跳转死链等低质网页'` -> 1 (ran 2026-10-24)
+
