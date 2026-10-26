@@ -1,0 +1,37 @@
+{
+ "schema": "kake-r58-contract-v1",
+ "lane": "kake",
+ "round": 58,
+ "roundDate": "2026-10-26",
+ "base": "044048597d62f3199494b63b36e90dd57825e350",
+ "claims": {
+  "C1": {
+   "axis": "calibration",
+   "counter": ".ufo/waves/round-58/c58_receipt_rewrites.py",
+   "predicate": "met: undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND unpointed == 0 AND new_rewritten == 0 AND new_receipts == 2",
+   "baseReceipt": ".ufo/waves/round-58/controls/base-c1-receipt-rewrites.txt",
+   "counterSha256v1": "dace35ce34804412a0f8d90e4e9efadbe4e31070503f45fb459be02b3858fa52"
+  },
+  "C2": {
+   "axis": "operability",
+   "counter": ".ufo/waves/round-58/c58_resolver_cases.py",
+   "predicate": "met: cases_passed == 12 of 12",
+   "baseReceipt": ".ufo/waves/round-58/controls/base-c2-resolver-cases.txt",
+   "counterSha256v1": "60c814aac4c20fd4ef2a30968a5d8f56dbb019db46435e739d4a68b1034837c5"
+  },
+  "C3": {
+   "axis": "freshness",
+   "sourced": [
+    "S423",
+    "S424"
+   ],
+   "counter": ".ufo/waves/round-58/c58_quote_truth.py",
+   "predicate": "met: conditions_passed == 8 of 8",
+   "baseReceipt": ".ufo/waves/round-58/controls/base-c3-quote-truth.txt",
+   "counterSha256v1": "0dde4d649d9b455025badd3f2c5260a4026e53cde24a53d61c7a8b01d3abbeed"
+  }
+ },
+ "exploratory": null,
+ "shape": "one v2 wave w1 (64-128) + optional residual <= 8; total <= 128",
+ "receiptRule": "committed once after the run; never rewritten; no placeholder"
+}
