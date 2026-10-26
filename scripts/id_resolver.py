@@ -4,21 +4,22 @@
 Lists every `S###` id cited in `corpus/knowledge/**/*.md` that does not resolve in
 the lane's own `corpus/SOURCES.md`, and names which sibling lane registry holds it.
 
-CLI (contract frozen in `.ufo/waves/round-57/c57_idresolver_gate.py`):
+CLI (the round-57 contract; its gate checks this tool against an independent reference):
 
     python3 -B scripts/id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>] [--selftest]
 
   - cited ids: every word-bounded `S` + 3 or more digits in each `corpus/knowledge/**/*.md`
     file; with `--revision` the blobs are read through `git show`, never the working tree
     (the lane registry is read at the same revision, for the same reason).
-  - registry ids: first cell of each table row of `corpus/SOURCES.md` under `## Registry`,
-    0 to 3 leading spaces before the pipe (the census parser's rule; 4 spaces is code).
+  - registry ids: first cell of each table row (a one-cell row counts) of `corpus/SOURCES.md` under the
+    exact heading `## Registry` (the section ends at the next `# ` or `## ` heading), 0 to 3 leading spaces
+    before the pipe (the census parser's rule; 4 spaces is code).
   - siblings: every `<fleet>/*-shokunin/` other than the lane (by realpath); a sibling's
-    registry is `git show HEAD:corpus/SOURCES.md` when it is a git repo, else the file.
+    registry is `git show HEAD:corpus/SOURCES.md` when the directory has a `.git` (no worktree fallback), else the file.
   - stdout: one `DANGLING <id> cited-by=<comma paths> owners=<comma lanes or -> url-match=<lanes or ->`
     line per dangling id, then `ids_cited=N ids_resolved=N dangling=N owned_elsewhere=N unowned=N`.
-  - exit: 0 dangling == 0, 1 dangling > 0, 2 unevaluable (revision unresolved, registry absent,
-    no knowledge file), 64 usage.
+  - exit: 0 dangling == 0, 1 dangling > 0, 2 unevaluable (revision unresolved, `--fleet` not a directory,
+    registry absent, no knowledge file), 64 usage.
   - `--selftest` prints a final `selftest: <passed>/<total>` and exits 0 iff all passed.
 
 `url-match` names the sibling lanes whose registry URL for that id appears verbatim in one of
@@ -36,7 +37,7 @@ import sys
 import tempfile
 
 ID_RE = re.compile(r"(?<![A-Za-z0-9_])S\d{3,}(?![A-Za-z0-9_])")
-ROW_RE = re.compile(r"^ {0,3}\|\s*([^|]*?)\s*\|(.*)$")
+ROW_RE = re.compile(r"^ {0,3}\|\s*([^|]*?)\s*(?:\|(.*))?$")
 ID_CELL_RE = re.compile(r"^S\d{3,}$")
 URL_RE = re.compile(r"https?://[^\s|<>\"'`]+")
 REGISTRY_HEADING_RE = re.compile(r"^##\s+Registry\s*$")
@@ -59,7 +60,9 @@ class Result:
 
 
 def _spawn(argv):
-    return subprocess.run(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    # an inherited GIT_DIR / GIT_WORK_TREE / GIT_INDEX_FILE would redirect every git call (and the selftest's sandbox commits): never pass them on
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+    return subprocess.run(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)
 
 
 def _text(proc):
@@ -94,7 +97,7 @@ def parse_registry(text):
         sid = m.group(1).strip()
         if not ID_CELL_RE.match(sid):
             continue
-        source_cell = m.group(2).split("|", 1)[0]
+        source_cell = (m.group(2) or "").split("|", 1)[0]
         urls = [u.rstrip(".,;:") for u in URL_RE.findall(source_cell)]
         bucket = rows.setdefault(sid, [])
         for url in urls:
@@ -153,7 +156,13 @@ def knowledge_bodies(root, revision):
             return None, f"no knowledge file at {revision[:12]}"
         return bodies, None
     base = os.path.join(root, KNOWLEDGE_REL)
-    if not os.path.isdir(base):
+    root_real = os.path.realpath(root)
+
+    def inside(path):  # a symlink must not carry a citation in from outside the lane (w2/SentinelRound F3)
+        real = os.path.realpath(path)
+        return real == root_real or real.startswith(root_real + os.sep)
+
+    if not os.path.isdir(base) or not inside(base):
         return None, f"no knowledge file: {KNOWLEDGE_REL} absent"
     bodies = {}
     for dirpath, dirnames, filenames in os.walk(base):
@@ -162,6 +171,8 @@ def knowledge_bodies(root, revision):
             if not name.endswith(".md"):
                 continue
             full = os.path.join(dirpath, name)
+            if not inside(full):
+                continue
             rel = os.path.relpath(full, root).replace(os.sep, "/")
             try:
                 with open(full, "rb") as handle:
@@ -191,10 +202,9 @@ def sibling_dirs(root, fleet):
 
 
 def sibling_registry(path):
-    if _git(path, "rev-parse", "--show-toplevel").returncode == 0:
+    if os.path.exists(os.path.join(path, ".git")):  # the directory itself is a repository: its HEAD registry or nothing (a worktree file is not committed evidence)
         proc = _git(path, "show", f"HEAD:{REGISTRY_REL}")
-        if proc.returncode == 0:
-            return parse_registry(_text(proc))
+        return parse_registry(_text(proc)) if proc.returncode == 0 else {}
     file_path = os.path.join(path, REGISTRY_REL)
     if os.path.isfile(file_path):
         try:
@@ -222,6 +232,8 @@ def evaluate(root, revision=None, fleet=None):
     cited = parse_cited(bodies)
     dangling_ids = sorted(set(cited) - set(registry))
     fleet_root = os.path.abspath(fleet) if fleet else os.path.dirname(root)
+    if not os.path.isdir(fleet_root):
+        return _err(f"fleet root {fleet_root} is not a directory")
     sibling_regs = {}
     if dangling_ids:
         sibling_regs = {name: sibling_registry(path) for name, path in sibling_dirs(root, fleet_root)}
@@ -635,6 +647,150 @@ def case_registry_section_end():
         _check([row[0] for row in res.dangling] == ["S011"], f"dangling={res.dangling}")
 
 
+def case_decoy_trailing_underscore():
+    _decoy_case("Not an id: S777_ and _S777 and S_777.\n")
+
+
+def case_registry_cell_not_an_id():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S777x", "https://e.example/7")], {"a.md": "Cites S777.\n"})
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
+
+
+def case_registry_heading_with_trailing_text():
+    with _tmpdir() as base:
+        lane = os.path.join(base, "demo-shokunin")
+        _write(os.path.join(lane, REGISTRY_REL), _registry([("S010", "https://e.example/10")]).replace("## Registry", "## Registry (legacy)"))
+        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S010.\n")
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
+
+
+def case_lone_cr_registry():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S010", "https://e.example/10")], {"a.md": "Cites S010.\n"}, eol="\r")
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (1, 1, 0, 0, 0), f"summary={res.summary}")
+
+
+def case_sibling_suffix_required():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "Cites S777.\n"},
+                      siblings={"shokunin": [("S777", "https://x.example/7")], "fooshokunin": [("S777", "https://x.example/7")]})
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
+
+
+def case_sibling_head_not_dirty_worktree():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "Cites S777.\n"})
+        sib = os.path.join(base, "alpha-shokunin")
+        _repo(sib)
+        _commit(sib, {REGISTRY_REL: _registry([("S777", "https://a.example/7")])})
+        _write(os.path.join(sib, REGISTRY_REL), _registry([("S001", "https://a.example/1")]))  # uncommitted rewrite
+        res = _summary(lane, fleet=base)
+        _check(res.dangling[0][2] == ["alpha-shokunin"], f"owners={res.dangling}")
+
+
+def case_sibling_repo_without_committed_registry():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "Cites S777.\n"})
+        sib = os.path.join(base, "alpha-shokunin")
+        _repo(sib)
+        _commit(sib, {"README.md": "r\n"})
+        _write(os.path.join(sib, REGISTRY_REL), _registry([("S777", "https://a.example/7")]))  # on disk, never committed
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
+
+
+def case_fleet_root_repo_does_not_own():
+    with _tmpdir() as base:
+        _repo(base)
+        _commit(base, {REGISTRY_REL: _registry([("S777", "https://f.example/7")])})
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "Cites S777.\n"})
+        os.makedirs(os.path.join(base, "alpha-shokunin"))
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
+
+
+def case_one_cell_registry_row():
+    with _tmpdir() as base:
+        lane = os.path.join(base, "demo-shokunin")
+        _write(os.path.join(lane, REGISTRY_REL), _registry([("S010", "https://e.example/10")]).replace("## Paths", "| S011\n## Paths"))
+        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S010 and S011.\n")
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (2, 2, 0, 0, 0), f"summary={res.summary}")
+
+
+def case_missing_fleet_exits_2():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "Cites S777.\n"})
+        res = _summary(lane, fleet=os.path.join(base, "no-such-fleet"))
+        _check(res.status == 2 and "not a directory" in (res.error or ""), f"status={res.status} error={res.error}")
+
+
+def case_revision_ignores_non_markdown():
+    with _tmpdir() as base:
+        lane = os.path.join(base, "demo-shokunin")
+        _repo(lane)
+        rev = _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]), KNOWLEDGE_REL + "/a.md": "Cites S001.\n",
+                             KNOWLEDGE_REL + "/notes.json": '{"cites": "S777"}\n'})
+        res = _summary(lane, revision=rev, fleet=base)
+        _check(res.summary == (1, 1, 0, 0, 0), f"summary={res.summary}")
+
+
+def case_url_match_scans_every_citing_file():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "S101 first file, no link.\n", "b.md": "S101 see https://a.example/101 here.\n"},
+                      siblings={"alpha-shokunin": [("S101", "https://a.example/101")]})
+        res = _summary(lane, fleet=base)
+        _check(res.dangling[0][3] == ["alpha-shokunin"], f"row={res.dangling[0]}")
+
+
+def case_url_match_ignores_registry_punctuation():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "S101 see https://a.example/101 here.\n"},
+                      siblings={"alpha-shokunin": [("S101", "https://a.example/101.")]})
+        res = _summary(lane, fleet=base)
+        _check(res.dangling[0][3] == ["alpha-shokunin"], f"row={res.dangling[0]}")
+
+
+def case_dangling_lines_in_id_order():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "S200 then S101 then S1000.\n"})
+        res = _summary(lane, fleet=base)
+        lines = render(res)
+        _check([ln.split()[1] for ln in lines[:-1]] == ["S1000", "S101", "S200"], f"lines={lines}")
+
+
+def case_git_env_is_scrubbed():
+    saved = os.environ.get("GIT_DIR")
+    os.environ["GIT_DIR"] = "/nonexistent/elsewhere/.git"
+    try:
+        with _tmpdir() as base:
+            lane = os.path.join(base, "demo-shokunin")
+            _repo(lane)
+            rev = _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]), KNOWLEDGE_REL + "/a.md": "Cites S001.\n"})
+            res = _summary(lane, revision=rev, fleet=base)
+            _check(res.status == 0, f"status={res.status} error={res.error}")
+    finally:
+        if saved is None:
+            os.environ.pop("GIT_DIR", None)
+        else:
+            os.environ["GIT_DIR"] = saved
+
+
+def case_symlink_out_of_the_lane_is_not_a_citation():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "Cites S001.\n"})
+        outside = os.path.join(base, "outside.md")
+        _write(outside, "Cites S777.\n")
+        os.symlink(outside, os.path.join(lane, KNOWLEDGE_REL, "ext.md"))
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (1, 1, 0, 0, 0), f"summary={res.summary}")
+
+
 def _cases():
     return [
         ("registry row at 0 leading spaces", case_indent_0),
@@ -670,6 +826,22 @@ def _cases():
         ("owners sorted alphabetically", case_owners_sorted),
         ("nested knowledge path recorded", case_nested_knowledge_path),
         ("registry section ends at the next heading", case_registry_section_end),
+        ("decoys S777_ _S777 S_777 are not ids", case_decoy_trailing_underscore),
+        ("registry cell S777x is not a registry id", case_registry_cell_not_an_id),
+        ("heading with trailing text is not the Registry section", case_registry_heading_with_trailing_text),
+        ("lone-CR registry rows", case_lone_cr_registry),
+        ("a directory without the -shokunin suffix is not a sibling", case_sibling_suffix_required),
+        ("sibling read at HEAD, not at its dirty worktree", case_sibling_head_not_dirty_worktree),
+        ("sibling repo without a committed registry owns nothing", case_sibling_repo_without_committed_registry),
+        ("a fleet root that is a repository owns nothing for a plain sibling", case_fleet_root_repo_does_not_own),
+        ("a one-cell registry row registers its id", case_one_cell_registry_row),
+        ("missing fleet exits 2", case_missing_fleet_exits_2),
+        ("non-markdown knowledge file at a revision is ignored", case_revision_ignores_non_markdown),
+        ("url-match scans every citing file", case_url_match_scans_every_citing_file),
+        ("url-match ignores punctuation after a registry URL", case_url_match_ignores_registry_punctuation),
+        ("dangling lines render in id order", case_dangling_lines_in_id_order),
+        ("an inherited GIT_DIR is not passed on", case_git_env_is_scrubbed),
+        ("a symlink out of the lane carries no citation", case_symlink_out_of_the_lane_is_not_a_citation),
     ]
 
 

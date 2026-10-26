@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+
+<html class="expanded">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="icon" sizes="any" mask href="//www.baidu.com/img/baidu.svg">
+<title>搜索问答剧场 【六】“死链”常见问题解析_搜索学堂_百度搜索资源平台</title>
+<script>
+        // 已经在DP注册的页面，没注册的扔到默认里
+        var pageNameArr = [
+            'site',
+            'prompt',
+            'mobiletools',
+            'tools',
+            'linksubmit',
+            'badlink',
+            'robots',
+            'pressure',
+            'crawltools',
+            'crawl',
+            'indexs',
+            'sitelink',
+            'itemannotator',
+            'schema',
+            'dataplug',
+            'keywords',
+            'inbound',
+            'safe',
+            'leakdetect',
+            'rewrite',
+            'guide',
+            'tongji',
+            'feedback',
+            'siteclose',
+            'dashboard',
+            'appattribute'
+        ];
+        var pageName = '';
+        if (window.location.pathname !== '/') {
+            if (window.location.pathname.match('/([^/]+)/') === null) {
+                pageName = window.location.pathname.match('/([^/]+)')[1];
+            }
+            else {
+                pageName = window.location.pathname.match('/([^/]+)/')[1];
+            }
+            var inArray = function (needle,array){
+                var len=array.length;
+                for(var i=0;i<len;i++){
+                    if(needle===array[i]){
+                        return true;
+                    }
+                }
+                return false;
+            };
+            if (!inArray(pageName, pageNameArr)) {
+                pageName = '675_1';
+            }
+        }
+        else {
+            pageName = '675_1';
+        }
+        window.alogObjectConfig = {
+            sample: '1',
+
+            product: '657',
+            page: pageName,
+            monkey_page: '',
+            speed_page: '',
+
+            speed: {
+                sample: '1'
+            },
+
+            monkey: {
+                sample: '1'
+            },
+
+            exception: {
+                sample: '1'
+            },
+
+            feature: {
+                sample: '1'
+            },
+
+            cus: {
+                sample: '1'
+            },
+
+            csp: {
+                sample: '',
+                'default-src': [
+                    {match: '*bae.baidu.com', target: 'Accept,Warn'},
+                    {match: '*.baidu.com,*.bdstatic.com,*.baidustatic.com,*.baiduimg.com,*.bdimg.com,localhost,*.hao123.com,*.hao123img.com', target: 'Accept'},
+                    {match: /^(127|172|192|10)(\.\d+){3}$/, target: 'Accept'},
+                    {match: '*', target: 'Accept,Warn'}
+                ]
+            }
+        };
+
+        void function(a,b,c,d,e,f,g){a.alogObjectName=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=a[e].l||+new Date,d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d;var h=!0;if(a.alogObjectConfig&&a.alogObjectConfig.sample){var i=Math.random();a.alogObjectConfig.rand=i,i>a.alogObjectConfig.sample&&(h=!1)}h&&(f=b.createElement(c),f.async=!0,f.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),g=b.getElementsByTagName(c)[0],g.parentNode.insertBefore(f,g))}(window,document,"script","/hunter/alog/alog.min.js","alog"),void function(){function a(){}window.PDC={mark:function(a,b){alog("speed.set",a,b||+new Date),alog.fire&&alog.fire("mark")},init:function(a){alog("speed.set","options",a)},view_start:a,tti:a,page_ready:a}}();
+        void function(n){var o=!1;n.onerror=function(n,e,t,c){var i=!0;return!e&&/^script error/i.test(n)&&(o?i=!1:o=!0),i&&alog("exception.send","exception",{msg:n,js:e,ln:t,col:c}),!1},alog("exception.on","catch",function(n){alog("exception.send","exception",{msg:n.msg,js:n.path,ln:n.ln,method:n.method,flag:"catch"})})}(window);
+    </script>
+<meta name="keywords" content="搜索资源平台" />
+<meta name="description" content="第六集【搜索问答剧场】，让我们围观网站运营中出现的死链相关问题，学习如何快速处理网站死链吧！" />
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/static/ziyuan/style/base_6721c93.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/pkg/css/index_ed0cdec.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/breadcrumb/breadcrumb_07d7313.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/college/articleinfo_bf04e39.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/widget/footer/footer_19b6507.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/alarm/xzh_alarm_adb03d1.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/dialog/dialog_0dffd71.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/zhitong/verification_36f5407.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/siteSelect/site-select_eb9ff67.css"/><link rel="stylesheet" type="text/css" href="/static/ziyuan/components/mappcreate/mapp_936c1bb.css"/></head>
+<script> alog('speed.set', 'ht', +new Date); </script>
+<body>
+<div class="layout-breadcrumb">
+
+</div>
+<div class="layout-main">
+
+<script type="text/javascript" src="//ziyuan.baidu.com/static/ziyuan/lib/player/cyberplayer.js"></script>
+<div class="non-footer-wrapper">
+<div class="header-placeholder hide"    >
+</div>
+<div class="nav-area">
+<div class="nav-bar">
+<div class="nav-container">
+<div class="logo">
+<a href="/">
+<img src="/static/ziyuan/image/common/logo_bbb4ad1.png" alt="logo">
+</a>
+</div>
+<div class="nav-list">
+<ul>
+<li class="nav-school nav-tab item-on"><a href="/college#/type=1&cate=newcontent">搜索学堂</a></li>
+<li class="nav-tools nav-tab "><a href="/dashboard/index">搜索服务</a></li>
+<li class="nav-community nav-tab  "><a>互动交流</a></li>
+<li class="nav-cooperation nav-tab "><a href="/cooperateresource/index">资源合作</a></li>
+<li class="nav-user-center nav-tab "><a href="/site/index">用户中心</a></li>
+</ul>
+</div>
+<span class="login">
+<a href="" class="auth-login">登录</a>
+</span>
+</div>
+<div class="search-school nav-dropdown hide">
+<div class="search-college-wrapper">
+<a href="/college#/type=1&cate=newcontent">
+推荐内容</a>
+<a href="/college#/type=2&cate=bjh_education">
+创作者小课堂</a>
+<a href="/college#/type=3&cate=dailysubmit">
+工具解读</a>
+<a href="/college#/type=4&cate=guides">
+搜索规范</a>
+<a href="/college#/type=6&cate=develop">
+基础开发</a>
+<a href="/college#/type=7&cate=searchaccess">
+智能小程序</a>
+</div>
+</div>
+<div class="search-tools nav-dropdown hide">
+<div class="search-tools-wrapper">
+<section>
+<h4>资源提交</h4>
+<h6>站点资源</h6>
+<ul>
+<li><a href="/fastcrawl/index">快速抓取</a></li>
+<li><a href="/linksubmit/index">普通收录</a></li>
+<li><a href="/mobile/index">移动适配</a></li>
+<li><a href="/badlink/index">死链提交</a></li>
+</ul>
+</section>
+<section>
+<h4>数据统计</h4>
+<h6>小程序资源</h6>
+<ul>
+<li><a href="/mapp/reportflow/index">流量统计</a></li>
+</ul>
+<h6>站点资源</h6>
+<ul>
+<li><a href="/indexs/index">索引量</a></li>
+<li><a href="/keywords/index">流量与关键词</a></li>
+<li><a href="/pressure/index">抓取频次</a></li>
+<li><a href="/crawltools/index">抓取诊断</a></li>
+<li><a href="/crawl/index">抓取异常</a></li>
+<li><a href="/robots/index">Robots</a></li>
+</ul>
+</section>
+<section>
+<h4>搜索小工具</h4>
+<ul>
+<li><a href="/aitoolset/index">小工具提交</a></li>
+</ul>
+<h4>权威溯源</h4>
+<ul>
+<li><a href="/sourcetrace/index">权威提交</a></li>
+<li><a href="/sourcetrace/dashboard">我的溯源提交</a></li>
+</ul>
+<h4><a href="/aiflow/index" class="aiflow-entry">AI流量分析</a></h4>
+</section>
+<section>
+<h4>搜索展现</h4>
+<ul>
+<li><a href="/sitelink/index">站点子链</a></li>
+<li><a href="/property/index">站点属性</a></li>
+</ul>
+</section>
+<section>
+<h4>站点优化与维护</h4>
+<ul>
+<li><a href="/rewrite/index">网站改版</a></li>
+</ul>
+</section>
+</div>
+</div>
+<div class="search-community nav-dropdown hide">
+<div class="search-community-wrapper">
+<a href="https://agents.baidu.com/community?productId=2" target="_blank">论坛</a>
+<a href="/feedback/index" class="feedback-center">反馈中心</a>
+<a href="/vip/index" class="vip-header">VIP俱乐部</a>
+</div>
+</div>
+<div class="search-cooperation nav-dropdown hide">
+<div class="search-cooperation-wrapper">
+<a href="/cooperateresource/index">合作专题</a>
+<a href="/cooperateresource/applylist">申请历史</a>
+</div>
+</div>
+<div class="search-user-center nav-dropdown hide">
+<div class="search-user-center-wrapper">
+<a href="/site/index">站点管理</a>
+<a href="/prompt/index">消息提醒</a>
+<a href="/usercfg/editaccount">联系方式</a>
+<a href="/user/index">管理员设置</a>
+<a href="/wafproduct/index">安全防护</a>
+</div>
+</div>
+</div>
+</div>
+<ul class="feedback-entry">
+<a href="https://zhiqiu.baidu.com/imcswebchat/roulette/in?id=16606&token=i7mdgusjlsnblnfm10iehei4cs56v5p4&domainID=zhanzhang&type=2" target="_blank">
+<li class="user-ask">
+<i class="icon-question"></i>
+<p class="hide">在线咨询</p>
+</li>
+</a>
+<a href="/feedback/index" target="_blank">
+<li class="user-feedback">
+<i class="icon-feedback"></i>
+<p class="hide">反馈中心</p>
+</li>
+</a>
+<a href="#top" target="_blank">
+<li class="back-top hide">
+<i class="icon-back"></i>
+<p class="hide">回到顶部</p>
+</li>
+</a>
+</ul>
+<div class="college-main">
+<div class="mod-crumbs" id="toolsBreadcrumbs">
+<a href="/college/index" class="crumbs-link">搜索学堂</a>
+<i class="icon-angle-right"></i>搜索问答剧场 【六】“死链”常见问题解析
+</div>
+<div class="college-articlelist clearfix">
+<div class="list-left">
+
+<div class="article-info">
+<h3 class="info-title">搜索问答剧场 【六】“死链”常见问题解析</h3>
+<p class="info-item-time">发布日期：2022-09-09</p>
+<p>
+<section powered-by="xiumi.us" mp-original-font-size="15" mp-original-line-height="24"><p mp-original-font-size="15" mp-original-line-height="24">哈喽大家好，</p><p mp-original-font-size="15" mp-original-line-height="24">最近平小雕在观察和学习时，</p><p mp-original-font-size="15" mp-original-line-height="24">发现很多开发者都提出了死链方面的问题。</p><p mp-original-font-size="15" mp-original-line-height="24">这不我（平小雕）和胡小鱼立马联手找出了大家对死链的种种疑问，并做出了解答，大家快来看看怎么解决死链常见问题吧！</p><hr><p mp-original-font-size="15" mp-original-line-height="24">第六集【搜索问答剧场】，让我们围观网站运营中出现的死链相关问题，学习如何快速处理网站死链吧！</p></section><p><br></p><h2>一、了解死链</h2><div><br></div><div><span name="h2_article_title1"><h3>1、死链都有哪些类型？</h3><p mp-original-font-size="15" mp-original-line-height="24">A：死链一般是指页面已经无效，无法对用户提供任何有价值信息的页面。包括<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>协议死链和内容死链</b></span>。</span></p><p mp-original-font-size="15" mp-original-line-height="24">（1）<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>协议死链</b></span></span>：页面<span mp-original-font-size="15" mp-original-line-height="24">的TCP协议状态/HTTP协议状态明确表示的死链，</span>常见的如403、404、503状态等。</p><p mp-original-font-size="15" mp-original-line-height="24">（2）<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>内容死链</b></span></span>：服务器返回状态是正常的，但<span mp-original-font-size="15" mp-original-line-height="24">内容已经变更为不存在、已删除或需要权限</span>等与原内容无关的信息页面。内容死链，<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24">服务器端返回HTTP状态码200</span></span>，无法设置为404。</p><div><br></div><h3>2、Q：死链是如何产生的？</h3><p mp-original-font-size="15" mp-original-line-height="24">A：死链可能存在以下来源：</p><p mp-original-font-size="15" mp-original-line-height="24">（1）<span mp-original-font-size="15" mp-original-line-height="24">网站内部</span><span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>主动或被动添加了错误内容链接</b></span></span>，发现后需要及时做404处理，如网站被恶意添加大量黄反内容等。</p><p mp-original-font-size="15" mp-original-line-height="24">（2）网站服务器、空间或程序问题，导致<span mp-original-font-size="15" mp-original-line-height="24">网站短暂无法访问，<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24">如<b>服务器不稳定</b>。</span></span></span></p><p mp-original-font-size="15" mp-original-line-height="24">（3）<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>外部链接错误</b></span></span>，用户或者站长在站外发布了错误URL。</p><p mp-original-font-size="15" mp-original-line-height="24">（4）<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>爬虫提取不完整的URL</b></span></span>，个别爬虫在提取页面URL时，因为URL中有不规则字符，或者URL与后边的文字链接起来，导致URL失效。</p><p mp-original-font-size="15" mp-original-line-height="24">（5）<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>网站改版</b></span></span>，网站改版后，之前的老域名页面直接删除，导致了大量的死链接。</p><p><br></p><h3>3、Q：<span mp-original-font-size="16" mp-original-line-height="25.600000381469727">为什么要及时处理死链&nbsp;？</span><span mp-original-font-size="16" mp-original-line-height="25.600000381469727"><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">不处理是否有影响？</span></span></h3><p mp-original-font-size="15" mp-original-line-height="24">A：（1）死链是页面无效，<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>不能给浏览用户提供任何价值</b></span></span>，但增加网站的管理成本。</p><p mp-original-font-size="15" mp-original-line-height="24">（2）当网站死链数据累积过多时，且被展示到搜索结果页中时，<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>对网站本身的访问体验和造成负面影响</b>。</span></span></p><p mp-original-font-size="15" mp-original-line-height="24">（3）百度蜘蛛会定期检测网站页面内容价值，若存在大量死链，<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24">可能会<b>影响网站整体评价</b></span></span>，从而不能更好的进行网站抓取和展现。</p><p mp-original-font-size="15" mp-original-line-height="24"><br></p><h3>4、Q：<span mp-original-font-size="16" mp-original-line-height="25.600000381469727"><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">如何发现网站中存在的死链接？</span></span></h3><p mp-original-font-size="15" mp-original-line-height="24">A：（1）<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>搜索资源平台工具</b></span></span>：<a href="https://ziyuan.baidu.com/crawl/index">抓取异常工具</a>可以查看最近产生的死链，且支持导出功能。</p><p mp-original-font-size="15" mp-original-line-height="24">（2）<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>参考爬虫软件</b></span></span>：此类工具可以爬取全站所有链接并分析页面状态，分析完成后，支持导出功能，提取死链接即可。</p><p><br></p></span></div><h2><span name="h2_article_title1">二、</span><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">教你如何处理死链页面</span></h2><div><span mp-original-font-size="16" mp-original-line-height="25.600000381469727"><br></span></div><h3>1、Q：<span mp-original-font-size="16" mp-original-line-height="25.600000381469727">如何有效处理死链？</span></h3><p mp-original-font-size="15" mp-original-line-height="24">A：死链资源的更新，不同网站可能会存在不同周期。为保障及时更新死链，可以通过<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24">资源平台-<a href="https://ziyuan.baidu.com/badlink/index?site=http://ziyuan.baidu.com/">【死链提交】工具</a></span></span>，进行提交。</p><div><br></div><h3>2、Q：<span mp-original-font-size="16" mp-original-line-height="25.600000381469727">如</span><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">何使用平台工具处理死链？</span></h3><p>A：使用<a href="https://ziyuan.baidu.com/badlink/index?site=http://ziyuan.baidu.com/">【死链提交】工具</a>有效的提交死链，需要以下步骤：</p><h3><span mp-original-font-size="15" mp-original-line-height="24"><br></span></h3><h3><span mp-original-font-size="15" mp-original-line-height="24">第一步：</span><span>处理的页面设置404页面</span></h3><section powered-by="xiumi.us" mp-original-font-size="15" mp-original-line-height="24"><p mp-original-font-size="15" mp-original-line-height="24">将需处理的页面设置404页面，生成死链文件整理被黑、无效等需要被删除的资源，<span mp-original-font-size="15" mp-original-line-height="24"><b>页面设置404，一定是404页面</b></span>。</p><p mp-original-font-size="15" mp-original-line-height="24">将需提交的404页面列表制作成一个待提交的文件，制作方法请参阅<a href="https://help.baidu.com/question?prod_id=99&amp;class=0&amp;id=3032">帮助文档</a>：</p><p>（与sitemap格式及制作方法一致）</p><h3><span mp-original-font-size="15" mp-original-line-height="24"><br></span></h3><h3><span mp-original-font-size="15" mp-original-line-height="24">第二步：</span><span mp-original-font-size="15" mp-original-line-height="24">将文件放置在网站根目录下</span></h3><p><b>将死链文件放置在网站根目录下</b>，比如您的网站为example.com，您已制作了一个silian_ example.xml死链文件，则将silian_example.xml上传至网站根目录即example.com/silian_ example.xml。</p><h3><span mp-original-font-size="15" mp-original-line-height="24"><br></span></h3><h3><span mp-original-font-size="15" mp-original-line-height="24">第三步：</span><span mp-original-font-size="15" mp-original-line-height="24">登录百度搜索资源平台</span></h3><p mp-original-font-size="15" mp-original-line-height="24">登录<a href="https://ziyuan.baidu.com/"><b>搜索资源平台</b></a>，找到【死链提交】工具。（<span mp-original-font-size="15" mp-original-line-height="24">若未站点验证，需要<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24">先完成站点验证</span></span>，之后使用工具提交文件</span>）。</p><h3><span mp-original-font-size="15" mp-original-line-height="24"><br></span></h3><h3><span mp-original-font-size="15" mp-original-line-height="24">第四步：</span><span mp-original-font-size="15" mp-original-line-height="24">提交死链数据</span></h3><p mp-original-font-size="15" mp-original-line-height="24">（1）<span mp-original-font-size="15" mp-original-line-height="24">【资源提交】-<b>【死链提交】工具</b></span>中提交死链文件。</p><p mp-original-font-size="15" mp-original-line-height="24">（2）提交完成后，关注死链文件处理状态。<br></p><p mp-original-font-size="15" mp-original-line-height="24"><br></p><h2>三、<span mp-original-font-size="16" mp-original-line-height="25.600000381469727" name="h2_article_title1">使用【死链提交】工具的注意事项</span></h2><div><span mp-original-font-size="16" mp-original-line-height="25.600000381469727" name="h2_article_title1"><br></span></div><h3><span mp-original-font-size="16" mp-original-line-height="25.600000381469727" name="h2_article_title1">1、</span><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">【死链提交】工具可以识别403、500</span><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">等无效数据吗？</span></h3></section><p mp-original-font-size="15" mp-original-line-height="24">A：不可以，【死链提交】工具<b>仅识别404，<span mp-original-font-size="15" mp-original-line-height="24">请一定设置为404</span></b>；若存在非404资源，可能会影响整个文件生效情况。</p><p mp-original-font-size="15" mp-original-line-height="24">注：<span mp-original-font-size="15" mp-original-line-height="24">请勿使用该工具提交非死链内容，避免影响正常页面的搜索展现效果。</span></p><p><br></p><h3>2、<span mp-original-font-size="16" mp-original-line-height="25.600000381469727">【死链提交】工具是否可以删除目录下</span><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">所有链接（如：*.a.example.com）？</span></h3><p><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">A：<span mp-original-font-size="15" mp-original-line-height="24"><span mp-original-font-size="15" mp-original-line-height="24"><b>不支持目录级提交</b></span></span>，只能提交具体需要删除的链接 。</span></p><p><br></p><h3>3、<span mp-original-font-size="16" mp-original-line-height="25.600000381469727">工具支持索引型</span><span mp-original-font-size="16" mp-original-line-height="25.600000381469727">sitemap文件吗？</span></h3><p>A：不支持，<span mp-original-font-size="15" mp-original-line-height="24"><b>请勿提交索引型</b>文件</span>。<br></p><p><br></p><h3>4、<span mp-original-font-size="16" mp-original-line-height="25.600000381469727">提交数据的生效周期是什么？</span></h3><p>A：死链提交后一般<span mp-original-font-size="15" mp-original-line-height="24"><b>生效周期为1-2周</b>。</span></p><div><span><br></span></div><div><span><br></span></div><div><p>参考文档：</p><p><a href="https://ziyuan.baidu.com/college/articleinfo?id=3348">《死链介绍及设置方法</a><a href="https://ziyuan.baidu.com/college/articleinfo?id=3348">》</a></p><p><a href="https://ziyuan.baidu.com/college/articleinfo?id=671">《死链工具》</a></p><p><a href="https://ziyuan.baidu.com/college/courseinfo?id=267&amp;page=4">《平台使用手册-死链工具》</a></p><p><br></p></div><div><hr><h3>——什么是【搜索问答剧场】？<o:p></o:p></h3><p>【搜索问答剧场】是资源平台基于资源平台工具相关，对站长反馈的高频或常见问题的整体梳理总结，定期为开发者运营过程中产生的疑惑问题进行梳理解答，致力于为开发者提供更便捷的运营知识库。</p><p>往期回顾：<o:p></o:p></p><p><a href="https://ziyuan.baidu.com/college/articleinfo?id=3386">【第一集】<u>“站点关联主体”常见问题解析</u></a><o:p></o:p></p><p><a href="https://ziyuan.baidu.com/college/articleinfo?id=3389">【第二集】<u>“站点Logo”常见问题解析</u></a><o:p></o:p></p><p><a href="https://ziyuan.baidu.com/college/articleinfo?id=3415">【第三集】<u>“</u><u>流量异常</u><u>”</u><u>常见问题解析</u></a><o:p></o:p></p><p><a href="https://ziyuan.baidu.com/college/articleinfo?id=3426">【第四集】<u>“</u><u>网站改版</u><u>”常见问题解析</u></a></p><p><a href="https://ziyuan.baidu.com/college/articleinfo?id=3457">【第五集】<u>“百度蜘蛛”全面解析</u></a></p><p><br></p><p><br></p></div>
+</p>
+</div>
+<div class="mb20">
+<div class="pager pager-new" style="text-align:center;">
+
+</div>
+</div>
+
+</div>
+<div class="list-right">
+
+<div class="recommand-news">
+<h2 class="recommand-news-title"><i class="news-icon"></i>推荐阅读</h2>
+<ul class="news-list">
+<li>
+<a href="?id=3548" title="文心智能体平台">文心智能体平台</a>
+</li>
+<li>
+<a href="?id=3537" title="百家号内容基础红线规则">百家号内容基础红线规则</a>
+</li>
+<li>
+<a href="?id=3533" title="百度搜索优质图文内容标准">百度搜索优质图文内容标准</a>
+</li>
+<li>
+<a href="?id=3528" title="百度搜索违规低质页面问题说明">百度搜索违规低质页面问题说明</a>
+</li>
+<li>
+<a href="?id=3524" title="流量优化 | 搜索内容选题技巧">流量优化 | 搜索内容选题技巧</a>
+</li>
+<li>
+<a href="?id=3523" title="流量优化 | 搜索流量优化指南">流量优化 | 搜索流量优化指南</a>
+</li>
+<li>
+<a href="?id=3522" title="搜索话题介绍【2】：搜索话题权益整体介绍">搜索话题介绍【2】：搜索话题权益整体介绍</a>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="footer">
+<div class="link">
+<div class="footer-info">
+<a href="https://smartprogram.baidu.com/developer/index.html" target="_blank">智能小程序</a>
+<a href="//help.baidu.com/newadd?prod_id=1&category=1" target="_blank">投诉平台</a>
+<a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+<a href="https://cloud.baidu.com/" target="_blank">百度智能云</a>
+<a href="https://su.baidu.com/" target="_blank">百度云加速</a>
+<a href="http://anquan.baidu.com/" target="_blank">百度安全</a>
+<a href="https://ai.baidu.com/" target="_blank">百度大脑</a>
+<a href="https://baozhang.baidu.com/guarantee/?from=ziyuan" target="_blank">百度保障</a>
+<a href="https://developer.baidu.com/?hmsr=站长平台&hmpl=&hmcu=&hmkw=&hmci" target="_blank">百度开发者中心</a>
+<a href="//ziyuan.baidu.com/college/articleinfo?id=2114" target="_blank">联系我们</a>
+<a href="//ziyuan.baidu.com/wiki/3148" target="_blank">微信公众号</a>
+</div>
+</div>
+<div class="license">
+©2026&nbsp;Baidu&nbsp;<a href="https://www.baidu.com/duty/" target="_blank">使用百度前必读</a>&nbsp;京ICP证030173号</div>
+</div>
+</div>
+<script>
+    void function(e,t){for(var n=t.getElementsByTagName("img"),a=+new Date,i=[],o=function(){this.removeEventListener&&this.removeEventListener("load",o,!1),i.push({img:this,time:+new Date})},s=0;s< n.length;s++)!function(){var e=n[s];e.addEventListener?!e.complete&&e.addEventListener("load",o,!1):e.attachEvent&&e.attachEvent("onreadystatechange",function(){"complete"==e.readyState&&o.call(e,o)})}();alog("speed.set",{fsItems:i,fs:a})}(window,document);
+</script>
+<script src="/static/ziyuan/lib/jquery-1.7.2.min_4375a23.js"></script>
+<script src="/static/ziyuan/lib/template_9d8868d.js"></script>
+<script src="/static/ziyuan/lib/jquery_ext_5183ee3.js"></script>
+<script src="/static/ziyuan/lib/zhanzhang_9c0be47.js"></script>
+<script type="text/javascript" src="https://passport.baidu.com/passApi/js/uni_login_wrapper.js?cdnversion=202610260825"></script>
+<script src="https://passport.baidu.com/passApi/js/wrapper.js?cdnversion=1792974318"></script>
+<script type="text/javascript">
+                    var url_sets = {
+        usermanage : "user/index",
+        usersetting : "usercfg/editaccount",
+        siteproperty : "site/property"
+    }
+
+        var needContactInfo = false;
+        // 初始化用户设置
+    zhanzhang.index.init();
+    // 初始化登陆弹窗
+    var pageUrls = {
+        passdomain: "https://passport.baidu.com/",
+        passreg : "https://passport.baidu.com/v2/?reg&u=https%3A%2F%2Fziyuan.baidu.com%3A8098%2F&tpl=zhanzhang&regType=1",
+        passlogout : "/auth/logout?u=https%3A%2F%2Fziyuan.baidu.com%2Fcollege%2Farticleinfo%3Fid%3D3458",
+        cas : {"loginurl":"https:\/\/cas.baidu.com\/?action=login","imageurl":"https:\/\/cas.baidu.com\/?action=image","aimappid":12,"appid":63,"fromu":"https:\/\/ziyuan.baidu.com\/auth\/ucfromu","selfu":"https:\/\/ziyuan.baidu.com\/auth\/ucselfu","retriveurl":"https:\/\/cas.baidu.com\/?controller=user&action=retrivepwd&appscope[]=6&appscope[]=12&appscope[]=7"}
+    }
+    
+    // $('body').on('click', '[data-id="zzLogin"]', function (e) {
+    //     e.preventDefault();
+    //     require(['plugins/pop-login'],function(pl){
+    //         pl.init(pageUrls);
+    //     });
+    // });
+
+    </script>
+
+<script src="/static/ziyuan/lib/ajaxhook_d5a0490.js"></script>
+
+<script type="text/javascript">
+    jQuery(function($){
+        if($.browser.msie && $.browser.version < 8){
+            $('<div class="mod-notice" style="margin:0 auto;line-height:18px;text-align:center;padding:10px;">您正在使用IE'+ $.browser.version +'浏览器，为保证您能正常使用搜索资源平台所有功能，请更新到高版本浏览器</div>').prependTo("body");
+            if($.ext_cookie.get('hideCheckBrowser') != 1){
+                $.ext_dialog.open({
+                    title : "提示",
+                    width:530,
+                    haml : ["%div","您正在使用IE"+ $.browser.version +"浏览器，为保证您能正常使用搜索资源平台所有功能，推荐使用下列浏览器访问：",["%a",{href:"http://www.microsoft.com/zh-cn/download/ie.aspx?q=internet+explorer",target:"_blank"},"IE8或IE8以上浏览器"],"、",["%a",{href:"http://www.google.com/intl/zh-CN/chrome/",target:"_blank"},"Chrome浏览器"],"、",["%a",{href:"http://www.firefox.com.cn/download/",target:"_blank"},"Firefox浏览器"]],
+                    buttons:{
+                        '确定':function(){
+                            $.ext_cookie.set('hideCheckBrowser',1,1,'/');
+                            //统计ie6、7的使用量
+                            $.get("/auth/monitorbrowserforie",function(){});
+                            $.ext_dialog.close();
+                        }
+                    },
+                    close:function(){
+                        $.ext_cookie.set('hideCheckBrowser',1,1,'/');
+                        //统计ie6、7的使用量
+                        $.get("/auth/monitorbrowserforie",function(){});
+                    }
+                });
+                $.ext_dialog.foot().css("textAlign","center");
+
+            }
+        }
+    });
+
+</script>
+
+<script>
+    void function(a,b,c,d,e,f){function g(b){a.attachEvent?a.attachEvent("onload",b,!1):a.addEventListener&&a.addEventListener("load",b)}function h(a,c,d){d=d||15;var e=new Date;e.setTime((new Date).getTime()+1e3*d),b.cookie=a+"="+escape(c)+";path=/;expires="+e.toGMTString()}function i(a){var c=b.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!=c?unescape(c[2]):null}function j(){var a=i("PMS_JT");if(a){h("PMS_JT","",-1);try{a=a.match(/{["']s["']:(\d+),["']r["']:["']([\s\S]+)["']}/),a=a&&a[1]&&a[2]?{s:parseInt(a[1]),r:a[2]}:{}}catch(c){a={}}a.r&&b.referrer.replace(/#.*/,"")!=a.r||alog("speed.set","wt",a.s)}}if(a.alogObjectConfig){var k=a.alogObjectConfig.sample,l=a.alogObjectConfig.rand;d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d,k&&l&&l>k||(g(function(){alog("speed.set","lt",+new Date),e=b.createElement(c),e.async=!0,e.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),f=b.getElementsByTagName(c)[0],f.parentNode.insertBefore(e,f)}),j())}}(window,document,"script","/hunter/alog/dp.min.js");
+</script>
+<script>alog('speed.set', 'drt', +new Date);</script>
+<script async src="https://xlab.baidu.com/res/bundle.w.php"></script>
+</body><script type="text/javascript" src="/static/ziyuan/pkg/js/base_ab69b78.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/header/header_ee476c6.js"></script>
+<script type="text/javascript" src="/static/ziyuan/widget/footer/footer_6b5a84f.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dialog/haml_f85e8bf.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/dialog/dialog_34cc1f4.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/verification_5ab1b5a.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/paris.min_01e85f6.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/zhitong/zhitong_538a9b2.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/cookie/cookie_db28195.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/siteSelect/autosuggest_71ad0e2.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/siteSelect/site-select_c7b4e82.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/mappcreate/mapp_2fdaa95.js"></script>
+<script type="text/javascript" src="/static/ziyuan/components/alarm/alarm_7b3b048.js"></script>
+<script type="text/javascript">!function(){    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?912efd4e2e75ff91305c5ebd0114ff98";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    }();
+!function(){    var zhitongTip = require('ziyuan:components/zhitong/zhitong.js');
+    zhitongTip.init({
+        expires: 60,
+        site: '',
+    });
+}();
+!function(){    var config = {
+        isLogin: Boolean()
+    }
+    var header =  require('ziyuan:widget/header/header.js')
+    header.init(config);
+}();
+!function(){ require('ziyuan:widget/footer/footer.js'); }();
+!function(){        var alarm =  require('ziyuan:components/alarm/alarm.js')
+    alarm.init('1')
+}();</script></html>

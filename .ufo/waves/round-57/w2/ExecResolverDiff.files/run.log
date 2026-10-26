@@ -1,0 +1,105 @@
+OK   T01_indent0                            A=1 B=1 agree
+OK   T02_indent2                            A=1 B=1 agree
+OK   T03_indent3                            A=1 B=1 agree
+OK   T04_indent4_is_code                    A=1 B=1 agree
+OK   T05_crlf_lane_registry                 A=0 B=0 agree
+OK   T06_crlf_sibling_registry              A=1 B=1 agree
+DIFF T07_four_digit_sort                    A=1 B=1 line-order
+OK   T08_range_endpoints                    A=0 B=0 agree
+OK   T09_cjk_adjacent                       A=1 B=1 agree
+OK   T10_id_inside_url                      A=1 B=1 agree
+OK   T11_id_in_code_fence                   A=1 B=1 agree
+OK   T12_sibling_git_repo                   A=1 B=1 agree
+OK   T13_sibling_plain_dir                  A=1 B=1 agree
+OK   T14_registry_heading_trailing_text     A=1 B=1 agree
+OK   T15_second_table_after_paths           A=1 B=1 agree
+OK   T16_revision_git                       A=1 B=1 agree
+DIFF T17_sibling_repo_headless_registry     A=1 B=1 content
+     A summary: ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=1 unowned=0
+     B summary: ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1
+     A only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=alpha-shokunin url-match=-
+     B only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=- url-match=-
+DIFF T18_row_without_closing_pipe           A=1 B=0 content
+     A summary: ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+     B summary: ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+     A only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=- url-match=-
+DIFF T19_h1_inside_registry                 A=1 B=0 content
+     A summary: ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+     B summary: ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+     A only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=- url-match=-
+DIFF T20_backtick_url_in_sibling_row        A=1 B=1 content
+     A only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=alpha-shokunin url-match=alpha-shokunin
+     B only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=alpha-shokunin url-match=-
+DIFF T28_fleet_root_is_repo                 A=1 B=1 content
+     A summary: ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=1 unowned=0
+     B summary: ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1
+     A only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=alpha-shokunin url-match=-
+     B only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=- url-match=-
+OK   T27_trailing_period_url_in_sibling_row A=1 B=1 agree
+DIFF T21_alias_symlink_of_lane              A=1 B=1 content
+     A summary: ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1
+     B summary: ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=1 unowned=0
+     A only: DANGLING S900 cited-by=corpus/knowledge/a.md owners=- url-match=-
+     B only: DANGLING S900 cited-by=corpus/knowledge/a.md owners=other-shokunin url-match=-
+OK   T22_default_fleet                      A=1 B=1 agree
+DIFF T23_fleet_root_missing                 A=1 B=2 content
+     A summary: ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1
+     B summary: 
+     A only: DANGLING S501 cited-by=corpus/knowledge/a.md owners=- url-match=-
+OK   T24_resolved_only                      A=0 B=0 agree
+OK   T26_sibling_repo_stale_worktree        A=1 B=1 agree
+OK   T25_sibling_without_registry           A=1 B=1 agree
+DIFF R00                                    A=1 B=1 line-order
+DIFF R01                                    A=1 B=1 line-order
+DIFF R02                                    A=1 B=1 line-order
+DIFF R03                                    A=1 B=1 line-order
+DIFF R04                                    A=1 B=1 line-order
+DIFF R05                                    A=1 B=1 line-order
+DIFF R06                                    A=1 B=1 line-order
+DIFF R07                                    A=1 B=1 line-order
+DIFF R08                                    A=1 B=1 line-order
+DIFF R09                                    A=1 B=1 line-order
+DIFF R10                                    A=1 B=1 line-order
+DIFF R11                                    A=1 B=1 line-order
+DIFF R12                                    A=1 B=1 line-order
+DIFF R13                                    A=1 B=1 line-order
+DIFF R14                                    A=1 B=1 line-order
+DIFF R15                                    A=1 B=1 line-order
+DIFF R16                                    A=1 B=1 line-order
+OK   R17                                    A=1 B=1 agree
+DIFF R18                                    A=1 B=1 line-order
+DIFF R19                                    A=1 B=1 line-order
+DIFF R20                                    A=1 B=1 line-order
+DIFF R21                                    A=1 B=1 content
+     A summary: ids_cited=8 ids_resolved=1 dangling=7 owned_elsewhere=4 unowned=3
+     B summary: ids_cited=8 ids_resolved=2 dangling=6 owned_elsewhere=4 unowned=2
+     A only: DANGLING S655 cited-by=corpus/knowledge/sub/b.md,corpus/knowledge/sub/deep/c.md owners=- url-match=-
+DIFF R22                                    A=1 B=1 line-order
+DIFF R23                                    A=1 B=1 line-order
+DIFF R24                                    A=1 B=1 line-order
+DIFF R25                                    A=1 B=1 line-order
+DIFF R26                                    A=1 B=1 line-order
+DIFF R27                                    A=1 B=1 line-order
+DIFF R28                                    A=1 B=1 line-order
+DIFF R29                                    A=1 B=1 line-order
+OK   R30                                    A=1 B=1 agree
+DIFF R31                                    A=1 B=1 line-order
+OK   R32                                    A=1 B=1 agree
+DIFF R33                                    A=1 B=1 line-order
+OK   R34                                    A=1 B=1 agree
+DIFF R35                                    A=1 B=1 line-order
+DIFF R36                                    A=1 B=1 content
+     A summary: ids_cited=10 ids_resolved=1 dangling=9 owned_elsewhere=4 unowned=5
+     B summary: ids_cited=10 ids_resolved=3 dangling=7 owned_elsewhere=4 unowned=3
+     A only: DANGLING S1085 cited-by=corpus/knowledge/sub/b.md owners=- url-match=-
+     A only: DANGLING S276 cited-by=corpus/knowledge/a.md owners=- url-match=-
+DIFF R37                                    A=1 B=1 line-order
+DIFF R38                                    A=1 B=1 line-order
+DIFF R39                                    A=1 B=1 line-order
+OK   R40                                    A=1 B=1 agree
+DIFF R41                                    A=1 B=1 line-order
+DIFF R42                                    A=1 B=1 line-order
+DIFF R43                                    A=1 B=1 line-order
+
+fixtures=72 agreements=25 disagreements=47
+results: /tmp/c57-diff5-7claFu/results.json

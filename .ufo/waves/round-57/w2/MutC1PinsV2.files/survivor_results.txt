@@ -1,0 +1,26 @@
+basepop-45 EXIT=0 FAILS=0 :: 
+body2-metany EXIT=1 FAILS=1 :: FAIL claim 2 body met=False with EXIT=0 is not a run: met=True undisclosed_relabels=0 phantom_errata=0 deleted
+body-crlf EXIT=1 FAILS=1 :: FAIL claim 2 body with CRLF endings still matches the report line: met=False undisclosed_relabels=0 phantom_er
+compare-same-pin EXIT=1 FAILS=1 :: FAIL a receipt gaining a second pin yields two relabels: met=False undisclosed_relabels=4 phantom_errata=0 del
+delete-gone-filter EXIT=0 FAILS=0 :: 
+delete-uncond EXIT=1 FAILS=1 :: FAIL an unpinned receipt deleted is not vanished: met=False undisclosed_relabels=0 phantom_errata=0 deleted_re
+errata-3keys EXIT=1 FAILS=1 :: FAIL errata entry with a non-string commit is malformed: met=False undisclosed_relabels=1 phantom_errata=1 del
+exclude-never EXIT=1 FAILS=1 :: FAIL the mutation-ladder JSON is excluded even with bare revision lines: met=False undisclosed_relabels=1 phan
+firstadd-alltouches EXIT=1 FAILS=1 :: FAIL the counter file edited after the run keeps its introduction commit: met=False undisclosed_relabels=0 pha
+firstadd-oldest EXIT=1 FAILS=1 :: FAIL a receipt re-added after a deleted draft counts from the re-add: met=False undisclosed_relabels=0 phantom
+measured-prefix EXIT=0 FAILS=0 :: 
+newpaths-noafter EXIT=1 FAILS=1 :: FAIL a quiet round-57 non-claim control stays out of the claims: met=False undisclosed_relabels=0 phantom_erra
+newre-digit EXIT=1 FAILS=1 :: FAIL a valid-bodied after-c4 receipt is malformed, three claims stay: met=False undisclosed_relabels=0 phantom
+outside-all-present EXIT=1 FAILS=1 :: FAIL population shortfall against the base population counts: met=True undisclosed_relabels=0 phantom_errata=0
+rename-carry EXIT=1 FAILS=1 :: FAIL a pin stripped by a rename and re-pinned yields two relabels: met=False undisclosed_relabels=1 phantom_er
+rename-latch EXIT=1 FAILS=1 :: FAIL an unpinned receipt moved out of the population is not vanished: met=False undisclosed_relabels=0 phantom
+rename-pop EXIT=1 FAILS=1 :: FAIL a name reused after a rename starts its own history: met=False undisclosed_relabels=1 phantom_errata=0 de
+rev-bound EXIT=1 FAILS=1 :: FAIL a 41-hex revision line is not a pin: met=False undisclosed_relabels=1 phantom_errata=0 deleted_receipts=0
+sc-nobullet EXIT=1 FAILS=1 :: FAIL a bulleted Measured revision line counts: met=False undisclosed_relabels=0 phantom_errata=0 deleted_recei
+tip-all3 EXIT=0 FAILS=0 :: 
+tip-anc-dropped EXIT=1 FAILS=1 :: FAIL a body last written on a side branch that lacks t0 fails: met=True undisclosed_relabels=0 phantom_errata=
+tip-eq-allowed EXIT=0 FAILS=0 :: 
+tip-multitip EXIT=1 FAILS=1 :: FAIL a second tip line voids the c1 body: met=True undisclosed_relabels=0 phantom_errata=0 deleted_receipts=0 
+usage-zero EXIT=1 FAILS=1 :: FAIL CLI unknown flag exits 64: exit=0
+walk-M EXIT=1 FAILS=1 :: FAIL a move plus relabel is seen with diff.renames=false: met=True undisclosed_relabels=0 phantom_errata=0 del
+walk-topo EXIT=1 FAILS=1 :: FAIL a backdated relabel on a side branch is found in topological order: met=False undisclosed_relabels=1 phan

@@ -440,7 +440,7 @@ from Yahoo! JAPAN's server-status answers to the same class on Baidu's side (a g
 operator's pages say (the pages print 发布日期 2022-09-09 and 2016-06-30); no URL was served under test and no crawl was observed.
 Frontier knowledge: no gate, no owned property audited, no publish action; publishing stays operator-owned. Not adopted from the same
 staging package this round: the other Baidu candidates (render-agent announcements S390, S409/S410, and entries citing campaign-internal
-evidence paths) — reasons and flip conditions in `corpus/lessons/round-57.md` § Rejects.
+evidence paths) — reasons and flip conditions in `corpus/lessons/round-57.md` § Gate.
 
 `corpus/README.md` §Coverage map gains two rows and a round-57 row in its frontier ground map; the sibling-registry resolver
 `scripts/id_resolver.py` (round-57 capability, `considerthese/2026-10-25.md` proposal 2) reads this lane's knowledge entries and the

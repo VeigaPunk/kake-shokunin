@@ -211,6 +211,47 @@ sub('''                    spans = [q for q in re.findall(r'"([^"]+)"', line) if
                     for q in allq:
                         verify("Gate line", q, c5)''')
 body = body.replace('"schema": "kake-r57-c2-quote-truth-v1"', '"schema": "kake-r57-c3-quote-truth-v2"')
+# ---- version 2.1 (after wave 2, before any claim was measured): attacks w2/ReviewerC3CounterCode, w2/MutC3Counter, w2/CritCheatC3V2 ----
+sub('ARTICLE_START = {"S421"', 'TOPIC = "死链"  # the page-named subject: an entry needs one page-unique span that carries it, and so does each Gate quote (an off-topic span is not support)\nARTICLE_START = {"S421"')
+sub('''        base_registry = show(root, base_rev, REGISTRY)
+        base_rows = parse_registry(base_registry) if base_registry else {}''', '''        base_registry = show(root, base_rev, REGISTRY)
+        if base_registry is None:
+            return unevaluable("C3_row_shape", f"base revision {base_rev[:12]} is not readable in {root} (a shallow clone or an exported tree?)")
+        base_rows = parse_registry(base_registry)''')
+sub('''            if not any(re.search(rf"\\b{sid}\\b", ln) for ln in lines[8:]):''', '''            if ROW_URL[sid] not in src:
+                c2.append(f"{sid}: `source:` line does not carry the row URL {ROW_URL[sid]}")
+            if not any(re.search(rf"\\b{sid}\\b", ln) for ln in lines[8:]):''')
+sub('''                anchor = row[5].split("§", 1)[1].split(" (")[0].strip() if "§" in row[5] else ""
+                if not anchor or units(anchor) < 4''', '''                am = re.match(r"^§\\s*(.*?)\\s*\\(发布日期[：: ]\\s*\\d{4}-\\d{2}-\\d{2}\\)\\s*$", row[5])
+                anchor = am.group(1) if am else ""
+                if not am:
+                    c5.append(f"{sid}: row anchor cell is not `§ <heading> (发布日期 YYYY-MM-DD)`: {row[5][:60]!r}")
+                if not anchor or units(anchor) < 4''')
+sub('''                    allq = [q for q in re.findall(r'"([^"]+)"', line) if not (units(q) < 2 and len(q) < 12)]
+                    spans = [q for q in allq if units(q) >= 6]''', '''                    allq = re.findall(r'"([^"]+)"', line)  # every Gate-line span, whatever its size
+                    spans = [q for q in allq if units(q) >= 6]
+                    if not any(TOPIC in q for q in spans):
+                        c5.append(f"{sid}: no Gate quote carries the page-named subject {TOPIC}")
+                    digest = hashlib.sha256(bodies[sid]).hexdigest() if bodies.get(sid) else ""
+                    if digest not in line or f"{len(bodies[sid])} bytes" not in line:
+                        c5.append(f"{sid}: Gate line does not carry the retained body's sha256 and byte count")
+                    for q in spans:
+                        if f"{units(q)} units" not in line:
+                            c5.append(f"{sid}: Gate line does not state {units(q)} units for its quote")
+                    if not (rows.get(sid) and len(rows[sid]) > 5 and rows[sid][5] in line):
+                        c5.append(f"{sid}: Gate line does not carry the registry row's anchor cell")''')
+sub('''            if len(unique_spans) < MIN_UNIQUE_SPANS:''', '''            if unique_spans and not any(TOPIC in u for u in unique_spans):
+                c5.append(f"{sid}: no page-unique span of the entry carries the page-named subject {TOPIC}")
+            if len(unique_spans) < MIN_UNIQUE_SPANS:''')
+sub('    ap = argparse.ArgumentParser(', '''    class _Parser(argparse.ArgumentParser):
+        def error(self, message):
+            print(f"usage error: {message}", file=sys.stderr)
+            raise SystemExit(64)
+
+    ap = _Parser(''')
+sub('    ap.add_argument("--root", default=".")', '    ap.add_argument("--root", default=".")\n    ap.add_argument("--base", default=BASE_REV, help="the base revision holding the pre-append registry (default: the frozen one)")')
+sub("    code, results = run_checks(args.root, args.revision)", "    code, results = run_checks(args.root, args.revision, args.base)")
+body = body.replace('"schema": "kake-r57-c2-quote-truth-v1"', '"schema": "kake-r57-c3-quote-truth-v2"')
 a = body.index("# --------------------------------------------------------------------------- selftest")
 b = body.index("def main() -> int:")
 body = body[:a] + '''# --------------------------------------------------------------------------- selftest

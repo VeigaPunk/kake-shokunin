@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Round-57 C2 counter — operability (capability acquisition): the cross-registry source-id resolver.
 
-Version 1 was frozen at `b9a5d012f7fd` (an optional `--fleet` argument was added before dispatch). Version 2 (after wave 1, before any
-claim was measured; attacks `w1/CriticC2Gate.md`, `w1/CritCheatC2.md`, `w1/CriticControlsSizing.md`, `w1/ReviewerGateCode.md`) makes the
+Version 1 was frozen at `b9a5d012f7fd` (an optional `--fleet` argument was added before dispatch). Version 2.1 (after wave 2) is described at the end of this
+paragraph. Version 2 (after wave 1, before any claim was measured; attacks `w1/CriticC2Gate.md`, `w1/CritCheatC2.md`, `w1/CriticControlsSizing.md`, `w1/ReviewerGateCode.md`) makes the
 gate a differential test: it carries its own reference implementation of the documented rule and compares the tool's output with
 the reference over randomised fixtures and over the real revisions, instead of comparing with constants a stub can print. The
-predicate and the five condition names are unchanged.
+predicate and the five condition names are unchanged. Version 2.1 (after wave 2, before any claim was measured; `w2/CriticAxisWave2.md`, `w2/ExecResolverDiff.md`,
+`w2/ExecGateFlake.md`, `w2/SentinelRound.md`, `w2/MutIdResolver.md`): the tool runs in a clone with `.ufo/` removed and a throwaway HOME (a shim that imports this gate's
+reference fails), the output order is checked (ids ascending), live sibling ownership may add owners but may not lose a snapshot owner, `GIT_*` variables are
+scrubbed, an unreadable fleet is unevaluable, and the reference follows the contract clarifications below.
 
 The capability (considerthese proposal 2, `considerthese/2026-10-25.md`): `scripts/id_resolver.py` lists every `S###` id cited in
 `corpus/knowledge/**/*.md` that does not resolve in the lane's own `corpus/SOURCES.md`, and names which sibling registry holds it. Round 52
@@ -19,21 +22,23 @@ CLI contract the gate exercises (the tool may add options; these are fixed):
   - cited ids: every token `S` + 3 or more digits NOT preceded or followed by an ASCII letter, digit or underscore (a CJK or
     fullwidth neighbour is a boundary) in each `corpus/knowledge/**/*.md` file; with `--revision` the files and the lane registry are
     read through `git show` at that revision, never the working tree. Registry ids: first cell of each table row of `corpus/SOURCES.md`
-    under `## Registry` (up to the next `## ` heading), 0 to 3 leading spaces before the pipe (4 spaces is code and ignored); CRLF is
-    tolerated. Ranges (`S011–S013`) cite only their two literal ids.
+    under the exact heading `## Registry` (up to the next `# ` or `## ` heading; a heading with trailing text is not the registry), 0 to 3 leading
+    spaces before the pipe (4 spaces is code and ignored); a row with a single cell counts; CRLF and lone CR are tolerated. Ranges (`S011–S013`) cite only their two literal ids.
   - siblings: every `<fleet>/*-shokunin/` directory whose realpath differs from the lane's, read through `git show HEAD:corpus/SOURCES.md`
-    when the directory has a `.git`, else the file; a sibling without a registry owns nothing; a sibling owns an id when a registry row has it.
-  - stdout: one line per dangling id, sorted by id, `DANGLING <id> cited-by=<comma-joined repo-relative paths, / separators> owners=<comma-joined
+    when the directory has a `.git` (no worktree fallback), else the file; a sibling without a committed registry owns nothing; a sibling owns an id when a registry row has it.
+  - stdout: one line per dangling id, in ascending lexicographic id order (S1000 before S101), `DANGLING <id> cited-by=<comma-joined repo-relative paths, / separators> owners=<comma-joined
     lane names or -> url-match=<comma-joined lane names or ->`, then a last line `ids_cited=<n> ids_resolved=<n> dangling=<n> owned_elsewhere=<n>
     unowned=<n>`. Lists are sorted; `-` is the empty set. `url-match` names the sibling lanes whose registry row for that id carries an
     http(s) URL that occurs verbatim in a citing file (compared by the gate on synthetic fixtures only).
-  - exit: 0 when dangling == 0; 1 when dangling > 0; 2 unevaluable (revision unresolved, registry absent, no knowledge file); 64 usage.
+  - exit: 0 when dangling == 0; 1 when dangling > 0; 2 unevaluable (revision unresolved, `--fleet` not a directory, registry absent, no knowledge file); 64 usage.
     `--selftest` prints a last line `selftest: <passed>/<total>` (the only `selftest:` line) and exits 0 iff all passed.
 
 Conditions (frozen in `contract.json`):
 
   G1 `scripts/id_resolver.py` exists at the measured revision.
-  G2 its `--selftest`, run in a clean clone of the revision, exits 0 with one `selftest: N/N` line, N >= 16 (a smoke test, not evidence).
+  G2 its `--selftest`, run in a clean clone of the revision, exits 0 with one `selftest: N/N` line, N >= 16 (a smoke test, not evidence), and its source does
+     not name this judge (`c57_idresolver_gate`, `.ufo/`, `reference(`): a shim that imports the reference from the lane by absolute path is caught
+     only this way (disclosed limit: obfuscated access is not).
   G3 two gate-built randomised fixtures (fresh nonce, ids, lane and sibling names, indentation 0/2/3/4 spaces, a CRLF registry, a sibling
      without a registry, CJK-adjacent ids, ranges, decoys, a duplicate citation across files): the tool's lines, summary and exit equal the
      gate's reference output, each fixture class (one-sibling, two-sibling, unowned, resolved) is present, and the same fixtures with
@@ -81,8 +86,21 @@ class Unevaluable(Exception):
     pass
 
 
+SANDBOX = True  # bubblewrap when present (disclosed: without it the tool runs without HOME but with the network and a writable filesystem)
+SCRATCH = ""
+
+
+SCRUB = ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_OBJECT_DIRECTORY", "GIT_ALTERNATE_OBJECT_DIRECTORIES", "GIT_COMMON_DIR", "GIT_NAMESPACE", "GIT_CEILING_DIRECTORIES", "GIT_PREFIX")
+
+
 def git(*args: str, cwd: str | None = None) -> subprocess.CompletedProcess:
-    return subprocess.run(["git", *args], cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    env = {k: v for k, v in os.environ.items() if k not in SCRUB}
+    return subprocess.run(["git", *args], cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)
+
+
+def blob_bytes(root: str, rev: str, path: str) -> bytes | None:
+    p = git("-C", root, "show", f"{rev}:{path}")
+    return p.stdout if p.returncode == 0 else None
 
 
 def sandbox_clone(root: str, rev: str) -> str:
@@ -92,13 +110,16 @@ def sandbox_clone(root: str, rev: str) -> str:
         if p.returncode != 0:
             shutil.rmtree(d, ignore_errors=True)
             raise Unevaluable(f"git {' '.join(cmd)}: {p.stderr.decode('utf-8', 'replace').strip()}")
+    shutil.rmtree(os.path.join(d, ".ufo"), ignore_errors=True)  # the tool must stand alone: nothing of the round's wave evidence (the reference, the counters) is importable from the clone
     return d
 
 
 def run_tool(clone: str, *args: str, timeout: int = 300) -> tuple[int, list[str], str]:
-    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": os.environ.get("HOME", "/tmp"), "LC_ALL": "C.UTF-8", "PYTHONHASHSEED": "0"}
-    p = subprocess.run([sys.executable, "-B", os.path.join(clone, TOOL), *args], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                       timeout=timeout, cwd=clone, env=env)
+    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "HOME": os.path.join(clone, ".home"), "LC_ALL": "C.UTF-8", "PYTHONHASHSEED": "0", "TMPDIR": SCRATCH}
+    argv = [sys.executable, "-B", "-s", os.path.join(clone, TOOL), *args]
+    if SANDBOX and shutil.which("bwrap"):  # no network, the whole filesystem read-only except the gate's own scratch tree (the tool writes nothing the gate keeps)
+        argv = ["bwrap", "--unshare-net", "--unshare-pid", "--die-with-parent", "--ro-bind", "/", "/", "--dev", "/dev", "--proc", "/proc", "--bind", SCRATCH, SCRATCH, *argv]
+    p = subprocess.run(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.DEVNULL, timeout=timeout, cwd=clone, env=env, start_new_session=True)
     out = p.stdout.decode("utf-8", "replace").replace("\r\n", "\n").strip()
     return p.returncode, (out.split("\n") if out else []), p.stderr.decode("utf-8", "replace")
 
@@ -118,6 +139,8 @@ def parse(lines: list[str]) -> tuple[dict[str, tuple[frozenset, frozenset, froze
     m = SUMMARY.match(lines[-1])
     if not m:
         return {}, None, f"last line is not the summary: {lines[-1][:80]!r}"
+    if list(dang) != sorted(dang):
+        return {}, None, f"DANGLING lines are not in ascending id order: {list(dang)}"
     summ = tuple(int(x) for x in m.groups())
     if summ[0] != summ[1] + summ[2] or summ[2] != len(dang) or summ[3] + summ[4] != summ[2]:
         return {}, None, f"summary identities fail: {summ} with {len(dang)} DANGLING lines"
@@ -128,9 +151,9 @@ def parse(lines: list[str]) -> tuple[dict[str, tuple[frozenset, frozenset, froze
 def registry_rows(text: str) -> dict[str, list[str]]:
     rows: dict[str, list[str]] = {}
     inside = False
-    for line in text.replace("\r\n", "\n").split("\n"):
+    for line in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
         if line.startswith("## ") or line.startswith("# "):
-            inside = line.lower().startswith("## registry")
+            inside = bool(re.match(r"^## Registry\s*$", line))
             continue
         if inside and re.match(r"^ {0,3}\|", line):
             cell = line.strip().strip("|").split("|")[0].strip()
@@ -154,10 +177,11 @@ def read_lane(root: str, rev: str | None) -> tuple[dict[str, str], str]:
             raise Unevaluable("lane registry absent")
         return files, r.stdout.decode("utf-8", "replace")
     base = os.path.join(root, "corpus", "knowledge")
-    for d, _dirs, names in os.walk(base):
+    root_real = os.path.realpath(root)
+    for d, _dirs, names in os.walk(base if os.path.realpath(base).startswith(root_real + os.sep) else os.devnull):
         for n in names:
-            if n.endswith(".md"):
-                full = os.path.join(d, n)
+            full = os.path.join(d, n)
+            if n.endswith(".md") and os.path.realpath(full).startswith(root_real + os.sep):
                 files[os.path.relpath(full, root).replace(os.sep, "/")] = open(full, encoding="utf-8", errors="replace").read()
     reg = os.path.join(root, "corpus", "SOURCES.md")
     if not os.path.isfile(reg):
@@ -166,6 +190,8 @@ def read_lane(root: str, rev: str | None) -> tuple[dict[str, str], str]:
 
 
 def read_siblings(root: str, fleet: str) -> dict[str, str]:
+    if not os.path.isdir(fleet):
+        raise Unevaluable(f"fleet root {fleet} is not a directory")
     out: dict[str, str] = {}
     me = os.path.realpath(root)
     for name in sorted(os.listdir(fleet)):
@@ -176,6 +202,7 @@ def read_siblings(root: str, fleet: str) -> dict[str, str]:
             p = git("-C", full, "show", "HEAD:corpus/SOURCES.md")
             if p.returncode == 0:
                 out[name] = p.stdout.decode("utf-8", "replace")
+            continue  # a repository sibling never falls back to its worktree
         elif os.path.isfile(os.path.join(full, "corpus", "SOURCES.md")):
             out[name] = open(os.path.join(full, "corpus", "SOURCES.md"), encoding="utf-8", errors="replace").read()
     return out
@@ -195,7 +222,7 @@ def reference(root: str, rev: str | None, fleet: str) -> dict:
     lines = {}
     for i in dang:
         owners = sorted(n for n, rows in sib.items() if i in rows)
-        urls = sorted(n for n in owners if any(u in files[p] for p in cited[i] for row in sib[n][i] for u in URL_RE.findall(row)))
+        urls = sorted(n for n in owners if any(u in files[p] for p in cited[i] for row in sib[n][i] for u in (x.rstrip('.,;:') for x in URL_RE.findall(row))))
         lines[i] = (frozenset(cited[i]), frozenset(owners), frozenset(urls))
     owned = sum(1 for i in dang if lines[i][1])
     summ = (len(cited), len(cited) - len(dang), len(dang), owned, len(dang) - owned)
@@ -288,15 +315,20 @@ def evaluate(root: str, rev: str, fleet_real: str) -> tuple[int, list[tuple[str,
         for name in ("G2_selftest", "G3_fixture", "G4_red_before", "G5_green"):
             results.append((name, False, "tool absent"))
         return 1, results
-    tmp: list[str] = []
+    global SCRATCH
+    SCRATCH = tempfile.mkdtemp(prefix="c57-scratch-")
+    tempfile.tempdir = SCRATCH
+    tmp: list[str] = [SCRATCH]
     try:
         clone = sandbox_clone(root, rev)
         tmp.append(clone)
+        src = (blob_bytes(root, rev, TOOL) or b"").decode("utf-8", "replace")
+        judge_ref = [w for w in ("c57_idresolver_gate", ".ufo/", "reference(") if w in src]
         rc, out, err = run_tool(clone, "--selftest")
         sel = [ln for ln in out if ln.startswith("selftest:")]
         m = re.fullmatch(r"selftest: (\d+)/(\d+)", out[-1]) if out else None
-        ok = bool(m) and len(sel) == 1 and rc == 0 and int(m.group(1)) == int(m.group(2)) >= MIN_SELFTEST and "Traceback" not in err
-        results.append(("G2_selftest", ok, out[-1] if out else f"no output (exit {rc})"))
+        ok = bool(m) and len(sel) == 1 and rc == 0 and int(m.group(1)) == int(m.group(2)) >= MIN_SELFTEST and "Traceback" not in err and not judge_ref
+        results.append(("G2_selftest", ok, (out[-1] if out else f"no output (exit {rc})") + (f"; the tool's source names the judge: {judge_ref}" if judge_ref else "")))
 
         ok3, notes = True, []
         for k in range(2):
@@ -321,8 +353,8 @@ def evaluate(root: str, rev: str, fleet_real: str) -> tuple[int, list[tuple[str,
         if not sib or snap is None:
             raise Unevaluable("no sibling registries under the fleet or no sibling snapshot")
         live = {i: sorted(n for n, t in sib.items() if i in registry_rows(t) and n != 'kake-shokunin') for i in RED_IDS}  # the lane's own registry is not a sibling's (a scratch-clone root sees it as one)
-        if live != {i: sorted(v) for i, v in snap["owners"].items()}:
-            raise Unevaluable(f"live sibling ownership {live} differs from the committed snapshot (sibling heads: " +
+        if any(not set(v) <= set(live.get(i, [])) for i, v in snap["owners"].items()):
+            raise Unevaluable(f"live sibling ownership {live} lost an owner the committed snapshot records (sibling heads: " +
                               ", ".join(f"{n}={git('-C', os.path.join(fleet_real, n), 'rev-parse', '--short', 'HEAD').stdout.decode().strip()}" for n in sib) + ")")
         good4, note4, ref4 = tool_vs_reference(clone, root, fleet_real, RED_REV, False)
         red_ok = sorted(ref4["dang"]) == RED_IDS and all(RED_OWNER in v[1] for v in ref4["dang"].values()) and ref4["summary"][2] == 5
@@ -335,6 +367,7 @@ def evaluate(root: str, rev: str, fleet_real: str) -> tuple[int, list[tuple[str,
         print(f"C2 id-resolver-gate unevaluable: {type(exc).__name__}: {exc}")
         return 2, results
     finally:
+        tempfile.tempdir = None
         for d in tmp:
             shutil.rmtree(d, ignore_errors=True)
     return (0 if all(r[1] for r in results) else 1), results

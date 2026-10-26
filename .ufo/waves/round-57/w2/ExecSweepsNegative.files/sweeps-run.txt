@@ -1,0 +1,287 @@
+# command: python3 -B .ufo/waves/round-57/w2/ExecSweepsNegative.files/sweeps.py  (cwd = lane root, 2026-10-26T00:32:19Z)
+========================================================================================================
+CLAIM SWEEPS — every 'does not say / zero / not described as' sentence in the two entries
+========================================================================================================
+
+S421-1  [S421 entry]  the page does not describe either [discovery method] as status-code-only
+    note: 页面状态 sits in the crawler-software sentence (node 70) and means 'analyse page status', not 'status-code-only'; 状态码 occurs once, in the content-dead-link paragraph (node 26).
+    '状态码'          PAR:S421-discovery count=0   claimed=0
+    '页面状态'         PAR:S421-discovery count=1   claimed=ctx
+        node[70] '：此类工具可以爬取全站所有链接并分析页面状态，分析完成后，支持导出功能，提取死链接即可。'
+    '状态码'          TEXT               count=1   claimed=1
+    -> agrees
+
+S421-2  [S421 entry]  states nothing about removing a path from internal links
+    note: 删除 occurs 5x: 已删除 (node 24), site-redesign page deletion (47), resources needing deletion (87), and the FAQ 'may the tool delete all links under a directory' (126/130) answered 'only specific links that need deleting may be submitted' — none of these is internal-link removal.
+    '内链'           TEXT               count=0   claimed=0
+    '内部链接'         TEXT               count=0   claimed=0
+    '删除链接'         TEXT               count=0   claimed=0
+    '移除链接'         TEXT               count=0   claimed=0
+    '删除'           TEXT               count=5   claimed=ctx
+        node[24] '内容已经变更为不存在、已删除或需要权限'
+        node[47] '，网站改版后，之前的老域名页面直接删除，导致了大量的死链接。'
+        node[87] '将需处理的页面设置404页面，生成死链文件整理被黑、无效等需要被删除的资源，'
+    '已删除'          TEXT               count=1   claimed=ctx
+        node[24] '内容已经变更为不存在、已删除或需要权限'
+    -> agrees
+
+S421-3  [S421 entry]  The page does not reconcile the two [404] statements
+    note: interpretive: no sweep can settle 'reconcile'. Nearest evidence: no text node holds both 200 and 404 in one sentence-of-record except node 26/27 (the impossibility sentence); 矛盾 occurs 0x.
+    '矛盾'           RAW                count=0   claimed=ctx
+    '200'          TEXT               count=1   claimed=1
+    '404'          TEXT               count=11  claimed=ctx
+        node[20] '常见的如403、404、503状态等。'
+        node[27] '，无法设置为404。'
+        node[33] '，发现后需要及时做404处理，如网站被恶意添加大量黄反内容等。'
+    -> agrees
+
+S421-4  [S421 entry]  The page states no definition of a monitor or a link checker
+    note: 检测 occurs once (node 57: 百度蜘蛛会定期检测网站页面内容价值) — a crawler action, not a monitor definition; the claim survives on every spelling a reader would grep.
+    '监控'           TEXT               count=0   claimed=0
+    '检查'           TEXT               count=0   claimed=0
+    '校验'           TEXT               count=0   claimed=0
+    '巡检'           TEXT               count=0   claimed=0
+    '死链检测'         TEXT               count=0   claimed=0
+    '链接检查'         TEXT               count=0   claimed=0
+    '检测'           TEXT               count=1   claimed=ctx
+        node[57] '（3）百度蜘蛛会定期检测网站页面内容价值，若存在大量死链，'
+    -> agrees
+
+S421-5  [S421 entry]  no claim that any tool cannot see a content dead link
+    note: 无法 occurs 3x, all in other senses (nodes 13, 27, 35).
+    '看不到'          RAW                count=0   claimed=0
+    '无法发现'         RAW                count=0   claimed=0
+    '发现不了'         RAW                count=0   claimed=0
+    '检测不到'         RAW                count=0   claimed=0
+    '无法'           TEXT               count=3   claimed=ctx
+        node[13] 'A：死链一般是指页面已经无效，无法对用户提供任何有价值信息的页面。包括'
+        node[27] '，无法设置为404。'
+        node[35] '网站短暂无法访问，'
+    -> agrees
+
+S421-6  [S421 entry]  The page states the 1-2 week effect cycle of submissions
+    note: affirmative neighbour of the negative claims: the entry's only unquoted page statement.
+    '1-2'          TEXT               count=1   claimed=1
+    '生效周期'         TEXT               count=2   claimed=2
+    -> agrees
+
+S422-1  [S422 entry]  404 and 状态码 occur zero times in the retained body
+    note: stated as a command in the entry.
+    '404'          RAW                count=0   claimed=0
+    '状态码'          RAW                count=0   claimed=0
+    -> agrees
+
+S422-2  [S422 entry]  屏蔽 occurs once in the whole body, inside this label; the paragraph under it speaks about dead-link recognition and processing time only
+    note: stated as a command in the entry plus the undeveloped-second-half sentence.
+    '屏蔽'           RAW                count=1   claimed=1
+    '屏蔽'           NODE:28            count=1   claimed=1
+    '屏蔽'           PAR:S422-dl-body   count=0   claimed=0
+    -> agrees
+
+S422-3  [S422 entry]  删除, 移除 and 下线 occur zero times in the retained body
+    note: stated as commands in the entry.
+    '删除'           RAW                count=0   claimed=0
+    '移除'           RAW                count=0   claimed=0
+    '下线'           RAW                count=0   claimed=0
+    '移出'           RAW                count=0   claimed=0
+    '清除'           RAW                count=0   claimed=0
+    '去除'           RAW                count=0   claimed=0
+    '取消收录'         RAW                count=0   claimed=0
+    '清空'           RAW                count=0   claimed=0
+    -> agrees
+
+S422-4  [S422 entry]  the article block's only 索引 occurrences are the two in the index-display sentence
+    note: NODE:22 is the index-display sentence ('索引展现时效性提升，原来是'); NODE:26 holds the second article 索引 inside 搜索引擎 ('search engine'). The count 2 is right; the location is not.
+    '索引'           TEXT               count=2   claimed=2
+    '索引'           NODE:22            count=1   claimed=1
+    '索引'           NODE:26            count=1   claimed=0  <-- MISMATCH
+    -> DISAGREES
+
+S422-5  [S422 entry]  the only other mention of 协议死链 on the page is the preference quoted below
+    note: node 32 = recognition scope sentence, node 34 = the preference; no third mention.
+    '协议死链'         RAW                count=2   claimed=2
+    '协议死链'         NODE:34            count=1   claimed=1
+    -> agrees
+
+S422-6  [S422 entry]  it does not restate the majority qualifier in this sentence
+    note: sentence-level absence is true, but the version-2 TEXT rule puts the few-days sentence and the recognition sentence in ONE node (32), so a node-level sweep returns 1 where the sentence returns 0.
+    '大多数'          SENT:大约几天内         count=0   claimed=0
+    '大多数'          PAR:S422-dl-body   count=1   claimed=1
+    -> agrees
+
+S422-7  [S422 entry]  It states no rate, no percentage and no measurement for dead-link handling
+    note: all 7 text-node percentages sit in nodes 7/9/21/25/56 (fetching, index-building, submission), none in the dead-link paragraph 28-34.
+    '%'            PAR:S422-dl-body   count=0   claimed=0
+    '％'            RAW                count=0   claimed=0
+    '百分比'          RAW                count=0   claimed=0
+    '%'            TEXT               count=7   claimed=ctx
+        node[7] '90%'
+        node[9] '80%'
+        node[21] '95%'
+    -> agrees
+
+S422-8  [S422 entry]  the paragraph names no report, no tool and no status
+    note: 工具/报告/状态 are all 0 inside nodes 28-34; 站长平台 is named (1) and the entry itself calls it the submission channel, so 'no tool' holds only under that wording.
+    '报告'           PAR:S422-dl-body   count=0   claimed=0
+    '工具'           PAR:S422-dl-body   count=0   claimed=0
+    '状态'           PAR:S422-dl-body   count=0   claimed=0
+    '平台'           PAR:S422-dl-body   count=1   claimed=ctx
+        node[19] '发现和抓取，而在百度站长平台提交链接是最为高效的，但是百度工程师建议站长，不要过度提交链接，尤其是低质链接，这样才能达到更好更及时的收录效果。'
+        node[32] '启用了全新的死链识别模型，能识别协议死链，以及大多数内容死链、跳转死链等低质网页，简单点说就是在之前的版本，站点通过站长平台提交死链，处理速度可能非常慢，甚至快照在一段时间内仍然存在，但是'
+        node[45] '在这我们不得不再提一下百度站长平台链接提交中的主动推送功能，要想时效性页面更好的被百度收录，主动推送功能时效性内容提交的是唯一的入口！'
+    -> agrees
+
+S422-9  [S422 entry]  The page does not say the platform submission became unnecessary
+    '无需'           RAW                count=0   claimed=0
+    '不需要'          RAW                count=0   claimed=0
+    '不必'           RAW                count=0   claimed=0
+    '不用'           RAW                count=0   claimed=0
+    -> agrees
+
+S422-10  [S422 entry]  The page names all three kinds and defines none of them here
+    '定义'           RAW                count=0   claimed=0
+    '是指'           RAW                count=0   claimed=0
+    '指的是'          RAW                count=0   claimed=0
+    '即'            RAW                count=0   claimed=0
+    -> agrees
+
+S422-11  [S422 entry]  It prints no status code and no HTTP term for any of the three kinds
+    note: this also covers 'the page states neither half of that reading' (the [INFERENCE] paragraph).
+    'HTTP'         RAW                count=0   claimed=0
+    '状态'           RAW                count=0   claimed=0
+    '404'          RAW                count=0   claimed=0
+    '状态码'          RAW                count=0   claimed=0
+    -> agrees
+
+S422-12  [S422 entry]  it does not say the other recognised kinds fail, are rejected, or go unhandled
+    note: preference section, node 34
+    '失败'           RAW                count=0   claimed=0
+    '拒绝'           RAW                count=0   claimed=0
+    '不处理'          RAW                count=0   claimed=0
+    '无法识别'         RAW                count=0   claimed=0
+    '忽略'           RAW                count=0   claimed=0
+    -> agrees
+
+S422-13  [S422 entry]  the verb is 处理 (handle), not a removal from an index and not a deletion
+    note: the removal reading is swept on top of S422-3's 删除/移除/下线
+    '删除索引'         RAW                count=0   claimed=0
+    '从索引'          RAW                count=0   claimed=0
+    '移出'           RAW                count=0   claimed=0
+    '取消'           RAW                count=0   claimed=0
+    -> agrees
+
+========================================================================================================
+STATED-SWEEP AUDIT — negative page claims vs the `grep -o -F` command the entry prints for them
+========================================================================================================
+
+[S421 entry] 0 `grep -o -F ... -> n` commands printed; 4 negative-claim sentences
+    NOTE: the S421 entry prints NO page-silence command for any negative page claim (its only grep is the presence recheck '协议死链和内容死链' -> 1 and a span_tools check).
+
+[S422 entry] 8 `grep -o -F ... -> n` commands printed; 8 negative-claim sentences
+    printed: '404'                -> 0   recomputed RAW=0  
+    printed: '屏蔽'                 -> 1   recomputed RAW=1  
+    printed: '删除'                 -> 0   recomputed RAW=0  
+    printed: '移除'                 -> 0   recomputed RAW=0  
+    printed: '下线'                 -> 0   recomputed RAW=0  
+    printed: '状态码'                -> 0   recomputed RAW=0  
+    printed: '404'                -> 0   recomputed RAW=0  
+    printed: '屏蔽'                 -> 1   recomputed RAW=1  
+
+========================================================================================================
+ADDED SWEEPS — not stated by the entries; a skeptical reader would run them
+========================================================================================================
+
+A1  status codes other than 403/404/503/200 in either article
+    S421: RAW=25 BLOCK=17 distinct_raw=['123', '127', '172', '192', '200', '267', '403', '404', '476', '500', '503', '530', '538']
+        TEXT node[20] code='403' in '常见的如403、404、503状态等。'
+        TEXT node[20] code='404' in '常见的如403、404、503状态等。'
+        TEXT node[20] code='503' in '常见的如403、404、503状态等。'
+        TEXT node[26] code='200' in '服务器端返回HTTP状态码200'
+        TEXT node[27] code='404' in '，无法设置为404。'
+        TEXT node[33] code='404' in '，发现后需要及时做404处理，如网站被恶意添加大量黄反内容等。'
+        TEXT node[86] code='404' in '处理的页面设置404页面'
+        TEXT node[87] code='404' in '将需处理的页面设置404页面，生成死链文件整理被黑、无效等需要被删除的资源，'
+        TEXT node[88] code='404' in '页面设置404，一定是404页面'
+        TEXT node[88] code='404' in '页面设置404，一定是404页面'
+        TEXT node[90] code='404' in '将需提交的404页面列表制作成一个待提交的文件，制作方法请参阅'
+        TEXT node[117] code='403' in '【死链提交】工具可以识别403、500'
+        TEXT node[117] code='500' in '【死链提交】工具可以识别403、500'
+        TEXT node[120] code='404' in '仅识别404，'
+        TEXT node[121] code='404' in '请一定设置为404'
+        TEXT node[122] code='404' in '；若存在非404资源，可能会影响整个文件生效情况。'
+    S422: RAW=10 BLOCK=2 distinct_raw=['100', '123', '127', '172', '192', '476', '500', '530', '538']
+        TEXT node[16] code='500' in '500'
+        TEXT node[56] code='100' in '60%--100%'
+
+A2  the words 删除/移除/下线/索引 in S421
+    S421 '删除'     RAW=5 BLOCK=5 TEXT=5 nodes=[24, 47, 87, 126, 130]
+    S421 '移除'     RAW=0 BLOCK=0 TEXT=0 nodes=[]
+    S421 '下线'     RAW=0 BLOCK=0 TEXT=0 nodes=[]
+    S421 '索引'     RAW=3 BLOCK=2 TEXT=2 nodes=[132, 135]
+        node[132] '工具支持索引型'
+        node[135] '请勿提交索引型'
+
+A3  robots in either article
+    S421: RAW=3 BLOCK=0 TEXT=0 forms=['robots']
+        raw ctx: "submit',\n            'badlink',\n            'robots',\n            'pressure',\n  "
+        raw ctx: 'f="/crawl/index">抓取异常</a></li>\n<li><a href="/robots/index">Robots</a></li>\n</ul>'
+        raw ctx: 'x">抓取异常</a></li>\n<li><a href="/robots/index">Robots</a></li>\n</ul>\n</section>\n<s'
+    S422: RAW=3 BLOCK=0 TEXT=0 forms=['robots']
+        raw ctx: "submit',\n            'badlink',\n            'robots',\n            'pressure',\n  "
+        raw ctx: 'f="/crawl/index">抓取异常</a></li>\n<li><a href="/robots/index">Robots</a></li>\n</ul>'
+        raw ctx: 'x">抓取异常</a></li>\n<li><a href="/robots/index">Robots</a></li>\n</ul>\n</section>\n<s'
+
+A4  sitemap in S421's article
+    S421: RAW=2 BLOCK=2 TEXT=2
+        node[93] '（与sitemap格式及制作方法一致）'
+        node[133] 'sitemap文件吗？'
+
+A5  English 'soft 404' wording in either article
+    S421: RAW=0 TEXT=0 plain_soft=1
+        English words in TEXT: ['HTTP', 'TCP', 'URL', 'com', 'example', 'nbsp', 'silian', 'sitemap', 'xml']
+    S422: RAW=0 TEXT=0 plain_soft=1
+        English words in TEXT: ['Spider', 'baidu', 'bbs', 'com', 'html', 'http', 'nbsp', 'sipder', 'thread', 'zhanzhang']
+
+========================================================================================================
+QUOTE-CLASS SWEEP — 'occurs once in that body and in no other retained body' (S422 entry)
+========================================================================================================
+
+[S422 entry] 11 quoted spans; max units=25 max chars=27
+    '启用了全新的死链识别模型'                                     S422=1 S421=0 TEXT422=1 units=12 chars=12 crosses_tag=False
+    '能识别协议死链，以及大多数内容死链、跳转死链等低质网页'                      S422=1 S421=0 TEXT422=1 units=25 chars=27 crosses_tag=False
+    '死链处理更及时—被黑低质页面全屏蔽'                                S422=1 S421=0 TEXT422=1 units=16 chars=17 crosses_tag=False
+    '简单点说就是在之前的版本'                                     S422=1 S421=0 TEXT422=1 units=12 chars=12 crosses_tag=False
+    '站点通过站长平台提交死链'                                     S422=1 S421=0 TEXT422=1 units=12 chars=12 crosses_tag=False
+    '处理速度可能非常慢'                                        S422=1 S421=0 TEXT422=1 units=9 chars=9 crosses_tag=False
+    '甚至快照在一段时间内仍然存在'                                   S422=1 S421=0 TEXT422=1 units=14 chars=14 crosses_tag=False
+    '更新后，大约几天内就可以处理掉了'                                 S422=1 S421=0 TEXT422=1 units=15 chars=16 crosses_tag=False
+    '当然，如果你要追求最佳处理效果，协议死链是最好的选择'                       S422=1 S421=0 TEXT422=1 units=24 chars=26 crosses_tag=False
+    '索引展现时效性提升，原来是'                                    S422=1 S421=0 TEXT422=1 units=12 chars=13 crosses_tag=False
+    '天左右，现在提升'                                         S422=1 S421=0 TEXT422=1 units=7 chars=8 crosses_tag=False
+
+[S421 entry] 22 quoted spans; max units=24 max chars=26
+    '死链一般是指页面已经无效，'                                    S421=1 S422=0 TEXT421=1
+    '无法对用户提供任何有价值信息的页面'                                S421=1 S422=0 TEXT421=1
+    '协议死链和内容死链'                                        S421=1 S422=0 TEXT421=1
+    '的TCP协议状态/HTTP协议状态明确表示的死链，'                        S421=1 S422=0 TEXT421=1
+    '常见的如403、404、503状态等'                               S421=1 S422=0 TEXT421=1
+    '服务器返回状态是正常的，但'                                    S421=1 S422=0 TEXT421=1
+    '内容已经变更为不存在、'                                      S421=1 S422=0 TEXT421=1
+    '已删除或需要权限'                                         S421=1 S422=0 TEXT421=1
+    '等与原内容无关的信息页面'                                     S421=1 S422=0 TEXT421=1
+    '服务器端返回HTTP状态码200'                                 S421=1 S422=0 TEXT421=1
+    '无法设置为404'                                         S421=1 S422=0 TEXT421=1
+    '百度蜘蛛会定期检测网站页面内容价值，若存在大量死链，'                       S421=1 S422=0 TEXT421=1
+    '影响网站整体评价'                                         S421=1 S422=0 TEXT421=1
+    '搜索资源平台工具'                                         S421=1 S422=0 TEXT421=1
+    '抓取异常工具'                                           S421=1 S422=0 TEXT421=1
+    '可以查看最近产生的死链，且支持导出功能'                              S421=1 S422=0 TEXT421=1
+    '发现后需要及时做404处理'                                    S421=1 S422=0 TEXT421=1
+    '将需处理的页面设置404页面'                                   S421=1 S422=0 TEXT421=1
+    '页面设置404，一定是404页面'                                 S421=1 S422=0 TEXT421=1
+    '仅识别404，'                                          S421=1 S422=0 TEXT421=1
+    '请一定设置为404'                                        S421=1 S422=0 TEXT421=1
+    '若存在非404资源，可能会影响整个文件生效情况'                          S421=1 S422=0 TEXT421=1
+
+failures=1
+EXIT=1

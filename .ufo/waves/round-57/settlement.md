@@ -13,3 +13,12 @@ the scribes and executors: the two entries (`EntryDeadLinkTypes`, `EntrySpiderMo
 (`ExecErrataBuild`), the README/PROVINCE/lesson/QUALITY text (`ScribeGroundMap`, `ScribeLessonMistakes`), the quarantine verdicts
 (`ScoutQuarantineA`–`D`).
 Not acted on (disclosed): see `contract.md` § Counter versions, "Not acted on".
+
+Wave 2 (falsify, v1 policy): 37 seats dispatched against lane tip `4b8c730`, 37 settled in `w2-results.json`, 37 committed reports in `w2/` (`ls .ufo/waves/round-57/w2/*.md | wc -l`),
+0 dead seats; one report (`MutC3Counter`) opens with the header `# MutC3Counter-3` (the seat's own variant of its name; content is this round's C3 mutation test). Roles: executor 10,
+critic 7, reviewer 6, scout 6, mutation-tester 3, connector 2, sentinel 1, revenger 1, simplifier 1. Round total: 77 seats (40 + 37), no residual call. Never replaced a dead seat; none.
+Acted on: C1 version 2.1, C2 gate version 2.1, C3 version 2.1, the tool (49 checks), both entries (sentence-level repairs), the lesson (Mistakes, Gate rejects, Trend, census), QUALITY and SKILL text
+corrections, contract § Counter versions (after wave 2).
+Not acted on (disclosed): `SimplifierBuild` (10 dead spots in 4 files; deletions not applied, no behavior claim rests on them); `SentinelRound` F5 (failure paths can leave `c57-*` temp trees) and the
+residual F1 network exposure when bubblewrap is absent; `ExecResolverFleetRuns` shows the resolver is exact for kake's entries and noisy for other lanes' id-shaped tokens (reported, not absorbed);
+`CriticAxisWave2`'s point that C1 still requires the C2 and C3 receipts to exist.
