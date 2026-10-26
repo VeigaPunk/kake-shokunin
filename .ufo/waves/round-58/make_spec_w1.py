@@ -1,0 +1,592 @@
+#!/usr/bin/env python3
+"""Generate the round-58 single v2 wave (build + attack items together). Output: w1-spec.json beside this file."""
+import json
+import os
+from collections import Counter
+
+LANE = "/home/vgpnk/Projects/shokunin/kake-shokunin"
+W = f"{LANE}/.ufo/waves/round-58"
+R = f"{W}/w1"
+SRC = f"{W}/sources"
+KNOW = f"{LANE}/corpus/knowledge"
+STAGED = "/home/vgpnk/Projects/shokuknow/merge/kake/knowledge/corpus/knowledge"
+FLEET = "/home/vgpnk/Projects/shokunin"
+BASE = "044048597d62f3199494b63b36e90dd57825e350"
+FREEZE = "fff3eea6aa349c8635fd84a791cc32de350ee1c2"
+SCR = "/fast/scratch/hyaku/kake-r58"
+GODSPEED = ("/skill:godspeed\n"
+            "1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n"
+            "4. **Don't aim — let the frontier walk itself.**\n"
+            "IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in "
+            "parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\n")
+
+CONTEXT = (
+    "/skill:godspeed\n"
+    "Round-58 kake wave w1 (one v2 wave: build + attack items together). Lane repo: /home/vgpnk/Projects/shokunin/kake-shokunin. Your tools start at the "
+    "FLEET root (/home/vgpnk/Projects/shokunin), not the lane: FIRST `mkdir -p /fast/scratch/hyaku/kake-r58/<your seat name> && cd` there; use absolute paths "
+    "for every read and write; never use a relative redirect (`> x.out`) outside your scratch dir. Every `Report:` trailer path is relative to "
+    "/home/vgpnk/Projects/shokunin/kake-shokunin — write it at /home/vgpnk/Projects/shokunin/kake-shokunin/<that path> (i.e. "
+    "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-58/w1/<Seat>.md), never under the fleet root. Seats never mutate the fleet repo, sibling lanes, "
+    "lane jj state or the lane Git index: write ONLY your own report file (and, if your assignment says so, files inside "
+    "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-58/w1/<Seat>.files/), no other path; no `git add/commit/stash/checkout/reset/pull/push` "
+    "in the lane, no jj mutation. Read-only git (show, log, ls-tree, rev-parse, diff) is fine. Scratch: every clone, fixture and work dir lives under "
+    "/fast/scratch/hyaku/kake-r58/<your seat name>/ (pass it as TMPDIR / --work; `/tmp` only for files under 50 MB); use `git clone -q --shared` or "
+    "`git worktree`-free `git archive` rather than full clones; delete your scratch dir before you finish (copy receipts into your .files/ first). Fixture "
+    "repos: `D=$(mktemp -d -p /fast/scratch/hyaku/kake-r58/<seat>) && git -C \"$D\" init -q`, every later git call names `-C \"$D\"`, verify "
+    "`git -C \"$D\" rev-parse --show-toplevel` equals `$D` before the first commit, commit only with `-c user.name=selftest -c user.email=selftest@local`; "
+    "never commit anywhere else. Domain source trees and /home/vgpnk/Projects/shokuknow are read-only (read files; never run campaign tools there); sibling lane "
+    "repos are read-only. Round facts: frozen contract /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-58/contract.md (+ contract.json), base "
+    f"revision {BASE}, contract commit {FREEZE}, round date 2026-10-26. Claims: C1 calibration — receipt rewrites disclosed "
+    "(counter .ufo/waves/round-58/c58_receipt_rewrites.py, ledger .ufo/waves/round-58/receipt-rewrites.json, base 19 undisclosed events); C2 operability — "
+    "scripts/id_resolver.py closes two false-green defects (counter .ufo/waves/round-58/c58_resolver_cases.py, base 7/12); C3 freshness (sourced) — two Baidu "
+    "crawler-identification entries on new rows S423 (https://ziyuan.baidu.com/college/articleinfo?id=3457, staged S395) and S424 "
+    "(https://ziyuan.baidu.com/college/articleinfo?id=3028) (counter .ufo/waves/round-58/c58_quote_truth.py, base 0/8). Retained bodies: "
+    ".ufo/waves/round-58/sources/S423.html, S424.html (+ receipts.json). Unit rule: one unit per CJK character, one per non-CJK whitespace token; every quote "
+    "<= 25 units AND <= 40 characters, a raw substring of ONE text node of the retained body's article block (check with `python3 -B "
+    "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-58/span_tools.py {spans|check|window} <S423|S424> [span]`), ASCII double quotes. "
+    "Never fabricate: an unrun check is reported as unrun; mark unverified statements [INFERENCE]. No credentials, tokens, op:// refs or private URLs in any "
+    "report. Tooling authorization (operator, 2026-10-19): you may install or upgrade tools that help the task; first read /home/vgpnk/.omp/agent/RULES.md "
+    "(official channels, update-safety gate; record tool/version/channel/reason). Pacman guard: all pacman transactions are PAUSED host-wide — never run "
+    "pacman (no -S, -Sy, -Syu, -U, -R); install via `uv tool`/`npx`/an official binary in ~/.local/bin or report the need; never restart a host service. "
+    "The host is loaded: generous timeouts, no retry loops. Report format: first line `# <your seat name>`, then the sections your assignment names, "
+    "factual, under ~150 lines; last line `VERDICT: <one line>`. The L1 (KakeR58) holds the planner seat and integrates; you are a leaf: no subagent "
+    "dispatch except an executor's single read-only labrat probe."
+)
+
+items = []
+
+
+def add(name, role, text):
+    items.append({"name": name, "role": role, "prompt": GODSPEED + text.replace("{W}", W).replace("{R}", R).replace("{LANE}", LANE)
+                  .replace("{SRC}", SRC).replace("{KNOW}", KNOW).replace("{STAGED}", STAGED).replace("{FLEET}", FLEET)
+                  .replace("{BASE}", BASE).replace("{SCR}", SCR)})
+
+
+C3_SHAPE = (
+    "Required entry shape (house style: {KNOW}/baidu-dead-link-types.md and {KNOW}/baidu-friendly-crawl-guidance.md): line 1 "
+    "`source: <id> — <url> — § <heading as printed> (发布日期 <date printed on the page>) — fetched 2026-10-26`, line 2 `verified-at: 2026-10-26`, line 3 "
+    "`recheck: 180d — curl -fsSL --compressed '<url>' | grep -F -c '<quote>'` -> 1 (run the grep against the RETAINED body and report its count), line 4 "
+    "`ground: <one line>`; blank line; H1; prose citing `[<id>]` below the header. Verbatim passages in `> \"...\"` lines (ASCII quotes), each followed by an "
+    "English rendering that keeps every qualifier (一般/generally, 可以/can, 需要/need, 不是立即/not immediately, 或/or). At least 3 page-unique spans, one "
+    "containing 百度蜘蛛. Anything the page does not state is [INFERENCE]. End with `Scope note:` (a claim about what the operator's page states; no crawl "
+    "observed, no Baidu behaviour measured). Cross-link by plain path only to lane entries that exist (`ls {KNOW}`), e.g. crawler-identity.md, "
+    "baidu-friendly-crawl-guidance.md, robots-txt-rules.md; never cite an S-id the lane registry lacks. Also give `GATE LINE:` exactly "
+    "`- <id> — <url> — accessed 2026-10-26 — § <heading> (发布日期 <date>) — quote: \"<6-25-unit page-unique span>\" (<n> units; raw substring of the "
+    "retained body, sha256 <from sources/receipts.json>, <bytes> bytes, HTTP 200)`, `REGISTRY ROW:` the 11-cell line (shape of the S421 row in "
+    "{LANE}/corpus/SOURCES.md; cell 2 `百度搜索资源平台 — <title as printed in <title> before the first _> — <url>`; kind docs; tier A; status mined; opened "
+    "2026-10-26; recheck 180d; used-by = the entry path; no `|` inside a cell), `UNIT COUNTS:`, `RECHECK RUN:`, `OMITTED:` (page content not carried, with reason). "
+    "Put the complete entry in ONE fenced block under `ENTRY:` and also write it to {R}/<Seat>.files/<entry file name>.")
+
+add("EntryIdentification", "scribe",
+    "Claim C3. Draft `corpus/knowledge/baidu-spider-identification.md` for NEW row S423 (https://ziyuan.baidu.com/college/articleinfo?id=3457, page "
+    "`搜索问答剧场 【五】“百度蜘蛛”全面解析`, printed 发布日期：2022-08-19). Read `python3 -B {W}/span_tools.py window S423` fully. Carry the 【抓取篇】 Q1-Q4 "
+    "content: what Baiduspider is; the two identification methods (UA strings for mobile/PC/小程序 incl. Baiduspider-render/2.0 and Smartapp — name them, do "
+    "NOT claim what the render agent fetches or executes: the page does not say); two-step reverse DNS then forward DNS, hostname *.baidu.com or *.baidu.jp, "
+    "otherwise impersonation (冒充); host/nslookup/dig per platform; frequent crawling causes and the 抓取频次 tool. The staged candidate "
+    "{STAGED}/baidu-crawler-identification.md is reference ONLY (its quotes/dates prove nothing; it asserts the render agent fetches CSS/JS/images and that "
+    "Baidu asks you not to block it — check against the page and drop what the page does not state). Do not reuse the staged file name. Row anchor heading: "
+    "an article heading that occurs in the body (e.g. 【抓取篇】; check with span_tools). " + C3_SHAPE)
+
+add("EntryUnblocking", "scribe",
+    "Claim C3. Draft `corpus/knowledge/baidu-spider-unblocking.md` for NEW row S424 (https://ziyuan.baidu.com/college/articleinfo?id=3028, page "
+    "`开发者如何解除封禁百度蜘蛛`, printed 发布日期：2020-07-23). Read `python3 -B {W}/span_tools.py window S424` fully. Carry: the symptoms the operator "
+    "names (no crawl record, not indexed/shown, snippet shows “存在robots封禁”), the three common block kinds (robots, Baidu UA, Baidu IP), the ordered "
+    "check (robots.txt first; then the UA check by `curl --head --user-agent '<Baiduspider UA>' --request GET '<site>'` where 200 is normal and anything else "
+    "abnormal; then IP-level firewall blocks) and each 【建议方案】 remedy. S423 (articleinfo?id=3457, retained {SRC}/S423.html) repeats this in its 【封禁篇】 "
+    "and adds that robots.txt changes take effect gradually (不是立即停止抓取) — you may mention that only as a cross-reference to the sibling entry "
+    "`baidu-spider-identification.md` (being drafted this round), quoting nothing from S423 in this entry (this entry's spans must all come from S424). "
+    "Row anchor: an article heading in the S424 body (e.g. 如何验证网站和智能小程序是否存在封禁百度蜘蛛的情况？ is over 25 units for a quote but fine as an anchor "
+    "heading if it occurs verbatim). " + C3_SHAPE)
+
+add("ScribeRegistryGate", "scribe",
+    "Claim C3 / frontier step. Draft the two registry rows (S423, S424) and the round-58 lesson `## Gate` block independently of the entry scribes. Read "
+    "/home/vgpnk/Projects/shokunin/CORPUS.md section `SOURCES.md — where a shokunin learns` (row schema, 11 columns, status vocabulary, recheck cadence forms), "
+    "{LANE}/corpus/SOURCES.md (rows S421, S422 as the model), {LANE}/corpus/lessons/round-57.md `## Gate` and `## Assimilation` (the model), "
+    "{W}/assimilation/ (reg-ids, staged-ids, collisions, quarantine-slice), {W}/sources/receipts.json, and the staged rows S395 and S378 in "
+    "/home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md. Produce: `ROWS:` both 11-cell rows (no pipe inside a cell; scope/teaches in your own words "
+    "grounded in the page; status mined; opened 2026-10-26; recheck 180d); `GATE:` the Gate block: one line per new row (URL, accessed 2026-10-26, anchor, "
+    "located quote <= 25 units with sha256/bytes), then the assimilation decisions: ADMIT theme `Baidu crawler identification` — staged S395 row re-grounded "
+    "as S423 (renumber by document; list which staged sentences are refused and why, after reading S423.html), S424 lane-found; REJECT staged "
+    "`yahoo-japan-crawler-address-change-notice.md` (S378) — re-open https://ads-developers.yahoo.co.jp/ja/ads-api/announcement/260514.html yourself (curl) "
+    "and give the page sentence the reason rests on and a flip condition; `ASSIMILATION:` id list counts, collision list, renumber map, quarantine "
+    "statement (12 rows, none adopted); `REGISTRY CHANGES:` old->new lines. Write the block also to {R}/ScribeRegistryGate.files/gate.md.")
+
+add("ScribeGroundMap", "scribe",
+    "Claim C3 support. Read {LANE}/corpus/README.md (`## Coverage map` and `### Frontier ground map`), {LANE}/PROVINCE.md (frontier lines ~22-45; crawler "
+    "identity ground), `ls {KNOW}`. Draft exact old/new edits: (a) one coverage-map row per new entry (3-cell shape of the existing rows; Coverage >= 5 "
+    "tokens, shares a 5+-letter word with the entry H1, no `|` in cells); (b) the frontier ground map: extend the `Crawler identity` ground (r51 Googlebot "
+    "row) or add a row `Crawler identity (Baidu: UA + two-step DNS; unblocking)` | r58 (lands this round) | the two entries | S423 S424, and update the "
+    "section's dated preamble to say the round-58 row is measured at the round-58 final revision (162 rows); (c) whether PROVINCE.md needs a line change "
+    "(quote the line). The round-55 counter `.ufo/waves/round-55/c55_readme_index.py` treats a pointer to a missing file as dangling: state the ordering the "
+    "L1 must follow. Report sections: `CURRENT:` (verbatim lines), `PROPOSED EDITS:`, `ORDERING:`, `PROVINCE:`.")
+
+add("ScribeLessonMistakes", "scribe",
+    "Frontier step: draft `corpus/lessons/round-58.md` `## Mistakes` and the matching QUALITY.md round-58 criteria. Read "
+    "{LANE}/corpus/lessons/round-57-verifier-spotcheck.md §5 (D1-D5), {LANE}/corpus/lessons/round-57.md `## Mistakes`, the tail of {LANE}/corpus/QUALITY.md "
+    "(round-57 criteria, their exact style), /home/vgpnk/Projects/shokunin/CORPUS.md (mistake row format: class · evidence pointer · captured-by · fix; "
+    "classes vacuous, survivor, stale-premise, reference-drift, number-drift, scope, attribution, landing, provider; a fix counts only once shown able to fail), "
+    "{W}/controls/base-c1-receipt-rewrites.txt and {W}/contract.md. Rows: (M1) the round-57 placeholder receipt `controls/after-c1-receipt-pins.txt` "
+    "(pending at 31b61a4, filled at 20217f2) while the report said no receipt was rewritten — class, captured-by `c57_receipt_pins.py` (missed: revision lines "
+    "only), fix = C1 counter, red-before = the base receipt (exit 1); (M2) the 13 rewrites never disclosed in rounds 52-56 (derive the list from the base "
+    "receipt; the 6 relabels the round-57 errata already disclosed are not new); (M3) the D3 standing red gate `c56_quote_truth.py` 6/8 on every later tree "
+    "— class, fix = register it as historical pinned to its measured revision (state the SKILL.md row change). Draft 2-3 QUALITY criteria rows citing "
+    "corpus/lessons/round-58.md, each with an example that fails it. Report sections: `MISTAKES:` (markdown rows), `QUALITY:` (exact append text), "
+    "`RED-BEFORE:` (command + output), `OPEN:`.")
+
+add("ScribeSkillRows", "scribe",
+    "Draft the SKILL.md gate-registry edits for round 58. Read {LANE}/SKILL.md (find the gate registry table rows for round-56/57 counters: `grep -n "
+    "'c57_\\|c56_\\|id_resolver\\|landed_check' {LANE}/SKILL.md`), {W}/contract.md, and the r57 spot-check D3 ({LANE}/corpus/lessons/round-57-verifier-spotcheck.md). "
+    "Draft: three rows for c58_receipt_rewrites.py, c58_resolver_cases.py, c58_quote_truth.py in the existing row style (command, what it proves, selftest "
+    "command and tally placeholder `<N>/<N>` — the L1 fills the tally after the final selftest run), the id_resolver row update (fence-aware, quoted paths), and "
+    "a `historical` marking for c56_quote_truth.py (and any other row whose gate goes red on later trees by design — run the fast ones at master to find out: "
+    "`cd {SCR}/ScribeSkillRows && python3 -B {LANE}/.ufo/waves/round-56/c56_quote_truth.py --root {LANE} --revision master`) naming the revision it is pinned to. "
+    "Report sections: `CURRENT ROWS:` (verbatim with line numbers), `PROPOSED ROWS:`, `HISTORICAL GATES:` (gate, revision green, tip result).")
+
+add("ScribeConsiderthese", "scribe",
+    "Assimilation (considerthese): read {LANE}/considerthese/2026-10-26.md Part 2. This round implements proposal 2 (receipt-rewrite watch) as claim C1 "
+    "(read {W}/contract.md C1). Ground it through the lane's bar: open what the proposal points at (`git -C {LANE} log --follow --format=%h -- "
+    ".ufo/waves/round-56/controls/after-c1-selftally.txt` etc.), state where the proposal is right and where its method ('more than one commit touching them') "
+    "differs from the counter's event definition (M/D/re-add, renames as deletion). Draft the QUALITY.md criterion or lesson paragraph citing "
+    "`considerthese/2026-10-26.md` + date, and list which other proposals (1, 3, 4, 5) are already landed / not taken this round with one-line reasons "
+    "(proposal 5 overlaps D3). Report sections: `GROUNDING:`, `DIFFERENCES:`, `DRAFT TEXT:`, `OTHER PROPOSALS:`.")
+
+for nm, rng, desc in (("ScribeLedgerR52", "round-52", "the 6 round-52 events (c1-ledger-real, c2-quote-real, c2-quote-selftest, c1-mutation-ladder x3)"),
+                      ("ScribeLedgerR54", "round-54", "the 5 round-54 events (c1-selftest x2, base-c1-s374, base-c2-ops-debt, sources-census)"),
+                      ("ScribeLedgerR55to57", "round-55..57", "the 8 events of rounds 55-57 (r55 c1-selftest-v2, after-c1-readme-index, after-c2-quote-truth, c2-selftest; r56 after-c1-selftally, after-c2-quote-truth, c2-selftest; r57 after-c1-receipt-pins)")):
+    add(nm, "scribe",
+        f"Claim C1 ledger notes for {desc}. Run `python3 -B {{W}}/c58_receipt_rewrites.py --root {{LANE}} --revision {{BASE}}` (lists UNDISCLOSED events with "
+        "commit and blob prefixes). For each event in your set: `git -C {LANE} show <commit> -- <path>` (the diff), `git -C {LANE} log -1 --format='%H %s' <commit>`, "
+        "and the round's report/LOG/SCORECARD lines that describe that receipt (grep {LANE}/LOG.md, {LANE}/SCORECARD.md, /home/vgpnk/Projects/shokunin/.ufo/reports/"
+        f"{rng.replace('..', '-')}*/kake.md or the round's settlement.md). Classify what happened in plain words (re-run with a new result? relabel of the revision line "
+        "without a re-run? a pending placeholder filled? an appended ladder row? a format change?) and whether the lane disclosed it anywhere at the time (quote "
+        "file:line or say `not disclosed`). Draft the ledger `note` per event: one sentence, factual, naming at least one evidence pointer that exists at the lane "
+        "tip (a repo-relative path such as `.ufo/waves/round-56/settlement.md` or a commit id), and the counter's `kind` (run `python3 -c` importing `classify` "
+        "from the counter on the two blobs, or reason from its docstring) — flag any event where the counter's kind is WRONG about what happened. Report sections: "
+        "`EVENTS:` (table: path, commit, kind (counter), what happened, disclosed-at-the-time), `NOTES JSON:` (a JSON list of {path, commit, note}), `KIND DISAGREEMENTS:`.")
+
+# ---- executors -------------------------------------------------------------------------------------
+add("ExecLedgerBuild", "executor",
+    "Claim C1. Build the candidate ledger `receipt-rewrites.json` mechanically from git (true values) and prove it against the counter. Write a stdlib "
+    "script `{R}/ExecLedgerBuild.files/build_ledger.py` that imports `events` and `classify` from {W}/c58_receipt_rewrites.py (importlib by path), walks the "
+    "base revision, and emits `{\"schema\": \"kake-r58-receipt-rewrites-v1\", \"events\": [...]}` with every FIELDS key (path, commit, status, fromBlob, toBlob, "
+    "kind, note) — note = `TODO` for now (the L1 merges the scribes' notes). Then in a shared clone (`D=$(mktemp -d -p {SCR}/ExecLedgerBuild); git clone -q "
+    "--shared {LANE} $D/l; git -C $D/l checkout -q {BASE}`) add the ledger with notes replaced by `see <the receipt path>` plus two dummy files "
+    "`.ufo/waves/round-58/controls/after-c2-x.txt`, `after-c3-x.txt`, commit (selftest identity) and run the counter on that commit: expect met=True. Then "
+    "show three corruptions each turn met False (a wrong toBlob; kind swapped; note `x`). Report sections: `SCRIPT:`, `LEDGER:` (verbatim JSON, notes TODO), "
+    "`PROOF RUN:`, `CORRUPTIONS:`. Copy the ledger to {R}/ExecLedgerBuild.files/receipt-rewrites.json.")
+
+add("ExecEventsIndependent", "executor",
+    "Claim C1: independent re-derivation of the receipt-event population WITHOUT importing the counter. Write your own stdlib script in "
+    "{R}/ExecEventsIndependent.files/events.py using `git log --all`? NO — the tip's ancestry only: `git -C {LANE} rev-list {BASE}` and per commit `git diff-tree "
+    "-r --no-renames -z --name-status <c>^ <c>` (root commit: `--root`). Population: paths matching `^\\.ufo/waves/round-[0-9]+/(control|controls)/[^/]+$`. Event = M, "
+    "D, or A of a previously existing path. Compare with the counter's list at {BASE} (19 events): same set? Then widen: list receipts OUTSIDE control(s)/ that "
+    "were modified after their first commit (e.g. `.ufo/waves/round-*/w*/**/*.txt`, `.ufo/waves/round-*/*.json` like measured.json, `.ufo/round-20/*`, "
+    "`controls/` subdirs one level deeper which the counter's `[^/]+$` excludes), with counts — this tells the L1 whether the counter's population hides "
+    "rewrites (a pre-data finding). Report sections: `SCRIPT:`, `AGREEMENT:` (set diff), `OUTSIDE POPULATION:` (path, events), `RECOMMENDATION:`.")
+
+add("ExecC1SelftestHarden", "executor",
+    "Claim C1 counter hardening (before data). Read {W}/c58_receipt_rewrites.py fully. In {R}/ExecC1SelftestHarden.files/ write a patched copy "
+    "`c58_receipt_rewrites.py` whose `selftest()` adds fixtures for: a merge commit that modifies a receipt on the second-parent side (does `-m --first-parent` "
+    "see it? what should it see?), a receipt path with a space and one with non-ASCII characters (core.quotePath), a binary receipt, a receipt changed and "
+    "reverted (two events), a ledger entry whose fromBlob is null for a modification, a `controls/` subdirectory file (outside population by design), a "
+    "symlink receipt, and the `pointed()` check with a pointer inside backticks or followed by punctuation. Fix any defect you find in the patched copy (minimal "
+    "diff) and run its selftest with TMPDIR={SCR}/ExecC1SelftestHarden. Report sections: `DEFECTS:` (input, observed, fix), `DIFF:` (unified diff vs the original), "
+    "`SELFTEST RUN:` (tally).")
+
+add("ExecC1Dryrun", "executor",
+    "Claim C1 landing dry run (the round-57 D1 failure mode). In a shared clone of the lane at {BASE} under {SCR}/ExecC1Dryrun, simulate the T0/T1 landing: "
+    "commit (selftest identity) a ledger built by `{R}/ExecLedgerBuild.files/build_ledger.py` if present (else generate one yourself from the counter's "
+    "events()/classify() with notes `see <path>`), plus `controls/after-c2-resolver-cases.txt` and `controls/after-c3-quote-truth.txt` (T0); run the C1 "
+    "counter at T0 and write its output to `controls/after-c1-receipt-rewrites.txt`, commit (T1); rerun at T1 -> must be met; then rewrite the C1 receipt "
+    "in T2 -> must fail with new_rewritten=1; then rewrite census-before.txt -> must fail. Also check: does committing SCORECARD/LOG/report edits after T1 "
+    "affect the result (it must not)? Report sections: `SEQUENCE:` (commands + outputs), `BREAKS:` (anything that does not behave as the contract says), "
+    "`RECOMMENDED LANDING ORDER:`.")
+
+add("ExecResolverFix", "executor",
+    "Claim C2 build. Implement the two fixes in a candidate copy of {LANE}/scripts/id_resolver.py at {R}/ExecResolverFix.files/id_resolver.py (never edit "
+    "the lane file): (D1) fence-aware `parse_registry`: a line that opens a CommonMark fenced code block (0-3 spaces then >= 3 backticks or >= 3 tildes) starts "
+    "a fence that ends at a closing line of the same character with at least the opening length (0-3 spaces, nothing but whitespace after) or at EOF; no "
+    "heading and no table row inside a fence counts (a `## Registry` inside a fence opens nothing); (F1) `knowledge_bodies` in --revision mode lists paths "
+    "with `git ls-tree -r -z --name-only` (NUL split) so quoted/non-ASCII names are read; keep `.md` filter and prefix. Update the docstring's contract "
+    "lines. Add selftest cases for both (fenced row before/inside Registry, ``` and ~~~, a longer closing fence, an unclosed fence, a row after a closed fence "
+    "still resolving, non-ASCII and quote-character paths at a revision) so the tool's `selftest: N/N` grows from 49. Then run the frozen gate against the "
+    "candidate: make a shared clone of the lane at {BASE} under {SCR}/ExecResolverFix, copy the candidate over scripts/id_resolver.py, commit (selftest "
+    "identity), run `python3 -B {W}/c58_resolver_cases.py --root <clone> --revision <that commit> --work {SCR}/ExecResolverFix/work` -> expect 12/12. Report "
+    "sections: `DIFF:` (unified diff vs the lane file), `SELFTEST:` (tally), `GATE RUN:` (full output), `BEHAVIOUR CHANGES:` (anything else the fix changes).")
+
+add("ExecResolverTests", "executor",
+    "Claim C2, independent of the fix author: write an adversarial fixture battery for fence and path handling that ANY correct fix must pass, in "
+    "{R}/ExecResolverTests.files/battery.py (stdlib; builds fixture lanes under {SCR}/ExecResolverTests; runs a tool path given as argv[1]; prints PASS/FAIL per "
+    "case and a tally). Cases (expected per CommonMark fences): 4-backtick fence closed by 3 backticks (still open), ~~~ closed by ``` (still open), fence "
+    "indented 4 spaces (not a fence: code block line), fence with info string ```markdown, unclosed fence to EOF swallowing the rest, `## Registry` after a "
+    "fenced `## Registry`, a table row at 3 spaces after a fence, CRLF line endings around a fence, a knowledge file named with a tab or newline or backslash "
+    "at --revision, a knowledge path in a subdirectory with non-ASCII name. Run it against the CURRENT lane tool ({LANE}/scripts/id_resolver.py) and report "
+    "which cases fail today. Report sections: `BATTERY:` (case, expectation, why), `CURRENT TOOL:` (results), `RUN COMMAND:`.")
+
+add("ExecResolverFleet", "executor",
+    "Claim C2 regression scope (adjacency evidence). Run the CURRENT tool `python3 -B {LANE}/scripts/id_resolver.py --root <lane> --revision HEAD --fleet "
+    "{FLEET}` over every `{FLEET}/*-shokunin` lane that has corpus/SOURCES.md (read-only; capture exit, summary line). Count, per lane, fenced code blocks "
+    "inside the `## Registry` section and `| S###` lines inside any fence of corpus/SOURCES.md, and knowledge paths that `git ls-tree -r --name-only HEAD "
+    "corpus/knowledge` prints quoted (start with `\"`). Those are the lanes whose result the C2 fix would change. Report sections: `RUNS:` (lane, exit, summary), "
+    "`FENCED ROWS:`, `QUOTED PATHS:`, `EXPECTED CHANGE AFTER FIX:` (lane, direction), and a note that nothing is absorbed.")
+
+add("ExecC2GateSelftest", "executor",
+    "Claim C2 counter hardening (before data). {W}/c58_resolver_cases.py version 1 has no selftest (stub, exit 2). Write a selftest for it in a patched copy "
+    "{R}/ExecC2GateSelftest.files/c58_resolver_cases.py: stub tools (written to a scratch dir) that the gate must score below 12/12 — (a) prints a constant "
+    "`ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0`, exit 0; (b) always exit 1 with a DANGLING line for every cited id; (c) a fence-aware "
+    "tool that drops every line after the first fence; (d) the base tool (git show {BASE}:scripts/id_resolver.py) = 7/12; and one stub that must score "
+    "11/12 (correct except P6). The selftest must not need the lane's real revision for P7 (stub P7 by pointing at a fixture lane repo with >= 106 cited ids, "
+    "or report why P7 cannot be selftested). Keep `measure()` semantics unchanged; report every change. Run it. Report sections: `DIFF:`, `SELFTEST RUN:`, "
+    "`GATE DEFECTS FOUND:`.")
+
+add("ExecC3SelftestPort", "executor",
+    "Claim C3 counter hardening (before data). {W}/c58_quote_truth.py (derived by {W}/derive_c58_quote_truth.py from the round-57 v2.1 counter) has a stub "
+    "selftest. Port the round-57 selftest (`git -C {LANE} show {BASE}:.ufo/waves/round-57/c57_quote_truth.py`, the block from `# ---- selftest` to `def main`, "
+    "120 checks) to the round-58 rows S423/S424: replace every fixture span with a raw substring of one text node of the article block of the retained "
+    "round-58 bodies ({SRC}/S423.html, S424.html; use `python3 -B {W}/span_tools.py spans S423`), TOPIC 百度蜘蛛, titles/anchors/dates from the pages, and "
+    "environment variable KAKE_R58_SELFTEST_REV. Deliver it as a patch to the DERIVE script ({R}/ExecC3SelftestPort.files/derive_c58_quote_truth.py that "
+    "inserts the ported block instead of the stub) plus the generated counter; run `cd {SCR}/ExecC3SelftestPort && TMPDIR=$PWD KAKE_R58_SELFTEST_REV="
+    f"{FREEZE} python3 -B <generated counter> --selftest` from a shared clone of the lane at {FREEZE}; target 120/120 (any check you cannot port, say why). "
+    "Report sections: `DIFF:` (derive script), `SELFTEST RUN:`, `UNPORTED:`.")
+
+add("ExecValidateDryrun", "executor",
+    "Claim C3 append gate dry run. Copy {LANE}/corpus into {SCR}/ExecValidateDryrun/v/corpus, append two candidate rows S423/S424 (11 cells, used-by the two "
+    "planned entry paths; create empty placeholder entry files at those paths in the copy only), and run `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh "
+    "validate --file {SCR}/ExecValidateDryrun/v/corpus/SOURCES.md`. Report: exit, every E/W line about S423/S424 (duplicate URL across scopes? the S421 row "
+    "shares the host), and whether the row schema (cell 2 title — url form, recheck 180d, opened 2026-10-26) is accepted. Also check every other lane's "
+    "registry for the two URLs (`grep -l 'articleinfo?id=3457\\|articleinfo?id=3028' {FLEET}/*-shokunin/corpus/SOURCES.md`). Read {W}/validate_append.sh and "
+    "say whether it mirrors everything the census needs (used-by targets outside corpus/). Report sections: `RUN:`, `FINDINGS:`, `CROSS-LANE:`, `SCRIPT REVIEW:`.")
+
+add("ExecHistoricalGates", "executor",
+    "Routed defect D3 / considerthese proposal 5 (historical-gate list). From {LANE}/SKILL.md's gate registry rows (grep for `.ufo/waves/round-` commands) "
+    "pick every counter of rounds 50-57 that runs in under ~60 s, and run it at the lane tip `master` and at the revision its round measured (from the round's "
+    "measured.json / SCORECARD `Measured revision` line), each in a shared clone under {SCR}/ExecHistoricalGates. List gates green at their measured revision but "
+    "red at the tip (historical by design: name the pin that makes them red), gates red at both (defect), and gates green at both. Do NOT run c56_selftally.py "
+    "(slow). Report sections: `RUNS:` (gate, measured rev, result there, result at master, seconds), `HISTORICAL:`, `DEFECTS:`, `SKILL ROW TEXT:` (proposed "
+    "marking).")
+
+add("ExecLandedCheck", "executor",
+    "Report hygiene (pre-report). Run {LANE}/scripts/landed_check.py (read its --help) on /home/vgpnk/Projects/shokunin/.ufo/reports/round-57/kake.md against "
+    "the lane and report its result; then write a one-line command the L1 will run on the round-58 report. Also run `python3 -B {LANE}/scripts/id_resolver.py "
+    "--root {LANE} --revision {BASE}` and report the summary. Report sections: `LANDED CHECK:`, `RESOLVER BASE:`, `COMMANDS FOR L1:`.")
+
+add("ExecReceiptPopulationNames", "executor",
+    "Claim C1 pre-data check: which committed files does the lane's own prose CALL receipts? grep {LANE}/SCORECARD.md, {LANE}/LOG.md and "
+    "/home/vgpnk/Projects/shokunin/.ufo/reports/round-5[0-7]/kake.md for the word `receipt` and collect the file paths named next to it; classify each as "
+    "inside the counter population (`.ufo/waves/round-N/control(s)/<file>`) or outside; for the outside ones, `git -C {LANE} log --format=%h -- <path> | wc -l` "
+    "(>1 = rewritten). Report sections: `NAMED RECEIPTS:` (path, in/out of population, commits), `OUTSIDE AND REWRITTEN:`, `VERDICT:` (does the population "
+    "cover what the lane calls receipts).")
+
+add("ExecSourceLive", "executor",
+    "Claim C3 freshness: re-open the two sources live now (`curl -sSL --compressed -A 'Mozilla/5.0' --max-time 60 <url>` for "
+    "https://ziyuan.baidu.com/college/articleinfo?id=3457 and https://ziyuan.baidu.com/college/articleinfo?id=3028; also the linked identification article "
+    "https://ziyuan.baidu.com/college/articleinfo?id=2855), save under {SCR}/ExecSourceLive, and compare the article-block text nodes (use the counter's "
+    "`text_segments` by importing {W}/c58_quote_truth.py via importlib) with the retained bodies {SRC}/S423.html and S424.html: identical? which bytes differ "
+    "(cache tokens, scripts)? Run each staged recheck grep (`grep -F -c '非*.baidu.com或*.baidu.jp即为冒充。'` on 3457). For 2855, report the sentence on IP "
+    "ranges (`IP地址范围动态变化不固定`) and whether it adds a fact the two entries should cross-reference (it has no row; the L1 decides). Report sections: "
+    "`FETCHES:` (url, HTTP, bytes, sha256), `ARTICLE DIFF:`, `RECHECKS:`, `2855:`.")
+
+add("ExecCountersTmpScan", "executor",
+    "Scratch discipline §7.4 check (counters must honour TMPDIR and accept a scratch argument; no hardcoded /tmp). Scan {W}/*.py and {LANE}/scripts/*.py for "
+    "`/tmp`, `mkdtemp(` without `dir=`, `tempfile.gettempdir`, `TemporaryDirectory(` and report each with file:line and whether TMPDIR is honoured. Then run the "
+    "three round-58 counters once each with TMPDIR={SCR}/ExecCountersTmpScan/t at {BASE} and confirm, by listing /tmp before/after (`ls -1 /tmp | wc -l` "
+    "and a find for names starting c58-/idresolver-), that nothing is left under /tmp. Report sections: `SCAN:`, `RUNS:`, `LEFTOVERS:`.")
+
+add("ExecGateFlake", "executor",
+    "Claim C2 stability: run `python3 -B {W}/c58_resolver_cases.py --root {LANE} --revision {BASE} --work {SCR}/ExecGateFlake/w` five times and report the "
+    "tally each time (must be 7/12 every time) and wall time; then run it with `LC_ALL=C` and with `LANG=ja_JP.UTF-8` to check the non-ASCII fixture K4 "
+    "is not locale-dependent. Report sections: `RUNS:`, `LOCALE:`, `VERDICT:`.")
+
+add("ExecC3BaseControls", "executor",
+    "Claim C3 controls (before data). Build the cheapest junk that skips the claimed work and score it with the frozen counter {W}/c58_quote_truth.py in a "
+    "shared clone at {FREEZE} under {SCR}/ExecC3BaseControls: (a) two entry files made only of nav/sidebar text from the bodies (e.g. `搜索学堂`, "
+    "`推荐阅读` list titles) plus 百度蜘蛛; (b) entries quoting the page title only; (c) rows whose used-by is swapped; (d) a validate receipt produced with "
+    "`--root`. Report the conditions_passed for each and every condition that passes on junk (a counter hole the L1 must close before data). Report "
+    "sections: `CONTROLS:` (control, tally, passing conditions), `HOLES:`.")
+
+# ---- labrats ---------------------------------------------------------------------------------------
+add("ProbeFenceSemantics", "executor",
+    "Hypothesis (falsifiable): a CommonMark-compliant parser treats exactly these as fenced (non-table) lines in a registry: lines between an opening fence "
+    "(0-3 spaces, >= 3 ` or ~) and a closing fence of the same char with >= opening length; a 4-space-indented ``` is NOT a fence. Test it with a real parser: "
+    "`uv tool run --from markdown-it-py markdown-it` or `uvx --from markdown-it-py python -c ...` (install per RULES.md if absent; record version) over 8 small "
+    "inputs (write them under {SCR}/ProbeFenceSemantics), comparing which `| S###` lines render inside <code>/<pre> vs as table rows. Report sections: "
+    "`INPUTS:`, `PARSER OUTPUT:` (per input: lines inside fences), `HYPOTHESIS:` (holds / falsified, which case), `INSTALLS:`.")
+
+add("ProbeBodyStability", "executor",
+    "Hypothesis (falsifiable): the article-block text nodes of https://ziyuan.baidu.com/college/articleinfo?id=3457 and id=3028 are byte-stable across fetches "
+    "(only script/cache-token regions vary). Fetch each 3 times 30 s apart (`curl -sSL --compressed -A 'Mozilla/5.0'`) into {SCR}/ProbeBodyStability, extract "
+    "text nodes between `class=\"article-info\"` and 往期回顾 (3457) / 推荐阅读 (3028), diff them and the full bodies against {SRC}/S423.html and S424.html. "
+    "Report sections: `FETCHES:` (sha256 full body, sha256 article text), `DIFFS:`, `HYPOTHESIS:` (holds/falsified).")
+
+# ---- simplifier, sentinels, revenger --------------------------------------------------------------
+add("SimplifierCounters", "simplifier",
+    "Read {W}/c58_receipt_rewrites.py and {W}/c58_resolver_cases.py. Propose deletions/simplifications that preserve verified behaviour (dead code, duplicated "
+    "git calls, the unused `blob_id` paths, unreachable branches, the `-m --first-parent --full-history` combination if redundant) — each with the behaviour it "
+    "keeps and a command that shows it unchanged (run the selftest of C1 with TMPDIR={SCR}/SimplifierCounters and the C2 counter at {BASE} before/after in a "
+    "scratch copy). Do not edit originals; diffs into {R}/SimplifierCounters.files/. Report sections: `PROPOSALS:` (change, kept behaviour, evidence), `REJECTED:`.")
+
+add("SentinelCounters", "sentinel",
+    "Adversarial safety review of the three round-58 counters and the id_resolver tool: argument injection through `--revision` (a value starting with `-`, "
+    "e.g. `--output=/x` or `--upload-pack`), `--root` pointing at a repo with a hostile `.git/config` (core.fsmonitor / core.pager / diff.external executing "
+    "code during `git log -p` or `git show`), inherited GIT_* env, symlinks in fixture dirs, writing outside scratch, deleting outside scratch (shutil.rmtree "
+    "on a user path), fixture repos created inside the lane. Test each claim in fixture repos under {SCR}/SentinelCounters only. Report sections: `FINDINGS:` "
+    "(severity, file:line, reproduction, fix), `NON-ISSUES:`.")
+
+add("SentinelSources", "sentinel",
+    "Safety review of the C3 evidence: the retained HTML bodies {SRC}/S423.html, S424.html (any tracking/session tokens, cookies, personal data that should not be "
+    "committed? search for `token`, `BAIDUID`, `sessionid`, email addresses, phone numbers), {W}/fetch_sources.py (overwrite refusal, UA string, timeout), and "
+    "the planned entries' commands (`curl --head --user-agent ...` copied from the page: safe to run? does a recheck command fetch anything but the page?). "
+    "Report sections: `FINDINGS:`, `REDACTION NEEDED:` (yes/no with lines), `NON-ISSUES:`.")
+
+add("RevengerReceiptIntent", "revenger",
+    "Claim C1: reconstruct original intent for the 19 receipt events (base receipt {W}/controls/base-c1-receipt-rewrites.txt). For each round (52, 54, 55, 56, "
+    "57) read the round's settlement/contract/LOG text and the commit messages of the rewriting commits; decide for each event whether the rewrite was (a) a "
+    "re-run whose new output replaced the old (receipt now records a run), (b) a relabel of the revision without a run, (c) a placeholder filled after the run, "
+    "(d) a cosmetic/format change, (e) an append-only ladder. Compare with the counter's automatic `classify` (import it) and list every event where "
+    "the automatic kind misnames the intent — those are classifier defects to fix BEFORE data. Report sections: `EVENTS:` (path, commit, intent, counter kind, "
+    "agree), `CLASSIFIER DEFECTS:`, `EVIDENCE:` (file:line).")
+
+# ---- scouts ----------------------------------------------------------------------------------------
+add("ScoutRejectS378", "scout",
+    "Assimilation reject check. Re-open https://ads-developers.yahoo.co.jp/ja/ads-api/announcement/260514.html (curl) and read the staged entry "
+    "{STAGED}/yahoo-japan-crawler-address-change-notice.md and its staged row S378 in /home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md. Read "
+    "{LANE}/PROVINCE.md (domain, refusals, sibling ownership lines). Is the page about a SEARCH crawler or the Display Ads product-list FTP crawler "
+    "(商品リスト定期更新クローラー, 定期更新（FTPによる定期巡回）)? Does the staged entry generalise it to 'the operator' and 'its crawlers'? Give the page "
+    "sentence(s) the reject reason rests on (<= 25 units each, located), the PROVINCE line, and a flip condition. Report sections: `PAGE:` (HTTP, title, "
+    "date), `STAGED CLAIMS:` (line, supported/unsupported), `PROVINCE:`, `REJECT REASON:`, `FLIP:`.")
+
+add("ScoutStagedS395", "scout",
+    "Assimilation admit check. Compare the staged row S395 and entry {STAGED}/baidu-crawler-identification.md with the retained page {SRC}/S423.html "
+    "(`python3 -B {W}/span_tools.py window S423`). For each staged sentence: supported by the page (quote), unsupported, or from another page (which). In "
+    "particular: 'Baiduspider-render/2.0 ... fetches a page's CSS, JavaScript and images', 'the same agent the platform's 2017 announcement introduced', 'asks "
+    "you not to block it', 'no revision printed' (the page prints 发布日期：2022-08-19?), the staged section label `【抓取篇】→「第一步：DNS反查IP」段末句`. "
+    "Report sections: `STAGED ROW:` (cell-by-cell check), `STAGED ENTRY:` (sentence table), `REFUSED LINES:`, `SAFE LINES:`.")
+
+add("ScoutQuarantine", "scout",
+    "Assimilation quarantine re-derivation. Re-run the register slice command from the round prompt §10 (register "
+    "/home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md, awk over lane `kake`) into {SCR}/ScoutQuarantine and compare with "
+    "{W}/assimilation/quarantine-slice (12 rows). Confirm neither S395 nor S378 nor any row this round adopts is in it; list the round-57 verdicts "
+    "({LANE}/corpus/lessons/round-57.md § Assimilation) per slice row. Also recompute the collision check with the 0-3-space pattern and confirm 8 collisions "
+    "and that S423/S424 are unused in the lane registry. Report sections: `SLICE:`, `ADOPTION CHECK:`, `COLLISIONS:`.")
+
+add("ScoutLaneBaiduspider", "scout",
+    "Consistency scout: what does the lane already say about Baiduspider and crawler identification? grep {KNOW} for `Baiduspider`, `baidu.com`, `reverse DNS`, "
+    "`反查`, `UA`, `user agent`, and read {KNOW}/crawler-identity.md and {KNOW}/baidu-friendly-crawl-guidance.md. List every existing statement the two new "
+    "entries could contradict or duplicate (file:line + text), and the cross-links the new entries should carry. Report sections: `EXISTING STATEMENTS:`, "
+    "`CONFLICT RISKS:`, `CROSS-LINKS:`.")
+
+add("ScoutOperatorLessons", "scout",
+    "Inherited-teaching check: list {LANE}/corpus/lessons/operator-*.md (if any) and every QUALITY.md criterion added in rounds 55-57 that bears on receipts, "
+    "assimilation or entries; for each, say whether round 58's contract ({W}/contract.md) honours it, and quote the line. Also read {LANE}/corpus/lessons/"
+    "round-57-verifier-spotcheck.md §5 and map D1-D5 to the round-58 contract (handled / not handled + where). Report sections: `OPERATOR LESSONS:`, "
+    "`QUALITY CRITERIA:`, `ROUTED DEFECTS:`.")
+
+# ---- connectors ------------------------------------------------------------------------------------
+add("ConnSiblingOverlap", "connector",
+    "Sibling-overlap scan (adjacency). For the round's three surfaces — receipt-history auditing, a markdown/registry id resolver, Baidu crawler identification "
+    "(UA + reverse/forward DNS) — search the sibling lanes read-only ({FLEET}/*-shokunin: PROVINCE.md, corpus/knowledge, scripts) for overlapping ownership "
+    "(e.g. a lane that owns crawler/bot identity, DNS verification, registry tooling or receipt audit). Report contested scope with file:line evidence and a "
+    "recommendation (report, not absorb). Report sections: `OVERLAPS:`, `CONTESTED:`, `RECOMMENDATION:`.")
+
+add("ConnCrossClaim", "connector",
+    "Cross-claim pattern finder. The round's C1 (receipt ledger), the D3 historical-gate marking, considerthese proposals 2/4/5 and the round-57 C1 "
+    "(revision-pin errata, {LANE}/.ufo/waves/round-57/receipt-errata.json) all describe the same object: a lane claim about a past measurement and the bytes "
+    "that back it. Read them and propose ONE minimal shared representation (fields) that would let a single future check cover relabels, rewrites and "
+    "historical gates, without changing this round's frozen counters. Also check that this round's C1 ledger and the round-57 errata do not contradict each "
+    "other on the 6 shared events (same commit, same from/to). Report sections: `PATTERN:`, `CONTRADICTIONS:`, `PROPOSAL:` (for a later round).")
+
+add("ConnMistakeClasses", "connector",
+    "Cross-round mistake mining. Read every `## Mistakes` section in {LANE}/corpus/lessons/round-5[0-7].md and the verifier spot-checks round-5[0-7]-verifier-"
+    "spotcheck.md routed-defect sections. Cluster recurring classes (e.g. landing, number-drift, attribution) with counts and the rounds they recur in; name "
+    "which recurrence round 58 fixes with a counter shown able to fail, and which recurrence nothing in round 58 touches. Report sections: `CLUSTERS:`, "
+    "`FIXED THIS ROUND:`, `STILL OPEN:`.")
+
+# ---- reviewers -------------------------------------------------------------------------------------
+add("ReviewerC1Code", "reviewer",
+    "Code-review {W}/c58_receipt_rewrites.py before data: the `events()` parser (`git log --reverse --no-renames --full-history -m --first-parent -z "
+    "--name-status --format=%x01%H`: chunk split, header/name parsing with -z, status letters R/C/T, merges, root commit, a path re-added after deletion, a path "
+    "first added in a merge), `blob_id` (ls-tree -z parsing), `classify` order of tests, `pointed` regexes, ledger matching (duplicates, None blobs), "
+    "`new_receipts` regex, exit codes. For each defect: line, failing input, fix; mark `confirmed by running` only if you ran it in a fixture repo under "
+    "{SCR}/ReviewerC1Code. Report sections: `FINDINGS:`, `NO-DEFECT CHECKS:`.")
+
+add("ReviewerC2Gate", "reviewer",
+    "Code-review {W}/c58_resolver_cases.py before data: fixture construction (`lane`, `repo`, registry helper), the expectations of K1-K5/P1-P7 vs the tool's "
+    "contract docstring ({LANE}/scripts/id_resolver.py lines 1-30), regexes (anchoring, `re.M`), P6 tally parse, P7 floor (106 at base; does C3 change it?), "
+    "env (LC_ALL, GIT_*), temp cleanup, `--work` handling, exit codes. Is any expectation wrong under CommonMark? Could a correct fix fail a P case? Mark "
+    "`confirmed by running` only for inputs run under {SCR}/ReviewerC2Gate. Report sections: `FINDINGS:`, `EXPECTATION CHECK:`, `NO-DEFECT CHECKS:`.")
+
+add("ReviewerC3Derive", "reviewer",
+    "Review {W}/derive_c58_quote_truth.py and the generated {W}/c58_quote_truth.py: every substitution (constants, ADOPTED, ROW_URL, STAGED_ABSENT, BODY_SHA256 "
+    "equal to sources/receipts.json and to `sha256sum` of the bodies, TOPIC, ARTICLE_START/END: does each end marker occur AFTER the start in each body, and "
+    "does the article block exclude nav/sidebar/footer and include the whole article?), the round tag in C6, base revision, lesson path, and any leftover "
+    "round-57 assumption in the C1..C8 code (e.g. a hardcoded id, a two-row assumption, the `往期回顾` marker absent from S424). Run the counter at {BASE} and "
+    "at {FREEZE}. Report sections: `FINDINGS:`, `BLOCK CHECK:` (per body: start offset, end offset, first/last text node), `NO-DEFECT CHECKS:`.")
+
+add("ReviewerContract", "reviewer",
+    "Review {W}/contract.md and contract.json against the round prompt /home/vgpnk/Projects/shokunin/.ufo/prompts/kake-round-58.md §2 and §6 item 9 (claim "
+    "sizing: one concrete after-value per claim re-derivable with one command; no universal clauses unless enumerated; do-nothing control committed; predicate "
+    "sentence identical in plan, code and receipt; axis named by surface). Check the predicate strings in the three counters equal contract.json. Check causal "
+    "separability (C2's P7 reads the lane registry/knowledge that C3 extends). Report sections: `CHECKLIST:` (item, met/unmet, evidence), `GAPS:`, `FIXES:`.")
+
+add("ReviewerLedgerKinds", "reviewer",
+    "Claim C1 classifier review before data. For each of the 19 base events, print the counter's `classify` result (import {W}/c58_receipt_rewrites.py; use "
+    "events() at {BASE}) together with `git -C {LANE} diff <from>..<to>`-style blob diff (`git diff <fromBlob> <toBlob>`). Judge each automatic kind against "
+    "the diff: is `relabel` (every changed line carries a 40-hex id or `revision`) right, or did a result line also change? is `append` right for the "
+    "ladder JSON (JSON appends rarely keep the old bytes as a prefix)? Report sections: `TABLE:` (path, commit, kind, diff summary, verdict), "
+    "`MISCLASSIFIED:`, `RULE FIXES:` (exact code).")
+
+add("ReviewerR57Defects", "reviewer",
+    "Routed-defect closure review: for each of D1-D5 in {LANE}/corpus/lessons/round-57-verifier-spotcheck.md §5, state what round 58 does ({W}/contract.md; "
+    "D2: `git -C {LANE} log --format='%h %an %s' -- .ufo/waves/round-57/w1/ExecPinsIndependent.files/relabels.json`), whether the fix can fail (a red-before "
+    "receipt or test), and what remains open. Report sections: `D1`..`D5` (one paragraph each), `OPEN:`.")
+
+add("ReviewerAssimPlan", "reviewer",
+    "Review the assimilation plan against the round prompt §10 (/home/vgpnk/Projects/shokunin/.ufo/prompts/kake-round-58.md lines 491-597) and "
+    "{W}/contract.md + {W}/assimilation/: id lists and collision count (recompute), renumber by document (S395 -> S423), a lane-found row (S424) not from the "
+    "package is allowed?, only rows admitted entries cite, recheck cell normalised, no pipe in cells, scratch census validation before append "
+    "({W}/validate_append.sh), quarantine slice handled, >= 1 admit and >= 1 reject, Gate quotes, `doctrine/` unused, MERGE-REPORT.md consulted "
+    "(/home/vgpnk/Projects/shokuknow/merge/kake/MERGE-REPORT.md: what it says about S395/S378), one theme with 1-3 entries. Report sections: `CHECKLIST:`, "
+    "`GAPS:`, `ORDER OF OPERATIONS:` (exact sequence for the L1).")
+
+add("ReviewerResolverOther", "reviewer",
+    "Claim C2 breadth: beyond D1 (fences) and F1 (quoted paths), find other ways {LANE}/scripts/id_resolver.py can print exit 0 / dangling=0 over a lane whose "
+    "markdown cites an unregistered id (HTML comments `<!-- | S900 | -->` in the registry, a row inside a blockquote `> | S900 |`, a setext `Registry\\n---` "
+    "heading, ids in knowledge files under a symlinked dir, `.markdown` extension, a registry with BOM, ids split by a zero-width space). Test each under "
+    "{SCR}/ReviewerResolverOther; classify as false green / correct / contract-ambiguous. These are reported limits for this round, not new targets. Report "
+    "sections: `CASES:` (input, tool result, class), `TOP RISKS:`.")
+
+add("ReviewerEntryFidelityPrep", "reviewer",
+    "Claim C3 fidelity reference (independent of the entry scribes). Read the article blocks of {SRC}/S423.html and S424.html (`span_tools.py window`) and "
+    "write a sentence-level English reference translation of the parts the entries will carry (S423 【抓取篇】 Q1-Q4; S424 the whole article), marking every "
+    "qualifier, modal and scope word. Then list the 10 most likely mistranslation/overreach traps (e.g. 一般会的 = 'generally yes', not 'always'; 可以 = 'can'; "
+    "百度蜘蛛不是立即停止抓取网页; 正常返回码是200，其他情况为异常 — 'abnormal' not 'blocked'; IP ranges not published is on 2855, not on these pages). Report "
+    "sections: `REFERENCE S423:`, `REFERENCE S424:`, `TRAPS:`.")
+
+# ---- critics ---------------------------------------------------------------------------------------
+add("CriticAxisClaims", "critic",
+    "Attack the axis naming (round prompt §6 item 9: 'Name the axis by the surface the round changes'). Read {W}/contract.md, /home/vgpnk/Projects/shokunin/AXES.md, "
+    "/home/vgpnk/Projects/shokunin/LEARNING.md, {LANE}/SCORECARD.md lines 1-25 and its round-57 section, {LANE}/corpus/lessons/round-57-verifier-spotcheck.md "
+    "§2 axis check. Is C1 calibration ('SHONEN/SCORECARD entries match observed repo state') when the self-assessment is a new ledger? Is C2 operability or "
+    "quality-of-existing-tool? Is C3 freshness or coverage/expansion? Harm risk per axis (calibration 1, operability 10, freshness 10)? Report sections: "
+    "`C1:`, `C2:`, `C3:`, `HARM:`, `WORDING:` (exact axis-note sentences for the report).")
+
+add("CriticC1Cheat", "critic",
+    "Attack C1's counter: construct the cheapest ledgers/commit sequences that reach met=True WITHOUT a true disclosure, in a shared clone under "
+    "{SCR}/CriticC1Cheat (selftest identity). Ideas: notes that point at an unrelated existing file; a kind that the classifier assigns but that misnames what "
+    "happened; hiding a rewrite by moving a receipt into a `controls/sub/` subdir or outside `control(s)/` before rewriting; rewriting a receipt in a merge "
+    "commit's second parent; rewriting via a rename (D + A: is the A of the new name an event?); a commit that deletes a receipt and re-adds identical bytes. For each "
+    "cheat: commands, counter output, and a fix. Report sections: `CHEATS:` (cheat, met?, fix), `LIMITS TO DISCLOSE:`.")
+
+add("CriticC1Before", "critic",
+    "Attack C1's BEFORE value (calibration honesty): the contract says 19 events, 13 never disclosed. Were any of the 13 disclosed in prose at the time (LOG.md, "
+    "SCORECARD.md, reports /home/vgpnk/Projects/shokunin/.ufo/reports/round-5[2-7]/kake.md, settlement.md files, lesson `## Mistakes`)? Grep for each receipt file "
+    "name and read the surrounding lines. If some were disclosed, the 'never disclosed' count is overstated — give the corrected number with file:line. Also "
+    "check the 6 the round-57 errata covers ({LANE}/.ufo/waves/round-57/receipt-errata.json) are exactly 6 of the 19 (same commit). Report sections: "
+    "`PER EVENT:` (path, commit, disclosed where / not), `CORRECTED COUNT:`, `ERRATA OVERLAP:`.")
+
+add("CriticC2Cheat", "critic",
+    "Attack C2's gate: write minimal WRONG tools that score 12/12 on {W}/c58_resolver_cases.py (e.g. a tool that special-cases ids >= S900, or reports DANGLING "
+    "for any id appearing after a ``` line anywhere, or strips everything from the first fence to EOF, or only fixes the non-ASCII path by -z but mishandles a "
+    "newline in a name) and run the gate against each in a shared clone under {SCR}/CriticC2Cheat (commit the stub as scripts/id_resolver.py, selftest "
+    "identity; P6 needs a selftest line: your stub may print one — note that as a hole). For each: tally, and the case that would catch it. Report sections: "
+    "`CHEATS:`, `HOLES:`, `PROPOSED CASES:` (exact fixture + expectation).")
+
+add("CriticC3Cheat", "critic",
+    "Attack C3's counter: construct junk entries/rows/receipts that score 8/8 on {W}/c58_quote_truth.py at a shared clone of {FREEZE} under {SCR}/CriticC3Cheat "
+    "(write entries, rows, lesson Gate, validate receipt, commit with selftest identity). Ideas: entries made of article-block spans that carry no claim "
+    "(Q-headers only, e.g. `2、Q：如何才能识别当前抓取是正确的百度蜘蛛？`), the UA strings as 'quotes' (non-CJK tokens: 25-unit rule vs 40-char rule), "
+    "a rendering that contradicts the quote (not testable by the counter — say so), the same span reused in both entries. Report sections: `CHEATS:` "
+    "(cheat, tally, passing conditions), `HOLES:`, `LIMITS TO DISCLOSE:`.")
+
+add("CriticControlsSizing", "critic",
+    "Attack the three targets with do-nothing and near-nothing controls (§6 item 9: 'a target must be one a do-nothing control cannot reach'). For each "
+    "claim, name the cheapest control that skips the claimed work, run it with the frozen counter (shared clone under {SCR}/CriticControlsSizing), and report "
+    "its tally: C1 — an empty ledger with one dummy note; the mechanical ledger (true values, notes = the receipt's own path) [the contract calls this a stated "
+    "limit — do you agree?]; C2 — the base tool with only the -z fix; C3 — the staged entry copied unchanged with renumbered ids. Report sections: "
+    "`CONTROLS:` (claim, control, tally, met?), `VERDICT PER CLAIM:` (target sound / unsound + why).")
+
+add("CriticEntryOverreach", "critic",
+    "Pre-draft critique of C3's planned content: from {W}/contract.md C3 and the two pages ({SRC}/S423.html, S424.html via span_tools window) list every claim an "
+    "entry author would be tempted to make that the pages do NOT support (e.g. render agent executes JS; Baidu publishes IP ranges; blocking UA removes pages "
+    "from the index; robots changes take effect within N days; Baiduspider-render is only for mobile; *.baidu.jp is for Japan), and every place where the two "
+    "pages disagree with each other or with the staged entry (e.g. S423 lists `移动UA` with Baiduspider-render; the curl check expects 200). Report sections: "
+    "`UNSUPPORTED TEMPTATIONS:` (claim, why unsupported, page text), `PAGE DISAGREEMENTS:`, `MUST-NOT LIST:`.")
+
+add("CriticReceiptRule", "critic",
+    "Attack the round's receipt rule ('committed once, after the run, never rewritten; no placeholder' — {W}/contract.md) as an operating procedure: walk the "
+    "L1's T0/T1 landing (C2 and C3 after-receipts at T0, C1 receipt at T1) and find every way the rule still breaks (a selftest receipt re-run after a counter "
+    "fix; census-after written twice; the SCORECARD pin; a receipt the L1 must correct because a seat finds a defect after T0). For each, the rule-keeping "
+    "alternative (new file name; errata). Report sections: `BREAKS:`, `PROCEDURE:` (numbered steps the L1 should follow).")
+
+# ---- mutation testers ------------------------------------------------------------------------------
+add("MutC1Counter", "mutation-tester",
+    "Mutation-test {W}/c58_receipt_rewrites.py with its selftest. Copy it to {SCR}/MutC1Counter, apply >= 18 single-point mutants (e.g. drop `--no-renames`; "
+    "`status == \"A\" and path not in seen` -> always skip A; `seen.add` removed; key without blobs; `used` set removed (duplicates); `classify` order "
+    "swapped; `pointed` always True; `NEW_RE` round 58 -> 57; `new_receipts == 2` -> `>= 1`; `wrong_kind` ignored in met; `HEX40` loosened; malformed check on "
+    "note removed; POP_RE widened to subdirs; exit code swap) and run `TMPDIR={SCR}/MutC1Counter python3 -B <copy> --selftest` for each. Report sections: "
+    "`MUTANTS:` (id, change, killed?), `SURVIVORS:`, `PROPOSED FIXTURES:` (one per survivor, in the selftest's style).")
+
+add("MutC2Gate", "mutation-tester",
+    "Mutation-test {W}/c58_resolver_cases.py by mutating the TOOL it scores: copy {LANE}/scripts/id_resolver.py to a shared clone of the lane at {BASE} under "
+    "{SCR}/MutC2Gate; apply >= 12 single-point mutants to the tool (ID_RE digits 3 -> 4; ROW_RE indent 0-3 -> 0-4; REGISTRY_HEADING_RE loosened; SECTION_END "
+    "never; sibling owner sort removed; `--fleet` not-dir check removed; exit code 1 -> 0 when dangling; url-match removed; selftest count printed wrong), "
+    "commit each (selftest identity) and run the gate; report which mutants the gate's 12 cases kill (tally drops below the base 7/12 or changes) and which "
+    "survive. Report sections: `MUTANTS:`, `SURVIVORS:`, `PROPOSED CASES:`.")
+
+add("MutC3Counter", "mutation-tester",
+    "Mutation-test the C3 condition code using the round-57 selftest (the condition code C1..C8 is shared with c58): copy "
+    "`git -C {LANE} show {BASE}:.ufo/waves/round-57/c57_quote_truth.py` to {SCR}/MutC3Counter; apply >= 16 single-point mutants to run_checks/in_content/"
+    "text_segments/units/CHAR_CEILING/TOPIC/used_by/C7/C8 logic; run its selftest from a shared clone at {BASE} (`KAKE_R57_SELFTEST_REV={BASE}`). Survivors "
+    "are holes that also exist in c58 (same code): list each with a proposed fixture for the round-58 port. Report sections: `MUTANTS:`, `SURVIVORS:`, "
+    "`PROPOSED FIXTURES:`.")
+
+add("MutResolverSelftest", "mutation-tester",
+    "Mutation-test the CURRENT tool's selftest ({LANE}/scripts/id_resolver.py --selftest, 49 checks): copy to {SCR}/MutResolverSelftest, >= 14 mutants on "
+    "parse_registry, parse_cited, knowledge_bodies, sibling_registry, evaluate, render; run the copy's --selftest per mutant. Survivors show where the tool's "
+    "own selftest is blind; the C2 fix must add cases there too. Report sections: `MUTANTS:`, `SURVIVORS:`, `CASES TO ADD:`.")
+
+# ---- second-opinion items (distinct targets) ------------------------------------------------------
+add("ExecResolverFix2", "executor",
+    "Claim C2, second independent implementation (for differential comparison with another seat's candidate; do not coordinate). Write a candidate "
+    "{R}/ExecResolverFix2.files/id_resolver.py from {LANE}/scripts/id_resolver.py with: a fence-aware registry parser implemented as a small line-state "
+    "machine (CommonMark: opening 0-3 spaces + >= 3 of one of ` or ~; closing same char, >= opening length, 0-3 spaces, only whitespace after; unclosed runs to "
+    "EOF); `ls-tree -r -z` for --revision paths. Run the frozen gate on it (shared clone at {BASE} under {SCR}/ExecResolverFix2, candidate committed as "
+    "scripts/id_resolver.py, selftest identity, `--work {SCR}/ExecResolverFix2/w`) and run `{R}/ExecResolverTests.files/battery.py` on it if that file exists "
+    "by the time you finish. Report sections: `DIFF:`, `GATE RUN:`, `BATTERY:` (or `not available`), `DESIGN NOTES:`.")
+
+add("ExecLedgerNotesCheck", "executor",
+    "Claim C1: notes pointer check. For every evidence pointer candidate the ledger notes might use — the settlement.md, contract.md, LOG.md, SCORECARD.md, "
+    "receipt-errata.json and lesson files of rounds 52-57 — list which exist at {BASE} (`git -C {LANE} cat-file -e {BASE}:<path>`), and run the counter's "
+    "`pointed()` (import it) on 10 sample notes (a path in backticks, a path followed by `.` or `)`, a 7-hex id, a 12-hex id that is ambiguous?, a URL, "
+    "`SCORECARD.md:4330`) to show exactly which forms count. Report sections: `EXISTING POINTERS:`, `POINTED() BEHAVIOUR:` (note, result), `DEFECTS:`.")
+
+add("ExecC1Perf", "executor",
+    "Claim C1 performance and determinism: time `python3 -B {W}/c58_receipt_rewrites.py --root {LANE} --revision {BASE}` (3 runs) and `--json`; check the "
+    "output is byte-identical across runs and that it does not depend on the working tree (run it from {SCR}/ExecC1Perf with `--root {LANE}` and against a "
+    "`git clone -q --shared --no-checkout` of the lane). Report sections: `TIMINGS:`, `DETERMINISM:`, `WORKTREE INDEPENDENCE:`.")
+
+add("ExecResolverRealLane", "executor",
+    "Claim C2 no-harm check over the lane's own history: run the CURRENT tool `--revision <rev>` for the last 10 first-parent revisions of master "
+    "(`git -C {LANE} rev-list --first-parent -10 master`) and record each summary; these are the values a correct fix must reproduce on this lane (no fenced "
+    "rows, ASCII names). Also report `git -C {LANE} ls-tree -r --name-only master corpus/knowledge | grep -c '^\"'` and fence count in corpus/SOURCES.md. "
+    "Report sections: `RUNS:`, `LANE FACTS:`, `EXPECTATION FOR THE FIX:`.")
+
+add("ScoutCorpusBar", "scout",
+    "Bar check for C3 entries: read {LANE}/corpus/QUALITY.md (criteria that apply to a new knowledge entry: quotes, renderings, [INFERENCE] tags, scope note, "
+    "cross-links, recheck command form) and /home/vgpnk/Projects/shokunin/CORPUS.md rules 1-5. Produce a numbered checklist the L1 will apply to each drafted "
+    "entry, each item with the criterion's file:line. Report sections: `CHECKLIST:`, `SOURCES:` (file:line).")
+
+add("ScoutFleetReceipts", "scout",
+    "Adjacency scout: how do 4-5 sibling lanes ({FLEET}/kotoba-shokunin, kaidoku-shokunin, tsukuroi-shokunin, kumitate-shokunin, souji-shokunin — whichever "
+    "exist) handle receipt rewrites? For each, count paths under `.ufo/waves/round-*/control(s)/` with more than one commit (`git -C <lane> log --format=%h -- "
+    "<path> | wc -l`) and whether a ledger/errata file exists. Report only; nothing is absorbed. Report sections: `LANES:` (lane, receipts, rewritten, "
+    "ledger?), `NOTE:`.")
+
+SPEC = {"reportDir": ".ufo/waves/round-58/w1", "maxLanes": 128, "context": CONTEXT, "items": items}
+if __name__ == "__main__":
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "w1-spec.json")
+    json.dump(SPEC, open(out, "w"), indent=1, ensure_ascii=False)
+    c = Counter(i["role"] for i in items)
+    flash = sum(c[r] for r in ("executor", "labrat", "scribe", "sonic", "simplifier", "revenger", "sentinel"))
+    attack = sum(c[r] for r in ("reviewer", "critic", "mutation-tester", "labrat"))
+    print(len(items), dict(c), f"flash={flash} ({flash/len(items):.0%}) attack={attack} ({attack/len(items):.0%})")
