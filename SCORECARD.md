@@ -4345,3 +4345,34 @@ Receipts under `.ufo/waves/round-56/controls/`: base `base-c1-selftally.txt` (ve
 | Selftest-tally gate | Runs each pinned registry row's documented selftest command in a clean clone of a revision under a fixed environment and compares the printed tally with the row's stated number; fails on stale counts, fake or narrowed commands, duplicate rows, rewritten selftests or helpers, host-exported pins | `.ufo/waves/round-56/c56_selftally.py`, `controls/c1-selftest.txt` | 56 |
 | Crawl-handling quote-truth gate (held-row pinned) | The round-55 article-bound quote-truth conditions, with a sha256 pin for a held row, a 40-character ceiling, header and row-cell checks, and page-uniqueness against every retained body | `.ufo/waves/round-56/c56_quote_truth.py`, `controls/c2-selftest.txt` | 56 |
 | Landed-vs-claimed check | Compares every commit hash a report cites with branch ancestry (considerthese proposal 1); run on the round-55 report (10 hashes, 10 ancestors) | `scripts/landed_check.py`, `w1/ExecLandedCheck.files/selftest.txt` | 56 |
+
+
+## Round 57 — declared and measured claims
+
+Frozen contract: `.ufo/waves/round-57/contract.md` / `contract.json` (lane base `28fa0b23e699303725aba2727094531f5e44494d`, contract commit `b9a5d012f7fd`; counter versions in its two
+§ Counter versions sections). Axis note: C1 is declared on **calibration**, the round-54 bounded sub-axis (score 1, the lowest-scoring non-retired score; outside the prompt's operability +
+freshness list, ownership still open for the operator); C2 on operability (capability acquisition); C3 on freshness (sourced). `w1/CriticAxisClaim.md` argues C1 is operability and C3 is
+coverage/expansion; the declarations stand. Calibration stays 1/10; operability and freshness stay 10/10 (no inflation).
+
+Measured revision: 32754df75774dd38e8a96fcda375fc93adf97f1e
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| Receipt revision pins: six undisclosed relabels disclosed with true values, this round's three receipts carry the revision their run covered | calibration (declared; operability argued) | `undisclosed_relabels` 6 → 0, `new_receipts` 0 → 3, `scorecard_pin` 0 → 1 | `python3 -B .ufo/waves/round-57/c57_receipt_pins.py --root . --revision <tip>` | counter met at the tip (version 2.1 after 2 attack waves); certifies pin consistency, not that a counter ran; score stays 1/10 |
+| `scripts/id_resolver.py` lists cited `S###` ids the lane registry lacks and names the sibling owner | operability (capability acquisition) | gate 0/5 → 5/5 | `python3 -B .ufo/waves/round-57/c57_idresolver_gate.py --root . --revision 32754df75774dd38e8a96fcda375fc93adf97f1e --fleet /home/vgpnk/Projects/shokunin` | counter met (differential gate v2.1); red-before at `3994101` finds exactly S367 S372 S373 S390 S409 owned by kotodama-shokunin; the tool caught a staging-id leak in its own round's entry draft |
+| Two Baidu dead-link entries (S421, S422) on rows opened this round | freshness (declared; coverage/expansion argued) | `conditions_passed` 0 of 8 → 8 of 8; registry rows 158 → 160 | `python3 -B .ufo/waves/round-57/c57_quote_truth.py --root . --revision 32754df75774dd38e8a96fcda375fc93adf97f1e` | counter met (v2.1: text-node quotes, pinned bodies, topic floor); quote truth, not support: rendering fidelity by reviewers and critics (21 sentence-level repairs) |
+
+Receipts under `.ufo/waves/round-57/controls/`: base `base-c1-receipt-pins-v2.txt` (exit 1), `base-c2-idresolver-v2.txt` (0/5, exit 1), `base-c3-quote-truth-v2.txt` (0/8, exit 1); after
+`after-c1-receipt-pins.txt`, `after-c2-idresolver.txt`, `after-c3-quote-truth.txt` (each pinned to the measured revision above; none is ever rewritten); selftests `c1-selftest-final.txt` (71/71),
+`tool-selftest-final.txt` (49/49), `c3-selftest-final.txt` (120/120); `census-before.txt`, `census-after.txt`. Admission belongs to the non-author closure.
+Disclosed limits: the tool is fence-blind in a registry and drops non-ASCII knowledge paths at a revision (`w2/CriticResolverCheat.md` D1, `w2/ReviewerResolverCode.md` F1; kake's entries are ASCII-named
+and unfenced); the C1 body check cannot prove a run happened; C2's G4 reads live siblings; the tool is noisy on other lanes' id-shaped tokens.
+Regression: `c56_quote_truth.py` is 6/8 at the tip by design (its mirror pins 158 rows; `w2/ExecRegress.md`); every other earlier counter unchanged.
+
+### Capabilities acquired in round 57
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Source-id resolver | Lists every `S###` cited in `corpus/knowledge/**/*.md` that the lane registry lacks and names the sibling registries that hold it, at a revision or the working tree; exit 0/1/2/64 | `scripts/id_resolver.py`, `controls/tool-selftest-final.txt`, `controls/after-c2-idresolver.txt` | 57 |
+| Receipt-pin gate | Re-derives from git history (whole ancestry, renames and merges followed) every relabel of a measurement receipt, checks the disclosure errata against git, and binds this round's receipts to the measured revision and the counter freeze | `.ufo/waves/round-57/c57_receipt_pins.py`, `controls/c1-selftest-final.txt` | 57 |
+| Differential tool gate | Scores a tool against an in-gate reference over randomised fixtures and real revisions, in a no-network sandbox | `.ufo/waves/round-57/c57_idresolver_gate.py`, `controls/after-c2-idresolver.txt` | 57 |

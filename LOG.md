@@ -2196,3 +2196,15 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Considerthese.** Proposal 1 (landed-vs-claimed check) implemented as `scripts/landed_check.py` (14-check selftest; run on the round-55 report: 10 cited hashes,
   10 ancestors of `master`); mutation-tested in wave 2.
 - **Swarm.** Two v1 waves, 43 + 41 = 84 seats, no residual call; `settlement.md`. 0 dead seats in wave 1. No tools installed.
+
+
+## Round 57 — 2026-10-25
+
+- **Evidence.** Six measurement receipts of rounds 52–56 had their `revision:` pin rewritten to a revision no run backs, undisclosed (`c57_receipt_pins.py` at `28fa0b23`: 6, exit 1); five ids cited in
+  knowledge entries at revision `3994101` resolved only in kotodama-shokunin's registry; the staged Baidu dead-link candidates had 0 quoted spans and wrong claims; all three version-1 counters were met by
+  junk (wave-1 attacks).
+- **C1 calibration.** `receipt-errata.json` discloses the six relabels with true values; counter version 2.1 after 2 attack waves (selftest 71); this round's receipts are pinned to the measured revision
+  and never rewritten. **C2 operability.** `scripts/id_resolver.py` (49-check selftest) and its differential gate (5/5); red-before finds the five ids; it caught the staging id S408 in the S422 entry draft.
+  **C3 freshness.** Entries `baidu-dead-link-types` (S421) and `baidu-spider3-dead-link-model` (S422; staged S403/S408 renumbered by document), registry 158 → 160, 8/8; rejected as staged: S390, S409/S410, S404/S414, S358.
+- **Quarantine.** The 12-row slice hand-checked: 10 verified, 2 absent as registered (S148, S206).
+- **Swarm.** Two v1 waves, 40 + 37 = 77 seats, no residual call, 0 dead seats; `settlement.md`. No tools installed.
