@@ -67,6 +67,10 @@ defect (body-only search for a header quote, a GET against a POST-only endpoint,
 backticks against rendered `<code>`), not fabrication; none is fabrication in the invented-text sense. Not edited: the register and every
 campaign file.
 
+## Search log
+
+Round 57, Baidu dead-link pages (assimilation theme from `merge/kake/`). The append-only rule of the registry (the C3 counter's mirror condition: the measured registry minus the new rows equals the pre-append mirror) keeps this note out of `corpus/SOURCES.md` § Search log, so it lives here. Question: what do Baidu's own pages say a dead link is and how does its crawler treat one? Where: the staged package `shokuknow/merge/kake/` (two staged rows, S403 and S408, both Baidu 搜索资源平台 pages), then each page opened directly (GET, 2026-10-25, HTTP 200, no redirect; sha256 and bytes in `.ufo/waves/round-57/sources/receipts.json`). Identified 2, screened 2, included 2 (S421, S422, both `mined`), excluded 0; the staged ids were renumbered by document (S403 -> S421, S408 -> S422; the registry's next unused ids). Stop rationale: one theme per round, two entries. The staged `S390`, `S409` and `S410` Baidu rows belong to other themes and stay refused as staged (reasons in `corpus/lessons/round-57.md` § Gate).
+
 ## Rejects
 
 (filled after wave 2 re-reads each reason against the page)

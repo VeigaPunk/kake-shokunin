@@ -88,7 +88,7 @@ The handling section tells the publisher to set the page to a 404 page and to be
 
 (rendered: the tool only recognises 404 — please be sure to set it to 404; if non-404 resources exist, the whole file's effect may be affected.)
 
-The staged candidate's assertion (c) said the remedy is "remove the path from internal links, or make the route answer a real 404". The page states the second half (set the page to 404) but states nothing about removing a path from internal links; that half is not carried [S421].
+The staged candidate's assertion (c) said the remedy is to remove the path from the internal links or to make the route answer a real 404 (the candidate's wording, not the page's). The page states the second half (set the page to 404) but states nothing about removing a path from internal links; that half is not carried [S421].
 
 ## Cross-engine contrast
 

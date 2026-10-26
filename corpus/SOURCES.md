@@ -221,10 +221,6 @@ Round 47 bounded question (2026-10-24): what does Git's own documentation say ma
 
 Round 53 bounded question (2026-10-25): which Yahoo! JAPAN and Baidu primary pages are the sources intended by five ids cited as held ground but missing from kake's registry? Opened one URL per row (S367, S372, S373, S390, S409), retained HTTP 200 bodies and receipts under `.ufo/waves/round-53/sources/`, and recorded located quotes in `corpus/lessons/round-53.md` § Gate. Identified 5, screened 5, included 5, excluded 0. Stop rationale: the five cited mechanisms now have lane-local source rows; no broader crawler behavior is inferred.
 
-### Round 57 — Baidu dead-link pages (assimilation theme from `merge/kake/`)
-
-Question: what do Baidu's own pages say a dead link is and how does its crawler treat one? Where: the staged package `shokuknow/merge/kake/` (two staged rows, S403 and S408, both Baidu 搜索资源平台 pages), then each page opened directly (GET, 2026-10-25, HTTP 200, no redirect; sha256 and bytes in `.ufo/waves/round-57/sources/receipts.json`). Identified 2, screened 2, included 2 (S421, S422, both `mined`), excluded 0; the staged ids were renumbered by document (S403 -> S421, S408 -> S422; the registry's next unused ids). Stop rationale: one theme per round, two entries. The staged `S390`, `S409` and `S410` Baidu rows belong to other themes and stay refused as staged (reasons in `corpus/lessons/round-57.md` § Gate).
-
 ## Leads (unopened)
 
 - GitHub Docs: Verifying your custom domain for GitHub Pages — https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages

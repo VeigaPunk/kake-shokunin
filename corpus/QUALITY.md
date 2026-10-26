@@ -1215,3 +1215,44 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
 - **A quote is not taken from a line that contains a raw double quote.** The S367 meta-tag examples carry `name="robots"`; the ASCII
   quote regex splits them and the value-bearing piece is never verified. Describe such lines in prose and tag the description; quote the
   sentence around them. Grounding: `w1/CriticC2Contract.md` A6/WR-2; `corpus/lessons/round-56.md` §Mistakes (vacuous). Falsifier: `c56_quote_truth.py --selftest` cases `fail_entity_span_decoded` and `fail_long_single_token_fabricated`.
+
+## Round-57 criteria
+
+- **A receipt's revision pin is the revision its run covered, and a receipt is never rewritten.** A measurement receipt under
+  `.ufo/waves/round-5[2-7]/{control,controls}/` names the revision the counter was run over; a later commit that edits that line, or a report
+  column headed "after (`<rev>`)" for a receipt produced at another revision, is a relabel. A pin that no run backs is a defect even when the
+  receipt's numbers are still true at the old revision (`w1/ExecRelabelDiffs.md`: all twelve re-runs reproduced the six receipts' bodies, so the
+  harm is provenance, not the result). History is not rewritten: a historical relabel is closed by `receipt-errata.json` naming path, from, to and
+  commit with git agreeing (no phantom entry), and a relabel of a receipt this round introduces is never disclosable: the counter is re-run at the
+  named revision and the unedited output lands under a new file name. Six relabels across rounds 52–56 were undisclosed at the round-57 base.
+  Grounding: `corpus/lessons/round-57.md` §Mistakes (landing); `corpus/lessons/round-56-verifier-spotcheck.md` §6.1;
+  `.ufo/waves/round-57/controls/base-c1-receipt-pins-v2.txt` (exit 1, `undisclosed_relabels=6`). Falsifier:
+  `python3 -B .ufo/waves/round-57/c57_receipt_pins.py --root . --revision <tip>` must print `met=True`; its `--selftest` (48 checks) carries
+  the cases a pin-blind reading accepts: errata naming nothing git shows, a wrong `to` or commit, a deleted or moved-out receipt, a relabelled new
+  receipt (also on a merged side branch), a non-ancestor measured revision, a bare pin line, a body that records a failed run, a stripped pin.
+- **A rejection reason is re-read against the page before it is logged.** A reason that treats a clause as unsupported, or a page as silent,
+  names the page's own sentence at its locator and states what the page does say; only the extension beyond that sentence is rejected. Round 56
+  logged the S388 Google/Bing clause as an unsupported inference and its flip deleted the clause, while the retained page prints
+  `この記述は、Yahoo!検索だけでなくGoogle、Bingの検索エンジンにも共通の規格です。` (once): the shared specification is on the page and only
+  "covers" is the extension. Grounding: `corpus/lessons/round-57.md` §Mistakes (attribution) and §Rejects (each round-57 reason carries the page text
+  it was read against); `corpus/lessons/round-56-verifier-spotcheck.md` §4 and §6.2. Falsifier: `grep -c '共通の規格' corpus/lessons/round-56.md` prints
+  0 while `grep -c '共通の規格' .ufo/waves/round-56/sources/S388.html` prints 1: the logged reason never states the sentence the page prints.
+- **A gate that scores a tool compares it with a reference over inputs the tool has not seen, not with constants.** The version-1 id-resolver gate
+  compared the tool with literals over one fixed fixture and one fixed revision: a 10-line constant printer and a 21-line stub both scored 5/5
+  (`w1/CritCheatC2.md`, `w1/CriticControlsSizing.md`), and a correct tool was rejected one run in four on owner ordering. Version 2 carries a reference
+  implementation, randomises the fixtures per run, compares sets, and treats a changed environment as unevaluable. Grounding:
+  `corpus/lessons/round-57.md` §Mistakes (vacuous). Falsifier: `python3 -B .ufo/waves/round-57/c57_idresolver_gate.py --root . --revision <commit>` must
+  print `5/5` for the genuine tool and fails a constant printer at G3 and G4.
+- **A counter that gates a retained page pins the page by digest in its own code and counts only article text.** The version-1 quote counter reached 8/8
+  from 13 junk files, from quotes of sidebar markup and a `<style>` block, and from a body rewritten together with its receipt
+  (`w1/CritCheatC3.md`, `w1/CriticC3Counter.md` A1 and A2). A span qualifies inside a text node of the article block of a body whose sha256 is the one
+  frozen at the contract commit; the row title is the page's `<title>`, the anchor heading is page-unique, and the printed date is read in the article.
+  Grounding: `corpus/lessons/round-57.md` §Mistakes (vacuous). Falsifier: `KAKE_R57_SELFTEST_REV=b9a5d012f7fd python3 -B .ufo/waves/round-57/c57_quote_truth.py
+  --selftest` (101 checks) cases `fail_sidebar_markup_span`, `fail_style_css_span`, `fail_body_swapped_with_receipt`, `fail_row_title_substring_only`,
+  `fail_anchor_sidebar_heading`.
+- **An entry cites only source ids its own lane registry holds.** At lane revision `3994101` five ids (S367 S372 S373 S390 S409) resolved only in
+  another lane's registry; the lane learned it from the round-53 verifier. This round the resolver caught the same class in the lane's own draft before it
+  landed: the S422 entry named the staging id S408, which kotodama-shokunin holds as another document. A staging or campaign id is never a citation:
+  write "the staging row for this page". Grounding: `corpus/lessons/round-57.md` §Mistakes (reference-drift); `scripts/id_resolver.py`;
+  `considerthese/2026-10-25.md` proposal 2. Falsifier: `python3 -B scripts/id_resolver.py --root . --fleet /home/vgpnk/Projects/shokunin` must exit 0
+  (`dangling=0`); at `--revision 3994101dba28896830604fd0b08c7f00faca8ed6` it exits 1 naming the five ids and kotodama-shokunin.
