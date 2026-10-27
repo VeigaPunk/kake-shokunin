@@ -32,6 +32,20 @@ and states the consequence for robots.txt [S263] (collapsed-only quote):
   crawlers share the name "Googlebot", so a log line saying "Googlebot" does not say whether
   the fetch was the mobile or the desktop variant, and therefore does not say which viewport
   the fetched HTML was produced for.
+  **[r59-correction 2026-10-27]** The claim in the bullet above is wrong as stated: a server log
+  records the requesting IP address as well as the user-agent, and Google's crawler overview gives
+  three identification signals, not one [S425] — the HTTP user-agent request header,
+  "The source IP address of the request." and "The reverse DNS hostname of the source IP." Its
+  technical-properties section adds that the clients are distributed across many datacenters, so
+  "your logs may show visits from several IP addresses" [S425]. What the bullet gets right
+  survives: the user-agent header is what separates the Smartphone and Desktop subtypes quoted
+  above, so a log line reading Googlebot still does not say which viewport the fetched HTML was
+  produced for. What does not survive is the word *only* — verifying a claim to be Googlebot is a
+  check on the logged IP (reverse then forward DNS, or a match against Google's published IP
+  ranges), set out in `googlebot-verification.md`; the
+  fuller reading of the three signals, with the datacenter spread, is
+  `crawler-identity-signals.md` (S425). The sentence above stays as historical text; this
+  correction supersedes it.
 - **The same page can be crawled twice by the same engine under two names.** For a publisher
   running per-device checks, a "crawled" conclusion drawn from a bare "Googlebot" is
   ambiguous in the same way a canonical conclusion drawn from a declared element is

@@ -1,0 +1,25 @@
+C2 resolver-cases 21/21 met=True  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S7378 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S4918 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S4244 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S8034 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S1526 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S1386 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S1335 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered PASS  exit=1 DANGLING S5129 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K9_setext_heading_ends_registry PASS  exit=1 DANGLING S1084 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K10_in_lane_symlinked_dir_is_read PASS  exit=1 DANGLING S3744 cited-by=corpus/knowledge/linked/hidden.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K11_revision_symlink_resolved_in_tree PASS  exit=1 DANGLING S2196 cited-by=corpus/knowledge/linked.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable PASS  exit=2 id_resolver: unevaluable: registry symlink escapes the lane: corpus/SOURCES.md
+  K13_non_utf8_path_at_revision PASS  exit=1 DANGLING S4585 cited-by=corpus/knowledge/bad�.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K14_non_toplevel_root_is_unevaluable PASS  exit=2 id_resolver: unevaluable: --root /fast/scratch/hyaku/kake-r59/CriticC2Cheat/work/c59-rc-n_f9arzl/tmp6warj2oc/anc/lane is not a repository toplevel (ancestor: /fast/scratch/hyaku/kake-r59/CriticC2Cheat/work/c59-rc-n_f9arzl/tmp6warj2oc/anc)
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S4864 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S1311 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/CriticC2Cheat/work/c59-rc-n_f9arzl/no-such-fleet is not a directory
+  P6_tool_selftest PASS  exit=0 ('66', '66')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 63
+  revision: 4cffc4a676d751005d4f63fc88703b60d9c54427
+EXIT=0

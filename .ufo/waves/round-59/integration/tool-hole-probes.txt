@@ -1,0 +1,10 @@
+Round 59 L1 integration probe (supplementary; not a claim counter): the landed scripts/id_resolver.py (working tree before the build
+commit) against the shapes of w1/CriticC2Cheat holes H1-H4 and w1/SentinelResolver's FIFO hang, in scratch fixture lanes
+(/fast/scratch/hyaku/kake-r59/L1/holes, removed). Expected-correct outcome in brackets.
+H1 two-row multi-line HTML comment (S102, S103 commented):   ids_cited=3 ids_resolved=1 dangling=2   [both commented ids dangle]
+H2 thematic break `---` after a blank line, then row S102:     ids_cited=2 ids_resolved=2 dangling=0   [a thematic break does not end the section]
+H3 SOURCES.md -> in-lane regular file:                         ids_cited=1 ids_resolved=1 dangling=0   [in-lane registry symlink keeps working]
+H4 knowledge dir symlink escaping the lane (cites S999):      ids_cited=1 ids_resolved=1 dangling=0   [out-of-lane citation not read]
+FIFO corpus/knowledge/p.md (timeout 20 s):                     ids_cited=1 ids_resolved=1 dangling=0 rc=0 [skipped, no hang]
+H5 (fake selftest) and H6 (harness sniff) are counter-strength holes, not tool behaviours: the gate cannot exclude a tool that lies about
+its tally or detects the harness; the landed tool's source is reviewed by the residual call instead.

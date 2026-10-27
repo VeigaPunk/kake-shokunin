@@ -1313,3 +1313,37 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   `undisclosed=19`; 6 of the 19 are the relabels `receipt-errata.json` already records). Falsifier:
   `python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision <tip>` must print `met=True`; at base it exits 1
   with `undisclosed=19`, and the selftest's rename, deletion and re-add cases fail a file-and-line reading.
+
+## Round-59 criteria
+
+- **A routed defect carries its age, and the round that closes it names the rounds it survived.**
+  A defect a non-author closure routes enters the lane's own record with the round it was routed in
+  and the round it was closed in; until then every later round re-reads it. `crawler-identity.md:31`
+  ("A user-agent string is the only thing a server log records about the crawler") landed at
+  `5591557` in round 51 and stood through seven closure passes (rounds 51–57 name it nowhere; the
+  round-58 closure lists it as D1, "carried since round 51", and repairs nothing), while the
+  lane's own DNS-verification material sat beside it. Grounding: `corpus/lessons/round-58.md`
+  §Mistakes (survivor); `corpus/lessons/round-58-verifier-spotcheck.md:80`;
+  `.ufo/waves/round-59/controls/base-c3-quote-truth.txt` (`0/9`, `C9_stale_claim_corrected FAIL`).
+  Falsifier: `python3 -B .ufo/waves/round-59/c59_quote_truth.py --root . --revision <tip>` must print
+  `9/9 met=True` with `C9_stale_claim_corrected` PASS, and C9 fails on three independent sub-reasons
+  (no `[r59-correction 2026-10-27]` line within 8 base lines, no S425 citation, no retained body).
+  Example that fails it: a correction appended in the entry's own section, marked "corrected
+  (round 59)" with no S425 id — the sentence stands, the record of standing does not exist, and the
+  next closure re-routes the same line.
+- **An axis-table evidence cell resolves, at the revision the row is claimed at, to committed bytes
+  and to a receipt on that same axis whose tally exists in a cited blob.** Scores are not evidence:
+  a cell that keeps its 10 while its pointers rot is a stale-premise, and a receipt from a round
+  with no claim on the axis is not on-axis evidence. At the round-59 base the operability cell pinned
+  `cli.mjs:935` and three continuations in a tree the lane no longer holds and the freshness cell
+  pinned six deleted `/tmp/kake-r17/…` files plus the vanished `corpus/claims`, under scores of 10
+  (`mismatches=16 unresolved=11 rows_no_receipt=3 rows_no_tally=2`). Grounding:
+  `corpus/lessons/round-58.md` §Mistakes (reference-drift); `.ufo/prompts/kake-round-59.md` §7.5;
+  `corpus/QUALITY.md` round-34 ("a cited artifact resolves from committed lane bytes");
+  `.ufo/waves/round-59/controls/base-c1-axis-evidence.txt` (exit 1). Falsifier:
+  `python3 -B .ufo/waves/round-59/c59_axis_evidence.py --root . --revision <tip>` must print
+  `mismatches=0 … met=True` under the version-2 predicate (`contract.md` § Counter versions); the counter also fails an emptied
+  cell (`rows_no_receipt`, `rows_no_tally`), an off-axis receipt (`receipts_off_axis`) and a dropped
+  verbatim base cell (`superseded_kept`). Example that fails it: replacing the freshness cell's
+  `/tmp/kake-r17/*` pointers with `/fast/scratch/<seat>/reviewer-cites.md` — the row still reads 10,
+  and the pointer dies with the seat's scratch dir exactly as the old one did.

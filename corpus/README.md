@@ -74,8 +74,10 @@ mirrors, Pages deploys).
 | Baidu Spider 3.0 dead-link recognition model (r57) | `knowledge/baidu-spider3-dead-link-model.md` (S422) | protocol dead links, most content dead links and redirect dead links named by the recognition model; a few-days processing statement; the best-choice preference; the index-display figure's real placement; no crawl observed |
 | Baiduspider identification (r58) | `knowledge/baidu-spider-identification.md` (S423) | Baiduspider identification as the page states it: three UA channels (PC, mobile, mini-program) and a two-step DNS verification — a reverse lookup whose hostname must sit under baidu.com or baidu.jp, then a forward lookup whose address must match the logged IP; no crawl observed |
 | Baiduspider unblocking (r58) | `knowledge/baidu-spider-unblocking.md` (S424) | Baiduspider unblocking: the three block classes the page names (robots.txt, the Baidu user agent, an IP-level firewall block), the curl head request under a Baiduspider user agent whose 200 answer it calls normal, and the remedies it names (strategy change, user-agent whitelist); no unblock observed |
+| Crawler identification signals (r59) | `knowledge/crawler-identity-signals.md` (S425) | Google's three identification signals as the page states them: the user-agent request header, the source IP address and the reverse DNS hostname; several IP addresses per crawler; US egress and the fallback when US requests are blocked; the pointer to the verification page |
+| Googlebot verification (r59) | `knowledge/googlebot-verification.md` (S426) | Googlebot verification as the page states it: the two methods (manual command line and automatic IP-list match), the reverse DNS then forward DNS two-step check against the three domain masks, the printed worked examples and the crawler-category range files |
 
-### Frontier ground map (round 55; round-58 update)
+### Frontier ground map (round 55; round-59 update)
 
 One row per `PROVINCE.md` §Frontier ground that a held entry can be dated to
 (`PROVINCE.md:22-30`): the round it entered, the entry, and the `used-by` rows
@@ -83,7 +85,8 @@ that entry names in `corpus/SOURCES.md` at base `fcaf4b85…` (155 rows); the ro
 measured at the round's final revision (156 rows, S418 added) and the round-56 row at the round-56
 final revision (158 rows, S419 and S420 added), not at base `e48354b7…`; the round-57 row at the
 round-57 final revision (160 rows, S421 and S422 added), not at base `28fa0b23…`; the round-58 row
-at the round-58 final revision (162 rows, S423 and S424 added), not at base `0440485…`. Ranges
+at the round-58 final revision (162 rows, S423 and S424 added), not at base `0440485…`; the round-59 row
+at the round-59 final revision (164 rows, S425 and S426 added), not at base `fd6303ce…`. Ranges
 are inclusive and each id was checked individually; a row set is the entry's
 `used-by` cells, not a re-adjudication of any source.
 
@@ -106,6 +109,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Yahoo! JAPAN crawl handling (link-target restriction, deleted URL, non-existent URL) | r56 (lands this round) | `knowledge/yahoo-japan-link-target-crawl-restriction.md` `knowledge/yahoo-japan-deleted-url-recrawl.md` `knowledge/yahoo-japan-nonexistent-url-recrawl.md` | S367 S419 S420 |
 | Baidu dead-link handling (dead-link types, Spider 3.0 recognition model) | r57 (lands this round) | `knowledge/baidu-dead-link-types.md` `knowledge/baidu-spider3-dead-link-model.md` | S421 S422 |
 | Crawler identity (Baidu: UA + two-step DNS; unblocking) | r58 (lands this round) | `knowledge/baidu-spider-identification.md` `knowledge/baidu-spider-unblocking.md` | S423 S424 |
+| Crawler identity (Google: identification signals and verification procedure) | r59 (lands this round) | `knowledge/crawler-identity-signals.md` `knowledge/googlebot-verification.md` | S425 S426 |
 | Field performance (CWV, CrUX) | r28 | `knowledge/field-performance-cwv.md` | S036–S039 |
 | Jekyll/base-path build tooling | r29 | `knowledge/pages-base-path.md` | S040–S043 |
 | Render static sites | r30 | `knowledge/render-static-sites.md` | S049–S052 S061 |
@@ -124,6 +128,8 @@ absent at its base `e48354b7…`, and S419 and S420 are not in that registry; th
 round-57 row's two entry paths are absent at its base `28fa0b23…`, and S421 and
 S422 are not in that registry; the
 round-58 row's two entry paths are absent at its base `0440485…`, and S423 and S424 are not in
+that registry; the
+round-59 row's two entry paths are absent at its base `fd6303ce…`, and S425 and S426 are not in
 that registry.
 
 **Untouched ground** — PROVINCE frontier items no entry holds yet:
