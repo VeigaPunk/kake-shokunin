@@ -1,0 +1,10 @@
+# receipt: red-before of the R59-D2 fix (C1 scores_held term). Scratch clone of the lane at 1ea305904933ac0f57e84ac1e7a8207e486f577d (counters v1), one selftest commit 699c27d7896d860f9d225a93156844eb5f7d406e changing only SCORECARD.md line 19 calibration score 2 -> 10 (never in the lane)
+# run: 2026-10-27T05:29:33Z python3 -B .ufo/waves/round-60/c60_gate_status.py --root <clone> --revision 699c27d7896d860f9d225a93156844eb5f7d406e --jobs 6
+.ufo/waves/round-59/c59_resolver_cases.py label=live e_T=0 ok
+    argv=TMPDIR=<scratch> python3 -B .ufo/waves/round-59/c59_resolver_cases.py --root . --revision 699c27d7896d860f9d225a93156844eb5f7d406e --work <scratch>
+C1 gate-status members=28 mismatches=14 scores_held=2/3 met=False
+EXIT=1
+# contrast: round-59 counter on the same mutant
+  base: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=0
+EXIT=0
