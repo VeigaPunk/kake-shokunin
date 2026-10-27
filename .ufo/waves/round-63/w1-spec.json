@@ -1,0 +1,329 @@
+{
+ "wave": "kake-r63-w1",
+ "reportDir": ".ufo/waves/round-63/w1",
+ "maxLanes": 64,
+ "context": "/skill:godspeed\nRound 63 kake \u2014 one v2 build+attack wave of 64 seats over two frozen claims in\n/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-63/contract.md:\n\n- C1 calibration (lowest owned axis 2/10): repair the round-62 falsified\n  counter family. New frozen counter .ufo/waves/round-63/c63_calibration.py\n  (sha256 bcd16f680da2594040a897803ddefa82ff13679ebe458dd6f6ff6c957ea3fc91)\n  re-derives every `resolved` component from committed bytes; the round-61 S432\n  disagreement is resolved by admitting the Fetch \u00a73.6 field-purpose span as\n  `collapsed-only` (round-50 rule) with a committed class ledger\n  .ufo/waves/round-63/quote-class/quote-classes.json.\n- C2 operability: scripts/quote_class.py (frozen sha256\n  431e75e8fee2c913c6fa74aebbf7cb2e678f139a1a37b3d38994d1bb22841f14) is the\n  committed quote-class tool (selftest 4/4); counted by\n  .ufo/waves/round-63/c63_quote_tool.py.\n\nMeasured commit: 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f. Base (round-62 tip):\n13d4519818db28cd0aa912e49020659140d7b9fa. After receipts:\n.ufo/waves/round-63/controls/after-c1.txt (met=true) and after-c2.txt\n(selftest=4/4 met=true). Controls: base-c1.txt/base-c2.txt (red),\ncontrol-marker-fixture.txt (old c62 met=true defect; new c63 met=false),\ncontrol-junk-fixture.txt (met=false). Round-62 defect receipt:\n.ufo/waves/round-62/controls/counter-false-green-l1.txt.\n\nLane bounds: you are a leaf seat \u2014 no subagent dispatch, no commits, no push,\nno mutating git/jj anywhere. Read-only against the fleet root and sibling\nrepos; write ONLY your own Report file at\n/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-63/w1/<your\nseat name>.md (every `Report:` trailer path is relative to\n/home/vgpnk/Projects/shokunin/kake-shokunin \u2014 write it at that absolute path).\nExecutors building fixture repos: create them only under\n/fast/scratch/hyaku/kake-r63/<seat-name>/ with `git -C \"$D\" init -q`, verify\n`git -C \"$D\" rev-parse --show-toplevel` equals $D before the first commit,\nand delete the dir when done; /tmp is for files under 50 MB only. Seats never\nedit the fleet repo, .ufo/state, scripts/ or templates/ at the fleet root,\nsibling repos, or this lane's corpus/SOURCES.md. Tooling authorization\n(operator 2026-10-19): you may install tools that help the task via official\nchannels (uv tool / npx / official binaries in ~/.local/bin); record any\ninstall in your report. pacman guard: ALL pacman transactions are paused\nhost-wide \u2014 never run pacman. Any git fixture must use a throwaway identity\ninside its scratch repo only. Do not write considerthese/, do not edit\nMANIFEST.json.",
+ "template": "{{item}}\n\nReport evidence with absolute filenames/lines and exact commands/output. Keep\nthe frozen claim, counters and receipts untouched \u2014 attack them, do not edit\nthem. Do not write anywhere except your own Report path.\n",
+ "items": [
+  {
+   "name": "ScoutS432Reopen",
+   "role": "scout",
+   "item": "Independently re-open https://fetch.spec.whatwg.org/ with ONE GET (curl, timeout 30s) and compare the received bytes' sha256 against the round-61 retained body /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/sources/S432.html and the round-63 live receipt .ufo/waves/round-63/sources/S432.live.html. Report whether the retained body is current and whether the lesson Gate's re-open record (URL, date, <=25-word quote) matches CORPUS rule 1."
+  },
+  {
+   "name": "ScoutRetainedLines",
+   "role": "scout",
+   "item": "Verify from committed bytes that WHATWG Fetch \u00a73.6 raw lines 6150-6154 of .ufo/waves/round-61/sources/S432.html carry the field-purpose sentence, that the ledger's locatedRawLines value is accurate, and that the frozen quote string equals the located rendering (backticks and U+2019 apostrophe included). Paste the exact lines and your derivation."
+  },
+  {
+   "name": "ScoutRound50Precedent",
+   "role": "scout",
+   "item": "Verify the S273 collapsed-only precedent end-to-end: read corpus/knowledge/crawl-budget-consequences.md, .ufo/waves/round-50/quote-classes.json, and the round-50 QUALITY quote-class criterion. Confirm the round-63 S432 admission uses the same class semantics (raw-substring vs collapsed-only vs absent) and name any semantic drift between the two rounds' recipes."
+  },
+  {
+   "name": "ScoutC62Defect",
+   "role": "scout",
+   "item": "Re-derive the round-62 marker-only false-green from committed bytes only: read .ufo/waves/round-62/controls/counter-false-green-l1.txt and the fixture corpus under .ufo/waves/round-62/controls/false-green-fixture/corpus/. Confirm the fixture input sha256s in the receipt match the committed fixture files. Do not re-run anything; report whether the documented reproduction inputs are intact."
+  },
+  {
+   "name": "ScoutContractFidelity",
+   "role": "scout",
+   "item": "Read .ufo/waves/round-63/contract.md and verify against committed bytes: the frozen sha256 of c63_calibration.py, c63_quote_tool.py, quote-classes.json and scripts/quote_class.py match the files at the measured commit 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f; the component semantics described match the counter code; the freeze note's old/new tool sha story is consistent with git history (git log --oneline -3)."
+  },
+  {
+   "name": "ScoutLedgerIntegrity",
+   "role": "scout",
+   "item": "Verify .ufo/waves/round-63/quote-class/quote-classes.json internally: recompute sha256 of .ufo/waves/round-63/quote-class/S432.txt and the round-61 S432.html and compare to the ledger's textSha256/rawSha256; confirm the quote text in the ledger is byte-identical to the quote in corpus/knowledge/response-header-expectations.md round-63 block and in c63_calibration.py FROZEN_QUOTE."
+  },
+  {
+   "name": "ScoutCensusState",
+   "role": "scout",
+   "item": "Run the frozen manual census commands from /home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md \u2014 where a shokunin learns' against /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md (row count, malformed, tier histogram, status histogram, duplicate ids, enum violations, mined used-by existence). Compare against the round-start census recorded in corpus/lessons/round-63.md and corpus/lessons/round-62.md. Confirm no registry cell changed this round and name the W04 count."
+  },
+  {
+   "name": "ScoutAppendOnly",
+   "role": "scout",
+   "item": "Verify the round-63 edits to corpus/knowledge/response-header-expectations.md and corpus/QUALITY.md are append-only against base 13d4519818db28cd0aa912e49020659140d7b9fa: git diff 13d45198..05b0d7f4 -- <file> must show pure additions. Report any changed or deleted base line with its diff hunk."
+  },
+  {
+   "name": "ScoutEntrySupport",
+   "role": "scout",
+   "item": "Judge the semantic support question directly: read the round-63 correction block in corpus/knowledge/response-header-expectations.md and the located raw lines 6150-6154 of the retained S432 body. Does the admitted collapsed-only span state the same proposition the xcto_nosniff_value section attributes to S432 (a field-purpose statement)? Does the round-62 QUALITY criterion (substantive support) accept this admission? Argue both sides and conclude."
+  },
+  {
+   "name": "ScoutConsiderthese",
+   "role": "scout",
+   "item": "Read /home/vgpnk/Projects/shokunin/kake-shokunin/considerthese/2026-10-26.md proposal 2 (receipt-rewrite watch) and the lesson Gate's rejection of it. Verify the stated reason (c58_receipt_rewrites.py already covers the semantic class) by reading .ufo/waves/round-58/c58_receipt_rewrites.py's predicate. Is the flip condition fair? Report."
+  },
+  {
+   "name": "ExecCounterRerun",
+   "role": "executor",
+   "item": "Re-run both counting commands at base and at the measured commit and paste full output: python3 -B .ufo/waves/round-63/c63_calibration.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision 13d4519818db28cd0aa912e49020659140d7b9fa and --revision 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f; same for c63_quote_tool.py. Confirm the outputs equal the committed receipts controls/base-c1.txt, base-c2.txt, after-c1.txt, after-c2.txt byte-for-byte on the result lines."
+  },
+  {
+   "name": "ExecToolSelftest",
+   "role": "executor",
+   "item": "Run python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/quote_class.py --selftest and --selftest --json from the lane root; then exercise `classify` on the three fixture pairs under scripts/fixtures/quote-class/ plus a missing-file case (expect exit 2) and an empty-quote case. Paste all outputs."
+  },
+  {
+   "name": "ExecExtractorRepro",
+   "role": "executor",
+   "item": "Re-run .ufo/waves/round-63/quote-class/extract_text.py --raw .ufo/waves/round-61/sources/S432.html --out <scratch>/S432.txt from the lane root and byte-compare the output to the committed .ufo/waves/round-63/quote-class/S432.txt with cmp. Also run its --selftest. Paste outputs. Scratch under /fast/scratch/hyaku/kake-r63/ExecExtractorRepro/."
+  },
+  {
+   "name": "ExecMarkerControl",
+   "role": "executor",
+   "item": "Rebuild the marker-only false-green fixture in your own scratch: create a git repo under /fast/scratch/hyaku/kake-r63/ExecMarkerControl/, copy .ufo/waves/round-62/controls/false-green-fixture/corpus byte-exact, commit with a throwaway identity, run BOTH .ufo/waves/round-62/c62_calibration.py and .ufo/waves/round-63/c63_calibration.py against it. Expected: c62 met=true (defect), c63 met=false. Paste outputs; delete the scratch repo when done."
+  },
+  {
+   "name": "ExecJunkControl",
+   "role": "executor",
+   "item": "Build three adversarial junk fixtures (round-63 quote planted without blobs; ledger JSON with fabricated shas; lesson+knowledge markers with a wrong-quote variant) as scratch git repos under /fast/scratch/hyaku/kake-r63/ExecJunkControl/, run c63_calibration.py on each, and confirm every one prints met=false. Paste outputs; delete scratch when done."
+  },
+  {
+   "name": "ExecDoNothingControl",
+   "role": "executor",
+   "item": "Prove the do-nothing control cannot reach the target: verify that at base 13d4519818db28cd0aa912e49020659140d7b9fa both counters print met=false (paste), and argue from the counter code why no tree lacking the retained blobs + ledger + correction can print met=true for C1 or present=1 for C2."
+  },
+  {
+   "name": "ExecStubControl",
+   "role": "executor",
+   "item": "Build a stub scripts/quote_class.py in a scratch clone that prints a fake selftest JSON with the four frozen case ids marked passed (constant output, no classification), point c63_quote_tool.py at a scratch git repo containing it (plus the real fixtures), and confirm the counter rejects it (met=false). Then explain which check caught it. Scratch under /fast/scratch/hyaku/kake-r63/ExecStubControl/."
+  },
+  {
+   "name": "ExecCounterControls",
+   "role": "executor",
+   "item": "Repeat the round-62 ReviewerCounterControls method against c63_calibration.py: construct marker-only fixture variants (with and without the S432 Disagree line, with a fabricated ledger whose shas match nothing) and run the counter on each. Every variant must print met=false. Paste outputs; scratch under /fast/scratch/hyaku/kake-r63/ExecCounterControls/."
+  },
+  {
+   "name": "ExecC2CounterAttack",
+   "role": "executor",
+   "item": "Attack c63_quote_tool.py: (a) a tool that exits 0 but prints ok=false; (b) a tool with 5 cases where a frozen id is missing; (c) a tool whose s432_real case has derived != expected but passed=true; (d) a tool printing valid JSON to stderr and nothing to stdout. Each must land met=false. Scratch under /fast/scratch/hyaku/kake-r63/ExecC2CounterAttack/; paste outputs."
+  },
+  {
+   "name": "ExecExitCodes",
+   "role": "executor",
+   "item": "Verify the exit-code contract: both counters with a bogus --revision (expect 2), with --help (expect 0), c63_calibration.py on the real tree at the measured commit (expect 0), and both counters run from a non-repo cwd with --root pointing at the lane (expect normal behavior). Paste outputs."
+  },
+  {
+   "name": "ExecLedgerMutation",
+   "role": "executor",
+   "item": "Apply single-field mutations to a copy of quote-classes.json in a scratch repo (wrong textSha256; wrong rawSha256; matchClass swapped to raw-substring; quote with a straight apostrophe instead of U+2019; locatedRawLines changed to 6150-6156) and run c63_calibration.py on each mutated tree. Each must fail with met=false and the expected component at 0. Scratch under /fast/scratch/hyaku/kake-r63/ExecLedgerMutation/."
+  },
+  {
+   "name": "ExecSwappedLabel",
+   "role": "executor",
+   "item": "Build the swapped-label control the round-50 criterion names: a scratch repo whose ledger records the S432 span as raw-substring while the blobs derive collapsed-only. Run c63_calibration.py (expect met=false via class_match=0). Then swap the other way (record collapsed-only for a span that IS a raw substring) and run the lane tool's classify on it directly. Scratch under /fast/scratch/hyaku/kake-r63/ExecSwappedLabel/."
+  },
+  {
+   "name": "ExecFrozenSha",
+   "role": "executor",
+   "item": "Recompute sha256 of c63_calibration.py, c63_quote_tool.py, quote-classes.json and scripts/quote_class.py at the measured commit with git show 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f:<path> | sha256sum and compare to the contract's frozen values. Report any mismatch."
+  },
+  {
+   "name": "ExecCountingCommands",
+   "role": "executor",
+   "item": "Produce the paste-able before/after command set for the report: for each claim, one command that prints the before value at base and one that prints the after value at the measured commit, each with its expected output line and exit. Run them all and paste outputs."
+  },
+  {
+   "name": "ScribeCorrectionReview",
+   "role": "scribe",
+   "item": "Review the round-63 correction block in corpus/knowledge/response-header-expectations.md as a skeptical editor: factual accuracy of every clause (sha256s, line numbers, class, precedent, the byte-identity claim), whether it overclaims anywhere, and whether a reader could re-derive each claim. Return a list of concrete defects or 'no defects' with reasons. Do not edit the file."
+  },
+  {
+   "name": "ScribeQualityCriterion",
+   "role": "scribe",
+   "item": "Review the round-63 QUALITY criterion (counter semantics binding): is it falsifiable as written, does its falsifier command actually run, does it cite its grounding, and does it avoid banning legitimate future counters? Suggest exact wording fixes or confirm it. Do not edit the file."
+  },
+  {
+   "name": "ScribeLessonGate",
+   "role": "scribe",
+   "item": "Review corpus/lessons/round-63.md against CORPUS.md and LEARNING.md: Mistakes table shape (class/evidence/captured-by/fix), Gate completeness (candidates, admits, rejects with flips, rule-1 re-open record with <=25-word quote, outside-verdict naming, author-side labelling), census record. List defects or confirm. Do not edit."
+  },
+  {
+   "name": "ScribeScorecard",
+   "role": "scribe",
+   "item": "Draft the SCORECARD.md round-63 block: per-claim rows (axis, before->after, counting command, verdict, evidence pointers) matching the SCORECARD's round-61/62 block style, plus any planned-row update. Facts only from committed files; flag anything you could not verify. Return the draft as your report."
+  },
+  {
+   "name": "ScribeLog",
+   "role": "scribe",
+   "item": "Draft the LOG.md round-63 entry in the style of the round-62 entry: evidence, claims with verdicts, frontier, wave shape. Facts only from committed files. Return the draft as your report."
+  },
+  {
+   "name": "ScribeReportWork",
+   "role": "scribe",
+   "item": "Draft the report's Work-performed section: opens by naming the two declared claims and their axes, then one bullet per work item with an evidence pointer (path:line, command output, or commit hash). Facts only from committed files. Return the draft."
+  },
+  {
+   "name": "ScribeReportMeasurements",
+   "role": "scribe",
+   "item": "Draft the report's Before->after measurements section: one entry per claim with the exact counting command, the measured commit 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f, base 13d4519818db28cd0aa912e49020659140d7b9fa, and the pasted before/after output lines from the committed receipts. Return the draft."
+  },
+  {
+   "name": "ScribeReportSources",
+   "role": "scribe",
+   "item": "Draft the report's Sources & frontier section (census before/after with command and exit codes, rows added by tier, rows touched old->new, frontier rows advanced, assimilation line) and the three trend-verdict lines with evidence pointers. Facts only from committed files. Return the draft."
+  },
+  {
+   "name": "ReviewerC1Semantics",
+   "role": "reviewer",
+   "item": "Review c63_calibration.py line by line for residual marker-only paths: can any component of `resolved` be 1 while its semantic evidence is absent or faked? Examine the correction substring check, the ledger parsing, the sha re-derivation, the inline classify, the criterion/lesson/source_row checks. Name every path that could still green a semanticless tree, or certify none with reasons."
+  },
+  {
+   "name": "ReviewerC1Separability",
+   "role": "reviewer",
+   "item": "Verify claim separability from the code: confirm c63_calibration.py never reads scripts/quote_class.py and re-derives the class inline; confirm c63_quote_tool.py never reads the ledger/correction. Conclude whether each claim is verifiable without the other landed, per AXES.md."
+  },
+  {
+   "name": "ReviewerC2Counter",
+   "role": "reviewer",
+   "item": "Review c63_quote_tool.py for bypasses: could a tool pass present=1 selftest=4/4 frozen_cases=ok without implementing real classification? Check the JSON parsing, the frozen-case-id set check, the derived==expected check, the ok/total checks."
+  },
+  {
+   "name": "ReviewerFalseGreenDead",
+   "role": "reviewer",
+   "item": "Adversarial goal: construct ANY git tree (scratch fixture) on which c63_calibration.py prints met=true while the S432 disagreement is semantically unresolved (no genuine retained blobs, no honest correction). You may copy the real blobs. If you succeed, the round's C1 is dead \u2014 report the tree recipe. If you fail after serious attempts, report the attempts. Scratch under /fast/scratch/hyaku/kake-r63/ReviewerFalseGreenDead/."
+  },
+  {
+   "name": "ReviewerContractKill",
+   "role": "reviewer",
+   "item": "Review the contract's kill rules: do they cover (a) a green after-receipt produced by a tree that games one component, (b) a control regression, (c) a wave attack that reproduces a marker-only green, (d) a seat-discovered counter bug? Identify any kill-rule gap that would let a false claim verify."
+  },
+  {
+   "name": "ReviewerReceiptIntegrity",
+   "role": "reviewer",
+   "item": "Review the six round-63 control receipts for the receipt-rewrite defect class: each receipt's revision pins, the commands recorded, and whether any receipt was written after later commits touched its inputs (use git log --follow on the controls dir). Confirm no receipt describes a run its pinned inputs cannot reproduce."
+  },
+  {
+   "name": "ReviewerAppendOnly",
+   "role": "reviewer",
+   "item": "Independently verify append-only discipline with the lane's own tool: python3 -B scripts/append_guard.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --base 13d4519818db28cd0aa912e49020659140d7b9fa --revision 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f on the two edited corpus files. Paste the output and interpret any finding."
+  },
+  {
+   "name": "ReviewerKnowledgeEntry",
+   "role": "reviewer",
+   "item": "Review the whole corpus/knowledge/response-header-expectations.md for internal consistency after the round-63 append: does the xcto_nosniff_value section's older text now contradict the correction block anywhere? Are the two old spans clearly demarked as grounding nothing? Does the entry still cite S432 for the value rule accurately? List contradictions or confirm."
+  },
+  {
+   "name": "ReviewerQualityCriteria",
+   "role": "reviewer",
+   "item": "Review both round-62 and round-63 QUALITY criteria for the recurring pattern the fleet keeps routing: is the round-63 criterion falsifiable with a runnable command, grounded in a named lesson/verdict, and free of the overreach classes earlier criteria fell to? Compare against the round-61/62 criterion style."
+  },
+  {
+   "name": "ReviewerSourcesFrontier",
+   "role": "reviewer",
+   "item": "Review the frontier-step conformance: census before/after recorded with commands and exit codes, exactly one sourced claim resting on a row opened this round (the S432 re-open), the mistake mined, no registry-cell edits without old->new logging. Name any \u00a72b conformance gap."
+  },
+  {
+   "name": "ReviewerNoHarm",
+   "role": "reviewer",
+   "item": "Review every file changed between base 13d4519818db28cd0aa912e49020659140d7b9fa and measured 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f (git diff --stat) for axis harm: SCORECARD/LOG integrity, no sibling-scope content, no credential material, no deadweight. Confirm or name the harm."
+  },
+  {
+   "name": "ReviewerReportContract",
+   "role": "reviewer",
+   "item": "Draft the checklist a marker-rule judge would apply to this round's report (required sections in order, SHONEN heading with one line per box, evidence pointers, commit-hash citations, Stale-lane line) and pre-compute what the report must contain to pass. Return the checklist with current evidence pointers."
+  },
+  {
+   "name": "ReviewerGateSpot",
+   "role": "reviewer",
+   "item": "Simulate a hostile non-author gate spot-check: pick the round's one admit (S432 collapsed-only span) and one reject (considerthese proposal 2), re-open the underlying sources, and write the strongest honest disagree case for each. Conclude whether the lane's gate decisions survive."
+  },
+  {
+   "name": "ReviewerFreezeRule",
+   "role": "reviewer",
+   "item": "Verify the freeze rule was followed: the contract and base/control receipts committed (git log --format='%H %ci %s' -- .ufo/waves/round-63) before any after-state measurement, and the pre-wave freeze note is the only post-freeze change. Confirm no seat scored before the freeze."
+  },
+  {
+   "name": "CriticClaims",
+   "role": "critic",
+   "item": "Attack the claim design itself: could a do-nothing round (no real semantic repair) reach both targets with the frozen counters? Could the round's targets have been met by the round-62 tree plus trivia? Apply the phase-4 do-nothing-control lesson and report whether the targets are out of a do-nothing control's reach."
+  },
+  {
+   "name": "CriticExploratory",
+   "role": "critic",
+   "item": "Check neither claim smuggles exploratory (unprovable-but-better) status: both must have frozen counting commands and kill rules. Verify the round claims no exploratory verdict and no score delta it cannot re-derive."
+  },
+  {
+   "name": "CriticCounterFamily",
+   "role": "critic",
+   "item": "Argue the strongest case that the counter family is STILL broken: e.g. the criterion/lesson_gate components are still substring checks a fixture could fake \u2014 does that matter given blobs_match+class_match? Is the lane's 'no calibration green from this counter family' ban actually lifted, or should C1 stay unprovable? Conclude honestly."
+  },
+  {
+   "name": "CriticToolValue",
+   "role": "critic",
+   "item": "Argue the strongest YAGNI case against scripts/quote_class.py: the counter inlines classify, extract_text.py exists, and the tool adds a fourth artifact. Is the tool genuously operability-improving or dead weight? Weigh against the capability-table precedent and conclude."
+  },
+  {
+   "name": "CriticQuoteClass",
+   "role": "critic",
+   "item": "Argue the strongest case that admitting the collapsed-only span VIOLATES the round-62 lesson's reading ('QUALITY.md requires raw-substring quotes') and that the S273 precedent does not transfer (different era, no verifier sign-off on round-63's use). Then give the honest counter-reading. Conclude which reading the non-author closure should apply."
+  },
+  {
+   "name": "CriticSourcedClaim",
+   "role": "critic",
+   "item": "Attack the \u00a72b sourced-claim duty: is re-opening a row that already exists (S432, mined since round 61) genuinely 'a SOURCES.md row opened this round'? Compare with how rounds 61/62 recorded re-opens. Conclude whether the duty is met or whether the round needs a genuinely new row."
+  },
+  {
+   "name": "MutC1Counter",
+   "role": "mutation-tester",
+   "item": "Mutation-test c63_calibration.py: produce >=8 single-fault mutants of its decision logic (e.g. blobs_match forced 1, class_match inverted, correction substring loosened, criterion reduced to 'substantive', lesson_gate marker-only, source_row regex loosened, disagreements ignored, met=resolved removed). For each: does a control fixture kill it? Run each mutant against the marker-only fixture and the real tree; report the kill matrix. Scratch under /fast/scratch/hyaku/kake-r63/MutC1Counter/."
+  },
+  {
+   "name": "MutC2Counter",
+   "role": "mutation-tester",
+   "item": "Mutation-test c63_quote_tool.py: >=6 mutants (frozen-case check removed, derived==expected dropped, ok/total not compared, total not compared to frozen count, returncode ignored, JSON parsed from stderr). Run each against a stub tool and the real tree; report the kill matrix. Scratch under /fast/scratch/hyaku/kake-r63/MutC2Counter/."
+  },
+  {
+   "name": "MutTool",
+   "role": "mutation-tester",
+   "item": "Mutation-test scripts/quote_class.py: >=6 mutants of classify and the selftest harness (collapsed-only branch removed, quote/raw args swapped, quote in text checked before raw, absent returned as raw-substring, fixture path wrong, JSON marks failed cases passed). Run each mutant's --selftest: the selftest must fail or the mutation is a survivor. Report the kill matrix."
+  },
+  {
+   "name": "MutExtractor",
+   "role": "mutation-tester",
+   "item": "Mutation-test .ufo/waves/round-63/quote-class/extract_text.py: >=5 mutants (no skip of script/style, charrefs decoded twice via extra unescape, block tags not breaking, whitespace not collapsed, convert_charrefs=False). For each, re-extract S432 text and check whether S432.txt changes (cmp) and whether the selftest catches it. Report. Scratch under /fast/scratch/hyaku/kake-r63/MutExtractor/."
+  },
+  {
+   "name": "MutLedger",
+   "role": "mutation-tester",
+   "item": "Mutation-test the ledger against the counters: >=5 single-field corruptions (sha off-by-one-char, class swap, quote with normalized apostrophe, locatedRawLines absent, extra id row). Run c63_calibration.py on each corrupted tree in scratch; each must fail. Report. Scratch under /fast/scratch/hyaku/kake-r63/MutLedger/."
+  },
+  {
+   "name": "ConnSiblingOverlap",
+   "role": "connector",
+   "item": "Scan sibling lanes for ownership overlap with this round's work: does any lane own quote-class machinery, calibration-counter repair, or the S432/fetch-spec ground? Read the sibling SKILL.md/PROVINCE.md files under /home/vgpnk/Projects/shokunin/ (read-only). Report contested scope, or certify kake uniquely owns this ground."
+  },
+  {
+   "name": "ConnCrossPattern",
+   "role": "connector",
+   "item": "Cross-claim pattern scan: the round-62 defect class is 'frozen counter whose resolved binds markers not semantics'. Survey this lane's other committed counters under .ufo/waves/round-*/c*_*.py and scripts/ for the same class (grep for substring-only predicates feeding met). Name any counter that repeats the class; do not fix them \u2014 report only."
+  },
+  {
+   "name": "SentinelFetchSecurity",
+   "role": "sentinel",
+   "item": "Security review of the round's network and tool surface: the committed live fetch receipt (.ufo/waves/round-63/sources/S432.live.html) contains no credential material; extract_text.py and quote_class.py have no network, no eval, no path traversal beyond named args; counters subprocess git only. Verify each claim by reading the code; report any finding."
+  },
+  {
+   "name": "SimplifyToolReview",
+   "role": "simplifier",
+   "item": "Simplification review: can scripts/quote_class.py, extract_text.py, or the two counters be materially smaller without losing the frozen semantics? Propose concrete deletions only if behavior is preserved; otherwise certify each file is at its honest minimum. Do not edit."
+  },
+  {
+   "name": "RevengerC62Defect",
+   "role": "revenger",
+   "item": "Reverse-engineer the c62 defect class completely: enumerate every way c62's resolved could be 1 without semantic evidence, then check c63 against EACH variant (not just the one the fixture shows). Variants must include: planted markers in all five files, a fake ledger, real blobs with a swapped label, a disagreement-free spot file, and a lesson that fakes the outside verdict. Report which variants c63 kills and which, if any, it misses."
+  },
+  {
+   "name": "ExecReceiptReproduce",
+   "role": "executor",
+   "item": "Reproduce every round-63 control receipt from scratch in your own workspace: rebuild base and fixture runs with fresh scratch repos and confirm each receipt's output line and exit match what the committed receipt records. Report any receipt you could not reproduce. Scratch under /fast/scratch/hyaku/kake-r63/ExecReceiptReproduce/."
+  },
+  {
+   "name": "ReviewerQualityHarm",
+   "role": "reviewer",
+   "item": "Review for quality-trend harm per LEARNING.md: an admitted entry failing its bar is harm. Check that the round-63 correction did not silently weaken any existing entry, criterion or lesson (diff every corpus file base..measured and judge each hunk), and that the old c62 counter + receipts were left committed as defect history rather than deleted. Confirm or name the harm."
+  }
+ ]
+}
