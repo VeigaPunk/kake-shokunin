@@ -1,0 +1,42 @@
+# CriticAxisClaims
+
+Attack on the round-58 axis naming (round prompt §6 item 9: "Name the axis by the surface the round changes, not by the number it produces"). Reads (read-only): frozen contract.md/contract.json, c58_receipt_rewrites.py, c58_resolver_cases.py, c58_quote_truth.py, AXES.md, LEARNING.md, SCORECARD.md (lines 1–25, 4350–4378), round-57-verifier-spotcheck.md (§5 D1, §2 axis check), round-57 w1/CriticAxisClaim.md, kake-round-58.md §6 items 9–10. Lane tip at read time: cc8da167 (w1 dispatch). No lane mutation.
+
+## C1:
+Verdict: calibration is correct — the new ledger is the self-assessment artifact; the claim measures exactly "entries match observed repo state".
+
+- AXES.md calibration signal: "SHONEN.md/SCORECARD entries match observed repo state"; the examples name the class of self-assessment statements, not an exhaustive list. C1's changed surface (counter docstring): every receipt path ever committed under `control(s)/` in the tip's ancestry, plus "the lane's own statement about them" — the new disclosure ledger `.ufo/waves/round-58/receipt-rewrites.json`. The counter compares each ledger entry (path/commit/status/fromBlob/toBlob/kind/note) against git history (`undisclosed/phantom/malformed/wrong_kind/unpointed/new_rewritten/new_receipts`). That is self-assessment vs observed state — calibration.
+- The "new ledger" does not move the axis: it replaces prose (the round-57 D1 false "no receipt was rewritten") with a structured, git-auditable statement; this round improves the measurability of the lane's self-assessment. Base 19 undisclosed (exit 1) → after: ledger lists every event, 0 undisclosed.
+- Bound (must be stated): observed state = committed git history, not the world. The counter does not test that a note's prose is true (contract: reviewer-checked), that a counter ran, or receipts outside `control(s)/` dirs. The operability reading fails the surface test: C1 verifies no command's printed outcome; the counter is the measuring instrument, not the changed surface.
+- Counterexample (strongest from local evidence): the counter reads only the ledger — `SCORECARD.md` appears in its code solely as an allowed pointer-path prefix for notes (POINTER_PATH_RE, line 119), never as a measured surface. A false sentence in the round report or the SCORECARD section (the exact round-57 D1 pattern) would not fail the counter. The claim sentence must therefore say the ledger matches git, not "the report".
+- Caveat: predicate `new_receipts == 2` requires the C2/C3 after-receipts to exist, so C1 met is entangled with C2/C3 landing (same separability caveat as r57); this affects measurement purity, not axis naming.
+
+## C2:
+Verdict: operability is correct; "quality-of-existing-tool" is not an axis and must not be used.
+
+- AXES.md has six axes: depth, coverage, operability, freshness, calibration, adjacency. "Quality" is a LEARNING.md trend (depth+freshness+operability), not an axis name. The changed surface is the lane tool `scripts/id_resolver.py` (r57 capability): its two disclosed false-green defects (D1 fence-blind registry, F1 git-quoted knowledge paths) are closed — K1–K5 now exit 1 naming the dangling id where base printed exit 0 `dangling=0` (base 7/12 → after 12/12); P1–P7 unchanged. "A checklist item can be run and produces the stated outcome" (operability signal) fits exactly: before, the tool ran but did not produce the stated outcome; after, it does.
+- This is a defect-fix axis move on the existing capability, not a new capability acquisition: no new capabilities-table row is required (the r57 row stands); P6/P7 re-demonstrate the tool running.
+- Not freshness: no held corpus claim is re-verified; fixtures are gate-built local files, no live surfaces.
+
+## C3:
+Verdict: the declared axis "freshness (sourced)" stands only with the sourcing bound; the primary surface the round changes is expansion/coverage, and "fresh" must be worded as sourced-today, not drift-checked.
+
+- AXES.md freshness: "Drift detection — skill claims re-verified against live surfaces; stale items flagged or fixed". Both S423 and S424 are new rows opened this round (counter docstring: "rows opened this round; both rows NEW"); the entries are net-new admitted entries on uncovered ground (Baidu crawler identification frontier) — LEARNING.md expansion, which serves coverage. By item 9, the honest primary surface is expansion/coverage.
+- The counter has no drift/live condition: C5 is quote truth against the retained body (raw substring of one text node of the article block); C6 pins provenance of the fetch (sha256, bytes, httpStatus 200, fetchedAt on the round date). Nothing re-opens the live pages at closure, so a full drift of either page since fetch would still satisfy all 8 conditions. This is "sourced-today", not "drift-checked".
+- Do not reclassify mid-wave: coverage is outside the lane's scored ownership (SCORECARD line 6); the frozen contract declares "freshness (sourced)". Smallest safe correction: keep the declaration and bound the wording (WORDING below); if the operator wants the true axis, coverage ownership must be ruled on next round — not this claim.
+
+## HARM:
+Harm risk per axis (= current scores; the obligation sits on the lowest non-retired axis):
+
+1. Calibration (1 — lowest non-retired, the round's obligation): highest risk. If C1 were misnamed off calibration, no claim works the lowest-scoring non-retired axis → admission failure. If C1's "After" prose overstates (e.g., "the report discloses every rewrite" while the measured surface is the ledger, or "every historical event" without the `control(s)/` population bound), the claim's surface is not actually measured. This is the axis the round must protect.
+2. Operability (10 — saturated): no score harm. Risks: (a) miscalling C1 as operability puts two claims on one axis → they count as one claim (AXES.md), losing a claim slot; (b) "quality-of-existing-tool" as an axis name is protocol-invalid (not among the six).
+3. Freshness (10 — saturated): no score harm. Risk is label drift: claiming freshness without the sourced-today bound re-opens the r55/56/57 ownership dispute with no new evidence; reclassifying to coverage without an operator ruling puts the claim on an unowned axis.
+
+## WORDING:
+Exact axis-note sentences for the round report:
+
+- C1: "C1 is declared on calibration: the surface it changes is the lane's measurement self-assessment — every receipt path in the tip's ancestry and the lane's own statement about them, the new disclosure ledger `.ufo/waves/round-58/receipt-rewrites.json` — which the counter compares against the git history of those receipts. The observed state is committed history, not the world: the counter certifies the ledger matches git's blob-level record (undisclosed/phantom/malformed/wrong_kind/unpointed/new_rewritten = 0), not that a note's prose is true (reviewer-checked) or that a counter ran; receipts outside `control(s)/` dirs are out of population."
+- C2: "C2 is declared on operability: the surface is the round-57 capability `scripts/id_resolver.py`, whose two disclosed false-green defects (D1 fence-blind registry, F1 git-quoted knowledge paths) are closed — the tool now exits 1 naming the dangling id where base printed exit 0 `dangling=0` — while all seven positive cases stay unchanged; this is a defect-fix axis move on the existing capability, not a new capability row."
+- C3: "C3 is declared on freshness (sourced): the two entries are new rows opened this round (S423, S424), so the primary surface the round changes is expansion/coverage — net-new admitted entries on uncovered ground (Baidu crawler identification) — and the freshness content is bounded to sourcing: bodies fetched 2026-10-26 UTC with HTTP 200 receipts, sha-pinned, quoted spans raw-substring true against the retained article block; no held claim is re-verified and the counter has no drift condition, so 'fresh' means sourced-today, not drift-checked."
+
+VERDICT: C1 calibration stands (the ledger is the self-assessment artifact; bound: committed-history only and note-truth reviewer-checked — the counter does not read report/SCORECARD prose); C2 operability is correct ("quality-of-existing-tool" is not an axis); C3 keeps its declared axis only with the sourced-today bound because its primary surface is expansion/coverage (do not reclassify mid-wave — coverage is unowned); harm risk concentrates on calibration (score 1, the round's obligation) via any overbroad disclosure wording.

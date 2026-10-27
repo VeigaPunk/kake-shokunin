@@ -1,0 +1,11 @@
+# strace -f -e trace=execve, base run, lane root
+successful git execs: 61 ; failing PATH-probe execve: 671 ; total execve attempts: 733
+resolved binary: /usr/bin/git (11 earlier PATH entries probed and rejected per spawn)
+
+# verb histogram (successful spawns)
+  39  git ls-tree <rev>
+  20  git rev-parse <rev>
+   1  git log <rev>
+   1  git show <rev>
+
+# 19-entry ledger fixture: 119 successful git execs

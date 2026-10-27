@@ -1,0 +1,12 @@
+--- a/.ufo/waves/round-58/c58_resolver_cases.py
++++ b/.ufo/waves/round-58/c58_resolver_cases.py
+@@ -158,8 +158,7 @@
+     # P6
+     st = os.path.join(work, "p6")
+     os.makedirs(st, exist_ok=True)
+-    shutil.copy(tool, os.path.join(st, "id_resolver.py"))
+-    rc, text = run([sys.executable, "-B", os.path.join(st, "id_resolver.py"), "--selftest"], cwd=st)
++    rc, text = run([sys.executable, "-B", tool, "--selftest"], cwd=st)
+     m = re.findall(r"(?m)^selftest: (\d+)/(\d+)\s*$", text)
+     ok = rc == 0 and bool(m) and m[-1][0] == m[-1][1] and int(m[-1][1]) >= 49
+     out.append(("P6_tool_selftest", ok, f"exit={rc} {m[-1] if m else 'no tally'}"))

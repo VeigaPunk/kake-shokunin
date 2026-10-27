@@ -1,0 +1,17 @@
+$ python3 -B .../.ufo/waves/round-58/c58_resolver_cases.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision 044048597d62f3199494b63b36e90dd57825e350 --work <scratch>
+C2 resolver-cases 7/12 met=False  (met: cases_passed == 12 of 12)
+  K1_fenced_heading_before_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K2_backtick_fence_inside_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K3_tilde_fence_inside_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K4_non_ascii_path_at_revision FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K5_git_quoted_path_at_revision FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S003 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S004 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r58/ExecLandedCheck/c2work2/c58-rc-gpxjaxeu/p5/no-such-fleet is not a directory
+  P6_tool_selftest PASS  exit=0 ('49', '49')
+  P7_real_lane_green PASS  exit=0 ids_cited=106 ids_resolved=106 dangling=0 
+  revision: 044048597d62f3199494b63b36e90dd57825e350
+EXIT=1
+EXIT=1

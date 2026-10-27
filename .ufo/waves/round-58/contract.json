@@ -10,14 +10,20 @@
    "counter": ".ufo/waves/round-58/c58_receipt_rewrites.py",
    "predicate": "met: undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND unpointed == 0 AND new_rewritten == 0 AND new_receipts == 2",
    "baseReceipt": ".ufo/waves/round-58/controls/base-c1-receipt-rewrites.txt",
-   "counterSha256v1": "dace35ce34804412a0f8d90e4e9efadbe4e31070503f45fb459be02b3858fa52"
+   "counterSha256v1": "dace35ce34804412a0f8d90e4e9efadbe4e31070503f45fb459be02b3858fa52",
+   "predicateV2": "met: undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND unpointed == 0 AND symlinks == 0 AND new_rewritten == 0 AND new_receipts == 2",
+   "counterSha256v2": "3f52040a8a6d7833975e9f8c98a6752692fd6f0cffd001a96b028283ae926c2d",
+   "baseReceiptV2": ".ufo/waves/round-58/controls/base-c1-receipt-rewrites-v2.txt"
   },
   "C2": {
    "axis": "operability",
    "counter": ".ufo/waves/round-58/c58_resolver_cases.py",
    "predicate": "met: cases_passed == 12 of 12",
    "baseReceipt": ".ufo/waves/round-58/controls/base-c2-resolver-cases.txt",
-   "counterSha256v1": "60c814aac4c20fd4ef2a30968a5d8f56dbb019db46435e739d4a68b1034837c5"
+   "counterSha256v1": "60c814aac4c20fd4ef2a30968a5d8f56dbb019db46435e739d4a68b1034837c5",
+   "predicateV2": "met: cases_passed == 14 of 14",
+   "counterSha256v2": "0716dbe818318ec58723b56ba9475d1dd59ac9d320f16e41c2788c5bf845c894",
+   "baseReceiptV2": ".ufo/waves/round-58/controls/base-c2-resolver-cases-v2.txt"
   },
   "C3": {
    "axis": "freshness",
@@ -28,10 +34,14 @@
    "counter": ".ufo/waves/round-58/c58_quote_truth.py",
    "predicate": "met: conditions_passed == 8 of 8",
    "baseReceipt": ".ufo/waves/round-58/controls/base-c3-quote-truth.txt",
-   "counterSha256v1": "0dde4d649d9b455025badd3f2c5260a4026e53cde24a53d61c7a8b01d3abbeed"
+   "counterSha256v1": "0dde4d649d9b455025badd3f2c5260a4026e53cde24a53d61c7a8b01d3abbeed",
+   "predicateV2": "met: conditions_passed == 8 of 8",
+   "counterSha256v2": "57bc3d72539a62082a36cf2f7457ac0bb0bcf3e197362daf0480e1d763a6d0c6",
+   "baseReceiptV2": ".ufo/waves/round-58/controls/base-c3-quote-truth-v2.txt"
   }
  },
  "exploratory": null,
  "shape": "one v2 wave w1 (64-128) + optional residual <= 8; total <= 128",
- "receiptRule": "committed once after the run; never rewritten; no placeholder"
+ "receiptRule": "committed once after the run; never rewritten; no placeholder",
+ "judgedOn": "version 2 (contract.md § Counter versions — version 2)"
 }

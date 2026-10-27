@@ -1,0 +1,11 @@
+--- a/.ufo/waves/round-58/c58_receipt_rewrites.py
++++ b/.ufo/waves/round-58/c58_receipt_rewrites.py
+@@ -2,7 +2,7 @@
+ """Round-58 C1 counter — calibration: every post-commit change to a measurement receipt is disclosed with its true values.
+ 
+ Surface: the lane's measurement receipts — every path ever committed under `.ufo/waves/round-<N>/control/` or
+-`.ufo/waves/round-<N>/controls/` (any round, any file name) in the first-parent-free ancestry of the measured tip — and the
++`.ufo/waves/round-<N>/controls/` (any round, any file name) in the first-parent ancestry of the measured tip — and the
+ lane's own statement about them, the disclosure ledger `.ufo/waves/round-58/receipt-rewrites.json`. The round-57
+ spot-check (`corpus/lessons/round-57-verifier-spotcheck.md` §5 D1) found `controls/after-c1-receipt-pins.txt` committed as
+ `pending` and filled in a later commit while the report said no receipt was rewritten; the round-57 counter

@@ -1,0 +1,13 @@
+--- a/.ufo/waves/round-58/c58_receipt_rewrites.py
++++ b/.ufo/waves/round-58/c58_receipt_rewrites.py
+@@ -108,9 +108,8 @@
+             seen.add(path)
+             if status not in ("A", "M", "D"):
+                 status = "M"
+-            has_parent = git(root, "rev-parse", "--verify", "-q", parent, check=False).strip() != ""
+             evs.append({"path": path, "commit": commit, "status": status,
+-                        "fromBlob": blob_id(root, parent, path) if has_parent else None,
++                        "fromBlob": blob_id(root, parent, path),
+                         "toBlob": blob_id(root, commit, path)})
+     return evs
+ 

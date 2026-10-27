@@ -1,0 +1,48 @@
+Recorded resolution for '.ufo/waves/round-57/controls/after-c1-x.txt'.
+  PASS undisclosed fill counted
+  PASS true disclosure meets
+  PASS wrong blob is phantom
+  PASS invented entry is phantom
+  PASS duplicate entry is phantom
+  PASS false kind (rerun for a pending fill) counted
+  PASS pointer-free note counted
+  PASS note naming an absent path counted
+  PASS v2: a note naming only a commit id is unpointed
+  PASS note naming a path and a commit meets
+  PASS classify relabel/append/format
+  PASS v2: a result change on a pin-bearing line is content, not pin-only (w1/ReviewerLedgerKinds event 17)
+  PASS v2: a pin annotation added to an unchanged line is pin-only (event 10)
+  PASS v2: a 12-hex pin swap is pin-only
+  PASS unknown kind malformed
+  PASS empty note malformed
+  PASS round-58 rewrite fails even disclosed
+  PASS v2: a rename is a deletion event plus a rename-target event
+  PASS re-add after delete is an event
+  PASS delete and readd disclosed meets
+  PASS missing C3 receipt not met; non-receipt ignored
+  PASS non-JSON ledger unevaluable
+  PASS merge sees the branch receipt change once, at the merge, against the first parent
+  PASS merge change disclosed by the merge commit meets
+  PASS merge that discards the branch change is not an event
+  PASS conflicting merge counted once, against the first parent
+  PASS both sides of a conflicting merge disclosed meet
+  PASS paths with a space and non-ASCII characters are events
+  PASS space and non-ASCII receipts disclosed meet
+  PASS binary byte change stays distinguishable and classifies content
+  PASS binary byte change called append is a wrong kind
+  PASS binary byte change disclosed as rerun meets
+  PASS change and revert are two events
+  PASS a revert disclosed only once leaves one undisclosed
+  PASS change and revert disclosed meet
+  PASS modification with a null fromBlob is malformed, not phantom
+  PASS v2: a controls/ subdirectory file is inside the population (CH2)
+  PASS a symlink receipt rewrite is an event with the link blob
+  PASS v2: a symlinked receipt fails even disclosed (CH7)
+  PASS v2: rename-with-edit yields a D and an A event
+  PASS v2: disclosing only the D of a rename leaves the A undisclosed
+  PASS v2: both halves of a rename disclosed meet
+  PASS v2: plain first additions are not events
+  PASS pointers in backticks, before punctuation or with ./ resolve
+  PASS in-word, absent and bare pointers do not resolve
+c58 receipt-rewrites selftest: 45/45
+exit=0

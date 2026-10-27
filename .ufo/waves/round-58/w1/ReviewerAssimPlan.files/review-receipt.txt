@@ -1,0 +1,9 @@
+recomputed reg-ids=160 staged-ids=129 collisions=8
+collisions: S312 S329 S367 S372 S373 S374 S390 S409 
+quarantine-slice=12 rows re-derived identical to committed
+span S423: 非*.baidu.com或*.baidu.jp即为冒充。 -> 6u/28c unique in_text_node=True
+span S424: 常见的封禁行为包括robots封禁、封禁百度UA、封禁百度IP等。 -> 20u/33c unique in_text_node=True
+census validate --file (mirror+append) exit=0 (warnings W04 only, pre-existing)
+guard fixture: indented S002 -> collisions nonempty
+lane corpus sha 57c83362… == pinned mirror
+retained sha: S423 8b8aef60… S424 3ef1275b… match receipts.json

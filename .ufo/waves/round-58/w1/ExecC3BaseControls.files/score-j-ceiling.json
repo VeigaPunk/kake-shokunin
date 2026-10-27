@@ -1,0 +1,77 @@
+{
+ "schema": "kake-r58-c3-quote-truth-v1",
+ "predicate": "met: conditions_passed == 8 of 8",
+ "revision": "4ce7cf5e492a9275b9baf1d94361fa4f4d292512",
+ "adopted": {
+  "S423": "corpus/knowledge/baidu-spider-identification.md",
+  "S424": "corpus/knowledge/baidu-spider-unblocking.md"
+ },
+ "checks": {
+  "C1_entries_exist": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "entries": 2
+   }
+  },
+  "C2_entry_provenance": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C3_row_shape": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "rows": 162,
+    "base_rows": 160
+   }
+  },
+  "C4_used_by": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C5_quote_truth": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "S423: entry line 11 quotes 30 units, ceiling 25",
+    "S423: entry carries 2 page-unique quoted spans, expected 3+",
+    "S424: entry line 11 quotes 186 characters, character ceiling 40",
+    "S424: entry line 11 quotes 'Mozilla/5.0 (Linux;u;Android 4.2.2;zh-cn'… which is not a raw substring of the retained body",
+    "S424: entry carries 2 page-unique quoted spans, expected 3+"
+   ],
+   "facts": {}
+  },
+  "C6_receipt_pins": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "receipts": 2
+   }
+  },
+  "C7_validate_before_append": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C8_mirror_bytes": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "registry_rows": 162
+   }
+  }
+ },
+ "conditions_passed": 7,
+ "exit": 1,
+ "met": false
+}

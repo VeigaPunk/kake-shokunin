@@ -1,0 +1,25 @@
+## corruption A: entry #1 toBlob 9a95330d… -> 0000000000000000000000000000000000000000   (worktree x1, commit bca2ba2ce7b38b50f95142f8826b9a62fe26868f)
+C1 receipt-rewrites events=19 undisclosed=1 phantom=1 malformed=0 wrong_kind=0 unpointed=0 new_rewritten=0 new_receipts=2 met=False  (met: undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND unpointed == 0 AND new_rewritten == 0 AND new_receipts == 2)
+  UNDISCLOSED M .ufo/waves/round-52/control/c1-mutation-ladder.json at 1ae8de5d4dee 69a045918a98 -> 9a95330d6e14
+  PHANTOM M .ufo/waves/round-52/control/c1-mutation-ladder.json at 1ae8de5d4dee 69a045918a98 -> 000000000000
+  ledger: .ufo/waves/round-58/receipt-rewrites.json present (19 entries)
+  revision: bca2ba2ce7b38b50f95142f8826b9a62fe26868f
+EXIT=1
+EXIT=1
+
+## corruption B: entry #1 kind relabel -> rerun   (worktree x2, commit e220be30dd403dca2f76b52697c5c01de4e4ed4b)
+C1 receipt-rewrites events=19 undisclosed=0 phantom=0 malformed=0 wrong_kind=1 unpointed=0 new_rewritten=0 new_receipts=2 met=False  (met: undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND unpointed == 0 AND new_rewritten == 0 AND new_receipts == 2)
+  WRONG-KIND M .ufo/waves/round-52/control/c1-mutation-ladder.json at 1ae8de5d4dee 69a045918a98 -> 9a95330d6e14
+  ledger: .ufo/waves/round-58/receipt-rewrites.json present (19 entries)
+  revision: e220be30dd403dca2f76b52697c5c01de4e4ed4b
+EXIT=1
+EXIT=1
+
+## corruption C: entry #1 note -> "x"   (worktree x3, commit 9376bcc9ce133833a803bc13f4383f553fa43a43)
+C1 receipt-rewrites events=19 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=1 new_rewritten=0 new_receipts=2 met=False  (met: undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND unpointed == 0 AND new_rewritten == 0 AND new_receipts == 2)
+  UNPOINTED M .ufo/waves/round-52/control/c1-mutation-ladder.json at 1ae8de5d4dee 69a045918a98 -> 9a95330d6e14
+  ledger: .ufo/waves/round-58/receipt-rewrites.json present (19 entries)
+  revision: 9376bcc9ce133833a803bc13f4383f553fa43a43
+EXIT=1
+EXIT=1
+

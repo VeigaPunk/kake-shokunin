@@ -1,0 +1,79 @@
+{
+ "schema": "kake-r58-c3-quote-truth-v1",
+ "predicate": "met: conditions_passed == 8 of 8",
+ "revision": "8188655b445a57f1fefcec519f7e7a84c33e940b",
+ "adopted": {
+  "S423": "corpus/knowledge/baidu-spider-identification.md",
+  "S424": "corpus/knowledge/baidu-spider-unblocking.md"
+ },
+ "checks": {
+  "C1_entries_exist": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "entries": 2
+   }
+  },
+  "C2_entry_provenance": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C3_row_shape": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "rows": 162,
+    "base_rows": 160
+   }
+  },
+  "C4_used_by": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C5_quote_truth": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C6_receipt_pins": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "receipts": 2
+   }
+  },
+  "C7_validate_before_append": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C8_mirror_bytes": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "mirror bytes differ from the base-revision registry",
+    "S423: the mirror bytes already carry the row",
+    "S424: the mirror bytes already carry the row",
+    "mirror sha256 8940dfb2f7bab71cb071dca30e5af2a25affaf514969baaedb75dc2f8584f08c != pinned 57c83362dbc6ba81dc45351f1bcdc33aecbb2b448a6343a95a1a585feccbe4ea",
+    "mirror rows 162 != pinned 160",
+    "registry rows 162 != mirror rows 162 + 2",
+    "append-only: measured registry minus new rows, used-by restored, != mirror bytes"
+   ],
+   "facts": {
+    "registry_rows": 162
+   }
+  }
+ },
+ "conditions_passed": 7,
+ "exit": 1,
+ "met": false
+}

@@ -1,0 +1,14 @@
+# measured headroom on a scratch COPY (not applied to the lane counter)
+diff vs lane counter: clean_env() memoized in a module-level cache, enterprise behaviour otherwise unchanged
+303c303,309 replaced:
+  +_ENV_CACHE = None
+  +
+  +
+  +def clean_env() -> dict:
+  +    global _ENV_CACHE
+  +    if _ENV_CACHE is None:
+  +        _ENV_CACHE = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+  +    return _ENV_CACHE
+
+output sha256 identical to base run: 8ac03b117dfecd75f7a371068a9e7be5d3d00a41b9bf61e6479bd457cb40ba70
+timing: base median 122.6ms -> variant median 112.0ms (n=7 each, same host load)

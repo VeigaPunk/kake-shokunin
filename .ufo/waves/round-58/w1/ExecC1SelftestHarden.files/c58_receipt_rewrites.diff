@@ -1,0 +1,205 @@
+--- .ufo/waves/round-58/c58_receipt_rewrites.py	2026-10-26 20:40:45.021867151 -0300
++++ .ufo/waves/round-58/w1/ExecC1SelftestHarden.files/c58_receipt_rewrites.py	2026-10-26 20:57:33.371332106 -0300
+@@ -85,8 +85,8 @@
+ 
+ def events(root: str, tip: str) -> list[dict]:
+     """Oldest-first walk of every commit in the tip's ancestry that touches a receipt path."""
+-    out = git(root, "log", "--reverse", "--no-renames", "--full-history", "-m", "--first-parent", "-z", "--name-status",
+-              "--format=%x01%H", tip, "--", ".ufo/waves")
++    out = git(root, "log", "--reverse", "--no-renames", "--full-history", "--diff-merges=first-parent", "--first-parent",
++              "-z", "--name-status", "--format=%x01%H", tip, "--", ".ufo/waves")
+     seen: set[str] = set()
+     evs: list[dict] = []
+     for chunk in out.split("\x01")[1:]:
+@@ -116,7 +116,7 @@
+ 
+ 
+ REVLINE_RE = re.compile(r"(?i)revision|\b[0-9a-f]{40}\b")
+-POINTER_PATH_RE = re.compile(r"(?<![\w/.-])((?:\.ufo|corpus|scripts|SCORECARD\.md|SKILL\.md|LOG\.md)[\w./-]*)")
++POINTER_PATH_RE = re.compile(r"(?<![\w/.-])(?:\./)?((?:\.ufo|corpus|scripts|SCORECARD\.md|SKILL\.md|LOG\.md)[\w./-]*)")
+ POINTER_HASH_RE = re.compile(r"(?<![0-9a-zA-Z])[0-9a-f]{7,40}(?![0-9a-zA-Z])")
+ 
+ 
+@@ -124,7 +124,7 @@
+     if not blob:
+         return ""
+     p = subprocess.run(["git", "-C", root, "cat-file", "blob", blob], capture_output=True, env=clean_env())
+-    return p.stdout.decode("utf-8", "replace")
++    return p.stdout.decode("utf-8", "surrogateescape")
+ 
+ 
+ def classify(status: str, old: str, new: str) -> str:
+@@ -177,7 +177,10 @@
+                or not isinstance(e.get("note"), str) or not e.get("note", "").strip()
+                or not isinstance(e.get("commit"), str) or not HEX40.match(e.get("commit", ""))
+                or e.get("status") not in ("A", "M", "D")
+-               or any(e.get(k) is not None and not (isinstance(e.get(k), str) and HEX40.match(e[k])) for k in ("fromBlob", "toBlob")))
++               or any(e.get(k) is not None and not (isinstance(e.get(k), str) and HEX40.match(e[k])) for k in ("fromBlob", "toBlob"))
++               or (e.get("status") == "M" and (e.get("fromBlob") is None or e.get("toBlob") is None))
++               or (e.get("status") == "D" and (e.get("fromBlob") is None or e.get("toBlob") is not None))
++               or (e.get("status") == "A" and (e.get("fromBlob") is not None or e.get("toBlob") is None)))
+         (malformed if bad else wellformed).append(n if bad else e)
+     key = lambda e: (e["path"], e["commit"], e["status"], e["fromBlob"], e["toBlob"])
+     ev_keys = {key(e) for e in evs}
+@@ -233,8 +236,12 @@
+     for rel, text in files.items():
+         p = os.path.join(d, rel)
+         os.makedirs(os.path.dirname(p), exist_ok=True)
+-        with open(p, "w", encoding="utf-8") as fh:
+-            fh.write(text)
++        if isinstance(text, bytes):
++            with open(p, "wb") as fh:
++                fh.write(text)
++        else:
++            with open(p, "w", encoding="utf-8") as fh:
++                fh.write(text)
+     for rel in deletes:
+         os.remove(os.path.join(d, rel))
+     subprocess.run(["git", "-C", d, "add", "-A"], check=True, env=clean_env())
+@@ -242,6 +249,14 @@
+     return git(d, "rev-parse", "HEAD").strip()
+ 
+ 
++def _link(d: str, rel: str, target: str) -> None:
++    p = os.path.join(d, rel)
++    os.makedirs(os.path.dirname(p), exist_ok=True)
++    if os.path.lexists(p):
++        os.remove(p)
++    os.symlink(target, p)
++
++
+ def _repo(scratch: str) -> str:
+     d = tempfile.mkdtemp(prefix="c58-rr-", dir=scratch)
+     subprocess.run(["git", "-C", d, "init", "-q"], check=True, env=clean_env())
+@@ -343,6 +358,131 @@
+             measure(d, "HEAD"); checks.append(("non-JSON ledger unevaluable", False))
+         except ValueError:
+             checks.append(("non-JSON ledger unevaluable", True))
++        # ---- wave-1 hardening: merge shape, quoted paths, binary, revert, null blob, subdirectory, symlink, pointers
++        # 11 a merge that brings a branch receipt change in: one event, at the merge, against the first parent
++        d = _repo(scratch); made.append(d)
++        trunk = git(d, "symbolic-ref", "--short", "HEAD").strip()
++        _commit(d, {R: "pending\n", N2: "ok\n", N3: "ok\n"})
++        git(d, "checkout", "-q", "-b", "feat")
++        branch_c = _commit(d, {R: "met=True\n"})
++        git(d, "checkout", "-q", trunk)
++        _commit(d, {"other.txt": "x\n"})
++        subprocess.run(["git", "-C", d, *_ID, "merge", "-q", "--no-ff", "-m", "merge feat", "feat"],
++                       check=True, env=clean_env(), capture_output=True)
++        merge_c = git(d, "rev-parse", "HEAD").strip()
++        v = measure(d, "HEAD"); ev = v["_undisclosed"]
++        checks.append(("merge sees the branch receipt change once, at the merge, against the first parent",
++                       v["events"] == 1 and len(ev) == 1 and ev[0]["commit"] == merge_c and branch_c != merge_c
++                       and ev[0]["status"] == "M" and ev[0]["fromBlob"] == blob_id(d, f"{merge_c}^", R)
++                       and ev[0]["fromBlob"] != ev[0]["toBlob"]))
++        _commit(d, _ledger([_entry(d, R, merge_c, "M")]))
++        checks.append(("merge change disclosed by the merge commit meets", measure(d, "HEAD")["met"]))
++        # 12 a merge whose tree equals the first parent hides no event, though the second parent differs
++        d = _repo(scratch); made.append(d)
++        trunk = git(d, "symbolic-ref", "--short", "HEAD").strip()
++        _commit(d, {R: "pending\n", N2: "ok\n", N3: "ok\n"})
++        git(d, "checkout", "-q", "-b", "feat")
++        _commit(d, {R: "branch\n"})
++        git(d, "checkout", "-q", trunk)
++        _commit(d, {"other.txt": "x\n"})
++        subprocess.run(["git", "-C", d, *_ID, "merge", "-q", "-s", "ours", "-m", "merge feat", "feat"],
++                       check=True, env=clean_env(), capture_output=True)
++        v = measure(d, "HEAD")
++        checks.append(("merge that discards the branch change is not an event", v["events"] == 0 and v["met"]))
++        # 13 both parents change the receipt, the resolution is a third value: one event per commit, no double count
++        d = _repo(scratch); made.append(d)
++        trunk = git(d, "symbolic-ref", "--short", "HEAD").strip()
++        _commit(d, {R: "a\n", N2: "ok\n", N3: "ok\n"})
++        git(d, "checkout", "-q", "-b", "feat")
++        _commit(d, {R: "b\n"})
++        git(d, "checkout", "-q", trunk)
++        main_c = _commit(d, {R: "c\n"})
++        subprocess.run(["git", "-C", d, *_ID, "merge", "-q", "feat"], env=clean_env(), capture_output=True)
++        merge_c = _commit(d, {R: "d\n"}, msg="merge")
++        v = measure(d, "HEAD"); ev = v["_undisclosed"]
++        checks.append(("conflicting merge counted once, against the first parent",
++                       v["events"] == 2 and len(ev) == 2 and ev[-1]["commit"] == merge_c
++                       and ev[-1]["fromBlob"] == blob_id(d, f"{merge_c}^", R)
++                       and len({(e["commit"], e["fromBlob"], e["toBlob"]) for e in ev}) == 2))
++        _commit(d, _ledger([_entry(d, R, main_c, "M", kind="rerun"), _entry(d, R, merge_c, "M", kind="rerun")]))
++        checks.append(("both sides of a conflicting merge disclosed meet", measure(d, "HEAD")["met"]))
++        # 14 a receipt path with a space and one with non-ASCII characters
++        d = _repo(scratch); made.append(d)
++        SP, U = ".ufo/waves/round-50/controls/after c1 spaced.txt", ".ufo/waves/round-50/controls/after-c1-\u30ec\u30b7\u30fc\u30c8.txt"
++        _commit(d, {SP: "pending\n", U: "pending\n", N2: "ok\n", N3: "ok\n"})
++        c = _commit(d, {SP: "met=True\n", U: "met=True\n"})
++        v = measure(d, "HEAD")
++        checks.append(("paths with a space and non-ASCII characters are events",
++                       v["events"] == 2 and sorted(e["path"] for e in v["_undisclosed"]) == sorted([SP, U])))
++        _commit(d, _ledger([_entry(d, SP, c, "M"), _entry(d, U, c, "M")]))
++        checks.append(("space and non-ASCII receipts disclosed meet", measure(d, "HEAD")["met"]))
++        # 15 a binary receipt rewrite: distinct bytes stay distinct and classify rerun
++        d = _repo(scratch); made.append(d)
++        B = ".ufo/waves/round-51/controls/after-c1-bin.txt"
++        _commit(d, {B: b"\x00\xff\x01binary\n", N2: "ok\n", N3: "ok\n"})
++        c = _commit(d, {B: b"\x00\xfe\x01binary\n"})
++        old, new = _text(d, blob_id(d, f"{c}^", B)), _text(d, blob_id(d, c, B))
++        checks.append(("binary byte change stays distinguishable and classifies rerun",
++                       old != new and blob_id(d, f"{c}^", B) != blob_id(d, c, B) and classify("M", old, new) == "rerun"))
++        _commit(d, _ledger([_entry(d, B, c, "M", kind="append")]))
++        v = measure(d, "HEAD")
++        checks.append(("binary byte change called append is a wrong kind", v["wrong_kind"] == 1 and not v["met"]))
++        _commit(d, _ledger([_entry(d, B, c, "M", kind="rerun")]))
++        checks.append(("binary byte change disclosed as rerun meets", measure(d, "HEAD")["met"]))
++        # 16 a receipt changed and reverted is two events
++        d = _repo(scratch); made.append(d)
++        Z = ".ufo/waves/round-52/controls/after-c1-z.txt"
++        _commit(d, {Z: "pending\n", N2: "ok\n", N3: "ok\n"})
++        c1 = _commit(d, {Z: "met=True\n"})
++        c2 = _commit(d, {Z: "pending\n"})
++        v = measure(d, "HEAD")
++        checks.append(("change and revert are two events", v["events"] == 2 and [e["commit"] for e in v["_undisclosed"]] == [c1, c2]))
++        _commit(d, _ledger([_entry(d, Z, c1, "M")]))
++        v = measure(d, "HEAD")
++        checks.append(("a revert disclosed only once leaves one undisclosed", v["undisclosed"] == 1 and not v["met"]))
++        _commit(d, _ledger([_entry(d, Z, c1, "M"), _entry(d, Z, c2, "M", kind="rerun")]))
++        checks.append(("change and revert disclosed meet", measure(d, "HEAD")["met"]))
++        # 17 a modification entry with a null fromBlob is structurally impossible
++        d = _repo(scratch); made.append(d)
++        _commit(d, {R: "pending\n", N2: "ok\n", N3: "ok\n"})
++        c = _commit(d, {R: "met=True\n"})
++        _commit(d, _ledger([_entry(d, R, c, "M", fromBlob=None)]))
++        v = measure(d, "HEAD")
++        checks.append(("modification with a null fromBlob is malformed, not phantom",
++                       v["malformed"] == 1 and v["phantom"] == 0 and not v["met"]))
++        # 18 a file below controls/ (a subdirectory) is outside the population by design
++        d = _repo(scratch); made.append(d)
++        _commit(d, {N2: "ok\n", N3: "ok\n"})
++        _commit(d, {".ufo/waves/round-58/controls/sub/nested.txt": "a\n"})
++        _commit(d, {".ufo/waves/round-58/controls/sub/nested.txt": "b\n"})
++        v = measure(d, "HEAD")
++        checks.append(("a controls/ subdirectory file is outside the population",
++                       v["events"] == 0 and v["new_rewritten"] == 0 and v["new_receipts"] == 2 and v["met"]))
++        # 19 a symlink receipt: the rewrite is an event carrying the link blob
++        d = _repo(scratch); made.append(d)
++        S = ".ufo/waves/round-53/controls/after-c1-link.txt"
++        _commit(d, {N2: "ok\n", N3: "ok\n"})
++        _link(d, S, ".ufo/evidence.md")
++        _commit(d, {})
++        _link(d, S, "LOG.md")
++        c2 = _commit(d, {})
++        v = measure(d, "HEAD"); ev = v["_undisclosed"]
++        checks.append(("a symlink receipt rewrite is an event with the link blob",
++                       v["events"] == 1 and len(ev) == 1 and ev[0]["commit"] == c2 and ev[0]["status"] == "M"
++                       and ev[0]["toBlob"] == blob_id(d, c2, S) and _text(d, ev[0]["fromBlob"]) == ".ufo/evidence.md"))
++        _commit(d, _ledger([_entry(d, S, c2, "M", kind="rerun")]))
++        checks.append(("symlink receipt disclosed meets", measure(d, "HEAD")["met"]))
++        # 20 evidence pointers: backticks, markdown punctuation and a ./ prefix resolve; in-word text does not
++        d = _repo(scratch); made.append(d)
++        _commit(d, {"corpus/README.md": "frontier\n"})
++        pointing = ["see `.ufo/evidence.md`", "see .ufo/evidence.md.", "see (.ufo/evidence.md)",
++                    "see .ufo/evidence.md,", "see .ufo/evidence.md; then", "see **.ufo/evidence.md**",
++                    "see [evidence](corpus/README.md)", "see ./corpus/README.md"]
++        checks.append(("pointers in backticks, before punctuation or with ./ resolve",
++                       all(pointed(d, "HEAD", n) for n in pointing)))
++        checks.append(("in-word, absent and bare pointers do not resolve",
++                       not pointed(d, "HEAD", "xyz.ufo/evidence.md") and not pointed(d, "HEAD", "see corpus/absent.md")
++                       and not pointed(d, "HEAD", "x")))
+     finally:
+         for d in made:
+             shutil.rmtree(d, ignore_errors=True)

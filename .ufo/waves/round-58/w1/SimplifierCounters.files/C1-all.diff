@@ -1,0 +1,88 @@
+--- a/.ufo/waves/round-58/c58_receipt_rewrites.py
++++ b/.ufo/waves/round-58/c58_receipt_rewrites.py
+@@ -2,7 +2,7 @@
+ """Round-58 C1 counter — calibration: every post-commit change to a measurement receipt is disclosed with its true values.
+ 
+ Surface: the lane's measurement receipts — every path ever committed under `.ufo/waves/round-<N>/control/` or
+-`.ufo/waves/round-<N>/controls/` (any round, any file name) in the first-parent-free ancestry of the measured tip — and the
++`.ufo/waves/round-<N>/controls/` (any round, any file name) in the first-parent ancestry of the measured tip — and the
+ lane's own statement about them, the disclosure ledger `.ufo/waves/round-58/receipt-rewrites.json`. The round-57
+ spot-check (`corpus/lessons/round-57-verifier-spotcheck.md` §5 D1) found `controls/after-c1-receipt-pins.txt` committed as
+ `pending` and filled in a later commit while the report said no receipt was rewritten; the round-57 counter
+@@ -66,21 +66,19 @@
+     return {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+ 
+ 
++def _run(root: str, *args: str) -> subprocess.CompletedProcess:
++    return subprocess.run(["git", "-C", root, "-c", "core.quotePath=false", *args], capture_output=True, env=clean_env())
++
++
+ def git(root: str, *args: str, check: bool = True) -> str:
+-    p = subprocess.run(["git", "-C", root, "-c", "core.quotePath=false", *args], capture_output=True, env=clean_env())
++    p = _run(root, *args)
+     if check and p.returncode != 0:
+         raise RuntimeError(f"git {' '.join(args)}: {p.stderr.decode('utf-8', 'replace').strip()}")
+     return p.stdout.decode("utf-8", "surrogateescape") if p.returncode == 0 else ""
+ 
+ 
+ def blob_id(root: str, rev: str, path: str) -> str | None:
+-    out = git(root, "ls-tree", "-z", rev, "--", path, check=False)
+-    for rec in out.split("\0"):
+-        if rec and "\t" in rec:
+-            meta, name = rec.split("\t", 1)
+-            if name == path and meta.split()[1] == "blob":
+-                return meta.split()[2]
+-    return None
++    return git(root, "rev-parse", "--verify", "-q", f"{rev}:{path}", check=False).strip() or None
+ 
+ 
+ def events(root: str, tip: str) -> list[dict]:
+@@ -91,9 +89,8 @@
+     evs: list[dict] = []
+     for chunk in out.split("\x01")[1:]:
+         parts = chunk.split("\0")
+-        head = parts[0].strip("\n")
+-        commit = head.split("\n")[0].strip()
+-        rest = [p.strip("\n") for p in ([head.split("\n", 1)[1]] if "\n" in head else []) + parts[1:]]
++        commit = parts[0].strip("\n")
++        rest = [p.strip("\n") for p in parts[1:]]
+         rest = [p for p in rest if p != ""]
+         i = 0
+         while i + 1 < len(rest):
+@@ -108,9 +105,8 @@
+             seen.add(path)
+             if status not in ("A", "M", "D"):
+                 status = "M"
+-            has_parent = git(root, "rev-parse", "--verify", "-q", parent, check=False).strip() != ""
+             evs.append({"path": path, "commit": commit, "status": status,
+-                        "fromBlob": blob_id(root, parent, path) if has_parent else None,
++                        "fromBlob": blob_id(root, parent, path),
+                         "toBlob": blob_id(root, commit, path)})
+     return evs
+ 
+@@ -121,10 +117,7 @@
+ 
+ 
+ def _text(root: str, blob: str | None) -> str:
+-    if not blob:
+-        return ""
+-    p = subprocess.run(["git", "-C", root, "cat-file", "blob", blob], capture_output=True, env=clean_env())
+-    return p.stdout.decode("utf-8", "replace")
++    return _run(root, "cat-file", "blob", blob).stdout.decode("utf-8", "replace") if blob else ""
+ 
+ 
+ def classify(status: str, old: str, new: str) -> str:
+@@ -149,11 +142,10 @@
+ def pointed(root: str, tip: str, note: str) -> bool:
+     for m in POINTER_PATH_RE.finditer(note):
+         path = m.group(1).rstrip(".,;:)")
+-        if subprocess.run(["git", "-C", root, "cat-file", "-e", f"{tip}:{path}"], capture_output=True, env=clean_env()).returncode == 0:
++        if _run(root, "cat-file", "-e", f"{tip}:{path}").returncode == 0:
+             return True
+     for m in POINTER_HASH_RE.finditer(note):
+-        if subprocess.run(["git", "-C", root, "rev-parse", "--verify", "-q", f"{m.group(0)}^{{commit}}"],
+-                          capture_output=True, env=clean_env()).returncode == 0:
++        if _run(root, "rev-parse", "--verify", "-q", f"{m.group(0)}^{{commit}}").returncode == 0:
+             return True
+     return False
+ 

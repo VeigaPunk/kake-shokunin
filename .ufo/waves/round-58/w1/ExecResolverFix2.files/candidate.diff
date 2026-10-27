@@ -1,0 +1,201 @@
+diff --git a/scripts/id_resolver.py b/scripts/id_resolver.py
+index 878da27..8ad0463 100755
+--- a/scripts/id_resolver.py
++++ b/scripts/id_resolver.py
+@@ -10,10 +10,14 @@ CLI (the round-57 contract; its gate checks this tool against an independent ref
+ 
+   - cited ids: every word-bounded `S` + 3 or more digits in each `corpus/knowledge/**/*.md`
+     file; with `--revision` the blobs are read through `git show`, never the working tree
+-    (the lane registry is read at the same revision, for the same reason).
++    (the lane registry is read at the same revision, for the same reason), and the file list comes
++    from `git ls-tree -r -z`, so git's path quoting never drops a non-ASCII or special-character name.
+   - registry ids: first cell of each table row (a one-cell row counts) of `corpus/SOURCES.md` under the
+     exact heading `## Registry` (the section ends at the next `# ` or `## ` heading), 0 to 3 leading spaces
+-    before the pipe (the census parser's rule; 4 spaces is code).
++    before the pipe (the census parser's rule; 4 spaces is code). Fenced code blocks (CommonMark 4.5/4.6:
++    0-3 spaces then 3 or more ` or ~, closed by the same character with at least the opening length and
++    nothing but whitespace after; unclosed runs to end of file) are code: a fenced `## Registry` neither
++    opens nor ends the section, and a fenced `| S### |` line is not a row.
+   - siblings: every `<fleet>/*-shokunin/` other than the lane (by realpath); a sibling's
+     registry is `git show HEAD:corpus/SOURCES.md` when the directory has a `.git` (no worktree fallback), else the file.
+   - stdout: one `DANGLING <id> cited-by=<comma paths> owners=<comma lanes or -> url-match=<lanes or ->`
+@@ -42,6 +46,7 @@ ID_CELL_RE = re.compile(r"^S\d{3,}$")
+ URL_RE = re.compile(r"https?://[^\s|<>\"'`]+")
+ REGISTRY_HEADING_RE = re.compile(r"^##\s+Registry\s*$")
+ SECTION_END_RE = re.compile(r"^#{1,2}\s")
++FENCE_RE = re.compile(r"^( {0,3})(`{3,}|~{3,})(.*)$")
+ REGISTRY_REL = "corpus/SOURCES.md"
+ KNOWLEDGE_REL = "corpus/knowledge"
+ SELFTEST_PREFIX = "idresolver-selftest-"
+@@ -77,12 +82,42 @@ def _err(message):
+     return Result(2, message, {}, {}, [], None)
+ 
+ 
++def _fence_open(line):
++    """(char, length) when `line` opens a code fence, else None (CommonMark 4.5: 0-3 spaces, 3+ of ` or ~)."""
++    m = FENCE_RE.match(line)
++    if not m:
++        return None
++    marker = m.group(2)
++    if marker[0] == "`" and "`" in m.group(3):  # a backtick fence's info string may not contain a backtick
++        return None
++    return marker[0], len(marker)
++
++
++def _fence_closed(line, fence):
++    """True when `line` closes `fence`: same character, at least its length, only whitespace after (CommonMark 4.6)."""
++    char, length = fence
++    m = FENCE_RE.match(line)
++    if not m:
++        return False
++    marker = m.group(2)
++    return marker[0] == char and len(marker) >= length and not m.group(3).strip(" \t")
++
++
+ def parse_registry(text):
+-    """Map id -> [urls] for rows of the `## Registry` section (0-3 leading spaces)."""
++    """Map id -> [urls] for rows of the `## Registry` section (0-3 leading spaces, fenced lines are code)."""
+     rows = {}
+     inside = False
++    fence = None  # (char, length) of the open code fence: every line until it closes is code
+     for raw in text.splitlines():
+         line = raw.rstrip("\r")
++        if fence is not None:
++            if _fence_closed(line, fence):
++                fence = None
++            continue
++        opened = _fence_open(line)
++        if opened is not None:
++            fence = opened
++            continue
+         if REGISTRY_HEADING_RE.match(line):
+             inside = True
+             continue
+@@ -141,10 +176,12 @@ def lane_registry(root, revision):
+ def knowledge_bodies(root, revision):
+     """Map repo-relative path -> text, read from the revision blobs or the working tree."""
+     if revision:
+-        proc = _git(root, "ls-tree", "-r", "--name-only", revision)
++        proc = _git(root, "ls-tree", "-r", "-z", "--name-only", revision)
+         if proc.returncode != 0:
+             return None, f"cannot list {revision[:12]}: {_text(proc).strip()}"
+-        rels = [rel for rel in _text(proc).splitlines()
++        # -z: names are NUL-separated and never quoted, so a non-ASCII or special-character path
++        # still matches the `.md` filter (round-57 F1: `git ls-tree` quotes such names by default)
++        rels = [rel for rel in _text(proc).split("\0")
+                 if rel.startswith(KNOWLEDGE_REL + "/") and rel.endswith(".md")]
+         bodies = {}
+         for rel in rels:
+@@ -791,6 +828,95 @@ def case_symlink_out_of_the_lane_is_not_a_citation():
+         _check(res.summary == (1, 1, 0, 0, 0), f"summary={res.summary}")
+ 
+ 
++def _row_line(sid, indent=""):
++    return f"{indent}| {sid} | https://e.example/{sid[1:]} | docs | A | s | a | x | mined | 2026-10-25 | 90d | — |\n"
++
++
++def _registry_doc(text, cites):
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        _write(os.path.join(lane, REGISTRY_REL), text)
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), cites)
++        return _summary(lane, fleet=base)
++
++
++def case_fenced_heading_before_registry():
++    text = ("# SOURCES\n```\n## Registry\n" + _row_line("S950") + "```\n"
++            "## Registry\n" + _row_line("S001") + "## Paths\n\n- none\n")
++    res = _registry_doc(text, "Cites S001 and S950.\n")
++    _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++    _check([row[0] for row in res.dangling] == ["S950"], f"dangling={res.dangling}")
++
++
++def case_fence_inside_registry_hides_a_row():
++    text = ("# SOURCES\n## Registry\n" + _row_line("S001") + "```\nsample\n" + _row_line("S951")
++            + "```\n" + _row_line("S002") + "## Paths\n\n- none\n")
++    res = _registry_doc(text, "Cites S001, S002 and S951.\n")
++    _check(res.summary == (3, 2, 1, 0, 1), f"summary={res.summary}")
++    _check([row[0] for row in res.dangling] == ["S951"], f"dangling={res.dangling}")
++
++
++def case_tilde_fence_inside_registry_hides_a_row():
++    text = "# SOURCES\n## Registry\n" + _row_line("S001") + "~~~\n" + _row_line("S952") + "~~~\n## Paths\n\n- none\n"
++    res = _registry_doc(text, "Cites S001 and S952.\n")
++    _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++    _check([row[0] for row in res.dangling] == ["S952"], f"dangling={res.dangling}")
++
++
++def case_info_string_fence_hides_a_row():
++    text = ("# SOURCES\n## Registry\n" + _row_line("S001") + "```markdown\n" + _row_line("S953")
++            + "```\n## Paths\n\n- none\n")
++    res = _registry_doc(text, "Cites S001 and S953.\n")
++    _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++    _check([row[0] for row in res.dangling] == ["S953"], f"dangling={res.dangling}")
++
++
++def case_short_close_does_not_end_a_longer_fence():
++    text = ("# SOURCES\n## Registry\n" + _row_line("S001") + "````\n" + _row_line("S954") + "```\n"
++            + _row_line("S955") + "````\n" + _row_line("S002") + "## Paths\n\n- none\n")
++    res = _registry_doc(text, "Cites S001, S002, S954 and S955.\n")
++    _check(res.summary == (4, 2, 2, 0, 2), f"summary={res.summary}")
++    _check([row[0] for row in res.dangling] == ["S954", "S955"], f"dangling={res.dangling}")
++
++
++def case_indented_fence_marker_is_not_a_fence():
++    text = ("# SOURCES\n## Registry\n" + _row_line("S001") + "## Paths\n\n- none\n"
++            "    ```\n## Registry\n" + _row_line("S006") + "## Paths\n\n- none\n")
++    res = _registry_doc(text, "Cites S001 and S006.\n")
++    _check(res.summary == (2, 2, 0, 0, 0), f"summary={res.summary}")
++
++
++def case_unclosed_fence_hides_the_rest():
++    text = ("# SOURCES\n## Registry\n" + _row_line("S001") + "```text\n## Registry\n"
++            + _row_line("S956") + "## Paths\n\n- none\n")
++    res = _registry_doc(text, "Cites S001 and S956.\n")
++    _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++    _check([row[0] for row in res.dangling] == ["S956"], f"dangling={res.dangling}")
++
++
++def _revision_path_case(rel, sid):
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        _repo(lane)
++        rev = _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
++                             rel: f"Cites {sid}.\n"})
++        res = _summary(lane, revision=rev, fleet=base)
++        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
++        _check(res.dangling[0][1] == [rel], f"paths={res.dangling[0][1]}")
++
++
++def case_revision_reads_non_ascii_path():
++    _revision_path_case(KNOWLEDGE_REL + "/中文.md", "S960")
++
++
++def case_revision_reads_double_quote_path():
++    _revision_path_case(KNOWLEDGE_REL + '/a"b.md', "S961")
++
++
++def case_revision_reads_newline_path():
++    _revision_path_case(KNOWLEDGE_REL + "/new\nline.md", "S962")
++
++
+ def _cases():
+     return [
+         ("registry row at 0 leading spaces", case_indent_0),
+@@ -842,6 +968,16 @@ def _cases():
+         ("dangling lines render in id order", case_dangling_lines_in_id_order),
+         ("an inherited GIT_DIR is not passed on", case_git_env_is_scrubbed),
+         ("a symlink out of the lane carries no citation", case_symlink_out_of_the_lane_is_not_a_citation),
++        ("a fenced heading before the Registry section is code", case_fenced_heading_before_registry),
++        ("a backtick fence inside Registry hides its row", case_fence_inside_registry_hides_a_row),
++        ("a tilde fence inside Registry hides its row", case_tilde_fence_inside_registry_hides_a_row),
++        ("a fence with an info string hides its row", case_info_string_fence_hides_a_row),
++        ("a three-backtick line does not close a four-backtick fence", case_short_close_does_not_end_a_longer_fence),
++        ("a four-space fence marker is an indented code block", case_indented_fence_marker_is_not_a_fence),
++        ("an unclosed fence runs to end of file", case_unclosed_fence_hides_the_rest),
++        ("a non-ASCII knowledge path is read at a revision", case_revision_reads_non_ascii_path),
++        ("a double-quote knowledge path is read at a revision", case_revision_reads_double_quote_path),
++        ("a newline knowledge path is read at a revision", case_revision_reads_newline_path),
+     ]
+ 
+ 

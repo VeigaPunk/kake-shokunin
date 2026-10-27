@@ -1,0 +1,17 @@
+--- a/.ufo/waves/round-58/c58_receipt_rewrites.py
++++ b/.ufo/waves/round-58/c58_receipt_rewrites.py
+@@ -74,13 +74,7 @@
+ 
+ 
+ def blob_id(root: str, rev: str, path: str) -> str | None:
+-    out = git(root, "ls-tree", "-z", rev, "--", path, check=False)
+-    for rec in out.split("\0"):
+-        if rec and "\t" in rec:
+-            meta, name = rec.split("\t", 1)
+-            if name == path and meta.split()[1] == "blob":
+-                return meta.split()[2]
+-    return None
++    return git(root, "rev-parse", "--verify", "-q", f"{rev}:{path}", check=False).strip() or None
+ 
+ 
+ def events(root: str, tip: str) -> list[dict]:

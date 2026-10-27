@@ -1,0 +1,43 @@
+--- cur_id_resolver.py	2026-10-26 20:57:03.489676705 -0300
++++ ref_id_resolver.py	2026-10-26 20:56:35.546395008 -0300
+@@ -77,12 +77,26 @@
+     return Result(2, message, {}, {}, [], None)
+ 
+ 
++FENCE_OPEN_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
++FENCE_CLOSE_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})[ \t]*$")
++
++
+ def parse_registry(text):
+-    """Map id -> [urls] for rows of the `## Registry` section (0-3 leading spaces)."""
++    """Map id -> [urls] for rows of the `## Registry` section (0-3 leading spaces, outside code fences)."""
+     rows = {}
+     inside = False
++    fence = None  # (character, run length) of the open code fence
+     for raw in text.splitlines():
+         line = raw.rstrip("\r")
++        if fence is not None:
++            m = FENCE_CLOSE_RE.match(line)
++            if m and m.group(1)[0] == fence[0] and len(m.group(1)) >= fence[1]:
++                fence = None
++            continue
++        m = FENCE_OPEN_RE.match(line)
++        if m and not (m.group(1)[0] == "`" and "`" in m.group(2)):
++            fence = (m.group(1)[0], len(m.group(1)))
++            continue
+         if REGISTRY_HEADING_RE.match(line):
+             inside = True
+             continue
+@@ -141,10 +155,10 @@
+ def knowledge_bodies(root, revision):
+     """Map repo-relative path -> text, read from the revision blobs or the working tree."""
+     if revision:
+-        proc = _git(root, "ls-tree", "-r", "--name-only", revision)
++        proc = _git(root, "ls-tree", "-r", "-z", "--name-only", revision)
+         if proc.returncode != 0:
+             return None, f"cannot list {revision[:12]}: {_text(proc).strip()}"
+-        rels = [rel for rel in _text(proc).splitlines()
++        rels = [rel for rel in _text(proc).split("\0")
+                 if rel.startswith(KNOWLEDGE_REL + "/") and rel.endswith(".md")]
+         bodies = {}
+         for rel in rels:

@@ -1,0 +1,106 @@
+lo,hi 9442 18758 nodes 120
+ 14u  27c 轻松两步，教你快速识别百度蜘蛛（User-Agent）
+  4u  15c 发布日期：2020-05-19
+ 15u  17c 经常听到开发者问，百度蜘蛛是什么？
+ 17u  18c 最近百度蜘蛛来的太频繁服务器抓爆了！
+ 13u  14c 最近百度蜘蛛都不来了怎么办？
+ 42u  52c 还有很多站点想得到百度蜘蛛的IP段，想把IP加入白名单，但IP地址范围动态变化不固定，我们无法对外公布。
+ 34u  36c 那么如何才能识别正确的百度蜘蛛呢？今日干货带你轻松两步正确识别百度蜘蛛：
+  3u   4c 一、查看
+  2u   4c UA信息
+ 46u  60c 如果UA信息不对，可以直接判断为非百度搜索的蜘蛛。目前UA分为移动、PC、和小程序三个应用场景，这三个渠道UA分别如下：
+  2u   5c 移动UA：
+ 10u 186c Mozilla/5.0 (Linux;u;Android 4.2.2;zh-cn;) AppleWebKit/534.46 (KHTML,like Gecko)Version/5.1 Mobile Safari/10600.6.3 (compatible; Baiduspider/2.0;+http://www.baidu.com/search/spider.html)
+  1u   1c 或
+ 17u 209c Mozilla/5.0 (iPhone;CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko)Version/9.0 Mobile/13B143 Safari/601.1 (compatible; Baiduspider-render/2.0;+http://www.baidu.com/search/spider.html)
+  1u   6c &nbsp;
+  2u   6c PC UA：
+  4u  83c Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)
+  1u   1c 或
+  4u  90c Mozilla/5.0 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)
+  3u   3c 小程序
+  1u   3c UA：
+ 18u 219c Mozilla/5.0 (iPhone;CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko)Version/9.0 Mobile/13B143 Safari/601.1 (compatible; Baiduspider-render/2.0;Smartapp; +http://www.baidu.com/search/spider.html)
+  1u   2c 二、
+  6u   9c 双向DNS解析认证
+  5u  11c 第一步：DNS反查IP
+ 37u  50c 开发者通过对日志中访问服务器的IP地址运行反向DNS查找，判断某只spider是否来自百度搜索引擎，
+  1u  11c Baiduspider
+  1u   1c 的
+  1u   8c hostname
+  1u   1c 以
+  1u  11c *.baidu.com
+  1u   1c 或
+  1u  10c *.baidu.jp
+  1u   6c &nbsp;
+  6u   7c 的格式命名，非
+  1u  11c *.baidu.com
+  1u   1c 或
+  1u  10c *.baidu.jp
+  4u   5c 即为冒充。
+ 27u  45c 根据平台不同验证方法不同，如linux/windows/os三种平台下的验证方法分别如下：
+  1u   3c 1).
+  1u   1c 在
+  1u   5c linux
+  8u   9c 平台下，您可以使用
+  2u   7c host ip
+  4u   4c 命令反解
+  1u   2c ip
+  7u   7c 来判断是否来自
+  1u  11c Baiduspider
+  3u   4c 的抓取。
+  1u   3c 2).
+  1u   1c 在
+  1u   7c windows
+  4u   4c 平台或者
+  2u   8c IBM OS/2
+  8u   9c 平台下，您可以使用
+  2u  11c nslookup ip
+  4u   4c 命令反解
+  1u   2c ip
+  1u   1c 来
+  1u   6c &nbsp;
+  6u   6c 判断是否来自
+  1u  11c Baiduspider
+ 10u  11c 的抓取。打开命令处理器
+  1u   6c &nbsp;
+  2u   2c 输入
+  2u  24c nslookup xxx.xxx.xxx.xxx
+  1u   1c （
+  1u   2c IP
+  6u   7c 地址）就能解析
+  1u   2c ip
+  7u   8c ，来判断是否来自
+  1u  11c Baiduspider
+  3u   4c 的抓取。
+  1u   3c 3).
+  1u   1c 在
+  1u   5c macos
+  8u   9c 平台下，您可以使用
+  1u   3c dig
+  4u   4c 命令反解
+  1u   2c ip
+  7u   7c 来判断是否来自
+  1u  11c Baiduspider
+ 12u  13c 的抓取。打开命令处理器输入
+  3u  22c dig -x xxx.xxx.xxx.xxx
+  1u   1c （
+  1u   2c IP
+  6u   7c 地址）就能解析
+  1u   2c ip
+  7u   8c ，来判断是否来自
+  1u  11c Baiduspider
+  3u   4c 的抓取。
+  3u   4c 第二步：
+  9u  12c 对域名运行正向DNS查找
+ 69u  88c 对第一步中通过命令检索到的域名运行正向DNS查找，验证该域名与您日志中访问服务器的原始IP地址是否一致，IP地址一致可确认spider来自百度搜索引擎，IP地址不一致即为冒充。
+  2u   4c 示例1：
+  1u   4c &gt;
+  2u  19c host 111.206.198.69
+  1u   6c &nbsp;
+  6u  92c 69.198.206.111. in-addr.arpa domain name pointer baiduspider-111-206-198-69.crawl.baidu.com.
+  1u   6c &nbsp;
+  1u   4c &gt;
+  2u  47c host baiduspider-111-206-198-69.crawl.baidu.com
+  1u   6c &nbsp;
+  4u  69c baiduspider-111-206-198-69.crawl.baidu.com has address 111.206.198.69

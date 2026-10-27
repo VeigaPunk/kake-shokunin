@@ -1,0 +1,14 @@
+--- a/.ufo/waves/round-58/c58_receipt_rewrites.py
++++ b/.ufo/waves/round-58/c58_receipt_rewrites.py
+@@ -91,9 +91,8 @@
+     evs: list[dict] = []
+     for chunk in out.split("\x01")[1:]:
+         parts = chunk.split("\0")
+-        head = parts[0].strip("\n")
+-        commit = head.split("\n")[0].strip()
+-        rest = [p.strip("\n") for p in ([head.split("\n", 1)[1]] if "\n" in head else []) + parts[1:]]
++        commit = parts[0].strip("\n")
++        rest = [p.strip("\n") for p in parts[1:]]
+         rest = [p for p in rest if p != ""]
+         i = 0
+         while i + 1 < len(rest):

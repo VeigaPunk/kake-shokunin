@@ -1,0 +1,16 @@
+base plain (--root lane, cwd scratch)        n= 7 min=  119.2ms median=  122.6ms max=  128.6ms exit=1
+base --json                                  n= 7 min=  121.3ms median=  123.1ms max=  126.9ms exit=1
+base plain @ nc.git (--no-checkout clone)    n= 5 min=  124.5ms median=  129.2ms max=  134.5ms exit=1
+tip cc8da16 plain (lane root)                n= 5 min=  118.9ms median=  121.1ms max=  122.6ms exit=1
+19-entry ledger fixture @ led.git            n= 7 min=  185.6ms median=  192.2ms max=  195.7ms exit=1
+scratch variant: memoized clean_env          n= 7 min=  107.7ms median=  112.0ms max=  116.8ms exit=1
+python3 -B -c pass (interpreter floor)       n= 7 min=    6.6ms median=    6.8ms max=    6.9ms exit=0
+git log --full-history --name-status (1 spawn) n= 7 min=   15.9ms median=   16.2ms max=   16.8ms exit=0
+git rev-parse --verify (1 spawn)             n= 7 min=    0.8ms median=    0.9ms max=    1.7ms exit=0
+git ls-tree -z <rev> -- <one path>           n= 7 min=    0.7ms median=    0.8ms max=    1.2ms exit=0
+git ls-tree -r -z round-58/controls          n= 7 min=    0.7ms median=    0.7ms max=    1.5ms exit=0
+git show <rev>:<absent ledger>               n= 7 min=    0.8ms median=    0.9ms max=    1.3ms exit=128
+
+hyperfine 3-run blocks (as specified for the seat):
+  hf_plain.json  runs=3 wall=[122.7, 120.5, 117.4] mean=120.2ms peakRSS=25.6MiB
+  hf_json.json   runs=3 wall=[123.3, 124.8, 117.2] mean=121.8ms peakRSS=25.9MiB

@@ -1,0 +1,10 @@
+# strace -f -e trace=openat,newfstatat, base run
+# every path under the lane (worktree filesystem) that was touched:
+      183 "/home/vgpnk/Projects/shokunin/kake-shokunin"
+      122 "/home/vgpnk/Projects/shokunin/kake-shokunin/.git/HEAD"
+      122 "/home/vgpnk/Projects/shokunin/kake-shokunin/.git"
+       61 "/home/vgpnk/Projects/shokunin/kake-shokunin/.git/commondir"
+       59 "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-58"
+        4 "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-58/c58_receipt_rewrites.py"
+
+# touches under the lane OUTSIDE .git/ (dir discovery + the script itself); zero receipt/source/tree file reads

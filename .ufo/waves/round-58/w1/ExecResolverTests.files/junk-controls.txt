@@ -1,0 +1,51 @@
+===== mutant_m1_quotepath
+battery: tool=/fast/scratch/hyaku/kake-r58/ExecResolverTests/mutant_m1_quotepath.py
+battery: fixtures=/fast/scratch/hyaku/kake-r58/ExecResolverTests/cases
+PASS 00 00-control-plain-registry: as expected | exit=0 dangling=0 [ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 01 01-four-backtick-not-closed-by-three: dangling={} want {S901,S902}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 02 02-tilde-fence-not-closed-by-backticks: dangling={} want {S903,S904}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+PASS 03 03-four-space-fence-line-is-code: as expected | exit=0 dangling=0 [ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 04 04-fence-with-info-string: dangling={} want {S906}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 05 05-unclosed-fence-to-eof: dangling={} want {S908,S909}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 06 06-heading-after-fenced-heading: dangling={} want {S910}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 07 07-three-space-row-after-fence: dangling={} want {S912}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 08 08-crlf-around-fence: dangling={} want {S914}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 09 09-revision-tab-in-name: dangling={} want {S917}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 10 10-revision-newline-in-name: dangling={} want {S918}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 11 11-revision-backslash-in-name: dangling={} want {S919}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0]
+PASS 12 12-revision-non-ascii-subdir: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+battery: 3/13 cases passed
+===== mutant_m3_paths_only
+battery: tool=/fast/scratch/hyaku/kake-r58/ExecResolverTests/mutant_m3_paths_only.py
+battery: fixtures=/fast/scratch/hyaku/kake-r58/ExecResolverTests/cases
+PASS 00 00-control-plain-registry: as expected | exit=0 dangling=0 [ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 01 01-four-backtick-not-closed-by-three: dangling={} want {S901,S902}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 02 02-tilde-fence-not-closed-by-backticks: dangling={} want {S903,S904}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+PASS 03 03-four-space-fence-line-is-code: as expected | exit=0 dangling=0 [ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 04 04-fence-with-info-string: dangling={} want {S906}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 05 05-unclosed-fence-to-eof: dangling={} want {S908,S909}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 06 06-heading-after-fenced-heading: dangling={} want {S910}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 07 07-three-space-row-after-fence: dangling={} want {S912}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 08 08-crlf-around-fence: dangling={} want {S914}; exit=0 want 1 | exit=0 dangling=0 [ids_cited=3 ids_resolved=3 dangling=0 owned_elsewhere=0 unowned=0]
+PASS 09 09-revision-tab-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 10 10-revision-newline-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 11 11-revision-backslash-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 12 12-revision-non-ascii-subdir: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+battery: 6/13 cases passed
+===== mutant_m2_overeager
+battery: tool=/fast/scratch/hyaku/kake-r58/ExecResolverTests/mutant_m2_overeager.py
+battery: fixtures=/fast/scratch/hyaku/kake-r58/ExecResolverTests/cases
+PASS 00 00-control-plain-registry: as expected | exit=0 dangling=0 [ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0]
+FAIL 01 01-four-backtick-not-closed-by-three: dangling={S901} want {S901,S902} | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+FAIL 02 02-tilde-fence-not-closed-by-backticks: dangling={S903} want {S903,S904} | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+FAIL 03 03-four-space-fence-line-is-code: dangling={S905} want {}; exit=1 want 0 | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 04 04-fence-with-info-string: as expected | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 05 05-unclosed-fence-to-eof: as expected | exit=1 dangling=2 [ids_cited=3 ids_resolved=1 dangling=2 owned_elsewhere=0 unowned=2]
+PASS 06 06-heading-after-fenced-heading: as expected | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 07 07-three-space-row-after-fence: as expected | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 08 08-crlf-around-fence: as expected | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 09 09-revision-tab-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 10 10-revision-newline-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 11 11-revision-backslash-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 12 12-revision-non-ascii-subdir: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+battery: 10/13 cases passed

@@ -1,0 +1,24 @@
+gate-truth 2/7 met=False
+  L1_gate_locator FAIL
+    - S329: Gate § leaves ['robots写法'] do not name the heading containing the quote; it sits under ['如何正确识别Baiduspider移动ua']
+    - S312: Gate § leaves ['对应关系错误的常见原因'] do not name the heading containing the quote; it sits under ['如何提升移动适配效果']
+    = gate_entries: ["S374", "S329", "S312"]
+  L2_registry_anchor FAIL
+    - S329: registry anchor § leaves ['robots写法', '使用robots巧妙避免蜘蛛黑洞'] do not name the heading containing the quote; it sits under ['如何正确识别Baiduspider移动ua']
+    - S312: registry anchor § leaves ['对应关系错误的常见原因'] do not name the heading containing the quote; it sits under ['如何提升移动适配效果']
+  L3_revision_notes FAIL
+    - S329: Gate says no revision is printed, but the body prints 最新更新章节 2019-09-18
+    - S329: registry anchor says no revision is printed, but the body prints 最新更新章节 2019-09-18
+    - S312: Gate cites 2020-08-14 as the section timestamp, but the quote's section does not carry it (page-level marker 最新更新章节)
+    - S312: registry anchor cites 2020-08-14 as the section timestamp, but the quote's section does not carry it (page-level marker 最新更新章节)
+  R0_staged_snapshot PASS
+  R1_refusal_ids FAIL
+    - jekyll-url-baseurl-options.md: refusal names staged ids ['S041', 'S042'], the staged entry's source ids are ['S296']
+  R2_held_ground FAIL
+    - crux-keyless-check.md: names field-performance-cwv.md as holding the ground, but field-performance-cwv.md cites none of the staged sources ['https://chromeuxreport.googleapis.com/v1/records:queryRecord', 'https://developer.chrome.com/docs/crux/vis']
+    - jekyll-url-baseurl-options.md: names pages-base-path.md as holding the ground, but pages-base-path.md cites none of the staged sources ['https://jekyllrb.com/docs/configuration/options']
+  R3_true_ground PASS
+    = crux-keyless-check.md: {"staged_ids": ["S303", "S304"], "true_grounds": ["S303 not in corpus/SOURCES.md", "S304 not in corpus/SOURCES.md"]}
+    = jekyll-url-baseurl-options.md: {"staged_ids": ["S296"], "true_grounds": ["S296 not in corpus/SOURCES.md", "https://jekyllrb.com/docs/configuration/options held as S080"]}
+  revision: master
+EXIT=1

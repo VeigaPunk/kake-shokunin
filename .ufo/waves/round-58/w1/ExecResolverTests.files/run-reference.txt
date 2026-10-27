@@ -1,0 +1,16 @@
+battery: tool=/fast/scratch/hyaku/kake-r58/ExecResolverTests/ref_id_resolver.py
+battery: fixtures=/fast/scratch/hyaku/kake-r58/ExecResolverTests/cases
+PASS 00 00-control-plain-registry: as expected | exit=0 dangling=0 [ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0]
+PASS 01 01-four-backtick-not-closed-by-three: as expected | exit=1 dangling=2 [ids_cited=3 ids_resolved=1 dangling=2 owned_elsewhere=0 unowned=2]
+PASS 02 02-tilde-fence-not-closed-by-backticks: as expected | exit=1 dangling=2 [ids_cited=3 ids_resolved=1 dangling=2 owned_elsewhere=0 unowned=2]
+PASS 03 03-four-space-fence-line-is-code: as expected | exit=0 dangling=0 [ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0]
+PASS 04 04-fence-with-info-string: as expected | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 05 05-unclosed-fence-to-eof: as expected | exit=1 dangling=2 [ids_cited=3 ids_resolved=1 dangling=2 owned_elsewhere=0 unowned=2]
+PASS 06 06-heading-after-fenced-heading: as expected | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 07 07-three-space-row-after-fence: as expected | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 08 08-crlf-around-fence: as expected | exit=1 dangling=1 [ids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 09 09-revision-tab-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 10 10-revision-newline-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 11 11-revision-backslash-in-name: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+PASS 12 12-revision-non-ascii-subdir: as expected | exit=1 dangling=1 [ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1]
+battery: 13/13 cases passed

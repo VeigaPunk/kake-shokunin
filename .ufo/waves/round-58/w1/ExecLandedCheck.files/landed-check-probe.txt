@@ -1,0 +1,18 @@
+fixture-toplevel-ok /fast/scratch/hyaku/kake-r58/ExecLandedCheck/probe2.Tly9yv
+== A unknown 40-hex + ghost + blob, --branch master
+ANCESTOR 864f6d1408eb4c4cfc3622978ec048298c65b20f first on master
+UNKNOWN deadbeefdeadbeefdeadbeefdeadbeefdeadbeef -
+cited=2 landed=1 missing=0 unknown=1
+EXIT=0
+== B bare 64-hex digest only, --branch master
+cited=0 landed=0 missing=0 unknown=0
+EXIT=2
+== C detached tip cited, --branch master (master=864f6d1408eb4c4cfc3622978ec048298c65b20f detached=1b0246f9776289c870a4c8c85db0f5cd9b82b91a)
+NOT-ANCESTOR 1b0246f9776289c870a4c8c85db0f5cd9b82b91a second, detached
+cited=1 landed=0 missing=1 unknown=0
+EXIT=1
+== D detached tip cited, --branch HEAD
+ANCESTOR 1b0246f9776289c870a4c8c85db0f5cd9b82b91a second, detached
+cited=1 landed=1 missing=0 unknown=0
+EXIT=0
+FIXTURE=/fast/scratch/hyaku/kake-r58/ExecLandedCheck/probe2.Tly9yv

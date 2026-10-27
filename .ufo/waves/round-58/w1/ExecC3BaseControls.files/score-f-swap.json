@@ -1,0 +1,86 @@
+{
+ "schema": "kake-r58-c3-quote-truth-v1",
+ "predicate": "met: conditions_passed == 8 of 8",
+ "revision": "9baecf0dbfa93d1a75d3d59d74fd472d93367968",
+ "adopted": {
+  "S423": "corpus/knowledge/baidu-spider-identification.md",
+  "S424": "corpus/knowledge/baidu-spider-unblocking.md"
+ },
+ "checks": {
+  "C1_entries_exist": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "entries": 2
+   }
+  },
+  "C2_entry_provenance": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C3_row_shape": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "rows": 162,
+    "base_rows": 160
+   }
+  },
+  "C4_used_by": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C5_quote_truth": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "S423: Gate line quotes '如何验证网站和智能小程序是否存在封禁百度蜘蛛的情况？'… which is not a raw substring of the retained body",
+    "S423: Gate line quotes '常见的封禁行为包括robots封禁、封禁百度UA、封禁百度IP等。'… which is not a raw substring of the retained body",
+    "S423: a Gate quote occurs more than once in its own body or also in another retained body (not page-unique)",
+    "S423: entry line 9 quotes '常见的封禁行为包括robots封禁、封禁百度UA、封禁百度IP等。'… which is not a raw substring of the retained body",
+    "S423: entry line 10 quotes '如何验证网站和智能小程序是否存在封禁百度蜘蛛的情况？'… which is not a raw substring of the retained body",
+    "S423: entry line 11 quotes '注：正常返回码是200，其他情况为异常。'… which is not a raw substring of the retained body",
+    "S423: entry carries 0 page-unique quoted spans, expected 3+",
+    "S424: Gate line quotes '方式二：双向DNS解析认证'… which is not a raw substring of the retained body",
+    "S424: Gate line quotes '也叫百度蜘蛛'… which is not a raw substring of the retained body",
+    "S424: a Gate quote occurs more than once in its own body or also in another retained body (not page-unique)",
+    "S424: entry line 9 quotes '方式二：双向DNS解析认证'… which is not a raw substring of the retained body",
+    "S424: entry line 10 quotes '也叫百度蜘蛛'… which is not a raw substring of the retained body",
+    "S424: entry line 11 quotes '访问互联网上的网页，建立索引数据库'… which is not a raw substring of the retained body",
+    "S424: entry carries 0 page-unique quoted spans, expected 3+"
+   ],
+   "facts": {}
+  },
+  "C6_receipt_pins": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "receipts": 2
+   }
+  },
+  "C7_validate_before_append": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C8_mirror_bytes": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "registry_rows": 162
+   }
+  }
+ },
+ "conditions_passed": 7,
+ "exit": 1,
+ "met": false
+}
