@@ -137,3 +137,16 @@ the spot-check's actual verdict line); guard the C2 counter's JSON parsing
 and pin the tool's selftest fixtures to the measured revision; define "stub"
 as "tool sha ≠ frozen sha". A future round that lands these may re-enter the
 S432-derived calibration claim and the quote-class capability row.
+
+
+Settlement correction (recorded after the results handoff arrived): all 64
+seats settled per the orchestrator's `WAVE-DONE` and
+`.ufo/waves/round-63/w1-results.json`. 63 scoped report files are present;
+`ExecLedgerMutation` delivered its full findings through the results handoff
+instead of a report file — integrated here rather than treated as silent: it
+killed four of five ledger single-field mutants (wrong textSha256, wrong
+rawSha256, swapped class, straight-apostrophe quote) and found one survivor,
+M5 (`locatedRawLines` changed to 6150–6156 stays green), matching the
+forged-location variant J of `ReviewerFalseGreenDead`: the counter records
+the located lines in the ledger but never checks them. Routed to round 64
+with the recipe above (bind located-lines against the retained raw bytes).
