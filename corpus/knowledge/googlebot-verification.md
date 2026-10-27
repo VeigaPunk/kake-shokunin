@@ -5,7 +5,7 @@ ground: per-engine crawl hygiene — the operator's own procedure for telling a 
 
 # Google's verification page tests a claimed crawler by reverse DNS on the logged IP, then forward DNS back to that IP
 
-The page's browser title is Verify Requests from Google Crawlers and Fetchers, its on-page heading prints the same words in sentence case, and its revision line reads Last updated 2026-03-20 UTC (a line that sits after the article block; see § Quote classes) [S426]. Its opening states the purpose and the audience [S426]:
+The page's browser title begins Verify Requests from Google Crawlers and Fetchers (the `<title>` element continues with ` | `-separated site suffixes), its on-page heading prints the same words in sentence case, and its revision line reads Last updated 2026-03-20 UTC (a line that sits after the article block; see § Quote classes) [S426]. Its opening states the purpose and the audience [S426]:
 
 > "Verification is possible for crawlers such as Googlebot, as well as other requests."
 
@@ -25,7 +25,7 @@ The table prints four columns — Type, Description, Reverse DNS mask, IP ranges
 
   > "The common crawlers used for Google's products (such as Googlebot). They always respect robots.txt rules for automatic crawls."
 
-- **Special-case crawlers** — mask `rate-limited-proxy-***-***-***-***.google.com`; IP ranges in `special-crawlers.json`. The description runs past the 25-unit ceiling; the part carried is its closing robots clause:
+- **Special-case crawlers** — mask `rate-limited-proxy-***-***-***-***.google.com`; IP ranges in `special-crawlers.json`. The description runs past the 25-unit ceiling; the part carried is its closing robots predicate:
 
   > "may or may not respect robots.txt rules"
 
@@ -37,11 +37,11 @@ The table prints four columns — Type, Description, Reverse DNS mask, IP ranges
 
   > "acts on the request of a user. Because the fetch was requested by a user, these fetchers ignore robots.txt rules."
 
-The user-triggered cell then separates the Google-controlled fetchers from the user-cloud ones [S426]:
+The user-triggered cell then separates the Google-controlled fetchers from the other user-triggered fetchers, which the page illustrates with a Google Cloud site fetching RSS feeds for its user [S426]:
 
 > "Fetchers controlled by Google originate from IPs in the"
 
-`user-triggered-fetchers-google.json`, whose entries the page says resolve to `google.com` hostnames, while `user-triggered-fetchers.json` resolves to `gae.googleusercontent.com` [S426]:
+`user-triggered-fetchers-google.json` object, and the page says those fetchers resolve to a `google.com` hostname, while IPs in the `user-triggered-fetchers.json` object resolve to `gae.googleusercontent.com` hostnames [S426]:
 
 > "hostnames. These IPs are used, for example,"
 
@@ -137,6 +137,6 @@ Five list links follow, each a JSON file under `/static/crawling/ipranges/`, in 
 
 ## Quote classes
 
-Every block quotation above is an exact raw substring of one text node of the article block in the retained body `S426.html` (69789 bytes, HTTP 200, sha256 `8df9d4ade1d1f335060af05229c4d90b15d8136b9807cfab17a088f3292f0879`), each 6..25 units and at most 160 characters, page-unique across both round-59 retained bodies, checked with `.ufo/waves/round-59/span_tools.py check S426`. Several quotations stop at an inline-code or link boundary rather than closing their sentence: step one and step three end before the `host` token, step two before its three domain tokens, the category descriptions before their mask tokens, the user-triggered description before the linked example name, and the two method sentences begin after their printed labels. No sentence is joined across nodes anywhere in this entry. The three example blocks are not marked as quotations because their lines fall below the 6-unit quotation floor; they are reproduced from the page's own `pre` text, whose characters are article-block text. Inline-code tokens (the command name, the three domain names, the masks, the JSON file names, the two script and format terms) are named in backticks for the same reason. The printed revision line sits after `</devsite-content-footer>`, outside the article block, so it is reported in the header and the anchor cell and is not quoted here.
+Every block quotation above is an exact raw substring of one text node of the article block in the retained body `S426.html` (69789 bytes, HTTP 200, sha256 `8df9d4ade1d1f335060af05229c4d90b15d8136b9807cfab17a088f3292f0879`), each 6..25 units and at most 160 characters, page-unique across both round-59 retained bodies, checked with `.ufo/waves/round-59/span_tools.py check S426`. Several quotations stop at an inline-code or link boundary rather than closing their sentence: step one and step three end before the `host` token, step two before its three domain tokens, the user-triggered sentences before their linked example name and their JSON file-name token, and the two method sentences begin after their printed labels. No sentence is joined across nodes anywhere in this entry. The three example blocks are not marked as quotations because their lines fall below the 6-unit quotation floor; they are reproduced from the page's own `pre` text, whose characters are article-block text. Inline-code tokens (the command name, the three domain names, the masks, the JSON file names of the description cells) and link labels (`Apps Scripts`, `CIDR format`, the JSON file names of the IP-range cells) are named in backticks for the same reason. The printed revision line sits inside `devsite-content-footer`, outside the article block, so it is reported in the header and the anchor cell and is not quoted here.
 
 Scope note: this entry records what the operator's page states, and nothing more; no crawl was observed and no Google behaviour was measured.

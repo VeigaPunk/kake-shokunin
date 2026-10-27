@@ -1,0 +1,32 @@
+# ReviewerEntryVerification
+
+Scope: sentence-level fidelity of `corpus/knowledge/googlebot-verification.md` @ ab6e100e (working tree sha256 c7acc7fd… == commit blob, verified) vs `sources/S426.html` article block, per `w1/ReviewerFidelityPrep.files/reference.md` and `w1/CriticEntryOverreach.md`.
+
+Verified correct (measured, not inferred):
+- All 19 block quotes pass `span_tools.py check S426`: in_text_node, count_in_body=1, unique across both bodies, 6..25 units, ≤160 chars.
+- Three worked examples match the three `<pre>` blocks line-for-line (commands are `<code class="devsite-terminal">`, results bare pre text, blank line between lookups, no shell prompt). Byte-identical.
+- Five list links: order and hrefs `/static/crawling/ipranges/{common-crawlers,special-crawlers,user-triggered-fetchers,user-triggered-fetchers-google,user-triggered-agents}.json` all match; `goog.json` link and `CIDR format` → wikipedia.org/wiki/Classless_Inter-Domain_Routing verified.
+- Table masks, JSON file names, four steps, two methods, `Manually`/`Automatically` labels — all match page markup (steps use `<code>host</code>`, three `<code>` domains).
+- Hedges preserved: `such as`, `may or may not respect`, `for most use cases`, `for large scale lookups`, `always … for automatic crawls`, `ignore robots.txt rules`. All CriticEntryOverreach MUST-NOTs honored.
+- All three `[INFERENCE]` tags (lines 16, 46, 76) correctly scoped.
+- Header facts verified: 69789 bytes, sha256 `8df9d4ad…0879`, recheck grep count 1, anchor h2 `Use command line tools` exists, `Last updated 2026-03-20 UTC.` present, `spoof`/`forg`/`impersonat` absent from body.
+- Related-entry paths exist at ab6e100; crawler-identity.md line 35+ carries `[r59-correction 2026-10-27]` marking the stale line wrong (append-only correction present); baidu entry does document reverse-then-forward DNS; crawl-scope-per-host is host-root scope.
+- Note for integration: the entry's line-104 claim (examples cover common + special-case) is CORRECT where the w1 reference errs — `geo-crawl-` is a common-crawler mask per the S426 table, so exactly one example (rate-limited-proxy) is special-case.
+
+FINDINGS:
+
+1. **Line 44 — subject shift in rendering.** Entry text: "`user-triggered-fetchers-google.json`, whose entries the page says resolve to `google.com` hostnames, while `user-triggered-fetchers.json` resolves to `gae.googleusercontent.com`". Page text: "Fetchers controlled by Google originate from IPs in the `user-triggered-fetchers-google.json` object and resolve to a `google.com` hostname. IPs in the `user-triggered-fetchers.json` object resolve to `gae.googleusercontent.com` hostnames." The resolvers are the fetchers/IPs, not the file or its entries; the entry also pluralizes the page's singular `a google.com hostname` and drops the page's "object" for the second file. Fix: "…whose IPs the page says resolve to `google.com` hostnames, while IPs in `user-triggered-fetchers.json` resolve to `gae.googleusercontent.com`".
+
+2. **Line 140 — false markup-class claim.** Entry text: "Inline-code tokens (the command name, the three domain names, the masks, the JSON file names, the two script and format terms) are named in backticks". Page markup: `Apps Scripts` is `<a href="/apps-script" class="external-link">` and `CIDR format` is `<a href="…wikipedia.org/wiki/Classless_Inter-Domain_Routing">` — link labels, not code; the JSON file names in the IP-ranges cells are `<a>` links to `/static/crawling/ipranges/*.json` (they are `<code>` only inside the description cell). Fix: split the parenthetical into `<code>` tokens (command, domains, masks, description-cell file names) vs link labels (`Apps Scripts`, `CIDR format`, ranges-cell file names).
+
+3. **Line 140 — false boundary accounting.** Entry text: "the category descriptions before their mask tokens". No category-description quote stops before a mask token; the masks sit in the separate Reverse-DNS-mask cells. Actual boundaries: common-row quote is the full description node; special-row quote ends at a plain-text boundary mid-node; user-triggered quotes end before the `Google Site Verifier` link and before the `user-triggered-fetchers-google.json` code token. Fix: replace "before their mask tokens" with "the user-triggered sentences before their JSON file-name and link tokens" (or drop the clause).
+
+4. **Line 140 — false DOM-position claim.** Entry text: "The printed revision line sits after `</devsite-content-footer>`". Page text: `<p>Last updated 2026-03-20 UTC.</p>` (char 41065) precedes `</devsite-content-footer>` (char 41098); the line sits inside the element, after the article block. The line-8 header claim "sits after the article block" is true and unaffected. Fix: "sits inside `devsite-content-footer`, outside the article block".
+
+5. **Line 8 — title presented as complete.** Entry text: "The page's browser title is Verify Requests from Google Crawlers and Fetchers". Page `<title>`: "Verify Requests from Google Crawlers and Fetchers | Google Crawling Infrastructure | Crawling infrastructure | Google for Developers". The named string is the segment before the ` | ` suffix (counter convention), not the whole element. Fix: "the page's browser title begins …" or name the suffix. (The body also prints `Last updated 2026-03-20 UTC.` twice — footer `<p>` at 41065 and a devsite feedback template at 42500; the entry's singular "revision line" refers to the first.)
+
+6. **Line 40 — untagged gloss.** Entry text: "separates the Google-controlled fetchers from the user-cloud ones". Page text offers the Google-Cloud case only as a "for example" of the `user-triggered-fetchers.json` IPs; "user-cloud" is the entry's coinage and reads as a general label. Fix: tie to the quoted example ("from the user-side IPs the page illustrates with a Google Cloud RSS feature") or mark [INFERENCE].
+
+7. **Line 28 — predicate called a clause.** Entry text: "the part carried is its closing robots clause" for the quote `may or may not respect robots.txt rules`. That quote is the predicate of the closing sentence; the clause includes "These crawlers or fetchers" and its period. Fix: "closing robots predicate". Nit.
+
+VERDICT: Faithful entry — all 19 quotes, 3 examples, 5 links, masks, steps, methods and hedges verified against the page; one content subject-shift (line 44) and three factual errors in the quote-classes accounting (line 140) warrant repair, plus three nits.

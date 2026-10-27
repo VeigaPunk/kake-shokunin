@@ -55,9 +55,7 @@ country and promises no fallback.
 
 > "Learn how to use these details to"
 
-> "verify Google's crawlers and fetchers"
-
-The second span is link text pointing at the verification page
+The sentence continues with the link text `verify Google's crawlers and fetchers` (a 5-unit text node, named here rather than quoted), which points at the verification page
 (`…/crawling/docs/crawlers-fetchers/verify-google-requests`) [S425]. This page states that the
 details are usable for verification, not the method; reverse DNS, forward DNS and published
 IP-range matching belong to the verification page's own row this round.
@@ -75,7 +73,7 @@ Every quotation above is an exact raw substring of one text node of the article 
 retained body `S425.html` (74477 bytes, HTTP 200, sha256
 `ff2b9fd7ed074536a460dca57816bffecceb0c186c42f1d551f34918551f5caa`), each within 25 units and 160
 characters and page-unique across both bodies retained this round. Where inline markup splits a
-sentence (the `user-agent` item, the pointer's two nodes), only whole text nodes are quoted.
+sentence (the `user-agent` item, the pointer sentence and its link), only whole text nodes of 6 or more units are quoted; shorter nodes are named in backticks.
 
 Scope note: this entry records what the operator's overview page states about how its crawlers
 identify themselves and about the addresses a log may show; no crawl was observed and no Google

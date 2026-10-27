@@ -1347,3 +1347,12 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   verbatim base cell (`superseded_kept`). Example that fails it: replacing the freshness cell's
   `/tmp/kake-r17/*` pointers with `/fast/scratch/<seat>/reviewer-cites.md` — the row still reads 10,
   and the pointer dies with the seat's scratch dir exactly as the old one did.
+- **A frozen claim never silently turns a standing gate red.** Before a contract freezes, every non-historical gate
+  in `SKILL.md` runs on a scratch draft of the after-state; a gate the claim must turn red is named in the contract
+  with its disposition (marked historical, or the claim re-shaped). Round 59's C9 insertion inside
+  `corpus/knowledge/crawler-identity.md` turned the round-55 `readme-index-counter` red (`head_changed=1`) after wave 1
+  had predicted it (`.ufo/waves/round-59/w1/ExecHistoricalGates.md` H1) and nothing recorded the trade until the
+  no-harm reviewer ran it (`.ufo/waves/round-59/a2r1/ReviewerNoHarm.md`). Falsifier:
+  `python3 -B .ufo/waves/round-55/c55_readme_index.py --root . --revision <draft>` exits 1 on such a draft while the
+  SKILL row carries no `historical` marking. Example that fails it: landing an in-place correction with the gate row
+  unchanged and the report silent about the red.

@@ -33,7 +33,9 @@ and states the consequence for robots.txt [S263] (collapsed-only quote):
   the fetch was the mobile or the desktop variant, and therefore does not say which viewport
   the fetched HTML was produced for.
   **[r59-correction 2026-10-27]** The claim in the bullet above is wrong as stated: a server log
-  records the requesting IP address as well as the user-agent, and Google's crawler overview gives
+  ordinarily records the requesting IP address as well as the user-agent (general access-log
+  behaviour, not a statement of the overview page; the verification procedure in
+  `googlebot-verification.md` starts from that logged IP), and Google's crawler overview gives
   three identification signals, not one [S425] — the HTTP user-agent request header,
   "The source IP address of the request." and "The reverse DNS hostname of the source IP." Its
   technical-properties section adds that the clients are distributed across many datacenters, so
