@@ -43,6 +43,10 @@ Reject reasons were re-read against their pages before they were logged (QUALITY
 and `w1/ScribeRegistryGate.md` (two independent curl re-opens), the staged S395 sentences by `w1/ScoutStagedS395.md`,
 `w1/ScribeRegistryGate.md` and `w1/CriticEntryOverreach.md`.
 
+Non-author discernment spot-check: **pending** at lane filing; no dispatched seat is a non-author.
+Closure must re-open at least one admitted row (S423 or S424) and one reject (S378) and record
+`agree`/`disagree` with reasons here, per `LEARNING.md`.
+
 Also opened this round, no row: https://ziyuan.baidu.com/college/articleinfo?id=2855 (the identification article S423 links;
 `w1/ExecSourceLive.md`): it adds that the operator does not publish Baiduspider IP ranges (`IP地址范围动态变化不固定，我们无法对外公布`); no admitted
 entry rests on it, so no row is written (CORPUS rule 4). Flip: an entry that states the no-published-ranges fact.
