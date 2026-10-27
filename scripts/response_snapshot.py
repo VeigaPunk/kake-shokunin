@@ -69,7 +69,7 @@ class PublicHTTPSHandler(urllib.request.HTTPSHandler):
     def https_open(self, req):
         return self.do_open(
             PublicHTTPSConnection, req,
-            context=self._context, check_hostname=self._check_hostname
+            context=self._context
         )
 
 MAX_BODY = 2 * 1024 * 1024
