@@ -254,6 +254,9 @@ def _mask(text):
 
 
 def _cells(line):
+    # version 2 (w2/ReviewerC1Counter high): text inside an inline HTML comment is not a rendered cell
+    line = re.sub(r"<!--.*?-->", "", line)
+    line = re.sub(r"<!--.*$", "", line)
     return [c.strip() for c in re.split(r"(?<!\\)\|", line.strip().strip("|"))]
 
 

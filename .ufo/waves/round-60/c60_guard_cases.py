@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
-"""Round-60 C2 counter (version 1) — operability: scripts/append_guard.py passes the 24 contract cases.
+"""Round-60 C2 counter (version 2) — operability: scripts/append_guard.py passes the 24 contract cases.
+
+Version 2 (frozen after wave 2, before the after-state is measured; tightening only, predicate unchanged): eight cases
+carry extra sub-fixtures and pass only if every sub-fixture meets its expectation — K3 an untagged line just before the
+final base line; K8 four malformed tags (upper case, no round number, one-digit month, no closing bracket); K9 a tag
+inside a multi-line HTML comment (finding) and a tag after a closed comment (clean); K10 a tag inside a code span that
+crosses line ends (finding) and a tag beside an unmatched longer backtick run (clean); K17 a single-star `--scope` that
+must not cross `/` and a path that only contains the scope as a substring; K18 a file replaced by a directory and by an
+embedded repository (gitlink); K20 an unresolved --revision; K22 a non-ASCII file name (git quotes it). Sources:
+w2/MutGuardTool survivors, w2/SentinelGuard (quoted paths), w2/ReviewerGuardCode (code-span visibility). The
+selftest reference implementation was revised to the paragraph-level code-span rule.
 
 Contract: .ufo/waves/round-60/contract.md § Claim C2. The tool under test is extracted with
 `git show <rev>:scripts/append_guard.py` into the work dir (committed bytes only; a missing tool
@@ -21,7 +31,7 @@ unresolvable); 64 usage. GIT_* scrubbed from every subprocess environment. The -
 removed on exit. --selftest scores the gate itself against five controls through the same measure():
 missing tool (0/24), always-exit-0 with no output (0/24 under the exactness clause), an always-clean
 constant printing `files=1 findings=0` (7/24: the seven expected-clean cases), always-exit-1 with no output
-(0/24), a port of c55_readme_index's byte-prefix head_changed rule (8/24; must fail K2, K15, R1 per
+(0/24), a port of c55_readme_index's byte-prefix head_changed rule (7/24 under version 2; must fail K2, K15, R1 per
 contract), and a reference implementation of the contract rule written inside this file (24/24).
 --tool <path> is the hidden override the selftest drives; with --tool a run measures that tool
 instead of `git show <rev>:scripts/append_guard.py`.
@@ -151,12 +161,12 @@ def mkrepo(work: str, rng: random.Random, base_files: dict[str, bytes]) -> tuple
     return d, commit(d, "base")
 
 
-def tool_argv(tool: str, repo: str, base: str | None, tip: str) -> list[str]:
+def tool_argv(tool: str, repo: str, base: str | None, tip: str, extra: tuple = ()) -> list[str]:
     argv = [sys.executable, "-B", tool, "--root", repo]
     if base is not None:
         argv += ["--base", base]
     argv += ["--revision", tip]
-    return argv
+    return argv + list(extra)
 
 
 # --------------------------------------------------------------------------- judging
@@ -208,6 +218,33 @@ def case_results(tool: str, root: str, rev: str, work: str) -> list[tuple[str, b
     def mid_insert(lines: list[str], run_lines: list[str], at: int = 6) -> list[str]:
         return lines[:at] + run_lines + lines[at:]
 
+    def multi(cid: str, subs: list) -> None:
+        """Version 2 (tightening, w2 findings): a case holds several sub-fixtures and passes only if every one
+        meets its own expectation. sub = (base_files, mutate, expect[, extra_argv[, revision_override]])."""
+        notes, all_ok = [], True
+        for k, sb in enumerate(subs):
+            base_files, mutate, expect = sb[0], sb[1], sb[2]
+            extra = sb[3] if len(sb) > 3 else ()
+            rev_override = sb[4] if len(sb) > 4 else None
+            try:
+                repo, base = mkrepo(work, rng, base_files)
+                if mutate is not None:
+                    mutate(repo)
+                tip = commit(repo, "tip") if mutate is not None else base
+                rc, out = run(tool_argv(tool, repo, base, rev_override or tip, extra))
+            except Exception as exc:
+                all_ok = False
+                notes.append(f"[{k}] fixture-error {exc}")
+                continue
+            ok, note = judge(expect, rc, out)
+            all_ok = all_ok and ok
+            if not ok:
+                notes.append(f"[{k}] exit={rc} {note}")
+        res.append((cid, all_ok, f"{len(subs)} sub-fixtures" + ("; " + " | ".join(notes) if notes else " all met")))
+
+    def lines_of(kf_: str, ls: list[str]):
+        return lambda r: put_lines(r, kf_, ls)
+
     for cid in [f"K{i}" for i in range(1, 23)]:
         kf = knowfile(rng)
         body = doc(rng)
@@ -221,8 +258,9 @@ def case_results(tool: str, root: str, rev: str, work: str) -> list[tuple[str, b
             kcase(cid, {kf: body}, lambda r: put_lines(r, kf, mid_insert(lines, ins)), ("clean",))
         elif cid == "K3":    # untagged 2-line run mid-file -> untagged_insertion
             ins = [f"plain-{i} {rword(rng, 5)}" for i in range(2)]
-            kcase(cid, {kf: body}, lambda r: put_lines(r, kf, mid_insert(lines, ins)),
-                  ("find", "untagged_insertion", kf))
+            last_ins = lines[:-1] + [f"late {rword(rng, 4)}"] + lines[-1:]
+            multi(cid, [({kf: body}, lines_of(kf, mid_insert(lines, ins)), ("find", "untagged_insertion", kf)),
+                        ({kf: body}, lines_of(kf, last_ins), ("find", "untagged_insertion", kf))])
         elif cid == "K4":    # one byte of a base line changed -> changed
             def m4(r, kf=kf):
                 ls = read_lines(r, kf)
@@ -243,16 +281,29 @@ def case_results(tool: str, root: str, rev: str, work: str) -> list[tuple[str, b
             kcase(cid, {kf: body}, m7, ("find", "deleted", kf))
         elif cid == "K8":    # tag on the run's SECOND line -> untagged_insertion
             ins = [f"lead {rword(rng, 5)}", f"{TAG} {rword(rng, 4)}"]
-            kcase(cid, {kf: body}, lambda r: put_lines(r, kf, mid_insert(lines, ins)),
-                  ("find", "untagged_insertion", kf))
+            subs = [({kf: body}, lines_of(kf, mid_insert(lines, ins)), ("find", "untagged_insertion", kf))]
+            for bad in ("[R60-Correction 2026-10-27]", "[r-correction 2026-10-27]", "[r60-correction 2026-1-27]",
+                        "[r60-correction 2026-10-27"):
+                subs.append(({kf: body}, lines_of(kf, mid_insert(lines, [f"{bad} {rword(rng, 4)}"])),
+                             ("find", "untagged_insertion", kf)))
+            multi(cid, subs)
         elif cid == "K9":    # tag inside an HTML comment -> untagged_insertion
             ins = ["<!-- [r60-correction 2026-10-27] -->", f"note {rword(rng, 4)}"]
-            kcase(cid, {kf: body}, lambda r: put_lines(r, kf, mid_insert(lines, ins)),
-                  ("find", "untagged_insertion", kf))
+            cbase = lines[:5] + ["<!-- open"] + lines[5:7] + ["close -->"] + lines[7:]
+            chid = cbase[:6] + [f"[r60-correction 2026-10-27] {rword(rng, 3)}"] + cbase[6:]
+            cvis = mid_insert(lines, [f"<!-- c --> [r60-correction 2026-10-27] {rword(rng, 3)}"])
+            multi(cid, [({kf: body}, lines_of(kf, mid_insert(lines, ins)), ("find", "untagged_insertion", kf)),
+                        ({kf: ("\n".join(cbase) + "\n").encode()}, lines_of(kf, chid), ("find", "untagged_insertion", kf)),
+                        ({kf: body}, lines_of(kf, cvis), ("clean",))])
         elif cid == "K10":   # tag only inside a backtick code span -> untagged_insertion
             ins = [f"see `{TAG}` marker {rword(rng, 3)}", f"note {rword(rng, 4)}"]
-            kcase(cid, {kf: body}, lambda r: put_lines(r, kf, mid_insert(lines, ins)),
-                  ("find", "untagged_insertion", kf))
+            a, z = f"before {rword(rng, 2)}", f"after {rword(rng, 2)}"
+            multi(cid, [({kf: body}, lines_of(kf, mid_insert(lines, ins)), ("find", "untagged_insertion", kf)),
+                        ({kf: f"{a}\n``\n``\n{z}\n".encode()},
+                         lambda r: put(r, kf, f"{a}\n``\n[r60-correction 2026-10-27]\n``\n{z}\n".encode()),
+                         ("find", "untagged_insertion", kf)),
+                        ({kf: f"{a}\n{z}\n".encode()},
+                         lambda r: put(r, kf, f"{a}\n`[r60-correction 2026-10-27]``\n{z}\n".encode()), ("clean",))])
         elif cid == "K11":   # a new knowledge file added -> 0
             kf2 = knowfile(rng)
             kcase(cid, {kf: body}, lambda r: put(r, kf2, doc(rng)), ("clean",))
@@ -281,14 +332,27 @@ def case_results(tool: str, root: str, rev: str, work: str) -> list[tuple[str, b
                   lambda r: put(r, kf, f"{a}\n{b}\n{b}\n{c}\n".encode()),
                   ("find", "untagged_insertion", kf))
         elif cid == "K17":   # out-of-scope SKILL.md rewritten, knowledge untouched -> 0
-            kcase(cid, {kf: body, "SKILL.md": doc(rng)},
-                  lambda r: put(r, "SKILL.md", doc(rng)), ("clean",))
+            nested = knowfile(rng, sub="sub/")
+            outside = "x" + knowfile(rng)
+            multi(cid, [({kf: body, "SKILL.md": doc(rng)}, lambda r: put(r, "SKILL.md", doc(rng)), ("clean",)),
+                        ({kf: body, nested: doc(rng)}, lambda r: put(r, nested, doc(rng)), ("clean",),
+                         ("--scope", "corpus/knowledge/*.md")),
+                        ({kf: body, outside: doc(rng)}, lambda r: put(r, outside, doc(rng)), ("clean",))])
         elif cid == "K18":   # knowledge file replaced by a symlink -> deleted
             def m18(r, kf=kf):
                 put(r, "peer.md", doc(rng))
                 os.remove(os.path.join(r, kf))
                 os.symlink("../../peer.md", os.path.join(r, kf))
-            kcase(cid, {kf: body}, m18, ("find", "deleted", kf))
+            def m18d(r, kf=kf):
+                os.remove(os.path.join(r, kf))
+                put(r, kf + "/inner.txt", b"x\n")
+            def m18g(r, kf=kf):
+                os.remove(os.path.join(r, kf))
+                init_repo(os.path.join(r, kf))
+                put(os.path.join(r, kf), "inner.txt", b"x\n")
+                commit(os.path.join(r, kf), "inner")
+            multi(cid, [({kf: body}, m18, ("find", "deleted", kf)), ({kf: body}, m18d, ("find", "deleted", kf)),
+                        ({kf: body}, m18g, ("find", "deleted", kf))])
         elif cid == "K19":   # non-UTF-8 bytes in the EOF append run -> 0
             kcase(cid, {kf: body},
                   lambda r: put(r, kf, body + b"\n\xff\xfe"), ("clean",))
@@ -298,10 +362,13 @@ def case_results(tool: str, root: str, rev: str, work: str) -> list[tuple[str, b
                 put(repo, kf, doc(rng))
                 c1 = commit(repo, "later")
                 rc, out = run(tool_argv(tool, repo, c1, c0))
+                rc2, out2 = run(tool_argv(tool, repo, c0, "0" * 40))
             except Exception as exc:
                 res.append((cid, False, f"fixture-error {exc}"))
                 continue
-            rec(cid, ("exit", 2), rc, out)
+            ok1, n1 = judge(("exit", 2), rc, out)
+            ok2, n2 = judge(("exit", 2), rc2, out2)
+            res.append((cid, ok1 and ok2, f"exit={rc}/{rc2} {n1} | unresolved revision: {n2}"))
         elif cid == "K21":   # --base missing -> 64
             try:
                 repo, head = mkrepo(work, rng, {kf: body})
@@ -311,7 +378,7 @@ def case_results(tool: str, root: str, rev: str, work: str) -> list[tuple[str, b
                 continue
             rec(cid, ("exit", 64), rc, out)
         elif cid == "K22":   # file under corpus/knowledge/sub/ rewritten -> changed (recursive scope)
-            kf = knowfile(rng, sub="sub/")
+            kf = f"corpus/knowledge/sub/na\u00efve-{slug(rng)}.md"   # v2: a name git quotes (w2/SentinelGuard)
             def m22(r, kf=kf):
                 ls = read_lines(r, kf)
                 ls[4] = "Z" + ls[4][1:]
@@ -503,32 +570,39 @@ def listing(root, rev):
     return ent
 
 
+TOKEN = re.compile(rb"<!--|`+")
+
+
 def visible_tags(R):
-    """Per-line visibility: drop HTML-comment spans (state carried across lines), then
-    backtick code spans; the tag regex must survive on the line."""
-    out = []
-    inc = False
-    for line in R:
-        res = bytearray()
-        i = 0
-        while i < len(line):
-            if inc:
-                j = line.find(b"-->", i)
-                if j < 0:
-                    i = len(line)
-                else:
-                    i = j + 3
-                    inc = False
-            else:
-                j = line.find(b"<!--", i)
-                if j < 0:
-                    res += line[i:]
+    """Visibility over the whole text: an HTML comment (may span lines) and a code span (a run of N
+    backticks closed by the next run of exactly N before a blank line) are blanked out; a line is tagged
+    iff the tag regex survives on it (version 2 of the selftest reference)."""
+    text = bytearray(b"\\n".join(R))
+    i = 0
+    while True:
+        m = TOKEN.search(text, i)
+        if not m:
+            break
+        if m.group(0) == b"<!--":
+            e = text.find(b"-->", m.end())
+            end = len(text) if e < 0 else e + 3
+        else:
+            run = len(m.group(0))
+            para = re.search(rb"\\n[ \\t]*\\n", text[m.end():])
+            limit = m.end() + (para.start() if para else len(text) - m.end())
+            end = None
+            for c in re.finditer(rb"`+", text[m.end():limit]):
+                if len(c.group(0)) == run:
+                    end = m.end() + c.end()
                     break
-                res += line[i:j]
-                i = j + 4
-                inc = True
-        out.append(bool(TAG.search(SPAN.sub(b"", bytes(res)))))
-    return out
+            if end is None:
+                i = m.end()
+                continue
+        for k in range(m.start(), end):
+            if text[k] != 0x0A:
+                text[k] = 0x20
+        i = end
+    return [bool(TAG.search(line)) for line in bytes(text).split(b"\\n")]
 
 
 def leftmost(B, R):
@@ -640,7 +714,7 @@ if __name__ == "__main__":
 '''
 
 CLEAN_IDS = {"K1", "K2", "K11", "K15", "K17", "K19", "R1"}
-PORT_PASS = {"K1", "K6", "K7", "K11", "K17", "K19", "K20", "K21"}
+PORT_PASS = {"K1", "K6", "K7", "K11", "K19", "K20", "K21"}  # v2: the port ignores --scope, so K17 now fails
 ALL = set(ALL_IDS)
 
 

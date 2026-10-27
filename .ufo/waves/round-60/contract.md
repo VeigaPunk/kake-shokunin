@@ -257,3 +257,21 @@ must be exactly `python3 -B <path>` (no arguments) — the clone it runs in is d
 keeps A3. Collision disclosed before data (`w1/ExecC1Data53`): `c54_ops_debt.py`'s registry check requires the c53 row's Kind cell to
 read literally `gate`, so the honest `never met` relabel of c53 turns c54_ops_debt red; it is then relabelled historical at its
 round-54 measured revision `a631cc0246b97f2a949d61186c7466468faf94d6`.
+
+## Counter versions — version 2 (after wave 2, before the after-state is measured)
+
+Wave 2 (38 attack seats, `w2/`) attacked build B1 `8b33fd24` and the version-1 counters. Version 1 stays committed at `1ea30590`; the
+claims are judged on version 2. No predicate sentence changed; both changes tighten.
+
+- **C1** (`c60_gate_status.py` v2): text inside an inline HTML comment is no longer a rendered table cell (`w2/ReviewerC1Counter`
+  high: a row whose Entry command existed only inside `<!-- … -->` registered a member). Selftest 76/76 (`controls/c1-selftest-v2.txt`).
+  Not adopted, stated limits: no process-group containment, timeout reported through the label classes, `--work` prefix cleanup,
+  exception → exit 1, no sandbox for member argv values (`w2/SentinelC1Exec`); a non-CommonMark fence closer `` ```python `` ends a
+  fence (`w2/ReviewerC1Counter` medium; a false red, not a false green).
+- **C2** (`c60_guard_cases.py` v2): eight cases carry extra sub-fixtures and pass only if all pass (K3, K8, K9, K10, K17, K18, K20; K22
+  uses a non-ASCII file name) — from `w2/MutGuardTool` (16/33 mutants survived v1), `w2/SentinelGuard` (git-quoted paths silently out
+  of scope) and `w2/ReviewerGuardCode` (code spans across line ends; unequal closers). Selftest: 6 controls, reference 24/24, c55 port
+  7/24 (`controls/c2-selftest-v2.txt`). The B1 tool scores 22/24 under v2 (K10, K22 fail; `controls/c2-b1-tool-under-v2.txt`), so
+  the tool was fixed in the build (NUL-delimited `ls-tree`, paragraph-level code spans, zero-coverage scope → exit 2, validated root,
+  unchanged blobs skipped; tool selftest 38 → 51).
+- **C3** (`c60_quote_truth.py`): unchanged (version 1). `w2/MutC3Counter`'s two survivors are killed by the selftest.
