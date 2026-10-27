@@ -4513,3 +4513,19 @@ Contract `.ufo/waves/round-61/contract.md` / `contract.json`; base `9f07731a8735
 | C3 ten oldest registry sources re-opened and cadence-pinned | freshness | base control `4/6`, exit 1 (zero pins) → `6/6`, exit 0 (`pinned=9`, `carried=1`, S001 `anchor_moved`) | `python3 -B .ufo/waves/round-61/c61_recheck_pins.py --root . --revision d2da25de5fcd8d2384cee99b615cd53b083c5887 --json` | measured bounded; 9 concrete pins, 1 honest carry; redirect provenance of the capture helper is a stated limit, so source-origin freshness is not asserted beyond the recorded bodies/quotes |
 
 Registry census: 167 → 171 rows, exit 0 → 0; four tier-A rows S430–S433 added, nine recheck cells changed old→new (S002–S010), S001 held at `on-release`. The C2 capability is also a new row in the capabilities table above.
+## Round 62 — declared and measured claim
+
+Contract `.ufo/waves/round-62/contract.md`; base
+`c341a7a47b7ad91b2d3c3fd04adab72cd92ccb13`; one frozen calibration claim
+(lowest owned non-retired axis, score 2), sourced in S432 re-opened this
+round. Counter `.ufo/waves/round-62/c62_calibration.py`, frozen sha256
+`ba7b77376c18d3abf72c3522a1cb46df7ab53395847f980e13a7128e7878548d`.
+Base control: `python3 -B .ufo/waves/round-62/c62_calibration.py --root . --revision c341a7a47b7ad91b2d3c3fd04adab72cd92ccb13`
+→ `disagreements=1 unresolved=1 quote_correction=0 criterion=0 lesson_gate=0 source_row=1 met=false`, exit 1.
+
+| Claim | Axis / delta | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| Learn the round-61 S432 disagreement with an accurate substantive quote and grounded QUALITY criterion | calibration 2→2 (HOLD) | Before `unresolved=1 quote_correction=0 criterion=0 lesson_gate=0 source_row=1 met=false`, exit 1; after result at the measured revision is recorded in the round report. Counter weakness found before any after-state measurement: a private fixture with marker-only text and the disagreement still present prints `unresolved=0 ... met=true`, exit 0 (`w1/ReviewerCounterControls.md` / results handoff). Thus the counter does not verify the frozen semantic predicate; claim is **unprovable**, no score or calibration credit. | `python3 -B .ufo/waves/round-62/c62_calibration.py --root . --revision <revision>` | unprovable; preserve after output as a non-admission measurement |
+
+The observed artifact correction is narrower than a corpus-wide calibration
+claim. The counter and predicate remain frozen; no counter repair is inferred.

@@ -214,3 +214,8 @@ whether a serving stack would keep the same fields on the next request.
 - The four sources are read at their 2026-10-27 bodies; a later revision of a
   specification may reword a quoted span. The `recheck: 180d` cadence is how
   the lane keeps that from going stale silently.
+
+## Round-62 correction held — S432 quote remains unresolved
+
+[r62-correction 2026-10-27] The round-61 non-author spot-check records that the admitted S432 span “Web developers and conformance checkers must use the following” is a generic lead-in, not evidence for a response-header expectation (`corpus/lessons/round-61-verifier-spotcheck.md:33`). The earlier fragment “can be used to require checking of a” ends before its object. The retained §3.6 sentence at `.ufo/waves/round-61/sources/S432.html:6150–6156` contains the field-purpose proposition across inline markup, but that rendered sentence is not a raw substring of the retained HTML. Existing `corpus/QUALITY.md` quote rules require raw-substring evidence. This round therefore does not substitute a normalized cross-markup quote or claim the knowledge citation is corrected; the S432 disagreement remains open. The row stays mined for the field's separately supported value rule; no registry cell changed.
+

@@ -1406,3 +1406,7 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   mutants at v1, two quote-truth survivors); a round that changes a frozen counter's predicate freezes the
   fix. Grounding: `w2/MutGuardTool.md`, `w2/MutC1Counter.md`, `w2/MutC3Counter.md`, `w2/CriticControls.md`.
   Falsifier: rerun the mutant list against the new counter; a landed fix must kill each survivor it claims.
+
+## Round-62 criteria
+
+- **A quoted span must substantively support the proposition attributed to its source.** A section lead-in such as “must use the following” does not establish what a field does; a span that introduces an ABNF block is not a substitute for the rule inside it. Admit a claim only when the located quote states the same scoped proposition as the sentence it grounds; keep a field's purpose separate from claims about its exact value or algorithm. Grounding: `corpus/lessons/round-61-verifier-spotcheck.md` (S432 admit / disagree, 2026-10-27) and the retained Fetch body `.ufo/waves/round-61/sources/S432.html`, §3.6 lines 6151–6154 and 6183–6187. Falsifier: the quoted S432 §3.6 purpose sentence does not identify the `X-Content-Type-Options` response header or its check of `Content-Type` against request destination, or the `nosniff`-only claim is attributed to that purpose sentence.
