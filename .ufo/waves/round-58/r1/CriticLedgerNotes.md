@@ -1,0 +1,30 @@
+# CriticLedgerNotes
+
+CHECKED:
+- **1ae8de5, c1-ledger-real.txt** — Note says re-run at 1ae8de5, three PASS lines unchanged and revision pin moved. `git show` proves precisely that; commit message explicitly says C1/C2 receipts re-run at 1ae8de5. **True.**
+- **a4a890, c1-mutation-ladder.json** — Note says second ladder re-run, fixture revisions churned, tally 13/18. Patch changes only all 18 `old_tail` revision strings; its values move between the two run commits. Commit message explicitly says receipts re-run at 1ae8de5. The ledger's reference to unchanged script is consistent with its patch claim. **True.**
+- **a4a890, c2-quote-real.txt** — Note says eight PASS unchanged, revision pin moved. `git show` confirms. **True.**
+- **a4a890, c2-quote-selftest.txt** — Note says 18/18 retained and fixture-revision token moved to 1ae8de5. `git show` confirms; counter source's cited pin context was not independently checked. **True for stated byte change; run-vs-label remains inference.**
+- **fd91527, c1-mutation-ladder.json** — Note says a dirty post-rerun ladder was committed with round-53 evidence, with throwaway revisions nondeterministic. Patch changes the 18 `old_tail` revision values and leaves outcome fields intact; commit subject is source-citation grounding, not an explicit rerun. The note does not claim a rerun and its nondeterminism pointer is plausible but not independently verified here. **No contradiction observed.**
+- **8e408e0, c1-selftest.txt** — Note says two added cases moved receipt from 5 to 7 OK lines. Patch adds exactly those two `ok` lines; commit concerns repair and settlement. **True.**
+- **a0a4fd4, base-c1-s374.txt** — Note says base control re-run after counter wording/output changes, verdict unchanged. Patch confirms text/output changes while mismatch/verdict remains `mismatches=1 met=False`, same base revision; commit title records binding counters to evidence. **True.**
+- **a0a4fd4, base-c2-ops-debt.txt** — Note says extraction broadened, uncovered increased 4 to 7, three names added. Patch confirms exact lists/counts, same base revision and exit 1. **True.**
+- **a631cc0, c1-selftest.txt** — Note says two more cases added, 7 to 9 OK lines. Patch adds exactly `unrelated_marker` and `correction_removed_render`. **True.**
+- **5826682, sources-census.txt** — Note says only the After header gained a parenthetical measurement tip, measured rows/exit unchanged, and no rerun is evidenced. `git show` confirms a single header-line change; commit title is recording measurements, while LOG pointer is reported to cite receipt without mentioning annotation. **True on patch; absence of rerun is appropriately framed as no evidence.**
+- **64c0ce1, c1-selftest-v2.txt** — Note says 32/32 changed to 44/44, value matches 44 case names versus 35 earlier. Patch directly confirms 32/32 → 44/44; supporting source-name counts and SCORECARD pointer were not independently checked. **No contradiction observed; case-count rationale not independently verified.**
+- **955e3d7, after-c1-readme-index.txt** — Note says outcome body unchanged and revision pin changed faf9abe → receipt-introducing commit 64c0ce1. Patch confirms one-line pin-only change; message is measurement receipts/settlement. **True.**
+- **955e3d7, after-c2-quote-truth.txt** — Note says same pin-only pattern, eight PASS lines retained. Patch confirms. **True.**
+- **955e3d7, c2-selftest.txt** — Note explicitly does **not** assert rerun: it says bytes fit hand-edited label or identical-count run and evidence cannot distinguish. Patch is only 12-hex token change with 54/54 retained. **True; properly uncertainty-qualified.**
+- **ad06cb8, after-c1-selftally.txt** — Note says body/tally unchanged and only revision pin changed. Patch confirms. **True.**
+- **ad06cb8, after-c2-quote-truth.txt** — Note says eight PASS lines unchanged and revision pin changed. Patch confirms. **True.**
+- **ad06cb8, c2-selftest.txt** — Note says 67/67→86/86 with fixture pin unchanged, and identifies +19 with selftest growth; cites settlement and SCORECARD. Patch confirms receipt delta and unchanged pin. Commit message says measurement receipts; independent line/case-growth pointer verification not performed. **No contradiction observed; run claim has explicit supporting pointers, not proven by patch alone.**
+- **20217f2, after-c1-receipt-pins.txt** — Note says pending placeholder filled with met line/tip and points to landing table, LOG and subsequent lesson. Patch confirms pending replaced with complete result, and commit subject itself says receipt written after run at T0. **True; clear false-green/provenance concern, not a false ledger note.**
+
+The above checks include 17 of 19 events; events 10–11 (the additional round-54 selftest/base-control entries) are supported by the same commit evidence shown for the other round-54 edits, but were not separately assessed here.
+
+Six errata cross-check: all six errata entries appear as ledger events with matching commit and old/new blob IDs: round-52 `c1-ledger-real` and `c2-quote-real` / a4a890; round-55 `after-c1-readme-index` and `after-c2-quote-truth` / 955e3d; round-56 `after-c1-selftally` and `after-c2-quote-truth` / ad06cb. Their old/new blobs match the errata's from/to values as represented by the corresponding ledger event; the ledger records these as same commit and blob pairs. **Verified.**
+
+FALSE NOTES:
+- None found among the checked events. Potentially strongest concern is the c2-selftest revision-token relabel at 955e3d, but the note expressly says evidence cannot establish whether a second run occurred; it does not falsely claim one. The round-57 pending-fill note accurately describes a receipt rewrite but demonstrates the broader provenance weakness the ledger is intended to disclose.
+
+VERDICT: No false factual note or unsupported re-run assertion found in the checked set; six errata entries align on commit and blob identities. Several causal/run explanations rely on cited LOG/settlement/source pointers rather than the patch alone, and the ledger marks ambiguous cases accordingly.

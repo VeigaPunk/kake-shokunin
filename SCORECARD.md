@@ -16,7 +16,7 @@ claims; ratings stay at the 10/10 ceiling.
 |---|---|---|---|
 | operability | 10 | Every free-read verb in the domain is now **live-executed on the real repo with a byte-level write-free proof**: r11 closed probe/status/reconcile/sync-check; r12 closed the last 4 (`status --json` exit 0 with 5 violated+1 error in snapshot; `grokbots --check` exit 1 lucario; `bots list` exit 0 20 keepers; `bots report` exit 1 gaps) — 31-file state sha guard identical before/after, re-verified by 2 independent L2 re-runs. Exit-1 predicates pinned to code (gaps `cli.mjs:935`, stale-only-with-flag `:836-839`/`:932`, checked=21 `:393`); replica edge matrix (corrupt/deleted snapshot, registry faults, `--stale` variants) landed. The automation layer is now runtime-verified, not unit-file-trusted: keeper timer never fired (enable-vs-retire at L0), scribe push-gate failing (N1), lucario registry gap at L0. Corrected cmdProbe merge patch replica-verified and staged for the webzites owner (`corpus/handoffs/cmdProbe-merge-fix.md` — r11 F1 guard refuted on the `probe <id> --all` edge). Full verb free-read/writer classification (35 rows) code-verified. | round 12 |
 | freshness | 10 | **r17 HOLD 10:** the standing instrument caught a real between-sweep world change before prose repair: lowercase `~/projects` was consolidated into `~/Projects` and removed, making a cited descendant miss; cite corrected to the surviving canonical report, `pathsMissSet` 9→10. Full r16 inventory re-run: 160 claims (117/117 HOLD; 15/15 r16 stale repairs still correct; 7 carried UNVERIFIABLE; 21 HISTORICAL-OK) + 16/16 new claims HOLD; 9 new deltas found and resolved/qualified (W6 path+mtime/child rename, ETag edge flip, 2 r17 self-stale counts, inode wording, dangling `corpus/claims`, ledger locus, README range gloss). Instrument integrity also improved: `projectsChildrenSet` 36 informational set; `pathsFiles` count→39-entry evaluated list; bad pins now fail closed exit 2 with a permanent case (`--selftest` **10/10**). Final §paths = 66 targets / 49 resolve / 10 declared-absent / 0 drift / 39 files; 33-file state sha guard identical. Live exit 1 remains solely expected PQ-14 `plazir-live-source-gap`. Evidence: `corpus/knowledge/freshness-sweep.md` §r17, `corpus/lessons/round-17.md`, `LOG.md` r17, `/tmp/kake-r17/{scout-claims.md,claims-delta.tsv,critic.md,reviewer-cites.md,scout-pins.md,scout-live.md}`. | 17 |
-| calibration | 1 | Round-54 calibration addition: the S374 source-to-gloss mismatch is countable on committed bytes (1→0) by `.ufo/waves/round-54/c54_s374_calib.py`; this is one bounded calibration correction, not a broad accuracy claim. | 54 |
+| calibration | 2 | Round-58 calibration move: the receipt-ledger counter's measured population had 19 post-commit receipt events with no ledger disclosures at base; at T1 it independently re-derived all 19 events, verified each note pointer/blob/kind, and found 0 undisclosed. This is a bounded calibration improvement (machine disclosure completeness, not a claim that every past run occurred); the new selftest and residual critic preserve the known note-truth limit. | 58 |
 
 ## Planned
 
@@ -4376,3 +4376,34 @@ Regression: `c56_quote_truth.py` is 6/8 at the tip by design (its mirror pins 15
 | Source-id resolver | Lists every `S###` cited in `corpus/knowledge/**/*.md` that the lane registry lacks and names the sibling registries that hold it, at a revision or the working tree; exit 0/1/2/64 | `scripts/id_resolver.py`, `controls/tool-selftest-final.txt`, `controls/after-c2-idresolver.txt` | 57 |
 | Receipt-pin gate | Re-derives from git history (whole ancestry, renames and merges followed) every relabel of a measurement receipt, checks the disclosure errata against git, and binds this round's receipts to the measured revision and the counter freeze | `.ufo/waves/round-57/c57_receipt_pins.py`, `controls/c1-selftest-final.txt` | 57 |
 | Differential tool gate | Scores a tool against an in-gate reference over randomised fixtures and real revisions, in a no-network sandbox | `.ufo/waves/round-57/c57_idresolver_gate.py`, `controls/after-c2-idresolver.txt` | 57 |
+## Round 58 — declared and measured claims
+
+Frozen contract: `.ufo/waves/round-58/contract.md` / `contract.json`, base
+`044048597d62f3199494b63b36e90dd57825e350`, counters v1 frozen at `fff3eea6`; after one 68-seat v2 wave,
+the v2 predicates and counters were frozen at `1c0aa211` before the claims were measured. Build `c1e39ef`,
+fidelity-correction commit `8d340c15`. C1 works calibration (lowest axis, score 1→2); C2 operability;
+C3 freshness, sourced. Calibration vs the prompt's stated operability/freshness axis ownership remains open
+for the operator; no other numeric axis score changes (operability/freshness remain 10/10).
+
+Measured revisions: C2/C3 at T0 `8d340c15200959190ba3e894399cdc931976331f`; C1 at T1
+`de7d96e720522ea15fba3fd9ee3ce58c42596031` (holds both after-receipts). The C1 receipt itself was committed
+after its run; its landing T2 does not rewrite any receipt.
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| Every post-commit measurement-receipt event is disclosed with the blob values git shows; the round-58 receipts are single-write | calibration | `undisclosed=19, phantom=0, wrong_kind=0, new_receipts=0` → `undisclosed=0, phantom=0, wrong_kind=0, unpointed=0, symlinks=0, new_rewritten=0, new_receipts=2` | `python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision de7d96e720522ea15fba3fd9ee3ce58c42596031` | v2 predicate met; C1 selftest 45/45. Residual limit: pointer-only prose notes and semantically fabricated values can pass; human review remains required. |
+| `scripts/id_resolver.py` fence-aware registry and revision-mode NUL path reading eliminate the round-57 fence and git-quoted-path false greens | operability | `6/14` → `14/14` | `python3 -B .ufo/waves/round-58/c58_resolver_cases.py --root . --revision 8d340c15200959190ba3e894399cdc931976331f` | v2 predicate met; tool selftest 59/59; three-seed gate 14/14. P6 still trusts a printed selftest tally (a zero-test stub can print 59/59), disclosed. |
+| Two Baidu crawler-identification / unblocking entries on rows opened this round | freshness (sourced: S423, S424) | `conditions_passed=0/8`, registry rows 160 → `8/8`, 162 | `python3 -B .ufo/waves/round-58/c58_quote_truth.py --root . --revision 8d340c15200959190ba3e894399cdc931976331f` | v2 predicate met; C3 selftest 120/120. Quote truth does not establish semantic support; sentence-level reviewers and the non-author closure remain the support check. |
+
+Receipts: v2 red-before `controls/base-c1-receipt-rewrites-v2.txt`, `base-c2-resolver-cases-v2.txt`,
+`base-c3-quote-truth-v2.txt`; after `controls/after-c1-receipt-rewrites.txt` (run at T1), `after-c2-resolver-cases.txt`
+and `after-c3-quote-truth.txt` (run at T0); selftests `c1-selftest-v2.txt` (45/45),
+`c2-selftest-v2.txt` (7 control tools), `c3-selftest-v2.txt` (120/120); census receipts `census-before.txt` and
+`census-after.txt` (160→162, exit 0). No new capability-table row: C2 deepens the round-57 source-id resolver.
+
+Historical gates: round-52/55/56 quote-truth counters and the round-57 receipt-pin counter are marked historical at
+their measured revisions in SKILL.md; round-57 quote-truth at `32754df…` is also red on the new registry by its
+mirror pin (158 rows + 2 adopted). The earlier round-57 receipt-pin counter is red on this tree because its frozen
+file set includes the changed resolver and round-58 receipts (`r1/ReviewerNoHarm.md`); its historical marking names
+the round-57 measured revision. `c57_idresolver_gate.py` remains 5/5; `c56_selftally.py` was 10/10 at build.
+No other comparable previous gate showed a new red.
