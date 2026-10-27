@@ -1,0 +1,15 @@
+# receipt: counter-false-green-l1
+
+Independent L1 reproduction, 2026-10-27, using the committed fixture inputs in `.ufo/waves/round-62/controls/false-green-fixture/corpus/`. Fixture root was `/fast/scratch/hyaku/kake-r62/L1CounterProbe/fixture`, verified with `git -C "$D" rev-parse --show-toplevel`; fixture commit was `6e5a16076d8c73feff41b7af2159bef9fe1046c8`. The fixture deliberately contained the frozen counter's expected tokens while the S432 `Disagree` line remained, and no retained S432 source file.
+
+Reproduction recipe (create D under `/fast/scratch/hyaku/kake-r62`, `git -C "$D" init -q`, verify top-level equals `$D`, `cp -a .ufo/waves/round-62/controls/false-green-fixture/corpus "$D/"`, configure throwaway fixture identity, `git -C "$D" add corpus`, commit, set `REV=$(git -C "$D" rev-parse HEAD)`, then run):
+`python3 -B .ufo/waves/round-62/c62_calibration.py --root "$D" --revision "$REV"`
+
+Observed: `source_file_present=no`; `revision=6e5a16076d8c73feff41b7af2159bef9fe1046c8 disagreements=1 unresolved=0 quote_correction=1 criterion=1 lesson_gate=1 source_row=1 met=true`; exit 0. This falsifies the counter's semantic calibration predicate: marker strings produce a green while the recorded disagreement remains and the source body is absent. The ephemeral fixture repo and scratch directory were deleted; `scratch_cleanup=clean`.
+
+Fixture input SHA-256 (regular committed text files):
+- `corpus/lessons/round-61-verifier-spotcheck.md`: `0a9a034861b19ba9f0c2b49adb9e9c394b406816a63dc458b1b8ee62668405c3`
+- `corpus/knowledge/response-header-expectations.md`: `635089aadf398ea2b17799494c5a0e209af3f87a4459234e71892d29351ba6b6`
+- `corpus/QUALITY.md`: `373b9d254dff8668f9ae273e3f24ec87ff9b52f2c862ebabd158d76ad64d0457`
+- `corpus/lessons/round-62.md`: `d7033c6dc40448844e9c652900fb54298de8af539c8e45819e29d377bb1a8923`
+- `corpus/SOURCES.md`: `a27f4338e565e5231b48adb49c24f759612f8827927cd80cf838462ff4dd8d2b`
