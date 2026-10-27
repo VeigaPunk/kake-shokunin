@@ -1,0 +1,19 @@
+# Round 59 attempt 2: earlier lane gates at T0 b322ccabe1628fc0cfe80c2dddca03ed154d1349 (L1 KakeR59a2, 2026-10-27T03:38:51Z)
+argv: TMPDIR=/fast/scratch/hyaku/kake-r59/L1a2/nh python3 -B .ufo/waves/round-55/c55_readme_index.py --root <lane> --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 
+C1 readme-index index_mismatches=1 knowledge_files=58 met=False  (met: index_mismatches == 0 AND knowledge_files >= 46)
+EXIT_CODE=1
+argv: TMPDIR=/fast/scratch/hyaku/kake-r59/L1a2/nh python3 -B .ufo/waves/round-56/c56_selftally.py --root <lane> --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 
+C1 selftest-tally tally_mismatches=0 rows_checked=10 met=True  (met: tally_mismatches == 0 AND rows_checked == 10)
+EXIT_CODE=0
+argv: TMPDIR=/fast/scratch/hyaku/kake-r59/L1a2/nh python3 -B .ufo/waves/round-57/c57_idresolver_gate.py --root <lane> --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 --fleet /home/vgpnk/Projects/shokunin
+C2 id-resolver 5/5 met=True  (met: gate_conditions_passed == 5 of 5)
+EXIT_CODE=0
+argv: TMPDIR=/fast/scratch/hyaku/kake-r59/L1a2/nh python3 -B .ufo/waves/round-58/c58_resolver_cases.py --root <lane> --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 --work /fast/scratch/hyaku/kake-r59/L1a2/nh --seed 58
+C2 resolver-cases 14/14 met=True  (met: cases_passed == 14 of 14)
+EXIT_CODE=0
+argv: TMPDIR=/fast/scratch/hyaku/kake-r59/L1a2/nh python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root <lane> --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 
+C1 receipt-rewrites events=19 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 new_rewritten=0 new_receipts=2 met=True  (met: undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND unpointed == 0 AND symlinks == 0 AND new_rewritten == 0 AND new_receipts == 2)
+EXIT_CODE=0
+argv: TMPDIR=/fast/scratch/hyaku/kake-r59/L1a2/nh python3 -B .ufo/waves/round-58/c58_quote_truth.py --root <lane> --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 
+C3 quote-truth 6/8 met=False  (met: conditions_passed == 8 of 8)
+EXIT_CODE=1

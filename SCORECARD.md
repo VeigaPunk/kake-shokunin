@@ -4408,6 +4408,35 @@ file set includes the changed resolver and round-58 receipts (`r1/ReviewerNoHarm
 the round-57 measured revision. `c57_idresolver_gate.py` remains 5/5; `c56_selftally.py` was 10/10 at build.
 No other comparable previous gate showed a new red.
 
+## Round 59 — declared and measured claims
+
+Frozen contract: `.ufo/waves/round-59/contract.md` / `contract.json`, base
+`fd6303ce5c14b3f892dec586297a942ab6e4193b`; counters version 1 frozen at `45a92b64`, version 2 frozen at `cdf089b1` after one
+66-seat v2 wave and before any claim was measured. Build `ab6e100e` (attempt 1); attempt-2 fix commit and measured revision
+T0 `b322ccabe1628fc0cfe80c2dddca03ed154d1349` (all three claims). Attempt 1's L1 died in an orchestrator session exit; attempt 2 re-verified the
+build and receipts (`controls/a2-selftests-rerun.txt`) and re-dispatched the abandoned residual as `a2r1`.
+C1 works calibration (the lowest-scoring non-retired axis, score 2); C2 operability; C3 freshness, sourced (S425, S426).
+Score deltas: none. Operability and freshness stay 10 (C1 requires both held); calibration stays 2 — C1 repairs the
+axis table's evidence cells, and its own counter forbids a cell from citing a round-59 receipt, so no cell can carry a
+round-59 score move. Calibration ownership vs the prompt's operability/freshness scope stays open for the operator
+(`.ufo/l0-questions.md`, kake round-59 line).
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| The SCORECARD axis table's evidence cells name only committed paths, cite on-axis passing receipts and state tallies found in them | calibration | `mismatches=24` (v2; v1: 16), exit 1 → `mismatches=0 tables=1 rows=3 axes_ordered=1 scores_held=2 superseded_kept=3 met=True`, exit 0 | `python3 -B .ufo/waves/round-59/c59_axis_evidence.py --root . --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349` | v2 predicate met; selftest 24/24. Gap found after freeze: the calibration score cell is unconstrained (`a2r1/CriticCountersV2.md`; the measured table holds 2). |
+| `scripts/id_resolver.py` closes seven false-green / robustness routes (K8–K14) | operability | `13/21`, exit 1 → `21/21`, exit 0 | `python3 -B .ufo/waves/round-59/c59_resolver_cases.py --root . --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 --seed 59` | v2 predicate met; gate selftest 13 controls; tool selftest 72/72. P6 still trusts a printed tally and a fixture-sniffing composite scores 21/21 (`a2r1/CriticCountersV2.md`), disclosed. |
+| The stale UA-only crawler-identity claim corrected on rows opened this round | freshness (sourced: S425, S426) | `0/9`, registry 162, exit 1 → `9/9`, registry 164, exit 0 | `python3 -B .ufo/waves/round-59/c59_quote_truth.py --root . --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349` | v2 predicate met; selftest 121/121. Quote truth is not semantic support; sentence-level reviewers in `a2r1/` checked the entries and their findings were fixed before T0. |
+
+Receipts (`.ufo/waves/round-59/controls/`): red-before `base-c1-axis-evidence-v2.txt`, `base-c2-resolver-cases-v2.txt`,
+`base-c3-quote-truth-v2.txt` (v1 receipts kept); after `after-c1-axis-evidence.txt`, `after-c2-resolver-cases.txt`,
+`after-c3-quote-truth.txt` (run at T0); census `census-before.txt` / `census-after.txt` (162 → 164 rows, exit 0, 14 W04 unchanged);
+earlier gates at T0 `a2-noharm-at-T0.txt`. No new capability row: C2 deepens the round-57 source-id resolver.
+
+Earlier gates at T0: `c56_selftally` 10/10, `c57_idresolver_gate` 5/5, `c58_resolver_cases` 14/14, `c58_receipt_rewrites` met;
+`c58_quote_truth` 6/8 (historical by design, marked in attempt 1); `c55_readme_index` red with `head_changed=1:
+crawler-identity.md` — the C9 insertion breaks its byte-prefix rule. It is marked historical in SKILL.md this round and reported
+as a gate the frozen claim turned red, for the closure to rule on (`corpus/lessons/round-59.md` §Mistakes, gate-collision).
+
 ## Superseded axis-table evidence (round 59)
 
 Appended 2026-10-27 (UTC; round 59 opened 2026-10-26 -03:00), append-only. The three
