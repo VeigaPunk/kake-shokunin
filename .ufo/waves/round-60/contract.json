@@ -1,0 +1,44 @@
+{
+ "schema": "kake-r60-contract-v1",
+ "lane": "kake",
+ "round": 60,
+ "base": "97cdc122379711c2b02a8970752c8782da3ac81d",
+ "accessDate": "2026-10-27",
+ "shape": "two v1 waves (w1 build, w2 falsify) + at most one residual call of <= 8 reviewer/critic seats; round total 64-128",
+ "claims": {
+  "C1": {
+   "axis": "calibration",
+   "surface": "SKILL.md gate-registry status labels of the round 48-59 counters",
+   "counter": "python3 -B .ufo/waves/round-60/c60_gate_status.py --root <lane> --revision <rev> [--work <scratch>] [--jobs N] [--json]",
+   "predicate": "met: members == 28 AND mismatches == 0 AND scores_held == 3",
+   "populationRegex": "^\\.ufo/waves/round-(N)/(?:[a-z0-9-]+/)?c(N)_[a-z0-9_]+\\.py$ with 48 <= N <= 59",
+   "membersAtBase": 28,
+   "scoresHeld": {"operability": 10, "freshness": 10, "calibration": 2},
+   "killRule": {"0": "met", "1": "not met", "2": "unevaluable", "64": "usage"},
+   "routed": ["R59-D1", "R59-D2"]
+  },
+  "C2": {
+   "axis": "operability",
+   "surface": "scripts/append_guard.py (new tool)",
+   "counter": "python3 -B .ufo/waves/round-60/c60_guard_cases.py --root <lane> --revision <rev> [--work <scratch>] [--seed N]",
+   "predicate": "met: cases_passed == 24 of 24",
+   "cases": ["K1","K2","K3","K4","K5","K6","K7","K8","K9","K10","K11","K12","K13","K14","K15","K16","K17","K18","K19","K20","K21","K22","R1","R2"],
+   "killRule": {"0": "met", "1": "not met", "2": "unevaluable", "64": "usage"},
+   "routed": ["R59-D1"]
+  },
+  "C3": {
+   "axis": "freshness",
+   "sourced": ["S427", "S428", "S429"],
+   "surface": "S425 scope overstatement (superseding row S427) and the robots.txt posture of Google user-triggered fetchers (S428), plus the assimilated robots.txt limits entry (S429)",
+   "counter": "python3 -B .ufo/waves/round-60/c60_quote_truth.py --root <lane> --revision <rev> [--json]",
+   "predicate": "met: conditions_passed == 9 of 9",
+   "rows": {
+    "S427": {"url": "https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers", "supersedes": "S425", "usedBy": ["corpus/lessons/round-60.md"]},
+    "S428": {"url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-user-triggered-fetchers", "usedBy": ["corpus/knowledge/google-user-triggered-fetchers.md", "corpus/knowledge/googlebot-verification.md"]},
+    "S429": {"url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro", "stagedId": "S415", "usedBy": ["corpus/knowledge/robots-txt-limits.md"]}
+   },
+   "killRule": {"0": "met", "1": "not met", "2": "unevaluable", "64": "usage"},
+   "routed": ["R59-D4", "R59-D3 (footer Last updated)"]
+  }
+ }
+}
