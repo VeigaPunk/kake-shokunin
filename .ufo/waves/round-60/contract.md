@@ -275,3 +275,41 @@ claims are judged on version 2. No predicate sentence changed; both changes tigh
   the tool was fixed in the build (NUL-delimited `ls-tree`, paragraph-level code spans, zero-coverage scope → exit 2, validated root,
   unchanged blobs skipped; tool selftest 38 → 51).
 - **C3** (`c60_quote_truth.py`): unchanged (version 1). `w2/MutC3Counter`'s two survivors are killed by the selftest.
+
+## Counter versions — version 3 (attempt 2, wave-2 integration after the run-9 wrap-up)
+
+Attempt 2 (agent `KakeR60a2`) integrated the 34 settled wave-2 reports; four seats died at the run-9
+wrap-up with no report (`MutC2Counter`, `ReviewerC2Rerun`, `CriticNoHarm`, `CriticAxisV2`; orchestrator-settled
+`w2-results.json`). No predicate sentence changed; every change tightens or reports more honestly.
+
+- **C1 v3** (`c60_gate_status.py`): a fence closer must be the same fence character, a run at least as long
+  as the opener, whitespace only after it (CommonMark; `w2/ReviewerC1Counter` medium — this removes the
+  false-red stated limit recorded for v2); the never-met green and bad-exit predicates are independent, so an
+  overlap (e.g. `e_T=0, e_P=2`) carries both classes (A5; `w2/ReviewerC1Counter` low); an observation that
+  exits 124 is classed `timed_out` and the round-trip verdict is 2 (unevaluable), never a label mismatch
+  (`w2/SentinelC1Exec` medium); any internal exception exits 2 and exit 1 is reserved for `met=False`
+  (`w2/SentinelC1Exec` low). Selftest 76 → 84: `D27b` isolates the `members == 28` count term (M02), `V`
+  isolates a verdict-map-only `row_incomplete` (M09), and `T` exercises the timeout path with a short test
+  timeout (M25). Not adopted from `w2/SentinelC1Exec` (stated limits): process-group containment, sandboxed
+  member argv values, foreign-dir scope of `--work` prefix cleanup, the `/tmp` fallback and blob-size caps.
+- **C2**: the guard tool's selftest gains 51 → 54 cases — `X26` a one-digit foreign-round tag is a valid tag,
+  `X27` a `?` scope glob does not cross a directory separator, `X28` an unresolved `--base` exits 2
+  (`w2/MutGuardTool` survivor list). The frozen 24-case counter table is unchanged (the predicates are
+  frozen); the remaining survivor fixtures (EOF-boundary duplicate alignment, submodule/gitlink replacement)
+  are carried as a `QUALITY.md` criterion for a future counter version — alignment semantics are meanwhile
+  covered by the 1,000-case differential oracle run (`w2/CriticGuardDifferential`, 0 disagreements).
+- **SKILL registry**: the c53 row's verdict map drops the known-false `64=usage` (stock argparse exits 2;
+  `w2/ReviewerC1Relabels` low); the crawler-identity-quote-truth-counter Kind cell now discloses that C5 and
+  C7, not only C8, redden it at round 60 (`w2/ConnW2Cross`, `w2/ReviewerC1Relabels` F1). The c53-relabel
+  coupling with `c54_ops_debt.py` stays disclosed in A3a and the row itself (`w2/ReviewerSkillEdits`).
+- **C3 artifacts**: the six location-description findings on `corpus/knowledge/robots-txt-limits.md`
+  (`w2/ReviewerEntryRL`) are fixed — two quotes are re-attributed to the page's file-types table, the remedy
+  triple to the limits list, the syntax limit to a bulleted lead, and the `<h1>` location, the
+  `None of that is repeated here` claim and the dropped modal corrected. No quoted span changed.
+- **Causal separability** (stated limit, `w2/ConnW2Cross`): revert tests at B1 show C1's after-state cannot
+  hold on a tree without C3's rows — reverting only rows S427–S429 breaks the c57/c58/c59 resolver counters'
+  live labels on dangling S428/S429 citations, and reverting all C3 changes makes `c59_quote_truth.py` green
+  at tip, breaking its `historical` label. The three claims remain independently falsifiable by their own
+  frozen counters at one measured revision, but they are not isolation-separable at the measured build; the
+  coupling mechanism is recorded here and in the round lesson, and the operator rules on admission.
+

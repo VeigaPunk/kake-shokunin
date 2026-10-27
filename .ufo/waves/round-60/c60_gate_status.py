@@ -79,6 +79,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import traceback
 
 PREDICATE = "met: members == 28 AND mismatches == 0 AND scores_held == 3"
 SELF_PATH = ".ufo/waves/round-60/c60_gate_status.py"
@@ -99,7 +100,7 @@ CLASS_ORDER = ["member_missing", "member_changed", "extra_member", "unregistered
                "row_incomplete", "label_invalid", "unpinned", "pin_not_ancestor",
                "member_absent_at_pin", "command_unparsable", "live_not_green",
                "historical_but_green", "historical_not_green_at_pin", "never_met_but_green",
-               "historical_bad_exit", "never_met_bad_exit"]
+               "historical_bad_exit", "never_met_bad_exit", "timed_out"]
 
 # A4: the 28 frozen members — path -> blob id at the base revision 97cdc122…
 FROZEN = {
@@ -228,7 +229,11 @@ def _mask(text):
         mask.append((fence is not None, comment))
         s = line.strip()
         if fence is not None:
-            if s.startswith(fence):
+            # version 3 (w2/ReviewerC1Counter medium): a closer is the same fence character,
+            # a run at least as long as the opener, whitespace only after it (CommonMark);
+            # a longer run's prefix (````python) or trailing text does not close the block.
+            m = re.match(r"^(`{3,}|~{3,})\s*$", s)
+            if m and m.group(1)[0] == fence[0] and len(m.group(1)) >= len(fence):
                 fence = None
             continue
         if not comment:
@@ -482,6 +487,12 @@ def eval_member(member, tables, skill, root, revid, work):
         res["argv"]["pin"] = render_pretty(env, words, member, pin, "<scratch>")
         res["e_P"] = run_member(root, words, member, pin, work)
     e_T, e_P = res["e_T"], res["e_P"]
+    if e_T == 124 or e_P == 124:
+        # version 3 (w2/SentinelC1Exec medium): 124 means the observation never finished;
+        # it is not a verdict about the member. It is reported as its own class and the
+        # round-trip verdict becomes unevaluable in measure(), never a label mismatch.
+        res["classes"] = ["timed_out"]
+        return res
     if label == "live":
         if e_T != 0:
             res["classes"].append("live_not_green")
@@ -495,7 +506,9 @@ def eval_member(member, tables, skill, root, revid, work):
     elif label == "never-met":
         if e_T == 0 or e_P == 0:
             res["classes"].append("never_met_but_green")
-        elif (e_T not in (0, 1)) or (e_P is not None and e_P not in (0, 1)):
+        # version 3 (w2/ReviewerC1Counter low): the green and bad-exit predicates are
+        # independent (A5), so an overlap (e_T=0, e_P=2) carries both classes.
+        if (e_T not in (0, 1)) or (e_P is not None and e_P not in (0, 1)):
             res["classes"].append("never_met_bad_exit")
     return res
 
@@ -567,7 +580,11 @@ def measure(root, revid, work, jobs, frozen=None):
     results.sort(key=lambda r: r["member"])
     mism = sum(1 for r in results if r["classes"])
     met = len(present) == EXPECTED_MEMBERS and mism == 0 and held == 3
-    return (0 if met else 1), results, held, len(present)
+    code = 0 if met else 1
+    if any("timed_out" in r["classes"] for r in results):
+        # version 3 (w2/SentinelC1Exec medium): a timed-out observation yields no verdict.
+        code = 2
+    return code, results, held, len(present)
 
 
 def first_class(classes):
@@ -916,6 +933,43 @@ def selftest(work):
         ck("D27.exit1", codeD == 1)
         ck("D27.members", memD == 27)
         ck("D27.missing", first_class(resD[-1]["classes"]) == "member_missing")
+        # version 3 (w2/MutC1Counter M02): the same 27-member tree with frozen = the 27
+        # present isolates the count term — zero mismatch classes, exit 1 on members alone.
+        fzD2 = fixture_frozen(dD, tipD)
+        codeD2, resD2, _, memD2 = measure(dD, tipD, top, 2, frozen=fzD2)
+        ck("D27b.exit1", codeD2 == 1)
+        ck("D27b.members", memD2 == 27)
+        ck("D27b.noclasses", all(not r["classes"] for r in resD2))
+
+        # ---------- V: verdict-map-only row_incomplete (w2/MutC1Counter M09) ----------
+        s0v, s1v = dict(s0b), dict(s1b)
+        bad_map = "`2=unevaluable`"
+        s1v["SKILL.md"] = s1v["SKILL.md"].replace(
+            "`0=met`; `1=not met`; `2=unevaluable`; `64=usage`", bad_map, 1)
+        dV, tipV, _, _ = build_fixture(top, "V", s0v, s1v)
+        codeV, resV, _, memV = measure(dV, tipV, top, 2, frozen=fixture_frozen(dV, tipV))
+        bymV = {r["member"]: r for r in resV}
+        bad_member = sorted(ALL_PATHS)[0]
+        ck("V.exit1", codeV == 1)
+        ck("V.maponly", first_class(bymV[bad_member]["classes"]) == "row_incomplete")
+        ck("V.restok", all(not r["classes"] for r in resV if r["member"] != bad_member))
+
+        # ---------- T: timed-out observation is unevaluable, not a label mismatch ----------
+        # version 3 (w2/SentinelC1Exec medium + w2/MutC1Counter M25): a member that never
+        # exits is classed timed_out and the verdict is 2, exercised with a short test timeout.
+        s0t, s1t = dict(s0b), dict(s1b)
+        s0t[".ufo/waves/round-59/c59_c.py"] = "import time\ntime.sleep(120)\n"
+        s1t[".ufo/waves/round-59/c59_c.py"] = "import time\ntime.sleep(120)\n"
+        dT, tipT, _, _ = build_fixture(top, "T", s0t, s1t)
+        old_timeout = TIMEOUT
+        globals()["TIMEOUT"] = 3          # run_member reads the module global at call time
+        try:
+            codeT, resT, _, _ = measure(dT, tipT, top, 2, frozen=fixture_frozen(dT, tipT))
+        finally:
+            globals()["TIMEOUT"] = old_timeout
+        bymT = {r["member"]: r for r in resT}
+        ck("T.exit2", codeT == 2)
+        ck("T.class", bymT[".ufo/waves/round-59/c59_c.py"]["classes"] == ["timed_out"])
         s0e, s1e = member_files(pin_b, tip_b)
         for s in (s0e, s1e):
             s[".ufo/waves/round-59/c59_d.py"] = TOY
@@ -1156,7 +1210,10 @@ def main():
         for line in render_lines(results, held, members, met):
             print(line)
         return code
-    except (RuntimeError, OSError) as exc:
+    except Exception as exc:
+        # version 3 (w2/SentinelC1Exec low): any internal failure is unevaluable (exit 2);
+        # exit 1 is reserved for met=False. The traceback stays on stderr.
+        traceback.print_exc()
         print("unevaluable: %s" % exc)
         return 2
     finally:

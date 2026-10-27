@@ -567,6 +567,16 @@ def selftest() -> int:
          base_files={K + "a.md": base_body, K + "sub/b.md": b"# b\n\nx\n"},
          ops=[("w", K + "sub/b.md", b"# b\n\ny\n")])
     case("X25_unresolved_revision", 2, None, argv="bad_revision")
+    # round-60 attempt-2 (w2/MutGuardTool survivors): a one-digit foreign-round tag is
+    # still a valid tag ([0-9]+); a `?` scope glob must not cross a directory separator;
+    # an unresolved --base is exit 2.
+    case("X26_tag_foreign_round_valid", 0, [],
+         ops=[("w", K + "a.md",
+               b"# note\n\nalpha\n[r6-correction 2026-10-27] fix\nbeta\ngamma\nomega\n")])
+    case("X27_question_mark_scope_no_slash_cross", 0, [], argv="scope_qmark",
+         base_files={K + "a.md": base_body, K + "sub/c.md": b"# c\n\nx\n"},
+         ops=[("w", K + "sub/c.md", b"# c\n\ny\n")])
+    case("X28_unresolved_base", 2, None, argv="bad_base")
 
 
     passed, fails = 0, []
@@ -612,6 +622,19 @@ def selftest() -> int:
             d, base, rev = _fixture(c["base_files"], c["ops"])
             try:
                 rc, out = _run(d, "--base", base, "--revision", "0" * 40)
+            finally:
+                shutil.rmtree(d, ignore_errors=True)
+        elif argv == "bad_base":
+            d, base, rev = _fixture(c["base_files"], c["ops"])
+            try:
+                rc, out = _run(d, "--base", "0" * 40, "--revision", rev)
+            finally:
+                shutil.rmtree(d, ignore_errors=True)
+        elif argv == "scope_qmark":
+            d, base, rev = _fixture(c["base_files"], c["ops"])
+            try:
+                rc, out = _run(d, "--base", base, "--revision", rev,
+                               "--scope", "corpus/knowledge/?.md")
             finally:
                 shutil.rmtree(d, ignore_errors=True)
         elif argv == "json":

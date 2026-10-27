@@ -1382,3 +1382,27 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   (stale-premise); contract § Claim C2. Falsifier: `python3 -B scripts/append_guard.py --root . --base <previous round tip> --revision
   <rev>` exits 0. Example that fails it: a `[r20-correction 2026-10-19: …]` style tag (date followed by text inside the brackets) —
   the older spelling does not match, so such a run reads `untagged_insertion`.
+- **A gate-reddening disclosure names every failing condition, not one.** When a round's rows turn a live
+  counter red and the registry relabels it, the Kind cell must name all the mechanisms a rerun shows, not the
+  first: at round 60 the crawler-identity quote-truth counter fails C8 (registry mirror) and also C5 (the new
+  correction's S428 quote is tested against S426's own retained body) and C7 (the scratch-entry receipt
+  predates the append). Grounding: `.ufo/waves/round-60/w2/ConnW2Cross.md`, `w2/ReviewerC1Relabels.md` F1
+  (the same incomplete-attribution class as rounds 57/58 D3). Falsifier: run the relabelled counter and paste
+  its full failing-condition list next to the cell; the cell must cover it. Example that fails it: a cell that
+  cites only C8 while the run prints `C5` and `C7` failures.
+- **A registry row's verdict map claims only the exits its command can print.** Stock argparse usage errors
+  exit 2; a row that prints `64=usage` asserts a path the command does not have. The round-60 c53 row carried
+  `64=usage` while `c53_gate_truth.py --no-such-flag` exits 2. Grounding: `w2/ReviewerC1Relabels.md` low;
+  fixed in the same build. Falsifier: run the row's command with a bad flag; whatever it prints must appear in
+  the map.
+- **A quoted span in a knowledge entry is attributed to the location its page places it.** A quote taken from
+  a table cell or a list item must not be presented as the continuation of a different section's prose; the
+  entry must introduce the table or list before quoting it, and must not call a list a paragraph or drop a
+  source modal. Grounding: `w2/ReviewerEntryRL.md` (six findings on `corpus/knowledge/robots-txt-limits.md`,
+  fixed in the attempt-2 build). Falsifier: re-derive each quote's nearest preceding heading/element against
+  the retained body and compare with the sentence that introduces it.
+- **Mutation-surviving counter fixtures are carried as criteria until a counter version can add cases.** The
+  frozen 24-case guard table and the 140-check quote-truth selftest leave known coverage gaps (16/33 guard
+  mutants at v1, two quote-truth survivors); a round that changes a frozen counter's predicate freezes the
+  fix. Grounding: `w2/MutGuardTool.md`, `w2/MutC1Counter.md`, `w2/MutC3Counter.md`, `w2/CriticControls.md`.
+  Falsifier: rerun the mutant list against the new counter; a landed fix must kill each survivor it claims.

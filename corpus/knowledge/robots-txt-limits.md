@@ -6,7 +6,7 @@ ground: per-host crawl hygiene — the engine's own statement of what a robots.t
 # A robots.txt states a preference a crawler may ignore, and a disallowed URL can still be indexed
 
 The page's browser title is Robots.txt Introduction and Guide, its `<h1>` reads Introduction to
-robots.txt (page chrome, not the title), and its revision line, Last updated 2025-12-10 UTC, sits
+robots.txt (the article block's own `<h1>`, not the browser title), and its revision line, Last updated 2025-12-10 UTC, sits
 inside the page footer (after the article block) rather than in it [S429]. The article block carries three
 `<h2>`s — What is a robots.txt file used for?, Understand the limitations of a robots.txt file,
 and Create or update a robots.txt file — and the second is the section this entry is grounded on
@@ -18,12 +18,13 @@ The lane already held the RFC 9309 reading of the file: a crawler-access convent
 authorization, and a disallow rule that secures nothing. That was carried with the file-location,
 line/group and path-matching rules and with Google's own parser note (`corpus/knowledge/robots-txt-rules.md`,
 S011 §§1, 3, S095, S096), and the identity signal lives in `corpus/knowledge/crawler-identity.md`
-(both crawler types obey the same product token). None of that is repeated here.
+(both crawler types obey the same product token). Only the rule's advisory character is
+restated below, and it is restated in the page's own words.
 
 This page adds four points, each quoted below at its source:
 
 1. the file cannot enforce obedience — it is up to the crawler to obey;
-2. crawlers interpret the syntax differently, and some do not understand every instruction;
+2. crawlers might interpret the syntax differently, and some might not understand certain instructions;
 3. a disallowed URL can still be indexed when other pages link to it;
 4. the warning not to use the file to keep a page out of the index.
 
@@ -59,7 +60,7 @@ Its remedy for content that must stay private is a different mechanism, not a st
 
 > "password-protecting private files on your server"
 
-The syntax limit is a second, separate paragraph — the same file can be read two ways [S429]:
+The syntax limit is a third bulleted limit with its own bolded lead — the same file can be read two ways [S429]:
 
 > "Although respectable web crawlers follow the rules in a robots.txt file, each crawler might interpret the rules differently"
 
@@ -77,12 +78,14 @@ and the page says how the URL can still surface [S429]:
 
 > "we might still find and index a disallowed URL if it is linked from other places on the web"
 
-so the result can print the address, and possibly anchor text from the linking pages, without a
-description [S429]:
+and the page's file-types table, which accompanies the opening section, says a blocked web
+page's URL can still surface without a crawl [S429]:
 
 > "its URL can still appear in search results, but the search result"
 
-The same table warns that blocking a URL does not detach its media from the rest of the web [S429]:
+— the cell's continuation is the entry's gloss: the result can print the address, and possibly
+anchor text from the linking pages, without a description. The same table warns that blocking a
+URL does not detach its media from the rest of the web [S429]:
 
 > "This won't prevent other pages or users from linking to your image, video, or audio file."
 
@@ -93,12 +96,13 @@ dropped [S429]:
 
 > "it is not a mechanism for keeping a web page out of Google"
 
-and it sends a publisher who wants the page gone to another method [S429]:
+and its file-types table sends a publisher who wants the page gone to another method [S429]:
 
 > "If you want to hide the page completely from Search"
 
-— the page points to password protection of the files, to a `noindex` meta tag or response header,
-or to removing the page entirely, and links those rules out instead of restating them here [S429].
+— the page's limits list names the full remedy there: password protection of the files, a
+`noindex` meta tag or response header, or removing the page entirely, and it links those rules
+out instead of restating them here [S429].
 
 ## What the page does not state
 

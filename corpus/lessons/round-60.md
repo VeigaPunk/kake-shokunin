@@ -159,8 +159,50 @@ code-span scanner missed spans crossing line ends and closed on unequal runs (`w
 survived the version-1 counter (`w2/MutGuardTool`) — counter version 2 adds sub-fixtures to eight cases and the B1 tool scores 22/24
 under it (`controls/c2-b1-tool-under-v2.txt`); the C1 counter read cells inside an inline HTML comment as rendered
 (`w2/ReviewerC1Counter`, fixed in version 2); the correction's publisher-advice sentence and the S428 entry's identifier sentence
-overreached (`w2/ReviewerCorrection`, `w2/ReviewerEntryUT`, both rewritten). Carried as stated limits: C1 process containment,
-cleanup and exception exit codes (`w2/SentinelC1Exec`); the C2 existential-alignment laundering case (`w2/CriticGuardSemanticsV2`,
-disclosed in the contract); `w2/ReviewerEntryRL`'s six location-description findings on `robots-txt-limits.md` (no quote affected).
+overreached (`w2/ReviewerCorrection`, `w2/ReviewerEntryUT`, both rewritten). Carried as stated limits at T0: C1 process containment and argv sandbox (`w2/SentinelC1Exec`; its timeout and
+exception-exit items are fixed in version 3, attempt 2); the C2 existential-alignment laundering case
+(`w2/CriticGuardSemanticsV2`, disclosed in the contract); `w2/ReviewerEntryRL`'s six location-description findings
+on `robots-txt-limits.md` (no quote affected — all six fixed in the attempt-2 build, see below).
 Measured at T0 `8001f8d5579303ff390305f9dcddb785834f2084`: C1 `mismatches=0 met=True`, C2 `24/24`, C3 `9/9`
 (`controls/after-*.txt`); census exit 0, 167 rows.
+
+## Attempt 2 and wave-2 integration (agent KakeR60a2)
+
+Attempt 1 was stopped by the run-9 operator wrap-up (~04:49 -03), not a lane fault; its state above was committed
+(`592c2ae` wrap-up). The wave-2 seats died at the wrap-up; the run-10 orchestrator settled the wave
+(`w2-results.json`, 38 seats, null outputs). Integration ran from the 34 seat reports present in `w2/`; four seats
+are dead with no report and stay dead: `MutC2Counter`, `ReviewerC2Rerun`, `CriticNoHarm`, `CriticAxisV2`.
+
+Fixed in the attempt-2 build (counter/tool version 3, contract § Counter versions version 3): the C1 counter's
+fence-closer rule now requires the same fence character, a run at least as long as the opener and whitespace only
+after (`w2/ReviewerC1Counter` medium — the false-red stated limit is removed); the never-met green and bad-exit
+classes are independent so an overlap carries both (`w2/ReviewerC1Counter` low); an observation exit 124 is classed
+`timed_out` and the verdict is unevaluable, never a label mismatch (`w2/SentinelC1Exec` medium); any internal
+exception exits 2, reserving 1 for `met=False` (`w2/SentinelC1Exec` low); the C1 selftest 76 → 84 adds the three
+`w2/MutC1Counter` survivor isolations (count-only `D27b`, verdict-map-only `V`, timeout `T`). The guard selftest
+51 → 54 adds a valid one-digit foreign-round tag, a `?` scope glob that must not cross `/`, and an unresolved
+`--base` exit-2 (`w2/MutGuardTool`). `SKILL.md`: the c53 verdict map drops the known-false `64=usage`
+(`w2/ReviewerC1Relabels` low) and the crawler-identity Kind cell discloses C5 and C7 alongside C8
+(`w2/ConnW2Cross`, `w2/ReviewerC1Relabels` F1). `corpus/knowledge/robots-txt-limits.md`: the six
+location-description findings are fixed — two quotes re-attributed to the page's file-types table, the remedy
+triple to the limits list, the syntax limit to a bulleted lead, the `<h1>` location, the restatement claim and the
+dropped modal corrected; no quoted span changed (`w2/ReviewerEntryRL`). Hygiene: the round-60 root `__pycache__`
+a w2 seat wrote (import without `-B`) is removed (`w2/SentinelMisroot`).
+
+New mistakes this attempt:
+
+| Class | Evidence | Captured-by | Fix |
+|---|---|---|---|
+| disclosure-incomplete (the rounds 57/58 D3 class, recurred) | `SKILL.md` crawler-identity Kind cell named only C8 as the round-60 reddening mechanism while the counter also fails C5 (the correction's S428 quote tested against S426's own body) and C7 (scratch receipt predates the append) — found by two w2 seats independently (`w2/ConnW2Cross.md`, `w2/ReviewerC1Relabels.md` F1) | none: the round-59 spot-check routed D3 for the round-59 row but no rule required naming every failing condition on relabel | QUALITY criterion "a gate-reddening disclosure names every failing condition"; the cell now names C5, C7 and C8 with both reports cited. Shown applied in the same build. |
+| reference-drift (entry quote location) | `corpus/knowledge/robots-txt-limits.md` presented the file-types table's quotes as the limits list's continuation, the limits list's remedy as the opening section's, called a bulleted list a paragraph, and dropped a source modal (`w2/ReviewerEntryRL.md`, six findings; quotes themselves verbatim throughout) | none: C5 checks quote truth (raw substring, page-unique) but not the location the prose assigns the quote | QUALITY criterion "a quoted span is attributed to the location its page places it"; all six fixed in the attempt-2 build, quotes byte-identical. |
+| stale-premise (fence closer) | the C1 v2 counter closed a fence on any line starting with the opener run, so ```` ```python ```` ended a ```` ``` ```` block and a pipe row inside it could read as a duplicate (`w2/ReviewerC1Counter` medium; a false red) | stated limit recorded at v2 instead of fixed | counter v3 enforces CommonMark closer syntax; selftest 84/84 includes the v2 fixtures unchanged. |
+| survivor (bytecode hygiene) | a w2 seat imported `c60_gate_status` from the round-60 root without `-B`, writing an ignored `__pycache__` the wave's own lane check could not see (`w2/SentinelMisroot`) | none: the round-hygiene step read `git status --porcelain`, which ignores `__pycache__` | the `__pycache__` is removed this build; future wave specs must repeat `python3 -B` and `PYTHONDONTWRITEBYTECODE=1` and the hygiene step must grep `--ignored`. |
+
+Carried as stated limits (recorded in contract § version 3): the C1 process-containment, argv-sandbox and cleanup
+items (`w2/SentinelC1Exec`); the EOF-boundary and gitlink replacement fixtures for a future guard-counter version
+(`w2/MutGuardTool`, with the 1,000-case differential oracle as mitigation evidence); the quote-truth tagged-block
+isolation proposal (`w2/ConnW2Cross` low) and the C3 semantic-support boundary (`w2/CriticC3CheatV1`,
+reviewer-checked, contract C3 limit); the causal coupling of C1's after-state on C3's rows (`w2/ConnW2Cross`
+revert tests — claims are independently falsifiable at one measured revision, not isolation-separable at the
+build; the operator rules on admission). Re-measured at T1 (attempt-2 tip): C1 `members=28 mismatches=0
+scores_held=3/3 met=True`, C2 `24/24`, C3 `9/9` (`controls/after-*-t1.txt`); census exit 0, 167 rows.
