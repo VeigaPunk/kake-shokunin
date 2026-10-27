@@ -21,7 +21,7 @@ import json
 import sys
 from pathlib import Path
 
-LANE_ROOT = Path(__file__).resolve().parent.parent
+LANE_ROOT = Path.cwd()
 FIXTURES = Path("scripts/fixtures/quote-class")
 
 

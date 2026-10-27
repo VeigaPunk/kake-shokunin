@@ -53,7 +53,14 @@ frozen_cases=ok met=true` (exit 0) at the measured revision, and `present=0
 met=false` (exit 1) at base.**
 
 - Tool: `scripts/quote_class.py`, frozen sha256
-  `40655dd87ab026fad29648bb784493d010b922b8a93dcf792f618186f2ef88a1`.
+  `431e75e8fee2c913c6fa74aebbf7cb2e678f139a1a37b3d38994d1bb22841f14`.
+  Freeze note (pre-wave, no seat scored): the tool originally resolved its
+  selftest fixtures against its own file location, which the C2 counter's
+  scratch-copy run cannot see; the frozen tool binds fixture resolution to
+  the invoking cwd (the lane root). The contract's tool sha changed
+  `40655dd87ab026fad29648bb784493d010b922b8a93dcf792f618186f2ef88a1` →
+  `431e75e8fee2c913c6fa74aebbf7cb2e678f139a1a37b3d38994d1bb22841f14` for this
+  reason only; the selftest case set and expectations are unchanged.
 - Counter: `.ufo/waves/round-63/c63_quote_tool.py`, frozen sha256
   `9fcbfad06fe6abed2b23556894879491204a1ef4d2b9f3cf194a9a3aeaa7f01e`.
 - Controls: `base-c2.txt` (base → `present=0 met=false`); the counter's
