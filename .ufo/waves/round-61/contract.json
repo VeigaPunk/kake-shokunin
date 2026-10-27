@@ -1,0 +1,67 @@
+{
+ "schema": "kake-round-61-contract-v1",
+ "lane": "kake",
+ "round": 61,
+ "attempt": 1,
+ "l1": "KakeR61",
+ "base": "9f07731a873585e655a6518233ea39f5d9fb8204",
+ "access_date": "2026-10-27",
+ "claims": {
+  "C1": {
+   "axis": "calibration",
+   "predicate": "met: cases_passed == 18 of 18 AND scores_held == 3",
+   "counter": ".ufo/waves/round-61/c61_lineage_cases.py",
+   "population": 144,
+   "tool": "scripts/receipt_lineage.py",
+   "disclosures": ".ufo/receipt-disclosures.json"
+  },
+  "C2": {
+   "axis": "operability",
+   "predicate": "met: cases_passed == 18 of 18",
+   "counter": ".ufo/waves/round-61/c61_header_cases.py",
+   "tools": [
+    "scripts/response_snapshot.py",
+    "scripts/header_audit.py"
+   ],
+   "sources": [
+    "S430",
+    "S431",
+    "S432",
+    "S433"
+   ]
+  },
+  "C3": {
+   "axis": "freshness",
+   "predicate": "met: conditions_passed == 6 of 6",
+   "counter": ".ufo/waves/round-61/c61_recheck_pins.py",
+   "due_set": [
+    "S001",
+    "S002",
+    "S003",
+    "S004",
+    "S005",
+    "S006",
+    "S007",
+    "S008",
+    "S009",
+    "S010"
+   ]
+  }
+ },
+ "waves": {
+  "w1": {
+   "kind": "build",
+   "band": "v1 32-64"
+  },
+  "w2": {
+   "kind": "falsify",
+   "band": "v1 32-64"
+  }
+ },
+ "scores_declared_unchanged": {
+  "operability": 10,
+  "freshness": 10,
+  "calibration": 2
+ },
+ "receipt_rule": "committed once after the run it records, never rewritten; re-run lands under a new name; first line '# receipt: <name>'; no placeholder receipts"
+}
