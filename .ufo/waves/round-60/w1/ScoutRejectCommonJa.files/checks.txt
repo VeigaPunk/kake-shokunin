@@ -1,0 +1,8 @@
+fetched 2026-10-27 via curl -sL --compressed, UA "Mozilla/5.0 round60-scout"
+ja.html: HTTP 200, decompressed body 94,039 bytes (20,043 wire bytes compressed)
+en.html: HTTP 200, decompressed body 88,970 bytes (18,242 wire bytes compressed)
+ja quote sentence (exact page text, no line break): count=1 in collapsed body, in_content=True in article block, units=60, chars=67 -> FAILS 25-unit ceiling
+staged span as written (Markdown line break -> space): count=0, in_content=False (transcription artifact)
+candidate short JA span "クローラー トークンは 1 つのみです。": units=16, in_content=True
+lane S337: absent from corpus/SOURCES.md at worktree b3b9e29 and base 97cdc12 (git grep zero)
+counter code used for unit/in_content checks: .ufo/waves/round-59/c59_quote_truth.py (units(), in_content(), ARTICLE_START)

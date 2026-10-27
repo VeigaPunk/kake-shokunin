@@ -1,0 +1,30 @@
+$ python3 -B .ufo/waves/round-59/c59_resolver_cases.py --root . --revision 97cdc122379711c2b02a8970752c8782da3ac81d --work /fast/scratch/hyaku/kake-r60/ExecC1Predict/work/base/c59_resolver_cases
+EXIT 0
+--- stdout ---
+C2 resolver-cases 21/21 met=True  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S1148 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S9483 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S2681 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S4628 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S4847 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S5294 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S3459 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered PASS  exit=1 DANGLING S9610 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K9_setext_heading_ends_registry PASS  exit=1 DANGLING S4451 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K10_in_lane_symlinked_dir_is_read PASS  exit=1 DANGLING S7464 cited-by=corpus/knowledge/linked/hidden.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K11_revision_symlink_resolved_in_tree PASS  exit=1 DANGLING S5771 cited-by=corpus/knowledge/linked.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable PASS  exit=2 id_resolver: unevaluable: registry outside the lane: corpus/SOURCES.md -> /fast/scratch/hyaku/kake-r60/ExecC1Predict/work/base/c59_resolver_cases/c59-rc-g1zx7ng9/tmp6uqs6e2n/outside/SOURCES.md
+  K13_non_utf8_path_at_revision PASS  exit=1 DANGLING S4124 cited-by=corpus/knowledge/bad\xff.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K14_non_toplevel_root_is_unevaluable PASS  exit=2 id_resolver: unevaluable: root '/fast/scratch/hyaku/kake-r60/ExecC1Predict/work/base/c59_resolver_cases/c59-rc-g1zx7ng9/tmpw2mnhp33/anc/lane' is not the toplevel of its repository (toplevel /fast/scratch/hyaku/kake-r60/ExecC1Predict/work/base/c59_resolver_cases/c59-rc-g1zx7ng9/tmpw2mnhp33/anc)
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S3775 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S4195 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r60/ExecC1Predict/work/base/c59_resolver_cases/c59-rc-g1zx7ng9/no-such-fleet is not a directory
+  P6_tool_selftest PASS  exit=0 ('72', '72')
+  P7_real_lane_green PASS  exit=0 ids_cited=110 ids_resolved=110 dangling=0 
+  seed: 1465070096
+  revision: 97cdc122379711c2b02a8970752c8782da3ac81d
+EXIT=0
+
+--- stderr ---

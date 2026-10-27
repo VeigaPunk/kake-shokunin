@@ -195,3 +195,65 @@ crawler category` (`merge/kake/`): admit candidate `google-robots-txt-limits.md`
 `common-crawlers-japanese.md` (staged S337, Japanese edition). Considerthese: `considerthese/2026-10-26.md` proposal 5 (historical-gate
 list) — carried by C1. Mistakes to mine (each to be shown able to fail): R59-D1 gate collision (C2 R1 under the c55 rule port), R59-D2
 counter-scope gap (C1 `scores_held` mutant), R59-D4 row precision (C3 condition C3 on the S425 scope cell).
+
+## Amendments before any data (counters not yet frozen; no seat has scored)
+
+- **A1 (2026-10-27, during w1; raised by `w1/EntryUserTriggered`):** C3 condition C5's "anchor heading (an `<h2>`/`<h3>` of the
+  article block)" becomes "the nearest article-block `<h1>`, `<h2>` or `<h3>` that precedes the row's Gate quote, and the row's
+  anchor cell names it". S428's robots sentence sits in the page intro under the article `<h1>` "List of Google user-triggered
+  fetchers" with no `<h2>` before it; the old rule would force an anchor on an unrelated per-fetcher `<h2>` (understating the row's
+  scope, the R59-D4 class). The amendment admits `<h1>` (a loosening) and binds the heading to the quote's position (a tightening).
+- **A2 (C1, disambiguation; `w1/ExecC1Registered`, `w1/CriticD1Collision`):** a `[...]` segment of an Entry command is kept (brackets
+  removed) only if it holds >= 1 placeholder and every placeholder in it is `<scratch>` or `<fleet root>`; a segment with a revision
+  placeholder (`[--base <rev>]`) or with no placeholder (`[--seed N]`, `[--json]`) is dropped. The original rule kept `[--base <rev>]`
+  and substituted the revision under test — a self-comparison the round-59 counters reject — and kept `[--seed N]` verbatim (exit 64).
+- **A3 (C1, tightening; `w1/CriticC1Cheat` T1/T2, `w1/CriticAxisLabels`):** after env words the command must be exactly
+  `python3 -B <member path> <args...>`; the only env word allowed is `TMPDIR=<scratch>`; args contain `--revision` followed by a
+  revision placeholder, never `--selftest`, and `--root` (if present) is `.`; a shell-metacharacter token → `command_unparsable`.
+  The command runs without a shell (`sys.executable`), env exactly `{PATH=/usr/bin:/bin, HOME, TMPDIR = scratch, LANG=C.UTF-8}`.
+- **A4 (C1, tightening; T3):** the 28 member paths and their base blob ids are frozen in the counter; at the measured revision each
+  must be the same regular blob (`member_missing` / `member_changed`), and a population-regex file outside the frozen set is
+  `extra_member`. `members` counts frozen paths present unchanged.
+- **A5 (C1, tightening; T4):** `historical` needs `e_T == 1` and `e_P == 0`; `never-met` needs `e_T == 1`, `e_P == 1`, a strict-ancestor
+  pin at which the member file exists; a Kind cell holding both labels → `label_invalid`; label words are ASCII words.
+- **A6 (C1, tightening; T7):** the member path in any other rendered table row anywhere in `SKILL.md` → `duplicate_row`; cells split
+  honouring `\|`; exactly 8 non-empty cells.
+- **A7 (C1, tightening; T8):** `SKILL.md` / `SCORECARD.md` read through git at the revision only; exactly one axis table; exactly one
+  row per axis; the score cell, `**` and backticks stripped, equals 10 / 10 / 2 digit-exact.
+- **A8 (C2, tightening; `w1/CriticC2Semantics` CR8):** a case passes only on an exact finding set — a finding case needs exactly one
+  finding line with the expected kind and path and exactly one summary line with `findings=1`; a clean case needs no finding line
+  and exactly one summary line with `findings=0`. The counter selftest gains an always-clean constant control (prints
+  `files=1 findings=0`, scores 7/24); always-exit-0 with no output now scores 0/24.
+- **A9 (C3, tightenings; `w1/CriticC3Conditions` T1–T8):** S427's scope also must not match
+  `/robots\.txt[^.]{0,60}(user-triggered|three|all|every|each)/i`; C9's tagged line itself carries the tag, the S428 citation, the
+  base wording `ignore robots.txt rules` and the `generally ignore` span; all inserted lines in `googlebot-verification.md` form one
+  run starting at a block boundary within 6 base lines after the stale line; fenced code and HTML comments are stripped before every
+  tag/citation/quote search; `verified-at:` equals the access date; the receipt's `effectiveUrl` equals the row URL and
+  `sources/receipts.json` is pinned to blob `b9b56713713523ed9bec1c769313fd9cb0d52e6d`; the validate receipt's add-commit is a strict
+  ancestor of the first commit holding an S427–S429 row; `Last updated` is read between `<devsite-content-footer` and its close tag
+  with `<template>`/`<script>`/`<style>` stripped.
+
+No predicate sentence changed: C1 `met: members == 28 AND mismatches == 0 AND scores_held == 3`, C2 `met: cases_passed == 24 of 24`,
+C3 `met: conditions_passed == 9 of 9`.
+
+## Stated limits carried from wave 1 (not fixed by version 1)
+
+- C1: whether a historical pin is the round's own measured revision (`w1/CriticC1Cheat` T5 not adopted: `c57_receipt_pins.py` is red at
+  its round's measured revision `32754df7` and green only from `20217f23`, so pin = measured revision would make an honest label
+  impossible); whether a verdict map's text is true beyond `0=`/`1=`; `c57_idresolver_gate.py` reads live sibling registries
+  (`--fleet`), so its live label is not hermetic; rounds 40–47 counters (17 files, `w1/CriticC1Population`) are outside the population.
+- C2: existential alignment can park an untagged line inside a tag-led run when the inserted lines duplicate base lines
+  (`w1/CriticC2Semantics` CR1) and, with a base older than an existing tag, a new untagged line next to that tag rides in its run
+  (`w1/RevengerC55Intent` P5; a rolling base — the previous round's tip — closes it); a tag inside a fenced block, link title or heading
+  counts as visible (CR2); the regex is the strict `[rNN-correction YYYY-MM-DD]` form, so the older `[r20-correction DATE: …]` and
+  `[r23-correction]` spellings do not qualify (CR3, `w1/ScoutTagForms`); an empty base blob reads `x` (no newline) as `changed` (CR4);
+  the default scope skips the three machine-written `.json` files under `corpus/knowledge/` (CR5, P6); the guard does not reproduce
+  c55's frozen round-55 window (P7).
+- C3: quote truth, not semantic support (reviewer-checked).
+
+Amendment A3a (C1, before freeze; `w1/ExecC1Data52`): `c52_mutation_ladder.py` reads its own checkout and exits 2 on any argument, so
+A3's `--revision` requirement cannot hold for it; the counter freezes it as the one `SELF_CHECKOUT` member, whose documented command
+must be exactly `python3 -B <path>` (no arguments) — the clone it runs in is detached at the revision under test. Every other member
+keeps A3. Collision disclosed before data (`w1/ExecC1Data53`): `c54_ops_debt.py`'s registry check requires the c53 row's Kind cell to
+read literally `gate`, so the honest `never met` relabel of c53 turns c54_ops_debt red; it is then relabelled historical at its
+round-54 measured revision `a631cc0246b97f2a949d61186c7466468faf94d6`.

@@ -1,0 +1,21 @@
+# ReviewerQuarantineHold — re-open evidence, accessed 2026-10-27 (UTC)
+
+Commands (curl 8.x, UA 'Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0', `curl -sSL`):
+
+S142: GET https://www.kimi.com/help/websites/websites-faq -> HTTP 200, 558436 bytes.
+- registered `如果用户点击「发布」将网站公开部署，产生的网站链接将始终有效，除非手动点击「取消发布」将网站设为私密。`: 0 exact occurrences in body.
+- live text (one <p> text node): `如果用户点击「发布」将网站公开部署，产生的网站链接将始终有效，除非手动点击「取消发布」将网站设为私密，或者内容不适触发举报。`
+
+S161: GET https://developers.google.com/crawling/docs/crawlers-fetchers/reduce-crawl-rate -> HTTP 200, 68787 bytes.
+- `Last updated 2026-10-06 UTC.` present (unchanged from round-59 check).
+- registered cell `` `It reduces your site's crawl rate across the whole hostname (for example, `subdomain.example.com`)` ``: 0 occurrences (outer and inner backtick forms).
+- live markup: `<li>\n <b>It reduces your site's crawl rate across the whole hostname</b> (for example,\n <code translate="no" dir="ltr">subdomain.example.com</code>), including both the URLs ...` — three text nodes (bold span, "(for example," , "including both ..."), the <code> element splits the sentence.
+- duplicate-URL relation: lane SOURCES.md:150 row S274 cites the same URL; teaches cell reads "the backoff reduces the crawl rate across the whole hostname".
+
+S206: GET https://github.com/VeigaPunk/kake-shokunin.git -> HTTP 200 (redirect to https://github.com/VeigaPunk/kake-shokunin), 259390 bytes.
+- registered `kake merged appendix 2026-10-24: 59 rows, 7 titles duplicated; round-3 copies at S164-S170, round-6 copies at S187-S199`: 0 occurrences; `S187-S199` 0; `S187-S193` 0 on landing page.
+- read-only artifact /home/vgpnk/Projects/shokuknow/lanes/kake/round7/.evidence/merge_renumber_r7.txt line 1:
+  `kake merged appendix 2026-10-24: 59 rows, 7 titles duplicated; round-3 copies at S164-S170, round-6 copies at S187-S193`
+  -> register form `S187-S199` is a one-token misquote of the artifact's `S187-S193`; artifact duplicate list carries exactly the 7 ids S187..S193.
+
+L0: /home/vgpnk/Projects/shokunin/.ufo/l0-questions.md line 180 = the kake round-58 quarantine/frozen-claim question; file is append-only questions (`<lane> | round-<N> | <question>`), no answer field; `git log` last append da91fa61 (round-59, two newer kake questions); .ufo/reports/round-59/kake.md:103 lists it among "Open L0 questions" still open. No answers file exists under .ufo/.

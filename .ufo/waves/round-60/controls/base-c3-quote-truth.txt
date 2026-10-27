@@ -1,0 +1,38 @@
+# receipt: python3 -B .ufo/waves/round-60/c60_quote_truth.py --root . --revision 97cdc122379711c2b02a8970752c8782da3ac81d
+# run: 2026-10-27T05:17:43Z cwd=lane-root counters version 1 (uncommitted worktree copy, committed with this receipt)
+C3 quote-truth 0/9 met=False  (met: conditions_passed == 9 of 9)
+  C1_entries_exist FAIL
+    - S428: knowledge entry corpus/knowledge/google-user-triggered-fetchers.md absent at the measured revision
+    - S429: knowledge entry corpus/knowledge/robots-txt-limits.md absent at the measured revision
+  C2_entry_provenance FAIL
+    - S428: entry absent
+    - S429: entry absent
+  C3_row_shape FAIL
+    - S427: no registry row at the measured revision
+    - S428: no registry row at the measured revision
+    - S429: no registry row at the measured revision
+  C4_used_by FAIL
+    - S427: no usable registry row
+    - S428: no usable registry row
+    - S429: no usable registry row
+  C5_quote_truth FAIL
+    - S427: retained body absent
+    - S428: retained body absent
+    - S429: retained body absent
+  C6_receipt_pins FAIL
+    - .ufo/waves/round-60/sources/receipts.json bytes do not match the frozen round-60 receipts blob
+    - .ufo/waves/round-60/sources/receipts.json absent
+    - S427: no receipt in .ufo/waves/round-60/sources/receipts.json
+    - S428: no receipt in .ufo/waves/round-60/sources/receipts.json
+    - S429: no receipt in .ufo/waves/round-60/sources/receipts.json
+  C7_validate_before_append FAIL
+    - validation receipt .ufo/waves/round-60/controls/validate-append.txt absent at the measured revision
+  C8_mirror_bytes FAIL
+    - mirror .ufo/waves/round-60/assimilation/pre-append/corpus/SOURCES.md absent at the measured revision
+  C9_stale_claim_corrected FAIL
+    - all inserted lines must form one run in the correction file (T3)
+    - no line inserted within 6 base lines after the stale sentence carries [r60-correction 2026-10-27] as rendered prose
+    - S428 retained body unavailable
+  revision: 97cdc122379711c2b02a8970752c8782da3ac81d
+EXIT=1
+EXIT=1

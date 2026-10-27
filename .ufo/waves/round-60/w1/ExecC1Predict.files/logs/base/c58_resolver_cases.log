@@ -1,0 +1,23 @@
+$ python3 -B .ufo/waves/round-58/c58_resolver_cases.py --root . --revision 97cdc122379711c2b02a8970752c8782da3ac81d --work /fast/scratch/hyaku/kake-r60/ExecC1Predict/work/base/c58_resolver_cases
+EXIT 0
+--- stdout ---
+C2 resolver-cases 14/14 met=True  (met: cases_passed == 14 of 14)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S6574 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S8869 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S5415 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S4925 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S8132 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S3118 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S5163 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S4534 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S1754 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r60/ExecC1Predict/work/base/c58_resolver_cases/c58-rc-7ss9byy1/no-such-fleet is not a directory
+  P6_tool_selftest PASS  exit=0 ('72', '72')
+  P7_real_lane_green PASS  exit=0 ids_cited=110 ids_resolved=110 dangling=0 
+  seed: 1446152563
+  revision: 97cdc122379711c2b02a8970752c8782da3ac81d
+EXIT=0
+
+--- stderr ---

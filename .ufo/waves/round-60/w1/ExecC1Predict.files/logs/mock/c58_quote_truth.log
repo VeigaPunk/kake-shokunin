@@ -1,0 +1,19 @@
+$ python3 -B .ufo/waves/round-58/c58_quote_truth.py --root . --revision e1ecc4309764e17b6fcaf991443a265b42a117cc
+EXIT 1
+--- stdout ---
+C3 quote-truth 6/8 met=False  (met: conditions_passed == 8 of 8)
+  C1_entries_exist PASS
+  C2_entry_provenance PASS
+  C3_row_shape PASS
+  C4_used_by PASS
+  C5_quote_truth PASS
+  C6_receipt_pins PASS
+  C7_validate_before_append FAIL
+    - validated scratch registry is not byte-equal to the landed registry
+  C8_mirror_bytes FAIL
+    - registry rows 167 != mirror rows 160 + 2
+    - append-only: measured registry minus new rows, used-by restored, != mirror bytes
+  revision: e1ecc4309764e17b6fcaf991443a265b42a117cc
+EXIT=1
+
+--- stderr ---

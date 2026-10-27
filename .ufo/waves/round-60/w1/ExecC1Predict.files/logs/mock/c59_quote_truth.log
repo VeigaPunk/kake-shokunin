@@ -1,0 +1,98 @@
+$ python3 -B .ufo/waves/round-59/c59_quote_truth.py --root . --revision e1ecc4309764e17b6fcaf991443a265b42a117cc --base e1ecc4309764e17b6fcaf991443a265b42a117cc --json
+EXIT 1
+--- stdout ---
+{
+ "schema": "kake-r59-c3-quote-truth-v1",
+ "predicate": "met: conditions_passed == 9 of 9",
+ "revision": "e1ecc4309764e17b6fcaf991443a265b42a117cc",
+ "adopted": {
+  "S425": "corpus/knowledge/crawler-identity-signals.md",
+  "S426": "corpus/knowledge/googlebot-verification.md"
+ },
+ "checks": {
+  "C1_entries_exist": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "entries": 2
+   }
+  },
+  "C2_entry_provenance": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C3_row_shape": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "S425: already in the base registry; not a new row",
+    "S426: already in the base registry; not a new row"
+   ],
+   "facts": {
+    "rows": 167,
+    "base_rows": 167
+   }
+  },
+  "C4_used_by": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C5_quote_truth": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "S426: entry line 41 quotes 'generally ignore robots.txt rules'… which is not a raw substring of the retained body"
+   ],
+   "facts": {}
+  },
+  "C6_receipt_pins": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "receipts": 2
+   }
+  },
+  "C7_validate_before_append": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "validated scratch registry is not byte-equal to the landed registry",
+    "S426: validated scratch entry differs from the landed entry"
+   ],
+   "facts": {}
+  },
+  "C8_mirror_bytes": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "mirror bytes differ from the base-revision registry",
+    "registry rows 167 != mirror rows 162 + 2",
+    "append-only: measured registry minus new rows, used-by restored, != mirror bytes"
+   ],
+   "facts": {
+    "registry_rows": 167
+   }
+  },
+  "C9_stale_claim_corrected": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "no line inserted where the stale bullet ends carries [r59-correction 2026-10-27] as rendered prose",
+    "the inserted correction does not cite S425",
+    "no quoted span in the correction passes the C5 span rules against S425 and carries 'IP address'"
+   ],
+   "facts": {}
+  }
+ },
+ "conditions_passed": 4,
+ "exit": 1,
+ "met": false
+}
+
+--- stderr ---

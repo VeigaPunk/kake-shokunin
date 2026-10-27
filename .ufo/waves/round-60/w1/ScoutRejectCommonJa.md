@@ -1,0 +1,23 @@
+# ScoutRejectCommonJa
+
+Assimilation screen of `merge/kake/knowledge/corpus/knowledge/common-crawlers-japanese.md` (staged S337, `google-common-crawlers?hl=ja`, fetched 2026-10-23). Re-checked live on access date 2026-10-27.
+
+- url: `https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers?hl=ja` — HTTP 200, saved body 94,039 bytes (decompressed), `curl -sL --compressed`, UA `round60-scout`, run 2026-10-27. English edition `google-common-crawlers` — HTTP 200, 88,970 bytes, same fetch. Bodies copied to `.files/ja.html`, `.files/en.html`.
+
+- Staged quote `複数のユーザー エージェント トークンを持つクローラーもありますが、適用するルールで指定できる\nクローラー トークンは 1 つのみです。`: found on the live page as a single paragraph text node — **but only without the Markdown line-break space** the entry carries. The sentence as written on the page (`…指定できるクローラー トークン…`, no space) occurs exactly once in the whitespace-collapsed body and inside one text node of the `devsite-article-body` block (checked with round-59 `c59_quote_truth.py` code: `in_content == True`, `count == 1`). The staged span as written (break collapsed to `指定できる クローラー`) has `count == 0`, `in_content == False` — a transcription error, fixable by re-quoting.
+- **Unit count under the round-59 rule FAILS the ceiling**: `units()` counts one unit per CJK character. Exact page sentence = 60 units, 67 chars — over the 25-unit ceiling (chars pass: 67 <= 160). Even a corrected transcription cannot pass; the staged quote is unfixable in the JA edition. (A shorter JA span could pass — `クローラー トークンは 1 つのみです。` = 16 units, in one node — but the entry does not carry it.)
+- Entry's recheck re-run 2026-10-27: `grep -F -c '複数のユーザー エージェント トークンを持つクローラーもありますが'` -> 1. Its `影響を受ける製品` column claim verified: 11 literal occurrences on the live JA page; the EN edition carries `Affected products` 11 times and the counterpart sentence "Some crawlers have more than one user agent token; you need to match only one crawler token for a rule to apply." (19 whitespace tokens — the same claim passes the quote rule in English).
+
+## HELD ALREADY:
+
+- **Id collision: NOT HELD — the stated ground is false.** `grep -n 'S337' corpus/SOURCES.md` on the worktree (HEAD b3b9e29) and on `git show 97cdc12:corpus/SOURCES.md` (base): zero matches. `git grep S337 97cdc12 -- corpus/`: zero. Registry has 164 rows, top ids S409, S416–S426; the contract's own collision set for this round is {S312 S329 S367 S372 S373 S374 S390 S409} — S337 is not in it. The id is free; if the entry were admitted it would need no renumber on collision grounds.
+- **Content: NOT held in the lane.** `google-common-crawlers` appears in the lane only as a `common-crawlers.json` IP-range list and as an explicitly-not-opened link (`corpus/knowledge/googlebot-verification.md` line 134). The retained S427 body (overview page, `.ufo/waves/round-60/sources/S427.html`) names the three categories and the `always respect robots.txt rules for automatic crawls.` posture but carries **no** per-crawler token/products table. No lane file states the one-token-per-rule / several-tokens-per-crawler claim or the Googlebot-block→products mapping (greps for token/products/Discover phrasing over `corpus/knowledge/` find only Yahoo/Baidu entries). Novelty claim stands.
+- **Round-frame hold: the registry delta is contract-frozen.** C3 predicate C8 requires the measured registry minus rows S427/S428/S429 to byte-reproduce the pre-append mirror; any fourth appended row falsifies `conditions_passed == 9/9` for the whole round. Admitting this entry inside round 60 is therefore impossible regardless of merit.
+
+## DECISION LINE:
+
+REJECT. Two independent grounds: (1) the staged quote is unfixable under the frozen quote rule — 60 CJK units > 25-unit ceiling, and as written it is not a page substring (line-break space); the claim survives only via a different span or the EN edition, neither of which the entry carries. (2) The round-60 contract freezes the registry delta to exactly three new rows (C3 C8); this entry was declared the screen-reject candidate and no fourth-row slot exists. Flip condition: admit-worthiness only in a later round that opens a registry slot for it — re-ground on the EN edition (19-unit counterpart quote passes all ceilings) or on a <=25-unit JA span such as `クローラー トークンは 1 つのみです。`, under a free id (S337 does not collide despite the screen's stated premise).
+
+Tooling: none installed; stdlib python3 + curl only (pacman paused per guard).
+
+VERDICT: REJECT common-crawlers-japanese.md — quote rule unfixable in the JA edition (60 units > 25, plus a transcription space) and the round-60 registry delta is frozen at three rows; id collision premise is false (S337 is free) and the content is genuinely not held.

@@ -1,0 +1,22 @@
+$ python3 -B .ufo/waves/round-48/c48_lint_count.py --root . --revision 97cdc122379711c2b02a8970752c8782da3ac81d
+EXIT 0
+--- stdout ---
+{
+  "schema": "kake-r48-c2-counter-v1",
+  "revision": "97cdc122379711c2b02a8970752c8782da3ac81d",
+  "predicate": "met: dead_full_40 == 1 and dead_short == 1 and live_full_40 == 0 and live_short == 0 and exclusions_clean == 1",
+  "toolSha256": "0beba6478ce4e840b9220d9414c3d9ca888747267599e8a345b4eb67bf211235",
+  "dead_full_40": 1,
+  "dead_short": 1,
+  "live_full_40": 0,
+  "live_short": 0,
+  "exclusions_clean": 1,
+  "flagged": [
+    "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+    "e5455253"
+  ],
+  "liveCommit": "1ca756522d0f9af1ed4329bd5eb57da03075b845",
+  "met": true
+}
+
+--- stderr ---

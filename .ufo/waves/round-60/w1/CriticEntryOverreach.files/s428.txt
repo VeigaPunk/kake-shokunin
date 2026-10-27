@@ -1,0 +1,88 @@
+  5u  38c uniq=False n=2 List of Google user-triggered fetchers
+ 17u 115c uniq=True  n=1 User-triggered fetchers are initiated by users to perform a fetching function within a Google product. For example,
+  3u  20c uniq=False n=4 Google Site Verifier
+ 43u 246c uniq=True  n=1 acts on a user's request, or a site hosted on Google Cloud (GCP) has a feature that allows the site's users to retrieve an external RSS feed. Because the fetch was requested by a user, these fetchers generally ignore robots.txt rules. The general
+  2u  20c uniq=False n=1 technical properties
+  9u  63c uniq=True  n=1 of Google's crawlers also apply to the user-triggered fetchers.
+ 11u  66c uniq=True  n=1 The IP ranges the user-triggered fetchers use are published in the
+  1u  28c uniq=False n=2 user-triggered-fetchers.json
+  1u   1c uniq=False n=767 ,
+  1u  35c uniq=False n=2 user-triggered-fetchers-google.json
+  2u   5c uniq=False n=3 , and
+  1u  26c uniq=False n=4 user-triggered-agents.json
+ 18u 121c uniq=True  n=1 objects. The user-triggered fetchers' reverse DNS mask, depending on whether the fetcher is Google or user owned, matches
+  1u  41c uniq=True  n=1 ***-***-***-***.gae.googleusercontent.com
+  1u   2c uniq=False n=148 or
+  1u  39c uniq=True  n=1 google-proxy-***-***-***-***.google.com
+  1u  13c uniq=True  n=1 respectively.
+ 51u 302c uniq=True  n=1 The following list shows the user-triggered fetchers, their user agent strings as they appear in the HTTP requests, and the products they are associated with. The list is not exhaustive, it only covers the requestors that are more likely to show up in log files and that we've received questions about.
+  3u  16c uniq=False n=3 Chrome Web Store
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  3u  36c uniq=True  n=1 Mozilla/5.0 (compatible; Google-CWS)
+  2u  19c uniq=False n=9 Associated products
+ 19u 121c uniq=True  n=1 The Chrome Web Store fetcher requests URLs that developers provide in the metadata of their Chrome extensions and themes.
+  1u  11c uniq=False n=4 Feedfetcher
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  2u  61c uniq=True  n=1 FeedFetcher-Google; (+http://www.google.com/feedfetcher.html)
+  2u  19c uniq=False n=9 Associated products
+ 14u  78c uniq=True  n=1 Feedfetcher is used for crawling RSS or Atom feeds for Google News and WebSub.
+  2u  15c uniq=False n=4 Gemini Notebook
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  2u  12c uniq=False n=3 Mobile agent
+ 15u 233c uniq=True  n=1 Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36 (compatible; Google-GeminiNotebook; +https://developers.google.com/crawling/docs/crawlers-fetchers/google-gemininotebook)
+  2u  13c uniq=False n=3 Desktop agent
+ 13u 223c uniq=True  n=1 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 (compatible; Google-GeminiNotebook; +https://developers.google.com/crawling/docs/crawlers-fetchers/google-gemininotebook)
+  6u  42c uniq=True  n=1 Former agent (supported until August 2026)
+  1u  17c uniq=True  n=1 Google-NotebookLM
+  2u  19c uniq=False n=9 Associated products
+  8u  57c uniq=True  n=1 The Gemini Notebook fetcher requests individual URLs that
+  2u  15c uniq=False n=4 Gemini Notebook
+  8u  50c uniq=True  n=1 users have provided as sources for their projects.
+  1u  12c uniq=False n=5 Google-Agent
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  2u  12c uniq=False n=3 Mobile agent
+ 17u 236c uniq=True  n=1 Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Google-Agent; +https://developers.google.com/crawling/docs/crawlers-fetchers/google-agent)
+  2u  13c uniq=False n=3 Desktop agent
+ 13u 202c uniq=True  n=1 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko; compatible; Google-Agent; +https://developers.google.com/crawling/docs/crawlers-fetchers/google-agent) Chrome/W.X.Y.Z Safari/537.36
+  2u  19c uniq=False n=9 Associated products
+ 24u 144c uniq=True  n=1 Google-Agent is used by agents hosted on Google infrastructure to navigate the web and perform actions upon user request. It uses IP ranges from
+  1u  26c uniq=False n=4 user-triggered-agents.json
+  1u   1c uniq=False n=499 .
+  2u  15c uniq=False n=3 Google Messages
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  1u  14c uniq=True  n=1 GoogleMessages
+  2u  19c uniq=False n=9 Associated products
+ 15u  89c uniq=True  n=1 Google Messages fetcher is used to generate link previews for URLs sent in chat messages.
+  2u  15c uniq=False n=2 Google Pinpoint
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  1u  15c uniq=False n=2 Google-Pinpoint
+  2u  19c uniq=False n=9 Associated products
+  1u   3c uniq=False n=10 The
+  1u  15c uniq=False n=2 Google-Pinpoint
+  5u  37c uniq=False n=2 fetcher requests individual URLs that
+  1u   8c uniq=False n=5 Pinpoint
+ 10u  71c uniq=True  n=1 users specified as sources for their personal collections of documents.
+  3u  23c uniq=False n=3 Google Publisher Center
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  2u  94c uniq=True  n=1 GoogleProducer; (+https://developers.google.com/search/docs/crawling-indexing/google-producer)
+  2u  19c uniq=False n=9 Associated products
+  6u  45c uniq=True  n=1 Google Publisher Center fetches and processes
+  5u  41c uniq=True  n=1 feeds that publishers explicitly supplied
+  7u  37c uniq=True  n=1 for use in Google News landing pages.
+  3u  17c uniq=False n=4 Google Read Aloud
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  2u  12c uniq=False n=3 Mobile agent
+ 15u 198c uniq=True  n=1 Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36 (compatible; Google-Read-Aloud; +https://support.google.com/webmasters/answer/1061943)
+  2u  13c uniq=False n=3 Desktop agent
+ 13u 188c uniq=True  n=1 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 (compatible; Google-Read-Aloud; +https://support.google.com/webmasters/answer/1061943)
+  3u  25c uniq=True  n=1 Former agent (deprecated)
+  1u  13c uniq=True  n=1 google-speakr
+  2u  19c uniq=False n=9 Associated products
+  6u  36c uniq=True  n=1 Upon user request, Google Read Aloud
+  9u  58c uniq=True  n=1 fetches and reads out web pages using text-to-speech (TTS)
+  1u   1c uniq=False n=499 .
+  3u  20c uniq=False n=4 Google Site Verifier
+  4u  27c uniq=False n=9 User-Agent in HTTP requests
+  3u  54c uniq=True  n=1 Mozilla/5.0 (compatible; Google-Site-Verification/1.0)
+  2u  19c uniq=False n=9 Associated products
+  8u  64c uniq=True  n=1 Google Site Verifier fetches Search Console verification tokens.

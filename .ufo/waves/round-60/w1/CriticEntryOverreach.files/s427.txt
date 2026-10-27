@@ -1,0 +1,147 @@
+  8u  54c uniq=False n=2 Overview of Google crawlers and fetchers (user agents)
+ 37u 225c uniq=True  n=1 Google uses crawlers and fetchers to perform actions for its products, either automatically or triggered by user request. Crawler (sometimes also called a "robot" or "spider") is a generic term for any program that is used to
+  5u  40c uniq=True  n=1 automatically discover and scan websites
+  7u  32c uniq=True  n=1 . Fetchers act as a program like
+  1u   4c uniq=False n=2 wget
+ 17u 102c uniq=True  n=1 that typically make a single request on behalf of a user. Google's clients fall into three categories:
+  2u  15c uniq=False n=2 Common crawlers
+  9u  55c uniq=True  n=1 The common crawlers used for Google's products (such as
+  1u   9c uniq=False n=5 Googlebot
+  9u  61c uniq=True  n=1 ). They always respect robots.txt rules for automatic crawls.
+  2u  21c uniq=False n=2 Special-case crawlers
+ 31u 204c uniq=True  n=1 Special-case crawlers are similar to common crawlers, however are used by specific products where there's an agreement between the crawled site and the Google product about the crawl process. For example,
+  1u   6c uniq=True  n=1 AdsBot
+  7u  42c uniq=True  n=1 ignores the global robots.txt user agent (
+  1u   1c uniq=False n=1 *
+  6u  37c uniq=True  n=1 ) with the ad publisher's permission.
+  2u  23c uniq=False n=3 User-triggered fetchers
+ 18u 113c uniq=True  n=1 User-triggered fetchers are part of tools and product functions where the end user triggers a fetch. For example,
+  3u  20c uniq=False n=1 Google Site Verifier
+  7u  30c uniq=True  n=1 acts on the request of a user.
+  7u  54c uniq=False n=2 Technical properties of Google's crawlers and fetchers
+ 93u 582c uniq=True  n=1 Google's crawlers and fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows. To optimize bandwidth usage, these clients are distributed across many datacenters across the world so they're located near the sites that they might access. Therefore, your logs may show visits from several IP addresses. Google egresses primarily from IP addresses in the United States. In case Google detects that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries.
+  3u  28c uniq=False n=2 Supported transfer protocols
+  7u  51c uniq=True  n=1 Google's crawlers and fetchers support HTTP/1.1 and
+  1u   6c uniq=False n=5 HTTP/2
+ 88u 573c uniq=True  n=1 . The crawlers will use the protocol version that provides the best crawling performance and may switch protocols between crawling sessions depending on previous crawling statistics. The default protocol version used by Google's crawlers is HTTP/1.1; crawling over HTTP/2 may save computing resources (for example, CPU, RAM) for your site and Googlebot, but otherwise there's no Google-product specific benefit to the site (for example, no ranking boost in Google Search). To opt out from crawling over HTTP/2, instruct the server that's hosting your site to respond with a
+  1u   3c uniq=False n=3 421
+ 17u  98c uniq=True  n=1 HTTP status code when Google attempts to access your site over HTTP/2. If that's not feasible, you
+  8u  39c uniq=True  n=1 can send a message to the Crawling team
+  5u  37c uniq=True  n=1 (however this solution is temporary).
+ 11u  81c uniq=True  n=1 Google's crawler infrastructure also supports crawling through FTP (as defined by
+  1u   6c uniq=True  n=1 RFC959
+  8u  40c uniq=True  n=1 and its updates) and FTPS (as defined by
+  1u   7c uniq=True  n=1 RFC4217
+ 10u  67c uniq=True  n=1 and its updates), however crawling through these protocols is rare.
+  3u  27c uniq=False n=2 Supported content encodings
+ 10u  86c uniq=True  n=1 Google's crawlers and fetchers support the following content encodings (compressions):
+  1u   4c uniq=False n=2 gzip
+  1u   1c uniq=False n=797 ,
+  1u   7c uniq=False n=2 deflate
+  2u   5c uniq=False n=8 , and
+  2u  11c uniq=True  n=1 Brotli (br)
+ 14u  80c uniq=True  n=1 . The content encodings supported by each Google user agent is advertised in the
+  1u  15c uniq=False n=2 Accept-Encoding
+  8u  46c uniq=True  n=1 header of each request they make. For example,
+  4u  34c uniq=True  n=1 Accept-Encoding: gzip, deflate, br
+  1u   1c uniq=False n=491 .
+  3u  16c uniq=False n=2 File size limits
+ 45u 277c uniq=True  n=1 By default, Google's crawlers and fetchers only crawl the first 15MB of a file, and any content beyond this limit is ignored. However, individual projects may set different limits for their crawlers and fetchers, and also for different file types. For example, a Google crawler
+  2u  14c uniq=True  n=1 like Googlebot
+ 22u 110c uniq=True  n=1 may have a smaller size limit (for example, 2MB), or specify a larger file size limit for a PDF than for HTML.
+  5u  24c uniq=False n=2 Crawl rate and host load
+ 35u 190c uniq=True  n=1 Our goal is to crawl as many pages from your site as we can on each visit without overwhelming your server. If your site is having trouble keeping up with Google's crawling requests, you can
+  4u  21c uniq=True  n=1 reduce the crawl rate
+  6u  37c uniq=True  n=1 . Note that sending the inappropriate
+  3u  18c uniq=True  n=1 HTTP response code
+ 12u  73c uniq=True  n=1 to Google's crawlers may affect how your site appears in Google products.
+  2u  12c uniq=False n=4 HTTP Caching
+ 11u  82c uniq=True  n=1 Google's crawling infrastructure supports heuristic HTTP caching as defined by the
+  3u  21c uniq=True  n=1 HTTP caching standard
+  4u  26c uniq=True  n=1 , specifically through the
+  1u   4c uniq=False n=9 ETag
+  2u  13c uniq=False n=2 response- and
+  1u  13c uniq=False n=5 If-None-Match
+  4u  23c uniq=True  n=1 request header, and the
+  1u  13c uniq=False n=9 Last-Modified
+  2u  13c uniq=False n=2 response- and
+  1u  17c uniq=False n=5 If-Modified-Since
+  2u  15c uniq=False n=2 request header.
+  2u   7c uniq=True  n=1 If both
+  1u   4c uniq=False n=9 ETag
+  1u   3c uniq=False n=78 and
+  1u  13c uniq=False n=9 Last-Modified
+ 13u  82c uniq=True  n=1 response header fields are present in the HTTP response, Google's crawlers use the
+  1u   4c uniq=False n=9 ETag
+  2u   8c uniq=True  n=1 value as
+  5u  29c uniq=True  n=1 required by the HTTP standard
+  8u  56c uniq=True  n=1 . For Google's crawlers specifically, we recommend using
+  1u   4c uniq=False n=9 ETag
+  3u  14c uniq=True  n=1 instead of the
+  1u  13c uniq=False n=9 Last-Modified
+  6u  40c uniq=True  n=1 header to indicate caching preference as
+  1u   4c uniq=False n=9 ETag
+  5u  36c uniq=True  n=1 doesn't have date formatting issues.
+  6u  47c uniq=True  n=1 Other HTTP caching directives aren't supported.
+ 25u 151c uniq=True  n=1 Individual Google crawlers and fetchers may or may not make use of caching, depending on the needs of the product they're associated with. For example,
+  1u   9c uniq=False n=5 Googlebot
+  9u  61c uniq=True  n=1 supports caching when re-crawling URLs for Google Search, and
+  1u  15c uniq=True  n=1 Storebot-Google
+  6u  44c uniq=True  n=1 only supports caching in certain conditions.
+ 18u 110c uniq=True  n=1 To implement HTTP caching for your site, get in touch with your hosting or content management system provider.
+  1u   4c uniq=False n=9 ETag
+  1u   3c uniq=False n=78 and
+  1u  13c uniq=False n=5 If-None-Match
+  4u  41c uniq=False n=3 Google's crawling infrastructure supports
+  1u   4c uniq=False n=9 ETag
+  1u   3c uniq=False n=78 and
+  1u  13c uniq=False n=5 If-None-Match
+  4u  17c uniq=False n=3 as defined by the
+  3u  21c uniq=False n=2 HTTP Caching standard
+  5u  22c uniq=True  n=1 . Learn more about the
+  1u   4c uniq=False n=9 ETag
+  7u  51c uniq=False n=2 response header and its request header counterpart,
+  1u  13c uniq=False n=5 If-None-Match
+  1u   1c uniq=False n=491 .
+  3u  35c uniq=False n=2 Last-Modified and If-Modified-Since
+  4u  41c uniq=False n=3 Google's crawling infrastructure supports
+  1u  13c uniq=False n=9 Last-Modified
+  1u   3c uniq=False n=78 and
+  1u  17c uniq=False n=5 If-Modified-Since
+  4u  17c uniq=False n=3 as defined by the
+  3u  21c uniq=False n=2 HTTP Caching standard
+  4u  27c uniq=True  n=1 with the following caveats:
+  4u  15c uniq=True  n=1 The date in the
+  1u  13c uniq=False n=9 Last-Modified
+  7u  41c uniq=True  n=1 header must be formatted according to the
+  2u  13c uniq=False n=2 HTTP standard
+ 13u  82c uniq=True  n=1 . To avoid parsing issues, we recommend using the following date format: "Weekday,
+  4u  20c uniq=True  n=1 DD Mon YYYY HH:MM:SS
+  4u  25c uniq=True  n=1 Timezone". For example, "
+  6u  28c uniq=True  n=1 Fri, 4 Sep 1998 19:15:56 GMT
+  1u   2c uniq=False n=2 ".
+  7u  45c uniq=True  n=1 While not required, consider also setting the
+  1u   7c uniq=False n=4 max-age
+  3u  12c uniq=True  n=1 field of the
+  1u  13c uniq=False n=2 Cache-Control
+  2u  15c uniq=False n=4 response header
+ 15u  81c uniq=True  n=1 to help crawlers determine when to recrawl the specific URL. Set the value of the
+  1u   7c uniq=False n=4 max-age
+ 14u  83c uniq=True  n=1 field to the expected number of seconds the content will be unchanged. For example,
+  2u  28c uniq=True  n=1 Cache-Control: max-age=94043
+  1u   1c uniq=False n=491 .
+  4u  20c uniq=False n=2 Learn more about the
+  1u  13c uniq=False n=9 Last-Modified
+  7u  51c uniq=False n=2 response header and its request header counterpart,
+  1u  17c uniq=False n=5 If-Modified-Since
+  1u   1c uniq=False n=491 .
+  5u  37c uniq=False n=2 Verify Google's crawlers and fetchers
+  7u  52c uniq=True  n=1 Google's crawlers identify themselves in three ways:
+  2u   8c uniq=True  n=1 The HTTP
+  1u  10c uniq=False n=4 user-agent
+  2u  15c uniq=False n=2 request header.
+  7u  37c uniq=True  n=1 The source IP address of the request.
+  8u  42c uniq=True  n=1 The reverse DNS hostname of the source IP.
+  7u  33c uniq=True  n=1 Learn how to use these details to
+  5u  37c uniq=True  n=1 verify Google's crawlers and fetchers
+  1u   1c uniq=False n=491 .

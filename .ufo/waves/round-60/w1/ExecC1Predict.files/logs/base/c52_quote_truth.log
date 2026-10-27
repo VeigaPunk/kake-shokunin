@@ -1,0 +1,19 @@
+$ python3 -B .ufo/waves/round-52/c52_quote_truth.py --root . --revision 97cdc122379711c2b02a8970752c8782da3ac81d
+EXIT 1
+--- stdout ---
+C2 quote-truth 6/8 met=False  (met: conditions_passed == 8 of 8)
+  C1_entries_exist PASS
+  C2_entry_cites_id PASS
+  C3_row_shape PASS
+  C4_used_by PASS
+  C5_quote_truth FAIL
+    - S374: entry line 72 quotes "the lane's robots-refusal ground (S372, "… which is not a raw substring of the retained body
+  C6_receipt_pins PASS
+  C7_validate_before_append PASS
+  C8_mirror_bytes FAIL
+    - registry rows 164 != mirror rows 145 + 3
+    - append-only: measured registry minus the adopted rows != mirror bytes
+  revision: 97cdc122379711c2b02a8970752c8782da3ac81d
+EXIT=1
+
+--- stderr ---
