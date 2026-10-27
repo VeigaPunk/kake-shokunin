@@ -36,18 +36,19 @@ here says what script, if any, the program executes.
 > "如果UA信息不对，可以直接判断为非百度搜索的蜘蛛"
 
 (rendered: if the UA information is not right, one can directly judge it to be a spider that is not
-Baidu search's). The page then fixes the channel split [S423]:
+The page currently splits the channel list among mobile, PC, and Mini Program [S423]:
 
 > "UA分为移动、PC"
 
-(rendered: the UA is divided into mobile, PC), and the next node adds 小程序 (Mini Program) [S423]:
+The preceding node adds 小程序 (Mini Program). The next text node states that these three channels have their respective UAs [S423]:
 
 > "这三个渠道UA分别如下："
 
-(rendered: the UAs of these three channels are as follows:).
+(rendered: the UAs of these three channels are listed respectively; this span names the list but does not itself say 小程序).
 
-The three channel blocks print the full strings verbatim, at 186 to 219 characters each — far past
-this lane's quotation ceilings — so the entry names their distinguishing tokens instead:
+The five listed strings are 186 (mobile Linux), 209 (mobile iPhone), 83 (PC
+`Baiduspider/2.0`), 90 (PC `Baiduspider-render/2.0`), and 219 (Mini Program)
+characters each — all longer than this lane's 40-character ceiling [S423].
 `Baiduspider/2.0` in the mobile and PC forms, and `Baiduspider-render/2.0` in one mobile form, the
 PC form, and the Mini Program form, which appends `Smartapp` [S423]. The page presents these as
 strings a publisher compares against. It does **not** say what the render-named agent fetches,
@@ -111,7 +112,7 @@ crawling [S423]:
 
 > "一定不要做任何封禁"
 
-(rendered: do not apply any block), and offers a log check — inspect the site's access logs — so that
+(rendered: never apply any block). The same answer adds a reminder, addressed to a site that wants that
 someone maliciously impersonating Baiduspider to crawl the site frequently can be guarded against [S423]:
 
 > "及时判断正确的百度蜘蛛"
@@ -144,9 +145,9 @@ The page states no numbers: no default rate, no ceiling, no effect time for an a
 
 - It does not establish what the render-named agent fetches or executes. The page lists the token
   and no rendering behaviour; the fetch-versus-execute question is left open here.
-- It does not establish that the two UA strings per channel are exhaustive or still current beyond
+- It does not establish that the listed UA strings per channel are exhaustive or still current beyond
   the 2022-08-19 printing, nor that a UA match alone proves a genuine crawler — the page's second
-  method exists because a string can be copied.
+  method's rationale is unstated; copyability is consistent with it but is [INFERENCE].
 - It does not establish any rate, budget, or timing for a 抓取频次 adjustment, nor how long a
   blocked object stays unfetched.
 - It establishes nothing about other operators' identity tests. Related lane entries, by path:

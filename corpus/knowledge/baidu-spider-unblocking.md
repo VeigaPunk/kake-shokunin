@@ -5,7 +5,7 @@ ground: per-engine crawl hygiene — the three block kinds the operator names (r
 
 # Baidu's page names three ways a site can block Baiduspider and orders the self-check robots, then UA, then IP
 
-Baidu's college page answers a publisher's complaint rather than stating a rule: it asks why a site or smart mini-program whose content is very high quality has no Baiduspider fetch record and is not included or displayed in Baidu search. Every quoted span below is an exact raw substring of one text node of the retained body (`python3 -B .ufo/waves/round-58/span_tools.py check S424 '<span>'` -> `in_text_node` true, `count_in_body` 1, within both ceilings for each span used as a quotation, 2026-10-26). Quoted spans come from the opening paragraphs above this entry's locator question line and from the three-step check printed under it.
+Baidu's college page answers a publisher's complaint rather than stating a rule: it asks why a site or smart mini-program whose content is very high quality has no Baiduspider fetch record or is not included or displayed in Baidu search. Every quoted span below is an exact raw substring of one text node of the retained body (`python3 -B .ufo/waves/round-58/span_tools.py check S424 '<span>'` -> `in_text_node` true, `count_in_body` 1, within both ceilings for each span used as a quotation, 2026-10-26). Quoted spans come from the opening paragraphs above this entry's locator question line and from the three-step check printed under it.
 
 ## The symptoms the page names
 
@@ -95,7 +95,7 @@ Its 【建议方案】:
 
 ## How this sits against the lane
 
-- [INFERENCE] The remedies are publisher-side: change robots.txt, adjust the anti-crawler policy, or clear the firewall's IP block. The article block states no appeal route (sweep `申诉` 0); `反馈` occurs once in it, inside the opening 收到一些开发者反馈 (the page received feedback from some developers), not as a route. The submission step it names is the link submission tool quoted above.
+- [INFERENCE] The remedies are publisher-side: change robots.txt or adjust the anti-crawler policy. For an IP block, the page repeats the policy-adjustment remedy and names the firewall configuration backend as the place to check. The article block states no appeal route (sweep `申诉` 0); `反馈` occurs once in it, inside the opening 收到一些开发者反馈 (the page received feedback from some developers), not as a route. The submission step it names is the link submission tool quoted above.
 - The file whose step 1 reads is the host-root robots file; `robots-txt-rules.md` holds that location and refusal semantics — [INFERENCE] this page assumes that semantics instead of explaining it.
 - The page links the operator's own page on correctly identifying and obtaining Baiduspider (articleinfo id=2855, not carried); the lane's Baidu identification material is `baidu-spider-identification.md` (the UA strings and the two-step DNS check), and `crawler-identity.md` holds the general crawler-identity material; this entry does not restate either.
 - A robots block aimed at Baiduspider binds PC and mobile together per `baidu-friendly-crawl-guidance.md`; step 1 here states no such scope.

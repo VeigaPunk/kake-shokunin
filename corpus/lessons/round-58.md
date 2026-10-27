@@ -8,8 +8,9 @@ version 2 at `1c0aa211` after wave 1, before any claim was measured). One v2 wav
 Rows opened this round. Unit rule (the C3 counter's `units()`): one unit per CJK character, one per non-CJK whitespace token;
 every quote below is at most 25 units and at most 40 characters. Both pages were opened 2026-10-26 UTC by
 `.ufo/waves/round-58/fetch_sources.py` (GET, HTTP 200, userAgent `kake-shokunin-round58`) and retained under
-`.ufo/waves/round-58/sources/` with sha256 receipts; a later live re-open (`w1/ExecSourceLive.md`, `w1/ProbeBodyStability.md`) found
-the article text nodes byte-identical, only cache-buster tokens outside the article differing.
+`.ufo/waves/round-58/sources/` with sha256 receipts; a later live re-open (`w1/ExecSourceLive.md`,
+`w1/ProbeBodyStability.md`) found the article text nodes byte-identical; outside the article, both
+cache-buster tokens and a trailing recommendation-list entry varied (`w1/ProbeBodyStability.md`).
 
 - S423 — https://ziyuan.baidu.com/college/articleinfo?id=3457 — accessed 2026-10-26 — § 2、Q：如何才能识别当前抓取是正确的百度蜘蛛？ (发布日期 2022-08-19) — quote: "A：有两个方式可以判断百度蜘蛛。" (13 units; raw substring of the retained body, sha256 8b8aef60bd7e315799e9a97dadfd02a5982f8c7e17b9d4064a6fc3913a0736ec, 29007 bytes, HTTP 200)
 - S424 — https://ziyuan.baidu.com/college/articleinfo?id=3028 — accessed 2026-10-26 — § 如何验证网站和智能小程序是否存在封禁百度蜘蛛的情况？ (发布日期 2020-07-23) — quote: "导致百度蜘蛛无法正常抓取" (12 units; raw substring of the retained body, sha256 3ef1275b730230f2cb9c14b28b1c4bd08dc363dc7941b63d06c507fb2729cad1, 22476 bytes, HTTP 200)
