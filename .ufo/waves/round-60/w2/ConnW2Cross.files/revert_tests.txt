@@ -1,0 +1,22 @@
+=== REVERT TEST 1: Revert ONLY corpus/SOURCES.md rows S427-S429 ===
+Commit: 1b676115a18dc42ef98b0970f1a64c9fd399b941
+Command: python3 -B .ufo/waves/round-60/c60_gate_status.py --root lane-clone --revision 1b676115a18dc42ef98b0970f1a64c9fd399b941
+Output:
+.ufo/waves/round-57/c57_idresolver_gate.py label=live e_T=1 MISMATCH live_not_green
+    argv=python3 -B .ufo/waves/round-57/c57_idresolver_gate.py --root . --revision 1b676115a18dc42ef98b0970f1a64c9fd399b941 --fleet /home/vgpnk/Projects/shokunin
+.ufo/waves/round-58/c58_resolver_cases.py label=live e_T=1 MISMATCH live_not_green
+    argv=python3 -B .ufo/waves/round-58/c58_resolver_cases.py --root . --revision 1b676115a18dc42ef98b0970f1a64c9fd399b941 --work <scratch>
+.ufo/waves/round-59/c59_resolver_cases.py label=live e_T=1 MISMATCH live_not_green
+    argv=TMPDIR=<scratch> python3 -B .ufo/waves/round-59/c59_resolver_cases.py --root . --revision 1b676115a18dc42ef98b0970f1a64c9fd399b941 --work <scratch>
+C1 gate-status members=28 mismatches=3 scores_held=3/3 met=False
+EXIT=1
+
+=== REVERT TEST 2: Revert ALL C3 changes (SOURCES.md, entries, in-file correction) ===
+Commit: da7aaaffd48aa014006d3a6c51d3d638a3148537
+Command: python3 -B .ufo/waves/round-60/c60_gate_status.py --root lane-clone --revision da7aaaffd48aa014006d3a6c51d3d638a3148537
+Output:
+.ufo/waves/round-59/c59_quote_truth.py label=historical e_T=0 e_P=0 MISMATCH historical_but_green
+    argv=python3 -B .ufo/waves/round-59/c59_quote_truth.py --root . --revision da7aaaffd48aa014006d3a6c51d3d638a3148537
+    argv@pin=python3 -B .ufo/waves/round-59/c59_quote_truth.py --root . --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349
+C1 gate-status members=28 mismatches=1 scores_held=3/3 met=False
+EXIT=1

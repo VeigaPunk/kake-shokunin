@@ -1,0 +1,15 @@
+## command: git -C <fixture> ls-tree -r <base>  (what tree_entries parses)
+$ git -C "$D" ls-tree -r "$B"
+100644 blob 587be6b4c3f93f93c489c0111bba5596147a26cb	"corpus/knowledge/na\303\257ve.md"
+100644 blob de980441c3ab03a8c07dda1ad27b8a11f39deb1e	corpus/knowledge/nl.md
+
+## default env (quotePath unset) -> in-scope file invisible
+$ python3 -B scripts/append_guard.py --root "$D" --base "$B" --revision "$R"
+files=1 findings=0
+rc=0
+
+## same commit, same argv, HOME/.gitconfig core.quotePath=false
+$ HOME="$H" python3 -B scripts/append_guard.py --root "$D" --base "$B" --revision "$R"
+changed corpus/knowledge/naïve.md
+files=2 findings=1
+rc=1

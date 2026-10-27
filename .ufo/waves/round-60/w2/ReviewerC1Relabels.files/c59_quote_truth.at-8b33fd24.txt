@@ -1,0 +1,17 @@
+C3 quote-truth 6/9 met=False  (met: conditions_passed == 9 of 9)
+  C1_entries_exist PASS
+  C2_entry_provenance PASS
+  C3_row_shape PASS
+  C4_used_by PASS
+  C5_quote_truth FAIL
+    - S426: entry line 40 quotes 'Because the fetch was requested by a use'… which is not a raw substring of the retained body
+  C6_receipt_pins PASS
+  C7_validate_before_append FAIL
+    - validated scratch registry is not byte-equal to the landed registry
+    - S426: validated scratch entry differs from the landed entry
+  C8_mirror_bytes FAIL
+    - registry rows 167 != mirror rows 162 + 2
+    - append-only: measured registry minus new rows, used-by restored, != mirror bytes
+  C9_stale_claim_corrected PASS
+  revision: 8b33fd248d126b48d838af5c38bc175850f41a09
+EXIT=1

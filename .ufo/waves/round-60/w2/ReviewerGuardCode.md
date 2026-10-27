@@ -1,0 +1,20 @@
+# ReviewerGuardCode
+
+ATTACKS: Reviewed `scripts/append_guard.py` at B1 (`8b33fd248d126b48d838af5c38bc175850f41a09`) against C2's CLI, scope, exits, output, committed-byte/GIT environment/root/ancestry requirements, existential insertion rule, tag visibility, EOF behavior and byte line splitting. Built isolated committed fixture repositories for the tag-visibility cases; source fixture definitions and outputs are in `.ufo/waves/round-60/w2/ReviewerGuardCode.files/tag-visibility-fixtures.txt`.
+
+DIVERGENCES:
+
+- Tag visibility does not honor CommonMark backtick code spans across lines. `_masked_ranges` scans each line independently (lines 192–205); `visibility_masks` carries only HTML-comment state (220–226). A committed fixture had base lines `before`, ```` `` ```` (two-backtick opener), ```` `` ```` (closer), `after`; revision inserted `[r60-correction 2026-10-27]` between delimiters. The tag is inside the multiline span and therefore not visible, but exact command `python3 -B "$D/append_guard.py" --root "$D" --base "$BASE" --revision "$REV"` yielded `files=1 findings=0`, exit 0. Required behavior: `untagged_insertion`. Reproduction definition/output: `.files/tag-visibility-fixtures.txt` Fixture A.
+- Backtick closing detection accepts a prefix of a longer delimiter run. At lines 196–203, for a one-backtick opener it uses `line.find(b"`" * blen, j)`, so a two-backtick run is treated as a closer. A fixture inserted the line `` `[r60-correction 2026-10-27]`` `` between unchanged base lines; unequal delimiter lengths do not close a CommonMark code span, so the tag is visible and the insertion is tagged. The tool instead masked the tag and printed `untagged_insertion corpus/knowledge/a.md:2`, `files=1 findings=1` (exit 1). Required behavior: clean, exit 0. Reproduction: `.files/tag-visibility-fixtures.txt` Fixture B.
+- The cited interpretation of Markdown backtick spans is standards-based review; the implementation's own docstring expressly limits spans to same-line (lines 17–18), but C2 does not impose that limitation. The two fixtures demonstrate opposing failures: a false clean and a false finding.
+
+Other reviewed clauses: CLI argument requirements and 64 usage handling are at lines 630–668; default scope and scope conversion at 42–44, 122–165, 635–637, 649; exit/error mapping at 307–355 and 663–668; findings/summary formatting at 360–364; committed tree/blob reads and GIT_* scrubbing at 50–59, 91–109; toplevel and ancestry checks at 63–88, 310–320; ordered-subsequence and existential alignment at 239–303; EOF run acceptance at 254–272, 284–288; raw byte splitting at 114–119. No additional divergence was established for these clauses in this review. The CLI's `--selftest` branch returns before validating other supplied options (641–642); not reported because C2 defines its invocation as `--selftest` without an argument-combination contract. No full suite/counter was run.
+
+FINDINGS:
+
+| severity | target file:line | issue | evidence command | fix |
+|---|---|---|---|---|
+| medium | `scripts/append_guard.py:192-226` | Tag visibility is determined line-by-line for backtick spans. Multiline spans can make an invisible tag authorize an untagged insertion (false clean). | See `.files/tag-visibility-fixtures.txt` Fixture A; exact invocation/output recorded there. | Track equal-length backtick delimiters across lines per Markdown code-span semantics. |
+| medium | `scripts/append_guard.py:196-203` | A delimiter run of length N incorrectly closes on the first N ticks of a longer run, hiding a visible correction tag (false finding). | See `.files/tag-visibility-fixtures.txt` Fixture B; exact invocation/output recorded there. | Require the closing run to have exactly the opener's length (and apply the multiline span handling consistently). |
+
+VERDICT: C2 has two reproducible tag-visibility divergences; otherwise no additional clause divergence established. Counter/selftest and real-lane R1/R2 were not run.

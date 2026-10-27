@@ -1,0 +1,23 @@
+# ReviewerC1Counter
+
+ATTACKS:
+- Compared `c60_gate_status.py` with Claim C1 and amendments A2–A7/A3a: population/frozen identities, Markdown row masking/splitting, label and pin rules, command parsing/rendering, observation env/timeout/clone cleanup, score reading, exit codes, JSON/text output.
+- Executed the v1 selftest and the B1 gate from an isolated shared scratch clone; probed adversarial HTML-comment, fence, and never-met exit cases. Evidence and probe script: `w2/ReviewerC1Counter.files/`.
+
+DIVERGENCES:
+- The 28-member frozen population and B1 observation were consistent: the gate printed `members=28 mismatches=0 scores_held=3/3 met=True`; all 76 selftest cases passed, including A2/A3 shape/env, A3a checkout, A4 missing/changed/extra member, A5 label/pin, A7 score, cleanup, CLI, and JSON checks. The base receipt in `controls/base-c1-gate-status.txt` also records 14 mismatches; I did not rerun the base measurement.
+- Code inspection agrees with the contract on fixed observation env, detached shared clones, timeout mapping to 124, cleanup in `finally`, and exit mappings. Timeout and clone-failure paths were not separately induced. The C1 JSON/text success output was exercised by selftest; the summary output matched the B1 predicate.
+- Three contract divergences remain below: same-line HTML-comment content can be treated as rendered registry data; invalid fence-closing syntax can expose hidden path mentions to the duplicate-row scan; and overlapping never-met exit failures lose one diagnostic class.
+- `lsp` is unavailable in this runtime (`read xd://lsp` returned “No such tool”); no grep-based semantic claims were made.
+
+FINDINGS:
+
+| severity | target file:line | issue | evidence command / output | fix |
+|---|---|---|---|---|
+| high | `.ufo/waves/round-60/c60_gate_status.py:227-252,269-270,416-425` | `_mask` records only whether an HTML comment was already open at the *start* of each line. It does not mask/strip comment spans opened and closed on that same row. Consequently `eval_member` sees a command/path that exists only inside `<!-- ... -->` as a rendered Entry-command cell and accepts the row; a mocked green exit returns no mismatch. This can let hidden text satisfy C1 registration and status. | `python3 -B .../w2/ReviewerC1Counter.files/C1CounterProbe.py` → `HTML-comment-only row: candidate row accepted True label= live e_T= 0 classes= []` (full output in `.files/evidence.md`). | Parse each line after removing HTML-comment spans (while maintaining multiline comment state), and only match visible cell text for row/path/command checks. Add a negative selftest with the entire command/path commented inline. |
+| medium | `.ufo/waves/round-60/c60_gate_status.py:231,292-301,429-432` | Fence closure uses `s.startswith(fence)`, so an invalid closing line such as `````python`` ends an open triple-backtick block. `rows_mentioning` then counts pipe-prefixed content as a duplicate even when it is still fenced and not a rendered table row. A canonical row plus this hidden mention is classified `duplicate_row`, causing a false C1 mismatch. | Same probe command → `fence case: parsed_table_rows= 1 rendered_mentions= [2, 5] ...`; `fence row classification: ['duplicate_row']`. | Enforce Markdown closer syntax (matching fence character, run length at least opener, then whitespace only) and derive duplicate mentions from actual parsed table data rows, not any unmasked pipe-prefixed line. |
+| low | `.ufo/waves/round-60/c60_gate_status.py:492-496` | The `elif` makes `never_met_bad_exit` unreachable when either exit is green and the other is outside `{0,1}`. Contract A5 specifies both classes for the overlapping case: e.g. `e_T=0,e_P=2` is both `never_met_but_green` and `never_met_bad_exit`. The member still counts mismatched, but JSON `classes` under-reports the bad exit. | Same probe command → `never-met e_T=0,e_P=2: classes= ['never_met_but_green']`. | Evaluate the green and bad-exit predicates independently rather than with `elif`. Add the overlap case to selftest. |
+
+Residual risk / verification gaps: the fixed timeout and clone-failure branches were code-reviewed but not forced; no LSP diagnostics/references were possible because the LSP device is not mounted. The probe evidence and B1/selftest outputs are retained in `w2/ReviewerC1Counter.files/evidence.md`.
+
+VERDICT: Recommend tightening v1’s C1 parser before relying on its met result; its B1 run passed, but the inline-comment case can falsely register a member, and the other findings violate the declared row/diagnostic contracts.

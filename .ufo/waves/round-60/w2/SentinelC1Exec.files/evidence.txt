@@ -1,0 +1,61 @@
+
+== 0. counter source and clone
+clone toplevel: /fast/scratch/hyaku/kake-r60/SentinelC1Exec/repro/lane | B1: 8b33fd248d126b48d838af5c38bc175850f41a09
+counter blobs identical to lane: True
+
+== 1. env scrub: hostile parent env, sitecustomize/.pth in the clone
+rc=0 env={'PATH': '/usr/bin:/bin', 'HOME': '/fast/scratch/hyaku/kake-r60/SentinelC1Exec/repro/runs/c60-run-ixu5rb78/scratch', 'TMPDIR': '/fast/scratch/hyaku/kake-r60/SentinelC1Exec/repro/runs/c60-run-ixu5rb78/scratch', 'LANG': 'C.UTF-8'}
+cwd=/fast/scratch/hyaku/kake-r60/SentinelC1Exec/repro/runs/c60-run-ixu5rb78/clone exists_after_run=False
+writable lane .git=True writable outside clone=True
+sitecustomize leak=False .pth leak=False
+
+== 2. member writes outside its clone; locked dir blocks cleanup
+rc=0 wrote /fast/scratch/hyaku/kake-r60/SentinelC1Exec/repro/probe/ESCAPED_WRITE: True | leftovers: []
+-- 2b. a member that leaves an unreadable dir makes rmtree() fail silently
+locked_m rc=0 leftovers=['c60-run-zdrod5cm'] (normal run, no signal, no timeout)
+
+== 3. member may open sockets (docstring says 'No network')
+rc=0 socket bind+connect=True
+
+== 4. process containment: forked daemon, timeout, orphaned grandchild
+fork_m rc=0 daemon alive after run_member returned: True cwd=/fast/scratch/hyaku/kake-r60/SentinelC1Exec/repro/runs/c60-run-ub41hvgt/clone (deleted)
+loop_m.py rc=124 5.0s leftovers=[]
+loopfork_m.py rc=124 5.0s leftovers=[] grandchild alive=True ppid=1494
+
+== 5. a hung observation is scored as a LABEL mismatch, never unevaluable
+kind=historical     e_T=124 e_P=124 classes=['historical_bad_exit', 'historical_not_green_at_pin']
+kind=never          e_T=124 e_P=124 classes=['never_met_bad_exit']
+kind=live           e_T=124 e_P=None classes=['live_not_green']
+first_class of a timeout verdict: historical_bad_exit
+
+== 6. argv shape check: no injection, but free-form flags/paths accepted
+baseline               -> None
+lane path as flag value -> None
+relative escape        -> None
+metachar               -> 'meta'
+selftest               -> 'selftest'
+env word               -> 'env'
+fleet root arg         -> None
+argv injection of a placeholder inside a word: 'meta'
+
+== 7. --work cleanup deletes foreign c60-run-* / c60-self-* dirs
+counter exit=2 | KEEPME still there: False | shared now: []
+
+== 8. work dir falls back to /tmp when TMPDIR is unset
+C1 gate-status members=0 mismatches=0 scores_held=0/3 met=False
+exit=1 work dir=/tmp/c60-work-v8el_wos existed=True removed_after=True
+
+== 9. SIGTERM / SIGINT mid-run (real counter, real lane clone)
+SIGTERM exit=-15 leftovers=['c60-run-iohf3jmv'] stderr_last=''
+SIGINT exit=-2 leftovers=[] stderr_last='KeyboardInterrupt'
+SIGTERM without --work: exit=-15 TMPDIR residue=['c60-work-mo5yhsqd']
+
+== 10. git argument injection attempts (no shell; git args are fixed / hex / --)
+root looks like a git option     exit=2 out=['unevaluable: --root --upload-pack=/bin/true is not a repository toplevel']
+revision looks like a git option exit=2 out=['unevaluable: --revision --all does not resolve to a commit']
+revision = another option        exit=2 out=['unevaluable: --revision --verify does not resolve to a commit']
+
+== 11. an unexpected exception is not 'unevaluable': the process exits 1 = 'not met'
+exit=1 stderr_last='ValueError: logic error' stdout=''
+
+WORK = /fast/scratch/hyaku/kake-r60/SentinelC1Exec/repro
