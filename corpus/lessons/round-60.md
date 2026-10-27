@@ -150,3 +150,17 @@ re-verified against a later, category-specific page and corrected append-only; 1
 labels (a never-green gate called live, a pin where the gate is red, a gate the round's own rows turn red) re-derived from runs.
 discernment: 15 staged items refused with page counts, one staged entry rejected with a flip, three quarantine rows re-checked; the
 non-author spot-check belongs to the closure.
+
+## Wave 2 and measurement
+
+Wave 2 (38 attack seats on build `8b33fd24`, `.ufo/waves/round-60/w2/`) found and the round fixed before measurement: the guard read
+`git ls-tree` without `-z`, so a git-quoted (non-ASCII) path fell silently out of scope (`w2/SentinelGuard` high); its line-local
+code-span scanner missed spans crossing line ends and closed on unequal runs (`w2/ReviewerGuardCode`); 16 of 33 tool mutants
+survived the version-1 counter (`w2/MutGuardTool`) — counter version 2 adds sub-fixtures to eight cases and the B1 tool scores 22/24
+under it (`controls/c2-b1-tool-under-v2.txt`); the C1 counter read cells inside an inline HTML comment as rendered
+(`w2/ReviewerC1Counter`, fixed in version 2); the correction's publisher-advice sentence and the S428 entry's identifier sentence
+overreached (`w2/ReviewerCorrection`, `w2/ReviewerEntryUT`, both rewritten). Carried as stated limits: C1 process containment,
+cleanup and exception exit codes (`w2/SentinelC1Exec`); the C2 existential-alignment laundering case (`w2/CriticGuardSemanticsV2`,
+disclosed in the contract); `w2/ReviewerEntryRL`'s six location-description findings on `robots-txt-limits.md` (no quote affected).
+Measured at T0 `8001f8d5579303ff390305f9dcddb785834f2084`: C1 `mismatches=0 met=True`, C2 `24/24`, C3 `9/9`
+(`controls/after-*.txt`); census exit 0, 167 rows.
