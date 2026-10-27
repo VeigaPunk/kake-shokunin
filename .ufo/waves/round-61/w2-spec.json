@@ -1,0 +1,187 @@
+{
+ "reportDir": ".ufo/waves/round-61/w2",
+ "maxLanes": 64,
+ "context": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRound-61 kake wave w2 (FALSIFY wave; attack frozen C1-C3 after w1). Lane repo: /home/vgpnk/Projects/shokunin/kake-shokunin. Tools start at fleet root; first mkdir -p /fast/scratch/hyaku/kake-r61/<seat> && cd there. Use absolute paths for all lane reads/writes. Every Report trailer is relative to /home/vgpnk/Projects/shokunin/kake-shokunin; write it under /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w2/... never fleet root. Seats never mutate lane jj/index/git or fleet/sibling repos; write only your report and own .files. Read-only git is fine. Scratch clones/fixtures only under /fast/scratch/hyaku/kake-r61/<seat>; use git clone --shared; delete scratch on exit. Fixtures: mktemp under scratch, git -C each path, verify toplevel before commit, selftest identity only; never commit elsewhere. Shokuknow read-only. Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/contract.md end-to-end before attack; amendments A1-A5 are binding and predicates unchanged. Counter freeze is L1-owned; do not alter lane files or score after-state. Tooling authorization: first read /home/vgpnk/.omp/agent/RULES.md; pacman transactions paused host-wide; no pacman. Never install without need; record any tool install. Report first line # <name>, factual, end VERDICT: one line.",
+ "items": [
+  {
+   "name": "ReviewerC1Counter",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack C1 primary counter and receipt_lineage.py at /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61: independently verify A1-A3 R2 (95 receipts, 12 events, undisclosed=0), committed disclosure read, frozen population, round-61 exclusion, and score mutant. Execute only in scratch. Identify false-green/false-red cases; report evidence file:line. Sections: R2, CASES, FINDINGS, VERDICT."
+  },
+  {
+   "name": "CriticC1C58Overlap",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFalsify C1 distinctness from existing /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-58/c58_receipt_rewrites.py and receipt-rewrites.json. Compare populations, event definitions, coverage, known 79 out-of-control rewrites and round-57 pending fill. Construct a do-nothing control using only c58 and judge whether C1 adds measurable calibration. Report SAME/DIFFERENT, CONTROL, EVIDENCE, VERDICT."
+  },
+  {
+   "name": "MutationC1Pending",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutation test C1 pending-fill detector against A3: plant pending only in non-result body line; pending_review substring; case changes; removed vs retained; see if whole-text word-boundary rule behaves. Scratch fixtures only. Report MUTANTS, KILLED, SURVIVORS, VERDICT."
+  },
+  {
+   "name": "MutationC1Json",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutation test C1 result span JSON colon forms and duplicate/order semantics. Plant \"met\":true\u2192false, findings/count fields, duplicate result lines reorder/remove; determine which cases C1 counter catches and which residuals remain. Report MUTANTS, KILLED, SURVIVORS, VERDICT."
+  },
+  {
+   "name": "SentinelC1Path",
+   "role": "sentinel",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nSecurity review receipt_lineage.py and counter: git path traversal, malicious disclosures paths, env injection, symlinks, giant blobs, subprocess without shell, committed-only guarantee. Read implementation and run benign scratch probes only. Report FINDINGS, VERDICT."
+  },
+  {
+   "name": "ReviewerC1Disclosure",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nVerify .ufo/receipt-disclosures.json covers each actual C1 event exactly under A1-A3; wrong-kind/value, duplicate entries, phantom path, malformed required fields, committed-at-revision semantics. Compare with c58 ledger. Report COVERAGE, GAPS, VERDICT."
+  },
+  {
+   "name": "CriticC1Deletion",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack C1 deletion/re-add handling under A3. Construct receipt delete, delete+re-add same blob, rename-with-edit, absent-at-revision; determine tool finding kinds and counter coverage. Report CASES, GAPS, VERDICT."
+  },
+  {
+   "name": "ReviewerC1Population",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRe-derive frozen population-144 at base and A2 scope for extra_member. Confirm measurement-round controls excluded while earlier-round added path is still caught. Check any hidden path or extension class omitted. Report POPULATION, CASES, VERDICT."
+  },
+  {
+   "name": "CriticC1Claim",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAxis-level falsification: does C1 actually improve calibration given c58's existing receipt ledger and the 12 events already disclosed? Apply do-nothing control and claim admission rule; distinguish capability from axis move. Report AXIS, CONTROL, VERDICT."
+  },
+  {
+   "name": "ReviewerC1Score",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack C1 scores_held==3: inspect parser for exactly one axis table / rows / values 10,10,2 and test a calibration-only score mutation 2\u219210. Check C2 legitimate additions do not break parse. Report SCORE TEST, GAPS, VERDICT."
+  },
+  {
+   "name": "MutationC1Disclosures",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutate disclosure JSON: omit path, wrong commit, duplicate pair, wrong kind, blank note, missing entries, unreadable committed path, worktree-only path; verify tool/counter outcomes per A3. Report MUTANTS, KILLED, SURVIVORS, VERDICT."
+  },
+  {
+   "name": "ReviewerC2Counter",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRun/review c61_header_cases.py at its base and implementation revisions in scratch; verify exactly H1-H18 scored, R3 separate shape gate, R4 control, outputs/exits and expected finding sets. Report CASES, DENOMINATOR, VERDICT."
+  },
+  {
+   "name": "CriticC2Semantics",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFalsify all six C2 classes against retained S430-S433 bodies and the 12 capture receipts: content-type, HSTS, XCTO, CSP, singleton, field_name_syntax. Empty values, missing vs false flags, duplicate field case, OWS, 2xx boundary. Report per-class false green/red, evidence, verdict."
+  },
+  {
+   "name": "MutationC2HeaderNames",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutate header_audit header-name case-folding and token grammar; test malformed names including whitespace, colon, obs-text and empty name; identify counter killing cases or survivors. Scratch only. Report mutants/kills/survivors."
+  },
+  {
+   "name": "MutationC2OWS",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutate OWS trimming and value comparisons: `nosniff`, `NOsniff`, leading/trailing SP/HTAB, internal whitespace, empty; see H5-H7/H17 coverage. Report mutants, killed, survivors, proposed cases."
+  },
+  {
+   "name": "SentinelC2Capture",
+   "role": "sentinel",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nSecurity attack response_snapshot.py after F2: redirect to localhost/private/link-local/reserved IP, DNS rebinding, redirect cross-host, credentials in URL, header/body secret exposure, size/time/redirect caps, output containment. Do not edit lane. Report exact scratch evidence and must-fix vs stated limit."
+  },
+  {
+   "name": "ReviewerC2CaptureReceipts",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nVerify 12 capture receipts are authentic/re-readable: response.json digest/body digest/bytes/header counts, method GET, redirects, userAgent, no credential headers, and committed tool provenance digests. Report counts and discrepancies."
+  },
+  {
+   "name": "CriticC2ManifestPolicy",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nFalsify manifest policy: whether expectations are uniform and predeclared, whether all-false checks can force green (H16), URL scheme controls HSTS, source path traversal/receipt tampering and status handling. Report concrete counterexamples and verdict."
+  },
+  {
+   "name": "ReviewerC2Sources",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nReopen retained S430-S433 bodies and verify row sources, access dates, located quotes and tiers. Specifically S430 RFC6797 URL only; S431 Working Draft label; S433 quote distinct from S088 scope; no literal pipes. Report per row, verdict."
+  },
+  {
+   "name": "CriticC2FindingExit",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAttack all-could_not_evaluate and malformed-manifest exits: valid manifest with all missing receipts, mixed good/bad checks, zero checks, malformed response receipt. Verify exit 0/1/2 semantics and whether H13 pins the right result. Report cases/findings/verdict."
+  },
+  {
+   "name": "MutationC2Singleton",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutate singleton field logic: repeated Content-Type/CSP/HSTS in mixed case, Set-Cookie repeated, whitespace values, singleton list duplicates. Check H9/H10 and propose surviving mutant. Report tests."
+  },
+  {
+   "name": "ReviewerC2RealRun",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nIndependently rerun header audit against committed 12-check manifest and capture receipts; record exact checks/findings/exit. Do not infer live cleanliness; compare with ExecC2HeaderRecon predicted 13 findings. Report divergence."
+  },
+  {
+   "name": "CriticC2DoNothing",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nProve C2 do-nothing control cannot meet 18/18 on base: inspect counter extraction of tool from measured revision and controls; attempt constant and fixture-sniffing composites. Report results."
+  },
+  {
+   "name": "MutationC2Manifest",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutate manifest parser: duplicate ids/keys, wrong types, missing source, path traversal, Unicode keys, non-finite JSON; identify accepted invalid forms and whether C2 counter catches. Report mutants."
+  },
+  {
+   "name": "ReviewerC2EntryScope",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCheck response-header-expectations.md remains within publisher-side PROVINCE, treats expectations as declared policy not universal obligations, and cleanly distinguishes captured state from live behavior. Report exact overreach or pass."
+  },
+  {
+   "name": "CriticC3DueSet",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRecompute S001-S010 due set at base and measured revision. Attack status/opened tie stability and the \u201cten oldest\u201d wording; verify recheck date arithmetic and every pin-or-note condition. Report evidence and verdict."
+  },
+  {
+   "name": "ReviewerC3Counter",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nRun/review c61_recheck_pins.py against measured bytes after L1 integration (if not yet committed, report as pending, do not invent). Validate C1-C6, C6 base non-due rows unchanged and new ids appended. Report conditions, verdict."
+  },
+  {
+   "name": "MutationC3Dates",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nMutate C3 date pins: date before opened, after cadence, exact upper bound, leap/day boundary, on-release +90d, malformed ISO; verify C2 and selftest coverage. Report mutants/kills/survivors."
+  },
+  {
+   "name": "CriticC3QuoteTruth",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nReopen all ten retained S001-S010 bodies and independently verify each Gate quote; call out S001 anchor_moved and S002 multiple URL ambiguity. Check quote units/page uniqueness and honest unpinned notes. Report ten-row table."
+  },
+  {
+   "name": "ReviewerC3AppendOnly",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nVerify SOURCES.md changes obey contract v1: only recheck cells for due rows, S430-S433 append-only, all other base rows preserved, W04 only census output; old\u2192new changes logged in lesson. Report diff tally and verdict."
+  },
+  {
+   "name": "MutationC3Noop",
+   "role": "mutation-tester",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nTry to make a do-nothing or all-noted control pass C3 6/6 without actual fetch/pins; identify whether C5 permits vacuity and whether the frozen target can be shown to fail. Report exact control results."
+  },
+  {
+   "name": "SentinelC3Sources",
+   "role": "sentinel",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nReview source fetch receipts for URL integrity, redirect destination, body cap, userAgent, no secrets, retained hash consistency, and C3 counter path confinement. Report issues."
+  },
+  {
+   "name": "ReviewerCrossClaims",
+   "role": "reviewer",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCross-claim separability audit after w1 integration: C1 population/counters, C2 S rows and files, C3 due-cell edits. Identify any shared file mutation or counter dependency violating causally separable claims. Report map and verdict."
+  },
+  {
+   "name": "CriticTrendVerdicts",
+   "role": "critic",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nAdversarially assign expansion/quality/discernment trend verdicts from observed w1/w2 evidence and contract, not intentions. Explain any harmful or unprovable trend. Report three verdicts."
+  },
+  {
+   "name": "ConnectorPattern",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCross-axis pattern finder: compare C1 receipt calibration to prior c58/round60 patterns, C2 header audit to robots/sitemap tools, C3 cadence pins to freshness sweep; identify duplication and smallest distinct generalization. Report overlaps, distinctness, verdict."
+  },
+  {
+   "name": "ConnectorSources",
+   "role": "connector",
+   "prompt": "/skill:godspeed\nYou are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. **Iterate cheap, in parallel.**\n3. **Keep moves that improve any axis and harm none.**\n4. **Don't aim \u2014 let the frontier walk itself.**\n\n## IMMEDIATELY STOP ASKING CLARIFYING QUESTIONS. Execute tool calls concurrently in large batches. Do not serialize what can run in parallel. Do not output philosophical reasoning or verbose plans. Act directly via tool calls.\n\nCross-source pattern scan for S430-S433 and S001-S010: identify source-row reuse/duplicate URL scope effects, tier conflicts, quote collisions and a clean future study path. Report evidence and verdict."
+  }
+ ]
+}
