@@ -1,0 +1,11 @@
+variant                     census  v1   v2   v2_met  v2_failing
+good                        exit=0  8/9  9/9  True   
+a1_chrome_only              exit=0  8/9  8/9  False  C5_quote_truth
+a2_chrome_mixed             exit=0  8/9  9/9  True   
+a3_chrome_substitute        exit=0  8/9  9/9  True   
+a4_two_content_only         exit=0  8/9  8/9  False  C5_quote_truth
+b_opposite                  exit=0  8/9  9/9  True   
+c_html_comment              exit=0  8/9  8/9  False  C9_stale_claim_corrected
+d_contradicting             exit=0  8/9  9/9  True   
+e1_usedby_extra_exists      exit=0  7/9  8/9  False  C4_used_by
+e2_usedby_extra_missing     exit=1  6/9  7/9  False  C4_used_by,C7_validate_before_append

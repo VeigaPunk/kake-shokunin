@@ -1,0 +1,117 @@
+[
+ {
+  "case": "Z1_cyrillic_S_launders_citation",
+  "note": "Cyrillic U+0405 instead of ASCII S: the cited id disappears from the cited set",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "worktree": {
+   "exit": 0,
+   "out": "ids_cited=0 ids_resolved=0 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "revision": {
+   "exit": 0,
+   "out": "ids_cited=0 ids_resolved=0 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "Z2_fullwidth_digit_registry_id",
+  "note": "fullwidth digits in the registry id cell: resolver accepts it, census E02 rejects it",
+  "census": {
+   "rows": "1",
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE02\tS９７１"
+   ]
+  },
+  "worktree": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "revision": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "Z3_zero_width_space_inside_cited_id",
+  "note": "zero-width space inside the cited id",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "worktree": {
+   "exit": 1,
+   "out": "DANGLING S984 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "revision": {
+   "exit": 1,
+   "out": "DANGLING S984 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "Z4_url_match_substring_whole_body",
+  "note": "the sibling owns S985 with URL U; the lane cites U2 which merely contains U -> url-match fires",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "worktree": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "revision": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "Z5_id_inside_url_in_knowledge_over_reports",
+  "note": "an id inside a URL is counted as a citation -> a dangling id that is not a citation",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "worktree": {
+   "exit": 1,
+   "out": "DANGLING S987 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "revision": {
+   "exit": 1,
+   "out": "DANGLING S987 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "REV_Y1_indented_paths_heading_ends_section",
+  "note": "rows after an indented `## Paths` register in the resolver but are outside the Registry for the census",
+  "census": {
+   "rows": "1",
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE12\tS989 row outside Registry section"
+   ]
+  },
+  "revision": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "REV_R3_html_pre_block_row",
+  "note": "a row inside a <pre> block registers the id",
+  "census": {
+   "rows": "2",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "revision": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ }
+]

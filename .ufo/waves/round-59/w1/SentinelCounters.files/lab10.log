@@ -1,0 +1,17 @@
+== D2 forward-fix, counter side: C3 ==
+  C3 GIT_DIR: rc=2 identical=True
+  C3 GIT_WORK_TREE: rc=2 identical=True
+  C3 GIT_INDEX_FILE: rc=2 identical=True
+  C3 --base '' : rc=2 :: EXIT=2
+  C1 --base '' : rc=64 :: usage: --revision (and a non-empty --base) are required unless --selftest is used
+  C1 --revision movable (a branch): rc=0 :: EXIT=0
+== efficacy of the candidate remediations ==
+  before: rc=1 hook_fired=True
+  with GIT_CONFIG_GLOBAL=/dev/null exported (scrubbed away by env()): rc=1 hook_fired=True
+  with a scratch HOME: rc=1 hook_fired=False
+== candidate fix: mode check via ls-tree distinguishes symlinks ==
+  .ufo/waves/round-59/calibration.md: mode=120000 type=blob -> SYMLINK
+  .ufo/waves/round-59/freshness.md: mode=120000 type=blob -> SYMLINK
+  .ufo/waves/round-59/operability.md: mode=120000 type=blob -> SYMLINK
+  SCORECARD.md: mode=120000 type=blob -> SYMLINK
+  cat-file -t 9ab0f9ea:SCORECARD.md = 'blob'  (a symlink is reported as 'blob')

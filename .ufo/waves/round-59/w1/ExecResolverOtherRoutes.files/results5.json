@@ -1,0 +1,104 @@
+[
+ {
+  "case": "X1_indented_registry_heading_1space",
+  "note": "`## Registry` indented 1 space(s): census counts the row, the resolver does not",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S951 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "X1_indented_registry_heading_2space",
+  "note": "`## Registry` indented 2 space(s): census counts the row, the resolver does not",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S952 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "X1_indented_registry_heading_3space",
+  "note": "`## Registry` indented 3 space(s): census counts the row, the resolver does not",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S953 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "X2_zero_width_split_id_in_knowledge",
+  "note": "zero-width space inside the cited id: the resolver sees no citation at all",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S955 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "X3_cyrillic_lookalike_S_citation_only",
+  "note": "Cyrillic lookalike S: the citation is invisible to the resolver",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=0 ids_resolved=0 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "X4_fullwidth_digit_registry_id",
+  "note": "registry id with fullwidth digits: resolver accepts, census rejects (E02)",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE02\tS９５８"
+   ]
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "X5_registry_heading_atx_closing_sequence",
+  "note": "`## Registry ##`: CommonMark heading text is `Registry`; both lane tools say no section",
+  "census": {
+   "rows": "0",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE12\tS959 row outside Registry section"
+   ]
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S959 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ }
+]

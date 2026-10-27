@@ -1,0 +1,52 @@
+== C3: is a SYMLINKED registry parsed from its target string? ==
+  ls-tree: '120000 blob 64413120d541249f70ac66faa39df91f2d8d30d6\tcorpus/SOURCES.md'
+  git show returns the target string; contains a registry row: True
+  C3 verdict: rc=1 :: EXIT=1
+     - S425: header lacks a filled `verified-at:` line in its first 8 lines
+     - S425: header lacks a filled `recheck:` line in its first 8 lines
+     - S425: `source:` line does not carry the row URL https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers
+     - S425: entry does not cite its id below the 8-line header
+     - S425: `verified-at:` line does not carry the round date 2026-10-27
+     - S425: `recheck:` line does not open with NNd, an ISO date or on-release
+     - S426: header lacks a filled `verified-at:` line in its first 8 lines
+     - S426: header lacks a filled `recheck:` line in its first 8 lines
+     - S426: `source:` line does not carry the row URL https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests
+     - S426: entry does not cite its id below the 8-line header
+     - S426: `verified-at:` line does not carry the round date 2026-10-27
+     - S426: `recheck:` line does not open with NNd, an ISO date or on-release
+     - S425: row URL None != 'https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers'
+     - S425: scope or teaches cell is shorter than 20 characters
+     - S425: already in the base registry; not a new row
+     - S426: row URL None != 'https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests'
+     - S426: scope or teaches cell is shorter than 20 characters
+     - S426: already in the base registry; not a new row
+     - S425: used-by is ['corpus/knowledge/crawler-identity-signals.md'], expected ['corpus/knowledge/crawler-identity-signals.md', 'corpus/knowledge/crawler-identity.md']
+     - S425: retained body is 17 bytes, below the 1000-byte floor
+     - S425: retained body sha256 1660da65e603aca826c79b1658ecd273aa712995f25352051478bc6cc2580eff != the digest frozen at the contract commit ff2b9fd7ed074536a460dca57816bffecceb0c186c42f1d551f34918551f5caa
+     - S425: row title '' is not the page's <title> text before the site suffix '' (6+ units)
+     - S425: row anchor carries no `(Last updated YYYY-MM-DD UTC)` printed revision
+     - S425: retained body has no article block (article container .. footer)
+     - S425: row anchor cell is not `§ <heading> (Last updated YYYY-MM-DD UTC)`: 'anchor'
+     - S425: row anchor heading '' is not 3+ units and an <h2>/<h3> of the article block
+     - S426: retained body is 17 bytes, below the 1000-byte floor
+     - S426: retained body sha256 1660da65e603aca826c79b1658ecd273aa712995f25352051478bc6cc2580eff != the digest frozen at the contract commit 8df9d4ade1d1f335060af05229c4d90b15d8136b9807cfab17a088f3292f0879
+     - S426: row title '' is not the page's <title> text before the site suffix '' (6+ units)
+     - S426: row anchor carries no `(Last updated YYYY-MM-DD UTC)` printed revision
+     - S426: retained body has no article block (article container .. footer)
+     - S426: row anchor cell is not `§ <heading> (Last updated YYYY-MM-DD UTC)`: 'anchor'
+     - S426: row anchor heading '' is not 3+ units and an <h2>/<h3> of the article block
+     - S425: no `- S425 ` line in the lesson ## Gate
+     - S425: entry carries 0 page-unique quoted spans, expected 3+
+     - S426: no `- S426 ` line in the lesson ## Gate
+     - S426: entry carries 0 page-unique quoted spans, expected 3+
+     - S425: no receipt in .ufo/waves/round-59/sources/receipts.json
+     - S426: no receipt in .ufo/waves/round-59/sources/receipts.json
+     - the inserted correction does not cite S425
+     - no quoted span in the correction passes the C5 span rules against S425 and carries 'IP address'
+  C3_row_shape notes: ['- S425: `source:` line does not carry the row URL https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers', '- S426: `source:` line does not carry the row URL https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests', "- S425: row URL None != 'https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers'", '- S425: already in the base registry; not a new row', "- S426: row URL None != 'https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests'", '- S426: already in the base registry; not a new row']
+== global core.fsmonitor / core.pager: code execution during C2's fixture commits ==
+  C2 with hostile global core.fsmonitor: rc=1 marker_fired=True
+  marker lines: 36
+== real-lane symlink census at HEAD and at the base revision (read-only) ==
+  HEAD: 17871 entries, 0 symlinks
+  fd6303ce5c14: 17844 entries, 0 symlinks

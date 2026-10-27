@@ -1,0 +1,80 @@
+{
+ "schema": "kake-r59-c3-quote-truth-v1",
+ "predicate": "met: conditions_passed == 9 of 9",
+ "revision": "192fb7dc86cb3ef91b89b1fab5561e8162e13b8c",
+ "adopted": {
+  "S425": "corpus/knowledge/crawler-identity-signals.md",
+  "S426": "corpus/knowledge/googlebot-verification.md"
+ },
+ "checks": {
+  "C1_entries_exist": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "entries": 2
+   }
+  },
+  "C2_entry_provenance": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C3_row_shape": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "rows": 164,
+    "base_rows": 162
+   }
+  },
+  "C4_used_by": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C5_quote_truth": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "S425: row title 'Google Crawler (User Agent) Overview' is not the page's <title> text before the site suffix 'Google Crawler (User Agent) Overview' (6+ units)",
+    "S425: entry carries 2 page-unique quoted spans, expected 3+"
+   ],
+   "facts": {}
+  },
+  "C6_receipt_pins": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "receipts": 2
+   }
+  },
+  "C7_validate_before_append": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  },
+  "C8_mirror_bytes": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "registry_rows": 164
+   }
+  },
+  "C9_stale_claim_corrected": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {}
+  }
+ },
+ "conditions_passed": 8,
+ "exit": 1,
+ "met": false
+}

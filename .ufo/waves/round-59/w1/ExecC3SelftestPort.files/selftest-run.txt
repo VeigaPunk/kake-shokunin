@@ -1,0 +1,122 @@
+c59 quote-truth selftest: 118/120 (baseline exit 0, 9/9 conditions; 108 fixtures, 103 red, 5 green)
+  CASE fail_missing_entry_signals | C1_entries_exist | 1 | PASS
+  CASE fail_missing_entry_googlebot | C1_entries_exist | 1 | PASS
+  CASE fail_staged_candidate_name_survives | C1_entries_exist | 1 | PASS
+  CASE fail_no_source_header | C2_entry_provenance | 1 | PASS
+  CASE fail_source_line_names_other_id | C2_entry_provenance | 1 | PASS
+  CASE fail_source_line_drops_url | C2_entry_provenance | 1 | PASS
+  CASE fail_no_cite_below_header | C2_entry_provenance | 1 | PASS
+  CASE fail_verified_at_wrong_date | C2_entry_provenance | 1 | PASS
+  CASE fail_verified_at_line_missing | C2_entry_provenance | 1 | PASS
+  CASE fail_recheck_junk_cadence | C2_entry_provenance | 1 | PASS
+  CASE fail_recheck_line_missing | C2_entry_provenance | 1 | PASS
+  CASE fail_row_short | C3_row_shape | 1 | PASS
+  CASE fail_row_url_other_row | C3_row_shape | 1 | PASS
+  CASE fail_row_status_not_mined | C3_row_shape | 1 | PASS
+  CASE fail_row_opened_wrong_date | C3_row_shape | 1 | PASS
+  CASE fail_row_recheck_junk | C3_row_shape | 1 | PASS
+  CASE fail_row_kind_outside_enum | C3_row_shape | 1 | PASS
+  CASE fail_row_tier_outside_enum | C3_row_shape | 1 | PASS
+  CASE fail_row_scope_short | C3_row_shape | 1 | PASS
+  CASE fail_row_teaches_short | C3_row_shape | 1 | PASS
+  CASE fail_new_row_already_in_base | C3_row_shape | 1 | PASS
+  CASE fail_row_escaped_pipe | C3_row_shape | 1 | PASS
+  CASE fail_used_by_missing_stale_doc | C4_used_by | 1 | PASS
+  CASE fail_used_by_empty | C4_used_by | 1 | PASS
+  CASE fail_used_by_extra_entry | C4_used_by | 1 | PASS
+  CASE fail_used_by_wrong_entry | C4_used_by | 1 | PASS
+  CASE fail_gate_quote_fabricated | C5_quote_truth | 1 | PASS
+  CASE fail_gate_quote_outside_content | C5_quote_truth | 1 | PASS
+  CASE fail_gate_quote_char_ceiling_161 | C5_quote_truth | 1 | PASS
+  CASE fail_gate_quote_unit_ceiling_26 | C5_quote_truth | 1 | PASS
+  CASE fail_gate_quote_twice_in_body | C5_quote_truth | 1 | PASS
+  CASE fail_gate_quote_shared_with_sibling | C5_quote_truth | 1 | PASS
+  CASE fail_gate_missing_url | C5_quote_truth | 1 | PASS
+  CASE fail_gate_missing_date | C5_quote_truth | 1 | PASS
+  CASE fail_gate_missing_sha | C5_quote_truth | 1 | PASS
+  CASE fail_gate_wrong_byte_count | C5_quote_truth | 1 | PASS
+  CASE fail_gate_wrong_units | C5_quote_truth | 1 | PASS
+  CASE fail_gate_missing_anchor | C5_quote_truth | 1 | PASS
+  CASE fail_gate_quote_off_topic | C5_quote_truth | 1 | PASS
+  CASE fail_gate_curly_quote | C5_quote_truth | 1 | PASS
+  CASE fail_entry_quote_fabricated | C5_quote_truth | 1 | PASS
+  CASE fail_entry_quote_char_ceiling_161 | C5_quote_truth | 1 | PASS
+  CASE fail_entry_quote_unit_ceiling_26 | C5_quote_truth | 1 | PASS
+  CASE fail_span_crosses_text_node_boundary | C5_quote_truth | 1 | PASS
+  CASE fail_nav_span_outside_article_block | C5_quote_truth | 1 | PASS
+  CASE fail_footer_only_span | C5_quote_truth | 1 | PASS
+  CASE fail_entry_curly_quote | C5_quote_truth | 1 | PASS
+  CASE fail_entry_two_unique_spans | C5_quote_truth | 1 | PASS
+  CASE fail_entry_without_topic_span | C5_quote_truth | 1 | PASS
+  CASE fail_entry_span_shared_with_sibling | C5_quote_truth | 1 | PASS
+  CASE fail_row_title_other_page | C5_quote_truth | 1 | PASS
+  CASE fail_row_title_substring_only | C5_quote_truth | 1 | PASS
+  CASE fail_anchor_not_h2_or_h3 | C5_quote_truth | 1 | PASS
+  CASE fail_anchor_missing_last_updated | C5_quote_truth | 1 | PASS
+  CASE fail_anchor_date_mismatch | C5_quote_truth | 1 | PASS
+  CASE fail_anchor_cell_shape | C5_quote_truth | 1 | PASS
+  CASE fail_body_empty | C5_quote_truth | 1 | PASS
+  CASE fail_body_swapped | C5_quote_truth | 1 | PASS
+  CASE fail_printed_revision_only_in_script | C5_quote_truth | 1 | PASS
+  CASE fail_anchor_heading_inside_code_sample | C5_quote_truth | 1 | PASS
+  CASE fail_body_edited | C5_quote_truth | 1 | PASS
+  CASE fail_receipt_sha | C6_receipt_pins | 1 | PASS
+  CASE fail_receipt_bytes_off | C6_receipt_pins | 1 | PASS
+  CASE fail_receipt_status_500 | C6_receipt_pins | 1 | PASS
+  CASE fail_receipt_status_bool | C6_receipt_pins | 1 | PASS
+  CASE fail_receipt_stale_date | C6_receipt_pins | 1 | PASS
+  CASE fail_receipt_offset_nonutc | C6_receipt_pins | 1 | PASS
+  CASE fail_receipt_url_mismatch | C6_receipt_pins | 1 | PASS
+  CASE fail_receipt_useragent_untagged | C6_receipt_pins | 1 | PASS
+  CASE fail_receipts_not_json | C6_receipt_pins | 2 | PASS
+  CASE fail_validate_exit | C7_validate_before_append | 1 | PASS
+  CASE fail_validate_e04_finding | C7_validate_before_append | 1 | PASS
+  CASE fail_validate_root_argv | C7_validate_before_append | 1 | PASS
+  CASE fail_validate_wrong_file_argv | C7_validate_before_append | 1 | PASS
+  CASE fail_validate_stdout_shape | C7_validate_before_append | 1 | PASS
+  CASE fail_validated_registry_differs | C7_validate_before_append | 1 | PASS
+  CASE fail_validated_entry_differs | C7_validate_before_append | 1 | PASS
+  CASE fail_mirror_contaminated | C8_mirror_bytes | 1 | PASS
+  CASE fail_mirror_not_base | C8_mirror_bytes | 1 | PASS
+  CASE fail_mirror_crlf | C8_mirror_bytes | 1 | PASS
+  CASE fail_pin_sha | C8_mirror_bytes | 1 | PASS
+  CASE fail_pin_rows | C8_mirror_bytes | 1 | PASS
+  CASE fail_pin_empty | C8_mirror_bytes | 1 | PASS
+  CASE fail_pin_null | C8_mirror_bytes | 1 | PASS
+  CASE fail_registry_not_append_only | C8_mirror_bytes | 1 | PASS
+  CASE fail_mirror_added_in_measured_commit | C8_mirror_bytes | 1 | PASS
+  CASE fail_c9_stale_line_rewritten | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_stale_line_deleted | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tail_twenty_lines_away | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tail_appended_at_eof | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tail_without_tag | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tag_inside_html_comment | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tail_without_s425 | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_citation_inside_code_span | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tail_span_not_in_page | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tail_span_without_ip_address | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_quote_inside_html_comment | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tail_curly_quotes | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tag_wrapped_with_indent | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_tag_hidden_in_html_attribute | C9_stale_claim_corrected | 0 | FAIL
+  CASE fail_c9_quote_hidden_in_html_attribute | C9_stale_claim_corrected | 0 | FAIL
+  CASE fail_c9_stale_line_duplicated | C9_stale_claim_corrected | 1 | PASS
+  CASE fail_c9_bullet_ends_beyond_window | C9_stale_claim_corrected | 1 | PASS
+  CASE pass_census_relative_argv | green (no new failure) | 0 | PASS
+  CASE pass_unrelated_source_body_present | green (no new failure) | 0 | PASS
+  CASE pass_span_160_chars | green (no new failure) | 0 | PASS
+  CASE pass_span_25_units | green (no new failure) | 0 | PASS
+  CASE pass_c9_bullet_ends_immediately | green (no new failure) | 0 | PASS
+  UNIT Latin tokens counted one per word | PASS
+  UNIT halfwidth kana counted one per character | PASS
+  UNIT non-BMP CJK counted one per character | PASS
+  UNIT the S425 page title is 5 units and clears the version-2 3-unit title floor | PASS
+  UNIT a two-word title is below the version-2 3-unit title floor | PASS
+  UNIT a 26-unit span is over the 25-unit ceiling | PASS
+  UNIT a 161-character span is over the 160-character ceiling | PASS
+  UNIT the 160-character span sits exactly on the character ceiling | PASS
+  UNIT the 25-unit span sits exactly on the unit ceiling | PASS
+  UNIT an unreadable base revision is unevaluable, not 'mirror differs' (exit 2) | PASS
+  UNIT an argparse usage error exits 64, not 2 | PASS
+  FAIL fail_c9_tag_hidden_in_html_attribute: expected exit 1 adding exactly ['C9_stale_claim_corrected'] with a C9_stale_claim_corrected note 'as rendered prose', got exit 0 adding [] (target note absent)
+  FAIL fail_c9_quote_hidden_in_html_attribute: expected exit 1 adding exactly ['C9_stale_claim_corrected'] with a C9_stale_claim_corrected note 'no quoted span in the correction passes', got exit 0 adding [] (target note absent)

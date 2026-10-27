@@ -1,0 +1,43 @@
+# ScoutStagedS398
+
+Scope: staged entry shokuknow/merge/kake/knowledge/corpus/knowledge/crawler-identity-three-signals.md + SOURCES.append.md row S398, checked against retained S425 body (.ufo/waves/round-59/sources/S425.html, sha256 ff2b9fd7..., fetched 2026-10-27T01:21:22Z). Method: span_tools window/check + full-body grep -F. Absence counts are over the whole retained HTML (grep -c -i -F, line counts).
+
+Page facts (observed): article block ends at the "Verify Google's crawlers and fetchers" h2 (id="crawl-verify-crawler") with exactly three list items: "The HTTP user-agent request header." / "The source IP address of the request." / "The reverse DNS hostname of the source IP." then "Learn how to use these details to verify Google's crawlers and fetchers." (links to S426). The page contains no forgeability statement.
+
+SENTENCES:
+(P1) "its crawlers identify themselves in three ways — HTTP user-agent header, source IP address, reverse DNS hostname of that address" — SUPPORTED. Spans: "Google's crawlers identify themselves in three ways:" (7u/52c, unique, in one text node); "The source IP address of the request." (7u/37c); "The reverse DNS hostname of the source IP." (8u/42c); user-agent is "The HTTP" + <code>user-agent</code> + "request header." split across nodes, so no single-node quote. Staged wording "of that address" is a paraphrase of "of the source IP" (fine).
+(P2a) "Read as a rule for a publisher, the order matters." — NOT ON THIS PAGE (inference; page lists the three with no ranking). "the order matters" is the author's reading; also contradicts a list that is unordered. Absence: "order" 0 relevant hits.
+(P2b) "The user-agent header is the signal anyone can set" — NOT ON THIS PAGE. grep "anyone can" 0, "forge" 0, "spoof" 0, "fake" 0. Not in S425 body; the forgeability statement lives (if at all) on S426 (verify-google-requests), not S425 — not checked by this seat.
+(P2c) "the address and its reverse hostname are the two that a caller cannot forge" — NOT ON THIS PAGE (0 hits for forge/spoof/trust). Also overclaims: reverse DNS alone is not unforgeable (needs forward-confirm); that is S426 territory.
+(P2d) "All three operators the lane now holds say this in their own words" — NOT ON THIS PAGE (Baidu 0, Yahoo 0, "operators" n/a). Cross-operator claim; rests on other sources, not S425. Page says nothing about "it is the signal that should not be built on alone".
+(P2e) "this one lists three signals" — SUPPORTED (same as P1).
+(P2f) "Baidu's own page checks the reverse hostname against *.baidu.com or *.baidu.jp" — NOT ON THIS PAGE (Baidu 0). Cross-source; would need its own S-row citation and quote.
+(P2g) "Yahoo! JAPAN's crawl documentation tells the server administrator to restrict access by the address the crawler's DNS points at rather than by the name" — NOT ON THIS PAGE (Yahoo 0). Cross-source.
+(P3a) "The exception is the part a block list gets wrong." — NOT ON THIS PAGE (editorial; page does not mention block lists).
+(P3b) "Special-case crawlers are similar to common crawlers but are used by specific products where there is an agreement between the crawled site and the product about the crawl process" — SUPPORTED, but as a paraphrase (page: "similar to common crawlers, however are used by specific products where there's an agreement between the crawled site and the Google product about the crawl process."). Quote form NOT usable verbatim: full sentence is 29u/191c, over both ceilings (25 tokens / 160 chars); span_tools check -> within_ceilings False. Staged text also drops "however" and "there's" and "Google", so it must not be in quotation marks as staged. Note staged prose has no quote marks, so it is a paraphrase; acceptable only if the entry's quoted clause is a separate <=160c node-substring.
+(P3c) "`AdsBot` ignores the global robots.txt user agent (`*`) with the ad publisher's permission" — SUPPORTED. Span: "ignores the global robots.txt user agent" (6u/40c, unique, in one text node) — the tail "(*) with the ad publisher's permission" crosses <code>/text nodes, so the longest usable single-node quote is the 6u one. AdsBot appears 1x, in this sentence only. Staged "(`*`)" matches page's code-formatted *.
+(P3d) "A site that blocks `*` and believes it has excluded every crawler has not excluded that one" — INFERENCE, derivable from P3c (a robots.txt rule on * does not bind AdsBot); the page only says AdsBot ignores the * group. Not stated on page; mark as inference, not as the vendor's statement.
+(P3e) "and the vendor says so in its own documentation rather than leaving it to be discovered" — SUPPORTED in substance by P3c (documented on this page) — but "says so" as to the site-block consequence is the staged author's conclusion.
+
+HEADER / FRONTMATTER CHECKS:
+- "no revision printed; pinned by the quoted clause and the access date" — WRONG. The retained body prints "Last updated 2026-06-12 UTC." (S425.html line 1345, in <devsite-content-footer>, i.e. outside the quote-rule article block but on the page; repeated in the page JSON at line 1394). Staged text should record revision 2026-06-12 UTC (page footer), not "no revision printed".
+- Section cite "§ Verify Google's crawlers and fetchers" — SUPPORTED; the h2 exists (id="crawl-verify-crawler", 1 hit). Two of the three sentence families (Special-case crawlers / AdsBot) are NOT under that section; they sit in the page's intro ("Google's clients fall into three categories"), so the § cite is wrong for the exception paragraph. Anchor to use: #crawl-verify-crawler for the three-ways list; the exception has no staged anchor (intro, no h2).
+- Recheck command: `curl -fsSL --compressed URL | grep -F -c "Google's crawlers identify themselves in three ways:"` -> 1. Against retained body: the string appears 1x as a plain-ASCII apostrophe in a single text node (grep -c = 1, grep -o = 1). Command is syntactically sound and the retained body agrees (1). Caveat: the check does not cover the AdsBot clause, which the entry's second half depends on; a second recheck for "ignores the global robots.txt user agent" (count 1 in S425) would cover it. Live fetch not re-run by this seat (unrun).
+- Staged id S398 vs contract's new row S425: staged entry's `source: S398` / verified-at 2026-10-24 are stale-dated relative to the round (retained S425 fetched 2026-10-27 UTC); S398 in SOURCES.append.md row 118 is the same URL but already exists as a row with "mined | 2026-10-24". Contract stages it as S425; the file header must be rekeyed to S425 / verified-at 2026-10-27 if reused.
+- Row S398 table text ends "...ignore the global robots.txt user agent (*) with the ad publisher's permission" — supported by P3c; "the Western statement of the same doctrine Baidu and Yahoo publish" (row's why-column) is NOT ON THIS PAGE.
+
+REFUSED:
+- P2a/P2b/P2c "order matters", "the signal anyone can set", "two that a caller cannot forge" — no S425 support (0 hits forge/spoof/anyone can); do not stage against S425. Forgeability is at best an S426 claim (not checked here).
+- P2d/P2f/P2g Baidu `*.baidu.com`/`*.baidu.jp`, Yahoo! JAPAN address-vs-name, "all three operators" — 0 hits Baidu/Yahoo in S425; cross-operator claims need their own sources.
+- P3a/P3d editorial "block list gets wrong", "has not excluded that one" — inference, not on page; refuse as sourced text (may stay as labelled inference outside any quoted/sourced clause).
+- "no revision printed" — contradicted by the page (Last updated 2026-06-12 UTC).
+- The full special-case sentence as a verbatim quote (29 tokens / 191 chars, over ceilings).
+- "AdsBot and `*`" as a single quote — tail crosses text nodes.
+
+KEPT:
+- Three-ways identification (P1, P2e): quote "Google's crawlers identify themselves in three ways:" (7u/52c, unique) plus list items "The source IP address of the request." (7u/37c) and "The reverse DNS hostname of the source IP." (8u/42c) — all span_tools-clean.
+- AdsBot exception: quote "ignores the global robots.txt user agent" (6u/40c, unique, single text node) — minimum-length passing quote; paraphrase the rest.
+- Special-case-crawler definition as paraphrase only (or a <=25-token sub-span of the sentence; not enumerated here).
+- Recheck command and its -> 1 value (retained body agrees), anchor #crawl-verify-crawler for the identification list. Add "Last updated 2026-06-12 UTC" as the revision pin.
+
+VERDICT: Of the staged entry only the three-signals list and the AdsBot-ignores-* clause are on S425; all Baidu/Yahoo, "anyone can set", "cannot forge" and "order matters" sentences are absent (0 hits), "no revision printed" is wrong (page prints Last updated 2026-06-12 UTC), and the § cite misplaces the exception.

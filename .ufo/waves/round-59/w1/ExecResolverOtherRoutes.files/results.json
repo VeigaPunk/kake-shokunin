@@ -1,0 +1,358 @@
+[
+ {
+  "case": "R1_crlf_registry",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "0",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE12\tS901 row outside Registry section"
+   ]
+  }
+ },
+ {
+  "case": "R1b_crlf_registry_and_knowledge",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "0",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE12\tS902 row outside Registry section"
+   ]
+  }
+ },
+ {
+  "case": "R2_tab_indented_row",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S903 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "0",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R2b_tab_indented_heading",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S904 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "0",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE12\tS904 row outside Registry section"
+   ]
+  }
+ },
+ {
+  "case": "R2c_tab_inside_row_cells",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R3_html_pre_block",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "2",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R3b_html_details_block",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "2",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R3c_html_comment_block",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "2",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R3d_html_pre_before_registry",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S912 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE12\tS912 row outside Registry section"
+   ]
+  }
+ },
+ {
+  "case": "R4_link_ref_def_in_registry",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S915 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R4b_link_ref_def_in_knowledge",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S999 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R4c_registry_row_with_reference_style_link",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R5_list_item_pipe_row",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S919 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R5b_list_item_indented_pipe_row",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "2",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R5c_blockquote_pipe_row",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S923 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R6_heading_trailing_hashes",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S924 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "0",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE12\tS924 row outside Registry section"
+   ]
+  }
+ },
+ {
+  "case": "R6b_heading_trailing_hashes_second_occurrence",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S926 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE12\tS926 row outside Registry section"
+   ]
+  }
+ },
+ {
+  "case": "R6c_heading_lowercase_registry",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S927 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "0",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE12\tS927 row outside Registry section"
+   ]
+  }
+ },
+ {
+  "case": "R7_fullwidth_digits_id",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE02\tS９２８"
+   ]
+  }
+ },
+ {
+  "case": "R7b_cyrillic_lookalike_S_in_knowledge",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R7c_cyrillic_lookalike_S_in_registry",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=0 ids_resolved=0 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "validate_findings": [
+    "kake-shokunin\tE02\tЅ931"
+   ]
+  }
+ },
+ {
+  "case": "R7d_ascii_id_cited_with_lookalike_S",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=0 ids_resolved=0 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R8_id_inside_url_in_knowledge",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S934 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R8b_id_inside_url_not_in_registry",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S936 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R8c_id_inside_url_in_registry_source_cell",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ },
+ {
+  "case": "R8d_id_in_url_matches_sibling_registry_url",
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S940 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=1 unowned=0"
+  },
+  "census": {
+   "census_rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "validate_findings": []
+  }
+ }
+]

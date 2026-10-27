@@ -1,0 +1,260 @@
+### S425 headings
+  H: Technical properties of Google's crawlers and fetchers
+  H: Supported transfer protocols
+  H: Supported content encodings
+  H: File size limits
+  H: Crawl rate and host load
+  H: HTTP Caching
+  H: Verify Google's crawlers and fetchers
+### S425 segments (217 nodes)
+  [1] Overview of Google crawlers and fetchers (user agents)
+  [3] Google uses crawlers and fetchers to perform actions for its products, either automatically or triggered by user request. Crawler (sometimes also called a "robot" or "spider") is a generic term for an
+  [4] automatically discover and scan websites
+  [5] . Fetchers act as a program like
+  [6] wget
+  [7] that typically make a single request on behalf of a user. Google's clients fall into three categories:
+  [10] Looking for the latest updates to this page?
+  [11] See our
+  [12] updates to our documentation
+  [13] .
+  [17] Common crawlers
+  [19] The common crawlers used for Google's products (such as
+  [20] Googlebot
+  [21] ). They always respect robots.txt rules for automatic crawls.
+  [25] Special-case crawlers
+  [27] Special-case crawlers are similar to common crawlers, however are used by specific products where there's an agreement between the crawled site and the Google product about the crawl process. For exam
+  [28] AdsBot
+  [29] ignores the global robots.txt user agent (
+  [30] *
+  [31] ) with the ad publisher's permission.
+  [35] User-triggered fetchers
+  [37] User-triggered fetchers are part of tools and product functions where the end user triggers a fetch. For example,
+  [38] Google Site Verifier
+  [39] acts on the request of a user.
+  [43] Technical properties of Google's crawlers and fetchers
+  [45] Google's crawlers and fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows. To optimize bandwidth usage, these clients are distribu
+  [47] Supported transfer protocols
+  [49] Google's crawlers and fetchers support HTTP/1.1 and
+  [50] HTTP/2
+  [51] . The crawlers will use the protocol version that provides the best crawling performance and may switch protocols between crawling sessions depending on previous crawling statistics. The default proto
+  [52] 421
+  [53] HTTP status code when Google attempts to access your site over HTTP/2. If that's not feasible, you
+  [54] can send a message to the Crawling team
+  [55] (however this solution is temporary).
+  [57] Google's crawler infrastructure also supports crawling through FTP (as defined by
+  [58] RFC959
+  [59] and its updates) and FTPS (as defined by
+  [60] RFC4217
+  [61] and its updates), however crawling through these protocols is rare.
+  [63] Supported content encodings
+  [65] Google's crawlers and fetchers support the following content encodings (compressions):
+  [66] gzip
+  [67] ,
+  [68] deflate
+  [69] , and
+  [70] Brotli (br)
+  [71] . The content encodings supported by each Google user agent is advertised in the
+  [72] Accept-Encoding
+  [73] header of each request they make. For example,
+  [74] Accept-Encoding: gzip, deflate, br
+  [75] .
+  [77] File size limits
+  [79] By default, Google's crawlers and fetchers only crawl the first 15MB of a file, and any content beyond this limit is ignored. However, individual projects may set different limits for their crawlers a
+  [80] like Googlebot
+  [81] may have a smaller size limit (for example, 2MB), or specify a larger file size limit for a PDF than for HTML.
+  [83] Crawl rate and host load
+  [85] Our goal is to crawl as many pages from your site as we can on each visit without overwhelming your server. If your site is having trouble keeping up with Google's crawling requests, you can
+  [86] reduce the crawl rate
+  [87] . Note that sending the inappropriate
+  [88] HTTP response code
+  [89] to Google's crawlers may affect how your site appears in Google products.
+  [91] HTTP Caching
+  [93] Google's crawling infrastructure supports heuristic HTTP caching as defined by the
+  [94] HTTP caching standard
+  [95] , specifically through the
+  [96] ETag
+  [97] response- and
+  [98] If-None-Match
+  [99] request header, and the
+  [100] Last-Modified
+  [101] response- and
+  [102] If-Modified-Since
+  [103] request header.
+  [105] Note: Consider setting both the
+  [106] Etag
+  [107] and
+  [108] Last-Modified
+  [109] values regardless of the preference of Google's crawlers. These headers are also used by other applications such as CMSes.
+  [111] If both
+  [112] ETag
+  [113] and
+  [114] Last-Modified
+  [115] response header fields are present in the HTTP response, Google's crawlers use the
+  [116] ETag
+  [117] value as
+  [118] required by the HTTP standard
+  [119] . For Google's crawlers specifically, we recommend using
+  [120] ETag
+  [121] instead of the
+  [122] Last-Modified
+  [123] header to indicate caching preference as
+  [124] ETag
+  [125] doesn't have date formatting issues.
+  [127] Other HTTP caching directives aren't supported.
+  [129] Individual Google crawlers and fetchers may or may not make use of caching, depending on the needs of the product they're associated with. For example,
+  [130] Googlebot
+  [131] supports caching when re-crawling URLs for Google Search, and
+  [132] Storebot-Google
+  [133] only supports caching in certain conditions.
+  [135] To implement HTTP caching for your site, get in touch with your hosting or content management system provider.
+  [137] ETag
+  [138] and
+  [139] If-None-Match
+  [141] Google's crawling infrastructure supports
+  [142] ETag
+  [143] and
+  [144] If-None-Match
+  [145] as defined by the
+  [146] HTTP Caching standard
+  [147] . Learn more about the
+  [148] ETag
+  [149] response header and its request header counterpart,
+  [150] If-None-Match
+  [151] .
+  [153] Last-Modified and If-Modified-Since
+  [155] Google's crawling infrastructure supports
+  [156] Last-Modified
+  [157] and
+  [158] If-Modified-Since
+  [159] as defined by the
+  [160] HTTP Caching standard
+  [161] with the following caveats:
+  [164] The date in the
+  [165] Last-Modified
+  [166] header must be formatted according to the
+  [167] HTTP standard
+  [168] . To avoid parsing issues, we recommend using the following date format: "Weekday,
+  [169] DD Mon YYYY HH:MM:SS
+  [170] Timezone". For example, "
+  [171] Fri, 4 Sep 1998 19:15:56 GMT
+  [172] ".
+  [174] While not required, consider also setting the
+  [175] max-age
+  [176] field of the
+  [177] Cache-Control
+  [178] response header
+  [179] to help crawlers determine when to recrawl the specific URL. Set the value of the
+  [180] max-age
+  [181] field to the expected number of seconds the content will be unchanged. For example,
+  [182] Cache-Control: max-age=94043
+  [183] .
+  [186] Learn more about the
+  [187] Last-Modified
+  [188] response header and its request header counterpart,
+  [189] If-Modified-Since
+  [190] .
+  [192] Verify Google's crawlers and fetchers
+  [194] Google's crawlers identify themselves in three ways:
+  [197] The HTTP
+  [198] user-agent
+  [199] request header.
+  [201] The source IP address of the request.
+  [203] The reverse DNS hostname of the source IP.
+  [206] Learn how to use these details to
+  [207] verify Google's crawlers and fetchers
+  [208] .
+  [214] Send feedback
+### S426 headings
+  H: Use command line tools
+  H: Use automatic solutions
+### S426 segments (165 nodes)
+  [1] Verify requests from Google crawlers and fetchers
+  [3] You can verify if a request to your server really is
+  [4] from Google
+  [5] . Verification is possible for crawlers such as Googlebot, as well as other requests. This is useful if you're concerned that spammers or other troublemakers are accessing your site while claiming to 
+  [7] Google's crawlers and fetchers fall into three categories:
+  [11] Type
+  [13] Description
+  [15] Reverse DNS mask
+  [17] IP ranges
+  [21] Common crawlers
+  [23] The common crawlers used for Google's products (such as Googlebot). They always respect robots.txt rules for automatic crawls.
+  [26] crawl-***-***-***-***.googlebot.com
+  [27] or
+  [28] geo-crawl-***-***-***-***.geo.googlebot.com
+  [31] common-crawlers.json
+  [35] Special-case crawlers
+  [37] Crawlers or fetchers that perform specific functions for Google products (such as AdsBot) where there's an agreement between the crawled site and the product about the access or for abuse-specific cra
+  [39] rate-limited-proxy-***-***-***-***.google.com
+  [41] special-crawlers.json
+  [45] User-triggered fetchers
+  [47] Tools and product functions where the end user triggers a fetch. For example,
+  [48] Google Site Verifier
+  [49] acts on the request of a user. Because the fetch was requested by a user, these fetchers ignore robots.txt rules.
+  [50] Fetchers controlled by Google originate from IPs in the
+  [51] user-triggered-fetchers-google.json
+  [52] object and resolve to a
+  [53] google.com
+  [54] hostname. IPs in the
+  [55] user-triggered-fetchers.json
+  [56] object resolve to
+  [57] gae.googleusercontent.com
+  [58] hostnames. These IPs are used, for example, if a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the request of the user of that site.
+  [61] ***-***-***-***.gae.googleusercontent.com
+  [62] or
+  [63] google-proxy-***-***-***-***.google.com
+  [67] user-triggered-fetchers.json
+  [68] ,
+  [69] user-triggered-fetchers-google.json
+  [70] , and
+  [71] user-triggered-agents.json
+  [76] There are two methods for verifying requests from Google:
+  [80] Manually
+  [81] : For one-off lookups, use command line tools. This method is sufficient for most use cases.
+  [84] Automatically
+  [85] : For large scale lookups, use an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+  [88] Use command line tools
+  [91] Run a reverse DNS lookup on the accessing IP address from your logs, using the
+  [92] host
+  [93] command.
+  [95] Verify that the domain name is either
+  [96] googlebot.com
+  [97] ,
+  [98] google.com
+  [99] , or
+  [100] googleusercontent.com
+  [101] .
+  [103] Run a forward DNS lookup on the domain name retrieved in step 1 using the
+  [104] host
+  [105] command on the retrieved domain name.
+  [107] Verify that it's the same as the original accessing IP address from your logs.
+  [110] Example 1:
+  [113] host 66.249.66.1
+  [114] 1.66.249.66.in-addr.arpa domain name pointer crawl-66-249-66-1.googlebot.com.
+  [115] host crawl-66-249-66-1.googlebot.com
+  [116] crawl-66-249-66-1.googlebot.com has address 66.249.66.1
+  [118] Example 2:
+  [121] host 35.247.243.240
+  [122] 240.243.247.35.in-addr.arpa domain name pointer geo-crawl-35-247-243-240.geo.googlebot.com.
+  [123] host geo-crawl-35-247-243-240.geo.googlebot.com
+  [124] geo-crawl-35-247-243-240.geo.googlebot.com has address 35.247.243.240
+  [126] Example 3:
+  [129] host 66.249.90.77
+  [130] 77.90.249.66.in-addr.arpa domain name pointer rate-limited-proxy-66-249-90-77.google.com.
+  [131] host rate-limited-proxy-66-249-90-77.google.com
+  [132] rate-limited-proxy-66-249-90-77.google.com has address 66.249.90.77
+  [134] Use automatic solutions
+  [136] Alternatively, you can identify Googlebot by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+  [139] Common crawlers like Googlebot
+  [141] Special crawlers like AdsBot
+  [143] User-triggered fetchers (users)
+  [145] User-triggered fetchers (Google)
+  [147] User-triggered agents
+  [150] For other Google IP addresses from where your site may be accessed (for example,
+  [151] Apps Scripts
+  [152] ), match the accessing IP address against the general
+  [153] list of Google IP addresses
+  [154] . Note that the IP addresses in the JSON files are represented in
+  [155] CIDR format
+  [156] .
+  [162] Send feedback

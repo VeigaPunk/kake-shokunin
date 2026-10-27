@@ -1,0 +1,59 @@
+== C1 minimal forgery: the 'tally' is satisfied by a PATH STRING in a symlink blob ==
+  ls-tree receipts: '120000 blob 0727aef7ec69421468ec1c4d686dc9505afdb2ac\t.ufo/waves/round-59/calibration.md\n120000 blob cf03181cd2eae01ce3e430660379acb91baf26db\t.ufo/waves/round-59/freshness.md\n120000 blob 48f78c47d1479cb0a0a8095d0520be3bc3808138\t.ufo/waves/round-59/operability.md'
+  git show of the receipt symlink blob: 'receipts/16/16'  (a path string, not a document)
+  v1 C1 verdict: rc=0 :: EXIT=0
+  full: "C1 axis-evidence mismatches=0 unresolved=0 rows_no_receipt=0 receipts_off_axis=0 tallies_unfound=0 rows_no_tally=0 rows=3 scores_held=2 superseded_kept=3 met=True  (met: mismatches == 0 AND rows == 3 AND scores_held == 2 AND superseded_kept == 3)\n  operability: pointers=1 unresolved=0 tallies=[{'tal"
+  every blob committed at the measured revision:
+     120000 blob 0727aef7ec69421468ec1c4d686dc9505afdb2ac	.ufo/waves/round-59/calibration.md
+     120000 blob cf03181cd2eae01ce3e430660379acb91baf26db	.ufo/waves/round-59/freshness.md
+     120000 blob 48f78c47d1479cb0a0a8095d0520be3bc3808138	.ufo/waves/round-59/operability.md
+     120000 blob 1c1f44037d3e3f74754bd5424a197c5e97ea693d	SCORECARD.md
+== C3 with an explicit --base that resolves: symlinked registry / lesson ==
+  ls-tree: '120000 blob 603fe9c43141757c4be3bafc5b36b46fbb06c684\tcorpus/SOURCES.md'
+  git show returns the TARGET STRING; rows parseable: True
+  C3 verdict (symlinked registry): rc=1 :: EXIT=1
+     - S425: knowledge entry corpus/knowledge/crawler-identity-signals.md absent at the measured revision
+     - S426: knowledge entry corpus/knowledge/googlebot-verification.md absent at the measured revision
+     - S425: entry absent
+     - S426: entry absent
+     C3_row_shape FAIL
+     - S425: row URL None != 'https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers'
+     - S425: scope or teaches cell is shorter than 20 characters
+     - S425: already in the base registry; not a new row
+     - S426: row URL None != 'https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests'
+     - S426: scope or teaches cell is shorter than 20 characters
+     - S426: already in the base registry; not a new row
+     - S425: used-by is ['corpus/knowledge/crawler-identity-signals.md'], expected ['corpus/knowledge/crawler-identity-signals.md', 'corpus/knowledge/crawler-identity.md']
+     - S425: retained body is 17 bytes, below the 1000-byte floor
+     - S425: retained body sha256 1660da65e603aca826c79b1658ecd273aa712995f25352051478bc6cc2580eff != the digest frozen at the contract commit ff2b9fd7ed074536a460dca57816bffecceb0c186c42f1d551f34918551f5caa
+     - S425: row title '' is not the page's <title> text before the site suffix '' (6+ units)
+     - S425: row anchor carries no `(Last updated YYYY-MM-DD UTC)` printed revision
+     - S425: retained body has no article block (article container .. footer)
+     - S425: row anchor cell is not `§ <heading> (Last updated YYYY-MM-DD UTC)`: 'anchor'
+     - S425: row anchor heading '' is not 3+ units and an <h2>/<h3> of the article block
+     - S426: retained body is 17 bytes, below the 1000-byte floor
+     - S426: retained body sha256 1660da65e603aca826c79b1658ecd273aa712995f25352051478bc6cc2580eff != the digest frozen at the contract commit 8df9d4ade1d1f335060af05229c4d90b15d8136b9807cfab17a088f3292f0879
+     - S426: row title '' is not the page's <title> text before the site suffix '' (6+ units)
+     - S426: row anchor carries no `(Last updated YYYY-MM-DD UTC)` printed revision
+     - S426: retained body has no article block (article container .. footer)
+     - S426: row anchor cell is not `§ <heading> (Last updated YYYY-MM-DD UTC)`: 'anchor'
+     - S426: row anchor heading '' is not 3+ units and an <h2>/<h3> of the article block
+     - S425: no `- S425 ` line in the lesson ## Gate
+     - S426: no `- S426 ` line in the lesson ## Gate
+     - S425: no receipt in .ufo/waves/round-59/sources/receipts.json
+     - S426: no receipt in .ufo/waves/round-59/sources/receipts.json
+     - the inserted correction does not cite S425
+     - no quoted span in the correction passes the C5 span rules against S425 and carries 'IP address'
+  control C3 verdict (real registry): rc=1 :: EXIT=1
+== toplevel-root messages (which check fires) ==
+  C1 --root subdir: rc=2 :: EXIT=2
+  C1 --root .git: rc=2 :: EXIT=2
+  C3 --root subdir: rc=2 :: EXIT=2
+  C3 --root .git: rc=2 :: EXIT=2
+== GIT_* scrubbing (D2 forward fix) ==
+  clean env: rc=0 :: EXIT=0
+  GIT_DIR exported: rc=0 identical=True :: EXIT=0
+  GIT_WORK_TREE exported: rc=0 identical=True :: EXIT=0
+  GIT_INDEX_FILE exported: rc=0 identical=True :: EXIT=0
+  GIT_CONFIG_COUNT exported: rc=0 identical=True :: EXIT=0
+  C3 with GIT_DIR: rc=2 :: EXIT=2

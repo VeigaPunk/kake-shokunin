@@ -1,0 +1,12 @@
+== PYTHONPATH module shadowing -> forged counter verdict ==
+  C1 with PYTHONPATH-shadowed subprocess: rc=2 :: EXIT=2
+  full output: "unevaluable: --root '/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/forge_pys' is not the toplevel of a git repository\nEXIT=2"
+== C2 --work pointing inside the measured repo ==
+  C2 --work inside the measured repo: rc=1 :: EXIT=1
+  git status before: ''
+  git status after : ''
+  scratch dir still exists: True -> []
+== C3: symlinked registry / lesson / receipts ==
+  C3 with a symlinked registry: rc=2 :: EXIT=2
+  ls-tree corpus: '120000 blob be5454ed3a0205e853e268bc76e3fdaad046ee98\tcorpus/SOURCES.md\n040000 tree 76eddf7297d3d087e34250b1540926f80198c089\tcorpus/lessons'
+  git show of the symlinked registry (target string): 'corpus/knowledge/fake.md'

@@ -1,0 +1,88 @@
+[
+ {
+  "case": "F1_zwsp_inside_cited_id",
+  "note": "U+200B between S and the digits: the citation is invisible",
+  "kb_hex": "436974657320533936322077686963682069732072656769737465726564206e6f77686572652e0a",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S962 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "F2_zwsp_inside_registry_id_cell",
+  "note": "U+200B inside the registry id cell: the row does not register",
+  "kb_hex": "436974657320533936332e0a",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "F3_arabic_indic_digits_id",
+  "note": "Arabic-Indic digits: Python's \\d matches them, the census grammar does not",
+  "kb_hex": "43697465732053d9a9d9a9d9a12e0a",
+  "census": {
+   "rows": "1",
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE02\tS٩٩١"
+   ]
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "F4_url_match_substring_clean",
+  "note": "the sibling owns S966 with URL U; the lane cites U2 which merely contains U",
+  "kb_hex": "43697465732053393636202868747470733a2f2f652e6578616d706c652f39363632292e0a",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S966 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=1 unowned=0"
+  }
+ },
+ {
+  "case": "F5_cited_side_fence_and_comment",
+  "note": "ids inside a fenced block and an HTML comment of a knowledge file count as citations",
+  "kb_hex": "436974657320533936372e0a0a6060600a7c2053393638207c2071756f74656420726f77207c0a6060600a0a3c212d2d2063697465732053393639202d2d3e0a",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S968 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nDANGLING S969 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=3 ids_resolved=1 dangling=2 owned_elsewhere=0 unowned=2"
+  }
+ },
+ {
+  "case": "F6_id_glued_to_fullwidth_digit",
+  "note": "an ASCII id glued to a fullwidth digit is read as the ASCII id",
+  "kb_hex": "43697465732053393730efbc9920696e2070617373696e672e0a",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S970９ cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ }
+]

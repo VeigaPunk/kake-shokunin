@@ -27,6 +27,13 @@ gate-owned fixture lanes there, runs the tool and compares exit code and stdout 
   K14 `--revision` with `--root` = a non-repository subdirectory of a repository whose own root holds a green lane
                                                                                                   -> exit 2, no green summary
 
+Version 2 (after wave 1, before any claim was measured; cases and predicate unchanged): the gate selftest is the
+13-control port of w1/ExecC2GateSelftest (base 13/21, cheats 1-15/21, full_fix 21/21); a tool run that exceeds its
+timeout scores exit 124 and fails its case instead of crashing the gate. Disclosed limits demonstrated by that port:
+P6 trusts a printed tally (tally_liar); fixture URL hosts are drawn from the seed (w1/ReviewerC2Counter H1: a constant
+`example.invalid` marker let a fixture-keyed tool tell fixtures from the real lane); K12/K14 are reason-blind (symlink_refuser passes K12 alone); K9 alone is
+passed by dropping what follows an exact `---` line (dash_dropper_exact) — each such control still fails the gate.
+
 Predicate (frozen in `contract.json`):
 
     met: cases_passed == 21 of 21
@@ -58,12 +65,15 @@ def env() -> dict:
 
 
 def run(argv: list[str], cwd: str | None = None, timeout: int = 300) -> tuple[int, str]:
-    p = subprocess.run(argv, capture_output=True, cwd=cwd, env=env(), timeout=timeout)
+    try:
+        p = subprocess.run(argv, capture_output=True, cwd=cwd, env=env(), timeout=timeout)
+    except subprocess.TimeoutExpired:  # version 2: a tool that hangs fails the case, it does not crash the gate (w1/SentinelResolver FIFO)
+        return 124, f"timeout after {timeout}s"
     return p.returncode, p.stdout.decode("utf-8", "replace") + p.stderr.decode("utf-8", "replace")
 
 
 def row(sid: str, indent: str = "") -> str:
-    return f"{indent}| {sid} | fixture — https://example.invalid/{sid} | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |\n"
+    return f"{indent}| {sid} | fixture — {fixture_host()}/{sid} | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |\n"
 
 
 def write(base: str, files: dict[str, str]) -> None:
@@ -135,6 +145,14 @@ def put(base: str, rel, text: str) -> None:
 
 
 SEED: int | None = None  # version 2: fixture ids are drawn per run from S100..S9999 (w1/CriticC2Cheat H1/H2); the seed is printed
+
+
+def fixture_host() -> str:
+    """Version 2 (w1/ReviewerC2Counter H1): the fixture URL host is drawn from the seed, so no constant marker tells a fixture lane
+    from a real one."""
+    import random
+    rnd = random.Random(f"host-{SEED}")
+    return "https://" + "".join(rnd.choice("abcdefghijklmnopqrstuvwxyz") for _ in range(10)) + ".example"
 
 
 def fixture_ids(n: int) -> list[str]:
@@ -252,7 +270,7 @@ def case_results(tool: str, root: str, rev: str, work: str) -> list[tuple[str, b
     fl, lp, _ = lane(work, "p3", registry(reg_ok + row(p3, "    ")), {"ok.md": f"Cites {ok_id} and {p3}.\n"})
     check("P3_four_space_line_is_code", ["--root", lp, "--fleet", fl], 1, [rf"^DANGLING {p3} "], no_ok)
     # P4 (version 2: url-match asserted — w1/ExecC2GateSelftest defect 2)
-    fl, lp, _ = lane(work, "p4", registry(reg_ok), {"ok.md": f"Cites {ok_id} and {p4} (https://example.invalid/{p4}).\n"},
+    fl, lp, _ = lane(work, "p4", registry(reg_ok), {"ok.md": f"Cites {ok_id} and {p4} ({fixture_host()}/{p4}).\n"},
                      siblings={"alpha-shokunin": registry("## Registry\n\n" + HDR + row(p4)), "beta-shokunin": None})
     check("P4_committed_sibling_owns", ["--root", lp, "--fleet", fl], 1,
           [rf"^DANGLING {p4} .*owners=alpha-shokunin url-match=alpha-shokunin$"], no_ok)
@@ -290,14 +308,423 @@ def measure(root: str, rev: str, work: str) -> tuple[int, list[tuple[str, bool, 
     return (0 if all(ok for _, ok, _ in res) and len(res) == NCASES else 1), res
 
 
-# --------------------------------------------------------------------------- selftest
-# Version 1: stub. Wave 1 ports the round-58 seven-control gate selftest to the 21 cases before any claim is measured.
+# --------------------------------------------------------------------------- selftest (wave-1 port)
+# Version 1 returned 2 (stub). This port scores the gate itself on the 21 round-59 cases: every control below is
+# a tool whose behaviour is known, and it must come out at the score the control states. A case that can no
+# longer fail, or that fails for the wrong reason, shows up as a wrong score. `measure()` and `case_results()`
+# are not modified: each control is scored by the same measure() the gate uses.
+#
+# Substrate: the round-58 selftest built its cheat controls as a mini resolver (MINI_STUB). Ported here, every
+# control is a variant of the *base tool* itself (`git show <BASE_REV>:scripts/id_resolver.py`) with one textual
+# mutation, so each cheat class is scored on real code. Expected scores are derived from the case specs in this
+# file, never observed from a run:
+#   const_green          1/21  P1 only (the fixed green line happens to satisfy P1's summary, nothing else)
+#   fence_drop           9/21  K1,K2,K3,K6 (fenced rows count) + K8-K14 + P6
+#   always_exit_one     10/21  K8-K14 + P1,P2,P6,P7 (every case that needs exit 0)
+#   blanket_dangling     1/21  P5 only (the fleet check runs before the blanket branch)
+#   near_miss_p6        13/21  K8-K14 + P6 (tally 65/65, one below the 66 floor)
+#   tally_liar          14/21  K8-K14 (a lying 66/66 tally satisfies P6; the seven K cases still catch the tool)
+#   base_tool           13/21  K8-K14 + P6 (the contract's base control, seed 59)
+#   partial_fix_k8_k9   15/21  K10-K14 + P6 (two of the seven disclosed routes closed)
+#   symlink_refuser     14/21  K8,K9,K10,K11,K13,K14,P6 (passes K12 by refusing every symlink, fails K10/K11)
+#   dash_dropper_any     1/21  P5 only (the table header's own dashes line empties the registry; P5 asserts exit 2
+#                              on an absent --fleet, which the fleet check decides before any registry parse)
+#   dash_dropper_exact  14/21  K8,K10,K11,K12,K13,K14,P6 (passes K9 by dropping what follows any `---` line)
+#   full_fix            21/21  no case fails: all seven routes closed and the tool's own suite grown to 66. It
+#                              exists to show every case is satisfiable — without it, a case that can never pass
+#                              would look like an expected failure in every cheat control.
+#   full_fix_no_suite   20/21  P6 only: the same seven fixes with the base 59-case suite, one below the 66 floor
+#
+# P7 never reads the lane's own revision here: each control is committed as `scripts/id_resolver.py` of a
+# gate-built fixture lane whose registry holds 106 rows and whose one knowledge file cites all 106 ids, so P7's
+# floor (ids_cited >= 106) is satisfiable in a fixture. The only lane read is `git show <BASE_REV>:...`.
+
 BASE_REV = "fd6303ce5c14b3f892dec586297a942ab6e4193b"
+
+ALL_CASES = [
+    "K1_fenced_heading_before_registry",
+    "K2_backtick_fence_inside_registry",
+    "K3_tilde_fence_inside_registry",
+    "K4_non_ascii_path_at_revision",
+    "K5_git_quoted_path_at_revision",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves",
+    "K7_newline_path_at_revision",
+    "K8_html_comment_row_is_not_registered",
+    "K9_setext_heading_ends_registry",
+    "K10_in_lane_symlinked_dir_is_read",
+    "K11_revision_symlink_resolved_in_tree",
+    "K12_registry_outside_lane_is_unevaluable",
+    "K13_non_utf8_path_at_revision",
+    "K14_non_toplevel_root_is_unevaluable",
+    "P1_three_space_row_resolves",
+    "P2_row_after_closed_fence_resolves",
+    "P3_four_space_line_is_code",
+    "P4_committed_sibling_owns",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest",
+    "P7_real_lane_green",
+]
+K17 = ALL_CASES[:7]
+K8_14 = ALL_CASES[7:14]
+K1, K2, K3, K4, K5, K6, K7 = K17
+K8, K9, K10, K11, K12, K13, K14 = K8_14
+P1, P2, P3, P4, P5, P6, P7 = ALL_CASES[14:]
+BASE_PASS = K17 + [P1, P2, P3, P4, P5, P7]   # the base tool at BASE_REV: 13/21 (contract base control, seed 59)
+BASE_FAIL = K8_14 + [P6]                     # K8-K14 plus the P6 floor (the base tool prints 59/59)
+
+CONST_STUB = '''#!/usr/bin/env python3
+"""C2 gate-selftest control: a constant green line, exit 0, whatever the input."""
+import sys
+
+print("ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0")
+sys.exit(0)
+'''
+
+
+def _patch(src: str, old: str, new: str) -> str:
+    if src.count(old) != 1:
+        raise RuntimeError(f"control patch anchor is not unique: {old.splitlines()[0][:70]!r}")
+    return src.replace(old, new)
+
+
+FENCE_DROP_OLD = "        fence = _fence(line)\n        if fence is not None:\n            continue\n"
+FENCE_DROP_NEW = "        fence = None  # control: fences are not tracked, so a fenced row counts as a row\n"
+ALWAYS_ONE_OLD = "    return result.status\n"
+ALWAYS_ONE_NEW = "    return 1  # control: every evaluated lane exits 1\n"
+BLANKET_OLD = "    dangling_ids = sorted(set(cited) - set(registry))\n"
+BLANKET_NEW = "    dangling_ids = sorted(cited)  # control: every cited id is reported dangling\n"
+TALLY_OLD = '    print(f"selftest: {passed}/{len(cases)}")\n'
+COMMENT_FIX_OLD = "    rows = {}\n    inside = False\n    fence = None\n"
+COMMENT_FIX_NEW = ('    rows = {}\n    inside = False\n    fence = None\n'
+                   '    text = re.sub(r"(?s)<!--.*?-->", "", text)  # control fix: a row inside an HTML comment registers nothing\n')
+SETEXT_FIX_OLD = "        if SECTION_END_RE.match(line):\n            inside = False\n            continue\n"
+SETEXT_FIX_NEW = ("        if SECTION_END_RE.match(line):\n            inside = False\n            continue\n"
+                  "        if re.match(r\"^ {0,3}-{3,}[ \\t]*$\", line):  # control fix: a setext H2 underline ends the section\n"
+                  "            inside = False\n            continue\n")
+EVAL_DEF = "def evaluate(root, revision=None, fleet=None):\n"
+SYMLINK_HELPER = ('def _any_symlink(root):\n'
+                  '    for dirpath, dirnames, filenames in os.walk(root):\n'
+                  '        for name in list(dirnames) + list(filenames):\n'
+                  '            if os.path.islink(os.path.join(dirpath, name)):\n'
+                  '                return True\n'
+                  '    return False\n'
+                  '\n'
+                  '\n'
+                  'def evaluate(root, revision=None, fleet=None):\n')
+SYMLINK_OLD = "    result = evaluate(args.root, args.revision, args.fleet)\n"
+SYMLINK_NEW = ('    if _any_symlink(args.root):\n'
+               '        print("id_resolver: unevaluable: symlink present under the lane root", file=sys.stderr)\n'
+               '        return 2\n'
+               '    result = evaluate(args.root, args.revision, args.fleet)\n')
+DASH_LOOP_OLD = '    for raw in text.splitlines():\n        line = raw.rstrip("\\r")\n'
+
+
+def _stub(src: str, fence_drop: bool = False, always_exit_one: bool = False,
+          blanket_dangling: bool = False, tally: str | None = None) -> str:
+    """The round-58 control vocabulary applied to the base tool source: every cheat class is a real-code variant."""
+    out = src
+    if fence_drop:
+        out = _patch(out, FENCE_DROP_OLD, FENCE_DROP_NEW)
+    if always_exit_one:
+        out = _patch(out, ALWAYS_ONE_OLD, ALWAYS_ONE_NEW)
+    if blanket_dangling:
+        out = _patch(out, BLANKET_OLD, BLANKET_NEW)
+    if tally is not None:
+        out = _patch(out, TALLY_OLD, f'    print("selftest: {tally}")  # control: a tally the tool did not earn\n')
+    return out
+
+
+def _partial_fix(src: str) -> str:
+    """Two of the seven disclosed round-59 routes closed (K8 HTML comment, K9 setext), five still open."""
+    return _patch(_patch(src, COMMENT_FIX_OLD, COMMENT_FIX_NEW), SETEXT_FIX_OLD, SETEXT_FIX_NEW)
+
+
+def _symlink_refuser(src: str) -> str:
+    """A sniffing control: refuse every lane that holds a symlink instead of resolving it (attempts K12)."""
+    return _patch(_patch(src, EVAL_DEF, SYMLINK_HELPER), SYMLINK_OLD, SYMLINK_NEW)
+
+
+def _dash_dropper(src: str, any_dashes: bool) -> str:
+    """A sniffing control: drop everything after a dashes line (attempts K9). any_dashes also fires on `| --- |`."""
+    rule = ('        if "---" in line:  # control: every line after a dashes line is dropped\n            break\n'
+            if any_dashes else
+            '        if line.strip() == "---":  # control: every line after a setext underline is dropped\n            break\n')
+    return _patch(src, DASH_LOOP_OLD, DASH_LOOP_OLD + rule)
+
+
+WALK_OLD = "    for dirpath, dirnames, filenames in os.walk(base):\n"
+WALK_NEW = ("    for dirpath, dirnames, filenames in os.walk(base, followlinks=True):"
+            "  # fix K10: an in-lane symlinked knowledge dir is walked\n")
+LS_TREE_OLD = ('        proc = _git(root, "ls-tree", "-r", "-z", "--name-only", revision)\n')
+LS_TREE_NEW = '        proc = _git(root, "ls-tree", "-r", "-z", revision)  # fix K11: modes are needed to see a symlink\n'
+SYMLINK_READ_OLD = '''        rels = [rel for rel in _nul_paths(proc.stdout)
+                if rel.startswith(KNOWLEDGE_REL + "/") and rel.endswith(".md")]
+        bodies = {}
+        for rel in rels:
+            blob = _git(root, "show", f"{revision}:{rel}")
+            if blob.returncode != 0:
+                return None, f"cannot read {rel} at {revision[:12]}"
+            bodies[rel] = _text(blob)
+'''
+SYMLINK_READ_NEW = '''        entries = [chunk.partition("\\t") for chunk in _nul_paths(proc.stdout)]
+        rels = [(meta.split(" ")[0], rel) for meta, _sep, rel in entries
+                if rel.startswith(KNOWLEDGE_REL + "/") and rel.endswith(".md")]
+        bodies = {}
+        for mode, rel in rels:
+            blob = _git(root, "show", f"{revision}:{rel}")
+            if blob.returncode != 0:
+                return None, f"cannot read {rel} at {revision[:12]}"
+            if mode == "120000":  # fix K11: a committed symlink is resolved inside the tree, never parsed as its target
+                target = os.path.normpath(os.path.join(os.path.dirname(rel), _text(blob).strip()))
+                resolved = _git(root, "show", f"{revision}:{target}")
+                if resolved.returncode != 0:
+                    continue
+                bodies[rel] = _text(resolved)
+                continue
+            bodies[rel] = _text(blob)
+'''
+REGISTRY_OLD = ('    path = os.path.join(root, REGISTRY_REL)\n'
+                '    if not os.path.isfile(path):\n'
+                '        return None, f"registry absent: {REGISTRY_REL}"\n')
+REGISTRY_NEW = (REGISTRY_OLD +
+                '    if os.path.islink(path):  # fix K12: a registry symlinked out of the lane is not lane evidence\n'
+                '        return None, f"registry is a symlink: {REGISTRY_REL}"\n')
+NUL_OLD = '    return [chunk.decode("utf-8", "replace") for chunk in data.split(b"\\0") if chunk]\n'
+NUL_NEW = '    return [chunk.decode("utf-8", "surrogateescape") for chunk in data.split(b"\\0") if chunk]  # fix K13\n'
+ROOT_OLD = ('    if not os.path.isdir(args.root):\n'
+            '        print(f"id_resolver: unevaluable: root {args.root!r} is not a directory", file=sys.stderr)\n'
+            '        return 2\n')
+ROOT_NEW = (ROOT_OLD +
+            '    top = _git(args.root, "rev-parse", "--show-toplevel")  # fix K14: never measure through an ancestor repo\n'
+            '    if top.returncode == 0 and os.path.realpath(_text(top).strip()) != os.path.realpath(args.root):\n'
+            '        print(f"id_resolver: unevaluable: root {args.root!r} is inside a repository, not its toplevel",\n'
+            '              file=sys.stderr)\n'
+            '        return 2\n')
+MAIN_HEAD_OLD = "def main(argv=None):\n    parser = argparse.ArgumentParser(\n"
+MAIN_HEAD_NEW = ('def main(argv=None):\n'
+                 '    try:\n'
+                 '        sys.stdout.reconfigure(errors="backslashreplace")  # fix K13: a non-UTF-8 path prints, never raises\n'
+                 '    except (AttributeError, ValueError):\n'
+                 '        pass\n'
+                 '    parser = argparse.ArgumentParser(\n')
+CASES_ANCHOR = "def _cases():\n"
+CASES_TAIL_OLD = '        ("a quote-character knowledge path is read at a revision", case_revision_reads_quote_character_path),\n    ]\n'
+CASES_TAIL_NEW = (CASES_TAIL_OLD.replace("    ]\n", "") +
+                  '        ("an HTML-comment row registers nothing", case_html_comment_rows_do_not_register),\n'
+                  '        ("a setext underline ends the Registry section", case_setext_underline_ends_the_section),\n'
+                  '        ("an in-lane symlinked knowledge dir is read", case_in_lane_symlinked_knowledge_dir_is_read),\n'
+                  '        ("a committed symlink is resolved inside the tree", case_committed_symlink_is_resolved),\n'
+                  '        ("a registry symlinked out of the lane is unevaluable", case_registry_symlink_is_unevaluable),\n'
+                  '        ("a non-toplevel root is unevaluable", case_non_toplevel_root_is_unevaluable),\n'
+                  '        ("a non-UTF-8 path is read at a revision", case_non_utf8_path_at_a_revision),\n'
+                  '    ]\n')
+EXTRA_FUNCS = '''def case_html_comment_rows_do_not_register():
+    _check(parse_registry("## Registry\\n<!--\\n| S001 | https://e.example/1 |\\n-->\\n") == {},
+           "a row inside an HTML comment registered")
+
+
+def case_setext_underline_ends_the_section():
+    rows = parse_registry("## Registry\\n| S001 | https://e.example/1 |\\nSub\\n---\\n| S002 | https://e.example/2 |\\n")
+    _check(sorted(rows) == ["S001"], f"a setext underline did not end the section: {sorted(rows)}")
+
+
+def case_in_lane_symlinked_knowledge_dir_is_read():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "Cites S001.\\n"})
+        _write(os.path.join(lane, "notes", "b.md"), "Cites S777.\\n")
+        os.symlink("../../notes", os.path.join(lane, KNOWLEDGE_REL, "linked"))
+        res = _summary(lane, fleet=base)
+        _check(res.status == 1 and "S777" in res.cited, f"a symlinked knowledge dir was not read: {sorted(res.cited)}")
+
+
+def case_committed_symlink_is_resolved():
+    with _tmpdir() as base:
+        lane = _repo(os.path.join(base, "demo-shokunin"))
+        _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
+                       KNOWLEDGE_REL + "/a.md": "Cites S001.\\n",
+                       "corpus/notes.md": "Cites S777.\\n"})
+        os.symlink("../notes.md", os.path.join(lane, KNOWLEDGE_REL, "linked.md"))
+        _git_ok(["git", "-C", lane, "add", "-A"])
+        _git_ok(["git", "-C", lane, "-c", "user.name=selftest", "-c", "user.email=selftest@local",
+                 "-c", "commit.gpgsign=false", "commit", "-q", "-m", "link"])
+        res = _summary(lane, revision="HEAD", fleet=base)
+        _check(res.status == 1 and "S777" in res.cited, f"a committed symlink was not resolved: {sorted(res.cited)}")
+
+
+def case_registry_symlink_is_unevaluable():
+    with _tmpdir() as base:
+        lane = _fleet(base, [("S001", "https://e.example/1")], {"a.md": "Cites S001.\\n"})
+        outside = os.path.join(base, "outside.md")
+        _write(outside, _registry([("S001", "https://e.example/1"), ("S777", "https://e.example/7")]))
+        os.remove(os.path.join(lane, REGISTRY_REL))
+        os.symlink(outside, os.path.join(lane, REGISTRY_REL))
+        res = _summary(lane, fleet=base)
+        _check(res.status == 2, f"a registry symlinked out of the lane was read: status={res.status}")
+
+
+def case_non_toplevel_root_is_unevaluable():
+    with _tmpdir() as base:
+        anc = _repo(os.path.join(base, "anc"))
+        _commit(anc, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
+                      KNOWLEDGE_REL + "/a.md": "Cites S001.\\n"})
+        lane = os.path.join(anc, "lane")
+        _write(os.path.join(lane, REGISTRY_REL), _registry([("S001", "https://e.example/1")]))
+        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001.\\n")
+        _check(main(["--root", lane, "--fleet", base]) == 2, "a non-toplevel root was measured")
+
+
+def case_non_utf8_path_at_a_revision():
+    with _tmpdir() as base:
+        lane = _repo(os.path.join(base, "demo-shokunin"))
+        _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
+                       KNOWLEDGE_REL + "/a.md": "Cites S001.\\n"})
+        with open(os.path.join(os.fsencode(lane), b"corpus/knowledge/bad\\xff.md"), "wb") as handle:
+            handle.write(b"Cites S777.\\n")
+        _git_ok(["git", "-C", lane, "add", "-A"])
+        _git_ok(["git", "-C", lane, "-c", "user.name=selftest", "-c", "user.email=selftest@local",
+                 "-c", "commit.gpgsign=false", "commit", "-q", "-m", "bad"])
+        res = _summary(lane, revision="HEAD", fleet=base)
+        _check(res.status == 1 and "S777" in res.cited, f"a non-UTF-8 path was not read: {res.error}")
+
+
+'''
+
+
+def _full_fix(src: str, pad_suite: bool = True) -> str:
+    """All seven disclosed routes closed; with `pad_suite` the built-in suite grows 59 -> 66.
+
+    The reference control: it exists to show every one of the 21 cases is satisfiable. Without it, a case that
+    can never pass would look like an expected failure in every cheat control and the selftest would stay green.
+    `pad_suite=False` isolates P6: the same seven fixes with the 59-case suite fail the 66 floor (20/21).
+    """
+    out = _partial_fix(src)
+    out = _patch(out, WALK_OLD, WALK_NEW)
+    out = _patch(out, LS_TREE_OLD, LS_TREE_NEW)
+    out = _patch(out, SYMLINK_READ_OLD, SYMLINK_READ_NEW)
+    out = _patch(out, REGISTRY_OLD, REGISTRY_NEW)
+    out = _patch(out, NUL_OLD, NUL_NEW)
+    out = _patch(out, ROOT_OLD, ROOT_NEW)
+    out = _patch(out, MAIN_HEAD_OLD, MAIN_HEAD_NEW)
+    if pad_suite:
+        out = _patch(out, CASES_ANCHOR, EXTRA_FUNCS + CASES_ANCHOR)
+        out = _patch(out, CASES_TAIL_OLD, CASES_TAIL_NEW)
+    return out
+
+
+def _lane_root() -> str | None:
+    here = os.path.dirname(os.path.abspath(__file__))
+    for _ in range(8):
+        if os.path.exists(os.path.join(here, ".git")) and os.path.isfile(os.path.join(here, "corpus", "SOURCES.md")):
+            return here
+        parent = os.path.dirname(here)
+        if parent == here:
+            break
+        here = parent
+    return os.environ.get("C59_LANE_ROOT")
+
+
+def _base_tool() -> tuple[str | None, str]:
+    lane = _lane_root()
+    if not lane:
+        return None, "lane root not found above the counter path (no .git + corpus/SOURCES.md ancestor)"
+    rc, src = run(["git", "-C", lane, "show", f"{BASE_REV}:{TOOL}"])
+    if rc != 0:
+        return None, f"git show {BASE_REV[:12]}:{TOOL} failed in {lane}"
+    return src, ""
+
+
+def _fixture_lane(base: str, tool_src: str, rows: int = 106) -> tuple[str, str]:
+    """A committed fixture lane holding the tool under test plus a registry of `rows` ids, all cited."""
+    ids = [f"S{100 + i}" for i in range(rows)]
+    path = os.path.join(base, "lane")
+    files = {
+        "scripts/id_resolver.py": tool_src,
+        "corpus/SOURCES.md": registry("## Registry\n\n" + HDR + "".join(row(sid) for sid in ids)),
+        "corpus/knowledge/ok.md": "Cites " + " ".join(ids) + ".\n",
+    }
+    write(path, files)
+    run(["git", "-C", path, "init", "-q"])
+    rc, top = run(["git", "-C", path, "rev-parse", "--show-toplevel"])
+    if rc != 0 or os.path.realpath(top.strip()) != os.path.realpath(path):
+        raise RuntimeError(f"fixture repo toplevel mismatch at {path}")
+    run(["git", "-C", path, "add", "-A"])
+    run(["git", "-C", path, "-c", "user.name=selftest", "-c", "user.email=selftest@local",
+         "-c", "commit.gpgsign=false", "commit", "-q", "-m", "fixture"])
+    rc, head = run(["git", "-C", path, "rev-parse", "HEAD"])
+    return path, head.strip()
+
+
+def _control(name: str, base: str, src: str, expect: int, fails: list[str]) -> tuple[bool, str]:
+    root, head = _fixture_lane(os.path.join(base, name), src)
+    work = os.path.join(base, name, "work")
+    os.makedirs(work, exist_ok=True)
+    code, res = measure(root, head, work)
+    marks = {n: ok for n, ok, _ in res}
+    passed = sum(1 for _, ok, _ in res if ok)
+    problems = []
+    missing = [n for n in ALL_CASES if n not in marks]
+    if missing:
+        problems.append("cases-missing " + ",".join(missing))
+    if len(res) != NCASES:
+        problems.append(f"cases={len(res)}")
+    if passed != expect:
+        problems.append(f"score={passed}/{NCASES} expected={expect}/{NCASES}")
+    if expect != NCASES - len(fails):
+        problems.append(f"spec expect={expect} vs fails={len(fails)}")
+    if code != (0 if passed == NCASES else 1):
+        problems.append(f"exit={code}")
+    wrong_pass = [n for n in fails if marks.get(n)]
+    wrong_fail = [n for n in ALL_CASES if n not in fails and not marks.get(n, False)]
+    if wrong_pass:
+        problems.append("passed-but-should-fail " + ",".join(wrong_pass))
+    if wrong_fail:
+        problems.append("failed-but-should-pass " + ",".join(wrong_fail))
+    failing = ",".join(n for n, ok, _ in res if not ok) or "-"
+    return (not problems, f"{name}: score={passed}/{NCASES} exit={code} failing=[{failing}]"
+            + ("; " + "; ".join(problems) if problems else ""))
 
 
 def selftest() -> int:
-    print("c59 resolver-cases selftest: version 1 stub (not yet ported); exit 2")
-    return 2
+    global SEED
+    SEED = 59  # fixed fixture ids so the selftest is repeatable (the round-59 base receipt used seed 59)
+    base_tool, why = _base_tool()
+    parent = os.environ.get("TMPDIR") or tempfile.gettempdir()
+    base = tempfile.mkdtemp(prefix="c59-rc-selftest-", dir=parent)
+    ok = True
+    ran = 0
+    try:
+        spec = []
+        if base_tool is None:
+            ok = False
+            print(f"  unrun base_tool_git_show: {why}")
+        else:
+            spec = [
+                ("const_green", CONST_STUB, 1, [n for n in ALL_CASES if n != P1]),
+                ("fence_drop", _stub(base_tool, fence_drop=True), 9, [K1, K2, K3, K6] + K8_14 + [P6]),
+                ("always_exit_one", _stub(base_tool, always_exit_one=True), 10, K8_14 + [P1, P2, P6, P7]),
+                ("blanket_dangling", _stub(base_tool, blanket_dangling=True), 1, [n for n in ALL_CASES if n != P5]),
+                ("near_miss_p6", _stub(base_tool, tally="65/65"), 13, BASE_FAIL),
+                ("tally_liar", _stub(base_tool, tally="66/66"), 14, list(K8_14)),
+                ("base_tool", base_tool, 13, BASE_FAIL),
+                ("partial_fix_k8_k9", _partial_fix(base_tool), 15, [K10, K11, K12, K13, K14, P6]),
+                ("symlink_refuser", _symlink_refuser(base_tool), 14, [K8, K9, K10, K11, K13, K14, P6]),
+                ("dash_dropper_any", _dash_dropper(base_tool, any_dashes=True), 1,
+                 [n for n in ALL_CASES if n != P5]),
+                ("dash_dropper_exact", _dash_dropper(base_tool, any_dashes=False), 14,
+                 [K8, K10, K11, K12, K13, K14, P6]),
+                ("full_fix", _full_fix(base_tool), 21, []),
+                ("full_fix_no_suite", _full_fix(base_tool, pad_suite=False), 20, [P6]),
+            ]
+        for name, control_src, expect, fails in spec:
+            ran += 1
+            good, note = _control(name, base, control_src, expect, fails)
+            ok = ok and good
+            print(f"  {'ok  ' if good else 'FAIL'} {note}")
+    finally:
+        shutil.rmtree(base, ignore_errors=True)
+    print(f"selftest: {'ok' if ok else 'FAILED'} ({ran} controls scored; P7 satisfied on a fixture lane)"
+          f" exit {0 if ok else 1}")
+    return 0 if ok else 1
 
 
 def main() -> int:

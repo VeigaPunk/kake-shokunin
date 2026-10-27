@@ -1,0 +1,16 @@
+# ExecValidateAppend — dry-run receipt (scratch copy, LANE env override)
+date_utc: 2026-10-27
+scratch_clone: /fast/scratch/hyaku/kake-r59/ExecValidateAppend/lane-copy (git clone -q --shared of the lane; toplevel verified)
+script: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-59/w1/ExecValidateAppend.files/validate_append.sh
+argv: LANE=/fast/scratch/hyaku/kake-r59/ExecValidateAppend/lane-copy bash /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-59/w1/ExecValidateAppend.files/validate_append.sh
+script_exit: 0
+census-argv.txt: /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file .ufo/waves/round-59/assimilation/validate/corpus/SOURCES.md
+census-exit.txt: exit=0
+last stdout line: file	ok	/fast/scratch/hyaku/kake-r59/ExecValidateAppend/lane-copy/.ufo/waves/round-59/assimilation/validate/corpus/SOURCES.md
+stderr: 0 bytes
+derived used-by targets:
+  SCORECARD.md
+  scripts/source_recheck.py
+  SKILL.md
+  .ufo/waves/round-41/c1_count.py
+  .ufo/waves/round-41/oracle_crosscheck.py

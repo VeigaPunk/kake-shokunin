@@ -91,3 +91,41 @@ Assimilation theme: `crawler identity verification signals` from `merge/kake/`. 
 `amendments/corpus/knowledge/crawler-identity.md` (round2) and `yahoo-crawler-ua-carrier-survey.md`.
 Mined mistakes (to be shown able to fail): routed defect D1 carried seven rounds unrepaired (C3 C9, base 0/9); axis evidence pointing
 at `/tmp` and a removed tree while scores stayed 10 (C1, base 16 mismatches).
+
+## Counter versions — version 2 (after wave 1, before any claim was measured)
+
+Wave 1 (66 seats, `w1/`) attacked every version-1 counter before data. Version 1 stays committed at `45a92b64` as history; version 2 is
+what the claims are judged on. Base controls were re-run under version 2 under new file names (`controls/base-c{1,2,3}-*-v2.txt`); the
+version-1 receipts are never rewritten. Disclosure: during integration the L1 ran the drafted C1 cells through the C1 working copy in
+a scratch clone (and wave-1 scribes trial-scored their single rows under version 1, as assigned); the C1 changes made after the first
+L1 trial (receipt directory rule, passing-receipt rule, symlink rule, superseded-heading rule) all tighten. The one loosening in version
+2 is C3's row-title floor (6 -> 3 units), made because a faithful English title could not pass; no C3 after-state had been scored.
+
+- **C1** (`c59_axis_evidence.py` v2). Predicate (frozen, version 2): **met: mismatches == 0 AND tables == 1 AND rows == 3 AND axes_ordered == 1 AND scores_held == 2 AND superseded_kept == 3**.
+  Changes (each tightens): exactly one rendered axis table — HTML comments, fenced code and indented code do not count
+  (w1/CriticC1Parse, w1/CriticC1Cheat shadow table); unescaped-pipe cell split (w1/CriticC1Parse false red); path mentions outside code
+  spans, `<code>` spans and Unicode slash lookalikes are pointers (w1/CriticC1Cheat); a committed symlink never resolves
+  (w1/SentinelCounters F1/F2); a receipt lives under `round-N/control(s)/` (w1/LabratC1Controls) of a round before 59 whose
+  base-revision section is kept verbatim and holds a table row whose `axis` column begins with the axis name (w1/CriticC1Cheat); a
+  tally must occur in a cited on-axis receipt (w1/CriticC1Cheat); each row cites at least one receipt of a met / exit-0 run
+  (`rows_no_passing_receipt`, w1/ReviewerC1Contract); replaced cells are kept under a `## ` heading naming them superseded, outside
+  comments (w1/ReviewerC1Contract, w1/CriticC1Cheat); the row-order rule is in the predicate (w1/ScribeC2SkillRows finding 1).
+  Selftest: L1-written 24-case matrix (`controls/c1-selftest-v2.txt`); w1/ExecC1Selftest's version-1 matrix stays as wave evidence.
+  Base under v2: `mismatches=24` (11 unresolved, 3 rows without a receipt, 3 without a passing receipt, 4 tallies unfound, 3 rows
+  without a found tally), exit 1. Stated limits: whether a cited receipt supports the score (reviewer-checked); a tally can occur in
+  a receipt without being its own result (w1/CriticC1Cheat coincidental tally).
+- **C2** (`c59_resolver_cases.py` v2). Predicate unchanged: **met: cases_passed == 21 of 21**. Gate selftest = the 13-control port of
+  w1/ExecC2GateSelftest (base 13/21, cheats 1–15/21, full_fix 21/21; `controls/c2-selftest-v2.txt`); a hanging tool run fails its case
+  (exit 124) instead of crashing the gate (w1/SentinelResolver FIFO); fixture URL hosts are drawn from the seed instead of the constant
+  `example.invalid` (w1/ReviewerC2Counter H1: a fixture-keyed tool could tell fixtures from the real lane). Stated limits demonstrated by that port and w1/MutC2Gate: P6
+  trusts a printed tally (a real defect plus `selftest: 66/66` scores 21/21); K12/K14 are reason-blind; K9 alone is passed by an exact
+  `---` dropper. w1/MutC2Gate's eight proposed cases Q1–Q8 (validated 29/29 on a green tool) are carried to a later round, not
+  added here. Tool-side hardening beyond the 21 cases (FIFO skip, dangling-link skip, descriptor-level containment, thematic break)
+  is verified by the tool's own selftest and the residual reviewers, not by this counter.
+- **C3** (`c59_quote_truth.py` v2). Predicate unchanged: **met: conditions_passed == 9 of 9**. Changes: `Last updated` read only
+  outside <script>/<style>; anchor headings exclude <pre>/<code>; page chrome (<aside>, <nav>, feedback/rating widgets) is not article
+  text (w1/ExecC3BaseControls H2); C9 attaches the correction exactly where the stale bullet ends and reads tag, citation and span as
+  rendered prose (comments, code spans and tag attributes removed; w1/CriticC3Cheat, w1/ExecC3SelftestPort); row-title floor 3 units
+  (loosened, above). Selftest: w1/ExecC3SelftestPort's matrix plus one chrome-span case, 121/121 (`controls/c3-selftest-v2.txt`).
+  Base under v2: 0/9, exit 1. Stated limits: a tagged correction that restates the stale claim, and prose that contradicts true quotes,
+  still meet (quote truth, not support; w1/ExecC3BaseControls H4, (b)).

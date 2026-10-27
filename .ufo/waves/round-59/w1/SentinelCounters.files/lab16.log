@@ -1,0 +1,12 @@
+== baseline (clean env) ==
+  rc=1 passes=13
+    K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+== (a) inherited hook deletes the nested lane registry that K14 is built on ==
+  rc=1 passes=13
+    K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  marker: b'nested lane registry removed + restaged\n'
+== (b) init.templateDir alone (no hooksPath) plants a pre-commit hook ==
+  rc=1 passes=13 template_hook_fired=True
+  firings: 18; first cwd: template hook fired in /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/w16_tpl/c59-rc-1b0go8yo/tmpy8tjcouh/fleet/kake-shokunin
+== (c) C3 module-level view: is tempfile ever used? ==
+  ['60: import tempfile']

@@ -1,0 +1,32 @@
+ScribeGroundMap — round-55 readme-index counter, ordering evidence
+Instrument: .ufo/waves/round-55/c55_readme_index.py (version 2, PREDICATE "met: index_mismatches == 0 AND knowledge_files >= 46")
+Date of runs: 2026-10-27 (UTC), fleet host; no lane mutation.
+
+A. Lane baseline (committed HEAD of kake-shokunin, read-only)
+  $ python3 -B .ufo/waves/round-55/c55_readme_index.py --root . --revision HEAD
+  C1 readme-index index_mismatches=0 knowledge_files=56 met=True
+    unindexed=0 multi=0 thin=0 duplicate=0 head_changed=0 deleted=0 dangling=0 coverage_rows=58
+  EXIT=0
+
+B. Fixture (git init in /fast/scratch/hyaku/kake-r59/ScribeGroundMap/, 52 knowledge files,
+   corpus/knowledge/crawler-identity.md with the stale bullet at its head, coverage map indexing every
+   knowledge file). The CLI has no --base flag and hard-codes BASE_REV fcaf4b85, so the module's
+   measure(root, rev, base_rev=BASE) was called with the fixture's own base commit.
+
+  B1 README rows added one revision BEFORE the two entry files exist:
+     exit 1; dangling=['knowledge/crawler-identity-signals.md', 'knowledge/googlebot-verification.md'];
+     head_changed=[]; thin=[]; duplicate=[]; multi=[]
+
+  B2 two entry files + the two proposed coverage rows in the same revision (staged coverage cells as
+     drafted in the report):
+     exit 0; met True; unindexed=[] dangling=[] head_changed=[] thin=[] duplicate=[] multi=[];
+     knowledge_files=52
+
+  B3 same repo, then the C9-shaped insertion (one line inserted after the stale bullet, mid-file;
+     no base line changed or deleted):
+     exit 1; head_changed=['crawler-identity.md']; unindexed=[] dangling=[] thin=[]
+
+  Reading: entry files must exist at the revision the README rows are measured at (B1 dangling), and a
+  mid-file correction insertion breaks the counter's strict `new.startswith(old)` append-only test (B3),
+  so the README measurement has to precede the C9 insertion.
+  Fixture dirs c55fix-*, c55floor-* were deleted from scratch after this receipt was copied.

@@ -1,0 +1,16 @@
+mutant commit: c2981d7e088b9095bf357cdd0c48e6de9538db8e
+======================================================================
+FROZEN c59_resolver_cases.py
+C2 resolver-cases 21/21 met=True  (met: cases_passed == 21 of 21)
+EXIT=0
+EXIT 0
+======================================================================
+PROPOSED +Q1..Q8
+C2 resolver-cases 27/29 met=False  (met: cases_passed == 21 of 21)
+  Q1_non_markdown_knowledge_file_is_not_read FAIL  exit=1 DANGLING S1486 cited-by=corpus/knowledge/notes.json owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  Q6_selftest_tally_is_independently_verified FAIL  tally total 66 != 67 case lines
+EXIT=1
+EXIT 1
+======================================================================
+tool --selftest: rc 0 | internal FAIL lines: 0 | prints: selftest: 66/66
+restored clean: (clean)

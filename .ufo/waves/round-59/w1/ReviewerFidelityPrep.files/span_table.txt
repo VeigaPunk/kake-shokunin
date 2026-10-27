@@ -1,0 +1,46 @@
+[S425] u=23 c=144 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Google's crawlers and fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows.
+[S425] u=24 c=157 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | To optimize bandwidth usage, these clients are distributed across many datacenters across the world so they're located near the sites that they might access.
+[S425] u=10 c=63 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Therefore, your logs may show visits from several IP addresses.
+[S425] u=10 c=65 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Google egresses primarily from IP addresses in the United States.
+[S425] u=26 c=149 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | In case Google detects that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries.
+[S425] u=7 c=52 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Google's crawlers identify themselves in three ways:
+[S425] u=2 c=8 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | The HTTP
+[S425] u=1 c=10 node=1 own=4 other=2 ceil=0 QUOTABLE=n  | user-agent
+[S425] u=2 c=15 node=1 own=2 other=0 ceil=0 QUOTABLE=n  | request header.
+[S425] u=7 c=37 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | The source IP address of the request.
+[S425] u=8 c=42 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | The reverse DNS hostname of the source IP.
+[S425] u=7 c=33 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Learn how to use these details to
+[S425] u=5 c=37 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | verify Google's crawlers and fetchers
+[S426] u=11 c=52 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | You can verify if a request to your server really is
+[S426] u=2 c=11 node=1 own=9 other=1 ceil=0 QUOTABLE=n  | from Google
+[S426] u=13 c=83 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Verification is possible for crawlers such as Googlebot, as well as other requests.
+[S426] u=21 c=129 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | This is useful if you're concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.
+[S426] u=8 c=58 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Google's crawlers and fetchers fall into three categories:
+[S426] u=10 c=67 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | The common crawlers used for Google's products (such as Googlebot).
+[S426] u=8 c=58 node=1 own=1 other=1 ceil=1 QUOTABLE=n  | They always respect robots.txt rules for automatic crawls.
+[S426] u=33 c=218 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | Crawlers or fetchers that perform specific functions for Google products (such as AdsBot) where there's an agreement between the crawled site and the product about the access or for abuse-specific crawling or fetching.
+[S426] u=11 c=67 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | These crawlers or fetchers may or may not respect robots.txt rules.
+[S426] u=11 c=64 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Tools and product functions where the end user triggers a fetch.
+[S426] u=7 c=30 node=1 own=1 other=1 ceil=1 QUOTABLE=n  | acts on the request of a user.
+[S426] u=13 c=82 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Because the fetch was requested by a user, these fetchers ignore robots.txt rules.
+[S426] u=9 c=55 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Fetchers controlled by Google originate from IPs in the
+[S426] u=5 c=23 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | object and resolve to a
+[S426] u=4 c=20 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | hostname. IPs in the
+[S426] u=3 c=17 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | object resolve to
+[S426] u=33 c=180 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | hostnames. These IPs are used, for example, if a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the request of the user of that site.
+[S426] u=9 c=57 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | There are two methods for verifying requests from Google:
+[S426] u=8 c=46 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | : For one-off lookups, use command line tools.
+[S426] u=8 c=45 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | This method is sufficient for most use cases.
+[S426] u=23 c=135 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | : For large scale lookups, use an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+[S426] u=15 c=78 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Run a reverse DNS lookup on the accessing IP address from your logs, using the
+[S426] u=1 c=8 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | command.
+[S426] u=7 c=37 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Verify that the domain name is either
+[S426] u=15 c=73 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Run a forward DNS lookup on the domain name retrieved in step 1 using the
+[S426] u=6 c=37 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | command on the retrieved domain name.
+[S426] u=14 c=78 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Verify that it's the same as the original accessing IP address from your logs.
+[S426] u=24 c=150 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | Alternatively, you can identify Googlebot by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+[S426] u=14 c=80 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | For other Google IP addresses from where your site may be accessed (for example,
+[S426] u=9 c=53 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | ), match the accessing IP address against the general
+[S426] u=5 c=27 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | list of Google IP addresses
+[S426] u=13 c=65 node=1 own=1 other=0 ceil=1 QUOTABLE=Y  | . Note that the IP addresses in the JSON files are represented in
+[S426] u=2 c=11 node=1 own=1 other=0 ceil=0 QUOTABLE=n  | CIDR format

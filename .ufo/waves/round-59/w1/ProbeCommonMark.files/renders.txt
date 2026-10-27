@@ -1,0 +1,379 @@
+======================================================================
+SHAPE: k8
+--- input (repr of first 3 lines + tail) ---
+# Sources
+
+## Registry
+
+| id | name | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S100 | fixture — https://example.invalid/S100 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+<!--
+| S200 | fixture — https://example.invalid/S200 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+-->
+
+--- markdown-it-py gfm-like html ---
+<h1>Sources</h1>
+<h2>Registry</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>kind</th>
+<th>tier</th>
+<th>scope</th>
+<th>anchor</th>
+<th>teaches</th>
+<th>status</th>
+<th>opened</th>
+<th>recheck</th>
+<th>used-by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S100</td>
+<td>fixture — https://example.invalid/S100</td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+</tbody>
+</table>
+<!--
+| S200 | fixture — https://example.invalid/S200 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+-->
+
+--- cmark-gfm html (default, raw html omitted) ---
+<h1>Sources</h1>
+<h2>Registry</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>kind</th>
+<th>tier</th>
+<th>scope</th>
+<th>anchor</th>
+<th>teaches</th>
+<th>status</th>
+<th>opened</th>
+<th>recheck</th>
+<th>used-by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S100</td>
+<td>fixture — <a href="https://example.invalid/S100">https://example.invalid/S100</a></td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+
+======================================================================
+SHAPE: k9
+--- input (repr of first 3 lines + tail) ---
+# Sources
+
+## Registry
+
+| id | name | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S100 | fixture — https://example.invalid/S100 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+
+Subsection
+---
+
+| S300 | fixture — https://example.invalid/S300 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+
+--- markdown-it-py gfm-like html ---
+<h1>Sources</h1>
+<h2>Registry</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>kind</th>
+<th>tier</th>
+<th>scope</th>
+<th>anchor</th>
+<th>teaches</th>
+<th>status</th>
+<th>opened</th>
+<th>recheck</th>
+<th>used-by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S100</td>
+<td>fixture — https://example.invalid/S100</td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+</tbody>
+</table>
+<h2>Subsection</h2>
+<p>| S300 | fixture — https://example.invalid/S300 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |</p>
+
+--- cmark-gfm html (default, raw html omitted) ---
+<h1>Sources</h1>
+<h2>Registry</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>kind</th>
+<th>tier</th>
+<th>scope</th>
+<th>anchor</th>
+<th>teaches</th>
+<th>status</th>
+<th>opened</th>
+<th>recheck</th>
+<th>used-by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S100</td>
+<td>fixture — <a href="https://example.invalid/S100">https://example.invalid/S100</a></td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+</tbody>
+</table>
+<h2>Subsection</h2>
+<p>| S300 | fixture — <a href="https://example.invalid/S300">https://example.invalid/S300</a> | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |</p>
+
+======================================================================
+SHAPE: c
+--- input (repr of first 3 lines + tail) ---
+## Registry
+
+| id | name | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S100 | fixture — https://example.invalid/S100 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+
+Subsection
+
+---
+
+| S300 | fixture — https://example.invalid/S300 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+
+--- markdown-it-py gfm-like html ---
+<h2>Registry</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>kind</th>
+<th>tier</th>
+<th>scope</th>
+<th>anchor</th>
+<th>teaches</th>
+<th>status</th>
+<th>opened</th>
+<th>recheck</th>
+<th>used-by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S100</td>
+<td>fixture — https://example.invalid/S100</td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+</tbody>
+</table>
+<p>Subsection</p>
+<hr />
+<p>| S300 | fixture — https://example.invalid/S300 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |</p>
+
+--- cmark-gfm html (default, raw html omitted) ---
+<h2>Registry</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>kind</th>
+<th>tier</th>
+<th>scope</th>
+<th>anchor</th>
+<th>teaches</th>
+<th>status</th>
+<th>opened</th>
+<th>recheck</th>
+<th>used-by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S100</td>
+<td>fixture — <a href="https://example.invalid/S100">https://example.invalid/S100</a></td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+</tbody>
+</table>
+<p>Subsection</p>
+<hr />
+<p>| S300 | fixture — <a href="https://example.invalid/S300">https://example.invalid/S300</a> | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |</p>
+
+======================================================================
+SHAPE: d
+--- input (repr of first 3 lines + tail) ---
+## Registry
+
+| id | name | kind | tier | scope | anchor | teaches | status | opened | recheck | used-by |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S100 | fixture — https://example.invalid/S100 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+| S400 | fixture — https://example.invalid/S400 | docs | A | scope | anchor | teaches | mined | 2026-10-26 | 90d | corpus/knowledge/ok.md |
+
+--- markdown-it-py gfm-like html ---
+<h2>Registry</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>kind</th>
+<th>tier</th>
+<th>scope</th>
+<th>anchor</th>
+<th>teaches</th>
+<th>status</th>
+<th>opened</th>
+<th>recheck</th>
+<th>used-by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S100</td>
+<td>fixture — https://example.invalid/S100</td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+<tr>
+<td>S400</td>
+<td>fixture — https://example.invalid/S400</td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+</tbody>
+</table>
+
+--- cmark-gfm html (default, raw html omitted) ---
+<h2>Registry</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>kind</th>
+<th>tier</th>
+<th>scope</th>
+<th>anchor</th>
+<th>teaches</th>
+<th>status</th>
+<th>opened</th>
+<th>recheck</th>
+<th>used-by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S100</td>
+<td>fixture — <a href="https://example.invalid/S100">https://example.invalid/S100</a></td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+<tr>
+<td>S400</td>
+<td>fixture — <a href="https://example.invalid/S400">https://example.invalid/S400</a></td>
+<td>docs</td>
+<td>A</td>
+<td>scope</td>
+<td>anchor</td>
+<td>teaches</td>
+<td>mined</td>
+<td>2026-10-26</td>
+<td>90d</td>
+<td>corpus/knowledge/ok.md</td>
+</tr>
+</tbody>
+</table>
+

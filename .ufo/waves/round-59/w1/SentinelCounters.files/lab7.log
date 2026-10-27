@@ -1,0 +1,32 @@
+== does the wave-1 v2 C1 counter close the symlink-target-string hole? ==
+  --- real ---
+     100644 blob a6818b090ca13f83e14f530132bf7c7798edfeea	.ufo/waves/round-59/calibration.md
+     100644 blob 9f92fd9854c399c9a44d4e407c3382d52e56a9bc	.ufo/waves/round-59/freshness.md
+     100644 blob 4307b01b53c92b784ea4cbcee43858b7e23a9154	.ufo/waves/round-59/operability.md
+     100644 blob e5f9af8794ba427ad1c5c8226827b30d802dbfc7	SCORECARD.md
+  v1 real: rc=0 :: EXIT=0
+  v2 real: rc=1 :: EXIT=1
+  --- sym ---
+     120000 blob 0727aef7ec69421468ec1c4d686dc9505afdb2ac	.ufo/waves/round-59/calibration.md
+     120000 blob cf03181cd2eae01ce3e430660379acb91baf26db	.ufo/waves/round-59/freshness.md
+     120000 blob 48f78c47d1479cb0a0a8095d0520be3bc3808138	.ufo/waves/round-59/operability.md
+     120000 blob e5f9af8794ba427ad1c5c8226827b30d802dbfc7	SCORECARD.md
+  v1 sym: rc=0 :: EXIT=0
+  v2 sym: rc=1 :: EXIT=1
+== C2: the measured tool at the revision is a SYMLINK (fail-closed?) ==
+  ls-tree scripts/: '120000 blob 752e0255413ac7dba4d89be2bb39ff0290791d04\tscripts/id_resolver.py'
+  C2 verdict with a symlinked tool: rc=1 :: EXIT=1
+     C2 resolver-cases 0/21 met=False  (met: cases_passed == 21 of 21)
+       K1_fenced_heading_before_registry FAIL  exit=1     ../../scripts/id_resolver.py |     ^ | SyntaxError: invalid syntax
+       K2_backtick_fence_inside_registry FAIL  exit=1     ../../scripts/id_resolver.py |     ^ | SyntaxError: invalid syntax
+       K3_tilde_fence_inside_registry FAIL  exit=1     ../../scripts/id_resolver.py |     ^ | SyntaxError: invalid syntax
+       K4_non_ascii_path_at_revision FAIL  exit=1     ../../scripts/id_resolver.py |     ^ | SyntaxError: invalid syntax
+       K5_git_quoted_path_at_revision FAIL  exit=1     ../../scripts/id_resolver.py |     ^ | SyntaxError: invalid syntax
+== PYTHONPATH shadowing reaches the CHILD tool that C2 measures ==
+  C2 with PYTHONPATH: rc=1 child_marker=True :: EXIT=1
+== C2 fixture-commit hook vector: which git commands run under a hostile global config ==
+  C2 with hostile global core.hooksPath: rc=1
+  hooks that fired: {'pre-commit': 18, 'prepare-commit-msg': 18, 'post-commit': 18}
+  control (clean env): rc=1 marker=False
+== symlinked SCORECARD whose target IS a real path (fail-closed?) ==
+  v1: rc=1 :: EXIT=1

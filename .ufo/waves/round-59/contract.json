@@ -11,14 +11,20 @@
    "counter": ".ufo/waves/round-59/c59_axis_evidence.py",
    "predicate": "met: mismatches == 0 AND rows == 3 AND scores_held == 2 AND superseded_kept == 3",
    "baseReceipt": ".ufo/waves/round-59/controls/base-c1-axis-evidence.txt",
-   "counterSha256v1": "95d23511d548a9c5fe5f76c201b002e931d9ecd55faca51c9c037c08d25be690"
+   "counterSha256v1": "95d23511d548a9c5fe5f76c201b002e931d9ecd55faca51c9c037c08d25be690",
+   "predicateV2": "met: mismatches == 0 AND tables == 1 AND rows == 3 AND axes_ordered == 1 AND scores_held == 2 AND superseded_kept == 3",
+   "counterSha256v2": "6df31e5f9a3d1804b64af2d2ea58657f0deda28b3b02ad1d5f7ebb3377366b79",
+   "baseReceiptV2": ".ufo/waves/round-59/controls/base-c1-axis-evidence-v2.txt"
   },
   "C2": {
    "axis": "operability",
    "counter": ".ufo/waves/round-59/c59_resolver_cases.py",
    "predicate": "met: cases_passed == 21 of 21",
    "baseReceipt": ".ufo/waves/round-59/controls/base-c2-resolver-cases.txt",
-   "counterSha256v1": "ca2e85c685dbb9479ac96906296b7c8eaf460457a2184cac81e12927350fea33"
+   "counterSha256v1": "ca2e85c685dbb9479ac96906296b7c8eaf460457a2184cac81e12927350fea33",
+   "predicateV2": "met: cases_passed == 21 of 21",
+   "counterSha256v2": "0dad783f70030aaf1fe420a435c6890199d4021fd35b0b83395cc5dadb9f4568",
+   "baseReceiptV2": ".ufo/waves/round-59/controls/base-c2-resolver-cases-v2.txt"
   },
   "C3": {
    "axis": "freshness",
@@ -29,10 +35,14 @@
    "counter": ".ufo/waves/round-59/c59_quote_truth.py",
    "predicate": "met: conditions_passed == 9 of 9",
    "baseReceipt": ".ufo/waves/round-59/controls/base-c3-quote-truth.txt",
-   "counterSha256v1": "b3aef90c785444503cec0ee2bf6308192982044e69e70b772378d90dbf5e23a5"
+   "counterSha256v1": "b3aef90c785444503cec0ee2bf6308192982044e69e70b772378d90dbf5e23a5",
+   "predicateV2": "met: conditions_passed == 9 of 9",
+   "counterSha256v2": "808c72c3885fcc30e8d19c7fb5ff511af964d4a8229f15e892412437fab9d414",
+   "baseReceiptV2": ".ufo/waves/round-59/controls/base-c3-quote-truth-v2.txt"
   }
  },
  "exploratory": null,
  "shape": "one v2 wave w1 (64-128) + optional residual <= 8; total <= 128",
- "receiptRule": "committed once after the run; never rewritten; no placeholder"
+ "receiptRule": "committed once after the run; never rewritten; no placeholder",
+ "judgedOn": "version 2 (contract.md \u00a7 Counter versions \u2014 version 2)"
 }

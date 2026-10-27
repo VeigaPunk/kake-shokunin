@@ -1,0 +1,99 @@
+[
+ {
+  "case": "U1_fullwidth_digit_id_row_and_citation",
+  "note": "registry row id uses fullwidth digits; the resolver resolves the fullwidth citation",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE02\tS９２８"
+   ]
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S929 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "U1b_fullwidth_row_ascii_twin_cited",
+  "note": "registry row id is fullwidth; the ASCII twin is cited and is unresolvable",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE02\tS９２８"
+   ]
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S928 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "U2_cyrillic_S_registry_row_ascii_twin_cited",
+  "note": "registry row id uses the Cyrillic lookalike S; the ASCII twin citation is invisible to the resolver",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE02\tЅ930"
+   ]
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S930 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "U3_ascii_registry_row_lookalike_cited",
+  "note": "ASCII row present; the lookalike citation is invisible -> an unregistered source is never flagged",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=0 ids_resolved=0 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "U4_url_match_is_a_substring_test",
+  "note": "sibling URL is a prefix of the lane's URL; url-match still fires",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "U5_knowledge_quotes_a_registry_row_in_a_fence",
+  "note": "an id quoted inside a fenced block in a knowledge file is counted as a citation",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S934 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "LIVE_LANE",
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=108 ids_resolved=108 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ }
+]

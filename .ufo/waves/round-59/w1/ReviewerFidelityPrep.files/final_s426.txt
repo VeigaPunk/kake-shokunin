@@ -1,0 +1,196 @@
+
+==============================================================================================================
+### S426 full article block
+
+* You can verify if a request to your server really is from Google.
+    -> NOT a raw substring (u=13 c=65)
+    -> split across 2 text nodes: ['You can verify if a request to your server really is', 'from Google.']
+    -> eligible sub-spans:
+         u=11 c=52 | You can verify if a request to your server really is
+         u=10 c=48 | can verify if a request to your server really is
+         u=9 c=44 | verify if a request to your server really is
+         u=8 c=37 | if a request to your server really is
+         u=7 c=34 | a request to your server really is
+         u=6 c=32 | request to your server really is
+* Verification is possible for crawlers such as Googlebot, as well as other requests.
+    -> WHOLE-QUOTABLE (u=13 c=83 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=13 c=83 | Verification is possible for crawlers such as Googlebot, as well as other requests.
+         u=12 c=70 | is possible for crawlers such as Googlebot, as well as other requests.
+         u=11 c=67 | possible for crawlers such as Googlebot, as well as other requests.
+         u=10 c=58 | for crawlers such as Googlebot, as well as other requests.
+         u=9 c=54 | crawlers such as Googlebot, as well as other requests.
+         u=8 c=45 | such as Googlebot, as well as other requests.
+* This is useful if you're concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.
+    -> WHOLE-QUOTABLE (u=21 c=129 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=21 c=129 | This is useful if you're concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.
+         u=20 c=124 | is useful if you're concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.
+         u=19 c=121 | useful if you're concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.
+         u=18 c=114 | if you're concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.
+         u=17 c=111 | you're concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.
+         u=16 c=104 | concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.
+* Google's crawlers and fetchers fall into three categories:
+    -> WHOLE-QUOTABLE (u=8 c=58 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=8 c=58 | Google's crawlers and fetchers fall into three categories:
+         u=7 c=49 | crawlers and fetchers fall into three categories:
+         u=6 c=40 | and fetchers fall into three categories:
+* The common crawlers used for Google's products (such as Googlebot).
+    -> WHOLE-QUOTABLE (u=10 c=67 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=10 c=67 | The common crawlers used for Google's products (such as Googlebot).
+         u=9 c=63 | common crawlers used for Google's products (such as Googlebot).
+         u=8 c=56 | crawlers used for Google's products (such as Googlebot).
+         u=7 c=47 | used for Google's products (such as Googlebot).
+         u=6 c=42 | for Google's products (such as Googlebot).
+* They always respect robots.txt rules for automatic crawls.
+    -> WHOLE-QUOTABLE (u=8 c=58 unique=False ceil_ok=True)
+* Crawlers or fetchers that perform specific functions for Google products (such as AdsBot) where there is an agreement between the crawled site and the product about the access or for abuse-specific crawling or fetching.
+    -> NOT a raw substring (u=34 c=219)
+    -> split across 3 text nodes: ['Crawlers or fetchers that perform specific functions for Google products (such as AdsBot) where there', 'is', 'an agreement between the crawled site and the product about the access or for abuse-specific crawling or fetching.']
+    -> eligible sub-spans:
+         u=18 c=114 | an agreement between the crawled site and the product about the access or for abuse-specific crawling or fetching.
+         u=17 c=111 | agreement between the crawled site and the product about the access or for abuse-specific crawling or fetching.
+         u=16 c=101 | between the crawled site and the product about the access or for abuse-specific crawling or fetching.
+         u=15 c=101 | Crawlers or fetchers that perform specific functions for Google products (such as AdsBot) where there
+         u=15 c=93 | the crawled site and the product about the access or for abuse-specific crawling or fetching.
+         u=14 c=89 | crawled site and the product about the access or for abuse-specific crawling or fetching.
+* These crawlers or fetchers may or may not respect robots.txt rules.
+    -> WHOLE-QUOTABLE (u=11 c=67 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=11 c=67 | These crawlers or fetchers may or may not respect robots.txt rules.
+         u=10 c=61 | crawlers or fetchers may or may not respect robots.txt rules.
+         u=9 c=52 | or fetchers may or may not respect robots.txt rules.
+         u=8 c=49 | fetchers may or may not respect robots.txt rules.
+         u=7 c=40 | may or may not respect robots.txt rules.
+         u=6 c=36 | or may not respect robots.txt rules.
+* Tools and product functions where the end user triggers a fetch.
+    -> WHOLE-QUOTABLE (u=11 c=64 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=11 c=64 | Tools and product functions where the end user triggers a fetch.
+* For example, Google Site Verifier acts on the request of a user.
+    -> NOT a raw substring (u=12 c=64)
+    -> split across 3 text nodes: ['For example,', 'Google Site Verifier', 'acts on the request of a user.']
+* Because the fetch was requested by a user, these fetchers ignore robots.txt rules.
+    -> WHOLE-QUOTABLE (u=13 c=82 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=13 c=82 | Because the fetch was requested by a user, these fetchers ignore robots.txt rules.
+         u=12 c=74 | the fetch was requested by a user, these fetchers ignore robots.txt rules.
+         u=11 c=70 | fetch was requested by a user, these fetchers ignore robots.txt rules.
+         u=10 c=64 | was requested by a user, these fetchers ignore robots.txt rules.
+         u=9 c=60 | requested by a user, these fetchers ignore robots.txt rules.
+         u=8 c=50 | by a user, these fetchers ignore robots.txt rules.
+* Fetchers controlled by Google originate from IPs in the user-triggered-fetchers-google.json object and resolve to a google.com hostname.
+    -> NOT a raw substring (u=17 c=136)
+    -> split across 5 text nodes: ['Fetchers controlled by Google originate from IPs in the', 'user-triggered-fetchers-google.json', 'object and resolve to a', 'google.com', 'hostname.']
+    -> eligible sub-spans:
+         u=9 c=55 | Fetchers controlled by Google originate from IPs in the
+         u=8 c=46 | controlled by Google originate from IPs in the
+         u=7 c=35 | by Google originate from IPs in the
+         u=6 c=32 | Google originate from IPs in the
+* IPs in the user-triggered-fetchers.json object resolve to gae.googleusercontent.com hostnames.
+    -> NOT a raw substring (u=9 c=94)
+    -> split across 5 text nodes: ['IPs in the', 'user-triggered-fetchers.json', 'object resolve to', 'gae.googleusercontent.com', 'hostnames.']
+* These IPs are used, for example, if a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the request of the user of that site.
+    -> WHOLE-QUOTABLE (u=32 c=169 unique=True ceil_ok=False)
+    -> eligible sub-spans:
+         u=25 c=137 | IPs are used, for example, if a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the request
+         u=25 c=135 | These IPs are used, for example, if a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the
+         u=25 c=133 | a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the request of the user of that site.
+         u=25 c=136 | are used, for example, if a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the request of
+         u=25 c=134 | example, if a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the request of the user of
+         u=25 c=135 | for example, if a site running on Google Cloud (GCP) has a feature that requires fetching external RSS feeds on the request of the user
+* There are two methods for verifying requests from Google:
+    -> WHOLE-QUOTABLE (u=9 c=57 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=9 c=57 | There are two methods for verifying requests from Google:
+         u=8 c=51 | are two methods for verifying requests from Google:
+         u=7 c=47 | two methods for verifying requests from Google:
+         u=6 c=43 | methods for verifying requests from Google:
+* Manually: For one-off lookups, use command line tools.
+    -> NOT a raw substring (u=8 c=54)
+    -> split across 2 text nodes: ['Manually:', 'For one-off lookups, use command line tools.']
+    -> eligible sub-spans:
+         u=7 c=44 | For one-off lookups, use command line tools.
+         u=6 c=40 | one-off lookups, use command line tools.
+* This method is sufficient for most use cases.
+    -> WHOLE-QUOTABLE (u=8 c=45 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=8 c=45 | This method is sufficient for most use cases.
+         u=7 c=40 | method is sufficient for most use cases.
+         u=6 c=33 | is sufficient for most use cases.
+* Automatically: For large scale lookups, use an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+    -> NOT a raw substring (u=23 c=148)
+    -> split across 2 text nodes: ['Automatically:', "For large scale lookups, use an automatic solution to match a crawler's IP address against the list of published Google IP addresses."]
+    -> eligible sub-spans:
+         u=22 c=133 | For large scale lookups, use an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+         u=21 c=129 | large scale lookups, use an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+         u=20 c=123 | scale lookups, use an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+         u=19 c=117 | lookups, use an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+         u=18 c=108 | use an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+         u=17 c=104 | an automatic solution to match a crawler's IP address against the list of published Google IP addresses.
+* Run a reverse DNS lookup on the accessing IP address from your logs, using the host command.
+    -> NOT a raw substring (u=17 c=92)
+    -> split across 3 text nodes: ['Run a reverse DNS lookup on the accessing IP address from your logs, using the', 'host', 'command.']
+    -> eligible sub-spans:
+         u=15 c=78 | Run a reverse DNS lookup on the accessing IP address from your logs, using the
+         u=14 c=74 | a reverse DNS lookup on the accessing IP address from your logs, using the
+         u=13 c=72 | reverse DNS lookup on the accessing IP address from your logs, using the
+         u=12 c=64 | DNS lookup on the accessing IP address from your logs, using the
+         u=11 c=60 | lookup on the accessing IP address from your logs, using the
+         u=10 c=53 | on the accessing IP address from your logs, using the
+* Verify that the domain name is either googlebot.com, google.com, or googleusercontent.com.
+    -> NOT a raw substring (u=11 c=90)
+    -> split across 5 text nodes: ['Verify that the domain name is either', 'googlebot.com,', 'google.com,', 'or', 'googleusercontent.com.']
+    -> eligible sub-spans:
+         u=7 c=37 | Verify that the domain name is either
+         u=6 c=30 | that the domain name is either
+* Run a forward DNS lookup on the domain name retrieved in step 1 using the host command on the retrieved domain name.
+    -> NOT a raw substring (u=22 c=116)
+    -> split across 3 text nodes: ['Run a forward DNS lookup on the domain name retrieved in step 1 using the', 'host', 'command on the retrieved domain name.']
+    -> eligible sub-spans:
+         u=15 c=73 | Run a forward DNS lookup on the domain name retrieved in step 1 using the
+         u=14 c=69 | a forward DNS lookup on the domain name retrieved in step 1 using the
+         u=13 c=67 | forward DNS lookup on the domain name retrieved in step 1 using the
+         u=12 c=59 | DNS lookup on the domain name retrieved in step 1 using the
+         u=11 c=55 | lookup on the domain name retrieved in step 1 using the
+         u=10 c=48 | on the domain name retrieved in step 1 using the
+* Verify that it's the same as the original accessing IP address from your logs.
+    -> WHOLE-QUOTABLE (u=14 c=78 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=14 c=78 | Verify that it's the same as the original accessing IP address from your logs.
+         u=13 c=71 | that it's the same as the original accessing IP address from your logs.
+         u=12 c=66 | it's the same as the original accessing IP address from your logs.
+         u=11 c=61 | the same as the original accessing IP address from your logs.
+         u=10 c=57 | same as the original accessing IP address from your logs.
+         u=9 c=52 | as the original accessing IP address from your logs.
+* Alternatively, you can identify Googlebot by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+    -> WHOLE-QUOTABLE (u=24 c=150 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=24 c=150 | Alternatively, you can identify Googlebot by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+         u=23 c=135 | you can identify Googlebot by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+         u=22 c=131 | can identify Googlebot by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+         u=21 c=127 | identify Googlebot by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+         u=20 c=118 | Googlebot by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+         u=19 c=108 | by IP address by matching the crawler's IP address to the lists of Google crawlers' and fetchers' IP ranges:
+* For other Google IP addresses from where your site may be accessed (for example, Apps Scripts), match the accessing IP address against the general list of Google IP addresses.
+    -> NOT a raw substring (u=29 c=175)
+    -> split across 6 text nodes: ['For other Google IP addresses from where your site may be accessed (for example,', 'Apps', 'Scripts),', 'match the accessing IP address against the general', 'list of Google IP', 'addresses.']
+    -> eligible sub-spans:
+         u=14 c=80 | For other Google IP addresses from where your site may be accessed (for example,
+         u=13 c=76 | other Google IP addresses from where your site may be accessed (for example,
+         u=12 c=70 | Google IP addresses from where your site may be accessed (for example,
+         u=11 c=63 | IP addresses from where your site may be accessed (for example,
+         u=10 c=60 | addresses from where your site may be accessed (for example,
+         u=9 c=50 | from where your site may be accessed (for example,
+* Note that the IP addresses in the JSON files are represented in CIDR format.
+    -> NOT a raw substring (u=14 c=76)
+    -> split across 3 text nodes: ['Note that the IP addresses in the JSON files are represented in', 'CIDR', 'format.']
+    -> eligible sub-spans:
+         u=12 c=63 | Note that the IP addresses in the JSON files are represented in
+         u=11 c=58 | that the IP addresses in the JSON files are represented in
+         u=10 c=53 | the IP addresses in the JSON files are represented in
+         u=9 c=49 | IP addresses in the JSON files are represented in
+         u=8 c=46 | addresses in the JSON files are represented in
+         u=7 c=36 | in the JSON files are represented in

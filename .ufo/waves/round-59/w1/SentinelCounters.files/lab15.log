@@ -1,0 +1,12 @@
+== baseline (clean env, base tool) ==
+  rc=1 passes=13
+    K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+    K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+== with the inherited global hook deleting a symlinked fixture registry ==
+  rc=1 passes=13
+    K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+    K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  marker: b'none'
+== same hook, but the tool measured is the lane's CURRENT HEAD tool ==
+  rc=1 passes=13
+    K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0

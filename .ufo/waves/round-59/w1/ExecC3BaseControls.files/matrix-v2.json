@@ -1,0 +1,131 @@
+[
+ {
+  "variant": "good",
+  "rev": "b32f838adeaf1b31417760bbcb0aab792457eca7",
+  "v1": 8,
+  "v2": 9,
+  "v2_met": true,
+  "v2_failing": [],
+  "v2_notes": {}
+ },
+ {
+  "variant": "a1_chrome_only",
+  "rev": "f9008332366e5ce3e9a0602169b0c2bab8794a07",
+  "v1": 8,
+  "v2": 8,
+  "v2_met": false,
+  "v2_failing": [
+   "C5_quote_truth"
+  ],
+  "v2_notes": {
+   "C5_quote_truth": [
+    "S425: no page-unique span of the entry carries the page-named subject IP address",
+    "S425: entry carries 1 page-unique quoted spans, expected 3+",
+    "S426: entry carries 0 page-unique quoted spans, expected 3+"
+   ]
+  }
+ },
+ {
+  "variant": "a2_chrome_mixed",
+  "rev": "4ab023b6d4d778252a0418d795aabd79a19e7afe",
+  "v1": 8,
+  "v2": 9,
+  "v2_met": true,
+  "v2_failing": [],
+  "v2_notes": {}
+ },
+ {
+  "variant": "a3_chrome_substitute",
+  "rev": "de040d2a13ac65ed9be93d0402c1e4c525aa47fa",
+  "v1": 8,
+  "v2": 9,
+  "v2_met": true,
+  "v2_failing": [],
+  "v2_notes": {}
+ },
+ {
+  "variant": "a4_two_content_only",
+  "rev": "192fb7dc86cb3ef91b89b1fab5561e8162e13b8c",
+  "v1": 8,
+  "v2": 8,
+  "v2_met": false,
+  "v2_failing": [
+   "C5_quote_truth"
+  ],
+  "v2_notes": {
+   "C5_quote_truth": [
+    "S425: entry carries 2 page-unique quoted spans, expected 3+"
+   ]
+  }
+ },
+ {
+  "variant": "b_opposite",
+  "rev": "76e4640a07b0b2e41cba9ef9af8c339c3d61dd85",
+  "v1": 8,
+  "v2": 9,
+  "v2_met": true,
+  "v2_failing": [],
+  "v2_notes": {}
+ },
+ {
+  "variant": "c_html_comment",
+  "rev": "86c44520b75e696a346c982d84ef9201b613a7d7",
+  "v1": 8,
+  "v2": 8,
+  "v2_met": false,
+  "v2_failing": [
+   "C9_stale_claim_corrected"
+  ],
+  "v2_notes": {
+   "C9_stale_claim_corrected": [
+    "no line inserted where the stale bullet ends carries [r59-correction 2026-10-27] as rendered prose",
+    "the inserted correction does not cite S425",
+    "no quoted span in the correction passes the C5 span rules against S425 and carries 'IP address'"
+   ]
+  }
+ },
+ {
+  "variant": "d_contradicting",
+  "rev": "18887799936acb6c4668a0ed82cb11d0023cd411",
+  "v1": 8,
+  "v2": 9,
+  "v2_met": true,
+  "v2_failing": [],
+  "v2_notes": {}
+ },
+ {
+  "variant": "e1_usedby_extra_exists",
+  "rev": "f2bcdee85dc18fa52d01218dce01ee7133187f28",
+  "v1": 7,
+  "v2": 8,
+  "v2_met": false,
+  "v2_failing": [
+   "C4_used_by"
+  ],
+  "v2_notes": {
+   "C4_used_by": [
+    "S425: used-by is ['corpus/knowledge/crawler-identity-signals.md', 'corpus/knowledge/crawler-identity.md', 'corpus/knowledge/robots-txt-rules.md'], expected ['corpus/knowledge/crawler-identity-signals.md', 'corpus/knowledge/crawler-identity.md']"
+   ]
+  }
+ },
+ {
+  "variant": "e2_usedby_extra_missing",
+  "rev": "24611c286d9f7b0d8a4d6acd37b4491fed2ecdcd",
+  "v1": 6,
+  "v2": 7,
+  "v2_met": false,
+  "v2_failing": [
+   "C4_used_by",
+   "C7_validate_before_append"
+  ],
+  "v2_notes": {
+   "C4_used_by": [
+    "S425: used-by is ['corpus/knowledge/crawler-identity-signals.md', 'corpus/knowledge/crawler-identity.md', 'corpus/knowledge/does-not-exist.md'], expected ['corpus/knowledge/crawler-identity-signals.md', 'corpus/knowledge/crawler-identity.md']"
+   ],
+   "C7_validate_before_append": [
+    "validation exit is 'exit=1', expected 'exit=0'",
+    "validation stdout does not end in `file<TAB>ok<TAB><validated registry path>`"
+   ]
+  }
+ }
+]

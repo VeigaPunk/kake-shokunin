@@ -1,0 +1,44 @@
+[
+  {
+    "case": "missing",
+    "registry_kind": "absent",
+    "exit": 2,
+    "output": "id_resolver: unevaluable: registry absent: corpus/SOURCES.md",
+    "root": "/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-lc_56xat"
+  },
+  {
+    "case": "directory",
+    "registry_kind": "dir",
+    "exit": 2,
+    "output": "id_resolver: unevaluable: registry absent: corpus/SOURCES.md",
+    "root": "/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-8b1ileuz"
+  },
+  {
+    "case": "broken_symlink",
+    "registry_kind": "symlink->/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-h3jk_qkz/fleet/kake-shokunin/corpus/nope.md",
+    "exit": 2,
+    "output": "id_resolver: unevaluable: registry absent: corpus/SOURCES.md",
+    "root": "/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-h3jk_qkz"
+  },
+  {
+    "case": "symlink_in_lane",
+    "registry_kind": "symlink->./SOURCES-real.md",
+    "exit": 0,
+    "output": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0",
+    "root": "/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-0g8h2kxc"
+  },
+  {
+    "case": "symlink_out_of_lane",
+    "registry_kind": "symlink->/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-lpyjmirq/outside/SOURCES.md",
+    "exit": 0,
+    "output": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0",
+    "root": "/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-lpyjmirq"
+  },
+  {
+    "case": "unreadable",
+    "registry_kind": "file",
+    "exit": 2,
+    "output": "id_resolver: unevaluable: registry unreadable: [Errno 13] Permission denied: '/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-_ibxa9lx/fleet/kake-shokunin/corpus/SOURCES.md'",
+    "root": "/fast/scratch/hyaku/kake-r59/LabratK12Contract/fix-_ibxa9lx"
+  }
+]

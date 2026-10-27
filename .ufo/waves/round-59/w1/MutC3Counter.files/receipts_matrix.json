@@ -1,0 +1,680 @@
+{
+ "counter_snapshot_sha256": "52cd698c6c197492182996dda18069b727806d8f3b3f0dd8b3048c12d7966bd5",
+ "bases": {
+  "B0": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+  "B_LONG": "7b7acd4651d82f13c2fcec0a21ef012e22f00e73",
+  "B_MID": "c434c94778c073fbb1e3aa23ae3b50c595e7c0b1"
+ },
+ "stale_idx": 30,
+ "bullet_end": 34,
+ "fixtures": [
+  {
+   "name": "V0_positive",
+   "rev": "6274eb61e4193eed2e2dbc092f52d53bba6f7782",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "positive control: 9/9 met on pristine"
+  },
+  {
+   "name": "V1_stale_twice",
+   "rev": "be00180b9bedcc126be2e44f99039d52d8389b94",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "stale sentence duplicated in the measured doc"
+  },
+  {
+   "name": "V2_position_16",
+   "rev": "1efa9a4b8c5aa0a20fadc1a0cb5f55309774a7c4",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction inserted 16 base lines after the bullet end"
+  },
+  {
+   "name": "V3_line_deleted",
+   "rev": "501f521a99c22a9c0daabaed8d687942a0078416",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "a base line deleted (not append-only)"
+  },
+  {
+   "name": "V4_wrong_tag",
+   "rev": "1e36de438d678f4acccb617a046023803b29d3bd",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction tag dated 2026-10-26"
+  },
+  {
+   "name": "V5_wrong_id",
+   "rev": "0af7b0c86fac780b0b9396c4b4616240059ac936",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction cites S426, never S425"
+  },
+  {
+   "name": "V6_no_topic",
+   "rev": "88336f8ff0965c703e1248711a13dea1f8ee53a4",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction quote carries no 'IP address'"
+  },
+  {
+   "name": "V7_long_quote",
+   "rev": "307a7c42795098f6f9a46427d8589ebf359eab29",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "entry quote of 170 chars at 22 units"
+  },
+  {
+   "name": "V8_date_in_attribute",
+   "rev": "f2bd1cf5ae00004063686c0496144e1ea283131f",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "printed revision only inside a tag attribute (body variant)"
+  },
+  {
+   "name": "V9_footer_quote",
+   "rev": "0b3bd62a0bb8ef1b8a8acaa24d1f07ecf4d6a175",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "entry quote from the footer, outside the article block"
+  },
+  {
+   "name": "V10_h1_anchor",
+   "rev": "7c6994e5d50d7eafeb15a832ad538405783f6845",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "row anchor names the page h1"
+  },
+  {
+   "name": "V11_used_by_order",
+   "rev": "4222ced0139e0aacdb8b2b4d70fc89223bc602e1",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "used-by cell order reversed (positive: sorted compare)"
+  },
+  {
+   "name": "V12_curly_quotes",
+   "rev": "2a2045206f097b070f35e746588a590f0029207b",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction carries curly double quotes"
+  },
+  {
+   "name": "V13_short_quote",
+   "rev": "ee3fe7ee6afa7dee09d56c30887fe26cde6900ea",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction quote of 4 units that carries 'IP address'"
+  },
+  {
+   "name": "V14_over_unit_ceiling",
+   "rev": "a6ed731671e085d590cc25bbfd49bceb680141e2",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction quote of 26 units (160 chars)"
+  },
+  {
+   "name": "V15_one_span",
+   "rev": "b8c4ab49f514d750ca6d38a706b351bfac5ccf32",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "entry with one page-unique span that carries the topic"
+  },
+  {
+   "name": "V16_shared_span",
+   "rev": "bc19f48eb77f5a0816d06b8fb702ae83adcc349b",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "Gate quote also present in S426 (12 units)"
+  },
+  {
+   "name": "V17_no_unit_count",
+   "rev": "022eb000aa98339fb87ccecc7372942fe32662a8",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "Gate line without the 'N units' annotation"
+  },
+  {
+   "name": "V18_newline_span",
+   "rev": "ffd81e74a09f771ec18d97622552ed99c2688302",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "Gate quote crossing a raw newline (positive: needs the collapse)"
+  },
+  {
+   "name": "V20_no_article_block",
+   "rev": "fb97b784416980d32b5c570550f6de565376c74f",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "body without the article-body marker (body variant)"
+  },
+  {
+   "name": "V21_code_span_quote",
+   "rev": "77204c5ed1cb9cd35b41692853592bb0b2ec8566",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction quote wrapped in backticks"
+  },
+  {
+   "name": "V22_fake_heading_in_pre",
+   "rev": "54d3dfb1185b8f9f6dc61e5c8b07c4f161bc7ef6",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "row anchor heading only inside a <pre> sample (body variant)"
+  },
+  {
+   "name": "V25_inside_bullet",
+   "rev": "70cdbf7facbe4cb8d2d8f82c116a5afe41e38062",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction inserted inside the stale bullet"
+  },
+  {
+   "name": "V26_cross_body_span",
+   "rev": "4d027026ed5dfe6ed138e2a7c936da2e7ef3ab68",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction quote also present in S426 (body augmented)"
+  },
+  {
+   "name": "V27_chrome_quote",
+   "rev": "e7dc70e03f26282591fa64bb9bdf6c6b66fda9ce",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "entry quotes page chrome inside the article window (body untouched)"
+  },
+  {
+   "name": "V28_attr_hidden_quote",
+   "rev": "dfea952fc45d698dac731e1a9daaaa6e0cd0d4aa",
+   "base": "25779ae02c00d24dd5d027c3cc8e5b1283d20e90",
+   "pins": "correction hides its quote in an HTML attribute"
+  },
+  {
+   "name": "V23_long_bullet",
+   "rev": "7ae466beeecb74c4e519a5f26af193aa5c30123e",
+   "base": "7b7acd4651d82f13c2fcec0a21ef012e22f00e73",
+   "pins": "14-line stale bullet, correction at its end (synthetic base)"
+  },
+  {
+   "name": "V24_mid_bullet",
+   "rev": "621bae074bc838598859ce3fba9fd23a0b3ba419",
+   "base": "c434c94778c073fbb1e3aa23ae3b50c595e7c0b1",
+   "pins": "9-line stale bullet, correction at its end (synthetic base)"
+  }
+ ],
+ "mutants": [
+  {
+   "id": "M00_noop",
+   "desc": "control: comment-only change, no behavioural delta expected",
+   "verdict": "SURVIVED",
+   "killing_fixtures": []
+  },
+  {
+   "id": "M01_window_80",
+   "desc": "C9 insert window 8 -> 80 base lines",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V23_long_bullet"
+   ],
+   "delta_kind": "state",
+   "corpus_only": false,
+   "first_delta": [
+    "V23_long_bullet",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "5a7ba96729f05f0ef92c7cf031e38dd31b131a3b1ffeca373c763f783dfcbec6"
+  },
+  {
+   "id": "M02_window_4",
+   "desc": "C9 insert window 8 -> 4 base lines",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V24_mid_bullet"
+   ],
+   "delta_kind": "state",
+   "corpus_only": false,
+   "first_delta": [
+    "V24_mid_bullet",
+    "exit",
+    "0 -> 1"
+   ],
+   "mutant_sha256": "87862a12e00595a90cc5b7034742726e24721cb5cfbab25bb70dd2f151b50d35"
+  },
+  {
+   "id": "M03_no_append_only",
+   "desc": "C9 append-only diff check removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V3_line_deleted"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V3_line_deleted",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "ee2a6108aaa33c358b9e1dde86b4620e4860ea212034f8771df57954e408ed88"
+  },
+  {
+   "id": "M04_no_tag",
+   "desc": "C9 [r59-correction <date>] tag check removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V23_long_bullet",
+    "V25_inside_bullet",
+    "V2_position_16",
+    "V4_wrong_tag"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V4_wrong_tag",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "2b6601e3abeecd439386a137229033a8a38639d74d98d665015281d940339097"
+  },
+  {
+   "id": "M05_loose_s425",
+   "desc": "C9 S425 citation regex loosened (no word boundary)",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V5_wrong_id"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V5_wrong_id",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "f96dce8fa46cf9cff1e76cabb0000c8b63ff1c0a1e139a5d9d51a209a91a8b8a"
+  },
+  {
+   "id": "M06_no_topic",
+   "desc": "C9 page-named-subject (IP address) requirement removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V6_no_topic"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V6_no_topic",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "57c56e68efcb7fdbeb5ba4e4e2a3632f99633f1becc7e51609ec3232c3693685"
+  },
+  {
+   "id": "M07_char_ceiling",
+   "desc": "character ceiling 160 -> 400",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V7_long_quote"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V7_long_quote",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "73351a635c8478bd39149980f2aa89319325d543b9a1eae7ba8f1fa288f82298"
+  },
+  {
+   "id": "M08_no_collapse",
+   "desc": "whitespace collapse of the retained body removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V0_positive",
+    "V10_h1_anchor",
+    "V11_used_by_order",
+    "V12_curly_quotes",
+    "V13_short_quote",
+    "V14_over_unit_ceiling",
+    "V15_one_span",
+    "V16_shared_span",
+    "V17_no_unit_count",
+    "V18_newline_span",
+    "V1_stale_twice",
+    "V20_no_article_block",
+    "V21_code_span_quote",
+    "V22_fake_heading_in_pre",
+    "V23_long_bullet",
+    "V24_mid_bullet",
+    "V25_inside_bullet",
+    "V26_cross_body_span",
+    "V27_chrome_quote",
+    "V28_attr_hidden_quote",
+    "V2_position_16",
+    "V3_line_deleted",
+    "V4_wrong_tag",
+    "V5_wrong_id",
+    "V6_no_topic",
+    "V7_long_quote",
+    "V8_date_in_attribute",
+    "V9_footer_quote"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V0_positive",
+    "exit",
+    "0 -> 1"
+   ],
+   "mutant_sha256": "6b74f64099f4e2e113e1f00e9bda0bdae850732a94c56857cf8e2a7c042780ac"
+  },
+  {
+   "id": "M09_article_end",
+   "desc": "article end marker changed to the closing tag",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V9_footer_quote"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V9_footer_quote",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "0b7162bf5c057504fc37d3ea10c235305270dd49c5f416cdba8b3a4073e0bb39"
+  },
+  {
+   "id": "M10_headings_h1_6",
+   "desc": "article heading regex <h2>/<h3> -> <h1>..<h6>",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V10_h1_anchor"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V10_h1_anchor",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "207a3c3248e8a87a0793f5599bbd24c5bf029ba9104e153a640a520b62717d6e"
+  },
+  {
+   "id": "M11_date_outside_nodes",
+   "desc": "printed-revision check moved outside the text nodes (raw substring)",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V8_date_in_attribute"
+   ],
+   "delta_kind": "notes",
+   "corpus_only": false,
+   "first_delta": [
+    "V8_date_in_attribute",
+    "C5_quote_truth",
+    "notes -1 +0: S425: the page does not print `Last updated 2026-06-12 UTC` in a text node"
+   ],
+   "mutant_sha256": "7d90c5a6d96ec68655128641b9e5e69428c75133e621f91ca85f3bf03eb6ac68"
+  },
+  {
+   "id": "M12_used_by_unsorted",
+   "desc": "used-by comparison loses its sorted() normalisation",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V11_used_by_order"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V11_used_by_order",
+    "exit",
+    "0 -> 1"
+   ],
+   "mutant_sha256": "2e281f52946efbdfb1ac88675a4a938f0cf741b36999ad2c3c833688970ff4bd"
+  },
+  {
+   "id": "M13_no_stale_once",
+   "desc": "C9 stale-sentence-preserved-once check removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V1_stale_twice"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V1_stale_twice",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "346ed5776c7938234988f77e55e3de08bfa22498f2e2cbe924bb34c91e89a161"
+  },
+  {
+   "id": "M14_no_curly",
+   "desc": "C9 curly-double-quote refusal removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V12_curly_quotes"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V12_curly_quotes",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "a9e98cfc6e0087781c118b46ddbcfc11164d075f3c6f060037fd0ddaf6c1b019"
+  },
+  {
+   "id": "M15_loose_position",
+   "desc": "C9 insert position relaxed from exactly-the-bullet-end to anywhere in the bullet",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V25_inside_bullet"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V25_inside_bullet",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "0cf601393b9d11eaf9552b158e2c680071bbfb261fc923471b637ae00ec005c1"
+  },
+  {
+   "id": "M16_no_prose_filter",
+   "desc": "C9 rendered-prose filter (code spans / comments / tags) removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V21_code_span_quote",
+    "V28_attr_hidden_quote"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V21_code_span_quote",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "104f128d0e1995602377c2856eed3d3503a583ba74a1103c183a9ceea8ac4904"
+  },
+  {
+   "id": "M27_no_tag_strip_c9",
+   "desc": "C9 tag strip removed: an HTML attribute counts as rendered prose",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V28_attr_hidden_quote"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V28_attr_hidden_quote",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "3c063ff2edf1ed4c0c8db8988b10fdc7c8e6e3fe4d1e4f26ac398d8cfa049dbc"
+  },
+  {
+   "id": "M26_no_chrome_strip",
+   "desc": "text_segments: page chrome (aside/nav/feedback) blanking removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V27_chrome_quote"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V27_chrome_quote",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "86bce612179e3dcb55ca70043fb1a3f25ca154acefa6367e99c84435b8873c29"
+  },
+  {
+   "id": "M17_units_floor_2",
+   "desc": "C9 quote unit floor 6 -> 2",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V13_short_quote"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V13_short_quote",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "40880a547719e9c21a7358f102af935556f4220623229aea9b5e9a2940d860e7"
+  },
+  {
+   "id": "M18_unit_ceiling",
+   "desc": "unit ceiling 25 -> 40",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V14_over_unit_ceiling"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V14_over_unit_ceiling",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "46a048ee0527e22b0efb93630a5443f6925bf4446b417a67545b34ba7699ed22"
+  },
+  {
+   "id": "M19_no_in_content",
+   "desc": "C9 article-block membership requirement removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V20_no_article_block"
+   ],
+   "delta_kind": "state",
+   "corpus_only": false,
+   "first_delta": [
+    "V20_no_article_block",
+    "C9_stale_claim_corrected",
+    "state fail -> pass"
+   ],
+   "mutant_sha256": "825db519449ecf65a326894ee0e981c4ac20c5d89eb299163cfc4be532e60044"
+  },
+  {
+   "id": "M20_min_unique_1",
+   "desc": "entry page-unique span floor 3 -> 1",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V15_one_span",
+    "V20_no_article_block"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V15_one_span",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "2763b12414ab9e42d24bab2053526f51150acbaf91bf6c5830abb99971c34926"
+  },
+  {
+   "id": "M21_no_gate_unique",
+   "desc": "Gate quote page-uniqueness check removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V16_shared_span",
+    "V26_cross_body_span"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V16_shared_span",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "975d3e118fdf9e987c009a0eb4067e82018009a17128910863952642e8f29e38"
+  },
+  {
+   "id": "M22_no_gate_units",
+   "desc": "Gate line unit-count annotation check removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V17_no_unit_count"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V17_no_unit_count",
+    "exit",
+    "1 -> 0"
+   ],
+   "mutant_sha256": "718d68b59575c3ca4ed001faf658489ef2e2533a86d590e0e6c2e22fd4c914d1"
+  },
+  {
+   "id": "M23_title_floor_6",
+   "desc": "row-title unit floor 3 -> 6 (the pre-wave-1 rule)",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V0_positive",
+    "V10_h1_anchor",
+    "V11_used_by_order",
+    "V12_curly_quotes",
+    "V13_short_quote",
+    "V14_over_unit_ceiling",
+    "V15_one_span",
+    "V16_shared_span",
+    "V17_no_unit_count",
+    "V18_newline_span",
+    "V1_stale_twice",
+    "V20_no_article_block",
+    "V21_code_span_quote",
+    "V22_fake_heading_in_pre",
+    "V23_long_bullet",
+    "V24_mid_bullet",
+    "V25_inside_bullet",
+    "V26_cross_body_span",
+    "V27_chrome_quote",
+    "V28_attr_hidden_quote",
+    "V2_position_16",
+    "V3_line_deleted",
+    "V4_wrong_tag",
+    "V5_wrong_id",
+    "V6_no_topic",
+    "V7_long_quote",
+    "V8_date_in_attribute",
+    "V9_footer_quote"
+   ],
+   "delta_kind": "state",
+   "corpus_only": true,
+   "first_delta": [
+    "V0_positive",
+    "exit",
+    "0 -> 1"
+   ],
+   "mutant_sha256": "ca7e498e98d6cddafe66ff55d31ca6ea646afee7d4816f4b9c6d50d12a9d634c"
+  },
+  {
+   "id": "M24_no_cross_body",
+   "desc": "C9 cross-body uniqueness requirement removed",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V26_cross_body_span"
+   ],
+   "delta_kind": "state",
+   "corpus_only": false,
+   "first_delta": [
+    "V26_cross_body_span",
+    "C9_stale_claim_corrected",
+    "state fail -> pass"
+   ],
+   "mutant_sha256": "e512bd4883dcdba9eabc8e96dea1e743f396e06f0709b5e17df20278c5b4f6de"
+  },
+  {
+   "id": "M25_no_code_strip_headings",
+   "desc": "article_headings loses its code/script strip",
+   "verdict": "KILLED",
+   "killing_fixtures": [
+    "V22_fake_heading_in_pre"
+   ],
+   "delta_kind": "notes",
+   "corpus_only": false,
+   "first_delta": [
+    "V22_fake_heading_in_pre",
+    "C5_quote_truth",
+    "notes -1 +0: S425: row anchor heading 'Sample heading for tests' is not 3+ units and an <h2>/<h3> of the article block"
+   ],
+   "mutant_sha256": "eae99547f8165de0ddcf0e0900a727d7322473471b7356d1a6405974cde18134"
+  }
+ ]
+}

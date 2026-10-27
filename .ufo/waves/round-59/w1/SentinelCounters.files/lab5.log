@@ -1,0 +1,16 @@
+== C1 v1 vs v2 on a v2-shaped fixture, real files vs symlinks ==
+  v1 real: rc=0 :: EXIT=0
+  v2 real: rc=1 :: EXIT=1
+  v1 sym: rc=0 :: EXIT=0
+  v2 sym: rc=1 :: EXIT=1
+== C3: symlinked registry / lesson / entry are parsed from their TARGET STRINGS ==
+  ls-tree: '120000 blob f533eecd7e2d2aa1732e509b9dc85d1667736206\tcorpus/SOURCES.md'
+  git show returns the target string, first 2 lines: ['# Sources', '']
+  C3 verdict with a symlinked registry: rc=2 :: EXIT=2
+== checkout divergence: the measured bytes are not a document a reader can see ==
+  SCORECARD.md in the checkout is a symlink: True
+  its target is '# kake - Scorecard\n\n| Axis | Score | Evi' (a multi-line 'path')
+  cat SCORECARD.md -> rc=1 ''
+  git show rev:SCORECARD.md -> '# kake - Scorecard' (counter reads THIS)
+  git show rev:receipt -> '16/16' (the tally '16/16' is 'found' in a path string)
+  cat the receipt in the checkout -> rc=1 ''

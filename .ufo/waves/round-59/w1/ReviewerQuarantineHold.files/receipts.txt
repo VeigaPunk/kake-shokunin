@@ -1,0 +1,62 @@
+ReviewerQuarantineHold — receipts (access date 2026-10-27 UTC; probes run 2026-10-27 01:51–01:52 UTC)
+
+Scratch (deleted at exit): /fast/scratch/hyaku/kake-r59/ReviewerQuarantineHold
+
+SLICE
+  awk -F'|' -v l='kake' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ {print $4, $5}' \
+    /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md  -> 12 lines
+  cmp <regen> .ufo/waves/round-59/assimilation/quarantine-slice  -> identical (exit 0)
+  sha256 round-58 slice == round-59 slice == 6d92f4408c7482e59fb93c2085676f7d9c4fedb687bcfd501060f63c15d2d63a
+  register mtime 2026-10-24 08:37:00 -0300 (unedited, read-only)
+  register cells read: line 83 (S142), 87 (S161), 89 (S194)
+
+FETCH S142  https://www.kimi.com/help/websites/websites-faq
+  curl -sSL -A 'Mozilla/5.0 ... Chrome/126 Safari/537.36'  -> HTTP 200, 558524 bytes
+  sha256 baaa9b8c8a1ad3dce597015f8236d345a48d3e1f87e9fc279a3c1db2fe9087d3
+  registered quote (51 chars, ends with U+3002): occurrences raw=0  collapsed-text=0  text-node=0
+  prefix minus final '.'-equivalent: raw=3 (1 visible <p>, 2 in embedded Next.js RSC JSON payload)  text=1  text-node=1
+  located page text: ...将网站设为私密，或者内容不适触发举报。   (registered quote is a truncated prefix)
+
+FETCH S161  https://developers.google.com/crawling/docs/crawlers-fetchers/reduce-crawl-rate
+  curl -sSL  -> HTTP 200, 68791 bytes
+  sha256 7bc2cf9e4a9b0af05c355e680a9f81dae1c0894965aa7f5c3fe9c7a4f23f215b
+  page prints "Last updated 2026-10-06 UTC"
+  registered quote with backticks: raw=0 text=0
+  same string without backticks: text=1 but split across 3 text nodes (<b>..</b> / "(for example," / <code>..</code>)
+  single-node clean span: "It reduces your site's crawl rate across the whole hostname" (10 units, 59 chars, unique)
+  duplicate URL: registry row S274 already holds this URL (docs/A, opened 2026-10-24, mined,
+    used-by corpus/knowledge/crawl-budget-consequences.md) -> census E04/W04 if appended as a new row;
+    CORPUS.md rule 2 requires a "supersedes S274 -" row instead
+
+FETCH S194  https://github.com/VeigaPunk/kake-shokunin.git  (== lane origin per `git remote -v`)
+  landing page: HTTP 200, 259390 bytes, sha256 5d04b7a55f4cd0f3552201e7ad31cf53cc86168b4a46617e0e009f5eed099c57
+    '200` is not live' = 0 ; 'is not live' = 0 ; 'drift-detection' = 0
+  raw file https://raw.githubusercontent.com/VeigaPunk/kake-shokunin/master/corpus/knowledge/drift-detection.md
+    HTTP 200, 9693 bytes, sha256 cffb82b35849a8b58d8d33be7c1bac4c9237b3f4a63fd66a38d316a377f4129c
+    == sha256 of lane-local corpus/knowledge/drift-detection.md (byte-identical)
+    line 28: - **`200` is not live.** `plazir27.kimi.pro` returns 200 with a 5,995B
+    literal "`200` is not live." occurs 1x in the file
+  git ls-remote --symref origin HEAD -> refs/heads/master cb685273cc9e331b51f45485793d5d1c91184b3a == lane HEAD
+
+L0 / CONTRACT CHECKS
+  grep -n 'kake | round-58' /home/vgpnk/Projects/shokunin/.ufo/l0-questions.md  -> line 180 (file has 180 lines; this is the last)
+  'L0 ANSWER' occurrences in that file: 2 (lines 52 kama round-11, 53 tsukuroi round-12) -> line 180 UNANSWERED
+  fleet-root commit carrying the question: 43cba161 "round-58: route quarantine/frozen-claim decision"
+  contract: .ufo/waves/round-59/contract.md line ~86 "Quarantine slice: 12 rows (assimilation/quarantine-slice), unchanged;
+    nothing appended (L0 open)"; D3 routing: "still held: the L0 question of round 58 has no answer, so nothing from the
+    quarantine slice is appended (routed around, not treated as answered)"
+  C8 arithmetic (read from committed counter .ufo/waves/round-59/c59_quote_truth.py, NOT executed):
+    line 584 len(rows) == len(mirror_rows) + len(NEW_ROWS); line 599 registry-minus-new-rows must reproduce mirror bytes
+    mirror-pin.json: rows 162, sha256 ecb5cedfcf2addc043ce6fa1b6def453088a996f95c0f60583dfdf0f30efe6ae
+      == sha256 of base-revision registry at fd6303ce5c14b3f892dec586297a942ab6e4193b
+    NEW_ROWS = (S425, S426) -> required registry rows = 164; worktree registry today = 164; any slice row -> 165 -> C8 fails
+
+UNIT COUNTS (counter units(): 1 per CJK char, 1 per non-CJK whitespace token)
+  S142 registered quote: 44 units / 51 chars  (ceiling 25 -> would fail a Gate span)
+  S161 <b> fragment:      10 units / 59 chars  (would pass)
+  S194 "`200` is not live.": 4 units / 18 chars (floor 6 -> would fail a Gate span)
+
+WRITES BY THIS SEAT
+  .ufo/waves/round-59/w1/ReviewerQuarantineHold.md
+  .ufo/waves/round-59/w1/ReviewerQuarantineHold.files/receipts.txt
+  (no lane file, registry, counter, lesson, register, campaign file, git index or jj state touched)

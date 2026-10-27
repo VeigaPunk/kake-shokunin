@@ -1,0 +1,14 @@
+PROBE H3: c57_idresolver_gate G2 when scripts/id_resolver.py mentions .ufo/
+clone: --shared of the lane at fd6303ce, probe commit with user.name=selftest
+C2 id-resolver 4/5 met=False  (met: gate_conditions_passed == 5 of 5)
+  G1_tool_present PASS
+  G2_selftest FAIL
+    - selftest: 59/59; the tool's source names the judge: ['.ufo/']
+  G3_fixture PASS
+    - fixture0: dirty exit=1 summary=(12, 3, 9, 6, 3); clean exit=0 summary=(3, 3, 0, 0, 0); fixture1: dirty exit=1 summary=(12, 3, 9, 6, 3); clean exit=0 summary=(3, 3, 0, 0, 0)
+  G4_red_before PASS
+    - exit=1 summary=(99, 94, 5, 5, 0)
+  G5_green PASS
+    - exit=0 summary=(108, 108, 0, 0, 0); reference ids_cited=108
+  revision: 20491cf27fcc6a90bf8c02735d5139d92a9cfa13
+EXIT=1

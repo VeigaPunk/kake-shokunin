@@ -1,0 +1,18 @@
+cloning the lane (shared) into /fast/scratch/hyaku/kake-r59/SentinelCounters/laneclone
+  clone rc=0 
+base revision present: rc=0 fd6303ce5c14
+== baseline: base tool, clean env ==
+  rc=1 passes=13
+    K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+    K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S8715 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+    K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+    K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+== with an inherited global core.hooksPath whose pre-commit rewrites the fixture ==
+  rc=1 passes=13  (baseline 13)
+    K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+    K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S8715 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  hook ran inside fixtures: True
+  hook invocations: 18; first: hook cwd=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/w_hookfg2/c59-rc-lqrtocvw/tmpbo9vtvlx/fleet/kake-shokunin
+  symlinked fixture dirs materialised: True
+  materialised corpus/knowledge/linked.md
+materialised corpus/knowledge/odd.md

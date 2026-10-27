@@ -1,0 +1,90 @@
+[
+ {
+  "case": "W1_nbps_after_id_cell",
+  "note": "NBSP (U+00A0) inside the id cell",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE02\tS941 "
+   ]
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "W2_url_match_substring_sibling_owns",
+  "note": "the sibling owns the id; its URL is a prefix of the lane's URL",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "W3_vertical_tab_before_id_cell",
+  "note": "vertical tab (U+000B) inside the id cell",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE02\t"
+   ]
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S943 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "W4_list_item_only_content_row",
+  "note": "a pipe row as the whole content of a list item",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S945 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "W5_lookalike_citation_ascii_row_present",
+  "note": "lookalike citation, ASCII row present",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=0 ids_resolved=0 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "W6_html_comment_holds_citation",
+  "note": "a citation inside an HTML comment in a knowledge file",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S948 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ }
+]

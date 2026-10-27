@@ -1,0 +1,16 @@
+== C3 GIT_* scrub on a fixture that otherwise exits 1 ==
+  clean: rc=2 :: EXIT=2
+  GIT_DIR: rc=2 identical=True
+  GIT_WORK_TREE: rc=2 identical=True
+== C2 --work under a caller-supplied path ==
+  C2 --work /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/caller_work/nested: rc=1 dir_exists_after=True contents=[]
+== --root = symlink to the repo toplevel: C1 vs C3 ==
+  C1: rc=0 :: EXIT=0
+  C1 (real path): rc=0 same_verdict=True :: EXIT=0
+  C3: rc=2 :: EXIT=2
+  C3 (real path): rc=2 same_verdict=True :: EXIT=2
+== C3: a symlinked registry is PARSED from its target string ==
+  ls-tree: '120000 blob 3f084d8c0e48a2c7b0af3c1117fa684f3247edb8\tcorpus/SOURCES.md'
+  show() returns: ['# Sources', '']
+  parse_registry() on that target string -> ids ['S425']
+  row S425 parsed from the link target: ['S425', 'Google crawlers', 'docs', 'A']

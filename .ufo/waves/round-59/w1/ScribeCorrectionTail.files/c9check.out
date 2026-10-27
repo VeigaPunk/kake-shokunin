@@ -1,0 +1,16 @@
+insert lines: 13 | base lines: 73 | patched lines: 86
+opcodes: [('equal', 0, 34, 0, 34), ('insert', 34, 34, 34, 47), ('equal', 34, 74, 47, 87)]
+delete/replace ops: []
+insert-only: True
+stale line base index: [30] (1-based line [31] )
+  op equal base_idx 0 -> 34 within-window: False
+  op insert base_idx 34 -> 34 within-window: True
+  op equal base_idx 34 -> 74 within-window: False
+tagged lines: 1
+cites S425: True
+curly: False
+  quote 'The source IP address of the request.' {'units': 7, 'chars': 37, 'in_node': True, 'count': 1, 'elsewhere': 0, 'topic': True} PASSES_C5_MASK
+  quote 'The reverse DNS hostname of the source IP.' {'units': 8, 'chars': 42, 'in_node': True, 'count': 1, 'elsewhere': 0, 'topic': False} PASSES_C5_MASK
+  quote 'your logs may show visits from several IP addresses' {'units': 9, 'chars': 51, 'in_node': True, 'count': 1, 'elsewhere': 0, 'topic': True} PASSES_C5_MASK
+C9-qualifying spans (pass C5 mask and carry 'IP address'): ['The source IP address of the request.', 'your logs may show visits from several IP addresses']
+C9_SIMULATED: pass

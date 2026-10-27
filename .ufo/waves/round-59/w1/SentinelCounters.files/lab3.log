@@ -1,0 +1,44 @@
+== PYTHONPATH / sitecustomize in the counter and in the child tool ==
+  C1 with hostile PYTHONPATH: rc=0 sitecustomize_ran=True :: EXIT=0
+  C3 with hostile PYTHONPATH: rc=2 sitecustomize_ran=True :: EXIT=2
+  C2 with hostile PYTHONPATH: rc=1 sitecustomize_ran=True :: EXIT=1
+== non-toplevel roots (D2 forward-fix check) ==
+  C1 --root subdir: rc=2 :: EXIT=2
+  C1 --root .git dir: rc=2 :: EXIT=2
+  C1 --root nonexistent: rc=2 :: EXIT=2
+  C2 --root subdir: rc=2 :: EXIT=2
+  C2 --root .git dir: rc=2 :: EXIT=2
+  C2 --root nonexistent: rc=2 :: EXIT=2
+  C3 --root subdir: rc=2 :: EXIT=2
+  C3 --root .git dir: rc=2 :: EXIT=2
+  C3 --root nonexistent: rc=2 :: EXIT=2
+  C1 --root <symlink to toplevel>: rc=0 :: EXIT=0
+  C3 --root <symlink to toplevel>: rc=2 :: EXIT=2
+== /tmp usage and leftover scratch ==
+  C2 without --work and TMPDIR unset: rc=1 :: EXIT=1
+  new /tmp entries: []
+  C2 with TMPDIR=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/tmpdir: rc=1 leftovers=[]
+  files written into cwd by C1/C3: []
+== hostile .git/config inside the MEASURED repo ==
+  C1 with hostile measured-repo .git/config: rc=0 marker_fired=False :: EXIT=0
+  C3 with hostile measured-repo .git/config: rc=2 marker_fired=False :: EXIT=2
+  C2 with hostile measured-repo .git/config: rc=1 marker_fired=False :: EXIT=1
+== v1 (contract-pinned) vs v2 (working tree) on the symlink forgery ==
+  v1: rc=0 :: EXIT=0
+  v2: rc=1 :: EXIT=1
+  v2 obj_type(SCORECARD.md) = 'blob' (ls-tree mode: 120000)
+  v2 show(SCORECARD.md) first line = ['# kake - Scorecard']
+  v2 show(receipt symlink) = '16/16'
+== --opt=value injection forms (argparse '=' form) ==
+  C1 --revision='--output=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2
+  C1 --revision='--upload-pack=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2
+  C1 --revision='--exec=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2
+  C1 --revision='--git-dir=/tmp': rc=2 pwn=False :: EXIT=2
+  C1 --revision='-c': rc=2 pwn=False :: EXIT=2
+  C1 --revision='--exec-dir=/tmp': rc=2 pwn=False :: EXIT=2
+  C2 --revision='--output=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2
+  C2 --revision='--upload-pack=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2
+  C2 --revision='--exec=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2
+  C3 --revision='--output=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2
+  C3 --revision='--upload-pack=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2
+  C3 --revision='--exec=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN2': rc=2 pwn=False :: EXIT=2

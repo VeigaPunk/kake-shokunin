@@ -1,0 +1,92 @@
+[
+ {
+  "case": "H1_comment_hidden_paths_heading",
+  "note": "a comment-hidden `## Paths` must end the section; the current parser keeps it open",
+  "census": {
+   "rows": "1",
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE12\tS992 row outside Registry section"
+   ]
+  },
+  "current": {
+   "exit": 1,
+   "out": "DANGLING S992 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "narrow": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  },
+  "full": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "H2_comment_hidden_registry_heading",
+  "note": "a comment-hidden `## Registry` must not reopen the section",
+  "census": {
+   "rows": "2",
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE12\tS994 row outside Registry section"
+   ]
+  },
+  "current": {
+   "exit": 1,
+   "out": "DANGLING S994 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=3 ids_resolved=2 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "narrow": {
+   "exit": 1,
+   "out": "DANGLING S994 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nDANGLING S995 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=3 ids_resolved=1 dangling=2 owned_elsewhere=0 unowned=2"
+  },
+  "full": {
+   "exit": 1,
+   "out": "DANGLING S994 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nDANGLING S995 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=3 ids_resolved=1 dangling=2 owned_elsewhere=0 unowned=2"
+  }
+ },
+ {
+  "case": "H3_pre_hidden_paths_heading",
+  "note": "a <pre>-hidden `## Paths` must end the section; a comment-only fix leaves it open",
+  "census": {
+   "rows": "1",
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE12\tS997 row outside Registry section"
+   ]
+  },
+  "current": {
+   "exit": 1,
+   "out": "DANGLING S997 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "narrow": {
+   "exit": 1,
+   "out": "DANGLING S997 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "full": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "H4_fullwidth_citation_of_ascii_row",
+  "note": "registry has the ASCII S971; the citation uses fullwidth digits -> what is printed?",
+  "census": {
+   "rows": "1",
+   "validate_exit": 0,
+   "findings": []
+  },
+  "current": {
+   "exit": 1,
+   "out": "DANGLING S９７１ cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "narrow": {
+   "exit": 1,
+   "out": "DANGLING S９７１ cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  },
+  "full": {
+   "exit": 1,
+   "out": "DANGLING S９７１ cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ }
+]

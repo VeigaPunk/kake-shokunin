@@ -1,0 +1,32 @@
+# ExecResolverFix2 edge probes (candidate; fixtures under a scratch dir removed after this transcript)
+
+--- p1 in-lane symlinked registry -> expect rc 0
+  rc=0
+ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+--- p2 dangling registry symlink -> expect rc 2
+  rc=2
+id_resolver: unevaluable: registry absent: corpus/SOURCES.md
+--- p3 unclosed HTML comment hides the rest -> expect rc 1, DANGLING S002
+  rc=1
+ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+--- p4 same-line comment then a row -> expect rc 0 (row registers)
+  rc=0
+ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+--- p5 3-space-indented setext underline ends the section -> expect rc 1, DANGLING S004
+  rc=1
+ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+--- p6 comment opener inside a fence is code -> expect rc 0 (row registers)
+  rc=0
+ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+--- p7 worktree root that is a repo subdir evaluates its own files -> rc 0 (documented scoping)
+  rc=0
+ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+--- p8 revision mode with --root a symlink to the toplevel -> rc 0
+  rc=0
+ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+--- p9 --root below its toplevel with --revision -> expect rc 2
+  rc=2
+id_resolver: unevaluable: root '/fast/scratch/hyaku/kake-r59/ExecResolverFix2b/p7/sub' is not the toplevel of its repository (/fast/scratch/
+--- p10 revision-mode registry symlink inside the tree -> expect rc 0
+  rc=0
+ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0

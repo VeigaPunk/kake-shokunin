@@ -1,0 +1,563 @@
+--- a/scripts/id_resolver.py
++++ b/scripts/id_resolver.py
+@@ -2 +2,2 @@
+-"""Cross-registry source-id resolver for the kake lane (round-57 capability; round-58: fence-aware registry, NUL-split revision paths).
++"""Cross-registry source-id resolver for the kake lane (round-57 capability; round-58: fence-aware registry, NUL-split revision paths;
++round-59: HTML-comment and setext registry rules, symlink-aware knowledge walk, mode-aware revision tree).
+@@ -7 +8 @@
+-CLI (the round-57 contract; its gate checks this tool against an independent reference):
++CLI (the round-57 contract; its gate checks this tool against an independent implementation):
+@@ -13,2 +14,3 @@
+-    non-ASCII name is read as itself) and the blobs through `git show`, never the working tree
+-    (the lane registry is read at the same revision, for the same reason).
++    non-ASCII name is read as itself) and the blobs through `git cat-file blob`, never the working tree
++    (the lane registry is read at the same revision, for the same reason). A name that is not valid
++    UTF-8 is decoded with `os.fsdecode` (surrogateescape) and rendered with a visible `\\xNN` escape.
+@@ -16 +18,2 @@
+-    exact heading `## Registry` (the section ends at the next `# ` or `## ` heading), 0 to 3 leading spaces
++    exact heading `## Registry` (the section ends at the next `# ` or `## ` heading, or at a setext
++    heading: a paragraph line underlined by `===` or `---`), 0 to 3 leading spaces
+@@ -20,0 +24,7 @@
++    An HTML comment block (CommonMark type 2: a line opening with `<!--`, closed by the next line holding
++    `-->`) hides every row it covers, like a fence does.
++  - symlinks: in the working tree a symlinked knowledge directory inside the lane is followed (with cycle
++    protection) and a symlinked knowledge file inside the lane is read; a symlink that leaves the lane
++    contributes nothing. At a revision a committed symlink (mode 120000) is resolved to its target inside
++    the same tree; a target outside the tree, a dangling target, and a link target string are never read as
++    a body. The lane registry in the working tree must resolve inside the lane.
+@@ -25,2 +35,3 @@
+-  - exit: 0 dangling == 0, 1 dangling > 0, 2 unevaluable (revision unresolved, `--fleet` not a directory,
+-    registry absent, no knowledge file), 64 usage.
++  - exit: 0 dangling == 0, 1 dangling > 0, 2 unevaluable (revision unresolved, `--root` is not the
++    toplevel of the repository that holds it, `--fleet` not a directory, registry absent or outside the
++    lane, no knowledge file), 64 usage.
+@@ -36,0 +48 @@
++import posixpath
+@@ -50,0 +63,5 @@
++HTML_COMMENT_OPEN_RE = re.compile(r"^ {0,3}<!--")
++HTML_COMMENT_CLOSE_RE = re.compile(r"-->")
++SETEXT_H1_RE = re.compile(r"^ {0,3}=+[ \t]*$")
++SETEXT_H2_RE = re.compile(r"^ {0,3}-+[ \t]*$")
++ATX_HEADING_RE = re.compile(r"^ {0,3}#{1,6}([ \t]|$)")
+@@ -86,3 +103,84 @@
+-def _nul_paths(data):
+-    """Paths of a `git ls-tree -z` listing: NUL separated, never C-quoted."""
+-    return [chunk.decode("utf-8", "replace") for chunk in data.split(b"\0") if chunk]
++def _tree_entries(root, revision):
++    """Map every path of the tree at `revision` to (mode, type, oid); paths stay raw bytes."""
++    proc = _git(root, "ls-tree", "-r", "-z", revision)
++    if proc.returncode != 0:
++        return None, f"cannot list {revision[:12]}: {_text(proc).strip()}"
++    entries = {}
++    for chunk in proc.stdout.split(b"\0"):
++        if not chunk:
++            continue
++        meta, _, path = chunk.partition(b"\t")
++        fields = meta.split(b" ")
++        if len(fields) != 3:
++            continue
++        mode, otype, oid = fields
++        entries[path] = (mode, otype, oid)
++    return entries, None
++
++
++def _blob_bytes(root, oid):
++    """The raw bytes of a blob; None when git cannot read it."""
++    proc = _git(root, "cat-file", "blob", oid.decode("ascii", "replace"))
++    if proc.returncode != 0:
++        return None
++    return proc.stdout
++
++
++def _resolve_link_path(root, entries, path, depth=0, seen=None):
++    """The tree path a committed symlink points at (a blob or a directory), or None.
++
++    None when the target escapes the tree, dangles, or the chain loops: a link target
++    string is never read as a body.
++    """
++    seen = set() if seen is None else seen
++    if depth > 8 or path in seen:
++        return None
++    seen.add(path)
++    blob = _blob_bytes(root, entries[path][2])
++    if blob is None:
++        return None
++    target = blob.split(b"\0")[0].rstrip(b"\n")
++    if not target or target.startswith(b"/"):
++        return None
++    joined = posixpath.normpath(posixpath.join(posixpath.dirname(path), target))
++    if joined.startswith(b"..") or joined.startswith(b"/"):
++        return None
++    entry = entries.get(joined)
++    if entry is None:
++        stem = joined + b"/"
++        return joined if any(key.startswith(stem) for key in entries) else None
++    mode, _otype, noid = entry
++    if mode == b"120000":
++        return _resolve_link_path(root, entries, joined, depth + 1, seen)
++    if mode not in (b"100644", b"100755"):
++        return None
++    return joined
++
++
++def _link_dir_bodies(root, entries, prefix, out_prefix, bodies, seen, depth=0):
++    """Read every in-tree `*.md` blob under the directory `prefix` into `out_prefix/**`."""
++    if depth > 8 or prefix in seen:
++        return True
++    seen.add(prefix)
++    stem = prefix + b"/"
++    for path, (mode, _otype, oid) in sorted(entries.items()):
++        if not path.startswith(stem) or not path.endswith(b".md"):
++            continue
++        out = out_prefix + b"/" + path[len(stem):]
++        if mode == b"120000":
++            target = _resolve_link_path(root, entries, path)
++            if target is None:
++                continue
++            if target in entries:
++                data = _blob_bytes(root, entries[target][2])
++                if data is None:
++                    return False
++                bodies[os.fsdecode(out)] = data.decode("utf-8", "replace")
++            elif not _link_dir_bodies(root, entries, target, out, bodies, seen, depth + 1):
++                return False
++        elif mode in (b"100644", b"100755"):
++            data = _blob_bytes(root, oid)
++            if data is None:
++                return False
++            bodies[os.fsdecode(out)] = data.decode("utf-8", "replace")
++    return True
+@@ -106,0 +205,13 @@
++def _is_paragraph_line(line):
++    """True when `line` is a paragraph line (so a following `===`/`---` is a setext heading)."""
++    if not line.strip():
++        return False
++    if ROW_RE.match(line):
++        return False
++    if ATX_HEADING_RE.match(line):
++        return False
++    if SETEXT_H1_RE.match(line) or SETEXT_H2_RE.match(line):
++        return False
++    return True
++
++
+@@ -108 +219,6 @@
+-    """Map id -> [urls] for rows of the `## Registry` section (0-3 leading spaces, outside fenced code)."""
++    """Map id -> [urls] for rows of the `## Registry` section.
++
++    The section ends at the next `# `/`## ` heading or at a setext heading (a paragraph
++    line underlined by `===`/`---`); fenced code blocks and HTML comment blocks hide the
++    rows they cover.
++    """
+@@ -111,0 +228,2 @@
++    html = False
++    prev_para = False
+@@ -116,0 +235,6 @@
++            prev_para = False
++            continue
++        if html:  # an HTML comment block hides everything up to its `-->`
++            if HTML_COMMENT_CLOSE_RE.search(line):
++                html = False
++            prev_para = False
+@@ -119,0 +244,5 @@
++            prev_para = False
++            continue
++        if HTML_COMMENT_OPEN_RE.match(line):
++            html = not HTML_COMMENT_CLOSE_RE.search(line)
++            prev_para = False
+@@ -122,0 +252 @@
++            prev_para = False
+@@ -124 +254,7 @@
+-        if not inside:
++        if inside and SECTION_END_RE.match(line):
++            inside = False
++            prev_para = False
++            continue
++        if inside and prev_para and (SETEXT_H1_RE.match(line) or SETEXT_H2_RE.match(line)):
++            inside = False  # a setext H1/H2 ends the section, like an ATX `# `/`## ` heading
++            prev_para = False
+@@ -126,2 +262,2 @@
+-        if SECTION_END_RE.match(line):
+-            inside = False
++        if not inside:
++            prev_para = _is_paragraph_line(line)
+@@ -130,0 +267 @@
++            prev_para = _is_paragraph_line(line)
+@@ -131,0 +269 @@
++        prev_para = False
+@@ -160 +298,2 @@
+-def lane_registry(root, revision):
++def lane_registry(root, revision, entries=None):
++    """The registry text at `revision` (from the tree) or in the working tree."""
+@@ -162,2 +301,11 @@
+-        proc = _git(root, "show", f"{revision}:{REGISTRY_REL}")
+-        if proc.returncode != 0:
++        key = REGISTRY_REL.encode()
++        entry = (entries or {}).get(key)
++        if entry is None:
++            return None, f"registry absent at {revision[:12]}: {REGISTRY_REL}"
++        mode, _otype, oid = entry
++        if mode == b"120000":  # a committed symlink is resolved inside the tree, never read as text
++            resolved = _resolve_link_path(root, entries, key)
++            if resolved is None or resolved not in entries:
++                return None, f"registry absent at {revision[:12]}: {REGISTRY_REL}"
++            oid = entries[resolved][2]
++        elif mode not in (b"100644", b"100755"):
+@@ -165 +313,4 @@
+-        return _text(proc), None
++        data = _blob_bytes(root, oid)
++        if data is None:
++            return None, f"registry unreadable at {revision[:12]}: {REGISTRY_REL}"
++        return data.decode("utf-8", "replace"), None
+@@ -168,0 +320,5 @@
++    root_real = os.path.realpath(root)
++    real = os.path.realpath(path)
++    if real != root_real and not real.startswith(root_real + os.sep):
++        # the registry is the authority that turns citations green: it must live in the lane
++        return None, f"registry outside the lane: {REGISTRY_REL}"
+@@ -176 +332,51 @@
+-def knowledge_bodies(root, revision):
++def _walk_knowledge(base, root_real, bodies):
++    """Read every in-lane `*.md` under `base`, following in-lane symlinked directories."""
++    visited = set()
++    base_real = os.path.realpath(base)
++
++    def inside(path):  # a symlink must not carry a citation in from outside the lane (w2/SentinelRound F3)
++        real = os.path.realpath(path)
++        return real == root_real or real.startswith(root_real + os.sep)
++
++    def walk(dirpath, relprefix):
++        real = os.path.realpath(dirpath)
++        if real in visited:  # a symlink cycle must not loop the walk
++            return
++        visited.add(real)
++        try:
++            names = sorted(os.listdir(dirpath))
++        except OSError as exc:
++            raise _WalkError(f"cannot read {relprefix}: {exc}")
++        subdirs = []
++        for name in names:
++            full = os.path.join(dirpath, name)
++            rel = f"{relprefix}/{name}"
++            if os.path.isdir(full):
++                subdirs.append((full, rel, os.path.islink(full)))
++                continue
++            if not name.endswith(".md"):
++                continue
++            if not inside(full):
++                continue
++            try:
++                with open(full, "rb") as handle:
++                    bodies[rel] = handle.read().decode("utf-8", "replace")
++            except OSError as exc:
++                raise _WalkError(f"cannot read {rel}: {exc}")
++        for full, rel, is_link in subdirs:
++            if is_link:
++                target = os.path.realpath(full)
++                if not inside(full):
++                    continue  # a symlinked directory out of the lane is refused
++                if target == base_real or base_real.startswith(target + os.sep):
++                    continue  # the knowledge tree itself or one of its ancestors: a cycle, not a scope
++            walk(full, rel)
++
++    walk(base, KNOWLEDGE_REL)
++
++
++class _WalkError(Exception):
++    """A knowledge file or directory that could not be read."""
++
++
++def knowledge_bodies(root, revision, entries=None):
+@@ -179,5 +385 @@
+-        proc = _git(root, "ls-tree", "-r", "-z", "--name-only", revision)
+-        if proc.returncode != 0:
+-            return None, f"cannot list {revision[:12]}: {_text(proc).strip()}"
+-        rels = [rel for rel in _nul_paths(proc.stdout)
+-                if rel.startswith(KNOWLEDGE_REL + "/") and rel.endswith(".md")]
++        prefix = KNOWLEDGE_REL.encode() + b"/"
+@@ -185,5 +387,20 @@
+-        for rel in rels:
+-            blob = _git(root, "show", f"{revision}:{rel}")
+-            if blob.returncode != 0:
+-                return None, f"cannot read {rel} at {revision[:12]}"
+-            bodies[rel] = _text(blob)
++        for path, (mode, _otype, oid) in sorted((entries or {}).items()):
++            if not path.startswith(prefix):
++                continue
++            if mode == b"120000":  # a committed symlink is resolved inside the tree, never read as text
++                resolved = _resolve_link_path(root, entries, path)
++                if resolved is None:
++                    continue  # a dangling or out-of-tree link carries no citation
++                if resolved not in entries:  # a linked directory: read the tree under it
++                    if not _link_dir_bodies(root, entries, resolved, path, bodies, set()):
++                        return None, f"cannot read {os.fsdecode(path)} at {revision[:12]}"
++                    continue
++                if not path.endswith(b".md"):
++                    continue
++                oid = entries[resolved][2]
++            elif mode not in (b"100644", b"100755") or not path.endswith(b".md"):
++                continue
++            data = _blob_bytes(root, oid)
++            if data is None:
++                return None, f"cannot read {os.fsdecode(path)} at {revision[:12]}"
++            bodies[os.fsdecode(path)] = data.decode("utf-8", "replace")
+@@ -203,14 +420,4 @@
+-    for dirpath, dirnames, filenames in os.walk(base):
+-        dirnames.sort()
+-        for name in sorted(filenames):
+-            if not name.endswith(".md"):
+-                continue
+-            full = os.path.join(dirpath, name)
+-            if not inside(full):
+-                continue
+-            rel = os.path.relpath(full, root).replace(os.sep, "/")
+-            try:
+-                with open(full, "rb") as handle:
+-                    bodies[rel] = handle.read().decode("utf-8", "replace")
+-            except OSError as exc:
+-                return None, f"cannot read {rel}: {exc}"
++    try:
++        _walk_knowledge(base, root_real, bodies)
++    except _WalkError as exc:
++        return None, str(exc)
+@@ -252,0 +460,9 @@
++def _repo_toplevel(root):
++    """The realpath of the repository toplevel that holds `root`, or None outside any repository."""
++    proc = _git(root, "rev-parse", "--show-toplevel")
++    if proc.returncode != 0:
++        return None
++    top = _text(proc).strip()
++    return os.path.realpath(top) if top else None
++
++
+@@ -255,0 +472 @@
++    entries = None
+@@ -256,0 +474,7 @@
++        # a root below a repository toplevel is unevaluable: git would resolve the revision,
++        # the registry and the knowledge files through a repository the caller did not name
++        toplevel = _repo_toplevel(root)
++        if toplevel is None:
++            return _err(f"root {root!r} is not inside a git repository")
++        if toplevel != os.path.realpath(root):
++            return _err(f"root {root!r} is not the toplevel of its repository ({toplevel})")
+@@ -260 +484,4 @@
+-    registry_text, err = lane_registry(root, rev)
++        entries, err = _tree_entries(root, rev)
++        if err:
++            return _err(err)
++    registry_text, err = lane_registry(root, rev, entries)
+@@ -263 +490 @@
+-    bodies, err = knowledge_bodies(root, rev)
++    bodies, err = knowledge_bodies(root, rev, entries)
+@@ -290,0 +518,12 @@
++def _visible(path):
++    """A path with any byte that is not valid UTF-8 shown as a visible `\\xNN` escape."""
++    out = []
++    for ch in path:
++        code = ord(ch)
++        if 0xDC80 <= code <= 0xDCFF:  # a surrogateescape byte from os.fsdecode / os.listdir
++            out.append("\\x%02x" % (code - 0xDC00))
++        else:
++            out.append(ch)
++    return "".join(out)
++
++
+@@ -295 +534 @@
+-            f"DANGLING {sid} cited-by={','.join(paths)} "
++            f"DANGLING {sid} cited-by={','.join(_visible(path) for path in paths)} "
+@@ -915,0 +1155,179 @@
++def case_html_comment_row_is_not_registered():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        text = _registry([("S001", "https://e.example/1")]).replace(
++            "## Paths", "<!--\n| S960 | https://e.example/960 | docs |\n-->\n## Paths")
++        _write(os.path.join(lane, REGISTRY_REL), text)
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001 and S960.\n")
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++        _check([row[0] for row in res.dangling] == ["S960"], f"dangling={res.dangling}")
++
++
++def case_html_comment_heading_is_not_the_registry():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        _write(os.path.join(lane, REGISTRY_REL),
++               "# SOURCES\n<!--\n## Registry\n-->\n| S961 | https://e.example/961 | docs |\n")
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S961.\n")
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
++
++
++def case_inline_html_comment_keeps_the_row():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        text = _registry([("S001", "https://e.example/1")]).replace(
++            "## Paths", "| S962 | https://e.example/962 | docs | a <!-- inline --> cell |\n## Paths")
++        _write(os.path.join(lane, REGISTRY_REL), text)
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001 and S962.\n")
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (2, 2, 0, 0, 0), f"summary={res.summary}")
++
++
++def case_setext_h2_ends_registry():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        text = _registry([("S001", "https://e.example/1")]).replace(
++            "## Paths", "Subsection\n---\n\n| S963 | https://e.example/963 | docs |\n## Paths")
++        _write(os.path.join(lane, REGISTRY_REL), text)
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001 and S963.\n")
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++        _check([row[0] for row in res.dangling] == ["S963"], f"dangling={res.dangling}")
++
++
++def case_setext_h1_ends_registry():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        text = _registry([("S001", "https://e.example/1")]).replace(
++            "## Paths", "Subsection\n===\n\n| S964 | https://e.example/964 | docs |\n## Paths")
++        _write(os.path.join(lane, REGISTRY_REL), text)
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001 and S964.\n")
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++
++
++def case_thematic_break_does_not_end_registry():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        text = _registry([("S001", "https://e.example/1")]).replace(
++            "## Paths", "\n---\n\n| S965 | https://e.example/965 | docs |\n## Paths")
++        _write(os.path.join(lane, REGISTRY_REL), text)
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001 and S965.\n")
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (2, 2, 0, 0, 0), f"summary={res.summary}")
++
++
++def case_setext_after_a_row_does_not_end_registry():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        text = _registry([("S001", "https://e.example/1")]).replace(
++            "## Paths", "---\n| S966 | https://e.example/966 | docs |\n## Paths")
++        _write(os.path.join(lane, REGISTRY_REL), text)
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001 and S966.\n")
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (2, 2, 0, 0, 0), f"summary={res.summary}")
++
++
++def case_in_lane_symlinked_dir_is_read():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        _write(os.path.join(lane, REGISTRY_REL), _registry([("S001", "https://e.example/1")]))
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001.\n")
++        _write(os.path.join(lane, "notes_store", "hidden.md"), "Cites S970.\n")
++        os.symlink("../../notes_store", os.path.join(lane, KNOWLEDGE_REL, "linked"))
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++        _check(res.dangling[0][1] == ["corpus/knowledge/linked/hidden.md"], f"paths={res.dangling[0][1]}")
++
++
++def case_out_of_lane_symlinked_dir_is_refused():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        _write(os.path.join(lane, REGISTRY_REL), _registry([("S001", "https://e.example/1")]))
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001.\n")
++        _write(os.path.join(base, "outside", "hidden.md"), "Cites S971.\n")
++        os.symlink(os.path.join(base, "outside"), os.path.join(lane, KNOWLEDGE_REL, "ext"))
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (1, 1, 0, 0, 0), f"summary={res.summary}")
++
++
++def case_symlinked_knowledge_cycle_terminates():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        _write(os.path.join(lane, REGISTRY_REL), _registry([("S001", "https://e.example/1")]))
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001.\n")
++        os.symlink(".", os.path.join(lane, KNOWLEDGE_REL, "self"))
++        os.symlink(lane, os.path.join(lane, KNOWLEDGE_REL, "up"))
++        res = _summary(lane, fleet=base)
++        _check(res.summary == (1, 1, 0, 0, 0), f"summary={res.summary}")
++
++
++def case_revision_symlink_resolves_in_tree():
++    with _tmpdir() as base:
++        lane = _repo(os.path.join(base, "demo-shokunin"))
++        os.makedirs(os.path.join(lane, KNOWLEDGE_REL), exist_ok=True)
++        os.symlink("../notes.md", os.path.join(lane, KNOWLEDGE_REL, "linked.md"))
++        os.symlink("S999-target.md", os.path.join(lane, KNOWLEDGE_REL, "odd.md"))
++        rev = _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
++                             KNOWLEDGE_REL + "/a.md": "Cites S001.\n",
++                             "corpus/notes.md": "Cites S980.\n"})
++        res = _summary(lane, revision=rev, fleet=base)
++        _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++        _check([row[0] for row in res.dangling] == ["S980"], f"dangling={res.dangling}")
++        _check("S999" not in res.cited, f"a link target string was read as a body: {sorted(res.cited)}")
++
++
++def case_revision_symlinked_dir_is_read():
++    with _tmpdir() as base:
++        lane = _repo(os.path.join(base, "demo-shokunin"))
++        _write(os.path.join(lane, "notes_store", "hidden.md"), "Cites S981.\n")
++        os.makedirs(os.path.join(lane, KNOWLEDGE_REL), exist_ok=True)
++        os.symlink("../../notes_store", os.path.join(lane, KNOWLEDGE_REL, "linked"))
++        rev = _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
++                             KNOWLEDGE_REL + "/a.md": "Cites S001.\n"})
++        res = _summary(lane, revision=rev, fleet=base)
++        _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++        _check(res.dangling[0][1] == ["corpus/knowledge/linked/hidden.md"], f"paths={res.dangling[0][1]}")
++
++
++def case_registry_symlink_outside_lane_is_unevaluable():
++    with _tmpdir() as base:
++        lane = os.path.join(base, "demo-shokunin")
++        _write(os.path.join(base, "outside", "SOURCES.md"), _registry([("S001", "https://e.example/1")]))
++        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001.\n")
++        os.makedirs(os.path.join(lane, "corpus"), exist_ok=True)
++        os.symlink(os.path.join(base, "outside", "SOURCES.md"), os.path.join(lane, REGISTRY_REL))
++        res = _summary(lane, fleet=base)
++        _check(res.status == 2 and "registry" in (res.error or ""), f"status={res.status} error={res.error}")
++
++
++def case_revision_non_utf8_path_is_read():
++    with _tmpdir() as base:
++        lane = _repo(os.path.join(base, "demo-shokunin"))
++        raw = os.path.join(os.fsencode(lane), b"corpus/knowledge/bad\xff.md")
++        os.makedirs(os.path.dirname(raw), exist_ok=True)
++        with open(raw, "wb") as handle:
++            handle.write(b"Cites S990.\n")
++        rev = _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
++                             KNOWLEDGE_REL + "/a.md": "Cites S001.\n"})
++        res = _summary(lane, revision=rev, fleet=base)
++        _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
++        _check([row[0] for row in res.dangling] == ["S990"], f"dangling={res.dangling}")
++        line = render(res)[0]
++        _check("bad\\xff.md" in line, f"line={line}")
++
++
++def case_non_toplevel_root_is_unevaluable():
++    with _tmpdir() as base:
++        repo = _repo(os.path.join(base, "anc"))
++        rev = _commit(repo, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
++                             KNOWLEDGE_REL + "/a.md": "Cites S001.\n"})
++        sub = os.path.join(repo, "lane")
++        _write(os.path.join(sub, REGISTRY_REL), _registry([("S001", "https://e.example/1")]))
++        _write(os.path.join(sub, KNOWLEDGE_REL, "a.md"), "Cites S001.\n")
++        res = _summary(sub, revision=rev, fleet=base)
++        _check(res.status == 2 and "toplevel" in (res.error or ""), f"status={res.status} error={res.error}")
++
++
+@@ -976,0 +1395,15 @@
++        ("a row inside an HTML comment does not register", case_html_comment_row_is_not_registered),
++        ("a Registry heading inside an HTML comment opens nothing", case_html_comment_heading_is_not_the_registry),
++        ("an inline HTML comment inside a row keeps the row", case_inline_html_comment_keeps_the_row),
++        ("a setext H2 ends the Registry section", case_setext_h2_ends_registry),
++        ("a setext H1 ends the Registry section", case_setext_h1_ends_registry),
++        ("a thematic break after a blank line does not end the section", case_thematic_break_does_not_end_registry),
++        ("a setext underline after a table row is a thematic break", case_setext_after_a_row_does_not_end_registry),
++        ("an in-lane symlinked knowledge directory is read", case_in_lane_symlinked_dir_is_read),
++        ("an out-of-lane symlinked knowledge directory is refused", case_out_of_lane_symlinked_dir_is_refused),
++        ("a symlink cycle in the knowledge tree terminates", case_symlinked_knowledge_cycle_terminates),
++        ("a committed knowledge symlink is resolved inside the tree", case_revision_symlink_resolves_in_tree),
++        ("a committed symlinked knowledge directory is read at a revision", case_revision_symlinked_dir_is_read),
++        ("a registry symlinked out of the lane is unevaluable", case_registry_symlink_outside_lane_is_unevaluable),
++        ("a non-UTF-8 knowledge path is read at a revision", case_revision_non_utf8_path_is_read),
++        ("a root below a repository toplevel is unevaluable", case_non_toplevel_root_is_unevaluable),

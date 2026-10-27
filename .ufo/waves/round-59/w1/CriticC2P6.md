@@ -1,0 +1,15 @@
+# CriticC2P6
+
+DESIGN:
+P6 should invoke `--selftest`, then require exactly one `PASS <case_name>` per executable case, no duplicates or unexpected names, and equality with case names registered in `_cases()` plus a committed-source inventory of `def case_*`. Require return code 0 and exact inventory consistency; reject any missing, duplicate, or extra registration. Run at least one mutation of a real registered assertion/body in an isolated copy and require that gate execution goes red. Names/counts alone establish execution reporting, not assertion integrity; mutation check supplies a limited sensitivity check. Axes: C2 operability, especially protection against hollow-green selftest claims; maintainability of the test/gate contract.
+
+PROTOTYPE RUN:
+Used only read-only base-revision material. Base `scripts/id_resolver.py` has 59 registered cases in `_cases()` and prints `ok   NN ...`, then `selftest: 59/59`; it emits no `PASS <case-name>` lines. A scratch prototype of the proposed exact PASS-name/source-inventory gate rejected base output (zero matching PASS lines). No lane or scratch changes were retained. Prototype mutation replaced each registered test invocation with `pass`; current output still printed `selftest: 59/59`, demonstrating that the tally alone remains green. A functional P6 against round-59's base tool was therefore not established: the base tool does not implement the proposed output protocol, and a mutation of the proposed protocol implementation was not available to exercise.
+
+SELF-ATTACK:
+A `def case_*` inventory plus registered names plus PASS lines is still defeatable if the tool fabricates PASS output without calling functions, or each `case_*` is hollow; source text checks do not prove control flow or assertion quality. Mutating a single known assertion is useful only if the selftest gate runs the mutated copy and observes nonzero/FAIL; the current candidate did not do this, so the claimed mutation sensitivity is unproven. Also avoid brittle parsing that silently misses decorators, aliases, multiline registration forms, or dynamically assembled case lists. Safer implementation: have the runner itself emit PASS only after each callable returns, and have the gate compare canonical identifiers parsed from an intentionally simple literal registry; include selftests that mutate a registered case to raise and require gate failure. This still is not adversarial proof against a deliberately forged runner, but is materially stronger than trusting a tally.
+
+RECOMMENDATION:
+Carry as a limit for this wave; do not claim P6 is closed based on this prototype. The direction is appropriate for version 2, but adoption requires an executable counter selftest that demonstrates both hollow-tally rejection and mutated-case red behavior against the committed tool, while preserving the existing `ok` output only if desired. Verification not run: no counter changes were made.
+
+VERDICT: Candidate P6 materially improves the contract but is not yet validated; retain the disclosed tally-trust limit until a working mutation-tested gate lands.

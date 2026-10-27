@@ -1,0 +1,24 @@
+# CriticEntryOverreach
+
+MUST-NOT:
+
+- “User-agents are easily spoofed” / “a user-agent alone is insufficient to establish Google identity.” The retained pages do not state spoofability or assess evidentiary sufficiency. S426 only says verification is useful when “spammers or other troublemakers are accessing your site while claiming to be from Google”; S425 says Google crawlers identify themselves “in three ways”: the HTTP `user-agent` request header, source IP address, and reverse DNS hostname.
+- “Google publishes IP ranges for Googlebot only” (or only for common crawlers). S426 offers lists for “Common crawlers like Googlebot”, “Special crawlers like AdsBot”, “User-triggered fetchers (users)”, “User-triggered fetchers (Google)”, and “User-triggered agents”; it also directs other Google IP addresses (e.g. Apps Scripts) to the general list of Google IP addresses.
+- “Reverse DNS alone is enough to verify Google.” S426 explicitly requires forward lookup after reverse lookup and says to verify the returned address is the same as the original accessing IP. It separately presents automatic IP-range matching as an alternative.
+- “The log records only IP and user-agent” / “these are the only information available in a server log.” Neither page defines a server log’s fields. S425 says logs “may show visits from several IP addresses”; its identity sentence lists three identification signals, not an exhaustive log schema.
+- Any statement that Google crawlers/fetchers all obey robots.txt. S425 limits “always respect robots.txt rules for automatic crawls” to common crawlers; special-case crawlers “may or may not respect” them; user-triggered fetchers “ignore robots.txt rules.”
+- Any universal identity or hostname rule for every Google request. S426’s verification guidance names `googlebot.com`, `google.com`, and `googleusercontent.com`; its table gives differing masks/sets by category, including user-triggered fetchers resolving to `gae.googleusercontent.com` or `google.com` hostnames.
+- Any claim about Bing, Baidu, Yahoo, or other non-Google crawlers’ identity, verification, IP ranges, or behavior. S425/S426 are specifically about Google crawlers and fetchers; neither makes claims about those services.
+- “All Google crawler traffic comes from US IPs” or “Google traffic always originates in the US.” S425 says Google egresses “primarily” from US IP addresses, and says it “may attempt” crawling from other countries if it detects the site is blocking US requests.
+- Treating verification via command line as the only method, or claiming it is required for every lookup. S426 calls manual lookups sufficient “for most use cases” and says automatic matching can be used “for large scale lookups.”
+
+QUALIFIERS TO KEEP:
+
+- S425: “Google's crawlers and fetchers” (scope of the three identification signals); “designed to be run simultaneously by thousands of machines”; “may show visits from several IP addresses”; “primarily” (US egress); “may attempt” (other-country crawl when US requests are blocked).
+- S426 opening paragraph, exact: “You can verify if a request to your server really is from Google.” “Verification is possible for crawlers such as Googlebot, as well as other requests.” “This is useful if you're concerned that spammers or other troublemakers are accessing your site while claiming to be from Google.” Preserve “such as” and “other requests”; the passage does not say user-agents are easily spoofed.
+- S426: “There are two methods”; manual is “for one-off lookups” and “sufficient for most use cases”; automatic matching is “for large scale lookups.” Keep the two-step manual check: verify the reverse-DNS domain is `googlebot.com`, `google.com`, or `googleusercontent.com`, then forward-resolve and verify it matches the original IP.
+- S426 category distinctions: common crawlers “always respect robots.txt rules for automatic crawls”; special-case crawlers/fetchers “may or may not respect” robots.txt; user-triggered fetchers “ignore” robots.txt because the fetch was requested by a user.
+- S426: lists are category-specific; for “other Google IP addresses” use the general Google IP list. JSON IP addresses are in CIDR format.
+- Correction S263 context: the line being corrected overstates log contents (“A user-agent string is the only thing a server log records about the crawler.”). S425 supports the narrower claim that Google crawler/fetcher identity can involve user-agent, source IP, and reverse-DNS hostname; do not turn this into a claim that every server log contains all three fields or that they are the only possible fields.
+
+VERDICT: Keep the correction scoped to the false “only thing” assertion and use S425 for the three Google identification signals; draft S425/S426 entries with the category, method, and “primarily/may” qualifiers intact, without generalizing beyond Google or claiming user-agent spoofability.

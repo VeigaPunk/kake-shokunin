@@ -1,0 +1,681 @@
+{
+ "baseline": {
+  "path": "/fast/scratch/hyaku/kake-r59/MutResolverSelftest/work/pristine.py",
+  "sha256": "2c1b4970a652023a883a414620c07cf393f7c4b28b87053564a45302428e663a",
+  "rc": 0,
+  "tally": [
+   "59",
+   "59"
+  ],
+  "fails": [],
+  "crash": false,
+  "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+ },
+ "mutants": [
+  {
+   "id": "M01",
+   "area": "parse_registry",
+   "desc": "registry row may carry 4 leading spaces (code row accepted)",
+   "sha256": "94e8501f21e92dffef0cfaeec29762ccaac01646959a53ed88d38b9b645cb438",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 04 registry row at 4 spaces is code: AssertionError: status=0"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M02",
+   "area": "parse_registry",
+   "desc": "registry id cell accepts 2 digits (S12 registers)",
+   "sha256": "533b2796bdfadc31b546da38eb75109b6c09445b58a269e3ee92588572d2021d",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M03",
+   "area": "parse_registry",
+   "desc": "any level-1..6 heading ends the Registry section",
+   "sha256": "abcded819e768835046b5fa35dad7f022b3b888cee6f524f0bbc13622e1ff265",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M04",
+   "area": "fence machine",
+   "desc": "fence opener may be indented 4 spaces",
+   "sha256": "e6ffe6e400f388e3dde98f693d6d39efc385bfb0ad6f6f33c4fba4fefa00be39",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M05",
+   "area": "fence machine",
+   "desc": "closing run must have exactly the opener length (longer run does not close)",
+   "sha256": "b8c3554dad600cb2649091c652eadeaa0ff43c0d194836a7d9254039ed94d1bc",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 54 a longer closing run closes the fence: AssertionError: summary=(2, 1, 1, 0, 1)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M06",
+   "area": "fence machine",
+   "desc": "closing run may use the other fence character",
+   "sha256": "6f4b2a7a12d2794afa5955e784eba13e59b97cb8c6a15fbd994e31a4d8035a55",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M07",
+   "area": "fence machine",
+   "desc": "backtick fence may carry a backtick in its info string",
+   "sha256": "1378f5e3e46bab572ed65e160300b5f0fab623ead0b80b8cc49876f22274ad3c",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M08",
+   "area": "parse_registry",
+   "desc": "registry URL keeps its trailing punctuation",
+   "sha256": "b0bfc792477649498a3b32ee8793224475cd36e70cc8f9fae878388470831250",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 46 url-match ignores punctuation after a registry URL: AssertionError: row=('S101', ['corpus/knowledge/a.md'], ['alpha-shokunin'], [])"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M09",
+   "area": "parse_registry",
+   "desc": "URLs are read from every cell of the row, not only the source cell",
+   "sha256": "87b0cfb54a6906980dfdcf3fe11a4d381b4226df3b41eb740b33eb09c1f414e1",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M10",
+   "area": "knowledge walk",
+   "desc": "symlinked knowledge file outside the lane is read",
+   "sha256": "5a42597a3a4a3c304079044c7fb989f7a2ade55ae52813c112e87564078ed704",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 49 a symlink out of the lane carries no citation: AssertionError: summary=(2, 1, 1, 0, 1)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M11",
+   "area": "knowledge walk",
+   "desc": ".markdown knowledge files are walked",
+   "sha256": "c8c15ded22237884c7d7ab1113c64c02fdf8d12c192fbbe7546edc81933a0260",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M12",
+   "area": "knowledge walk",
+   "desc": "cited path is relative to the knowledge dir, not the lane root",
+   "sha256": "e392ffe1a37c27855df33ceebbd77ec2a671e0773187a280a4c08eb77dfe5ee0",
+   "rc": 1,
+   "tally": [
+    "54",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 22 duplicate citation counted once: AssertionError: paths=['a.md']",
+    "FAIL 23 citing-path order stable: AssertionError: paths=['a.md', 'b.md', 'sub/c.md']",
+    "FAIL 24 exact DANGLING and summary lines: AssertionError: line=DANGLING S777 cited-by=a.md owners=- url-match=-",
+    "FAIL 25 gate-shaped fixture totals: AssertionError: S101=('S101', ['sub/bad.md'], ['alpha-shokunin'], ['alpha-shokunin'])"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M13",
+   "area": "knowledge walk",
+   "desc": "knowledge dir symlinked out of the lane is accepted",
+   "sha256": "8222fc85a52194ad41d5c87048d30e77d8801f370fcebf5e0c7d599810659ec1",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M14",
+   "area": "revision path parse",
+   "desc": "NUL-split revision paths are decoded with surrogateescape",
+   "sha256": "fc85f1b51c9830c9ddf67ed7203423dafac75a9e4e98b6f3f2b2cead094f5477",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M15",
+   "area": "revision path parse",
+   "desc": "revision paths split on newline instead of NUL",
+   "sha256": "09d24da2e4dac1f00eb6b1fa8526ed212837b5b26d8fbd3a74441b3759f5b14b",
+   "rc": 1,
+   "tally": [
+    "53",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 15 lane excluded from owners by realpath: AssertionError: status=2 error=no knowledge file at effbc9e56af4",
+    "FAIL 20 revision reads old blobs not the worktree: AssertionError: old cited=[] summary=None",
+    "FAIL 44 non-markdown knowledge file at a revision is ignored: AssertionError: summary=None",
+    "FAIL 48 an inherited GIT_DIR is not passed on: AssertionError: status=2 error=no knowledge file at 4bf7b04fb001"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M16",
+   "area": "revision path parse",
+   "desc": "ls-tree listing drops --name-only (raw tree format)",
+   "sha256": "a8c5842ae83d4a81777ec87fb9bda87599400b31c0ac59ba51568cf5db66b17f",
+   "rc": 1,
+   "tally": [
+    "53",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 15 lane excluded from owners by realpath: AssertionError: status=2 error=no knowledge file at effbc9e56af4",
+    "FAIL 20 revision reads old blobs not the worktree: AssertionError: old cited=[] summary=None",
+    "FAIL 44 non-markdown knowledge file at a revision is ignored: AssertionError: summary=None",
+    "FAIL 48 an inherited GIT_DIR is not passed on: AssertionError: status=2 error=no knowledge file at 4bf7b04fb001"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M17",
+   "area": "revision path parse",
+   "desc": "revision resolves to a tree, not a commit",
+   "sha256": "2d74310e22f5b56808446f1060a2969feb70ab6f6c0c180baf8cb46e6c7b4e00",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M18",
+   "area": "revision path parse",
+   "desc": "inherited GIT_* environment is passed to git",
+   "sha256": "3a9c20ffa4b549f764f709f07111333cc3592859752fdc072ddc323eb7eb9356",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 48 an inherited GIT_DIR is not passed on: AssertionError: git git init -q /fast/scratch/hyaku/kake-r59/MutResolverSelftest/work/tmp/idresolver-selftest-rec6wt5m/demo-shokunin: fatal: Invalid path '/nonexistent': No such file or directory"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M19",
+   "area": "sibling registry",
+   "desc": "sibling repo without a committed registry falls back to its worktree file",
+   "sha256": "c34adcc2ccfc7b010306347fd03ffe4abb997de278320d607847ee3469a4971f",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 40 sibling repo without a committed registry owns nothing: AssertionError: summary=(1, 0, 1, 1, 0)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M20",
+   "area": "sibling registry",
+   "desc": "lane excluded from siblings by path string, not by realpath",
+   "sha256": "86388d34ae0e727a55699eefe9a0a3891b93dbf6c06414933257d61102cdb5d9",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 15 lane excluded from owners by realpath: AssertionError: owners=[('S900', ['corpus/knowledge/a.md'], ['other-shokunin'], [])]"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M21",
+   "area": "sibling registry",
+   "desc": "sibling directory need not carry the -shokunin suffix",
+   "sha256": "1a5bc5be24319b1dacff64adca54597fcc4e5f7b446b3e2b4bb0f468987db5ca",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 38 a directory without the -shokunin suffix is not a sibling: AssertionError: summary=(1, 0, 1, 1, 0)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M22",
+   "area": "evaluate",
+   "desc": "default fleet root is the grandparent of --root",
+   "sha256": "d99a6f1323b9c17053efebb970ca2d7414a3f37892a1d68049508a700082f18d",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M23",
+   "area": "evaluate",
+   "desc": "a missing fleet directory is not unevaluable",
+   "sha256": "a8680b49d4d2d5de1982c5a428e8b5b3160a136e6d6a119e8e0334f795f851d6",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 43 missing fleet exits 2: AssertionError: status=1 error=None"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M24",
+   "area": "evaluate",
+   "desc": "owned_elsewhere counts url-match owners, not registry owners",
+   "sha256": "1e501049a9d4db933c37b22d4a2a267e06a7d3ec0bd31a8c1d016728e97f26c3",
+   "rc": 1,
+   "tally": [
+    "57",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 13 id held by two siblings: AssertionError: summary=(1, 0, 1, 0, 1)",
+    "FAIL 25 gate-shaped fixture totals: AssertionError: summary=(6, 2, 4, 1, 3)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M25",
+   "area": "evaluate",
+   "desc": "url-match looks only at the first citing file",
+   "sha256": "1b80ccdbf07a4abc04897500972ed9b5418329cbd9e30b19bafc1adff66225d2",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 45 url-match scans every citing file: AssertionError: row=('S101', ['corpus/knowledge/a.md', 'corpus/knowledge/b.md'], ['alpha-shokunin'], [])"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M26",
+   "area": "render",
+   "desc": "empty owners print as an empty field instead of '-'",
+   "sha256": "513cd4ee5acf74358618bcdc134771b8cf30af0fa6f755c0e147d4903c45e274",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 24 exact DANGLING and summary lines: AssertionError: line=DANGLING S777 cited-by=corpus/knowledge/a.md owners= url-match="
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M27",
+   "area": "render",
+   "desc": "summary line field order swapped (ids_resolved before ids_cited)",
+   "sha256": "c01ca058ff47797fb4c2e58d9e0b04848c3392cf46c0d69b269f0515bce58aa2",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 24 exact DANGLING and summary lines: AssertionError: line=ids_resolved=0 ids_cited=1 dangling=1 owned_elsewhere=0 unowned=1"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M28",
+   "area": "evaluate",
+   "desc": "dangling ids are not sorted (set order kept)",
+   "sha256": "4b9e8e1e74259a6e6c202e47ab361f732b467cdd3e609df10ecc0bf6dc895ad7",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M29",
+   "area": "parse_registry",
+   "desc": "registry row requires a leading pipe (indented rows dropped)",
+   "sha256": "94524631985ec1c3f770496555e85a603bb9a2242e5c7eba010ebb1751559d55",
+   "rc": 1,
+   "tally": [
+    "56",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 02 registry row at 2 leading spaces: AssertionError: status=1 error=None",
+    "FAIL 03 registry row at 3 leading spaces: AssertionError: status=1 error=None",
+    "FAIL 25 gate-shaped fixture totals: AssertionError: summary=(6, 1, 5, 3, 2)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M30",
+   "area": "evaluate",
+   "desc": "revision mode ignores the working tree entirely (registry read from HEAD)",
+   "sha256": "c7280360894766648c42e3d1ed0cc635e2ca7fc122264e9d1915fcbfbddf20a5",
+   "rc": 1,
+   "tally": [
+    "57",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 15 lane excluded from owners by realpath: AssertionError: status=0 error=None",
+    "FAIL 20 revision reads old blobs not the worktree: AssertionError: old cited=['S001'] summary=(1, 0, 1, 0, 1)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M31",
+   "area": "knowledge walk",
+   "desc": "revision mode accepts an empty knowledge set",
+   "sha256": "32b1860408e39ef2d3a5b74163624c5b3b8b9b17ff6cd34a5d21723944901ec3",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M32",
+   "area": "parse_cited",
+   "desc": "cited id needs no left word boundary",
+   "sha256": "fcb4106ed5a49480c2d1e8e3a135e65a6416bb397a72f7312fab7b9b20458a15",
+   "rc": 1,
+   "tally": [
+    "56",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 09 decoy AS500 is not an id: AssertionError: summary=(1, 0, 1, 0, 1)",
+    "FAIL 25 gate-shaped fixture totals: AssertionError: summary=(7, 2, 5, 3, 2)",
+    "FAIL 34 decoys S777_ _S777 S_777 are not ids: AssertionError: summary=(1, 0, 1, 0, 1)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M33",
+   "area": "revision path parse",
+   "desc": "revision knowledge prefix matched without the path separator",
+   "sha256": "921b017f4a656376818008e8e761d99790126703959fe3de8e47433179ffadaf",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M34",
+   "area": "sibling registry",
+   "desc": "a linked git worktree (.git as a file) is read from its worktree file",
+   "sha256": "ef2c0da9b73d5c8cb71b5ecbe394880f5bf966c0e25e3048f0e0ca5468996c37",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M35",
+   "area": "fence machine",
+   "desc": "closing run may not carry trailing whitespace",
+   "sha256": "194211db9d773709430efa5d456f6e6b519babaffc8d2db2f530bffcb8a679f6",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M36",
+   "area": "evaluate",
+   "desc": "ids_resolved counts the registry size, not the resolved citations",
+   "sha256": "871192ac61510eb8422a48922f0640799652246ae21a7c80eff3b1e2c1a12764",
+   "rc": 1,
+   "tally": [
+    "43",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 07 range S011-S013 cites endpoints only: AssertionError: summary=(2, 3, 0, 0, 0)",
+    "FAIL 08 decoy S12 is not an id: AssertionError: summary=(0, 1, 0, 0, 0)",
+    "FAIL 09 decoy AS500 is not an id: AssertionError: summary=(0, 1, 0, 0, 0)",
+    "FAIL 10 decoy S500x is not an id: AssertionError: summary=(0, 1, 0, 0, 0)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M37",
+   "area": "render",
+   "desc": "unowned count printed as the dangling count",
+   "sha256": "9e98ab61222a2ab5dee88414ee47128248acadf71bbe90f2e58e5bbe00bf5fc5",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M38",
+   "area": "parse_registry",
+   "desc": "a registry row with 4 leading spaces is a code row (indented rows ignored)",
+   "sha256": "87f38cc9f7bd9dcf03ddf1045b4dbd6b958d0c58760b82c7ee196b9de7a15688",
+   "rc": 1,
+   "tally": [
+    "57",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 03 registry row at 3 leading spaces: AssertionError: status=1 error=None",
+    "FAIL 25 gate-shaped fixture totals: AssertionError: S200=('S200', ['corpus/knowledge/sub/bad.md'], ['alpha-shokunin'], [])"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M39",
+   "area": "knowledge walk",
+   "desc": "the knowledge walk follows symlinked directories",
+   "sha256": "91c20681f21f150db48e59abf6d3e9209951c7a0128d714c68514efbcad39ba0",
+   "rc": 0,
+   "tally": [
+    "59",
+    "59"
+   ],
+   "killed": false,
+   "crash": false,
+   "fails": [],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  },
+  {
+   "id": "M40",
+   "area": "knowledge walk",
+   "desc": "compound: the walk follows symlinked directories and the per-file lane guard is dropped",
+   "sha256": "c0c705f610189604162698d0a9bcde2688b8a097eceedd0b458c8919eee6c32d",
+   "rc": 1,
+   "tally": [
+    "58",
+    "59"
+   ],
+   "killed": true,
+   "crash": false,
+   "fails": [
+    "FAIL 49 a symlink out of the lane carries no citation: AssertionError: summary=(2, 1, 1, 0, 1)"
+   ],
+   "stderr": "y: error: argument --root: expected one argument\nusage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]\n                      [--selftest]\nid_resolver.py: error: unrecognized arguments: --bogus\nusage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]\n"
+  }
+ ],
+ "lane_sha256_after": "2c1b4970a652023a883a414620c07cf393f7c4b28b87053564a45302428e663a",
+ "lane_unchanged": true
+}

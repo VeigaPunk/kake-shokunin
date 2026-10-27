@@ -1,0 +1,31 @@
+### base (frozen v1)
+base: {'met': False, 'exit': 1, 'mismatches': 16, 'unresolved': 11, 'rows_no_receipt': 3, 'receipts_off_axis': 0, 'tallies_unfound': 0, 'rows_no_tally': 2, 'rows': 3, 'scores_held': 2, 'superseded_kept': 0}
+base unresolved tokens: 11 distinct root pointers: {'cli.mjs': 1, '': 3, 'corpus/claims': 1, '/tmp/kake-r17/scout-claims.md': 1, '/tmp/kake-r17/claims-delta.tsv': 1, '/tmp/kake-r17/critic.md': 1, '/tmp/kake-r17/reviewer-cites.md': 1, '/tmp/kake-r17/scout-pins.md': 1, '/tmp/kake-r17/scout-live.md': 1}
+
+### fixtures
+K1-honest-after                                      met=True  exit=0 frozen4=True  names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=3
+K2-receipt-is-the-frozen-contract                    met=True  exit=0 frozen4=True  names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=3
+K3-receipt-is-the-RED-base-receipt                   met=True  exit=0 frozen4=True  names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=3
+K4-dead-relative-path-UNBACKTICKED                   met=True  exit=0 frozen4=True  names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=3
+K5-backticked-tally                                  met=False exit=1 frozen4=False names_ok=True  mism=1 unres=1 norec=0 offax=0 tunf=0 notal=0 supk=3
+K6-tally-borrowed-from-unrelated-blob                met=True  exit=0 frozen4=True  names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=3
+K7-calibration-score-2-to-10                         met=True  exit=0 frozen4=True  names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=3
+K8-no-round-59-section                               met=False exit=1 frozen4=False names_ok=True  mism=6 unres=0 norec=3 offax=3 tunf=0 notal=0 supk=3
+K9-emptied-calibration-cell                          met=False exit=1 frozen4=False names_ok=True  mism=2 unres=0 norec=1 offax=0 tunf=0 notal=1 supk=3
+K10-all-three-emptied                                met=False exit=1 frozen4=False names_ok=True  mism=6 unres=0 norec=3 offax=0 tunf=0 notal=3 supk=3
+K11-retained-not-marked-superseded                   met=True  exit=0 frozen4=True  names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=3
+K12-historical-table-copy-ABOVE-live-table           met=False exit=1 frozen4=False names_ok=True  mism=16 unres=11 norec=3 offax=0 tunf=0 notal=2 supk=3
+K13-superseded-paraphrased-not-verbatim              met=False exit=1 frozen4=False names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=0
+K14-third-axis-renamed-adjacency                     met=False exit=1 frozen4=False names_ok=False mism=2 unres=0 norec=1 offax=1 tunf=0 notal=0 supk=3
+K15-honest-cell-no-A-B-number                        met=True  exit=0 frozen4=True  names_ok=True  mism=0 unres=0 norec=0 offax=0 tunf=0 notal=0 supk=3
+
+### summary: cases where frozen4=True but met=False (predicate drift)
+### summary: cases where met=True
+  GREEN: K1-honest-after
+  GREEN: K2-receipt-is-the-frozen-contract
+  GREEN: K3-receipt-is-the-RED-base-receipt
+  GREEN: K4-dead-relative-path-UNBACKTICKED
+  GREEN: K6-tally-borrowed-from-unrelated-blob
+  GREEN: K7-calibration-score-2-to-10
+  GREEN: K11-retained-not-marked-superseded
+  GREEN: K15-honest-cell-no-A-B-number

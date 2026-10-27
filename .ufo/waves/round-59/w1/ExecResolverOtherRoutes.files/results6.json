@@ -1,0 +1,90 @@
+[
+ {
+  "case": "Y1_indented_paths_heading_ends_section",
+  "note": "rows after an indented `## Paths` must be outside the Registry (the census says so)",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE12\tS962 row outside Registry section"
+   ]
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "Y2_indented_h1_ends_section",
+  "note": "rows after an indented `# Notes` must be outside the Registry",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 1,
+   "findings": [
+    "kake-shokunin\tE12\tS964 row outside Registry section"
+   ]
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "Y3_url_match_substring",
+  "note": "the sibling owns S965; its URL is a prefix of the lane's URL -> url-match fires spuriously",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 0,
+   "out": "ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0"
+  }
+ },
+ {
+  "case": "Y4_cyrillic_lookalike_laundering",
+  "note": "the Cyrillic lookalike S hides the citation from the cited set",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S967 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "Y5_zero_width_space_inside_id",
+  "note": "a zero-width space inside the cited id hides the citation",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S969 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ },
+ {
+  "case": "Y6_indented_registry_heading",
+  "note": "an indented `## Registry` is the Registry section for the census, not for the resolver",
+  "census": {
+   "rows": "1",
+   "census_exit": 0,
+   "validate_exit": 0,
+   "findings": []
+  },
+  "resolver": {
+   "exit": 1,
+   "out": "DANGLING S970 cited-by=corpus/knowledge/ok.md owners=- url-match=-\nids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1"
+  }
+ }
+]

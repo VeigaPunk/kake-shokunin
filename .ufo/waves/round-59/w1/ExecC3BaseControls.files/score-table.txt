@@ -1,0 +1,11 @@
+variant                     census  v1    v1_failing                    probe probe_failing
+good                        exit=0  8/9  C5_quote_truth                9/9  
+a1_chrome_only              exit=0  8/9  C5_quote_truth                8/9  C5_quote_truth
+a2_chrome_mixed             exit=0  8/9  C5_quote_truth                9/9  
+a3_chrome_substitute        exit=0  8/9  C5_quote_truth                9/9  
+a4_two_content_only         exit=0  8/9  C5_quote_truth                8/9  C5_quote_truth
+b_opposite                  exit=0  8/9  C5_quote_truth                9/9  
+c_html_comment              exit=0  8/9  C5_quote_truth                9/9  
+d_contradicting             exit=0  8/9  C5_quote_truth                9/9  
+e1_usedby_extra_exists      exit=0  7/9  C4_used_by,C5_quote_truth     8/9  C4_used_by
+e2_usedby_extra_missing     exit=1  6/9  C4_used_by,C5_quote_truth,C7_validate_before_append 7/9  C4_used_by,C7_validate_before_append

@@ -1,0 +1,21 @@
+== (a) what a checkout of the forged C1 tree shows ==
+  worktree add rc=0 Preparing worktree (detached HEAD 9ab0f9e)
+  SCORECARD.md: symlink=True resolves=False cat_rc=1 cat_out=''
+  .ufo/waves/round-59/operability.md: symlink=True resolves=False cat_rc=1 cat_out=''
+  .ufo/waves/round-59/freshness.md: symlink=True resolves=False cat_rc=1 cat_out=''
+  .ufo/waves/round-59/calibration.md: symlink=True resolves=False cat_rc=1 cat_out=''
+  but git show rev:SCORECARD.md gives 505 bytes beginning '# kake - Scorecard'
+  and git show rev:receipt/operability.md = 'receipts/16/16'  <- the 'tally' source
+  committed blobs at the revision: 4, of which symlinks: 4
+  counter verdict: rc=0 :: EXIT=0
+== (b) C3 with a symlinked knowledge ENTRY (provenance lives in the link target) ==
+  ls-tree: '120000 blob 096512abf2feadfbe8c59be1674c74c30ad7e8de\tcorpus/knowledge/crawler-identity-signals.md'
+  show() returns 232 bytes; header lines:
+     source: S425 https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers
+     verified-at: 2026-10-27
+     recheck: 90d
+  => the C2 provenance check reads the LINK TARGET STRING as the entry body
+== (c) --root toplevel check ordering ==
+  C1 --root <missing>: rc=2 :: EXIT=2
+  C2 --root <missing>: rc=64 :: usage error: unrecognized arguments: --base 3c992f46d317521c53be7c274fbc47d5ee2479d1
+  C3 --root <missing>: rc=2 :: EXIT=2

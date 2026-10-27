@@ -1,0 +1,22 @@
+argv: python3 -B .ufo/waves/round-59/c59_axis_evidence.py --root /fast/scratch/hyaku/kake-r59/LabratC1Controls/lane --revision c2465c44625fe78afb3013c258a84842e3d559d4 --base fd6303ce5c14b3f892dec586297a942ab6e4193b
+counter_sha256: 95d23511d548a9c5fe5f76c201b002e931d9ecd55faca51c9c037c08d25be690
+control: a-do-nothing
+C1 axis-evidence mismatches=16 unresolved=11 rows_no_receipt=3 receipts_off_axis=0 tallies_unfound=0 rows_no_tally=2 rows=3 scores_held=2 superseded_kept=0 met=False  (met: mismatches == 0 AND rows == 3 AND scores_held == 2 AND superseded_kept == 3)
+  operability: pointers=5 unresolved=4 tallies=[]
+    - cli.mjs:935: not a committed path at the revision
+    - :836-839: line pointer with no preceding resolved file
+    - :932: line pointer with no preceding resolved file
+    - :393: line pointer with no preceding resolved file
+  freshness: pointers=10 unresolved=7 tallies=[{'tally': '117/117', 'found': True}, {'tally': '15/15', 'found': True}, {'tally': '16/16', 'found': True}, {'tally': '10/10', 'found': True}]
+    - corpus/claims: not a committed path at the revision
+    - /tmp/kake-r17/scout-claims.md: absolute or home path (not committed bytes)
+    - /tmp/kake-r17/claims-delta.tsv: absolute or home path (not committed bytes)
+    - /tmp/kake-r17/critic.md: absolute or home path (not committed bytes)
+    - /tmp/kake-r17/reviewer-cites.md: absolute or home path (not committed bytes)
+    - /tmp/kake-r17/scout-pins.md: absolute or home path (not committed bytes)
+    - /tmp/kake-r17/scout-live.md: absolute or home path (not committed bytes)
+  calibration: pointers=0 unresolved=0 tallies=[]
+  revision: c2465c44625fe78afb3013c258a84842e3d559d4
+  base: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+EXIT_CODE=1

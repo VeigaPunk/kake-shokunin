@@ -1,0 +1,73 @@
+
+==============================================================================================================
+### S425 IP-address paragraph + Verify section
+
+* Google's crawlers and fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows.
+    -> WHOLE-QUOTABLE (u=23 c=144 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=23 c=144 | Google's crawlers and fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows.
+         u=22 c=135 | crawlers and fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows.
+         u=21 c=126 | and fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows.
+         u=20 c=122 | fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows.
+         u=19 c=113 | are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows.
+         u=18 c=109 | designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows.
+* To optimize bandwidth usage, these clients are distributed across many datacenters across the world so they are located near the sites that they might access.
+    -> NOT a raw substring (u=25 c=158)
+    -> split across 3 text nodes: ['To optimize bandwidth usage, these clients are distributed across many datacenters across the world so they', 'are', 'located near the sites that they might access.']
+    -> eligible sub-spans:
+         u=16 c=107 | To optimize bandwidth usage, these clients are distributed across many datacenters across the world so they
+         u=15 c=104 | optimize bandwidth usage, these clients are distributed across many datacenters across the world so they
+         u=14 c=95 | bandwidth usage, these clients are distributed across many datacenters across the world so they
+         u=13 c=85 | usage, these clients are distributed across many datacenters across the world so they
+         u=12 c=78 | these clients are distributed across many datacenters across the world so they
+         u=11 c=72 | clients are distributed across many datacenters across the world so they
+* Therefore, your logs may show visits from several IP addresses.
+    -> WHOLE-QUOTABLE (u=10 c=63 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=10 c=63 | Therefore, your logs may show visits from several IP addresses.
+         u=9 c=52 | your logs may show visits from several IP addresses.
+         u=8 c=47 | logs may show visits from several IP addresses.
+         u=7 c=42 | may show visits from several IP addresses.
+         u=6 c=38 | show visits from several IP addresses.
+* Google egresses primarily from IP addresses in the United States.
+    -> WHOLE-QUOTABLE (u=10 c=65 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=10 c=65 | Google egresses primarily from IP addresses in the United States.
+         u=9 c=58 | egresses primarily from IP addresses in the United States.
+         u=8 c=49 | primarily from IP addresses in the United States.
+         u=7 c=39 | from IP addresses in the United States.
+         u=6 c=34 | IP addresses in the United States.
+* In case Google detects that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries.
+    -> WHOLE-QUOTABLE (u=26 c=149 unique=True ceil_ok=False)
+    -> eligible sub-spans:
+         u=25 c=138 | In case Google detects that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other
+         u=25 c=146 | case Google detects that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries.
+         u=24 c=141 | Google detects that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries.
+         u=23 c=134 | detects that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries.
+         u=22 c=126 | that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries.
+         u=21 c=121 | a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries.
+* Google's crawlers identify themselves in three ways:
+    -> WHOLE-QUOTABLE (u=7 c=52 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=7 c=52 | Google's crawlers identify themselves in three ways:
+         u=6 c=43 | crawlers identify themselves in three ways:
+* The HTTP user-agent request header.
+    -> NOT a raw substring (u=5 c=35)
+    -> split across 3 text nodes: ['The HTTP', 'user-agent', 'request header.']
+* The source IP address of the request.
+    -> WHOLE-QUOTABLE (u=7 c=37 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=7 c=37 | The source IP address of the request.
+         u=6 c=33 | source IP address of the request.
+* The reverse DNS hostname of the source IP.
+    -> WHOLE-QUOTABLE (u=8 c=42 unique=True ceil_ok=True)
+    -> eligible sub-spans:
+         u=8 c=42 | The reverse DNS hostname of the source IP.
+         u=7 c=38 | reverse DNS hostname of the source IP.
+         u=6 c=30 | DNS hostname of the source IP.
+* Learn how to use these details to verify Google's crawlers and fetchers.
+    -> NOT a raw substring (u=12 c=72)
+    -> split across 3 text nodes: ['Learn how to use these details to', "verify Google's crawlers and", 'fetchers.']
+    -> eligible sub-spans:
+         u=7 c=33 | Learn how to use these details to
+         u=6 c=27 | how to use these details to

@@ -1,0 +1,8 @@
+== baseline (clean env, base tool) ==
+  rc=1 passes=13
+    K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at d8e641abe36a
+== with a PYTHONPATH module that fabricates the expected output ==
+  rc=1 passes=14
+    K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+    K13_non_utf8_path_at_revision PASS  exit=1 DANGLING S1757 cited-by=corpus/knowledge/bad�.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling
+  forged child invocations: 7

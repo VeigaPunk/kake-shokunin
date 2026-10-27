@@ -1,0 +1,18 @@
+=== S425 ===
+recommended span: 'Therefore, your logs may show visits from several IP addresses.'
+  span_tools.check (retained): {'units': 10, 'chars': 63, 'in_text_node': True, 'count_in_body': 1, 'unique': True, 'within_ceilings': True}
+  fetch1: in_one_text_node=True nodes_with_span=1 count_in_body=1 raw_line_hits=[1128]
+  fetch2: in_one_text_node=True nodes_with_span=1 count_in_body=1 raw_line_hits=[1128]
+  fetch3: in_one_text_node=True nodes_with_span=1 count_in_body=1 raw_line_hits=[1128]
+  retained: hosts=["Google's crawlers and fetchers are designed to be run simultaneously by thousands of machines to improve performance and scale as the web grows. To optimize bandwidth usage, these clients are distributed across many datacenters across the world so they're located near the sites that they might access. Therefore, your logs may show visits from several IP addresses. Google egresses primarily from IP addresses in the United States. In case Google detects that a site is blocking requests from the United States, it may attempt to crawl from IP addresses located in other countries."]
+  topic 'IP address' carried by span: True
+
+=== S426 ===
+recommended span: 'Run a reverse DNS lookup on the accessing IP address from your logs, using the'
+  span_tools.check (retained): {'units': 15, 'chars': 78, 'in_text_node': True, 'count_in_body': 1, 'unique': True, 'within_ceilings': True}
+  fetch1: in_one_text_node=True nodes_with_span=1 count_in_body=1 raw_line_hits=[1160]
+  fetch2: in_one_text_node=True nodes_with_span=1 count_in_body=1 raw_line_hits=[1160]
+  fetch3: in_one_text_node=True nodes_with_span=1 count_in_body=1 raw_line_hits=[1160]
+  retained: hosts=['Run a reverse DNS lookup on the accessing IP address from your logs, using the']
+  topic 'reverse DNS' carried by span: True
+

@@ -1,0 +1,16 @@
+PROBE H4: c56_selftally when one file is added under scripts/fixtures/
+clone: --shared of the lane at fd6303ce, probe commit with user.name=selftest
+C1 selftest-tally tally_mismatches=6 rows_checked=10 met=False  (met: tally_mismatches == 0 AND rows_checked == 10)
+  base-path-audit: claim=45 observed=45/45 MISMATCH tool_changed
+  source-recheck-audit: claim=106 observed=106/106 MISMATCH tool_changed
+  robots-expectation-audit: claim=204 observed=204/204 MISMATCH tool_changed
+  sitemap-file-audit: claim=235 observed=235/235 MISMATCH tool_changed
+  redirect-expectation-audit: claim=23 observed=23/23 MISMATCH tool_changed
+  commit-citation-lint: claim=9 observed=9/9 MISMATCH tool_changed
+  wave-evidence-ledger: claim=19 observed=19/19 OK
+  quote-truth-counter: claim=18 observed=18/18 OK
+  readme-index-counter: claim=44 observed=44/44 OK
+  yahoo-robots-quote-truth-counter: claim=54 observed=54/54 OK
+  revision: 4a4dea8bfaf0c19c74177c8abf9cd5779ca3ff00
+EXIT=1
+EXIT=1

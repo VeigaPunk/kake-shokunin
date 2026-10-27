@@ -1,0 +1,78 @@
+ok   01 registry row at 0 leading spaces
+ok   02 registry row at 2 leading spaces
+ok   03 registry row at 3 leading spaces
+ok   04 registry row at 4 spaces is code
+ok   05 CRLF registry rows
+ok   06 id cited inside a markdown table
+ok   07 range S011-S013 cites endpoints only
+ok   08 decoy S12 is not an id
+ok   09 decoy AS500 is not an id
+ok   10 decoy S500x is not an id
+ok   11 decoy s101 is not an id
+ok   12 four-digit id S0300 is an id
+ok   13 id held by two siblings
+ok   14 id held by none
+ok   15 lane excluded from owners by realpath
+ok   16 sibling without a registry
+ok   17 unresolved revision exits 2
+ok   18 missing registry exits 2
+ok   19 no knowledge files exits 2
+ok   20 revision reads old blobs not the worktree
+usage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]
+                      [--selftest]
+id_resolver.py: error: argument --root: expected one argument
+usage: id_resolver.py [-h] [--root ROOT] [--revision REVISION] [--fleet FLEET]
+                      [--selftest]
+id_resolver.py: error: unrecognized arguments: --bogus
+usage: id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>]
+ok   21 usage error returns 64
+ok   22 duplicate citation counted once
+ok   23 citing-path order stable
+ok   24 exact DANGLING and summary lines
+ok   25 gate-shaped fixture totals
+ok   26 exit 0 when clean
+ok   27 exit 1 when dangling
+ok   28 url-match when the row URL is quoted
+ok   29 url-match absent when no URL quoted
+ok   30 url-match names one of two owners
+ok   31 owners sorted alphabetically
+ok   32 nested knowledge path recorded
+ok   33 registry section ends at the next heading
+ok   34 decoys S777_ _S777 S_777 are not ids
+ok   35 registry cell S777x is not a registry id
+ok   36 heading with trailing text is not the Registry section
+ok   37 lone-CR registry rows
+ok   38 a directory without the -shokunin suffix is not a sibling
+ok   39 sibling read at HEAD, not at its dirty worktree
+ok   40 sibling repo without a committed registry owns nothing
+ok   41 a fleet root that is a repository owns nothing for a plain sibling
+ok   42 a one-cell registry row registers its id
+ok   43 missing fleet exits 2
+ok   44 non-markdown knowledge file at a revision is ignored
+ok   45 url-match scans every citing file
+ok   46 url-match ignores punctuation after a registry URL
+ok   47 dangling lines render in id order
+ok   48 an inherited GIT_DIR is not passed on
+ok   49 a symlink out of the lane carries no citation
+ok   50 a fenced block before the Registry heading opens nothing
+ok   51 a fenced row inside Registry (backticks) does not register
+ok   52 a fenced row inside Registry (tildes) does not register
+ok   53 a fence indented 3 spaces still opens
+ok   54 a longer closing run closes the fence
+ok   55 a row after a closed fence resolves
+ok   56 a shorter run does not close the fence
+ok   57 an unclosed fence swallows the rest
+ok   58 a non-ASCII knowledge path is read at a revision
+ok   59 a quote-character knowledge path is read at a revision
+ok   60 an HTML comment hides a registry row
+ok   61 a single-line HTML comment is not a row
+ok   62 a setext H2 underline ends the Registry section
+ok   63 a setext H1 underline ends the Registry section
+ok   64 an in-lane symlinked knowledge directory is read
+ok   65 a symlinked knowledge directory cycle is finite
+ok   66 a committed symlink is resolved inside the tree
+ok   67 a registry symlinked out of the lane is unevaluable
+ok   68 a non-UTF-8 knowledge path is read at a revision
+id_resolver: unevaluable: root '/fast/scratch/hyaku/kake-r59/ExecResolverFix/st/idresolver-selftest-ne0x6thk/lane' is not the toplevel of its repository (toplevel /fast/scratch/hyaku/kake-r59/ExecResolverFix/st/idresolver-selftest-ne0x6thk)
+ok   69 a root below its repository toplevel is unevaluable
+selftest: 69/69

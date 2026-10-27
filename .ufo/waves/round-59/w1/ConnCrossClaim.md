@@ -1,0 +1,19 @@
+# ConnCrossClaim
+
+SEPARABILITY:
+- **C1 calibration** is causally separable: its counter reads the SCORECARD axis table and cited blobs; it checks three rows, on-axis receipt presence, tallies in cited blobs, held scores, and preservation of prior cells (`contract.md` 26–29; `c59_axis_evidence.py` 185–255). Reverting C2/C3 edits does not alter those predicates if C1’s table/evidence remains.
+- **C2 operability** is separable: its measured object is `scripts/id_resolver.py` plus the gate-built fixtures. P7’s committed-lane floor is explicitly 106 ids and documented to hold with or without C3 rows (`contract.md` 26–29). Its K8–K14 cases exercise parsing, symlinks, revision paths and root scope, not C1/C3 content.
+- **C3 freshness** is separable: it evaluates the two source rows/bodies, knowledge entries, lesson Gate and correction tail (`contract.md` 64–83; `c59_quote_truth.py` `run_checks`). It has no dependency on resolver behavior or scorecard cells.
+- Qualification: practical composition has an ordering dependency, not a predicate dependency: C1 *may* cite C2/C3 receipts if available, but contract says it does not require them. This is a potential sequencing convenience, not evidence that one claim’s after-state causes another to pass.
+
+SHARED WEAKNESSES:
+- All three are state-bound checks over committed repository data, not independent proof that the declared state is honest or semantically adequate. C1 explicitly does not test whether a receipt supports its score; C2 does not test printed P6 tally provenance and admits remaining uncovered parsing cases; C3 tests quote truth, not whether prose faithfully represents or is supported by its source (`contract.md` 46, 61–62, 83). A green result across the trio therefore cannot be generalized to whole-lane truthfulness.
+- The measured state and the predicates/counters are distinct trust surfaces. C1 and C3 inspect committed blobs, and C2 loads the target tool from the selected revision, but the reports/counter invocation still depend on the operator selecting and reporting the intended revision and on the frozen counter implementation being the one actually run. No shared end-to-end binding of all three observed outputs to one immutable measured commit is specified in the claim predicates. [INFERENCE]
+
+INTERACTIONS:
+- No direct after-state red/green coupling is declared: SCORECARD edits do not change C2’s tool or C3’s source predicates; C2 code edits do not affect C1/C3; C3 additions do not affect C2’s stated P7 floor and do not satisfy C1 absent corresponding cited cells/receipts.
+- There is a cross-claim integrity contradiction worth preserving: the contract calls the claims causally separable, while C1’s cell may cite C2/C3 receipts and a shared measured revision/reporting choice could make their evidence appear coupled. Citation of another claim’s receipt must not be mistaken for causal support or a combined proof.
+- Bounded move: add a small independent measurement receipt/protocol that records the full commit id actually measured and SHA-256 of each frozen v1 counter blob, then associates each raw counter output/exit with that same revision. It improves **calibration** of cross-claim attribution and **operability** of replay without broadening claim predicates or changing their targets. Keep claim results separate; the receipt is provenance, not a new scalar gate.
+- Risk: this only detects revision/counter substitution when the receipt is checked against repository objects; it cannot prove honest execution or semantic truth, and extra evidence could be misread as such. Avoid making C1 require C2/C3 success, which would harm causal separability.
+
+VERDICT: Propose the single-revision, frozen-counter-hash provenance receipt as a bounded cross-claim improvement; no claim after-state currently appears to make another claim’s predicate pass or fail. No checks run.

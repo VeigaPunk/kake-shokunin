@@ -1,0 +1,12 @@
+== SECTION 1: C1 symlink and pointer forgery ==
+1a clean fixture: rc=1 C1 axis-evidence mismatches=12 unresolved=0 rows_no_receipt=3 receipts_off_axis=3 tables=1 tallies_unfound=3 rows_no_tally=3 rows=3 scores_held=2 superseded_kept=3 met=False  (met: mismatches == 0 AND tables == 1 AND rows == 3 AND scores_held == 2 AND superseded_kept == 3)
+1b SCORECARD.md as symlink (multi-line target): rc=1 C1 axis-evidence mismatches=12 unresolved=0 rows_no_receipt=3 receipts_off_axis=3 tables=1 tallies_unfound=3 rows_no_tally=3 rows=3 scores_held=2 superseded_kept=3 met=False  (met: mismatches == 0 AND tables == 1 AND rows == 3 AND scores_held == 2 AND superseded_kept == 3)
+1b cat-file -t SCORECARD.md = 'blob'; git ls-tree mode:
+   ls-tree: 120000 blob 1c1f44037d3e3f74754bd5424a197c5e97ea693d	SCORECARD.md
+   git show of the symlink blob, first 2 lines: ['# kake - Scorecard', '']
+1c receipts as symlinks with target '16/16': rc=1 C1 axis-evidence mismatches=12 unresolved=0 rows_no_receipt=3 receipts_off_axis=3 tables=1 tallies_unfound=3 rows_no_tally=3 rows=3 scores_held=2 superseded_kept=3 met=False  (met: mismatches == 0 AND tables == 1 AND rows == 3 AND scores_held == 2 AND superseded_kept == 3)
+   ls-tree of receipts dir:
+     120000 blob 8eb38dde9fe309c6ca6d8c95d3ba5b849df1e95e	.ufo/waves/round-59/calibration.md
+     120000 blob 8eb38dde9fe309c6ca6d8c95d3ba5b849df1e95e	.ufo/waves/round-59/freshness.md
+     120000 blob 8eb38dde9fe309c6ca6d8c95d3ba5b849df1e95e	.ufo/waves/round-59/operability.md
+1d receipts as symlinks to ../../../etc/passwd: rc=1 C1 axis-evidence mismatches=12 unresolved=0 rows_no_receipt=3 receipts_off_axis=3 tables=1 tallies_unfound=3 rows_no_tally=3 rows=3 scores_held=2 superseded_kept=3 met=False  (met: mismatches == 0 AND tables == 1 AND rows == 3 AND scores_held == 2 AND superseded_kept == 3)

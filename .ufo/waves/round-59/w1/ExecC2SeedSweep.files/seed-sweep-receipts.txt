@@ -1,0 +1,441 @@
+# ExecC2SeedSweep — C2 gate determinism receipts (round-59 w1)
+
+Counter: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-59/c59_resolver_cases.py
+Lane root: /home/vgpnk/Projects/shokunin/kake-shokunin (git toplevel verified)
+Revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+Python: Python 3.14.8
+
+## Required runs (seeds 1, 2, 59, 1000, 424242, and one unseeded)
+
+### seed1
+```
+LABEL=seed1
+ARGS=--seed 1
+EXIT=1
+ELAPSED_S=1.04
+TMPDIR=/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1/tmp
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S9425 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S1133 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S4279 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S2031 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S8217 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S7464 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S6319 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S7397 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at 0d039d6462b4
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S1637 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S8093 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1/c59-rc-y9o68tjq/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 1
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir (excluding tmp/) ---
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1/err.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1/out.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1/report.txt
+--- leftover under tmp/ ---
+```
+
+### seed2
+```
+LABEL=seed2
+ARGS=--seed 2
+EXIT=1
+ELAPSED_S=1.13
+TMPDIR=/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed2/tmp
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S1600 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S1490 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S6015 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S2870 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S5148 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S3576 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S685 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S7388 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at 4836a577b247
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S2694 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S7156 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed2/c59-rc-0t4htt_3/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 2
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir (excluding tmp/) ---
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed2/err.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed2/out.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed2/report.txt
+--- leftover under tmp/ ---
+```
+
+### seed59
+```
+LABEL=seed59
+ARGS=--seed 59
+EXIT=1
+ELAPSED_S=1.14
+TMPDIR=/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed59/tmp
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S1486 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S7628 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S472 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S2331 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S5013 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S273 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S8045 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S8715 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at 94209981cef3
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S8882 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S4976 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed59/c59-rc-fd4zbx7g/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 59
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir (excluding tmp/) ---
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed59/err.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed59/out.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed59/report.txt
+--- leftover under tmp/ ---
+```
+
+### seed1000
+```
+LABEL=seed1000
+ARGS=--seed 1000
+EXIT=1
+ELAPSED_S=1.14
+TMPDIR=/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1000/tmp
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S1724 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S6548 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S5883 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S1131 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S7766 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S2815 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S7267 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S3830 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at fbecf23c2554
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S3734 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S4043 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1000/c59-rc-jpg8_kyn/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 1000
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir (excluding tmp/) ---
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1000/err.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1000/out.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed1000/report.txt
+--- leftover under tmp/ ---
+```
+
+### seed424242
+```
+LABEL=seed424242
+ARGS=--seed 424242
+EXIT=1
+ELAPSED_S=1.14
+TMPDIR=/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed424242/tmp
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S3813 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S5307 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S8683 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S4528 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S865 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S3413 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S2372 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S2651 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at 8b49d5be6f63
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S6343 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S5790 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed424242/c59-rc-_isjotty/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 424242
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir (excluding tmp/) ---
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed424242/err.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed424242/out.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed424242/report.txt
+--- leftover under tmp/ ---
+```
+
+### noseed
+```
+LABEL=noseed
+ARGS=
+EXIT=1
+ELAPSED_S=1.13
+TMPDIR=/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/noseed/tmp
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S283 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S6793 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S3831 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S7658 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S3984 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S6559 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S5625 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S1444 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at bb36ca97bedd
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S6722 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S3092 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/noseed/c59-rc-qwohciy2/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 2273235102
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir (excluding tmp/) ---
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/noseed/err.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/noseed/out.txt
+/fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/noseed/report.txt
+--- leftover under tmp/ ---
+```
+
+## Environment variants (GIT_DIR=/nonexistent; TMPDIR unset)
+
+### gitdir_seed59
+```
+LABEL=gitdir_seed59 MODE=gitdir ARGS=--seed 59
+EXIT=1
+ELAPSED_S=1.07
+GIT_DIR=/nonexistent TMPDIR=<unset>
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S1486 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S7628 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S472 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S2331 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S5013 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S273 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S8045 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S8715 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at 6baf692ac112
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S8882 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S4976 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/gitdir_seed59/c59-rc-lxu3g8c3/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 59
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir ---
+```
+
+### notmp_seed59
+```
+LABEL=notmp_seed59 MODE=notmp ARGS=--seed 59
+EXIT=1
+ELAPSED_S=1.10
+GIT_DIR=<unset> TMPDIR=<unset>
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S1486 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S7628 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S472 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S2331 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S5013 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S273 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S8045 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S8715 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at 6baf692ac112
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S8882 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S4976 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/notmp_seed59/c59-rc-9julxiqv/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 59
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir ---
+```
+
+### gitdir_noseed
+```
+LABEL=gitdir_noseed MODE=gitdir ARGS=
+EXIT=1
+ELAPSED_S=1.07
+GIT_DIR=/nonexistent TMPDIR=<unset>
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S2358 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S9571 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S5363 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S8072 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S2042 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S1443 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S6312 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S4172 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at 0563244412cf
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S7980 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S6296 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/gitdir_noseed/c59-rc-ddk5545_/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 1138799550
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir ---
+```
+
+### notmp_noseed
+```
+LABEL=notmp_noseed MODE=notmp ARGS=
+EXIT=1
+ELAPSED_S=1.07
+GIT_DIR=<unset> TMPDIR=<unset>
+--- stdout ---
+C2 resolver-cases 13/21 met=False  (met: cases_passed == 21 of 21)
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S6215 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S9590 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S3173 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S1260 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S4435 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S1619 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S7196 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S2486 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at edef896f228c
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S7695 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S2664 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/notmp_noseed/c59-rc-hsbmfxmr/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+  seed: 1207855084
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+--- stderr ---
+--- leftover under work dir ---
+```
+
+## Wide seed sweep summary (30 sequential seeds + 120 random seeds + edge seeds)
+
+seeds(30): 3 4 5 6 11 12 13 17 23 29 31 37 41 43 47 53 61 67 71 73 79 83 89 97 101 103 107 109 113 127 -> all '13/21 met=False', exit 1
+seeds(120, random from Random(99)): all '13/21 met=False', exit 1; verdict-vector sha256 (first 16) a3212b71629bc2d0 for every seed
+edge seeds: 0, -7, 99999999999999999999 -> all '13/21 met=False', exit 1
+distinct score lines over all 180 captured invocations:
+      180 C2 resolver-cases 13/21 met=False
+
+## Per-case verdict table (identical for every seed and every environment)
+```
+  K1_fenced_heading_before_registry PASS  exit=1 DANGLING S1486 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K2_backtick_fence_inside_registry PASS  exit=1 DANGLING S7628 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K3_tilde_fence_inside_registry PASS  exit=1 DANGLING S472 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K4_non_ascii_path_at_revision PASS  exit=1 DANGLING S2331 cited-by=corpus/knowledge/中文.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K5_git_quoted_path_at_revision PASS  exit=1 DANGLING S5013 cited-by=corpus/knowledge/a"b.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K6_fenced_low_id_dangles_registered_high_id_resolves PASS  exit=1 DANGLING S273 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K7_newline_path_at_revision PASS  exit=1 DANGLING S8045 cited-by=corpus/knowledge/line | break.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K8_html_comment_row_is_not_registered FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K9_setext_heading_ends_registry FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K10_in_lane_symlinked_dir_is_read FAIL  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  K11_revision_symlink_resolved_in_tree FAIL  exit=1 DANGLING S8715 cited-by=corpus/knowledge/odd.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  K12_registry_outside_lane_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  K13_non_utf8_path_at_revision FAIL  exit=2 id_resolver: unevaluable: cannot read corpus/knowledge/bad�.md at 94209981cef3
+  K14_non_toplevel_root_is_unevaluable FAIL  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P1_three_space_row_resolves PASS  exit=0 ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  P2_row_after_closed_fence_resolves PASS  exit=0 ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  P3_four_space_line_is_code PASS  exit=1 DANGLING S8882 cited-by=corpus/knowledge/ok.md owners=- url-match=- | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  P4_committed_sibling_owns PASS  exit=1 DANGLING S4976 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=alpha-shokunin | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  P5_absent_fleet_is_unevaluable PASS  exit=2 id_resolver: unevaluable: fleet root /fast/scratch/hyaku/kake-r59/ExecC2SeedSweep/work/seed59/c59-rc-fd4zbx7g/no-such-fleet is not a directory
+  P6_tool_selftest FAIL  exit=0 ('59', '59')
+  P7_real_lane_green PASS  exit=0 ids_cited=108 ids_resolved=108 dangling=0 
+```
+
+## Timing (single-run wall clock, seed 59, serial, host loaded)
+  n=9: min=1.218s median=1.352s max=1.459s  (parallel batches: 1.03-1.14s each)
+
+## Leftover scratch scan after every run
+  c59-rc-* dirs left by the counter: 0 (all runs)
+  idresolver-selftest-* dirs left by the tool: 0 (all runs)
+  /tmp/c59-rc-* and /tmp/idresolver-selftest-* after a TMPDIR-unset run: 0

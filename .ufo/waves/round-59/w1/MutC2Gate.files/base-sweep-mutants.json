@@ -1,0 +1,922 @@
+{
+ "pristine_sha": "2c1b4970a652023a883a414620c07cf393f7c4b28b87053564a45302428e663a",
+ "restored_sha": "2c1b4970a652023a883a414620c07cf393f7c4b28b87053564a45302428e663a",
+ "restored_ok": true,
+ "git_status_after_restore": "M  scripts/id_resolver.py",
+ "results": [
+  {
+   "id": "BASE",
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "exit": 1,
+   "tool_sha": "2c1b4970a652023a883a414620c07cf393f7c4b28b87053564a45302428e663a",
+   "commit": "45a92b64ac8a0f82dba369100e30682f14de81fb"
+  },
+  {
+   "id": "M01",
+   "locus": "ID_RE digit count 3+ -> 4+",
+   "commit": "064747dc7bbdea2fb5e19d826782f4d02accf674",
+   "tool_sha": "827f1ce87495cf012c0bd4c99030b54aceec6d20127a35aa1ff3c7c6a8a4398e",
+   "exit": 1,
+   "tally": [
+    10,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "FAIL",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "FAIL",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "FAIL"
+   },
+   "flipped": [
+    "K3_tilde_fence_inside_registry",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves",
+    "P7_real_lane_green"
+   ],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "K3_tilde_fence_inside_registry",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest",
+    "P7_real_lane_green"
+   ]
+  },
+  {
+   "id": "M02",
+   "locus": "ID_RE lookbehind dropped (prefix decoys count as ids)",
+   "commit": "193043d66bb1334ee4826466794c9d987e1cb535",
+   "tool_sha": "fcb4106ed5a49480c2d1e8e3a135e65a6416bb397a72f7312fab7b9b20458a15",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M03",
+   "locus": "ROW_RE indent 0-3 -> 0-2 (three-space row unregistered)",
+   "commit": "5b944c5fefd43138c42e880f453009d67b705981",
+   "tool_sha": "87f38cc9f7bd9dcf03ddf1045b4dbd6b958d0c58760b82c7ee196b9de7a15688",
+   "exit": 1,
+   "tally": [
+    12,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "FAIL",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [
+    "P1_three_space_row_resolves"
+   ],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P1_three_space_row_resolves",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M04",
+   "locus": "ROW_RE indent 0-3 -> 0-4 (four-space code row registers)",
+   "commit": "0e9bf482c6ffe265262eaa46ef0f4e3288d542c4",
+   "tool_sha": "94e8501f21e92dffef0cfaeec29762ccaac01646959a53ed88d38b9b645cb438",
+   "exit": 1,
+   "tally": [
+    12,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "FAIL",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [
+    "P3_four_space_line_is_code"
+   ],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P3_four_space_line_is_code",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M05",
+   "locus": "FENCE_OPEN_RE needs 4+ fence chars (fences no longer open)",
+   "commit": "6faaaf30cccf6603b203d2898f989b46ee4fa84c",
+   "tool_sha": "dc72b0533ded3186d1e1b85c672bae0d2019c7f5e5da870f00dee9a527a247a6",
+   "exit": 1,
+   "tally": [
+    9,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "FAIL",
+    "K2_backtick_fence_inside_registry": "FAIL",
+    "K3_tilde_fence_inside_registry": "FAIL",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "FAIL",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [
+    "K1_fenced_heading_before_registry",
+    "K2_backtick_fence_inside_registry",
+    "K3_tilde_fence_inside_registry",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves"
+   ],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "K1_fenced_heading_before_registry",
+    "K2_backtick_fence_inside_registry",
+    "K3_tilde_fence_inside_registry",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M06",
+   "locus": "SECTION_END_RE h1/h2 -> h1 only (## heading does not end the section)",
+   "commit": "84437389ded8caece30a44dea1e490ffabfc9cd6",
+   "tool_sha": "7332773bb9abd28eaa4cc630422c7a5e6ab90c5beb598d20df27489fff91e147",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M07",
+   "locus": "ID_CELL_RE accepts any S-digit cell (S12 registers)",
+   "commit": "10b8c392f2d2830114db5fc7f287938d6331964d",
+   "tool_sha": "f7929890ce1c2b2abd090c6d1b837d4324794e2e7edff97036bd96e7aaab5c16",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable"
+   ]
+  },
+  {
+   "id": "M08",
+   "locus": "URL_RE allows trailing punctuation (rstrip dropped)",
+   "commit": "475fe1e996e2608baf2575ea7f2c2c05fa910d85",
+   "tool_sha": "b0bfc792477649498a3b32ee8793224475cd36e70cc8f9fae878388470831250",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M09",
+   "locus": "registry URL cell split keeps the whole row",
+   "commit": "87909d3b2efb724b8149292044380ac5d6888e6f",
+   "tool_sha": "87b0cfb54a6906980dfdcf3fe11a4d381b4226df3b41eb740b33eb09c1f414e1",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable"
+   ]
+  },
+  {
+   "id": "M10",
+   "locus": "_nul_paths splits on newline instead of NUL",
+   "commit": "e877446c943c64ff04d55194cea16facceabc0ab",
+   "tool_sha": "09d24da2e4dac1f00eb6b1fa8526ed212837b5b26d8fbd3a74441b3759f5b14b",
+   "exit": 1,
+   "tally": [
+    10,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "FAIL",
+    "K5_git_quoted_path_at_revision": "FAIL",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "FAIL",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "PASS",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "FAIL"
+   },
+   "flipped": [
+    "K14_non_toplevel_root_is_unevaluable",
+    "K4_non_ascii_path_at_revision",
+    "K5_git_quoted_path_at_revision",
+    "K7_newline_path_at_revision",
+    "P7_real_lane_green"
+   ],
+   "notes_changed": [
+    "K11_revision_symlink_resolved_in_tree",
+    "K13_non_utf8_path_at_revision",
+    "K14_non_toplevel_root_is_unevaluable",
+    "K4_non_ascii_path_at_revision",
+    "K5_git_quoted_path_at_revision",
+    "K7_newline_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest",
+    "P7_real_lane_green"
+   ]
+  },
+  {
+   "id": "M11",
+   "locus": "knowledge_bodies: os.walk follows symlinks",
+   "commit": "72314d2b24ae03930d99e3d14ecc2474a2de22b3",
+   "tool_sha": "91c20681f21f150db48e59abf6d3e9209951c7a0128d714c68514efbcad39ba0",
+   "exit": 1,
+   "tally": [
+    14,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "PASS",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [
+    "K10_in_lane_symlinked_dir_is_read"
+   ],
+   "notes_changed": [
+    "K10_in_lane_symlinked_dir_is_read",
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable"
+   ]
+  },
+  {
+   "id": "M12",
+   "locus": "knowledge_bodies: realpath containment check dropped",
+   "commit": "ee4382a2c7f0fb0e880bd8dfad161fa63e9823ad",
+   "tool_sha": "96d37803a847260ccbec7bda2903bdb82a8cbe2d777a1fa3753c29a0ac642b70",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M13",
+   "locus": "sibling_dirs: lane exclusion by realpath dropped",
+   "commit": "7ae147b31b1e38c9a4ffbb25f77d4a4dae3849ef",
+   "tool_sha": "43ca8598f2f9706caf44c4e111551685892b3c343c0181e3f1c8dbcfe5a68d6e",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M14",
+   "locus": "sibling owner list no longer sorted",
+   "commit": "a026fb8dd55afa4e2da30737c410ef0347b0da2a",
+   "tool_sha": "4a055f5d0a6c7a6293cb80399eb2e92960ef782ff698637f711e46fecd11809c",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable"
+   ]
+  },
+  {
+   "id": "M15",
+   "locus": "url-match never populated",
+   "commit": "85445002910e4994e5ecc6a836d1c59e3a065acf",
+   "tool_sha": "af311420da47928b265d1eaccc5032aa2a9737f4e97a9482fc00a09c06c979cd",
+   "exit": 1,
+   "tally": [
+    12,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "FAIL",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [
+    "P4_committed_sibling_owns"
+   ],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P4_committed_sibling_owns",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M16",
+   "locus": "--fleet directory check removed (missing fleet is not unevaluable)",
+   "commit": "18716b5043c7542e511342b3b17dbb6bd769eae4",
+   "tool_sha": "cd812c69180cf6f150d021b416df75c1a8508844c6c3ec6dac3d7bec631fe4bc",
+   "exit": 1,
+   "tally": [
+    12,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "FAIL",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [
+    "P5_absent_fleet_is_unevaluable"
+   ],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M17",
+   "locus": "exit code: dangling never yields exit 1",
+   "commit": "73f08da671e8279d32a87dfb77e99e9519d1a1de",
+   "tool_sha": "bfd9c152d3b5325e8df3ba24176a40d4aff09a24a0825a85a611bd7649d26347",
+   "exit": 1,
+   "tally": [
+    4,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "FAIL",
+    "K2_backtick_fence_inside_registry": "FAIL",
+    "K3_tilde_fence_inside_registry": "FAIL",
+    "K4_non_ascii_path_at_revision": "FAIL",
+    "K5_git_quoted_path_at_revision": "FAIL",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "FAIL",
+    "K7_newline_path_at_revision": "FAIL",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "FAIL",
+    "P4_committed_sibling_owns": "FAIL",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [
+    "K1_fenced_heading_before_registry",
+    "K2_backtick_fence_inside_registry",
+    "K3_tilde_fence_inside_registry",
+    "K4_non_ascii_path_at_revision",
+    "K5_git_quoted_path_at_revision",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves",
+    "K7_newline_path_at_revision",
+    "P3_four_space_line_is_code",
+    "P4_committed_sibling_owns"
+   ],
+   "notes_changed": [
+    "K11_revision_symlink_resolved_in_tree",
+    "K13_non_utf8_path_at_revision",
+    "K1_fenced_heading_before_registry",
+    "K2_backtick_fence_inside_registry",
+    "K3_tilde_fence_inside_registry",
+    "K4_non_ascii_path_at_revision",
+    "K5_git_quoted_path_at_revision",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves",
+    "K7_newline_path_at_revision",
+    "P3_four_space_line_is_code",
+    "P4_committed_sibling_owns",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M18",
+   "locus": "selftest tally print faked to the P6 floor (66/66)",
+   "commit": "8502008f8cfe24d11c403b55e8ecb62ad809daa4",
+   "tool_sha": "1489729207e79395b42915ff95f207e6abefbac028417adce653de4a3a6edd24",
+   "exit": 1,
+   "tally": [
+    14,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "PASS",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [
+    "P6_tool_selftest"
+   ],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M19",
+   "locus": "parse_cited: citing paths no longer sorted",
+   "commit": "8f344ba22279ce610ebb2bafa2e05ddb075269d5",
+   "tool_sha": "5e1b3b874a5fc121192f1f4b7b10743a11d2e1bda81e5cc031c98ae13abe1235",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  },
+  {
+   "id": "M20",
+   "locus": "dangling ids no longer sorted (output order unstable)",
+   "commit": "0d1036306d47ccde5897e066da842a5fd21abe53",
+   "tool_sha": "4b9e8e1e74259a6e6c202e47ab361f732b467cdd3e609df10ecc0bf6dc895ad7",
+   "exit": 1,
+   "tally": [
+    13,
+    21,
+    "False"
+   ],
+   "cases": {
+    "K1_fenced_heading_before_registry": "PASS",
+    "K2_backtick_fence_inside_registry": "PASS",
+    "K3_tilde_fence_inside_registry": "PASS",
+    "K4_non_ascii_path_at_revision": "PASS",
+    "K5_git_quoted_path_at_revision": "PASS",
+    "K6_fenced_low_id_dangles_registered_high_id_resolves": "PASS",
+    "K7_newline_path_at_revision": "PASS",
+    "K8_html_comment_row_is_not_registered": "FAIL",
+    "K9_setext_heading_ends_registry": "FAIL",
+    "K10_in_lane_symlinked_dir_is_read": "FAIL",
+    "K11_revision_symlink_resolved_in_tree": "FAIL",
+    "K12_registry_outside_lane_is_unevaluable": "FAIL",
+    "K13_non_utf8_path_at_revision": "FAIL",
+    "K14_non_toplevel_root_is_unevaluable": "FAIL",
+    "P1_three_space_row_resolves": "PASS",
+    "P2_row_after_closed_fence_resolves": "PASS",
+    "P3_four_space_line_is_code": "PASS",
+    "P4_committed_sibling_owns": "PASS",
+    "P5_absent_fleet_is_unevaluable": "PASS",
+    "P6_tool_selftest": "FAIL",
+    "P7_real_lane_green": "PASS"
+   },
+   "flipped": [],
+   "notes_changed": [
+    "K13_non_utf8_path_at_revision",
+    "P5_absent_fleet_is_unevaluable",
+    "P6_tool_selftest"
+   ]
+  }
+ ]
+}

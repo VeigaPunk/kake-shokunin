@@ -1,0 +1,359 @@
+### V1 in-lane symlinked knowledge dir (worktree)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: S200 is cited only through the symlink; a green run means the citation was dropped
+
+### V2 committed symlink read at --revision (K11 shape)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: expect: S300 read through the link; the link TARGET STRING must never become a body
+
+### V2b same fixture, worktree mode
+  exit=2
+  | id_resolver: unevaluable: cannot read corpus/knowledge/odd.md: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kake-r59/SentinelResolver/work/v2_revision_symlink/fleet/kake-shokunin/corpus/knowledge/odd.md'
+
+### V3 dangling symlink whose target string is an id, at --revision
+  exit=1
+  | DANGLING S999 cited-by=corpus/knowledge/evil.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  note: S999 does not exist; a DANGLING S999 line is a fabricated citation
+
+### V3b same fixture, worktree mode
+  exit=2
+  | id_resolver: unevaluable: cannot read corpus/knowledge/evil.md: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kake-r59/SentinelResolver/work/v3_target_string_id/fleet/kake-shokunin/corpus/knowledge/evil.md'
+
+### V4 '..' escape in symlink target (worktree)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: S500 lives outside the lane; it must never be read
+
+### V4b same fixture at --revision
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+### V5 absolute symlink target out of the lane (worktree)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+### V5b same fixture at --revision
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+### V6 corpus/knowledge itself is a symlink outside the lane (worktree)
+  exit=2
+  | id_resolver: unevaluable: no knowledge file: corpus/knowledge absent
+
+### V6b same fixture at --revision
+  exit=2
+  | id_resolver: unevaluable: no knowledge file at c6eec40048ae
+
+### V6c corpus/ itself is a symlink outside the lane (worktree)
+  exit=2
+  | id_resolver: unevaluable: no knowledge file: corpus/knowledge absent
+
+### V6c-b same fixture at --revision
+  exit=2
+  | id_resolver: unevaluable: registry absent at 0a6fa72f3fdc: corpus/SOURCES.md
+
+### V7 registry symlinked to a sibling lane (worktree)
+  exit=0
+  | ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  note: a green run means ids were resolved from another lane's registry
+
+### V7b registry symlinked to an absolute path outside the lane (worktree)
+  exit=0
+  | ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+
+### V7c registry symlinked to a directory (worktree)
+  exit=2
+  | id_resolver: unevaluable: registry absent: corpus/SOURCES.md
+
+### V8 symlink cycle (worktree, base tool)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: base does not follow symlinked dirs at all, so no loop today; a fix that follows them must detect the cycle
+
+### V9 FIFO named pipe inside corpus/knowledge (worktree)
+  exit=TIMEOUT
+  note: a blocking open is a hang, not a measurement
+
+### V10 symlink to a file outside the lane (worktree)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r59/SentinelResolver/driver.py", line 277, in <module>
+    main()
+    ~~~~^^
+  File "/fast/scratch/hyaku/kake-r59/SentinelResolver/driver.py", line 256, in main
+    put(base, "outside", "outside.md", "Cites S950.\n")
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: put() takes 3 positional arguments but 4 were given
+### V12 registry is a committed symlink, read at --revision
+  exit=1
+  | DANGLING S100 cited-by=corpus/knowledge/ok.md owners=- url-match=-
+  | ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1
+  note: git show returns the LINK TARGET STRING as the registry text
+
+### V12b same fixture, worktree mode
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+### V13 two-hop symlink chain inside the tree, at --revision
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+### V13b same fixture, worktree mode
+  exit=2
+  | id_resolver: unevaluable: cannot read corpus/knowledge/hop1.md: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kake-r59/SentinelResolver/work2/v13_chain/fleet/kake-shokunin/corpus/knowledge/hop1.md'
+
+### V14 fleet sibling entry is a symlink to a tree outside the fleet
+  exit=1
+  | DANGLING S1200 cited-by=corpus/knowledge/ok.md owners=beta-shokunin url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  note: the sibling's registry is trusted as ownership evidence
+
+### V15 --root is a symlink to another lane's tree
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: the tool measured a lane other than the one named
+
+### V16 knowledge symlink to a sibling knowledge file (worktree)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: the same id is counted under two paths
+
+### V17 TOCTOU: containment check vs open
+  runs=60 runs_whose_output_mentioned_the_outside_id_S1400=0
+
+### V18 knowledge symlink to /dev/zero (worktree)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: an unbounded device read; content is outside the lane
+
+### V19 '..' escape from a deep knowledge subdir (worktree)
+  exit=2
+  | id_resolver: unevaluable: cannot read corpus/knowledge/deep/inner/esc.md: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kake-r59/SentinelResolver/work2/v19_deep_escape/fleet/kake-shokunin/corpus/knowledge/deep/inner/esc.md'
+
+### V20 in-tree link whose TARGET STRING is also an id, at --revision
+  exit=1
+  | DANGLING S1600 cited-by=corpus/knowledge/S1600.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  note: the string 'S1600.md' is a body in base; the real file cites S1600 too
+
+### A naive os.walk(followlinks=True) on a symlink cycle
+  visited 5001 dirs in 0.07s and did NOT terminate -> unbounded loop
+
+### B check-then-open race (the tool's exact pattern)
+  iterations=4000 reads_that_succeeded_but_carried_outside_content=865
+  (the tool's containment check and its open() are two separate syscalls; the link can be swapped between them)
+
+### C committed symlink cycle at a revision
+  ls-tree -r -z entries:
+   | 100644 blob 864540b2d5c5ae9cc07c38e47648d71de28f158e	corpus/SOURCES.md
+   | 120000 blob fadc9e04acc3b10a35818948a8e4f02fc2edd586	corpus/knowledge/a.md
+   | 120000 blob e77de8562fa61286381cc40e34a75024c20e17eb	corpus/knowledge/b.md
+   | 100644 blob 4e816c840e66bb8305733729a079ad5a9ec7ab63	corpus/knowledge/ok.md
+  --name-only entries (what the base tool lists):
+   | corpus/SOURCES.md
+   | corpus/knowledge/a.md
+   | corpus/knowledge/b.md
+   | corpus/knowledge/ok.md
+  git show a.md -> 'b.md'
+  git ls-tree -r (long form) mode column:
+   | 100644 blob 864540b2d5c5ae9cc07c38e47648d71de28f158e	corpus/SOURCES.md
+   | 120000 blob fadc9e04acc3b10a35818948a8e4f02fc2edd586	corpus/knowledge/a.md
+   | 120000 blob e77de8562fa61286381cc40e34a75024c20e17eb	corpus/knowledge/b.md
+   | 100644 blob 4e816c840e66bb8305733729a079ad5a9ec7ab63	corpus/knowledge/ok.md
+
+### W1 registry symlink whose target string is a forged registry, at --revision
+  committed blob mode: 120000 blob 46787381bd964344b1868aaa84a49c64eaaffcc4	corpus/SOURCES.md
+### W1 forged registry through a symlink target, at --revision
+  exit=0
+  | ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  note: the lane registry holds NO rows; a green run means the link target string was parsed as the registry
+
+### W1b same fixture, worktree mode
+  exit=2
+  | id_resolver: unevaluable: registry absent: corpus/SOURCES.md
+
+### W2 knowledge symlink whose target string is a body, at --revision
+  exit=1
+  | DANGLING S1800 cited-by=corpus/knowledge/note.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  note: the file has no content; S1800 is a fabricated citation
+
+### W3 link target string is an id, at --revision
+  exit=1
+  | DANGLING S1900 cited-by=corpus/knowledge/S1900.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+
+### W4 symlinked knowledge dir at --revision
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: git stores a symlink as a blob; the dir's files are not in the tree at all
+
+### W5 ls-tree mode column for a symlink
+  100644 blob e7eaf97969154c9c41130e2d4513daa44c3fa2af	corpus/SOURCES.md
+  120000 blob a65b74c9c1811d7361992571f9f7d70add272d5e	corpus/knowledge/alias.md
+  100644 blob 4e816c840e66bb8305733729a079ad5a9ec7ab63	corpus/knowledge/ok.md
+
+### X1 registry symlinked IN-TREE at --revision
+  exit=1
+  | DANGLING S100 cited-by=corpus/knowledge/ok.md,corpus/knowledge/registry.md owners=- url-match=-
+  | ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1
+  note: git show returns the link target string; the registry must be resolved in-tree, not parsed from the string
+
+### X2 knowledge symlink escaping the tree at --revision
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: S2100 must never appear; the target is outside the tree
+
+### X2b same fixture, worktree mode
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+### X3 absolute symlink target at --revision
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+### X4 sibling lane's registry is a symlink out of the fleet (worktree)
+  exit=1
+  | DANGLING S2300 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  note: ownership is attributed to a registry that lives outside every lane
+
+### X5 registry symlinked to a sibling lane at --revision
+  exit=1
+  | DANGLING S100 cited-by=corpus/knowledge/ok.md owners=- url-match=-
+  | DANGLING S2400 cited-by=corpus/knowledge/ok.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=0 dangling=2 owned_elsewhere=0 unowned=2
+
+### X6 knowledge symlink at --revision (target string as body)
+  exit=1
+  | DANGLING S2500 cited-by=corpus/knowledge/other.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+
+### X7 in-lane symlinked knowledge FILE, worktree mode
+  exit=1
+  | DANGLING S2600 cited-by=corpus/knowledge/alias.md,corpus/knowledge/real.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  note: the base reads the file through the link and attributes the citation to the link path
+
+### naive revision-mode resolution (reads the target from the working tree)
+  linked.md -> 'Cites S3000.\n'
+  abs.md    -> 'SECRET-OUTSIDE-THE-TREE\n'
+  (an absolute or escaping target is read straight off the filesystem)
+
+### committed symlink cycle a.md -> b.md -> a.md
+  hop 1: corpus/knowledge/a.md -> 'b.md'
+  hop 2: corpus/knowledge/b.md -> 'a.md'
+  cycle detected after 3 hops at corpus/knowledge/a.md
+  (a resolver without a hop limit or visited set loops here)
+
+### Y1 two-hop in-tree chain, at --revision
+  exit=1
+  | DANGLING S1700 cited-by=corpus/knowledge/real.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  note: S1700 lives in corpus/knowledge/real.md; a green run means the chain was not resolved
+
+### Y1b same fixture, worktree mode
+  exit=1
+  | DANGLING S1700 cited-by=corpus/knowledge/hop1.md,corpus/knowledge/hop2.md,corpus/knowledge/real.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+
+### Y2 one dangling symlink inside corpus/knowledge (worktree)
+  exit=2
+  | id_resolver: unevaluable: cannot read corpus/knowledge/dangling.md: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kake-r59/SentinelResolver/work9/y2_dangling/fleet/kake-shokunin/corpus/knowledge/dangling.md'
+  note: the whole measurement dies (exit 2) instead of skipping the broken link
+
+### Y3 revision-mode registry symlink resolving IN-TREE
+  exit=1
+  | DANGLING S100 cited-by=corpus/knowledge/ok.md,corpus/knowledge/reg.md owners=- url-match=-
+  | ids_cited=1 ids_resolved=0 dangling=1 owned_elsewhere=0 unowned=1
+  note: the target string 'knowledge/reg.md' was parsed as the registry; every citation dangles
+
+### Y4 revision-mode registry symlink whose TARGET STRING is a forged table
+  exit=0
+  | ids_cited=2 ids_resolved=2 dangling=0 owned_elsewhere=0 unowned=0
+  note: the lane registry holds no rows at all; green means the link target string was parsed as the registry
+
+### Y5 worktree registry symlink resolving IN-TREE
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: an in-lane registry symlink must keep working (over-refusal is also a defect)
+
+### Z1 symlink to an in-lane FIFO inside corpus/knowledge (worktree)
+  exit=TIMEOUT
+  note: realpath containment passes; the open on a FIFO blocks forever
+
+### Z2 sibling lane's HEAD registry is a committed symlink to a forged table
+  exit=1
+  | DANGLING S2000 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+  note: ownership comes from a link target string that is not a registry at all
+
+### Z3 two-hop escape via in-lane links (worktree)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: hop2 -> hop1 -> outside/leak.md; the file is outside the lane
+
+### --root given as a symlink to a repository toplevel
+  --root                 = /fast/scratch/hyaku/kake-r59/SentinelResolver/work11/rootlink/alias
+  git rev-parse --show-toplevel = /fast/scratch/hyaku/kake-r59/SentinelResolver/work11/rootlink/fleet/kake-shokunin
+  os.path.realpath(--root)      = /fast/scratch/hyaku/kake-r59/SentinelResolver/work11/rootlink/fleet/kake-shokunin
+  a K14-style check (realpath(root) == toplevel) would ACCEPT this root: True
+  -> the tool then measures the pointed-to lane; the fleet's real lane is then excluded
+     from the sibling list by the realpath comparison in sibling_dirs()
+
+### fleet entry 'beta-shokunin' is a symlink to the lane itself
+  exit: 1
+   | DANGLING S2200 cited-by=corpus/knowledge/ok.md owners=alpha-shokunin url-match=-
+   | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=1 unowned=0
+
+### AA knowledge symlink into a sibling lane (worktree)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+  note: S2300 lives in another lane; the containment check must keep it out
+
+### AB knowledge symlink to the lane's own registry (worktree)
+  exit=1
+  | DANGLING S100 cited-by=corpus/knowledge/ok.md owners=- url-match=-
+  | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  note: the registry's own ids become 'citations' of the registry file
+
+### AC in-lane FIFO reached through a knowledge symlink
+  exit=TIMEOUT
+
+### AD same as AA (repeat, id differs)
+  exit=0
+  | ids_cited=1 ids_resolved=1 dangling=0 owned_elsewhere=0 unowned=0
+
+### TOCTOU mitigation comparison (4000 iterations each)
+  A check-then-open (the base pattern): outside reads = 656
+  B open-then-resolve /proc/self/fd    : outside reads = 0
+
+### FIFO in corpus/knowledge [candidate cand4] exit=TIMEOUT
+
+### FIFO in corpus/knowledge [base] exit=TIMEOUT
+
+### TOCTOU race against candidate cand4: runs=60 runs_leaking_outside_id=18
+### corpus/knowledge is a symlink to an IN-LANE dir [base] exit=2
+  | id_resolver: unevaluable: no knowledge file: corpus/knowledge absent
+
+### corpus/knowledge is a symlink to an IN-LANE dir [cand4] exit=2
+  | id_resolver: unevaluable: no knowledge file: corpus/knowledge absent
+
+### corpus/ is a symlink to an IN-LANE dir [base] exit=2
+  | id_resolver: unevaluable: no knowledge file: corpus/knowledge absent
+
+### corpus/ is a symlink to an IN-LANE dir [cand4] exit=2
+  | id_resolver: unevaluable: registry outside the lane: corpus/SOURCES.md
+
+=== probe8: race the REAL base tool (200 knowledge files, 120 runs) ===
+### race against the real base tool
+  runs=120 runs_that_reported_the_outside_id_S1400=26
+   | DANGLING S1400 cited-by=corpus/knowledge/race.md owners=- url-match=-
+   | ids_cited=2 ids_resolved=1 dangling=1 owned_elsewhere=0 unowned=1
+  (S1400 lives outside the lane; the tool's containment check must hold on every read)
+

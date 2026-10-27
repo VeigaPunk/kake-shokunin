@@ -1,0 +1,49 @@
+== A: v1 C1 symlink forgery (measured artefacts are symlinks; blobs hold target strings) ==
+A1 ls-tree of the measured revision:
+    120000 blob 4dc2ba5b1108a30021f94c9cb603231a1dd49923	.ufo/waves/round-59/calibration.md
+    120000 blob 8440085367fa12ba4619a35c7a405d2d04822f81	.ufo/waves/round-59/freshness.md
+    120000 blob 8eb38dde9fe309c6ca6d8c95d3ba5b849df1e95e	.ufo/waves/round-59/operability.md
+    120000 blob 1c1f44037d3e3f74754bd5424a197c5e97ea693d	SCORECARD.md
+A1 git show SCORECARD.md (first 3 lines of the target string): ['# kake - Scorecard', '', '| Axis | Score | Evidence pointer | Last change |']
+A1 git show of the receipt symlink blob: '16/16'
+A2 v1 C1 on the symlink-only tree: rc=0 :: EXIT=0
+   stderr: (no output)
+A3 control (real files): rc=0 :: EXIT=0
+A4 symlink SCORECARD.md only (receipts real): rc=0 :: EXIT=0
+== B: hostile global git config (HOME / XDG_CONFIG_HOME) ==
+B1 C2 with hostile global config: rc=1 :: EXIT=1
+   GLOBAL_MARKER exists = True
+   marker content: 'GLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\nGLOBAL pre-commit fired\n'
+   work dir leftovers: []
+B2 C2 clean env: rc=1 :: EXIT=1
+   GLOBAL_MARKER exists = False
+   work dir leftovers: []
+== D: argument injection via --revision / --base (v1 counters) ==
+D1 C1 --revision='--output=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=64 pwn=False :: (no output) usage error: argument --revision: expected one argument
+D1 C1 --base='--output=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=64 pwn=False :: (no output) usage error: argument --base: expected one argument
+D1 C1 --revision='--upload-pack=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=2 pwn=False :: EXIT=2 (no output)
+D1 C1 --base='--upload-pack=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=2 pwn=False :: EXIT=2 (no output)
+D1 C1 --revision='--exec=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=2 pwn=False :: EXIT=2 (no output)
+D1 C1 --base='--exec=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=2 pwn=False :: EXIT=2 (no output)
+D1 C1 --revision='--sq-quote': rc=64 pwn=False :: (no output) usage error: argument --revision: expected one argument
+D1 C1 --base='--sq-quote': rc=64 pwn=False :: (no output) usage error: argument --base: expected one argument
+D1 C1 --revision='--all': rc=64 pwn=False :: (no output) usage error: argument --revision: expected one argument
+D1 C1 --base='--all': rc=64 pwn=False :: (no output) usage error: argument --base: expected one argument
+D1 C1 --revision='--': rc=64 pwn=False :: (no output) usage error: argument --revision: expected one argument
+D1 C1 --base='--': rc=64 pwn=False :: (no output) usage error: argument --base: expected one argument
+D1 C1 --revision='-q': rc=64 pwn=False :: (no output) usage error: argument --revision: expected one argument
+D1 C1 --base='-q': rc=64 pwn=False :: (no output) usage error: argument --base: expected one argument
+D1 C1 --revision='--help': rc=64 pwn=False :: (no output) usage error: argument --revision: expected one argument
+D1 C1 --base='--help': rc=64 pwn=False :: (no output) usage error: argument --base: expected one argument
+D1 C1 --revision='--parseopt': rc=64 pwn=False :: (no output) usage error: argument --revision: expected one argument
+D1 C1 --base='--parseopt': rc=64 pwn=False :: (no output) usage error: argument --base: expected one argument
+D1 C1 --revision='--git-dir=/tmp': rc=64 pwn=False :: (no output) usage error: argument --revision: expected one argument
+D1 C1 --base='--git-dir=/tmp': rc=64 pwn=False :: (no output) usage error: argument --base: expected one argument
+D2 C2 --revision='--output=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=64 pwn=False :: usage error: argument --revision: expected one argument
+D2 C2 --revision='--upload-pack=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=2 pwn=False :: EXIT=2
+D2 C2 --revision='--': rc=64 pwn=False :: usage error: argument --revision: expected one argument
+D2 C2 --revision='--all': rc=64 pwn=False :: usage error: argument --revision: expected one argument
+D2 C3 --revision='--output=/fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=64 pwn=False :: usage error: argument --revision: expected one argument
+D2 C3 --revision='--upload-pack=touch /fast/scratch/hyaku/kake-r59/SentinelCounters/fx/PWN': rc=2 pwn=False :: EXIT=2
+D2 C3 --revision='--': rc=64 pwn=False :: usage error: argument --revision: expected one argument
+D2 C3 --revision='--all': rc=64 pwn=False :: usage error: argument --revision: expected one argument
