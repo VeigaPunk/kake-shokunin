@@ -68,9 +68,28 @@ entry rests on it, so no row is written (CORPUS rule 4). Flip: an entry that sta
 Theme: `Baidu crawler identification` from `merge/kake/` (shokuknow, read-only). Id lists (`assimilation/`): registry `reg-ids` 160,
 staged `staged-ids` 129 (`wc -l`), `collisions` 8 (S312 S329 S367 S372 S373 S374 S390 S409 — the same documents round 57 found);
 neither S395 nor S378 collides. Renumber map by document: staged S395 → S423; S424 has no staged id (lane-found from S423); staged
-S378 → none (rejected, no row). Quarantine slice (12 rows: S142 S143 S148 S154 S156 S161 S178 S184 S193 S194 S195 S206): none is
-S395 or S378, none is adopted this round, and none was re-checked by this seat. The staged `.append` rows S395 and S378 are not
-appended as staged — S395 is rebuilt from the retained page, S378 is refused above.
+S378 → none (rejected, no row). Quarantine slice (12 rows: S142 S143 S148 S154 S156 S161 S178 S184 S193 S194 S195 S206) was re-derived
+byte-identically by `w1/ScoutQuarantine.md`, then hand-checked on 2026-10-26:
+
+| Row | Source reopened / located text | Verdict this round |
+|---|---|---|
+| S142 | `https://www.kimi.com/help/websites/websites-faq`; exact sentence `如果用户点击「发布」将网站公开部署，产生的网站链接将始终有效，除非手动点击「取消发布」将网站设为私密。` present in the page | present; not appended under the frozen 2-row C3 contract / single-theme claim (L0 question below) |
+| S143 | `https://developer.chrome.com/docs/crux/methodology/tools`; the CrUX on BigQuery table cells contain the listed tool/frequency/metrics/dimensions/history/scope, but the staged quote concatenates across cells with ` — ` and is not a raw source span | quote-form absent as registered; no fabrication verdict; not appended because C3 is frozen |
+| S148 | `https://arxiv.org/html/2308.06409` (also read abstract endpoint); the exact phrase `ratio of total to distinct` has 0 matches in the opened full HTML | absent as registered; refuse for this round; the paper's other CrUX content does not support the registered quote |
+| S154 | CrUX API endpoint `https://chromeuxreport.googleapis.com/v1/records:queryRecord`; payload-absent register class says source could not be fetched and no quote checked | unverifiable (prose class; unreachable is not fabrication); no re-fetch attempted |
+| S156 | `https://kimi.page/`; `curl -sSI -L` returned `cache-control: private, no-cache, no-store, max-age=0, must-revalidate` | present in the HTTP response header; not appended under the frozen C3 contract / theme cap (L0 question below) |
+| S161 | `https://developers.google.com/crawling/docs/crawlers-fetchers/reduce-crawl-rate`; exact sentence `It reduces your site's crawl rate across the whole hostname` located under “Urgently reduce crawler traffic” | present; not appended under the frozen C3 contract / single-theme claim (L0 question below) |
+| S178 | PageSpeed API `https://www.googleapis.com/pagespeedonline/v5/runPagespeed`; payload-absent register class says cited source could not be fetched and no quote checked | unverifiable (prose class; unreachable is not fabrication); no re-fetch attempted |
+| S184 | CrUX API endpoint `https://chromeuxreport.googleapis.com/v1/records:queryRecord`; payload-absent register class says cited source could not be fetched and no quote checked | unverifiable (prose class; unreachable is not fabrication); no re-fetch attempted |
+| S193 | GitHub source file `corpus/knowledge/crawl-scope-per-host.md` under `https://github.com/VeigaPunk/kake-shokunin`; exact sentence present | present in own-work file; not appended under the frozen C3 contract |
+| S194 | GitHub source file `corpus/knowledge/drift-detection.md` under the same repo; exact sentence “`200` is not live” present | present in own-work file; not appended under the frozen C3 contract |
+| S195 | GitHub source file `corpus/knowledge/publish-queue.md` under the same repo; exact sentence “Every publish ends in `human-click`” present | present in own-work file; not appended under the frozen C3 contract |
+| S206 | GitHub repo root reopened; registered quote absent there. The shokuknow artifact `.ufo/waves/round-48/w1/ScoutQuarantineC.files/merge_renumber_r7.txt` says `S187-S193`, not the registered `S187-S199` | absent as registered; artifact supports substance but not the cited URL/quote; refuse as registered |
+
+The six `present` records above cannot be appended without widening the already-frozen C3 registry predicate (C8 requires the measured
+registry minus S423/S424 to equal the 160-row mirror) and adding unrelated themes to this round's Baidu crawler-identity claim. This is an
+explicit frontier-step conformance defect, not a pass. L0 asks whether present quarantine payloads that cannot be appended under a frozen
+claim should be held for a later theme/round or adopted as a separate §10 duty.
 
 Guard: the collision extractor uses the 0–3-space pattern proven in round 57 (`.ufo/waves/round-57/assimilation/guard-proof/`); the
 lists are `.ufo/waves/round-58/assimilation/reg-ids` (160), `staged-ids` (129), `collisions` (8). Scratch validation before the
