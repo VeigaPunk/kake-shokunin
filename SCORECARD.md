@@ -4484,9 +4484,12 @@ checks with `superseded_kept`.
 Contract `.ufo/waves/round-60/contract.md` / `contract.json` (committed `b3b9e29` before any seat ran), base
 `97cdc122379711c2b02a8970752c8782da3ac81d`; counters version 1 frozen at `1ea30590` after wave 1, version 2 (tightening only,
 predicates unchanged) at `983826b6` after wave 2; build `8b33fd24`, wave-2 fixes `8001f8d5`; measured revision T0
-`8001f8d5579303ff390305f9dcddb785834f2084` (all three claims). C1 works calibration (lowest-scoring non-retired axis, score 2);
-C2 operability; C3 freshness, sourced (S427, S428, S429). Score deltas: none (C1's `scores_held == 3` holds 10/10/2). One new
-capability row (append-only correction guard).
+`8001f8d5579303ff390305f9dcddb785834f2084` (all three claims); attempt 2 (run-10, agent `KakeR60a2`) integrated the 34 settled
+wave-2 reports (4 dead seats), landed counter/tool version 3 and re-measured at T1
+`9f671056c6fb5ca49bc62ed4210745f620ed4cae` (all three claims, `controls/after-*-t1.txt`). C1 works calibration (lowest-scoring
+non-retired axis, score 2); C2 operability; C3 freshness, sourced (S427, S428, S429). Score deltas: none (C1's `scores_held == 3`
+holds 10/10/2). One new capability row (append-only correction guard). Stated limits added at T1: the C1↔C3 causal coupling found
+by `w2/ConnW2Cross` (claims independently falsifiable at one revision, not isolation-separable; operator rules).
 
 | Claim | Axis | Before → after | Counting command | Verdict |
 |---|---|---|---|---|
