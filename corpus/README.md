@@ -76,8 +76,10 @@ mirrors, Pages deploys).
 | Baiduspider unblocking (r58) | `knowledge/baidu-spider-unblocking.md` (S424) | Baiduspider unblocking: the three block classes the page names (robots.txt, the Baidu user agent, an IP-level firewall block), the curl head request under a Baiduspider user agent whose 200 answer it calls normal, and the remedies it names (strategy change, user-agent whitelist); no unblock observed |
 | Crawler identification signals (r59) | `knowledge/crawler-identity-signals.md` (S425) | Google's three identification signals as the page states them: the user-agent request header, the source IP address and the reverse DNS hostname; several IP addresses per crawler; US egress and the fallback when US requests are blocked; the pointer to the verification page |
 | Googlebot verification (r59) | `knowledge/googlebot-verification.md` (S426) | Googlebot verification as the page states it: the two methods (manual command line and automatic IP-list match), the reverse DNS then forward DNS two-step check against the three domain masks, the printed worked examples and the crawler-category range files |
+| Google user-triggered fetchers (r60) | `knowledge/google-user-triggered-fetchers.md` (S428) | Google's user-triggered fetchers as the category page states them: fetches a user asks for, the robots.txt posture "generally ignore" (the verification page's older cell reads "ignore", corrected append-only in `googlebot-verification.md`), the published IP-range objects and reverse DNS masks, the list declared not exhaustive; no fetch observed |
+| Robots.txt limits (r60) | `knowledge/robots-txt-limits.md` (S429) | What Google's robots.txt introduction says the file cannot do: it cannot enforce crawler behaviour, crawlers may interpret the rules differently, a disallowed URL can still be indexed when linked from elsewhere, and the file is not a way to hide a page; the RFC 9309 reading stays in `knowledge/robots-txt-rules.md` |
 
-### Frontier ground map (round 55; round-59 update)
+### Frontier ground map (round 55; round-60 update)
 
 One row per `PROVINCE.md` §Frontier ground that a held entry can be dated to
 (`PROVINCE.md:22-30`): the round it entered, the entry, and the `used-by` rows
@@ -86,7 +88,8 @@ measured at the round's final revision (156 rows, S418 added) and the round-56 r
 final revision (158 rows, S419 and S420 added), not at base `e48354b7…`; the round-57 row at the
 round-57 final revision (160 rows, S421 and S422 added), not at base `28fa0b23…`; the round-58 row
 at the round-58 final revision (162 rows, S423 and S424 added), not at base `0440485…`; the round-59 row
-at the round-59 final revision (164 rows, S425 and S426 added), not at base `fd6303ce…`. Ranges
+at the round-59 final revision (164 rows, S425 and S426 added), not at base `fd6303ce…`; the round-60 row
+at the round-60 final revision (167 rows, S427, S428 and S429 added), not at base `97cdc122…`. Ranges
 are inclusive and each id was checked individually; a row set is the entry's
 `used-by` cells, not a re-adjudication of any source.
 
@@ -110,6 +113,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Baidu dead-link handling (dead-link types, Spider 3.0 recognition model) | r57 (lands this round) | `knowledge/baidu-dead-link-types.md` `knowledge/baidu-spider3-dead-link-model.md` | S421 S422 |
 | Crawler identity (Baidu: UA + two-step DNS; unblocking) | r58 (lands this round) | `knowledge/baidu-spider-identification.md` `knowledge/baidu-spider-unblocking.md` | S423 S424 |
 | Crawler identity (Google: identification signals and verification procedure) | r59 (lands this round) | `knowledge/crawler-identity-signals.md` `knowledge/googlebot-verification.md` | S425 S426 |
+| Crawl hygiene per host (Google: robots.txt posture of user-triggered fetchers; robots.txt limits) | r60 (lands this round) | `knowledge/google-user-triggered-fetchers.md` `knowledge/robots-txt-limits.md` | S428 S429 |
 | Field performance (CWV, CrUX) | r28 | `knowledge/field-performance-cwv.md` | S036–S039 |
 | Jekyll/base-path build tooling | r29 | `knowledge/pages-base-path.md` | S040–S043 |
 | Render static sites | r30 | `knowledge/render-static-sites.md` | S049–S052 S061 |
@@ -130,6 +134,8 @@ S422 are not in that registry; the
 round-58 row's two entry paths are absent at its base `0440485…`, and S423 and S424 are not in
 that registry; the
 round-59 row's two entry paths are absent at its base `fd6303ce…`, and S425 and S426 are not in
+that registry; the
+round-60 row's two entry paths are absent at its base `97cdc122…`, and S428 and S429 are not in
 that registry.
 
 **Untouched ground** — PROVINCE frontier items no entry holds yet:

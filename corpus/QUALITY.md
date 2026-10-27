@@ -1356,3 +1356,29 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   `python3 -B .ufo/waves/round-55/c55_readme_index.py --root . --revision <draft>` exits 1 on such a draft while the
   SKILL row carries no `historical` marking. Example that fails it: landing an in-place correction with the gate row
   unchanged and the report silent about the red.
+
+## Round-60 criteria
+
+- **A gate's status label is re-derived from a run at the revision being measured.** A `Kind` cell in the `SKILL.md` registry is a
+  claim about when the row may be red: `live` (exits 0 now), `historical` (exits 0 at its pin, the first 40-hex revision in the
+  cell, and 1 now by design) or `never met` (exited 1 already at its round's measured revision). A round that turns a live row red
+  relabels it with its pin in the same build, before the after-state is measured, and the contract names it before data; a pin is
+  a revision the command was run at. At the round-60 base 12 of the 28 round 48–59 counters had no row, `c53_gate_truth.py` was
+  labelled live and exits 1, and `receipt-pin-counter` was pinned at a revision where its own command exits 1
+  (`C1 gate-status members=28 mismatches=14`, `.ufo/waves/round-60/controls/base-c1-gate-status.txt`). Grounding:
+  `corpus/lessons/round-60.md` §Mistakes (survivor, stale-premise); `corpus/lessons/round-59-verifier-spotcheck.md` §6 R59-D1;
+  `considerthese/2026-10-26.md` proposal 5. Falsifier: `python3 -B .ufo/waves/round-60/c60_gate_status.py --root . --revision <rev>`
+  prints `members=28 mismatches=0 scores_held=3/3 met=True`. Example that fails it: relabelling a red gate `historical` with the
+  round's own measured revision as pin when the gate was red there too (`historical_not_green_at_pin`).
+- **A registry `scope` cell claims only the categories its page states.** A row that names several categories and a property of
+  "their" set asserts the property for each; the page must state it for each, or the cell names the ones it does. Row S425 claimed a
+  robots.txt posture for all three Google crawler categories while its page states one for two; superseded by S427, whose scope
+  names common and special-case crawlers and leaves the third to S428. Grounding: `corpus/lessons/round-60.md` §Mistakes
+  (reference-drift); `.ufo/waves/round-60/w1/ReviewerS425Erratum.md`. Falsifier: `python3 -B .ufo/waves/round-60/c60_quote_truth.py
+  --root . --revision <rev>` condition C3 (`C3_row_shape`). Example that fails it: "the robots.txt posture of all three categories".
+- **An in-file correction opens its run with a visible `[rNN-correction YYYY-MM-DD]` tag.** The tag is the first line of the
+  inserted run, outside an HTML comment and a backtick span, so `scripts/append_guard.py` can tell the correction from a rewrite; an
+  untagged mid-file insertion and any changed base byte are findings. Grounding: `corpus/lessons/round-60.md` §Mistakes
+  (stale-premise); contract § Claim C2. Falsifier: `python3 -B scripts/append_guard.py --root . --base <previous round tip> --revision
+  <rev>` exits 0. Example that fails it: a `[r20-correction 2026-10-19: …]` style tag (date followed by text inside the brackets) —
+  the older spelling does not match, so such a run reads `untagged_insertion`.
