@@ -1,0 +1,15 @@
+def write_file(directory_fd: int, name: str, data: bytes) -> None:
+    fd = os.open(name, os.O_WRONLY | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK, 0o600, dir_fd=directory_fd)
+    try:
+        info = os.fstat(fd)
+        if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+            raise ValueError(f"{name}: output must be a regular single-link file")
+        os.ftruncate(fd, 0)
+        with os.fdopen(fd, "wb", closefd=False) as stream:
+            stream.write(data)
+    finally:
+        os.close(fd)
+
+
+def write_json(directory_fd: int, name: str, value: dict) -> None:
+    write_file(directory_fd, name, json.dumps(value, indent=1, sort_keys=True).encode("utf-8"))

@@ -1,0 +1,18 @@
+{
+ "version": 1,
+ "checks": [
+  {
+   "id": "H3",
+   "source": "response.json",
+   "url": "https://pub.test/",
+   "https": true,
+   "expect": {
+    "content_type_present": true,
+    "hsts_present": true,
+    "xcto_nosniff_value": false,
+    "csp_present": true
+   },
+   "singleton_fields": []
+  }
+ ]
+}

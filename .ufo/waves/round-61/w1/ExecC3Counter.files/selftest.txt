@@ -1,0 +1,57 @@
+c61 recheck-pins selftest: 56/56 (green exit 0 and 6/6; base-tree and constant controls; 30 fixture cases; predicate met: conditions_passed == 6 of 6)
+  CASE green | green | 0 | PASS
+  CASE base-tree | C2+C5 | 1 | PASS
+  CASE constant | C3+C4 | 1 | PASS
+  CASE green | [] | 0 | PASS
+  CASE all-carried-with-notes | ['C2_pinned_dates'] | 1 | PASS
+  CASE c1-new-oldest-row | ['C1_due_set'] | 1 | PASS
+  CASE c1-rejected-oldest-row | [] | 0 | PASS
+  CASE c2-pin-out-of-bounds | ['C2_pinned_dates'] | 1 | PASS
+  CASE c2-nonnd-pin-off-by-one | ['C2_pinned_dates'] | 1 | PASS
+  CASE c2-non-iso-cell | ['C2_pinned_dates', 'C5_carry_notes'] | 1 | PASS
+  CASE c3-quote-not-in-body | ['C3_gate_quotes'] | 1 | PASS
+  CASE c3-units-26 | ['C3_gate_quotes'] | 1 | PASS
+  CASE c3-chars-over-ceiling | ['C3_gate_quotes'] | 1 | PASS
+  CASE c3-url-missing | ['C3_gate_quotes'] | 1 | PASS
+  CASE c3-date-missing | ['C3_gate_quotes'] | 1 | PASS
+  CASE c3-curly-quotes | ['C3_gate_quotes'] | 1 | PASS
+  CASE c3-nav-span | ['C3_gate_quotes'] | 1 | PASS
+  CASE c4-receipt-missing | ['C4_receipt_pins'] | 1 | PASS
+  CASE c4-sha-mismatch | ['C4_receipt_pins'] | 1 | PASS
+  CASE c4-status-404 | ['C4_receipt_pins'] | 1 | PASS
+  CASE c4-ua-tag | ['C4_receipt_pins'] | 1 | PASS
+  CASE c4-fetch-date | ['C4_receipt_pins'] | 1 | PASS
+  CASE c4-url-mismatch | ['C4_receipt_pins'] | 1 | PASS
+  CASE c4-bytes | ['C4_receipt_pins'] | 1 | PASS
+  CASE c4-body-missing | ['C3_gate_quotes', 'C4_receipt_pins'] | 1 | PASS
+  CASE c5-unpinned-no-note | ['C5_carry_notes'] | 1 | PASS
+  CASE c5-unpinned-anchor-found-without-pin | ['C5_carry_notes'] | 1 | PASS
+  CASE c5-unpinned-cadence-changed | ['C2_pinned_dates', 'C5_carry_notes'] | 1 | PASS
+  CASE c5-pinned-no-gate | ['C3_gate_quotes', 'C5_carry_notes'] | 1 | PASS
+  CASE c6-due-cell-change | ['C6_append_only'] | 1 | PASS
+  CASE c6-non-due-change | ['C6_append_only'] | 1 | PASS
+  CASE c6-base-row-removed | ['C6_append_only'] | 1 | PASS
+  CASE c6-whitespace | ['C6_append_only'] | 1 | PASS
+  UNIT units: Latin token count | PASS
+  UNIT units: 25 tokens at ceiling | PASS
+  UNIT units: 26 tokens over ceiling | PASS
+  UNIT units: CJK counts per character | PASS
+  UNIT units: 6-unit span at floor | PASS
+  UNIT chars: long-token span is 6 units and above the ceiling | PASS
+  UNIT dates: opened+90d is 2027-01-17 | PASS
+  UNIT dates: opened+365d is 2027-10-19 | PASS
+  UNIT nodes: chrome is not body text | PASS
+  UNIT nodes: quote is one page-unique node | PASS
+  UNIT nodes: plain-text body splits on blank lines | PASS
+  UNIT nodes: inline markup splits a span (rule is one text node) | PASS
+  UNIT nodes: the inline view names the split span | PASS
+  UNIT iso: datetime is not a concrete date | PASS
+  UNIT iso: 2027-02-30 is not a date | PASS
+  UNIT short context quote is an observation, not a failure | PASS
+  UNIT unreadable base is exit 2 | PASS
+  UNIT unresolved revision is exit 2 | PASS
+  UNIT --root below the toplevel exits 2 | PASS
+  UNIT --json emits the schema and 6/6 | PASS
+  UNIT text run prints the predicate summary | PASS
+  UNIT argparse usage error exits 64 | PASS
+  UNIT missing --revision exits 64 | PASS

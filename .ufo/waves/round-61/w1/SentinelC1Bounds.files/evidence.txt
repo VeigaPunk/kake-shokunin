@@ -1,0 +1,76 @@
+# SentinelC1Bounds — measured evidence (2026-10-27, pre-freeze recon; not a counter run)
+
+## E1 population list vs the lane's established path rule (c58 POP_RE, 9f07731: line 67)
+    rule: ^\.ufo/waves/round-[0-9]+/(control|controls)/.+$   (no extension filter, any depth below)
+    matches at base 9f07731 : 607
+    matches at tip  eaa9177 : 610
+    frozen list lines       : 144
+    frozen members NOT matching rule : 17   (nested round-37/retained/controls/… and round-48/assimilation/validate/…)
+    rule matches at base NOT frozen  : 480
+    rule matches at tip  NOT frozen  : 483  (includes the round's own controls/census-before.txt, controls/population-144.txt)
+    frozen members with extension not in {.txt,.json}: 0
+
+## E2 frozen members unchanged base..tip
+    members=144 changed=0 missing=0   (per-path `rev-parse <rev>:<path>` blob-id equality)
+
+## E3 range shape
+    commits in base..tip : 1
+    population paths touched in base..tip : 0
+
+## E4 receipt classification over the 144 frozen paths (reference reimplementation, whole-line span)
+    first-version receipts = 95        (49 members carry no receipt grammar: round-37/round-40… JSON controls)
+    any-version receipts   = 95        (no member is a receipt only in a later version)
+    full first-parent history events  = 12
+    events inside base..tip           = 0
+    N.B. "first committed version in base..revision" is undefined for all 144 (every member was added before base).
+
+## E5 disclosures registry (.ufo/receipt-disclosures.json, built by ExecC1Disclose this wave, untracked at time of check)
+    schema kake-receipt-disclosures-v1, entries = 12, duplicate (path,commit) pairs = 0
+    all 12 commit fields 40-hex; all carry path+commit+kind+note+disclosed-by
+    entries naming commits that are ancestors of base : 12 of 12
+    entries matching a real event (whole-line span, full history) : 12 of 12
+    real events missing from the registry (full history) : 0
+    entries matching a real event under matched-SUBSTRING span : 3 of 12
+
+## E6 git path semantics (fixture)
+    committed symlink -> mode 120000, `cat-file blob` returns the 11-byte link target text
+    population path '../outside.txt' -> rc 128 'does not exist in HEAD'
+    population path '/etc/passwd'    -> rc 128 'exists on disk, but not in HEAD'
+    gitlink 160000: `cat-file blob` -> rc 128 'bad file'; `cat-file -s` -> rc 0, prints 154 (commit object size)
+    `git -C ''` -> runs in the caller's cwd, rc 0
+    subdir root: `--show-toplevel` prints the repo root (mismatch is detectable)
+
+## E7 GIT_DIR injection (fixture vs a second fixture)
+    GIT_DIR=other/.git git -C fixture rev-parse --show-toplevel      -> <fixture>   (gate passes)
+    GIT_DIR=other/.git git -C fixture rev-parse --verify <other HEAD> -> other HEAD (succeeds)
+    same query, GIT_DIR unset                                        -> fatal: Needed a single revision
+
+## E8 replace-ref evasion (fixture)
+    git replace <v1blob> <v2blob>; cat-file blob <v1blob> -> '# receipt: r|revision: 2|met=True|'
+    GIT_NO_REPLACE_OBJECTS=1 / --no-replace-objects       -> '# receipt: r|revision: 1|met=True|'
+
+## E9 import-path hijack
+    PYTHONPATH containing hashlib.py : python3 -B -> hijacked;  python3 -I -> stdlib wins
+    json.py beside the script        : python3 -B <script> -> hijacked;  python3 -I -B -> not imported
+
+## E10 read-only .git (chmod -R a-w)
+    cat-file blob rc=0 ; log --first-parent rc=0 ; rev-list -n / range rc=0 ; *.lock files created: 0
+
+## E11 blob cost
+    64 MiB blob: rc=0, 0.03 s, child maxrss 11 MiB, parent receives 67,108,864 bytes on stdout
+
+## E12 invalid UTF-8 receipt blob
+    bytes.decode() -> UnicodeDecodeError ; decode('utf-8','surrogateescape') -> ok
+
+## E13 span-extraction semantics (same population, same commits)
+    whole-line span  ('the set of LINES matching')      -> 12 events, registry 12/12, phantom 0, undisclosed 0
+    matched-substring span (m.group(0) per match)       ->  3 events, registry 3/12 -> 9 phantom_disclosure, met=False
+    substring reading misses: `revision: A -> B` (keyword text unchanged), `EXIT=0 -> EXIT=1`, `met=False -> met=True`
+    NOTE: SentinelC1Bounds.files/recon_lineage.py is the matched-substring variant (the 3-event run); every
+    12-event figure above comes from the whole-line reading described here, not from that file.
+
+## Incident (disclosed, repaired)
+    first fixture attempt used `mktemp -d fx1` without XXXXXX; $D empty; one `git -C "" update-index
+    --cacheinfo 160000,…` reached the FLEET repo index (stray `sub` gitlink). No commit, no worktree change;
+    repaired with `git update-index --force-remove sub`; fleet `git status` clean, HEAD unchanged (fe19085).
+    Same run is the live proof of the empty-`--root` fallback (E6).

@@ -1,0 +1,13 @@
+Evidence of C1 extra_member collision with round-61 controls:
+
+1. Commit eaa9177 committed two files matching the population path pattern:
+   - .ufo/waves/round-61/controls/census-before.txt
+   - .ufo/waves/round-61/controls/population-144.txt
+
+2. ExecC1Tool2 head.err output when scanning the population path pattern at HEAD:
+   note: population_rule_extra .ufo/waves/round-61/controls/census-before.txt
+   note: population_rule_extra .ufo/waves/round-61/controls/population-144.txt
+
+3. ExecC1Counter report note (Contract Ambiguities):
+   "The contract does not say whether member/extra-member checks apply to R2's real lane after-state.
+   New round-61 control receipts necessarily match the path rule but are outside the frozen 144 paths."

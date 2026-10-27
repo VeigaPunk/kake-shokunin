@@ -1,0 +1,66 @@
+# ExecQuarantine round-61 evidence (generated 2026-10-27T09:15:34Z)
+register: /home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md
+register_sha256: 5afe1810a6c3d62f37987b575a954f5b1197daa23005d4bb2f1d982f64bad833  size=83621  mtime=2026-10-24 08:37:00.746072780 -0300
+command: awk -F'|' -v l='kake' '$2 ~ ("`" l "`") && $3 ~ /round[0-9]+/ && $4 ~ /S[0-9]+/ {print $4, $5}' "$R"
+
+## per-row derivation (12 data rows)
+ID     ROUND   CLASS           URL                                                  REGISTER_LINE
+S142   round1  `payload-absent` https://www.kimi.com/help/websites/websites-faq      83
+S143   round1  `payload-absent` https://developer.chrome.com/docs/crux/methodology/tools 84
+S148   round1  `payload-absent` https://arxiv.org/abs/2308.06409                     85
+S156   round2  `payload-absent` https://kimi.page/                                   86
+S161   round3  `payload-absent` https://developers.google.com/crawling/docs/crawlers-fetchers/reduce-crawl-rate 87
+S193   round6  `payload-absent` https://github.com/VeigaPunk/kake-shokunin.git       88
+S194   round6  `payload-absent` https://github.com/VeigaPunk/kake-shokunin.git       89
+S195   round6  `payload-absent` https://github.com/VeigaPunk/kake-shokunin.git       90
+S206   round7  `payload-absent` https://github.com/VeigaPunk/kake-shokunin.git       91
+S154   round2  the cited source could not be fetched, so no quote was checked https://chromeuxreport.googleapis.com/v1/records:queryRecord 319
+S178   round4  the cited source could not be fetched, so no quote was checked https://www.googleapis.com/pagespeedonline/v5/runPagespeed 320
+S184   round5  the cited source could not be fetched, so no quote was checked https://chromeuxreport.googleapis.com/v1/records:queryRecord 321
+
+## excluded non-data kake line (aggregate, no round/S-id -> outside the awk)
+242:| `kake` | 9 |
+
+## byte comparison
+round-55 cmp_exit=0 sha256=6d92f4408c7482e59fb93c2085676f7d9c4fedb687bcfd501060f63c15d2d63a size=453
+round-56 cmp_exit=0 sha256=6d92f4408c7482e59fb93c2085676f7d9c4fedb687bcfd501060f63c15d2d63a size=453
+round-57 cmp_exit=0 sha256=6d92f4408c7482e59fb93c2085676f7d9c4fedb687bcfd501060f63c15d2d63a size=453
+round-58 cmp_exit=0 sha256=6d92f4408c7482e59fb93c2085676f7d9c4fedb687bcfd501060f63c15d2d63a size=453
+round-59 cmp_exit=0 sha256=6d92f4408c7482e59fb93c2085676f7d9c4fedb687bcfd501060f63c15d2d63a size=453
+round-60 cmp_exit=0 sha256=6d92f4408c7482e59fb93c2085676f7d9c4fedb687bcfd501060f63c15d2d63a size=453
+round-61_derived sha256=6d92f4408c7482e59fb93c2085676f7d9c4fedb687bcfd501060f63c15d2d63a bytes=453 lines=12
+
+## per-line S-id presence (grep -c per line)
+line  1 S142   sid_tokens=1 ok
+line  2 S143   sid_tokens=1 ok
+line  3 S148   sid_tokens=1 ok
+line  4 S156   sid_tokens=1 ok
+line  5 S161   sid_tokens=1 ok
+line  6 S193   sid_tokens=1 ok
+line  7 S194   sid_tokens=1 ok
+line  8 S195   sid_tokens=1 ok
+line  9 S206   sid_tokens=1 ok
+line 10 S154`  sid_tokens=1 ok
+line 11 S178`  sid_tokens=1 ok
+line 12 S184`  sid_tokens=1 ok
+
+## SOURCES.md check (none of the 12 ids is a registry row at round-61 base)
+S142 rows_in_SOURCES=0
+S143 rows_in_SOURCES=0
+S148 rows_in_SOURCES=0
+S154 rows_in_SOURCES=0
+S156 rows_in_SOURCES=0
+S161 rows_in_SOURCES=0
+S178 rows_in_SOURCES=0
+S184 rows_in_SOURCES=0
+S193 rows_in_SOURCES=0
+S194 rows_in_SOURCES=0
+S195 rows_in_SOURCES=0
+S206 rows_in_SOURCES=0
+SOURCES.md_total_rows=167
+
+## L0 question (fleet root, read-only) still open
+180:kake | round-58 | §10 quarantine/frozen-claim conflict: this round re-opened the 12-row absent-defect slice. Six registered payloads are now present (S142,
+
+## prior seat naming this record
+.ufo/waves/round-60/w1/ReviewerQuarantineHold.md (12 rows, same sha 6d92f440..., round-59 slice too)

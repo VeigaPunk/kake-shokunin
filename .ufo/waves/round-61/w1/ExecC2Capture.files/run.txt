@@ -1,0 +1,23 @@
+run 1 (the capture this report records)
+  cwd: /fast/scratch/hyaku/kake-r61/ExecC2Capture (scratch, deleted after the wave)
+  TMPDIR=/fast/scratch/hyaku/kake-r61/ExecC2Capture python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/response_snapshot.py
+  exit 0, stderr empty, wall 10.1 s, stdout = capture-summary.json
+  fetchedAt span 2026-10-27T09:15:53Z .. 2026-10-27T09:16:02Z (UTC)
+  receipts written by scripts/response_snapshot.py at sha256 eac57099a6e097a28638bc2b7e29ddd3dfd301b34c0caa255d8d708bcb039643
+
+change after run 1 (no fetch or receipt-writing path touched)
+  added the "refuse to rewrite an existing response.json unless --overwrite" pre-flight guard
+  final tool sha256 ba107024c770db194f0b07c806641f1674e109134f62c0eac671e5b06bde1bb7
+
+run 2 (guard check, no network expected)
+  same command, default --out: exit 2,
+  {"error": "receipt already present (burnerchrome-kimi, ... vault-index-kimi); use --overwrite or a fresh --out"}
+  sha256 of all 12 response.json before == after (empty diff): no receipt was rewritten
+
+offline integrity check over the 12 receipts (evidence.txt)
+  for each id: len(body.bin) == bytes and sha256(body.bin) == sha256  -> 12/12 True
+  method GET, userAgent round61, fetchedAt 2026-10-27T..Z on all 12
+  truncated False on all 12; error None on all 12; redirects 0 on all 12
+  Set-Cookie / Cookie / Authorization / Proxy-Authorization / WWW-Authenticate: none
+  userinfo in any URL: none
+  capture tree size 344,309 bytes (12 response.json + 12 body.bin)

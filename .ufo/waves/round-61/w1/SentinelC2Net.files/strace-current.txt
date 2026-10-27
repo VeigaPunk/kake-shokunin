@@ -1,0 +1,8 @@
+mkdir("/fast/scratch/hyaku/kake-r61/SentinelC2Net/strace2/out", 0777) = 0
+mkdirat(3, "s1", 0777)          = 0
+socket(AF_INET, SOCK_STREAM|SOCK_CLOEXEC, IPPROTO_TCP) = 5
+connect(5, {sa_family=AF_INET, sin_port=htons(8801), sin_addr=inet_addr("127.0.0.1")}, 16) = -1 EINPROGRESS (Operation now in progress)
+socket(AF_INET, SOCK_STREAM|SOCK_CLOEXEC, IPPROTO_TCP) = 5
+connect(5, {sa_family=AF_INET, sin_port=htons(8801), sin_addr=inet_addr("127.0.0.1")}, 16) = -1 EINPROGRESS (Operation now in progress)
+openat(4, "response.json", O_WRONLY|O_CREAT|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC, 0600) = 5
+openat(4, "body.bin", O_WRONLY|O_CREAT|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC, 0600) = 5

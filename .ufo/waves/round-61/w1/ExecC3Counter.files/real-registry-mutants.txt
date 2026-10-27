@@ -1,0 +1,11 @@
+green tip: 300307014cd535b54eee867eae6b93d7aaf1caec
+GREEN: c61 recheck-pins: conditions_passed=6 of 6 met=True  (met: conditions_passed == 6 of 6) exit 0
+over-pin non-due row S011: exit=1 fails=['C6_append_only'] expected=['C6_append_only'] OK
+     - S011: row outside the due set differs from base
+due pin earlier than the base cadence (S008 365d -> 2027-01-17): exit=0 fails=[] expected=[] OK
+dropped receipt for S003: exit=1 fails=['C4_receipt_pins'] expected=['C4_receipt_pins'] OK
+     - S003: no receipt whose url is one of the row's URLs ['https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site']
+non-200 carried row S005 with a Gate note: exit=0 fails=[] expected=[] OK
+Gate quote absent from the body (S006): exit=1 fails=['C3_gate_quotes'] expected=['C3_gate_quotes'] OK
+     - S006: quoted span "Fresh S006 synthetic body states the recheck pin rule fails" — not a substring of any whitespace-collapsed text node of the retained body
+     - S006: no double-quoted span on the Gate line passes the quote rules

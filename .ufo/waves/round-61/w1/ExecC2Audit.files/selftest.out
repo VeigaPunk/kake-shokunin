@@ -1,0 +1,66 @@
+header_audit.py --selftest
+  PASS  H1 clean 200 -> exit 0, checks=1 findings=0, no lines
+  PASS  H2 200 without Content-Type -> 1 content_type_present, exit 1
+  PASS  H3 https without HSTS -> 1 hsts_present, exit 1
+  PASS  H4 HSTS with parameters -> clean
+  PASS  H5 nosniff -> clean
+  PASS  H6 NOsniff + OWS -> clean
+  PASS  H7 sniff -> 1 xcto_nosniff_value
+  PASS  H8 no CSP -> 1 csp_present
+  PASS  H9 duplicate Content-Type -> 1 singleton_fields
+  PASS  H10 duplicate Set-Cookie -> clean
+  PASS  H11 404 without Content-Type -> clean
+  PASS  H12 'X Bad Name' -> 1 field_name_syntax
+  PASS  H13 missing receipt -> could_not_evaluate, exit 1
+  PASS  H14 version 2 -> exit 2, no report
+  PASS  H15 unparseable manifest -> exit 2
+  PASS  H16 no expectations declared -> clean
+  PASS  H17 OWS around nosniff -> clean
+  PASS  H18 empty checks -> checks=0 findings=0, exit 0
+  PASS  lowercase recorded names match expectations
+  PASS  object-shaped recorded headers are accepted
+  PASS  mapping-shaped headers count array values as repeats
+  PASS  https false -> no hsts_present finding
+  PASS  absent https derived from an https url -> hsts finding
+  PASS  hsts expected with no https and no url -> https_unknown
+  PASS  status '200' accepted
+  PASS  status 'twenty' -> status_unparseable
+  PASS  null status (transport failure) -> could_not_evaluate
+  PASS  absent status -> status_absent
+  PASS  status 999 outside 100..599 -> could_not_evaluate
+  PASS  absent headers -> headers_absent
+  PASS  scalar headers -> headers_malformed
+  PASS  receipt not an object -> source_not_object
+  PASS  receipt not JSON -> source_invalid_json
+  PASS  expect not an object -> expect_malformed
+  PASS  singleton_fields not an array -> expect_malformed
+  PASS  non-bool expectation flag -> expect_malformed
+  PASS  check not an object -> check-1 could_not_evaluate
+  PASS  id with a space -> check-1 could_not_evaluate
+  PASS  three checks: clean/finding/could_not_evaluate in manifest order
+  PASS  three occurrences of a singleton name -> 1 singleton_fields (case-insensitive)
+  PASS  two duplicate singleton names -> 2 findings in declared order
+  PASS  all checks non-evaluable -> exit 1, one line per check
+  PASS  two X-Content-Type-Options, one wrong -> 1 xcto_nosniff_value
+  PASS  OWS-only xcto value -> value=<empty>
+  PASS  two syntax faults -> 2 field_name_syntax
+  PASS  301 with no headers and no expectations -> clean
+  PASS  204 without Content-Type -> content_type_present
+  PASS  unknown expect key ignored, empty singleton list honoured
+  PASS  source relative to the enclosing repo root resolves
+  PASS  absolute source path resolves
+  PASS  --root resolves a source outside the manifest directory
+  PASS  missing manifest -> exit 2
+  PASS  manifest is a directory -> exit 2
+  PASS  manifest fault: version string -> exit 2
+  PASS  manifest fault: version bool -> exit 2
+  PASS  manifest fault: top-level array -> exit 2
+  PASS  manifest fault: checks not an array -> exit 2
+  PASS  manifest fault: version missing -> exit 2
+  PASS  usage: no arguments -> exit 64
+  PASS  usage: unknown flag -> exit 64
+  PASS  usage: repeated manifest -> exit 64
+  PASS  usage: selftest with manifest -> exit 64
+  PASS  --help advertises --root and exits 64
+  PASS  every finding line has exactly three fields and a trailing summary
+selftest: 64/64 passed

@@ -1,0 +1,31 @@
+live node probe — kake round 61, C3 counter calibration (measured 2026-10-27, my own single GET)
+
+URL          https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+             (the S003 row URL; one GET, User-Agent `kake-shokunin-round61`, no cookies, no request body, 2 MiB cap)
+status       200
+bytes        154136
+sha256 head  261408c59b4476f6
+body_nodes   129 whitespace-collapsed text nodes under the counter's rule (comments, script/style/noscript/svg/
+             template/head and nav/aside/header/footer/form blanked)
+
+span measurements (nodes = the counter's body_nodes; loose = the same body with only comments and script/style removed)
+
+  "About publishing sources" (3 units)                        nodes hits [14]      loose hits 2
+  "You can publish your site when changes are pushed to a specific branch" (13 units)  nodes hits [15]  inline hits 1
+  "Under your repository name, click Settings. If you" (8 units)                       nodes hits []    inline hits 2
+  "In the &quot;Code, planning, and automation&quot; section of the sidebar, click Pages." (12 units)
+                                                              nodes hits []    inline hits 2
+
+readings
+- Page-chrome blanking is what makes a heading span page-unique on docs.github.com: "About publishing sources"
+  occurs in one text node of the article but in two nodes of the raw page (a navigation copy). Without the
+  exclusion the counter would fail an honest quote; with it, the article occurrence is the unique one.
+- Real single-node spans exist and are unique (13-unit example above), so the C3 rule is satisfiable on this
+  page for a careful author.
+- Spans that cross inline markup (links, `<code>`, `<strong>`) are not one text node and fail C3 with the note
+  "(it occurs only across inline markup)" — measured, so the note is not hypothetical.
+- Entities are not decoded: a quote containing a quotation mark appears in the body as `&quot;`, and a literal
+  ASCII double quote cannot appear inside a Gate double-quoted span at all.
+
+The probe body was kept in scratch only and is not retained as lane evidence; no lane file was created from it.
+This probe is my own calibration run; the retained recheck bodies are the C3 fetch seat's deliverable.

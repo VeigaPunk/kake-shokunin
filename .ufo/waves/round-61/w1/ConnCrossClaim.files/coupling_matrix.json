@@ -1,0 +1,99 @@
+{
+  "round": 61,
+  "claims": [
+    "C1",
+    "C2",
+    "C3"
+  ],
+  "interactions": [
+    {
+      "pair": [
+        "C1",
+        "C2"
+      ],
+      "surface": ".ufo/waves/round-61/controls/",
+      "type": "namespace_collision",
+      "mechanism": "C1 checks extra_member against frozen 144 population. Any round-61 control receipts committed by C2 trigger extra_member.",
+      "covered_by_separability": false,
+      "amendment": "Scope C1 extra_member check to round-<N> where N < 61."
+    },
+    {
+      "pair": [
+        "C1",
+        "C2"
+      ],
+      "surface": "SCORECARD.md",
+      "type": "shared_file_parser_risk",
+      "mechanism": "C2 adds capability row on demonstrated run. C1 checks scores_held == 3 (10/10/2). Capability text must not disrupt score table regex.",
+      "covered_by_separability": false,
+      "amendment": "Explicitly declare C1 scores_held parser bounds to ignore non-score table edits."
+    },
+    {
+      "pair": [
+        "C1",
+        "C2"
+      ],
+      "surface": "SKILL.md",
+      "type": "shared_file_append",
+      "mechanism": "Both C1 (receipt_lineage, lineage_cases) and C2 (response_snapshot, header_audit) add rows to the gate registry table.",
+      "covered_by_separability": false,
+      "amendment": "Coordinate table row appends in SKILL.md."
+    },
+    {
+      "pair": [
+        "C2",
+        "C3"
+      ],
+      "surface": "corpus/SOURCES.md",
+      "type": "shared_file_concurrent_edit",
+      "mechanism": "C2 appends rows S430-S433. C3 modifies recheck cells for S001-S010 in place. C3 Condition C6 tests byte-identity of non-due rows against base.",
+      "covered_by_separability": false,
+      "amendment": "Specify Condition C6 allows appended rows beyond base registry length."
+    },
+    {
+      "pair": [
+        "C2",
+        "C3"
+      ],
+      "surface": "corpus/SOURCES.md & census",
+      "type": "duplicate_url_warning",
+      "mechanism": "C3 rechecks S010 (RFC 9110). C2 opens S433 (RFC 9110). Both share underlying URL www.rfc-editor.org/rfc/rfc9110.html, bumping W04 from 15 to 16.",
+      "covered_by_separability": false,
+      "amendment": "Acknowledge W04 census count delta from S433/S010 URL sharing."
+    },
+    {
+      "pair": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "surface": "corpus/lessons/round-61.md",
+      "type": "shared_lesson_bottleneck",
+      "mechanism": "All 3 claims write to round-61 lesson. C3 Condition C3 and C5 strictly parse lesson Gate lines. Syntax/merge errors in C1/C2 sections can fail C3.",
+      "covered_by_separability": false,
+      "amendment": "Define distinct markdown sections for C1 mistakes, C2 Gate lines, and C3 Gate lines."
+    },
+    {
+      "pair": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "surface": "git commit / measured revision",
+      "type": "revision_atomicity",
+      "mechanism": "Counters evaluate the unified revision <rev>. A failure in any one claim prevents a clean after-state revision.",
+      "covered_by_separability": false,
+      "amendment": "Clarify build/falsify stage sequencing and atomic revision gating."
+    },
+    {
+      "pair": [
+        "C2"
+      ],
+      "surface": ".ufo/waves/round-61/capture/",
+      "type": "dual_role_unmonitored_receipts",
+      "mechanism": "Capture receipts feed C2 counter R3 and round report, but are not in controls/ and therefore not monitored by C1 lineage tool.",
+      "covered_by_separability": false,
+      "amendment": "Document capture receipts as immutable input data; require sha256 pinning in manifest."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+class Redirects(urllib.request.HTTPRedirectHandler):
+    def __init__(self) -> None:
+        self.chain: list[dict[str, object]] = []
+
+    def http_error_302(self, req, fp, code, msg, headers):
+        location = headers.get("Location") or headers.get("URI")
+        if location and not safe_url(urllib.parse.urljoin(req.full_url, location)):
+            # urllib otherwise reports an unfetched file:/userinfo destination as
+            # geturl(). Preserve the last actual HTTP response URL instead.
+            raise urllib.error.HTTPError(req.full_url, code, "blocked redirect", headers, fp)
+        return super().http_error_302(req, fp, code, msg, headers)
+
+    http_error_301 = http_error_303 = http_error_307 = http_error_308 = http_error_302
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if len(self.chain) >= MAX_REDIRECTS or not safe_url(newurl):
+            raise urllib.error.HTTPError(req.full_url, code, "blocked redirect", headers, fp)
+        self.chain.append({"status": code, "from": req.full_url, "to": newurl})
+        new = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if new is not None and new.get_method() != "GET":
+            raise urllib.error.HTTPError(req.full_url, code, "non-GET redirect refused", headers, fp)
+        return new
+
+
+def utc_now() -> str:
+    return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def fetch(url: str) -> tuple[dict, bytes]:
+    redirects = Redirects()
+    opener = urllib.request.build_opener(redirects)
+    request = urllib.request.Request(url, method="GET", headers={"User-Agent": USER_AGENT})
+    fetched_at = utc_now()
+    status, final_url, headers, body, error = None, url, [], b"", None
+    try:
+        with opener.open(request, timeout=TIMEOUT) as response:
+            status, final_url = int(response.status), response.geturl()
+            headers = list(response.headers.items())
+            try:
+                body = response.read(MAX_BODY + 1)
+            except (http.client.HTTPException, OSError) as exc:
+                # Keep the headers already received; record the partial body.
+                body = getattr(exc, "partial", b"") or b""
+                error = f"{type(exc).__name__}: {exc}"
+    except urllib.error.HTTPError as exc:
+        status, final_url = exc.code, exc.geturl() or url
+        headers = list(exc.headers.items()) if exc.headers else []
+        if exc.reason == "blocked redirect":
+            error = "blocked redirect"
+        try:
+            body = exc.read(MAX_BODY + 1)
+        except (http.client.HTTPException, OSError):
+            body = b""
+        finally:
+            exc.close()
+    except (urllib.error.URLError, OSError, ValueError) as exc:
+        error = f"{type(exc).__name__}: {exc}"
+    truncated = len(body) > MAX_BODY
+    body = body[:MAX_BODY]

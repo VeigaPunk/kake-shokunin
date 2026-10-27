@@ -1,0 +1,22 @@
+# Per pinned row, two application forms. The safe form is the cell-position edit: take the
+# row whose first cell is the row id, split on '|', and replace field index 10 only
+# (13 fields per row; fields 1..11 carry content). The substring form is listed second
+# with its file-wide occurrence count because `| 2026-10-19 | 90d |` is NOT unique.
+S002	cell-index=10	on-release -> 2027-01-17
+S002	substring (file-wide occurrences of '| 2026-10-19 | on-release |': 2)	| 2026-10-19 | on-release | -> | 2026-10-19 | 2027-01-17 |
+S003	cell-index=10	90d -> 2027-01-17
+S003	substring (file-wide occurrences of '| 2026-10-19 | 90d |': 10)	| 2026-10-19 | 90d | -> | 2026-10-19 | 2027-01-17 |
+S004	cell-index=10	90d -> 2027-01-17
+S004	substring (file-wide occurrences of '| 2026-10-19 | 90d |': 10)	| 2026-10-19 | 90d | -> | 2026-10-19 | 2027-01-17 |
+S005	cell-index=10	90d -> 2027-01-17
+S005	substring (file-wide occurrences of '| 2026-10-19 | 90d |': 10)	| 2026-10-19 | 90d | -> | 2026-10-19 | 2027-01-17 |
+S006	cell-index=10	90d -> 2027-01-17
+S006	substring (file-wide occurrences of '| 2026-10-19 | 90d |': 10)	| 2026-10-19 | 90d | -> | 2026-10-19 | 2027-01-17 |
+S007	cell-index=10	90d -> 2027-01-17
+S007	substring (file-wide occurrences of '| 2026-10-19 | 90d |': 10)	| 2026-10-19 | 90d | -> | 2026-10-19 | 2027-01-17 |
+S008	cell-index=10	365d -> 2027-10-19
+S008	substring (file-wide occurrences of '| 2026-10-19 | 365d |': 5)	| 2026-10-19 | 365d | -> | 2026-10-19 | 2027-10-19 |
+S009	cell-index=10	365d -> 2027-10-19
+S009	substring (file-wide occurrences of '| 2026-10-19 | 365d |': 5)	| 2026-10-19 | 365d | -> | 2026-10-19 | 2027-10-19 |
+S010	cell-index=10	365d -> 2027-10-19
+S010	substring (file-wide occurrences of '| 2026-10-19 | 365d |': 5)	| 2026-10-19 | 365d | -> | 2026-10-19 | 2027-10-19 |

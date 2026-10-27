@@ -1,0 +1,46 @@
+# differential: two independent C1 implementations at lane = /home/vgpnk/Projects/shokunin/kake-shokunin
+# mine = .ufo/waves/round-61/w1/ExecC1Tool2.files/receipt_lineage.py (871 lines)
+# sibling = scripts/receipt_lineage.py (1040 lines, written to the lane path by another seat at 06:18Z)
+
+== eaa9177, lane's on-disk registry (12 entries) ==
+mine:
+  receipts=144 events=12 undisclosed=0 met=True
+  exit=0
+sibling:
+  receipts=95 events=12 undisclosed=0 met=True
+  exit=0
+
+== eaa9177, explicit missing registry path ==
+mine:
+  receipts=144 events=12 undisclosed=12 met=False
+  exit=1
+sibling:
+  receipt_lineage: disclosures /fast/scratch/hyaku/kake-r61/ExecC1Tool2/no-such-registry.json: not found at the revision or on disk
+  exit=2
+
+== base 9f07731a, explicit missing registry path ==
+mine:
+  receipts=144 events=12 undisclosed=12 met=False
+  exit=1
+sibling:
+  receipt_lineage: disclosures /fast/scratch/hyaku/kake-r61/ExecC1Tool2/no-such-registry.json: not found at the revision or on disk
+  exit=2
+
+== fixture repo (fx-diff: one receipt, one revision relabel), no --disclosures ==
+mine:
+  receipts=1 events=1 undisclosed=1 met=False
+  exit=1
+sibling:
+  receipts=1 events=1 undisclosed=1 met=False
+  exit=1
+
+== event sets at eaa9177 with an empty registry ==
+mine: 12 undisclosed_rewrite lines (see /fast/scratch/hyaku/kake-r61/ExecC1Tool2/mine-events.txt, retained as events-empty-registry.txt)
+sibling: no stdout, exit 2 (missing explicit disclosures path is could-not-evaluate for that tool)
+
+== reading of 'receipts=' ==
+mine: population members examined (frozen list when committed at the revision, else the path rule) -> 144 at base and at eaa9177 = contract R2 'receipts=144'
+sibling: receipt-grammar members -> 95 at both revisions (population at base 144, grammar members 95)
+
+== population path rule vs frozen list at eaa9177 ==
+path rule -> 146 = frozen 144 + .ufo/waves/round-61/controls/census-before.txt + .ufo/waves/round-61/controls/population-144.txt

@@ -1,0 +1,71 @@
+PASS gate fixture toplevel
+PASS L1 clean receipt exit 0
+PASS L1 clean summary
+PASS L2 rewrite exit 1
+PASS L2 rewrite finding
+PASS L2 rewrite summary
+PASS L3 disclosed rewrite exit 0
+PASS L3 disclosed rewrite summary
+PASS L3b committed default disclosure exit 0
+PASS L3b committed default summary
+PASS L4 body rewrite exit 0
+PASS L4 body rewrite summary
+PASS L5 non-receipt rewrite exit 0
+PASS L5 non-receipt summary
+PASS L6 met flip exit 1
+PASS L6 met flip finding
+PASS L7 pending fill exit 1
+PASS L7 pending fill finding
+PASS L7 pending summary
+PASS L8 disclosed fill exit 0
+PASS L8 disclosed fill summary
+PASS L9 two rewrites exit 1
+PASS L9 one finding
+PASS L9 summary
+PASS L10 reorder exit 0
+PASS L10 reorder summary
+PASS L11 malformed disclosures (truncated) exit 2
+PASS L11 malformed disclosures (entries-not-list) exit 2
+PASS L11 malformed disclosures (entry-without-commit) exit 2
+PASS L11 malformed disclosures (wrong-schema) exit 2
+PASS L12 phantom exit 1
+PASS L12 phantom finding
+PASS L12 phantom met is True (undisclosed==0)
+PASS L13 range bound exit 0
+PASS L13 range bound summary
+PASS L14 unresolved revision exit 2
+PASS L14 dash revision exit 2
+PASS L15 empty population exit 0
+PASS L15 empty population summary
+PASS L16 nested root exit 2
+PASS L16 non-repository root exit 2
+PASS L17 usage exit 64 (no arguments)
+PASS L17 usage exit 64 (root only)
+PASS L17 usage exit 64 (revision only)
+PASS L17 usage exit 64 (unknown option)
+PASS L17 usage exit 64 (selftest plus arguments)
+PASS L18 poisoned GIT_* exit 1
+PASS L18 poisoned GIT_* finding
+PASS L19 rename exit 0
+PASS L19 rename summary
+PASS L20 delete/readd exit 0
+PASS L20 delete/readd summary
+PASS L21 merge exit 1
+PASS L21 merge finding
+PASS L21 merge summary
+PASS L22 symlink exit 0
+PASS L22 symlink note
+PASS L22 symlink summary
+PASS L23 json parses
+PASS L23 json summary matches plain
+PASS L23 json findings
+PASS L23 json met False
+PASS L23 json exit 1
+PASS L24 grammar summary
+PASS L25 still-pending rewrite counted as rewrite
+PASS L25 pending cleared is a fill
+PASS L25 pending-body summary
+PASS L26 later-grammar is not a receipt
+receipt_lineage selftest: 68 checks passed
+PASS 68/68
+selftest exit=0

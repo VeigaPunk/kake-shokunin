@@ -1,0 +1,21 @@
+{
+ "version": 1,
+ "checks": [
+  {
+   "id": "H10",
+   "source": "response.json",
+   "url": "https://pub.test/",
+   "https": true,
+   "expect": {
+    "content_type_present": true,
+    "hsts_present": false,
+    "xcto_nosniff_value": false,
+    "csp_present": false
+   },
+   "singleton_fields": [
+    "set-cookie",
+    "content-type"
+   ]
+  }
+ ]
+}

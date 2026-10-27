@@ -1,0 +1,58 @@
+# real-lane runs, tool = .files/receipt_lineage.py (sha256 below), lane = /home/vgpnk/Projects/shokunin/kake-shokunin
+
+$ <tool> --root lane --revision 9f07731a873585e655a6518233ea39f5d9fb8204        # no --disclosures: lane default (untracked, written by another seat at 06:19Z)
+receipts=144 events=12 undisclosed=0 met=True
+exit=0
+
+$ <tool> --root lane --revision eaa9177e2965a50fa038d57254934a53909052b6
+note: population_rule_extra .ufo/waves/round-61/controls/census-before.txt
+note: population_rule_extra .ufo/waves/round-61/controls/population-144.txt
+receipts=144 events=12 undisclosed=0 met=True
+exit=0
+
+$ <tool> --root lane --revision eaa9177e2965a50fa038d57254934a53909052b6 --disclosures <no such file>   # empty registry path
+note: population_rule_extra .ufo/waves/round-61/controls/census-before.txt
+note: population_rule_extra .ufo/waves/round-61/controls/population-144.txt
+undisclosed_rewrite .ufo/waves/round-52/control/c1-ledger-real.txt a4a890cf1381a194891689dcbba0bf524350926b
+undisclosed_rewrite .ufo/waves/round-52/control/c1-mutation-ladder.json 1ae8de5d4dee8300624b0db2a94497ff905942c5
+undisclosed_rewrite .ufo/waves/round-52/control/c1-mutation-ladder.json a4a890cf1381a194891689dcbba0bf524350926b
+undisclosed_rewrite .ufo/waves/round-52/control/c1-mutation-ladder.json fd91527a286086c1f4e6d4f44f715a907f041b5d
+undisclosed_rewrite .ufo/waves/round-52/control/c2-quote-real.txt a4a890cf1381a194891689dcbba0bf524350926b
+undisclosed_rewrite .ufo/waves/round-54/controls/c1-selftest.txt 8e408e00fbe1c5908df62ba79e78c944bda479e2
+undisclosed_rewrite .ufo/waves/round-54/controls/c1-selftest.txt a631cc0246b97f2a949d61186c7466468faf94d6
+undisclosed_rewrite .ufo/waves/round-55/controls/after-c1-readme-index.txt 955e3d7bd6d1eff5060e4cebbed51891bb53027a
+undisclosed_rewrite .ufo/waves/round-55/controls/after-c2-quote-truth.txt 955e3d7bd6d1eff5060e4cebbed51891bb53027a
+undisclosed_rewrite .ufo/waves/round-56/controls/after-c1-selftally.txt ad06cb8a17bda28f0691b95aecda13cd4708ea6c
+undisclosed_rewrite .ufo/waves/round-56/controls/after-c2-quote-truth.txt ad06cb8a17bda28f0691b95aecda13cd4708ea6c
+undisclosed_rewrite .ufo/waves/round-57/controls/after-c1-receipt-pins.txt 20217f23eca15862febe14545523832e21584106
+receipts=144 events=12 undisclosed=12 met=False
+exit=1
+
+$ <tool> --root lane --revision eaa9177e2965a50fa038d57254934a53909052b6 --disclosures registry-all-12.json
+note: population_rule_extra .ufo/waves/round-61/controls/census-before.txt
+note: population_rule_extra .ufo/waves/round-61/controls/population-144.txt
+receipts=144 events=12 undisclosed=0 met=True
+exit=0
+
+$ <tool> --root lane --revision eaa9177e2965a50fa038d57254934a53909052b6 --json | head -24
+{
+  "version": 1,
+  "root": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+  "revision": "eaa9177e2965a50fa038d57254934a53909052b6",
+  "population_source": "frozen-list",
+  "population_file": ".ufo/waves/round-61/controls/population-144.txt",
+  "population_members": 144,
+  "population_by_rule": 146,
+  "receipt_grammar_members": 95,
+  "receipts": 144,
+  "events": 12,
+  "undisclosed": 0,
+  "met": true,
+  "findings": [],
+  "disclosures": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/receipt-disclosures.json",
+  "notes": [
+    "population_rule_extra .ufo/waves/round-61/controls/census-before.txt",
+    "population_rule_extra .ufo/waves/round-61/controls/population-144.txt"
+  ],
+  "members_missing": []
+}

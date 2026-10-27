@@ -1,0 +1,89 @@
+# ExecC2Audit2 — retained evidence (round-61 w1, claim C2). Not a receipt:
+# this file is not under .ufo/waves/round-61/controls/ and is not receipt grammar.
+# All runs are offline, against fixtures built under
+# /fast/scratch/hyaku/kake-r61/ExecC2Audit2/ (deleted after the run).
+# Tool of record for this seat: .ufo/waves/round-61/w1/ExecC2Audit2.files/header_audit.py
+#   sha256 282d5b04676f2de1ee80fb360629c81dfbd15e0790b2033f53e1f85d741569b2 (1245 lines).
+# The runs below were made against that file both at scripts/header_audit.py (my write,
+# 06:11) and, re-confirmed after the sibling overwrote the shared path at 06:18, at the
+# .files path, which prints the identical selftest line (§7).
+
+## 1. tool selftest (fixtures built in a tempfile directory, removed by the tool)
+$ cd /home/vgpnk/Projects/shokunin/kake-shokunin
+$ python3 -B scripts/header_audit.py --selftest
+selftest: cases=29 passed=29 failed=0
+EXIT=0
+
+Cases: H1-H18 of contract C2 (H13 exit 1 + one could_not_evaluate; H14/H15 exit 2;
+H18 checks=0 findings=0), plus S1 receipt-with-`# receipt:`-header, S2 object-shaped
+headers + string status, S3 undeclared HSTS expectation on an https check, S4
+unreadable `headers` value, S5 unparseable status, S6 one clean + one missing source,
+plus five CLI usage probes (empty argv, unknown flag, missing flag value,
+--selftest mixed with --manifest, manifest path that does not exist -> exit 2).
+
+## 2. lane-shaped 12-check manifest, `source` repo-root-relative (ExecC2Manifest pin)
+Fixture: .ufo/waves/round-61/capture/<id>/response.json for the 12 round-23 ids,
+manifest at .ufo/waves/round-61/capture/manifest.json, one check deliberately
+stripped of Content-Security-Policy. Run from cwd=/tmp (no VCS marker in the fixture).
+$ python3 -B scripts/header_audit.py --manifest $S/laneshape/.ufo/waves/round-61/capture/manifest.json
+plazir27-kimi csp_present missing=content-security-policy
+checks=12 findings=1
+EXIT=1
+
+Interpretation: all 12 sources resolved (no could_not_evaluate lines), the one
+stripped CSP produced exactly one finding, exit 1.
+
+## 3. counter-shaped fixture: manifest at fixture root, source repo-root-relative
+$ python3 -B scripts/header_audit.py --manifest $S/countershape/manifest.json --root $S/countershape
+checks=1 findings=0
+EXIT=0
+$ python3 -B scripts/header_audit.py --manifest $S/countershape/manifest.json
+checks=1 findings=0
+EXIT_NO_ROOT=0
+
+## 4. nested wrapper, integral-float status, decoy top-level status
+receipt: {"receipt":"# receipt: r1","controller":{"status":200},"recorded":{"status":200.0,
+"headers":[["Content-Type","text/html"],["strict-transport-security","max-age=1"]],...}}
+$ ... --manifest m.json            -> checks=1 findings=0            exit 0
+$ ... --manifest m.json --json     -> {"checksCount": 1, "findings": [], "findingsCount": 0,
+     "items": [{"findings": [], "id": "nested", "status": "clean"}], "policyFindings": 0,
+     "problem": null, "unevaluableChecks": 0, "verdict": "clean", "version": 1}
+
+## 5. duplicates: two Content-Type (singleton), two Set-Cookie (never a singleton)
+$ ... --manifest m.json
+c1 singleton_fields field=content-type count=2
+checks=1 findings=1
+EXIT=1
+
+## 6. AST parse of the delivered file
+$ python3 -c "import ast; ast.parse(open('scripts/header_audit.py').read())"
+ast-parse: ok
+
+## 7. post-overwrite confirmation on the retained artifact (cwd=/tmp, after the sibling
+##    rewrote scripts/header_audit.py at 06:18)
+$ python3 -B <lane>/.ufo/waves/round-61/w1/ExecC2Audit2.files/header_audit.py --selftest
+selftest: cases=29 passed=29 failed=0
+EXIT=0
+$ sha256sum <lane>/.ufo/waves/round-61/w1/ExecC2Audit2.files/header_audit.py
+282d5b04676f2de1ee80fb360629c81dfbd15e0790b2033f53e1f85d741569b2
+$ sha256sum <lane>/scripts/header_audit.py       # sibling's file, not mine
+b012963547c206dea2e799bb2c222b25d07d90492334043afe8590cad64d2f9d
+
+## 8. corrected capture shape (ExecC2Counter message, 06:2x): headers as ordered
+##    arrays of {"name","value"} objects, one check with "status": null, one check
+##    with a duplicated X-Content-Type-Options: nosniff; 12 checks, repo-root-relative
+##    sources, cwd=/tmp, no VCS marker
+$ python3 -B <lane>/.ufo/waves/round-61/w1/ExecC2Audit2.files/header_audit.py \
+    --manifest $S/.ufo/waves/round-61/capture/manifest.json
+plazir27-kimi could_not_evaluate status-unparseable path=.ufo/waves/round-61/capture/plazir27-kimi/response.json
+checks=12 findings=1
+EXIT=1
+$ ... same, --json
+{"checksCount": 12, "findings":[{"check":"plazir27-kimi","class":"could_not_evaluate",
+ "detail":"status-unparseable path=.ufo/waves/round-61/capture/plazir27-kimi/response.json"}],
+ "findingsCount": 1, "policyFindings": 0, "unevaluableChecks": 1, "verdict": "failed-policy",
+ "items": [... "ds4cc-primary": "clean" ...]}
+
+Interpretation: header objects parse and keep order/duplicates (the duplicated nosniff
+field stays clean); a null status is a per-check could_not_evaluate and exit 1 while the
+other eleven checks are evaluable; zero policy findings. Exit 2 is untouched by a null status.

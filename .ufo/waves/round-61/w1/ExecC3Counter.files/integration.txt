@@ -1,0 +1,18 @@
+clone toplevel: /fast/scratch/hyaku/kake-r61/ExecC3Counter/integ
+synthetic revision: 5abca6b1d8d8ba47b3b26abcac06707655b37e1c
+c61 recheck-pins: conditions_passed=6 of 6 met=True  (met: conditions_passed == 6 of 6)
+  C1_due_set PASS
+  C2_pinned_dates PASS
+  C3_gate_quotes PASS
+  C4_receipt_pins PASS
+  C5_carry_notes PASS
+  C6_append_only PASS
+  revision: 5abca6b1d8d8ba47b3b26abcac06707655b37e1c  base: 9f07731a873585e655a6518233ea39f5d9fb8204  pinned=10 carried=0
+EXIT=0
+
+counter exit: 0 stderr: 
+c61 recheck-pins: conditions_passed=5 of 6 met=False  (met: conditions_passed == 6 of 6)
+  C6_append_only FAIL
+    - S050: row outside the due set differs from base
+EXIT=1
+mutant exit: 1

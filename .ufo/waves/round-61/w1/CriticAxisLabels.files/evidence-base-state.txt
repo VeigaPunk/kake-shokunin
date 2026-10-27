@@ -1,0 +1,65 @@
+# CriticAxisLabels evidence — base-state axis/do-nothing checks
+# date: 2026-10-27, lane kake-shokunin, base 9f07731a873585e655a6518233ea39f5d9fb8204
+
+## 1. Tools absent at base (C1/C2 do-nothing)
+$ git ls-tree 9f07731a scripts/ | grep -E 'receipt_lineage|response_snapshot|header_audit'
+MATCHES: none (exit 1)
+
+$ git ls-tree 9f07731a .ufo/waves/round-61/
+(empty => counters c61_*.py absent at base)
+
+$ git cat-file -e 9f07731a:.ufo/receipt-disclosures.json
+fatal: path '.ufo/receipt-disclosures.json' exists on disk, but not in '9f07731a873585e655a6518233ea39f5d9fb8204'
+
+## 2. C3 recheck cells at base (all cadences, zero concrete dates)
+  S001 status=mined opened=2026-10-19 recheck=on-release
+  S002 status=mined opened=2026-10-19 recheck=on-release
+  S003 status=mined opened=2026-10-19 recheck=90d
+  S004 status=mined opened=2026-10-19 recheck=90d
+  S005 status=mined opened=2026-10-19 recheck=90d
+  S006 status=mined opened=2026-10-19 recheck=90d
+  S007 status=mined opened=2026-10-19 recheck=90d
+  S008 status=mined opened=2026-10-19 recheck=365d
+  S009 status=mined opened=2026-10-19 recheck=365d
+  S010 status=mined opened=2026-10-19 recheck=365d
+
+## 3. Due-set tie arithmetic at base
+  S001 status=mined
+  S002 status=mined
+  S003 status=mined
+  S004 status=mined
+  S005 status=mined
+  S006 status=mined
+  S007 status=mined
+  S008 status=mined
+  S009 status=mined
+  S010 status=mined
+  S011 status=mined
+  S012 status=mined
+  S013 status=mined
+  S014 status=mined
+  S015 status=queued
+  S016 status=queued
+  S017 status=rejected
+  S018 status=rejected
+  TOTAL opened=2026-10-19: 18, non-rejected ties: 16 (lowest 10 = S001-S010)
+
+## 4. Scores at base (SCORECARD.md)
+| operability | 10 | Operability now rests on committed inst
+| freshness | 10 | **Legacy 10, re-anchored on receipts:** t
+| calibration | 2 | Score 2 rests on the round-58 receipt-le
+| freshness | improved locally; blocked/unadmitted | On the 
+| operability | unchanged | Entry/exit contracts and publish
+
+## 5. Population list vs round-61
+144 .ufo/waves/round-61/controls/population-144.txt
+0
+
+## 6. Round-23 population count (C2 surfaces)
+12
+
+## 7. c58 prior instrument present at base (calibration provenance)
+100755 blob 410bbc7ba05a5355fceb313c68b81031416d2459	.ufo/waves/round-58/c58_receipt_rewrites.py
+
+## 8. Census-before
+exit=0

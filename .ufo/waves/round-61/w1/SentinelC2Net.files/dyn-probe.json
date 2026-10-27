@@ -1,0 +1,513 @@
+{
+ "exit": 0,
+ "stdout": "{\n \"captures\": [\n  {\n   \"bytes\": 2097152,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:34693/big\",\n   \"headerCount\": 4,\n   \"id\": \"big\",\n   \"sha256\": \"6932fd31e5daf4739b9fa78ff777b2831b0995cc1d0b0093cac80601902013bc\",\n   \"status\": 200\n  },\n  {\n   \"bytes\": 2,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:34693/dup\",\n   \"headerCount\": 8,\n   \"id\": \"dup\",\n   \"sha256\": \"2689367b205c16ce32ed4200942b8b8b1e262dfc70d9bc9fbc77c49699a4f1df\",\n   \"status\": 200\n  },\n  {\n   \"bytes\": 0,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:34693/empty\",\n   \"headerCount\": 3,\n   \"id\": \"empty\",\n   \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n   \"status\": 204\n  },\n  {\n   \"bytes\": 0,\n   \"error\": \"blocked redirect\",\n   \"finalUrl\": \"http://127.0.0.1:34693/file\",\n   \"headerCount\": 4,\n   \"id\": \"file\",\n   \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n   \"status\": 302\n  },\n  {\n   \"bytes\": 0,\n   \"error\": \"blocked redirect\",\n   \"finalUrl\": \"http://127.0.0.1:34693/hop/5\",\n   \"headerCount\": 4,\n   \"id\": \"hop\",\n   \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n   \"status\": 302\n  },\n  {\n   \"bytes\": 0,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:34693/nope\",\n   \"headerCount\": 3,\n   \"id\": \"missing\",\n   \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n   \"status\": 404\n  },\n  {\n   \"bytes\": 2,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:34693/dup\",\n   \"headerCount\": 8,\n   \"id\": \"redir\",\n   \"sha256\": \"2689367b205c16ce32ed4200942b8b8b1e262dfc70d9bc9fbc77c49699a4f1df\",\n   \"status\": 200\n  }\n ]\n}\n",
+ "stderr": "",
+ "requests": [
+  {
+   "path": "/big",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/dup",
+   "methods": [
+    "GET",
+    "GET"
+   ]
+  },
+  {
+   "path": "/empty",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/file",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/0",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/1",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/2",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/3",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/4",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/5",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/nope",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/redir",
+   "methods": [
+    "GET"
+   ]
+  }
+ ],
+ "receipts": {
+  "dup": {
+   "file": true,
+   "status": 200,
+   "bytes": 2,
+   "truncated": false,
+   "redirects": 0,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:17:08 GMT"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/html"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/plain"
+    },
+    {
+     "name": "Set-Cookie",
+     "value": "a=1"
+    },
+    {
+     "name": "Set-Cookie",
+     "value": "b=2"
+    },
+    {
+     "name": "X-Content-Type-Options",
+     "value": "nosniff"
+    },
+    {
+     "name": "Content-Length",
+     "value": "2"
+    }
+   ],
+   "bodyFile": "body.bin",
+   "body_len": 2,
+   "sha_match": true,
+   "sha_len_match": true
+  },
+  "redir": {
+   "file": true,
+   "status": 200,
+   "bytes": 2,
+   "truncated": false,
+   "redirects": 1,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:17:08 GMT"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/html"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/plain"
+    },
+    {
+     "name": "Set-Cookie",
+     "value": "a=1"
+    },
+    {
+     "name": "Set-Cookie",
+     "value": "b=2"
+    },
+    {
+     "name": "X-Content-Type-Options",
+     "value": "nosniff"
+    },
+    {
+     "name": "Content-Length",
+     "value": "2"
+    }
+   ],
+   "bodyFile": "body.bin",
+   "body_len": 2,
+   "sha_match": true,
+   "sha_len_match": true
+  },
+  "hop": {
+   "file": true,
+   "status": 302,
+   "bytes": 0,
+   "truncated": false,
+   "redirects": 5,
+   "error": "blocked redirect",
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:17:08 GMT"
+    },
+    {
+     "name": "Location",
+     "value": "/hop/6"
+    },
+    {
+     "name": "Content-Length",
+     "value": "0"
+    }
+   ],
+   "bodyFile": null,
+   "sha_len_match": true
+  },
+  "big": {
+   "file": true,
+   "status": 200,
+   "bytes": 2097152,
+   "truncated": true,
+   "redirects": 0,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:17:08 GMT"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/html"
+    },
+    {
+     "name": "Content-Length",
+     "value": "3145728"
+    }
+   ],
+   "bodyFile": "body.bin",
+   "body_len": 2097152,
+   "sha_match": true,
+   "sha_len_match": true
+  },
+  "empty": {
+   "file": true,
+   "status": 204,
+   "bytes": 0,
+   "truncated": false,
+   "redirects": 0,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:17:08 GMT"
+    },
+    {
+     "name": "Content-Length",
+     "value": "0"
+    }
+   ],
+   "bodyFile": null,
+   "sha_len_match": true
+  },
+  "file": {
+   "file": true,
+   "status": 302,
+   "bytes": 0,
+   "truncated": false,
+   "redirects": 0,
+   "error": "blocked redirect",
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:17:08 GMT"
+    },
+    {
+     "name": "Location",
+     "value": "file:///etc/passwd"
+    },
+    {
+     "name": "Content-Length",
+     "value": "0"
+    }
+   ],
+   "bodyFile": null,
+   "sha_len_match": true
+  },
+  "missing": {
+   "file": true,
+   "status": 404,
+   "bytes": 0,
+   "truncated": false,
+   "redirects": 0,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:17:08 GMT"
+    },
+    {
+     "name": "Content-Length",
+     "value": "0"
+    }
+   ],
+   "bodyFile": null,
+   "sha_len_match": true
+  }
+ },
+ "request_count": 13,
+ "cookie_header_sent": false,
+ "ua_seen": [
+  "round61"
+ ],
+ "body_sent": 0,
+ "tmp_new_files": [
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/boottarget",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/boottarget.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/memory.events",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/memory.events.local",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/memory.events",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/memory.events.local",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/memory.high",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/memory.max",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/memory.oom.group",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/memory.stat",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/memory.swap.events",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/memory.swap.peak",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/cgroup/user.slice/user-1000.slice/user@1000.service/memory.events",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/dmesg-all.out",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/dmesg-all.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/dmesg.out",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/dmesg.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/dmesg_restrict",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/expacsl",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/failedunits",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/fbase",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/hostname",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/journal-all.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/journal-all.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/journal-err.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/journal-err.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/journal-last",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/journal-last.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/listboots",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/listboots.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/lsmod",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/meminfo",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/mounts",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/obase",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oom-attrib.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oom-attrib.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oom-kernel.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oom-kernel.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oom-sigkill.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oom-sigkill.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oomwin-attrib",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oomwin-attrib.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oomwin-kernel",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oomwin-kernel.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oomwin-sigkill",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/oomwin-sigkill.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/pacman.conf",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/pacman.log",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/pacmandb/sync/offline.db",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/pconf",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/pm",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/pq",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/pressure/memory",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/q",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/qkk.out",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/qkk.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/qu",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/qu.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/sl",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/smi.out",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/smi.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/sup",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/sup.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/suu",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/suu.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/sysrunning",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/sysrunning.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/timeractivestate",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/timeractivestate.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/timerlist",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/timerresult",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/blocked-update-nochannel/vmstat",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/boottarget",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/boottarget.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/memory.events",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/memory.events.local",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/memory.events",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/memory.events.local",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/memory.high",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/memory.max",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/memory.oom.group",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/memory.stat",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/memory.swap.events",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/memory.swap.peak",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/cgroup/user.slice/user-1000.slice/user@1000.service/memory.events",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/dmesg-all.out",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/dmesg-all.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/dmesg.out",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/dmesg.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/dmesg_restrict",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/expacsl",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/failedunits",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/fbase",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/hostname",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/journal-all.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/journal-all.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/journal-err.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/journal-err.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/journal-last",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/journal-last.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/listboots",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/listboots.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/lsmod",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/meminfo",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/mounts",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/obase",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oom-attrib.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oom-attrib.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oom-kernel.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oom-kernel.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oom-sigkill.json",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oom-sigkill.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oomwin-attrib",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oomwin-attrib.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oomwin-kernel",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oomwin-kernel.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oomwin-sigkill",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/oomwin-sigkill.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pacman.conf",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pacman.log",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pacmandb/sync/core.db",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pacmandb/sync/offline.db",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pacmandb/sync/omarchy.db",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pconf",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pm",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pq",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/pressure/memory",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/q",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/qkk.out",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/qkk.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/qu",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/qu.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/sl",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/smi.out",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/smi.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/sup",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/sup.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/suu",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/suu.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/sysrunning",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/sysrunning.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/timeractivestate",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/timeractivestate.rc",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/timerlist",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/timerresult",
+  "/tmp/tsukuroi-r3-2-selftest.OhpPXG/fx/degraded-update-stale/vmstat"
+ ],
+ "stray_in_lane": [
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/response_snapshot.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/header_audit.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/receipt_lineage.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/compute_pins.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/pins.tsv",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/pin_replacements.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/gate_notes.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/pin_cells.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecQuarantine.files/quarantine-slice.r61",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecQuarantine.files/compare-r61.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC1Rows.files/rows.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScoutC2Population.files/probe-results.tsv",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Fetch.files/fetch_recheck.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC1Rows.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Manifest.files/manifest.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Manifest.files/gen_manifest.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Manifest.files/lint_receipts.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Manifest.files/lint.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecQuarantine.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScoutC2Population.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeSearchLog.files/searchlog.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScoutC3Rows.files/due-set-ten-rows-verbatim.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Disclose.files/extract.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Disclose.files/verify.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Disclose.files/events.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Disclose.files/verify.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/rows.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeSearchLog.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScoutC3Rows.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Manifest.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Fetch.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/sources/S430.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/sources/S431.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/sources/S432.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/sources/S433.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/sources/receipts.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/assimilation/quarantine-slice",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1.ready.dispatched",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S001.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/receipts.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S002.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S003.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S004.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S005.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S006.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S007.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S008.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S009.html",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/recheck/S010.html"
+ ]
+}

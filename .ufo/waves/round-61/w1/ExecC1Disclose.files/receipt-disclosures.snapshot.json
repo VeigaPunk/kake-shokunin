@@ -1,0 +1,90 @@
+{
+  "schema": "kake-receipt-disclosures-v1",
+  "note": "Disclosures registry for the round-61 C1 receipt-lineage watch. One entry per historical rewrite / pending_filled event over the 144-path frozen population (.ufo/waves/round-61/controls/population-144.txt) at base revision 9f07731a873585e655a6518233ea39f5d9fb8204. Twelve entries: the six historical relabels recorded in .ufo/waves/round-57/receipt-errata.json (rounds 52, 55, 56; notes carried from that errata's own notes) plus six further events found by an independent first-parent extraction (rounds 52, 53, 54, 57). Disclosure matching is by path + commit only; 'kind' is descriptive. Per-entry notes state what the commit changed; no prose here asserts that the original rewrite was justified. Evidence: .ufo/waves/round-61/w1/ExecC1Disclose.files/ (extract.py, events.json, verify.py, verify.json).",
+  "entries": [
+    {
+      "path": ".ufo/waves/round-52/control/c1-mutation-ladder.json",
+      "commit": "1ae8de5d4dee8300624b0db2a94497ff905942c5",
+      "kind": "rewrite",
+      "note": "Mutation-ladder fixture (schema kake-r52-c1-mutation-ladder-v1) whose 18 row-level `old_tail` values each embed a receipt `revision:` line, which is why the file falls under the receipt grammar (its `new_tail` values literally contain `EXIT=1`). Commit 1ae8de5d4dee8300624b0db2a94497ff905942c5 ('round 52: frozen baselines and the seven measurement receipts') re-pinned all 18 recorded old tails (18 inserted / 18 deleted lines). Not previously disclosed anywhere; this registry is its first disclosure.",
+      "disclosed-by": "ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-52/control/c1-ledger-real.txt",
+      "commit": "a4a890cf1381a194891689dcbba0bf524350926b",
+      "kind": "rewrite",
+      "note": "First committed in 1ae8de5d4dee8300624b0db2a94497ff905942c5 claiming to have run over 3a50ae4321e64856229c7cd0d39d3557b204d489 (the round-52 frozen baseline); a4a890cf1381a194891689dcbba0bf524350926b ('round 52: measured receipts, drift reconciliation, scorecard and province') rewrote the revision line to 1ae8de5d4dee8300624b0db2a94497ff905942c5, the commit that introduced the receipt itself.",
+      "disclosed-by": "receipt-errata round-57 (kake-r57-receipt-errata-v1); registered by ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-52/control/c2-quote-real.txt",
+      "commit": "a4a890cf1381a194891689dcbba0bf524350926b",
+      "kind": "rewrite",
+      "note": "First committed in 1ae8de5d4dee8300624b0db2a94497ff905942c5 claiming to have run over 3a50ae4321e64856229c7cd0d39d3557b204d489 (the round-52 frozen baseline); a4a890cf1381a194891689dcbba0bf524350926b ('round 52: measured receipts, drift reconciliation, scorecard and province') rewrote the revision line to 1ae8de5d4dee8300624b0db2a94497ff905942c5, the commit that introduced the receipt itself.",
+      "disclosed-by": "receipt-errata round-57 (kake-r57-receipt-errata-v1); registered by ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-52/control/c1-mutation-ladder.json",
+      "commit": "a4a890cf1381a194891689dcbba0bf524350926b",
+      "kind": "rewrite",
+      "note": "The same 18 `old_tail` revision values re-pinned to the round-52 measured revision in a4a890cf1381a194891689dcbba0bf524350926b ('round 52: measured receipts, drift reconciliation, scorecard and province'), 18 inserted / 18 deleted lines. Not previously disclosed; first disclosure here.",
+      "disclosed-by": "ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-52/control/c1-mutation-ladder.json",
+      "commit": "fd91527a286086c1f4e6d4f44f715a907f041b5d",
+      "kind": "rewrite",
+      "note": "Third re-pin of the same 18 `old_tail` revision values, this time in a round-53 commit fd91527a286086c1f4e6d4f44f715a907f041b5d ('round-53: re-ground crawl source citations'), 18 inserted / 18 deleted lines. Not previously disclosed; first disclosure here.",
+      "disclosed-by": "ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-54/controls/c1-selftest.txt",
+      "commit": "8e408e00fbe1c5908df62ba79e78c944bda479e2",
+      "kind": "rewrite",
+      "note": "Selftest receipt for .ufo/waves/round-54/c54_s374_calib.py. Commit 8e408e00fbe1c5908df62ba79e78c944bda479e2 ('round-54: repair S374 calibration and settle r53 ops debt') appended two further passing rows (correction_wrong_polarity, correction_before_render) above the unchanged `EXIT=0`; the append is a result-span change only because each appended row's text carries `met=False`. Not previously disclosed; first disclosure here.",
+      "disclosed-by": "ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-54/controls/c1-selftest.txt",
+      "commit": "a631cc0246b97f2a949d61186c7466468faf94d6",
+      "kind": "rewrite",
+      "note": "Second append to the same selftest receipt: commit a631cc0246b97f2a949d61186c7466468faf94d6 ('round-54: bind calibration and settlement counters to evidence') added two more passing rows (unrelated_marker, correction_removed_render) above the unchanged `EXIT=0`, again span-matched only through each row's `met=False` text. Not previously disclosed; first disclosure here.",
+      "disclosed-by": "ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-55/controls/after-c1-readme-index.txt",
+      "commit": "955e3d7bd6d1eff5060e4cebbed51891bb53027a",
+      "kind": "rewrite",
+      "note": "First committed in 64c0ce12ffe3ca4d6d1891a3e3e33933a95380f6 claiming to have run over faf9abe81d1ef5925733f756a918527483073fe8 (the round-55 content revision); 955e3d7bd6d1eff5060e4cebbed51891bb53027a ('round-55: measurement receipts, settlement, SCORECARD and LOG') rewrote the revision line to 64c0ce12ffe3ca4d6d1891a3e3e33933a95380f6, the commit that introduced the receipt itself.",
+      "disclosed-by": "receipt-errata round-57 (kake-r57-receipt-errata-v1); registered by ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-55/controls/after-c2-quote-truth.txt",
+      "commit": "955e3d7bd6d1eff5060e4cebbed51891bb53027a",
+      "kind": "rewrite",
+      "note": "First committed in 64c0ce12ffe3ca4d6d1891a3e3e33933a95380f6 claiming to have run over faf9abe81d1ef5925733f756a918527483073fe8 (the round-55 content revision); 955e3d7bd6d1eff5060e4cebbed51891bb53027a ('round-55: measurement receipts, settlement, SCORECARD and LOG') rewrote the revision line to 64c0ce12ffe3ca4d6d1891a3e3e33933a95380f6, the commit that introduced the receipt itself.",
+      "disclosed-by": "receipt-errata round-57 (kake-r57-receipt-errata-v1); registered by ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-56/controls/after-c1-selftally.txt",
+      "commit": "ad06cb8a17bda28f0691b95aecda13cd4708ea6c",
+      "kind": "rewrite",
+      "note": "First committed in 4cb225fb032b04166fb0232bc98a7bcce72675ec claiming to have run over f8438a282d5946b386812d784cc617edcbc9201d (the round-56 C2 selftest/lesson commit); ad06cb8a17bda28f0691b95aecda13cd4708ea6c ('round-56: measurement receipts, SCORECARD and LOG revision pins') rewrote the revision line to 4cb225fb032b04166fb0232bc98a7bcce72675ec, the commit that introduced the receipt itself.",
+      "disclosed-by": "receipt-errata round-57 (kake-r57-receipt-errata-v1); registered by ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-56/controls/after-c2-quote-truth.txt",
+      "commit": "ad06cb8a17bda28f0691b95aecda13cd4708ea6c",
+      "kind": "rewrite",
+      "note": "First committed in 4cb225fb032b04166fb0232bc98a7bcce72675ec claiming to have run over f8438a282d5946b386812d784cc617edcbc9201d (the round-56 C2 selftest/lesson commit); ad06cb8a17bda28f0691b95aecda13cd4708ea6c ('round-56: measurement receipts, SCORECARD and LOG revision pins') rewrote the revision line to 4cb225fb032b04166fb0232bc98a7bcce72675ec, the commit that introduced the receipt itself.",
+      "disclosed-by": "receipt-errata round-57 (kake-r57-receipt-errata-v1); registered by ExecC1Disclose (round-61 w1)"
+    },
+    {
+      "path": ".ufo/waves/round-57/controls/after-c1-receipt-pins.txt",
+      "commit": "20217f23eca15862febe14545523832e21584106",
+      "kind": "pending_filled",
+      "note": "Placeholder receipt committed in 31b61a4ddfcade92c108ff3786b8e9770bc8da31 ('round-57: T0 - measured.json, SCORECARD and LOG, C2/C3 receipts at the measured revision, placeholder C1 receipt') as the bare word `pending`; commit 20217f23eca15862febe14545523832e21584106 ('round-57: C1 receipt written after its run at T0') replaced it with the C1 receipt-pins line, a `tip: 31b61a4...` line, `revision: 32754df75774dd38e8a96fcda375fc93adf97f1e` and `EXIT=0`. This is the round-57 pending-receipt event named as claim C1's motivation; not previously disclosed in a registry, first disclosure here.",
+      "disclosed-by": "ExecC1Disclose (round-61 w1)"
+    }
+  ]
+}

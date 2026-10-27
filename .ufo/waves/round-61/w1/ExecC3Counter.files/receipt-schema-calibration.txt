@@ -1,0 +1,26 @@
+receipt schema calibration against the round-61 recheck evidence as it stood at 2026-10-27 06:15 (worktree copies,
+uncommitted at the time of the check — this is a parser/schema calibration, NOT the counter's measured run and not a
+score of the after-state; the measured run reads committed bytes and belongs to the L1)
+
+file        .ufo/waves/round-61/recheck/receipts.json  (schema: {"receipts":[{id,url,effectiveUrl,status,sha256,bytes,
+            fetchedAt,userAgent}]}; load_receipts() returned 10 entries, no parse problem)
+bodies      .ufo/waves/round-61/recheck/S001.html .. S010.html
+
+per row: url ∈ row URLs, status 200, sha256 == blob digest, bytes == blob length, fetchedAt on 2026-10-27 UTC,
+userAgent carries round61, and body_nodes() yields text nodes
+
+  S001 OK  2529 bytes     4 nodes   (raw action.yml; untagged body -> paragraph blocks)
+  S002 OK  199999 bytes  69 nodes   (complete page: ends </body></html>; not a truncated body)
+  S003 OK  154136 bytes 129 nodes
+  S004 OK  141818 bytes 238 nodes
+  S005 OK  240439 bytes 421 nodes
+  S006 OK  138096 bytes 173 nodes
+  S007 OK  453447 bytes 864 nodes
+  S008 OK  512359 bytes 2582 nodes
+  S009 OK  147410 bytes 1168 nodes
+  S010 OK  1187554 bytes 11400 nodes
+
+10/10 converge, 0 mismatches. Consequence for C4: the receipts shape the fetch seat produced is the shape the counter
+reads (`status` and `userAgent` spellings, `url` naming one of the row's URLs, digests computed over the retained
+blob), so C4 has no schema surprise waiting at integration. C3's quote rule still depends on the spans the quote
+seat writes; nothing here predicts that.

@@ -1,0 +1,117 @@
+{
+ "schema": "kake-r61-c3-recheck-pins-v1",
+ "predicate": "met: conditions_passed == 6 of 6",
+ "revision": "9f07731a873585e655a6518233ea39f5d9fb8204",
+ "base": "9f07731a873585e655a6518233ea39f5d9fb8204",
+ "access_date": "2026-10-27",
+ "due_set": [
+  "S001",
+  "S002",
+  "S003",
+  "S004",
+  "S005",
+  "S006",
+  "S007",
+  "S008",
+  "S009",
+  "S010"
+ ],
+ "checks": {
+  "C1_due_set": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "oldest": "2026-10-19",
+    "ties": 16,
+    "derived": [
+     "S001",
+     "S002",
+     "S003",
+     "S004",
+     "S005",
+     "S006",
+     "S007",
+     "S008",
+     "S009",
+     "S010"
+    ],
+    "rejected_filtered": 22
+   }
+  },
+  "C2_pinned_dates": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "no due row carries a concrete ISO recheck date (0 pins: the sweep did not run)"
+   ],
+   "facts": {
+    "pinned": 0,
+    "carried": 10,
+    "pins": {}
+   }
+  },
+  "C3_gate_quotes": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "gate_lines": 0,
+    "passing_spans": {},
+    "observations": {}
+   }
+  },
+  "C4_receipt_pins": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "entries": 0
+   }
+  },
+  "C5_carry_notes": {
+   "passed": false,
+   "state": "fail",
+   "notes": [
+    "S001: unpinned due row carries no Gate note naming the observed state",
+    "S002: unpinned due row carries no Gate note naming the observed state",
+    "S003: unpinned due row carries no Gate note naming the observed state",
+    "S004: unpinned due row carries no Gate note naming the observed state",
+    "S005: unpinned due row carries no Gate note naming the observed state",
+    "S006: unpinned due row carries no Gate note naming the observed state",
+    "S007: unpinned due row carries no Gate note naming the observed state",
+    "S008: unpinned due row carries no Gate note naming the observed state",
+    "S009: unpinned due row carries no Gate note naming the observed state",
+    "S010: unpinned due row carries no Gate note naming the observed state"
+   ],
+   "facts": {
+    "carried": [
+     "S001",
+     "S002",
+     "S003",
+     "S004",
+     "S005",
+     "S006",
+     "S007",
+     "S008",
+     "S009",
+     "S010"
+    ],
+    "notes": {}
+   }
+  },
+  "C6_append_only": {
+   "passed": true,
+   "state": "pass",
+   "notes": [],
+   "facts": {
+    "base_rows": 167,
+    "rows": 167,
+    "appended": []
+   }
+  }
+ },
+ "conditions_passed": 4,
+ "exit": 1,
+ "met": false
+}

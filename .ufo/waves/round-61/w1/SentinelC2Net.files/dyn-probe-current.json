@@ -1,0 +1,388 @@
+{
+ "exit": 0,
+ "stdout": "{\n \"captures\": [\n  {\n   \"bytes\": 2097152,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:33353/big\",\n   \"headerCount\": 4,\n   \"id\": \"big\",\n   \"sha256\": \"6932fd31e5daf4739b9fa78ff777b2831b0995cc1d0b0093cac80601902013bc\",\n   \"status\": 200\n  },\n  {\n   \"bytes\": 2,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:33353/dup\",\n   \"headerCount\": 8,\n   \"id\": \"dup\",\n   \"sha256\": \"2689367b205c16ce32ed4200942b8b8b1e262dfc70d9bc9fbc77c49699a4f1df\",\n   \"status\": 200\n  },\n  {\n   \"bytes\": 0,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:33353/empty\",\n   \"headerCount\": 3,\n   \"id\": \"empty\",\n   \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n   \"status\": 204\n  },\n  {\n   \"bytes\": 0,\n   \"error\": \"blocked redirect\",\n   \"finalUrl\": \"http://127.0.0.1:33353/file\",\n   \"headerCount\": 4,\n   \"id\": \"file\",\n   \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n   \"status\": 302\n  },\n  {\n   \"bytes\": 0,\n   \"error\": \"blocked redirect\",\n   \"finalUrl\": \"http://127.0.0.1:33353/hop/5\",\n   \"headerCount\": 4,\n   \"id\": \"hop\",\n   \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n   \"status\": 302\n  },\n  {\n   \"bytes\": 0,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:33353/nope\",\n   \"headerCount\": 3,\n   \"id\": \"missing\",\n   \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n   \"status\": 404\n  },\n  {\n   \"bytes\": 2,\n   \"error\": null,\n   \"finalUrl\": \"http://127.0.0.1:33353/dup\",\n   \"headerCount\": 8,\n   \"id\": \"redir\",\n   \"sha256\": \"2689367b205c16ce32ed4200942b8b8b1e262dfc70d9bc9fbc77c49699a4f1df\",\n   \"status\": 200\n  }\n ]\n}\n",
+ "stderr": "",
+ "requests": [
+  {
+   "path": "/big",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/dup",
+   "methods": [
+    "GET",
+    "GET"
+   ]
+  },
+  {
+   "path": "/empty",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/file",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/0",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/1",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/2",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/3",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/4",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/hop/5",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/nope",
+   "methods": [
+    "GET"
+   ]
+  },
+  {
+   "path": "/redir",
+   "methods": [
+    "GET"
+   ]
+  }
+ ],
+ "receipts": {
+  "dup": {
+   "file": true,
+   "status": 200,
+   "bytes": 2,
+   "truncated": false,
+   "redirects": 0,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:19:44 GMT"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/html"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/plain"
+    },
+    {
+     "name": "Set-Cookie",
+     "value": "a=1"
+    },
+    {
+     "name": "Set-Cookie",
+     "value": "b=2"
+    },
+    {
+     "name": "X-Content-Type-Options",
+     "value": "nosniff"
+    },
+    {
+     "name": "Content-Length",
+     "value": "2"
+    }
+   ],
+   "bodyFile": "body.bin",
+   "body_len": 2,
+   "sha_match": true,
+   "sha_len_match": true
+  },
+  "redir": {
+   "file": true,
+   "status": 200,
+   "bytes": 2,
+   "truncated": false,
+   "redirects": 1,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:19:44 GMT"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/html"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/plain"
+    },
+    {
+     "name": "Set-Cookie",
+     "value": "a=1"
+    },
+    {
+     "name": "Set-Cookie",
+     "value": "b=2"
+    },
+    {
+     "name": "X-Content-Type-Options",
+     "value": "nosniff"
+    },
+    {
+     "name": "Content-Length",
+     "value": "2"
+    }
+   ],
+   "bodyFile": "body.bin",
+   "body_len": 2,
+   "sha_match": true,
+   "sha_len_match": true
+  },
+  "hop": {
+   "file": true,
+   "status": 302,
+   "bytes": 0,
+   "truncated": false,
+   "redirects": 5,
+   "error": "blocked redirect",
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:19:44 GMT"
+    },
+    {
+     "name": "Location",
+     "value": "/hop/6"
+    },
+    {
+     "name": "Content-Length",
+     "value": "0"
+    }
+   ],
+   "bodyFile": null,
+   "sha_len_match": true
+  },
+  "big": {
+   "file": true,
+   "status": 200,
+   "bytes": 2097152,
+   "truncated": true,
+   "redirects": 0,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:19:44 GMT"
+    },
+    {
+     "name": "Content-Type",
+     "value": "text/html"
+    },
+    {
+     "name": "Content-Length",
+     "value": "3145728"
+    }
+   ],
+   "bodyFile": "body.bin",
+   "body_len": 2097152,
+   "sha_match": true,
+   "sha_len_match": true
+  },
+  "empty": {
+   "file": true,
+   "status": 204,
+   "bytes": 0,
+   "truncated": false,
+   "redirects": 0,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:19:44 GMT"
+    },
+    {
+     "name": "Content-Length",
+     "value": "0"
+    }
+   ],
+   "bodyFile": null,
+   "sha_len_match": true
+  },
+  "file": {
+   "file": true,
+   "status": 302,
+   "bytes": 0,
+   "truncated": false,
+   "redirects": 0,
+   "error": "blocked redirect",
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:19:44 GMT"
+    },
+    {
+     "name": "Location",
+     "value": "file:///etc/passwd"
+    },
+    {
+     "name": "Content-Length",
+     "value": "0"
+    }
+   ],
+   "bodyFile": null,
+   "sha_len_match": true
+  },
+  "missing": {
+   "file": true,
+   "status": 404,
+   "bytes": 0,
+   "truncated": false,
+   "redirects": 0,
+   "error": null,
+   "headers": [
+    {
+     "name": "Server",
+     "value": "BaseHTTP/0.6 Python/3.14.8"
+    },
+    {
+     "name": "Date",
+     "value": "Tue, 27 Oct 2026 09:19:44 GMT"
+    },
+    {
+     "name": "Content-Length",
+     "value": "0"
+    }
+   ],
+   "bodyFile": null,
+   "sha_len_match": true
+  }
+ },
+ "request_count": 13,
+ "cookie_header_sent": false,
+ "ua_seen": [
+  "round61"
+ ],
+ "body_sent": 0,
+ "tmp_new_files": [],
+ "stray_in_lane": [
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/__pycache__/receipt_lineage.cpython-314.pyc",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/response_snapshot.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/header_audit.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/receipt_lineage.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/compute_pins.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/pins.tsv",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/pin_replacements.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/gate_notes.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/pin_cells.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/anchor_probe.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/anchor_probe.tsv",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.files/proposed_rows.tsv",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Manifest.files/audit.out",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Manifest.files/audit2.out",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Disclose.files/receipt-disclosures.snapshot.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/rows.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/census-exit1-stdout.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/census-exit1.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/rows-append.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/base-SOURCES.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/registry-diff.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/quote-check.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.files/census-stub-exit0-stdout.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeSearchLog.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScoutC3Rows.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Manifest.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Fetch.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1History.files/events.tsv",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1History.files/walk_lineage.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1History.files/disclosure-candidates.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1History.files/population-split.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Capture.files/capture-summary.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Capture.files/evidence.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Capture.files/run.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeLessonMistakes.files/span_probe.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeLessonMistakes.files/multitouch.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeLessonMistakes.files/units_probe.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeLessonMistakes.files/units_probe.out.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeLessonMistakes.files/span_probe.out.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeLessonMistakes.files/lesson.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Entry.files/entry.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Entry.files/spans.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Entry.files/spans-map.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Entry.files/quote_check.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Counter.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2HeaderRecon.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeC2Rows.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2HeaderRecon.files/census.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2HeaderRecon.files/predict.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2HeaderRecon.files/census.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2HeaderRecon.files/predict.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2HeaderRecon.files/audit.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2HeaderRecon.files/audit.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2HeaderRecon.files/toolrev.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Audit2.files/header_audit.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Audit2.files/evidence.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Capture.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC3Pins.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScribeLessonMistakes.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1History.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC2Audit2.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ScoutOperatorLessons.md",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/SentinelC1Bounds.files/recon_lineage.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/SentinelC1Bounds.files/evidence.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Tool2.files/receipt_lineage.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Tool.files/base-run.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Tool.files/base-run-disclosed.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Tool.files/base-run.json",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/w1/ExecC1Tool.files/selftest.txt",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/c61_header_cases.py",
+  "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/receipt-disclosures.json"
+ ]
+}

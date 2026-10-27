@@ -1,0 +1,63 @@
+== sniff.py over fixtures + lane ==
+FIXTURE  (c61-L2-s101-5eups68n)
+  root_entries: 1 entries: ['.ufo']
+  n_commits: 2
+  authors: ['selftest']
+FIXTURE  (c61-L2-s202-79ksgddj)
+  root_entries: 1 entries: ['.ufo']
+  n_commits: 2
+  authors: ['selftest']
+FIXTURE  (c61-L3-s303-ratgsjmt)
+  root_entries: 1 entries: ['.ufo']
+  n_commits: 2
+  authors: ['selftest']
+REAL-LANE?  (/home/vgpnk/Projects/shokunin/kake-shokunin)
+  root_entries: 13 entries: ['.gitignore', '.ufo', 'AGENTS.md', 'LOG.md', 'PROVINCE.md', 'README.md', 'SCORECARD.md', 'SHONEN.md', 'SKILL.md', 'considerthese', 'corpus', 'plans', 'scripts']
+  n_commits: 374
+  authors: ['Joao Pedro Veiga', 'João Pedro Veiga', 'VeigaPunk', 'aggregator-shokunin', 'ci', 'kake-shokunin', 'protocol-shokunin', 'shokunin']
+  date_span: ('2026-09-28', '2026-10-27')
+  has_population_list: False
+  has_SKILL.md: True
+  n_refs: 1358
+
+== skeleton.py across seeds ==
+c61-L2-s101-5eups68n
+  n_commits: 2 n_files: 1
+  span hits: [('receipt-929.', ['# receipt:', 'revision:']), ('receipt-929.', ['# receipt:', 'revision:'])]
+  SKELETON-KEY: [2, 1, [false]]
+c61-L2-s202-79ksgddj
+  n_commits: 2 n_files: 1
+  span hits: [('receipt-177.', ['# receipt:', 'revision:']), ('receipt-177.', ['# receipt:', 'revision:'])]
+  SKELETON-KEY: [2, 1, [false]]
+
+== case_twist.py ==
+clean entry (L3 shape)         strict_equal=True  case_insensitive=True
+path dir case-twisted          strict_equal=False  case_insensitive=True
+path Controls-twisted          strict_equal=False  case_insensitive=True
+commit hex upper-cased         strict_equal=False  case_insensitive=True
+path + commit both twisted     strict_equal=False  case_insensitive=True
+
+All five entries name the SAME real rewrite event.
+No frozen L-fixture feeds a twisted entry, so a case-insensitive tool
+still scores 18/18 while silently covering twisted disclosures -> hole.
+
+== worktree_vs_committed.sh ==
+repo: /fast/scratch/hyaku/kake-r61/CriticC1Cheat/demo/tmp.6Smxg6jCsN
+base=14944b73b29798b639c4769563ab1b0ec3ef1ef3
+head=76f266752f225851e73eadeed54d67b46529334a
+--- committed bytes at HEAD (cat-file) ---
+# receipt: r90
+revision: r90-2
+--- worktree bytes (cat) ---
+# receipt: r90
+revision: r90-3-UNCOMMITTED
+--- a counter reading worktree sees r90-3 (a rewrite event that does NOT exist in history) ---
+--- a counter reading committed bytes at base sees the file absent entirely ---
+
+== poplist_demo.py ==
+fixture: /fast/scratch/hyaku/kake-r61/CriticC1Cheat/demo/c61-poplist-n2_w_w4f
+base population : ['.ufo/waves/r91/controls/receipt-a.txt', '.ufo/waves/r92/controls/receipt-b.txt']
+measured pop tree: ['.ufo/waves/r91/controls/receipt-a.txt', '.ufo/waves/r92/controls/receipt-b.txt', '.ufo/waves/r93/controls/receipt-c.txt']
+
+strategy A (frozen base list) : member_changed=['.ufo/waves/r91/controls/receipt-a.txt'] extra_member=['.ufo/waves/r93/controls/receipt-c.txt']  -> L10=1, L11=1  PASS
+strategy B (measured-rev list): member_changed=[] extra_member=[] -> L10=0, L11=0  FAIL both cases

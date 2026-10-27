@@ -1,0 +1,65 @@
+{
+ "cross_host_redirect": {
+  "exit": 0,
+  "hits": [
+   [
+    "public",
+    "/to-localhost",
+    "127.0.0.1:40655"
+   ],
+   [
+    "private",
+    "/secret",
+    "localhost:33013"
+   ]
+  ],
+  "status": 200,
+  "finalUrl": "http://localhost:33013/secret",
+  "redirects": [
+   {
+    "from": "http://127.0.0.1:40655/to-localhost",
+    "status": 302,
+    "to": "http://localhost:33013/secret"
+   }
+  ],
+  "recorded_internal_body": "INTERNAL-ADMIN-PANEL",
+  "recorded_internal_header": [
+   {
+    "name": "X-Internal-Token",
+    "value": "shh-abc"
+   }
+  ],
+  "error": null,
+  "url": "http://127.0.0.1:40655/to-localhost"
+ },
+ "userinfo_url": {
+  "exit": 2,
+  "stdout": "{\"error\": \"bad: url must be http(s) with a host and no userinfo\"}"
+ },
+ "file_scheme": {
+  "exit": 2
+ },
+ "missing_population": {
+  "exit": 2
+ },
+ "unsafe_id": {
+  "exit": 2
+ },
+ "hits_after_input_tests": [
+  [
+   "public",
+   "/x",
+   "127.0.0.1:40655"
+  ]
+ ],
+ "usage_exit": 64,
+ "stall": {
+  "exit": 0,
+  "seconds": 20.1,
+  "status": 200,
+  "error": "TimeoutError: timed out",
+  "bytes": 0,
+  "truncated": false,
+  "headers_kept": 4
+ }
+}
