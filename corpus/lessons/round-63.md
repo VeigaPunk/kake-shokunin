@@ -141,12 +141,13 @@ S432-derived calibration claim and the quote-class capability row.
 
 Settlement correction (recorded after the results handoff arrived): all 64
 seats settled per the orchestrator's `WAVE-DONE` and
-`.ufo/waves/round-63/w1-results.json`. 63 scoped report files are present;
-`ExecLedgerMutation` delivered its full findings through the results handoff
-instead of a report file — integrated here rather than treated as silent: it
-killed four of five ledger single-field mutants (wrong textSha256, wrong
-rawSha256, swapped class, straight-apostrophe quote) and found one survivor,
-M5 (`locatedRawLines` changed to 6150–6156 stays green), matching the
-forged-location variant J of `ReviewerFalseGreenDead`: the counter records
-the located lines in the ledger but never checks them. Routed to round 64
-with the recipe above (bind located-lines against the retained raw bytes).
+`.ufo/waves/round-63/w1-results.json`. All 64 scoped report files are now
+present: `ExecLedgerMutation.md` landed late (post-settlement) and is
+committed with the wave evidence; its findings had already been integrated
+from the results handoff — 4 of 5 ledger single-field mutants killed (wrong
+textSha256, wrong rawSha256, swapped class, straight-apostrophe quote) and
+one survivor, M5 (`locatedRawLines` changed to 6150–6156 stays green),
+matching the forged-location variant J of `ReviewerFalseGreenDead`: the
+counter records the located lines in the ledger but never checks them.
+Routed to round 64 with the recipe above (bind located-lines against the
+retained raw bytes).
