@@ -1,0 +1,33 @@
+# ReviewerC2Counter — adversarial C2 counter review
+
+## Findings
+
+**High — a fabricated selftest passes without implementing classification.** The counter at `.ufo/waves/round-63/c63_quote_tool.py:56-58, 68-88` executes whatever committed blob is at `scripts/quote_class.py`, parses that process's stdout, and derives every green condition from the tool's own JSON. It does not hash the tool blob against the contract's frozen SHA-256, independently classify a quote, verify the case-array cardinality/counts, or require the tool to read the corpus. In a throwaway git repo, I committed a script that only printed canned JSON for the four frozen IDs (all `passed: true`, identical `derived`/`expected`, `total=passed=4`, `ok=true`); it performed no classification or file reads. The counter printed `revision=HEAD present=1 selftest=4/4 frozen_cases=ok met=true`, exit 0. Thus the frozen-case-ID check rejects an incomplete stub, but does not reject a deceptive stub; the docstring's claim that `s432_real` is bound to retained blobs is enforced by the frozen tool's implementation, not by this counter.
+
+The counter also accepts semantically nonsensical but matching fields: a second stub emitted `derived="x"`, `expected="x"` for every ID and JSON string `"ok":"false"`, while claiming 4/4; it still printed `met=true`, exit 0. At `:76-80`, `derived == expected` compares two tool-supplied values. At `:84-85`, `result.get("ok")` is truthiness-tested (so nonempty string `"false"` is true), while `total` and `passed` are also tool-supplied and not reconciled with `len(cases)` or the number of passing case entries. The dict comprehension at `:76` silently keeps the last duplicate ID. These are manifestations of the same trust gap, not independent evidence of classification.
+
+The frozen tool itself is genuine: `scripts/quote_class.py:32-37` classifies by substring membership in raw HTML then extracted text; `:76-100` reads each case's files, computes `derived`, compares it to the expected result, and computes totals. The `s432_real` case is declared at `:65-72` and reads the retained S432 HTML and text paths via `LANE_ROOT = Path.cwd()` (`:24`, `:79-86`). Direct probes against that pair returned `derived=collapsed-only` for the full quote, `raw-substring` for `X-Content-Type-Options`, and `absent` for an unrelated quote. The frozen tool's digest matches the contract; the measured-revision blob has that same digest. Accordingly, the actual measured tool is substantive; the high finding is that the counter does not independently establish that property for an arbitrary committed replacement.
+
+## Positive controls and residual risk
+
+- A canned stub omitting `s432_real` was rejected: `present=1 selftest=3/3 frozen_cases=missing met=false`, exit 1. The counter's intended missing-ID defense works.
+- Real counter reproduction: measured revision `05b0d7f4b4a23513390f7b92547e2b0f1fccb06f` printed `present=1 selftest=4/4 frozen_cases=ok met=true`, exit 0; base `13d4519818db28cd0aa912e49020659140d7b9fa` printed `present=0 selftest=unevaluable met=false`, exit 1.
+- JSON parse failure and nonzero tool exit are rejected before green (`:68-74`). A non-object top-level JSON value instead raises `AttributeError` at `:76`, exits 1, and omits the `met=false` line; this fails closed on exit status but does not produce the advertised receipt shape.
+- The tool blob is loaded from the requested committed revision (`:56`) but its selftest reads fixtures/corpus from the invoking cwd, not from that revision (`quote_class.py:24,79,84-85`). The canonical run used the lane root; its relevant tool bytes match the measured revision. A different checkout/worktree could therefore supply different inputs for the same requested revision.
+
+## Evidence and commands
+
+All paths below are under `/home/vgpnk/Projects/shokunin/kake-shokunin` unless otherwise stated.
+
+- Read `/.ufo/waves/round-63/contract.md` (C2 predicate, frozen tool/counter digests, missing-ID stub defense, kill rule) and `/.ufo/waves/round-63/c63_quote_tool.py` (counter logic, especially lines 56-88).
+- Read `/scripts/quote_class.py:24-25,32-37,40-73,76-100,103-147` (cwd binding, classification, frozen cases, reads and computed results).
+- `sha256sum .ufo/waves/round-63/c63_quote_tool.py .ufo/waves/round-63/c63_calibration.py .ufo/waves/round-63/quote-class/quote-classes.json scripts/quote_class.py` → respectively `9fcbfad06fe6abed2b23556894879491204a1ef4d2b9f3cf194a9a3aeaa7f01e`, `bcd16f680da2594040a897803ddefa82ff13679ebe458dd6f6ff6c957ea3fc91`, `5f48e26be27975ee55702cac1e1b20b61f3bd5906910c865f5192bd7e010c42d`, `431e75e8fee2c913c6fa74aebbf7cb2e678f139a1a37b3d38994d1bb22841f14`. `git show 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f:scripts/quote_class.py | sha256sum` → the same tool digest. Base `git show ...:scripts/quote_class.py` reports the path absent.
+- Canonical commands, run from the lane root:
+  - `python3 -B .ufo/waves/round-63/c63_quote_tool.py --root . --revision 05b0d7f4b4a23513390f7b92547e2b0f1fccb06f` → `revision=05b0d7f4b4a23513390f7b92547e2b0f1fccb06f present=1 selftest=4/4 frozen_cases=ok met=true`, exit 0.
+  - `python3 -B .ufo/waves/round-63/c63_quote_tool.py --root . --revision 13d4519818db28cd0aa912e49020659140d7b9fa` → `revision=13d4519818db28cd0aa912e49020659140d7b9fa present=0 selftest=unevaluable met=false`, exit 1.
+- Stub probes were built only under `/fast/scratch/hyaku/kake-r63/ReviewerC2Counter-2/`; each fixture's git top-level was checked before its commit, with throwaway local identity. The scratch directory was removed after the probes. The fabricated four-ID stub and the `ok="false"` / `derived="x"` stub each returned `met=true`, exit 0; the three-ID stub returned `frozen_cases=missing met=false`, exit 1. A top-level JSON list crashed with `AttributeError`, exit 1, and no met line.
+- `grep` was the fallback for reference search; no `lsp` device was available in the mounted tool inventory, so no LSP semantic references/diagnostics were obtained.
+
+## Assessment
+
+The measured C2 predicate is reproducible and the pinned tool performs real classification. However, the counter alone admits an arbitrary JSON-fabricating replacement, so its green result is not proof of implementation unless the separate frozen-tool digest/source audit is part of the acceptance evidence. This is an actionable counter weakness under the stated question and the contract's stub kill rule; no changes were made to the frozen counter, tool, receipts, or controls.
