@@ -63,5 +63,13 @@
   "freshness": 10,
   "calibration": 2
  },
- "receipt_rule": "committed once after the run it records, never rewritten; re-run lands under a new name; first line '# receipt: <name>'; no placeholder receipts"
+ "receipt_rule": "committed once after the run it records, never rewritten; re-run lands under a new name; first line '# receipt: <name>'; no placeholder receipts",
+ "amendments": [
+  {
+   "id": "A1",
+   "raised-by": "w1/ExecC1Tool",
+   "change": "R2 expected receipts=95 (grammar-matched receipts), not 144 (population); population asserted via frozen list; EXIT= unanchored; whole-line result-span sets; pending over whole first version; disclosure match on (path,commit)",
+   "predicate_unchanged": true
+  }
+ ]
 }

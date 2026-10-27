@@ -256,3 +256,20 @@ read with reasons not taken this round.
 ## SHONEN.md
 
 All four boxes stay `[~]` (lane-asserted with resolvable pointers); promotion is operator-owned (R60-D6).
+
+## Amendments before any data (counters not yet frozen; no seat has scored an after-state)
+
+- **A1 (2026-10-27, during w1; raised by `w1/ExecC1Tool`, reconciled with `w1/ExecC1Disclose`):** the frozen receipt
+  grammar matches 95 of the 144 population files' first committed versions — the other 49 (round-37/40/48 JSON
+  fixtures and similar) carry no receipt-grammar line and are population files but not receipts. R2's expected value
+  therefore reads `receipts=95 events=12 undisclosed=0 met=True`, exit 0, at the measured revision (at base, with no
+  disclosures file, the same run prints `undisclosed=12`, exit 1); `population=144` is separately asserted through the
+  frozen path list (`member_changed`/`extra_member`), and the tool's `--json` reports both numbers. Disambiguations
+  confirmed as intended semantics (no predicate change): `EXIT=` in the receipt grammar is unanchored (anywhere in the
+  first version, so `.ufo/waves/round-52/control/c1-mutation-ladder.json` is a receipt and its three re-pin events
+  count); the result span is compared as a set of whole lines; the pending marker is tested over the whole first
+  version (the round-57 `after-c1-receipt-pins.txt` fill at `20217f23` is kind `pending_filled`, not `rewrite`);
+  disclosure matching uses (path, commit) only, never kind, so no entry becomes a phantom through kind choice.
+
+No predicate sentence changed: C1 `met: cases_passed == 18 of 18 AND scores_held == 3`, C2 `met: cases_passed ==
+18 of 18`, C3 `met: conditions_passed == 6 of 6`.
