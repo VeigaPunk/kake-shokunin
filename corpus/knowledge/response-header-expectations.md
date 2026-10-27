@@ -219,3 +219,32 @@ whether a serving stack would keep the same fields on the next request.
 
 [r62-correction 2026-10-27] The round-61 non-author spot-check records that the admitted S432 span “Web developers and conformance checkers must use the following” is a generic lead-in, not evidence for a response-header expectation (`corpus/lessons/round-61-verifier-spotcheck.md:33`). The earlier fragment “can be used to require checking of a” ends before its object. The retained §3.6 sentence at `.ufo/waves/round-61/sources/S432.html:6150–6156` contains the field-purpose proposition across inline markup, but that rendered sentence is not a raw substring of the retained HTML. Existing `corpus/QUALITY.md` quote rules require raw-substring evidence. This round therefore does not substitute a normalized cross-markup quote or claim the knowledge citation is corrected; the S432 disagreement remains open. The row stays mined for the field's separately supported value rule; no registry cell changed.
 
+## Round-63 correction — S432 field-purpose span admitted as collapsed-only
+
+[r63-correction 2026-10-27] The round-62 held correction above resolves this
+round. The field-purpose sentence of WHATWG Fetch §3.6 — retained body
+`.ufo/waves/round-61/sources/S432.html` raw lines 6150–6154 — is quoted here in
+its located rendering and classed by derivation from its two retained blobs,
+under the round-50 quote-class rule (`corpus/QUALITY.md`):
+
+> "The `X-Content-Type-Options` response header can be used to require checking of a response’s `Content-Type` header against the destination of a request."
+
+The span is a substring of the committed flat-text rendering
+`.ufo/waves/round-63/quote-class/S432.txt` (sha256
+`8b90d096d2653ce57025e25c5bee5c63df66692e15ef8579371032da6f542a69`) and not of
+the retained HTML (sha256
+`63b0a018753c330adf1e40417524eb70ea02d4d3e123bcb39b6770f23bad911b`), so its
+derived class is `collapsed-only` — never described as a raw substring. The
+class, both blob digests and the extraction recipe
+(`.ufo/waves/round-63/quote-class/extract_text.py`, textContent semantics) are
+recorded in `.ufo/waves/round-63/quote-class/quote-classes.json`; the class is
+re-derived by the lane tool `scripts/quote_class.py` (selftest 4/4, real case
+`s432_real`). This span substantively states the proposition the
+`xcto_nosniff_value` section attributes to S432 (a field-purpose statement,
+kept separate from the `nosniff`-only value rule per the round-62 criterion).
+The two earlier spans quoted in that section — the fragment ending before its
+object and the generic lead-in — remain historical text and ground nothing.
+The source was re-opened live this round: one GET of
+https://fetch.spec.whatwg.org/ on 2026-10-27 returned a body byte-identical
+(sha256 `63b0a018…911b`) to the round-61 retained body. No registry cell
+changed; the S432 row stays `mined` with its existing scope.

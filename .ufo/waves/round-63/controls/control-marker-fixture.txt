@@ -1,0 +1,8 @@
+# receipt: marker-only false-green control (round-62 routed-defect fixture, corpus copied byte-exact from committed .ufo/waves/round-62/controls/false-green-fixture/corpus)
+# fixture: scratch git repo, top-level verified, rev 7833be888760bc7878857aa39362792b02e3ab07
+$ python3 -B .ufo/waves/round-62/c62_calibration.py --root <fixture> --revision <rev>  # old counter, family defect
+revision=7833be888760bc7878857aa39362792b02e3ab07 disagreements=1 unresolved=0 quote_correction=1 criterion=1 lesson_gate=1 source_row=1 met=true
+exit=0
+$ python3 -B .ufo/waves/round-63/c63_calibration.py --root <fixture> --revision <rev>  # repaired counter
+revision=7833be888760bc7878857aa39362792b02e3ab07 disagreements=1 quote_correction=0 blobs_match=0 derived=unevaluable class_match=0 criterion=0 lesson_gate=0 source_row=1 unresolved=1 met=false
+exit=1
