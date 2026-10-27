@@ -67,3 +67,73 @@ author-side; the non-author closure of round 63 decides agreement.
 ## Sources census
 
 Round-start census: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` → 171 rows, 16 W04 cross-scope duplicate-URL warnings, exit 0 (recorded 2026-10-27 before any registry edit). No `corpus/SOURCES.md` row was added or changed this round. The round-end census output is pasted in the round report.
+
+## Wave settlement (w1, 64 seats)
+
+Role mix: scout 10, executor 15, scribe 8, reviewer 15, critic 6,
+mutation-tester 5, connector 2, sentinel 1, simplifier 1, revenger 1; attack
+share 26/64 = 40.6%; L1 held the canonical §3 planner seat (orchestrator
+ruling: planner is a frozen-topology seat, never a swarm role). Seat reports
+land under `.ufo/waves/round-63/w1/`; dead seats (no report at settlement)
+are named in the round report, not invented.
+
+**Falsifications that decide the round's verdicts:**
+
+1. `ReviewerC1Semantics`, `RevengerC62Defect` and `ReviewerFalseGreenDead`
+   independently greened `c63_calibration.py` on trees whose corpus prose is
+   planted markers — with the real retained blobs copied in, every component
+   of `resolved` printed 1 with semantically empty evidence files. The
+   prose components (`correction` context, `criterion`, `lesson_gate`,
+   `source_row`) remain substring checks, and `disagreements` is masked
+   (`unresolved = disagreements if not resolved else 0`) — the same
+   structural shape that falsified c62.
+2. `CriticClaims` built the §9 do-nothing control: the round-62 tree plus
+   five small files (a 155-byte text blob that is the frozen quote alone, a
+   digest-self-consistent ledger, a marker lesson, a correction append, a
+   canned-JSON stub tool) prints `met=true` on BOTH frozen counters,
+   component-identical to the committed after receipts. The C1 class
+   derivation is circular as frozen: the round authors both the text blob
+   and the ledger, so `blobs_match` certifies consistency with self-authored
+   artifacts, not with the retained source.
+3. `ExecFrozenSha` §4, `ExecDoNothingControl` and `ReviewerC2Counter` showed a
+   canned-JSON stub (four frozen ids, `derived == expected`, reads no bytes)
+   passes `c63_quote_tool.py` — the counter validates self-report shape, not
+   derivation. `ExecC2CounterAttack` additionally found adversarial JSON
+   produces an uncaught traceback (a crash, not a rejection, per the
+   round-24 criterion).
+4. `ReviewerContractKill` catalogued kill-rule gaps (frozen shas not wired
+   into the kill rules; no wave-attack clause on C2; no no-harm consequence).
+
+**What survived:** the round-62 routed marker-only false green is dead under
+c63 (independently reproduced: old c62 `met=true`, new c63 `met=false` on the
+committed fixture corpus); every c63 green tree must contain the byte-exact
+adjudicated span in a genuine `collapsed-only` relationship with the retained
+HTML; the S432 correction, class ledger, recipe and tool are independently
+re-derived by `ExecExtractorRepro`, `ScoutLedgerIntegrity`, `ExecFrozenSha`
+and `MutTool`; the freeze rule was followed (`ReviewerFreezeRule`); no
+exploratory smuggling (`CriticExploratory`); the freeze-note sha change is
+exactly one line (`ExecFrozenSha` §2); kake uniquely owns this ground
+(`ConnSiblingOverlap`); the §2b sourced-claim duty is met by the S432 re-open
+precedent (`CriticSourcedClaim`); append-only discipline holds
+(`ScoutAppendOnly`, `ReviewerAppendOnly`).
+
+**Verdicts recorded:** C1 and C2 both land `unprovable` as frozen — C1 by its
+kill rule's wave-attack clause (marker-only/prose-marker greens reproduced;
+the routed defect's semantics-binding standard is not met by the frozen
+counter), C2 by its kill rule ("a stub tool passes") plus §9 do-nothing
+reachability. The measured-commit greens are genuine (sha-pinned artifacts,
+pristine-checkout reproduced, receipt lines matched character-for-character),
+so the round's real work stands as bounded evidence; the frozen predicates do
+not verify. Scores hold 10/10/2; no axis is observed harmed.
+
+**Routed to round 64 (repair recipe, from `CriticClaims` corrections 1–2,
+`ReviewerFalseGreenDead`, `ReviewerContractKill`, `CriticQuoteClass`):**
+pin the ledger and both blob sha256s as constants in the counter; re-execute
+`extract_text.py` against the raw blob inside the counter (kills the circular
+text blob); gate on `disagreements`/`unresolved` instead of masking them;
+wire the frozen shas into the kill rules ("sha differs ⇒ unprovable"); bind
+the prose components to block-level evidence (e.g. the lesson Gate must quote
+the spot-check's actual verdict line); guard the C2 counter's JSON parsing
+and pin the tool's selftest fixtures to the measured revision; define "stub"
+as "tool sha ≠ frozen sha". A future round that lands these may re-enter the
+S432-derived calibration claim and the quote-class capability row.

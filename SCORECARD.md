@@ -4529,3 +4529,35 @@ Base control: `python3 -B .ufo/waves/round-62/c62_calibration.py --root . --revi
 
 The observed artifact correction is narrower than a corpus-wide calibration
 claim. The counter and predicate remain frozen; no counter repair is inferred.
+
+## Round 63 — declared claims, honest-stop verdicts
+
+Contract `.ufo/waves/round-63/contract.md`; base
+`13d4519818db28cd0aa912e49020659140d7b9fa` (round-62 tip); measured commit
+`05b0d7f4b4a23513390f7b92547e2b0f1fccb06f`. Two claims: C1 calibration
+(lowest owned non-retired axis, score 2) implementing round-62 routed defect
+1; C2 operability (HOLD 10) landing the quote-class tool. The 64-seat wave
+falsified both frozen counters' sufficiency; both claims land `unprovable`
+by their own frozen kill rules. Scores remain operability 10, freshness 10,
+calibration 2 — no numeric delta, no calibration credit, no capability row.
+No owned axis is observed harmed.
+
+| Claim | Axis / delta | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 semantics-binding counter family repair + S432 disagreement resolution | calibration 2→2 (HOLD) | base `13d45198`: `disagreements=1 quote_correction=0 blobs_match=0 derived=unevaluable class_match=0 criterion=1 lesson_gate=0 source_row=1 unresolved=1 met=false`, exit 1 → measured `05b0d7f4`: `disagreements=1 quote_correction=1 blobs_match=1 derived=collapsed-only class_match=1 criterion=1 lesson_gate=1 source_row=1 unresolved=0 met=true`, exit 0 (receipts genuine: sha-pinned, pristine-checkout reproduced) | `python3 -B .ufo/waves/round-63/c63_calibration.py --root . --revision <commit>` (frozen sha256 `bcd16f680da2594040a897803ddefa82ff13679ebe458dd6f6ff6c957ea3fc91`) | unprovable (honest stop): the wave reproduced marker-prose greens (`ReviewerC1Semantics`, `RevengerC62Defect`, `ReviewerFalseGreenDead`) and the §9 do-nothing control (`CriticClaims`, fixture `09cd73d5…`, component-identical `met=true` from the round-62 tree plus ≈2.4 KB of trivia, circular text-blob/ledger); the routed defect's semantics-binding standard is not met by the frozen counter; the round-62 ban on calibration greens from this counter family stands |
+| C2 quote-class tool lands and runs | operability 10→10 (HOLD) | base: `present=0 selftest=unevaluable met=false`, exit 1 → measured: `present=1 selftest=4/4 frozen_cases=ok met=true`, exit 0 | `python3 -B .ufo/waves/round-63/c63_quote_tool.py --root . --revision <commit>` (counter frozen sha256 `9fcbfad06fe6abed2b23556894879491204a1ef4d2b9f3cf194a9a3aeaa7f01e`) | unprovable as frozen (honest stop): the kill rule's "a stub tool passes" fired — a canned-JSON stub reaches the full target line (`ExecFrozenSha` §4b, `ExecDoNothingControl`, `ReviewerC2Counter`); §9 do-nothing reachability demonstrated (`CriticClaims` counterexample 2). The measured tool itself is genuine (sha-pinned, independently re-derived, `selftest 4/4`) and the demonstration is recorded as bounded evidence; the capability row is not entered this round |
+
+Calibration axis evidence note: this round's move is the routed-defect repair
+attempt with its falsification precisely recorded; the axis row keeps its
+round-58/62 evidence. The S432 citation itself is resolved with a
+derived-class span (`corpus/knowledge/response-header-expectations.md`
+round-63 block; ledger `.ufo/waves/round-63/quote-class/quote-classes.json`)
+— that correction is semantic evidence, judged by the non-author closure,
+independent of the counter family's status.
+
+Round-63 addendum criteria and the wave settlement are recorded in
+`corpus/QUALITY.md` (Round-63 addendum) and `corpus/lessons/round-63.md`
+(§Wave settlement), including the round-64 repair recipe (pin digests as
+constants, re-execute the recipe in-counter, gate disagreements, wire frozen
+shas into kill rules, bind prose components block-level, guard C2 JSON,
+pin selftest fixtures to the revision).
