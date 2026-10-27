@@ -1,0 +1,177 @@
+{
+ "schema": "kake-r58-receipt-rewrites-v1",
+ "note": "Every post-commit change (M, D, re-add or rename target) to a file under .ufo/waves/round-N/control(s)/ on the first-parent line of the lane, with the blob ids git shows. `kind` is the byte-level class c58_receipt_rewrites.py v2 computes (pin-only = only revision pins changed; content = anything else; pending-fill = a pending placeholder filled); whether a run happened is stated in `note`, from the commit message, LOG.md and the round's settlement/report, by seats ScribeLedgerR52, ScribeLedgerR54, ScribeLedgerR55to57 (w1/). The six relabels .ufo/waves/round-57/receipt-errata.json disclosed are included here with the same commits and blobs.",
+ "events": [
+  {
+   "path": ".ufo/waves/round-52/control/c1-mutation-ladder.json",
+   "commit": "1ae8de5d4dee8300624b0db2a94497ff905942c5",
+   "status": "M",
+   "fromBlob": "69a045918a98b0a19abcc068eda6063083976afa",
+   "toBlob": "9a95330d6e14f1db5daa7d03102fd626c92f3cc2",
+   "kind": "pin-only",
+   "note": "Re-run of .ufo/waves/round-52/c52_mutation_ladder.py at the freeze commit rebuilt all 18 sandbox fixtures, so 18 of 19 old_tail fixture revisions moved while families_caught stayed 13 and pass_fixture_agrees stayed true (receipt .ufo/waves/round-52/control/c1-mutation-ladder.txt)."
+  },
+  {
+   "path": ".ufo/waves/round-52/control/c1-ledger-real.txt",
+   "commit": "a4a890cf1381a194891689dcbba0bf524350926b",
+   "status": "M",
+   "fromBlob": "bd10242546748d4b53c1e0320ae9224fab726c95",
+   "toBlob": "ce0e0394aef9e93454373799d4c36cf05b5208f3",
+   "kind": "pin-only",
+   "note": "C1 ledger re-run at 1ae8de5d after the freeze commit: L1-L3 still PASS and only the printed revision line moved 3a50ae43 to 1ae8de5d, as the message of a4a890cf1381a194891689dcbba0bf524350926b states ('C1/C2 receipts re-run at 1ae8de5'); receipt kept at .ufo/waves/round-52/control/c1-ledger-real.txt."
+  },
+  {
+   "path": ".ufo/waves/round-52/control/c1-mutation-ladder.json",
+   "commit": "a4a890cf1381a194891689dcbba0bf524350926b",
+   "status": "M",
+   "fromBlob": "9a95330d6e14f1db5daa7d03102fd626c92f3cc2",
+   "toBlob": "23252321f30d92a90dd85351e2057833e6388350",
+   "kind": "pin-only",
+   "note": "Second ladder re-run recorded by a4a890cf1381a194891689dcbba0bf524350926b: the 18 throwaway fixture revisions churned again with the tally fixed at 13 of 18 in .ufo/waves/round-52/control/c1-mutation-ladder.json and .ufo/waves/round-52/c52_mutation_ladder.py unchanged."
+  },
+  {
+   "path": ".ufo/waves/round-52/control/c2-quote-real.txt",
+   "commit": "a4a890cf1381a194891689dcbba0bf524350926b",
+   "status": "M",
+   "fromBlob": "a7b5d69484beceed9cecf2cb19a38e4fd65a6f53",
+   "toBlob": "aee2e7d949ce6074f6da105dfc25aa0ac248cf50",
+   "kind": "pin-only",
+   "note": "Quote-truth re-run at 1ae8de5d: all eight conditions PASS before and after and only the revision line changed, per the message of a4a890cf1381a194891689dcbba0bf524350926b and the receipt .ufo/waves/round-52/control/c2-quote-real.txt."
+  },
+  {
+   "path": ".ufo/waves/round-52/control/c2-quote-selftest.txt",
+   "commit": "a4a890cf1381a194891689dcbba0bf524350926b",
+   "status": "M",
+   "fromBlob": "ad318495b0b7ca4ef3ee62789d09189b0d79402b",
+   "toBlob": "907047dd6ed29914b2d84c8ca2c6fac1db1cab8d",
+   "kind": "pin-only",
+   "note": "Quote-truth selftest re-ran with its evidence revision taken from HEAD (no KAKE_R52_SELFTEST_REV pin existed then, as LOG.md records the pin being added at round 56), printing 18 of 18 against 1ae8de5d in .ufo/waves/round-52/control/c2-quote-selftest.txt."
+  },
+  {
+   "path": ".ufo/waves/round-52/control/c1-mutation-ladder.json",
+   "commit": "fd91527a286086c1f4e6d4f44f715a907f041b5d",
+   "status": "M",
+   "fromBlob": "23252321f30d92a90dd85351e2057833e6388350",
+   "toBlob": "d13c735262629ce56ceb89c247c6567f0dc786bc",
+   "kind": "pin-only",
+   "note": "A dirty post-re-run ladder receipt was committed with the round-53 evidence set at fd91527a286086c1f4e6d4f44f715a907f041b5d and the lane later names its throwaway revision strings nondeterministic in corpus/lessons/round-53.md item 8."
+  },
+  {
+   "path": ".ufo/waves/round-54/controls/c1-selftest.txt",
+   "commit": "8e408e00fbe1c5908df62ba79e78c944bda479e2",
+   "status": "M",
+   "fromBlob": "812bc1caf3d24212e03e89ff2b4801eadba83b19",
+   "toBlob": "3f66acc2a744bc06653d57dd563bbbba56d5d175",
+   "kind": "content",
+   "note": "Selftest re-run after c54_s374_calib.py gained the correction_wrong_polarity and correction_before_render cases, moving the receipt from 5 to 7 ok lines with EXIT=0; the rerun is stated only generically at LOG.md:2138-2145."
+  },
+  {
+   "path": ".ufo/waves/round-54/controls/base-c1-s374.txt",
+   "commit": "a0a4fd482700110600b0327c2fce1a270b272136",
+   "status": "M",
+   "fromBlob": "f4cf6d5e334fb437dc3c9c69e8b58db706c78c04",
+   "toBlob": "661b6bd740b08d42734dd8c1b4bd1b0a21cfe407",
+   "kind": "content",
+   "note": "Base control re-run at the unchanged base revision 68228b2d after c54_s374_calib.py reworded its FAIL line and added base_render_count=1 to the PASS line, leaving the verdict lines mismatches=1 met=False unchanged; disclosed generically at LOG.md:2138-2145."
+  },
+  {
+   "path": ".ufo/waves/round-54/controls/base-c2-ops-debt.txt",
+   "commit": "a0a4fd482700110600b0327c2fce1a270b272136",
+   "status": "M",
+   "fromBlob": "559bf9ba22ab5fee698afc3897d0e013feb5aa11",
+   "toBlob": "67a6902af5d611155cc6d8fdcbdcc94a031ebdc7",
+   "kind": "content",
+   "note": "Base control re-run at the unchanged base revision 68228b2d after c54_ops_debt.py widened cited-name extraction to parenthesised and spec-listed names, raising uncovered from 4 to 7 and adding CriticLocators.md, ScoutS312.md and ScribeGate.md; disclosed generically at LOG.md:2138-2145."
+  },
+  {
+   "path": ".ufo/waves/round-54/controls/c1-selftest.txt",
+   "commit": "a631cc0246b97f2a949d61186c7466468faf94d6",
+   "status": "M",
+   "fromBlob": "3f66acc2a744bc06653d57dd563bbbba56d5d175",
+   "toBlob": "15d76dc6e17dbcf59e1c7d5a8952e1607d6ddb70",
+   "kind": "content",
+   "note": "Selftest re-run after c54_s374_calib.py gained the unrelated_marker and correction_removed_render cases, moving the receipt from 7 to 9 ok lines with EXIT=0, the 9/9 value quoted at LOG.md:2130; the rerun is stated only generically at LOG.md:2138-2145."
+  },
+  {
+   "path": ".ufo/waves/round-54/controls/sources-census.txt",
+   "commit": "5826682b37811470980b3f263e148dd5292d8026",
+   "status": "M",
+   "fromBlob": "350215f3013cf42528fc098c6906effab1799408",
+   "toBlob": "9fadd501bfb39591f627165e8e69ad48902d2bd4",
+   "kind": "pin-only",
+   "note": "Only the After header line changed, gaining the hand-written parenthetical 'measured against lane tip a631cc0246b97f2a949d61186c7466468faf94d6' while the rows=155 and EXIT=0 measurement lines stayed byte-identical, so no re-run is evidenced and LOG.md:2155-2156 cites the receipt without disclosing the annotation."
+  },
+  {
+   "path": ".ufo/waves/round-55/controls/c1-selftest-v2.txt",
+   "commit": "64c0ce12ffe3ca4d6d1891a3e3e33933a95380f6",
+   "status": "M",
+   "fromBlob": "77c713ecd9262b019ec54a9bc4c7a40c565edfcc",
+   "toBlob": "39f9bb85393c1096d10cef9d122effcffa0f7848",
+   "kind": "content",
+   "note": "The C1 selftest receipt first committed as `c55 readme-index selftest: 32/32` at 2bda8e4 was rewritten to `44/44` here, the new total equalling the 44 case names in `.ufo/waves/round-55/c55_readme_index.py` at faf9abe (v2.1) after the counter held 35 case names at 2bda8e4, so this is a re-run of the grown selftest and not a revision-pin edit; the new value is stated as the round's selftest receipt in `SCORECARD.md` (line 4311) while the replacement of 32/32 is stated nowhere."
+  },
+  {
+   "path": ".ufo/waves/round-55/controls/after-c1-readme-index.txt",
+   "commit": "955e3d7bd6d1eff5060e4cebbed51891bb53027a",
+   "status": "M",
+   "fromBlob": "05ce598c8f6039ed77a24fc4e21a7668e82a0c11",
+   "toBlob": "5b1c9c6e01dc689883c49c933217f27bfee2a7b5",
+   "kind": "pin-only",
+   "note": "Body unchanged (`index_mismatches=0 knowledge_files=49 met=True`, exit 0) and only the `revision:` pin moved faf9abe81d1e -> 64c0ce12ffe3, the commit that introduced this receipt, in the same commit that rewrote `LOG.md` line 2166 to `after 0, exit 0 at 64c0ce1` without saying the receipt had been re-pinned; the lane disclosed the relabel only in round 57 (`.ufo/waves/round-57/receipt-errata.json`, `LOG.md` line 2203)."
+  },
+  {
+   "path": ".ufo/waves/round-55/controls/after-c2-quote-truth.txt",
+   "commit": "955e3d7bd6d1eff5060e4cebbed51891bb53027a",
+   "status": "M",
+   "fromBlob": "4fd472c9c3a24e77ce2bf7a0dd79bcc5abf91521",
+   "toBlob": "85cdf7b31f890236a04e41024a32241da370f42d",
+   "kind": "pin-only",
+   "note": "Same pattern as its C1 sibling: the eight PASS lines, `8/8 met=True` and exit 0 are unchanged and only the `revision:` pin moved faf9abe81d1e -> 64c0ce12ffe3 in the commit that also restated the round's measurement point in `LOG.md` line 2166, with the relabel first disclosed in round 57 (`.ufo/waves/round-57/receipt-errata.json`, `LOG.md` line 2203)."
+  },
+  {
+   "path": ".ufo/waves/round-55/controls/c2-selftest.txt",
+   "commit": "955e3d7bd6d1eff5060e4cebbed51891bb53027a",
+   "status": "M",
+   "fromBlob": "6a028ccb4dcd1c9774acb673298f61d7e2d616e2",
+   "toBlob": "85430aabd7d1d3986449a371dc64b43d4931be27",
+   "kind": "pin-only",
+   "note": "The body keeps `54/54` and only the printed fixture-revision token moves faf9abe81d1e -> 64c0ce12ffe3, a token `.ufo/waves/round-55/c55_quote_truth.py` line 852 prints from the run's clone HEAD or `KAKE_R55_SELFTEST_REV`, so the bytes fit both a hand-edited label and a second identical-count run and no committed text says which; the round-57 errata population requires a 40-hex pin and this line carries 12 hex, so `.ufo/waves/round-57/receipt-errata.json` omits it and it is disclosed nowhere."
+  },
+  {
+   "path": ".ufo/waves/round-56/controls/after-c1-selftally.txt",
+   "commit": "ad06cb8a17bda28f0691b95aecda13cd4708ea6c",
+   "status": "M",
+   "fromBlob": "23043b22469e9a90f40fcdfa28ab6c4a1c590f3a",
+   "toBlob": "913e60244240603f53bf598e7663d3b2e3486750",
+   "kind": "pin-only",
+   "note": "Body unchanged (`tally_mismatches=0 rows_checked=10 met=True`, ten OK cells, exit 0) and only the `revision:` pin moved f8438a282d59 -> 4cb225fb032b, the commit that introduced this receipt, while the same commit replaced the `@R@` placeholder in `LOG.md` line 2186 with that id and said nothing about a re-pin; disclosed only in round 57 (`.ufo/waves/round-57/receipt-errata.json`, `LOG.md` line 2203)."
+  },
+  {
+   "path": ".ufo/waves/round-56/controls/after-c2-quote-truth.txt",
+   "commit": "ad06cb8a17bda28f0691b95aecda13cd4708ea6c",
+   "status": "M",
+   "fromBlob": "236f6238f11c4ed8be66da126b2b56edaa7255c9",
+   "toBlob": "ce5a87958f844740a1b9d04ab563c7eaa2dd856a",
+   "kind": "pin-only",
+   "note": "Same pattern as its C1 sibling: the eight PASS lines, `8/8 met=True` and exit 0 are unchanged and only the `revision:` pin moved f8438a282d59 -> 4cb225fb032b in the commit whose subject claims `revision pins`, with the relabel first disclosed in round 57 (`.ufo/waves/round-57/receipt-errata.json`, `LOG.md` line 2203)."
+  },
+  {
+   "path": ".ufo/waves/round-56/controls/c2-selftest.txt",
+   "commit": "ad06cb8a17bda28f0691b95aecda13cd4708ea6c",
+   "status": "M",
+   "fromBlob": "f96bb110a3d31dcc42ada9139ca321e803f10b42",
+   "toBlob": "1cfd5667817ebafb4deda77ef7ae24cd1fc6415f",
+   "kind": "content",
+   "note": "The count went `67/67` -> `86/86` against an unchanged fixture pin f8438a282d59, the +19 exactly matching the `c56_quote_truth.py` selftest growth from 63 to 82 `case(` calls between f8438a28 and 4cb225f, so this is a re-run of a counter that gained 19 dual-edit fixtures (stated at `.ufo/waves/round-56/settlement.md` line 23 and `SCORECARD.md` line 4339) rather than a revision relabel, even though the unchanged `(fixture revision ...)` token makes the counter's `relabel` rule fire."
+  },
+  {
+   "path": ".ufo/waves/round-57/controls/after-c1-receipt-pins.txt",
+   "commit": "20217f23eca15862febe14545523832e21584106",
+   "status": "M",
+   "fromBlob": "417ca0c615baecf6dbba1c4f5c9df3079ee4516a",
+   "toBlob": "b514c80d7f367a02415d7fb11915a54eed6b809d",
+   "kind": "pending-fill",
+   "note": "The placeholder `pending` plus `revision: 32754df7...` plus `EXIT=0` committed at 31b61a4 was filled here with the counter's `met=True` line and `tip: 31b61a4ddfca`, which the round's own landing table presents as an ordinary write (`placeholder C1 receipt`, `C1 receipt written after its run at T0`) while `LOG.md` line 2207 asserts this round's receipts are `never rewritten` and the lane's later spot-check calls it the exact pattern the round-57 C1 counter forbade (`corpus/lessons/round-57-verifier-spotcheck.md` line 104)."
+  }
+ ]
+}

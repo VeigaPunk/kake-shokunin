@@ -445,3 +445,16 @@ evidence paths) — reasons and flip conditions in `corpus/lessons/round-57.md` 
 `corpus/README.md` §Coverage map gains two rows and a round-57 row in its frontier ground map; the sibling-registry resolver
 `scripts/id_resolver.py` (round-57 capability, `considerthese/2026-10-25.md` proposal 2) reads this lane's knowledge entries and the
 other lanes' registries and changes no owned ground.
+
+## Round-58 crawler identity: Baidu identification and unblocking
+
+Round 58 adds two entries on the `Crawler identity` ground (round-51 Googlebot subtypes row; `PROVINCE.md:22-23` unchanged), each re-grounded
+against a retained body fetched 2026-10-26: `corpus/knowledge/baidu-spider-identification.md` (S423, a new row; staged S395 renumbered by
+document: the operator's Q&A page names three UA channels — mobile, PC, mini-program, with `Baiduspider/2.0`, `Baiduspider-render/2.0` and
+`Smartapp` tokens — and a two-step check, reverse DNS to a `*.baidu.com` / `*.baidu.jp` hostname then forward DNS back to the logged IP, any
+other hostname being an impersonation) and `corpus/knowledge/baidu-spider-unblocking.md` (S424, a new lane-found row: the operator's
+unblocking article names robots, Baidu-UA and Baidu-IP blocks and orders the self-check robots.txt, then a Baiduspider-UA request whose 200
+is normal, then the firewall). The publisher-side scope is the lane's own: verifying who fetches a property and removing blocks a property
+sets. Refused on scope: staged `yahoo-japan-crawler-address-change-notice.md` (S378) — an ads-API notice for the Display Ads product-list FTP
+crawler, ad-delivery infrastructure, not a search crawler (`corpus/lessons/round-58.md` § Gate). Adjacency (reported, not absorbed;
+`.ufo/waves/round-58/w1/ConnSiblingOverlap.md`): no sibling lane owns crawler DNS verification.

@@ -1256,3 +1256,60 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   write "the staging row for this page". Grounding: `corpus/lessons/round-57.md` §Mistakes (reference-drift); `scripts/id_resolver.py`;
   `considerthese/2026-10-25.md` proposal 2. Falsifier: `python3 -B scripts/id_resolver.py --root . --fleet /home/vgpnk/Projects/shokunin` must exit 0
   (`dangling=0`); at `--revision 3994101dba28896830604fd0b08c7f00faca8ed6` it exits 1 naming the five ids and kotodama-shokunin.
+
+## Round-58 criteria
+
+- **A receipt is written after the run it records; a placeholder is not a receipt.** A file
+  committed under `.ufo/waves/round-5N/control(s)/` that carries a revision line and an exit code
+  but whose body is `pending` records no run, and every counter that reads pins reads it as a
+  receipt: `controls/after-c1-receipt-pins.txt` landed as `pending` at `31b61a4` and was filled at
+  `20217f2` (`417ca0c615ba -> b514c80d7f36`) while the round-57 report said no receipt carrying a
+  `revision:` line was rewritten. A re-run lands under a new name; a placeholder is never
+  committed. Grounding: `corpus/lessons/round-58.md` §Mistakes (landing);
+  `.ufo/waves/round-58/controls/base-c1-receipt-rewrites.txt` (exit 1, `undisclosed=19`, its last
+  event is that fill); `corpus/lessons/round-57-verifier-spotcheck.md` §5 D1. Falsifier:
+  `python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision <tip>` must print
+  `new_rewritten=0`, and the selftest case that rewrites a round-58 receipt — even disclosed —
+  fails. Example that fails it: a receipt whose body is `pending` with `EXIT=0` and a true pin;
+  its pin is honest, its run does not exist.
+- **An edit to a committed measurement receipt is disclosed from git, with the values git shows,
+  whatever kind it is.** 19 post-commit edits exist in the tip's ancestry (`events=19`), and the 6
+  the round-57 errata disclosed are all revision-line relabels, so a disclosure population
+  restricted to pins leaves 6 `content` edits and 1 `pending-fill` unseen (version-2 kinds) — including
+  `round-54/controls/base-c2-ops-debt.txt`, whose before-state moved from `uncovered=4` to
+  `uncovered=7` at `a0a4fd482700`. An entry names path, commit, status, from/to blob ids, the
+  counter's byte-level kind, and a note whose pointer resolves at the tip; the note's prose is
+  reviewer-checked, not counter-checked. Grounding: `corpus/lessons/round-58.md` §Mistakes
+  (landing); `.ufo/waves/round-58/receipt-rewrites.json`; `controls/base-c1-receipt-rewrites.txt`.
+  Falsifier: `python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision <tip>`
+  must print `undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0`; its selftest carries
+  a wrong blob, an invented commit, a duplicate entry, a false kind, a pointer-free note and a
+  note naming an absent path. Example that fails it: a ledger note reading "re-pinned" with no
+  path and no commit — the event exists, the disclosure does not (`unpointed`).
+- **A gate that cannot be green on any later tree is registered as historical at its measured
+  revision.** `c56_quote_truth.py` prints `8/8 met=True` exit 0 at `4cb225fb032b` and
+  `6/8 met=False` exit 1 at `20217f23eca1` and at the round-58 base `0440485…`, with
+  `C8_mirror_bytes FAIL: registry rows 160 != mirror rows 156 + 2`: its mirror is pinned to the
+  158-row registry, so the divergence is by design and a live-gate row advertises a standing red.
+  The row says `historical`, names the measured revision, and states what fails later.
+  Grounding: `corpus/lessons/round-58.md` §Mistakes (stale-premise);
+  `corpus/lessons/round-57-verifier-spotcheck.md` §5 D3; `SKILL.md`
+  `yahoo-crawl-handling-quote-truth-counter`. Falsifier:
+  `python3 -B .ufo/waves/round-56/c56_quote_truth.py --root . --revision 4cb225fb032b04166fb0232bc98a7bcce72675ec`
+  prints `8/8 met=True` exit 0 while the same command with `--revision cc8da16` prints
+  `6/8 met=False` exit 1. Example that fails it: the row as it
+  stands at the base, whose Verdict map promises `0=met` for any `<commit>` and whose cells name
+  no revision; a reader takes the 6/8 as a current defect instead of a closed one.
+- **A receipt's history is an event list, not a file list.** A rewrite is one `(path, commit, status, fromBlob, toBlob)` history
+  entry after the path's first add, over every file at any depth under `.ufo/waves/round-<N>/{control,controls}/` (both spellings;
+  round 52 uses `control/`) in the tip's first-parent ancestry, with rename detection off so a rename reads as a `delete` of the
+  old path plus an event on the new one. A watch that lists files with more than one commit, or reads only `revision:`/result lines, is an early warning and
+  cannot carry the claim: at base the 70 receipts hold 19 events over 16 paths (12 pin-only, 6 content, 1 pending-fill), a file flag names
+  the 16 paths but not the events (one path carries 5), and its line test keeps 15 of the 19 events, losing the four
+  round-54/55 reruns that change only detail lines. Disclosure is the predicate, not the occurrence: each event is listed with
+  the git blobs, the counter's kind and a note pointing at resolvable evidence, and a receipt this round introduces is never
+  edited. Grounding: `considerthese/2026-10-26.md` (2026-10-26) proposal 2, adopted as round-58 C1;
+  `corpus/lessons/round-57-verifier-spotcheck.md` D1; `.ufo/waves/round-58/controls/base-c1-receipt-rewrites.txt` (exit 1,
+  `undisclosed=19`; 6 of the 19 are the relabels `receipt-errata.json` already records). Falsifier:
+  `python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision <tip>` must print `met=True`; at base it exits 1
+  with `undisclosed=19`, and the selftest's rename, deletion and re-add cases fail a file-and-line reading.

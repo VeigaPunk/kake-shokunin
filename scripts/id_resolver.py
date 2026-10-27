@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cross-registry source-id resolver for the kake lane (round-57 C2 candidate).
+"""Cross-registry source-id resolver for the kake lane (round-57 capability; round-58: fence-aware registry, NUL-split revision paths).
 
 Lists every `S###` id cited in `corpus/knowledge/**/*.md` that does not resolve in
 the lane's own `corpus/SOURCES.md`, and names which sibling lane registry holds it.
@@ -9,11 +9,15 @@ CLI (the round-57 contract; its gate checks this tool against an independent ref
     python3 -B scripts/id_resolver.py --root <lane dir> [--revision <rev>] [--fleet <fleet root>] [--selftest]
 
   - cited ids: every word-bounded `S` + 3 or more digits in each `corpus/knowledge/**/*.md`
-    file; with `--revision` the blobs are read through `git show`, never the working tree
+    file; with `--revision` the paths come from `git ls-tree -r -z` (NUL split, so a git-quoted or
+    non-ASCII name is read as itself) and the blobs through `git show`, never the working tree
     (the lane registry is read at the same revision, for the same reason).
   - registry ids: first cell of each table row (a one-cell row counts) of `corpus/SOURCES.md` under the
     exact heading `## Registry` (the section ends at the next `# ` or `## ` heading), 0 to 3 leading spaces
-    before the pipe (the census parser's rule; 4 spaces is code).
+    before the pipe (the census parser's rule; 4 spaces is code). Fenced code blocks are CommonMark's:
+    a line of 0 to 3 spaces then 3 or more backticks or 3 or more tildes opens a block that only a line of
+    the same character, at least as long, with nothing but whitespace after it (0 to 3 spaces) or EOF closes;
+    a heading or a table row inside such a block counts for nothing here (the census still counts it — the stated divergence).
   - siblings: every `<fleet>/*-shokunin/` other than the lane (by realpath); a sibling's
     registry is `git show HEAD:corpus/SOURCES.md` when the directory has a `.git` (no worktree fallback), else the file.
   - stdout: one `DANGLING <id> cited-by=<comma paths> owners=<comma lanes or -> url-match=<lanes or ->`
@@ -42,6 +46,8 @@ ID_CELL_RE = re.compile(r"^S\d{3,}$")
 URL_RE = re.compile(r"https?://[^\s|<>\"'`]+")
 REGISTRY_HEADING_RE = re.compile(r"^##\s+Registry\s*$")
 SECTION_END_RE = re.compile(r"^#{1,2}\s")
+FENCE_OPEN_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
+FENCE_CLOSE_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})[ \t]*$")
 REGISTRY_REL = "corpus/SOURCES.md"
 KNOWLEDGE_REL = "corpus/knowledge"
 SELFTEST_PREFIX = "idresolver-selftest-"
@@ -77,12 +83,41 @@ def _err(message):
     return Result(2, message, {}, {}, [], None)
 
 
+def _nul_paths(data):
+    """Paths of a `git ls-tree -z` listing: NUL separated, never C-quoted."""
+    return [chunk.decode("utf-8", "replace") for chunk in data.split(b"\0") if chunk]
+
+
+def _fence(line):
+    """(char, length) when `line` opens a CommonMark fenced block, else None."""
+    m = FENCE_OPEN_RE.match(line)
+    if not m:
+        return None
+    run = m.group(1)
+    if run[0] == "`" and "`" in m.group(2):  # a backtick fence's info string may not hold a backtick
+        return None
+    return run[0], len(run)
+
+
+def _fence_closes(line, char, length):
+    m = FENCE_CLOSE_RE.match(line)
+    return bool(m) and m.group(1)[0] == char and len(m.group(1)) >= length
+
+
 def parse_registry(text):
-    """Map id -> [urls] for rows of the `## Registry` section (0-3 leading spaces)."""
+    """Map id -> [urls] for rows of the `## Registry` section (0-3 leading spaces, outside fenced code)."""
     rows = {}
     inside = False
+    fence = None
     for raw in text.splitlines():
         line = raw.rstrip("\r")
+        if fence is not None:  # a heading or a table row inside a fenced block counts for nothing
+            if _fence_closes(line, *fence):
+                fence = None
+            continue
+        fence = _fence(line)
+        if fence is not None:
+            continue
         if REGISTRY_HEADING_RE.match(line):
             inside = True
             continue
@@ -141,10 +176,10 @@ def lane_registry(root, revision):
 def knowledge_bodies(root, revision):
     """Map repo-relative path -> text, read from the revision blobs or the working tree."""
     if revision:
-        proc = _git(root, "ls-tree", "-r", "--name-only", revision)
+        proc = _git(root, "ls-tree", "-r", "-z", "--name-only", revision)
         if proc.returncode != 0:
             return None, f"cannot list {revision[:12]}: {_text(proc).strip()}"
-        rels = [rel for rel in _text(proc).splitlines()
+        rels = [rel for rel in _nul_paths(proc.stdout)
                 if rel.startswith(KNOWLEDGE_REL + "/") and rel.endswith(".md")]
         bodies = {}
         for rel in rels:
@@ -791,6 +826,93 @@ def case_symlink_out_of_the_lane_is_not_a_citation():
         _check(res.summary == (1, 1, 0, 0, 0), f"summary={res.summary}")
 
 
+def case_fenced_heading_before_registry():
+    with _tmpdir() as base:
+        lane = os.path.join(base, "demo-shokunin")
+        fenced = "```\n## Registry\n\n| S950 | https://e.example/950 |\n```\n\n"
+        _write(os.path.join(lane, REGISTRY_REL), fenced + _registry([("S001", "https://e.example/1")]))
+        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001 and S950.\n")
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (2, 1, 1, 0, 1), f"summary={res.summary}")
+        _check([row[0] for row in res.dangling] == ["S950"], f"dangling={res.dangling}")
+
+
+def _fenced_row_case(name, block, inside):
+    with _tmpdir() as base:
+        lane = os.path.join(base, "demo-shokunin")
+        text = _registry([("S001", "https://e.example/1")]).replace("## Paths", block + "## Paths")
+        _write(os.path.join(lane, REGISTRY_REL), text)
+        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), f"Cites S001 and {name}.\n")
+        res = _summary(lane, fleet=base)
+        want = (2, 1, 1, 0, 1) if inside else (2, 2, 0, 0, 0)
+        _check(res.summary == want, f"summary={res.summary}")
+        _check([row[0] for row in res.dangling] == ([name] if inside else []), f"dangling={res.dangling}")
+
+
+def case_fenced_row_inside_registry_backticks():
+    _fenced_row_case("S951", "```\n| S951 | https://e.example/951 | docs |\n```\n", True)
+
+
+def case_fenced_row_inside_registry_tildes():
+    _fenced_row_case("S952", "~~~\n| S952 | https://e.example/952 | docs |\n~~~\n", True)
+
+
+def case_three_space_fence_opens():
+    _fenced_row_case("S957", "   ```\n| S957 | https://e.example/957 | docs |\n   ```\n", True)
+
+
+def case_fence_closed_by_a_longer_run():
+    _fenced_row_case("S953", "````\nsample text\n``````\n| S953 | https://e.example/953 | docs |\n", False)
+
+
+def case_row_after_closed_fence_resolves():
+    _fenced_row_case("S956", "```\nsample text\n```\n| S956 | https://e.example/956 | docs |\n", False)
+
+
+def case_shorter_run_does_not_close():
+    with _tmpdir() as base:
+        lane = os.path.join(base, "demo-shokunin")
+        text = _registry([("S001", "https://e.example/1")]).replace(
+            "## Paths", "````\n| S958 | https://e.example/958 | docs |\n```\n| S959 | https://e.example/959 | docs |\n````\n## Paths")
+        _write(os.path.join(lane, REGISTRY_REL), text)
+        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001, S958 and S959.\n")
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (3, 1, 2, 0, 2), f"summary={res.summary}")
+        _check([row[0] for row in res.dangling] == ["S958", "S959"], f"dangling={res.dangling}")
+
+
+def case_unclosed_fence_swallows_the_rest():
+    with _tmpdir() as base:
+        lane = os.path.join(base, "demo-shokunin")
+        text = _registry([("S001", "https://e.example/1")]).replace(
+            "## Paths", "```\n| S954 | https://e.example/954 | docs |\n## Paths\n\n| S955 | https://e.example/955 | docs |\n")
+        _write(os.path.join(lane, REGISTRY_REL), text)
+        _write(os.path.join(lane, KNOWLEDGE_REL, "a.md"), "Cites S001, S954 and S955.\n")
+        res = _summary(lane, fleet=base)
+        _check(res.summary == (3, 1, 2, 0, 2), f"summary={res.summary}")
+        _check([row[0] for row in res.dangling] == ["S954", "S955"], f"dangling={res.dangling}")
+
+
+def case_revision_reads_non_ascii_path():
+    with _tmpdir() as base:
+        lane = _repo(os.path.join(base, "demo-shokunin"))
+        rev = _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
+                             KNOWLEDGE_REL + "/中文.md": "Cites S900.\n"})
+        res = _summary(lane, revision=rev, fleet=base)
+        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
+        _check(res.dangling[0][1] == ["corpus/knowledge/中文.md"], f"paths={res.dangling[0][1]}")
+
+
+def case_revision_reads_quote_character_path():
+    with _tmpdir() as base:
+        lane = _repo(os.path.join(base, "demo-shokunin"))
+        rev = _commit(lane, {REGISTRY_REL: _registry([("S001", "https://e.example/1")]),
+                             KNOWLEDGE_REL + '/a"b.md': "Cites S901.\n"})
+        res = _summary(lane, revision=rev, fleet=base)
+        _check(res.summary == (1, 0, 1, 0, 1), f"summary={res.summary}")
+        _check(res.dangling[0][1] == ['corpus/knowledge/a"b.md'], f"paths={res.dangling[0][1]}")
+
+
 def _cases():
     return [
         ("registry row at 0 leading spaces", case_indent_0),
@@ -842,6 +964,16 @@ def _cases():
         ("dangling lines render in id order", case_dangling_lines_in_id_order),
         ("an inherited GIT_DIR is not passed on", case_git_env_is_scrubbed),
         ("a symlink out of the lane carries no citation", case_symlink_out_of_the_lane_is_not_a_citation),
+        ("a fenced block before the Registry heading opens nothing", case_fenced_heading_before_registry),
+        ("a fenced row inside Registry (backticks) does not register", case_fenced_row_inside_registry_backticks),
+        ("a fenced row inside Registry (tildes) does not register", case_fenced_row_inside_registry_tildes),
+        ("a fence indented 3 spaces still opens", case_three_space_fence_opens),
+        ("a longer closing run closes the fence", case_fence_closed_by_a_longer_run),
+        ("a row after a closed fence resolves", case_row_after_closed_fence_resolves),
+        ("a shorter run does not close the fence", case_shorter_run_does_not_close),
+        ("an unclosed fence swallows the rest", case_unclosed_fence_swallows_the_rest),
+        ("a non-ASCII knowledge path is read at a revision", case_revision_reads_non_ascii_path),
+        ("a quote-character knowledge path is read at a revision", case_revision_reads_quote_character_path),
     ]
 
 
