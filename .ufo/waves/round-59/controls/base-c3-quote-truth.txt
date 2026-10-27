@@ -1,0 +1,32 @@
+argv: python3 -B .ufo/waves/round-59/c59_quote_truth.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision fd6303ce5c14b3f892dec586297a942ab6e4193b
+C3 quote-truth 0/9 met=False  (met: conditions_passed == 9 of 9)
+  C1_entries_exist FAIL
+    - S425: knowledge entry corpus/knowledge/crawler-identity-signals.md absent at the measured revision
+    - S426: knowledge entry corpus/knowledge/googlebot-verification.md absent at the measured revision
+  C2_entry_provenance FAIL
+    - S425: entry absent
+    - S426: entry absent
+  C3_row_shape FAIL
+    - S425: no registry row at the measured revision
+    - S426: no registry row at the measured revision
+  C4_used_by FAIL
+    - S425: no usable registry row
+    - S426: no usable registry row
+  C5_quote_truth FAIL
+    - S425: retained body absent
+    - S426: retained body absent
+  C6_receipt_pins FAIL
+    - .ufo/waves/round-59/sources/receipts.json absent
+    - S425: no receipt in .ufo/waves/round-59/sources/receipts.json
+    - S426: no receipt in .ufo/waves/round-59/sources/receipts.json
+  C7_validate_before_append FAIL
+    - append-block validation receipt is incomplete
+  C8_mirror_bytes FAIL
+    - mirror .ufo/waves/round-59/assimilation/pre-append/corpus/SOURCES.md absent at the measured revision
+  C9_stale_claim_corrected FAIL
+    - no inserted line within 8 base lines after the stale sentence carries [r59-correction 2026-10-27]
+    - the inserted correction does not cite S425
+    - S425 retained body unavailable
+  revision: fd6303ce5c14b3f892dec586297a942ab6e4193b
+EXIT=1
+EXIT_CODE=1
