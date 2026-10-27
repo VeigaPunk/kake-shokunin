@@ -13,16 +13,19 @@ Rule per path P in scope that is a regular blob at base:
     after the last matched base line is an end-of-file append (allowed).
     Every other run must begin with a line holding a visible correction tag
     `\\[r[0-9]+-correction [0-9]{4}-[0-9]{2}-[0-9]{2}\\]` — visible means the
-    match does not start inside an HTML comment (comment state is tracked
-    across lines) and does not start inside a backtick code span (code spans
-    are matched per line, opener and closer of equal backtick length).
+    match does not start inside an HTML comment (which may span lines) and
+    does not start inside a backtick code span (an opening run of N backticks
+    closed by the next run of exactly N in the same paragraph, so a span may
+    cross line ends; round-60 wave-2 revision).
     `untagged_insertion P:<line>` is reported iff NO alignment of B into R
     makes every non-EOF run begin with a tagged line — an existential rule,
     decided by DP over (base index, in-run state); <line> is the 1-based
     revision line of the first bad run of the leftmost alignment.
 
 Exits: 0 clean, 1 findings, 2 could-not-evaluate (root not a repository
-toplevel, revision unresolved, base not an ancestor of revision), 64 usage.
+toplevel, revision unresolved, base not an ancestor of revision, a scope that
+matches no regular blob at base), 64 usage. Paths come from `git ls-tree -z`,
+so git's path quoting cannot hide a non-ASCII name from the scope.
 Committed bytes only: every read goes through `git ls-tree` / `git cat-file`;
 the worktree is never touched and inherited GIT_* variables are scrubbed.
 Stdlib only, python3 >= 3.10.
@@ -90,11 +93,11 @@ def is_ancestor(root: str, base: str, rev: str) -> bool:
 
 def tree_entries(root: str, rev: str) -> dict[str, tuple[str, str]] | None:
     """path -> (mode, oid) for every blob/link/submodule at rev (recursive)."""
-    rc, out = git(root, "ls-tree", "-r", rev)
+    rc, out = git(root, "ls-tree", "-r", "-z", rev)
     if rc != 0:
         return None
     entries: dict[str, tuple[str, str]] = {}
-    for line in out.split(b"\n"):
+    for line in out.split(b"\0"):  # -z: no path quoting (core.quotePath cannot hide a path)
         if not line:
             continue
         meta, _, path = line.partition(b"\t")
@@ -167,62 +170,58 @@ def in_scope(path: str, scopes: list[re.Pattern]) -> bool:
 
 # --------------------------------------------------------------------------- tag visibility
 
-def _masked_ranges(line: bytes, comment_open: bool) -> tuple[bytes, bool]:
-    """Visibility mask for one line; returns (mask, comment_open_after).
-
-    mask[i] is b'\\x01' where the character is hidden by an HTML comment
-    (state carried across lines) or by a same-line backtick code span.
-    """
-    n = len(line)
-    mask = bytearray(n)
-    i = 0
-    in_comment = comment_open
-    while i < n:
-        if in_comment:
-            c = line.find(b"-->", i)
-            if c < 0:
-                for k in range(i, n):
-                    mask[k] = 1
-                return bytes(mask), True
-            for k in range(i, c + 3):
-                mask[k] = 1
-            i = c + 3
-            in_comment = False
-            continue
-        b = line.find(b"`", i)
-        c = line.find(b"<!--", i)
-        if b >= 0 and (c < 0 or b < c):
-            j = b + 1
-            while j < n and line[j] == 0x60:  # '`'
-                j += 1
-            blen = j - b
-            closer = line.find(b"`" * blen, j)
-            if closer >= 0:
-                for k in range(b, closer + blen):
-                    mask[k] = 1
-                i = closer + blen
-            else:
-                i = j  # unclosed backtick run is literal text
-        elif c >= 0:
-            e = line.find(b"-->", c)
-            if e < 0:
-                for k in range(c, n):
-                    mask[k] = 1
-                return bytes(mask), True
-            for k in range(c, e + 3):
-                mask[k] = 1
-            i = e + 3
-        else:
-            break
-    return bytes(mask), in_comment
+PARA_BREAK = re.compile(rb"\n[ \t]*\n")
 
 
 def visibility_masks(lines: list[bytes]) -> list[bytes]:
+    """Per-line visibility masks; mask[i] is b'\\x01' where the byte is hidden.
+
+    Hidden: an HTML comment `<!-- ... -->` (it may span lines; an unclosed one runs to the end of the file) and
+    a backtick code span — an opening run of N backticks closed by the next run of exactly N backticks in the same
+    paragraph (no blank line between; CommonMark code-span rule, so a span may cross line ends). A run with no
+    such closer is literal text. Round 60 w2 (ReviewerGuardCode A/B) replaced the line-local scanner."""
+    text = b"\n".join(lines)
+    n = len(text)
+    hidden = bytearray(n)
+    i = 0
+    while i < n:
+        if text.startswith(b"<!--", i):
+            e = text.find(b"-->", i + 4)
+            end = n if e < 0 else e + 3
+            hidden[i:end] = b"\x01" * (end - i)
+            i = end
+            continue
+        if text[i] == 0x60:  # '`'
+            j = i
+            while j < n and text[j] == 0x60:
+                j += 1
+            run = j - i
+            pm = PARA_BREAK.search(text, j)
+            limit = pm.start() if pm else n
+            k, close = j, -1
+            while k < limit:
+                k = text.find(b"`", k, limit)
+                if k < 0:
+                    break
+                e3 = k
+                while e3 < n and text[e3] == 0x60:
+                    e3 += 1
+                if e3 - k == run:
+                    close = k
+                    break
+                k = e3
+            if close >= 0:
+                hidden[i:close + run] = b"\x01" * (close + run - i)
+                i = close + run
+            else:
+                i = j  # an unmatched backtick run is literal text
+            continue
+        i += 1
     masks: list[bytes] = []
-    comment_open = False
+    pos = 0
     for line in lines:
-        mask, comment_open = _masked_ranges(line, comment_open)
-        masks.append(mask)
+        masks.append(bytes(hidden[pos:pos + len(line)]))
+        pos += len(line) + 1
     return masks
 
 
@@ -310,6 +309,7 @@ def evaluate(root: str, base: str, rev: str,
     t = toplevel(root)
     if t is None or t != os.path.realpath(root):
         return 2, [], 0, f"--root {root} is not a repository toplevel"
+    root = t  # every later git call uses the validated toplevel (w2/SentinelGuard)
     base_c = resolve(root, base)
     rev_c = resolve(root, rev)
     if base_c is None:
@@ -333,6 +333,8 @@ def evaluate(root: str, base: str, rev: str,
         if ent is None or ent[0] not in BLOB_MODES:
             findings.append(("deleted", path, None))
             continue
+        if ent[1] == oid:  # same blob: unchanged, nothing to read
+            continue
         bb = blob_bytes(root, oid)
         rb = blob_bytes(root, ent[1])
         if bb is None or rb is None:
@@ -346,11 +348,13 @@ def evaluate(root: str, base: str, rev: str,
             continue
         masks = visibility_masks(R)
         tagged = [line_is_tagged(R[j], masks[j]) for j in range(len(R))]
-        if any_clean_alignment(B, R, tagged):
-            continue
         bad = first_untagged_run(R, tagged, match)
+        if bad is None or any_clean_alignment(B, R, tagged):
+            continue
         findings.append(("untagged_insertion", path,
                          (bad + 1) if bad is not None else None))
+    if files == 0:  # a scope that covers nothing proves nothing (w2/SentinelGuard)
+        return 2, [], 0, "the scope matches no regular blob at the base revision"
     findings.sort(key=lambda f: (f[1], f[0]))
     return (1 if findings else 0), findings, files, None
 
@@ -358,10 +362,12 @@ def evaluate(root: str, base: str, rev: str,
 # --------------------------------------------------------------------------- output
 
 def print_findings(findings: list[tuple], files: int) -> None:
+    out = sys.stdout.buffer
     for kind, path, line in findings:
         suffix = f":{line}" if line is not None else ""
-        print(f"{kind} {path}{suffix}")
-    print(f"files={files} findings={len(findings)}")
+        out.write(kind.encode() + b" " + os.fsencode(path) + suffix.encode() + b"\n")
+    out.write(f"files={files} findings={len(findings)}\n".encode())
+    out.flush()
 
 
 # --------------------------------------------------------------------------- selftest
@@ -514,7 +520,7 @@ def selftest() -> int:
                b"# note\n\nalpha\nrun start\n" + ST_TAG.encode() + b"\nbeta\n" + ST_TAG.encode() + b" later run\ngamma\nomega\n")])
     case("X7_mode_change_only", 0, [],
          ops=[("w", K + "a.md", base_body)])  # content identical; mode not set by write
-    case("X8_scope_arg_narrows", 0, [],
+    case("X8_scope_matches_nothing", 2, None,
          ops=[("w", K + "a.md", b"rewritten\n")],
          argv="scope_other")
     case("X9_tag_after_midfile_comment_open", 1, [("untagged_insertion", K + "a.md")],
@@ -534,6 +540,33 @@ def selftest() -> int:
     case("X7_mode_change_only", 0, [],
          ops=[("chmod", K + "a.md", 0o755)])
     case("X15_json_output", 0, [], argv="json")
+    # ---- round-60 wave-2 cases (w2/SentinelGuard, w2/ReviewerGuardCode, w2/MutGuardTool) ----------
+    case("X16_non_ascii_path_rewrite", 1, [("changed", K + "sub/na\u00efve.md")],
+         base_files={K + "sub/na\u00efve.md": b"# n\n\nx\n"},
+         ops=[("w", K + "sub/na\u00efve.md", b"# n\n\ny\n")])
+    case("X17_multiline_code_span_hides_tag", 1, [("untagged_insertion", K + "a.md")],
+         base_files={K + "a.md": b"before\n``\n``\nafter\n"},
+         ops=[("w", K + "a.md", b"before\n``\n[r60-correction 2026-10-27]\n``\nafter\n")])
+    case("X18_longer_closer_keeps_tag_visible", 0, [],
+         base_files={K + "a.md": b"before\nafter\n"},
+         ops=[("w", K + "a.md", b"before\n`[r60-correction 2026-10-27]``\nafter\n")])
+    case("X19_multiline_comment_hides_tag", 1, [("untagged_insertion", K + "a.md")],
+         base_files={K + "a.md": b"a\n<!-- open\nb\nclose -->\nc\n"},
+         ops=[("w", K + "a.md", b"a\n<!-- open\n[r60-correction 2026-10-27] hidden\nb\nclose -->\nc\n")])
+    case("X20_tag_after_closed_comment_visible", 0, [],
+         ops=[("w", K + "a.md", b"# note\n\nalpha\n<!-- c --> [r60-correction 2026-10-27] fix\nbeta\ngamma\nomega\n")])
+    for nm, tag in (("upper", b"[R60-Correction 2026-10-27]"), ("no_round", b"[r-correction 2026-10-27]"),
+                    ("short_month", b"[r60-correction 2026-1-27]"), ("no_close", b"[r60-correction 2026-10-27")):
+        case(f"X21_malformed_tag_{nm}", 1, [("untagged_insertion", K + "a.md")],
+             ops=[("w", K + "a.md", b"# note\n\nalpha\n" + tag + b" fix\nbeta\ngamma\nomega\n")])
+    case("X22_untagged_before_last_line", 1, [("untagged_insertion", K + "a.md")],
+         ops=[("w", K + "a.md", b"# note\n\nalpha\nbeta\ngamma\ninserted\nomega\n")])
+    case("X23_replaced_by_directory", 1, [("deleted", K + "a.md")],
+         ops=[("rm", K + "a.md"), ("w", K + "a.md/inner.txt", b"x\n")])
+    case("X24_single_star_does_not_cross_slash", 0, [], argv="scope_star",
+         base_files={K + "a.md": base_body, K + "sub/b.md": b"# b\n\nx\n"},
+         ops=[("w", K + "sub/b.md", b"# b\n\ny\n")])
+    case("X25_unresolved_revision", 2, None, argv="bad_revision")
 
 
     passed, fails = 0, []
@@ -567,6 +600,18 @@ def selftest() -> int:
             try:
                 rc, out = _run(d, "--base", base, "--revision", rev,
                                "--scope", "corpus/other/**/*.md")
+            finally:
+                shutil.rmtree(d, ignore_errors=True)
+        elif argv == "scope_star":
+            d, base, rev = _fixture(c["base_files"], c["ops"])
+            try:
+                rc, out = _run(d, "--base", base, "--revision", rev, "--scope", "corpus/knowledge/*.md")
+            finally:
+                shutil.rmtree(d, ignore_errors=True)
+        elif argv == "bad_revision":
+            d, base, rev = _fixture(c["base_files"], c["ops"])
+            try:
+                rc, out = _run(d, "--base", base, "--revision", "0" * 40)
             finally:
                 shutil.rmtree(d, ignore_errors=True)
         elif argv == "json":

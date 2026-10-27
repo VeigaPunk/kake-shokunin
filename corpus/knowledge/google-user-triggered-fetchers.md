@@ -52,8 +52,7 @@ page says, and names its own range object [S428]:
 
 > "Google-Agent is used by agents hosted on Google infrastructure to navigate the web and perform actions upon user request. It uses IP ranges from"
 
-`user-triggered-agents.json`. So both identifiers the page supplies are address-based — published range
-objects and a reverse DNS mask — and it does not make the user-agent string an identifier. Its caution box
+`user-triggered-agents.json`. So the identifiers this page supplies for these fetchers are address-based — published range objects and a reverse DNS mask; the lane reads no claim either way about the user-agent string as an identifier [lane reading]. Its caution box
 states that the user-agent string can be spoofed; that box sits in an `<aside>`, which the article-text-node
 rule behind this entry's quotations excludes, so the statement is carried here unquoted as the lane's
 reading [S428].

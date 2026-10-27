@@ -38,8 +38,8 @@ The table prints four columns — Type, Description, Reverse DNS mask, IP ranges
   > "acts on the request of a user. Because the fetch was requested by a user, these fetchers ignore robots.txt rules."
 
   **[r60-correction 2026-10-27]** The cell quoted above says these fetchers "ignore robots.txt rules" (page revision `Last updated 2026-03-20 UTC`); the user-triggered fetchers page that cell links to [S428], at the later revision `Last updated 2026-08-19 UTC`, prints "Because the fetch was requested by a user, these fetchers generally ignore robots.txt rules."
-  The posture is qualified there, not absolute: a publisher still cannot count on robots.txt to hold a user-triggered
-  fetch back, and the later page no longer says that every such fetch ignores it; neither page names the exception.
+  The later page qualifies the posture with `generally` and names no exception, so neither page says which
+  user-triggered fetches, if any, follow robots.txt rules (w2/ReviewerCorrection: the earlier wording overreached).
   The sentence above stays as historical text quoted from its own page and revision; the fuller reading of the category
   page is `google-user-triggered-fetchers.md` (S428).
 
