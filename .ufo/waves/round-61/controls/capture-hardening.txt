@@ -1,0 +1,4 @@
+# receipt: capture-hardening
+Command: L1 Python probe imported scripts/response_snapshot.py, started a local 127.0.0.1 HTTP server, called fetch(http://127.0.0.1:<ephemeral>/x), and attempted write_file twice to one temp file.
+Observed: `private_peer_blocked_before_request=True`; server request hits `0`; fetch error `URLError: <urlopen error refused non-global HTTP peer>`. Second output write raised `FileExistsError`; original bytes remained `first` (`receipt_exclusive=True`).
+Scope: local fixture only; no live capture rerun. The 12 round-61 receipts remain the pre-hardening, zero-redirect capture evidence and were not overwritten.

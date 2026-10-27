@@ -29,6 +29,12 @@
   accessibility conformance (WCAG 2.2) and Render deploy semantics remain
   open. Ground moves to Core only with source-backed entries and a gate.
 
+- Publisher response-header expectations — `corpus/knowledge/response-header-expectations.md`
+  (S430–S433) plus the GET-only capture and offline audit
+  `scripts/response_snapshot.py` / `scripts/header_audit.py` (round 61). This
+  is a record-bound audit capability, not a claim that any live surface is
+  clean or that the declared expectations are universal policy.
+
 ## Adjacent
 
 - `tabi` drives browsers and owns client-side crawler discipline; kake owns

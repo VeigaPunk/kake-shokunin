@@ -32,12 +32,12 @@ Finding grammar: `^(\\S+) ([a-z_]+) (.+)$` restricted to the classes
 content_type_present, hsts_present, xcto_nosniff_value, csp_present, singleton_fields,
 field_name_syntax, could_not_evaluate; summary grammar `^checks=([0-9]+) findings=([0-9]+)$`.
 
-R3 (recorded, not asserted clean): the real manifest is materialised from the measured revision
-(every `.ufo/waves/round-61/**/capture/**/*.json` blob via `git show <rev>:<path>`) into --work, so
-the audit reads committed bytes and never the lane worktree. Shape: exactly one version-1 manifest
-with 12 checks, each `source` naming a distinct existing capture receipt; the tool must then run and
-print `checks=12 findings=<k>` with exit 0 iff k == 0. The findings value itself is NOT asserted — a
-non-clean live census is reported, not a failure of the claim.
+R3 (recorded, not asserted clean): only the canonical `.ufo/waves/round-61/capture/manifest.json` and
+its capture subtree are materialised from the measured revision into --work, so the audit reads
+committed bytes and never the lane worktree. Shape: the manifest is version 1 with 12 checks; each
+check's source is exactly `.ufo/waves/round-61/capture/<id>/response.json`, unique and present as a
+committed capture receipt. The tool runs and its `checks=12 findings=<k>` output and consistent exit
+are recorded; the value of k is not asserted clean.
 
 R4 (do-nothing control): at the contract base revision the tool is absent and the gate therefore
 scores 0/18, measured through the same measure() with an absent tool path.
@@ -469,13 +469,14 @@ def case_results(tool: str, work: str, rng: random.Random) -> list[tuple[str, bo
 # --------------------------------------------------------------------------- R3 (real manifest shape)
 
 def materialize(root: str, rev: str, dest: str) -> list | None:
-    """Extract the committed round-61 capture tree (every .json plus every file under a capture
-    dir, i.e. retained bodies too) from <rev> into <dest>."""
-    rc, out = git(root, "ls-tree", "-r", "-z", "--name-only", rev, "--", ".ufo/waves/round-61")
+    """Materialise only the canonical capture tree from committed bytes."""
+    rc, out = git(root, "ls-tree", "-r", "-z", "--name-only", rev, "--", CAPTURE_DIR)
     if rc != 0:
         return None
     paths = [p for p in out.decode("utf-8", "replace").split("\0")
-             if p and (p.endswith(".json") or "/capture/" in p)]
+             if p and p.startswith(CAPTURE_DIR + "/")]
+    if f"{CAPTURE_DIR}/manifest.json" not in paths:
+        return None
     for rel in paths:
         rc, blob = git(root, "show", f"{rev}:{rel}")
         if rc != 0:
@@ -485,54 +486,56 @@ def materialize(root: str, rev: str, dest: str) -> list | None:
 
 
 def pick_manifest(dest: str) -> tuple[list, str]:
-    """(candidates, note): every materialised .json that is a version-1 manifest object."""
-    cands = []
-    for dirpath, _dirs, files in os.walk(dest):
-        for fn in sorted(files):
-            if not fn.endswith(".json"):
-                continue
-            path = os.path.join(dirpath, fn)
-            try:
-                with open(path, "rb") as fh:
-                    obj = json.loads(fh.read().decode("utf-8"))
-            except Exception:
-                continue
-            if isinstance(obj, dict) and obj.get("version") == 1 and isinstance(obj.get("checks"), list):
-                cands.append(os.path.relpath(path, dest))
-    return sorted(cands), ""
+    """Return the single canonical version-1 capture manifest, if valid."""
+    rel = f"{CAPTURE_DIR}/manifest.json"
+    path = os.path.join(dest, rel)
+    try:
+        with open(path, "rb") as fh:
+            obj = json.loads(fh.read().decode("utf-8"))
+    except Exception:
+        return [], f"missing or invalid canonical manifest {rel}"
+    if (not isinstance(obj, dict) or type(obj.get("version")) is not int
+            or obj.get("version") != 1 or not isinstance(obj.get("checks"), list)):
+        return [], f"invalid canonical manifest shape {rel}"
+    return [rel], ""
 
 
 def r3_check(dest: str, tool: str, root_ok: bool) -> tuple[bool, str]:
-    cands, _ = pick_manifest(dest)
+    """R3 binds the frozen manifest to its exact committed capture receipts."""
+    cands, note = pick_manifest(dest)
     if not cands:
-        return False, "no version-1 manifest under .ufo/waves/round-61/**/capture/"
-    preferred = [c for c in cands if os.path.basename(c) == "manifest.json"]
-    chosen = preferred[0] if preferred else cands[0]
-    if len(cands) > 1:
-        return False, f"ambiguous manifests {cands}"
-    with open(os.path.join(dest, chosen), "rb") as fh:
+        return False, note
+    chosen = cands[0]
+    manifest_path = os.path.join(dest, chosen)
+    with open(manifest_path, "rb") as fh:
         man = json.loads(fh.read().decode("utf-8"))
     checks = man["checks"]
     if len(checks) != 12:
         return False, f"checks={len(checks)} want 12"
-    sources, missing = [], []
+    ids, sources, missing = [], [], []
     for c in checks:
-        src = str((c or {}).get("source") or "")
-        if not src:
-            missing.append(f"{c.get('id')}: empty source")
+        if not isinstance(c, dict):
+            missing.append("non-object check")
             continue
-        path = src if os.path.isabs(src) else os.path.join(dest, src.lstrip("/"))
+        cid = c.get("id")
+        if not isinstance(cid, str) or not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", cid):
+            missing.append(f"invalid id {cid!r}")
+            continue
+        ids.append(cid)
+        expected = f"{CAPTURE_DIR}/{cid}/response.json"
+        src = c.get("source")
+        if src != expected:
+            missing.append(f"{cid}: source must equal {expected}")
+            continue
+        path = os.path.join(dest, expected)
         if not os.path.isfile(path):
-            missing.append(f"{c.get('id')}: {src}")
+            missing.append(f"{cid}: missing receipt {expected}")
         sources.append(src)
     if missing:
-        return False, "source not a capture receipt: " + "; ".join(missing)[:200]
-    if len(set(sources)) != 12:
-        return False, f"sources not distinct: {len(set(sources))} unique of 12"
-    man_root = os.path.join(dest, "manifest.json")
-    if os.path.abspath(os.path.join(dest, chosen)) != os.path.abspath(man_root):
-        shutil.copyfile(os.path.join(dest, chosen), man_root)
-    rc, out = run([sys.executable, "-B", tool, "--manifest", man_root]
+        return False, "source not a bound capture receipt: " + "; ".join(missing)[:300]
+    if len(set(ids)) != 12 or len(set(sources)) != 12:
+        return False, f"ids/sources not distinct: {len(set(ids))}/{len(set(sources))} of 12"
+    rc, out = run([sys.executable, "-B", tool, "--manifest", manifest_path]
                   + (["--root", dest] if root_ok else []))
     finds, sums = parse(out)
     if isinstance(rc, str):
@@ -747,7 +750,9 @@ def _r3_controls(base: str) -> tuple[bool, int]:
         rng = random.Random((SEED or 0) + count)
         os.makedirs(dest, exist_ok=True)
         checks = [add_check(dest, rng, [CT], ct=True) for _ in range(count)]
-        write_manifest(dest, checks)
+        write_manifest(os.path.join(dest, CAPTURE_DIR), checks)
+        put(dest, "unrelated.json", json.dumps({"version": 1, "checks": [{}]}).encode())
+        put(dest, f"{CAPTURE_DIR}/decoy.json", json.dumps({"version": 1, "checks": [{}]}).encode())
         tool = os.path.join(base, "r3-tool.py")
         with open(tool, "w", encoding="utf-8") as fh:
             fh.write(REFERENCE)

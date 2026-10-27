@@ -78,6 +78,7 @@ mirrors, Pages deploys).
 | Googlebot verification (r59) | `knowledge/googlebot-verification.md` (S426) | Googlebot verification as the page states it: the two methods (manual command line and automatic IP-list match), the reverse DNS then forward DNS two-step check against the three domain masks, the printed worked examples and the crawler-category range files |
 | Google user-triggered fetchers (r60) | `knowledge/google-user-triggered-fetchers.md` (S428) | Google's user-triggered fetchers as the category page states them: fetches a user asks for, the robots.txt posture "generally ignore" (the verification page's older cell reads "ignore", corrected append-only in `googlebot-verification.md`), the published IP-range objects and reverse DNS masks, the list declared not exhaustive; no fetch observed |
 | Robots.txt limits (r60) | `knowledge/robots-txt-limits.md` (S429) | What Google's robots.txt introduction says the file cannot do: it cannot enforce crawler behaviour, crawlers may interpret the rules differently, a disallowed URL can still be indexed when linked from elsewhere, and the file is not a way to hide a page; the RFC 9309 reading stays in `knowledge/robots-txt-rules.md` |
+| Response-header expectations (r61) | `knowledge/response-header-expectations.md` (S430–S433) + `scripts/response_snapshot.py` + `scripts/header_audit.py` | GET-only capture of recorded headers for 12 public surfaces; an offline audit checks declared expectations for Content-Type, HSTS, XCTO nosniff, CSP, singleton fields and field-name syntax; no claim of live cleanliness or universal policy |
 
 ### Frontier ground map (round 55; round-60 update)
 
@@ -121,6 +122,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Link-preview metadata | r34 | `knowledge/link-preview-metadata.md` | S067–S070 S073 |
 | security.txt publishing | r35 | `knowledge/security-txt-publishing.md` | S001 S002 S006 S078–S080 S082–S086 |
 | Accessibility review preparation | r25 | `knowledge/accessibility-review-packet.md` | S035 |
+| Publisher response-header expectations | r61 | `knowledge/response-header-expectations.md` + `scripts/response_snapshot.py` + `scripts/header_audit.py` | S430–S433 |
 
 Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
 (S102–S109, `used-by` only `corpus/lessons/round-39.md`; tool
