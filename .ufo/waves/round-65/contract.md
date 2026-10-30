@@ -45,16 +45,27 @@ the four known green classes are now counter-enforced controls, the
 outside-verdict artifact is authenticated against committed bytes, and every
 attack fixture is reproducible from a committed builder with honest provenance.
 
-Frozen predicate (identical sentence in this contract, the counter docstring
-and the receipt labels): **at the measured revision,
+Frozen predicate v2 (identical sentence in this contract, the counter docstring
+and the receipt labels; supersedes v1 before any after-state measurement —
+v1's "met=false at base" clause was stale because the round-64 lesson bytes
+the counter authenticates already exist at base `d3a4e402`; caught pre-data by
+the L1/ExecDoNothing pre-derivation, class stale-premise, recorded in
+§Mistakes): **at the measured revision,
 `python3 -B .ufo/waves/round-65/c65_semantics.py --root . --revision <measured>`
-prints `met=true` (exit 0); at the base `d3a4e402` it prints `met=false`
-(exit 1); and against each of the four committed attack fixtures A1 marker-only
-prose, A2 contradictory Gate prose, A3 hidden-comment criterion, A4
-outside-verdict tamper, it prints `met=false` (exit 1) naming the failed
-component — and each fixture is rebuilt by the committed
-`.ufo/waves/round-65/fixtures/build_attack_fixtures.py` with its build receipt
-committed.**
+prints `met=true` (exit 0); against each of the three differential attack
+fixtures A1 marker-only prose, A2 contradictory Gate prose, A3 hidden-comment
+criterion (heads pinned in `controls/fixture-builds.txt`) it prints
+`met=false` (exit 1) naming the failed component, while the round-64 counter
+`python3 -B .ufo/waves/round-64/c64_calibration.py --root . --revision <measured>`
+against each of those same three fixtures prints `met=true` (exit 0) — the
+routed green classes reproduced; against fixture A4 outside-verdict tamper the
+round-65 counter prints `met=false` (exit 1) whether or not the round-64
+counter is also red there (pin tamper is the round-64 pin's catch — record
+as-is, it is not a differential); `--selftest` prints all checks passing;
+`git cat-file -e d3a4e402:.ufo/waves/round-65/c65_semantics.py` fails (the
+do-nothing base has no instrument); and the committed
+`.ufo/waves/round-65/fixtures/build_attack_fixtures.py` rebuilds every fixture
+with identical trees across two runs and honest per-path provenance.**
 
 Counter design (build item; the L1 pins its sha256 in `## Instrument freeze`
 before after-receipts):
@@ -79,20 +90,27 @@ before after-receipts):
   when the admission block is fully green).
 - Kill rule: if the after receipt does not print `met=true` at the measured
   commit, or any pin differs at the measured revision, or any of A1–A4 prints
-  `met=true`, or the counter crashes (traceback) on adversarial input, or any
-  wave seat reproduces any green class (marker-only, contradiction,
-  hidden-comment, tamper, sha-collision aside) against the frozen counter, C1
-  is `unprovable` (honest stop), no calibration credit. Score stays 2 either
-  way unless the non-author closure rules otherwise; a measured met is recorded
-  as calibration 2→2 (HOLD), the move being "the four routed green classes are
-  counter-enforced and the outside verdict is byte-authenticated".
+  `met=true` under the round-65 counter, or the round-64 counter fails to
+  reproduce a green on any of A1–A3 (the before-state is not what the routed
+  defects documented), or the counter crashes (traceback) on adversarial
+  input, or any wave seat reproduces any green class (marker-only,
+  contradiction, hidden-comment, tamper, sha-collision aside) against the
+  frozen counter, C1 is `unprovable` (honest stop), no calibration credit.
+  Score stays 2 either way unless the non-author closure rules otherwise; a
+  measured met is recorded as calibration 2→2 (HOLD), the move being "the
+  three routed differential green classes are counter-enforced and the outside
+  verdict is byte-authenticated".
 - Counting command:
   `python3 -B .ufo/waves/round-65/c65_semantics.py --root . --revision <commit>`
-- §9 do-nothing control: the base tree (no round-65 work) must print
-  `met=false`; a tree carrying only copied lesson text without authenticated
-  spot bytes must print `met=false`; a constant `met=true` mutant of the
-  counter fails the counter's own selftest. Receipts: `controls/base-c1.txt`,
-  `controls/donothing-c1-{base,copied}.txt`, `controls/selftest-c1.txt`.
+- §9 do-nothing control: `git cat-file -e d3a4e402:.ufo/waves/round-65/c65_semantics.py`
+  fails at base (no instrument — the do-nothing tree cannot print anything);
+  a tree carrying only copied lesson text (no round-64 settlement context)
+  still greens the counter (that is the design — the counter authenticates
+  bytes, and those bytes are genuine at base too; the claim's falsifiable
+  delta is the fixture differential plus instrument existence, not byte
+  presence). Receipts: `controls/base-c1.txt` (cat-file failure + c64
+  differential at base), `controls/donothing-c1-copied.txt`,
+  `controls/selftest-c1.txt`.
 
 Fixture definitions (built by the committed builder, revisions recorded in
 `controls/fixture-builds.txt`):
