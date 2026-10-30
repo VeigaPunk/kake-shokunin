@@ -1424,3 +1424,28 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
 ## Round-64 criteria
 
 - **A round that edits a sidecar-pinned file re-runs the standing §paths sweep on its draft before landing.** The paths freshness gate stood could-not-evaluate from roughly round 56 to 63: SKILL.md growth shifted seven line-pinned `corpus/knowledge/freshness-sidecar.json` entries by one line and no round in that span re-ran `scripts/freshness-sweep.mjs --offline`, so the lane's own drift instrument could not evaluate while real rounds landed. Grounding: `corpus/lessons/round-64.md` §Mistakes (survivor); `.ufo/waves/round-64/controls/sweep-before.txt` (exit 2 at the round-60 tip, round-61 base and round-63 base) and `controls/sweep-after.txt` (exit 0 after the round-64 re-pin). Falsifier: `node scripts/freshness-sweep.mjs --offline` exits 2 on any tree where a sidecar-pinned line moved without a re-pin and 0 once it is re-pinned; the example that fails this criterion is landing another SKILL.md insertion with the sidecar unchanged.
+
+## Round-64 attack addendum (append-only)
+
+- **Block-scoped token presence is not semantic resolution.** The frozen
+  round-64 counter accepts a Gate explicitly denying resolution and a
+  criterion hidden in an HTML comment. Treat its green as measured syntax
+  only; the frozen kill rule withholds calibration credit. Grounding:
+  `corpus/lessons/round-64.md` §Additional mined mistakes;
+  `.ufo/waves/round-64/w1/ReviewerC1Prose.md` (minimal, contradictory,
+  missing-quote controls) and `w1/MutC1Prose.md` Q3x. A future repair must
+  reject these exact controls without changing the frozen round-64 bytes.
+- **Outside-verdict binding is two-sided.** A lesson's quoted span must
+  bind to the actual outside-verdict artifact, not just a constant found
+  in author-side prose. Grounding: `corpus/lessons/round-64.md` §Additional
+  mined mistakes; `.ufo/waves/round-64/w1/ScoutSpotSpan.md` A1 and
+  `w1/MutC1Counter.md` F1. The recorded one-line verdict replacement
+  remains green with all four source pins intact; a future fix must turn
+  that exact fixture red before claiming this repair.
+- **A cell-change census distinguishes changed and re-verified values.**
+  The sidecar repair changes seven `line` cells; the seven digests remain
+  unchanged. Report that delta, not fourteen changed cells. Grounding:
+  `corpus/lessons/round-64.md` §Attempt-2 evidence corrections;
+  `.ufo/waves/round-64/w1/ScribeRepinLog.md`. The before/after JSON diff
+  is the falsifier; the full offline verdict always retains its
+  `partial: offline` qualifier.

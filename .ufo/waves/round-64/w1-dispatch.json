@@ -1,0 +1,758 @@
+{
+  "schema": "ufo-swarm-wave-dispatch-v1",
+  "wave": "kake-r64-w1",
+  "policy": {
+    "source": "config",
+    "maxLanes": 65,
+    "minLanes": 16,
+    "waveMinLanes": 64,
+    "waveMaxLanes": 128,
+    "declaredMaxLanes": 65,
+    "hardCeiling": 256,
+    "rampBatchSize": 5,
+    "rampIntervalMs": 700,
+    "globalRunnerCeiling": 1056
+  },
+  "counts": {
+    "spawn": 65,
+    "resume": 0,
+    "total": 65
+  },
+  "registry": {
+    "schema": "ufo-swarm-registry-v1",
+    "path": ".ufo/waves/round-64/w1/swarm-registry.json",
+    "reportDir": ".ufo/waves/round-64/w1",
+    "members": {
+      "ScoutS432Reopen": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Independently re-open https://fetch.spec.whatwg.org/ with ONE GET (curl, timeout 30s, own scratch) and compare the received bytes' sha256 against the round-61 retained body /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/sources/S432.html and the round-64 live receipt .ufo/waves/round-64/sources/S432.live.html. Report whether the retained body is current and whether the round-64 lesson Gate re-open record (URL, access date, <=25-word located quote, raw lines 6150-6154) satisfies CORPUS rule 1."
+      },
+      "ScoutRecipeReproduce": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "From the lane repo at /home/vgpnk/Projects/shokunin/kake-shokunin, reproduce the flat-text derivation yourself: git show T0:.ufo/waves/round-63/quote-class/extract_text.py, run it over T0:.ufo/waves/round-61/sources/S432.html in your scratch, and verify (a) output sha256 equals 8b90d096d2653ce57025e25c5bee5c63df66692e15ef8579371032da6f542a69, (b) output is byte-identical to the committed .ufo/waves/round-63/quote-class/S432.txt at T0. Then independently locate the minimal raw-line range whose rendering contains the frozen span and report whether it is 6150-6154."
+      },
+      "ScoutLedgerIntegrity": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Verify .ufo/waves/round-63/quote-class/quote-classes.json at T0 against committed bytes: recompute sha256 of the raw and text blobs and compare to the ledger's rawSha256/textSha256; confirm the ledger's quote is byte-identical to the FROZEN_QUOTE constant in .ufo/waves/round-64/c64_calibration.py and to the quote in the [r63-correction] block of corpus/knowledge/response-header-expectations.md at T0; confirm matchClass collapsed-only and locatedRawLines 6150-6154."
+      },
+      "ScoutContractFidelity": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Read /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-64/contract.md and verify against committed bytes at T0 4c8295fa5e3b628f1fdf3840299ae415c01849fb: the four frozen sha256s (c64_calibration.py, c64_quote_tool.py, build_fixtures.py, stub_tool.py) match `git show T0:<path>`; the fixture revisions named in the contract match controls/fixture-builds.txt; the predicate sentences in §C1/§C2/§C3 match the counter docstrings; every receipt path named in the contract exists at cc8add1fa740b920ea5179a71152680ab220c70c."
+      },
+      "ScoutCensusState": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Run the frozen manual census commands from /home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md — where a shokunin learns' against /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md (row count, malformed, tier histogram, status histogram, duplicate ids, enum violations, mined used-by existence). Compare against .ufo/waves/round-64/controls/census-before.txt and census-after.txt; confirm the registry diff between base 1a481315 and T0 is empty (`git diff 1a481315 4c8295fa -- corpus/SOURCES.md`) and name the W04 count."
+      },
+      "ScoutSpotSpan": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Verify from committed bytes at T0: the span 'is only a generic lead-in, not substantive evidence for a response-header expectation' occurs verbatim in corpus/lessons/round-61-verifier-spotcheck.md exactly once; that the round-64 lesson corpus/lessons/round-64.md Gate section quotes it; and that c64_calibration.py's SPOT_VERDICT_SPAN equals it byte-for-byte. Also verify the spot file's S432 row carries Disagree exactly once (the disagreements=1 input)."
+      },
+      "ScoutSidecarDiff": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Verify the round-64 sidecar re-pin is exactly seven cell pairs: `git diff 1a481315 4c8295fa -- corpus/knowledge/freshness-sidecar.json` must show only line/lineSha256 changes on 7 SKILL.md entries (364->365, 423->424, 431->432, 445->446, 448->449, 449->450, 450->451), no note/kind/date/token cell changed, and the other 23 entries byte-identical. Recompute sha256 of each new SKILL.md line and compare to the new lineSha256 values; cross-check controls/sidecar-repin-map.txt."
+      },
+      "ScoutSweepHistory": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Reproduce the sweep-before receipt independently: archive 9f671056c6fb5ca49bc62ed4210745f620ed4cae, d2da25de5fcd8d2384cee99b615cd53b083c5887 and 1a48131577ba82c967650561be34e8dba909432a into your scratch (`git -C <lane> archive <rev> | tar -x -C <dir>`) and run `node scripts/freshness-sweep.mjs --offline` in each; all three must exit 2 with the same 'paths sidecar binding invalid: SKILL.md:364' fault as controls/sweep-before.txt. Also confirm via git log that corpus/knowledge/freshness-sidecar.json was last modified before this round at 3d07733b (round-24)."
+      },
+      "ScoutPriorRecipe": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Map the round-63 repair recipe (corpus/lessons/round-63.md §Wave settlement 'Routed to round 64' + round-63-verifier-spotcheck.md routed defects 1-2) clause by clause onto committed code: pin ledger/blob shas as constants; re-execute extract_text.py in-counter; gate disagreements/unresolved without masking; wire frozen shas into kill rules (contract §C1/§C2); bind prose components block-level; bind locatedRawLines against raw bytes (the ExecLedgerMutation M5 survivor); guard C2 JSON parsing; pin selftest fixtures to the revision; define stub as tool-sha mismatch. Name the code line numbers implementing each clause and any clause you judge NOT implemented."
+      },
+      "ScoutSiblingOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scout",
+        "item": "Scan sibling lanes for ownership overlap with this round's ground: quote-class machinery, calibration-counter repair, the S432/fetch-spec span, and the freshness-sidecar/sweep instrument. Read the sibling SKILL.md/PROVINCE.md files under /home/vgpnk/Projects/shokunin/ (read-only). Report contested scope with evidence, or certify kake uniquely owns this ground."
+      },
+      "ExecReceiptsReproduce": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Reproduce every committed control receipt from scratch in your own scratch dir: run .ufo/waves/round-64/fixtures/build_fixtures.py <your-scratch>/fixtures (read the committed script first; note its fixture revisions), then run c64_calibration.py against marker/fabrication/junk fixtures and the ledger-mut recipe (rebuild it per controls/control-ledger-mut.txt), c64_quote_tool.py and c63_quote_tool.py against the stub fixture, both selftests, and base-c1 at base 1a481315. Compare each output line and exit code byte-level to the committed receipt under .ufo/waves/round-64/controls/ and report any mismatch."
+      },
+      "ExecAfterReproduce": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "In a pristine checkout of T0 4c8295fa5e3b628f1fdf3840299ae415c01849fb (git archive into your scratch, or git clone --shared + checkout --detach in YOUR scratch only), re-run the after receipts: c64_calibration.py --revision T0 (expect met=true exit 0), c64_quote_tool.py --revision T0 (expect met=true exit 0), node scripts/freshness-sweep.mjs --offline (expect VERDICT OK exit 0), and the census script /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake (expect exit 0). Compare byte-level with the committed after-c1.txt, after-c2.txt, sweep-after.txt, census-after.txt under .ufo/waves/round-64/controls/."
+      },
+      "ExecToolSelftest": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "In a pristine T0 archive under your scratch: verify sha256(scripts/quote_class.py) equals the frozen 431e75e8fee2c913c6fa74aebbf7cb2e678f139a1a37b3d38994d1bb22841f14; run `python3 -B scripts/quote_class.py --selftest` (expect 4/4 pass incl. s432_real) and one `classify` invocation over the real S432 blobs with the frozen span (expect collapsed-only, exit 0); also run `--selftest --json` and paste the case table."
+      },
+      "ExecCounterStress": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Stress both counters with hostile inputs in your scratch: (a) revision args that are refs to missing objects, empty string, 41-hex, 'HEAD~99999'; (b) a fixture repo whose ledger is hostile JSON (deep nesting, huge strings, NaN, duplicate keys) with all four pins satisfied except the ledger sha — confirm met=false with a named pin_drift, never a traceback; (c) locatedRawLines variants in the ledger ('6150', '6150-6155', '6000-7000'); (d) a fixture where SPOT_REL is a directory-like path or binary bytes. Assert exit codes 0/1/2 only, stderr without Traceback, and record a matrix."
+      },
+      "ExecGuardNoHarm": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Re-run the standing-gate no-harm set at T0 in your scratch and report each exit/output: node scripts/freshness-sweep.mjs --offline (0); python3 -B scripts/append_guard.py --root <T0 archive> --base fd6303ce5c14b3f892dec586297a942ab6e4193b --revision <T0> (0); python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision de7d96e720522ea15fba3fd9ee3ce58c42596031 (met=True); python3 -B .ufo/waves/round-59/c59_axis_evidence.py --root . --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 (met=True); python3 -B .ufo/waves/round-61/c61_recheck_pins.py --root . --revision d2da25de5fcd8d2384cee99b615cd53b083c5887 (6/6); c63_calibration.py and c63_quote_tool.py at T0 (both met=true); python3 -B scripts/id_resolver.py --selftest. Name any red."
+      },
+      "ExecCensusCommands": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Run the seven frozen manual census commands from /home/vgpnk/Projects/shokunin/CORPUS.md (rows, malformed, tier histogram, status histogram, duplicate ids, enum violations + tier inflation, mined used-by existence) against corpus/SOURCES.md at T0 and paste each output. Confirm 171 rows, 0 malformed, 0 duplicates, 0 enum violations, 0 missing used-by paths, and compare to controls/census-before.txt and census-after.txt."
+      },
+      "ExecLocatedRange": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Brute-force the located-line derivation: in your scratch, load the committed extract_text.py, and for every (a,b) with 6100<=a<=6200, a<=b<=a+15 test whether the frozen span is in the rendering of raw lines a..b of the retained S432.html. Confirm the globally minimal span is (6150,6154), that removing either endpoint loses the span, that 6150-6156 is non-minimal, and paste the boundary table (which b is first-hit for each a)."
+      },
+      "ExecAppendOnly": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Append-only audit base..T0: `git diff 1a481315 4c8295fa --numstat -- corpus/ SCORECARD.md LOG.md SKILL.md` must show zero deletions for corpus/*.md and LOG/SCORECARD; list every changed file with hunk counts and classify each (new file, QUALITY append, lesson new, SKILL registry rows appended, sidecar JSON line/sha cells). Name any changed/deleted base line outside the sidecar JSON."
+      },
+      "ExecFixtureDeterminism": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Run .ufo/waves/round-64/fixtures/build_fixtures.py twice into two different scratch dirs; the four fixture revisions will differ (timestamps/committers) — instead compare the TREES: for each fixture, `git -C <repo> ls-tree -r HEAD` and compare every blob sha and path between the two builds; also compare blob shas against the fixture files' committed sources where applicable (stub_tool.py). Report any tree difference."
+      },
+      "ExecSweepSections": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Run node scripts/freshness-sweep.mjs --offline on a pristine T0 archive in your scratch; verify §paths prints '171 files', 'resolve 31 · declaredAbsent 65 · drift 0 · unresolved 10', missSet 65, and that the unresolved list is exactly the 10 placeholder/glob tokens (not existsSync-checkable); confirm §history SUSPENDED is pin-declared (pins.probeHistoryAbsent) and §armed is skipped offline with complete=false. Compare the declaredAbsent token set with the sweep-before receipt's expectation that only the SKILL.md:364 fault differed."
+      },
+      "ExecC63Regression": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Regression sweep at T0: c63_calibration.py --revision 4c8295fa (expect met=true), c63_quote_tool.py --revision 4c8295fa (expect met=true), c57_idresolver_gate.py --root . --revision 4c8295fa --fleet /home/vgpnk/Projects/shokunin (expect 5/5), and TMPDIR=<your scratch> python3 -B .ufo/waves/round-60/c60_gate_status.py --root . --revision 4c8295fa --work <your scratch>/c60 --jobs 4 (expect members=28 mismatches=0 met=True — long, up to ~30 min; if it times out at 1800s record that as timed_out and report the last output). Name any red."
+      },
+      "ExecLandedCheck": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Run python3 -B scripts/landed_check.py (read its usage first) or the equivalent ancestry checks for the round's commits: base 1a481315, T0 4c8295fa, receipts cc8add1f must all exist and be ancestors of the lane branch tip (git merge-base --is-ancestor against master at /home/vgpnk/Projects/shokunin/kake-shokunin). Also run scripts/id_resolver.py at T0 and report the dangling-id count (expect 0 unresolved)."
+      },
+      "ExecQuoteClassMatrix": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Differential-test the two class implementations: extract ~20 quoted spans from the retained S432.html (raw HTML fragments and their flat-text renderings, including one raw-substring span, several collapsed-only spans, several absent spans) and run scripts/quote_class.py classify on each vs the classify() inlined in .ufo/waves/round-64/c64_calibration.py (import it or copy the 4-line logic); outputs must agree on every sample. Include the apostrophe variants (U+2019 vs U+0027) and a backtick-vs-plain variant. Report the matrix."
+      },
+      "ExecUnresolvedGate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Prove the unresolved gating cannot be bypassed: build two fixtures in your scratch. F1: a full green tree (real blobs/ledger/recipe from T0 + copied lesson/QUALITY/knowledge/sources) but with the S432 Disagree line removed from the spot file — the counter must print disagreements=0 and met=false (the >=1 disagreement requirement). F2: the same tree with a second S432/Disagree line added — disagreements=2, unresolved=1 even with lesson_gate=1, met=false. Paste both outputs."
+      },
+      "ExecDoNothing": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "executor",
+        "item": "Build the §9 do-nothing controls in your scratch and score all three claims: D1 = base tree 1a481315 unchanged (no counters committed there — run the T0 counters against it): c64_calibration must be met=false; c64_quote_tool will be met=true (the tool exists at base — this is the declared C2 predicate shape, record it as such, NOT a defect); the C3 sweep must exit 2. D2 = a tree with ONLY the sidecar re-pin applied (no counters, no lesson): calibration met=false (lesson_gate=0), sweep exit 0 (the C3 target IS the re-pin — record that the re-pin alone reaches C3's green and explain why that is the claim, not a bypass). Paste outputs."
+      },
+      "ReviewerC1Predicate": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack C1's predicate end to end: enumerate every way c64_calibration.py could print met=true without the S432 resolution being genuine semantic evidence (fabricated lesson quoting the real span, copied real lesson into a junk tree, QUALITY criterion planting, sources row forging, disagreements masking, pin-equivalent blobs). For each, trace the code and name the component that stops it — or demonstrate a bypass with a fixture and report it as a falsification."
+      },
+      "ReviewerC1Prose": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack the block-level prose bindings: build a fixture tree (real blobs/ledger/recipe from T0) whose knowledge file carries a [r63-correction] block containing the frozen quote and ledger path but NO real derivation story, whose QUALITY has the round-62 sentence and purpose terms, whose lesson Gate quotes the spot span with c64_calibration.py and author-side, and whose SOURCES has a mined S432 row — everything green. Does the counter print met=true, and is that green a false admission or genuinely bound evidence? Judge whether the prose components prove anything beyond substring presence and report your verdict."
+      },
+      "ReviewerC1Pins": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack the pin wiring in c64_calibration.py: any path where pins=1 but evidence differs — sha256 collision reasoning is out of scope, but check git blob substitution (same bytes at two paths), the committed text vs recipe output equality check, the ledger parse (parse_ledger on a pinned-but-hostile ledger), and whether any component reads the worktree instead of the revision. Name any worktree-read or unpinned input."
+      },
+      "ReviewerC1Located": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack derive_located: window constants 6100-6200 and span max 15; minimal-range logic (first-hit b per a, global min span); off-by-one on line indexing; whether a ledger locatedRawLines of '6150-6154' is required to equal BOTH the counter's derivation and the pin, and whether the pin (EXPECTED_LOCATED) makes the ledger check redundant; whether a tree whose raw blob differs (pin fails) can still evaluate located. Report any weakness with a concrete fixture."
+      },
+      "ReviewerC1Unresolved": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack the unresolved gate: unresolved = max(disagreements - (1 if lesson_gate else 0), 0) — enumerate bypass shapes: spot file with zero S432-Disagree lines (met requires >=1 — verified?), lesson_gate=1 without any real resolution (covered by block binding?), multiple disagreements resolved by one lesson_gate flag, negative handling. Compare with c63's masked form (unresolved = disagreements if not resolved else 0) and confirm the masking defect is dead. Report with fixtures."
+      },
+      "ReviewerC2ShaPin": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack c64_quote_tool.py's stub definition: can any non-frozen tool execute? Check the order of operations (present -> sha -> materialize -> run), whether a sha-matching-but-hostile tool is possible (that would require a sha collision — out of scope), whether the run env (PATH/HOME/TMPDIR=work) prevents worktree or network reads, whether the tool's stdout/stderr can influence files, and whether the counter itself can be made to execute arbitrary bytes. Report."
+      },
+      "ReviewerC2Fixtures": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack the revision-materialization in c64_quote_tool.py: materialize() writes blobs at their repo-relative paths under the scratch root — can a fixture rel path escape the root (.. segments), can the tool's LANE_ROOT=cwd binding read anything outside the materialized bytes, is FIXTURE_RELS complete vs the tool's FIXTURE_CASES (read scripts/quote_class.py at T0 and diff the two tables), and are missing-fixture cases exit 2 (could-not-evaluate) rather than met? Report."
+      },
+      "ReviewerC2Rederive": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack the rederive step: the counter's FROZEN_CASES table duplicates the tool's FIXTURE_CASES — quote/expected/raw/text per case; a drift between the tables would mis-score. Diff them byte-level at T0. Check the bool-is-int hazard (isinstance(True, int) passes; total=4 passed=True would be totals_ok) and whether the frozen tool's honest JSON plus frozen_ok and val['ok'] is True makes that hazard unreachable; check by_id construction drops malformed case dicts. Report findings with severity."
+      },
+      "ReviewerC3Repin": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Verify and attack C3: confirm `git diff 1a481315 4c8295fa -- corpus/knowledge/freshness-sidecar.json` is exactly seven line/lineSha256 pairs and nothing else; confirm the sweep-after receipt's §paths section shows drift 0 and the same declaredAbsent set as before except the SKILL.md:364 fault cleared; attack whether exit 0 was reached by weakening anything else (pins file, sweep script — check `git diff 1a481315 4c8295fa -- scripts/freshness-sweep.mjs corpus/knowledge/freshness-pins.json` is empty). Report."
+      },
+      "ReviewerNoHarmCorpus": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Diff base..T0 across corpus/, SCORECARD.md, LOG.md, SKILL.md, PROVINCE.md and judge every hunk: the only permitted writes are the new lesson, the QUALITY round-64 append, the SKILL registry rows, the sidecar seven-pair re-pin, and the new .ufo/waves/round-64 tree. Any deletion, in-place rewrite, weakened held correction ([r54]/[r60]/[r63] blocks byte-identical?), registry row change, or lesson-history rewrite is harm — verify with `git diff 1a481315 4c8295fa` per file and report."
+      },
+      "ReviewerNoHarmGates": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Re-derive the SKILL.md gate-registry labels at T0 for the affected rows: freshness-sweep (--offline now exit 0 — its registry cell says 'bare form requires authorization for network checks' and '0=clean for evaluated checks only' — is the row still accurate after C3?), calibration-counter and quote-tool-counter (new rows — verify their commands/selftests/tallies match reality), and c53_gate_truth (never met — confirm unchanged). Run the two new counters' selftests and confirm the tallies printed match the row cells. Report any inaccurate row."
+      },
+      "ReviewerC1Selftest": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack c64_calibration.py --selftest: do the 26 checks assert what they claim (exit code AND output token)? Any vacuously passing check? Is the digest-consistent fabrication fixture (T4) genuinely the round-63 CriticClaims attack shape (real blobs + marker prose)? Is any check dependent on the worktree state rather than the fixture? Is coverage missing a routed-recipe clause (name it)? Run it in your scratch and report."
+      },
+      "ReviewerC2Selftest": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Attack c64_quote_tool.py --selftest: 11 checks — does T2/T3 use the committed stub bytes (compare to fixtures/stub_tool.py)? Is T7's green run a genuine full e2e over real base bytes? Does any check pass vacuously? Is the crash-tool path (T5) actually reachable in production (the sha pin fires first) and is that honestly documented? Run it in your scratch and report."
+      },
+      "ReviewerContract": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Contract-vs-reality audit of .ufo/waves/round-64/contract.md: every sha256 re-computed at T0; every receipt path present at cc8add1f; every fixture revision matching controls/fixture-builds.txt; predicate clauses identical in contract vs counter docstrings vs receipt header lines; kill rules wired with the shas (a pinned sha differing at the measured revision makes the claim unprovable — is that stated and is it enforced by pins?). Report any divergence."
+      },
+      "ReviewerCensusDiscipline": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Audit the frontier-step discipline: SOURCES.md diff empty base..T0; the sourced-claim duty satisfied by C1 resting on S432 re-opened THIS round (receipt .ufo/waves/round-64/sources/receipts.json with URL/date/method/sha); the round-64 lesson Gate carrying the re-open record with a <=25-word located quote (count the words); §2b old→new logging for the sidecar cells (lesson table vs repin-map receipt vs actual diff). Report any gap."
+      },
+      "ReviewerTrendEvidence": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "reviewer",
+        "item": "Audit trend evidence for the round's verdicts per LEARNING.md: expansion (SOURCES rows 171->171, no new knowledge entries on uncovered ground, no capability row except the withheld-then-re-entered quote-class row), quality (which standing artifacts re-verified or strengthened — sweep instrument restored, counters hardened; any admitted entry failing its bar?), discernment (gate decisions vs the outside spot-check — the round-63 closure's 3/3 agreement; this round's Gate admits/rejects with reasons/flips). Name the verdict each trend must carry and the evidence pointer for it."
+      },
+      "CriticClaims": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": "Build the cheapest controls that skip the claimed work and score the frozen counters (§9 duty): (1) calibration — a tree with NO round-64 work at all (base) and a tree with only a copied lesson (no blobs) — both must fail; (2) quote-tool — the committed stub fixture and a lying-JSON stub — both must fail via sha pin; (3) freshness — can exit 0 be reached without the re-pin (empty sidecar? deleted sidecar? pins edit?) — try each in your scratch and report. If any control reaches its target, that claim is falsified."
+      },
+      "CriticPredicateFreeze": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": "Freeze-rule audit: verify by git history that the contract, counters and control receipts committed BEFORE the green-after receipts (git log --oneline 1a481315..cc8add1f; commit 4c8295fa must contain contract+counters+base/control receipts and cc8add1f only the after receipts); that the receipts' printed revisions equal 4c8295fa; that no counter file changed between 4c8295fa and cc8add1f; and that the SCORECARD/LOG landing rows do not yet exist (they must not precede the wave). Report any violation."
+      },
+      "CriticAxisMapping": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": "Axis-mapping audit: C1 declared on calibration (lowest owned non-retired axis, score 2) — is the surface it moves really self-assessment quality (the round-61 outside disagreement resolution now verifiable without falsifiable instruments) or is it operability dressed as calibration? C2 on operability with the quote-class capability row re-entered — is the round-63 sanction ('a future round that lands these may re-enter') satisfied? C3 on freshness — is 'the drift instrument evaluates again' a freshness-axis move (drift detection restored) or mere bookkeeping? Name the surface each claim moves and your verdict per claim."
+      },
+      "CriticScorecards": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": "SCORECARD discipline audit at T0: scores remain operability 10, freshness 10, calibration 2 (no inflation); the round-63 section stands unchanged; no round-64 landing rows exist yet (they come after the wave); the planned-row history shows no post-hoc target narrowing (compare the round-63 settlement's repair recipe with this round's declared predicates — widened or narrowed?). Report."
+      },
+      "CriticC3Scope": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": "Judge C3's honesty: the sweep prints 'partial: offline' with §history SUSPENDED and §armed skipped — does the predicate 'VERDICT OK exit 0' overclaim a complete freshness check, or is it honestly scoped to §paths evaluation (the registry row says offline/skipped sections are never proof of a complete publishing check)? Read corpus/knowledge/freshness-sweep.md and the SKILL freshness-sweep registry row and rule whether the claim wording (contract §C3, lesson) stays inside what the instrument proves. Report your ruling."
+      },
+      "CriticExploratory": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "critic",
+        "item": "Exploratory-smuggling audit: no claim this round is declared exploratory — verify none of the three predicates is actually taste-bound (a judgment no counting command can re-derive). Also audit the lesson Gate rejects: does reject (b) (considerthese proposal 5) carry a real reason and flip condition, and is the admit/reject set complete enough for the non-author closure to spot-check (>=1 admit, >=1 reject)? Report."
+      },
+      "MutC1Counter": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": "Mutation-test c64_calibration.py: >=8 single-fault mutants (pins check dropped for one blob, recipe output equality loosened to sha-only, located equality dropped, class_match inverted, quote_correction loosened to file-level substring, criterion reduced to terms-only, lesson_gate span dropped, unresolved masked like c63). For each: does a committed control fixture (marker/fabrication/junk/ledger-mut) or the selftest kill it? Produce the kill matrix; any survivor is a finding."
+      },
+      "MutC2Counter": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": "Mutation-test c64_quote_tool.py: >=6 mutants (frozen sha pin removed, frozen-case check dropped, totals check dropped, rederive dropped, JSON guard removed (make it crash on garbage), timeout removed). For each: does the stub fixture, a garbage-output tool fixture, or the selftest kill it? Kill matrix; survivors are findings."
+      },
+      "MutC1Prose": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": "Mutation-test the prose bindings: variants of the round-64 lesson Gate (span quoted with one word changed; span present but 'collapsed-only' replaced by 'raw-substring'; 'c64_calibration.py' replaced by 'c63_calibration.py'; author-side label removed), the QUALITY criterion (sentence moved out of the Round-62 section), the knowledge correction block (quote moved outside the [r63-correction] block). For each variant: c64_calibration must print the named component 0 and met=false. Build fixtures in your scratch; report the matrix."
+      },
+      "MutRecipe": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": "Mutation-test the recipe binding: fixture trees where .ufo/waves/round-63/quote-class/extract_text.py is mutated (skip of script/style removed, whitespace collapse changed, block-tag set shrunk) with the raw blob real — the counter must fail (pin_drift=drift:recipe, or recipe output differs). Also a fixture where S432.txt is edited but recipe output matches the ORIGINAL text (committed text blob differs from pinned text sha) — must fail. Report which mutants are caught by which mechanism."
+      },
+      "MutLedger": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "mutation-tester",
+        "item": "Mutation-test the ledger: single-field corruptions (rawSha256 off-by-one-char, textSha256 wrong, matchClass swapped to raw-substring, quote with U+0027 instead of U+2019, locatedRawLines 6150-6156, an extra bogus row, classes not a list). Each fixture: c64_calibration.py must print met=false naming the mechanism (pin_drift or ledger_state or class/located mismatch). Kill matrix."
+      },
+      "ConnSiblingOverlap": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": "Cross-lane overlap scan for this round's ground: quote-class machinery (scripts/quote_class.py, the round-50 criterion), calibration-counter repair, the S432/fetch-spec span, the freshness-sidecar/sweep instrument, and response-header expectations. Read the sibling SKILL.md/PROVINCE.md/SCORECARD.md files under /home/vgpnk/Projects/shokunin/ (read-only). Report contested scope with evidence, or certify kake uniquely owns each surface."
+      },
+      "ConnCrossPattern": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "connector",
+        "item": "Cross-round pattern scan: the class 'a frozen counter whose met does not bind semantics' — survey this lane's other committed counters (.ufo/waves/round-*/c*_*.py and scripts/) for substring-only or self-report-shape predicates feeding met (grep for substring checks and json self-report parsing). The round-64 counters claim to have closed it for C1/C2 — name any OTHER counter that still carries the class; do not fix them — report only, with file:line."
+      },
+      "SentinelFixtureSafety": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "sentinel",
+        "item": "Security review of the round's committed instruments: .ufo/waves/round-64/c64_calibration.py, c64_quote_tool.py, fixtures/build_fixtures.py, fixtures/stub_tool.py, corpus/lessons/round-64.md, controls/*: no network calls, no eval/exec of remote bytes (importlib use of the COMMITTED recipe blob only — is that bound safe?), no path traversal beyond named args (rel paths joined under scratch — check '..' handling), subprocess calls with explicit argv (no shell=True), no credential material anywhere, selftests write only under their work dirs. Verify each by reading the code; report findings."
+      },
+      "SimplifyCounterReview": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "simplifier",
+        "item": "Simplification review: can c64_calibration.py (449 lines), c64_quote_tool.py (~370 lines), or fixtures/build_fixtures.py be materially smaller without losing any frozen semantics (pins, recipe re-execution, located re-derivation, block bindings, guard, sha pin, revision materialization)? Propose concrete deletions with the exact behavior preserved; if each file is at its honest minimum, certify that. Do not edit anything."
+      },
+      "RevengerC63Defect": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "revenger",
+        "item": "Reverse-engineer the c63 falsification class completely and check c64 against EVERY variant, not just the committed fixtures: (1) planted markers in all prose files with real blobs (fabrication-repo); (2) a fake ledger with recomputed shas (pin must catch); (3) real blobs with a swapped matchClass; (4) a spot file without the disagreement (vacuous green); (5) a lesson faking the outside verdict (span present but fabricated context); (6) the recipe swapped for an equivalent-output implementation (sha pin); (7) a canned-JSON stub tool (sha pin); (8) a tool that prints correct JSON but reads nothing (same sha problem). Report which variants c64 kills and any survivor with a fixture."
+      },
+      "ScribeRule1Audit": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": "Audit the S432 re-open record against CORPUS.md SOURCES rule 1: .ufo/waves/round-64/sources/receipts.json (URL, fetchedAt, method GET, sha256) and the round-64 lesson Gate re-open paragraph — URL present, access date 2026-10-30, <=25-word located quote (count the words exactly), location (raw lines 6150-6154), and the statement that no registry row was added or changed. Report compliance clause by clause."
+      },
+      "ScribeRepinLog": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": "Audit the §2b old→new logging of the sidecar re-pin: corpus/lessons/round-64.md §Mistakes re-pin table vs .ufo/waves/round-64/controls/sidecar-repin-map.txt vs `git diff 1a481315 4c8295fa -- corpus/knowledge/freshness-sidecar.json` — every changed cell logged old→new exactly once, no unlogged change, no logged-but-unmade change. Also verify the '23 further entries byte-identical' claim with a diff. Report."
+      },
+      "ScribeGateShape": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": "Audit the round-64 lesson's Gate shape against LEARNING.md: >=1 admit and >=1 reject, each with reasons; a flip condition on the reject; the outside verdict recorded; the author-side label present; candidates enumerated (a)/(b)/(c). Also confirm the Gate carries everything c64_calibration.py's lesson_gate binds (S432 / Fetch, the verdict span, collapsed-only, c64_calibration.py, author-side) — the binding's ground truth. Report clause by clause."
+      },
+      "ScribeMistakeClass": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": "Audit the round-64 mistake row against the fleet mistake vocabulary (CORPUS.md: vacuous, survivor, stale-premise, reference-drift, number-drift, scope, attribution, landing, provider): is 'survivor' the right class for a standing could-not-evaluate gate? Does the row carry all four fields (class · evidence pointer · captured-by · fix) with a resolvable evidence pointer and an honest captured-by (or none)? Report."
+      },
+      "ScribeQualCriterion": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": "Audit the QUALITY round-64 criterion against the corpus convention (prior rounds' criteria): grounding in a named lesson + receipt, an explicit falsifier command, and a concrete example that fails it. Verify the receipts it cites exist and say what it claims. Report."
+      },
+      "ScribeCensusNarrative": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": "Verify the lesson's Sources census section against the receipts: controls/census-before.txt and census-after.txt both exit 0 with 171 rows and 16 W04 warnings; the lesson claims 'no row added or changed' — cross-check `git diff 1a481315 4c8295fa -- corpus/SOURCES.md` is empty. Report any drift between narrative and receipts."
+      },
+      "ScribeReportSections": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": "Check the round report contract (fleet prompt §4) against committed artifacts: which required sections (Work performed, Landed changes, Before→after measurements, Sources & frontier, Trend verdicts, SHONEN) can already cite committed evidence paths, and which artifacts are still missing for the L1 to fill them honestly (wave results, settlement, LOG entry, SCORECARD rows)? Produce a checklist; do not write the report."
+      },
+      "ScribeLOGDraft": {
+        "kind": "spawn",
+        "agentId": null,
+        "role": "scribe",
+        "item": "Draft (in your report only — do not write LOG.md) the round-64 LOG entry the landing needs: claims C1/C2/C3 with verdicts, each evidence pointer (contract, receipts base/after/controls, wave results), the mistake mined, the census before→after, the capability row re-entered, and the assimilation line. Verify every pointer you cite exists at cc8add1f. Report the draft + verification."
+      }
+    }
+  },
+  "compaction": {
+    "applied": true,
+    "mechanism": "template_hoist",
+    "reason": null,
+    "savedBytes": 12698,
+    "payloadBytesBefore": 59751,
+    "payloadBytesAfter": 47053
+  },
+  "taskCall": {
+    "context": "/skill:godspeed\nRound 64 kake — one v2 build+attack wave of 65 seats over three frozen claims in\n/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-64/contract.md:\n\n- C1 calibration (lowest owned axis 2/10): the repaired semantics-binding\n  counter .ufo/waves/round-64/c64_calibration.py (frozen sha256\n  5489eb2f3ac498e0383d841c677f036231fbf6933717d8da447f3193ff088adf) pins the\n  S432 raw/text/ledger/recipe sha256s and the located-line span as constants,\n  re-executes the committed extraction recipe in-counter over the retained\n  raw blob, re-derives the minimal located raw-line range, gates `unresolved`\n  unmasked, and binds the round-64 lesson Gate block to the round-61\n  spot-check's actual verdict span. Measured green-after at T0\n  4c8295fa5e3b628f1fdf3840299ae415c01849fb\n  (.ufo/waves/round-64/controls/after-c1.txt: met=true exit 0).\n- C2 operability: .ufo/waves/round-64/c64_quote_tool.py (frozen sha256\n  96fd64e9a915468a32596e1560de4a71af5ba26fd7a6cc583d279add6327ee2b) defines a\n  stub as \"tool sha != frozen sha\" (frozen tool 431e75e8fee2c913c6fa74aebbf\n  7cb2e678f139a1a37b3d38994d1bb22841f14), runs the tool selftest only on\n  revision-materialized bytes, guards every JSON parse, and re-derives every\n  frozen case itself. The committed stub differential reproduces the round-63\n  defect (controls/stub-c63-defect.txt: c63 met=true on the stub) and rejects\n  it (controls/stub-c64.txt: tool_sha=mismatch met=false). Measured\n  green-after at T0 (controls/after-c2.txt).\n- C3 freshness: corpus/knowledge/freshness-sidecar.json re-pinned to the\n  current SKILL.md bytes (7 entries, old->new in\n  controls/sidecar-repin-map.txt and corpus/lessons/round-64.md §Mistakes);\n  scripts/freshness-sweep.mjs --offline now evaluates (VERDICT OK exit 0,\n  controls/sweep-after.txt) where it exited 2 with \"paths sidecar binding\n  invalid: SKILL.md:364\" at the round-60 tip, round-61 base and round-63\n  base (controls/sweep-before.txt).\n\nBounds (binding): You are a leaf. Never run a mutating git/jj command\nanywhere; never commit or push. Never write anywhere except your own Report\npath (the validator's Report: trailer is relative to\n/home/vgpnk/Projects/shokunin/kake-shokunin — write your report at\n/home/vgpnk/Projects/shokunin/kake-shokunin/<that path>). The lane repo\n/home/vgpnk/Projects/shokunin/kake-shokunin is read-only for you: `git -C\n<lane> show/rev-parse/log/diff/status` is fine; its working tree must stay\nuntouched. Keep the frozen claims, counters, receipts, contract and lesson\nuntouched — attack them, do not edit them. Scratch discipline: every clone,\nfixture repo, archive or work tree of yours lives under\n/fast/scratch/hyaku/kake-r64/<your-seat-name>/ (create it; pass it\nexplicitly, never rely on inherited TMPDIR); /tmp only for files under 50\nMB; delete your scratch tree before you yield (trap/finally) after copying\nwhat you must keep into your report. Git fixtures: create each fixture repo\nas its own directory under your scratch, run every git call with -C <that\ndir>, and verify `git -C <dir> rev-parse --show-toplevel` equals it before\nthe first commit. Tooling authorization (operator, 2026-10-19): you may\ninstall/upgrade tools that help the task — read\n/home/vgpnk/.omp/agent/RULES.md first; pacman is PAUSED host-wide (never\npacman -S/-Sy/-Syu/-U/-R; install via uv tool / npx / an official binary in\n~/.local/bin) and record any tool/version/channel/reason in your report.\nRevisions in evidence: base 1a48131577ba82c967650561be34e8dba909432a\n(round-63 tip), measured T0 4c8295fa5e3b628f1fdf3840299ae415c01849fb (build\n+ contract + controls), cc8add1fa740b920ea5179a71152680ab220c70c\n(green-after receipts). Report evidence with absolute filenames/lines and\nexact commands/output; name what you attacked and your verdict.\n\n# Shared lane template\n\nEvery lane of this wave expands the template below, substituting its own item for each {{item}} occurrence. Your item, judgment binding, and report path arrive in your lane task.\n\n\n\n{{item}}\n\nReport evidence with absolute filenames/lines and exact commands/output.\nKeep the frozen claim, counters and receipts untouched — attack them, do not\nedit them. Do not write anywhere except your own Report path.\n",
+    "tasks": [
+      {
+        "name": "ScoutS432Reopen",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nIndependently re-open https://fetch.spec.whatwg.org/ with ONE GET (curl, timeout 30s, own scratch) and compare the received bytes' sha256 against the round-61 retained body /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-61/sources/S432.html and the round-64 live receipt .ufo/waves/round-64/sources/S432.live.html. Report whether the retained body is current and whether the round-64 lesson Gate re-open record (URL, access date, <=25-word located quote, raw lines 6150-6154) satisfies CORPUS rule 1.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutS432Reopen.md"
+      },
+      {
+        "name": "ScoutRecipeReproduce",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nFrom the lane repo at /home/vgpnk/Projects/shokunin/kake-shokunin, reproduce the flat-text derivation yourself: git show T0:.ufo/waves/round-63/quote-class/extract_text.py, run it over T0:.ufo/waves/round-61/sources/S432.html in your scratch, and verify (a) output sha256 equals 8b90d096d2653ce57025e25c5bee5c63df66692e15ef8579371032da6f542a69, (b) output is byte-identical to the committed .ufo/waves/round-63/quote-class/S432.txt at T0. Then independently locate the minimal raw-line range whose rendering contains the frozen span and report whether it is 6150-6154.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutRecipeReproduce.md"
+      },
+      {
+        "name": "ScoutLedgerIntegrity",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nVerify .ufo/waves/round-63/quote-class/quote-classes.json at T0 against committed bytes: recompute sha256 of the raw and text blobs and compare to the ledger's rawSha256/textSha256; confirm the ledger's quote is byte-identical to the FROZEN_QUOTE constant in .ufo/waves/round-64/c64_calibration.py and to the quote in the [r63-correction] block of corpus/knowledge/response-header-expectations.md at T0; confirm matchClass collapsed-only and locatedRawLines 6150-6154.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutLedgerIntegrity.md"
+      },
+      {
+        "name": "ScoutContractFidelity",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nRead /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-64/contract.md and verify against committed bytes at T0 4c8295fa5e3b628f1fdf3840299ae415c01849fb: the four frozen sha256s (c64_calibration.py, c64_quote_tool.py, build_fixtures.py, stub_tool.py) match `git show T0:<path>`; the fixture revisions named in the contract match controls/fixture-builds.txt; the predicate sentences in §C1/§C2/§C3 match the counter docstrings; every receipt path named in the contract exists at cc8add1fa740b920ea5179a71152680ab220c70c.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutContractFidelity.md"
+      },
+      {
+        "name": "ScoutCensusState",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nRun the frozen manual census commands from /home/vgpnk/Projects/shokunin/CORPUS.md section 'SOURCES.md — where a shokunin learns' against /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md (row count, malformed, tier histogram, status histogram, duplicate ids, enum violations, mined used-by existence). Compare against .ufo/waves/round-64/controls/census-before.txt and census-after.txt; confirm the registry diff between base 1a481315 and T0 is empty (`git diff 1a481315 4c8295fa -- corpus/SOURCES.md`) and name the W04 count.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutCensusState.md"
+      },
+      {
+        "name": "ScoutSpotSpan",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nVerify from committed bytes at T0: the span 'is only a generic lead-in, not substantive evidence for a response-header expectation' occurs verbatim in corpus/lessons/round-61-verifier-spotcheck.md exactly once; that the round-64 lesson corpus/lessons/round-64.md Gate section quotes it; and that c64_calibration.py's SPOT_VERDICT_SPAN equals it byte-for-byte. Also verify the spot file's S432 row carries Disagree exactly once (the disagreements=1 input).\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutSpotSpan.md"
+      },
+      {
+        "name": "ScoutSidecarDiff",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nVerify the round-64 sidecar re-pin is exactly seven cell pairs: `git diff 1a481315 4c8295fa -- corpus/knowledge/freshness-sidecar.json` must show only line/lineSha256 changes on 7 SKILL.md entries (364->365, 423->424, 431->432, 445->446, 448->449, 449->450, 450->451), no note/kind/date/token cell changed, and the other 23 entries byte-identical. Recompute sha256 of each new SKILL.md line and compare to the new lineSha256 values; cross-check controls/sidecar-repin-map.txt.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutSidecarDiff.md"
+      },
+      {
+        "name": "ScoutSweepHistory",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nReproduce the sweep-before receipt independently: archive 9f671056c6fb5ca49bc62ed4210745f620ed4cae, d2da25de5fcd8d2384cee99b615cd53b083c5887 and 1a48131577ba82c967650561be34e8dba909432a into your scratch (`git -C <lane> archive <rev> | tar -x -C <dir>`) and run `node scripts/freshness-sweep.mjs --offline` in each; all three must exit 2 with the same 'paths sidecar binding invalid: SKILL.md:364' fault as controls/sweep-before.txt. Also confirm via git log that corpus/knowledge/freshness-sidecar.json was last modified before this round at 3d07733b (round-24).\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutSweepHistory.md"
+      },
+      {
+        "name": "ScoutPriorRecipe",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nMap the round-63 repair recipe (corpus/lessons/round-63.md §Wave settlement 'Routed to round 64' + round-63-verifier-spotcheck.md routed defects 1-2) clause by clause onto committed code: pin ledger/blob shas as constants; re-execute extract_text.py in-counter; gate disagreements/unresolved without masking; wire frozen shas into kill rules (contract §C1/§C2); bind prose components block-level; bind locatedRawLines against raw bytes (the ExecLedgerMutation M5 survivor); guard C2 JSON parsing; pin selftest fixtures to the revision; define stub as tool-sha mismatch. Name the code line numbers implementing each clause and any clause you judge NOT implemented.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutPriorRecipe.md"
+      },
+      {
+        "name": "ScoutSiblingOverlap",
+        "agent": "scout",
+        "task": "/skill:godspeed\n\n## Your item\n\nScan sibling lanes for ownership overlap with this round's ground: quote-class machinery, calibration-counter repair, the S432/fetch-spec span, and the freshness-sidecar/sweep instrument. Read the sibling SKILL.md/PROVINCE.md files under /home/vgpnk/Projects/shokunin/ (read-only). Report contested scope with evidence, or certify kake uniquely owns this ground.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScoutSiblingOverlap.md"
+      },
+      {
+        "name": "ExecReceiptsReproduce",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nReproduce every committed control receipt from scratch in your own scratch dir: run .ufo/waves/round-64/fixtures/build_fixtures.py <your-scratch>/fixtures (read the committed script first; note its fixture revisions), then run c64_calibration.py against marker/fabrication/junk fixtures and the ledger-mut recipe (rebuild it per controls/control-ledger-mut.txt), c64_quote_tool.py and c63_quote_tool.py against the stub fixture, both selftests, and base-c1 at base 1a481315. Compare each output line and exit code byte-level to the committed receipt under .ufo/waves/round-64/controls/ and report any mismatch.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecReceiptsReproduce.md"
+      },
+      {
+        "name": "ExecAfterReproduce",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nIn a pristine checkout of T0 4c8295fa5e3b628f1fdf3840299ae415c01849fb (git archive into your scratch, or git clone --shared + checkout --detach in YOUR scratch only), re-run the after receipts: c64_calibration.py --revision T0 (expect met=true exit 0), c64_quote_tool.py --revision T0 (expect met=true exit 0), node scripts/freshness-sweep.mjs --offline (expect VERDICT OK exit 0), and the census script /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake (expect exit 0). Compare byte-level with the committed after-c1.txt, after-c2.txt, sweep-after.txt, census-after.txt under .ufo/waves/round-64/controls/.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecAfterReproduce.md"
+      },
+      {
+        "name": "ExecToolSelftest",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nIn a pristine T0 archive under your scratch: verify sha256(scripts/quote_class.py) equals the frozen 431e75e8fee2c913c6fa74aebbf7cb2e678f139a1a37b3d38994d1bb22841f14; run `python3 -B scripts/quote_class.py --selftest` (expect 4/4 pass incl. s432_real) and one `classify` invocation over the real S432 blobs with the frozen span (expect collapsed-only, exit 0); also run `--selftest --json` and paste the case table.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecToolSelftest.md"
+      },
+      {
+        "name": "ExecCounterStress",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nStress both counters with hostile inputs in your scratch: (a) revision args that are refs to missing objects, empty string, 41-hex, 'HEAD~99999'; (b) a fixture repo whose ledger is hostile JSON (deep nesting, huge strings, NaN, duplicate keys) with all four pins satisfied except the ledger sha — confirm met=false with a named pin_drift, never a traceback; (c) locatedRawLines variants in the ledger ('6150', '6150-6155', '6000-7000'); (d) a fixture where SPOT_REL is a directory-like path or binary bytes. Assert exit codes 0/1/2 only, stderr without Traceback, and record a matrix.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecCounterStress.md"
+      },
+      {
+        "name": "ExecGuardNoHarm",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nRe-run the standing-gate no-harm set at T0 in your scratch and report each exit/output: node scripts/freshness-sweep.mjs --offline (0); python3 -B scripts/append_guard.py --root <T0 archive> --base fd6303ce5c14b3f892dec586297a942ab6e4193b --revision <T0> (0); python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision de7d96e720522ea15fba3fd9ee3ce58c42596031 (met=True); python3 -B .ufo/waves/round-59/c59_axis_evidence.py --root . --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349 (met=True); python3 -B .ufo/waves/round-61/c61_recheck_pins.py --root . --revision d2da25de5fcd8d2384cee99b615cd53b083c5887 (6/6); c63_calibration.py and c63_quote_tool.py at T0 (both met=true); python3 -B scripts/id_resolver.py --selftest. Name any red.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecGuardNoHarm.md"
+      },
+      {
+        "name": "ExecCensusCommands",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nRun the seven frozen manual census commands from /home/vgpnk/Projects/shokunin/CORPUS.md (rows, malformed, tier histogram, status histogram, duplicate ids, enum violations + tier inflation, mined used-by existence) against corpus/SOURCES.md at T0 and paste each output. Confirm 171 rows, 0 malformed, 0 duplicates, 0 enum violations, 0 missing used-by paths, and compare to controls/census-before.txt and census-after.txt.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecCensusCommands.md"
+      },
+      {
+        "name": "ExecLocatedRange",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nBrute-force the located-line derivation: in your scratch, load the committed extract_text.py, and for every (a,b) with 6100<=a<=6200, a<=b<=a+15 test whether the frozen span is in the rendering of raw lines a..b of the retained S432.html. Confirm the globally minimal span is (6150,6154), that removing either endpoint loses the span, that 6150-6156 is non-minimal, and paste the boundary table (which b is first-hit for each a).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecLocatedRange.md"
+      },
+      {
+        "name": "ExecAppendOnly",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nAppend-only audit base..T0: `git diff 1a481315 4c8295fa --numstat -- corpus/ SCORECARD.md LOG.md SKILL.md` must show zero deletions for corpus/*.md and LOG/SCORECARD; list every changed file with hunk counts and classify each (new file, QUALITY append, lesson new, SKILL registry rows appended, sidecar JSON line/sha cells). Name any changed/deleted base line outside the sidecar JSON.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecAppendOnly.md"
+      },
+      {
+        "name": "ExecFixtureDeterminism",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nRun .ufo/waves/round-64/fixtures/build_fixtures.py twice into two different scratch dirs; the four fixture revisions will differ (timestamps/committers) — instead compare the TREES: for each fixture, `git -C <repo> ls-tree -r HEAD` and compare every blob sha and path between the two builds; also compare blob shas against the fixture files' committed sources where applicable (stub_tool.py). Report any tree difference.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecFixtureDeterminism.md"
+      },
+      {
+        "name": "ExecSweepSections",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nRun node scripts/freshness-sweep.mjs --offline on a pristine T0 archive in your scratch; verify §paths prints '171 files', 'resolve 31 · declaredAbsent 65 · drift 0 · unresolved 10', missSet 65, and that the unresolved list is exactly the 10 placeholder/glob tokens (not existsSync-checkable); confirm §history SUSPENDED is pin-declared (pins.probeHistoryAbsent) and §armed is skipped offline with complete=false. Compare the declaredAbsent token set with the sweep-before receipt's expectation that only the SKILL.md:364 fault differed.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecSweepSections.md"
+      },
+      {
+        "name": "ExecC63Regression",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nRegression sweep at T0: c63_calibration.py --revision 4c8295fa (expect met=true), c63_quote_tool.py --revision 4c8295fa (expect met=true), c57_idresolver_gate.py --root . --revision 4c8295fa --fleet /home/vgpnk/Projects/shokunin (expect 5/5), and TMPDIR=<your scratch> python3 -B .ufo/waves/round-60/c60_gate_status.py --root . --revision 4c8295fa --work <your scratch>/c60 --jobs 4 (expect members=28 mismatches=0 met=True — long, up to ~30 min; if it times out at 1800s record that as timed_out and report the last output). Name any red.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecC63Regression.md"
+      },
+      {
+        "name": "ExecLandedCheck",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nRun python3 -B scripts/landed_check.py (read its usage first) or the equivalent ancestry checks for the round's commits: base 1a481315, T0 4c8295fa, receipts cc8add1f must all exist and be ancestors of the lane branch tip (git merge-base --is-ancestor against master at /home/vgpnk/Projects/shokunin/kake-shokunin). Also run scripts/id_resolver.py at T0 and report the dangling-id count (expect 0 unresolved).\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecLandedCheck.md"
+      },
+      {
+        "name": "ExecQuoteClassMatrix",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nDifferential-test the two class implementations: extract ~20 quoted spans from the retained S432.html (raw HTML fragments and their flat-text renderings, including one raw-substring span, several collapsed-only spans, several absent spans) and run scripts/quote_class.py classify on each vs the classify() inlined in .ufo/waves/round-64/c64_calibration.py (import it or copy the 4-line logic); outputs must agree on every sample. Include the apostrophe variants (U+2019 vs U+0027) and a backtick-vs-plain variant. Report the matrix.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecQuoteClassMatrix.md"
+      },
+      {
+        "name": "ExecUnresolvedGate",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nProve the unresolved gating cannot be bypassed: build two fixtures in your scratch. F1: a full green tree (real blobs/ledger/recipe from T0 + copied lesson/QUALITY/knowledge/sources) but with the S432 Disagree line removed from the spot file — the counter must print disagreements=0 and met=false (the >=1 disagreement requirement). F2: the same tree with a second S432/Disagree line added — disagreements=2, unresolved=1 even with lesson_gate=1, met=false. Paste both outputs.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecUnresolvedGate.md"
+      },
+      {
+        "name": "ExecDoNothing",
+        "agent": "executor",
+        "task": "/skill:godspeed\n\n## Your item\n\nBuild the §9 do-nothing controls in your scratch and score all three claims: D1 = base tree 1a481315 unchanged (no counters committed there — run the T0 counters against it): c64_calibration must be met=false; c64_quote_tool will be met=true (the tool exists at base — this is the declared C2 predicate shape, record it as such, NOT a defect); the C3 sweep must exit 2. D2 = a tree with ONLY the sidecar re-pin applied (no counters, no lesson): calibration met=false (lesson_gate=0), sweep exit 0 (the C3 target IS the re-pin — record that the re-pin alone reaches C3's green and explain why that is the claim, not a bypass). Paste outputs.\n\nLane bounds: leaf member — no subagent dispatch except your single labrat.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ExecDoNothing.md"
+      },
+      {
+        "name": "ReviewerC1Predicate",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack C1's predicate end to end: enumerate every way c64_calibration.py could print met=true without the S432 resolution being genuine semantic evidence (fabricated lesson quoting the real span, copied real lesson into a junk tree, QUALITY criterion planting, sources row forging, disagreements masking, pin-equivalent blobs). For each, trace the code and name the component that stops it — or demonstrate a bypass with a fixture and report it as a falsification.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC1Predicate.md"
+      },
+      {
+        "name": "ReviewerC1Prose",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack the block-level prose bindings: build a fixture tree (real blobs/ledger/recipe from T0) whose knowledge file carries a [r63-correction] block containing the frozen quote and ledger path but NO real derivation story, whose QUALITY has the round-62 sentence and purpose terms, whose lesson Gate quotes the spot span with c64_calibration.py and author-side, and whose SOURCES has a mined S432 row — everything green. Does the counter print met=true, and is that green a false admission or genuinely bound evidence? Judge whether the prose components prove anything beyond substring presence and report your verdict.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC1Prose.md"
+      },
+      {
+        "name": "ReviewerC1Pins",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack the pin wiring in c64_calibration.py: any path where pins=1 but evidence differs — sha256 collision reasoning is out of scope, but check git blob substitution (same bytes at two paths), the committed text vs recipe output equality check, the ledger parse (parse_ledger on a pinned-but-hostile ledger), and whether any component reads the worktree instead of the revision. Name any worktree-read or unpinned input.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC1Pins.md"
+      },
+      {
+        "name": "ReviewerC1Located",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack derive_located: window constants 6100-6200 and span max 15; minimal-range logic (first-hit b per a, global min span); off-by-one on line indexing; whether a ledger locatedRawLines of '6150-6154' is required to equal BOTH the counter's derivation and the pin, and whether the pin (EXPECTED_LOCATED) makes the ledger check redundant; whether a tree whose raw blob differs (pin fails) can still evaluate located. Report any weakness with a concrete fixture.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC1Located.md"
+      },
+      {
+        "name": "ReviewerC1Unresolved",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack the unresolved gate: unresolved = max(disagreements - (1 if lesson_gate else 0), 0) — enumerate bypass shapes: spot file with zero S432-Disagree lines (met requires >=1 — verified?), lesson_gate=1 without any real resolution (covered by block binding?), multiple disagreements resolved by one lesson_gate flag, negative handling. Compare with c63's masked form (unresolved = disagreements if not resolved else 0) and confirm the masking defect is dead. Report with fixtures.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC1Unresolved.md"
+      },
+      {
+        "name": "ReviewerC2ShaPin",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack c64_quote_tool.py's stub definition: can any non-frozen tool execute? Check the order of operations (present -> sha -> materialize -> run), whether a sha-matching-but-hostile tool is possible (that would require a sha collision — out of scope), whether the run env (PATH/HOME/TMPDIR=work) prevents worktree or network reads, whether the tool's stdout/stderr can influence files, and whether the counter itself can be made to execute arbitrary bytes. Report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC2ShaPin.md"
+      },
+      {
+        "name": "ReviewerC2Fixtures",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack the revision-materialization in c64_quote_tool.py: materialize() writes blobs at their repo-relative paths under the scratch root — can a fixture rel path escape the root (.. segments), can the tool's LANE_ROOT=cwd binding read anything outside the materialized bytes, is FIXTURE_RELS complete vs the tool's FIXTURE_CASES (read scripts/quote_class.py at T0 and diff the two tables), and are missing-fixture cases exit 2 (could-not-evaluate) rather than met? Report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC2Fixtures.md"
+      },
+      {
+        "name": "ReviewerC2Rederive",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack the rederive step: the counter's FROZEN_CASES table duplicates the tool's FIXTURE_CASES — quote/expected/raw/text per case; a drift between the tables would mis-score. Diff them byte-level at T0. Check the bool-is-int hazard (isinstance(True, int) passes; total=4 passed=True would be totals_ok) and whether the frozen tool's honest JSON plus frozen_ok and val['ok'] is True makes that hazard unreachable; check by_id construction drops malformed case dicts. Report findings with severity.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC2Rederive.md"
+      },
+      {
+        "name": "ReviewerC3Repin",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nVerify and attack C3: confirm `git diff 1a481315 4c8295fa -- corpus/knowledge/freshness-sidecar.json` is exactly seven line/lineSha256 pairs and nothing else; confirm the sweep-after receipt's §paths section shows drift 0 and the same declaredAbsent set as before except the SKILL.md:364 fault cleared; attack whether exit 0 was reached by weakening anything else (pins file, sweep script — check `git diff 1a481315 4c8295fa -- scripts/freshness-sweep.mjs corpus/knowledge/freshness-pins.json` is empty). Report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC3Repin.md"
+      },
+      {
+        "name": "ReviewerNoHarmCorpus",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nDiff base..T0 across corpus/, SCORECARD.md, LOG.md, SKILL.md, PROVINCE.md and judge every hunk: the only permitted writes are the new lesson, the QUALITY round-64 append, the SKILL registry rows, the sidecar seven-pair re-pin, and the new .ufo/waves/round-64 tree. Any deletion, in-place rewrite, weakened held correction ([r54]/[r60]/[r63] blocks byte-identical?), registry row change, or lesson-history rewrite is harm — verify with `git diff 1a481315 4c8295fa` per file and report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerNoHarmCorpus.md"
+      },
+      {
+        "name": "ReviewerNoHarmGates",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nRe-derive the SKILL.md gate-registry labels at T0 for the affected rows: freshness-sweep (--offline now exit 0 — its registry cell says 'bare form requires authorization for network checks' and '0=clean for evaluated checks only' — is the row still accurate after C3?), calibration-counter and quote-tool-counter (new rows — verify their commands/selftests/tallies match reality), and c53_gate_truth (never met — confirm unchanged). Run the two new counters' selftests and confirm the tallies printed match the row cells. Report any inaccurate row.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerNoHarmGates.md"
+      },
+      {
+        "name": "ReviewerC1Selftest",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack c64_calibration.py --selftest: do the 26 checks assert what they claim (exit code AND output token)? Any vacuously passing check? Is the digest-consistent fabrication fixture (T4) genuinely the round-63 CriticClaims attack shape (real blobs + marker prose)? Is any check dependent on the worktree state rather than the fixture? Is coverage missing a routed-recipe clause (name it)? Run it in your scratch and report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC1Selftest.md"
+      },
+      {
+        "name": "ReviewerC2Selftest",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAttack c64_quote_tool.py --selftest: 11 checks — does T2/T3 use the committed stub bytes (compare to fixtures/stub_tool.py)? Is T7's green run a genuine full e2e over real base bytes? Does any check pass vacuously? Is the crash-tool path (T5) actually reachable in production (the sha pin fires first) and is that honestly documented? Run it in your scratch and report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerC2Selftest.md"
+      },
+      {
+        "name": "ReviewerContract",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nContract-vs-reality audit of .ufo/waves/round-64/contract.md: every sha256 re-computed at T0; every receipt path present at cc8add1f; every fixture revision matching controls/fixture-builds.txt; predicate clauses identical in contract vs counter docstrings vs receipt header lines; kill rules wired with the shas (a pinned sha differing at the measured revision makes the claim unprovable — is that stated and is it enforced by pins?). Report any divergence.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerContract.md"
+      },
+      {
+        "name": "ReviewerCensusDiscipline",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAudit the frontier-step discipline: SOURCES.md diff empty base..T0; the sourced-claim duty satisfied by C1 resting on S432 re-opened THIS round (receipt .ufo/waves/round-64/sources/receipts.json with URL/date/method/sha); the round-64 lesson Gate carrying the re-open record with a <=25-word located quote (count the words); §2b old→new logging for the sidecar cells (lesson table vs repin-map receipt vs actual diff). Report any gap.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerCensusDiscipline.md"
+      },
+      {
+        "name": "ReviewerTrendEvidence",
+        "agent": "reviewer",
+        "task": "/skill:godspeed\n\n## Your item\n\nAudit trend evidence for the round's verdicts per LEARNING.md: expansion (SOURCES rows 171->171, no new knowledge entries on uncovered ground, no capability row except the withheld-then-re-entered quote-class row), quality (which standing artifacts re-verified or strengthened — sweep instrument restored, counters hardened; any admitted entry failing its bar?), discernment (gate decisions vs the outside spot-check — the round-63 closure's 3/3 agreement; this round's Gate admits/rejects with reasons/flips). Name the verdict each trend must carry and the evidence pointer for it.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ReviewerTrendEvidence.md"
+      },
+      {
+        "name": "CriticClaims",
+        "agent": "critic",
+        "task": "/skill:godspeed\n\n## Your item\n\nBuild the cheapest controls that skip the claimed work and score the frozen counters (§9 duty): (1) calibration — a tree with NO round-64 work at all (base) and a tree with only a copied lesson (no blobs) — both must fail; (2) quote-tool — the committed stub fixture and a lying-JSON stub — both must fail via sha pin; (3) freshness — can exit 0 be reached without the re-pin (empty sidecar? deleted sidecar? pins edit?) — try each in your scratch and report. If any control reaches its target, that claim is falsified.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/CriticClaims.md"
+      },
+      {
+        "name": "CriticPredicateFreeze",
+        "agent": "critic",
+        "task": "/skill:godspeed\n\n## Your item\n\nFreeze-rule audit: verify by git history that the contract, counters and control receipts committed BEFORE the green-after receipts (git log --oneline 1a481315..cc8add1f; commit 4c8295fa must contain contract+counters+base/control receipts and cc8add1f only the after receipts); that the receipts' printed revisions equal 4c8295fa; that no counter file changed between 4c8295fa and cc8add1f; and that the SCORECARD/LOG landing rows do not yet exist (they must not precede the wave). Report any violation.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/CriticPredicateFreeze.md"
+      },
+      {
+        "name": "CriticAxisMapping",
+        "agent": "critic",
+        "task": "/skill:godspeed\n\n## Your item\n\nAxis-mapping audit: C1 declared on calibration (lowest owned non-retired axis, score 2) — is the surface it moves really self-assessment quality (the round-61 outside disagreement resolution now verifiable without falsifiable instruments) or is it operability dressed as calibration? C2 on operability with the quote-class capability row re-entered — is the round-63 sanction ('a future round that lands these may re-enter') satisfied? C3 on freshness — is 'the drift instrument evaluates again' a freshness-axis move (drift detection restored) or mere bookkeeping? Name the surface each claim moves and your verdict per claim.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/CriticAxisMapping.md"
+      },
+      {
+        "name": "CriticScorecards",
+        "agent": "critic",
+        "task": "/skill:godspeed\n\n## Your item\n\nSCORECARD discipline audit at T0: scores remain operability 10, freshness 10, calibration 2 (no inflation); the round-63 section stands unchanged; no round-64 landing rows exist yet (they come after the wave); the planned-row history shows no post-hoc target narrowing (compare the round-63 settlement's repair recipe with this round's declared predicates — widened or narrowed?). Report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/CriticScorecards.md"
+      },
+      {
+        "name": "CriticC3Scope",
+        "agent": "critic",
+        "task": "/skill:godspeed\n\n## Your item\n\nJudge C3's honesty: the sweep prints 'partial: offline' with §history SUSPENDED and §armed skipped — does the predicate 'VERDICT OK exit 0' overclaim a complete freshness check, or is it honestly scoped to §paths evaluation (the registry row says offline/skipped sections are never proof of a complete publishing check)? Read corpus/knowledge/freshness-sweep.md and the SKILL freshness-sweep registry row and rule whether the claim wording (contract §C3, lesson) stays inside what the instrument proves. Report your ruling.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/CriticC3Scope.md"
+      },
+      {
+        "name": "CriticExploratory",
+        "agent": "critic",
+        "task": "/skill:godspeed\n\n## Your item\n\nExploratory-smuggling audit: no claim this round is declared exploratory — verify none of the three predicates is actually taste-bound (a judgment no counting command can re-derive). Also audit the lesson Gate rejects: does reject (b) (considerthese proposal 5) carry a real reason and flip condition, and is the admit/reject set complete enough for the non-author closure to spot-check (>=1 admit, >=1 reject)? Report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/CriticExploratory.md"
+      },
+      {
+        "name": "MutC1Counter",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\n\n## Your item\n\nMutation-test c64_calibration.py: >=8 single-fault mutants (pins check dropped for one blob, recipe output equality loosened to sha-only, located equality dropped, class_match inverted, quote_correction loosened to file-level substring, criterion reduced to terms-only, lesson_gate span dropped, unresolved masked like c63). For each: does a committed control fixture (marker/fabrication/junk/ledger-mut) or the selftest kill it? Produce the kill matrix; any survivor is a finding.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/MutC1Counter.md"
+      },
+      {
+        "name": "MutC2Counter",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\n\n## Your item\n\nMutation-test c64_quote_tool.py: >=6 mutants (frozen sha pin removed, frozen-case check dropped, totals check dropped, rederive dropped, JSON guard removed (make it crash on garbage), timeout removed). For each: does the stub fixture, a garbage-output tool fixture, or the selftest kill it? Kill matrix; survivors are findings.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/MutC2Counter.md"
+      },
+      {
+        "name": "MutC1Prose",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\n\n## Your item\n\nMutation-test the prose bindings: variants of the round-64 lesson Gate (span quoted with one word changed; span present but 'collapsed-only' replaced by 'raw-substring'; 'c64_calibration.py' replaced by 'c63_calibration.py'; author-side label removed), the QUALITY criterion (sentence moved out of the Round-62 section), the knowledge correction block (quote moved outside the [r63-correction] block). For each variant: c64_calibration must print the named component 0 and met=false. Build fixtures in your scratch; report the matrix.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/MutC1Prose.md"
+      },
+      {
+        "name": "MutRecipe",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\n\n## Your item\n\nMutation-test the recipe binding: fixture trees where .ufo/waves/round-63/quote-class/extract_text.py is mutated (skip of script/style removed, whitespace collapse changed, block-tag set shrunk) with the raw blob real — the counter must fail (pin_drift=drift:recipe, or recipe output differs). Also a fixture where S432.txt is edited but recipe output matches the ORIGINAL text (committed text blob differs from pinned text sha) — must fail. Report which mutants are caught by which mechanism.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/MutRecipe.md"
+      },
+      {
+        "name": "MutLedger",
+        "agent": "mutation-tester",
+        "task": "/skill:godspeed\n\n## Your item\n\nMutation-test the ledger: single-field corruptions (rawSha256 off-by-one-char, textSha256 wrong, matchClass swapped to raw-substring, quote with U+0027 instead of U+2019, locatedRawLines 6150-6156, an extra bogus row, classes not a list). Each fixture: c64_calibration.py must print met=false naming the mechanism (pin_drift or ledger_state or class/located mismatch). Kill matrix.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/MutLedger.md"
+      },
+      {
+        "name": "ConnSiblingOverlap",
+        "agent": "connector",
+        "task": "/skill:godspeed\n\n## Your item\n\nCross-lane overlap scan for this round's ground: quote-class machinery (scripts/quote_class.py, the round-50 criterion), calibration-counter repair, the S432/fetch-spec span, the freshness-sidecar/sweep instrument, and response-header expectations. Read the sibling SKILL.md/PROVINCE.md/SCORECARD.md files under /home/vgpnk/Projects/shokunin/ (read-only). Report contested scope with evidence, or certify kake uniquely owns each surface.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ConnSiblingOverlap.md"
+      },
+      {
+        "name": "ConnCrossPattern",
+        "agent": "connector",
+        "task": "/skill:godspeed\n\n## Your item\n\nCross-round pattern scan: the class 'a frozen counter whose met does not bind semantics' — survey this lane's other committed counters (.ufo/waves/round-*/c*_*.py and scripts/) for substring-only or self-report-shape predicates feeding met (grep for substring checks and json self-report parsing). The round-64 counters claim to have closed it for C1/C2 — name any OTHER counter that still carries the class; do not fix them — report only, with file:line.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ConnCrossPattern.md"
+      },
+      {
+        "name": "SentinelFixtureSafety",
+        "agent": "sentinel",
+        "task": "/skill:godspeed\n\n## Your item\n\nSecurity review of the round's committed instruments: .ufo/waves/round-64/c64_calibration.py, c64_quote_tool.py, fixtures/build_fixtures.py, fixtures/stub_tool.py, corpus/lessons/round-64.md, controls/*: no network calls, no eval/exec of remote bytes (importlib use of the COMMITTED recipe blob only — is that bound safe?), no path traversal beyond named args (rel paths joined under scratch — check '..' handling), subprocess calls with explicit argv (no shell=True), no credential material anywhere, selftests write only under their work dirs. Verify each by reading the code; report findings.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/SentinelFixtureSafety.md"
+      },
+      {
+        "name": "SimplifyCounterReview",
+        "agent": "simplifier",
+        "task": "/skill:godspeed\n\n## Your item\n\nSimplification review: can c64_calibration.py (449 lines), c64_quote_tool.py (~370 lines), or fixtures/build_fixtures.py be materially smaller without losing any frozen semantics (pins, recipe re-execution, located re-derivation, block bindings, guard, sha pin, revision materialization)? Propose concrete deletions with the exact behavior preserved; if each file is at its honest minimum, certify that. Do not edit anything.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/SimplifyCounterReview.md"
+      },
+      {
+        "name": "RevengerC63Defect",
+        "agent": "revenger",
+        "task": "/skill:godspeed\n\n## Your item\n\nReverse-engineer the c63 falsification class completely and check c64 against EVERY variant, not just the committed fixtures: (1) planted markers in all prose files with real blobs (fabrication-repo); (2) a fake ledger with recomputed shas (pin must catch); (3) real blobs with a swapped matchClass; (4) a spot file without the disagreement (vacuous green); (5) a lesson faking the outside verdict (span present but fabricated context); (6) the recipe swapped for an equivalent-output implementation (sha pin); (7) a canned-JSON stub tool (sha pin); (8) a tool that prints correct JSON but reads nothing (same sha problem). Report which variants c64 kills and any survivor with a fixture.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/RevengerC63Defect.md"
+      },
+      {
+        "name": "ScribeRule1Audit",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\n## Your item\n\nAudit the S432 re-open record against CORPUS.md SOURCES rule 1: .ufo/waves/round-64/sources/receipts.json (URL, fetchedAt, method GET, sha256) and the round-64 lesson Gate re-open paragraph — URL present, access date 2026-10-30, <=25-word located quote (count the words exactly), location (raw lines 6150-6154), and the statement that no registry row was added or changed. Report compliance clause by clause.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScribeRule1Audit.md"
+      },
+      {
+        "name": "ScribeRepinLog",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\n## Your item\n\nAudit the §2b old→new logging of the sidecar re-pin: corpus/lessons/round-64.md §Mistakes re-pin table vs .ufo/waves/round-64/controls/sidecar-repin-map.txt vs `git diff 1a481315 4c8295fa -- corpus/knowledge/freshness-sidecar.json` — every changed cell logged old→new exactly once, no unlogged change, no logged-but-unmade change. Also verify the '23 further entries byte-identical' claim with a diff. Report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScribeRepinLog.md"
+      },
+      {
+        "name": "ScribeGateShape",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\n## Your item\n\nAudit the round-64 lesson's Gate shape against LEARNING.md: >=1 admit and >=1 reject, each with reasons; a flip condition on the reject; the outside verdict recorded; the author-side label present; candidates enumerated (a)/(b)/(c). Also confirm the Gate carries everything c64_calibration.py's lesson_gate binds (S432 / Fetch, the verdict span, collapsed-only, c64_calibration.py, author-side) — the binding's ground truth. Report clause by clause.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScribeGateShape.md"
+      },
+      {
+        "name": "ScribeMistakeClass",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\n## Your item\n\nAudit the round-64 mistake row against the fleet mistake vocabulary (CORPUS.md: vacuous, survivor, stale-premise, reference-drift, number-drift, scope, attribution, landing, provider): is 'survivor' the right class for a standing could-not-evaluate gate? Does the row carry all four fields (class · evidence pointer · captured-by · fix) with a resolvable evidence pointer and an honest captured-by (or none)? Report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScribeMistakeClass.md"
+      },
+      {
+        "name": "ScribeQualCriterion",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\n## Your item\n\nAudit the QUALITY round-64 criterion against the corpus convention (prior rounds' criteria): grounding in a named lesson + receipt, an explicit falsifier command, and a concrete example that fails it. Verify the receipts it cites exist and say what it claims. Report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScribeQualCriterion.md"
+      },
+      {
+        "name": "ScribeCensusNarrative",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\n## Your item\n\nVerify the lesson's Sources census section against the receipts: controls/census-before.txt and census-after.txt both exit 0 with 171 rows and 16 W04 warnings; the lesson claims 'no row added or changed' — cross-check `git diff 1a481315 4c8295fa -- corpus/SOURCES.md` is empty. Report any drift between narrative and receipts.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScribeCensusNarrative.md"
+      },
+      {
+        "name": "ScribeReportSections",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\n## Your item\n\nCheck the round report contract (fleet prompt §4) against committed artifacts: which required sections (Work performed, Landed changes, Before→after measurements, Sources & frontier, Trend verdicts, SHONEN) can already cite committed evidence paths, and which artifacts are still missing for the L1 to fill them honestly (wave results, settlement, LOG entry, SCORECARD rows)? Produce a checklist; do not write the report.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScribeReportSections.md"
+      },
+      {
+        "name": "ScribeLOGDraft",
+        "agent": "scribe",
+        "task": "/skill:godspeed\n\n## Your item\n\nDraft (in your report only — do not write LOG.md) the round-64 LOG entry the landing needs: claims C1/C2/C3 with verdicts, each evidence pointer (contract, receipts base/after/controls, wave results), the mistake mined, the census before→after, the capability row re-entered, and the assimilation line. Verify every pointer you cite exists at cc8add1f. Report the draft + verification.\n\nLane bounds: leaf member — no subagent dispatch.\n\nReport: write your scoped findings to .ufo/waves/round-64/w1/ScribeLOGDraft.md"
+      }
+    ]
+  },
+  "resumeSends": [],
+  "note": "Issue exactly one batched task call with taskCall ({context, tasks}); never split a wave into multiple task calls (one-swarm-per-wave). Then one hub send per resumeSends entry: hub send --to <entry.resume> --message <entry.message> (entry.name is bookkeeping, not a hub field)."
+}

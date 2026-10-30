@@ -204,6 +204,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Quote-class ledger for cited source spans | Classifies, per cited id, whether a quoted span is a raw substring of the retained HTML (`raw-substring`) or survives only whitespace collapse (`collapsed-only`), pinning both retained blobs by sha256 and deriving the class from the blobs rather than asserting it; it reads committed bytes only (`git show`), never a worktree path, and a swapped label fails the check | `.ufo/waves/round-50/quote-classes.json`; `python3 -B .ufo/waves/round-50/c50_quote_class.py --root . --revision ff3f6ecff5caf579fdc76216aa9cb82fa146a30e` -> `C1 classed 3/3 met=True` exit 0; the base `9619af67c52939daac502ca7a24c9d714f3f51db` -> `C1 classed 0/3 met=False` exit 1 (do-nothing control); the swapped-label control `.ufo/waves/round-50/verification/blur-control.txt` records `swapped_equals_derived=False` | 50 |
 | Append-only correction guard for knowledge files | Reads committed bytes at two revisions and reports, read-only and network-free, whether every in-scope `corpus/knowledge/**/*.md` file only gained lines (exits 0/1/2/64): an end-of-file append passes; every other inserted run must open with a visible `[rNN-correction YYYY-MM-DD]` tag (outside HTML comments and code spans, which may cross line ends), so a tagged in-file correction passes where the round-55 byte-prefix rule fails, while a changed, reordered or deleted base line and a file deleted or replaced (symlink, directory, submodule) are findings; it does not judge whether a tagged run is a faithful correction | `scripts/append_guard.py` at `8001f8d5`; `python3 -B .ufo/waves/round-60/c60_guard_cases.py --root . --revision 8001f8d5579303ff390305f9dcddb785834f2084 --seed 60` -> `24/24 met=True` (`.ufo/waves/round-60/controls/after-c2-guard-cases.txt`, counter version 2) against 0/24 at base and 7/24 for the c55 byte-prefix port (`controls/c2-selftest-v2.txt`); tool selftest 51/51 | 60 |
 | Offline response-header expectation audit | Reads a version-1 manifest of recorded GET response headers and checks declared Content-Type, HSTS, XCTO nosniff, CSP, singleton-field and field-name-syntax expectations offline; capture and audit do not claim that any live property is clean or that the declared policy is universal | `scripts/response_snapshot.py`; `scripts/header_audit.py`; `python3 -B .ufo/waves/round-61/c61_header_cases.py --root . --revision d2da25de5fcd8d2384cee99b615cd53b083c5887 --seed 61` → `18/18 met=True` (`.ufo/waves/round-61/controls/after-c2-header-counter.txt`); audit of 12 recorded surfaces: 13 findings, exit 1 (`controls/after-c2-real-audit.txt`) | 61 |
+| Standalone retained-span quote classifier (round-64 re-entry) | Classifies a supplied quote against raw and flat-text bytes as raw-substring, collapsed-only or absent; membership classification only, never substantive support or source truth | `scripts/quote_class.py`; round-64 `c64_quote_tool.py` at measured `4c8295fa5e3b628f1fdf3840299ae415c01849fb`: real tool selftest 4/4 and counter-side rederive=agree; `controls/stub-c64.txt` rejects the canned stub that `controls/stub-c63-defect.txt` admits; all paths under `.ufo/waves/round-64/` | 64 (tool first ran in 63; capability credit withheld then) |
 
 Round-24 maintenance pointer for the existing replay capability:
 `scripts/receipt_replay.py` supersedes the historical round23 readers for
@@ -4561,3 +4562,32 @@ Round-63 addendum criteria and the wave settlement are recorded in
 constants, re-execute the recipe in-counter, gate disagreements, wire frozen
 shas into kill rules, bind prose components block-level, guard C2 JSON,
 pin selftest fixtures to the revision).
+
+## Round 64 — settlement (attempt 2)
+
+Frozen contract `.ufo/waves/round-64/contract.md`; base
+`1a48131577ba82c967650561be34e8dba909432a`; measured T0
+`4c8295fa5e3b628f1fdf3840299ae415c01849fb`; receipts committed
+`cc8add1fa740b920ea5179a71152680ab220c70c`. Scores remain calibration
+2, operability 10, freshness 10 (zero scalar delta). All counters stay frozen.
+
+| Claim | Axis / delta | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 repaired semantics-binding family verifies S432 resolution | calibration 2→2 HOLD | base lesson_gate=0 unresolved=1 met=false exit 1 → T0 lesson_gate=1 unresolved=0 met=true exit 0; pins and genuine extraction pass | `python3 -B .ufo/waves/round-64/c64_calibration.py --root . --revision <commit>` | unprovable: marker-only/contradictory prose green and hidden criterion green fire the frozen kill rule (`w1/ReviewerC1Prose.md`, `w1/MutC1Prose.md`); no calibration credit |
+| C2 quote-tool gate rejects the canned stub | operability 10→10 HOLD | identical stub: c63 met=true exit 0 → c64 tool_sha=mismatch met=false exit 1; T0 genuine tool selftest=4/4 rederive=agree met=true exit 0 | `python3 -B .ufo/waves/round-64/c64_quote_tool.py --root . --revision <commit>` | measured met, bounded to frozen tool sha and four cases; capability re-entry above; hostile JSON helper gaps remain unreachable behind the frozen sha check |
+| C3 standing offline §paths gate evaluates again | freshness 10→10 HOLD | base exit 2 paths sidecar binding invalid SKILL.md:364 → T0 drift 0 VERDICT: OK (exit 0, partial: offline) | `node scripts/freshness-sweep.mjs --offline` in the measured archive | measured met with permitted-diff proof: exactly seven line cells changed, digests and roster preserved; alternate seven-row deletion greens the sweep but violates the frozen permitted-diff condition (`w1/CriticClaims.md`) |
+
+The round is an honest stop because C1 is unprovable. C2/C3 are not
+retroactively narrowed: their frozen predicates and kill rules remain as
+written. The C3 counting command alone is insufficient; its frozen permitted
+diff is independently established in `w1/ScoutSidecarDiff.md`.
+No whole-corpus freshness, live-property repair, or outside round-64
+agreement is asserted. SOURCES remains 171 rows, 16 W04, exit 0.
+
+Wave: one v2 w1, 65 settled seats; results `.ufo/waves/round-64/w1-results.json`;
+62 scoped reports. CriticExploratory, MutC2Counter, ScribeMistakeClass
+settled without scoped reports and receive no verification credit; the
+handoff supplies no status/last-error fields, so no cause is invented.
+The standing c60 gate-status replay reports one mismatch (c56 selftally live
+row red), recorded in `w1/ExecC63Regression.md`; causation is unproven and
+this unresolved regression is carried, not claimed repaired.

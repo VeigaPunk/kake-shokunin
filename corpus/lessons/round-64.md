@@ -108,3 +108,101 @@ Round-start census:
 2026-10-30 before any registry edit; output pasted in the round report). No
 `corpus/SOURCES.md` row was added or changed this round; the round-end
 census output is pasted in the round report.
+
+## Attempt-2 evidence corrections (append-only)
+
+These corrections supersede the corresponding narrative above, not the frozen
+contract, instruments, controls, or predicate. Attempt 2 inherited the build
+`4c8295fa5e3b628f1fdf3840299ae415c01849fb`, receipt commit
+`cc8add1fa740b920ea5179a71152680ab220c70c`, and already-dispatched w1;
+it did not re-dispatch or change the claims.
+
+- **Sidecar delta:** exactly seven `line` cells changed, not seven changed
+  `lineSha256` cells or fourteen changed cells. Every digest in the table is
+  the unchanged, re-verified digest of the same text at its new line.
+  `w1/ScoutSidecarDiff.md` and `w1/ScribeRepinLog.md` re-derived this
+  distinction. The other 23 entries are unchanged.
+- **Sweep scope:** `VERDICT: OK (exit 0, partial: offline)` is the full
+  verdict. It restores evaluated §paths checks only: remote §armed checks
+  are skipped and §history suspended, `complete=false`. T0 has 172 files,
+  not the 171 stated in one seat assignment; the registry separately has
+  171 source rows. `w1/ExecSweepSections.md` records §paths drift 0 and
+  unresolved 10 (placeholder/glob tokens, not newly missing concrete paths).
+- **Census attribution:** the validation receipts print 16 W04 warnings and
+  exit 0, not the row count. The row count 171 comes from
+  `grep -cE '^\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md`,
+  reproduced at base and T0 in `w1/ScoutCensusState.md` and
+  `w1/ExecCensusCommands.md`.
+- **Source quote:** the short quotation above was normalized, not verbatim:
+  ASCII apostrophe and removed inline-code delimiters make it `absent`
+  under the quote-class rule. Superseding located quote (raw lines
+  6150–6153; 18 whitespace units counted with `len(quote.split())`,
+  `collapsed-only` against the retained raw/flat pair):
+  “The `X-Content-Type-Options` response header can be used
+  to require checking of a response’s `Content-Type` header against the
+  destination”. The full class-bound proposition remains in the round-63
+  correction and ledger. This supports field purpose, not the S432 row's
+  separate exact-value rule; no registry row was written this round.
+  Grounding: `w1/ScoutS432Reopen.md`, `w1/ScribeRule1Audit.md`.
+- **Chronology limit:** `sweep-before.txt` proves the failure at three
+  recorded revisions, not an uninterrupted failure throughout rounds 56–63,
+  nor that nobody ran an unrecorded check. The broader historical wording
+  in §Mistakes and QUALITY is an inference, not an observed eight-round run.
+- **Control reproducibility:** `fixtures/build_fixtures.py` builds four
+  controls; the separate ledger-mutation receipt has no committed builder.
+  Its recorded output is evidence, not a reproducible fixture revision in
+  the lane object database. `w1/CriticPredicateFreeze.md` F1 records this
+  durability gap. The frozen builder is not silently amended.
+
+### Additional mined mistakes
+
+| Class | Evidence pointer | Captured-by | Fix / disposition |
+|---|---|---|---|
+| marker-only semantic admission | `w1/ReviewerC1Prose.md` minimal and contradictory fixtures; `w1/MutC1Prose.md` Q3x | Round-63 semantics-binding criterion | The frozen counter still greens token-bearing non-resolution and a hidden criterion. Preserve its bytes, apply its kill rule, withhold calibration credit; future counter work must reject these exact controls before freeze. |
+| one-sided outside-verdict binding | `w1/ScoutSpotSpan.md`, `w1/ScoutPriorRecipe.md`, `w1/MutC1Counter.md` F1 | Round-63 routed recipe item 1 | Rewording the actual outside verdict leaves pins and `met=true` unchanged. Carry this as a counter-family defect, not a repaired external verdict; future binding must read and authenticate the outside verdict itself. |
+| normalized quotation presented as verbatim | `w1/ScoutS432Reopen.md`, `w1/ScribeRule1Audit.md` | Round-50 quote-class rule | Superseding quote above retains the actual apostrophe and delimiters; the original short string is `absent`, not a source quote. No source-row rewrite or new admission is inferred. |
+
+The additional counter failures are observations, not claims that a repair
+has landed. The demonstrated red-before/green-after fix this round remains
+the seven-line sidecar repair. Outside round-64 admit/reject verification
+remains the non-author closure's responsibility.
+
+## Wave settlement
+
+WAVE-DONE received from Main after all 65 w1 seats settled; authoritative
+handoff `.ufo/waves/round-64/w1-results.json`. One v2 wave, no residual:
+scout 10, executor 15, reviewer 16, critic 6, mutation-tester 5, connector 2,
+sentinel 1, simplifier 1, revenger 1, scribe 8. Attack share
+27/65 (reviewer + critic + mutation-tester); L1 holds the planner seat.
+62 scoped reports. CriticExploratory, MutC2Counter and ScribeMistakeClass
+returned no scoped report and receive no falsification credit. The handoff
+has no seat status/id/last-error fields; causes are unknown, not invented.
+MutC2Counter's retained partial text names an eval deadline; this is not a
+completed mutation matrix. No seats were replaced.
+
+- **C1 unprovable:** `ReviewerC1Prose` minimal/contradictory prose and
+  `MutC1Prose` Q3x (criterion in HTML comment) reproduce marker-only
+  semantic greens with the real pins intact. This fires the contract's
+  marker-only kill rule; no calibration credit. `RevengerC63Defect`
+  independently confirms prose-provenance survivors. Recipe/class/location
+  integrity is real, but does not cure the semantic counter weakness.
+- **C2 measured met:** no settled attack passes a non-frozen tool; the
+  frozen-sha gate rejects it before execution. JSON-helper unhashable-id
+  failure is defense-in-depth debt, unreachable with the pinned real tool;
+  do not advertise arbitrary hostile-JSON safety. The SCORECARD records
+  bounded quote-classifier capability re-entry, not semantic admission.
+- **C3 measured met:** actual delta preserves the sidecar roster and
+  changes exactly seven line cells; sweep drift 0, exit 0 partial offline.
+  `CriticClaims` deletes exactly seven stale entries and greens the
+  standalone sweep, but that fixture violates the already-frozen
+  permitted-diff condition. It is a detector coverage defect, not a
+  permitted C3 repair. No predicate was tightened after data.
+- **Carried no-harm uncertainty:** `ExecC63Regression` finds c60 gate-status
+  mismatches=1 (c56 selftally live row red). No causal before/after result
+  establishes round-64 harm; no clean standing-gate inventory is claimed.
+  This remains a routed self-defect alongside the missing reproducible
+  ledger-mut builder and missing handoff status/last-error fields.
+
+All inherited build/receipt work and wave evidence is retained. No frozen
+instrument, control receipt or predicate was discarded or rewritten.
+Assimilation remains none; no tools were installed or upgraded.

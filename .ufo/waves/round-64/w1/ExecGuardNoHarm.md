@@ -1,0 +1,18 @@
+# Round-64 standing-gate no-harm replay
+
+Executed against scratch checkout of T0 `4c8295fa5e3b628f1fdf3840299ae415c01849fb`. Scratch clone was rooted at `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo`; `git -C ... rev-parse --show-toplevel` returned that exact path before tests. Scratch was deleted before reporting. No lane files, frozen claims, controls, receipts, counters, lesson, or contract were modified.
+
+Commands and verdicts:
+
+1. `node scripts/freshness-sweep.mjs --offline` — exit 0; `VERDICT: OK (exit 0, partial: offline)`. The output explicitly notes remote checks are skipped offline (`complete=false`), so this is not full remote verification. The run reported 172 files, 679 occurrences, 106 unique tokens, drift 0, no new miss.
+2. `python3 -B scripts/append_guard.py --root /fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo --base fd6303ce5c14b3f892dec586297a942ab6e4193b --revision 4c8295fa5e3b628f1fdf3840299ae415c01849fb` — exit 0; exact summary `files=53 findings=0`.
+3. `python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision de7d96e720522ea15fba3fd9ee3ce58c42596031` — exit 0; `events=19 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 new_rewritten=0 new_receipts=2 met=True`.
+4. `python3 -B .ufo/waves/round-59/c59_axis_evidence.py --root . --revision b322ccabe1628fc0cfe80c2dddca03ed154d1349` — exit 0; `mismatches=0 unresolved=0 rows_no_receipt=0 receipts_off_axis=0 rows_no_passing_receipt=0 tables=1 axes_ordered=1 tallies_unfound=0 rows_no_tally=0 rows=3 scores_held=2 superseded_kept=3 met=True`.
+5. `python3 -B .ufo/waves/round-61/c61_recheck_pins.py --root . --revision d2da25de5fcd8d2384cee99b615cd53b083c5887` — exit 0; `conditions_passed=6 of 6 met=True` (C1_due_set, C2_pinned_dates, C3_gate_quotes, C4_receipt_pins, C5_carry_notes, C6_append_only all PASS).
+6. `python3 -B .ufo/waves/round-63/c63_calibration.py --root . --revision 4c8295fa5e3b628f1fdf3840299ae415c01849fb` — exit 0; `disagreements=1 quote_correction=1 blobs_match=1 derived=collapsed-only class_match=1 criterion=1 lesson_gate=1 source_row=1 unresolved=0 met=true`.
+7. `python3 -B .ufo/waves/round-63/c63_quote_tool.py --root . --revision 4c8295fa5e3b628f1fdf3840299ae415c01849fb` — exit 0; `present=1 selftest=4/4 frozen_cases=ok met=true`.
+8. `python3 -B scripts/id_resolver.py --selftest` — exit 0; `selftest: 72/72`.
+
+Red results: none in the correctly-rooted T0 checkout. An initial archive-only scratch attempt was not a Git repository, and therefore could not satisfy the repository-root requirements of append_guard or revision-backed counters; that attempt was discarded. A first c59 invocation also contained a mistyped revision and returned unevaluable; reran with the assigned hash above, which passed. Neither is a gate failure. No tools installed or updated.
+
+Evidence sources in the T0 checkout (absolute paths): `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo/scripts/freshness-sweep.mjs`, `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo/scripts/append_guard.py`, `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo/.ufo/waves/round-58/c58_receipt_rewrites.py`, `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo/.ufo/waves/round-59/c59_axis_evidence.py`, `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo/.ufo/waves/round-61/c61_recheck_pins.py`, `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo/.ufo/waves/round-63/c63_calibration.py`, `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo/.ufo/waves/round-63/c63_quote_tool.py`, and `/fast/scratch/hyaku/kake-r64/ExecGuardNoHarm/repo/scripts/id_resolver.py`. These are command targets, not retained scratch evidence; scratch is deleted. Exact command outputs and measured verdicts are transcribed above.
