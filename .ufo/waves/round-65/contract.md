@@ -26,8 +26,10 @@ Census before: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate
   existing gate registry, with paired base/after evidence (work item, not a claim).
 - Defect 4: append correction of expansion attribution (a working unchanged
   classifier is not new frontier capability) — SCORECARD/LOG append, not a claim.
-- Defect 5: resolve the untracked `.ufo/waves/round-64/sources/S432.live.html`
-  durability debt in lane scope — C2 below.
+- Defect 5: resolve the `.ufo/waves/round-64/sources/S432.live.html`
+  durability debt in lane scope — C2 below (the wrap-up commit `d3a4e402`
+  landed the file post-closure; C2 completes the byte-binding the closure's
+  finding still lacks).
 
 ## C1 — calibration (lowest owned non-retired axis, 2/10): kill-rule classes counter-enforced for the S432 outside-disagreement resolution
 
@@ -106,43 +108,66 @@ Fixture definitions (built by the committed builder, revisions recorded in
 - A4 tamper: real bytes with the spot file's S432/Disagree line flipped to
   Agree (sha no longer matches pin) — `pins`/`disagreements` must fail.
 
-## C2 — freshness (HOLD 10): the S432 retained live re-open body is committed (routed defect 5)
+## C2 — freshness (HOLD 10): the S432 retained live re-open body is pinned (routed defect 5 completed)
 
 The round-64 closure measured `.ufo/waves/round-64/sources/S432.live.html` as
-an untracked lane-authored file — reaper-exposed (`/tmp` class risk per the
-scratch-discipline rule; anything a report points at must be in the lane tree)
-and a durability defect: "retained round-64 bytes and the committed receipt
-remain accessible" only while the file survives.
+an untracked lane-authored file — a durability defect ("retained round-64
+bytes and the committed receipt remain accessible" only while the file
+survives). The defect's first half was resolved without kake: the run-12
+wrap-up commit `d3a4e402` ("preserve late-arriving wave evidence") landed the
+file on master post-closure, byte-identical to the round-61 retained body
+(both sha256 `63b0a018…911b`). What remains — and what a do-nothing control
+at the base does NOT reach — is the binding: at base the file is tracked but
+unpinned, unverified and unrecorded; nothing committed binds its bytes to
+the retained body, so silent drift (an edit, an EOL rewrite, a smudge) would
+be undetectable, and the defect-5 resolution itself is recorded nowhere in
+lane scope. (This predicate was repaired before any after-state measurement
+after the L1 pre-derivation showed the original "ls-tree empty at base"
+before-state was stale; the repair is recorded in §Mistakes, class
+stale-premise.)
 
-Frozen predicate (identical sentence in this contract, the receipt labels and
-the lesson §Mistakes): **at the measured revision,
-`git ls-tree -r --name-only <measured> -- .ufo/waves/round-64/sources` prints
-exactly `.ufo/waves/round-64/sources/S432.live.html`, and
-`git show <measured>:.ufo/waves/round-64/sources/S432.live.html | sha256sum`
-prints `63b0a018753c330adf1e40417524eb70ea02d4d3e123bcb39b6770f23bad911b`,
-while at the base `d3a4e402` the ls-tree output is empty; and on the measured
-tree `node scripts/freshness-sweep.mjs --offline` still exits 0 (no-harm).**
+Frozen predicate v2 (identical sentence in this contract, the check tool
+docstring and the receipt labels): **at the measured revision,
+`python3 -B .ufo/waves/round-65/check_s432_pin.py --root . --revision <measured>`
+prints `pin=1 blob=1 match=1 met=true` (exit 0), where the pinned sha256 in
+`.ufo/waves/round-65/sources/s432-pin.json` equals
+`63b0a018753c330adf1e40417524eb70ea02d4d3e123bcb39b6770f23bad911b` and the
+sha256 of the committed blob
+`.ufo/waves/round-64/sources/S432.live.html` at that revision equals the
+same digest; while at the base `d3a4e402` the check prints `pin=0 met=false`
+(exit 1) because no pin file exists; and on the measured tree
+`node scripts/freshness-sweep.mjs --offline` exits 0 (no-harm).**
 
-- The pinned sha equals the round-61 retained body
-  (`.ufo/waves/round-61/sources/S432.html`, sha256
-  `63b0a018…911b`, byte-identical at base) — the claim commits the exact
-  already-retained bytes; no live fetch is part of the predicate. The live
-  re-open (scout seat, ONE GET) is the §2b sourced-claim evidence and records
-  currency, not a predicate input.
-- Kill rule: if the after receipt's ls-tree lists anything else or the sha
-  differs, or the sweep exits non-zero on the measured tree, or the commit
-  carrying the file changed any byte of it, C2 is `unprovable`.
+- The check reads committed bytes only (`git show <revision>:<path>`), never
+  the worktree; `match=1` requires blob digest == pin digest == the frozen
+  constant `63b0a018…911b` (which equals the round-61 retained body at base).
+- The live re-open (scout seat, ONE GET) is the §2b sourced-claim evidence
+  (currency of the retained bytes), committed as
+  `.ufo/waves/round-65/sources/receipt.json` and the lesson Gate record; it
+  is not a predicate input.
+- Kill rule: if the after receipt does not print `met=true`, or the pin file
+  exists at base, or the committed blob digest differs from the pin at the
+  measured revision, or the sweep exits non-zero on the measured tree, or any
+  wave seat shows a tree where `pin=1 blob=1 match=1` holds with blob bytes
+  different from the round-61 retained body, C2 is `unprovable`.
 - Counting command:
-  `git ls-tree -r --name-only <commit> -- .ufo/waves/round-64/sources && git show <commit>:.ufo/waves/round-64/sources/S432.live.html | sha256sum`
+  `python3 -B .ufo/waves/round-65/check_s432_pin.py --root . --revision <commit>`
+- §9 do-nothing controls (receipts `controls/donothing-c2-{base,drift}.txt`):
+  the base tree is red (`pin=0`); a measured-shape tree whose blob differs by
+  one byte is red (`match=0`); a pin file naming a different digest is red
+  (`pin=0` — the frozen constant is embedded in the check tool, not read
+  from the pin file alone).
 
 ## Separability
 
 C1 touches only `.ufo/waves/round-65/` instruments, fixture trees (scratch +
-receipts) and receipts; C2 touches only `.ufo/waves/round-64/sources/S432.live.html`
-(tracked) plus receipts. C1 verifies on a tree where C2's file is untracked
-(the counter never reads it); C2 verifies with no c65 instrument present.
-Neither edits `corpus/SOURCES.md` (C2's claim evidence cites existing row
-S432, re-opened this round — §2b sourced claim; no new row this round).
+receipts) and receipts; C2 adds only `.ufo/waves/round-65/check_s432_pin.py`,
+`.ufo/waves/round-65/sources/s432-pin.json` and receipts, and reads — never
+writes — the tracked round-64 bytes. C1 verifies on a tree where C2's pin
+never landed (the counter never reads it); C2 verifies with no c65
+instrument present. Neither edits `corpus/SOURCES.md` (C2's claim evidence
+cites existing row S432, re-opened this round — §2b sourced claim; no new
+row this round).
 
 ## No-harm
 
@@ -160,3 +185,4 @@ receipt; commit 2 records the pins.)
 
 - `.ufo/waves/round-65/c65_semantics.py` — sha256 `PENDING-BUILD`
 - `.ufo/waves/round-65/fixtures/build_attack_fixtures.py` — sha256 `PENDING-BUILD`
+- `.ufo/waves/round-65/check_s432_pin.py` — sha256 `PENDING-BUILD`

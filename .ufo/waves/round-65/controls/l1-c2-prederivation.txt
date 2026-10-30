@@ -1,0 +1,12 @@
+$ git ls-tree -r --name-only d3a4e40228c307954fa6ced6cab03654faac1ffa -- .ufo/waves/round-64/sources
+.ufo/waves/round-64/sources/S432.live.html
+.ufo/waves/round-64/sources/receipts.json
+(exit=0)
+$ sha256sum .ufo/waves/round-64/sources/S432.live.html .ufo/waves/round-61/sources/S432.html
+63b0a018753c330adf1e40417524eb70ea02d4d3e123bcb39b6770f23bad911b  .ufo/waves/round-64/sources/S432.live.html
+63b0a018753c330adf1e40417524eb70ea02d4d3e123bcb39b6770f23bad911b  .ufo/waves/round-61/sources/S432.html
+$ node scripts/freshness-sweep.mjs --offline | tail -3
+  all remote checks skipped(offline) — NOT counted as pass (complete=false)
+skipped(offline): §armed (all remote checks) · §history (probe-history source absent — pin-declared) — complete=false, never counted as pass
+VERDICT: OK (exit 0, partial: offline)
+(exit=0)
