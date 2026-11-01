@@ -407,7 +407,10 @@ function scanCitations(repoRoot, pins = {}) {
   const relativeCites = [];   // informational: spec-regex blind spot (see below)
 
   for (const f of files) {
-    const rel = path.relative(repoRoot, f);
+    // r66 host-portability: cite keys/display are canonical forward-slash on every host
+    // (case-m fixture asserts 'corpus/knowledge/note.md:1'; backslash hosts must not
+    // emit a second, host-shaped spelling of the same cite).
+    const rel = path.relative(repoRoot, f).split(path.sep).join('/');
     const text = fs.readFileSync(f, 'utf8');
     const lines = text.split('\n');
     const offsets = [];
@@ -466,7 +469,15 @@ function scanCitations(repoRoot, pins = {}) {
           if (!byToken.has(key)) byToken.set(key, { token, kind: tk.kind, cites: new Set(), annotatedCites: new Set(), placeholders: new Set() });
           const rec = byToken.get(key);
           rec.cites.add(cite);
-          const erratum = sidecar.get(`${cite}:${token}`);
+          // r66 host-portability repair: sidecar entries are validated forward-slash-only
+          // (`/^corpus\/.+\.md$/`), but `path.relative` emits host separators (backslashes
+          // on Windows), so on a non-POSIX host every lookup missed and all standing
+          // entries were inert (selftest 'sidecar valid absence' + 'm cross-citation
+          // leak' red on this host before this line; 34/36). Normalize the cite to the
+          // entries' canonical forward-slash form. POSIX behavior unchanged (the second
+          // key equals the first there).
+          const erratum = sidecar.get(`${cite}:${token}`)
+            || sidecar.get(`${rel.split(path.sep).join('/')}:${i + 1}:${token}`);
           if (erratum && erratum.kind === 'absent') {
             ann[token] = { word: ABSENT_RE.exec(erratum.note.replace(PATH_RE, ''))[0],
               line: i + 1, direct: true, mentions: true, source: 'freshness-sidecar.json' };
@@ -514,7 +525,7 @@ function scanCitations(repoRoot, pins = {}) {
   // finding): the SET is the fresh surface, not the count.
   const citedSet = [...byToken.values()].map((r) => r.token).filter((t, i, a) => a.indexOf(t) === i).sort();
   const missSet = [...declaredAbsent, ...drift].map((r) => r.path).sort();
-  const relFiles = files.map((f) => path.relative(repoRoot, f)).sort();
+  const relFiles = files.map((f) => path.relative(repoRoot, f).split(path.sep).join('/')).sort();
   const setDelta = { pinned: false, notes: [] };
   if (Array.isArray(pins.pathsCitedSet)) {
     setDelta.pinned = true;

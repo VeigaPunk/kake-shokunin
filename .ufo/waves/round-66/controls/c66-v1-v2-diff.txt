@@ -1,0 +1,503 @@
+diff --git a/.ufo/waves/round-60/c60_gate_status.py b/.ufo/waves/round-66/c66_gate_status_hostportable.py
+index ba0b01a..a3c8459 100644
+--- a/.ufo/waves/round-60/c60_gate_status.py
++++ b/.ufo/waves/round-66/c66_gate_status_hostportable.py
+@@ -1,71 +1,65 @@
+ #!/usr/bin/env python3
+-"""Round-60 C1 counter — calibration: the SKILL.md gate-registry status labels of the 28 round 48-59
+-counters match their observed exits at the measured revision.
+-
+-Contract: `.ufo/waves/round-60/contract.md` claim C1, version 1 + L1 amendments A2–A7 (declared
+-before any data; all tightenings except the A2 disambiguation).
+-
+-  population    the 28 frozen member paths below (A4): at --revision each must exist as a regular
+-                blob with the SAME blob id it has at the base revision — else member_missing /
+-                member_changed and the member is not evaluated. A file matching the population regex
+-                `^\\.ufo/waves/round-(N)/(?:[a-z0-9-]+/)?c(N)_[a-z0-9_]+\\.py$` (same N twice,
+-                48 <= N <= 59) that is not in the frozen set -> extra_member. `members` counts frozen
+-                paths present unchanged. This counter's own file is not a member.
+-  row (A6)      one rendered Markdown table row of SKILL.md — not inside fenced/indented code or an
+-                HTML comment — in a table whose header's first three cells are `Name`, `Kind`,
+-                `Entry command`, whose `Entry command` cell contains the member path. 0 counted rows
+-                -> `unregistered`; >1 counted rows, or the path in any OTHER rendered table row
+-                (any table, any cell) -> `duplicate_row`. The row needs exactly 8 non-empty cells
+-                (cells split honoring `\\|`) and a `Verdict map` cell holding `0=` and `1=` -> else
+-                `row_incomplete`.
+-  label (A5)    `historical` if the Kind cell holds the ASCII word `historical`, `never-met` if it
+-                holds the words `never met`, else `live`; both -> `label_invalid`.
+-                historical/never-met need a 40-hex revision in the Kind cell (first = pin) -> else
+-                `unpinned`; the pin must be an ancestor of the measured revision (strict for
+-                never-met) -> else `pin_not_ancestor`; the member file must exist at the pin -> else
+-                `member_absent_at_pin`.
+-  command (A2/A3) the first backtick span of the `Entry command` cell that contains the member path.
+-                A `[...]` segment is kept (brackets removed) iff it contains >=1 placeholder and
+-                every placeholder in it is `<scratch>` or `<fleet root>` — so `[--fleet
+-                <fleet root>]` is kept and `[--seed N]`, `[--json]`, `[--base <rev>]` are dropped.
+-                Leading `NAME=value` words are env assignments; only `TMPDIR=<scratch>` is allowed.
+-                After env words the words must be exactly `python3 -B <member path> <args...>`;
+-                args must contain `--revision` followed by a revision placeholder
+-                (`<commit>`/`<rev>`/`<revision>`/`<tip>`), must not contain `--selftest`, and if
+-                `--root` is present its value must be `.` (A3a: a SELF_CHECKOUT member — c52_mutation_ladder,
+-                which refuses every argument — must be exactly `python3 -B <path>`). Any shell-metacharacter token
+-                (`|` `||` `&&` `;` `>` `<` `$(` backtick) -> `command_unparsable`. `<scratch>` -> a
+-                fresh scratch dir; `<fleet root>` -> /home/vgpnk/Projects/shokunin; the revision
+-                placeholder -> the revision under test.
+-  observation   the command runs via subprocess list (no shell) with sys.executable for python3,
+-                cwd = a fresh `git clone --shared` of --root detached at the revision under test,
+-                env = {PATH=/usr/bin:/bin, HOME=<scratch>, TMPDIR=<scratch>, LANG=C.UTF-8} — nothing
+-                else is inherited (GIT_*, PYTHON*, KAKE_* cannot leak). Timeout 1800 s -> 124. Exit
+-                at the measured revision = e_T; for historical/never-met members the same command
+-                also runs at the pin = e_P (the revision under test for that run is the pin).
+-  mismatch (A5) live: e_T != 0 -> live_not_green. historical needs e_T == 1 and e_P == 0: e_T == 0 ->
+-                historical_but_green; e_P != 0 -> historical_not_green_at_pin; e_T outside {0,1} ->
+-                historical_bad_exit. never-met needs e_T == 1 and e_P == 1: e_T == 0 or e_P == 0 ->
+-                never_met_but_green; e_T or e_P outside {0,1} -> never_met_bad_exit. Plus every
+-                structural class above. `mismatches` counts members with >=1 class; the printed
+-                class is the first in pipeline order.
+-  scores_held (A7) SCORECARD.md read via git at --revision only: exactly one axis table (header
+-                `| Axis | Score | ...`), exactly one row per axis (trimmed casefold), score cell
+-                with `**` and backticks stripped must equal 10/10/2 digit-exact -> count of axes
+-                holding (0..3).
+-
+-Predicate (frozen):
+-
+-    met: members == 28 AND mismatches == 0 AND scores_held == 3
+-
+-Exits: 0 met, 1 not met, 2 unevaluable (--root not a repository toplevel, revision unresolved,
+-SKILL.md/SCORECARD.md unreadable, clone failure), 64 usage.
+-Output: one line per member `<path> label=<l> e_T=<n> [e_P=<n>] <ok|MISMATCH class>` plus an
+-indented `argv=` line with the rendered command(s) used, then
+-`C1 gate-status members=<n> mismatches=<k> scores_held=<s>/3 met=<True|False>`.
+-
+-Read-only: everything runs in clones/fixtures under --work (else TMPDIR, else the system temp) and
+-they are removed on exit. No network.
++"""Round-66 C1 counter v2 — calibration: the 28-member round 48-59 gate registry becomes
++host-evaluable on this Windows host (evaluability, NOT agreement).
++
++Contract: `.ufo/waves/round-66/contract.md` (frozen before this file existed). This
++instrument is a HOST-PORTABILITY successor to `.ufo/waves/round-60/c60_gate_status.py`
++(v1, bytes untouched): v1's observation environment is old-host-shaped — env PATH
++`/usr/bin:/bin`, FLEET_ROOT `/home/vgpnk/Projects/shokunin`, inner `python3` resolved
++by /usr/bin — so on this host every member observation dies of the environment
++(r65 receipt `.ufo/waves/round-65/controls/c60-paired-thishost.txt`: 28/28 outside the
++family verdict alphabet) and no registry status is adjudicable here. v2 keeps v1's
++population (A4), registry-row (A6), label (A5), command grammar (A2/A3), clone/cwd/
++scratch isolation and SCORECARD (A7) semantics byte-for-byte and changes exactly the
++five deltas below.
++
++  D1 FLEET_ROOT is this host's fleet root (the `<fleet root>` placeholder value).
++  D2 the member observation env PATH is built for the running host: the scratch alias
++     dir first, then the running interpreter's dir, then git's dir, then (Windows) the
++     system dirs; PYTHONUTF8=1 pins member text decoding to UTF-8 (the old host's
++     C.UTF-8 locale semantics; without it Windows decodes as cp1252); on Windows the
++     minimal system vars (SystemRoot/SystemDrive/ComSpec/PATHEXT) are passed because
++     git.exe requires them. Still pinned: fresh shared clone detached at the revision
++     under test, cwd=clone, HOME=TMPDIR=scratch, LANG=C.UTF-8, and no inherited
++     GIT_*/PYTHON*/KAKE_* variables.
++  D3 the scratch alias dir holds one `python3` executable (a byte-copy of the running
++     interpreter) so every frozen documented argv — registry rows and member inner
++     spawns (`python3 -B ...`) — resolves to a real CPython instead of this host's
++     inert Microsoft Store `python3` alias stub. The alias is an environment
++     provision (what /usr/bin/python3 was on the old host); no frozen byte is
++     rewritten.
++  D4 a pre-measure env selfcheck: `python3 -c` must print a CPython version and
++     `git --version` must succeed under the constructed env, else exit 2 (the
++     instrument refuses to adjudicate from a broken environment).
++  D5 the predicate counts EVALUATED members: a member is evaluated when every one of
++     its observations exits inside the family verdict alphabet {0, 1, 2, 64} (the
++     documented exits of every counter in the family: 0 met, 1 not met, 2
++     unevaluable, 64 usage; S133 subprocess returncode semantics — an environment
++     death such as this host's 9009 can never pass as a verdict) and did not time
++     out. `agreement` (members carrying zero v1-class label mismatches) and the
++     per-member classes are REPORTED, never gating: this claim does not assert the
++     registry's recorded statuses are correct. Amendment 1 (pre-data): the twelve
++     structural/population classes (member_missing..command_unparsable) KEEP v1's
++     verdict relevance — population and registry-row integrity gate exactly as in
++     v1 — so `structural == 0` is part of the predicate; found by the v2 selftest's
++     E.extra_member case (v1's population guard semantics require it).
++
++Frozen predicate (contract §C1):
++
++    met: members == 28 AND evaluated == 28 AND scores_held == 3
++
++Exits: 0 met, 1 not met, 2 unevaluable (env selfcheck failure, --root not a repository
++toplevel, revision unresolved, SKILL.md/SCORECARD.md unreadable, clone failure, internal
++error), 64 usage.
++
++Known frozen limit (disclosed, carried debt): c56_selftally builds its inner child env
++from a fixed key set (PATH/HOME/LANG/PYTHONDONTWRITEBYTECODE), so PYTHONUTF8=1 does not
++reach its ten inner gate runs; if Windows text decoding corrupts an inner run, this
++instrument reports that member's real exit as measured and names the limit in the
++receipt — it does not patch it.
++
++Read-only: everything runs in clones/fixtures under --work (else TMPDIR, else the
++system temp) and they are removed on exit. No network.
+ """
+ from __future__ import annotations
+ 
+@@ -81,10 +75,14 @@ import sys
+ import tempfile
+ import traceback
+ 
+-PREDICATE = "met: members == 28 AND mismatches == 0 AND scores_held == 3"
+-SELF_PATH = ".ufo/waves/round-60/c60_gate_status.py"
+-FLEET_ROOT = "/home/vgpnk/Projects/shokunin"
++PREDICATE = "met: members == 28 AND evaluated == 28 AND scores_held == 3"
++SELF_PATH = ".ufo/waves/round-66/c66_gate_status_hostportable.py"
++FLEET_ROOT = "C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/shokunin-clone/shokunin"  # D1: this host's fleet root (v1 pinned the dead old-host path)
+ TIMEOUT = 1800
++# D3/D5 (contract §C1): scratch alias dir name; the family verdict alphabet every
++# counter in the registry documents ("Exits: 0 met, 1 not met, 2 unevaluable, 64 usage").
++ALIAS_DIR_NAME = "alias-bin"
++FAMILY_VERDICTS = {0, 1, 2, 64}
+ EXPECTED_MEMBERS = 28
+ EXPECTED_SCORES = {"operability": 10, "freshness": 10, "calibration": 2}
+ POP_RX = re.compile(r"^\.ufo/waves/round-(\d+)/(?:[a-z0-9-]+/)?c(\d+)_[a-z0-9_]+\.py$")
+@@ -101,6 +99,15 @@ CLASS_ORDER = ["member_missing", "member_changed", "extra_member", "unregistered
+                "member_absent_at_pin", "command_unparsable", "live_not_green",
+                "historical_but_green", "historical_not_green_at_pin", "never_met_but_green",
+                "historical_bad_exit", "never_met_bad_exit", "timed_out"]
++# Amendment 1 (contract, pre-data): the structural/population classes keep v1's
++# verdict relevance (population and registry-row integrity gate, as in v1); only the
++# OBSERVATION classes (a recorded label vs what the gate actually printed on this
++# host) are reported, never gating. timed_out is structural-adjacent: v1 already
++# makes the round verdict unevaluable (exit 2) on any timed_out, kept as-is.
++STRUCTURAL_CLASSES = frozenset({"member_missing", "member_changed", "extra_member",
++                                "unregistered", "duplicate_row", "row_incomplete",
++                                "label_invalid", "unpinned", "pin_not_ancestor",
++                                "member_absent_at_pin", "command_unparsable"})
+ 
+ # A4: the 28 frozen members — path -> blob id at the base revision 97cdc122…
+ FROZEN = {
+@@ -397,17 +404,91 @@ def clone_at(root, rev, dest):
+     return dest
+ 
+ 
+-def run_member(root, words, member, run_rev, work):
++def member_env(scratch, alias_dir):
++    """D2/D3: the observation env — portable PATH (alias dir first), UTF-8 text
++    decoding, scratch HOME/TMPDIR, POSIX LANG, and the minimal system vars git.exe
++    needs on Windows. Nothing else is inherited (no GIT_*/PYTHON*/KAKE_* leakage)."""
++    parts = [alias_dir, os.path.dirname(sys.executable)]
++    g = shutil.which("git")
++    if g:
++        parts.append(os.path.dirname(g))
++    env = {"PATH": os.pathsep.join(parts), "HOME": scratch, "TMPDIR": scratch,
++           "LANG": "C.UTF-8", "PYTHONUTF8": "1"}
++    if os.name == "nt":
++        for k in ("SystemRoot", "SystemDrive", "ComSpec", "PATHEXT"):
++            v = os.environ.get(k)
++            if v:
++                env[k] = v
++        sysroot = os.environ.get("SystemRoot", os.path.join(os.environ.get("SystemDrive", "C:"), "Windows"))
++        parts.append(os.path.join(sysroot, "System32"))
++        env["PATH"] = os.pathsep.join(parts)
++    return env
++
++
++def ensure_alias(work):
++    """D3: one scratch alias dir with a real `python3` (byte-copy of the running
++    interpreter) so frozen documented `python3 -B ...` argvs — including member inner
++    spawns — resolve to CPython, not the inert Store stub."""
++    alias_dir = os.path.join(work, ALIAS_DIR_NAME)
++    os.makedirs(alias_dir, exist_ok=True)
++    exe = "python3.exe" if os.name == "nt" else "python3"
++    dest = os.path.join(alias_dir, exe)
++    if not os.path.exists(dest):
++        shutil.copyfile(sys.executable, dest)
++        if os.name != "nt":
++            os.chmod(dest, 0o755)
++    return alias_dir
++
++
++def selfcheck_env(env):
++    """D4: (ok, detail) — `python3 -c` prints a CPython version and `git --version`
++    runs under the observation env. Windows note: CreateProcess resolves a bare
++    executable through the CALLING process's PATH (not the child env block), so the
++    probe — and any member that spawns documented `python3 ...` argvs the way
++    c56_selftally does from inside its own process — searches the observation PATH
++    only when it is the caller's PATH. The probe therefore swaps os.environ['PATH']
++    to the observation PATH for the two spawns and restores it afterwards (the
++    member env itself still pins PATH explicitly for the child)."""
++    saved = os.environ.get("PATH")
++    os.environ["PATH"] = env["PATH"]
++    try:
++        try:
++            p = subprocess.run(["python3", "-c",
++                                "import sys; print('%d.%d.%d' % sys.version_info[:3])"],
++                               env=env, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
++                               stdin=subprocess.DEVNULL, timeout=120)
++            ver = p.stdout.decode("ascii", "replace").strip()
++            if p.returncode != 0 or not re.fullmatch(r"3\.\d+\.\d+", ver):
++                return False, "python3 under the observation env did not print a CPython version (rc=%s, out=%r)" % (p.returncode, ver[:60])
++        except (OSError, subprocess.TimeoutExpired) as exc:
++            return False, "python3 selfcheck failed: %s" % exc
++        try:
++            g = subprocess.run(["git", "--version"], env=env, stdout=subprocess.PIPE,
++                               stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, timeout=120)
++            gv = g.stdout.decode("utf-8", "replace").strip()
++            if g.returncode != 0 or not gv.startswith("git version"):
++                return False, "git under the observation env failed (rc=%s)" % g.returncode
++        except (OSError, subprocess.TimeoutExpired) as exc:
++            return False, "git selfcheck failed: %s" % exc
++    finally:
++        if saved is None:
++            os.environ.pop("PATH", None)
++        else:
++            os.environ["PATH"] = saved
++    return True, "python3=%s git=%s" % (ver, gv.split()[-1][:20])
++
++
++def run_member(root, words, member, run_rev, work, alias_dir):
+     """one observation: fresh scratch + fresh shared clone detached at run_rev; fixed env
+-    (A3). Returns the member's exit code."""
+-    rdir = tempfile.mkdtemp(prefix="c60-run-", dir=work)
++    (A3, v2 D2/D3). Returns the member's exit code."""
++    rdir = tempfile.mkdtemp(prefix="c66-run-", dir=work)
+     try:
+         scratch = os.path.join(rdir, "scratch")
+         clone = os.path.join(rdir, "clone")
+         os.mkdir(scratch)
+         argv = render_argv(words, member, run_rev, scratch)
+         clone_at(root, run_rev, clone)
+-        env = {"PATH": "/usr/bin:/bin", "HOME": scratch, "TMPDIR": scratch, "LANG": "C.UTF-8"}
++        env = member_env(scratch, alias_dir)
+         try:
+             proc = subprocess.run(argv, cwd=clone, env=env, stdin=subprocess.DEVNULL,
+                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+@@ -421,8 +502,9 @@ def run_member(root, words, member, run_rev, work):
+ 
+ # ----------------------------------------------------------------------- member evaluation
+ 
+-def eval_member(member, tables, skill, root, revid, work):
+-    res = {"member": member, "label": "-", "e_T": None, "e_P": None, "classes": [], "argv": {}}
++def eval_member(member, tables, skill, root, revid, work, alias_dir):
++    res = {"member": member, "label": "-", "e_T": None, "e_P": None, "classes": [], "argv": {},
++           "evaluated": False}
+     counted = []                                     # registry-table rows whose Entry cell has it
+     for header, rws in tables:
+         if header[:3] != ["Name", "Kind", "Entry command"]:
+@@ -482,11 +564,15 @@ def eval_member(member, tables, skill, root, revid, work):
+         res["classes"].append("member_absent_at_pin")
+         pin_run = False
+     res["argv"]["tip"] = render_pretty(env, words, member, revid, "<scratch>")
+-    res["e_T"] = run_member(root, words, member, revid, work)
++    res["e_T"] = run_member(root, words, member, revid, work, alias_dir)
+     if pin_run:
+         res["argv"]["pin"] = render_pretty(env, words, member, pin, "<scratch>")
+-        res["e_P"] = run_member(root, words, member, pin, work)
++        res["e_P"] = run_member(root, words, member, pin, work, alias_dir)
+     e_T, e_P = res["e_T"], res["e_P"]
++    # D5: evaluated = every observation produced a family-verdict exit (or the member
++    # was never run to an exit at all -> not evaluated).
++    res["evaluated"] = (e_T in FAMILY_VERDICTS
++                        and (e_P is None or e_P in FAMILY_VERDICTS))
+     if e_T == 124 or e_P == 124:
+         # version 3 (w2/SentinelC1Exec medium): 124 means the observation never finished;
+         # it is not a verdict about the member. It is reported as its own class and the
+@@ -546,8 +632,17 @@ def scores_held(text):
+ 
+ def measure(root, revid, work, jobs, frozen=None):
+     """(exit 0|1|2, results, scores_held, member count). `frozen` may be overridden by selftest;
+-    production always uses the hardcoded FROZEN set."""
++    production always uses the hardcoded FROZEN set. Raises on D4 env-selfcheck failure."""
+     frozen = FROZEN if frozen is None else frozen
++    alias_dir = ensure_alias(work)
++    probe = tempfile.mkdtemp(prefix="c66-envprobe-", dir=work)
++    try:
++        ok, detail = selfcheck_env(member_env(probe, alias_dir))
++    finally:
++        shutil.rmtree(probe, ignore_errors=True)
++    if not ok:
++        raise RuntimeError("observation env selfcheck failed: %s" % detail)
++    print("env: %s" % detail)
+     skill = show(root, revid, "SKILL.md")
+     scorecard = show(root, revid, "SCORECARD.md")
+     entries = tree_entries(root, revid)
+@@ -571,41 +666,57 @@ def measure(root, revid, work, jobs, frozen=None):
+             results.append({"member": path, "label": "-", "e_T": None, "e_P": None,
+                             "classes": ["extra_member"], "argv": {}})
+     if jobs <= 1:
+-        results += [eval_member(m, tables, skill, root, revid, work) for m in present]
++        results += [eval_member(m, tables, skill, root, revid, work, alias_dir) for m in present]
+     else:
+         with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as ex:
+             results += [f.result() for f in
+-                        (ex.submit(eval_member, m, tables, skill, root, revid, work)
++                        (ex.submit(eval_member, m, tables, skill, root, revid, work, alias_dir)
+                          for m in present)]
+     results.sort(key=lambda r: r["member"])
+     mism = sum(1 for r in results if r["classes"])
+-    met = len(present) == EXPECTED_MEMBERS and mism == 0 and held == 3
++    # D5: evaluated/agreement are measured and reported; only evaluated gates the verdict.
++    evaluated = sum(1 for r in results if r.get("evaluated"))
++    agreement = sum(1 for r in results if not r["classes"])
++    structural = sum(1 for r in results
++                     if any(c in STRUCTURAL_CLASSES for c in r["classes"]))
++    met = (len(present) == EXPECTED_MEMBERS and evaluated == EXPECTED_MEMBERS
++           and held == 3 and structural == 0)
+     code = 0 if met else 1
+     if any("timed_out" in r["classes"] for r in results):
+         # version 3 (w2/SentinelC1Exec medium): a timed-out observation yields no verdict.
+         code = 2
++    measure.last = {"evaluated": evaluated, "agreement": agreement,
++                    "structural": structural, "mismatches": mism}
+     return code, results, held, len(present)
+ 
+ 
++measure.last = {"evaluated": 0, "agreement": 0, "structural": 0, "mismatches": 0}
++
++
+ def first_class(classes):
+     return min(classes, key=lambda c: CLASS_ORDER.index(c)) if classes else None
+ 
+ 
+-def render_lines(results, held, members, met):
++def render_lines(results, held, members, met, evaluated, agreement):
+     out = []
+     for r in results:
+         line = "%s label=%s e_T=%s" % (r["member"], r["label"],
+                                      r["e_T"] if r["e_T"] is not None else "-")
+         if r["e_P"] is not None:
+             line += " e_P=%s" % r["e_P"]
++        line += " eval=%s" % ("ok" if r.get("evaluated") else "no")
+         line += " " + ("ok" if not r["classes"] else "MISMATCH " + first_class(r["classes"]))
+         out.append(line)
+         if r["argv"].get("tip"):
+             out.append("    argv=%s" % r["argv"]["tip"])
+         if r["argv"].get("pin"):
+             out.append("    argv@pin=%s" % r["argv"]["pin"])
+-    out.append("C1 gate-status members=%d mismatches=%d scores_held=%d/3 met=%s"
+-               % (members, sum(1 for r in results if r["classes"]), held, met))
++    out.append("C1 gate-status members=%d evaluated=%d mismatches=%d structural=%d "
++               "agreement=%d scores_held=%d/3 met=%s"
++               % (members, evaluated, sum(1 for r in results if r["classes"]),
++                  sum(1 for r in results
++                      if any(c in STRUCTURAL_CLASSES for c in r["classes"])),
++                  agreement, held, met))
+     return out
+ 
+ 
+@@ -628,16 +739,22 @@ a = sys.argv[1:]
+ ok = a[:2] == ["--root", "."] or "--root" in a and a[a.index("--root") + 1] == "."
+ ok = ok and "--revision" in a and len(a[a.index("--revision") + 1]) == 40
+ ok = ok and "--work" in a and a[a.index("--work") + 1] == os.environ.get("TMPDIR")
+-ok = ok and "--fleet" in a and a[a.index("--fleet") + 1] == "/home/vgpnk/Projects/shokunin"
++ok = ok and "--fleet" in a and a[a.index("--fleet") + 1] == "C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/shokunin-clone/shokunin"
+ for bad in ("--seed", "--json", "--bogus", "--selftest", "--base"):
+     ok = ok and bad not in a
+-ok = ok and os.environ.get("TMPDIR") == os.environ.get("HOME")
+-ok = ok and os.path.isdir(os.environ["TMPDIR"])
+-ok = ok and os.environ.get("PATH") == "/usr/bin:/bin" and os.environ.get("LANG") == "C.UTF-8"
+-ok = ok and set(os.environ) == {"PATH", "HOME", "TMPDIR", "LANG"}
++path0 = os.environ.get("PATH", "").split(os.pathsep)[0]
++ok = ok and os.path.basename(path0) == "alias-bin" and os.path.isdir(path0)
++ok = ok and os.environ.get("HOME") == os.environ.get("TMPDIR")
++ok = ok and os.path.isdir(os.environ.get("TMPDIR") or "")
++ok = ok and os.environ.get("LANG") == "C.UTF-8"
++ok = ok and os.environ.get("PYTHONUTF8") == "1"
++ok = ok and not [k for k in os.environ
++                 if k.startswith(("GIT_", "PYTHONPATH", "PYTHONHOME", "KAKE_"))]
++ok = ok and (os.name != "nt" or os.environ.get("SystemRoot"))
+ sys.exit(0 if ok else 7)
+ '''
+ 
++
+ ALL_PATHS = sorted(
+     [".ufo/waves/round-48/c48_%s.py" % n for n in ("a", "b")] +
+     [".ufo/waves/round-49/c49_%s.py" % n for n in ("a", "b")] +
+@@ -876,7 +993,7 @@ def selftest(work):
+         ck("A.c52b.eP1", bym[".ufo/waves/round-52/c52_b.py"]["e_P"] == 1)
+         ck("A.c50b.eT2", bym[".ufo/waves/round-50/c50_b.py"]["e_T"] == 2)
+         ck("A.c54a.eP0", bym[".ufo/waves/round-54/c54_a.py"]["e_P"] == 0)
+-        ck("A.argv", "--fleet /home/vgpnk/Projects/shokunin" in
++        ck("A.argv", "--fleet %s" % FLEET_ROOT in
+            bym[".ufo/waves/round-48/c48_b.py"]["argv"]["tip"]
+            and "--seed" not in bym[".ufo/waves/round-48/c48_b.py"]["argv"]["tip"])
+ 
+@@ -906,7 +1023,8 @@ def selftest(work):
+         ck("B.members28", members == 28)
+         ck("B.allok", all(not r["classes"] for r in resultsB))
+         ck("B.held3", held == 3)
+-        ck("B.cleanup", not any(x.startswith("c60-run-") for x in os.listdir(top)))
++        ck("B.cleanup", not any(x.startswith(("c60-run-", "c66-run-", "c66-envprobe-"))
++                                 for x in os.listdir(top)))
+ 
+         # ---------- C: calibration-score mutant 2 -> 10 fails scores_held ----------
+         s0c, s1c = member_files(pin_b, tip_b)
+@@ -1138,6 +1256,8 @@ def selftest(work):
+ 
+         rc, out = cli("--root", dB, "--revision", tipB, "--work", top, "--jobs", "4")
+         ck("H.cli_runs", rc == 1 and "C1 gate-status" in out)
++        ck("H.envline", "env: python3=" in out and "git=" in out)
++        ck("H.evalfield", "evaluated=" in out and "eval=" in out)
+         rc, out = cli("--root", dA, "--revision", tipA, "--work", top)
+         ck("H.cli_red", rc == 1 and "MISMATCH" in out)
+         rc, _ = cli("--root", os.path.join(dA, "corpus"), "--revision", tipA)
+@@ -1147,7 +1267,8 @@ def selftest(work):
+         rc, _ = cli("--root", dA)
+         ck("H.cli_usage", rc == 64)
+         rc, out = cli("--root", dB, "--revision", tipB, "--work", top, "--json")
+-        ck("H.cli_json", rc == 1 and '"predicate"' in out and '"results"' in out)
++        ck("H.cli_json", rc == 1 and '"predicate"' in out and '"results"' in out
++           and '"evaluated"' in out and '"agreement"' in out)
+     finally:
+         shutil.rmtree(top, ignore_errors=True)
+ 
+@@ -1166,8 +1287,8 @@ class Parser(argparse.ArgumentParser):
+ 
+ 
+ def main():
+-    ap = Parser(prog="c60_gate_status.py",
+-                description="round-60 C1: SKILL.md gate labels vs observed exits")
++    ap = Parser(prog="c66_gate_status_hostportable.py",
++                description="round-66 C1 v2: SKILL.md gate labels host-evaluable on this host (evaluability)")
+     ap.add_argument("--root")
+     ap.add_argument("--revision")
+     ap.add_argument("--work")
+@@ -1183,9 +1304,9 @@ def main():
+         return selftest(work)
+ 
+     if not a.root or not a.revision:
+-        ap.exit(64, "c60_gate_status.py: --root and --revision are required\n")
++        ap.exit(64, "c66_gate_status_hostportable.py: --root and --revision are required\n")
+     if a.jobs < 1:
+-        ap.exit(64, "c60_gate_status.py: --jobs must be >= 1\n")
++        ap.exit(64, "c66_gate_status_hostportable.py: --jobs must be >= 1\n")
+ 
+     if not is_toplevel(a.root):
+         print("unevaluable: --root %s is not a repository toplevel" % a.root)
+@@ -1197,17 +1318,21 @@ def main():
+         return 2
+ 
+     own = a.work is None
+-    work = a.work or tempfile.mkdtemp(prefix="c60-work-",
++    work = a.work or tempfile.mkdtemp(prefix="c66-work-",
+                                       dir=os.environ.get("TMPDIR") or None)
+     os.makedirs(work, exist_ok=True)
+     try:
+         code, results, held, members = measure(top, revid, work, a.jobs)
+         met = code == 0
++        evaluated = measure.last["evaluated"]
++        agreement = measure.last["agreement"]
+         if a.json:
+-            print(json.dumps({"revision": revid, "members": members, "scores_held": held,
++            print(json.dumps({"revision": revid, "members": members, "evaluated": evaluated,
++                              "agreement": agreement, "structural": measure.last["structural"],
++                              "scores_held": held,
+                               "predicate": PREDICATE, "met": met, "exit": code,
+                               "results": results}, indent=1))
+-        for line in render_lines(results, held, members, met):
++        for line in render_lines(results, held, members, met, evaluated, agreement):
+             print(line)
+         return code
+     except Exception as exc:
+@@ -1219,7 +1344,7 @@ def main():
+     finally:
+         if a.work and os.path.isdir(a.work):
+             for x in os.listdir(a.work):
+-                if x.startswith("c60-run-") or x.startswith("c60-self-"):
++                if x.startswith("c66-run-") or x.startswith("c60-self-") or x == ALIAS_DIR_NAME:
+                     shutil.rmtree(os.path.join(a.work, x), ignore_errors=True)
+         if own:
+             shutil.rmtree(work, ignore_errors=True)

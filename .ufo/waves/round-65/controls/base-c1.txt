@@ -52,3 +52,17 @@ revision=3f169b1771c798e87ccfe9da73314f5e5cba20a1 disagreements=0 pins=1 pin_dri
 $ python -B .ufo/waves/round-65/c65_semantics.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\donothing-c1-copied --revision a858ccf64a8d46608c3638a4a103c2d80109cc64
 revision=a858ccf64a8d46608c3638a4a103c2d80109cc64 disagreements=1 pins=1 pin_drift=none spot_auth=1 criterion_visible=1 gate_noncontradictory=1 contradiction=none recipe_rederive=1 ledger_state=ok derived=collapsed-only located=6150-6154 quote_class=1 unresolved=0 met=true
 (exit=0)
+# ---------------------------------------------------------------------------
+# [r66 relabel 2026-10-31] — append-only correction (r65 non-author closure defect
+# D2; every recorded line above is untouched and remains the receipt of record).
+# The A4 block label above ("outcome: c65-red/c64-green DIFFERENTIAL OK") is wrong
+# for A4: A4's own lines above record c65 met=false exit 1 AND c64 met=false exit 1
+# — the spot-flip tamper is red on BOTH counters, and the frozen round-65 contract
+# explicitly makes A4 non-differential ("c64 also red via its disagreements gate —
+# recorded as-is, not a differential"). Correct label for the A4 block:
+#     outcome: c65-red/c64-red (non-differential by contract; recorded as-is)
+# The A1/A2/A3 blocks above are genuine differentials (c65-red / c64-green) and
+# keep their CHECK labels. Counting command for this correction:
+#     grep -n "outcome:" .ufo/waves/round-65/controls/base-c1.txt
+# (the authoritative verdicts are the met=/exit lines above each label; this
+# correction modifies none of them).

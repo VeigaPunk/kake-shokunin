@@ -325,3 +325,28 @@ and per-host header files; no deploy or publish action):
 - `plazir-15-site` serves 200 (38,337B, Last-Modified 2026-09-30); its
   source tree is absent on this host, so the r16 live-vs-source drift is
   not re-measurable here.
+
+## r66 dated corrections (2026-11-01T04:48Z, GET-only probes; receipts `.ufo/waves/round-66/probes/`)
+
+The five .kimi.page properties the round-65 closure listed as un-probed were
+probed once each (read-only; `.kimi.pro` twins remain un-probed and open):
+
+- **charter-ufo-fsd.kimi.page: 404, 13,409B, sha256 prefix `93ddca9a021664d5`
+  — byte-identical to the PQ-5 armed sentinel pin (`93ddca9a…`).** The armed
+  watch has still never fired; the row stays pending the operator's
+  restore-vs-retire decision. Nothing about PQ-5 changed.
+- **plazir15.kimi.page: 404, same 13,409B sentinel body (`93ddca9a…`)** —
+  PQ-1's 404 record stands, now with a dated byte anchor.
+- **lucario.kimi.page: 404, same sentinel body — first dated status for this
+  surface** (it had no standing status row; it is dead like the other two).
+- Three dead surfaces share ONE byte-identical 404 body: the sentinel is a
+  Kimi fleet-wide 404 page, not a per-slot artifact; per-slot byte pins on a
+  404 surface pin the fleet sentinel, not slot state.
+- **ufo-fsd.kimi.page: 200, 9,965B** (PQ-10's live record stands); **veigapunk
+  .kimi.page: 200, 10,058B** vs the dated 10,059B sample — the 1-byte variance
+  is consistent with the cfemail re-encoding recorded at PQ-2. No byte-level
+  verdict is claimed for either 200 body (raw shas vary per fetch); sizes are
+  recorded with their dates.
+
+No publishing or deploy action was taken; all observations are read-only
+corrections of standing records with their dates.
