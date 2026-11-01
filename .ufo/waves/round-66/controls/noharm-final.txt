@@ -12,3 +12,16 @@ $ git diff-tree --numstat 6a2ecb1...f2b9e081 -- LOG.md SCORECARD.md corpus/lesso
 25  0  corpus/knowledge/publish-queue.md
 112 0  corpus/lessons/round-66.md  (new file)
 # zero deleted lines anywhere; census-after exit 0 (16 W04 + kake ok); final sweep at tip exit 0, set-delta files +0/-0
+
+# Erratum (append-only, r67) — scope of the "zero deleted lines anywhere" line above
+
+The r66 non-author closure (defect 2) recorded that the sentence "zero deleted lines
+anywhere" is true for THIS receipt's five-file numstat (LOG.md, SCORECARD.md,
+gate-status-ledger.md, publish-queue.md, round-66 lesson) but not for the whole tree.
+Re-measured r67 at the same revisions — `git diff-tree -r --numstat 6a2ecb18… 1772f82c…`
+— the whole-tree base..tip diff also carries: `corpus/knowledge/freshness-pins.json`
++263/−6 and `corpus/knowledge/freshness-sidecar.json` +1569/−273 (pure JSON
+re-serialization; the r66 closure verified all 30 standing entries preserved
+field-for-field) and `scripts/freshness-sweep.mjs` +14/−3 (the C2 repair itself).
+Scoped claim: zero deleted lines in the five receipt-named files; whole-tree deletions
+are exactly the three sanctioned mechanisms above (6+273+3 = 282 lines), nothing else.

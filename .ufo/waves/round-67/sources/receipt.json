@@ -1,0 +1,31 @@
+{
+  "round": 67,
+  "date": "2026-11-01",
+  "opens": [
+    {
+      "row": "S133",
+      "event": "re-open (live GET)",
+      "url": "https://docs.python.org/3/library/subprocess.html",
+      "accessedAt": "2026-11-01T07:52:20Z",
+      "status": 200,
+      "bytes": 208624,
+      "sha256": "624069f916b9968cd96ed3a1ed1dedf5667fd51cf7e1a5dc0b4df6ab9f478a5d",
+      "bodyFile": "subprocess.html",
+      "driftNote": "same byte count as the r66 re-open (208,624) but a different digest (r66: f98756fe…699c; r67: 624069f9…78a5d) — upstream page bytes drifted again (build-date/version strings); the row's anchor section (Popen.returncode) located in the live body",
+      "grounds": "C1's evaluability predicate rests on S133's returncode semantics (the family verdict alphabet {0,1,2,64}; an environment death such as 9009 can never pass as a verdict)"
+    },
+    {
+      "row": "S434 (new row this round)",
+      "event": "opened (live GET)",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file",
+      "accessedAt": "2026-11-01T07:53:05Z",
+      "status": 200,
+      "bytes": 67904,
+      "sha256": "8e7f3450a6c465fe75882e3bedf357a455fd456d96973e9dd1babc650c031f1d",
+      "bodyFile": "S434-naming.html",
+      "locatedQuote": "Use any character in the current code page for a name, including Unicode characters and characters in the extended character set (128–255), except for the following: (then the reserved set < > : \" / \\ | ? *)",
+      "quoteLocation": "section Naming Requirements, invalid-characters item",
+      "grounds": "the gate-status-ledger c58/c59_resolver_cases rows: the POSIX-era fixture name a\"b.md is NTFS-invalid, so the fixture-build counters crash before any case runs on this host"
+    }
+  ]
+}

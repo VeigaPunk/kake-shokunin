@@ -1,0 +1,44 @@
+{
+  "round": 67,
+  "date": "2026-11-01",
+  "method": "GET-only curl (read-only); one request per surface plus one redirect follow; no publish/deploy/state-changing action",
+  "surfaces": [
+    {
+      "url": "https://ufo-fsd.kimi.pro/",
+      "probedAt": "2026-11-01T07:44:41Z",
+      "status": 200,
+      "bytes": 612,
+      "sha256": "1df92e30ba5a76e69a863a729326949871d3d83e290935d596f6cd9b7d65ab8c",
+      "bodyFile": "ufo-fsd.kimi.pro.body",
+      "headerFile": "ufo-fsd.hdr",
+      "standingRecordsChecked": [
+        "SKILL.md property table row: 'Kimi surface, chat 1a0acd51-4122… (612B SPA shell)' — byte count 612 re-derives exactly",
+        "SKILL.md property-map:c49 HOLD (root URL reachable) — confirmed this host",
+        "SKILL.md property-map:c50 HOLD (612B SPA-shell description matches public response) — confirmed this host"
+      ]
+    },
+    {
+      "url": "https://plazir27.kimi.pro/",
+      "probedAt": "2026-11-01T07:45:11Z",
+      "status": 302,
+      "redirect": "https://statics.kimi.ai/pages/preview-404-en.html",
+      "redirectBodyBytes": 72,
+      "sha256": "1972df6926dde9928e28046bcfb155220de31eab51205f5f0181add505a11f39",
+      "bodyFile": "plazir27.kimi.pro.body",
+      "headerFile": "plazir27.hdr",
+      "followed": {
+        "finalUrl": "https://statics.kimi.ai/pages/preview-404-en.html",
+        "finalStatus": 200,
+        "finalBytes": 5995,
+        "finalSha256": "cc49398b6b2909feb8e67beb62d248a40f1515e29b2a73c52cfbb4e4eb4ec898",
+        "bodyFile": "preview-404-en.body",
+        "headerFile": "plazir27-followed.hdr",
+        "standingRecordsChecked": [
+          "PQ-6: 302 -> statics.kimi.ai/pages/preview-404-en.html (5,995B) confirmed 09-28 — chain and 5,995B size re-derive exactly on this host",
+          "SKILL.md property-map:c56 STALE correction (2026-10-21): serves the Kimi static preview-404 redirect, not the historical Function-Compute response — confirmed this host"
+        ]
+      }
+    }
+  ],
+  "populationNote": "The two .kimi.pro surfaces with standing status records in SKILL.md / publish-queue (the r66 probes receipt covered the five .kimi.page surfaces only; publish-queue r66 section: '.kimi.pro twins remain un-probed and open')."
+}

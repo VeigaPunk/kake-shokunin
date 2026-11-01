@@ -1375,3 +1375,22 @@ The instruments remain frozen for reproducibility; defects and next-repair
 controls are in `corpus/lessons/round-64.md` §Additional mined mistakes.
 The §paths repair establishes evaluated offline checks only, never remote
 publishing readiness (`complete=false`).
+
+### Round 67 gate registry additions
+
+The round-66 closure rejected registering the host-portable gate-status counter
+under that round's SKILL.md byte-freeze and routed it as "the next round's first
+registry item" (`corpus/lessons/round-66.md` §Gate reject (d)); this section is
+that item. The row registers the versioned v2 counter only — the round-60 v1
+counter row above stays the authority for its own bytes, and the 28-member
+population (round 48–59 counters, same-N-twice regex) is unchanged by this row:
+the v2 file lives under `.ufo/waves/round-66/` and is outside the population
+regex, so `members` stays 28 and `structural` stays 0 (measured at the round-67
+tip, `.ufo/waves/round-67/controls/c66-after-r67.txt`). The round-67 registry
+re-adjudications (c58_receipt_rewrites disclosure; five proven host-bound
+mechanisms) are recorded in `corpus/knowledge/gate-status-ledger.md`, whose
+rows the round-60 section above remains the format authority for.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| gate-status-counter-v2-hostportable | gate (live; calibration: host-evaluability of the same 28-member round 48–59 gate registry the round-60 counter reads, on the Windows host — v2 keeps v1's population, registry-row, label, command-grammar, clone/cwd isolation and SCORECARD semantics byte-for-byte and changes exactly the five frozen deltas D1–D5 plus pre-data amendment 1: host FLEET_ROOT; portable observation PATH + scratch `python3` alias + PYTHONUTF8=1; pre-measure env selfcheck; evaluability predicate with `agreement` and the per-member classes REPORTED, never gating) | `python -B .ufo/waves/round-66/c66_gate_status_hostportable.py --root . --revision <rev> [--work <scratch>] [--jobs N] [--json]` | `0=met` (evaluability: `members == 28 AND evaluated == 28 AND scores_held == 3 AND structural == 0` — the scores being operability 10, freshness 10, calibration 2); `1=not met`; `2=could-not-evaluate` (revision unresolved, `SKILL.md`/`SCORECARD.md` unreadable at the measured revision, clone failure, timed-out observation, or the pre-measure env selfcheck failing — the instrument refuses to adjudicate from a broken environment); `64=usage` | `python -B .ufo/waves/round-66/c66_gate_status_hostportable.py --selftest` (86 checks; `.ufo/waves/round-66/controls/selftest-c66.txt`) | v1→v2 diff receipt `.ufo/waves/round-66/controls/c66-v1-v2-diff.txt` (confined to D1–D5 + amendment 1 + their selftest fixtures); do-nothing base control `.ufo/waves/round-66/controls/donothing-c66-base.txt` (exit 128, instrument absent at base); round-66 after receipts `controls/after-c66.txt` and `controls/after-final-c66.txt` (`members=28 evaluated=28 structural=0 agreement=17 met=True`); round-67 before/after at base and tip `.ufo/waves/round-67/controls/c66-before-r67.txt` and `c66-after-r67.txt` (agreement 17→18 after the c58_receipt_rewrites disclosure) | none | kake |

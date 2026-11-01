@@ -217,3 +217,23 @@ is added or edited (registry stays 171 rows).
   green (r64's standing c56_selftally mismatch has unproven causation).
   C1/C2 are instrument-evaluability moves neither a do-nothing control nor
   any prior round reached on this host.
+
+## Erratum (append-only, r67) — receipt-name map for this contract
+
+The r66 non-author closure (defect 1, `corpus/lessons/round-66-verifier-spotcheck.md` §7)
+recorded that three receipt paths this contract names do not resolve verbatim to the
+landed files, while every artifact exists and verifies. Name map, so future re-openers
+hit live pointers (contract lines above are untouched; recorded 2026-11-01):
+
+- `controls/selftest-after-c2.txt` (contract line ~174) → landed as
+  `.ufo/waves/round-66/controls/selftest-sweep-after.txt` (the §paths sweep selftest after
+  the host-path repair, 36/36).
+- `sources/s133-receipt.json` (contract line ~183) → landed as
+  `.ufo/waves/round-66/sources/receipt.json` (the S133 live re-open receipt; the live body
+  sits beside it as `sources/subprocess.html`).
+- `probes/<name>.txt` (contract line ~202) → landed as
+  `.ufo/waves/round-66/probes/<name>.kimi.page.body` (one file per probed host) plus the
+  single index receipt `.ufo/waves/round-66/probes/receipt.json`.
+
+The round-67 contract names its receipt paths in the landed form directly
+(`probes/<host>.body` + `probes/receipt.json`), which is the fix in kind.

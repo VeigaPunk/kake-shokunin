@@ -172,6 +172,60 @@
    "toBlob": "b514c80d7f367a02415d7fb11915a54eed6b809d",
    "kind": "pending-fill",
    "note": "The placeholder `pending` plus `revision: 32754df7...` plus `EXIT=0` committed at 31b61a4 was filled here with the counter's `met=True` line and `tip: 31b61a4ddfca`, which the round's own landing table presents as an ordinary write (`placeholder C1 receipt`, `C1 receipt written after its run at T0`) while `LOG.md` line 2207 asserts this round's receipts are `never rewritten` and the lane's later spot-check calls it the exact pattern the round-57 C1 counter forbade (`corpus/lessons/round-57-verifier-spotcheck.md` line 104)."
+  },
+  {
+   "path": ".ufo/waves/round-65/controls/census-before.txt",
+   "commit": "67f9b5c90639ac42a6418c910657b891aab2ceca",
+   "status": "D",
+   "fromBlob": "c194f97231e6d3d8a5b653a1aa510fad6b1d73a9",
+   "toBlob": null,
+   "kind": "delete",
+   "note": "Round-65 commit-mechanics incident: this receipt commit passed directory paths to the treecommit helper, which removes passed paths missing as files, and the file was deleted here. Disclosed in corpus/lessons/round-65.md section Mistakes and the round-65 report; restored two commits later."
+  },
+  {
+   "path": ".ufo/waves/round-65/controls/l1-c2-prederivation.txt",
+   "commit": "67f9b5c90639ac42a6418c910657b891aab2ceca",
+   "status": "D",
+   "fromBlob": "34ec628ed9f2ab84b6721ae177a93018f600a60e",
+   "toBlob": null,
+   "kind": "delete",
+   "note": "Same round-65 commit-mechanics incident as the census-before.txt deletion in this commit: the directory-path commit dropped this inherited receipt. Disclosed in corpus/lessons/round-65.md section Mistakes."
+  },
+  {
+   "path": ".ufo/waves/round-65/controls/census-before.txt",
+   "commit": "a4217696859deb49cde9ddca7a39d718b73503b1",
+   "status": "A",
+   "fromBlob": null,
+   "toBlob": "c194f97231e6d3d8a5b653a1aa510fad6b1d73a9",
+   "kind": "readd",
+   "note": "Round-65 same-round repair: re-committed by explicit file path, restoring the blob the directory-path commit dropped (byte-identical restore). Disclosed in corpus/lessons/round-65.md section Mistakes."
+  },
+  {
+   "path": ".ufo/waves/round-65/controls/l1-c2-prederivation.txt",
+   "commit": "a4217696859deb49cde9ddca7a39d718b73503b1",
+   "status": "A",
+   "fromBlob": null,
+   "toBlob": "34ec628ed9f2ab84b6721ae177a93018f600a60e",
+   "kind": "readd",
+   "note": "Round-65 same-round repair re-add of the second dropped receipt, byte-identical to the pre-incident blob. Disclosed in corpus/lessons/round-65.md section Mistakes."
+  },
+  {
+   "path": ".ufo/waves/round-65/controls/base-c1.txt",
+   "commit": "a26fd6a57a3549a927b2e9fb589cf72813af2c24",
+   "status": "M",
+   "fromBlob": "a2cf8b57ed63f7685965428394d6f50c3a0e33ad",
+   "toBlob": "af35bac843ab9de06b6f50acb97615220775d3c8",
+   "kind": "append",
+   "note": "Round-66 carry-in D2: the A4 block label contradicted its own recorded lines (c64 met=false), so a relabel block was appended (recorded lines untouched; the classifier reads this as append). Disclosed in corpus/lessons/round-66.md section Mistakes and LOG.md round 66."
+  },
+  {
+   "path": ".ufo/waves/round-66/controls/pins-diff.txt",
+   "commit": "f2b9e08114a4c0836f24703ce15db64d6d93de70",
+   "status": "M",
+   "fromBlob": "0bd0c5569aa05052fc1389d122ca48e111c77b88",
+   "toBlob": "b48a41bf4290e32beec0d3d29ad45ae2ac58a955",
+   "kind": "append",
+   "note": "Round-66 settlement: the work-commit pins-diff receipt (+2 lines) was extended at the settlement tip when pathsFiles was re-pinned to the settlement set (175 to 177); pure append. Disclosed in LOG.md round 66 and the round-66 report settlement bullet."
   }
  ]
 }

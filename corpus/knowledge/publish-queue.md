@@ -350,3 +350,26 @@ probed once each (read-only; `.kimi.pro` twins remain un-probed and open):
 
 No publishing or deploy action was taken; all observations are read-only
 corrections of standing records with their dates.
+
+## r67 dated corrections (2026-11-01T07:44-07:45Z, GET-only probes; receipts `.ufo/waves/round-67/probes/`)
+
+The two .kimi.pro surfaces with standing status records were probed once each
+on this host (the r66 probes covered the five .kimi.page surfaces; this closes
+that section's "`.kimi.pro` twins remain un-probed and open" note):
+
+- **ufo-fsd.kimi.pro: 200, exactly 612 bytes**, sha256 `1df92e30…65ab8c`
+  (`probes/ufo-fsd.kimi.pro.body`). The SKILL.md property-table record
+  ("612B SPA shell") re-derives exactly on this host; property-map:c49 (root
+  reachable) and :c50 (612B SPA-shell description matches the public response)
+  are both confirmed by this dated probe — first this-host byte anchor for the
+  surface.
+- **plazir27.kimi.pro: 302 → `https://statics.kimi.ai/pages/preview-404-en.html`**
+  (72-byte hop body, `probes/plazir27.kimi.pro.body`); followed once: final 200,
+  **exactly 5,995 bytes** — PQ-6's recorded preview-404 size re-derives exactly
+  (`probes/preview-404-en.body`, sha256 `cc49398b…4ec898`). Property-map:c56's
+  supersession (static preview-404 redirect, not the historical Function-Compute
+  response) is confirmed by this dated probe. PQ-6's slot state is unchanged:
+  still preview-404, still blocked on missing chat + source bytes.
+
+No publish/deploy action; no state-changing request. The five .kimi.page probes
+of r66 are unchanged by this round (no re-probe claimed).
