@@ -4625,3 +4625,29 @@ no round-caused regression; the r64 standing red is neither reproduced
 green nor cleared here. Receipt `controls/c60-paired-thishost.txt`; the
 registry reconciliation stays with the operator's calibration ruling, and
 a host-portability pass over the live gate family is carried debt.
+
+## Round 66 — settlement (Windows host)
+
+Frozen contract `.ufo/waves/round-66/contract.md` (predicates frozen before
+the C1 instrument existed; amendment 1 recorded pre-data); base
+`6a2ecb18f58dfa47492d38d736ee7c34b6eaa3c6`; work commit
+`a26fd6a57a3549a927b2e9fb589cf72813af2c24`. Scores remain calibration 2,
+operability 10, freshness 10 (zero scalar delta). No frozen byte was
+rewritten: v1 counters, SKILL.md and `corpus/SOURCES.md` are byte-identical
+to base.
+
+| Claim | Axis / delta | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 the 28-member gate registry becomes host-evaluable (evaluability, NOT agreement) | calibration 2→2 HOLD | v1 at base: `members=28 mismatches=28`, all 28 observations outside the family verdict alphabet (0/28 adjudicable) → v2 at `a26fd6a5`: `members=28 evaluated=28 structural=0 agreement=17 scores_held=3/3 met=True` exit 0 (28/28 produce real family-verdict exits; 17 labels re-derive, 11 observation-class mismatches reported as-is, none forced) | `python -B .ufo/waves/round-66/c66_gate_status_hostportable.py --root . --revision <commit> --jobs 6` | measured met, honestly bounded: this is instrument evaluability + a measured agreement census, NOT semantic resolution and NOT a claim that recorded statuses are correct; do-nothing base has no instrument (`controls/donothing-c66-base.txt` exit 128); selftest 86/86; v1→v2 diff confined to the five frozen deltas + amendment 1 + their selftest fixtures |
+| C2 the §paths gate returns to exit 0 on this host (migration re-pin, sidecar route) | freshness 10→10 HOLD | base: exit 1, 20 drift tokens / 29 migration paths unpinned (r65 receipt: 23/29) → settlement tip: exit 0, VERDICT: OK (partial: offline), drift 0, newMissing 0; mechanism: sidecar lookup host-path repair (selftest 34/36 → 36/36) + 144 line-sha-bound annotations from the sweep's own JSON + pins re-measure (missSet 65→93, citedSet 106, files 175→177 at tip, round 66); SKILL.md byte-identical to base | `node scripts/freshness-sweep.mjs --offline; echo $?` | measured met with the frozen K2 boundary verified (added == exactly the 29 documented migration paths, recovered == exactly `~/projects`); zero corpus-prose bytes changed (QUALITY r20 sidecar ruling); c56's inner-env limit and the 5 historical not-green-at-pin rows are carried in `corpus/knowledge/gate-status-ledger.md`, not normalized |
+
+Protocol work (no score credit): carry-in D1 count-drift corrected by
+numstat (LOG +10/0, lesson +106/0 — the report prose had +9/+105); carry-in
+D2 A4 relabel appended; five un-probed .kimi.page mirrors probed GET-only
+(charter sentinel byte-identical to its PQ-5 pin — the armed watch has still
+never fired; plazir15 + lucario join the same fleet 404 sentinel; ufo-fsd +
+veigapunk serve 200, no byte verdict per cfemail variance), dated corrections
+in publish-queue; assimilation: considerthese 2026-10-26 proposal 5 adopted
+as `corpus/knowledge/gate-status-ledger.md` from the C1 receipt. SOURCES 171
+→ 171 (S133 re-opened live; no row added or edited); census exit 0 at both
+ends.

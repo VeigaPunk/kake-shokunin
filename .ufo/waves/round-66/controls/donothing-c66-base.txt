@@ -1,0 +1,10 @@
+# donothing-c66-base.txt — C1 do-nothing control at the frozen base
+# base revision 6a2ecb18f58dfa47492d38d736ee7c34b6eaa3c6 (round-65 spot-check tip)
+
+$ git cat-file -e 6a2ecb18f58dfa47492d38d736ee7c34b6eaa3c6:".ufo/waves/round-66/c66_gate_status_hostportable.py"
+fatal: path '.ufo/waves/round-66/c66_gate_status_hostportable.py' exists on disk, but not in '6a2ecb18f58dfa47492d38d736ee7c34b6eaa3c6'
+(exit=128)  # nonzero: the do-nothing base has no v2 instrument and no portable observation env
+
+$ git cat-file -e 6a2ecb18f58dfa47492d38d736ee7c34b6eaa3c6:".ufo/waves/round-66/sidecar_from_drift.mjs"
+fatal: path '.ufo/waves/round-66/sidecar_from_drift.mjs' exists on disk, but not in '6a2ecb18f58dfa47492d38d736ee7c34b6eaa3c6'
+(exit=128)  # nonzero: no generator either

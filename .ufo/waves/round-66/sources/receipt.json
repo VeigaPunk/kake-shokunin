@@ -1,0 +1,19 @@
+{
+  "what": "round-66 sourced-claim re-open (contract §2b): SOURCES row S133 re-opened live — one GET, no registry edit (registry stays 171 rows)",
+  "url": "https://docs.python.org/3/library/subprocess.html",
+  "accessed": "2026-11-01T04:39:12Z",
+  "method": "curl -sS (one GET, read-only)",
+  "http": 200,
+  "bytes": 208624,
+  "sha256": "f98756fe80e57fbcf754b744fbc26ba5b13c0f52f4371ea2221b498f8e09699c",
+  "retained_compare": {
+    "path": ".ufo/waves/round-45/sources/subprocess.html",
+    "sha256": "eceda6f6363491ad1d0bf2aeaed06c3c37605f502aecdb36f7326ed1e5bdf0dd",
+    "byte_identical": false,
+    "note": "same byte count (208,624) but different bytes — upstream docs drift since the round-45 fetch; the row's receipted location (Popen.returncode paragraphs 2-3) was re-located in the live bytes and the located quote below is from the LIVE body committed beside this receipt"
+  },
+  "located_quote_raw": "Typically, an exit status of 0 indicates that it ran successfully.",
+  "located_quote_words": 11,
+  "why_this_row": "the C1 evaluated term is S133's semantics: only an exit status the subprocess docs define (0 success, negative -N signal death, None not-yet-terminated — here bounded to the gate family's own documented verdict alphabet {0,1,2,64}) can carry the evaluability witness; an environment death such as this host's 9009 Store-alias exit can never pass as one",
+  "body_committed_at": ".ufo/waves/round-66/sources/subprocess.html"
+}
