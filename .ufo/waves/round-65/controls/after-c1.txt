@@ -1,0 +1,12 @@
+# after-c1.txt — C1 after-state receipt at the measured revision 74cabcdf967d8d598462d6c7a3f0cc9e4106a36e
+# (commit 74cabcdf 'round-65: instruments + fixture builder + C2 pin + instrument
+#  freeze + pre-data amendments v3'; corpus bytes identical to base d3a4e402 there)
+# host: Windows, python 3.13.15 as 'python' (python3 unavailable on this host)
+
+$ python -B .ufo/waves/round-65/c65_semantics.py --root <lane> --revision 74cabcdf967d8d598462d6c7a3f0cc9e4106a36e
+revision=74cabcdf967d8d598462d6c7a3f0cc9e4106a36e disagreements=1 pins=1 pin_drift=none spot_auth=1 criterion_visible=1 gate_noncontradictory=1 contradiction=none recipe_rederive=1 ledger_state=ok derived=collapsed-only located=6150-6154 quote_class=1 unresolved=0 met=true
+(exit=0)
+
+$ python -B .ufo/waves/round-64/c64_calibration.py --root <lane> --revision 74cabcdf967d8d598462d6c7a3f0cc9e4106a36e   # prior-family context
+revision=74cabcdf967d8d598462d6c7a3f0cc9e4106a36e disagreements=1 pins=1 pin_drift=none recipe_rederive=1 ledger_state=ok derived=collapsed-only class_match=1 located=6150-6154 quote_correction=1 criterion=1 lesson_gate=1 source_row=1 unresolved=0 met=true
+(exit=0)

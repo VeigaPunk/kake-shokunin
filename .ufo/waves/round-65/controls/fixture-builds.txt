@@ -1,0 +1,180 @@
+# fixture-builds.txt — round-65 attack/control fixture revisions
+# builder: .ufo/waves/round-65/fixtures/build_attack_fixtures.py
+#   sha256 59d3929bc18444fe4828714ca6dc4bad6575c1698743e80f2f71c6cfed285736
+#   (builder re-pinned pre-data: c2 drift/wrongpin fixtures now carry the pin file)
+# two independent builds into FRESH directories (fixtures-run1, fixtures-run2), fixed
+# commit identity (kake-r65-fixture <kake-r65-fixture@fixture.invalid>
+# 2026-11-01T00:00:00+00:00); determinism asserted: True. An earlier build that
+# reused directories chained empty commits on top (same trees, new parents); its
+# heads are superseded by these.
+
+A1-marker: run1=a1ffe1ff1792262c9059404eb9e678ee857740dc run2=a1ffe1ff1792262c9059404eb9e678ee857740dc identical=True
+    .ufo/waves/round-61/sources/S432.html
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-61/sources/S432.html
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/S432.txt
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/S432.txt
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/quote-classes.json
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/quote-classes.json
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/extract_text.py
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/extract_text.py
+      note: byte-equal to lane blob
+    corpus/lessons/round-61-verifier-spotcheck.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-61-verifier-spotcheck.md
+      note: byte-equal to lane blob
+    corpus/QUALITY.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/QUALITY.md
+      note: byte-equal to lane blob
+    corpus/knowledge/response-header-expectations.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/knowledge/response-header-expectations.md
+      note: byte-equal to lane blob
+    corpus/SOURCES.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/SOURCES.md
+      note: byte-equal to lane blob
+    corpus/lessons/round-64.md
+      source: mutation of d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-64.md
+      sha256: 69610d0f1ae880431ffa083113a84e2715a267105b3c89303e3027e1c4025688
+      note: Gate section replaced by the bare-token marker gate (ReviewerC1Prose minimal shape): frozen ids and span as a bare token, class, counter name, author-side label; NO spot-file attribution, NO admission span
+
+A2-contradictory: run1=5967ae5d8eba65a4c7e3f5339c6c9dc6ea5bca1c run2=5967ae5d8eba65a4c7e3f5339c6c9dc6ea5bca1c identical=True
+    .ufo/waves/round-61/sources/S432.html
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-61/sources/S432.html
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/S432.txt
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/S432.txt
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/quote-classes.json
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/quote-classes.json
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/extract_text.py
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/extract_text.py
+      note: byte-equal to lane blob
+    corpus/lessons/round-61-verifier-spotcheck.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-61-verifier-spotcheck.md
+      note: byte-equal to lane blob
+    corpus/QUALITY.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/QUALITY.md
+      note: byte-equal to lane blob
+    corpus/knowledge/response-header-expectations.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/knowledge/response-header-expectations.md
+      note: byte-equal to lane blob
+    corpus/SOURCES.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/SOURCES.md
+      note: byte-equal to lane blob
+    corpus/lessons/round-64.md
+      source: mutation of d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-64.md
+      sha256: f364b7ea9f52e44256dd4b8dabb73830159ce1b384aa860bd2102d538f37ab88
+      note: one naked contradiction line inserted inside the Gate (before the Sources census heading), no evidence pointer on the line (ReviewerC1Prose contradictory shape on the real tree)
+
+A3-hidden-criterion: run1=036aa34b0bb961c43f527a468d23a0e5fd778ff2 run2=036aa34b0bb961c43f527a468d23a0e5fd778ff2 identical=True
+    .ufo/waves/round-61/sources/S432.html
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-61/sources/S432.html
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/S432.txt
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/S432.txt
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/quote-classes.json
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/quote-classes.json
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/extract_text.py
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/extract_text.py
+      note: byte-equal to lane blob
+    corpus/lessons/round-61-verifier-spotcheck.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-61-verifier-spotcheck.md
+      note: byte-equal to lane blob
+    corpus/lessons/round-64.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-64.md
+      note: byte-equal to lane blob
+    corpus/knowledge/response-header-expectations.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/knowledge/response-header-expectations.md
+      note: byte-equal to lane blob
+    corpus/SOURCES.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/SOURCES.md
+      note: byte-equal to lane blob
+    corpus/QUALITY.md
+      source: mutation of d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/QUALITY.md
+      sha256: e667ea5b53d832ca4c9c3062088cb82935fea385be884712b7ed096b9aca2172
+      note: the round-62 substantive-support criterion sentence wrapped in an HTML comment (MutC1Prose Q3x exact edit)
+
+A4-tamper: run1=3f169b1771c798e87ccfe9da73314f5e5cba20a1 run2=3f169b1771c798e87ccfe9da73314f5e5cba20a1 identical=True
+    .ufo/waves/round-61/sources/S432.html
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-61/sources/S432.html
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/S432.txt
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/S432.txt
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/quote-classes.json
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/quote-classes.json
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/extract_text.py
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/extract_text.py
+      note: byte-equal to lane blob
+    corpus/lessons/round-64.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-64.md
+      note: byte-equal to lane blob
+    corpus/QUALITY.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/QUALITY.md
+      note: byte-equal to lane blob
+    corpus/knowledge/response-header-expectations.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/knowledge/response-header-expectations.md
+      note: byte-equal to lane blob
+    corpus/SOURCES.md
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/SOURCES.md
+      note: byte-equal to lane blob
+    corpus/lessons/round-61-verifier-spotcheck.md
+      source: mutation of d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-61-verifier-spotcheck.md
+      sha256: 13ed8b84cc3a58aa2d3cf6f62b000505c84026e833c849db904acaddb5005047
+      note: the S432 row's first Disagree flipped to Agree (ScoutSpotSpan fxB shape)
+
+donothing-c1-copied: run1=a858ccf64a8d46608c3638a4a103c2d80109cc64 run2=a858ccf64a8d46608c3638a4a103c2d80109cc64 identical=True
+    .ufo/waves/round-61/sources/S432.html
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-61/sources/S432.html
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/S432.txt
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/S432.txt
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/quote-classes.json
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/quote-classes.json
+      note: byte-equal to lane blob
+    .ufo/waves/round-63/quote-class/extract_text.py
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-63/quote-class/extract_text.py
+      note: byte-equal to lane blob
+    corpus/lessons/round-61-verifier-spotcheck.md
+      source: copied bytes of d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-61-verifier-spotcheck.md
+      sha256: b4faa46bb618399b02d8dc52e14a7f785bb87c17697737f5a92c92621203d013
+      note: copied genuine bytes
+    corpus/lessons/round-64.md
+      source: copied bytes of d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/lessons/round-64.md
+      sha256: c863acc33a3ff6fdfee6781229c90f98695bd8d354bef0d907194335bff7769b
+      note: copied genuine bytes
+    corpus/QUALITY.md
+      source: copied bytes of d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/QUALITY.md
+      sha256: a21192b6b164b0056b55ac99ebfd1043e288adac66e381984dfe064b4389111c
+      note: copied genuine bytes
+    corpus/knowledge/response-header-expectations.md
+      source: copied bytes of d3a4e40228c307954fa6ced6cab03654faac1ffa:corpus/knowledge/response-header-expectations.md
+      sha256: a4f0f228ca145fccee03e70e994e2670c7275dafebf0df752dffdf32888531cb
+      note: copied genuine bytes
+
+c2-drift: run1=1b4584f62008cc64a7a4ceebffc82d7159b2a58a run2=1b4584f62008cc64a7a4ceebffc82d7159b2a58a identical=True
+    .ufo/waves/round-64/sources/S432.live.html
+      source: mutation of d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-64/sources/S432.live.html
+      sha256: 594d9132810de3462d0c66b41a123b95df896d9a25189fc4fe70040a18e5939f
+      note: exactly one byte flipped (final byte XOR 0x01)
+    .ufo/waves/round-65/sources/s432-pin.json
+      source: synthetic
+      sha256: 5f0985440395e784579b8a162220292c7d13d22f1490d0278025051ed4d0ce25
+      note: pin file naming the CORRECT frozen digest, so the red component is match, not pin
+
+c2-wrongpin: run1=caa3aceca5f915b59949c255bf95201e16c7afc7 run2=caa3aceca5f915b59949c255bf95201e16c7afc7 identical=True
+    .ufo/waves/round-64/sources/S432.live.html
+      source: verbatim d3a4e40228c307954fa6ced6cab03654faac1ffa:.ufo/waves/round-64/sources/S432.live.html
+      sha256: 63b0a018753c330adf1e40417524eb70ea02d4d3e123bcb39b6770f23bad911b
+      note: byte-equal to lane blob
+    .ufo/waves/round-65/sources/s432-pin.json
+      source: synthetic
+      sha256: f7b3cd258e6cc345722f2f03daec467beca3b5fe4664bfbd06bebc184c6a675d
+      note: pin file naming a WRONG digest (64 zeros); the tool pins the frozen constant internally, so pin=0 regardless
+

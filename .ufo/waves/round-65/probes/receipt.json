@@ -1,0 +1,63 @@
+{
+  "round": 65,
+  "date": "2026-11-01T02:20:12Z",
+  "actor": "kake-shokunin L1 (round-65 attempt 2, fresh Windows host)",
+  "method": "GET-only curl (read-only); no deploy, no publish, no browser automation; operator-owned publishing untouched",
+  "authorization": "round-65 dispatch: public web properties live and probeable read-only; audit + source-fix documentation only",
+  "probes": [
+    {
+      "url": "https://ds4cc.com/",
+      "http": 200,
+      "bytes": 78897,
+      "sha256": "f2c5d2b3ab34e8e1dd6d08566147664e4dc7d21a5b01acd7943fd719e8342e93",
+      "etag": "\"6addaff5-13431\"",
+      "last_modified": "Sun, 25 Oct 2026 07:29:57 GMT",
+      "server": "GitHub.com",
+      "corpus_reference": "PQ-2 row (publish-queue.md) pinned 79,453B / etag 6ab49127-1365d at the 2026-09-30 e6bd071 beat (r15, dated sample)",
+      "finding": "REDEPLOYED since the corpus pin: body 78,897B (was 79,453B), Last-Modified 2026-10-25. Dated sample drift, real; record-only."
+    },
+    {
+      "url": "https://ds4cc.com/sitemap.xml",
+      "http": 200,
+      "bytes": 7810,
+      "sha256": "55cb947fa2d07f4a39f709b102f0133c94eb351501ec0b6d2263746f487006ef",
+      "corpus_reference": "SCORECARD r19 note 'ds4cc sitemap PRE-PUSH 404/9 379B'; PQ-2 row 'live canonical sitemap 404' (source 20 commits unpushed)",
+      "finding": "STANDING CLAIM STALE: the canonical sitemap now serves HTTP 200 with 100 <loc> entries (7,810B), matching the source tree's round-33 census (100 locs at 7fc6aa2f). The operator push this documentated is live. Correction appended to publish-queue.md; body retained at probes/ds4cc-sitemap.xml (committed)."
+    },
+    {
+      "url": "https://veigapunk.github.io/charter-ufo-fsd/",
+      "http": 200,
+      "bytes": 53660,
+      "sha256": "7c243a1d81357cdee71520034a05d540bfe8f69c702a7a1c95f8a0bfa5237aba",
+      "etag": "\"6abc86b6-d19c\"",
+      "last_modified": "Wed, 30 Sep 2026 03:49:10 GMT",
+      "server": "GitHub.com",
+      "corpus_reference": "SCORECARD r18 move log: PQ-12 re-baselined '2026-09-30 scribe beat'/7c243a1d...",
+      "finding": "BYTE-IDENTICAL to the r18 pin (sha256 prefix 7c243a1d81357cde matches): no deploy churn since 2026-09-30. The PQ-12 marker state is unchanged; the beat churn stopped after 2026-09-30."
+    },
+    {
+      "url": "https://veigapunk.github.io/plazir-15-site/",
+      "http": 200,
+      "bytes": 38337,
+      "sha256": "d82af77aee401d2270c719c6e818256298cc8aad7a71c3e7c4d65bd41f6af18e",
+      "etag": "\"6abcaa23-95c1\"",
+      "last_modified": "Wed, 30 Sep 2026 06:20:19 GMT",
+      "server": "GitHub.com",
+      "corpus_reference": "PQ-14 / r16 drift ledger (live 5 commits ahead of source, stale-not-rot)",
+      "finding": "Serves 200 (38,337B), Last-Modified 2026-09-30. Source tree absent on this host; live-vs-source drift not re-measurable here; dated sample recorded."
+    },
+    {
+      "url": "https://ds4cc.kimi.page/",
+      "http": 200,
+      "bytes": 74640,
+      "sha256": "9615109d1d6c4bff8c78a9ab3a35c6e011eda57f863e6ab77e47ac9ed487c08c",
+      "corpus_reference": "PQ-2 row: mirror root content-frozen 74,641B; plain sha varies per fetch via Cloudflare cfemail re-encoding; valid freeze metric = cfemail-normalized sha",
+      "finding": "NO-CONCLUSION at byte level (recorded honestly): 74,640B on two fetches; plain shas differ between fetches (9615109d..., 062a13d6...) confirming the cfemail variance on this host too. Size 74,640 vs the dated 74,641B sample; the cfemail-normalized comparison was not re-run (recipe not committed in lane scope). Mirror alive; no drift verdict claimed.",
+      "second_fetch": {
+        "bytes": 74640,
+        "sha256": "062a13d6718c71db877b89ff52b2f2fffa923fd5e4fba2f65654237529590df2"
+      }
+    }
+  ],
+  "not_probed": "ufo-fsd.kimi.page, veigapunk.kimi.page, plazir15.kimi.page, charter-ufo-fsd.kimi.page, lucario.kimi.page and the kimi .pro mirrors were not probed this round (time-boxed to the two claims' hosts + canonical surfaces); the publish-queue dead-slot states (PQ-1/PQ-5) stand unverified from this host."
+}

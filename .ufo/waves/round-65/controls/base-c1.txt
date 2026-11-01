@@ -1,0 +1,54 @@
+# base-c1.txt — round-65 C1 base/do-nothing receipts (host: Windows, git bash)
+# host adaptation: python3 not installed; 'python' is Python 3.13.15 (python -> python3 mapping).
+# base revision d3a4e40228c307954fa6ced6cab03654faac1ffa (round-64 wrap-up tip; the frozen contract base).
+
+$ git cat-file -e d3a4e40228c307954fa6ced6cab03654faac1ffa:'.ufo/waves/round-65/c65_semantics.py'   # do-nothing base has no instrument
+(exit=128)   # nonzero: the base tree cannot run the claim
+
+$ python -B .ufo/waves/round-65/c65_semantics.py --root <lane> --revision d3a4e40228c307954fa6ced6cab03654faac1ffa
+revision=d3a4e40228c307954fa6ced6cab03654faac1ffa disagreements=1 pins=1 pin_drift=none spot_auth=1 criterion_visible=1 gate_noncontradictory=1 contradiction=none recipe_rederive=1 ledger_state=ok derived=collapsed-only located=6150-6154 quote_class=1 unresolved=0 met=true
+(exit=0)
+
+# stale-premise documentation (round-65 contract v2 repair, pre-data): the real
+# round-64 lesson bytes already satisfy a faithful byte-authenticating counter at base.
+
+## A1-marker @ a1ffe1ff1792262c9059404eb9e678ee857740dc
+$ python -B .ufo/waves/round-65/c65_semantics.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\A1-marker --revision a1ffe1ff1792262c9059404eb9e678ee857740dc
+revision=a1ffe1ff1792262c9059404eb9e678ee857740dc disagreements=1 pins=0 pin_drift=drift:lesson spot_auth=0 criterion_visible=1 gate_noncontradictory=0 contradiction=none recipe_rederive=0 ledger_state=unevaluated derived=unevaluable located=unevaluable quote_class=0 unresolved=1 met=false
+(exit=1)
+$ python -B .ufo/waves/round-64/c64_calibration.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\A1-marker --revision a1ffe1ff1792262c9059404eb9e678ee857740dc   # differential
+revision=a1ffe1ff1792262c9059404eb9e678ee857740dc disagreements=1 pins=1 pin_drift=none recipe_rederive=1 ledger_state=ok derived=collapsed-only class_match=1 located=6150-6154 quote_correction=1 criterion=1 lesson_gate=1 source_row=1 unresolved=0 met=true
+(exit=0)
+# outcome: CHECK
+
+## A2-contradictory @ 5967ae5d8eba65a4c7e3f5339c6c9dc6ea5bca1c
+$ python -B .ufo/waves/round-65/c65_semantics.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\A2-contradictory --revision 5967ae5d8eba65a4c7e3f5339c6c9dc6ea5bca1c
+revision=5967ae5d8eba65a4c7e3f5339c6c9dc6ea5bca1c disagreements=1 pins=0 pin_drift=drift:lesson spot_auth=1 criterion_visible=1 gate_noncontradictory=0 contradiction=withhold semantic-counter credit recipe_rederive=0 ledger_state=unevaluated derived=unevaluable located=unevaluable quote_class=0 unresolved=1 met=false
+(exit=1)
+$ python -B .ufo/waves/round-64/c64_calibration.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\A2-contradictory --revision 5967ae5d8eba65a4c7e3f5339c6c9dc6ea5bca1c   # differential
+revision=5967ae5d8eba65a4c7e3f5339c6c9dc6ea5bca1c disagreements=1 pins=1 pin_drift=none recipe_rederive=1 ledger_state=ok derived=collapsed-only class_match=1 located=6150-6154 quote_correction=1 criterion=1 lesson_gate=1 source_row=1 unresolved=0 met=true
+(exit=0)
+# outcome: CHECK
+
+## A3-hidden-criterion @ 036aa34b0bb961c43f527a468d23a0e5fd778ff2
+$ python -B .ufo/waves/round-65/c65_semantics.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\A3-hidden-criterion --revision 036aa34b0bb961c43f527a468d23a0e5fd778ff2
+revision=036aa34b0bb961c43f527a468d23a0e5fd778ff2 disagreements=1 pins=1 pin_drift=none spot_auth=1 criterion_visible=0 gate_noncontradictory=1 contradiction=none recipe_rederive=1 ledger_state=ok derived=collapsed-only located=6150-6154 quote_class=1 unresolved=1 met=false
+(exit=1)
+$ python -B .ufo/waves/round-64/c64_calibration.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\A3-hidden-criterion --revision 036aa34b0bb961c43f527a468d23a0e5fd778ff2   # differential
+revision=036aa34b0bb961c43f527a468d23a0e5fd778ff2 disagreements=1 pins=1 pin_drift=none recipe_rederive=1 ledger_state=ok derived=collapsed-only class_match=1 located=6150-6154 quote_correction=1 criterion=1 lesson_gate=1 source_row=1 unresolved=0 met=true
+(exit=0)
+# outcome: CHECK
+
+## A4-tamper @ 3f169b1771c798e87ccfe9da73314f5e5cba20a1
+$ python -B .ufo/waves/round-65/c65_semantics.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\A4-tamper --revision 3f169b1771c798e87ccfe9da73314f5e5cba20a1
+revision=3f169b1771c798e87ccfe9da73314f5e5cba20a1 disagreements=0 pins=0 pin_drift=drift:spot spot_auth=0 criterion_visible=1 gate_noncontradictory=1 contradiction=none recipe_rederive=0 ledger_state=unevaluated derived=unevaluable located=unevaluable quote_class=0 unresolved=0 met=false
+(exit=1)
+$ python -B .ufo/waves/round-64/c64_calibration.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\A4-tamper --revision 3f169b1771c798e87ccfe9da73314f5e5cba20a1   # differential
+revision=3f169b1771c798e87ccfe9da73314f5e5cba20a1 disagreements=0 pins=1 pin_drift=none recipe_rederive=1 ledger_state=ok derived=collapsed-only class_match=1 located=6150-6154 quote_correction=1 criterion=1 lesson_gate=1 source_row=1 unresolved=0 met=false
+(exit=1)
+# outcome: c65-red/c64-green DIFFERENTIAL OK
+
+## donothing-c1-copied @ a858ccf64a8d46608c3638a4a103c2d80109cc64  (contract §C1 do-nothing-copied: copied genuine prose greens — frozen limitation)
+$ python -B .ufo/waves/round-65/c65_semantics.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\donothing-c1-copied --revision a858ccf64a8d46608c3638a4a103c2d80109cc64
+revision=a858ccf64a8d46608c3638a4a103c2d80109cc64 disagreements=1 pins=1 pin_drift=none spot_auth=1 criterion_visible=1 gate_noncontradictory=1 contradiction=none recipe_rederive=1 ledger_state=ok derived=collapsed-only located=6150-6154 quote_class=1 unresolved=0 met=true
+(exit=0)

@@ -1,0 +1,15 @@
+# donothing-c2-drift.txt — C2 do-nothing drift controls (built by the committed
+# fixtures/build_attack_fixtures.py, sha256
+# 59d3929bc18444fe4828714ca6dc4bad6575c1698743e80f2f71c6cfed285736;
+# heads recorded in controls/fixture-builds.txt)
+
+## c2-drift @ 1b4584f62008cc64a7a4ceebffc82d7159b2a58a  (blob one byte different; pin file names the CORRECT digest -> match=0)
+$ python -B .ufo/waves/round-65/check_s432_pin.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\c2-drift --revision 1b4584f62008cc64a7a4ceebffc82d7159b2a58a
+revision=1b4584f62008cc64a7a4ceebffc82d7159b2a58a pin=1 pin_detail=ok blob=1 match=0 met=false
+(exit=1)
+
+## c2-wrongpin @ caa3aceca5f915b59949c255bf95201e16c7afc7  (blob verbatim; pin file names a WRONG digest -> pin=0)
+$ python -B .ufo/waves/round-65/check_s432_pin.py --root C:/Users/jpvei/.zcode/workspace/95b1ba4d-5089-47a4-9fd8-54adebbce2ae/scratch/kake-r65/fixtures-run1\c2-wrongpin --revision caa3aceca5f915b59949c255bf95201e16c7afc7
+revision=caa3aceca5f915b59949c255bf95201e16c7afc7 pin=0 pin_detail=digest_mismatch:0000000000000000000000000000000000000000000000000000000000000000 blob=1 match=1 met=false
+(exit=1)
+
