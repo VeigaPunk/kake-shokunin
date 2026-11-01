@@ -291,3 +291,37 @@ Read-only live checks; receipt `.ufo/waves/round-23/receipts/publish-queue.json`
 - [publish-queue:c4] **STALE** — The live charter-ghp page carries the 2026-09-29 scribe-beat marker. Surface: `https://veigapunk.github.io/charter-ufo-fsd/`. Correction: As of 2026-10-21, GET https://veigapunk.github.io/charter-ufo-fsd/ serves the literal `2026-09-30 scribe beat (`, not `2026-09-29 scribe beat (`.
 - [publish-queue:c5] **STALE** — The config-of-record path contains the cited 2026-09-26 scribe-beat pin at line 256. Surface: `/home/vgpnk/Projects/webzites/fleet/fleet.config.json`. Correction: As of 2026-10-21, `/home/vgpnk/Projects/webzites/fleet/fleet.config.json` is absent, so the cited line-256 `2026-09-26 scribe beat` pin is not present at its claimed surface.
 - [publish-queue:c6] **STALE** — The canonical sitemap and robots endpoints are live HTTP 404s. Surface: `https://ds4cc.com/sitemap.xml; https://ds4cc.com/robots.txt`. Correction: As of 2026-10-21, GET https://ds4cc.com/sitemap.xml returned HTTP 200 (7,565 bytes) and GET https://ds4cc.com/robots.txt returned HTTP 200 (62 bytes), not HTTP 404.
+
+## Round-65 live re-probe (2026-11-01, fresh Windows host)
+
+Read-only GET probes (receipts `.ufo/waves/round-65/probes/receipt.json`
+and per-host header files; no deploy or publish action):
+
+- **Canonical sitemap serves again — the standing "sitemap 404" records
+  above are historical.** `https://ds4cc.com/sitemap.xml` answered HTTP 200
+  with 100 `<loc>` entries (7,810B; retained
+  `.ufo/waves/round-65/probes/ds4cc-sitemap.xml`). Every prior record
+  (SCORECARD r19 "PRE-PUSH 404", PQ-2 "live canonical sitemap 404",
+  source 20 commits unpushed) described the 2026-09/10 pre-push state; the
+  100-loc count matches the round-33 source census at `7fc6aa2f`, so the
+  operator push this queue waited on has landed and been deployed. PQ-2's
+  sitemap rows should be read as of their dates, not as current state.
+- **PQ-12 `charter-ghp` pin re-verified byte-identical.**
+  `https://veigapunk.github.io/charter-ufo-fsd/` returned 53,660B, sha256
+  prefix `7c243a1d81357cde` — the exact r18 baseline ("2026-09-30 scribe
+  beat"). No deploy churn since 2026-09-30; the beat-marker churn has been
+  stopped for the whole of October. PQ-12 remains PENDING as an operator
+  config edit; nothing about it changed.
+- **ds4cc.com root redeployed.** 200, 78,897B, ETag `6addaff5-13431`,
+  Last-Modified 2026-10-25 — the r15 dated sample (79,453B,
+  `6ab49127-1365d`, e6bd071 instant) is historical. The lane's corpus
+  freeze-metric claims for the root carry their dates; no new claim.
+- **ds4cc.kimi.page mirror: no byte-level verdict possible.** 200, 74,640B
+  on two fetches with differing plain shas (`9615109d…`, `062a13d6…`) —
+  the Cloudflare cfemail variance recorded in PQ-2 reproduces on this
+  host. The cfemail-normalized comparison was not re-run (its recipe is
+  not committed in lane scope); size 74,640 vs the dated 74,641B sample is
+  recorded without a drift conclusion.
+- `plazir-15-site` serves 200 (38,337B, Last-Modified 2026-09-30); its
+  source tree is absent on this host, so the r16 live-vs-source drift is
+  not re-measurable here.

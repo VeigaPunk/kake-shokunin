@@ -464,3 +464,28 @@ is normal, then the firewall). The publisher-side scope is the lane's own: verif
 sets. Refused on scope: staged `yahoo-japan-crawler-address-change-notice.md` (S378) — an ads-API notice for the Display Ads product-list FTP
 crawler, ad-delivery infrastructure, not a search crawler (`corpus/lessons/round-58.md` § Gate). Adjacency (reported, not absorbed;
 `.ufo/waves/round-58/w1/ConnSiblingOverlap.md`): no sibling lane owns crawler DNS verification.
+
+## Round-65 host-migration surfaces correction (2026-11-01)
+
+The round-65 continuation runs on a fresh Windows host; the prior Linux
+host's home tree (`/home/vgpnk`) is gone. Recorded under §6 (absent
+surfaces):
+
+- Absent on this host (dated 2026-11-01): every `~/Projects` source tree
+  the corpus cites — `ds4cc-marketplace` (with burnerchrome, speedrun,
+  apps-sdk), `plazir-15-site`, `webzites`, `lucario`, `origin-work`,
+  `ufo-fsd-alpha`, `shokuknow`, `kimi-shokunin`, and the fleet checkout
+  `~/Projects/shokunin` itself, plus `~/.local/bin/time`, `~/.omp` and the
+  probe-history source. The lane repo and the fleet-root clone live under
+  the campaign workspace instead. `scripts/freshness-sweep.mjs --offline`
+  therefore reports §paths DRIFT (29 new misses, all old-host home paths;
+  `.ufo/waves/round-65/controls/sweep-base-thishost.txt`) — host state,
+  not lane-byte drift; the round-18-pattern re-pin (annotations inside
+  SKILL.md included) is routed as the next round's carried debt.
+- The domain's live web properties are independent of any host and were
+  probed read-only this round (`.ufo/waves/round-65/probes/receipt.json`):
+  ds4cc.com, veigapunk.github.io project sites and ds4cc.kimi.page all
+  serve. The canonical sitemap (404 in every prior record) now serves
+  100 locs — correction appended to `corpus/knowledge/publish-queue.md`.
+- Publishing stays operator-gated; this round's probes were GET-only and
+  no deploy, publish or DNS action was taken or requested.

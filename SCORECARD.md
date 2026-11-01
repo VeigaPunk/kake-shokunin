@@ -4591,3 +4591,31 @@ handoff supplies no status/last-error fields, so no cause is invented.
 The standing c60 gate-status replay reports one mismatch (c56 selftally live
 row red), recorded in `w1/ExecC63Regression.md`; causation is unproven and
 this unresolved regression is carried, not claimed repaired.
+
+## Round 65 — settlement (attempt 2, fresh Windows host)
+
+Inherited frozen contract `.ufo/waves/round-65/contract.md` (predicates
+frozen before any seat ran; amendments 1-4 pre-data, `corpus/lessons/
+round-65.md` §Mistakes); base `d3a4e40228c307954fa6ced6cab03654faac1ffa`;
+measured revision `74cabcdf967d8d598462d6c7a3f0cc9e4106a36e`; receipts
+commit `67f9b5c9`. The inherited 32-seat w1 never settled (host died; the
+L2 dispatch surface does not exist on the new host), so no wave seat —
+attack or otherwise — scored anything this round; the wave clauses fire
+on nothing (L0 question recorded). Scores remain calibration 2,
+operability 10, freshness 10 (zero scalar delta). All round-64 counters
+stay frozen.
+
+| Claim | Axis / delta | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 the four routed green classes counter-enforced; outside verdict byte-authenticated | calibration 2→2 HOLD | routed classes green under c64 at base and at measured (`controls/base-c1.txt`: A1-A3 c64 met=true) → under c65 at measured: A1 spot_auth=0, A2 gate_noncontradictory=0 (span named), A3 criterion_visible=0, all met=false exit 1, while the real tree prints met=true exit 0 and the copied-prose control greens by design (frozen limitation); A4 spot tamper red on both (recorded as-is); selftest 38/38 | `python -B .ufo/waves/round-65/c65_semantics.py --root . --revision <commit>` (host: `python3`→`python` 3.13.15) | measured met, honestly bounded: syntax-class counter-enforcement + byte authentication, NOT semantic resolution (round-64 QUALITY addendum stands); do-nothing base cannot reach the instrument (`git cat-file -e` fails at base) |
+| C2 the S432 retained live re-open body byte-pinned (routed defect 5 completed) | freshness 10→10 HOLD | base `pin=0 met=false` exit 1 (no pin file) → measured `pin=1 blob=1 match=1 met=true` exit 0; drift fixture (one byte off, correct pin) match=0; wrongpin fixture pin=0 with digest_mismatch named; source re-opened this round byte-identical (`63b0a018…911b`, 2026-11-01T02:36:27Z) | `python -B .ufo/waves/round-65/check_s432_pin.py --root . --revision <commit>` | measured met on the pin/blob/match core; the frozen v2 sweep clause (exit 0) is NOT met on this host — host-migration §paths drift, 29 new misses all old-host home paths, zero under the lane root — predicate v3 (pre-after-state amendment) claims only no-round-caused drift, and the §paths re-pin is routed as carried debt |
+
+Routed-defect ledger appends (defect 4): the round-64 capability row
+documents a bounded quote-classifier; this round records explicitly that
+its re-entry restored evidence for an unchanged working classifier (byte-
+identical at base) and was not new frontier capability — expansion
+unchanged in round 64, and no capability row is added this round. Paired
+c60 gate-status evidence (defect 3): one standing mismatch (c56 selftally
+live row red) at base and at final, unchanged — `controls/c60-paired.txt`;
+no round-caused regression is claimed and the registry reconciliation
+stays with the operator's calibration ruling.
