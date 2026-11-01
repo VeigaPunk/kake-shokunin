@@ -1,0 +1,21 @@
+# c58_resolver_cases direct run (round 67, base 6ff73edd1bac66c298e10e6f0f295088740c32b9, 2026-11-01T07:35:12Z)
+$ TMPDIR=<scratch> python -B .ufo/waves/round-58/c58_resolver_cases.py --root . --revision <base> --work <scratch>
+             ~~~~^^
+  File "C:\Users\jpvei\.zcode\workspace\95b1ba4d-5089-47a4-9fd8-54adebbce2ae\fleet\kake-shokunin\.ufo\waves\round-58\c58_resolver_cases.py", line 568, in main
+    code, res = measure(os.path.abspath(a.root), rev, work)
+                ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jpvei\.zcode\workspace\95b1ba4d-5089-47a4-9fd8-54adebbce2ae\fleet\kake-shokunin\.ufo\waves\round-58\c58_resolver_cases.py", line 217, in measure
+    res = case_results(tool, root, rev, work)
+  File "C:\Users\jpvei\.zcode\workspace\95b1ba4d-5089-47a4-9fd8-54adebbce2ae\fleet\kake-shokunin\.ufo\waves\round-58\c58_resolver_cases.py", line 161, in case_results
+    fl, lp, head = lane(work, "k5", registry(reg_ok), {"ok.md": f"Cites {ok_id}.\n", 'a"b.md': f"Cites {d5}.\n"}, git_lane=True)
+                   ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jpvei\.zcode\workspace\95b1ba4d-5089-47a4-9fd8-54adebbce2ae\fleet\kake-shokunin\.ufo\waves\round-58\c58_resolver_cases.py", line 113, in lane
+    head = repo(lp, files)
+  File "C:\Users\jpvei\.zcode\workspace\95b1ba4d-5089-47a4-9fd8-54adebbce2ae\fleet\kake-shokunin\.ufo\waves\round-58\c58_resolver_cases.py", line 88, in repo
+    write(path, files)
+    ~~~~~^^^^^^^^^^^^^
+  File "C:\Users\jpvei\.zcode\workspace\95b1ba4d-5089-47a4-9fd8-54adebbce2ae\fleet\kake-shokunin\.ufo\waves\round-58\c58_resolver_cases.py", line 82, in write
+    with open(p, "w", encoding="utf-8", newline="") as fh:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument: 'C:\\Users\\jpvei\\.zcode\\workspace\\95b1ba4d-5089-47a4-9fd8-54adebbce2ae\\scratch\\kake-r67\\work-c58\\c58-rc-0mi9ptqp\\tmpc3uvbklp\\fleet\\kake-shokunin\\corpus/knowledge/a"b.md'
+EXIT=1

@@ -1,0 +1,48 @@
+# c59_axis_evidence adjudication receipt (round 67, base 6ff73edd1bac66c298e10e6f0f295088740c32b9, 2026-11-01T07:39:40Z)
+
+== [1] full direct run at base (json summary) ==
+$ python -B .ufo/waves/round-59/c59_axis_evidence.py --root . --revision <base> --json   EXIT=1
+schema=kake-r59-c1-axis-evidence-v1
+revision=6ff73edd1bac66c298e10e6f0f295088740c32b9
+base=fd6303ce5c14b3f892dec586297a942ab6e4193b
+rows=3
+unresolved=23
+rows_no_receipt=3
+rows_no_passing_receipt=3
+tallies_unfound=13
+rows_no_tally=3
+scores_held=2
+superseded_kept=3
+tables=1
+mismatches=45
+axes_ordered=1
+met=False
+exit=1
+
+== [2] every pointer unresolved, including definitely-committed paths ==
+operability | scripts/id_resolver.py -> not a committed path at the revision
+operability | .ufo/waves/round-58/controls/after-c2-resolver-cases.txt -> not a committed path at the revision
+operability | .ufo/waves/round-58/controls/base-c2-resolver-cases-v2.txt -> not a committed path at the revision
+freshness | corpus/knowledge/freshness-pins.json -> not a committed path at the revision
+freshness | corpus/knowledge/freshness-sidecar.json -> not a committed path at the revision
+freshness | corpus/knowledge/freshness-sweep.md -> not a committed path at the revision
+calibration | .ufo/waves/round-58/c58_receipt_rewrites.py -> not a committed path at the revision
+calibration | .ufo/waves/round-58/controls/after-c1-receipt-rewrites.txt -> not a committed path at the revision
+calibration | .ufo/waves/round-58/controls/base-c1-receipt-rewrites-v2.txt -> not a committed path at the revision
+
+== [3] manual git check of the same pointer the tool failed on ==
+$ git cat-file -t <base>:scripts/id_resolver.py
+blob
+
+== [4] the tool's resolution step (cited from c59_axis_evidence.py:200-205) ==
+    norm = os.path.normpath(path[2:] if path.startswith("./") else path)
+    if norm.startswith(".."):
+        return False, None, "path leaves the repository"
+    kind = obj_type(root, rev, norm.rstrip("/"))
+    if kind not in ("blob", "tree"):
+        return False, None, "not a committed path at the revision"
+
+== [5] normpath differential (the mechanism) ==
+os.path.normpath -> 'scripts\\id_resolver.py'
+backslashed rc 128 fatal: path 'scripts\id_resolver.py' exists on disk, but not in '6ff73edd1bac66c298e10e6f0f295088740c32b9'
+forward-slash rc 0 blob
