@@ -201,9 +201,16 @@ added this round, so the round-64 sidecar pins cannot drift). After-receipts:
 (To be filled by the L1 after build items land, before any after-state
 receipt; commit 2 records the pins.)
 
-- `.ufo/waves/round-65/c65_semantics.py` — sha256 `PENDING-BUILD`
-- `.ufo/waves/round-65/fixtures/build_attack_fixtures.py` — sha256 `PENDING-BUILD`
-- `.ufo/waves/round-65/check_s432_pin.py` — sha256 `PENDING-BUILD`
+- `.ufo/waves/round-65/c65_semantics.py` — sha256 `b5b05388cd48fbe006e5a77bf89081deac564720bf4a3420b5b6c1bfac24c7d4`
+- `.ufo/waves/round-65/fixtures/build_attack_fixtures.py` — sha256 `59d3929bc18444fe4828714ca6dc4bad6575c1698743e80f2f71c6cfed285736`
+- `.ufo/waves/round-65/check_s432_pin.py` — sha256 `bdfcb6dfd6a04f0d8969049a0092449415e68b6e4479d30f29c82265380deec4`
+
+(Placeholders above filled clerically at the settlement tip — the pins were
+recorded when this file was frozen at commit `74cabcdf` in the
+"## Instrument freeze (commit 2 …)" section below, which also records the
+builder's pre-after-state re-pin at `711fe582`; this section is kept in
+step so no reader takes `PENDING-BUILD` for an unfrozen instrument. No
+predicate, kill rule or target is changed by this edit.)
 
 ## Pre-data amendments (no seat ever ran; no after-state measurement taken)
 
