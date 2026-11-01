@@ -224,8 +224,17 @@
    "status": "M",
    "fromBlob": "0bd0c5569aa05052fc1389d122ca48e111c77b88",
    "toBlob": "b48a41bf4290e32beec0d3d29ad45ae2ac58a955",
+   "kind": "content",
+   "note": "Round-66 settlement: the work-commit pins-diff receipt was rewritten at the settlement tip when pathsFiles was re-pinned to the settlement set (175 to 177) — the classifier reads this byte pair as content (not a pure append; first ledgered r67 as append, corrected to content by the counter's own classifier in the same round). Disclosed in LOG.md round 66 and the round-66 report settlement bullet."
+  },
+  {
+   "path": ".ufo/waves/round-66/controls/noharm-final.txt",
+   "commit": "099923320ae6cf180fc9316e20e3e07aa6ff2b72",
+   "status": "M",
+   "fromBlob": "723f7e92b00d4e40367857f84fc92730431e0709",
+   "toBlob": "6dc6eeae790e80692cdfaaad3a348e46cac3ee06",
    "kind": "append",
-   "note": "Round-66 settlement: the work-commit pins-diff receipt (+2 lines) was extended at the settlement tip when pathsFiles was re-pinned to the settlement set (175 to 177); pure append. Disclosed in LOG.md round 66 and the round-66 report settlement bullet."
+   "note": "Round-67 carry-in D2: the scoping erratum for the 'zero deleted lines anywhere' line was appended (recorded lines untouched; classifier reads append), routing the r66 non-author closure defect 2. Disclosed in corpus/lessons/round-67.md and LOG.md round 67."
   }
  ]
 }

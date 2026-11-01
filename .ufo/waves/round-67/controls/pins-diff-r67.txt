@@ -1,0 +1,12 @@
+# r67 pins re-measure — pathsFiles 177 -> 179 (round 67, 2026-11-01T08:05:24Z)
+
+Sweep set-delta at the worktree after settlement commit b569bb63 (node scripts/freshness-sweep.mjs --offline, exit 0):
+  set-delta cited: +0 new / -0 dropped
+  set-delta miss: no new miss
+  set-delta files: +2 / -0 — added: corpus/lessons/round-66-verifier-spotcheck.md (landed 6ff73edd, after the r66 re-pin) · corpus/lessons/round-67.md (this round)
+
+Boundary check (K2-style): the added set equals exactly the two new lesson files above — no other path added or dropped; cited +0/-0, miss no new miss, drift 0.
+
+Convention note (disclosed): the pins comment asks the re-pin to ride in the same commit as the corpus prose; this re-pin lands one commit later (the round-67 lesson landed at b569bb63), and the sweep exited 0 throughout (file additions are floor-tolerated); disclosed in LOG and the round report.
+
+pins updated: round 66 -> 67, updated 2026-10-31 -> 2026-11-01, pathsFiles 177 -> 179 (the two paths appended).
