@@ -69,6 +69,7 @@ QUALITY_REL = "corpus/QUALITY.md"
 KNOWLEDGE_REL = "corpus/knowledge/response-header-expectations.md"
 SOURCES_REL = "corpus/SOURCES.md"
 LIVE_REL = ".ufo/waves/round-64/sources/S432.live.html"
+PIN_REL = ".ufo/waves/round-65/sources/s432-pin.json"
 LIVE_SHA = "63b0a018753c330adf1e40417524eb70ea02d4d3e123bcb39b6770f23bad911b"
 VERDICT_SPAN = ("is only a generic lead-in, not substantive evidence for a "
                 "response-header expectation")
@@ -277,17 +278,31 @@ def main() -> int:
     # ---- c2-drift ---------------------------------------------------------
     drift = bytearray(live)
     drift[-1] ^= 0x01
-    files = {LIVE_REL: bytes(drift)}
+    pin_ok = ('{"path": "%s", "sha256": "%s", "pinned-round": 65}\n'
+              % (LIVE_REL, LIVE_SHA)).encode("utf-8")
+    files = {LIVE_REL: bytes(drift),
+             PIN_REL: pin_ok}
     out.append(build_fixture(args.workdir, "c2-drift", files, [
         {"path": LIVE_REL, "source": f"mutation of {base}:{LIVE_REL}",
          "sha256": sha256(files[LIVE_REL]),
-         "note": "exactly one byte flipped (final byte XOR 0x01)"}]))
+         "note": "exactly one byte flipped (final byte XOR 0x01)"},
+        {"path": PIN_REL, "source": "synthetic",
+         "sha256": sha256(pin_ok),
+         "note": "pin file naming the CORRECT frozen digest, so the red "
+                 "component is match, not pin"}]))
 
     # ---- c2-wrongpin ------------------------------------------------------
-    files = {LIVE_REL: live}
+    pin_bad = ('{"path": "%s", "sha256": "%s", "pinned-round": 65}\n'
+               % (LIVE_REL, "0" * 64)).encode("utf-8")
+    files = {LIVE_REL: live,
+             PIN_REL: pin_bad}
     out.append(build_fixture(args.workdir, "c2-wrongpin", files, [
         {"path": LIVE_REL, "source": f"verbatim {base}:{LIVE_REL}",
-         "sha256": sha256(live), "note": "byte-equal to lane blob"}]))
+         "sha256": sha256(live), "note": "byte-equal to lane blob"},
+        {"path": PIN_REL, "source": "synthetic",
+         "sha256": sha256(pin_bad),
+         "note": "pin file naming a WRONG digest (64 zeros); the tool pins "
+                 "the frozen constant internally, so pin=0 regardless"}]))
 
     for row in out:
         print(json.dumps(row))

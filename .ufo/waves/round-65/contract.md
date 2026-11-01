@@ -271,7 +271,12 @@ unless noted.
 - `.ufo/waves/round-65/c65_semantics.py` — sha256
   `b5b05388cd48fbe006e5a77bf89081deac564720bf4a3420b5b6c1bfac24c7d4`
 - `.ufo/waves/round-65/fixtures/build_attack_fixtures.py` — sha256
-  `bc08c49730e04fed11a28de24d44bae0966211088e7dbb62cef80dc870f37fe4`
+  `59d3929bc18444fe4828714ca6dc4bad6575c1698743e80f2f71c6cfed285736`
+  (re-pinned before any after-state receipt that runs it: the c2-drift and
+  c2-wrongpin control fixtures must carry the pin file to demonstrate the
+  contract §C2 do-nothing shapes — match=0 under a correct pin, pin=0 under
+  a wrong-digest pin — which the first build omitted. The A1-A4 fixture
+  bytes and revisions are unchanged by this fix.)
 - `.ufo/waves/round-65/check_s432_pin.py` — sha256
   `bdfcb6dfd6a04f0d8969049a0092449415e68b6e4479d30f29c82265380deec4`
 - `.ufo/waves/round-65/sources/s432-pin.json` — sha256
