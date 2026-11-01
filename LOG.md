@@ -2381,3 +2381,26 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   around, never treated as answered). Assimilation: considerthese unchanged
   since 2026-10-26 (all five proposals previously evaluated/adopted);
   Assimilation: none — shokuknow unreachable.
+- **After-final reproduction (round 68).** At the final tip
+  `ce2ba6547532623490631aa04337282a0cea6dce`: the c66 counter prints
+  `members=28 evaluated=28 mismatches=10 structural=0 agreement=18
+  scores_held=3/3 met=True` exit 0 (`controls/c66-tip-r68.txt`), identical to
+  its base run (`controls/c66-base-r68.txt`) — K3 held, no structural harm
+  from any round edit. The ledger-wording grep pair at COMMITTED endpoints:
+  base `3961281` = 2 → settlement `d69b720f` = 1 → final tip `ce2ba654` = 1,
+  the one remaining match the out-of-scope historical c55_quote_truth row
+  (`controls/greps-tip-r68.txt`; the after-state first written from the
+  worktree in `greps-after-r68.txt` now re-derives at the committed tip — the
+  exact failure mode that produced D-2 is closed by construction this time).
+  Append-only guard base→tip: findings=1, exactly the sanctioned
+  gate-status-ledger change, disclosed with its sanction pointer
+  (`controls/append-guard-r68.txt`, GUARD_EXIT=1 disclosed). Offline sweep at
+  the final state: VERDICT: OK, exit 0, partial: offline
+  (`controls/sweep-final-r68.txt`). Census-after: 16 W04 + `kake ok`, exit 0
+  (`controls/census-after-r68.txt`) — the first census-after run caught
+  `E12 S435 row outside Registry section` (the row had landed at the file
+  tail), exit 1; the row was moved inside the Registry section after S434
+  (correction commit), the lesson's mistake row extended, and the census
+  re-run clean before this commit. No tools installed; no publishing or
+  deploy action; no L2 wave (no dispatch surface; the r65 L0 question
+  stands).
