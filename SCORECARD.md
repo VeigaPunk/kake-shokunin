@@ -4673,3 +4673,27 @@ capability acquisition claimed; the two no-harm surfaces that moved
 (`corpus/knowledge/gate-status-ledger.md` rows + trio,
 `.ufo/waves/round-58/receipt-rewrites.json` disclosure entries) are the C1
 claim's own documented mechanisms.
+
+## Round 68 — measured results (author-side; admission belongs to the non-author closure)
+
+Base `396128196ffb1c3184a6dc4491da1e5612a3b425` (r67 verifier spot-check tip).
+Frozen contract `.ufo/waves/round-68/contract.md` (predicates frozen before any
+after-state; the SOURCES append-only-one-row clause carried from the r67
+amendment). Carry-in: the three r67 spot-check §6 defects (D-1/D-2/D-3), all
+addressed. Claims C1/C2, one axis each; axis scores do not move (HOLD round);
+no capability row claimed.
+
+| Claim | Axis | Before → after and verdict |
+|---|---|---|
+| C1 | calibration (**HOLD 2**, lowest owned non-retired) | the r67 recorded ledger-wording count is made to re-derive: the r67 spot-check D-2 re-measured `grep -c "not adjudicated here\|candidate mechanism" corpus/knowledge/gate-status-ledger.md` = **2** at every r67 revision (base and `099923320`; `controls/greps-before-r68.txt`) while LOG/SCORECARD/lesson and the r67 after receipt all say 1 — the described c56-row rewording had never landed. After: the rewording LANDED (the row's closing sentence now reads "The r65/r66 PYTHONUTF8 attribution is REFUTED by this differential." — verdict `live | e_T=2 | live_not_green | PROVEN r67`, class and disposition untouched; dated `verified-at:` note added; diff = exactly 2 lines, `controls/diff-ledger-r68.txt`); the same grep prints **1** at the r68 tip, the one remaining match being the out-of-scope historical c55_quote_truth row (`controls/greps-after-r68.txt`, which SUPERSEDES the r67 receipt's line — no committed receipt bytes modified, K5). Zero relabels (K1). No-harm: the c66 counter re-derives `members=28 evaluated=28 mismatches=10 structural=0 agreement=18 scores_held=3/3 met=True` exit 0 at the base (`controls/c66-base-r68.txt`); tip receipt `controls/c66-tip-r68.txt` lands with the after-receipts commit. Sourced: S435 (GNU grep manual, opened this round) grounds the counting command's semantics — `grep -c` counts matching LINES under a BRE alternation, which IS the self-match mechanism. Guard disclosure: `scripts/append_guard.py` base→tip receipted with the two sanctioned in-place lines disclosed (`controls/append-guard-r68.txt`). |
+| C2 | freshness (**HOLD 10**) | three standing property-map records last dated 2026-10-21 (old host) re-verified GET-only on THIS host 2026-11-01T09:58Z, one GET each, digests computed over the committed bodies (`probes/receipt.json`): burnerchrome.kimi.page 200/11,975 B (property-map:c9/:c11 re-derive); lucario GHP 200/3,435 B (:c33 re-derives); charter GHP front 200/53,660 B with sha256 `7c243a1d…7aba` EQUAL to `pins/charterGhpLiveSha` — the r18 pin re-derives byte-for-byte through 2026-11-01, :c13/:c15 re-derive (one head canonical equal to the page URL). Dated corrections appended to `corpus/knowledge/publish-queue.md`; `grep -c "r68 dated" corpus/knowledge/publish-queue.md` 0 → 1. Cadence sweep re-measured: 0 rows due (`controls/cadence-sweep-r68.txt`) — the standing-record probe class, not a cadence class. |
+
+Carry-ins (protocol, no score credit): D-2 is C1 itself; D-3 quote labels
+corrected by command (S133 = 10 words, not 11; S434 = 26 words by strict
+count, not 16 — over the ≤25-word cap as recorded, corrected 22-word citation
+form recorded going forward; `controls/wordcounts-d3-r68.txt`; quote classes
+re-derived: S434 raw-substring, S133 collapsed-only, never asserted); D-1
+erratum recorded (r67 report header's `b569bb638` is one-char drift for
+`b569bb63a8bc2819553f08b4ce73eda12dc4d376`; no filed-report rewrite). Sources:
+S435 opened + written (registry 172 → 173). Fresh-start §7 honored with the
+staleness disclosed (r65/r66/r67 spot-checks verified ancestors of master).

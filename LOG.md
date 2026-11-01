@@ -2309,3 +2309,75 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Mined.** `corpus/lessons/round-67.md` §Mistakes: the crash-exit-1/family-verdict ambiguity in the c66 per-member classification; the c59 normpath host-separator corruption (inherited-latent since r59); the NTFS-forbidden fixture names (grounded by S434); the refuted PYTHONUTF8 candidate for c56 (attribution corrected to the proven interpreter-name mechanism); this round's own receipt-capture/typing defects caught before landing.
 - **No tools installed; no pacman; no publishing or deploy action.** No L2 wave (no dispatch surface on this host; the r65 L0 question stands, routed around, not treated as answered). Census before: 16 W04 + `kake ok`, exit 0 (`controls/greps-before-r67.txt` context); census after and sweep after at the tip: see the round-67 after receipts.
 - **After-final reproduction (round 67).** At the correction tip `4b03efe1…`: the c66 counter prints `members=28 evaluated=28 structural=0 agreement=18 scores_held=3/3 met=True` exit 0 (`controls/c66-after-r67.txt`) — agreement 17→18 and mismatches 11→10, the +1 being c58_receipt_rewrites whose green after disclosure re-derives (`controls/c58-receipt-rewrites-after.txt`, red-before/green-after pair: the gate caught this round's own unledgered noharm erratum and a hand-misclassified kind at `b569bb63`, fixed by the counter's own classifier, green at `4b03efe1`); final offline sweep exit 0, set-delta cited +0/-0, files +0/-0 after the pathsFiles re-pin 177→179 (`controls/sweep-final-r67.txt`, `controls/pins-diff-r67.txt`); census after: 16 W04 + `kake ok`, exit 0 (`controls/census-after-r67.txt`); count correction: the round-67 entry above and the SCORECARD/lesson settlement said the ledger wording count went 5 → 0 — re-measured 5 → 1, the one remaining match being the out-of-scope historical c55_quote_truth row; all three sites corrected this commit before closure (D1-class count drift, mined). No tools installed; no publishing or deploy action; no L2 wave (no dispatch surface; the r65 L0 question stands, and a round-67 question on the three proven versioned repairs was appended to the fleet L0 file).
+
+## Round 68 — 2026-11-01 (Windows host; the r67 carry-in landed and the recorded counts re-derive)
+
+- **Inherited state.** Base `396128196ffb1c3184a6dc4491da1e5612a3b425` (r67
+  non-author spot-check tip, pushed). Carry-in: the spot-check §6 routed D-1
+  (r67 report header cites `b569bb638`, not an object name — one-char drift
+  for `b569bb63a8bc2819553f08b4ce73eda12dc4d376`), D-2 (the ledger-wording
+  count re-measures 5 → 2 at every r67 revision while every record says 5 → 1;
+  the described c56-row rewording never landed) and D-3 (quote word-count
+  labels: S133 claimed 11 = actually 10; S434 claimed 16 = actually 26). A
+  prior dead attempt had left the rewording uncommitted in the worktree (the
+  only content-differing file vs HEAD — verified by a full 82-file
+  content comparison; the other 81 were index-only ghosts of the host's
+  unreliable index, content-identical). Frozen contract:
+  `.ufo/waves/round-68/contract.md`.
+- **Claims.** C1 calibration (lowest owned non-retired axis, 2): the recorded
+  ledger-wording count re-derives at the tip — land the sanctioned c56-row
+  rewording (spot-check option 1). C2 freshness: three standing property-map
+  records last dated 2026-10-21 re-verified GET-only on THIS host.
+- **C1 measured (2→2 HOLD; no score credit claimed).** Before:
+  `grep -c "not adjudicated here\|candidate mechanism"
+  corpus/knowledge/gate-status-ledger.md` = 2 at base and at `099923320`
+  (`controls/greps-before-r68.txt`; matches = the out-of-scope historical
+  c55_quote_truth row + the round-67 c56_selftally row's own REFUTED
+  sentence). After: the c56 row's closing sentence reworded to "The r65/r66
+  PYTHONUTF8 attribution is REFUTED by this differential." (wording-only,
+  verdict/class/disposition untouched) plus a dated `verified-at:` note;
+  diff = exactly 2 lines (`controls/diff-ledger-r68.txt`); the grep prints 1
+  at the r68 tip, the one remaining match being the c55 historical row
+  (`controls/greps-after-r68.txt`, which SUPERSEDES the r67 receipt's
+  "1 (after rewording …)" line — no committed receipt bytes modified, K5).
+  Zero relabels (K1). Sourced: S435 (GNU grep manual, opened this round,
+  quote word count derived by command before the label was written) grounds
+  the mechanism — `grep -c` counts matching LINES under a BRE alternation, so
+  a row mentioning the phrase counts itself. No-harm: c66 counter at base
+  `members=28 evaluated=28 mismatches=10 structural=0 agreement=18
+  scores_held=3/3 met=True` exit 0 (`controls/c66-base-r68.txt`).
+- **C2 measured (10→10 HOLD).** GET-only probes 2026-11-01T09:58Z
+  (`probes/receipt.json`, bodies + headers committed, digests mechanical):
+  burnerchrome.kimi.page 200/11,975 B (property-map:c9/:c11 re-derive);
+  lucario GHP 200/3,435 B (:c33 re-derives); charter GHP front 200/53,660 B,
+  sha256 `7c243a1d…7aba` EQUAL to `pins/charterGhpLiveSha` — the r18 pin
+  re-derives byte-for-byte through 2026-11-01 (:c13/:c15 re-derive; PQ-12
+  unchanged). `grep -c "r68 dated" corpus/knowledge/publish-queue.md` 0 → 1.
+  No publish/deploy action; no state-changing request.
+- **Carry-in corrections (D-1/D-3; D-2 is C1).** D-3: verified word counts
+  (`controls/wordcounts-d3-r68.txt`): S133 Gate quote = 10 words, S434 Gate
+  quote = 26 words by strict whitespace count (over the ≤25-word cap as
+  recorded; the corrected 22-word citation form is recorded going forward);
+  quote classes re-derived with the r50 machinery: S434 raw-substring of the
+  retained body, S133 collapsed-only (no raw claim was ever recorded for it).
+  Corrections recorded in the r68 lesson + report naming the superseded
+  labels; the r67 lesson/report records are history and are not rewritten.
+  D-1: erratum recorded; discipline adopted — every revision name is
+  re-derived with `git rev-parse` before being written.
+- **Sources & frontier.** S435 opened and written this round (GNU grep
+  manual, HTTP 200, 248,692 B, `517177d0…675f37`, retained body + receipt):
+  registry 172 → 173; census-shape checks run immediately (the first insert
+  repeated the r67 pipe-in-cell class via the BRE `\|` literal — caught
+  pre-commit, reworded, malformed=0; mined as a repeat). Cadence sweep: 0
+  rows due (`controls/cadence-sweep-r68.txt`).
+- **Fresh-start §7 honored with the staleness disclosed** (r65/r66/r67
+  non-author spot-check commits verified ancestors of master; r62/r63/r64
+  evidence spot-checked on disk). Ruled out: calibration greens surviving
+  marker-prose/hidden criteria (the r62–r64 family ban; C1 promises no score
+  credit); counters without committed differentials (none claimed); relabel
+  without pin runs (K1, zero relabels); freshness via cadences (0 rows due).
+- **No tools installed; no pacman; no publishing or deploy action.** No L2
+  wave (no dispatch surface on this host; the r65 L0 question stands, routed
+  around, never treated as answered). Assimilation: considerthese unchanged
+  since 2026-10-26 (all five proposals previously evaluated/adopted);
+  Assimilation: none — shokuknow unreachable.
