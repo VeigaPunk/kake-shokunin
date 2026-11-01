@@ -4651,3 +4651,25 @@ in publish-queue; assimilation: considerthese 2026-10-26 proposal 5 adopted
 as `corpus/knowledge/gate-status-ledger.md` from the C1 receipt. SOURCES 171
 → 171 (S133 re-opened live; no row added or edited); census exit 0 at both
 ends.
+
+## Round 67 — measured results (author-side; admission belongs to the non-author closure)
+
+Base `6ff73edd1bac66c298e10e6f0f295088740c32b9` (r66 verifier spot-check tip).
+Frozen contract `.ufo/waves/round-67/contract.md` (per-row disposition rule
+frozen before any after-state; amendment 1 recorded pre-row). Claims C1/C2/C3,
+one axis each; axis scores do not move (HOLD round); no capability row claimed.
+
+| Claim | Axis | Before → after and verdict |
+|---|---|---|
+| C1 | calibration (**HOLD 2**, lowest owned non-retired) | six carried live-red registry rows adjudicated with committed direct-run receipts at base. Before: c66 counter `agreement=17` with 6 live-reds (`controls/c66-before-r67.txt`). After: `agreement=18` at the tip (`controls/c66-after-r67.txt`) — +1 is c58_receipt_rewrites, whose red was real disclosure debt (events=25 undisclosed=6) now ledgered (19→25 entries) and green at the tip; the other five carry proven host-bound mechanisms (Store-stub interpreter name; tool POSIX-only file API; NTFS fixture-name crash ×2; normpath corruption), ledger wording "not adjudicated here / candidate mechanism" 5 → 0 rows. Zero relabels (no this-host pin run exits 0). Evaluability/scores_held/structural unchanged (28/28, 3/3, 0). Counting: the c66 counter line; ledger grep; receipts under `.ufo/waves/round-67/controls/`. |
+| C2 | operability (**HOLD 10**) | SKILL.md registry row for the c66 host-portable counter landed (the r66 routed first registry item): `grep -c "c66_gate_status_hostportable" SKILL.md` 0 → 1; appended below every sidecar-bound line (file 1377→1396; bound lines ≤935 untouched); outside the 28-member population (structural=0 held at tip). No frozen counter bytes changed. |
+| C3 | freshness (**HOLD 10**) | the two .kimi.pro standing records date-stamped (GET-only, `probes/receipt.json`, digests verified): ufo-fsd.kimi.pro 200/612B exact (SKILL record + c49/c50 re-derive); plazir27.kimi.pro 302→preview-404-en.html 200/5,995B exact (PQ-6 re-derives; c56 supersession confirmed); `grep -c "r67 dated" corpus/knowledge/publish-queue.md` 0 → 1. |
+
+Carry-ins (protocol, no score credit): the three r66-closure defects fixed
+append-only / trio-prepend (D1 name map, D2 no-harm scope, D3 provenance trio).
+Sources: S133 re-opened live (bytes drifted upstream again, receipted); S434
+opened + written (registry 171 → 172, amendment 1 recorded pre-row). No
+capability acquisition claimed; the two no-harm surfaces that moved
+(`corpus/knowledge/gate-status-ledger.md` rows + trio,
+`.ufo/waves/round-58/receipt-rewrites.json` disclosure entries) are the C1
+claim's own documented mechanisms.
