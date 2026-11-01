@@ -1,0 +1,15 @@
+# after-final.txt — integrated re-run at the settlement tip d8db9b96f46e41d5abac8820ecad02cd49298ef5
+# host: Windows, python 3.13.15 as 'python'; node v24.21.0
+
+$ python -B kake-shokunin/.ufo/waves/round-65/c65_semantics.py --root . --revision d8db9b96f46e41d5abac8820ecad02cd49298ef5   # C1 counter
+revision=d8db9b96f46e41d5abac8820ecad02cd49298ef5 disagreements=1 pins=1 pin_drift=none spot_auth=1 criterion_visible=1 gate_noncontradictory=1 contradiction=none recipe_rederive=1 ledger_state=ok derived=collapsed-only located=6150-6154 quote_class=1 unresolved=0 met=true
+(exit=0)
+
+$ python -B kake-shokunin/.ufo/waves/round-64/c64_calibration.py --root . --revision d8db9b96f46e41d5abac8820ecad02cd49298ef5   # round-64 counter (context)
+revision=d8db9b96f46e41d5abac8820ecad02cd49298ef5 disagreements=1 pins=1 pin_drift=none recipe_rederive=1 ledger_state=ok derived=collapsed-only class_match=1 located=6150-6154 quote_correction=1 criterion=1 lesson_gate=1 source_row=1 unresolved=0 met=true
+(exit=0)
+
+$ python -B kake-shokunin/.ufo/waves/round-65/check_s432_pin.py --root . --revision d8db9b96f46e41d5abac8820ecad02cd49298ef5   # C2 check
+revision=d8db9b96f46e41d5abac8820ecad02cd49298ef5 pin=1 pin_detail=ok blob=1 match=1 met=true
+(exit=0)
+

@@ -23,6 +23,7 @@ freeze); receipts commit `67f9b5c9`.
 | contract-internal tension (caught at build time) | A1's parenthetical ("no verdict span, no attribution") cannot hold with the frozen differential (c64 must print met=true on A1) because c64's lesson_gate substring-requires the verdict span | this attempt's fixture build, which reproduced the ReviewerC1Prose `minimal` shape instead and re-read the predicate | A1 carries the span as a bare token with no attribution/admission span; spot_auth fails on the missing attribution (contract amendment 2, pre-data) |
 | control-shape gap | the first c2-drift/c2-wrongpin fixtures omitted the pin file, so the receipts showed `pin=0 absent` instead of the contract's shapes (match=0 under a correct pin; pin=0 under a wrong-digest pin) | receipt review against contract §C2's do-nothing spec | builder fixed and re-pinned pre-data (commit `711fe582`); corrected shapes measured (`controls/donothing-c2-drift.txt`: pin=1 match=0; pin=0 digest_mismatch named) |
 | dirty fixture-directory reuse | rebuilding fixtures into the same scratch directories chained an empty commit on top of each fixture (same tree, new parent), silently changing every recorded HEAD (A1 `a1ffe1ff…` → `fb04a2db…`) | the receipts step's cross-check of the new heads against the recorded ones | rebuild into fresh directories per run; determinism asserted across two fresh builds; the supersession is recorded in `controls/fixture-builds.txt`; all dependent receipts regenerated |
+| claim-before-receipt (this attempt) | an earlier draft of this lesson's Gate reject (e), the SCORECARD round-65 block and the LOG entry stated "one standing mismatch, unchanged (c60-paired.txt)" while the paired c60 run was still executing; the finished receipt showed a different, stronger result (28/28 host-bound mismatches; targeted c56 runs identical at base and final) | the receipts step itself: the cited `controls/c60-paired.txt` did not exist at write time | the three sites were corrected to the measured result in the same round, the corrected receipt committed as `controls/c60-paired-thishost.txt`, and this row records the slip; the round-57 class (claim first, receipt later) is exactly what the draft repeated |
 | inherited-attempt shape (recorded, not repaired here) | the frozen w1 (32 seats) was dispatched and never settled; the AgentSwarm/Kimi L2 surface does not exist on the new host, and no subagent dispatch tool was available, so the MISSION.md L2 floor and the contract's wave clauses could not be exercised | this attempt's round open | routed around honestly: the wave clauses fire on nothing and attest nothing; recorded as an L0 question (`.ufo/l0-questions.md`), never treated as answered; the non-author closure remains the outside check |
 
 ## Gate
@@ -80,11 +81,15 @@ from the probe findings; (d) repairing the §paths sweep drift this round;
   sweep-base-thishost.txt`).
 - **Reject (e):** assimilation none. The `merge/kake/` package stays
   staged; `considerthese/2026-10-26.md` proposal 5 stays rejected from
-  round 64 — this round adds the paired evidence its flip demanded
-  (c60 gate-status at base and final: one standing mismatch, unchanged —
-  receipt `controls/c60-paired.txt`, r64 routed defect 3) and still
-  leaves the registry reconciliation to the operator's calibration
-  ruling. Assimilation: none — shokuknow unreachable (its checkout is
+  round 64 — this round adds the defect-3
+  evidence its flip demanded — with the honest outcome that the full c60
+  re-derivation is host-bound here (28/28 members mismatch: every pinned
+  argv invokes an absent `python3`) and the targeted c56 selftally is
+  IDENTICAL at base and final (exit 2, one unparsable row, inner spawn
+  exit 9009): unchanged across the round, so no round-caused regression,
+  and the r64 standing red is neither reproduced green nor cleared on
+  this host. Receipt `controls/c60-paired-thishost.txt`; the registry
+  reconciliation stays with the operator's calibration ruling. Assimilation: none — shokuknow unreachable (its checkout is
   absent on this host).
 
 ## Sources census

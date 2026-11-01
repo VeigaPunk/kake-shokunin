@@ -4614,8 +4614,14 @@ Routed-defect ledger appends (defect 4): the round-64 capability row
 documents a bounded quote-classifier; this round records explicitly that
 its re-entry restored evidence for an unchanged working classifier (byte-
 identical at base) and was not new frontier capability — expansion
-unchanged in round 64, and no capability row is added this round. Paired
-c60 gate-status evidence (defect 3): one standing mismatch (c56 selftally
-live row red) at base and at final, unchanged — `controls/c60-paired.txt`;
-no round-caused regression is claimed and the registry reconciliation
-stays with the operator's calibration ruling.
+unchanged in round 64, and no capability row is added this round. Defect-3
+paired evidence (corrected post-run — an earlier draft of this block
+claimed its result before the receipt existed; mined in the lesson):
+the full c60 re-derivation is host-bound on this host (28/28 members
+mismatch, every pinned argv invoking an absent `python3`), and the
+targeted c56 selftally runs are IDENTICAL at base and final (exit 2, one
+unparsable row, inner spawn exit 9009) — unchanged across the round, so
+no round-caused regression; the r64 standing red is neither reproduced
+green nor cleared here. Receipt `controls/c60-paired-thishost.txt`; the
+registry reconciliation stays with the operator's calibration ruling, and
+a host-portability pass over the live gate family is carried debt.

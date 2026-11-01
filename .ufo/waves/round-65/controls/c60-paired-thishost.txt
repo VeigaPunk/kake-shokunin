@@ -1,0 +1,45 @@
+# c60-paired-thishost.txt — round-64 routed defect 3 evidence, this host
+# (r64 defect 3 asked for paired base/after evidence on the c56 selftally red
+#  and the proposal-5 flip, through the existing gate registry)
+
+## 1. c60 gate-status, full run, base d3a4e402 (before any round-65 corpus byte changed)
+$ python -B .ufo/waves/round-60/c60_gate_status.py --root . --revision d3a4e402...
+(exit=1)
+C1 gate-status members=28 mismatches=28 scores_held=3/3 met=False
+mechanism: every member's pinned argv invokes `python3`, which does not exist on
+this Windows host (python 3.13.15 installs as `python`); each gate exits 2
+(could-not-evaluate) and is recorded live_not_green. The instrument's stored
+gate exits are old-host-bound; c60 cannot adjudicate anything here as-is.
+
+## 2. Targeted paired runs of the two contested c56 gates, with a python3 sh-shim
+# (scratch shim `exec python "$@"`; the shim is invisible to Windows-native inner
+#  spawns, which is itself part of the finding)
+$ python3 -B .ufo/waves/round-56/c56_selftally.py --root . --revision d3a4e402...   # base
+C1 selftest-tally tally_mismatches=1 rows_checked=1 met=False  (met: tally_mismatches == 0 AND rows_checked == 10)
+  base-path-audit: claim=45 observed=None MISMATCH tally_unparsable (exit 9009)
+EXIT=2
+$ python3 -B .ufo/waves/round-56/c56_selftally.py --root . --revision d8db9b96...   # settlement tip
+C1 selftest-tally tally_mismatches=1 rows_checked=1 met=False  (met: tally_mismatches == 0 AND rows_checked == 10)
+  base-path-audit: claim=45 observed=None MISMATCH tally_unparsable (exit 9009)
+EXIT=2
+# IDENTICAL at base and final: exit 2, one unparsable row, inner spawn exit 9009
+# (Windows command-not-found). Unchanged across the round -> no round-caused delta;
+# also never green here, so the r64 'one standing mismatch' is NOT reproduced or
+# cleared on this host — it is host-bound and routed to the host-portability debt.
+$ python3 -B .ufo/waves/round-56/c56_quote_truth.py --root . --revision 4cb225fb...  # its pin
+(exit=1)  # registry label historical; also host-affected (old host held this green at pin)
+
+## Disposition (r64 defect 3)
+The paired-evidence demand is answered as: the c56 selftally red is unchanged
+across round 65 (base == final), is host-bound (not re-derivable green on this
+host by any run available here), and the gate-registry reconciliation stays
+routed to the operator's calibration ruling. No round-caused regression is
+claimed; no green is claimed. Host-portability pass over the live gate family
+(python3 argv + native inner spawns) is carried debt.
+
+## c56 members as c60 saw them (full-run extract)
+.ufo/waves/round-56/c56_quote_truth.py label=historical e_T=1 e_P=1 MISMATCH historical_not_green_at_pin
+    argv=python3 -B .ufo/waves/round-56/c56_quote_truth.py --root . --revision d3a4e40228c307954fa6ced6cab03654faac1ffa
+    argv@pin=python3 -B .ufo/waves/round-56/c56_quote_truth.py --root . --revision 4cb225fb032b04166fb0232bc98a7bcce72675ec
+.ufo/waves/round-56/c56_selftally.py label=live e_T=1 MISMATCH live_not_green
+    argv=python3 -B .ufo/waves/round-56/c56_selftally.py --root . --revision d3a4e40228c307954fa6ced6cab03654faac1ffa
