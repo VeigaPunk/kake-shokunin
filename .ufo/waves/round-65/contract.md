@@ -204,3 +204,75 @@ receipt; commit 2 records the pins.)
 - `.ufo/waves/round-65/c65_semantics.py` — sha256 `PENDING-BUILD`
 - `.ufo/waves/round-65/fixtures/build_attack_fixtures.py` — sha256 `PENDING-BUILD`
 - `.ufo/waves/round-65/check_s432_pin.py` — sha256 `PENDING-BUILD`
+
+## Pre-data amendments (no seat ever ran; no after-state measurement taken)
+
+The inherited w1 (32 seats, `w1-dispatch.json`) was dispatched on the prior
+Linux host and never settled; this round continues on a fresh Windows host
+(Python 3.13.15 as `python` — `python3` is not installed; node 24.21.0; git
+2.55.0.windows.3). Three repairs and one clarification were made before any
+after-state receipt, mirroring the round's own v1->v2 discipline; all are
+recorded in `corpus/lessons/round-65.md` §Mistakes, class stale-premise
+unless noted.
+
+1. **Host adaptation (class host-migration, not a predicate change).** The
+   counting commands run `python` (3.13.15) where they say `python3`; the
+   census command runs against this host's fleet-root clone
+   (`.../shokunin-clone/shokunin`). Receipts record the adapted commands.
+   The frozen wave clauses ("any wave seat ...") cannot be exercised: the
+   AgentSwarm/Kimi L2 dispatch surface does not exist on this host and the
+   round prompt's helper clause (read-only subagents, optional) had no
+   dispatchable subagent tool available. The wave clauses therefore fire on
+   nothing and attest nothing; the non-author closure remains the outside
+   check. Recorded as an L0 question, routed around, not treated as
+   answered.
+2. **A1 clarification (contract-internal tension, caught at build time).**
+   The A1 definition ("frozen ids/digests only, no verdict span, no
+   attribution") cannot hold verbatim together with the frozen differential
+   ("the round-64 counter prints met=true" on A1): c64_calibration.py's
+   lesson_gate requires the verdict span as a substring. A1 therefore
+   carries the verdict span as a BARE token in the marker gate (the
+   ReviewerC1Prose `minimal` shape it reproduces) with NO spot-file
+   attribution and NO admission span; c65's spot_auth fails on the missing
+   attribution. The differential is the load-bearing clause and is unchanged.
+3. **C2 predicate v2 -> v3 (class stale-premise: host-relative sweep
+   clause).** v2's no-harm clause froze "on the measured tree
+   `node scripts/freshness-sweep.mjs --offline` exits 0". That was true at
+   the base on the prior host (`controls/l1-c2-prederivation.txt`, taken
+   there) and is false on this host for HOST reasons: the sweep's §paths
+   set-delta names 29 new misses, every one an old-host `~/` home path
+   absent since the migration (receipt `controls/sweep-base-thishost.txt`;
+   nothing under the lane root moved). Repairing it green needs absent-
+   annotations inside SKILL.md (cites at SKILL.md:442,476-477,512-521 and
+   others), which the frozen no-harm list forbids this round. v3 replaces
+   the clause with the host-honest form: **on the measured tree the sweep
+   may exit non-zero, but its §paths set-delta must name NO new miss under
+   the lane root (every new miss is an old-host `~/` path) and the
+   unannotated-miss list must contain no cite created this round** — a
+   counting command over the committed sweep receipt. The v2 exit-0 clause
+   is recorded as NOT met on this host and the whole §paths migration
+   re-pin (annotations + pathsMissSet re-measure, the round-18 pattern) is
+   routed as the lane's carried freshness debt for the next round; C2 does
+   not claim it. The pin/blob/match core of C2 is unchanged.
+4. **No-harm list extension (prompt-duty appends, not claims).** The
+   round-65 prompt (§6) makes absent-surface correction of PROVINCE.md a
+   duty on this host, and the orchestrator's dispatch records read-only
+   probes of the live public properties with honest receipts. The append-
+   only set therefore adds: `PROVINCE.md` (Surfaces: this host), dated
+   appends to `corpus/knowledge/publish-queue.md` (live re-probe
+   corrections: canonical sitemap now serves; PQ-12 pin re-verified
+   byte-identical) and `.ufo/waves/round-65/probes/` receipts. SKILL.md,
+   `freshness-sidecar.json`, `corpus/SOURCES.md`, the sweep script and all
+   round-64 bytes remain untouched.
+
+## Instrument freeze (commit 2 — recorded after the build items landed,
+## before any after-state receipt)
+
+- `.ufo/waves/round-65/c65_semantics.py` — sha256
+  `b5b05388cd48fbe006e5a77bf89081deac564720bf4a3420b5b6c1bfac24c7d4`
+- `.ufo/waves/round-65/fixtures/build_attack_fixtures.py` — sha256
+  `bc08c49730e04fed11a28de24d44bae0966211088e7dbb62cef80dc870f37fe4`
+- `.ufo/waves/round-65/check_s432_pin.py` — sha256
+  `bdfcb6dfd6a04f0d8969049a0092449415e68b6e4479d30f29c82265380deec4`
+- `.ufo/waves/round-65/sources/s432-pin.json` — sha256
+  `ccf9a3df762f590a149842fd65edab3d125986a45683e278346f6427208695c6`
