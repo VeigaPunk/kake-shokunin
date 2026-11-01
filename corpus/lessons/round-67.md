@@ -51,7 +51,7 @@ names); (g) L2 wave.
   the +1 is the disclosed row, no label was forced. Counting command:
   `python -B .ufo/waves/round-66/c66_gate_status_hostportable.py --root . --revision <tip> --jobs 6`;
   ledger wording count: `grep -c "not adjudicated here\|candidate mechanism"
-  corpus/knowledge/gate-status-ledger.md` 5 → 0. The five
+  corpus/knowledge/gate-status-ledger.md` 5 → 1 — corrected pre-closure from the initially written 5 → 0: the six in-scope rows all carry proven/adjudicated wording and the one remaining match is the out-of-scope historical c55_quote_truth row. The five
   historical_not_green_at_pin rows are out of scope this round (frozen
   contract) and stand untouched.
 - **Admit (b) as C2 — operability 10→10 HOLD.** The routed "first registry

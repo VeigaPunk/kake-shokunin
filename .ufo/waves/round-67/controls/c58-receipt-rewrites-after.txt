@@ -1,0 +1,15 @@
+# c58_receipt_rewrites after-receipt — two runs, red-before/green-after (round 67)
+
+== run 1 at settlement tip b569bb63 (BEFORE the ledger correction): the gate caught two defects in this round's own disclosure ==
+$ python -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision b569bb63…   EXIT=1
+events=26 undisclosed=1 phantom=0 malformed=0 wrong_kind=1 unpointed=0 symlinks=0 new_rewritten=0 new_receipts=2 met=False
+  UNDISCLOSED M .ufo/waves/round-66/controls/noharm-final.txt at 099923320ae6 723f7e92b00d -> 6dc6eeae790e
+  WRONG-KIND M .ufo/waves/round-66/controls/pins-diff.txt at f2b9e08114a4 0bd0c5569aa0 -> b48a41bf4290
+
+== run 2 at correction tip 4b03efe1 (the ledger fixed by the counter's own classifier: pins-diff kind=content; noharm erratum entry added; events 26) ==
+$ python -B .ufo/waves/round-58/c58_receipt_rewrites.py --root . --revision 4b03efe1…
+C1 receipt-rewrites events=26 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 new_rewritten=0 new_receipts=2 met=True  (met: undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND unpointed == 0 AND symlinks == 0 AND new_rewritten == 0 AND new_receipts == 2)
+  ledger: .ufo/waves/round-58/receipt-rewrites.json present (26 entries)
+  revision: 4b03efe1ef21f008d9e3fc2b127f61f95a079479
+EXIT=0
+EXIT=0
