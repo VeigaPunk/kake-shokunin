@@ -1,0 +1,47 @@
+{
+ "round": 68,
+ "date": "2026-11-01",
+ "method": "GET-only (curl -sS -L), one request per surface, headers + body retained; no publish/deploy/fire action; digests computed with sha256sum over the committed body files",
+ "probes": [
+  {
+   "surface": "burnerchrome.kimi.page",
+   "url": "https://burnerchrome.kimi.page/",
+   "accessedAt": "2026-11-01T09:58:43Z",
+   "status": 200,
+   "finalUrl": "https://burnerchrome.kimi.page/",
+   "bytes": 11975,
+   "sha256": "542973681e4b9bdae5a5a7c56e38c6e8e50adfff6ccba9df00d58fadb1116780",
+   "bodyFile": "burnerchrome.kimi.page.body",
+   "title": "burnerchrome — Musketeer family",
+   "verdict": "LIVE (re-derives)",
+   "records": "property-map:c9 (live surface) and :c11 (Kimi-published: served HTML head) re-derive on this host; first this-host dated observation for the surface (prior: 2026-10-21, old Linux host)"
+  },
+  {
+   "surface": "lucario GHP (canonical)",
+   "url": "https://veigapunk.github.io/lucario/",
+   "accessedAt": "2026-11-01T09:58:43Z",
+   "status": 200,
+   "finalUrl": "https://veigapunk.github.io/lucario/",
+   "bytes": 3435,
+   "sha256": "bee2d9f5b5777768e69a5b9aaa9c28dfcc4107f57a4dfb6ec8726d9685c46cff",
+   "bodyFile": "veigapunk.github.io_lucario.body",
+   "title": "lucario",
+   "verdict": "LIVE 200 (re-derives)",
+   "records": "property-map:c33 (mapped live-200 status) re-derives on this host; no canonical link in the head (none claimed by the map for this row); first this-host dated byte anchor for the surface"
+  },
+  {
+   "surface": "charter GHP front (canonical doc)",
+   "url": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "accessedAt": "2026-11-01T09:58:43Z",
+   "status": 200,
+   "finalUrl": "https://veigapunk.github.io/charter-ufo-fsd/",
+   "bytes": 53660,
+   "sha256": "7c243a1d81357cdee71520034a05d540bfe8f69c702a7a1c95f8a0bfa5237aba",
+   "bodyFile": "veigapunk.github.io_charter-ufo-fsd.body",
+   "title": "PLAZIR-27 — the ufo-fsd charter",
+   "canonical": "<link rel=\"canonical\" href=\"https://veigapunk.github.io/charter-ufo-fsd/\"> (exactly one, equals the page URL)",
+   "verdict": "LIVE, BYTE-IDENTICAL TO PIN",
+   "records": "the body digest EQUALS pins/charterGhpLiveSha in corpus/knowledge/freshness-pins.json (7c243a1d…7aba, the r18 pin re-measured r65: no churn since 2026-09-30) — byte-identity re-derives on this host through 2026-11-01; property-map:c13 (live, final URL matches) and :c15 (head has exactly one canonical equal to the GHP URL) both re-derive; PQ-12's standing record is unchanged"
+  }
+ ]
+}

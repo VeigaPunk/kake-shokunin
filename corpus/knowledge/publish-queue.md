@@ -373,3 +373,27 @@ that section's "`.kimi.pro` twins remain un-probed and open" note):
 
 No publish/deploy action; no state-changing request. The five .kimi.page probes
 of r66 are unchanged by this round (no re-probe claimed).
+
+## r68 dated corrections (2026-11-01T09:58Z, GET-only probes; receipts `.ufo/waves/round-68/probes/`)
+
+Three standing records last dated 2026-10-21 on the old Linux host
+(property-map receipts) re-verified with one GET each on THIS host:
+
+- **burnerchrome.kimi.page: 200, 11,975 bytes**, sha256 `54297368…16780`,
+  title "burnerchrome — Musketeer family"
+  (`probes/burnerchrome.kimi.page.body`). Property-map:c9 (live surface) and
+  :c11 (Kimi-published, served HTML head) re-derive on this host; first
+  this-host dated byte anchor for the surface.
+- **lucario GHP (canonical): 200, 3,435 bytes**, sha256 `bee2d9f5…46cff`,
+  title "lucario" (`probes/veigapunk.github.io_lucario.body`).
+  Property-map:c33 (mapped live-200) re-derives on this host; no canonical
+  link in the head (none claimed by the map for this row).
+- **charter GHP front: 200, 53,660 bytes, BYTE-IDENTICAL TO PIN** —
+  sha256 `7c243a1d…7aba` equals `pins/charterGhpLiveSha`
+  (`probes/veigapunk.github.io_charter-ufo-fsd.body`): no churn since
+  2026-09-30, now verified through 2026-11-01. Exactly one head canonical,
+  equal to the page URL — property-map:c13/:c15 re-derive; PQ-12's standing
+  record is unchanged.
+
+No publish/deploy action; no state-changing request; the r66/r67 probe
+sections above are unchanged (no re-probe claimed for those surfaces).

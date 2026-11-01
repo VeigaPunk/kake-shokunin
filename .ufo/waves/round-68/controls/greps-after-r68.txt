@@ -1,0 +1,12 @@
+== greps after (round 68) — SUPERSEDES the '1 (after rewording …)' line in .ufo/waves/round-67/controls/greps-after-r67.txt ==
+-- that r67 line described a rewording that had not landed in any commit at its writing; the r67 spot-check (D-2) re-measured 5 → 2 at every r67 revision and routed the landing to r68. That receipt file's bytes are NOT modified (append-only receipt discipline); this receipt supersedes the line.
+
+-- before (r68 base 396128196ffb1c3184a6dc4491da1e5612a3b425 and r67 work commit 099923320):
+   grep -c = 2  (matches: the out-of-scope historical c55_quote_truth row AND the r67 c56_selftally row's REFUTED sentence; see greps-before-r68.txt)
+
+-- after (round-68 working tree with the c56 rewording landed; commit sha recorded at ../controls/after-sha.txt):
+ledger "not adjudicated here|candidate mechanism" count: 1
+-- the one remaining match:
+44:| c55_quote_truth | historical | e_T=1, **e_P=1** | historical_not_green_at_pin | pin run no longer reproduces its green on this host —
+
+-- diff discipline: git show HEAD:<ledger> | diff - <ledger> => exactly 2 changed lines (the c56_selftally row + the verified-at line), see diff-ledger-r68.txt
