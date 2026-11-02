@@ -64,3 +64,18 @@ path identities and citation counts, exit1 partial/offline at both ends.
 all old source rows, old scripts and frozen c66/r68 bytes. The inherited
 review addition in base4c48 means three unannotated missing identities here,
 not the original68 two; baseline is this actual cloud revision.
+
+## Final no-harm settlement (2026-11-02)
+
+Supersedes only the pending-final-c66 statement above: existing unchanged c66
+finished on base4c48bf24eb1033748e444480820ed3262684ad35 then, sequentially, on
+workbf2d4551b5c3a6a0230f9db9b5016346640cb916. Both exit0; all28 member outcome
+lines are identical, including inherited c56_selftally exit1 and
+c57_idresolver_gate exit2; agreement26, mismatches2, structural0, evaluated28.
+`controls/c66-noharm.json` compares each member, not just aggregate exit.
+`controls/measurement-identities.txt` pins unchanged tool bytes and revisions.
+Final census exit0 and full offline sweep exit1 retain the draft outcomes;
+`sweep-noharm.json` compares finding identities and per-token counts. Scratch
+peaked at a sampled627MiB, below1GiB; after completion4KiB. No safety denial,
+new permission, network route or isolation workaround occurred in these
+existing gate runs. These no-harm observations do not admit rejected C1.
