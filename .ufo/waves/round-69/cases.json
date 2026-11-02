@@ -1,0 +1,647 @@
+[
+  {
+    "id": "head",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "body",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "body"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "blocked",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "blocked",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 1,
+    "reason": "crawl_blocked"
+  },
+  {
+    "id": "unknown-access",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "unknown",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "access_unknown"
+  },
+  {
+    "id": "empty",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": []
+    },
+    "exit": 1,
+    "reason": "no_applicable_noindex"
+  },
+  {
+    "id": "nofollow",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "nofollow"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 1,
+    "reason": "no_applicable_noindex"
+  },
+  {
+    "id": "none",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "none"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "generic-negative",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        },
+        {
+          "channel": "meta",
+          "target": "googlebot",
+          "tokens": [
+            "index"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "specific-negative",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "all"
+          ],
+          "placement": "head"
+        },
+        {
+          "channel": "meta",
+          "target": "googlebot",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "news-only",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "googlebot-news",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 1,
+    "reason": "no_applicable_noindex"
+  },
+  {
+    "id": "other-only",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "bingbot",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 1,
+    "reason": "no_applicable_noindex"
+  },
+  {
+    "id": "pdf-header",
+    "input": {
+      "version": 1,
+      "resource": "non-html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "header",
+          "target": "",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "na"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "pdf-meta",
+    "input": {
+      "version": 1,
+      "resource": "non-html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 1,
+    "reason": "no_applicable_noindex"
+  },
+  {
+    "id": "robots-file",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "robots_txt",
+          "target": "googlebot",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "na"
+        }
+      ]
+    },
+    "exit": 1,
+    "reason": "no_applicable_noindex"
+  },
+  {
+    "id": "case-ows",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": " RoBoTs\t",
+          "tokens": [
+            " NoInDeX\t"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "unknown-token",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex",
+            "indexifembedded"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "unsupported"
+  },
+  {
+    "id": "unparsed-comma",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex,nofollow"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "unsupported"
+  },
+  {
+    "id": "ignored-unknown",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        },
+        {
+          "channel": "meta",
+          "target": "bingbot",
+          "tokens": [
+            "weird"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "embedded",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "embedded",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "unsupported"
+  },
+  {
+    "id": "context-unknown",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "unknown",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "unsupported"
+  },
+  {
+    "id": "mixed-header",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "index"
+          ],
+          "placement": "head"
+        },
+        {
+          "channel": "header",
+          "target": "googlebot",
+          "tokens": [
+            "none"
+          ],
+          "placement": "na"
+        }
+      ]
+    },
+    "exit": 0,
+    "reason": "declaration_supported"
+  },
+  {
+    "id": "bad-placement",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "na"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  },
+  {
+    "id": "bad-header-placement",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "header",
+          "target": "",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "body"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  },
+  {
+    "id": "extra-key",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ],
+      "extra": 1
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  },
+  {
+    "id": "bool-version",
+    "input": {
+      "version": true,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  },
+  {
+    "id": "missing-access",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  },
+  {
+    "id": "bad-target",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "googlebot:",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  },
+  {
+    "id": "nonascii",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex\u00e9"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  },
+  {
+    "id": "string-declarations",
+    "input": {
+      "version": 1,
+      "resource": "html",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": "noindex"
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  },
+  {
+    "id": "unknown-resource",
+    "input": {
+      "version": 1,
+      "resource": "pdf",
+      "context": "standalone",
+      "access": "allowed",
+      "declarations": [
+        {
+          "channel": "meta",
+          "target": "robots",
+          "tokens": [
+            "noindex"
+          ],
+          "placement": "head"
+        }
+      ]
+    },
+    "exit": 2,
+    "reason": "input_invalid"
+  }
+]
