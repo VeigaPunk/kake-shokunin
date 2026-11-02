@@ -181,6 +181,9 @@ This is kake's curated reading list: each row records what a source teaches, the
 | S435 | GNU Grep manual — https://www.gnu.org/software/grep/manual/grep.html | docs | A | the lane's counting-command semantics for pattern counts over committed files (`grep -c` line counting; the BRE escaped-alternation operator backslash-pipe) — the command class behind the gate-status ledger wording count | §2.1 Command-line Options, the `-c`/`--count` entry; live body retained at .ufo/waves/round-68/sources/S435-grep-manual.html, accessed 2026-11-01, HTTP 200, 248,692 bytes, sha256 517177d0…675f37 | A `grep -c` count is a count of matching LINES, and the ledger-wording pattern is a BRE alternation (backslash-pipe) — so any ledger row whose prose contains the phrase counts itself, the exact mechanism of the r67 spot-check D-2 self-match (the c56 REFUTED sentence mentioning the phrase added a match) | mined | 2026-11-01 | 180d | corpus/knowledge/gate-status-ledger.md, corpus/lessons/round-68.md |
 
 
+| S436 | Google Search Central — Block Search indexing with noindex — https://developers.google.com/search/docs/crawling-indexing/block-indexing | docs | A | Google's documented noindex discovery boundary | Important; Implementing noindex; Debugging noindex issues; Last updated 2025-12-10; opened 2026-11-02 | A crawl block can prevent discovery of noindex without proving index removal | mined | 2026-11-02 | 90d | corpus/knowledge/google-noindex-evidence-boundaries.md, corpus/lessons/round-69.md |
+| S437 | Google Search Central — Robots meta tag and X-Robots-Tag specifications — https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag | docs | A | Google's documented directive applicability and body placement | Using the robots meta tag note; Handling combined indexing and serving rules; Valid indexing and serving rules; Last updated 2026-03-24; opened 2026-11-02 | Google respects body robots meta; restrictive rules and embedded context prevent simplistic specificity or placement conclusions | mined | 2026-11-02 | 90d | corpus/knowledge/google-noindex-evidence-boundaries.md, corpus/lessons/round-69.md |
+
 ## Paths
 
 - GHP served-set semantics — S003 → S004 → S001 → S008 → S002 → S006: establish branch versus Actions publishing, learn the artifact contract, inspect the pinned archive action, apply GNU tar's matching defaults, then account for the v4/v5 dotfile change and contrast the legacy Jekyll path.
@@ -287,3 +290,12 @@ Round-37 correction notes (append-only; anchor, scope and teaches cells change o
 - S096: the anchor names README sections without a commit; the code statements in `robots-txt-rules.md` rest on `robots.cc`/`robots.h` at master `22b355ff855419e6a3ff8ff09c0ad7fdb17116f9`, which the lane does not retain; read the anchor with that commit.
 - S095: the requested Search Central URL answers 301 to `https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec` (the row records the final URL); the body hash varies per fetch (analytics script), the visible-text hash does not.
 - S097: the flip ("RFC 9309 is withdrawn and this text becomes the operative primary REP specification") has no observable second half; read it as "flip: RFC 9309 is withdrawn or obsoleted without a successor" (round-37 wave-2 `ReopenGateS097`).
+
+### Round69 bounded source search (2026-11-02)
+
+Question: when does a publisher-side noindex declaration fail to establish
+Google removal? Directly opened two official Google Search Central documents;
+identified2, screened2, included2 as S436/S437. No search-results inference.
+Rejected interpretations, not source rows: head-only enforcement and immediate
+removal guarantee (round69 lesson Gate). Stopped at operator documentation
+sufficient for the bounded distinction; no live-property or browser probe.

@@ -1,0 +1,22 @@
+{
+  "committed_at": "bb9db68f5a66a4055232377a09f030a311ea4eb2",
+  "native_exec_sandbox": true,
+  "separate_counter_isolation_proven": false,
+  "author_controls_not_independent": true,
+  "sha256": {
+    "measure.py": "e71a058824ff76b1350d9b68f900e295493f2362286634bed2737aa0887b288c",
+    "cases.json": "81f1125526545967f94a12b786a8e7336fc97ccda6811bb29345e4cf05fef5d4",
+    "cheap_stub.py": "748173834de828445a24cd48e4d94a18eee4b743fcaed2b936294a3b8f21e981",
+    "constant_stub.py": "d03b417efe686d5d5cf021431a61632a0106ab976fefd81f503348de54e3dbea"
+  },
+  "commands": [
+    "python3 .ufo/waves/round-69/measure.py --tool .ufo/waves/round-69/cheap_stub.py",
+    "python3 .ufo/waves/round-69/measure.py --tool .ufo/waves/round-69/constant_stub.py",
+    "python3 .ufo/waves/round-69/measure.py --tool scripts/indexing_evidence.py"
+  ],
+  "observed_exits": [
+    1,
+    1,
+    2
+  ]
+}

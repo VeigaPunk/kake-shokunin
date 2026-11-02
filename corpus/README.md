@@ -505,3 +505,16 @@ W3C Datetime, XML 1.0, Namespaces, XSD Datatypes, sitemaps.org FAQ, Yandex). Sti
 key that kills the 15 round-39 single-sentence breaks and the regex reader; gzip; live fetch; text and
 RSS sitemaps; robots `Sitemap:` cross-submission; the five build deviations in the round-39 SCORECARD
 corrections.
+
+## Round69 source-learning addition (2026-11-02)
+
+- `knowledge/google-noindex-evidence-boundaries.md` — S436/S437: crawler
+  discoverability versus indexing outcome, body meta, restrictive rules and
+  embedded-context limits. Knowledge only; round69 evaluator was not built or
+  admitted. Existing robots-access and response-header gates are not replaced.
+
+## Coverage map — round69 addition
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Google indexing evidence boundaries | `knowledge/google-noindex-evidence-boundaries.md` | Source-grounded discovery, body placement, applicability, conflict and embedded-context distinctions; no evaluator admitted |

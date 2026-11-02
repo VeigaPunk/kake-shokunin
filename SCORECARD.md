@@ -4697,3 +4697,15 @@ erratum recorded (r67 report header's `b569bb638` is one-char drift for
 `b569bb63a8bc2819553f08b4ce73eda12dc4d376`; no filed-report rewrite). Sources:
 S435 opened + written (registry 172 → 173). Fresh-start §7 honored with the
 staleness disclosed (r65/r66/r67 spot-checks verified ancestors of master).
+
+## Round69 — rejected prebuild claim; no score/capability credit (2026-11-02)
+
+C1 calibration, HOLD2: proposed Google noindex evidence triage from absent
+`indexing_evidence.py` to a tested bounded evaluator. Declaration
+bb9db68f5a66a4055232377a09f030a311ea4eb2 froze prematurely without non-author
+controls; public ordinal filenames disclose the oracle and subprocess
+isolation is not established. No evaluator was built. Frozen C1 is rejected,
+not quietly changed or rerolled. Operability10/freshness10 unchanged; no new
+capabilities-table entry. Source knowledge S436/S437 is retained separately
+in `corpus/knowledge/google-noindex-evidence-boundaries.md`; it is not proof
+of automation, actual indexing, promotion or admitted round improvement.

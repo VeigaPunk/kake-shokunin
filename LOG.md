@@ -2417,3 +2417,16 @@ negative directives accumulate, and extraction schema is not wire grammar.
 Scratch resource observation and no-harm base runs are under controls/.
 Host adaptation permits sequential roles plus independent review, not eight
 concurrent workers or a GLM/Zcode/Claude run. Only local Git lane commits.
+
+## Round69 — stop before implementation (2026-11-02)
+
+Independent reviewer identified premature author-only freeze plus public
+ordinal witness leakage and unevidenced subprocess isolation. Parent directs
+no v2, no extra scoring, no capability rescue. Own cheap/constant stubs had
+already run via native exec sandbox; their receipts are retained, not claimed
+as independently isolated controls. No measured lookup-pass claim is made.
+Source-grounded domain learning remains: S436/S437 and
+`corpus/knowledge/google-noindex-evidence-boundaries.md` distinguish discovery,
+body placement, applicability, conflict and embedded context from observed
+index removal. The lesson records concrete rejected interpretations and the
+repeated preseal error. All old sources/receipts/history remain untouched.

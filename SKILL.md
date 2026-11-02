@@ -1394,3 +1394,15 @@ rows the round-60 section above remains the format authority for.
 | Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
 |---|---|---|---|---|---|---|---|
 | gate-status-counter-v2-hostportable | gate (live; calibration: host-evaluability of the same 28-member round 48–59 gate registry the round-60 counter reads, on the Windows host — v2 keeps v1's population, registry-row, label, command-grammar, clone/cwd isolation and SCORECARD semantics byte-for-byte and changes exactly the five frozen deltas D1–D5 plus pre-data amendment 1: host FLEET_ROOT; portable observation PATH + scratch `python3` alias + PYTHONUTF8=1; pre-measure env selfcheck; evaluability predicate with `agreement` and the per-member classes REPORTED, never gating) | `python -B .ufo/waves/round-66/c66_gate_status_hostportable.py --root . --revision <rev> [--work <scratch>] [--jobs N] [--json]` | `0=met` (evaluability: `members == 28 AND evaluated == 28 AND scores_held == 3 AND structural == 0` — the scores being operability 10, freshness 10, calibration 2); `1=not met`; `2=could-not-evaluate` (revision unresolved, `SKILL.md`/`SCORECARD.md` unreadable at the measured revision, clone failure, timed-out observation, or the pre-measure env selfcheck failing — the instrument refuses to adjudicate from a broken environment); `64=usage` | `python -B .ufo/waves/round-66/c66_gate_status_hostportable.py --selftest` (86 checks; `.ufo/waves/round-66/controls/selftest-c66.txt`) | v1→v2 diff receipt `.ufo/waves/round-66/controls/c66-v1-v2-diff.txt` (confined to D1–D5 + amendment 1 + their selftest fixtures); do-nothing base control `.ufo/waves/round-66/controls/donothing-c66-base.txt` (exit 128, instrument absent at base); round-66 after receipts `controls/after-c66.txt` and `controls/after-final-c66.txt` (`members=28 evaluated=28 structural=0 agreement=17 met=True`); round-67 before/after at base and tip `.ufo/waves/round-67/controls/c66-before-r67.txt` and `c66-after-r67.txt` (agreement 17→18 after the c58_receipt_rewrites disclosure) | none | kake |
+
+## Round69 — noindex evidence handoff, knowledge only (2026-11-02)
+
+Before reporting a Google text-result removal from publisher evidence, separate
+(1) crawler access, (2) applicable noindex declaration, and (3) observed index
+state. A robots block does not prove removal; a valid HTML body meta is not
+invalid solely because it is outside head; a positive specific rule does not
+cancel a generic negative. Inspect response headers for non-HTML resources,
+and route embedding/unfamiliar directive combinations for source review.
+Sources and bounded decision table: `corpus/knowledge/google-noindex-evidence-boundaries.md`
+(S436/S437). No new runnable gate is registered: the round69 proposed counter
+was rejected before any evaluator implementation. Publication remains gated.

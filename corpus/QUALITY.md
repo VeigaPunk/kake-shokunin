@@ -1449,3 +1449,12 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   `.ufo/waves/round-64/w1/ScribeRepinLog.md`. The before/after JSON diff
   is the falsifier; the full offline verdict always retains its
   `partial: offline` qualifier.
+
+## Round69 process observation (2026-11-02; no rule relaxation)
+
+`corpus/lessons/round-69.md` records a recurrence of r40(o): a draft called
+frozen before independent receipts is still premature even if review is
+already underway. Preserve it as a rejected declaration; a later review is
+not backdated evidence. The existing preseal rule suffices; no new lexical
+counter or relaxed criterion is introduced. A native execution sandbox alone
+was not separately established as the counter's required isolation envelope.
