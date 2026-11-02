@@ -101,3 +101,7 @@ Base snapshot was exported with `git archive "$BASE" | tar -x -C "$OUT/base-snap
 - No initial failed attempt is passed off as successful. All adjudicated measurements are retained separately.
 
 Next authorized integration action: commit this independent evidence under reviewer/integrator ownership, append a terminal closure recording the honest rejection and exact host limitations, then steer69. Do not count68 as an accepted improvement or claim all gates passed. No browser login, real publication, secrets, credentials, new permissions or pushes were used.
+
+## Integrator durability note, 2026-11-02
+
+Evidence was copied unchanged from its audit workspace into this committed review directory. The original recheck-artifacts.py assumes that original audit directory depth and is retained as historical execution evidence, not advertised as portable after relocation. New recheck-artifacts-portable.py changes only root discovery to this owning repository; all assertions and endpoint hashes are unchanged. Its fresh committed-location execution is recorded in portable-recheck.txt. This migration correction is integrator-authored, not new lane work or an altered claim predicate.
