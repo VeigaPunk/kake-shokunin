@@ -4841,3 +4841,40 @@ Frozen contract `.ufo/waves/round-73/contract.md` (freeze `4c7c53bc`), base `c1f
 ## Correction (appended, round 73) — round-72 pointers
 
 `[r73-correction 2026-11-03]` The round-72 rows above cite `controls/c1-tip.txt` (calibration row) and `controls/c2-tip.txt` (operability row); neither name was ever committed. The corrected committed receipts are `controls/c1-tip-final.txt` and `controls/c2-tip-final.txt` under `.ufo/waves/round-72/`. The round-70 row's `controls/c1-tip.txt` resolves under `.ufo/waves/round-70/` and is not superseded. Counted by `.ufo/waves/round-73/c73_wave_pointers.py`.
+
+## Round 74 — declared and measured claims (attempt 1; author-side, admission belongs to the closure)
+
+Frozen contract `.ufo/waves/round-74/contract.md` (`b35dd4d7`), Amendment 1 (terms only, before any
+after-state) `312b531a`. Base `ced2878a1e77f57afb4ee3baebf1021e5130399b`; measured commit
+`30c35842692aec6f7578ddadbe51351e8cb21278`. Wave `w1`: one v1 wave, 14 seats (scout 2, executor 4,
+scribe 2, reviewer 2, critic 1, mutation-tester 1, connector 1, sentinel 1; attack share 4/14).
+Scores unchanged: operability 10, freshness 10, calibration 2 (all HOLD; no scalar move).
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 registry completeness | calibration 2→2 HOLD | base `ced2878a`: `unregistered=7 own_row=false met=false`, exit 1 (`.ufo/waves/round-74/controls/base-c1-registry.txt`) → tip `30c35842`: `unregistered=0 own_row=true met=true`, exit 0 (`.ufo/waves/round-74/controls/after-c1-registry.txt`) | `python3 -B .ufo/waves/round-74/c74_registry_gap.py --root . --revision <rev>` | measured met; the seven population rows plus the counter's own row land in `SKILL.md` `### Round 74 gate registry additions`; `--selftest` 8/8 |
+| C2 sidecar re-observation | freshness 10→10 HOLD | base `ced2878a`: `entries=174 absent=148 restored=26 absent_present=144 contradictions=144 met=false`, exit 1 (`.ufo/waves/round-74/controls/base-c2-sidecar.txt`) → tip `30c35842`: `absent=4 restored=170 absent_present=0 contradictions=0 annotation_findings=0 met=true`, exit 0 (`.ufo/waves/round-74/controls/after-c2-sidecar.txt`) | `python3 -B .ufo/waves/round-74/c74_sidecar_reobserve.py --root . --revision <rev>` | measured met; 144 flips with the prior note under `history`, the 4 genuinely absent entries stay `absent`; `--selftest` 8/8; sweep `--selftest` 36/36 and `--offline` exit 1 with the same single `~/projects` drift |
+
+The standing sweep cannot see the 144 contradictions at base (`.ufo/waves/round-74/controls/base-c2-sweep.txt`:
+exit 1, one unannotated miss, no mention of them); that is the blindness control for C2, and the
+round's new counter is the instrument that sees them. Amendment 1 records the attack-seat corrections
+(A1–A7, B1–B5) applied before the after-state.
+
+### Capabilities acquired in round 74
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Sidecar re-observation | Re-observes every `corpus/knowledge/freshness-sidecar.json` entry against the live host with an `os.stat` three-way classification (present / absent on ENOENT/ENOTDIR / unevaluable on any other OSError), flips contradicted `absent` notes to dated `restored` observations with the prior note preserved under `history`, and re-derives the contradiction count from committed bytes | `scripts/sidecar_reobserve.py` (selftest 10/10) and `.ufo/waves/round-74/c74_sidecar_reobserve.py` (selftest 8/8; `controls/after-c2-sidecar.txt`) | 74 |
+
+Move log (round 74):
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 74 | calibration (HOLD 2) | `unregistered=7 own_row=false met=false`, exit 1 | `unregistered=0 own_row=true met=true`, exit 0 | `.ufo/waves/round-74/c74_registry_gap.py`, `SKILL.md` `### Round 74 gate registry additions`, `corpus/lessons/round-74.md` |
+| 74 | freshness (HOLD 10) | `contradictions=144 met=false`, exit 1; the sweep blind to them | `contradictions=0 annotation_findings=0 met=true`, exit 0; sweep unchanged (36/36, exit 1 same drift) | `corpus/knowledge/freshness-sidecar.json`, `scripts/sidecar_reobserve.py`, `corpus/knowledge/sidecar-reobservation.md`, `controls/after-c2-sidecar.txt` |
+
+Stated limits, not claimed closed: the counter's kill set misses a working-tree-vs-revision mutant
+(M7) and the repair tool's misses a non-deterministic-write mutant (M10) (`w1/MutC2.md`); the
+`kind=restored` vocabulary is this claim's extended list, while the sweep's registered binding keeps
+its own shorter list; the four remaining absent entries are host-relative by nature and a future host
+change may need a new pass; the tool's TOCTOU window on a parent-directory symlink stays a named
+residual (`w1/Sentinel.md` F8).
