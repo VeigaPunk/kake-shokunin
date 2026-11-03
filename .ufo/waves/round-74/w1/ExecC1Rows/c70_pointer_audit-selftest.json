@@ -1,0 +1,17 @@
+{
+  "counter": "c70_pointer_audit",
+  "mode": "selftest",
+  "argv": [
+    "python3",
+    "-B",
+    ".ufo/waves/round-70/c70_pointer_audit.py",
+    "--selftest",
+    "--work",
+    "/fast/scratch/hyaku/kake-r74/ExecC1Rows/work-2"
+  ],
+  "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+  "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c70_pointer_audit-selftest-tmp",
+  "exit": 1,
+  "stdout": "case a ok: pointers=1 dangling=0 annotated=0 unannotated=0 met=true\ncase b ok: pointers=1 dangling=1 annotated=0 unannotated=1 met=false\ncase c FAIL: summary 'pointers=0 dangling=0 annotated=0 unannotated=0 met=true' != 'pointers=1 dangling=1 annotated=1 unannotated=0 met=true' [pointers=0 dangling=0 annotated=0 unannotated=0 met=true]\ncase d FAIL: exit 0 != 1; summary 'pointers=0 dangling=0 annotated=0 unannotated=0 met=true' != 'pointers=2 dangling=2 annotated=1 unannotated=1 met=false'; missing detail line 'tmp unannotated line=3 token=/fast/scratch/hyaku/kake-r74/ExecC1Rows/c70_pointer_audit-selftest-tmp/c70-d-843eec7f80004ae490061751dfeabae9' [pointers=0 dangling=0 annotated=0 unannotated=0 met=true]\ncase e ok: pointers=0 dangling=0 annotated=0 unannotated=0 met=true\ncase f FAIL: exit 0 != 1; summary 'pointers=0 dangling=0 annotated=0 unannotated=0 met=true' != 'pointers=1 dangling=1 annotated=0 unannotated=1 met=false' [pointers=0 dangling=0 annotated=0 unannotated=0 met=true]\ncase g FAIL: exit 0 != 1; summary 'pointers=0 dangling=0 annotated=0 unannotated=0 met=true' != 'pointers=1 dangling=1 annotated=0 unannotated=1 met=false' [pointers=0 dangling=0 annotated=0 unannotated=0 met=true]\ncase h ok: pointers=0 dangling=0 annotated=0 unannotated=0 met=true\nselftest 4/8\n",
+  "stderr": ""
+}

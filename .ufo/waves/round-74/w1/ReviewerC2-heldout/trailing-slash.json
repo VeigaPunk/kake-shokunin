@@ -1,0 +1,29 @@
+{
+  "name": "trailing-slash",
+  "expected_C2": "stat present; C2 contradiction; sweep rejects non-normalized token",
+  "expected_sweep_exit": 2,
+  "observed_sweep_exit": 2,
+  "stat": "present",
+  "sidecar": {
+    "schema": "kake-paths-sidecar-v1",
+    "entries": [
+      {
+        "file": "SKILL.md",
+        "line": 1,
+        "token": "~/fixtures/directory/",
+        "lineSha256": "e9fe33814bce326fdfded27e6ddc64566f69eff61850dab3f61c884e1932f071",
+        "kind": "absent",
+        "date": "2026-10-21",
+        "note": "2026-10-21 absent; historical record, not an executable instruction"
+      }
+    ]
+  },
+  "source_files": {
+    "SKILL.md": "Cite `~/fixtures/directory/` (immutable source).\n"
+  },
+  "base_history_preimage": {
+    "date": "2026-10-21",
+    "kind": "absent",
+    "note": "2026-10-21 absent; historical record, not an executable instruction"
+  }
+}

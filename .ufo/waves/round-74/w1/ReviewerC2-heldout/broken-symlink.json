@@ -1,0 +1,29 @@
+{
+  "name": "broken-symlink",
+  "expected_C2": "C2 absence is correct; stat FileNotFoundError",
+  "expected_sweep_exit": 0,
+  "observed_sweep_exit": 0,
+  "stat": "FileNotFoundError",
+  "sidecar": {
+    "schema": "kake-paths-sidecar-v1",
+    "entries": [
+      {
+        "file": "SKILL.md",
+        "line": 1,
+        "token": "~/fixtures/broken",
+        "lineSha256": "81b53f741364c1fda6c36c6f7f4ffec425f6031f21de2e182ec837386f9d33a7",
+        "kind": "absent",
+        "date": "2026-10-21",
+        "note": "2026-10-21 absent; historical record, not an executable instruction"
+      }
+    ]
+  },
+  "source_files": {
+    "SKILL.md": "Cite `~/fixtures/broken` (immutable source).\n"
+  },
+  "base_history_preimage": {
+    "date": "2026-10-21",
+    "kind": "absent",
+    "note": "2026-10-21 absent; historical record, not an executable instruction"
+  }
+}

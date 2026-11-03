@@ -1,0 +1,523 @@
+{
+  "seat": "ExecC1Rows",
+  "axes": [
+    "calibration: accurate counter identity and Kind",
+    "reproducibility: committed revision, exact commands and exits",
+    "operability: explicit scratch and honest unsupported modes"
+  ],
+  "revision": "ced2878a1e77f57afb4ee3baebf1021e5130399b",
+  "scratch": "/fast/scratch/hyaku/kake-r74/ExecC1Rows",
+  "production_changes": false,
+  "tool_installs": [],
+  "setup": {
+    "command": "mkdir -p /fast/scratch/hyaku/kake-r74/ExecC1Rows && git clone --shared --no-checkout /home/vgpnk/Projects/shokunin/kake-shokunin /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane && test \"$(git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane rev-parse --show-toplevel)\" = /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane && git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane checkout --detach ced2878a1e77f57afb4ee3baebf1021e5130399b",
+    "exit": 0
+  },
+  "contracts": {
+    ".ufo/waves/round-69/contract.md": {
+      "command": "git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane show ced2878a1e77f57afb4ee3baebf1021e5130399b:.ufo/waves/round-69/contract.md",
+      "exit": 0,
+      "sha256": "aa83e631a6bb3e510fa860a842432681628c840327ca5a9ba4fe30cf5710099a",
+      "text": "# kake round 69 \u2014 frozen contract (attempt 1)\n\nBase: `4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4` (lane `master` tip at round open; `jj-lane.sh state` ahead=0 behind=0).\nScores at open: calibration 2 (lowest owned non-retired axis), operability 10, freshness 10 (HOLD). The stagnation nudge does not apply (calibration sits below the saturation line), so the lowest-axis obligation binds.\nCensus at round start: `scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` exit 0 (16 W04 duplicate-url warnings, `kake ok`).\n\nTwo claims, one axis each, causally separable (C1 touches no file C2 touches and vice versa; verified by ConnW1 and the counters, which each run without the other). No exploratory claim. No capability row is claimed.\n\n## C1 \u2014 calibration (2 \u2192 2, HOLD). Recorded counts re-derive or are relabelled.\n\nClaim: every integer count that the round-67 and round-68 records attribute to a shell command at a named revision either re-derives at that revision, or is relabelled by a correction row that names the pair id and the re-derived value.\n\nPredicate (identical sentence in this plan, the counter's code and the receipt label): **C1 is met iff `python3 -B .ufo/waves/round-69/c69_recorded_counts.py --root <lane> --revision <rev> --pairs .ufo/waves/round-69/c1/pairs.json` prints `unrelabelled=0` and exits 0.**\n\n- Frozen pair set: `.ufo/waves/round-69/c1/pairs.json`, produced by ScoutC1Pairs and committed by the L1 **before** the base run. Recorded values in that file are frozen; no seat or later step edits them. A pair discovered after freezing is a round-70 item.\n- Correction rule (the only resolution): a mismatching pair is cleared solely by a correction row appended in `corpus/lessons/round-69.md` \u00a7Corrections that names the pair `id` and the re-derived value. Original record lines are never edited (append-only; `corpus/QUALITY.md` ruling of round 20).\n- Do-nothing control: the base revision `4d188f94` run with the same pairs file. Kill rule: if the base already meets the predicate, the counter or the pair set is wrong and C1 lands `unprovable` with no credit.\n- Known pair: the round-67 ledger pre-value \"5 \u2192 1\" for `corpus/knowledge/gate-status-ledger.md` (records: `corpus/lessons/round-67.md:54`, `LOG.md:2319`); the round-68 spot-check re-measured 2 at base `3961281` and at `099923320` (`corpus/lessons/round-68-verifier-spotcheck.md` \u00a72 C1 table).\n- Measured: base run (expected `unrelabelled \u2265 1`), then tip T1 after the correction row lands (expected `unrelabelled=0`).\n\n## C2 \u2014 operability (10 \u2192 10, HOLD). The lane gate honours TMPDIR and holds no /tmp root.\n\nClaim: `scripts/freshness-sweep.mjs` carries no literal `/tmp` path in code (two sites at base: line 108 `R15_SNAPSHOT_DEFAULT`, line 1204 selftest default `KAKE_SELFTEST_DIR || '/tmp/kake-r16/selftest'`), and its `--selftest` writes its fixture directory under `$TMPDIR` when `KAKE_SELFTEST_DIR` is unset.\n\nPredicate (same sentence in plan, counter and receipt): **C2 is met iff `python3 -B .ufo/waves/round-69/c69_tmp_honour.py --root <lane> --revision <rev> --work <scratch dir>` prints `tmp_literals=0 selftest_under_tmpdir=true offline_exit=0` and exits 0.**\n\n- `tmp_literals`: code lines (not `//` or `*` comment lines) of `scripts/freshness-sweep.mjs` at the revision that contain a `/tmp` path literal.\n- `selftest_under_tmpdir`: run `node scripts/freshness-sweep.mjs --selftest` with `TMPDIR=<fresh empty dir>`, `HOME=<fresh dir>`, `KAKE_SELFTEST_DIR` unset; exit 0 and the fresh TMPDIR now contains the fixture directory.\n- `offline_exit`: `node scripts/freshness-sweep.mjs --offline` exits 0 at the revision (the standing offline gate must not regress; the R15 snapshot default removal must keep the snapshot-absent branch).\n- Behavioural, not textual: the kill rule is that a pure rename or a comment-only edit must NOT pass. The selftest-under-TMPDIR check is what fails a renamed literal.\n- Base measurement: `tmp_literals=2 selftest_under_tmpdir=false`, exit 1 (do-nothing control).\n- Sourced: the claim's TMPDIR precedence rests on S436 (Node.js `os.tmpdir()`) and S437 (Python `tempfile.gettempdir()`), both opened this round (see Frontier step).\n\n## Frontier step (child-lane duty, not a claim)\n\n- SOURCES: add S436 (Node.js os.tmpdir documentation) and S437 (Python tempfile documentation). Opened 2026-11-03 with one GET each; rows are appended only after the registry id-collision guard is proven (ExecCensusMirror) and the scratch mirror passes `sources-census.sh validate --file`. Expected registry 173 \u2192 175 rows, census exit 0. Status `mined`; used-by names the round-69 lesson.\n- Mistakes (mined into `corpus/lessons/round-69.md` `## Mistakes`):\n  - M1 \u2014 unreproduced recorded pre-value (class: record/observed drift). Evidence: `corpus/lessons/round-67.md:54`, `corpus/lessons/round-68-verifier-spotcheck.md` \u00a72. Captured-by: none. Fix: C1 counter (red on the base record, shown by the base run).\n  - M2 \u2014 a receipt that reads a `/tmp` path: `.ufo/waves/round-68/controls/wordcounts-d3-r68.txt` ends in a traceback on `/tmp/q133.txt` (round-68 spot-check \u00a77.3). Captured-by: none. Fix: receipt re-run against committed bytes at `.ufo/waves/round-69/controls/` (ScoutR68Receipt); the able-to-fail check is `grep -c '/tmp' .ufo/waves/round-68/controls/wordcounts-d3-r68.txt` = 1 red vs `grep -c '/tmp' .ufo/waves/round-69/controls/wordcounts-r68-rerun.txt` = 0 green.\n- QUALITY criteria: one grounded criterion per mistake that no criterion caught (`LEARNING.md` \u00a7Understanding), appended to `corpus/QUALITY.md` as an end-of-file addendum citing the lesson.\n\n## Assimilation\n\nDecided by ConnW1 (considerthese scan, shokuknow `merge/kake/` read). Default: `Assimilation: none` unless a theme matches a round claim and passes the quarantine and id-collision rules in the operator's \u00a710 contract.\n\n## Round shape\n\n- W1 (build and first design attacks): one v1 wave of 12 seats under `scripts/hyaku/ufo-wave-policy.json` (band 8\u201316). Attack seats in W1: reviewer, critic, mutation-tester (3 of 12 = 25 %). Connector seats: 1.\n- W1R (residual falsifiers, after W1 settles and the patches are landed in scratch): \u22644 seats in one residual wave, all attack roles. Round total \u2264 16. The residual is written as its own `.ready` file.\n- No planner seat (the L1 holds the planner role, per the orchestrator ruling of 2026-10-19).\n\n## Write scope and discipline\n\n- Writer seats (ExecC1Counter, ExecC2Fix, ExecCensusMirror) work in scratch clones under `/fast/scratch/hyaku/kake-r69/<seat>/` and deliver patch or new-file outputs into `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/<seat>/`. The integration owner (the L1) applies patches to the lane tree and commits through `jj-lane.sh` only.\n- Non-writer seats write only new files under their own `.ufo/waves/round-69/<SeatName>/` directory and never edit tracked files.\n- No seat commits, pushes, or runs a mutating git or jj command. No seat writes into the fleet root or into `/home/vgpnk/Projects/shokunin/.scratch/`.\n- Every scratch tree is removed on exit; `/tmp` only for files under 50 MB.\n\n## Amendment 1 \u2014 recorded after W1 attacks, before any after-state measurement\n\nRecorded by the L1 on 2026-11-03 after the W1 build and attack reports\n(`.ufo/waves/round-69/w1/ReviewerDesign.md`, `CriticDesign.md`, `ScoutC1Pairs.md`) and before\nany after-state, residual or tip measurement. The base receipts of the pre-amendment counters\n(`w1/ExecC1Counter/base-run.txt`, unamended) are kept as history. Predicates keep their sentences;\nthese lines define the terms they use.\n\nC1 (frozen pair set, sha256 recorded when committed in `.ufo/waves/round-69/c1/pairs.json`):\n- The set is the 20 pairs in `w1/ScoutC1Pairs/pairs-candidate.json`, unchanged in id, rev, path,\n  command and recorded_value; the pairs file adds `correction_locus: corpus/lessons/round-69.md`\n  and `correction_id: <pair id>` to every row. Frozen input.\n- Recorded pre-value fact (corrects the contract's \"known pair\" sentence): the round-67 record's\n  \"5\" reproduces at its own base `6ff73edd` (C1-01 = 5). The mismatch is the post-value: the\n  round-67 record says 1 at `4b03efe1` (C1-02); observed 2 (`ScoutC1Pairs.md`).\n- Relabel rule, exact: a mismatching pair is relabelled only if a line of `correction_locus` read\n  at `--revision` matches `^\\|\\s*<correction_id>\\s*\\|\\s*<observed integer>\\s*\\|` (exact id token and\n  the re-derived integer). A row naming another integer, or an id that is only a substring of another\n  id, relabels nothing.\n- Expected base exit: 1 (`unrelabelled=1`, C1-02). Mirror kill rule: if base exits 0, C1 is unprovable.\n\nC2:\n- `tmp_literals` counts code lines (not `//` or `*` comment lines) containing a quote-adjacent\n  path literal, regex `['\"\\`]/tmp`. Help text (line 182) and prose (line 899) are not path literals\n  and are not counted. Expected base value: 2 (lines 108 and 1204).\n- `offline_exit=0` is replaced by `offline_unchanged=true`: the `--offline` exit code and its\n  VERDICT line at the measured revision equal those of the base revision on the same host. Reason:\n  at base on this Linux host `--offline` already exits 1 (`~/projects` lowercase citation at\n  `corpus/lessons/round-66-verifier-spotcheck.md:101-102` and `round-66.md:69`, unannotated and not\n  pinned; ReviewerDesign F2). That red is host-bound debt routed to L0; it is not C2's to cure.\n- `selftest_under_tmpdir` uses two distinct fresh directories: TMPDIR for the fixture root, HOME for\n  everything else. True iff the fixture directory (`kake-r16/selftest`) appears under TMPDIR, does\n  not appear under HOME, and is not a symlink (lstat).\n- Output line: `tmp_literals=N selftest_under_tmpdir=true|false offline_unchanged=true|false`.\n  Exit 0 iff tmp_literals==0 and selftest_under_tmpdir and offline_unchanged.\n- Expected base: `tmp_literals=2 selftest_under_tmpdir=false offline_unchanged=(baseline)`, exit 1.\n- Mirror kill rule: if the base already prints exit 0, the counter or its inputs are wrong; C2 unprovable.\n- Known residual, named, not claimed as closed: a TMPDIR-unset fallback to `os.tmpdir()` (POSIX\n  `/tmp`) is documented behaviour (S436, S437) and is not a literal; a reviewer must confirm the patch\n  takes its default from `os.tmpdir()` (residual wave).\n\nFrontier: the M2 wording is corrected: the round-68 receipt's quote-truth block ends in a\n`FileNotFoundError` on `\\tmp\\q133.txt` (line-mid, `wordcounts-d3-r68.txt`); the file continues after it.\n`grep -c '/tmp'` on that file is 1 (ReviewerDesign F6). The able-to-fail pair is unchanged.\n"
+    },
+    ".ufo/waves/round-70/contract.md": {
+      "command": "git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane show ced2878a1e77f57afb4ee3baebf1021e5130399b:.ufo/waves/round-70/contract.md",
+      "exit": 0,
+      "sha256": "6d3f48789c167837e90ffcbdd1cc39d8d9b9d79f376cfb8198412a21d5a83037",
+      "text": "# kake round 70 \u2014 frozen contract (attempt 1)\n\nBase: `e5f6fd9e4c243d092160bc74e8bea24256087173` (lane `master` tip at round open; `jj-lane.sh state`\nlocal=remote, ahead=0 behind=0; `git status --porcelain` empty). This commit freezes both predicates\nbefore any after-state measurement and before any seat runs.\n\nScores at open: calibration 2 (lowest owned non-retired axis), operability 10, freshness 10 (both\nHOLD at the legacy ceiling). The stagnation nudge does not apply (calibration sits below the\nsaturation line), so the lowest-axis obligation binds and C1 works calibration.\n\nRound-start census: `scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`\n\u2192 exit 0, 16 W04 duplicate-url warnings (S033, S088, S092, S098, S099, S102, S110, S111, S115,\nS116, S117, S127, S416, S417, S427, S433), `kake ok` \u2014 unchanged from round 69. Full output pasted\nin the report.\n\nTwo claims, one axis each, causally separable (C1 touches only SCORECARD.md and\n`.ufo/waves/round-70/c70_pointer_audit.py`; C2 touches only `corpus/knowledge/`,\n`corpus/SOURCES.md`, and the round-70 wave evidence; the shared files \u2014 LOG.md, SCORECARD.md round\nsection, the lesson \u2014 are L1-integrated bookkeeping, and each claim's counter runs without the\nother's files). No exploratory claim. No capability row is claimed.\n\n## C1 \u2014 calibration (2 \u2192 2, HOLD). SCORECARD evidence pointers resolve at the measured revision or carry a dated calibration annotation.\n\nClaim: every path-like evidence pointer in `SCORECARD.md` either resolves at the measured revision\n(repo-relative pointers) or exists as host state at measurement time (`~/...`, `/tmp/...` pointers),\nor is annotated as historical by the appended `## Pointer calibration (round 70)` section of\n`SCORECARD.md`.\n\nPredicate (identical sentence in this plan, the counter's code, and the receipt label): **C1 is met\niff `python3 -B .ufo/waves/round-70/c70_pointer_audit.py --root <lane> --revision <rev>` prints\n`unannotated=0` and exits 0.**\n\n- Population (enumerated by the counter itself from the revision's `SCORECARD.md` bytes; no external\n  input file): tokens of three classes \u2014\n  (a) repo-relative: `(?:^|[`(>|\\s])((?:\\.ufo|corpus|scripts|handoffs|considerthese)/[A-Za-z0-9_./-]+\\.[A-Za-z0-9]{1,7})`\n  \u2014 dangling iff `git cat-file -e <rev>:<path>` fails;\n  (b) home: `(?:^|[`(>|\\s])(~/[A-Za-z0-9_./+-]+)` \u2014 dangling iff the expanded path does not exist on\n  the measurement host (`test -e`);\n  (c) tmp: `(?:^|[`(>|\\s])(/tmp/[A-Za-z0-9_.+-]+)` \u2014 dangling iff the path does not exist.\n  URLs (http/https), bare names without a path separator, and in-line `git`/`grep` command strings\n  are not pointers. A token is counted once.\n- Annotation locus: the section `## Pointer calibration (round 70)` of `SCORECARD.md` at\n  `--revision`. A dangling pointer is annotated iff a table row in that section has the exact token\n  as its first cell (same exact-token discipline as the round-69 correction rows; a token that is\n  only a substring of another id or pointer annotates nothing).\n- Annotation content duty (checked by review, not the counter): each row names the dated absence\n  event class on record \u2014 the 2026-10-12 `~/Projects` W7 prune, the 2026-11-01 host migration, or\n  scratch-discipline cleanup \u2014 and marks the record historical, not executable.\n- Do-nothing control: the base revision `e5f6fd9e` run. Known motivating pointers on record at base\n  (read from the committed SCORECARD this round): `/tmp/kake-r10` through `/tmp/kake-r18` (12\n  tokens across the move-log rows 10\u201318), `~/DIRMAP.md`, and `~/Projects/...` and lowercase\n  `~/projects` host-tree tokens. Kill rule: if the base already prints `unannotated=0` exit 0, the\n  counter or the population is wrong and C1 lands `unprovable` with no credit.\n- Junk control: a fixture SCORECARD whose pointers all resolve must print `met=true` exit 0.\n- Attack controls baked into `--selftest` (fixture git repo under `--work`): (a) resolving repo\n  pointer \u2192 counted, not dangling; (b) dangling repo pointer, no annotation \u2192 exit 1;\n  (c) dangling tmp pointer annotated with the exact token \u2192 exit 0; (d) an annotation row whose\n  first cell is a strict prefix of the dangling token must NOT annotate it \u2192 exit 1; (e) a file\n  with no pointers \u2192 `pointers=0 met=true` exit 0. Selftest prints `selftest 5/5`.\n- Boundary: C1 does not touch `corpus/lessons/round-66*.md`, `pins.pathsMissSet`, or any file the\n  `--offline` sweep scans; the round-69 L0 question (line 260 of `.ufo/l0-questions.md`) stays open\n  and unrouted-around-work is not claimed here. SKILL.md `/tmp` cites (spot-check routed item 2)\n  are outside C1's population; the round reports why they are not fixed this round.\n\n## C2 \u2014 freshness (10 \u2192 10, HOLD). One staged `merge/kake` entry adopted, re-grounded against a live source this round.\n\nClaim: the staged entry `crux-bigquery-origin-membership.md` (theme: key-free CrUX eligibility\nroutes) is adopted into `corpus/knowledge/` with every cited external source re-opened by this lane\nin-round, and its registry row appended under the lane's next unused id.\n\nPredicate (same sentence in plan, receipt, and report): **C2 is met iff all of**\n(a) `corpus/knowledge/crux-bigquery-origin-membership.md` exists at the tip and opens with\n`source:`, `verified-at:` (2026-11-03) and `recheck:` in its first five lines, with `source:`\nnaming the new `S###` id and the live URL `https://developer.chrome.com/docs/crux/bigquery`;\n(b) exactly one new registry row for that id exists inside `## Registry` of `corpus/SOURCES.md`,\n`status` `mined`, `opened` 2026-11-03, `used-by` naming the entry path, and the row parses as 13\nawk fields with no literal or escaped pipe in any cell;\n(c) the retained body of the re-opened source (`.ufo/waves/round-70/w1/ScoutSources/sources/`,\nretained this round with a receipt: status, bytes, sha256, access date) contains the located quote\n\u201cThe origin_summary table contains a list of all origins in the CrUX dataset\u201d (class raw-substring\nor collapsed-only, stated with the method; `absent` fails the claim);\n(d) `sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` exits 0 at the tip.\n\n- Do-nothing control: at base the entry file is absent and the id appears in `## Registry` zero\n  times; both are the before measurement. A control that skips the adoption cannot create either.\n- Re-grounding rule (CORPUS.md rule 1): the staged campaign `opened` date (2026-10-24) and quote\n  prove nothing about this lane; the row's `opened` is this lane's access date, the quote is\n  located in the body this lane retains, and the entry's Gate block carries the located quote with\n  its position.\n- Id collision rule (\u00a710): staged id S352 collides with the lane registry's S352 (verify in\n  scratch with the 0\u20133-leading-space extractor); the adopted id is the lane's next unused id\n  (expected S438, decided by the committed `reg-ids`/`staged-ids`/`collisions` outputs, never by\n  arithmetic). Renumber map pasted in the report.\n- Row normalization rule (\u00a710): no staged row is appended as-is \u2014 the staged `recheck` cell\n  (\u201c180d \u2014 `curl \u2026 \\| grep \u2026` -> 1 (ran 2026-10-24)\u201d) is normalized to `180d`, and the stripped\n  recheck prose is recorded in the round lesson's Gate block; no cell carries a literal or escaped\n  pipe.\n- Proof obligations, both before any append: (1) the id-collision guard is proven able to fail on a\n  scratch fixture whose registry row carries two leading spaces (the indented-collision class from\n  the operator's \u00a710 contract); (2) the scratch mirror (lane `corpus/` copy + normalized append\n  block + adopted entry at its repo-relative path) passes\n  `sources-census.sh validate --file <mirror>/corpus/SOURCES.md` with exit 0 (warnings allowed) \u2014\n  an E03/E04 finding refuses the row.\n- Gate duty (LEARNING.md): the round lesson's `## Gate` records \u22651 admit (the BigQuery entry, if it\n  clears the gates) and \u22651 reject from the assimilation set with reasons and flip conditions. Named\n  reject candidate: `crux-keyless-check.md` \u2014 its probe rows are campaign-session own-work\n  observations (staged S303 companion S304) that would have to be re-run as new probes this round,\n  and its Vis/eligibility surface overlaps the r28 held entry `field-performance-cwv.md` (S036\u2013S039);\n  flip: a round that re-runs both probes fresh and shows a publisher-side keyless surface not\n  already held can adopt it. The critic/reviewer seats test both the overlap claim and the quote\n  truth; the L1 gates on their evidence.\n- Boundary: the register slice in\n  `/home/vgpnk/Projects/shokuknow/.ufo/waves/corpus-expansion-1/absent-defect-register.md` is not\n  appended to (the kake r58 L0 question on adopting quarantine rows stays open); no campaign tool\n  runs; shokuknow is read-only.\n\n## Frontier step (child-lane duty, not a claim)\n\n- SOURCES: expected registry 175 \u2192 176 (one adopted row; collision-renumbered). Census before\n  (recorded above) and after both exit 0.\n- Mistake mining: M1 \u2014 self-assessment drift: SCORECARD evidence pointers name scratch paths (12\n  `/tmp/kake-rNN` tokens, rounds 10\u201318) and host-tree paths that no round ever annotated;\n  captured-by: none (the corpus append-only rules never covered SCORECARD, and the freshness sweep\n  scans corpus files, not SCORECARD); fix: the C1 counter + the Pointer calibration section + a\n  QUALITY criterion. Any further mistake the round produces is mined the same way.\n- QUALITY addendum: one criterion per uncaught mistake, appended end-of-file, each with an\n  able-to-fail command.\n\n## Round shape\n\n- W1: one v1 wave of 13 seats under `scripts/hyaku/ufo-wave-policy.json` (band 8\u201316): 3 scout,\n  2 executor, 2 scribe, 1 reviewer, 1 critic, 1 mutation-tester, 1 labrat, 1 connector, 1 revenger.\n  Attack share 4/13 \u2248 31 %. Connector seats 1. No planner seat (the L1 holds the planner role;\n  the validator rejects it). No residual wave planned; round total 13.\n- Routing: run-15 map via `task.agentModelOverrides` (never pass `model`).\n\n## Write scope and discipline\n\n- Writer seats (ExecC1Counter, ExecMirror) work in scratch clones under\n  `/fast/scratch/hyaku/kake-r70/<SeatName>/` and deliver patch or new-file outputs into\n  `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-70/<SeatName>/`. The integration\n  owner (the L1) applies patches to the lane tree and commits through `jj-lane.sh` only.\n- Non-writer seats write only new files under their own `.ufo/waves/round-70/<SeatName>/` directory\n  and never edit tracked files.\n- No seat commits, pushes, or runs a mutating git or jj command in the lane. No seat writes into the\n  fleet root, `/home/vgpnk/Projects/shokunin/.scratch/`, `.ufo/state/`, other lanes, or any sibling\n  repo. `/home/vgpnk/Projects/shokuknow` is read-only; no campaign tool runs there.\n- Every scratch tree is removed on exit; `/tmp` only for files under 50 MB.\n- Every scratch clone is created with `git clone --shared` and checked out at the base revision\n  `e5f6fd9e4c243d092160bc74e8bea24256087173`; commits inside a scratch clone use\n  `-c user.name=kake-seat -c user.email=seat@fixture` and never elsewhere.\n"
+    },
+    ".ufo/waves/round-70/amendment-1-note.md": {
+      "command": "git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane show ced2878a1e77f57afb4ee3baebf1021e5130399b:.ufo/waves/round-70/amendment-1-note.md",
+      "exit": 0,
+      "sha256": "af4fcbc0429c5e1b8a6e415e4a34cbc352e81e474e1e1ea46fd62a5edc4eff26",
+      "text": "# Round 70 \u2014 Amendment 1 (recorded after the W1 attacks, before any after-state measurement)\n\nRecorded by the L1 on 2026-11-03 after the W1 build and attack reports\n(`w1/ReviewerPredicates.md`, `w1/CriticAdoption.md`, `w1/MutC1Counter.md`, `w1/SentinelAdoption.md`,\n`w1/ScribeEntries.md`, `w1/ExecMirror.md`, `w1/ExecCensusProbe.md`) and before any after-state\nmeasurement. The v1 counter's base receipt (`w1/ExecC1Counter/base-run.txt`, unannotated=19) is\nkept as history. Predicates keep their sentences; these lines define the terms they use.\n\n## C1 term refinements (counter v2, `.ufo/waves/round-70/c70_pointer_audit.py`)\n\n- Repo-class extraction: extension cap `{1,7}` \u2192 `{1,16}` with a right boundary `(?![A-Za-z0-9])`,\n  so `.ufo/waves/round-39/r38w2-evidence.SHA256SUMS` is extracted whole instead of truncating to a\n  phantom `.SHA256S` token that fails `cat-file` while the real file resolves\n  (ReviewerPredicates, live false positive at base).\n- A repo token dangles iff BOTH the literal token and its `os.path.normpath` form fail\n  `git cat-file -e` \u2014 the `scripts/../.ufo/waves/round-51/c51_wave_ledger.py` spelling of a real\n  file resolves (ReviewerPredicates). The annotation cell matches the literal token.\n- Home/tmp dangling uses `os.path.exists` (`test -e` semantics), not `os.path.lexists`\n  (SentinelAdoption: a broken symlink is not a resolving pointer).\n- A home token whose expansion escapes `$HOME` is excluded from the population (SentinelAdoption:\n  no host-path existence oracle outside the home tree); exclusions print as detail lines.\n- The annotation locus is a markdown table row of the section outside fenced code blocks\n  (MutC1Counter F7 / SentinelAdoption: a fenced line is not a table row).\n- The selftest's dangling tmp token is minted under `TMPDIR`/`gettempdir()`, never a literal\n  `/tmp` (round-69 QUALITY criterion; SentinelAdoption found the v1 literal at `:188`).\n- New conjunct with `--base <rev>`: `append_only=true` \u2014 every base line of `SCORECARD.md`\n  survives unchanged at the measured revision (base is a line-prefix of the tip), closing the\n  no-effort bypass of rewriting a dangling token into a non-matching spelling\n  (ReviewerPredicates). Selftest extended to 8 cases (fenced row, broken symlink, home escape).\n- Expected base with v2: `unannotated=17`, exit 1 (19 v1 minus the two live false positives).\n  Measured base receipt: `controls/c1-base-v2.txt` (exactly 17). Kill rule unchanged: base green\n  \u21d2 unprovable.\n\n## Motivating-evidence corrections (contract prose, not predicates)\n\n- The contract's \"12 `/tmp/kake-rNN` tokens across the move-log rows 10\u201318\" is corrected to the\n  measured population: 9 distinct tokens (11 occurrences; r17 repeats at lines 4461 and 4478),\n  8 dangling on this host today (`/tmp/kake-r16` exists \u2014 a sweep-selftest fixture directory\n  created 2026-11-03T18:50Z, before this round's dispatch; RevengerTmp divergence 2).\n- The contract's \"staged id S352 collides with the lane registry's S352\" is false at base: the\n  lane registry holds no `S352` (0 occurrences; 175 rows, max S437). The measured collision set\n  of the staged file is `S312 S329 S367 S372 S373 S374 S390 S409` \u2014 eight other staged ids, none\n  adopted this round. The adopted id stays **S438** by the registry's next-unused rule (first gap\n  after the maximum; ids never reused), not by collision; the renumber map is the single pair\n  `S352 \u2192 S438` with the collision evidence pasted in the report (ExecMirror `collisions`).\n- The dated-event class \"the 2026-10-12 `~/Projects` W7 prune\" keeps the corpus's committed\n  annotation date (the r18-era inline annotations say 2026-10-12; the round-18 sweep that caught\n  it ran 2026-10-14 \u2014 both named in the calibration rows); the lowercase `~/projects` removal is\n  the W6 consolidation of 2026-09-29, not W7 (RevengerTmp divergence 3).\n\n## C2 term refinements\n\n- Conjunct (a) pin: the `source:` line within the first five lines carries BOTH the `S438` id and\n  the URL `https://developer.chrome.com/docs/crux/bigquery` (ReviewerPredicates).\n- Conjunct (c) receipt binding (CriticAdoption \u00a74 + SentinelAdoption \u00a73): the receipt's `sha256`\n  and `bytes` must equal the retained file's recomputed values, the receipt's access date is\n  2026-11-03, and the retained bytes carry the document's canonical/og:url equal to the entry's\n  source URL. Named residual (not machine-checked this round): a fully self-consistent fabricated\n  body would still pass; the non-author closure may re-fetch.\n- Quote-class pin: `collapsed-only` = whitespace collapse (`\\s+` \u2192 single space), case- and\n  punctuation-sensitive; the mandated C2(c) quote is collapsed-only (three independent\n  derivations: ScoutSources, CriticAdoption, ScribeEntries). The ENTRY's own blockquotes are\n  raw-substring spans per the round-55 brand-new-entry bar: \"a list of all origins included in\n  the dataset\" (raw, the schema list's description of `origin_summary`) and \"it is updated\n  monthly with the latest list of origins in the dataset\" (raw); the free-tier and account/SQL\n  facts are stated in the lane's prose with their collapsed-only derivations recorded in the\n  Gate (ScribeEntries finding 2 resolution).\n- Conjunct (d\u2032): the registry id set at the tip \u2287 base ids \u222a {S438} (rows 175 \u2192 176; no\n  deletion) \u2014 the census alone is baseline-free (ReviewerPredicates deletion hatch).\n- Anchor correction: the staged anchor \"Data structures\" does not occur in the retained body; the\n  row's anchor is the body's actual headings \"\u00a7 CrUX on BigQuery \u2192 Materialized table schema \u2192\n  origin_summary\", pinned by the doc's printed \"Last updated 2026-10-13 UTC\" (ScribeEntries\n  finding 3).\n- Gate wording correction: the planned reject's probe rows are staged S303 (the CrUX Vis docs\n  row) and S304 (the own-work POST probe) \u2014 the contract's \"S303 companion S304\" swapped their\n  roles (ReviewerPredicates nit).\n"
+    },
+    ".ufo/waves/round-71/contract.md": {
+      "command": "git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane show ced2878a1e77f57afb4ee3baebf1021e5130399b:.ufo/waves/round-71/contract.md",
+      "exit": 0,
+      "sha256": "3c31e09fa29e71cb50b68507258601d5c3e244c41306906478e4ec867e11abc8",
+      "text": "# Round 71 \u2014 frozen contract (kake, attempt 1)\n\nFrozen before any seat scored data. Predicates, counters and kill rules below are fixed;\nan amendment is a new numbered file, never an edit here. Base revision for every measurement:\n`cc6b4e0b8c35e72dfb02c6184b847f68c1262153` (master). Counters read committed bytes only.\n\n## Claims (2 \u2014 one per distinct axis; C1 works the lowest-scoring owned axis)\n\n### C1 \u2014 calibration (score 2, HOLD 2 on success) \u2014 lowest owned axis\n\nMove: the SCORECARD self-assessment statements that a committed artifact contradicts.\nCounter: `python3 -B .ufo/waves/round-71/c71_calibration.py --revision <rev>`.\n\nPredicate (one sentence, same in this file, the counter and the receipt label):\n`C1 met iff mismatches == 0 and the append-only guard holds, where mismatches = stale_planned +\nattack_share_mismatch.`\n\n- stale_planned: active `## Planned` headings in SCORECARD.md naming a round < 72 (base: 2 \u2014\n  line 21 names round 21 in its body, line 3990 is `## Planned \u2014 round 48`).\n- attack_share_mismatch: the stated `attack share K/N` (base: 4/14, line 4770, round-70 block)\n  differs from the strict count over `.ufo/waves/round-70/w1-results.json` (agent in reviewer,\n  critic, mutation-tester, labrat \u2192 base: 3/14), unless the revision carries a line starting\n  `Correction (round 71):` naming the recomputed `attack share 3/14`. Base: 1.\n- guard: each removed base line is a `## Planned` heading replaced by `## Superseded plan \u2014 round\n  R` in the tip; no other base line is removed.\n\nBase receipt (do-nothing control, committed): `controls/c1-base.txt` \u2192\n`stale_planned=2 attack_mismatch=1 mismatches=3 met=False`, exit 1.\nJunk control (scored by the labrat seat only, never by the lane): deleting the two planned headings\nmust fail the guard.\n\nTarget after-state: `mismatches=0 guard=ok met=True`, exit 0, at the landed tip.\nKill rule: a guard failure, a correction whose number differs from the recomputed value, or any\ncounter edit after the first seat scored \u2192 C1 is `unprovable`, reported, not narrowed.\nSourced: C1 rests on `S132` (kama-shokunin `corpus/knowledge/self-assessment-at-writing.md`,\n\"Checking self-assessment statements at writing\", re-opened in-round by ScoutCalib; located quote\nrecorded in the lesson Gate).\n\nRepair (exact content rule; the executor writes the strings, the counter checks the rule):\n1. SCORECARD.md line 21 `## Planned` \u2192 `## Superseded plan \u2014 round 21 (historical record)`.\n2. SCORECARD.md line 3990 `## Planned \u2014 round 48` \u2192 `## Superseded plan \u2014 round 48 (historical record)`.\n3. Append a line starting `Correction (round 71): the round-70 wave W1 attack share 3/14 (21.4 %), not\n   4/14: the strict list (reviewer, critic, mutation-tester, labrat) counts 3 of 14 seats in\n   .ufo/waves/round-70/w1-results.json; the revenger seat is not an attack role under that list.`\n   with the numbers exactly as recomputed.\n4. Append `## Planned \u2014 next round` with no declared claims (round 72 declares its own at open).\n\n### C2 \u2014 freshness (score 10, HOLD 10 on success) \u2014 stale `/tmp` citations in SKILL.md\n\nMove: every `/tmp/` path token in the lane playbook is either repointed to a scratch recipe or\nannotated as a dated historical record that is not an executable instruction (the QUALITY\nabsence-annotation rule). This is the SHONEN box-3 residual named in round 70.\nCounter: `python3 -B .ufo/waves/round-71/c71_tmp.py --revision <rev>`.\n\nPredicate: `C2 met iff unannotated_tokens == 0 and the replacement guard holds.` Annotated = the line\ncarries `not an executable instruction`; a repointed recipe line must carry `mktemp` and no `/tmp`\ntoken.\n\n- Base receipt (`controls/c2-base.txt`): `tokens_total=7 unannotated_tokens=7 met=False`, exit 1\n  (lines 27, 95, 227, 356, 359, 463, 464).\n- Guard: removed lines all carry a `/tmp` token; added lines carry the phrase or `mktemp`; removed\n  and added line counts are equal (a deletion without replacement fails).\n- Target: `unannotated_tokens=0 guard=ok met=True`, exit 0.\n- Kill rule: a deleted line, an annotation on an imperative command (QUALITY criterion \"Absence\n  annotation content\"), or any counter edit after the first seat scored \u2192 C2 `unprovable`.\n- Repair rule: line 95 is a runnable recipe, so its token is repointed to `$(mktemp -d)`; the other\n  six lines are annotated with the exact missing path, the dated absence (`test -e` exit recorded),\n  and the words `historical record, not an executable instruction`. No table is split.\n\n## Frontier step (child-lane, section 2b)\n\n- Sourced claim: C1 rests on S132 (above). Its Gate records URL, access date 2026-11-03, located\n  quote of 25 words or fewer.\n- Mistakes (round 70, mined into `corpus/lessons/round-71.md ## Mistakes`):\n  - M1 number-drift \u2014 round-70 SCORECARD line 4770 and report state attack share 4/14; the strict\n    roster count is 3/14. Evidence: `.ufo/waves/round-70/w1-results.json`; spot-check routed item 1\n    (`corpus/lessons/round-70-verifier-spotcheck.md`). Captured-by: none. Fix: C1 attack-share\n    conjunct plus the Correction line; able-to-fail: base receipt red.\n  - M2 stale-premise \u2014 two active `## Planned` sections name rounds 21 and 48 while the lane is at\n    round 71. Evidence: SCORECARD.md lines 21 and 3990 at base. Captured-by: none (the freshness\n    sweep does not scan SCORECARD plan sections). Fix: C1 stale_planned conjunct; able-to-fail: base\n    receipt red.\n- Census before\u2192after: `scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`\n  (exit 0 at base; re-run at tip).\n\n## Wave shape (one v1 wave, band 8\u201316, one `.ready`)\n\n`w1`, 11 seats, `reportDir .ufo/waves/round-71/w1`:\n\n| Seat | Role | Route | Item |\n| --- | --- | --- | --- |\n| ScoutCalib | scout | scout route | re-open S132; enumerate SCORECARD planned/attack population at base |\n| ScoutTmp | scout | scout route | enumerate the seven SKILL.md tokens; classify recipe vs historical; `test -e` each target |\n| ScoutConsider | scout | scout route | read the latest `considerthese/` file; report one unimplemented fitting proposal or none |\n| ExecRepairC1 | executor | executor route | apply C1 repair in a scratch clone; counter red at base, green after |\n| ExecRepairC2 | executor | executor route | apply C2 repair in a scratch clone; counter red at base, green after |\n| LabratControls | labrat | executor route | junk controls (delete planned headings; delete /tmp lines) must fail the guard |\n| ReviewContract | reviewer | reviewer route | attack predicates, guards, kill rules, population assumptions |\n| CriticClaims | critic | reviewer route | attack falsifiability, axis harm, do-nothing reachability |\n| MutCounters | mutation-tester | executor route | mutate both counters in scratch; survivors reported |\n| ConnOverlap | connector | connector route | sibling-overlap scan (other lanes touching SCORECARD / SKILL.md / SOURCES.md) |\n| ScribeLesson | scribe | connector route | drafts `## Mistakes` and `## Gate` skeleton into the wave dir |\n| SentinelPaths | sentinel | connector route | scans counters for /tmp literals, credential material, git writes |\n\nAttack seats: reviewer, critic, mutation-tester, labrat = 4 of 11 (36.4 %, \u226525 %). Attack share\nis defined by this list; the round-70 correction uses the same definition. No seat may mutate the\nlane tree or the fleet repo; every writer uses a scratch clone under `/fast/scratch/hyaku/kake-r71/<seat>/`.\nAt most two connector seats (one here). No planner seat (the L1 holds the planner role).\n\n## Honest limits (named before data)\n\n- The counters check named populations at one revision; they do not prove the seats' prose.\n- C1's calibration is a self-assessment instrument, so its score (2) stays HOLD even on success.\n- `freshness-sweep --offline` is red before this round (one unannotated miss on the\n  lowercase `~/projects` path, pre-existing L0 question); its base receipt is `controls/sweep-offline-base.txt`.\n  No new red is allowed; a difference from base is recorded.\n"
+    },
+    ".ufo/waves/round-72/contract.md": {
+      "command": "git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane show ced2878a1e77f57afb4ee3baebf1021e5130399b:.ufo/waves/round-72/contract.md",
+      "exit": 0,
+      "sha256": "189f44ce271a7601e07d2bbdbb30e77eeb040083bf84a1dfaeb3340cc6bc7c35",
+      "text": "# Round 72 \u2014 frozen contract (kake, attempt 1)\n\nFrozen before any wave seat ran and before any after-state was measured. Base revision (lane\n`master` at round open): `3c68645af27706d1d09b8dc7e27b0b0a9ffef6f1`.\nRound-71 base for the C2 counter (fixed frozen constant in `c72_tmp_v2.py`): `cc6b4e0b8c35e72dfb02c6184b847f68c1262153`.\n\nDisclosure (pre-freeze diagnosis): before this contract was written, the L1 ran the frozen gate family at the\nbase revision to locate the lane's red gates (c66 gate-status, c56, c57, c58, c59, id_resolver) and prototyped an\nin-scratch repair of the adopted CrUX entry. Those diagnostic receipts are NOT the claims' base receipts; they\ninformed the choice of claims. The prototype repair was discarded (append-only guard and id rule block it). This\nis recorded in the report as a conformance caveat for the non-author closure.\n\nScores at base (SCORECARD): operability 10, freshness 10, calibration 2. Lowest non-retired axis: calibration.\n\n## C1 \u2014 calibration (lowest-scoring axis; HOLD 2)\n\nClaim: the gate-status counter's self-assessment agreement rises by exactly one member, from 24 to 25 of 28, by\nre-adjudicating the `selftest-tally-counter` row (c56) in SKILL.md from `live` to `historical`, on the basis of a green\nrun at its round-56 measured revision and a red run at the lane tip.\n\nPredicate (one sentence, the same in the plan, the receipt label and the counter's reading): C1 is met iff, over the\nfrozen counter `.ufo/waves/round-66/c66_gate_status_hostportable.py` run at the measured tip, `agreement == 25`,\n`evaluated == 28`, and the only member whose per-member label agreement changed from base to tip is\n`c56_selftally.py`, which moves from disagreement to agreement.\n\nCounting commands:\n- base (receipt `controls/c1-base.txt`): `python3 -B .ufo/waves/round-66/c66_gate_status_hostportable.py --root . --revision 3c68645af27706d1d09b8dc7e27b0b0a9ffef6f1 --jobs 6` \u2192 `agreement=24 mismatches=4`\n- tip: the same command with `--revision <tip>`\n- pin proof (receipt `controls/c56-pin-linux.txt`): `python3 -B .ufo/waves/round-56/c56_selftally.py --root . --revision 4cb225fb032b04166fb0232bc98a7bcce72675ec` \u2192 exit 0, tally 10/10\n- tip proof (receipt `controls/c56-tip-linux.txt`): the same script at base `3c68645a` \u2192 exit 1, `tally_mismatches=6`\n\nKill rule: if the tip `agreement` is not 25, or any member other than `c56_selftally.py` changes its agreement, or the\npin run is not green, C1 is unprovable and reported as such. A relabel the counter does not accept is not landed.\n\nNon-goals (named, not claimed): c57, c58, c59 remain live and red on this host (their P7 real-lane legs cite three\nstaged ids, S303 S304 S352, that no kake registry row holds, inside the adopted entry\n`corpus/knowledge/crux-bigquery-origin-membership.md`). That cause is routed to the operator (L0) and not repaired in\nthis round: the append-only guard forbids rewriting that entry, and the id rule forbids registering staged ids as\nlane ids. No claim is made that the lane's gate family is green.\n\n## C2 \u2014 operability (HOLD 10)\n\nClaim: the round-72 C2 counter `.ufo/waves/round-72/c72_tmp_v2.py` rejects a phrase-only annotation on a\ncommand-bearing `/tmp` line that the round-71 counter `.ufo/waves/round-71/c71_tmp.py` accepts, while still accepting\nthe lane's own repaired `mktemp` recipes and dated-absence prose annotations.\n\nPredicate (one sentence): C2 is met iff `c72_tmp_v2.py --selftest` exits 0 with `11/11`, `c71_tmp.py` exits 0 and\n`c72_tmp_v2.py` exits 1 on the J3 control commit that `.ufo/waves/round-72/controls/j3-control.sh` builds (a scratch clone\nof base tip `3c68645a` with line 27 replaced by a command-form `cp` line carrying the phrase; the commit hash differs per\nrun and is printed by the script; the script is the frozen artifact), the counter exits 1 at the round-71 base\n`cc6b4e0b8c35e72dfb02c6184b847f68c1262153` (red-before), and exits 0 at the measured tip.\n\nCounting commands:\n- `python3 -B .ufo/waves/round-72/c72_tmp_v2.py --selftest` (receipt `controls/c2-selftest.txt`) \u2192 `11/11`, exit 0\n- `sh .ufo/waves/round-72/controls/j3-control.sh` (receipt `controls/c2-j3-control.txt`) \u2192 `c71_exit=0` and `c72_exit=1`\n- `python3 -B .ufo/waves/round-72/c72_tmp_v2.py --revision cc6b4e0b8c35e72dfb02c6184b847f68c1262153` (receipt `controls/c2-base-red.txt`) \u2192 exit 1\n- `python3 -B .ufo/waves/round-72/c72_tmp_v2.py --revision <tip>` \u2192 exit 0 (receipt `controls/c2-base-head.txt` at base `3c68645a`)\n\nKill rule: if the J3 control is not rejected, or the selftest is not 11/11, or the red-before is not red, or the tip is\nnot green, C2 is unprovable. A constant stub that always exits 0 or always exits 1 cannot satisfy all four legs at once.\n\nSource: the `--end-of-options` mitigation for revision arguments (round-71 M7) rests on S439\n(`corpus/SOURCES.md`, git-scm gitcli, opened 2026-11-03, located quote in `.ufo/waves/round-72/sources/gitcli.html`).\n\n## Frontier step\n\n- `corpus/SOURCES.md` gains exactly one row, S439 (gitcli), opened this round; census exit 0 before and after is required.\n- Mistakes mined into `corpus/lessons/round-72.md` `## Mistakes`: (M1) the r70 adoption cited three staged ids no\n  registry row holds (id resolver red at base, `dangling=3`); (M2) the round-71 counter accepted the J3 control;\n  (M3) pre-freeze diagnosis (the freeze follows diagnostic runs, disclosed above).\n\n## Acceptance (round end)\n\n- Census `scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` exit 0.\n- `scripts/hyaku/jj-lane.sh state` shows `ahead=0` after landing; `git ls-remote origin refs/heads/master` equals the final lane hash.\n- Report `.ufo/reports/round-72/kake.md` committed via `fleet-commit.sh --as kake` only after WAVE-DONE.\n"
+    },
+    ".ufo/waves/round-73/contract.md": {
+      "command": "git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane show ced2878a1e77f57afb4ee3baebf1021e5130399b:.ufo/waves/round-73/contract.md",
+      "exit": 0,
+      "sha256": "35ca5bfc3917c0a8e450d72ea6a6dc55b26784f7e81416c79921a3d9bd5ffa98",
+      "text": "# Round 73 \u2014 frozen claim contract (kake, attempt 1)\n\nFrozen before any seat of wave `w1` ran. Base revision: `c1f3d8d4ed9470ecbaaf3353952a374b079e68cc`\n(lane master at round open; `jj-lane.sh state` local = remote = base). Predicates, counters, controls and kill\nrules below are the ones the closure re-derives; they are not restated later.\n\n## Pre-freeze diagnosis (disclosed)\n\nBefore freezing, the L1 ran the frozen counters at base once to locate defects (c70 pointer counter, c72\ncounter, c66 gate-status counter, offline freshness sweep). Their base outputs are committed as controls in this\nfreeze commit (`controls/`). No claim was chosen from a green/red that a counter could not express; the choice\nrests on: (a) round-72 closure routed defects (dead receipt pointers; the c72 registry row; the c72 residual holes),\nand (b) the offline sweep exit 2 at base, which is the freshness gate unable to evaluate. The c70 pointer counter\nexits 0 at base while two round-72 self-assessment pointers are dead; \u00a7C1 shows why.\n\n## Claims\n\nAxes: calibration (score 2, HOLD \u2014 the lowest non-retired axis, so C1 is the lowest-axis claim), operability\n(score 10, HOLD), freshness (score 10, HOLD). Three distinct axes; causally separable (each predicate reads only its\nown file set; C3 touches `freshness-sidecar.json` only; C1 touches `LOG.md`/`SCORECARD.md` only; C2 touches\n`.ufo/waves/round-73/` and one appended `SKILL.md` registry row beyond line 935).\n\n### C1 \u2014 calibration: round-72 receipt pointers resolve or carry a dated correction\n\n- Before (base `c1f3d8d4`): wave-relative receipt pointers `controls/c1-tip.txt` and `controls/c2-tip.txt` cited in\n  the round-72 LOG entry and round-72 SCORECARD rows name files that do not exist under\n  `.ufo/waves/round-72/`. Counter: `controls/c1-pointer-base-c70.txt` shows c70 `unannotated=0 \u2026 met=true` exit 0,\n  because c70 parses only repo-rooted SCORECARD pointers (blind spot). The new counter below reads the same two\n  pointers and reports them dead.\n- Counter (new, frozen by this commit): `.ufo/waves/round-73/c73_wave_pointers.py --root <lane> --revision <rev>`.\n  It reads `LOG.md` section `## Round 72` and SCORECARD lines whose first cell is `72`, extracts every token\n  `controls/\u2026` or `sources/\u2026` or `w1/\u2026`, resolves it under `.ufo/waves/round-72/`, and classifies each dead token\n  as **annotated** iff an appended correction line at the end of the same file (after the base line count) names\n  the superseded token and a corrected repo path that resolves under `.ufo/waves/round-72/`.\n- Predicate (one sentence, same in plan, counter, receipt): **C1 met iff `unannotated == 0` and `dead \u2265 2`\n  (both dead tokens still named, annotated by a resolving correction) and the append-only conjunct holds\n  (every base line of LOG.md and SCORECARD.md survives as a prefix line)**, at the measured tip.\n- Before: `dead=2 unannotated=2 met=False exit 1` at base (expected; measured in c1 receipts at the tip build).\n- Do-nothing control: base revision. A control that appends a bare errata line naming the token but no resolving\n  path must stay red (fixture in the counter selftest).\n- Kill rule: any unannotated dead round-72 pointer at the tip \u2192 C1 not met, reported as unmet.\n- Score: calibration HOLD 2 (no scalar move claimed; evidence row carries the counter receipt).\n\n### C2 \u2014 operability: c73 counter closes the four routed c72 holes\n\n- Before (base `c1f3d8d4`): `c72_tmp_v2.py --lane . --revision c1f3d8d4` exits 0 `met=True`\n  (`controls/c2-c72-base.txt`). The round-72 closure (`corpus/lessons/round-72-verifier-spotcheck.md` routed items\n  1\u20133) and the round-72 attack seats demonstrated these holes against c72: (H1) `${TMPDIR:-/tmp}` fallback repoint\n  escapes both regexes; (H2) command verbs outside the 17-word list (`rsync`, `rm`, `cd \u2026 &&`, env prefix\n  `TMPDIR=\u2026 python3`, `sudo` prefix, double-backtick spans) take the phrase-only annotation and pass; (H3) a\n  symlinked SKILL.md (mode 120000) reads as its link text; (H4) the `PHRASE` constant is not pinned: a truncated\n  phrase (`not an executable`, `historical record`) passes.\n- Frozen attack corpus: `.ufo/waves/round-73/attack-corpus.txt` (written by the executor seat `ExecC2Counter` into\n  `w1/` and promoted by the integrator before the counting command runs). Each line: `<class> | <expected> | <line>`\n  where `<class>` \u2208 {`attack`, `legit`} and `<expected>` \u2208 {`finding`, `clean`}. Attack lines carry H1\u2013H4 shapes;\n  legit lines are the lane's own dated-absence annotations.\n- Counter (new, frozen by this commit at the path below once the executor delivers it): `.ufo/waves/round-73/c73_tmp_v3.py`.\n  Command: `python3 -B .ufo/waves/round-73/c73_tmp_v3.py --selftest` and `python3 -B .ufo/waves/round-73/c73_tmp_v3.py --lane <clone> --revision <rev> --corpus .ufo/waves/round-73/attack-corpus.txt`.\n- Predicate (one sentence): **C2 met iff `c73 --selftest` exits 0 with the full case count passing, every `attack`\n  line in the corpus is a finding, every `legit` line is clean, `c73 --revision c1f3d8d4` and `--revision <tip>`\n  both exit 0 with `findings=[]`, and the SKILL.md gate registry gains exactly one row naming `c73_tmp_v3.py`.**\n- Do-nothing control: `c72_tmp_v2.py` run on the same corpus (its `line_findings` function, the frozen counter's\n  code, not edited) \u2014 reported as `c72_accepts=k of A attack lines`; the claim requires `k \u2265 1`\n  (the holes are real; if c72 already rejects every attack line the claim is void and the round reports that).\n- Before \u2192 after: c72 accepts `k` of A attack lines (k \u2265 1; receipt `controls/c2-c72-corpus.txt`) \u2192 c73 accepts 0 of\n  A attack lines (receipt `controls/c2-c73-corpus.txt`).\n- Kill rule: any attack line the c73 counter accepts, any legit line it rejects, selftest not full, or base/tip\n  non-zero \u2192 C2 not met.\n- Score: operability HOLD 10.\n- Sourced claim (\u00a72b.4): the H1 class rests on S440 (GNU Bash manual, Shell Parameter Expansion: `${parameter:-word}`\n  substitutes `word` when `parameter` is unset or null \u2014 so `${TMPDIR:-/tmp}` falls back to `/tmp`). The row is\n  opened this round (`sources/bash-param.html`, sha256 `6b0800fd\u2026a13c8e3`, `sources/receipts.txt`).\n\n### C3 \u2014 freshness: offline sweep evaluable at the tip\n\n- Before (base `c1f3d8d4`): `node scripts/freshness-sweep.mjs --offline` exits 2, stderr\n  `paths sidecar binding invalid: corpus/SOURCES.md:140` (`controls/c3-sweep-base.txt`). Cause: round-71 commit\n  `84dcc841` appended a `used-by` cell to the S132 row on line 140, which changed the line bound by the sidecar entry\n  (`corpus/knowledge/freshness-sidecar.json`, file `corpus/SOURCES.md`, line 140, token\n  `~/Projects/shokunin/kama-shokunin/corpus/knowledge/self-assessment-at-writing.md`, kind `absent`). The entry's\n  `lineSha256` is the only field that no longer matches; the token, the kind, the date and the note are unchanged.\n- Change: re-pin that single entry's `lineSha256` to the sha256 of the current line 140 (computed by the sweep's own\n  method: the file split on `\\n`, sha256 of the line's UTF-8 bytes). Nothing else in the sidecar changes.\n- Predicate (one sentence): **C3 met iff `node scripts/freshness-sweep.mjs --offline` at the tip exits 0 or 1 with no\n  `Error:` line on stderr, and `freshness-sweep --selftest` (with isolated HOME and KAKE_SELFTEST_DIR) passes, and\n  the sidecar diff against base changes exactly one entry's `lineSha256`.**\n- Do-nothing control: base revision sweep exit 2 (`controls/c3-sweep-base.txt`).\n- Kill rule: exit 2 at tip, any `Error:`, selftest red, or a sidecar diff touching anything other than that one\n  `lineSha256` \u2192 C3 not met. Exit 1 at tip is reported with its named findings; the claim then means\n  *evaluable with named drift*, not *clean*.\n- Score: freshness HOLD 10.\n\n## Harm checks (all must hold at the tip; any red is reported as harm)\n\n- c66 gate-status: `agreement` at tip \u2265 25 (base `agreement=25 mismatches=3 evaluated=28`, `controls/c0-gate-status-base-c66.txt`).\n- c70 pointer counter exit 0 at tip (base exit 0; `controls/c1-pointer-base-c70.txt`).\n- c72 counter exit 0 at tip (base exit 0; `controls/c2-c72-base.txt`).\n- Scores unchanged in SCORECARD (calibration 2, operability 10, freshness 10).\n\n## Frontier and mistakes (round lesson)\n\n- Sourced claim: C2 rests on S440 (opened this round).\n- Mistakes to mine (see `corpus/lessons/round-73.md` after landing): M1 \u2014 wave-relative receipt pointers outside\n  c70's parse grammar (captured-by: none; c70 blind spot); M2 \u2014 round-71 SCORECARD E13 recorded the sidecar failure as\n  \"pre-existing host state\" when round-71's own edit (`84dcc841`) caused it (captured-by: the round-64 criterion\n  \"a round that edits a sidecar-pinned file re-runs the standing \u00a7paths sweep\" was not applied at the landed tip).\n- Census (before, measured round start): `scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`\n  exit 0 (`corpus/SOURCES.md` 177 rows; W04 duplicate-URL warnings pre-existing).\n\n## Counter delivery (frozen rule)\n\nThe predicates, the attack corpus (`attack-corpus.txt`, committed in this freeze), the base controls and the kill\nrules above are frozen here. The counter source files named in C1 and C2 (`c73_wave_pointers.py`, `c73_tmp_v3.py`)\ndo not exist at freeze: wave `w1` delivers them, and the integrator commits each one (with its selftest output) before\nany after-state measurement. A delivered counter that changes a frozen predicate, the corpus or a control is a\npredicate change and voids the claim it touches.\n"
+    },
+    ".ufo/waves/round-69/c1/pairs.json": {
+      "command": "git -C /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane show ced2878a1e77f57afb4ee3baebf1021e5130399b:.ufo/waves/round-69/c1/pairs.json",
+      "exit": 0,
+      "sha256": "4e787bcb7b588416dbe4db5d76a2e263cf147c26f3faeecdf826f4c198a9e9be",
+      "text": "[\n  {\n    \"id\": \"C1-01\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2304; corpus/lessons/round-67.md:53-54; SCORECARD.md:4664\",\n    \"rev\": \"6ff73edd1bac66c298e10e6f0f295088740c32b9\",\n    \"path\": \"corpus/knowledge/gate-status-ledger.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 6ff73edd1bac66c298e10e6f0f295088740c32b9:corpus/knowledge/gate-status-ledger.md | grep -c 'not adjudicated here\\\\|candidate mechanism'\",\n    \"recorded_value\": 5,\n    \"observed_value\": 5,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-01\"\n  },\n  {\n    \"id\": \"C1-02\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2304; corpus/lessons/round-67.md:53-54; SCORECARD.md:4664\",\n    \"rev\": \"4b03efe1ef21f008d9e3fc2b127f61f95a079479\",\n    \"path\": \"corpus/knowledge/gate-status-ledger.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 4b03efe1ef21f008d9e3fc2b127f61f95a079479:corpus/knowledge/gate-status-ledger.md | grep -c 'not adjudicated here\\\\|candidate mechanism'\",\n    \"recorded_value\": 1,\n    \"observed_value\": 2,\n    \"match\": false,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-02\"\n  },\n  {\n    \"id\": \"C1-03\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2305; corpus/lessons/round-67.md:59-60; SCORECARD.md:4665\",\n    \"rev\": \"6ff73edd1bac66c298e10e6f0f295088740c32b9\",\n    \"path\": \"SKILL.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 6ff73edd1bac66c298e10e6f0f295088740c32b9:SKILL.md | grep -c 'c66_gate_status_hostportable'\",\n    \"recorded_value\": 0,\n    \"observed_value\": 0,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-03\"\n  },\n  {\n    \"id\": \"C1-04\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2305; corpus/lessons/round-67.md:59-60; SCORECARD.md:4665\",\n    \"rev\": \"4b03efe1ef21f008d9e3fc2b127f61f95a079479\",\n    \"path\": \"SKILL.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 4b03efe1ef21f008d9e3fc2b127f61f95a079479:SKILL.md | grep -c 'c66_gate_status_hostportable'\",\n    \"recorded_value\": 1,\n    \"observed_value\": 1,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-04\"\n  },\n  {\n    \"id\": \"C1-05\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2305; corpus/lessons/round-67.md:59; SCORECARD.md:4665\",\n    \"rev\": \"6ff73edd1bac66c298e10e6f0f295088740c32b9\",\n    \"path\": \"SKILL.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 6ff73edd1bac66c298e10e6f0f295088740c32b9:SKILL.md | wc -l\",\n    \"recorded_value\": 1377,\n    \"observed_value\": 1377,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-05\"\n  },\n  {\n    \"id\": \"C1-06\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2305; corpus/lessons/round-67.md:59; SCORECARD.md:4665\",\n    \"rev\": \"4b03efe1ef21f008d9e3fc2b127f61f95a079479\",\n    \"path\": \"SKILL.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 4b03efe1ef21f008d9e3fc2b127f61f95a079479:SKILL.md | wc -l\",\n    \"recorded_value\": 1396,\n    \"observed_value\": 1396,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-06\"\n  },\n  {\n    \"id\": \"C1-07\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2306; corpus/lessons/round-67.md:72; SCORECARD.md:4666\",\n    \"rev\": \"6ff73edd1bac66c298e10e6f0f295088740c32b9\",\n    \"path\": \"corpus/knowledge/publish-queue.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 6ff73edd1bac66c298e10e6f0f295088740c32b9:corpus/knowledge/publish-queue.md | grep -c 'r67 dated'\",\n    \"recorded_value\": 0,\n    \"observed_value\": 0,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-07\"\n  },\n  {\n    \"id\": \"C1-08\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2306; corpus/lessons/round-67.md:72; SCORECARD.md:4666\",\n    \"rev\": \"4b03efe1ef21f008d9e3fc2b127f61f95a079479\",\n    \"path\": \"corpus/knowledge/publish-queue.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 4b03efe1ef21f008d9e3fc2b127f61f95a079479:corpus/knowledge/publish-queue.md | grep -c 'r67 dated'\",\n    \"recorded_value\": 1,\n    \"observed_value\": 1,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-08\"\n  },\n  {\n    \"id\": \"C1-09\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2308; SCORECARD.md:4671\",\n    \"rev\": \"6ff73edd1bac66c298e10e6f0f295088740c32b9\",\n    \"path\": \"corpus/SOURCES.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 6ff73edd1bac66c298e10e6f0f295088740c32b9:corpus/SOURCES.md | grep -c '^|[[:space:]]*S[0-9][0-9][0-9]*[[:space:]]*|'\",\n    \"recorded_value\": 171,\n    \"observed_value\": 171,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-09\"\n  },\n  {\n    \"id\": \"C1-10\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2308; SCORECARD.md:4671\",\n    \"rev\": \"4b03efe1ef21f008d9e3fc2b127f61f95a079479\",\n    \"path\": \"corpus/SOURCES.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 4b03efe1ef21f008d9e3fc2b127f61f95a079479:corpus/SOURCES.md | grep -c '^|[[:space:]]*S[0-9][0-9][0-9]*[[:space:]]*|'\",\n    \"recorded_value\": 172,\n    \"observed_value\": 172,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-10\"\n  },\n  {\n    \"id\": \"C1-11\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2333; corpus/lessons/round-68.md:31-32; SCORECARD.md:4688; corpus/lessons/round-68-verifier-spotcheck.md:46\",\n    \"rev\": \"396128196ffb1c3184a6dc4491da1e5612a3b425\",\n    \"path\": \"corpus/knowledge/gate-status-ledger.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 396128196ffb1c3184a6dc4491da1e5612a3b425:corpus/knowledge/gate-status-ledger.md | grep -c 'not adjudicated here\\\\|candidate mechanism'\",\n    \"recorded_value\": 2,\n    \"observed_value\": 2,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-11\"\n  },\n  {\n    \"id\": \"C1-12\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2333; corpus/lessons/round-68.md:31-32; corpus/lessons/round-68-verifier-spotcheck.md:47\",\n    \"rev\": \"099923320ae6cf180fc9316e20e3e07aa6ff2b72\",\n    \"path\": \"corpus/knowledge/gate-status-ledger.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 099923320ae6cf180fc9316e20e3e07aa6ff2b72:corpus/knowledge/gate-status-ledger.md | grep -c 'not adjudicated here\\\\|candidate mechanism'\",\n    \"recorded_value\": 2,\n    \"observed_value\": 2,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-12\"\n  },\n  {\n    \"id\": \"C1-13\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2390; corpus/lessons/round-68.md:36; corpus/lessons/round-68-verifier-spotcheck.md:48\",\n    \"rev\": \"d69b720f53c6aad2dfb9ebde1f2304b406425cbf\",\n    \"path\": \"corpus/knowledge/gate-status-ledger.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show d69b720f53c6aad2dfb9ebde1f2304b406425cbf:corpus/knowledge/gate-status-ledger.md | grep -c 'not adjudicated here\\\\|candidate mechanism'\",\n    \"recorded_value\": 1,\n    \"observed_value\": 1,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-13\"\n  },\n  {\n    \"id\": \"C1-14\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2390; corpus/lessons/round-68.md:36; SCORECARD.md:4688; corpus/lessons/round-68-verifier-spotcheck.md:48\",\n    \"rev\": \"ce2ba6547532623490631aa04337282a0cea6dce\",\n    \"path\": \"corpus/knowledge/gate-status-ledger.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show ce2ba6547532623490631aa04337282a0cea6dce:corpus/knowledge/gate-status-ledger.md | grep -c 'not adjudicated here\\\\|candidate mechanism'\",\n    \"recorded_value\": 1,\n    \"observed_value\": 1,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-14\"\n  },\n  {\n    \"id\": \"C1-15\",\n    \"record_path\": \"corpus/lessons/round-68-verifier-spotcheck.md\",\n    \"record_locus\": \"corpus/lessons/round-68-verifier-spotcheck.md:49; also corpus/lessons/round-68-verifier-spotcheck.md:42 counting-command line\",\n    \"rev\": \"17072048d5990c3d0e663d0cf51752aae6919d7b\",\n    \"path\": \"corpus/knowledge/gate-status-ledger.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 17072048d5990c3d0e663d0cf51752aae6919d7b:corpus/knowledge/gate-status-ledger.md | grep -c 'not adjudicated here\\\\|candidate mechanism'\",\n    \"recorded_value\": 1,\n    \"observed_value\": 1,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-15\"\n  },\n  {\n    \"id\": \"C1-16\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2355; corpus/lessons/round-68.md:54; SCORECARD.md:4689; corpus/lessons/round-68-verifier-spotcheck.md:81\",\n    \"rev\": \"396128196ffb1c3184a6dc4491da1e5612a3b425\",\n    \"path\": \"corpus/knowledge/publish-queue.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 396128196ffb1c3184a6dc4491da1e5612a3b425:corpus/knowledge/publish-queue.md | grep -c 'r68 dated'\",\n    \"recorded_value\": 0,\n    \"observed_value\": 0,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-16\"\n  },\n  {\n    \"id\": \"C1-17\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2355; corpus/lessons/round-68.md:54; SCORECARD.md:4689; corpus/lessons/round-68-verifier-spotcheck.md:81\",\n    \"rev\": \"ce2ba6547532623490631aa04337282a0cea6dce\",\n    \"path\": \"corpus/knowledge/publish-queue.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show ce2ba6547532623490631aa04337282a0cea6dce:corpus/knowledge/publish-queue.md | grep -c 'r68 dated'\",\n    \"recorded_value\": 1,\n    \"observed_value\": 1,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-17\"\n  },\n  {\n    \"id\": \"C1-18\",\n    \"record_path\": \"corpus/lessons/round-68-verifier-spotcheck.md\",\n    \"record_locus\": \"corpus/lessons/round-68-verifier-spotcheck.md:81\",\n    \"rev\": \"17072048d5990c3d0e663d0cf51752aae6919d7b\",\n    \"path\": \"corpus/knowledge/publish-queue.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 17072048d5990c3d0e663d0cf51752aae6919d7b:corpus/knowledge/publish-queue.md | grep -c 'r68 dated'\",\n    \"recorded_value\": 1,\n    \"observed_value\": 1,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-18\"\n  },\n  {\n    \"id\": \"C1-19\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2369; SCORECARD.md:4698; corpus/lessons/round-68-verifier-spotcheck.md:147-148\",\n    \"rev\": \"396128196ffb1c3184a6dc4491da1e5612a3b425\",\n    \"path\": \"corpus/SOURCES.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 396128196ffb1c3184a6dc4491da1e5612a3b425:corpus/SOURCES.md | grep -c '^|[[:space:]]*S[0-9][0-9][0-9]*[[:space:]]*|'\",\n    \"recorded_value\": 172,\n    \"observed_value\": 172,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-19\"\n  },\n  {\n    \"id\": \"C1-20\",\n    \"record_path\": \"LOG.md\",\n    \"record_locus\": \"LOG.md:2369; SCORECARD.md:4698; corpus/lessons/round-68-verifier-spotcheck.md:147-148\",\n    \"rev\": \"17072048d5990c3d0e663d0cf51752aae6919d7b\",\n    \"path\": \"corpus/SOURCES.md\",\n    \"command\": \"git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 17072048d5990c3d0e663d0cf51752aae6919d7b:corpus/SOURCES.md | grep -c '^|[[:space:]]*S[0-9][0-9][0-9]*[[:space:]]*|'\",\n    \"recorded_value\": 173,\n    \"observed_value\": 173,\n    \"match\": true,\n    \"correction_locus\": \"corpus/lessons/round-69.md\",\n    \"correction_id\": \"C1-20\"\n  }\n]\n"
+    }
+  },
+  "rows": [
+    {
+      "name": "c69_recorded_counts.py",
+      "path": ".ufo/waves/round-69/c69_recorded_counts.py",
+      "contract": ".ufo/waves/round-69/contract.md \u00a7C1 + Amendment 1",
+      "predicate_sentence": "C1 is met iff `python3 -B .ufo/waves/round-69/c69_recorded_counts.py --root <lane> --revision <rev> --pairs .ufo/waves/round-69/c1/pairs.json` prints `unrelabelled=0` and exits 0.",
+      "contract_terms": "Amendment 1 pins 20 pairs unchanged in id, rev, path, command and recorded_value; correction clears only an exact first-cell id and observed integer in the correction locus.",
+      "entry_command": "python3 -B .ufo/waves/round-69/c69_recorded_counts.py --root /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane --revision ced2878a1e77f57afb4ee3baebf1021e5130399b --pairs .ufo/waves/round-69/c1/pairs.json",
+      "verdict_map": "0 met; 1 not met; 2 usage/IO/instrument fault",
+      "pinned_inputs": [
+        ".ufo/waves/round-69/c1/pairs.json (20 pairs; sha256 4e787bcb7b588416dbe4db5d76a2e263cf147c26f3faeecdf826f4c198a9e9be)",
+        "Each pair command and its historical revision; correction_locus corpus/lessons/round-69.md at measured revision; exact correction_id and observed integer"
+      ],
+      "source_sha256": "e0c3fb74689082af3cc9997b1ad1543ce0228e7e4aee6c6c317c4936a50c94ea",
+      "kind": "One-off historical recorded-count correction instrument over the frozen 20-pair set; not a general count-correctness gate.",
+      "withdrawal_or_repin": "Withdraw green if pairs bytes, named historical revisions or correction rule change/unavailable; re-pin only through an explicitly new population/contract. Original round-69 base must stay red.",
+      "selftest_tally": "selftest 6/6",
+      "base_summary": "pairs=20 mismatches=1 relabelled=1 unrelabelled=0 met=true",
+      "base_unavailable_reason": null,
+      "runs": {
+        "selftest": {
+          "counter": "c69_recorded_counts",
+          "mode": "selftest",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-69/c69_recorded_counts.py",
+            "--selftest",
+            "--work",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/work-0"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c69_recorded_counts-selftest-tmp",
+          "exit": 0,
+          "stdout": "selftest 6/6\n",
+          "stderr": ""
+        },
+        "base": {
+          "counter": "c69_recorded_counts",
+          "mode": "base",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-69/c69_recorded_counts.py",
+            "--root",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+            "--revision",
+            "ced2878a1e77f57afb4ee3baebf1021e5130399b",
+            "--pairs",
+            ".ufo/waves/round-69/c1/pairs.json"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c69_recorded_counts-base-tmp",
+          "exit": 0,
+          "stdout": "pairs=20 mismatches=1 relabelled=1 unrelabelled=0 met=true\npair C1-01 recorded=5 observed=5 status=ok\npair C1-02 recorded=1 observed=2 status=relabelled\npair C1-03 recorded=0 observed=0 status=ok\npair C1-04 recorded=1 observed=1 status=ok\npair C1-05 recorded=1377 observed=1377 status=ok\npair C1-06 recorded=1396 observed=1396 status=ok\npair C1-07 recorded=0 observed=0 status=ok\npair C1-08 recorded=1 observed=1 status=ok\npair C1-09 recorded=171 observed=171 status=ok\npair C1-10 recorded=172 observed=172 status=ok\npair C1-11 recorded=2 observed=2 status=ok\npair C1-12 recorded=2 observed=2 status=ok\npair C1-13 recorded=1 observed=1 status=ok\npair C1-14 recorded=1 observed=1 status=ok\npair C1-15 recorded=1 observed=1 status=ok\npair C1-16 recorded=0 observed=0 status=ok\npair C1-17 recorded=1 observed=1 status=ok\npair C1-18 recorded=1 observed=1 status=ok\npair C1-19 recorded=172 observed=172 status=ok\npair C1-20 recorded=173 observed=173 status=ok\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "name": "c69_tmp_honour.py",
+      "path": ".ufo/waves/round-69/c69_tmp_honour.py",
+      "contract": ".ufo/waves/round-69/contract.md \u00a7C2 + Amendment 1",
+      "predicate_sentence": "C2 is met iff `python3 -B .ufo/waves/round-69/c69_tmp_honour.py --root <lane> --revision <rev> --work <scratch dir>` prints `tmp_literals=0 selftest_under_tmpdir=true offline_exit=0` and exits 0.",
+      "contract_terms": "Amendment 1 explicitly replaces offline_exit=0 with offline_unchanged=true: offline exit and VERDICT must equal frozen round-69 baseline on this host. TMPDIR and HOME are distinct; fixture must appear only under TMPDIR and must not be a symlink. The original sentence above is preserved rather than silently rewritten.",
+      "entry_command": "python3 -B .ufo/waves/round-69/c69_tmp_honour.py --root /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane --revision ced2878a1e77f57afb4ee3baebf1021e5130399b --work /fast/scratch/hyaku/kake-r74/ExecC1Rows/work-1",
+      "verdict_map": "0 met; 1 not met; argparse usage 2; runtime failures are not a uniform unevaluable map (SystemExit errors may be 1; uncaught exceptions may be 1)",
+      "pinned_inputs": [
+        "scripts/freshness-sweep.mjs and full git archive at measured revision",
+        "Frozen baseline 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4 (not overridden)",
+        "Node runtime, host state, ambient HOME for offline comparison; fresh distinct HOME/TMPDIR for nested selftest"
+      ],
+      "source_sha256": "ebfb63139765316e4c2805bdeea8376154189ae1cd6a76acb1fc752964f0e39f",
+      "kind": "Reusable revision instrument for the sweep TMPDIR/no-literal/no-offline-regression conjunction, pinned to the round-69 baseline; no standalone counter selftest mode.",
+      "withdrawal_or_repin": "Withdraw if literals return, placement fails or offline result differs from frozen same-host baseline; host/runtime/baseline changes require fresh side-by-side receipts. Counter-level selftest cannot be claimed.",
+      "selftest_tally": "no selftest mode",
+      "base_summary": "tmp_literals=0 selftest_under_tmpdir=true offline_unchanged=true",
+      "base_unavailable_reason": null,
+      "runs": {
+        "selftest": {
+          "counter": "c69_tmp_honour",
+          "mode": "selftest",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-69/c69_tmp_honour.py",
+            "--root",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+            "--revision",
+            "ced2878a1e77f57afb4ee3baebf1021e5130399b",
+            "--work",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/work-1",
+            "--selftest"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c69_tmp_honour-selftest-tmp",
+          "exit": 2,
+          "stdout": "",
+          "stderr": "usage: c69_tmp_honour.py [-h] --root ROOT --revision REVISION --work WORK\n                         [--baseline BASELINE]\nc69_tmp_honour.py: error: unrecognized arguments: --selftest\n"
+        },
+        "base": {
+          "counter": "c69_tmp_honour",
+          "mode": "base",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-69/c69_tmp_honour.py",
+            "--root",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+            "--revision",
+            "ced2878a1e77f57afb4ee3baebf1021e5130399b",
+            "--work",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/work-1"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c69_tmp_honour-base-tmp",
+          "exit": 0,
+          "stdout": "tmp_literals=0 selftest_under_tmpdir=true offline_unchanged=true\n# revision ced2878a1e77f57afb4ee3baebf1021e5130399b \u00b7 scripts/freshness-sweep.mjs\n# tmp literal code lines (quote-adjacent, non-comment): none\n# selftest exit 0 \u00b7 selftest: 36/36 passed \u00b7 fixture under TMPDIR=True under HOME=False symlink=False\n# offline exit 1 vs base 4d188f94 exit 1 \u2014 unchanged=True\n#   rev  VERDICT: VERDICT: DRIFT \u2014 \u00a7paths: 1 unannotated miss \u00b7 1 NOT in pins.pathsMissSet (exit 1, partial: offline)\n#   base VERDICT: VERDICT: DRIFT \u2014 \u00a7paths: 1 unannotated miss \u00b7 1 NOT in pins.pathsMissSet (exit 1, partial: offline)\n",
+          "stderr": ""
+        },
+        "help": {
+          "counter": "c69_tmp_honour",
+          "mode": "help",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-69/c69_tmp_honour.py",
+            "--help"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c69_tmp_honour-help-tmp",
+          "exit": 0,
+          "stdout": "usage: c69_tmp_honour.py [-h] --root ROOT --revision REVISION --work WORK\n                         [--baseline BASELINE]\n\nround-69 C2 counter\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT          lane repository (git)\n  --revision REVISION  commit to measure\n  --work WORK          scratch dir for checkout + fixtures\n  --baseline BASELINE  revision the offline gate is compared against (default:\n                       the round-69 frozen base)\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "name": "c70_pointer_audit.py",
+      "path": ".ufo/waves/round-70/c70_pointer_audit.py",
+      "contract": ".ufo/waves/round-70/contract.md \u00a7C1 + amendment-1-note.md \u00a7C1",
+      "predicate_sentence": "C1 is met iff `python3 -B .ufo/waves/round-70/c70_pointer_audit.py --root <lane> --revision <rev>` prints `unannotated=0` and exits 0.",
+      "contract_terms": "Amendment 1 adds --base and append_only=true (SCORECARD base is an unchanged line-prefix), 8 selftest cases, revised extraction and annotation rules. Both the original sentence and amendment are retained.",
+      "entry_command": "python3 -B .ufo/waves/round-70/c70_pointer_audit.py --root /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane --revision ced2878a1e77f57afb4ee3baebf1021e5130399b --base e5f6fd9e4c243d092160bc74e8bea24256087173",
+      "verdict_map": "0 met; 1 not met; 2 usage/IO fault",
+      "pinned_inputs": [
+        "SCORECARD.md at measured revision; Pointer calibration (round 70) exact-token table rows",
+        "Append-only --base e5f6fd9e4c243d092160bc74e8bea24256087173",
+        "Host HOME and tmp existence; regex population from Amendment 1"
+      ],
+      "source_sha256": "c75444bde1d1cfdf2fabc03ef9858ae0dfddffdced765398749fda0884c99f66",
+      "kind": "One-off historical SCORECARD pointer-calibration instrument when run with the original append-only baseline; not an unrestricted continuing gate.",
+      "withdrawal_or_repin": "Current guarded measurement is red; do not label it live/green. Withdraw full-selftest claim (4/8 at mandated scratch TMPDIR). Re-pin only under a new explicit baseline/contract if later SCORECARD edits are intended; retain old red and TMPDIR portability defect.",
+      "selftest_tally": "selftest 4/8",
+      "base_summary": "pointers=362 dangling=17 annotated=17 unannotated=0 append_only=false met=false",
+      "base_unavailable_reason": null,
+      "runs": {
+        "selftest": {
+          "counter": "c70_pointer_audit",
+          "mode": "selftest",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-70/c70_pointer_audit.py",
+            "--selftest",
+            "--work",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/work-2"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c70_pointer_audit-selftest-tmp",
+          "exit": 1,
+          "stdout": "case a ok: pointers=1 dangling=0 annotated=0 unannotated=0 met=true\ncase b ok: pointers=1 dangling=1 annotated=0 unannotated=1 met=false\ncase c FAIL: summary 'pointers=0 dangling=0 annotated=0 unannotated=0 met=true' != 'pointers=1 dangling=1 annotated=1 unannotated=0 met=true' [pointers=0 dangling=0 annotated=0 unannotated=0 met=true]\ncase d FAIL: exit 0 != 1; summary 'pointers=0 dangling=0 annotated=0 unannotated=0 met=true' != 'pointers=2 dangling=2 annotated=1 unannotated=1 met=false'; missing detail line 'tmp unannotated line=3 token=/fast/scratch/hyaku/kake-r74/ExecC1Rows/c70_pointer_audit-selftest-tmp/c70-d-843eec7f80004ae490061751dfeabae9' [pointers=0 dangling=0 annotated=0 unannotated=0 met=true]\ncase e ok: pointers=0 dangling=0 annotated=0 unannotated=0 met=true\ncase f FAIL: exit 0 != 1; summary 'pointers=0 dangling=0 annotated=0 unannotated=0 met=true' != 'pointers=1 dangling=1 annotated=0 unannotated=1 met=false' [pointers=0 dangling=0 annotated=0 unannotated=0 met=true]\ncase g FAIL: exit 0 != 1; summary 'pointers=0 dangling=0 annotated=0 unannotated=0 met=true' != 'pointers=1 dangling=1 annotated=0 unannotated=1 met=false' [pointers=0 dangling=0 annotated=0 unannotated=0 met=true]\ncase h ok: pointers=0 dangling=0 annotated=0 unannotated=0 met=true\nselftest 4/8\n",
+          "stderr": ""
+        },
+        "base": {
+          "counter": "c70_pointer_audit",
+          "mode": "base",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-70/c70_pointer_audit.py",
+            "--root",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+            "--revision",
+            "ced2878a1e77f57afb4ee3baebf1021e5130399b",
+            "--base",
+            "e5f6fd9e4c243d092160bc74e8bea24256087173"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c70_pointer_audit-base-tmp",
+          "exit": 1,
+          "stdout": "pointers=362 dangling=17 annotated=17 unannotated=0 append_only=false met=false\nhome annotated line=62 token=~/Projects/plazir-15-site\nhome annotated line=76 token=~/DIRMAP.md\nhome annotated line=77 token=~/projects\nrepo annotated line=89 token=.ufo/charter-scribe/ledger.jsonl\ntmp annotated line=89 token=/tmp/kake-r18\ntmp annotated line=90 token=/tmp/kake-r17\ntmp annotated line=92 token=/tmp/kake-r15\ntmp annotated line=93 token=/tmp/kake-r14\ntmp annotated line=94 token=/tmp/kake-r13\ntmp annotated line=99 token=/tmp/kake-r12\ntmp annotated line=100 token=/tmp/kake-r11\ntmp annotated line=101 token=/tmp/kake-r10\nrepo annotated line=1583 token=scripts/sources-census.sh\nrepo annotated line=3451 token=.ufo/waves/round-44/verification/before-v4.json\nrepo annotated line=3456 token=.ufo/waves/round-44/verification/after-v5.json\nrepo annotated line=3750 token=.ufo/l0-questions.md\nrepo annotated line=4184 token=scripts/hyaku/ufo-wave-policy.json\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "name": "c71_calibration.py",
+      "path": ".ufo/waves/round-71/c71_calibration.py",
+      "contract": ".ufo/waves/round-71/contract.md \u00a7C1",
+      "predicate_sentence": "C1 met iff mismatches == 0 and the append-only guard holds, where mismatches = stale_planned + attack_share_mismatch.",
+      "contract_terms": "Guard permits only Planned-to-Superseded heading replacements; all other base lines survive. Exactly one uncorrected attack-share statement is required by code.",
+      "entry_command": "python3 -B .ufo/waves/round-71/c71_calibration.py --lane /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane --revision ced2878a1e77f57afb4ee3baebf1021e5130399b",
+      "verdict_map": "0 met; 1 not met; 2 unevaluable; 64 usage",
+      "pinned_inputs": [
+        "Frozen baseline cc6b4e0b8c35e72dfb02c6184b847f68c1262153 SCORECARD.md",
+        "Measured SCORECARD.md and .ufo/waves/round-70/w1-results.json",
+        "Strict roles reviewer, critic, mutation-tester, labrat; Correction (round 71) recomputed share"
+      ],
+      "source_sha256": "ae317667335b76df4507dc6c6620926628ce257308884158159bdb6a82b0fd51",
+      "kind": "One-off round-71 self-assessment instrument with a frozen population and heading-replacement guard; not a continuing calibration gate.",
+      "withdrawal_or_repin": "Unevaluable at round-74 base: two stated attack-share lines violate exactly-one population. Do not claim green; any broader population requires a new contract/counter, not a silent re-pin.",
+      "selftest_tally": "no selftest mode",
+      "base_summary": null,
+      "base_unavailable_reason": "C1 unevaluable: stated attack-share population is 2, frozen population is 1",
+      "runs": {
+        "selftest": {
+          "counter": "c71_calibration",
+          "mode": "selftest",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-71/c71_calibration.py",
+            "--selftest"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c71_calibration-selftest-tmp",
+          "exit": 64,
+          "stdout": "",
+          "stderr": "Round-71 C1 calibration counter. Frozen before data; any change is a new file.\n\nPredicate (the same sentence as contract.md section C1 and the receipt label):\n  C1 met iff mismatches == 0 and the append-only guard holds, at --revision.\n  mismatches = stale_planned + attack_share_mismatch.\n\n  stale_planned: active SCORECARD.md `## Planned` headings naming a round < 72. The round is\n    the heading's `\u2014 round N`, else the first `**Round N**` in the section body; a section with\n    no parseable round counts as stale (fail-closed).\n  attack_share_mismatch: the stated `attack share K/N` (exactly one, on a line that does not\n    start with `Correction (round 71)`) differs from the strict count over\n    .ufo/waves/round-70/w1-results.json (agent in reviewer, critic, mutation-tester, labrat),\n    unless the revision carries a line `Correction (round 71): ... attack share <k>/<n>` with\n    the recomputed value.\n  guard: every removed base line is a `## Planned` heading whose round R is replaced in the tip\n    by a line `## Superseded plan \u2014 round R`; all other base lines survive. Deleting a planned\n    section without its superseded replacement fails the guard.\n\nUsage: c71_calibration.py [--lane DIR] [--revision REV]   (REV default HEAD)\nExit: 0 met \u00b7 1 not met \u00b7 2 unevaluable \u00b7 64 usage. Reads committed bytes only (git show).\n\n"
+        },
+        "base": {
+          "counter": "c71_calibration",
+          "mode": "base",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-71/c71_calibration.py",
+            "--lane",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+            "--revision",
+            "ced2878a1e77f57afb4ee3baebf1021e5130399b"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c71_calibration-base-tmp",
+          "exit": 2,
+          "stdout": "",
+          "stderr": "C1 unevaluable: stated attack-share population is 2, frozen population is 1\n"
+        },
+        "help": {
+          "counter": "c71_calibration",
+          "mode": "help",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-71/c71_calibration.py",
+            "--help"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c71_calibration-help-tmp",
+          "exit": 64,
+          "stdout": "",
+          "stderr": "Round-71 C1 calibration counter. Frozen before data; any change is a new file.\n\nPredicate (the same sentence as contract.md section C1 and the receipt label):\n  C1 met iff mismatches == 0 and the append-only guard holds, at --revision.\n  mismatches = stale_planned + attack_share_mismatch.\n\n  stale_planned: active SCORECARD.md `## Planned` headings naming a round < 72. The round is\n    the heading's `\u2014 round N`, else the first `**Round N**` in the section body; a section with\n    no parseable round counts as stale (fail-closed).\n  attack_share_mismatch: the stated `attack share K/N` (exactly one, on a line that does not\n    start with `Correction (round 71)`) differs from the strict count over\n    .ufo/waves/round-70/w1-results.json (agent in reviewer, critic, mutation-tester, labrat),\n    unless the revision carries a line `Correction (round 71): ... attack share <k>/<n>` with\n    the recomputed value.\n  guard: every removed base line is a `## Planned` heading whose round R is replaced in the tip\n    by a line `## Superseded plan \u2014 round R`; all other base lines survive. Deleting a planned\n    section without its superseded replacement fails the guard.\n\nUsage: c71_calibration.py [--lane DIR] [--revision REV]   (REV default HEAD)\nExit: 0 met \u00b7 1 not met \u00b7 2 unevaluable \u00b7 64 usage. Reads committed bytes only (git show).\n\n"
+        }
+      }
+    },
+    {
+      "name": "c71_tmp.py",
+      "path": ".ufo/waves/round-71/c71_tmp.py",
+      "contract": ".ufo/waves/round-71/contract.md \u00a7C2",
+      "predicate_sentence": "C2 met iff unannotated_tokens == 0 and the replacement guard holds.",
+      "contract_terms": "Annotated means the exact phrase not an executable instruction; repointed recipe has mktemp and no token. Guard requires equal removed/added counts, removed lines with tokens and added lines with annotation or mktemp.",
+      "entry_command": "python3 -B .ufo/waves/round-71/c71_tmp.py --lane /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane --revision ced2878a1e77f57afb4ee3baebf1021e5130399b",
+      "verdict_map": "0 met; 1 not met; 2 unevaluable; 64 usage",
+      "pinned_inputs": [
+        "Frozen baseline cc6b4e0b8c35e72dfb02c6184b847f68c1262153 SKILL.md",
+        "Measured SKILL.md; exact annotation phrase and replacement guard"
+      ],
+      "source_sha256": "9037746bdf17bae71b04f88a8e28048b4254df5e34c8e5ebc341dd07b64da32a",
+      "kind": "One-off round-71 seven-token repair instrument with an equal-count replacement guard; not a continuing SKILL.md gate.",
+      "withdrawal_or_repin": "Red at round-74 base: replacement guard fails despite zero unannotated tokens. Preserve as historical round-71 repair instrument; a continuing gate needs an explicitly new contract/counter (v2 exists).",
+      "selftest_tally": "no selftest mode",
+      "base_summary": "C2 revision=ced2878a1e77f57afb4ee3baebf1021e5130399b tokens_total=8 unannotated_tokens=0 unannotated_lines=[] removed=8 added=16 guard=fail met=False",
+      "base_unavailable_reason": null,
+      "runs": {
+        "selftest": {
+          "counter": "c71_tmp",
+          "mode": "selftest",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-71/c71_tmp.py",
+            "--selftest"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c71_tmp-selftest-tmp",
+          "exit": 64,
+          "stdout": "",
+          "stderr": "Round-71 C2 freshness counter (stale /tmp citations in SKILL.md). Frozen before data.\n\nPredicate (the same sentence as contract.md section C2 and the receipt label):\n  C2 met iff unannotated_tokens == 0 and the replacement guard holds, at --revision.\n  A /tmp token is a path starting with the scratch root (built below so this file carries no\n  literal). Its line is annotated iff the line carries the phrase\n  `not an executable instruction` (the QUALITY absence-annotation phrase) or the line is a\n  mktemp-based replacement that contains no /tmp token.\n  guard: the removed base lines all carry a /tmp token; the added tip lines each carry the\n  annotation phrase or `mktemp`; the number of removed lines equals the number of added lines\n  (a deletion without replacement fails).\n\nUsage: c71_tmp.py [--lane DIR] [--revision REV]   (REV default HEAD)\nExit: 0 met \u00b7 1 not met \u00b7 2 unevaluable \u00b7 64 usage. Reads committed bytes only (git show).\n\n"
+        },
+        "base": {
+          "counter": "c71_tmp",
+          "mode": "base",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-71/c71_tmp.py",
+            "--lane",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+            "--revision",
+            "ced2878a1e77f57afb4ee3baebf1021e5130399b"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c71_tmp-base-tmp",
+          "exit": 1,
+          "stdout": "C2 revision=ced2878a1e77f57afb4ee3baebf1021e5130399b tokens_total=8 unannotated_tokens=0 unannotated_lines=[] removed=8 added=16 guard=fail met=False\n",
+          "stderr": ""
+        },
+        "help": {
+          "counter": "c71_tmp",
+          "mode": "help",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-71/c71_tmp.py",
+            "--help"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c71_tmp-help-tmp",
+          "exit": 64,
+          "stdout": "",
+          "stderr": "Round-71 C2 freshness counter (stale /tmp citations in SKILL.md). Frozen before data.\n\nPredicate (the same sentence as contract.md section C2 and the receipt label):\n  C2 met iff unannotated_tokens == 0 and the replacement guard holds, at --revision.\n  A /tmp token is a path starting with the scratch root (built below so this file carries no\n  literal). Its line is annotated iff the line carries the phrase\n  `not an executable instruction` (the QUALITY absence-annotation phrase) or the line is a\n  mktemp-based replacement that contains no /tmp token.\n  guard: the removed base lines all carry a /tmp token; the added tip lines each carry the\n  annotation phrase or `mktemp`; the number of removed lines equals the number of added lines\n  (a deletion without replacement fails).\n\nUsage: c71_tmp.py [--lane DIR] [--revision REV]   (REV default HEAD)\nExit: 0 met \u00b7 1 not met \u00b7 2 unevaluable \u00b7 64 usage. Reads committed bytes only (git show).\n\n"
+        }
+      }
+    },
+    {
+      "name": "c72_tmp_v2.py",
+      "path": ".ufo/waves/round-72/c72_tmp_v2.py",
+      "contract": ".ufo/waves/round-72/contract.md \u00a7C2",
+      "predicate_sentence": "C2 is met iff `c72_tmp_v2.py --selftest` exits 0 with `11/11`, `c71_tmp.py` exits 0 and `c72_tmp_v2.py` exits 1 on the J3 control commit that `.ufo/waves/round-72/controls/j3-control.sh` builds (a scratch clone of base tip `3c68645a` with line 27 replaced by a command-form `cp` line carrying the phrase; the commit hash differs per run and is printed by the script; the script is the frozen artifact), the counter exits 1 at the round-71 base `cc6b4e0b8c35e72dfb02c6184b847f68c1262153` (red-before), and exits 0 at the measured tip.",
+      "contract_terms": "The full frozen predicate has four legs. This assignment ran selftest and round-74 base only, not the J3 script or round-71 red-before leg; no full round-72 claim is asserted.",
+      "entry_command": "python3 -B .ufo/waves/round-72/c72_tmp_v2.py --lane /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane --revision ced2878a1e77f57afb4ee3baebf1021e5130399b",
+      "verdict_map": "0 met; 1 not met; 2 unevaluable; 64 usage",
+      "pinned_inputs": [
+        "Frozen baseline cc6b4e0b8c35e72dfb02c6184b847f68c1262153 SKILL.md",
+        "Measured SKILL.md",
+        "Full contract also pins .ufo/waves/round-72/controls/j3-control.sh, round-72 base 3c68645af27706d1d09b8dc7e27b0b0a9ffef6f1, c71_tmp.py for J3 comparison and S439"
+      ],
+      "source_sha256": "af2f0c9c6b7ba04facdf63397b1e2e66ca20dd464984745354409d91fcf6e6ca",
+      "kind": "Reusable but bounded SKILL.md annotation gate v2 with a frozen round-71 guard baseline; full round-72 acceptance also needs J3 and red-before controls. Does not cover c73 routed holes.",
+      "withdrawal_or_repin": "Withdraw if any finding, guard failure, non-full selftest or failure of J3/red-before legs; newer fallback/command/symlink/phrase classes require v3 rather than overstating v2.",
+      "selftest_tally": "C2v2 selftest 11/11",
+      "base_summary": "C2v2 revision=ced2878a1e77f57afb4ee3baebf1021e5130399b brace_findings=0 command_findings=0 prose_findings=0 findings=[] removed=8 added=16 guard=ok met=True",
+      "base_unavailable_reason": null,
+      "runs": {
+        "selftest": {
+          "counter": "c72_tmp_v2",
+          "mode": "selftest",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-72/c72_tmp_v2.py",
+            "--selftest"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c72_tmp_v2-selftest-tmp",
+          "exit": 0,
+          "stdout": "selftest prose_annotated_ok: got brace=0 command=0 prose=0 want=0/0/0 OK\nselftest prose_unannotated_is_finding: got brace=0 command=0 prose=1 want=0/0/1 OK\nselftest j3_phrase_only_on_command_is_command_finding: got brace=0 command=1 prose=0 want=0/1/0 OK\nselftest imperative_line_token_is_command_finding: got brace=0 command=1 prose=0 want=0/1/0 OK\nselftest mktemp_line_ok: got brace=0 command=0 prose=0 want=0/0/0 OK\nselftest brace_default_is_finding: got brace=1 command=0 prose=0 want=1/0/0 OK\nselftest non_command_span_token_is_prose: got brace=0 command=0 prose=0 want=0/0/0 OK\nselftest command_span_without_token_ignored: got brace=0 command=0 prose=0 want=0/0/0 OK\nselftest guard_added_token_needs_phrase: OK\nselftest guard_annotated_addition_ok: OK\nselftest v1_accepted_j3_rejected_here: OK\nC2v2 selftest 11/11\n",
+          "stderr": ""
+        },
+        "base": {
+          "counter": "c72_tmp_v2",
+          "mode": "base",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-72/c72_tmp_v2.py",
+            "--lane",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+            "--revision",
+            "ced2878a1e77f57afb4ee3baebf1021e5130399b"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c72_tmp_v2-base-tmp",
+          "exit": 0,
+          "stdout": "C2v2 revision=ced2878a1e77f57afb4ee3baebf1021e5130399b brace_findings=0 command_findings=0 prose_findings=0 findings=[] removed=8 added=16 guard=ok met=True\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "name": "c73_wave_pointers.py",
+      "path": ".ufo/waves/round-73/c73_wave_pointers.py",
+      "contract": ".ufo/waves/round-73/contract.md \u00a7C1",
+      "predicate_sentence": "C1 met iff `unannotated == 0` and `dead \u2265 2` (both dead tokens still named, annotated by a resolving correction) and the append-only conjunct holds (every base line of LOG.md and SCORECARD.md survives as a prefix line), at the measured tip.",
+      "contract_terms": "Frozen round-73 baseline is mandatory, no CLI override; population is only round-72 wave-relative pointers in the specified LOG section and SCORECARD first-cell 72 rows.",
+      "entry_command": "python3 -B .ufo/waves/round-73/c73_wave_pointers.py --root /fast/scratch/hyaku/kake-r74/ExecC1Rows/lane --revision ced2878a1e77f57afb4ee3baebf1021e5130399b",
+      "verdict_map": "0 met; 1 not met; 2 unevaluable; 64 usage",
+      "pinned_inputs": [
+        "Frozen baseline c1f3d8d4ed9470ecbaaf3353952a374b079e68cc LOG.md and SCORECARD.md",
+        "Measured LOG.md Round 72 section and SCORECARD first-cell 72 rows",
+        "Receipt tokens under .ufo/waves/round-72/; corrections in appended tails with resolving corrected paths"
+      ],
+      "source_sha256": "37025eff891635bccd03ab3a2ab6deec39f103e7d3c31759faedf7703b702e6b",
+      "kind": "One-off round-72 wave-pointer correction instrument with frozen round-73 prefix baseline; not a general receipt-pointer gate.",
+      "withdrawal_or_repin": "Withdraw if any dead pointer unannotated, dead below 2 or either prefix guard fails; a different round/pointer population requires a new explicit contract.",
+      "selftest_tally": "selftest 6/6",
+      "base_summary": "C1v1 revision=ced2878a1e77f57afb4ee3baebf1021e5130399b pointers=9 dead=2 annotated=2 unannotated=0 append_only=true met=true",
+      "base_unavailable_reason": null,
+      "runs": {
+        "selftest": {
+          "counter": "c73_wave_pointers",
+          "mode": "selftest",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-73/c73_wave_pointers.py",
+            "--selftest",
+            "--work",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/work-6"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c73_wave_pointers-selftest-tmp",
+          "exit": 0,
+          "stdout": "case no_dead ok: expect=annotation-met dead=0 annotated=0 unannotated=0 append_only=true annotation=met met=false\ncase dead_no_tail ok: expect=annotation-not-met dead=1 annotated=0 unannotated=1 append_only=true annotation=not-met met=false\ncase dead_bare_errata ok: expect=annotation-not-met dead=1 annotated=0 unannotated=1 append_only=true annotation=not-met met=false\ncase dead_correct_tail ok: expect=annotation-met dead=1 annotated=1 unannotated=0 append_only=true annotation=met met=false\ncase base_line_edited ok: expect=append-only-false dead=1 annotated=1 unannotated=0 append_only=false annotation=met met=false\ncase dead_two_annotated ok: expect=met dead=2 annotated=2 unannotated=0 append_only=true annotation=met met=true\nselftest 6/6\n",
+          "stderr": ""
+        },
+        "base": {
+          "counter": "c73_wave_pointers",
+          "mode": "base",
+          "argv": [
+            "python3",
+            "-B",
+            ".ufo/waves/round-73/c73_wave_pointers.py",
+            "--root",
+            "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+            "--revision",
+            "ced2878a1e77f57afb4ee3baebf1021e5130399b"
+          ],
+          "cwd": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/lane",
+          "TMPDIR": "/fast/scratch/hyaku/kake-r74/ExecC1Rows/c73_wave_pointers-base-tmp",
+          "exit": 0,
+          "stdout": "C1v1 revision=ced2878a1e77f57afb4ee3baebf1021e5130399b pointers=9 dead=2 annotated=2 unannotated=0 append_only=true met=true\ndead annotated file=LOG.md line=2514 token=controls/c1-tip.txt corrected=.ufo/waves/round-72/controls/c1-tip-final.txt,.ufo/waves/round-72/controls/c2-tip-final.txt\ndead annotated file=LOG.md line=2514 token=controls/c2-tip.txt corrected=.ufo/waves/round-72/controls/c1-tip-final.txt,.ufo/waves/round-72/controls/c2-tip-final.txt\n",
+          "stderr": ""
+        }
+      }
+    }
+  ],
+  "risks": [
+    "c69_tmp_honour has no --selftest mode either; nested sweep selftest 36/36 is not a counter fixture suite.",
+    "c70 selftest 4/8 under mandated /fast TMPDIR: tmp class regex only recognizes /tmp/ while fresh_tmp_token uses TMPDIR.",
+    "c70 guarded base is red (append_only=false), c71 calibration unevaluable, c71 tmp guard red. Do not register these as unqualified live green gates."
+  ],
+  "unrun": [
+    "c72 J3 control script and round-71 red-before leg",
+    "Any full gate family or harm battery beyond specifically assigned counter invocations"
+  ],
+  "cleanup": {
+    "required_tree": "/fast/scratch/hyaku/kake-r74/ExecC1Rows",
+    "status": "removed",
+    "method": "shutil.rmtree(S)",
+    "remaining": false
+  }
+}

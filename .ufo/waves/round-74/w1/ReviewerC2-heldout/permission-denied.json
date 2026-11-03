@@ -1,0 +1,29 @@
+{
+  "name": "permission-denied",
+  "expected_C2": "C2 exit 2 unevaluable if PermissionError; repair must refuse flip",
+  "expected_sweep_exit": 0,
+  "observed_sweep_exit": 0,
+  "stat": "PermissionError",
+  "sidecar": {
+    "schema": "kake-paths-sidecar-v1",
+    "entries": [
+      {
+        "file": "SKILL.md",
+        "line": 1,
+        "token": "~/fixtures/denied/target",
+        "lineSha256": "e2d44ba45dd9e1f0b8d4b036ecba9f77ea5af4cae100053172766a982692449f",
+        "kind": "absent",
+        "date": "2026-10-21",
+        "note": "2026-10-21 absent; historical record, not an executable instruction"
+      }
+    ]
+  },
+  "source_files": {
+    "SKILL.md": "Cite `~/fixtures/denied/target` (immutable source).\n"
+  },
+  "base_history_preimage": {
+    "date": "2026-10-21",
+    "kind": "absent",
+    "note": "2026-10-21 absent; historical record, not an executable instruction"
+  }
+}

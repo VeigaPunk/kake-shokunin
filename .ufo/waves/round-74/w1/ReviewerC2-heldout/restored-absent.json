@@ -1,0 +1,36 @@
+{
+  "name": "restored-absent",
+  "expected_C2": "C2 exit 1: stale restoration",
+  "expected_sweep_exit": 1,
+  "observed_sweep_exit": 1,
+  "stat": "FileNotFoundError",
+  "sidecar": {
+    "schema": "kake-paths-sidecar-v1",
+    "entries": [
+      {
+        "file": "SKILL.md",
+        "line": 1,
+        "token": "~/fixtures/no-target",
+        "lineSha256": "8ede7c0f5e22342140e8893ce8339961f874af546edc3dc3f6bd5501c344c697",
+        "kind": "restored",
+        "date": "2026-11-03",
+        "note": "2026-11-03 Linux host stat ok; present",
+        "history": [
+          {
+            "date": "2026-10-21",
+            "kind": "absent",
+            "note": "2026-10-21 absent; historical record, not an executable instruction"
+          }
+        ]
+      }
+    ]
+  },
+  "source_files": {
+    "SKILL.md": "Cite `~/fixtures/no-target` (immutable source).\n"
+  },
+  "base_history_preimage": {
+    "date": "2026-10-21",
+    "kind": "absent",
+    "note": "2026-10-21 absent; historical record, not an executable instruction"
+  }
+}

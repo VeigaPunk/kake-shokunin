@@ -1,0 +1,646 @@
+[
+  {
+    "name": "absent-resolves",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 1,
+        "absent_present": 1,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 1,
+        "absent_present": 1,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 1,
+        "wrote": true
+      },
+      "unchanged": false
+    }
+  },
+  {
+    "name": "bad-date",
+    "check": {
+      "exception": "ValueError",
+      "message": "date must be YYYY-MM-DD",
+      "unchanged": true
+    },
+    "write": {
+      "exception": "ValueError",
+      "message": "date must be YYYY-MM-DD",
+      "unchanged": true
+    }
+  },
+  {
+    "name": "broken-symlink",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 0,
+        "absent_present": 0,
+        "absent_absent": 1,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 0,
+        "absent_present": 0,
+        "absent_absent": 1,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "changed-history",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "missing-history",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "parent-file",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 0,
+        "absent_present": 0,
+        "absent_absent": 1,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 0,
+        "absent_present": 0,
+        "absent_absent": 1,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "permission-denied",
+    "check": {
+      "exit": 2,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 0,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 1,
+        "flipped": 0,
+        "wrote": false,
+        "error": "one or more tokens could not be evaluated; no write"
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 2,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 0,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 1,
+        "flipped": 0,
+        "wrote": false,
+        "error": "one or more tokens could not be evaluated; no write"
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "restored-absent",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 0,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 1,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 0,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 1,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "trailing-slash",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 1,
+        "absent_present": 1,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 1,
+        "restored": 0,
+        "present": 1,
+        "absent_present": 1,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 1,
+        "wrote": true
+      },
+      "unchanged": false
+    }
+  },
+  {
+    "name": "vocab-absent",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "vocab-dangling",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "vocab-emptied",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "vocab-gone",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "vocab-missing",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "vocab-never-published",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "vocab-no-longer",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "vocab-no-such-file",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "vocab-vanished",
+    "check": {
+      "exit": 0,
+      "result": {
+        "mode": "check",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    },
+    "write": {
+      "exit": 0,
+      "result": {
+        "mode": "write",
+        "entries": 1,
+        "absent": 0,
+        "restored": 1,
+        "present": 1,
+        "absent_present": 0,
+        "absent_absent": 0,
+        "restored_absent": 0,
+        "unevaluable": 0,
+        "flipped": 0,
+        "wrote": false
+      },
+      "unchanged": true
+    }
+  }
+]

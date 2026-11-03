@@ -1,0 +1,14 @@
+# tool demo transcript — fresh scratch copy of the base sidecar; tool bytes read from w1/ExecC2Tool/sidecar_reobserve.py
+$ python3 -B sidecar_reobserve.py --check --root /fast/scratch/hyaku/kake-r74/ScribeKnowledge/demo3
+sidecar_reobserve mode=check entries=174 absent=148 restored=26 present=170 absent_present=144 absent_absent=4 restored_absent=0 unevaluable=0 flipped=0 wrote=false
+exit=0
+$ python3 -B sidecar_reobserve.py --write --date 2026-11-03 --host linux-x86_64 --root /fast/scratch/hyaku/kake-r74/ScribeKnowledge/demo3
+sidecar_reobserve mode=write entries=174 absent=148 restored=26 present=170 absent_present=144 absent_absent=4 restored_absent=0 unevaluable=0 flipped=144 wrote=true
+exit=0
+$ sha256sum demo3/.../freshness-sidecar.json
+7c5fda7403a37537b23dee606498261e317d73d1162fdb8868db7fd35d9b77b8  demo3/corpus/knowledge/freshness-sidecar.json
+$ python3 -B sidecar_reobserve.py --write --date 2026-11-04 --host linux-x86_64 --root /fast/scratch/hyaku/kake-r74/ScribeKnowledge/demo3
+sidecar_reobserve mode=write entries=174 absent=4 restored=170 present=170 absent_present=0 absent_absent=4 restored_absent=0 unevaluable=0 flipped=0 wrote=false
+exit=0
+$ sha256sum demo3/.../freshness-sidecar.json (idempotence)
+7c5fda7403a37537b23dee606498261e317d73d1162fdb8868db7fd35d9b77b8  demo3/corpus/knowledge/freshness-sidecar.json

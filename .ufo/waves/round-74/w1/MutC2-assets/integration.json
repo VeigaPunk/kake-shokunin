@@ -1,0 +1,130 @@
+{
+  "counter_report": {
+    "accepted": true,
+    "counter": {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r74/MutC2/bin/counter_ref.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r74/MutC2/fx/repo",
+        "--revision",
+        "4d18d16662407f849b7dfb372973078665f9d8cb",
+        "--json"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "stdout": "{\"absent\": 4, \"absent_absent\": 4, \"absent_present\": 0, \"absent_unevaluable\": 0, \"annotation_findings\": [], \"contradictions\": 0, \"entries\": 174, \"exit_code\": 0, \"met\": true, \"restored\": 170, \"restored_absent\": 0, \"restored_present\": 170, \"restored_unevaluable\": 0, \"revision\": \"4d18d16662407f849b7dfb372973078665f9d8cb\"}"
+    },
+    "payload": {
+      "absent": 4,
+      "absent_absent": 4,
+      "absent_present": 0,
+      "absent_unevaluable": 0,
+      "annotation_findings": [],
+      "contradictions": 0,
+      "entries": 174,
+      "exit_code": 0,
+      "met": true,
+      "restored": 170,
+      "restored_absent": 0,
+      "restored_present": 170,
+      "restored_unevaluable": 0,
+      "revision": "4d18d16662407f849b7dfb372973078665f9d8cb"
+    }
+  },
+  "m8_report": {
+    "counter": {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r74/MutC2/bin/counter_ref.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r74/MutC2/fx/repo",
+        "--revision",
+        "19abc435e9ce624c2bb2a2e0f057f9db03b16973",
+        "--json"
+      ],
+      "exit": 2,
+      "stderr": "",
+      "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"absent_unevaluable\": 0, \"annotation_findings\": [], \"contradictions\": 0, \"entries\": 1, \"exit_code\": 2, \"met\": false, \"restored\": 1, \"restored_absent\": 0, \"restored_present\": 0, \"restored_unevaluable\": 1, \"revision\": \"19abc435e9ce624c2bb2a2e0f057f9db03b16973\"}"
+    },
+    "m8_write": {
+      "exit": 0,
+      "result": {
+        "absent": 1,
+        "absent_absent": 0,
+        "absent_present": 0,
+        "entries": 1,
+        "flipped": 1,
+        "mode": "write",
+        "present": 0,
+        "restored": 0,
+        "restored_absent": 0,
+        "unevaluable": 1,
+        "wrote": true
+      }
+    },
+    "payload": {
+      "absent": 0,
+      "absent_absent": 0,
+      "absent_present": 0,
+      "absent_unevaluable": 0,
+      "annotation_findings": [],
+      "contradictions": 0,
+      "entries": 1,
+      "exit_code": 2,
+      "met": false,
+      "restored": 1,
+      "restored_absent": 0,
+      "restored_present": 0,
+      "restored_unevaluable": 1,
+      "revision": "19abc435e9ce624c2bb2a2e0f057f9db03b16973"
+    },
+    "rejected": true
+  },
+  "tool_report": {
+    "absent_left": 4,
+    "absent_left_present": 0,
+    "deterministic": true,
+    "flipped": 144,
+    "problem_count": 0,
+    "problems": [],
+    "second_run": {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r74/MutC2/fx/integ2",
+        "--write",
+        "--date",
+        "2026-11-03",
+        "--host",
+        "linux-x64",
+        "--json"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "stdout": "{\"absent\": 148, \"absent_absent\": 4, \"absent_present\": 144, \"entries\": 174, \"flipped\": 144, \"mode\": \"write\", \"present\": 170, \"restored\": 26, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+    },
+    "tool": {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r74/MutC2/fx/integ",
+        "--write",
+        "--date",
+        "2026-11-03",
+        "--host",
+        "linux-x64",
+        "--json"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "stdout": "{\"absent\": 148, \"absent_absent\": 4, \"absent_present\": 144, \"entries\": 174, \"flipped\": 144, \"mode\": \"write\", \"present\": 170, \"restored\": 26, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+    }
+  }
+}

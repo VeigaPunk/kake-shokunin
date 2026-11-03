@@ -1,0 +1,889 @@
+{
+  "matrix": {
+    "tool_m10": {
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--selftest"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "sidecar_reobserve tests=8 failures=0 errors=0 passed=true"
+      },
+      "tf1": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf1",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "entry": {
+          "date": "2026-11-03",
+          "file": "SKILL.md",
+          "history": [
+            {
+              "date": "2026-10-21",
+              "kind": "absent",
+              "note": "2026-10-21: prior absent observation; historical record, not an executable instruction."
+            }
+          ],
+          "kind": "restored",
+          "line": 10,
+          "lineSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "note": "2026-11-03: re-observed on linux-x64; token resolves (stat ok). Prior 2026-10-21 observation retained under history. Citation SKILL.md:10 is a historical record. Re-observed at 2026-11-03T20:22:02.585319.",
+          "token": "~/present"
+        },
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf10": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf10",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 2,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"error\": \"expected kake-paths-sidecar-v1 schema\", \"wrote\": false}"
+      },
+      "tf2": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf2",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 0, \"mode\": \"write\", \"present\": 1, \"restored\": 1, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf3": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf3",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 2,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"error\": \"one or more tokens could not be evaluated; no write\", \"flipped\": 0, \"mode\": \"write\", \"present\": 0, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 1, \"wrote\": false}"
+      },
+      "tf6": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf6",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf7": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf7",
+          "--check",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 0, \"mode\": \"check\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf8": {
+        "pass": false
+      },
+      "tf8a": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8a",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf8b": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8b",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf8c": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8a",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 0, \"mode\": \"write\", \"present\": 1, \"restored\": 1, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf9": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m10.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf9",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      }
+    },
+    "tool_m8": {
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--selftest"
+        ],
+        "exit": 2,
+        "stderr": "",
+        "stdout": "sidecar_reobserve tests=8 failures=1 errors=0 passed=false\n......F.\n======================================================================\nFAIL: test_unevaluable_refuses_entire_write (__main__.selftest.<locals>.Fixtures.test_unevaluable_refuses_entire_write)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py\", line 186, in test_unevaluable_refuses_entire_write\n    self.assertEqual((code, result['unevaluable']), (2, 1))\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Tuples differ: (0, 1) != (2, 1)\n\nFirst differing element 0:\n0\n2\n\n- (0, 1)\n?  ^\n\n+ (2, 1)\n?  ^\n\n\n----------------------------------------------------------------------\nRan 8 tests in 0.005s\n\nFAILED (failures=1)"
+      },
+      "tf1": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf1",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "entry": {
+          "date": "2026-11-03",
+          "file": "SKILL.md",
+          "history": [
+            {
+              "date": "2026-10-21",
+              "kind": "absent",
+              "note": "2026-10-21: prior absent observation; historical record, not an executable instruction."
+            }
+          ],
+          "kind": "restored",
+          "line": 10,
+          "lineSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "note": "2026-11-03: re-observed on linux-x64; token resolves (stat ok). Prior 2026-10-21 observation retained under history. Citation SKILL.md:10 is a historical record.",
+          "token": "~/present"
+        },
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf10": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf10",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 2,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"error\": \"expected kake-paths-sidecar-v1 schema\", \"wrote\": false}"
+      },
+      "tf2": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf2",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 0, \"mode\": \"write\", \"present\": 1, \"restored\": 1, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf3": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf3",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": false,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 0, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 1, \"wrote\": true}"
+      },
+      "tf6": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf6",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf7": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf7",
+          "--check",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 0, \"mode\": \"check\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf8": {
+        "pass": true
+      },
+      "tf8a": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8a",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf8b": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8b",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf8c": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8a",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 0, \"mode\": \"write\", \"present\": 1, \"restored\": 1, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf9": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m8.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf9",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      }
+    },
+    "tool_m9": {
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--selftest"
+        ],
+        "exit": 2,
+        "stderr": "",
+        "stdout": "sidecar_reobserve tests=8 failures=1 errors=1 passed=false\n.EF.....\n======================================================================\nERROR: test_flip (__main__.selftest.<locals>.Fixtures.test_flip)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py\", line 167, in test_flip\n    self.assertEqual(entry['history'], [{k: self.entry[k] for k in ('date', 'kind', 'note')}])\n                     ~~~~~^^^^^^^^^^^\nKeyError: 'history'\n\n======================================================================\nFAIL: test_history_preservation (__main__.selftest.<locals>.Fixtures.test_history_preservation)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py\", line 197, in test_history_preservation\n    self.assertEqual(after[:-1], history)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [] != [{'date': '2026-10-01', 'kind': 'restored', 'note': 'unchanged\\nUnicode: \u00e9'}]\n\nSecond list contains 1 additional elements.\nFirst extra element 0:\n{'date': '2026-10-01', 'kind': 'restored', 'note': 'unchanged\\nUnicode: \u00e9'}\n\n- []\n+ [{'date': '2026-10-01', 'kind': 'restored', 'note': 'unchanged\\nUnicode: \u00e9'}]\n\n----------------------------------------------------------------------\nRan 8 tests in 0.004s\n\nFAILED (failures=1, errors=1)"
+      },
+      "tf1": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf1",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "entry": {
+          "date": "2026-11-03",
+          "file": "SKILL.md",
+          "kind": "restored",
+          "line": 10,
+          "lineSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "note": "2026-11-03: re-observed on linux-x64; token resolves (stat ok). Prior 2026-10-21 observation retained under history. Citation SKILL.md:10 is a historical record.",
+          "token": "~/present"
+        },
+        "exit": 0,
+        "pass": false,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf10": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf10",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 2,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"error\": \"expected kake-paths-sidecar-v1 schema\", \"wrote\": false}"
+      },
+      "tf2": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf2",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 0, \"mode\": \"write\", \"present\": 1, \"restored\": 1, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf3": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf3",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 2,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"error\": \"one or more tokens could not be evaluated; no write\", \"flipped\": 0, \"mode\": \"write\", \"present\": 0, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 1, \"wrote\": false}"
+      },
+      "tf6": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf6",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf7": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf7",
+          "--check",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 0, \"mode\": \"check\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf8": {
+        "pass": true
+      },
+      "tf8a": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8a",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf8b": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8b",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf8c": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8a",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 0, \"mode\": \"write\", \"present\": 1, \"restored\": 1, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf9": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_m9.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf9",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      }
+    },
+    "tool_real": {
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--selftest"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "sidecar_reobserve tests=8 failures=0 errors=0 passed=true"
+      },
+      "tf1": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf1",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "entry": {
+          "date": "2026-11-03",
+          "file": "SKILL.md",
+          "history": [
+            {
+              "date": "2026-10-21",
+              "kind": "absent",
+              "note": "2026-10-21: prior absent observation; historical record, not an executable instruction."
+            }
+          ],
+          "kind": "restored",
+          "line": 10,
+          "lineSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "note": "2026-11-03: re-observed on linux-x64; token resolves (stat ok). Prior 2026-10-21 observation retained under history. Citation SKILL.md:10 is a historical record.",
+          "token": "~/present"
+        },
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf10": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf10",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 2,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"error\": \"expected kake-paths-sidecar-v1 schema\", \"wrote\": false}"
+      },
+      "tf2": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf2",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 0, \"mode\": \"write\", \"present\": 1, \"restored\": 1, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf3": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf3",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 2,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"error\": \"one or more tokens could not be evaluated; no write\", \"flipped\": 0, \"mode\": \"write\", \"present\": 0, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 1, \"wrote\": false}"
+      },
+      "tf6": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf6",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf7": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf7",
+          "--check",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 0, \"mode\": \"check\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf8": {
+        "pass": true
+      },
+      "tf8a": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8a",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf8b": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8b",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      },
+      "tf8c": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf8a",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "stderr": "",
+        "stdout": "{\"absent\": 0, \"absent_absent\": 0, \"absent_present\": 0, \"entries\": 1, \"flipped\": 0, \"mode\": \"write\", \"present\": 1, \"restored\": 1, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": false}"
+      },
+      "tf9": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r74/MutC2/bin/tool_real.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r74/MutC2/fx/tf9",
+          "--write",
+          "--date",
+          "2026-11-03",
+          "--host",
+          "linux-x64",
+          "--json"
+        ],
+        "exit": 0,
+        "pass": true,
+        "stderr": "",
+        "stdout": "{\"absent\": 1, \"absent_absent\": 0, \"absent_present\": 1, \"entries\": 1, \"flipped\": 1, \"mode\": \"write\", \"present\": 1, \"restored\": 0, \"restored_absent\": 0, \"unevaluable\": 0, \"wrote\": true}"
+      }
+    }
+  },
+  "verdicts": {
+    "tool_m10": {
+      "fixture_failures": [
+        "tf8"
+      ],
+      "killed": true,
+      "selftest_exit": 0,
+      "selftest_out": "sidecar_reobserve tests=8 failures=0 errors=0 passed=true"
+    },
+    "tool_m8": {
+      "fixture_failures": [
+        "tf3"
+      ],
+      "killed": true,
+      "selftest_exit": 2,
+      "selftest_out": "FAILED (failures=1)"
+    },
+    "tool_m9": {
+      "fixture_failures": [
+        "tf1"
+      ],
+      "killed": true,
+      "selftest_exit": 2,
+      "selftest_out": "FAILED (failures=1, errors=1)"
+    },
+    "tool_real": {
+      "fixture_failures": [],
+      "killed": false,
+      "selftest_exit": 0,
+      "selftest_out": "sidecar_reobserve tests=8 failures=0 errors=0 passed=true"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# flip 144 absent->restored with history: sweep --selftest 36/36 exit 0; --offline exit 1 same DRIFT
+# vocab hole: restored note 'removed ... reappeared' -> 36/36, exit 1, NOT caught
+# mid-file insertion SKILL.md:512 -> exit 2 'Error: paths sidecar binding invalid: SKILL.md:512'
+# EOF append (1420 lines) -> exit 1, 36/36 (safe path); max pinned SKILL.md line = 935
+# pathsMissSet += ~/projects -> exit 1, '0 NOT in pins.pathsMissSet' (drift class unchanged)

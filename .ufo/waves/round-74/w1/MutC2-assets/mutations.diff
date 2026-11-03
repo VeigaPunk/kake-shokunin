@@ -1,0 +1,127 @@
+--- delivered c74_sidecar_reobserve.py
++++ mutant m1
+@@ -72,7 +72,7 @@
+     except (FileNotFoundError, NotADirectoryError):
+         return 'absent'
+     except OSError:
+-        return 'unevaluable'
++        return 'absent'
+     return 'present'
+ 
+ 
+--- delivered c74_sidecar_reobserve.py
++++ mutant m2
+@@ -67,13 +67,7 @@
+         token = os.path.join(home, token[2:]) if token != '~' else home
+     if not os.path.isabs(token):
+         token = os.path.join(root, token)
+-    try:
+-        os.stat(token)
+-    except (FileNotFoundError, NotADirectoryError):
+-        return 'absent'
+-    except OSError:
+-        return 'unevaluable'
+-    return 'present'
++    return 'present' if os.path.exists(token) else 'absent'
+ 
+ 
+ def measure_entries(entries, root, revision):
+--- delivered c74_sidecar_reobserve.py
++++ mutant m3
+@@ -84,7 +84,7 @@
+         result['entries'] += 1
+         result[kind] += 1
+         result[kind + '_' + observe(entry['token'], root)] += 1
+-    result['contradictions'] = result['absent_present'] + result['restored_absent']
++    result['contradictions'] = result['absent_absent'] + result['restored_absent']
+     unevaluable = result['absent_unevaluable'] + result['restored_unevaluable']
+     result['met'] = result['contradictions'] == 0 and unevaluable == 0
+     result['exit_code'] = 2 if unevaluable else (0 if result['met'] else 1)
+--- delivered c74_sidecar_reobserve.py
++++ mutant m4
+@@ -102,7 +102,7 @@
+         if entry['kind'] != 'restored':
+             continue
+         note = entry.get('note')
+-        if not isinstance(note, str) or ABSENCE.search(note):
++        if not isinstance(note, str):
+             findings.append({'index': index, 'issue': 'restored-note'})
+         old = prior.get(identity(entry))
+         if old is None or old['kind'] != 'absent':
+--- delivered c74_sidecar_reobserve.py
++++ mutant m5
+@@ -108,9 +108,6 @@
+         if old is None or old['kind'] != 'absent':
+             continue
+         expected = {key: old.get(key) for key in ('date', 'kind', 'note')}
+-        history = entry.get('history')
+-        if not isinstance(history, list) or expected not in history:
+-            findings.append({'index': index, 'issue': 'prior-history'})
+     return findings
+ 
+ 
+--- delivered c74_sidecar_reobserve.py
++++ mutant m6
+@@ -61,7 +61,7 @@
+ def observe(token, root):
+     """S442: distinguish genuine absence from other stat failures (S441)."""
+     if token == '~' or token.startswith('~/'):
+-        home = os.environ.get('HOME')
++        home = root
+         if not home:
+             return 'unevaluable'
+         token = os.path.join(home, token[2:]) if token != '~' else home
+--- delivered c74_sidecar_reobserve.py
++++ mutant m7
+@@ -37,13 +37,8 @@
+ 
+ 
+ def read_entries(root, revision):
+-    process = subprocess.run(
+-        ['git', '-C', root, 'show', '--end-of-options', revision + ':' + SIDECAR],
+-        capture_output=True,
+-    )
+-    if process.returncode:
+-        raise Unevaluable(process.stderr.decode('utf-8', 'replace').strip())
+-    document = json.loads(process.stdout)
++    with open(os.path.join(root, SIDECAR), 'rb') as handle:
++        document = json.loads(handle.read())
+     if (not isinstance(document, dict)
+             or document.get('schema') != 'kake-paths-sidecar-v1'
+             or not isinstance(document.get('entries'), list)):
+--- delivered sidecar_reobserve.py
++++ mutant m8
+@@ -113,12 +113,9 @@
+             key = entry['kind'] + '_' + state
+             if key in counts:
+                 counts[key] += 1
+-        if entry['kind'] == 'absent' and state == 'present':
++        if entry['kind'] == 'absent' and state in ('present', 'unevaluable'):
+             candidates.append(entry)
+     result = dict(mode='write' if write else 'check', **counts, wrote=False)
+-    if counts['unevaluable']:
+-        result['error'] = 'one or more tokens could not be evaluated; no write'
+-        return result, 2
+     if write:
+         calendar_date(date)
+         # Prepare all notes before changing any entry or opening the output.
+--- delivered sidecar_reobserve.py
++++ mutant m9
+@@ -125,7 +125,6 @@
+         notes = [new_note(entry, date, host) for entry in candidates]
+         for entry, note in zip(candidates, notes):
+             prior = {key: entry[key] for key in ('date', 'kind', 'note')}
+-            entry.setdefault('history', []).append(prior)
+             entry.update(kind='restored', date=date, note=note)
+         if candidates:
+             # O_NOFOLLOW also rejects a last-component symlink introduced after reading.
+--- delivered sidecar_reobserve.py
++++ mutant m10
+@@ -86,6 +86,7 @@
+         f'Prior {entry["date"]} observation retained under history. '
+         f'Citation {entry["file"]}:{entry["line"]} is a historical record.'
+     )
++    note += ' Re-observed at ' + datetime.datetime.now().isoformat() + '.'
+     if ABSENCE.search(note):
+         raise ValueError('new note would match sweep absence vocabulary')
+     return note

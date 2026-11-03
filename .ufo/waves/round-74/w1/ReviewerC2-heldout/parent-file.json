@@ -1,0 +1,29 @@
+{
+  "name": "parent-file",
+  "expected_C2": "C2 absence is correct; stat NotADirectoryError",
+  "expected_sweep_exit": 0,
+  "observed_sweep_exit": 0,
+  "stat": "NotADirectoryError",
+  "sidecar": {
+    "schema": "kake-paths-sidecar-v1",
+    "entries": [
+      {
+        "file": "SKILL.md",
+        "line": 1,
+        "token": "~/fixtures/present/child",
+        "lineSha256": "b70b20ff15d61a3520789a0e7f49f6955c11bb67c52399e0f3b27be2b25eca39",
+        "kind": "absent",
+        "date": "2026-10-21",
+        "note": "2026-10-21 absent; historical record, not an executable instruction"
+      }
+    ]
+  },
+  "source_files": {
+    "SKILL.md": "Cite `~/fixtures/present/child` (immutable source).\n"
+  },
+  "base_history_preimage": {
+    "date": "2026-10-21",
+    "kind": "absent",
+    "note": "2026-10-21 absent; historical record, not an executable instruction"
+  }
+}
