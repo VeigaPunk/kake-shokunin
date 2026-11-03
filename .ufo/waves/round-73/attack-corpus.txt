@@ -1,0 +1,18 @@
+# Round-73 C2 frozen attack corpus. Format: <class> | <expected> | <line>. Frozen before any counter ran.
+# attack = a command-bearing /tmp line the round-72 counter must not accept (holes H1-H3 of the contract).
+# legit = a prose or recipe line the round-73 counter must accept. Blank lines and lines starting with # are ignored.
+attack | finding | run the tool with BK="${TMPDIR:-/tmp}/kake-r12" first
+attack | finding | repoint with BK=${TMPDIR:-/tmp}/kake-r12 before any write
+attack | finding | rsync -a /tmp/kake-r12/live/ backup/ (historical record, not an executable instruction)
+attack | finding | rm -rf /tmp/kake-r12/ (historical record, not an executable instruction)
+attack | finding | TMPDIR=/tmp/kake-r12 python3 -B scripts/tool.mjs (historical record, not an executable instruction)
+attack | finding | elevate first: `sudo cp state/x /tmp/kake-r12/live/x.json` (historical record, not an executable instruction)
+attack | finding | `cd /tmp/kake-r12/live && cp state/x y` (historical record, not an executable instruction)
+attack | finding | run `cp` state/probe-latest.json /tmp/kake-r12/live/backup.json (historical record, not an executable instruction)
+attack | finding | sudo cp state/probe-latest.json /tmp/kake-r12/live/backup.json (historical record, not an executable instruction)
+attack | finding | `cp state/probe-latest.json /tmp/kake-r12/live/backup.json` (historical record, not an executable instruction)
+attack | finding | cp state/probe-latest.json /tmp/kake-r12/live/backup.json
+legit | clean | the snapshot was under /tmp/kake-r12/live/ (historical record, not an executable instruction)
+legit | clean | /tmp/kake-r12/live/ absent on 2026-11-03 (historical record, not an executable instruction)
+legit | clean | cp state/probe-latest.json "$BK/probe-latest.backup.json" (repaired recipe; BK="$(mktemp -d)")
+legit | clean | the recipe that used to write under /tmp/kake-r12/ is retired (historical record, not an executable instruction)
