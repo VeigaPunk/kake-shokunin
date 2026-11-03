@@ -1,0 +1,11 @@
+--- frozen/c71_calibration.py
++++ mutant/c1_m1_drop_correction.py
+@@ -98,7 +98,7 @@
+         return 2
+     k = sum(1 for x in results if x.get("agent") in STRICT_ROLES)
+     n = len(results)
+-    corrected = any(re.match(rf"^Correction \(round 71\):.*attack share {k}/{n}\b", c) for c in correction_lines)
++    corrected = False
+     attack_mismatch = 0 if ((K, N) == (k, n) or corrected) else 1
+ 
+     base_counter = collections.Counter(base)

@@ -1,0 +1,11 @@
+--- frozen/c71_tmp.py
++++ mutant/c2_m9_removed_check_off.py
+@@ -65,7 +65,7 @@
+     removed = base_c - tip_c
+     added = tip_c - base_c
+     guard_ok = (
+-        all(TOKEN_RE.search(line) for line in removed.elements())
++        all(True for line in removed.elements())
+         and all((PHRASE in line) or ("mktemp" in line and not TOKEN_RE.search(line)) for line in added.elements())
+         and sum(removed.values()) == sum(added.values())
+     )

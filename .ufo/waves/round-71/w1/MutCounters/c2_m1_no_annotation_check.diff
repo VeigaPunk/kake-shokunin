@@ -1,0 +1,11 @@
+--- frozen/c71_tmp.py
++++ mutant/c2_m1_no_annotation_check.py
+@@ -56,7 +56,7 @@
+     for n, line in enumerate(tip, 1):
+         toks = TOKEN_RE.findall(line)
+         total += len(toks)
+-        if toks and PHRASE not in line:
++        if False:
+             unannotated += len(toks)
+             unannotated_lines.append(n)
+ 

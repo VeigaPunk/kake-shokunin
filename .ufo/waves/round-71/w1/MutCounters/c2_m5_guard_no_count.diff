@@ -1,0 +1,10 @@
+--- frozen/c71_tmp.py
++++ mutant/c2_m5_guard_no_count.py
+@@ -67,7 +67,6 @@
+     guard_ok = (
+         all(TOKEN_RE.search(line) for line in removed.elements())
+         and all((PHRASE in line) or ("mktemp" in line and not TOKEN_RE.search(line)) for line in added.elements())
+-        and sum(removed.values()) == sum(added.values())
+     )
+     met = unannotated == 0 and guard_ok
+     print(

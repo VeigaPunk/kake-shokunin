@@ -4791,3 +4791,18 @@ lane's own contract premise) — outside spot-check owed to the hyaku closure.
 ## Planned — next round
 
 No claims are declared in this section; round 72 declares its own claims when it opens.
+
+## Round 71 — declared and measured claims (attempt 1; author-side, admission belongs to the closure)
+
+Frozen contract `.ufo/waves/round-71/contract.md` (freeze `04557e17`), amendment 1 (`1240288f`). Base
+`cc6b4e0b8c35e72dfb02c6184b847f68c1262153`; measured at `8102bb0b1169b8a728c6981c2d0bf4e28d840e67`.
+
+| Round | Axis | Before | After | Evidence |
+| --- | --- | --- | --- | --- |
+| 71 | calibration (score 2, HOLD; claim unprovable) | `stale_planned=2 attack_mismatch=1 mismatches=3 met=False`, exit 1 | `stale_planned=0 attack_mismatch=1 mismatches=1 met=False`, exit 1 | `.ufo/waves/round-71/c71_calibration.py`, `controls/c1-base.txt`, `controls/c1-after.txt`; `corpus/lessons/round-71.md` §Claims (M2: the attack conjunct's premise is contradicted by `.ufo/waves/round-70/amendment-0-note.md:11-16`) |
+| 71 | freshness (score 10, HOLD) | `tokens_total=7 unannotated_tokens=7 met=False`, exit 1 | `tokens_total=8 unannotated_tokens=0 guard=ok met=True`, exit 0 | `.ufo/waves/round-71/c71_tmp.py`, `controls/c2-base.txt`, `controls/c2-after.txt`; SKILL.md lines 27, 95, 227, 356, 359, 463, 464 |
+
+Learning trends (author-side; the closure owns admission): expansion unchanged (no new knowledge
+entry; S132 re-used); quality improved (the SKILL.md citations and the line-95 recipe repaired, with
+the recipe's restore exercised in scratch); discernment unchanged (the attack seats' findings are
+recorded as routes; the non-author spot-check is owed to the closure).

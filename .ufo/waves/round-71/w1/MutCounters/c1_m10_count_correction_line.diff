@@ -1,0 +1,10 @@
+--- frozen/c71_calibration.py
++++ mutant/c1_m10_count_correction_line.py
+@@ -84,7 +84,6 @@
+     for n, line in enumerate(tip, 1):
+         if line.startswith("Correction (round 71)"):
+             correction_lines.append(line)
+-            continue
+         for m in ATTACK_RE.finditer(line):
+             stated.append((n, int(m.group(1)), int(m.group(2))))
+     if len(stated) != 1:

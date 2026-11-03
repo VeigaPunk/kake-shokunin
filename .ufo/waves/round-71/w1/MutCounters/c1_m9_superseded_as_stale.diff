@@ -1,0 +1,11 @@
+--- frozen/c71_calibration.py
++++ mutant/c1_m9_superseded_as_stale.py
+@@ -74,7 +74,7 @@
+ 
+     stale = []
+     for i, line in enumerate(tip):
+-        if PLANNED_RE.match(line):
++        if PLANNED_RE.match(line) or SUPERSEDED_RE.match(line):
+             r = planned_round(tip, i)
+             if r is None or r < NEXT_ROUND:
+                 stale.append((i + 1, r))

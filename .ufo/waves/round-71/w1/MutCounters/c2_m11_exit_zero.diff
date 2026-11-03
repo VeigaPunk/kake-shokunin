@@ -1,0 +1,11 @@
+--- frozen/c71_tmp.py
++++ mutant/c2_m11_exit_zero.py
+@@ -75,7 +75,7 @@
+         f"unannotated_lines={unannotated_lines} removed={sum(removed.values())} "
+         f"added={sum(added.values())} guard={'ok' if guard_ok else 'fail'} met={met}"
+     )
+-    return 0 if met else 1
++    return 0
+ 
+ 
+ if __name__ == "__main__":

@@ -1,0 +1,30 @@
+diff --git a/SCORECARD.md b/SCORECARD.md
+index b98cdb74..328ec092 100644
+--- a/SCORECARD.md
++++ b/SCORECARD.md
+@@ -18,7 +18,7 @@ claims; ratings stay at the 10/10 ceiling.
+ | freshness | 10 | **Legacy 10, re-anchored on receipts:** the 10 is the legacy rating set at round 16 (commit ab87a48, freshness 9->10) and held at rounds 17 and 18, carried unchanged through round 58, and no round since has re-measured the whole corpus, so the number is not a fresh whole-corpus verdict. What it now rests on is the freshness instrument (`corpus/knowledge/freshness-pins.json`, `corpus/knowledge/freshness-sidecar.json`, `corpus/knowledge/freshness-sweep.md`, `scripts/source_recheck.py`) plus per-entry quote-truth receipt pairs taken on committed bytes, each pair red before the round's entries were admitted and green after, with the green receipt printing the revision it covered: round 56 went 0/8 to 8/8 for the Yahoo! JAPAN crawl-handling entries (`.ufo/waves/round-56/controls/base-c2-quote-truth.txt` red, the entries absent there, `.ufo/waves/round-56/controls/after-c2-quote-truth.txt` green); round 57 went 0/8 to 8/8 for the two Baidu dead-link entries (`.ufo/waves/round-57/controls/base-c3-quote-truth-v2.txt`, `.ufo/waves/round-57/controls/after-c3-quote-truth.txt`); round 58 went 0/8 to 8/8 for the Baidu crawler-identification and unblocking entries (`.ufo/waves/round-58/controls/base-c3-quote-truth-v2.txt`, `.ufo/waves/round-58/controls/after-c3-quote-truth.txt`). Those pairs measure the entries each round added, not the corpus. Not claimed here: semantic support of the quotes (sentence-level reviewers and the non-author closure hold that), drift-free re-fetch of every held source, or any score above the round-17 state. | 17 |
+ | calibration | 2 | Score 2 rests on the round-58 receipt-ledger move only: the counter `.ufo/waves/round-58/c58_receipt_rewrites.py` re-derives every post-commit measurement-receipt event and checks each note pointer, blob and kind. Its after receipt `.ufo/waves/round-58/controls/after-c1-receipt-rewrites.txt` records events=19, undisclosed=0 and new_receipts=2 at revision de7d96e720522ea15fba3fd9ee3ce58c42596031, while its base receipt `.ufo/waves/round-58/controls/base-c1-receipt-rewrites-v2.txt` records undisclosed=19 with new_receipts=0. That counter's selftest receipt `.ufo/waves/round-58/controls/c1-selftest-v2.txt` prints 45/45. The move extends the round-57 receipt-pin gate, whose final selftest `.ufo/waves/round-57/controls/c1-selftest-final.txt` prints 71/71, and the round-56 selftest-tally gate, whose selftest `.ufo/waves/round-56/controls/c1-selftest.txt` prints 59/59. Legacy: the 10 score cells of the other rows are a legacy round-17 and round-18 assessment, not a fresh calibration proof, and this cell does not re-prove them. The claim is only machine-checked disclosure completeness for the measured event population; it does not claim that every past run occurred, does not claim quote or prose truth, and does not raise the score. | 58 |
+ 
+-## Planned
++## Superseded plan — round 21 (historical record)
+ 
+ **Round 21** (two claims on the tied-lowest owned axes; counting commands
+ from the round-20 resume planner seat):
+@@ -3987,7 +3987,7 @@ Counter instrumentation note (not a predicate change): the first C2 after attemp
+ 
+ No owned axis harmed on exercised checks: `node scripts/freshness-sweep.mjs --selftest` → 35/35, exit 0; `python3 -B scripts/citation_lint.py --selftest` → 8/8, exit 0; `python3 -B scripts/citation_lint.py --root .` → exit 0; `python3 -B scripts/ledger_latest_check.py` → zero mismatches, exit 0. No capability entered this round.
+ 
+-## Planned — round 48
++## Superseded plan — round 48 (historical record)
+ 
+ Steered by the round-47 closure. Standing candidates: the orchestrator-owned
+ dispatch of the prepared r47 wave (`.ufo/waves/round-47/w47-spec.json`) and
+@@ -4787,3 +4787,7 @@ round); quality improved (the scorecard's 17 dangling evidence pointers annotate
+ events; the counter able-to-fail with 8 selftest cases and a red base); discernment improved
+ locally (4 admits / 3 rejects recorded in the round-70 lesson §Gate, including one reject of the
+ lane's own contract premise) — outside spot-check owed to the hyaku closure.
++
++Correction (round 71): the round-70 wave W1 attack share 3/14 (21.4 %), not 4/14: the strict list (reviewer, critic, mutation-tester, labrat) counts 3 of 14 seats in .ufo/waves/round-70/w1-results.json; the revenger seat is not an attack role under that list.
++
++## Planned — next round

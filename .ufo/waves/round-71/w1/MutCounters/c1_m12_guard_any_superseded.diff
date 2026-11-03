@@ -1,0 +1,11 @@
+--- frozen/c71_calibration.py
++++ mutant/c1_m12_guard_any_superseded.py
+@@ -112,7 +112,7 @@
+             continue
+         bi = base.index(line)
+         r = planned_round(base, bi)
+-        if r is None or not any((SUPERSEDED_RE.match(t) and int(SUPERSEDED_RE.match(t).group(1)) == r) for t in tip):
++        if r is None or not any(SUPERSEDED_RE.match(t) for t in tip):
+             guard_ok = False
+ 
+     mismatches = len(stale) + attack_mismatch

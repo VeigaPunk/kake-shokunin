@@ -1,0 +1,11 @@
+--- frozen/c71_calibration.py
++++ mutant/c1_m3_bare_planned_fresh.py
+@@ -45,6 +45,8 @@
+ 
+ def planned_round(lines, i):
+     m = PLANNED_RE.match(lines[i])
++    if m and not m.group(1):
++        return 999
+     if m and m.group(1):
+         return int(m.group(1))
+     for j in range(i + 1, len(lines)):

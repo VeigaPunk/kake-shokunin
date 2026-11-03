@@ -2484,3 +2484,13 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Not done this round.** No SKILL.md change (the `/tmp` procedure cites are routed to the next
   round with the sidecar re-pin census); no live property probed; no publish/deploy action; no
   MANIFEST edit (closure-owned); no capability row claimed.
+
+## Round 71 — 2026-11-03 (hyaku run 15; attempt 1; Linux host; claims frozen before data)
+
+- **Frozen contract.** `.ufo/waves/round-71/contract.md` and the counters `c71_calibration.py`, `c71_tmp.py` committed at `04557e17` with do-nothing receipts (base red: C1 mismatches=3, C2 unannotated=7). Amendment 1 (`amendment-1.md`) changed the wave shape before dispatch (13 seats; labrat is not a swarm role) and is committed with the spec at `1240288f`.
+- **Wave.** One v1 wave `w1`, 13 seats, all settled, 0 dead: scout 3, executor 3, reviewer 2, critic 1, mutation-tester 1, connector 1, scribe 1, sentinel 1. Attack seats (reviewer, critic, mutation-tester) = 4 of 13 = 30.8 % including the second reviewer; the lane's attack set is defined in the round-71 lesson.
+- **C1 calibration — unprovable.** Stale planned headings 2 → 0 (`8102bb0b`, `controls/c1-after.txt`); the attack-share conjunct stays at mismatch 1 because the strict premise is contradicted by `.ufo/waves/round-70/amendment-0-note.md:11-16` (sentinel is the fourth attack seat; 4/14 stands). No correction line landed. Score stays 2. Evidence: `corpus/lessons/round-71.md` §Claims, M1–M2.
+- **C2 freshness — met on the frozen predicate.** `/tmp` citations in SKILL.md 7 → 0 unannotated (`8102bb0b`, `controls/c2-after.txt`); line 95 and HOLD lines 463–464 repointed to `mktemp` (the frozen literal repoint was unrestorable, ReviewRepair D2; the named-variable recipe was tested in scratch); six citations annotated with dated absence. Score stays 10 (HOLD). Residuals: `corpus/lessons/round-71.md` §Known residuals.
+- **Frontier.** S132 re-opened in-round (sourced basis for C1); S132 used-by updated (`corpus/SOURCES.md`); census exit 0 before and after; no new rows; considerthese none fitting; assimilation none.
+- **Routed to round 72.** Operator ruling on the attack-share set (L0 question appended); counter amendment for: results pin at the frozen base revision, `--end-of-options` on `git show`, the annotation-on-command check, correction exactness, and the `## Planned — next round` parse.
+- **Not done this round.** No publish or deploy action; no live property probed; no MANIFEST edit (closure-owned); no tool installed or upgraded (pacman untouched; no `uv`/`npx` used).

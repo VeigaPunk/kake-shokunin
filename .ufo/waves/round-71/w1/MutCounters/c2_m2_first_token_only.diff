@@ -1,0 +1,11 @@
+--- frozen/c71_tmp.py
++++ mutant/c2_m2_first_token_only.py
+@@ -54,7 +54,7 @@
+     unannotated = 0
+     unannotated_lines = []
+     for n, line in enumerate(tip, 1):
+-        toks = TOKEN_RE.findall(line)
++        toks = TOKEN_RE.findall(line)[:1]
+         total += len(toks)
+         if toks and PHRASE not in line:
+             unannotated += len(toks)

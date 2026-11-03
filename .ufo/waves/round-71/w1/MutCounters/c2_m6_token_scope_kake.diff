@@ -1,0 +1,11 @@
+--- frozen/c71_tmp.py
++++ mutant/c2_m6_token_scope_kake.py
+@@ -24,7 +24,7 @@
+ PATH = "SKILL.md"
+ PHRASE = "not an executable instruction"
+ TMP_ROOT = "/" + "tmp" + "/"
+-TOKEN_RE = re.compile(re.escape(TMP_ROOT) + r"[A-Za-z0-9_.\-/]*")
++TOKEN_RE = re.compile(re.escape(TMP_ROOT) + r"kake-[A-Za-z0-9_.\-/]*")
+ 
+ 
+ def show(lane, rev):

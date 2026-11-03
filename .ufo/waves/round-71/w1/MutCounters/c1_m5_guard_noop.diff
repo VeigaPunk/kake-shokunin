@@ -1,0 +1,11 @@
+--- frozen/c71_calibration.py
++++ mutant/c1_m5_guard_noop.py
+@@ -105,7 +105,7 @@
+     tip_counter = collections.Counter(tip)
+     removed = base_counter - tip_counter
+     guard_ok = True
+-    for line, count in removed.items():
++    for line, count in []:
+         m = PLANNED_RE.match(line)
+         if not m:
+             guard_ok = False
