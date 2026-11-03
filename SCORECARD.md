@@ -4827,3 +4827,17 @@ round 73 (lesson `corpus/lessons/round-72.md` § Routed). Dangling-id residue (`
 No claims are declared in this section; round 73 declares its own claims when it opens. Carried routes: the C2 counter
 amendment (verb vocabulary, `${TMPDIR:-/tmp}` fallback, symlinked SKILL.md, pinned `PHRASE`), and the operator ruling on
 the dangling ids.
+
+## Round 73 — declared and measured claims (attempt 1; author-side, admission belongs to the closure)
+
+Frozen contract `.ufo/waves/round-73/contract.md` (freeze `4c7c53bc`), base `c1f3d8d4ed9470ecbaaf3353952a374b079e68cc`. Wave `w1`: 11 seats, one v1 wave (scout 2, executor 3, reviewer 2, scribe 1, critic 1, mutation-tester 1, connector 1; attack share 4/11). Scores unchanged: operability 10, freshness 10, calibration 2 (all HOLD; no scalar move).
+
+| Round | Axis | Before | After | Evidence |
+| --- | --- | --- | --- | --- |
+| 73 | calibration (score 2, HOLD; claim C1) | `dead=2 unannotated=2 met=False` exit 1 at base (c73_wave_pointers at `c1f3d8d4`); the round-70 counter exits 0 over the same dead tokens (`controls/c1-pointer-base-c70.txt`) | `dead=2 annotated=2 unannotated=0 append_only=true met=True`, exit 0 at the landed tip | `.ufo/waves/round-73/c73_wave_pointers.py`, `contract.md` § C1; LOG.md round-73 correction bullet; SCORECARD correction block below |
+| 73 | operability (score 10, HOLD; claim C2) | round-72 counter accepts 9/11 frozen attack lines (wave-1 MutC2 baseline over the frozen corpus) | `attack_accepted=0/11 legit_rejected=0/4 selftest=41/41 met=True` exit 0 on the frozen corpus; base `c1f3d8d4` and the landed tip `findings=[]` exit 0 | `.ufo/waves/round-73/c73_tmp_v3.py` (selftest 41/41), `attack-corpus.txt`; SKILL.md `### Round 73 gate registry additions`; S440 (bash parameter expansion) grounds the H1 brace class |
+| 73 | freshness (score 10, HOLD; claim C3) | `freshness-sweep --offline` exit 2 at base (`controls/c3-sweep-base.txt`, sidecar binding `corpus/SOURCES.md:140`) | exit 1 at the landed tip (evaluable, stderr clean; `VERDICT: DRIFT — §paths: 1 unannotated miss`, the `~/projects` class of the open L0 kake round-69 line); `--selftest` 36/36 | sidecar diff = one `lineSha256` (`b3315f41…` → `4e408131…`); ScoutSidecar wave-1 receipt; selftest 36/36 |
+
+## Correction (appended, round 73) — round-72 pointers
+
+`[r73-correction 2026-11-03]` The round-72 rows above cite `controls/c1-tip.txt` (calibration row) and `controls/c2-tip.txt` (operability row); neither name was ever committed. The corrected committed receipts are `controls/c1-tip-final.txt` and `controls/c2-tip-final.txt` under `.ufo/waves/round-72/`. The round-70 row's `controls/c1-tip.txt` resolves under `.ufo/waves/round-70/` and is not superseded. Counted by `.ufo/waves/round-73/c73_wave_pointers.py`.
