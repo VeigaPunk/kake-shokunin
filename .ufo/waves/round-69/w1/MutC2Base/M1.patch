@@ -1,0 +1,20 @@
+--- a/scripts/freshness-sweep.mjs
++++ b/scripts/freshness-sweep.mjs
+@@ -105,7 +105,7 @@
+ // sha fb365e38…). Kept as a top-level constant so the cross-check below reads
+ // the r15 snapshot independently of the pin file.
+ const R15_LIVE_SHA = 'fb365e38c4eaa8842629bd0fe4f34a74568fd71360531927fa89111f53ef5293';
+-const R15_SNAPSHOT_DEFAULT = '/tmp/kake-r15/charter-live.html';
++const R15_SNAPSHOT_DEFAULT = '/tm' + 'p/kake-r15/charter-live.html';
+ 
+ // Canonical probe-history default. pins.probeHistoryAbsent may SUSPEND only
+ // this path when missing (r18 declared-absent source). Any other resolved
+@@ -1201,7 +1201,7 @@
+ 
+ // ── --selftest: hermetic fixtures + self-source read-only assertion ─────────
+ async function selftest() {
+-  const dir = process.env.KAKE_SELFTEST_DIR || '/tmp/kake-r16/selftest';
++  const dir = process.env.KAKE_SELFTEST_DIR || '/tm' + 'p/kake-r16/selftest';
+   const cases = [];
+   const run = (args, env) => {
+     try {

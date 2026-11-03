@@ -1,0 +1,10 @@
+# selftest (Amendment 1) — python3 -B c69_recorded_counts.py --selftest --work <fresh scratch dir>
+# interpreter: Python 3.14.8 (main, Oct  2 2026, 10:23:31) [GCC 16.2.1 20260810] ; git 2.56.0
+# deliverable: c69_recorded_counts.py sha256 e0c3fb74689082af3cc9997b1ad1543ce0228e7e4aee6c6c317c4936a50c94ea
+# cmd: python3 -B <deliverable> --selftest --work /fast/scratch/hyaku/kake-r69/ExecC1Counter/selftest-work
+# --work does not exist at invocation; the counter creates it and mkdtemp()s each fixture tree under it
+# six fixtures in one fixture git repo under --work (Amendment 1):
+#   a match; b mismatch/no locus; c exact id+integer row; d locus absent; e id row with wrong integer; f id substring only
+selftest 6/6
+EXIT=0
+# entries left under --work after exit (fixture trees removed): 0

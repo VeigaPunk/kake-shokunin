@@ -1449,3 +1449,13 @@ The round-47 criteria above are motivated and shown able to fail in `corpus/less
   `.ufo/waves/round-64/w1/ScribeRepinLog.md`. The before/after JSON diff
   is the falsifier; the full offline verdict always retains its
   `partial: offline` qualifier.
+
+## Round-69 addendum — recorded counts and temporary roots (append-only)
+
+Grounding: `corpus/lessons/round-69.md` §Mistakes M1 and M2; sources S436 and S437 in `corpus/SOURCES.md`.
+
+- **A recorded integer count re-derives at the revision it names, or is cleared by a correction row.** Admit: the count is reproduced by the command the record names, run against committed bytes at the revision the record names, and the integer equals the recorded one; or it is cleared by a row of `corpus/lessons/round-69.md` §Corrections whose first two cells are the pair id and the re-derived integer. Reject: a count measured on an uncommitted worktree; a post-value carried from an earlier round and re-measured at no revision; a record line edited to match the observation; a correction row whose second cell is the recorded value rather than the re-derived one. Able-to-fail: `python3 -B .ufo/waves/round-69/c69_recorded_counts.py --root . --revision 4d188f94 --pairs .ufo/waves/round-69/c1/pairs.json` exits 1 on C1-02 at base; its selftest prints `selftest 6/6`.
+- **A committed receipt names no `/tmp` path it reads.** Admit: every path a receipt's transcript reads is committed in the lane or retained under `.ufo/waves/<round>/sources/`, and the transcript reproduces from committed bytes. Reject: a transcript that reads an absolute `/tmp` path, including one that ends in a `FileNotFoundError` on such a path (a broken read is not evidence). Able-to-fail: `grep -c '/tmp' .ufo/waves/round-68/controls/wordcounts-d3-r68.txt` prints 1 (red); `grep -c '/tmp' .ufo/waves/round-69/controls/wordcounts-r68-rerun.txt` prints 0 (green).
+- **A lane gate takes its temporary root from the environment.** Admit: the gate's temporary directory comes from `os.tmpdir()` (which honours TMPDIR, per S436), and its selftest fixture lands under TMPDIR when TMPDIR is set; measured by `python3 -B .ufo/waves/round-69/c69_tmp_honour.py`. Reject: a literal `/tmp` path string in code; an obfuscated or renamed literal that leaves the fixture in the hardcoded root (caught by the behavioural check, not the literal scan); a fixture placed under HOME to pass the check.
+
+Criteria are not rewritten: this addendum is the round-69 row, and earlier criteria stand unchanged.

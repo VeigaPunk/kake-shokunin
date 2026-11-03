@@ -1,0 +1,48 @@
+# ScoutSources quote classification — method
+# class: raw-substring  := grep -cF '<quote>' <retained body> > 0
+#        collapsed-only := raw == 0 AND grep -cF '<quote>' <body after 'tr -s [:space:] " "'> > 0
+#        absent         := raw == 0 AND collapsed == 0  -> quote discarded
+# word count: wc -w on the quote text alone (tag-inclusive as matched)
+
+## S436 candidate A — os.tmpdir() POSIX sentence
+wc-w         = 23
+raw grep -cF = 0
+collapsed    = 1
+CLASS        = collapsed-only
+why raw fails: sentence crosses a source newline after 'checked' ->
+or <code>%windir%\temp</code>.<p>On non-Windows platforms, <code>TMPDIR</code>, <code>TMP</code> and <code>TEMP</code> environment variables will be c
+to override the result of this method, in the described order. If none of them is set, it
+
+## S437 candidate A (spec's parenthetical reading) — gettempdir() three env items as rendered prose
+wc-w         = 24
+raw grep -cF = 0
+collapsed    = 0
+stripped+collapsed (diagnostic only, NOT the class rule) = 1
+CLASS        = absent  (DISCARDED: the three names live in three separate <li> items)
+separators in retained bytes:
+variable.</p></li>
+variable.</p></li>
+variable.</p></li>
+whole three-item list, tag-inclusive span = 51 words (limit 25 -> over)
+
+## S437 candidate B (CHOSEN) — mkstemp() dir-default sentence, contiguous, names all three
+wc-w         = 19
+raw grep -cF = 0
+collapsed    = 1
+CLASS        = collapsed-only
+why raw fails: sentence crosses a source newline after '<em>TMP</em>' ->
+from a platform-dependent list, but the user of the application can
+control the directory location by setting the <em>TMPDIR</em>, <em>TEMP</em> or <em>TMP</em>
+environment variables.  There is thus no guarantee that the generated
+
+## S437 candidate C (supplementary evidence, recorded not used as the row quote)
+wc-w         = 17
+raw grep -cF = 1
+collapsed    = 1
+CLASS        = raw-substring
+-> strong consistency check: this single-item form IS raw-substring, proving candidate A's 'absent' is caused by the <li> boundaries, not by a bad collapse step.
+
+## ordered-list anchor for the precedence claim (gettempdir), lines 508-513
+the calling user can create files in. The list is: The directory named by the TMPDIR environment variable. The directory named by the TEMP environment variable. The directory named by the TMP environment variable. A platform-specific location: 
+## S436 ordered list anchor (os.tmpdir), lines 495-497
+or %windir%\temp.On non-Windows platforms, TMPDIR, TMP and TEMP environment variables will be checked to override the result of this method, in the described order. If none of them is set, it defaults to /tmp.Some operating system distributions would either configure TMPDIR (non-Windows) or 

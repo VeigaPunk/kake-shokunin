@@ -1,0 +1,10 @@
+# node v24.21.0 os.tmpdir() probes
+TMPDIR=exists    -> /fast/scratch/hyaku/kake-r69/CriticDesign/probe/exists
+TMPDIR=nonexistent -> /fast/scratch/hyaku/kake-r69/CriticDesign/probe/no-such
+TMPDIR=empty     -> /tmp
+TMP unset, TMP set -> /fast/scratch/hyaku/kake-r69/CriticDesign/probe/exists
+TMP unset, TEMP set -> /fast/scratch/hyaku/kake-r69/CriticDesign/probe/exists
+# python 3.14.8 tempfile.gettempdir() probes
+TMPDIR=exists    -> /fast/scratch/hyaku/kake-r69/CriticDesign/probe/exists
+TMPDIR=nonexistent -> /tmp
+TMPDIR=read-only  -> /tmp

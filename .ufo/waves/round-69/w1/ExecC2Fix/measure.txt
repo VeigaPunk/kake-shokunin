@@ -1,0 +1,150 @@
+# C2 measurement receipt — ExecC2Fix, round 69 (attempt 1, amendment 1 terms)
+
+Lane:    /home/vgpnk/Projects/shokunin/kake-shokunin
+Base:    4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4 (master at round open)
+Writer clone: /fast/scratch/hyaku/kake-r69/ExecC2Fix/clone (--shared from the lane; checkout base)
+AFTER commit: 35025609a1f9bf9eadcd3d10eaf0c8a632b48152
+  "C2: honour TMPDIR in the selftest fixture dir, drop the r15 /tmp snapshot default
+   (+ round-69 C2 counter, amendment 1 terms)"
+  Committed with -c user.name=kake-seat -c user.email=seat@fixture. Nothing was committed,
+  added, stashed or checked out in the lane tree.
+Toolchain: node v24.21.0 · Python 3.14.8 · git 2.x. No tool install or upgrade was needed.
+
+All runs below are on the revision's committed bytes, materialised with `git archive` into
+scratch (so the lane working tree is never read or executed). Base and AFTER trees are identical
+except `scripts/freshness-sweep.mjs` (and, in the clone only, the new counter file).
+
+================================================================================
+1. `node scripts/freshness-sweep.mjs --selftest`
+   TMPDIR=<fresh dir> HOME=<a different fresh dir> KAKE_SELFTEST_DIR unset
+================================================================================
+BEFORE (base 4d188f94):
+  selftest_exit=0
+  selftest: 36/36 passed
+  fixture under TMPDIR (<fresh>/kake-r16/selftest): NO
+  real /tmp/kake-r16/selftest:                       YES   <- the /tmp default
+AFTER (35025609):
+  selftest_exit=0
+  selftest: 36/36 passed
+  fixture under TMPDIR (<fresh>/kake-r16/selftest): YES
+  real /tmp/kake-r16/selftest:                       NO
+
+Discriminating run (real /tmp/kake-r16 cleared first, then each tree run with its own
+fresh TMPDIR/HOME; /tmp/kake-r16 removed again afterwards — see §6):
+  [base]  selftest_exit=0 · selftest: 36/36 passed
+          fixture under TMPDIR : no
+          real /tmp/kake-r16   : YES
+  [after] selftest_exit=0 · selftest: 36/36 passed
+          fixture under TMPDIR : YES
+          real /tmp/kake-r16   : no
+
+Override precedence (AFTER only): KAKE_SELFTEST_DIR=<fresh> TMPDIR=<other fresh> HOME=<fresh>
+  selftest_exit=0 · selftest: 36/36 passed
+  fixtures written into KAKE_SELFTEST_DIR: annotated-only bad-history.jsonl bad-pins.json ...
+  TMPDIR untouched: yes
+  => KAKE_SELFTEST_DIR still wins; TMPDIR is the fallback, as specified.
+
+================================================================================
+2. `node scripts/freshness-sweep.mjs --offline`
+================================================================================
+BEFORE (base 4d188f94):  offline_exit=1
+  VERDICT: DRIFT — §paths: 1 unannotated miss · 1 NOT in pins.pathsMissSet (exit 1, partial: offline)
+AFTER  (35025609):       offline_exit=1
+  VERDICT: DRIFT — §paths: 1 unannotated miss · 1 NOT in pins.pathsMissSet (exit 1, partial: offline)
+
+Exit code AND VERDICT line are byte-identical, so `offline_unchanged=true`.
+The base red is known host debt, not C2's to cure (Amendment 1; ReviewerDesign F2):
+  drift token ~/projects (lowercase) at corpus/lessons/round-66-verifier-spotcheck.md:101,
+  :102 and corpus/lessons/round-66.md:69 — unannotated and absent from pins.pathsMissSet.
+Confirmed pre-existing across the revision chain, all exit 1 on this host:
+  a26fd6a5 exit=1 · f2b9e081 exit=1 · 4b03efe1 exit=1 · 39612819 exit=1 · d69b720f exit=1 · 4d188f94 exit=1
+Control (older pins): base code with the round-52 pins (8b1ddae5) still exits 1 for the
+missing annotation; with the round-66 pins (f2b9e081) also 1. Re-pinning ~/projects alone
+leaves exit 1 (the unannotated-cite half is the blocker).
+Patch neutrality, two ways:
+  (i) unrepaired trees: base and AFTER `--offline` output are IDENTICAL apart from the
+      `generated`/`pins: file` header lines (82 lines each).
+  (ii) trees repaired with a scratch-only sidecar+pin fix: both exit 0,
+      VERDICT: OK (exit 0, partial: offline), resolve 31 · declaredAbsent 65 · drift 0,
+      and the two outputs are IDENTICAL. The patch neither introduces nor masks the red.
+
+================================================================================
+3. tmp literals — code lines (not `//` or `*`) matching ['"`]/tmp
+================================================================================
+BEFORE (base 4d188f94):  tmp_literals=2
+  108:  const R15_SNAPSHOT_DEFAULT = '/tmp/kake-r15/charter-live.html';
+  1204: const dir = process.env.KAKE_SELFTEST_DIR || '/tmp/kake-r16/selftest';
+AFTER  (35025609):       tmp_literals=0
+(Help text line ~182 and prose line ~899 are not path literals and are not counted, per
+Amendment 1; both were reworded anyway so no `/tmp` survives anywhere in the file:
+`grep -n '/tmp' scripts/freshness-sweep.mjs` exits 1 — no match.)
+
+================================================================================
+4. Counter — c69_tmp_honour.py
+   python3 -B .ufo/waves/round-69/c69_tmp_honour.py --root <repo> --revision <rev> --work <dir>
+================================================================================
+BASE 4d188f94 (expect exit 1):
+  tmp_literals=2 selftest_under_tmpdir=false offline_unchanged=true
+  # tmp literal code lines (quote-adjacent, non-comment): [108, 1204]
+  # selftest exit 0 · selftest: 36/36 passed · fixture under TMPDIR=False under HOME=False symlink=False
+  # offline exit 1 vs base 4d188f94 exit 1 — unchanged=True
+  counter_exit=1
+
+AFTER 35025609 (expect exit 0):
+  tmp_literals=0 selftest_under_tmpdir=true offline_unchanged=true
+  # tmp literal code lines (quote-adjacent, non-comment): none
+  # selftest exit 0 · selftest: 36/36 passed · fixture under TMPDIR=True under HOME=False symlink=False
+  # offline exit 1 vs base 4d188f94 exit 1 — unchanged=True
+  counter_exit=0
+
+Also run against the LANE repository (read-only) at base 4d188f94: exit 1,
+tmp_literals=2 — the do-nothing control.
+
+Counter discrimination (each mutant is a throwaway repo whose commit 1 is the base tree,
+so --baseline is a real same-host revision):
+  M1 rename-only ('/tm'+'p/...' concatenation, same hardcoded destination):
+     tmp_literals=0 selftest_under_tmpdir=false offline_unchanged=true  -> exit 1  REJECTED
+  M2 relative path (path.join('kake-r16','selftest'), literals removed):
+     tmp_literals=0 selftest_under_tmpdir=false offline_unchanged=true  -> exit 1  REJECTED
+  M3 honest fix + unreachable dead-code literal:
+     tmp_literals=2 selftest_under_tmpdir=true  offline_unchanged=true  -> exit 1  REJECTED
+  M4 fixture root reached through a symlink (the TMPDIR path is a link to a HOME-side dir):
+     rejected (placement=false). Unit probe of fixture_placement() on three layouts:
+       real dir under TMPDIR   (True,  False, False) -> accepted
+       symlink under TMPDIR    (True,  True,  True)  -> rejected (lstat)
+       fixture only under HOME (False, True,  False) -> rejected
+The base/counter kill rule holds: base exits 1, so the counter is not vacuous.
+
+================================================================================
+5. Snapshot branch and write-confinement after the patch (AFTER 35025609)
+================================================================================
+(a) KAKE_R15_SNAPSHOT unset: snapshot-absent branch runs, exit unchanged, the §armed
+    section still reports `skipped(offline)` (offline early return) and no r15 warning.
+(b) KAKE_R15_SNAPSHOT=<file>: the cross-check runs — `r15 snapshot <file>: !! MISMATCH`
+    and PQ-12 ANOMALY. Mechanism preserved, only the built-in path is gone.
+(c) `node --check scripts/freshness-sweep.mjs` -> exit 0.
+(d) `--selftest` write-confinement case (e2, in-memory mutation proof) still PASS:
+    selftest 36/36, no case removed, on both endpoints.
+
+================================================================================
+6. Tip-side probe — can the after-state rounding flip the verdict comparison?
+================================================================================
+`offline_unchanged` compares the VERDICT line, so a corpus file landing at the tip could in
+principle change it. Probed in scratch: a repo whose commit 1 is the base tree and whose commit 2
+is base + this patch + a synthetic `corpus/lessons/round-69.md` (a corrections table in the C1
+row shape, plus relative cites of existing paths — i.e. the file shapes round 69 will land).
+  counter: tmp_literals=0 selftest_under_tmpdir=true offline_unchanged=true · exit 0
+  rev  VERDICT: DRIFT — §paths: 1 unannotated miss · 1 NOT in pins.pathsMissSet (exit 1, partial: offline)
+  base VERDICT: DRIFT — §paths: 1 unannotated miss · 1 NOT in pins.pathsMissSet (exit 1, partial: offline)
+So the realistic tip addition does not move the gate. A tip that either cures or worsens the
+pre-existing ~/projects debt WOULD move it (exit 0 -> unchanged still true; a second fault would
+show as DRIFT-vs-DRIFT, which also stays "unchanged"). This is a real limit of the
+"no-regression" reading required by Amendment 1 and is stated, not hidden.
+
+================================================================================
+7. Side effect disclosed
+================================================================================
+The discriminating run and later a cleanup removed /tmp/kake-r16 (pre-existing on this host
+before my session; base runs had recreated it). Nothing in the lane, the fleet root or another
+seat's scratch was touched, and the directory is recreated by any `--selftest` run. Flagged so
+no sibling reads its absence as evidence.

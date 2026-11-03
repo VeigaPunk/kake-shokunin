@@ -1,0 +1,299 @@
+# ExecCensusMirror — SOURCES append guard, measured
+# host date: 2026-11-03T18:21:43Z   base revision: 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4
+
+## 0. inputs and tool identity
+$ git -C /home/vgpnk/Projects/shokunin/kake-shokunin rev-parse HEAD
+dbcfef0b80868dc3f677ccf2caa51110094e6d26
+exit=0
+$ git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/SOURCES.md | sha256sum
+aa6d76f770a81e891d19b247fe5f26810119e4dfa18bcb6c2bcc0dc559df8caa  -
+exit=0
+$ git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/SOURCES.md | wc -l
+289
+exit=0
+$ sha256sum /home/vgpnk/Projects/shokunin/scripts/sources-census.sh
+3fb7261569f46423dd80ecc23e0a23789a7926f667c7a3fc559d2439d4a64e30  /home/vgpnk/Projects/shokunin/scripts/sources-census.sh
+exit=0
+$ sha256sum /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ExecCensusMirror/guard.sh
+ea374f5876fa65ff635e891b2d15a1aba7fe51d35b916839049a76552469cd8f  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ExecCensusMirror/guard.sh
+exit=0
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh --help | sed -n '10,20p'   # usage, mode list
+#                     [--today YYYY-MM-DD] [--out PATH] [--verbose]
+#   modes:  census (default) | validate | overdue | shared | selftest
+#   lanes:  lane ids from conf or root *-shokunin dirs, or explicit lane dirs
+#   default targets: child repositories only; conf entries with repo "." are excluded.
+#                     use --file or an explicit directory for a specific registry.
+#   exit:   0 clean or warnings · 1 E/overdue findings (or census missing)
+#           · 2 usage/env/missing registry · 3 selftest failure; W-codes and unlisted
+#             lanes never change status (validate missing registry returns 2).
+#
+# Output: TSV on stdout — lane<TAB>metric|code<TAB>value…
+#   census:   rows | tier.A|tier.B|tier.C|tier.invalid
+exit=0
+
+## 1. guard.sh on the base registry (ids, no staged rows yet)
+### 1a. base registry id list size and shape
+$ bash -c grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md' | grep -oE 'S[0-9]+' | sort | tee '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/ids.base' | wc -l; head -3 '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/ids.base'; tail -2 '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/ids.base'
+173
+S001
+S002
+S003
+S434
+S435
+exit=0
+
+### 1b. guard with an empty staged file (no collisions, exit 0)
+$ bash -c printf '# nothing staged\n' > '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/staged.empty.md'; bash '/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ExecCensusMirror/guard.sh' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/staged.empty.md' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-empty'
+registry_ids=173 staged_ids=0 collisions=0
+exit=0
+
+### 1c. guard usage errors (missing file, wrong arity)
+$ bash -c bash '/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ExecCensusMirror/guard.sh' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/nope.md' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-x'; echo rc=$?; bash '/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ExecCensusMirror/guard.sh' only-one-arg; echo rc=$?
+guard.sh: staged rows not found: /fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/nope.md
+rc=2
+guard.sh: usage: guard.sh <registry.md> <staged-rows.md> <outdir>
+rc=2
+exit=0
+
+## 2. PROOF the guard can fail — fixture: one real row indented by two spaces
+$ sed -E 's/^\| S435 \|/  | S435 |/' registry.base.md > registry.indented.md
+exit=0
+### 2a. the fixture really moved S435 off column 0 (col-0 row count drops 173 -> 172)
+$ bash -c grep -cE '^\| S' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md'; grep -cE '^\| S' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.indented.md'; grep -nE '^ {2}\| S[0-9]' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.indented.md' | cut -c1-46
+173
+172
+181:  | S435 | GNU Grep manual — https://www.g
+exit=0
+
+$ printf '| S435 | staged duplicate ... |' > staged.dup435.md
+exit=0
+### 2b. guard on the indented registry vs staged S435 (MUST collide)
+$ bash /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ExecCensusMirror/guard.sh /fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.indented.md /fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/staged.dup435.md /fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-indent
+registry_ids=173 staged_ids=1 collisions=1
+exit=1
+
+### 2c. collisions file content and size (nonempty = guard fails as required)
+$ bash -c cat '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-indent/collisions'; echo '---'; wc -c < '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-indent/collisions'; wc -l < '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-indent/collisions'
+S435
+---
+5
+1
+exit=0
+
+### 2d. counterfactual: a column-0-anchored pattern would MISS the indented row
+$ bash -c LC_ALL=C grep -oE '^\|[[:space:]]*S[0-9]{3,}' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.indented.md' | grep -oE 'S[0-9]+' | LC_ALL=C sort > '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/naive.ids'; LC_ALL=C grep -oE '^\|[[:space:]]*S[0-9]{3,}' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/staged.dup435.md' | grep -oE 'S[0-9]+' | LC_ALL=C sort > '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/naive.staged'; echo naive_registry_ids=$(wc -l < '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/naive.ids'); comm -12 '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/naive.ids' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/naive.staged' > '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/naive.collisions'; echo naive_collisions_bytes=$(wc -c < '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/naive.collisions')
+naive_registry_ids=172
+naive_collisions_bytes=0
+exit=0
+
+### 2e. same fixture with the shipped 0-3-space pattern (collision seen)
+$ bash -c bash '/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ExecCensusMirror/guard.sh' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.indented.md' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/staged.dup435.md' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-indent2'; cat '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-indent2/collisions'
+registry_ids=173 staged_ids=1 collisions=1
+S435
+exit=0
+
+## 3. staged rows used for the mirror
+$ ls /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ScoutSources/rows-draft.md
+ls: cannot access '/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ScoutSources/rows-draft.md': No such file or directory
+exit=2
+# rows-draft.md absent at 2026-11-03T18:21:43Z -> the two placeholder rows below stand in (S436 Node os, S437 Python tempfile).
+| S436 | Node.js os — https://nodejs.org/api/os.html | docs | A | PLACEHOLDER row (guard/validator rehearsal), not an opened source | § os.tmpdir() (placeholder anchor) | PLACEHOLDER: Node documents os.tmpdir() as the OS default temporary directory | mined | 2026-11-03 | 90d | corpus/lessons/round-69.md |
+| S437 | Python tempfile — https://docs.python.org/3/library/tempfile.html | docs | A | PLACEHOLDER row (guard/validator rehearsal), not an opened source | § tempfile.gettempdir() (placeholder anchor) | PLACEHOLDER: Python documents tempfile.gettempdir() as the default temporary directory | mined | 2026-11-03 | 90d | corpus/lessons/round-69.md |
+
+## 4. mirror validation
+$ git -C /home/vgpnk/Projects/shokunin/kake-shokunin archive 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4 corpus | tar -x -C /fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror
+exit=0
+### 4a. registry rows in the mirror
+$ bash -c grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror/corpus/SOURCES.md'
+173
+exit=0
+
+### 4b. validate the UNMODIFIED base copy (expect exit 0)
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror/corpus/SOURCES.md --today 2026-11-03
+file	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+file	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+file	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+file	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+file	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+file	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+file	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+file	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+file	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	E11	S088 missing used-by scripts/source_recheck.py
+file	E11	S089 missing used-by scripts/source_recheck.py
+file	E11	S090 missing used-by scripts/source_recheck.py
+file	E11	S091 missing used-by scripts/source_recheck.py
+file	E11	S092 missing used-by scripts/source_recheck.py
+file	E11	S117 missing used-by SCORECARD.md
+file	E11	S118 missing used-by .ufo/waves/round-41/c1_count.py
+file	E11	S118 missing used-by SCORECARD.md
+file	E11	S119 missing used-by .ufo/waves/round-41/oracle_crosscheck.py
+file	E11	S119 missing used-by SCORECARD.md
+file	E11	S120 missing used-by SCORECARD.md
+file	E11	S121 missing used-by SCORECARD.md
+file	E11	S122 missing used-by SCORECARD.md
+file	E11	S124 missing used-by SKILL.md
+file	E11	S129 missing used-by SCORECARD.md
+file	E11	S131 missing used-by SCORECARD.md
+file	E11	S132 missing used-by SCORECARD.md
+exit=1
+
+### 4b'. why 4b is red: the corpus-only mirror has no sibling paths, so E11 fires
+$ bash -c sed -n '1,3p' /dev/null; grep -n 'used-by scripts/source_recheck.py' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror/corpus/SOURCES.md' | head -1 | cut -c1-40
+exit=0
+
+$ git -C /home/vgpnk/Projects/shokunin/kake-shokunin archive 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4 | tar -x -C /fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-full   # full base tree, so used-by paths resolve
+exit=0
+### 4c. validate the UNMODIFIED base copy in a full base tree (expect exit 0)
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-full/corpus/SOURCES.md --today 2026-11-03
+file	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+file	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+file	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+file	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+file	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+file	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+file	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+file	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+file	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	ok	/fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-full/corpus/SOURCES.md
+exit=0
+
+$ (append the two staged rows after the last '| S' row of the ## Registry section)
+registry_section_lines=5-183 last_registry_row_line=181
+appended 2 rows after line 181
+exit=0
+### 4d. registry row count after the append
+$ bash -c grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-staged/corpus/SOURCES.md'; grep -nE '^\| S43[5-7]' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-staged/corpus/SOURCES.md' | cut -c1-34
+175
+181:| S435 | GNU Grep manual — htt
+182:| S436 | Node.js os — https://
+183:| S437 | Python tempfile — htt
+exit=0
+
+### 4e. validate the STAGED mirror as-is (expect exit 1: E11 on both new rows, corpus/lessons/round-69.md absent at base)
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-staged/corpus/SOURCES.md --today 2026-11-03
+file	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+file	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+file	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+file	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+file	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+file	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+file	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+file	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+file	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	E11	S436 missing used-by corpus/lessons/round-69.md
+file	E11	S437 missing used-by corpus/lessons/round-69.md
+exit=1
+
+### 4f. validate the STAGED mirror once the named lesson path exists (expect exit 0, warnings only)
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-staged-lesson/corpus/SOURCES.md --today 2026-11-03
+file	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+file	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+file	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+file	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+file	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+file	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+file	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+file	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+file	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	ok	/fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-staged-lesson/corpus/SOURCES.md
+exit=0
+
+## 5. PROOF the validator can fail — a staged row with a literal pipe inside a cell
+injected a literal pipe into the S436 'teaches' cell
+exit=0
+### 5a. the injected row now carries 12 cells, not 11
+$ bash -c awk -F'|' '/^\| S436 /{print "S436 cells=" NF-2}' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-pipe/corpus/SOURCES.md'
+S436 cells=12
+exit=0
+
+### 5b. validate must exit nonzero (expect E01 S436 fields=12, exit 1)
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kake-r69/ExecCensusMirror/mirror-pipe/corpus/SOURCES.md --today 2026-11-03
+file	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+file	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+file	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+file	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+file	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+file	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+file	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+file	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+file	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	E01	S436 fields=12
+exit=1
+
+## 6. attacks run and their verdicts
+- A1 guard-fails-on-collision (indented real row): KILLED — collisions=S435, exit 1 (2b/2c).
+- A2 anchoring attack (column-0-only pattern): KILLED against the shipped pattern — 2e sees S435 where 2d's naive pattern reports naive_collisions_bytes=0.
+- A3 guard false-positive on a legitimate S436/S437 append: PASSED (no collision, exit 0) — staged.good.md run below.
+### 6a. guard on the real append (base registry vs S436/S437)
+$ bash /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ExecCensusMirror/guard.sh /fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md /fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/staged.good.md /fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/out-good
+registry_ids=173 staged_ids=2 collisions=0
+exit=0
+
+- A4 unmodified base copy validates clean: PASSED (4c exit 0).
+- A5 staged mirror validates clean once its used-by path exists: PASSED (4f exit 0).
+- A6 validator red on a 12-cell row: KILLED — E01 S436 fields=12, exit 1 (5b).
+
+## 7. scope of the guard's id scan (whole file, lexical — same as the seat spec)
+### 7a. base registry: any '| S###' row outside the ## Registry section? (expect none)
+$ bash -c awk '/^ {0,3}## /{sec=$0} /^ {0,3}\|[[:space:]]*S[0-9]/{if (sec !~ /## Registry/) print NR": "sec}' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md'; echo scan_done
+scan_done
+exit=0
+
+### 7b. guard counts 173 ids both with the shipped 0-3-space pattern and against the census row parser
+$ bash -c grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md' | grep -oE 'S[0-9]+' | LC_ALL=C sort -u | wc -l
+173
+exit=0
+
+## 8. lane untouched
+### 8a. lane git status (only the wave directory is new)
+$ bash -c git -C '/home/vgpnk/Projects/shokunin/kake-shokunin' status --porcelain
+?? .ufo/waves/round-69/w1-dispatch.json
+?? .ufo/waves/round-69/w1-run.stderr
+?? .ufo/waves/round-69/w1-spec.json
+?? .ufo/waves/round-69/w1.ready
+?? .ufo/waves/round-69/w1.ready.partial
+?? .ufo/waves/round-69/w1/
+exit=0
+
+### 8b. base blob still the base blob
+$ bash -c git -C '/home/vgpnk/Projects/shokunin/kake-shokunin' show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/SOURCES.md | sha256sum; sha256sum '/fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md'
+aa6d76f770a81e891d19b247fe5f26810119e4dfa18bcb6c2bcc0dc559df8caa  -
+aa6d76f770a81e891d19b247fe5f26810119e4dfa18bcb6c2bcc0dc559df8caa  /fast/scratch/hyaku/kake-r69/ExecCensusMirror/fx/registry.base.md
+exit=0
+

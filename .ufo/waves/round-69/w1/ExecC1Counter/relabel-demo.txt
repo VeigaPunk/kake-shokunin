@@ -1,0 +1,47 @@
+# relabel demonstration under Amendment 1 — scratch tip commits carrying corpus/lessons/round-69.md variants
+# pairs: the frozen set pairs-frozen.json sha256 4e787bcb7b588416dbe4db5d76a2e263cf147c26f3faeecdf826f4c198a9e9be
+
+# 1) exact row  '| C1-02 | 2 |'  -> C1-02 relabelled, met=true
+#    tip 76620f58eb8edd52dfc95effcc4db643372874cb
+pairs=20 mismatches=1 relabelled=1 unrelabelled=0 met=true
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=relabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=0
+
+# 2) row with the recorded integer  '| C1-02 | 5 |'  -> stays unrelabelled (exact integer required)
+#    tip 309b6026a58690a1d872cfcd39512ffd38e1aa67
+pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=unrelabelled
+EXIT=1
+
+# 3) id only as a substring  '| C1-02X | 2 |'  -> stays unrelabelled (exact id token required)
+#    tip 60895ad927a74f9c5900b3cda2745c79b8801bbc
+pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=unrelabelled
+EXIT=1
+
+# 4) correction file absent at the measured revision (base 4d188f94) -> stays unrelabelled
+pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=unrelabelled
+EXIT=1

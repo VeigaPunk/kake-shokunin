@@ -1,0 +1,202 @@
+== D-3 quote receipt, re-run (round 69, seat ScoutR68Receipt) ==
+-- supersedes the round-68 control block that aborted on an unavailable temporary path.
+   .ufo/waves/round-68/controls/wordcounts-d3-r68.txt is NOT modified (red control kept).
+-- every input is read from the frozen revision with git show; no work-tree or scratch path.
+-- revision: 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4
+
+== revision identity and committed input blobs ==
+$ git -C <lane> rev-parse 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4^{commit}
+4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4
+[exit=0]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | sha256sum ; wc -c
+3638ba9e2746d62b5702398764dd32ff3bb12d62d619af32e74203bbbaa8f78d  11759 bytes
+[exit=0]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-67/sources/S434-naming.html | sha256sum ; wc -c
+8e7f3450a6c465fe75882e3bedf357a455fd456d96973e9dd1babc650c031f1d  67904 bytes
+[exit=0]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-45/sources/subprocess.html | sha256sum ; wc -c
+eceda6f6363491ad1d0bf2aeaed06c3c37605f502aecdb36f7326ed1e5bdf0dd  208624 bytes
+[exit=0]
+
+
+== step 1 — does each quote text occur literally in the committed round-67 lesson? ==
+-- test: grep -cF (line-oriented, literal) over the committed lesson bytes.
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | grep -cF -- <S133 text>
+  quote: <an exit status of 0 indicates that it ran successfully>
+  count: 0
+[exit=1]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | grep -cF -- <S434-26w text>
+  quote: <Use any character in the current code page for a name, including Unicode characters and characters in the extended character set (128–255), except for the following:>
+  count: 0
+[exit=1]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | grep -cF -- <S434-22w text>
+  quote: <Use any character in the current code page for a name, including Unicode characters and characters in the extended character set (128–255)>
+  count: 0
+[exit=1]
+
+-- observed 0 for all three. Cause: the lesson hard-wraps its block quotes.
+   corpus/lessons/round-67.md:105-106 and :109-111 break mid-sentence, and grep matches
+   within one line, so a literal line-mode search cannot see a wrapped quote.
+   Presence is therefore also tested wrap-tolerantly (any whitespace run between words):
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | python3 -B -c <wrap-tolerant count> <S133>
+  wrap-tolerant count: 1
+[exit=0]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | python3 -B -c <wrap-tolerant count> <S434-26w>
+  wrap-tolerant count: 1
+[exit=0]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | python3 -B -c <wrap-tolerant count> <S434-22w>
+  wrap-tolerant count: 1
+[exit=0]
+
+-- the wrapped spans verbatim from the committed lesson, and their flattened form:
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | python3 -B -c <span extractor>
+  wrapped: 'an exit\n  status of 0 indicates that it ran successfully'
+  flat   : 'an exit status of 0 indicates that it ran successfully'
+
+  wrapped: 'Use any character in the current code page for a\n  name, including Unicode characters and characters in the extended\n  character set (128–255), except for the following:'
+  flat   : 'Use any character in the current code page for a name, including Unicode characters and characters in the extended character set (128–255), except for the following:'
+
+[exit=0]
+
+
+== step 2 — word counts (strict whitespace, wc -w) ==
+-- count source: the quote text on one line, exactly as recorded in the committed lesson
+   (flattened); the r67 labels and the r68 correction are quoted from the lessons below.
+$ printf '%s\n' <S133 text> | wc -w
+  quote: <an exit status of 0 indicates that it ran successfully>
+  words: 10
+[exit=0]
+
+$ printf '%s\n' <S434-26w text> | wc -w
+  quote: <Use any character in the current code page for a name, including Unicode characters and characters in the extended character set (128–255), except for the following:>
+  words: 26
+[exit=0]
+
+$ printf '%s\n' <S434-22w text> | wc -w
+  quote: <Use any character in the current code page for a name, including Unicode characters and characters in the extended character set (128–255)>
+  words: 22
+[exit=0]
+
+-- labels on record (committed, unchanged):
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-67.md | grep -n 'located quote'
+  105:  retained body committed beside it); located quote (11 words): "an exit
+  109:  located quote, 16 words: "Use any character in the current code page for a
+[exit=0]
+
+-- recorded values in the round-68 correction (committed, unchanged):
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:corpus/lessons/round-68.md | sed -n '115,122p'
+  - **D-3 (quote labels).** Verified by command
+    (`controls/wordcounts-d3-r68.txt`): the S133 Gate quote "an exit status of 0
+    indicates that it ran successfully" is **10** words (the r67 label said 11);
+    the S434 Gate quote "Use any character in the current code page for a name,
+    including Unicode characters and characters in the extended character set
+    (128–255), except for the following:" is **26** words by strict whitespace
+    count (the r67 label said 16) — the r67 record therefore marginally exceeds
+    the contract's ≤25-word cap. The corrected citation form going forward is
+[exit=0]
+
+
+== step 3 — class of each quote against its retained body ==
+-- machinery: scripts/quote_class.py at the revision. Order: raw-substring if the span
+   is a literal substring of the retained HTML; else collapsed-only if it is a substring
+   of the flat rendering built by .ufo/waves/round-63/quote-class/extract_text.py; else absent.
+
+-- raw check, grep -cF inside each retained body:
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-45/sources/subprocess.html | grep -cF -- <S133 text>
+  count: 0
+[exit=1]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-67/sources/S434-naming.html | grep -cF -- <S434-26w text>
+  count: 1
+[exit=0]
+
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-67/sources/S434-naming.html | grep -cF -- <S434-22w text>
+  count: 1
+[exit=0]
+
+-- derived class, quote_class.py at the revision (raw and flat both built from the revision):
+$ python3 -B .ufo/waves/round-63/quote-class/extract_text.py --raw <(git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-45/sources/subprocess.html) --out <flat>
+extracted 208624 bytes -> 53975 chars
+[exit=0]
+
+$ python3 -B scripts/quote_class.py classify --quote <S133 text> --raw <(git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-45/sources/subprocess.html) --text <flat>
+derived=collapsed-only
+[exit=0]
+
+$ python3 -B .ufo/waves/round-63/quote-class/extract_text.py --raw <(git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-67/sources/S434-naming.html) --out <flat>
+extracted 67904 bytes -> 19168 chars
+[exit=0]
+
+$ python3 -B scripts/quote_class.py classify --quote <S434-26w text> --raw <(git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-67/sources/S434-naming.html) --text <flat>
+derived=raw-substring
+[exit=0]
+
+$ python3 -B .ufo/waves/round-63/quote-class/extract_text.py --raw <(git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-67/sources/S434-naming.html) --out <flat>
+extracted 67904 bytes -> 19168 chars
+[exit=0]
+
+$ python3 -B scripts/quote_class.py classify --quote <S434-22w text> --raw <(git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-67/sources/S434-naming.html) --text <flat>
+derived=raw-substring
+[exit=0]
+
+$ python3 -B scripts/quote_class.py --selftest   (instrument can distinguish all three classes)
+case inline_raw_substring: derived=raw-substring expected=raw-substring pass
+case markup_collapsed_only: derived=collapsed-only expected=collapsed-only pass
+case absent_everywhere: derived=absent expected=absent pass
+case s432_real: derived=collapsed-only expected=collapsed-only pass
+selftest 4/4
+[exit=0]
+
+
+== verdicts ==
+quote (i)   S133, word count 10 (r67 label said 11).  class = collapsed-only.
+            Raw grep count 0: the retained subprocess.html wraps the sentence after
+            'indicates' ('...indicates\nthat it ran successfully').
+quote (ii)  S434, word count 26 (r67 label said 16).  class = raw-substring.
+            Raw grep count 1; the 0x2013 en dash matches byte-for-byte.
+quote (iii) S434, 22-word sub-quote ending at '(128–255)'.  class = raw-substring.
+            Raw grep count 1; word count 22, inside the <=25-word cap.
+
+round-68 lesson claims re-checked (corpus/lessons/round-68.md:110, :117, :120):
+  S133 collapsed-only  -> HOLDS.
+  S434 raw-substring   -> HOLDS.
+  word counts 10 / 26 / 22 -> all three re-derive.
+
+
+== M2 red/green control for the defect this receipt replaces ==
+-- red (round-68 file, unchanged, must stay 1):
+$ git -C <lane> show 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4:.ufo/waves/round-68/controls/wordcounts-d3-r68.txt | grep -c <abs-temp-path-literal>
+  count: 1
+[exit=0]
+
+-- green (this file, must be 0; measured over the complete body above):
+$ grep -c <abs-temp-path-literal> <this file>
+  count: 0
+[exit=1]
+
+-- control verdict: PASS (red=1, green=0)
+
+
+== able-to-fail controls (the class test must be able to come back negative) ==
+-- a fabricated variant of the S133 text (one trailing word duplicated) must not classify
+   collapsed-only, so 'collapsed-only' is not what the instrument returns by default:
+$ python3 -B scripts/quote_class.py classify --quote <S133 text + 'yy'> --raw <committed subprocess.html> --text <flat>
+derived=absent
+[exit=0]
+
+-- the S434 sub-quote tested against the WRONG retained body (S133's) must not be
+   raw-substring, so a wrong-body citation cannot pass as raw:
+$ python3 -B scripts/quote_class.py classify --quote <S434-22w text> --raw <committed subprocess.html> --text <S133 flat>
+derived=absent
+[exit=0]
+
+-- able-to-fail verdict: PASS (both negatives returned absent)
+
+-- revision: 4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4

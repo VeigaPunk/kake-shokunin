@@ -1,0 +1,466 @@
+diff --git a/.ufo/waves/round-69/c69_recorded_counts.py b/.ufo/waves/round-69/c69_recorded_counts.py
+new file mode 100644
+index 00000000..793f310d
+--- /dev/null
++++ b/.ufo/waves/round-69/c69_recorded_counts.py
+@@ -0,0 +1,460 @@
++#!/usr/bin/env python3
++"""Round-69 C1 counter — recorded counts re-derive at their revision or are relabelled.
++
++Contract: `.ufo/waves/round-69/contract.md` (frozen at lane commit `dbcfef0b`, before this
++file existed). Atomic units: one processed pair, one printed per-pair line, one summary line.
++
++Frozen predicate (contract §C1; identical sentence in the round plan, this module and the
++receipt label):
++
++    C1 is met iff `python3 -B .ufo/waves/round-69/c69_recorded_counts.py --root <lane>
++    --revision <rev> --pairs .ufo/waves/round-69/c1/pairs.json` prints `unrelabelled=0`
++    and exits 0.
++
++Semantics, in the contract's order:
++
++  1. Pairs input: a JSON array of objects with `id`, `rev`, `path`, `command`,
++     `recorded_value` (int) and optional `correction_locus` (repo-relative path) and
++     `correction_id` (string). The file is frozen input: this instrument only reads it.
++     `rev` is carried for the record (the command already names its revision) and `path`
++     names the file the count comes from; neither enters the verdict logic.
++  2. Observation: the pair's command runs with `cwd=<root>` as
++     `subprocess.run(command, shell=True, capture_output=True, text=True, timeout=60)`.
++     The first stdout line is the observed integer; any other first line (including an
++     empty stdout, a timeout or a spawn failure) is an error, never a value.
++  3. `mismatch = observed != recorded_value`.
++  4. `relabelled = mismatch AND correction_locus is present at --revision
++     (git -C <root> show <revision>:<correction_locus>, a regular-file blob) AND some line
++     of that text matches the contract's exact row pattern
++     `^\\|\\s*<correction_id>\\s*\\|\\s*<observed integer>\\s*\\|` (Amendment 1,
++     2026-11-03): the exact id token in the first cell and the re-derived integer in the
++     second. A row naming another integer, or an id present only as a substring/prefix of
++     another id, relabels nothing.
++  5. `unrelabelled = (mismatches - relabelled) + errors`.
++  6. Output: the summary line
++     `pairs=N mismatches=M relabelled=R unrelabelled=U met=true|false`, then one line per
++     pair in pairs-file order:
++     `pair <id> recorded=<int> observed=<int|err> status=<ok|relabelled|unrelabelled|error>`.
++     `met` is exactly `unrelabelled == 0`.
++  7. Exits: 0 met, 1 not met, 2 usage or IO fault (unreadable/malformed pairs file,
++     unresolvable --revision, --root not a directory, --selftest without --work, bad argv).
++     A fault is never a verdict: the instrument refuses to print a summary it cannot ground.
++
++Schema faults are exit 2, not silent reds: a `correction_locus` without a non-empty
++`correction_id` cannot clear anything by the rule above, so that row is an authoring bug in
++a frozen file and is named as one instead of being scored.
++
++No temporary directory is needed to adjudicate; the only temp dirs this file creates are the
++selftest fixture trees, each from `tempfile.mkdtemp(dir=<--work>)`. No hardcoded system-temp
++path literal exists in this source. Nothing is written outside `--work`; no network.
++
++    --selftest --work <dir>   six fixtures in one fixture git repo under <dir>:
++      (a) matching pair                          -> met=true,  exit 0, status ok
++      (b) mismatch, no correction_locus          -> unrelabelled=1, exit 1
++      (c) mismatch relabelled by the exact id+integer row present at the fixture revision
++                                                 -> relabelled=1 unrelabelled=0 met=true,
++                                                    exit 0, status relabelled
++      (d) mismatch whose correction_locus is absent at the fixture revision
++                                                 -> unrelabelled=1, exit 1
++      (e) an id row naming a different integer   -> unrelabelled=1, exit 1
++      (f) the id present only as a substring of another id's row
++                                                 -> unrelabelled=1, exit 1
++    prints `selftest 6/6` and exits 0 only when all six behave as stated.
++"""
++from __future__ import annotations
++
++import argparse
++import json
++import os
++import re
++import shutil
++import subprocess
++import sys
++import tempfile
++import traceback
++
++EXIT_MET = 0
++EXIT_NOT_MET = 1
++EXIT_FAULT = 2
++
++PAIR_TIMEOUT = 60  # contract §C1 step 2
++# ASCII digits only: a shell count prints [0-9]. `\d` would also accept Unicode digits
++# ("７", "٣"), which int() happily converts — a line no counted command can produce
++# passing as a value would be a false pass (attack-unicode-digit, w1/ExecC1Counter).
++INT_RX = re.compile(r"[+-]?[0-9]+\Z")
++SUMMARY_RX = re.compile(
++    r"pairs=(?P<pairs>\d+) mismatches=(?P<mismatches>\d+) relabelled=(?P<relabelled>\d+) "
++    r"unrelabelled=(?P<unrelabelled>\d+) met=(?P<met>true|false)\Z")
++STATUS_OK = "ok"
++STATUS_RELABELLED = "relabelled"
++STATUS_UNRELABELLED = "unrelabelled"
++STATUS_ERROR = "error"
++SELFTEST_CASES = 6
++
++
++class Fault(Exception):
++    """Usage or IO fault: the instrument refuses to adjudicate (exit 2)."""
++
++
++# ----------------------------------------------------------------------------- pairs input
++
++def _repo_relative(path):
++    if not isinstance(path, str) or not path or path.startswith("/") or "\0" in path:
++        return False
++    return ".." not in path.split("/")
++
++
++def load_pairs(path):
++    """The frozen pairs array, validated; any deviation is a Fault (exit 2)."""
++    try:
++        with open(path, "rb") as fh:
++            raw = fh.read()
++    except OSError as exc:
++        raise Fault("pairs file unreadable: %s: %s" % (path, exc))
++    try:
++        data = json.loads(raw.decode("utf-8"))
++    except (UnicodeDecodeError, ValueError) as exc:
++        raise Fault("pairs file is not UTF-8 JSON: %s: %s" % (path, exc))
++    if not isinstance(data, list):
++        raise Fault("pairs file must be a JSON array, got %s" % type(data).__name__)
++    pairs = []
++    for i, row in enumerate(data):
++        where = "pairs[%d]" % i
++        if not isinstance(row, dict):
++            raise Fault("%s is not an object" % where)
++        for key in ("id", "rev", "path", "command"):
++            if not isinstance(row.get(key), str) or not row[key]:
++                raise Fault("%s: %r must be a non-empty string" % (where, key))
++        if re.search(r"\s", row["id"]):
++            raise Fault("%s: id %r must not contain whitespace" % (where, row["id"]))
++        recorded = row.get("recorded_value")
++        if isinstance(recorded, bool) or not isinstance(recorded, int):
++            raise Fault("%s: 'recorded_value' must be an integer, got %r"
++                        % (where, recorded))
++        for key in ("path", "correction_locus"):
++            value = row.get(key)
++            if value is not None and not _repo_relative(value):
++                raise Fault("%s: %r must be a repo-relative path, got %r"
++                            % (where, key, value))
++        locus = row.get("correction_locus")
++        correction_id = row.get("correction_id")
++        if correction_id is not None and not isinstance(correction_id, str):
++            raise Fault("%s: 'correction_id' must be a string, got %r"
++                        % (where, correction_id))
++        if locus is not None and not correction_id:
++            raise Fault("%s: correction_locus %r has no correction_id, so it can never "
++                        "relabel; the frozen row is malformed" % (where, locus))
++        pairs.append({"id": row["id"], "rev": row["rev"], "path": row["path"],
++                      "command": row["command"], "recorded_value": recorded,
++                      "correction_locus": locus, "correction_id": correction_id})
++    return pairs
++
++
++# ----------------------------------------------------------------------------- git plumbing
++
++def _git(root, *args):
++    return subprocess.run(["git", "-C", root, *args],
++                          stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
++
++
++def revision_resolves(root, rev):
++    return _git(root, "rev-parse", "--verify", "--quiet", rev + "^{commit}").returncode == 0
++
++
++def show_text(root, rev, path):
++    """The regular-file text at `rev:path`, or None when no such text blob is there.
++
++    Three guards, each closing a way a locus could "contain" the id without being a
++    correction row: a tree (directory) prints a listing, a symlink's blob is its target
++    string, and a binary blob can carry the id in bytes. Only a 100644/100755 text blob
++    counts as a locus text; every ordinary markdown correction file passes unchanged.
++    """
++    spec = "%s:%s" % (rev, path)
++    kind = _git(root, "cat-file", "-t", spec)
++    if kind.returncode != 0 or kind.stdout.strip() != b"blob":
++        return None
++    listing = _git(root, "ls-tree", "-z", rev, "--", path)
++    if listing.returncode != 0:
++        return None
++    entry = listing.stdout.rstrip(b"\0")
++    mode = entry.split(b" ", 1)[0] if entry else b""
++    if mode not in (b"100644", b"100755"):
++        return None
++    proc = _git(root, "show", spec)
++    if proc.returncode != 0 or b"\0" in proc.stdout:
++        return None
++    return proc.stdout.decode("utf-8", "replace")
++
++
++# ----------------------------------------------------------------------------- observation
++
++def observe(root, command):
++    """(observed_int, None) or (None, error_reason). The contract's exact call.
++
++    The exit status is deliberately not part of the value: `grep -c` exits 1 when the
++    count is 0, so any counted command that prints a legitimate 0 would become an error
++    if a nonzero status were treated as failure. Only stdout decides, and an unparsable
++    first line (or no stdout, a timeout, a spawn failure) is an error.
++    """
++    try:
++        proc = subprocess.run(command, shell=True, capture_output=True, text=True,
++                              timeout=PAIR_TIMEOUT, cwd=root)
++    except subprocess.TimeoutExpired:
++        return None, "timeout after %ss" % PAIR_TIMEOUT
++    except OSError as exc:
++        return None, "spawn failed: %s" % exc
++    except UnicodeDecodeError as exc:
++        # stdout that does not decode cannot carry an integer; it is that pair's error, not
++        # a fault of the whole run (contract: "an unparsable output is an error").
++        return None, "undecodable stdout: %s" % exc
++    first = proc.stdout.split("\n")[0].strip()
++    if not INT_RX.match(first):
++        return None, "unparsable output (exit %d, first stdout line %r)" % (
++            proc.returncode, first[:120])
++    try:
++        return int(first), None
++    except ValueError as exc:  # CPython's digit limit: not a usable count
++        return None, "unparsable output (first stdout line %r digits): %s" % (
++            first[:24], exc)
++
++
++def relabel_row(text, correction_id, observed):
++    """The contract's exact relabel test (Amendment 1, 2026-11-03).
++
++    A mismatching pair is relabelled only when a line of the correction locus matches
++
++        ^\\|\\s*<correction_id>\\s*\\|\\s*<observed integer>\\s*\\|
++
++    i.e. the exact id token in the first cell and the re-derived integer in the second.
++    Containment is not enough: another integer, or an id that is a prefix/substring of a
++    different id, relabels nothing. `correction_id` is re.escape()d so no id text can act
++    as a pattern.
++    """
++    pattern = re.compile(r"^\|\s*" + re.escape(correction_id)
++                         + r"\s*\|\s*" + re.escape(str(observed)) + r"\s*\|")
++    return any(pattern.match(line) for line in text.splitlines())
++
++
++def evaluate(root, revision, pairs):
++    """(rows, pairs_n, mismatches, relabelled, unrelabelled)."""
++    rows = []
++    mismatches = 0
++    relabelled = 0
++    errors = 0
++    locus_cache = {}
++    for pair in pairs:
++        observed, error = observe(root, pair["command"])
++        if error is not None:
++            errors += 1
++            rows.append((pair, None, STATUS_ERROR, error))
++            continue
++        if observed == pair["recorded_value"]:
++            rows.append((pair, observed, STATUS_OK, None))
++            continue
++        mismatches += 1
++        locus = pair["correction_locus"]
++        if locus is not None:
++            if locus not in locus_cache:
++                locus_cache[locus] = show_text(root, revision, locus)
++            text = locus_cache[locus]
++            if text is not None and relabel_row(text, pair["correction_id"], observed):
++                relabelled += 1
++                rows.append((pair, observed, STATUS_RELABELLED, None))
++                continue
++        rows.append((pair, observed, STATUS_UNRELABELLED, None))
++    return rows, len(pairs), mismatches, relabelled, mismatches - relabelled + errors
++
++
++def report(rows, pairs_n, mismatches, relabelled, unrelabelled):
++    met = unrelabelled == 0
++    print("pairs=%d mismatches=%d relabelled=%d unrelabelled=%d met=%s"
++          % (pairs_n, mismatches, relabelled, unrelabelled, "true" if met else "false"))
++    for pair, observed, status, _error in rows:
++        print("pair %s recorded=%d observed=%s status=%s"
++              % (pair["id"], pair["recorded_value"],
++                 "err" if observed is None else observed, status))
++    sys.stdout.flush()
++    return EXIT_MET if met else EXIT_NOT_MET
++
++
++# ----------------------------------------------------------------------------- selftest
++
++LEDGER = ("alpha\n"
++          "candidate mechanism one\n"
++          "beta\n"
++          "candidate mechanism two\n")
++CORRECTIONS = ("# corrections\n"
++               "\n"
++               "| C1-SELFTEST | 2 |\n")
++CORRECTIONS_WRONG_INT = ("# corrections\n"
++                         "\n"
++                         "| C1-SELFTEST | 7 |\n")
++CORRECTIONS_SUBSTRING = ("# corrections\n"
++                         "\n"
++                         "| C1-SELFTEST-X | 2 |\n")
++FIXTURE_COMMAND = 'grep -c "candidate mechanism" ledger.md'
++FIXTURE_OBSERVED = 2
++
++
++def _fixture_git(argv):
++    proc = subprocess.run(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
++    if proc.returncode != 0:
++        raise Fault("fixture git failed (%d): %s: %s"
++                    % (proc.returncode, " ".join(argv), proc.stderr.strip()[:400]))
++    return proc.stdout
++
++
++def build_fixture(work):
++    """(base, repo, rev) — one committed fixture repository under `work`."""
++    base = tempfile.mkdtemp(prefix="c69-selftest-", dir=work)
++    repo = os.path.join(base, "repo")
++    os.makedirs(repo)
++    _fixture_git(["git", "-C", repo, "init", "-q"])
++    top = _fixture_git(["git", "-C", repo, "rev-parse", "--show-toplevel"]).strip()
++    if os.path.realpath(top) != os.path.realpath(repo):
++        raise Fault("fixture toplevel %r is not the fixture dir %r" % (top, repo))
++    with open(os.path.join(repo, "ledger.md"), "w", encoding="utf-8") as fh:
++        fh.write(LEDGER)
++    with open(os.path.join(repo, "corrections.md"), "w", encoding="utf-8") as fh:
++        fh.write(CORRECTIONS)
++    with open(os.path.join(repo, "corrections-wrong-int.md"), "w", encoding="utf-8") as fh:
++        fh.write(CORRECTIONS_WRONG_INT)
++    with open(os.path.join(repo, "corrections-substring.md"), "w", encoding="utf-8") as fh:
++        fh.write(CORRECTIONS_SUBSTRING)
++    _fixture_git(["git", "-C", repo, "add", "-A"])
++    _fixture_git(["git", "-C", repo, "-c", "user.name=fx", "-c", "user.email=fx@fixture",
++                  "commit", "-q", "-m", "fixture"])
++    rev = _fixture_git(["git", "-C", repo, "rev-parse", "HEAD"]).strip()
++    return base, repo, rev
++
++
++# (name, recorded_value, correction_locus, correction_id,
++#  mismatches, relabelled, unrelabelled, met, exit, status)
++SELFTEST_EXPECT = (
++    ("a_match", FIXTURE_OBSERVED, None, None, 0, 0, 0, "true", EXIT_MET, STATUS_OK),
++    ("b_unrelabelled", 5, None, None, 1, 0, 1, "false", EXIT_NOT_MET, STATUS_UNRELABELLED),
++    ("c_relabelled", 5, "corrections.md", "C1-SELFTEST",
++     1, 1, 0, "true", EXIT_MET, STATUS_RELABELLED),
++    ("d_locus_absent", 5, "corrections-absent.md", "C1-SELFTEST",
++     1, 0, 1, "false", EXIT_NOT_MET, STATUS_UNRELABELLED),
++    ("e_wrong_int", 5, "corrections-wrong-int.md", "C1-SELFTEST",
++     1, 0, 1, "false", EXIT_NOT_MET, STATUS_UNRELABELLED),
++    ("f_id_substring", 5, "corrections-substring.md", "C1-SELFTEST",
++     1, 0, 1, "false", EXIT_NOT_MET, STATUS_UNRELABELLED),
++)
++
++
++def _case_pairs(base, repo, rev, case):
++    name, recorded, locus, correction_id = case[:4]
++    row = {"id": "c69-selftest-" + name, "rev": rev, "path": "ledger.md",
++           "command": FIXTURE_COMMAND, "recorded_value": recorded}
++    if locus is not None:
++        row["correction_locus"] = locus
++        row["correction_id"] = correction_id
++    path = os.path.join(base, "pairs-%s.json" % name)
++    with open(path, "w", encoding="utf-8") as fh:
++        json.dump([row], fh, indent=2)
++        fh.write("\n")
++    return row["id"], path
++
++
++def run_selftest(work):
++    base, repo, rev = build_fixture(work)
++    failures = []
++    passed = 0
++    try:
++        for case in SELFTEST_EXPECT:
++            (name, _recorded, _locus, _cid, mismatches, relabelled, unrelabelled,
++             met, want_exit, want_status) = case
++            pair_id, pairs_path = _case_pairs(base, repo, rev, case)
++            argv = [sys.executable, "-B", os.path.abspath(__file__), "--root", repo,
++                    "--revision", rev, "--pairs", pairs_path]
++            proc = subprocess.run(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
++                                 text=True)
++            lines = proc.stdout.splitlines()
++            problems = []
++            if proc.returncode != want_exit:
++                problems.append("exit %d != %d" % (proc.returncode, want_exit))
++            summary = SUMMARY_RX.match(lines[0]) if lines else None
++            if summary is None:
++                problems.append("no summary line (stdout %r)" % proc.stdout[:200])
++            else:
++                got = (int(summary.group("mismatches")), int(summary.group("relabelled")),
++                       int(summary.group("unrelabelled")), summary.group("met"))
++                want = (mismatches, relabelled, unrelabelled, met)
++                if got != want:
++                    problems.append("summary %r != %r" % (got, want))
++                if int(summary.group("pairs")) != 1:
++                    problems.append("pairs %s != 1" % summary.group("pairs"))
++            detail = lines[1] if len(lines) > 1 else ""
++            if ("pair %s " % pair_id) not in detail or ("status=%s" % want_status) not in detail:
++                problems.append("per-pair line %r lacks %s/status=%s"
++                                % (detail[:160], pair_id, want_status))
++            if problems:
++                failures.append("case %s: %s (stderr %r)"
++                                % (name, "; ".join(problems), proc.stderr.strip()[:300]))
++            else:
++                passed += 1
++    finally:
++        shutil.rmtree(base, ignore_errors=True)
++    for failure in failures:
++        print("selftest-fail " + failure, file=sys.stderr)
++    print("selftest %d/%d" % (passed, SELFTEST_CASES))
++    return EXIT_MET if passed == SELFTEST_CASES else EXIT_NOT_MET
++
++
++# ----------------------------------------------------------------------------- entry point
++
++def build_parser():
++    parser = argparse.ArgumentParser(
++        prog="c69_recorded_counts.py",
++        description="Round-69 C1: recorded counts re-derive at their revision or are "
++                    "relabelled by a correction row.")
++    parser.add_argument("--root", help="repository the pair commands run in (cwd)")
++    parser.add_argument("--revision", help="revision the correction loci are read at")
++    parser.add_argument("--pairs", help="frozen JSON array of pairs")
++    parser.add_argument("--selftest", action="store_true",
++                        help="run the four fixtures (requires --work)")
++    parser.add_argument("--work",
++                        help="directory the selftest fixture tree is created under")
++    return parser
++
++
++def run(args):
++    if args.selftest:
++        if args.root or args.revision or args.pairs:
++            raise Fault("--selftest takes no --root/--revision/--pairs")
++        if not args.work:
++            raise Fault("--selftest requires --work <dir>")
++        if not os.path.isdir(args.work):
++            try:
++                os.makedirs(args.work, exist_ok=True)
++            except OSError as exc:
++                raise Fault("--work cannot be created: %s: %s" % (args.work, exc))
++        return run_selftest(os.path.realpath(args.work))
++    for flag in ("root", "revision", "pairs"):
++        if not getattr(args, flag):
++            raise Fault("--%s is required" % flag)
++    root = os.path.realpath(args.root)
++    if not os.path.isdir(root):
++        raise Fault("--root is not a directory: %s" % args.root)
++    if not revision_resolves(root, args.revision):
++        raise Fault("--revision does not resolve in %s: %s" % (root, args.revision))
++    pairs = load_pairs(args.pairs)
++    return report(*evaluate(root, args.revision, pairs))
++
++
++def main(argv):
++    args = build_parser().parse_args(argv)
++    try:
++        return run(args)
++    except Fault as exc:
++        print("fault: %s" % exc, file=sys.stderr)
++        return EXIT_FAULT
++    except Exception:  # an instrument defect must never read as a verdict
++        traceback.print_exc()
++        return EXIT_FAULT
++
++
++if __name__ == "__main__":
++    sys.exit(main(sys.argv[1:]))

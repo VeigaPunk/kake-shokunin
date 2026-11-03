@@ -1,0 +1,333 @@
+=== A1 unicode digits (fullwidth 7, Arabic 3) are not integers
+# want: observed=err, unrelabelled=1, exit 1
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair unicode-digit recorded=7 observed=err status=error
+EXIT=1
+
+=== A2 60s timeout is an error, not a value (wall ~60s)
+# want: observed=err, unrelabelled=1, exit 1
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair timeout recorded=1 observed=err status=error
+EXIT=1
+
+=== A3 unparsable first line with an integer on line 2
+# want: observed=err, unrelabelled=1, exit 1
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair late-int recorded=7 observed=err status=error
+EXIT=1
+
+=== A4 empty first line then an integer
+# want: observed=err, unrelabelled=1, exit 1
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair blank-first recorded=7 observed=err status=error
+EXIT=1
+
+=== A5 undecodable stdout bytes
+# want: observed=err, unrelabelled=1, exit 1
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair bad-utf8 recorded=7 observed=err status=error
+EXIT=1
+
+=== A6 nonzero exit with a parsable 0 (grep -c no match) is a VALUE
+# want: observed=0, status ok, met=true, exit 0
+pairs=1 mismatches=0 relabelled=0 unrelabelled=0 met=true
+pair grep-zero recorded=0 observed=0 status=ok
+EXIT=0
+
+=== A7 pairs-file observed_value/match fields are ignored; the command decides
+# want: observed=7, status ok, met=true, exit 0
+pairs=1 mismatches=0 relabelled=0 unrelabelled=0 met=true
+pair trust-file-obs recorded=7 observed=7 status=ok
+EXIT=0
+
+=== A8 carriage-return first line still parses
+# want: observed=7, status ok, met=true, exit 0
+pairs=1 mismatches=0 relabelled=0 unrelabelled=0 met=true
+pair crlf recorded=7 observed=7 status=ok
+EXIT=0
+
+=== A9 signed integer first line parses
+# want: observed=7, status ok, met=true, exit 0
+pairs=1 mismatches=0 relabelled=0 unrelabelled=0 met=true
+pair plus-int recorded=7 observed=7 status=ok
+EXIT=0
+
+=== A10 negative recorded and observed values agree
+# want: observed=-3, status ok, met=true, exit 0
+pairs=1 mismatches=0 relabelled=0 unrelabelled=0 met=true
+pair neg recorded=-3 observed=-3 status=ok
+EXIT=0
+
+=== A11 correction_locus present, correction_id absent from its rows
+# want: status unrelabelled, unrelabelled=1, exit 1
+pairs=1 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair wrong-id recorded=5 observed=2 status=unrelabelled
+EXIT=1
+
+=== A12 correction_locus is a directory (tree listing is not a correction row)
+# want: status unrelabelled, unrelabelled=1, exit 1
+pairs=1 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair locus-dir recorded=5 observed=2 status=unrelabelled
+EXIT=1
+
+=== A13 correction_locus escaping the repository
+# want: fault, exit 2, no summary
+fault: pairs[0]: 'correction_locus' must be a repo-relative path, got '../etc/passwd'
+EXIT=2
+
+=== A14 command absent from the host
+# want: observed=err, unrelabelled=1, exit 1
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair missing-cmd recorded=1 observed=err status=error
+EXIT=1
+
+=== A15 a relabel clause on a MATCHING pair does not count as relabelled
+# want: mismatches=0 relabelled=0 met=true, exit 0
+pairs=1 mismatches=0 relabelled=0 unrelabelled=0 met=true
+pair match-with-locus recorded=1 observed=1 status=ok
+EXIT=0
+
+=== A16 an observation error is not a mismatch but raises unrelabelled
+# want: mismatches=0 unrelabelled=1 met=false, exit 1
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair err-only recorded=2 observed=err status=error
+EXIT=1
+
+=== A17 mixed arithmetic: (mismatches-relabelled)+errors, exact row relabels one pair
+# want: pairs=4 mismatches=2 relabelled=1 unrelabelled=2 met=false, exit 1
+pairs=4 mismatches=2 relabelled=1 unrelabelled=2 met=false
+pair m-relabelled recorded=5 observed=2 status=relabelled
+pair m-plain recorded=5 observed=2 status=unrelabelled
+pair m-error recorded=1 observed=err status=error
+pair m-ok recorded=1 observed=1 status=ok
+EXIT=1
+
+=== A18 duplicate ids counted independently (no dedupe)
+# want: pairs=2 mismatches=1 unrelabelled=1, exit 1
+pairs=2 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair dup recorded=2 observed=2 status=ok
+pair dup recorded=3 observed=2 status=unrelabelled
+EXIT=1
+
+=== A19 id present only as a substring of another id's row
+# want: status unrelabelled (Amendment 1 exact-token rule), unrelabelled=1, exit 1
+pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=unrelabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=1
+
+=== A20 unresolvable --revision is a fault
+# want: fault, exit 2, no summary
+fault: --revision does not resolve in /fast/scratch/hyaku/kake-r69/ExecC1Counter/clone: deadbeef
+EXIT=2
+
+=== A21 empty pairs array
+# want: pairs=0, met=true, exit 0 (vacuous; base control is the kill rule)
+pairs=0 mismatches=0 relabelled=0 unrelabelled=0 met=true
+EXIT=0
+
+=== A22 a 5000-digit first line (CPython int digit limit) is an error, not a crash
+# want: observed=err, unrelabelled=1, exit 1
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair huge-int recorded=7 observed=err status=error
+EXIT=1
+
+=== A23 id row naming a DIFFERENT integer does not relabel
+# want: C1-02 unrelabelled, unrelabelled=1, exit 1
+pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=unrelabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=1
+
+=== A24 integer prefix (12 for 2) does not relabel
+# want: C1-02 unrelabelled, unrelabelled=1, exit 1
+pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=unrelabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=1
+
+=== A25 exact row with no spaces (|C1-02|2|) relabels
+# want: C1-02 relabelled, met=true, exit 0
+pairs=20 mismatches=1 relabelled=1 unrelabelled=0 met=true
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=relabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=0
+
+=== A26 exact row plus a trailing cell relabels
+# want: C1-02 relabelled, met=true, exit 0
+pairs=20 mismatches=1 relabelled=1 unrelabelled=0 met=true
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=relabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=0
+
+=== A27 indented row (not column 0) does not relabel
+# want: C1-02 unrelabelled, unrelabelled=1, exit 1
+pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=unrelabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=1
+
+=== A28 exact row in §Corrections relabels C1-02
+# want: C1-02 relabelled, met=true, exit 0
+pairs=20 mismatches=1 relabelled=1 unrelabelled=0 met=true
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=relabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=0
+
+=== A29 the frozen pairs file at the base revision (no correction file there)
+# want: unrelabelled=1, met=false, exit 1
+pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false
+pair C1-01 recorded=5 observed=5 status=ok
+pair C1-02 recorded=1 observed=2 status=unrelabelled
+pair C1-03 recorded=0 observed=0 status=ok
+pair C1-04 recorded=1 observed=1 status=ok
+pair C1-05 recorded=1377 observed=1377 status=ok
+pair C1-06 recorded=1396 observed=1396 status=ok
+pair C1-07 recorded=0 observed=0 status=ok
+pair C1-08 recorded=1 observed=1 status=ok
+pair C1-09 recorded=171 observed=171 status=ok
+pair C1-10 recorded=172 observed=172 status=ok
+pair C1-11 recorded=2 observed=2 status=ok
+pair C1-12 recorded=2 observed=2 status=ok
+pair C1-13 recorded=1 observed=1 status=ok
+pair C1-14 recorded=1 observed=1 status=ok
+pair C1-15 recorded=1 observed=1 status=ok
+pair C1-16 recorded=0 observed=0 status=ok
+pair C1-17 recorded=1 observed=1 status=ok
+pair C1-18 recorded=1 observed=1 status=ok
+pair C1-19 recorded=172 observed=172 status=ok
+pair C1-20 recorded=173 observed=173 status=ok
+EXIT=1
+
+# A2b timed: the 60s contract timeout is enforced (command sleeps 75s)
+pairs=1 mismatches=0 relabelled=0 unrelabelled=1 met=false
+pair timeout recorded=1 observed=err status=error
+Command exited with non-zero status 1
+wall=60.08s
+EXIT=1

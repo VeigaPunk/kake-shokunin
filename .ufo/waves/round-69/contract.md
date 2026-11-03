@@ -55,3 +55,48 @@ Decided by ConnW1 (considerthese scan, shokuknow `merge/kake/` read). Default: `
 - Non-writer seats write only new files under their own `.ufo/waves/round-69/<SeatName>/` directory and never edit tracked files.
 - No seat commits, pushes, or runs a mutating git or jj command. No seat writes into the fleet root or into `/home/vgpnk/Projects/shokunin/.scratch/`.
 - Every scratch tree is removed on exit; `/tmp` only for files under 50 MB.
+
+## Amendment 1 — recorded after W1 attacks, before any after-state measurement
+
+Recorded by the L1 on 2026-11-03 after the W1 build and attack reports
+(`.ufo/waves/round-69/w1/ReviewerDesign.md`, `CriticDesign.md`, `ScoutC1Pairs.md`) and before
+any after-state, residual or tip measurement. The base receipts of the pre-amendment counters
+(`w1/ExecC1Counter/base-run.txt`, unamended) are kept as history. Predicates keep their sentences;
+these lines define the terms they use.
+
+C1 (frozen pair set, sha256 recorded when committed in `.ufo/waves/round-69/c1/pairs.json`):
+- The set is the 20 pairs in `w1/ScoutC1Pairs/pairs-candidate.json`, unchanged in id, rev, path,
+  command and recorded_value; the pairs file adds `correction_locus: corpus/lessons/round-69.md`
+  and `correction_id: <pair id>` to every row. Frozen input.
+- Recorded pre-value fact (corrects the contract's "known pair" sentence): the round-67 record's
+  "5" reproduces at its own base `6ff73edd` (C1-01 = 5). The mismatch is the post-value: the
+  round-67 record says 1 at `4b03efe1` (C1-02); observed 2 (`ScoutC1Pairs.md`).
+- Relabel rule, exact: a mismatching pair is relabelled only if a line of `correction_locus` read
+  at `--revision` matches `^\|\s*<correction_id>\s*\|\s*<observed integer>\s*\|` (exact id token and
+  the re-derived integer). A row naming another integer, or an id that is only a substring of another
+  id, relabels nothing.
+- Expected base exit: 1 (`unrelabelled=1`, C1-02). Mirror kill rule: if base exits 0, C1 is unprovable.
+
+C2:
+- `tmp_literals` counts code lines (not `//` or `*` comment lines) containing a quote-adjacent
+  path literal, regex `['"\`]/tmp`. Help text (line 182) and prose (line 899) are not path literals
+  and are not counted. Expected base value: 2 (lines 108 and 1204).
+- `offline_exit=0` is replaced by `offline_unchanged=true`: the `--offline` exit code and its
+  VERDICT line at the measured revision equal those of the base revision on the same host. Reason:
+  at base on this Linux host `--offline` already exits 1 (`~/projects` lowercase citation at
+  `corpus/lessons/round-66-verifier-spotcheck.md:101-102` and `round-66.md:69`, unannotated and not
+  pinned; ReviewerDesign F2). That red is host-bound debt routed to L0; it is not C2's to cure.
+- `selftest_under_tmpdir` uses two distinct fresh directories: TMPDIR for the fixture root, HOME for
+  everything else. True iff the fixture directory (`kake-r16/selftest`) appears under TMPDIR, does
+  not appear under HOME, and is not a symlink (lstat).
+- Output line: `tmp_literals=N selftest_under_tmpdir=true|false offline_unchanged=true|false`.
+  Exit 0 iff tmp_literals==0 and selftest_under_tmpdir and offline_unchanged.
+- Expected base: `tmp_literals=2 selftest_under_tmpdir=false offline_unchanged=(baseline)`, exit 1.
+- Mirror kill rule: if the base already prints exit 0, the counter or its inputs are wrong; C2 unprovable.
+- Known residual, named, not claimed as closed: a TMPDIR-unset fallback to `os.tmpdir()` (POSIX
+  `/tmp`) is documented behaviour (S436, S437) and is not a literal; a reviewer must confirm the patch
+  takes its default from `os.tmpdir()` (residual wave).
+
+Frontier: the M2 wording is corrected: the round-68 receipt's quote-truth block ends in a
+`FileNotFoundError` on `\tmp\q133.txt` (line-mid, `wordcounts-d3-r68.txt`); the file continues after it.
+`grep -c '/tmp'` on that file is 1 (ReviewerDesign F6). The able-to-fail pair is unchanged.

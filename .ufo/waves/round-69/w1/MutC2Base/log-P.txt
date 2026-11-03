@@ -1,0 +1,41 @@
+$ env -u KAKE_SELFTEST_DIR TMPDIR=/fast/scratch/hyaku/kake-r69/MutC2Base/run/P/tmpdir HOME=/fast/scratch/hyaku/kake-r69/MutC2Base/run/P/home \
+  bwrap --dev-bind / / --bind /fast/scratch/hyaku/kake-r69/MutC2Base/run/P/iso /tmp --chdir /fast/scratch/hyaku/kake-r69/MutC2Base/rep/P node scripts/freshness-sweep.mjs --selftest
+exit 0
+--- stdout tail ---
+e
+        expect: exit 2
+        got:    exit 2
+  PASS  absence vocabulary absent
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  absence vocabulary gone
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  absence vocabulary vanished
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  absence vocabulary emptied
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  absence vocabulary no longer
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  absence vocabulary dangling
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  absence vocabulary no such file
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  absence vocabulary never published
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  absence vocabulary missing
+        expect: exit 0, annotated target
+        got:    exit 0
+  PASS  recovered list is exact and informational
+        expect: exit 0, recovered [~/.kake-freshness-selftest-1531122/selftest-present.md]
+        got:    exit 0 · ["~/.kake-freshness-selftest-1531122/selftest-present.md"]
+selftest: 36/36 passed
+
+--- stderr ---
+

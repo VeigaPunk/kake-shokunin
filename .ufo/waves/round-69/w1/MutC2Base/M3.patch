@@ -1,0 +1,13 @@
+--- a/scripts/freshness-sweep.mjs
++++ b/scripts/freshness-sweep.mjs
+@@ -1677,4 +1677,9 @@
+   return failed.length ? 1 : 0;
+ }
+ 
++// mutant: unreachable helper, never called by any code path
++function __deadMutantScratchPath() {
++  return '/tmp/x';
++}
++
+ main().catch((e) => { console.error(`freshness-sweep: ${e && e.stack || e}`); process.exit(2); });
+\ No newline at end of file

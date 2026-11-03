@@ -1,0 +1,87 @@
+{
+  "seat": "ScoutSources",
+  "round": 69,
+  "wave": "W1",
+  "attempt": 1,
+  "access_date_utc": "2026-11-03",
+  "retention_dir": "kake-shokunin/.ufo/waves/round-69/w1/ScoutSources/sources/",
+  "curl_template": "curl -sS -L --max-time 60 -o <file> -w '%{http_code} %{size_download} %{url_effective}\\n' <url>",
+  "sources": [
+    {
+      "id": "S436",
+      "url": "https://nodejs.org/api/os.html",
+      "final_url": "https://nodejs.org/api/os.html",
+      "status": 200,
+      "bytes": 90518,
+      "sha256": "0d31bf3c15787b15bcddd8e380dd67c9505d7d47d8892ff4ce69b2ceebb6245b",
+      "file": "sources/S436-node-os.html",
+      "content_length_header": 90518,
+      "etag": "\"fac1bef5480e328f977d0a9202353181\"",
+      "last_modified": "Wed, 28 Oct 2026 04:20:22 GMT",
+      "document_version": "Node.js v26.13.0 Documentation",
+      "command": "curl -sS -L --max-time 60 -o /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ScoutSources/sources/S436-node-os.html -w '%{http_code} %{size_download} %{url_effective}\\n' https://nodejs.org/api/os.html",
+      "curl_exit": 0,
+      "get_count": 1,
+      "quote": {
+        "text": "On non-Windows platforms, <code>TMPDIR</code>, <code>TMP</code> and <code>TEMP</code> environment variables will be checked to override the result of this method, in the described order.",
+        "words_wc": 23,
+        "class": "collapsed-only",
+        "raw_grep_cF": 0,
+        "collapsed_grep_cF": 1,
+        "location": "os.tmpdir() entry, POSIX sentence, retained body lines 495-496",
+        "raw_fails_because": "the sentence crosses a source newline after 'checked'"
+      },
+      "ordered_list_evidence": "os.tmpdir() non-Windows order TMPDIR, TMP, TEMP, fallback /tmp (retained lines 495-497)"
+    },
+    {
+      "id": "S437",
+      "url": "https://docs.python.org/3/library/tempfile.html",
+      "final_url": "https://docs.python.org/3/library/tempfile.html",
+      "status": 200,
+      "bytes": 75198,
+      "sha256": "4a9695c51c513c70dcd4e1bd51ee836b0e5ace45ed95bc9c493b264ca019beec",
+      "file": "sources/S437-python-tempfile.html",
+      "content_length_header": 75198,
+      "etag": "\"6aea1fc6-125be\"",
+      "last_modified": "Tue, 03 Nov 2026 17:54:14 GMT",
+      "document_version": "Python 3.15.2 documentation",
+      "command": "curl -sS -L --max-time 60 -o /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-69/w1/ScoutSources/sources/S437-python-tempfile.html -w '%{http_code} %{size_download} %{url_effective}\\n' https://docs.python.org/3/library/tempfile.html",
+      "curl_exit": 0,
+      "get_count": 1,
+      "quote": {
+        "text": "the user of the application can control the directory location by setting the <em>TMPDIR</em>, <em>TEMP</em> or <em>TMP</em> environment variables.",
+        "words_wc": 19,
+        "class": "collapsed-only",
+        "raw_grep_cF": 0,
+        "collapsed_grep_cF": 1,
+        "location": "mkstemp() dir-default sentence, retained body lines 448-449",
+        "raw_fails_because": "the sentence crosses a source newline after '<em>TMP</em>'",
+        "deviation": "The spec's named span (the tempfile.gettempdir() paragraph listing TMPDIR/TEMP/TMP) is class ABSENT in the retained bytes: the three names sit in three separate <li> items separated by 'variable.</p></li>', so no contiguous span covers them. Tag-inclusive span of the three items is 51 words (>25 limit); the rendered-prose form is absent under both the raw and whitespace-collapse rules. Per the spec's 'absent otherwise (then pick another quote)', this contiguous 19-word sentence from the same module was chosen.",
+        "corroboration": {
+          "text": "The directory named by the <span class=\"target\" id=\"index-1\"></span><code class=\"xref std std-envvar docutils literal notranslate\"><span class=\"pre\">TMPDIR</span></code> environment variable.",
+          "words_wc": 17,
+          "class": "raw-substring",
+          "raw_grep_cF": 1,
+          "collapsed_grep_cF": 1,
+          "note": "First gettempdir() list item. Its raw-substring class proves the parent's absent verdict comes from the <li> boundaries, not from a faulty collapse step."
+        }
+      },
+      "ordered_list_evidence": "gettempdir() search order, retained lines 508-513: TMPDIR, TEMP, TMP, then platform-specific locations, then cwd"
+    }
+  ],
+  "quote_method": {
+    "raw-substring": "grep -cF '<quote>' <retained body> returns >0",
+    "collapsed-only": "raw == 0 AND grep -cF '<quote>' on body after `tr -s '[:space:]' ' '` returns >0",
+    "absent": "raw == 0 AND collapsed == 0; quote discarded and another chosen",
+    "word_count": "wc -w on the quote text alone (tag-inclusive as matched)"
+  },
+  "rows_draft": {
+    "path": "rows-draft.md",
+    "rows": 2,
+    "awk_field_check": "awk -F'|' 'NF==13' -> 2 lines; NF!=13 -> 0 lines; pipes per line = 12",
+    "base_registry_rows": 173,
+    "expected_after_append": 175,
+    "id_collision_guard": "grep -c '^| S436 |' = 0, grep -c '^| S437 |' = 0 at 4d188f94"
+  },
+  "tooling_installs": []
+}

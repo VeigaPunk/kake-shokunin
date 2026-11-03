@@ -1,0 +1,11 @@
+--- a/scripts/freshness-sweep.mjs
++++ b/scripts/freshness-sweep.mjs
+@@ -1201,7 +1201,7 @@
+ 
+ // ── --selftest: hermetic fixtures + self-source read-only assertion ─────────
+ async function selftest() {
+-  const dir = process.env.KAKE_SELFTEST_DIR || '/tmp/kake-r16/selftest';
++  const dir = process.env.KAKE_SELFTEST_DIR || path.join('kake-r16', 'selftest');
+   const cases = [];
+   const run = (args, env) => {
+     try {

@@ -17,8 +17,9 @@
 //
 // READ-ONLY BY CONSTRUCTION: every direct fs write call this file makes sits
 // inside an exact SELFTEST-WRITES-BEGIN/END marker pair in selftest()
-// (`--selftest` builds hermetic fixtures under /tmp/kake-r16/selftest). The
-// normal path never writes, never mkdirs, and never touches ~/Projects.
+// (`--selftest` builds hermetic fixtures under $TMPDIR/kake-r16/selftest, or
+// $KAKE_SELFTEST_DIR when set). The normal path never writes, never mkdirs,
+// and never touches ~/Projects.
 // `--selftest` checks this by scanning its own source for the write-API names
 // pinned in writeConfinement(); the residual bypasses listed there are not covered.
 //
@@ -100,12 +101,12 @@ function sitemapVerdict(status, bytes, pinStatus, pinBytes) {
   return 'PRE-PUSH';
 }
 
-// r15's live charter-ghp body sha, per /tmp/kake-r15/charter-live.html +
+// r15's live charter-ghp body sha, per the round-15 charter-ghp capture (a
+// temp file since reaped; KAKE_R15_SNAPSHOT names a copy when one exists) +
 // the round-15 LOG entry (live 2026-09-29T00:48:51Z: 200, 53,386B,
 // sha fb365e38…). Kept as a top-level constant so the cross-check below reads
 // the r15 snapshot independently of the pin file.
 const R15_LIVE_SHA = 'fb365e38c4eaa8842629bd0fe4f34a74568fd71360531927fa89111f53ef5293';
-const R15_SNAPSHOT_DEFAULT = '/tmp/kake-r15/charter-live.html';
 
 // Canonical probe-history default. pins.probeHistoryAbsent may SUSPEND only
 // this path when missing (r18 declared-absent source). Any other resolved
@@ -179,9 +180,10 @@ Usage: node scripts/freshness-sweep.mjs [--json] [--offline]
                    skipped checks read 'skipped(offline)'
   --section=NAME   run one section only
   --repo DIR       lane repo root (default: script's parent dir)
-  --selftest       hermetic fixtures under /tmp/kake-r16/selftest; prints a
-                   case table proving declaredAbsent=exit-neutral, missing
-                   without annotation=drift(1), malformed JSONL=2, bad flag=64
+  --selftest       hermetic fixtures under $TMPDIR/kake-r16/selftest (or
+                   $KAKE_SELFTEST_DIR when set); prints a case table proving
+                   declaredAbsent=exit-neutral, missing without annotation=
+                   drift(1), malformed JSONL=2, bad flag=64
   --help           this text
 
 Exit: 0 clean · 1 drift · 2 unreadable/invalid input · 64 usage error.
@@ -886,9 +888,11 @@ async function sectionArmed({ pins, offline, repoRoot, timeoutMs, only = null })
   }
 
   // r15 snapshot cross-check: recompute the pinned body sha from the r15 file
-  // and assert equality (mismatch = ANOMALY + loud warning).
-  const snap = process.env.KAKE_R15_SNAPSHOT || R15_SNAPSHOT_DEFAULT;
-  if (fs.existsSync(snap)) {
+  // and assert equality (mismatch = ANOMALY + loud warning). No built-in path:
+  // no host keeps the r15 capture, so it is read only when KAKE_R15_SNAPSHOT
+  // names an explicit file; otherwise the snapshot-absent branch below runs.
+  const snap = process.env.KAKE_R15_SNAPSHOT;
+  if (snap && fs.existsSync(snap)) {
     const s = sha256(fs.readFileSync(snap));
     pq12.r15Snapshot = { file: snap, sha256: s, matchesConstant: s === R15_LIVE_SHA, matchesFetched: pq12.sha256 ? s === pq12.sha256 : null };
     if (s !== R15_LIVE_SHA) {
@@ -896,7 +900,7 @@ async function sectionArmed({ pins, offline, repoRoot, timeoutMs, only = null })
       pq12.r15SnapshotMismatch = `!! ${snap} sha ${s} != R15_LIVE_SHA ${R15_LIVE_SHA}`;
     }
   } else {
-    pq12.r15Snapshot = { file: snap, skipped: 'snapshot absent (expected once landed: /tmp is not durable)' };
+    pq12.r15Snapshot = { file: snap || '(no KAKE_R15_SNAPSHOT)', skipped: 'snapshot absent (no env override; the r15 capture was a temp file and is not durable)' };
   }
 
   // ── PQ-5: kimi dead slot — 404 is the expected state; any 200 is the E1 EXIT
@@ -1201,7 +1205,7 @@ function writeConfinement(lines) {
 
 // ── --selftest: hermetic fixtures + self-source read-only assertion ─────────
 async function selftest() {
-  const dir = process.env.KAKE_SELFTEST_DIR || '/tmp/kake-r16/selftest';
+  const dir = process.env.KAKE_SELFTEST_DIR || path.join(os.tmpdir(), 'kake-r16', 'selftest');
   const cases = [];
   const run = (args, env) => {
     try {
