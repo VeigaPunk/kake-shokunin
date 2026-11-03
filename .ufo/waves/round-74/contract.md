@@ -156,3 +156,74 @@ touch the fleet repo or a sibling lane. Each seat writes only its report and art
 `.ufo/waves/round-74/w1/` (absolute path in its item) and its scratch tree under
 `/fast/scratch/hyaku/kake-r74/<seat>/`, which it deletes before yielding. The L1 applies every
 production edit after the wave settles.
+
+## Amendment 1 — 2026-11-03, after the W1 attack seats, before any after-state
+
+Terms only. The claims, the frozen populations and the after-targets are unchanged; no lane edit
+has been measured yet. Each change closes a defect measured by the wave-1 attack seats
+(`w1/CriticClaims.md` §1.2–1.6 and §2.1–2.7, `w1/ReviewerC1.md` H1/H2, `w1/ReviewerC2.md` High).
+
+### C1 amendments
+
+- **A1 (registration cells).** A row credits a counter only when the filename appears in the row's
+  **Name**, **Entry command** or **Self-test** cell. A filename only in the Kind, Verdict,
+  Pinned-values, Write-scope or Owner cell does not register it. Measured false positive this
+  closes: `SKILL.md:1198` cites `c46_matrix.py` in its Pinned-values cell while gating
+  `scripts/redirect_audit.py`.
+- **A2 (one counter per row; bound path).** A row credits exactly one population counter; if two or
+  more population filenames appear in its credited cells, it credits none. Conjunct 2 binds to the
+  first backticked `.py` token in that row's **Entry command** cell; its basename must equal the
+  counter filename and `git cat-file -e <rev>:<path>` must exit 0. This closes the one-dump-row
+  exploit and the singular/plural ambiguity.
+- **A3 (`own_row` bound).** `own_row=true` iff a row between the `### Round 74` heading and EOF names
+  `c74_registry_gap.py` in its credited cells. A row anywhere else in the file does not count.
+- **A4 (label honesty).** A new row's Kind cell starts `gate (live` only when its counter exits 0 at
+  the measured revision under the row's entry command. Otherwise it starts `instrument (historical`
+  (or `historical`) and names the pinned revision, the measured non-green state, or the successor.
+- **A5 (placement).** Every `SKILL.md` addition lands after line 935 (the largest sidecar-pinned
+  `SKILL.md` line), or the sidecar is re-pinned in the same commit. Measured: an insert at line 512
+  makes the sweep exit 2 (`paths sidecar binding invalid: SKILL.md:512`); an EOF append leaves it at
+  exit 1 with the same drift.
+- **A6 (reproduction).** "Reproduce the control" means the named fields (population, each counter's
+  `rows` and `file_exit`, `unregistered`, `met`) plus `own_row=false` at base, not byte-identical
+  stdout: the control predates `own_row`. `file_exit` is the exit code of
+  `git cat-file -e <rev>:<population path>`. The counter prints `own_row=<bool>` in its plain
+  summary from this amendment on.
+- **A7 (severity).** A missing or renamed population counter is `unevaluable` (exit 2, reported),
+  never a kill. Only `unregistered>0`, a credited row whose entry-command path fails to resolve, or
+  `own_row=false` are 1-conditions.
+
+### C2 amendments
+
+- **B1 (severity).** An unevaluable probe is exit 2 and is reported as could-not-evaluate, never as
+  a failed claim. On this host the measured unevaluable count is 0, so the claim is evaluable.
+- **B2 (vocabulary).** The banned restored-note vocabulary is the sweep's list plus
+  `removed|deleted|purged|returned|reappeared|came back|recreated`. The counter and the repair tool
+  both enforce the extended list; the sweep's own binding stays the sweep's list (it is a
+  registered instrument, not this claim's counter). Measured hole this closes: a note saying
+  "removed … reappeared" passes the sweep and would have passed the unamended counter.
+- **B3 (base bytes).** The counter pins the base revision `ced2878a` and compares each flipped
+  entry's `history` against the base entry's `{date, kind, note}` for the same `file:line:token`.
+  A self-consistent history that differs from the base bytes is a finding.
+- **B4 (L0 wording).** Conjunct 4 passes on zero drift; only a new drift class, exit 2, or an
+  `Error:` line fails. The open L0 `kake | round-69` case is not a dependency (the critic measured
+  all three plausible rulings as passing).
+- **B5 (field names).** The predicate's `absent_notes_resolving`, `restored_notes_absent` and
+  `unevaluable` are the counter's `absent_present`, `restored_absent` and
+  `absent_unevaluable + restored_unevaluable`. The base receipt's names are the control's; the
+  counter's summary is authoritative and carries `annotation_findings=<n>`.
+
+### Harm battery corrections (terms only)
+
+- Census command: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root
+  /home/vgpnk/Projects/shokunin kake` (the script lives at the fleet root; `bash scripts/...` from
+  the lane exits 127).
+- Flags: `c70_pointer_audit.py --root . --revision <rev> [--base <rev>]`;
+  `c72_tmp_v2.py --lane . --revision <rev>`; `c73_wave_pointers.py --root . --revision <rev>`;
+  `c73_tmp_v3.py --lane . --revision <rev>`.
+- c66 baseline pinned: `members=28 evaluated=28 mismatches=3 structural=0 agreement=25
+  scores_held=3/3 met=True` at base; the tip must not regress it.
+- `/tmp` clause scoped: the literal is checked in the three new/edited instrument files
+  (`scripts/sidecar_reobserve.py`, `.ufo/waves/round-74/c74_registry_gap.py`,
+  `.ufo/waves/round-74/c74_sidecar_reobserve.py`) and in `SKILL.md` via `c73_tmp_v3.py`; the
+  contract itself is excluded (it quotes the guard).
