@@ -79,3 +79,22 @@ $ grep -c '^S438$' lane-reg-ids -> 0 ; lane max = S437 ; S438 used by kotodama (
   and revenger (OWASP MASTG) - different sources, different lanes.
 E03 scope fixture (two lanes each holding S900, own shokunin.conf):
   lane-a ok ; lane-b ok ; E03 lines = 0   -> duplicate-id is intra-lane only; cross-lane id reuse is normal.
+
+=== LIVE-TIP RE-VERIFICATION (after the L1 landed the integration at 50ec1446) ===
+$ git log --oneline -1 -> 3b54a020 round-70: LOG entry with measured tip 50ec1446, tip-attack receipts, census-after
+$ git ls-tree 50ec1446 .ufo/waves/round-70/w1/ScoutSources/sources/
+100644 blob fffe2bd2...  .ufo/waves/round-70/w1/ScoutSources/sources/S438-crux-bigquery.html
+100644 blob e8c8fb79...  .ufo/waves/round-70/w1/ScoutSources/sources/receipt.json
+$ for p in .ufo/waves/round-70/c70_pointer_audit.py .ufo/waves/round-70/contract.md corpus/knowledge/crux-bigquery-origin-membership.md; do git cat-file -e 50ec1446:$p; done
+IN TIP all three      -> the L1 adopted the same-commit rule
+$ python3 -B .ufo/waves/round-70/c70_pointer_audit.py --root . --revision 50ec1446
+pointers=351 dangling=17 annotated=17 unannotated=0 met=true   exit 0   (this host)
+$ git show 50ec1446:SCORECARD.md | grep -c '/tmp/kake-r16'   -> 1  (cited, no calibration row)
+$ git show 50ec1446:SCORECARD.md | awk '/Pointer calibration/{f=1} f&&/^\| /{print}' | grep -c 'kake-r16'  -> 0
+$ (clone 50ec1446; replace /tmp/kake-r16 -> /tmp/kake-rZZZ; commit; run counter)
+pointers=351 dangling=18 annotated=17 unannotated=1 met=false  exit 1
+  tmp unannotated line=91 token=/tmp/kake-rZZZ
+$ (same clone; add one row for /tmp/kake-rZZZ)
+pointers=351 dangling=18 annotated=18 unannotated=0 met=true   exit 0
+$ (L1 tip calibration-table NOTE-column repo paths all resolve at 50ec1446)
+OK  corpus/knowledge/crus-bigquery-origin-membership.md | OK corpus/SOURCES.md | OK SCORECARD.md | OK .ufo/waves/round-70/c70_pointer_audit.py

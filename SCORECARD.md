@@ -4755,6 +4755,12 @@ this section.
 | .ufo/waves/round-44/verification/after-v5.json | historical | 2026-10-23 round-44 era | same class as the row above |
 | .ufo/l0-questions.md | fleet-root | 2026-11-03 measurement | lives at the fleet root, not in the lane |
 | scripts/hyaku/ufo-wave-policy.json | fleet-root | 2026-11-03 measurement | lives in the fleet-root scripts/ directory, not in the lane |
+| /tmp/kake-r16 | host-state | 2026-11-03 measurement | a sweep-selftest fixture directory that exists on the 2026-11-03 measurement host and flips with selftest runs; this row keeps the table host-independent — inert where the path resolves, annotating on hosts where it is absent |
+
+Host-state note (appended after the first landing, on the connector seat's proposal): the tmp and
+home classes are live-host-state; a row for a token that resolves on the measuring host is inert
+there and annotates on hosts where the path is absent, so the calibration survives a host change
+without a new landing.
 
 ## Round 70 — declared and measured claims (attempt 1; author-side, admission belongs to the closure)
 
