@@ -4806,3 +4806,24 @@ Learning trends (author-side; the closure owns admission): expansion unchanged (
 entry; S132 re-used); quality improved (the SKILL.md citations and the line-95 recipe repaired, with
 the recipe's restore exercised in scratch); discernment unchanged (the attack seats' findings are
 recorded as routes; the non-author spot-check is owed to the closure).
+
+## Round 72 — declared and measured claims (attempt 1; author-side, admission belongs to the closure)
+
+Frozen contract `.ufo/waves/round-72/contract.md` (freeze `a19d38ea`, before any seat ran). Base `3c68645a`; landed
+commit `999d208b` (round work) and the repair commit recorded in LOG.md round 72 and the round report. Scores unchanged:
+operability 10, freshness 10, calibration 2 (HOLD; no scalar move).
+
+| Round | Axis | Before | After | Evidence |
+| --- | --- | --- | --- | --- |
+| 72 | calibration (score 2, HOLD; claim C1) | c66 gate-status `agreement=24 mismatches=4` (`controls/c1-base.txt`) | agreement 25 required at the landed tip (`controls/c1-tip.txt`; see the round report for the measured value at the final commit) | `.ufo/waves/round-72/contract.md` C1; `corpus/knowledge/gate-status-ledger.md` § r72; `SKILL.md` line 1253 |
+| 72 | operability (score 10, HOLD; claim C2) | round-71 counter accepts the J3 control (`c71_exit=0`); base-red and selftest unpinned | `c72_tmp_v2.py` selftest 11/11; J3 control `c72_exit=1`; base red exit 1; tip exit 0 (`controls/c2-tip.txt`) | `.ufo/waves/round-72/c72_tmp_v2.py`, `controls/c2-j3-control-r3.txt` |
+
+Capabilities: no new row. The C2 counter is a repaired instrument, not a new capability; its residual holes are routed to
+round 73 (lesson `corpus/lessons/round-72.md` § Routed). Dangling-id residue (`S303 S304 S352`) is routed to the operator
+(L0); c57, c58 and c59 stay red and are not claimed repaired.
+
+## Planned — round 73
+
+No claims are declared in this section; round 73 declares its own claims when it opens. Carried routes: the C2 counter
+amendment (verb vocabulary, `${TMPDIR:-/tmp}` fallback, symlinked SKILL.md, pinned `PHRASE`), and the operator ruling on
+the dangling ids.
