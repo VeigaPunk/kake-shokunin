@@ -1459,3 +1459,28 @@ Grounding: `corpus/lessons/round-69.md` §Mistakes M1 and M2; sources S436 and S
 - **A lane gate takes its temporary root from the environment.** Admit: the gate's temporary directory comes from `os.tmpdir()` (which honours TMPDIR, per S436), and its selftest fixture lands under TMPDIR when TMPDIR is set; measured by `python3 -B .ufo/waves/round-69/c69_tmp_honour.py`. Reject: a literal `/tmp` path string in code; an obfuscated or renamed literal that leaves the fixture in the hardcoded root (caught by the behavioural check, not the literal scan); a fixture placed under HOME to pass the check.
 
 Criteria are not rewritten: this addendum is the round-69 row, and earlier criteria stand unchanged.
+
+## Round-70 addendum — scorecard pointer calibration
+
+Grounding: `corpus/lessons/round-70.md` §Mistakes M1; the round-70 C1 counter
+`.ufo/waves/round-70/c70_pointer_audit.py` and the `## Pointer calibration (round 70)` section of
+`SCORECARD.md`.
+
+- **A SCORECARD evidence pointer either resolves at the measured revision or carries a dated
+  calibration annotation.** Admit: every path-like pointer in `SCORECARD.md` resolves at the
+  measured revision — a repo-relative pointer exists at that revision (`git cat-file -e
+  <rev>:<path>`, with the literal token's normalized spelling accepted when it names the same
+  committed file), a `~/…` or `/tmp/…` pointer exists as host state (`test -e` semantics; a broken
+  symlink is not a resolving pointer) — or is the exact first cell of a markdown table row in
+  `SCORECARD.md` §Pointer calibration (round 70) whose row names the dated absence event class and
+  marks the record historical, not executable. Reject: a pointer that resolves only in the worktree
+  but not at the measured revision; a dangling pointer with no annotation row, or one whose
+  annotation row names a different token (a prefix or substring annotates only itself); an
+  annotation row inside an HTML comment or a fenced code block; a pointer count taken from prose
+  instead of the frozen extractor; a home token whose expansion escapes `$HOME` (excluded from the
+  population, never an existence oracle outside the home tree); a calibration landing that rewrites
+  any base line of the file (the append-only conjunct). Able-to-fail: `python3 -B
+  .ufo/waves/round-70/c70_pointer_audit.py --selftest --work <dir>` prints `selftest 8/8`; the base
+  run at `e5f6fd9e` exits 1 with `unannotated=17` (`controls/c1-base-v2.txt`).
+
+Criteria are not rewritten: this addendum is the round-70 row, and earlier criteria stand unchanged.

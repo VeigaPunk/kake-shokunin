@@ -1,0 +1,13 @@
+# ExecCensusProbe receipts (2026-11-03)
+base_rev=e5f6fd9e4c243d092160bc74e8bea24256087173
+validator=/home/vgpnk/Projects/shokunin/scripts/sources-census.sh
+validator_sha256=3fb7261569f46423dd80ecc23e0a23789a7926f667c7a3fc559d2439d4a64e30
+staged_row_sha256=4d0ff08701840eb9d3720ec2857aa02593f647f80ebfdac5752d4b2d64ad082c  (845 bytes, SOURCES.append.md line 72)
+row_b_sha256=d59e7a67df17a5f6b21856c6ca8625a04345cf4f6178331347ebe7ff76fec207
+row_c_sha256=72d755b3f108027c92c120eeb0f5e3fa81751643dc0fe48df35a52c31ec0b845
+row_v4_sha256=25a51e2af4ea380a72340b9a0053840d02712eb1af9a5104e8d1850adc9fc416
+row_v5_sha256=9b3e1486cf36a71316aea2c3ff928e3a2f355123d44bdf084e4b49dc3716bf77
+mirror: git -C <lane> archive <base_rev> | tar -x -C $S/tree   (full tree; corpus-only mirror yields false E11)
+insertion: after line 183 (last "^ {0,3}| S" row); ## Registry at line 5, ## Paths at line 186
+run: $validator validate --file "$S/tree/corpus/SOURCES.<variant>.md" --today 2026-11-03
+rows: v1=verbatim staged; v2=escaped pipe replaced by ->; v3=normalized id S438 recheck 180d; v4/v5=supplementary prose-recheck boundary

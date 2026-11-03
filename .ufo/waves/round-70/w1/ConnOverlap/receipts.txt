@@ -1,0 +1,81 @@
+ConnOverlap receipts — kake round 70 W1 — base e5f6fd9e4c243d092160bc74e8bea24256087173
+Read-only seat. No lane tracked file modified. Scratch: /fast/scratch/hyaku/kake-r70/ConnOverlap (removed on exit).
+
+[a] read-set proof, C1 counter vs corpus/
+$ rm -rf $S/rs/corpus ; python3 -B .ufo/waves/round-70/c70_pointer_audit.py --root $S/rs --revision e5f6fd9e
+pointers=348 dangling=17 annotated=0 unannotated=17 met=false      (corpus/ deleted)
+$ python3 -B .ufo/waves/round-70/c70_pointer_audit.py --root <lane> --revision e5f6fd9e
+pointers=348 dangling=17 annotated=0 unannotated=17 met=false      (intact lane) -> identical
+
+[a] read-set proof, C2 census vs SCORECARD.md
+$ grep -c -E 'SCORECARD|QUALITY|lessons' /home/vgpnk/Projects/shokunin/scripts/sources-census.sh
+0
+$ rm -f $S/nosc/SCORECARD.md ; bash scripts/sources-census.sh validate --file $S/nosc/corpus/SOURCES.md | grep -c 'E11.*SCORECARD.md'
+9      (existence-only used-by check; no content read)
+$ bash scripts/sources-census.sh validate --file $S/nosc/corpus/SOURCES.md | grep -c 'E11.*SCORECARD.md'
+0      (with SCORECARD.md present)
+
+[a] CROSS-CLAIM COUPLING (fixture, $S/v2b, git repo, toplevel asserted == $D)
+SCORECARD.md round section names: .ufo/waves/round-70/c70_pointer_audit.py
+                                     .ufo/waves/round-70/w1/ScoutSources/sources/S438-crux-bigquery.html
+                                     corpus/knowledge/crux-bigquery-origin-membership.md
+none committed at the measured revision:
+  repo unannotated line=7 token=.ufo/waves/round-70/c70_pointer_audit.py
+  repo unannotated line=8 token=.ufo/waves/round-70/w1/ScoutSources/sources/S438-crux-bigquery.html
+  repo unannotated line=8 token=corpus/knowledge/crux-bigquery-origin-membership.md
+  pointers=3 dangling=3 annotated=0 unannotated=3 met=false  EXIT=1
+after committing the same two artifacts:
+  pointers=3 dangling=1 annotated=0 unannotated=1 met=false  EXIT=1
+(base-scale variant: SCORECARD naming the C2 entry only -> pointers 348->349, dangling 19->20)
+
+[a] LAUNDERING (fixture, $S/launder, git repo, toplevel asserted == $D)
+base commit: SCORECARD round section names .ufo/waves/round-70/c70_pointer_audit.py (never committed)
+tip commit:  calibration section appends row
+  | .ufo/waves/round-70/c70_pointer_audit.py | historical: 2026-11-01 host migration; record absent |
+$ python3 -B .ufo/waves/round-70/c70_pointer_audit.py --root $D --revision $TIP --base $BASE
+pointers=1 dangling=1 annotated=1 unannotated=0 append_only=true met=true  EXIT=0
+(the file does not exist at $D at all; append_only=true does not catch the self-annotation)
+
+[a] self-annotation of an ABSENT lesson (fixture, $S/v2b, git repo)
+calibration row: | /tmp/kake-r10 | historical: ...; cross-ref `corpus/lessons/round-11.md` |
+  pointers=2 dangling=2 annotated=1 unannotated=1 met=false  EXIT=1
+  repo unannotated line=11 token=corpus/lessons/round-11.md
+(add a row whose first cell IS that token -> annotated=2 unannotated=0 met=true EXIT=0)
+
+[b] sibling scope scan
+$ for l in <19 siblings>; do grep -c -i -E 'crux|core web vital|\bCWV\b|field.?data|real.?user|\bRUM\b|lighthouse|bigquery|web.?vitals|page.?speed|user experience' $l/PROVINCE.md; done
+all 0
+$ for l in <siblings>; do grep -r -l -i -E 'developer\.chrome\.com/docs/crux|CrUX (eligibility|API|methodology)|Chrome UX Report' $l/corpus/knowledge/; done
+no hits
+kake own claim: kake-shokunin/PROVINCE.md:24  "- Field performance (Core Web Vitals, CrUX eligibility) — first entry"
+sibling adjacency lines checked: kengaku/PROVINCE.md:34, kasegi/PROVINCE.md:49, tabi/PROVINCE.md:16,
+  kama/PROVINCE.md:43, kotodama/PROVINCE.md:20, kotoba/PROVINCE.md:65, kagi/PROVINCE.md:64
+tabi/PROVINCE.md:33,39-42 mention Chrome only as a browser/CDP surface; kagi/PROVINCE.md:64 is the
+  the-musketeer profile lease (contested, kagi/tabi/kake) - not field-performance ground.
+
+[c] considerthese newest-first (mtime, ls -lt --time-style=long-iso)
+2026-10-26.md 2026-10-26 09:05 | 2026-10-25.md 09:21 | 2026-10-24.md 21:10 | 2026-10-23.md 09:05
+2026-10-22.md 09:14 | 2026-10-21.md 09:11 | 2026-10-20.md 10:18 | 2026-10-19.md 22:08
+proposal 4 key-term check at base:
+$ git show e5f6fd9e:LOG.md | grep -c -i 'gate-agreement'      -> 0
+$ git grep -l -i 'gate-agreement' e5f6fd9e -- corpus/         -> round-58.md round-59.md round-60.md
+                                                                 round-62.md round-62-verifier-spotcheck.md (all rejection/evaluation records)
+$ git grep -l -i 'gate-agreement' e5f6fd9e -- corpus/knowledge/ scripts/ | wc -l   -> 0
+implemented instead: proposals 1 (id_resolver.py, landed_check.py), 3 (r59 routed-item queue),
+5 (corpus/knowledge/gate-status-ledger.md, adopted r66)
+
+[d] cross-source, fleet registries at base
+$ for f in */corpus/SOURCES.md; do grep -c -i 'bigquery' $f; done   -> 0 in every lane
+$ grep -r -o -i -E 'developer\.chrome\.com/docs/crux[a-z/]*' */corpus/SOURCES.md | sort -u
+kake-shokunin/corpus/SOURCES.md:developer.chrome.com/docs/crux/api
+kake-shokunin/corpus/SOURCES.md:developer.chrome.com/docs/crux/methodology
+$ grep -rn -i 'crux/bigquery' --include=*.md . | grep -v '^./.ufo/waves/round-70/contract.md'
+(no other hit outside the round-70 contract)
+
+[id] S352 premise + E03 scope
+$ git show e5f6fd9e:corpus/SOURCES.md | grep -c 'S352'      -> 0  (lane registry has no S352)
+$ git show e5f6fd9e:corpus/SOURCES.md | grep -oE '^ {0,3}\| S[0-9]{3,}' | grep -oE 'S[0-9]+' | sort -u | wc -l  -> 175
+$ grep -c '^S438$' lane-reg-ids -> 0 ; lane max = S437 ; S438 used by kotodama (Colorado Dept of Agriculture)
+  and revenger (OWASP MASTG) - different sources, different lanes.
+E03 scope fixture (two lanes each holding S900, own shokunin.conf):
+  lane-a ok ; lane-b ok ; E03 lines = 0   -> duplicate-id is intra-lane only; cross-lane id reuse is normal.

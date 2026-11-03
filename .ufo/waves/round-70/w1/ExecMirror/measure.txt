@@ -1,0 +1,203 @@
+# ExecMirror — measurement transcript (kake round 70, W1)
+# Base revision for every measurement: e5f6fd9e4c243d092160bc74e8bea24256087173 (lane master)
+# Scratch root (removed before yield): /fast/scratch/hyaku/kake-r70/ExecMirror
+# Artifact dir: .ufo/waves/round-70/w1/ExecMirror/
+# Tools installed/upgraded this seat: none.
+
+## 0. Inputs read at base
+
+$ git -C /home/vgpnk/Projects/shokunin/kake-shokunin show e5f6fd9e:corpus/SOURCES.md > base-SOURCES.md
+$ wc -l base-SOURCES.md
+291 /fast/scratch/hyaku/kake-r70/ExecMirror/base-SOURCES.md
+$ grep -n '^## ' base-SOURCES.md
+5:## Registry
+186:## Paths
+201:## Search log
+240:## Leads (unopened)
+
+Staged append file: /home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md (read-only source; 126796 bytes)
+Staged entry: /home/vgpnk/Projects/shokuknow/merge/kake/knowledge/corpus/knowledge/crux-bigquery-origin-membership.md
+  bytes=2351 sha256=1a06b50ad6bcdf45598b58eca8e31ed94ea2f4431bedf6383124620ccb0de234
+
+## 1. Guard (guard.sh delivered at .../w1/ExecMirror/guard.sh; sha256 f9dde457…7a)
+
+$ bash guard.sh <registry.md> <staged-rows.md> <outdir>
+  ids := grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' | grep -oE 'S[0-9]+' | sort   (both files)
+  collisions := comm -12 reg-ids staged-ids
+  prints registry-ids=N staged-ids=M collisions=K
+  exit 0 = no collisions · 1 = collisions found · 2 = usage/missing input
+
+### 1a. Fixture proof that the guard CAN fail (indented-collision class)
+
+$ D=$(mktemp -d /fast/scratch/hyaku/kake-r70/ExecMirror/fx.XXXX)
+$ git -C "$D" init -q
+$ git -C "$D" rev-parse --show-toplevel
+/fast/scratch/hyaku/kake-r70/ExecMirror/fx.cFrn          # equals $D
+$ git -C <lane> show e5f6fd9e:corpus/SOURCES.md | awk '{ if ($0 ~ /^\| S433 \|/) print "  " $0; else print }' > "$D/registry.md"
+$ grep -E '^ {2}\| S433 \|' "$D/registry.md" | sed 's/^  //' > "$D/staged.md"
+$ bash guard.sh "$D/registry.md" "$D/staged.md" "$D/out"
+registry-ids=175 staged-ids=1 collisions=1
+COLLISION: S433
+exit=1
+collisions bytes=5 content=[S433]
+
+Negative control (same fixture registry, staged id S999 which the registry does not carry):
+
+$ sed 's/^| S433/| S999/' "$D/staged.md" > "$D/staged-clean.md"
+$ bash guard.sh "$D/registry.md" "$D/staged-clean.md" "$D/out-clean"
+registry-ids=175 staged-ids=1 collisions=0
+guard: no id collisions
+exit=0
+
+Verdict: guard proven able to fail on a real row carrying two leading spaces; discriminates
+against a non-colliding id. Fixture was a git repo whose toplevel was asserted equal to $D
+before any write; tree removed with the scratch root.
+
+## 2. Real collision run (lane registry at base vs staged append file)
+
+$ bash guard.sh base-SOURCES.md /home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md <artifact-dir>
+registry-ids=175 staged-ids=129 collisions=8
+COLLISION: S312 S329 S367 S372 S373 S374 S390 S409
+exit=1
+
+Retained: reg-ids (175 lines), staged-ids (129 lines), collisions (8 lines, above).
+
+### 2a. Staged S352 — measured, does NOT collide with the lane registry at base
+
+$ grep -c '^S352$' reg-ids
+0
+$ grep -c '^S352$' staged-ids
+1
+$ grep -c '^S352$' collisions
+0
+$ grep -n 'S352' base-SOURCES.md
+NONE
+$ git -C <lane> log --oneline -S'| S352 |' e5f6fd9e -- corpus/SOURCES.md | wc -l
+0
+
+Finding: the frozen contract's §10 premise "staged id S352 collides with the lane registry's S352"
+is false at base — the lane registry never carried S352 (175 rows, ids S001..S437 with holes
+S140–S249 etc.; S352 is absent from the file and from its history). The 8 staged collisions are
+other ids, none of them S352. The renumber decision therefore rests solely on the lane's
+next-unused-id rule, which still yields S438 (below).
+
+### 2b. Next unused lane id — explicit scan, not arithmetic
+
+$ max=$(sort -t S -k2 -n reg-ids | tail -1); echo "$max"
+S437
+$ n=437; while grep -qx "S$(printf '%03d' $((n+1)))" reg-ids || grep -qx "S$(printf '%03d' $((n+1)))" staged-ids; do n=$((n+1)); done; printf 'S%03d\n' $((n+1))
+S438
+$ grep -c '^S438$' reg-ids ; grep -c '^S438$' staged-ids
+0
+0
+
+Next unused lane id = S438 (first integer id above the lane max S437 that neither the registry
+nor the staged file carries; scan output above, no arithmetic shortcut taken).
+
+## 3. Normalization proof (kengaku class)
+
+### 3a. Staged S352 row, verbatim (bytes 845, sha256 4d0ff087…082c)
+
+| S352 | Chrome for Developers: CrUX on BigQuery — https://developer.chrome.com/docs/crux/bigquery | docs | A | **Where origin membership in the CrUX dataset can be read without a CrUX API key** — the dataset's own origin list, its table and its cost | § CrUX on BigQuery → Data structures → origin_summary | the raw CrUX dataset is queryable on BigQuery, the monthly origin list is published as a table that is refreshed every month, and the dataset is free to explore within BigQuery's free tier — so eligibility can be answered with a project rather than an API key | mined | 2026-10-24 | 180d — `curl -fsSL 'https://developer.chrome.com/docs/crux/bigquery' \| grep -F -c 'The origin_summary table contains a list of all origins in the CrUX dataset'` -> 1 (ran 2026-10-24) | corpus/knowledge/crux-bigquery-origin-membership.md |
+
+$ awk -F'|' '{print NF}' staged-S352-row.txt
+14                      # census shape is NF=13 (11 cells + 2 edge fields); the escaped pipe
+                        # in the recheck cell splits into a 12th cell
+
+### 3b. Normalized row (delivered at .../w1/ExecMirror/normalized-row.md; sha256 72d755b3…b845)
+
+| S438 | Chrome for Developers: CrUX on BigQuery — https://developer.chrome.com/docs/crux/bigquery | docs | A | **Where origin membership in the CrUX dataset can be read without a CrUX API key** — the dataset's own origin list, its table and its cost | § CrUX on BigQuery → Data structures → origin_summary | the raw CrUX dataset is queryable on BigQuery, the monthly origin list is published as a table that is refreshed every month, and the dataset is free to explore within BigQuery's free tier — so eligibility can be answered with a project rather than an API key | mined | 2026-11-03 | 180d | corpus/knowledge/crux-bigquery-origin-membership.md |
+
+$ awk -F'|' '{print NF}' normalized-row.md
+13
+$ tr -cd '|' < normalized-row.md | wc -c
+12                      # exactly the 12 structural pipes of an 11-cell row
+$ tr -cd '\\' < normalized-row.md | wc -c
+0                       # no backslash anywhere: no escaped pipe can be formed
+$ grep -o '\\|' normalized-row.md | wc -l
+0
+
+Cells (trimmed): 1=S438 2=Chrome for Developers: CrUX on BigQuery — https://…/crux/bigquery
+3=docs 4=A 5=scope 6=§ CrUX on BigQuery → Data structures → origin_summary 7=teaches
+8=mined 9=2026-11-03 10=180d 11=corpus/knowledge/crux-bigquery-origin-membership.md
+
+Field-wise change map vs the staged row (all other cells byte-identical):
+  id      S352 -> S438
+  opened  2026-10-24 -> 2026-11-03
+  recheck "180d — `curl … \| grep …` -> 1 (ran 2026-10-24)" -> "180d"
+  used-by unchanged: corpus/knowledge/crux-bigquery-origin-membership.md
+
+### 3c. Census-shape verdicts (real script, real files)
+
+Mirror construction: full base-revision archive (see §4) with the row inserted immediately after
+the last '| S' row of '## Registry' (line 183, S437) and the staged entry copied to
+corpus/knowledge/crux-bigquery-origin-membership.md.
+
+Raw staged row appended (mirror-raw/corpus/SOURCES.md):
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file mirror-raw/corpus/SOURCES.md
+file	E01	S352 fields=12
+file	E11	S352 missing used-by grep -F -c 'The origin_summary table contains a list of all origins in the CrUX dataset'` -> 1 (ran 2026-10-24)
+(+16 pre-existing W04)
+exit=1                  # FAILS: escaped pipe makes 12 cells and shifts used-by into a prose fragment
+
+Prose recheck fixture row S439 (13 fields, no pipes; recheck '2026-10-23 — re-verify …'):
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file mirror-prose/corpus/SOURCES.md
+file	E09	S439 recheck=2026-10-23 — re-verify origin_summary refresh cadence next release
+(+16 pre-existing W04)
+exit=1                  # FAILS: shape is fine, recheck cell is not a valid cadence
+
+Normalized row S438 in the same mirror:
+$ bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file mirror/corpus/SOURCES.md
+16 × file	W04	<S-id> duplicate url … across scopes      (the 16 baseline warnings)
+file	ok	/fast/scratch/hyaku/kake-r70/ExecMirror/mirror/corpus/SOURCES.md
+exit=0                  # PASSES: warnings only, no E01/E03/E04/E09/E11
+
+Verdict: raw staged row fails, prose-recheck fixture fails, normalized row passes — all three
+measured with the real census script on real mirror files.
+
+## 4. Mirror census gate
+
+Corpus-only extraction (the seat's literal archive command) produces a tree whose root lacks the
+non-corpus used-by paths every older row cites, so E11 fires on pre-existing rows:
+
+$ git -C <lane> archive e5f6fd9e… corpus | tar -x -C mirror   # 186 files
+$ bash …/sources-census.sh validate --file mirror/corpus/SOURCES.md
+17 × file	E11	<S-id> missing used-by <scripts/…|SCORECARD.md|.ufo/…|SKILL.md>
+16 × file	W04	…
+exit=1
+Same on the unmodified corpus-only base copy (identical output, exit=1).
+
+All 17 referenced paths exist at the base revision (git cat-file -e e5f6fd9e:<path> → present:
+scripts/source_recheck.py, SCORECARD.md, .ufo/waves/round-41/c1_count.py, SKILL.md,
+.ufo/waves/round-41/oracle_crosscheck.py). The gate therefore runs on a full base-revision
+mirror (same archive, whole tree), which is still a scratch copy of e5f6fd9e and nothing else:
+
+$ git -C <lane> archive e5f6fd9e… | tar -x -C mirror        # 19751 files
+$ git -C <lane> archive e5f6fd9e… | tar -x -C mirror-base   # 19751 files
+$ cmp -s mirror/corpus/SOURCES.md mirror-base/corpus/SOURCES.md   # identical before insert
+$ sed -i '183r normalized-row.md' mirror/corpus/SOURCES.md
+$ cp <staged entry> mirror/corpus/knowledge/crux-bigquery-origin-membership.md
+$ grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' mirror/corpus/SOURCES.md
+176                     # was 175
+
+Unmodified base copy:
+$ bash …/sources-census.sh validate --file mirror-base/corpus/SOURCES.md
+16 × W04; file ok; exit=0
+Normalized mirror:
+$ bash …/sources-census.sh validate --file mirror/corpus/SOURCES.md
+16 × W04; file ok; exit=0
+
+Row counts (census mode, same file):
+$ bash …/sources-census.sh census --file mirror-base/corpus/SOURCES.md   -> file rows 175 (exit 0)
+$ bash …/sources-census.sh census --file mirror/corpus/SOURCES.md        -> file rows 176 (exit 0)
+
+Logs retained: gate-corpus-only-base.log, gate-corpus-only-normalized.log, gate-full-base.log,
+gate-full-normalized.log, gate-raw-staged-row.log, gate-prose-recheck-row.log.
+
+## 5. Handoff notes (not performed by this seat)
+
+- The mirror's entry copy is the verbatim staged text (`source: S352`, `verified-at: 2026-10-24`,
+  recheck prose). It exists only to satisfy the gate's E11 path check. The adoption seat must
+  re-ground it: `source:` naming S438, `verified-at: 2026-11-03`, recheck `180d` — contract C2(a).
+- Nothing was appended to the lane. No tracked file was modified; no git/jj mutation ran in the
+  lane; shokuknow was read only.

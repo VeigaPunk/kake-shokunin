@@ -2433,3 +2433,48 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `/tmp` fallback documented (S436); MutC2Base M5 (removing the r15 absent branch) indistinguishable on this host.
 - **Not done this round.** No knowledge entry admitted on uncovered ground; no assimilation from `merge/kake/` or
   `considerthese/` (see report); no SKILL.md change; no MANIFEST edit (closure-owned).
+
+## Round 70 — 2026-11-03 (hyaku run 15; attempt 1; Linux host; claims frozen before data)
+
+- **Frozen contract.** `.ufo/waves/round-70/contract.md` committed `908b20b00f7479a61596e93e05104d1cd0054349`
+  before any seat ran; Amendment 0 (seat shape only: the validator refused `labrat` as a swarm role —
+  `unknown_role` — so the census probe rides an executor seat and a sentinel seat joins the attack set;
+  W1 13 → 14 seats) committed `d76ae92656bc24bc935d28201267a5d8b293de5a`; Amendment 1 (term refinements
+  after the W1 attacks, before any after-state: counter v2's exists-semantics, normpath repo check,
+  fence exclusion, home-escape exclusion, no-literal tmp token, append-only conjunct; the contract's
+  "12 /tmp tokens" corrected to the measured 9 distinct / 11 occurrences; the false S352-collision
+  premise struck — the adopted id S438 stands on the next-unused rule; C2 receipt binding and the
+  quote-class pin) in `.ufo/waves/round-70/amendment-1-note.md`. Base `e5f6fd9e4c243d092160bc74e8bea24256087173`.
+- **Motivating evidence.** C1: the scorecard's own evidence pointers name scratch paths
+  (`/tmp/kake-r10`…`/tmp/kake-r18`, move-log rows 10–18) and host-tree paths (`~/DIRMAP.md`,
+  lowercase `~/projects`, `~/Projects/plazir-15-site`) that no round ever annotated — the corpus
+  append-only rules never covered SCORECARD and the freshness sweep scans corpus files, not SCORECARD
+  (ReviewerPredicates verified the scan population). C2: the round-68/69 reports said `Assimilation:
+  none — shokuknow unreachable`; on this host `/home/vgpnk/Projects/shokuknow` is present with the
+  `merge/kake` package (129 staged rows, 104 entries), and the key-free CrUX origin-membership theme
+  is the one staged entry whose every cited external source this lane can re-ground with one GET.
+- **Landed at `<T1>`:** `.ufo/waves/round-70/c70_pointer_audit.py` (counter v2, selftest 8/8);
+  `SCORECARD.md` `## Pointer calibration (round 70)` (17 exact-token rows, append-only);
+  `corpus/knowledge/crux-bigquery-origin-membership.md` (adopted entry, re-grounded);
+  `corpus/SOURCES.md` S438 row inside `## Registry` (175 → 176); `corpus/lessons/round-70.md`
+  (Mistakes M1–M3, Gate, sourced claims); `corpus/QUALITY.md` Round-70 addendum;
+  `corpus/README.md` coverage-map + frontier-ground-map rows; wave evidence under
+  `.ufo/waves/round-70/` (contract, amendments, spec, dispatch, `w1/` seat reports and artifacts,
+  controls).
+- **Measured.** C1: base `pointers=348 dangling=17 annotated=0 unannotated=17 met=false` exit 1
+  (`controls/c1-base-v2.txt`; the v1 counter's pre-amendment base receipt recorded unannotated=19,
+  kept as history) → tip `unannotated=0 append_only=true met=true` exit 0 (`controls/c1-tip.txt`).
+  C2: base — entry file absent, `grep -c '^| S438 '` = 0 → tip — entry present with the provenance
+  trio, row NF=13, census exit 0 (`controls/c2-after.txt`).
+- **Attacks at the landed tip.** <L1 fills after the tip run>.
+- **Sources & frontier.** S438 opened and written this round (Chrome for Developers: CrUX on
+  BigQuery, HTTP 200, 110,697 B, `dd17ea8c…db420`, retained body + receipt under
+  `.ufo/waves/round-70/w1/ScoutSources/`): registry 175 → 176. Census at base and at tip: exit 0
+  (16 W04 warnings unchanged). Assimilation: one theme (key-free CrUX eligibility routes), one
+  entry admitted (`crux-bigquery-origin-membership.md`), one rejected (`crux-keyless-check.md`,
+  reasons + flip in the round-70 lesson §Gate); the eight colliding staged ids (S312, S329, S367,
+  S372, S373, S374, S390, S409) are already adopted in the lane registry and none is re-appended;
+  the absent-defect-register slice is untouched (kake r58 L0 open).
+- **Not done this round.** No SKILL.md change (the `/tmp` procedure cites are routed to the next
+  round with the sidecar re-pin census); no live property probed; no publish/deploy action; no
+  MANIFEST edit (closure-owned); no capability row claimed.

@@ -79,6 +79,7 @@ mirrors, Pages deploys).
 | Google user-triggered fetchers (r60) | `knowledge/google-user-triggered-fetchers.md` (S428) | Google's user-triggered fetchers as the category page states them: fetches a user asks for, the robots.txt posture "generally ignore" (the verification page's older cell reads "ignore", corrected append-only in `googlebot-verification.md`), the published IP-range objects and reverse DNS masks, the list declared not exhaustive; no fetch observed |
 | Robots.txt limits (r60) | `knowledge/robots-txt-limits.md` (S429) | What Google's robots.txt introduction says the file cannot do: it cannot enforce crawler behaviour, crawlers may interpret the rules differently, a disallowed URL can still be indexed when linked from elsewhere, and the file is not a way to hide a page; the RFC 9309 reading stays in `knowledge/robots-txt-rules.md` |
 | Response-header expectations (r61) | `knowledge/response-header-expectations.md` (S430–S433) + `scripts/response_snapshot.py` + `scripts/header_audit.py` | GET-only capture of recorded headers for 12 public surfaces; an offline audit checks declared expectations for Content-Type, HSTS, XCTO nosniff, CSP, singleton fields and field-name syntax; no claim of live cleanliness or universal policy |
+| Key-free CrUX origin membership (r70) | `knowledge/crux-bigquery-origin-membership.md` (S438) | Where CrUX origin membership is published without an API key: the BigQuery `origin_summary` table (one `origin` column, refreshed monthly, released the second Tuesday of the following month under `chrome-ux-report.all`), free to explore within BigQuery's free tier with a Google Cloud project; adopted from the shokuknow `merge/kake` package and re-grounded on a fresh 2026-11-03 GET; knowledge only, no gate, no query run |
 
 ### Frontier ground map (round 55; round-60 update)
 
@@ -123,6 +124,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | security.txt publishing | r35 | `knowledge/security-txt-publishing.md` | S001 S002 S006 S078–S080 S082–S086 |
 | Accessibility review preparation | r25 | `knowledge/accessibility-review-packet.md` | S035 |
 | Publisher response-header expectations | r61 | `knowledge/response-header-expectations.md` + `scripts/response_snapshot.py` + `scripts/header_audit.py` | S430–S433 |
+| Field performance — key-free CrUX origin membership | r70 (lands this round) | `knowledge/crux-bigquery-origin-membership.md` | S438 |
 
 Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
 (S102–S109, `used-by` only `corpus/lessons/round-39.md`; tool

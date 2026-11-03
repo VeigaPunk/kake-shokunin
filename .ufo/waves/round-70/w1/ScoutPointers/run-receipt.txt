@@ -1,0 +1,80 @@
+ScoutPointers run receipt -- round 70 kake lane, 2026-11-03T19:39:48Z
+lane=/home/vgpnk/Projects/shokunin/kake-shokunin base=e5f6fd9e4c243d092160bc74e8bea24256087173
+
+$ git -C $LANE show e5f6fd9e:SCORECARD.md | sha256sum
+e11f211840de2ea483e82179a194454c2b2a1a1eda92313dbd0695794330b902  -
+exit=0
+
+$ git -C $LANE show e5f6fd9e:SCORECARD.md | wc -l
+4727
+exit=0
+
+$ git -C $LANE rev-parse e5f6fd9e:SCORECARD.md
+1ac34091f170d50849c52911aac21996378d2853
+exit=0
+
+$ grep -c "Pointer calibration" SCORECARD.base.md
+0
+exit=1
+
+$ python3 -B final_enum.py
+unique: 348 per-class: {'repo': 333, 'home': 6, 'tmp': 9}
+dangling: 19
+home L62    missing   occ=2 trunc=False ~/Projects/plazir-15-site
+home L76    missing   occ=2 trunc=False ~/DIRMAP.md
+home L77    missing   occ=5 trunc=False ~/projects
+repo L89    dangling  occ=1 trunc=False .ufo/charter-scribe/ledger.jsonl
+tmp  L89    missing   occ=1 trunc=False /tmp/kake-r18
+tmp  L90    missing   occ=3 trunc=False /tmp/kake-r17
+tmp  L92    missing   occ=1 trunc=False /tmp/kake-r15
+tmp  L93    missing   occ=1 trunc=False /tmp/kake-r14
+tmp  L94    missing   occ=1 trunc=False /tmp/kake-r13
+tmp  L99    missing   occ=1 trunc=False /tmp/kake-r12
+tmp  L100   missing   occ=1 trunc=False /tmp/kake-r11
+tmp  L101   missing   occ=1 trunc=False /tmp/kake-r10
+repo L1583  dangling  occ=1 trunc=False scripts/sources-census.sh
+repo L2357  dangling  occ=1 trunc=True .ufo/waves/round-39/r38w2-evidence.SHA256S
+repo L3451  dangling  occ=1 trunc=False .ufo/waves/round-44/verification/before-v4.json
+repo L3456  dangling  occ=1 trunc=False .ufo/waves/round-44/verification/after-v5.json
+repo L3750  dangling  occ=2 trunc=False .ufo/l0-questions.md
+repo L4184  dangling  occ=1 trunc=False scripts/hyaku/ufo-wave-policy.json
+repo L4214  dangling  occ=1 trunc=False scripts/../.ufo/waves/round-51/c51_wave_ledger.py
+truncated: ['.ufo/waves/round-39/r38w2-evidence.SHA256S']
+exit=0
+
+$ python3 -B validate inventory
+entries 348 classes {'repo': 333, 'home': 6, 'tmp': 9} statuses {'resolves': 325, 'exists': 4, 'missing': 11, 'dangling': 8}
+exit=0
+
+$ git cat-file -e e5f6fd9e:.ufo/waves/round-39/r38w2-evidence.SHA256SUMS
+exit=0
+$ git cat-file -e e5f6fd9e:scripts/../.ufo/waves/round-51/c51_wave_ledger.py
+fatal: path 'scripts/../.ufo/waves/round-51/c51_wave_ledger.py' exists on disk, but not in 'e5f6fd9e'
+exit=128
+$ git cat-file -e e5f6fd9e:.ufo/waves/round-51/c51_wave_ledger.py
+exit=0
+
+$ test -e host statuses
+/home/vgpnk/Projects/ds4cc-marketplace     exists
+/home/vgpnk/Projects/plazir-15-site        missing
+/home/vgpnk/Projects                       exists
+/home/vgpnk/Projects/ufo-fsd-alpha         exists
+/home/vgpnk/DIRMAP.md                      missing
+/home/vgpnk/projects                       missing
+/tmp/kake-r10                              missing
+/tmp/kake-r11                              missing
+/tmp/kake-r12                              missing
+/tmp/kake-r13                              missing
+/tmp/kake-r14                              missing
+/tmp/kake-r15                              missing
+/tmp/kake-r16                              exists
+/tmp/kake-r17                              missing
+/tmp/kake-r18                              missing
+
+$ fleet-root near matches (ls -l)
+-rw-r--r-- 1 vgpnk vgpnk 167849 Nov  3 16:20 /home/vgpnk/Projects/shokunin/.ufo/l0-questions.md
+-rw-r--r-- 1 vgpnk vgpnk  12499 Nov  3 14:52 /home/vgpnk/Projects/shokunin/scripts/hyaku/ufo-wave-policy.json
+-rwxr-xr-x 1 vgpnk vgpnk  35466 Oct 19 21:22 /home/vgpnk/Projects/shokunin/scripts/sources-census.sh
+
+$ grep -oE https unique count
+9

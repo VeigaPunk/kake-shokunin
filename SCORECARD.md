@@ -4725,3 +4725,59 @@ Move log (round 69):
 |---|---|---|---|---|
 | 69 | calibration (HOLD 2) | C1 base met=false exit 1 | C1 tip met=true exit 0 via one correction row | `.ufo/waves/round-69/c69_recorded_counts.py`, `corpus/lessons/round-69.md` §Corrections |
 | 69 | operability (HOLD 10) | `tmp_literals=2`, fixture not under TMPDIR, exit 1 | `tmp_literals=0`, fixture under TMPDIR, exit 0 | `scripts/freshness-sweep.mjs` (`c182f579`), `.ufo/waves/round-69/c69_tmp_honour.py` |
+
+## Pointer calibration (round 70)
+
+Append-only calibration ledger for this file's path-like evidence pointers that do not resolve at
+the measured base revision `e5f6fd9e4c243d092160bc74e8bea24256087173`; a pointer counts as
+annotated only when its exact token is the first cell of a row below. Counter:
+`.ufo/waves/round-70/c70_pointer_audit.py` — predicate `unannotated=0`, exit 0, with the
+append-only conjunct against the base revision. Every row marks a historical record, not an
+executable instruction; the paths stay absent and no pin, corpus file or lesson line is edited by
+this section.
+
+| Pointer | Status | Dated event | Note |
+|---|---|---|---|
+| /tmp/kake-r10 | historical | 2026-09-28 round era | session-scoped /tmp scratch of round 10, removed under scratch discipline; never retained; the round-10 lesson is the committed record |
+| /tmp/kake-r11 | historical | 2026-09-29 round era | session-scoped /tmp scratch of round 11; the LOG round-11 entry is the committed record |
+| /tmp/kake-r12 | historical | 2026-09-29 round era | session-scoped /tmp scratch of round 12; the round-12 lesson is the committed record |
+| /tmp/kake-r13 | historical | 2026-09-30 round era | session-scoped /tmp scratch of round 13; the LOG round-13 entry is the committed record |
+| /tmp/kake-r14 | historical | 2026-10-01 round era | session-scoped /tmp scratch of round 14; the LOG round-14 entry is the committed record |
+| /tmp/kake-r15 | historical | 2026-10-01 round era | session-scoped /tmp scratch of round 15; the LOG round-15 entry is the committed record |
+| /tmp/kake-r17 | historical | 2026-10-14 round era | session-scoped /tmp scratch of round 17; the round-17 lesson is the committed record |
+| /tmp/kake-r18 | historical | 2026-10-14 round era | session-scoped /tmp scratch of round 18; the round-18 lesson is the committed record |
+| ~/Projects/plazir-15-site | historical | 2026-10-12 W7 prune | host tree gone in the 2026-10-12 prune/migration (round-18 sweep 2026-10-14 caught it); the live record lives in the publish-queue knowledge entry |
+| ~/DIRMAP.md | historical | 2026-10-12 W7 prune | host file gone in the same prune; no committed copy in the lane; the r18-era annotations mark the cite historical |
+| ~/projects | historical | 2026-09-29 W6 consolidation | lowercase host dir consolidated away in W6 (round 17); absent on this host since the 2026-11-01 host migration; the round-69 L0 question covers the corpus-side citations, not this cell |
+| .ufo/charter-scribe/ledger.jsonl | historical | 2026-10-14 round-18 era | absent from the tree and from full history; the r18-era annotations mark the cite historical |
+| scripts/sources-census.sh | fleet-root | 2026-11-03 measurement | lives in the fleet-root scripts/ directory, not in the lane; run from the fleet root |
+| .ufo/waves/round-44/verification/before-v4.json | historical | 2026-10-23 round-44 era | an --out target of a round-44 counting command, never committed; the near committed file under that round's verification claim directory carries the recorded output |
+| .ufo/waves/round-44/verification/after-v5.json | historical | 2026-10-23 round-44 era | same class as the row above |
+| .ufo/l0-questions.md | fleet-root | 2026-11-03 measurement | lives at the fleet root, not in the lane |
+| scripts/hyaku/ufo-wave-policy.json | fleet-root | 2026-11-03 measurement | lives in the fleet-root scripts/ directory, not in the lane |
+
+## Round 70 — declared and measured claims (attempt 1; author-side, admission belongs to the closure)
+
+Frozen contract `.ufo/waves/round-70/contract.md` (`908b20b0…`), Amendments 0 and 1 before any
+after-state. Base `e5f6fd9e4c243d092160bc74e8bea24256087173`. Wave: W1, one v1 wave of 14 seats
+(3 scout, 3 executor, 2 scribe, 1 reviewer, 1 critic, 1 mutation-tester, 1 connector, 1 revenger,
+1 sentinel; attack share 4/14 ≈ 28.6 %), dispatched through the inline spawn handoff; no residual
+wave; round total 14.
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 70 | calibration (HOLD 2) | `pointers=348 dangling=17 annotated=0 unannotated=17 met=false`, exit 1 | `unannotated=0 append_only=true met=true`, exit 0, via 17 exact-token calibration rows | `.ufo/waves/round-70/c70_pointer_audit.py` (v2, selftest 8/8), `controls/c1-base-v2.txt`, `controls/c1-tip.txt`, `SCORECARD.md` §Pointer calibration (round 70) |
+| 70 | freshness (HOLD 10) | entry file absent; `grep -c '^| S438 '` = 0 | entry present with the provenance trio; row NF=13, status mined, opened 2026-11-03; census exit 0 | `corpus/knowledge/crux-bigquery-origin-membership.md`, `corpus/SOURCES.md` S438, `controls/c2-after.txt`, `.ufo/waves/round-70/w1/ScoutSources/sources/` |
+
+The calibration axis stays at 2 (HOLD): the move is a new measurable instrument over the lane's
+own self-assessment file, not a score increase; the score row's evidence pointer now includes this
+counter. Freshness stays at 10 (HOLD): the adoption re-grounds staged knowledge against a live
+source this round and admits it under the lane's bar; no standing claim was re-verified against a
+live property this round (none is due before the next cadence dates).
+
+Learning trends (author-side; the closure owns admission): expansion improved (one admitted
+knowledge entry on coverage-map ground the lane did not hold, citing the S438 row opened this
+round); quality improved (the scorecard's 17 dangling evidence pointers annotated with dated
+events; the counter able-to-fail with 8 selftest cases and a red base); discernment improved
+locally (4 admits / 3 rejects recorded in the round-70 lesson §Gate, including one reject of the
+lane's own contract premise) — outside spot-check owed to the hyaku closure.
