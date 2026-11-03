@@ -2,6 +2,8 @@
 # Round-72 C2 J3 control: rebuilds the phrase-only command-annotation control in a scratch clone and runs the
 # round-71 counter (must accept, exit 0) and the round-72 counter (must reject, exit 1) on it.
 # Scratch lives under $HYAKU_SCRATCH (default /fast/scratch/hyaku) and is removed on exit.
+# The script exits with the round-72 counter's exit code. Counter exits are captured explicitly (|| rc=$?),
+# so set -e never hides them and an unevaluable counter (exit 2) is not reported as green.
 set -eu
 LANE=/home/vgpnk/Projects/shokunin/kake-shokunin
 BASE=3c68645af27706d1d09b8dc7e27b0b0a9ffef6f1
@@ -21,5 +23,6 @@ git -C "$ROOT/clone" -c user.name=kake-scratch -c user.email=kake@scratch.local 
 REV=$(git -C "$ROOT/clone" rev-parse HEAD)
 echo "J3_CONTROL_COMMIT=$REV base=$BASE"
 cd "$LANE"
-echo "c71 (round-71 counter) on J3 control:"; python3 -B .ufo/waves/round-71/c71_tmp.py --lane "$ROOT/clone" --revision "$REV"; echo "c71_exit=$?"
-echo "c72 (round-72 counter) on J3 control:"; python3 -B .ufo/waves/round-72/c72_tmp_v2.py --lane "$ROOT/clone" --revision "$REV"; echo "c72_exit=$?"
+c71rc=0; echo "c71 (round-71 counter) on J3 control:"; python3 -B .ufo/waves/round-71/c71_tmp.py --lane "$ROOT/clone" --revision "$REV" || c71rc=$?; echo "c71_exit=$c71rc"
+c72rc=0; echo "c72 (round-72 counter) on J3 control:"; python3 -B .ufo/waves/round-72/c72_tmp_v2.py --lane "$ROOT/clone" --revision "$REV" || c72rc=$?; echo "c72_exit=$c72rc"
+exit "$c72rc"

@@ -72,3 +72,26 @@ chain says so; any round may re-adjudicate a row by re-running its documented
 command at the revision the row names and committing the receipt. What this
 ledger forbids is silent normalization: a gate that stops re-deriving must be
 either re-pinned with a dated receipt or carried here with a named mechanism.
+
+## r72 adjudications (Linux host, 2026-11-03)
+
+Measured at lane base `3c68645af27706d1d09b8dc7e27b0b0a9ffef6f1` (receipts under `.ufo/waves/round-72/controls/`):
+
+- `c56_selftally` — re-adjudicated from `live` to `historical` with its pin. Green at the round-56 measured revision
+  `4cb225fb` (`controls/c56-pin-linux.txt`, exit 0, tally 10/10); red at the lane base with six audited tools changed
+  since the frozen base (`controls/c56-tip-linux.txt`, `tally_mismatches=6`, every row `tool_changed`, observed equal to
+  claim). The Windows-host interpreter-name mechanism of r67 does not carry to this host: the gate runs and reads real
+  content. Carry: the tool drift is a standing reason for the red at the tip; the row says so.
+- `c57_idresolver_gate`, `c58_resolver_cases`, `c59_resolver_cases` — the r67 Windows mechanisms do not carry to this
+  host either. Each runs to its real-lane leg and fails there: `ids_cited=121 ids_resolved=118 dangling=3`. The three
+  dangling ids are S303, S304 and S352, cited inside `corpus/knowledge/crux-bigquery-origin-membership.md` (round-70
+  adoption), with no kake registry row. Not re-adjudicated in round 72: the entry is append-only and the id rule forbids
+  registering staged ids as lane ids. Routed to the operator (`.ufo/l0-questions.md`, kake round-72 line). These three
+  rows stay `live` and red until that ruling lands; this ledger does not call them green or historical.
+
+[r72-correction 2026-11-03] The c56 cause stated in the bullet above ("six audited tools changed since the frozen base")
+is wrong, and this correction replaces it. No audited script changed between the pin `4cb225fb` and the base: the ten
+audited script hashes are identical (`.ufo/waves/round-72/w1/ReviewerC1.md`). The counter's `tool_changed` rule also
+compares the whole `scripts/fixtures` tree, which gained four `quote-class` fixture files in round-63 commit `6d8c52a6`,
+after the pin; that addition alone makes the six `tool_changed` rows red at the tip. With the fixture tree restored the
+ten selftests pass (`.ufo/waves/round-72/w1/CriticClaims.md` E12). The SKILL.md row now says this.
