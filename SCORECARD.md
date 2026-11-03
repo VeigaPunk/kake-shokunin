@@ -4697,3 +4697,31 @@ erratum recorded (r67 report header's `b569bb638` is one-char drift for
 `b569bb63a8bc2819553f08b4ce73eda12dc4d376`; no filed-report rewrite). Sources:
 S435 opened + written (registry 172 → 173). Fresh-start §7 honored with the
 staleness disclosed (r65/r66/r67 spot-checks verified ancestors of master).
+
+## Round 69 — declared and measured claims (attempt 1; author-side, admission belongs to the closure)
+
+Contract `.ufo/waves/round-69/contract.md` committed `dbcfef0b` before any seat ran; Amendment 1 (terms only:
+the frozen C1 pair set and its exact relabel row; quote-adjacent `tmp_literals`; `offline_unchanged` in place of
+`offline_exit=0`; distinct fresh TMPDIR and HOME) recorded after the W1 attacks and before any after-state.
+Base `4d188f9477b4301a2c93c8ef5c13bc6c6f4bb6e4`; measured commit `c182f5790e10f9d15814887ff5cbc9bb6e1a4e35`
+(landed artifacts); receipts in `.ufo/waves/round-69/controls/`. Scores: calibration 2, operability 10, freshness 10
+(HOLD; zero scalar delta; no capability row claimed).
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 recorded counts re-derive or are relabelled (frozen 20-pair set) | calibration 2→2 HOLD | base `4d188f94`: `pairs=20 mismatches=1 relabelled=0 unrelabelled=1 met=false`, exit 1 (`controls/c1-base.txt`) → tip `c182f579`: `pairs=20 mismatches=1 relabelled=1 unrelabelled=0 met=true`, exit 0 (`controls/c1-after-t1.txt`) | `python3 -B .ufo/waves/round-69/c69_recorded_counts.py --root . --revision <rev> --pairs .ufo/waves/round-69/c1/pairs.json` | measured met, bounded: the post-value of C1-02 stays wrong in the record (append-only) and is cleared by a correction row naming the re-derived integer 2 (`corpus/lessons/round-69.md` §Corrections); no score credit under HOLD |
+| C2 lane gate honours TMPDIR and holds no `/tmp` code literal | operability 10→10 HOLD | base: `tmp_literals=2 selftest_under_tmpdir=false offline_unchanged=true`, exit 1 (`controls/c2-base.txt`) → tip: `tmp_literals=0 selftest_under_tmpdir=true offline_unchanged=true`, exit 0 (`controls/c2-after-t1.txt`) | `python3 -B .ufo/waves/round-69/c69_tmp_honour.py --root . --revision <rev> --work <dir>` | measured met; offline gate unchanged at exit 1 on this host (host debt, L0); selftest 36/36 at base and tip |
+
+Stated limits at T1, not claimed closed: `--offline` is red at base on this Linux host (`~/projects` cites, round-66
+files; L0 raised); TMPDIR unset falls back to `os.tmpdir()` (`/tmp` on POSIX, documented in S436); removing the r15
+absent branch is indistinguishable on this host (MutC2Base M5); SKILL.md procedure paths under `/tmp` are outside C2.
+
+Frontier: `corpus/SOURCES.md` 173 → 175 (S436, S437; census exit 0 before and after; both `mined`). Mistakes M1
+(captured-by none; C1 counter and QUALITY criterion) and M2 (captured-by none; receipt re-run, green `grep -c /tmp` = 0
+vs base 1) mined in `corpus/lessons/round-69.md`.
+
+Move log (round 69):
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 69 | calibration (HOLD 2) | C1 base met=false exit 1 | C1 tip met=true exit 0 via one correction row | `.ufo/waves/round-69/c69_recorded_counts.py`, `corpus/lessons/round-69.md` §Corrections |
+| 69 | operability (HOLD 10) | `tmp_literals=2`, fixture not under TMPDIR, exit 1 | `tmp_literals=0`, fixture under TMPDIR, exit 0 | `scripts/freshness-sweep.mjs` (`c182f579`), `.ufo/waves/round-69/c69_tmp_honour.py` |

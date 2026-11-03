@@ -2404,3 +2404,32 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   re-run clean before this commit. No tools installed; no publishing or
   deploy action; no L2 wave (no dispatch surface; the r65 L0 question
   stands).
+
+## Round 69 — 2026-11-03 (hyaku run 15; attempt 1; Linux host; claims frozen before data)
+
+- **Frozen contract.** `.ufo/waves/round-69/contract.md` committed `dbcfef0b` before any seat ran. Amendment 1
+  (terms only) recorded after the W1 attacks (`w1/ReviewerDesign.md` F1–F7, `w1/CriticDesign.md`, `w1/ConnW1.md`
+  finding 1) and before any after-state: the C1 pair set is `c1/pairs.json` (sha256 `4e787bcb…e9be`); C2's
+  `offline_exit=0` is replaced by `offline_unchanged` because `--offline` already exits 1 at base on this host.
+- **Motivating evidence.** Round-68 spot-check §2 (C1 record/observed drift) and §7.3 (a `/tmp`-rooted receipt, M2);
+  `scripts/freshness-sweep.mjs` hardcodes `/tmp` at base lines 108 and 1204 (`RevengerC2.md`: introduced in
+  ab87a485, round 16).
+- **Landed at `c182f5790e10f9d15814887ff5cbc9bb6e1a4e35`:** `scripts/freshness-sweep.mjs` (R15 snapshot default removed,
+  selftest default from `os.tmpdir()`, help and comment text reworded; `node --check` ok; selftest 36/36 at tip with
+  the fixture under TMPDIR); `.ufo/waves/round-69/c69_recorded_counts.py` (selftest 6/6) and `c69_tmp_honour.py`;
+  `corpus/lessons/round-69.md` (Mistakes M1/M2, Corrections row `| C1-02 | 2 |`, Gate, sourced claims);
+  `corpus/QUALITY.md` Round-69 addendum (three criteria, each with an able-to-fail command); `corpus/SOURCES.md`
+  S436 and S437 inside `## Registry` (173 → 175 rows; `sources-census.sh validate … kake` exit 0).
+- **Measured.** C1: base `met=false` exit 1 → tip `met=true` exit 0 (`controls/c1-base.txt`, `controls/c1-after-t1.txt`).
+  C2: base `tmp_literals=2 selftest_under_tmpdir=false offline_unchanged=true` exit 1 → tip `tmp_literals=0
+  selftest_under_tmpdir=true offline_unchanged=true` exit 0 (`controls/c2-base.txt`, `controls/c2-after-t1.txt`).
+  M2 receipt re-run: `.ufo/waves/round-69/controls/wordcounts-r68-rerun.txt` has `grep -c /tmp` 0 (base receipt 1).
+- **Attacks at the landed tip (L1, direct).** HOME-redirect mutant → `selftest_under_tmpdir=false` exit 1; `'/tm'+'p'`
+  concat mutant → exit 1; S436 and S437 quotes present in the retained bodies after tag-strip and whitespace collapse.
+- **Residual wave not dispatched.** `w1r-spec.json` (3 attack seats) was refused by the wave validator
+  (`impossible_band`: spawn floor 8; padding to 8 would exceed the 16-seat round cap). Refusal recorded in
+  `.ufo/waves/round-69/w1r-dispatch.json` (error envelope). No residual seat ran.
+- **Stated limits.** `--offline` red at base (lowercase `~/projects` citations; L0 question appended); TMPDIR-unset
+  `/tmp` fallback documented (S436); MutC2Base M5 (removing the r15 absent branch) indistinguishable on this host.
+- **Not done this round.** No knowledge entry admitted on uncovered ground; no assimilation from `merge/kake/` or
+  `considerthese/` (see report); no SKILL.md change; no MANIFEST edit (closure-owned).
