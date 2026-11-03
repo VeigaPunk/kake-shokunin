@@ -2453,7 +2453,7 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   none — shokuknow unreachable`; on this host `/home/vgpnk/Projects/shokuknow` is present with the
   `merge/kake` package (129 staged rows, 104 entries), and the key-free CrUX origin-membership theme
   is the one staged entry whose every cited external source this lane can re-ground with one GET.
-- **Landed at `<T1>`:** `.ufo/waves/round-70/c70_pointer_audit.py` (counter v2, selftest 8/8);
+- **Landed at `50ec14460d348415aad9abc11c805a0792ba01a7`:** `.ufo/waves/round-70/c70_pointer_audit.py` (counter v2, selftest 8/8);
   `SCORECARD.md` `## Pointer calibration (round 70)` (17 exact-token rows, append-only);
   `corpus/knowledge/crux-bigquery-origin-membership.md` (adopted entry, re-grounded);
   `corpus/SOURCES.md` S438 row inside `## Registry` (175 → 176); `corpus/lessons/round-70.md`
@@ -2466,7 +2466,13 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   kept as history) → tip `unannotated=0 append_only=true met=true` exit 0 (`controls/c1-tip.txt`).
   C2: base — entry file absent, `grep -c '^| S438 '` = 0 → tip — entry present with the provenance
   trio, row NF=13, census exit 0 (`controls/c2-after.txt`).
-- **Attacks at the landed tip.** <L1 fills after the tip run>.
+- **Attacks at the landed tip (L1, direct, scratch clones at `50ec1446`).** C1: removing one
+  calibration row → `unannotated=1 met=false` exit 1; rewriting a base line with every row present →
+  `append_only=false met=false` exit 1 (`controls/tip-attacks.txt`) — the frozen predicate bites at
+  the tip on both bypass classes. C2: the receipt's sha256/bytes re-derive from the retained file and
+  the retained body's canonical and og:url attributes equal the entry's source URL
+  (`controls/c2-after.txt`); the named residual (a fully self-consistent fabricated body) stays
+  machine-unchecked, for the non-author closure to re-fetch if it chooses.
 - **Sources & frontier.** S438 opened and written this round (Chrome for Developers: CrUX on
   BigQuery, HTTP 200, 110,697 B, `dd17ea8c…db420`, retained body + receipt under
   `.ufo/waves/round-70/w1/ScoutSources/`): registry 175 → 176. Census at base and at tip: exit 0
