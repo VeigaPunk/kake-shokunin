@@ -1,0 +1,13 @@
+# Checkpoint011: kake selective reviewed export
+
+Closed original lane pin: e1d2c2aee427330b00011212d4fc5903ff7f3072. Selected rounds: 70. Original source identities differ from the new export identity.
+
+Round70: manual exploratory unprovable-but-better, calibration HOLD2, no executable gain. Round69 rejection is included for context and remains rejected-honest-stop; source learning does not rescue absent implementation or premature freeze/isolation defects.
+
+This is original owned code/recipes where selected, original analysis, released review and reports, with cited sources. It is not the full training repository or a freshly tested reproduction. No candidate, runner, fixture generator, baseline or provider was executed to prepare this export. Historical claims remain historical. No extra round, numerical gain, promotion or master/main merge follows.
+
+Read PROVENANCE-011.json for every selected original repository/commit/path/blob, original bytes/SHA256, exported blob/bytes/SHA256, and transformations. All source quotations selected for omission are replaced with an explicit marker. Source attribution, URLs, locations and original analysis remain. Quotation counts/locations in preserved historical prose or receipt fields describe ORIGINAL local documents, not the redacted export copy; this package does not certify those source-body checks. Task filesystem prefixes and one personal runtime path are redacted where recorded. A modified export is never represented as byte-identical to its original.
+
+S438.html and S438.txt, licensed Google raw/text captures and all containing original history remain local-only pending separate page-chrome/source review. Prior69 Google HTML captures and expanded source excerpts are omitted. All unselected counters, fixtures, raw no-harm streams, historical metadata and archives remain omitted. Cleared receipt summaries retain the initial runtime failure and two inherited mismatches. This documentary package cannot replay source-body checks, source census or c66/no-harm gates.
+
+Only the explicit allowlist is selected. No original lane .git history is imported. Existing reviewed-export ancestry is retained by ordinary fast-forward where available; new Kama/Kake exports have a single new root. No unsafe005 capture, full third-party page/PDF/code file, private oracle, nested archive/bundle/history, credential or unrelated personal data is selected. Referenced files outside the allowlist are deliberately missing. Source links do not grant redistribution rights or new license/ownership. Earlier publication artifacts remain unchanged; this checkpoint neither cleans up nor rewrites old public branches or Space files.

@@ -1,0 +1,5 @@
+# Explicit omissions and reproduction limits
+
+S438.html and S438.txt, licensed Google raw/text captures and all containing original history remain local-only pending separate page-chrome/source review. Prior69 Google HTML captures and expanded source excerpts are omitted. All unselected counters, fixtures, raw no-harm streams, historical metadata and archives remain omitted. Cleared receipt summaries retain the initial runtime failure and two inherited mismatches. This documentary package cannot replay source-body checks, source census or c66/no-harm gates.
+
+All original ancestry and every path outside the per-file PROVENANCE-011.json allowlist are excluded from this addition. Private/reviewer-only expectations and active later rounds are not exported. Full third-party documents and original licensed captures remain local. Only previously reviewed export ancestry is inherited. Historical reports may cite omitted originals; such references are not included dependencies or fresh verification claims.
