@@ -10,10 +10,10 @@ Claims: C1 calibration (lowest owned axis, score 2) and C2 operability (score 10
 
 ## Claims and verdicts
 
-| Claim | Predicate (frozen) | Before (base `3c68645a`) | After (landing tip TIP_REV) | Verdict |
+| Claim | Predicate (frozen) | Before (base `3c68645a`) | After (measured tip `5013c0ee`) | Verdict |
 |---|---|---|---|---|
-| C1 calibration | c66 gate-status `agreement == 25`, `evaluated == 28`, only `c56_selftally` changes | `agreement=24 mismatches=4 evaluated=28` (`controls/c1-base.txt`, exit 0) | `agreement=TIP_AGREE mismatches=TIP_MIS` (`controls/c1-tip.txt`) | TIP_C1_VERDICT |
-| C2 operability | c72 selftest 11/11; J3 control c71 exit 0 and c72 exit 1; base `cc6b4e0b` exit 1; tip exit 0 | selftest 11/11; base-red exit 1 (`controls/c2-base-red.txt`) | tip exit TIP_C2_EXIT (`controls/c2-tip.txt`); J3 control `c71_exit=0`, `c72_exit=1` (`controls/c2-j3-control-r3.txt`) | TIP_C2_VERDICT |
+| C1 calibration | c66 gate-status `agreement == 25`, `evaluated == 28`, only `c56_selftally` changes | `agreement=24 mismatches=4 evaluated=28` (`controls/c1-base.txt`, exit 0) | `agreement=25 mismatches=3 evaluated=28`, exit 0; the only member whose mismatch set changed is c56 (`controls/c1-tip-final.txt`) | met on the frozen predicate (calibration HOLD 2; no score move) |
+| C2 operability | c72 selftest 11/11; J3 control c71 exit 0 and c72 exit 1; base `cc6b4e0b` exit 1; tip exit 0 | selftest 11/11; base-red exit 1 (`controls/c2-base-red.txt`) | tip exit 0, `findings=[]` (`controls/c2-tip-final.txt`); J3 control `c71_exit=0`, `c72_exit=1` (`controls/c2-j3-control-r3.txt`) | met on the frozen predicate (operability HOLD 10); residual holes routed |
 
 Both verdicts are on the frozen predicates. Scores stay operability 10, freshness 10, calibration 2 (HOLD; no scalar move).
 
