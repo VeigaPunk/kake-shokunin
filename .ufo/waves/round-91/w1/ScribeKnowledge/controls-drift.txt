@@ -1,0 +1,90 @@
+# frozen-control drift observed by ScribeKnowledge at 2026-11-04T20:43:08-03:00 — not this seat's edit
+$ git status --porcelain .ufo/waves/round-91/controls/
+ M .ufo/waves/round-91/controls/ctl-c1.txt
+ M .ufo/waves/round-91/controls/ctl-c2.txt
+ M .ufo/waves/round-91/controls/run_controls.sh
+?? .ufo/waves/round-91/controls/freeze-state-c1.txt
+?? .ufo/waves/round-91/controls/replay-tip.txt
+
+$ sha256sum working-tree runner vs committed blob at f4fff130
+35703c8a0bfb25e3eaf239e8e8d25603f3292f7125fd55e167cc6c820d15495b  .ufo/waves/round-91/controls/run_controls.sh
+37d42f262a47db2b1799032a79d1488ee3d8afa5d1d6a2696d0613ee1369970d  -
+
+$ stat mtimes
+2026-11-04 20:37:35.307249915 -0300 .ufo/waves/round-91/controls/run_controls.sh
+2026-11-04 20:37:41.861856818 -0300 .ufo/waves/round-91/controls/ctl-c1.txt
+2026-11-04 20:38:55.949102136 -0300 .ufo/waves/round-91/controls/ctl-c2.txt
+
+$ git diff .ufo/waves/round-91/controls/run_controls.sh
+diff --git i/.ufo/waves/round-91/controls/run_controls.sh w/.ufo/waves/round-91/controls/run_controls.sh
+index 3954876a..7d1e4c68 100755
+--- i/.ufo/waves/round-91/controls/run_controls.sh
++++ w/.ufo/waves/round-91/controls/run_controls.sh
+@@ -8,27 +8,29 @@ LANE=${LANE:-/home/vgpnk/Projects/shokunin/kake-shokunin}
+ R91=$LANE/.ufo/waves/round-91
+ OUT=$R91/controls
+ BASE=5b20af16661040f383e9e84f85b838619857cb14
+-SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kake-r91/L1/controls
++SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kake-r91/L1/controls-$$
+ rm -rf "$SCR"; mkdir -p "$SCR"
+ PASS=0; TOTAL=0
+ check() {
+   TOTAL=$((TOTAL + 1))
+   if [ "$2" = "$3" ]; then PASS=$((PASS + 1)); else echo "MISMATCH $1 want=$2 got=$3"; fi
+ }
+-reading() { grep -oE 'met=(true|false)' "$1" | tail -1; }
++reading() { head -1 "$1" | grep -oE 'met=(true|false)'; }  # first line only: the JSON detail quotes per-subject lines
+ D=$SCR/fx
+ git clone -q --shared "$LANE" "$D" || { echo "controls fail: clone"; exit 9; }
+ [ "$(git -C "$D" rev-parse --show-toplevel)" = "$D" ] || { echo "controls fail: toplevel"; exit 9; }
+ git -C "$D" checkout -q --detach "$BASE"
+ G() { git -C "$D" -c user.name=fixture -c user.email=fixture@scratch.invalid "$@"; }
+-C1() { local f=$1; shift; python3 -B "$R91/c91_defects.py" --root "$1" --revision "$2" --work "$SCR/w" > "$f" 2>&1; }
+-C2() { local f=$1; shift; python3 -B "$R91/c91_reuse.py" --root "$1" --revision "$2" --candidate "$3" --work "$SCR/w" --seed 91091 > "$f" 2>&1; }
++RC=0
++C1() { local f=$1; shift; python3 -B "$R91/c91_defects.py" --root "$1" --revision "$2" --work "$SCR/w" > "$f" 2>&1; RC=$?; }
++C2() { local f=$1; shift; python3 -B "$R91/c91_reuse.py" --root "$1" --revision "$2" --candidate "$3" --work "$SCR/w" --seed 91091 > "$f" 2>&1; RC=$?; }
+ 
+ {
+   echo "## c1-do-nothing (lane at base: no successor counter, no mutation receipt, old script)"
+   C1 "$SCR/o1" "$LANE" "$BASE"
+   cat "$SCR/o1"
+   check c1-do-nothing met=false "$(reading "$SCR/o1")"
++  check c1-do-nothing-exit 1 "$RC"
+ 
+   echo "## c1-junk (frozen bytes committed, junk receipt, junk script, no execution)"
+   mkdir -p "$D/.ufo/waves/round-91"
+@@ -41,19 +43,22 @@ C2() { local f=$1; shift; python3 -B "$R91/c91_reuse.py" --root "$1" --revision
+   C1 "$SCR/o2" "$D" "$JUNK"
+   cat "$SCR/o2"
+   check c1-junk met=false "$(reading "$SCR/o2")"
++  check c1-junk-exit 1 "$RC"
+ } > "$OUT/ctl-c1.txt" 2>&1
+ 
+ {
+   echo "## c2-do-nothing (lane at base: no candidate tool)"
+-  C2 "$SCR/o3" "$LANE" "$BASE" scripts/stored_reuse.py
+-  cat "$SCR/o3"
+-  check c2-do-nothing met=false "$(reading "$SCR/o3")"
++  C2 "$SCR/c2-do-nothing" "$LANE" "$BASE" scripts/stored_reuse.py
++  cat "$SCR/c2-do-nothing"
++  check c2-do-nothing met=false "$(reading "$SCR/c2-do-nothing")"
++  check c2-do-nothing-exit 1 "$RC"
+ 
+   echo "## c2-forgeries (each frozen forgery subject scored as the candidate)"
+   for f in neg-pin-reader neg-allowlist neg-blanket-refuse neg-blanket-admit neg-hash-table; do
+     C2 "$SCR/o4" "$D" "$JUNK" ".ufo/waves/round-91/frozen/$f.py"
+     echo "--- $f"; cat "$SCR/o4"
+     check "c2-$f" met=false "$(reading "$SCR/o4")"
++    check "c2-$f-exit" 1 "$RC"
+   done
+ 
+   echo "## c2-reachability (the counter's own reference, wrapped; a control, not the shipped tool)"
+@@ -64,6 +69,7 @@ C2() { local f=$1; shift; python3 -B "$R91/c91_reuse.py" --root "$1" --revision
+   C2 "$SCR/o5" "$D" "$REF" ".ufo/waves/round-91/controls/reference-candidate.py"
+   cat "$SCR/o5"
+   check c2-reachability met=true "$(reading "$SCR/o5")"
++  check c2-reachability-exit 0 "$RC"
+ } > "$OUT/ctl-c2.txt" 2>&1
+ 
+ rm -rf "$SCR"

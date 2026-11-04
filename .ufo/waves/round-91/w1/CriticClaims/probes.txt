@@ -1,0 +1,33 @@
+## probe 1: frozen neg-hash-table.py validity and anti_table coverage
+file_sha256=bf3385834c17d5451d1e7041eaa20579b382d53a0513a8f0b56025bdc268d47b
+null_literal_occurrences=15
+Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r91/CriticClaims/clone/.ufo/waves/round-91/frozen/neg-hash-table.py", line 27, in <module>
+    "freshness_lifetime": null
+                          ^^^^
+NameError: name 'null' is not defined
+run_exit=1
+anti_table_digest_hits_over_frozen_hash_table=0
+## probe 2: item C text-check bypass forms
+cp "$LANE/baseclean.out" "$D/x"            forbidden=True
+cp "$LANE"/baseclean.out "$D/x"            forbidden=True
+cp "${LANE}/baseclean.out" "$D/x"          forbidden=True
+cp "$LANE"//baseclean.out "$D/x"           forbidden=False
+cp "$LANE"/"baseclean.out" "$D/x"          forbidden=False
+cp $LANE/baseclean\.out "$D/x"             forbidden=False
+cp "${LANE}"/./baseclean.out "$D/x"        forbidden=False
+## probe 3: counter path tokens (cross-read scan)
+-- c91_defects.py
+52:SELF_PATH = ".ufo/waves/round-91/c91_defects.py"
+54:RECEIPT = ".ufo/waves/round-91/integration/mutation-tip.txt"
+55:GATE = "scripts/cache_key_conformance.py"
+56:SCRIPT = ".ufo/waves/round-90/controls/run_controls.sh"
+57:INHERITED = ".ufo/waves/round-90/inherited/baseclean.out"
+-- c91_reuse.py
+47:CANDIDATE = "scripts/stored_reuse.py"
+48:PINS_FILE = ".ufo/waves/round-91/frozen/c2-population.sha256"
+51:    ".ufo/waves/round-91/frozen/neg-pin-reader.py",
+52:    ".ufo/waves/round-91/frozen/neg-allowlist.py",
+53:    ".ufo/waves/round-91/frozen/neg-blanket-refuse.py",
+54:    ".ufo/waves/round-91/frozen/neg-blanket-admit.py",
+55:    ".ufo/waves/round-91/frozen/neg-hash-table.py",

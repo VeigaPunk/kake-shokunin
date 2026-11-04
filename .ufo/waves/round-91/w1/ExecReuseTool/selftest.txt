@@ -1,0 +1,18 @@
+# stored_reuse.py --selftest (in-memory fixtures: the contract's 45 worked cases)
+
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/stored_reuse.py --selftest
+selftest 45/45
+exit=0
+
+No files are written by --selftest (pure in-memory evaluation of the fixture list).
+
+Smoke decisions on the same landed file (LANE/scripts/stored_reuse.py):
+
+$ printf '%s' '{"stored":{"status":200,"headers":{"Date":"1000000","Cache-Control":"max-age=60"}},"request":{"method":"GET","headers":{}},"now":1000030}' | python3 -B LANE/scripts/stored_reuse.py
+{"decision": "reuse", "freshness_lifetime": 60, "current_age": 30}
+exit=0
+
+$ printf '%s' '{"stored":{"status":200,"headers":{"Cache-Control":"max-age=60"}},"request":{"method":"GET","headers":{}},"now":1000030}' | python3 -B LANE/scripts/stored_reuse.py
+stderr: invalid_input: stored response has no Date header
+stdout: empty
+exit=1

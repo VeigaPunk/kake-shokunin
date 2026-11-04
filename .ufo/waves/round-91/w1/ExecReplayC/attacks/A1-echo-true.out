@@ -1,0 +1,19 @@
+## c1-do-nothing (lane at base; live tree carries the inherited baseclean.out)
+MISMATCH c1-do-nothing want=met=false got=met=true
+## c1-F-D1a relocated copy committed, root file left untracked
+MISMATCH c1-D1a want=met=false got=met=true
+## c1-F-D1b relocated copy with different bytes, root clean
+MISMATCH c1-D1b want=met=false got=met=true
+## c1-F-D2a correction whose numbers disagree with the cited receipt
+MISMATCH c1-D2a want=met=false got=met=true
+## c1-F-D2b fabricated receipt agreeing with its correction
+MISMATCH c1-D2b want=met=false got=met=true
+## c1-F-D2c valid correction but the filed SCORECARD row rewritten in place
+MISMATCH c1-D2c want=met=false got=met=true
+## c1-F-D3a supersede row with a fabricated quote
+MISMATCH c1-D3a want=met=false got=met=true
+## c1-F-D3b supersede row valid but S463 scope rewritten in place
+MISMATCH c1-D3b want=met=false got=met=true
+## c1-positive all three fixed in the fixture
+controls ok 1/9
+exit=1

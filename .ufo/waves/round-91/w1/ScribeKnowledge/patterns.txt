@@ -1,0 +1,18 @@
+invalid_input: quoted delta-seconds argument: max-age
+exit=1  <= quoted-delta
+invalid_input: duplicate header name: cache-control
+exit=1  <= case-dup-header
+invalid_input: duplicate Cache-Control directive: max-age
+exit=1  <= dup-directive
+invalid_input: stored response has no Date header
+exit=1  <= no-date
+invalid_input: control character in header value: X-Note
+exit=1  <= cr-in-value
+{"decision": "serve-stale", "freshness_lifetime": 60, "current_age": 65}
+exit=0  <= stale-maxstale
+{"decision": "not-storable", "freshness_lifetime": null, "current_age": null}
+exit=0  <= not-storable-post
+{"decision": "heuristic-undecided", "freshness_lifetime": null, "current_age": 10}
+exit=0  <= heuristic
+{"decision": "only-if-cached-miss", "freshness_lifetime": 60, "current_age": 60}
+exit=0  <= only-if-cached-miss

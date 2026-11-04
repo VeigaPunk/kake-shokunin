@@ -1,0 +1,12 @@
+invalid_input: duplicate header name: CACHE-CONTROL
+exit=1  <= case-dup-upper
+invalid_input: control character in header value: X-N
+exit=1  <= nul-value
+invalid_input: unknown top-level input key
+exit=1  <= unknown-key
+invalid_input: stored status must be an integer 100..599
+exit=1  <= status-string
+invalid_input: now must be a nonnegative integer
+exit=1  <= now-negative
+invalid_input: missing input key: request
+exit=1  <= no-request

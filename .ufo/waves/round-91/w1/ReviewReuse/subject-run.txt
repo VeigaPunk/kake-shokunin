@@ -1,0 +1,54 @@
+cc-ows-around-equals               AMBIG-alt-agree
+no-cache-quoted-field-request      AGREE ('revalidate', 60, 30)
+stored-cc-empty-value              AMBIG-strict-agree(refusal)
+max-stale-quoted                   AGREE-refusal reason='invalid_input: quoted delta-seconds argument: max-stale'
+age-leading-zeros                  AGREE ('reuse', 60, 17)
+date-far-future                    AGREE ('reuse', 60, 0)
+expires-equals-date                AGREE ('revalidate', 0, 0)
+vary-trailing-comma                AGREE ('reuse', 60, 30)
+vary-star-member                   AGREE ('not-storable', None, None)
+head-request-no-cache              AGREE ('revalidate', 60, 30)
+head-stored-no-store               AGREE ('not-storable', None, None)
+smaxage-only-not-shared            AGREE ('heuristic-undecided', None, 50)
+smaxage-only-shared                AGREE ('reuse', 100, 50)
+precedence-all-three               AGREE ('reuse', 100, 50)
+private-quoted-shared              AGREE ('not-storable', None, None)
+private-quoted-not-shared          AGREE ('reuse', 60, 30)
+dup-directive-same-arg             AGREE ('reuse', 60, 30)
+dup-directive-case-differs         AGREE-refusal reason='invalid_input: duplicate Cache-Control directive: max-age'
+max-age-signed-plus                AGREE-refusal reason='invalid_input: delta-seconds must be a bare non-negative integer: max-age'
+max-age-signed-neg-zero            AGREE-refusal reason='invalid_input: delta-seconds must be a bare non-negative integer: max-age'
+uppercase-directive                AGREE ('reuse', 60, 30)
+tab-padded-cc                      AGREE ('reuse', 60, 30)
+directive-empty-name               AMBIG-strict-agree(refusal)
+quoted-arg-with-comma              AGREE ('not-storable', None, None)
+request-max-age-stale-by-one       AGREE ('revalidate', 60, 31)
+request-max-age-zero-boundary      AGREE ('reuse', 60, 0)
+min-fresh-precedes-max-stale       AGREE ('revalidate', 60, 65)
+only-if-cached-serve-stale         AGREE ('only-if-cached-miss', 60, 65)
+only-if-cached-heuristic           AGREE ('only-if-cached-miss', None, 10)
+min-fresh-heuristic-order          AGREE ('heuristic-undecided', None, 10)
+negative-lifetime-max-stale        AGREE ('serve-stale', -100, 0)
+method-lowercase-head              AGREE ('not-storable', None, None)
+method-trailing-space              AGREE ('not-storable', None, None)
+now-zero-fresh                     AGREE ('reuse', 60, 0)
+request-headers-absent             AGREE ('reuse', 60, 30)
+unknown-directive-quoted-arg       AGREE ('reuse', 60, 30)
+lf-in-value                        AGREE-refusal reason='invalid_input: control character in header value: X-Note'
+nul-in-value                       AGREE-refusal reason='invalid_input: control character in header value: X-Note'
+status-99                          AGREE-refusal reason='invalid_input: stored status must be an integer 100..599'
+status-600                         AGREE-refusal reason='invalid_input: stored status must be an integer 100..599'
+shared-as-string                   AGREE-refusal reason='invalid_input: shared must be a boolean'
+missing-stored                     AGREE-refusal reason='invalid_input: missing input key: stored'
+extra-stored-key                   AMBIG-strict-agree(refusal)
+stored-headers-absent              AGREE-refusal reason='invalid_input: stored response has no Date header'
+date-non-integer                   AGREE-refusal reason='invalid_input: date must be a decimal integer'
+min-fresh-quoted                   AGREE-refusal reason='invalid_input: quoted delta-seconds argument: min-fresh'
+smaxage-quoted-shared              AGREE-refusal reason='invalid_input: quoted delta-seconds argument: s-maxage'
+date-ows-trimmed                   AGREE ('reuse', 60, 30)
+shared-absent-default              AGREE ('reuse', 60, 30)
+shared-absent-smaxage-untaken      AGREE ('heuristic-undecided', None, 50)
+header-value-json-number           AGREE-refusal reason='invalid_input: header names and values must be strings'
+header-value-bool                  AGREE-refusal reason='invalid_input: header names and values must be strings'
+header-value-null                  AGREE-refusal reason='invalid_input: header names and values must be strings'
+SUMMARY subject agree=53 disagree=0 protocol_notes=0 of 53

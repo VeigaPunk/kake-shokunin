@@ -1,0 +1,19 @@
+revision=f4fff130a52ae6de49af5de7d568d2ee320ebfb0 exit=0 controls ok 9/9
+# ONLY=c1 replay of .ufo/waves/round-90/controls/run_controls.sh on a scratch clone checked out at the tip (clean, 0 status lines).
+# Format: label expected=<reading> actual=<counter summary-line reading> result=<script assertion>
+do-nothing expected=met=false actual=met=false (C1v90 open=3 closed=0) result=PASS
+D1a expected=met=false actual=met=false (open=3 closed=0) result=PASS
+D1b expected=met=false actual=met=false (open=3 closed=0) result=PASS
+D2a expected=met=false actual=met=false (open=3 closed=0) result=PASS
+D2b expected=met=false actual=met=false (open=3 closed=0) result=PASS
+D2c expected=met=false actual=met=false (open=3 closed=0) result=PASS
+D3a expected=met=false actual=met=false (open=3 closed=0) result=PASS
+D3b expected=met=false actual=met=false (open=3 closed=0) result=PASS
+positive expected=met=true actual=met=true (open=0 closed=3) result=PASS
+# ONLY=all result: exit=1, controls ok 11/14 (NOT green). Failing rows are a reader defect in run_controls.sh reading(), not the counter.
+c2-do-nothing expected=met=false actual=met=false (gate=absent) result=PASS
+c2-refuse expected=met=false actual=met=false (negatives_refused=57/57) result=PASS
+c2-admit expected=met=false actual=met=false (positives=4/4 negatives_refused=0/57 false_admits=57; script read met=true from candidate-echo JSON) result=FAIL reader
+c2-hashtable expected=met=false actual=met=false (false_admits=57; script read met=true from candidate-echo JSON) result=FAIL reader
+c2-nametable expected=met=false actual=met=false (false_admits=57; script read met=true from candidate-echo JSON) result=FAIL reader
+# Diagnostic copy (scratch, not an edit): reading() taken from the counter summary line only, SCR kept -> ONLY=all controls ok 14/14 exit 0.

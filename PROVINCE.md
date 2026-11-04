@@ -720,3 +720,28 @@ inputs the contract leaves undecided (non-UTF-8 input, NUL in a value, raw contr
 characters in JSON). S467 supersedes S463 as the construction ground (RFC 9111 §2,
 §4.1). Still outside: storability, reuse, revalidation, freshness, serving and browser
 behaviour; the request method is not part of the lane's key (adapter limit).
+
+## Round 91 — stored-response reuse decision only
+
+`scripts/stored_reuse.py` and `corpus/knowledge/stored-response-reuse.md` (S469,
+RFC 9111 §5.2.1, §4.2.1, §4.2.4) answer one question over values the caller
+supplies: may this stored response be handed to the request in front of me, or must
+the cache go back to the origin? The answer is one of `reuse`, `revalidate`,
+`serve-stale`, `must-revalidate-fail`, `not-storable`, `heuristic-undecided`,
+`only-if-cached-miss`, with `freshness_lifetime` and `current_age` reported from
+supplied integer epoch seconds: the lifetime by the first-match order `s-maxage`
+(shared) → `max-age` → `Expires − Date` → `null`, the age as
+`max(0, Age) + max(0, now − Date)`. Malformed input is refused as
+`invalid_input: <reason>` on stderr, exit 1, nothing on stdout. The frozen counter
+`.ufo/waves/round-91/c91_reuse.py` scores it against the 45 clause-tagged hand
+cases, a seeded generated population and five frozen forgery subjects that must be
+refused.
+
+The boundary is the capability. No storage key and no Vary matching (r88/r89 hold
+those), no revalidation exchange (§4.3), no heuristic freshness (§4.2.2 — with no
+explicit lifetime the answer is `heuristic-undecided`, never a guessed number), no
+stale serving without a client `max-stale` directive (§4.2.4's permission is not a
+client preference), no Date parser, no clock, no network, no cache store, and no
+claim about any live property. A `reuse` verdict is a decision over the supplied
+integers; it is not evidence that any deployed cache reuses, and no publish, deploy
+or property repair follows from it.

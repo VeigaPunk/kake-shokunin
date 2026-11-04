@@ -1619,3 +1619,29 @@ bytes and the round-87 frozen instrument are unchanged.
 `boolean`, ...). Arithmetic, exits and the 61-fixture selftest are unchanged and
 re-run in `.ufo/waves/round-88/controls/`. The counter enforces that item
 behaviorally (exit, message, six-term arithmetic, selftest), not by prose.
+
+## Round 91 — stored-response reuse decision
+
+`corpus/knowledge/stored-response-reuse.md` (S469, RFC 9111 §5.2.1, §4.2.1,
+§4.2.4) supplies the seven-member decision table, the five error shapes and the
+runnable checklist. The probe answers one question over caller-supplied integer
+seconds: may this stored response be handed to this request? No storage key, no
+Vary match, no revalidation exchange, no heuristic freshness, no store, no clock,
+no network, no live property.
+
+| Name | Kind | Entry command | Verdict map | Selftest | Pinned values | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| stored_reuse | probe | `printf '%s' '<payload>' \| python3 -B scripts/stored_reuse.py` with stdin JSON `{stored:{status,headers},request:{method,headers},now,shared?}` | 0 clean/decided (stdout `{"decision": <member>, "freshness_lifetime": <int\|null>, "current_age": <int\|null>}`); 1 failed/`invalid_input:` on stderr with empty stdout; a decision is not a storage-key match, a revalidation exchange, heuristic freshness or a serving permission | `TMPDIR=$(mktemp -d) python3 -B scripts/stored_reuse.py --selftest` → `selftest 45/45` | `.ufo/waves/round-91/c2-contract.md` (sha256 faa91e09…d768fe4) and its 45 worked cases; candidate sha256 5004657d…ba9ad299 | stdin/stdout/stderr only; writes nothing, selftest runs in memory | kake |
+| c91 reuse capability | gate | `python3 -B .ufo/waves/round-91/c91_reuse.py --root . --revision <rev> --work <explicit-scratch> [--seed N] [--generated N]` | 0 clean/met; 1 failed/not-met (hand or generated failures, an admitted forgery, `anti_table=hit` or `population=drift` named in the JSON line); 2 unresolved revision, or reference/hand-case drift before any candidate is scored | `python3 -B .ufo/waves/round-91/c91_reuse.py --selftest` → `selftest 45/45 hand cases, 120 generated, 7 decisions` | `.ufo/waves/round-91/frozen/c2-population.sha256` (sha256 033b6103…95084c8; five forgery subjects), `c2-contract.md` faa91e09…, seed 91091 | `--work` scratch only (one extracted tree plus a per-case cwd, removed on exit) | kake |
+
+Two limits worth carrying beside these rows. The gate scores the *contract*, not
+the RFC: its hand cases and generated population were written by the same round as
+the contract, so `met=true` is conformance to contract v1 and never evidence about
+a deployed cache. And the gate's `anti_table` check is substring-based on the five
+forgery file stems, so a legitimate candidate that merely quoted a stem in prose
+would be refused — a designed false-positive, not a defect. At the time these rows
+were written `scripts/stored_reuse.py` existed in the working tree but was not yet
+a LANE commit, so the gate at HEAD read `candidate=absent … met=false`; the
+`met=true` line at the carrier is the C2 seat's receipt
+(`.ufo/waves/round-91/w1/ExecReuseTool/counter-final.txt`) and L1's re-run at the
+landing revision is what counts.

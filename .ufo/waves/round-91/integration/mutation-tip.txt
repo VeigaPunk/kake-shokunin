@@ -1,0 +1,35 @@
+gate_sha256=d7bca38ec146727087a2d2e37a64c5154214e2dd069553fb5594372d2064b65e mutants=34 killed=20 survivors=14 met=true
+M01 delete hand case layout/absent (absent-name GS marker) -> survived
+M02 delete clause group members (all 25 members hand cases) -> killed
+M03 delete clause group refusals (all 14 envelope-refusal hand cases) -> killed
+M04 delete hand case refusals/headers-missing -> survived
+M05 judge accepts expected key by substring containment (stdout shape ignored) -> killed
+M06 judge drops stdout-emptiness requirement on refusals -> survived
+M07 judge drops invalid_input stderr-prefix requirement on refusals -> survived
+M08 judge accepts exit 0 on expected refusals -> killed
+M09 sandbox deny_events drops os.system -> survived
+M10 sandbox deny_events drops gc.get_objects -> survived
+M11 sandbox deny_mods drops _posixsubprocess (a4814f58 hardening) -> survived
+M12 sandbox drops the import audit branch -> survived
+M13 reference drops sort of vary members -> killed
+M14 reference escapes separators before percent (replace-chain) -> killed
+M15 reference trims with str.strip() (wider than OWS) -> killed
+M16 reference drops duplicate-vary-member refusal -> killed
+M17 reference drops wildcard-member refusal -> killed
+M18 --generated default 0 (generated population off by default) -> survived
+M19 met ignores the generated tally -> survived
+M20 met ignores the sandbox-violation flag -> survived
+M21 backdoor: admits a candidate whose source carries a pinned subject digest -> killed
+M22 judge accepts an extra output key (len(doc) < 1) -> survived
+M23 sandbox drops strict-UTF-8 stdin reconfigure (a4814f58 hardening) -> survived
+M24 sandbox drops the open audit branch -> survived
+M25 judge rejects trailing-newline stdout (stricter than the contract) -> killed
+M26 sandbox empties the stdlib roots -> killed
+M27 reference drops header-name lowering -> killed
+M28 reference drops vary-member OWS trim -> killed
+M29 reference emits empty for absent names (no GS marker) -> killed
+M30 reference drops case-insensitive duplicate-header refusal -> killed
+M31 reference drops CR/LF value refusal -> killed
+M32 reference drops uri type check -> killed
+M33 reference drops vary type check -> killed
+M34 reference drops request_headers type check -> killed

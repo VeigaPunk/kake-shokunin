@@ -132,6 +132,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Sitemap containers and formats (gzip, plain text, RSS 2.0, Atom 1.0) | r77 (map row added r78) | `knowledge/sitemap-formats.md` | S012 S447 S448 |
 | Cache-key construction (Vary-nominated stored-response key; key only, not storage or reuse) | r89 (lands this round, instrument not admitted) | `knowledge/cache-key-construction.md` + `scripts/cache_key.py` | S463 S465 |
 | Cache-key conformance (does a key constructor implement the contract; field-value validity; JSON text encoding) | r90 | `knowledge/cache-key-conformance-gate.md` + `scripts/cache_key_conformance.py` | S466 S467 S468 |
+| Stored-response reuse decision (may a stored copy be handed to this request; first-match freshness order; when a stale copy is served or refused) | r91 | `knowledge/stored-response-reuse.md` + `scripts/stored_reuse.py` | S469 |
 
 Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
 (S102–S109, `used-by` only `corpus/lessons/round-39.md`; tool
@@ -713,3 +714,21 @@ permitted transformation the reader declines), the CR/LF/NUL rule, and a populat
 the candidate cannot read. A sibling note exists: `mori-shokunin` S594 holds a
 one-line §4.1 rule (see `.ufo/waves/round-88/w1/ConnectorScope.md`), reported as
 adjacency, not absorbed.
+
+## Round-91 frontier step — the reuse decision
+
+`corpus/knowledge/stored-response-reuse.md` (S469, RFC 9111 §5.2.1, §4.2.1,
+§4.2.4) moves the *reuse* half of the cache question out of the frontier: given a
+stored status and header map, a request method and header map, an integer `now` and
+a shared-cache flag, one decision out of seven, together with the freshness lifetime
+and current age it rests on. `scripts/stored_reuse.py` is the offline reader; its 45
+hand cases and 120 seeded generated cases are contract conformance, not RFC
+conformance, and passing them proves nothing about a deployed cache.
+
+Frontier line: the reuse decision moves from open ground to held, bounded ground for
+supplied integer seconds only. Storage-key identity and Vary matching stay with
+r88/r89, the age arithmetic with r87, construction with r89/r90. Still open on this
+axis: the revalidation exchange (§4.3), heuristic freshness (§4.2.2), serving stale
+without a client directive (§4.2.4's permission rather than a preference),
+field-specific header normalisation, and every live-cache or browser observation.
+

@@ -1,0 +1,8 @@
+# c91_defects.py item_c forbidden pattern, exact regex from the frozen counter (sha256 5239c7f8...629b)
+caught | cp "$LANE/baseclean.out" "$D/baseclean.out"
+MISSED | cp "$LANE/./baseclean.out" x
+MISSED | cp "${LANE:-.}/baseclean.out" x
+MISSED | cp "${LANE}"/baseclean.out x
+MISSED | cp "$LANE"/"baseclean.out" x
+MISSED | ROOT_COPY=baseclean.out; cp "$LANE/$ROOT_COPY" x
+MISSED | cp "$LANE/../$(basename $LANE)/baseclean.out" x

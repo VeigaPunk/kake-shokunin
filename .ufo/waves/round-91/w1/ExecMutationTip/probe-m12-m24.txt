@@ -1,0 +1,7 @@
+probe: M12 (import branch dropped) + M24 (open branch dropped), counter re-run at seed 90, per-subject lines:
+  M12 neg-oracle-path-import.py -> sandbox=violation (dies at open of the borrowed c89_key.py: open event still hooked)
+  M12 neg-exec-source.py -> sandbox=violation (same open-event mask)
+  M24 neg-oracle-path-import.py -> sandbox=violation (dies at import c89_key: import branch still hooked)
+  M24 neg-exec-source.py -> sandbox=violation, stderr captured directly:
+    rc=97 stderr: SANDBOX_VIOLATION import subprocess
+    (the exec'd round-89 counter source imports subprocess at module level; the still-present import branch denies it)
