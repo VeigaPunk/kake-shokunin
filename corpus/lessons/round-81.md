@@ -261,3 +261,81 @@ and `controls/after-c81-capture-audit.txt` (`C2v1 … surfaces=? failures=? audi
 plus the audit's own `checks=<n> findings=<k>` line), and the three correction rows in
 `## Corrections` are already decided from committed bytes (the counter's three predicates return
 `(True, …)` over this file at the current working tree, exit 0).
+
+## Post-attack settlement (appended 2026-11-04)
+
+The wave's attacks changed the round's bytes before the report. Where an attack found a defect, the
+instrument or the term was corrected by an amendment written before the affected after-state, and the
+finding is recorded here rather than papered over.
+
+- **C2 measured at the carrier.** `C2v1 revision=395f123cd7ac7251e07890540b4f2e9a11353c84
+  declared=3 surfaces=3 failures=0 audit_rc=1 met=true`, exit 0
+  (`controls/after-c2-carrier.txt`); base `declared=0 surfaces=0 met=false`, exit 1
+  (`controls/base-c81-capture-audit.txt`). The three surfaces answered 200 at
+  `2026-11-04T12:05:06Z` with bodies of 78,897 / 62 / 7,810 bytes and the digests recorded in the
+  receipts; the offline audit printed four findings (`hsts_present` missing on all three,
+  `csp_present` missing on the primary) and `checks=3 findings=4`, committed byte-exactly at
+  `controls/after-c2-audit.txt`. The carrier is scored in `--revision` mode (ReviewC2 F3): in
+  worktree mode the audit tool could be swapped, and the run is only as strong as uncommitted bytes.
+- **Amendment 2** (`.ufo/waves/round-81/amendments/amendment-2.md`, before the capture) aligned the
+  instrument to the predicate after CriticClaims' two findings: manifest-equals-declared-expectations,
+  `--revision`, byte-exact audit equality, URL identity and https final URL. Selftest 12/12 → 18/18.
+- **Amendment 3** (`…/amendment-3.md`, before the carrier) replaced the lexical fetch-time compare with
+  an instant compare after ReviewC2 F2: `2026-11-04T01:00:00+09:00` (2026-11-03T16:00Z) was accepted
+  and `2026-11-03T23:00:00-02:00` (2026-11-04T01:00Z) was refused; the selftest now carries both
+  directions (18/18 → 22/22), and the real receipts' `Z` timestamps make the measured verdict
+  unchanged. Every re-cut C2 receipt is disclosed in `.ufo/waves/round-58/receipt-rewrites.json`
+  (gate green: `events=40 undisclosed=0 met=true`).
+- **C1 is graded on records, and the reviewer measured what that costs.** ReviewC1 built a composite
+  "records-only" tree — the three correction rows carrying arithmetically correct numbers, a
+  self-consistent `w1-spec`/`w1-results`/`w1-accounting` trio, the committed junk builder and the
+  recorder, and a re-derived seat record — and scored it `open=0 met=true` (`w1/ReviewC1.md` F2).
+  The base control still reads `open=6`, so the round's own numbers come from real work; what the
+  counter cannot prove is that the lane re-verified anything rather than transcribing correct
+  numbers. §9's "a do-nothing control cannot reach the target" is therefore only partly met for
+  C1, and no conjunct added after a seat scored could repair it (it would be a rule changed after
+  data). Recorded as a limit for the closure to weigh, not repaired.
+- **ReviewC1's other findings, recorded not repaired.** F1: R80-1's condition never reads the routed
+  documents (`corpus/lessons/round-80.md` and the fleet report) — it reads this file's row and the
+  registry line, so the round-80 sentences themselves stay unamended by design (R80-1 asked for an
+  erratum "next round", which is what the row is, but the counter cannot see the original). F3: R80-6
+  closes on a record that says the schema carries no error text — the routed ask wanted the text, and
+  the record names the limit instead. F4: the committed junk control reproduces a tree whose single
+  closed item is textual, so it does not exercise the "prose over real substrate" vector that defeats
+  the counter. F5: a settled seat is one that spoke, not one that succeeded, so the 0.25 floor is a
+  speech floor. F6: R80-4/R80-6 are graded on round-81-authored bytes. F7: two post-freeze
+  amendments moved the instruments (both disclosed, both before their after-states). F8: `p_r80_4`'s
+  role map dedups by seat name. F9: the rebuilt junk tree's verdict-equivalence is narrower than
+  round-80's tree.
+- **ReviewC2's F1, recorded as the claim's limit.** A wholly fabricated capture — self-consistent
+  digests, a fresh timestamp, the frozen expectations, a real offline audit run — scores `met=true`
+  (`w1/ReviewC2.md` F1, `forge-transcript-v2.txt`; independently reproduced by CriticClaims P3).
+  The counter binds body to receipt and receipt to audit output; nothing binds a receipt to a socket.
+  Provenance is the round's own capture transcript (`w1/ExecCapture/capture-run.txt`, one GET per
+  declared URL), not the predicate. C2's *sourced* grounding is unaffected: S454's row was inserted
+  after S453 (`corpus/SOURCES.md:201`), so ReviewC2's F4 (no row at review time) is closed at the
+  carrier, and the round-end census exits 0.
+- **ScoutRecon's premise and ExecSeatRecord's correction.** ScoutRecon found that R80-3 would open
+  once this round appended its own RFC 9110 row; the R80-3 row above now carries the carrier count
+  (`rfc9110.txt rows=4`, three at the base) with the parenthesised base fact, which is the honest
+  form rather than a frozen 3. ExecSeatRecord found this round's *item premise* wrong: the
+  two-empty-seat facts (`ExecC2Tool`, `CriticC`) are round **79**'s, and round 80 carried 15 rows for
+  15 seats with `ReviewC1`/`MutC` empty. The seat re-derived both rounds instead of accepting the
+  premise; the recorder is sound on both.
+- **ConnectorC's measurements.** No sibling lane holds the capture-once chain; RFC 9110 §15.5.5 is
+  held by three lanes at different framings, and §15.5.4 by none. `S454` is free in both id spaces;
+  the staged package still collides on 8 ids. The census boundary it measured — a re-worded scope is
+  `W04` (exit 0), an `S088`-copied cell is `E04` (exit 1) — is why S454's scope cell is worded
+  against S088 rather than copied from it.
+- **Stray-name note.** The do-nothing reviewer seat's item was renamed from `LabratCtl` to
+  `ReviewReach` after the policy validator refused `labrat` as a swarm role; the item's report path
+  still said `w1/LabratCtl.md`, so that seat wrote both names with identical bytes. The dispatch
+  prompt therefore also carried stale selftest tallies (13/13, 12/12) after amendments 1–2; the
+  committed receipts are the authority.
+
+## Mistakes — appended at settlement (2026-11-04)
+
+| Class | Evidence pointer | Captured-by | Fix |
+|---|---|---|---|
+| **an item premise inherited from a closure instead of re-derived from bytes** | this round's `ExecSeatRecord` item said round 80 carried "14 records for 15 requested seats" with `ExecC2Tool`/`CriticC` empty; the seat re-ran the recorder over both rounds and found round 80 = 15 rows / 15 seats with `ReviewC1` and `MutC` empty, while `ExecC2Tool`/`CriticC` are round **79**'s two empty seats — the premise mixed the two rounds and invented a 14/15 shape that neither round's bytes carry (`w1/ExecSeatRecord.md` §1) | nothing: `corpus/QUALITY.md`'s population rule ("every count names its population and the command") binds claims, not an L1's instruction text, so a wrong premise in an item reached a seat unchallenged | the seat's re-derivation stands as the record; the rule adopted is that an item quoting a count names the file, the revision and the command that yields it, so the seat can falsify the premise before working from it — shown able to fail here, because the seat did falsify it and reported disagreement on every component |
+| **a dispatch that outlives its instrument** | the wave `context` cites `selftest: 13/13` (C1) and `12/12` (C2); after amendments 1–3 the committed receipts read `15/15` and `22/22`, and the arrival-order review seats met both tallies (`w1/LabratCtl.md` §instruments, `w1/CriticClaims.md` addendum) | no rule in the lane ties a dispatch's quoted receipt to the receipt's current bytes; `controls/c81-selftest-*.txt` are the authority but nothing said so before the wave | the context rule now recorded: a wave prompt that quotes a receipt names its path and says the committed file is the authority if the two differ; the round's own receipts are cited by path in every claim row, so the stale tallies never entered a verdict |
