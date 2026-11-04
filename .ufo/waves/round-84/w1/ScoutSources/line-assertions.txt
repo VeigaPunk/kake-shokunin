@@ -1,0 +1,53 @@
+# asserted line holds the quote (1-based, whole line as retained)
+Q1	txt=581	4.2.  Freshness
+Q1	html=269	/a>).</p></div></section><section id="expiration.model"><h3 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a>&nbsp;<a href="#expirati
+Q5	txt=1081	5.2.  Cache-Control
+Q5	html=279	d.</p></div></section><section id="field.cache-control"><h3 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a>&nbsp;<a href="#field.ca
+Q9	txt=1203	5.2.2.  Response Directives
+Q9	html=282	ection></section><section id="cache-response-directive"><h4 id="rfc.section.5.2.2"><a href="#rfc.section.5.2.2">5.2.2.</a>&nbsp;<a href="#cach
+Q11	txt=1208	5.2.2.1.  max-age
+Q11	html=282	/p></div><section id="cache-response-directive.max-age"><h5 id="rfc.section.5.2.2.1"><a href="#rfc.section.5.2.2.1">5.2.2.1.</a>&nbsp;<a href="#
+Q16	txt=1222	5.2.2.2.  must-revalidate
+Q16	html=282	><section id="cache-response-directive.must-revalidate"><h5 id="rfc.section.5.2.2.2"><a href="#rfc.section.5.2.2.2">5.2.2.2.</a>&nbsp;<a href="#
+Q2	txt=583	   A "fresh" response is one whose age has not yet exceeded its
+Q2	html=269	/a></h3><div id="rfc.section.4.2.p.1"><p>A <dfn>fresh</dfn> response is one whose age has not yet exceeded its freshness lifetime. Conversely, a <dfn>stale</dfn> response is one where it ha
+Q3	txt=587	   A response's "freshness lifetime" is the length of time between its
+Q3	html=269	tion.4.2.p.2"><p>A response's <dfn>freshness lifetime</dfn> is the length of time between its generation by the origin server and its expiration time. An <dfn>explicit expiration time</dfn> is the time at whic
+Q19	txt=601	   The primary mechanism for determining freshness is for an origin
+Q19	html=269	oving efficiency.</p></div><div id="rfc.section.4.2.p.5"><p>The primary mechanism for determining freshness is for an origin server to provide an explicit expiration time in the future, using either the <a href="#field.expires" cl
+Q4	txt=621	      response_is_fresh = (freshness_lifetime > current_age)
+Q4	html=269	/p></div><div id="rfc.section.4.2.p.9"><pre class="text">   response_is_fresh = (freshness_lifetime &gt; current_age)
+Q6	txt=1083	   The "Cache-Control" header field is used to list directives for
+Q6	html=279	rol">Cache-Control</a></h3><div id="rfc.section.5.2.p.1"><p>The "Cache-Control" header field is used to list directives for caches along the request/response chain. Cache directives are unidirectional, in that the presence o
+Q7	txt=1098	   Cache directives are identified by a token, to be compared case-
+Q7	html=279	a specific cache.</p></div><div id="rfc.section.5.2.p.4"><p>Cache directives are identified by a token, to be compared case-insensitively, and have an optional argument that can use both token and quoted-string syntax. For the d
+Q8	txt=1108	   For the cache directives defined below, no argument is defined (nor
+Q8	html=282	</pre></div><div id="rfc.section.5.2.p.6"><p>For the cache directives defined below, no argument is defined (nor allowed) unless stated otherwise.</p></div><section id="cache-request-directive"><h4 id="rfc.
+Q10	txt=1205	   This section defines cache response directives.  A cache MUST obey
+Q10	html=282	ponse Directives</a></h4><div id="rfc.section.5.2.2.p.1"><p>This section defines cache response directives. A cache <em class="bcp14">MUST</em> obey the Cache-Control 
+Q12	txt=1120	      delta-seconds (see Section 1.2.2)
+Q12	html=266	s">Delta Seconds</a></h4><div id="rfc.section.1.2.2.p.1"><p>The delta-seconds rule specifies a non-negative integer, representing time in seconds.</p></div><div id="rfc.section.1.2.2.p.2"><pre class="inline
+Q13	txt=1215	   considered stale after its age is greater than the specified number
+Q13	html=282	age response directive indicates that the response is to be considered stale after its age is greater than the specified number of seconds.</p></div><div id="rfc.section.5.2.2.1.p.4"><p>This directiv
+Q14	txt=217	     delta-seconds  = 1*DIGIT
+Q14	html=266	>  <a href="#delta-seconds" class="smpl">delta-seconds</a>  = 1*<a href="#core.rules" class="smpl">DIGIT</a>
+Q15	txt=677	   When there is more than one value present for a given directive
+Q15	html=270	field lines or multiple Cache-Control: max-age directives), either the first occurrence should be used or the response should be considered stale. If directives conflict (e.g., both max-age and no-cache ar
+Q17	txt=1224	   The must-revalidate response directive indicates that once the
+Q17	html=282	ust-revalidate</a></h5><div id="rfc.section.5.2.2.2.p.1"><p>The must-revalidate response directive indicates that once the response has become stale, a cache <em class="bcp14">MUST NOT</em> reuse that respons
+Q18	txt=548	      specification (e.g., reordering field values when order is not
+Q18	html=269	ntics, according to the header field's specification (e.g., reordering field values when order is not significant; case-normalization, where values are defined to be case-in
+Q20	txt=683	   responses that have invalid freshness information (e.g., a max-age
+Q20	html=270	present), the most restrictive directive should be honored. Caches are encouraged to consider responses that have invalid freshness information (e.g., a max-age directive with non-integer content) to be 
+Q21	txt=1408	5.2.3.  Extension Directives
+Q21	html=282	ection></section><section id="cache.control.extensions"><h4 id="rfc.section.5.2.3"><a href="#rfc.section.5.2.3">5.2.3.</a>&nbsp;<a href="#cach
+Q22	txt=1411	   or more extension cache directives.  A cache MUST ignore unrecognized
+Q22	html=282	nsion Directives</a></h4><div id="rfc.section.5.2.3.p.1"><p>The Cache-Control header field can be extended through the use of one or more extension cache directives. A cache <em class="bcp14">MUST</em> ignore unrecognized cac
+Q23	txt=594	   A response's "age" is the time that has passed since it was generated
+Q23	html=269	div id="rfc.section.4.2.p.3"><p>A response's <dfn>age</dfn> is the time that has passed since it was generated by, or successfully validated with, the origin server.</p></div><div id="rfc.section.4.2.p.4"><p>When a response i
+Q24	txt=7	STD: 98                                               M. Nottingham, Ed.
+Q24	html=233	rol cache behavior or indicate cacheable response messages. This document obsoletes RFC 7234."><meta name="dcterms.isPartOf" content="urn:issn:2070-1721
+Q26	txt=681	   both max-age and no-cache are present), the most restrictive
+Q26	html=270	 should be used or the response should be considered stale. If directives conflict (e.g., both max-age and no-cache are present), the most restrictive directive should be honored. Caches are encouraged to consider responses that have inval
+Q25	txt=1085	   unidirectional, in that the presence of a directive in a request does
+Q25	html=279	ist directives for caches along the request/response chain. Cache directives are unidirectional, in that the presence of a directive in a request does not imply that the same directive is present or copied

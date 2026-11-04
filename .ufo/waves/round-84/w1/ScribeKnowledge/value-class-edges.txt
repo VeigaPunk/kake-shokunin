@@ -1,0 +1,10 @@
+order-only, distinct: a='public, max-age=600' b='max-age=600, public' directives_a=[('public', None), ('max-age', '600')] directives_b=[('max-age', '600'), ('public', None)] class=reordered
+order-only, duplicate names differing value: a='max-age=600, max-age=60' b='max-age=60, max-age=600' directives_a=[('max-age', '600'), ('max-age', '60')] directives_b=[('max-age', '60'), ('max-age', '600')] class=reordered
+case-only on directive name: a='Max-Age=600' b='max-age=600' directives_a=[('max-age', '600')] directives_b=[('max-age', '600')] class=reordered
+whitespace-only: a='max-age = 600' b='max-age=600' directives_a=[('max-age', '600')] directives_b=[('max-age', '600')] class=reordered
+leading zero, numerically equal: a='max-age=0600' b='max-age=600' directives_a=[('max-age', '0600')] directives_b=[('max-age', '600')] class=numeric_parameter
+trailing comma: a='public,' b='public' directives_a=None directives_b=[('public', None)] class=unclassified
+empty value: a='' b='public' directives_a=None directives_b=[('public', None)] class=unclassified
+quoted parameter: a='max-age="600"' b='max-age=600' directives_a=[('max-age', '"600"')] directives_b=[('max-age', '600')] class=directive_changed
+semicolon separator: a='public; max-age=600' b='public' directives_a=None directives_b=[('public', None)] class=unclassified
+bare equals: a='max-age=' b='max-age=600' directives_a=None directives_b=[('max-age', '600')] class=unclassified

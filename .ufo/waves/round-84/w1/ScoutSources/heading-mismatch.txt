@@ -1,0 +1,9 @@
+# The frozen C2 item and the seat item both say "§5.2.2.2 max-age". Both renderings disagree.
+txt  line 1208: 5.2.2.1.  max-age          (heading; quote Q11 in quotes.tsv)
+html line 282 : id="rfc.section.5.2.2.1"   <section id="cache-response-directive.max-age">
+txt  line 1222: 5.2.2.2.  must-revalidate   (heading; quote Q16)
+html line 282 : id="rfc.section.5.2.2.2"   <section id="cache-response-directive.must-revalidate"> byte 117223
+txt  line 1224: The must-revalidate response directive indicates that once the   (quote Q17)
+=> max-age is 5.2.2.1; 5.2.2.2 is must-revalidate. The contract's pointer is off by one against the
+   retained bytes. Reported, not patched: the frozen contract is read-only for this seat.
+   The landed S457 row already carries the correction in prose ("§5.2.2.2 is must-revalidate, not max-age").

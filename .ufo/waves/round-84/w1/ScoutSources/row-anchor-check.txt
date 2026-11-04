@@ -1,0 +1,23 @@
+# Verification of every anchor claim in the S457 row landed at corpus/SOURCES.md line 204.
+# Coordinates are 1-based lines in .ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html; the .txt
+# column gives the matching 1-based line in rfc9111.txt. Every line below is a raw substring (raw-checks.txt).
+claim: "§4.2 Freshness heading and p.1-p.3 line 269"           -> html 269 byte 69398 / txt 581   VERIFIED (Q1)
+  p.1 fresh and stale definitions                              -> html 269 byte 69558 / txt 583   VERIFIED (Q2)
+  p.2 freshness lifetime                                       -> html 269 byte 69862 / txt 587   VERIFIED (Q3)
+  p.3 age definition                                           -> html 269 byte 70283 / txt 594   VERIFIED (Q23)
+claim: "§5.2 Cache-Control heading and p.1 line 279"           -> html 279 byte 107517 / txt 1081 VERIFIED (Q5)
+  p.1 lists directives, unidirectional                          -> html 279 byte 107665 / txt 1083,1085 VERIFIED (Q6,Q25)
+claim: "§5.2.2 Response Directives heading"                    -> html 282 byte 115955 / txt 1203 VERIFIED (Q9)
+  obligation sentence                                          -> html 282 byte 116122 / txt 1205 VERIFIED (Q10)
+claim: "§5.2.2.1 max-age heading line 282"                     -> html 282 byte 116325 / txt 1208 VERIFIED (Q11)
+  argument delta-seconds p.1-p.2 = the SECTION-LOCAL paragraphs of 5.2.2.1, not 1.2.2:
+      p.1 "Argument syntax:" and p.2 "delta-seconds (see Section 1.2.2)" -> html 282 (p.2 byte 116551) / txt 1120
+      the type's own definition 1.2.2 p.1                              -> html 266 byte 41638 (Q12); txt heading 212, grammar 217 (Q14)
+      both readings true; the anchor names the section-local paragraphs.      VERIFIED
+  max-age sentence p.3                                         -> html 282 byte 116849 / txt 1215 VERIFIED (Q13)
+claim: "§5.2.2.2 is must-revalidate, not max-age"              -> html 282 byte 117223 / txt 1222 VERIFIED (Q16,Q17)
+claim: "§5.2.3 p.1 line 282 (unrecognized directives ignored)" -> html 282 byte 131037, p.1 byte 131205 / txt 1408,1411 VERIFIED (Q21,Q22)
+claim: "RFC 9111, June 2022, STD 98, obsoletes RFC 7234"       -> txt line 7 STD: 98, 8 Obsoletes: 7234, 11 June 2022;
+                                                                  html 233 "This document obsoletes RFC 7234" VERIFIED (Q24)
+claim: "178,573 bytes, sha256 999f4013..."                     -> matches fetch-receipt-httpwg.json byte count and digest exactly VERIFIED
+not in the row, offered for the anchor cell: byte offsets above and the .txt cross-check lines 581/1081/1203/1208/1222.

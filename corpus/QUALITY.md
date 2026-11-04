@@ -1699,3 +1699,12 @@ mechanisms apart.
 ## Round 83 criterion — a Gate summary cites the lesson section it summarises
 
 - **A Gate summary cites the lesson section it summarises, and a report's prose must not name a category where the lesson has a row (round-83).** *Admit* a Gate summary only when each candidate, admitted row and reject reason it names resolves to that section of the round's lesson, and a report's prose names a category only where the lesson's own rows are silent — where the lesson has a row, the report cites the row. *Reject* a summary that files a category the lesson never filed (the round-82 report listed "the `merge/kake` package" among the Gate's rejects while `corpus/lessons/round-82.md` §Gate's rejects are the two S455 anchor spans and the package is an assimilation non-adoption) and any prose that restates a lesson row in place of citing `corpus/lessons/round-82.md` §Gate. *Grounding:* `.ufo/waves/round-83/contract.md` §C1 D6 (row conjunct: a `D6` line carrying `§Gate` and `corpus/QUALITY.md`; this criterion row is the standing condition that item names) and `corpus/lessons/round-82-verifier-spotcheck.md` §6 item 6 ("Gate-summary provenance", filed prose-only: cite the lesson section). *Limit:* the criterion is textual — the frozen counter scans physical lines and reads one line, so a paraphrase that never contradicts the lesson passes; the non-author closure is what catches a mis-transcription.
+
+## Round 84 — field-specific equivalence
+
+- Reject a semantic equivalence claim based only on a comma-separated multiset.
+  Admit reorder equivalence only with the field's own order-insensitivity rule,
+  including duplicate-directive behavior. Able-to-fail witness:
+  `.ufo/waves/round-84/w1/ReviewC2.md` — reversing the frozen Referrer-Policy
+  fallback list changes the last recognized policy. A green syntactic counter
+  does not override that counterexample.

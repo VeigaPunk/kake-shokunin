@@ -1,0 +1,11 @@
+--- pristine
++++ C1-w04
+@@ -191,7 +191,7 @@
+                       if "\tW04\t" in line)
+                      if len(parts) == 2)
+     derived = sorted(census_w04(sources))
+-    state = claimed == derived
++    state = len(claimed) == len(derived)
+     return (state, f"receipt_w04={len(claimed)} derived_w04={len(derived)}",
+             len(claimed) == len(derived) and len(derived) > 0)
+ 

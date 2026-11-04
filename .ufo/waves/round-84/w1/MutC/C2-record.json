@@ -1,0 +1,138 @@
+{
+  "name": "C2-record",
+  "family": "C2",
+  "old": "and flags[\"record_equal\"] == 1 and flags[\"determinism\"] == 1",
+  "new": "and flags[\"determinism\"] == 1",
+  "fixture": "/fast/scratch/hyaku/kake-r84/MutC/c2-record",
+  "verdict": "killed",
+  "baseline_ok": true,
+  "restored_ok": true,
+  "readings": {
+    "pristine": {
+      "hash": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--selftest"
+        ],
+        "exit": 0,
+        "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+        "stderr": ""
+      },
+      "positive": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/pristine/positive"
+        ],
+        "exit": 0,
+        "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+        "stderr": ""
+      },
+      "negative": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c2-record",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/pristine/negative"
+        ],
+        "exit": 1,
+        "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=0 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+        "stderr": ""
+      }
+    },
+    "mutant": {
+      "hash": "9e58d2842d1aa765a98d5fad3a11ad5f6b811916bb6fcf9634f264f6ca966053",
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--selftest"
+        ],
+        "exit": 0,
+        "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+        "stderr": ""
+      },
+      "positive": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/mutant/positive"
+        ],
+        "exit": 0,
+        "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+        "stderr": ""
+      },
+      "negative": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c2-record",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/mutant/negative"
+        ],
+        "exit": 0,
+        "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=0 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+        "stderr": ""
+      }
+    },
+    "restored": {
+      "hash": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--selftest"
+        ],
+        "exit": 0,
+        "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+        "stderr": ""
+      },
+      "positive": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/restored/positive"
+        ],
+        "exit": 0,
+        "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+        "stderr": ""
+      },
+      "negative": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c2-record",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C2-record/restored/negative"
+        ],
+        "exit": 1,
+        "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=0 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+        "stderr": ""
+      }
+    }
+  }
+}

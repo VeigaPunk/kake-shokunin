@@ -1,0 +1,857 @@
+{
+  "axes": [
+    "guard discrimination",
+    "fixture fidelity",
+    "exact restoration"
+  ],
+  "results": [
+    {
+      "name": "C1-retained",
+      "family": "C1",
+      "old": "heading not in line or heading not in rfc",
+      "new": "heading not in line",
+      "fixture": "/fast/scratch/hyaku/kake-r84/MutC/c1-retained",
+      "verdict": "killed",
+      "baseline_ok": true,
+      "restored_ok": true,
+      "readings": {
+        "pristine": {
+          "hash": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/pristine/selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-retained"
+            ],
+            "exit": 1,
+            "stdout": "item=D1 closed=0 state=0 row=0 heading not cited-or-retained: '5.2.  Cache-Control'\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=1 closed=3 met=false\n",
+            "stderr": ""
+          }
+        },
+        "mutant": {
+          "hash": "17828908fbad240da1ec78c5f321ee946fe768a8e610055846720edd4b05f142",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/mutant/selftest"
+            ],
+            "exit": 1,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nFAIL mutant-rfc-absent \u2014 open=1 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 7/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-retained"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          }
+        },
+        "restored": {
+          "hash": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/restored/selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-retained/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-retained"
+            ],
+            "exit": 1,
+            "stdout": "item=D1 closed=0 state=0 row=0 heading not cited-or-retained: '5.2.  Cache-Control'\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=1 closed=3 met=false\n",
+            "stderr": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "C1-connector",
+      "family": "C1",
+      "old": "state = spec_connectors >= 1 and len(settled) >= 1",
+      "new": "state = len(settled) >= 1",
+      "fixture": "/fast/scratch/hyaku/kake-r84/MutC/c1-connector",
+      "verdict": "killed",
+      "baseline_ok": true,
+      "restored_ok": true,
+      "readings": {
+        "pristine": {
+          "hash": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/pristine/selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-connector"
+            ],
+            "exit": 1,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=0 state=0 row=1 spec_connectors=0 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=1 closed=3 met=false\n",
+            "stderr": ""
+          }
+        },
+        "mutant": {
+          "hash": "7ab2c40d80bcc2ddd56f58ca65f809fc7d5ac8b31904dc15724042765a11a42b",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/mutant/selftest"
+            ],
+            "exit": 1,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nFAIL mutant-d3-no-connector \u2014 open=0 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 7/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-connector"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=0 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          }
+        },
+        "restored": {
+          "hash": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/restored/selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-connector"
+            ],
+            "exit": 1,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=0 state=0 row=1 spec_connectors=0 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=1 closed=3 met=false\n",
+            "stderr": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "C1-w04",
+      "family": "C1",
+      "old": "state = claimed == derived",
+      "new": "state = len(claimed) == len(derived)",
+      "fixture": "/fast/scratch/hyaku/kake-r84/MutC/c1-w04",
+      "verdict": "killed",
+      "baseline_ok": true,
+      "restored_ok": true,
+      "readings": {
+        "pristine": {
+          "hash": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/pristine/selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-w04"
+            ],
+            "exit": 1,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=0 state=0 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=1 closed=3 met=false\n",
+            "stderr": ""
+          }
+        },
+        "mutant": {
+          "hash": "0280955aff925026ad391b06f836a160e6545a79b0516735e4af2356877d2b36",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/mutant/selftest"
+            ],
+            "exit": 1,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nFAIL mutant-d4-wrong-w04 \u2014 open=0 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 7/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-w04"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          }
+        },
+        "restored": {
+          "hash": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--selftest",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/restored/selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+            ],
+            "exit": 0,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C1-w04/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c1-w04"
+            ],
+            "exit": 1,
+            "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=0 state=0 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=1 closed=3 met=false\n",
+            "stderr": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "C2-truncated",
+      "family": "C2",
+      "old": "return receipt.get(\"truncated\") is False",
+      "new": "return True",
+      "fixture": "/fast/scratch/hyaku/kake-r84/MutC/c2-truncated",
+      "verdict": "survived",
+      "baseline_ok": true,
+      "restored_ok": true,
+      "readings": {
+        "pristine": {
+          "hash": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/pristine/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-truncated",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/pristine/negative"
+            ],
+            "exit": 1,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=0 real_changed=0 real_verdict=policy-unchanged ctl_changed=-1 ctl_mismatch=-1 ctl_verdict=tool-unevaluable eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+            "stderr": ""
+          }
+        },
+        "mutant": {
+          "hash": "f1a473781a5fe1c9f4385f04fdd3ee74f38b2a8e6903af47fd05abaee9ecf347",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/mutant/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-truncated",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/mutant/negative"
+            ],
+            "exit": 1,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=-1 ctl_mismatch=-1 ctl_verdict=tool-unevaluable eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+            "stderr": ""
+          }
+        },
+        "restored": {
+          "hash": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/restored/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-truncated",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-truncated/restored/negative"
+            ],
+            "exit": 1,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=0 real_changed=0 real_verdict=policy-unchanged ctl_changed=-1 ctl_mismatch=-1 ctl_verdict=tool-unevaluable eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+            "stderr": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "C2-expectation",
+      "family": "C2",
+      "old": "and flags[\"ctl_changed\"] == 3 and flags[\"ctl_mismatch\"] == 0",
+      "new": "and flags[\"ctl_changed\"] == 3",
+      "fixture": "/fast/scratch/hyaku/kake-r84/MutC/c2-expectation",
+      "verdict": "killed",
+      "baseline_ok": true,
+      "restored_ok": true,
+      "readings": {
+        "pristine": {
+          "hash": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/pristine/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-expectation",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/pristine/negative"
+            ],
+            "exit": 1,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=2 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+            "stderr": ""
+          }
+        },
+        "mutant": {
+          "hash": "19a080774cae366ebab409dda1a7c2eecfe1a8f13e91813dc11b27a757f41c59",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/mutant/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-expectation",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/mutant/negative"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=2 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          }
+        },
+        "restored": {
+          "hash": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/restored/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-expectation",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-expectation/restored/negative"
+            ],
+            "exit": 1,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=2 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+            "stderr": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "C2-record",
+      "family": "C2",
+      "old": "and flags[\"record_equal\"] == 1 and flags[\"determinism\"] == 1",
+      "new": "and flags[\"determinism\"] == 1",
+      "fixture": "/fast/scratch/hyaku/kake-r84/MutC/c2-record",
+      "verdict": "killed",
+      "baseline_ok": true,
+      "restored_ok": true,
+      "readings": {
+        "pristine": {
+          "hash": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/pristine/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-record",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/pristine/negative"
+            ],
+            "exit": 1,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=0 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+            "stderr": ""
+          }
+        },
+        "mutant": {
+          "hash": "9e58d2842d1aa765a98d5fad3a11ad5f6b811916bb6fcf9634f264f6ca966053",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/mutant/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-record",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/mutant/negative"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=0 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          }
+        },
+        "restored": {
+          "hash": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+          "selftest": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--selftest"
+            ],
+            "exit": 0,
+            "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+            "stderr": ""
+          },
+          "positive": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-good",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/restored/positive"
+            ],
+            "exit": 0,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true\n",
+            "stderr": ""
+          },
+          "negative": {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/counter.py",
+              "--root",
+              "/fast/scratch/hyaku/kake-r84/MutC/c2-record",
+              "--work",
+              "/fast/scratch/hyaku/kake-r84/MutC/C2-record/restored/negative"
+            ],
+            "exit": 1,
+            "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 real_changed=0 real_verdict=policy-unchanged ctl_changed=3 ctl_mismatch=0 ctl_verdict=policy-changed eq_changed=1 eq_mismatch=0 eq_verdict=policy-rewritten-equivalent record_equal=0 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=false\n",
+            "stderr": ""
+          }
+        }
+      }
+    }
+  ],
+  "final_selftests": {
+    "C1": {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r84/MutC/final-C1.py",
+        "--selftest",
+        "--work",
+        "/fast/scratch/hyaku/kake-r84/MutC/final-c1-work"
+      ],
+      "exit": 0,
+      "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+      "stderr": ""
+    },
+    "C2": {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r84/MutC/final-C2.py",
+        "--selftest"
+      ],
+      "exit": 0,
+      "stdout": "ok   canary-parses\nok   offline-detects-socket\nok   offline-accepts-clean\nok   change-regex-rejects-junk\nselftest: 4/4 passed\n",
+      "stderr": ""
+    }
+  },
+  "source_hashes": {
+    "C1": {
+      "before": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+      "after": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf"
+    },
+    "C2": {
+      "before": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139",
+      "after": "74f4b074b9463e5b2cd8daadec76b9a5123febabf8208dc88b1434f83874f139"
+    }
+  },
+  "installs": [],
+  "scratch_cleanup": "performed in finally"
+}

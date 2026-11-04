@@ -1,0 +1,11 @@
+--- pristine
++++ C1-retained
+@@ -123,7 +123,7 @@
+     state = False
+     detail = "no [r84-correction line"
+     for line in lines:
+-        missing = [heading for heading in HEADINGS if heading not in line or heading not in rfc]
++        missing = [heading for heading in HEADINGS if heading not in line]
+         if missing:
+             detail = f"heading not cited-or-retained: {missing[0]!r}"
+             continue

@@ -1,0 +1,27 @@
+qid	section	words	txt_line	txt_byte	txt_count	html_line	html_byte	html_count	quote
+Q1	§4.2 heading	2	581	25704	2	269	69398	1	4.2.  Freshness
+Q5	§5.2 heading	2	1081	49725	2	279	107517	1	5.2.  Cache-Control
+Q9	§5.2.2 heading	3	1203	54483	2	282	115955	1	5.2.2.  Response Directives
+Q11	§5.2.2.1 heading	2	1208	54640	2	282	116325	1	5.2.2.1.  max-age
+Q16	§5.2.2.2 heading	2	1222	55037	2	282	117223	1	5.2.2.2.  must-revalidate
+Q2	§4.2 fresh/stale definition	12	583	25724	1	269	69558	1	A "fresh" response is one whose age has not yet exceeded its
+Q3	§4.2 freshness lifetime	11	587	25868	1	269	69862	1	A response's "freshness lifetime" is the length of time between its
+Q19	§4.2 primary mechanism	10	601	26564	1	269	70669	1	The primary mechanism for determining freshness is for an origin
+Q4	§4.2 freshness calculation	5	621	27621	1	269	72206	1	response_is_fresh = (freshness_lifetime > current_age)
+Q6	§5.2 field purpose	10	1083	49749	1	279	107665	1	The "Cache-Control" header field is used to list directives for
+Q7	§5.2 directive grammar	11	1098	50464	1	279	108557	1	Cache directives are identified by a token, to be compared case-
+Q8	§5.2 argument presence	11	1108	50893	1	282	109427	1	For the cache directives defined below, no argument is defined (nor
+Q10	§5.2.2 obligation	10	1205	54515	1	282	116122	1	This section defines cache response directives.  A cache MUST obey
+Q12	§5.2.2.1 argument type	4	1120	51199	5	266	41638	1	delta-seconds (see Section 1.2.2)
+Q13	§5.2.2.1 staleness	11	1215	54795	1	282	116849	1	considered stale after its age is greater than the specified number
+Q14	§1.2.2 delta-seconds grammar	3	217	8689	1	266	41903	1	delta-seconds  = 1*DIGIT
+Q15	§4.2.1 duplicate values	12	677	29962	1	270	76141	1	When there is more than one value present for a given directive
+Q17	§5.2.2.2 body	8	1224	55067	1	282	117410	1	The must-revalidate response directive indicates that once the
+Q18	§4.1 normalization rule	9	548	24027	1	269	67165	1	specification (e.g., reordering field values when order is not
+Q20	§4.2.1 invalid freshness	9	683	30374	1	270	76348	1	responses that have invalid freshness information (e.g., a max-age
+Q21	§5.2.3 heading	3	1408	63456	2	282	131037	1	5.2.3.  Extension Directives
+Q22	§5.2.3 ignore rule	10	1411	63562	1	282	131205	1	or more extension cache directives.  A cache MUST ignore unrecognized
+Q23	§4.2 age definition	13	594	26282	1	269	70339	1	A response's "age" is the time that has passed since it was generated
+Q24	front matter obsoletes	2	7	153	1	233	10449	3	STD: 98
+Q26	§4.2.1 conflicting directives	9	681	30243	1	270	76228	1	both max-age and no-cache are present), the most restrictive
+Q25	§5.2 unidirectional	12	1085	49882	1	279	107770	1	unidirectional, in that the presence of a directive in a request does

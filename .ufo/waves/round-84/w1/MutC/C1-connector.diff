@@ -1,0 +1,11 @@
+--- pristine
++++ C1-connector
+@@ -172,7 +172,7 @@
+     spec_connectors = roles.count("connector")
+     settled = [row for row in results.get("results", [])
+                if str(row.get("agent", "")) == "connector" and str(row.get("output", "")).strip()]
+-    state = spec_connectors >= 1 and len(settled) >= 1
++    state = len(settled) >= 1
+     return (state, f"spec_connectors={spec_connectors} settled_connectors={len(settled)}",
+             len(settled) >= 1)
+ 

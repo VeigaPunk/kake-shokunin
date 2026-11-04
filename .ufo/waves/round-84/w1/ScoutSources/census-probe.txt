@@ -1,0 +1,12 @@
+# C1/D4 census probe for the S457 row; census_w04 imported read-only from .ufo/waves/round-84/c84_defect_queue.py
+# frozen expectation: .ufo/waves/round-84/controls/census-before.txt (22 W04 lines, census_exit=0)
+derived_w04_current_tree_with_landed_S457=22 equal_to_frozen=True
+derived_w04_tree_with_S457_removed=22 equal_to_frozen=True
+derived_w04_tree_with_S457_source_rewritten_to_rfc_editor_txt=23 equal_to_frozen=False new=[('S457', 'www.rfc-editor.org/rfc/rfc9111.txt')]
+conclusion:
+  - the landed httpwg.org source cell keeps D4's derived W04 set equal to the frozen 22 lines.
+  - rewriting the same row to the rfc-editor .txt URL adds exactly one W04
+    (S457 duplicate url www.rfc-editor.org/rfc/rfc9111.txt), which would reopen D4.
+  - same-URL-different-scope rows are already tolerated in the frozen control
+    (S453, S454, S455 on www.rfc-editor.org/rfc/rfc9110.txt); the correction avoided
+    adding a fourth rather than asserting such rows are impossible.

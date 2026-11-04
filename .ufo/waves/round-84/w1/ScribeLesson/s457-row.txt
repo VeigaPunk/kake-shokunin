@@ -1,0 +1,14 @@
+$ python3 -c <S457 row cells + url_of + teaches>
+0 | S457
+1 | RFC 9111: HTTP Caching, §4.2 Freshness, §5.2 Cache-Control and §5.2.2 Response Directives — https://httpwg.org/specs/rfc9111.html
+2 | spec
+3 | A
+4 | The value semantics of the Cache-Control response field as RFC 9111 defines them: freshness as a response's age measured against a freshness lifetime, a response directive as a named item with an optional argument, max-age as a delta-seconds argument that makes the response stale once its age exceeds that number, and the rule that a cache must ignore directives it does not recognise; not the lane's value-level class names, verdict order or equivalent-rewrite reading, which are lane policy; not any server's freshness policy; not header-name comparison or capture equivalence, which S456 grounds; not request-directive behaviour; not an ordering rule for the directive list, which this row does not quote
+5 | §4.2 Freshness heading and p.1-p.3 line 269 (fresh and stale definitions p.1, freshness lifetime p.2, age p.3); §5.2 Cache-Control heading and p.1 line 279 (the field lists directives and is unidirectional); §5.2.2 Response Directives heading and §5.2.2.1 max-age heading line 282 (argument delta-seconds p.1-p.2, the max-age sentence p.3; §5.2.2.2 is must-revalidate, not max-age) and §5.2.3 p.1 line 282 (unrecognized directives ignored); RFC 9111, June 2022, STD 98, obsoletes RFC 7234; fetched 2026-11-04 by the round-84 ScoutSources seat via GET, HTTP 200, 178,573 bytes, sha256 999f401328ed8991d172aeb1cd4ab048630928437af2401d3e39552c4a073f64, retained at .ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+6 | A fresh response is one whose age has not yet exceeded its freshness lifetime, and the freshness lifetime is the interval between generation and the origin server's expiration time; the max-age response directive makes the response stale once its age is greater than the specified number of seconds, so its argument is the freshness parameter a value change moves; a cache must ignore unrecognized cache directives. It grounds the meaning of a changed argument, not the lane's class names or its reading that an order-only rewrite is equivalent
+7 | mined
+8 | 2026-11-04
+9 | 180d
+10 | corpus/knowledge/policy-value-classes.md
+normalized url: httpwg.org/specs/rfc9111.html
+exit=0

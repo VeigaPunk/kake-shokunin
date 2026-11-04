@@ -1,0 +1,106 @@
+# grep -c -F raw-substring checks against the retained bytes; exit 1 means zero matches
+
+grep -c -F -- '4.2.  Freshness' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=2 exit=0 line_asserted=581 number and title of the section that defines freshness
+grep -c -F -- 'id="rfc.section.4.2"' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=269 number and title of the section that defines freshness
+grep -c -F -- '5.2.  Cache-Control' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=2 exit=0 line_asserted=1081 number and title of the Cache-Control section
+grep -c -F -- 'id="rfc.section.5.2"' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=279 number and title of the Cache-Control section
+grep -c -F -- '5.2.2.  Response Directives' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=2 exit=0 line_asserted=1203 number and title of the response-directive subsection
+grep -c -F -- 'id="rfc.section.5.2.2"' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 number and title of the response-directive subsection
+grep -c -F -- '5.2.2.1.  max-age' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=2 exit=0 line_asserted=1208 max-age is numbered 5.2.2.1 in both renderings
+grep -c -F -- 'id="rfc.section.5.2.2.1"' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 max-age is numbered 5.2.2.1 in both renderings
+grep -c -F -- '5.2.2.2.  must-revalidate' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=2 exit=0 line_asserted=1222 5.2.2.2 is must-revalidate, not max-age, in both renderings
+grep -c -F -- 'id="rfc.section.5.2.2.2"' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 5.2.2.2 is must-revalidate, not max-age, in both renderings
+grep -c -F -- 'A "fresh" response is one whose age has not yet exceeded its' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=583 freshness is a comparison of age against a lifetime
+grep -c -F -- 'response is one whose age has not yet exceeded its freshness lifetime' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=269 freshness is a comparison of age against a lifetime
+grep -c -F -- 'A response'"'"'s "freshness lifetime" is the length of time between its' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=587 lifetime is an interval ending at the origin server's expiration time
+grep -c -F -- 'is the length of time between its generation by the origin server and its expiration time' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=269 lifetime is an interval ending at the origin server's expiration time
+grep -c -F -- 'The primary mechanism for determining freshness is for an origin' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=601 explicit freshness comes from Expires or the max-age response directive
+grep -c -F -- 'The primary mechanism for determining freshness is for an origin server to provide an explicit expiration time' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=269 explicit freshness comes from Expires or the max-age response directive
+grep -c -F -- 'response_is_fresh = (freshness_lifetime > current_age)' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=621 the calculation is a strict comparison against the lifetime
+grep -c -F -- 'response_is_fresh = (freshness_lifetime &gt; current_age)' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=269 the calculation is a strict comparison against the lifetime
+grep -c -F -- 'The "Cache-Control" header field is used to list directives for' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=1083 the field is a list of directives, not a single ordered statement
+grep -c -F -- 'The "Cache-Control" header field is used to list directives for caches along the request/response chain.' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=279 the field is a list of directives, not a single ordered statement
+grep -c -F -- 'Cache directives are identified by a token, to be compared case-' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=1098 a directive is a name plus an optional argument
+grep -c -F -- 'Cache directives are identified by a token, to be compared case-insensitively, and have an optional argument' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=279 a directive is a name plus an optional argument
+grep -c -F -- 'For the cache directives defined below, no argument is defined (nor' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=1108 an argument exists only where a directive's own definition states one
+grep -c -F -- 'For the cache directives defined below, no argument is defined (nor allowed) unless stated otherwise.' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 an argument exists only where a directive's own definition states one
+grep -c -F -- 'This section defines cache response directives.  A cache MUST obey' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=1205 the section is normative for caches; the MUST sits inside an <em> in HTML
+grep -c -F -- 'This section defines cache response directives.' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 the section is normative for caches; the MUST sits inside an <em> in HTML
+grep -c -F -- 'delta-seconds (see Section 1.2.2)' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=5 exit=0 line_asserted=1120 max-age's argument is delta-seconds; HTML quotes its definition (the 5.2.2.1 argument line is markup-split)
+grep -c -F -- 'The delta-seconds rule specifies a non-negative integer, representing time in seconds.' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=266 max-age's argument is delta-seconds; HTML quotes its definition (the 5.2.2.1 argument line is markup-split)
+grep -c -F -- 'considered stale after its age is greater than the specified number' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=1215 the parameter is the staleness threshold
+grep -c -F -- 'considered stale after its age is greater than the specified number of seconds.' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 the parameter is the staleness threshold
+grep -c -F -- 'delta-seconds  = 1*DIGIT' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=217 non-negative integer grammar; HTML renders the name and DIGIT as links, so only this fragment is tag-free-raw
+grep -c -F -- '= 1*<a href="#core.rules" class="smpl">DIGIT</a>' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=266 non-negative integer grammar; HTML renders the name and DIGIT as links, so only this fragment is tag-free-raw
+grep -c -F -- 'When there is more than one value present for a given directive' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=677 repeats are resolved by first occurrence or staleness, never by position of distinct directives
+grep -c -F -- 'either the first occurrence should be used or the response should be considered stale' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=270 repeats are resolved by first occurrence or staleness, never by position of distinct directives
+grep -c -F -- 'The must-revalidate response directive indicates that once the' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=1224 what 5.2.2.2 actually defines
+grep -c -F -- 'The must-revalidate response directive indicates that once the response has become stale' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 what 5.2.2.2 actually defines
+grep -c -F -- 'specification (e.g., reordering field values when order is not' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=548 reordering is a no-op only where the field's own specification says order is insignificant
+grep -c -F -- 'reordering field values when order is not significant' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=269 reordering is a no-op only where the field's own specification says order is insignificant
+grep -c -F -- 'responses that have invalid freshness information (e.g., a max-age' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=683 a non-integer parameter is treated as stale, not as a policy change
+grep -c -F -- 'Caches are encouraged to consider responses that have invalid freshness information' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=270 a non-integer parameter is treated as stale, not as a policy change
+grep -c -F -- '5.2.3.  Extension Directives' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=2 exit=0 line_asserted=1408 number and title of the extension-directive subsection
+grep -c -F -- 'id="rfc.section.5.2.3"' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 number and title of the extension-directive subsection
+grep -c -F -- 'or more extension cache directives.  A cache MUST ignore unrecognized' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=1411 unrecognized directives are ignored; the HTML MUST is <em>-wrapped
+grep -c -F -- 'The Cache-Control header field can be extended through the use of one or more extension cache directives.' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=282 unrecognized directives are ignored; the HTML MUST is <em>-wrapped
+grep -c -F -- 'A response'"'"'s "age" is the time that has passed since it was generated' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=594 age is measured from generation or last successful validation
+grep -c -F -- 'is the time that has passed since it was generated by, or successfully validated with, the origin server.' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=269 age is measured from generation or last successful validation
+grep -c -F -- 'STD: 98' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=7 STD 98 and the obsoletes relation; the HTTPWG header block carries the sentence, not the STD label
+grep -c -F -- 'This document obsoletes RFC 7234' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=2 exit=0 line_asserted=233 STD 98 and the obsoletes relation; the HTTPWG header block carries the sentence, not the STD label
+grep -c -F -- 'both max-age and no-cache are present), the most restrictive' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=681 conflicts resolve by restrictiveness, not by position
+grep -c -F -- 'If directives conflict (e.g., both max-age and no-cache are present), the most restrictive directive should be honored.' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=270 conflicts resolve by restrictiveness, not by position
+grep -c -F -- 'unidirectional, in that the presence of a directive in a request does' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111.txt
+  count=1 exit=0 line_asserted=1085 a directive is not copied between request and response
+grep -c -F -- 'Cache directives are unidirectional, in that the presence of a directive in a request' /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/w1/ScoutSources/rfc9111-httpwg.html
+  count=1 exit=0 line_asserted=279 a directive is not copied between request and response

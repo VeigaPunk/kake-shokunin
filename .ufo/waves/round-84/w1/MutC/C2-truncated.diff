@@ -1,0 +1,11 @@
+--- pristine
++++ C2-truncated
+@@ -80,7 +80,7 @@
+         return False
+     if receipt.get("sha256") != hashlib.sha256(body).hexdigest():
+         return False
+-    return receipt.get("truncated") is False
++    return True
+ 
+ 
+ def run_tool(tree: Path, a: str, b: str, work: Path) -> tuple[int, str]:

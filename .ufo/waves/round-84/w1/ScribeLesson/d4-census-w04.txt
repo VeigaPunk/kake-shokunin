@@ -1,0 +1,10 @@
+$ grep -c "TAB W04 TAB" .ufo/waves/round-84/controls/census-before.txt
+22
+exit=0
+
+$ python3 -c <re-derive the census W04 set through c84_defect_queue.census_w04 and simulate a second RFC 9111 row>
+rows 196 derived_w04 22
+S457 in registry: ['S457']
+S457 url: ['httpwg.org/specs/rfc9111.html']
+counterfactual same-url append: before 22 after 23 new [('S457', 'www.rfc-editor.org/rfc/rfc9111.txt')]
+exit=0

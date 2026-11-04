@@ -1,0 +1,132 @@
+{
+  "name": "C1-connector",
+  "family": "C1",
+  "old": "state = spec_connectors >= 1 and len(settled) >= 1",
+  "new": "state = len(settled) >= 1",
+  "fixture": "/fast/scratch/hyaku/kake-r84/MutC/c1-connector",
+  "verdict": "killed",
+  "baseline_ok": true,
+  "restored_ok": true,
+  "readings": {
+    "pristine": {
+      "hash": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--selftest",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/pristine/selftest"
+        ],
+        "exit": 0,
+        "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+        "stderr": ""
+      },
+      "positive": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+        ],
+        "exit": 0,
+        "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+        "stderr": ""
+      },
+      "negative": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c1-connector"
+        ],
+        "exit": 1,
+        "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=0 state=0 row=1 spec_connectors=0 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=1 closed=3 met=false\n",
+        "stderr": ""
+      }
+    },
+    "mutant": {
+      "hash": "7ab2c40d80bcc2ddd56f58ca65f809fc7d5ac8b31904dc15724042765a11a42b",
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--selftest",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/mutant/selftest"
+        ],
+        "exit": 1,
+        "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nFAIL mutant-d3-no-connector \u2014 open=0 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 7/8 passed\n",
+        "stderr": ""
+      },
+      "positive": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+        ],
+        "exit": 0,
+        "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+        "stderr": ""
+      },
+      "negative": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c1-connector"
+        ],
+        "exit": 0,
+        "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=0 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+        "stderr": ""
+      }
+    },
+    "restored": {
+      "hash": "2ef00c58f1039208c20e5aa571e8942abad604dd4b5bab63b69337911a1deaaf",
+      "selftest": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--selftest",
+          "--work",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/restored/selftest"
+        ],
+        "exit": 0,
+        "stdout": "ok   green-all-closed \u2014 open=0 expect=0\nok   junk-prose-only \u2014 open=2 expect=2\nok   mutant-d1-wrong-heading \u2014 open=1 expect=1\nok   mutant-d2-wrong-count \u2014 open=1 expect=1\nok   mutant-d3-no-connector \u2014 open=1 expect=1\nok   mutant-d4-wrong-w04 \u2014 open=1 expect=1\nok   mutant-rfc-absent \u2014 open=2 expect=2\nok   missing-tree-reopens-all \u2014 open=4 expect=4\nselftest: 8/8 passed\n",
+        "stderr": ""
+      },
+      "positive": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c1-good"
+        ],
+        "exit": 0,
+        "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=1 state=1 row=1 spec_connectors=1 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=0 closed=4 met=true\n",
+        "stderr": ""
+      },
+      "negative": {
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/fast/scratch/hyaku/kake-r84/MutC/C1-connector/counter.py",
+          "--root",
+          "/fast/scratch/hyaku/kake-r84/MutC/c1-connector"
+        ],
+        "exit": 1,
+        "stdout": "item=D1 closed=1 state=1 row=1 four real headings cited and retained\nitem=D2 closed=1 state=1 row=1 claimed=66 derived=66\nitem=D3 closed=0 state=0 row=1 spec_connectors=0 settled_connectors=1\nitem=D4 closed=1 state=1 row=1 receipt_w04=1 derived_w04=1\nC1v1 revision=worktree items=4 open=1 closed=3 met=false\n",
+        "stderr": ""
+      }
+    }
+  }
+}

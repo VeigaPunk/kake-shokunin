@@ -1,0 +1,33 @@
+# Gate pair for S457 (>=1 admit, >=1 reject). Quotes are from quotes.tsv / raw-checks.txt.
+
+ADMIT 1 — anchor: §5.2.2.1 max-age + §4.2 freshness lifetime (html 282 and 269; txt 1208 and 587).
+  Ground for class `numeric_parameter` on `cache-control` (frozen control: max-age=600 -> max-age=60).
+  Evidence: "is the length of time between its generation by the origin server and its expiration time" (Q3);
+  "considered stale after its age is greater than the specified number of seconds." (Q13);
+  "delta-seconds  = 1*DIGIT" (Q14) and "The delta-seconds rule specifies a non-negative integer" (Q12);
+  "response_is_fresh = (freshness_lifetime > current_age)" (Q4).
+  Why it admits: the parameter's type and its effect are both stated, so 600 -> 60 moves the age at which
+  the response stops being fresh while the directive-name set is unchanged. Confidence: high for cache-control.
+
+ADMIT 2 — anchor: §4.2.1 duplicate/conflict rules (html 270; txt 677-681).
+  Ground that a repeated `max-age` is not a no-op: "either the first occurrence should be used or the response
+  should be considered stale" (Q15) and "If directives conflict ... the most restrictive directive should be
+  honored" (Q26). Resolution is by occurrence order of the SAME directive and by restrictiveness, not by the
+  position of distinct directives. Confidence: high.
+
+REJECT 1 — anchor: §5.2 / §5.2.2 cited as the ground that a `referrer-policy` value reorder is equivalent
+  (the frozen `equivalent` pair's `reordered` leg, and the `control` pair's ds4cc-sitemap leg).
+  Reason: RFC 9111 defines Cache-Control and the cache fields; `referrer-policy` occurs 0 times in both retained
+  renderings (absence-checks.txt), and §4.1's normalization sentence permits reordering only "when order is not
+  significant" according to the FIELD'S OWN specification (Q18). RFC 9111 is not that specification for
+  referrer-policy, so this anchor cannot carry the equivalence claim.
+  Flip condition: open the Referrer-Policy specification (or another primary text defining that field's
+  processing) and show its parser gives the same effective policy for `no-referrer, strict-origin` and
+  `strict-origin, no-referrer`. Unverified hypothesis to test there, NOT asserted here: if that parser applies
+  the last recognized token, the frozen `equivalent` expectation would be wrong and C2's rewrite leg would need
+  a different field. This seat holds no bytes for that field and does not judge it.
+
+REJECT 2 — anchor address: "§5.2.2.2 max-age" as written in the frozen contract and the seat item.
+  Reason: 5.2.2.2 is must-revalidate in both renderings (Q16, Q17); max-age is 5.2.2.1 (Q11).
+  Flip condition: none required — the correct address is §5.2.2.1; the pointer is a defect of the frozen text,
+  reported here and in heading-mismatch.txt, not patched.

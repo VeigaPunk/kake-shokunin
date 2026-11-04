@@ -1,0 +1,21 @@
+# S457 holders, two instants (tolerant extractor, scripts/id_resolver.py rule)
+
+## 11:05 — before the sibling scribe's write
+kake registry (corpus/SOURCES.md, 194 ids, max S456): absent
+kake staged package (shokuknow/merge/kake/SOURCES.append.md, 129 ids S287..S415): absent
+mado registry (max S483): present
+revenger registry (max S479): present
+kama staged package (shokuknow/merge/kama/SOURCES.append.md, 142 ids S330..S471): present
+
+## 11:09 — after the write
+kake registry: present (195 ids, max S457, dups 0)
+kake staged package: absent (unchanged)
+mado registry: present
+revenger registry: present
+kama staged package: present
+
+## Collision count
+within kake registry: 0
+within kake staged package: 0
+fleet registries holding S457 at 11:05: 2 of 21 (mado, revenger)
+proof the id space is lane-local: merge/kake ∩ merge/kama = 86 ids (S330..S415)

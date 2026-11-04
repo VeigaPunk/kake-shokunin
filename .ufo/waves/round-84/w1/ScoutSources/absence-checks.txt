@@ -1,0 +1,14 @@
+# searches over the retained bytes that bound what C2 may quote. `count=0` = phrase absent.
+txt  count=0  'directives are independent'
+txt  count=0  'order of directives'
+txt  count=0  'directive order'
+txt  count=0  'referrer-policy' / 'Referrer-Policy'
+txt  count=0  'x-frame-options' / 'X-Frame-Options' / 'SAMEORIGIN'
+txt  count=1  'must ignore unrecognized'                      (§5.2.3 p.1)
+txt  count=1  'when order is not'                             (line 548, §4.1; wraps to 'significant;' on 549)
+txt  count=0  'order is not significant'                      (flat grep: the .txt breaks the line after 'not')
+html count=1  'order is not significant'                      (line 269, §4.1)
+word-boundary 'order' in the whole .txt: exactly 2 occurrences, lines 515 ('in order to satisfy them') and 548.
+word-boundary 'order' inside the Cache-Control range .txt lines 1081-1453: 0 occurrences.
+=> RFC 9111 never states that the order of distinct Cache-Control directives is insignificant,
+   and never defines referrer-policy or x-frame-options at all.
