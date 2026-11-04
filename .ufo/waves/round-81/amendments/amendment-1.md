@@ -61,3 +61,13 @@ Found, line 7587) and §15.5.11 (410 Gone, line 7667)**; §15.5.4 is named in th
 frozen and stay unchanged — the counter reads only its `allowlist` and `checks`, and this
 amendment plus the round lesson carry the correction. The manifest's per-surface
 expectations are unaffected.
+
+## A1 receipt outcome (measured, after the correction)
+
+The three receipts were re-run against the corrected counter at commit
+`0a27045e4b1b18ae521c9be508429262fdf993ca`. Two came out **byte-identical** — the base
+control (`2346b4d6…`) and the junk control (`b03b3097…`) — because no item's verdict and no
+detail line moved for them; they are re-runs, not rewrites, and need no ledger event. Only
+`controls/c81-selftest-c1.txt` changed (`d1f71947…` → `209dab5a…`: two fixture lines added,
+the tally `13/13` → `15/15`), and that one is disclosed in
+`.ufo/waves/round-58/receipt-rewrites.json` with `kind=content`.
