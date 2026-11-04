@@ -13,6 +13,11 @@ mutation-tester, labrat} (reviewer 2, critic 1, mutation-tester 1). The L1 holds
 the canonical planner seat (the validator rejects `planner` as a swarm role);
 a bounded planning data-walk rides `ScoutVary`.
 
+Freeze history: v1 froze the C1 counter, the 20-case set and the three base
+blobs. v2 (this commit, still before any seat ran and before any production
+byte changed) adds the seeded 200-input differential population to the C2
+counter and restates C2's target; no C1 item, case, threshold or control moved.
+
 ## C1 — calibration (lowest owned axis, 2 HOLD): the three routed r87 defects
 
 Counter: `.ufo/waves/round-88/c88_defect_queue.py`. One commit is measured; a
@@ -57,18 +62,26 @@ it does not certify the ledger's decisions.
 Counter: `.ufo/waves/round-88/c88_vary.py` over the frozen
 `vary-cases.json` (20 cases, sha256 printed in every receipt).
 
-Predicate: the candidate CLI at `scripts/vary_match.py` scores `cases=20/20`,
-`met=true`, exit 0 against those bytes, with `cases_sha256` equal to the frozen
-set. A case passes on exit code, on exact stdout verdict (`match`/`mismatch`) with
-empty stderr, or — for refused input — on exit 1, empty stdout and an
+Predicate: the candidate CLI at `scripts/vary_match.py` scores `frozen=20/20` and
+`random=200/200`, `met=true`, exit 0, with `frozen cases_sha256` and
+`random_sha256` equal to the frozen set and the seeded batch printed in every
+receipt. A case passes on exit code, on exact stdout verdict (`match`/`mismatch`)
+with empty stderr, or — for refused input — on exit 1, empty stdout and an
 `invalid_input:` stderr prefix.
-Before: base `f4479c14` → tool absent, `cases=0/20 met=false`, exit 1
-(`controls/base-c2.txt`).
-Kill rule: `<20/20` at the carrier is a miss; the case set is not edited after
-scoring; there is no partial credit and no target narrowing.
-Controls committed: constant-`match` stub 7/20, constant-`mismatch` stub 9/20,
-always-`invalid` stub 4/20 (`controls/ctl-c2-constant-*.txt`), counter selftest
-10/10 including those three scores and a silent-failure stub at 0/20.
+The random population is generated inside the counter from a fixed seed and
+scored against the counter's own reference implementation of the declared
+profile; that reference must reproduce all 20 hand-labelled frozen verdicts
+(counter selftest), so the generated batch cannot drift from the spec-derived
+one, and a lookup table keyed on known inputs cannot pass it.
+Before: base `f4479c14` → tool absent, `frozen=0/20 random=0/200 met=false`,
+exit 1 (`controls/base-c2.txt`).
+Kill rule: any shortfall at the carrier is a miss; the case set, the seed, the
+generator and the reference are not edited after scoring; there is no partial
+credit and no target narrowing.
+Controls committed: constant-`match` stub `7/20 + 67/200`, constant-`mismatch`
+stub `9/20 + 112/200`, always-`invalid` stub `4/20 + 21/200`
+(`controls/ctl-c2-constant-*.txt`), counter selftest 17/17 including those
+scores, the reference-vs-frozen agreement and a silent-failure stub at 0/20.
 
 Profile (declared, bounded): the reader implements RFC 9111 §4.1's match rule
 conservatively. Field names compare ASCII case-insensitively; multiple field
