@@ -1,0 +1,9 @@
+IN: {"vary":"accept-encoding","stored":{"accept-encoding":"gzip"},"presented":{"accept-encoding ":"gzip"}}
+invalid_input: presented field name 'accept-encoding ' is not a token
+exit=1
+IN: {"vary":"accept-encoding","stored":{"accept-encoding":"gzip"},"presented":{"accept-encoding":[]}}
+invalid_input: presented field 'accept-encoding' value must be a string or a non-empty array of strings
+exit=1
+IN: {"vary":"accept-encoding","stored":{"Accept-Encoding":"gzip","accept-encoding":"br"},"presented":{"accept-encoding":"gzip, br"}}
+invalid_input: stored field name 'accept-encoding' is an ambiguous case-variant duplicate
+exit=1

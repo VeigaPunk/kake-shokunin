@@ -1,0 +1,37 @@
+PASS identical field values match
+PASS field names compare case-insensitively
+PASS field values are not case-folded
+PASS a nominated field absent from both requests matches
+PASS a nominated field absent from stored does not match
+PASS a nominated field absent from presented does not match
+PASS a lone star member never matches
+PASS a star member dominates an otherwise matching list
+PASS leading and trailing SP/HTAB are trimmed
+PASS a value that is only OWS equals the empty value
+PASS list reordering is not applied
+PASS every nominated field must match
+PASS one differing nominated field fails the pair
+PASS duplicate members differing only in name case are deduplicated
+PASS an empty Vary value is refused
+PASS a member containing SP is not a token
+PASS array field lines combine in order with comma and SP
+PASS ordered combination makes a reversed array differ
+PASS a one-element array combines to itself
+PASS internal whitespace is not folded
+PASS a non-string field value is refused
+PASS a non-string Vary value is refused
+PASS an empty array field value is refused
+PASS a trailing comma leaves an empty member
+PASS malformed JSON on stdin is refused
+PASS a request map that is not an object is refused
+PASS a field name with trailing SP is not a token
+PASS case-variant duplicate field names are refused
+PASS a bad member outranks a star
+PASS a star does not mask an invalid field value
+PASS a star does not mask a request map of the wrong type
+PASS internal HTAB is preserved, not folded
+PASS OWS around list members is trimmed before the token check
+PASS a payload without a stored map is refused
+PASS an empty JSON object is refused
+selftest: 35/35 passed
+selftest_exit=0

@@ -1,0 +1,500 @@
+{
+ "indep_default_agrees_spec": 21,
+ "inputs": 22,
+ "reference_agrees_spec": 12,
+ "rows": [
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F1",
+   "indep_default": "match",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "ref_vs_spec": false,
+   "reference": "invalid",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding,",
+   "why": "RFC 9110 5.6.1.2 recipient MUST parse and ignore empty list elements"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F2",
+   "indep_default": "match",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip",
+    "accept-language": "en"
+   },
+   "ref_vs_spec": false,
+   "reference": "invalid",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": "gzip",
+    "accept-language": "en"
+   },
+   "vary": "accept-encoding,,accept-language",
+   "why": "empty middle element is ignored; both nominated fields equal"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F3",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip",
+    "accept-language": "en"
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": "gzip",
+    "accept-language": "en"
+   },
+   "vary": "accept-encoding,\taccept-language",
+   "why": "HTAB is OWS around list elements"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F4",
+   "indep_default": "match",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {
+    "Accept-Encoding": "br",
+    "accept-encoding": "gzip"
+   },
+   "ref_vs_spec": false,
+   "reference": "invalid",
+   "spec_expect": "match",
+   "stored": {
+    "Accept-Encoding": "br",
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding",
+   "why": "two lines of one field name combine in order to \"gzip, br\" on both sides (9110 5.2)"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F5",
+   "indep_default": "match",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip, br"
+   },
+   "ref_vs_spec": false,
+   "reference": "invalid",
+   "spec_expect": "match",
+   "stored": {
+    "Accept-Encoding": "gzip",
+    "accept-encoding": "br"
+   },
+   "vary": "accept-encoding",
+   "why": "combined stored value \"gzip, br\" equals the single presented line"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F6",
+   "indep_default": "match",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": []
+   },
+   "ref_vs_spec": false,
+   "reference": "invalid",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": []
+   },
+   "vary": "accept-encoding",
+   "why": "zero field lines means the field is absent from both"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F7",
+   "indep_default": "match",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {},
+   "ref_vs_spec": false,
+   "reference": "invalid",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": []
+   },
+   "vary": "accept-encoding",
+   "why": "[] and {} both mean absent"
+  },
+  {
+   "cli": [
+    0,
+    "mismatch",
+    ""
+   ],
+   "id": "F8",
+   "indep_default": "mismatch",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "ref_vs_spec": false,
+   "reference": "invalid",
+   "spec_expect": "mismatch",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "*,",
+   "why": "\"*\" member always fails; the empty element is ignored first"
+  },
+  {
+   "cli": [
+    1,
+    "",
+    "invalid_input: member_not_token: Vary member 'accept encoding' is not a field-name token"
+   ],
+   "id": "F9",
+   "indep_default": "invalid",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "ref_vs_spec": true,
+   "reference": "invalid",
+   "spec_expect": "invalid",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "*, accept encoding",
+   "why": "a non-token member makes the Vary value malformed; star precedence is undeclared"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F10",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "x-kake-token": "a\rb"
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "x-kake-token": "a\rb"
+   },
+   "vary": "x-kake-token",
+   "why": "CR must be replaced with SP before processing; both become \"a b\""
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F11",
+   "indep_default": "match",
+   "indep_profile": "mismatch",
+   "indep_vs_spec": true,
+   "presented": {
+    "x-kake-token": "a b"
+   },
+   "ref_vs_spec": false,
+   "reference": "mismatch",
+   "spec_expect": "match",
+   "stored": {
+    "x-kake-token": "a\rb"
+   },
+   "vary": "x-kake-token",
+   "why": "after the 9110 5.5 replacement the values are identical; the alternative branch is reject-the-message"
+  },
+  {
+   "cli": [
+    0,
+    "mismatch",
+    ""
+   ],
+   "id": "F12",
+   "indep_default": "mismatch",
+   "indep_profile": "mismatch",
+   "indep_vs_spec": false,
+   "presented": {
+    "accept-encoding": [
+     "gzip",
+     "br"
+    ]
+   },
+   "ref_vs_spec": false,
+   "reference": "mismatch",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": "gzip,br"
+   },
+   "vary": "accept-encoding",
+   "why": "OWS around list commas is optional (9110 5.6.1.2); the list is the same"
+  },
+  {
+   "cli": [
+    0,
+    "mismatch",
+    ""
+   ],
+   "id": "F13",
+   "indep_default": "mismatch",
+   "indep_profile": "mismatch",
+   "indep_vs_spec": true,
+   "presented": {
+    "x-kake-token": "\"a\""
+   },
+   "ref_vs_spec": true,
+   "reference": "mismatch",
+   "spec_expect": "mismatch",
+   "stored": {
+    "x-kake-token": "\"a \""
+   },
+   "vary": "x-kake-token",
+   "why": "edge-OWS removal cannot reach inside a quoted-string"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F14",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "x-kake-token": ""
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "x-kake-token": " "
+   },
+   "vary": "x-kake-token",
+   "why": "both field values are empty after definitional OWS removal"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F15",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip",
+    "x-kake-token": "b"
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": "gzip",
+    "x-kake-token": "a"
+   },
+   "vary": "accept-encoding",
+   "why": "a field not nominated by Vary is not compared"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F16",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "Accept-Encoding": "gzip"
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "ACCEPT-ENCODING",
+   "why": "field names are case-insensitive (9110 5.1)"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F17",
+   "indep_default": "match",
+   "indep_profile": "invalid",
+   "indep_vs_spec": true,
+   "presented": {},
+   "ref_vs_spec": false,
+   "reference": "invalid",
+   "spec_expect": "match",
+   "stored": {},
+   "vary": "",
+   "why": "an empty #field-name list nominates nothing; nothing can differ"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F18",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip "
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding",
+   "why": "trailing SP is not part of the field value (9110 5.5)"
+  },
+  {
+   "cli": [
+    0,
+    "mismatch",
+    ""
+   ],
+   "id": "F19",
+   "indep_default": "mismatch",
+   "indep_profile": "mismatch",
+   "indep_vs_spec": true,
+   "presented": {
+    "authorization": "bearer abc"
+   },
+   "ref_vs_spec": true,
+   "reference": "mismatch",
+   "spec_expect": "mismatch",
+   "stored": {
+    "authorization": "Bearer AbC"
+   },
+   "vary": "authorization",
+   "why": "credentials are opaque and case-sensitive; a value-folding reader would match unsoundly"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F20",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "user-agent": "a, b"
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "user-agent": [
+     "a",
+     "b"
+    ]
+   },
+   "vary": "user-agent",
+   "why": "two UA lines combine to \"a, b\" per 9110 5.2"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F21",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "x-kake-token": "caf\u00e9"
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "x-kake-token": "caf\u00e9"
+   },
+   "vary": "x-kake-token",
+   "why": "identical obs-text bytes"
+  },
+  {
+   "cli": [
+    0,
+    "match",
+    ""
+   ],
+   "id": "F22",
+   "indep_default": "match",
+   "indep_profile": "match",
+   "indep_vs_spec": true,
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "ref_vs_spec": true,
+   "reference": "match",
+   "spec_expect": "match",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding, accept-encoding",
+   "why": "duplicate members nominate the same field once"
+  }
+ ]
+}

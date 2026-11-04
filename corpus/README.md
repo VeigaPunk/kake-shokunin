@@ -697,3 +697,17 @@ browser/runtime behavior and live repair remain frontier. The conservative max
 is permitted, not exclusive. The separate `knowledge/gate-agreement-ledger.json`
 records eight historical r84–86 gate/closure decisions as calibration metadata:
 no domain expansion credit and no source-truth certification.
+
+## Round-88 frontier step — Vary match semantics
+
+`corpus/knowledge/vary-matching.md` (S463, RFC 9111 §4.1) moves the *match* half of
+Vary-selected reuse from the frontier into core: a decision table over nominated
+fields, the three permitted transformations, the absence rule and the `*` member,
+with `scripts/vary_match.py` as its offline reader. The entry marks its three
+refusal conventions as adapter rules the RFC does not require, and it does not
+claim cache-key construction, storage, revalidation, freshness, serving or browser
+behaviour. The remaining frontier here is field-specific normalisation (the third
+permitted transformation the reader declines), the CR/LF/NUL rule, and a population
+the candidate cannot read. A sibling note exists: `mori-shokunin` S594 holds a
+one-line §4.1 rule (see `.ufo/waves/round-88/w1/ConnectorScope.md`), reported as
+adjacency, not absorbed.

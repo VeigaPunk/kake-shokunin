@@ -1,0 +1,18 @@
+base_sha256: d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a
+cand_sha256: 6513037537eee95653d9cff50d20923d2980f82387357c94826878824b7b559e
+base_bytes: 6571 cand_bytes: 6710 delta_bytes: 139
+base_lines_split: 147 cand_lines_split: 147
+equal_line_count: True
+trailing_newline_preserved: True
+differing_line_numbers_1based: [34]
+differing_line_count: 1
+all_other_lines_byte_identical: True
+base_line_34: '            raise ValueError(f"{key} must be an integer, not boolean")'
+cand_line_34: '            raise ValueError("%s must be an integer, not %s" % (key, {bool: "boolean", type(None): "null", str: "string", float: "float", list: "array", dict: "object"}.get(type(value), type(value).__name__)))'
+base_line_34_len: 70
+cand_line_34_len: 209
+base_message_lines: [34]
+cand_message_lines: [34]
+base_message_occurrences: 1
+cand_message_occurrences: 1
+syntax_ast_parse: ok

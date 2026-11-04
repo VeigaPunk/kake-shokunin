@@ -1,0 +1,7 @@
+reference TOKEN.match('gzip\n')      -> True
+reference is_token('gzip\n')         -> True
+reference('gzip\n', ...) verdict     -> match
+reference('gzip\r', ...) verdict     -> invalid
+strict-token reader scored: {'frozen': 20, 'frozen_total': 20, 'random': 200, 'random_total': 200, 'met': True}
+  details (first 4): []
+L1 candidate on a Vary member with trailing LF -> exit 0 stdout 'match' stderr ''

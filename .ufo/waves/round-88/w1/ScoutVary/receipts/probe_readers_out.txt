@@ -1,0 +1,15 @@
+--- (a) TOKEN regex vs a member carrying a trailing LF ---
+   TOKEN.match('gzip') = True
+   TOKEN.match('gzip\n') = True
+   TOKEN.match('gzip\r\n') = False
+   TOKEN.match('gzip\nbr') = False
+   TOKEN.match('gz\nip') = False
+   reference("gzip\n", ...) = match
+--- (b/c) RFC9110-5.6.1.2 reader (empty elements ignored) ---
+   frozen 19/20  random 189/200
+   frozen failures: [{'case': 14, 'ok': False, 'exit': 0, 'out': 'match', 'err': ''}]
+   random failures (first 6): [{'case': 'r46', 'ok': False, 'exit': 0, 'out': 'mismatch', 'err': ''}, {'case': 'r61', 'ok': False, 'exit': 0, 'out': 'match', 'err': ''}, {'case': 'r77', 'ok': False, 'exit': 0, 'out': 'match', 'err': ''}, {'case': 'r122', 'ok': False, 'exit': 0, 'out': 'mismatch', 'err': ''}, {'case': 'r137', 'ok': False, 'exit': 0, 'out': 'mismatch', 'err': ''}, {'case': 'r147', 'ok': False, 'exit': 0, 'out': 'mismatch', 'err': ''}]
+--- (b/c) L1 candidate committed at v3 ---
+   frozen 20/20  random 200/200
+   frozen failures: []
+   random failures (first 6): []

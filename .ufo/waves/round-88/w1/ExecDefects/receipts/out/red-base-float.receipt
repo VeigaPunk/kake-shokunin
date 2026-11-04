@@ -1,0 +1,8 @@
+command: printf '%s' '{"date_value": 7.0, "request_time": 1, "response_time": 2, "now": 3}' | /usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/ExecDefects/base-cache_current_age.py 
+stdin: {"date_value": 7.0, "request_time": 1, "response_time": 2, "now": 3}
+exit: 1
+stdout_bytes: 0
+stderr_bytes: 58
+--- stdout ---
+--- stderr ---
+invalid_input: date_value must be an integer, not boolean

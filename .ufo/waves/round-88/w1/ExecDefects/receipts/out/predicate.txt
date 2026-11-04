@@ -1,0 +1,19 @@
+item_d2(base bytes)                            -> ['float input diagnostic does not name float (or still says boolean)']
+item_d2(candidate bytes)                       -> GREEN (no fails)
+item_d2(counter repaired_tool_bytes)           -> GREEN (no fails)
+item_d2(gap mutant: float for str/null/list)   -> GREEN (no fails)
+item_d2(mutant: always boolean otherwise)      -> GREEN (no fails)
+
+type-name wording on non-float inputs (counter helper _run_tool):
+candidate    string exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not string\n'
+candidate    null   exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not null\n'
+candidate    array  exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not array\n'
+candidate    object exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not object\n'
+counter-fix  string exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not str\n'
+counter-fix  null   exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not NoneType\n'
+counter-fix  array  exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not list\n'
+counter-fix  object exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not dict\n'
+base         string exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not boolean\n'
+base         null   exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not boolean\n'
+base         array  exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not boolean\n'
+base         object exit=1 stdout='' stderr='invalid_input: date_value must be an integer, not boolean\n'

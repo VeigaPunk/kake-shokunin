@@ -1,0 +1,27 @@
+{
+  "author": "ReviewReader",
+  "derivation": "Per-case verdicts derived from RFC 9111 section 4.1 and RFC 9110 sections 5.1/5.2/5.3/5.5/5.6.1 applied to the declared conservative profile in contract.md. Written after reading vary-cases.json (mandated reading order) and before running any candidate; the labels are therefore not blind. Where the spec reading and the declared profile differ, 'profile' and 'spec_note' are recorded separately.",
+  "note": "verdict is what the declared profile should emit (exit 0 match/mismatch, exit 1 null); spec_note records where a field-specific rule or a recipient MUST would differ.",
+  "cases": [
+    {"id": 1, "exit": 0, "verdict": "match", "basis": "Vary nominates accept-encoding; one field line each side; values are byte-identical ('gzip' == 'gzip'). Identical values satisfy any field-specific comparison rule.", "spec_note": "none"},
+    {"id": 2, "exit": 0, "verdict": "match", "basis": "Field names are case-insensitive (RFC 9110 5.1: 'Field names are case-insensitive'), so Vary: Accept-Encoding nominates accept-encoding and the two sides' names denote one field.", "spec_note": "none"},
+    {"id": 3, "exit": 0, "verdict": "mismatch", "basis": "Declared profile forbids value case-folding; 'gzip' and 'GZip' differ in bytes.", "spec_note": "Accept-Encoding content-coding tokens are matched case-insensitively by that field's own rule (RFC 9110 8.4.1 area), so a field-specific reader could return match; the profile's mismatch is over-conservative but never unsound."},
+    {"id": 4, "exit": 0, "verdict": "match", "basis": "accept-encoding absent from both sides; RFC 9111 4.1 permits reuse when the nominated field is absent from both requests.", "spec_note": "none"},
+    {"id": 5, "exit": 0, "verdict": "mismatch", "basis": "Nominated field present in the presented request only.", "spec_note": "none"},
+    {"id": 6, "exit": 0, "verdict": "mismatch", "basis": "Nominated field present in the stored request only.", "spec_note": "none"},
+    {"id": 7, "exit": 0, "verdict": "mismatch", "basis": "Vary member '*' always fails to match (RFC 9111 4.1).", "spec_note": "none"},
+    {"id": 8, "exit": 0, "verdict": "mismatch", "basis": "'*' among the members; the star member dominates an otherwise equal list.", "spec_note": "none"},
+    {"id": 9, "exit": 0, "verdict": "match", "basis": "' gzip ' vs 'gzip': a field value does not include leading or trailing whitespace (RFC 9110 5.5: 'A field value does not include leading or trailing whitespace'), so removal is definitional, not a value transformation.", "spec_note": "none"},
+    {"id": 10, "exit": 0, "verdict": "mismatch", "basis": "Profile does not reorder list members; 'gzip, br' vs 'br, gzip' differ in bytes.", "spec_note": "Accept-Encoding semantics are order-insensitive as a set of codings, so a field-specific rule could match; profile mismatch is conservative."},
+    {"id": 11, "exit": 0, "verdict": "match", "basis": "Both nominated fields present and equal.", "spec_note": "none"},
+    {"id": 12, "exit": 0, "verdict": "mismatch", "basis": "accept-language differs ('en' vs 'fr').", "spec_note": "none"},
+    {"id": 13, "exit": 0, "verdict": "match", "basis": "Two Vary members that differ only in case denote the same field name; the nominated field is compared once and is equal.", "spec_note": "none"},
+    {"id": 14, "exit": 1, "verdict": null, "basis": "Declared adapter refuses an empty Vary value (no field-name member).", "spec_note": "An empty #field-name list is parseable under RFC 9110 5.6.1.2 ('[ element ] *( OWS \",\" OWS [ element ] )') and would nominate nothing, i.e. match. Refusal is a declared adapter choice, not a spec rule; it cannot produce an unsound match."},
+    {"id": 15, "exit": 1, "verdict": null, "basis": "'accept encoding' is not a token, so it is not a field-name member; the adapter refuses it.", "spec_note": "Such a Vary value is syntactically invalid; refusing is defensible, and a reader that instead ignored the bad member would still not be required by the text."},
+    {"id": 16, "exit": 0, "verdict": "match", "basis": "Two presented field lines ['gzip','br'] have the combined field value 'gzip, br' (RFC 9110 5.2: repeated field names combine 'concatenated in order, with each field line value separated by a comma'), equal to the stored single line.", "spec_note": "The ', ' spelling comes from the profile; RFC 9110 5.3 lets a recipient combine 'separated by a comma (\",\") and optional whitespace (OWS)', so ', '-join is one permitted serialisation."},
+    {"id": 17, "exit": 0, "verdict": "mismatch", "basis": "Combined presented value 'gzip, br' vs stored 'br, gzip'; order is preserved, bytes differ.", "spec_note": "As in case 10, a field-specific set comparison could match; conservative mismatch."},
+    {"id": 18, "exit": 0, "verdict": "mismatch", "basis": "No internal-whitespace normalisation: 'gzip;q=1' vs 'gzip; q=1'.", "spec_note": "RFC 9110 12.5.3's weight grammar allows OWS around ';', so the two are the same Accept-Encoding value under that field's rule; profile mismatch is conservative."},
+    {"id": 19, "exit": 1, "verdict": null, "basis": "Non-string field value (5) is refused by the JSON adapter before comparison.", "spec_note": "adapter-level type refusal, not an HTTP-semantics question."},
+    {"id": 20, "exit": 1, "verdict": null, "basis": "Non-string Vary value (5) is refused by the JSON adapter.", "spec_note": "adapter-level type refusal."}
+  ]
+}

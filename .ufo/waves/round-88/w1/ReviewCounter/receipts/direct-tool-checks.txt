@@ -1,0 +1,25 @@
+== base tool, omitted-Age documented case (entry checklist item 2) ==
+{"apparent_age":0,"response_delay":15,"corrected_age_value":15,"corrected_initial_age":15,"resident_time":15,"current_age":30}
+exit=0
+== e2 mutant, same input ==
+{"apparent_age":0,"response_delay":15,"corrected_age_value":15,"corrected_initial_age":0,"resident_time":15,"current_age":15}
+exit=0
+== base tool, divergence case date95/req90/res100/now130 (Age omitted) ==
+{"apparent_age":5,"response_delay":10,"corrected_age_value":10,"corrected_initial_age":10,"resident_time":30,"current_age":40}
+exit=0
+== e2 mutant, same input ==
+{"apparent_age":5,"response_delay":10,"corrected_age_value":10,"corrected_initial_age":5,"resident_time":30,"current_age":35}
+exit=0
+== e2 own selftest ==
+selftest: 61 isolated CLI fixtures passed
+exit=0
+== e1 hardcoded, alternate valid payload ==
+{"apparent_age":20,"response_delay":10,"corrected_age_value":15,"corrected_initial_age":20,"resident_time":30,"current_age":50}
+exit=0
+== e3 float output and equality to the counter VALID_OUT ==
+{"apparent_age":20.0,"response_delay":10.0,"corrected_age_value":15.0,"corrected_initial_age":20.0,"resident_time":30.0,"current_age":50.0}
+exit=0
+float_terms_equal_VALID_OUT= True types= ['float']
+== repaired tool own selftest ==
+selftest: 61 isolated CLI fixtures passed
+exit=0

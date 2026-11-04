@@ -2959,3 +2959,69 @@ other lane reports and unidentified `after` (content only “== SCORECARD diff
 base-”) untouched. Author verdict: both finite targets met with independent
 C2 adapter evidence; no numeric score increase, no universal accuracy or
 no-harm/admission claim.
+
+## Round 88 — 2026-11-04, three routed r87 defects and a conservative Vary-match reader
+
+Motivation: the round-87 outside closure routed three defects (R1 ledger JSON under
+knowledge/, R2 diagnostic naming the wrong JSON type, R3 an ephemeral recheck path)
+and left RFC 9111 §4.1 match semantics on the freshness frontier. Two claims frozen
+before data: freeze v1 `4f8945ea`, v2 `80637397` (seeded 200-input differential
+population), v3 `52e41d2d` (validation before the wildcard rule; the v3 sentence
+"No item, case, threshold, control or target moved" is inaccurate for three seeded
+labels — corrected in `corpus/lessons/round-88.md`). Validated handoff
+`add7e49b`; carrier `55d67f15f7a58fb49ca32a31b5c63ae716e1c38a`.
+
+C1 calibration (lowest owned axis, 2 HOLD): base `open=3 closed=0 met=false` exit 1
+→ carrier `open=0 closed=3 met=true` exit 0, counter
+`.ufo/waves/round-88/c88_defect_queue.py`, receipts
+`controls/{base-c1.txt,after-c1-carrier.txt}`. D2 is behavioural (exit, key, JSON
+type, six terms, the tool's own 61 fragments); D1 binds the ledger sha256 into the
+companion prose; D3 allows exactly one replaced metadata line and pure insertions.
+The shipped repair is one line of `scripts/cache_current_age.py`; three payloads
+including the Age-omitted branch are byte-identical to the base
+(`controls/diagnostic-d2-arithmetic.txt`).
+
+C2 freshness (10 HOLD): absent 0/20 + 0/200 → carrier `frozen=20/20 random=200/200
+met=true` exit 0, counter `.ufo/waves/round-88/c88_vary.py`,
+`controls/{base-c2.txt,after-c2-carrier.txt}`. `scripts/vary_match.py` implements a
+conservative subset of §4.1: names compare case-insensitively, field lines combine
+in order, values compare byte-identically after edge SP/HTAB trim, absent-both
+matches, one-sided absence does not, `*` always fails, malformed input is refused.
+New source-backed entry `corpus/knowledge/vary-matching.md` (S463); SOURCES 200→201,
+knowledge `.md` 74→76, census exits 0→0, W04 24→25.
+
+One validated v1 wave, 14 seats, WAVE-DONE before integration
+(`.ufo/waves/round-88/wave-done-receipt.txt`): scout 2, executor 4, scribe 3,
+reviewer 2, critic 1, mutation-tester 1, connector 1; attack 4/14 = 28.6%; all 14
+settled with non-empty output, no dead seat, no replacement, no residual call; the
+results schema carries no per-seat status field for any seat (disclosed). L1 holds
+the planner seat (validator forbids planner as a swarm role); bounded planning
+data-walk on `ScoutVary`; literal L2-planner D84-4 stays open.
+
+Actual domain work trigger→action→outcome: publisher-side Vary preparation for
+ds4cc.com → `ExecTrial` one public GET (HTTP 200, 78,897 B, `vary: Accept-Encoding`,
+no cookie or credential) → four retained payloads replayed through the integrated
+tool, `match`/`mismatch`/`match`/`invalid_input`, exit 0/0/0/1
+(`controls/integrated-trial.txt`). One identical-side observation is not a
+discriminating proof and is not claimed as one.
+
+Instrument limits are routed, not hidden (`corpus/lessons/round-88.md` §Routed
+defects): the seeded population and the oracle are both committed, so a table or an
+oracle-import stub passes 20/20 + 200/200 (R88-1); the counter's `is_token` accepts a
+trailing LF while the shipped reader refuses it (R88-2); frozen case 14 and 13 seeded
+labels are adapter conventions a §5.6.1.2-faithful reader would fail (R88-3); 6 of 21
+C2 mutants survive missing case classes (R88-4); D2 accepts a float-emitting or
+table-driven tool (R88-5); D1/D3 match text (R88-6). Frozen bytes were not edited
+after scoring: the r87 instrument, the 20 cases, the seed and the thresholds are
+identical from freeze to carrier (`controls/frozen-identity-carrier.txt`).
+
+Assimilation: none — `merge/kake` still collides on eight ids (S312, S329, S367,
+S372, S373, S374, S390, S409), re-derived this round. considerthese mined:
+`considerthese/2026-10-26.md` proposal 2 (receipt-rewrite watch) measured over the
+lane's controls (1,577 tracked receipt files, 36 with more than one commit, four of
+them this round's own disclosed re-runs) and recorded in the lesson; no new
+criterion was added without a failing witness. No tools installed or upgraded.
+
+Adjacency: `mori-shokunin` S594 already holds a one-line RFC 9111 §4.1 Vary/cache-key
+rule; this lane's entry is the publisher-side reader and decision table, and the
+overlap is reported rather than absorbed (`w1/ConnectorScope.md`).

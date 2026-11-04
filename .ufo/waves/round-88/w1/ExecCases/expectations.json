@@ -1,0 +1,212 @@
+{
+  "_meta": {
+    "seat": "ExecCases",
+    "round": "kake-r88-w1",
+    "claim": "C2",
+    "case_file": ".ufo/waves/round-88/vary-cases.json",
+    "case_file_sha256": "c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d",
+    "derived_from": [
+      "RFC 9111 section 4.1 (match rule: MUST NOT sentence, three permitted transformations, absence sentence, '*' sentence)",
+      "RFC 9110 section 12.5.5 (Vary = #( \"*\" / field-name ))",
+      "RFC 9110 section 5.1 (field names are case-insensitive)",
+      "RFC 9110 section 5.2 (combining field lines with the same name, in order, ', ' + OWS)",
+      "RFC 9110 section 5.6.1 / 5.6.1.1 (list elements; empty elements parsed and ignored)",
+      "round-88 contract.md 'Profile (declared, bounded)' and the local-adapter contract in c88_vary.py's docstring"
+    ],
+    "method": "Read contract.md -> c88_vary.py (docstring/profile sections) -> vary-cases.json -> c88_defect_queue.py, then derived each verdict from the profile plus the RFC sentences before scoring anything. The counter's reference() block was read in the same pass; expectations below were fixed from the written profile, and reference-vs-expectation agreement is reported in ExecCases.md rather than used to derive them.",
+    "quote_provenance": "No network GET was performed (no URL is named in this seat's item). Sentences marked quote_status=local are reproduced in contract.md or in vary-cases.json basis fields; sentences marked quote_status=recalled are the RFC 9110/9111 text I am relying on from model knowledge and were NOT re-fetched this seat. The two MUST-level findings below rest on 5.6.1.1, which is quote_status=recalled; ScoutSpec holds the fetched copy.",
+    "verdict_vocabulary": [
+      "match        = exit 0, stdout 'match'",
+      "mismatch     = exit 0, stdout 'mismatch'",
+      "invalid_input= exit 1, empty stdout, stderr prefixed 'invalid_input:'"
+    ],
+    "note": "expected = the answer the round's own declared contract requires (this is what a candidate is scored on). spec_reading = the answer RFC 9111 section 4.1's 'if and only if' produces where it differs. A 'mismatch' can be more conservative than 4.1's iff and still be conformant, because 4.1 only says the cache MAY use a matching response."
+  },
+  "1": {
+    "expected": "match",
+    "frozen_exit": 0,
+    "frozen_verdict": "match",
+    "agrees_with_frozen": true,
+    "reason": "Both requests carry accept-encoding: gzip. The values are byte-identical, so no transformation is needed for the nominated field to match.",
+    "spec_sentence": "\"The selecting header fields from two requests are defined to match if and only if those in the first request can be transformed to those in the second request by applying any of the following: ...\"",
+    "quote_status": "local"
+  },
+  "2": {
+    "expected": "match",
+    "frozen_exit": 0,
+    "frozen_verdict": "match",
+    "agrees_with_frozen": true,
+    "reason": "The nominated name is 'Accept-Encoding' and the stored/presented maps key it as 'accept-encoding'/'ACCEPT-ENCODING'. Field names are case-insensitive, and the nominated name only selects the field; the compared values are equal.",
+    "spec_sentence": "RFC 9110 5.1: \"Field names are case-insensitive.\"",
+    "quote_status": "recalled"
+  },
+  "3": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "Values 'gzip' and 'GZip' differ byte-wise and the declared profile applies no value case-folding. Content codings are case-insensitive in HTTP, so 4.1's third transformation would permit normalising them, but declining to reuse a response is always allowed.",
+    "spec_sentence": "\"normalizing both header field values in a way that is known to have identical semantics, according to the header field's specification\" (permitted, not required)",
+    "spec_reading": "match (permitted normalisation of a case-insensitive content coding)",
+    "quote_status": "local"
+  },
+  "4": {
+    "expected": "match",
+    "frozen_exit": 0,
+    "frozen_verdict": "match",
+    "agrees_with_frozen": true,
+    "reason": "The nominated field is absent from both request maps. 4.1's absence rule makes absence on both sides a match.",
+    "spec_sentence": "\"If a header field is absent from a request, it can only match another request if it is also absent there.\"",
+    "quote_status": "local"
+  },
+  "5": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "Nominated field absent from the stored request, present in the presented request; the absence sentence is not satisfied.",
+    "spec_sentence": "\"If a header field is absent from a request, it can only match another request if it is also absent there.\"",
+    "quote_status": "local"
+  },
+  "6": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "Mirror of case 5: present on the stored side, absent on the presented side.",
+    "spec_sentence": "\"If a header field is absent from a request, it can only match another request if it is also absent there.\"",
+    "quote_status": "local"
+  },
+  "7": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "Vary is the single member '*'. A star member is unconditional failure, regardless of the field values, which happen to be equal here.",
+    "spec_sentence": "\"A Vary header field value of \\\"*\\\" always fails to match.\"",
+    "quote_status": "local"
+  },
+  "8": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "The list contains '*' plus a field that matches. '*' is a member of the list, so the whole Vary fails; a matching acceptor field cannot rescue it.",
+    "spec_sentence": "\"A Vary header field value of \\\"*\\\" always fails to match.\" (member-level failure dominates a list)",
+    "quote_status": "local"
+  },
+  "9": {
+    "expected": "match",
+    "frozen_exit": 0,
+    "frozen_verdict": "match",
+    "agrees_with_frozen": true,
+    "reason": "Leading/trailing OWS is removed, which is the first permitted transformation applied to the outer edges of a field value.",
+    "spec_sentence": "\"adding or removing whitespace, where allowed in the header field's syntax\"",
+    "quote_status": "local"
+  },
+  "10": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "The declared profile compares the trimmed values byte-identically, so 'gzip, br' != 'br, gzip'. Reordering is permitted by 4.1 only where the field's semantics make order insignificant; Accept-Encoding order is not declared insignificant by the profile, so a conservative mismatch is conformant.",
+    "spec_sentence": "\"normalizing both header field values in a way that is known to have identical semantics, according to the header field's specification (e.g., reordering field values when order is not significant ...)\"",
+    "spec_reading": "ambiguous; a field-specific rule could call this a match, the profile declines",
+    "quote_status": "local"
+  },
+  "11": {
+    "expected": "match",
+    "frozen_exit": 0,
+    "frozen_verdict": "match",
+    "agrees_with_frozen": true,
+    "reason": "Both nominated fields are present on both sides with equal trimmed values, so every conjunct of the match rule holds.",
+    "spec_sentence": "\"it MUST NOT use that response unless all of the selecting header fields nominated by the Vary header field match in both the original request ... and the presented request\"",
+    "quote_status": "recalled"
+  },
+  "12": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "accept-language differs ('en' vs 'fr'), so the universal over nominated fields fails.",
+    "spec_sentence": "\"... unless all of the selecting header fields nominated by the Vary header field match ...\"",
+    "quote_status": "recalled"
+  },
+  "13": {
+    "expected": "match",
+    "frozen_exit": 0,
+    "frozen_verdict": "match",
+    "agrees_with_frozen": true,
+    "reason": "The two members name the same field after case-folding. The match condition quantifies over nominated fields, so a repeated member adds no conjunct and the single nominated field matches.",
+    "spec_sentence": "RFC 9110 12.5.5: \"Vary = #( \\\"*\\\" / field-name )\" with RFC 9110 5.1 \"Field names are case-insensitive.\"",
+    "quote_status": "recalled"
+  },
+  "14": {
+    "expected": "invalid_input",
+    "frozen_exit": 1,
+    "frozen_verdict": null,
+    "agrees_with_frozen": true,
+    "reason": "The frozen case and the wave's adapter contract refuse an empty Vary value (no field-name member). NOTE: this is an adapter convention, not a 4.1 requirement. Read strictly, an empty Vary nominates zero fields, so 4.1's universal is vacuously true and the answer is 'match'; RFC 9110 5.6.1.1 even requires a recipient to parse and ignore empty list elements. A spec-conformant reader that answers 'match' scores 19/20 here.",
+    "spec_sentence": "RFC 9110 5.6.1.1: \"a recipient MUST parse and ignore a reasonable number of empty list elements\" (contrary to refusal); 4.1's MUST NOT is a universal over nominated fields",
+    "spec_reading": "match (vacuous universal; zero nominated fields)",
+    "defect_note": "case-set/adapter narrowing: a strictly conformant reader fails this case; contract.md's profile paragraph does not declare the refusal, only c88_vary.py's docstring and ExecReader's item do",
+    "quote_status": "recalled"
+  },
+  "15": {
+    "expected": "invalid_input",
+    "frozen_exit": 1,
+    "frozen_verdict": null,
+    "agrees_with_frozen": true,
+    "reason": "'accept encoding' is a single list member (commas delimit members) that contains SP, and SP is not in tchar, so it is not a field-name token. The adapter refuses it. A conservative 'mismatch' would also be defensible, since 4.1 gives no verdict for a malformed member.",
+    "spec_sentence": "RFC 9110 12.5.5: \"Vary = #( \\\"*\\\" / field-name )\"; field-name = token (SP is outside tchar)",
+    "spec_reading": "undefined by 4.1; refusal and mismatch are both defensible",
+    "defect_note": "the frozen case fixes one of two defensible answers; contract.md does not declare which",
+    "quote_status": "recalled"
+  },
+  "16": {
+    "expected": "match",
+    "frozen_exit": 0,
+    "frozen_verdict": "match",
+    "agrees_with_frozen": true,
+    "reason": "The presented side gives two field lines ['gzip','br']; combining them in order with ', ' yields 'gzip, br', byte-identical to the stored single-line value.",
+    "spec_sentence": "RFC 9110 5.2: \"by appending each subsequent field line value to the initial field line value in order, separated by a comma (',') and optional whitespace\"",
+    "quote_status": "recalled"
+  },
+  "17": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "Combination is ordered, so the presented side becomes 'gzip, br' while the stored side is 'br, gzip'; the profile does not reorder.",
+    "spec_sentence": "RFC 9110 5.2 (combination is in field-line order) with 4.1's no-reordering conservative profile",
+    "quote_status": "recalled"
+  },
+  "18": {
+    "expected": "mismatch",
+    "frozen_exit": 0,
+    "frozen_verdict": "mismatch",
+    "agrees_with_frozen": true,
+    "reason": "The values differ in internal whitespace only. The profile folds nothing internally, so the trimmed byte comparison fails. Note that Accept-Encoding's weight grammar allows OWS around ';', so 4.1's first transformation would make these fields match; declining to reuse is still conformant.",
+    "spec_sentence": "\"adding or removing whitespace, where allowed in the header field's syntax\"",
+    "spec_reading": "match (OWS around ';' is allowed by weight = OWS \";\" OWS \"q=\" qvalue)",
+    "quote_status": "local"
+  },
+  "19": {
+    "expected": "invalid_input",
+    "frozen_exit": 1,
+    "frozen_verdict": null,
+    "agrees_with_frozen": true,
+    "reason": "The stored value for the nominated field is the JSON number 5. The adapter's input domain is string or array-of-string per field, so the payload is refused before any match rule applies.",
+    "spec_sentence": "no RFC sentence: field values are sequences of characters, not JSON numbers; this is an adapter-domain refusal (c88_vary.py docstring: {name: value|list})",
+    "quote_status": "local"
+  },
+  "20": {
+    "expected": "invalid_input",
+    "frozen_exit": 1,
+    "frozen_verdict": null,
+    "agrees_with_frozen": true,
+    "reason": "Vary is the JSON number 5, outside the adapter's declared type (vary is a string). Refused before parsing.",
+    "spec_sentence": "no RFC sentence: Vary is a field value (a string); the JSON-number carrier is an adapter-domain violation",
+    "quote_status": "local"
+  }
+}

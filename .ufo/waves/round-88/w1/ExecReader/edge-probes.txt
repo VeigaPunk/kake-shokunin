@@ -1,0 +1,8 @@
+empty stdin                        exit=1 stdout='' stderr='invalid_input: stdin is not valid JSON: Expecting value: line 1 column 1 (char 0)'
+JSON null                          exit=1 stdout='' stderr='invalid_input: input must be a single JSON object'
+JSON array                         exit=1 stdout='' stderr='invalid_input: input must be a single JSON object'
+lone surrogate vary                exit=1 stdout='' stderr='invalid_input: Vary member '\''\ud800'\'' is not a token'
+UTF-8 BOM object                   exit=1 stdout='' stderr='invalid_input: stdin is not valid JSON: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)'
+trailing garbage                   exit=1 stdout='' stderr='invalid_input: stdin is not valid JSON: Extra data: line 1 column 41 (char 40)'
+textual duplicate key              exit=0 stdout=match stderr=''
+huge int vary                      exit=1 stdout='' stderr='invalid_input: vary must be a string, not int'

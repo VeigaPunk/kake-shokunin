@@ -1,0 +1,352 @@
+[
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/green-baseline --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-baseline-green",
+    "exit": 0,
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "open": [],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/green-baseline items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/green-baseline items=3 open=0 closed=3 met=true",
+    "tag": "baseline-green"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_source_path_suffix --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d1_source_path_suffix",
+    "exit": 0,
+    "item": "D1",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "source: names gate-agreement-ledger.json.bak (substring of the ledger path)",
+    "open": [],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_source_path_suffix items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_source_path_suffix items=3 open=0 closed=3 met=true",
+    "tag": "c1_d1_source_path_suffix"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_source_dropped --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d1_source_dropped",
+    "exit": 1,
+    "item": "D1",
+    "items": {
+      "D1-ledger-companion": [
+        "companion source: line does not name the ledger path"
+      ],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "source: names no ledger path",
+    "open": [
+      "D1-ledger-companion"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_source_dropped items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [\"companion source: line does not name the ledger path\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_source_dropped items=3 open=1 closed=2 met=false",
+    "tag": "c1_d1_source_dropped"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_digest_zeros --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d1_digest_zeros",
+    "exit": 1,
+    "item": "D1",
+    "items": {
+      "D1-ledger-companion": [
+        "companion does not quote the ledger sha256"
+      ],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "companion quotes 64 zeros instead of the ledger sha256",
+    "open": [
+      "D1-ledger-companion"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_digest_zeros items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [\"companion does not quote the ledger sha256\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_digest_zeros items=3 open=1 closed=2 met=false",
+    "tag": "c1_d1_digest_zeros"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_ledger_altered --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d1_ledger_altered",
+    "exit": 1,
+    "item": "D1",
+    "items": {
+      "D1-ledger-companion": [
+        "ledger bytes differ from the frozen base copy",
+        "companion does not quote the ledger sha256"
+      ],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "ledger bytes edited (one decision item retitled)",
+    "open": [
+      "D1-ledger-companion"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_ledger_altered items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [\"ledger bytes differ from the frozen base copy\", \"companion does not quote the ledger sha256\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_ledger_altered items=3 open=1 closed=2 met=false",
+    "tag": "c1_d1_ledger_altered"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_verified_empty --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d1_verified_empty",
+    "exit": 1,
+    "item": "D1",
+    "items": {
+      "D1-ledger-companion": [
+        "companion head lacks a filled verified-at: line"
+      ],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "verified-at: present but empty",
+    "open": [
+      "D1-ledger-companion"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_verified_empty items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [\"companion head lacks a filled verified-at: line\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d1_verified_empty items=3 open=1 closed=2 met=false",
+    "tag": "c1_d1_verified_empty"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_hardcoded_key --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d2_hardcoded_key",
+    "exit": 0,
+    "item": "D2",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "diagnostic always names date_value whatever key is offending",
+    "open": [],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_hardcoded_key items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_hardcoded_key items=3 open=0 closed=3 met=true",
+    "tag": "c1_d2_hardcoded_key"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_hardcoded_valid --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d2_hardcoded_valid",
+    "exit": 0,
+    "item": "D2",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "the valid path is a payload-keyed lookup table",
+    "open": [],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_hardcoded_valid items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_hardcoded_valid items=3 open=0 closed=3 met=true",
+    "tag": "c1_d2_hardcoded_valid"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_vacuous_selftest --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d2_vacuous_selftest",
+    "exit": 0,
+    "item": "D2",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "--selftest prints a green line and runs zero fixtures",
+    "open": [],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_vacuous_selftest items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_vacuous_selftest items=3 open=0 closed=3 met=true",
+    "tag": "c1_d2_vacuous_selftest"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_base_message --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d2_base_message",
+    "exit": 1,
+    "item": "D2",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [
+        "float input diagnostic does not name float (or still says boolean)"
+      ],
+      "D3-recheck-path": []
+    },
+    "label": "float diagnostic reverted to the base boolean message",
+    "open": [
+      "D2-diagnostic-type"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_base_message items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [\"float input diagnostic does not name float (or still says boolean)\"], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_base_message items=3 open=1 closed=2 met=false",
+    "tag": "c1_d2_base_message"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_bool_says_float --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d2_bool_says_float",
+    "exit": 1,
+    "item": "D2",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [
+        "bool input diagnostic does not name boolean"
+      ],
+      "D3-recheck-path": []
+    },
+    "label": "boolean diagnostic also mentions float",
+    "open": [
+      "D2-diagnostic-type"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_bool_says_float items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [\"bool input diagnostic does not name boolean\"], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d2_bool_says_float items=3 open=1 closed=2 met=false",
+    "tag": "c1_d2_bool_says_float"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_zero_cadence --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d3_zero_cadence",
+    "exit": 0,
+    "item": "D3",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "recheck: 0d (a token that parses as a cadence but is not one)",
+    "open": [],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_zero_cadence items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_zero_cadence items=3 open=0 closed=3 met=true",
+    "tag": "c1_d3_zero_cadence"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_forbidden_mktemp --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d3_forbidden_mktemp",
+    "exit": 0,
+    "item": "D3",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "body says the mktemp selftest command is forbidden",
+    "open": [],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_forbidden_mktemp items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_forbidden_mktemp items=3 open=0 closed=3 met=true",
+    "tag": "c1_d3_forbidden_mktemp"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_iso_date_only --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d3_iso_date_only",
+    "exit": 0,
+    "item": "D3",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": []
+    },
+    "label": "recheck: a bare fixed ISO date, no cadence word at all",
+    "open": [],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_iso_date_only items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_iso_date_only items=3 open=0 closed=3 met=true",
+    "tag": "c1_d3_iso_date_only"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_base_recheck --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d3_base_recheck",
+    "exit": 1,
+    "item": "D3",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": [
+        "recheck line still names an ephemeral path token '/fast/scratch'",
+        "recheck line still names an ephemeral path token 'TMPDIR='",
+        "entry body lacks the mktemp-form offline selftest command"
+      ]
+    },
+    "label": "recheck line restored to the base bytes",
+    "open": [
+      "D3-recheck-path"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_base_recheck items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"recheck line still names an ephemeral path token '/fast/scratch'\", \"recheck line still names an ephemeral path token 'TMPDIR='\", \"entry body lacks the mktemp-form offline selftest command\"]}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_base_recheck items=3 open=1 closed=2 met=false",
+    "tag": "c1_d3_base_recheck"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_ephemeral --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d3_ephemeral",
+    "exit": 1,
+    "item": "D3",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": [
+        "recheck line still names an ephemeral path token '/fast/scratch'",
+        "recheck line still names an ephemeral path token 'TMPDIR='"
+      ]
+    },
+    "label": "recheck line names TMPDIR=/fast/scratch",
+    "open": [
+      "D3-recheck-path"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_ephemeral items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"recheck line still names an ephemeral path token '/fast/scratch'\", \"recheck line still names an ephemeral path token 'TMPDIR='\"]}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_ephemeral items=3 open=1 closed=2 met=false",
+    "tag": "c1_d3_ephemeral"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_no_mktemp --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d3_no_mktemp",
+    "exit": 1,
+    "item": "D3",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": [
+        "entry body lacks the mktemp-form offline selftest command"
+      ]
+    },
+    "label": "offline command uses mkdir instead of mktemp -d",
+    "open": [
+      "D3-recheck-path"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_no_mktemp items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"entry body lacks the mktemp-form offline selftest command\"]}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_no_mktemp items=3 open=1 closed=2 met=false",
+    "tag": "c1_d3_no_mktemp"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_edited_line --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d3_edited_line",
+    "exit": 1,
+    "item": "D3",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": [
+        "history-preservation violation at base line 5 (replace)"
+      ]
+    },
+    "label": "an unrelated base line is edited",
+    "open": [
+      "D3-recheck-path"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_edited_line items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"history-preservation violation at base line 5 (replace)\"]}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_edited_line items=3 open=1 closed=2 met=false",
+    "tag": "c1_d3_edited_line"
+  },
+  {
+    "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_defect_queue.py --mirror /fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_two_recheck --work /fast/scratch/hyaku/kake-r88/MutReader/work/c1-c1_d3_two_recheck",
+    "exit": 1,
+    "item": "D3",
+    "items": {
+      "D1-ledger-companion": [],
+      "D2-diagnostic-type": [],
+      "D3-recheck-path": [
+        "expected exactly one recheck line"
+      ]
+    },
+    "label": "a second recheck: line is appended",
+    "open": [
+      "D3-recheck-path"
+    ],
+    "stderr": "",
+    "stdout": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_two_recheck items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"expected exactly one recheck line\"]}",
+    "summary": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/MutReader/mirrors/c1_d3_two_recheck items=3 open=1 closed=2 met=false",
+    "tag": "c1_d3_two_recheck"
+  }
+]

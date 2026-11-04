@@ -1,0 +1,27 @@
+# P3/P4/P5 tool-level detail: what the candidate --selftest actually did, and the second-payload behaviour
+$ TMPDIR=$PWD/tmp-p3 python3 -B probe-run/p3/scripts/cache_current_age.py --selftest
+selftest: 61 isolated CLI fixtures passed
+exit=0
+
+$ printf %s "{\"date_value\":60,\"request_time\":45,\"response_time\":60,\"now\":75}" | python3 -B probe-run/p3/scripts/cache_current_age.py   # float-terms tool, second valid payload
+{"apparent_age":0.0,"response_delay":15.0,"corrected_age_value":15.0,"corrected_initial_age":15.0,"resident_time":15.0,"current_age":30.0}
+exit=0
+
+$ python3 -B probe-run/p4/scripts/cache_current_age.py --selftest   # hardcoded-table tool
+selftest: 61 isolated CLI fixtures passed
+exit=0
+
+$ printf %s "{\"date_value\":60,\"request_time\":45,\"response_time\":60,\"now\":75}" | python3 -B probe-run/p4/scripts/cache_current_age.py  # second valid payload
+invalid_input: unsupported input
+
+$ python3 -B probe-run/p5/scripts/cache_current_age.py --selftest   # gutted-selftest tool (arithmetic intact)
+selftest: 61 isolated CLI fixtures passed
+exit=0
+
+$ grep -c "def _unused_selftest" probe-run/p4/scripts/cache_current_age.py probe-run/p5/scripts/cache_current_age.py   # the real fixture body was renamed out of the way; the printed banner is the only evidence the counter sees
+probe-run/p4/scripts/cache_current_age.py:1
+probe-run/p5/scripts/cache_current_age.py:1
+
+$ printf %s "{\"date_value\":60,\"request_time\":45,\"response_time\":60,\"now\":75}" | python3 -B probe-run/p5/scripts/cache_current_age.py  # gutted-selftest tool, second valid payload: real arithmetic
+{"apparent_age":0,"response_delay":15,"corrected_age_value":15,"corrected_initial_age":15,"resident_time":15,"current_age":30}
+exit=0

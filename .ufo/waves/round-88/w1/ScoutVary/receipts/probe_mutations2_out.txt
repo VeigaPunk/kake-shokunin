@@ -1,0 +1,17 @@
+mutation                     frozen moved  seeded moved   example seeded id
+join_comma_no_space                     1             1   ['r106']
+join_semicolon                          1             1   ['r106']
+token_allows_lf                         0             0   []
+absence_one_sided_match                 2            14   ['r20', 'r41', 'r42', 'r60']
+Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r88/ScoutVary/probe_mutations2.py", line 45, in <module>
+    src = fn(BASE)
+  File "/fast/scratch/hyaku/kake-r88/ScoutVary/probe_mutations2.py", line 38, in <lambda>
+    'absent_both_mismatch': lambda s: line_edit(s, 89, "if left is None and right is None:\n            continue",
+                                      ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                 "if left is None and right is None:\n            return 'mismatch'"),
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/fast/scratch/hyaku/kake-r88/ScoutVary/probe_mutations2.py", line 29, in line_edit
+    assert old_sub in lines[lineno-1], (lineno, lines[lineno-1])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (89, '            continue\n')

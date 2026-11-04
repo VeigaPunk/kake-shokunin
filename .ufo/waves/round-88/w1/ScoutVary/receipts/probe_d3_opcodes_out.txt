@@ -1,0 +1,13 @@
+insert after recheck line (index 3): non-equal opcodes = [('replace', 2, 3, 2, 4)]
+insert before recheck line (index 2): non-equal opcodes = [('replace', 2, 3, 2, 4)]
+append at EOF: non-equal opcodes = [('replace', 2, 3, 2, 3), ('insert', 78, 78, 78, 79)]
+
+cadence test (rest[:1].isdigit() and ("d" in rest.split()[0].lower() or rest[:4].isdigit())):
+   '180d or source change'                -> cadence accepted: True
+   '180 days or source change'            -> cadence accepted: False
+   '180-day or source change'             -> cadence accepted: True
+   '2026-11-04 reviewed'                  -> cadence accepted: True
+   '90d'                                  -> cadence accepted: True
+   '6 months'                             -> cadence accepted: False
+   'quarterly'                            -> cadence accepted: False
+   '30 days'                              -> cadence accepted: False

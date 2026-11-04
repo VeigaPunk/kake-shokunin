@@ -1,0 +1,19 @@
+PASS frozen: unique sequential ids
+PASS frozen: exits/verdicts well formed
+PASS frozen: 20 cases
+PASS frozen: constant-match policy scores 7
+PASS frozen: constant-mismatch policy scores 9
+PASS frozen: always-invalid policy scores 4
+PASS reference oracle reproduces all 20 frozen verdicts
+PASS random: 200 seeded cases
+PASS random: mixed population (match=67 mismatch=109 invalid=24)
+PASS random: every case carries a reference verdict
+PASS stub match scores 7/20 on the frozen set
+PASS stub match scores 67/200 on the random set
+PASS stub mismatch scores 9/20 on the frozen set
+PASS stub mismatch scores 109/200 on the random set
+PASS stub invalid scores 4/20 on the frozen set
+PASS stub invalid scores 24/200 on the random set
+PASS silent-failure stub scores 0/20
+selftest: 17/17 passed
+counter_selftest_v3_exit=0

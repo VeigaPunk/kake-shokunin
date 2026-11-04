@@ -1,0 +1,37 @@
+=== reference receipts with pinned hashes ===
+counter_sha256=e4cf5ad943a2f54742562ad169f437197c01bb67eb423aa93d457ba912c95124 cases_sha256=c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d date=2026-11-04T16:02:03-03:00
+{
+ "cases": 18,
+ "disagreements": [
+  {
+   "adapter_expected": "invalid_input",
+   "expected": "mismatch",
+   "got": "invalid_input",
+   "id": "X04",
+   "spec_reading": "mismatch (the nominated field is absent on the presented side) or refusal (the key is not a field name)"
+  },
+  {
+   "adapter_expected": "invalid_input",
+   "expected": "mismatch",
+   "got": "invalid_input",
+   "id": "X07",
+   "spec_reading": "mismatch (zero field lines = field absent)"
+  },
+  {
+   "adapter_expected": "invalid_input",
+   "expected": "match",
+   "got": "invalid_input",
+   "id": "X15",
+   "spec_reading": "match"
+  }
+ ],
+ "passed": 15,
+ "source": "c88_vary.reference",
+ "tally": {
+  "invalid_input": 5,
+  "match": 8,
+  "mismatch": 5
+ },
+ "total": 18
+}
+exit=1

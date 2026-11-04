@@ -117,3 +117,16 @@ the lesson, SOURCES/LOG/SCORECARD appends and the round-88 wave evidence. No
 existing script other than the D2 line changes; the frozen r87 instrument and
 its fixtures stay untouched; freshness is not re-measured live; publishing,
 accounts and deployment stay operator-owned.
+
+## Errata (appended after the wave; the sentences above are not rewritten)
+
+- The v3 paragraph's "No item, case, threshold, control or target moved" is
+  accurate for the C1 items, the 20 hand cases, the thresholds, controls and
+  targets, and inaccurate for the seeded population: three labels flipped
+  (`r53`, `r150`, `r193`, `mismatch` → `invalid`) and the population digest moved
+  from `004a8eb7…` to `52714a5f…`. The controls were re-run and carry the new
+  digest. `corpus/lessons/round-88.md` records the correction.
+- The v2→v3 amendment happened while the wave was live (dispatch 15:52:15, v3
+  15:58:05). No C1 scoring preceded it; two seats re-read the contract and one
+  measured the candidate at 197/200 under v2 and 200/200 under v3. Freeze and
+  dispatch are meant to be ordered, not interleaved.

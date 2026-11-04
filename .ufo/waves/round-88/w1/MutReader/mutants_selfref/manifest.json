@@ -1,0 +1,146 @@
+{
+  "count": 20,
+  "mutants": [
+    {
+      "label": "field names compared case-sensitively",
+      "mutant_sha256": "2b52ea248c9a0e52fc1cbae06d2efe9846ba4010d9f0cfde2025e83da066e1cc",
+      "name": "m01_name_case_sensitive",
+      "new": "            low = key\n",
+      "old": "            low = key.lower()\n"
+    },
+    {
+      "label": "leading/trailing OWS not trimmed before the value compare",
+      "mutant_sha256": "92468ab78333b958a00a15a444b828426457a087d97bde83227cc0ac49736913",
+      "name": "m02_no_ows_trim",
+      "new": "        if left != right:\n",
+      "old": "        if left.strip(OWS) != right.strip(OWS):\n"
+    },
+    {
+      "label": "multiple field lines combined in sorted (unordered) order",
+      "mutant_sha256": "820045e3888ce99982dd58a0dda19bfd007ae31702b07d1fb821020006ef69ca",
+      "name": "m03_unordered_array",
+      "new": "                out[low] = ', '.join(sorted(value))\n",
+      "old": "                out[low] = ', '.join(value)\n"
+    },
+    {
+      "label": "'*' handled as an ordinary token instead of always failing",
+      "mutant_sha256": "47db741c155618721df7081db6c46113412a2105e74bdea0e14384e2ca50eb81",
+      "name": "m04_star_as_token",
+      "new": "        if is_token(m):\n            names.append(m.lower())\n",
+      "old": "        if m == '*':\n            star = True\n        elif is_token(m):\n            names.append(m.lower())\n"
+    },
+    {
+      "label": "a field absent from both requests treated as a mismatch",
+      "mutant_sha256": "b6aed2dc3160b4204b905e98d6651fafce5cf730742950205297d66c33f1f464",
+      "name": "m05_absent_both_mismatch",
+      "new": "        if left is None and right is None:\n            return 'mismatch'\n",
+      "old": "        if left is None and right is None:\n            continue\n"
+    },
+    {
+      "label": "a field present in only one request treated as a match",
+      "mutant_sha256": "a416949673dc9a5a2bcec74101f94f72ea594c083ed83da83b76a64c536a0c93",
+      "name": "m06_one_sided_match",
+      "new": "        if left is None or right is None:\n            continue\n",
+      "old": "        if left is None or right is None:\n            return 'mismatch'\n"
+    },
+    {
+      "label": "value comparison case-folded",
+      "mutant_sha256": "cd89eecf44d7fba6e4f1891ef895bbc65da6383f0131717544046e01cfca3a10",
+      "name": "m07_value_casefold",
+      "new": "        if left.strip(OWS).lower() != right.strip(OWS).lower():\n",
+      "old": "        if left.strip(OWS) != right.strip(OWS):\n"
+    },
+    {
+      "label": "internal whitespace runs collapsed before the value compare",
+      "mutant_sha256": "a208786e5379dc760010935d99eb12a72a4fe3335d54b295bcc85d134ed0563d",
+      "name": "m08_internal_ws_collapse",
+      "new": "        if ' '.join(left.split()) != ' '.join(right.split()):\n",
+      "old": "        if left.strip(OWS) != right.strip(OWS):\n"
+    },
+    {
+      "label": "an empty/non-token Vary member is accepted as match",
+      "mutant_sha256": "6ea79768cd04d50b49bc05a00220031eecf0b9efa653b01de4ca1a56b148d634",
+      "name": "m09_empty_vary_match",
+      "new": "    if not members or any(m == '' for m in members):\n        return 'match'\n",
+      "old": "    if not members or any(m == '' for m in members):\n        return 'invalid'\n"
+    },
+    {
+      "label": "'*' fails only when it is the sole member",
+      "mutant_sha256": "ac9a39b06216ad17379fecabf4eab1b4767e1a97575118066b1c025be0943feb",
+      "name": "m10_star_only_sole",
+      "new": "    if star and not names:\n        return 'mismatch'\n",
+      "old": "    if star:\n        return 'mismatch'\n"
+    },
+    {
+      "label": "ambiguous duplicate field names accepted (last wins)",
+      "mutant_sha256": "e27417a935e2159a58bfdc4f49cbfd36dda3e54c7d28cc4fc0d181fe0330158d",
+      "name": "m11_dupkey_refusal_removed",
+      "new": "",
+      "old": "            if low in out:\n                return None\n"
+    },
+    {
+      "label": "fields not nominated by Vary are compared too",
+      "mutant_sha256": "caff46c996e56b8bcf6b05fce5e32462f7efcc8e3eb681a90281f510853203c8",
+      "name": "m12_unnominated_compared",
+      "new": "    for name in set(names) | set(a) | set(b):\n",
+      "old": "    for name in set(names):\n"
+    },
+    {
+      "label": "OWS trimmed on the stored side only",
+      "mutant_sha256": "d231e3998aa3b93e0550ab631896d7d54d379fedf7f0a135823bcaf63b8679a0",
+      "name": "m13_asymmetric_trim",
+      "new": "        if left.strip(OWS) != right:\n",
+      "old": "        if left.strip(OWS) != right.strip(OWS):\n"
+    },
+    {
+      "label": "non-string scalar field values coerced with str()",
+      "mutant_sha256": "ee94862dab6f93b68d0a00bb7cf9e094778eb265b0d0b10f3958291125f8c8ec",
+      "name": "m14_int_value_coerced",
+      "new": "            if isinstance(value, (str, int)):\n                out[low] = str(value)\n",
+      "old": "            if isinstance(value, str):\n                out[low] = value\n"
+    },
+    {
+      "label": "non-string Vary coerced with str() instead of refused",
+      "mutant_sha256": "623ce9e13bafec3f0dccca89eacce048188ff22b0d5a31b3bc1c63013fb20171",
+      "name": "m15_vary_coerced",
+      "new": "    if not isinstance(vary, str):\n        vary = str(vary)\n",
+      "old": "    if not isinstance(vary, str):\n        return 'invalid'\n"
+    },
+    {
+      "label": "an empty field value is treated as absent",
+      "mutant_sha256": "cc188b560322e7b660b8c3930902f07d05cdafd38b932e02ef8042972e08abab",
+      "name": "m16_empty_value_absent",
+      "new": "            if isinstance(value, str):\n                if value.strip(OWS):\n                    out[low] = value\n",
+      "old": "            if isinstance(value, str):\n                out[low] = value\n"
+    },
+    {
+      "label": "list field values accept non-string elements",
+      "mutant_sha256": "7ff232ed9fae2d19ef250f85805f2fb77018dad750d2583f09f6d566f221d50d",
+      "name": "m17_list_elem_check_removed",
+      "new": "            elif isinstance(value, list) and value:\n",
+      "old": "            elif isinstance(value, list) and value and all(isinstance(v, str) for v in value):\n"
+    },
+    {
+      "label": "an empty field-line list is accepted as the empty string",
+      "mutant_sha256": "29e3b022772bbfbb3ff128a79e7a606e35c92f609130fd139c5a3b7a1819a8d3",
+      "name": "m18_empty_list_absent",
+      "new": "            elif isinstance(value, list) and all(isinstance(v, str) for v in value):\n",
+      "old": "            elif isinstance(value, list) and value and all(isinstance(v, str) for v in value):\n"
+    },
+    {
+      "label": "the redundant empty-member guard is deleted (equivalent)",
+      "mutant_sha256": "a34f53ad13720d767b7bfe7fb2a2a8b92231960902125f3121525eb3691cf17a",
+      "name": "m19_empty_member_guard_removed",
+      "new": "    if not members:\n        return 'invalid'\n",
+      "old": "    if not members or any(m == '' for m in members):\n        return 'invalid'\n"
+    },
+    {
+      "label": "the token grammar admits SP, so \"accept encoding\" parses",
+      "mutant_sha256": "b15d9c0825a1bd3ec641e46d613c76e63e3578e9d8dbb56b2b58b7030c6848dc",
+      "name": "m20_token_allows_space",
+      "new": "TOKEN = re.compile(r\"^[!#$%&'*+\\-.^_`|~0-9A-Za-z ]+$\")\n",
+      "old": "TOKEN = re.compile(r\"^[!#$%&'*+\\-.^_`|~0-9A-Za-z]+$\")\n"
+    }
+  ],
+  "ref_sha256": "8ec3da4860ec9106d694bf9b28800be5443a7186e215449c997fe87fa4d9326a"
+}

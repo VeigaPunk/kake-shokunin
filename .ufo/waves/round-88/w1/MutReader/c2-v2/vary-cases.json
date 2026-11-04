@@ -1,0 +1,22 @@
+[
+  {"id": 1, "vary": "accept-encoding", "stored": {"accept-encoding": "gzip"}, "presented": {"accept-encoding": "gzip"}, "exit": 0, "verdict": "match", "basis": "identical field value"},
+  {"id": 2, "vary": "Accept-Encoding", "stored": {"accept-encoding": "gzip"}, "presented": {"ACCEPT-ENCODING": "gzip"}, "exit": 0, "verdict": "match", "basis": "field names compare ASCII case-insensitively (RFC 9110 5.1); nominated name case is irrelevant"},
+  {"id": 3, "vary": "accept-encoding", "stored": {"accept-encoding": "gzip"}, "presented": {"accept-encoding": "GZip"}, "exit": 0, "verdict": "mismatch", "basis": "conservative profile: no value case-normalisation is applied, although a field-specific rule might permit it"},
+  {"id": 4, "vary": "accept-encoding", "stored": {}, "presented": {}, "exit": 0, "verdict": "match", "basis": "absent from both requests: RFC 9111 4.1 'can only match another request if it is also absent there'"},
+  {"id": 5, "vary": "accept-encoding", "stored": {}, "presented": {"accept-encoding": "gzip"}, "exit": 0, "verdict": "mismatch", "basis": "presented in one request only"},
+  {"id": 6, "vary": "accept-encoding", "stored": {"accept-encoding": "gzip"}, "presented": {}, "exit": 0, "verdict": "mismatch", "basis": "presented in one request only (stored side)"},
+  {"id": 7, "vary": "*", "stored": {"accept-encoding": "gzip"}, "presented": {"accept-encoding": "gzip"}, "exit": 0, "verdict": "mismatch", "basis": "RFC 9111 4.1 'a member \"*\" always fails to match'"},
+  {"id": 8, "vary": "accept-encoding, *", "stored": {"accept-encoding": "gzip"}, "presented": {"accept-encoding": "gzip"}, "exit": 0, "verdict": "mismatch", "basis": "a \"*\" member dominates an otherwise matching list"},
+  {"id": 9, "vary": "accept-encoding", "stored": {"accept-encoding": " gzip "}, "presented": {"accept-encoding": "gzip"}, "exit": 0, "verdict": "match", "basis": "leading/trailing OWS removal is the permitted whitespace transformation"},
+  {"id": 10, "vary": "accept-encoding", "stored": {"accept-encoding": "gzip, br"}, "presented": {"accept-encoding": "br, gzip"}, "exit": 0, "verdict": "mismatch", "basis": "conservative profile: list reordering is not applied even though the field spec may allow it"},
+  {"id": 11, "vary": "accept-encoding, accept-language", "stored": {"accept-encoding": "gzip", "accept-language": "en"}, "presented": {"accept-encoding": "gzip", "accept-language": "en"}, "exit": 0, "verdict": "match", "basis": "every nominated field matches"},
+  {"id": 12, "vary": "accept-encoding, accept-language", "stored": {"accept-encoding": "gzip", "accept-language": "en"}, "presented": {"accept-encoding": "gzip", "accept-language": "fr"}, "exit": 0, "verdict": "mismatch", "basis": "one nominated field differs"},
+  {"id": 13, "vary": "Accept-Encoding, accept-encoding", "stored": {"accept-encoding": "gzip"}, "presented": {"accept-encoding": "gzip"}, "exit": 0, "verdict": "match", "basis": "duplicate members that differ only in name case are redundant"},
+  {"id": 14, "vary": "", "stored": {}, "presented": {}, "exit": 1, "verdict": null, "basis": "empty Vary value has no field-name member; local adapter refuses it"},
+  {"id": 15, "vary": "accept encoding", "stored": {"accept-encoding": "gzip"}, "presented": {"accept-encoding": "gzip"}, "exit": 1, "verdict": null, "basis": "a field-name containing SP is not a token"},
+  {"id": 16, "vary": "accept-encoding", "stored": {"accept-encoding": "gzip, br"}, "presented": {"accept-encoding": ["gzip", "br"]}, "exit": 0, "verdict": "match", "basis": "multiple field lines combine in order with comma and SP (RFC 9110 5.2)"},
+  {"id": 17, "vary": "accept-encoding", "stored": {"accept-encoding": "br, gzip"}, "presented": {"accept-encoding": ["gzip", "br"]}, "exit": 0, "verdict": "mismatch", "basis": "combination is ordered; the combined value differs"},
+  {"id": 18, "vary": "accept-encoding", "stored": {"accept-encoding": "gzip;q=1"}, "presented": {"accept-encoding": "gzip; q=1"}, "exit": 0, "verdict": "mismatch", "basis": "conservative profile: no internal whitespace normalisation"},
+  {"id": 19, "vary": "accept-encoding", "stored": {"accept-encoding": 5}, "presented": {"accept-encoding": "gzip"}, "exit": 1, "verdict": null, "basis": "non-string field value is not accepted by the local adapter"},
+  {"id": 20, "vary": 5, "stored": {"accept-encoding": "gzip"}, "presented": {"accept-encoding": "gzip"}, "exit": 1, "verdict": null, "basis": "non-string Vary value is not accepted by the local adapter"}
+]

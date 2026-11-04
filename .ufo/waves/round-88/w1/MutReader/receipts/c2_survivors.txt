@@ -1,0 +1,34 @@
+population coverage of the witness classes:
+  double_ws          frozen= 0/20  random=  0/200
+  mixed_list         frozen= 0/20  random=  0/200
+  dup_case_key       frozen= 0/20  random=  0/200
+  absent_vs_empty    frozen= 0/20  random=  0/200
+
+witness divergence (pristine reference vs mutant):
+  m08_internal_ws_collapse
+    payload  {"presented": {"accept-encoding": "gzip; q=1"}, "stored": {"accept-encoding": "gzip;  q=1"}, "vary": "accept-encoding"}
+    ref      exit=0 out='mismatch' err=''
+    mutant   exit=0 out='match' err=''
+    diverges=True
+  m11_dupkey_refusal_removed
+    payload  {"presented": {"accept-encoding": "br"}, "stored": {"Accept-Encoding": "gzip", "accept-encoding": "br"}, "vary": "accept-encoding"}
+    ref      exit=1 out='' err='invalid_input: input violates the declared profile'
+    mutant   exit=0 out='match' err=''
+    diverges=True
+  m16_empty_value_absent
+    payload  {"presented": {"accept-encoding": ""}, "stored": {}, "vary": "accept-encoding"}
+    ref      exit=0 out='mismatch' err=''
+    mutant   exit=0 out='match' err=''
+    diverges=True
+  m17_list_elem_check_removed
+    payload  {"presented": {"accept-encoding": "gzip, 5"}, "stored": {"accept-encoding": ["gzip", 5]}, "vary": "accept-encoding"}
+    ref      exit=1 out='' err='invalid_input: input violates the declared profile'
+    mutant   exit=1 out='' err='TypeError: sequence item 1: expected str instance, int found'
+    diverges=True
+
+m19 guard-removal differential over 40000 random inputs: 5 splits (0 = semantically equivalent, i.e. an equivalent mutant the counter cannot and should not kill)
+  split {"got": {"err": "", "exit": 0, "out": "mismatch"}, "payload": {"presented": {"ACCEPT-ENCODING": 5, "accept encoding": true}, "stored": {}, "vary": "*"}, "want": "invalid"}
+  split {"got": {"err": "", "exit": 0, "out": "mismatch"}, "payload": {"presented": {"accept encoding": 5}, "stored": {"A": null}, "vary": "*"}, "want": "invalid"}
+  split {"got": {"err": "", "exit": 0, "out": "mismatch"}, "payload": {"presented": {"ACCEPT-ENCODING": ["br", "gzip"], "accept-encoding": null}, "stored": {"Accept-Encoding": 5, "a": "", "x-kake-token": "gzip"}, "vary": "*"}, "want": "invalid"}
+  split {"got": {"err": "", "exit": 0, "out": "mismatch"}, "payload": {"presented": {"ACCEPT-ENCODING": ["gzip", "br"]}, "stored": {"ACCEPT-ENCODING": "\tgzip\t", "Accept-Encoding": ["gzip", "br"], "accept encoding": " gzip "}, "vary": "*"}, "want": "invalid"}
+  split {"got": {"err": "", "exit": 0, "out": "mismatch"}, "payload": {"presented": {"A": "GZIP", "Accept-Encoding": ["br", "gzip"]}, "stored": {"Accept-Encoding": "", "accept encoding": "gzip;  q=1", "accept-encoding": "gzip;  q=1"}, "vary": "accept-encoding, *"}, "want": "invalid"}

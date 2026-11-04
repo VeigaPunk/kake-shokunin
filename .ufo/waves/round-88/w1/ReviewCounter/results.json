@@ -1,0 +1,251 @@
+[
+ {
+  "case": "mirror-A0-base",
+  "detail": "{\"D1-ledger-companion\": [\"companion entry missing\"], \"D2-diagnostic-type\": [\"float input diagnostic does not name float (or still says boolean)\"], \"D3-recheck-path\": [\"recheck line still names an ephemeral path token '/fast/scratch'\", \"recheck line still names an ephemeral path token 'TMPDIR='\", \"entry body lacks the mktemp-form offline selftest command\"]}",
+  "exit": 1,
+  "open_items": [
+   "D1-ledger-companion",
+   "D2-diagnostic-type",
+   "D3-recheck-path"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/A0-base items=3 open=3 closed=0 met=false"
+ },
+ {
+  "case": "mirror-A0-green",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/A0-green items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-a-records-only",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [\"float input diagnostic does not name float (or still says boolean)\"], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D2-diagnostic-type"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/a-records-only items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-b-ledger-row-newdigest",
+  "detail": "{\"D1-ledger-companion\": [\"ledger bytes differ from the frozen base copy\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D1-ledger-companion"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/b-ledger-row-newdigest items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-b-ledger-row-staledigest",
+  "detail": "{\"D1-ledger-companion\": [\"ledger bytes differ from the frozen base copy\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D1-ledger-companion"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/b-ledger-row-staledigest items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-b-ledger-whitespace",
+  "detail": "{\"D1-ledger-companion\": [\"ledger bytes differ from the frozen base copy\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D1-ledger-companion"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/b-ledger-whitespace items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-c1-truncated-digest",
+  "detail": "{\"D1-ledger-companion\": [\"companion does not quote the ledger sha256\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D1-ledger-companion"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/c1-truncated-digest items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-c2-wrong-digest",
+  "detail": "{\"D1-ledger-companion\": [\"companion does not quote the ledger sha256\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D1-ledger-companion"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/c2-wrong-digest items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-c3-path-suffix-trap",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/c3-path-suffix-trap items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-c4-path-other-dir",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/c4-path-other-dir items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-c5-truncated-path",
+  "detail": "{\"D1-ledger-companion\": [\"companion source: line does not name the ledger path\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D1-ledger-companion"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/c5-truncated-path items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-c6-trio-after-seven-junk-lines",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/c6-trio-after-seven-junk-lines items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-c7-trio-at-line-9",
+  "detail": "{\"D1-ledger-companion\": [\"companion head lacks a filled source: line\", \"companion head lacks a filled verified-at: line\", \"companion head lacks a filled recheck: line\", \"companion source: line does not name the ledger path\", \"companion does not quote the ledger sha256\"], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D1-ledger-companion"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/c7-trio-at-line-9 items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-d1-insert-contradicting-claim",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/d1-insert-contradicting-claim items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-d2-plain-claim-rewrite",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"history-preservation violation at base line 30 (replace)\"]}",
+  "exit": 1,
+  "open_items": [
+   "D3-recheck-path"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/d2-plain-claim-rewrite items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-d3-crlf-line-endings",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/d3-crlf-line-endings items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-d4-stale-recheck-moved-to-body",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/d4-stale-recheck-moved-to-body items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-d5-negated-mktemp-command",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"history-preservation violation at base line 3 (replace)\"]}",
+  "exit": 1,
+  "open_items": [
+   "D3-recheck-path"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/d5-negated-mktemp-command items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-d5b-negated-mktemp-in-body",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/d5b-negated-mktemp-in-body items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-d6-neutral-insert-after-recheck",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"history-preservation violation at base line 3 (replace)\"]}",
+  "exit": 1,
+  "open_items": [
+   "D3-recheck-path"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/d6-neutral-insert-after-recheck items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-d7-neutral-insert-in-body",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/d7-neutral-insert-in-body items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-e0-offbyone-caught",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [\"valid input did not emit the six expected integer terms\", \"tool selftest is not green\"], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D2-diagnostic-type"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/e0-offbyone-caught items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-e1-hardcoded-valid-output",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/e1-hardcoded-valid-output items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-e2-wrong-arith-age-omitted",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/e2-wrong-arith-age-omitted items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-e3-float-terms",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [\"tool selftest is not green\"], \"D3-recheck-path\": []}",
+  "exit": 1,
+  "open_items": [
+   "D2-diagnostic-type"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/e3-float-terms items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-e3b-float-terms-stub-selftest",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/e3b-float-terms-stub-selftest items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-r0-nonnumeric-cadence-control",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"recheck line does not open with a cadence or ISO date\"]}",
+  "exit": 1,
+  "open_items": [
+   "D3-recheck-path"
+  ],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/r0-nonnumeric-cadence-control items=3 open=1 closed=2 met=false"
+ },
+ {
+  "case": "mirror-r1-bare-number-cadence",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/r1-bare-number-cadence items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-r2-year-only-cadence",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/r2-year-only-cadence items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-r3-bare-tmp-path",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/r3-bare-tmp-path items=3 open=0 closed=3 met=true"
+ },
+ {
+  "case": "mirror-r4-shell-var-no-equals",
+  "detail": "{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}",
+  "exit": 0,
+  "open_items": [],
+  "predicate": "C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ReviewCounter/fixtures/r4-shell-var-no-equals items=3 open=0 closed=3 met=true"
+ }
+]

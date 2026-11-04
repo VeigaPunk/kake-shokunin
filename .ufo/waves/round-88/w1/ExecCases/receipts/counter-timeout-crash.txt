@@ -1,0 +1,19 @@
+Command:
+  printf 'import time\ntime.sleep(30)\n' > hang.py
+  TMPDIR=/fast/scratch/hyaku/kake-r88/ExecCases/tmp \
+  python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py \
+    --tool hang.py --work /fast/scratch/hyaku/kake-r88/ExecCases/c2-hang
+Observed (2026-11-04T16:0x-03:00, wall 20.06 s), exit 1, no JSON line on stdout:
+Traceback (most recent call last):
+  File ".../c88_vary.py", line 278, in <module>
+    raise SystemExit(main())
+  File ".../c88_vary.py", line 266, in main
+    frozen_passed, frozen_details = score(tool_bytes, a.work / 'frozen', CASES)
+  File ".../c88_vary.py", line 175, in score
+    p = subprocess.run([sys.executable, '-B', str(tool)], input=payload,
+                       capture_output=True, text=True, timeout=20)
+  File "/usr/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+subprocess.TimeoutExpired: Command '['/usr/bin/python3', '-B',
+  '/fast/scratch/hyaku/kake-r88/ExecCases/c2-hang/frozen/vary_match.py']' timed out after 20 seconds
+HANG_EXIT=1

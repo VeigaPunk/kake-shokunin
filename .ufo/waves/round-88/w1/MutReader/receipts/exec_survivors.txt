@@ -1,0 +1,60 @@
+population coverage (v3 reference labels):
+  double_ws          frozen= 0/20  random=  0/200
+  mixed_list         frozen= 0/20  random=  0/200
+  dup_case_key       frozen= 0/20  random=  0/200
+  absent_vs_empty    frozen= 0/20  random=  0/200
+  nonascii           frozen= 0/20  random=  0/200
+  star_with_invalid  frozen= 0/20  random=  5/200
+  star_at_all        frozen= 2/20  random= 30/200
+
+kill attribution per mutant (frozen cases that failed / random cases that failed):
+  e01_name_case_sensitive        KILLED  frozen=19/20 random=200/200 frozen_killers=[2]
+  e02_no_ows_trim                KILLED  frozen=19/20 random=196/200 frozen_killers=[9]
+  e03_unordered_array            KILLED  frozen=18/20 random=199/200 frozen_killers=[16, 17]
+  e04_star_as_token              KILLED  frozen=18/20 random=189/200 frozen_killers=[7, 8]
+  e05_absent_both_mismatch       KILLED  frozen=19/20 random=200/200 frozen_killers=[4]
+  e06_one_sided_match            KILLED  frozen=18/20 random=188/200 frozen_killers=[5, 6]
+  e07_value_casefold             KILLED  frozen=19/20 random=173/200 frozen_killers=[3]
+  e08_internal_ws_collapse       SURVIVED frozen=20/20 random=200/200 frozen_killers=[]
+  e09_empty_vary_match           KILLED  frozen=19/20 random=189/200 frozen_killers=[14]
+  e10_dupkey_refusal_removed     SURVIVED frozen=20/20 random=200/200 frozen_killers=[]
+  e11_unnominated_compared       KILLED  frozen=20/20 random=196/200 frozen_killers=[]
+  e12_asymmetric_trim            KILLED  frozen=20/20 random=193/200 frozen_killers=[]
+  e13_int_value_coerced          KILLED  frozen=19/20 random=195/200 frozen_killers=[19]
+  e14_vary_coerced               KILLED  frozen=19/20 random=196/200 frozen_killers=[20]
+  e15_empty_value_absent         SURVIVED frozen=20/20 random=200/200 frozen_killers=[]
+  e16_list_elem_check_removed    SURVIVED frozen=20/20 random=200/200 frozen_killers=[]
+  e17_empty_list_accepted        KILLED  frozen=20/20 random=198/200 frozen_killers=[]
+  e18_star_masks_invalid         KILLED  frozen=20/20 random=197/200 frozen_killers=[]
+  e19_token_allows_space         KILLED  frozen=19/20 random=198/200 frozen_killers=[15]
+  e20_dedup_removed              SURVIVED frozen=20/20 random=200/200 frozen_killers=[]
+  e21_token_too_permissive       SURVIVED frozen=20/20 random=200/200 frozen_killers=[]
+
+witness divergence (candidate vs mutant):
+  e08_internal_ws_collapse
+    payload   {"presented": {"accept-encoding": "gzip; q=1"}, "stored": {"accept-encoding": "gzip;  q=1"}, "vary": "accept-encoding"}
+    candidate exit=0 out='mismatch' err=''
+    mutant    exit=0 out='match' err=''
+    diverges=True
+  e10_dupkey_refusal_removed
+    payload   {"presented": {"accept-encoding": "br"}, "stored": {"Accept-Encoding": "gzip", "accept-encoding": "br"}, "vary": "accept-encoding"}
+    candidate exit=1 out='' err="invalid_input: stored field name 'accept-encoding' is an ambiguous case-variant duplicate"
+    mutant    exit=0 out='match' err=''
+    diverges=True
+  e15_empty_value_absent
+    payload   {"presented": {"accept-encoding": ""}, "stored": {}, "vary": "accept-encoding"}
+    candidate exit=0 out='mismatch' err=''
+    mutant    exit=0 out='match' err=''
+    diverges=True
+  e16_list_elem_check_removed
+    payload   {"presented": {"accept-encoding": "gzip, 5"}, "stored": {"accept-encoding": ["gzip", 5]}, "vary": "accept-encoding"}
+    candidate exit=1 out='' err="invalid_input: stored field 'accept-encoding' value must be a string or a non-empty array of strings"
+    mutant    exit=1 out='' err='TypeError: sequence item 1: expected str instance, int found'
+    diverges=True
+  e21_token_too_permissive
+    payload   {"presented": {"caf\u00e9": "x"}, "stored": {"caf\u00e9": "x"}, "vary": "caf\u00e9"}
+    candidate exit=1 out='' err="invalid_input: Vary member 'café' is not a token"
+    mutant    exit=0 out='match' err=''
+    diverges=True
+
+e20 dedup-removal differential over 100000 in-process inputs: 0 splits (0 = equivalent mutant)

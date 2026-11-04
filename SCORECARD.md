@@ -5455,3 +5455,50 @@ literal L2-planner D84-4 open; no next round is started. Any future instrument
 should load fixtures claim-locally and enforce exact JSON integer types and
 invalid diagnostics, without rewriting this round's frozen bytes. Broader
 Date/Age extraction, Vary/Pragma and reuse policy remain frontier.
+
+## Round 88 — bounded committed measurements
+
+Base `f4479c14813037ad993a49a3dee4028763470f7a`; freeze v1 `4f8945ea`, v2
+`80637397`, v3 `52e41d2d` (all before data; the v3 record's "nothing moved"
+sentence is corrected in `corpus/lessons/round-88.md`); validated handoff
+`add7e49b`; measured carrier `55d67f15f7a58fb49ca32a31b5c63ae716e1c38a`.
+
+| Claim | Axis / score delta | Before → after | Counting command | Evidence / author verdict |
+|---|---|---|---|---|
+| C1 the three routed r87 defects close | calibration 2→2 HOLD, lowest owned | `open=3 closed=0 met=false`, exit 1 → `open=0 closed=3 met=true`, exit 0 | `python3 -B .ufo/waves/round-88/c88_defect_queue.py --root . --revision 55d67f15f7a58fb49ca32a31b5c63ae716e1c38a --work /fast/scratch/hyaku/kake-r88/L1/after-c1` | measured met; `controls/base-c1.txt` → `controls/after-c1-carrier.txt`; counter selftest 11/11; D2 behavioural, D1 binds the ledger sha256, D3 allows one replaced metadata line; the shipped one-line repair is byte-identical in arithmetic on three payloads (`controls/diagnostic-d2-arithmetic.txt`) |
+| C2 conservative Vary-match reader (bounded capability) | freshness 10→10 HOLD | tool absent, `frozen=0/20 random=0/200 met=false`, exit 1 → `frozen=20/20 random=200/200 met=true`, exit 0 | `python3 -B .ufo/waves/round-88/c88_vary.py --root . --revision 55d67f15f7a58fb49ca32a31b5c63ae716e1c38a --work /fast/scratch/hyaku/kake-r88/L1/after-c2` | measured met; `controls/base-c2.txt` → `controls/after-c2-carrier.txt`; counter selftest 17/17; integrated tool selftest 22/22 and a real ds4cc.com capture replayed (`controls/integrated-selftest.txt`, `controls/integrated-trial.txt`) |
+
+Receipt paths are under `.ufo/waves/round-88/`. Frozen instrument, the 20 hand
+cases, the seed and the thresholds are unchanged from freeze v3 to the carrier
+(`controls/frozen-identity-carrier.txt`); only `scripts/cache_current_age.py` is
+modified under `scripts/` and `scripts/vary_match.py` is added
+(`controls/preservation-carrier.txt`). Instrument limits are routed, not repaired
+after scoring: a table over the committed seed or an oracle-import stub passes C2
+(R88-1), the counter's token test accepts a trailing LF the shipped reader refuses
+(R88-2), frozen case 14 and 13 seeded labels are adapter conventions (R88-3), 6 of
+21 C2 mutants survive missing case classes (R88-4), C1's D2 accepts a
+hardcoded/float tool and D1/D3 match text (R88-5/6). Numeric scores are held, not
+re-derived from these finite counts; no universal no-harm claim.
+
+Move log (round 88):
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 88 | calibration (HOLD 2) | `open=3 closed=0 met=false` at `f4479c14`: the r87 routed R1/R2/R3 defects all open — no companion entry, the diagnostic naming `boolean` for a float, and an ephemeral recheck path | `open=0 closed=3 met=true` at `55d67f15`: `corpus/knowledge/gate-agreement-metadata.md` carries the trio and quotes the ledger sha256, `scripts/cache_current_age.py` names the offending JSON type and keeps its 61-fixture selftest green, and `cache-current-age.md` keeps a 180d cadence with a `mktemp` command and one byte-identical body | `.ufo/waves/round-88/controls/{base-c1.txt,after-c1-carrier.txt}` |
+| 88 | freshness (HOLD 10) | tool absent at `f4479c14`; §4.1 match ground unheld | a conservative reader and its entry: 20/20 frozen, 200/200 seeded, 22/22 selftest, one real ds4cc.com capture replayed; S463 mined | `.ufo/waves/round-88/controls/{base-c2.txt,after-c2-carrier.txt,integrated-trial.txt}` |
+
+### Demonstrated repertoire — round 88
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Conservative Vary-match reader | Decide, for two supplied request-header maps and a `Vary` value, whether the nominated fields match under RFC 9111 §4.1's first two permitted transformations: case-insensitive names, ordered `, ` field-line combination, edge SP/HTAB trim, absent-both matches, one-sided absence does not, `*` always fails, malformed input refused with `invalid_input:`; never case-folds or reorders values, so `match` is always a permitted transformation and `mismatch` may be stricter than a field-specific rule | `scripts/vary_match.py`; S463; `controls/after-c2-carrier.txt`, `controls/integrated-selftest.txt`, `controls/integrated-trial.txt` at carrier `55d67f15`; `w1/ReviewReader.md`, `w1/MutReader.md` | 88 |
+
+### Planned — after round 88
+
+Outside closure owns admission and the admit/reject spot-check. Keep D84-2/3 and the
+operator-owned literal-planner D84-4 open. A future instrument for this ground must
+score a population the candidate cannot read (R88-1), refuse LF-bearing tokens with
+`fullmatch` (R88-2), separate spec cases from adapter conventions (R88-3), and add
+the missing case classes named by the six surviving mutants (R88-4); do not repair
+the frozen round-88 counter after scoring. Cache-key construction, `Vary: *` storage
+behaviour, revalidation and serving remain frontier. No round 89 is started here.

@@ -1,0 +1,35 @@
+# ScribeLesson round-88 — exact commands and exits (run 2026-11-04, cwd = /fast/scratch/hyaku/kake-r88/ScribeLesson)
+
+## census before
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake
+exit=0
+
+## C1 counter selftest
+$ TMPDIR=$PWD/tmp1 python3 -B LANE/.ufo/waves/round-88/c88_defect_queue.py --selftest
+exit=0
+c1_selftest_exit=0
+c2_selftest_exit=0
+
+## C2 counter selftest
+$ TMPDIR=$PWD/tmp2 python3 -B LANE/.ufo/waves/round-88/c88_vary.py --selftest
+exit=0
+
+## C1 at base revision
+$ python3 -B LANE/.ufo/waves/round-88/c88_defect_queue.py --root LANE --revision f4479c14813037ad993a49a3dee4028763470f7a --work $PWD/work-base1
+exit=1 (expected: met=false at base)
+
+## C2 at base revision
+$ python3 -B LANE/.ufo/waves/round-88/c88_vary.py --root LANE --revision f4479c14813037ad993a49a3dee4028763470f7a --work $PWD/work-base2
+exit=1 (expected: tool absent at base)
+
+## L1 candidate scored by the C2 counter (current freeze v3)
+$ python3 -B LANE/.ufo/waves/round-88/c88_vary.py --tool LANE/.ufo/waves/round-88/w1/L1/vary_match.py --work $PWD/work-l1
+exit=0 (met=true)
+
+## consolidated probe script
+$ python3 -B LANE/.ufo/waves/round-88/w1/ScribeLesson/probes/round88-scribe-probes.py --lane LANE --work $PWD/probe-run
+exit=0 (all P1..P11 probes ran; JSON in scribe-probes.json)
+
+## census after (re-run at the end of this seat)
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake
+exit=0 (byte-identical to the before output apart from the trailer line)

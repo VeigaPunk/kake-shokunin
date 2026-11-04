@@ -1,0 +1,45 @@
+{
+  "observed_at_utc": "2026-11-04T18:57:21Z",
+  "candidate_path": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/w1/ExecReader/vary_match.py",
+  "candidate_sha256": "51f5d7780c14cb1522c8de79cfd25c922a69242d057484d06a9a3de2d3e8adc1",
+  "candidate_size": 12996,
+  "candidate_mtime_utc": "2026-11-04T18:55:42.277585+00:00",
+  "revision_note": "the candidate was under active revision during this trial; an earlier snapshot 286c32f3d9f8ebe8f14139e065828630eb2107fda9940594b704113b08ddcdf3 (13195 B, mtime 15:55:28 -0300) produced the same two required verdicts. L1 must re-run replay.md at carry time.",
+  "vary_observed_verbatim": "Accept-Encoding",
+  "required_pair": [
+    {
+      "payload": "payload-identical.json",
+      "payload_sha256": "77630b7797c2052104ae302976ca9fb7af9e80c2e0a5db331cb3560464423dff",
+      "exit": 0,
+      "stdout": "match",
+      "stderr": "",
+      "reference": "match"
+    },
+    {
+      "payload": "payload-perturbed.json",
+      "payload_sha256": "5872e3ec63dc4d6723b5f5c032584de2b2c09099bbf871c5db127f87a0e21004",
+      "exit": 0,
+      "stdout": "mismatch",
+      "stderr": "",
+      "reference": "mismatch"
+    }
+  ],
+  "supplementary_not_required_by_seat": [
+    {
+      "payload": "payload-supplementary-ua.json",
+      "payload_sha256": "65873044070d1444ed0fe09a4056e8418dee92489cc44fbfc795fc95a15dd3a7",
+      "exit": 0,
+      "stdout": "match",
+      "stderr": "",
+      "reference": "match"
+    },
+    {
+      "payload": "payload-probe-dupkey.json",
+      "payload_sha256": "8a816d44ec6ee42fe2dec8ac782aa7997be1f5a85a851ef8776dd972dafff884",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "invalid_input: stored field name 'accept-encoding' is an ambiguous case-variant duplicate\n",
+      "reference": "invalid"
+    }
+  ]
+}

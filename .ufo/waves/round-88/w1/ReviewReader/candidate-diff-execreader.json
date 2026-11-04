@@ -1,0 +1,200 @@
+{
+ "candidate_sha256": "fdceef474e618d6664c15333cba6a1fa136fbc44f2791bbbdbf92d234fb287d6",
+ "disagreement_count": 12,
+ "disagreements": [
+  {
+   "candidate": "invalid",
+   "id": "case14",
+   "indep": "match",
+   "label": "invalid",
+   "payload": {
+    "presented": {},
+    "stored": {},
+    "vary": ""
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F1",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "accept-encoding": "gzip"
+    },
+    "vary": "accept-encoding,"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F2",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip",
+     "accept-language": "en"
+    },
+    "stored": {
+     "accept-encoding": "gzip",
+     "accept-language": "en"
+    },
+    "vary": "accept-encoding,,accept-language"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F4",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "Accept-Encoding": "br",
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "Accept-Encoding": "br",
+     "accept-encoding": "gzip"
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F5",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip, br"
+    },
+    "stored": {
+     "Accept-Encoding": "gzip",
+     "accept-encoding": "br"
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F6",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "accept-encoding": []
+    },
+    "stored": {
+     "accept-encoding": []
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F7",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {},
+    "stored": {
+     "accept-encoding": []
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F8",
+   "indep": "mismatch",
+   "label": "mismatch",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "accept-encoding": "gzip"
+    },
+    "vary": "*,"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "mismatch",
+   "id": "F11",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "x-kake-token": "a b"
+    },
+    "stored": {
+     "x-kake-token": "a\rb"
+    },
+    "vary": "x-kake-token"
+   },
+   "reference": "mismatch"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F17",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {},
+    "stored": {},
+    "vary": ""
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "X2",
+   "indep": "match",
+   "label": "n/a",
+   "note": "same field name twice, case-variant",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip, br"
+    },
+    "stored": {
+     "Accept-Encoding": "br",
+     "accept-encoding": [
+      "gzip"
+     ]
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "mismatch",
+   "id": "X3",
+   "indep": "match",
+   "label": "n/a",
+   "note": "CR at the value edge",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "accept-encoding": "gzip\r"
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "mismatch"
+  }
+ ],
+ "full_agreement": 36,
+ "rows": 48
+}

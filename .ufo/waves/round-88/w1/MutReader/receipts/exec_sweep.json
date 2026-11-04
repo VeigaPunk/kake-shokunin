@@ -1,0 +1,2232 @@
+{
+  "baselines": {
+    "v2-freeze": {
+      "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/exe_vary_match.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-baseline",
+      "ctag": "v2-freeze",
+      "exit": 1,
+      "result": {
+        "cases_sha256": "c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d",
+        "claim": "C2",
+        "details": [
+          {
+            "case": "r53",
+            "err": "invalid_input: presented field 'accept-language' value must ",
+            "exit": 1,
+            "ok": false,
+            "out": ""
+          },
+          {
+            "case": "r150",
+            "err": "invalid_input: stored field 'accept' value must be a string ",
+            "exit": 1,
+            "ok": false,
+            "out": ""
+          },
+          {
+            "case": "r193",
+            "err": "invalid_input: stored field 'accept-encoding' value must be ",
+            "exit": 1,
+            "ok": false,
+            "out": ""
+          }
+        ],
+        "frozen": 20,
+        "frozen_total": 20,
+        "met": false,
+        "random": 197,
+        "random_sha256": "004a8eb75b95ed45919734cee6d2b501a6f9b8da61e654c58ec1ee2b87bc2b50",
+        "random_total": 200,
+        "revision": "file:/fast/scratch/hyaku/kake-r88/MutReader/exe_vary_match.py",
+        "tool_sha256": "fdceef474e618d6664c15333cba6a1fa136fbc44f2791bbbdbf92d234fb287d6"
+      },
+      "stderr": "",
+      "tag": "baseline"
+    },
+    "v3-live": {
+      "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/exe_vary_match.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-baseline",
+      "ctag": "v3-live",
+      "exit": 0,
+      "result": {
+        "cases_sha256": "c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d",
+        "claim": "C2",
+        "details": [],
+        "frozen": 20,
+        "frozen_total": 20,
+        "met": true,
+        "random": 200,
+        "random_sha256": "52714a5f4ae9b66ee444f39284b6e5ce575c6ae5760965fb8736e6983444b981",
+        "random_total": 200,
+        "revision": "file:/fast/scratch/hyaku/kake-r88/MutReader/exe_vary_match.py",
+        "tool_sha256": "fdceef474e618d6664c15333cba6a1fa136fbc44f2791bbbdbf92d234fb287d6"
+      },
+      "stderr": "",
+      "tag": "baseline"
+    }
+  },
+  "mutants": [
+    {
+      "name": "e01_name_case_sensitive",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e01_name_case_sensitive.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e01_name_case_sensitive",
+          "detail_count": 4,
+          "detail_events": [
+            {
+              "case": 2,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            2,
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e01_name_case_sensitive.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e01_name_case_sensitive",
+          "detail_count": 1,
+          "detail_events": [
+            {
+              "case": 2,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            2
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 200,
+          "stderr": ""
+        }
+      },
+      "sha": "7aa037f3898c953994e6991fbd7e9bae80cd56c759c47c928ebc2268ed30cc79"
+    },
+    {
+      "name": "e02_no_ows_trim",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e02_no_ows_trim.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e02_no_ows_trim",
+          "detail_count": 8,
+          "detail_events": [
+            {
+              "case": 9,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r2",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r72",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r116",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r129",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            9,
+            "r2",
+            "r53",
+            "r72",
+            "r116",
+            "r129",
+            "r150",
+            "r193"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 193,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e02_no_ows_trim.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e02_no_ows_trim",
+          "detail_count": 5,
+          "detail_events": [
+            {
+              "case": 9,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r2",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r72",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r116",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r129",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            9,
+            "r2",
+            "r72",
+            "r116",
+            "r129"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 196,
+          "stderr": ""
+        }
+      },
+      "sha": "0f83db877bfae81ead66b2ac2ac0cb55955dfab15867c80f8db86c62cce63996"
+    },
+    {
+      "name": "e03_unordered_array",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e03_unordered_array.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e03_unordered_array",
+          "detail_count": 6,
+          "detail_events": [
+            {
+              "case": 16,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": 17,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r106",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            16,
+            17,
+            "r53",
+            "r106",
+            "r150",
+            "r193"
+          ],
+          "frozen": 18,
+          "met": false,
+          "random": 196,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e03_unordered_array.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e03_unordered_array",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": 16,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": 17,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r106",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            16,
+            17,
+            "r106"
+          ],
+          "frozen": 18,
+          "met": false,
+          "random": 199,
+          "stderr": ""
+        }
+      },
+      "sha": "2d4c625d7da5822e2097cedd61bfde9a93879787bb789e17703bdf61d0bd2ecd"
+    },
+    {
+      "name": "e04_star_as_token",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e04_star_as_token.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e04_star_as_token",
+          "detail_count": 12,
+          "detail_events": [
+            {
+              "case": 7,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": 8,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r1",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r44",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r62",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r88",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r107",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r131",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r132",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r146",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            7,
+            8,
+            "r1",
+            "r44",
+            "r53",
+            "r62",
+            "r88",
+            "r107",
+            "r131",
+            "r132",
+            "r146",
+            "r150"
+          ],
+          "frozen": 18,
+          "met": false,
+          "random": 186,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e04_star_as_token.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e04_star_as_token",
+          "detail_count": 12,
+          "detail_events": [
+            {
+              "case": 7,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": 8,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r1",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r44",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r62",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r88",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r107",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r131",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r132",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r146",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r153",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r156",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            7,
+            8,
+            "r1",
+            "r44",
+            "r62",
+            "r88",
+            "r107",
+            "r131",
+            "r132",
+            "r146",
+            "r153",
+            "r156"
+          ],
+          "frozen": 18,
+          "met": false,
+          "random": 189,
+          "stderr": ""
+        }
+      },
+      "sha": "396ba72dfd84ce5ac4fdc5d59c6b81e6caf663d78a4590ffb7b3e777b8b19b87"
+    },
+    {
+      "name": "e05_absent_both_mismatch",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e05_absent_both_mismatch.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e05_absent_both_mismatch",
+          "detail_count": 4,
+          "detail_events": [
+            {
+              "case": 4,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            4,
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e05_absent_both_mismatch.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e05_absent_both_mismatch",
+          "detail_count": 1,
+          "detail_events": [
+            {
+              "case": 4,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            4
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 200,
+          "stderr": ""
+        }
+      },
+      "sha": "268d84532a42822f0e10b5bf3b0e0c5be89c9862792cd249fa2e29ca47aed510"
+    },
+    {
+      "name": "e06_one_sided_match",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e06_one_sided_match.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e06_one_sided_match",
+          "detail_count": 12,
+          "detail_events": [
+            {
+              "case": 5,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": 6,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r20",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r41",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r42",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r60",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r83",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r89",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r97",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r104",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r126",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            5,
+            6,
+            "r20",
+            "r41",
+            "r42",
+            "r53",
+            "r60",
+            "r83",
+            "r89",
+            "r97",
+            "r104",
+            "r126"
+          ],
+          "frozen": 18,
+          "met": false,
+          "random": 185,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e06_one_sided_match.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e06_one_sided_match",
+          "detail_count": 12,
+          "detail_events": [
+            {
+              "case": 5,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": 6,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r20",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r41",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r42",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r60",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r83",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r89",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r97",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r104",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r126",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r136",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            5,
+            6,
+            "r20",
+            "r41",
+            "r42",
+            "r60",
+            "r83",
+            "r89",
+            "r97",
+            "r104",
+            "r126",
+            "r136"
+          ],
+          "frozen": 18,
+          "met": false,
+          "random": 188,
+          "stderr": ""
+        }
+      },
+      "sha": "fd6d4b026a39c1fc52262e830ade5e7bb3193f7fce07096ec7d16e7f0e66fd96"
+    },
+    {
+      "name": "e07_value_casefold",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e07_value_casefold.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e07_value_casefold",
+          "detail_count": 12,
+          "detail_events": [
+            {
+              "case": 3,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r6",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r13",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r19",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r21",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r27",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r39",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r43",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r49",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r54",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r64",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            3,
+            "r6",
+            "r13",
+            "r19",
+            "r21",
+            "r27",
+            "r39",
+            "r43",
+            "r49",
+            "r53",
+            "r54",
+            "r64"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 170,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e07_value_casefold.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e07_value_casefold",
+          "detail_count": 12,
+          "detail_events": [
+            {
+              "case": 3,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r6",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r13",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r19",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r21",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r27",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r39",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r43",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r49",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r54",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r64",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r73",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            3,
+            "r6",
+            "r13",
+            "r19",
+            "r21",
+            "r27",
+            "r39",
+            "r43",
+            "r49",
+            "r54",
+            "r64",
+            "r73"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 173,
+          "stderr": ""
+        }
+      },
+      "sha": "f6f85b94067856a54029c4a6c4cd8db44f6f036130dfcb5656eb0dd20d9a4f41"
+    },
+    {
+      "name": "e08_internal_ws_collapse",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e08_internal_ws_collapse.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e08_internal_ws_collapse",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e08_internal_ws_collapse.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e08_internal_ws_collapse",
+          "detail_count": 0,
+          "detail_events": [],
+          "exit": 0,
+          "failed_cases": [],
+          "frozen": 20,
+          "met": true,
+          "random": 200,
+          "stderr": ""
+        }
+      },
+      "sha": "9a6189bcc713ae42167792d30da6af0f7603a7f971d675e0797cbdcc84d16411"
+    },
+    {
+      "name": "e09_empty_vary_match",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e09_empty_vary_match.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e09_empty_vary_match",
+          "detail_count": 12,
+          "detail_events": [
+            {
+              "case": 14,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r46",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r61",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r77",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r122",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r137",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r147",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r152",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r172",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r184",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            14,
+            "r46",
+            "r53",
+            "r61",
+            "r77",
+            "r122",
+            "r137",
+            "r147",
+            "r150",
+            "r152",
+            "r172",
+            "r184"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 186,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e09_empty_vary_match.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e09_empty_vary_match",
+          "detail_count": 12,
+          "detail_events": [
+            {
+              "case": 14,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r46",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r61",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r77",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r122",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r137",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r147",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r152",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r172",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r184",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r186",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r194",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            14,
+            "r46",
+            "r61",
+            "r77",
+            "r122",
+            "r137",
+            "r147",
+            "r152",
+            "r172",
+            "r184",
+            "r186",
+            "r194"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 189,
+          "stderr": ""
+        }
+      },
+      "sha": "423b7b8ee8e7d7d24ceefcc6d59d8ae968d6ffd73d1f341b6bccc37b2c46d320"
+    },
+    {
+      "name": "e10_dupkey_refusal_removed",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e10_dupkey_refusal_removed.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e10_dupkey_refusal_removed",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e10_dupkey_refusal_removed.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e10_dupkey_refusal_removed",
+          "detail_count": 0,
+          "detail_events": [],
+          "exit": 0,
+          "failed_cases": [],
+          "frozen": 20,
+          "met": true,
+          "random": 200,
+          "stderr": ""
+        }
+      },
+      "sha": "8d7e73f60da6f00df35020542087988ac0f875197ac0b60726f0bcd5b11c973d"
+    },
+    {
+      "name": "e11_unnominated_compared",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e11_unnominated_compared.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e11_unnominated_compared",
+          "detail_count": 7,
+          "detail_events": [
+            {
+              "case": "r31",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r108",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r110",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r197",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r31",
+            "r53",
+            "r108",
+            "r110",
+            "r150",
+            "r193",
+            "r197"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 193,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e11_unnominated_compared.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e11_unnominated_compared",
+          "detail_count": 4,
+          "detail_events": [
+            {
+              "case": "r31",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r108",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r110",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r197",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r31",
+            "r108",
+            "r110",
+            "r197"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 196,
+          "stderr": ""
+        }
+      },
+      "sha": "62bdbe476363cff7156bd43aa5f9dae2ca83c2fded6033ce3c10840c3b4f1c1b"
+    },
+    {
+      "name": "e12_asymmetric_trim",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e12_asymmetric_trim.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e12_asymmetric_trim",
+          "detail_count": 10,
+          "detail_events": [
+            {
+              "case": "r7",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r24",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r103",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r110",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r121",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r128",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r158",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r7",
+            "r24",
+            "r53",
+            "r103",
+            "r110",
+            "r121",
+            "r128",
+            "r150",
+            "r158",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 190,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e12_asymmetric_trim.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e12_asymmetric_trim",
+          "detail_count": 7,
+          "detail_events": [
+            {
+              "case": "r7",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r24",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r103",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r110",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r121",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r128",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r158",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r7",
+            "r24",
+            "r103",
+            "r110",
+            "r121",
+            "r128",
+            "r158"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 193,
+          "stderr": ""
+        }
+      },
+      "sha": "792c4894e5989026585bf4f8eed3b1c17e940b58fb42b958a5bd15d4550a3dc7"
+    },
+    {
+      "name": "e13_int_value_coerced",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e13_int_value_coerced.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e13_int_value_coerced",
+          "detail_count": 5,
+          "detail_events": [
+            {
+              "case": 19,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r16",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r76",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r134",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            19,
+            "r16",
+            "r53",
+            "r76",
+            "r134"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 196,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e13_int_value_coerced.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e13_int_value_coerced",
+          "detail_count": 6,
+          "detail_events": [
+            {
+              "case": 19,
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r16",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r76",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r134",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r150",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r193",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            19,
+            "r16",
+            "r76",
+            "r134",
+            "r150",
+            "r193"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 195,
+          "stderr": ""
+        }
+      },
+      "sha": "4eca51ab80afaf736a40e3180b14a7cef42b8fe48758b95efee2b5407e21eba4"
+    },
+    {
+      "name": "e14_vary_coerced",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e14_vary_coerced.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e14_vary_coerced",
+          "detail_count": 8,
+          "detail_events": [
+            {
+              "case": 20,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r26",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r40",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r90",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r169",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            20,
+            "r26",
+            "r40",
+            "r53",
+            "r90",
+            "r150",
+            "r169",
+            "r193"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 193,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e14_vary_coerced.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e14_vary_coerced",
+          "detail_count": 5,
+          "detail_events": [
+            {
+              "case": 20,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r26",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r40",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r90",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r169",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            20,
+            "r26",
+            "r40",
+            "r90",
+            "r169"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 196,
+          "stderr": ""
+        }
+      },
+      "sha": "e605cd94b5c27c755e4a27e376f7f0b2908733d3607a3955ee360259f2253698"
+    },
+    {
+      "name": "e15_empty_value_absent",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e15_empty_value_absent.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e15_empty_value_absent",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e15_empty_value_absent.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e15_empty_value_absent",
+          "detail_count": 0,
+          "detail_events": [],
+          "exit": 0,
+          "failed_cases": [],
+          "frozen": 20,
+          "met": true,
+          "random": 200,
+          "stderr": ""
+        }
+      },
+      "sha": "47beba79e9302ca899efe5db61ee28a07314bbbc22d40b06b78b2e5da323cfce"
+    },
+    {
+      "name": "e16_list_elem_check_removed",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e16_list_elem_check_removed.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e16_list_elem_check_removed",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e16_list_elem_check_removed.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e16_list_elem_check_removed",
+          "detail_count": 0,
+          "detail_events": [],
+          "exit": 0,
+          "failed_cases": [],
+          "frozen": 20,
+          "met": true,
+          "random": 200,
+          "stderr": ""
+        }
+      },
+      "sha": "afafd69445e893370a3fbac0e36bd544e6c97e2261db88e1234749aee31fd1cd"
+    },
+    {
+      "name": "e17_empty_list_accepted",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e17_empty_list_accepted.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e17_empty_list_accepted",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r183",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r150",
+            "r183",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e17_empty_list_accepted.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e17_empty_list_accepted",
+          "detail_count": 2,
+          "detail_events": [
+            {
+              "case": "r53",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r183",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r53",
+            "r183"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 198,
+          "stderr": ""
+        }
+      },
+      "sha": "4ca57e2666923b00848ba7866cad15550a6f2ec8d0969fe8b02f7d5fe2517b2d"
+    },
+    {
+      "name": "e18_star_masks_invalid",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e18_star_masks_invalid.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e18_star_masks_invalid",
+          "detail_count": 0,
+          "detail_events": [],
+          "exit": 0,
+          "failed_cases": [],
+          "frozen": 20,
+          "met": true,
+          "random": 200,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e18_star_masks_invalid.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e18_star_masks_invalid",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": "r53",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r150",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            },
+            {
+              "case": "r193",
+              "err": "",
+              "exit": 0,
+              "out": "mismatch"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        }
+      },
+      "sha": "1bf3e456e54ff3b5a1005fa5093020236795b1a01ca0ae7a9a58a5b109400343"
+    },
+    {
+      "name": "e19_token_allows_space",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e19_token_allows_space.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e19_token_allows_space",
+          "detail_count": 6,
+          "detail_events": [
+            {
+              "case": 15,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r34",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r109",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            15,
+            "r34",
+            "r53",
+            "r109",
+            "r150",
+            "r193"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 195,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e19_token_allows_space.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e19_token_allows_space",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": 15,
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r34",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            },
+            {
+              "case": "r109",
+              "err": "",
+              "exit": 0,
+              "out": "match"
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            15,
+            "r34",
+            "r109"
+          ],
+          "frozen": 19,
+          "met": false,
+          "random": 198,
+          "stderr": ""
+        }
+      },
+      "sha": "24c223c2cae598802c214136a6991e1778586364fbdd0e22e6931884acf9175e"
+    },
+    {
+      "name": "e20_dedup_removed",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e20_dedup_removed.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e20_dedup_removed",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e20_dedup_removed.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e20_dedup_removed",
+          "detail_count": 0,
+          "detail_events": [],
+          "exit": 0,
+          "failed_cases": [],
+          "frozen": 20,
+          "met": true,
+          "random": 200,
+          "stderr": ""
+        }
+      },
+      "sha": "c1c07ec8195fc44e8a94ae9d801deed27d4cdade8ded7ca81fed312f365b9bc7"
+    },
+    {
+      "name": "e21_token_too_permissive",
+      "scores": {
+        "v2-freeze": {
+          "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e21_token_too_permissive.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-e21_token_too_permissive",
+          "detail_count": 3,
+          "detail_events": [
+            {
+              "case": "r53",
+              "err": "invalid_input: presented field 'accept-language' value must ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r150",
+              "err": "invalid_input: stored field 'accept' value must be a string ",
+              "exit": 1,
+              "out": ""
+            },
+            {
+              "case": "r193",
+              "err": "invalid_input: stored field 'accept-encoding' value must be ",
+              "exit": 1,
+              "out": ""
+            }
+          ],
+          "exit": 1,
+          "failed_cases": [
+            "r53",
+            "r150",
+            "r193"
+          ],
+          "frozen": 20,
+          "met": false,
+          "random": 197,
+          "stderr": ""
+        },
+        "v3-live": {
+          "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/mutants_exec/e21_token_too_permissive.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-e21_token_too_permissive",
+          "detail_count": 0,
+          "detail_events": [],
+          "exit": 0,
+          "failed_cases": [],
+          "frozen": 20,
+          "met": true,
+          "random": 200,
+          "stderr": ""
+        }
+      },
+      "sha": "d19f78e3415dbc85456ba677292bc09efac568c17f79e9aa0aa9b7757dec7036"
+    }
+  ],
+  "source_sha256": "fdceef474e618d6664c15333cba6a1fa136fbc44f2791bbbdbf92d234fb287d6"
+}

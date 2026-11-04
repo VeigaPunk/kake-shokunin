@@ -1,0 +1,23 @@
+OK  w=24 RFC 9111 §4.1 p.1 :: the cache MUST NOT use that stored response without revalidation unless all the presented request header fields nominated by that Vary field value match
+OK  w=24 RFC 9111 §4.1 p.2 :: if and only if those in the first request can be transformed to those in the second request by applying any of the following
+OK  w=11 RFC 9111 §4.1 p.3 item 1 :: adding or removing whitespace, where allowed in the header field's syntax
+OK  w=15 RFC 9111 §4.1 p.3 item 2 :: combining multiple header field lines with the same field name (see Section 5.2 of [HTTP])
+OK  w=21 RFC 9111 §4.1 p.3 item 3 :: normalizing both header field values in a way that is known to have identical semantics, according to the header field's specification
+OK  w=16 RFC 9111 §4.1 p.3 example :: reordering field values when order is not significant; case-normalization, where values are defined to be case-insensitive
+BAD w=28 RFC 9111 §4.1 p.4 :: If (after any normalization that might take place) a header field is absent from a request, it can only match another request if it is also absent there.
+OK  w=17 RFC 9111 §4.1 p.5 :: A stored response with a Vary header field value containing a member "*" always fails to match.
+OK  w=24 RFC 9110 §12.5.5 p.1 :: The "Vary" header field in a response describes what parts of a request message, aside from the method and target URI, might have influenced
+OK  w= 7 RFC 9110 §12.5.5 p.2 ABNF :: Vary = #( "*" / field-name )
+OK  w=23 RFC 9110 §12.5.5 p.3 :: A Vary field value is either the wildcard member "*" or a list of request field names, known as the selecting header fields
+OK  w=11 RFC 9110 §12.5.5 p.4 :: A proxy MUST NOT generate "*" in a Vary field value.
+OK  w=16 RFC 9110 §12.5.5 p.9 :: Vary expands the cache key required to match a new request to the stored cache entry.
+BAD w=28 RFC 9110 §5.2 p.2 :: its combined field value consists of the list of corresponding field line values within that section, concatenated in order, with each field line value separated by a comma
+OK  w=21 RFC 9110 §5.3 p.1 :: A recipient MAY combine multiple field lines within a field section that have the same field name into one field line
+OK  w=22 RFC 9110 §5.3 p.2 :: The order in which field lines with the same name are received is therefore significant to the interpretation of the field value
+OK  w= 3 RFC 9110 §5.1 p.2 ABNF :: field-name = token
+OK  w=18 RFC 9110 §5.1 p.3 :: Field names are case-insensitive and ought to be registered within the "Hypertext Transfer Protocol (HTTP) Field Name Registry"
+OK  w=10 RFC 9110 §5.5 p.3 :: A field value does not include leading or trailing whitespace.
+OK  w= 3 RFC 9110 §5.6.2 p.2 ABNF :: token = 1*tchar
+OK  w=13 RFC 9110 §5.6.1.2 p.1 :: A recipient MUST parse and ignore a reasonable number of empty list elements
+OK  w=16 RFC 9110 §8.4.1 p.3 :: All content codings are case-insensitive and ought to be registered within the "HTTP Content Coding Registry"
+VERIFIED 20 / 22

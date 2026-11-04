@@ -1,0 +1,39 @@
+invalid    empty list element in Vary (RFC 9110 5.6.1.2 recipients MUST ignore)
+          vary='accept-encoding,' stored={'accept-encoding': 'gzip'} presented={'accept-encoding': 'gzip'}
+invalid    trailing comma only
+          vary=',' stored={} presented={}
+invalid    two empty members
+          vary=',,' stored={} presented={}
+match      Vary with OWS around comma
+          vary='accept-encoding , accept-language' stored={'accept-encoding': 'gzip', 'accept-language': 'en'} presented={'accept-encoding': 'gzip', 'accept-language': 'en'}
+invalid    duplicate field name differing only in case, same request (stored)
+          vary='accept-encoding' stored={'accept-encoding': 'gzip', 'Accept-Encoding': 'br'} presented={'accept-encoding': 'gzip, br'}
+invalid    duplicate field name differing only in case, same request (presented)
+          vary='accept-encoding' stored={'accept-encoding': 'gzip'} presented={'accept-encoding': 'gzip', 'ACCEPT-ENCODING': 'br'}
+mismatch   presented empty-string value vs absent
+          vary='accept-encoding' stored={'accept-encoding': 'gzip'} presented={'accept-encoding': ''}
+match      both absent from both requests
+          vary='accept-encoding' stored={} presented={}
+mismatch   presented absent, stored present
+          vary='accept-encoding' stored={'accept-encoding': 'gzip'} presented={}
+invalid    empty value list on a side
+          vary='accept-encoding' stored={'accept-encoding': 'gzip'} presented={'accept-encoding': []}
+invalid    value list with a non-string member
+          vary='accept-encoding' stored={'accept-encoding': 'gzip'} presented={'accept-encoding': ['gzip', 5]}
+match      Vary member with a non-token char (underscore is a tchar, ok)
+          vary='x_kake' stored={'x_kake': 'v'} presented={'x_kake': 'v'}
+match      Vary with an underscore member
+          vary='x-kake' stored={'x-kake': 'v'} presented={'x-kake': 'v'}
+invalid    star plus a non-token member
+          vary='*, accept encoding' stored={} presented={}
+mismatch   value with internal OWS around the q separator
+          vary='accept-encoding' stored={'accept-encoding': 'gzip;q=1'} presented={'accept-encoding': 'gzip; q=1'}
+
+frozen-20 coverage: {"absent_both": 3, "absent_presented_only": 2, "absent_stored_only": 1, "case_variant_duplicate_key_refused": 0, "empty_value_list_refused": 0, "empty_vary_member_invalid": 1, "name_case_variant_member": 2, "star_dominates": 1, "star_present": 2, "value_case_differs": 1, "value_list_nonstring_refused": 0, "value_list_used": 2, "value_ows_trimmed": 1}
+seeded-200 coverage: {"absent_both": 13, "absent_presented_only": 0, "absent_stored_only": 19, "case_variant_duplicate_key_refused": 0, "empty_value_list_refused": 2, "empty_vary_member_invalid": 11, "name_case_variant_member": 86, "star_dominates": 30, "star_present": 30, "value_case_differs": 6, "value_list_nonstring_refused": 0, "value_list_used": 4, "value_ows_trimmed": 6}
+
+frozen cases_sha256: c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d
+seeded random_sha256: 52714a5f4ae9b66ee444f39284b6e5ce575c6ae5760965fb8736e6983444b981
+seeded verdict counts: {'match': 67, 'mismatch': 109, 'invalid': 24}
+constant-match would pass frozen: 7 / 20
+constant-match would pass seeded: 67 / 200

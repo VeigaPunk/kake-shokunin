@@ -1,0 +1,250 @@
+{
+ "declared_unspecified": 8,
+ "inputs": 13,
+ "reference_contradicts_declared": 0,
+ "reference_matches_declared": 5,
+ "reference_matches_spec": 1,
+ "rows": [
+  {
+   "declared_expect": "unspecified",
+   "declared_sentence": "silent: the profile names no refusal beyond the CLI contract",
+   "id": "A1",
+   "indep_default": "match",
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "reference": "invalid",
+   "reference_vs_declared": "n/a",
+   "reference_vs_spec": false,
+   "spec_expect": "match",
+   "spec_sentence": "match (RFC 9110 5.6.1.2: \"A recipient MUST parse and ignore a reasonable number of empty list elements\")",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding,"
+  },
+  {
+   "declared_expect": "unspecified",
+   "declared_sentence": "silent on two JSON keys that name one field in different case; nearest clause is \"multiple field lines combine in order with ', '\"",
+   "id": "A2",
+   "indep_default": "match",
+   "presented": {
+    "Accept-Encoding": "br",
+    "accept-encoding": "gzip"
+   },
+   "reference": "invalid",
+   "reference_vs_declared": "n/a",
+   "reference_vs_spec": false,
+   "spec_expect": "match",
+   "spec_sentence": "match (RFC 9110 5.2: repeated field name value is the line values \"concatenated in order, with each field line value separated by a comma\")",
+   "stored": {
+    "Accept-Encoding": "br",
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding"
+  },
+  {
+   "declared_expect": "unspecified",
+   "declared_sentence": "silent: [] is not described by the profile",
+   "id": "A3",
+   "indep_default": "match",
+   "presented": {
+    "accept-encoding": []
+   },
+   "reference": "invalid",
+   "reference_vs_declared": "n/a",
+   "reference_vs_spec": false,
+   "spec_expect": "match",
+   "spec_sentence": "match (zero field lines means the field is absent from both requests)",
+   "stored": {
+    "accept-encoding": []
+   },
+   "vary": "accept-encoding"
+  },
+  {
+   "declared_expect": "invalid",
+   "declared_sentence": "v3: \"input validation runs before the wildcard rule\" (the example names only a malformed header map)",
+   "id": "A4",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "reference": "invalid",
+   "reference_vs_declared": true,
+   "reference_vs_spec": false,
+   "spec_expect": "mismatch",
+   "spec_sentence": "mismatch (RFC 9111 4.1: a Vary value containing a member \"*\" always fails to match; the empty element is ignored first)",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "*,"
+  },
+  {
+   "declared_expect": "mismatch",
+   "declared_sentence": "\"values compare byte-identically after trimming leading/trailing SP/HTAB\"",
+   "id": "A5",
+   "indep_default": "match",
+   "presented": {
+    "x-kake-token": "a b"
+   },
+   "reference": "mismatch",
+   "reference_vs_declared": true,
+   "reference_vs_spec": false,
+   "spec_expect": "match|invalid",
+   "spec_sentence": "match after the required 9110 5.5 transformation, or invalid if the message is rejected: \"a recipient of CR, LF, or NUL within a field value MUST either reject the message or replace each of those characters with SP before further processing\"",
+   "stored": {
+    "x-kake-token": "a\rb"
+   },
+   "vary": "x-kake-token"
+  },
+  {
+   "declared_expect": "mismatch",
+   "declared_sentence": "combine with \", \" then compare bytes: \"gzip,br\" vs \"gzip, br\"",
+   "id": "A6",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept-encoding": [
+     "gzip",
+     "br"
+    ]
+   },
+   "reference": "mismatch",
+   "reference_vs_declared": true,
+   "reference_vs_spec": false,
+   "spec_expect": "match",
+   "spec_sentence": "match (RFC 9110 5.6.1.2 accepts \"*( OWS \",\" OWS [ element ] )\", so OWS around list commas is not significant)",
+   "stored": {
+    "accept-encoding": "gzip,br"
+   },
+   "vary": "accept-encoding"
+  },
+  {
+   "declared_expect": "unspecified",
+   "declared_sentence": "silent",
+   "id": "A7",
+   "indep_default": "match",
+   "presented": {},
+   "reference": "invalid",
+   "reference_vs_declared": "n/a",
+   "reference_vs_spec": false,
+   "spec_expect": "match",
+   "spec_sentence": "match (empty #field-name list nominates nothing, so nothing can differ)",
+   "stored": {},
+   "vary": ""
+  },
+  {
+   "declared_expect": "mismatch",
+   "declared_sentence": "combine with \", \" -> \"gzip, \" vs \"gzip\"",
+   "id": "A8",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept-encoding": [
+     "gzip",
+     ""
+    ]
+   },
+   "reference": "mismatch",
+   "reference_vs_declared": true,
+   "reference_vs_spec": false,
+   "spec_expect": "match",
+   "spec_sentence": "match (an empty element does not contribute to the element count, 9110 5.6.1.2)",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding"
+  },
+  {
+   "declared_expect": "unspecified",
+   "declared_sentence": "silent",
+   "id": "A9",
+   "indep_default": "match",
+   "presented": {
+    "accept-encoding": "gzip",
+    "accept-language": "en"
+   },
+   "reference": "invalid",
+   "reference_vs_declared": "n/a",
+   "reference_vs_spec": false,
+   "spec_expect": "match",
+   "spec_sentence": "match (OWS-only element is an empty element and is ignored)",
+   "stored": {
+    "accept-encoding": "gzip",
+    "accept-language": "en"
+   },
+   "vary": "accept-encoding, ,accept-language"
+  },
+  {
+   "declared_expect": "match",
+   "declared_sentence": "duplicate members naming one field compare once",
+   "id": "A10",
+   "indep_default": "match",
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "reference": "match",
+   "reference_vs_declared": true,
+   "reference_vs_spec": true,
+   "spec_expect": "match",
+   "spec_sentence": "match",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "Accept-Encoding, accept-encoding"
+  },
+  {
+   "declared_expect": "unspecified",
+   "declared_sentence": "silent on LF in a field value",
+   "id": "A12",
+   "indep_default": "invalid",
+   "presented": {
+    "accept-encoding": "br"
+   },
+   "reference": "match",
+   "reference_vs_declared": "n/a",
+   "reference_vs_spec": false,
+   "spec_expect": "invalid|mismatch",
+   "spec_sentence": "invalid or mismatch; never match (9110 5.5: a recipient \"MUST either reject the message or replace each of those characters with SP\"; after replacement the member is accept-encoding and its values differ)",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding\n"
+  },
+  {
+   "declared_expect": "unspecified",
+   "declared_sentence": "silent on LF in a field name",
+   "id": "A13",
+   "indep_default": "invalid",
+   "presented": {
+    "accept-encoding\n": "gzip"
+   },
+   "reference": "match",
+   "reference_vs_declared": "n/a",
+   "reference_vs_spec": false,
+   "spec_expect": "invalid",
+   "spec_sentence": "invalid: a field name ending in LF is not a token",
+   "stored": {
+    "accept-encoding\n": "gzip"
+   },
+   "vary": "accept-encoding"
+  },
+  {
+   "declared_expect": "unspecified",
+   "declared_sentence": "silent",
+   "id": "A11",
+   "indep_default": "invalid",
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "reference": "invalid",
+   "reference_vs_declared": "n/a",
+   "reference_vs_spec": false,
+   "spec_expect": "invalid|match",
+   "spec_sentence": "invalid message (non-token field name), refusal defensible; the nominated field itself matches",
+   "stored": {
+    "accept encoding": "x",
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding"
+  }
+ ]
+}

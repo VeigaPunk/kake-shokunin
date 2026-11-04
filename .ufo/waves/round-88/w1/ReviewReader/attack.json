@@ -1,0 +1,24 @@
+{
+ "match_counts": {
+  "indep_default": 4229,
+  "reference": 1047
+ },
+ "permissive_reader_example": {
+  "indep_default": "mismatch",
+  "payload": {
+   "presented": {
+    "authorization": "bearer abc"
+   },
+   "stored": {
+    "authorization": "Bearer AbC"
+   },
+   "vary": "authorization"
+  },
+  "reference": "mismatch",
+  "value_folding_verdict": "match (unsound: RFC 9110 11.6.2 credentials are opaque and case-sensitive)"
+ },
+ "population": 20000,
+ "seed": 88777,
+ "violation_count": 0,
+ "violations": []
+}

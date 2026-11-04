@@ -1,0 +1,29 @@
+ScoutVary receipt index (round 88)
+scratch: /fast/scratch/hyaku/kake-r88/ScoutVary (deleted after copy)
+
+probe_reference.py      -> counter reference behaviour + frozen/seeded verdict counts
+probe_coverage.py      -> branch coverage of the frozen 20 and seeded 200
+probe_mutations.py/.2  -> profile-branch mutation sweep (which branches are pinned)
+probe_readers.py       -> RFC-9110-5.6.1.2-conformant reader vs the frozen counter
+probe_lf.py            -> trailing-LF token acceptance (counter + L1 candidate)
+probe_latent.py        -> latent-branch agreement between reference and L1 candidate
+probe_lookup.py/.2     -> exact-payload lookup table against the frozen counter
+probe_l1_vs_v2.py      -> L1 candidate vs v2 and v3 reference verdicts
+probe_d3.py            -> C1 D3 history-preservation check vs insertion placement
+probe_d3_opcodes.py    -> difflib opcodes behind that check + cadence test
+probe_d3_split.py      -> C1 D3 mktemp-command line placement
+probe_d3_cadence.py    -> C1 D3 cadence phrasing acceptance
+
+=== census-scope-probe (see report A.4) ===
+command: bash /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root <scratch fleet copy with the new SOURCES row> --today 2026-11-04
+result : identical scope cell as S456 -> 'E04 duplicate url ... within scope', validate exit 1
+         different scope cell            -> 'W04 duplicate url ... across scopes', warning only
+
+=== base proofs (report B) ===
+git -C LANE show f4479c14:scripts/vary_match.py                     -> fatal: path does not exist (exit 128)
+git -C LANE show f4479c14:corpus/knowledge/gate-agreement-metadata.md -> fatal: path does not exist (exit 128)
+git -C LANE show f4479c14:corpus/knowledge/cache-current-age.md | sed -n 3p
+git -C LANE show f4479c14:scripts/cache_current_age.py | sed -n 34p
+
+=== c88_vary_v2.py / c88_vary_v3.py / ctr_v2.py / ctr_v3.py / cmp_v2.py / cmp_v3.py ===
+byte copies of the counter at 80637397 (v2) and 52e41d2d (v3), fetched with git show into this seat's scratch

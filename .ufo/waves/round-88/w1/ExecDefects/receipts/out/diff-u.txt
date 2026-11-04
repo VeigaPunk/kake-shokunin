@@ -1,0 +1,11 @@
+--- /fast/scratch/hyaku/kake-r88/ExecDefects/base-cache_current_age.py	2026-11-04 15:44:33.448637679 -0300
++++ /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/w1/ExecDefects/cache_current_age.py	2026-11-04 15:55:37.731572038 -0300
+@@ -31,7 +31,7 @@
+     for key in (*REQUIRED, "age_value"):
+         value = payload.get(key, 0)
+         if not isinstance(value, int) or isinstance(value, bool):
+-            raise ValueError(f"{key} must be an integer, not boolean")
++            raise ValueError("%s must be an integer, not %s" % (key, {bool: "boolean", type(None): "null", str: "string", float: "float", list: "array", dict: "object"}.get(type(value), type(value).__name__)))
+         if key != "date_value" and value < 0:
+             raise ValueError(f"{key} must be nonnegative")
+     date_value = payload["date_value"]

@@ -1,0 +1,49 @@
+# D3 proof — ScribeLedger receipts (round 88, freeze v3 = 52e41d2d)
+
+$ diff -u LANE/.ufo/waves/round-88/frozen/base-cache-current-age.md LANE/.ufo/waves/round-88/w1/ScribeLedger/cache-current-age.md
+--- /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/frozen/base-cache-current-age.md	2026-11-04 15:44:33.446637673 -0300
++++ /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/w1/ScribeLedger/cache-current-age.md	2026-11-04 15:54:17.814338568 -0300
+@@ -1,6 +1,6 @@
+ source: S462 — RFC 9111 §4.2.3 Calculating Age — https://httpwg.org/specs/rfc9111.html#age.calculations; opened 2026-11-04; retained source/access evidence .ufo/waves/round-87/w1/ScoutAge/ and w1/ScribeRegistry/source-access.md. S461 retains its separate lifetime/duplicate scope.
+ verified-at: 2026-11-04 — source reopened by L1, ScoutAge and scribes; implementation and independent review receipts under .ufo/waves/round-87/w1/ExecAge/, ReviewAge/, MutAge/; production revision measurement under controls/after-c2-carrier.txt.
+-recheck: 180d or source/adapter change; GET https://httpwg.org/specs/rfc9111.html#age.calculations and compare §4.2.3 equations; offline command TMPDIR=/fast/scratch/hyaku/kake-r87/L1 python3 -B scripts/cache_current_age.py --selftest (create the explicit scratch directory first).
++recheck: 180d or source/adapter change; GET https://httpwg.org/specs/rfc9111.html#age.calculations and compare §4.2.3 equations; the offline selftest command is checklist item 6 below (it creates its own temporary directory; no fixed scratch path is named here).
+ 
+ # Conservative HTTP current-age arithmetic
+ 
+@@ -70,6 +70,7 @@
+    `python3 -B .ufo/waves/round-87/w1/ExecTrial/retained_trial.py --tool /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/cache_current_age.py`.
+    Its observed times share one second and Age0: the all-zero result is a real
+    invocation but not a discriminator against constant-zero/Age-only shortcuts.
++6. Offline selftest without a fixed scratch path: TMPDIR=$(mktemp -d) python3 -B scripts/cache_current_age.py --selftest; the shell creates the temporary directory per invocation and it is not a citable evidence path.
+ 
+ The frozen counter's 17-case equality is weaker than the complete adapter
+ contract: Python equality accepts equivalent floats/bools and invalid diagnostics
+diff exit=1 (1 = differences present, as expected)
+
+$ python3 -c 'difflib opcodes over the same two files'
+  replace: base lines 3-3 -> new lines 3-3
+  insert: base lines 73-72 -> new lines 73-73
+  replace count = 1
+  insert count = 1
+  delete count = 0
+  base line numbers not carried verbatim into the draft: [3]
+  (line 3 is the replaced recheck: line; every other base line is byte-identical and in order)
+
+$ sha256sum (frozen base vs draft)
+8bbbeb9edf7e595b2e3edabb39d44c9f0716091bea441b44ece79265c3f07eef  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/frozen/base-cache-current-age.md
+69921db1af2f2d03ac5967ddd2f9862ff4d70c915a27706d3fd0bccbbf2d5912  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/w1/ScribeLedger/cache-current-age.md
+
+$ sha256sum (ledger: frozen base copy)
+ef58f9092c32179de6e680ab782cfb29900d9b5b34cfbfcb76b316a144c3d506  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/frozen/base-gate-agreement-ledger.json
+
+$ git -C LANE show f4479c14813037ad993a49a3dee4028763470f7a:corpus/knowledge/gate-agreement-ledger.json | sha256sum
+ef58f9092c32179de6e680ab782cfb29900d9b5b34cfbfcb76b316a144c3d506  -
+
+$ sha256sum (lane worktree ledger, unmodified by this seat)
+ef58f9092c32179de6e680ab782cfb29900d9b5b34cfbfcb76b316a144c3d506  /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/knowledge/gate-agreement-ledger.json
+
+$ sha256sum (round-87 spot-check snapshots cited by the eight rows)
+80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md
+948c316831d0c71927e6a29501f05037b3faa940a251984ed28ca8f0eee2ce71  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/snapshots/round-85-verifier-spotcheck.md
+47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md

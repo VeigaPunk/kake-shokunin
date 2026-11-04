@@ -1,0 +1,218 @@
+{
+ "candidate_sha256": "2da573d3f9fd5c2cad7f30faeee766bef2550c10b55980344a9ff6b9d1766a95",
+ "disagreement_count": 13,
+ "disagreements": [
+  {
+   "candidate": "invalid",
+   "id": "case14",
+   "indep": "match",
+   "label": "invalid",
+   "payload": {
+    "presented": {},
+    "stored": {},
+    "vary": ""
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F1",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "accept-encoding": "gzip"
+    },
+    "vary": "accept-encoding,"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F2",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip",
+     "accept-language": "en"
+    },
+    "stored": {
+     "accept-encoding": "gzip",
+     "accept-language": "en"
+    },
+    "vary": "accept-encoding,,accept-language"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F4",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "Accept-Encoding": "br",
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "Accept-Encoding": "br",
+     "accept-encoding": "gzip"
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F5",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip, br"
+    },
+    "stored": {
+     "Accept-Encoding": "gzip",
+     "accept-encoding": "br"
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F6",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "accept-encoding": []
+    },
+    "stored": {
+     "accept-encoding": []
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F7",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {},
+    "stored": {
+     "accept-encoding": []
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F8",
+   "indep": "mismatch",
+   "label": "mismatch",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "accept-encoding": "gzip"
+    },
+    "vary": "*,"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "mismatch",
+   "id": "F11",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {
+     "x-kake-token": "a b"
+    },
+    "stored": {
+     "x-kake-token": "a\rb"
+    },
+    "vary": "x-kake-token"
+   },
+   "reference": "mismatch"
+  },
+  {
+   "candidate": "invalid",
+   "id": "F17",
+   "indep": "match",
+   "label": "match",
+   "payload": {
+    "presented": {},
+    "stored": {},
+    "vary": ""
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "invalid",
+   "id": "X1",
+   "indep": "match",
+   "label": "n/a",
+   "note": "unknown extra input key",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "accept-encoding": "gzip"
+    },
+    "unexpected": 1,
+    "vary": "accept-encoding"
+   },
+   "reference": "match"
+  },
+  {
+   "candidate": "invalid",
+   "id": "X2",
+   "indep": "match",
+   "label": "n/a",
+   "note": "same field name twice, case-variant",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip, br"
+    },
+    "stored": {
+     "Accept-Encoding": "br",
+     "accept-encoding": [
+      "gzip"
+     ]
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "invalid"
+  },
+  {
+   "candidate": "mismatch",
+   "id": "X3",
+   "indep": "match",
+   "label": "n/a",
+   "note": "CR at the value edge",
+   "payload": {
+    "presented": {
+     "accept-encoding": "gzip"
+    },
+    "stored": {
+     "accept-encoding": "gzip\r"
+    },
+    "vary": "accept-encoding"
+   },
+   "reference": "mismatch"
+  }
+ ],
+ "full_agreement": 35,
+ "rows": 48
+}

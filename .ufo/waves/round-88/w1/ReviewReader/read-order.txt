@@ -1,0 +1,35 @@
+read order and freeze timing — seat ReviewReader, kake round 88
+(all times local -03:00; hashes are sha256 of file bytes)
+
+1. 15:54–15:56  `.ufo/waves/round-88/contract.md` — the bytes then on disk were the
+   v2 contract (sha256 b8f7db9458b7d6ef0695d9e5fb6f5468b14fadb891f12072c083be6e9b1b0228,
+   re-derived from commit 80637397).
+2. 15:55       `.ufo/waves/round-88/c88_vary.py` — v2 bytes
+   (sha256 285bca2242f98b49d4736e0b3a0a008059aac3b77c68fa31a0cd284af6fecd3c); in v2 the
+   wildcard check sat before the side normalisation.
+3. 15:55       `.ufo/waves/round-88/vary-cases.json` — sha256 c461cbd8…;
+   mtime 15:44:46; not touched by any later amendment.
+4. 15:56       `.ufo/waves/round-88/c88_defect_queue.py` — structure read only.
+5. 15:58:41    candidate check named by my seat: `LANE/scripts/vary_match.py` ENOENT;
+   `w1/ExecReader/` empty. NOTE: `w1/L1/vary_match.py` already existed on disk
+   (mtime 15:56:39) but my seat named ExecReader's candidate and the production
+   path, so I neither checked nor read it before writing indep.py. No candidate
+   bytes of any kind were read before indep.py was written; the L1 candidate was
+   first read at ~16:04, after indep.py existed.
+6. ~15:57      `w1/ReviewReader/indep.py` written (first bytes; the JOIN constant
+   added at 16:02:30 leaves behaviour identical; final sha256 cbfcf50f…).
+7. 15:58:05    freeze amendment v3, commit 52e41d2d ("validation precedes the
+   wildcard rule"): rewrote `c88_vary.py` (final sha256 e4cf5ad9…), rewrote
+   `contract.md` (final sha256 639035d3…), regenerated `controls/base-c2.txt` and the
+   three `ctl-c2-constant-*.txt` receipts, and added `w1/L1/vary_match.py`.
+   All behavioural receipts in this directory are against v3 bytes.
+8. ~16:05      `w1/ExecReader/vary_match.py` (sha256 fdceef47…, mtime 15:59:20) read
+   and scored; `w1/L1/vary_match.py` (sha256 2da573d3…) read and scored.
+9. ~16:04      RFC 9111 §4.1 read from the retained body
+   `w1/ScribeVary/rfc9111.html` (sha256 999f4013…, 178 573 bytes, fetched by that
+   seat this round; no GET by this seat). RFC 9110 §5.2/§5.3/§5.5/§5.6.1 quotes read
+   from `.ufo/waves/round-36/sources/S088.txt` (fetched by an earlier round).
+
+No GET was performed by this seat: my item named no URL, and the network rule allows
+only URLs named in the item. Every quote above is from lane bytes, with provenance
+named.

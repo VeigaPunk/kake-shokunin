@@ -1,0 +1,25 @@
+BASELINE v3-live   exit=0 frozen=20/20 random=200/200 met=True random_sha=52714a5f4ae9b66e
+BASELINE v2-freeze exit=1 frozen=20/20 random=197/200 met=False random_sha=004a8eb75b95ed45
+e01_name_case_sensitive        v3=19/200 KILLED   cases=2   [v2 19/197]
+e02_no_ows_trim                v3=19/196 KILLED   cases=9,r2,r72,r116,r129   [v2 19/193]
+e03_unordered_array            v3=18/199 KILLED   cases=16,17,r106   [v2 18/196]
+e04_star_as_token              v3=18/189 KILLED   cases=7,8,r1,r44,r62,r88   [v2 18/186]
+e05_absent_both_mismatch       v3=19/200 KILLED   cases=4   [v2 19/197]
+e06_one_sided_match            v3=18/188 KILLED   cases=5,6,r20,r41,r42,r60   [v2 18/185]
+e07_value_casefold             v3=19/173 KILLED   cases=3,r6,r13,r19,r21,r27   [v2 19/170]
+e08_internal_ws_collapse       v3=20/200 SURVIVED cases=-   [v2 20/197]
+e09_empty_vary_match           v3=19/189 KILLED   cases=14,r46,r61,r77,r122,r137   [v2 19/186]
+e10_dupkey_refusal_removed     v3=20/200 SURVIVED cases=-   [v2 20/197]
+e11_unnominated_compared       v3=20/196 KILLED   cases=r31,r108,r110,r197   [v2 20/193]
+e12_asymmetric_trim            v3=20/193 KILLED   cases=r7,r24,r103,r110,r121,r128   [v2 20/190]
+e13_int_value_coerced          v3=19/195 KILLED   cases=19,r16,r76,r134,r150,r193   [v2 19/196]
+e14_vary_coerced               v3=19/196 KILLED   cases=20,r26,r40,r90,r169   [v2 19/193]
+e15_empty_value_absent         v3=20/200 SURVIVED cases=-   [v2 20/197]
+e16_list_elem_check_removed    v3=20/200 SURVIVED cases=-   [v2 20/197]
+e17_empty_list_accepted        v3=20/198 KILLED   cases=r53,r183   [v2 20/197]
+e18_star_masks_invalid         v3=20/197 KILLED   cases=r53,r150,r193   [v2 20/200]
+e19_token_allows_space         v3=19/198 KILLED   cases=15,r34,r109   [v2 19/195]
+e20_dedup_removed              v3=20/200 SURVIVED cases=-   [v2 20/197]
+e21_token_too_permissive       v3=20/200 SURVIVED cases=-   [v2 20/197]
+SUMMARY v3: 21 mutants, 15 killed, 6 survived
+SUMMARY v2: 21 mutants, 20 killed, 1 survived

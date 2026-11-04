@@ -1,0 +1,30 @@
+# Client request header set for the exact curl flags used for the origin GET.
+# Provenance: captured on 127.0.0.1 loopback (ephemeral port) on 2026-11-04 by
+# binding a socket, running the same curl 8.23.0 with the same flags except the
+# URL (http://127.0.0.1:<port>/), and reading the request bytes. No origin and
+# no network was contacted for this file; it is not one of the two allowed
+# origin requests and it consumed none of that allowance.
+#
+# curl invocation reproduced (origin form, as run):
+#   curl -sS --max-time 30 --retry 0 \
+#        -A 'kake-r88-ExecTrial/1.0 (capability observation)' \
+#        -D h1.txt -o b1.bin \
+#        -w 'http_code=%{http_code} size_download=%{size_download} ...' \
+#        https://ds4cc.com/
+#
+# Verbatim request bytes (115 bytes, HTTP/1.1; the origin GET negotiated HTTP/2,
+# which carries the same field set as pseudo-headers plus these three fields):
+GET / HTTP/1.1
+Host: 127.0.0.1:40803
+User-Agent: kake-r88-ExecTrial/1.0 (capability observation)
+Accept: */*
+
+# Consequences used by the trial:
+#   * no Accept-Encoding field was sent (curl adds one only with --compressed,
+#     which was not used), so the request presented to the origin carried none;
+#   * no Cookie, Authorization or other credential/cookie field was sent;
+#   * Host differed (loopback port) and is not a nominated field, so it does not
+#     affect the Vary verdict on accept-encoding.
+# Corroboration from the origin response itself: no content-encoding header is
+# present in response-headers.txt, consistent with an identity-coded response to
+# a request that advertised no acceptable coding.

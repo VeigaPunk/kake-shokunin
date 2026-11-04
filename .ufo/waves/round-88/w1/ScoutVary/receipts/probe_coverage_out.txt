@@ -1,0 +1,9 @@
+frozen 20: {"case_variant_duplicate_key_in_one_map": 0, "empty_list_element_in_vary": 1, "empty_value_list": 0, "member_carries_LF_or_CR": 0, "n": 20, "presented_lacks_nominated_field_stored_has": 2, "stored_lacks_nominated_field_presented_has": 1, "value_differs_only_by_case": 1, "value_differs_only_by_internal_ws": 2, "value_differs_only_by_ows": 0, "value_list_with_non_string": 0, "vary_duplicate_member_case_variant": 1, "vary_member_is_star": 2}
+seeded 200: {"case_variant_duplicate_key_in_one_map": 0, "empty_list_element_in_vary": 11, "empty_value_list": 2, "member_carries_LF_or_CR": 0, "n": 200, "presented_lacks_nominated_field_stored_has": 0, "stored_lacks_nominated_field_presented_has": 19, "value_differs_only_by_case": 46, "value_differs_only_by_internal_ws": 6, "value_differs_only_by_ows": 0, "value_list_with_non_string": 0, "vary_duplicate_member_case_variant": 26, "vary_member_is_star": 30}
+
+   re.match(TOKEN, 'gzip') -> True
+   re.match(TOKEN, 'gzip\n') -> True
+   re.match(TOKEN, 'gzip\r') -> False
+   re.match(TOKEN, 'gzip\nx') -> False
+   reference("gzip\n", ...) -> match
+   is_token("gzip\n") -> True

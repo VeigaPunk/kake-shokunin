@@ -1,0 +1,133 @@
+{
+  "count": 21,
+  "mutants": [
+    {
+      "mutant_sha256": "7aa037f3898c953994e6991fbd7e9bae80cd56c759c47c928ebc2268ed30cc79",
+      "name": "e01_name_case_sensitive",
+      "new": "        low = key\n",
+      "old": "        low = ascii_lower(key)\n"
+    },
+    {
+      "mutant_sha256": "0f83db877bfae81ead66b2ac2ac0cb55955dfab15867c80f8db86c62cce63996",
+      "name": "e02_no_ows_trim",
+      "new": "        if left != right:\n",
+      "old": "        if left.strip(OWS) != right.strip(OWS):\n"
+    },
+    {
+      "mutant_sha256": "2d4c625d7da5822e2097cedd61bfde9a93879787bb789e17703bdf61d0bd2ecd",
+      "name": "e03_unordered_array",
+      "new": "            out[low] = ', '.join(sorted(value))\n",
+      "old": "            out[low] = ', '.join(value)\n"
+    },
+    {
+      "mutant_sha256": "396ba72dfd84ce5ac4fdc5d59c6b81e6caf663d78a4590ffb7b3e777b8b19b87",
+      "name": "e04_star_as_token",
+      "new": "",
+      "old": "        if member == '*':\n            star = True\n            continue\n"
+    },
+    {
+      "mutant_sha256": "268d84532a42822f0e10b5bf3b0e0c5be89c9862792cd249fa2e29ca47aed510",
+      "name": "e05_absent_both_mismatch",
+      "new": "        if left is None and right is None:\n            return 'mismatch', None\n",
+      "old": "        if left is None and right is None:\n            continue\n"
+    },
+    {
+      "mutant_sha256": "fd6d4b026a39c1fc52262e830ade5e7bb3193f7fce07096ec7d16e7f0e66fd96",
+      "name": "e06_one_sided_match",
+      "new": "        if left is None or right is None:\n            continue\n",
+      "old": "        if left is None or right is None:\n            return 'mismatch', None\n"
+    },
+    {
+      "mutant_sha256": "f6f85b94067856a54029c4a6c4cd8db44f6f036130dfcb5656eb0dd20d9a4f41",
+      "name": "e07_value_casefold",
+      "new": "        if ascii_lower(left.strip(OWS)) != ascii_lower(right.strip(OWS)):\n",
+      "old": "        if left.strip(OWS) != right.strip(OWS):\n"
+    },
+    {
+      "mutant_sha256": "9a6189bcc713ae42167792d30da6af0f7603a7f971d675e0797cbdcc84d16411",
+      "name": "e08_internal_ws_collapse",
+      "new": "        if ' '.join(left.split()) != ' '.join(right.split()):\n",
+      "old": "        if left.strip(OWS) != right.strip(OWS):\n"
+    },
+    {
+      "mutant_sha256": "423b7b8ee8e7d7d24ceefcc6d59d8ae968d6ffd73d1f341b6bccc37b2c46d320",
+      "name": "e09_empty_vary_match",
+      "new": "        if member == '':\n            continue\n",
+      "old": "        if member == '':\n            return None, False, 'empty Vary member (empty Vary or a bare comma)'\n"
+    },
+    {
+      "mutant_sha256": "8d7e73f60da6f00df35020542087988ac0f875197ac0b60726f0bcd5b11c973d",
+      "name": "e10_dupkey_refusal_removed",
+      "new": "        if low in out and False:\n",
+      "old": "        if low in out:\n"
+    },
+    {
+      "mutant_sha256": "62bdbe476363cff7156bd43aa5f9dae2ca83c2fded6033ce3c10840c3b4f1c1b",
+      "name": "e11_unnominated_compared",
+      "new": "    for name in sorted(set(names) | set(stored) | set(presented)):\n",
+      "old": "    for name in names:\n"
+    },
+    {
+      "mutant_sha256": "792c4894e5989026585bf4f8eed3b1c17e940b58fb42b958a5bd15d4550a3dc7",
+      "name": "e12_asymmetric_trim",
+      "new": "        if left.strip(OWS) != right:\n",
+      "old": "        if left.strip(OWS) != right.strip(OWS):\n"
+    },
+    {
+      "mutant_sha256": "4eca51ab80afaf736a40e3180b14a7cef42b8fe48758b95efee2b5407e21eba4",
+      "name": "e13_int_value_coerced",
+      "new": "        if isinstance(value, (str, int)):\n            out[low] = str(value)\n",
+      "old": "        if isinstance(value, str):\n            out[low] = value\n"
+    },
+    {
+      "mutant_sha256": "e605cd94b5c27c755e4a27e376f7f0b2908733d3607a3955ee360259f2253698",
+      "name": "e14_vary_coerced",
+      "new": "    if not isinstance(vary, str):\n        vary = str(vary)\n",
+      "old": "    if not isinstance(vary, str):\n        return None, f'vary must be a string, not {type(vary).__name__}'\n"
+    },
+    {
+      "mutant_sha256": "47beba79e9302ca899efe5db61ee28a07314bbbc22d40b06b78b2e5da323cfce",
+      "name": "e15_empty_value_absent",
+      "new": "        if isinstance(value, str):\n            if value.strip(OWS):\n                out[low] = value\n",
+      "old": "        if isinstance(value, str):\n            out[low] = value\n"
+    },
+    {
+      "mutant_sha256": "afafd69445e893370a3fbac0e36bd544e6c97e2261db88e1234749aee31fd1cd",
+      "name": "e16_list_elem_check_removed",
+      "new": "        elif isinstance(value, list) and value:\n",
+      "old": "        elif isinstance(value, list) and value and all(isinstance(v, str) for v in value):\n"
+    },
+    {
+      "mutant_sha256": "4ca57e2666923b00848ba7866cad15550a6f2ec8d0969fe8b02f7d5fe2517b2d",
+      "name": "e17_empty_list_accepted",
+      "new": "        elif isinstance(value, list) and all(isinstance(v, str) for v in value):\n",
+      "old": "        elif isinstance(value, list) and value and all(isinstance(v, str) for v in value):\n"
+    },
+    {
+      "mutant_sha256": "1bf3e456e54ff3b5a1005fa5093020236795b1a01ca0ae7a9a58a5b109400343",
+      "name": "e18_star_masks_invalid",
+      "new": "    if star:\n        return 'mismatch', None\n    stored, reason = normalise_request(payload.get('stored'), 'stored')\n    if reason is not None:\n        return None, reason\n    presented, reason = normalise_request(payload.get('presented'), 'presented')\n    if reason is not None:\n        return None, reason\n",
+      "old": "    stored, reason = normalise_request(payload.get('stored'), 'stored')\n    if reason is not None:\n        return None, reason\n    presented, reason = normalise_request(payload.get('presented'), 'presented')\n    if reason is not None:\n        return None, reason\n    if star:\n        return 'mismatch', None\n"
+    },
+    {
+      "mutant_sha256": "24c223c2cae598802c214136a6991e1778586364fbdd0e22e6931884acf9175e",
+      "name": "e19_token_allows_space",
+      "new": "TCHAR = frozenset(\"!#$%&'*+-.^_`|~ \"\n",
+      "old": "TCHAR = frozenset(\"!#$%&'*+-.^_`|~\"\n"
+    },
+    {
+      "mutant_sha256": "c1c07ec8195fc44e8a94ae9d801deed27d4cdade8ded7ca81fed312f365b9bc7",
+      "name": "e20_dedup_removed",
+      "new": "        seen.add(low)\n        names.append(low)\n",
+      "old": "        if low not in seen:\n            seen.add(low)\n            names.append(low)\n"
+    },
+    {
+      "mutant_sha256": "d19f78e3415dbc85456ba677292bc09efac568c17f79e9aa0aa9b7757dec7036",
+      "name": "e21_token_too_permissive",
+      "new": "            and all(not ch.isspace() and ch not in ',' for ch in text))\n",
+      "old": "            and all(ch in TCHAR for ch in text))\n"
+    }
+  ],
+  "source": ".ufo/waves/round-88/w1/ExecReader/vary_match.py",
+  "source_sha256": "fdceef474e618d6664c15333cba6a1fa136fbc44f2791bbbdbf92d234fb287d6"
+}

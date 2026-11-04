@@ -1,0 +1,86 @@
+{
+ "P10_oracle_delegating_stub": {
+  "exit": 0,
+  "stdout": "{\"cases_sha256\": \"c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d\", \"claim\": \"C2\", \"details\": [], \"frozen\": 20, \"frozen_total\": 20, \"met\": true, \"random\": 200, \"random_sha256\": \"52714a5f4ae9b66ee444f39284b6e5ce575c6ae5760965fb8736e6983444b981\", \"random_total\": 200, \"revision\": \"file:probe-run/p10-stub.py\", \"tool_sha256\": \"273e76e5874158f9a4bafef2c99bc2089f7d10f4b7d2fea4fd974801e8916f29\"}"
+ },
+ "P11_c2_mutants": {
+  "accept_nontoken_keys": {
+   "frozen": 20,
+   "met": true,
+   "random": 200
+  },
+  "merge_duplicate_names": {
+   "frozen": 20,
+   "met": true,
+   "random": 200
+  },
+  "no_member_ows_strip": {
+   "frozen": 16,
+   "met": false,
+   "random": 110
+  }
+ },
+ "P1_v2_v3": {
+  "frozen_cases_sha256": "c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d",
+  "frozen_set_identical": true,
+  "label_flips": [
+   "r150",
+   "r193",
+   "r53"
+  ],
+  "same_ids": true,
+  "v2_random_sha256": "004a8eb75b95ed45919734cee6d2b501a6f9b8da61e654c58ec1ee2b87bc2b50",
+  "v3_random_sha256": "52714a5f4ae9b66ee444f39284b6e5ce575c6ae5760965fb8736e6983444b981"
+ },
+ "P2_branch_coverage": {
+  "disagreements_vs_reference": 0,
+  "hits": {
+   "absent_both": 1,
+   "absent_one": 14,
+   "all_match": 74,
+   "bad_value_type": 8,
+   "empty_member": 12,
+   "list_join": 3,
+   "nontoken_member": 3,
+   "side_invalid": 8,
+   "star": 31,
+   "star_mismatch": 27,
+   "value_diff": 77,
+   "vary_not_str": 5
+  },
+  "population": 220,
+  "unexercised": [
+   "dup_key_in_side",
+   "nontoken_key",
+   "side_not_dict"
+  ]
+ },
+ "P3_float_terms_plus_relaxed_selftest": {
+  "exit": 0,
+  "stdout": "C1v1 revision=mirror:probe-run/p3 items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}"
+ },
+ "P4_hardcoded_lookup_table": {
+  "exit": 0,
+  "stdout": "C1v1 revision=mirror:probe-run/p4 items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}"
+ },
+ "P5_gutted_candidate_selftest_only": {
+  "exit": 0,
+  "stdout": "C1v1 revision=mirror:probe-run/p5 items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}"
+ },
+ "P6_crlf_line_endings": {
+  "exit": 0,
+  "stdout": "C1v1 revision=mirror:probe-run/p6 items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}"
+ },
+ "P7_ledger_path_lookalike": {
+  "exit": 0,
+  "stdout": "C1v1 revision=mirror:probe-run/p7 items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}"
+ },
+ "P8_bare_number_cadence": {
+  "exit": 0,
+  "stdout": "C1v1 revision=mirror:probe-run/p8 items=3 open=0 closed=3 met=true\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": []}"
+ },
+ "P9_pure_insertion_next_to_recheck": {
+  "exit": 1,
+  "stdout": "C1v1 revision=mirror:probe-run/p9 items=3 open=1 closed=2 met=false\n{\"D1-ledger-companion\": [], \"D2-diagnostic-type\": [], \"D3-recheck-path\": [\"history-preservation violation at base line 3 (replace)\"]}"
+ }
+}

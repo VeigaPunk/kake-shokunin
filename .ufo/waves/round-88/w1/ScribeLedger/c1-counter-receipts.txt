@@ -1,0 +1,43 @@
+# C1 counter — ScribeLedger receipts (round 88)
+# base f4479c14813037ad993a49a3dee4028763470f7a; freeze v2 8063739791e21a8d7966fd968913e552e1433881;
+# freeze v3 52e41d2d0ea6f5a7eaf8b5ac09ab0d78c538d644 (C2 reference precedence only; C1 counter,
+# case set and frozen blobs byte-identical between v2 and v3).
+
+$ python3 -B LANE/.ufo/waves/round-88/c88_defect_queue.py --selftest
+PASS green tree closes all three
+PASS mutant: companion removed reopens D1 only
+PASS mutant: wrong ledger digest reopens D1
+PASS mutant: corrected ledger row reopens D1
+PASS mutant: base diagnostic reopens D2 only
+PASS junk control: prose fixed but behavior unchanged leaves 1 open
+PASS mutant: unmodified recheck line reopens D3 only
+PASS mutant: an edited claim line reopens D3
+PASS mutant: a deleted base line reopens D3
+PASS mutant: ephemeral recheck token reopens D3
+PASS mutant: non-mktemp offline command reopens D3
+selftest: 11/11 passed
+exit=0
+
+$ python3 -B LANE/.ufo/waves/round-88/c88_defect_queue.py --root LANE --revision f4479c14813037ad993a49a3dee4028763470f7a --work <scratch>/work2   # base, unmodified
+C1v1 revision=f4479c14813037ad993a49a3dee4028763470f7a items=3 open=3 closed=0 met=false
+{"D1-ledger-companion": ["companion entry missing"], "D2-diagnostic-type": ["float input diagnostic does not name float (or still says boolean)"], "D3-recheck-path": ["recheck line still names an ephemeral path token '/fast/scratch'", "recheck line still names an ephemeral path token 'TMPDIR='", "entry body lacks the mktemp-form offline selftest command"]}
+exit=1
+
+$ python3 -B LANE/.ufo/waves/round-88/c88_defect_queue.py --mirror <scratch>/mirrorA --work <scratch>/work   # seat drafts + BASE tool
+C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ScribeLedger/mirrorA items=3 open=1 closed=2 met=false
+{"D1-ledger-companion": [], "D2-diagnostic-type": ["float input diagnostic does not name float (or still says boolean)"], "D3-recheck-path": []}
+exit=1
+
+$ python3 -B LANE/.ufo/waves/round-88/c88_defect_queue.py --mirror <scratch>/mirrorB --work <scratch>/work   # seat drafts + counter's repaired-tool fixture
+C1v1 revision=mirror:/fast/scratch/hyaku/kake-r88/ScribeLedger/mirrorB items=3 open=0 closed=3 met=true
+{"D1-ledger-companion": [], "D2-diagnostic-type": [], "D3-recheck-path": []}
+exit=0
+
+$ node LANE/scripts/corpus-contract.mjs --root <scratch>/mirrorB   # read-only shape gate over the seat drafts
+result: 0 findings · 2 knowledge entries · 82 lane lessons · 72 skipped · 0 errors — exit 0
+
+$ node LANE/scripts/corpus-contract.mjs   # live lane, unmodified by this seat
+FAIL missing_metadata:corpus/knowledge/meta-robots-directives.md:source
+FAIL missing_metadata:corpus/knowledge/meta-robots-directives.md:verified-at
+FAIL missing_metadata:corpus/knowledge/meta-robots-directives.md:recheck
+result: 3 findings · 74 knowledge entries · 82 lane lessons · 72 skipped · 0 errors — exit 1

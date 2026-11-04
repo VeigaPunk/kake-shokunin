@@ -1,0 +1,223 @@
+{
+  "frozen_total": 20,
+  "m19_equivalence": {
+    "sampled": 40000,
+    "splits": [
+      {
+        "got": {
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        "payload": {
+          "presented": {
+            "ACCEPT-ENCODING": 5,
+            "accept encoding": true
+          },
+          "stored": {},
+          "vary": "*"
+        },
+        "want": "invalid"
+      },
+      {
+        "got": {
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        "payload": {
+          "presented": {
+            "accept encoding": 5
+          },
+          "stored": {
+            "A": null
+          },
+          "vary": "*"
+        },
+        "want": "invalid"
+      },
+      {
+        "got": {
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        "payload": {
+          "presented": {
+            "ACCEPT-ENCODING": [
+              "br",
+              "gzip"
+            ],
+            "accept-encoding": null
+          },
+          "stored": {
+            "Accept-Encoding": 5,
+            "a": "",
+            "x-kake-token": "gzip"
+          },
+          "vary": "*"
+        },
+        "want": "invalid"
+      },
+      {
+        "got": {
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        "payload": {
+          "presented": {
+            "ACCEPT-ENCODING": [
+              "gzip",
+              "br"
+            ]
+          },
+          "stored": {
+            "ACCEPT-ENCODING": "\tgzip\t",
+            "Accept-Encoding": [
+              "gzip",
+              "br"
+            ],
+            "accept encoding": " gzip "
+          },
+          "vary": "*"
+        },
+        "want": "invalid"
+      },
+      {
+        "got": {
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        "payload": {
+          "presented": {
+            "A": "GZIP",
+            "Accept-Encoding": [
+              "br",
+              "gzip"
+            ]
+          },
+          "stored": {
+            "Accept-Encoding": "",
+            "accept encoding": "gzip;  q=1",
+            "accept-encoding": "gzip;  q=1"
+          },
+          "vary": "accept-encoding, *"
+        },
+        "want": "invalid"
+      }
+    ]
+  },
+  "populations": {
+    "absent_vs_empty": {
+      "frozen": 0,
+      "random": 0
+    },
+    "double_ws": {
+      "frozen": 0,
+      "random": 0
+    },
+    "dup_case_key": {
+      "frozen": 0,
+      "random": 0
+    },
+    "mixed_list": {
+      "frozen": 0,
+      "random": 0
+    }
+  },
+  "random_total": 200,
+  "witnesses": {
+    "m08_internal_ws_collapse": {
+      "diverges": true,
+      "mutant": {
+        "err": "",
+        "exit": 0,
+        "out": "match"
+      },
+      "payload": {
+        "presented": {
+          "accept-encoding": "gzip; q=1"
+        },
+        "stored": {
+          "accept-encoding": "gzip;  q=1"
+        },
+        "vary": "accept-encoding"
+      },
+      "ref": {
+        "err": "",
+        "exit": 0,
+        "out": "mismatch"
+      }
+    },
+    "m11_dupkey_refusal_removed": {
+      "diverges": true,
+      "mutant": {
+        "err": "",
+        "exit": 0,
+        "out": "match"
+      },
+      "payload": {
+        "presented": {
+          "accept-encoding": "br"
+        },
+        "stored": {
+          "Accept-Encoding": "gzip",
+          "accept-encoding": "br"
+        },
+        "vary": "accept-encoding"
+      },
+      "ref": {
+        "err": "invalid_input: input violates the declared profile",
+        "exit": 1,
+        "out": ""
+      }
+    },
+    "m16_empty_value_absent": {
+      "diverges": true,
+      "mutant": {
+        "err": "",
+        "exit": 0,
+        "out": "match"
+      },
+      "payload": {
+        "presented": {
+          "accept-encoding": ""
+        },
+        "stored": {},
+        "vary": "accept-encoding"
+      },
+      "ref": {
+        "err": "",
+        "exit": 0,
+        "out": "mismatch"
+      }
+    },
+    "m17_list_elem_check_removed": {
+      "diverges": true,
+      "mutant": {
+        "err": "TypeError: sequence item 1: expected str instance, int found",
+        "exit": 1,
+        "out": ""
+      },
+      "payload": {
+        "presented": {
+          "accept-encoding": "gzip, 5"
+        },
+        "stored": {
+          "accept-encoding": [
+            "gzip",
+            5
+          ]
+        },
+        "vary": "accept-encoding"
+      },
+      "ref": {
+        "err": "invalid_input: input violates the declared profile",
+        "exit": 1,
+        "out": ""
+      }
+    }
+  }
+}

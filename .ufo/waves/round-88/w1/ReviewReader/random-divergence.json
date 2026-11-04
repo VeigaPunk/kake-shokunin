@@ -1,0 +1,218 @@
+{
+ "class_note": {
+  "empty_list_value": "a request field value is []",
+  "empty_member": "Vary list carries an empty element (trailing/extra comma)",
+  "empty_vary": "Vary value is the empty string",
+  "other": "other input-shape difference"
+ },
+ "examples": [
+  {
+   "cls": "empty_member",
+   "id": "r46",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept-encoding": "gzip, br",
+    "x-kake-token": "gzip, br"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept-encoding": "gzip, br",
+    "x-kake-token": "a"
+   },
+   "vary": "X-KAKE-TOKEN, x-kake-token, accept-encoding,"
+  },
+  {
+   "cls": "empty_list_value",
+   "id": "r53",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept": "",
+    "accept-language": [],
+    "user-agent": "GZIP"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept": "",
+    "accept-language": "",
+    "user-agent": "gzip"
+   },
+   "vary": "user-agent,*,ACCEPT,accept-language"
+  },
+  {
+   "cls": "empty_vary",
+   "id": "r61",
+   "indep_default": "match",
+   "presented": {
+    "accept-encoding": "gzip;q=1",
+    "accept-language": "br, gzip"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept-encoding": "gzip;q=1",
+    "accept-language": "gzip, br"
+   },
+   "vary": ""
+  },
+  {
+   "cls": "empty_vary",
+   "id": "r77",
+   "indep_default": "match",
+   "presented": {
+    "user-agent": "A"
+   },
+   "reference": "invalid",
+   "stored": {},
+   "vary": ""
+  },
+  {
+   "cls": "empty_member",
+   "id": "r122",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept-encoding": "EN",
+    "accept-language": "EN-US"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept-encoding": "en",
+    "accept-language": "en-US"
+   },
+   "vary": "*,accept-language,accept-encoding,"
+  },
+  {
+   "cls": "empty_member",
+   "id": "r137",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept-encoding": "A"
+   },
+   "reference": "invalid",
+   "stored": {},
+   "vary": "accept-encoding,"
+  },
+  {
+   "cls": "empty_member",
+   "id": "r147",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept": "GZIP, BR",
+    "accept-encoding": "",
+    "accept-language": "text/html"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept": "gzip, br",
+    "accept-encoding": " gzip ",
+    "accept-language": "text/html"
+   },
+   "vary": "accept-language, accept, *, accept-encoding,"
+  },
+  {
+   "cls": "empty_vary",
+   "id": "r152",
+   "indep_default": "match",
+   "presented": {
+    "accept-encoding": "text/html",
+    "accept-language": "en-US",
+    "x-kake-token": "br"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept-language": "en-US",
+    "x-kake-token": "br"
+   },
+   "vary": ""
+  },
+  {
+   "cls": "empty_member",
+   "id": "r172",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept": "text/html",
+    "accept-language": "",
+    "user-agent": "en-US"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept": "text/html",
+    "accept-language": ""
+   },
+   "vary": "accept, user-agent, accept-language,"
+  },
+  {
+   "cls": "empty_list_value",
+   "id": "r183",
+   "indep_default": "mismatch",
+   "presented": {
+    "accept-language": [],
+    "user-agent": "GZIP, BR",
+    "x-kake-token": "en-US"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept-language": "",
+    "user-agent": "gzip, br",
+    "x-kake-token": "en-US"
+   },
+   "vary": "accept-language, USER-AGENT, X-KAKE-TOKEN"
+  },
+  {
+   "cls": "empty_member",
+   "id": "r184",
+   "indep_default": "match",
+   "presented": {
+    "accept": "gzip;q=1",
+    "x-kake-token": "text/html"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept": "gzip;q=1",
+    "x-kake-token": "text/html"
+   },
+   "vary": "accept,x-kake-token,"
+  },
+  {
+   "cls": "empty_member",
+   "id": "r186",
+   "indep_default": "match",
+   "presented": {
+    "accept-encoding": "A"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept-encoding": "A"
+   },
+   "vary": "accept-encoding,"
+  },
+  {
+   "cls": "empty_vary",
+   "id": "r194",
+   "indep_default": "match",
+   "presented": {
+    "accept-language": "en"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept-language": "en"
+   },
+   "vary": ""
+  }
+ ],
+ "random_sha256": "52714a5f4ae9b66ee444f39284b6e5ce575c6ae5760965fb8736e6983444b981",
+ "reference_vs_indep_default": {
+  "agree": 187,
+  "buckets": {
+   "empty_list_value": 2,
+   "empty_member": 7,
+   "empty_vary": 4
+  },
+  "disagree": 13
+ },
+ "reference_vs_indep_profile": {
+  "agree": 200,
+  "disagree": 0,
+  "examples": []
+ },
+ "seed": 88088,
+ "total": 200
+}

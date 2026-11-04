@@ -1,0 +1,18 @@
+clean alphabet (no newline in members/keys):
+seed 1: 1000 cases, disagreements=0
+seed 7: 1000 cases, disagreements=0
+seed 88: 1000 cases, disagreements=0
+seed 527: 1000 cases, disagreements=0
+seed 88088: 1000 cases, disagreements=0
+clean total disagreements 0
+
+newline-bearing alphabet (probes the counter TOKEN "$" quirk):
+seed 2026: 500 cases, disagreements=8
+   ('accept-language,\tuser-agent,\taccept-encoding\n', {'accept-encoding': 'A', 'uSer-AgenT': 'A'}, {}, 'invalid', 'mismatch')
+   ('ACCEPT-LANGUAGE,\tACCEPT-ENCODING,\ta\n,\taccept', {'x-kake-token': 'a', 'accept-encoding': 'a'}, {}, 'invalid', 'mismatch')
+   ('accept-encoding\n, x-kake-token', {'accept': 'GZIP', 'accept-encoding': ' gzip,  br '}, {'accept': '\tgzip'}, 'invalid', 'match')
+   ('accept, accept-language, ACCEPT, accept-encoding, a\n', {'x-kake-token': '\tgzip'}, {'X-kAke-TOkEn': 'gzip\tbr'}, 'invalid', 'match')
+   ('*,a\n,x-kake-token', {}, {'accept': 'gzip\tbr'}, 'invalid', 'mismatch')
+   ('accept,USER-AGENT,accept-encoding,accept-encoding\n', {'accept-language': 'br'}, {'accept-encoding': 'gzip, br'}, 'invalid', 'mismatch')
+   ('accept-encoding,\taccept-encoding\n,\tuser-agent,\taccept-language', {'x-kAke-toKeN': ' gzip '}, {}, 'invalid', 'match')
+   ('USER-AGENT,\tx-kake-token,\ta\n', {'x-kake-token': 'GZIP'}, {}, 'invalid', 'mismatch')

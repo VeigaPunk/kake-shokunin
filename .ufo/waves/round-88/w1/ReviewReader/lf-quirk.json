@@ -1,0 +1,135 @@
+{
+ "is_token_probes": {
+  "\n": false,
+  "a": true,
+  "a\t": false,
+  "a\n": true,
+  "a\n b": false,
+  "a\r": false,
+  "accept-encoding\n": true
+ },
+ "regex_probes": {
+  "\n": false,
+  "a\t": false,
+  "a\n": true,
+  "a\r": false,
+  "accept-encoding\n": true
+ },
+ "rows": [
+  {
+   "ExecReader": "invalid",
+   "L1": "match",
+   "id": "P1",
+   "indep": "invalid",
+   "note": "nominated field really differs; LF must be rejected or folded to SP per 9110 5.5",
+   "presented": {
+    "accept-encoding": "br"
+   },
+   "reference": "match",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding\n"
+  },
+  {
+   "ExecReader": "invalid",
+   "L1": "match",
+   "id": "P2",
+   "indep": "invalid",
+   "note": "same, LF inside the first member",
+   "presented": {
+    "accept-encoding": "br",
+    "accept-language": "en"
+   },
+   "reference": "match",
+   "stored": {
+    "accept-encoding": "gzip",
+    "accept-language": "en"
+   },
+   "vary": "accept-encoding\n, accept-language"
+  },
+  {
+   "ExecReader": "invalid",
+   "L1": "match",
+   "id": "P3",
+   "indep": "invalid",
+   "note": "LF member names no real field; absent-both would match under the quirk",
+   "presented": {},
+   "reference": "match",
+   "stored": {},
+   "vary": "x-kake-token\n"
+  },
+  {
+   "ExecReader": "match",
+   "L1": "match",
+   "id": "P4",
+   "indep": "match",
+   "note": "HTAB trailer (control: OWS is stripped)",
+   "presented": {
+    "accept-encoding": "gzip"
+   },
+   "reference": "match",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding\t"
+  },
+  {
+   "ExecReader": "invalid",
+   "L1": "invalid",
+   "id": "P5",
+   "indep": "invalid",
+   "note": "CR trailer (control: not a token char)",
+   "presented": {
+    "accept-encoding": "br"
+   },
+   "reference": "invalid",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "accept-encoding\r"
+  },
+  {
+   "ExecReader": "invalid",
+   "L1": "match",
+   "id": "P7",
+   "indep": "invalid",
+   "note": "wildcard hidden behind a trailing LF; 9111 4.1 says a member \"*\" always fails",
+   "presented": {
+    "accept-encoding": "br"
+   },
+   "reference": "match",
+   "stored": {
+    "accept-encoding": "gzip"
+   },
+   "vary": "*\n"
+  },
+  {
+   "ExecReader": "invalid",
+   "L1": "match",
+   "id": "P8",
+   "indep": "invalid",
+   "note": "same wildcard bypass with both sides absent",
+   "presented": {},
+   "reference": "match",
+   "stored": {},
+   "vary": "*\n"
+  },
+  {
+   "ExecReader": "invalid",
+   "L1": "match",
+   "id": "P6",
+   "indep": "invalid",
+   "note": "LF in a request field name",
+   "presented": {
+    "accept-encoding\n": "gzip"
+   },
+   "reference": "match",
+   "stored": {
+    "accept-encoding\n": "gzip"
+   },
+   "vary": "accept-encoding"
+  }
+ ],
+ "token_regex": "^[!#$%&'*+\\-.^_`|~0-9A-Za-z]+$"
+}

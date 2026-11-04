@@ -1,0 +1,11 @@
+command(base): printf '%s' '{"date_value": -86400, "request_time": 0, "response_time": 60, "now": 120}' | /usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/ExecDefects/base-cache_current_age.py
+command(cand): printf '%s' '{"date_value": -86400, "request_time": 0, "response_time": 60, "now": 120}' | /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/w1/ExecDefects/cache_current_age.py
+stdin: {"date_value": -86400, "request_time": 0, "response_time": 60, "now": 120}
+exit: base=0 cand=0
+stdout: IDENTICAL
+--- base stdout ---
+{"apparent_age":86460,"response_delay":60,"corrected_age_value":60,"corrected_initial_age":86460,"resident_time":60,"current_age":86520}
+--- cand stdout ---
+{"apparent_age":86460,"response_delay":60,"corrected_age_value":60,"corrected_initial_age":86460,"resident_time":60,"current_age":86520}
+--- base stderr ---
+--- cand stderr ---

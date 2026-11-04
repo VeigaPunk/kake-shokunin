@@ -1,0 +1,1101 @@
+{
+  "baselines": {
+    "v2-freeze": {
+      "cmd": "/usr/bin/python3 -B /fast/scratch/hyaku/kake-r88/MutReader/c2-v2/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/exe_vary_match.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v2-freeze-baseline",
+      "ctag": "v2-freeze",
+      "exit": 1,
+      "result": {
+        "cases_sha256": "c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d",
+        "claim": "C2",
+        "details": [
+          {
+            "case": "r53",
+            "err": "invalid_input: presented field 'accept-language' value must ",
+            "exit": 1,
+            "ok": false,
+            "out": ""
+          },
+          {
+            "case": "r150",
+            "err": "invalid_input: stored field 'accept' value must be a string ",
+            "exit": 1,
+            "ok": false,
+            "out": ""
+          },
+          {
+            "case": "r193",
+            "err": "invalid_input: stored field 'accept-encoding' value must be ",
+            "exit": 1,
+            "ok": false,
+            "out": ""
+          }
+        ],
+        "frozen": 20,
+        "frozen_total": 20,
+        "met": false,
+        "random": 197,
+        "random_sha256": "004a8eb75b95ed45919734cee6d2b501a6f9b8da61e654c58ec1ee2b87bc2b50",
+        "random_total": 200,
+        "revision": "file:/fast/scratch/hyaku/kake-r88/MutReader/exe_vary_match.py",
+        "tool_sha256": "fdceef474e618d6664c15333cba6a1fa136fbc44f2791bbbdbf92d234fb287d6"
+      },
+      "stderr": "",
+      "tag": "baseline"
+    },
+    "v3-live": {
+      "cmd": "/usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool /fast/scratch/hyaku/kake-r88/MutReader/exe_vary_match.py --work /fast/scratch/hyaku/kake-r88/MutReader/work/v3-live-baseline",
+      "ctag": "v3-live",
+      "exit": 0,
+      "result": {
+        "cases_sha256": "c461cbd87bc9b4818381c42cd847ee94c642bedfb2cf6c829a1828c311b0802d",
+        "claim": "C2",
+        "details": [],
+        "frozen": 20,
+        "frozen_total": 20,
+        "met": true,
+        "random": 200,
+        "random_sha256": "52714a5f4ae9b66ee444f39284b6e5ce575c6ae5760965fb8736e6983444b981",
+        "random_total": 200,
+        "revision": "file:/fast/scratch/hyaku/kake-r88/MutReader/exe_vary_match.py",
+        "tool_sha256": "fdceef474e618d6664c15333cba6a1fa136fbc44f2791bbbdbf92d234fb287d6"
+      },
+      "stderr": "",
+      "tag": "baseline"
+    }
+  },
+  "equivalence": {
+    "e20_dedup_removed": {
+      "in_process": true,
+      "sampled": 100000,
+      "splits": []
+    }
+  },
+  "kills": [
+    {
+      "caught_by_events": [
+        {
+          "case": 2,
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        2
+      ],
+      "frozen": 19,
+      "frozen_killers": [
+        2
+      ],
+      "met": false,
+      "name": "e01_name_case_sensitive",
+      "random": 200
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 9,
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r2",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r72",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r116",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r129",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        9,
+        "r2",
+        "r72",
+        "r116",
+        "r129"
+      ],
+      "frozen": 19,
+      "frozen_killers": [
+        9
+      ],
+      "met": false,
+      "name": "e02_no_ows_trim",
+      "random": 196
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 16,
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": 17,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r106",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        16,
+        17,
+        "r106"
+      ],
+      "frozen": 18,
+      "frozen_killers": [
+        16,
+        17
+      ],
+      "met": false,
+      "name": "e03_unordered_array",
+      "random": 199
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 7,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": 8,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r1",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r44",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r62",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r88",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r107",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r131",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r132",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r146",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r153",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r156",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        7,
+        8,
+        "r1",
+        "r44",
+        "r62",
+        "r88",
+        "r107",
+        "r131",
+        "r132",
+        "r146",
+        "r153",
+        "r156"
+      ],
+      "frozen": 18,
+      "frozen_killers": [
+        7,
+        8
+      ],
+      "met": false,
+      "name": "e04_star_as_token",
+      "random": 189
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 4,
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        4
+      ],
+      "frozen": 19,
+      "frozen_killers": [
+        4
+      ],
+      "met": false,
+      "name": "e05_absent_both_mismatch",
+      "random": 200
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 5,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": 6,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r20",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r41",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r42",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r60",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r83",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r89",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r97",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r104",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r126",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r136",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        5,
+        6,
+        "r20",
+        "r41",
+        "r42",
+        "r60",
+        "r83",
+        "r89",
+        "r97",
+        "r104",
+        "r126",
+        "r136"
+      ],
+      "frozen": 18,
+      "frozen_killers": [
+        5,
+        6
+      ],
+      "met": false,
+      "name": "e06_one_sided_match",
+      "random": 188
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 3,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r6",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r13",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r19",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r21",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r27",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r39",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r43",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r49",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r54",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r64",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r73",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        3,
+        "r6",
+        "r13",
+        "r19",
+        "r21",
+        "r27",
+        "r39",
+        "r43",
+        "r49",
+        "r54",
+        "r64",
+        "r73"
+      ],
+      "frozen": 19,
+      "frozen_killers": [
+        3
+      ],
+      "met": false,
+      "name": "e07_value_casefold",
+      "random": 173
+    },
+    {
+      "caught_by_events": [],
+      "exit": 0,
+      "failed_cases": [],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": true,
+      "name": "e08_internal_ws_collapse",
+      "random": 200
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 14,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r46",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r61",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r77",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r122",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r137",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r147",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r152",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r172",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r184",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r186",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r194",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        14,
+        "r46",
+        "r61",
+        "r77",
+        "r122",
+        "r137",
+        "r147",
+        "r152",
+        "r172",
+        "r184",
+        "r186",
+        "r194"
+      ],
+      "frozen": 19,
+      "frozen_killers": [
+        14
+      ],
+      "met": false,
+      "name": "e09_empty_vary_match",
+      "random": 189
+    },
+    {
+      "caught_by_events": [],
+      "exit": 0,
+      "failed_cases": [],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": true,
+      "name": "e10_dupkey_refusal_removed",
+      "random": 200
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": "r31",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r108",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r110",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r197",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        "r31",
+        "r108",
+        "r110",
+        "r197"
+      ],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": false,
+      "name": "e11_unnominated_compared",
+      "random": 196
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": "r7",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r24",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r103",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r110",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r121",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r128",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r158",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        "r7",
+        "r24",
+        "r103",
+        "r110",
+        "r121",
+        "r128",
+        "r158"
+      ],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": false,
+      "name": "e12_asymmetric_trim",
+      "random": 193
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 19,
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r16",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r76",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r134",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r150",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r193",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        19,
+        "r16",
+        "r76",
+        "r134",
+        "r150",
+        "r193"
+      ],
+      "frozen": 19,
+      "frozen_killers": [
+        19
+      ],
+      "met": false,
+      "name": "e13_int_value_coerced",
+      "random": 195
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 20,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r26",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r40",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r90",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r169",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        20,
+        "r26",
+        "r40",
+        "r90",
+        "r169"
+      ],
+      "frozen": 19,
+      "frozen_killers": [
+        20
+      ],
+      "met": false,
+      "name": "e14_vary_coerced",
+      "random": 196
+    },
+    {
+      "caught_by_events": [],
+      "exit": 0,
+      "failed_cases": [],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": true,
+      "name": "e15_empty_value_absent",
+      "random": 200
+    },
+    {
+      "caught_by_events": [],
+      "exit": 0,
+      "failed_cases": [],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": true,
+      "name": "e16_list_elem_check_removed",
+      "random": 200
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": "r53",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r183",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        "r53",
+        "r183"
+      ],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": false,
+      "name": "e17_empty_list_accepted",
+      "random": 198
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": "r53",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r150",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        },
+        {
+          "case": "r193",
+          "err": "",
+          "exit": 0,
+          "out": "mismatch"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        "r53",
+        "r150",
+        "r193"
+      ],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": false,
+      "name": "e18_star_masks_invalid",
+      "random": 197
+    },
+    {
+      "caught_by_events": [
+        {
+          "case": 15,
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r34",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        },
+        {
+          "case": "r109",
+          "err": "",
+          "exit": 0,
+          "out": "match"
+        }
+      ],
+      "exit": 1,
+      "failed_cases": [
+        15,
+        "r34",
+        "r109"
+      ],
+      "frozen": 19,
+      "frozen_killers": [
+        15
+      ],
+      "met": false,
+      "name": "e19_token_allows_space",
+      "random": 198
+    },
+    {
+      "caught_by_events": [],
+      "exit": 0,
+      "failed_cases": [],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": true,
+      "name": "e20_dedup_removed",
+      "random": 200
+    },
+    {
+      "caught_by_events": [],
+      "exit": 0,
+      "failed_cases": [],
+      "frozen": 20,
+      "frozen_killers": [],
+      "met": true,
+      "name": "e21_token_too_permissive",
+      "random": 200
+    }
+  ],
+  "populations": {
+    "absent_vs_empty": {
+      "frozen": 0,
+      "random": 0
+    },
+    "double_ws": {
+      "frozen": 0,
+      "random": 0
+    },
+    "dup_case_key": {
+      "frozen": 0,
+      "random": 0
+    },
+    "mixed_list": {
+      "frozen": 0,
+      "random": 0
+    },
+    "nonascii": {
+      "frozen": 0,
+      "random": 0
+    },
+    "star_at_all": {
+      "frozen": 2,
+      "random": 30
+    },
+    "star_with_invalid": {
+      "frozen": 0,
+      "random": 5
+    }
+  },
+  "source_sha256": "fdceef474e618d6664c15333cba6a1fa136fbc44f2791bbbdbf92d234fb287d6",
+  "witnesses": {
+    "e08_internal_ws_collapse": {
+      "candidate": {
+        "err": "",
+        "exit": 0,
+        "out": "mismatch"
+      },
+      "diverges": true,
+      "mutant": {
+        "err": "",
+        "exit": 0,
+        "out": "match"
+      },
+      "payload": {
+        "presented": {
+          "accept-encoding": "gzip; q=1"
+        },
+        "stored": {
+          "accept-encoding": "gzip;  q=1"
+        },
+        "vary": "accept-encoding"
+      }
+    },
+    "e10_dupkey_refusal_removed": {
+      "candidate": {
+        "err": "invalid_input: stored field name 'accept-encoding' is an ambiguous case-variant duplicate",
+        "exit": 1,
+        "out": ""
+      },
+      "diverges": true,
+      "mutant": {
+        "err": "",
+        "exit": 0,
+        "out": "match"
+      },
+      "payload": {
+        "presented": {
+          "accept-encoding": "br"
+        },
+        "stored": {
+          "Accept-Encoding": "gzip",
+          "accept-encoding": "br"
+        },
+        "vary": "accept-encoding"
+      }
+    },
+    "e15_empty_value_absent": {
+      "candidate": {
+        "err": "",
+        "exit": 0,
+        "out": "mismatch"
+      },
+      "diverges": true,
+      "mutant": {
+        "err": "",
+        "exit": 0,
+        "out": "match"
+      },
+      "payload": {
+        "presented": {
+          "accept-encoding": ""
+        },
+        "stored": {},
+        "vary": "accept-encoding"
+      }
+    },
+    "e16_list_elem_check_removed": {
+      "candidate": {
+        "err": "invalid_input: stored field 'accept-encoding' value must be a string or a non-empty array of strings",
+        "exit": 1,
+        "out": ""
+      },
+      "diverges": true,
+      "mutant": {
+        "err": "TypeError: sequence item 1: expected str instance, int found",
+        "exit": 1,
+        "out": ""
+      },
+      "payload": {
+        "presented": {
+          "accept-encoding": "gzip, 5"
+        },
+        "stored": {
+          "accept-encoding": [
+            "gzip",
+            5
+          ]
+        },
+        "vary": "accept-encoding"
+      }
+    },
+    "e21_token_too_permissive": {
+      "candidate": {
+        "err": "invalid_input: Vary member 'caf\u00e9' is not a token",
+        "exit": 1,
+        "out": ""
+      },
+      "diverges": true,
+      "mutant": {
+        "err": "",
+        "exit": 0,
+        "out": "match"
+      },
+      "payload": {
+        "presented": {
+          "caf\u00e9": "x"
+        },
+        "stored": {
+          "caf\u00e9": "x"
+        },
+        "vary": "caf\u00e9"
+      }
+    }
+  }
+}
