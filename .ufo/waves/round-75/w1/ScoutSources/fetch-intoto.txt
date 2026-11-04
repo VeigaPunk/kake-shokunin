@@ -1,0 +1,10 @@
+cmd: curl -sSL -w 'http_code=%{http_code}\nurl_effective=%{url_effective}\nsize_download=%{size_download}\nnum_redirects=%{num_redirects}\n' https://raw.githubusercontent.com/in-toto/attestation/main/spec/v1/statement.md
+--- second GET 2026-11-04T00:02:50Z ---
+http_code=200
+url_effective=https://raw.githubusercontent.com/in-toto/attestation/main/spec/v1/statement.md
+size_download=2492
+num_redirects=0
+curl_exit=0
+2492
+cbe684a18b812b8b613d9202eb43b2ea24477f91a2ad6ca5be935185a455ebea  /fast/scratch/hyaku/kake-r75/ScoutSources-6/refetch.md
+cmp: IDENTICAL to retained first-fetch bytes

@@ -1,0 +1,64 @@
+# ScoutRegistry receipts — round 75 w1 (C1 population)
+# base c9c5e484c533aa65f4374b841a3edcf572ed19a9; clone --shared at <scratch>/tree; HOME=<scratch>/home TMPDIR=<scratch>/tmp KAKE_SCRATCH=<scratch>/kake
+# host linux-x86_64; python3 3.14.8; /usr/bin/python -> python3; no tool installs
+
+row L1198: python3 -B scripts/redirect_audit.py --selftest
+  exit=0
+  summary=selftest: 23/23 passed
+row L1199: python3 -B scripts/citation_lint.py --selftest
+  exit=0
+  summary=selftest: 9/9 passed
+row L1215: python3 -B .ufo/waves/round-52/c52_wave_ledger.py --selftest
+  exit=0
+  summary=c52 ledger selftest: 19/19
+row L1276: python3 -B scripts/id_resolver.py --selftest
+  exit=0
+  summary=selftest: 72/72
+row L1293: TMPDIR=/fast/scratch/hyaku/kake-r75/ScoutRegistry/tmp python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --selftest
+  exit=0
+  summary=c58 receipt-rewrites selftest: 45/45
+row L1294: TMPDIR=/fast/scratch/hyaku/kake-r75/ScoutRegistry/tmp python3 -B .ufo/waves/round-58/c58_resolver_cases.py --selftest
+  exit=0
+  summary=selftest: ok (7 controls; P7 satisfied on a fixture lane)
+row L1307: python3 -B .ufo/waves/round-59/c59_axis_evidence.py --selftest
+  exit=0
+  summary=c59 axis-evidence selftest: 24/24
+row L1308: TMPDIR=/fast/scratch/hyaku/kake-r75/ScoutRegistry/tmp python3 -B .ufo/waves/round-59/c59_resolver_cases.py --selftest
+  exit=0
+  summary=selftest: ok (13 controls scored; P7 satisfied on a fixture lane) exit 0
+row L1396: python -B .ufo/waves/round-66/c66_gate_status_hostportable.py --selftest
+  exit=0
+  summary=selftest 86/86 passed
+row L1404: python3 -B .ufo/waves/round-73/c73_tmp_v3.py --selftest
+  exit=0
+  summary=C2v3 revision=selftest attack_accepted=0/0 legit_rejected=0/0 selftest=41/41 findings=[] met=True
+row L1425: python3 -B .ufo/waves/round-69/c69_recorded_counts.py --selftest --work /fast/scratch/hyaku/kake-r75/ScoutRegistry/kake/rc
+  exit=0
+  summary=selftest 6/6
+row L1430: python3 -B .ufo/waves/round-72/c72_tmp_v2.py --selftest
+  exit=0
+  summary=C2v2 selftest 11/11
+row L1431: python3 -B .ufo/waves/round-73/c73_wave_pointers.py --selftest --work /fast/scratch/hyaku/kake-r75/ScoutRegistry/kake/wp
+  exit=0
+  summary=selftest 6/6
+row L1432: python3 -B .ufo/waves/round-74/c74_registry_gap.py --selftest
+  exit=0
+  summary=selftest 8/8
+
+row L1274: no self-test command recorded (Kind declares `differential`); not executed
+row L1426: no self-test command recorded; `python3 -B .ufo/waves/round-69/c69_tmp_honour.py --selftest` exit=2 (argparse: --root --revision --work required)
+
+literal (unsubstituted) failures:
+  TMPDIR=<scratch> ... c58_receipt_rewrites.py --selftest  -> exit 1, bash: scratch: No such file or directory
+  TMPDIR=<scratch> ... c58_resolver_cases.py --selftest      -> exit 1, same
+  TMPDIR=<scratch> ... c59_resolver_cases.py --selftest      -> exit 1, same
+  ... c69_recorded_counts.py --selftest --work <dir>         -> exit 2, bash: syntax error near unexpected token newline
+  ... c73_wave_pointers.py --selftest [--work <dir>]         -> exit 1, bash: dir: No such file or directory
+
+C1v1 counter at base (freeze-commit file, --root <lane>):
+  C1v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 rows=28 live=16 files=16 mismatches=2 classes=E1 E3 append_only=true met=false
+    finding: E1 .ufo/waves/round-69/c69_tmp_honour.py: Kind is gate without a self-test mode or a declared differential
+    finding: E3 .ufo/waves/round-74/c74_registry_gap.py: cell enumerates 5 fixture ids, observed total 8
+  exit=1
+
+control comparison: .ufo/waves/round-75/controls/base-c1-row-truth.txt carries the same rows/live/files/mismatches/classes/append_only/met and exit 1 (receipt abbreviates the revision)
