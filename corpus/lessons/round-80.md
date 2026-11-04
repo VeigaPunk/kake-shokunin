@@ -196,3 +196,13 @@ corrected here rather than by rewriting an earlier line.
   the L1's implementation, `ExecQueue` wrote the re-derived seat record, `ScoutSources` found the
   unsatisfiable conjunct, `ScoutRecon` measured the 31/31 no-regression and the 12/12 predicted patch,
   and the two scribes produced the Gate, Mistakes, Corrections and criterion drafts this lesson lands.
+- **Residuals the wave's attacks found, recorded not papered over.** (a) A5 is not enforced by any
+  counter: nothing compares the tool's selftest count with round 79's 26, so the `selftest: 33/33
+  passed` receipt is evidence, not a conjunct — a tool that skipped A5 would still print `met=true`
+  (`w1/CriticC.md` §5). (b) The contract's junk-control sentence ("must still print `open=6`") is
+  contradicted by its own receipt (`open=5`); the limit is R79-5's textual conjunct, stated above.
+  (c) `ExecQueue`'s independent re-implementation agrees with the counter at both measured points but
+  records ten places where the contract text and the counter reading differ, six stricter and four
+  looser (`w1/ExecQueue.md` §B); the counter, not the prose, is what the predicate sentence names.
+  (d) A2's single-space asctime branch (`Nov 6`) is outside the measurable case set, so the claim
+  covers the two-space and two-digit forms it pins, not the widened branch.
