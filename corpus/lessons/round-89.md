@@ -143,3 +143,13 @@ non-conforming stubs reach `met=true` (Mistakes, row 4).
 - Item A is open for the reason in Mistakes row 5. The round is not admitted.
 - No storability, freshness, revalidation, reuse or serving claim is made, and
   no live surface is asserted clean.
+
+## Markers
+
+Read by `.ufo/waves/round-89/c89_defect_queue.py` (C1 items B, C and D). Each value
+is re-derived above; none is copied from a seat report.
+
+gate-sample: admits=2 rejects=2
+r88-gate-summary-correction: admits=2 rejects=2
+r88-c-rerun: retracted
+controls-count: 1604@2177058662d8778f1d1a685613f57deccb51ef01
