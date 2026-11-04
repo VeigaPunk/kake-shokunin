@@ -300,3 +300,26 @@ after the after-state would break the correspondence between the receipts and th
 round-83 repair is the four killer fixtures named above (C1: a non-3801 seat record, an
 `undisclosed=0 met=false` receipt; C2: equal instants, a green tree with a broken tool, a dropped A
 surface), then the same mutants re-run.
+
+## Appended erratum — the delta's `body=same` compares stored objects (ConnectorC §6)
+
+**[r82-erratum 2026-11-04]** The `[r82-note]` above says the six differing fields "track the request
+instant, not the resource". That is too broad for two of them, and the correction matters for how C2
+may be read. `x-github-request-id`'s trailing hex is a Unix epoch (the **cache-fill** instant) and
+`expires` is that epoch plus the 600-second `max-age`, so both are invariant across A→B on every
+surface — primary `…6AEB18EA` = `2026-11-04T11:37:14Z` with `expires` `11:47:14Z`; robots and sitemap
+`…6AEB1F72` = `2026-11-04T12:05:06Z` with `expires` `12:15:06Z`. Four of the six
+(`x-fastly-request-id`, `x-timer`, `x-served-by`, `x-cache`) are per-request; the other two are
+cache-fill-bound. Verified: `python3 -B .ufo/waves/round-82/w1/ConnectorC/cachefill.py` exits 0,
+printing `expires − fill = 600` on all six rows and `A.ghr == B.ghr` `True` on all three surfaces
+(`…/ConnectorC/cachefill.txt`).
+
+**Consequence.** Both captures observed the **same stored objects** — robots and sitemap as a HIT on
+the entry capture A's own MISS created, primary on an entry filled at `11:37:14Z`, 28 minutes before
+A. `body=same` therefore says the edge served identical bytes at two instants; it does **not** say the
+property's origin was read twice 55 minutes apart. `Age: 0` in B with `expires` already 45–133
+minutes past shows a revalidation, not a re-fill. This is mori's cache-selection rule (S594, RFC 9111
+§4.1) and kumitate's age rule (S237, §4.2.3) instantiated on kake's own property — reported as
+adjacency, not absorbed. Round 83's instrument change, cheaper than the UA check the note asks for:
+compare `x-github-request-id` per surface across the two trees, where equality means B may not have
+re-read origin — a fact the current record cannot express.

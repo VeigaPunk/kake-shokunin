@@ -208,3 +208,20 @@ record's own bytes.
 What this finding does **not** support: that `ds4cc.com`, its `robots.txt` or its `sitemap.xml` is
 correct, current beyond `2026-11-04T13:00:28Z`, or reachable by any crawler. It also does not support
 "the site has not changed since round 81" as a content claim about anything not captured here.
+
+## 7. Erratum — what `body=same` across these two captures does not mean (appended 2026-11-04)
+
+Section 6's reading that the two captures are separated by 55 minutes is true of the *fetch* instants
+and must not be read as two independent origin reads. The edge cached both: `x-github-request-id`'s
+trailing hex is the cache-fill epoch and `expires` is that epoch plus `max-age` (600 s), and both are
+identical across A→B — primary `…6AEB18EA` = `2026-11-04T11:37:14Z`, robots/sitemap `…6AEB1F72` =
+`2026-11-04T12:05:06Z`, with `expires − fill = 600` on all six rows. Capture B therefore observed the
+same stored objects as capture A (robots and sitemap as a HIT on the entry A's MISS created; primary
+on an entry filled 28 minutes before A), and `Age: 0` with `expires` already past indicates
+revalidation, not a re-fill. So `body=same` means "the edge served identical bytes at two recorded
+instants"; it does not mean the property re-read its origin. This is RFC 9111 cache-selection ground
+(S594 in mori, §4.1 `Vary`; S237 in kumitate, §4.2.3 `Age`) applied to this delta, reported as
+adjacency rather than re-taught. Evidence: `.ufo/waves/round-82/w1/ConnectorC/cachefill.py` (exit 0)
+and `…/ConnectorC/cachefill.txt`; `corpus/lessons/round-82.md` §Appended erratum. A future instrument
+could compare `x-github-request-id` per surface across the two trees, since equality there is a
+stronger statement than the `userAgent` comparison §6's follow-on names.

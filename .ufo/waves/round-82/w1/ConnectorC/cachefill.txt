@@ -1,0 +1,16 @@
+surface         tree fetchedAt              fill                   expires-fill cache age
+ds4cc-primary   A    2026-11-04T12:05:06Z   2026-11-04T11:37:14+00:00          600 HIT     0
+ds4cc-primary   B    2026-11-04T13:00:27Z   2026-11-04T11:37:14+00:00          600 HIT     0
+ds4cc-robots    A    2026-11-04T12:05:06Z   2026-11-04T12:05:06+00:00          600 MISS    0
+ds4cc-robots    B    2026-11-04T13:00:28Z   2026-11-04T12:05:06+00:00          600 HIT     0
+ds4cc-sitemap   A    2026-11-04T12:05:06Z   2026-11-04T12:05:06+00:00          600 MISS    0
+ds4cc-sitemap   B    2026-11-04T13:00:28Z   2026-11-04T12:05:06+00:00          600 HIT     0
+
+ds4cc-primary   A.ghr == B.ghr : True   (E2A6:40968:D9D21:FA585:6AEB18EA)
+ds4cc-robots    A.ghr == B.ghr : True   (18B6:FA00A:E44CC:105D8D:6AEB1F72)
+ds4cc-sitemap   A.ghr == B.ghr : True   (F7B2:33C0C4:E728D:108C80:6AEB1F72)
+
+identities: expires-fill==600 on all six; A.ghr==B.ghr on all three
+reading: x-github-request-id is the cache-fill fingerprint, replayed on later hits;
+         `body=same` across the two trees therefore compares the SAME stored objects,
+         not two independent origin reads.

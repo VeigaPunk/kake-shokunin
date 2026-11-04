@@ -20,18 +20,17 @@ intermediate working-tree read gave 193 registry rows; that is an artifact of th
 Exit codes as observed; `read` calls are reads, not commands.
 
 1. `read` — PROVINCE.md, contract.md, considerthese/2026-10-26.md, round-81-verifier-spotcheck.md,
-   capture-A receipts, ghp-etag-anatomy.md, scripts/capture_delta.py, scripts/response_snapshot.py,
+   capture-A receipts, ghp-etag-anatomy.md, scripts/{capture_delta,response_snapshot}.py,
    corpus/lessons/round-82.md, and the mori / kumitate / kama / kasegi / tabi / kaidoku / tameshi /
    chousa files cited below. (no exit code)
 2. `git -C <lane> show 41986601…:corpus/SOURCES.md > $S/SOURCES.base.md` → **0**
-3. `python3 -B $S/evidence.py > …/w1/ConnectorC/evidence.txt` → **0**, run twice, identical md5
-   `d1a55ea8023846410df65381fdcbf9b6`
+3. `python3 -B $S/evidence.py > …/w1/ConnectorC/evidence.txt` → **0** twice, md5 `d1a55ea8…f9b6`
 4. `bash $S/sibling_scan.sh > …/w1/ConnectorC/sibling-scan.txt` → **0**
 5. `git -C /home/vgpnk/Projects/shokuknow log -1 --format='%H %ad %s' -- merge/kake/SOURCES.append.md` → **0**
 6. `grep -nE 'EXCLUDE|exclude|SKIP|skip_|IGNORE_|VOLATILE' scripts/capture_delta.py` → **1** (no match
    ⇒ no header skip list; every recorded header field is compared)
-7. `grep -rn 'agreed=|disagreed=' --include=*.md --include=*.py .` (wave dirs excluded) → **1**
-   (no match ⇒ no committed agreement tally exists)
+7. `grep -rn 'agreed=|disagreed=' --include=*.md --include=*.py .` (wave dirs excluded) → **1** (no
+   match ⇒ no committed agreement tally exists)
 8. `grep -n -i 'assimilat|merge/kake|shokuknow' corpus/lessons/round-82.md` → **1** (no match ⇒ the
    lesson carries no `## Assimilation` section at all; §2)
 
@@ -75,7 +74,7 @@ Base blob (above) vs `/home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.m
 `5f0cd4c4…f0cc`), last touched by `ba6779f0160d12dd7373627e00291d6d5e3ba7ee` 2026-10-24 10:50 -0300 —
 11 days stale against the round-82 base. Both parse cleanly as 11-column GFM: lane `{11: 192}`, 0
 escaped pipes; package `{11: 129}`, **113 escaped `\|`** that a naive `split('|')` mis-reads as cell
-breaks (my own first pass did, and produced a phantom "104 malformed rows" — discarded, not reported).
+breaks (my own first pass did, producing a phantom "104 malformed rows" — discarded, not reported).
 
 **Ids.** Lane 192 unique (`S001..S454`, no duplicates; 162 `mined`, 8 `queued`, 22 `rejected`).
 Package 129 unique (`S287..S415`, no duplicates; **129/129 `mined`** — admits only, unlike the lane's
@@ -94,8 +93,8 @@ the lane's own adoption of those sources:
     S399→S249  S403→S421  S408→S422  S415→S429
 
 102 staged rows match no held URL; they are candidate new ground, not screened by this seat. The
-package adds no duplicate the lane lacks: at the base the lane holds 18 duplicate-URL groups on exact
-strings and 22 on the normalized unit (`evidence.txt` §D).
+package adds no duplicate the lane lacks: the base lane holds 18 duplicate-URL groups on exact strings
+and 22 on the normalized unit (`evidence.txt` §D).
 
 **`Assimilation` — routed finding, not repaired.** Command 8 returns no match:
 `corpus/lessons/round-82.md` (207 lines, landed 09:59) has `Claims / Corrections / Gate / Mistakes /
@@ -172,11 +171,10 @@ is not "content changed". Not restated here as new.
 
 **Evidence (committed bytes only; capture B is not needed).**
 
-- Capture A's three receipts were all fetched at `2026-11-04T12:05:06Z`. At that instant
-  `x-github-request-id` reads `…:6AEB18EA` (primary) but `…:6AEB1F72` (robots *and* sitemap), and
-  `x-timer` reads `S1793793906…` vs `S1793793907…` — the value tracks the *request instant*, not the
-  resource. `x-fastly-request-id`, `x-served-by`, `x-cache` and `expires` likewise differ across
-  surfaces fetched in the same second (`evidence.txt` §E).
+- Capture A's three receipts were all fetched at `2026-11-04T12:05:06Z`, yet disagree on
+  `x-github-request-id`, `x-fastly-request-id`, `x-timer`, `x-served-by`, `x-cache` and `expires`
+  (`evidence.txt` §E) — six fields that are therefore not resource-stable. §6 refines *which* of them
+  are per-request; the conclusion here needs only that they move while the bytes do not.
 - `scripts/capture_delta.py` (sha256 `4b0dc252…9680`, 457 lines) calls a surface `identical` only when
   status, body sha256, body length **and the whole header mapping** match, and has no header skip list
   (command 6). `identical=0` is therefore structural for all three surfaces, `changed=3` is not a
@@ -187,10 +185,10 @@ is not "content changed". Not restated here as new.
   `Content-Length` — `ghp-etag-anatomy.md`'s own rule, so `field=etag` is redundant with
   `last-modified` + `content-length`.
 - The substantive gap: `response_snapshot.py` pins the client (`USER_AGENT = "round61"`, line 78;
-  written per receipt at line 175) and all three surfaces answer `Vary: Accept-Encoding`, yet
-  `capture_delta.py` verifies only each receipt's own `method == "GET"` and **never compares
-  `userAgent` between the two trees**. A UA bump between rounds would compare two clients'
-  representations and print `body=changed` — under mori's K2, exactly the case that is not drift.
+  per receipt line 175) and all three surfaces answer `Vary: Accept-Encoding`, yet `capture_delta.py`
+  verifies only each receipt's own `method == "GET"` and **never compares `userAgent` between the two
+  trees**. A UA bump between rounds would compare two clients' representations and print
+  `body=changed` — under mori's K2, exactly the case that is not drift.
 
 **Proposed move (cheapest form; no predicate change).** Correct and extend the existing §Limits bullet
 in `corpus/lessons/round-82.md` (owner: the lesson scribe) — one edit, not a new section, and not
@@ -224,11 +222,71 @@ normalizes `response.json` — either would be worth knowing. (b) Re-derive §E/
 `python3 -B evidence.py`; deterministic (command 3). (c) After the round-83 change, add one fixture:
 two trees with differing `userAgent` and identical bodies must fault, not print `identical`.
 
+## 6. Correction appended after capture B landed (2026-11-04T13:00Z)
+
+Capture B and `controls/after-c2-delta.txt` existed by the time this seat closed, and they falsify part
+of §5's field list. Recorded rather than smoothed.
+
+**The record came out exactly as §5 predicted** — `surfaces=3 identical=0 changed=3 added=0 removed=0`
+with `body=same` on all three, and the differing field set is `date`, `x-fastly-request-id`,
+`x-served-by`, `x-timer`, plus `x-cache` on robots and sitemap. The theorem holds.
+
+**But `x-github-request-id` and `expires` did *not* move A→B**, and decoding them explains why. The
+trailing hex of `x-github-request-id` is a **unix epoch**, and `expires − thatEpoch = 600 s`
+(`max-age`) on every surface in both trees:
+
+| surface | fill epoch (from request-id) | A fetch | B fetch | `expires` | `x-cache` A→B |
+|---|---|---|---|---|---|
+| ds4cc-primary | `6AEB18EA` = 2026-11-04T11:37:14Z | 12:05:06Z | 13:00:27Z | 11:47:14Z (= fill+600) | HIT→HIT |
+| ds4cc-robots | `6AEB1F72` = 2026-11-04T12:05:06Z | 12:05:06Z | 13:00:28Z | 12:15:06Z (= fill+600) | MISS→HIT |
+| ds4cc-sitemap | `6AEB1F72` = 2026-11-04T12:05:06Z | 12:05:06Z | 13:00:28Z | 12:15:06Z (= fill+600) | MISS→HIT |
+
+So `x-github-request-id` is the **cache-fill (origin-fetch) fingerprint**, replayed on every later
+hit and revalidation; `expires` is that fill plus `max-age` and is likewise invariant. Both `Age: 0`
+in B while `expires` was already 45–133 minutes in the past means the edge **revalidated** and reset
+`Date`/`Age` without re-filling: B's `date` is B's revalidation instant, the object is not.
+
+**Consequence for C2, which §5 did not state.** Capture B observed the **same stored objects** as
+capture A — robots/sitemap as a HIT on the entry A's own MISS created, primary on an entry filled at
+11:37:14Z, 28 minutes *before* A. B therefore caused no origin re-read of any surface. `body=same`
+says the edge served identical bytes at two instants; it does **not** say the property's origin was
+read twice 55 minutes apart. That is precisely mori's cache-selection rule (S594, RFC 9111 §4.1) and
+kumitate's age rule (S237, §4.2.3) instantiated on kake's own property — the two adjacencies of §4.
+
+**Two corrections owed.**
+
+1. My §5 field list: of the six non-resource-stable fields, four are per-request
+   (`x-fastly-request-id`, `x-timer`, `x-served-by`, `x-cache`); two are cache-fill-bound
+   (`x-github-request-id`, `expires`). §5's "those fields track the request instant" was too broad.
+2. `corpus/lessons/round-82.md:236-250` — the landed `[r82-note]` repeats that sentence ("i.e. those
+   fields track the request instant, not the resource"). Not my file, so not edited. One appended
+   erratum, same shape as the others in that lesson:
+
+   > `[r82-erratum]` The note's "those fields track the request instant" is too broad for two of the
+   > six: `x-github-request-id`'s trailing hex is the cache-fill epoch and `expires` is that epoch plus
+   > `max-age`, so both are invariant across A→B (primary `…6AEB18EA` = 11:37:14Z with
+   > `expires` 11:47:14Z; robots/sitemap `…6AEB1F72` = 12:05:06Z with `expires` 12:15:06Z). Equality of
+   > `x-github-request-id` across two trees says the edge served the *same stored object*, not that it
+   > re-read the origin. Read `body=same` as "the edge served the same bytes", never as "the property
+   > was fetched twice".
+
+**This changes the round-83 instrument and makes it cheaper.** Comparing `x-github-request-id` per
+surface across the two trees is a stronger check than the `userAgent` comparison in §5, and it needs
+no new capture: equality means B may not have re-read origin, which is a fact the record currently
+cannot express. `Age` cannot substitute — B reads `Age: 0` with `expires` 45 minutes stale.
+
+**Verification.** `python3 -B ConnectorC/cachefill.py` → **exit 0**, printing all six
+`expires − fill` values as `600` and `A.ghr == B.ghr` as `True` for all three surfaces
+(`ConnectorC/cachefill.txt`). Any of those identities failing would break this section.
+
 ## Verdict
 
 C2 stays inside kake's province — no sibling holds a capture-to-capture drift gate, the ETag / §8.8.3
 ground is kake's own, no sibling claims a ds4cc surface — but two unrecorded adjacencies (mori's
-`Vary` rule, kumitate's receipt-age rule) must be cited rather than absorbed. The merge/kake package
+`Vary` rule, kumitate's receipt-age rule) must be cited rather than absorbed — and §6 now instantiates
+both on this property: capture B was served the *same stored edge objects* as A (`x-github-request-id`
+is the cache-fill epoch, identical A→B), so `body=same` dates two observations, not two origin reads.
+The merge/kake package
 re-derives at **8 id collisions** (all same-id, same-source), **27 staged rows with an already-held
 URL** (8 same-id + 19 under another lane id) and **102 unscreened rows** in a 2026-10-24 package; the
 round-82 lesson carries **no `## Assimilation` section**, so `Assimilation: none` is absent rather
@@ -236,6 +294,7 @@ than re-derivable and needs the line given in §2. Of the three candidates, **#4
 ledger)** is the single unimplemented proposal and the one that fits C1's dependence on the
 non-author closure; recommend it as a QUALITY criterion in round 83, not this round.
 
-Route: the §2 assimilation line and the §5 `[r82-note]` both go to the round-82 lesson's owner (the
-scribe) — one owner per slot, one landing each. No production file was written here, and nothing
-above is a claim that any surface is correct, current, or drifted.
+Route: the §2 assimilation line, the §5 `[r82-note]` and the §6 erratum all go to the round-82 lesson's
+owner (the L1/scribe) — one owner per slot, one landing each; §5's and §6's notes correct the same
+`## Limits` bullet. No production file was written here, and nothing above is a claim that any surface
+is correct, current, or drifted.

@@ -12,13 +12,16 @@ Prints four sections to stdout; the report quotes them verbatim.
 import email.utils
 import hashlib
 import json
+import os
 import re
 from collections import Counter
 from urllib.parse import urlsplit, parse_qsl, urlencode
 
-BASE = "/fast/scratch/hyaku/kake-r82/ConnectorC/SOURCES.base.md"
-STAGE = "/home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md"
 LANE = "/home/vgpnk/Projects/shokunin/kake-shokunin"
+# Re-derive with:
+#   git -C "$LANE" show 419866015b1f58e01f061cde9a77d490653d3c76:corpus/SOURCES.md > "$CONNECTORC_BASE"
+BASE = os.environ.get("CONNECTORC_BASE", "/fast/scratch/hyaku/kake-r82/ConnectorC/SOURCES.base.md")
+STAGE = "/home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md"
 CAPA = LANE + "/.ufo/waves/round-81/capture"
 SURFACES = ["ds4cc-primary", "ds4cc-robots", "ds4cc-sitemap"]
 
@@ -160,7 +163,7 @@ for n in names:
         'x-served-by', 'x-timer'):
         per_request.append(n)
 print(f"header_names_total        {len(names)}")
-print(f"proven_per_request_fields {per_request}")
+print(f"not_resource_stable_fields {per_request}")
 for n in per_request:
     print(f"  {n}: {[recs[s][n] for s in SURFACES]}")
 stable = [n for n in names if all(recs[s].get(n) is not None for s in SURFACES)
