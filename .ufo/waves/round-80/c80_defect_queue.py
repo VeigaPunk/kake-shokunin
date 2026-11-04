@@ -305,6 +305,10 @@ def main() -> int:
                 print(f"note: {errors}")
         else:
             tree, exported, label, base_snapshot = root, [], "worktree", None
+        if errors:
+            print(f"unevaluable: {errors}")
+            print("exit=2")
+            return 2
         verdicts = {
             "R79-1": p_r79_1(tree),
             "R79-2": p_r79_2(tree, work, base_snapshot),

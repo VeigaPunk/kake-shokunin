@@ -80,6 +80,9 @@ def main() -> int:
                   f"selftest_ok={str(r.get('selftest_ok')).lower()} ok={r['ok']}")
             if not r["ok"]:
                 print(f"  detail: {r['detail']}")
+        if any(r.get("rc") == 2 for r in runs):
+            print("exit=2")
+            return 2
         met = all(r["ok"] for r in runs)
         label = a.revision or "worktree"
         print(f"C2v1 revision={label} frozen_cases={runs[0].get('cases')} frozen_wrong={runs[0].get('wrong')} "
