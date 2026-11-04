@@ -505,3 +505,20 @@ Domain boundary unchanged: this is evidence about the lane's own instruments, no
 provenance and not any claim about a published site. Sibling adjacencies found this round (tabi
 measurement binding, chousa digest-in-tree, souji `TOOL_SHA256`, tameshi receipt-revision) are
 recorded in `corpus/knowledge/instrument-receipts.md` §Limits and stay with those lanes.
+
+## Round-76 hreflang frontier step (moves to Core)
+
+hreflang declarations are publisher-side markup, so they belong to this lane and are now core:
+
+- **Offline hreflang audit** `scripts/hreflang_audit.py` (round 76, selftest 59/59): a version-1 manifest of
+  local pages with absolute URLs; findings `hreflang_missing_value`, `hreflang_invalid_tag`,
+  `hreflang_relative_href`, `hreflang_duplicate_pair`, `hreflang_multiple_xdefault`,
+  `hreflang_self_missing`, `hreflang_nonreciprocal` / `hreflang_external_target` (informational),
+  `hreflang_canonical_not_self`; exits 0/1/2/64; frozen ASCII grammar for BCP-47-shaped tags, not a BCP-47
+  validator; no fetch, header, rendering, language-detection or ranking claim.
+- **Knowledge** `corpus/knowledge/hreflang-declaration.md` (S444–S446), coverage row in
+  `corpus/README.md` §"Coverage — round 76".
+- **Boundary kept:** choosing which variant an engine serves, translation quality, content-language
+  detection and rendered/header-delivered hreflang remain outside this lane; the audit reports
+  declarations only. The canonical-interaction finding is a lane policy (no opened source states it) and
+  the same-tag reciprocity rule is stricter than S444's stated rule — both are declared in the entry.
