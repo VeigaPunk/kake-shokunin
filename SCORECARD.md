@@ -5328,3 +5328,44 @@ Do not assume semantic frontier moved to core. A later authorized round
 needs field-specific order/duplicate rules and a counter-owned occurrence
 oracle before re-declaring semantic equivalence. Closure owns admission;
 this round does not start round 85.
+
+## Round 85 — bounded measured claims, author-side
+
+Base `bdabc6bc8f762a16c6c19c524c4ac84528eb4bf7`; frozen contract/counter
+`2f042c370b5f11b84d4f8c9e5d066517aef646b8`; validated wave handoff
+`856fa46bbeaf23d5d625be5d448852a6fe22c6e0`; measured carrier
+`aea07bf3c1d9e5ad50453af4e11cc52faf420e51`.
+
+| Claim | Axis / score delta | Before → after | Counting command | Evidence |
+|---|---|---|---|---|
+| C1 registry discoverability of three r84 verdict instruments | calibration 2→2 HOLD (lowest owned axis) | complete=0/3 missing=3 → complete=3/3 missing=0 | `python3 -B .ufo/waves/round-85/count.py --root . --revision <rev> --claim c1 --work <scratch>` | `controls/base-c1.txt`, `controls/after-c1-carrier.txt` under round-85; exit 1→0 |
+| C2 ordered Referrer-Policy decoder | freshness 10→10 HOLD; bounded capability | cases=0/10 (absent) → cases=10/10 | same counter with `--claim c2` | `controls/base-c2.txt`, `controls/after-c2-carrier.txt`; exit 1→0; independent CLI selftest 32/32; actual retained-property trial |
+
+These are finite targets, not whole-corpus cleanliness or full D84 queue
+closure. A bogus complete registry row or canned case discriminator can pass;
+truthful mappings and sequential implementation were reviewed separately.
+Generic r84 semantics remain experimental. Operability unchanged on exercised
+checks; offline freshness sweep exit 0 is partial and skips remote/history
+sections. Numeric legacy scores are not recalculated from these finite counts.
+
+### Demonstrated repertoire — round 85
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Offline ordered Referrer-Policy token decoder | Select the last recognized nonempty token from ordered JSON field strings; reject unsupported input; never infer browser defaults or publishing approval | `scripts/referrer_policy_effective.py`; S458; round-85 `controls/after-c2-carrier.txt`, `decoder-selftest.txt`, `integrated-trial.json` at carrier aea07bf3c1d9e5ad50453af4e11cc52faf420e51 | 85 |
+
+Wave w1: ten requested, ten nonempty settled, no dead seat or replacement;
+scout 1, executor 3, scribe 2, reviewer 2, critic 1, connector 1; attack
+3/10=30%. L1 planner and scout planning data-walk; literal L2-planner
+disagreement remains open. WAVE-DONE preceded integration. All production
+changes integrated by L1, seat candidates isolated in disjoint evidence paths.
+Registry 195→196, S458 tier A mined, census 0→0 with 22 W04 warnings each.
+Late shortcut receipts are disclosed, never presented as pre-freeze controls.
+Outside admission and source admit/reject agreement remain closure-owned.
+
+### Planned — after round 85
+
+Retain D84-2/3 and the unresolved D84-4 interpretation as open debt. A general
+semantic-equivalence claim needs a field-specific sourced oracle beyond finite
+canned cases. Do not use historical-red scope to hide a known false accept.
+No round 86 is started here.

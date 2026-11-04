@@ -2788,3 +2788,51 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - Wave WAVE-DONE: 13 settled, attack 4/13, one connector, no replacement.
   Evidence `.ufo/waves/round-84/w1-results.json` and `w1-accounting.json`.
   No publish/deploy, no tool installation; pacman untouched.
+
+## Round 85 — 2026-11-04, bounded registry and field-decoding work
+
+- **Claims and motive:** C1 calibration (lowest owned score 2) registers the
+  three r84 instruments missing from SKILL.md, motivated by D84-1 of
+  `corpus/lessons/round-84-verifier-spotcheck.md`; C2 freshness (HOLD 10)
+  acquires a separate ordered Referrer-Policy decoder, motivated by r84's
+  failed reorder-equivalence witness. No whole D84-queue closure is claimed.
+- **Freeze:** contract/counter and red base measurements landed at
+  `2f042c370b5f11b84d4f8c9e5d066517aef646b8`; validated ten-seat handoff
+  `856fa46bbeaf23d5d625be5d448852a6fe22c6e0`. Undispatched broad planning
+  draft discarded before freeze. Both unchanged controls fail at base.
+- **Landing and measurements:** carrier
+  `aea07bf3c1d9e5ad50453af4e11cc52faf420e51` carries truthful historical
+  registry rows, decoder, S458, knowledge/lesson and frontier records.
+  `python3 -B .ufo/waves/round-85/count.py --root . --revision <rev>
+  --claim c1 --work <scratch>` measures 0/3→3/3; c2 measures 0/10→10/10;
+  base exits 1, carrier exits 0. Receipts:
+  `.ufo/waves/round-85/controls/{base-c1.txt,base-c2.txt,after-c1-carrier.txt,after-c2-carrier.txt}`.
+- **Real domain trial:** `controls/integrated-trial.json` audits ordered
+  Referrer-Policy fields in six retained actual property captures: absent
+  fields produce empty token, not an inferred browser default. The separate
+  synthetic reversed r84 pair produces strict-origin versus no-referrer.
+  Trigger→read retained field order→decode→operator-facing negative/contrast
+  handoff; no fetch or property repair is falsely attributed to this trial.
+- **Verification:** integrated decoder selftest 32/32, exit 0; offline
+  freshness sweep exit 0 (partial only); source census exits 0→0, rows
+  195→196, 22 W04 warnings unchanged. Source S458 opened this round;
+  `corpus/lessons/round-85.md` Gate supplies exact URL/date/located quote.
+- **Wave:** w1 ten settled nonempty outputs; scout 1, executor 3, scribe 2,
+  reviewer 2, critic 1, connector 1; attack 3/10; no dead seat/replacement or
+  residual. WAVE-DONE received before L1-only production integration.
+  Accounting `.ufo/waves/round-85/w1-accounting.json`; results lack agent IDs,
+  so IDs are not invented. Live route config all @m_zfl; no model passed.
+- **Mistakes/limits:** late shortcut receipts are explicitly labelled;
+  frozen predicates unchanged. Bogus complete rows and canned discriminators
+  can meet finite counters (`w1/CriticClaims.md`), so do not narrate full
+  semantic/counter soundness. Python Unicode stripping is local profile.
+  D84-2/3 remain open; D84-4 mitigations do not silently settle planner
+  disagreement. `QUALITY.md` adds a lesson-backed finite-counter criterion.
+- **Frontier and teaching:** sourced new field-specific knowledge and
+  capability only; generic policy semantics remain frontier.
+  `considerthese/2026-10-26.md` proposal 5 mined into lesson historical-gate
+  table. Assimilation: none (no staged package adopted). All previous source
+  registry rows preserved; no mutable cells changed.
+- **Boundaries:** no publish/deploy, credentials, browser, account, DNS,
+  upstream source writes or MANIFEST edits. No installs/upgrades; pacman
+  untouched. Fleet misroot sweep receipt retained; no kake/r85 misroot found.
