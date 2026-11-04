@@ -1,0 +1,12 @@
+$ cd /home/vgpnk/Projects/shokunin/kake-shokunin
+$ { python3 -B .ufo/waves/round-80/c80_defect_queue.py --root . --revision 9998dc7a586b9fe76379014c8123aa3606f2d8b9 --work /fast/scratch/hyaku/kake-r80/ScribeRecord/base2/work; echo "exit=$?"; } > rerun.txt 2>&1
+$ tail -n +2 .ufo/waves/round-80/controls/base-c80-defect-queue.txt > receipt-body.txt
+$ diff -u receipt-body.txt rerun.txt
+
+IDENTICAL: the rewritten control receipt reproduces byte-for-byte from the post-amendment-2 counter (measured 2026-11-04)
+
+# shas of compared files
+f89345354aa0b18bc432efc38c5116e5fdab465e33b115680e6aa5210a278476  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/controls/base-c80-defect-queue.txt
+3c573676881075350b47c6855e08c246112d6534e37ae8b986a353e257a20a3c  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1/ScribeRecord/base-c80-defect-queue-rerun.txt
+# counter digest used
+ccb053189a454bdbadc288e1d09fe9092b70872ae27fd2189e213122e9522a32  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/c80_defect_queue.py

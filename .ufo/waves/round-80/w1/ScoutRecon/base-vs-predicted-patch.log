@@ -1,0 +1,79 @@
+== selftest ==
+base: selftest: 26/26 passed exit=0
+patched: selftest: 26/26 passed exit=0
+
+== frozen round-79 set (31) ==
+frozen_identical=31/31 diffs=0
+
+== probes (17) ==
+
+-- p01_c32_shape
+   base[1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p01_c32_shape", "url": "https://example.test/p01_c32_shape"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {}, "directives": ["unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"], "effective": ["unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"], "findings": [], "id": "p01_c32_shape", "url": "https://example.test/p01_c32_shape"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p02_c40_shape
+   base[1] {"checks": [{"bots": {"googlebot": []}, "directives": [], "effective": [], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p02_c40_shape", "url": "https://example.test/p02_c40_shape"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {"googlebot": ["unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"]}, "directives": [], "effective": [], "findings": [], "id": "p02_c40_shape", "url": "https://example.test/p02_c40_shape"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p03_c33_shape
+   base[1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p03_c33_shape", "url": "https://example.test/p03_c33_shape"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {}, "directives": ["unavailable_after:Sunday, 06-Nov-94 08:49:37 GMT"], "effective": ["unavailable_after:Sunday, 06-Nov-94 08:49:37 GMT"], "findings": [], "id": "p03_c33_shape", "url": "https://example.test/p03_c33_shape"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p04_c34_shape
+   base[1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value"], "id": "p04_c34_shape", "url": "https://example.test/p04_c34_shape"}], "exit": 1, "findings": ["xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {}, "directives": ["unavailable_after:Sun Nov  6 08:49:37 1994"], "effective": ["unavailable_after:Sun Nov  6 08:49:37 1994"], "findings": [], "id": "p04_c34_shape", "url": "https://example.test/p04_c34_shape"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p05_c43_shape
+   base[1] {"checks": [{"bots": {}, "directives": ["noindex"], "effective": ["noindex"], "findings": ["xrt_invalid_value"], "id": "p05_c43_shape", "url": "https://example.test/p05_c43_shape"}], "exit": 1, "findings": ["xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {}, "directives": ["noindex", "unavailable_after:Sun Nov 16 08:49:37 1994"], "effective": ["noindex", "unavailable_after:Sun Nov 16 08:49:37 1994"], "findings": [], "id": "p05_c43_shape", "url": "https://example.test/p05_c43_shape"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p06_c38_shape
+   base[1] {"checks": [{"bots": {}, "directives": ["noarchive", "noindex"], "effective": ["noarchive", "noindex"], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p06_c38_shape", "url": "https://example.test/p06_c38_shape"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {}, "directives": ["noarchive", "noindex", "unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"], "effective": ["noarchive", "noindex", "unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"], "findings": [], "id": "p06_c38_shape", "url": "https://example.test/p06_c38_shape"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p07_bare_date
+   base[1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_unknown_directive"], "id": "p07_bare_date", "url": "https://example.test/p07_bare_date"}], "exit": 1, "findings": ["xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_unknown_directive"], "id": "p07_bare_date", "url": "https://example.test/p07_bare_date"}], "exit": 1, "findings": ["xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+
+-- p08_c37_shape
+   base[1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p08_c37_shape", "url": "https://example.test/p08_c37_shape"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value"], "id": "p08_c37_shape", "url": "https://example.test/p08_c37_shape"}], "exit": 1, "findings": ["xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+
+-- p09_c39_shape
+   base[1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p09_c39_shape", "url": "https://example.test/p09_c39_shape"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [1] {"checks": [{"bots": {}, "directives": ["unavailable_after:Thu, 04 Dec 2025 13:09:53 GMT", "unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"], "effective": ["unavailable_after:Thu, 04 Dec 2025 13:09:53 GMT", "unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"], "findings": ["xrt_duplicate_directive"], "id": "p09_c39_shape", "url": "https://example.test/p09_c39_shape"}], "exit": 1, "findings": ["xrt_
+
+-- p10_c42_shape
+   base[1] {"checks": [{"bots": {}, "directives": ["max-snippet:20"], "effective": ["max-snippet:20"], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p10_c42_shape", "url": "https://example.test/p10_c42_shape"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {}, "directives": ["max-snippet:20", "unavailable_after:Sunday, 06-Nov-94 08:49:37 GMT"], "effective": ["max-snippet:20", "unavailable_after:Sunday, 06-Nov-94 08:49:37 GMT"], "findings": [], "id": "p10_c42_shape", "url": "https://example.test/p10_c42_shape"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p11_trailing_comma
+   base[1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_empty_rule", "xrt_invalid_value"], "id": "p11_trailing_comma", "url": "https://example.test/p11_trailing_comma"}], "exit": 1, "findings": ["xrt_empty_rule", "xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+   new [1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value"], "id": "p11_trailing_comma", "url": "https://example.test/p11_trailing_comma"}], "exit": 1, "findings": ["xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+
+-- p12_tail_botshape
+   base[1] {"checks": [{"bots": {"googlebot": ["noindex"]}, "directives": [], "effective": [], "findings": ["xrt_invalid_value"], "id": "p12_tail_botshape", "url": "https://example.test/p12_tail_botshape"}], "exit": 1, "findings": ["xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+   new [1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value"], "id": "p12_tail_botshape", "url": "https://example.test/p12_tail_botshape"}], "exit": 1, "findings": ["xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+
+-- p13_int_value_comma
+   base[1] {"checks": [{"bots": {}, "directives": ["max-snippet:20"], "effective": ["max-snippet:20"], "findings": ["xrt_unknown_directive"], "id": "p13_int_value_comma", "url": "https://example.test/p13_int_value_comma"}], "exit": 1, "findings": ["xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [1] {"checks": [{"bots": {}, "directives": ["max-snippet:20"], "effective": ["max-snippet:20"], "findings": ["xrt_unknown_directive"], "id": "p13_int_value_comma", "url": "https://example.test/p13_int_value_comma"}], "exit": 1, "findings": ["xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+
+-- p14_weekday_then_plain
+   base[1] {"checks": [{"bots": {}, "directives": ["noindex"], "effective": ["noindex"], "findings": ["xrt_invalid_value"], "id": "p14_weekday_then_plain", "url": "https://example.test/p14_weekday_then_plain"}], "exit": 1, "findings": ["xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+   new [1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value"], "id": "p14_weekday_then_plain", "url": "https://example.test/p14_weekday_then_plain"}], "exit": 1, "findings": ["xrt_invalid_value"], "schema": "x-robots-tag-report/v1"}
+
+-- p15_case_variant
+   base[1] {"checks": [{"bots": {}, "directives": [], "effective": [], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p15_case_variant", "url": "https://example.test/p15_case_variant"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {}, "directives": ["unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"], "effective": ["unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"], "findings": [], "id": "p15_case_variant", "url": "https://example.test/p15_case_variant"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p16_bot_then_plain
+   base[1] {"checks": [{"bots": {"googlebot": ["noarchive"]}, "directives": [], "effective": [], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "id": "p16_bot_then_plain", "url": "https://example.test/p16_bot_then_plain"}], "exit": 1, "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {"googlebot": ["noarchive", "unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"]}, "directives": [], "effective": [], "findings": [], "id": "p16_bot_then_plain", "url": "https://example.test/p16_bot_then_plain"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+-- p17_iso_with_comma
+   base[0] {"checks": [{"bots": {}, "directives": ["noindex", "unavailable_after:2025-12-31"], "effective": ["noindex", "unavailable_after:2025-12-31"], "findings": [], "id": "p17_iso_with_comma", "url": "https://example.test/p17_iso_with_comma"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+   new [0] {"checks": [{"bots": {}, "directives": ["noindex", "unavailable_after:2025-12-31"], "effective": ["noindex", "unavailable_after:2025-12-31"], "findings": [], "id": "p17_iso_with_comma", "url": "https://example.test/p17_iso_with_comma"}], "exit": 0, "findings": [], "schema": "x-robots-tag-report/v1"}
+
+== round-80 set under predicted patch (12) ==
+a2_predicted_correct=12/12

@@ -1,0 +1,6 @@
+# ScoutSources availability for ScribeKnowledge (timeline, UTC)
+2026-11-04T10:44Z (start): read ScoutSources.md -> Path not found; ls -la ScoutSources/ -> empty directory
+2026-11-04T10:45:05Z and 10:45:12Z: this seat's own one-GET-per-source fetches (see sources-receipts.json)
+2026-11-04T10:46-10:47Z: ScoutSources landed ScoutSources.md, S452-mdn-x-robots-tag.{raw,txt}, S453-rfc9110.txt, fetch-receipts.json
+Cross-check: RFC 9110 raw sha256 identical (21c1cdce...47232a); MDN raw sha256 identical (c4216ffb...aaf38); MDN stripped text differs by pipeline (this seat 302 lines / 17,936 B; scout 677 lines / 17,442 B)
+Scout self-probe of R79-1 (its report §7) agrees with this seat's probe: 11-cell row -> used-by read at index 11 -> open; 12-cell row -> row_shape rejects

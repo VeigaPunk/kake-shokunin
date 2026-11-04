@@ -1,0 +1,12 @@
+# R79-1 used-by conjunct: freeze f20163c1 vs HEAD de65ec21 (probe 2026-11-04T10:49:46Z)
+freeze counter sha256: 90649c08f06ca75c84610129c09835099bd4f1baedfc0b92f3131c0f97b26538
+HEAD counter sha256:   ccb053189a454bdbadc288e1d09fe9092b70872ae27fd2189e213122e9522a32
+freeze f20163c1 on an 11-cell row: (False, 'S453 used-by resolves to no file that cites S453')
+HEAD de65ec21 on the same row:   (True, 'S453 = RFC 9110 row present, used-by resolves (corpus/knowledge/http-date-grammar.md), row shape ok, erratum recorded')
+HEAD on a 12-cell row:           (False, 'S453 row fails the registry shape: 12 cells, want 11')
+--- counter selftest at HEAD
+  ok green-closes (True, 'S453 = RFC 9110 row present, used-by resolves (corpus/knowledge/x.md), row shape ok, erratum recorded')
+  ok unresolved-open (False, 'S453 used-by resolves to no file that cites S453')
+  ok twelve-open (False, 'S453 row fails the registry shape: 12 cells, want 11')
+selftest: 3/3 passed
+selftest_exit=0

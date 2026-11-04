@@ -64,12 +64,15 @@ ASCTIME_RE = re.compile(
     r" {1,2}[0-9]{1,2} "
     r"[0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{4}$")
 # Round-80 amendment 1: a comma immediately following the leading weekday token of an
-# `unavailable_after` value belongs to the value. The directive name is case-insensitive
-# (parse_rule lowercases it); the weekday spellings mirror the shape regexes. A matched
-# bot prefix is only a scope if its name is not a known directive (checked by the caller).
+# `unavailable_after` value belongs to the value. Matched against one piece of the
+# comma-split value: the piece must END at the weekday token, so the consumed comma
+# immediately followed it and the merge below restores it verbatim. The directive name
+# is case-insensitive (parse_rule lowercases it); the weekday spellings mirror the shape
+# regexes. A matched bot prefix is only a scope if its name is not a known directive
+# (checked by the caller).
 DATE_COMMA_RE = re.compile(
     r"^\s*(?:(?P<bot>[A-Za-z0-9_-]+)\s*:\s*)?(?i:unavailable_after)\s*:\s*"
-    r"(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s*$")
+    r"(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)$")
 
 
 class Fault(Exception):

@@ -1,0 +1,10 @@
+$ cd /home/vgpnk/Projects/shokunin/kake-shokunin
+$ { python3 -B .ufo/waves/round-80/c80_measure.py --root . --revision 9998dc7a586b9fe76379014c8123aa3606f2d8b9 --work /fast/scratch/hyaku/kake-r80/ScribeRecord/measure2; echo "exit=$?"; } > rerun.txt 2>&1
+$ tail -n +2 .ufo/waves/round-80/controls/base-c80-a2.txt > receipt-body.txt
+$ diff -u receipt-body.txt rerun.txt
+
+IDENTICAL: the committed receipt body reproduces byte-for-byte from committed bytes (measured 2026-11-04, scratch deleted after copy)
+
+# sha256 of the compared receipt and rerun:
+1ee112be655ea2f4a2688de73ee736b92e7d9eb6a19ca29549b64a9277bacc3b  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/controls/base-c80-a2.txt
+6b736da8658d393e705ab6b4dd2e85d7c481bcf750a442c0d00d3401060112db  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1/ScribeRecord/a2-rerun.txt
