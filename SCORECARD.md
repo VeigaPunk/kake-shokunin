@@ -5151,3 +5151,61 @@ knowledge population is sixty-seven at the carrier (sixty-six at the base) and t
 (`controls/census-before.txt`, `controls/census-after.txt`); the standing round-79 ledger gate is green
 at the carrier (`undisclosed=0 … met=true`, 36 events, `controls/after-c1-ledger-gate.txt` to be added
 with the settlement).
+
+## Round 81 — measured claims (author-side; closure owns admission)
+
+Frozen contract `.ufo/waves/round-81/contract.md` at `a77b8a19c2b65a07dfbe40aaf7ec86aaeee2f9cb`,
+frozen before any seat ran. Base `2e11925500dd5a739376c9108c94616243af0cd4`. Three amendments, each
+written before the after-state it governs and each disclosed in the round lesson: amendment 1
+(`0a27045e`) made the C1 counter's settled population the contract's sentence and corrected the S454
+anchor (§15.5.4 is 403 Forbidden; the row cites §15.5.5 + §15.5.11); amendment 2 (`eccd0f9c`) made
+the C2 counter measure the frozen declared expectations, added `--revision`, byte-exact audit
+equality and URL identity; amendment 3 (`a704ffa6`) replaced C2's lexical fetch-time compare with an
+instant compare. Predicates, item conditions, targets and kill rules never moved. Carrier
+`e84c354ecf43bac6dce46377ea22cb425158a36f` (C1), `395f123cd7ac7251e07890540b4f2e9a11353c84` (C2).
+
+Wave `w1`: one v1 wave, 15 requested seats inside the 8–16 band — scout 2, executor 4, scribe 2,
+reviewer 4, critic 1, mutation-tester 1, connector 1; requested attack share 6/15 = 40.0 % over the
+run-15 directive's roles {reviewer, critic, mutation-tester, labrat} (sentinel excluded), settled
+5/14 = 35.7 % with one reviewer seat (`ReviewRegression`) returning empty output. The L1 held the
+planner seat, as the validator forbids `planner` as a swarm role. Scores held: operability 10 HOLD,
+freshness 10 HOLD, calibration 2 HOLD.
+
+| Claim | Axis | Before → after | Counting command | Evidence/verdict |
+|---|---|---|---|---|
+| C1 the round-80 routed-defect queue closes | calibration 2→2 HOLD | base `2e119255`: `C1v1 revision=2e11925500dd5a739376c9108c94616243af0cd4 items=6 open=6 closed=0 met=false`, exit 1 (`controls/base-c81-defect-queue.txt`) → carrier `e84c354e`: `C1v1 revision=e84c354ecf43bac6dce46377ea22cb425158a36f items=6 open=0 closed=6 met=true`, exit 0 (`controls/after-c1.txt`) | `python3 -B .ufo/waves/round-81/c81_defect_queue.py --root . --revision <rev>` | measured met; counter selftest `selftest: 15/15 passed`, exit 0 (`controls/c81-selftest-c1.txt`) with one green fixture per item and mutants for the wrong line, wrong arithmetic, wrong count, the 0.25 floor, a drifted record and an empty-settled seat; junk control `open=6 closed=0 met=false`, exit 1 (`controls/ctl-c81-junk-queue.txt`); round-80's own counter re-run over the rebuilt junk tree (`controls/after-r80-5-junk-rerun.txt`). Limit: the six items are record-closures — a records-only tree reaches `open=0` (ReviewC1 F2), so the counter measures the record, not the reverification |
+| C2 a fresh capture feeds the offline audit and the verdict re-derives from committed bytes (capability) | operability 10→10 HOLD | base `2e119255`: `capture: no manifest at the measured revision`; `C2v1 revision=2e119255… declared=0 surfaces=0 failures=1 audit_rc=- met=false`, exit 1 (`controls/base-c81-capture-audit.txt`) → carrier `395f123c`: `C2v1 revision=395f123cd7ac7251e07890540b4f2e9a11353c84 declared=3 surfaces=3 failures=0 audit_rc=1 met=true`, exit 0 (`controls/after-c2-carrier.txt`) | `python3 -B .ufo/waves/round-81/c81_capture_audit.py --root . --revision <rev>` | measured met; three `ds4cc.com` surfaces captured once at `2026-11-04T12:05:06Z` (200, 78,897 / 62 / 7,810 bytes) with receipts and bodies committed under `.ufo/waves/round-81/capture/`; offline audit `checks=3 findings=4` committed byte-exactly (`controls/after-c2-audit.txt`); counter selftest `selftest: 22/22 passed`, exit 0 (`controls/c81-selftest-c2.txt`); tampered control (real capture, one body byte flipped) `met=false`, exit 1 (`controls/ctl-c81-tampered-capture.txt`) |
+
+Move log (round 81):
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 81 | calibration (HOLD 2) | `open=6 closed=0 met=false` at `2e119255`; the six routed items read open, three of them wrong numbers in filed prose (a line pointer, an arithmetic claim, a URL-scope count) | `open=0 closed=6 met=true` at `e84c354e`; each item decided by a conjunct over lane bytes — the registry line computed by the counter, the round-80 constants receipt re-summed, the registry `source` cells re-counted, the settled attack share re-derived from spec+results+record, round-80's own counter re-run over a rebuilt junk tree, the seat record re-derived canonically | `.ufo/waves/round-81/c81_defect_queue.py`; `controls/base-c81-defect-queue.txt` → `controls/after-c1.txt`; `controls/ctl-c81-junk-queue.txt`; `.ufo/waves/round-81/junk_tree_build.py`; `.ufo/waves/round-81/w1-accounting.json`; `.ufo/waves/round-81/seat-failures.json` |
+| 81 | operability (HOLD 10) | `declared=0 surfaces=0 met=false` — no capture tree, no manifest, the audit chain unmeasured; and the two counters' first versions measured less than their sentences (settled population; manifest self-assertion; lexical time compare) | three surfaces captured once GET-only, receipts committed, manifest the mechanical join of the frozen expectations file, offline audit committed byte-exactly, and the chain re-derived at a pinned revision: digests, byte counts, integer status, instant fetch-time floor, GET/truncation, url identity, https final URL on an allowlist, declared-surface equality, audit-output equality | `.ufo/waves/round-81/c81_capture_audit.py`; `.ufo/waves/round-81/capture-expectations.json`; `.ufo/waves/round-81/capture/**`; `controls/base-c81-capture-audit.txt` → `controls/after-c2-carrier.txt`; `controls/ctl-c81-tampered-capture.txt`; `amendments/amendment-2.md`, `amendments/amendment-3.md` |
+
+### Demonstrated repertoire, round 81
+
+| Capability | What it can do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Capture-once / audit-offline re-derivation chain (extends the round-61 offline header audit, which reads a manifest it is handed) | Takes one GET-only capture of a declared surface set, retains each receipt as committed bytes (final URL, integer status, fetch time, byte count, body sha256, retained body, header list), joins the frozen expectations file and the receipts into a version-1 manifest, runs the offline header audit over that manifest, and re-derives the whole chain at a measured revision — including that the manifest's surface set equals the declared one and that the audit's stdout is the committed receipt's bytes. Fetches nothing at measurement time; publishes nothing | `.ufo/waves/round-81/c81_capture_audit.py`; `controls/base-c81-capture-audit.txt` → `controls/after-c2-carrier.txt`; `controls/ctl-c81-tampered-capture.txt`; `controls/c81-selftest-c2.txt` (22/22) | 81 |
+
+Stated limits, not claimed closed: C1's six items are record-closures — a records-only tree with
+arithmetically correct numbers reaches `open=0` (`w1/ReviewC1.md` F2), so the counter measures the
+record and the non-author closure is what can catch a transcription; R80-1's condition never reads
+the routed round-80 documents; R80-5's rebuilt junk tree is verdict-equivalent to round-80's, not
+byte-identical, and its single closed item stays textual; R80-6 records the schema's silence about a
+seat's error text rather than the text itself; a *settled* seat means one that spoke, not one that
+succeeded, so the 0.25 floor is a speech floor. C2 decides the chain, not the property, and it cannot
+prove a capture came from a network — a well-formed fabrication with a real offline audit run reads
+`met=true` (`w1/ReviewC2.md` F1, `w1/CriticClaims.md` P3), so provenance is the round's capture
+transcript, not the predicate; the worktree mode is weaker than `--revision` mode because the audit
+tool is read at measure time. The capture recorded HTTP 200 for `/robots.txt` (62 B, `Allow: /`,
+`sitemap:` pointer) and `/sitemap.xml` (7,810 B, 100 `<loc>` entries), which supersedes the "still
+404" lines in `corpus/knowledge/publish-queue.md` for that instant by an appended observation, not a
+re-measurement of PQ-2's mirror accounting. The freshness axis is held, not re-measured live:
+`node scripts/freshness-sweep.mjs --offline` prints `VERDICT: OK (exit 0, partial: offline)`
+(`controls/after-freshness-offline.txt`) with its remote, armed and history sections skipped. Registry
+191 → 192 rows (`S454` added, `S433` re-opened with `recheck 180d → 2027-05-03` and `used-by` gaining
+this lesson); census exit 0 with `W04` 20 → 21 (`controls/census-before.txt`,
+`controls/census-after.txt`). Assimilation: none — the `merge/kake` package still collides on 8 ids
+(S312, S329, S367, S372, S373, S374, S390, S409), unchanged since round 80.
