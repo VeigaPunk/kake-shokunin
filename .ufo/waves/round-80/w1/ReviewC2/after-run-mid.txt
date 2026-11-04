@@ -1,0 +1,10 @@
+# C2 mid-review worktree state (asctime wired, comma protection NOT wired)
+$ python3 -B .ufo/waves/round-80/c80_measure.py --root <lane> --tool <lane>/scripts/x_robots_tag_audit.py --work /fast/scratch/hyaku/kake-r80/ReviewC2/after
+frozen: cases=31 decided=31 wrong=0 constants=4/4 selftest_ok=true ok=True
+a2: cases=12 decided=12 wrong=8 constants=4/4 selftest_ok=true ok=False
+C2v1 revision=worktree tool_sha256=f93e85c53f2bb29d1bbb7bb76befaeabb7058faeb8287478331676c8855864b4 tool_bytes=20634 cases=12 decided=12 correct=4 wrong=8 undecided=0 constants_failed=4/4 selftest_ok=true cases_sha256=61b4b44e4b0f2eb78341643b2bb8df8542c3a268a54236aa69dd65a525d09797 met=false
+exit=1
+RC=1
+sha256sum: f93e85c53f2bb29d1bbb7bb76befaeabb7058faeb8287478331676c8855864b4
+# At this state DATE_COMMA_RE was defined (scripts/x_robots_tag_audit.py:70-72) but unreferenced;
+# parse_field still `value.split(",")`. correct=4 = c34,c35,c36,c43.

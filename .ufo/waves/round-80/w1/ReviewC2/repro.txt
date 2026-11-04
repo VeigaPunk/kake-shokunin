@@ -1,0 +1,10 @@
+# Oracle authoring reproducibility check (ReviewC2-3)
+$ cp -r <lane>/.ufo/waves/round-80 /fast/scratch/hyaku/kake-r80/ReviewC2/repro/r80
+$ python3 -B /fast/scratch/hyaku/kake-r80/ReviewC2/repro/r80/make_cases.py
+cases=12
+MAKE_RC=0
+$ diff -r <lane>/.ufo/waves/round-80/cases <scratch>/repro/r80/cases
+$ diff <lane>/.ufo/waves/round-80/expect/expect.json <scratch>/repro/r80/expect/expect.json
+REPRO_BYTE_IDENTICAL
+# Re-running the committed authoring record reproduces all 12 manifests and the oracle byte for byte.
+# Frozen artifacts were not touched (copy ran in scratch only).

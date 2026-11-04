@@ -1,0 +1,18 @@
+# Boundary probes at final reviewed bytes c7ef7e49 (stable before/after; probe transcript abridged,
+# full stdout in session). 13/13 MATCH the round-79 grammar + round-80 amendment-1 text.
+p01 "unavailable_after: Wed, 03 Dec 2025 13:09:53 GMT, noindex"            rc=0 directives=[noindex, ua:Wed...] findings=[] MATCH
+p02 "noindex, unavailable_after: Wed, 03 Dec 2025 13:09:53 GMT"            rc=0 directives=[noindex, ua:Wed...] findings=[] MATCH
+p03 "unavailable_after: Wed, 03 Dec 2025 13:09:53 GMT,, noindex"           rc=1 directives=[noindex, ua:Wed...] findings=[xrt_empty_rule] MATCH
+p04 "googlebot: unavailable_after:"                                        rc=1 bots={googlebot: []} findings=[xrt_invalid_value] MATCH
+p05 "unavailable_after: Sunday, 06-Nov-94 08:49:37 GMT, noindex"           rc=0 directives=[noindex, ua:Sunday...] findings=[] MATCH
+p06 "unavailable_after:Wed,03 Dec 2025 13:09:53 GMT"                       rc=1 directives=[] findings=[xrt_invalid_value] MATCH (A3: invalid only, comma protected, shape fails)
+p07 "unavailable_after: Sun Nov   6 08:49:37 1994" (three spaces)          rc=1 directives=[] findings=[xrt_invalid_value] MATCH (A2 pins {1,2})
+p08 "unavailable_after: wed, 03 Dec 2025 13:09:53 GMT" (lowercase weekday) rc=1 directives=[] findings=[xrt_invalid_value, xrt_unknown_directive] MATCH (A1 scope: capitalized tokens only)
+p09 "googlebot: unavailable_after: Wed, 03 Dec 2025 13:09:53 GMT, noindex" rc=0 bots={googlebot: [noindex, ua:Wed...]} findings=[] MATCH (scope persists across protected comma)
+p10 "unavailable_after: Sun Nov 6 08:49:37 1994" (single-space 1-digit)    rc=0 directives=[ua:Sun Nov 6 ...] findings=[] MATCH (A2: single space accepted)
+p11 "unavailable_after: Sun Nov   6 08:49:37 1994, noindex" (3-space + ,)  rc=1 directives=[noindex] findings=[xrt_invalid_value] MATCH (shape-fail; comma split is incidental here)
+p12 "unavailable_after: Sunday, 06-Nov-94 08:49:37 PST"                    rc=1 directives=[] findings=[xrt_invalid_value] MATCH
+p13 "max-snippet: Wed, 03 Dec 2025"                                        rc=1 directives=[] findings=[xrt_invalid_value, xrt_unknown_directive] MATCH (A1 scope: protection requires unavailable_after)
+tool --selftest: rc=0 "selftest: 33/33 passed"
+tool_sha256_before=c7ef7e49e6bade0cb148125a8a219ff20b13d8b2a7c978d2471db8b2d8eb3fc5 bytes=23493
+tool_sha256_after=c7ef7e49e6bade0cb148125a8a219ff20b13d8b2a7c978d2471db8b2d8eb3fc5 stable=True

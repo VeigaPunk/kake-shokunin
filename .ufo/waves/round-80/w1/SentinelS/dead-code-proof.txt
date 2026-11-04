@@ -1,0 +1,7 @@
+piece-after-split(no comma): match=False bot=None
+full-value(comma present): match=True bot=None
+full-value+tail: match=True bot=None
+bot-scoped full: match=True bot=googlebot
+comma-after-space(not immediate): match=False bot=None
+parse_field wires split+match in snap: True
+CONCLUSION: after value.split(','), no piece contains ',', so DATE_COMMA_RE (pattern ends in literal ',') can never match any piece; merge condition is unreachable in snap c3b10f34.

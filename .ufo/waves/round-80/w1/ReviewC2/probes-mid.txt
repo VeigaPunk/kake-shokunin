@@ -1,0 +1,6 @@
+# Boundary probes at transient mid bytes f93e85c5 (asctime wired, comma protection unwired)
+# 7 of 12 probes DIVERGED from grammar; observed findings were [xrt_invalid_value, xrt_unknown_directive]
+# for every comma-bearing date value (comma split the date): p01 p02 p03(+xrt_empty_rule) p05 p06 p09 p12.
+# Matching probes at that state: p04 p07 p08 p10 p11(incidental) .
+# tool --selftest at f93e85c5: rc=0 "selftest: 26/26 passed" (pre-A5; no comma/asctime cases).
+# Superseded by probes-final.txt at c7ef7e49 where all 13 MATCH.

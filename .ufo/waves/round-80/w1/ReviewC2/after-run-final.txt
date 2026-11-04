@@ -1,0 +1,12 @@
+# C2 final worktree state reviewed (sha256 c7ef7e49e6bade0cb148125a8a219ff20b13d8b2a7c978d2471db8b2d8eb3fc5, 23493 B)
+$ python3 -B .ufo/waves/round-80/c80_measure.py --root <lane> --tool <lane>/scripts/x_robots_tag_audit.py --work /fast/scratch/hyaku/kake-r80/ReviewC2/after2
+frozen: cases=31 decided=31 wrong=0 constants=4/4 selftest_ok=true ok=True
+a2: cases=12 decided=12 wrong=0 constants=4/4 selftest_ok=true ok=True
+C2v1 revision=worktree frozen_cases=31 frozen_wrong=0 a2_cases=12 a2_wrong=0 constants=4/4+4/4 selftest=ok met=true
+exit=0
+RC=0
+sha256sum: c7ef7e49e6bade0cb148125a8a219ff20b13d8b2a7c978d2471db8b2d8eb3fc5
+# Transient intermediate state observed between mid and final (sha 82aebd920a8363021fecdce62e3b5d8a0fd32c6c8bf7eac1cd72629d03a4ce6d,
+# 21268 B): a2-set-only matrix run printed cases=12 correct=12 wrong=0 met=true exit=0.
+# That run measured ONLY the a2 set (single c79_xrt_matrix invocation), not the frozen+a2 pair;
+# it is superseded by the full measure above.
