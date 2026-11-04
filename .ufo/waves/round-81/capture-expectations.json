@@ -1,0 +1,44 @@
+{
+ "_note": "Round-81 C2 declared expectations, frozen before the capture was audited. The manifest at .ufo/waves/round-81/capture/manifest.json is the mechanical join of this file and the capture receipts: it adds only the per-surface `source` path. Expectations are the lane's declared policy, not a claim that the property satisfies them; a finding is the audit's output.",
+ "round": 81,
+ "allowlist": ["ds4cc.com", "www.ds4cc.com"],
+ "grounding": {
+  "expectations": "corpus/knowledge/response-header-expectations.md — six classes read off S430 (RFC 6797 HSTS), S431 (CSP Level 3), S432 (WHATWG Fetch X-Content-Type-Options) and S433 (RFC 9110 Content-Type sender rule and field-line syntax), re-opened this round",
+  "status": "S454 — RFC 9110 §15.5.4/§15.5.5: a surface answering 404 Not Found or 410 Gone is recorded as an absent resource with its status, never folded into an audit failure"
+ },
+ "surfaces": [
+  {
+   "id": "ds4cc-primary",
+   "url": "https://ds4cc.com/",
+   "expect": {
+    "content_type_present": true,
+    "hsts_present": true,
+    "xcto_nosniff_value": true,
+    "csp_present": true,
+    "singleton_fields": ["content-type", "strict-transport-security"]
+   }
+  },
+  {
+   "id": "ds4cc-robots",
+   "url": "https://ds4cc.com/robots.txt",
+   "expect": {
+    "content_type_present": true,
+    "hsts_present": true,
+    "xcto_nosniff_value": true,
+    "csp_present": false,
+    "singleton_fields": ["content-type"]
+   }
+  },
+  {
+   "id": "ds4cc-sitemap",
+   "url": "https://ds4cc.com/sitemap.xml",
+   "expect": {
+    "content_type_present": true,
+    "hsts_present": true,
+    "xcto_nosniff_value": true,
+    "csp_present": false,
+    "singleton_fields": ["content-type"]
+   }
+  }
+ ]
+}

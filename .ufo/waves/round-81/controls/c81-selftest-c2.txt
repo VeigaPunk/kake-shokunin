@@ -1,0 +1,15 @@
+$ python3 -B .ufo/waves/round-81/c81_capture_audit.py --selftest --work $HYAKU_SCRATCH/kake-r81/l1/st-c2
+  ok green-audit-ran :: rc=0
+  ok green-met :: surfaces=1 
+  ok tampered-audit-ran :: rc=0
+  ok body-digest-opens :: .ufo/waves/round-81/capture/surface-1/response.json: body sha256 49a03ce6a4ec != receipt b6c951ed9485; .ufo/waves/round-81/capture/surface-1/response.json: body sha256 49a03ce6a4ec != receipt b6c951ed9485
+  ok counted-audit-ran :: rc=0
+  ok byte-count-opens :: .ufo/waves/round-81/capture/surface-1/response.json: bytes 16 != body 15; .ufo/waves/round-81/capture/surface-1/response.json: bytes 16 != body 15
+  ok stale-audit-ran :: rc=0
+  ok stale-capture-opens :: .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z); .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z)
+  ok drifted-audit-ran :: rc=0
+  ok audit-drift-opens :: audit stdout differs from the committed receipt (1 vs 2 lines); .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-04T12:00:00Z ds4cc.com
+  ok empty-audit-ran :: rc=0
+  ok no-surface-opens :: manifest carries no check
+selftest: 12/12 passed
+exit=0
