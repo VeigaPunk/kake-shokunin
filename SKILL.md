@@ -1573,3 +1573,24 @@ The static import screen is not a network sandbox, and its green finite lookup
 selftest is not proof of a real parser. The delivered reader is a sequential
 implementation inspected separately. C1 stays unprovable; never seed a fabricated
 green receipt to satisfy R1.
+
+## Round 87 — conservative current-age arithmetic and finite ledger
+
+`corpus/knowledge/cache-current-age.md` (S462, RFC9111 §4.2.3) supplies the
+six-equation decision table, error patterns and runnable checklist. The offline
+probe consumes supplied integer-second Date/Age/local times; no Date parser,
+network, clock, storage/reuse permission or browser behavior is included.
+Conservative max is one allowed profile, not a universal RFC MUST.
+
+| Name | Kind | Entry command | Verdict map | Selftest | Pinned values | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| cache_current_age | probe | `python3 -B scripts/cache_current_age.py` with stdin JSON | 0 clean/calculated; 1 failed/invalid_input on stderr; calculation is not freshness/reuse | `TMPDIR=<explicit-scratch> python3 -B scripts/cache_current_age.py --selftest` | `.ufo/waves/round-87/age-cases.json`; separate exact-type/diagnostic receipts in w1/ReviewAge/ | normal stdin/stdout/stderr only; selftest temporary fixtures under explicit TMPDIR, deleted on exit | kake |
+| c87 finite claims | gate | `python3 -B .ufo/waves/round-87/count.py --root . --revision <rev> --claim c1` or c2 with `--work <explicit-scratch>` | 0 clean/met; 1 failed/not-met; other nonzero could-not-evaluate | `python3 -B .ufo/waves/round-87/count.py --selftest` | `.ufo/waves/round-87/{expected-ledger.json,age-cases.json,snapshots/}` frozen at 58fee726102aa89ad2c1fa9f697869de3a212510 | read revision; c2 writes/deletes one tool file under explicit work; selftest reads isolated frozen fixture files | kake |
+
+The eight-row `corpus/knowledge/gate-agreement-ledger.json` is self-assessment
+metadata for r84–86, not domain knowledge or source-truth certification.
+Its missing-row baseline is not eight false historical decisions. Frozen C1
+eagerly reads the C2 case fixture but does not depend on the C2 tool/result.
+C2's Python equality accepts equal floats/bools and checks invalid exits only:
+independent exact-type/diagnostic review is separate, not counter enforcement.
+D84-2/3 and the operator-owned literal-planner conflict D84-4 remain open.

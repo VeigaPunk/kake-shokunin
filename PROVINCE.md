@@ -688,3 +688,14 @@ Referrer-Policy token interpretation to held Frontier ground. This is not a
 repair or semantic approval of the r84 general policy classifier, not browser
 referrer generation and not authorization to publish. It reads already-isolated
 field values, never fetches or changes a property.
+
+## Round 87 — Age arithmetic only
+
+`corpus/knowledge/cache-current-age.md` (S462) and `scripts/cache_current_age.py`
+hold conservative RFC9111 §4.2.3 six-term arithmetic on supplied integer epoch
+seconds. This advances only the Age-arithmetic slice: Date/Age header extraction,
+missing-Date handling, cache storage/reuse permission, Vary/Pragma, browser/runtime
+behavior and publication remain outside this capability. Conservative max is a
+chosen allowed profile, not the only RFC algorithm. No property repair or reuse
+approval follows from a calculated age. The r84–86 gate-agreement JSON ledger is
+calibration metadata, not new province ground or domain knowledge.

@@ -1,0 +1,11 @@
+## Round 87 — frozen comparison is receipt-independent and agreement is metadata
+
+Grounding: round-87 lesson §Mistakes (candidate at `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ScribeLesson/round-87.md`); `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md`, §Per-axis verdicts; the existing Round 86 QUALITY criterion's live-fleet comparison defect; proposal 4 in `/home/vgpnk/Projects/shokunin/kake-shokunin/considerthese/2026-10-26.md`.
+
+**Admit** a bounded comparison only when frozen expected rows and revision-pinned source snapshots are inputs, successful measurement receipts are downstream outputs, and the other claim's success is not an input. Missing, duplicate, altered and extra rows count against the fixed target; source digest mismatch cannot be excused by matching copied rows. Independently compare expected decisions with the source tables before interpreting a zero mismatch count.
+
+**Reject** a predicate satisfied by seeding its own future green receipt or another claim's success; a live fleet file presented as revision-frozen evidence; or a gate-agreement ledger promoted to domain truth, general calibration, or outside admission. The ledger is calibration metadata even if stored under a knowledge directory. Closure owns the independent spot-check.
+
+**Able-to-fail conditions:** empty/altered/duplicate ledger or tampered source must miss the frozen target; receipt-only changes must not repair claim content. The r86 self-certifying R1 is the observed historical failure. r87 mutant execution receipts remain unobserved by this scribe and must be supplied before claiming the new controls have passed. A copied lie may satisfy finite equality; source-table review and explicit scope remain required.
+
+**Operational carry:** dispose of inherited untracked scratch mirrors without deleting tracked historical evidence; quarantine candidate registry rows before an authorized append, never afterward. r86 closure routed both defects. r87 assimilation is none, so no assimilation success or append-order execution is inferred. L1's disposal record is reported as L1 evidence, not this seat's execution.

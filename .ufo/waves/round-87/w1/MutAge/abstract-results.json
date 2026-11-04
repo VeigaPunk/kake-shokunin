@@ -1,0 +1,1658 @@
+{
+  "kind": "abstract model, not actual CLI mutant",
+  "cases_sha256": "cea987d4ce15d53f0f80f59c28b14d2978edde1f0f768daf8aadf900defad25e",
+  "results": [
+    {
+      "model": "pristine",
+      "matched": 17,
+      "total": 17,
+      "misses": [],
+      "invalid_exits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "details": [
+        {
+          "case": 1,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 2,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 10,
+            "resident_time": 0,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 3,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 4,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 10,
+            "corrected_age_value": 30,
+            "corrected_initial_age": 30,
+            "resident_time": 0,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 5,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 10,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 20,
+            "resident_time": 30,
+            "current_age": 50
+          }
+        },
+        {
+          "case": 6,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 5,
+            "corrected_age_value": 10,
+            "corrected_initial_age": 10,
+            "resident_time": 40,
+            "current_age": 50
+          }
+        },
+        {
+          "case": 7,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 1,
+            "response_delay": 1,
+            "corrected_age_value": 1,
+            "corrected_initial_age": 1,
+            "resident_time": 2,
+            "current_age": 3
+          }
+        },
+        {
+          "case": 8,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 100,
+            "corrected_initial_age": 100,
+            "resident_time": 0,
+            "current_age": 100
+          }
+        },
+        {
+          "case": 9,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 10,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 11,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 2147483648,
+            "corrected_initial_age": 2147483648,
+            "resident_time": 2147483648,
+            "current_age": 4294967296
+          }
+        },
+        {
+          "case": 12,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 20,
+            "resident_time": 10,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 13,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 14,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 15,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 16,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 17,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        }
+      ]
+    },
+    {
+      "model": "drop_response_delay",
+      "matched": 11,
+      "total": 17,
+      "misses": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ],
+      "invalid_exits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "details": [
+        {
+          "case": 1,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 2,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 10,
+            "resident_time": 0,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 3,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 4,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 10,
+            "corrected_age_value": 20,
+            "corrected_initial_age": 20,
+            "resident_time": 0,
+            "current_age": 20
+          }
+        },
+        {
+          "case": 5,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 10,
+            "corrected_age_value": 5,
+            "corrected_initial_age": 20,
+            "resident_time": 30,
+            "current_age": 50
+          }
+        },
+        {
+          "case": 6,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 5,
+            "corrected_age_value": 5,
+            "corrected_initial_age": 5,
+            "resident_time": 40,
+            "current_age": 45
+          }
+        },
+        {
+          "case": 7,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 1,
+            "response_delay": 1,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 1,
+            "resident_time": 2,
+            "current_age": 3
+          }
+        },
+        {
+          "case": 8,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 100,
+            "corrected_initial_age": 100,
+            "resident_time": 0,
+            "current_age": 100
+          }
+        },
+        {
+          "case": 9,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 15,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 10,
+            "resident_time": 15,
+            "current_age": 25
+          }
+        },
+        {
+          "case": 10,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 15,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 15,
+            "current_age": 15
+          }
+        },
+        {
+          "case": 11,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 2147483648,
+            "corrected_initial_age": 2147483648,
+            "resident_time": 2147483648,
+            "current_age": 4294967296
+          }
+        },
+        {
+          "case": 12,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 20,
+            "resident_time": 10,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 13,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 14,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 15,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 16,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 17,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        }
+      ]
+    },
+    {
+      "model": "min_initial",
+      "matched": 8,
+      "total": 17,
+      "misses": [
+        2,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "invalid_exits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "details": [
+        {
+          "case": 1,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 2,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 3,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 4,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 10,
+            "corrected_age_value": 30,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 5,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 10,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 30,
+            "current_age": 45
+          }
+        },
+        {
+          "case": 6,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 5,
+            "corrected_age_value": 10,
+            "corrected_initial_age": 0,
+            "resident_time": 40,
+            "current_age": 40
+          }
+        },
+        {
+          "case": 7,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 1,
+            "response_delay": 1,
+            "corrected_age_value": 1,
+            "corrected_initial_age": 1,
+            "resident_time": 2,
+            "current_age": 3
+          }
+        },
+        {
+          "case": 8,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 100,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 9,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 10,
+            "resident_time": 15,
+            "current_age": 25
+          }
+        },
+        {
+          "case": 10,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 0,
+            "resident_time": 15,
+            "current_age": 15
+          }
+        },
+        {
+          "case": 11,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 2147483648,
+            "corrected_initial_age": 0,
+            "resident_time": 2147483648,
+            "current_age": 2147483648
+          }
+        },
+        {
+          "case": 12,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 10,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 13,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 14,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 15,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 16,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 17,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        }
+      ]
+    },
+    {
+      "model": "omit_resident",
+      "matched": 10,
+      "total": 17,
+      "misses": [
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12
+      ],
+      "invalid_exits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "details": [
+        {
+          "case": 1,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 2,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 10,
+            "resident_time": 0,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 3,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 4,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 10,
+            "corrected_age_value": 30,
+            "corrected_initial_age": 30,
+            "resident_time": 0,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 5,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 10,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 20,
+            "resident_time": 30,
+            "current_age": 20
+          }
+        },
+        {
+          "case": 6,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 5,
+            "corrected_age_value": 10,
+            "corrected_initial_age": 10,
+            "resident_time": 40,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 7,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 1,
+            "response_delay": 1,
+            "corrected_age_value": 1,
+            "corrected_initial_age": 1,
+            "resident_time": 2,
+            "current_age": 1
+          }
+        },
+        {
+          "case": 8,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 100,
+            "corrected_initial_age": 100,
+            "resident_time": 0,
+            "current_age": 100
+          }
+        },
+        {
+          "case": 9,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 15
+          }
+        },
+        {
+          "case": 10,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 15
+          }
+        },
+        {
+          "case": 11,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 2147483648,
+            "corrected_initial_age": 2147483648,
+            "resident_time": 2147483648,
+            "current_age": 2147483648
+          }
+        },
+        {
+          "case": 12,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 20,
+            "resident_time": 10,
+            "current_age": 20
+          }
+        },
+        {
+          "case": 13,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 14,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 15,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 16,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 17,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        }
+      ]
+    },
+    {
+      "model": "omit_clamp_apparent",
+      "matched": 16,
+      "total": 17,
+      "misses": [
+        3
+      ],
+      "invalid_exits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "details": [
+        {
+          "case": 1,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 2,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 10,
+            "resident_time": 0,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 3,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": -10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 4,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 10,
+            "corrected_age_value": 30,
+            "corrected_initial_age": 30,
+            "resident_time": 0,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 5,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 10,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 20,
+            "resident_time": 30,
+            "current_age": 50
+          }
+        },
+        {
+          "case": 6,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 5,
+            "corrected_age_value": 10,
+            "corrected_initial_age": 10,
+            "resident_time": 40,
+            "current_age": 50
+          }
+        },
+        {
+          "case": 7,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 1,
+            "response_delay": 1,
+            "corrected_age_value": 1,
+            "corrected_initial_age": 1,
+            "resident_time": 2,
+            "current_age": 3
+          }
+        },
+        {
+          "case": 8,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 100,
+            "corrected_initial_age": 100,
+            "resident_time": 0,
+            "current_age": 100
+          }
+        },
+        {
+          "case": 9,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 10,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 11,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 2147483648,
+            "corrected_initial_age": 2147483648,
+            "resident_time": 2147483648,
+            "current_age": 4294967296
+          }
+        },
+        {
+          "case": 12,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 20,
+            "resident_time": 10,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 13,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 14,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 15,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 16,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 17,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        }
+      ]
+    },
+    {
+      "model": "ignore_Age",
+      "matched": 12,
+      "total": 17,
+      "misses": [
+        4,
+        5,
+        6,
+        8,
+        11
+      ],
+      "invalid_exits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "details": [
+        {
+          "case": 1,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 2,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 10,
+            "resident_time": 0,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 3,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 4,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 10,
+            "corrected_age_value": 10,
+            "corrected_initial_age": 10,
+            "resident_time": 0,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 5,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 10,
+            "corrected_age_value": 10,
+            "corrected_initial_age": 20,
+            "resident_time": 30,
+            "current_age": 50
+          }
+        },
+        {
+          "case": 6,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 5,
+            "corrected_age_value": 5,
+            "corrected_initial_age": 5,
+            "resident_time": 40,
+            "current_age": 45
+          }
+        },
+        {
+          "case": 7,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 1,
+            "response_delay": 1,
+            "corrected_age_value": 1,
+            "corrected_initial_age": 1,
+            "resident_time": 2,
+            "current_age": 3
+          }
+        },
+        {
+          "case": 8,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 9,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 10,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 11,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 2147483648,
+            "current_age": 2147483648
+          }
+        },
+        {
+          "case": 12,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 20,
+            "resident_time": 10,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 13,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 14,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 15,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 16,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 17,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        }
+      ]
+    },
+    {
+      "model": "constantzero",
+      "matched": 7,
+      "total": 17,
+      "misses": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "invalid_exits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "details": [
+        {
+          "case": 1,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 2,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 10,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 3,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 4,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 10,
+            "corrected_age_value": 30,
+            "corrected_initial_age": 30,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 5,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 10,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 20,
+            "resident_time": 30,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 6,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 5,
+            "corrected_age_value": 10,
+            "corrected_initial_age": 10,
+            "resident_time": 40,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 7,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 1,
+            "response_delay": 1,
+            "corrected_age_value": 1,
+            "corrected_initial_age": 1,
+            "resident_time": 2,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 8,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 100,
+            "corrected_initial_age": 100,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 9,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 10,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 11,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 2147483648,
+            "corrected_initial_age": 2147483648,
+            "resident_time": 2147483648,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 12,
+          "ok": false,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 20,
+            "resident_time": 10,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 13,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 14,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 15,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 16,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 17,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        }
+      ]
+    },
+    {
+      "model": "restored",
+      "matched": 17,
+      "total": 17,
+      "misses": [],
+      "invalid_exits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "details": [
+        {
+          "case": 1,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 2,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 10,
+            "resident_time": 0,
+            "current_age": 10
+          }
+        },
+        {
+          "case": 3,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 0,
+            "resident_time": 0,
+            "current_age": 0
+          }
+        },
+        {
+          "case": 4,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 10,
+            "corrected_age_value": 30,
+            "corrected_initial_age": 30,
+            "resident_time": 0,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 5,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 10,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 20,
+            "resident_time": 30,
+            "current_age": 50
+          }
+        },
+        {
+          "case": 6,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 5,
+            "corrected_age_value": 10,
+            "corrected_initial_age": 10,
+            "resident_time": 40,
+            "current_age": 50
+          }
+        },
+        {
+          "case": 7,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 1,
+            "response_delay": 1,
+            "corrected_age_value": 1,
+            "corrected_initial_age": 1,
+            "resident_time": 2,
+            "current_age": 3
+          }
+        },
+        {
+          "case": 8,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 100,
+            "corrected_initial_age": 100,
+            "resident_time": 0,
+            "current_age": 100
+          }
+        },
+        {
+          "case": 9,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 10,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 10,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 15,
+            "corrected_age_value": 15,
+            "corrected_initial_age": 15,
+            "resident_time": 15,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 11,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 0,
+            "response_delay": 0,
+            "corrected_age_value": 2147483648,
+            "corrected_initial_age": 2147483648,
+            "resident_time": 2147483648,
+            "current_age": 4294967296
+          }
+        },
+        {
+          "case": 12,
+          "ok": true,
+          "exit": 0,
+          "output": {
+            "apparent_age": 20,
+            "response_delay": 0,
+            "corrected_age_value": 0,
+            "corrected_initial_age": 20,
+            "resident_time": 10,
+            "current_age": 30
+          }
+        },
+        {
+          "case": 13,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 14,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 15,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 16,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        },
+        {
+          "case": 17,
+          "ok": true,
+          "exit": 1,
+          "output": null
+        }
+      ]
+    }
+  ]
+}

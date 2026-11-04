@@ -2898,3 +2898,44 @@ Nine payload-absent claims remain unadopted, three historical unfetchable claims
 unverifiable. New S460 is a fresh observation, not adoption of either old API
 receipt. Sweep ran late, after append; actual adopted source openings/probe and
 mirror census preceded append. Register/source tree unchanged.
+
+## Round 87 — 2026-11-04, finite agreement record and conservative current age
+
+Motivation: r86 outside closure rejected self-certifying C1 and routed raw-mirror
+disposal; round86 README left Age arithmetic frontier. Two claims frozen at
+58fee726102aa89ad2c1fa9f697869de3a212510: C1 calibration8 missing historical
+agreement rows→0 mismatches; C2 freshness capability absent0/17→17/17 fixed
+cases. Exact command/base/control receipts under `.ufo/waves/round-87/controls/`.
+Numeric calibration2/freshness10 held, no universal calibration assertion.
+
+Integrated isolated candidate `scripts/cache_current_age.py` and source-backed
+`corpus/knowledge/cache-current-age.md` (S462); conservative max is permitted,
+not sole RFC algorithm. Added finite eight-row gate-agreement metadata from
+r84–86 source snapshots, mining considerthese/2026-10-26.md proposal4; it is not
+domain expansion or improved historical accuracy. Updated SKILL registry,
+PROVINCE, README and QUALITY; all cite round87 lesson Gate/Mistakes and internal
+review evidence. Source registry adds only S462; S461 scope unchanged.
+
+One validated12-seat wave, WAVE-DONE before integration: scout1/executor3/
+scribe3/reviewer2/critic1/mutation-tester1/connector1; attack4/12; L1 planner,
+no replacement/residual. Handoff .ufo/waves/round-87/wave-done-receipt.txt.
+All12 nonempty outputs; no dead error reported; IDs/status fields absent from
+results, limitation disclosed. No claim depends on answering model.
+
+Actual domain work trigger→action→outcome: publisher-side ds4cc.com age
+preparation→ExecTrial one public GET with Date/Age and observed timing→offline
+candidate arithmetic matched all six terms; handoff
+`.ufo/waves/round-87/w1/ExecTrial/trial-run.json`. Observed times share one
+second/Age0; all-zero output is real use but not shortcut-discriminating proof.
+Separate actual mutation battery kills six one-term mutants; independent
+fresh60 and candidate CLI selftest61 retained in wave evidence.
+
+Counter limitations remain: exact Python equality accepts floats/bools; invalid
+diagnostics not frozen-tested; C1 eagerly loads fixed C2 fixture but not its
+result/tool. No frozen bytes changed. Candidate exact types/diagnostics are
+independently checked. C1 copied-oracle green is metadata fidelity, not source
+truth. D84-2/3/4 and outside admission remain open. Untracked inherited r86 raw
+HTML mirror disposed with exact rm exit0 in bindings-disposal.md; no tracked
+historical receipt removed. Assimilation none; quarantine-order rule retained,
+not falsely credited as exercised. No tools installed. Production revision
+measurements follow as a new appended record, never rewritten receipt labels.

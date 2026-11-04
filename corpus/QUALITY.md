@@ -1738,3 +1738,22 @@ append a newly grounded row for previously excluded order/argument support
 (S461 supplements S457). Literal `180d` belongs in the registry cadence cell;
 recheck commands and conditions belong in the lesson. The initial scratch mirror
 failed E09/E11 and only the corrected, real dependency-complete mirror passed.
+
+## Round 87 — source-pinned agreement is metadata, not truth
+
+Grounding: `corpus/lessons/round-87.md` Mistakes; the r86 outside self-certifying
+predicate/live-fleet drift findings; `considerthese/2026-10-26.md` proposal4.
+Admit a finite agreement ledger only when expected decisions independently
+match pinned source tables, source hashes are checked, and success receipts
+remain downstream outputs. Reject own-green or other-claim-success inputs,
+live fleet bytes called revision-frozen, or metadata promoted to domain truth.
+Able-to-fail witnesses: `w1/ReviewCounter/mutants.json` under round87 has
+missing/altered/digest/duplicate/extra-row failures; copied-oracle zero is a
+disclosed counter limitation, not proof of performed assessment.
+
+Also reject Python equality alone as proof of exact integer JSON output types.
+`w1/ReviewAge/predicate-results.json` and `w1/CriticClaims/probe.json` show
+bool/float equality false accepts; the independent 60-case exact-type/diagnostic
+review is separate evidence. Preserve the frozen instrument; a future counter
+loads claim fixtures lazily and checks types/diagnostics explicitly. Do not
+misreport either limitation as fixed by changing historical frozen bytes.

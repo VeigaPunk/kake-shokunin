@@ -1,0 +1,19 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "/fast/scratch/hyaku/kake-r87/ReviewCounter/count.py",
+    "--root",
+    "/home/vgpnk/Projects/shokunin/kake-shokunin",
+    "--revision",
+    "58fee726102aa89ad2c1fa9f697869de3a212510",
+    "--claim",
+    "c1",
+    "--work",
+    "/fast/scratch/hyaku/kake-r87/ReviewCounter/count"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r87/ReviewCounter/count.py\", line 12, in <module>\n    CASES = json.loads((HERE / 'age-cases.json').read_text())\n                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kake-r87/ReviewCounter/age-cases.json'\n",
+  "fixture": "Frozen count.py and expected-ledger.json copied byte-for-byte; age-cases.json absent; repository unchanged"
+}

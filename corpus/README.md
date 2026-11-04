@@ -683,3 +683,17 @@ corpus/lessons/round-85-verifier-spotcheck.md.
 - Round-86 C1's self-certifying after-receipt and live-fleet dependency remain
   defective; see `lessons/round-86.md` and the frozen counter review. No fabricated
   green receipt or post-scoring predicate amendment is allowed.
+
+## Coverage — round 87
+
+| Area | Entry | Bounded held ground |
+|---|---|---|
+| Conservative current-age arithmetic | `knowledge/cache-current-age.md` (S462); `scripts/cache_current_age.py` | Six RFC9111 §4.2.3 arithmetic terms on supplied integer-second Date/Age/local times; absent Age defaults zero; missing Date and invalid timing reject |
+
+This supersedes only the round-86 frontier sentence's Age-arithmetic slice.
+Date/Age header extraction, missing-Date support, Vary/Pragma, general policy
+equivalence, independent changed-row oracle, storage/reuse authorization,
+browser/runtime behavior and live repair remain frontier. The conservative max
+is permitted, not exclusive. The separate `knowledge/gate-agreement-ledger.json`
+records eight historical r84–86 gate/closure decisions as calibration metadata:
+no domain expansion credit and no source-truth certification.

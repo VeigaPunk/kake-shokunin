@@ -1,0 +1,98 @@
+[
+  {
+    "round": 84,
+    "item": "S457 response max-age semantics",
+    "sha256": "80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9",
+    "digest_matches": true,
+    "table_rows": [
+      {
+        "line": 73,
+        "text": "| S457 response max-age semantics | admit/mined | https://httpwg.org/specs/rfc9111.html \u00a75.2.2.1; https://www.rfc-editor.org/rfc/rfc9111.txt \u00a75.2.2.1 | agree | Live source says exactly: \u201cThe max-age response directive indicates that the response is to be considered stale after its age is greater than the specified number of seconds.\u201d Independent `len(quote.split())=24`; `quote in live_html=True`. Scope excludes lane class names/equivalence. |"
+      }
+    ]
+  },
+  {
+    "round": 84,
+    "item": "\u00a74.1 normalization as response-directive reorder proof",
+    "sha256": "80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9",
+    "digest_matches": true,
+    "table_rows": [
+      {
+        "line": 74,
+        "text": "| \u00a74.1 normalization as response-directive reorder proof | reject | Same reopened documents, \u00a74.1 Calculating Cache Keys with the Vary Header Field | agree | Exact phrase \u201creordering field values when order is not significant\u201d is present; context expressly says \u201cThe header fields from two requests are defined to match\u201d. Request-key normalization does not prove arbitrary response policy equivalence. |"
+      }
+    ]
+  },
+  {
+    "round": 84,
+    "item": "\u00a75.2.2.2 as max-age anchor",
+    "sha256": "80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9",
+    "digest_matches": true,
+    "table_rows": [
+      {
+        "line": 75,
+        "text": "| \u00a75.2.2.2 as max-age anchor | reject | Same documents, \u00a75.2.2.1 and \u00a75.2.2.2 | agree | Actual headings are max-age at .1 and must-revalidate at .2, not the wave spec's mistaken pairing. |"
+      }
+    ]
+  },
+  {
+    "round": 85,
+    "item": "S458 field-specific algorithm",
+    "sha256": "948c316831d0c71927e6a29501f05037b3faa940a251984ed28ca8f0eee2ce71",
+    "digest_matches": true,
+    "table_rows": [
+      {
+        "line": 71,
+        "text": "| S458 field-specific algorithm | admit | https://w3c.github.io/webappsec-referrer-policy/ \u00a78.1 steps 2\u20134, reopened 2026-11-04 | agree | Policy starts empty and is overwritten by every recognized nonempty token in order; the bounded decoder implements that rule. |"
+      }
+    ]
+  },
+  {
+    "round": 85,
+    "item": "Blanket response-policy reorder equivalence",
+    "sha256": "948c316831d0c71927e6a29501f05037b3faa940a251984ed28ca8f0eee2ce71",
+    "digest_matches": true,
+    "table_rows": [
+      {
+        "line": 72,
+        "text": "| Blanket response-policy reorder equivalence | reject | https://www.w3.org/TR/referrer-policy/ \u00a711.1, direct public GET reopened 2026-11-04 | agree | The latest recognized policy wins; reversed recognized tokens need not preserve effective policy. This cannot justify arbitrary-header equivalence. |"
+      }
+    ]
+  },
+  {
+    "round": 86,
+    "item": "S459 CrUX Vis docs",
+    "sha256": "47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b",
+    "digest_matches": true,
+    "table_rows": [
+      {
+        "line": 89,
+        "text": "| S459 CrUX Vis docs | admit (A) | GET https://developer.chrome.com/docs/crux/vis \u2192 200, 114607 B | **agree** | Exact quote present: \"If your origin is not included in the CrUX dataset, there will be no data to display.\" (17 words, \"Does it work for all websites?\"); teaching scoped, no overclaim. |"
+      }
+    ]
+  },
+  {
+    "round": 86,
+    "item": "S461 RFC 9111 slice",
+    "sha256": "47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b",
+    "digest_matches": true,
+    "table_rows": [
+      {
+        "line": 90,
+        "text": "| S461 RFC 9111 slice | admit (A) | GET https://httpwg.org/specs/rfc9111.html \u2192 200, 178573 B | **agree** | Exact quote present: \"either the first occurrence should be used or the response should be considered stale\" (14 words, \u00a74.2.1 \u00b64); \u226425-word located quotes for all three new rows check out; supersedes-S457 scope correctly narrow. |"
+      }
+    ]
+  },
+  {
+    "round": 86,
+    "item": "RFC 7234 minimum-duplicate attribution",
+    "sha256": "47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b",
+    "digest_matches": true,
+    "table_rows": [
+      {
+        "line": 91,
+        "text": "| RFC 7234 minimum-duplicate attribution | reject proposition | GET https://www.rfc-editor.org/rfc/rfc7234.txt \u2192 200, 90647 B | **agree** | \u00a74.2.1 says \"the directive's value is considered invalid\"; no first-occurrence/minimum-duplicate rule exists there (grep sweep), so the historical attribution was false and the primary-source correction is grounded. |"
+      }
+    ]
+  }
+]

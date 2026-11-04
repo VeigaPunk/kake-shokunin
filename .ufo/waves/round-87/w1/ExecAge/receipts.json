@@ -1,0 +1,205 @@
+{
+  "python": "3.14.8 (main, Oct  2 2026, 10:23:31) [GCC 16.2.1 20260810]",
+  "candidate_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+  "oracle_sha256": "cea987d4ce15d53f0f80f59c28b14d2978edde1f0f768daf8aadf900defad25e",
+  "selftest": {
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecAge/cache_current_age.py",
+      "--selftest"
+    ],
+    "cwd": "/fast/scratch/hyaku/kake-r87/ExecAge",
+    "TMPDIR": "/fast/scratch/hyaku/kake-r87/ExecAge",
+    "exit": 0,
+    "stdout": "selftest: 61 isolated CLI fixtures passed\n",
+    "stderr": ""
+  },
+  "frozen_cases": {
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecAge/cache_current_age.py"
+    ],
+    "driver": "Direct subprocess for each unchanged age-cases.json input; exit and full valid JSON compared exactly as count.py.",
+    "cwd": "/fast/scratch/hyaku/kake-r87/ExecAge",
+    "TMPDIR": "/fast/scratch/hyaku/kake-r87/ExecAge",
+    "cases": 17,
+    "total": 17,
+    "valid": 12,
+    "met": true,
+    "exit": 0,
+    "details": [
+      {
+        "case": 1,
+        "stdin": "{\"date_value\": 100, \"request_time\": 100, \"response_time\": 100, \"now\": 100, \"age_value\": 0}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":0,\"response_delay\":0,\"corrected_age_value\":0,\"corrected_initial_age\":0,\"resident_time\":0,\"current_age\":0}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 2,
+        "stdin": "{\"date_value\": 90, \"request_time\": 100, \"response_time\": 100, \"now\": 100, \"age_value\": 0}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":10,\"response_delay\":0,\"corrected_age_value\":0,\"corrected_initial_age\":10,\"resident_time\":0,\"current_age\":10}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 3,
+        "stdin": "{\"date_value\": 110, \"request_time\": 100, \"response_time\": 100, \"now\": 100, \"age_value\": 0}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":0,\"response_delay\":0,\"corrected_age_value\":0,\"corrected_initial_age\":0,\"resident_time\":0,\"current_age\":0}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 4,
+        "stdin": "{\"date_value\": 100, \"request_time\": 90, \"response_time\": 100, \"now\": 100, \"age_value\": 20}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":0,\"response_delay\":10,\"corrected_age_value\":30,\"corrected_initial_age\":30,\"resident_time\":0,\"current_age\":30}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 5,
+        "stdin": "{\"date_value\": 80, \"request_time\": 90, \"response_time\": 100, \"now\": 130, \"age_value\": 5}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":20,\"response_delay\":10,\"corrected_age_value\":15,\"corrected_initial_age\":20,\"resident_time\":30,\"current_age\":50}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 6,
+        "stdin": "{\"date_value\": 100, \"request_time\": 95, \"response_time\": 100, \"now\": 140, \"age_value\": 5}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":0,\"response_delay\":5,\"corrected_age_value\":10,\"corrected_initial_age\":10,\"resident_time\":40,\"current_age\":50}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 7,
+        "stdin": "{\"date_value\": 0, \"request_time\": 0, \"response_time\": 1, \"now\": 3, \"age_value\": 0}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":1,\"response_delay\":1,\"corrected_age_value\":1,\"corrected_initial_age\":1,\"resident_time\":2,\"current_age\":3}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 8,
+        "stdin": "{\"date_value\": 10, \"request_time\": 10, \"response_time\": 10, \"now\": 10, \"age_value\": 100}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":0,\"response_delay\":0,\"corrected_age_value\":100,\"corrected_initial_age\":100,\"resident_time\":0,\"current_age\":100}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 9,
+        "stdin": "{\"date_value\": 50, \"request_time\": 45, \"response_time\": 60, \"now\": 75, \"age_value\": 0}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":10,\"response_delay\":15,\"corrected_age_value\":15,\"corrected_initial_age\":15,\"resident_time\":15,\"current_age\":30}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 10,
+        "stdin": "{\"date_value\": 60, \"request_time\": 45, \"response_time\": 60, \"now\": 75, \"age_value\": 0}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":0,\"response_delay\":15,\"corrected_age_value\":15,\"corrected_initial_age\":15,\"resident_time\":15,\"current_age\":30}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 11,
+        "stdin": "{\"date_value\": 0, \"request_time\": 0, \"response_time\": 0, \"now\": 2147483648, \"age_value\": 2147483648}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":0,\"response_delay\":0,\"corrected_age_value\":2147483648,\"corrected_initial_age\":2147483648,\"resident_time\":2147483648,\"current_age\":4294967296}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 12,
+        "stdin": "{\"date_value\": -20, \"request_time\": 0, \"response_time\": 0, \"now\": 10, \"age_value\": 0}",
+        "expected_exit": 0,
+        "exit": 0,
+        "stdout": "{\"apparent_age\":20,\"response_delay\":0,\"corrected_age_value\":0,\"corrected_initial_age\":20,\"resident_time\":10,\"current_age\":30}\n",
+        "stderr": "",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 13,
+        "stdin": "{\"date_value\": 0, \"request_time\": 2, \"response_time\": 1, \"now\": 3}",
+        "expected_exit": 1,
+        "exit": 1,
+        "stdout": "",
+        "stderr": "invalid_input: require request_time <= response_time <= now\n",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 14,
+        "stdin": "{\"date_value\": 0, \"request_time\": 0, \"response_time\": 2, \"now\": 1}",
+        "expected_exit": 1,
+        "exit": 1,
+        "stdout": "",
+        "stderr": "invalid_input: require request_time <= response_time <= now\n",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 15,
+        "stdin": "{\"date_value\": 0, \"request_time\": 0, \"response_time\": 1, \"now\": 2, \"age_value\": -1}",
+        "expected_exit": 1,
+        "exit": 1,
+        "stdout": "",
+        "stderr": "invalid_input: age_value must be nonnegative\n",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 16,
+        "stdin": "{\"date_value\": false, \"request_time\": 0, \"response_time\": 1, \"now\": 2}",
+        "expected_exit": 1,
+        "exit": 1,
+        "stdout": "",
+        "stderr": "invalid_input: date_value must be an integer, not boolean\n",
+        "frozen_match": true,
+        "diagnostic_match": true
+      },
+      {
+        "case": 17,
+        "stdin": "{\"request_time\": 0, \"response_time\": 1, \"now\": 2}",
+        "expected_exit": 1,
+        "exit": 1,
+        "stdout": "",
+        "stderr": "invalid_input: missing date_value\n",
+        "frozen_match": true,
+        "diagnostic_match": true
+      }
+    ]
+  }
+}

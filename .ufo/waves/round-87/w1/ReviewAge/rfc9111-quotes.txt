@@ -1,0 +1,88 @@
+4.2.3. Calculating Age
+
+   The Age header field is used to convey an estimated age of the
+   response message when obtained from a cache.  The Age field value is
+   the cache's estimate of the number of seconds since the origin server
+   generated or validated the response.  The Age value is therefore the
+   sum of the time that the response has been resident in each of the
+   caches along the path from the origin server, plus the time it has
+   been in transit along network paths.
+
+   Age calculation uses the following data:
+
+   "age_value"
+      The term "age_value" denotes the value of the Age header field
+      (Section 5.1), in a form appropriate for arithmetic operation; or
+      0, if not available.
+
+   "date_value"
+      The term "date_value" denotes the value of the Date header field,
+      in a form appropriate for arithmetic operations.  See
+      Section 6.6.1 of [HTTP] for the definition of the Date header
+      field and for requirements regarding responses without it.
+
+   "now"
+      The term "now" means the current value of this implementation's
+      clock (Section 5.6.7 of [HTTP]).
+
+   "request_time"
+      The value of the clock at the time of the request that resulted in
+      the stored response.
+
+   "response_time"
+      The value of the clock at the time the response was received.
+
+   A response's age can be calculated in two entirely independent ways:
+
+   1.  the "apparent_age": response_time minus date_value, if the
+       implementation's clock is reasonably well synchronized to the
+       origin server's clock.  If the result is negative, the result is
+       replaced by zero.
+
+   2.  the "corrected_age_value", if all of the caches along the
+       response path implement HTTP/1.1 or greater.  A cache MUST
+       interpret this value relative to the time the request was
+       initiated, not the time that the response was received.
+
+     apparent_age = max(0, response_time - date_value);
+
+     response_delay = response_time - request_time;
+     corrected_age_value = age_value + response_delay;
+
+   The corrected_age_value MAY be used as the corrected_initial_age.  In
+   circumstances where very old cache implementations that might not
+   correctly insert Age are present, corrected_initial_age can be
+   calculated more conservatively as
+
+     corrected_initial_age = max(apparent_age, corrected_age_value);
+
+   The current_age of a stored response can then be calculated by adding
+   the time (in seconds) since the stored response was last validated by
+   the origin server to the corrected_initial_age.
+
+     resident_time = now - response_time;
+     current_age = corrected_initial_age + resident_time;
+
+1.2.2. Delta Seconds
+
+   The delta-seconds rule specifies a non-negative integer, representing
+   time in seconds.
+
+     delta-seconds  = 1*DIGIT
+
+   A recipient parsing a delta-seconds value and converting it to binary
+   form ought to use an arithmetic type of at least 31 bits of non-
+   negative integer range.  If a cache receives a delta-seconds value
+   greater than the greatest integer it can represent, or if any of its
+   subsequent calculations overflows, the cache MUST consider the value
+   to be 2147483648 (2^31) or the greatest positive integer it can
+   conveniently represent.
+
+      |  *Note:* The value 2147483648 is here for historical reasons,
+      |  represents infinity (over 68 years), and does not need to be
+      |  stored in binary form; an implementation could produce it as a
+      |  string if any overflow occurs, even if the calculations are
+      |  performed with an arithmetic type incapable of directly
+      |  representing that number.  What matters here is that an
+      |  overflow be detected and not treated as a negative value in
+      |  later calculations.

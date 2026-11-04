@@ -1,0 +1,258 @@
+{
+  "axes": {
+    "calibration": "2 HOLD; bounded eight-row agreement",
+    "freshness": "10 HOLD; unchanged by this seat"
+  },
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/home/vgpnk/Projects/shokunin/kake-shokunin",
+        "show",
+        "58fee726102aa89ad2c1fa9f697869de3a212510:.ufo/waves/round-87/count.py"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecLedger",
+      "exit": 0,
+      "stdout": "#!/usr/bin/env python3\n\"\"\"Round 87 fixed finite comparison; no receipts or fleet inputs are predicates.\"\"\"\nimport argparse\nimport hashlib\nimport json\nfrom pathlib import Path\nimport subprocess\nimport sys\n\nHERE = Path(__file__).resolve().parent\nEXPECTED = json.loads((HERE / 'expected-ledger.json').read_text())\nCASES = json.loads((HERE / 'age-cases.json').read_text())\n\ndef git_bytes(root, rev, path):\n    p = subprocess.run(['git', '-C', str(root), 'show', f'{rev}:{path}'], capture_output=True)\n    return p.stdout if p.returncode == 0 else None\n\ndef ledger_errors(rows, read):\n    if not isinstance(rows, list):\n        return 8\n    bad = 0\n    for want in EXPECTED:\n        matches = [r for r in rows if isinstance(r, dict) and r.get('round') == want['round'] and r.get('item') == want['item']]\n        data = read(want['source'])\n        if len(matches) != 1 or matches[0] != want or data is None or hashlib.sha256(data).hexdigest() != want['sha256']:\n            bad += 1\n    return bad + max(0, len(rows) - len(EXPECTED))\n\ndef selftest():\n    source = lambda p: (HERE.parent.parent.parent / p).read_bytes()\n    assert ledger_errors(EXPECTED, source) == 0\n    assert ledger_errors([], source) == 8\n    assert ledger_errors(EXPECTED[:-1], source) == 1\n    wrong = json.loads(json.dumps(EXPECTED)); wrong[0]['outside'] = 'disagree'\n    assert ledger_errors(wrong, source) == 1\n    assert ledger_errors(EXPECTED + [EXPECTED[0]], source) > 0\n    assert ledger_errors(EXPECTED, lambda p: b'tampered') == 8\n    print('selftest 6/6: clean, empty, missing, altered, duplicate, tampered')\n\ndef main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument('--root', type=Path)\n    ap.add_argument('--revision')\n    ap.add_argument('--claim', choices=['c1', 'c2'])\n    ap.add_argument('--work', type=Path)\n    ap.add_argument('--selftest', action='store_true')\n    a = ap.parse_args()\n    if a.selftest:\n        selftest(); return 0\n    if not a.root or not a.revision or not a.claim:\n        ap.error('--root --revision --claim required')\n    rev = subprocess.check_output(['git', '-C', str(a.root), 'rev-parse', f'{a.revision}^{{commit}}'], text=True).strip()\n    read = lambda p: git_bytes(a.root, rev, p)\n    if a.claim == 'c1':\n        raw = read('corpus/knowledge/gate-agreement-ledger.json')\n        try:\n            rows = json.loads(raw) if raw else []\n        except (ValueError, TypeError):\n            rows = []\n        errors = ledger_errors(rows, read)\n        result = dict(claim='C1', revision=rev, population=8, mismatches=errors, met=errors == 0)\n    else:\n        if not a.work:\n            ap.error('--work required for c2')\n        a.work.mkdir(parents=True, exist_ok=True)\n        tool = read('scripts/cache_current_age.py')\n        passed = 0\n        details = []\n        if tool is not None:\n            script = a.work / 'cache_current_age.py'; script.write_bytes(tool)\n            try:\n                for i, case in enumerate(CASES):\n                    p = subprocess.run([sys.executable, '-B', str(script)], input=json.dumps(case['input']), capture_output=True, text=True, timeout=10)\n                    try:\n                        obj = json.loads(p.stdout)\n                    except ValueError:\n                        obj = None\n                    ok = p.returncode == case['exit'] and (case['exit'] != 0 or obj == case['output'])\n                    passed += ok\n                    details.append(dict(case=i+1, ok=ok, exit=p.returncode))\n            finally:\n                script.unlink(missing_ok=True)\n        result = dict(claim='C2', revision=rev, cases=passed, total=len(CASES), met=passed == len(CASES), details=details)\n    print(json.dumps(result, sort_keys=True))\n    return 0 if result['met'] else 1\n\nif __name__ == '__main__':\n    raise SystemExit(main())\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/home/vgpnk/Projects/shokunin/kake-shokunin",
+        "show",
+        "58fee726102aa89ad2c1fa9f697869de3a212510:.ufo/waves/round-87/expected-ledger.json"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecLedger",
+      "exit": 0,
+      "stdout": "[\n  {\n    \"round\": 84,\n    \"item\": \"S457 response max-age semantics\",\n    \"decision\": \"admit\",\n    \"outside\": \"agree\",\n    \"source\": \".ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md\",\n    \"sha256\": \"80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9\"\n  },\n  {\n    \"round\": 84,\n    \"item\": \"\\u00a74.1 normalization as response-directive reorder proof\",\n    \"decision\": \"reject\",\n    \"outside\": \"agree\",\n    \"source\": \".ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md\",\n    \"sha256\": \"80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9\"\n  },\n  {\n    \"round\": 84,\n    \"item\": \"\\u00a75.2.2.2 as max-age anchor\",\n    \"decision\": \"reject\",\n    \"outside\": \"agree\",\n    \"source\": \".ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md\",\n    \"sha256\": \"80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9\"\n  },\n  {\n    \"round\": 85,\n    \"item\": \"S458 field-specific algorithm\",\n    \"decision\": \"admit\",\n    \"outside\": \"agree\",\n    \"source\": \".ufo/waves/round-87/snapshots/round-85-verifier-spotcheck.md\",\n    \"sha256\": \"948c316831d0c71927e6a29501f05037b3faa940a251984ed28ca8f0eee2ce71\"\n  },\n  {\n    \"round\": 85,\n    \"item\": \"Blanket response-policy reorder equivalence\",\n    \"decision\": \"reject\",\n    \"outside\": \"agree\",\n    \"source\": \".ufo/waves/round-87/snapshots/round-85-verifier-spotcheck.md\",\n    \"sha256\": \"948c316831d0c71927e6a29501f05037b3faa940a251984ed28ca8f0eee2ce71\"\n  },\n  {\n    \"round\": 86,\n    \"item\": \"S459 CrUX Vis docs\",\n    \"decision\": \"admit\",\n    \"outside\": \"agree\",\n    \"source\": \".ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md\",\n    \"sha256\": \"47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b\"\n  },\n  {\n    \"round\": 86,\n    \"item\": \"S461 RFC 9111 slice\",\n    \"decision\": \"admit\",\n    \"outside\": \"agree\",\n    \"source\": \".ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md\",\n    \"sha256\": \"47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b\"\n  },\n  {\n    \"round\": 86,\n    \"item\": \"RFC 7234 minimum-duplicate attribution\",\n    \"decision\": \"reject\",\n    \"outside\": \"agree\",\n    \"source\": \".ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md\",\n    \"sha256\": \"47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b\"\n  }\n]\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/home/vgpnk/Projects/shokunin/kake-shokunin",
+        "show",
+        "58fee726102aa89ad2c1fa9f697869de3a212510:.ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecLedger",
+      "exit": 0,
+      "stdout": "# kake round 84 — non-author closure spot-check\n\nauthor: hyaku closure (non-author integrator, @m_zfl)\n\nReviewed round work at `c5d89c086ad1f427e40090688fa85ac2aba5dfcf`, base `fe42ad11eb1084ad2ea68d12c5bbb2922a089868`, freeze `f358022f7e1b2f3846be8ceacbe3a7ef22edf4be`, measured carrier `b05c390135302c44415b021fd0c0723b3f58d45e`. Report: fleet `.ufo/reports/round-84/kake.md`; lesson: `corpus/lessons/round-84.md`. No lane gate or selftest was executed by this closure.\n\n## Conformance\n\n- `git -C /home/vgpnk/Projects/shokunin log --format='%an <%ae> %H' -- .ufo/reports/round-84/kake.md` returned `kake-shokunin <kake@shokunin.local> dfe648a1ed86cfef866297bb2ccb65fdc46d4305`. This is a substantive report, not a marker; it contains four checklist lines under `## SHONEN` and a LOG-linked committed-work table.\n- `git cat-file -e <hash>^{commit}` and `git merge-base --is-ancestor <hash> master` succeeded for all four report commits (`f358022f`, `87cbfd99`, `b05c3901`, `c5d89c08`) and the base. Ancestry was tested against `master`, not detached HEAD/upstream.\n- `/home/vgpnk/Projects/shokunin/scripts/hyaku/jj-lane.sh state /home/vgpnk/Projects/shokunin/kake-shokunin` returned `branch=master local=c5d89c086ad1f427e40090688fa85ac2aba5dfcf remote=c5d89c086ad1f427e40090688fa85ac2aba5dfcf ahead=0 behind=0 head=detached tracked=0 untracked=0`. `git status --porcelain` was empty; `git ls-remote origin refs/heads/master` returned the same hash.\n- Independently rendered `templates/round-prompt.md` substitutions for lane, round, root, axes and repo, then tested `prompt.startswith(rendered_template)`: `True`. The committed dispatched prompt includes the canonical contract and hyaku addendum §6, with routing amendments. Full round-level and child report contract retained.\n- The 13-seat wave has 13 nonempty outputs, one connector and 4 attack seats. No L2 planner appears in the committed role list; holding planner at L1 does not meet the literal dispatched-planner split. The report also discloses late load order and shared-checkout rather than separate-worktree execution. These are status-neutral conformance defects.\n- New round-84 verdict instruments have no registry-home entry: independent regex `c84_|policy[_-]value` over committed `SKILL.md` returns 0 matches. Selftest green is not full gate conformance.\n\nDispatch/completion digest (copied from closure assignment, durable here):\n\n```text\n2026-11-04T10:57:19-03:00 launch kake round=84 pgid=2799657 driver=hyaku-inline attempt=1\n2026-11-04T11:19:56-03:00 complete kake round=84; hyaku-inline attempt=1\n```\n\n## Claim rechecks: measurements versus evidence\n\nAll `git show` measurements below read committed bytes at the named revisions. Python Eval used `subprocess.check_output(['git','-C',lane,'show',revision+':'+path], text=True)`; no lane-owned code was imported or executed.\n\n### C1 calibration — improved, instrument qualified\n\nCommitted evidence read with `git show <after>:.ufo/waves/round-84/controls/<file>`:\n\n| File | Observed committed output |\n|---|---|\n| `base-c84-defect-queue.txt` | `C1v1 revision=worktree items=4 open=3 closed=1 met=false`; `base_exit=1`; D4 already fixed at freeze |\n| `after-c1.txt` | `C1v1 revision=b05c390135302c44415b021fd0c0723b3f58d45e items=4 open=0 closed=4 met=true`; `counter_exit=0` |\n| `c84-selftest-c1.txt` | eight named fixtures, `selftest: 8/8 passed`; `selftest_c1_exit=0` |\n| `c84-selftest-c1-v2.txt` | `selftest: 10/10 passed`; `selftest_c1_v2_exit=0`; diagnostic only, not substitution for frozen v1 |\n\nIndependently re-measured delivered repair state:\n\n1. D1: each of `5.2.  Cache-Control`, `5.2.1.  Request Directives`, `5.2.2.  Response Directives`, `5.2.3.  Extension Directives` is a literal substring of committed `.ufo/waves/round-83/w1/ScoutSources/rfc9111.txt`; output `[True, True, True, True]`. Lesson line 43 contains the single named round-83 Gate correction and all four headings.\n2. D2: `len('\\n'.join(raw.splitlines()[837:844]).split())` returns `66`; lesson line 45 reads `D2 count=66 span=838-844 measure=words-full-span`.\n3. D3: JSON-reading `w1-spec.json` items with `role == 'connector'` finds `ConnectorSibling`; `w1-results.json` has the same named `agent == 'connector'` with string output length `8341` UTF-8 bytes. Lesson line 40 names it. No connector proof depends on the counter's permissive non-string handling.\n4. D4: `controls/census-before.txt` is committed, contains `census_exit=0` and 22 W04 lines; lesson lines 41/47 name the receipt. Independent required census below returns exit 0 with the same 22 W04 warnings. Thus the actual state and prose are both present, despite v1 omitting two prose checks.\n\nThe base commit lacks the new lesson/receipt/results; true base-revision state is four open items, not the worktree receipt's three. Report/lesson disclose this distinction. Frozen worktree baseline is evidence-verified, not represented as a re-executed committed-base gate result. The actual D1–D4 repairs verify independently; v1 soundness is not admitted by implication.\n\n### C2 freshness — unprovable, honest stop\n\nEvidence-verified `base-c84-policy-values.txt`: `revision=worktree ... real_changed=-1 ... met=false`, `base_c2_exit=1`. `after-c2.txt` pins carrier `b05c390135302c44415b021fd0c0723b3f58d45e`, `declared=3 receipts_ok=1 real_changed=0 ctl_changed=3 ctl_mismatch=0 eq_changed=1 eq_mismatch=0 record_equal=1 determinism=1 tool_offline=1 selftest_ok=1 counter_selftest_ok=1 met=true`, `counter_exit=0`. Frozen counter selftest receipt is `4/4 passed`, exit 0; `w1/ScribeKnowledge/tool-selftest.stdout` reads `selftest: 15/15 passed`.\n\nIndependent synthetic-pair measurement: load committed `capture-control/{control,equivalent}/{a,b}/<surface>/response.json`; form `{h['name'].lower(): h['value'] for h in doc['headers']}` and compare the union of names. Observed control: primary `cache-control: max-age=600 -> max-age=60`; robots `x-frame-options: absent -> SAMEORIGIN`; sitemap `referrer-policy: no-referrer, strict-origin -> strict-origin, no-referrer`; total 3. Equivalent pair has only that sitemap reorder; total 1. The before tree has no `scripts/policy_value_class.py`; the after tree does.\n\nThese reproduce syntax deltas, not semantic equivalence. `w1/ReviewC2.md:14-19` identifies the decisive frozen counterexample: Referrer-Policy selects the last recognized policy, so reversing two recognized policies changes the effective policy. Lesson lines 182-187 and knowledge-entry appended correction lines 89-95 explicitly retain `unprovable`, experimental status and prohibition on using the tool to waive drift/publishing. A green frozen tally cannot verify the declared semantic capability. No capability is added; the claim is not retrospectively narrowed to syntax.\n\n## Per-axis and admission verdicts\n\n`git diff fe42ad11eb1084ad2ea68d12c5bbb2922a089868 c5d89c086ad1f427e40090688fa85ac2aba5dfcf -- SCORECARD.md` shows only an appended round record: calibration 2→2, freshness 10→10, operability 10 unchanged; no capability credit. Spot reads of lesson, knowledge warning and QUALITY criterion preserve rather than conceal limitations.\n\n| Owned axis | Verdict | Reason |\n|---|---|---|\n| calibration | improved | Four actual routed repairs independently verified; counter flaws disclosed rather than laundered as proof |\n| freshness | unprovable | Declared value-semantics capability fails its frozen equivalence premise; syntax tally is insufficient |\n| operability | unchanged | Experimental instrument added, but no new working semantic capability credited; existing workflows not shown harmed |\n\nStatus `ok`, admission `false`, verdict `rejected-honest-stop`. C2 does not verify; no owned axis is graded harmed. Neither claim is exploratory, so no taste-based replacement admission is appropriate.\n\n## Outside discernment spot-check\n\nReopened live HTTPWG HTML with the reader and independently fetched it GET-only with Python `urllib.request.urlopen` for exact substring checks; also reopened live RFC Editor text. New row S457 is in committed `corpus/SOURCES.md`; S456/S457 are two renderings, not independent corroboration.\n\n| Item | Gate decision | Re-opened source | Agreement | Reason |\n|---|---|---|---|---|\n| S457 response max-age semantics | admit/mined | https://httpwg.org/specs/rfc9111.html §5.2.2.1; https://www.rfc-editor.org/rfc/rfc9111.txt §5.2.2.1 | agree | Live source says exactly: “The max-age response directive indicates that the response is to be considered stale after its age is greater than the specified number of seconds.” Independent `len(quote.split())=24`; `quote in live_html=True`. Scope excludes lane class names/equivalence. |\n| §4.1 normalization as response-directive reorder proof | reject | Same reopened documents, §4.1 Calculating Cache Keys with the Vary Header Field | agree | Exact phrase “reordering field values when order is not significant” is present; context expressly says “The header fields from two requests are defined to match”. Request-key normalization does not prove arbitrary response policy equivalence. |\n| §5.2.2.2 as max-age anchor | reject | Same documents, §5.2.2.1 and §5.2.2.2 | agree | Actual headings are max-age at .1 and must-revalidate at .2, not the wave spec's mistaken pairing. |\n\nRequired census executed independently:\n\n```sh\n/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake\n```\n\nObserved exit 0; 22 W04 duplicate-URL warnings (S033, S088, S092, S098, S099, S102, S110, S111, S115, S116, S117, S127, S416, S417, S427, S433, S445, S450, S451, S453, S454, S455), followed by `kake ok /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md` (tab-delimited). Independent committed regex row count `len(re.findall(r'^ {0,3}\\|\\s*S\\d{3,}\\s*\\|', text, re.M))` returns base 194, after 195. Prior registry rows are byte-identical; S457 is the added tier-A/mined row.\n\n## Learning trends\n\n| Trend | Verdict | Evidence |\n|---|---|---|\n| expansion | unchanged | One bounded source entry, but experimental semantic frontier explicitly not promoted to core or working capability |\n| quality | improved | Named D1/D2 corrections and marked semantic limitation; no false semantic claim left unmarked; QUALITY lines 1703-1710 require field-specific equivalence grounded in this counterexample |\n| discernment | improved | This non-author check agrees with both admit and rejects; semantic overreach becomes an explicitly grounded QUALITY criterion rather than hidden success |\n\n## Routed defects — owner kake, next authorized round\n\n- D84-1: Register the new verdict instruments at SKILL.md registry home with command, verdict map, selftest invocation, persisted expected-value paths, write scope and owner. Existing selftest/frozen receipts alone do not establish registry conformance.\n- D84-2: Preserve frozen v1 evidence, but make any new instrument assert D3/D4 prose, a same-line D1 correction, nonempty string connector output and exact census exit tokens. Diagnostic v2 fixes only two omissions; `ReviewC1.md` documents the remaining gaps.\n- D84-3: Before re-declaring semantic equivalence, freeze field-specific order/duplicate rules and an independent changed-row/input-dependence oracle. Retain the Referrer-Policy failing witness, canned-output limitation and imported-table enforcement debt (`ReviewC2.md`, `CriticClaims.md`, `MutC.md`). Do not use the experimental classifier for publishing approval.\n- D84-4: Supply the required dispatched planner seat and read operative bindings before dispatch; resolve disclosed shared-checkout isolation deviation. Status-neutral procedural debt, not reason to call real work a marker.\n\nSHONEN boxes are not all checkable: box 2 still explicitly records a gap/missing historical receipt. No checklist marks, promotion, mint, lane-authored file or other lane was changed by this closure. No tool installs or upgrades.\n\n## Closure self-evaluation\n\nAccuracy 4: committed measurements and live quote checks are separated from evidence-only gate tallies; no gate rerun or authenticity proof is implied. Completeness 4: both claims, three owned axes, three trends and admit/reject/source checks are covered; the spot-check is a sample, not exhaustive corpus review. Clarity 4: base versus freeze versus carrier are explicit, though the record is long. Actionability 4: four owner-routed defects name concrete failing conditions; future authorization remains operator-owned. Conciseness 3: durable commands and evidence make this artifact longer than the terminal digest; keep the final handoff short. Overall 3.8/5. Highest-impact improvement applied: retain only a brief verdict/digest in the final response. The user should agree that honest rejection is not marker failure.\n\nAdditional read-only seat `CloseKakeR84-8.Kake84Claims` independently confirmed all four repair states, identical 22-warning census set and carrier-to-head artifact stability; no lane gate was executed. It confirmed that v1 D4 also falsely rejects empty-equal census sets, the C2 import-table conjunct is unenforced, and repeated-run exit/one-newline handling remain weak: include these in D84-2/D84-3. Its snapshot review found no missing digests among ReviewC1's five present snapshot inputs and confirmed honest absent-file markers. It considered L1 planner sufficient under the local frozen contract; this integrator retains D84-4 because the dispatched higher-level prompt literally requires a planner L2 seat. This procedural disagreement does not alter status or claim admission.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/home/vgpnk/Projects/shokunin/kake-shokunin",
+        "show",
+        "58fee726102aa89ad2c1fa9f697869de3a212510:.ufo/waves/round-87/snapshots/round-85-verifier-spotcheck.md"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecLedger",
+      "exit": 0,
+      "stdout": "# Round 85 — non-author closure\n\nauthor: hyaku closure (non-author integrator, @m_zfl)\n\nReviewed round: 85; lane: kake. Base `bdabc6bc8f762a16c6c19c524c4ac84528eb4bf7`; final authored revision `21211219803af39c6e5e369fc2a267e38bb08c38`; production carrier `aea07bf3c1d9e5ad50453af4e11cc52faf420e51`. This review admits only the two frozen bounded claims, not the round-84 classifier or the full D84 repair queue.\n\n## Conformance\n\n- `git -C /home/vgpnk/Projects/shokunin log --format='%an <%ae> %H %s' -- .ufo/reports/round-85/kake.md` identifies lane-authored report commit `3ff4ff7f095ff42e3957b7e12d051bba0fd935a5`, author `kake-shokunin <kake@shokunin.local>`. Its commit time 2026-11-04T11:59:37-03:00 follows the final lane commit at 11:58:17-03:00.\n- The report contains `## SHONEN` and four assessment lines matching the four checklist boxes: asserted, open, asserted, asserted. The historical missing end-to-end receipt remains an explicit gap; these boxes are not all ready for operator promotion. No promotion or checklist mutation is performed.\n- For each of `2f042c370b5f11b84d4f8c9e5d066517aef646b8`, `856fa46bbeaf23d5d625be5d448852a6fe22c6e0`, `aea07bf3c1d9e5ad50453af4e11cc52faf420e51`, and `21211219803af39c6e5e369fc2a267e38bb08c38`, `git -C /home/vgpnk/Projects/shokunin/kake-shokunin merge-base --is-ancestor <hash> refs/heads/master` returned success. Branch ref, not detached HEAD's upstream, was used.\n- `/home/vgpnk/Projects/shokunin/scripts/hyaku/jj-lane.sh state /home/vgpnk/Projects/shokunin/kake-shokunin` returned `branch=master local=21211219803af39c6e5e369fc2a267e38bb08c38 remote=21211219803af39c6e5e369fc2a267e38bb08c38 ahead=0 behind=0 head=detached tracked=0 untracked=0`. `git status --porcelain` printed nothing.\n- The dispatched prompt's sections 1–5 are an exact prefix match to the canonical `templates/round-prompt.md` after substituting lane, round, root, axes and repo. Mission/axes, distinct claims, lowest-axis duty, L2 minimum, report path/SHONEN/hash requirements, commit/push order, scope and L0 channel are present; section 6 carries the hyaku addendum. The template's write-scope and commit-before-report-write wording is implicit rather than an explicit own-repo-only/lands-last sentence; protocol rereading remains necessary. This is template-level wording debt, not a marker or a reason to reject real verified work.\n- Independent JSON tally of committed `w1-results.json`: 10 results, 10 nonempty outputs; scout 1, executor 3, scribe 2, reviewer 2, critic 1, connector 1; attack 3/10. Literal dispatched planner remains absent, as disclosed. `bindings-read.md` records all 18 configured roles @m_zfl and a config digest; this is historical lane evidence, not independent proof of the answering model or a reconstruction of mutable host configuration. MISSION delegates runtime routing to the host table.\n\nDispatch/termination digest copied from the supplied record and matched to the live log:\n\n```text\n2026-11-04T11:37:49-03:00 launch kake round=85 pgid=2672594 driver=hyaku-inline attempt=1\n2026-11-04T12:00:05-03:00 complete kake round=85; hyaku-inline attempt=1\n```\n\n## Claim rechecks — measured versus evidence-verified\n\nI read the frozen counter before invocation: it is registered as a finite instrument, not a standing gate, and exports only committed SKILL/decoder bytes into supplied scratch. I did not execute the historical sibling gates or their selftest modes.\n\nCommands independently run from the lane repo, with `<rev>` set first to the base and then the final authored revision:\n\n```sh\npython3 -B .ufo/waves/round-85/count.py --root . --revision <rev> --claim c1 --work /tmp/k85-verify\npython3 -B .ufo/waves/round-85/count.py --root . --revision <rev> --claim c2 --work /tmp/k85-verify\n```\n\n| Claim | Independent before | Independent after | Verdict |\n|---|---|---|---|\n| C1 calibration: complete registry discovery for exactly three historical/experimental instruments | `C1 complete=0/3 missing=3 met=false`, exit 1 | `C1 complete=3/3 missing=0 met=true`, exit 0 | improved |\n| C2 freshness: separate ordered Referrer-Policy decoder | `C2 cases=0/10 met=false`, exit 1 | `C2 cases=10/10 met=true`, exit 0 | improved |\n\nA second plain census over `git show <rev>:SKILL.md` split table rows on `|`, selected eight-cell rows containing each filename in cell 1, and required nonempty cells. It found row counts `[0,0,0]` at base and `[1,1,1]` after, in the order `c84_defect_queue.py`, `c84_policy_values.py`, `policy_value_class.py`. Each referenced implementation exists and contains its documented `--selftest` interface; appended registry rows identify historical/experimental status and do not claim semantic or publication approval.\n\nI also exported the committed decoder with `git show 21211219803af39c6e5e369fc2a267e38bb08c38:scripts/referrer_policy_effective.py` and independently invoked its ordinary stdin interface (not selftest) with new vectors:\n\n| Input JSON | Observed effective token / exit |\n|---|---|\n| `[\"strict-origin\", \"no-referrer-when-downgrade\", \"origin\"]` | `origin`, 0 |\n| `[\"Origin\"]` | empty string, 0 |\n| `[\"unsafe-url\", \"unknown-token\"]` | `unsafe-url`, 0 |\n| `[\"no-referrer-when-downgrade\", \"same-origin, \"]` | `same-origin`, 0 |\n| `{\"a\":1}` | diagnostic rejecting JSON objects, exit 1 |\n\nSource inspection confirms an actual nested sequential field/token walk and assignment only on recognized tokens; this is not a ten-case discriminator. Python Unicode stripping is explicitly the local JSON adapter profile, not a claim about full Fetch extraction.\n\nCommitted evidence verified without rerunning sibling gates: `controls/decoder-selftest.txt` records 32/32, exit 0; ExecRegistry's committed JSON receipts record historical instrument selftests 8/8, 4/4 and 15/15, all exit 0. `controls/base-c1.txt`/`base-c2.txt` pin the red base; `after-c1-carrier.txt`/`after-c2-carrier.txt` pin the 3/3 and 10/10 green measurements to carrier `aea07bf3c1d9e5ad50453af4e11cc52faf420e51`. These frozen finite measurements and the separate selftest are not certification of a universal gate. The retained trial contains six actual r81/r82 absence observations and two separately labeled synthetic opposite-order witnesses, yielding strict-origin versus no-referrer. No new property fetch or browser behavior is inferred.\n\n## Axis verdicts and no-harm check\n\n`git diff bdabc6bc8f762a16c6c19c524c4ac84528eb4bf7 21211219803af39c6e5e369fc2a267e38bb08c38 -- SCORECARD.md` appends only the round-85 record, repertoire row and planned debt. Calibration remains 2 HOLD, freshness 10 HOLD; no legacy score was re-derived from a finite numerator. Registry/source/decoder spot reads preserve prior warnings and scope.\n\n| Axis | Verdict | Basis |\n|---|---|---|\n| calibration | improved | C1 0/3→3/3, truthful bounded discovery, not general gate soundness |\n| freshness | improved | C2 0/10→10/10 plus independent order/unknown/invalid-input checks |\n| operability | unchanged | Preserved historical scripts and warnings; no claim of complete offline/remote sweep cleanliness |\n\nNo owned axis harmed. Both claims verify within their pre-frozen scope; admission is true. Neither is exploratory.\n\n## Discernment spot-check\n\n| Item | Gate decision | Re-opened source | Judgment | Reason |\n|---|---|---|---|---|\n| S458 field-specific algorithm | admit | https://w3c.github.io/webappsec-referrer-policy/ §8.1 steps 2–4, reopened 2026-11-04 | agree | Policy starts empty and is overwritten by every recognized nonempty token in order; the bounded decoder implements that rule. |\n| Blanket response-policy reorder equivalence | reject | https://www.w3.org/TR/referrer-policy/ §11.1, direct public GET reopened 2026-11-04 | agree | The latest recognized policy wins; reversed recognized tokens need not preserve effective policy. This cannot justify arbitrary-header equivalence. |\n\nThe exact S458 registry URL was reopened, not substituted with TR. Its located 23-word quote matches rendered §8.1 step 3: “For each token in policy-tokens, if token is a referrer policy and token is not the empty string, then set policy to token.” The separately reopened TR quote is 22 words: “policy values will be ignored, and when multiple sources specify a referrer policy, the value of the latest one will be used.” The reader's TR response initially contained metadata only; direct `urllib.request.urlopen('https://www.w3.org/TR/referrer-policy/')` returned HTTP 200 and 127725 decoded characters; HTML data extraction and whitespace collapse confirmed the reject quote. No absence ruling was made from metadata.\n\nIndependent source-row census, using `git show <rev>:corpus/SOURCES.md` and `re.findall(r'^ {0,3}\\|\\s*S\\d{3,}\\s*\\|', text, re.M)`: 195→196. S458 is tier A/mined with existing knowledge path. Required command `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` exited 0, printed `kake ok`, and retained the same 22 W04 duplicate-URL warnings.\n\n## Learning trends\n\n| Trend | Verdict | Evidence |\n|---|---|---|\n| expansion | improved | New S458-backed provenance-complete knowledge entry and README coverage row for ordered effective-token decoding, plus demonstrated bounded capability |\n| quality | improved | Actual field-specific decoder replaces unsupported blanket equivalence as advice for this task; existing flawed classifier remains explicitly experimental, not silently blessed |\n| discernment | improved | This non-author re-opened and agreed with both the admit and reject; semantic-overreach lesson and local-whitespace boundary are grounded |\n\n## Routed defects — next round, not retroactive scope changes\n\n- kake: retain D84-2 and D84-3 (general defect-instrument soundness and general-classifier semantic/input-dependence weaknesses) as open. This round addresses D84-1 only within truthful registry discoverability, not full gate conformance.\n- kake/operator validator owner: resolve D84-4 literal L2-planner versus validator prohibition. L1 planning/scout data-walk is mitigation, not an actual dispatched planner seat.\n- kake: late shortcut controls were captured after the ready handoff; retain the disclosed sequence defect and capture required controls before handoff next round. The red do-nothing base was committed before dispatch; no predicate or target changed after scoring.\n- operator template owner: make own-repo-only write scope and report-write-after-child-commit ordering explicit in the canonical template. Current fidelity is exact; do not rewrite the dispatched prompt.\n- kake: preserve false-row/canned-output counterexamples; neither finite success nor these admissions establishes general gate soundness. Do not promote historical green syntactic output to semantic/publishing approval.\n\nNo tools installed or upgraded. No lane-authored file, promotion mark, source tree or sibling lane was changed by this closure. Self-evaluation: accuracy 4 (bounded measurements, not full browser equivalence); completeness 4 (historical gate evidence checked, not rerun); clarity 4 (measurement/evidence distinction explicit); actionability 4 (routed owner-specific debt); conciseness 3 (long reproducibility record). Overall 3.8/5; compact final handoff rather than repeating these receipts.\n\nCLOSURE kake r85 status=ok admitted=true\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/home/vgpnk/Projects/shokunin/kake-shokunin",
+        "show",
+        "58fee726102aa89ad2c1fa9f697869de3a212510:.ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecLedger",
+      "exit": 0,
+      "stdout": "author: hyaku closure (non-author integrator, @m_zfl)\nround: kake 86\ndate: 2026-11-04\nreport: .ufo/reports/round-86/kake.md\nlane_base: 376ac5dcdf86457ef1f8dd490dada735dad81f68\nlane_carrier_head: eb42d5a38249061af9b3321ec44f381eed6f59fa\n\n# Round 86 verifier spot-check — kake (hyaku closure, non-author)\n\n## Conformance results\n\n- Report committed in the fleet repo by the lane identity\n  `kake-shokunin <kake@shokunin.local>`, commit `3431d313a981737b5fb5106d369096ed51a50c07`\n  (2026-11-04 12:57:33 -03:00), before the driver completion line (12:58:05 -03:00). ✓\n- `SHONEN` heading present with one line per box (4 boxes: `[~]`, `[ ]`, `[~]`, `[~]`);\n  no `[x]` written by the lane — correct, non-author verification is closure's. ✓\n- All five cited lane commits exist and are ancestors of `refs/heads/master`\n  (`git merge-base --is-ancestor` per hash): `efc2ad65…`, `2dd355bb…`, `3f2de0fd…`,\n  `2854f765…`, `eb42d5a3…`. ✓\n- Push state via `scripts/hyaku/jj-lane.sh state`: `branch=master\n  local=eb42d5a38249061af9b3321ec44f381eed6f59fa remote=eb42d5a38249061af9b3321ec44f381eed6f59fa\n  ahead=0 behind=0`. ✓ (`git ls-remote` re-confirmed during closure.)\n- Dispatched prompt `.ufo/prompts/kake-round-86.md` = canonical\n  `templates/round-prompt.md` rendering + hyaku addendum §6. Byte diff vs rendered\n  template shows one line-1 substitution only (`<{{LANE}}-repo>` → `kake-shokunin`,\n  the canonical path resolution); all round-level items and five child-lane items\n  embedded verbatim. Quoted routing conflicts with no `MISSION.md` bucket (MISSION\n  pins advisory role-class buckets only, no role→model map). ✓\n- Defects (status-neutral): (a) one untracked round artifact left in the lane repo,\n  `.ufo/waves/round-86/w1/ExecAssim/mirror/corpus/lessons/round-81-gate/rfc9110.html`\n  (1.2 M fetched RFC mirror byproduct; `git status --porcelain` shows it as `??`);\n  (b) the register data-row quarantine sweep ran after the SOURCES append (late;\n  disclosed by the lane in the report and lesson supplement); (c) W04 census\n  warnings 22→23 — the new S461 cross-scope duplicate URL is intentional and\n  disclosed.\n\n## Per-claim re-check (commands + observed output)\n\nRe-measured on committed bytes (plain measurements run by this verifier):\n\n- SOURCES rows: `git show <rev>:corpus/SOURCES.md | grep -cE '^\\|[[:space:]]*S[0-9]{3,}[[:space:]]*\\|'`\n  → base `376ac5dc…` = **196**, carrier `3f2de0fd…` = **199**, head `eb42d5a3…` = **199**.\n- knowledge Markdown: `git ls-tree -r --name-only <rev> -- corpus/knowledge | grep -c '\\.md$'`\n  → 71 → 73 → 73. Matches `controls/committed-corpus-counts.json` and the report.\n- Delivered reader exists at carrier: `git show 3f2de0fd…:scripts/cache_control_effective.py | wc -l` → **241**;\n  still present at head. My own functional spot-call (fresh input, not the lane's\n  fixtures): `printf '{\"cache_control\":[\"max-age=600\"],\"shared\":true}' | python3\n  scripts/cache_control_effective.py` →\n  `{\"storable\":true,\"freshness_lifetime_seconds\":600,\"basis\":\"max-age\",…}` exit **0**.\n- Both new knowledge entries open with the provenance trio (`source:` citing mined\n  rows S461 / S459+S460, `verified-at:`, `recheck:`); `corpus/README.md` gains two\n  round-86 coverage rows; SCORECARD gains the bounded-reader capability row.\n- C1 ground truth: fleet commit `44de6cb69439f23173ba7c3bfecace7faed9c797` exists\n  (kake L0 line, D84-4 planner routing); round-85 closure notes name the four routed\n  dispositions; D84-4 remains unresolved (open). C1 receipt shows the disposition\n  counter at **closed=3/open=1, met=false, exit 1** — the reported honest stop.\n\nEvidence-verified, never executed (lane-owned counter/selftests; §Gate standard):\n`controls/after-c1-carrier.txt` (C1v1 revision=3f2de0fd… freeze=efc2ad65… items=4\nclosed=3 open=1 met=false, R1 ok=false self-referential, exit 1);\n`controls/after-c2-carrier.txt` (C2v1 revision=3f2de0fd… cases=15/15 selftest_ok=1\ntool_offline=1 met=true, exit 0); `controls/decoder-selftest.txt` (29 fixtures, exit 0);\n`controls/preservation.json`, `controls/integrated-trial.json` (three real round-82\nretained captures decoded max-age=600), `wave-done-receipt.txt`, `w1-accounting.json`\n— all committed at head, revision-bound to the named carrier. **C2: re-measured\n(plain) + evidence-verified. C1: re-measured (ground truth) + evidence-verified;\nunprovable stands.**\n\n## Per-axis verdicts\n\n- **calibration: unprovable.** R1 requires the counter's own green receipt after\n  receipt plus C2's success — self-certifying and cross-claim dependent; the lane\n  never seeded a fabricated green, reported met=false itself, and D84-4 stays open.\n  Honest stop agreed.\n- **freshness: improved (bounded).** Reader delivered and exercised on my own input;\n  frozen receipts green at the named revision; capability row + coverage rows +\n  provenance-complete entries landed. Bounded scope honestly declared (no full\n  parser/cache/network conformance).\n- **operability: unchanged.** No score move; scoped preservation evidence\n  (`preservation.json`, retained RP selftest 32/32 receipt); no whole-corpus claim made.\n\nNo owned axis harmed: `git diff 376ac5dc… eb42d5a3… -- SCORECARD.md` shows calibration\n2→2 HOLD, freshness 10→10 HOLD, capability row added, no score reduction.\n\n## Spot-check table (item · decision · re-opened source · agree/disagree · reason)\n\n| Item | Decision | Re-opened source (live, 2026-11-04) | Verdict | Reason |\n|---|---|---|---|---|\n| S459 CrUX Vis docs | admit (A) | GET https://developer.chrome.com/docs/crux/vis → 200, 114607 B | **agree** | Exact quote present: \"If your origin is not included in the CrUX dataset, there will be no data to display.\" (17 words, \"Does it work for all websites?\"); teaching scoped, no overclaim. |\n| S461 RFC 9111 slice | admit (A) | GET https://httpwg.org/specs/rfc9111.html → 200, 178573 B | **agree** | Exact quote present: \"either the first occurrence should be used or the response should be considered stale\" (14 words, §4.2.1 ¶4); ≤25-word located quotes for all three new rows check out; supersedes-S457 scope correctly narrow. |\n| RFC 7234 minimum-duplicate attribution | reject proposition | GET https://www.rfc-editor.org/rfc/rfc7234.txt → 200, 90647 B | **agree** | §4.2.1 says \"the directive's value is considered invalid\"; no first-occurrence/minimum-duplicate rule exists there (grep sweep), so the historical attribution was false and the primary-source correction is grounded. |\n\nNew-row re-open (duty 3): S461 row re-opened live (above) and its ≤25-word located\nquote verified verbatim; S459 likewise. S460 is lane own-work (authorized 403 probe);\nits retained receipt `probe.json`/`receipts.md` is committed and internally consistent\n— not re-executed (authorization boundary).\n\n## Trend verdicts (closure)\n\n- **expansion: improved** — 196→199 mined rows, 71→73 provenance-complete entries on\n  ground the round-83 coverage map did not hold (bounded value-level Cache-Control\n  slice now held; CrUX route adopted from `merge/kake`), re-derived from git.\n- **quality: improved (bounded)** — reader + 15-case frozen verdict + selftest 29 at\n  the named revision; false RFC7234 attribution corrected via primary source without\n  rewriting frozen bytes; prior counterexamples byte-preserved.\n- **discernment: improved** — outside spot-check (this file) agrees with the round\n  gate on the sampled admits and the sampled reject, all sources re-opened live; the\n  round-86 QUALITY criterion (\"measurement evidence must be downstream of its\n  predicate\") cites the lesson and is shown able to fail.\n\n## Routed defects (lane fixes next round)\n\n1. Remove or explicitly dispose of the untracked mirror byproduct\n   `.ufo/waves/round-86/w1/ExecAssim/mirror/…/rfc9110.html` (uncommitted round\n   artifact in the lane repo; commit receipts only, or clean the scratch tree).\n2. Run the register data-row quarantine sweep **before** the SOURCES append next\n   time (this round's sweep was late, after append; disclosed).\n3. Keep D84-4 open pending the operator ruling (existing debt, not a new defect).\n\n## Closure ruling\n\nstatus **ok** (real, substantive report); **not admitted** — verdict\n`rejected-honest-stop`: C1 unprovable (lane-declared, agreed), C2 verified bounded;\nno axis harmed. SHONEN promotion not ripe: boxes remain author-asserted (`[~]`) and\nbox 2 carries a genuine historical-receipt gap; promotion is operator-owned.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/count.py",
+        "--selftest"
+      ],
+      "cwd": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecLedger",
+      "exit": 0,
+      "stdout": "selftest 6/6: clean, empty, missing, altered, duplicate, tampered\n",
+      "stderr": ""
+    }
+  ],
+  "sources": [
+    {
+      "source": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md",
+      "sha256": "80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9",
+      "rows": [
+        {
+          "line": 73,
+          "raw_table_row": "| S457 response max-age semantics | admit/mined | https://httpwg.org/specs/rfc9111.html §5.2.2.1; https://www.rfc-editor.org/rfc/rfc9111.txt §5.2.2.1 | agree | Live source says exactly: “The max-age response directive indicates that the response is to be considered stale after its age is greater than the specified number of seconds.” Independent `len(quote.split())=24`; `quote in live_html=True`. Scope excludes lane class names/equivalence. |",
+          "raw_decision": "admit/mined",
+          "row": {
+            "round": 84,
+            "item": "S457 response max-age semantics",
+            "decision": "admit",
+            "outside": "agree",
+            "source": ".ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md",
+            "sha256": "80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9"
+          }
+        },
+        {
+          "line": 74,
+          "raw_table_row": "| §4.1 normalization as response-directive reorder proof | reject | Same reopened documents, §4.1 Calculating Cache Keys with the Vary Header Field | agree | Exact phrase “reordering field values when order is not significant” is present; context expressly says “The header fields from two requests are defined to match”. Request-key normalization does not prove arbitrary response policy equivalence. |",
+          "raw_decision": "reject",
+          "row": {
+            "round": 84,
+            "item": "§4.1 normalization as response-directive reorder proof",
+            "decision": "reject",
+            "outside": "agree",
+            "source": ".ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md",
+            "sha256": "80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9"
+          }
+        },
+        {
+          "line": 75,
+          "raw_table_row": "| §5.2.2.2 as max-age anchor | reject | Same documents, §5.2.2.1 and §5.2.2.2 | agree | Actual headings are max-age at .1 and must-revalidate at .2, not the wave spec's mistaken pairing. |",
+          "raw_decision": "reject",
+          "row": {
+            "round": 84,
+            "item": "§5.2.2.2 as max-age anchor",
+            "decision": "reject",
+            "outside": "agree",
+            "source": ".ufo/waves/round-87/snapshots/round-84-verifier-spotcheck.md",
+            "sha256": "80f48887b1e5f2e9d7d54adcce19d8b935f77fc0b236620abac3335b730dfda9"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/snapshots/round-85-verifier-spotcheck.md",
+      "sha256": "948c316831d0c71927e6a29501f05037b3faa940a251984ed28ca8f0eee2ce71",
+      "rows": [
+        {
+          "line": 71,
+          "raw_table_row": "| S458 field-specific algorithm | admit | https://w3c.github.io/webappsec-referrer-policy/ §8.1 steps 2–4, reopened 2026-11-04 | agree | Policy starts empty and is overwritten by every recognized nonempty token in order; the bounded decoder implements that rule. |",
+          "raw_decision": "admit",
+          "row": {
+            "round": 85,
+            "item": "S458 field-specific algorithm",
+            "decision": "admit",
+            "outside": "agree",
+            "source": ".ufo/waves/round-87/snapshots/round-85-verifier-spotcheck.md",
+            "sha256": "948c316831d0c71927e6a29501f05037b3faa940a251984ed28ca8f0eee2ce71"
+          }
+        },
+        {
+          "line": 72,
+          "raw_table_row": "| Blanket response-policy reorder equivalence | reject | https://www.w3.org/TR/referrer-policy/ §11.1, direct public GET reopened 2026-11-04 | agree | The latest recognized policy wins; reversed recognized tokens need not preserve effective policy. This cannot justify arbitrary-header equivalence. |",
+          "raw_decision": "reject",
+          "row": {
+            "round": 85,
+            "item": "Blanket response-policy reorder equivalence",
+            "decision": "reject",
+            "outside": "agree",
+            "source": ".ufo/waves/round-87/snapshots/round-85-verifier-spotcheck.md",
+            "sha256": "948c316831d0c71927e6a29501f05037b3faa940a251984ed28ca8f0eee2ce71"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md",
+      "sha256": "47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b",
+      "rows": [
+        {
+          "line": 89,
+          "raw_table_row": "| S459 CrUX Vis docs | admit (A) | GET https://developer.chrome.com/docs/crux/vis → 200, 114607 B | **agree** | Exact quote present: \"If your origin is not included in the CrUX dataset, there will be no data to display.\" (17 words, \"Does it work for all websites?\"); teaching scoped, no overclaim. |",
+          "raw_decision": "admit (A)",
+          "row": {
+            "round": 86,
+            "item": "S459 CrUX Vis docs",
+            "decision": "admit",
+            "outside": "agree",
+            "source": ".ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md",
+            "sha256": "47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b"
+          }
+        },
+        {
+          "line": 90,
+          "raw_table_row": "| S461 RFC 9111 slice | admit (A) | GET https://httpwg.org/specs/rfc9111.html → 200, 178573 B | **agree** | Exact quote present: \"either the first occurrence should be used or the response should be considered stale\" (14 words, §4.2.1 ¶4); ≤25-word located quotes for all three new rows check out; supersedes-S457 scope correctly narrow. |",
+          "raw_decision": "admit (A)",
+          "row": {
+            "round": 86,
+            "item": "S461 RFC 9111 slice",
+            "decision": "admit",
+            "outside": "agree",
+            "source": ".ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md",
+            "sha256": "47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b"
+          }
+        },
+        {
+          "line": 91,
+          "raw_table_row": "| RFC 7234 minimum-duplicate attribution | reject proposition | GET https://www.rfc-editor.org/rfc/rfc7234.txt → 200, 90647 B | **agree** | §4.2.1 says \"the directive's value is considered invalid\"; no first-occurrence/minimum-duplicate rule exists there (grep sweep), so the historical attribution was false and the primary-source correction is grounded. |",
+          "raw_decision": "reject proposition",
+          "row": {
+            "round": 86,
+            "item": "RFC 7234 minimum-duplicate attribution",
+            "decision": "reject",
+            "outside": "agree",
+            "source": ".ufo/waves/round-87/snapshots/round-86-verifier-spotcheck.md",
+            "sha256": "47499686bc976564c43174fdeeae2219e0db2351c571678ba35caff0a34de42b"
+          }
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "rows": 8,
+    "source_table_counts": [
+      3,
+      2,
+      3
+    ],
+    "missing": 0,
+    "disagreement": 0,
+    "extra": 0,
+    "outside_disagree": 0
+  },
+  "instrument_import": {
+    "path": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/count.py",
+    "read_only": true,
+    "bytecode_disabled": true
+  },
+  "mutation_checks": [
+    {
+      "case": "clean",
+      "mismatches": 0
+    },
+    {
+      "case": "row_omission",
+      "mismatches": 1,
+      "failed_predicate": true
+    },
+    {
+      "case": "agree_to_disagree",
+      "mismatches": 1,
+      "failed_predicate": true
+    },
+    {
+      "case": "wrong_source_digest",
+      "mismatches": 1,
+      "failed_predicate": true
+    },
+    {
+      "case": "duplicated_row",
+      "mismatches": 2,
+      "failed_predicate": true
+    },
+    {
+      "case": "wrong_actual_source_bytes",
+      "mismatches": 8,
+      "failed_predicate": true
+    }
+  ],
+  "candidate_sha256": "ef58f9092c32179de6e680ab782cfb29900d9b5b34cfbfcb76b316a144c3d506"
+}

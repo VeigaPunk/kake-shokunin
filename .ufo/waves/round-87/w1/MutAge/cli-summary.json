@@ -1,0 +1,134 @@
+{
+  "source": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-87/w1/ExecAge/cache_current_age.py",
+  "source_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+  "results": [
+    {
+      "mutant": "drop_response_delay",
+      "replaced": "    corrected_age_value = age_value + response_delay",
+      "replacement": "    corrected_age_value = age_value",
+      "pristine_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "mutant_sha256": "1471ee0076051e203443006d0583bbb95209301d35c1a87815a4cef0af27de6d",
+      "restored_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "exact_restoration": true,
+      "verdict": "killed",
+      "pristine_matched": 17,
+      "mutated_matched": 11,
+      "restored_matched": 17,
+      "misses": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ]
+    },
+    {
+      "mutant": "min_initial",
+      "replaced": "    corrected_initial_age = max(apparent_age, corrected_age_value)",
+      "replacement": "    corrected_initial_age = min(apparent_age, corrected_age_value)",
+      "pristine_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "mutant_sha256": "a3ffdf83a98119d00a38e2853e8e7c3e60ed05d977c3399f7cc2b27d9f3c7860",
+      "restored_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "exact_restoration": true,
+      "verdict": "killed",
+      "pristine_matched": 17,
+      "mutated_matched": 8,
+      "restored_matched": 17,
+      "misses": [
+        2,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mutant": "omit_resident",
+      "replaced": "    current_age = corrected_initial_age + resident_time",
+      "replacement": "    current_age = corrected_initial_age",
+      "pristine_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "mutant_sha256": "74ebd14ea6b64503d7f60e10ecc5ec67277fef55907f3acd29bf6cdb9357958b",
+      "restored_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "exact_restoration": true,
+      "verdict": "killed",
+      "pristine_matched": 17,
+      "mutated_matched": 10,
+      "restored_matched": 17,
+      "misses": [
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mutant": "omit_clamp_apparent",
+      "replaced": "    apparent_age = max(0, response_time - date_value)",
+      "replacement": "    apparent_age = response_time - date_value",
+      "pristine_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "mutant_sha256": "fe630d10e23067385e9e5559f4e62560793a884d2d9f627fa4dae5ab0dc0fa41",
+      "restored_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "exact_restoration": true,
+      "verdict": "killed",
+      "pristine_matched": 17,
+      "mutated_matched": 16,
+      "restored_matched": 17,
+      "misses": [
+        3
+      ]
+    },
+    {
+      "mutant": "ignore_Age",
+      "replaced": "    corrected_age_value = age_value + response_delay",
+      "replacement": "    corrected_age_value = response_delay",
+      "pristine_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "mutant_sha256": "5ebd0aa25764964d14cd43442cda24f891bd0572a44956e0098f0143555dea4d",
+      "restored_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "exact_restoration": true,
+      "verdict": "killed",
+      "pristine_matched": 17,
+      "mutated_matched": 12,
+      "restored_matched": 17,
+      "misses": [
+        4,
+        5,
+        6,
+        8,
+        11
+      ]
+    },
+    {
+      "mutant": "constantzero",
+      "replaced": "    current_age = corrected_initial_age + resident_time",
+      "replacement": "    current_age = 0",
+      "pristine_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "mutant_sha256": "f499afebbe3a93640232e72cef3a326c9173d3bd20f880b0d7cfd13648eeda02",
+      "restored_sha256": "d1b09ae17a54728a3b967cdc7436f19b62fc98e4304aab64324ee8969454331a",
+      "exact_restoration": true,
+      "verdict": "killed",
+      "pristine_matched": 17,
+      "mutated_matched": 7,
+      "restored_matched": 17,
+      "misses": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    }
+  ]
+}
