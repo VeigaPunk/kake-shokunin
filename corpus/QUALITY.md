@@ -1484,3 +1484,35 @@ Grounding: `corpus/lessons/round-70.md` §Mistakes M1; the round-70 C1 counter
   run at `e5f6fd9e` exits 1 with `unannotated=17` (`controls/c1-base-v2.txt`).
 
 Criteria are not rewritten: this addendum is the round-70 row, and earlier criteria stand unchanged.
+
+## Round-75 criterion — registry claims are executable as written (append-only)
+
+Grounding: `considerthese/2026-10-26.md` Part 2 proposal 5 (dated 2026-10-26: keep a list of gates
+that go red by design on later trees, so a daily report does not mistake a pinned historical gate
+for a regression and can flag when one *should* have been re-pinned) — **prior adoption recorded**,
+not newly mined here: `corpus/knowledge/gate-status-ledger.md:1-10` is proposal 5's r66 adoption,
+and this criterion is the admission-time rule that makes that ledger's `live`/`historical`
+distinction enforceable at registry entry rather than only at review time. Also grounding: the
+round-74 non-author closure's R1 and R2 (`corpus/lessons/round-74-verifier-spotcheck.md`) and the
+frozen round-75 contract §C1 predicates E1–E4.
+
+- **A gate-registry row's claim is executable as written, and its live/historical label is the
+  row's own.** Admit: every live-labelled row (`historical` absent from the Kind cell) names a
+  command that runs at the measured revision and whose observed output is the state the row records
+  — a `gate` row exits 0 from a `--selftest` that *its own* file registers (a command naming another
+  file does not bind), or its Kind cell declares the differential substitute as a word; a recorded
+  `a/b` tally equals the observed pass/total, with more than one distinct pair in a cell read as
+  ambiguous rather than as the last one winning; a row pinned to a past revision carries
+  `historical` in its Kind cell and names the revision it is true at, so a later red is read as
+  pinned, not as a regression, and the row is formally the point at which the gate would be
+  re-pinned. Reject: a `gate (live …)` row whose instrument has no self-test mode and no declared
+  differential; a Self-test cell that enumerates a fixture count the counter does not run; a row
+  whose Kind label and Self-test cell contradict each other; silently deleting a red row instead of
+  demoting or re-pinning it. Able-to-fail:
+  `python3 -B .ufo/waves/round-75/c75_row_truth.py --root . --revision <rev> --base c9c5e484c533aa65f4374b841a3edcf572ed19a9 --work <scratch>`
+  prints `mismatches=2 classes=E1 E3 append_only=true met=false`, exit 1
+  (`.ufo/waves/round-75/controls/base-c1-row-truth.txt`); the deletion control prints
+  `files=15 append_only=false met=false`, exit 1 (`controls/ctl-deletion.txt`).
+
+Criteria are not rewritten: this section is the round-75 row, and every earlier criterion stands
+unchanged.

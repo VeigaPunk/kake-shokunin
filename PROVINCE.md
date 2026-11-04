@@ -489,3 +489,19 @@ surfaces):
   100 locs — correction appended to `corpus/knowledge/publish-queue.md`.
 - Publishing stays operator-gated; this round's probes were GET-only and
   no deploy, publish or DNS action was taken or requested.
+
+## Round-75 instruments (2026-11-03)
+
+Two read-only instruments extend the Core line "the lane's own gates" above; neither publishes and
+neither contacts a network.
+
+- `scripts/instrument_receipts.py` (C2) — binds each live gate-registry instrument to a committed
+  `{sha256, bytes, selftest_mode}` receipt at a named revision and re-derives it from committed
+  bytes (`--check`/`--write`/`--selftest`). Receipt: `corpus/knowledge/instrument-receipts.json`.
+- `.ufo/waves/round-75/c75_row_truth.py` (C1) — re-derives every live registry row's claim by
+  executing the row's own self-test at the measured revision (E1–E4, append-only, population floor).
+
+Domain boundary unchanged: this is evidence about the lane's own instruments, not supply-chain
+provenance and not any claim about a published site. Sibling adjacencies found this round (tabi
+measurement binding, chousa digest-in-tree, souji `TOOL_SHA256`, tameshi receipt-revision) are
+recorded in `corpus/knowledge/instrument-receipts.md` §Limits and stay with those lanes.

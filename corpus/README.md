@@ -16,6 +16,8 @@ mirrors, Pages deploys).
 
 | Area | Entry | Coverage |
 |---|---|---|
+| Instrument receipts (r75) | `knowledge/instrument-receipts.md` | digest-bound receipt rule: sha256 and selftest_mode per live registry instrument, committed blob only, floor not equality |
+| Instrument receipts data (r75) | `knowledge/instrument-receipts.json` | the receipt itself: schema instrument-receipts/v1, revision, per-file sha256 and bytes, cross-checked population |
 | Fleet registry & tripwires | `knowledge/fleet-registry.md` | all 21 rows, expect semantics, pruning rules |
 | Publish channels | `knowledge/publish-channels.md` | GHP push-to-main, Render apps-sdk, kimi surface verbs |
 | Drift detection | `knowledge/drift-detection.md` | probe / sync-check / reconcile / kimi-map; byte-vs-marker semantics |
