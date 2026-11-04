@@ -2889,3 +2889,12 @@ C1 closed3/open1/met=false exit1; C2 cases15/15, selftest_ok1/tool_offline1,
 met=true exit0. Exact commands/stdout/exits: `controls/after-c1-carrier.txt`,
 `controls/after-c2-carrier.txt`. SCORECARD records numeric scores held and bounded
 demonstrated C2; C1 remains unprovable, no causal-separability/no-harm admission.
+
+### Round 86 quarantine provenance supplement
+
+Read-only register data-row sweep derives12 kake rows; dispositions retained in
+`.ufo/waves/round-86/assimilation-quarantine.md`, round lesson supplement.
+Nine payload-absent claims remain unadopted, three historical unfetchable claims
+unverifiable. New S460 is a fresh observation, not adoption of either old API
+receipt. Sweep ran late, after append; actual adopted source openings/probe and
+mirror census preceded append. Register/source tree unchanged.

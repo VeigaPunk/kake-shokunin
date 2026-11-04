@@ -142,3 +142,15 @@ Highest-impact improvement applied: refuse fabricated green bootstrap and report
 the failed claim rather than silently amending it. A future authorized design
 must bind inputs and remove receipt dependencies before freezing. User should
 expect an honest non-admitted round with useful delivered C2, not a false pass.
+
+### Quarantine sweep disclosure
+
+`assimilation-quarantine.md` derives12 kake data rows from the read-only register:
+nine payload-absent remain quarantined/unadopted, three unfetchable historical
+claims remain unverifiable (not fabrication). None is silently rehabilitated.
+The CrUX API URL occurs in two unchecked historical rows; S460 instead cites the
+fresh authorized one-POST observation already made before append. CrUX Vis uses
+a different documentation URL from the quarantined tools page. The register
+sweep itself was late, after append; do not present it as a pre-append check.
+All adopted claims were independently opened/located before append. Historical
+quarantine verdicts not rechecked this round remain unresolved.
