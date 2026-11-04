@@ -1,0 +1,191 @@
+[
+ {
+  "label": "no-vary-no-headers",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {}
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a"
+ },
+ {
+  "label": "empty-vary",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "x": "1"
+   },
+   "vary": ""
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a"
+ },
+ {
+  "label": "single-member",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "Accept-Encoding": "gzip"
+   },
+   "vary": "Accept-Encoding"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001faccept-encoding\u001egzip"
+ },
+ {
+  "label": "value-edge-ows-trimmed",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "accept-encoding": " GZIP "
+   },
+   "vary": "Accept-Encoding"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001faccept-encoding\u001eGZIP"
+ },
+ {
+  "label": "absent-member",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {},
+   "vary": "Accept-Encoding"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001faccept-encoding\u001e\u001c"
+ },
+ {
+  "label": "present-empty-member",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "Accept-Encoding": ""
+   },
+   "vary": "Accept-Encoding"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001faccept-encoding\u001e"
+ },
+ {
+  "label": "two-members-sorted",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "accept-encoding": "gzip",
+    "Accept": "text/html"
+   },
+   "vary": "Accept-Encoding, Accept"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+ },
+ {
+  "label": "member-ows-and-order",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "accept-encoding": "gzip",
+    "Accept": "text/html"
+   },
+   "vary": "  Accept\t,Accept-Encoding  "
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+ },
+ {
+  "label": "percent-escaped",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "a": "50%"
+   },
+   "vary": "a"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001fa\u001e50%25"
+ },
+ {
+  "label": "separator-in-value-escaped",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "a": "x\u001fb\u001ey"
+   },
+   "vary": "a"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+ },
+ {
+  "label": "separator-split-differs",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "a": "x",
+    "b": "y"
+   },
+   "vary": "a, b"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001fa\u001ex\u001fb\u001ey"
+ },
+ {
+  "label": "tab-trimmed",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "a": "\tv\t"
+   },
+   "vary": "a"
+  },
+  "expected_kind": "key",
+  "expected": "https://e.test/a\u001fa\u001ev"
+ },
+ {
+  "label": "wildcard-refused",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {},
+   "vary": "*"
+  },
+  "expected_kind": "refuse",
+  "expected": "wildcard"
+ },
+ {
+  "label": "trailing-comma-refused",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "a": "1"
+   },
+   "vary": "a,"
+  },
+  "expected_kind": "refuse",
+  "expected": "token"
+ },
+ {
+  "label": "duplicate-header-name-refused",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "Accept": "a",
+    "accept": "b"
+   },
+   "vary": "Accept"
+  },
+  "expected_kind": "refuse",
+  "expected": "duplicate header"
+ },
+ {
+  "label": "lf-value-refused",
+  "input": {
+   "uri": "https://e.test/a",
+   "request_headers": {
+    "a": "x\ny"
+   },
+   "vary": "a"
+  },
+  "expected_kind": "refuse",
+  "expected": "CR or LF"
+ }
+]
