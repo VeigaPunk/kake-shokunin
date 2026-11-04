@@ -564,3 +564,19 @@ measured this round, no network call was made, and publishing stays operator-own
 above replaces the scribe's earlier in-progress snapshot. No pending result is
 represented as a pass. `w1/ExecC3Tool/realrun.txt` covers the previously retained
 page bytes, not a new network observation.
+
+## Coverage — round 79 (2026-11-04)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| X-Robots-Tag declarations (r79) | `knowledge/x-robots-tag-header.md` + `scripts/x_robots_tag_audit.py` + `.ufo/waves/round-79/cases` (S452; S449 header sections) | The response header's declaration role (de-facto, outside any specification), its syntax (multiple field lines, comma lists, the optional `<bot-name>:` scope), the directive and value forms, the more-restrictive conflict rule, the lane's parsing readings (directive-name precedence, per-field scope, no per-bot effective resolution) and the offline audit's decision surface with its limits. |
+
+Sources opened this round: S452 (MDN X-Robots-Tag header, tier B docs; S449's header sections re-read
+as a cross-check); registry 189 → 190 rows, census exit 0.
+
+[r79-correction 2026-11-04] The round-78 paragraph above that says the `X-Robots-Tag` channel is owned
+by `scripts/response_snapshot.py` / `scripts/header_audit.py` is historical for its date: those
+instruments parse Content-Type, HSTS, XCTO, CSP and singleton fields and read no robots directive. The
+channel is now audited by `scripts/x_robots_tag_audit.py`, landed in round 79 with
+`knowledge/x-robots-tag-header.md`, the frozen 31-case matrix and contract amendment 1. The round-78
+instrument still does not read that channel.

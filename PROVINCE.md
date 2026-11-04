@@ -588,3 +588,11 @@ tool, knowledge, oracle-free matrix and cases. The committed-blob matrix receipt
 is `.ufo/waves/round-78/controls/after-c3-matrix.txt`; real input is the eight
 previously retained served pages, not a fresh live fetch. Publishing stays
 operator-owned. No live crawler or deployment outcome is inferred.
+
+[r79-correction 2026-11-04] The "What it refuses" paragraph above assigns the `X-Robots-Tag`
+response-header channel to `scripts/response_snapshot.py` / `scripts/header_audit.py`. Those
+instruments parse no robots directive. Round 79 lands `scripts/x_robots_tag_audit.py`, an offline
+audit of recorded response header fields (contract `.ufo/waves/round-79/contract.md` §C2 and
+`.ufo/waves/round-79/contract-amendment-1.md`; knowledge `corpus/knowledge/x-robots-tag-header.md`),
+so the header channel now has its own instrument. The round-78 audit still does not read the channel,
+and no crawler behaviour is judged.

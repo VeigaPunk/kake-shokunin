@@ -1,0 +1,15 @@
+# command: TMPDIR=<scratch>/tmp python3 -B .ufo/waves/round-78/c78_shonen_population.py --selftest --work <scratch>/c78selftest
+# edited bytes: hardcoded /fast/scratch/hyaku/kake-r78/l1 replaced by tempfile.TemporaryDirectory(prefix='kake-c78-c77-') (TMPDIR-honouring)
+  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0
+  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0
+  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0
+  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0
+  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1
+  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0
+  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0
+  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0
+  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0
+selftest: 9/9 passed
+exit=0
+c78_counter_sha256=c09651e43d7a3ffaa636f7683ad4bcb5b76deaf772ea1c1c9c3b0406dde43a3f
+12238 .ufo/waves/round-78/c78_shonen_population.py

@@ -78,9 +78,7 @@ def c77_findings(root: Path, rev: str):
     raw_tool = git_show(root, rev, C77_REL)
     if raw_tool is None:
         raise Unevaluable(f"round-77 counter absent at {rev}:{C77_REL}")
-    scratch = Path("/fast/scratch/hyaku/kake-r78/l1")
-    scratch.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(dir=scratch) as tmp:
+    with tempfile.TemporaryDirectory(prefix="kake-c78-c77-") as tmp:
         tool = Path(tmp) / "c77.py"
         tool.write_text(raw_tool)
         p = run([sys.executable, "-B", str(tool), "--root", str(root), "--revision", rev, "--json"])

@@ -91,3 +91,15 @@ open, and no broader semantic correctness or live-site correctness is claimed.
 Assimilation: none. The staged package has eight colliding ids; no unresolved staged row is
 adopted. considerthese proposal-one receipt/status-reading is routed through this round's
 instrument-receipt observation; no additional proposal is silently implemented.
+
+## Round-79 corrections (receipt rewrites, appended 2026-11-04)
+
+The round-79 receipt-disclosure gate found three undisclosed rewrites of this round's receipts; the
+non-author closure's R1 traced one of them, the gate found the other two. All are disclosed here and
+in `.ufo/waves/round-58/receipt-rewrites.json`; no earlier line is rewritten.
+
+| # | Path | Commit | From blob -> to blob | Kind | What changed |
+|---|---|---|---|---|---|
+| 1 | `.ufo/waves/round-78/controls/base-c2-sweep.txt` | `c758904c15c21a3c0287737c47e193ea7f08d766` | `ff0d1df15d1232232ba1ab60a9c13ef4c6ca0da9` -> `2bd387be7848d089352fe189100160002abcddc7` | `content` | Amendment 1's commit re-cut the base receipt before any after-state: it names the revision-bound counter command, adds `tree_identity=ba1f923a8d620f55` to the summary line and adds `rc=1`; the superseded summary line is removed. |
+| 2 | `.ufo/waves/round-78/controls/after-c1-population.txt` | `406021c765fd77acd93aa17bc2df5c981b634aec` | `020d8890c8f6514bf5327e589254a2032e44f95a` -> `3e8b5b2efe85c305519c9dba6ad02df7ab197a7b` | `content` | The closure R1 re-cut: the first bytes recorded scratch fixture revision `1729712e…` with `growth_tolerated=2`; the settle bytes record the carrier `82c3d02c…` with `growth_tolerated=4` and two tolerated-growth detail lines. In-wave disclosure existed (CriticC.md:47; ExecC1Population.md:84/:100) but the ledger was silent. |
+| 3 | `.ufo/waves/round-78/controls/after-c3-matrix.txt` | `406021c765fd77acd93aa17bc2df5c981b634aec` | `175c9844344b31c1b209ce763b483862a141b5e7` -> `bc7a5ae063e89d2800c6b777e58ae08b12825723` | `content` | The same settle commit replaced the pre-tool `tool_absent` receipt with the carrier run: `sibling_expect_control_failed=true`, the `C3v1 … correct=36 … met=true` line and its detail lines. The closure did not flag this rewrite. `[r79-correction 2026-11-04]` |

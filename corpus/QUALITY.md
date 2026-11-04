@@ -1600,3 +1600,38 @@ Grounding: corpus/lessons/round-78.md, ReviewC23 and CriticC round-78 receipts.
 - A green explicit table does not resolve contradictory specification prose.
   Preserve a scored population, report the inconsistency, and amend only in a
   later claim; never rewrite expectations after seeing the scored result.
+
+## Round-79 criterion — a rewritten measurement receipt is disclosed with its true bytes
+
+Appended 2026-11-04 by the round-79 `ScribeRecord` seat; every criterion above stands unchanged.
+Grounding: the frozen round-79 C1 counter finds five undisclosed receipt rewrites at the base
+`0898085450ee1b65d910f1dcb7a0efc20b413b88` (`.ufo/waves/round-79/controls/base-c1-receipt-ledger.txt:1`
+reads `C1v2 revision=0898085450ee1b65d910f1dcb7a0efc20b413b88 events=32 undisclosed=5 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false`,
+exit 1; the five events are listed verbatim at
+`controls/base-c1-events.txt:3-7`), and the round-78 non-author closure traced only one of them (its R1,
+`corpus/lessons/round-78-verifier-spotcheck.md` §Routed defects).
+
+- **A measurement receipt rewritten after its first commit is disclosed in the ledger with its true
+  blob ids, a byte-level kind, and a note naming a path that records it.** The ledger is
+  `.ufo/waves/round-58/receipt-rewrites.json`; the standing gate is
+  `python3 -B .ufo/waves/round-79/c79_receipt_ledger.py --root . --revision <rev>`, whose frozen
+  predicate is `undisclosed == 0 AND phantom == 0 AND malformed == 0 AND wrong_kind == 0 AND
+  unpointed == 0 AND symlinks == 0 AND round_rewritten == 0` (exit 0 met, 1 defect, 2 unevaluable,
+  64 usage). Admit: an entry whose `path`, `commit`, `status` and `fromBlob`/`toBlob` equal the event
+  `git log --no-renames --name-status` shows on the first-parent line of the measured revision, whose
+  `kind` is the counter's byte-level classification of that blob pair (`pin-only`, `content`,
+  `pending-fill`, `append`, `format`, `delete`, `readd`), and whose note names a repo-relative path
+  that exists at that revision. Reject: a rewrite left silent because an earlier green matrix ran over
+  the same bytes; an entry with invented blob ids (`phantom`); an entry whose note is empty or a bare
+  commit id (`malformed`/`unpointed`); an entry that discloses in a wave report while the ledger stays
+  silent; and a round rewriting a receipt of its own round (`round_rewritten`) instead of leaving it
+  append-only or filing a disclosed re-cut. Able-to-fail: the counter's fixture control
+  `python3 -B .ufo/waves/round-79/ctl_receipt_fixture.py` — four red variants and one green —
+  prints `met=true` exit 0 for the disclosed rewrite and `met=false` exit 1 for each of fabricated
+  (`phantom=1`), drop-one (`undisclosed=1`), cheap-note (`malformed=1`) and round-rewrite
+  (`round_rewritten=1`) (`controls/ctl-c1-fixtures.txt`; re-run read-only 2026-11-04 at
+  `.ufo/waves/round-79/w1/ScribeRecord/ctl-fixtures-rerun.txt`, sha256 `11a5b7bbbdd08ed42ebdccc415c2b1f31385a7fccc369f14d1e76e813a8ffe8d`).
+  The counter's own `--selftest` (`selftest: 15/15 passed`, `controls/c1-selftest.txt`) pins the
+  predicate arithmetic and the `--round` path scoping; `wrong_kind`, `unpointed` and `symlinks` are
+  therefore enforced by the predicate and its arithmetic cases, but no fixture variant exercises them
+  end-to-end — a stated limit, not a claim.

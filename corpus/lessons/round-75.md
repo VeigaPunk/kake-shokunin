@@ -150,3 +150,14 @@ missing_frozen=0`, `receipt: source=committed declared_valid=true`, exit 0 —
   The observed mismatches=2 classes=E3 sits between files=15 and append_only=false; the verdict the round
   drew (append_only=false, so deletion is not a repair) is unaffected. Appended 2026-11-03 by the round-76
   C1 repair; the historical bullet is not rewritten. `[r76-correction 2026-11-03]`
+
+## Round-79 corrections (receipt rewrites, appended 2026-11-04)
+
+The round-79 receipt-disclosure gate found two undisclosed rewrites of this round's
+`controls/after-harm-battery.txt`. Both are disclosed here and in
+`.ufo/waves/round-58/receipt-rewrites.json`; no earlier line is rewritten.
+
+| # | Path | Commit | From blob -> to blob | Kind | What changed |
+|---|---|---|---|---|---|
+| 1 | `.ufo/waves/round-75/controls/after-harm-battery.txt` | `3ae076ab3e01914abc636da680de1bbafc3314df` | `92810b72d8e062fa86ee99593856f866f5a821da` -> `18d7c493bda4293c1747a8476b7ef2d489c41e35` | `content` | The wave-results settle commit re-cut the receipt from 31 lines to the re-run at `306fff49` (2026-11-04T00:26:06Z); the first bytes recorded the battery at `4e3fc159` (2026-11-04T00:20:12Z) with a `got:` line. |
+| 2 | `.ufo/waves/round-75/controls/after-harm-battery.txt` | `0df52aed0b68d355ae3d73e5bc8f5bbda3c05ee6` | `18d7c493bda4293c1747a8476b7ef2d489c41e35` -> `8083f274f7c711c25cf077fad8f2f7c4893a1349` | `append` | The "final harm-battery receipt bytes" commit appended the 18 per-command result lines; the classifier reads `append` (the new bytes extend the old). `[r79-correction 2026-11-04]` |
