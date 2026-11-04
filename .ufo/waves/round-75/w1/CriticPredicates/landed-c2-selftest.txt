@@ -1,0 +1,19 @@
+selftest: ok green: write, idempotent rewrite, committed, check at carrier, emit-population
+selftest: ok missing receipt: bound=0 mismatches=16
+selftest: ok uncommitted receipt: ignored, bound=0 mismatches=16
+selftest: ok wrong digest: bound=15 mismatches=1
+selftest: ok wrong byte count: bound=15 mismatches=1
+selftest: ok wrong mode flag: bound=15 mismatches=1
+selftest: ok duplicate path: bound=15 mismatches=1, class duplicate
+selftest: ok path outside population: reported separately, bound=16 mismatches=0
+selftest: ok declared revision of another commit, changed blob: bound=15 mismatches=1
+selftest: ok receipt committed after its declared revision: unchanged bytes bind
+selftest: ok declared revision that does not resolve: receipt_revision_invalid, bound=0
+selftest: ok declared revision not an ancestor: receipt_revision_invalid, bound=0
+selftest: ok fabricated receipt (16 paths): bound=0 mismatches=16
+selftest: ok live row beyond the frozen 16: population=17 bound=17
+selftest: ok missing_frozen=1 keeps met=false with bound=16 mismatches=0
+selftest: ok classifier: add_argument, comparisons, docstrings, argv lists, .mjs
+selftest: ok usage: --write without --date exits 64, --selftest without --work exits 64
+selftest: fixtures under /fast/scratch/hyaku/kake-r75/CriticPredicates2/ys/fx-b7hgg0nn
+selftest: 17/17

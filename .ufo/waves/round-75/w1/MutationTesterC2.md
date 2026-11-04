@@ -11,12 +11,14 @@ yield). No lane file was edited; no git/jj mutation ran in the lane.
 | C2 tool | `162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7` | 48 856 B / 1153 lines | `.ufo/waves/round-75/w1/ExecC2Tool/instrument_receipts.py`; hash identical before and after the 43.8 s mutant run |
 | C1 counter, frozen | `43538343c1f26e15a795f5486a6daca977c88ef5fa4458adacd2c68a00a596ce` | 10 405 B / 263 lines | `git show 88f2e05f:.ufo/waves/round-75/c75_row_truth.py` — the bytes the contract §C1 controls measured |
 | C1 counter, hardened | `0699a672bc51311e4074ac17733b38954892d0b87084b7c9aa7b414f1716a501` | 45 406 B / 1016 lines | Lane working tree at measurement time (file replaced between 21:12 and 21:14 while this seat ran; `git status` shows the counter path modified/untracked under `w1/ExecC1Counter/`) |
-| C1 counter, hardened latest | `63e321b28e509781405f1b4209a66b99460bc2512c92a8615fec06f2423e944b` | 1051 lines | Lane working tree when the report was written; selftest 29/29. The executor was still iterating, so this row is a spot-check, not a freeze |
+| C1 counter, landed | `63e321b28e509781405f1b4209a66b99460bc2512c92a8615fec06f2423e944b` | 1051 lines | Landed by commit `abfbfaac` ("final C1 counter (29/29)"); identical to the lane working tree at report close; selftest 29/29 |
 
-Both counter byte-sets are tested. The frozen set is the contract's instrument and its
-mutants are what §C1's controls can be re-derived from; the hardened set is the
-instrument standing at the path the L1 will land. `[INFERENCE]` the hardened file is
-the landed replacement; it is the only one present when this report was written.
+All three counter byte-sets are tested. The frozen set is the contract's instrument
+and its mutants are what §C1's controls can be re-derived from; the two hardened sets
+are successive lane states of the replacement the L1 will land. `[INFERENCE]` the
+hardened file is the landed replacement; it is the only one present when this report
+was written. The frozen set's mutants do not transfer to the hardened sets: the code
+was rewritten, so `H-M*` was cut separately from each hardened snapshot.
 
 The C2 tool also moved while this seat worked (observed `60312744…`, 1081 lines, then
 `162dd685…`, 1153 lines). Every C2 verdict below is against `162dd685…`; the run
@@ -28,17 +30,21 @@ recorded the source hash before and after and they are equal.
   **6 survived** it and are caught only by independent state probes:
   M3 (missing entry), M6 (worktree blob), M8 (unsorted write), M9 (no trailing
   newline), M10 (git fault reported met), M12 (one entry covering two paths).
-- **C1 frozen, 7 mutants (+1 redundant variant):** 2 killed by the base measurement
-  shape (M3 changes the count, M4 invents findings); **5 survive the base
-  measurement** and are caught only by targeted states:
-  M1 (append-only), M3 (E3), M5 (exit 0 without tally), M6 (`differential` outside
-  Kind), M7 (E1 skipped). The counter also has a predicate-level hole no mutant
-  needed to create: E4 checks only the instrument file, not every `.py`/`.mjs` token.
-- **C1 hardened, 8 mutants:** at `0699a672…` (26-case selftest) 5 killed, **3
-  survived**: H-M4 (tally from the whole cell), H-M5 (exit 0 without tally), H-M6
-  (`differential` outside Kind). At the latest bytes `63e321b2…` (29-case selftest)
-  H-M6 is killed by the new f22 fixture; **H-M4 and H-M5 still survive**, and the
-  Verdict-cell placement of the H-M6 defect still greens a state f22 does not cover.
+- **C1 frozen, 7 mutants (+1 redundant variant):** no mutant flips the base verdict
+  (`met=false` stays for all seven), so the contract's base measurement alone kills
+  none. Five survive every check the controls apply — M1 (append-only, state C),
+  M3 (E3, state A2), M5 (exit 0 without tally, state F), M6 (`differential` outside
+  Kind, state A3), M7 (E1 skipped, state A3). M2 and M4 are caught only because they
+  change a correct state (M2 turns a superseded-row green red, state G; M4 invents
+  E2 findings, state E and the real base `mismatches=4`). The counter also has a
+  predicate-level hole no mutant needed to create: E4 checks only the instrument
+  file, not every `.py`/`.mjs` token.
+- **C1 hardened, 8 mutants:** at snapshot `0699a672…` (26-case selftest) 5 killed,
+  **3 survived**: H-M4 (tally from the whole cell), H-M5 (exit 0 without tally), H-M6
+  (`differential` outside Kind). At the **landed** bytes `63e321b2…` (29-case
+  selftest, commit `abfbfaac`) H-M6 is killed by the new f22 fixture; **H-M4 and
+  H-M5 still survive**, and the Verdict-cell placement of the H-M6 defect still
+  greens a state f22 does not cover.
 
 No baseline failure was treated as a kill: every state set was first run with the
 pristine instrument and the pristine verdict is recorded beside each mutant verdict.
@@ -62,7 +68,7 @@ one live row per predicate dimension (states A/B/A2/A3/C/E/F/G/H, §5).
 |---|---|---|
 | frozen counter, real base | 1 | `rows=28 live=16 files=16 mismatches=2 classes=E1 E3 append_only=true met=false` — reproduces `controls/base-c1-row-truth.txt` |
 | hardened counter, real base | 1 | `mismatches=2 classes=E1 E3 append_only=true met=false missing_frozen=0` — same control |
-| frozen counter `--selftest` | n/a | the frozen counter has no `--selftest` mode |
+| frozen counter `--selftest` | 2 | `error: unrecognized arguments: --selftest` (no self-test mode) |
 | hardened counter `--selftest` (`0699a672…`) | 0 | `C1v1 selftest fixtures=26 passed=26 failed=0` |
 | hardened counter `--selftest` (`63e321b2…`) | 0 | `selftest 29/29` |
 | C2 tool `--selftest` (pinned bytes) | 0 | `selftest: 17/17` |
@@ -208,11 +214,12 @@ Rows: one live row per dimension; `--base` is state A's commit throughout.
   nothing because the append-only finding already keeps `met=false`; the conjunct and
   the finding are double-guarded.
 
-## 6. C1 — hardened counter (`0699a672…`)
+## 6. C1 — hardened counter (snapshot `0699a672…`, landed `63e321b2…`)
 
-Pristine: `--selftest` 26/26, exit 0; real base `mismatches=2 classes=E1 E3
-append_only=true met=false missing_frozen=0`, exit 1. The hardened counter closes the
-frozen counter's E4 hole and the E1 command-binding hole.
+Snapshot `0699a672…`: `--selftest` 26/26, exit 0; real base `mismatches=2 classes=E1
+E3 append_only=true met=false missing_frozen=0`, exit 1. The hardened counter closes
+the frozen counter's E4 hole and the E1 command-binding hole. The landed bytes
+`63e321b2…` pass 29/29 and are tabled in §6.2.
 
 | id | mutation | selftest | verdict |
 |---|---|---|---|
@@ -233,19 +240,41 @@ frozen counter's E4 hole and the E1 command-binding hole.
 | S2 `differential_outside_kind`: word only in the Verdict cell | `classes=E1 met=false` | same | **`mismatches=0 met=true`** | same |
 | S3 `history_pair`: claim segment `3/3`, receipt-history `9/9` after `;` | `mismatches=0 met=true` | same | same | **`classes=E2 met=false`** |
 
-Proposed kills: add f22 (S1), f23 (S2) and f24 (S3) as `_selftest_cases` entries — the
-three are the only fixture classes the 26-case suite omits among the seat's mutant
-list.
+Proposed kills for `0699a672…`: add S1, S2 and S3 as `_selftest_cases` entries —
+the three classes the 26-case suite omits among the seat's mutant list.
+
+### 6.2 Landed bytes (`63e321b2…`, 1051 lines, selftest 29/29, commit `abfbfaac`)
+
+| id | mutation | selftest | verdict |
+|---|---|---|---|
+| H-M1 | append-only block disabled | FAIL f11 | killed |
+| H-M2 | first row wins | FAIL f10 | killed |
+| H-M3 | E3 ignored | FAIL f05 | killed |
+| H-M4 | tally parsed from the whole cell | **pass 29/29** | **SURVIVED** (S3 still red under the mutant) |
+| H-M5 | exit 0 without the claimed tally accepted | **pass 29/29** | **SURVIVED** (S1 still green under the mutant) |
+| H-M6 | `differential` searched in every cell | FAIL f22 | killed |
+| H-M7 | E1 skipped | FAIL f01/f18/f22 | killed |
+| H-M8 | E4 only on the instrument file | FAIL f09/f19 | killed |
+
+H-M6 is now killed, but the killing fixture f22 places the word in the Pinned cell
+only. The S2 state places it in the Verdict cell and still reports
+`mismatches=0 met=true` under H-M6 (pristine: `classes=E1 met=false`), so the
+exemption search remains position-sensitive: a row with the word only in the Verdict
+cell would be laundered by the mutant. Proposed kill: one row per non-Kind cell
+position, or a single row carrying the word in the Verdict, Self-test and Pinned
+cells.
 
 ## 7. Routed items (next round)
 
 1. C2 selftest: dropped-entry case (M3), uncommitted-edit case (M6), write-format
    assertions (M8/M9), CLI-level fault case (M10), combined-path case (M12).
-2. C1 frozen: if the hardened counter is not landed, add the A2/A3/C/E/F/G fixtures
-   as `--selftest` cases; in either case the landed counter must be the one the
-   controls are re-derived with — the frozen control was produced by `43538343…`
-   and the lane path now holds `0699a672…`.
-3. C1 hardened: f22/f23/f24 above.
+2. C1: the frozen counter is superseded by the landed `63e321b2…`; if the frozen
+   bytes are ever measured again, add the A2/A3/C/E/F/G fixtures as `--selftest`
+   cases. The landed counter must be the one the round's controls are re-derived
+   with — the control in `controls/base-c1-row-truth.txt` was produced by
+   `43538343…`, not by the landed file.
+3. C1 hardened: S1 (no-tally) and S3 (history pair) cases; extend f22 to the Verdict
+   cell (the Pinned-cell placement alone leaves the H-M6 class live).
 4. Contract-level note: the frozen E4 sentence is stronger than the frozen counter's
    implementation; if `43538343…` lands, the claim's E4 term is under-measured.
 
@@ -253,7 +282,10 @@ list.
 
 - `c1/C1-M*.py` — 8 frozen-counter mutants; `c1-frozen/c75_row_truth.py` — the
   frozen source they were cut from.
-- `c1-hard/H-M*.py` — 8 hardened-counter mutants; `c1-hard/pristine-c75_hard.py`.
+- `c1-hard/H-M*.py` — 8 hardened-counter mutants at `0699a672…`;
+  `c1-hard/pristine-c75_hard.py`.
+- `c1-hard-latest/H-M*.py` — the same 8 mutants re-cut at `63e321b2…`;
+  `c1-hard-latest/pristine-c75_hard_63e321b2.py`.
 - `c2/C2-M*.py` — 12 landed-tool mutants; `c2/pristine-instrument_receipts.py`.
 - `harness/` — `mutc1.py`, `c1real.py`, `mutc1_hard.py`, `c1hard_states.py`,
   `mutc2_real.py`, plus `harness/ref/instrument_receipts.py` (contract-spec reference
