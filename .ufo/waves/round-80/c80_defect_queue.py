@@ -290,6 +290,8 @@ def main() -> int:
     try:
         if a.selftest:
             return selftest(work)
+        errors: list[str] = []
+        base_snapshot: Path | None = None
         if a.revision:
             tree, exported, errors = materialise(root, a.revision, work)
             label = a.revision

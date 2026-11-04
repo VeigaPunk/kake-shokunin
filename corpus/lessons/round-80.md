@@ -206,3 +206,12 @@ corrected here rather than by rewriting an earlier line.
   looser (`w1/ExecQueue.md` §B); the counter, not the prose, is what the predicate sentence names.
   (d) A2's single-space asctime branch (`Nov 6`) is outside the measurable case set, so the claim
   covers the two-space and two-digit forms it pins, not the widened branch.
+- **A self-inflicted regression, found by the same seat that would have closed the item.** Amendment 3
+  introduced `if errors:` in `c80_defect_queue.py`'s shared path while `errors` was bound only in the
+  revision branch, so worktree mode raised `UnboundLocalError` from `e8d3a924` until this fix — the
+  round's own junk control is a worktree-mode run, and `ExecGuard` caught the traceback
+  (`w1/ExecGuard.md`, routed finding 1). Fixed the same round by binding `errors` and `base_snapshot`
+  before the branch; the junk control's committed receipt re-runs byte-identically after the fix
+  (`open=5 closed=1 met=false`), the selftest still prints `3/3`, and both claim measurements at the
+  carrier are unchanged. The lesson is the round's own subject: a control is only a control while the
+  instrument still runs.
