@@ -1,0 +1,877 @@
+Referrer Policy
+Editor’s Draft,
+20 March 2026
+More details about this document
+This version:
+https://w3c.github.io/webappsec-referrer-policy/
+Latest published version:
+http://www.w3.org/TR/referrer-policy/
+Version History:
+https://github.com/w3c/webappsec-referrer-policy/commits/main/index.src.html
+Feedback:
+public-webappsec@w3.org with subject line “[REFERRER-POLICY] … message topic …” (archives)
+GitHub
+Inline In Spec
+Editor:
+Dominic Farolino (Google Inc.)
+Former Editors:
+Emily Stark (Google Inc.)
+Jochen Eisinger (Google Inc.)
+Tests:
+web-platform-tests referrer-policy/ (ongoing work)
+Copyright © 2026 World Wide Web Consortium. W3C® liability, trademark and permissive document license rules apply.
+Abstract
+This document describes how an author can set a referrer policy for documents they create, and the impact of such a policy on the Referer HTTP header for outgoing requests and navigations.
+Status of this document
+This is a public copy of the editors’ draft.
+It is provided for discussion only and may change at any moment.
+Its publication here does not imply endorsement of its contents by W3C.
+Don’t cite this document other than as work in progress.
+Changes to this document may be tracked at
+https://github.com/w3c/webappsec.
+The (archived) public mailing list
+public-webappsec@w3.org
+(see instructions)
+is preferred for discussion of this specification.
+When sending e-mail,
+please put the text “REFERRER-POLICY” in the subject,
+preferably like this:
+“[REFERRER-POLICY] …summary of comment…”
+This document was produced by the
+Web Application Security Working Group.
+This document was produced by a group operating under
+the W3C Patent Policy.
+W3C maintains a public list of any patent disclosures
+made in connection with the deliverables of the group;
+that page also includes instructions for disclosing a patent.
+An individual who has actual knowledge of a patent that the individual believes contains Essential Claim(s)
+must disclose the information in accordance with section 6 of the W3C Patent Policy.
+This document is governed by the 18 August 2025 W3C Process Document.
+Table of Contents
+1 Introduction
+1.1 Privacy
+1.2 Security
+1.3 Trackback
+2 Key Concepts and Terminology
+3 Referrer Policies
+3.1 "no-referrer"
+3.2 "no-referrer-when-downgrade"
+3.3 "same-origin"
+3.4 "origin"
+3.5 "strict-origin"
+3.6 "origin-when-cross-origin"
+3.7 "strict-origin-when-cross-origin"
+3.8 "unsafe-url"
+3.9 The empty string
+4 Referrer Policy Delivery
+4.1 Delivery via Referrer-Policy header
+4.1.1 Usage
+4.2 Delivery via meta
+4.3 Delivery
+via a referrerpolicy content attribute
+4.4 Referrer Policy Inheritance
+5 Integration with Fetch
+6 Integration with HTML
+7 Integration with CSS
+8 Algorithms
+8.1
+Parse a referrer policy from a Referrer-Policy header
+8.2
+Set request’s referrer policy on redirect
+8.3
+Determine request’s Referrer
+8.4
+Strip url for use as a referrer
+9 Privacy Considerations
+9.1 User Controls
+10 Security Considerations
+10.1 Information Leakage
+10.2 Downgrade to less strict policies
+11 Authoring Considerations
+11.1 Unknown Policy Values
+12 Acknowledgements
+Conformance
+Document conventions
+Conformant Algorithms
+Index
+Terms defined by this specification
+Terms defined by reference
+References
+Normative References
+Informative References
+IDL Index
+Issues Index
+1. Introduction
+This section is not normative.
+Requests made from a document, and for navigations away from that document
+are associated with a Referer header. While the header
+can be suppressed for links with the noreferrer link
+type, authors might wish to control the Referer header
+more directly for a number of reasons:
+1.1. Privacy
+A social networking site has a profile page for each of its users, and users
+add hyperlinks from their profile page to their favorite bands. The social
+networking site might not wish to leak the user’s profile URL to the band web
+sites when other users follow those hyperlinks (because the profile URLs might
+reveal the identity of the owner of the profile).
+Some social networking sites, however, might wish to inform the band web sites
+that the links originated from the social networking site but not reveal which
+specific user’s profile contained the links.
+1.2. Security
+A web application uses HTTPS and a URL-based session identifier. The web
+application might wish to link to HTTPS resources on other web sites without
+leaking the user’s session identifier in the URL.
+Alternatively, a web application may use URLs which themselves grant some
+capability. Controlling the referrer can help prevent these capability URLs
+from leaking via referrer headers. [CAPABILITY-URLS]
+Note that there are other ways for capability URLs to leak, and controlling
+the referrer is not enough to control all those potential leaks.
+1.3. Trackback
+A blog hosted over HTTPS might wish to link to a blog hosted over HTTP and
+receive trackback links.
+2. Key Concepts and Terminology
+referrer policy
+A referrer policy modifies the algorithm used to populate the
+Referer header when fetching subresources,
+prefetching, or performing navigations. This document defines the various
+behaviors for each referrer policy.
+Every environment settings object has an algorithm for obtaining a
+referrer policy, which is used by default for all requests
+with that environment settings object as their client.
+same-origin-referrer request
+A Request request is a same-origin-referrer request if the
+origin of request’s referrerURL and the origin
+of request’s current URL are the same.
+cross-origin-referrer request
+A Request is a cross-origin-referrer request if it is
+not a same-origin-referrer request.
+3. Referrer Policies
+A referrer policy
+is the empty string, "no-referrer",
+"no-referrer-when-downgrade", "same-origin",
+"origin", "strict-origin",
+"origin-when-cross-origin",
+"strict-origin-when-cross-origin", or
+"unsafe-url".
+enum ReferrerPolicy {
+"",
+"no-referrer",
+"no-referrer-when-downgrade",
+"same-origin",
+"origin",
+"strict-origin",
+"origin-when-cross-origin",
+"strict-origin-when-cross-origin",
+"unsafe-url"
+};
+Each possible referrer policy is explained below. A detailed
+algorithm for evaluating their effect is given in the
+§ 5 Integration with Fetch and
+§ 8 Algorithms sections.
+Note: The referrer policy for an environment settings object provides a
+default baseline policy for requests when that environment settings
+object is used as a request client. This policy may be tightened
+for specific requests via mechanisms like the noreferrer
+link type.
+The default referrer policy is "strict-origin-when-cross-origin".
+3.1. "no-referrer"
+The simplest policy is "no-referrer", which specifies
+that no referrer information is to be sent along with requests to any
+origin. The header Referer will be omitted entirely.
+If a document at https://example.com/page.html sets a policy of
+"no-referrer", then navigations to
+https://example.com/ (or any other URL) would send no
+Referer header.
+3.2. "no-referrer-when-downgrade"
+The "no-referrer-when-downgrade" policy sends a request’s full
+referrerURL stripped for use as a referrer for requests:
+whose referrerURL and current URL are both potentially
+trustworthy URLs, or
+whose referrerURL is a non-potentially trustworthy URL.
+Requests whose referrerURL is a potentially trustworthy URL and whose
+current URL is a non-potentially trustworthy URL on the other hand, will
+contain no referrer information. A Referer HTTP header will not be sent.
+If a document at https://example.com/page.html sets a policy of
+"no-referrer-when-downgrade", then navigations to
+https://not.example.com/ would send a
+Referer HTTP header with a value of
+https://example.com/page.html, as neither resource’s origin is a
+non-potentially trustworthy URL.
+Navigations from that same page to
+http://not.example.com/ would send no
+Referer header.
+3.3. "same-origin"
+The "same-origin" policy specifies that a request’s full referrerURL is
+sent as referrer information when making same-origin-referrer requests.
+Cross-origin-referrer requests, on the other hand, will contain no
+referrer information. A Referer HTTP header will not be
+sent.
+If a document at https://example.com/page.html sets a policy of
+"same-origin", then navigations to
+https://example.com/not-page.html would send a
+Referer header with a value of
+https://example.com/page.html.
+Navigations from that same page to
+https://not.example.com/ would send no
+Referer header.
+If a document at https://example.com/page.html sets a policy of
+"same-origin", and fetches a module script at
+https://script.example.com, which then fetches a descendant script
+at https://example.com/descendant.js, the request for the descendant
+script would send no Referer header.
+This is because the descendant script request’s current URL is
+https://example.com/descendant.js, while its referrerURL is
+https://script.example.com, making the request
+cross-origin-referrer.
+3.4. "origin"
+The "origin" policy specifies that only the
+ASCII serialization of the request’s
+referrerURL is sent as referrer information when making both same-origin-referrer
+requests and cross-origin-referrer requests.
+Note: The serialization of an origin looks like https://example.com.
+To ensure that a valid URL is sent in the `Referer` header, user
+agents will append a U+002F SOLIDUS ("/") character to the origin
+(e.g. https://example.com/).
+Note: The "origin" policy allows the origin of HTTPS
+referrers to be sent over the network as part of unencrypted HTTP requests.
+The "strict-origin" policy addresses this concern.
+If a document at https://example.com/page.html sets a policy of
+"origin", then navigations to any
+origin would send a Referer header with a value
+of https://example.com/, even to URLs that are not
+potentially trustworthy URL.
+If a document at https://example.com/page.html sets a policy of
+"origin", and fetches a module script at
+https://script.example.com, which fetches a descendant script at
+https://descendant.example.com, the request for the descendant script
+will send a Referer header with a value of
+https://script.example.com/.
+3.5. "strict-origin"
+The "strict-origin" policy sends the
+ASCII serialization of the origin of the
+referrerURL for requests:
+whose referrerURL and current URL are both potentially
+trustworthy URLs, or
+whose referrerURL is a non-potentially trustworthy URL.
+Requests whose referrerURL is a potentially trustworthy URL and whose
+current URL is a non-potentially trustworthy URL on the other hand, will
+contain no referrer information. A Referer HTTP header will not be sent.
+If a document at https://example.com/page.html sets a policy of
+"strict-origin", then navigations to
+https://not.example.com would send a
+Referer header with a value of
+https://example.com/.
+Navigations from that same page to
+http://not.example.com would send no
+Referer header.
+If a document at http://example.com/page.html sets a policy of
+"strict-origin", then navigations to
+http://not.example.com or
+https://example.com would send a
+Referer header with a value of
+http://example.com/.
+If a document at http://example.com/page.html sets a policy of
+"strict-origin", and fetches a module script at
+https://script.example.com, which then fetches a
+descendant script at http://descendant.example.com,
+the request to the descendant script would not send a Referrer
+header.
+3.6. "origin-when-cross-origin"
+The "origin-when-cross-origin" policy specifies that a request’s full
+referrerURL is sent as referrer information when making same-origin-referrer requests,
+and only the ASCII serialization of the
+origin of the request’s referrerURL is sent as referrer information when making
+cross-origin-referrer requests.
+Note: For the "origin-when-cross-origin" policy, we also
+consider protocol upgrades, e.g. requests from
+http://example.com/ to https://example.com/, to be
+cross-origin-referrer requests.
+Note: The "origin-when-cross-origin" policy allows the
+origin of HTTPS referrers to be sent over the network as part of unencrypted
+HTTP requests. The "strict-origin-when-cross-origin" policy
+addresses this concern.
+If a document at https://example.com/page.html sets a policy of
+"origin-when-cross-origin", then navigations to
+https://example.com/not-page.html would send a
+Referer header with a value of
+https://example.com/page.html.
+Navigations from that same page to https://not.example.com/
+would send a Referer header with a value of
+https://example.com/, even to URLs that are not
+potentially trustworthy URLs.
+If a document at https://example-1.com sets a policy of
+"origin-when-cross-origin", and fetches a module script at
+https://example-2.com/module.js, which then fetches a descendant script at
+https://example-1.com/descendant.js, the request to the descendant script would
+send a Referer header with a value of https://example-2.com/.
+If a document at https://example-1.com sets a policy of
+"origin-when-cross-origin", and fetches a module script at
+https://example-2.com/module.js, which then fetches a descendant script at
+https://example-2.com/descendant.js, the request to the descendant script would
+send a Referer header with a value of https://example-2.com/module.js.
+3.7. "strict-origin-when-cross-origin"
+The "strict-origin-when-cross-origin" policy specifies that a request’s full
+referrerURL is sent as referrer information when making same-origin-referrer requests,
+and only the ASCII serialization of the
+origin of the request’s referrerURL when making
+cross-origin-referrer requests:
+whose referrerURL and current URL are both potentially
+trustworthy URLs, or
+whose referrerURL is a non-potentially trustworthy URL.
+Requests whose referrerURL is a potentially trustworthy URL and whose
+current URL is a non-potentially trustworthy URL on the other hand,
+will contain no referrer information. A Referer HTTP header will not be sent.
+If a document at https://example.com/page.html sets a policy of
+"strict-origin-when-cross-origin", then navigations to
+https://example.com/not-page.html would send a
+Referer header with a value of
+https://example.com/page.html.
+Navigations from that same page to https://not.example.com/
+would send a Referer header with a value of
+https://example.com/.
+Navigations from that same page to
+http://not.example.com/ would send no
+Referer header.
+If a document at https://example.com/page.html sets a policy of
+"strict-origin-when-cross-origin", and fetches a module script
+at https://script.example.com which then fetches a descendant script at
+http://descendant.example.com, the request to the descendant
+script would send no Referer header.
+This policy is the user agent’s default, and will be applied
+if no policy is otherwise specified.
+3.8. "unsafe-url"
+The "unsafe-url" policy specifies that a request’s full referrerURL is
+sent along for both same-origin-referrer requests and cross-origin-referrer requests.
+If a document at https://example.com/sekrit.html sets a policy
+of "unsafe-url", then navigations to
+http://not.example.com/ (and every other origin) would send a
+Referer HTTP header with a value of
+https://example.com/sekrit.html.
+Note: The policy’s name doesn’t lie; it is unsafe. This policy will leak
+origins and paths from secure resources to insecure origins.
+Carefully consider the impact of setting such a policy for potentially
+sensitive documents.
+3.9. The empty string
+The empty string "" corresponds to no referrer policy, causing a
+fallback to a referrer policy defined elsewhere, or in the case where
+no such higher-level policy is available, falling back to the default referrer
+policy. This happens in Fetch’s main fetch algorithm, for example.
+Given a HTML a element without any declared referrerpolicy
+attribute, its referrer policy is the empty string. Thus, navigation requests initiated by
+clicking on that a element will be sent with the a element’s node document’s policy container’s referrer policy. If that
+Document has the empty string as its referrer policy, the § 8.3 Determine request’s Referrer
+algorithm will treat the empty string the same as
+"strict-origin-when-cross-origin".
+4. Referrer Policy Delivery
+A request’s referrer policy
+is delivered in one of five ways:
+Via the Referrer-Policy HTTP header (defined
+in § 4.1 Delivery via Referrer-Policy header).
+Via a meta element with a name of
+referrer.
+Via a referrerpolicy content attribute on an a,
+area, img, iframe, link, or script element.
+Via the noreferrer link relation on an a, or
+area element.
+Implicitly, via inheritance.
+4.1. Delivery via Referrer-Policy header
+The Referrer-Policy HTTP header
+specifies the referrer policy that the user agent applies when determining
+what referrer information should be included with requests made, and with
+browsing contexts created from the context of the protected
+resource.
+The syntax for the name and value of the header are described by the following
+ABNF grammar. ABNF is defined in [RFC5234], and the #rule ABNF
+extension used below is defined in Section 5.6.1 of
+[RFC9110].
+"Referrer-Policy:" 1#(policy-token / extension-token)
+policy-token = "no-referrer" / "no-referrer-when-downgrade" / "strict-origin" / "strict-origin-when-cross-origin" / "same-origin" / "origin" / "origin-when-cross-origin" / "unsafe-url"
+extension-token = 1*( ALPHA / "-" )
+Note: The header name does not share the HTTP Referer header’s misspelling.
+Note: The purpose of extension-token is so that
+browsers do not fail to parse the entire header field if it includes an
+unknown policy value. § 11.1 Unknown Policy Values describes in greater detail
+how new policy values can be deployed.
+Note: The quotes in the ABNF above are used to indicate literal strings.
+Referrer-Policy header values should not be quoted.
+§ 5 Integration with Fetch and § 6 Integration with HTML describe
+how the Referrer-Policy header is processed.
+4.1.1. Usage
+This section is not normative.
+A protected resource can prevent referrer leakage by specifying
+no-referrer as the value of its
+Referrer-Policy header:
+Referrer-Policy: no-referrer
+This will cause all requests made from the protected resource’s
+context to have an empty Referer [sic] header.
+4.2. Delivery via meta
+This section is not normative.
+The HTML Standard defines the referrer
+keyword for the meta element, which allows setting the referrer
+policy via markup.
+4.3. Delivery
+via a referrerpolicy content attribute
+This section is not normative.
+The HTML Standard defines the concept of referrer policy
+attributes which applies to several of its elements, for example:
+<a href="http://example.com" referrerpolicy="origin">
+4.4. Referrer Policy Inheritance
+This section is not normative.
+Referrer policy is inherited following the inheritance mechanism of
+policy containers, as defined by HTML.
+5. Integration with Fetch
+This section is not normative.
+The Fetch specification calls out to
+§ 8.2 Set request’s referrer policy on redirect
+before Step 19 of the HTTP-redirect fetch, so
+that a request’s referrer policy can be updated before following a redirect.
+The Fetch specification calls out to § 8.3 Determine request’s Referrer
+as Step 8 of the Main fetch algorithm, and uses the
+result to set the request’s referrer property. Fetch
+is responsible for serializing the URL provided, and setting the
+`Referer` header on request.
+6. Integration with HTML
+This section is not normative.
+The HTML Standard determines the referrer policy of any response
+received during navigation or while running a worker, and uses
+the result to set the resulting Document’s policy
+container’s or WorkerGlobalScope’s policy
+container’s referrer policy.
+7. Integration with CSS
+The CSS Standard does not specify how it fetches resources referenced from
+stylesheets. However, implementations should be sure to set the
+referrer-related properties of any requests initiated by stylesheets
+as follows:
+If a CSS style sheet is responsible for the request,
+and its location is non-null,
+set the referrer to its
+location, and the referrer
+policy to its referrer policy.
+This requires that CSS style sheets process `Referrer-Policy`
+headers, and store a referrer policy
+in the same way that Documents
+do.
+If a CSS style sheet with a null location is responsible
+for the request, set the referrer to its
+owner node’s
+node document’s URL, and the
+referrer policy to its
+owner node’s
+node document’s policy container’s
+referrer policy.
+Otherwise, a CSS declaration block that was created by the
+embedder is responsible for the request - either from parsing of an
+element’s style attribute, or to implement an presentational
+hint for an element. We assume that in this case the CSS
+declaration block’s owner node
+points to that element, and set the referrer to the
+block’s owner node’s node
+document’s URL, and the
+referrer policy to the block’s
+owner node’s node document’s
+policy container’s
+referrer policy.
+Note: Both the value of the request’s referrer
+and referrer policy are set based on the values at the
+time a given request is created. If a document’s referrer policy
+changes during its lifetime, the policy associated with inline stylesheet
+requests will also change.
+8. Algorithms
+8.1.
+Parse a referrer policy from a Referrer-Policy header
+Given a response response, the following steps return a
+referrer policy according to response’s
+`Referrer-Policy` header:
+Let policy-tokens be the result of extracting header list values given
+`Referrer-Policy` and response’s header list.
+Let policy be the empty string.
+For each token in policy-tokens, if token is a referrer
+policy and token is not the empty string, then set policy
+to token.
+Note: This algorithm loops over multiple policy values to allow
+deployment of new policy values with fallbacks for older user
+agents, as described in § 11.1 Unknown Policy Values.
+Return policy.
+8.2.
+Set request’s referrer policy on redirect
+Given a request request and a response actualResponse,
+this algorithm updates request’s referrer policy
+according to the Referrer-Policy header (if any) in actualResponse.
+Let policy be the result of executing
+§ 8.1 Parse a referrer policy from a Referrer-Policy header on actualResponse.
+If policy is not the empty string, then set request’s
+referrer policy to policy.
+8.3.
+Determine request’s Referrer
+Given a request request, we can determine the correct
+referrer information to send by examining its referrer policy
+as detailed in the following steps, which return either no referrer or a URL:
+Let policy be request’s referrer policy.
+Let environment be request’s client.
+Switch on request’s referrer:
+"client"
+If environment is null, then return no referrer.
+If environment’s global
+object is a Window object, then
+Let document be
+the associated Document of environment’s
+global object.
+If document’s origin is an opaque origin,
+return no referrer.
+While document is an iframe srcdoc
+document, let document be document’s browsing context’s browsing context
+container’s node document.
+Let referrerSource be document’s URL.
+Otherwise, let referrerSource be environment’s creation
+URL.
+a URL
+Let referrerSource be request’s referrer.
+Note: If request’s referrer is
+"no-referrer", Fetch will not call into this algorithm.
+Let request’s referrerURL be the result of stripping
+referrerSource for use as a referrer.
+Let referrerOrigin be the result of
+stripping referrerSource for use as a
+referrer, with the origin-only flag set to
+true.
+If the result of serializing referrerURL is a string whose
+length is greater than 4096, set referrerURL to
+referrerOrigin.
+The user agent MAY alter referrerURL or referrerOrigin at this point to
+enforce arbitrary policy considerations in the interests of minimizing data leakage. For
+example, the user agent could strip the URL down to an origin, modify its
+host, replace it with an empty string, etc.
+Execute the statements corresponding to the value of policy:
+Note: If request’s referrer policy is
+the empty string, Fetch will not call into this algorithm.
+"no-referrer"
+Return no referrer
+"origin"
+Return referrerOrigin
+"unsafe-url"
+Return referrerURL.
+"strict-origin"
+If referrerURL is a potentially trustworthy URL and request’s
+current URL is not a potentially trustworthy URL, then
+return no referrer.
+Return referrerOrigin.
+"strict-origin-when-cross-origin"
+If the origin of referrerURL and the origin of
+request’s current URL are the
+same, then return referrerURL.
+If referrerURL is a potentially trustworthy URL and request’s
+current URL is not a potentially trustworthy URL, then
+return no referrer.
+Return referrerOrigin.
+"same-origin"
+If the origin of referrerURL and the origin of
+request’s current URL are the
+same, then return referrerURL.
+Note: This same-origin check determines whether or not the request is
+same-origin-referrer.
+Return no referrer.
+"origin-when-cross-origin"
+If the origin of referrerURL and the origin of
+request’s current URL are the
+same, then return referrerURL.
+Return referrerOrigin.
+"no-referrer-when-downgrade"
+If referrerURL is a potentially trustworthy URL and request’s
+current URL is not a potentially trustworthy URL, then
+return no referrer.
+Return referrerURL.
+8.4.
+Strip url for use as a referrer
+Certain portions of URLs must not be included when sending a URL as the value
+of a `Referer` header: a URLs fragment, username, and password
+components must be stripped from the URL before it’s sent out. This
+algorithm accepts a origin-only flag, which defaults
+to false. If set to true, the algorithm will
+additionally remove the URL’s path and query components, leaving only the
+scheme, host, and port.
+Assert: url is a URL.
+If url’s scheme is a local scheme, then
+return no referrer.
+Set url’s username to the empty string.
+Set url’s password to the empty string.
+Set url’s fragment to null.
+If the origin-only flag is true,
+then:
+Set url’s path to « the empty string ».
+Set url’s query to null.
+Return url.
+9. Privacy Considerations
+9.1. User Controls
+Nothing in this specification should be interpreted as preventing user
+agents from offering options to users which would change the information
+sent out via a `Referer` header. For instance, user agents
+MAY allow users to suppress the referrer header entirely, regardless of the
+active referrer policy on a page.
+10. Security Considerations
+10.1. Information Leakage
+The referrer policies "origin",
+"origin-when-cross-origin" and
+"unsafe-url" might leak the origin and the URL of
+a secure site respectively via insecure transport.
+Those three policies are included in the spec nevertheless to lower the friction
+of sites adopting secure transport.
+Authors wanting to ensure that they do not leak any more information than
+the default policy should instead use the policy states
+"same-origin", "strict-origin", or
+"no-referrer".
+10.2. Downgrade to less strict policies
+The spec does not forbid downgrading to less strict policies, e.g., from
+"no-referrer" to "unsafe-url".
+On the one hand, it is not clear which policy is more strict for all possible
+pairs of policies: While "no-referrer-when-downgrade" will
+not leak any information over insecure transport, and
+"origin" will, the latter reveals less information
+across cross-origin navigations.
+On the other hand, allowing for setting less strict policies enables authors
+to define safe fallbacks as described in § 11.1 Unknown Policy Values.
+11. Authoring Considerations
+11.1. Unknown Policy Values
+As described in § 8.1 Parse a referrer policy from a Referrer-Policy header and in the
+meta referrer algorithm, unknown
+policy values will be ignored, and when multiple sources specify a
+referrer policy, the value of the latest one will be used. This makes
+it possible to deploy new policy values.
+Suppose older user agents don’t understand
+the "unsafe-url" policy. A site can specify
+an "origin" policy followed by an
+"unsafe-url" policy: older user agents will ignore the
+unknown "unsafe-url" value and use
+"origin", while newer user agents will use
+"unsafe-url" because it is the last to be processed.
+To specify multiple policy values in the Referrer-Policy header, a site can
+send multiple Referrer-Policy headers:
+Referrer-Policy: no-referrer
+Referrer-Policy: unsafe-url
+or, equivalently, multiple comma-separated header values:
+Referrer-Policy: no-referrer,unsafe-url
+This behavior does not, however, apply to
+the referrerpolicy attribute. Authors may dynamically set
+and get the referrerpolicy attribute to detect whether a
+particular policy value is supported.
+12. Acknowledgements
+This specification is based in large part on Adam Barth and Jochen Eisinger’s
+Meta referrer
+document.
+Francois
+Marier contributed
+the same-origin, strict-origin,
+and strict-origin-when-cross-origin policies.
+Conformance
+Document conventions
+Conformance requirements are expressed
+with a combination of descriptive assertions
+and RFC 2119 terminology.
+The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
+in the normative parts of this document
+are to be interpreted as described in RFC 2119.
+However, for readability,
+these words do not appear in all uppercase letters in this specification.
+All of the text of this specification is normative
+except sections explicitly marked as non-normative, examples, and notes. [RFC2119]
+Examples in this specification are introduced with the words “for example”
+or are set apart from the normative text
+with class="example",
+like this:
+This is an example of an informative example.
+Informative notes begin with the word “Note”
+and are set apart from the normative text
+with class="note",
+like this:
+Note, this is an informative note.
+Conformant Algorithms
+Requirements phrased in the imperative as part of algorithms
+(such as "strip any leading space characters"
+or "return false and abort these steps")
+are to be interpreted with the meaning of the key word
+("must", "should", "may", etc)
+used in introducing the algorithm.
+Conformance requirements phrased as algorithms or specific steps
+can be implemented in any manner,
+so long as the end result is equivalent.
+In particular, the algorithms defined in this specification
+are intended to be easy to understand
+and are not intended to be performant.
+Implementers are encouraged to optimize.
+Index
+Terms defined by this specification
+"", in § 3
+cross-origin-referrer request, in § 2
+default referrer policy, in § 3
+Determine request’s Referrer, in § 8.2
+extension-token, in § 4.1
+"no-referrer"
+definition of, in § 3
+enum-value for ReferrerPolicy, in § 3
+"no-referrer-when-downgrade"
+definition of, in § 3.1
+enum-value for ReferrerPolicy, in § 3
+"origin"
+definition of, in § 3.3
+enum-value for ReferrerPolicy, in § 3
+origin-only flag, in § 8.4
+"origin-when-cross-origin"
+definition of, in § 3.5
+enum-value for ReferrerPolicy, in § 3
+policy-token, in § 4.1
+referrer policy
+definition of, in § 3
+dfn for CSSStyleSheet, in § 7
+Referrer-Policy, in § 4.1
+ReferrerPolicy, in § 3
+referrer-policy header, in § 4.1
+referrerURL, in § 8.3
+"same-origin"
+definition of, in § 3.2
+enum-value for ReferrerPolicy, in § 3
+same-origin-referrer request, in § 2
+Set request’s referrer policy on redirect, in § 8.1
+"strict-origin"
+definition of, in § 3.4
+enum-value for ReferrerPolicy, in § 3
+"strict-origin-when-cross-origin"
+definition of, in § 3.6
+enum-value for ReferrerPolicy, in § 3
+The empty string, in § 3.8
+"unsafe-url"
+definition of, in § 3.7
+enum-value for ReferrerPolicy, in § 3
+Terms defined by reference
+[CSSOM-1] defines the following terms:
+CSS declaration block
+CSS style sheet
+location
+owner node (for CSSStyleDeclaration)
+owner node (for CSSStyleSheet)
+[DOM] defines the following terms:
+node document
+origin
+URL
+[FETCH] defines the following terms:
+Request
+client
+current URL
+extracting header list values
+fetch
+header list
+local scheme
+referrer
+referrer policy
+request
+response
+[HTML] defines the following terms:
+Document
+Window
+WorkerGlobalScope
+a
+an iframe srcdoc document
+area
+ASCII serialization of an origin
+associated Document
+browsing context
+browsing context (for Document)
+browsing context container
+creation URL
+environment settings object
+global object
+iframe
+img
+link
+meta
+name
+navigation
+noreferrer
+opaque origin
+origin
+policy container
+policy container (for Document)
+policy container (for WorkerGlobalScope)
+presentational hints
+referrer
+referrer policy
+referrer policy attribute
+referrerpolicy
+running a worker
+same origin
+script
+style attribute
+[INFRA] defines the following terms:
+assert
+length
+[RFC5234] defines the following terms:
+ALPHA
+[RFC9110] defines the following terms:
+referer
+[SECURE-CONTEXTS] defines the following terms:
+potentially trustworthy URL
+[URL] defines the following terms:
+fragment
+host
+origin
+password
+path
+query
+scheme
+URL
+URL serializer
+username
+References
+Normative References
+[CSSOM-1]
+Daniel Glazman; Emilio Cobos Álvarez. CSS Object Model (CSSOM). URL: https://drafts.csswg.org/cssom/
+[DOM]
+Anne van Kesteren. DOM Standard. Living Standard. URL: https://dom.spec.whatwg.org/
+[FETCH]
+Anne van Kesteren. Fetch Standard. Living Standard. URL: https://fetch.spec.whatwg.org/
+[HTML]
+Anne van Kesteren; et al. HTML Standard. Living Standard. URL: https://html.spec.whatwg.org/multipage/
+[INFRA]
+Anne van Kesteren; Domenic Denicola. Infra Standard. Living Standard. URL: https://infra.spec.whatwg.org/
+[RFC2119]
+S. Bradner. Key words for use in RFCs to Indicate Requirement Levels. March 1997. Best Current Practice. URL: https://datatracker.ietf.org/doc/html/rfc2119
+[RFC5234]
+D. Crocker, Ed.; P. Overell. Augmented BNF for Syntax Specifications: ABNF. January 2008. Internet Standard. URL: https://www.rfc-editor.org/rfc/rfc5234
+[RFC9110]
+R. Fielding, Ed.; M. Nottingham, Ed.; J. Reschke, Ed.. HTTP Semantics. June 2022. Internet Standard. URL: https://httpwg.org/specs/rfc9110.html
+[SECURE-CONTEXTS]
+Mike West. Secure Contexts. URL: https://w3c.github.io/webappsec-secure-contexts/
+[URL]
+Anne van Kesteren. URL Standard. Living Standard. URL: https://url.spec.whatwg.org/
+Informative References
+[CAPABILITY-URLS]
+Jeni Tennison. Good Practices for Capability URLs. URL: https://w3ctag.github.io/capability-urls/
+IDL Index
+enum ReferrerPolicy {
+"",
+"no-referrer",
+"no-referrer-when-downgrade",
+"same-origin",
+"origin",
+"strict-origin",
+"origin-when-cross-origin",
+"strict-origin-when-cross-origin",
+"unsafe-url"
+};
+Issues Index
+This requires that CSS style sheets process `Referrer-Policy`
+headers, and store a referrer policy
+in the same way that Documents
+do. ↵
+✔MDN
+Element/meta/name
+In all current engines.
+Firefox1+Safari4+Chrome1+
+Opera12.1+Edge79+
+Edge (Legacy)12+IE6+
+Firefox for Android?iOS Safari?Chrome for Android?Android WebView?Samsung Internet?Opera Mobile12.1+
+✔MDN
+Headers/Referrer-Policy
+In all current engines.
+Firefox50+Safari11.1+Chrome56+
+Opera?Edge79+
+Edge (Legacy)?IENone
+Firefox for Android?iOS Safari12+Chrome for Android?Android WebView?Samsung Internet7.2+Opera Mobile?

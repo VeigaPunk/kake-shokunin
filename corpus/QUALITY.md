@@ -1708,3 +1708,15 @@ mechanisms apart.
   `.ufo/waves/round-84/w1/ReviewC2.md` — reversing the frozen Referrer-Policy
   fallback list changes the last recognized policy. A green syntactic counter
   does not override that counterexample.
+
+## Round 85 — field-specific interpretation and finite counters
+
+Grounding: `corpus/lessons/round-85.md` Mistakes; r84's retained opposite-order
+Referrer-Policy witness, and r85 `w1/ReviewCounter.md` / `w1/CriticClaims.md`.
+Admit a field-specific parser with its own source algorithm and ordered
+counterexample; reject blanket semantic equivalence from multiset equality.
+A complete registry row and ten matching canned outputs are not semantic proof:
+inspect sequential code and independent trial/selftest evidence. Broad Unicode
+whitespace stripping is the JSON adapter's local choice, not established by
+the W3C header algorithm. Historical-red scope never excuses a false-green
+semantic claim.

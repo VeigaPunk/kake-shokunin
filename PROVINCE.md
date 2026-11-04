@@ -679,3 +679,12 @@ offline property from committed bytes. The entry is `corpus/knowledge/header-cha
 classified account of the observed header movement; it says nothing about whether a capture came
 from a socket, and a value-level reading of a changed `policy` header stays frontier. No publish or
 deploy; the property remains operator-owned.
+
+## Round 85 — bounded policy-field interpretation
+
+`scripts/referrer_policy_effective.py` and
+`corpus/knowledge/referrer-policy-effective.md` (S458) add offline ordered
+Referrer-Policy token interpretation to held Frontier ground. This is not a
+repair or semantic approval of the r84 general policy classifier, not browser
+referrer generation and not authorization to publish. It reads already-isolated
+field values, never fetches or changes a property.

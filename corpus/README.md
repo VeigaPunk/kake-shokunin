@@ -642,3 +642,15 @@ Frontier line: header-change classification moves from the round-82 drift ground
 instrument over the frozen captures; an occurrence oracle and value-level classification (a changed
 `cache-control` directive read for what it changes) stay frontier and are the honest limits of the C2
 counter.
+
+## Coverage — round 85
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Ordered Referrer-Policy effective-token decoding | `knowledge/referrer-policy-effective.md` (S458); `scripts/referrer_policy_effective.py` | Separate offline field-specific decoder; last recognized nonempty token across ordered fields; no general-header equivalence or browser-execution claim |
+
+Frontier advanced only for this field's ordered-token extraction. Generic
+policy-value semantics, duplicate/order rules for other fields, full HTTP
+extraction and runtime/browser observations remain open. The r84 general
+classifier remains experimental; see `lessons/round-85.md` for the
+historical-instrument list mined from `considerthese/2026-10-26.md` proposal 5.

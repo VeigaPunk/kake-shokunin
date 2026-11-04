@@ -1,0 +1,305 @@
+{
+  "reference_cases": [
+    {
+      "name": "token-no-referrer",
+      "fields": [
+        "no-referrer"
+      ],
+      "expected": "no-referrer",
+      "actual": "no-referrer",
+      "passed": true
+    },
+    {
+      "name": "token-no-referrer-when-downgrade",
+      "fields": [
+        "no-referrer-when-downgrade"
+      ],
+      "expected": "no-referrer-when-downgrade",
+      "actual": "no-referrer-when-downgrade",
+      "passed": true
+    },
+    {
+      "name": "token-same-origin",
+      "fields": [
+        "same-origin"
+      ],
+      "expected": "same-origin",
+      "actual": "same-origin",
+      "passed": true
+    },
+    {
+      "name": "token-origin",
+      "fields": [
+        "origin"
+      ],
+      "expected": "origin",
+      "actual": "origin",
+      "passed": true
+    },
+    {
+      "name": "token-strict-origin",
+      "fields": [
+        "strict-origin"
+      ],
+      "expected": "strict-origin",
+      "actual": "strict-origin",
+      "passed": true
+    },
+    {
+      "name": "token-origin-when-cross-origin",
+      "fields": [
+        "origin-when-cross-origin"
+      ],
+      "expected": "origin-when-cross-origin",
+      "actual": "origin-when-cross-origin",
+      "passed": true
+    },
+    {
+      "name": "token-strict-origin-when-cross-origin",
+      "fields": [
+        "strict-origin-when-cross-origin"
+      ],
+      "expected": "strict-origin-when-cross-origin",
+      "actual": "strict-origin-when-cross-origin",
+      "passed": true
+    },
+    {
+      "name": "token-unsafe-url",
+      "fields": [
+        "unsafe-url"
+      ],
+      "expected": "unsafe-url",
+      "actual": "unsafe-url",
+      "passed": true
+    },
+    {
+      "name": "forward",
+      "fields": [
+        "no-referrer, strict-origin"
+      ],
+      "expected": "strict-origin",
+      "actual": "strict-origin",
+      "passed": true
+    },
+    {
+      "name": "reverse",
+      "fields": [
+        "strict-origin, no-referrer"
+      ],
+      "expected": "no-referrer",
+      "actual": "no-referrer",
+      "passed": true
+    },
+    {
+      "name": "multiple-fields",
+      "fields": [
+        "no-referrer",
+        "unsafe-url"
+      ],
+      "expected": "unsafe-url",
+      "actual": "unsafe-url",
+      "passed": true
+    },
+    {
+      "name": "multiple-fields-reverse",
+      "fields": [
+        "unsafe-url",
+        "no-referrer"
+      ],
+      "expected": "no-referrer",
+      "actual": "no-referrer",
+      "passed": true
+    },
+    {
+      "name": "unknown-after-valid",
+      "fields": [
+        "same-origin, future-policy"
+      ],
+      "expected": "same-origin",
+      "actual": "same-origin",
+      "passed": true
+    },
+    {
+      "name": "unknown-before-valid",
+      "fields": [
+        "future-policy, origin"
+      ],
+      "expected": "origin",
+      "actual": "origin",
+      "passed": true
+    },
+    {
+      "name": "empty-fields",
+      "fields": [],
+      "expected": "",
+      "actual": "",
+      "passed": true
+    },
+    {
+      "name": "empty-string",
+      "fields": [
+        ""
+      ],
+      "expected": "",
+      "actual": "",
+      "passed": true
+    },
+    {
+      "name": "empty-tokens",
+      "fields": [
+        ", ,",
+        ""
+      ],
+      "expected": "",
+      "actual": "",
+      "passed": true
+    },
+    {
+      "name": "empty-after-valid",
+      "fields": [
+        "origin,",
+        ","
+      ],
+      "expected": "origin",
+      "actual": "origin",
+      "passed": true
+    },
+    {
+      "name": "case-only-unknown",
+      "fields": [
+        "NO-REFERRER"
+      ],
+      "expected": "",
+      "actual": "",
+      "passed": true
+    },
+    {
+      "name": "case-preserves-earlier",
+      "fields": [
+        "origin, STRICT-ORIGIN"
+      ],
+      "expected": "origin",
+      "actual": "origin",
+      "passed": true
+    },
+    {
+      "name": "ows",
+      "fields": [
+        "\t no-referrer\t, \tstrict-origin \t"
+      ],
+      "expected": "strict-origin",
+      "actual": "strict-origin",
+      "passed": true
+    },
+    {
+      "name": "quoted-unknown",
+      "fields": [
+        "\"origin\""
+      ],
+      "expected": "",
+      "actual": "",
+      "passed": true
+    },
+    {
+      "name": "parameter-unknown",
+      "fields": [
+        "origin;x=1"
+      ],
+      "expected": "",
+      "actual": "",
+      "passed": true
+    },
+    {
+      "name": "duplicate",
+      "fields": [
+        "origin,origin"
+      ],
+      "expected": "origin",
+      "actual": "origin",
+      "passed": true
+    },
+    {
+      "name": "invalid-shape",
+      "input": null,
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "name": "invalid-shape",
+      "input": {},
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "name": "invalid-shape",
+      "input": "origin",
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "name": "invalid-shape",
+      "input": 1,
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "name": "invalid-shape",
+      "input": [
+        null
+      ],
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "name": "invalid-shape",
+      "input": [
+        1
+      ],
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "name": "invalid-shape",
+      "input": [
+        []
+      ],
+      "rejected": true,
+      "passed": true
+    },
+    {
+      "name": "invalid-shape",
+      "input": [
+        true
+      ],
+      "rejected": true,
+      "passed": true
+    }
+  ],
+  "reference_passed": 32,
+  "reference_total": 32,
+  "retained": [
+    {
+      "side": "a",
+      "path": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/capture-control/equivalent/a/ds4cc-sitemap/response.json",
+      "fields": [
+        "no-referrer, strict-origin"
+      ],
+      "effective": "strict-origin"
+    },
+    {
+      "side": "b",
+      "path": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-84/capture-control/equivalent/b/ds4cc-sitemap/response.json",
+      "fields": [
+        "strict-origin, no-referrer"
+      ],
+      "effective": "no-referrer"
+    }
+  ],
+  "legacy": {
+    "changes": {
+      "referrer-policy": "reordered"
+    },
+    "verdict": "policy-rewritten-equivalent"
+  },
+  "candidate_executed": false
+}

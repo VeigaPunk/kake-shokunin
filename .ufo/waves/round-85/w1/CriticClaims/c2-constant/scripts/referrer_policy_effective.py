@@ -1,0 +1,1 @@
+print('{"effective":"strict-origin"}')
