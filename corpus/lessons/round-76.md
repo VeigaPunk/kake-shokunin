@@ -90,29 +90,28 @@ python3 -B .ufo/waves/round-76/w1/ExecAuditMatrix/c76_hreflang_matrix.py \
 | Class | Evidence pointer | Captured-by | Fix |
 |---|---|---|---|
 | **A diagnostic receipt laundered the defects it reported.** The C1 counter's own output prints each absent span verbatim, and so do seats' receipts; once that file was committed the counter found its own findings "contiguous" and printed `findings=0` with no repair, so the round's do-nothing control silently met the target | `w1/MutationTesterGates.md` and `w1/ExecQuoteRepair.md`; measured: `python3 -B .ufo/waves/round-76/c76_quote_truth.py --root . --revision 6b52407b --base a0491fcd --rounds 75,76` → `findings=0 met=true`, while the same command at `a0491fcd` prints `findings=8 met=false`; the launder files are `controls/base-c1-quote-truth.txt` and the five `controls/ctl-*.txt` | none at freeze — the frozen C1 sentence said "a committed receipt" without a universe rule; Amendment 4 (name exclusion) and Amendment 5 (receipt directories only, diagnostic lines stripped, seat tree of the newest round excluded) are the criterion that should have caught it | the delivered counter excludes its own diagnostics by name, strips `T1/T2/T4/A1` lines from every receipt, and refuses the newest round's `w1/` tree; the red no-repair control is committed (`w1/ExecQuoteRepair/receipts/13-…`: base + the round's controls → `findings=7 met=false`) |
-| **A frozen counter's selftest could not run, and four mutants survived behind it.** The hardened build's fixture helper was invoked twice with a byte-identical payload, so the second `git commit` exited 1 and the harness raised before any case; the build still looked green in its own report | `w1/MutationTesterGates.md` (63af0ede build: `--selftest` aborts in fixture setup; mutants M3/M6/M7 and the presence-exempts mutant survive); final build `scripts/doc_quote_truth.py` runs `selftest: 47/47 passed` | none — the round-75 QUALITY criterion requires "a `--selftest` that exits 0", but nothing executed it before the build was reported | Amendment 5 §D5; the delivered build's tally is a committed receipt and the mutation seat re-ran against the final sha |
-| **A claim row quoted an interior slice of a receipt line** (unmarked elision) — the round-75 closure's R6 class, found eight times in this lane's own ledger | the seven base findings at `a0491fcd` (`controls/base-c1-quote-truth-v2.txt`): `SCORECARD.md:4892` ×2, `4893` ×2, `4904`, `corpus/QUALITY.md:1499`, `corpus/lessons/round-75.md:82`; each splices across an observed field (`classes=-`, `met=false`, `worktree=identical … declared_match=false`) or stitches two lines | the round-75 QUALITY criterion stated the rule but no instrument ran it over the ledger; the round-76 C1 counter is that instrument (base red before any repair) | whole-line correction rows in `SCORECARD.md` `## Round 75 — quote corrections (appended round 76)`, one QUALITY criterion, one lesson `## Corrections`; `findings=0` at the carrier |
-
-## Corrections
+| **A frozen counter's selftest could not run, and four mutants survived behind it.** The hardened build's fixture helper was invoked twice with a byte-identical payload, so the second `git commit` exited 1 and the harness raised before any case; the build still looked green in its own report | `w1/MutationTesterGates.md` (the intermediate build reported as tool blob 63af0ede: `--selftest` aborts in fixture setup; mutants M3/M6/M7 and the presence-exempts mutant survive); final build `scripts/doc_quote_truth.py` runs `selftest: 63/63 passed` | none — the round-75 QUALITY criterion requires "a `--selftest` that exits 0", but nothing executed it before the build was reported | Amendment 5 §D5; the delivered build's tally is a committed receipt and the mutation seat re-ran against the final sha |
+| **A claim row quoted an interior slice of a receipt line** (unmarked elision) — the round-75 closure's R6 class, found eight times in this lane's own ledger | the seven base findings at `a0491fcd` (`controls/base-c1-quote-truth-v2.txt`): `SCORECARD.md:4892` ×2, `4893` ×2, `4904`, `corpus/QUALITY.md:1499`, `corpus/lessons/round-75.md:82`; each splices across an observed field (`classes=-`, `met=false`, `worktree=identical … declared_match=false`) or stitches two lines | the round-75 QUALITY criterion stated the rule but no instrument ran it over the ledger; the round-76 C1 counter is that instrument (base red before any repair) | whole-line correction rows in `SCORECARD.md` `## Round 75 — quote corrections (appended round 76)`, one QUALITY criterion, one lesson `## Corrections
 
 - **Round-75 closure R1/R2 (stale digests).** The round-75 LOG entry named the hardened counter as
   `0699a672…` and the receipt as `f3128628…` (both the blobs at `4e3fc159`). Re-derived at `a0491fcd`
-  (`controls/r1-r2-digests.txt`): counter `63e321b28e509781405f1b4209a66b99460bc2512c92a8615fec06f2423e944b`,
-  receipt `15768f81460bcbf991bacf9ffdf6a2145d32f4de7d952f52526589d8013e6613` (3,793 B), tool
-  `162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7`. `[r76-correction 2026-11-03]`
+  (`controls/r1-r2-digests-v2.txt`), whole lines:
+  `counter_sha256=63e321b28e509781405f1b4209a66b99460bc2512c92a8615fec06f2423e944b`
+  `receipt_sha256=15768f81460bcbf991bacf9ffdf6a2145d32f4de7d952f52526589d8013e6613`
+  `tool_sha256=162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7`
+  `[r76-correction 2026-11-03]`
 - **Round-75 closure R3 (revision labels).** The round-75 before→after table was headed "After (tip
-  `6c10b433`)" while every after cell named `f87d14a9`, the tip paragraph called `3ae076ab` "the measured
-  revision", and `controls/after-harm-battery.txt` measured the tree at `306fff49`. This round's report and
+  `6c10b433`)" while every after cell named `f87d14a9`, the tip paragraph called `3ae076ab` the measured
+  revision, and `controls/after-harm-battery.txt` measured the tree at `306fff49`. This round's report and
   SCORECARD row state one measured revision per artifact; the three labels above are superseded.
-  `[r76-correction 2026-11-03]`
 - **Round-75 closure R7 (C2 quotation scope).** The round-75 after-quote omitted
-  `declared_match=false` (the receipt's subject `abfbfaac…` is not its carrier `f87d14a9`), and the
-  16-forgery matrix in `W1/ReviewerC2.md` ran on the predecessor tool blob `62b795ea…`, not on the landed
-  `162dd685…`. Both are disclosed here; the matrix is not re-cited as evidence for the landed blob.
-  `[r76-correction 2026-11-03]`
-- **Round-75 closure R8 / lesson §Routed 4 (superseded docstring).** `.ufo/waves/round-74/c74_registry_gap.py:25`
-  still says "the five contract fixtures f1-f5"; the file defines `fx_f1`–`fx_f8` and runs `selftest 8/8`.
-  The frozen wave file is not rewritten; this correction is its erratum. `[r76-correction 2026-11-03]`
+  `declared_match=false` (the receipt's subject is `abfbfaac…`, not its carrier `f87d14a9`), and the
+  16-forgery matrix in `W1/ReviewerC2.md` ran on the predecessor tool blob, not on the landed tool. Both
+  are disclosed here; the matrix is not re-cited as evidence for the landed blob.
+- **Round-75 closure R8 / lesson §Routed 4 (superseded docstring).**
+  `.ufo/waves/round-74/c74_registry_gap.py:25` still says "the five contract fixtures f1-f5"; the file
+  defines `fx_f1`–`fx_f8` and its own selftest runs all eight. The frozen wave file is not rewritten; this
+  correction is its erratum.
 
 ## Routed dispositions
 
