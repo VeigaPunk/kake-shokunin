@@ -1,0 +1,9 @@
+C1 cheap-fake control — kake round 77 (do-nothing/laundering control for the frozen C1 predicate)
+Fixture: a scratch repo whose SHONEN.md carries four [~] markers and whose corpus/knowledge/shonen-ledger.json declares four rows status=evidenced with a fabricated observed (999) over the round_sections measure; every other lane file copied from the carrier.
+command: python3 -B .ufo/waves/round-77/c77_shonen_ledger.py --root <scratch>/root --revision HEAD --work <scratch>/tmp
+-----
+C1 revision=0104075b470f6c7b12f4a0749de40feab04908b6 boxes=4 evidenced=0 gap=0 unexamined=0 mismatches=4 met=false
+  finding: observation-differs box 1 b1-fake — recorded 999 but re-derived 17
+  finding: observation-differs box 2 b2-fake — recorded 999 but re-derived 17
+  finding: observation-differs box 3 b3-fake — recorded 999 but re-derived 17
+exit=1
