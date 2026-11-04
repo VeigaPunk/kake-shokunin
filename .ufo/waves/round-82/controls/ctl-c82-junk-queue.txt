@@ -1,0 +1,25 @@
+$ python3 -B .ufo/waves/round-82/junk_tree_build.py --spec .ufo/waves/round-82/junk-tree.json --out $HYAKU_SCRATCH/kake-r82/l1/junk-a
+corpus/lessons/round-82.md sha256=d53c5416a59c4631b9dfef3c04b3a65846d1d3ed93637844831dee38153cff73
+corpus/QUALITY.md sha256=6d432ed7d7976007537ee76c4d9d148e761b2f062bb9e135686e584676600b7f
+corpus/SOURCES.md sha256=80da73fe48514089881d63f439a78dfa82869a17b21b192d07450d163773e422
+corpus/lessons/round-80.md sha256=5a1023aae814c573af03252885ea433e8df440fae767b5a58ae502e2d89e6df8
+files=4 tree_sha256=d9302da64de8d68e0d004a85a9013eca88bd2eb988f473a94ea062715f8e7797
+$ python3 -B .ufo/waves/round-82/junk_tree_build.py --spec .ufo/waves/round-82/junk-tree.json --out $HYAKU_SCRATCH/kake-r82/l1/junk-b
+corpus/lessons/round-82.md sha256=d53c5416a59c4631b9dfef3c04b3a65846d1d3ed93637844831dee38153cff73
+corpus/QUALITY.md sha256=6d432ed7d7976007537ee76c4d9d148e761b2f062bb9e135686e584676600b7f
+corpus/SOURCES.md sha256=80da73fe48514089881d63f439a78dfa82869a17b21b192d07450d163773e422
+corpus/lessons/round-80.md sha256=5a1023aae814c573af03252885ea433e8df440fae767b5a58ae502e2d89e6df8
+files=4 tree_sha256=d9302da64de8d68e0d004a85a9013eca88bd2eb988f473a94ea062715f8e7797
+$ diff <(sed "s/junk-b/junk-a/" $HYAKU_SCRATCH/kake-r82/l1/junk-b.txt) $HYAKU_SCRATCH/kake-r82/l1/junk-a.txt
+diff: identical (exit 0)
+$ python3 -B .ufo/waves/round-82/c82_defect_queue.py --root $HYAKU_SCRATCH/kake-r82/l1/junk-a
+D1 open recheck='180d' used-by='corpus/knowledge/response-header-expectations.md' log=yes
+D2 open after-c1-final.txt absent
+D3 open no D3 erratum line
+D4 open seat-failures.json absent
+D5 open no D5 line naming both dead paths and the live receipt
+D6 open QUALITY.md or selftest receipt absent
+D7 open after-c1-ledger-gate.txt absent
+D8 open round-80 correction=no log=no
+C1v1 revision=worktree items=8 open=8 closed=0 met=false
+exit=1
