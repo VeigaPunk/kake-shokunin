@@ -611,7 +611,7 @@ Full round detail: `corpus/lessons/round-19-recensus.md`. Advisory inventories:
   (`resource_exhausted`, then `turn_rate_limit_exceeded`) and were re-spawned
   in batched calls; a post-land reviewer/critic/mutation-tester batch followed.
   Record: `.ufo/round-20/resume/swarm-dispatch.json`.
-- C1 freshness: 29/29 locations annotated in place (target + dated event +
+- C1 freshness: 26/26 locations annotated in place (target + dated event +
   non-executable wording); `node scripts/freshness-sweep.mjs --section=paths`
   exit 1 → 0, drift 7 → 0, missSet 55 → 55, newMissing 0.
 - C2 operability: exact-marker `writeConfinement()` + mutation case `e2`;
