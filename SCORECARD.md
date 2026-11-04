@@ -5537,10 +5537,14 @@ improved: the calibration and freshness scores stay at their HOLD values.
 
 ### Planned — after round 89
 
-Outside closure owns admission and the admit/reject spot-check. Round 90 routes:
-R89-1 (item A accepts an appended `[r89-correction]` tail naming the stale
-line numbers, not an in-line tag), R89-2 (one frozen or refusal item per contract
-clause; the seven stubs in `.ufo/waves/round-89/w1/ExecControls/` must each
-score `met=false` in a re-run), R89-3 (item C reads short-form receipt paths).
-Frontier stays open: cache-key storage, revalidation, freshness and serving;
-Vary/Pragma behaviour in browsers; the D84-2/3 and literal L2-planner items.
+Outside closure owns admission and the admit/reject spot-check. Neither claim is
+admitted by this round's own measurements: C1 stays open on item A, and C2's
+instrument admits seven non-conforming stubs. The wave review (ReviewCounterC1,
+`corpus/lessons/round-89.md` §Wave review) routes RC-1…RC-10 to round 90: RC-1 (E reads
+HEAD), RC-4 (mirror skips E), RC-9 (receipt regex sees 5 of 21 names), RC-7 (A trusts the
+tool's self-report) and the tag and scope gaps RC-5 and RC-6 need a red-before witness
+from the existing receipts. RC-2 and RC-3 change the frozen E claim and need an explicit
+claim decision. The C2 instrument gap (seven uncovered contract clauses, R89-2) needs one
+frozen or refusal item per clause, with each stub in `w1/ExecControls/` re-scored `met=false`.
+Frontier stays open: cache-key storage, revalidation, freshness and serving; browser
+Vary and Pragma behaviour; the D84-2/3 and literal L2-planner items.
