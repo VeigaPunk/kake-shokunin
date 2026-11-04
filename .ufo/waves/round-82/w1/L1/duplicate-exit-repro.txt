@@ -1,0 +1,13 @@
+$ python3 -B .ufo/waves/round-79/c79_receipt_ledger.py --root . --revision 082b7dd39053e5f96ca6c463da47a3e4d83d4580
+C1v2 revision=082b7dd39053e5f96ca6c463da47a3e4d83d4580 events=40 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+--- the faulty receipt the first wrapper wrote (counter prints its own exit line at c79_receipt_ledger.py:152; the wrapper appended a second):
+C1v2 revision=082b7dd39053e5f96ca6c463da47a3e4d83d4580 events=40 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+exit=0
+--- check: exactly one exit line per receipt (can fail)
+$ grep -c "^exit=" .ufo/waves/round-82/w1/L1/faulty-receipt.txt
+2
+$ grep -c "^exit=" .ufo/waves/round-82/controls/after-c1-ledger-gate.txt
+1
+# faulty=2 (caught), committed receipt=1 (clean)

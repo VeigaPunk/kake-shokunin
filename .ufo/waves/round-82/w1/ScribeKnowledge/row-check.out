@@ -1,0 +1,10 @@
+# observed: cd /home/vgpnk/Projects/shokunin/kake-shokunin
+# awk 'NR==202' corpus/SOURCES.md | awk -F'|' '{print "NF=" NF; print "cells=" NF-2}'
+NF=13
+cells=11
+# git diff --numstat -- corpus/SOURCES.md
+1	0	corpus/SOURCES.md
+# grep -c '^| S455 ' corpus/SOURCES.md
+1
+# row line number
+202

@@ -215,3 +215,12 @@ corrected here rather than by rewriting an earlier line.
   (`open=5 closed=1 met=false`), the selftest still prints `3/3`, and both claim measurements at the
   carrier are unchanged. The lesson is the round's own subject: a control is only a control while the
   instrument still runs.
+
+## r82 correction — the R80-1 line pointer
+
+**[r82-correction 2026-11-04]** Round 81's `R80-1` row re-derived the `S453` registry row at `corpus/SOURCES.md:200`; this file's §Claims sentence and the round-80 fleet report
+(`.ufo/reports/round-80/kake.md:158`) still read `corpus/SOURCES.md:201`, which is the blank line
+after the row. The correct pointer is `corpus/SOURCES.md:200`. The fleet report's own erratum rides
+the round-82 report because that file is outside round-82's write scope; the round-81 routed defect
+D8 asked for one, and this appended row is the in-lane half. The original sentences above are not
+rewritten.

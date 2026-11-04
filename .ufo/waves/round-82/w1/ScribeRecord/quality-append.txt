@@ -1,0 +1,24 @@
+$ git diff --numstat -- corpus/QUALITY.md
+13	0	corpus/QUALITY.md
+$ git diff -- corpus/QUALITY.md
+diff --git i/corpus/QUALITY.md w/corpus/QUALITY.md
+index cf115b81..33a275bf 100644
+--- i/corpus/QUALITY.md
++++ w/corpus/QUALITY.md
+@@ -1682,3 +1682,16 @@ mechanisms apart.
+   builder recreated) and R80-6 (a cause asserted outside committed bytes). What it does not close:
+   a well-formed fabrication passes, so provenance stays a transcript claim — recorded as the
+   criterion's stated limit, not a pass.
++
++## Round 82 criterion — a stale tally is superseded by the committed receipt
++
++- **A stale quoted tally is corrected by an appended row that names the row it supersedes (round
++  82).** *Admit* a criterion's quoted selftest tally only when it equals the tally line the committed
++  receipt actually prints at the measured revision; when the tally is stale, append a row that names
++  the superseded text and the receipt that corrects it. *Reject* a tally copied from a seat's summary
++  or an earlier draft, and any correction that edits the superseded criterion's bytes instead of
++  naming them. *Grounding:* the round-81 criterion above ("an audit verdict re-derives from committed
++  bytes") cites `controls/c81-selftest-c2.txt` as `18/18`, which the committed receipt does not print:
++  `.ufo/waves/round-81/controls/c81-selftest-c2.txt` reads `22/22`; this supersedes the round-81
++  criterion row that cited `18/18` — the superseded text is that row, left byte-identical. Filed as
++  D6 of `corpus/lessons/round-81-verifier-spotcheck.md` §7; closed per `corpus/lessons/round-82.md`.

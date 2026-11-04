@@ -1,0 +1,25 @@
+$ tail -2 .ufo/waves/round-81/controls/c81-selftest-c2.txt
+selftest: 22/22 passed
+exit=0
+
+$ tail -2 .ufo/waves/round-82/controls/c82-selftest-c2.txt
+selftest: 9/9 passed
+exit=0
+
+$ python3 -B scripts/capture_delta.py --selftest
+ok   green-identical
+ok   changed-body
+ok   changed-status
+ok   header-added
+ok   header-value-changed
+ok   header-removed
+ok   tampered-body
+ok   byte-count-mismatch
+ok   truncated-receipt
+ok   non-get-method
+ok   added-surface
+ok   removed-surface
+ok   missing-tree
+ok   missing-surface-dir
+selftest: 14/14 passed
+exit=0

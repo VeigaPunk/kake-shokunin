@@ -1,0 +1,5 @@
+Falsify both claims' *predicates* — not the code, the claim. Report `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-82/w1/CriticClaims.md`. Write no production file.
+1. Write each claim as a sentence a sceptical reader would accept: population, before-state, after-state, counting command, and what would make it false. Compare that sentence with the contract text and with what the counters actually measure; name every divergence.
+2. For each claim, state the strongest trivial path to `met=true` a do-nothing round could take. C1: the L1 authors both the defects' closure and the predicate — does anything outside the lane decide any item? C2: does the target require any finding, or can three identical captures satisfy it? Is "drift detection" honestly claimed when the two captures may be identical?
+3. Attack the claim sizing: is C2's after-state one concrete value re-derivable with one command over committed bytes? Is C1's population exactly the eight filed items? Name any universal clause the target accidentally asserts.
+4. Name, for each claim, the single conjunct whose failure would matter most, and whether the round's controls exercise it.
