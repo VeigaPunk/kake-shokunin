@@ -5598,3 +5598,43 @@ pin the corrected revision, and anchor the Gate quote to the row's own lines; a 
 counter must withhold pins and labels from the gate's reachable tree, use a non-strippable nonce, check
 the pins against the freeze digest, and score held-out subjects per label. The frozen round-90 counters
 are not repaired after scoring. Frontier: storage, revalidation, freshness and serving; a method-bearing key.
+
+## Round 91 — the round-90 instrument defects and a stored-response reuse decision
+
+Base `5b20af16661040f383e9e84f85b838619857cb14`; freeze `f4fff130a52ae6de49af5de7d568d2ee320ebfb0`
+(`.ufo/waves/round-91/freeze.md`); C1 carrier `cdc6c1dfa91b6c8d10db2c10254d4b31181bd6f3`; post-wave tip `cdc6c1dfa91b6c8d10db2c10254d4b31181bd6f3 (carrier; the receipts commit follows it)`.
+Counters `.ufo/waves/round-91/c91_defects.py` and `.ufo/waves/round-91/c91_reuse.py`, unchanged
+since the freeze.
+
+| Claim | Axis / score delta | Before → after | Counting command | Evidence / author verdict |
+|---|---|---|---|---|
+| C1 the routed round-90 instrument defects R90-A (defect-queue shape), R90-B and R90-C close | calibration 2→2 HOLD, lowest owned | `open=3 closed=0 met=false`, exit 1 at base → `open=0 closed=3 met=true`, exit 0 at `cdc6c1dfa91b6c8d10db2c10254d4b31181bd6f3` | `python3 -B .ufo/waves/round-91/c91_defects.py --root . --revision <REV> --work <scratch>` | `controls/base-c1.txt` → `controls/after-c1-carrier.txt`; A: successor selftest 6/6 and the battery isolates FA/FB→B, FC→C, FD→none; B: `gate_sha256=d7bca38e… mutants=34 killed=20 survivors=14` (34/20/14, floor 20/18); C: replay `controls ok 9/9`. **Counter forgeable**: ReviewC1 reached `met=true` with a fabricated receipt, a script that prints success, and a junk successor whose selftest lies; CriticClaims calls C1 not a calibration measurement. Measured met on the frozen predicate; not admitted by this round. |
+| C2 a stored-response reuse decision instrument | operability 10→10 HOLD, capability acquisition | `candidate=absent … met=false`, exit 1 at base → `hand=45/45 generated=120/120 forgeries_refused=5/5 anti_table=ok population=ok met=true`, exit 0 at `cdc6c1dfa91b6c8d10db2c10254d4b31181bd6f3` | `python3 -B .ufo/waves/round-91/c91_reuse.py --root . --revision <REV> --work <scratch>` | `controls/base-c2.txt` → `controls/after-c2-carrier.txt`; tool `scripts/stored_reuse.py`; ReviewReuse 53 independent cases 0 disagreements; MutReuse killed 17/17 required tool mutants and found 5 surviving clause variants; CriticClaims reached `met=true` by importing the counter's absolute path. Measured met on the frozen predicate; not admitted by this round. |
+
+Receipts are under `.ufo/waves/round-91/controls/`. Neither frozen counter was repaired after
+scoring; every counter defect the wave found is routed (`corpus/lessons/round-91.md` §Routed).
+No owned axis is claimed improved past HOLD: both scores stay where round 90 left them.
+
+### Demonstrated repertoire — round 91
+
+| Capability | What it can now do | Evidence | First-working round |
+|---|---|---|---|
+| Stored-response reuse decision | From a stored status and header map, a request method and header map, an integer `now` and a shared flag, decide `reuse` / `revalidate` / `serve-stale` / `must-revalidate-fail` / `not-storable` / `heuristic-undecided` / `only-if-cached-miss`, reporting the freshness lifetime (first-match s-maxage → max-age → Expires−Date) and the current age (`max(0,Age)+max(0,now−Date)`); refuses malformed input; decides nothing about storage, keys, revalidation or any live property | `scripts/stored_reuse.py`; `controls/after-c2-carrier.txt`; `corpus/knowledge/stored-response-reuse.md`; S469; `w1/ReviewReuse.md`, `w1/ExecReuseTrial.md` | 91 (demonstrated; round unadmitted, instrument defects routed) |
+
+### Move log (round 91)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 91 | calibration (HOLD 2) | `open=3 closed=0` at `5b20af16` | `open=0 closed=3` at `cdc6c1dfa91b6c8d10db2c10254d4b31181bd6f3` | `.ufo/waves/round-91/controls/{base-c1.txt,after-c1-carrier.txt}` |
+| 91 | operability (HOLD 10) | candidate absent at `5b20af16` | tool meets the frozen counter `45/45 120/120 5/5` at `cdc6c1dfa91b6c8d10db2c10254d4b31181bd6f3` | `.ufo/waves/round-91/controls/{base-c2.txt,after-c2-carrier.txt}` |
+
+### Planned — after round 91
+
+Outside closure owns admission. Routed from the wave: a successor defect-queue counter must hash
+itself against the committed blob, tie the mutation receipt to an execution log, and assert the
+control script's *behaviour* rather than its text; a successor gate counter must withhold the
+reference from the candidate's reachable paths (an absolute import reached it), score the
+anti-table conjunct with a frozen subject, and add the five clause variants MutReuse's surviving
+tool mutants name. Frontier: the reuse decision is held for supplied integers only; revalidation
+exchanges (§4.3), storage (§4.1 key identity), heuristic freshness (§4.2.2), serving stale without
+a client directive, and browser behaviour stay open.

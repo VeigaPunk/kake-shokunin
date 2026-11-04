@@ -3121,3 +3121,57 @@ Assimilation: none — `merge/kake` still collides on eight ids
 (operator-decision queue) landed as a lesson section.
 
 Tools: none installed or upgraded (no pacman; network limited to the three RFC GETs).
+
+## Round 91 — 2026-11-04, the round-90 instrument defects and a stored-response reuse decision
+
+Claims (frozen `f4fff130`, `.ufo/waves/round-91/freeze.md`):
+- C1 calibration: R90-A (defect-queue shape), R90-B and R90-C close, counter `c91_defects.py`;
+  base `5b20af16` `open=3 closed=0 met=false` exit 1 (`controls/base-c1.txt`) → carrier
+  `cdc6c1dfa91b6c8d10db2c10254d4b31181bd6f3` `open=0 closed=3 met=true` exit 0 (`controls/after-c1-carrier.txt`).
+  A = successor selftest 6/6 plus a battery that leaves item B open for a stale-digest receipt
+  (FA) and a case-variant token (FB), item C open for a script that prints success and exits 3
+  (FC), and no item open on the constructed positive (FD). B = the tip gate's mutation receipt
+  `gate_sha256=d7bca38e… mutants=34 killed=20 survivors=14`. C = `run_controls.sh` re-pointed at
+  `.ufo/waves/round-90/inherited/baseclean.out`, taking its root from `${LANE:-…}`, asserted and
+  replaying `controls ok 9/9`.
+- C2 operability capability: `scripts/stored_reuse.py` under `c2-contract.md` (21 clauses), counter
+  `c91_reuse.py`; base `candidate=absent` exit 1 (`controls/base-c2.txt`) → carrier `cdc6c1dfa91b6c8d10db2c10254d4b31181bd6f3`
+  `hand=45/45 generated=120/120 forgeries_refused=5/5 anti_table=ok population=ok met=true` exit 0
+  (`controls/after-c2-carrier.txt`).
+
+Controls before the freeze: `controls/ctl-c1.txt` (do-nothing at base and a junk fixture, both
+`open=3`), `controls/ctl-c2.txt` (no candidate, the five frozen forgery subjects each `met=false`,
+and a reachability control built from a frozen byte-copy of the counter's reference reading
+`met=true`), `controls/run_controls.sh` → `controls ok 18/18`. Four control defects were caught
+and fixed before the freeze commit (`corpus/lessons/round-91.md` §Mistakes 1–4).
+
+Sources opened: the retained RFC 9111 plain-text body (84 477 B, sha256 `aeb52adb…`) was re-opened
+and re-hashed this round and `w1/ScribeKnowledge.md` verifies 20 located quotes against it; no live
+GET completed this round because the ScoutSources seat died before fetching, so the row rests on the
+retained body, not on a fresh fetch. Registry 205 → 206
+(S469, §5.2.1 request directives, §4.2.1 lifetime order, §4.2.4 serving stale); census exit 0,
+W04 29 → 30.
+
+Wave w1 (13 seats; `.ufo/waves/round-91/w1-spec.json`, dispatch `.ufo/waves/round-91/w1-dispatch.json`):
+nine seats reported. ReviewC1 falsified the frozen C1 counter four ways (a fabricated receipt with
+the correct digest, a script that prints `controls ok 9/9` and exits 0, a junk successor whose
+selftest lies, and a `"${LANE}"/baseclean.out` respelling); ExecReplayC found the control harness
+reading the last `met=` token in a dump, a shared scratch path, a duplicate output label and
+controls that ignore the exit status — all four fixed in the round-91 harness; ReviewReuse computed
+53 cases from the contract with 0 disagreements and named clause 3 uncovered; MutReuse killed 17/17
+required tool mutants, found 5 surviving clause variants and 9/10 counter mutants surviving;
+CriticClaims measured C1 as not a calibration measurement, confirmed C2's separation, and reached
+`met=true` by importing the counter's reference through an absolute path; ExecMutationTip scored
+the tip gate 34 mutants, 20 killed, 14 survived (sandbox branches and generated-tally conjuncts).
+Four items returned no report: ScoutGround, ExecReuseStubs, ConnectorScope (no report written) and
+ScoutSources (a helper script and no `.md`).
+
+Actual domain work: the instrument decided 18 recorded surfaces from
+`.ufo/waves/round-61/capture/` and the r81/r82 captures, agreeing 36/36 with the counter's
+reference and scoring `met=true` at seeds 1, 2 and 3 (`w1/ExecReuseTrial.md`).
+
+Assimilation: none — `merge/kake` still collides on eight ids
+(`.ufo/waves/round-91/assimilation/collisions`); the 12-row quarantine slice is unchanged and its
+verdicts stay as recorded in round 86.
+
+Tools: none installed or upgraded (no pacman; network limited to the two RFC GETs).
