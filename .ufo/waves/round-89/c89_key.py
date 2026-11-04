@@ -260,15 +260,24 @@ PROP_CLASSES = ('name_case', 'member_order', 'member_ows', 'value_edge_ows', 'va
 
 
 # ------------------------------------------------------------- candidate run
-FORBIDDEN = ('c89_key', '.ufo/waves', 'round-89', 'frozen', 'c2-cases', 'oracle')
+FORBIDDEN = ('c89_key', 'c89_defect_queue', 'c2-cases')
 
 
 def guard(source):
-    """Textual shortcut guard (disclosed limit: not a sandbox)."""
+    """Textual shortcut guard (disclosed limit: not a sandbox).
+
+    It refuses the two committed shortcuts that would otherwise pass — importing
+    this counter's reference, and reading the frozen case file — plus any `open(`
+    of the wave tree. It does not refuse a hardcoded table or a re-implemented
+    reference; the property population is what stops a table.
+    """
     text = source.decode('utf-8', 'replace')
     for token in FORBIDDEN:
         if token in text:
             return f'shortcut guard: source names {token!r}'
+    for line in text.splitlines():
+        if 'open(' in line and '.ufo' in line:
+            return 'shortcut guard: source opens the wave tree'
     return None
 
 
