@@ -205,3 +205,46 @@ rather than assumed.
 
 Everything else in `## Corrections` and `## Gate` was re-derived from committed bytes at probe
 time: the counter read `D2`–`D8` closed on their state and row conjuncts.
+
+## Assimilation (appended 2026-11-04 by the L1, on ConnectorC's re-derivation)
+
+Assimilation: none. At base `419866015b1f58e01f061cde9a77d490653d3c76` (registry blob
+`1ffc61f1…435f`) the `merge/kake` package (`/home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md`,
+sha256 `5f0cd4c4…f0cc`, last touched 2026-10-24 by `ba6779f0`) holds 129 staged rows against the
+lane's 192: **8 ids collide** and carry the identical source cell (S312, S329, S367, S372, S373,
+S374, S390, S409), **19 further staged rows** stage a source the lane already holds under another
+id (S287→S137, S288→S138, S289→S139, S296→S080, S299→S262, S300→S263, S310→S273, S311→S274,
+S323→S286, S352→S438, S375→S419, S376→S420, S380→S418, S395→S423, S398→S425/S427, S399→S249,
+S403→S421, S408→S422, S415→S429), and the remaining **102 are unscreened** in a package 11 days
+stale — so no staged row is both unheld and screened, and none was adopted. Full evidence:
+`.ufo/waves/round-82/w1/ConnectorC.md` §2 and `…/ConnectorC/evidence.txt` §D; the package was read
+only (nothing written into `/home/vgpnk/Projects/shokuknow`).
+
+## considerthese mining (one proposal, held for round 83)
+
+`considerthese/2026-10-26.md` Part 2 was re-read this round. Proposal #2 (receipt-rewrite watch) and
+#5 (historical-gate list) are already implemented and registered (`SKILL.md:1293`, `:1493`,
+`:1509`; `corpus/knowledge/gate-status-ledger.md`). Proposal **#4, the gate-agreement ledger, is the
+single still-unimplemented proposal** and the one that fits this round, because C1's limit makes the
+non-author closure load-bearing and nothing in the lane counts whether that closure has ever
+disagreed. It is **recorded, not landed**: the exact QUALITY criterion row it should land as next
+round is in `.ufo/waves/round-82/w1/ConnectorC.md` §3, and round 82's own closure becomes its first
+data point. Landing a new criterion mid-round would be scope drift against the frozen contract.
+
+## Appended note — what the delta's verdict can and cannot say
+
+**[r82-note 2026-11-04]** The `## Limits` bullet above that calls the delta a report of
+"identical/changed/added/removed **bytes** per surface" is imprecise; this note corrects it by append.
+`identical` conjoins status, body sha256, body length **and the whole header mapping**, and the tool has
+no header skip list, so on this property `identical=0 changed=3` is structural rather than a finding:
+the three capture-A receipts, all fetched at `2026-11-04T12:05:06Z`, already disagree on
+`x-github-request-id`, `x-fastly-request-id`, `x-timer`, `x-served-by`, `x-cache` and `expires`, i.e.
+those fields track the request instant, not the resource. Read `body=` and `status=` for content; read
+`verdict=` as "any recorded facet differed". `field=etag` is redundant with `last-modified` plus
+`content-length` (`corpus/knowledge/ghp-etag-anatomy.md`). And both trees must come from the same
+client: `scripts/response_snapshot.py` records `userAgent` per receipt, but `capture_delta.py` never
+compares it across trees, so a UA bump between rounds would compare two representations and print
+`body=changed` — under mori's `Vary` rule (S594, RFC 9111 §4.1) exactly the case that is not content
+drift. Round-83 follow-on, not this round: make the tool fault on a per-surface `userAgent` mismatch.
+Evidence: `.ufo/waves/round-82/w1/ConnectorC.md` §5 and `…/ConnectorC/evidence.txt` §E–§F. This note
+moves no predicate, target, kill rule, control or tool byte.
