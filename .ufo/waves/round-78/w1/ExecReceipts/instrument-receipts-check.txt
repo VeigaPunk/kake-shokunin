@@ -1,0 +1,31 @@
+# round-78 instrument receipt check (round-75 C2 gate, re-run at the round-78 freeze revision)
+# lane: /home/vgpnk/Projects/shokunin/kake-shokunin
+# revision: 78711a628ad7e1c23cefcb9f9e345a0cc240c25b
+# command: python3 -B scripts/instrument_receipts.py --root . --revision 78711a628ad7e1c23cefcb9f9e345a0cc240c25b --check
+# cwd: /home/vgpnk/Projects/shokunin/kake-shokunin
+C2v1 revision=78711a628ad7e1c23cefcb9f9e345a0cc240c25b population=20 bound=18 mismatches=2 met=false
+  population: derived=20 frozen=16 missing_frozen=0 beyond_frozen=4
+  receipt: source=committed worktree=identical declared=abfbfaac58bcee2514490940d1b16365027a07c9 declared_match=false declared_valid=true
+  population: beyond-frozen .ufo/waves/round-75/c75_row_truth.py
+  population: beyond-frozen scripts/doc_quote_truth.py
+  population: beyond-frozen scripts/hreflang_audit.py
+  population: beyond-frozen scripts/instrument_receipts.py
+  finding: missing scripts/doc_quote_truth.py: receipt has no entry for this path
+  finding: missing scripts/hreflang_audit.py: receipt has no entry for this path
+# stderr: empty (0 bytes)
+# exit: 1
+
+# Rows the receipt must gain (NOT edited here): corpus/knowledge/instrument-receipts.json stays the L1's call.
+#   scripts/doc_quote_truth.py  sha256 e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae  bytes 49077  selftest_mode=true (add_argument("--selftest") at :1091; the :1055 subprocess argv list is correctly not a registration)
+#   scripts/hreflang_audit.py   sha256 0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac  bytes 59734  selftest_mode=true (add_argument("--selftest") at :1543)
+# Both digests are the committed blobs at 78711a62. A `--write --date 2026-11-03` at the final revision
+# re-derives every row from committed bytes and is the cheaper repair than hand-editing two rows.
+#
+# Round-78 instruments: none is in the derived population at this revision. SKILL.md carries no
+# "### Round 78 gate registry additions" section (the last is "### Round 76"), so the population rule
+# does not see .ufo/waves/round-78/c78_*.py or scripts/meta_robots_audit.py. If the L1 adds such a
+# section, those paths enter the population and need receipt rows at the same time.
+#
+# declared_match=false is expected and not a mismatch by itself: the receipt declares revision
+# abfbfaac58bcee2514490940d1b16365027a07c9 (round-75 carrier), which resolves and is an ancestor of the
+# measured revision (git merge-base --is-ancestor -> rc=0). The two mismatches are the missing entries.

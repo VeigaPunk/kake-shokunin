@@ -1,0 +1,826 @@
+{
+ "pristine_sha256": "46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821",
+ "pristine_selftest": {
+  "rc": 0,
+  "summary": [
+   "selftest: 6/6 passed"
+  ]
+ },
+ "modes_expected": {
+  "A": {
+   "met": "true",
+   "rc": 0
+  },
+  "B": {
+   "met": "false",
+   "rc": 1
+  },
+  "C": {
+   "met": "false",
+   "rc": 1
+  },
+  "D": {
+   "met": "false",
+   "rc": 1
+  },
+  "E": {
+   "met": "false",
+   "rc": 1
+  },
+  "G": {
+   "met": "false",
+   "rc": 1
+  },
+  "F": {
+   "met": "false",
+   "rc": 1
+  },
+  "H": {
+   "met": "false",
+   "rc": 1
+  }
+ },
+ "pristine_probe": {
+  "A": {
+   "rc": 0,
+   "met": "true",
+   "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+  },
+  "B": {
+   "rc": 1,
+   "met": "false",
+   "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+  },
+  "C": {
+   "rc": 1,
+   "met": "false",
+   "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+  },
+  "D": {
+   "rc": 1,
+   "met": "false",
+   "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+  },
+  "E": {
+   "rc": 1,
+   "met": "false",
+   "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+  },
+  "G": {
+   "rc": 1,
+   "met": "false",
+   "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+  },
+  "F": {
+   "rc": 1,
+   "met": "false",
+   "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+  },
+  "H": {
+   "rc": 1,
+   "met": "false",
+   "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+  }
+ },
+ "conclusive": {
+  "A": true,
+  "B": true,
+  "C": true,
+  "D": true,
+  "E": true,
+  "G": true,
+  "F": true,
+  "H": true
+ },
+ "mutants": [
+  {
+   "id": "m01",
+   "name": "skip the negative control (assume a red control)",
+   "selftest": {
+    "rc": 0,
+    "summary": [
+     "selftest: 6/6 passed"
+    ],
+    "fails": [],
+    "verdict": "SURVIVED"
+   },
+   "live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "D": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    }
+   },
+   "killing_modes": [
+    "C",
+    "D",
+    "G",
+    "H"
+   ],
+   "verdict": "KILLED by live mode C,D,G,H",
+   "restored_selftest_rc": 0,
+   "restored_live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "mutated_sha256": "6b7ca0e42ad2855bc011a16b93fdf1a7e38456eab7e5f29e1200e3a0ed53e548",
+   "restored_sha256": "46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821",
+   "restored_ok": true
+  },
+  {
+   "id": "m02",
+   "name": "accept control_drift == 0",
+   "selftest": {
+    "rc": 0,
+    "summary": [
+     "selftest: 6/6 passed"
+    ],
+    "fails": [],
+    "verdict": "SURVIVED"
+   },
+   "live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "killing_modes": [
+    "C"
+   ],
+   "verdict": "KILLED by live mode C",
+   "restored_selftest_rc": 0,
+   "restored_live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "mutated_sha256": "868cfaaf55e2461a7cbae1c6091362efe0b796b7cd64a61a7502cfa1309fb105",
+   "restored_sha256": "46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821",
+   "restored_ok": true
+  },
+  {
+   "id": "m03",
+   "name": "ignore newMissing in the met predicate",
+   "selftest": {
+    "rc": 0,
+    "summary": [
+     "selftest: 6/6 passed"
+    ],
+    "fails": [],
+    "verdict": "SURVIVED"
+   },
+   "live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "killing_modes": [
+    "B"
+   ],
+   "verdict": "KILLED by live mode B",
+   "restored_selftest_rc": 0,
+   "restored_live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "mutated_sha256": "288c60225c8f7fc291e645561909d4cb429e25ef36fbf4561b307023b1b547aa",
+   "restored_sha256": "46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821",
+   "restored_ok": true
+  },
+  {
+   "id": "m04",
+   "name": "treat any non-zero control exit as proof of a red gate",
+   "selftest": {
+    "rc": 0,
+    "summary": [
+     "selftest: 6/6 passed"
+    ],
+    "fails": [],
+    "verdict": "SURVIVED"
+   },
+   "live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    }
+   },
+   "killing_modes": [
+    "H"
+   ],
+   "verdict": "KILLED by live mode H",
+   "restored_selftest_rc": 0,
+   "restored_live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "mutated_sha256": "b5718f14323bfb8fd4181cb827511fc7002740cb0f94448470dcdbd85d8d2cb2",
+   "restored_sha256": "46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821",
+   "restored_ok": true
+  },
+  {
+   "id": "m05",
+   "name": "treat base exit 64 as met",
+   "selftest": {
+    "rc": 0,
+    "summary": [
+     "selftest: 6/6 passed"
+    ],
+    "fails": [],
+    "verdict": "SURVIVED"
+   },
+   "live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "killing_modes": [
+    "E"
+   ],
+   "verdict": "KILLED by live mode E",
+   "restored_selftest_rc": 0,
+   "restored_live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "mutated_sha256": "0bd3f683feed88a2121d02efa38da3ad79a7cbc9bc91b1eec76cb031fc9dfe19",
+   "restored_sha256": "46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821",
+   "restored_ok": true
+  },
+  {
+   "id": "m06",
+   "name": "ignore paths_ok",
+   "selftest": {
+    "rc": 0,
+    "summary": [
+     "selftest: 6/6 passed"
+    ],
+    "fails": [],
+    "verdict": "SURVIVED"
+   },
+   "live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "killing_modes": [
+    "F"
+   ],
+   "verdict": "KILLED by live mode F",
+   "restored_selftest_rc": 0,
+   "restored_live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "mutated_sha256": "5fa105e3f52e84690bcac87f82472dee15a43002666df36ee0d0f4c53bdb7942",
+   "restored_sha256": "46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821",
+   "restored_ok": true
+  },
+  {
+   "id": "m07",
+   "name": "drop the tree_identity divergence conjunct",
+   "selftest": {
+    "rc": 0,
+    "summary": [
+     "selftest: 6/6 passed"
+    ],
+    "fails": [],
+    "verdict": "SURVIVED"
+   },
+   "live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "killing_modes": [],
+   "verdict": "SURVIVED",
+   "restored_selftest_rc": 0,
+   "restored_live": {
+    "A": {
+     "rc": 0,
+     "met": "true",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=true"
+    },
+    "B": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=1 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "C": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=1 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "D": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=0 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "E": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=64 drift=0 new_missing=0 paths_ok=true skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "G": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=0 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "F": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=false skipped=0 control_exit=1 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    },
+    "H": {
+     "rc": 1,
+     "met": "false",
+     "line": "C2v1 revision=HEAD sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=1 control_exit=2 control_drift=1 tree_identity=065af3f6dc9cb6fa met=false"
+    }
+   },
+   "mutated_sha256": "10d33cc568306bf14150421321810ebd5b75190178a7c0c452dcdbc6fd0de145",
+   "restored_sha256": "46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821",
+   "restored_ok": true
+  }
+ ]
+}

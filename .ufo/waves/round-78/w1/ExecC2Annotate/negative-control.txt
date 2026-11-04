@@ -1,0 +1,31 @@
+# C2 negative control — revision-bound counter over a scratch commit of the carrier bytes
+# counter: .ufo/waves/round-78/c78_sweep_truth.py sha256=46acb450a2042249d0b589ed6614ab0c83e67e48da3eb5da69efd2ecbadb2821
+# command: python3 -B <counter> --root /fast/scratch/hyaku/kake-r78/ExecC2Annotate/carrier.sZF7iV --revision e772f5d15df728d0e0ad5521fdac207b4dae4ba6 --work /fast/scratch/hyaku/kake-r78/ExecC2Annotate/cwork
+# fixture repo = git init + 'git -C lane archive HEAD(c758904c)' + carrier bytes of
+#   corpus/knowledge/freshness-sidecar.json, corpus/knowledge/freshness-pins.json, .ufo/waves/round-78/sidecar_from_drift.mjs
+# fixture commit tree=a3c068ca77594edcc1cdb0ae7bc80ea2a424fe50
+# exit=0
+
+C2v1 revision=e772f5d15df728d0e0ad5521fdac207b4dae4ba6 sweep_exit=0 drift=0 new_missing=0 paths_ok=true skipped=2 control_exit=1 control_drift=1 tree_identity=d2279c72c195f7af met=true
+
+--- identity equivalence (counter's own tree_identity function) ---
+fixture_identity=d2279c72c195f7afa0641547fdb8b33bdd460f6b40d8a4a305259e9707eadd32
+lane_worktree_identity=36715895f4f26289a5a0e66465ee2e2c77ae162485ff6d80f135d2a4fd0317fe
+content_diff=corpus/README.md only (a concurrent C3 seat's append landed between the two reads; every C2 input — SKILL.md, pins, sidecar, sweep script, all other corpus/*.md — hashed identical)
+
+--- attribution of the control's red (same revision, planted file only) ---
+# planted relay: corpus/lessons/ctl-r78-unannotated-miss.md:6 cites ~/Projects/kake-r78-control-absent/nothing-here.md
+# test -e /home/vgpnk/Projects/kake-r78-control-absent/nothing-here.md -> exit 1
+# sweep at the planted copy: exit 1, code=1, reasons=['§paths: 1 unannotated miss · 1 NOT in pins.pathsMissSet']
+# counts={"resolve": 32, "declaredAbsent": 65, "declaredAbsentIndirect": 4, "drift": 1, "unresolved": 10, "newDrift": 1, "newMissing": 1}
+# DRIFT_TOKEN ~/Projects/kake-r78-control-absent/nothing-here.md unannotated ['corpus/lessons/ctl-r78-unannotated-miss.md:6']
+
+--- counter --selftest (6/6) ---
+  PASS t1 clean sweep + red control is met: met=True
+  PASS t2 drift red is not met: met=False
+  PASS t3 new miss red is not met: met=False
+  PASS t4 control green means the gate was loosened: met=False
+  PASS t5 control that reports no drift is not proof: met=False
+  PASS t6 help path unaffected: exit 64 is not met: met=False
+selftest: 6/6 passed
+counter_selftest_exit=0

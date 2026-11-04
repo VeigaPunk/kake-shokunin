@@ -1,0 +1,7 @@
+node scripts/freshness-sweep.mjs --offline --json   (lane root, base content)  exit=1  drift=1 newMissing=1 paths_ok=false
+node scripts/freshness-sweep.mjs --selftest                                  exit=0  36/36 passed
+node scripts/freshness-sweep.mjs --offline --json --repo tree3 (16 sidecar entries + pin)  exit=0  drift=0 newMissing=0 paths_ok=true
+node scripts/freshness-sweep.mjs --offline --json --repo tree2 (16 inline suffixes + pin)   exit=0  drift=0 newMissing=0 paths_ok=true
+node scripts/freshness-sweep.mjs --offline --json --repo tree (sidecar) + one NEW unannotated bare ~/projects cite  exit=1 drift=1 newMissing=0 paths_ok=false
+node scripts/freshness-sweep.mjs --offline --json --repo tree-pinonly (pin only, no annotations)  exit=1 drift=1 newMissing=0 paths_ok=false
+node scripts/freshness-sweep.mjs --offline --json --repo ctl-on-repaired (tree3 + planted ~/Projects/kake-r78-control-absent/nothing-here.md)  exit=1 drift=1 newMissing=1

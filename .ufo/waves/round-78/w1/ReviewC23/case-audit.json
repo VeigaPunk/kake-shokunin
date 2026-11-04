@@ -1,0 +1,529 @@
+[
+ {
+  "case": "g01_absent_tag",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g01_absent_tag</title>\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g02_noindex",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g02_noindex</title>\n<meta name=\"robots\" content=\"noindex\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g03_none_expansion",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "nofollow",
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g03_none_expansion</title>\n<meta name=\"robots\" content=\"none\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g04_all_default",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g04_all_default</title>\n<meta name=\"robots\" content=\"all\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g05_index_follow_one",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g05_index_follow_one</title>\n<meta name=\"robots\" content=\"index, follow\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g06_conflicting_noindex",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g06_conflicting_noindex</title>\n<meta name=\"robots\" content=\"index\">\n<meta name=\"robots\" content=\"noindex\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g07_conflicting_nofollow",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "nofollow"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g07_conflicting_nofollow</title>\n<meta name=\"robots\" content=\"follow\">\n<meta name=\"robots\" content=\"nofollow\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g08_max_snippet_two",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "max-snippet:20"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g08_max_snippet_two</title>\n<meta name=\"robots\" content=\"max-snippet:50\">\n<meta name=\"robots\" content=\"max-snippet:20\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g09_max_image_preview_two",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "max-image-preview:standard"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g09_max_image_preview_two</title>\n<meta name=\"robots\" content=\"max-image-preview:large\">\n<meta name=\"robots\" content=\"max-image-preview:standard\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g10_max_video_no_limit",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "max-video-preview:30"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g10_max_video_no_limit</title>\n<meta name=\"robots\" content=\"max-video-preview:-1\">\n<meta name=\"robots\" content=\"max-video-preview:30\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g11_max_snippet_invalid",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 1,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 1,
+   "findings": [
+    "meta_robots_invalid_value"
+   ]
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g11_max_snippet_invalid</title>\n<meta name=\"robots\" content=\"max-snippet:abc\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g12a_unavailable_datetime",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "unavailable_after:2020-09-21T15:00:00Z"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g12a_unavailable_datetime</title>\n<meta name=\"robots\" content=\"unavailable_after: 2020-09-21T15:00:00Z\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g12b_unavailable_date",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "unavailable_after:2020-09-21"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g12b_unavailable_date</title>\n<meta name=\"robots\" content=\"unavailable_after: 2020-09-21\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g12c_unavailable_rfc822",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "unavailable_after:25 Jun 2010 15:00:00 PST"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g12c_unavailable_rfc822</title>\n<meta name=\"robots\" content=\"unavailable_after: 25 Jun 2010 15:00:00 PST\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g13_unavailable_invalid",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 1,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 1,
+   "findings": [
+    "meta_robots_invalid_value"
+   ]
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g13_unavailable_invalid</title>\n<meta name=\"robots\" content=\"unavailable_after: 2020-13-40\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g14_uppercase",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g14_uppercase</title>\n<META NAME=\"ROBOTS\" CONTENT=\"NOINDEX\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g15_empty_content",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 1,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 1,
+   "findings": [
+    "meta_robots_empty_content"
+   ]
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g15_empty_content</title>\n<meta name=\"robots\" content=\"\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g16_unknown_directive",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 1,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 1,
+   "findings": [
+    "meta_robots_unknown_directive"
+   ]
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g16_unknown_directive</title>\n<meta name=\"robots\" content=\"nosuchthing\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g17_googlebot_ignored",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g17_googlebot_ignored</title>\n<meta name=\"googlebot\" content=\"noindex\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g18_googlebot_with_agents",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g18_googlebot_with_agents</title>\n<meta name=\"googlebot\" content=\"noindex\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g19_body_tag_respected",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 1,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 1,
+   "findings": [
+    "meta_robots_tag_outside_head"
+   ]
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g19_body_tag_respected</title>\n</head>\n<body>\n<p>case page</p>\n<meta name=\"robots\" content=\"noindex\">\n</body>\n</html>\n"
+ },
+ {
+  "case": "g21_self_closing",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g21_self_closing</title>\n<meta name=\"robots\" content=\"noindex\" />\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g22_single_quotes",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g22_single_quotes</title>\n<meta name='robots' content='noindex'>\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g23_noarchive_ignored",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 1,
+  "expect": {
+   "effective": [
+    "nosnippet"
+   ],
+   "exit": 1,
+   "findings": [
+    "meta_robots_ignored_rule"
+   ]
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g23_noarchive_ignored</title>\n<meta name=\"robots\" content=\"noarchive\">\n<meta name=\"robots\" content=\"nosnippet\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g24_trailing_comma",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g24_trailing_comma</title>\n<meta name=\"robots\" content=\"noindex,\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g25_nosnippet_dominates",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "nosnippet"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g25_nosnippet_dominates</title>\n<meta name=\"robots\" content=\"nosnippet\">\n<meta name=\"robots\" content=\"max-snippet:50\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g26_max_snippet_zero_video_minus_one",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "max-video-preview:-1",
+    "nosnippet"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g26_max_snippet_zero_video_minus_one</title>\n<meta name=\"robots\" content=\"max-snippet:0, max-video-preview:-1\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g27_indexifembedded",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "indexifembedded",
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g27_indexifembedded</title>\n<meta name=\"robots\" content=\"noindex, indexifembedded\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g28_within_content_conflict",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "noindex"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g28_within_content_conflict</title>\n<meta name=\"robots\" content=\"index, noindex\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g29_max_image_preview_none",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "max-image-preview:none"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g29_max_image_preview_none</title>\n<meta name=\"robots\" content=\"max-image-preview:none\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g30_max_snippet_minus_one",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "max-snippet:-1"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g30_max_snippet_minus_one</title>\n<meta name=\"robots\" content=\"max-snippet:-1\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g31_missing_content",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 1,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 1,
+   "findings": [
+    "meta_robots_empty_content"
+   ]
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g31_missing_content</title>\n<meta name=\"robots\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g32_nocache_ignored",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 1,
+  "expect": {
+   "effective": [
+    "follow",
+    "index"
+   ],
+   "exit": 1,
+   "findings": [
+    "meta_robots_ignored_rule"
+   ]
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g32_nocache_ignored</title>\n<meta name=\"robots\" content=\"nocache\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g33_lowercase_t_z",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 0,
+  "expect": {
+   "effective": [
+    "unavailable_after:2020-09-21t15:00:00z"
+   ],
+   "exit": 0,
+   "findings": []
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g33_lowercase_t_z</title>\n<meta name=\"robots\" content=\"unavailable_after: 2020-09-21t15:00:00z\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ },
+ {
+  "case": "g34_missing_file_exit2",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 2,
+  "expect": {
+   "error": "missing_file",
+   "exit": 2
+  },
+  "page_declares": null
+ },
+ {
+  "case": "g35_duplicate_id_exit2",
+  "expect_matches_independent_table": true,
+  "tool_matches_expect": true,
+  "tool_exit": 2,
+  "expect": {
+   "error": "duplicate_check_id",
+   "exit": 2
+  },
+  "page_declares": "<!doctype html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>g35_duplicate_id_exit2</title>\n<meta name=\"robots\" content=\"noindex\">\n</head>\n<body>\n<p>case page</p>\n</body>\n</html>\n"
+ }
+]

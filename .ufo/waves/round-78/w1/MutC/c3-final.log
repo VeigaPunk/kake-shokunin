@@ -1,0 +1,14 @@
+COMMAND: python3 -B /fast/scratch/hyaku/kake-r78/MutC/mutate_c3.py
+{"baseline": {"selftest": {"rc": 0, "summary": "selftest 84/84 passed"}, "matrix": {"rc": 0, "summary": "matrix: cases=34 decided=34 correct=34 failed=0", "failed_cases": []}}}
+{"id": "c01", "name": "drop the head/body distinction (body tag produces no outside-head finding)", "verdict": "KILLED", "st": "selftest 79/84 passed", "mx": "matrix: cases=34 decided=32 correct=32 failed=2", "failed": ["g19-tag-outside-head", "g19b-body-only-tag"]}
+{"id": "c02", "name": "drop the agents filter", "verdict": "KILLED", "st": "selftest 81/84 passed", "mx": "matrix: cases=34 decided=33 correct=33 failed=1", "failed": ["g17-googlebot-ignored-default-agents"]}
+{"id": "c03", "name": "none expands to noindex only", "verdict": "KILLED", "st": "selftest 82/84 passed", "mx": "matrix: cases=34 decided=33 correct=33 failed=1", "failed": ["g03-none"]}
+{"id": "c04", "name": "numeric merge takes max instead of min", "verdict": "KILLED", "st": "selftest 82/84 passed", "mx": "matrix: cases=34 decided=33 correct=33 failed=1", "failed": ["g08-max-snippet-most-restrictive"]}
+{"id": "c05", "name": "treat -1 as most restrictive (keep it in the minimum)", "verdict": "KILLED", "st": "selftest 82/84 passed", "mx": "matrix: cases=34 decided=32 correct=32 failed=2", "failed": ["g08b-max-snippet-unlimited-loses", "g10-max-video-preview-unlimited-loses"]}
+{"id": "c06", "name": "reject a date-only unavailable_after (pre-amendment behaviour; A2 makes the assignment's named mutant -- accepting date-only -- the required rule)", "verdict": "KILLED", "st": "selftest 82/84 passed", "mx": "matrix: cases=34 decided=33 correct=33 failed=1", "failed": ["g12b-unavailable-after-date-only"]}
+{"id": "c07", "name": "ignore an unknown token silently", "verdict": "KILLED", "st": "selftest 83/84 passed", "mx": "matrix: cases=34 decided=32 correct=32 failed=2", "failed": ["g16-unknown-directive", "g16b-non-ascii-token"]}
+{"id": "c08", "name": "compare declared findings as a sequence, not a sorted set", "verdict": "SURVIVED", "st": "selftest 84/84 passed", "mx": "matrix: cases=34 decided=34 correct=34 failed=0", "failed": []}
+{"id": "c09", "name": "return exit 0 even when findings were produced", "verdict": "KILLED", "st": "selftest 69/84 passed", "mx": "matrix: cases=34 decided=25 correct=25 failed=9", "failed": ["g11-max-snippet-invalid", "g13-unavailable-after-invalid", "g15-empty-content", "g16-unknown-directive", "g16b-non-ascii-token", "g19-tag-outside-head", "g19b-body-only-tag", "g20-declared-noindex-expect-index", "g23-noarchive-nosnippet"]}
+{"id": "c10", "name": "max-image-preview merge order alphabetical", "verdict": "KILLED", "st": "selftest 82/84 passed", "mx": "matrix: cases=34 decided=33 correct=33 failed=1", "failed": ["g09-max-image-preview-most-restrictive"]}
+wrote /fast/scratch/hyaku/kake-r78/MutC/results-c3.json final_restored_ok=True
+EXIT: 0

@@ -1,0 +1,26 @@
+# round-78 instrument binding (routed defect: evidence hygiene for the round's own measurements)
+# lane: /home/vgpnk/Projects/shokunin/kake-shokunin
+# measurement instant: 2026-11-03 23:41:15 -0300 (python3: see footer)
+# source: working tree, compared against the committed blob at 78711a628ad7e1c23cefcb9f9e345a0cc240c25b
+# The L1 re-derives every row from committed bytes; the working-tree digest is recorded only to show
+# what bytes this seat saw.
+
+| path | working-tree sha256 | bytes | state vs 78711a62 | selftest mode | selftest observed |
+|---|---|---|---|---|---|
+| .ufo/waves/round-78/c78_shonen_population.py | c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673 | 11827 | committed and identical (blob c2dc1cbf...) | --selftest --work <dir> (add_argument at :261) | selftest: 9/9 passed, exit 0 (same bytes) |
+| .ufo/waves/round-78/c78_sweep_truth.py | 301921e20e62772e61eca8aab0ad41b767b90ce5424f79061c3fb1f3d12a4b8b | 8219 | modified in flight; committed blob is e49bb0f1ac7c739849e4c291692a5f14324b2690d351381856f5a3c562eae526, 7103 B | --selftest (no --work; add_argument at :159) | selftest: 6/6 passed, exit 0 on e49bb0f1 (23:32) and on 301921e2 (23:41) |
+| .ufo/waves/round-78/c78_meta_robots_matrix.py | ABSENT | - | not present in the tree at 78711a62 | contract prescribes --selftest and --work <scratch> | not runnable (absent) |
+| scripts/meta_robots_audit.py | ABSENT | - | not present in the tree at 78711a62 (base-c3-absent.txt records base absence too) | contract prescribes --selftest >= 40 cases | not runnable (absent) |
+
+# Notes
+# - The C3 pair is the contract's "new tool"; both paths are absent at this measurement. Round-78
+#   amendment-1 (contract-amendment-1.md, untracked, 23:40) corrects the frozen C3 grammar (head
+#   placement, date forms, ignored rules, nosnippet dominance) without changing the C3 predicate, so the
+#   L1 must re-derive the C3 rows after the tool and its matrix land and are committed.
+# - c78_shonen_population.py was committed identical to the working tree; c78_sweep_truth.py moved while
+#   this seat ran (a sibling C2 seat's edit), so its working-tree row is not binding. Both carry a real
+#   static --selftest registration (add_argument with the literal), so instrument_receipts' classifier
+#   would derive selftest_mode=true for either if it entered the population.
+# - Neither c78_* instrument is in the round-75 receipt population at this revision: the population rule
+#   reads live rows of "### Round <N> gate registry additions" sections in SKILL.md, and the last such
+#   section is Round 76. See instrument-receipts-check.txt for the two rows that ARE missing.

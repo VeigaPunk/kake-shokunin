@@ -1,0 +1,50 @@
+# kake round 78 — ConnectorC assimilation re-run (0–3 leading-space row form)
+# Read-only. Sources:
+#   REG = /home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md
+#   STG = /home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md
+# Commands, verbatim:
+#   grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' "$REG" | grep -oE 'S[0-9]+' | sort > reg-ids
+#   grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' "$STG" | grep -oE 'S[0-9]+' | sort > staged-ids
+#   comm -12 reg-ids staged-ids > collisions
+#   comm -23 staged-ids reg-ids | wc -l
+
+reg count: 186
+staged count: 129
+collision count: 8
+free staged ids: 121
+reg id range: S001..S448
+staged id range: S287..S415
+staged ids above the registry max (S448): 0
+duplicate ids within reg: 0
+duplicate ids within staged: 0
+
+collisions (8):
+S312
+S329
+S367
+S372
+S373
+S374
+S390
+S409
+
+# URL join (first https URL per row; python re, read-only)
+reg rows 186 · staged rows 129
+reg urls 158 · staged urls 96 · shared urls 27
+staged rows sharing a lane document URL: 27
+of those, on ids the registry does not use: 19
+
+# Renumber map: possible in id space (121 free staged ids; S449+ free above the
+# registry max), but adoption stays closed: the 8 id collisions are unresolved and
+# 27 staged rows name a document the lane already holds (19 under free ids).
+# Same triple as r77 (r77: 184/129/8); the registry grew by S447, S448 and neither
+# collides with the staged range.
+
+reg-ids sha256:    656c81e2a23392ae0b089be6e835ee0e75d0428e686ae8e9a6369d3e79c7bc0d (930 B)
+staged-ids sha256: 3938ec94ee29d52d27e6192603a9c30b9bfee3a8969600c7207478c3828f9deb (645 B)
+collisions sha256: a443d89dc53a6ad4d6c8d6c7204116f378bdd479620dcbb95a02a92def8ea9a0 (40 B)
+REG sha256:        8f5ebc91ffdc44556eaf4d67169884f9558dbf3134893a22d4750dc566e7c3bb
+STG sha256:        5f0cd4c4debc647f3d1e2a85519d4ae2b000d91dad49765514871fa502e9f0cc
+(hashes measured with sha256sum at 2026-11-03; a first draft of this file carried
+placeholder digests and was corrected before the round closed — the digests above are
+the measured values, the placeholder lines were never cited elsewhere.)

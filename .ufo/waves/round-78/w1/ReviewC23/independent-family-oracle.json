@@ -1,0 +1,261 @@
+{
+  "contract": "contract.md plus contract-amendment-1.md",
+  "cases": [
+    {
+      "family": "g01",
+      "effective": [
+        "follow",
+        "index"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "No matching element defaults, contract119."
+    },
+    {
+      "family": "g02",
+      "effective": [
+        "noindex"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Single noindex, contract105-110."
+    },
+    {
+      "family": "g03",
+      "effective": [
+        "nofollow",
+        "noindex"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "none expansion, contract111."
+    },
+    {
+      "family": "g04",
+      "effective": [
+        "follow",
+        "index"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "all expansion, contract111."
+    },
+    {
+      "family": "g05",
+      "effective": [
+        "follow",
+        "index"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Comma tokenization, contract105."
+    },
+    {
+      "family": "g06",
+      "effective": [
+        "noindex"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "noindex beats index, contract112."
+    },
+    {
+      "family": "g07",
+      "effective": [
+        "nofollow"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "nofollow beats follow, contract112-113."
+    },
+    {
+      "family": "g08",
+      "effective": [
+        "max-snippet:20"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Numeric minimum 20 beats50, contract113."
+    },
+    {
+      "family": "g09",
+      "effective": [
+        "max-image-preview:standard"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "standard beats large, contract114."
+    },
+    {
+      "family": "g10",
+      "effective": [
+        "max-video-preview:30"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "30 beats unlimited -1, contract113."
+    },
+    {
+      "family": "g11",
+      "effective": [],
+      "finding_ids": [
+        "meta_robots_invalid_value"
+      ],
+      "exit": 1,
+      "derivation": "Malformed integer excluded, contract115-117."
+    },
+    {
+      "family": "g12a",
+      "effective": null,
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Valid RFC3339 datetime, amendment A2; exact rendered spelling unspecified."
+    },
+    {
+      "family": "g12b",
+      "effective": null,
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Valid date-only, amendment A2; exact rendered spelling unspecified."
+    },
+    {
+      "family": "g12c",
+      "effective": null,
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Valid RFC822-style date, amendment A2; exact rendered spelling unspecified."
+    },
+    {
+      "family": "g13",
+      "effective": [],
+      "finding_ids": [
+        "meta_robots_invalid_value"
+      ],
+      "exit": 1,
+      "derivation": "Invalid date excluded, contract115-117/amendmentA2."
+    },
+    {
+      "family": "g14",
+      "effective": null,
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "ASCII case-insensitivity, contract102,105; actual input needed."
+    },
+    {
+      "family": "g15",
+      "effective": [],
+      "finding_ids": [
+        "meta_robots_empty_content"
+      ],
+      "exit": 1,
+      "derivation": "Empty matching content, contract106."
+    },
+    {
+      "family": "g16",
+      "effective": [],
+      "finding_ids": [
+        "meta_robots_unknown_directive"
+      ],
+      "exit": 1,
+      "derivation": "Unknown token excluded, contract117."
+    },
+    {
+      "family": "g17",
+      "effective": [
+        "follow",
+        "index"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Non-agent tag ignored; no matching tag defaults, contract102,119."
+    },
+    {
+      "family": "g18",
+      "effective": null,
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Configured robots/googlebot both merge; actual tokens needed."
+    },
+    {
+      "family": "g19",
+      "effective": null,
+      "finding_ids": [
+        "meta_robots_tag_outside_head"
+      ],
+      "exit": 1,
+      "derivation": "Matching body tag effective, amendmentA1; actual token needed."
+    },
+    {
+      "family": "g20",
+      "effective": [
+        "noindex"
+      ],
+      "finding_ids": [
+        "meta_robots_expected_mismatch"
+      ],
+      "exit": 1,
+      "derivation": "Actual noindex vs declared index differs, contract120-121."
+    },
+    {
+      "family": "g21",
+      "effective": null,
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Self-closing HTML meta recognized, familyg21; actual token needed."
+    },
+    {
+      "family": "g22",
+      "effective": null,
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Single quotes/equals spacing recognized, familyg22; actual token needed."
+    },
+    {
+      "family": "g23",
+      "effective": [
+        "nosnippet"
+      ],
+      "finding_ids": [
+        "meta_robots_ignored_rule"
+      ],
+      "exit": 1,
+      "derivation": "noarchive excluded with policy finding, amendmentA3."
+    },
+    {
+      "family": "g24",
+      "effective": null,
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Trailing empty tokens ignored, contract105-106; actual token needed."
+    },
+    {
+      "family": "g25",
+      "effective": [
+        "nosnippet"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "nosnippet removes max-snippet, amendmentA5."
+    },
+    {
+      "family": "g26",
+      "effective": [
+        "max-video-preview:-1",
+        "nosnippet"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "Familyg26 is ambiguous if both on same check: A5 removes numeric video whenever nosnippet; must split checks or expect only nosnippet."
+    },
+    {
+      "family": "g27",
+      "effective": [
+        "indexifembedded",
+        "noindex"
+      ],
+      "finding_ids": [],
+      "exit": 0,
+      "derivation": "indexifembedded valid, amendmentA3."
+    }
+  ]
+}

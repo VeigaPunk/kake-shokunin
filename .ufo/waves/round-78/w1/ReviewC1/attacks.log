@@ -1,0 +1,77 @@
+== PART 1: independent re-derivation (own code, not the counter) ==
+-- base fe50945399a386b48678b1f2051fdbe8a77b10bd
+   b1-ids                               recorded={'ids': 77, 'resolved': 77, 'unresolved': 0} mine={'ids': 77, 'resolved': 77, 'unresolved': 0}
+   b1-tables                            recorded=18                             mine=18
+   b1-registry                          recorded=105                            mine=105
+   b1-checklist                         recorded=1                              mine=1
+   b2-rounds                            recorded=56                             mine=57
+   b2-receipts                          recorded=98                             mine=100
+   b2-missing                           recorded=1                              mine=1
+   b3-scripts                           recorded=0                              mine=0
+   b3-invocations                       recorded=0                              mine=0
+   b4-lanes                             recorded=0                              mine=0
+   POP box-4 corpus/knowledge/*.md      recorded='<no recorded obs>'            mine=64
+-- carrier c758904c15c21a3c0287737c47e193ea7f08d766
+   b1-ids                               recorded={'ids': 77, 'resolved': 77, 'unresolved': 0} mine={'ids': 77, 'resolved': 77, 'unresolved': 0}
+   b1-tables                            recorded=18                             mine=18
+   b1-registry                          recorded=105                            mine=105
+   b1-checklist                         recorded=1                              mine=1
+   b2-rounds                            recorded=56                             mine=57
+   b2-receipts                          recorded=98                             mine=100
+   b2-missing                           recorded=1                              mine=1
+   b3-scripts                           recorded=0                              mine=0
+   b3-invocations                       recorded=0                              mine=0
+   b4-lanes                             recorded=0                              mine=0
+   POP box-4 corpus/knowledge/*.md      recorded='<no recorded obs>'            mine=64
+-- box-4 population re-derives to 64 at base; carrier=64
+-- base: SHONEN.md box-4 note says 63; ledger b4-lanes note says 63; true count 64
+-- carrier: SHONEN.md box-4 note says 63; ledger b4-lanes note says 63; true count 64
+
+== PART 2: counter attacks (fixtures under S, throwaway identity) ==
+-- f0-green-baseline rev=8528d1648064d71781e8a7044a4db9de932d6564
+C1v1 revision=8528d1648064d71781e8a7044a4db9de932d6564 rows=4 rows_with_population=4 undeclared=0 stale_populations=0 exact_mismatches=0 floor_violations=0 growth_tolerated=2 met=true
+  tolerated growth: recorded 56 but re-derived 57
+  tolerated growth: recorded 98 but re-derived 100
+   exit=0 expected=0 -> OK
+-- f1-wrong-count rev=fcf5e257834deef03b41f936d863ded16b6a6613
+C1v1 revision=fcf5e257834deef03b41f936d863ded16b6a6613 rows=4 rows_with_population=4 undeclared=0 stale_populations=1 exact_mismatches=0 floor_violations=0 growth_tolerated=2 met=false
+  S1 box 4: declared=63 derived=64
+  tolerated growth: recorded 56 but re-derived 57
+  tolerated growth: recorded 98 but re-derived 100
+   exit=1 expected=1 -> OK
+-- f2-population-deleted rev=a283e9d2284b6de314358c8e28fad05382d3d712
+C1v1 revision=a283e9d2284b6de314358c8e28fad05382d3d712 rows=4 rows_with_population=3 undeclared=1 stale_populations=0 exact_mismatches=0 floor_violations=0 growth_tolerated=2 met=false
+  S2 box 2: no population declaration
+  tolerated growth: recorded 56 but re-derived 57
+  tolerated growth: recorded 98 but re-derived 100
+   exit=1 expected=1 -> OK
+-- f3-fifth-row rev=4f7562ad2104c9ba9749cfd103aacd6b75bb549e
+C1v1 revision=4f7562ad2104c9ba9749cfd103aacd6b75bb549e rows=5 rows_with_population=5 undeclared=0 stale_populations=0 exact_mismatches=1 floor_violations=0 growth_tolerated=2 met=false
+  S3 exact: box-out-of-range box 5: row names a box outside 1..4; it is reported, never ignored
+  tolerated growth: recorded 56 but re-derived 57
+  tolerated growth: recorded 98 but re-derived 100
+   exit=1 expected=1 -> OK
+-- f4-shrink-two-rounds rev=ec6035a8a315aa4715bb08aff9e87a2a380bf20c
+C1v1 revision=ec6035a8a315aa4715bb08aff9e87a2a380bf20c rows=4 rows_with_population=4 undeclared=0 stale_populations=0 exact_mismatches=0 floor_violations=1 growth_tolerated=1 met=false
+  S4 floor: recorded 56 but re-derived 55
+  tolerated growth: recorded 98 but re-derived 100
+   exit=1 expected=1 -> OK
+-- f4b-shrink-one-round rev=bc9e3269181e63d0def193a702ab3d2517270372
+C1v1 revision=bc9e3269181e63d0def193a702ab3d2517270372 rows=4 rows_with_population=4 undeclared=0 stale_populations=0 exact_mismatches=0 floor_violations=0 growth_tolerated=1 met=true
+  tolerated growth: recorded 98 but re-derived 100
+   exit=0 expected=0 -> OK
+-- f5-grow-two-rounds rev=44da94ec305231a3591d31cd36e92bf1f4727208
+C1v1 revision=44da94ec305231a3591d31cd36e92bf1f4727208 rows=4 rows_with_population=4 undeclared=0 stale_populations=0 exact_mismatches=0 floor_violations=0 growth_tolerated=2 met=true
+  tolerated growth: recorded 56 but re-derived 59
+  tolerated growth: recorded 98 but re-derived 100
+   exit=0 expected=0 -> OK
+-- ctl-note-only rev=d15bbce32c085409a6ceda46dae9166232fd59d6
+C1v1 revision=d15bbce32c085409a6ceda46dae9166232fd59d6 rows=4 rows_with_population=0 undeclared=4 stale_populations=0 exact_mismatches=0 floor_violations=0 growth_tolerated=0 met=false
+  S2 box 1: no population declaration
+  S2 box 2: no population declaration
+  S2 box 3: no population declaration
+  S2 box 4: no population declaration
+   exit=1 expected=1 -> OK
+
+== PART 3: c78 selftest ==
+   (selftest already run separately; see transcript)

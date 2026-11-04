@@ -75,10 +75,15 @@ def derive_population(root: Path, rev: str, spec: dict) -> int:
 
 
 def c77_findings(root: Path, rev: str):
-    tool = root / C77_REL
-    if not tool.exists():
-        raise Unevaluable(f"round-77 counter absent: {C77_REL}")
-    p = run([sys.executable, "-B", str(tool), "--root", str(root), "--revision", rev, "--json"])
+    raw_tool = git_show(root, rev, C77_REL)
+    if raw_tool is None:
+        raise Unevaluable(f"round-77 counter absent at {rev}:{C77_REL}")
+    scratch = Path("/fast/scratch/hyaku/kake-r78/l1")
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=scratch) as tmp:
+        tool = Path(tmp) / "c77.py"
+        tool.write_text(raw_tool)
+        p = run([sys.executable, "-B", str(tool), "--root", str(root), "--revision", rev, "--json"])
     raw = p.stdout
     start = raw.find("{")
     if start < 0:
@@ -139,6 +144,9 @@ def measure(root: Path, rev: str):
             stale.append({"box": row.get("box"), "declared": spec.get("count"), "derived": derived})
     c77 = c77_findings(root, rev)
     exact, growth, floors = classify(ledger, c77.get("findings") or [])
+    if c77.get("boxes") != 4 or c77.get("unexamined") != 0:
+        exact.append({"class": "checklist-population", "subject": "SHONEN.md",
+                      "detail": "four examined checklist boxes required"})
     met = (declared == ROWS_EXPECTED and len(rows) == ROWS_EXPECTED
            and not undeclared and not stale and not exact and not floors)
     return {"revision": rev, "rows": len(rows), "rows_with_population": declared,
@@ -175,7 +183,7 @@ def _fixture(d: Path, files: dict, ledger: dict, findings: list[dict], prestine:
     (d / LEDGER_REL).write_text(json.dumps(ledger, indent=1))
     stub = d / C77_REL
     stub.parent.mkdir(parents=True, exist_ok=True)
-    stub.write_text("import json\nprint(json.dumps({'findings': %s}))\n" % json.dumps(findings))
+    stub.write_text("import json\nprint(json.dumps({'boxes': 4, 'unexamined': 0, 'findings': %s}))\n" % json.dumps(findings))
     env = {"GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@t",
            "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@t",
            "PATH": "/usr/bin:/bin", "HOME": str(d)}

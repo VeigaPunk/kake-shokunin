@@ -1,0 +1,65 @@
+ExecC3Tool real-input run receipt — kake round 78, C3 (round 76 population, amendment 4 interface)
+
+Population. The lane's twelve named surfaces live under
+.ufo/waves/round-23/live/ (round 23 capture, 2026-10-21). Eight retain served
+page.html bytes (status 200 in fetch.json, sha256 verified against fetch.json
+8/8). Four retain only audit.json + fetch.json (fetch status 404, 13,409 B
+placeholder body not retained — no HTML bytes exist): charter-kimi,
+lucario-kimi, plazir15-kimi, plazir27-kimi. The audit population is therefore
+8 pages; the four 404 surfaces are reported as not retained, never counted
+clean or as an error. Round 76 amendment 1 fixed the same population at 8.
+
+Declared effective sets (expectation the seat derived from the retained
+bytes, independent of the tool): every one of the 8 pages declares no robots
+meta restriction — 7 pages declare no <meta name="robots"> at all (default
+["follow","index"]) and plazir15-ghp declares <meta name="robots"
+content="index,follow" /> in <head> (effective ["follow","index"]). Expected
+findings: none. This is the real-run smoke (audit output vs. what the page
+declares), not a correctness claim about any live property.
+
+Tool (as run): scripts/meta_robots_audit.py
+  sha256 886e88618f7064fb32b95f469ce825bd405b5ae943ba3e100bc0c645cf560ba3
+  59428 bytes
+Manifest: .ufo/waves/round-78/w1/ExecC3Tool/real-manifest.json
+  (kake-meta-robots-manifest/v1, agents ["robots"], 8 checks, no `expect`)
+
+Command (JSON) — exit code 0:
+  cd /home/vgpnk/Projects/shokunin/kake-shokunin && python3 -B \
+    scripts/meta_robots_audit.py \
+    --manifest .ufo/waves/round-78/w1/ExecC3Tool/real-manifest.json \
+    --root /home/vgpnk/Projects/shokunin/kake-shokunin --json
+stdout (one object, verbatim):
+{"checks":[{"effective":["follow","index"],"findings":[],"id":"burnerchrome-kimi"},{"effective":["follow","index"],"findings":[],"id":"charter-ghp"},{"effective":["follow","index"],"findings":[],"id":"ds4cc-kimi"},{"effective":["follow","index"],"findings":[],"id":"ds4cc-primary"},{"effective":["follow","index"],"findings":[],"id":"lucario-ghp"},{"effective":["follow","index"],"findings":[],"id":"plazir15-ghp"},{"effective":["follow","index"],"findings":[],"id":"ufo-fsd-kimi-pro"},{"effective":["follow","index"],"findings":[],"id":"vault-index-kimi"}],"version":1}
+exit=0
+
+Command (text) — exit code 0:
+  cd /home/vgpnk/Projects/shokunin/kake-shokunin && python3 -B \
+    scripts/meta_robots_audit.py \
+    --manifest .ufo/waves/round-78/w1/ExecC3Tool/real-manifest.json \
+    --root /home/vgpnk/Projects/shokunin/kake-shokunin
+stdout (verbatim):
+burnerchrome-kimi effective=["follow","index"] findings=[]
+charter-ghp effective=["follow","index"] findings=[]
+ds4cc-kimi effective=["follow","index"] findings=[]
+ds4cc-primary effective=["follow","index"] findings=[]
+lucario-ghp effective=["follow","index"] findings=[]
+plazir15-ghp effective=["follow","index"] findings=[]
+ufo-fsd-kimi-pro effective=["follow","index"] findings=[]
+vault-index-kimi effective=["follow","index"] findings=[]
+checks=8 findings=0 exit=0
+exit=0
+
+Per-page effective sets/findings: all 8 pages effective ["follow","index"],
+findings [] — i.e. every page's audit output matches what the retained bytes
+declare. The findings list is empty, so this run is data, not defects; no
+retained page was edited.
+
+Byte verification (census command run by this seat, output in the report):
+every retained page.html sha256 == fetch.json sha256 (8/8 True); the four
+404 surfaces have no page.html.
+
+Selftest: `python3 -B scripts/meta_robots_audit.py --selftest --work
+$HYAKU_SCRATCH/kake-r78/ExecC3Tool/work` → `selftest: 94/94 passed`, exit 0.
+Cross-check against the rebuilt frozen matrix cases
+(.ufo/waves/round-78/cases, 36 ids): 36/36 correct (exit+effective+findings
+per expect.json).

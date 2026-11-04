@@ -1,0 +1,58 @@
+# kake round 78 — ConnectorC sibling-overlap scan (<lane> = skeleton repo, read-only)
+# Date 2026-11-03. Read-only; no sibling file was written or imported.
+# Population: /home/vgpnk/Projects/shokunin/*-shokunin/ = 21 repos (kake included);
+#   plus /home/vgpnk/Projects/kimi-shokunin (only *-shokunin outside that dir) and
+#   /home/vgpnk/Projects/audio-shokunin-publish (lane-shaped: SHONEN/PROVINCE/corpus).
+
+## Commands (all exit codes recorded)
+# 1. enumerate
+#    for d in /home/vgpnk/Projects/shokunin/*-shokunin/; do basename "$d"; done   -> 21
+# 2. code sweep (robots channel)
+#    grep -rIl --include='*.py' --include='*.mjs' --include='*.js' --include='*.ts' \
+#      -E 'meta[_-]?robots|X-Robots-Tag|noindex' . --exclude-dir=node_modules --exclude-dir=.git
+#    -> outside kake: mado-shokunin/.ufo/waves/round-51/w1/ExecCounterC2/mutants.py
+#       (m_noindex = "README index row removed"; not robots) — only hit.
+# 3. vocabulary sweep
+#    grep -rn --include='*.py' --include='*.mjs' -E 'max-image-preview|unavailable_after|meta_robots' .
+#    -> no hit outside kake (exit 1).
+# 4. HTML meta parser sweep
+#    grep -rln --include='*.py' --include='*.mjs' -E '<meta|BeautifulSoup|html\.parser|HTMLParser' .
+#    -> audio measure_audio.py family only; the match is "pw-cli info <metadata-id>"
+#       (line 23807), not HTML.
+# 5. constants/degenerate sweep
+#    grep -rln --include='*.py' -E 'always-clean|always_clean|report-every|report_every' .
+#    -> kaidoku gate-always-clean.py; kumitate gate-mutants.mjs (contract name);
+#       tabi check-gate-mutants.mjs; souji/mado/kotodama incidental hits.
+# 6. pins registry sweep
+#    grep -rl 'pathsMissSet' <each sibling>  -> only mori-shokunin/.ufo/waves/round-37/w1/
+#       ConnSiblingOverlap.md (prose *about kake*); no sibling instrument.
+#    grep -rl 'declaredAbsent' .  -> only fleet-root .ufo (kake reports/artifacts).
+
+## Hits
+(a) page-level robots/meta-directive audit: NONE in any sibling.
+    kake's own adjacent instruments (complement, not duplicate):
+      scripts/robots_audit.py    667 ln  host-level robots.txt (round 37/38)
+      scripts/header_audit.py    993 ln  recorded response headers (round 61)
+(b) self-assessment records its population: NONE.
+      tabi-shokunin/scripts/check-selfassessment.mjs   1256 ln (population grep = 0)
+      kasegi-shokunin/corpus/instruments/shonen-form.py  79 ln
+      audio-shokunin/reports/round-1-calibration/count_checklist.py 52 ln
+(c) citation-annotation registry like pins.pathsMissSet: NONE.
+      tabi-shokunin/scripts/check-release-pins.mjs   (release-pinned rows; unresolved count)
+      kumitate-shokunin/scripts/counter-pins.mjs     (byte-identical frozen counters)
+(d) matrix-with-constants harness: THREE hits, all gate-vs-gate, not per-case matrices.
+      kumitate-shokunin/scripts/gate-mutants.mjs        1294 ln (mutant catalogue + kill)
+      kumitate-shokunin/scripts/harm-matrix.mjs          432 ln (base/tip gate transitions)
+      tabi-shokunin/scripts/check-gate-mutants.mjs       422 ln (fault killed / benign not)
+      kaidoku-shokunin/tools/round-34/replay-gate.py     313 ln + 4 degenerate gates
+        (.ufo/waves/round-34/r34b/controls/gates/gate-{always-clean,junk-clean,
+         no-positive-check,vacuous-no-floor}.py)
+
+## kimi-shokunin (outside the glob)
+commands/ scripts/ skills/ templates/; no .ufo, no corpus, no SHONEN.md, no robots code
+(grep -rilE 'robots|noindex|meta_robots|X-Robots' -> 0 hits). No overlap.
+
+## audio-shokunin-publish (Projects root)
+SHONEN.md/PROVINCE.md/corpus present, no .ufo; the single robots hit is
+corpus/live/r96-scout/probes/r96s_cli.py:203 "NOINDEX2" (a PulseAudio sink label).
+No overlap.

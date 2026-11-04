@@ -1,0 +1,42 @@
+G-all | w=21 | google-robots-meta.txt:1035-1036 n=1 | raw bytes 148079..148210 n=1 split | There are no restrictions for indexing or serving. This rule is the default value and has no effect if explicitly listed.
+G-none | w=4 | google-robots-meta.txt:1054 n=1 | raw bytes 149486..149556 n=1 split | Equivalent to noindex, nofollow.
+G-combine | w=14 | google-robots-meta.txt:1026-1027 n=1 | raw bytes 147458..147586 n=1 split | Multiple rules may be combined in a comma-separated list or in separate meta tags.
+G-restrictive | w=12 | google-robots-meta.txt:1015-1016 n=1 | raw bytes 146547..146628 n=1 split | In the case of conflicting robots rules, the more restrictive rule applies.
+G-restrictive-example | w=14 | google-robots-meta.txt:1016-1018 n=1 | raw bytes 146642..146852 n=1 split | if a page has both max-snippet:50 and nosnippet rules, the nosnippet rule will apply
+G-name-ignored | w=15 | google-robots-meta.txt:945-946 n=1 | raw bytes 141869..142023 n=1 split | Google supports two user agent tokens in the robots meta tag; other values are ignored
+G-number-ignored | w=10 | google-robots-meta.txt:1092-1093,1176-1177 n=2 | raw bytes 152606..152677,158106..158177 n=2 split | This rule is ignored if no parseable [number] is specified.
+G-date-ignored | w=10 | google-robots-meta.txt:1205 n=1 | raw bytes 160564..160619 n=1 split | The rule is ignored if no valid date/time is specified.
+G-date-form | w=22 | google-robots-meta.txt:1200-1204 n=1 | raw bytes 160146..160551 n=1 split | The date/time must be specified in a widely adopted format including, but not limited to RFC 822, RFC 850, and ISO 8601.
+G-place-head | w=13 | google-robots-meta.txt:921-922 n=1 | raw bytes 139145..139320 n=1 split | Place the robots meta tag in the <head> section of a given page
+G-body-ok | w=22 | google-robots-meta.txt:968-969 n=1 | raw bytes 143664..143793 n=1 split | Google Search doesn't enforce placement of meta robots in the HTML head and will respect robots meta tags in the body section
+G-name-value | w=15 | google-robots-meta.txt:941-942 n=1 | raw bytes 141336..141503 n=1 split | The value of the name attribute (robots) specifies that the rule applies to all crawlers.
+G-case | w=9 | google-robots-meta.txt:942-943 n=1 | raw bytes 141504..141644 n=1 split | Both the name and the content attributes are case-insensitive.
+G-unused | w=11 | google-robots-meta.txt:1217 n=1 | raw bytes 161534..161599 n=1 split | The following rules aren't used by Google Search and are ignored.
+G-noarchive | w=10 | google-robots-meta.txt:1225 n=1 | raw bytes 162070..162161 n=1 split | The noarchive rule is no longer used by Google Search
+G-xheader | w=18 | google-robots-meta.txt:977-978 n=1 | raw bytes 144346..144540 n=1 split | Any rule that can be used in a robots meta tag can also be specified as an X-Robots-Tag.
+G-rules-heading | w=5 | google-robots-meta.txt:1020 n=1 | raw bytes 146956..146988 n=1 split | Valid indexing and serving rules
+G-each | w=6 | google-robots-meta.txt:1025-1026 n=1 | raw bytes 147395..147437 n=1 split | Each value represents a specific rule.
+G-case-rules | w=4 | google-robots-meta.txt:1027 n=1 | raw bytes 147587..147620 n=1 split | These rules are case-insensitive.
+G-max-image-none | w=8 | google-robots-meta.txt:1133 n=1 | raw bytes 155274..155319 n=1 split | none: No image preview is to be shown.
+G-max-video-1 | w=5 | google-robots-meta.txt:1173 n=1 | raw bytes 157897..157926 n=1 split | -1: There is no limit.
+G-crawler-header | w=11 | google-robots-meta.txt:1012 n=1 | raw bytes 146299..146363 n=1 split | Rules specified without a user agent are valid for all crawlers.
+G-sum | w=11 | google-robots-meta.txt:1258-1259 n=1 | raw bytes 165137..165197 n=1 split | the search engine will use the sum of the negative rules
+G-indexifembedded | w=10 | google-robots-meta.txt:1078-1079 n=1 | raw bytes 151352..151475 n=1 split | indexifembedded only has an effect if it's accompanied by noindex.
+W-case | w=12 | whatwg-semantics.txt:1185-1186 n=1 | raw bytes 201402..201668 n=1 split | Names are case-insensitive, and must be compared in an ASCII case-insensitive manner.
+W-context | w=11 | whatwg-semantics.txt:1117 n=1 | raw bytes 188594..188820 n=1 split | If the name attribute is present: where metadata content is expected.
+W-extensions | w=23 | whatwg-semantics.txt:1449-1450 n=1 | raw bytes 232077..232257 n=1 split | Anyone can create and use their own extensions to the predefined set of metadata names. There is no requirement to register such extensions.
+W-few | w=14 | whatwg-semantics.txt:1182-1183 n=1 | raw bytes 201137..201391 n=1 split | This specification defines a few names for the name attribute of the meta element.
+W-exactly-one | w=13 | whatwg-semantics.txt:1144-1145 n=1 | raw bytes 194971..195435 n=1 split | Exactly one of the name, http-equiv, charset, and itemprop attributes must be specified.
+W-meta-def | w=23 | whatwg-semantics.txt:1139-1140 n=1 | raw bytes 194209..194728 n=1 split | The meta element can represent document-level metadata with the name attribute, pragma directives with the http-equiv attribute, and the file's character encoding declaration
+R-profile | w=22 | rfc3339.txt:23-24 n=1 | raw bytes 906..1026 n=1 split | This document defines a date and time format for use in Internet protocols that is a profile of the ISO 8601 standard
+R-datetime | w=5 | rfc3339.txt:345 n=1 | raw bytes 17347..17388 n=1 split | date-time = full-date "T" full-time
+R-fulldate | w=7 | rfc3339.txt:342 n=1 | raw bytes 17236..17296 n=1 split | full-date = date-fullyear "-" date-month "-" date-mday
+R-fulltime | w=4 | rfc3339.txt:343 n=1 | raw bytes 17300..17342 n=1 split | full-time = partial-time time-offset
+R-offset | w=5 | rfc3339.txt:338 n=1 | raw bytes 17094..17132 n=1 split | time-offset = "Z" / time-numoffset
+R-5.6 | w=17 | rfc3339.txt:324-325 n=1 | raw bytes 16460..16561 n=1 split | The following profile of ISO 8601 [ISO8601] dates SHOULD be used in new protocols on the Internet.
+R-tz-case | w=17 | rfc3339.txt:347-348 n=1 | raw bytes 17426..17530 n=1 split | the "T" and "Z" characters in this syntax may alternatively be lower case "t" or "z" respectively.
+R-mday | w=12 | rfc3339.txt:365-366 n=1 | raw bytes 18398..18482 n=1 split | The grammar element date-mday represents the day number within the current month.
+G-date-example | w=4 | google-robots-meta.txt:1213 n=1 | raw bytes 161133..161199 n=1 split | <meta name="robots" content="unavailable_after: 2020-09-21">
+G-max-image-standard | w=8 | google-robots-meta.txt:1136 n=1 | raw bytes 155400..155454 n=1 split | standard: A default image preview may be shown.
+G-max-image-large | w=15 | google-robots-meta.txt:1139-1140 n=1 | raw bytes 155535..155633 n=1 split | large: A larger image preview, up to the width of the viewport, may be shown.
+quotes=41 failures=0

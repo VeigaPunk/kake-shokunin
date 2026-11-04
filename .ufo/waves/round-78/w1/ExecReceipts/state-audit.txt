@@ -1,0 +1,55 @@
+# round-78 inherited-state audit (both repositories, no writes)
+# audit instant: 2026-11-03 23:41:03 -0300
+# lane: /home/vgpnk/Projects/shokunin/kake-shokunin
+# fleet root: /home/vgpnk/Projects/shokunin
+
+## Snapshot A — lane (verbatim)
+# command: git -C /home/vgpnk/Projects/shokunin/kake-shokunin status --porcelain
+ M .ufo/waves/round-78/c78_sweep_truth.py
+ M corpus/knowledge/shonen-ledger.json
+?? .ufo/waves/round-78/contract-amendment-1.md
+?? .ufo/waves/round-78/controls/base-instrument-receipts.txt
+?? .ufo/waves/round-78/controls/doc-quote-truth-r78.txt
+?? .ufo/waves/round-78/w1.ready
+?? .ufo/waves/round-78/w1.ready.dispatched
+?? .ufo/waves/round-78/w1/
+
+## Snapshot B — fleet root (verbatim, no pathspec)
+# command: git -C /home/vgpnk/Projects/shokunin status --porcelain
+ M .scratch/goal-20261103-hyaku-run15.md
+ M .scratch/run15-state.json
+?? .scratch/run13-state.json
+?? .scratch/run15-kernel.py
+?? after
+
+## Untracked paths under the fleet root that name kake or round 78
+# command: git -C /home/vgpnk/Projects/shokunin status --porcelain -uall | grep -iE 'kake|round[-_ ]?78|r78'
+# observed: no matching line; grep rc=1
+# result: NONE. Every fleet-root untracked path is listed below with its first line and ownership:
+#
+#   path                     first line                                                  belongs to this lane's round 78?
+#   .scratch/run13-state.json  {                                                          no (orchestrator run state)
+#   .scratch/run15-kernel.py   # run-15 orchestrator helpers. Reload after a kernel loss:   no (orchestrator helper)
+#   after                      == SCORECARD diff base-                                      no (24-byte stray dump)
+#
+# Note: kake-shokunin is ignored at the fleet root (.gitignore:1 `*-shokunin/`), so lane-local
+# untracked files can never surface in Snapshot B; the two commands together are the complete audit.
+
+## Lane-local untracked paths (all belong to this lane's round 78)
+#   .ufo/waves/round-78/contract-amendment-1.md            L1 term amendment, 23:40
+#   .ufo/waves/round-78/controls/base-instrument-receipts.txt  L1 base control, 23:36
+#   .ufo/waves/round-78/controls/doc-quote-truth-r78.txt   this seat's receipt (defect 5)
+#   .ufo/waves/round-78/w1.ready                           dispatch marker
+#   .ufo/waves/round-78/w1.ready.dispatched                dispatch marker
+#   .ufo/waves/round-78/w1/                                wave seat tree (includes this report)
+
+## In-flight sibling edits observed between snapshots (recorded, not moved or fixed)
+# - .ufo/waves/round-78/c78_sweep_truth.py: modified after the freeze (blob e49bb0f1 -> worktree 301921e2)
+# - corpus/knowledge/shonen-ledger.json: modified (C1 seat; git diff --stat: 1 file, +17 -4)
+# - contract-amendment-1.md and w1.ready.dispatched appeared; w1/ gained L1Sources/ and ReviewC23/
+# Earlier lane snapshot at seat start (23:36) showed only base-instrument-receipts.txt, w1.ready,
+# w1.ready.partial and w1/ as untracked; both snapshots are consistent with the round being in flight.
+
+## What this seat did NOT do
+# No file was moved, deleted, renamed or restored. No git/jj mutating command was run (read-only
+# status/log/show/ls-tree/rev-parse/merge-base/diff only). The misroot sweep belongs to the L1.

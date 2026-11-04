@@ -1,0 +1,306 @@
+{
+ "instrument_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+ "baseline": {
+  "selftest": {
+   "rc": 0,
+   "summary": "selftest 84/84 passed"
+  },
+  "matrix": {
+   "rc": 0,
+   "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+   "failed_cases": []
+  }
+ },
+ "final_restored_ok": true,
+ "mutants": [
+  {
+   "id": "c01",
+   "name": "drop the head/body distinction (body tag produces no outside-head finding)",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 79/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=32 correct=32 failed=2",
+    "failed_cases": [
+     "g19-tag-outside-head",
+     "g19b-body-only-tag"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "227777c11f04ce79a85023b3537fdd5644ad500223657a76b1ec8a6594a2a508",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c02",
+   "name": "drop the agents filter",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 81/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=33 correct=33 failed=1",
+    "failed_cases": [
+     "g17-googlebot-ignored-default-agents"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "8e333c74758cd840f30d41b017f5b3236040ae5701480c6e2ac4c59364dea4b8",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c03",
+   "name": "none expands to noindex only",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 82/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=33 correct=33 failed=1",
+    "failed_cases": [
+     "g03-none"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "2a4b3c6630b5561444ecfa2a7b411bc045e9f8812748074b11e118acff83f72e",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c04",
+   "name": "numeric merge takes max instead of min",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 82/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=33 correct=33 failed=1",
+    "failed_cases": [
+     "g08-max-snippet-most-restrictive"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "058e36b77d80ddab9de6654c644ab1e5349cae6d1875aa3113f92bb2fac4579f",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c05",
+   "name": "treat -1 as most restrictive (keep it in the minimum)",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 82/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=32 correct=32 failed=2",
+    "failed_cases": [
+     "g08b-max-snippet-unlimited-loses",
+     "g10-max-video-preview-unlimited-loses"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "60a6315832944f2344d588c34974867fdd219488a1f497f0f42ec0ba4615ccd4",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c06",
+   "name": "reject a date-only unavailable_after (pre-amendment behaviour; A2 makes the assignment's named mutant -- accepting date-only -- the required rule)",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 82/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=33 correct=33 failed=1",
+    "failed_cases": [
+     "g12b-unavailable-after-date-only"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "c2f634261345bad42ba08dd28450da6c6827b3a4414d6ed0bbc9f59d2028e82c",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c07",
+   "name": "ignore an unknown token silently",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 83/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=32 correct=32 failed=2",
+    "failed_cases": [
+     "g16-unknown-directive",
+     "g16b-non-ascii-token"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "24ae72c0522bd98ad7539ae8e8dfca927b3b2cb7fc6978c6b8636cd0c9715e1d",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c08",
+   "name": "compare declared findings as a sequence, not a sorted set",
+   "selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "verdict": "SURVIVED",
+   "mutated_sha256": "96d72335436b1350f2fc96f7a019c8b81d529c6134f73f8c2162f10b90147999",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c09",
+   "name": "return exit 0 even when findings were produced",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 69/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=25 correct=25 failed=9",
+    "failed_cases": [
+     "g11-max-snippet-invalid",
+     "g13-unavailable-after-invalid",
+     "g15-empty-content",
+     "g16-unknown-directive",
+     "g16b-non-ascii-token",
+     "g19-tag-outside-head",
+     "g19b-body-only-tag",
+     "g20-declared-noindex-expect-index",
+     "g23-noarchive-nosnippet"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "1dc76f893337e18ddea7af45ee009de578b4ec444f0bb5d1085e8c8be0461e63",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  },
+  {
+   "id": "c10",
+   "name": "max-image-preview merge order alphabetical",
+   "selftest": {
+    "rc": 1,
+    "summary": "selftest 82/84 passed"
+   },
+   "matrix": {
+    "rc": 1,
+    "summary": "matrix: cases=34 decided=33 correct=33 failed=1",
+    "failed_cases": [
+     "g09-max-image-preview-most-restrictive"
+    ]
+   },
+   "verdict": "KILLED",
+   "mutated_sha256": "5e52dcdfa9a5295a75f43bc16d615e44838c2da286b31365ad5c729991852364",
+   "restored_selftest": {
+    "rc": 0,
+    "summary": "selftest 84/84 passed"
+   },
+   "restored_matrix": {
+    "rc": 0,
+    "summary": "matrix: cases=34 decided=34 correct=34 failed=0",
+    "failed_cases": []
+   },
+   "restored_sha256": "d32fb5808c1de8f9abdb10248247acc7ff779937ba51c09dabf82c1f8611acf4",
+   "restored_ok": true
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+host: Linux 7.2.11-arch1-1
+date: 2026-11-04T02:41:17Z
+test -e /home/vgpnk/projects rc=1
+test -e /home/vgpnk/Projects rc=0
+ls: cannot access '/home/vgpnk/projects': No such file or directory
+ls -d /home/vgpnk/projects rc=2
+/home/vgpnk/Projects
+ls -d /home/vgpnk/Projects rc=0
+/home/vgpnk/Projects inode=27238 mode=drwxr-xr-x
+/home/vgpnk/Projects inode=27238 type=d

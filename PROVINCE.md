@@ -522,3 +522,89 @@ hreflang declarations are publisher-side markup, so they belong to this lane and
   detection and rendered/header-delivered hreflang remain outside this lane; the audit reports
   declarations only. The canonical-interaction finding is a lane policy (no opened source states it) and
   the same-tag reciprocity rule is stricter than S444's stated rule — both are declared in the entry.
+
+## Round-77 correction — sitemap containers and formats held (routed defect 2, 2026-11-03)
+
+The round-38/39 lines above are historical for their date. `PROVINCE.md:328` (round 38, with
+"sitemaps" in its "Still open" list) and `PROVINCE.md:342-343` (round 39, "Still open: gzip, live
+fetch, text/RSS sitemaps, robots cross-submission, and a key that kills those 15 breaks") still read
+as if the gzip container, the plain-text sitemap and the RSS/Atom feed forms were unheld ground.
+Round 77 held them, and its verifier spot-check admitted the claim
+(`corpus/lessons/round-77-verifier-spotcheck.md` §2 C2, §5 expansion, and §7
+`CLOSURE kake r77 status=ok admitted=true`):
+
+- Entry: `corpus/knowledge/sitemap-formats.md` — 13,214 bytes, sha256
+  `72b20b1f9a424546c9a2d0ad3cc4ced489926156a49e1f3e8d6ec1cd8410025f` (the blob is identical at the
+  round-77 carrier `3db64e09` and at this lane's `78711a62`); it cites S012 (re-opened that round),
+  S447 (RFC 1952, the gzip container) and S448 (RFC 4287, Atom 1.0).
+- Tool: `scripts/sitemap_audit.py` — 32,325 bytes, sha256
+  `f767af770652437d7af18c693dff7cafd64d7f79c38cec36a20e6c4e0bbe9176` at `3db64e09`; it extends the
+  round-39 audit to (G) the gzip container, magic `1f 8b` and never the file name, with the size cap
+  applied after expansion; (T) the plain-text sitemap, one absolute URL per line; (F) RSS 2.0 and
+  Atom 1.0 feeds; and (X) `format_unsupported` for a root outside the four known families. The
+  delivered selftest `scripts/sitemap_audit_selftest.py` reports `PASS 271/271` (235 round-39 + 36
+  round-77 declarations; `.ufo/waves/round-77/w1/ExecSitemapFormats.md` §3).
+- Matrix: `.ufo/waves/round-77/controls/after-c2-matrix.txt` prints
+  `C2 revision=3db64e09550c9f8309f6c1077f9f7df6243cb446 cases=20 decided=20 correct=20 wrong=0
+  constants_failed=4/4 met=true`, exit 0, against
+  `.ufo/waves/round-77/controls/base-c2-matrix-v2.txt` with `correct=2 wrong=18
+  constants_failed=4/4 met=false`, exit 1.
+- Still open, and not moved by that round: live fetch, redirects, caching, engine acceptance,
+  robots `Sitemap:` cross-submission, the sealed key against the 15 round-39 single-sentence
+  breaks, and the lane readings the entry itself labels (the decompressed-size limit for text and
+  feed bodies, the feed-date grammar, `text_line_not_url`, `format_unsupported`). That round's gate
+  stays offline: no property was fetched and nothing was published.
+
+## Round-78 meta-robots frontier step
+
+Round 78 opens page-level robots meta directives — the `<meta name="robots" content="…">` form a
+publisher places in a page's `<head>` — as an offline audit capability. The rule of record is the
+frozen contract `.ufo/waves/round-78/contract.md` §C3; the parts below state what that contract
+fixes, and the state paragraph names what was measured.
+
+**What the audit decides.** `scripts/meta_robots_audit.py` consumes a
+`kake-meta-robots-manifest/v1` manifest (`agents`, default `["robots"]`; `checks[]` with `id`, a
+lane-relative `path`, `url`, and `expect.effective` / `expect.findings`) and reads the named local
+HTML files only: no fetch, no browser, no write. It collects `<meta name=… content=…>` elements whose
+`name` ASCII-case-insensitively equals a declared agent; a matching element outside `<head>` is
+`meta_robots_tag_outside_head` and stays out of the effective set. Content splits on commas, tokens
+are ASCII-case-insensitive and whitespace-trimmed, empty tokens are ignored, and an all-empty
+content is `meta_robots_empty_content`. Vocabulary: `all`, `none`, `index`, `noindex`, `follow`,
+`nofollow`, `noarchive`, `nosnippet`, `noimageindex`, `notranslate`, `max-snippet:<int>`,
+`max-image-preview:<none|standard|large>`, `max-video-preview:<int>` and
+`unavailable_after:<RFC 3339 date-time>`. `none` expands to `noindex,nofollow` and `all` to
+`index,follow`; across elements the most restrictive value wins (`noindex` over `index`, `nofollow`
+over `follow`, `-1` loses to any non-negative integer, `none < standard < large`, and the earliest
+valid `unavailable_after`). Value errors are findings and never enter the effective set:
+`meta_robots_invalid_value` and `meta_robots_unknown_directive` (reporting an unknown token is lane
+policy; the source says unknown values are ignored). No matching element yields the default
+`["follow","index"]` with no finding. `expect.effective` and `expect.findings` compare as sorted
+lists, and a difference is `meta_robots_expected_mismatch`. Exits: 0 all checks match · 1 any
+finding · 2 input or check fault · 64 usage; `--selftest` is required to cover ≥ 40 cases. The
+capability is decided over the frozen 24 case families g01–g24 (≥ 20 cases) in
+`.ufo/waves/round-78/cases` by the counter `.ufo/waves/round-78/c78_meta_robots_matrix.py`, whose
+predicate is `met <=> cases == decided and correct == cases and constants_failed == 4`; the four
+degenerate constants in `.ufo/waves/round-78/consts` (always-clean, report-every-id,
+empty-findings-with-real-exits, a naive `substring noindex` reader) must each fail at least one case.
+
+**What it refuses.** `X-Robots-Tag` response headers (the lane's `scripts/response_snapshot.py` /
+`scripts/header_audit.py` instruments own that channel), rendering or rendered-DOM observation,
+crawler behaviour, and whether any live property carries a correct declaration. It also does not
+judge ranking or indexing outcomes: an effective `noindex` is a declaration the tool reads, not an
+observed crawler response.
+
+**State at write time** (2026-11-03T23:46-03:00, i.e. 2026-11-04T02:46Z; lane working tree; lane HEAD `78711a62`). No live
+property was measured, no network call was made, and publishing stays operator-owned. The working
+tree then carried the tool `scripts/meta_robots_audit.py`, the entry
+`corpus/knowledge/meta-robots-directives.md`, the case set `.ufo/waves/round-78/cases` (34 case
+directories, g01–g27 with lettered variants), the four constants under
+`.ufo/waves/round-78/consts` (`always_clean.py`, `empty_findings_real_exits.py`,
+`naive_substring.py`, `report_every_id.py`) and the counter
+`.ufo/waves/round-78/c78_meta_robots_matrix.py`. Every one of them was still being written while
+this block was composed, so this block cites no file digest and no selftest tally: the carrier's
+`--selftest` output and the matrix receipt are the C3 measurement, and a digest taken here would be
+superseded before the round closes. The matrix receipt
+`.ufo/waves/round-78/controls/after-c3-matrix.txt` had not been written at that time (the frozen
+base control `.ufo/waves/round-78/controls/base-c3-absent.txt` records the base `git cat-file -e`
+rc=128), so `cases` / `decided` / `correct` / `constants_failed` remain **pending** and no C3 result
+is claimed here. The round-78 coverage row is `corpus/README.md` §"Coverage — round 78".

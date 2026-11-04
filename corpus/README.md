@@ -128,6 +128,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Accessibility review preparation | r25 | `knowledge/accessibility-review-packet.md` | S035 |
 | Publisher response-header expectations | r61 | `knowledge/response-header-expectations.md` + `scripts/response_snapshot.py` + `scripts/header_audit.py` | S430–S433 |
 | Field performance — key-free CrUX origin membership | r70 (lands this round) | `knowledge/crux-bigquery-origin-membership.md` | S438 |
+| Sitemap containers and formats (gzip, plain text, RSS 2.0, Atom 1.0) | r77 (map row added r78) | `knowledge/sitemap-formats.md` | S012 S447 S448 |
 
 Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
 (S102–S109, `used-by` only `corpus/lessons/round-39.md`; tool
@@ -520,3 +521,53 @@ corrections.
 Sources opened this round: S444 (Google localized versions, tier A docs), S445 (WHATWG HTML
 `hreflang`/`alternate`, tier A spec), S446 (RFC 5646 / BCP 47, tier A spec); registry 181 → 184 rows,
 census exit 0.
+
+## Round-77 correction — sitemap containers and formats (2026-11-03, routed defect 2)
+
+The `Untouched ground` bullet above that holds "Sitemap gzip, text/RSS sitemaps, robots
+`Sitemap:` cross-submission" is historical for its date. Round 77 held the gzip container, the
+plain-text sitemap and the RSS 2.0 / Atom 1.0 feed forms, and its verifier spot-check admitted the
+claim (`lessons/round-77-verifier-spotcheck.md` §2 C2 and §7
+`CLOSURE kake r77 status=ok admitted=true`). Evidence:
+
+- Entry `knowledge/sitemap-formats.md` (S012 re-opened, S447 RFC 1952, S448 RFC 4287; 13,214 bytes,
+  sha256 `72b20b1f9a424546c9a2d0ad3cc4ced489926156a49e1f3e8d6ec1cd8410025f`).
+- Tool `scripts/sitemap_audit.py` at the round-77 carrier `3db64e09` (32,325 bytes, sha256
+  `f767af770652437d7af18c693dff7cafd64d7f79c38cec36a20e6c4e0bbe9176`): magic-detected gzip, plain
+  text, RSS 2.0, Atom 1.0 and `format_unsupported`; the delivered selftest reports `PASS 271/271`.
+- Matrix `.ufo/waves/round-77/controls/after-c2-matrix.txt` prints `cases=20 decided=20 correct=20
+  constants_failed=4/4 met=true`, exit 0, against
+  `.ufo/waves/round-77/controls/base-c2-matrix-v2.txt` `correct=2 wrong=18 met=false`, exit 1.
+
+The frontier ground map row added above records that entry. Robots `Sitemap:` cross-submission, live
+fetch, redirects, caching and engine acceptance stay open; no property was fetched and nothing was
+published.
+
+## Coverage — round 78 (2026-11-03)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Page-level robots meta directives (r78) | `knowledge/meta-robots-directives.md` (working tree at write time), `scripts/meta_robots_audit.py` (working tree at write time; selftest tally and digest pending the carrier re-cut), matrix `.ufo/waves/round-78/cases` (34 case directories) and `.ufo/waves/round-78/consts` (four constants); the matrix receipt was absent at write time | Frozen `kake-meta-robots-manifest/v1` input: `<meta name=… content=…>` elements matching the declared agents, read from local HTML only; ASCII-case-insensitive names and tokens, comma splitting, `none`/`all` expansion and a cross-element most-restrictive merge (`noindex` over `index`, `nofollow` over `follow`, `-1` loses to any non-negative integer, `none < standard < large`, earliest valid `unavailable_after`); value errors (`meta_robots_invalid_value`, `meta_robots_unknown_directive`) stay out of the effective set; `<head>`-only placement (`meta_robots_tag_outside_head`); default `["follow","index"]` when no element matches; `expect.effective` / `expect.findings` compared sorted (`meta_robots_expected_mismatch`); exits 0/1/2/64. |
+
+The contract's frozen population is the 24 case families g01–g24 (≥ 20 cases) and four degenerate
+constants; the counter is `.ufo/waves/round-78/c78_meta_robots_matrix.py` with the predicate
+`met <=> cases == decided and correct == cases and constants_failed == 4`. The four constants
+(always-clean, report-every-id, empty-findings-with-real-exits, a naive `substring noindex` reader)
+must each fail at least one case.
+
+Ground it does not hold: `X-Robots-Tag` response headers (the `response_snapshot.py` /
+`header_audit.py` instruments own that channel), rendering or rendered-DOM observation, crawler
+behaviour, and whether any live property carries a correct declaration. No live property was
+measured this round, no network call was made, and publishing stays operator-owned.
+
+**State at write time** (2026-11-03T23:46-03:00, i.e. 2026-11-04T02:46Z). The working tree then carried
+`scripts/meta_robots_audit.py`, `knowledge/meta-robots-directives.md`,
+`.ufo/waves/round-78/cases` (34 case directories), the four constants under
+`.ufo/waves/round-78/consts` (`always_clean.py`, `empty_findings_real_exits.py`,
+`naive_substring.py`, `report_every_id.py`) and the counter
+`.ufo/waves/round-78/c78_meta_robots_matrix.py`; all were still being written, so this row cites no
+digest or selftest tally. The matrix receipt
+`.ufo/waves/round-78/controls/after-c3-matrix.txt` had not been written then (the frozen base
+control `.ufo/waves/round-78/controls/base-c3-absent.txt` records `git cat-file -e` rc=128), so
+`cases`, `decided`, `correct` and `constants_failed` are pending and no C3 result is claimed in this
+file.

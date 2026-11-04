@@ -1,0 +1,136 @@
+{
+ "pristine_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+ "mutants": [
+  {
+   "id": "m01",
+   "name": "count undeclared rows as matching",
+   "rc": 1,
+   "summary": "selftest: 8/9 passed",
+   "fails": [
+    "FAIL s3 undeclared population is red: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0"
+   ],
+   "verdict": "KILLED",
+   "restored_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+   "restored_ok": true,
+   "mutated_sha256": "a33d89be1c3d5138298cf37793ba1462bc0d84860fe146f985c21d0a4978a814",
+   "restored_rc": 0,
+   "restored_output": "  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0\n  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0\n  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1\n  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0\n  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0\nselftest: 9/9 passed\n",
+   "stderr_tail": []
+  },
+  {
+   "id": "m02",
+   "name": "compare declared population with < instead of !=",
+   "rc": 1,
+   "summary": "selftest: 8/9 passed",
+   "fails": [
+    "FAIL s2 stale population is red: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0"
+   ],
+   "verdict": "KILLED",
+   "restored_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+   "restored_ok": true,
+   "mutated_sha256": "9e228d748abaedcecfa9357bf16f0f3510a5fdce974d34189a5c13a81b30fea1",
+   "restored_rc": 0,
+   "restored_output": "  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0\n  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0\n  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1\n  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0\n  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0\nselftest: 9/9 passed\n",
+   "stderr_tail": []
+  },
+  {
+   "id": "m03",
+   "name": "grade count_at_least floors exactly (no tolerance)",
+   "rc": 1,
+   "summary": "selftest: 8/9 passed",
+   "fails": [
+    "FAIL s5 count_at_least growth tolerated: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0"
+   ],
+   "verdict": "KILLED",
+   "restored_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+   "restored_ok": true,
+   "mutated_sha256": "48263bc01587ca8114bf020fef9acf090df29669e705eeab1121e636ae2adfd5",
+   "restored_rc": 0,
+   "restored_output": "  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0\n  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0\n  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1\n  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0\n  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0\nselftest: 9/9 passed\n",
+   "stderr_tail": []
+  },
+  {
+   "id": "m04",
+   "name": "grade no_match with the floor rule",
+   "rc": 1,
+   "summary": "selftest: 8/9 passed",
+   "fails": [
+    "FAIL s7 exact no_match drift is red: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1"
+   ],
+   "verdict": "KILLED",
+   "restored_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+   "restored_ok": true,
+   "mutated_sha256": "2f19e16bce580882eca4176f32f91377abe783199630900c7377b4d3ace889f0",
+   "restored_rc": 0,
+   "restored_output": "  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0\n  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0\n  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1\n  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0\n  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0\nselftest: 9/9 passed\n",
+   "stderr_tail": []
+  },
+  {
+   "id": "m05",
+   "name": "skip the rows == 4 conjunct",
+   "rc": 0,
+   "summary": "selftest: 9/9 passed",
+   "fails": [],
+   "verdict": "SURVIVED",
+   "restored_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+   "restored_ok": true,
+   "mutated_sha256": "4c37ba76cd628b8e936e5e2a09ebce6a408888e3097a4c581597a0a77c9a70a1",
+   "restored_rc": 0,
+   "restored_output": "  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0\n  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0\n  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1\n  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0\n  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0\nselftest: 9/9 passed\n",
+   "stderr_tail": []
+  },
+  {
+   "id": "m06",
+   "name": "ignore the c77 findings entirely",
+   "rc": 1,
+   "summary": "selftest: 6/9 passed",
+   "fails": [
+    "FAIL s6 count_at_least shrinkage is red: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0",
+    "FAIL s7 exact no_match drift is red: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0",
+    "FAIL s8 schema finding is red: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0"
+   ],
+   "verdict": "KILLED",
+   "restored_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+   "restored_ok": true,
+   "mutated_sha256": "fdfc2558bb5c7dce515f387456066d27d5d3f015c24ae6fd5adffdceca62d2b7",
+   "restored_rc": 0,
+   "restored_output": "  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0\n  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0\n  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1\n  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0\n  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0\nselftest: 9/9 passed\n",
+   "stderr_tail": []
+  },
+  {
+   "id": "m07",
+   "name": "drop the population suffix filter",
+   "rc": 1,
+   "summary": "selftest: 5/9 passed",
+   "fails": [
+    "FAIL s1 all declared and matching: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0",
+    "FAIL s2 stale population is red: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0",
+    "FAIL s4 exclude honoured: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0",
+    "FAIL s5 count_at_least growth tolerated: met=False stale=1 undeclared=0 exact=0 floors=0 growth=1"
+   ],
+   "verdict": "KILLED",
+   "restored_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+   "restored_ok": true,
+   "mutated_sha256": "6ff5d182e2b4a3fd28abfc786d997b13eb6d17dbe49c9f6d817939c18c3b5649",
+   "restored_rc": 0,
+   "restored_output": "  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0\n  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0\n  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1\n  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0\n  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0\nselftest: 9/9 passed\n",
+   "stderr_tail": []
+  },
+  {
+   "id": "m08",
+   "name": "drop the population exclude filter",
+   "rc": 1,
+   "summary": "selftest: 8/9 passed",
+   "fails": [
+    "FAIL s4 exclude honoured: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0"
+   ],
+   "verdict": "KILLED",
+   "restored_sha256": "c2dc1cbf6cc1e860c87f77903b6ea865edbdc781b40ca537575eab958cde6673",
+   "restored_ok": true,
+   "mutated_sha256": "3a741ed59c1ecd59b6d04d87ce55eb771ef878bd483459704a3f86d33b05a8eb",
+   "restored_rc": 0,
+   "restored_output": "  PASS s1 all declared and matching: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s2 stale population is red: met=False stale=1 undeclared=0 exact=0 floors=0 growth=0\n  PASS s3 undeclared population is red: met=False stale=0 undeclared=1 exact=0 floors=0 growth=0\n  PASS s4 exclude honoured: met=True stale=0 undeclared=0 exact=0 floors=0 growth=0\n  PASS s5 count_at_least growth tolerated: met=True stale=0 undeclared=0 exact=0 floors=0 growth=1\n  PASS s6 count_at_least shrinkage is red: met=False stale=0 undeclared=0 exact=0 floors=1 growth=0\n  PASS s7 exact no_match drift is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s8 schema finding is red: met=False stale=0 undeclared=0 exact=1 floors=0 growth=0\n  PASS s9 fewer than four rows is red: met=False stale=0 undeclared=0 exact=0 floors=0 growth=0\nselftest: 9/9 passed\n",
+   "stderr_tail": []
+  }
+ ]
+}

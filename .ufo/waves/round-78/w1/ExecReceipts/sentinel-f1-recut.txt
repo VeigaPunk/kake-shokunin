@@ -1,0 +1,18 @@
+# round-78 re-cut of the SentinelC F1 closing digest (round-77 closure, routed defect 4)
+# lane: /home/vgpnk/Projects/shokunin/kake-shokunin
+# derivation: git -C /home/vgpnk/Projects/shokunin/kake-shokunin show 78711a628ad7e1c23cefcb9f9e345a0cc240c25b:.ufo/waves/round-77/c77_shonen_ledger.py | sha256sum
+counter_sha256=2d66e5af30b90f50875ac820879430b55f0c344e3c4965b6bcc203a3567a4396 revision=78711a628ad7e1c23cefcb9f9e345a0cc240c25b
+# bytes: 48343
+# stable at 3db64e09550c9f8309f6c1077f9f7df6243cb446 (round-77 carrier) and fe50945399a386b48678b1f2051fdbe8a77b10bd (base)
+# committed blob selftest: selftest: 26/26 passed, exit 0 (blob copied to scratch and run with --selftest --work)
+# committed blob _run_command occurrences: 0
+# committed blob digests ever (git rev-list --all -- <path>, one digest per touching commit):
+#   7f35ad45abcdbd26a130a5ae06382b8872b88232445a5b9771f0538b89083514 (earlier builds; commits b1754c20, 893b0f33, 1fb696e2)
+#   2d66e5af30b90f50875ac820879430b55f0c344e3c4965b6bcc203a3567a4396 (closing; commits 3db64e09, 6f3518d3, fecf2b62)
+# hash claims that never committed (no blob of that path in any commit carries the digest):
+#   00cb4fb2dccc01268a21666ff58d94c636ff49313870c52d798a1bb74c63bd50 (48,225 B) — SentinelC.md:22,26,33,56,62,354;
+#     round-77/w1-results.json:88; the round-77 sentinel's published closing hash
+#   a9eef8bd278bfe436b1862d23882adb605b013251d53e898002f89733ebf047c — SentinelC.md:33, CriticC.md:15 (intermediate v1)
+#   9612baac (8-hex prefix only) — SentinelC.md:26,33,55 (intermediate; no committed digest begins with it)
+# round-78/w1/MutC.md did not exist at measurement time; round-77/w1/MutC.md:22 already records the correct
+#   scored digest 2d66e5af... 48343, so the F1 repair is to SentinelC's closing claim, not MutC's.

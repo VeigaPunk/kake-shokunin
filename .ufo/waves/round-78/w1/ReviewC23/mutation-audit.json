@@ -1,0 +1,42 @@
+{
+ "M1_lexical_date_order": {
+  "matrix_killed": false,
+  "killed_by": []
+ },
+ "M2_unicode_casefold": {
+  "matrix_killed": false,
+  "killed_by": []
+ },
+ "M3_weekday_merge_removed": {
+  "matrix_killed": false,
+  "killed_by": []
+ },
+ "M4_minus_one_most_restrictive": {
+  "matrix_killed": true,
+  "killed_by": [
+   "g10_max_video_no_limit"
+  ]
+ },
+ "violation_demos": {
+  "M1": {
+   "real": "{\"checks\":[{\"effective\":[\"unavailable_after:2026-01-01T00:00:00+02:00\"],\"findings\":[],\"id\":\"c\"}],\"version\":1}",
+   "mutant": "{\"checks\":[{\"effective\":[\"unavailable_after:2025-12-31T23:00:00Z\"],\"findings\":[],\"id\":\"c\"}],\"version\":1}"
+  },
+  "M2": {
+   "real": "{\"checks\":[{\"effective\":[\"follow\",\"index\"],\"findings\":[],\"id\":\"c\"}],\"version\":1}",
+   "mutant": "{\"checks\":[{\"effective\":[\"follow\",\"index\"],\"findings\":[],\"id\":\"c\"}],\"version\":1}"
+  },
+  "M3": {
+   "real": "{\"checks\":[{\"effective\":[\"unavailable_after:Mon, 25 Jun 2010 15:00:00 PST\"],\"findings\":[],\"id\":\"c\"}],\"version\":1}",
+   "mutant": "{\"checks\":[{\"effective\":[\"follow\",\"index\"],\"findings\":[\"meta_robots_invalid_value\",\"meta_robots_unknown_directive\"],\"id\":\"c\"}],\"version\":1}"
+  }
+ },
+ "M2b_casefold": {
+  "matrix_killed": false,
+  "killed_by": [],
+  "demo_real": "default follow/index, no findings",
+  "demo_mutant": "noindex matched via casefold of U+017F",
+  "mutant_selftest_exit": 0,
+  "mutant_selftest_tail": "selftest: 94/94 passed"
+ }
+}
