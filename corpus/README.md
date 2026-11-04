@@ -626,3 +626,18 @@ new row; the retained-copy provenance and quoted spans are in
 Frontier line: the capture-to-capture drift gate enters as a freshness instrument, not a property
 verdict; an occurrence oracle (proving a capture came from the network, not from bytes) stays
 frontier and is the honest limit of the C2 counter.
+
+## Coverage — round 83 (2026-11-04)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Header-change classification (r83) | `knowledge/header-change-classes.md` + `scripts/header_change_class.py` + `.ufo/waves/round-83/controls/after-c2-classes.txt` (S456; RFC 9111 §3.1, §3.2, §4, §4.2, §4.2.3, §4.3.1) | Two dated capture trees of the same three declared `ds4cc.com` surfaces, each receipt verified offline against its retained body and each changed header classified against the frozen class table as `per-request`, `validator`, `representation`, `policy` or `unknown`; a surface is `representation-changed` when status or body sha256 differs or any changed header is validator/representation/unknown, else `same-object`. The committed record re-derives from committed bytes at a measured revision, and a control pair with a changed `ETag` and one body byte flips the verdict. |
+
+Sources opened this round: S456 (RFC 9111 §3.1/§3.2/§4/§4.2/§4.2.3/§4.3.1/§4.3.4, tier A, new row;
+the retained 84,477-byte copy and quoted spans are in `knowledge/header-change-classes.md`); registry
+193 → 194 rows, census exit 0 (`.ufo/waves/round-83/controls/census-after.txt`).
+
+Frontier line: header-change classification moves from the round-82 drift ground to a classified
+instrument over the frozen captures; an occurrence oracle and value-level classification (a changed
+`cache-control` directive read for what it changes) stay frontier and are the honest limits of the C2
+counter.

@@ -5251,3 +5251,47 @@ fabrication with real digests passes, so provenance is the capture transcript
 (`w1/ExecCapture/capture-run.txt`). Freshness stays HOLD at 10 and is not re-measured live; the
 capture B instants and the registry/census after-state are recorded in `controls/census-after.txt`
 and the capture receipts, not inferred here.
+
+## Round 83 — measured claims (author-side; closure owns admission)
+
+Frozen contract `.ufo/waves/round-83/contract.md` at
+`64b7199281e5457df0e08652977f698c4f34f46e`, frozen before any seat ran; no amendment, and no
+predicate, item, target or kill rule moved after a seat scored. Base
+`826b0061f233ce1dffb9bd6874abc1342a864247`; measured carrier `304c0f8787e292e4bc0f7b795987c9ba81f233ec`. Wave `w1`: one v1 wave, 14 requested seats inside the run-15 band
+8–16 — scout 2, executor 4, scribe 3, reviewer 2, mutation-tester 2, critic 1; requested attack share
+5/14 = 35.7 % over the run-15 directive's roles {reviewer, critic, mutation-tester, labrat}; settled
+14 of 14, settled attack 5 of 14 = 35.7 %, no dead seat and no replacement. The L1 held the planner
+seat, as the validator forbids `planner` as a swarm role. Scores held: operability 10 HOLD,
+freshness 10 HOLD, calibration 2 HOLD.
+
+| Claim | Axis | Before → after | Counting command | Evidence/verdict |
+|---|---|---|---|---|
+| C1 the round-82 routed-defect queue closes | calibration 2→2 HOLD | base `826b0061`: `C1v1 revision=826b0061f233ce1dffb9bd6874abc1342a864247 items=6 open=6 closed=0 met=false`, exit 1 (`.ufo/waves/round-83/controls/base-c83-defect-queue.txt`) → carrier `304c0f8787e292e4bc0f7b795987c9ba81f233ec`: `C1v1 revision=304c0f8787e292e4bc0f7b795987c9ba81f233ec items=6 open=0 closed=6 met=true`, exit 0 (`.ufo/waves/round-83/controls/after-c1.txt`) | `python3 -B .ufo/waves/round-83/c83_defect_queue.py --root . --revision 304c0f8787e292e4bc0f7b795987c9ba81f233ec` | measured met; counter selftest `selftest: 9/9 passed`, exit 0 (`controls/c83-selftest-c1.txt`) — one green all-six-closed fixture, one junk-prose fixture, one mutant per item and a missing-tree fixture; junk control `open=6 closed=0 met=false`, exit 1 (`controls/ctl-c83-junk-queue.txt`); D5's killer runner reads `distinguished=5/5` (`killers/run_killers.py`, four kills plus one guarded equivalence) |
+| C2 the drift gate's header changes are classified and the verdict re-derives (capability) | freshness 10→10 HOLD | base `826b0061`: `C2v1 revision=826b0061f233ce1dffb9bd6874abc1342a864247 declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=14 validator=0 representation=0 unknown=0 verdict=same-object record_equal=0 determinism=0 control_ok=0 tool_offline=0 selftest_ok=0 tool_absent=1 met=false`, exit 1 (`controls/base-c83-drift-class.txt`) → carrier `304c0f8787e292e4bc0f7b795987c9ba81f233ec`: `C2v1 revision=304c0f8787e292e4bc0f7b795987c9ba81f233ec declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=14 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true`, exit 0 (`controls/after-c2.txt`) | `python3 -B .ufo/waves/round-83/c83_drift_class.py --root . --revision 304c0f8787e292e4bc0f7b795987c9ba81f233ec` | measured met; classifier record `controls/after-c2-classes.txt` = three surface lines + `summary surfaces=3 diffs=14 per_request=14 validator=0 representation=0 policy=0 unknown=0 verdict=same-object`; control pair reads `verdict=representation-changed validator=1`; identical-pair tree `control_ok=0 met=false`, exit 1 (`controls/ctl-c83-control-class.txt`); counter selftest `9/9` (`controls/c83-selftest-c2.txt`); tool selftest `6/6` nested in that run |
+
+Move log (round 83):
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 83 | calibration (HOLD 2) | `open=6 closed=0 met=false` at `826b0061f233ce1dffb9bd6874abc1342a864247`; six routed round-82 defects — four empty attack seats reported as `0/7`, character counts printed as byte counts, an instrument rebind with no receipt, an erratum naming categories instead of quoting text, five mutation survivors, a Gate summary naming a category the lesson never filed | `open=0 closed=6 met=true` at `304c0f8787e292e4bc0f7b795987c9ba81f233ec`; every item decided by a conjunct over lane bytes — the wave accounting re-computed from spec+results with UTF-8 lengths, the instrument `--check` receipt's own fields, the fleet diff's five removed lines quoted verbatim, an executable killer suite reading `distinguished=5/5`, and a standing `corpus/QUALITY.md` provenance criterion | `.ufo/waves/round-83/c83_defect_queue.py`; `controls/base-c83-defect-queue.txt` → `controls/after-c1.txt`; `controls/ctl-c83-junk-queue.txt`; `killers/run_killers.py`; `w1-accounting.json` |
+| 83 | freshness (HOLD 10) | `tool_absent=1 met=false` at `826b0061f233ce1dffb9bd6874abc1342a864247`: the round-82 drift gate counted changed headers but never said what a change means; no classifier, no control pair, no re-derivable class record | every header that moved between the two committed captures is classified by the frozen table (`per_request=14`, `validator=0`, `representation=0`, `unknown=0`), the verdict reads `same-object`, and the whole record re-derives offline from committed bytes; a representation-changing control pair flips it | `scripts/header_change_class.py`; `.ufo/waves/round-83/c83_drift_class.py`; `controls/after-c2-classes.txt`; `capture-control/`; `controls/after-c2.txt`; `controls/ctl-c83-control-class.txt` |
+
+### Demonstrated repertoire, round 83
+
+| Capability | What it can do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Header-change classifier | Takes two dated capture trees of one declared surface set, verifies every receipt against its retained body (GET, integer status 100..599, byte count, sha256, not truncated), classifies each changed header into per-request / validator / representation / policy / unknown by a frozen table, and decides `same-object` or `representation-changed` from status, body digest and the decisive classes — offline, with a selftest (6/6) and a control pair that flips the verdict | `scripts/header_change_class.py`; `.ufo/waves/round-83/c83_drift_class.py`; `controls/after-c2-classes.txt`; `controls/after-c2.txt`; `controls/ctl-c83-control-class.txt`; `corpus/knowledge/header-change-classes.md` | 83 |
+
+Stated limits, not claimed closed: the class table is frozen by header *name*, so a changed header
+outside it is `unknown` and decisive by design, and a `policy` header whose new value changes
+freshness semantics still reads `policy` (value-level classification is frontier, disclosed in the
+lesson and `corpus/README.md`); C1's row conjuncts and the D6 criterion are textual — a records-only
+tree with the right sentences opens nothing, but a transcription is the non-author closure's catch;
+D5's `C2-m5` is an **equivalent** mutant proven so by the guarding `receipts_ok` conjunct, not a
+kill; C2 decides the capture chain, not the property — a well-formed fabrication with real digests
+passes, so provenance stays the capture transcript (`w1/ScoutSources/fetch.txt`); the D3 receipt
+names the freeze revision `64b71992` (subject `70c8241b`, an ancestor), and the carrier-time re-run
+is a second receipt (`controls/after-c83-instrument-check-carrier.txt`); the freshness axis is held
+and not re-measured live. Registry 193 → 194 rows (`S456`), census exit 0 with `W04` 22 → 22
+(`controls/census-after.txt`). Assimilation: none — the `merge/kake` package still collides on 8 ids
+(S312, S329, S367, S372, S373, S374, S390, S409), unchanged since round 80.

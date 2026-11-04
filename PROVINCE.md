@@ -656,3 +656,26 @@ header mappings. It says nothing about which answer is correct, whether a future
 detected, or whether a capture came from a socket — a well-formed fabrication with real digests
 passes, so provenance stays the capture transcript. No publish or deploy; the property remains
 operator-owned.
+
+## Round 83 header-change classification ground
+
+The header-change classification ground narrows the round-82 drift ground's undifferentiated
+`changed=<n>` count: a header that moved between the two dated captures is now classified by what its
+change means for the served representation. `scripts/header_change_class.py` reads the two committed
+trees (capture A under `.ufo/waves/round-81/capture/`, capture B under `.ufo/waves/round-82/capture/`),
+verifies each receipt against its retained body, canonicalises each header list, and sorts every
+changed header into the frozen class table: `per-request` (request/edge metadata such as `date`,
+`age`, `x-cache`, edge ids and timers), `validator` (`etag`, `last-modified`), `representation`
+(`content-length`, `content-type`, `content-encoding`, `vary`, …), `policy` (`cache-control`,
+`expires`, security headers, `link`, `server`, …) and `unknown` (everything else, treated as
+representation-bearing). A surface is `representation-changed` when status or body sha256 differs, or
+any changed header is validator, representation or unknown; otherwise `same-object`. The record is
+`.ufo/waves/round-83/controls/after-c2-classes.txt` (the tool's stdout) — three surface lines plus
+`summary surfaces=3 diffs=14 per_request=14 validator=0 representation=0 policy=0 unknown=0
+verdict=same-object` — and `python3 -B .ufo/waves/round-83/c83_drift_class.py --root . --revision
+304c0f8787e292e4bc0f7b795987c9ba81f233ec` re-derives it, the determinism pair, the control pair and the
+offline property from committed bytes. The entry is `corpus/knowledge/header-change-classes.md`
+(S456, RFC 9111 §3.1/§3.2/§4/§4.2/§4.2.3/§4.3.1/§4.3.4). What the instrument establishes is a
+classified account of the observed header movement; it says nothing about whether a capture came
+from a socket, and a value-level reading of a changed `policy` header stays frontier. No publish or
+deploy; the property remains operator-owned.
