@@ -339,3 +339,18 @@ finding is recorded here rather than papered over.
 |---|---|---|---|
 | **an item premise inherited from a closure instead of re-derived from bytes** | this round's `ExecSeatRecord` item said round 80 carried "14 records for 15 requested seats" with `ExecC2Tool`/`CriticC` empty; the seat re-ran the recorder over both rounds and found round 80 = 15 rows / 15 seats with `ReviewC1` and `MutC` empty, while `ExecC2Tool`/`CriticC` are round **79**'s two empty seats — the premise mixed the two rounds and invented a 14/15 shape that neither round's bytes carry (`w1/ExecSeatRecord.md` §1) | nothing: `corpus/QUALITY.md`'s population rule ("every count names its population and the command") binds claims, not an L1's instruction text, so a wrong premise in an item reached a seat unchallenged | the seat's re-derivation stands as the record; the rule adopted is that an item quoting a count names the file, the revision and the command that yields it, so the seat can falsify the premise before working from it — shown able to fail here, because the seat did falsify it and reported disagreement on every component |
 | **a dispatch that outlives its instrument** | the wave `context` cites `selftest: 13/13` (C1) and `12/12` (C2); after amendments 1–3 the committed receipts read `15/15` and `22/22`, and the arrival-order review seats met both tallies (`w1/LabratCtl.md` §instruments, `w1/CriticClaims.md` addendum) | no rule in the lane ties a dispatch's quoted receipt to the receipt's current bytes; `controls/c81-selftest-*.txt` are the authority but nothing said so before the wave | the context rule now recorded: a wave prompt that quotes a receipt names its path and says the committed file is the authority if the two differ; the round's own receipts are cited by path in every claim row, so the stale tallies never entered a verdict |
+
+## Dead seat and the substantive attack share (appended 2026-11-04)
+
+`MutC` (mutation-tester) died on a provider 429 path after emitting a 3,771-byte *progress log* into
+`w1-results.json` — it wrote no report and no mutation matrix, so its output is a transcript, not a
+deliverable (`w1-results.json` row `MutC`; the wave left no `w1/MutC.md`). `ReviewRegression`
+(reviewer) returned empty output and no report.
+
+The frozen C1 accounting rule is "a results row with non-empty output is settled", and that rule
+yields `settled 5/14 = 35.7 %`. That number counts the dead mutation-tester's transcript. The
+**substantive** reading — seats that produced a deliverable — is `settled 4/13 = 30.8 %` (three
+reviewers plus the critic). Both clear the 0.25 floor, so R80-4 stands on either reading; the frozen
+record `w1-accounting.json` is left as the instrument computed it, and this note is the honest
+disclosure that one of its five attack rows is a dead seat's log. No dead seat was replaced, per the
+round-80 correction.
