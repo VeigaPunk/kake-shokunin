@@ -2879,3 +2879,13 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   sibling/source-tree writes, MANIFEST or host config edits. No installs;
   pacman untouched. Old decoder/classifier and r85 counterexamples byte-preserved
   (`controls/preservation.json`). No promotion or numeric legacy rescore.
+
+### Round 86 revision-bound measurement record
+
+Measured pushed carrier `3f2de0fdc881b9573bddf9b8ddc9248e023ad0ff` with frozen
+`.ufo/waves/round-86/count.py --root . --revision <carrier> --claim c1|c2
+--work <scratch>` (C1 also `--freeze efc2ad654f1ee56a86ecb57b3b709c18cd1323b5`).
+C1 closed3/open1/met=false exit1; C2 cases15/15, selftest_ok1/tool_offline1,
+met=true exit0. Exact commands/stdout/exits: `controls/after-c1-carrier.txt`,
+`controls/after-c2-carrier.txt`. SCORECARD records numeric scores held and bounded
+demonstrated C2; C1 remains unprovable, no causal-separability/no-harm admission.

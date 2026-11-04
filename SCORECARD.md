@@ -5369,3 +5369,45 @@ Retain D84-2/3 and the unresolved D84-4 interpretation as open debt. A general
 semantic-equivalence claim needs a field-specific sourced oracle beyond finite
 canned cases. Do not use historical-red scope to hide a known false accept.
 No round 86 is started here.
+
+## Round 86 — bounded measured result and calibration honest stop
+
+Base `376ac5dcdf86457ef1f8dd490dada735dad81f68`; counter/control freeze
+`efc2ad654f1ee56a86ecb57b3b709c18cd1323b5`; validated predispatch handoff
+`2dd355bb0ce751b4df1f81e2f9b222c965560d77`; measured production carrier
+`3f2de0fdc881b9573bddf9b8ddc9248e023ad0ff`. Frozen counter unchanged.
+
+| Claim | Axis / score delta | Before → after at carrier | Counting command | Verdict / evidence |
+|---|---|---|---|---|
+| C1 four routed dispositions recorded | calibration 2→2 HOLD, lowest owned | original base closed0/open4, replay closed1/open3 (live fleet) → closed3/open1, met=false exit1 | `python3 -B .ufo/waves/round-86/count.py --root . --claim c1 --freeze efc2ad654f1ee56a86ecb57b3b709c18cd1323b5 --revision 3f2de0fdc881b9573bddf9b8ddc9248e023ad0ff --work <scratch>` | **unprovable**; R1 self-certifying receipt plus C2-success dependency violates bootstrap and separability; `controls/after-c1-carrier.txt`, `w1/ReviewCounter.md`, `w1/CriticClaims.md` |
+| C2 field-specific Cache-Control reader | freshness 10→10 HOLD; bounded capability | tool absent cases0/15 exit1 → cases15/15, selftest_ok1, static tool_offline1, met=true exit0 | same counter/root/revision/work with `--claim c2` (no freeze needed) | measured met; `controls/after-c2-carrier.txt`; independent sequential implementation and selftest29, actual three-response retained task |
+
+All receipt paths above are under `.ufo/waves/round-86/`. Calibration is not
+rescored or certified improved merely because the documentation dispositions
+landed. New frozen C1 instrument is unsound; this is not a no-harm admission.
+Operability preservation evidence is scoped to unchanged decoder/classifier and
+r85 counterexample bytes, plus preserved RP selftest32/32; no whole-corpus green
+sweep is claimed. C2's static import screen is not an offline-execution proof.
+
+### Demonstrated repertoire — round 86
+
+| Capability | What it can do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Bounded Cache-Control explicit-lifetime reader | Parse ordered isolated field strings, choose first-duplicate profile and shared/private explicit lifetime, report no-cache/no-store/duplicate flags; no full cacheability or publishing permission | `scripts/cache_control_effective.py`; S461; `controls/after-c2-carrier.txt`, `decoder-selftest.txt`, `integrated-trial.json` at carrier 3f2de0fdc881b9573bddf9b8ddc9248e023ad0ff | 86 (demonstrated C2, whole-round admission withheld) |
+
+One v1 wave14/14 nonempty, scout2/executor4/scribe3/reviewer2/critic1/
+mutation-tester1/connector1; attack4/14, no replacements/residual, L1 planner.
+WAVE-DONE before integration. Registry196→199, knowledge Markdown71→73
+(`controls/committed-corpus-counts.json`), new sources A2/B1, census exits0→0,
+W04 warnings22→23. Guarded one-entry `merge/kake` CrUX assimilation; one reject.
+S456/S457 mutable used-by changes logged; immutable scopes preserved; S461
+newly grounds excluded ordering support. Lesson records primary-source correction
+of the frozen RFC7234 attribution and all reviewer/mutation findings.
+
+### Planned — after round 86 honest stop
+
+No next round is started. Keep D84-2/3 substantive debt and D84-4 operator ruling
+open. Any later authorized calibration predicate must exclude its own receipts
+and other claims' success, snapshot fleet inputs before freeze, and prove
+single-conjunct mutants fail. Do not repair this frozen counter after scoring or
+retroactively relabel its miss as success. Outside closure owns admission.

@@ -101,3 +101,44 @@ permission, browser/runtime, publishing approval or general classifier repair.
 No install/update; pacman untouched. Final measurements and the actual retained
 capture trial are recorded in the appended integration section and LOG entry;
 this source Gate is not their substitute.
+
+## Integration measurements (after WAVE-DONE)
+
+Pushed carrier `3f2de0fdc881b9573bddf9b8ddc9248e023ad0ff`:
+`count.py --root . --claim c1 --freeze efc2ad654f1ee56a86ecb57b3b709c18cd1323b5
+--revision 3f2de0fdc881b9573bddf9b8ddc9248e023ad0ff --work <scratch>`
+prints closed3/open1/met=false, exit1. R2/R3/R4 true; R1 false.
+The corresponding `--claim c2` command prints cases15/15, selftest_ok1,
+tool_offline1/met=true, exit0. Receipts:
+`controls/after-c1-carrier.txt`, `controls/after-c2-carrier.txt`.
+Neither receipt is seeded into the measured tree to create its own result.
+
+Integrated reader selftest29 and preserved RP selftest32/32 exit0.
+`retained_trial.py --root .` reads the three actual round-82 captures and emits
+three max-age600 records plus operator handoff, no live request. These are
+historical observations, not a successful new property refresh. Captured JSON:
+`controls/integrated-trial.json`.
+
+`controls/preservation.json` verifies old immutable registry cells and four old
+script/evidence byte strings unchanged, and registry rows equal the validated
+final mirror. Source rows196→199; knowledge Markdown71→73 at base/carrier.
+Required source census outputs retained verbatim in `controls/census-before.txt`
+and `census-after.txt`, exits0→0, warnings22→23. Quality/expansion evidence is
+bounded; C1 remains unprovable and no whole-round admission is asserted.
+
+## Scope sweep and self-evaluation
+
+Required no-pathspec fleet status captured in `controls/fleet-misroot-sweep.txt`.
+Untracked nonstate candidate `after` contains only `== SCORECARD diff base-`,
+was already observed before this round's wave, and names no kake/r86 seat.
+Orchestrator `.scratch/` and other lanes' report/L0 changes left untouched.
+No kake/r86 misroot file was found, moved or deleted.
+
+Author self-evaluation: accuracy4 (actual red preserved, scoped source correction);
+completeness3 (C1 cannot meet its frozen target); clarity4 (finite capability
+separated from full cache/RFC claims); actionability4 (committed reader, trial and
+guarded adoption); conciseness3 (verbose frozen/seat evidence retained). Mean3.6/5.
+Highest-impact improvement applied: refuse fabricated green bootstrap and report
+the failed claim rather than silently amending it. A future authorized design
+must bind inputs and remove receipt dependencies before freezing. User should
+expect an honest non-admitted round with useful delivered C2, not a false pass.
