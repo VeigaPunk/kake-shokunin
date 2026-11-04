@@ -36,6 +36,7 @@ EXPORT_PATHS = [
     ".ufo/waves/round-80/c80_ledger_fixtures.py",
     ".ufo/waves/round-80/defect-queue.json",
     ".ufo/waves/round-79/w1-results.json",
+    ".ufo/waves/round-58/receipt-rewrites.json",
     "SCORECARD.md", "SKILL.md", "LOG.md", "PROVINCE.md",
 ]
 SELF_ASSESSMENT = ["SCORECARD.md", "SKILL.md", "LOG.md", "PROVINCE.md", "corpus/README.md"]
@@ -132,7 +133,7 @@ def p_r79_1(tree: Path) -> tuple[bool, str]:
     return True, f"S453 = RFC 9110 row present, used-by resolves ({resolved[0]}), row shape ok, erratum recorded"
 
 
-def p_r79_2(tree: Path, work: Path) -> tuple[bool, str]:
+def p_r79_2(tree: Path, work: Path, base_file: Path | None = None) -> tuple[bool, str]:
     guard = tree / "scripts/ledger_append_guard.py"
     if not guard.exists():
         return False, "scripts/ledger_append_guard.py absent"
@@ -141,7 +142,10 @@ def p_r79_2(tree: Path, work: Path) -> tuple[bool, str]:
         return False, f"guard --selftest rc={rc}: {(out + err).strip().splitlines()[-1:] or ''}"
     if "non-prefix" not in out or not re.search(r"non-prefix[^\n]*failed", out):
         return False, "guard --selftest prints no failed non-prefix fixture"
-    rc2, out2, err2 = run([sys.executable, "-B", str(guard), "--root", str(tree), "--json"], work)
+    argv = [sys.executable, "-B", str(guard), "--root", str(tree), "--json"]
+    if base_file is not None:
+        argv += ["--base-file", str(base_file)]
+    rc2, out2, err2 = run(argv, work)
     try:
         doc = json.loads(out2)
     except json.JSONDecodeError:
@@ -274,6 +278,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--root", default=".")
     ap.add_argument("--revision")
+    ap.add_argument("--base", default="9998dc7a586b9fe76379014c8123aa3606f2d8b9",
+                    help="base revision for the guard's prefix snapshot")
     ap.add_argument("--work")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
@@ -287,13 +293,21 @@ def main() -> int:
         if a.revision:
             tree, exported, errors = materialise(root, a.revision, work)
             label = a.revision
+            base_snapshot = work / "base-ledger.json"
+            show = subprocess.run(["git", "-C", str(root), "show",
+                                   f"{a.base}:.ufo/waves/round-58/receipt-rewrites.json"],
+                                  capture_output=True)
+            if show.returncode != 0:
+                base_snapshot = None
+            else:
+                base_snapshot.write_bytes(show.stdout)
             if errors:
                 print(f"note: {errors}")
         else:
-            tree, exported, label = root, [], "worktree"
+            tree, exported, label, base_snapshot = root, [], "worktree", None
         verdicts = {
             "R79-1": p_r79_1(tree),
-            "R79-2": p_r79_2(tree, work),
+            "R79-2": p_r79_2(tree, work, base_snapshot),
             "R79-3": p_r79_3(tree, work),
             "R79-4": p_r79_4(tree, work),
             "R79-5": p_r79_5(tree),

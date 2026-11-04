@@ -11,6 +11,7 @@ offset fails and reports the first divergent offset.
 
     --selftest                       fixtures: a pure append passes, an in-place edit fails
     --root <tree> [--base <rev>]     check the tree against a revision (default: the round-80 base)
+    --base-file <path>               compare against an exported base snapshot instead of git
     --json                           machine output on --root
 
 Exit: 0 clean, 1 a ledger lost prior bytes, 2 could not evaluate, 64 usage.
@@ -42,19 +43,26 @@ def prefix_probe(base: bytes, carrier: bytes) -> tuple[bool, int]:
     return False, offset
 
 
-def check_tree(root: Path, base_rev: str) -> dict:
+def check_tree(root: Path, base_rev: str, base_file: Path | None = None) -> dict:
     ledgers = sorted(root.glob(GOVERNED_GLOB))
     files = []
     ok_all = True
     for path in ledgers:
         rel = path.relative_to(root).as_posix()
-        show = subprocess.run(["git", "-C", str(root), "show", f"{base_rev}:{rel}"],
-                              capture_output=True)
-        if show.returncode != 0:
-            files.append({"path": rel, "compared": False,
-                          "reason": f"base {base_rev} does not carry the path"})
-            continue
-        base_bytes = show.stdout
+        if base_file is not None:
+            try:
+                base_bytes = base_file.read_bytes()
+            except OSError as exc:
+                files.append({"path": rel, "compared": False, "reason": str(exc)})
+                continue
+        else:
+            show = subprocess.run(["git", "-C", str(root), "show", f"{base_rev}:{rel}"],
+                                  capture_output=True)
+            if show.returncode != 0:
+                files.append({"path": rel, "compared": False,
+                              "reason": f"base {base_rev} does not carry the path"})
+                continue
+            base_bytes = show.stdout
         try:
             carrier = path.read_bytes()
         except OSError as exc:
@@ -114,6 +122,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--root", default=".")
     ap.add_argument("--base", default=DEFAULT_BASE)
+    ap.add_argument("--base-file", help="base snapshot for a tree that is not a git checkout")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--work")
@@ -128,7 +137,7 @@ def main() -> int:
             if owned:
                 shutil.rmtree(work, ignore_errors=True)
     root = Path(a.root).resolve()
-    res = check_tree(root, a.base)
+    res = check_tree(root, a.base, Path(a.base_file) if a.base_file else None)
     if a.json:
         print(json.dumps(res, indent=1))
     else:
