@@ -18,7 +18,7 @@ Claims, as frozen in `.ufo/waves/round-89/freeze.md`:
   controls=5/5 met=true`. Measured `met=true` at `9784ad54` under the frozen v1
   counter (`controls/c2-carrier-frozen-v1.txt`) and under the committed v2
   counter (`controls/c2-carrier-v2.txt`). Admission is withheld: the instrument
-  also admits seven non-conforming candidates (Mistakes, row 4).
+  also admits non-conforming and shortcut candidates (Wave review, C2).
 
 ## Gate
 
@@ -57,6 +57,7 @@ only with a witness that reddens without it.
 | Class | Evidence pointer | Captured-by | Fix | Witness |
 |---|---|---|---|---|
 | Filed bytes edited in place: I changed round-88 SCORECARD cells (`22/22` → `35/35`) and round-88 lesson line 265 before revert | `git diff` in the lane before revert; ExecDefects finding 5; `corpus/QUALITY.md` "Append-only tails" row | none at edit time; the QUALITY row existed and I did not consult it before editing | Reverted both files to base (`git show 76225160:<path>`); corrections are appended tails carrying `[r89-correction …]` (`corpus/lessons/round-88.md`, 10 appended lines) | `git diff --stat -- SCORECARD.md corpus/lessons/round-88.md` at `f62e7954` shows no SCORECARD change and only insertions in the lesson; red-before was the in-place diff |
+| Frozen receipt regenerated in place: `21770586` overwrote `controls/base-c2.txt` with the v2 re-run, so the freeze-time bytes were lost from the working tree | `git show 08ab46a1:.ufo/waves/round-89/controls/base-c2.txt` vs the lane file (ReviewCounterC2 finding 1; CriticClaims D89-C1-6) | none — I re-ran the base control and overwrote it instead of writing a new file | Restored the freeze-time bytes as `controls/base-c2-freeze-v1.txt`; the v2 re-run is kept as `controls/base-c2.txt` and labelled as such | Red: the two files differ on the `ctl-table` reason (`'.ufo/waves'` vs `'c2-cases'`); green: both are present and each matches its own commit |
 | Counter amended after dispatch: freeze v2 `46a43e94` changed `c89_key.py` after `2e700b9a` dispatch | `git log -- .ufo/waves/round-89/c89_key.py`; ExecKey finding "counter drift" | item E of C1 checks only the first add of the counter, so it passes | Disclosed here and in the report. The verdict was re-measured under the frozen v1 counter extracted from `08ab46a1`; both give `met=true` for the integrated candidate (`controls/c2-carrier-frozen-v1.txt`, `controls/c2-carrier-v2.txt`), so the amendment does not decide C2 | Witness that the amendment is not verdict-deciding: the integrated candidate `9784ad54` meets the frozen v1 counter exit 0 (`controls/c2-carrier-frozen-v1.txt`); the v2 change only removed the false positive that refused the L1 reference candidate |
 | Shortcut guard false positive: a correct candidate that names a contract path in its docstring is refused | `ExecKey.md` finding 1; my first L1 candidate (`.ufo/waves/round-89/w1/L1/cache_key.py`, guard reason `'.ufo/waves'`) | none — the frozen counter's selftest has no positive case with a path in a comment | Narrowed the guard to `c89_key`, `c89_defect_queue`, `c2-cases` plus an `open(` check on `.ufo` (freeze v2) | Red: the v1 guard rejects the L1 reference candidate (commit `dbe09859`, scratch clone) on the `.ufo/waves` docstring token. Green: the v2 guard accepts it, and the controls `ctl-oracle-import` and `ctl-table` stay rejected (`controls/c2-carrier-v2.txt`) |
 | C2 counter admits non-conforming candidates: seven contract clauses (duplicate member refusal, URI escaping, name escaping, CR-only refusal, missing `request_headers`, malformed JSON, case-sensitive member order) have no frozen case or property class | `.ufo/waves/round-89/w1/ExecControls.md` (seven `met=true` stubs; receipts `w1/ExecControls/scoring-receipt.txt`, `scoring-detail.txt`) | none — the frozen cases and property classes were chosen by hand and did not enumerate every clause | Routed to round 90 (R89-2): add one frozen or refusal item per clause, as ExecControls suggests. Not applied this round, because the counter is frozen and the claim's rule must not change after scoring | Red: the seven stubs score `met=true` under the frozen counter; the routed fix must make each of them `met=false` in a re-run before C2 can be admitted |
@@ -195,3 +196,45 @@ Fix path (round 90): repair RC-1, RC-4 and RC-9 and bind A's count to tool bytes
 (RC-7); each repair needs a red-before witness from the existing receipts. RC-2 and
 RC-3 change a frozen claim and need an explicit claim decision. The routed R89-1
 (filed-byte rule for A) and R89-3 (short-form receipts) are subsumed by RC-9.
+
+## Wave review — C2 counter, contract and axis (ReviewCounterC2, CriticClaims)
+
+The C2 counter `c89_key.py` reaches `met=true` on candidates that do not implement the
+contract. Receipts: `.ufo/waves/round-89/w1/ReviewCounterC2.md` and
+`w1/CriticClaims.md`. These are the round's own findings and bind C2's verdict.
+
+- **Reference-copy and import shortcuts pass both guard versions.** `runtime_import`
+  (path built at run time), `aliased_import`, `fileurl_exec2`, `env_import` and a
+  reference copy all reach `16/16 200/200 9/9`. The textual guard refuses only the literal
+  spellings it names.
+- **A hybrid table passes.** Twelve literal frozen strings plus a JSON-list encoding for
+  every other input reach `met=true`. The property classes assert relations (same or
+  different), not the key string, so the declared escaping and layout are checked only by
+  the frozen literals.
+- **Two contract mutants pass.** A candidate that never escapes the URI, and one that strips
+  all whitespace instead of SP/HTAB, both score `met=true` at four seeds
+  (89089, 1, 7, 424242). The URI mutant collides two distinct requests, the property the
+  claim certifies (CriticClaims §0).
+- **Refusal coverage misses every-header rules.** CR/LF and case-duplicate refusals are tested
+  only for nominated headers. A composite reason string passes all nine refusals, because the
+  check is a substring match.
+- **U+001D is undefined.** The contract names US, RS and GS but never the fourth separator, and
+  its GS (U+001C) is FS in ASCII. A reference without the U+001D escape also passes.
+- **Axis.** `c2-contract.md` disclaims freshness and scopes the capability to key
+  construction; the critic places it under operability or coverage, not freshness. The
+  round's declared axis is therefore mislabelled (CriticClaims D89-C2-6). The score stays
+  10; the label is what is wrong.
+- **Frozen receipt regenerated in place.** `21770586` overwrote `controls/base-c2.txt`
+  with the v2 re-run. The freeze-time bytes are restored as
+  `controls/base-c2-freeze-v1.txt` (from `08ab46a1`); both are kept, and the v2 re-run is
+  labelled as such.
+- **E is not revision-pinned and blind to the post-dispatch amendment** (RC-1, RC-2, and
+  CriticClaims D89-C1-1, D89-C1-2). The critic also shows the do-nothing mirror control
+  reaches `open=0 closed=6 met=true` with `scripts/` and `.ufo/` byte-identical to base
+  through prose markers alone (D89-C1-3). C1 cannot be read as a calibration gain while
+  B, C, D and F are prose-decided.
+
+Verdicts after the wave review: C1 unadmitted (item A open; B, C, D, F decided by prose
+and not behaviour; E not revision-pinned). C2 unadmitted (its target certifies the
+instrument's sample, not the declared capability; the axis is mislabelled). Neither
+claim is improved in number. This is recorded here, not repaired after scoring.
