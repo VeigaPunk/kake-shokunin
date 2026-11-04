@@ -1558,8 +1558,8 @@ this section was written.
   output in a round report is a contiguous substring of a committed receipt line, or is marked as a
   rendering whose transformation is named; the rule `scripts/doc_quote_truth.py` enforces on the
   `SCORECARD.md` claim rows (the round-76 criterion above) applies to the round report too. The round-76
-  report rendered the real-input result as `pages=8 findings=[] exit=0`
-  (`.ufo/reports/round-76/kake.md:34`), a space-joined selection of JSON fields that no line of
+  report rendered the real-input result as three space-joined JSON fields with an invented `exit=` label
+  (`.ufo/reports/round-76/kake.md:34`) — a rendering whose transformation is not named — while no line of
   `.ufo/waves/round-76/controls/after-c2-realrun.txt` contains: that receipt is one JSON object line
   plus `rc=0` (`corpus/lessons/round-76-verifier-spotcheck.md` §6.3). Admit: a span equal to one
   committed receipt line after trimming, an explicitly elided span whose non-empty fragments are each
