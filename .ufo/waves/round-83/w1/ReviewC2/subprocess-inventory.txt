@@ -1,0 +1,18 @@
+# subprocess call sites in the counter (list argv, no shell)
+98:    proc = subprocess.run(
+99-        ["git", "-C", str(root), "archive", "--format=tar", revision],
+100-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+101-    )
+--
+197:    proc = subprocess.run(tool_command(root), stdout=subprocess.PIPE,
+198-                          stderr=subprocess.PIPE, check=False)
+199-    return proc.returncode, proc.stdout
+200-
+--
+281:    proc = subprocess.run([sys.executable, "-B", str(root / TOOL), "--selftest",
+282-                           "--work", str(work / "selftest")],
+283-                          stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
+284-    flags["selftest_ok"] = int(proc.returncode == 0 and b"selftest:" in proc.stdout)
+
+# tool: no subprocess import:
+rc=1 (1 = absent)

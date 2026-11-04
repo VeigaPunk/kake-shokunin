@@ -1,0 +1,52 @@
+Control re-derivations by ScoutRecon (read-only; scratch trees under
+/fast/scratch/hyaku/kake-r83/ScoutRecon/, deleted before yield)
+
+base-c83-defect-queue.txt
+  command: c83_defect_queue.py --root <lane> --revision 826b0061...
+           --work <scratch> --fleet /home/vgpnk/Projects/shokunin
+  mine:
+    D1 open spec or results absent/unreadable
+    D2 open spec or results absent/unreadable
+    D3 open after-c83-instrument-check.txt absent
+    D4 open lesson absent
+    D5 open run_killers.py absent
+    D6 open criterion=no log=no
+    C1v1 revision=826b0061f233ce1dffb9bd6874abc1342a864247 items=6 open=6 closed=0 met=false
+  exit 1
+  committed file: identical six rows and summary, plus "base_c1_exit=1".
+  VERDICT: reproduces.
+
+ctl-c83-junk-queue.txt
+  command: junk_tree_build.py --root <scratch>/junk      (6 prose claims)
+           c83_defect_queue.py --root <scratch>/junk --fleet <fleet>
+  mine:
+    D1 open spec or results absent/unreadable
+    D2 open spec or results absent/unreadable
+    D3 open after-c83-instrument-check.txt absent
+    D4 open removed=5 quoted=0 amendment=7678247a log=no
+    D5 open run_killers.py absent
+    D6 open QUALITY.md absent
+    C1v1 revision=worktree items=6 open=6 closed=0 met=false
+  exit 1
+  committed file: identical except the "junk_exit=1" trailer.
+  VERDICT: reproduces; no prose sentence closes an item.
+
+c83-selftest-c1.txt
+  command: TMPDIR=<scratch> c83_defect_queue.py --selftest
+  mine: nine "ok" lines then "selftest: 9/9 passed", exit 0.
+  VERDICT: reproduces.
+
+Freeze HEAD (64b7199281e5457df0e08652977f698c4f34f46e), not a committed control:
+  all six rows open, C1v1 ... open=6 closed=0 met=false, exit 1.
+  The freeze commit adds the counters, the contract, the builders and the
+  base/control receipts; it adds NO after-state artifact.
+
+Instrument binding (D3's tool), read-only --check at two revisions:
+  64b71992...  C2v1 revision=64b71992... population=30 bound=30 mismatches=0 met=true
+  826b0061...  C2v1 revision=826b0061... population=30 bound=30 mismatches=0 met=true
+  receipt source=committed, declared=70c8241b57ceec1a8bf6e4aba7ed6ecdd1c31235,
+  declared_valid=true, missing_frozen=0, beyond_frozen=14.
+  => The standing gate is ALREADY GREEN at the freeze commit; D3 needs a
+  committed transcript, not a rebind. It goes red only if a round-83 commit
+  adds a live SKILL.md gate-registry row naming a new .py/.mjs instrument
+  (population would grow past the receipt's 30).

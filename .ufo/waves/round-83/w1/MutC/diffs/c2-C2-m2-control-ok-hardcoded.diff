@@ -1,0 +1,11 @@
+--- c83_drift_class.py
++++ C2-m2-control-ok-hardcoded
+@@ -275,7 +275,7 @@
+         info["control"] = f"verdict={ctl_verdict} validator={ctl_totals['validator']}"
+     else:
+         info["control"] = "missing or unverifiable"
+-    flags["control_ok"] = control_ok
++    flags["control_ok"] = 1
+ 
+     flags["tool_offline"] = int(tool_offline(root))
+     proc = subprocess.run([sys.executable, "-B", str(root / TOOL), "--selftest",

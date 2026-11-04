@@ -1,0 +1,8 @@
+per-request: contract_literals=21 wildcards=[] code=21 literals_match=True
+validator: contract_literals=2 wildcards=[] code=2 literals_match=True
+representation: contract_literals=9 wildcards=[] code=9 literals_match=True
+policy: contract_literals=15 wildcards=['access-control-allow-*', 'cross-origin-*-policy'] code=21 literals_match=False
+  code-not-in-contract-literals (wildcard expansions): ['access-control-allow-headers', 'access-control-allow-methods', 'access-control-allow-origin', 'cross-origin-embedder-policy', 'cross-origin-opener-policy', 'cross-origin-resource-policy']
+
+code POLICY access-control-allow-* expansion: ['access-control-allow-headers', 'access-control-allow-methods', 'access-control-allow-origin']
+standard ACA names absent: access-control-allow-credentials, access-control-allow-private-network

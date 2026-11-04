@@ -1,0 +1,63 @@
+D5 — the five frozen survivors, re-derived by this seat (scratch copies only)
+
+Targets: .ufo/waves/round-82/c82_defect_queue.py (C1) and
+         .ufo/waves/round-82/c82_capture_delta.py (C2).  Neither frozen file
+was edited; each mutant is a one-string replacement applied to a scratch copy.
+
+Patch anchors (uniqueness checked against the frozen bytes, count == 1 each):
+  C1-m3  "derived = numbers[0]"                         -> "derived = 3801"
+  C1-m5  '"undisclosed=0" in receipt and "met=true" in receipt'
+                                                         -> '"undisclosed=0" in receipt'
+  C2-m2  "b_instants[surface] > a_instants[surface]"    -> "b_instants[surface] >= a_instants[surface]"
+  C2-m4  'flags["selftest_ok"] = int(selftest_ok)'      -> 'flags["selftest_ok"] = 1'
+  C2-m5  'and flags["surfaces_a"] == 3 and flags["surfaces_b"] == 3'
+                                                         -> 'and flags["surfaces_b"] == 3'
+
+Measured, calling the counters' own builders and evaluate()/measure() directly:
+
+  mutant  fixture                                   pristine        mutant          distinguished
+  C1-m3   seat-failures mutation-tester              open=0          open=1          YES
+          output_bytes=4200 (not 3801), lesson D4
+          row carrying 4200 + "superseded"
+  C1-m5   after-c1-ledger-gate.txt                   open=1 [D7]     open=0          YES
+          "undisclosed=0 ... met=false"
+  C2-m2   BOTH captures at 2026-11-04T12:50:00Z      met=False       met=True        YES
+          (equal instants, above the 12:42Z floor;   order_ok=0      order_ok=1
+          floor_ok=1)                                floor_ok=1      floor_ok=1
+  C2-m4   green tree + tool whose --selftest exits 1 met=False       met=True        YES
+                                                     selftest_ok=0   selftest_ok=1
+                                                     record_equal=1  record_equal=1
+  C2-m5   capture A drops one surface                met=False       met=False       NO
+                                                     surfaces_a=2    surfaces_a=2
+                                                     receipts_ok=0   receipts_ok=0
+                                                     declared=3      declared=3
+
+C2-m5 is an EQUIVALENT mutant, by construction, not by fixture poverty.
+c82_capture_delta.py:
+
+  line 239: flags["receipts_ok"] = int(a_ok and b_ok
+                                      and flags["surfaces_a"] == flags["declared"]
+                                      and flags["surfaces_b"] == flags["declared"])
+  line 268: met = (flags["declared"] == 3
+  line 269:        and flags["surfaces_a"] == 3 and flags["surfaces_b"] == 3
+  line 270:        and all(int(flags[key]) == 1 for key in
+  line 271:                ("receipts_ok", ..., "selftest_ok")))
+
+  met is True  =>  receipts_ok == 1  =>  surfaces_a == declared  =>  surfaces_a == 3.
+  So the surfaces_a conjunct at line 269 is entailed by lines 239+268 and
+  deleting it cannot change met for ANY fixture. (surfaces_b == 3 at line 269 is
+  redundant by the same argument.) The round-82 lesson's "killed by a dropped A
+  surface" recipe cannot work; the honest row is `equivalent`, guard lines 239
+  and 268-269, and the contract's D5 row explicitly permits "equivalent with the
+  guarding source line printed".
+
+Consequence: `distinguished=5/5` is attainable, but only as four kills plus one
+equivalent. A 5/5 all-killed reading is impossible, and claiming it would be a
+false receipt. The D5 counter's rows_ok() accepts "equivalent", so the state
+conjunct itself is unaffected.
+
+Counter-level consequence that ReviewC1/CriticClaims should note: item_d5 only
+greps for the five names plus "killed" or "equivalent" and the `distinguished=5/5`
+line; it does not re-run a fixture, so a suite that prints the right words passes
+even if its fixtures do not separate. The evidence has to come from MutKillers'
+independent re-derivation, not from the C1 receipt alone.

@@ -1,0 +1,48 @@
+D1 attack-floor arithmetic for the round-83 population (14 seats, 5 attack-role)
+
+Counter rule (c83_defect_queue.py derive_population/item_d1):
+  settled      = results rows whose output is a non-empty string
+  settled_share= round(len(settled_attack)/settled, 4)
+  pass         = settled_attack >= 2  AND  settled_share >= 0.25
+The accounting's "settled", "settled_names" (sorted), "settled_attack" and
+"settled_share" must equal the counter's own derivation exactly.
+
+Attack-role seats in .ufo/waves/round-83/w1-spec.json:
+  ReviewC1, ReviewC2   (reviewer)
+  CriticClaims         (critic)
+  MutC, MutKillers     (mutation-tester)
+  -> 5 of 14; roles labrat/... absent.
+
+Minimum attack seats that must settle, by total settled:
+
+  settled  min settled_attack  share
+    4           2              0.5
+    5           2              0.4
+    6           2              0.3333
+    7           2              0.2857
+    8           2              0.25
+    9           3              0.3333
+   10           3              0.3
+   11           3              0.2727
+   12           3              0.25
+   13           4              0.3077
+   14           4              0.2857
+
+Equivalently, with a attack seats settled the total settled must be <= 4a:
+  a=2 -> <= 8 total
+  a=3 -> <= 12 total
+  a=4 -> <= 16 total (i.e. all 14)
+  a=5 -> <= 20 total (i.e. all 14)
+
+Planning consequence: a plan that records all 14 result rows and settles only
+3 attack seats needs settled <= 12, i.e. at least two non-attack seats must be
+empty. The safe target is 4 settled attack seats, because 4/14 = 0.2857.
+Round 82 settled 0 of 7 attack seats; the floor is therefore the whole of D1.
+
+Exact float equality: settled_share is compared with ==, so the accounting must
+store the same round(x, 4) value the counter computes (e.g. 3/12 -> 0.25,
+4/14 -> 0.2857), not a differently-rounded or string value.
+
+The D1 lesson row must carry the literal "0/7" (the round-82 measured share,
+which the defect was filed against) and "settled_attack=" on the SAME line;
+"settled_attack=3" alone without "0/7" fails line_with().

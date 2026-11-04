@@ -1,0 +1,40 @@
+# commands and exit codes
+$ grep -nE "^(import|from) " .ufo/waves/round-83/c83_drift_class.py
+32:from __future__ import annotations
+34:import argparse
+35:import ast
+36:import hashlib
+37:import io
+38:import json
+39:import re
+40:import shutil
+41:import subprocess
+42:import sys
+43:import tarfile
+44:import tempfile
+45:from pathlib import Path
+rc=0
+
+$ grep -nE "^(import|from) " scripts/header_change_class.py
+32:from __future__ import annotations
+34:import argparse
+35:import hashlib
+36:import json
+37:import shutil
+38:import sys
+39:import tempfile
+40:from pathlib import Path
+rc=0
+
+$ grep -nE "\b(socket|urllib|requests|httpx|http\.client|urlopen|urlretrieve|ftplib|smtplib|telnetlib|asyncio|aiohttp|webbrowser|xmlrpc)\b" .ufo/waves/round-83/c83_drift_class.py
+24:        and tool_offline  (no socket/urllib/requests/http.client reference
+54:NETWORK = re.compile(r"\b(?:socket|urllib|requests|http\.client|httpx)\b")
+440:            (root / TOOL).write_text(text + "\nimport socket\n", encoding="utf-8")
+rc=0
+
+$ grep -nE "<same pattern>" scripts/header_change_class.py
+8:opens no socket.
+rc=0
+
+$ grep -n "shell=" <both>
+rc=1 (1 = absent)

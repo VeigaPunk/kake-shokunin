@@ -1,0 +1,11 @@
+--- c83_drift_class.py
++++ C2-m1-tool-offline-always-true
+@@ -211,7 +211,7 @@
+     if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant) \
+             and isinstance(body[0].value.value, str):
+         source = source.replace(body[0].value.value, "")
+-    return NETWORK.search(source) is None
++    return True
+ 
+ 
+ def measure(root: Path, work: Path) -> tuple[dict, dict]:

@@ -1,0 +1,55 @@
+{
+ "version": 1,
+ "allowlist": [
+  "ds4cc.com",
+  "www.ds4cc.com"
+ ],
+ "checks": [
+  {
+   "id": "ds4cc-primary",
+   "url": "https://ds4cc.com/",
+   "https": true,
+   "expect": {
+    "content_type_present": true,
+    "hsts_present": true,
+    "xcto_nosniff_value": true,
+    "csp_present": true,
+    "singleton_fields": [
+     "content-type",
+     "strict-transport-security"
+    ]
+   },
+   "source": ".ufo/waves/round-82/capture/ds4cc-primary/response.json"
+  },
+  {
+   "id": "ds4cc-robots",
+   "url": "https://ds4cc.com/robots.txt",
+   "https": true,
+   "expect": {
+    "content_type_present": true,
+    "hsts_present": true,
+    "xcto_nosniff_value": true,
+    "csp_present": false,
+    "singleton_fields": [
+     "content-type"
+    ]
+   },
+   "source": ".ufo/waves/round-82/capture/ds4cc-robots/response.json"
+  },
+  {
+   "id": "ds4cc-sitemap",
+   "url": "https://ds4cc.com/sitemap.xml",
+   "https": true,
+   "expect": {
+    "content_type_present": true,
+    "hsts_present": true,
+    "xcto_nosniff_value": true,
+    "csp_present": false,
+    "singleton_fields": [
+     "content-type"
+    ]
+   },
+   "source": ".ufo/waves/round-82/capture/ds4cc-sitemap/response.json"
+  }
+ ]
+}

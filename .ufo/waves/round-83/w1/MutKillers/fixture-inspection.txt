@@ -1,0 +1,48 @@
+# fixture trees
+/fast/scratch/hyaku/kake-r83/MutKillers/work-final/fixtures
+/fast/scratch/hyaku/kake-r83/MutKillers/work-final/fixtures/c1-gate-receipt-met-false
+/fast/scratch/hyaku/kake-r83/MutKillers/work-final/fixtures/c1-seat-bytes-4417
+/fast/scratch/hyaku/kake-r83/MutKillers/work-final/fixtures/c2-broken-tool-selftest
+/fast/scratch/hyaku/kake-r83/MutKillers/work-final/fixtures/c2-dropped-a-surface
+/fast/scratch/hyaku/kake-r83/MutKillers/work-final/fixtures/c2-equal-instants
+
+# c1-seat-bytes-4417 seat record output_bytes
+[4417]
+9:**D4 — disclosure arithmetic.** The record carries output_bytes 4417; the superseded byte count was wrong.
+
+# c1-gate-receipt-met-false receipt
+C1v2 revision=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb events=40 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=0
+
+# c2-equal-instants A/B fetchedAt
+ds4cc-primary A=2026-11-04T12:50:00Z B=2026-11-04T12:50:00Z equal=yes
+ds4cc-robots A=2026-11-04T12:50:00Z B=2026-11-04T12:50:00Z equal=yes
+ds4cc-sitemap A=2026-11-04T12:50:00Z B=2026-11-04T12:50:00Z equal=yes
+
+# c2-broken-tool-selftest anchor
+438:    if args.selftest:
+439-        return 1
+440-    if not args.a or not args.b:
+
+# c2-dropped-a-surface manifests
+A ['ds4cc-primary', 'ds4cc-robots']
+B ['ds4cc-primary', 'ds4cc-robots', 'ds4cc-sitemap']
+ds4cc-primary
+ds4cc-robots
+manifest.json
+
+# staged copy hashes
+1082c691bc28fa35476613d8ce47a0cc2a5630d5390be31e67307ae173b2e226  /fast/scratch/hyaku/kake-r83/MutKillers/work-final/pristine/C1.py
+b93693df932ac1982677e1b23de2aa3a352b84ca0120acc76db1e754f4974173  /fast/scratch/hyaku/kake-r83/MutKillers/work-final/pristine/C2.py
+d5ecf2f00a5af4567f0e2d00a07fd495f44416725164ba52a7e65611adebf3c7  /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C1-m3/c82_defect_queue.py
+e957e14c240528fa8fc050897291d82bd57d2201479fc8e429e483683a428cdc  /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C1-m5/c82_defect_queue.py
+8c6b1a60223619f45ecd92ca173f789970870b3d1d33f7949a020bb45e73526f  /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m2/c82_capture_delta.py
+a6da50d70485de98940d523492fba4516a68bd4e3808875b3e8337d3d7c71fce  /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m4/c82_capture_delta.py
+3d027edc5b867909699750c9aacc7132b73f3c53bd2043932e13b7f0a7e9d2f9  /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m5/c82_capture_delta.py
+
+# diff stat per mutant
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C1-m3/c82_defect_queue.py
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C1-m5/c82_defect_queue.py
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m2/c82_capture_delta.py
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m4/c82_capture_delta.py
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m5/c82_capture_delta.py

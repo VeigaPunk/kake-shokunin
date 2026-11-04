@@ -1,0 +1,49 @@
+diff --git a/.ufo/reports/round-81/kake.md b/.ufo/reports/round-81/kake.md
+index 07b1238c..f39b6df2 100644
+--- a/.ufo/reports/round-81/kake.md
++++ b/.ufo/reports/round-81/kake.md
+@@ -1,7 +1,7 @@
+ # kake — round 81 report (hyaku run 15, attempt 1)
+ 
+ Lane: kake (web properties & publishing) · repo `kake-shokunin` · base `2e11925500dd5a739376c9108c94616243af0cd4`
+-· lane tip at filing `2b46f5c4db418c9a79e1990940da1a5029ff7e5b` (pushed; `ls-remote` agrees) · date 2026-11-04.
++· lane tip at filing `ddd38022f888e4199e198195be173797ff416381` (pushed; `ls-remote` agrees) · date 2026-11-04.
+ 
+ ## Work performed
+ 
+@@ -64,9 +64,15 @@ Work items, each with its evidence pointer:
+   `PROVINCE.md` and `corpus/QUALITY.md`.
+ - **Wave** — one v1 wave, 15 seats (band 8–16), no residual call: scout 2, executor 4, scribe 2,
+   reviewer 4, critic 1, mutation-tester 1, connector 1. Requested attack share 6/15 = 40.0 %, settled
+-  5/14 = 35.7 %; one seat (`ReviewRegression`, reviewer) returned empty output and is reported dead,
+-  not replaced. The L1 held the planner seat (the validator refuses `planner` as a swarm role); the
+-  bounded planning data-walk rode `ScoutRecon`. Round total: 15 seats.
++  5/14 = 35.7 % by the frozen rule (a results row with non-empty output). **Two seats died and were not
++  replaced:** `ReviewRegression` (reviewer) returned empty output and wrote no report, and `MutC`
++  (mutation-tester) died on a provider 429 after emitting a 3,771-byte progress log — a transcript, not
++  a deliverable, so the substantive attack share is **4/13 = 30.8 %** (three reviewers plus the
++  critic). Both readings clear the 0.25 floor; the frozen record is left as the instrument computed it
++  and the disclosure is in `corpus/lessons/round-81.md` §Dead seat. The L1 held the planner seat (the
++  validator refuses `planner` as a swarm role); the bounded planning data-walk rode `ScoutRecon`.
++  Round total: 15 seats, 13 reports (12 seat reports plus the renamed do-nothing reviewer's two-name
++  pair), 2 dead.
+ - **Misroot sweep** — `git -C /home/vgpnk/Projects/shokunin status --porcelain` shows no kake/round-81
+   file at the fleet root; the only untracked entries are orchestrator scratch (`.scratch/`) and other
+   lanes' reports. Nothing to relocate.
+@@ -87,6 +93,7 @@ Work items, each with its evidence pointer:
+ | C1 carrier receipt at `e84c354e`, wave results, accounting, seat record, settlement lesson | §C1 landed, §Wave `w1` | `e84c354ecf43bac6dce46377ea22cb425158a36f` → `31f502cb0cbc6e738535c69eedad49577cf17be5` |
+ | SCORECARD round-81 block, LOG round-81 entry, census after | §C1 landed, §C2 landed, §Frontier | `498a0969499f70830b7c992eb36ea364672f1a1b` |
+ | Final carrier receipts for both claims | §C1 landed, §C2 landed | `2b46f5c4db418c9a79e1990940da1a5029ff7e5b` |
++| Dead-seat disclosure (`MutC` 429 after a progress log; substantive attack share 4/13 = 30.8 %) | §Mined mistakes, §Dead seat | `ddd38022f888e4199e198195be173797ff416381` |
+ 
+ Gateway suite (C1) untouched; the standing round-79 receipt-disclosure ledger is green at the tip:
+ `C1v2 revision=5ae1f32b… events=40 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0
+@@ -97,7 +104,7 @@ in `.ufo/waves/round-58/receipt-rewrites.json`.
+ 
+ | Claim | Counting command | Before | After | Measured commit |
+ |---|---|---|---|---|
+-| C1 calibration: the round-80 routed-defect queue closes | `python3 -B .ufo/waves/round-81/c81_defect_queue.py --root . --revision <rev>` | `C1v1 revision=2e11925500dd5a739376c9108c94616243af0cd4 items=6 open=6 closed=0 met=false`, exit 1 (`controls/base-c81-defect-queue.txt`) | `C1v1 revision=2b46f5c4db418c9a79e1990940da1a5029ff7e5b items=6 open=0 closed=6 met=true`, exit 0 (`controls/after-c1-final.txt`); first measured at `e84c354e` (`controls/after-c1.txt`) | `2b46f5c4…` (final), `e84c354e…` (first carrier) |
++| C1 calibration: the round-80 routed-defect queue closes (R80-4's settled share reads 5/14 = 35.7 % by the frozen non-empty rule and 4/13 = 30.8 % on deliverables only; both ≥ 0.25) | `python3 -B .ufo/waves/round-81/c81_defect_queue.py --root . --revision <rev>` | `C1v1 revision=2e11925500dd5a739376c9108c94616243af0cd4 items=6 open=6 closed=0 met=false`, exit 1 (`controls/base-c81-defect-queue.txt`) | `C1v1 revision=2b46f5c4db418c9a79e1990940da1a5029ff7e5b items=6 open=0 closed=6 met=true`, exit 0 (`controls/after-c1-final.txt`); first measured at `e84c354e` (`controls/after-c1.txt`) | `2b46f5c4…` (final), `e84c354e…` (first carrier) |
+ | C2 operability: fresh capture → offline audit, verdict re-derives from committed bytes | `python3 -B .ufo/waves/round-81/c81_capture_audit.py --root . --revision <rev>` | `capture: no manifest at the measured revision`; `C2v1 revision=2e119255… declared=0 surfaces=0 failures=1 audit_rc=- met=false`, exit 1 (`controls/base-c81-capture-audit.txt`) | `C2v1 revision=2b46f5c4… declared=3 surfaces=3 failures=0 audit_rc=1 met=true`, exit 0 (`controls/after-c2-final.txt`); first measured at `395f123c` (`controls/after-c2-carrier.txt`) | `2b46f5c4…` (final), `395f123c…` (capture carrier) |
+ 
+ Controls actually exercised, not merely named: C1 junk control `open=6 closed=0 met=false`, exit 1;

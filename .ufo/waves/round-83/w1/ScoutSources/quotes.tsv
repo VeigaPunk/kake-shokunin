@@ -1,0 +1,12 @@
+tag	lines	byte_start	byte_end	words	raw_occurrences	collapsed_occurrences	quote
+a	L468-469	20513	20595	14	1	1	When presented with a request, a cache MUST NOT reuse a stored response unless:
+a	L480-482	20950	21090	18	1	1	the stored response does not contain the no-cache directive (Section 5.2.2.4), unless it is successfully validated (Section 4.3)
+a	L484-490	21103	21298	30	1	1	the stored response is one of the following: - fresh (see Section 4.2), or - allowed to be served stale (see Section 4.2.4), or - successfully validated (see Section 4.3).
+a	L495-498	21402	21633	37	1	1	When a stored response is used to satisfy a request without validation, a cache MUST generate an Age header field (Section 5.1), replacing any present in the response with a value equal to the stored response's current_age
+b	L583-585	25724	25863	23	1	1	A "fresh" response is one whose age has not yet exceeded its freshness lifetime. Conversely, a "stale" response is one where it has.
+b	L587-592	25868	26277	65	1	1	A response's "freshness lifetime" is the length of time between its generation by the origin server and its expiration time. An "explicit expiration time" is the time at which the origin server intends that a stored response can no longer be used by a cache without further validation, whereas a "heuristic expiration time" is assigned by a cache when no explicit expiration time is available.
+b	L597-599	26414	26559	21	1	1	When a response is fresh, it can be used to satisfy subsequent requests without contacting the origin server, thereby improving efficiency.
+c	L838-839	37723	37811	15	1	1	Another validator is the entity tag given in an ETag field (Section 8.8.3 of [HTTP]).
+c	L840-844	37813	38160	51	1	1	One or more entity tags, indicating one or more stored responses, can be used in an If-None-Match header field for response validation, or in an If-Match or If-Range header field for representation selection (i.e., the client is referring specifically to one or more previously obtained representations with the listed entity tags).
+c	L848-850	38235	38402	23	1	1	MUST send the relevant entity tags (using If-Match, If-None-Match, or If-Range) if the entity tags were provided in the stored response(s) being validated.
+b	L590-591-short	26085	26165	14	1	1	a stored response can no longer be used by a cache without further validation

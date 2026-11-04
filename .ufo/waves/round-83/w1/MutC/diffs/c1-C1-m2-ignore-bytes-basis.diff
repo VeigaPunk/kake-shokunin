@@ -1,0 +1,11 @@
+--- c83_defect_queue.py
++++ C1-m2-ignore-bytes-basis
+@@ -169,8 +169,6 @@
+     record = tree.json(ACCOUNTING)
+     if derived is None or not isinstance(record, dict):
+         return False, detail or "w1-accounting.json absent"
+-    if record.get("bytes_basis") != "utf-8":
+-        return False, f"bytes_basis={record.get('bytes_basis')!r}"
+     recorded = {row.get("name"): row.get("output_bytes")
+                 for row in record.get("seats", []) if isinstance(row, dict)}
+     mismatched = [row["name"] for row in derived["seats"]

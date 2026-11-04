@@ -1,0 +1,36 @@
+# ScribeLesson — mutant-harness path-resolution repro (round 83, 2026-11-04T13:33:28Z)
+# lane file copied unmodified: .ufo/waves/round-83/c83_drift_class.py
+# tool copied unmodified:      scripts/header_change_class.py
+
+$ python3 -B $S/shallow/.ufo/waves/round-83/c83_drift_class.py --selftest --work $S/work/shallow
+FAIL no tool at /fast/scratch/hyaku/kake-r83/ScribeLesson/shallow/scripts/header_change_class.py
+exit=1
+
+$ python3 -B $S/fixed/.ufo/waves/round-83/c83_drift_class.py --selftest --work $S/work/fixed
+ok   green — met=True expect=True
+ok   body-changed — met=False expect=False
+ok   validator-changed — met=False expect=False
+ok   record-mismatch — met=False expect=False
+ok   control-does-not-flip — met=False expect=False
+ok   tool-absent — met=False expect=False
+ok   declared-dropped — met=False expect=False
+ok   capture-a-dropped-surface — met=False expect=False
+ok   tool-network-import — met=False expect=False
+selftest: 9/9 passed
+exit=0
+
+# mutant patch (scratch copy only): replace  and flags["tool_offline"] == 1\n  with  and True
+$ python3 -B $S/mutant/.ufo/waves/round-83/c83_drift_class.py --selftest --work $S/work/mutant
+ok   green — met=True expect=True
+ok   body-changed — met=False expect=False
+ok   validator-changed — met=False expect=False
+ok   record-mismatch — met=False expect=False
+ok   control-does-not-flip — met=False expect=False
+ok   tool-absent — met=False expect=False
+ok   declared-dropped — met=False expect=False
+ok   capture-a-dropped-surface — met=False expect=False
+FAIL tool-network-import — met=True expect=False
+selftest: 8/9 passed
+exit=1
+
+[note] the scratch tree /fast/scratch/hyaku/kake-r83/ScribeLesson/ was removed after this receipt was copied; the paths above no longer resolve and the runs are not reproducible from it.

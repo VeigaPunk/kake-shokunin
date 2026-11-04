@@ -1,0 +1,12 @@
+--- c83_drift_class.py
++++ C2-m5-record-equal-weakened
+@@ -255,8 +255,7 @@
+     flags["determinism"] = int(rc1 == 0 and rc2 == 0 and out1 == out2)
+     record_path = root / RECORD
+     record = record_path.read_bytes() if record_path.is_file() else None
+-    flags["record_equal"] = int(record is not None and rc1 == 0
+-                                and record.rstrip(b"\n") == out1.rstrip(b"\n"))
++    flags["record_equal"] = int(rc1 == 0)
+ 
+     ctl_ok_a, ctl_a, _ = tree_receipts(root, CONTROL_A, declared)
+     ctl_ok_b, ctl_b, _ = tree_receipts(root, CONTROL_B, declared)

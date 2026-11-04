@@ -1,0 +1,103 @@
+===== c1 pristine variants =====
+-- attack-floor-one rc=1 sha256=af7772fa437670f9
+D1 open settled=4 settled_attack=1 settled_share=0.25 record=ok log=yes
+D2 closed mismatched=[] log=yes
+D3 closed bound=30 population=30 mismatches=0 met=true log=yes
+D4 closed removed=4 quoted=4 amendment=a818b4b4 log=yes
+D5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes
+D6 closed criterion=yes log=yes
+C1v1 revision=worktree items=6 open=1 closed=5 met=false
+-- bytes-basis-chars rc=1 sha256=0a7b31ca6ac6405a
+D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes
+D2 open bytes_basis='chars'
+D3 closed bound=30 population=30 mismatches=0 met=true log=yes
+D4 closed removed=4 quoted=4 amendment=a818b4b4 log=yes
+D5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes
+D6 closed criterion=yes log=yes
+C1v1 revision=worktree items=6 open=1 closed=5 met=false
+-- d3-bound-differs rc=1 sha256=b0c9e8462e163836
+D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes
+D2 closed mismatched=[] log=yes
+D3 open bound=29 population=30 mismatches=0 met=true log=yes
+D4 closed removed=4 quoted=4 amendment=a818b4b4 log=yes
+D5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes
+D6 closed criterion=yes log=yes
+C1v1 revision=worktree items=6 open=1 closed=5 met=false
+-- erratum-two-quotes rc=1 sha256=cedd11c63364e08f
+D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes
+D2 closed mismatched=[] log=yes
+D3 closed bound=30 population=30 mismatches=0 met=true log=yes
+D4 open removed=4 quoted=2 amendment=a818b4b4 log=yes
+D5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes
+D6 closed criterion=yes log=yes
+C1v1 revision=worktree items=6 open=1 closed=5 met=false
+-- green rc=0 sha256=5e12bbf295529c18
+D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes
+D2 closed mismatched=[] log=yes
+D3 closed bound=30 population=30 mismatches=0 met=true log=yes
+D4 closed removed=4 quoted=4 amendment=a818b4b4 log=yes
+D5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes
+D6 closed criterion=yes log=yes
+C1v1 revision=worktree items=6 open=0 closed=6 met=true
+-- junk-prose-only rc=1 sha256=8cb4be9aa221a158
+D1 open spec or results absent/unreadable
+D2 open spec or results absent/unreadable
+D3 open after-c83-instrument-check.txt absent
+D4 open removed=4 quoted=0 amendment=a818b4b4 log=no
+D5 open run_killers.py absent
+D6 open criterion=no log=no
+C1v1 revision=worktree items=6 open=6 closed=0 met=false
+-- killer-rows-missing rc=1 sha256=edadafc442f420f4
+D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes
+D2 closed mismatched=[] log=yes
+D3 closed bound=30 population=30 mismatches=0 met=true log=yes
+D4 closed removed=4 quoted=4 amendment=a818b4b4 log=yes
+D5 open rc=0 tail='distinguished=5/5' rows=no log=yes
+D6 closed criterion=yes log=yes
+C1v1 revision=worktree items=6 open=1 closed=5 met=false
+-- multibyte-bytes rc=0 sha256=f0c5beaa7e624a76
+D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes
+D2 closed mismatched=[] log=yes
+D3 closed bound=30 population=30 mismatches=0 met=true log=yes
+D4 closed removed=4 quoted=4 amendment=a818b4b4 log=yes
+D5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes
+D6 closed criterion=yes log=yes
+C1v1 revision=worktree items=6 open=0 closed=6 met=true
+-- share-0.2222 rc=1 sha256=fb9370da4c2873a0
+D1 open settled=9 settled_attack=2 settled_share=0.2222 record=ok log=yes
+D2 closed mismatched=[] log=yes
+D3 closed bound=30 population=30 mismatches=0 met=true log=yes
+D4 closed removed=4 quoted=4 amendment=a818b4b4 log=yes
+D5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes
+D6 closed criterion=yes log=yes
+C1v1 revision=worktree items=6 open=1 closed=5 met=false
+===== c1 pristine selftest =====
+selftest: 9/9 passed
+===== c2 pristine variants =====
+-- captures-identical rc=1 sha256=4e38c5b0633fe3ad
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false
+# control=verdict=representation-changed validator=3
+-- content-length-change rc=1 sha256=dd8d75f4b0a5de77
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=1 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false
+# control=verdict=representation-changed validator=3
+-- control-pair-identical rc=1 sha256=73ae0407a7417e38
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=0 tool_offline=1 selftest_ok=1 tool_absent=0 met=false
+# control=verdict=same-object validator=0
+-- etag-only-change rc=1 sha256=463672d79c71b625
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=1 representation=0 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false
+# control=verdict=representation-changed validator=3
+-- green rc=0 sha256=1996976988bbdc00
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true
+# control=verdict=representation-changed validator=3
+-- receipt-truncated rc=1 sha256=72fcaa14d5fb24a5
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=2 receipts_ok=0 diffs=4 validator=0 representation=0 unknown=0 verdict=none record_equal=0 determinism=0 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false
+# problems=['s1: truncated or silent']
+# control=verdict=representation-changed validator=3
+-- record-wrong rc=1 sha256=f12eeb0b74937233
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=0 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false
+# control=verdict=representation-changed validator=3
+-- tool-imports-socket rc=1 sha256=6b89c630fa1c2f1d
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=0 selftest_ok=1 tool_absent=0 met=false
+# control=verdict=representation-changed validator=3
+===== c2 pristine selftest =====
+selftest: 9/9 passed

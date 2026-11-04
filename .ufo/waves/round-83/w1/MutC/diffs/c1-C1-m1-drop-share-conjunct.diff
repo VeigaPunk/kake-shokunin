@@ -1,0 +1,11 @@
+--- c83_defect_queue.py
++++ C1-m1-drop-share-conjunct
+@@ -152,7 +152,7 @@
+     if not isinstance(record, dict):
+         return False, "w1-accounting.json absent or unreadable"
+     recorded_names = record.get("settled_names")
+-    ok = (derived["settled_attack"] >= 2 and derived["settled_share"] >= 0.25
++    ok = (derived["settled_attack"] >= 2
+           and record.get("settled") == derived["settled"]
+           and sorted(recorded_names or []) == derived["settled_names"]
+           and record.get("settled_attack") == derived["settled_attack"]

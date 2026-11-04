@@ -1,0 +1,66 @@
+==================== Q2 fabrication: synthetic receipts, no socket
+tool_on_fabricated rc=0
+surface=ds4cc-primary status_a=200 status_b=200 diffs=2 per_request=2 validator=0 representation=0 policy=0 unknown=0 verdict=same-object
+surface=ds4cc-robots status_a=200 status_b=200 diffs=2 per_request=2 validator=0 representation=0 policy=0 unknown=0 verdict=same-object
+surface=ds4cc-sitemap status_a=200 status_b=200 diffs=2 per_request=2 validator=0 representation=0 policy=0 unknown=0 verdict=same-object
+summary surfaces=3 diffs=6 per_request=6 validator=0 representation=0 policy=0 unknown=0 verdict=same-object
+
+counter_on_fabricated rc=0
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true
+# control=verdict=representation-changed validator=1
+
+counter_on_empty_bodies rc=0
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true
+# control=verdict=representation-changed validator=1
+
+==================== Q3 classification attack
+[robots-tag] rc=0 surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=0 representation=0 policy=1 unknown=0 verdict=same-object
+[link-canonical] rc=0 surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=0 representation=0 policy=1 unknown=0 verdict=same-object
+[accept-ranges] rc=0 surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=0 representation=1 policy=0 unknown=0 verdict=representation-changed
+[digest] rc=0 surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=0 representation=1 policy=0 unknown=0 verdict=representation-changed
+[last-modified] rc=0 surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=1 representation=0 policy=0 unknown=0 verdict=representation-changed
+[vary] rc=0 surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=0 representation=1 policy=0 unknown=0 verdict=representation-changed
+[acac] rc=0 surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=0 representation=0 policy=0 unknown=1 verdict=representation-changed
+[content-type] rc=0 surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=0 representation=1 policy=0 unknown=0 verdict=representation-changed
+==================== Q4 control-pair attack
+[q4-base] rc=0
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=14 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true
+# control=verdict=representation-changed validator=1
+
+[q4-content-length] rc=1
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=14 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=0 tool_offline=1 selftest_ok=1 tool_absent=0 met=false
+# control=verdict=representation-changed validator=0
+
+[q4-last-modified] rc=0
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=14 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true
+# control=verdict=representation-changed validator=3
+
+==================== mutant classifier: representation headers folded into policy
+moved names: ['accept-ranges', 'content-encoding', 'content-language', 'content-length', 'content-location', 'content-md5', 'content-type', 'digest', 'vary']
+mutant_selftest rc=0
+ok   same-object-per-request-only — observed={'per-request': 2, 'validator': 0, 'representation': 0, 'policy': 0, 'unknown': 0, 'diffs': 2, 'verdict_representation': 0} expect={'per-request': 2, 'validator': 0, 'representation': 0, 'unknown': 0, 'verdict_representation': 0}
+ok   validator-change — observed={'per-request': 2, 'validator': 1, 'representation': 0, 'policy': 0, 'unknown': 0, 'diffs': 3, 'verdict_representation': 1} expect={'validator': 1, 'verdict_representation': 1}
+ok   unknown-header-change — observed={'per-request': 2, 'validator': 1, 'representation': 0, 'policy': 0, 'unknown': 1, 'diffs': 4, 'verdict_representation': 1} expect={'unknown': 1, 'verdict_representation': 1}
+ok   policy-change-only — observed={'per-request': 2, 'validator': 0, 'representation': 0, 'policy': 1, 'unknown': 0, 'diffs': 3, 'verdict_representation': 0} expect={'policy': 1, 'verdict_representation': 0}
+ok   body-change — observed={'per-request': 2, 'validator': 0, 'representation': 0, 'policy': 0, 'unknown': 0, 'diffs': 2, 'verdict_representation': 1} expect={'validator': 0, 'verdict_representation': 1}
+ok   bytes-mismatch-rejected
+selftest: 6/6 passed
+
+[q4-mutant] rc=0
+C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=14 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true
+# control=verdict=representation-changed validator=1
+
+mutant_on_content_type_change rc=0
+surface=s1 status_a=200 status_b=200 diffs=1 per_request=0 validator=0 representation=0 policy=1 unknown=0 verdict=same-object
+summary surfaces=1 diffs=1 per_request=0 validator=0 representation=0 policy=1 unknown=0 verdict=same-object
+
+==================== Q1 tool_offline evasion probes
+tool_offline(real tool) = True
+nested-import: tool_offline=False
+importlib-concat: tool_offline=True
+http-from-import: tool_offline=True
+subprocess-curl: tool_offline=True
+os-wget: tool_offline=True
+socket-honest: tool_offline=False
+docstring-substring-sock: tool_offline=True
+DONE

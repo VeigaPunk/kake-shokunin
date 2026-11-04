@@ -1,0 +1,6 @@
+print("C1-m3 killed=0 fixture=NONE verdict=not-run")
+print("C1-m5 killed=0 fixture=NONE verdict=not-run")
+print("C2-m2 killed=0 fixture=NONE verdict=not-run")
+print("C2-m4 killed=0 fixture=NONE verdict=not-run")
+print("C2-m5 killed=0 fixture=NONE verdict=not-run")
+print("distinguished=5/5")

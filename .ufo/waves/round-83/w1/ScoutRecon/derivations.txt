@@ -1,0 +1,71 @@
+ScoutRecon — round 83 w1 — commands and exit codes (all read-only; lane tree untouched)
+Lane: /home/vgpnk/Projects/shokunin/kake-shokunin
+Fleet: /home/vgpnk/Projects/shokunin (read-only git only)
+Scratch: /fast/scratch/hyaku/kake-r83/ScoutRecon/ (deleted before yield)
+
+[1] git -C <lane> rev-parse HEAD
+    -> 64b7199281e5457df0e08652977f698c4f34f46e                      exit 0
+[2] git -C <lane> merge-base --is-ancestor 826b0061...HEAD
+    -> BASE-IS-ANCESTOR-OK                                             exit 0
+[3] git -C <lane> log --oneline 826b0061..HEAD
+    -> 64b71992 round-83: freeze contract, counters, tool, builders,
+       base and control receipts, wave w1 spec and dispatch            exit 0
+[4] git -C <lane> ls-tree -r --name-only 826b0061 | grep '^\.ufo/waves/round-83'
+    -> (no output: the round-83 directory does not exist at base)      exit 1
+[5] git -C <fleet> log --format='%H %ci %s' -- .ufo/reports/round-81/kake.md
+    -> newest 7678247a3c13b1dc03ed1cb8f80d2dba603ee0ca 2026-11-04 09:34:52 -0300
+         "round-81: kake report amendment (dead seat, substantive share)"
+       parent cb02b70551f14ac3dea7eadebac22cb2cdc45c10 2026-11-04 09:27:44 -0300
+         "round-81: kake report"                                       exit 0
+       (the counter's item_d4 reads commits[0]/commits[1]; this pair)
+[6] python3 -B .ufo/waves/round-83/c83_defect_queue.py --root <lane>
+      --revision 826b0061... --work <scratch>/counter-base --fleet <fleet>
+    -> D1 open spec or results absent/unreadable
+       D2 open spec or results absent/unreadable
+       D3 open after-c83-instrument-check.txt absent
+       D4 open lesson absent
+       D5 open run_killers.py absent
+       D6 open criterion=no log=no
+       C1v1 revision=826b0061... items=6 open=6 closed=0 met=false      exit 1
+    (byte-identical to controls/base-c83-defect-queue.txt minus its
+     base_c1_exit=1 trailer)
+[7] same counter --revision 64b71992... (freeze HEAD)
+    -> identical six rows, C1v1 revision=64b71992... open=6 met=false   exit 1
+[8] TMPDIR=<scratch> python3 -B .ufo/waves/round-83/c83_defect_queue.py --selftest
+    -> 9 ok lines, "selftest: 9/9 passed"                               exit 0
+[9] python3 -B .ufo/waves/round-83/junk_tree_build.py --root <scratch>/junk
+    -> junk tree at ...: 6 prose claims, no state                       exit 0
+    python3 -B c83_defect_queue.py --root <scratch>/junk --fleet <fleet>
+    -> D4 open removed=5 quoted=0 amendment=7678247a log=no
+       C1v1 revision=worktree items=6 open=6 closed=0 met=false         exit 1
+    (byte-identical to controls/ctl-c83-junk-queue.txt minus junk_exit=1)
+[10] python3 -B scripts/instrument_receipts.py --root <lane>
+       --revision 64b71992... --check
+    -> C2v1 revision=64b71992... population=30 bound=30 mismatches=0 met=true
+       receipt source=committed declared=70c8241b... declared_valid=true exit 0
+[11] same --revision 826b0061...
+    -> population=30 bound=30 mismatches=0 met=true                     exit 0
+[12] C2-m5 experiment (scratch copies of the frozen c82_capture_delta.py)
+    green control: met=True surfaces_a=3 receipts_ok=1
+    dropped-A-surface fixture: PRISTINE met=False surfaces_a=2
+                               receipts_ok=0 declared=3
+                               MUTANT   met=False surfaces_a=2
+                               receipts_ok=0 declared=3
+    -> distinguished=False (equivalent mutant)                          exit 0
+[13] C2-m2 equal-instant fixture (both captures 2026-11-04T12:50:00Z)
+    -> pristine met=False order_ok=0 floor_ok=1
+       mutant   met=True  order_ok=1 floor_ok=1
+       distinguished=True                                               exit 0
+[14] C2-m4 green tree + tool whose --selftest exits 1
+    -> pristine met=False selftest_ok=0 record_equal=1
+       mutant   met=True  selftest_ok=1 record_equal=1
+       distinguished=True                                               exit 0
+[15] C1-m3 fixture (seat-failures.json mutation-tester output_bytes=4200,
+     lesson D4 row carrying 4200+superseded)
+    -> pristine open=0; mutant (derived=3801) open=1; distinguished=True exit 0
+[16] C1-m5 fixture (after-c1-ledger-gate.txt undisclosed=0 ... met=false)
+    -> pristine open=1 [D7]; mutant open=0; distinguished=True          exit 0
+
+No file under the lane, the fleet repo, any sibling repo or ~/.local/bin was
+written by this seat. Fixture git: none created (the experiments call the
+frozen counters' own builders and the real fleet repo read-only).

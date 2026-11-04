@@ -1,0 +1,25 @@
+== awk NR 597..599 (raw) ==
+   When a response is fresh, it can be used to satisfy subsequent
+   requests without contacting the origin server, thereby improving
+   efficiency.
+awk_exit=0
+
+== grep -F single-line raw prefix ==
+   When a response is fresh, it can be used to satisfy subsequent
+grep_F_prefix_exit=0
+
+== grep -F collapsed full sentence on raw file (expected 1: wraps) ==
+grep_F_sentence_exit=1
+
+== grep -Pzo exact multi-line raw span ==
+grep_Pzo_exit=0
+
+== word count of admission quote ==
+21
+
+== 28-word sentence: natural form and shorter raw span ==
+   "explicit expiration time" is the time at which the origin server
+   intends that a stored response can no longer be used by a cache
+   without further validation, whereas a "heuristic expiration time" is
+33
+grep_Pzo_shorter_exit=0

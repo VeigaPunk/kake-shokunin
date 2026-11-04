@@ -1,0 +1,15 @@
+== green tree: my v2 record vs the frozen counter's derivation
+derived: ok
+  settled: v2=3 counter=3 equal=True
+  settled_names: v2=['Cri', 'Rev', 'Scribe'] counter=['Cri', 'Rev', 'Scribe'] equal=True
+  settled_attack: v2=2 counter=2 equal=True
+  settled_share: v2=0.6667 counter=0.6667 equal=True
+  seats: v2=[{'name': 'Rev', 'role': 'reviewer', 'output_bytes': 300}, {'name': 'Cri', 'role': 'critic', 'output_bytes': 300}, {'name': 'Exec', 'role': 'executor', 'output_bytes': 0}, {'name': 'Scribe', 'role': 'scribe', 'output_bytes': 200}] counter=[{'name': 'Rev', 'role': 'reviewer', 'output_bytes': 300}, {'name': 'Cri', 'role': 'critic', 'output_bytes': 300}, {'name': 'Exec', 'role': 'executor', 'output_bytes': 0}, {'name': 'Scribe', 'role': 'scribe', 'output_bytes': 200}] equal=True
+  item_d1 -> (True, 'settled=3 settled_attack=2 settled_share=0.6667 record=ok log=yes')
+  item_d2 -> (True, 'mismatched=[] log=yes')
+
+== negative controls: the counter must reject a doctored record
+  mut-bytes: d1=(True, 'settled=3 settled_attack=2 settled_share=0.6667 record=ok log=yes') d2=(False, "mismatched=['Rev'] log=yes")
+  mut-basis: d1=(True, 'settled=3 settled_attack=2 settled_share=0.6667 record=ok log=yes') d2=(False, 'bytes_basis=None')
+  mut-share: d1=(False, 'settled=3 settled_attack=2 settled_share=0.6667 record=ok log=yes') d2=(True, 'mismatched=[] log=yes')
+  mut-settled: d1=(False, 'settled=3 settled_attack=2 settled_share=0.6667 record=ok log=yes') d2=(True, 'mismatched=[] log=yes')

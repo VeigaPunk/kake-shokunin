@@ -1,0 +1,11 @@
+--- c83_drift_class.py
++++ C2-m7-accept-truncated-receipt
+@@ -139,8 +139,6 @@
+     digest = hashlib.sha256(body).hexdigest()
+     if receipt.get("sha256") != digest:
+         return None, "body sha256 mismatch"
+-    if receipt.get("truncated") is not False:
+-        return None, "truncated or silent"
+     headers = receipt.get("headers")
+     if not isinstance(headers, list):
+         return None, "headers is not a list"

@@ -1,0 +1,11 @@
+--- c83_drift_class.py
++++ C2-m8-met-always-true
+@@ -284,7 +284,7 @@
+     flags["selftest_ok"] = int(proc.returncode == 0 and b"selftest:" in proc.stdout)
+     info["selftest"] = proc.stdout.decode("utf-8", "replace").strip().splitlines()[-1:] or [""]
+ 
+-    flags["met"] = (flags["declared"] == 3 and flags["surfaces_a"] == 3
++    flags["met"] = True or (flags["declared"] == 3 and flags["surfaces_a"] == 3
+                     and flags["surfaces_b"] == 3 and flags["receipts_ok"] == 1
+                     and isinstance(flags["diffs"], int) and flags["diffs"] > 0
+                     and flags["validator"] == 0 and flags["representation"] == 0

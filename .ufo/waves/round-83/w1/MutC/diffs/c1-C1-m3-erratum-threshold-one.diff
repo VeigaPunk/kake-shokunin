@@ -1,0 +1,11 @@
+--- c83_defect_queue.py
++++ C1-m3-erratum-threshold-one
+@@ -216,7 +216,7 @@
+                if line.startswith("-") and not line.startswith("---") and len(line) > 41]
+     quoted = [line for line in removed if line in lesson]
+     log = line_with(lesson, "D4", [after[:8], "erratum"])
+-    return len(quoted) >= 4 and log is not None, (
++    return len(quoted) >= 1 and log is not None, (
+         f"removed={len(removed)} quoted={len(quoted)} amendment={after[:8]} "
+         f"log={'yes' if log else 'no'}")
+ 

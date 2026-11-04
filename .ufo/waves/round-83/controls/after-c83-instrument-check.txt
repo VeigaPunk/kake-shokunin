@@ -1,0 +1,27 @@
+$ python3 -B scripts/instrument_receipts.py --check
+C2v1 revision=64b7199281e5457df0e08652977f698c4f34f46e population=30 bound=30 mismatches=0 met=true
+# cwd: /home/vgpnk/Projects/shokunin/kake-shokunin
+# stdout: population: derived=30 frozen=16 missing_frozen=0 beyond_frozen=14
+# stdout: receipt: source=committed worktree=identical declared=70c8241b57ceec1a8bf6e4aba7ed6ecdd1c31235 declared_match=false declared_valid=true
+# findings: none (--json: findings=[], malformed=[], outside=[], missing_frozen=[]; receipt_revision_valid=true)
+# beyond-frozen (14, from the same run):
+#   .ufo/waves/round-75/c75_row_truth.py
+#   .ufo/waves/round-79/c79_receipt_ledger.py
+#   .ufo/waves/round-79/c79_xrt_matrix.py
+#   .ufo/waves/round-80/c80_defect_queue.py
+#   .ufo/waves/round-80/c80_ledger_fixtures.py
+#   .ufo/waves/round-80/c80_measure.py
+#   .ufo/waves/round-82/c82_capture_delta.py
+#   .ufo/waves/round-82/c82_defect_queue.py
+#   scripts/capture_delta.py
+#   scripts/doc_quote_truth.py
+#   scripts/hreflang_audit.py
+#   scripts/instrument_receipts.py
+#   scripts/ledger_append_guard.py
+#   scripts/x_robots_tag_audit.py
+# measured revision 64b7199281e5457df0e08652977f698c4f34f46e == lane master tip; HEAD detached at the same commit
+# declared revision 70c8241b57ceec1a8bf6e4aba7ed6ecdd1c31235 is an ancestor of the measured revision (git merge-base --is-ancestor exit 0); declared_match=false is expected because the receipt's subject revision predates its carrier
+# uncommitted at that instant: two untracked paths (.ufo/waves/round-83/w1.ready, .ufo/waves/round-83/w1.ready.partial) and a sibling seat directory; no tracked file modified; the worktree receipt blob was identical to the committed one (diff empty)
+# determinism: two consecutive runs printed identical stdout and stderr
+# stderr: empty (0 bytes)
+exit=0

@@ -1,0 +1,11 @@
+--- c83_drift_class.py
++++ C2-m6-content-length-as-per-request
+@@ -79,7 +79,7 @@
+ 
+ def header_class(name: str) -> str:
+     lowered = name.strip().lower()
+-    if lowered in PER_REQUEST:
++    if lowered in PER_REQUEST or lowered == "content-length":
+         return "per-request"
+     if lowered in VALIDATOR:
+         return "validator"

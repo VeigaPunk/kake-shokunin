@@ -1,0 +1,65 @@
+=== C1-m3 vs pristine/C1.py ===
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/pristine/C1.py	2026-11-04 10:38:37.487943776 -0300
++++ /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C1-m3/c82_defect_queue.py	2026-11-04 10:38:37.505008374 -0300
+@@ -190,7 +190,7 @@
+     numbers = [value for value in numbers if isinstance(value, int)]
+     if not numbers:
+         return False, "no mutation-tester output_bytes"
+-    derived = numbers[0]
++    derived = 3801
+     log = line_with(lesson, "D4", [str(derived), "superseded"])
+     if log is None:
+         return False, f"no D4 line carrying {derived} and superseded"
+changed-lines=2
+=== C1-m5 vs pristine/C1.py ===
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/pristine/C1.py	2026-11-04 10:38:37.487943776 -0300
++++ /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C1-m5/c82_defect_queue.py	2026-11-04 10:38:37.514177018 -0300
+@@ -229,7 +229,7 @@
+     if receipt is None:
+         return False, "after-c1-ledger-gate.txt absent"
+     log = line_with(lesson, "D7", ["after-c1-ledger-gate.txt"])
+-    ok = "undisclosed=0" in receipt and "met=true" in receipt and log is not None
++    ok = "undisclosed=0" in receipt and log is not None
+     return ok, (f"receipt green={'yes' if 'met=true' in receipt else 'no'}"
+                 f" log={'yes' if log else 'no'}")
+ 
+changed-lines=2
+=== C2-m2 vs pristine/C2.py ===
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/pristine/C2.py	2026-11-04 10:38:37.491647533 -0300
++++ /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m2/c82_capture_delta.py	2026-11-04 10:38:37.586395169 -0300
+@@ -246,7 +246,7 @@
+ 
+     floor = parse_instant(FLOOR)
+     order_ok = bool(b_instants) and all(
+-        surface in a_instants and b_instants[surface] > a_instants[surface]
++        surface in a_instants and b_instants[surface] >= a_instants[surface]
+         for surface in b_instants
+     )
+     flags["order_ok"] = int(order_ok)
+changed-lines=2
+=== C2-m4 vs pristine/C2.py ===
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/pristine/C2.py	2026-11-04 10:38:37.491647533 -0300
++++ /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m4/c82_capture_delta.py	2026-11-04 10:38:37.864819362 -0300
+@@ -262,7 +262,7 @@
+                                 and record.rstrip(b"\n") == out1.rstrip(b"\n"))
+ 
+     selftest_ok, selftest_detail = run_tool_selftest(root, work / "selftest")
+-    flags["selftest_ok"] = int(selftest_ok)
++    flags["selftest_ok"] = 1
+     info["selftest"] = selftest_detail
+ 
+     met = (flags["declared"] == 3
+changed-lines=2
+=== C2-m5 vs pristine/C2.py ===
+--- /fast/scratch/hyaku/kake-r83/MutKillers/work-final/pristine/C2.py	2026-11-04 10:38:37.491647533 -0300
++++ /fast/scratch/hyaku/kake-r83/MutKillers/work-final/mutants/C2-m5/c82_capture_delta.py	2026-11-04 10:38:38.169359317 -0300
+@@ -266,7 +266,7 @@
+     info["selftest"] = selftest_detail
+ 
+     met = (flags["declared"] == 3
+-           and flags["surfaces_a"] == 3 and flags["surfaces_b"] == 3
++           and flags["surfaces_b"] == 3
+            and all(int(flags[key]) == 1 for key in
+                    ("receipts_ok", "manifest_ok", "order_ok", "floor_ok",
+                     "determinism", "record_equal", "selftest_ok")))
+changed-lines=2

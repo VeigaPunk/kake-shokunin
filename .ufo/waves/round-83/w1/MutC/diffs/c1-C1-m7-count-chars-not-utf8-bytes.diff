@@ -1,0 +1,11 @@
+--- c83_defect_queue.py
++++ C1-m7-count-chars-not-utf8-bytes
+@@ -127,7 +127,7 @@
+         if not isinstance(row, dict) or not isinstance(row.get("name"), str):
+             continue
+         output = row.get("output") or ""
+-        size = len(output.encode("utf-8")) if isinstance(output, str) else 0
++        size = len(output) if isinstance(output, str) else 0
+         seats.append({"name": row["name"], "role": roles.get(row["name"], ""),
+                       "output_bytes": size})
+         if size > 0:

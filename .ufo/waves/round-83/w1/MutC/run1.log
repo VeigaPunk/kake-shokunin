@@ -1,0 +1,119 @@
++ python3 -B mutc.py all
+== c1 pristine selftest: rc=0 selftest: 9/9 passed
+   pristine[attack-floor-one] rc=1 :: C1v1 revision=worktree items=6 open=1 closed=5 met=false
+   pristine[bytes-basis-chars] rc=1 :: C1v1 revision=worktree items=6 open=1 closed=5 met=false
+   pristine[d3-bound-differs] rc=1 :: C1v1 revision=worktree items=6 open=1 closed=5 met=false
+   pristine[erratum-two-quotes] rc=1 :: C1v1 revision=worktree items=6 open=1 closed=5 met=false
+   pristine[green] rc=0 :: C1v1 revision=worktree items=6 open=0 closed=6 met=true
+   pristine[junk-prose-only] rc=1 :: C1v1 revision=worktree items=6 open=6 closed=0 met=false
+   pristine[killer-rows-missing] rc=1 :: C1v1 revision=worktree items=6 open=1 closed=5 met=false
+   pristine[multibyte-bytes] rc=0 :: C1v1 revision=worktree items=6 open=0 closed=6 met=true
+   pristine[share-0.2222] rc=1 :: C1v1 revision=worktree items=6 open=1 closed=5 met=false
+killed         C1-m1-drop-share-conjunct
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C1v1 revision=worktree items=6 open=1 closed=5 met=false
+               mutant   C1v1 revision=worktree items=6 open=0 closed=6 met=true
+killed         C1-m2-ignore-bytes-basis
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C1v1 revision=worktree items=6 open=1 closed=5 met=false
+               mutant   C1v1 revision=worktree items=6 open=0 closed=6 met=true
+killed         C1-m3-erratum-threshold-one
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C1v1 revision=worktree items=6 open=1 closed=5 met=false
+               mutant   C1v1 revision=worktree items=6 open=0 closed=6 met=true
+killed         C1-m4-drop-bound-equals-population
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C1v1 revision=worktree items=6 open=1 closed=5 met=false
+               mutant   C1v1 revision=worktree items=6 open=0 closed=6 met=true
+killed         C1-m5-drop-attack-floor
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C1v1 revision=worktree items=6 open=1 closed=5 met=false
+               mutant   C1v1 revision=worktree items=6 open=0 closed=6 met=true
+killed         C1-m6-drop-killer-row-check
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C1v1 revision=worktree items=6 open=1 closed=5 met=false
+               mutant   C1v1 revision=worktree items=6 open=0 closed=6 met=true
+killed         C1-m7-count-chars-not-utf8-bytes
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 0->1
+               pristine C1v1 revision=worktree items=6 open=0 closed=6 met=true
+               mutant   C1v1 revision=worktree items=6 open=1 closed=5 met=false
+killed         C1-m8-met-always-true
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C1v1 revision=worktree items=6 open=6 closed=0 met=false
+               mutant   C1v1 revision=worktree items=6 open=6 closed=0 met=true
+survived       C1-m0-comment-only-control
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 0->0
+               pristine C1v1 revision=worktree items=6 open=0 closed=6 met=true
+               mutant   C1v1 revision=worktree items=6 open=0 closed=6 met=true
+== c2 pristine selftest: rc=0 selftest: 9/9 passed
+   pristine[captures-identical] rc=1 :: C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+      # control=verdict=representation-changed validator=3
+   pristine[content-length-change] rc=1 :: C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=1 unknown=0 verdict=representation-change
+      # control=verdict=representation-changed validator=3
+   pristine[control-pair-identical] rc=1 :: C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+      # control=verdict=same-object validator=0
+   pristine[etag-only-change] rc=1 :: C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=1 representation=0 unknown=0 verdict=representation-change
+      # control=verdict=representation-changed validator=3
+   pristine[green] rc=0 :: C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+      # control=verdict=representation-changed validator=3
+   pristine[receipt-truncated] rc=1 :: C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=2 receipts_ok=0 diffs=4 validator=0 representation=0 unknown=0 verdict=none record_equal=0 d
+      # problems=['s1: truncated or silent']
+      # control=verdict=representation-changed validator=3
+   pristine[record-wrong] rc=1 :: C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+      # control=verdict=representation-changed validator=3
+   pristine[tool-imports-socket] rc=1 :: C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+      # control=verdict=representation-changed validator=3
+killed         C2-m1-tool-offline-always-true
+               selftest pristine=(0)selftest: 9/9 passed mutant=(1)selftest: 8/9 passed killed=True
+               fixture rc 1->0
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+killed         C2-m2-control-ok-hardcoded
+               selftest pristine=(0)selftest: 9/9 passed mutant=(1)selftest: 8/9 passed killed=True
+               fixture rc 1->0
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+killed         C2-m3-validator-as-per-request
+               selftest pristine=(0)selftest: 9/9 passed mutant=(1)selftest: 8/9 passed killed=True
+               fixture rc 1->1
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=1 representation=0 unknown=0 verdict=representation-change
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+killed         C2-m4-drop-diffs-positive
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+killed         C2-m5-record-equal-weakened
+               selftest pristine=(0)selftest: 9/9 passed mutant=(1)selftest: 8/9 passed killed=True
+               fixture rc 1->0
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+killed         C2-m6-content-length-as-per-request
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->0
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=1 unknown=0 verdict=representation-change
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+killed         C2-m7-accept-truncated-receipt
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 1->1
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=2 receipts_ok=0 diffs=4 validator=0 representation=0 unknown=0 verdict=none record_equal=0 d
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+killed         C2-m8-met-always-true
+               selftest pristine=(0)selftest: 9/9 passed mutant=(1)selftest: 1/9 passed killed=True
+               fixture rc 1->0
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+survived       C2-m0-comment-only-control
+               selftest pristine=(0)selftest: 9/9 passed mutant=(0)selftest: 9/9 passed killed=False
+               fixture rc 0->0
+               pristine C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq
+               mutant   C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_eq

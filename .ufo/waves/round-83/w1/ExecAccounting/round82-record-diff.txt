@@ -1,0 +1,28 @@
+committed: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-82/w1-accounting.json
+v2       : /fast/scratch/hyaku/kake-r83/ExecAccounting/round82-accounting-v2.json
+
+settled          committed=7      v2=7      equal=True expected=7
+settled_attack   committed=0      v2=0      equal=True expected=0
+settled_share    committed=0.0    v2=0.0    equal=True expected=0.0
+
+seats rows=13 results rows=13 seat names match=True
+per-seat bytes re-derived equal=True
+sum(output_bytes)=43152
+
+identical keys (15): lane, requested, requested_attack, requested_share, results_sha256, round, settled, settled_attack, settled_share, spec_sha256, substantive, substantive_attack, substantive_floor_bytes, substantive_share, wave
+additive keys  (4): bytes_basis, rows_skipped, seats, supersedes
+  + bytes_basis = "utf-8"
+  + rows_skipped = 0
+  + seats = [{"name": "ScoutRecon", "role": "scout", "output_bytes": 4899}, {"name": "ScoutSources", "role": "scout", "output_bytes"...
+  + supersedes = "kake-wave-accounting/v1"
+order-only keys (1): settled_names
+  ~ settled_names: same elements, v1 order differs -> v2 sorted=True
+changed keys (1): schema
+  ! schema: 'kake-wave-accounting/v1' -> 'kake-wave-accounting/v2'
+removed keys (0): -
+
+ASSERT removed == []: True
+ASSERT changed == ['schema'] (declared format marker): True
+ASSERT additive == ['bytes_basis', 'rows_skipped', 'seats', 'supersedes']: True
+ASSERT order-only == ['settled_names'] (v2 sorts; same seven names): True
+ASSERT v1 data keys all identical or order-only (no changed value): True

@@ -1,0 +1,12 @@
+--- c83_defect_queue.py
++++ C1-m4-drop-bound-equals-population
+@@ -192,8 +192,7 @@
+     if line is None:
+         return False, "no C2v1 revision line"
+     fields = dict(re.findall(r"(\w+)=(\S+)", line))
+-    ok = (fields.get("bound") == fields.get("population")
+-          and fields.get("mismatches") == "0" and fields.get("met") == "true")
++    ok = (fields.get("mismatches") == "0" and fields.get("met") == "true")
+     log = line_with(lesson, "D3", ["after-c83-instrument-check.txt", "--check"])
+     return ok and log is not None, (
+         f"bound={fields.get('bound')} population={fields.get('population')} "

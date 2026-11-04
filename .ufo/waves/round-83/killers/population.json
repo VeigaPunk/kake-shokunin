@@ -1,0 +1,127 @@
+{
+  "round": 83,
+  "attempt": 1,
+  "wave": "w1",
+  "seat": "ExecKillers",
+  "lane": "kake-shokunin",
+  "purpose": "kill the five round-82 author-side mutation-probe survivors (D5)",
+  "source_note": "Frozen round-82 counters are copied into scratch by run_killers.py; the originals are only read. Every patch below is applied as one literal text replacement to the copy, and the runner refuses to start if an anchor is not unique or a counter hash moved.",
+  "frozen_counters": {
+    "C1": {
+      "file": ".ufo/waves/round-82/c82_defect_queue.py",
+      "sha256": "1082c691bc28fa35476613d8ce47a0cc2a5630d5390be31e67307ae173b2e226"
+    },
+    "C2": {
+      "file": ".ufo/waves/round-82/c82_capture_delta.py",
+      "sha256": "b93693df932ac1982677e1b23de2aa3a352b84ca0120acc76db1e754f4974173"
+    }
+  },
+  "tool": {
+    "file": "scripts/capture_delta.py",
+    "sha256": "4b0dc25233542696988ef91b62872068cbc5d56f58d0ef3f988ac60e558d9680"
+  },
+  "predicate": {
+    "C1": "open",
+    "C2": "met"
+  },
+  "mutants": [
+    {
+      "id": "C1-m3",
+      "counter": "C1",
+      "counter_file": ".ufo/waves/round-82/c82_defect_queue.py",
+      "line": 193,
+      "change": "D4's derived number replaced by the constant 3801",
+      "patch": {
+        "old": "    derived = numbers[0]",
+        "new": "    derived = 3801"
+      },
+      "fixture": "c1-seat-bytes-4417",
+      "fixture_build": "c82_defect_queue.build_green_tree over a two-commit fixture fleet; then seat-failures.json's mutation-tester output_bytes 3801 -> 4417 and the lesson's D4 number 3801 -> 4417 (both sides of the correspondence move together)",
+      "expect": {
+        "pristine": "open=0",
+        "mutant": "open=1"
+      },
+      "verdict": "killed"
+    },
+    {
+      "id": "C1-m5",
+      "counter": "C1",
+      "counter_file": ".ufo/waves/round-82/c82_defect_queue.py",
+      "line": 232,
+      "change": "D7's met=true requirement dropped",
+      "patch": {
+        "old": "    ok = \"undisclosed=0\" in receipt and \"met=true\" in receipt and log is not None",
+        "new": "    ok = \"undisclosed=0\" in receipt and log is not None"
+      },
+      "fixture": "c1-gate-receipt-met-false",
+      "fixture_build": "c82_defect_queue.build_green_tree over the fixture fleet; after-c1-ledger-gate.txt carries undisclosed=0 phantom=0 ... met=false, so the closed-readiness bit is the only difference from green",
+      "expect": {
+        "pristine": "open=1",
+        "mutant": "open=0"
+      },
+      "verdict": "killed"
+    },
+    {
+      "id": "C2-m2",
+      "counter": "C2",
+      "counter_file": ".ufo/waves/round-82/c82_capture_delta.py",
+      "line": 249,
+      "change": "order conjunct made non-strict (greater-than-equal)",
+      "patch": {
+        "old": "        surface in a_instants and b_instants[surface] > a_instants[surface]",
+        "new": "        surface in a_instants and b_instants[surface] >= a_instants[surface]"
+      },
+      "fixture": "c2-equal-instants",
+      "fixture_build": "c82_capture_delta.build_green with the real tool, record re-generated from the mutated captures; capture A's three fetchedAt values are rewritten to 2026-11-04T12:50:00Z, equal to capture B's, so only strictness separates the pair",
+      "expect": {
+        "pristine": "met=false",
+        "mutant": "met=true"
+      },
+      "verdict": "killed"
+    },
+    {
+      "id": "C2-m4",
+      "counter": "C2",
+      "counter_file": ".ufo/waves/round-82/c82_capture_delta.py",
+      "line": 265,
+      "change": "selftest_ok hard-coded to 1",
+      "patch": {
+        "old": "    flags[\"selftest_ok\"] = int(selftest_ok)",
+        "new": "    flags[\"selftest_ok\"] = 1"
+      },
+      "fixture": "c2-broken-tool-selftest",
+      "fixture_build": "c82_capture_delta.build_green with the real tool; then the fixture's scripts/capture_delta.py has `if args.selftest: return selftest()` replaced by `if args.selftest: return 1`, while its --a/--b path still re-derives the committed record byte-for-byte",
+      "expect": {
+        "pristine": "met=false",
+        "mutant": "met=true"
+      },
+      "verdict": "killed"
+    },
+    {
+      "id": "C2-m5",
+      "counter": "C2",
+      "counter_file": ".ufo/waves/round-82/c82_capture_delta.py",
+      "line": 269,
+      "change": "the flags[\"surfaces_a\"] == 3 conjunct dropped from met",
+      "patch": {
+        "old": "           and flags[\"surfaces_a\"] == 3 and flags[\"surfaces_b\"] == 3",
+        "new": "           and flags[\"surfaces_b\"] == 3"
+      },
+      "fixture": "c2-dropped-a-surface",
+      "fixture_build": "c82_capture_delta.build_green with the real tool, record re-generated; ds4cc-sitemap is removed from capture A (manifest check and directory), leaving A with two of the three declared surfaces",
+      "expect": {
+        "pristine": "met=false",
+        "mutant": "met=false"
+      },
+      "verdict": "equivalent",
+      "guard": {
+        "file": ".ufo/waves/round-82/c82_capture_delta.py",
+        "line": 239,
+        "contains": "flags[\"surfaces_a\"] == flags[\"declared\"]",
+        "also_line": 268,
+        "also_contains": "flags[\"declared\"] == 3",
+        "proof": "receipts_ok is a conjunct of met and re-derives surfaces_a == declared, while declared == 3 is itself a conjunct of met, so every state in which the mutant reads met=true already has surfaces_a == 3: the dropped clause is implied and no fixture can move the predicate"
+      }
+    }
+  ]
+}

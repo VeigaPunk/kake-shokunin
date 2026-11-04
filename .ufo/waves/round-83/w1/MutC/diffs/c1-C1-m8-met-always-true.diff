@@ -1,0 +1,11 @@
+--- c83_defect_queue.py
++++ C1-m8-met-always-true
+@@ -278,7 +278,7 @@
+         print(f"{item} {'closed' if ok else 'open'} {detail}")
+     closed = sum(1 for _item, ok, _detail in rows if ok)
+     open_items = len(rows) - closed
+-    met = open_items == 0
++    met = True
+     print(f"C1v1 revision={label} items={len(rows)} open={open_items} "
+           f"closed={closed} met={'true' if met else 'false'}")
+     return 0 if met else 1

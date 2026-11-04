@@ -1,0 +1,15 @@
+ok   empty-row-unsettled  [settled=1 names=['Bravo'] seats={'Alfa': 0, 'Bravo': 300}]
+ok   floor-199-settled-not-substantive  [settled=1 substantive=0]
+ok   floor-200-substantive  [substantive=1]
+ok   non-ascii-counts-utf8-bytes  [chars=150 output_bytes=300 settled_attack=1]
+ok   attack-share-arithmetic  [requested=4/2 settled=3/1 share=0.3333]
+ok   settled-names-sorted  [settled_names=['Alfa', 'Mike', 'Zulu']]
+ok   seats-one-per-row  [seats=3 bytes_basis='utf-8']
+ok   missing-results-exit-2  [exit=2 out_written=False stderr=error: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kake-r83/ExecAccounting/tmpdir/c83-accounting-selftest-]
+ok   malformed-results-exit-2  [exit=2 out_written=False]
+ok   writes-only-out  [listing=['accounting.json', 'results.json', 'spec.json']]
+ok   deterministic-bytes  [exit=0/0 identical=True]
+ok   usage-exit-64  [exit=64 stderr=error: --results, --out required (or --selftest)]
+ok   help-exit-0  [exit=0]
+selftest: 13/13 passed
+EXIT=0

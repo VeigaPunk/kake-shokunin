@@ -1,0 +1,25 @@
+entry bytes 15184 sha256 947c7f23831a84ea0d037181e1411d895ce0879c5216cc7514c17e0e5ef13511
+rfc bytes 84477 sha256 aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e
+span#01 lines=468-469 raw=True in_span=True occurrences=1 :: When presented with a request, a cache MUST NOT reuse a stored
+span#02 lines=583-585 raw=True in_span=True occurrences=1 :: A "fresh" response is one whose age has not yet exceeded its
+span#03 lines=597-599 raw=True in_span=True occurrences=1 :: When a response is fresh, it can be used to satisfy subsequent
+span#04 lines=594-595 raw=True in_span=True occurrences=1 :: A response's "age" is the time that has passed since it was generated
+span#05 lines=721-724 raw=True in_span=True occurrences=1 :: the cache's estimate of the number of seconds since the origin server
+span#06 lines=340-342 raw=True in_span=True occurrences=1 :: Caches MUST include all received response header fields
+span#07 lines=341 raw=True in_span=True occurrences=1 :: unrecognized ones -- when storing a response
+span#08 lines=342 raw=True in_span=True occurrences=1 :: HTTP header fields can be successfully deployed
+span#09 lines=375-377 raw=True in_span=True occurrences=1 :: When doing so, the cache MUST add each header field in the provided
+span#10 lines=376 raw=True in_span=True occurrences=1 :: response to the stored response, replacing field values that are
+span#11 lines=377 raw=True in_span=True occurrences=1 :: already present, with the following exceptions:
+span#12 lines=387 raw=True in_span=True occurrences=1 :: The Content-Length header field.
+span#13 lines=827-829 raw=True in_span=True occurrences=1 :: The precondition header fields are then compared by recipients to
+span#14 lines=829 raw=True in_span=True occurrences=1 :: representation of the resource.
+span#15 lines=831-834 raw=True in_span=True occurrences=1 :: One such validator is the timestamp given in a Last-Modified header
+span#16 lines=838-844 raw=True in_span=True occurrences=1 :: Another validator is the entity tag given in an ETag field
+span#17 lines=986-988 raw=True in_span=True occurrences=1 :: For each stored response identified, the cache MUST update its header
+span#18 lines=988 raw=True in_span=True occurrences=2 :: response, as per Section 3.2.
+table spans 18 failures 0
+block0 raw=True occurrences=1 lines=340..
+block1 raw=False occurrences=0 lines=-..
+block2 raw=False occurrences=0 lines=-..
+S456 rows 1

@@ -1,0 +1,38 @@
+Fetch receipt — RFC 9111 (kake round 83 wave w1, seat ScoutSources)
+
+Command (one invocation, no retry):
+  curl -sSL --max-time 90 -A 'kake-shokunin-r83-w1-ScoutSources/1.0 (lane kake-shokunin; round 83 wave w1; one GET)' \
+       -o rfc9111.txt -D rfc9111.headers \
+       -w 'HTTP=%{http_code}\nURL_EFFECTIVE=%{url_effective}\nSIZE_DOWNLOAD=%{size_download}\nTIME_TOTAL=%{time_total}\n' \
+       https://www.rfc-editor.org/rfc/rfc9111.txt
+
+Observed:
+  fetch_start_utc   2026-11-04T13:29:41Z
+  fetch_end_utc     2026-11-04T13:29:41Z
+  http_status       200
+  requested_url     https://www.rfc-editor.org/rfc/rfc9111.txt
+  final_url         https://www.rfc-editor.org/rfc/rfc9111.txt   (no redirect)
+  curl_exit         0
+  time_total        0.220934 s
+  size_download     84477
+  retained_bytes    84477
+  sha256            aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e
+  lines             1956 (LF only, no CR)
+  encoding          UTF-8 with BOM (ef bb bf), content-type text/plain;charset=utf-8
+  body              RFC 9111 "HTTP Caching", June 2022, STD 98, obsoletes RFC 7234
+
+Response headers (rfc9111.headers):
+  HTTP/2 200
+  date: Wed, 04 Nov 2026 13:29:41 GMT
+  content-type: text/plain;charset=utf-8
+  access-control-allow-origin: *
+  cache-control: public, max-age=86400
+  etag: W/"f8907618635703edd228aee4aa834eee"
+  link: <https://www.rfc-editor.org/info/rfc9111/>; rel="canonical"
+  cf-r2-served: 1
+  set-cookie: __cf_bm=...     (edge bot-management cookie; origin response, not stored or reused)
+  server: cloudflare
+  cf-ray: a553f80f6d41e0f5-GIG
+  alt-svc: h3=":443"; ma=86400
+
+Note: the response's own ETag is weak (W/"..."), which is S455's ground, not a claim here.

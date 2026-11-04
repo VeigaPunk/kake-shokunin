@@ -1,0 +1,729 @@
+{
+  "c1": {
+    "counter": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-83/c83_defect_queue.py",
+    "mutants": [
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m1-drop-share-conjunct\n@@ -152,7 +152,7 @@\n     if not isinstance(record, dict):\n         return False, \"w1-accounting.json absent or unreadable\"\n     recorded_names = record.get(\"settled_names\")\n-    ok = (derived[\"settled_attack\"] >= 2 and derived[\"settled_share\"] >= 0.25\n+    ok = (derived[\"settled_attack\"] >= 2\n           and record.get(\"settled\") == derived[\"settled\"]\n           and sorted(recorded_names or []) == derived[\"settled_names\"]\n           and record.get(\"settled_attack\") == derived[\"settled_attack\"]\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=9 settled_attack=2 settled_share=0.2222 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "fda48c6e242ee7d3a4b616eda0ba6dcce43bb7c35bde191bee813c06e296243d",
+        "name": "C1-m1-drop-share-conjunct",
+        "patch_new": "derived[\"settled_attack\"] >= 2",
+        "patch_old": "derived[\"settled_attack\"] >= 2 and derived[\"settled_share\"] >= 0.25",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "D1 open settled=9 settled_attack=2 settled_share=0.2222 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "share-0.2222",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m2-ignore-bytes-basis\n@@ -169,8 +169,6 @@\n     record = tree.json(ACCOUNTING)\n     if derived is None or not isinstance(record, dict):\n         return False, detail or \"w1-accounting.json absent\"\n-    if record.get(\"bytes_basis\") != \"utf-8\":\n-        return False, f\"bytes_basis={record.get('bytes_basis')!r}\"\n     recorded = {row.get(\"name\"): row.get(\"output_bytes\")\n                 for row in record.get(\"seats\", []) if isinstance(row, dict)}\n     mismatched = [row[\"name\"] for row in derived[\"seats\"]\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "a9ad5218f617c3be4276d65ec41d2f38c884c5bffdcae3ff0ce2e7f856b081fa",
+        "name": "C1-m2-ignore-bytes-basis",
+        "patch_new": "",
+        "patch_old": "    if record.get(\"bytes_basis\") != \"utf-8\":\n        return False, f\"bytes_basis={record.get('bytes_basis')!r}\"\n",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 open bytes_basis='chars'\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "bytes-basis-chars",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m3-erratum-threshold-one\n@@ -216,7 +216,7 @@\n                if line.startswith(\"-\") and not line.startswith(\"---\") and len(line) > 41]\n     quoted = [line for line in removed if line in lesson]\n     log = line_with(lesson, \"D4\", [after[:8], \"erratum\"])\n-    return len(quoted) >= 4 and log is not None, (\n+    return len(quoted) >= 1 and log is not None, (\n         f\"removed={len(removed)} quoted={len(quoted)} amendment={after[:8]} \"\n         f\"log={'yes' if log else 'no'}\")\n \n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=2 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "e69cd959a758c2818c78d4faeb7a026f079efffd1c0a8248b6db589d565dd15c",
+        "name": "C1-m3-erratum-threshold-one",
+        "patch_new": "return len(quoted) >= 1 and log is not None, (",
+        "patch_old": "return len(quoted) >= 4 and log is not None, (",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 open removed=4 quoted=2 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "erratum-two-quotes",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m4-drop-bound-equals-population\n@@ -192,8 +192,7 @@\n     if line is None:\n         return False, \"no C2v1 revision line\"\n     fields = dict(re.findall(r\"(\\w+)=(\\S+)\", line))\n-    ok = (fields.get(\"bound\") == fields.get(\"population\")\n-          and fields.get(\"mismatches\") == \"0\" and fields.get(\"met\") == \"true\")\n+    ok = (fields.get(\"mismatches\") == \"0\" and fields.get(\"met\") == \"true\")\n     log = line_with(lesson, \"D3\", [\"after-c83-instrument-check.txt\", \"--check\"])\n     return ok and log is not None, (\n         f\"bound={fields.get('bound')} population={fields.get('population')} \"\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=29 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "055c9c23814efc8bfdbb0d563a7ea7c10a08bb6422e3ca7547bf83376d4b16c6",
+        "name": "C1-m4-drop-bound-equals-population",
+        "patch_new": "    ok = (fields.get(\"mismatches\") == \"0\" and fields.get(\"met\") == \"true\")",
+        "patch_old": "    ok = (fields.get(\"bound\") == fields.get(\"population\")\n          and fields.get(\"mismatches\") == \"0\" and fields.get(\"met\") == \"true\")",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 open bound=29 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "d3-bound-differs",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m5-drop-attack-floor\n@@ -152,7 +152,7 @@\n     if not isinstance(record, dict):\n         return False, \"w1-accounting.json absent or unreadable\"\n     recorded_names = record.get(\"settled_names\")\n-    ok = (derived[\"settled_attack\"] >= 2 and derived[\"settled_share\"] >= 0.25\n+    ok = (derived[\"settled_share\"] >= 0.25\n           and record.get(\"settled\") == derived[\"settled\"]\n           and sorted(recorded_names or []) == derived[\"settled_names\"]\n           and record.get(\"settled_attack\") == derived[\"settled_attack\"]\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=1 settled_share=0.25 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "ea9aeb65498398d7a1bbc24c718517d93ada56ecaac18a40946b9dc5d0a26358",
+        "name": "C1-m5-drop-attack-floor",
+        "patch_new": "derived[\"settled_share\"] >= 0.25",
+        "patch_old": "derived[\"settled_attack\"] >= 2 and derived[\"settled_share\"] >= 0.25",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "D1 open settled=4 settled_attack=1 settled_share=0.25 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "attack-floor-one",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m6-drop-killer-row-check\n@@ -232,7 +232,7 @@\n     tail = out.strip().splitlines()[-1] if out.strip() else \"\"\n     rows_ok = all(any(name in line and (\"killed\" in line or \"equivalent\" in line)\n                       for line in out.splitlines()) for name in KILLER_NAMES)\n-    ok = proc.returncode == 0 and \"distinguished=5/5\" in out and rows_ok\n+    ok = proc.returncode == 0 and \"distinguished=5/5\" in out\n     log = line_with(lesson, \"D5\", [\"distinguished=5/5\", *KILLER_NAMES])\n     return ok and log is not None, (\n         f\"rc={proc.returncode} tail={tail[:60]!r} rows={'yes' if rows_ok else 'no'} \"\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=no log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "7579bc0e0044ad42b5829b1bd26315b5b1ad79c86ace060b0c3ca6605f174324",
+        "name": "C1-m6-drop-killer-row-check",
+        "patch_new": "    ok = proc.returncode == 0 and \"distinguished=5/5\" in out",
+        "patch_old": "    ok = proc.returncode == 0 and \"distinguished=5/5\" in out and rows_ok",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 open rc=0 tail='distinguished=5/5' rows=no log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "killer-rows-missing",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m7-count-chars-not-utf8-bytes\n@@ -127,7 +127,7 @@\n         if not isinstance(row, dict) or not isinstance(row.get(\"name\"), str):\n             continue\n         output = row.get(\"output\") or \"\"\n-        size = len(output.encode(\"utf-8\")) if isinstance(output, str) else 0\n+        size = len(output) if isinstance(output, str) else 0\n         seats.append({\"name\": row[\"name\"], \"role\": roles.get(row[\"name\"], \"\"),\n                       \"output_bytes\": size})\n         if size > 0:\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 open mismatched=['Alfa', 'Bravo', 'Charlie'] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "32a88e7a034515c0a368928f45368e6f5c68db69945eeaf5c2ccaca27df54130",
+        "name": "C1-m7-count-chars-not-utf8-bytes",
+        "patch_new": "        size = len(output) if isinstance(output, str) else 0",
+        "patch_old": "        size = len(output.encode(\"utf-8\")) if isinstance(output, str) else 0",
+        "pristine_fixture": {
+          "rc": 0,
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "multibyte-bytes",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m8-met-always-true\n@@ -278,7 +278,7 @@\n         print(f\"{item} {'closed' if ok else 'open'} {detail}\")\n     closed = sum(1 for _item, ok, _detail in rows if ok)\n     open_items = len(rows) - closed\n-    met = open_items == 0\n+    met = True\n     print(f\"C1v1 revision={label} items={len(rows)} open={open_items} \"\n           f\"closed={closed} met={'true' if met else 'false'}\")\n     return 0 if met else 1\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 open spec or results absent/unreadable\nD2 open spec or results absent/unreadable\nD3 open after-c83-instrument-check.txt absent\nD4 open removed=4 quoted=0 amendment=bdc9efa6 log=no\nD5 open run_killers.py absent\nD6 open criterion=no log=no\nC1v1 revision=worktree items=6 open=6 closed=0 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=6 closed=0 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "11627100531901f4e1e076b05e0b17a37978b9244df9bb2baca0584ec6aa90ee",
+        "name": "C1-m8-met-always-true",
+        "patch_new": "    met = True",
+        "patch_old": "    met = open_items == 0",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "D1 open spec or results absent/unreadable\nD2 open spec or results absent/unreadable\nD3 open after-c83-instrument-check.txt absent\nD4 open removed=4 quoted=0 amendment=bdc9efa6 log=no\nD5 open run_killers.py absent\nD6 open criterion=no log=no\nC1v1 revision=worktree items=6 open=6 closed=0 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=6 closed=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "junk-prose-only",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_defect_queue.py\n+++ C1-m0-comment-only-control\n@@ -1,4 +1,5 @@\n #!/usr/bin/env python3\n+# mutc harness control: comment only, no behaviour change\n \"\"\"Round-83 C1 counter \u2014 the round-82 routed-defect queue (kake, calibration).\n \n The non-author round-82 closure (`corpus/lessons/round-82-verifier-spotcheck.md`\n",
+        "fixture_killed": false,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "930be4ddb525531b36974e2323d001580e048122e4b5a2bdf852c16d8f209d02",
+        "name": "C1-m0-comment-only-control",
+        "patch_new": "#!/usr/bin/env python3\n# mutc harness control: comment only, no behaviour change",
+        "patch_old": "#!/usr/bin/env python3",
+        "pristine_fixture": {
+          "rc": 0,
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "green",
+        "verdict": "survived"
+      }
+    ],
+    "pristine": {
+      "fixtures": {
+        "attack-floor-one": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "D1 open settled=4 settled_attack=1 settled_share=0.25 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false",
+          "tree_sha256": "09abc02def8844d7cfa86dd58e06193eb29368e9cf0069e76a20d7c6bc1b4a76"
+        },
+        "bytes-basis-chars": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 open bytes_basis='chars'\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false",
+          "tree_sha256": "889f1f0a80acaa3f382434fe6c45df5b9d2287d6ee112939c483a419acafd5b9"
+        },
+        "d3-bound-differs": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 open bound=29 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false",
+          "tree_sha256": "1304d26a9f027028c4d07d697ee94a4e1898343cedc090fe21a1dab8e4625d57"
+        },
+        "erratum-two-quotes": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 open removed=4 quoted=2 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false",
+          "tree_sha256": "28c13fd2f1929fba9f43dedac2cfa32fc562097d3e6c47733e1e6a68994fe97b"
+        },
+        "green": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true",
+          "tree_sha256": "262d66fb823cd72566b01019fe666d0fce96a73a1194a945c82e073e6ae2cf48"
+        },
+        "junk-prose-only": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "D1 open spec or results absent/unreadable\nD2 open spec or results absent/unreadable\nD3 open after-c83-instrument-check.txt absent\nD4 open removed=4 quoted=0 amendment=bdc9efa6 log=no\nD5 open run_killers.py absent\nD6 open criterion=no log=no\nC1v1 revision=worktree items=6 open=6 closed=0 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=6 closed=0 met=false",
+          "tree_sha256": "8cb4be9aa221a158abf09f85e3ab7e9cfd9e29f08532dae7e4d60748fbb1ea42"
+        },
+        "killer-rows-missing": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 open rc=0 tail='distinguished=5/5' rows=no log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false",
+          "tree_sha256": "69b0b0e74f313e9facc7d95678f94527303ab39ec4c3325532378bb757229efb"
+        },
+        "multibyte-bytes": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "D1 closed settled=4 settled_attack=2 settled_share=0.5 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=0 closed=6 met=true\n",
+          "tail": "C1v1 revision=worktree items=6 open=0 closed=6 met=true",
+          "tree_sha256": "d9e87584d00d3cddaca99f9b564a7e4ee0792ee1e91b34b3a69aa163cc1c4e3b"
+        },
+        "share-0.2222": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "D1 open settled=9 settled_attack=2 settled_share=0.2222 record=ok log=yes\nD2 closed mismatched=[] log=yes\nD3 closed bound=30 population=30 mismatches=0 met=true log=yes\nD4 closed removed=4 quoted=4 amendment=bdc9efa6 log=yes\nD5 closed rc=0 tail='distinguished=5/5' rows=yes log=yes\nD6 closed criterion=yes log=yes\nC1v1 revision=worktree items=6 open=1 closed=5 met=false\n",
+          "tail": "C1v1 revision=worktree items=6 open=1 closed=5 met=false",
+          "tree_sha256": "5787f725501b682cd369afa077fb46c5c21387ed2bc647056cb24be7651f3e95"
+        }
+      },
+      "selftest": {
+        "green": true,
+        "rc": 0,
+        "stderr": "",
+        "tail": "selftest: 9/9 passed"
+      }
+    },
+    "sha256": "9fdfe84fc80c2218754ef486c4a9b5ee7f8621da7c9bc1ade9f13d8e1e3a985a"
+  },
+  "c2": {
+    "counter": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-83/c83_drift_class.py",
+    "mutants": [
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m1-tool-offline-always-true\n@@ -211,7 +211,7 @@\n     if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant) \\\n             and isinstance(body[0].value.value, str):\n         source = source.replace(body[0].value.value, \"\")\n-    return NETWORK.search(source) is None\n+    return True\n \n \n def measure(root: Path, work: Path) -> tuple[dict, dict]:\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 1,
+          "stderr_tail": [],
+          "tail": "selftest: 8/9 passed"
+        },
+        "mutated_sha256": "b498dcc533b6fdbb4a94159d24857b1bf2d72e13a1e6048fadaef822812c687d",
+        "name": "C2-m1-tool-offline-always-true",
+        "patch_new": "    return True",
+        "patch_old": "    return NETWORK.search(source) is None",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=0 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=0 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": true,
+        "tree_identical": true,
+        "variant": "tool-imports-socket",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m2-control-ok-hardcoded\n@@ -275,7 +275,7 @@\n         info[\"control\"] = f\"verdict={ctl_verdict} validator={ctl_totals['validator']}\"\n     else:\n         info[\"control\"] = \"missing or unverifiable\"\n-    flags[\"control_ok\"] = control_ok\n+    flags[\"control_ok\"] = 1\n \n     flags[\"tool_offline\"] = int(tool_offline(root))\n     proc = subprocess.run([sys.executable, \"-B\", str(root / TOOL), \"--selftest\",\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=same-object validator=0\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 1,
+          "stderr_tail": [],
+          "tail": "selftest: 8/9 passed"
+        },
+        "mutated_sha256": "f89efea6aa02b39ebbc19dd6da563b9ceeae7712eb00cfba9703adb2d0860d44",
+        "name": "C2-m2-control-ok-hardcoded",
+        "patch_new": "    flags[\"control_ok\"] = 1",
+        "patch_old": "    flags[\"control_ok\"] = control_ok",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=0 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=same-object validator=0\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=0 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": true,
+        "tree_identical": true,
+        "variant": "control-pair-identical",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m3-validator-as-per-request\n@@ -82,7 +82,7 @@\n     if lowered in PER_REQUEST:\n         return \"per-request\"\n     if lowered in VALIDATOR:\n-        return \"validator\"\n+        return \"per-request\"\n     if lowered in REPRESENTATION:\n         return \"representation\"\n     if lowered in POLICY:\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=0 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=0\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=0 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "mutant_selftest": {
+          "rc": 1,
+          "stderr_tail": [],
+          "tail": "selftest: 8/9 passed"
+        },
+        "mutated_sha256": "90490edb3e4be5c216179a6643ac2cd4bd8ddf1f9b484f786e4da4a7f9015d08",
+        "name": "C2-m3-validator-as-per-request",
+        "patch_new": "    if lowered in VALIDATOR:\n        return \"per-request\"",
+        "patch_old": "    if lowered in VALIDATOR:\n        return \"validator\"",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=1 representation=0 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=1 representation=0 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": true,
+        "tree_identical": true,
+        "variant": "etag-only-change",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m4-drop-diffs-positive\n@@ -286,7 +286,7 @@\n \n     flags[\"met\"] = (flags[\"declared\"] == 3 and flags[\"surfaces_a\"] == 3\n                     and flags[\"surfaces_b\"] == 3 and flags[\"receipts_ok\"] == 1\n-                    and isinstance(flags[\"diffs\"], int) and flags[\"diffs\"] > 0\n+                    and isinstance(flags[\"diffs\"], int)\n                     and flags[\"validator\"] == 0 and flags[\"representation\"] == 0\n                     and flags[\"unknown\"] == 0 and flags[\"verdict\"] == \"same-object\"\n                     and flags[\"record_equal\"] == 1 and flags[\"determinism\"] == 1\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "2a049f0c2e0b8c87147c395b58e12553cc0bbfc70b3c467db1abcca7736b997c",
+        "name": "C2-m4-drop-diffs-positive",
+        "patch_new": "                    and isinstance(flags[\"diffs\"], int)",
+        "patch_old": "                    and isinstance(flags[\"diffs\"], int) and flags[\"diffs\"] > 0",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "captures-identical",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m5-record-equal-weakened\n@@ -255,8 +255,7 @@\n     flags[\"determinism\"] = int(rc1 == 0 and rc2 == 0 and out1 == out2)\n     record_path = root / RECORD\n     record = record_path.read_bytes() if record_path.is_file() else None\n-    flags[\"record_equal\"] = int(record is not None and rc1 == 0\n-                                and record.rstrip(b\"\\n\") == out1.rstrip(b\"\\n\"))\n+    flags[\"record_equal\"] = int(rc1 == 0)\n \n     ctl_ok_a, ctl_a, _ = tree_receipts(root, CONTROL_A, declared)\n     ctl_ok_b, ctl_b, _ = tree_receipts(root, CONTROL_B, declared)\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 1,
+          "stderr_tail": [],
+          "tail": "selftest: 8/9 passed"
+        },
+        "mutated_sha256": "7a5f20d829ddb9494ea1f7dc87c8da8f97e9d9abf9b714d160d75024708c40ef",
+        "name": "C2-m5-record-equal-weakened",
+        "patch_new": "    flags[\"record_equal\"] = int(rc1 == 0)",
+        "patch_old": "    flags[\"record_equal\"] = int(record is not None and rc1 == 0\n                                and record.rstrip(b\"\\n\") == out1.rstrip(b\"\\n\"))",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=0 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=0 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": true,
+        "tree_identical": true,
+        "variant": "record-wrong",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m6-content-length-as-per-request\n@@ -79,7 +79,7 @@\n \n def header_class(name: str) -> str:\n     lowered = name.strip().lower()\n-    if lowered in PER_REQUEST:\n+    if lowered in PER_REQUEST or lowered == \"content-length\":\n         return \"per-request\"\n     if lowered in VALIDATOR:\n         return \"validator\"\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "b0b8d59cea698d63e980aed8b4430e684caf9f6b354387190daa13067eda274c",
+        "name": "C2-m6-content-length-as-per-request",
+        "patch_new": "    if lowered in PER_REQUEST or lowered == \"content-length\":\n        return \"per-request\"",
+        "patch_old": "    if lowered in PER_REQUEST:\n        return \"per-request\"",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=1 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=1 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "content-length-change",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m7-accept-truncated-receipt\n@@ -139,8 +139,6 @@\n     digest = hashlib.sha256(body).hexdigest()\n     if receipt.get(\"sha256\") != digest:\n         return None, \"body sha256 mismatch\"\n-    if receipt.get(\"truncated\") is not False:\n-        return None, \"truncated or silent\"\n     headers = receipt.get(\"headers\")\n     if not isinstance(headers, list):\n         return None, \"headers is not a list\"\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=0 determinism=0 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=0 determinism=0 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "ffe96d8705df7ad3670f33f00d9aee1c2014ac0c5baff28616191ff794d0ab41",
+        "name": "C2-m7-accept-truncated-receipt",
+        "patch_new": "",
+        "patch_old": "    if receipt.get(\"truncated\") is not False:\n        return None, \"truncated or silent\"\n",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=2 receipts_ok=0 diffs=4 validator=0 representation=0 unknown=0 verdict=none record_equal=0 determinism=0 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# problems=['s1: truncated or silent']\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=2 receipts_ok=0 diffs=4 validator=0 representation=0 unknown=0 verdict=none record_equal=0 determinism=0 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "receipt-truncated",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m8-met-always-true\n@@ -284,7 +284,7 @@\n     flags[\"selftest_ok\"] = int(proc.returncode == 0 and b\"selftest:\" in proc.stdout)\n     info[\"selftest\"] = proc.stdout.decode(\"utf-8\", \"replace\").strip().splitlines()[-1:] or [\"\"]\n \n-    flags[\"met\"] = (flags[\"declared\"] == 3 and flags[\"surfaces_a\"] == 3\n+    flags[\"met\"] = True or (flags[\"declared\"] == 3 and flags[\"surfaces_a\"] == 3\n                     and flags[\"surfaces_b\"] == 3 and flags[\"receipts_ok\"] == 1\n                     and isinstance(flags[\"diffs\"], int) and flags[\"diffs\"] > 0\n                     and flags[\"validator\"] == 0 and flags[\"representation\"] == 0\n",
+        "fixture_killed": true,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 1,
+          "stderr_tail": [],
+          "tail": "selftest: 1/9 passed"
+        },
+        "mutated_sha256": "545c27321b0c8e0d3532d6a5d0a1f9e1b327703a413808de210bc0ef2d58688c",
+        "name": "C2-m8-met-always-true",
+        "patch_new": "    flags[\"met\"] = True or (flags[\"declared\"] == 3 and flags[\"surfaces_a\"] == 3",
+        "patch_old": "    flags[\"met\"] = (flags[\"declared\"] == 3 and flags[\"surfaces_a\"] == 3",
+        "pristine_fixture": {
+          "rc": 1,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": true,
+        "tree_identical": true,
+        "variant": "captures-identical",
+        "verdict": "killed"
+      },
+      {
+        "diff": "--- c83_drift_class.py\n+++ C2-m0-comment-only-control\n@@ -1,4 +1,5 @@\n #!/usr/bin/env python3\n+# mutc harness control: comment only, no behaviour change\n \"\"\"Round-83 C2 counter \u2014 header-change classification of the drift gate (kake, freshness).\n \n Decides, from committed lane bytes, whether the lane classifies every header\n",
+        "fixture_killed": false,
+        "mutant_fixture": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true"
+        },
+        "mutant_selftest": {
+          "rc": 0,
+          "stderr_tail": [],
+          "tail": "selftest: 9/9 passed"
+        },
+        "mutated_sha256": "db06f2d3be8f14416c1dfb1c45871e8ffb7738dd8ee4849b849b35faf2ba9f9b",
+        "name": "C2-m0-comment-only-control",
+        "patch_new": "#!/usr/bin/env python3\n# mutc harness control: comment only, no behaviour change",
+        "patch_old": "#!/usr/bin/env python3",
+        "pristine_fixture": {
+          "rc": 0,
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true"
+        },
+        "pristine_selftest": {
+          "rc": 0,
+          "tail": "selftest: 9/9 passed"
+        },
+        "selftest_killed": false,
+        "tree_identical": true,
+        "variant": "green",
+        "verdict": "survived"
+      }
+    ],
+    "pristine": {
+      "fixtures": {
+        "captures-identical": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=0 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false",
+          "tree_sha256": "4e38c5b0633fe3adc9ff0a86f6c1a7c1a502f107439ad8aac7ea8e3dbf558e84"
+        },
+        "content-length-change": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=1 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=0 representation=1 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false",
+          "tree_sha256": "dd8d75f4b0a5de7719a77e21183214975cd97ddb80a68d89efee161b90307cab"
+        },
+        "control-pair-identical": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=0 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=same-object validator=0\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=0 tool_offline=1 selftest_ok=1 tool_absent=0 met=false",
+          "tree_sha256": "73ae0407a7417e38057d805ef471b6e85ab5d02257760cf206ddb5b98940aa01"
+        },
+        "etag-only-change": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=1 representation=0 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=7 validator=1 representation=0 unknown=0 verdict=representation-changed record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false",
+          "tree_sha256": "463672d79c71b625fa70501643f6ee0ad55fc3e89a230ab020e3e504ead1b944"
+        },
+        "green": {
+          "rc": 0,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=true",
+          "tree_sha256": "1996976988bbdc00523ee7812fa64482389cff47f3670cf244884bcac2d466ad"
+        },
+        "receipt-truncated": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=2 receipts_ok=0 diffs=4 validator=0 representation=0 unknown=0 verdict=none record_equal=0 determinism=0 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# problems=['s1: truncated or silent']\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=2 receipts_ok=0 diffs=4 validator=0 representation=0 unknown=0 verdict=none record_equal=0 determinism=0 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false",
+          "tree_sha256": "72fcaa14d5fb24a518b2bcce6775d831919a88f5864a98a7c30a07c65bff00c9"
+        },
+        "record-wrong": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=0 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=0 determinism=1 control_ok=1 tool_offline=1 selftest_ok=1 tool_absent=0 met=false",
+          "tree_sha256": "f12eeb0b74937233fa6bd46b9591f2cfd37c68c8ac7ef426733c54d23ac72cc3"
+        },
+        "tool-imports-socket": {
+          "rc": 1,
+          "stderr": "",
+          "stdout": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=0 selftest_ok=1 tool_absent=0 met=false\n# control=verdict=representation-changed validator=3\n",
+          "tail": "C2v1 revision=worktree declared=3 surfaces_a=3 surfaces_b=3 receipts_ok=1 diffs=6 validator=0 representation=0 unknown=0 verdict=same-object record_equal=1 determinism=1 control_ok=1 tool_offline=0 selftest_ok=1 tool_absent=0 met=false",
+          "tree_sha256": "6b89c630fa1c2f1da4778d232d6ef9363fa777fc267b0d87cf74c5f1d2c2dd98"
+        }
+      },
+      "selftest": {
+        "green": true,
+        "rc": 0,
+        "stderr": "",
+        "tail": "selftest: 9/9 passed"
+      }
+    },
+    "sha256": "f7bcaeb1abe9acc92f238a2355a4244fa1fac478a001e1fe6d1be919bfb76c0f"
+  }
+}
