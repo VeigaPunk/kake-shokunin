@@ -2666,6 +2666,7 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   `--tool-revision` option injection); ReviewC2 F3/F4 (RFC 822 branch pinned only by the selftest, date-only
   `<updated>` accepted); no feed entry-count rule (A8); the freshness sweep's single `~/projects` drift
   (open L0 `kake | round-69`).
+- **Self-check at the tip.** `python3 -B scripts/doc_quote_truth.py --root . --revision b946acf9 --base a2cc5f51 --rounds 76,77` prints `C1v2 revision=b946acf9 rows=38 receipt_files=8269 spans=58 exempted=0 corrections=2 findings=0 met=true`, exit 0 — every claim-bearing span this round added is a whole receipt line, and the round-76 correction rows still close their spans (`controls/sources-r77.txt` and `controls/carrier-supersession.txt` carry the digest and intermediate-commit evidence the lesson quotes).
 - **Not done this round.** No publish or deploy; network reads were three public documentation GETs (each
   HTTP 200, retained under the wave dir); no operator-owned property fetched; no MANIFEST edit; no tool
   installed or upgraded; pacman untouched.
