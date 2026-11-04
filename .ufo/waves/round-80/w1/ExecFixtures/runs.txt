@@ -1,0 +1,97 @@
+# ExecFixtures retained run evidence — 2026-11-04 (kake round-80 w1)
+
+## Run 1 (canonical) — command, verbatim
+
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/c80_ledger_fixtures.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --json
+(cwd /home/vgpnk/Projects/shokunin — a foreign cwd, matching how c80_defect_queue.py::p_r79_4
+invokes the harness with cwd=<work> and --root=<tree>)
+
+-- stderr (verbatim) --
+fixture wrong_kind: killed rc=1 C1v2 revision=5ec3da12e81a60d12509ce48d67411105a96ebf4 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=1 unpointed=0 symlinks=0 round_rewritten=0 met=false
+fixture cheap_note: killed rc=1 C1v2 revision=e6e5f80bf76daa3945d39d65a2e5d03734014d50 events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+fixture symlinks: killed rc=1 C1v2 revision=c02c0d82fb8671774d17e62c79d31905f0af4fc2 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=1 round_rewritten=0 met=false
+
+-- stdout (verbatim; identical bytes are reproduced in
+.ufo/waves/round-80/controls/c80-cheap-note.txt) --
+{
+ "schema": "kake-r80-ledger-fixtures-v1",
+ "root": "/home/vgpnk/Projects/shokunin/kake-shokunin",
+ "counter": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-79/c79_receipt_ledger.py",
+ "counter_sha256": "98b7c13729578c79b6ac2085576e2e61d425f818a0aec5c1449c27a59eb0a195",
+ "scratch": "/fast/scratch/hyaku/kake-r80/ExecFixtures/run-iw8iukec",
+ "fixtures": {
+  "wrong_kind": {
+   "revision": "5ec3da12e81a60d12509ce48d67411105a96ebf4",
+   "counter_exit": 1,
+   "raw": "C1v2 revision=5ec3da12e81a60d12509ce48d67411105a96ebf4 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=1 unpointed=0 symlinks=0 round_rewritten=0 met=false\nexit=1\n",
+   "summary": "C1v2 revision=5ec3da12e81a60d12509ce48d67411105a96ebf4 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=1 unpointed=0 symlinks=0 round_rewritten=0 met=false",
+   "stderr": "",
+   "json_exit": 1,
+   "json_revision": "5ec3da12e81a60d12509ce48d67411105a96ebf4",
+   "undisclosed": 0, "phantom": 0, "malformed": 0, "wrong_kind": 1, "unpointed": 0,
+   "symlinks": 0, "round_rewritten": 0, "events": 1, "met": false,
+   "ledger_red": true, "killed": true
+  },
+  "cheap_note": {
+   "revision": "e6e5f80bf76daa3945d39d65a2e5d03734014d50",
+   "counter_exit": 1,
+   "raw": "C1v2 revision=e6e5f80bf76daa3945d39d65a2e5d03734014d50 events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false\nexit=1\n",
+   "summary": "C1v2 revision=e6e5f80bf76daa3945d39d65a2e5d03734014d50 events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false",
+   "stderr": "",
+   "json_exit": 1,
+   "json_revision": "e6e5f80bf76daa3945d39d65a2e5d03734014d50",
+   "undisclosed": 1, "phantom": 0, "malformed": 1, "wrong_kind": 0, "unpointed": 0,
+   "symlinks": 0, "round_rewritten": 0, "events": 1, "met": false,
+   "ledger_red": true, "killed": true
+  },
+  "symlinks": {
+   "revision": "c02c0d82fb8671774d17e62c79d31905f0af4fc2",
+   "counter_exit": 1,
+   "raw": "C1v2 revision=c02c0d82fb8671774d17e62c79d31905f0af4fc2 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=1 round_rewritten=0 met=false\nexit=1\n",
+   "summary": "C1v2 revision=c02c0d82fb8671774d17e62c79d31905f0af4fc2 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=1 round_rewritten=0 met=false",
+   "stderr": "",
+   "json_exit": 1,
+   "json_revision": "c02c0d82fb8671774d17e62c79d31905f0af4fc2",
+   "undisclosed": 0, "phantom": 0, "malformed": 0, "wrong_kind": 0, "unpointed": 0,
+   "symlinks": 1, "round_rewritten": 0, "events": 1, "met": false,
+   "ledger_red": true, "killed": true
+  }
+ },
+ "killed": 3
+}
+exit code: 0
+
+## Run 2 (carrier simulation) — the C1 counter's export-tree shape
+
+The C1 counter materialises EXPORT_PATHS into a bare tree (no .git, no round-79 files) and runs
+the harness from it. Simulated exactly: harness copied to
+/fast/scratch/hyaku/kake-r80/ExecFixtures/carrier-sim/tree/.ufo/waves/round-80/, invoked with
+--root pointing at that tree:
+
+$ python3 -B .../carrier-sim/tree/.ufo/waves/round-80/c80_ledger_fixtures.py --root .../carrier-sim/tree --json
+
+counter used = /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-79/c79_receipt_ledger.py   (LANE fallback — root copy absent)
+killed = 3
+exit code: 0
+
+## Counter engine integrity
+
+$ git -C /home/vgpnk/Projects/shokunin/kake-shokunin diff --stat 9998dc7a586b9fe76379014c8123aa3606f2d8b9 HEAD -- .ufo/waves/round-79/c79_receipt_ledger.py .ufo/waves/round-58/c58_receipt_rewrites.py
+(empty output, rc=0 — unchanged since the round-80 base)
+$ git -C /home/vgpnk/Projects/shokunin/kake-shokunin diff --stat f20163c1e98cefa863931a5241bae76c8d0af6c1 HEAD -- <same two paths>
+(empty output, rc=0 — unchanged since the round-80 freeze)
+sha256:
+98b7c13729578c79b6ac2085576e2e61d425f818a0aec5c1449c27a59eb0a195  .ufo/waves/round-79/c79_receipt_ledger.py
+3f52040a8a6d7833975e9f8c98a6752692fd6f0cffd001a96b028283ae926c2d  .ufo/waves/round-58/c58_receipt_rewrites.py
+
+$ TMPDIR=/fast/scratch/hyaku/kake-r80/ExecFixtures/selftest python3 -B .ufo/waves/round-79/c79_receipt_ledger.py --selftest
+selftest: 15/15 passed
+exit code: 0
+
+## Earlier debugging runs (disclosed, not evidence)
+
+Run 0a rc=2: builders lacked the "b\n" rewrite step before the c2 commit (git commit had nothing
+staged) — fixed; Run 0b rc=1 killed=2: cheap_note's killed predicate incorrectly required
+malformed=0 while the mechanism co-fires malformed=1 — fixed. One edit-tool call reported
+"could not find a close enough match" yet the replacement landed; the file was re-read in full
+and re-run twice green afterwards (mtime 08:02:29), so the shipped bytes are the verified ones.
