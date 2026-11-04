@@ -14,9 +14,13 @@ the canonical planner seat (the validator rejects `planner` as a swarm role);
 a bounded planning data-walk rides `ScoutVary`.
 
 Freeze history: v1 froze the C1 counter, the 20-case set and the three base
-blobs. v2 (this commit, still before any seat ran and before any production
-byte changed) adds the seeded 200-input differential population to the C2
-counter and restates C2's target; no C1 item, case, threshold or control moved.
+blobs. v2 (before any production byte changed) added the seeded 200-input
+differential population to the C2 counter and restated C2's target. v3 (still
+before any candidate was scored and before any production byte changed) fixes
+the reference implementation's error precedence: input validation now runs
+before the wildcard rule, so a malformed header map is refused even when the
+Vary value contains `*` (the v2 reference returned `mismatch` there). No item,
+case, threshold, control or target moved.
 
 ## C1 — calibration (lowest owned axis, 2 HOLD): the three routed r87 defects
 
@@ -79,7 +83,7 @@ Kill rule: any shortfall at the carrier is a miss; the case set, the seed, the
 generator and the reference are not edited after scoring; there is no partial
 credit and no target narrowing.
 Controls committed: constant-`match` stub `7/20 + 67/200`, constant-`mismatch`
-stub `9/20 + 112/200`, always-`invalid` stub `4/20 + 21/200`
+stub `9/20 + 109/200`, always-`invalid` stub `4/20 + 24/200`
 (`controls/ctl-c2-constant-*.txt`), counter selftest 17/17 including those
 scores, the reference-vs-frozen agreement and a silent-failure stub at 0/20.
 
@@ -91,6 +95,8 @@ one it does not; any `*` member always fails. It never applies field-specific
 normalization (no value case-folding, no reordering, no internal whitespace
 folding), so a `match` verdict is always produced by transformations §4.1
 permits while a `mismatch` may be more conservative than a field-specific rule.
+Adapter precedence is declared: input validation runs before the wildcard rule,
+so a malformed header map is refused even when the Vary value contains `*`.
 Not claimed: cache-key construction, storage, revalidation, freshness, serving
 or any browser behaviour; no live surface is asserted clean.
 

@@ -60,9 +60,6 @@ def reference(vary, stored, presented):
             names.append(m.lower())
         else:
             return 'invalid'
-    if star:
-        return 'mismatch'
-
     def normalise(side):
         if not isinstance(side, dict):
             return None
@@ -84,6 +81,8 @@ def reference(vary, stored, presented):
     a, b = normalise(stored), normalise(presented)
     if a is None or b is None:
         return 'invalid'
+    if star:
+        return 'mismatch'          # input validation precedes the wildcard rule
     for name in set(names):
         left, right = a.get(name), b.get(name)
         if left is None and right is None:
