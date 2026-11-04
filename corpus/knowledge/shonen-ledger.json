@@ -1,150 +1,198 @@
 {
-  "schema": "shonen-ledger/v1",
-  "checklist": "SHONEN.md",
-  "counter": ".ufo/waves/round-77/c77_shonen_ledger.py",
-  "predicate": "met  <=>  boxes == 4  and  unexamined == 0  and  mismatches == 0",
-  "derived-at": "a2cc5f51002433e11cc3d2f70e650a6c60ad5e68",
-  "derivation": "Checks are declarations, never executables (amendment 2 A2): each names a counter-implemented kind and measure, and the counter re-derives `observed` from committed bytes at --revision (git show <rev>:<path>) and compares it exactly (A3). `derived-at` records the revision these values were first measured at and is not a gate; the box scopes are the frozen ones of amendment 1 A11.",
-  "population-notation": {
-    "shape": "Every row carries a `population` object: {\"kind\":\"file\",\"path\":<repo-relative file>,\"count\":<1 if the file exists at the measured revision, else 0>} or {\"kind\":\"files\",\"dir\":<repo-relative dir>,\"suffix\":<name suffix>,\"exclude\":[<basename glob patterns>],\"count\":<n>}.",
-    "rule": "Population = the surface the row's checks actually scan, derived from committed bytes at the measured revision. `.ufo/waves/round-78/c78_shonen_population.py` re-derives `count` (`git cat-file -e` for kind file; `git ls-tree -r` plus suffix/exclude for kind files) and a declared count that differs is `stale_populations`, which fails C1. Population sizes are exact at the measured revision, not floors; each row note carries the measurement provenance (round-77 record, base, carrier).",
-    "grading": "Recorded `observed` values are graded by the measure's shape: a `count_at_least` observation is a dated floor measured at a named revision (growth is tolerated and recorded in the row note as the dated measurement; shrinkage is a floor violation), while every other check kind must re-derive exactly (amendment 2 A3).",
-    "measured-at": "all four rows re-derived at the base fe50945399a386b48678b1f2051fdbe8a77b10bd and at the round-78 carrier; the round-77 record a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 is cited in a row note where a value moved."
-  },
-  "rows": [
+ "schema": "shonen-ledger/v1",
+ "checklist": "SHONEN.md",
+ "counter": ".ufo/waves/round-77/c77_shonen_ledger.py",
+ "predicate": "met  <=>  boxes == 4  and  unexamined == 0  and  mismatches == 0",
+ "derived-at": "a2cc5f51002433e11cc3d2f70e650a6c60ad5e68",
+ "derivation": "Checks are declarations, never executables (amendment 2 A2): each names a counter-implemented kind and measure, and the counter re-derives `observed` from committed bytes at --revision (git show <rev>:<path>) and compares it exactly (A3). `derived-at` records the revision these values were first measured at and is not a gate; the box scopes are the frozen ones of amendment 1 A11.",
+ "population-notation": {
+  "shape": "Every row carries a `population` object: {\"kind\":\"file\",\"path\":<repo-relative file>,\"count\":<1 if the file exists at the measured revision, else 0>} or {\"kind\":\"files\",\"dir\":<repo-relative dir>,\"suffix\":<name suffix>,\"exclude\":[<basename glob patterns>],\"count\":<n>}.",
+  "rule": "Population = the surface the row's checks actually scan, derived from committed bytes at the measured revision. `.ufo/waves/round-78/c78_shonen_population.py` re-derives `count` (`git cat-file -e` for kind file; `git ls-tree -r` plus suffix/exclude for kind files) and a declared count that differs is `stale_populations`, which fails C1. Population sizes are exact at the measured revision, not floors; each row note carries the measurement provenance (round-77 record, base, carrier).",
+  "grading": "Recorded `observed` values are graded by the measure's shape: a `count_at_least` observation is a dated floor measured at a named revision (growth is tolerated and recorded in the row note as the dated measurement; shrinkage is a floor violation), while every other check kind must re-derive exactly (amendment 2 A3).",
+  "measured-at": "all four rows re-derived at the base fe50945399a386b48678b1f2051fdbe8a77b10bd and at the round-78 carrier; the round-77 record a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 is cited in a row note where a value moved."
+ },
+ "rows": [
+  {
+   "box": 1,
+   "marker": "~",
+   "title": "SKILL.md contains real decision tables, error patterns, checklists, cited sources",
+   "status": "evidenced",
+   "scopes": "amendment 1 A11 box 1 (i)-(iv)",
+   "population": {
+    "kind": "file",
+    "path": "SKILL.md",
+    "count": 1
+   },
+   "note": "Population: SKILL.md, count 1 \u2014 all four checks in this row (b1-ids, b1-tables, b1-registry, b1-checklist) declare `path: SKILL.md` and measure that single file; nothing else is scanned. `git cat-file -e <rev>:SKILL.md` succeeds at the base fe50945399a386b48678b1f2051fdbe8a77b10bd and at the round-78 carrier.",
+   "checks": [
     {
-      "box": 1,
-      "marker": "~",
-      "title": "SKILL.md contains real decision tables, error patterns, checklists, cited sources",
-      "status": "evidenced",
-      "scopes": "amendment 1 A11 box 1 (i)-(iv)",
-      "population": {"kind": "file", "path": "SKILL.md", "count": 1},
-      "note": "Population: SKILL.md, count 1 — all four checks in this row (b1-ids, b1-tables, b1-registry, b1-checklist) declare `path: SKILL.md` and measure that single file; nothing else is scanned. `git cat-file -e <rev>:SKILL.md` succeeds at the base fe50945399a386b48678b1f2051fdbe8a77b10bd and at the round-78 carrier.",
-      "checks": [
-        {
-          "id": "b1-ids",
-          "kind": "all_ids_resolve",
-          "path": "SKILL.md",
-          "params": {
-            "pattern": "\\b(S\\d{3})\\b",
-            "resolve_path": "corpus/SOURCES.md",
-            "resolve_pattern": "(?m)^\\| (S\\d{3}) \\|"
-          },
-          "observed": {"ids": 77, "resolved": 77, "unresolved": 0},
-          "note": "A11 (i): 77 distinct S### ids are cited in SKILL.md and all 77 have a row in corpus/SOURCES.md at the revision."
-        },
-        {
-          "id": "b1-tables",
-          "kind": "count_at_least",
-          "path": "SKILL.md",
-          "params": {"measure": "markdown_tables_with_min_rows", "min_rows": 3, "min": 3},
-          "observed": 18,
-          "note": "A11 (ii): 18 tables carry at least three data rows (38 delimiter rows in total)."
-        },
-        {
-          "id": "b1-registry",
-          "kind": "count_at_least",
-          "path": "SKILL.md",
-          "params": {"measure": "registry_rows_with_code_cell", "min": 20},
-          "observed": 105,
-          "note": "A11 (iii): 105 registry rows carry an exit-code map cell (0=/1=) or a finding-id cell; the row form of 'error patterns'."
-        },
-        {
-          "id": "b1-checklist",
-          "kind": "count_at_least",
-          "path": "SKILL.md",
-          "params": {"measure": "checklist_headings", "min": 1},
-          "observed": 1,
-          "note": "A11 (iv): `## Audit → source-fix → publish checklist` at SKILL.md:57."
-        }
-      ]
+     "id": "b1-ids",
+     "kind": "all_ids_resolve",
+     "path": "SKILL.md",
+     "params": {
+      "pattern": "\\b(S\\d{3})\\b",
+      "resolve_path": "corpus/SOURCES.md",
+      "resolve_pattern": "(?m)^\\| (S\\d{3}) \\|"
+     },
+     "observed": {
+      "ids": 77,
+      "resolved": 77,
+      "unresolved": 0
+     },
+     "note": "A11 (i): 77 distinct S### ids are cited in SKILL.md and all 77 have a row in corpus/SOURCES.md at the revision."
     },
     {
-      "box": 2,
-      "marker": " ",
-      "title": "At least one end-to-end domain task executed and logged in LOG.md",
-      "status": "gap",
-      "scopes": "amendment 1 A11 box 2 (i)-(iii)",
-      "population": {"kind": "file", "path": "LOG.md", "count": 1},
-      "reason": "A11 (iii) fails at the revision: of the 98 distinct `.ufo/waves/round-N/…` receipt paths named in LOG.md (non-glob), one does not exist — `.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt` (the path amendment 1 A12 names). A11 (i) and (ii) pass (56 round sections, 98 receipt paths), so the log names the work but one evidence pointer does not resolve at a2cc5f51.",
-      "flip": "The named pointer resolves at the measured revision — `.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt` is committed, or LOG.md's citation is corrected (append-only) to the receipt file that actually exists — so `wave_receipt_paths_missing` re-derives to 0 and the row can move to evidenced with the same three checks.",
-      "note": "Population: LOG.md, count 1 — all three checks declare `path: LOG.md`. Re-measured at the round-78 carrier (LOG.md is unchanged since the base; its last section is `## Round 77`, LOG.md:2608): b2-rounds recorded 56 is a dated floor from a2cc5f51 (highest round 76) and re-derives 57 at the carrier — growth is tolerated, not drift, and the record stays the floor; b2-receipts recorded 98 is a dated floor and re-derives 100 at the carrier (the round-77 section adds two receipt paths); b2-missing re-derives exactly 1 at the base and at the carrier.",
-      "checks": [
-        {
-          "id": "b2-rounds",
-          "kind": "count_at_least",
-          "path": "LOG.md",
-          "params": {"measure": "round_sections", "min": 3},
-          "observed": 56,
-          "note": "A11 (i): 56 `## ` headings name a round (highest round 76) at a2cc5f51 — the recorded floor. The round-78 carrier re-derives 57 (the `## Round 77` section at LOG.md:2608); growth with the log is not drift, so the record stays the floor and this note carries the dated measurement."
-        },
-        {
-          "id": "b2-receipts",
-          "kind": "count_at_least",
-          "path": "LOG.md",
-          "params": {"measure": "wave_receipt_paths", "min": 20},
-          "observed": 98,
-          "note": "A11 (ii): 98 distinct wave-receipt file paths are named (tokens without a file extension are not counted as paths; globs are counted here and excluded only by the existence check). That 98 is the a2cc5f51 floor; the round-78 carrier re-derives 100."
-        },
-        {
-          "id": "b2-missing",
-          "kind": "no_match",
-          "path": "LOG.md",
-          "params": {"measure": "wave_receipt_paths_missing"},
-          "observed": 1,
-          "note": "A11 (iii): one named non-glob receipt path is absent at the revision; the failing pointer is in `reason`."
-        }
-      ]
+     "id": "b1-tables",
+     "kind": "count_at_least",
+     "path": "SKILL.md",
+     "params": {
+      "measure": "markdown_tables_with_min_rows",
+      "min_rows": 3,
+      "min": 3
+     },
+     "observed": 18,
+     "note": "A11 (ii): 18 tables carry at least three data rows (38 delimiter rows in total)."
     },
     {
-      "box": 3,
-      "marker": "~",
-      "title": "Instructions executable by an agent without oral context",
-      "status": "evidenced",
-      "scopes": "amendment 1 A11 box 3 (every scripts/*.py|sh and counter path named in SKILL.md exists; every `python3 -B <path>` invocation names an existing repo-relative path)",
-      "population": {"kind": "file", "path": "SKILL.md", "count": 1},
-      "checks": [
-        {
-          "id": "b3-scripts",
-          "kind": "no_match",
-          "path": "SKILL.md",
-          "params": {"measure": "skill_script_paths_missing"},
-          "observed": 0,
-          "note": "29 distinct `scripts/*.py|sh` tokens and 83 `.ufo/waves/**/*.py` counter paths are named; every one exists at the revision."
-        },
-        {
-          "id": "b3-invocations",
-          "kind": "no_match",
-          "path": "SKILL.md",
-          "params": {"measure": "skill_python_invocations_missing"},
-          "observed": 0,
-          "note": "95 distinct `python3 [-B] <path>` invocations are named; every target exists at the revision."
-        }
-      ],
-      "note": "Population: SKILL.md, count 1 — both checks (b3-scripts, b3-invocations) declare `path: SKILL.md` and parse their tokens out of that single file; `git cat-file -e <rev>:SKILL.md` succeeds at the base and at the round-78 carrier. Scope limit, recorded rather than implied: A11 box 3 covers `scripts/*.py|sh`, counter paths and `python3 -B` targets only. It does not cover the three `node ~/Projects/webzites/...` spans (SKILL.md:59, :111, :224) nor the `node scripts/kimi-surface.mjs` span at SKILL.md:222, whose target does not exist in this repo. Those are measured in the round report as an open correctness defect; this row claims the frozen scope, not the whole playbook."
+     "id": "b1-registry",
+     "kind": "count_at_least",
+     "path": "SKILL.md",
+     "params": {
+      "measure": "registry_rows_with_code_cell",
+      "min": 20
+     },
+     "observed": 105,
+     "note": "A11 (iii): 105 registry rows carry an exit-code map cell (0=/1=) or a finding-id cell; the row form of 'error patterns'."
     },
     {
-      "box": 4,
-      "marker": "~",
-      "title": "No cross-domain bleed (PROVINCE.md still accurate)",
-      "status": "evidenced",
-      "scopes": "amendment 1 A11 box 4 (no corpus/knowledge/*.md cites another lane's repository path; freshness-*.json excluded by name)",
-      "population": {"kind": "files", "dir": "corpus/knowledge", "suffix": ".md", "exclude": ["freshness-*.json"], "count": 65},
-      "checks": [
-        {
-          "id": "b4-lanes",
-          "kind": "no_match",
-          "path": "corpus/knowledge",
-          "params": {
-            "measure": "cross_lane_citations",
-            "glob": "corpus/knowledge/*.md",
-            "exclude": ["corpus/knowledge/freshness-*.json"]
-          },
-          "observed": 0,
-          "note": "Scan surface: 63 knowledge `.md` files when round 77 recorded this (a2cc5f51), 64 at the base fe509453, 65 at the round-78 carrier (ScribeMetaRobots adds `corpus/knowledge/meta-robots-directives.md`). 0 backticked tokens name a sibling lane repository (`*-shokunin/` or `*-shokinin/`, `kake-shokunin` excluded). The exclusion of `corpus/knowledge/freshness-*.json` is written here, not applied after a red result. Measure limit: a sibling checkout that does not follow the fleet's `-shokunin` naming would not be detected."
-        }
-      ],
-      "note": "Population: corpus/knowledge/*.md, count 65 at the round-78 carrier — the b4-lanes check globs `corpus/knowledge/*.md` and excludes `freshness-*.json` by name (a no-op for the `.md` suffix), so the population is exactly the `.md` file set that glob scans. Measured chain: 63 at a2cc5f51 (the round-77 record, stale after round 77), 64 at the base fe509453 and at 78711a6, 65 at the carrier because ScribeMetaRobots adds `corpus/knowledge/meta-robots-directives.md` (contract §C3). The declared count is the carrier surface; a knowledge `.md` landing or being dropped without this count moving makes C1 report `stale_populations`. PROVINCE.md itself is not a check of this row: A11 box 4 froze the bleed scope to corpus/knowledge citations. PROVINCE.md's province lines and declared surfaces were measured at the base in the round report; they are not claimed here."
+     "id": "b1-checklist",
+     "kind": "count_at_least",
+     "path": "SKILL.md",
+     "params": {
+      "measure": "checklist_headings",
+      "min": 1
+     },
+     "observed": 1,
+     "note": "A11 (iv): `## Audit \u2192 source-fix \u2192 publish checklist` at SKILL.md:57."
     }
-  ]
+   ]
+  },
+  {
+   "box": 2,
+   "marker": " ",
+   "title": "At least one end-to-end domain task executed and logged in LOG.md",
+   "status": "gap",
+   "scopes": "amendment 1 A11 box 2 (i)-(iii)",
+   "population": {
+    "kind": "file",
+    "path": "LOG.md",
+    "count": 1
+   },
+   "reason": "A11 (iii) fails at the revision: of the 98 distinct `.ufo/waves/round-N/\u2026` receipt paths named in LOG.md (non-glob), one does not exist \u2014 `.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt` (the path amendment 1 A12 names). A11 (i) and (ii) pass (56 round sections, 98 receipt paths), so the log names the work but one evidence pointer does not resolve at a2cc5f51.",
+   "flip": "The named pointer resolves at the measured revision \u2014 `.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt` is committed, or LOG.md's citation is corrected (append-only) to the receipt file that actually exists \u2014 so `wave_receipt_paths_missing` re-derives to 0 and the row can move to evidenced with the same three checks.",
+   "note": "Population: LOG.md, count 1 \u2014 all three checks declare `path: LOG.md`. Re-measured at the round-78 carrier (LOG.md is unchanged since the base; its last section is `## Round 77`, LOG.md:2608): b2-rounds recorded 56 is a dated floor from a2cc5f51 (highest round 76) and re-derives 57 at the carrier \u2014 growth is tolerated, not drift, and the record stays the floor; b2-receipts recorded 98 is a dated floor and re-derives 100 at the carrier (the round-77 section adds two receipt paths); b2-missing re-derives exactly 1 at the base and at the carrier.",
+   "checks": [
+    {
+     "id": "b2-rounds",
+     "kind": "count_at_least",
+     "path": "LOG.md",
+     "params": {
+      "measure": "round_sections",
+      "min": 3
+     },
+     "observed": 56,
+     "note": "A11 (i): 56 `## ` headings name a round (highest round 76) at a2cc5f51 \u2014 the recorded floor. The round-78 carrier re-derives 57 (the `## Round 77` section at LOG.md:2608); growth with the log is not drift, so the record stays the floor and this note carries the dated measurement."
+    },
+    {
+     "id": "b2-receipts",
+     "kind": "count_at_least",
+     "path": "LOG.md",
+     "params": {
+      "measure": "wave_receipt_paths",
+      "min": 20
+     },
+     "observed": 98,
+     "note": "A11 (ii): 98 distinct wave-receipt file paths are named (tokens without a file extension are not counted as paths; globs are counted here and excluded only by the existence check). That 98 is the a2cc5f51 floor; the round-78 carrier re-derives 100."
+    },
+    {
+     "id": "b2-missing",
+     "kind": "no_match",
+     "path": "LOG.md",
+     "params": {
+      "measure": "wave_receipt_paths_missing"
+     },
+     "observed": 1,
+     "note": "A11 (iii): one named non-glob receipt path is absent at the revision; the failing pointer is in `reason`."
+    }
+   ]
+  },
+  {
+   "box": 3,
+   "marker": "~",
+   "title": "Instructions executable by an agent without oral context",
+   "status": "evidenced",
+   "scopes": "amendment 1 A11 box 3 (every scripts/*.py|sh and counter path named in SKILL.md exists; every `python3 -B <path>` invocation names an existing repo-relative path)",
+   "population": {
+    "kind": "file",
+    "path": "SKILL.md",
+    "count": 1
+   },
+   "checks": [
+    {
+     "id": "b3-scripts",
+     "kind": "no_match",
+     "path": "SKILL.md",
+     "params": {
+      "measure": "skill_script_paths_missing"
+     },
+     "observed": 0,
+     "note": "29 distinct `scripts/*.py|sh` tokens and 83 `.ufo/waves/**/*.py` counter paths are named; every one exists at the revision."
+    },
+    {
+     "id": "b3-invocations",
+     "kind": "no_match",
+     "path": "SKILL.md",
+     "params": {
+      "measure": "skill_python_invocations_missing"
+     },
+     "observed": 0,
+     "note": "95 distinct `python3 [-B] <path>` invocations are named; every target exists at the revision."
+    }
+   ],
+   "note": "Population: SKILL.md, count 1 \u2014 both checks (b3-scripts, b3-invocations) declare `path: SKILL.md` and parse their tokens out of that single file; `git cat-file -e <rev>:SKILL.md` succeeds at the base and at the round-78 carrier. Scope limit, recorded rather than implied: A11 box 3 covers `scripts/*.py|sh`, counter paths and `python3 -B` targets only. It does not cover the three `node ~/Projects/webzites/...` spans (SKILL.md:59, :111, :224) nor the `node scripts/kimi-surface.mjs` span at SKILL.md:222, whose target does not exist in this repo. Those are measured in the round report as an open correctness defect; this row claims the frozen scope, not the whole playbook."
+  },
+  {
+   "box": 4,
+   "marker": "~",
+   "title": "No cross-domain bleed (PROVINCE.md still accurate)",
+   "status": "evidenced",
+   "scopes": "amendment 1 A11 box 4 (no corpus/knowledge/*.md cites another lane's repository path; freshness-*.json excluded by name)",
+   "population": {
+    "kind": "files",
+    "dir": "corpus/knowledge",
+    "suffix": ".md",
+    "exclude": [
+     "freshness-*.json"
+    ],
+    "count": 66
+   },
+   "checks": [
+    {
+     "id": "b4-lanes",
+     "kind": "no_match",
+     "path": "corpus/knowledge",
+     "params": {
+      "measure": "cross_lane_citations",
+      "glob": "corpus/knowledge/*.md",
+      "exclude": [
+       "corpus/knowledge/freshness-*.json"
+      ]
+     },
+     "observed": 0,
+     "note": "Scan surface: 63 knowledge `.md` files when round 77 recorded this (a2cc5f51), 64 at the base fe509453, 65 at the round-78 carrier (ScribeMetaRobots adds `corpus/knowledge/meta-robots-directives.md`), 66 at the round-79 carrier (`x-robots-tag-header.md`). 0 backticked tokens name a sibling lane repository (`*-shokunin/` or `*-shokinin/`, `kake-shokunin` excluded). The exclusion of `corpus/knowledge/freshness-*.json` is written here, not applied after a red result. Measure limit: a sibling checkout that does not follow the fleet's `-shokunin` naming would not be detected."
+    }
+   ],
+   "note": "Population: corpus/knowledge/*.md, count 65 at the round-78 carrier \u2014 the b4-lanes check globs `corpus/knowledge/*.md` and excludes `freshness-*.json` by name (a no-op for the `.md` suffix), so the population is exactly the `.md` file set that glob scans. Measured chain: 63 at a2cc5f51 (the round-77 record, stale after round 77), 64 at the base fe509453 and at 78711a6, 65 at the carrier because ScribeMetaRobots adds `corpus/knowledge/meta-robots-directives.md` (contract \u00a7C3). The declared count is the carrier surface; a knowledge `.md` landing or being dropped without this count moving makes C1 report `stale_populations`. PROVINCE.md itself is not a check of this row: A11 box 4 froze the bleed scope to corpus/knowledge citations. PROVINCE.md's province lines and declared surfaces were measured at the base in the round report; they are not claimed here."
+  }
+ ]
 }
