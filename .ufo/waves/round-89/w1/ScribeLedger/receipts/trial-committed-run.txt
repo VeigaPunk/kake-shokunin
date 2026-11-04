@@ -1,0 +1,13 @@
+R1-ds4cc-primary-ae	exit=0	key='https://ds4cc.com/\x1faccept-encoding\x1egzip, deflate, br'	err=''
+R2-burnerchrome-ae-origin-present	exit=0	key='https://burnerchrome.kimi.page/\x1faccept-encoding\x1egzip, deflate, br\x1forigin\x1ehttps://requester.test'	err=''
+R3-vault-index-ae-origin-absent	exit=0	key='https://veigapunk.kimi.page/\x1faccept-encoding\x1egzip, deflate, br\x1forigin\x1e\x1c'	err=''
+R4-charter-ghp-lowercase-names	exit=0	key='https://veigapunk.github.io/charter-ufo-fsd/\x1faccept-encoding\x1ebr'	err=''
+R5-ufo-fsd-kimi-pro-no-vary	exit=0	key='https://ufo-fsd.kimi.pro/'	err=''
+R6-ds4cc-sitemap-ae	exit=0	key='https://ds4cc.com/sitemap.xml\x1faccept-encoding\x1egzip'	err=''
+R2b-burnerchrome-origin-present-empty	exit=0	key='https://burnerchrome.kimi.page/\x1faccept-encoding\x1egzip, deflate, br\x1forigin\x1e'	err=''
+X1-synthetic-wildcard-on-ds4cc	exit=1	key=None	err='invalid_input: vary wildcard nominates no field'
+X2-synthetic-trailing-comma-on-burnerchrome	exit=1	key=None	err='invalid_input: vary member is not a token'
+X3-synthetic-duplicate-header-case-on-burnerchrome	exit=1	key=None	err='invalid_input: duplicate header name'
+X4-synthetic-crlf-in-origin-value	exit=1	key=None	err='invalid_input: header value contains CR or LF'
+X5-synthetic-vary-duplicate-member-case	exit=1	key=None	err='invalid_input: duplicate vary member'
+exit=0

@@ -1,0 +1,26 @@
+# ScoutGround — counter state at HEAD acc69ba5 (re-measured)
+# 2026-11-04T21:31:28Z
+
+== HEAD ==
+acc69ba59af9ddff84a704331087b9147cc0aa1b
+acc69ba5 round-89: wave review C2 findings in lesson; freeze-time base-c2 receipt restored beside the v2 re-run
+
+== C1 counter ==
+C1v1 revision=acc69ba59af9ddff84a704331087b9147cc0aa1b items=6 open=1 closed=5 met=false
+{"A-selftest-number": ["SCORECARD.md:5469 keeps the stale 22/22 claim without a [r89-correction] tag", "SCORECARD.md:5488 keeps the stale 22/22 claim without a [r89-correction] tag", "corpus/lessons/round-88.md:265 keeps the stale 22/22 claim without a [r89-correction] tag"], "B-gate-sample": [], "C-receipt-pointers": [], "D-revision-pinned-count": [], "E-freeze-before-dispatch": [], "F-lesson-shape": []}
+exit=1
+
+== C2 counter ==
+C2v1 revision=acc69ba59af9ddff84a704331087b9147cc0aa1b candidate=scripts/cache_key.py seed=89089 frozen=16/16 props=200/200 refuse=9/9 controls=5/5 met=true
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')
+exit=0
+
+== controls-count recount at the lesson's pinned revision 21770586 ==
+1604
+
+== vary_match.py selftest (the tool item A measures) ==
+selftest: 35/35 passed

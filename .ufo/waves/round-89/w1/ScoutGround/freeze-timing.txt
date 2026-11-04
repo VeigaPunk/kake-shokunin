@@ -1,0 +1,34 @@
+# ScoutGround — freeze/dispatch timing and counter-amendment measurement
+# 2026-11-04T21:27:52Z
+
+== commit times (ct = committer epoch) ==
+acc69ba59af9ddff84a704331087b9147cc0aa1b 1793827668 2026-11-04 18:27:48 -0300 round-89: wave review C2 findings in lesson; freeze-time base-c2 receipt restored beside the v2 re-run
+08ce630d1fe82c21d522c574735b919c42a3c3b7 1793827571 2026-11-04 18:26:11 -0300 round-89: cache-key entry — correct runnable checklist item 4 (tool has no selftest; gate is the round-89 counter selftest)
+1b0f10086493d32942de4aecc8d9aa5d5b31b88a 1793827541 2026-11-04 18:25:41 -0300 round-89: final measurement receipts at 658f72f8 (C1 counter, C2 counter under v2 and frozen v1, census)
+658f72f893bb25f6f024ea7345d642b2839594a3 1793827473 2026-11-04 18:24:33 -0300 round-89: SCORECARD planned section routes wave-review defects RC-1..RC-10 and the C2 instrument gap
+a225647f311b7ab5aacb4b31b1c9c99a3b1403d0 1793827442 2026-11-04 18:24:02 -0300 round-89: lesson — wave review routed C1 counter defects RC-1..RC-10 (ReviewCounterC1 receipts)
+d9c972da53fe289986dc9a00c69e938a233626a1 1793827390 2026-11-04 18:23:10 -0300 round-89: lesson Markers block (gate-sample, r88 summary correction, r88 re-run retraction, controls-count)
+28532540c38277624376b56862d1419a1997c4ed 1793827379 2026-11-04 18:22:59 -0300 round-89: lesson, SCORECARD round-89 section, LOG, SKILL/README/PROVINCE rows for cache_key and c89 counters
+2177058662d8778f1d1a685613f57deccb51ef01 1793827283 2026-11-04 18:21:23 -0300 round-89: C2 carrier receipts under frozen v1 (08ab46a1) and committed v2 counter
+
+== commit that FIRST ADDS .ufo/waves/round-89/c89_key.py (what C1 item E reads) ==
+08ab46a130a6355a7b19e2bfa83ffb7e116db803 1793826745 round-89: freeze — two claims, counters, contract, frozen cases, base controls
+
+== commit that FIRST ADDS .ufo/waves/round-89/w1.ready ==
+2e700b9a94a3c8ce3c0d6b1cc9e84e7b17eee683 1793826784 round-89: wave-1 dispatch evidence (spec, validated payload, ready marker)
+
+== ALL commits touching c89_key.py ==
+46a43e9475cda3325afa8f71eab1b6ec02534dc7 1793826978 round-89: freeze v2 — shortcut guard no longer refuses a docstring that names the contract path (false positive on a correct candidate); selftest 43/43 and base receipt re-derived
+08ab46a130a6355a7b19e2bfa83ffb7e116db803 1793826745 round-89: freeze — two claims, counters, contract, frozen cases, base controls
+
+== files changed in the freeze-v2 commit 46a43e94 ==
+ .ufo/waves/round-89/c89_key.py           | 13 +++++++++++--
+ .ufo/waves/round-89/controls/base-c2.txt |  2 +-
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+== freeze.md changed in 46a43e94? (empty = NO) ==
+
+== base-c2.txt ctl-table line, before vs after the amendment ==
+-- at 08ab46a1:
+ctl=ctl-table met=false (shortcut guard: source names '.ufo/waves')
+-- at 46a43e94:
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')

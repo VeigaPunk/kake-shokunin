@@ -1,0 +1,245 @@
+{
+ "divergences": 76,
+ "first_20": [
+  {
+   "case": "frozen:wildcard-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}, \"vary\": \"*\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "frozen:trailing-comma-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"1\"}, \"vary\": \"a,\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "frozen:duplicate-header-name-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept\": \"a\", \"accept\": \"b\"}, \"vary\": \"Accept\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate header name"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "frozen:lf-value-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\ny\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:not-an-object",
+   "input": "[]",
+   "reference": [
+    "refuse",
+    "invalid_input: input must be a JSON object"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:uri-missing",
+   "input": "{\"request_headers\": {}}",
+   "reference": [
+    "refuse",
+    "invalid_input: uri must be a string"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:uri-not-string",
+   "input": "{\"uri\": 5, \"request_headers\": {}}",
+   "reference": [
+    "refuse",
+    "invalid_input: uri must be a string"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:headers-not-object",
+   "input": "{\"uri\": \"u\", \"request_headers\": []}",
+   "reference": [
+    "refuse",
+    "invalid_input: request_headers must be an object"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:header-name-not-token",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a b\": \"1\"}}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:header-value-not-string",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": 1}}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value must be a string"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:vary-not-string",
+   "input": "{\"uri\": \"u\", \"request_headers\": {}, \"vary\": 3}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary must be a string"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:star-member",
+   "input": "{\"uri\": \"u\", \"request_headers\": {}, \"vary\": \"a, *\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "refuse:empty-member",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"1\"}, \"vary\": \"a,,b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "value-wrap-LF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"\\nv\\n\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "member-wrap-LF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\na\\n\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "vary-leading-LF-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\n\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "member-wrap-VT",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\u000ba\\u000b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "vary-leading-VT-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\u000b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "member-wrap-FF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\fa\\f\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  },
+  {
+   "case": "vary-leading-FF-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\f\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "bad-stdout",
+    ""
+   ]
+  }
+ ]
+}

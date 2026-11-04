@@ -1,0 +1,173 @@
+{
+ "divergences": 14,
+ "first_20": [
+  {
+   "case": "frozen:no-vary-no-headers",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001f"
+   ]
+  },
+  {
+   "case": "frozen:empty-vary",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"x\": \"1\"}, \"vary\": \"\"}",
+   "reference": [
+    "key",
+    "https://e.test/a"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001f"
+   ]
+  },
+  {
+   "case": "worked:1",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001f"
+   ]
+  },
+  {
+   "case": "uri-pct-novary",
+   "input": "{\"uri\": \"https://e.test/a%b\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%25b"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%25b\u001f"
+   ]
+  },
+  {
+   "case": "uri-u001C-novary",
+   "input": "{\"uri\": \"https://e.test/a\\u001cb\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Cb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Cb\u001f"
+   ]
+  },
+  {
+   "case": "uri-u001D-novary",
+   "input": "{\"uri\": \"https://e.test/a\\u001db\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Db"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Db\u001f"
+   ]
+  },
+  {
+   "case": "uri-u001E-novary",
+   "input": "{\"uri\": \"https://e.test/a\\u001eb\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Eb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Eb\u001f"
+   ]
+  },
+  {
+   "case": "uri-u001F-novary",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Fb\u001f"
+   ]
+  },
+  {
+   "case": "vary-emptyish-''",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\"}",
+   "reference": [
+    "key",
+    "u"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f"
+   ]
+  },
+  {
+   "case": "vary-absent-key",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}}",
+   "reference": [
+    "key",
+    "u"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f"
+   ]
+  },
+  {
+   "case": "vary-member-''",
+   "input": "{\"uri\": \"u\", \"request_headers\": {}, \"vary\": \"\"}",
+   "reference": [
+    "key",
+    "u"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f"
+   ]
+  },
+  {
+   "case": "uri-empty",
+   "input": "{\"uri\": \"\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    ""
+   ],
+   "mutant": [
+    "key",
+    "\u001f"
+   ]
+  },
+  {
+   "case": "uri-nonascii",
+   "input": "{\"uri\": \"https://e.test/\\u00e9\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/\u00e9"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/\u00e9\u001f"
+   ]
+  },
+  {
+   "case": "uri-pct-raw",
+   "input": "{\"uri\": \"https://e.test/%41\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/%2541"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/%2541\u001f"
+   ]
+  }
+ ]
+}

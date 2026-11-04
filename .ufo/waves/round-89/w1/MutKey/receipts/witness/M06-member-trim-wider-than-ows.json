@@ -1,0 +1,77 @@
+{
+ "divergences": 6,
+ "first_20": [
+  {
+   "case": "member-wrap-LF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\na\\n\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-VT",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\u000ba\\u000b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-FF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\fa\\f\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-CR",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\ra\\r\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-NBSP",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\u00a0a\\u00a0\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-EMSP",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\u2003a\\u2003\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev"
+   ]
+  }
+ ]
+}

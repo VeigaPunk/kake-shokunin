@@ -1,0 +1,21 @@
+# command: python3 -B counter-live/c89_key.py --root /fast/scratch/hyaku/kake-r89/MutKey/repos/live/M35-stdout-bare-key --revision 969b8d7638ba6fb6b28139dd9e6f16b8854cd5df --candidate scripts/cache_key.py --work /fast/scratch/hyaku/kake-r89/MutKey/work/live/M35-stdout-bare-key
+# candidate sha256: 26770becb140258b2323120fbac47330240b83637f531813025db9bce9f99f81
+# exit: 1
+C2v1 revision=969b8d7638ba6fb6b28139dd9e6f16b8854cd5df candidate=scripts/cache_key.py seed=89089 frozen=4/16 props=0/200 refuse=9/9 controls=5/5 met=false
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')
+fail: frozen no-vary-no-headers: stdout is not {"key": ...}
+fail: frozen empty-vary: stdout is not {"key": ...}
+fail: frozen single-member: stdout is not {"key": ...}
+fail: frozen value-edge-ows-trimmed: stdout is not {"key": ...}
+fail: frozen absent-member: stdout is not {"key": ...}
+fail: frozen present-empty-member: stdout is not {"key": ...}
+fail: frozen two-members-sorted: stdout is not {"key": ...}
+fail: frozen member-ows-and-order: stdout is not {"key": ...}
+fail: frozen percent-escaped: stdout is not {"key": ...}
+fail: frozen separator-in-value-escaped: stdout is not {"key": ...}
+fail: frozen separator-split-differs: stdout is not {"key": ...}
+fail: frozen tab-trimmed: stdout is not {"key": ...}

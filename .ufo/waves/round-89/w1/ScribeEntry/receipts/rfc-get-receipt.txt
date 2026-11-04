@@ -1,0 +1,12 @@
+ScribeEntry GET receipt (round 89). Unauthenticated curl, no cookies, no Authorization, no query token.
+Command: curl -sS -o <scratch>/rfc9111.txt -w 'status=%{http_code} bytes=%{size_download} time=%{time_total}\n' --max-time 60 https://www.rfc-editor.org/rfc/rfc9111.txt
+  status=200 bytes=84477 time=0.196473
+  sha256=aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e
+  access_utc=2026-11-04T21:14:38Z
+Command: curl -sS -o <scratch>/rfc9110.txt -w 'status=%{http_code} bytes=%{size_download} time=%{time_total}\n' --max-time 120 https://www.rfc-editor.org/rfc/rfc9110.txt
+  status=200 bytes=502941 time=0.224666
+  sha256=21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a
+  access_utc=2026-11-04T21:14:38Z
+Comparison: `cmp` against .ufo/waves/round-89/L1/src/rfc9111.txt and rfc9110.txt (committed in HEAD) returned identical for both.
+Note: this seat's item does not name these URLs; they are the URLs named in the sibling ScoutRFC item. ScoutRFC had not published, so the GET was repeated here. No new evidence beyond the committed L1/src copies.
+Scratch body copies were deleted with the scratch directory after this receipt was written.

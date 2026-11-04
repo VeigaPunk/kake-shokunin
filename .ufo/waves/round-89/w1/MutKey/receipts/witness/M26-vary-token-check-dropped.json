@@ -1,0 +1,245 @@
+{
+ "divergences": 26,
+ "first_20": [
+  {
+   "case": "frozen:trailing-comma-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"1\"}, \"vary\": \"a,\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001f\u001e\u001c\u001fa\u001e1"
+   ]
+  },
+  {
+   "case": "refuse:empty-member",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"1\"}, \"vary\": \"a,,b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u001e\u001c\u001fa\u001e1\u001fb\u001e\u001c"
+   ]
+  },
+  {
+   "case": "member-wrap-LF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\na\\n\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\na\n\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-leading-LF-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\n\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\n\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-VT",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\u000ba\\u000b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u000ba\u000b\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-leading-VT-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\u000b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u000b\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-FF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\fa\\f\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\fa\f\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-leading-FF-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\f\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\f\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-CR",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\ra\\r\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\ra\r\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-leading-CR-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\r\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\r\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "member-wrap-NBSP",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\u00a0a\\u00a0\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u00a0a\u00a0\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-leading-NBSP-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\u00a0\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev\u001f\u00a0\u001e\u001c"
+   ]
+  },
+  {
+   "case": "member-wrap-EMSP",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\u2003a\\u2003\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u2003a\u2003\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-leading-EMSP-comma",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\\u2003\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev\u001f\u2003\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-emptyish-' '",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \" \"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-emptyish-'\\t'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\t\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-emptyish-'a,'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "vary-emptyish-',a'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \",a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "vary-emptyish-'a,,b'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,,b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f\u001e\u001c\u001fa\u001ev\u001fb\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-member-'a b'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {}, \"vary\": \"a b\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa b\u001e\u001c"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+# command: python3 -B counter-live/c89_key.py --root /fast/scratch/hyaku/kake-r89/MutKey/repos/live/M34-refusal-exits-zero --revision 6d8a4fc7c22cc3a95125d7e483a70091268e1064 --candidate scripts/cache_key.py --work /fast/scratch/hyaku/kake-r89/MutKey/work/live/M34-refusal-exits-zero
+# candidate sha256: a6d4cee72a9cf4b19b1a1015614d62f6f809a6efbac101084692a80f9acb7f30
+# exit: 1
+C2v1 revision=6d8a4fc7c22cc3a95125d7e483a70091268e1064 candidate=scripts/cache_key.py seed=89089 frozen=12/16 props=200/200 refuse=0/9 controls=5/5 met=false
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')
+fail: frozen wildcard-refused: expected invalid_input exit 1
+fail: frozen trailing-comma-refused: expected invalid_input exit 1
+fail: frozen duplicate-header-name-refused: expected invalid_input exit 1
+fail: frozen lf-value-refused: expected invalid_input exit 1
+fail: refuse not-an-object: not refused with 'object'
+fail: refuse uri-missing: not refused with 'uri'
+fail: refuse uri-not-string: not refused with 'uri'
+fail: refuse headers-not-object: not refused with 'request_headers'
+fail: refuse header-name-not-token: not refused with 'token'
+fail: refuse header-value-not-string: not refused with 'string'
+fail: refuse vary-not-string: not refused with 'string'
+fail: refuse star-member: not refused with 'wildcard'

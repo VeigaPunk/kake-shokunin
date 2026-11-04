@@ -1,0 +1,3 @@
+exit=0 in={"uri":"u","request_headers":{"a%b":"x"},"vary":"a%b"} stdout={"key": "u\u001fa%25b\u001ex"} stderr=
+exit=1 in={"uri":"u","request_headers":{"a":"x\ry"},"vary":"a"} stdout= stderr=invalid_input: header value contains CR or LF
+exit=0 in={"uri":"u","request_headers":{"a":"x\u001dy"},"vary":"a"} stdout={"key": "u\u001fa\u001ex%1Dy"} stderr=

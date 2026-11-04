@@ -1,0 +1,150 @@
+diff --git c/SCORECARD.md w/SCORECARD.md
+index 31fd5806..38f188fe 100644
+--- c/SCORECARD.md
++++ w/SCORECARD.md
+@@ -5466,7 +5466,7 @@ sentence is corrected in `corpus/lessons/round-88.md`); validated handoff
+ | Claim | Axis / score delta | Before → after | Counting command | Evidence / author verdict |
+ |---|---|---|---|---|
+ | C1 the three routed r87 defects close | calibration 2→2 HOLD, lowest owned | `open=3 closed=0 met=false`, exit 1 → `open=0 closed=3 met=true`, exit 0 | `python3 -B .ufo/waves/round-88/c88_defect_queue.py --root . --revision 55d67f15f7a58fb49ca32a31b5c63ae716e1c38a --work /fast/scratch/hyaku/kake-r88/L1/after-c1` | measured met; `controls/base-c1.txt` → `controls/after-c1-carrier.txt`; counter selftest 11/11; D2 behavioural, D1 binds the ledger sha256, D3 allows one replaced metadata line; the shipped one-line repair is byte-identical in arithmetic on three payloads (`controls/diagnostic-d2-arithmetic.txt`) |
+-| C2 conservative Vary-match reader (bounded capability) | freshness 10→10 HOLD | tool absent, `frozen=0/20 random=0/200 met=false`, exit 1 → `frozen=20/20 random=200/200 met=true`, exit 0 | `python3 -B .ufo/waves/round-88/c88_vary.py --root . --revision 55d67f15f7a58fb49ca32a31b5c63ae716e1c38a --work /fast/scratch/hyaku/kake-r88/L1/after-c2` | measured met; `controls/base-c2.txt` → `controls/after-c2-carrier.txt`; counter selftest 17/17; integrated tool selftest 22/22 and a real ds4cc.com capture replayed (`controls/integrated-selftest.txt`, `controls/integrated-trial.txt`) |
++| C2 conservative Vary-match reader (bounded capability) | freshness 10→10 HOLD | tool absent, `frozen=0/20 random=0/200 met=false`, exit 1 → `frozen=20/20 random=200/200 met=true`, exit 0 | `python3 -B .ufo/waves/round-88/c88_vary.py --root . --revision 55d67f15f7a58fb49ca32a31b5c63ae716e1c38a --work /fast/scratch/hyaku/kake-r88/L1/after-c2` | measured met; `controls/base-c2.txt` → `controls/after-c2-carrier.txt`; counter selftest 17/17; integrated tool selftest 22/22 [r89-correction: `.ufo/waves/round-88/controls/integrated-selftests.txt` prints `selftest: 35/35 passed`] and a real ds4cc.com capture replayed (`controls/integrated-selftests.txt`, `controls/integrated-trial.txt`) |
+ 
+ Receipt paths are under `.ufo/waves/round-88/`. Frozen instrument, the 20 hand
+ cases, the seed and the thresholds are unchanged from freeze v3 to the carrier
+@@ -5485,13 +5485,13 @@ Move log (round 88):
+ | Round | Axis | Before | After | Evidence |
+ |---|---|---|---|---|
+ | 88 | calibration (HOLD 2) | `open=3 closed=0 met=false` at `f4479c14`: the r87 routed R1/R2/R3 defects all open — no companion entry, the diagnostic naming `boolean` for a float, and an ephemeral recheck path | `open=0 closed=3 met=true` at `55d67f15`: `corpus/knowledge/gate-agreement-metadata.md` carries the trio and quotes the ledger sha256, `scripts/cache_current_age.py` names the offending JSON type and keeps its 61-fixture selftest green, and `cache-current-age.md` keeps a 180d cadence with a `mktemp` command and one byte-identical body | `.ufo/waves/round-88/controls/{base-c1.txt,after-c1-carrier.txt}` |
+-| 88 | freshness (HOLD 10) | tool absent at `f4479c14`; §4.1 match ground unheld | a conservative reader and its entry: 20/20 frozen, 200/200 seeded, 22/22 selftest, one real ds4cc.com capture replayed; S463 mined | `.ufo/waves/round-88/controls/{base-c2.txt,after-c2-carrier.txt,integrated-trial.txt}` |
++| 88 | freshness (HOLD 10) | tool absent at `f4479c14`; §4.1 match ground unheld | a conservative reader and its entry: 20/20 frozen, 200/200 seeded, 22/22 selftest [r89-correction: 35/35 in `.ufo/waves/round-88/controls/integrated-selftests.txt`], one real ds4cc.com capture replayed; S463 mined | `.ufo/waves/round-88/controls/{base-c2.txt,after-c2-carrier.txt,integrated-trial.txt}` |
+ 
+ ### Demonstrated repertoire — round 88
+ 
+ | Capability | What it can now do | Evidence pointer | First-working round |
+ |---|---|---|---|
+-| Conservative Vary-match reader | Decide, for two supplied request-header maps and a `Vary` value, whether the nominated fields match under RFC 9111 §4.1's first two permitted transformations: case-insensitive names, ordered `, ` field-line combination, edge SP/HTAB trim, absent-both matches, one-sided absence does not, `*` always fails, malformed input refused with `invalid_input:`; never case-folds or reorders values, so `match` is always a permitted transformation and `mismatch` may be stricter than a field-specific rule | `scripts/vary_match.py`; S463; `controls/after-c2-carrier.txt`, `controls/integrated-selftest.txt`, `controls/integrated-trial.txt` at carrier `55d67f15`; `w1/ReviewReader.md`, `w1/MutReader.md` | 88 |
++| Conservative Vary-match reader | Decide, for two supplied request-header maps and a `Vary` value, whether the nominated fields match under RFC 9111 §4.1's first two permitted transformations: case-insensitive names, ordered `, ` field-line combination, edge SP/HTAB trim, absent-both matches, one-sided absence does not, `*` always fails, malformed input refused with `invalid_input:`; never case-folds or reorders values, so `match` is always a permitted transformation and `mismatch` may be stricter than a field-specific rule | `scripts/vary_match.py`; S463; `controls/after-c2-carrier.txt`, `controls/integrated-selftests.txt`, `controls/integrated-trial.txt` at carrier `55d67f15`; `w1/ReviewReader.md`, `w1/MutReader.md` | 88 |
+ 
+ ### Planned — after round 88
+ 
+@@ -5502,3 +5502,20 @@ score a population the candidate cannot read (R88-1), refuse LF-bearing tokens w
+ the missing case classes named by the six surviving mutants (R88-4); do not repair
+ the frozen round-88 counter after scoring. Cache-key construction, `Vary: *` storage
+ behaviour, revalidation and serving remain frontier. No round 89 is started here.
++
++## Round 89 — round-88 routed defects closed (C1, calibration)
++
++Base `76225160d0dff8d2042fbcd037bd08b0971d5e07`; freeze `08ab46a1` committed
++before dispatch `2e700b9a` (the round-88 R88-E order, now repaired). This section
++records corrections to the round-88 record. It moves no score: calibration stays
++2 HOLD and no capability enters.
++
++integrated-selftest: 35/35
++
++The integrated `vary_match` selftest prints `selftest: 35/35 passed`, exit 0
++(`.ufo/waves/round-88/controls/integrated-selftests.txt`). Every stale `22/22` in
++the round-88 section and move-log row carries an `[r89-correction …]` tag. The
++round-88 lesson's Gate summary, its unbacked re-run sentence and its controls
++count are corrected by markers in `corpus/lessons/round-89.md`.
++
++C1 is measured by `python3 -B .ufo/waves/round-89/c89_defect_queue.py --root . --revision <carrier> --work <dir>`; the carrier receipt is recorded by the integrating agent.
+diff --git c/corpus/lessons/round-88.md w/corpus/lessons/round-88.md
+index 2dcb3311..4309ebea 100644
+--- c/corpus/lessons/round-88.md
++++ w/corpus/lessons/round-88.md
+@@ -262,7 +262,7 @@ Carrier `55d67f15f7a58fb49ca32a31b5c63ae716e1c38a` (production bytes: the new
+   (`controls/after-c2-carrier.txt`); base: `0/20 + 0/200 met=false`, exit 1.
+ - Counter selftests at the carrier: C1 `11/11`, C2 `17/17`
+   (`controls/c1-selftest.txt`, `controls/c2-selftest.txt`).
+-- Integrated tool selftests: `vary_match` 22/22, `cache_current_age` 61/61,
++- Integrated tool selftests: `vary_match` 22/22 [r89-correction: `controls/integrated-selftests.txt` prints `selftest: 35/35 passed`], `cache_current_age` 61/61,
+   both exit 0 (`controls/integrated-selftests.txt`).
+ - Diagnostic arithmetic (not the frozen predicate): the repaired tool is
+   byte-identical to the frozen base on three payloads, including the Age-omitted
+@@ -325,3 +325,5 @@ Carrier `55d67f15f7a58fb49ca32a31b5c63ae716e1c38a` (production bytes: the new
+ | Commit subject copied from the previous round | `add7e49b` says "twelve-seat inline handoff" for a 14-seat wave | report assembly | Subjects are written from the current wave's counts; the wrong subject stays in history as a disclosed errata |
+ | Freeze amended while the wave was live, then described inaccurately | v3 `52e41d2d` moved the reference ordering and its sentence claimed nothing moved; three seeded labels moved | `ScribeLedger.md` and `ScribeLesson.md` both noticed the amendment; `ScribeLesson` measured the label flips | Corrected above; the process rule is freeze-then-dispatch or dispatch-after-freeze, never interleaved |
+ | My own fallback implementation carried the LF token defect | `w1/L1/vary_match.py:22` copied the `$`-anchored regex and returns `match` for `Vary: "*\n"` | `ReviewReader` §4b | The fallback was not shipped; the integrated candidate refuses LF, which is the receipt the entry cites |
++
++[r89-correction: the four rows of `## L1 mistakes` above are carried, with the witnesses that redden them, as rows of `## Mistakes` in `corpus/lessons/round-89.md`; this section is left as filed.]
+diff --git c/corpus/lessons/round-89.md w/corpus/lessons/round-89.md
+new file mode 100644
+index 00000000..823ef32d
+--- /dev/null
++++ w/corpus/lessons/round-89.md
+@@ -0,0 +1,75 @@
++# Round 89 — round-88 routed defects, C1 closure record
++
++Base `76225160d0dff8d2042fbcd037bd08b0971d5e07`. Freeze commit `08ab46a1` (first
++adds `.ufo/waves/round-89/c89_key.py`; committer time `1793826745`) precedes the
++dispatch commit `2e700b9a` (first adds `.ufo/waves/round-89/w1.ready`; committer
++time `1793826784`). Freeze is an ancestor of dispatch, so the round-88 R88-E
++order holds for this round.
++
++This file carries the C1 record: the six routed round-88 defects, each closed by
++an edit to committed bytes and each re-derivable by a command. The C2 section and
++the round-level verdicts are added by the integrating agent.
++
++## C1 — routed round-88 defects (calibration, lowest owned axis, 2 HOLD)
++
++Predicate (frozen in `.ufo/waves/round-89/freeze.md`): `C1v1 ... items=6 open=0
++closed=6 met=true`, exit 0 at the carrier. Base receipt
++`.ufo/waves/round-89/controls/base-c1.txt`: `open=6 closed=0 met=false`, exit 1.
++
++Counting command: `TMPDIR=$(mktemp -d) python3 -B .ufo/waves/round-89/c89_defect_queue.py --root . --revision <REV> --work "$TMPDIR/work"`.
++
++Closures, one per routed defect (`corpus/lessons/round-88-verifier-spotcheck.md`,
++section "Routed defects"):
++
++- **R88-A, stale integrated-selftest number.** The receipt
++  `.ufo/waves/round-88/controls/integrated-selftests.txt` prints
++  `selftest: 35/35 passed`, not `22/22`. Each stale line in the round-88 section
++  and move-log of `SCORECARD.md`, and line 265 of `corpus/lessons/round-88.md`,
++  carries an `[r89-correction …]` tag. The round-89 section of `SCORECARD.md`
++  states `integrated-selftest: 35/35`.
++- **R88-B, Gate sample counts.** The round-88 `## Gate` table carries two
++  `**admit**` decisions and two `**reject**` decisions, not one admit and three
++  rejects. The round-88 report's Gate summary (cited by the outside spot-check)
++  is corrected by the marker below; the report bytes are not rewritten.
++- **R88-C, unbacked re-run claim.** The sentence "re-run at `edcb2980`" has no
++  committed receipt and its `--work` path is under `/fast/scratch`. It is
++  retracted below; no receipt is cited for it.
++- **R88-D, unpinned count.** The round-88 `1,577` count names no revision. It is
++  exact at `f60a852a`; at `76225160` the count of tracked paths containing
++  `/controls/` is `1590`, pinned below.
++- **R88-E, freeze after dispatch.** Closed by commit order, measured on this
++  round's own commits: `08ab46a1` is an ancestor of `2e700b9a` with an earlier
++  committer time.
++- **R88-F, lesson shape.** The four rows of `## L1 mistakes` in round-88 are
++  carried as rows of `## Mistakes` below, each with its witness; round-88 points
++  here with a tagged line.
++
++Markers read by the counter:
++
++gate-sample: admits=2 rejects=2
++
++r88-gate-summary-correction: admits=2 rejects=2
++
++r88-c-rerun: retracted
++
++controls-count: 1590@76225160d0dff8d2042fbcd037bd08b0971d5e07
++
++## Mistakes
++
++Rows: the three round-88 routed defects with a mechanical witness, and the four
++round-88 L1 mistakes (`corpus/lessons/round-88.md` `## L1 mistakes`), carried
++here with the witness that would redden each fix. Rows with "manual" have no
++counter; the witness is a re-read named in the row.
++
++| Class | Evidence pointer | Captured-by criterion | Fix | Fix can fail — the witness that reddens it |
++|---|---|---|---|---|
++| Stale integrated-selftest count (R88-A) | `corpus/lessons/round-88.md:265`; `SCORECARD.md` round-88 section (two stale lines); `.ufo/waves/round-88/controls/integrated-selftests.txt` prints 35/35 | outside spot-check; C1 item A | tagged correction on each stale line; `integrated-selftest: 35/35` marker | an untagged `22/22` left in either file, or a marker that differs from the tool's printed count |
++| Gate summary miscount (R88-B) | round-88 report Gate summary "one admit and three rejects"; `corpus/lessons/round-88.md` `## Gate` carries 2 admit and 2 reject | outside spot-check; C1 item B | `gate-sample` and `r88-gate-summary-correction` markers with the parsed counts | any edit to a `## Gate` decision cell that changes the parsed counts while the markers stay |
++| Unbacked re-run claim (R88-C) | "re-run at `edcb2980`" in the round-88 report and spot-check; no committed receipt | outside spot-check; C1 item C | `r88-c-rerun: retracted` | a `receipt=` value naming a path absent at the revision, or a `r88-c-rerun` marker that is missing or duplicated |
++| Unpinned controls count (R88-D) | `1,577` named with no revision in the round-88 report | outside spot-check; C1 item D | `controls-count: 1590@76225160…` | a count that differs from `git ls-tree -r --name-only 76225160 \| grep -c '/controls/'` |
++| Freeze after dispatch (R88-E) | v3 `52e41d2d` landed 15:58:05, after dispatch 15:52:15 in round 88 | outside spot-check; C1 item E | this round's freeze `08ab46a1` precedes dispatch `2e700b9a` | dispatch committed before the freeze, or the two in one commit |
++| Lesson shape (R88-F) | round-88 `## L1 mistakes` heading with no `## Mistakes` section for the round | outside spot-check; C1 item F | `## Mistakes` table with the five columns below, plus the tagged pointer in round-88 | removal of `## Mistakes`, a missing column, or the round-88 pointer line |
++| Mid-write candidate scored (round-88 L1 mistake 1) | round-88 `## L1 mistakes` row 1: a tally read at 16:02 while the seat was live | L1 in `proc://` | score only after the results file names the seat | manual: a receipt whose revision predates the seat's results file |
++| Subject copied from previous round (round-88 L1 mistake 2) | round-88 `## L1 mistakes` row 2: `add7e49b` says twelve seats for fourteen | report assembly | subjects written from the current wave's counts | manual: a commit subject whose seat count differs from `w1-spec.json` |
++| Freeze amended while live (round-88 L1 mistake 3) | round-88 `## L1 mistakes` row 3: `52e41d2d` moved three seeded labels | seats `ScribeLedger`, `ScribeLesson` | freeze before dispatch, or dispatch after freeze, never interleaved | C1 item E on this round's commits |
++| LF-accepting fallback (round-88 L1 mistake 4) | round-88 `## L1 mistakes` row 4: `w1/L1/vary_match.py:22` regex accepted `Vary: "*\n"` | `ReviewReader` §4b | fallback not shipped; integrated tool refuses LF | the integrated tool's selftest must refuse a trailing-LF member; manual until the C2 section |

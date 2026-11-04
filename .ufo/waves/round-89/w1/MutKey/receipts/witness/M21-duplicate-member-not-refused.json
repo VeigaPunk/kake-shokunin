@@ -1,0 +1,65 @@
+{
+ "divergences": 5,
+ "first_20": [
+  {
+   "case": "vary-dup-'a,A'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,A\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate vary member"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "vary-dup-'A,a'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"A,a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate vary member"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "vary-dup-'a,a'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate vary member"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "vary-dup-'Accept,accept'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"Accept,accept\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate vary member"
+   ],
+   "mutant": [
+    "key",
+    "u\u001faccept\u001e\u001c\u001faccept\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-dup-'a, b, a'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a, b, a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate vary member"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ev\u001fa\u001ev\u001fb\u001e\u001c"
+   ]
+  }
+ ]
+}

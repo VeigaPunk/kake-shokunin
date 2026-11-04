@@ -1,0 +1,19 @@
+counter sha256 read: c89_key.py (verified by the caller)
+reference-unmutated: frozen=16/16 props=200/200 refuse=9/9 met=true
+dup-vary-member-allowed: frozen=16/16 props=200/200 refuse=9/9 met=true
+nonempty-nontoken-vary-member-allowed: frozen=16/16 props=200/200 refuse=9/9 met=true
+empty-header-name-allowed: frozen=16/16 props=200/200 refuse=9/9 met=true
+cr-only-in-value-allowed: frozen=16/16 props=200/200 refuse=9/9 met=true
+uri-not-percent-escaped: frozen=16/16 props=200/200 refuse=9/9 met=true
+name-not-escaped: frozen=16/16 props=200/200 refuse=9/9 met=true
+u001d-not-escaped: frozen=16/16 props=200/200 refuse=9/9 met=true
+value-not-escaped: frozen=14/16 props=185/200 refuse=9/9 met=false
+    fail: frozen percent-escaped: key differs
+    fail: frozen separator-in-value-escaped: key differs
+absent-equals-empty: frozen=15/16 props=180/200 refuse=9/9 met=false
+    fail: frozen absent-member: key differs
+    fail: prop absent_vs_empty: expected different keys
+vary-not-string-allowed: frozen=16/16 props=200/200 refuse=8/9 met=false
+    fail: refuse vary-not-string: not refused with 'string'
+summary: mutants=10 killed=3 survived_met_true=7
+probe_exit=0

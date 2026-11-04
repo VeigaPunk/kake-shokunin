@@ -1,0 +1,41 @@
+{
+ "divergences": 3,
+ "first_20": [
+  {
+   "case": "frozen:duplicate-header-name-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept\": \"a\", \"accept\": \"b\"}, \"vary\": \"Accept\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate header name"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001eb"
+   ]
+  },
+  {
+   "case": "hdr-dup-case",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"Accept\": \"a\", \"accept\": \"b\"}, \"vary\": \"accept\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate header name"
+   ],
+   "mutant": [
+    "key",
+    "u\u001faccept\u001eb"
+   ]
+  },
+  {
+   "case": "hdr-dup-case-3",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"1\", \"A\": \"2\", \"x\": \"3\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate header name"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e2"
+   ]
+  }
+ ]
+}

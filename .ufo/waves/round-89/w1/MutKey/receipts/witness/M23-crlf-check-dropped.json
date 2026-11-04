@@ -1,0 +1,77 @@
+{
+ "divergences": 6,
+ "first_20": [
+  {
+   "case": "frozen:lf-value-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\ny\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001ex\ny"
+   ]
+  },
+  {
+   "case": "value-wrap-LF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"\\nv\\n\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\nv\n"
+   ]
+  },
+  {
+   "case": "value-wrap-CR",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"\\rv\\r\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\rv\r"
+   ]
+  },
+  {
+   "case": "value-CR",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"x\\ry\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ex\ry"
+   ]
+  },
+  {
+   "case": "value-LF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"x\\ny\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ex\ny"
+   ]
+  },
+  {
+   "case": "value-CRLF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"x\\r\\ny\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ex\r\ny"
+   ]
+  }
+ ]
+}

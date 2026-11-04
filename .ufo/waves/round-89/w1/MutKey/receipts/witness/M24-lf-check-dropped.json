@@ -1,0 +1,41 @@
+{
+ "divergences": 3,
+ "first_20": [
+  {
+   "case": "frozen:lf-value-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\ny\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001ex\ny"
+   ]
+  },
+  {
+   "case": "value-wrap-LF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"\\nv\\n\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\nv\n"
+   ]
+  },
+  {
+   "case": "value-LF",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"x\\ny\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header value contains CR or LF"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001ex\ny"
+   ]
+  }
+ ]
+}

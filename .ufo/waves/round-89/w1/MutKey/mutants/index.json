@@ -1,0 +1,261 @@
+[
+ {
+  "id": "M01-member-name-not-lowered",
+  "clause": "name case handling (member)",
+  "old": "names.append(member.lower())",
+  "new": "names.append(member)",
+  "sha256": "cf859f4a62d6cec7a2a0fff5d04d6dc72bd8a920fee16f1cd2aa1e0143ba1e21"
+ },
+ {
+  "id": "M02-header-stored-as-presented",
+  "clause": "name case handling (header lookup)",
+  "old": "lowered[low] = value",
+  "new": "lowered[name] = value",
+  "sha256": "7d463256ab02b31f0c13dd572c6615458dc3842b129405890e6ea62e448005e8"
+ },
+ {
+  "id": "M03-member-order-unsorted",
+  "clause": "member sort",
+  "old": "    return sorted(names)",
+  "new": "    return names",
+  "sha256": "fe8978f7070d7a95c775909a9f2c66114567ff84fe5b230b3c17490a56c93d71"
+ },
+ {
+  "id": "M04-member-order-reversed",
+  "clause": "member sort (direction)",
+  "old": "    return sorted(names)",
+  "new": "    return sorted(names, reverse=True)",
+  "sha256": "575e697e9af90612e076eee22e7b1d2757df71c5953acae276e1f9950bca0a91"
+ },
+ {
+  "id": "M05-member-ows-not-trimmed",
+  "clause": "member OWS trim",
+  "old": "member = _strip_ows(raw)",
+  "new": "member = raw",
+  "sha256": "88c851fc1e10aee988770242d0256077f4e76a306da7b4b5309c53c27352c71e"
+ },
+ {
+  "id": "M06-member-trim-wider-than-ows",
+  "clause": "member OWS trim (SP/HTAB only)",
+  "old": "member = _strip_ows(raw)",
+  "new": "member = raw.strip()",
+  "sha256": "5da4ecd302998effdbf5c3cdff15092444e366eb23d95412d90eebae00883814"
+ },
+ {
+  "id": "M07-value-ows-not-trimmed",
+  "clause": "value OWS trim",
+  "old": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name])))",
+  "new": "            parts.append(_esc(name) + RS + _esc(lowered[name]))",
+  "sha256": "bcad3946678b4becd80533e9954708021b3965a3245cb571474d58422262d999"
+ },
+ {
+  "id": "M08-value-trim-wider-than-ows",
+  "clause": "value OWS trim (SP/HTAB only)",
+  "old": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name])))",
+  "new": "            parts.append(_esc(name) + RS + _esc(lowered[name].strip()))",
+  "sha256": "38dedcd5a8e1068e87300aef7b387483db61eaf3d8ad168e4db29930037a9537"
+ },
+ {
+  "id": "M09-value-case-lowered",
+  "clause": "value case",
+  "old": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name])))",
+  "new": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name]).lower()))",
+  "sha256": "e7b3b5280dacd398a27b10ce6c5e08f20ab13d70e93b685113ea1ec79eb39af5"
+ },
+ {
+  "id": "M10-value-case-uppered",
+  "clause": "value case (inverse)",
+  "old": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name])))",
+  "new": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name]).upper()))",
+  "sha256": "81d518325b6c4f1f3a5d43dce94812fa1989f99f769ab347c5dbf3acb638af0f"
+ },
+ {
+  "id": "M11-escape-percent-dropped",
+  "clause": "escaping %",
+  "old": "(\"%\", \"%25\"),",
+  "new": "(\"%\", \"%\"),",
+  "sha256": "0c54d870e463ddc3305b049921e4f54523bbcc9f6d6dd6ee759c49b5675f2a69"
+ },
+ {
+  "id": "M12-escape-GS-dropped",
+  "clause": "escaping U+001C",
+  "old": "(GS, \"%1C\"),",
+  "new": "(GS, GS),",
+  "sha256": "99314c213238c1e1b34bb14ba57683f3b2af9b3bdd8ef8ba25ef0dc2b4895220"
+ },
+ {
+  "id": "M13-escape-FS-dropped",
+  "clause": "escaping U+001D",
+  "old": "(\"\\x1d\", \"%1D\"),",
+  "new": "(\"\\x1d\", \"\\x1d\"),",
+  "sha256": "2c0a96ed8eeb76c6df7e5217f2728c7898bc6ef3c5413eeb518d224a1f0bbb44"
+ },
+ {
+  "id": "M14-escape-RS-dropped",
+  "clause": "escaping U+001E",
+  "old": "(RS, \"%1E\"),",
+  "new": "(RS, RS),",
+  "sha256": "3aebfa92be640fe770f2afb65d062555aa54ab708e816fe220bf939d4f6b08ca"
+ },
+ {
+  "id": "M15-escape-US-dropped",
+  "clause": "escaping U+001F",
+  "old": "(US, \"%1F\"),",
+  "new": "(US, US),",
+  "sha256": "0ab248c7d9ab239a04a9811ce92bce9feaf02c9b312349a7a8b7aaec399325d9"
+ },
+ {
+  "id": "M16-escape-percent-last",
+  "clause": "escaping order (% escaped after separators)",
+  "old": "    (\"%\", \"%25\"),\n    (GS, \"%1C\"),\n    (\"\\x1d\", \"%1D\"),\n    (RS, \"%1E\"),\n    (US, \"%1F\"),",
+  "new": "    (GS, \"%1C\"),\n    (\"\\x1d\", \"%1D\"),\n    (RS, \"%1E\"),\n    (US, \"%1F\"),\n    (\"%\", \"%25\"),",
+  "sha256": "874017b1e0c38c7b05d111301a5086d9eef34635ec6d402dc6e7dc7160ffdc2c"
+ },
+ {
+  "id": "M17-absent-emits-empty",
+  "clause": "absent marker",
+  "old": "            parts.append(_esc(name) + RS + GS)",
+  "new": "            parts.append(_esc(name) + RS)",
+  "sha256": "99de98fec75814b3d354a65c581f2a597af47ed5fc5939eda23f513ca33a6f78"
+ },
+ {
+  "id": "M18-present-empty-emits-absent",
+  "clause": "present-empty vs absent",
+  "old": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name])))\n        else:",
+  "new": "            _v = _strip_ows(lowered[name])\n            parts.append(_esc(name) + RS + (GS if _v == \"\" else _esc(_v)))\n        else:",
+  "sha256": "e66c4502ab3c0cc6430e0f91e63c0528a2fd84f99b0708c2dfe86aca7073b21b"
+ },
+ {
+  "id": "M19-wildcard-not-refused",
+  "clause": "wildcard refusal",
+  "old": "        if member == \"*\":\n            raise _Invalid(\"vary wildcard nominates no field\")",
+  "new": "        if member == \"**\":\n            raise _Invalid(\"vary wildcard nominates no field\")",
+  "sha256": "4d77681688a32fe2bcef4bc2994abe52accfdbc3c64b11436df383fdf0ae15b9"
+ },
+ {
+  "id": "M20-wildcard-anywhere-refused",
+  "clause": "wildcard refusal (over-broad)",
+  "old": "if member == \"*\":",
+  "new": "if \"*\" in member:",
+  "sha256": "09abeb6cbaea51597259fcc1e57092436e1f9193cd78833fbc2de6220d95d34f"
+ },
+ {
+  "id": "M21-duplicate-member-not-refused",
+  "clause": "duplicate member refusal",
+  "old": "if len(set(names)) != len(names):",
+  "new": "if False:",
+  "sha256": "de92179ab08049470465a998f2d593657ae2b3819c7f617871b4e5310c178d3d"
+ },
+ {
+  "id": "M22-duplicate-header-not-refused",
+  "clause": "duplicate header refusal",
+  "old": "if low in lowered:",
+  "new": "if low in lowered and False:",
+  "sha256": "056ed2c978ef654cfa214db5a6f946442c032028fb3168901828cd262b848730"
+ },
+ {
+  "id": "M23-crlf-check-dropped",
+  "clause": "CR/LF refusal",
+  "old": "if \"\\r\" in value or \"\\n\" in value:",
+  "new": "if False:",
+  "sha256": "22f7b8f18f062031d564ff7f09f1aa220c29bda33e1c4b03c13216ed7b1cbdec"
+ },
+ {
+  "id": "M24-lf-check-dropped",
+  "clause": "CR/LF refusal (LF half)",
+  "old": "if \"\\r\" in value or \"\\n\" in value:",
+  "new": "if \"\\r\" in value:",
+  "sha256": "67ae5b0f11ca872a6279359dcc734b8af73e88f879da1ed2895e29cad71984ab"
+ },
+ {
+  "id": "M25-header-token-check-dropped",
+  "clause": "token check (header name)",
+  "old": "if not isinstance(name, str) or not _is_token(name):",
+  "new": "if not isinstance(name, str):",
+  "sha256": "c5ba5e15ca26f9e5f4599789a99abdd8c8a5e72c89ffa887488a63231aede11a"
+ },
+ {
+  "id": "M26-vary-token-check-dropped",
+  "clause": "token check (Vary member)",
+  "old": "if not _is_token(member):",
+  "new": "if not isinstance(member, str):",
+  "sha256": "d61b2428eeaf0a9deadc434e5a281c25124c17136275f8d1e1ac8e11aadbc5e7"
+ },
+ {
+  "id": "M27-empty-vary-falls-through",
+  "clause": "empty Vary handling",
+  "old": "    if vary == \"\":\n        return []",
+  "new": "    if vary == \"\\x00\":\n        return []",
+  "sha256": "c384d1aae99aeb504d98037b2f7e0265dba1703527cd2dd8e67d335bb7d197e7"
+ },
+ {
+  "id": "M28-layout-us-always",
+  "clause": "separator layout (no-member case)",
+  "old": "return _esc(uri) + (\"\" if not parts else US + US.join(parts))",
+  "new": "return _esc(uri) + US + US.join(parts)",
+  "sha256": "1163408ecdebd396fd1e5567767fc7c0079f9dbf87f62f73bb3de9192429836b"
+ },
+ {
+  "id": "M29-layout-comma-join",
+  "clause": "separator layout (pair separator)",
+  "old": "US + US.join(parts)",
+  "new": "US + \",\".join(parts)",
+  "sha256": "70262f851caef9845bb8c1c4768f141ea0f0b77ee18ffe293c07a827389a0d88"
+ },
+ {
+  "id": "M30-layout-rs-dropped",
+  "clause": "separator layout (name/value separator)",
+  "old": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name])))",
+  "new": "            parts.append(_esc(name) + _esc(_strip_ows(lowered[name])))",
+  "sha256": "39d0e0629e58d6bcab630df551b873c49462dc4a6fe56007bfdf2417a96c358d"
+ },
+ {
+  "id": "M31-uri-not-escaped",
+  "clause": "escaping the URI component",
+  "old": "return _esc(uri) + (\"\" if not parts else US + US.join(parts))",
+  "new": "return uri + (\"\" if not parts else US + US.join(parts))",
+  "sha256": "20be4c1a3b00b93bb02e9e1a22bc031a5c06661a7662a025b230b7772cf30ed7"
+ },
+ {
+  "id": "M32-value-internal-whitespace-collapsed",
+  "clause": "value byte-exactness (internal OWS)",
+  "old": "            parts.append(_esc(name) + RS + _esc(_strip_ows(lowered[name])))",
+  "new": "            parts.append(_esc(name) + RS + _esc(\" \".join(_strip_ows(lowered[name]).split())))",
+  "sha256": "bcd518737051aca84ebd40b5b71a034785ecc58f868e22ceb71bf0288605c571"
+ },
+ {
+  "id": "M33-header-name-casefold",
+  "clause": "ASCII-only lowercasing (equivalent probe)",
+  "old": "low = name.lower()",
+  "new": "low = name.casefold()",
+  "sha256": "54ac23da3fe09e7fddfb297885e69b0ebf126d7644dce16b36919e67676c0b1c"
+ },
+ {
+  "id": "M34-refusal-exits-zero",
+  "clause": "refusal contract (exit 1)",
+  "old": "    except _Invalid as exc:\n        print(f\"invalid_input: {exc}\", file=sys.stderr)\n        return 1",
+  "new": "    except _Invalid as exc:\n        print(f\"invalid_input: {exc}\", file=sys.stderr)\n        return 0",
+  "sha256": "a6d4cee72a9cf4b19b1a1015614d62f6f809a6efbac101084692a80f9acb7f30"
+ },
+ {
+  "id": "M36-duplicate-member-deduped",
+  "clause": "duplicate member refusal (dedupe instead)",
+  "old": "    return sorted(names)",
+  "new": "    return sorted(set(names))",
+  "sha256": "d31bd80ea14fc0c087132623c9f498d9290ce5fdaf4a9cbec3396be7d3b80f2f"
+ },
+ {
+  "id": "M37-absent-name-not-escaped",
+  "clause": "escaping of names (vacuous: names are tokens)",
+  "old": "            parts.append(_esc(name) + RS + GS)",
+  "new": "            parts.append(name + RS + GS)",
+  "sha256": "9400e66ddb62357999d432adb744ab020c6a6cee42be2f5126f5891d76ff3e8a"
+ },
+ {
+  "id": "M35-stdout-bare-key",
+  "clause": "success contract (JSON object)",
+  "old": "sys.stdout.write(json.dumps({\"key\": key}) + \"\\n\")",
+  "new": "sys.stdout.write(key + \"\\n\")",
+  "sha256": "26770becb140258b2323120fbac47330240b83637f531813025db9bce9f99f81"
+ }
+]

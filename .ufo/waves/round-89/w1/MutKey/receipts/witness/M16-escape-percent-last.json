@@ -1,0 +1,245 @@
+{
+ "divergences": 227,
+ "first_20": [
+  {
+   "case": "frozen:separator-in-value-escaped",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%251Fb%251Ey"
+   ]
+  },
+  {
+   "case": "worked:5",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%251Fb%251Ey"
+   ]
+  },
+  {
+   "case": "value-u001C",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001cy\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Cy"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%251Cy"
+   ]
+  },
+  {
+   "case": "value-u001C-alone",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"\\u001c\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001e%1C"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001e%251C"
+   ]
+  },
+  {
+   "case": "uri-u001C",
+   "input": "{\"uri\": \"https://e.test/a\\u001cb\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Cb\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%251Cb\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "uri-u001C-novary",
+   "input": "{\"uri\": \"https://e.test/a\\u001cb\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Cb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%251Cb"
+   ]
+  },
+  {
+   "case": "value-u001D",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001dy\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Dy"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%251Dy"
+   ]
+  },
+  {
+   "case": "value-u001D-alone",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"\\u001d\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001e%1D"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001e%251D"
+   ]
+  },
+  {
+   "case": "uri-u001D",
+   "input": "{\"uri\": \"https://e.test/a\\u001db\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Db\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%251Db\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "uri-u001D-novary",
+   "input": "{\"uri\": \"https://e.test/a\\u001db\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Db"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%251Db"
+   ]
+  },
+  {
+   "case": "value-u001E",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001ey\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Ey"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%251Ey"
+   ]
+  },
+  {
+   "case": "value-u001E-alone",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"\\u001e\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001e%1E"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001e%251E"
+   ]
+  },
+  {
+   "case": "uri-u001E",
+   "input": "{\"uri\": \"https://e.test/a\\u001eb\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Eb\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%251Eb\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "uri-u001E-novary",
+   "input": "{\"uri\": \"https://e.test/a\\u001eb\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Eb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%251Eb"
+   ]
+  },
+  {
+   "case": "value-u001F",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fy\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Fy"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%251Fy"
+   ]
+  },
+  {
+   "case": "value-u001F-alone",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"\\u001f\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001e%1F"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001e%251F"
+   ]
+  },
+  {
+   "case": "uri-u001F",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%251Fb\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "uri-u001F-novary",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%251Fb"
+   ]
+  },
+  {
+   "case": "present-GS",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"\\u001c\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e%1C"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e%251C"
+   ]
+  },
+  {
+   "case": "rand:3",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"Accept\": \"a\\u001db\", \"b\": \"x\\u00a0y\", \"a\": \"a\\u001db\", \"x-other\": \"  gzip  \"}, \"vary\": \"accept, B, a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001fa\u001ea%1Db\u001faccept\u001ea%1Db\u001fb\u001ex\u00a0y"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001fa\u001ea%251Db\u001faccept\u001ea%251Db\u001fb\u001ex\u00a0y"
+   ]
+  }
+ ]
+}

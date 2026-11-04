@@ -1,0 +1,245 @@
+{
+ "divergences": 286,
+ "first_20": [
+  {
+   "case": "frozen:two-members-sorted",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"Accept-Encoding, Accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "frozen:member-ows-and-order",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"  Accept\\t,Accept-Encoding  \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "frozen:separator-split-differs",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\", \"b\": \"y\"}, \"vary\": \"a, b\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex\u001fb\u001ey"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "worked:3",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \" Accept ,Accept-Encoding \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:0",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"accept-encoding\": \"x\\u00a0y\", \"Accept\": \"x\\u000by\"}, \"vary\": \"accept-encoding, Accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001ex\u000by\u001faccept-encoding\u001ex\u00a0y"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:1",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"50%\", \"user-agent\": \"\\tv\"}, \"vary\": \" a, user-agent, accept-encoding \"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e50%25\u001faccept-encoding\u001e\u001c\u001fuser-agent\u001ev"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:3",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"Accept\": \"a\\u001db\", \"b\": \"x\\u00a0y\", \"a\": \"a\\u001db\", \"x-other\": \"  gzip  \"}, \"vary\": \"accept, B, a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001fa\u001ea%1Db\u001faccept\u001ea%1Db\u001fb\u001ex\u00a0y"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:5",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {\"x-probe\": \"x\\u00a0y\", \"a\": \"x\\u000by\"}, \"vary\": \"x-probe, Accept, a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb\u001fa\u001ex\u000by\u001faccept\u001e\u001c\u001fx-probe\u001ex\u00a0y"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:6",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"x-probe\": \"a\\u001db\", \"Accept\": \"50%\", \"user-agent\": \"x\\u00a0y\"}, \"vary\": \"x-probe, accept, user-agent\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001e50%25\u001fuser-agent\u001ex\u00a0y\u001fx-probe\u001ea%1Db"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:7",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"b\": \"\"}, \"vary\": \"B, x-probe\"}",
+   "reference": [
+    "key",
+    "u\u001fb\u001e\u001fx-probe\u001e\u001c"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:9",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"b\": \"x\\u00a0y\", \"user-agent\": \"x\\u000by\"}, \"vary\": \" B, USER-AGENT \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fb\u001ex\u00a0y\u001fuser-agent\u001ex\u000by"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:10",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"a\": \"x\\u000by\", \"x-probe\": \"x  y\"}, \"vary\": \"a, x-probe, accept-encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001fa\u001ex\u000by\u001faccept-encoding\u001e\u001c\u001fx-probe\u001ex  y"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:11",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \" \", \"user-agent\": \"a\\u001fb\", \"x-probe\": \"v\\t\"}, \"vary\": \"A, user-agent, X-PROBE\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001e\u001fuser-agent\u001ea%1Fb\u001fx-probe\u001ev"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:12",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"user-agent\": \"a\\u001eb\"}, \"vary\": \"USER-AGENT, x-probe\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fuser-agent\u001ea%1Eb\u001fx-probe\u001e\u001c"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:15",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"GZIP\"}, \"vary\": \"x-probe, A\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001eGZIP\u001fx-probe\u001e\u001c"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:16",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"Accept\": \"%25\", \"a\": \"50%\", \"x-other\": \" \"}, \"vary\": \"accept, A\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e50%25\u001faccept\u001e%2525"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:17",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"accept-encoding\": \"x\\u000by\", \"a\": \"%25\"}, \"vary\": \"ACCEPT-ENCODING, a\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e%2525\u001faccept-encoding\u001ex\u000by"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:18",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"x-probe\": \"a\\u001cb\"}, \"vary\": \"ACCEPT, B, x-probe\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001e\u001c\u001fb\u001e\u001c\u001fx-probe\u001ea%1Cb"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:19",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {\"user-agent\": \"GZIP\"}, \"vary\": \"A, ACCEPT, USER-AGENT\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb\u001fa\u001e\u001c\u001faccept\u001e\u001c\u001fuser-agent\u001eGZIP"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  },
+  {
+   "case": "rand:21",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {\"x-probe\": \"%25\"}, \"vary\": \"user-agent, X-PROBE\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb\u001fuser-agent\u001e\u001c\u001fx-probe\u001e%2525"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary member is not a token"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+# ScoutGround — base-absence and inventory receipts
+# seat: ScoutGround, round-89 wave-1, base 76225160d0dff8d2042fbcd037bd08b0971d5e07
+# commands run from LANE root, 2026-11-04T21:21:54Z
+
+$ git cat-file -e 76225160...:scripts/cache_key.py
+fatal: path 'scripts/cache_key.py' exists on disk, but not in '76225160d0dff8d2042fbcd037bd08b0971d5e07'
+exit=128
+
+$ git cat-file -e 76225160...:corpus/lessons/round-89.md
+fatal: path 'corpus/lessons/round-89.md' does not exist in '76225160d0dff8d2042fbcd037bd08b0971d5e07'
+exit=128
+
+$ git rev-parse 76225160...^{commit}
+76225160d0dff8d2042fbcd037bd08b0971d5e07

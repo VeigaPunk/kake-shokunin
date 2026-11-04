@@ -1,0 +1,245 @@
+{
+ "divergences": 346,
+ "first_20": [
+  {
+   "case": "frozen:single-member",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001eGZIP"
+   ]
+  },
+  {
+   "case": "frozen:two-members-sorted",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"Accept-Encoding, Accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001eTEXT/HTML\u001faccept-encoding\u001eGZIP"
+   ]
+  },
+  {
+   "case": "frozen:member-ows-and-order",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"  Accept\\t,Accept-Encoding  \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001eTEXT/HTML\u001faccept-encoding\u001eGZIP"
+   ]
+  },
+  {
+   "case": "frozen:separator-in-value-escaped",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eX%1FB%1EY"
+   ]
+  },
+  {
+   "case": "frozen:separator-split-differs",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\", \"b\": \"y\"}, \"vary\": \"a, b\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex\u001fb\u001ey"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eX\u001fb\u001eY"
+   ]
+  },
+  {
+   "case": "frozen:tab-trimmed",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"\\tv\\t\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eV"
+   ]
+  },
+  {
+   "case": "worked:2",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001eGZIP"
+   ]
+  },
+  {
+   "case": "worked:3",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \" Accept ,Accept-Encoding \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001eTEXT/HTML\u001faccept-encoding\u001eGZIP"
+   ]
+  },
+  {
+   "case": "worked:5",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eX%1FB%1EY"
+   ]
+  },
+  {
+   "case": "value-pct",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x%y\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%25y"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eX%25Y"
+   ]
+  },
+  {
+   "case": "uri-pct",
+   "input": "{\"uri\": \"https://e.test/a%b\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%25b\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%25b\u001fa\u001eV"
+   ]
+  },
+  {
+   "case": "value-u001C",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001cy\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Cy"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eX%1CY"
+   ]
+  },
+  {
+   "case": "uri-u001C",
+   "input": "{\"uri\": \"https://e.test/a\\u001cb\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Cb\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Cb\u001fa\u001eV"
+   ]
+  },
+  {
+   "case": "value-u001D",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001dy\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Dy"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eX%1DY"
+   ]
+  },
+  {
+   "case": "uri-u001D",
+   "input": "{\"uri\": \"https://e.test/a\\u001db\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Db\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Db\u001fa\u001eV"
+   ]
+  },
+  {
+   "case": "value-u001E",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001ey\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Ey"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eX%1EY"
+   ]
+  },
+  {
+   "case": "uri-u001E",
+   "input": "{\"uri\": \"https://e.test/a\\u001eb\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Eb\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Eb\u001fa\u001eV"
+   ]
+  },
+  {
+   "case": "value-u001F",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fy\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Fy"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001eX%1FY"
+   ]
+  },
+  {
+   "case": "uri-u001F",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Fb\u001fa\u001eV"
+   ]
+  },
+  {
+   "case": "value-internal-2sp",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"x  y\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001ex  y"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001eX  Y"
+   ]
+  }
+ ]
+}

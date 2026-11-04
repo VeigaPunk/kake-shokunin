@@ -1,0 +1,568 @@
+{
+ "corpus_size": 544,
+ "reference": {
+  "cases": 544,
+  "bad_stdout": 0
+ },
+ "mutants": {
+  "M01-member-name-not-lowered": {
+   "clause": "name case handling (member)",
+   "divergences": 253,
+   "witness": {
+    "case": "frozen:single-member",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001egzip"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fAccept-Encoding\u001e\u001c"
+    ]
+   }
+  },
+  "M02-header-stored-as-presented": {
+   "clause": "name case handling (header lookup)",
+   "divergences": 128,
+   "witness": {
+    "case": "frozen:single-member",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001egzip"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001e\u001c"
+    ]
+   }
+  },
+  "M03-member-order-unsorted": {
+   "clause": "member sort",
+   "divergences": 186,
+   "witness": {
+    "case": "frozen:two-members-sorted",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"Accept-Encoding, Accept\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001egzip\u001faccept\u001etext/html"
+    ]
+   }
+  },
+  "M04-member-order-reversed": {
+   "clause": "member sort (direction)",
+   "divergences": 273,
+   "witness": {
+    "case": "frozen:two-members-sorted",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"Accept-Encoding, Accept\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001egzip\u001faccept\u001etext/html"
+    ]
+   }
+  },
+  "M05-member-ows-not-trimmed": {
+   "clause": "member OWS trim",
+   "divergences": 286,
+   "witness": {
+    "case": "frozen:two-members-sorted",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"Accept-Encoding, Accept\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+    ],
+    "mutant": [
+     "refuse",
+     "invalid_input: vary member is not a token"
+    ]
+   }
+  },
+  "M06-member-trim-wider-than-ows": {
+   "clause": "member OWS trim (SP/HTAB only)",
+   "divergences": 6,
+   "witness": {
+    "case": "member-wrap-LF",
+    "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"\\na\\n\"}",
+    "reference": [
+     "refuse",
+     "invalid_input: vary member is not a token"
+    ],
+    "mutant": [
+     "key",
+     "u\u001fa\u001ev"
+    ]
+   }
+  },
+  "M07-value-ows-not-trimmed": {
+   "clause": "value OWS trim",
+   "divergences": 146,
+   "witness": {
+    "case": "frozen:value-edge-ows-trimmed",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \" GZIP \"}, \"vary\": \"Accept-Encoding\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001eGZIP"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001e GZIP "
+    ]
+   }
+  },
+  "M08-value-trim-wider-than-ows": {
+   "clause": "value OWS trim (SP/HTAB only)",
+   "divergences": 9,
+   "witness": {
+    "case": "value-u001C-alone",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"\\u001c\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001fa\u001e%1C"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001e"
+    ]
+   }
+  },
+  "M09-value-case-lowered": {
+   "clause": "value case",
+   "divergences": 44,
+   "witness": {
+    "case": "frozen:value-edge-ows-trimmed",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \" GZIP \"}, \"vary\": \"Accept-Encoding\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001eGZIP"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001egzip"
+    ]
+   }
+  },
+  "M10-value-case-uppered": {
+   "clause": "value case (inverse)",
+   "divergences": 346,
+   "witness": {
+    "case": "frozen:single-member",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001egzip"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001eGZIP"
+    ]
+   }
+  },
+  "M11-escape-percent-dropped": {
+   "clause": "escaping %",
+   "divergences": 175,
+   "witness": {
+    "case": "frozen:percent-escaped",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"50%\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001fa\u001e50%25"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001e50%"
+    ]
+   }
+  },
+  "M12-escape-GS-dropped": {
+   "clause": "escaping U+001C",
+   "divergences": 52,
+   "witness": {
+    "case": "value-u001C",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001cy\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001fa\u001ex%1Cy"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001ex\u001cy"
+    ]
+   }
+  },
+  "M13-escape-FS-dropped": {
+   "clause": "escaping U+001D",
+   "divergences": 45,
+   "witness": {
+    "case": "value-u001D",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001dy\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001fa\u001ex%1Dy"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001ex\u001dy"
+    ]
+   }
+  },
+  "M14-escape-RS-dropped": {
+   "clause": "escaping U+001E",
+   "divergences": 53,
+   "witness": {
+    "case": "frozen:separator-in-value-escaped",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001ex%1Fb\u001ey"
+    ]
+   }
+  },
+  "M15-escape-US-dropped": {
+   "clause": "escaping U+001F",
+   "divergences": 132,
+   "witness": {
+    "case": "frozen:separator-in-value-escaped",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001ex\u001fb%1Ey"
+    ]
+   }
+  },
+  "M16-escape-percent-last": {
+   "clause": "escaping order (% escaped after separators)",
+   "divergences": 227,
+   "witness": {
+    "case": "frozen:separator-in-value-escaped",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001ex%251Fb%251Ey"
+    ]
+   }
+  },
+  "M17-absent-emits-empty": {
+   "clause": "absent marker",
+   "divergences": 124,
+   "witness": {
+    "case": "frozen:absent-member",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}, \"vary\": \"Accept-Encoding\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001e\u001c"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001e"
+    ]
+   }
+  },
+  "M18-present-empty-emits-absent": {
+   "clause": "present-empty vs absent",
+   "divergences": 86,
+   "witness": {
+    "case": "frozen:present-empty-member",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"\"}, \"vary\": \"Accept-Encoding\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001e"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001e\u001c"
+    ]
+   }
+  },
+  "M19-wildcard-not-refused": {
+   "clause": "wildcard refusal",
+   "divergences": 8,
+   "witness": {
+    "case": "frozen:wildcard-refused",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}, \"vary\": \"*\"}",
+    "reference": [
+     "refuse",
+     "invalid_input: vary wildcard nominates no field"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001f*\u001e\u001c"
+    ]
+   }
+  },
+  "M20-wildcard-anywhere-refused": {
+   "clause": "wildcard refusal (over-broad)",
+   "divergences": 4,
+   "witness": {
+    "case": "vary-'a*'",
+    "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a*\"}",
+    "reference": [
+     "key",
+     "u\u001fa*\u001e\u001c"
+    ],
+    "mutant": [
+     "refuse",
+     "invalid_input: vary wildcard nominates no field"
+    ]
+   }
+  },
+  "M21-duplicate-member-not-refused": {
+   "clause": "duplicate member refusal",
+   "divergences": 5,
+   "witness": {
+    "case": "vary-dup-'a,A'",
+    "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,A\"}",
+    "reference": [
+     "refuse",
+     "invalid_input: duplicate vary member"
+    ],
+    "mutant": [
+     "key",
+     "u\u001fa\u001ev\u001fa\u001ev"
+    ]
+   }
+  },
+  "M22-duplicate-header-not-refused": {
+   "clause": "duplicate header refusal",
+   "divergences": 3,
+   "witness": {
+    "case": "frozen:duplicate-header-name-refused",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept\": \"a\", \"accept\": \"b\"}, \"vary\": \"Accept\"}",
+    "reference": [
+     "refuse",
+     "invalid_input: duplicate header name"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept\u001eb"
+    ]
+   }
+  },
+  "M23-crlf-check-dropped": {
+   "clause": "CR/LF refusal",
+   "divergences": 6,
+   "witness": {
+    "case": "frozen:lf-value-refused",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\ny\"}, \"vary\": \"a\"}",
+    "reference": [
+     "refuse",
+     "invalid_input: header value contains CR or LF"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001ex\ny"
+    ]
+   }
+  },
+  "M24-lf-check-dropped": {
+   "clause": "CR/LF refusal (LF half)",
+   "divergences": 3,
+   "witness": {
+    "case": "frozen:lf-value-refused",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\ny\"}, \"vary\": \"a\"}",
+    "reference": [
+     "refuse",
+     "invalid_input: header value contains CR or LF"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001ex\ny"
+    ]
+   }
+  },
+  "M25-header-token-check-dropped": {
+   "clause": "token check (header name)",
+   "divergences": 10,
+   "witness": {
+    "case": "refuse:header-name-not-token",
+    "input": "{\"uri\": \"u\", \"request_headers\": {\"a b\": \"1\"}}",
+    "reference": [
+     "refuse",
+     "invalid_input: header name is not a token"
+    ],
+    "mutant": [
+     "key",
+     "u"
+    ]
+   }
+  },
+  "M26-vary-token-check-dropped": {
+   "clause": "token check (Vary member)",
+   "divergences": 26,
+   "witness": {
+    "case": "frozen:trailing-comma-refused",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"1\"}, \"vary\": \"a,\"}",
+    "reference": [
+     "refuse",
+     "invalid_input: vary member is not a token"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001f\u001e\u001c\u001fa\u001e1"
+    ]
+   }
+  },
+  "M27-empty-vary-falls-through": {
+   "clause": "empty Vary handling",
+   "divergences": 14,
+   "witness": {
+    "case": "frozen:no-vary-no-headers",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}}",
+    "reference": [
+     "key",
+     "https://e.test/a"
+    ],
+    "mutant": [
+     "refuse",
+     "invalid_input: vary member is not a token"
+    ]
+   }
+  },
+  "M28-layout-us-always": {
+   "clause": "separator layout (no-member case)",
+   "divergences": 14,
+   "witness": {
+    "case": "frozen:no-vary-no-headers",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}}",
+    "reference": [
+     "key",
+     "https://e.test/a"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001f"
+    ]
+   }
+  },
+  "M29-layout-comma-join": {
+   "clause": "separator layout (pair separator)",
+   "divergences": 273,
+   "witness": {
+    "case": "frozen:two-members-sorted",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"Accept-Encoding, Accept\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept\u001etext/html,accept-encoding\u001egzip"
+    ]
+   }
+  },
+  "M30-layout-rs-dropped": {
+   "clause": "separator layout (name/value separator)",
+   "divergences": 423,
+   "witness": {
+    "case": "frozen:single-member",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001faccept-encoding\u001egzip"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001faccept-encodinggzip"
+    ]
+   }
+  },
+  "M31-uri-not-escaped": {
+   "clause": "escaping the URI component",
+   "divergences": 209,
+   "witness": {
+    "case": "uri-pct",
+    "input": "{\"uri\": \"https://e.test/a%b\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a%25b\u001fa\u001ev"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a%b\u001fa\u001ev"
+    ]
+   }
+  },
+  "M32-value-internal-whitespace-collapsed": {
+   "clause": "value byte-exactness (internal OWS)",
+   "divergences": 249,
+   "witness": {
+    "case": "frozen:separator-in-value-escaped",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+    "reference": [
+     "key",
+     "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+    ],
+    "mutant": [
+     "key",
+     "https://e.test/a\u001fa\u001ex b y"
+    ]
+   }
+  },
+  "M33-header-name-casefold": {
+   "clause": "ASCII-only lowercasing (equivalent probe)",
+   "divergences": 0,
+   "witness": null
+  },
+  "M34-refusal-exits-zero": {
+   "clause": "refusal contract (exit 1)",
+   "divergences": 76,
+   "witness": {
+    "case": "frozen:wildcard-refused",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}, \"vary\": \"*\"}",
+    "reference": [
+     "refuse",
+     "invalid_input: vary wildcard nominates no field"
+    ],
+    "mutant": [
+     "bad-stdout",
+     ""
+    ]
+   }
+  },
+  "M36-duplicate-member-deduped": {
+   "clause": "duplicate member refusal (dedupe instead)",
+   "divergences": 0,
+   "witness": null
+  },
+  "M37-absent-name-not-escaped": {
+   "clause": "escaping of names (vacuous: names are tokens)",
+   "divergences": 0,
+   "witness": null
+  },
+  "M35-stdout-bare-key": {
+   "clause": "success contract (JSON object)",
+   "divergences": 465,
+   "witness": {
+    "case": "frozen:no-vary-no-headers",
+    "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}}",
+    "reference": [
+     "key",
+     "https://e.test/a"
+    ],
+    "mutant": [
+     "bad-stdout",
+     "https://e.test/a\n"
+    ]
+   }
+  }
+ }
+}

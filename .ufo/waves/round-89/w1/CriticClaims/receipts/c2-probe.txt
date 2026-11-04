@@ -1,0 +1,8 @@
+# C2 falsification probe (score_candidate, seed 89089)
+mutant-uri-unscaped        frozen=16/16 props=200/200 refuse=9/9 met=true
+mutant-strip-all-ws        frozen=16/16 props=200/200 refuse=9/9 met=true
+collision witness: two distinct requests -> same key: True 'https://e.test/a\x1faccept\x1egzip'
+population: total=200 same-relation=100 different-relation=100
+table entries: 421
+table-over-population      frozen=16/16 props=200/200 refuse=9/9 met=true
+SUMMARY uri_unscaped_met=True strip_all_ws_met=True table_met=True

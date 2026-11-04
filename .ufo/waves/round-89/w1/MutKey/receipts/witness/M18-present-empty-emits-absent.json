@@ -1,0 +1,245 @@
+{
+ "divergences": 86,
+ "first_20": [
+  {
+   "case": "frozen:present-empty-member",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c"
+   ]
+  },
+  {
+   "case": "worked:6",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c"
+   ]
+  },
+  {
+   "case": "present-empty",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "present-ows-only",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \" \\t \"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:7",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"b\": \"\"}, \"vary\": \"B, x-probe\"}",
+   "reference": [
+    "key",
+    "u\u001fb\u001e\u001fx-probe\u001e\u001c"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fb\u001e\u001c\u001fx-probe\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:11",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \" \", \"user-agent\": \"a\\u001fb\", \"x-probe\": \"v\\t\"}, \"vary\": \"A, user-agent, X-PROBE\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001e\u001fuser-agent\u001ea%1Fb\u001fx-probe\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001e\u001c\u001fuser-agent\u001ea%1Fb\u001fx-probe\u001ev"
+   ]
+  },
+  {
+   "case": "rand:20",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"b\": \"\", \"x-other\": \"  gzip  \"}, \"vary\": \"b\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fb\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fb\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:36",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"x-probe\": \"x\\u000by\", \"b\": \" \"}, \"vary\": \"X-PROBE, B\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001fb\u001e\u001fx-probe\u001ex\u000by"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001fb\u001e\u001c\u001fx-probe\u001ex\u000by"
+   ]
+  },
+  {
+   "case": "rand:42",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"Accept\": \"x\\u00a0y\", \"accept-encoding\": \" \"}, \"vary\": \"accept, A, ACCEPT-ENCODING\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e\u001c\u001faccept\u001ex\u00a0y\u001faccept-encoding\u001e"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c\u001faccept\u001ex\u00a0y\u001faccept-encoding\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:46",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"b\": \"\", \"user-agent\": \"a\\u001db\"}, \"vary\": \"b, user-agent\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001fb\u001e\u001fuser-agent\u001ea%1Db"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001fb\u001e\u001c\u001fuser-agent\u001ea%1Db"
+   ]
+  },
+  {
+   "case": "rand:55",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"b\": \"\", \"accept-encoding\": \"gzip\"}, \"vary\": \"B, accept-encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001egzip\u001fb\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001egzip\u001fb\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:57",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"user-agent\": \" \", \"b\": \"x\\u00a0y\"}, \"vary\": \"a, USER-AGENT, b\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e\u001c\u001fb\u001ex\u00a0y\u001fuser-agent\u001e"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c\u001fb\u001ex\u00a0y\u001fuser-agent\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:61",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"Accept\": \"\"}, \"vary\": \"a, ACCEPT, B\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001fa\u001e\u001c\u001faccept\u001e\u001fb\u001e\u001c"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001fa\u001e\u001c\u001faccept\u001e\u001c\u001fb\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:71",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"b\": \"\", \"accept-encoding\": \"a\\u001fb\", \"Accept\": \"a\\u001cb\"}, \"vary\": \"B, ACCEPT-ENCODING, accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001ea%1Cb\u001faccept-encoding\u001ea%1Fb\u001fb\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001ea%1Cb\u001faccept-encoding\u001ea%1Fb\u001fb\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:72",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {\"Accept\": \"\", \"x-probe\": \"a\\u001cb\", \"accept-encoding\": \"50%\", \"x-other\": \"50%\"}, \"vary\": \"accept, x-probe, ACCEPT-ENCODING\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb\u001faccept\u001e\u001faccept-encoding\u001e50%25\u001fx-probe\u001ea%1Cb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Fb\u001faccept\u001e\u001c\u001faccept-encoding\u001e50%25\u001fx-probe\u001ea%1Cb"
+   ]
+  },
+  {
+   "case": "rand:74",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \" \", \"x-probe\": \"x\\u000by\"}, \"vary\": \"A, x-probe\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e\u001fx-probe\u001ex\u000by"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c\u001fx-probe\u001ex\u000by"
+   ]
+  },
+  {
+   "case": "rand:75",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"b\": \"\\tv\", \"accept-encoding\": \"\", \"x-probe\": \" \"}, \"vary\": \"b, accept-encoding, x-probe\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept-encoding\u001e\u001fb\u001ev\u001fx-probe\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001faccept-encoding\u001e\u001c\u001fb\u001ev\u001fx-probe\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:85",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"x-probe\": \"\", \"a\": \"  gzip  \"}, \"vary\": \"x-probe, a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001egzip\u001fx-probe\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001fa\u001egzip\u001fx-probe\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:89",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"accept-encoding\": \" \", \"user-agent\": \"%25\", \"Accept\": \" \"}, \"vary\": \"ACCEPT-ENCODING, user-agent, Accept\"}",
+   "reference": [
+    "key",
+    "u\u001faccept\u001e\u001faccept-encoding\u001e\u001fuser-agent\u001e%2525"
+   ],
+   "mutant": [
+    "key",
+    "u\u001faccept\u001e\u001c\u001faccept-encoding\u001e\u001c\u001fuser-agent\u001e%2525"
+   ]
+  },
+  {
+   "case": "rand:92",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"accept-encoding\": \" \", \"x-probe\": \"a\\u001eb\"}, \"vary\": \"ACCEPT-ENCODING, X-PROBE\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept-encoding\u001e\u001fx-probe\u001ea%1Eb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001faccept-encoding\u001e\u001c\u001fx-probe\u001ea%1Eb"
+   ]
+  }
+ ]
+}

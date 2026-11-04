@@ -1,0 +1,7 @@
+# why mirror mode counts 1002 and git mode 1590 on the same tree
+depth-2 .ufo/waves/<wave>/controls/ : 1002 (what the mirror glob matches)
+nested controls trees               : 588 (what the mirror glob misses)
+total containing /controls/         : 1590 (what git mode counts)
+  e.g. round-84/w1/ReviewC1/snapshot/.ufo/waves/round-84/controls/census-before.txt
+  e.g. round-83/w1/CriticClaims/records-only-tree/.ufo/waves/round-83/controls/after-c83-instrument-check.txt
+  e.g. round-76/w1/ReviewerC1/wrong_heading_level/.ufo/waves/round-12/controls/receipt.txt

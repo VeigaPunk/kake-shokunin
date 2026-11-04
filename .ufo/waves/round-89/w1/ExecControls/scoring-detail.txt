@@ -1,0 +1,112 @@
+# per-stub scoring detail (seed=89089)
+
+## adv-absent-empty
+frozen=15/16 props=180/200 refuse=9/9 cand_met=false
+first_prop_class=absent_vs_empty
+prop_classes_failed=["absent_vs_empty"]
+n_prop_fail_entries=20
+  frozen_fail: frozen absent-member: key differs
+
+## adv-bad-json
+frozen=16/16 props=200/200 refuse=9/9 cand_met=true
+first_prop_class=-
+prop_classes_failed=[]
+n_prop_fail_entries=0
+
+## adv-cr-only
+frozen=16/16 props=200/200 refuse=9/9 cand_met=true
+first_prop_class=-
+prop_classes_failed=[]
+n_prop_fail_entries=0
+
+## adv-lower-values
+frozen=15/16 props=180/200 refuse=9/9 cand_met=false
+first_prop_class=value_case
+prop_classes_failed=["value_case"]
+n_prop_fail_entries=20
+  frozen_fail: frozen value-edge-ows-trimmed: key differs
+
+## adv-member-ows
+frozen=13/16 props=40/200 refuse=8/9 cand_met=false
+first_prop_class=name_case
+prop_classes_failed=["name_case", "member_order", "member_ows", "value_edge_ows", "value_case", "uri_change", "unrelated_header", "separator_collision"]
+n_prop_fail_entries=160
+  frozen_fail: frozen two-members-sorted: exit 1
+  frozen_fail: frozen member-ows-and-order: exit 1
+  frozen_fail: frozen separator-split-differs: exit 1
+  refuse_fail: refuse star-member: not refused with 'wildcard'
+
+## adv-missing-headers
+frozen=16/16 props=200/200 refuse=9/9 cand_met=true
+first_prop_class=-
+prop_classes_failed=[]
+n_prop_fail_entries=0
+
+## adv-no-dup-vary
+frozen=16/16 props=200/200 refuse=9/9 cand_met=true
+first_prop_class=-
+prop_classes_failed=[]
+n_prop_fail_entries=0
+
+## adv-no-name-escape
+frozen=16/16 props=200/200 refuse=9/9 cand_met=true
+first_prop_class=-
+prop_classes_failed=[]
+n_prop_fail_entries=0
+
+## adv-no-sort
+frozen=15/16 props=180/200 refuse=9/9 cand_met=false
+first_prop_class=member_order
+prop_classes_failed=["member_order"]
+n_prop_fail_entries=20
+  frozen_fail: frozen two-members-sorted: key differs
+
+## adv-no-uri-escape
+frozen=16/16 props=200/200 refuse=9/9 cand_met=true
+first_prop_class=-
+prop_classes_failed=[]
+n_prop_fail_entries=0
+
+## adv-raw-sort
+frozen=16/16 props=200/200 refuse=9/9 cand_met=true
+first_prop_class=-
+prop_classes_failed=[]
+n_prop_fail_entries=0
+
+## adv-sort-no-escape
+frozen=15/16 props=185/200 refuse=9/9 cand_met=false
+first_prop_class=separator_collision
+prop_classes_failed=["separator_collision"]
+n_prop_fail_entries=15
+  frozen_fail: frozen separator-in-value-escaped: key differs
+
+## adv-space-trim
+frozen=15/16 props=180/200 refuse=9/9 cand_met=false
+first_prop_class=value_edge_ows
+prop_classes_failed=["value_edge_ows"]
+n_prop_fail_entries=20
+  frozen_fail: frozen tab-trimmed: key differs
+
+## adv-uri-only
+frozen=6/16 props=120/200 refuse=9/9 cand_met=false
+first_prop_class=value_case
+prop_classes_failed=["value_case", "absent_vs_empty", "separator_collision", "percent"]
+n_prop_fail_entries=80
+  frozen_fail: frozen single-member: key differs
+  frozen_fail: frozen value-edge-ows-trimmed: key differs
+  frozen_fail: frozen absent-member: key differs
+  frozen_fail: frozen present-empty-member: key differs
+  frozen_fail: frozen two-members-sorted: key differs
+  frozen_fail: frozen member-ows-and-order: key differs
+  frozen_fail: frozen percent-escaped: key differs
+  frozen_fail: frozen separator-in-value-escaped: key differs
+  frozen_fail: frozen separator-split-differs: key differs
+  frozen_fail: frozen tab-trimmed: key differs
+
+## adv-wildcard-ok
+frozen=15/16 props=200/200 refuse=8/9 cand_met=false
+first_prop_class=-
+prop_classes_failed=[]
+n_prop_fail_entries=0
+  frozen_fail: frozen wildcard-refused: expected invalid_input exit 1
+  refuse_fail: refuse star-member: not refused with 'wildcard'

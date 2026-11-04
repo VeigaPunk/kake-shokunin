@@ -1,0 +1,245 @@
+{
+ "divergences": 465,
+ "first_20": [
+  {
+   "case": "frozen:no-vary-no-headers",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\n"
+   ]
+  },
+  {
+   "case": "frozen:empty-vary",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"x\": \"1\"}, \"vary\": \"\"}",
+   "reference": [
+    "key",
+    "https://e.test/a"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\n"
+   ]
+  },
+  {
+   "case": "frozen:single-member",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept-encoding\u001egzip\n"
+   ]
+  },
+  {
+   "case": "frozen:value-edge-ows-trimmed",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \" GZIP \"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001eGZIP"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept-encoding\u001eGZIP\n"
+   ]
+  },
+  {
+   "case": "frozen:absent-member",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c\n"
+   ]
+  },
+  {
+   "case": "frozen:present-empty-member",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept-encoding\u001e\n"
+   ]
+  },
+  {
+   "case": "frozen:two-members-sorted",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"Accept-Encoding, Accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip\n"
+   ]
+  },
+  {
+   "case": "frozen:member-ows-and-order",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"  Accept\\t,Accept-Encoding  \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip\n"
+   ]
+  },
+  {
+   "case": "frozen:percent-escaped",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"50%\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001e50%25"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001fa\u001e50%25\n"
+   ]
+  },
+  {
+   "case": "frozen:separator-in-value-escaped",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001fa\u001ex%1Fb%1Ey\n"
+   ]
+  },
+  {
+   "case": "frozen:separator-split-differs",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\", \"b\": \"y\"}, \"vary\": \"a, b\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex\u001fb\u001ey"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001fa\u001ex\u001fb\u001ey\n"
+   ]
+  },
+  {
+   "case": "frozen:tab-trimmed",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"\\tv\\t\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ev"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001fa\u001ev\n"
+   ]
+  },
+  {
+   "case": "worked:1",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}}",
+   "reference": [
+    "key",
+    "https://e.test/a"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\n"
+   ]
+  },
+  {
+   "case": "worked:2",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept-encoding\u001egzip\n"
+   ]
+  },
+  {
+   "case": "worked:3",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \" Accept ,Accept-Encoding \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip\n"
+   ]
+  },
+  {
+   "case": "worked:4",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"50%\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001e50%25"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001fa\u001e50%25\n"
+   ]
+  },
+  {
+   "case": "worked:5",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x\\u001fb\\u001ey\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%1Fb%1Ey"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001fa\u001ex%1Fb%1Ey\n"
+   ]
+  },
+  {
+   "case": "worked:6",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept-encoding\u001e\n"
+   ]
+  },
+  {
+   "case": "worked:7",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c\n"
+   ]
+  },
+  {
+   "case": "value-pct",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"a\": \"x%y\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001fa\u001ex%25y"
+   ],
+   "mutant": [
+    "bad-stdout",
+    "https://e.test/a\u001fa\u001ex%25y\n"
+   ]
+  }
+ ]
+}

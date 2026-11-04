@@ -1,0 +1,101 @@
+{
+ "divergences": 8,
+ "first_20": [
+  {
+   "case": "frozen:wildcard-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {}, \"vary\": \"*\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001f*\u001e\u001c"
+   ]
+  },
+  {
+   "case": "refuse:star-member",
+   "input": "{\"uri\": \"u\", \"request_headers\": {}, \"vary\": \"a, *\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f*\u001e\u001c\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-'*'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"*\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f*\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-' * '",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \" * \"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f*\u001e\u001c"
+   ]
+  },
+  {
+   "case": "vary-'a,*'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a,*\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f*\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "vary-'a, *'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a, *\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f*\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "vary-'*,a'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"*,a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ],
+   "mutant": [
+    "key",
+    "u\u001f*\u001e\u001c\u001fa\u001ev"
+   ]
+  },
+  {
+   "case": "vary-'**'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"**\"}",
+   "reference": [
+    "key",
+    "u\u001f**\u001e\u001c"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ]
+  }
+ ]
+}

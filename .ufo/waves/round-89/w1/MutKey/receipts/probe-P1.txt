@@ -1,0 +1,18 @@
+C2v1 revision=1c79d3f00c688d30a1c05358f4ae69e1fdc9baa1 candidate=scripts/cache_key.py seed=89089 frozen=16/16 props=0/200 refuse=0/9 controls=5/5 met=false
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')
+fail: refuse not-an-object: not refused with 'object'
+fail: refuse uri-missing: not refused with 'uri'
+fail: refuse uri-not-string: not refused with 'uri'
+fail: refuse headers-not-object: not refused with 'request_headers'
+fail: refuse header-name-not-token: not refused with 'token'
+fail: refuse header-value-not-string: not refused with 'string'
+fail: refuse vary-not-string: not refused with 'string'
+fail: refuse star-member: not refused with 'wildcard'
+fail: refuse empty-member: not refused with 'token'
+fail: prop name_case: exit 1/1
+fail: prop name_case: exit 1/1
+fail: prop name_case: exit 1/1

@@ -1,0 +1,30 @@
+exit=0 in={"uri":"https://e.test/a","request_headers":{"Accept-Encoding":"gzip"},"vary":"Accept-Encoding"}
+   stdout=0000000 { " k e y " : " h t t p s : / 0000020 / e . t e s t / a \ u 0 0 1 f a 0000040 c c e p t - e n c o d i n g \ u 
+   stderr=
+exit=0 in={"uri":"https://e.test/a","request_headers":{},"vary":"Accept-Encoding"}
+   stdout=0000000 { " k e y " : " h t t p s : / 0000020 / e . t e s t / a \ u 0 0 1 f a 0000040 c c e p t - e n c o d i n g \ u 
+   stderr=
+exit=0 in={"uri":"https://e.test/a","request_headers":{"a":"x\u001fb\u001ey"},"vary":"a"}
+   stdout=0000000 { " k e y " : " h t t p s : / 0000020 / e . t e s t / a \ u 0 0 1 f a 0000040 \ u 0 0 1 e x % 1 F b % 1 E y " 
+   stderr=
+exit=0 in={"uri":"https://e.test/a","request_headers":{"a":"x\u001dy"},"vary":"a"}
+   stdout=0000000 { " k e y " : " h t t p s : / 0000020 / e . t e s t / a \ u 0 0 1 f a 0000040 \ u 0 0 1 e x % 1 D y " } \n 
+   stderr=
+exit=0 in={"uri":"https://e.test/a%","request_headers":{},"vary":""}
+   stdout=0000000 { " k e y " : " h t t p s : / 0000020 / e . t e s t / a % 2 5 " } \n 0000037 
+   stderr=
+exit=1 in={"uri":"u","request_headers":{"a":"1","A":"2"},"vary":"a"}
+   stdout=0000000 
+   stderr=invalid_input: duplicate header name
+exit=1 in={"uri":"u","request_headers":{"a":"1"},"vary":"a,A"}
+   stdout=0000000 
+   stderr=invalid_input: duplicate vary member
+exit=1 in={"uri":"u","request_headers":{"a":"1"},"vary":"a b"}
+   stdout=0000000 
+   stderr=invalid_input: vary member is not a token
+exit=1 in={"uri":"u","request_headers":{"":"1"},"vary":""}
+   stdout=0000000 
+   stderr=invalid_input: header name is not a token
+exit=1 in={"uri":"u","request_headers":{"a":"x\ry"},"vary":"a"}
+   stdout=0000000 
+   stderr=invalid_input: header value contains CR or LF

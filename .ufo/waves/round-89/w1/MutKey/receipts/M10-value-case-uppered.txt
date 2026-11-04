@@ -1,0 +1,21 @@
+# command: python3 -B counter-live/c89_key.py --root /fast/scratch/hyaku/kake-r89/MutKey/repos/live/M10-value-case-uppered --revision a930124b42c632e8d86ac97f7fc1eddc424551ae --candidate scripts/cache_key.py --work /fast/scratch/hyaku/kake-r89/MutKey/work/live/M10-value-case-uppered
+# candidate sha256: 81d518325b6c4f1f3a5d43dce94812fa1989f99f769ab347c5dbf3acb638af0f
+# exit: 1
+C2v1 revision=a930124b42c632e8d86ac97f7fc1eddc424551ae candidate=scripts/cache_key.py seed=89089 frozen=10/16 props=180/200 refuse=9/9 controls=5/5 met=false
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')
+fail: frozen single-member: key differs
+fail: frozen two-members-sorted: key differs
+fail: frozen member-ows-and-order: key differs
+fail: frozen separator-in-value-escaped: key differs
+fail: frozen separator-split-differs: key differs
+fail: frozen tab-trimmed: key differs
+fail: prop value_case: expected different keys
+fail: prop value_case: expected different keys
+fail: prop value_case: expected different keys
+fail: prop value_case: expected different keys
+fail: prop value_case: expected different keys
+fail: prop value_case: expected different keys

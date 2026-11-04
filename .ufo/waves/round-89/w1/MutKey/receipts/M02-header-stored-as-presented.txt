@@ -1,0 +1,21 @@
+# command: python3 -B counter-live/c89_key.py --root /fast/scratch/hyaku/kake-r89/MutKey/repos/live/M02-header-stored-as-presented --revision ab9dfc6163100cc05fca7056e4a56e19cf74c440 --candidate scripts/cache_key.py --work /fast/scratch/hyaku/kake-r89/MutKey/work/live/M02-header-stored-as-presented
+# candidate sha256: 7d463256ab02b31f0c13dd572c6615458dc3842b129405890e6ea62e448005e8
+# exit: 1
+C2v1 revision=ab9dfc6163100cc05fca7056e4a56e19cf74c440 candidate=scripts/cache_key.py seed=89089 frozen=11/16 props=183/200 refuse=9/9 controls=5/5 met=false
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')
+fail: frozen single-member: key differs
+fail: frozen present-empty-member: key differs
+fail: frozen two-members-sorted: key differs
+fail: frozen member-ows-and-order: key differs
+fail: frozen duplicate-header-name-refused: expected invalid_input exit 1
+fail: prop name_case: expected same keys
+fail: prop name_case: expected same keys
+fail: prop name_case: expected same keys
+fail: prop name_case: expected same keys
+fail: prop name_case: expected same keys
+fail: prop name_case: expected same keys
+fail: prop name_case: expected same keys

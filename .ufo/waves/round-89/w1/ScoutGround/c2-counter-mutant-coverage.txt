@@ -1,0 +1,18 @@
+# ScoutGround — C2 counter coverage-gap measurement (13 mutants)
+# 2026-11-04T21:29:08Z
+# method: build one-line mutants of the committed candidate scripts/cache_key.py,
+# score each with the counter's own score_candidate(source, work, SEED=89089)
+# from .ufo/waves/round-89/c89_key.py; met = frozen==16 and props==200 and refuse==9
+# A mutant that reaches met=true breaks a c2-contract.md clause the counter does not detect.
+
+M1 drop CR half of the CR/LF value check: 16/16 props=200/200 refuse=9/9 met=true   <== SURVIVES to met=true: counter does NOT detect this violation
+M2 dedupe duplicate Vary member instead of refusing: 16/16 props=200/200 refuse=9/9 met=true   <== SURVIVES to met=true: counter does NOT detect this violation
+M3 accept an empty header name: 15/16 props=200/200 refuse=8/9 met=false   (killed)
+M4 treat missing request_headers as {}: 16/16 props=200/200 refuse=9/9 met=true   <== SURVIVES to met=true: counter does NOT detect this violation
+M5 no OWS trim on the value: 14/16 props=180/200 refuse=9/9 met=false   (killed)
+M6 no sort of Vary names: 15/16 props=180/200 refuse=9/9 met=false   (killed)
+M7 do not escape the URI: 16/16 props=200/200 refuse=9/9 met=true   <== SURVIVES to met=true: counter does NOT detect this violation
+M8 escape % last instead of first: 15/16 props=200/200 refuse=9/9 met=false   (killed)
+M9 treat * as an ordinary token member: 15/16 props=200/200 refuse=8/9 met=false   (killed)
+M10 case-fold header values: 15/16 props=180/200 refuse=9/9 met=false   (killed)
+M11 do not escape the Vary MEMBER NAME: 16/16 props=200/200 refuse=9/9 met=true   <== SURVIVES to met=true: counter does NOT detect this violation

@@ -1,0 +1,11 @@
+# command: python3 -B counter-live/c89_key.py --root /fast/scratch/hyaku/kake-r89/MutKey/repos/live/M26-vary-token-check-dropped --revision d2b80dba2cf6dd56831005bbaa04c514d3214346 --candidate scripts/cache_key.py --work /fast/scratch/hyaku/kake-r89/MutKey/work/live/M26-vary-token-check-dropped
+# candidate sha256: d61b2428eeaf0a9deadc434e5a281c25124c17136275f8d1e1ac8e11aadbc5e7
+# exit: 1
+C2v1 revision=d2b80dba2cf6dd56831005bbaa04c514d3214346 candidate=scripts/cache_key.py seed=89089 frozen=15/16 props=200/200 refuse=8/9 controls=5/5 met=false
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')
+fail: frozen trailing-comma-refused: expected invalid_input exit 1
+fail: refuse empty-member: not refused with 'token'

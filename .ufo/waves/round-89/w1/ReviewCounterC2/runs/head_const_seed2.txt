@@ -1,0 +1,23 @@
+# cmd: python3 -B /fast/scratch/hyaku/kake-r89/ReviewCounterC2/head/.ufo/waves/round-89/c89_key.py --root /fast/scratch/hyaku/kake-r89/ReviewCounterC2/fixture --revision 94d2f4ac736e91a03a62d63280180980d1032bf6 --candidate scripts/cache_key.py --work /fast/scratch/hyaku/kake-r89/ReviewCounterC2/work/head_const_seed2 --seed 2
+# env KAKE_R89_REF=<unset>
+# exit=1 wall=20.2s
+--- stdout ---
+C2v1 revision=94d2f4ac736e91a03a62d63280180980d1032bf6 candidate=scripts/cache_key.py seed=2 frozen=0/16 props=100/200 refuse=0/9 controls=5/5 met=false
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names '.ufo/waves')
+fail: frozen no-vary-no-headers: key differs
+fail: frozen empty-vary: key differs
+fail: frozen single-member: key differs
+fail: frozen value-edge-ows-trimmed: key differs
+fail: frozen absent-member: key differs
+fail: frozen present-empty-member: key differs
+fail: frozen two-members-sorted: key differs
+fail: frozen member-ows-and-order: key differs
+fail: frozen percent-escaped: key differs
+fail: frozen separator-in-value-escaped: key differs
+fail: frozen separator-split-differs: key differs
+fail: frozen tab-trimmed: key differs
+--- stderr ---

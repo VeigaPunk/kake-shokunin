@@ -1,0 +1,10 @@
+# command: python3 -B counter-live/c89_key.py --root /fast/scratch/hyaku/kake-r89/MutKey/repos/live/M22-duplicate-header-not-refused --revision 2ab105e493b6b417469385c0a81d8b7a14efbb22 --candidate scripts/cache_key.py --work /fast/scratch/hyaku/kake-r89/MutKey/work/live/M22-duplicate-header-not-refused
+# candidate sha256: 056ed2c978ef654cfa214db5a6f946442c032028fb3168901828cd262b848730
+# exit: 1
+C2v1 revision=2ab105e493b6b417469385c0a81d8b7a14efbb22 candidate=scripts/cache_key.py seed=89089 frozen=15/16 props=200/200 refuse=9/9 controls=5/5 met=false
+ctl=ctl-constant-key frozen=0/16 props=100/200 refuse=0/9 met=false
+ctl=ctl-naive-join frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-oracle-import met=false (shortcut guard: source names 'c89_key')
+ctl=ctl-repr-key frozen=0/16 props=140/200 refuse=0/9 met=false
+ctl=ctl-table met=false (shortcut guard: source names 'c2-cases')
+fail: frozen duplicate-header-name-refused: expected invalid_input exit 1

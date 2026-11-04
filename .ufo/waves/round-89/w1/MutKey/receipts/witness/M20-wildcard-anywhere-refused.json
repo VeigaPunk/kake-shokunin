@@ -1,0 +1,53 @@
+{
+ "divergences": 4,
+ "first_20": [
+  {
+   "case": "vary-'a*'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"a*\"}",
+   "reference": [
+    "key",
+    "u\u001fa*\u001e\u001c"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ]
+  },
+  {
+   "case": "vary-'*a'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"*a\"}",
+   "reference": [
+    "key",
+    "u\u001f*a\u001e\u001c"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ]
+  },
+  {
+   "case": "vary-'x*y'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"x*y\"}",
+   "reference": [
+    "key",
+    "u\u001fx*y\u001e\u001c"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ]
+  },
+  {
+   "case": "vary-'**'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\": \"v\"}, \"vary\": \"**\"}",
+   "reference": [
+    "key",
+    "u\u001f**\u001e\u001c"
+   ],
+   "mutant": [
+    "refuse",
+    "invalid_input: vary wildcard nominates no field"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,274 @@
+{
+  "candidate": "/home/vgpnk/Projects/shokunin/kake-shokunin/scripts/cache_key.py",
+  "captures": {
+    "ds4cc-primary-r81": {
+      "source": ".ufo/waves/round-81/capture/ds4cc-primary/response.json",
+      "source_sha256": "ca981d24cd2f06d4ac2361a134ae71b9039911a3266e9ec6254c4aef13ac0576",
+      "url": "https://ds4cc.com/",
+      "status": 200,
+      "body_sha256": "f2c5d2b3ab34e8e1dd6d08566147664e4dc7d21a5b01acd7943fd719e8342e93",
+      "fetchedAt": "2026-11-04T12:05:06Z",
+      "raw_vary_lines": [
+        "Accept-Encoding"
+      ],
+      "recorded_vary": "Accept-Encoding"
+    },
+    "ds4cc-sitemap-r81": {
+      "source": ".ufo/waves/round-81/capture/ds4cc-sitemap/response.json",
+      "source_sha256": "897afea4af5f389f6f8c3f4e5033f0ca8414f0f5a05d495eba1fdcbb8b6dfa67",
+      "url": "https://ds4cc.com/sitemap.xml",
+      "status": 200,
+      "body_sha256": "55cb947fa2d07f4a39f709b102f0133c94eb351501ec0b6d2263746f487006ef",
+      "fetchedAt": "2026-11-04T12:05:06Z",
+      "raw_vary_lines": [
+        "Accept-Encoding"
+      ],
+      "recorded_vary": "Accept-Encoding"
+    },
+    "burnerchrome-kimi-r61": {
+      "source": ".ufo/waves/round-61/capture/burnerchrome-kimi/response.json",
+      "source_sha256": "3b2e6530699f82b04d5e44e77c8bb0749656ace45e9b0bd3c847dd185dbef81f",
+      "url": "https://burnerchrome.kimi.page/",
+      "status": 200,
+      "body_sha256": "44dc3491fbc6cdc517c1d3821cae43c5988fd4d4f951203f15be8de36829addb",
+      "fetchedAt": "2026-10-27T09:15:53Z",
+      "raw_vary_lines": [
+        "Accept-Encoding",
+        "Origin"
+      ],
+      "recorded_vary": "Accept-Encoding, Origin"
+    },
+    "vault-index-kimi-r61": {
+      "source": ".ufo/waves/round-61/capture/vault-index-kimi/response.json",
+      "source_sha256": "6c3b5eac246303f25359bfcb1936be4ce0544db210f9510e4292be78bd44a99b",
+      "url": "https://veigapunk.kimi.page/",
+      "status": 200,
+      "body_sha256": "a0a7f33aba443a85a4952a0bf57aa52947fdf95638b5ac7aba1c7d92b87a92fb",
+      "fetchedAt": "2026-10-27T09:16:02Z",
+      "raw_vary_lines": [
+        "Accept-Encoding",
+        "Origin"
+      ],
+      "recorded_vary": "Accept-Encoding, Origin"
+    },
+    "charter-ghp-r61": {
+      "source": ".ufo/waves/round-61/capture/charter-ghp/response.json",
+      "source_sha256": "cf721dfd1a4ef1a2d141833dacf2ba922054682f8f55992d25094563622da08a",
+      "url": "https://veigapunk.github.io/charter-ufo-fsd/",
+      "status": 200,
+      "body_sha256": "7c243a1d81357cdee71520034a05d540bfe8f69c702a7a1c95f8a0bfa5237aba",
+      "fetchedAt": "2026-10-27T09:15:55Z",
+      "raw_vary_lines": [
+        "Accept-Encoding"
+      ],
+      "recorded_vary": "Accept-Encoding"
+    },
+    "ufo-fsd-kimi-pro-r61": {
+      "source": ".ufo/waves/round-61/capture/ufo-fsd-kimi-pro/response.json",
+      "source_sha256": "1de9733b26fdc3424e6e4e968d54c2a807828adaa187b7bd2416417dec4821d7",
+      "url": "https://ufo-fsd.kimi.pro/",
+      "status": 200,
+      "body_sha256": "1df92e30ba5a76e69a863a729326949871d3d83e290935d596f6cd9b7d65ab8c",
+      "fetchedAt": "2026-10-27T09:16:00Z",
+      "raw_vary_lines": [],
+      "recorded_vary": null
+    }
+  },
+  "cases": [
+    {
+      "id": "R1-ds4cc-primary-ae",
+      "kind": "real",
+      "capture": "ds4cc-primary-r81",
+      "note": "recorded vary Accept-Encoding (single line); status 200; request nominates only recorded field",
+      "stdin_json": "{\"uri\": \"https://ds4cc.com/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\"}, \"vary\": \"Accept-Encoding\"}",
+      "exit": 0,
+      "stdout": "{\"key\": \"https://ds4cc.com/\\u001faccept-encoding\\u001egzip, deflate, br\"}\n",
+      "stderr": "",
+      "key": "https://ds4cc.com/\u001faccept-encoding\u001egzip, deflate, br",
+      "participating_fields": [
+        {
+          "name": "accept-encoding",
+          "state": "present",
+          "value_escaped": "gzip, deflate, br"
+        }
+      ]
+    },
+    {
+      "id": "R2-burnerchrome-ae-origin-present",
+      "kind": "real",
+      "capture": "burnerchrome-kimi-r61",
+      "note": "recorded vary arrives as two header lines (Accept-Encoding; Origin); combined by RFC 9110 s5.3",
+      "stdin_json": "{\"uri\": \"https://burnerchrome.kimi.page/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\", \"Origin\": \"https://requester.test\"}, \"vary\": \"Accept-Encoding, Origin\"}",
+      "exit": 0,
+      "stdout": "{\"key\": \"https://burnerchrome.kimi.page/\\u001faccept-encoding\\u001egzip, deflate, br\\u001forigin\\u001ehttps://requester.test\"}\n",
+      "stderr": "",
+      "key": "https://burnerchrome.kimi.page/\u001faccept-encoding\u001egzip, deflate, br\u001forigin\u001ehttps://requester.test",
+      "participating_fields": [
+        {
+          "name": "accept-encoding",
+          "state": "present",
+          "value_escaped": "gzip, deflate, br"
+        },
+        {
+          "name": "origin",
+          "state": "present",
+          "value_escaped": "https://requester.test"
+        }
+      ]
+    },
+    {
+      "id": "R3-vault-index-ae-origin-absent",
+      "kind": "real",
+      "capture": "vault-index-kimi-r61",
+      "note": "same combined vary as R2 but Origin not presented -> GS marker path",
+      "stdin_json": "{\"uri\": \"https://veigapunk.kimi.page/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\"}, \"vary\": \"Accept-Encoding, Origin\"}",
+      "exit": 0,
+      "stdout": "{\"key\": \"https://veigapunk.kimi.page/\\u001faccept-encoding\\u001egzip, deflate, br\\u001forigin\\u001e\\u001c\"}\n",
+      "stderr": "",
+      "key": "https://veigapunk.kimi.page/\u001faccept-encoding\u001egzip, deflate, br\u001forigin\u001e\u001c",
+      "participating_fields": [
+        {
+          "name": "accept-encoding",
+          "state": "present",
+          "value_escaped": "gzip, deflate, br"
+        },
+        {
+          "name": "origin",
+          "state": "absent",
+          "value_escaped": null
+        }
+      ]
+    },
+    {
+      "id": "R4-charter-ghp-lowercase-names",
+      "kind": "real",
+      "capture": "charter-ghp-r61",
+      "note": "recorded Vary (capitalised header name) with lowercase request header name: case-insensitive lookup",
+      "stdin_json": "{\"uri\": \"https://veigapunk.github.io/charter-ufo-fsd/\", \"request_headers\": {\"accept-encoding\": \"br\"}, \"vary\": \"Accept-Encoding\"}",
+      "exit": 0,
+      "stdout": "{\"key\": \"https://veigapunk.github.io/charter-ufo-fsd/\\u001faccept-encoding\\u001ebr\"}\n",
+      "stderr": "",
+      "key": "https://veigapunk.github.io/charter-ufo-fsd/\u001faccept-encoding\u001ebr",
+      "participating_fields": [
+        {
+          "name": "accept-encoding",
+          "state": "present",
+          "value_escaped": "br"
+        }
+      ]
+    },
+    {
+      "id": "R5-ufo-fsd-kimi-pro-no-vary",
+      "kind": "real",
+      "capture": "ufo-fsd-kimi-pro-r61",
+      "note": "recorded response carries no Vary header -> vary absent -> key is ESC(uri) alone",
+      "stdin_json": "{\"uri\": \"https://ufo-fsd.kimi.pro/\", \"request_headers\": {}}",
+      "exit": 0,
+      "stdout": "{\"key\": \"https://ufo-fsd.kimi.pro/\"}\n",
+      "stderr": "",
+      "key": "https://ufo-fsd.kimi.pro/",
+      "participating_fields": []
+    },
+    {
+      "id": "R6-ds4cc-sitemap-ae",
+      "kind": "real",
+      "capture": "ds4cc-sitemap-r81",
+      "note": "second path on same host, same recorded vary; different URI -> different key",
+      "stdin_json": "{\"uri\": \"https://ds4cc.com/sitemap.xml\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+      "exit": 0,
+      "stdout": "{\"key\": \"https://ds4cc.com/sitemap.xml\\u001faccept-encoding\\u001egzip\"}\n",
+      "stderr": "",
+      "key": "https://ds4cc.com/sitemap.xml\u001faccept-encoding\u001egzip",
+      "participating_fields": [
+        {
+          "name": "accept-encoding",
+          "state": "present",
+          "value_escaped": "gzip"
+        }
+      ]
+    },
+    {
+      "id": "R2b-burnerchrome-origin-present-empty",
+      "kind": "real",
+      "capture": "burnerchrome-kimi-r61",
+      "note": "same as R2 but Origin presented as empty -> present-empty path (must differ from R3)",
+      "stdin_json": "{\"uri\": \"https://burnerchrome.kimi.page/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\", \"Origin\": \"\"}, \"vary\": \"Accept-Encoding, Origin\"}",
+      "exit": 0,
+      "stdout": "{\"key\": \"https://burnerchrome.kimi.page/\\u001faccept-encoding\\u001egzip, deflate, br\\u001forigin\\u001e\"}\n",
+      "stderr": "",
+      "key": "https://burnerchrome.kimi.page/\u001faccept-encoding\u001egzip, deflate, br\u001forigin\u001e",
+      "participating_fields": [
+        {
+          "name": "accept-encoding",
+          "state": "present",
+          "value_escaped": "gzip, deflate, br"
+        },
+        {
+          "name": "origin",
+          "state": "present-empty",
+          "value_escaped": ""
+        }
+      ]
+    },
+    {
+      "id": "X1-synthetic-wildcard-on-ds4cc",
+      "kind": "synthetic",
+      "capture": "ds4cc-primary-r81",
+      "note": "SYNTHETIC: recorded surface, vary replaced with the wildcard; no capture carries *",
+      "stdin_json": "{\"uri\": \"https://ds4cc.com/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\"}, \"vary\": \"*\"}",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "invalid_input: vary wildcard nominates no field",
+      "key": null,
+      "participating_fields": null
+    },
+    {
+      "id": "X2-synthetic-trailing-comma-on-burnerchrome",
+      "kind": "synthetic",
+      "capture": "burnerchrome-kimi-r61",
+      "note": "SYNTHETIC: recorded combined vary with trailing comma appended -> empty member",
+      "stdin_json": "{\"uri\": \"https://burnerchrome.kimi.page/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\", \"Origin\": \"https://requester.test\"}, \"vary\": \"Accept-Encoding, Origin,\"}",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "invalid_input: vary member is not a token",
+      "key": null,
+      "participating_fields": null
+    },
+    {
+      "id": "X3-synthetic-duplicate-header-case-on-burnerchrome",
+      "kind": "synthetic",
+      "capture": "burnerchrome-kimi-r61",
+      "note": "SYNTHETIC: origin presented twice differing only in case -> duplicate refusal",
+      "stdin_json": "{\"uri\": \"https://burnerchrome.kimi.page/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\", \"origin\": \"https://requester.test\", \"Origin\": \"https://requester.test\"}, \"vary\": \"Accept-Encoding, Origin\"}",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "invalid_input: duplicate header name",
+      "key": null,
+      "participating_fields": null
+    },
+    {
+      "id": "X4-synthetic-crlf-in-origin-value",
+      "kind": "synthetic",
+      "capture": "burnerchrome-kimi-r61",
+      "note": "SYNTHETIC: CR/LF in presented value -> refusal",
+      "stdin_json": "{\"uri\": \"https://burnerchrome.kimi.page/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\", \"Origin\": \"https://requester.test\\r\\nX-Injected: 1\"}, \"vary\": \"Accept-Encoding, Origin\"}",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "invalid_input: header value contains CR or LF",
+      "key": null,
+      "participating_fields": null
+    },
+    {
+      "id": "X5-synthetic-vary-duplicate-member-case",
+      "kind": "synthetic",
+      "capture": "vault-index-kimi-r61",
+      "note": "SYNTHETIC: duplicate vary member differing only in case -> refusal",
+      "stdin_json": "{\"uri\": \"https://veigapunk.kimi.page/\", \"request_headers\": {\"Accept-Encoding\": \"gzip, deflate, br\"}, \"vary\": \"Accept-Encoding, accept-encoding\"}",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "invalid_input: duplicate vary member",
+      "key": null,
+      "participating_fields": null
+    }
+  ]
+}

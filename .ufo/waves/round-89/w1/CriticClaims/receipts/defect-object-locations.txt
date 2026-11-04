@@ -1,0 +1,26 @@
+# Where the routed defect objects live in committed bytes at HEAD 21770586
+
+## R88-C object: the string 'edcb2980' (the unbacked re-run claim)
+HEAD:corpus/lessons/round-88-verifier-spotcheck.md:36:  `add7e49b` ✓, `f60a852a` ✓, `55d67f15` ✓, `edcb2980` ✓, `741fb728` ✓. All
+HEAD:corpus/lessons/round-88-verifier-spotcheck.md:65:  lesson carries two admits and two rejects; (c) the "re-run at `edcb2980`"
+HEAD:corpus/lessons/round-88-verifier-spotcheck.md:258:- **R88-C (evidence pointer).** "Re-run at `edcb2980` with identical results"
+
+## R88-D object: the unpinned 1,577 count
+HEAD:LOG.md:3021:lane's controls (1,577 tracked receipt files, 36 with more than one commit, four of
+HEAD:corpus/lessons/round-88-verifier-spotcheck.md:67:  (d) the `1,577` controls count names no revision (it is exact only at
+HEAD:corpus/lessons/round-88-verifier-spotcheck.md:262:- **R88-D (numeric pin).** The `considerthese` measurement "1,577 tracked files
+
+## R88-B object: 'one admit and three rejects'
+HEAD:corpus/lessons/round-88-verifier-spotcheck.md:64:  report's Gate summary says "one admit and three rejects" while the cited
+HEAD:corpus/lessons/round-88-verifier-spotcheck.md:254:  says "one admit and three rejects"; the cited `corpus/lessons/round-88.md`
+HEAD:corpus/lessons/round-88.md:335:table as "one admit and three rejects". The committed table above carries two admits
+
+## the counter reads NONE of these paths (item B reads round-88 lesson ## Gate; item C reads SCORECARD + round-88 lesson; item D reads the round-89 lesson marker)
+19:                      round-88 section of SCORECARD.md or in the round-88 lesson
+46:SCORECARD = 'SCORECARD.md'
+47:L88 = 'corpus/lessons/round-88.md'
+48:L89 = 'corpus/lessons/round-89.md'
+107:    card = ctx.read(SCORECARD)
+109:        return ['SCORECARD.md missing']
+115:    for name, scope in ((SCORECARD, '## Round 88'), (L88, None)):
+140:    body = ctx.read(L88)

@@ -1,0 +1,7 @@
+$ grep -c selftest scripts/cache_key.py
+0
+$ python3 -B scripts/cache_key.py --selftest < /dev/null
+invalid_input: input is not valid JSON
+exit=1
+$ python3 -B .ufo/waves/round-89/w1/L1/cache_key.py --selftest | tail -1
+selftest: 20/20 passed

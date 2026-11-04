@@ -1,0 +1,39 @@
+id	clause	verdict	frozen	props	refuse	first_fail	differences	witness_case	sha256
+M01-member-name-not-lowered	name case handling (member)	KILLED	10/16	200/200	9/9	fail: frozen single-member: key differs	253	frozen:single-member	cf859f4a62d6cec7a2a0fff5d04d6dc72bd8a920fee16f1cd2aa1e0143ba1e21
+M02-header-stored-as-presented	name case handling (header lookup)	KILLED	11/16	183/200	9/9	fail: frozen single-member: key differs	128	frozen:single-member	7d463256ab02b31f0c13dd572c6615458dc3842b129405890e6ea62e448005e8
+M03-member-order-unsorted	member sort	KILLED	15/16	180/200	9/9	fail: frozen two-members-sorted: key differs	186	frozen:two-members-sorted	fe8978f7070d7a95c775909a9f2c66114567ff84fe5b230b3c17490a56c93d71
+M04-member-order-reversed	member sort (direction)	KILLED	13/16	200/200	9/9	fail: frozen two-members-sorted: key differs	273	frozen:two-members-sorted	575e697e9af90612e076eee22e7b1d2757df71c5953acae276e1f9950bca0a91
+M05-member-ows-not-trimmed	member OWS trim	KILLED	13/16	40/200	8/9	fail: frozen two-members-sorted: exit 1	286	frozen:two-members-sorted	88c851fc1e10aee988770242d0256077f4e76a306da7b4b5309c53c27352c71e
+M06-member-trim-wider-than-ows	member OWS trim (SP/HTAB only)	SURVIVED	16/16	200/200	9/9	-	6	member-wrap-LF	5da4ecd302998effdbf5c3cdff15092444e366eb23d95412d90eebae00883814
+M07-value-ows-not-trimmed	value OWS trim	KILLED	14/16	180/200	9/9	fail: frozen value-edge-ows-trimmed: key differs	146	frozen:value-edge-ows-trimmed	bcad3946678b4becd80533e9954708021b3965a3245cb571474d58422262d999
+M08-value-trim-wider-than-ows	value OWS trim (SP/HTAB only)	SURVIVED	16/16	200/200	9/9	-	9	value-u001C-alone	38dedcd5a8e1068e87300aef7b387483db61eaf3d8ad168e4db29930037a9537
+M09-value-case-lowered	value case	KILLED	15/16	180/200	9/9	fail: frozen value-edge-ows-trimmed: key differs	44	frozen:value-edge-ows-trimmed	e7b3b5280dacd398a27b10ce6c5e08f20ab13d70e93b685113ea1ec79eb39af5
+M10-value-case-uppered	value case (inverse)	KILLED	10/16	180/200	9/9	fail: frozen single-member: key differs	346	frozen:single-member	81d518325b6c4f1f3a5d43dce94812fa1989f99f769ab347c5dbf3acb638af0f
+M11-escape-percent-dropped	escaping %	KILLED	15/16	200/200	9/9	fail: frozen percent-escaped: key differs	175	frozen:percent-escaped	0c54d870e463ddc3305b049921e4f54523bbcc9f6d6dd6ee759c49b5675f2a69
+M12-escape-GS-dropped	escaping U+001C	SURVIVED	16/16	200/200	9/9	-	52	value-u001C	99314c213238c1e1b34bb14ba57683f3b2af9b3bdd8ef8ba25ef0dc2b4895220
+M13-escape-FS-dropped	escaping U+001D	SURVIVED	16/16	200/200	9/9	-	45	value-u001D	2c0a96ed8eeb76c6df7e5217f2728c7898bc6ef3c5413eeb518d224a1f0bbb44
+M14-escape-RS-dropped	escaping U+001E	KILLED	15/16	200/200	9/9	fail: frozen separator-in-value-escaped: key differs	53	frozen:separator-in-value-escaped	3aebfa92be640fe770f2afb65d062555aa54ab708e816fe220bf939d4f6b08ca
+M15-escape-US-dropped	escaping U+001F	KILLED	15/16	200/200	9/9	fail: frozen separator-in-value-escaped: key differs	132	frozen:separator-in-value-escaped	0ab248c7d9ab239a04a9811ce92bce9feaf02c9b312349a7a8b7aaec399325d9
+M16-escape-percent-last	escaping order (% escaped after separators)	KILLED	15/16	200/200	9/9	fail: frozen separator-in-value-escaped: key differs	227	frozen:separator-in-value-escaped	874017b1e0c38c7b05d111301a5086d9eef34635ec6d402dc6e7dc7160ffdc2c
+M17-absent-emits-empty	absent marker	KILLED	15/16	180/200	9/9	fail: frozen absent-member: key differs	124	frozen:absent-member	99de98fec75814b3d354a65c581f2a597af47ed5fc5939eda23f513ca33a6f78
+M18-present-empty-emits-absent	present-empty vs absent	KILLED	15/16	180/200	9/9	fail: frozen present-empty-member: key differs	86	frozen:present-empty-member	e66c4502ab3c0cc6430e0f91e63c0528a2fd84f99b0708c2dfe86aca7073b21b
+M19-wildcard-not-refused	wildcard refusal	KILLED	15/16	200/200	8/9	fail: frozen wildcard-refused: expected invalid_input exit 1	8	frozen:wildcard-refused	4d77681688a32fe2bcef4bc2994abe52accfdbc3c64b11436df383fdf0ae15b9
+M20-wildcard-anywhere-refused	wildcard refusal (over-broad)	SURVIVED	16/16	200/200	9/9	-	4	vary-'a*'	09abeb6cbaea51597259fcc1e57092436e1f9193cd78833fbc2de6220d95d34f
+M21-duplicate-member-not-refused	duplicate member refusal	SURVIVED	16/16	200/200	9/9	-	5	vary-dup-'a,A'	de92179ab08049470465a998f2d593657ae2b3819c7f617871b4e5310c178d3d
+M22-duplicate-header-not-refused	duplicate header refusal	KILLED	15/16	200/200	9/9	fail: frozen duplicate-header-name-refused: expected invalid_input exit 1	3	frozen:duplicate-header-name-refused	056ed2c978ef654cfa214db5a6f946442c032028fb3168901828cd262b848730
+M23-crlf-check-dropped	CR/LF refusal	KILLED	15/16	200/200	9/9	fail: frozen lf-value-refused: expected invalid_input exit 1	6	frozen:lf-value-refused	22f7b8f18f062031d564ff7f09f1aa220c29bda33e1c4b03c13216ed7b1cbdec
+M24-lf-check-dropped	CR/LF refusal (LF half)	KILLED	15/16	200/200	9/9	fail: frozen lf-value-refused: expected invalid_input exit 1	3	frozen:lf-value-refused	67ae5b0f11ca872a6279359dcc734b8af73e88f879da1ed2895e29cad71984ab
+M25-header-token-check-dropped	token check (header name)	KILLED	16/16	200/200	8/9	fail: refuse header-name-not-token: not refused with 'token'	10	refuse:header-name-not-token	c5ba5e15ca26f9e5f4599789a99abdd8c8a5e72c89ffa887488a63231aede11a
+M26-vary-token-check-dropped	token check (Vary member)	KILLED	15/16	200/200	8/9	fail: frozen trailing-comma-refused: expected invalid_input exit 1	26	frozen:trailing-comma-refused	d61b2428eeaf0a9deadc434e5a281c25124c17136275f8d1e1ac8e11aadbc5e7
+M27-empty-vary-falls-through	empty Vary handling	KILLED	14/16	200/200	9/9	fail: frozen no-vary-no-headers: exit 1	14	frozen:no-vary-no-headers	c384d1aae99aeb504d98037b2f7e0265dba1703527cd2dd8e67d335bb7d197e7
+M28-layout-us-always	separator layout (no-member case)	KILLED	14/16	200/200	9/9	fail: frozen no-vary-no-headers: key differs	14	frozen:no-vary-no-headers	1163408ecdebd396fd1e5567767fc7c0079f9dbf87f62f73bb3de9192429836b
+M29-layout-comma-join	separator layout (pair separator)	KILLED	13/16	200/200	9/9	fail: frozen two-members-sorted: key differs	273	frozen:two-members-sorted	70262f851caef9845bb8c1c4768f141ea0f0b77ee18ffe293c07a827389a0d88
+M30-layout-rs-dropped	separator layout (name/value separator)	KILLED	7/16	200/200	9/9	fail: frozen single-member: key differs	423	frozen:single-member	39d0e0629e58d6bcab630df551b873c49462dc4a6fe56007bfdf2417a96c358d
+M31-uri-not-escaped	escaping the URI component	SURVIVED	16/16	200/200	9/9	-	209	uri-pct	20be4c1a3b00b93bb02e9e1a22bc031a5c06661a7662a025b230b7772cf30ed7
+M32-value-internal-whitespace-collapsed	value byte-exactness (internal OWS)	KILLED	15/16	200/200	9/9	fail: frozen separator-in-value-escaped: key differs	249	frozen:separator-in-value-escaped	bcd518737051aca84ebd40b5b71a034785ecc58f868e22ceb71bf0288605c571
+M33-header-name-casefold	ASCII-only lowercasing (equivalent probe)	SURVIVED	16/16	200/200	9/9	-	0	-	54ac23da3fe09e7fddfb297885e69b0ebf126d7644dce16b36919e67676c0b1c
+M34-refusal-exits-zero	refusal contract (exit 1)	KILLED	12/16	200/200	0/9	fail: frozen wildcard-refused: expected invalid_input exit 1	76	frozen:wildcard-refused	a6d4cee72a9cf4b19b1a1015614d62f6f809a6efbac101084692a80f9acb7f30
+M36-duplicate-member-deduped	duplicate member refusal (dedupe instead)	SURVIVED	16/16	200/200	9/9	-	0	-	d31bd80ea14fc0c087132623c9f498d9290ce5fdaf4a9cbec3396be7d3b80f2f
+M37-absent-name-not-escaped	escaping of names (vacuous: names are tokens)	SURVIVED	16/16	200/200	9/9	-	0	-	9400e66ddb62357999d432adb744ab020c6a6cee42be2f5126f5891d76ff3e8a
+M35-stdout-bare-key	success contract (JSON object)	KILLED	4/16	0/200	9/9	fail: frozen no-vary-no-headers: stdout is not {"key": ...}	465	frozen:no-vary-no-headers	26770becb140258b2323120fbac47330240b83637f531813025db9bce9f99f81
+REF	reference candidate	SURVIVED	16/16	200/200	9/9	-	0	-	3a658326714108ebec8f26c6dfcff9007ad781915b909616e9313d664e7da996

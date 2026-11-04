@@ -1,0 +1,45 @@
+PASS reference matches contract example 1
+PASS reference matches contract example 2
+PASS reference matches contract example 3
+PASS reference matches contract example 4
+PASS reference matches contract example 5
+PASS reference matches contract example 6
+PASS reference matches contract example 7
+PASS reference matches frozen case no-vary-no-headers
+PASS reference matches frozen case empty-vary
+PASS reference matches frozen case single-member
+PASS reference matches frozen case value-edge-ows-trimmed
+PASS reference matches frozen case absent-member
+PASS reference matches frozen case present-empty-member
+PASS reference matches frozen case two-members-sorted
+PASS reference matches frozen case member-ows-and-order
+PASS reference matches frozen case percent-escaped
+PASS reference matches frozen case separator-in-value-escaped
+PASS reference matches frozen case separator-split-differs
+PASS reference matches frozen case tab-trimmed
+PASS reference matches frozen case wildcard-refused
+PASS reference matches frozen case trailing-comma-refused
+PASS reference matches frozen case duplicate-header-name-refused
+PASS reference matches frozen case lf-value-refused
+PASS reference refuses not-an-object
+PASS reference refuses uri-missing
+PASS reference refuses uri-not-string
+PASS reference refuses headers-not-object
+PASS reference refuses header-name-not-token
+PASS reference refuses header-value-not-string
+PASS reference refuses vary-not-string
+PASS reference refuses star-member
+PASS reference refuses empty-member
+PASS reference scores frozen/props/refuse full
+PASS reference scores no failures
+PASS mutant no-escape is killed by the property population
+PASS mutant no-trim is killed by the property population
+PASS mutant casefold-values is killed by the property population
+PASS mutant no-sort is killed by the property population
+PASS mutant absent-equals-empty is killed by the property population
+PASS a frozen-case table does not reach the property population
+FAIL every committed control is rejected
+FAIL the shortcut guard rejects the oracle-import stub
+FAIL the shortcut guard rejects the case-table stub
+selftest: 40/43 passed
+exit=1

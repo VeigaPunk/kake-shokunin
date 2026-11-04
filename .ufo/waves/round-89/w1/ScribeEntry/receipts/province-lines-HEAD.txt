@@ -1,0 +1,14 @@
+703|## Round 89 — cache-key construction only
+704|
+705|`scripts/cache_key.py` and `corpus/knowledge/cache-key-construction.md` (S464,
+706|S465) add offline construction of the stored-response key a presented request
+707|maps to under a `Vary` field: lowercased and sorted nominated names, trimmed
+708|values compared byte-exactly, escaped separators, absent distinct from empty.
+709|This is the construction half of RFC 9111 §4.1 only. Storability, reuse,
+710|revalidation, freshness, serving and browser behaviour stay frontier. The
+711|instrument does not yet establish conformance to the whole contract (round-89
+712|lesson, Mistakes row 4), so the ground is recorded as held-but-unadmitted.
+696|seconds. This advances only the Age-arithmetic slice: Date/Age header extraction,
+697|missing-Date handling, cache storage/reuse permission, Vary/Pragma, browser/runtime
+698|behavior and publication remain outside this capability. Conservative max is a
+699|chosen allowed profile, not the only RFC algorithm. No property repair or reuse

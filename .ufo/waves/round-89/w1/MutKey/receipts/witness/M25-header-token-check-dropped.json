@@ -1,0 +1,125 @@
+{
+ "divergences": 10,
+ "first_20": [
+  {
+   "case": "refuse:header-name-not-token",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a b\": \"1\"}}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u"
+   ]
+  },
+  {
+   "case": "hdr-name-'a b'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a b\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-name-'a\\tb'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\\tb\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-name-'a,b'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a,b\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-name-'a:b'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a:b\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-name-'a/b'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a/b\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-name-'a(b)'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a(b)\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-name-''",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-name-'a\"b'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\\\"b\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-name-'a\\\\b'",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"a\\\\b\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: header name is not a token"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  }
+ ]
+}

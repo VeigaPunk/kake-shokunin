@@ -1,0 +1,245 @@
+{
+ "divergences": 128,
+ "first_20": [
+  {
+   "case": "frozen:single-member",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c"
+   ]
+  },
+  {
+   "case": "frozen:present-empty-member",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c"
+   ]
+  },
+  {
+   "case": "frozen:two-members-sorted",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"Accept-Encoding, Accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001e\u001c\u001faccept-encoding\u001egzip"
+   ]
+  },
+  {
+   "case": "frozen:member-ows-and-order",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \"  Accept\\t,Accept-Encoding  \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001e\u001c\u001faccept-encoding\u001egzip"
+   ]
+  },
+  {
+   "case": "frozen:duplicate-header-name-refused",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept\": \"a\", \"accept\": \"b\"}, \"vary\": \"Accept\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate header name"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001eb"
+   ]
+  },
+  {
+   "case": "worked:2",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"gzip\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c"
+   ]
+  },
+  {
+   "case": "worked:3",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"accept-encoding\": \"gzip\", \"Accept\": \"text/html\"}, \"vary\": \" Accept ,Accept-Encoding \"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001etext/html\u001faccept-encoding\u001egzip"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001e\u001c\u001faccept-encoding\u001egzip"
+   ]
+  },
+  {
+   "case": "worked:6",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept-Encoding\": \"\"}, \"vary\": \"Accept-Encoding\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept-encoding\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-case-A",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"A\": \"v\"}, \"vary\": \"a\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-case-ACCEPT",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"ACCEPT\": \"v\"}, \"vary\": \"accept\"}",
+   "reference": [
+    "key",
+    "u\u001faccept\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "u\u001faccept\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-case-Accept-Encoding",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"Accept-Encoding\": \"v\"}, \"vary\": \"accept-encoding\"}",
+   "reference": [
+    "key",
+    "u\u001faccept-encoding\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "u\u001faccept-encoding\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-case-aCcEpT",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"aCcEpT\": \"v\"}, \"vary\": \"accept\"}",
+   "reference": [
+    "key",
+    "u\u001faccept\u001ev"
+   ],
+   "mutant": [
+    "key",
+    "u\u001faccept\u001e\u001c"
+   ]
+  },
+  {
+   "case": "hdr-dup-case",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"Accept\": \"a\", \"accept\": \"b\"}, \"vary\": \"accept\"}",
+   "reference": [
+    "refuse",
+    "invalid_input: duplicate header name"
+   ],
+   "mutant": [
+    "key",
+    "u\u001faccept\u001eb"
+   ]
+  },
+  {
+   "case": "rand:0",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"accept-encoding\": \"x\\u00a0y\", \"Accept\": \"x\\u000by\"}, \"vary\": \"accept-encoding, Accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001ex\u000by\u001faccept-encoding\u001ex\u00a0y"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001e\u001c\u001faccept-encoding\u001ex\u00a0y"
+   ]
+  },
+  {
+   "case": "rand:2",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"Accept\": \"x\\u000by\"}, \"vary\": \"accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001ex\u000by"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:3",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"Accept\": \"a\\u001db\", \"b\": \"x\\u00a0y\", \"a\": \"a\\u001db\", \"x-other\": \"  gzip  \"}, \"vary\": \"accept, B, a\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001fa\u001ea%1Db\u001faccept\u001ea%1Db\u001fb\u001ex\u00a0y"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001fa\u001ea%1Db\u001faccept\u001e\u001c\u001fb\u001ex\u00a0y"
+   ]
+  },
+  {
+   "case": "rand:4",
+   "input": "{\"uri\": \"https://e.test/a\", \"request_headers\": {\"Accept\": \"a\\u001cb\"}, \"vary\": \"ACCEPT\"}",
+   "reference": [
+    "key",
+    "https://e.test/a\u001faccept\u001ea%1Cb"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a\u001faccept\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:6",
+   "input": "{\"uri\": \"https://e.test/a%20b\", \"request_headers\": {\"x-probe\": \"a\\u001db\", \"Accept\": \"50%\", \"user-agent\": \"x\\u00a0y\"}, \"vary\": \"x-probe, accept, user-agent\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001e50%25\u001fuser-agent\u001ex\u00a0y\u001fx-probe\u001ea%1Db"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%2520b\u001faccept\u001e\u001c\u001fuser-agent\u001ex\u00a0y\u001fx-probe\u001ea%1Db"
+   ]
+  },
+  {
+   "case": "rand:16",
+   "input": "{\"uri\": \"u\", \"request_headers\": {\"Accept\": \"%25\", \"a\": \"50%\", \"x-other\": \" \"}, \"vary\": \"accept, A\"}",
+   "reference": [
+    "key",
+    "u\u001fa\u001e50%25\u001faccept\u001e%2525"
+   ],
+   "mutant": [
+    "key",
+    "u\u001fa\u001e50%25\u001faccept\u001e\u001c"
+   ]
+  },
+  {
+   "case": "rand:28",
+   "input": "{\"uri\": \"https://e.test/a\\u001fb\", \"request_headers\": {\"Accept\": \"gzip\"}, \"vary\": \"ACCEPT-ENCODING, b, accept\"}",
+   "reference": [
+    "key",
+    "https://e.test/a%1Fb\u001faccept\u001egzip\u001faccept-encoding\u001e\u001c\u001fb\u001e\u001c"
+   ],
+   "mutant": [
+    "key",
+    "https://e.test/a%1Fb\u001faccept\u001e\u001c\u001faccept-encoding\u001e\u001c\u001fb\u001e\u001c"
+   ]
+  }
+ ]
+}
