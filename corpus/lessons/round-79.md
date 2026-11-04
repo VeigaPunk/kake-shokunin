@@ -191,3 +191,33 @@ form — but the frozen contract admits S452 only. The drafted row is retained a
 - **The ledger is a disclosure, not a proof of intent.** An entry with true blobs, the right kind and a
   resolvable note can still describe a rewrite whose *reason* is only in the note's prose; the counter
   checks the pointer resolves, not that the prose is complete.
+
+## Post-attack settlement (appended 2026-11-04)
+
+The wave's attacks changed C2's measured bytes before the report, and the record is corrected here rather
+than by rewriting an earlier line.
+
+- **C2 carrier moved.** The first carrier `436f4429` measured tool `f06c47b5…` (18,053 B) with the matrix
+  `met=true` (`controls/after-c2-matrix.txt`). SentinelC's F1–F6 and ReviewC2's F1 then exposed defects
+  outside the frozen cases: an uncaught `ValueError` on integer caps beyond CPython's 4,300-digit limit
+  (F1), an uncaught `RecursionError` on deeply nested JSON (F2), an unbounded read on `/dev/zero` and a
+  FIFO open (F3), a duplicate-directive scan that missed `max-image-preview` and `unavailable_after`
+  against contract §6 (F4), unescaped control characters in text-mode check ids (F5), and argparse usage
+  errors exiting 2 instead of 64 (F6). The tool was repaired for all six, its selftest went 24 → 26, and
+  the final carrier is `9cfa404dbed4dc7f0dca3784b01d33792fe684f0` with tool `dd83c2c8…` (19,680 B),
+  matrix receipt `controls/after-c2-matrix-final.txt` (`correct=31 wrong=0 constants_failed=4/4
+  met=true`), real-run receipt `controls/after-c2-realrun-final.txt` (`checks=12 findings=0`), C1
+  receipts `controls/after-c1-receipt-ledger-final.txt` and `controls/after-c1-r58-crosscheck-final.txt`,
+  and SHONEN population `controls/after-shonen-population-final.txt`. The frozen predicate, case set and
+  oracle did not change; the earlier receipts stay as history. `[r79-correction 2026-11-04]`
+- **Routed, not fixed.** The comma split precedes directive parsing, so RFC 822/850 `unavailable_after`
+  values are unreachable (ReviewC2 F1; S452's own example is rejected) — a grammar change needs an
+  amendment plus cases next round. MutC's counter survivors k3/k4/k5 (zeroing `wrong_kind`, `malformed`
+  or `symlinks`) are killed only by isolated probes, not by the fixture battery; the QUALITY criterion
+  states that limit. The freeze receipts print `exit=` twice (a shell echo plus the counter line) and the
+  contract's three named C1 control files ship as one combined receipt.
+- **Seats.** 14 seats settled; `ExecC2Tool` and `CriticC` returned empty output, and `ExecC1Ledger`,
+  `ExecR2R3` and `ReviewC1` stopped after their first read with no deliverable, so the L1 completed the
+  tool, the five ledger entries and lesson rows, the R2/R3 repairs and the C1 attacks itself; the
+  independent C1 attack evidence is SentinelC's reproduction (base red, fixture verdicts, selftest), not
+  a separate reviewer seat.

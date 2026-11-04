@@ -5088,3 +5088,17 @@ offline)` (`controls/after-freshness-offline.txt:4`) and its remote, armed and h
 skipped, never counted as pass. The knowledge population is sixty-six at the carrier, sixty-five at
 the base, and the source registry is 190 rows (`S452` added); the census exits 0 with 19 `W04` lines
 before and after (`controls/census-before.txt`, `controls/census-after.txt`).
+
+## Round 79 — appended settlement correction (carrier moved)
+
+The `## Round 79` C2 row above cites carrier `436f4429` and `controls/after-c2-matrix.txt`. After the
+wave's attacks the tool was repaired (SentinelC F1–F6, ReviewC2 F1; selftest 24 → 26, tool bytes 18,053 →
+19,680) and C2 re-measured at the final carrier, so the effective C2 evidence is:
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 79 (settlement) | operability (HOLD 10) | tool `f06c47b5…` at `436f4429`, matrix `met=true` | tool `dd83c2c8…` (19,680 B) at `9cfa404dbed4dc7f0dca3784b01d33792fe684f0`, matrix `correct=31 wrong=0 constants_failed=4/4 met=true`, tool selftest 26/26, real run `checks=12` | `controls/after-c2-matrix-final.txt`, `controls/after-c2-realrun-final.txt`; instrument receipt re-pinned at that carrier (population 23) |
+
+C1's final-carrier receipts are `controls/after-c1-receipt-ledger-final.txt` (`undisclosed=0 met=true`),
+`controls/after-c1-r58-crosscheck-final.txt` and `controls/after-shonen-population-final.txt`
+(`stale_populations=0 met=true`); the frozen predicate, cases and oracle are unchanged.
