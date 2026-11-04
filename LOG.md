@@ -2604,3 +2604,68 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Not done this round.** No publish or deploy; network reads were the three public documentation fetches
   (each HTTP 200, retained under the wave dir); no operator-owned property fetched; no MANIFEST edit; no
   tool installed or upgraded; pacman untouched.
+
+## Round 77 — 2026-11-03 (hyaku run 15; attempt 1; Linux host; claims frozen before any seat ran)
+
+- **Frozen contract.** `.ufo/waves/round-77/contract.md` at `bc2e5fb91e23c8acdac2470ac0f042c76f75417e`,
+  frozen before any seat ran: the C1 field line and `met` predicate, the C2 field line, predicate, 20-case
+  matrix and four constants, both kill rules. Amendments 1 and 2 (terms-only, recorded before any
+  after-state) land at `893b0f33`: A1 fixes the base line (`mismatches=0`, the red is `unexamined=4`), A2
+  refuses executable ledger checks, A3 freezes exact observation comparison, A5–A10 fix the C2 readings
+  (one id per condition, `gzip_invalid`, namespace-qualified roots, no feed entry-count rule, the doctype
+  order), A11 freezes the four box-check scopes and A12 makes a gap a result. Base
+  `a2cc5f51002433e11cc3d2f70e650a6c60ad5e68`; measured carrier `3db64e09550c9f8309f6c1077f9f7df6243cb446`.
+- **Motivating evidence.** Calibration is the lane's lowest non-retired axis (score 2) and its four
+  `SHONEN.md` boxes had never been classified by anything but prose; the round-76 non-author closure routed
+  six documentation/evidence-scope defects, three of them in the class "a receipt names a revision that does
+  not contain the measured artifact" (r75 R3/R7, r76 D1). Operability is the capability axis: the round-39
+  sitemap tool refused the gzip container, the plain-text sitemap and the syndication feeds S012 names as
+  sitemap formats, so three families of real sitemap bytes could not be audited at all
+  (`PROVINCE.md:335-336`, "Still open: gzip, … text/RSS sitemaps").
+- **Wave `w1`.** One v1 wave, 14 seats, band 8–16: scout 2, executor 4, scribe 2, reviewer 2, critic 1,
+  mutation-tester 1, connector 1, sentinel 1; attack share 4/14 = 28.6 %; the L1 held the planner seat.
+  Spec `w1-spec.json`, dispatch `w1-dispatch.json`, ready `w1.ready`, registry `w1/swarm-registry.json`.
+  Eight of the wave's findings changed the round's bytes before any after-state (ten contract ambiguities,
+  a name-gated gzip blind spot, a false source citation, and the executable-check hole in the ledger
+  counter).
+- **C1 landed and measured.** `.ufo/waves/round-77/c77_shonen_ledger.py` (selftest 26/26) classifies each of
+  the four `SHONEN.md` boxes from committed bytes at the measured revision: every `observed` value is
+  re-derived (`exists`, `count_at_least`, `regex_count`, `all_ids_resolve`, `no_match`) and a `holds` flag
+  that disagrees with the frozen predicate is a finding; a `command` check is refused, never executed. Base
+  `a2cc5f51`: `C1 revision=a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 boxes=4 evidenced=0 gap=0 unexamined=4 mismatches=0 met=false`,
+  exit 1 (`controls/base-c1-ledger.txt`). Carrier `3db64e09`:
+  `C1 revision=3db64e09550c9f8309f6c1077f9f7df6243cb446 boxes=4 evidenced=3 gap=1 unexamined=0 mismatches=0 met=true`,
+  exit 0 (`controls/after-c1-ledger.txt`). `corpus/knowledge/shonen-ledger.json` carries one row per box;
+  box 2 is a `gap` with reason and flip (one LOG-named receipt is absent at the revision) and boxes 1/3/4
+  are `evidenced` within amendment 1 A11's scopes; no box is ticked `[x]` (no named non-author verifier).
+- **C2 landed and measured (capability).** `scripts/sitemap_audit.py` gains the gzip container (magic
+  decision, decompressed-size limit, `gzip_invalid` as a check error), the plain-text sitemap, RSS 2.0 and
+  Atom 1.0 feeds, and `format_unsupported`; the delivered selftest is 271/271 (235/235 at base). Frozen
+  matrix: base `C2 revision=a2cc5f51… cases=20 decided=20 correct=2 wrong=18 constants_failed=4/4 met=false`
+  (exit 1, `controls/base-c2-matrix-v2.txt`); carrier `C2 revision=3db64e09… cases=20 decided=20 correct=20 wrong=0 constants_failed=4/4 met=true`
+  (exit 0, `controls/after-c2-matrix.txt`). The base's XML-only constant is byte-identical to the base tool
+  (`sha256 914ebdee…`), so the before-state is the tool's own red.
+- **Frontier and sources.** `corpus/SOURCES.md` 184 → 186 rows: S012 re-opened 2026-11-03 (HTTP 200,
+  45,292 B, sha256 `5e757059…`; `used-by` gains `sitemap-formats.md` and this lesson) and S447 (RFC 1952,
+  25,037 B, sha256 `164ef089…`) and S448 (RFC 4287, 81,922 B, sha256 `3bd71d76…`) opened the same day.
+  New entry `corpus/knowledge/sitemap-formats.md` cites all three. The Gate records three admits and four
+  rejects with flip conditions: the decompressed-size limit for text/feed containers, feed-date validity,
+  the "no comment line" wording and `format_unsupported` are lane readings, stated as such. Census: 184 rows
+  with 17 `W04` at round start, 186 with 17 at round end, exit 0 both times (16 inherited + S445).
+  Assimilation: none — the `merge/kake` package's staged ids collide on 8 rows with different content and
+  121 staged ids are free; the collision check is receipted under `.ufo/waves/round-77/assimilation/`.
+- **Mistakes mined.** (i) A receipt naming a revision that does not contain its artifact — the third round
+  of that class; fixed by the three-check revision binding and this round's re-run at a full hash
+  (`controls/r77-hreflang-matrix.txt`). (ii) The L1 committed an instrument mid-write (`893b0f33` carries a
+  syntactically broken `c77_shonen_ledger.py`); the repaired carrier is `3db64e09` and the lesson records
+  the gate that should catch it. (iii) The contract asserted all five `considerthese/2026-10-26.md`
+  proposals implemented; the connector measured proposals 1 and 4 as unimplemented.
+- **Routed (not claimed).** Box 2's missing round-47 receipt; the three `node ~/Projects/webzites/...`
+  spans and `scripts/kimi-surface.mjs` in `SKILL.md` (outside the frozen box-3 scope); SentinelC F2–F6
+  (lexical manifest containment, FIFO denial, unbounded manifest read, `--revision` label forgery,
+  `--tool-revision` option injection); ReviewC2 F3/F4 (RFC 822 branch pinned only by the selftest, date-only
+  `<updated>` accepted); no feed entry-count rule (A8); the freshness sweep's single `~/projects` drift
+  (open L0 `kake | round-69`).
+- **Not done this round.** No publish or deploy; network reads were three public documentation GETs (each
+  HTTP 200, retained under the wave dir); no operator-owned property fetched; no MANIFEST edit; no tool
+  installed or upgraded; pacman untouched.

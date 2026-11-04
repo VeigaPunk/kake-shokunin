@@ -1,0 +1,14 @@
+C2 base-state receipt v2 (kake round 77) — case bytes after ReviewC2 F1 renamed g01's payload to sitemap.xml.bin
+Generated 2026-11-03 by the L1 with the frozen counting command; v1 (pre-rename) stays at controls/base-c2-matrix.txt.
+cases generator sha256: d4a67274b39fe56affa2dbf57a7623c164b2fa5523f1eeb7138483eb0d12c599
+instrument sha256: 5c6eacba266068845144ba59c8e7099cc22fee10ca95c0ab78019ba33d21afce
+tool at a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 sha256: 914ebdee7bcb25e877bed2bc19cd15642d0373f1526a9535123e3e0fc02cd021
+-----
+case a01 expect_exit=0 expect_findings=- observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+exit=1
+-----
+const always_clean.py failed=12 ids=a02,a03,d01,g02,g03,r02,r03,r04,t02,t03,t04,t05
+const empty_findings_real_exits.py failed=18 ids=a01,a02,a03,d01,g01,g02,g03,r01,r02,r03,r04,t01,t02,t03,t04,t05,t06,t07
+const report_every_id.py failed=20 ids=a01,a02,a03,d01,g01,g02,g03,g04,r01,r02,r03,r04,s01,t01,t02,t03,t04,t05,t06,t07
+const round39_xml_only.py failed=18 ids=a01,a02,a03,d01,g01,g02,g03,r01,r02,r03,r04,t01,t02,t03,t04,t05,t06,t07
+C2 revision=a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 cases=20 decided=20 correct=2 wrong=18 constants_failed=4/4 met=false

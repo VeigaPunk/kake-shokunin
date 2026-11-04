@@ -1,0 +1,51 @@
+# r77-hreflang-realrun.txt -- round-76 routed defect D1 repaired: 8-page real-input run with the landed tool digest
+# seat: ExecRevisionReceipts (round 77, wave w1)
+# command: python3 -B scripts/hreflang_audit.py --manifest .ufo/waves/round-76/w1/ExecAuditRealRun/real-manifest.json --root . --json --work /fast/scratch/hyaku/kake-r77/ExecRevisionReceipts/work-real
+# cwd: /home/vgpnk/Projects/shokunin/kake-shokunin
+# python: 3.14.8
+# date: 2026-11-04T01:40:01Z
+# note: round-76 ran this manifest against the pinned predecessor build 58a2cdce... (ExecAuditRealRun/receipts/
+#   tool-identity.txt). This run uses the landed tool at a2cc5f51, digest 0762452f... (same digest the frozen C2
+#   matrix receipt names), so tool and receipt are bound to one commit.
+#
+# page verification command (retained bytes vs round-23 fetch.json):
+#   python3 - <<'EOF'   (exact script follows)
+#   import json, hashlib, os
+#   root = '.ufo/waves/round-76/w1/ExecAuditRealRun/real-manifest.json'
+#   raw = open(root, 'rb').read(); manifest = json.loads(raw)
+#   print("manifest=%s sha256=%s pages=%d" % (root, hashlib.sha256(raw).hexdigest(), len(manifest['pages'])))
+#   ok = 0
+#   for page in manifest['pages']:
+#       data = open(page['file'], 'rb').read(); got = hashlib.sha256(data).hexdigest()
+#       fetch = json.load(open(os.path.join(os.path.dirname(page['file']), 'fetch.json')))
+#       match = got == fetch['sha256']; ok += match
+#       print("%-18s bytes=%-6d status=%s sha256=%s fetch_sha256=%s match=%s"
+#             % (page['id'], len(data), fetch['status'], got, fetch['sha256'], "true" if match else "false"))
+#   print("pages_verified=%d/%d" % (ok, len(manifest['pages'])))
+#   EOF
+#   manifest=.ufo/waves/round-76/w1/ExecAuditRealRun/real-manifest.json sha256=448ebd9c73c2f563e88a43cc784734447ebe46fc6a077f59e7d2c406a366bc47 pages=8
+#   burnerchrome-kimi  bytes=11976  status=200 sha256=44dc3491fbc6cdc517c1d3821cae43c5988fd4d4f951203f15be8de36829addb fetch_sha256=44dc3491fbc6cdc517c1d3821cae43c5988fd4d4f951203f15be8de36829addb match=true
+#   charter-ghp        bytes=53660  status=200 sha256=7c243a1d81357cdee71520034a05d540bfe8f69c702a7a1c95f8a0bfa5237aba fetch_sha256=7c243a1d81357cdee71520034a05d540bfe8f69c702a7a1c95f8a0bfa5237aba match=true
+#   ds4cc-kimi         bytes=74641  status=200 sha256=108f5aca89b9cac35df0ea24930618045be142ed24fc696580f9fc6dff1574c5 fetch_sha256=108f5aca89b9cac35df0ea24930618045be142ed24fc696580f9fc6dff1574c5 match=true
+#   ds4cc-primary      bytes=76159  status=200 sha256=ccb3f46eda1ce3270df1e3373d49c4034025c4f475a6999142279e03b00b2bb8 fetch_sha256=ccb3f46eda1ce3270df1e3373d49c4034025c4f475a6999142279e03b00b2bb8 match=true
+#   lucario-ghp        bytes=3435   status=200 sha256=bee2d9f5b5777768e69a5b9aaa9c28dfcc4107f57a4dfb6ec8726d9685c46cff fetch_sha256=bee2d9f5b5777768e69a5b9aaa9c28dfcc4107f57a4dfb6ec8726d9685c46cff match=true
+#   plazir15-ghp       bytes=38337  status=200 sha256=d82af77aee401d2270c719c6e818256298cc8aad7a71c3e7c4d65bd41f6af18e fetch_sha256=d82af77aee401d2270c719c6e818256298cc8aad7a71c3e7c4d65bd41f6af18e match=true
+#   ufo-fsd-kimi-pro   bytes=612    status=200 sha256=1df92e30ba5a76e69a863a729326949871d3d83e290935d596f6cd9b7d65ab8c fetch_sha256=1df92e30ba5a76e69a863a729326949871d3d83e290935d596f6cd9b7d65ab8c match=true
+#   vault-index-kimi   bytes=10059  status=200 sha256=a0a7f33aba443a85a4952a0bf57aa52947fdf95638b5ac7aba1c7d92b87a92fb fetch_sha256=a0a7f33aba443a85a4952a0bf57aa52947fdf95638b5ac7aba1c7d92b87a92fb match=true
+#   pages_verified=8/8
+#
+# tool binding (each executed; output verbatim):
+#   git cat-file -e a2cc5f51002433e11cc3d2f70e650a6c60ad5e68:scripts/hreflang_audit.py   -> rc=0
+#   git show a2cc5f51002433e11cc3d2f70e650a6c60ad5e68:scripts/hreflang_audit.py | sha256sum
+#     0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac  -
+#   sha256sum scripts/hreflang_audit.py
+#     0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac  scripts/hreflang_audit.py
+#   (full check transcript: controls/r77-hreflang-matrix.txt, revision-binding checks)
+#
+# page bytes are the committed bytes: for each of the 8 files,
+#   git show a2cc5f51002433e11cc3d2f70e650a6c60ad5e68:<file> | sha256sum   ==   sha256sum <file>
+#   -> 8/8 equal; git status --porcelain -- .ufo/waves/round-23 -> 0 lines
+#
+# ----
+{"version": 1, "pages": 8, "findings": [], "counts": {"policy": 0, "info": 0, "input": 0, "by_id": {"hreflang_missing_value": 0, "hreflang_invalid_tag": 0, "hreflang_relative_href": 0, "hreflang_duplicate_pair": 0, "hreflang_multiple_xdefault": 0, "hreflang_self_missing": 0, "hreflang_nonreciprocal": 0, "hreflang_canonical_not_self": 0, "hreflang_external_target": 0, "input_unreadable": 0, "input_duplicate_url": 0, "input_url_not_absolute": 0}}, "exit": 0}
+observed-exit=0 pages=8 findings=0

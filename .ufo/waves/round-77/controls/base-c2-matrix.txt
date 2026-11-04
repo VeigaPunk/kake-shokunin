@@ -1,0 +1,180 @@
+C2 base-state receipt — kake round 77, attempt 1, wave w1, seat ExecMatrix
+Written 2026-11-03. Host: Linux, python3 3.14.8 (the contract names 3.13; observed 3.14.8).
+Post-amendment base: expectations are the contract table as amended by
+.ufo/waves/round-77/amendment-1.md (A5: g02 `too_large`; A6: g03 error `gzip_invalid`),
+recorded before any after-state.
+
+Instrument   .ufo/waves/round-77/c77_sitemap_matrix.py
+             sha256 5c6eacba266068845144ba59c8e7099cc22fee10ca95c0ab78019ba33d21afce
+Cases        .ufo/waves/round-77/cases/{g01..g04,t01..t07,r01..r04,a01..a03,s01,d01}
+             generator .ufo/waves/round-77/cases/build_cases.py
+             sha256 d4a67274b39fe56affa2dbf57a7623c164b2fa5523f1eeb7138483eb0d12c599
+Consts       .ufo/waves/round-77/consts/{always_clean,report_every_id,
+             empty_findings_real_exits,round39_xml_only}.py
+Measured     scripts/sitemap_audit.py at a2cc5f51002433e11cc3d2f70e650a6c60ad5e68
+             extracted with `git -C . show <rev>:scripts/sitemap_audit.py`
+             sha256 914ebdee7bcb25e877bed2bc19cd15642d0373f1526a9535123e3e0fc02cd021
+             git blob 21553d19f93a14facddfa95f07c8f852d64fa82e
+Scratch      /fast/scratch/hyaku/kake-r77/ExecMatrix (TMPDIR=<scratch>/tmp)
+
+--------------------------------------------------------------------------
+1. Command (exactly as run, from the lane root)
+
+  TMPDIR=/fast/scratch/hyaku/kake-r77/ExecMatrix/tmp python3 -B \
+    .ufo/waves/round-77/c77_sitemap_matrix.py --root . \
+    --tool-revision a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 \
+    --cases .ufo/waves/round-77/cases --consts .ufo/waves/round-77/consts \
+    --work /fast/scratch/hyaku/kake-r77/ExecMatrix/base-work \
+    --verbose --json-out /fast/scratch/hyaku/kake-r77/ExecMatrix/base-c2-matrix.json
+
+2. stdout (verbatim, one line) and exit status
+
+C2 revision=a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 cases=20 decided=20 correct=2 wrong=18 constants_failed=4/4 met=false
+
+  exit status 1
+
+3. stderr per-case detail (verbatim)
+
+case a01 expect_exit=0 expect_findings=- observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+case a02 expect_exit=1 expect_findings=feed_item_missing_link observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+case a03 expect_exit=1 expect_findings=lastmod_invalid observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+case d01 expect_exit=2 expect_findings=format_unsupported observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+case g01 expect_exit=0 expect_findings=- observed_exit=1 observed_findings=encoding_invalid observed_error=- verdict=wrong
+case g02 expect_exit=1 expect_findings=too_large observed_exit=1 observed_findings=encoding_invalid observed_error=- verdict=wrong
+case g03 expect_exit=2 expect_findings=gzip_invalid observed_exit=1 observed_findings=encoding_invalid observed_error=- verdict=wrong
+case g04 expect_exit=0 expect_findings=- observed_exit=0 observed_findings=- observed_error=- verdict=correct
+case r01 expect_exit=0 expect_findings=- observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+case r02 expect_exit=1 expect_findings=feed_item_missing_link observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+case r03 expect_exit=1 expect_findings=lastmod_invalid observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+case r04 expect_exit=1 expect_findings=loc_not_absolute observed_exit=1 observed_findings=root_invalid observed_error=- verdict=wrong
+case s01 expect_exit=0 expect_findings=- observed_exit=0 observed_findings=- observed_error=- verdict=correct
+case t01 expect_exit=0 expect_findings=- observed_exit=1 observed_findings=xml_malformed observed_error=- verdict=wrong
+case t02 expect_exit=1 expect_findings=text_line_not_url observed_exit=1 observed_findings=xml_malformed observed_error=- verdict=wrong
+case t03 expect_exit=1 expect_findings=text_url_not_absolute observed_exit=1 observed_findings=xml_malformed observed_error=- verdict=wrong
+case t04 expect_exit=1 expect_findings=text_empty observed_exit=1 observed_findings=xml_malformed observed_error=- verdict=wrong
+case t05 expect_exit=1 expect_findings=text_too_many_entries observed_exit=1 observed_findings=xml_malformed observed_error=- verdict=wrong
+case t06 expect_exit=0 expect_findings=- observed_exit=1 observed_findings=encoding_invalid observed_error=- verdict=wrong
+case t07 expect_exit=0 expect_findings=- observed_exit=1 observed_findings=xml_malformed observed_error=- verdict=wrong
+
+4. Constants (each run over the same 20 cases with C2_REAL_TOOL set to the
+   measured tool; a constant fails a case when the case is not correct for it
+   or is undecided)
+
+const always_clean.py failed=12 ids=a02,a03,d01,g02,g03,r02,r03,r04,t02,t03,t04,t05
+const empty_findings_real_exits.py failed=18 ids=a01,a02,a03,d01,g01,g02,g03,r01,r02,r03,r04,t01,t02,t03,t04,t05,t06,t07
+const report_every_id.py failed=20 ids=a01,a02,a03,d01,g01,g02,g03,g04,r01,r02,r03,r04,s01,t01,t02,t03,t04,t05,t06,t07
+const round39_xml_only.py failed=18 ids=a01,a02,a03,d01,g01,g02,g03,r01,r02,r03,r04,t01,t02,t03,t04,t05,t06,t07
+
+  All four fail at least one case: constants_failed=4/4.
+
+  The base tool fails the gzip family (g01, g02, g03, t06), the text family
+  (t01-t05, t07), the feed families (r01-r04, a01-a03) and d01; it decides
+  only g04 (plain XML under a .gz name) and s01 (index with .txt/.rss/.atom
+  locs) correctly.  Raw outputs of the base bytes on five cases (the measured
+  bytes are byte-identical to consts/round39_xml_only.py):
+
+  $ TMPDIR=<scratch>/tmp python3 -B .ufo/waves/round-77/consts/round39_xml_only.py \
+      --manifest .ufo/waves/round-77/cases/g01/manifest.json
+  {"version": 1, "verdict": "failed-policy", "checks": [{"id": "g01", "status": "findings", "error": null, "findings": [{"code": "encoding_invalid", "entry": null}]}]}
+  exit=1
+
+  $ ... --manifest .ufo/waves/round-77/cases/g02/manifest.json
+  {"version": 1, "verdict": "failed-policy", "checks": [{"id": "g02", "status": "findings", "error": null, "findings": [{"code": "encoding_invalid", "entry": null}]}]}
+  exit=1
+
+  $ ... --manifest .ufo/waves/round-77/cases/t01/manifest.json
+  {"version": 1, "verdict": "failed-policy", "checks": [{"id": "t01", "status": "findings", "error": null, "findings": [{"code": "xml_malformed", "entry": null}]}]}
+  exit=1
+
+  $ ... --manifest .ufo/waves/round-77/cases/r01/manifest.json
+  {"version": 1, "verdict": "failed-policy", "checks": [{"id": "r01", "status": "findings", "error": null, "findings": [{"code": "root_invalid", "entry": null}]}]}
+  exit=1
+
+  $ ... --manifest .ufo/waves/round-77/cases/d01/manifest.json
+  {"version": 1, "verdict": "failed-policy", "checks": [{"id": "d01", "status": "findings", "error": null, "findings": [{"code": "root_invalid", "entry": null}]}]}
+  exit=1
+
+  Mechanism: the base tool reads the file bytes and decodes UTF-8 before
+  parsing; gzip bytes fail that decode (`encoding_invalid`), a plain-text
+  sitemap fails the XML parse (`xml_malformed`), an RSS/Atom root is
+  `root_invalid`, and a `<html>` root is `root_invalid` rather than the
+  amendment's input fault `format_unsupported`.
+
+5. Cross-check: the XML-only constant IS the base tool
+
+  $ sha256sum /fast/scratch/hyaku/kake-r77/ExecMatrix/base-work/tool-a2cc5f51002433e1.py \
+      .ufo/waves/round-77/consts/round39_xml_only.py
+  914ebdee7bcb25e877bed2bc19cd15642d0373f1526a9535123e3e0fc02cd021  .../tool-a2cc5f51002433e1.py
+  914ebdee7bcb25e877bed2bc19cd15642d0373f1526a9535123e3e0fc02cd021  .ufo/waves/round-77/consts/round39_xml_only.py
+
+  $ git rev-parse a2cc5f51002433e11cc3d2f70e650a6c60ad5e68:scripts/sitemap_audit.py
+  21553d19f93a14facddfa95f07c8f852d64fa82e
+
+  A second matrix run with `--tool .ufo/waves/round-77/consts/round39_xml_only.py
+  --revision a2cc5f51...` printed the identical line:
+  C2 revision=a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 cases=20 decided=20 correct=2 wrong=18 constants_failed=4/4 met=false
+
+  Per-case comparison of the two JSON receipts (observed exit, observed
+  finding ids, observed error ids, verdict) over all 20 ids: 0 differences;
+  the constant failure lists are identical.  The XML-only constant matches the
+  base tool exactly.
+
+6. Fixture facts (exact commands)
+
+  $ python3 -c "import gzip; d=gzip.decompress(open('.ufo/waves/round-77/cases/g02/sitemap.xml.gz','rb').read()); print(len(d), len(d)-52428800)"
+  52428801 1
+  (decompressed body is a valid 2-entry urlset; decompressed sha256
+   ae48a82fc06a368f2de4e1ca9aa75f6b304cfedd89ccf0c9181ee228a015325d;
+   the stored .gz is 51,139 bytes, sha256
+   2c03fc167426b362a4c817aa84fe21451ea311e3848795ec0a14c099d21bb20e)
+
+  $ wc -l .ufo/waves/round-77/cases/t05/sitemap.txt
+  50001 .ufo/waves/round-77/cases/t05/sitemap.txt
+
+  G2 coverage: g01's payload is `sitemap.xml.bin` (gzip bytes under a non-.gz name) and
+  g04's is `sitemap.xml.gz` (plain XML under the .gz name), so the magic-not-name rule is
+  decided in both directions; a name dispatcher goes red on one of them.
+
+  $ python3 -B .ufo/waves/round-77/cases/build_cases.py
+  prints one `case <id> file=<name> bytes=<n> sha256=<hash> exit=<n> findings=<ids>`
+  line per case; see controls/case-inventory.txt for the captured output.
+
+7. Exit-2 handling, including one instrument defect found during the base run
+
+  Every exit-2 case names its input-fault error code (amendment A6 `gzip_invalid`
+  for g03, A9 `format_unsupported` for d01).  The instrument compares finding
+  ids (`findings[].code`) and error codes separately, requires an error check
+  with no finding id for exit 2, and requires the error-code set to equal the
+  expectation; an exit-2 expectation that names no code is refused (exit 2, no
+  line).
+
+  The first instrument version folded error codes into the compared finding-id
+  set and required that set to equal expect.json's `findings`, which made g03
+  unsatisfiable for any conforming tool (seat ExecSitemapFormats reported it
+  with a `gzip_corrupt` observation).  Fixed in the instrument; no case byte
+  changed.  The base line is unchanged by the fix (the base tool is wrong on
+  g03 by exit 1 either way).  The selftest gained three checks around it.
+
+8. Instrument selftest (exact command and tally)
+
+  $ TMPDIR=/fast/scratch/hyaku/kake-r77/ExecMatrix/tmp python3 -B \
+      .ufo/waves/round-77/c77_sitemap_matrix.py \
+      --work /fast/scratch/hyaku/kake-r77/ExecMatrix/selftest-work --selftest
+  selftest 14/14 passed
+  exit 0
+  (full output: controls/selftest.txt)
+
+  The selftest covers: the frozen line shape; 8 fixture cases all decided and
+  correct; all four fixture constants counted failed; met=true; a surviving
+  constant not counted (constants_failed=3, met=false); an exits-right,
+  findings-empty constant killed on exactly the three cases with non-empty
+  expected finding sets; a deliberately wrong expectation reported wrong; a
+  crashing tool undecided; exit 2 with a clean status reported wrong; an
+  exit-2 expectation without a code refused; a wrong input-fault code
+  rejected; the pinned code accepted; and a mixed error+finding exit-2 verdict
+  rejected.
+
+--------------------------------------------------------------------------
+No after-state run was made: scripts/sitemap_audit.py is being written
+concurrently by seat ExecSitemapFormats.  The L1 runs the after-state over the
+landed bytes with the frozen counting command.

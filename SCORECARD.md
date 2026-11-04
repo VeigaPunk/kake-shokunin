@@ -4966,3 +4966,41 @@ conjunct changes no observable, because every base-only row already emits A1). I
 gap the round does not claim closed: a case-insensitive span comparison survives the counter's own selftest
 and is caught only by an external probe. C2's nine tool mutants were all killed by named matrix cases, and
 a bare findings-empty printer fails 69 of 69 cases under the matrix's shape check.
+
+## Round 77 — declared and measured claims (attempt 1; author-side, admission belongs to the closure)
+
+Frozen contract `.ufo/waves/round-77/contract.md` (`bc2e5fb9`), frozen before any seat ran; Amendments 1
+and 2 (terms-only, before any after-state) at `893b0f33`. Base `a2cc5f51002433e11cc3d2f70e650a6c60ad5e68`;
+measured carrier `3db64e09550c9f8309f6c1077f9f7df6243cb446`. Wave `w1`: one v1 wave, 14 seats (scout 2,
+executor 4, scribe 2, reviewer 2, critic 1, mutation-tester 1, connector 1, sentinel 1; attack share
+4/14 = 28.6 %). Scores unchanged: operability 10, freshness 10, calibration 2 (all HOLD; no scalar move).
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 every `SHONEN.md` box classified from committed bytes | calibration 2→2 HOLD | base `a2cc5f51`: `C1 revision=a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 boxes=4 evidenced=0 gap=0 unexamined=4 mismatches=0 met=false`, exit 1 (`.ufo/waves/round-77/controls/base-c1-ledger.txt`) → carrier `3db64e09`: `C1 revision=3db64e09550c9f8309f6c1077f9f7df6243cb446 boxes=4 evidenced=3 gap=1 unexamined=0 mismatches=0 met=true`, exit 0 (`.ufo/waves/round-77/controls/after-c1-ledger.txt`) | `python3 -B .ufo/waves/round-77/c77_shonen_ledger.py --root . --revision <rev> [--work <scratch>]` | measured met; counter selftest 26/26; every recorded observation re-derived at the revision; box 2 is a `gap` with reason and flip (one LOG-named receipt absent), boxes 1/3/4 `evidenced` within amendment 1 A11's frozen scopes |
+| C2 sitemap container and format coverage (capability) | operability 10→10 HOLD (capability) | base `a2cc5f51`: `C2 revision=a2cc5f51002433e11cc3d2f70e650a6c60ad5e68 cases=20 decided=20 correct=2 wrong=18 constants_failed=4/4 met=false`, exit 1 (`.ufo/waves/round-77/controls/base-c2-matrix-v2.txt`) → carrier `3db64e09`: `C2 revision=3db64e09550c9f8309f6c1077f9f7df6243cb446 cases=20 decided=20 correct=20 wrong=0 constants_failed=4/4 met=true`, exit 0 (`.ufo/waves/round-77/controls/after-c2-matrix.txt`) | `python3 -B .ufo/waves/round-77/c77_sitemap_matrix.py --root . --tool-revision <rev> --cases .ufo/waves/round-77/cases --consts .ufo/waves/round-77/consts --work <scratch>` | measured met; tool selftest 271/271; the base's XML-only constant is byte-identical to the base tool, so the before-state is the tool's own red |
+
+### Capabilities acquired in round 77
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Sitemap container and format coverage | Decides, offline and without fetching, whether a sitemap file is gzip-compressed (magic `1f 8b` whatever the name, the 52,428,800-byte limit applied to the decompressed bytes, a truncated stream as an input fault `gzip_invalid`), a plain-text sitemap (one absolute URL per line, UTF-8, at most 50,000 URLs, no other line, BOM tolerated as a lane convention), an RSS 2.0 item (`<link>`, optional `<pubDate>`) or an Atom 1.0 entry (`<link href>`, optional `<updated>`), and keeps a sitemap index container-agnostic over `<loc>` targets of any of those formats; a document rooted at none of `urlset`, `sitemapindex`, `rss`, `feed` is `format_unsupported` (exit 2, a check error); the round-39 XML checks and the 0/1/2/64 exit alphabet are unchanged | `scripts/sitemap_audit.py` (delivered selftest 271/271 at `3db64e09`); matrix receipt `controls/after-c2-matrix.txt` | 77 |
+| Frozen container/format case matrix | Runs any same-CLI sitemap tool over the 20 frozen cases (gzip g01–g04, text t01–t07, RSS r01–r04, Atom a01–a03, index s01, unsupported d01) plus four degenerate constants (always-clean, report-every-id, empty-findings-with-real-exits, the round-39 XML-only tool) and requires every constant to fail at least one case, comparing finding-id sets and exit codes rather than exits alone | `.ufo/waves/round-77/c77_sitemap_matrix.py` (selftest 14/14), `.ufo/waves/round-77/cases/`, `.ufo/waves/round-77/consts/`, `controls/base-c2-matrix-v2.txt` | 77 |
+
+Move log (round 77):
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 77 | calibration (HOLD 2) | `unexamined=4 mismatches=0 met=false` at `a2cc5f51` | `evidenced=3 gap=1 unexamined=0 mismatches=0 met=true` at `3db64e09` | `.ufo/waves/round-77/c77_shonen_ledger.py`, `corpus/knowledge/shonen-ledger.json`, `SHONEN.md`, `controls/after-c1-ledger.txt` |
+| 77 | operability (HOLD 10) | `correct=2 wrong=18 constants_failed=4/4 met=false` at `a2cc5f51` | `correct=20 wrong=0 constants_failed=4/4 met=true` at `3db64e09` | `scripts/sitemap_audit.py`, `.ufo/waves/round-77/c77_sitemap_matrix.py`, `controls/after-c2-matrix.txt` |
+
+Stated limits, not claimed closed: box 2 stays a `gap` because `LOG.md` names
+`.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt`, which does not exist at the revision;
+box 3's frozen scope (amendment 1 A11) covers `scripts/*.py|sh`, counter paths and `python3 -B` targets only,
+so the three `node ~/Projects/webzites/...` spans and `scripts/kimi-surface.mjs` in `SKILL.md` stay
+non-executable and are not part of the derived verdict; the feed-date grammar is lane policy (S012 states
+none), the RFC 822 branch is pinned only by the delivered selftest, and a date-only `<updated>` is accepted
+although S448 §4.2.6 asks for a date-time; no feed entry-count rule is claimed (A8); the matrix cannot
+separate a name-gated gzip dispatch except through g01's non-`.gz` payload (ReviewC2 F1, applied), and the
+SentinelC F2–F6 classes (lexical manifest containment, FIFO denial, unbounded manifest read, `--revision`
+label forgery, `--tool-revision` option injection) remain open and are routed in the lesson.
