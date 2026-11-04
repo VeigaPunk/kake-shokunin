@@ -248,3 +248,55 @@ compares it across trees, so a UA bump between rounds would compare two represen
 drift. Round-83 follow-on, not this round: make the tool fault on a per-surface `userAgent` mismatch.
 Evidence: `.ufo/waves/round-82/w1/ConnectorC.md` §5 and `…/ConnectorC/evidence.txt` §E–§F. This note
 moves no predicate, target, kill rule, control or tool byte.
+
+## Author-side mutation probe (appended 2026-11-04 by the L1; not a seat)
+
+After both claims were measured, the L1 mutated copies of both counters in scratch and scored each
+mutant against the counter's own selftest. This is author-side evidence, offered to the closure; it
+moves no predicate and repairs nothing.
+
+**C1 (`c82_defect_queue.py`), 5 mutants, 3 killed.**
+
+| Mutant | Change | Result |
+|---|---|---|
+| m1 | last item dropped from the evaluated list | `selftest: 9/11`, killed |
+| m2 | D1's exact cell compare replaced by a substring test that also accepts `180d` | `10/11`, killed |
+| m3 | D4's derived number replaced by the constant `3801` | **`11/11`, survived** |
+| m4 | row-conjunct matcher made token-OR instead of token-AND | `9/11`, killed |
+| m5 | D7's `met=true` requirement dropped | **`11/11`, survived** |
+
+m3 survives because the green fixture's `seat-failures.json` records `output_bytes` 3801 — the same
+number as the live record — so a constant is indistinguishable from a derivation; the killer fixture
+is a fixture record with a different byte count. m5 survives because no fixture carries a receipt with
+`undisclosed=0` and `met=false`; the existing `d7-red-gate-receipt` mutant flips `undisclosed`, which
+the other conjunct catches.
+
+**C2 (`c82_capture_delta.py`), 5 mutants, 1 killed, 1 equivalent, 3 survived.**
+
+| Mutant | Change | Result |
+|---|---|---|
+| m1 | `record_equal` replaced by a first-line comparison | `8/9`, killed |
+| m2 | order conjunct made non-strict (`>=`) | **`9/9`, survived** |
+| m3 | body-length check removed | **`9/9`, equivalent mutant** — sha256 equality already implies equal length |
+| m4 | `selftest_ok` hard-coded to 1 | **`9/9`, survived** |
+| m5 | `surfaces_a == 3` conjunct dropped | **`9/9`, survived** |
+
+m2 survives because no fixture pair has equal instants (the order-violation fixture is an *earlier*
+instant, which both forms reject); m4 survives because the tool-absent fixture also fails
+`determinism` and `record_equal`, so `met` stays false and the hard-coded bit is invisible; m5
+survives because no fixture has a dropped capture-A surface.
+
+**Probe defect, disclosed.** The first C2 mutant run scored every mutant red for the wrong reason:
+the counter's selftest resolves the tool as `Path(__file__).resolve().parents[3] / TOOL`, and the
+mutant copies sat three levels below the scratch root, so the tool was absent and every fixture failed
+on that, not on the mutation. Those readings were discarded and the probe re-ran with each mutant at
+`<scratch>/<mutant>/.ufo/waves/round-82/` and a copy of the tool at `<scratch>/<mutant>/scripts/`; the
+table above is the corrected run. Class: *a mutant scored against a harness whose path resolution
+moves with the mutant*. Captured-by: none. Fix: the corrected layout, shown able to fail (m1 dies
+`8/9` in the same run, so the harness does exercise mutations).
+
+**Routed, not repaired.** The counters are frozen and were measured at the carrier; changing a fixture
+after the after-state would break the correspondence between the receipts and the committed bytes. The
+round-83 repair is the four killer fixtures named above (C1: a non-3801 seat record, an
+`undisclosed=0 met=false` receipt; C2: equal instants, a green tree with a broken tool, a dropped A
+surface), then the same mutants re-run.
