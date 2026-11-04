@@ -510,3 +510,13 @@ W3C Datetime, XML 1.0, Namespaces, XSD Datatypes, sitemaps.org FAQ, Yandex). Sti
 key that kills the 15 round-39 single-sentence breaks and the regex reader; gzip; live fetch; text and
 RSS sitemaps; robots `Sitemap:` cross-submission; the five build deviations in the round-39 SCORECARD
 corrections.
+
+## Coverage — round 76 (2026-11-03)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| hreflang declarations (r76) | `knowledge/hreflang-declaration.md` (S444–S446) | Definition of a hreflang declaration, the self-reference rule, `x-default` as the reserved fallback, alternate URLs that must carry scheme and authority, the reciprocal-pair requirement, and the canonical-interaction rule recorded as a lane policy (no opened source states it) — with the C2 finding table and its stated limits (no fetch, no headers, no rendering, no language detection, no ranking). |
+
+Sources opened this round: S444 (Google localized versions, tier A docs), S445 (WHATWG HTML
+`hreflang`/`alternate`, tier A spec), S446 (RFC 5646 / BCP 47, tier A spec); registry 181 → 184 rows,
+census exit 0.

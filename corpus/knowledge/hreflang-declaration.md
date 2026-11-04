@@ -95,6 +95,12 @@ with A's `url` and the same tag; `hreflang_external_target` (informational) when
 manifest. Reciprocity is therefore decidable only inside the manifest — the manifest is the population,
 never the web.
 
+[r76-correction 2026-11-03] The same-tag return requirement is a **lane policy, stricter than the opened
+source**: S444 states only that "page Y must link back to page X" and does not require the return link to
+carry the same tag. A page pair that follows Google's canonical mixed-cluster pattern is therefore flagged
+`hreflang_nonreciprocal` by this tool even though Google's sentence is satisfied. The finding is a
+consequence of the stricter rule, not a claim about Google's behaviour.
+
 ## The frozen contract's finding table
 
 | id | decides |
@@ -156,8 +162,10 @@ Stated, never claimed closed:
   pages" at line 343, the "HTTP Headers" body at line 505) — and is out of scope.
 - **No rendering, no JavaScript.** Only static HTML in the file is read; anything a browser would
   construct is invisible.
-- **No hreflang value outside `x-default`/BCP-47 syntax.** No other value form is interpreted, and no
-  validity claim is made about the subtags that do appear.
+- **No hreflang value outside the frozen ASCII grammar.** The check is a frozen ASCII production for
+  BCP-47-shaped tags, not a BCP-47 validator: it rejects RFC 5646 grandfathered tags (`en-GB-oed`),
+  redundant extlang forms and extension singletons, and it makes no validity claim about the subtags
+  that do appear. [r76-correction 2026-11-03]
 - **No language detection.** The audit says nothing about the actual language of any page. WHATWG makes
   the attribute advisory and non-authoritative for user agents (lines 1355-1361) and Google disclaims it
   entirely for language detection (lines 355-360); a declaration audit is not a language audit.
