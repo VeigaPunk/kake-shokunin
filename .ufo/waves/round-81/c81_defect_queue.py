@@ -195,7 +195,9 @@ def p_r80_4(tree: Path) -> tuple[bool, str]:
         return False, "round-81 spec carries no items"
     role_of = {i.get("name"): i.get("role") for i in items if isinstance(i, dict)}
     requested_attack = sum(1 for r in role_of.values() if r in ATTACK_ROLES)
-    settled = [r.get("name") for r in (results.get("results") or []) if isinstance(r, dict)]
+    settled = [r.get("name") for r in (results.get("results") or [])
+               if isinstance(r, dict) and isinstance(r.get("name"), str)
+               and (r.get("output") or "").strip()]
     settled_attack = sum(1 for name in settled if role_of.get(name) in ATTACK_ROLES)
     total = len(settled)
     if total == 0:
@@ -404,6 +406,23 @@ def selftest(work: Path) -> int:
         "settled_total": 3, "settled_attack": 1, "share": 1 / 3, "spec_sha256": "0" * 64}))
     ok, detail = p_r80_4(t)
     checks.append(("r80-4-drifted-record-opens", not ok, detail))
+    # A1 fixture: an empty-output attack seat is not settled; the honest record closes and
+    # the record that counts it as settled must open.
+    spec_results(t, ["reviewer", "reviewer", "executor", "scribe"], 4, None)
+    results = {"results": [{"name": "S0", "output": ""}, {"name": "S1", "output": "x"},
+                           {"name": "S2", "output": "x"}, {"name": "S3", "output": "x"}]}
+    _write(t / ".ufo/waves/round-81/w1-results.json", json.dumps(results))
+    spec_sha = hashlib.sha256((t / ".ufo/waves/round-81/w1-spec.json").read_bytes()).hexdigest()
+    _write(t / ".ufo/waves/round-81/w1-accounting.json", json.dumps({
+        "attack_roles": ATTACK_ROLES, "requested_total": 4, "requested_attack": 2,
+        "settled_total": 3, "settled_attack": 1, "share": 1 / 3, "spec_sha256": spec_sha}))
+    ok, detail = p_r80_4(t)
+    checks.append(("r80-4-empty-seat-excluded", ok, detail))
+    _write(t / ".ufo/waves/round-81/w1-accounting.json", json.dumps({
+        "attack_roles": ATTACK_ROLES, "requested_total": 4, "requested_attack": 2,
+        "settled_total": 4, "settled_attack": 2, "share": 0.5, "spec_sha256": spec_sha}))
+    ok, detail = p_r80_4(t)
+    checks.append(("r80-4-empty-seat-counted-opens", not ok, detail))
 
     # R80-5: green reproduces open=5 closed=1; mutant tree that also closes R79-1.
     t = _base_tree(base / "b5")
