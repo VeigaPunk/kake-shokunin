@@ -2939,3 +2939,23 @@ HTML mirror disposed with exact rm exit0 in bindings-disposal.md; no tracked
 historical receipt removed. Assimilation none; quarantine-order rule retained,
 not falsely credited as exercised. No tools installed. Production revision
 measurements follow as a new appended record, never rewritten receipt labels.
+
+### Round 87 revision-bound measurement record
+
+Measured pushed carrier fbecc02033ca2be36e9f176dfedede224c79f5a9 with unchanged
+frozen count.py: C1 population8/mismatches0/mettrue exit0; C2 cases17/17/mettrue
+exit0. Base missing8 and absent0/17 both exit1. Exact commands/stdout/exits
+in round87 controls/{base-c1.txt,base-c2.txt,after-c1-carrier.txt,
+after-c2-carrier.txt}. Integrated tool selftest61 exit0 and retained actual
+GET replay match exit0 recorded in decoder-selftest.txt/integrated-trial.txt;
+no second property GET claimed. Frozen identity and five scoped preservation
+paths pass byte comparison (respective carrier JSON receipts).
+
+Sources199→200, Markdown knowledge73→74 at base→carrier, command and revisions
+in committed-corpus-counts.json. Census-before/final full outputs: exits0→0,
+W04 warnings23→24, S462 a deliberate scoped RFC9111 duplicate. Fleet misroot
+sweep recorded: no file attributable to own seats; orchestrator .scratch/,
+other lane reports and unidentified `after` (content only “== SCORECARD diff
+base-”) untouched. Author verdict: both finite targets met with independent
+C2 adapter evidence; no numeric score increase, no universal accuracy or
+no-harm/admission claim.

@@ -5411,3 +5411,47 @@ open. Any later authorized calibration predicate must exclude its own receipts
 and other claims' success, snapshot fleet inputs before freeze, and prove
 single-conjunct mutants fail. Do not repair this frozen counter after scoring or
 retroactively relabel its miss as success. Outside closure owns admission.
+
+## Round 87 — bounded committed measurements
+
+Base `86ca7803fd964db7ae2a628c7e9048741c78a45f`; freeze
+`58fee726102aa89ad2c1fa9f697869de3a212510`; dispatch
+`0f5739f9803ad9400381afa5aa89ee8aede50922`; measured production carrier
+`fbecc02033ca2be36e9f176dfedede224c79f5a9`.
+
+| Claim | Axis / score delta | Before → after | Counting command | Evidence / author verdict |
+|---|---|---|---|---|
+| C1 historical gate-agreement metadata | calibration 2→2 HOLD, lowest owned | missing/mismatched8 → mismatches0, population8, exits1→0 | `python3 -B .ufo/waves/round-87/count.py --root . --revision REV --claim c1` | controls/base-c1.txt → after-c1-carrier.txt; finite target met, record completeness only, not improved past decision accuracy |
+| C2 conservative current-age reader | freshness 10→10 HOLD, bounded capability | tool absent cases0/17 → cases17/17, exits1→0 | same counter/root/revision with `--claim c2 --work /fast/scratch/hyaku/kake-r87/L1/carrier` | controls/base-c2.txt → after-c2-carrier.txt; candidate sequential implementation, integrated selftest61, independent fresh60 and six killed CLI mutants separately support adapter contract |
+
+Receipt paths are under `.ufo/waves/round-87/`. Frozen count/contract/oracles/
+snapshots byte-identical at carrier: controls/frozen-identity-carrier.json.
+Five existing decoder/classifier/counterexample paths byte-preserved:
+controls/preservation-carrier.json; operability unchanged on this scoped
+evidence, never a whole-corpus no-harm proof. Ledger JSON is calibration
+metadata even under knowledge; baseline missing8 is not eight wrong judgments.
+Frozen equality's float/bool and diagnostic omissions, eager C2-fixture load
+for C1, and copied-oracle shortcut are disclosed in lesson and QUALITY; frozen
+predicate not changed. Independent exact types/diagnostics are separate evidence.
+
+### Demonstrated repertoire — round 87
+
+| Capability | What it can now do | Evidence | First-working round |
+|---|---|---|---|
+| Conservative supplied-time current-age arithmetic | Compute six RFC9111 §4.2.3 terms from integer-second Date/Age/local times using allowed conservative max; reject invalid times/types; no Date parser, network/clock or reuse approval | `scripts/cache_current_age.py`; S462; carrier fbecc02033ca2be36e9f176dfedede224c79f5a9; controls/after-c2-carrier.txt, decoder-selftest.txt, integrated-trial.txt; w1/ReviewAge and MutAge | 87 |
+
+One v1 wave12 nonempty settled, scout1/executor3/scribe3/reviewer2/critic1/
+mutation-tester1/connector1; attack4/12, no replacement/residual, L1 planner
+plus scout planning. WAVE-DONE before integration; missing result IDs/status
+fields disclosed. Sources199→200 (A+1), Markdown knowledge73→74; calibration
+JSON earns no domain expansion. Census exits0→0, W04 warnings23→24 intentional
+cross-scope RFC9111 URL. Actual ds4cc.com GET and integrated retained replay
+yielded all-zero terms: real use, not a shortcut discriminator.
+
+### Planned — after round 87
+
+Outside closure owns admission and admit/reject spot-check. Keep D84-2/3 and
+literal L2-planner D84-4 open; no next round is started. Any future instrument
+should load fixtures claim-locally and enforce exact JSON integer types and
+invalid diagnostics, without rewriting this round's frozen bytes. Broader
+Date/Age extraction, Vary/Pragma and reuse policy remain frontier.

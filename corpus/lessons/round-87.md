@@ -90,3 +90,39 @@ using ls/sed instead of specialized tools and an initial unsanitized RFC respons
 header capture; retained receipt was immediately allowlisted, no cookie reuse,
 credential/session access or retained session value. ScoutAge discloses textual
 tracing without LSP; no semantic-server evidence claimed. No tool installs.
+
+## Integrated revision measurement
+
+Carrier fbecc02033ca2be36e9f176dfedede224c79f5a9, unchanged frozen instrument:
+C1 mismatches8→0; C2 cases0/17→17/17; exits1→0 each. Exact commands and full
+outputs: round87 controls/{base-c1.txt,base-c2.txt,after-c1-carrier.txt,
+after-c2-carrier.txt}. L1 integrated selftest61 passed and retained actual
+GET replay matched all six terms, exit0 each (decoder-selftest.txt and
+integrated-trial.txt). This replay uses fixed observed timing, not current
+network conditions. Source/knowledge counts199→200/73→74, counting command
+and revisions in controls/committed-corpus-counts.json. Metadata JSON excluded
+from domain knowledge count.
+
+Census command `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate
+--root /home/vgpnk/Projects/shokunin kake`: full before/final outputs retained
+in controls/census-before.txt and census-final.txt, exits0→0, W04 warnings
+23→24 from intentional cross-scope S462 RFC9111 source. No existing mutable
+source-row field changed. Assimilation none, no quarantine-order success claimed.
+
+Scoped preservation: five prior decoder/classifier/witness files unchanged
+at base→carrier; frozen contract/count/oracles/snapshots unchanged at
+freeze→carrier. Receipts preservation-carrier.json/frozen-identity-carrier.json.
+Fleet misroot sweep controls/fleet-misroot-sweep.txt found no own-seat file;
+.scratch is orchestrator-owned, sibling reports and unidentified `after`
+were untouched. Exact-type and eager-fixture defects remain in frozen code,
+not misrepresented as repaired. Both finite targets met; independent outside
+admit/reject judgment and round admission remain pending closure.
+
+Self-evaluation: accuracy4 (finite counts and adapter semantics supported,
+not universal truth); completeness4 (both targets, real trial, sources and
+mistake controls landed; planner ruling remains operator-owned); clarity4
+(metadata/knowledge and finite/independent evidence separated); actionability4
+(commands/revisions and scope explicit); conciseness3 (multiple protocol
+artifacts repeat limits). Mean3.8/5. Applied improvement: final report states
+limits once and points to this lesson for detail. User-agreement check: no
+admission or improved historical accuracy inferred from a copied ledger.
