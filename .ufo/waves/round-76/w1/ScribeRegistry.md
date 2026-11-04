@@ -126,6 +126,9 @@ reported, not audited.
 
 ## Checks run
 
+All lane reads are read-only; the one clone (check 20) is under `/fast/scratch/hyaku/kake-r76/ScribeRegistry`
+and asserts its own `--show-toplevel` before any commit.
+
 | # | Command | Exit | Observed |
 |---|---|---|---|
 | 1 | `git log --oneline -8` | 0 | freeze `b758cb04`; amendments `783c7c13`, `e674bc60`, `6b52407b`, `f4f076ba`, `d2555766` (A6/A7), `d00ea7fb` (A8); repair `442d36c6` |
@@ -141,24 +144,28 @@ reported, not audited.
 | 11 | `cat .ufo/waves/round-76/controls/after-c2-realrun.txt` | 0 | `{"version": 1, "pages": 8, "findings": [], …}` and `rc=0` |
 | 12 | `sha256sum scripts/hreflang_audit.py .ufo/waves/round-76/w1/ExecAuditTool/hreflang_audit.py` | 0 | both `0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac` (59,734 B) |
 | 13 | `sha256sum scripts/doc_quote_truth.py .ufo/waves/round-76/w1/ExecQuoteCounter/doc_quote_truth.py` | 0 | `eae3ce48a78a328e89389fb690b64965a01945e5510d3a2084625721de793b54` (44,101 B) vs `302bcb9bc8faa4dace522602416e0ca9c5e42fdbc6bcc40d4f4db94b6468ebf7` (47,511 B) — the landed copy is the older build |
-| 14 | `python3 -B scripts/doc_quote_truth.py --root . --revision HEAD --base a0491fcd… --rounds 75,76` | 1 | `C1v2 revision=HEAD rows=23 receipt_files=7726 spans=41 exempted=7 corrections=7 findings=2 met=false` (the older build reds the two round-75 lesson rows A7 names) |
-| 15 | `python3 -B .ufo/waves/round-76/w1/ExecQuoteCounter/doc_quote_truth.py --root . --revision HEAD --base a0491fcd… --rounds 75,76` | 0 | `C1v2 revision=HEAD rows=23 receipt_files=7925 spans=41 exempted=7 corrections=7 findings=0 met=true` |
+| 14 | `python3 -B scripts/doc_quote_truth.py --root . --revision d00ea7fb --base a0491fcd… --rounds 75,76` | 1 | `C1v2 revision=HEAD rows=23 receipt_files=7726 spans=41 exempted=7 corrections=7 findings=2 met=false` (the older build reds the two round-75 lesson rows amendment 7 names) |
+| 15 | `python3 -B .ufo/waves/round-76/w1/ExecQuoteCounter/doc_quote_truth.py --root . --revision d00ea7fb --base a0491fcd… --rounds 75,76` | 0 | `C1v2 revision=HEAD rows=23 receipt_files=7925 spans=41 exempted=7 corrections=7 findings=0 met=true` |
 | 16 | `python3 -B .ufo/waves/round-76/w1/ExecQuoteCounter/doc_quote_truth.py --selftest --work <scratch>` | 0 | `selftest: 57/57 passed` (scribe check on the wave build; the committed tally is `pending(L1)`) |
 | 17 | `grep -c '^| S[0-9]' corpus/SOURCES.md` | 0 | `184` (S444–S446 present at lines 190–192) |
-| 18 | `grep -F -c` over admissible `.ufo/waves/**` receipts for every claim-bearing span in blocks (b) and (d) | 0 | zero missing; the C1 after-state and both selftest tallies remain `pending(L1)` by construction |
+| 18 | `python3 -B` over every claim-bearing span in blocks (b) and (d) against the admissible receipt set (round-76 `w1/` and the excluded control names removed) | 0 | `admissible receipt files: 7880`, `missing: 0` |
+| 19 | `python3 -B scripts/doc_quote_truth.py --root . --revision HEAD --rounds 75,76` (no `--base`) and `… --selftest` (no `--work`) | 64, 64 | `usage: --base <revision> is required (append-only conjunct)`; `usage: --selftest requires --work <dir>` |
+| 20 | `python3 -B scripts/hreflang_audit.py` (no `--manifest`) and `… --selftest` (no `--work`) | 64, 64 | `hreflang_audit.py: --manifest is required`; `hreflang_audit.py: --selftest requires --work` |
+| 21 | Scratch clone at `d00ea7fb` + the five new `controls/` files committed + block (d) appended to `SCORECARD.md`, then the wave-build counter at that commit | 0 | `C1v2 revision=HEAD rows=28 receipt_files=7929 spans=51 exempted=7 corrections=7 findings=0 met=true` — the draft's own rows stay green under the delivered predicate |
 
 ## Findings for the L1 (blocking or near-blocking)
 
-1. **Ship the wave build of the counter.** `scripts/doc_quote_truth.py` is `eae3ce48…` (44,101 B), the build amendment 7 §F2 names as printing the wrong base count; the wave file is `302bcb9b…` (47,511 B) and prints `findings=0 met=true` at `HEAD` (check 15). Nothing else in this draft depends on which build ships, but the C1 after-state does.
-2. **Admissible receipts for the after-state.** Under A5 §D1 + A7 §F1 the round-76 `w1/` tree is never a receipt. The C1 after line (`… exempted=7 corrections=7 findings=0 met=true`), the counter selftest tally, and the hreflang selftest tally need committed copies under `.ufo/waves/round-76/controls/` with names that do not match `base-c1-quote-truth*` or `ctl-*` (e.g. `after-c1-quote-truth.txt`, `selftest-doc-quote-truth.txt`, `selftest-hreflang.txt`); only then can the `pending(L1)` cells become claim-bearing spans.
-3. **Matrix numbers moved.** The wave receipt `w1/ExecAuditMatrix/receipts/matrix-run-execaudittool.txt` records 69 cases / 66 decided / 3 undecided; the admissible `controls/after-c2-matrix.txt` records 71 / 69 / 2 with all four constants at `failed=69/69`. This draft uses the admissible one; do not mix the two in one row.
-4. **The capability row's section placement.** The `### Capabilities acquired in round 76` table sits inside the `## Round 76` section, so its rows are in the C1 population; its evidence cell therefore quotes only `controls/` values. The `## Capabilities` row (block b) is outside every `## Round <N>` section and is not scanned.
-5. **One QUALITY risk outside this seat.** The unlanded `blocks-quality.md` bullet carries the reject example `files=18 mismatches=0 append_only=true met=true missing_frozen=0`, which is a base `T1` finding; it can pass only because the literal word `supersedes` inside a code span makes the counter classify that bullet as a correction line. If that word is edited out when the block lands, C1 reds on that bullet. Prefer a whole-line quote or an explicit `[r76-correction …]` marker.
+1. **Ship the wave build of the counter.** `scripts/doc_quote_truth.py` is build `eae3ce48…` (44,101 B), the build amendment 7 names as printing a wrong base count; at `d00ea7fb` it prints `findings=2 met=false` (check 14), while the wave file `302bcb9b…` (47,511 B) prints `findings=0 met=true` (check 15). Nothing else in this draft depends on which build ships, but the C1 after-state does.
+2. **Admissible receipts for the C1 run lines.** Under amendment 5 §D1 and amendment 7 §F1 the round-76 `w1/` tree is never a receipt, and §D3 excludes `base-c1-quote-truth*.txt` and `ctl-*.txt` in this round's `controls/`. The base line (`C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false`) and the after line (`… exempted=7 corrections=7 findings=0 met=true`) therefore need one committed copy under `.ufo/waves/round-76/controls/` whose name matches neither pattern — `after-c1-quote-truth.txt` carrying both runs is the smallest form; the row's two `pending(L1)` cells then quote those two lines.
+3. **Matrix numbers moved between receipts.** `w1/ExecAuditMatrix/receipts/matrix-run-execaudittool.txt` records 69 cases / 66 decided / 3 undecided; the admissible `controls/after-c2-matrix.txt` records 71 / 69 / 2 with all four constants at `failed=69/69`. This draft uses the admissible one; do not mix the two in one row.
+4. **Selftest tallies need committed receipts.** `selftest: 57/57 passed` (counter, wave build) and `selftest 59/59 passed` (hreflang, same sha as the landed copy) exist only in the seat tree today; a committed copy under `controls/` (e.g. `selftest-both.txt`) makes them quotable in the SCORECARD rows and in the SKILL rows' proof cells.
+5. **The capability table's placement.** `### Capabilities acquired in round 76` sits inside the `## Round 76` section, so its rows are in the C1 population; its evidence cell therefore quotes only `controls/` values. The `## Capabilities` row (block b) is outside every `## Round <N>` section and is not scanned.
+6. **One QUALITY risk outside this seat.** The unlanded `blocks-quality.md` bullet carries the reject example `files=18 mismatches=0 append_only=true met=true missing_frozen=0`, a base `T1` finding. It passes only because the literal word `supersedes` inside a code span makes the counter classify that bullet as a correction line (B3-bis then exempts the base finding). If that word is edited out when the block lands, C1 reds on that bullet; a whole-line quote or an explicit `[r76-correction …]` marker removes the accident.
 
 ## Pending (filled from wave receipts before landing)
 
-1. C1 after-state line at the measured revision, and its admissible receipt path.
-2. `scripts/doc_quote_truth.py` selftest tally in a committed receipt (observed on the wave build: `selftest: 57/57 passed`).
+1. C1 base and after run lines in an admissible receipt (`controls/after-c1-quote-truth.txt`), then paste both into block (d)'s C1 row and the calibration move-log row.
+2. `scripts/doc_quote_truth.py` selftest tally in a committed receipt (observed on the wave build: `selftest: 57/57 passed`, check 16).
 3. `scripts/hreflang_audit.py` selftest tally in a committed receipt (observed in the wave tree: `selftest 59/59 passed`).
-4. Round-76 measured revision; the `SCORECARD.md` capability-row sentence in `## Capabilities` if the L1 rewords block (b).
+4. Round-76 measured revision; the `## Capabilities` row's wording if the L1 shortens block (b).
 5. `w1-results.json` seat total, the round-end census line, and the routed/residual paragraph.

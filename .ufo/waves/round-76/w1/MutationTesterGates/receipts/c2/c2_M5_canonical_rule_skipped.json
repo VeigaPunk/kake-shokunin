@@ -1,0 +1,20 @@
+{
+ "id": "M5_canonical_rule_skipped",
+ "desc": "skip the canonical rule",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c2/M5_canonical_rule_skipped.py",
+ "old": "            if normalize_url(canonical[\"href\"]) != page[\"url_norm\"]:",
+ "new": "            if False and normalize_url(canonical[\"href\"]) != page[\"url_norm\"]:",
+ "sha_pristine": "0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac",
+ "sha_mutant": "b0ad724402026a9f293c7da1078d9343ff407e6620a384bac4071f06fca0e9f4",
+ "selftest_rc": 1,
+ "selftest": "selftest 58/59 passed",
+ "matrix_rc": 1,
+ "wrong": [
+  "case canonical-first-wins expected=exit1 ids=[\"hreflang_canonical_not_self\"] observed=exit0 ids=[] pages=2/2 json=ok verdict=wrong",
+  "case canonical-not-self expected=exit1 ids=[\"hreflang_canonical_not_self\"] observed=exit0 ids=[] pages=2/2 json=ok verdict=wrong",
+  "case canonical-with-hreflang expected=exit1 ids=[\"hreflang_canonical_not_self\"] observed=exit0 ids=[] pages=2/2 json=ok verdict=wrong"
+ ],
+ "tally": "cases=71 decided=69 correct=66 wrong=3 undecided=2 constants_failed=4/4 met=false",
+ "killed": true,
+ "survived": false
+}

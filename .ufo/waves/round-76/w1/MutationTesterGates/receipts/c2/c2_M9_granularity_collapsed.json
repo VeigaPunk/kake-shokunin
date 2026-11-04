@@ -1,0 +1,19 @@
+{
+ "id": "M9_granularity_collapsed",
+ "desc": "collapse findings to one per (page,id) [A2 granulation probe]",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c2/M9_granularity_collapsed.py",
+ "old": "    return sorted(findings, key=lambda item: item.get(\"_key\", (10 ** 9, 10 ** 9, 0, \"\")))",
+ "new": "    return sorted(list({(item[\"id\"], item[\"page\"]): item for item in reversed(findings)}.values()), key=lambda item: item.get(\"_key\", (10 ** 9, 10 ** 9, 0, \"\")))",
+ "sha_pristine": "0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac",
+ "sha_mutant": "b13bb72849f9dc8b54ebea1373fac8a481f65587b108b37bef1096d6f305ce99",
+ "selftest_rc": 1,
+ "selftest": "selftest 55/59 passed",
+ "matrix_rc": 1,
+ "wrong": [
+  "case duplicate-pair-two-pairs expected=exit1 ids=[\"hreflang_duplicate_pair\", \"hreflang_duplicate_pair\"] observed=exit1 ids=[\"hreflang_duplicate_pair\"] pages=1/1 json=ok verdict=wrong",
+  "case multiple-xdefault-pair expected=exit1 ids=[\"hreflang_multiple_xdefault\", \"hreflang_multiple_xdefault\", \"hreflang_multiple_xdefault\", \"hreflang_multiple_xdefault\"] observed=exit1 ids=[\"hreflang_multiple_xdefault\", \"hreflang_multiple_xdefault\"] pages=2/2 json=ok verdict=wrong"
+ ],
+ "tally": "cases=71 decided=69 correct=67 wrong=2 undecided=2 constants_failed=4/4 met=false",
+ "killed": true,
+ "survived": false
+}

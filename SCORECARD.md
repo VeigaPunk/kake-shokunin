@@ -4959,3 +4959,10 @@ stated rule (Amendment 8 §G1); the frozen grammar rejects grandfathered and ext
 matrix classes stay `undecided` (§G3); the real-input population is the eight retained served pages of the
 twelve named surfaces (Amendment 1); the freshness sweep still exits 1 on the single `~/projects` drift
 (open L0 `kake | round-69`); the two sidecar tools remain outside the instrument receipt (disposition 4).
+
+Mutation and attack breadth (appended after the measured results): the mutation seat scored 18 mutants across
+both instruments — 17 killed, one survivor that is an unreachable redundancy (dropping the append-only
+conjunct changes no observable, because every base-only row already emits A1). It also recorded one selftest
+gap the round does not claim closed: a case-insensitive span comparison survives the counter's own selftest
+and is caught only by an external probe. C2's nine tool mutants were all killed by named matrix cases, and
+a bare findings-empty printer fails 69 of 69 cases under the matrix's shape check.

@@ -1,0 +1,493 @@
+{
+ "meta": {
+  "target": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ExecQuoteCounter/doc_quote_truth.py",
+  "sha256": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+  "bytes": 49077
+ },
+ "contract_notes": [],
+ "baseline": {
+  "selftest_rc": 0,
+  "selftest": "selftest: 63/63 passed",
+  "before_rc": 1,
+  "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+  "head_rc": 1,
+  "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+  "probes": {
+   "P_ARTIFACT": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   },
+   "P_CASE": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   },
+   "P_SEATREE": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   },
+   "P_DIAG": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   },
+   "P_DATAEXT": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   }
+  }
+ },
+ "results": [
+  {
+   "id": "M1_append_only_conjunct_dropped",
+   "desc": "drop the append-only conjunct",
+   "file": "M1_append_only_conjunct_dropped.py",
+   "old": "        \"met\": len(findings) == 0 and append_only,",
+   "new": "        \"met\": len(findings) == 0,",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "4efa21baaefac10df18a96878d1fa4381aa45d0bd8621678862d784d42a0d1a3",
+   "verdict": {
+    "selftest_rc": 0,
+    "selftest": "selftest: 63/63 passed",
+    "before_rc": 1,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "head_rc": 1,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_CASE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_SEATREE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DIAG": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DATAEXT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_row: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_absent: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_noncontiguous: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  single_letter_assignment: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_ratio: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  ready_marker: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t2_elision_bad: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t2_elision_split_files: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  correction_names_other_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_pipe_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_newline_escape: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M1_append_only_conjunct_dropped/notg'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 63/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": false,
+   "why": [],
+   "survived": true
+  },
+  {
+   "id": "M2_met_ignores_findings",
+   "desc": "make met ignore findings",
+   "file": "M2_met_ignores_findings.py",
+   "old": "        \"met\": len(findings) == 0 and append_only,",
+   "new": "        \"met\": append_only,",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "0dac07a4b89e2d72fb119cc03d8d26cdeeb4f26d2fceacf12b6826114f07b193",
+   "verdict": {
+    "selftest_rc": 1,
+    "selftest": "selftest: 34/63 passed",
+    "before_rc": 0,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=true",
+    "head_rc": 0,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=true",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=true"
+     },
+     "P_CASE": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=true"
+     },
+     "P_SEATREE": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=true"
+     },
+     "P_DIAG": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=true"
+     },
+     "P_DATAEXT": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=true"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  indented_row: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  t1_absent: want ids=['T1'] rc=1; got rc=0 ids=['T1'] met=True want False\n  FAIL  t1_noncontiguous: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  single_letter_assignment: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_ratio: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  ready_marker: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  t2_elision_bad: want ids=['T2'] rc=1; got rc=0 ids=['T2']\n  FAIL  t2_elision_split_files: want ids=['T2'] rc=1; got rc=0 ids=['T2']\n  FAIL  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=0 ids=['T1', 'T4']\n  FAIL  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=0 ids=['T1', 'T4']\n  FAIL  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=0 ids=['T1', 'T4']\n  FAIL  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  correction_names_other_span: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=0 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  t1_pipe_span: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_newline_escape: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M2_met_ignores_findings/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 34/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=true\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=true\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": true,
+   "why": [
+    "selftest rc 1 != 0",
+    "before 0/7 != 1/7",
+    "head 0/7 != 1/7",
+    "P_ARTIFACT rc 0 != 1",
+    "P_CASE rc 0 != 1",
+    "P_SEATREE rc 0 != 1",
+    "P_DIAG rc 0 != 1",
+    "P_DATAEXT rc 0 != 1"
+   ],
+   "survived": false
+  },
+  {
+   "id": "M3_every_span_contiguous",
+   "desc": "treat every span as contiguous",
+   "file": "M3_every_span_contiguous.py",
+   "old": "    frags = [f for f in ELIDE_RE.split(span) if f.strip()] if ELIDE_RE.search(span) else [span]",
+   "new": "    frags = [span]",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "c3c43b90d370372d744f8ef489e7e17748d768665e0b92dc5c56a2f5c35418ed",
+   "verdict": {
+    "selftest_rc": 1,
+    "selftest": "selftest: 61/63 passed",
+    "before_rc": 1,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "head_rc": 1,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_CASE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_SEATREE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DIAG": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DATAEXT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  green_elision_same_receipt: want ids=[] rc=0; got rc=1 ids=['T2'] met=False want True\n  FAIL  green_elision_open_end: want ids=[] rc=0; got rc=1 ids=['T2'] met=False want True\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_row: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_absent: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_noncontiguous: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  single_letter_assignment: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_ratio: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  ready_marker: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t2_elision_bad: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t2_elision_split_files: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  correction_names_other_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_pipe_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_newline_escape: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M3_every_span_contiguous/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 61/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": true,
+   "why": [
+    "selftest rc 1 != 0"
+   ],
+   "survived": false
+  },
+  {
+   "id": "M4_spans_case_insensitive",
+   "desc": "match spans case-insensitively",
+   "file": "M4_spans_case_insensitive.py",
+   "old": "    return any(all(f in body for f in frags) for _, body in receipts)",
+   "new": "    return any(all(f.lower() in body.lower() for f in frags) for _, body in receipts)",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "64df843cd75b2c66e8708b682578ea11bda18b9c1ba10d1a7de0b3a108fbe04f",
+   "verdict": {
+    "selftest_rc": 0,
+    "selftest": "selftest: 63/63 passed",
+    "before_rc": 1,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "head_rc": 1,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_CASE": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=0 met=true"
+     },
+     "P_SEATREE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DIAG": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DATAEXT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_row: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_absent: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_noncontiguous: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  single_letter_assignment: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_ratio: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  ready_marker: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t2_elision_bad: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t2_elision_split_files: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  correction_names_other_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_pipe_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_newline_escape: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M4_spans_case_insensitive/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 63/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": true,
+   "why": [
+    "P_CASE rc 0 != 1"
+   ],
+   "survived": false
+  },
+  {
+   "id": "M5_results_is_receipt",
+   "desc": "accept *-results.json as a receipt",
+   "file": "M5_results_is_receipt.py",
+   "old": "    if any(fnmatch.fnmatchcase(base, g) for g in ARTIFACT_GLOBS):",
+   "new": "    if False and any(fnmatch.fnmatchcase(base, g) for g in ARTIFACT_GLOBS):",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "30a730ea60eff00b97ba320ffda6564a4fb20e32266d8f8e57d29fe857667a9d",
+   "verdict": {
+    "selftest_rc": 1,
+    "selftest": "selftest: 62/63 passed",
+    "before_rc": 1,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7933 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "head_rc": 1,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7933 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_CASE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_SEATREE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DIAG": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DATAEXT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_row: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_absent: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_noncontiguous: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  single_letter_assignment: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_ratio: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  FAIL  ready_marker: want ids=['T1'] rc=1; got rc=0 ids=[] receipt_files=2 want 1\n  PASS  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t2_elision_bad: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t2_elision_split_files: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  correction_names_other_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_pipe_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_newline_escape: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M5_results_is_receipt/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 62/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7933 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7933 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": true,
+   "why": [
+    "selftest rc 1 != 0"
+   ],
+   "survived": false
+  },
+  {
+   "id": "M6_elision_one_fragment",
+   "desc": "elision rule requires only ONE fragment",
+   "file": "M6_elision_one_fragment.py",
+   "old": "    return any(all(f in body for f in frags) for _, body in receipts)",
+   "new": "    return any(any(f in body for f in frags) for _, body in receipts)",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "3cb0b0092fc9e246161b5addcd625e73b6525e39c219df49f41ecf3e35c7c9bf",
+   "verdict": {
+    "selftest_rc": 1,
+    "selftest": "selftest: 62/63 passed",
+    "before_rc": 1,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "head_rc": 1,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_CASE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_SEATREE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DIAG": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DATAEXT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_row: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_absent: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_noncontiguous: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  single_letter_assignment: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_ratio: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  ready_marker: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  t2_elision_bad: want ids=['T2'] rc=1; got rc=0 ids=[]\n  PASS  t2_elision_split_files: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  correction_names_other_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_pipe_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_newline_escape: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M6_elision_one_fragment/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 62/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": true,
+   "why": [
+    "selftest rc 1 != 0"
+   ],
+   "survived": false
+  },
+  {
+   "id": "M7_t4_check_skipped",
+   "desc": "skip the T4 correction check",
+   "file": "M7_t4_check_skipped.py",
+   "old": "            findings.append({\"id\": \"T4\", \"file\": c[\"file\"], \"line\": c[\"line\"],",
+   "new": "            (lambda *a, **k: None)({\"id\": \"T4\", \"file\": c[\"file\"], \"line\": c[\"line\"],",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "227827dd47b7252b40bb6af4eea26cf7fad9c6f791b99b485e001e229000b72b",
+   "verdict": {
+    "selftest_rc": 1,
+    "selftest": "selftest: 59/63 passed",
+    "before_rc": 1,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "head_rc": 1,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_CASE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_SEATREE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DIAG": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DATAEXT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_row: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_absent: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_noncontiguous: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  single_letter_assignment: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_ratio: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  ready_marker: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t2_elision_bad: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t2_elision_split_files: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  FAIL  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1']\n  FAIL  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1']\n  FAIL  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1'] findings=1 want 2\n  PASS  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  correction_names_other_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  FAIL  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_pipe_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_newline_escape: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M7_t4_check_skipped/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 59/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": true,
+   "why": [
+    "selftest rc 1 != 0"
+   ],
+   "survived": false
+  },
+  {
+   "id": "M8_presence_exempts",
+   "desc": "correction row's mere presence exempts a span",
+   "file": "M8_presence_exempts.py",
+   "old": "            if span in defects and any(span in c[\"spans\"] for c in validated):",
+   "new": "            if validated:",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "1e63750e6955e05a6756ad67cf474f0aa08f9d6c9df9c67ad842ef8f8d7f1666",
+   "verdict": {
+    "selftest_rc": 1,
+    "selftest": "selftest: 62/63 passed",
+    "before_rc": 1,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "head_rc": 1,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_CASE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_SEATREE": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DIAG": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DATAEXT": {
+      "rc": 1,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_row: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_absent: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_noncontiguous: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  single_letter_assignment: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_ratio: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  ready_marker: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t2_elision_bad: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t2_elision_split_files: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  FAIL  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=0 ids=[] spans_exempted=1 want 0\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  correction_names_other_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_pipe_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_newline_escape: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M8_presence_exempts/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 62/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": true,
+   "why": [
+    "selftest rc 1 != 0"
+   ],
+   "survived": false
+  },
+  {
+   "id": "M9_exit_zero",
+   "desc": "exit 0 unconditionally",
+   "file": "M9_exit_zero.py",
+   "old": "    return 0 if res[\"met\"] else 1",
+   "new": "    return 0",
+   "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+   "sha_mutant": "23432097be6056df9201defa447e1ef77ba9ef5caff541ad91ad62cf2dd27eb2",
+   "verdict": {
+    "selftest_rc": 1,
+    "selftest": "selftest: 32/63 passed",
+    "before_rc": 0,
+    "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "head_rc": 0,
+    "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+    "probes": {
+     "P_ARTIFACT": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_CASE": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_SEATREE": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DIAG": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     },
+     "P_DATAEXT": {
+      "rc": 0,
+      "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+     }
+    },
+    "raw": {
+     "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  indented_row: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  t1_absent: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_noncontiguous: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  single_letter_assignment: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_ratio: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  ready_marker: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  t2_elision_bad: want ids=['T2'] rc=1; got rc=0 ids=['T2']\n  FAIL  t2_elision_split_files: want ids=['T2'] rc=1; got rc=0 ids=['T2']\n  FAIL  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=0 ids=['T1', 'T4']\n  FAIL  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=0 ids=['T1', 'T4']\n  FAIL  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=0 ids=['T1', 'T4']\n  FAIL  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  a1_deleted_row: want ids=['A1'] rc=1; got rc=0 ids=['A1']\n  FAIL  whitespace_rewrite: want ids=['A1'] rc=1; got rc=0 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  correction_names_other_span: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=0 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  t1_pipe_span: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  FAIL  t1_newline_escape: want ids=['T1'] rc=1; got rc=0 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M9_exit_zero/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 32/63 passed\n",
+     "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+     "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+    }
+   },
+   "killed": true,
+   "why": [
+    "selftest rc 1 != 0",
+    "before 0/7 != 1/7",
+    "head 0/7 != 1/7",
+    "P_ARTIFACT rc 0 != 1",
+    "P_CASE rc 0 != 1",
+    "P_SEATREE rc 0 != 1",
+    "P_DIAG rc 0 != 1",
+    "P_DATAEXT rc 0 != 1"
+   ],
+   "survived": false
+  }
+ ]
+}

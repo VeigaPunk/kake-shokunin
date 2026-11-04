@@ -1,0 +1,19 @@
+{
+ "id": "M1_self_reference_skipped",
+ "desc": "skip the self-reference rule",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c2/M1_self_reference_skipped.py",
+ "old": "            if not any(normalize_url(alt[\"href\"]) == page[\"url_norm\"] for alt in tagged_abs):",
+ "new": "            if False and not any(normalize_url(alt[\"href\"]) == page[\"url_norm\"] for alt in tagged_abs):",
+ "sha_pristine": "0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac",
+ "sha_mutant": "fadcf242671b079880d3e52d665ef530d3e92eb55b3a5415d18ca1457019d0cf",
+ "selftest_rc": 1,
+ "selftest": "selftest 57/59 passed",
+ "matrix_rc": 1,
+ "wrong": [
+  "case multi-self-missing-and-nonreciprocal expected=exit1 ids=[\"hreflang_nonreciprocal\", \"hreflang_self_missing\"] observed=exit1 ids=[\"hreflang_nonreciprocal\"] pages=2/2 json=ok verdict=wrong",
+  "case self-missing-pair expected=exit1 ids=[\"hreflang_self_missing\"] observed=exit0 ids=[] pages=2/2 json=ok verdict=wrong"
+ ],
+ "tally": "cases=71 decided=69 correct=67 wrong=2 undecided=2 constants_failed=4/4 met=false",
+ "killed": true,
+ "survived": false
+}

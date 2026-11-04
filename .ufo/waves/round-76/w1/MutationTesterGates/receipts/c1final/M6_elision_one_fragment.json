@@ -1,0 +1,49 @@
+{
+ "id": "M6_elision_one_fragment",
+ "desc": "elision rule requires only ONE fragment",
+ "file": "M6_elision_one_fragment.py",
+ "old": "    return any(all(f in body for f in frags) for _, body in receipts)",
+ "new": "    return any(any(f in body for f in frags) for _, body in receipts)",
+ "sha_pristine": "e7f86d3aa0554f61330179f803fcc7624504b2ee63ea2d3e1a9ee5e3427f59ae",
+ "sha_mutant": "3cb0b0092fc9e246161b5addcd625e73b6525e39c219df49f41ecf3e35c7c9bf",
+ "verdict": {
+  "selftest_rc": 1,
+  "selftest": "selftest: 62/63 passed",
+  "before_rc": 1,
+  "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+  "head_rc": 1,
+  "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false",
+  "probes": {
+   "P_ARTIFACT": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   },
+   "P_CASE": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   },
+   "P_SEATREE": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   },
+   "P_DIAG": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   },
+   "P_DATAEXT": {
+    "rc": 1,
+    "line": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false"
+   }
+  },
+  "raw": {
+   "selftest": "  PASS  green_plain: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  commit_without_receipt_B1_citation: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  citation_40_resolves: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  digest_41_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  digest_64_requires_receipt: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  disjoint_canonical_whole_line_closes: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  duplicate_correction: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_quality_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_lessons_gate_bullet: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  wrong_heading_level: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  round7_prefix: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  nested_subsection_counted_once: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_row: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  indented_code_row_excluded: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_absent: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_noncontiguous: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  single_letter_assignment: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_ratio: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_hex_absent_noncommit: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_seat_prose_results_json: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  ready_marker: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_round76_ctl_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_base_c1_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment4_noncontrol_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment4_round75_ctl_kept: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_tip_seat_tree_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment7_closed_seat_data_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment7_closed_seat_prose_excluded: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_data_ext_outside_dir: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_sources_dir_is_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  amendment5_diagnostic_stripped: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  amendment5_diag_plus_real_line: want ids=[] rc=0; got rc=0 ids=[]\n  FAIL  t2_elision_bad: want ids=['T2'] rc=1; got rc=0 ids=[]\n  PASS  t2_elision_split_files: want ids=['T2'] rc=1; got rc=1 ids=['T2']\n  PASS  t4_junk_correction: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  t4_correction_no_span: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_partial_line: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  correction_extra_false_claim: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  launder_valid_quote_no_name: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  a1_deleted_row: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  whitespace_rewrite: want ids=['A1'] rc=1; got rc=1 ids=['A1']\n  PASS  append_only_green: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  correction_names_other_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  correction_quotes_seat_prose: want ids=['T1', 'T4'] rc=1; got rc=1 ids=['T1', 'T4']\n  PASS  unrelated_round: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_path_token_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_command_line_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_cli_flag_not_claim: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  t1_pipe_span: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  t1_newline_escape: want ids=['T1'] rc=1; got rc=1 ids=['T1']\n  PASS  fault_not_git_repo: want ids=None rc=2; got rc=2 stderr='input: not a git work tree: /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M6_elision_one_fragment/notgit'\n  PASS  fault_missing_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  fault_missing_base_revision: want ids=None rc=2; got rc=2 stderr='input: revision does not resolve to a commit: 0000000'\n  PASS  usage_no_base: want ids=None rc=64; got rc=64 stderr='usage: --base <revision> is required (append-only conjunct)'\n  PASS  usage_bad_rounds: want ids=None rc=64; got rc=64 stderr='usage: --rounds <N[,N]>'\n  PASS  usage_unknown_flag: want ids=None rc=64; got rc=64 stderr='usage: unrecognized arguments: --bogus'\n  PASS  usage_selftest_no_work: want ids=None rc=64; got rc=64 stderr='usage: --selftest requires --work <dir>'\n  PASS  green_missing_lesson_tolerated: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  json_fields: missing=[] [('rows', 2), ('receipt_files', 1), ('spans_checked', 1), ('spans_exempted', 0), ('corrections', 0), ('append_only', True), ('findings', []), ('met', True)]\nselftest: 62/63 passed\n",
+   "before": "C1v2 revision=a0491fcd rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+   "head": "C1v2 revision=b758cb04 rows=16 receipt_files=7923 spans=25 exempted=0 corrections=0 findings=7 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n"
+  }
+ },
+ "killed": true,
+ "why": [
+  "selftest rc 1 != 0"
+ ],
+ "survived": false
+}

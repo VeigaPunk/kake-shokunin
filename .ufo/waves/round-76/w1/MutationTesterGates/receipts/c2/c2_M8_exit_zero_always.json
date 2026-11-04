@@ -20,7 +20,10 @@
   "case input-duplicate-url expected=exit2 ids=[\"input_duplicate_url\"] observed=exit0 ids=[] pages=2/2 json=bad verdict=wrong shape=report exit=2 but process exit=0",
   "case input-file-absolute expected=exit2 ids=[\"input_unreadable\"] observed=exit0 ids=[] pages=1/1 json=bad verdict=wrong shape=report exit=2 but process exit=0",
   "case input-file-escapes-root expected=exit2 ids=[\"input_unreadable\"] observed=exit0 ids=[] pages=1/1 json=bad verdict=wrong shape=report exit=2 but process exit=0",
+  "case input-file-not-regular expected=exit2 ids=[\"input_unreadable\"] observed=exit0 ids=[] pages=1/1 json=bad verdict=wrong shape=report exit=2 but process exit=0",
+  "case input-file-symlink expected=exit2 ids=[\"input_unreadable\"] observed=exit0 ids=[] pages=1/1 json=bad verdict=wrong shape=report exit=2 but process exit=0",
   "case input-policy-and-fault expected=exit2 ids=[\"hreflang_invalid_tag\", \"input_unreadable\"] observed=exit0 ids=[] pages=2/2 json=bad verdict=wrong shape=report exit=2 but process exit=0",
+  "case input-shared-file expected=exit2 ids=[\"input_unreadable\"] observed=exit0 ids=[] pages=2/2 json=bad verdict=wrong shape=report exit=2 but process exit=0",
   "case input-two-faults expected=exit2 ids=[\"input_duplicate_url\", \"input_unreadable\"] observed=exit0 ids=[] pages=2/2 json=bad verdict=wrong shape=report exit=2 but process exit=0",
   "case input-unreadable-missing-file expected=exit2 ids=[\"input_unreadable\"] observed=exit0 ids=[] pages=1/1 json=bad verdict=wrong shape=report exit=2 but process exit=0",
   "case input-url-not-absolute expected=exit2 ids=[\"input_url_not_absolute\"] observed=exit0 ids=[] pages=1/1 json=bad verdict=wrong shape=report exit=2 but process exit=0",
@@ -58,7 +61,7 @@
   "case structure-svg-selfclosed expected=exit1 ids=[\"hreflang_invalid_tag\"] observed=exit0 ids=[] pages=1/1 json=bad verdict=wrong shape=report exit=1 but process exit=0",
   "case structure-unquoted-attrs expected=exit1 ids=[\"hreflang_invalid_tag\"] observed=exit0 ids=[] pages=1/1 json=bad verdict=wrong shape=report exit=1 but process exit=0"
  ],
- "tally": "cases=69 decided=66 correct=19 wrong=47 undecided=3 constants_failed=4/4 met=false",
+ "tally": "cases=71 decided=69 correct=19 wrong=50 undecided=2 constants_failed=4/4 met=false",
  "killed": true,
  "survived": false
 }
