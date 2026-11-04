@@ -8,8 +8,14 @@ $ python3 -B .ufo/waves/round-81/c81_capture_audit.py --selftest --work $HYAKU_S
   ok stale-audit-ran :: rc=0
   ok stale-capture-opens :: .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z); .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z)
   ok drifted-audit-ran :: rc=0
-  ok audit-drift-opens :: audit stdout differs from the committed receipt (1 vs 2 lines); .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-04T12:00:00Z ds4cc.com
+  ok audit-drift-opens :: audit stdout differs from the committed receipt (byte comparison after one trailing newline); .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-04T12:00:00Z ds4cc.com
+  ok url-drift-audit-ran :: rc=0
+  ok manifest-url-drift-opens :: surface-1: manifest url 'https://evil.test/' != declared 'https://ds4cc.com/'; .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-04T12:00:00Z ds4cc.com
+  ok expect-drift-audit-ran :: rc=0
+  ok manifest-expect-drift-opens :: surface-1: manifest expect differs from the declared expectations; .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-04T12:00:00Z ds4cc.com
+  ok two-declared-audit-ran :: rc=1
+  ok missing-declared-surface-opens :: declared surfaces missing from the manifest: surface-2; audit stdout differs from the committed receipt (byte comparison after one trailing newline)
   ok empty-audit-ran :: rc=0
-  ok no-surface-opens :: manifest carries no check
-selftest: 12/12 passed
+  ok no-surface-opens :: declared expectations: expectations declare no surface
+selftest: 18/18 passed
 exit=0
