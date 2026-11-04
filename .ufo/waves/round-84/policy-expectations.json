@@ -1,0 +1,28 @@
+{
+ "_note": "Round-84 C2 frozen control expectations. The counter compares every changed policy header in each pair against this table; a mismatch reopens the claim.",
+ "surfaces": [
+  "ds4cc-primary",
+  "ds4cc-robots",
+  "ds4cc-sitemap"
+ ],
+ "control": {
+  "ds4cc-primary": {
+   "cache-control": "numeric_parameter"
+  },
+  "ds4cc-robots": {
+   "x-frame-options": "header_added"
+  },
+  "ds4cc-sitemap": {
+   "referrer-policy": "reordered"
+  }
+ },
+ "equivalent": {
+  "ds4cc-sitemap": {
+   "referrer-policy": "reordered"
+  }
+ },
+ "verdicts": {
+  "control": "policy-changed",
+  "equivalent": "policy-rewritten-equivalent"
+ }
+}
