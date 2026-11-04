@@ -325,3 +325,13 @@ Carrier `55d67f15f7a58fb49ca32a31b5c63ae716e1c38a` (production bytes: the new
 | Commit subject copied from the previous round | `add7e49b` says "twelve-seat inline handoff" for a 14-seat wave | report assembly | Subjects are written from the current wave's counts; the wrong subject stays in history as a disclosed errata |
 | Freeze amended while the wave was live, then described inaccurately | v3 `52e41d2d` moved the reference ordering and its sentence claimed nothing moved; three seeded labels moved | `ScribeLedger.md` and `ScribeLesson.md` both noticed the amendment; `ScribeLesson` measured the label flips | Corrected above; the process rule is freeze-then-dispatch or dispatch-after-freeze, never interleaved |
 | My own fallback implementation carried the LF token defect | `w1/L1/vary_match.py:22` copied the `$`-anchored regex and returns `match` for `Vary: "*\n"` | `ReviewReader` §4b | The fallback was not shipped; the integrated candidate refuses LF, which is the receipt the entry cites |
+
+[r89-correction 2026-11-04] The four mistakes this lesson records live under `## L1 mistakes`;
+the canonical section name is `## Mistakes` (CORPUS.md), and round 89 carries its own
+mistakes there in `corpus/lessons/round-89.md`. Nothing above is rewritten; this is a
+pointer so a later reader finds them.
+
+[r89-correction 2026-11-04] The report filed for this round summarised the `## Gate`
+table as "one admit and three rejects". The committed table above carries two admits
+(RFC 9111 section 4.1; RFC 9110 section 12.5.5) and two rejects (the counter-pass
+proposition; the empty-`Vary` proposition). The table is the authority.
