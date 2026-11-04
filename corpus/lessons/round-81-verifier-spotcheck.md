@@ -198,3 +198,15 @@ round's evidence and stays operator-owned.
 - Limits: I read the gate receipts, not the gates; I did not re-fetch every URL, only the S454
   `.txt` (live) and the committed retained bodies for S433; a capture's provenance remains a
   transcript claim (the lane's own stated limit).
+
+## Erratum (2026-11-04, appended by the same non-author)
+
+§0's "every file the two claims read is blob-identical across `498a0969`, `2b46f5c4` and
+`ddd38022`" is imprecise and is superseded here: `corpus/lessons/round-81.md` and `SCORECARD.md`
+gained appended dead-seat text at `ddd38022` (`git diff --numstat 2b46f5c4 ddd38022` = SCORECARD 1/1,
+lesson 15/0 — 16 insertions, 1 deletion). Every claim-condition input named in that sentence (SOURCES, the round-80
+constants receipt, the builder/spec, `w1-spec.json`, `w1-results.json`, `w1-accounting.json`,
+`seat-failures.json`, the capture tree and its receipts) is unchanged; the lesson's R80-1…R80-6
+correction rows are unchanged and the appended section follows them, so the six item conditions
+were evaluated on the same bytes. No verdict moves; the reviewed artifact at `edd6fb08` stands and
+this erratum is appended, never in place.
