@@ -335,3 +335,9 @@ pointer so a later reader finds them.
 table as "one admit and three rejects". The committed table above carries two admits
 (RFC 9111 section 4.1; RFC 9110 section 12.5.5) and two rejects (the counter-pass
 proposition; the empty-`Vary` proposition). The table is the authority.
+
+[r89-correction 2026-11-04] The statements that S463 is absent from the registry (the
+`## Gate` registry-delta paragraph and the "expected and not yet observed" note) describe the
+seat's pre-integration state. The S463 row landed at carrier `55d67f15`; the base of round 89
+(`76225160`) carries it at `corpus/SOURCES.md` (one row, `grep -c '^| S463 |'` → 1). Nothing above
+is rewritten; this tail records the later state. (ScoutRFC, round 89, finding 6.)
