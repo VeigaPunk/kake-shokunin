@@ -14,9 +14,10 @@ Two populations are scored:
   * generated cases, built at run time from a seed (random unless --seed is
     given, printed either way) and decided by this gate's own reference, so a
     table over committed cases cannot pass.
-A third population, advisory cases, holds inputs the contract does not decide but a
-primary source does (RFC 8259 UTF-8 and string escaping, RFC 9110 §5.5 NUL). They
-are reported on their own line and never scored into met.
+
+A third population, advisory cases, holds inputs the contract leaves undecided or
+decides two ways (RFC 8259 UTF-8 and string escaping, RFC 9110 §5.5 NUL, duplicate
+JSON members). They are reported on their own line and never scored into met.
 
 Last two stdout lines:
   cache_key_conformance advisory=X/Y[ outside-contract-gaps=<labels>]
@@ -31,6 +32,7 @@ import concurrent.futures as cf
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -228,6 +230,46 @@ def hand_cases():
     add("layout", "three-pairs", _j({"uri": U, "request_headers": {"c": "3", "A": "1"}, "vary": "c,b,a"}),
         _k(("a", "1"), ("b", GS), ("c", "3")))
     add("layout", "empty-uri", _j({"uri": "", "request_headers": {}, "vary": "a"}), US + "a" + RS + GS)
+    # round-90 wave additions (ExecStubs S01-S08, S10-S14, S23: each a one-clause stub the
+    # carrier gate admitted); every expectation is the contract's, decided by reference()
+    add("members", "semicolon-not-token", _j({"uri": U, "request_headers": {}, "vary": "a;b"}), REFUSE)
+    add("members", "multi-ows-trim", _j({"uri": U, "request_headers": {"a": "1"}, "vary": "  \t a \t "}),
+        _k(("a", "1")))
+    add("members", "codepoint-order", _j({"uri": U, "request_headers": {}, "vary": "aa, a-b"}),
+        _k(("a-b", GS), ("aa", GS)))
+    add("members", "kelvin-not-token", _j({"uri": U, "request_headers": {}, "vary": "\u212a"}), REFUSE)
+    add("members", "dotted-i-not-token", _j({"uri": U, "request_headers": {}, "vary": "\u0130"}), REFUSE)
+    add("names", "name-non-ascii", _j({"uri": U, "request_headers": {"\u00e9": "1"}}), REFUSE)
+    add("names", "name-not-token-unnominated", _j({"uri": U, "request_headers": {"a b": "1"}, "vary": "x"}),
+        REFUSE)
+    add("names", "name-semicolon", _j({"uri": U, "request_headers": {"a;": "1"}, "vary": "a"}), REFUSE)
+    add("values", "non-ascii-case-kept", _j({"uri": U, "request_headers": {"a": "\u00c9\u00df"}, "vary": "a"}),
+        _k(("a", "\u00c9\u00df")))
+    add("values", "no-normalisation", _j({"uri": U, "request_headers": {"a": "e\u0301"}, "vary": "a"}),
+        _k(("a", "e\u0301")))
+    add("layout", "uri-case-kept", _j({"uri": "https://E.test/A", "request_headers": {}}), "https://E.test/A")
+    add("layout", "uri-space-kept", _j({"uri": "u v", "request_headers": {}}), "u v")
+    add("layout", "uri-ows-kept", _j({"uri": " \tu ", "request_headers": {}, "vary": "a"}),
+        " \tu " + US + "a" + RS + GS)
+    add("layout", "uri-lone-surrogate", _j({"uri": "\ud800", "request_headers": {}}), "\ud800")
+    add("layout", "value-lone-surrogate", _j({"uri": U, "request_headers": {"a": "\udfff"}, "vary": "a"}),
+        _k(("a", "\udfff")))
+    # round-90 wave additions (CriticClaims held-out H1-H7)
+    many = ",".join("m%d" % i for i in range(9))
+    add("members", "nine-members", _j({"uri": U, "request_headers": {"m3": "x"}, "vary": many}),
+        _k(*sorted(("m%d" % i, "x" if i == 3 else GS) for i in range(9))))
+    add("members", "every-tchar", _j({"uri": U, "request_headers": {"!#$%&'*+-.^_`|~09az": "v"},
+                                      "vary": "!#$%&'*+-.^_`|~09AZ"}),
+        _k(("!#$%25&'*+-.^_`|~09az", "v")))
+    add("names", "name-edge-space", _j({"uri": U, "request_headers": {" a": "1"}, "vary": "a"}), REFUSE)
+    add("names", "many-headers", _j({"uri": U, "request_headers": {"h%02d" % i: str(i) for i in range(40)},
+                                     "vary": "h07"}), _k(("h07", "7")))
+    add("values", "del-kept", _j({"uri": U, "request_headers": {"a": "\x7fx\x7f"}, "vary": "a"}),
+        _k(("a", "\x7fx\x7f")))
+    add("values", "long-value", _j({"uri": U, "request_headers": {"a": "v" * 5000}, "vary": "a"}),
+        _k(("a", "v" * 5000)))
+    add("layout", "uri-non-ascii-kept", _j({"uri": "https://e.test/\u00e9\u4e2d", "request_headers": {}}),
+        "https://e.test/\u00e9\u4e2d")
     # refusals on the envelope
     add("refusals", "malformed-json", b'{"uri": "x", ', REFUSE)
     add("refusals", "empty-input", b"", REFUSE)
@@ -248,8 +290,10 @@ def hand_cases():
 
 # ---------------------------------------------------------------- generated
 
-NAME_POOL = ["a", "b", "Accept", "accept-encoding", "X-Y", "a%b", "Zz", "q", "Q1", "~t", "B"]
-VAL_ALPHA = ["x", "Y", " ", "\t", "%", GS, X1D, RS, US, "\x0b", "1F", "\u00e9", ",", "*"]
+NAME_POOL = ["a", "b", "Accept", "accept-encoding", "X-Y", "a%b", "Zz", "q", "Q1", "~t", "B", "a-b", "aa", "A.B",
+             "!x", "x|y^"]
+VAL_ALPHA = ["x", "Y", " ", "\t", "%", GS, X1D, RS, US, "\x0b", "1F", "\u00e9", ",", "*", "\u00c9", "e\u0301",
+             "\u00df", ";"]
 
 
 def gen_case(rng):
@@ -265,14 +309,15 @@ def gen_case(rng):
         if rng.random() < 0.04:
             hdrs[n] += rng.choice(["\r", "\n"])
     members = []
-    for _ in range(rng.randint(0, 4)):
+    for _ in range(rng.randint(0, 6)):
         m = rng.choice(NAME_POOL + [k for k in hdrs])
         m = "".join(ch.swapcase() if rng.random() < 0.3 else ch for ch in m)
         m = rng.choice(["", " ", "\t"]) + m + rng.choice(["", " ", "\t", " \t"])
         if rng.random() < 0.03:
             m = rng.choice(["*", "", "a b"])
         members.append(m)
-    uri = "https://e.test/" + "".join(rng.choice(["p", "%", US, GS, "2", "/"]) for _ in range(rng.randint(0, 6)))
+    uri = ("" if rng.random() < 0.1 else "https://e.test/") + "".join(
+        rng.choice(["p", "%", US, GS, "2", "/", " ", "\t", "E", "\u00e9"]) for _ in range(rng.randint(0, 6)))
     obj = {"uri": uri, "request_headers": hdrs}
     if members or rng.random() < 0.5:
         obj["vary"] = ",".join(members)
@@ -282,51 +327,103 @@ def gen_case(rng):
 # ---------------------------------------------------------------- sandbox
 
 SANDBOX = r'''
-import os, sys, sysconfig, runpy
-_cand = os.path.realpath(sys.argv[1])
-_STD = set(sys.stdlib_module_names) | set(sys.builtin_module_names)
+import os, posix, sys, sysconfig, runpy
+def _install(allowed, std, roots, deny_mods, deny_events, write=posix.write, exit_=posix._exit,
+             realpath=os.path.realpath, str_=str, bytes_=bytes, int_=int, type_=type, len_=len):
+    # Everything the hook reads is bound here as an immutable value or a C builtin: no module
+    # global, no builtins lookup, no mutable os/posixpath function decides a verdict on its own
+    # (round-90 ExecSandbox c05/c13/c18/c20/c21 rebound globals or realpath).
+    def die(why):
+        write(2, ("SANDBOX_VIOLATION " + why + "\n").encode("utf-8", "replace"))
+        exit_(97)
+    def textual(p):
+        # absolute paths only; resolve "." and ".." by string operations alone
+        if not p.startswith("/"):
+            return None
+        parts = []
+        for seg in p.split("/"):
+            if seg == "" or seg == ".":
+                continue
+            if seg == "..":
+                if parts:
+                    parts.pop()
+                continue
+            parts.append(seg)
+        return "/" + "/".join(parts)
+    def permitted(p, is_dir):
+        # exact str or bytes only: a PathLike or subclass could answer the hook and the
+        # opener differently (__fspath__/__str__/decode run candidate code)
+        if type_(p) is bytes_:
+            p = bytes_.decode(p, "utf-8", "surrogateescape")
+        elif type_(p) is not str_:
+            return False
+        t = textual(p)
+        if t is None:
+            return False
+        r = realpath(p)
+        if type_(r) is not str_:
+            return False
+        if is_dir:
+            t, r = t + "/", r + "/"
+        ok_t = t in allowed or t.startswith(roots)
+        ok_r = r in allowed or r.startswith(roots)
+        return ok_t and ok_r
+    def hook(event, args):
+        if event == "import":
+            name = args[0]
+            if type_(name) is not str_:
+                die("import of a non-str name")
+            top = name.split(".")[0]
+            if top not in std or top in deny_mods or name in deny_mods:
+                die("import " + name)
+        elif event == "os.listdir" or event == "os.scandir":
+            p = args[0] if len_(args) and args[0] is not None else "."
+            if type_(p) is int_ or not permitted(p, True):
+                die(event + " " + (p if type_(p) is str_ else "<non-str path>"))
+        elif event == "open":
+            p = args[0]
+            if type_(p) is int_:
+                return
+            if not permitted(p, False):
+                die("open " + (p if type_(p) is str_ else "<non-str path>"))
+        elif event.startswith(deny_events):
+            die(event)
+    return hook
 _roots = []
 for _k in ("stdlib", "platstdlib"):
     _p = sysconfig.get_paths().get(_k)
     if _p:
         _roots.append(os.path.realpath(_p) + os.sep)
-_roots = tuple(_roots)
-_DENY = ("subprocess.Popen", "os.system", "os.exec", "os.posix_spawn", "os.spawn", "os.fork",
-         "os.forkpty", "pty.spawn", "socket.connect", "socket.bind", "socket.__new__", "ctypes.dlopen",
-         "ctypes.dlsym", "ctypes.cdata", "glob.glob", "os.chdir",
-         "os.startfile", "webbrowser.open", "urllib.Request", "shutil.copyfile", "os.remove",
-         "os.rename", "os.mkdir", "os.rmdir", "os.unlink", "os.truncate", "os.chmod", "os.symlink")
-def _die(why):
-    os.write(2, ("SANDBOX_VIOLATION " + why + "\n").encode("utf-8", "replace"))
-    os._exit(97)
-def _hook(event, args):
-    if event == "import":
-        top = str(args[0]).split(".")[0]
-        if top not in _STD:
-            _die("import " + str(args[0]))
-    elif event in ("os.listdir", "os.scandir"):
-        p = args[0] if args and args[0] is not None else "."
-        if isinstance(p, int):
-            _die(event + " fd")
-        if isinstance(p, bytes):
-            p = os.fsdecode(p)
-        rp = os.path.realpath(str(p)) + os.sep
-        if not rp.startswith(_roots):
-            _die(event + " " + rp)
-    elif event == "open":
-        p = args[0]
-        if isinstance(p, int):
-            return
-        if isinstance(p, bytes):
-            p = os.fsdecode(p)
-        rp = os.path.realpath(str(p))
-        if rp != _cand and not rp.startswith(_roots):
-            _die("open " + rp)
-    elif event.startswith(_DENY) or event == "sys.addaudithook":
-        _die(event)
-sys.argv = [_cand]
+_hook = _install(
+    frozenset((os.path.realpath(sys.argv[1]), os.path.abspath(sys.argv[1]),
+               os.path.realpath(__file__), os.path.abspath(__file__))),
+    frozenset(sys.stdlib_module_names) | frozenset(sys.builtin_module_names), tuple(_roots),
+    # stdlib modules that start processes, load native code, open sockets or run a second
+    # interpreter without raising the events below (round-90 ScoutGround F1: fork_exec)
+    frozenset(("_posixsubprocess", "subprocess", "_ctypes", "ctypes", "_socket", "socket", "_ssl", "ssl",
+               "_multiprocessing", "multiprocessing", "_posixshmem", "_interpreters", "_interpqueues",
+               "_interpchannels", "_xxsubinterpreters", "concurrent.interpreters", "_testcapi",
+               "_testinternalcapi", "_testlimitedcapi", "_testmultiphase", "_testsinglephase",
+               "_testbuffer", "_testimportmultiple", "_xxtestfuzz", "pty", "_pyrepl", "pdb", "code",
+               "_tkinter", "tkinter", "readline", "_curses", "curses", "fcntl", "termios", "resource",
+               "_lsprof", "faulthandler", "tracemalloc", "_tracemalloc", "_remote_debugging")),
+    ("subprocess.Popen", "os.system", "os.exec", "os.posix_spawn", "os.spawn", "os.fork", "os.forkpty",
+     "pty.spawn", "socket.", "ctypes.", "glob.glob", "os.chdir", "os.startfile", "webbrowser.open",
+     "urllib.Request", "shutil.", "os.remove", "os.rename", "os.mkdir", "os.rmdir", "os.unlink",
+     "os.truncate", "os.chmod", "os.chown", "os.symlink", "os.link", "os.kill", "os.putenv", "os.unsetenv",
+     "os.add_dll_directory", "sys.addaudithook", "sys._current_frames",
+     "sys._current_exceptions", "sys.remote_exec", "gc.get_objects", "gc.get_referrers",
+     "gc.get_referents", "cpython.run_",
+     "cpython.remote_debugger_script", "mmap.__new__", "import_dll", "sys.settrace", "sys.setprofile",
+     "sys.monitoring"))
+del _install, _roots, _k, _p
+# stdin is JSON text: decode it as strict UTF-8 whatever the host locale (a C/C.UTF-8 locale
+# would otherwise give surrogateescape and hide non-UTF-8 input; round-90 ReviewGate F4)
+sys.stdin.reconfigure(encoding="utf-8", errors="strict")
+sys.argv = [os.path.realpath(sys.argv[1])]
 sys.addaudithook(_hook)
-runpy.run_path(_cand, run_name="__main__")
+del _hook
+runpy.run_path(sys.argv[0], run_name="__main__")
 '''
 
 
@@ -342,43 +439,56 @@ def run_candidate(py, sandbox, cand, payload, cwd):
     return (p.returncode, p.stdout, p.stderr)
 
 
+class _Pairs(list):
+    """A decoded JSON object kept as its ordered member list (duplicates visible)."""
+
+
 def judge(result, expected):
     rc, out, err = result
     if rc == "violation" or rc == "timeout":
         return False, str(rc)
     if expected is REFUSE:
-        ok = rc == 1 and out == b"" and err.startswith(b"invalid_input:")
+        ok = (rc == 1 and out == b"" and
+              any(re.match(rb"invalid_input: \S", line) for line in err.splitlines()))
         return ok, "" if ok else "expected refusal; rc=%r out=%r err=%r" % (rc, out[:80], err[:80])
     if rc != 0:
         return False, "expected key; rc=%r err=%r" % (rc, err[:120])
     try:
         text = out.decode("utf-8")
-        lines = text.split("\n")
-        if len(lines) != 2 or lines[1] != "":
-            return False, "stdout must be one JSON line"
-        doc = json.loads(lines[0])
+        # "one JSON object on stdout": any whitespace layout, one value, no trailing bytes
+        doc = json.loads(text, object_pairs_hook=_Pairs)
     except (UnicodeDecodeError, ValueError):
         return False, "stdout not JSON: %r" % out[:80]
-    if type(doc) is not dict or set(doc) != {"key"} or doc["key"] != expected:
+    # exactly one member named "key" (a duplicate member is ambiguous to a consumer)
+    if type(doc) is not _Pairs or len(doc) != 1 or doc[0][0] != "key" or doc[0][1] != expected:
         return False, "key mismatch: got %r want %r" % (doc, expected)
     return True, ""
 
 
 def advisory_cases():
-    """Cases the round-89 contract does not decide but a primary source does.
+    """Cases the round-89 contract leaves undecided or decides two ways, and a source decides.
 
     Reported on their own line, never scored into met: they surface contract gaps
     (routed, not silently added). Expected outcome is the source's rule.
-      utf8-required   RFC 8259 s8.1: JSON text exchanged between systems MUST be UTF-8.
-      raw-control     RFC 8259 s7: U+0000..U+001F MUST be escaped inside a string
-                      (the contract's worked example 5 says the controls are carried raw).
-      nul-in-value    RFC 9110 s5.5: a field value with NUL is invalid; a recipient
-                      MUST reject the message or replace NUL with SP.
+      utf8-required    RFC 8259 s8.1: JSON text exchanged between systems MUST be UTF-8
+                       (the contract names no encoding).
+      raw-control      RFC 8259 s7: U+0000..U+001F MUST be escaped inside a string; the
+                       contract decides this both ways (its Input clause says JSON, its
+                       worked example 5 says the controls are carried raw).
+      nul-in-value     RFC 9110 s5.5: a field value with NUL is invalid; a recipient
+                       MUST reject the message or replace NUL with SP (contract silent).
+      dup-json-member  two members with the same header name in one JSON object; the
+                       contract refuses names "equal case-insensitively" but does not say
+                       whether a parser that keeps one of them has seen two (round-89
+                       routed "duplicate-JSON-member" definition); refusal is the reading
+                       that does not silently drop a presented field.
     """
     return [
         ("advisory", "utf8-required", b'{"uri":"\xff","request_headers":{}}', REFUSE),
         ("advisory", "raw-control", b'{"uri":"u\x1f","request_headers":{}}', REFUSE),
         ("advisory", "nul-in-value", _j({"uri": U, "request_headers": {"a": "x\x00y"}, "vary": "a"}), REFUSE),
+        ("advisory", "dup-json-member",
+         b'{"uri":"' + U.encode() + b'","request_headers":{"a":"1","a":"2"},"vary":"a"}', REFUSE),
     ]
 
 

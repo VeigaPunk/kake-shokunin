@@ -710,3 +710,13 @@ This is the construction half of RFC 9111 §4.1 only. Storability, reuse,
 revalidation, freshness, serving and browser behaviour stay frontier. The
 instrument does not yet establish conformance to the whole contract (round-89
 lesson, Mistakes row 4), so the ground is recorded as held-but-unadmitted.
+
+## Round 90 — cache-key conformance gate
+
+`scripts/cache_key_conformance.py` and `corpus/knowledge/cache-key-conformance-gate.md`
+(S466, S467, S468) decide whether a key constructor implements the round-89 key
+contract, with an execution-time sandbox against delegation and an advisory line for
+inputs the contract leaves undecided (non-UTF-8 input, NUL in a value, raw control
+characters in JSON). S467 supersedes S463 as the construction ground (RFC 9111 §2,
+§4.1). Still outside: storability, reuse, revalidation, freshness, serving and browser
+behaviour; the request method is not part of the lane's key (adapter limit).

@@ -193,3 +193,19 @@ Run from the lane root. Each command reads one JSON object on stdin.
   a non-empty non-token `Vary` member, CR alone in a value, an unescaped URI, an
   unescaped name, and an unescaped U+001D. The production script refuses or
   escapes all seven on the probed inputs; the counter cannot show that.
+
+## Ground update — round 90
+
+- **Construction ground is S467** (RFC 9111 §2 and §4.1, plain text retained at
+  `.ufo/waves/round-90/L1/src/rfc9111.txt`), which supersedes S463 for this entry: §2,
+  line 252, says the cache key "is composed from, at a minimum, the request method and
+  target URI", and lines 258–261 say caches add "some of the original request's header
+  fields into the cache key" per §4.1. S463 keeps the match profile used by
+  `vary-matching.md`; its filed scope cell is not rewritten (CORPUS.md rule 2).
+- **The method is not in this key.** Under S467 §2 a full key includes the request method;
+  this adapter's key is URI plus Vary-nominated fields only, so it is a key for one method
+  (GET, as §2 notes most caches use). Route a method-bearing key to a future contract.
+- **Conformance is now decidable.** `scripts/cache_key_conformance.py`
+  (`corpus/knowledge/cache-key-conformance-gate.md`) refuses the seven variants listed
+  above and the round-90 wave's held-out stubs; this entry's limit on the round-89
+  instrument stays as filed.

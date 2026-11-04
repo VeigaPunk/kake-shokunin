@@ -1757,3 +1757,26 @@ bool/float equality false accepts; the independent 60-case exact-type/diagnostic
 review is separate evidence. Preserve the frozen instrument; a future counter
 loads claim fixtures lazily and checks types/diagnostics explicitly. Do not
 misreport either limitation as fixed by changing historical frozen bytes.
+
+## Round 90 — a counter earns a `met` only after it has been shown able to say no
+
+Grounding: `corpus/lessons/round-89-verifier-spotcheck.md` (routed item: two
+first-draft `met` verdicts in round 89 were falsified by the round's own attack
+seats — RC-1…RC-10 and seven non-conforming stubs reaching `met=true`);
+`corpus/lessons/round-90.md` Mistakes rows 3 and 5. Admit a counter's `met`
+verdict only when, before the freeze commit, its receipts show all three of:
+(1) a do-nothing control scored `met=false`; (2) at least one forgery per
+conjunct, each leaving that conjunct open for the stated reason; (3) a positive
+fixture reaching `met=true`, so blanket refusal is not mistaken for rigour. When
+the only possible positive fixture is the claimed artifact itself (a capability
+claim), (3) is replaced by a blanket-refuse control that fails on the positive
+subjects, and the report says the counter's reachability rests on the carrier
+alone. A capability counter additionally scores a frozen population of known
+non-conforming subjects under renamed, nonce-altered copies. Reject a `met`
+whose counter lacks any of these, whatever the claim's later attacks show.
+Able-to-fail witnesses: `.ufo/waves/round-90/controls/ctl-c1-v0-before-parse-fix.txt`
+(the positive fixture stayed open and exposed a parse defect before freeze) and
+`.ufo/waves/round-90/controls/ctl-c1.txt` / `ctl-c2.txt` (do-nothing, seven C1
+forgeries and four C2 gate forgeries all `met=false`). The round-89 instrument
+(`.ufo/waves/round-89/w1/ExecControls/scoring-receipt.txt`: seven stubs admitted)
+is the case this criterion rejects.
