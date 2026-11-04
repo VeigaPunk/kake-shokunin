@@ -29,23 +29,23 @@ stderr: `diagnostic: corpus/knowledge/shonen-ledger.json is absent at the revisi
 A `[ ]` marker with no row is **not** a mismatch (A1/A4); the red is
 `unexamined=4`.
 
-After state — the current worktree's three files on top of the round's
-instrument commit `893b0f33`, at a no-commit tree snapshot (§4). This is the
-shape the closure commit will have:
+After state, at the round-77 carrier commit — the frozen form, no snapshot and
+no `--git-dir`:
 
 ```sh
 python3 -B .ufo/waves/round-77/c77_shonen_ledger.py --root . \
-  --git-dir <scratch>/snap/repo.git --revision f0effe0b808c2e7cdc7ef313adc28dd02c7c3d78 \
-  --work <scratch>
-C1 revision=f0effe0b808c2e7cdc7ef313adc28dd02c7c3d78 boxes=4 evidenced=3 gap=1 unexamined=0 mismatches=0 met=true
+  --revision 3db64e09550c9f8309f6c1077f9f7df6243cb446
+C1 revision=3db64e09550c9f8309f6c1077f9f7df6243cb446 boxes=4 evidenced=3 gap=1 unexamined=0 mismatches=0 met=true
 EXIT=0
 ```
 
-The same three files on top of the contract base `a2cc5f51` gave the identical
-line (`evidenced=3 gap=1 unexamined=0 mismatches=0 met=true`, tree
-`b1e74a86d79e1cb10537944375f99e156036a353`), which is how the `corpus/SOURCES.md`
-edit that landed in `893b0f33` was shown not to disturb box 1's 77/77 id
-resolution.
+`3db64e09` carries exactly the three hashes recorded in §3 (verified with
+`git show 3db64e09:<path> | sha256sum`), so this line is the claim's measured
+after-state. Before that commit existed the same three files were measured on
+two no-commit tree snapshots (§4): `f0effe0b…` (on the intermediate `893b0f33`)
+and `b1e74a86…` (on the contract base `a2cc5f51`) — both printed the identical
+line, which is how the `corpus/SOURCES.md` additions (`S012` used-by, `S447`,
+`S448`) were shown not to disturb box 1's 77/77 id resolution.
 
 `evidenced=3 gap=1` fills the contract's after-shape
 (`boxes=4 evidenced=<e> gap=<4-e> unexamined=0 mismatches=0 met=true`). The
@@ -93,27 +93,27 @@ implements A2 natively and deletes the command path; no other writer's
 semantics survive because there is nothing left to preserve. The amendment
 files themselves appeared mid-wave, not as this seat's writes.
 
-**Repository state at measure time, recorded:** HEAD moved during the wave from
-`bc2e5fb9` to `893b0f33` ("round-77: instruments …", an `export from jj`),
-which committed **earlier intermediate versions** of all three owned files
-(counter `7f35ad45…`, ledger `ba11efe5…`, SHONEN.md `5c3859e1…`) and a
-`corpus/SOURCES.md` edit. The worktree carries the final bytes quoted above;
-the after-state in §1 is measured at a snapshot of `893b0f33` + those final
-bytes, and the closure commit must carry them (the digests in this section are
-the ones to check). Separately, the git index is stale relative to `HEAD`
-(`git status` reports 21,358 staged deletions; `git ls-files` holds no entry
-for these paths) — a `jj`-export artifact, not this seat's doing: this seat ran
-no `git add`, `rm`, `read-tree` or `write-tree` against the lane repository,
-only against scratch object stores. A plain `git commit` in that state would
-revert the round's instrument landing, so closure should go through the lane's
-history tool as usual.
+**Repository state, recorded:** mid-wave HEAD moved from `bc2e5fb9` to
+`893b0f33` ("round-77: instruments …", an `export from jj`), which briefly
+committed **earlier intermediate versions** of all three owned files (counter
+`7f35ad45…`, ledger `ba11efe5…`, SHONEN.md `5c3859e1…`). That is now
+superseded, not cited: the carrier commit `3db64e09` ("round-77: carrier — final
+SHONEN ledger counter (selftest 26/26), amended ledger rows, sitemap tool …")
+carries the final bytes quoted above and is the revision §1 measures. The git
+index was separately stale relative to the intermediate HEAD (`git status`
+reported 21,358 staged deletions; `git ls-files` held no entry for these paths)
+— a `jj`-export artifact, not this seat's doing: this seat ran no `git add`,
+`rm`, `read-tree` or `write-tree` against the lane repository, only against
+scratch object stores. The carrier was landed through the lane's history tool,
+so this is historical context rather than an open hazard.
 
 ## 4. Which bytes the green line read (snapshot disclosure)
 
-No commit is allowed, so the after revision is a **tree object** in a scratch
-bare repository, built with plumbing only — no commit, no ref, no index inside
-the lane, no lane object written (the scratch object store reads the lane's
-objects through `objects/info/alternates`):
+The final after-state is the carrier commit (§1) and needs no snapshot. This
+section records the pre-commit method used before the carrier existed: a **tree
+object** in a scratch bare repository, built with plumbing only — no commit, no
+ref, no index inside the lane, no lane object written (the scratch object store
+reads the lane's objects through `objects/info/alternates`):
 
 ```sh
 git init --bare -q <scratch>/snap/repo.git
@@ -202,16 +202,19 @@ The box-2 failing pointer is exactly A12's: `.ufo/waves/round-47/verification/of
 
 Scope statements are written into the ledger rows, not implied: box 3's `note` records that A11's scope excludes the `node ~/Projects/...` and `.mjs` spans; box 4's `note` records the `freshness-*.json` exclusion and the measure's `.shokunin` naming limit; box 4 also records that PROVINCE.md's own province lines are **not** claimed by the frozen scope.
 
-## 7. Real-artifact kill tests (same counter, same snapshot base)
+## 7. Real-artifact kill tests (same counter, carrier base)
 
-Each variant is the snapshot tree with one blob replaced; same command as §1
-with the variant tree (base `f0effe0b`).
+Each variant is the carrier commit's tree with one blob replaced, run with the
+same command as §1 plus `--git-dir <scratch>/car/repo.git` and the variant tree;
+the variant trees are ephemeral scratch objects (recipe: `git read-tree
+3db64e09`, `git hash-object -w` the replaced file, `git update-index --add
+--cacheinfo`, `git write-tree`).
 
 | Variant | Replacement | Observed |
 |---|---|---|
-| A — fabricated observation | `b2-missing` recorded `observed` changed `1` → `0` | `evidenced=3 gap=0 mismatches=1 met=false`, EXIT=1; finding `observation-differs box 2 b2-missing — recorded 0 but re-derived 1` (tree `0eaf66ba39472ca2bc4b2c8355dd48591c41ac18`) |
-| B — gap relabelled evidenced | box 2 `status` changed to `evidenced` while its own `no_match` check still derives 1 | `evidenced=3 gap=0 mismatches=2 met=false`, EXIT=1; findings `marker-understated box 2` and `status-unsupported box 2 — … amendment 1 A12 makes a failing check a gap` (tree `2605fe018635a2400512299b76595ab4b90dfba7`) |
-| C — false tick | box 1 marker changed `[~]` → `[x]` | `evidenced=2 gap=1 mismatches=2 met=false`, EXIT=1; findings `marker-disagrees-with-row box 1` and `verifier-missing box 1` (tree `d0c8f65de0f697720893c7e2d357f9e7590f3370`) |
+| A — fabricated observation | `b2-missing` recorded `observed` changed `1` → `0` | `evidenced=3 gap=0 mismatches=1 met=false`, EXIT=1; finding `observation-differs box 2 b2-missing — recorded 0 but re-derived 1` (tree `2750bda9593b2cc63bc6323b7da52a6b8316ff20`) |
+| B — gap relabelled evidenced | box 2 `status` changed to `evidenced` while its own `no_match` check still derives 1 | `evidenced=3 gap=0 mismatches=2 met=false`, EXIT=1; findings `marker-understated box 2` and `status-unsupported box 2 — … amendment 1 A12 makes a failing check a gap` (tree `0e0702e2184a8c2d6b2c5a3155a1ae937497757b`) |
+| C — false tick | box 1 marker changed `[~]` → `[x]` | `evidenced=2 gap=1 mismatches=2 met=false`, EXIT=1; findings `marker-disagrees-with-row box 1` and `verifier-missing box 1` (tree `85f657d86d974bdb2beb9e7ea7fbf40c3e8c6266`) |
 
 Variant A is the sharpest: the box-2 gap is the claim's only red result, and
 the counter refuses a ledger that paints it green.
@@ -276,10 +279,10 @@ python3 -B .ufo/waves/round-77/c77_shonen_ledger.py --root . \
   --revision a2cc5f51002433e11cc3d2f70e650a6c60ad5e68
 # selftest
 python3 -B .ufo/waves/round-77/c77_shonen_ledger.py --selftest --work <scratch>
-# after (green at the snapshot tree; rebuild it with §4's plumbing)
+# after (green at the carrier commit — the claim's measured revision)
 python3 -B .ufo/waves/round-77/c77_shonen_ledger.py --root . \
-  --git-dir <scratch>/snap/repo.git \
-  --revision f0effe0b808c2e7cdc7ef313adc28dd02c7c3d78 --work <scratch>
+  --revision 3db64e09550c9f8309f6c1077f9f7df6243cb446
+# pre-commit equivalent, if a carrier does not exist yet: §4's snapshot plumbing
 ```
 
 - Without `--json`, stdout is exactly one line (`| wc -l` = 1); findings and
