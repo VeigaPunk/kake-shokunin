@@ -130,6 +130,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Publisher response-header expectations | r61 | `knowledge/response-header-expectations.md` + `scripts/response_snapshot.py` + `scripts/header_audit.py` | S430–S433 |
 | Field performance — key-free CrUX origin membership | r70 (lands this round) | `knowledge/crux-bigquery-origin-membership.md` | S438 |
 | Sitemap containers and formats (gzip, plain text, RSS 2.0, Atom 1.0) | r77 (map row added r78) | `knowledge/sitemap-formats.md` | S012 S447 S448 |
+| Cache-key construction (Vary-nominated stored-response key; key only, not storage or reuse) | r89 (lands this round, instrument not admitted) | `knowledge/cache-key-construction.md` + `scripts/cache_key.py` | S464 S465 |
 
 Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
 (S102–S109, `used-by` only `corpus/lessons/round-39.md`; tool

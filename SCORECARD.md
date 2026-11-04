@@ -5502,3 +5502,45 @@ score a population the candidate cannot read (R88-1), refuse LF-bearing tokens w
 the missing case classes named by the six surviving mutants (R88-4); do not repair
 the frozen round-88 counter after scoring. Cache-key construction, `Vary: *` storage
 behaviour, revalidation and serving remain frontier. No round 89 is started here.
+
+## Round 89 — routed-defect closure and a cache-key constructor
+
+Base `76225160d0dff8d2042fbcd037bd08b0971d5e07`; freeze `08ab46a1`; candidate
+`9784ad54`; carrier for the controls count `2177058662d8778f1d1a685613f57deccb51ef01`;
+C1 measured at `f62e7954`. Counters: `.ufo/waves/round-89/c89_defect_queue.py` and
+`.ufo/waves/round-89/c89_key.py` (v2, freeze amendment `46a43e94`, disclosed in
+`corpus/lessons/round-89.md` §Mistakes).
+
+integrated-selftest: 35/35
+
+| Claim | Axis / score delta | Before → after | Counting command | Evidence / author verdict |
+|---|---|---|---|---|
+| C1 six routed round-88 defects close | calibration 2→2 HOLD, lowest owned | `open=6 closed=0 met=false`, exit 1 → `open=5 closed=1 met=false`, exit 1 | `python3 -B .ufo/waves/round-89/c89_defect_queue.py --root . --revision <REV> --work <scratch>` | controls/base-c1.txt → at f62e7954; items B, C, D, E, F closed; item A open (filed-byte rule, R89-1). Not admitted |
+| C2 conservative Vary-nominated cache-key construction | freshness 10→10 HOLD, bounded capability | candidate absent `frozen=0/16 props=0/200 refuse=0/9`, exit 1 → `frozen=16/16 props=200/200 refuse=9/9 controls=5/5`, exit 0 | `python3 -B .ufo/waves/round-89/c89_key.py --root . --revision <REV> --candidate scripts/cache_key.py --work <scratch>` | met under frozen v1 (`controls/c2-carrier-frozen-v1.txt`) and v2 (`controls/c2-carrier-v2.txt`); seven non-conforming stubs also score met (R89-2). Not admitted |
+
+Receipts are under `.ufo/waves/round-89/controls/`. Freeze and counter integrity:
+`corpus/lessons/round-89.md` §Mistakes rows 1–6. No owned axis is claimed
+improved: the calibration and freshness scores stay at their HOLD values.
+
+### Demonstrated repertoire — round 89
+
+| Capability | What it can now do | Evidence | First-working round |
+|---|---|---|---|
+| Canonical Vary-nominated cache-key construction | From a URI, a request header map and a `Vary` value, produce the stored-response key under the declared form (sorted lowercased members, byte-exact trimmed values, escaped separators, absent distinct from empty), or refuse malformed input with `invalid_input:`; decides key construction only, not storability, reuse or freshness | `scripts/cache_key.py` (`9784ad54`); `controls/c2-carrier-frozen-v1.txt`; `corpus/knowledge/cache-key-construction.md`; S464, S465 | 89 (demonstrated; round unadmitted, instrument defect R89-2) |
+
+### Move log (round 89)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 89 | calibration (HOLD 2) | `open=6 closed=0 met=false` at `76225160` | `open=5 closed=1 met=false` at `f62e7954` (items B, C, D, E, F closed; A open) | `.ufo/waves/round-89/controls/base-c1.txt`; `corpus/lessons/round-89.md` |
+| 89 | freshness (HOLD 10) | candidate absent at `76225160` | candidate `9784ad54` meets the frozen v1 counter `16/16 200/200 9/9 5/5` exit 0 | `.ufo/waves/round-89/controls/base-c2.txt`, `c2-carrier-frozen-v1.txt` |
+
+### Planned — after round 89
+
+Outside closure owns admission and the admit/reject spot-check. Round 90 routes:
+R89-1 (item A accepts an appended `[r89-correction]` tail naming the stale
+line numbers, not an in-line tag), R89-2 (one frozen or refusal item per contract
+clause; the seven stubs in `.ufo/waves/round-89/w1/ExecControls/` must each
+score `met=false` in a re-run), R89-3 (item C reads short-form receipt paths).
+Frontier stays open: cache-key storage, revalidation, freshness and serving;
+Vary/Pragma behaviour in browsers; the D84-2/3 and literal L2-planner items.

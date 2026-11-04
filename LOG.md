@@ -3025,3 +3025,59 @@ criterion was added without a failing witness. No tools installed or upgraded.
 Adjacency: `mori-shokunin` S594 already holds a one-line RFC 9111 §4.1 Vary/cache-key
 rule; this lane's entry is the publisher-side reader and decision table, and the
 overlap is reported rather than absorbed (`w1/ConnectorScope.md`).
+
+## Round 89 — 2026-11-04, six routed round-88 defects and a conservative cache-key constructor
+
+Motivation: the round-88 outside spot-check (`corpus/lessons/round-88-verifier-spotcheck.md`,
+closure admitted) routed six defects (R88-A…F: stale selftest count, Gate sample
+miscount, unbacked re-run claim, unpinned count, freeze after dispatch, lesson shape).
+Calibration is the lowest owned axis (2 HOLD); the round also takes a freshness
+capability move on the Vary ground that round 88 opened.
+
+Claims (frozen, `.ufo/waves/round-89/freeze.md`, freeze `08ab46a1`):
+- C1 calibration: six routed defects close, counter `c89_defect_queue.py`.
+  Base `76225160` `open=6 closed=0 met=false`, exit 1 (`controls/base-c1.txt`);
+  carrier `f62e7954` `open=5 closed=1 met=false`, exit 1. Item A stays open: its
+  frozen form demands an in-line tag on filed round-88 lines, which the append-only
+  rule forbids (routed R89-1). Not admitted.
+- C2 freshness: conservative Vary-nominated cache-key construction, counter
+  `c89_key.py`. Base candidate absent, exit 1; integrated `scripts/cache_key.py`
+  (`9784ad54`) `frozen=16/16 props=200/200 refuse=9/9 controls=5/5 met=true`, exit 0
+  under the frozen v1 counter (`controls/c2-carrier-frozen-v1.txt`) and the committed
+  v2 (`controls/c2-carrier-v2.txt`). Not admitted: seven non-conforming stubs also
+  score `met=true` (`w1/ExecControls.md`, routed R89-2).
+
+Counter integrity, disclosed: freeze v2 `46a43e94` changed the C2 shortcut guard
+after dispatch `2e700b9a`, to remove a false positive that refused a correct L1
+reference candidate on a docstring token. The integrated candidate meets the frozen
+v1 counter too, so the amendment does not decide the verdict. Also reverted my own
+in-place edits to round-88 SCORECARD cells and lesson line 265 (filed bytes) and kept
+only appended `[r89-correction …]` tails.
+
+Registry: S464 (RFC 9111 §4.1) and S465 (RFC 9110 §5.6.2, §5.6.1.2) added after a
+full-mirror census gate in scratch (exit 0); 201 → 203 rows; no existing row edited.
+Census `validate --root … kake` exit 0 before (`controls/census-before.txt`) and
+after (`controls/census-after-append.txt`).
+
+Wave shape: one v1 wave, 14 seats (ScoutGround, ScoutRFC; ExecKey, ExecDefects,
+ExecTrial, ExecControls; ScribeEntry, ScribeLesson, ScribeLedger; ReviewCounterC1,
+ReviewCounterC2; CriticClaims; MutKey; ConnectorScope). Attack seats: reviewer 2,
+critic 1, mutation-tester 1 = 4/14. L1 holds the planner seat (validator forbids a
+planner swarm role). L1 also drafted the knowledge entry and the reference candidate
+before the scribe and executor reports landed; the seat drafts are compared, not
+silently adopted. Dispatch: `.ufo/waves/round-89/w1.ready`, dispatched 18:13:46.
+
+Actual domain work: real recorded `vary` values from the round-61/round-81 captures
+through the integrated tool (`w1/ExecTrial.md`): six cases R1–R6; no `*` wildcard in
+any recorded capture, so the refusal path rests on the frozen cases. The round-23
+captures carry no response headers. Keys establish construction over recorded header
+lines only, not what any cache stores.
+
+Assimilation: none — `merge/kake` still collides on eight ids (S312, S329, S367,
+S372, S373, S374, S390, S409). considerthese: `2026-10-26.md` proposal 5 already
+adopted (`corpus/knowledge/gate-status-ledger.md:7`); none taken this round.
+
+Adjacency: the cache-key ground overlaps `mori-shokunin` and the round-88 Vary reader
+(S463). Reported, not absorbed (`w1/ConnectorScope.md`).
+
+Tools: none installed or upgraded (no pacman; no network beyond the two named RFC GETs).

@@ -699,3 +699,14 @@ behavior and publication remain outside this capability. Conservative max is a
 chosen allowed profile, not the only RFC algorithm. No property repair or reuse
 approval follows from a calculated age. The r84–86 gate-agreement JSON ledger is
 calibration metadata, not new province ground or domain knowledge.
+
+## Round 89 — cache-key construction only
+
+`scripts/cache_key.py` and `corpus/knowledge/cache-key-construction.md` (S464,
+S465) add offline construction of the stored-response key a presented request
+maps to under a `Vary` field: lowercased and sorted nominated names, trimmed
+values compared byte-exactly, escaped separators, absent distinct from empty.
+This is the construction half of RFC 9111 §4.1 only. Storability, reuse,
+revalidation, freshness, serving and browser behaviour stay frontier. The
+instrument does not yet establish conformance to the whole contract (round-89
+lesson, Mistakes row 4), so the ground is recorded as held-but-unadmitted.
