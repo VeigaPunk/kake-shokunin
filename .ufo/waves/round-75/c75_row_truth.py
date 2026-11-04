@@ -244,7 +244,7 @@ def selftest_command(cell):
     return None
 
 
-def bound_program(command):
+def command_program(command):
     """The program a recorded self-test command runs, or None.
 
     Shell comments (``#`` at a word start) are stripped first, so a comment
@@ -395,8 +395,8 @@ def measure(root, rev, work, scratch, population, base=None):
         entry['command'] = cmd
         # E1 — the command must run this row's instrument, not another file.
         if cmd and not differential:
-            prog = bound_program(cmd)
-            entry['bound_program'] = prog
+            prog = command_program(cmd)
+            entry['program'] = prog
             if prog != f:
                 findings.append(f'E1 command names {prog or "(none)"} not {f}')
                 entry['mismatch'] = 'E1'
@@ -778,15 +778,16 @@ def _selftest_cases(work):
     add('f15 E2 ambiguous tally', fx, fx.commit('f15'), ['.ufo/fixtures/ok_gate.py'],
         classes=('E2',), findings=1, met=False)
 
-    # f16 — E1 red: `nondifferential` is not the word `differential`.
-    fx = Fixture(work, 'f16_nondifferential')
-    fx.write('.ufo/fixtures/no_selftest.py', SCRIPT_NO_SELFTEST)
+    # f16 — E1 red: the instrument is only a trailing argument, not the program.
+    fx = Fixture(work, 'f16_argument_binding')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('.ufo/fixtures/other.py', SCRIPT_OK)
     fx.write('SKILL.md', _skill_md([_row(
-        '.ufo/fixtures/no_selftest.py', 'gate (nondifferential; offline; fixture)',
-        'python3 -B .ufo/fixtures/no_selftest.py',
-        'the gate has no selftest of its own')]))
-    add('f16 E1 nondifferential red', fx, fx.commit('f16'),
-        ['.ufo/fixtures/no_selftest.py'], classes=('E1',), findings=1, met=False)
+        '.ufo/fixtures/ok_gate.py', 'gate (live; fixture)',
+        'python3 -B .ufo/fixtures/ok_gate.py',
+        '`python3 -B .ufo/fixtures/other.py --selftest .ufo/fixtures/ok_gate.py`')]))
+    add('f16 E1 argument binding red', fx, fx.commit('f16'),
+        ['.ufo/fixtures/ok_gate.py'], classes=('E1',), findings=1, met=False)
 
     # f17 — E1 red: the command runs another file; the instrument is only a comment.
     fx = Fixture(work, 'f17_comment_binding')
@@ -799,16 +800,15 @@ def _selftest_cases(work):
     add('f17 E1 comment binding red', fx, fx.commit('f17'),
         ['.ufo/fixtures/ok_gate.py'], classes=('E1',), findings=1, met=False)
 
-    # f18 — E1 red: the instrument is only a trailing argument, not the program.
-    fx = Fixture(work, 'f18_argument_binding')
-    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
-    fx.write('.ufo/fixtures/other.py', SCRIPT_OK)
+    # f18 — E1 red: `nondifferential` is not the word `differential`.
+    fx = Fixture(work, 'f18_nondifferential')
+    fx.write('.ufo/fixtures/no_selftest.py', SCRIPT_NO_SELFTEST)
     fx.write('SKILL.md', _skill_md([_row(
-        '.ufo/fixtures/ok_gate.py', 'gate (live; fixture)',
-        'python3 -B .ufo/fixtures/ok_gate.py',
-        '`python3 -B .ufo/fixtures/other.py --selftest .ufo/fixtures/ok_gate.py`')]))
-    add('f18 E1 argument binding red', fx, fx.commit('f18'),
-        ['.ufo/fixtures/ok_gate.py'], classes=('E1',), findings=1, met=False)
+        '.ufo/fixtures/no_selftest.py', 'gate (nondifferential; offline; fixture)',
+        'python3 -B .ufo/fixtures/no_selftest.py',
+        'the gate has no selftest of its own')]))
+    add('f18 E1 nondifferential red', fx, fx.commit('f18'),
+        ['.ufo/fixtures/no_selftest.py'], classes=('E1',), findings=1, met=False)
 
     # f19 — E4 red on a NON-effective row: every live row is checked.
     fx = Fixture(work, 'f19_e4_secondary_row')
@@ -864,6 +864,28 @@ def _selftest_cases(work):
         ['.ufo/fixtures/ok_gate.py'], classes=('E4',), findings=1, files=1,
         append_only=True, met=False, base=base21)
 
+    # f22 — E1 red: the word `differential` outside the Kind cell does not exempt.
+    fx = Fixture(work, 'f22_differential_elsewhere')
+    fx.write('.ufo/fixtures/no_selftest.py', SCRIPT_NO_SELFTEST)
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/no_selftest.py', 'gate (live; fixture)',
+        'python3 -B .ufo/fixtures/no_selftest.py',
+        'none (no self-test mode)',
+        pinned='the differential substitute lives in the prose, not the Kind cell')]))
+    add('f22 E1 differential elsewhere red', fx, fx.commit('f22'),
+        ['.ufo/fixtures/no_selftest.py'], classes=('E1',), findings=1, met=False)
+
+    # f23 — E1 red: the command's program is not an interpreter for the instrument.
+    fx = Fixture(work, 'f23_no_interpreter')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('.ufo/fixtures/run.sh', '#!/bin/sh\nexit 0\n')
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/ok_gate.py', 'gate (live; fixture)',
+        'python3 -B .ufo/fixtures/ok_gate.py',
+        '`bash .ufo/fixtures/run.sh --selftest`')]))
+    add('f23 E1 no interpreter red', fx, fx.commit('f23'),
+        ['.ufo/fixtures/ok_gate.py'], classes=('E1',), findings=1, met=False)
+
     return out
 
 
@@ -907,6 +929,19 @@ def _harness_checks(work):
         rc = main(['--root', empty, '--revision', 'deadbeef'])
     checks.append({'name': 'h05 missing --work exit 64', 'ok': rc == 64, 'problems': []
                    if rc == 64 else [f'missing --work exit {rc} != 64']})
+
+    pop_file = os.path.join(work, 'selftest', 'h06_population.txt')
+    with open(pop_file, 'w', encoding='utf-8') as fh:
+        fh.write('# fixture floor\n.ufo/fixtures/ok_gate.py\n\n'
+                 '.ufo/fixtures/ok_gate8.py\n.ufo/fixtures/extra.py\n')
+    buf_out = io.StringIO()
+    with contextlib.redirect_stdout(buf_out), contextlib.redirect_stderr(io.StringIO()):
+        rc = main(['--emit-population', '--population', pop_file])
+    got = [line for line in buf_out.getvalue().splitlines() if line.strip()]
+    want = ['.ufo/fixtures/ok_gate.py', '.ufo/fixtures/ok_gate8.py', '.ufo/fixtures/extra.py']
+    checks.append({'name': 'h06 --population file', 'ok': rc == 0 and got == want,
+                   'problems': [] if (rc == 0 and got == want)
+                   else [f'exit {rc}, lines {got} != {want}']})
     return checks
 
 
