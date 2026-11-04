@@ -1,0 +1,150 @@
+# Advisory divergence record for the real-input seat. Not a matrix case, not a
+# verdict: the fixture, both commands and both observed outputs are quoted so the
+# matrix or review seat can turn either one into a case.
+
+## p1_relative_href_not_resolved
+amendment: Amendment 2 A4: a non-absolute href contributes to no other finding, so it cannot satisfy
+self-reference; A2 makes hreflang_self_missing once per page.
+fixture a.html: <html><head><link rel="canonical" href="/p/"><link rel="alternate" hreflang="en" href="/p/"></head></html>
+manifest: {"pages": [{"file": "a.html", "id": "a", "url": "https://a.test/p/"}], "version": 1}
+$ tool: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ExecAuditRealRun/pinned/hreflang_audit_asrun_58a2cdcece48.py --manifest /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence/manifest.json --root /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence --json --work /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/work-tool
+exit=1
+stdout={"version": 1, "pages": 1, "findings": [{"id": "hreflang_relative_href", "severity": "policy", "page": "a", "detail": "alternate href is not absolute with a host (href='/p/')"}, {"id": "hreflang_self_missing", "severity": "policy", "page": "a", "detail": "no absolute alternate equals the page's own url https://a.test/p/"}], "counts": {"policy": 2, "info": 0, "input": 0, "by_id": {"hreflang_missing_value": 0, "hreflang_invalid_tag": 0, "hreflang_relative_href": 1, "hreflang_duplicate_pair": 0, "hreflang_multiple_xdefault": 0, "hreflang_self_missing": 1, "hreflang_nonreciprocal": 0, "hreflang_canonical_not_self": 0, "hreflang_external_target": 0, "input_unreadable": 0, "input_duplicate_url": 0, "input_url_not_absolute": 0}}, "exit": 1}
+$ ref: /usr/bin/python3 -B /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/ref/hreflang_audit.py --manifest /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence/manifest.json --root /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence --json --work /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/work
+exit=1
+stdout={
+ "counts": {
+  "by_id": {
+   "hreflang_relative_href": 1,
+   "hreflang_self_missing": 1
+  },
+  "informational": 0,
+  "input": 0,
+  "policy": 2
+ },
+ "exit": 1,
+ "findings": [
+  {
+   "href": "/p/",
+   "id": "hreflang_relative_href",
+   "page": "a",
+   "severity": "policy",
+   "tag": "en"
+  },
+  {
+   "id": "hreflang_self_missing",
+   "page": "a",
+   "severity": "policy",
+   "url": "https://a.test/p/"
+  }
+ ],
+ "pages": 1,
+ "version": 1
+}
+
+## p3_two_xdefault_same_href
+amendment: Amendment 2 A2: a policy finding is emitted once per offending annotation, except
+self_missing/canonical_not_self which are once per page; whether multiple_xdefault is
+page-level or per-annotation is not spelled out, so both readings are shown here.
+fixture a.html: <html><head><link rel="alternate" hreflang="x-default" href="https://a.test/p/"><link rel="alternate" hreflang="X-Default" href="https://a.test/p/"></head></html>
+manifest: {"pages": [{"file": "a.html", "id": "a", "url": "https://a.test/p/"}], "version": 1}
+$ tool: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ExecAuditRealRun/pinned/hreflang_audit_asrun_58a2cdcece48.py --manifest /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence/manifest.json --root /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence --json --work /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/work-tool
+exit=1
+stdout={"version": 1, "pages": 1, "findings": [{"id": "hreflang_duplicate_pair", "severity": "policy", "page": "a", "detail": "pair (tag=x-default, href='https://a.test/p/') occurs again as occurrence 2"}, {"id": "hreflang_multiple_xdefault", "severity": "policy", "page": "a", "detail": "x-default 1 of 2 on one page"}, {"id": "hreflang_multiple_xdefault", "severity": "policy", "page": "a", "detail": "x-default 2 of 2 on one page"}], "counts": {"policy": 3, "info": 0, "input": 0, "by_id": {"hreflang_missing_value": 0, "hreflang_invalid_tag": 0, "hreflang_relative_href": 0, "hreflang_duplicate_pair": 1, "hreflang_multiple_xdefault": 2, "hreflang_self_missing": 0, "hreflang_nonreciprocal": 0, "hreflang_canonical_not_self": 0, "hreflang_external_target": 0, "input_unreadable": 0, "input_duplicate_url": 0, "input_url_not_absolute": 0}}, "exit": 1}
+$ ref: /usr/bin/python3 -B /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/ref/hreflang_audit.py --manifest /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence/manifest.json --root /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence --json --work /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/work
+exit=1
+stdout={
+ "counts": {
+  "by_id": {
+   "hreflang_duplicate_pair": 1,
+   "hreflang_multiple_xdefault": 1
+  },
+  "informational": 0,
+  "input": 0,
+  "policy": 2
+ },
+ "exit": 1,
+ "findings": [
+  {
+   "count": 2,
+   "href": "https://a.test/p/",
+   "id": "hreflang_duplicate_pair",
+   "page": "a",
+   "severity": "policy",
+   "tag": "x-default"
+  },
+  {
+   "count": 2,
+   "id": "hreflang_multiple_xdefault",
+   "page": "a",
+   "severity": "policy"
+  }
+ ],
+ "pages": 1,
+ "version": 1
+}
+
+## p10_manifest_version_2
+amendment: Amendment 2 A15: version != 1 is exit 64.
+fixture a.html: <html><head></head></html>
+manifest: {"pages": [{"file": "a.html", "id": "a", "url": "https://a.test/p/"}], "version": 2}
+$ tool: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ExecAuditRealRun/pinned/hreflang_audit_asrun_58a2cdcece48.py --manifest /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence/manifest.json --root /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence --json --work /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/work-tool
+exit=64
+stdout={"version": 1, "pages": 1, "findings": [], "counts": {"policy": 0, "info": 0, "input": 0, "by_id": {"hreflang_missing_value": 0, "hreflang_invalid_tag": 0, "hreflang_relative_href": 0, "hreflang_duplicate_pair": 0, "hreflang_multiple_xdefault": 0, "hreflang_self_missing": 0, "hreflang_nonreciprocal": 0, "hreflang_canonical_not_self": 0, "hreflang_external_target": 0, "input_unreadable": 0, "input_duplicate_url": 0, "input_url_not_absolute": 0}}, "exit": 64}
+stderr=hreflang_audit.py: manifest version is not 1
+usage: hreflang_audit.py --manifest PATH [--root DIR] [--json]
+       hreflang_audit.py --selftest --work DIR
+$ ref: /usr/bin/python3 -B /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/ref/hreflang_audit.py --manifest /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence/manifest.json --root /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence --json --work /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/work
+exit=64
+stdout={
+ "counts": {
+  "by_id": {},
+  "informational": 0,
+  "input": 0,
+  "policy": 0
+ },
+ "exit": 64,
+ "findings": [],
+ "pages": 0,
+ "version": 1
+}
+
+## p11_duplicate_file_two_pages
+amendment: Amendment 2 A15: two pages may not share a file (the amendment names no id or exit for it).
+fixture a.html: <html><head></head></html>
+manifest: {"pages": [{"file": "a.html", "id": "a", "url": "https://a.test/p/"}, {"file": "a.html", "id": "b", "url": "https://b.test/"}], "version": 1}
+$ tool: /usr/bin/python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ExecAuditRealRun/pinned/hreflang_audit_asrun_58a2cdcece48.py --manifest /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence/manifest.json --root /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence --json --work /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/work-tool
+exit=2
+stdout={"version": 1, "pages": 2, "findings": [{"id": "input_unreadable", "severity": "input", "page": "b", "detail": "page 'b' repeats file 'a.html'"}], "counts": {"policy": 0, "info": 0, "input": 1, "by_id": {"hreflang_missing_value": 0, "hreflang_invalid_tag": 0, "hreflang_relative_href": 0, "hreflang_duplicate_pair": 0, "hreflang_multiple_xdefault": 0, "hreflang_self_missing": 0, "hreflang_nonreciprocal": 0, "hreflang_canonical_not_self": 0, "hreflang_external_target": 0, "input_unreadable": 1, "input_duplicate_url": 0, "input_url_not_absolute": 0}}, "exit": 2}
+$ ref: /usr/bin/python3 -B /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/ref/hreflang_audit.py --manifest /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence/manifest.json --root /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/probe-divergence --json --work /fast/scratch/hyaku/kake-r76/ExecAuditRealRun/work
+exit=2
+stdout={
+ "counts": {
+  "by_id": {
+   "input_unreadable": 2
+  },
+  "informational": 0,
+  "input": 2,
+  "policy": 0
+ },
+ "exit": 2,
+ "findings": [
+  {
+   "detail": "file shared by two pages",
+   "file": "a.html",
+   "id": "input_unreadable",
+   "page": "a",
+   "severity": "input"
+  },
+  {
+   "detail": "file shared by two pages",
+   "file": "a.html",
+   "id": "input_unreadable",
+   "page": "b",
+   "severity": "input"
+  }
+ ],
+ "pages": 2,
+ "version": 1
+}
+

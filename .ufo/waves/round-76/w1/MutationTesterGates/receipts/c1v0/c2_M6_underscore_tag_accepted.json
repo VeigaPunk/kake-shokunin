@@ -1,0 +1,24 @@
+{
+ "id": "M6_underscore_tag_accepted",
+ "desc": "accept `_` in tags",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c2/M6_underscore_tag_accepted.py",
+ "old": "    lowered = ascii_lower(tag)",
+ "new": "    lowered = ascii_lower(tag).replace(\"_\", \"-\")",
+ "sha_pristine": "0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac",
+ "sha_mutant": "5094df35cbd08a34dc5b4673dc5a8eb763c80df37805349a05b9e26274c4b306",
+ "selftest_rc": 1,
+ "selftest": "selftest 56/59 passed",
+ "matrix_rc": 1,
+ "wrong": [
+  "case input-policy-and-fault expected=exit2 ids=[\"hreflang_invalid_tag\", \"input_unreadable\"] observed=exit2 ids=[\"input_unreadable\"] pages=2/2 json=ok verdict=wrong",
+  "case invalid-tag-underscore expected=exit1 ids=[\"hreflang_invalid_tag\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case multi-missing-value-and-invalid-tag expected=exit1 ids=[\"hreflang_invalid_tag\", \"hreflang_missing_value\"] observed=exit1 ids=[\"hreflang_missing_value\"] pages=1/1 json=ok verdict=wrong",
+  "case structure-noscript expected=exit1 ids=[\"hreflang_invalid_tag\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case structure-rel-uppercase expected=exit1 ids=[\"hreflang_invalid_tag\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case structure-svg-selfclosed expected=exit1 ids=[\"hreflang_invalid_tag\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case structure-unquoted-attrs expected=exit1 ids=[\"hreflang_invalid_tag\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong"
+ ],
+ "tally": "cases=69 decided=66 correct=59 wrong=7 undecided=3 constants_failed=4/4 met=false",
+ "killed": true,
+ "survived": false
+}

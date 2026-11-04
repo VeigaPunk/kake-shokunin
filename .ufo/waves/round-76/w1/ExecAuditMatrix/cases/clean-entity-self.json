@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "amendment A13: character references are decoded before comparison, so the href value `...?x=1&amp;y=2` decodes to the page's own url `...?x=1&y=2` and satisfies self-reference; canonical decodes to self too.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a?x=1&amp;y=2\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a?x=1&amp;y=2\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a?x=1&y=2"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-entity-self"
+}

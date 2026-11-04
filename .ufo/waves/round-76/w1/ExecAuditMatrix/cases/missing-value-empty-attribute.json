@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "amendment A10: an empty hreflang attribute value is `hreflang_missing_value`, not `hreflang_invalid_tag`.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_missing_value"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "missing-value-empty-attribute"
+}

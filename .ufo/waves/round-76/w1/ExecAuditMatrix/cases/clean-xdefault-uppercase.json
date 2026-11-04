@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "amendment A11: `x-default` is compared ASCII case-insensitively, so X-DEFAULT is the x-default value (exactly one), not an invalid tag.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"X-DEFAULT\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-xdefault-uppercase"
+}

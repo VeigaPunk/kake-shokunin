@@ -1,0 +1,36 @@
+# advisory differential probe (not a matrix case): inputs aimed at the
+# Amendment-2 decisions, run through both builds. No verdict is asserted.
+[p1_relative_href_not_resolved] agree=true
+  tool exit=1 ids=['hreflang_relative_href', 'hreflang_self_missing']
+  ref  exit=1 ids=['hreflang_relative_href', 'hreflang_self_missing']
+[p2_missing_hreflang_value] agree=true
+  tool exit=1 ids=['hreflang_missing_value']
+  ref  exit=1 ids=['hreflang_missing_value']
+[p3_two_xdefault_same_href] agree=false
+  tool exit=1 ids=['hreflang_duplicate_pair', 'hreflang_multiple_xdefault', 'hreflang_multiple_xdefault']
+  ref  exit=1 ids=['hreflang_duplicate_pair', 'hreflang_multiple_xdefault']
+[p4_canonical_not_self] agree=true
+  tool exit=1 ids=['hreflang_canonical_not_self']
+  ref  exit=1 ids=['hreflang_canonical_not_self']
+[p5_absent_canonical_is_self] agree=true
+  tool exit=1 ids=['hreflang_self_missing', 'hreflang_self_missing']
+  ref  exit=1 ids=['hreflang_self_missing', 'hreflang_self_missing']
+[p6_first_canonical_wins] agree=true
+  tool exit=0 ids=[]
+  ref  exit=0 ids=[]
+[p7_link_without_href] agree=true
+  tool exit=0 ids=[]
+  ref  exit=0 ids=[]
+[p8_stylesheet_alternate_pair] agree=true
+  tool exit=0 ids=[]
+  ref  exit=0 ids=[]
+[p9_noscript_scanned] agree=true
+  tool exit=1 ids=['hreflang_invalid_tag']
+  ref  exit=1 ids=['hreflang_invalid_tag']
+[p10_manifest_version_2] agree=true
+  tool exit=64 ids=[]
+  ref  exit=64 ids=[]
+[p11_duplicate_file_two_pages] agree=false
+  tool exit=2 ids=['input_unreadable']
+  ref  exit=2 ids=['input_unreadable', 'input_unreadable']
+AGREEMENT 9/11 probes (exit code and id multiset)

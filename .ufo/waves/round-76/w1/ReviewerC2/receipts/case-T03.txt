@@ -1,0 +1,6 @@
+case: T03
+tool: /fast/scratch/hyaku/kake-r76/ReviewerC2-7/pinned/hreflang_audit.py
+command: TMPDIR=/fast/scratch/hyaku/kake-r76/ReviewerC2-7/tmp python3 -B /fast/scratch/hyaku/kake-r76/ReviewerC2-7/pinned/hreflang_audit.py --manifest /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ReviewerC2/fixtures/T03/manifest.json --root /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ReviewerC2/fixtures/T03 --json
+--- stdout ---
+{"version": 1, "pages": 1, "findings": [{"id": "hreflang_invalid_tag", "severity": "policy", "page": "en", "detail": "hreflang 'sgn-BE-FR' is neither x-default nor BCP-47 under the frozen grammar"}, {"id": "hreflang_external_target", "severity": "info", "page": "en", "detail": "target https://example.com/sf (tag=sgn-BE-FR) is outside the manifest"}], "counts": {"policy": 1, "info": 1, "input": 0, "by_id": {"hreflang_missing_value": 0, "hreflang_invalid_tag": 1, "hreflang_relative_href": 0, "hreflang_duplicate_pair": 0, "hreflang_multiple_xdefault": 0, "hreflang_self_missing": 0, "hreflang_nonreciprocal": 0, "hreflang_canonical_not_self": 0, "hreflang_external_target": 1, "input_unreadable": 0, "input_duplicate_url": 0, "input_url_not_absolute": 0}}, "exit": 1}
+exit: 1

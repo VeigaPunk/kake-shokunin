@@ -1,0 +1,27 @@
+  FAIL  green_plain: want ids=[] rc=0; got rc=0 ids=[] rows=2 want 1
+  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]
+  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]
+  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]
+Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/m00_pristine.py", line 819, in <module>
+    sys.exit(main(sys.argv[1:]))
+             ~~~~^^^^^^^^^^^^^^
+  File "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/m00_pristine.py", line 786, in main
+    return selftest(work)
+  File "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/m00_pristine.py", line 557, in selftest
+    root, hashes = _fixture(work, "green_commit_citation", [
+                   ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        _pages(""),
+        ^^^^^^^^^^^
+        _pages(f"| S | `{hashes_short} ` |\n") if False else _pages(""),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ])
+    ^^
+  File "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/m00_pristine.py", line 482, in _fixture
+    _git_ok(["-C", str(root), "-c", "user.name=t", "-c", "user.email=t@t",
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             "-c", "commit.gpgsign=false", "commit", "-q", "--no-verify", "-m", f"fixture {idx}"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/m00_pristine.py", line 462, in _git_ok
+    raise RuntimeError(f"git {' '.join(args)} failed: {p.stderr.strip()}")
+RuntimeError: git -C /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/stv2/green_commit_citation -c user.name=t -c user.email=t@t -c commit.gpgsign=false commit -q --no-verify -m fixture 2 failed: 

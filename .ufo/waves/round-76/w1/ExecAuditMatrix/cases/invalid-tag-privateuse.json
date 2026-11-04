@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "contract C2 `hreflang_invalid_tag`: 'x-private' is neither x-default nor a fullmatch of the frozen ASCII grammar ^[A-Za-z]{2,3}(-[A-Za-z]{4})?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*$ (case-insensitive); amendment A2 emits one finding for the one offending link.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_invalid_tag"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"x-private\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "invalid-tag-privateuse"
+}

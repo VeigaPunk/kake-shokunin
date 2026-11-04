@@ -1,0 +1,83 @@
+command: python3 -B /fast/scratch/hyaku/kake-r76/ReviewerC2-7/pinned/c76_hreflang_matrix.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --tool /fast/scratch/hyaku/kake-r76/ReviewerC2-7/mutants/mut_bare.py --revision a0491fcd041cbc3fff2c964ecf6268557e45a5c1 --work /fast/scratch/hyaku/kake-r76/ReviewerC2-7/mwork/bare --cases /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ExecAuditMatrix/cases --consts /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ExecAuditMatrix/consts --min-decided 24
+--- stdout ---
+tool=/fast/scratch/hyaku/kake-r76/ReviewerC2-7/mutants/mut_bare.py
+tool_sha256=2b4156dd838f8ff4cadd42049ca7f581ff19ae19023a721261036f2fc3e76600
+cases_sha256=a9401da4ace885bb37ffa8d4998c2692102c5db5444ffd6bd658d092a08b88b4
+revision=a0491fcd041cbc3fff2c964ecf6268557e45a5c1 revision_ok=yes head=442d36c63240e3f3bfa689d7a0056c035d6bcbe0
+case canonical-first-wins expected=exit1 ids=["hreflang_canonical_not_self"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case canonical-not-self expected=exit1 ids=["hreflang_canonical_not_self"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case canonical-with-hreflang expected=exit1 ids=["hreflang_canonical_not_self"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-alternate-stylesheet expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-canonical-absent expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-comment-script-ignored expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-entity-self expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-href-absent expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-http-scheme expected=exit0 ids=[] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-math-ignored expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-mutual-triple expected=exit0 ids=[] observed=exit0 ids=[] pages=-/3 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-no-alternates expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-reciprocal-pair expected=exit0 ids=[] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-self-only-two-tags expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-tag-case-uppercase expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-template-ignored expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-url-normalized-self expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-valid-tags-multi expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case clean-xdefault-uppercase expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case duplicate-pair-case-folded expected=exit1 ids=["hreflang_duplicate_pair"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case duplicate-pair-entity-decoded expected=exit1 ids=["hreflang_duplicate_pair"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case duplicate-pair-exact expected=exit1 ids=["hreflang_duplicate_pair"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case duplicate-pair-two-pairs expected=exit1 ids=["hreflang_duplicate_pair", "hreflang_duplicate_pair"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case external-target-mixed expected=exit0 ids=["hreflang_external_target"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case external-target-single expected=exit0 ids=["hreflang_external_target"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case external-target-trailing-slash expected=exit0 ids=["hreflang_external_target"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-duplicate-url expected=exit2 ids=["input_duplicate_url"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-file-absolute expected=exit2 ids=["input_unreadable"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-file-escapes-root expected=exit2 ids=["input_unreadable"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-file-not-regular expected=exit2 ids=["input_unreadable"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-file-symlink expected=exit2 ids=["input_unreadable"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-policy-and-fault expected=exit2 ids=["hreflang_invalid_tag", "input_unreadable"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-two-faults expected=exit2 ids=["input_duplicate_url", "input_unreadable"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-unreadable-missing-file expected=exit2 ids=["input_unreadable"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-url-not-absolute expected=exit2 ids=["input_url_not_absolute"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case input-version-not-1 expected=exit64 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-double-hyphen expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-extension expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-extlang expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-grandfathered-oed expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-i-klingon expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-long-primary expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-padded expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-privateuse expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-sgn expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-singleton-extension expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-space expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-trailing-dash expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-underscore expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-word expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case invalid-tag-x-defaults expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case missing-value-bare-alternate expected=exit1 ids=["hreflang_missing_value"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case missing-value-empty-attribute expected=exit1 ids=["hreflang_missing_value"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case missing-value-with-valid-self expected=exit1 ids=["hreflang_missing_value"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case multi-missing-value-and-invalid-tag expected=exit1 ids=["hreflang_invalid_tag", "hreflang_missing_value"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case multi-self-missing-and-nonreciprocal expected=exit1 ids=["hreflang_nonreciprocal", "hreflang_self_missing"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case multiple-xdefault-pair expected=exit1 ids=["hreflang_multiple_xdefault", "hreflang_multiple_xdefault", "hreflang_multiple_xdefault", "hreflang_multiple_xdefault"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case nonreciprocal-absent expected=exit1 ids=["hreflang_nonreciprocal"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case nonreciprocal-different-tag expected=exit1 ids=["hreflang_nonreciprocal", "hreflang_nonreciprocal"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case relative-href-fragment expected=exit1 ids=["hreflang_relative_href"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case relative-href-mailto expected=exit1 ids=["hreflang_relative_href"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case relative-href-path expected=exit1 ids=["hreflang_relative_href"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case relative-href-protocol-relative expected=exit1 ids=["hreflang_relative_href"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case self-missing-pair expected=exit1 ids=["hreflang_self_missing"] observed=exit0 ids=[] pages=-/2 json=bad verdict=wrong shape=report lacks version,pages,counts
+case structure-noscript expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case structure-rel-uppercase expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case structure-svg-selfclosed expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case structure-unquoted-attrs expected=exit1 ids=["hreflang_invalid_tag"] observed=exit0 ids=[] pages=-/1 json=bad verdict=wrong shape=report lacks version,pages,counts
+case undecided-shared-file expected=exit0 ids=[] observed=exit0 ids=[] pages=-/2 json=bad verdict=undecided shape=report lacks version,pages,counts
+case undecided-svg-template-crossing expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=undecided shape=report lacks version,pages,counts
+case undecided-unreadable-undecodable expected=exit0 ids=[] observed=exit0 ids=[] pages=-/1 json=bad verdict=undecided shape=report lacks version,pages,counts
+constant const_always_clean.py failed=52/68 first=["canonical-first-wins", "canonical-not-self", "canonical-with-hreflang"] passes_all=no
+constant const_empty_list.py failed=46/68 first=["canonical-first-wins", "canonical-not-self", "canonical-with-hreflang"] passes_all=no
+constant const_noop.py failed=68/68 first=["canonical-first-wins", "canonical-not-self", "canonical-with-hreflang"] passes_all=no
+constant const_report_all.py failed=68/68 first=["canonical-first-wins", "canonical-not-self", "canonical-with-hreflang"] passes_all=no
+cases=71 decided=68 correct=0 wrong=68 undecided=3 constants_failed=4/4 met=false
+exit: 1

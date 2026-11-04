@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "amendment A13 (entities decoded before comparison) + contract C2 `hreflang_duplicate_pair`: the entity form and the literal form decode to the same href, so the second link is one offending duplicate.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_duplicate_pair"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a?x=1&amp;y=2\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a?x=1&amp;y=2\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a?x=1&y=2\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a?x=1&y=2"
+   }
+  ],
+  "version": 1
+ },
+ "name": "duplicate-pair-entity-decoded"
+}

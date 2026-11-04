@@ -1,0 +1,31 @@
+{
+ "id": "M1_append_only_conjunct_dropped",
+ "desc": "drop the append-only conjunct",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M1_append_only_conjunct_dropped.py",
+ "sha_before": "63af0ede46919b213c6dad414b26b9eef5cd23078d741afe0bdb940f44a966c8",
+ "sha_mutant": "3d1840ce58d3f98aa10fd680b8593bff4623838fd434edbe5e80d7f8615a72e7",
+ "old": "        \"met\": len(findings) == 0 and append_only,",
+ "new": "        \"met\": len(findings) == 0,",
+ "verdict": {
+  "selftest_rc": 1,
+  "selftest": "RuntimeError: git -C /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M1_append_only_conjunct_dropped/green_commit_citation -c user.name=t -c user.email=t@t -c commit.gpgsign=false commit -q --no-verify -m fixture 2 failed: ",
+  "before_rc": 1,
+  "before": "C1v2 revision=a0491fcd rows=19 receipt_files=10452 spans=30 exempted=0 corrections=0 findings=8 met=false",
+  "head_rc": 0,
+  "head": "C1v2 revision=b758cb04 rows=19 receipt_files=10458 spans=30 exempted=0 corrections=0 findings=0 met=true",
+  "probe_results_rc": 1,
+  "probe_results": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false",
+  "probe_case_rc": 1,
+  "probe_case": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false",
+  "raw": {
+   "before": "C1v2 revision=a0491fcd rows=19 receipt_files=10452 spans=30 exempted=0 corrections=0 findings=8 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+   "head": "C1v2 revision=b758cb04 rows=19 receipt_files=10458 spans=30 exempted=0 corrections=0 findings=0 met=true\n  missing corpus/lessons/round-76.md\n",
+   "probe_results": "C1v2 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false\n  T1 SCORECARD.md:5 zz=9 xy=1\n  missing corpus/lessons/round-75.md\n",
+   "probe_case": "C1v2 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false\n  T1 SCORECARD.md:5 MET=TRUE\n  missing corpus/lessons/round-75.md\n",
+   "selftest": "  FAIL  green_plain: want ids=[] rc=0; got rc=0 ids=[] rows=2 want 1\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\nTraceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M1_append_only_conjunct_dropped.py\", line 819, in <module>\n    sys.exit(main(sys.argv[1:]))\n             ~~~~^^^^^^^^^^^^^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M1_append_only_conjunct_dropped.py\", line 786, in main\n    return selftest(work)\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M1_append_only_conjunct_dropped.py\", line 557, in selftest\n    root, hashes = _fixture(work, \"green_commit_citation\", [\n                   ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        _pages(\"\"),\n        ^^^^^^^^^^^\n        _pages(f\"| S | `{hashes_short} ` |\\n\") if False else _pages(\"\"),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ])\n    ^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M1_append_only_conjunct_dropped.py\", line 482, in _fixture\n    _git_ok([\"-C\", str(root), \"-c\", \"user.name=t\", \"-c\", \"user.email=t@t\",\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n             \"-c\", \"commit.gpgsign=false\", \"commit\", \"-q\", \"--no-verify\", \"-m\", f\"fixture {idx}\"])\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M1_append_only_conjunct_dropped.py\", line 462, in _git_ok\n    raise RuntimeError(f\"git {' '.join(args)} failed: {p.stderr.strip()}\")\nRuntimeError: git -C /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M1_append_only_conjunct_dropped/green_commit_citation -c user.name=t -c user.email=t@t -c commit.gpgsign=false commit -q --no-verify -m fixture 2 failed: \n"
+  }
+ },
+ "killed": false,
+ "why": [],
+ "survived": true
+}

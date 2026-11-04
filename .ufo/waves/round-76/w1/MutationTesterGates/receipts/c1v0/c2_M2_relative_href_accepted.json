@@ -1,0 +1,21 @@
+{
+ "id": "M2_relative_href_accepted",
+ "desc": "accept relative hrefs",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c2/M2_relative_href_accepted.py",
+ "old": "            if not absolute_with_host(alt[\"href\"]):",
+ "new": "            if False and not absolute_with_host(alt[\"href\"]):",
+ "sha_pristine": "0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac",
+ "sha_mutant": "05524cc4cc688af6d33c7d72b56737d8b5af1459661d79d623e6b2c0f827475a",
+ "selftest_rc": 1,
+ "selftest": "selftest 55/59 passed",
+ "matrix_rc": 1,
+ "wrong": [
+  "case relative-href-fragment expected=exit1 ids=[\"hreflang_relative_href\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case relative-href-mailto expected=exit1 ids=[\"hreflang_relative_href\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case relative-href-path expected=exit1 ids=[\"hreflang_relative_href\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case relative-href-protocol-relative expected=exit1 ids=[\"hreflang_relative_href\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong"
+ ],
+ "tally": "cases=69 decided=66 correct=62 wrong=4 undecided=3 constants_failed=4/4 met=false",
+ "killed": true,
+ "survived": false
+}

@@ -1,0 +1,30 @@
+{
+ "decided": true,
+ "derivation": "contract C2 input faults + A2: the manifest repeats url A (one duplicate entry) and one of those entries names an absent file (one unreadable entry), so both ids appear once and exit is 2.",
+ "expected": {
+  "exit": 2,
+  "ids": [
+   "input_duplicate_url",
+   "input_unreadable"
+  ]
+ },
+ "files": {
+  "b.html": "<!doctype html>\n<html><head>\n\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "missing.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "b.html",
+    "id": "b",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "input-two-faults"
+}

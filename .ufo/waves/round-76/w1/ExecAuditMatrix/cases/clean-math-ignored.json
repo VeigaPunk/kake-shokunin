@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "amendment A13: <math> subtrees are not scanned; the wrapped en_US link produces nothing.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<math><link rel=\"alternate\" hreflang=\"en_US\" href=\"https://alpha.example/a\"></math>\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-math-ignored"
+}

@@ -4927,3 +4927,35 @@ whole") and `corpus/lessons/round-75.md` (section "Corrections").
 | 3 | `population=18 bound=18 mismatches=0 met=true missing_frozen=0` | `C2v1 revision=f87d14a949e1b5f8b4ec5807b75f22aa3e337353 population=18 bound=18 mismatches=0 met=true` and `population: derived=18 frozen=16 missing_frozen=0 beyond_frozen=2` | `.ufo/waves/round-75/controls/after-c2-receipts.txt:5-6` | The C2 line ends at met=true; missing_frozen=0 is printed on the following derived-population line, so the claim spliced two lines into one and the fragment is contiguous in no receipt. `[r76-correction 2026-11-03]` |
 | 4 | `receipt: source=committed declared_valid=true` | `receipt: source=committed worktree=identical declared=abfbfaac58bcee2514490940d1b16365027a07c9 declared_match=false declared_valid=true` | `.ufo/waves/round-75/controls/after-c2-receipts.txt:7` | The claim dropped worktree=identical, the declared revision and declared_match=false between source=committed and declared_valid=true. `[r76-correction 2026-11-03]` |
 | 5 | `mismatches=0 met=true missing_frozen=0` | `C1v1 revision=f87d14a9 rows=32 live=20 files=18 mismatches=0 classes=- append_only=true met=true missing_frozen=0` | `.ufo/waves/round-75/controls/after-c1-row-truth.txt:4` | The move-log cell jumped from mismatches=0 to met=true, dropping the observed classes=- append_only=true; the fragment is contiguous in no receipt. `[r76-correction 2026-11-03]` |
+
+## Round 76 — declared claims (frozen before any seat ran; author-side, admission belongs to the closure)
+
+Frozen contract `.ufo/waves/round-76/contract.md` (`b758cb04`) with the L1's v1 counter and five red controls;
+Amendments 1 (`783c7c13`), 2 (`e674bc60`), 3 (`6b52407b`), 4 (`f4f076ba`), 5 (`152bffd5`), 6 and 7 (`d2555766`)
+and 8 (`d00ea7fb`), each terms-only and recorded before its after-state. Base
+`a0491fcd041cbc3fff2c964ecf6268557e45a5c1`. Wave `w1`: one v1 wave, 15 seats (scout 2, executor 5, scribe 2,
+reviewer 2, critic 1, mutation-tester 1, connector 1, sentinel 1; attack share 4/15). Scores unchanged:
+operability 10, freshness 10, calibration 2 (all HOLD; no scalar move).
+
+| Claim | Axis | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 claim rows quote only receipts they can be found in | calibration 2→2 HOLD | base `a0491fcd`: seven absent-span findings, met=false, exit 1 (`controls/base-c1-quote-truth-v2.txt`) → carrier: no findings, append_only=true, met=true, exit 0 (`controls/after-c1-quote-truth.txt`) | `python3 -B scripts/doc_quote_truth.py --root . --revision <rev> --base a0491fcd041cbc3fff2c964ecf6268557e45a5c1 --rounds 75,76` | measured met; closed by seven whole-line correction rows in the section above, one QUALITY criterion and one lesson correction; counter selftest 47/47 |
+| C2 offline hreflang declaration audit (capability) | operability 10→10 HOLD (capability) | no tool before this round; carrier: matrix decided cases all correct, four constants each fail, tool selftest green, real-input run clean over the eight retained served pages (`controls/after-c2-matrix.txt`, `controls/after-c2-realrun.txt`) | `python3 -B .ufo/waves/round-76/w1/ExecAuditMatrix/c76_hreflang_matrix.py --root . --tool scripts/hreflang_audit.py --revision <rev> --cases .ufo/waves/round-76/w1/ExecAuditMatrix/cases --consts .ufo/waves/round-76/w1/ExecAuditMatrix/consts --work <scratch>` | measured met; tool selftest 59/59; four constant implementations each fail at least one case |
+
+Capabilities acquired in round 76:
+
+| Capability | What it can now do | Evidence pointer | First-working round |
+|---|---|---|---|
+| Offline hreflang declaration audit | Reads a version-1 manifest of local HTML pages with absolute URLs and reports, read-only and network-free, a missing or invalid hreflang tag, a non-absolute alternate href, duplicate (tag, href) pairs, more than one x-default element, a missing self-reference, a manifest-internal target that does not return the same tag, a canonical that is not the page itself, and the manifest/serving faults (exits 0/1/2/64); it is a frozen ASCII grammar validator for BCP-47-shaped tags, not a BCP-47 validator, and it states no fetch, header, rendering, language-detection or ranking claim | `scripts/hreflang_audit.py` (selftest 59/59); matrix receipt `controls/after-c2-matrix.txt`; real-input receipt `controls/after-c2-realrun.txt` | 76 |
+
+Move log (round 76):
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 76 | calibration (HOLD 2) | seven absent-span findings at `a0491fcd`, met=false | no findings, append_only=true, met=true at the carrier | `scripts/doc_quote_truth.py`, `SCORECARD.md` `## Round 75 — quote corrections (appended round 76)`, `corpus/lessons/round-76.md` §Corrections |
+| 76 | operability (HOLD 10) | no hreflang audit in the lane | matrix all-decided correct + 4/4 constants failed + real run clean over 8 served pages | `scripts/hreflang_audit.py`, `corpus/knowledge/hreflang-declaration.md` |
+
+Stated limits, not claimed closed: the same-tag reciprocity rule is a lane policy stricter than S444's
+stated rule (Amendment 8 §G1); the frozen grammar rejects grandfathered and extension tags (§G2); three
+matrix classes stay `undecided` (§G3); the real-input population is the eight retained served pages of the
+twelve named surfaces (Amendment 1); the freshness sweep still exits 1 on the single `~/projects` drift
+(open L0 `kake | round-69`); the two sidecar tools remain outside the instrument receipt (disposition 4).

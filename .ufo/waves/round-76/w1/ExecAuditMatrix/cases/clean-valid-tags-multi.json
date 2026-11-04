@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "contract C2 grammar: en, en-GB, zh-Hant, zh-Hant-TW, es-419 and de-CH-1901 fullmatch the frozen ASCII grammar; `x-default` is the named exception. All point at the page's own url; canonical self.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en-GB\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"zh-Hant\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"zh-Hant-TW\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"es-419\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"de-CH-1901\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"x-default\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-valid-tags-multi"
+}

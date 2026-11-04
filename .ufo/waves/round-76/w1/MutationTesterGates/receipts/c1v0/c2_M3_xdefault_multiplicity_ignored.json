@@ -1,0 +1,18 @@
+{
+ "id": "M3_xdefault_multiplicity_ignored",
+ "desc": "ignore x-default multiplicity",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c2/M3_xdefault_multiplicity_ignored.py",
+ "old": "        if len(xdefault) > 1:",
+ "new": "        if len(xdefault) > 10 ** 9:",
+ "sha_pristine": "0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac",
+ "sha_mutant": "238508b6299c57c244143c0d19db866a15f7a38a408f5e847695caa40c15c418",
+ "selftest_rc": 1,
+ "selftest": "selftest 57/59 passed",
+ "matrix_rc": 1,
+ "wrong": [
+  "case multiple-xdefault-pair expected=exit1 ids=[\"hreflang_multiple_xdefault\", \"hreflang_multiple_xdefault\", \"hreflang_multiple_xdefault\", \"hreflang_multiple_xdefault\"] observed=exit0 ids=[] pages=2/2 json=ok verdict=wrong"
+ ],
+ "tally": "cases=69 decided=66 correct=65 wrong=1 undecided=3 constants_failed=4/4 met=false",
+ "killed": true,
+ "survived": false
+}

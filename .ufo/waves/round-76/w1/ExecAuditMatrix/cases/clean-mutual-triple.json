@@ -1,0 +1,34 @@
+{
+ "decided": true,
+ "derivation": "contract C2 `hreflang_nonreciprocal` over a complete three-page graph: every internal target returns the same tag; each page lists itself and resolves canonical to self.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://gamma.example/c\">\n</head><body></body></html>\n",
+  "b.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://gamma.example/c\">\n</head><body></body></html>\n",
+  "c.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://gamma.example/c\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://gamma.example/c\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://beta.example/b\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "b.html",
+    "id": "b",
+    "url": "https://beta.example/b"
+   },
+   {
+    "file": "c.html",
+    "id": "c",
+    "url": "https://gamma.example/c"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-mutual-triple"
+}

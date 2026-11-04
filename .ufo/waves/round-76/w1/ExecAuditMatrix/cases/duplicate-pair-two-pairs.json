@@ -1,0 +1,25 @@
+{
+ "decided": true,
+ "derivation": "amendment A2: one finding per offending annotation. Two independent pairs (en twice, en-GB twice) give two `hreflang_duplicate_pair` findings.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_duplicate_pair",
+   "hreflang_duplicate_pair"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en-GB\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en-GB\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "duplicate-pair-two-pairs"
+}

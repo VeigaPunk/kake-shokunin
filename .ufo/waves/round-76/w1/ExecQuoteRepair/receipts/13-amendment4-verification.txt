@@ -1,0 +1,45 @@
+Counter snapshot used for every line below (lane file is being iterated by its seat):
+$ sha256sum $S/counter-snapshot.py ; wc -c ; wc -l
+d8349b053edef7a8a91c3398e60fac443a7979a63a56087ffac122542ab42bc5  /fast/scratch/hyaku/kake-r76/ExecQuoteRepair/counter-snapshot.py
+41600
+994
+$ diff $S/counter-snapshot.py .ufo/waves/round-76/w1/ExecQuoteCounter/doc_quote_truth.py
+(identical at snapshot time)
+
+AFTER tree: base a0491fcd + blocks/scorcard-append.md + blocks/quality-append.md + blocks/lesson-append.md, commit 04f18d3c
+$ git hash-object SCORECARD.md corpus/QUALITY.md corpus/lessons/round-75.md
+c6425d8daa8e224d5225b353e1953fc23ec551cd
+91c5fdab205b0f9b71d5977afa8bc48eabba720d
+2ec3960635b4a77c773d8f1fb1cc1a29c566fbf3
+
+== A. base ==
+$ python3 -B counter-snapshot.py --root . --revision a0491fcd041cbc3fff2c964ecf6268557e45a5c1 --base a0491fcd --rounds 75,76
+C1v2 revision=a0491fcd rows=16 receipt_files=10452 spans=25 exempted=0 corrections=0 findings=7 met=false
+  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0
+  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1
+  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0
+  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true
+  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0
+  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false
+  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false
+  missing corpus/lessons/round-76.md
+exit=1
+
+== B. after ==
+$ python3 -B counter-snapshot.py --root . --revision 04f18d3c7d4f948cc91837de087368dfed7e102f --base a0491fcd041cbc3fff2c964ecf6268557e45a5c1 --rounds 75,76
+C1v2 revision=04f18d3c rows=23 receipt_files=10452 spans=41 exempted=7 corrections=7 findings=0 met=true
+  missing corpus/lessons/round-76.md
+exit=0
+
+== C. no-repair tree (base + .ufo/waves/round-76/controls/* committed) ==
+$ python3 -B counter-snapshot.py --root . --revision 65e9994b03baa7e4862f453b978b13688d62e611 --base a0491fcd --rounds 75,76
+C1v2 revision=65e9994b rows=16 receipt_files=10455 spans=25 exempted=0 corrections=0 findings=7 met=false
+  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0
+  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1
+  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0
+  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true
+  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0
+  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false
+  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false
+  missing corpus/lessons/round-76.md
+exit=1

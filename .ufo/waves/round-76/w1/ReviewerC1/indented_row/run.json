@@ -1,0 +1,46 @@
+{
+  "name": "indented_row",
+  "command": [
+    "python3",
+    "-B",
+    "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+    "--root",
+    "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/indented_row",
+    "--revision",
+    "HEAD",
+    "--base",
+    "HEAD",
+    "--rounds",
+    "75,76",
+    "--json"
+  ],
+  "expected_rc": 1,
+  "observed_rc": 1,
+  "output": {
+    "counter": "c76_quote_truth/v1",
+    "revision": "HEAD",
+    "rounds": [
+      75,
+      76
+    ],
+    "rows": 1,
+    "receipt_files": 1,
+    "spans_checked": 1,
+    "spans_exempted": 0,
+    "corrections": 0,
+    "base": "HEAD",
+    "append_only": true,
+    "findings": [
+      {
+        "id": "T1",
+        "file": "SCORECARD.md",
+        "line": 5,
+        "detail": "zz=9"
+      }
+    ],
+    "missing_files": [
+      "corpus/lessons/round-75.md"
+    ],
+    "met": false
+  }
+}

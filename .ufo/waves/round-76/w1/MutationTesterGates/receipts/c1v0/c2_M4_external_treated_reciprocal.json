@@ -1,0 +1,20 @@
+{
+ "id": "M4_external_treated_reciprocal",
+ "desc": "treat every external target as reciprocal",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c2/M4_external_treated_reciprocal.py",
+ "old": "                _add(findings, index, \"hreflang_external_target\", alt[\"order\"],",
+ "new": "                (lambda *a, **k: None)(findings, index, \"hreflang_external_target\", alt[\"order\"],",
+ "sha_pristine": "0762452fd86e55d6e34dd9072260ff0ae864fdf9199b8ff4734d09ecb8b60aac",
+ "sha_mutant": "87ff308b8068ecf4b61398d80901098f60dcbc26e0f96bae77bb84fd77fc5605",
+ "selftest_rc": 1,
+ "selftest": "selftest 57/59 passed",
+ "matrix_rc": 1,
+ "wrong": [
+  "case external-target-mixed expected=exit0 ids=[\"hreflang_external_target\"] observed=exit0 ids=[] pages=2/2 json=ok verdict=wrong",
+  "case external-target-single expected=exit0 ids=[\"hreflang_external_target\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case external-target-trailing-slash expected=exit0 ids=[\"hreflang_external_target\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong"
+ ],
+ "tally": "cases=69 decided=66 correct=63 wrong=3 undecided=3 constants_failed=4/4 met=false",
+ "killed": true,
+ "survived": false
+}

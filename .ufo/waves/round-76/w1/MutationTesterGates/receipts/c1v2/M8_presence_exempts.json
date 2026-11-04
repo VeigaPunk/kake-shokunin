@@ -1,0 +1,33 @@
+{
+ "id": "M8_presence_exempts",
+ "desc": "treat a correction row's mere presence as exemption",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py",
+ "sha_before": "63af0ede46919b213c6dad414b26b9eef5cd23078d741afe0bdb940f44a966c8",
+ "sha_mutant": "760a48d8582dd72b849887452b3cb7c51b48a619b167bb106af23d8b22299546",
+ "old": "            if any(span in c[\"text\"] for c, _ in validated):",
+ "new": "            if corr:",
+ "verdict": {
+  "selftest_rc": 1,
+  "selftest": "RuntimeError: git -C /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M8_presence_exempts/green_commit_citation -c user.name=t -c user.email=t@t -c commit.gpgsign=false commit -q --no-verify -m fixture 2 failed: ",
+  "before_rc": 1,
+  "before": "NameError: name 'corr' is not defined",
+  "head_rc": 0,
+  "head": "C1v2 revision=b758cb04 rows=19 receipt_files=10458 spans=30 exempted=0 corrections=0 findings=0 met=true",
+  "probe_results_rc": 1,
+  "probe_results": "NameError: name 'corr' is not defined",
+  "probe_case_rc": 1,
+  "probe_case": "NameError: name 'corr' is not defined",
+  "raw": {
+   "before": "Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 819, in <module>\n    sys.exit(main(sys.argv[1:]))\n             ~~~~^^^^^^^^^^^^^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 799, in main\n    res = evaluate(root, a.revision, rounds, a.base)\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 410, in evaluate\n    if corr:\n       ^^^^\nNameError: name 'corr' is not defined\n",
+   "head": "C1v2 revision=b758cb04 rows=19 receipt_files=10458 spans=30 exempted=0 corrections=0 findings=0 met=true\n  missing corpus/lessons/round-76.md\n",
+   "probe_results": "Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 819, in <module>\n    sys.exit(main(sys.argv[1:]))\n             ~~~~^^^^^^^^^^^^^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 799, in main\n    res = evaluate(root, a.revision, rounds, a.base)\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 410, in evaluate\n    if corr:\n       ^^^^\nNameError: name 'corr' is not defined\n",
+   "probe_case": "Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 819, in <module>\n    sys.exit(main(sys.argv[1:]))\n             ~~~~^^^^^^^^^^^^^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 799, in main\n    res = evaluate(root, a.revision, rounds, a.base)\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 410, in evaluate\n    if corr:\n       ^^^^\nNameError: name 'corr' is not defined\n",
+   "selftest": "  FAIL  green_plain: want ids=[] rc=0; got rc=0 ids=[] rows=2 want 1\n  PASS  green_elision_same_receipt: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_elision_open_end: want ids=[] rc=0; got rc=0 ids=[]\n  PASS  green_hex_digest_in_receipt: want ids=[] rc=0; got rc=0 ids=[]\nTraceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 819, in <module>\n    sys.exit(main(sys.argv[1:]))\n             ~~~~^^^^^^^^^^^^^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 786, in main\n    return selftest(work)\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 557, in selftest\n    root, hashes = _fixture(work, \"green_commit_citation\", [\n                   ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        _pages(\"\"),\n        ^^^^^^^^^^^\n        _pages(f\"| S | `{hashes_short} ` |\\n\") if False else _pages(\"\"),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ])\n    ^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 482, in _fixture\n    _git_ok([\"-C\", str(root), \"-c\", \"user.name=t\", \"-c\", \"user.email=t@t\",\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n             \"-c\", \"commit.gpgsign=false\", \"commit\", \"-q\", \"--no-verify\", \"-m\", f\"fixture {idx}\"])\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1b/M8_presence_exempts.py\", line 462, in _git_ok\n    raise RuntimeError(f\"git {' '.join(args)} failed: {p.stderr.strip()}\")\nRuntimeError: git -C /fast/scratch/hyaku/kake-r76/MutationTesterGates/tmp/st_M8_presence_exempts/green_commit_citation -c user.name=t -c user.email=t@t -c commit.gpgsign=false commit -q --no-verify -m fixture 2 failed: \n"
+  }
+ },
+ "killed": true,
+ "why": [
+  "before-state changed"
+ ],
+ "survived": false
+}

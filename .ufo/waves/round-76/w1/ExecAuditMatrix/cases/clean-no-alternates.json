@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "contract C2 `hreflang_canonical_not_self`/`hreflang_self_missing` need a page with >=1 hreflang alternate; a page with none is judged by no policy finding, so a canonical pointing elsewhere is inert.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://beta.example/b\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-no-alternates"
+}

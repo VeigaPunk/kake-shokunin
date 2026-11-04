@@ -1,0 +1,25 @@
+{
+ "decided": false,
+ "derivation": "neither contract C2 nor amendment 2 states an encoding policy: `input_unreadable` is listed but not defined for bytes that are readable as *some* text, and HTML supplies a fallback-encoding algorithm. The expected {exit, ids} is not derivable.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": {
+   "b64": "//48aHRtbD4AgA=="
+  }
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "undecided-unreadable-undecodable",
+ "note": "encoding policy unstated; excluded from the score."
+}

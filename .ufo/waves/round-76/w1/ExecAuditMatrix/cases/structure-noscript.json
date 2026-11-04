@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "amendment A14: content inside <noscript> is scanned as markup, so the wrapped en_US link is one `hreflang_invalid_tag`.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_invalid_tag"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<noscript><link rel=\"alternate\" hreflang=\"en_US\" href=\"https://alpha.example/a\"></noscript>\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "structure-noscript"
+}

@@ -1,0 +1,18 @@
+$ git clone --shared <lane> repo2 && git checkout a0491fcd && git apply receipts/04-diff.patch && git commit
+patch HEAD=f220ff257da852675bffa90234066487c8f2fa12
+
+$ python3 -B .ufo/waves/round-76/w1/ExecQuoteCounter/doc_quote_truth.py --root . --revision f220ff257da852675bffa90234066487c8f2fa12 --base a0491fcd041cbc3fff2c964ecf6268557e45a5c1 --rounds 75,76
+C1v2 revision=f220ff25 rows=26 receipt_files=10452 spans=30 exempted=8 corrections=7 findings=0 met=true
+  missing corpus/lessons/round-76.md
+exit=0
+
+$ python3 -B .ufo/waves/round-76/c76_quote_truth.py --root . --revision f220ff257da852675bffa90234066487c8f2fa12 --base a0491fcd041cbc3fff2c964ecf6268557e45a5c1 --rounds 75,76
+C1v1 revision=f220ff25 rows=26 receipt_files=10452 spans=30 exempted=8 corrections=7 findings=0 met=true
+  missing corpus/lessons/round-76.md
+exit=0
+
+$ git hash-object SCORECARD.md corpus/QUALITY.md corpus/lessons/round-75.md
+c6425d8daa8e224d5225b353e1953fc23ec551cd
+91c5fdab205b0f9b71d5977afa8bc48eabba720d
+2ec3960635b4a77c773d8f1fb1cc1a29c566fbf3
+($ git -C ..\/repo hash-object … for the working clone)

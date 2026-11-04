@@ -1,0 +1,31 @@
+{
+ "decided": true,
+ "derivation": "contract C2 + A2: A lists only en to B (so once `hreflang_self_missing` for the page) and B has no alternates (so once `hreflang_nonreciprocal` for A's annotation); B has no alternates and no clause applies to it.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_nonreciprocal",
+   "hreflang_self_missing"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://beta.example/b\">\n</head><body></body></html>\n",
+  "b.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://beta.example/b\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "b.html",
+    "id": "b",
+    "url": "https://beta.example/b"
+   }
+  ],
+  "version": 1
+ },
+ "name": "multi-self-missing-and-nonreciprocal"
+}

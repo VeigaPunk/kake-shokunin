@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "amendment A15: a manifest whose version is not 1 is exit 64. A16 still requires a parseable report object carrying version, pages, findings, counts and exit.",
+ "expected": {
+  "exit": 64,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 2
+ },
+ "name": "input-version-not-1"
+}

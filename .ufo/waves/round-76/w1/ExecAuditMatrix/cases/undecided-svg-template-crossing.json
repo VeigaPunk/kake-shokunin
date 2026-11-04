@@ -1,0 +1,23 @@
+{
+ "decided": false,
+ "derivation": "no contract or amendment rule decides a <template> that closes inside an <svg> subtree (per-element counters vs a stack), per ScoutHreflangEdge row 72.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<template><svg><link rel=\"alternate\" hreflang=\"en_US\" href=\"https://alpha.example/a\"></template>\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "undecided-svg-template-crossing",
+ "note": "boundary crossing undecided; excluded from the score."
+}

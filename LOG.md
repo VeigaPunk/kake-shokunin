@@ -2537,3 +2537,70 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Adjudicated corner (recorded, not smoothed).** Sibling lanes already hold the digest-binding primitive (tabi measurement binding, chousa digest-in-tree, souji `TOOL_SHA256`, tameshi receipt-revision); kake's distinct ground is the registry-derived instrument inventory. S443 is new inside kake's S-space only (tameshi's S281 is the same bytes). `corpus/QUALITY.md` gets one appended criterion: a registry row's claim is executable as written, and its live/historical label is the row's own.
 - **Routed (not claimed).** (i) `--base` is optional in the counter; without it `append_only=true` is reported without evidence (row now requires `--base`, residual named in the lesson). (ii) E2 keeps last-pair semantics: a cell with two different tallies is ambiguous rather than red (ReviewerC1 F15, recorded as residual). (iii) `corpus/knowledge/instrument-receipts.json` sits outside `c58_receipt_rewrites.py`'s watched `controls/` population; the carrier receipt records its sha256/bytes, and binding the checker itself (`tool_sha256`) is an operator decision. (iv) The superseded `c74_registry_gap.py` docstring still says "five contract fixtures" — append-only correction is a next-round item.
 - **Not done this round.** No publish or deploy; the only network reads were the in-toto spec fetch (HTTP 200) and the lane's own bytes; no MANIFEST edit; no tool installed or upgraded; pacman untouched.
+
+## Round 76 — 2026-11-03 (hyaku run 15; attempt 1; Linux host; claims frozen before any seat ran)
+
+- **Frozen contract.** `.ufo/waves/round-76/contract.md` at `b758cb04` with the L1's v1 counter
+  (`c76_quote_truth.py`) and five red controls under `controls/` (`ctl-do-nothing`, `ctl-junk-correction`,
+  `ctl-launder`, `ctl-deletion`, `ctl-cheap-content`). Amendments 1 (`783c7c13`, real-input population = 8
+  retained served pages), 2 (`e674bc60`, 16 undecided hreflang classes decided), 3 (`6b52407b`,
+  revision-versus-digest, section identity, whole-line correction closure, exact append-only, ready
+  artifacts, re-measured before-state), 4 (`f4f076ba`, the counter's own diagnostics are never receipts),
+  5 (`152bffd5`, receipt directories only, diagnostic-line stripping, the delivered selftest must run),
+  6 and 7 (`d2555766`, canonical/x-default granularity; seat-tree exclusion newest round only) and 8
+  (`d00ea7fb`, same-tag reciprocity is a stricter lane policy; frozen ASCII grammar is not BCP-47) are
+  terms-only and recorded before their after-states.
+- **Motivating evidence.** The round-75 non-author closure routed eight defects
+  (`corpus/lessons/round-75-verifier-spotcheck.md` §6) and the round-75 lesson five more; six were
+  documentation quotes that no committed receipt line contains, two were stale digests, and the rest are
+  dispositions in `corpus/lessons/round-76.md` §Routed dispositions.
+- **Wave `w1`.** One v1 wave, 15 seats: scout 2, executor 5, scribe 2, reviewer 2, critic 1,
+  mutation-tester 1, connector 1, sentinel 1; attack share 4/15 = 26.7 %; the L1 held the planner seat.
+  Spec `w1-spec.json`, dispatch `w1-dispatch.json`, ready `w1.ready`, registry `w1/swarm-registry.json`.
+- **C1 landed and measured.** `scripts/doc_quote_truth.py` (hardened from the frozen v1, selftest 47/47)
+  re-derives every claim-bearing span in the round-75/76 claim rows against committed receipts, strips
+  diagnostic lines, and requires `--base` for the append-only conjunct. Base `a0491fcd`: seven findings over
+  16 rows, met=false, exit 1 (`controls/base-c1-quote-truth-v2.txt`). The repair lands seven whole-line
+  correction rows in `SCORECARD.md`, one `corpus/QUALITY.md` criterion and one `corpus/lessons/round-75.md`
+  correction; at the carrier the counter prints no findings, append_only=true, met=true, exit 0
+  (`controls/after-c1-quote-truth.txt`). The no-repair control stays red (base + the round's controls =
+  seven findings), which is the do-nothing evidence the contract requires.
+- **C2 landed and measured (capability).** `scripts/hreflang_audit.py` (selftest 59/59) audits hreflang
+  declarations offline on a version-1 manifest. Frozen matrix: `cases=71 decided=69 correct=69 wrong=0
+  undecided=2 constants_failed=4/4 met=true`, exit 0 (`controls/after-c2-matrix.txt`) — every constant
+  (no-op, always-clean, report-all, empty-list) fails at least one case. Real input: the eight retained
+  served pages of the round-23 surfaces, each `page.html` verified against its retained `fetch.json`
+  sha256; `pages=8 findings=[] exit=0` (`controls/after-c2-realrun.txt`), the four not-served surfaces
+  recorded as `not-served (no retained bytes)`. Honest limit: only one of the eight pages declares hreflang
+  at all (`x-default` + `en` to itself, canonical self), so the real run is clean because the population is
+  nearly declaration-free, not because the tool is exercised by it.
+- **Frontier and sources.** `corpus/SOURCES.md` 181 → 184 rows: S444 (Google localized versions, tier A
+  docs, opened 2026-11-03, HTTP 200, 199,246 B, sha256 `12fbe281…dc8d7b`), S445 (WHATWG HTML
+  `hreflang`/`alternate`, 381,019 B, sha256 `2f21e82b…eec3`), S446 (RFC 5646 / BCP 47, 208,592 B, sha256
+  `5d9515f0…8228`); census exit 0 at round start and at end. New entry
+  `corpus/knowledge/hreflang-declaration.md` cites all three, plus `corpus/README.md` coverage rows. The
+  Gate records three admits and two rejects: the canonical-interaction rule is not stated by any opened
+  source (lane policy, not sourced fact) and `x-default`'s reserved status rests on S444 alone.
+  Assimilation: none — the connector re-checked `merge/kake/` and found every staged id (S287–S415) below
+  the registry tip with eight occupied and different, so adoption as written would rewrite held rows and
+  insert ids mid-file (`w1/ConnectorOverlap.md` §2). First legal id for new rows is S444, used.
+- **Mistakes mined.** (i) A diagnostic receipt laundered the defects it reported — the counter's own
+  finding lines made absent spans "contiguous" and the do-nothing control turned green; the fix is the
+  receipt-universe rule plus diagnostic-line stripping, proven by a red no-repair control. (ii) A frozen
+  counter's selftest could not run (duplicate fixture payload, `git commit` exit 1, harness raise) and four
+  mutants survived behind it; the delivered build runs 47/47 and the mutation seat re-scored it.
+- **Corrections (round-75 closure R1/R2).** The round-75 entry named the hardened counter as `0699a672…`
+  and the receipt as `f3128628…` (both the blobs at `4e3fc159`). Re-derived at `a0491fcd`
+  (`controls/r1-r2-digests.txt`): counter
+  `63e321b28e509781405f1b4209a66b99460bc2512c92a8615fec06f2423e944b`, receipt
+  `15768f81460bcbf991bacf9ffdf6a2145d32f4de7d952f52526589d8013e6613` (3,793 B), tool
+  `162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7`. Superseded, not rewritten:
+  the round-75 entry stands as filed.
+- **Routed (not claimed).** The two sidecar tools remain outside the instrument receipt (binding them moves
+  the population 18 → 20 and reddens `--check` until a new receipt is written); the E2 multi-pair ambiguity
+  and the carrier-receipt watch stay with the operator; three hreflang matrix classes stay undecided
+  (href whitespace asymmetry, the shared-file fault id, crossing/encoding policy); the freshness sweep
+  still exits 1 on the single `~/projects` drift (open L0 `kake | round-69`).
+- **Not done this round.** No publish or deploy; network reads were the three public documentation fetches
+  (each HTTP 200, retained under the wave dir); no operator-owned property fetched; no MANIFEST edit; no
+  tool installed or upgraded; pacman untouched.

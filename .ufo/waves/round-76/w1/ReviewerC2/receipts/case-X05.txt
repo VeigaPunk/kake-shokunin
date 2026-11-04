@@ -1,0 +1,6 @@
+case: X05
+tool: /fast/scratch/hyaku/kake-r76/ReviewerC2-7/pinned/hreflang_audit.py
+command: TMPDIR=/fast/scratch/hyaku/kake-r76/ReviewerC2-7/tmp python3 -B /fast/scratch/hyaku/kake-r76/ReviewerC2-7/pinned/hreflang_audit.py --manifest /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ReviewerC2/fixtures/X05/manifest.json --root /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ReviewerC2/fixtures/X05 --json
+--- stdout ---
+{"version": 1, "pages": 2, "findings": [{"id": "hreflang_relative_href", "severity": "policy", "page": "en", "detail": "alternate href is not absolute with a host (href='page')"}, {"id": "hreflang_self_missing", "severity": "policy", "page": "en", "detail": "no absolute alternate equals the page's own url https://a.example/dir/page"}], "counts": {"policy": 2, "info": 0, "input": 0, "by_id": {"hreflang_missing_value": 0, "hreflang_invalid_tag": 0, "hreflang_relative_href": 1, "hreflang_duplicate_pair": 0, "hreflang_multiple_xdefault": 0, "hreflang_self_missing": 1, "hreflang_nonreciprocal": 0, "hreflang_canonical_not_self": 0, "hreflang_external_target": 0, "input_unreadable": 0, "input_duplicate_url": 0, "input_url_not_absolute": 0}}, "exit": 1}
+exit: 1

@@ -1,0 +1,741 @@
+[
+  {
+    "name": "unrelated_round",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/unrelated_round",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 0,
+    "observed_rc": 0,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": true
+    }
+  },
+  {
+    "name": "seat_prose",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/seat_prose",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "zz=9"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "dispatcher_prose",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/dispatcher_prose",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "zz=9"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "elision_split",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/elision_split",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 2,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T2",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "aa=1 \u2026 zz=9"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "different_span",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/different_span",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 2,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 1,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "zz=9"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "nonreceipt_correction",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/nonreceipt_correction",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 2,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T4",
+          "file": "SCORECARD.md",
+          "line": 6,
+          "detail": "correction line carries no validated receipt quote"
+        },
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "zz=9"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "fabricated_digest",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/fabricated_digest",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "pipe_span",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/pipe_span",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "aa=1|bb=2"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "newline_escape",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/newline_escape",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "aa=1\\nbb=2"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "indented_row",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/indented_row",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "zz=9"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "round7_prefix",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/round7_prefix",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 0,
+    "observed_rc": 0,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 0,
+      "receipt_files": 1,
+      "spans_checked": 0,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": true
+    }
+  },
+  {
+    "name": "duplicate_correction",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/duplicate_correction",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 0,
+    "observed_rc": 0,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 3,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 1,
+      "corrections": 2,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": true
+    }
+  },
+  {
+    "name": "single_letter_assignment",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/single_letter_assignment",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 0,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 0,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": true
+    }
+  },
+  {
+    "name": "correction_partial_line",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/correction_partial_line",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 0,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 2,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 1,
+      "corrections": 1,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": true
+    }
+  },
+  {
+    "name": "ready_marker",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/ready_marker",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 0,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 2,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": true
+    }
+  },
+  {
+    "name": "wrong_heading_level",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/wrong_heading_level",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 0,
+    "observed_rc": 1,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 1,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 0,
+      "corrections": 0,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [
+        {
+          "id": "T1",
+          "file": "SCORECARD.md",
+          "line": 5,
+          "detail": "zz=9"
+        }
+      ],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": false
+    }
+  },
+  {
+    "name": "correction_extra_false_claim",
+    "command": [
+      "python3",
+      "-B",
+      "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/c76_quote_truth.py",
+      "--root",
+      "/fast/scratch/hyaku/kake-r76/ReviewerC1/fixtures/correction_extra_false_claim",
+      "--revision",
+      "HEAD",
+      "--base",
+      "HEAD",
+      "--rounds",
+      "75,76",
+      "--json"
+    ],
+    "expected_rc": 1,
+    "observed_rc": 0,
+    "output": {
+      "counter": "c76_quote_truth/v1",
+      "revision": "HEAD",
+      "rounds": [
+        75,
+        76
+      ],
+      "rows": 2,
+      "receipt_files": 1,
+      "spans_checked": 1,
+      "spans_exempted": 1,
+      "corrections": 1,
+      "base": "HEAD",
+      "append_only": true,
+      "findings": [],
+      "missing_files": [
+        "corpus/lessons/round-75.md"
+      ],
+      "met": true
+    }
+  }
+]

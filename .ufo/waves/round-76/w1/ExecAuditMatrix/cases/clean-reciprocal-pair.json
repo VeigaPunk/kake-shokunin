@@ -1,0 +1,28 @@
+{
+ "decided": true,
+ "derivation": "contract C2 `hreflang_nonreciprocal`: manifest-internal B declares a return alternate with A's url and tag en (A2/A3: tag equality is ASCII case-insensitive, URLs compare after RFC 3986 normalization and are equal here); both list themselves and canonical self.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://beta.example/b\">\n</head><body></body></html>\n",
+  "b.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "b.html",
+    "id": "b",
+    "url": "https://beta.example/b"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-reciprocal-pair"
+}

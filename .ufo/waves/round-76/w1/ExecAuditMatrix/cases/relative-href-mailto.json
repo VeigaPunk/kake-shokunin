@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "amendment A12: 'mailto:x@alpha.example' has a scheme but no authority, so it is not an absolute URL with scheme and authority; A4 keeps it a single `hreflang_relative_href`.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_relative_href"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"mailto:x@alpha.example\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "relative-href-mailto"
+}

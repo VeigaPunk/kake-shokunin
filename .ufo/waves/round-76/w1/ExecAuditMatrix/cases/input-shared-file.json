@@ -1,0 +1,29 @@
+{
+ "decided": true,
+ "derivation": "amendment A15: 'Two pages may not share a `file`.' The clause sits in the input-fault block whose id vocabulary is closed (input_unreadable, input_duplicate_url, input_url_not_absolute); a shared file is neither a duplicate url nor a non-absolute url, so the fault is `input_unreadable`, emitted once for the offending (second) manifest entry under A2.",
+ "expected": {
+  "exit": 2,
+  "ids": [
+   "input_unreadable"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "a.html",
+    "id": "b",
+    "url": "https://beta.example/b"
+   }
+  ],
+  "version": 1
+ },
+ "name": "input-shared-file"
+}

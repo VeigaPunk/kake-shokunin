@@ -1,0 +1,33 @@
+{
+ "id": "M8_presence_exempts",
+ "desc": "treat a correction row's mere presence as exemption",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c1/M8_presence_exempts.py",
+ "sha_before": "c931178067bfb53f3d54e59ae10b24fd62550f80403f34244ac10a652da068e3",
+ "sha_mutant": "944f6efb0fa54a2ef1fb693255fef6030b8abae7902de30f22201e2c85d0e701",
+ "old": "            if any(span in c[\"text\"] for c, _ in validated):",
+ "new": "            if corr:",
+ "verdict": {
+  "selftest_rc": 1,
+  "selftest": "selftest: 11/13 passed",
+  "before_rc": 1,
+  "before": "C1v1 revision=a0491fcd rows=19 receipt_files=10452 spans=30 exempted=0 corrections=0 findings=8 met=false",
+  "head_rc": 0,
+  "head": "C1v1 revision=b758cb04 rows=19 receipt_files=10458 spans=30 exempted=0 corrections=0 findings=0 met=true",
+  "probe_results_rc": 1,
+  "probe_results": "C1v1 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false",
+  "probe_case_rc": 1,
+  "probe_case": "C1v1 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false",
+  "raw": {
+   "before": "C1v1 revision=a0491fcd rows=19 receipt_files=10452 spans=30 exempted=0 corrections=0 findings=8 met=false\n  T1 SCORECARD.md:4892 files=18 mismatches=0 append_only=true met=true missing_frozen=0\n  T1 SCORECARD.md:4892 mismatches=3 classes=E3 append_only=false missing_frozen=1\n  T1 SCORECARD.md:4893 population=18 bound=18 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4893 receipt: source=committed declared_valid=true\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 SCORECARD.md:4904 mismatches=0 met=true missing_frozen=0\n  T1 corpus/QUALITY.md:1499 files=15 append_only=false met=false\n  T1 corpus/lessons/round-75.md:82 files=15 append_only=false met=false\n  missing corpus/lessons/round-76.md\n",
+   "head": "C1v1 revision=b758cb04 rows=19 receipt_files=10458 spans=30 exempted=0 corrections=0 findings=0 met=true\n  missing corpus/lessons/round-76.md\n",
+   "probe_results": "C1v1 revision=HEAD rows=2 receipt_files=0 spans=1 exempted=0 corrections=0 findings=1 met=false\n  T1 SCORECARD.md:5 zz=9 xy=1\n  missing corpus/lessons/round-75.md\n",
+   "probe_case": "C1v1 revision=HEAD rows=2 receipt_files=1 spans=1 exempted=0 corrections=0 findings=1 met=false\n  T1 SCORECARD.md:5 MET=TRUE\n  missing corpus/lessons/round-75.md\n",
+   "selftest": "  PASS  t1_noncontiguous: want ['T1'] rc=1; got ['T1'] rc=1\n  PASS  t1_absent: want ['T1'] rc=1; got ['T1'] rc=1\n  PASS  t2_elision_bad: want ['T2'] rc=1; got ['T2'] rc=1\n  PASS  ok_elision: want [] rc=0; got [] rc=0\n  PASS  ok_plain: want [] rc=0; got [] rc=0\n  PASS  ok_digest: want [] rc=0; got [] rc=0\n  PASS  ok_commit: want [] rc=0; got [] rc=0\n  PASS  t1_ratio: want ['T1'] rc=1; got ['T1'] rc=1\n  PASS  t2_elision_mixed_receipt: want ['T2'] rc=1; got ['T2'] rc=1\n  PASS  ok_correction_exempts: want [] rc=0; got [] rc=0\n  FAIL  t4_junk_correction: want ['T1', 'T4'] rc=1; got ['T4'] rc=1\n  FAIL  t4_correction_no_span: want ['T1', 'T4'] rc=1; got ['T4'] rc=1\n  PASS  a1_deleted_row: want ['A1', 'T1'] rc=1; got ['A1', 'T1'] rc=1\nselftest: 11/13 passed\n"
+  }
+ },
+ "killed": true,
+ "why": [
+  "selftest red"
+ ],
+ "survived": false
+}

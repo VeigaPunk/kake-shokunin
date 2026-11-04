@@ -1,0 +1,87 @@
+# command: python3 -B .ufo/waves/round-76/w1/ExecAuditMatrix/c76_hreflang_matrix.py --root . --tool $S/ref/ref_hreflang_audit.py --revision b758cb040d53374b1b63b89702c7128f77212d23 --work $S/work/ref-final
+# cwd: /home/vgpnk/Projects/shokunin/kake-shokunin
+# python: Python 3.14.8
+# date: 2026-11-04T01:09:42Z
+# note: stand-in reference implementation of contract C2 + amendment 2 (scratch copy, mirrored at receipts/ref_hreflang_audit.py)
+# ----
+tool=/fast/scratch/hyaku/kake-r76/ExecAuditMatrix/ref/ref_hreflang_audit.py
+tool_sha256=60507b5ebe1a44e51a175f28b3bcc827cf3d051a3c08ca2a0258ddd4fdda9a6d
+cases_sha256=fa64d448331aa0b2ae4a851afd6e5815919320e8f1381ece0c35283d3bbd9fb5
+revision=b758cb040d53374b1b63b89702c7128f77212d23 revision_ok=yes head=d2555766a1de6a5ccaa4458961e863a4aeccba6f
+case canonical-first-wins expected=exit1 ids=["hreflang_canonical_not_self"] observed=exit1 ids=["hreflang_canonical_not_self"] pages=2/2 json=ok verdict=correct
+case canonical-not-self expected=exit1 ids=["hreflang_canonical_not_self"] observed=exit1 ids=["hreflang_canonical_not_self"] pages=2/2 json=ok verdict=correct
+case canonical-with-hreflang expected=exit1 ids=["hreflang_canonical_not_self"] observed=exit1 ids=["hreflang_canonical_not_self"] pages=2/2 json=ok verdict=correct
+case clean-alternate-stylesheet expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-canonical-absent expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-comment-script-ignored expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-entity-self expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-href-absent expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-http-scheme expected=exit0 ids=[] observed=exit0 ids=[] pages=2/2 json=ok verdict=correct
+case clean-math-ignored expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-mutual-triple expected=exit0 ids=[] observed=exit0 ids=[] pages=3/3 json=ok verdict=correct
+case clean-no-alternates expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-reciprocal-pair expected=exit0 ids=[] observed=exit0 ids=[] pages=2/2 json=ok verdict=correct
+case clean-self-only-two-tags expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-tag-case-uppercase expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-template-ignored expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-url-normalized-self expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-valid-tags-multi expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case clean-xdefault-uppercase expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=correct
+case duplicate-pair-case-folded expected=exit1 ids=["hreflang_duplicate_pair"] observed=exit1 ids=["hreflang_duplicate_pair"] pages=1/1 json=ok verdict=correct
+case duplicate-pair-entity-decoded expected=exit1 ids=["hreflang_duplicate_pair"] observed=exit1 ids=["hreflang_duplicate_pair"] pages=1/1 json=ok verdict=correct
+case duplicate-pair-exact expected=exit1 ids=["hreflang_duplicate_pair"] observed=exit1 ids=["hreflang_duplicate_pair"] pages=1/1 json=ok verdict=correct
+case duplicate-pair-two-pairs expected=exit1 ids=["hreflang_duplicate_pair", "hreflang_duplicate_pair"] observed=exit1 ids=["hreflang_duplicate_pair", "hreflang_duplicate_pair"] pages=1/1 json=ok verdict=correct
+case external-target-mixed expected=exit0 ids=["hreflang_external_target"] observed=exit0 ids=["hreflang_external_target"] pages=2/2 json=ok verdict=correct
+case external-target-single expected=exit0 ids=["hreflang_external_target"] observed=exit0 ids=["hreflang_external_target"] pages=1/1 json=ok verdict=correct
+case external-target-trailing-slash expected=exit0 ids=["hreflang_external_target"] observed=exit0 ids=["hreflang_external_target"] pages=1/1 json=ok verdict=correct
+case input-duplicate-url expected=exit2 ids=["input_duplicate_url"] observed=exit2 ids=["input_duplicate_url"] pages=2/2 json=ok verdict=correct
+case input-file-absolute expected=exit2 ids=["input_unreadable"] observed=exit2 ids=["input_unreadable"] pages=1/1 json=ok verdict=correct
+case input-file-escapes-root expected=exit2 ids=["input_unreadable"] observed=exit2 ids=["input_unreadable"] pages=1/1 json=ok verdict=correct
+case input-file-not-regular expected=exit2 ids=["input_unreadable"] observed=exit2 ids=["input_unreadable"] pages=1/1 json=ok verdict=correct
+case input-file-symlink expected=exit2 ids=["input_unreadable"] observed=exit2 ids=["input_unreadable"] pages=1/1 json=ok verdict=correct
+case input-policy-and-fault expected=exit2 ids=["hreflang_invalid_tag", "input_unreadable"] observed=exit2 ids=["hreflang_invalid_tag", "input_unreadable"] pages=2/2 json=ok verdict=correct
+case input-shared-file expected=exit2 ids=["input_unreadable"] observed=exit2 ids=["input_unreadable"] pages=2/2 json=ok verdict=correct
+case input-two-faults expected=exit2 ids=["input_duplicate_url", "input_unreadable"] observed=exit2 ids=["input_duplicate_url", "input_unreadable"] pages=2/2 json=ok verdict=correct
+case input-unreadable-missing-file expected=exit2 ids=["input_unreadable"] observed=exit2 ids=["input_unreadable"] pages=1/1 json=ok verdict=correct
+case input-url-not-absolute expected=exit2 ids=["input_url_not_absolute"] observed=exit2 ids=["input_url_not_absolute"] pages=1/1 json=ok verdict=correct
+case input-version-not-1 expected=exit64 ids=[] observed=exit64 ids=[] pages=1/1 json=ok verdict=correct
+case invalid-tag-double-hyphen expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-extension expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-extlang expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-grandfathered-oed expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-i-klingon expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-long-primary expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-padded expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-privateuse expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-sgn expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-singleton-extension expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-space expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-trailing-dash expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-underscore expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-word expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case invalid-tag-x-defaults expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case missing-value-bare-alternate expected=exit1 ids=["hreflang_missing_value"] observed=exit1 ids=["hreflang_missing_value"] pages=1/1 json=ok verdict=correct
+case missing-value-empty-attribute expected=exit1 ids=["hreflang_missing_value"] observed=exit1 ids=["hreflang_missing_value"] pages=1/1 json=ok verdict=correct
+case missing-value-with-valid-self expected=exit1 ids=["hreflang_missing_value"] observed=exit1 ids=["hreflang_missing_value"] pages=1/1 json=ok verdict=correct
+case multi-missing-value-and-invalid-tag expected=exit1 ids=["hreflang_invalid_tag", "hreflang_missing_value"] observed=exit1 ids=["hreflang_invalid_tag", "hreflang_missing_value"] pages=1/1 json=ok verdict=correct
+case multi-self-missing-and-nonreciprocal expected=exit1 ids=["hreflang_nonreciprocal", "hreflang_self_missing"] observed=exit1 ids=["hreflang_nonreciprocal", "hreflang_self_missing"] pages=2/2 json=ok verdict=correct
+case multiple-xdefault-pair expected=exit1 ids=["hreflang_multiple_xdefault", "hreflang_multiple_xdefault", "hreflang_multiple_xdefault", "hreflang_multiple_xdefault"] observed=exit1 ids=["hreflang_multiple_xdefault", "hreflang_multiple_xdefault", "hreflang_multiple_xdefault", "hreflang_multiple_xdefault"] pages=2/2 json=ok verdict=correct
+case nonreciprocal-absent expected=exit1 ids=["hreflang_nonreciprocal"] observed=exit1 ids=["hreflang_nonreciprocal"] pages=2/2 json=ok verdict=correct
+case nonreciprocal-different-tag expected=exit1 ids=["hreflang_nonreciprocal", "hreflang_nonreciprocal"] observed=exit1 ids=["hreflang_nonreciprocal", "hreflang_nonreciprocal"] pages=2/2 json=ok verdict=correct
+case relative-href-fragment expected=exit1 ids=["hreflang_relative_href"] observed=exit1 ids=["hreflang_relative_href"] pages=1/1 json=ok verdict=correct
+case relative-href-mailto expected=exit1 ids=["hreflang_relative_href"] observed=exit1 ids=["hreflang_relative_href"] pages=1/1 json=ok verdict=correct
+case relative-href-path expected=exit1 ids=["hreflang_relative_href"] observed=exit1 ids=["hreflang_relative_href"] pages=1/1 json=ok verdict=correct
+case relative-href-protocol-relative expected=exit1 ids=["hreflang_relative_href"] observed=exit1 ids=["hreflang_relative_href"] pages=1/1 json=ok verdict=correct
+case self-missing-pair expected=exit1 ids=["hreflang_self_missing"] observed=exit1 ids=["hreflang_self_missing"] pages=2/2 json=ok verdict=correct
+case structure-noscript expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case structure-rel-uppercase expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case structure-svg-selfclosed expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case structure-unquoted-attrs expected=exit1 ids=["hreflang_invalid_tag"] observed=exit1 ids=["hreflang_invalid_tag"] pages=1/1 json=ok verdict=correct
+case undecided-svg-template-crossing expected=exit0 ids=[] observed=exit0 ids=[] pages=1/1 json=ok verdict=undecided
+case undecided-unreadable-undecodable expected=exit0 ids=[] observed=exit2 ids=["input_unreadable"] pages=1/1 json=ok verdict=undecided
+constant const_always_clean.py failed=53/69 first=["canonical-first-wins", "canonical-not-self", "canonical-with-hreflang"] passes_all=no
+constant const_empty_list.py failed=47/69 first=["canonical-first-wins", "canonical-not-self", "canonical-with-hreflang"] passes_all=no
+constant const_noop.py failed=69/69 first=["canonical-first-wins", "canonical-not-self", "canonical-with-hreflang"] passes_all=no
+constant const_report_all.py failed=69/69 first=["canonical-first-wins", "canonical-not-self", "canonical-with-hreflang"] passes_all=no
+cases=71 decided=69 correct=69 wrong=0 undecided=2 constants_failed=4/4 met=true
+# exit=0

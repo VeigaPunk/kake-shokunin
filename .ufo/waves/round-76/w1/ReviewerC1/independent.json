@@ -1,0 +1,357 @@
+{
+  "rows": 16,
+  "receipt_files": 10452,
+  "spans": 25,
+  "absent": [
+    {
+      "file": "SCORECARD.md",
+      "line": 4892,
+      "span": "files=18 mismatches=0 append_only=true met=true missing_frozen=0",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4892,
+      "span": "mismatches=3 classes=E3 append_only=false missing_frozen=1",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4893,
+      "span": "population=18 bound=18 mismatches=0 met=true missing_frozen=0",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4893,
+      "span": "receipt: source=committed declared_valid=true",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4904,
+      "span": "mismatches=0 met=true missing_frozen=0",
+      "receipt_hits": []
+    },
+    {
+      "file": "corpus/QUALITY.md",
+      "line": 1499,
+      "span": "files=15 append_only=false met=false",
+      "receipt_hits": []
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 82,
+      "span": "files=15 append_only=false met=false",
+      "receipt_hits": []
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 102,
+      "span": "6c10b433",
+      "receipt_hits": []
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 102,
+      "span": "ca1a2982",
+      "receipt_hits": []
+    }
+  ],
+  "population": [
+    [
+      "SCORECARD.md",
+      4892,
+      "| C1 registry rows re-derive by execution | calibration 2\u21922 HOLD | base `c9c5e484`: `rows=28 live=16 files=16 mismatches=2 classes=E1 E3 append_only=true met=false missing_frozen=0`, exit 1 (`.ufo/waves/round-75/controls/base-c1-row-truth.txt`) \u2192 tip `f87d14a9`: `files=18 mismatches=0 append_only=true met=true missing_frozen=0`, exit 0 (`.ufo/waves/round-75/controls/after-c1-row-truth.txt`) | `python3 -B .ufo/waves/round-75/c75_row_truth.py --root . --revision <rev> --base c9c5e484c533aa65f4374b841a3edcf572ed19a9 --work <scratch>` | measured met; the two findings are the round-74 closure's R1 and R2; counter selftest 29/29; cheap-content and deletion controls red with the landed counter (`controls/ctl-cheapcontent-landed.txt`; `controls/ctl-deletion-landed.txt`: `mismatches=3 classes=E3 append_only=false missing_frozen=1`) |"
+    ],
+    [
+      "SCORECARD.md",
+      4893,
+      "| C2 instruments bound to a committed digest receipt | operability 10\u219210 HOLD (capability) | base: `population=16 bound=0 mismatches=16 met=false`, exit 1 (`controls/base-c2-receipts.txt`) \u2192 tip `f87d14a9`: `population=18 bound=18 mismatches=0 met=true missing_frozen=0`, `receipt: source=committed declared_valid=true`, exit 0 (`controls/after-c2-receipts.txt`) | `python3 -B scripts/instrument_receipts.py --root . --revision <rev> --check` | measured met; population 18 = the frozen 16 floor + this round's two instruments; tool selftest 17/17; fabricated/dropped/modeflip/uncommitted/unresolved-revision fakes red |"
+    ],
+    [
+      "SCORECARD.md",
+      4899,
+      "| Registry instrument receipt binding | Derives the lane's live instrument population from `SKILL.md` by two independent implementations, pins `{sha256, bytes, selftest_mode}` per file in a committed receipt read from committed bytes, validates the receipt's declared revision as an ancestor of the measured one, and re-derives every field (`--check`); the inventory, not the digest primitive, is the new ground \u2014 sibling lanes hold working variants (tabi, chousa, souji, tameshi) | `scripts/instrument_receipts.py` (selftest 17/17) and `.ufo/waves/round-75/controls/after-c2-receipts.txt` | 75 |"
+    ],
+    [
+      "SCORECARD.md",
+      4904,
+      "| 75 | calibration (HOLD 2) | `mismatches=2 classes=E1 E3`, exit 1 | `mismatches=0 met=true missing_frozen=0`, exit 0 over 18 files | `.ufo/waves/round-75/c75_row_truth.py`, `SKILL.md` `### Round 75 gate registry additions`, `corpus/lessons/round-75.md` |"
+    ],
+    [
+      "SCORECARD.md",
+      4905,
+      "| 75 | operability (HOLD 10) | `bound=0 mismatches=16`, exit 1 | `bound=18 mismatches=0 met=true`, `source=committed`, exit 0 | `scripts/instrument_receipts.py`, `corpus/knowledge/instrument-receipts.json`, `controls/after-c2-receipts.txt` |"
+    ],
+    [
+      "corpus/QUALITY.md",
+      1499,
+      "- **A gate-registry row's claim is executable as written, and its live/historical label is the row's own.** Admit: every live-labelled row (`historical` absent from the Kind cell) names a command that runs at the measured revision and whose observed output is the state the row records \u2014 a `gate` row exits 0 from a `--selftest` that *its own* file registers (a command naming another file does not bind), or its Kind cell declares the differential substitute as a word; a recorded `a/b` tally equals the observed pass/total, with more than one distinct pair in a cell read as ambiguous rather than as the last one winning; a row pinned to a past revision carries `historical` in its Kind cell and names the revision it is true at, so a later red is read as pinned, not as a regression, and the row is formally the point at which the gate would be re-pinned. Reject: a `gate (live \u2026)` row whose instrument has no self-test mode and no declared differential; a Self-test cell that enumerates a fixture count the counter does not run; a row whose Kind label and Self-test cell contradict each other; silently deleting a red row instead of demoting or re-pinning it. Able-to-fail: `python3 -B .ufo/waves/round-75/c75_row_truth.py --root . --revision <rev> --base c9c5e484c533aa65f4374b841a3edcf572ed19a9 --work <scratch>` prints `mismatches=2 classes=E1 E3 append_only=true met=false`, exit 1 (`.ufo/waves/round-75/controls/base-c1-row-truth.txt`); the deletion control prints `files=15 append_only=false met=false`, exit 1 (`controls/ctl-deletion.txt`)."
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      56,
+      "- **Admit \u2014 S443, in-toto Attestation Framework, Statement v1** (<https://raw.githubusercontent.com/in-toto/attestation/main/spec/v1/statement.md>), opened 2026-11-03 by the L1 and re-fetched independently by the source seat: HTTP 200, 2,492 bytes, sha256 `cbe684a18b812b8b613d9202eb43b2ea24477f91a2ad6ca5be935185a455ebea`, byte-identical across both fetches. Located quote (6 words, raw substring at line 37): \"Each element MUST have `digest` set.\"; the fuller 22-word paragraph spans lines 36\u201337 and matches only after line-leading blockquote-marker removal followed by whitespace collapse (a naive raw or whitespace-collapsed search does not find it \u2014 `w1/ScoutSources/verify-output.txt`). It grounds C2's receipt shape: an artifact is identified by digest, not by a name or a tally written beside one. **Flip condition:** a re-fetch differs in bytes or the sentence is absent at line 37 \u2192 reject the row and retitle the entry as an unsourced lane-internal note."
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      67,
+      "- **Admit \u2014 the superseding row for `c69_tmp_honour.py`** (Kind demoted `gate` \u2192 `instrument`). Reason: the row's own Self-test cell records \"no self-test mode\" (the instrument's `--selftest` is an argparse error, exit 2, re-run at base), and E1 forbids a `gate` family without a working self-test or a declared differential. **Flip condition:** a later row lands a real `--selftest` over isolated fixtures, or names a concrete differential the row's own command performs \u2192 the row may be re-labelled `gate`."
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      73,
+      "- **Admit \u2014 the superseding row for `c74_registry_gap.py`** recording the eight fixtures it runs (`selftest 8/8`, exit 0 at base). Reason: the round-74 row claims five enumerated ids; E3 measured 5 against an observed total of 8. **Flip condition:** if a future counter defines exactly five fixtures, this row is itself wrong and must be superseded again."
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      77,
+      "- **Reject \u2014 \"add a `--selftest` to `c69_tmp_honour.py`\" as this round's repair.** It is a frozen round-69 counter whose three terms are already exercised by committed base and after controls; adding a suite rewrites a landed instrument's surface and substitutes scope for the declared after-state (a Kind demotion). **Flip condition:** a later round freezes a counter with a real `--selftest` over the same three terms, or the operator re-scopes the round-69 counter."
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      82,
+      "- **Reject \u2014 deleting the failing row as a repair.** The deletion control measures `files=15 append_only=false met=false`, exit 1 (`controls/ctl-deletion.txt`): the append-only conjunct catches it and the E3 finding survives. Deletion is not in this round's repair vocabulary; supersession is."
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      86,
+      "- **Reject \u2014 `merge/kake/` assimilation as a whole (\u00a710).** The connector seat re-read every staged entry: every locator they cite is unreachable in this lane (`.ufo/waves/round-1[456]/` absent, `.ufo/waves/corpus-expansion-1/audit-wave.py` absent) and five cited ids (S371, S401, S407, S412, S319) are below the registry tip or unheld, so adopting any entry as written would insert ids below S443 or cite a row the reader cannot open. **Flip condition:** the locators are re-pointed at surviving bytes and the ids assigned above the tip; then the material is an append to `corpus/knowledge/receipt-integrity.md`, not a new file. `Assimilation: none` for this round (`w1/ConnectorOverlap.md` \u00a73). No source was opened in the staging repo, and nothing was written there."
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      100,
+      "| A registry row landed with stale draft prose and a gate label the row itself contradicts \u2014 the label and the fixture count were written before the instrument existed and were never re-derived from it | `corpus/lessons/round-74-verifier-spotcheck.md` R1 and R2; live cells at `SKILL.md:1426` and `SKILL.md:1432` (base); the same stale count in the counter's docstring `.ufo/waves/round-74/c74_registry_gap.py:25` (\"the five contract fixtures f1-f5\") against `f1`\u2013`f8` in the same file | none at freeze \u2014 the round-70 \"table row\" rule counted a row's presence, never its claim's executability; this round's C1 E1/E3 and the new `corpus/QUALITY.md` round-75 criterion are the criterion that should have caught it | the frozen counter, shown able to fail on the base (`controls/base-c1-row-truth.txt`), on junk rows that repeat the wrong claims (`controls/ctl-cheapcontent.txt`) and on deletion (`controls/ctl-deletion.txt`); the two superseding rows in `SKILL.md` |"
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      101,
+      "| An instrument was reported green while the counter was executing a *different* file's self-test (the claimed file's path appeared only in a shell comment), and `nondifferential` satisfied a substring test for `differential` | `w1/ReviewerC1.md` held-outs F03/F13/F14/F16/F17 (accepted attacks against the frozen v0, exit 0 `met=true` for states that should be red) | the frozen E1 sentence (\"the row's claim re-derives\") was implemented as \"whatever command the cell names\"; amendment 2 A3 makes the command's program the instrument, and A4 word-bounds the differential | the delivered counter's `command_program()` (comment strip + interpreter token) and `\\bdifferential\\b`, with fixtures f17/f18 in its selftest (22/22 \u2192 29/29 after the seat added its own) |"
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      102,
+      "| A bulk text substitution ran across an append-only file and rewrote three historical bytes (two SCORECARD rows' counts and one LOG line), not only the round's own appended text | `git show c9c5e484:LOG.md` line 614 and `SCORECARD.md` lines 96-97 versus the working tree; caught by the lane's own gate: `.ufo/waves/round-73/c73_wave_pointers.py` printed `append_only false file=LOG.md`, `append_only false file=SCORECARD.md`, exit 1 at `6c10b433` (`controls/after-harm-battery.txt`) | the append-only conjunct of a standing gate, run in the harm battery \u2014 the round's own C1 counter cannot see this class (it checks row names, not bytes) | the three lines were restored byte-for-byte from `c9c5e484`, committed as `ca1a2982`, and the gate re-ran `append_only=true met=true`, exit 0 \u2014 a `sed` over a growing append-only file must be scoped to the appended region or replaced by an explicit edit |"
+    ],
+    [
+      "corpus/lessons/round-75.md",
+      103,
+      "| A committed capability claim (C2) could be met by a receipt that was never committed, and a declared revision that does not exist was accepted | `w1/ReviewerC2.md` \u00a7\"Tautology assessment and strongest honest claim\": worktree-only receipt green; nonexistent declared revision accepted | amendment 3 A6/A7: the claim's own words are \"a **committed** receipt\"; the v0 tool read the worktree first and validated nothing about `revision` | `load_receipt()` reads `git cat-file blob <rev>:path` only (`source=uncommitted` is a mismatch), and `receipt_revision_invalid` covers unresolved/unanchored revisions; selftest fixtures for both |"
+    ]
+  ],
+  "allspans": [
+    {
+      "file": "SCORECARD.md",
+      "line": 4892,
+      "span": "c9c5e484",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/after-c1-row-truth.txt",
+        ".ufo/waves/round-75/controls/base-c1-row-truth-landed.txt",
+        ".ufo/waves/round-75/controls/base-c1-row-truth.txt"
+      ]
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4892,
+      "span": "rows=28 live=16 files=16 mismatches=2 classes=E1 E3 append_only=true met=false missing_frozen=0",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/base-c1-row-truth-landed.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/dout-base.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/lout-base.txt"
+      ]
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4892,
+      "span": "f87d14a9",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/after-c1-row-truth.txt",
+        ".ufo/waves/round-75/controls/after-c2-receipts.txt"
+      ]
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4892,
+      "span": "files=18 mismatches=0 append_only=true met=true missing_frozen=0",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4892,
+      "span": "mismatches=3 classes=E3 append_only=false missing_frozen=1",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4893,
+      "span": "population=16 bound=0 mismatches=16 met=false",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/base-c2-receipts.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/c2-selftest-a2005c6a.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/landed-c2-base.txt"
+      ]
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4893,
+      "span": "f87d14a9",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/after-c1-row-truth.txt",
+        ".ufo/waves/round-75/controls/after-c2-receipts.txt"
+      ]
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4893,
+      "span": "population=18 bound=18 mismatches=0 met=true missing_frozen=0",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4893,
+      "span": "receipt: source=committed declared_valid=true",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4904,
+      "span": "mismatches=2 classes=E1 E3",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/base-c1-row-truth-landed.txt",
+        ".ufo/waves/round-75/controls/base-c1-row-truth.txt",
+        ".ufo/waves/round-75/controls/ctl-cheapcontent-landed.txt"
+      ]
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4904,
+      "span": "mismatches=0 met=true missing_frozen=0",
+      "receipt_hits": []
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4905,
+      "span": "bound=0 mismatches=16",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/base-c2-receipts.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/c2-selftest-a2005c6a.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/landed-c2-base.txt"
+      ]
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4905,
+      "span": "bound=18 mismatches=0 met=true",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/after-c2-receipts.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/landed-c2.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/receipts-c2-landed.txt"
+      ]
+    },
+    {
+      "file": "SCORECARD.md",
+      "line": 4905,
+      "span": "source=committed",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/after-c2-receipts-rewrite.txt",
+        ".ufo/waves/round-75/controls/after-c2-receipts.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/c2-selftest-a2005c6a.txt"
+      ]
+    },
+    {
+      "file": "corpus/QUALITY.md",
+      "line": 1499,
+      "span": "mismatches=2 classes=E1 E3 append_only=true met=false",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/base-c1-row-truth-landed.txt",
+        ".ufo/waves/round-75/controls/base-c1-row-truth.txt",
+        ".ufo/waves/round-75/controls/ctl-cheapcontent-landed.txt"
+      ]
+    },
+    {
+      "file": "corpus/QUALITY.md",
+      "line": 1499,
+      "span": "files=15 append_only=false met=false",
+      "receipt_hits": []
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 56,
+      "span": "cbe684a18b812b8b613d9202eb43b2ea24477f91a2ad6ca5be935185a455ebea",
+      "receipt_hits": [
+        ".ufo/waves/round-75/w1/ScoutSources/fetch-intoto.txt",
+        ".ufo/waves/round-75/w1/ScoutSources/verify-output.txt",
+        ".ufo/waves/round-75/w1/SentinelScope/receipts.txt"
+      ]
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 73,
+      "span": "selftest 8/8",
+      "receipt_hits": [
+        ".ufo/waves/round-70/controls/selftest-v2.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/pairs.json",
+        ".ufo/waves/round-75/w1/ExecHarm/base-c74-registry-gap-selftest.txt"
+      ]
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 82,
+      "span": "files=15 append_only=false met=false",
+      "receipt_hits": []
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 101,
+      "span": "met=true",
+      "receipt_hits": [
+        ".ufo/waves/round-36/verification/criterion-ablation-floor-r35-shape.txt",
+        ".ufo/waves/round-36/verification/criterion-ablation-floor-r36.txt",
+        ".ufo/waves/round-38/criteria/receipts/ccc-r37-at-99357694.txt"
+      ]
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 102,
+      "span": "6c10b433",
+      "receipt_hits": []
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 102,
+      "span": "c9c5e484",
+      "receipt_hits": [
+        ".ufo/waves/round-75/controls/after-c1-row-truth.txt",
+        ".ufo/waves/round-75/controls/base-c1-row-truth-landed.txt",
+        ".ufo/waves/round-75/controls/base-c1-row-truth.txt"
+      ]
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 102,
+      "span": "ca1a2982",
+      "receipt_hits": []
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 102,
+      "span": "append_only=true met=true",
+      "receipt_hits": [
+        ".ufo/waves/round-70/controls/c1-tip-final.txt",
+        ".ufo/waves/round-70/controls/c1-tip.txt",
+        ".ufo/waves/round-70/w1/ConnOverlap/receipts.txt"
+      ]
+    },
+    {
+      "file": "corpus/lessons/round-75.md",
+      "line": 103,
+      "span": "source=uncommitted",
+      "receipt_hits": [
+        ".ufo/waves/round-75/w1/CriticPredicates/c2-selftest-a2005c6a.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/receipts-c2-landed.txt",
+        ".ufo/waves/round-75/w1/CriticPredicates/receipts-c2.txt"
+      ]
+    }
+  ]
+}

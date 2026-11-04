@@ -1,0 +1,57 @@
+clean_pair                             exit=0   pages=2 ids={}
+clean_single                           exit=0   pages=1 ids={}
+missing_value_red                      exit=1   pages=1 ids={"hreflang_missing_value": 1}
+missing_value_empty_red                exit=1   pages=1 ids={"hreflang_missing_value": 1}
+missing_value_green                    exit=0   pages=1 ids={}
+invalid_tag_red                        exit=1   pages=1 ids={"hreflang_invalid_tag": 1}
+invalid_tag_corners_red                exit=1   pages=1 ids={"hreflang_invalid_tag": 5}
+invalid_tag_padded_red                 exit=1   pages=1 ids={"hreflang_invalid_tag": 1}
+grammar_valid_green                    exit=0   pages=1 ids={}
+grammar_case_green                     exit=0   pages=1 ids={}
+relative_href_red                      exit=1   pages=1 ids={"hreflang_relative_href": 1}
+relative_href_scheme_relative_red      exit=1   pages=1 ids={"hreflang_relative_href": 1}
+no_href_ignored_green                  exit=0   pages=1 ids={}
+mailto_relative_red                    exit=1   pages=1 ids={"hreflang_relative_href": 1}
+empty_href_relative_red                exit=1   pages=1 ids={"hreflang_relative_href": 1}
+duplicate_pair_red                     exit=1   pages=1 ids={"hreflang_duplicate_pair": 1}
+duplicate_pair_three_red               exit=1   pages=1 ids={"hreflang_duplicate_pair": 2}
+duplicate_pair_green                   exit=0   pages=1 ids={}
+multiple_xdefault_red                  exit=1   pages=2 ids={"hreflang_multiple_xdefault": 4}
+multiple_xdefault_three_red            exit=1   pages=1 ids={"hreflang_duplicate_pair": 2, "hreflang_multiple_xdefault": 3}
+multiple_xdefault_green                exit=0   pages=2 ids={}
+self_missing_red                       exit=1   pages=2 ids={"hreflang_self_missing": 2}
+self_missing_normalized_green          exit=0   pages=1 ids={}
+self_trailing_slash_red                exit=1   pages=1 ids={"hreflang_external_target": 1, "hreflang_self_missing": 1}
+nonreciprocal_red                      exit=1   pages=2 ids={"hreflang_nonreciprocal": 1}
+nonreciprocal_tag_mismatch_red         exit=1   pages=2 ids={"hreflang_nonreciprocal": 2}
+nonreciprocal_cycle_red                exit=1   pages=3 ids={"hreflang_nonreciprocal": 3}
+external_target_info_red               exit=0   pages=1 ids={"hreflang_external_target": 1}
+canonical_not_self_red                 exit=1   pages=2 ids={"hreflang_canonical_not_self": 1}
+canonical_absent_green                 exit=0   pages=1 ids={}
+canonical_first_wins_green             exit=0   pages=2 ids={}
+canonical_relative_no_finding_green    exit=0   pages=1 ids={}
+canonical_with_hreflang_green          exit=0   pages=1 ids={}
+input_missing_file                     exit=2   pages=1 ids={"input_unreadable": 1}
+input_file_escape                      exit=2   pages=1 ids={"input_unreadable": 1}
+input_duplicate_url                    exit=2   pages=2 ids={"input_duplicate_url": 1}
+input_duplicate_url_normalized         exit=2   pages=2 ids={"input_duplicate_url": 1}
+input_duplicate_file                   exit=2   pages=2 ids={"input_unreadable": 1}
+input_url_relative                     exit=2   pages=1 ids={"input_url_not_absolute": 1}
+input_symlink_page                     exit=2   pages=1 ids={"input_unreadable": 1}
+input_parent_symlink_escape            exit=2   pages=1 ids={"input_unreadable": 1}
+input_bad_json                         exit=2   pages=0 ids={"input_unreadable": 1}
+input_version_2                        exit=64  pages=1 ids={}
+mixed_fault_and_policy                 exit=2   pages=2 ids={"hreflang_invalid_tag": 1, "input_unreadable": 1}
+parser_comment_and_bodies_green        exit=0   pages=1 ids={}
+parser_svg_math_skipped_green          exit=0   pages=1 ids={}
+parser_svg_selfclose_green             exit=0   pages=1 ids={}
+parser_attr_order_quotes_green         exit=0   pages=1 ids={}
+structure_rel_uppercase_red            exit=1   pages=1 ids={"hreflang_invalid_tag": 1}
+structure_rel_mixedcase_green          exit=0   pages=1 ids={}
+parser_entity_decode_green             exit=0   pages=1 ids={}
+parser_first_attribute_wins_green      exit=0   pages=1 ids={}
+parser_stray_lt_green                  exit=0   pages=1 ids={}
+parser_script_selfclose_green          exit=0   pages=1 ids={}
+alternate_stylesheet_green             exit=0   pages=1 ids={}
+parser_noscript_scanned_red            exit=1   pages=1 ids={"hreflang_missing_value": 1}
+cases=56

@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "amendment A13: rel is a case-insensitive token set, so rel=ALTERNATE is an alternate and its en_US value is one `hreflang_invalid_tag`.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_invalid_tag"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"ALTERNATE\" hreflang=\"en_US\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "structure-rel-uppercase"
+}

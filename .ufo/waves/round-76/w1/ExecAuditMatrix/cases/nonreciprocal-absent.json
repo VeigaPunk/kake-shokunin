@@ -1,0 +1,30 @@
+{
+ "decided": true,
+ "derivation": "contract C2 `hreflang_nonreciprocal`: A's manifest-internal target B has no alternates at all, so it cannot return A's url with tag en; A2 emits one finding for A's one offending annotation. B has no alternates, so no other clause applies to it.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_nonreciprocal"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://beta.example/b\">\n</head><body></body></html>\n",
+  "b.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://beta.example/b\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "b.html",
+    "id": "b",
+    "url": "https://beta.example/b"
+   }
+  ],
+  "version": 1
+ },
+ "name": "nonreciprocal-absent"
+}

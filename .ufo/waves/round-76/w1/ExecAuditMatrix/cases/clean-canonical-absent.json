@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "amendment A5: a page without a rel=canonical link has itself as its resolved canonical, so a page with a self alternate is clean.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-canonical-absent"
+}

@@ -1,0 +1,16 @@
+$ git diff --numstat a0491fcd..HEAD -- SCORECARD.md corpus/QUALITY.md corpus/lessons/round-75.md
+18	0	SCORECARD.md
+15	0	corpus/QUALITY.md
+11	0	corpus/lessons/round-75.md
+
+$ git diff --stat a0491fcd..HEAD -- SCORECARD.md corpus/QUALITY.md corpus/lessons/round-75.md
+ SCORECARD.md               | 18 ++++++++++++++++++
+ corpus/QUALITY.md          | 15 +++++++++++++++
+ corpus/lessons/round-75.md | 11 +++++++++++
+ 3 files changed, 44 insertions(+)
+
+$ git diff --diff-filter=D --name-only a0491fcd..HEAD
+(no output above = no deleted file)
+
+$ git diff --diff-filter=M --numstat a0491fcd..HEAD -- SCORECARD.md corpus/QUALITY.md corpus/lessons/round-75.md | awk '$2 != 0'
+(no output above = zero deleted lines: no historical line rewritten)

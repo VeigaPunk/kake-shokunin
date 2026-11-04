@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "amendment A12: absolute means scheme plus authority; '//beta.example/b' has authority but no scheme, so it is `hreflang_relative_href`, and A4 stops it contributing to self-reference, reciprocity or external target.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_relative_href"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"//beta.example/b\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "relative-href-protocol-relative"
+}

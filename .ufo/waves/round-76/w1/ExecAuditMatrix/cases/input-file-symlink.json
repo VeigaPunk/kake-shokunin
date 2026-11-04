@@ -1,0 +1,27 @@
+{
+ "decided": true,
+ "derivation": "amendment A15: a file that is a symlink is `input_unreadable`; the fixture holds a regular target and a symlink entry named by the manifest.",
+ "expected": {
+  "exit": 2,
+  "ids": [
+   "input_unreadable"
+  ]
+ },
+ "files": {
+  "a.html": {
+   "symlink": "target.html"
+  },
+  "target.html": "<!doctype html>\n<html><head>\n\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "input-file-symlink"
+}

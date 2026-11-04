@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "amendment A13: comments and <script> data are not scanned, so the two en_US links in them produce nothing.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<!-- <link rel=\"alternate\" hreflang=\"en_US\" href=\"https://alpha.example/a\"> -->\n<script>var s = '<link rel=\"alternate\" hreflang=\"en_US\" href=\"https://alpha.example/a\">';</script>\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-comment-script-ignored"
+}

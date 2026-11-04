@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "contract C2 `hreflang_missing_value` on a page that also carries a valid self alternate; A2 emits it once for the one offending link.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_missing_value"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "missing-value-with-valid-self"
+}

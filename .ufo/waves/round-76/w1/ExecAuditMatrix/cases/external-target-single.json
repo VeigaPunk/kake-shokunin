@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "amendment A1: a target outside the manifest is `hreflang_external_target` with informational severity and does not change the exit code, so the page is exit 0 with a non-empty finding list.",
+ "expected": {
+  "exit": 0,
+  "ids": [
+   "hreflang_external_target"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://other.example/x\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "external-target-single"
+}

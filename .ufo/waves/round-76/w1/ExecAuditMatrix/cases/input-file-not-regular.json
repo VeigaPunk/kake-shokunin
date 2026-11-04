@@ -1,0 +1,26 @@
+{
+ "decided": true,
+ "derivation": "amendment A15: a file that is not a regular file is `input_unreadable`; the fixture writes a.html as a directory.",
+ "expected": {
+  "exit": 2,
+  "ids": [
+   "input_unreadable"
+  ]
+ },
+ "files": {
+  "a.html": {
+   "dir": true
+  }
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "input-file-not-regular"
+}

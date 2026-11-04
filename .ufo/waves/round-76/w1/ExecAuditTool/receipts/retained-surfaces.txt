@@ -1,0 +1,23 @@
+# command: for d in .ufo/waves/round-23/live/*/; do printf '%-22s ' "${d%/}"; ls "$d" | tr '\n' ' '; echo; done
+.ufo/waves/round-23/live/burnerchrome-kimi audit.json fetch.json manifest.json page.html 
+.ufo/waves/round-23/live/charter-ghp audit.json fetch.json manifest.json page.html 
+.ufo/waves/round-23/live/charter-kimi audit.json fetch.json 
+.ufo/waves/round-23/live/ds4cc-kimi audit.json fetch.json manifest.json page.html 
+.ufo/waves/round-23/live/ds4cc-primary audit.json fetch.json manifest.json page.html 
+.ufo/waves/round-23/live/lucario-ghp audit.json fetch.json manifest.json page.html 
+.ufo/waves/round-23/live/lucario-kimi audit.json fetch.json 
+.ufo/waves/round-23/live/plazir15-ghp audit.json fetch.json manifest.json page.html 
+.ufo/waves/round-23/live/plazir15-kimi audit.json fetch.json 
+.ufo/waves/round-23/live/plazir27-kimi audit.json fetch.json 
+.ufo/waves/round-23/live/ufo-fsd-kimi-pro audit.json fetch.json manifest.json page.html 
+.ufo/waves/round-23/live/vault-index-kimi audit.json fetch.json manifest.json page.html 
+
+# command: python3 verified page.html sha256 against fetch.json
+burnerchrome-kimi    status=200 bytes=11976 sha_ok=OK
+charter-ghp          status=200 bytes=53660 sha_ok=OK
+ds4cc-kimi           status=200 bytes=74641 sha_ok=OK
+ds4cc-primary        status=200 bytes=76159 sha_ok=OK
+lucario-ghp          status=200 bytes=3435 sha_ok=OK
+plazir15-ghp         status=200 bytes=38337 sha_ok=OK
+ufo-fsd-kimi-pro     status=200 bytes=612 sha_ok=OK
+vault-index-kimi     status=200 bytes=10059 sha_ok=OK

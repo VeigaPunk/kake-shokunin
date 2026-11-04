@@ -1,0 +1,25 @@
+{
+ "id": "M9_granularity_collapsed",
+ "desc": "collapse findings to one per (page,id) [A2 granulation probe]",
+ "file": "/fast/scratch/hyaku/kake-r76/MutationTesterGates/c2/M9_granularity_collapsed.py",
+ "old": "    return sorted(findings, key=lambda item: item.get(\"_key\", (10 ** 9, 10 ** 9, 0, \"\")))",
+ "new": "    return sorted(list({(item[\"id\"], item[\"page\"]): item for item in reversed(findings)}.values()), key=lambda item: item.get(\"_key\", (10 ** 9, 10 ** 9, 0, \"\")))",
+ "sha_pristine": "89c45214a6d3479b3b7b2fdbaa6c0a89b963f55eb59a8cb6d9d76a66bd21f564",
+ "sha_mutant": "77ae269e15be17ea0dad6e2d70ed2269d1dddda723f9fbb586f91869729a4c43",
+ "selftest_rc": 1,
+ "selftest": "selftest 35/38 passed",
+ "matrix_rc": 1,
+ "wrong": [
+  "case input-duplicate-url expected=exit2 ids=[\"input_duplicate_url\"] observed=exit2 ids=[] pages=0/2 json=bad verdict=wrong shape=pages=0 but manifest has 2",
+  "case input-two-faults expected=exit2 ids=[\"input_duplicate_url\", \"input_unreadable\"] observed=exit2 ids=[] pages=0/2 json=bad verdict=wrong shape=pages=0 but manifest has 2",
+  "case input-unreadable-undecodable expected=exit2 ids=[\"input_unreadable\"] observed=exit0 ids=[] pages=1/1 json=ok verdict=wrong",
+  "case input-url-not-absolute expected=exit2 ids=[\"input_url_not_absolute\"] observed=exit2 ids=[] pages=0/1 json=bad verdict=wrong shape=pages=0 but manifest has 1",
+  "case multiple-xdefault-pair expected=exit1 ids=[\"hreflang_multiple_xdefault\"] observed=exit1 ids=[\"hreflang_multiple_xdefault\", \"hreflang_multiple_xdefault\"] pages=2/2 json=ok verdict=wrong",
+  "case nonreciprocal-different-tag expected=exit1 ids=[\"hreflang_nonreciprocal\"] observed=exit1 ids=[\"hreflang_nonreciprocal\", \"hreflang_nonreciprocal\"] pages=2/2 json=ok verdict=wrong",
+  "case relative-href-fragment expected=exit1 ids=[\"hreflang_relative_href\"] observed=exit1 ids=[\"hreflang_external_target\", \"hreflang_relative_href\"] pages=1/1 json=ok verdict=wrong",
+  "case relative-href-path expected=exit1 ids=[\"hreflang_relative_href\"] observed=exit1 ids=[\"hreflang_external_target\", \"hreflang_relative_href\"] pages=1/1 json=ok verdict=wrong"
+ ],
+ "tally": "cases=44 decided=34 correct=26 wrong=8 undecided=10 constants_failed=4/4 met=false",
+ "killed": true,
+ "survived": false
+}

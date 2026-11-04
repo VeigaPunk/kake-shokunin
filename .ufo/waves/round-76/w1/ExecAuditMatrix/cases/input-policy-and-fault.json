@@ -1,0 +1,30 @@
+{
+ "decided": true,
+ "derivation": "amendment A8: when any input fault occurs the exit is 2 and findings from readable pages are still listed; page a is readable with one invalid tag, page b's file is absent, so exit 2 with exactly one `input_unreadable` and one `hreflang_invalid_tag`.",
+ "expected": {
+  "exit": 2,
+  "ids": [
+   "hreflang_invalid_tag",
+   "input_unreadable"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en_US\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "missing.html",
+    "id": "b",
+    "url": "https://beta.example/b"
+   }
+  ],
+  "version": 1
+ },
+ "name": "input-policy-and-fault"
+}

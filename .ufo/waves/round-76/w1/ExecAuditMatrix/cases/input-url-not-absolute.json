@@ -1,0 +1,24 @@
+{
+ "decided": true,
+ "derivation": "contract C2 manifest v1 says url is absolute and lists `input_url_not_absolute`; '/a' has no scheme and authority.",
+ "expected": {
+  "exit": 2,
+  "ids": [
+   "input_url_not_absolute"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "input-url-not-absolute"
+}

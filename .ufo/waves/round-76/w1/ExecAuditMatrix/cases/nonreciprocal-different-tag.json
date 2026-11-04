@@ -1,0 +1,31 @@
+{
+ "decided": true,
+ "derivation": "contract C2 `hreflang_nonreciprocal` ('the same tag') + A2/A3: A returns B with en, B returns A with en-GB, so each annotation lacks a same-tag return; two findings, one per offending annotation. Both list themselves and resolve canonical to self.",
+ "expected": {
+  "exit": 1,
+  "ids": [
+   "hreflang_nonreciprocal",
+   "hreflang_nonreciprocal"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://beta.example/b\">\n</head><body></body></html>\n",
+  "b.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en-GB\" href=\"https://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en-GB\" href=\"https://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "b.html",
+    "id": "b",
+    "url": "https://beta.example/b"
+   }
+  ],
+  "version": 1
+ },
+ "name": "nonreciprocal-different-tag"
+}

@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "contract C2 input faults: `input_unreadable` when a manifest-named page file cannot be read; a.html is not written into the fixture (A2: once for the one manifest entry).",
+ "expected": {
+  "exit": 2,
+  "ids": [
+   "input_unreadable"
+  ]
+ },
+ "files": {},
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "input-unreadable-missing-file"
+}

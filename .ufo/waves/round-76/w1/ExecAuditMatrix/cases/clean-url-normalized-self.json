@@ -1,0 +1,22 @@
+{
+ "decided": true,
+ "derivation": "amendment A3: URL equality is exact after RFC 3986 normalization (scheme and host lowercased), so HTTPS://ALPHA.EXAMPLE/a equals the page url; the second alternate carries a different tag, so no duplicate pair.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"https://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en-GB\" href=\"HTTPS://ALPHA.EXAMPLE/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-url-normalized-self"
+}

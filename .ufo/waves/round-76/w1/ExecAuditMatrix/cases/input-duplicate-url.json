@@ -1,0 +1,30 @@
+{
+ "decided": true,
+ "derivation": "contract C2 input faults: `input_duplicate_url` when two manifest pages carry the same url; A2 emits it once for the offending (second) manifest entry.",
+ "expected": {
+  "exit": 2,
+  "ids": [
+   "input_duplicate_url"
+  ]
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n\n</head><body></body></html>\n",
+  "b.html": "<!doctype html>\n<html><head>\n\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "https://alpha.example/a"
+   },
+   {
+    "file": "b.html",
+    "id": "b",
+    "url": "https://alpha.example/a"
+   }
+  ],
+  "version": 1
+ },
+ "name": "input-duplicate-url"
+}

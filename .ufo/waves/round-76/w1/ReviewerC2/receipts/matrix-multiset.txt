@@ -1,0 +1,13 @@
+command: python3 -B /fast/scratch/hyaku/kake-r76/ReviewerC2-7/pinned/c76_hreflang_matrix.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --tool /fast/scratch/hyaku/kake-r76/ReviewerC2-7/mutants/mut_half.py --revision a0491fcd041cbc3fff2c964ecf6268557e45a5c1 --work /fast/scratch/hyaku/kake-r76/ReviewerC2-7/mwork/half --cases /fast/scratch/hyaku/kake-r76/ReviewerC2-7/cases-witness --consts /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-76/w1/ExecAuditMatrix/consts --min-decided 24
+--- stdout ---
+tool=/fast/scratch/hyaku/kake-r76/ReviewerC2-7/mutants/mut_half.py
+tool_sha256=c8095850870ea4dee43693aa52acbdb80ff12001885bf17bb9b1827cc6cc3bcf
+cases_sha256=2776eeac601bbc000d08b1899475b73e87027a23825c80e4bbc471ad46e58d37
+revision=a0491fcd041cbc3fff2c964ecf6268557e45a5c1 revision_ok=yes head=442d36c63240e3f3bfa689d7a0056c035d6bcbe0
+case reviewerc2-multiset-cycle expected=exit1 ids=["hreflang_nonreciprocal", "hreflang_nonreciprocal", "hreflang_nonreciprocal", "hreflang_self_missing", "hreflang_self_missing", "hreflang_self_missing"] observed=exit1 ids=["hreflang_self_missing"] pages=3/3 json=ok verdict=wrong
+constant const_always_clean.py failed=1/1 first=["reviewerc2-multiset-cycle"] passes_all=no
+constant const_empty_list.py failed=1/1 first=["reviewerc2-multiset-cycle"] passes_all=no
+constant const_noop.py failed=1/1 first=["reviewerc2-multiset-cycle"] passes_all=no
+constant const_report_all.py failed=1/1 first=["reviewerc2-multiset-cycle"] passes_all=no
+cases=1 decided=1 correct=0 wrong=1 undecided=0 constants_failed=4/4 met=false
+exit: 1

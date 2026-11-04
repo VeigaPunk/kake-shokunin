@@ -1,0 +1,28 @@
+{
+ "decided": true,
+ "derivation": "amendment A12: an absolute URL needs scheme plus authority and the scheme need not be http(s); http manifest urls and http alternates are clean.",
+ "expected": {
+  "exit": 0,
+  "ids": []
+ },
+ "files": {
+  "a.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"http://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"http://alpha.example/a\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"http://beta.example/b\">\n</head><body></body></html>\n",
+  "b.html": "<!doctype html>\n<html><head>\n<link rel=\"canonical\" href=\"http://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"http://beta.example/b\">\n<link rel=\"alternate\" hreflang=\"en\" href=\"http://alpha.example/a\">\n</head><body></body></html>\n"
+ },
+ "manifest": {
+  "pages": [
+   {
+    "file": "a.html",
+    "id": "a",
+    "url": "http://alpha.example/a"
+   },
+   {
+    "file": "b.html",
+    "id": "b",
+    "url": "http://beta.example/b"
+   }
+  ],
+  "version": 1
+ },
+ "name": "clean-http-scheme"
+}
