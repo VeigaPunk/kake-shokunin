@@ -10,8 +10,10 @@ network-free, and decides for every check:
   * `bots`       — per-bot scopes, each with the same normalized token list;
   * `findings`   — the closed finding vocabulary, one sorted unique id list per check.
 
-Grammar readings (frozen in `.ufo/waves/round-79/contract.md` and amendment 1):
-field values split on ASCII comma; an empty segment is `xrt_empty_rule`; a `name:` prefix that is
+Grammar readings (frozen in `.ufo/waves/round-79/contract.md`, its amendment 1, and round-80
+amendment 1): field values split on ASCII comma, except that a comma immediately following the
+leading weekday token of an `unavailable_after` value stays inside the value; an empty segment is
+`xrt_empty_rule`; a `name:` prefix that is
 NOT a known directive name is a bot scope and binds the remaining rules of that field value (scope
 does not cross field lines); a known directive name takes precedence over the bot-prefix shape;
 `none` is replaced by `noindex`+`nofollow`; `all` contributes nothing; `index`/`follow` are kept as
@@ -56,6 +58,18 @@ RFC850_RE = re.compile(
     r"^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday), [0-9]{2}-"
     r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-[0-9]{2} "
     r"[0-9]{2}:[0-9]{2}:[0-9]{2} GMT$")
+ASCTIME_RE = re.compile(
+    r"^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) "
+    r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
+    r" {1,2}[0-9]{1,2} "
+    r"[0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{4}$")
+# Round-80 amendment 1: a comma immediately following the leading weekday token of an
+# `unavailable_after` value belongs to the value. The directive name is case-insensitive
+# (parse_rule lowercases it); the weekday spellings mirror the shape regexes. A matched
+# bot prefix is only a scope if its name is not a known directive (checked by the caller).
+DATE_COMMA_RE = re.compile(
+    r"^\s*(?:(?P<bot>[A-Za-z0-9_-]+)\s*:\s*)?(?i:unavailable_after)\s*:\s*"
+    r"(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s*$")
 
 
 class Fault(Exception):
@@ -97,18 +111,34 @@ def parse_rule(segment: str, findings: set[str]) -> list[str]:
             return []
         return [f"max-image-preview:{value.lower()}"]
     # unavailable_after
-    if value is None or not (ISO_RE.match(value) or RFC822_RE.match(value) or RFC850_RE.match(value)):
+    if value is None or not (ISO_RE.match(value) or RFC822_RE.match(value) or RFC850_RE.match(value)
+                             or ASCTIME_RE.match(value)):
         findings.add("xrt_invalid_value")
         return []
     return [f"unavailable_after:{value}"]
 
 
 def parse_field(value: str, findings: set[str]) -> tuple[list[str], dict[str, list[str]]]:
-    """One X-Robots-Tag field value -> (global tokens, per-bot tokens)."""
+    """One X-Robots-Tag field value -> (global tokens, per-bot tokens).
+
+    Splits on ASCII comma; a comma immediately following the leading weekday token of an
+    `unavailable_after` value (round-80 amendment 1) stays inside the value instead of
+    terminating the segment. Every other comma keeps the round-79 rule.
+    """
     global_tokens: list[str] = []
     bots: dict[str, list[str]] = {}
     scope: str | None = None
-    for raw in value.split(","):
+    pieces = value.split(",")
+    index = 0
+    while index < len(pieces):
+        raw = pieces[index]
+        date_comma = DATE_COMMA_RE.match(raw)
+        if (date_comma and index + 1 < len(pieces)
+                and (date_comma.group("bot") is None
+                     or date_comma.group("bot").lower() not in KNOWN)):
+            raw += "," + pieces[index + 1]
+            index += 1
+        index += 1
         segment = raw.strip()
         if not segment:
             findings.add("xrt_empty_rule")
@@ -321,6 +351,37 @@ def selftest() -> int:
                "bots": {}, "findings": ["xrt_duplicate_directive"]}),
         _case("t23", [("X-Robots-Tag", "max-snippet:" + "1" * 5000)],
               {"directives": [], "effective": [], "bots": {}, "findings": ["xrt_invalid_value"]}),
+        # Round-80 amendment 1 (A1 comma-bearing date values, A2 asctime, A3 invalid-value only).
+        _case("t24", [("X-Robots-Tag", "unavailable_after: Wed, 03 Dec 2025 13:09:53 GMT")],
+              {"directives": ["unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"],
+               "effective": ["unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"],
+               "bots": {}, "findings": []}),
+        _case("t25", [("X-Robots-Tag", "unavailable_after: Wed, 03 Dec 2025 13:09 GMT")],
+              {"directives": ["unavailable_after:Wed, 03 Dec 2025 13:09 GMT"],
+               "effective": ["unavailable_after:Wed, 03 Dec 2025 13:09 GMT"],
+               "bots": {}, "findings": []}),
+        _case("t26", [("X-Robots-Tag", "unavailable_after: Sunday, 06-Nov-94 08:49:37 GMT")],
+              {"directives": ["unavailable_after:Sunday, 06-Nov-94 08:49:37 GMT"],
+               "effective": ["unavailable_after:Sunday, 06-Nov-94 08:49:37 GMT"],
+               "bots": {}, "findings": []}),
+        _case("t27", [("X-Robots-Tag", "unavailable_after: Sun Nov  6 08:49:37 1994")],
+              {"directives": ["unavailable_after:Sun Nov  6 08:49:37 1994"],
+               "effective": ["unavailable_after:Sun Nov  6 08:49:37 1994"],
+               "bots": {}, "findings": []}),
+        _case("t28", [("X-Robots-Tag",
+                       "noindex, unavailable_after: Wed, 03 Dec 2025 13:09:53 GMT, noarchive")],
+              {"directives": ["noarchive", "noindex",
+                              "unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"],
+               "effective": ["noarchive", "noindex",
+                             "unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"],
+               "bots": {}, "findings": []}),
+        _case("t29", [("X-Robots-Tag", "unavailable_after: Wed, 03 Dec 2025 13:09:53 PST")],
+              {"directives": [], "effective": [], "bots": {}, "findings": ["xrt_invalid_value"]}),
+        _case("t30", [("X-Robots-Tag",
+                       "googlebot: unavailable_after: Wed, 03 Dec 2025 13:09:53 GMT")],
+              {"directives": [], "effective": [],
+               "bots": {"googlebot": ["unavailable_after:Wed, 03 Dec 2025 13:09:53 GMT"]},
+               "findings": []}),
     ]
     passed = 0
     for check, want in cases:
