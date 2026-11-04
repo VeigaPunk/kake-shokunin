@@ -4,210 +4,135 @@
   "counter": ".ufo/waves/round-77/c77_shonen_ledger.py",
   "predicate": "met  <=>  boxes == 4  and  unexamined == 0  and  mismatches == 0",
   "derived-at": "a2cc5f51002433e11cc3d2f70e650a6c60ad5e68",
-  "derivation": "Every observed value is re-derived at --revision by the counter from committed bytes (git show <rev>:<path>); `derived-at` records the revision the values were first measured at and is not a gate. The counter recomputes each rule's frozen predicate and refuses a `holds` flag that disagrees with it, so this file cannot declare a check green over a contradicting observation. Amendment 2 A2 removed the one executable check (a `command` kind is refused; the ledger describes measurements, never causes them) and Amendment 1 A11 added the box-4 sibling-citation rule.",
+  "derivation": "Checks are declarations, never executables (amendment 2 A2): each names a counter-implemented kind and measure, and the counter re-derives `observed` from committed bytes at --revision (git show <rev>:<path>) and compares it exactly (A3). `derived-at` records the revision these values were first measured at and is not a gate; the box scopes are the frozen ones of amendment 1 A11.",
   "rows": [
     {
       "box": 1,
       "marker": "~",
       "title": "SKILL.md contains real decision tables, error patterns, checklists, cited sources",
       "status": "evidenced",
+      "scopes": "amendment 1 A11 box 1 (i)-(iv)",
       "checks": [
         {
-          "id": "b1-skill-present",
-          "kind": "path",
+          "id": "b1-ids",
+          "kind": "all_ids_resolve",
           "path": "SKILL.md",
-          "observed": {
-            "exists": true
+          "params": {
+            "pattern": "\\b(S\\d{3})\\b",
+            "resolve_path": "corpus/SOURCES.md",
+            "resolve_pattern": "(?m)^\\| (S\\d{3}) \\|"
           },
-          "holds": true
+          "observed": {"ids": 77, "resolved": 77, "unresolved": 0},
+          "note": "A11 (i): 77 distinct S### ids are cited in SKILL.md and all 77 have a row in corpus/SOURCES.md at the revision."
         },
         {
-          "id": "b1-decision-tables",
-          "kind": "rule",
-          "rule": "md_table_delimiters",
+          "id": "b1-tables",
+          "kind": "count_at_least",
           "path": "SKILL.md",
-          "observed": {
-            "tables": 38
-          },
-          "holds": true,
-          "note": "38 delimiter rows: the property map, the audit checklist, the freshness gate registry and the round gate registries."
+          "params": {"measure": "markdown_tables_with_min_rows", "min_rows": 3, "min": 3},
+          "observed": 18,
+          "note": "A11 (ii): 18 tables carry at least three data rows (38 delimiter rows in total)."
         },
         {
-          "id": "b1-verdict-map-rows",
-          "kind": "rule",
-          "rule": "table_verdict_rows",
+          "id": "b1-registry",
+          "kind": "count_at_least",
           "path": "SKILL.md",
-          "observed": {
-            "rows": 63
-          },
-          "holds": true,
-          "note": "63 table rows carrying a 0=/1= verdict map: the error-pattern half of the box (exit alphabets per gate)."
-        },
-        {
-          "id": "b1-pitfall-section",
-          "kind": "rule",
-          "rule": "pitfall_sections",
-          "path": "SKILL.md",
-          "observed": {
-            "sections": 1
-          },
-          "holds": true,
-          "note": "`## Mirror pitfalls (all observed, not hypothetical)` at SKILL.md:241."
+          "params": {"measure": "registry_rows_with_code_cell", "min": 20},
+          "observed": 105,
+          "note": "A11 (iii): 105 registry rows carry an exit-code map cell (0=/1=) or a finding-id cell; the row form of 'error patterns'."
         },
         {
           "id": "b1-checklist",
-          "kind": "rule",
-          "rule": "checklist_section",
+          "kind": "count_at_least",
           "path": "SKILL.md",
-          "observed": {
-            "sections": 1,
-            "items": 6
-          },
-          "holds": true,
-          "note": "`## Audit → source-fix → publish checklist` at SKILL.md:57 with six numbered steps."
-        },
-        {
-          "id": "b1-cited-sources",
-          "kind": "rule",
-          "rule": "source_id_citations",
-          "path": "SKILL.md",
-          "observed": {
-            "cited": 77,
-            "resolved": 77,
-            "unresolved": 0
-          },
-          "holds": true,
-          "note": "77 distinct S### ids cited in SKILL.md; all 77 have a row in corpus/SOURCES.md at the revision."
+          "params": {"measure": "checklist_headings", "min": 1},
+          "observed": 1,
+          "note": "A11 (iv): `## Audit → source-fix → publish checklist` at SKILL.md:57."
         }
       ]
     },
     {
       "box": 2,
-      "marker": "~",
+      "marker": " ",
       "title": "At least one end-to-end domain task executed and logged in LOG.md",
-      "status": "evidenced",
+      "status": "gap",
+      "scopes": "amendment 1 A11 box 2 (i)-(iii)",
+      "reason": "A11 (iii) fails at the revision: of the 98 distinct `.ufo/waves/round-N/…` receipt paths named in LOG.md (non-glob), one does not exist — `.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt` (the path amendment 1 A12 names). A11 (i) and (ii) pass (56 round sections, 98 receipt paths), so the log names the work but one evidence pointer does not resolve at a2cc5f51.",
+      "flip": "The named pointer resolves at the measured revision — `.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt` is committed, or LOG.md's citation is corrected (append-only) to the receipt file that actually exists — so `wave_receipt_paths_missing` re-derives to 0 and the row can move to evidenced with the same three checks.",
       "checks": [
         {
-          "id": "b2-log-present",
-          "kind": "path",
+          "id": "b2-rounds",
+          "kind": "count_at_least",
           "path": "LOG.md",
-          "observed": {
-            "exists": true
-          },
-          "holds": true
+          "params": {"measure": "round_sections", "min": 3},
+          "observed": 56,
+          "note": "A11 (i): 56 `## ` headings name a round (highest round 76)."
         },
         {
-          "id": "b2-log-entries",
-          "kind": "rule",
-          "rule": "log_entries",
+          "id": "b2-receipts",
+          "kind": "count_at_least",
           "path": "LOG.md",
-          "observed": {
-            "bullet_entries": 18,
-            "section_entries": 56,
-            "rounds": 65,
-            "max_round": 76
-          },
-          "holds": true,
-          "note": "65 distinct rounds logged, highest round 76: the box's 'at least one' is exceeded by two orders of magnitude."
+          "params": {"measure": "wave_receipt_paths", "min": 20},
+          "observed": 98,
+          "note": "A11 (ii): 98 distinct wave-receipt file paths are named (tokens without a file extension are not counted as paths; globs are counted here and excluded only by the existence check)."
         },
         {
-          "id": "b2-log-evidence",
-          "kind": "rule",
-          "rule": "log_evidence",
+          "id": "b2-missing",
+          "kind": "no_match",
           "path": "LOG.md",
-          "observed": {
-            "entries": 77,
-            "with_resolving_evidence": 69,
-            "path_tokens": 347,
-            "unresolved_paths": 14
-          },
-          "holds": true,
-          "note": "69 of 77 entry blocks cite at least one lane path that exists at the revision. The 14 unresolved tokens are host-local runtime or historical paths (`.ufo/state`, `.ufo/watchdog.log`, `.ufo/l0-questions.md`, `corpus/claims`, truncated tokens); the box's predicate is the 'at least one' reading, not a clean-corpus reading."
+          "params": {"measure": "wave_receipt_paths_missing"},
+          "observed": 1,
+          "note": "A11 (iii): one named non-glob receipt path is absent at the revision; the failing pointer is in `reason`."
         }
-      ],
-      "note": "Adjacent red, not hidden: the lane's own citation gate (`python3 -B scripts/citation_lint.py --root . --revision a2cc5f51…`) exits 1 at this revision on two dead_citation tokens — SCORECARD.md:4926 (`153fa2a9eda8d95618697186feb18574cc7daae1`, a mutant receipt line quoted in a correction row) and LOG.md:2317 (`b569bb638`, the one-char-drift token the surrounding text itself names as not an object name). Both are quoted prose tokens rather than task citations, and both are routed in the round report; they are not claimed clean and they do not bear on this box's 'at least one' predicate."
+      ]
     },
     {
       "box": 3,
-      "marker": " ",
+      "marker": "~",
       "title": "Instructions executable by an agent without oral context",
-      "status": "gap",
-      "reason": "Of 157 backticked command spans in SKILL.md, 149 name a program that exists at the revision, 1 names a lane-relative program that does not exist (`scripts/kimi-surface.mjs`, a webzites-repo script written without its `~/Projects/webzites/` prefix, SKILL.md:222) and 3 name `~/Projects/webzites/...` executables whose checkout is absent from this host (SKILL.md:59, :111, :224). SKILL.md:59 and :111 carry the page's own r20 citation-local annotation — 'a historical record, not an executable instruction ... not executable until restored and re-checked' — and the kimi-map row at :224 carries none. The page therefore does not execute from the checkout alone. Nothing committed re-reads the positive half of the box either: the row's only executable check is the citation gate's own 9-fixture selftest, and no check in this derivation is a playbook run.",
-      "flip": "Every backticked command span resolves either to a committed program at the revision or to a documented path that exists where the page says it does (b3-command-surface holds), and one committed receipt records a non-author agent running the numbered checklist from SKILL.md alone with the commands it issued and their exit codes.",
+      "status": "evidenced",
+      "scopes": "amendment 1 A11 box 3 (every scripts/*.py|sh and counter path named in SKILL.md exists; every `python3 -B <path>` invocation names an existing repo-relative path)",
       "checks": [
         {
-          "id": "b3-command-surface",
-          "kind": "rule",
-          "rule": "skill_commands",
+          "id": "b3-scripts",
+          "kind": "no_match",
           "path": "SKILL.md",
-          "observed": {
-            "command_spans": 157,
-            "repo_resolved": 149,
-            "repo_missing": 1,
-            "host_tree": 3,
-            "url": 0,
-            "inline": 3,
-            "bare": 1
-          },
-          "holds": false,
-          "note": "host_tree=3 (the three `node ~/Projects/webzites/...` spans) and repo_missing=1 (`scripts/kimi-surface.mjs`) are the non-executable class; inline=3 (`node -e` twice, `python3 -m json.tool`) and bare=1 (a `<commit>`-placeholder template) make no path claim and are counted apart."
+          "params": {"measure": "skill_script_paths_missing"},
+          "observed": 0,
+          "note": "29 distinct `scripts/*.py|sh` tokens and 83 `.ufo/waves/**/*.py` counter paths are named; every one exists at the revision."
+        },
+        {
+          "id": "b3-invocations",
+          "kind": "no_match",
+          "path": "SKILL.md",
+          "params": {"measure": "skill_python_invocations_missing"},
+          "observed": 0,
+          "note": "95 distinct `python3 [-B] <path>` invocations are named; every target exists at the revision."
         }
-      ]
+      ],
+      "note": "Scope limit, recorded rather than implied: A11 box 3 covers `scripts/*.py|sh`, counter paths and `python3 -B` targets only. It does not cover the three `node ~/Projects/webzites/...` spans (SKILL.md:59, :111, :224) nor the `node scripts/kimi-surface.mjs` span at SKILL.md:222, whose target does not exist in this repo. Those are measured in the round report as an open correctness defect; this row claims the frozen scope, not the whole playbook."
     },
     {
       "box": 4,
-      "marker": " ",
+      "marker": "~",
       "title": "No cross-domain bleed (PROVINCE.md still accurate)",
       "status": "evidenced",
+      "scopes": "amendment 1 A11 box 4 (no corpus/knowledge/*.md cites another lane's repository path; freshness-*.json excluded by name)",
       "checks": [
         {
-          "id": "b4-province-present",
-          "kind": "path",
-          "path": "PROVINCE.md",
-          "observed": {
-            "exists": true
+          "id": "b4-lanes",
+          "kind": "no_match",
+          "path": "corpus/knowledge",
+          "params": {
+            "measure": "cross_lane_citations",
+            "glob": "corpus/knowledge/*.md",
+            "exclude": ["corpus/knowledge/freshness-*.json"]
           },
-          "holds": true
-        },
-        {
-          "id": "b4-province-lines",
-          "kind": "rule",
-          "rule": "province_lines",
-          "path": "PROVINCE.md",
-          "observed": {
-            "domain": 1,
-            "owns": 1,
-            "refuses": 1,
-            "adjacent": 1
-          },
-          "holds": true,
-          "note": "`**Domain:**`, `**Owns:**`, `**Refuses:**` and one `## Adjacent` section."
-        },
-        {
-          "id": "b4-province-surfaces",
-          "kind": "rule",
-          "rule": "province_surfaces",
-          "path": "PROVINCE.md",
-          "observed": {
-            "declared": 5,
-            "resolved": 5
-          },
-          "holds": true,
-          "note": "`SKILL.md`, `corpus/knowledge/`, `corpus/lessons/`, `scripts/freshness-sweep.mjs`, `scripts/probe-delta.mjs` all exist at the revision."
-        },
-        {
-          "id": "b4-sibling-citations",
-          "kind": "rule",
-          "rule": "sibling_lane_citations",
-          "path": "PROVINCE.md",
-          "observed": {
-            "files": 63,
-            "citations": 0
-          },
-          "holds": true,
-          "note": "Amendment 1 A11's frozen scope: corpus/knowledge/**/*.md prose; the two freshness-*.json probe registries are named exclusions because they record a probed path as absent."
+          "observed": 0,
+          "note": "63 knowledge `.md` files are scanned at the revision; 0 backticked tokens name a sibling lane repository (`*-shokunin/` or `*-shokinin/`, `kake-shokunin` excluded). The exclusion of `corpus/knowledge/freshness-*.json` is written here, not applied after a red result. Measure limit: a sibling checkout that does not follow the fleet's `-shokunin` naming would not be detected."
         }
-      ]
+      ],
+      "note": "PROVINCE.md itself is not a check of this row: A11 box 4 froze the bleed scope to corpus/knowledge citations. PROVINCE.md's province lines and declared surfaces were measured at the base in the round report; they are not claimed here."
     }
   ]
 }

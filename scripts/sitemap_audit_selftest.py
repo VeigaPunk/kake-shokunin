@@ -172,6 +172,17 @@ def _oversized_text(path):
             written += len(line)
 
 
+def _symlink_writer(target):
+    def writer(path):
+        os.symlink(target, path)
+
+    return writer
+
+
+def _fifo_writer(path):
+    os.mkfifo(path)
+
+
 def rss_item(link=None, pubdate=None):
     inner = "<title>t</title>"
     if link is not None:
@@ -1267,6 +1278,28 @@ def build_cases():
         rules=[("b", "neg")], manifest=mf(ck("a", "a.xml")),
         expect_exit=1, verdict="failed-policy",
         checks=[E("a", "findings", None, [("doctype_present", None)])])
+
+    # Round-77 guards on the round-39 file plumbing.
+    add("r77_symlink_escape_rejected",
+        {"../outside.xml": clean_url, "link.xml": _symlink_writer("../outside.xml")},
+        [4, 5], manifest=mf(ck("a", "link.xml")), expect_exit=2,
+        verdict="could-not-evaluate",
+        checks=[E("a", "error", "check_invalid")])
+    add("r77_symlink_inside_allowed",
+        {"a.xml": clean_url, "alias.xml": _symlink_writer("a.xml")}, [5],
+        manifest=mf(ck("a", "alias.xml")), verdict="clean",
+        checks=[E("a", "clean")])
+    add("r77_fifo_named_file_unreadable",
+        {"pipe.xml": _fifo_writer}, [5],
+        manifest=mf(ck("a", "pipe.xml")), expect_exit=2,
+        verdict="could-not-evaluate",
+        checks=[E("a", "error", "file_unreadable")])
+    add("r77_manifest_too_large",
+        {"a.xml": clean_url}, [3],
+        manifest={"version": 1, "checks": [ck("a", "a.xml")],
+                  "pad": "x" * (4 * 1024 * 1024)},
+        expect_exit=2, verdict="could-not-evaluate",
+        error="input_invalid", checks=[])
 
     return cases
 

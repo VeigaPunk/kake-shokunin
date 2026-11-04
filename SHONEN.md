@@ -3,10 +3,10 @@
 Promotion to shokunin requires all of:
 
 - [~] SKILL.md contains real decision tables, error patterns, checklists, cited sources
-  - `corpus/knowledge/shonen-ledger.json` row `box 1` (`status=evidenced`); primary evidence `SKILL.md` — 38 tables, 63 verdict-map rows, 6 checklist items, one pitfalls section, and 77 distinct `S###` cites all resolving to `corpus/SOURCES.md` rows at `a2cc5f51`.
-- [~] At least one end-to-end domain task executed and logged in LOG.md
-  - `corpus/knowledge/shonen-ledger.json` row `box 2` (`status=evidenced`); primary evidence `LOG.md` — 18 bullet + 56 section entries across 65 rounds (highest round 76), 69 of 77 entries citing at least one lane path that exists at `a2cc5f51`.
-- [ ] Instructions executable by an agent without oral context
-  - `corpus/knowledge/shonen-ledger.json` row `box 3` (`status=gap`); primary evidence `SKILL.md` — 149 of 157 backticked command spans resolve from the checkout, 3 name absent `~/Projects/webzites/...` trees, 1 names missing `scripts/kimi-surface.mjs`, and `SKILL.md:59-61` states the first numbered step is not executable until that checkout is restored; flip condition is carried on the row.
-- [ ] No cross-domain bleed (PROVINCE.md still accurate)
-  - `corpus/knowledge/shonen-ledger.json` row `box 4` (`status=gap`); primary evidence `PROVINCE.md` — the four province lines are intact and 5 of 5 declared lane surfaces exist at `a2cc5f51`, but the "no cross-domain bleed" clause has no byte-derivable rule; flip condition is carried on the row.
+  - `corpus/knowledge/shonen-ledger.json` row `box 1` (`status=evidenced`, scopes amendment 1 A11 (i)–(iv)); primary evidence `SKILL.md` — 77/77 `S###` ids resolve in `corpus/SOURCES.md`, 18 tables with ≥3 data rows, 105 registry rows with a verdict-map or finding-id cell, 1 checklist heading.
+- [ ] At least one end-to-end domain task executed and logged in LOG.md
+  - `corpus/knowledge/shonen-ledger.json` row `box 2` (`status=gap`, scopes amendment 1 A11 (i)–(iii)); primary evidence `LOG.md` — 56 round sections and 98 named wave-receipt paths, but 1 named receipt does not exist at the revision (`.ufo/waves/round-47/verification/offline-sweep-r46-verdict-time.txt`); the flip is carried on the row.
+- [~] Instructions executable by an agent without oral context
+  - `corpus/knowledge/shonen-ledger.json` row `box 3` (`status=evidenced`, frozen scope amendment 1 A11: `scripts/*.py|sh`, counter paths and `python3 -B` targets); primary evidence `SKILL.md` — 0 missing script or counter paths, 0 missing `python3 -B` targets. The scope excludes the three `node ~/Projects/webzites/...` spans and `scripts/kimi-surface.mjs`, which stay an open defect in the round report.
+- [~] No cross-domain bleed (PROVINCE.md still accurate)
+  - `corpus/knowledge/shonen-ledger.json` row `box 4` (`status=evidenced`, frozen scope amendment 1 A11); primary evidence `corpus/knowledge/*.md` — 0 of 63 entries cite a sibling lane repository path (`freshness-*.json` excluded by name in the row's params).

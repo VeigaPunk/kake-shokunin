@@ -223,12 +223,14 @@ def _table_blocks(lines: list[str]) -> list[tuple[int, int]]:
     return blocks
 
 
-def _m_table_counts(repo, rev, text, params):
+def _m_table_counts(repo, rev, path, params):
+    text = repo.show_text(rev, path) or ""
     return len([rows for rows in _table_blocks(_lines(text))
                 if rows >= int(params["min_rows"])])
 
 
-def _m_registry_code_rows(repo, rev, text, params):
+def _m_registry_code_rows(repo, rev, path, params):
+    text = repo.show_text(rev, path) or ""
     count = 0
     for line in _lines(text):
         if not line.startswith("|"):
@@ -240,12 +242,14 @@ def _m_registry_code_rows(repo, rev, text, params):
     return count
 
 
-def _m_checklist_headings(repo, rev, text, params):
+def _m_checklist_headings(repo, rev, path, params):
+    text = repo.show_text(rev, path) or ""
     return len([line for line in _lines(text)
                 if re.match(r"^#{2,3} ", line) and "checklist" in line.lower()])
 
 
-def _m_round_sections(repo, rev, text, params):
+def _m_round_sections(repo, rev, path, params):
+    text = repo.show_text(rev, path) or ""
     return len([line for line in _lines(text)
                 if line.startswith("## ") and re.search(r"(?i)round ?0*\d+", line)])
 
@@ -258,13 +262,14 @@ def _wave_paths(text: str) -> list[str]:
     return sorted(set(WAVE_PATH_RE.findall(text)))
 
 
-def _m_wave_receipt_paths(repo, rev, text, params):
-    return len(_wave_paths(text))
+def _m_wave_receipt_paths(repo, rev, path, params):
+    return len(_wave_paths(repo.show_text(rev, path) or ""))
 
 
-def _m_wave_receipt_paths_missing(repo, rev, text, params):
-    return len([path for path in _wave_paths(text)
-                if "*" not in path and not repo.exists(rev, path)])
+def _m_wave_receipt_paths_missing(repo, rev, path, params):
+    text = repo.show_text(rev, path) or ""
+    return len([token for token in _wave_paths(text)
+                if "*" not in token and not repo.exists(rev, token)])
 
 
 SCRIPT_PATH_RE = re.compile(
@@ -274,20 +279,22 @@ PY_INVOCATION_RE = re.compile(
     r"python3?[ \t]+-B[ \t]+([A-Za-z0-9_.\-/]+\.(?:py|sh|mjs))")
 
 
-def _m_skill_script_paths_missing(repo, rev, text, params):
-    return len([path for path in sorted(set(SCRIPT_PATH_RE.findall(text)))
-                if not repo.exists(rev, path)])
+def _m_skill_script_paths_missing(repo, rev, path, params):
+    text = repo.show_text(rev, path) or ""
+    return len([token for token in sorted(set(SCRIPT_PATH_RE.findall(text)))
+                if not repo.exists(rev, token)])
 
 
-def _m_skill_python_invocations_missing(repo, rev, text, params):
-    return len([path for path in sorted(set(PY_INVOCATION_RE.findall(text)))
-                if not repo.exists(rev, path)])
+def _m_skill_python_invocations_missing(repo, rev, path, params):
+    text = repo.show_text(rev, path) or ""
+    return len([token for token in sorted(set(PY_INVOCATION_RE.findall(text)))
+                if not repo.exists(rev, token)])
 
 
 SIBLING_LANE_RE = re.compile(r"(?:^|/)([a-z0-9-]+-shokunin|[a-z0-9-]+-shokinin)/")
 
 
-def _m_cross_lane_citations(repo, rev, text, params):
+def _m_cross_lane_citations(repo, rev, path, params):
     glob = params.get("glob", "corpus/knowledge/*.md")
     excludes = list(params.get("exclude", []))
     base = glob.rsplit("/", 1)[0] if "/" in glob else "."
@@ -339,10 +346,9 @@ def _k_count_at_least(repo, rev, path, params):
     measure = params.get("measure")
     if measure not in MEASURES:
         raise Unevaluable(f"unknown measure {measure!r}")
-    text = repo.show_text(rev, path)
-    if text is None:
+    if not repo.exists(rev, path):
         return None
-    return MEASURES[measure][0](repo, rev, text, params)
+    return MEASURES[measure][0](repo, rev, path, params)
 
 
 def _k_regex_count(repo, rev, path, params):
@@ -359,6 +365,10 @@ def _k_all_ids_resolve(repo, rev, path, params):
     for key in ("pattern", "resolve_path", "resolve_pattern"):
         if not isinstance(params.get(key), str) or not params[key]:
             raise Unevaluable(f"all_ids_resolve needs params.{key}")
+    for key in ("pattern", "resolve_pattern"):
+        if re.compile(params[key]).groups < 1:
+            raise Unevaluable(
+                f"all_ids_resolve needs one capture group in params.{key}")
     text = repo.show_text(rev, path)
     if text is None:
         return None
@@ -377,10 +387,9 @@ def _k_no_match(repo, rev, path, params):
     if measure is not None:
         if measure not in MEASURES:
             raise Unevaluable(f"unknown measure {measure!r}")
-        text = repo.show_text(rev, path)
-        if text is None:
+        if not repo.exists(rev, path):
             return None
-        return MEASURES[measure][0](repo, rev, text, params)
+        return MEASURES[measure][0](repo, rev, path, params)
     pattern = params.get("pattern")
     if not isinstance(pattern, str) or not pattern:
         raise Unevaluable("no_match needs params.measure or params.pattern")
@@ -677,8 +686,7 @@ def format_summary(result: dict) -> str:
 # selftest fixtures: tree objects, no commit anywhere
 # --------------------------------------------------------------------------
 def _fixture_tree(work: str, name: str, files: dict[str, str],
-                  ledger_in_tree: bool = True,
-                  ledger_in_worktree_only: bool = False) -> tuple[str, str, str]:
+                  ledger_in_tree: bool = True) -> tuple[str, str, str]:
     base = os.path.join(work, name)
     root = os.path.join(base, "root")
     git_dir = os.path.join(base, "repo.git")
@@ -706,9 +714,6 @@ def _fixture_tree(work: str, name: str, files: dict[str, str],
                        capture_output=True, env=env)
     tree = subprocess.run(["git", "write-tree"], capture_output=True,
                           env=env, check=True).stdout.decode().strip()
-    if ledger_in_worktree_only:
-        # already written into root above and skipped from the tree
-        pass
     return root, git_dir, tree
 
 
@@ -720,7 +725,7 @@ TITLES = [
 ]
 
 
-def _fixture_checklist(markers=("~", "~", " ", " ")) -> str:
+def _fixture_checklist(markers=("~", " ", " ", " ")) -> str:
     lines = ["# fixture checklist", "", "Promotion requires all of:", ""]
     lines += [f"- [{m}] {t}" for m, t in zip(markers, TITLES)]
     return "\n".join(lines) + "\n"
@@ -730,9 +735,11 @@ FIXTURE_SKILL = "\n".join(
     ["# fixture skill", "", "| Surface | Path |", "|---|---|",
      "| a | b |", "| c | d |", "| e | f |", "",
      "| Gate | Verdict |", "|---|---|",
-     "| gate-a | `0=clean`; `1=findings` |", "",
+     "| gate-a | `0=clean`; `1=findings` |",
+     "| gate-b | `0=met`; `1=findings` |",
+     "| gate-c | `0=met`; `1=findings` |", "",
      "| Gate | Verdict |", "|---|---|",
-     "| gate-b | `fixture_finding_id` |", "",
+     "| gate-d | `fixture_finding_id` |", "",
      "## Fixture checklist", "", "1. one", "2. two", "3. three", "",
      "Cited: S001. Scripts: `scripts/ok.py`.",
      "Run `python3 -B scripts/ok.py --selftest`.", ""])
@@ -775,9 +782,9 @@ def _clean_rows() -> list[dict]:
     return [
         _row(1, "~", "evidenced", [
             {"id": "b1-ids", "kind": "all_ids_resolve", "path": "SKILL.md",
-             "params": {"pattern": r"\bS\d{3}\b",
+             "params": {"pattern": r"\b(S\d{3})\b",
                         "resolve_path": "corpus/SOURCES.md",
-                        "resolve_pattern": r"(?m)^\| S(\d{3}) \|"},
+                        "resolve_pattern": r"(?m)^\| (S\d{3}) \|"},
              "observed": {"ids": 1, "resolved": 1, "unresolved": 0}},
             {"id": "b1-tables", "kind": "count_at_least", "path": "SKILL.md",
              "params": {"measure": "markdown_tables_with_min_rows",
@@ -785,7 +792,7 @@ def _clean_rows() -> list[dict]:
              "observed": 2},
             {"id": "b1-registry", "kind": "count_at_least", "path": "SKILL.md",
              "params": {"measure": "registry_rows_with_code_cell", "min": 2},
-             "observed": 2},
+             "observed": 4},
             {"id": "b1-checklist", "kind": "count_at_least", "path": "SKILL.md",
              "params": {"measure": "checklist_headings", "min": 1},
              "observed": 1},
@@ -866,21 +873,8 @@ def run_selftest(work: str) -> int:
                        "mismatches": 0, "met": True}, 0))
 
     # ---- amendment 2 A5, the six attack shapes -------------------------
-    rows = [
-        _row(1, "~", "evidenced", [{"id": "x", "kind": "exists",
-                                    "path": "SKILL.md", "params": {},
-                                    "observed": True, "holds": True}]),
-        _row(2, "~", "evidenced", [{"id": "x", "kind": "exists",
-                                    "path": "LOG.md", "params": {},
-                                    "observed": True, "holds": True}]),
-        _row(3, "~", "evidenced", [{"id": "x", "kind": "exists",
-                                    "path": "SKILL.md", "params": {},
-                                    "observed": True, "holds": True}]),
-        _row(4, "~", "evidenced", [{"id": "x", "kind": "exists",
-                                    "path": "corpus/knowledge/note.md",
-                                    "params": {}, "observed": True,
-                                    "holds": True}]),
-    ]
+    rows = [_row(box, "~", "evidenced", [{"id": "x", "holds": True}])
+            for box in (1, 2, 3, 4)]
     no_measure = dict(_files(**{LEDGER_PATH: _ledger(rows)}))
     no_measure["SHONEN.md"] = _fixture_checklist(markers=("~", "~", "~", "~"))
     cases.append(Case("a5-02-evidenced-without-measurement", no_measure,
@@ -920,12 +914,16 @@ def run_selftest(work: str) -> int:
                       _files(**{LEDGER_PATH: _ledger(rows)}),
                       {"met": False}, 1))
 
-    cases.append(Case("a5-07-untracked-worktree-ledger", clean,
+    base_markers = _files(**{LEDGER_PATH: _ledger(_clean_rows())})
+    base_markers["SHONEN.md"] = _fixture_checklist(markers=(" ", " ", " ", " "))
+    cases.append(Case("a5-07-untracked-worktree-ledger", base_markers,
                       {"boxes": 4, "unexamined": 4, "mismatches": 0,
                        "met": False}, 1, ledger_in_tree=False))
 
     # ---- ordinary red/green controls -----------------------------------
-    cases.append(Case("missing-ledger", _files(),
+    empty_markers = _files()
+    empty_markers["SHONEN.md"] = _fixture_checklist(markers=(" ", " ", " ", " "))
+    cases.append(Case("missing-ledger", empty_markers,
                       {"boxes": 4, "evidenced": 0, "gap": 0, "unexamined": 4,
                        "mismatches": 0, "met": False}, 1))
 
@@ -939,24 +937,24 @@ def run_selftest(work: str) -> int:
     cases.append(Case("fake-path", _files(**{LEDGER_PATH: _ledger(rows)}),
                       {"met": False}, 1))
 
-    rows = _clean_rows()
-    rows[0]["marker"] = "x"
-    rows[0]["verifier"] = "nobody"
-    x_ok = _files(**{LEDGER_PATH: _ledger(rows)})
-    x_ok["SHONEN.md"] = _fixture_checklist(markers=("x", "~", " ", " "))
-    cases.append(Case("x-with-verifier-and-clean-checks", x_ok,
-                      {"evidenced": 1, "met": True}, 0))
+    def signed_rows(with_verifier: bool) -> tuple[dict, dict]:
+        rows = _clean_rows()
+        for row in rows:
+            row["status"] = "evidenced"
+            row["marker"] = "~"
+        rows[0]["marker"] = "x"
+        if with_verifier:
+            rows[0]["verifier"] = "fixture verifier, 2026-11-03, receipt"
+        else:
+            rows[0].pop("verifier", None)
+        files = _files(**{LEDGER_PATH: _ledger(rows)})
+        files["SHONEN.md"] = _fixture_checklist(markers=("x", "~", "~", "~"))
+        return files
 
-    rows = _clean_rows()
-    rows[0]["marker"] = "x"
-    rows[0]["verifier"] = "nobody"
-    x_ok2 = _files(**{LEDGER_PATH: _ledger(rows)})
-    x_ok2["SHONEN.md"] = _fixture_checklist(markers=("x", "~", " ", " "))
-    rows2 = json.loads(_ledger(rows))
-    for row in rows2["rows"]:
-        row.pop("verifier", None)
-    x_bad = _files(**{LEDGER_PATH: _ledger(rows2["rows"])})
-    x_bad["SHONEN.md"] = _fixture_checklist(markers=("x", "~", " ", " "))
+    x_ok = signed_rows(True)
+    cases.append(Case("x-with-verifier-and-clean-checks", x_ok,
+                      {"evidenced": 4, "met": True}, 0))
+    x_bad = signed_rows(False)
     cases.append(Case("x-without-verifier", x_bad, {"met": False}, 1))
 
     rows = [row for row in _clean_rows() if row["box"] != 1]
@@ -983,11 +981,11 @@ def run_selftest(work: str) -> int:
     rows = _clean_rows()
     rows[1]["status"] = "evidenced"
     rows[1]["checks"][2]["observed"] = 1
-    cases.append(Case("evidenced-with-failing-check",
-                      _files(**{LEDGER_PATH: _ledger(rows)},
-                            LOG.md=FIXTURE_LOG.replace(
-                                ".ufo/waves/round-1/receipt.txt",
-                                ".ufo/waves/round-9/absent.txt")),
+    failing_files = _files()
+    failing_files[LEDGER_PATH] = _ledger(rows)
+    failing_files["LOG.md"] = FIXTURE_LOG.replace(
+        ".ufo/waves/round-1/receipt.txt", ".ufo/waves/round-9/absent.txt")
+    cases.append(Case("evidenced-with-failing-check", failing_files,
                       {"met": False}, 1))
 
     rows = _clean_rows()

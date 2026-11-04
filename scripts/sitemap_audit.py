@@ -22,6 +22,7 @@ import gzip
 import json
 import os
 import re
+import stat
 import sys
 import xml.parsers.expat
 import zlib
@@ -43,6 +44,7 @@ GZIP_MAGIC = b"\x1f\x8b"
 MAX_BYTES = 52428800          # sentence 19
 MAX_ENTRIES = 50000           # sentence 20
 MAX_LOC_CODEPOINTS = 2048     # sentence 23
+MAX_MANIFEST_BYTES = 4 * 1024 * 1024   # round 77: bounded manifest read
 
 XML_WS = " \t\r\n"            # sentence 21
 
@@ -436,6 +438,26 @@ def _has_doctype(text):
     return bool(seen)
 
 
+def _open_regular(path):
+    """Open *path* for reading, or return None when it is not a regular file.
+
+    Round 77 guard: `open()` on a manifest-named FIFO would block forever,
+    and a device has no meaningful size.  O_NONBLOCK keeps the open from
+    blocking; S_ISREG decides whether the descriptor may be read at all."""
+    try:
+        descriptor = os.open(path, os.O_RDONLY | os.O_NONBLOCK)
+    except OSError:
+        return None
+    try:
+        if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+            os.close(descriptor)
+            return None
+        return os.fdopen(descriptor, "rb")
+    except OSError:
+        os.close(descriptor)
+        return None
+
+
 def _load_payload(path):
     """Return (error_code_or_None, data) for one sitemap file.
 
@@ -444,8 +466,11 @@ def _load_payload(path):
     bytes are kept, so a compression bomb is never buffered whole and the
     limit is applied to the expanded bytes (G1).  A corrupt or truncated
     stream is returned as a container error, not as a policy finding (A6)."""
+    handle = _open_regular(path)
+    if handle is None:
+        return ("file_unreadable", b"")
     try:
-        with open(path, "rb") as handle:
+        with handle:
             magic = handle.read(2)
             handle.seek(0)
             if magic == GZIP_MAGIC:
@@ -720,10 +745,15 @@ def _audit_atom(root):
 
 def _load_manifest(path):
     """Return the raw checks list, or None when the manifest is invalid."""
+    handle = _open_regular(path)
+    if handle is None:
+        return None
     try:
-        with open(path, "rb") as handle:
-            raw = handle.read()
+        with handle:
+            raw = handle.read(MAX_MANIFEST_BYTES + 1)
     except OSError:
+        return None
+    if len(raw) > MAX_MANIFEST_BYTES:
         return None
     try:
         text = raw.decode("utf-8")
@@ -756,6 +786,18 @@ def _file_value_invalid(value):
     return ".." in value.split("/")
 
 
+def _resolves_inside(base_dir, path):
+    """True when *path* resolves to something other than *base_dir* itself
+    and inside it.
+
+    Round 77 guard: the lexical absolute/'..' rule alone lets a symlink in
+    the manifest directory read any file the process can open (and, for a
+    text sitemap, expose its line structure through finding entries)."""
+    base = os.path.realpath(base_dir)
+    target = os.path.realpath(path)
+    return target != base and target.startswith(base + os.sep)
+
+
 def _evaluate_check(raw, base_dir, seen_ids):
     """Return one output item (sentence 33) for a manifest check."""
     if not isinstance(raw, dict):
@@ -779,7 +821,11 @@ def _evaluate_check(raw, base_dir, seen_ids):
     if sitemap_url is None:
         return {"id": ident_out, "status": "error", "error": "check_invalid", "findings": []}
 
-    error, findings = _audit_file(os.path.join(base_dir, file_value), sitemap_url)
+    candidate = os.path.join(base_dir, file_value)
+    if not _resolves_inside(base_dir, candidate):
+        return {"id": ident_out, "status": "error", "error": "check_invalid", "findings": []}
+
+    error, findings = _audit_file(candidate, sitemap_url)
     if error is not None:
         return {"id": ident_out, "status": "error", "error": error, "findings": []}
 
