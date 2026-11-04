@@ -153,3 +153,46 @@ Not written, with reasons:
 - **C1's item population is six of the eight routed defects.** R79-6 is decided by the fixture harness
   inside R79-4's condition and R79-7 by C2's third conjunct (frozen 31 plus the 12-case set); the
   round report states the per-item disposition of all eight.
+
+## Post-attack settlement (appended 2026-11-04)
+
+The wave's attacks and its own receipts changed the round's bytes before the report; the record is
+corrected here rather than by rewriting an earlier line.
+
+- **C1 measured at the carrier.** `C1v1 revision=aa44b9af2cdd146f287782f69888bf8b984187d8 items=6
+  open=0 closed=6 exported=84 met=true`, exit 0 (`controls/after-c1.txt`); base `open=6 … met=false`,
+  exit 1 (`controls/base-c80-defect-queue.txt`). Per item: R79-1 closed on the RFC 9110 row whose
+  `used-by` resolves and the erratum; R79-2 closed on the append guard (selftest green through a
+  failing non-prefix fixture, ledger prefix preserved); R79-3 closed on the selftest receipt matching a
+  re-run at the measured revision; R79-4 closed on `killed == 3` with the cheap-note fixture red
+  through `undisclosed == 1`; R79-5 closed on the withdrawal recorded above and unrepeated in every
+  self-assessment file; R79-8 closed on the re-derived seat bytes. R79-6 is decided by the fixture
+  harness inside R79-4's condition and R79-7 by C2's `frozen wrong=0` conjunct.
+- **C2 measured at the carrier.** `C2v1 revision=aa44b9af… frozen_cases=31 frozen_wrong=0
+  a2_cases=12 a2_wrong=0 constants=4/4+4/4 selftest=ok met=true`, exit 0 (`controls/after-c2.txt`);
+  base `a2 wrong=10`, exit 1 (`controls/base-c80-a2.txt`). Tool `d1ea524f…` (23,677 B) with
+  `selftest: 33/33 passed` (`controls/c80-selftest.txt`); the four frozen constants fail 12/12 each on
+  the new set (`controls/ctl-c80-constants.txt`).
+- **Three counter/instrument amendments, all before an after-state.** Amendment 2 (the `used-by` cell
+  index, found by `ScoutSources`) and amendment 3 (`ExecGuard`'s finding that R79-2 could not be
+  decided in revision mode: the guard gained `--base-file`, the counter exports the governed ledger and
+  a base snapshot). The predicates, item conditions, case set and oracle are unchanged by both.
+- **A1's strictness was ruled by the seat that wrote it.** `DATE_COMMA_RE` anchors the weekday at the
+  end of the split piece without allowing trailing whitespace, so `Wed , 03 Dec …` (a space before the
+  comma) keeps the round-79 split — A1 says the comma *immediately* follows the token. No frozen case
+  discriminates; the reading is recorded here as the carriage rule.
+- **Four receipt rewrites, all disclosed.** The round re-cut `controls/base-c80-defect-queue.txt` and
+  `controls/ctl-c80-junk-queue.txt` (amendment 2, one added `exit=` line each, both `append`),
+  refreshed `controls/c80-selftest.txt` after a post-freeze tool tweak so its pinned tool sha follows
+  the carrier (`content`), and re-ran the base receipt after amendment 3 grew the revision export
+  (`content`, `exported=76 → 77`). Each is an entry in `.ufo/waves/round-58/receipt-rewrites.json` with
+  its true blob pair and kind, appended by byte-splice; the standing round-79 gate is green at the
+  carrier (`events=36 undisclosed=0 … met=true`, `controls/after-c1-ledger-gate.txt`).
+- **The wave's own seats changed the carrier.** `ExecGrammar` fixed the parse (its `$`-anchored
+  `DATE_COMMA_RE` and the asctime shape), `ExecFixtures` built the survivor harness (its cheap-note
+  kill criterion initially contradicted itself — `undisclosed == 1 and malformed == 1` while also
+  requiring `malformed == 0` in the "others" set — and the L1 corrected that one condition after the
+  seat reported `killed: 2`), `ExecGuard` routed the amendment-3 defect and its guard design informed
+  the L1's implementation, `ExecQueue` wrote the re-derived seat record, `ScoutSources` found the
+  unsatisfiable conjunct, `ScoutRecon` measured the 31/31 no-regression and the 12/12 predicted patch,
+  and the two scribes produced the Gate, Mistakes, Corrections and criterion drafts this lesson lands.

@@ -5102,3 +5102,52 @@ wave's attacks the tool was repaired (SentinelC F1–F6, ReviewC2 F1; selftest 2
 C1's final-carrier receipts are `controls/after-c1-receipt-ledger-final.txt` (`undisclosed=0 met=true`),
 `controls/after-c1-r58-crosscheck-final.txt` and `controls/after-shonen-population-final.txt`
 (`stale_populations=0 met=true`); the frozen predicate, cases and oracle are unchanged.
+
+## Round 80 — measured claims (author-side; closure owns admission)
+
+Frozen contract `.ufo/waves/round-80/contract.md` at `f20163c1` (before any seat ran); grammar
+amendment `amendments/amendment-1.md`; counter correction `amendments/amendment-2.md` at `de65ec21`
+(unsatisfiable `used-by` index, found by the wave's scout before any after-state);
+evaluability amendment `amendments/amendment-3.md` (R79-2 decidable at a measured revision). Base
+`9998dc7a586b9fe76379014c8123aa3606f2d8b9`. Measured carrier:
+`aa44b9af2cdd146f287782f69888bf8b984187d8`; the after receipts are committed at `5f1dc98c`. Wave
+`w1`: one v1 wave, 15 seats (scout 2, executor 5, scribe 2, reviewer 2, critic 1, mutation-tester 1,
+connector 1, sentinel 1; attack share 5/15 = 33.3 %); the L1 held the planner seat. Scores held:
+operability 10 HOLD, freshness 10 HOLD, calibration 2 HOLD.
+
+| Claim | Axis | Before → after | Counting command | Evidence/verdict |
+|---|---|---|---|---|
+| C1 the round-79 routed-defect queue closes | calibration 2→2 HOLD | base `9998dc7a`: `C1v1 revision=9998dc7a586b9fe76379014c8123aa3606f2d8b9 items=6 open=6 closed=0 exported=77 met=false`, exit 1 (`.ufo/waves/round-80/controls/base-c80-defect-queue.txt:8`) → carrier `aa44b9af`: `C1v1 revision=aa44b9af2cdd146f287782f69888bf8b984187d8 items=6 open=0 closed=6 exported=84 met=true`, exit 0 (`controls/after-c1.txt:8`) | `python3 -B .ufo/waves/round-80/c80_defect_queue.py --root . --revision <rev>` | measured met; counter selftest `selftest: 3/3 passed` exit 0 (`controls/ctl-c80-queue-selftest.txt`); junk tree `open=5 closed=1 met=false` exit 1 (`controls/ctl-c80-junk-queue.txt`); item R79-5 is textual and its limit is stated |
+| C2 `unavailable_after` accepts the date shapes its source names | operability 10→10 HOLD | base `9998dc7a`: `frozen wrong=0 a2 wrong=10 met=false`, exit 1 (`controls/base-c80-a2.txt`); a2 `correct=2 wrong=10` → carrier `aa44b9af`: `frozen_cases=31 frozen_wrong=0 a2_cases=12 a2_wrong=0 constants=4/4+4/4 selftest=ok met=true`, exit 0 (`controls/after-c2.txt`) | `python3 -B .ufo/waves/round-80/c80_measure.py --root . --revision <rev>` | measured met; tool `d1ea524f…` (23,677 B) selftest `33/33 passed`; four frozen constants fail 12/12 each on the new set (`controls/ctl-c80-constants.txt`); the frozen 31-case matrix unchanged |
+
+Move log (round 80):
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 80 | calibration (HOLD 2) | `open=6 met=false` at `9998dc7a`; six routed items open, one of them unsatisfiable at the freeze bytes | `open=0 closed=6 met=true` at `aa44b9af`; registry row with resolving `used-by`, append guard, re-derived selftest receipt, survivor fixtures, recorded withdrawal, re-derived seat bytes | `.ufo/waves/round-80/c80_defect_queue.py`, `controls/base-c80-defect-queue.txt` → `controls/after-c1.txt`, `controls/ctl-c80-queue-selftest.txt`, `controls/ctl-c80-junk-queue.txt`, `scripts/ledger_append_guard.py`, `.ufo/waves/round-80/c80_ledger_fixtures.py`, `controls/c80-cheap-note.txt` |
+| 80 | operability (HOLD 10) | comma split destroys every comma-bearing HTTP-date; S452's own example rejected (`a2 wrong=10`, `correct=2`) | IMF-fixdate, RFC 850 and asctime values decided; frozen 31-case set unchanged (`a2 wrong=0`, `frozen wrong=0`, `met=true`) | `scripts/x_robots_tag_audit.py` at `d1ea524f`, `.ufo/waves/round-80/amendments/amendment-1.md`, `cases/` + `expect/expect.json`, `controls/after-c2.txt`, `controls/c80-selftest.txt` |
+
+### Demonstrated repertoire, round 80
+
+| Capability | What it can do | Evidence | First-working round |
+|---|---|---|---|
+| Routed-defect queue gate | Decides, per item of a prior round's non-author defect list, whether the lane closed it — from bytes, with a re-run comparison rather than a token, and with base and junk controls | `.ufo/waves/round-80/c80_defect_queue.py`; `controls/base-c80-defect-queue.txt` → `controls/after-c1.txt`; `controls/ctl-c80-junk-queue.txt` | 80 |
+| Receipt-ledger append guard | Fails when a receipt ledger loses prior bytes while growing; passes a pure append; runs against a git revision or an exported snapshot | `scripts/ledger_append_guard.py`; `controls/after-c1-ledger-guard.txt` | 80 |
+| Survivor-mutant fixture harness | Kills the three counter-survivor classes through their own conjuncts in throwaway repos (`killed == 3`) | `.ufo/waves/round-80/c80_ledger_fixtures.py`; `controls/c80-cheap-note.txt` | 80 |
+
+Stated limits, not claimed closed: R79-5's conjunct is textual (a fabricated withdrawal satisfies it; only
+"no self-assessment file repeats the sentence" is state-bound, which is why the junk control reads
+`open=5`); `unavailable_after` calendar validity, the RFC 850 50-year window, per-bot effective
+resolution, meta+header conflicts and redirect-hop inheritance are not decided; A2 accepts a single space
+before a one-digit day where RFC 9110's `date3` does not (`[INFERENCE]`); A1 is a lane segmentation rule
+grounded in RFC 9110 §5.5 and S452's own example, not a source statement; the header carrier now accepts
+RFC 850/asctime where the round-78 meta carrier rejects them — a per-carrier scope difference recorded in
+`corpus/knowledge/http-date-grammar.md` and `PROVINCE.md`, harmonization routed because round-78's
+grammar and matrix are frozen; the freshness axis is held, not re-measured live — `node
+scripts/freshness-sweep.mjs --offline` prints `VERDICT: OK (exit 0, partial: offline)`
+(`controls/after-freshness-offline.txt`) with its remote, armed and history sections skipped. The
+knowledge population is sixty-seven at the carrier (sixty-six at the base) and the registry is 191 rows
+(`S453` added); the census exits 0 with 19 `W04` lines at the base and 20 at the carrier
+(`controls/census-before.txt`, `controls/census-after.txt`); the standing round-79 ledger gate is green
+at the carrier (`undisclosed=0 … met=true`, 36 events, `controls/after-c1-ledger-gate.txt` to be added
+with the settlement).
