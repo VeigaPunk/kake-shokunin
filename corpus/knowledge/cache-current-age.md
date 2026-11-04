@@ -1,6 +1,6 @@
 source: S462 — RFC 9111 §4.2.3 Calculating Age — https://httpwg.org/specs/rfc9111.html#age.calculations; opened 2026-11-04; retained source/access evidence .ufo/waves/round-87/w1/ScoutAge/ and w1/ScribeRegistry/source-access.md. S461 retains its separate lifetime/duplicate scope.
 verified-at: 2026-11-04 — source reopened by L1, ScoutAge and scribes; implementation and independent review receipts under .ufo/waves/round-87/w1/ExecAge/, ReviewAge/, MutAge/; production revision measurement under controls/after-c2-carrier.txt.
-recheck: 180d or source/adapter change; GET https://httpwg.org/specs/rfc9111.html#age.calculations and compare §4.2.3 equations; offline command TMPDIR=/fast/scratch/hyaku/kake-r87/L1 python3 -B scripts/cache_current_age.py --selftest (create the explicit scratch directory first).
+recheck: 180d or source/adapter change; GET https://httpwg.org/specs/rfc9111.html#age.calculations and compare §4.2.3 equations; the offline selftest command is checklist item 6 below (it creates its own temporary directory; no fixed scratch path is named here).
 
 # Conservative HTTP current-age arithmetic
 
@@ -70,6 +70,7 @@ RFC prohibition against processing a response; it is this adapter's boundary.
    `python3 -B .ufo/waves/round-87/w1/ExecTrial/retained_trial.py --tool /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/cache_current_age.py`.
    Its observed times share one second and Age0: the all-zero result is a real
    invocation but not a discriminator against constant-zero/Age-only shortcuts.
+6. Offline selftest without a fixed scratch path: TMPDIR=$(mktemp -d) python3 -B scripts/cache_current_age.py --selftest; the shell creates the temporary directory per invocation and it is not a citable evidence path.
 
 The frozen counter's 17-case equality is weaker than the complete adapter
 contract: Python equality accepts equivalent floats/bools and invalid diagnostics

@@ -31,7 +31,7 @@ def decode(payload: object) -> dict[str, int]:
     for key in (*REQUIRED, "age_value"):
         value = payload.get(key, 0)
         if not isinstance(value, int) or isinstance(value, bool):
-            raise ValueError(f"{key} must be an integer, not boolean")
+            raise ValueError("%s must be an integer, not %s" % (key, {bool: "boolean", type(None): "null", str: "string", float: "float", list: "array", dict: "object"}.get(type(value), type(value).__name__)))
         if key != "date_value" and value < 0:
             raise ValueError(f"{key} must be nonnegative")
     date_value = payload["date_value"]
