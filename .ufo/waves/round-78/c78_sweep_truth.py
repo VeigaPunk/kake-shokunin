@@ -2,10 +2,11 @@
 """c78_sweep_truth.py — kake round 78, claim C2 (freshness).
 
 Runs the lane's standing freshness gate (`scripts/freshness-sweep.mjs
---offline`) over the measured worktree, reads its JSON verdict, and proves the
-gate was not loosened by the round's citation repair: a negative control copies
-the measured revision to scratch, plants one unannotated citation of an absent
-target, and must come back red.
+--offline`) over the **archived bytes of the named revision** — never the
+mutable worktree — reads its JSON verdict, and proves the gate was not loosened
+by the round's citation repair: the negative control is a second extraction of
+the same revision with one planted unannotated citation of an absent target,
+and it must come back red.
 
 Frozen predicate (contract §C2, frozen before any after-state):
 
@@ -23,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
 import os
 import shutil
 import subprocess
@@ -78,31 +80,58 @@ def decide(exit_code: int, data: dict):
     }
 
 
-def negative_control(root: Path, rev: str, work: Path, timeout: int):
-    ctl = work / "ctl"
-    if ctl.exists():
-        shutil.rmtree(ctl)
-    ctl.mkdir(parents=True)
+def extract(root: Path, rev: str, dest: Path):
+    if dest.exists():
+        shutil.rmtree(dest)
+    dest.mkdir(parents=True)
     proc = subprocess.run(
-        f"git -C {root} archive {rev} | tar -x -C {ctl}",
+        f"git -C {root} archive {rev} | tar -x -C {dest}",
         shell=True, capture_output=True, text=True)
     if proc.returncode != 0:
-        raise Unevaluable(f"archive extract failed: {proc.stderr.strip()}")
+        raise Unevaluable(f"git archive {rev} failed: {proc.stderr.strip()}")
+    if not (dest / SWEEP_REL).exists():
+        raise Unevaluable(f"archive of {rev} carries no {SWEEP_REL}")
+    return dest
+
+
+def tree_identity(dirpath: Path) -> str:
+    """Hash of the measurable inputs (the source files the sweep reads)."""
+    h = hashlib.sha256()
+    for rel in ("SKILL.md", "corpus/knowledge/freshness-pins.json"):
+        p = dirpath / rel
+        if p.exists():
+            h.update(rel.encode())
+            h.update(p.read_bytes())
+    for p in sorted((dirpath / "corpus").rglob("*.md")):
+        h.update(str(p.relative_to(dirpath)).encode())
+        h.update(p.read_bytes())
+    return h.hexdigest()
+
+
+def negative_control(root: Path, rev: str, work: Path, timeout: int):
+    ctl = work / "ctl"
+    extract(root, rev, ctl)
     target = ctl / CONTROL_REL
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(CONTROL_BODY)
     rc, data = sweep(ctl, timeout)
     d = decide(rc, data)
+    d["tree_identity"] = tree_identity(ctl)
     shutil.rmtree(ctl, ignore_errors=True)
     return d
 
 
 def measure(root: Path, rev: str, work: Path, timeout: int):
-    rc, data = sweep(root, timeout)
+    measured = work / "measured"
+    extract(root, rev, measured)
+    rc, data = sweep(measured, timeout)
     base = decide(rc, data)
+    base["tree_identity"] = tree_identity(measured)
+    shutil.rmtree(measured, ignore_errors=True)
     ctl = negative_control(root, rev, work, timeout)
     met = (base["sweep_exit"] == 0 and base["drift"] == 0 and base["new_missing"] == 0
-           and base["paths_ok"] and ctl["sweep_exit"] == 1 and (ctl["drift"] or 0) >= 1)
+           and base["paths_ok"] and ctl["sweep_exit"] == 1 and (ctl["drift"] or 0) >= 1
+           and base["tree_identity"] != ctl["tree_identity"])
     base.update({"revision": rev, "control_exit": ctl["sweep_exit"],
                  "control_drift": ctl["drift"], "control_new_missing": ctl["new_missing"],
                  "met": met})
@@ -114,7 +143,7 @@ def emit(res: dict) -> int:
           f"drift={res['drift']} new_missing={res['new_missing']} "
           f"paths_ok={str(res['paths_ok']).lower()} skipped={res['skipped']} "
           f"control_exit={res['control_exit']} control_drift={res['control_drift']} "
-          f"met={str(res['met']).lower()}")
+          f"tree_identity={res['tree_identity'][:16]} met={str(res['met']).lower()}")
     for r in res["reasons"]:
         print(f"  verdict reason: {r}")
     return 0 if res["met"] else 1

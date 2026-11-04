@@ -1,0 +1,12 @@
+# base instrument receipt check — round 78
+# command: python3 -B scripts/instrument_receipts.py --root . --revision fe50945399a386b48678b1f2051fdbe8a77b10bd --check
+C2v1 revision=fe50945399a386b48678b1f2051fdbe8a77b10bd population=20 bound=18 mismatches=2 met=false
+  population: derived=20 frozen=16 missing_frozen=0 beyond_frozen=4
+  receipt: source=committed worktree=identical declared=abfbfaac58bcee2514490940d1b16365027a07c9 declared_match=false declared_valid=true
+  population: beyond-frozen .ufo/waves/round-75/c75_row_truth.py
+  population: beyond-frozen scripts/doc_quote_truth.py
+  population: beyond-frozen scripts/hreflang_audit.py
+  population: beyond-frozen scripts/instrument_receipts.py
+  finding: missing scripts/doc_quote_truth.py: receipt has no entry for this path
+  finding: missing scripts/hreflang_audit.py: receipt has no entry for this path
+rc=1
