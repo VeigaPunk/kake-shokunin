@@ -1,0 +1,93 @@
+{
+  "schema": "ufo-swarm-registry-v1",
+  "wave": "kake-r88-w1",
+  "createdAt": "2026-11-04T18:51:01.512Z",
+  "updatedAt": "2026-11-04T18:51:14.194Z",
+  "reportDir": ".ufo/waves/round-88/w1",
+  "members": {
+    "ScoutVary": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Recon + bounded planning data-walk over LANE. (1) Grep LANE/corpus, LANE/scripts, LANE/SKILL.md and LANE/PROVINCE.md for existing Vary, cache-key, request-header-matching or conditional-request selection material and report every hit with file:line; name precisely which ground the round-88 reader covers and which it duplicates. (2) Data-walk for the claim set: prove at base f4479c14 that LANE/scripts/vary_match.py is absent (`git -C LANE show f4479c14:scripts/vary_match.py`), that LANE/corpus/knowledge/gate-agreement-metadata.md is absent, and quote the base recheck line of LANE/corpus/knowledge/cache-current-age.md plus the base diagnostic line of LANE/scripts/cache_current_age.py that name the three defects D1/D2/D3. (3) Read all 20 cases in LANE/.ufo/waves/round-88/vary-cases.json and contract.md's declared profile; list any case you believe is wrong (case id, expected, your verdict, the RFC 9111 section 4.1 sentence that decides it) and count how many cases a constant-'match' tool would pass. No production writes."
+    },
+    "ScoutSpec": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scout",
+      "item": "Open the primary source yourself. GET https://httpwg.org/specs/rfc9111.html (record HTTP status, byte count, sha256, access date) and retain the raw HTML under your wave directory. Quote byte-exactly with section locators: (a) the section 4.1 MUST NOT sentence; (b) all three permitted transformations; (c) the sentence on a field absent from a request; (d) the sentence on a Vary member '*'. Then GET https://httpwg.org/specs/rfc9110.html and quote the Vary field definition (section 12.5.5, its ABNF) and section 5.2 on combining field lines with the same name. Produce twelve or more <=25-word located quotes. State what none of these proves (no cache-key construction, storage, revalidation, freshness or browser behaviour). Read the last rows of LANE/corpus/SOURCES.md (S460-S462) and report the next free id, whether a third RFC 9111 row is a within-scope duplicate for the census or a cross-scope W04 warning, and the exact rule text you relied on (read /home/vgpnk/Projects/shokunin/scripts/sources-census.sh or corpus rules in /home/vgpnk/Projects/shokunin/CORPUS.md section SOURCES.md). No production writes."
+    },
+    "ExecReader": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Implement the candidate CLI at LANE/.ufo/waves/round-88/w1/ExecReader/vary_match.py with the exact contract in LANE/.ufo/waves/round-88/c88_vary.py's docstring and the declared conservative profile in contract.md: field names compare ASCII case-insensitively; nominated names are deduplicated; multiple field lines given as a JSON array combine in order with ', '; values compare byte-identically after trimming leading/trailing SP and HTAB only; a nominated field absent from both requests matches and absent from one does not; any '*' member always fails; non-string vary or values, non-token members, empty members and empty Vary are refused with exit 1 and an 'invalid_input:' stderr prefix and no stdout; a decision prints exactly 'match' or 'mismatch' on stdout, exit 0, empty stderr. Add --selftest with at least 12 isolated assertions printing 'selftest: N/N passed' and exit 0/1. Then score your candidate with: TMPDIR=/fast/scratch/hyaku/kake-r88/ExecReader python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-88/c88_vary.py --tool LANE/.ufo/waves/round-88/w1/ExecReader/vary_match.py --work /fast/scratch/hyaku/kake-r88/ExecReader/work — paste the full JSON line and exit. Report every failing case and why; never edit the case file or the counter. No network, no /tmp."
+    },
+    "ExecCases": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Independent expectation set. Derive, without reading any candidate implementation, the expected verdict for each of the 20 cases in LANE/.ufo/waves/round-88/vary-cases.json from RFC 9111 section 4.1 and RFC 9110 section 12.5.5/5.2 as you read them; write LANE/.ufo/waves/round-88/w1/ExecCases/expectations.json (id -> expected, reason, spec sentence) and a table in your report. Then build an adversarial batch of at least 12 fresh inputs that are NOT in the frozen set (for example repeated identical members, a value that is only OWS, 'Vary: *, accept-encoding', a request key with a trailing space, a member with an underscore, a JSON array of one value, an empty array, a nominated field present only as an empty string on one side) with the expected verdict and the spec basis for each; write it to LANE/.ufo/waves/round-88/w1/ExecCases/extra-cases.json. If LANE/.ufo/waves/round-88/w1/ExecReader/vary_match.py exists, score it read-only on your extra batch with a small runner and report the tally and every disagreement; if it does not exist, record the exact command for L1 to replay. Report any frozen case you believe is wrong as a defect with the deciding sentence; never edit the case file."
+    },
+    "ExecDefects": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Repair the D2 diagnostic on a copy. Start from LANE/.ufo/waves/round-88/frozen/base-cache_current_age.py and write the repaired candidate to LANE/.ufo/waves/round-88/w1/ExecDefects/cache_current_age.py. Allowed change: the invalid_input message names the actual JSON type (for example 'date_value must be an integer, not float', '... not boolean', '... not string'); arithmetic, the six-key output, exit codes and the 61-fixture --selftest must stay identical. Red-before receipt: run the frozen base copy with {\"date_value\": 7.0, \"request_time\": 1, \"response_time\": 2, \"now\": 3} and with a boolean date_value, capture exit and stderr; then run the candidate on the same two inputs and on a valid input ({\"date_value\":80,\"request_time\":90,\"response_time\":100,\"now\":130,\"age_value\":5}) and on --selftest. Paste every command, exit and stderr. Diff base vs candidate (`diff -u`) and prove only the message line(s) changed. Also probe a string and a null value and report the messages. No production edits, no /tmp."
+    },
+    "ExecTrial": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "executor",
+      "item": "Actual domain trial. Make one GET https://ds4cc.com/ (at most two requests total, and the second only if the first response carries no Vary field — then GET https://kimi.page/). Retain status, byte count, sha256, access date and the response header lines you need (Vary, Date, Age, content-type, cache-control) in LANE/.ufo/waves/round-88/w1/ExecTrial/. Extract the observed Vary field value verbatim; never invent one and never send credentials, cookies or auth. If LANE/.ufo/waves/round-88/w1/ExecReader/vary_match.py exists, feed the observed Vary value and two request-header maps built from what the capture actually observed (the request the client sent, and one deliberately perturbed presented request such as a different Accept-Encoding) through the candidate read-only, with the exact JSON payloads and verdicts; if it does not exist, record the replay command for L1. Report the observed Vary value, both verdicts, and state exactly what the trial proves and does not prove (one identical-side observation is not a discriminator). No publishing, no deployment, no retry for a prettier result."
+    },
+    "ScribeVary": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the knowledge entry candidate at LANE/.ufo/waves/round-88/w1/ScribeVary/vary-matching.md for the conservative Vary-match profile. It must open with source:, verified-at: and recheck: lines that name the new SOURCES row (next free id, S463 unless the registry says otherwise; check LANE/corpus/SOURCES.md and report any collision), the RFC 9111 section 4.1 URL and the 2026-11-04 access date. House style: read LANE/corpus/knowledge/cache-control-effective.md and LANE/corpus/knowledge/cache-current-age.md first. Sections: located quotes (the MUST NOT sentence, the three permitted transformations, the absence sentence, the '*' sentence); a decision table (rule -> verdict) that matches the 20 frozen cases exactly; error patterns; a runnable checklist starting with `printf '%s' '<payload>' | python3 -B scripts/vary_match.py` for one match, one mismatch and one refused input; and an explicit non-claims block (no cache-key, storage, revalidation, freshness or browser claim; the conservative asymmetry: 'match' is always a permitted transformation, 'mismatch' may be stricter than a field-specific rule; ordered line combination and OWS trimming are local adapter conventions). Also draft the registry row as one 11-column row matching the LANE/corpus/SOURCES.md schema (id, source, kind, tier, scope, anchor, teaches, status=mined, opened, recheck, used-by) in LANE/.ufo/waves/round-88/w1/ScribeVary/sources-row.md, state that no cell contains a literal pipe, and report the column count of every row you drafted. Do not edit corpus/."
+    },
+    "ScribeLedger": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Draft the D1 companion entry at LANE/.ufo/waves/round-88/w1/ScribeLedger/gate-agreement-metadata.md. It must open with filled source:, verified-at: and recheck: lines; its source: line must name LANE/corpus/knowledge/gate-agreement-ledger.json and quote the ledger's full sha256, which you compute yourself from LANE/.ufo/waves/round-88/frozen/base-gate-agreement-ledger.json (report the command and output). Read the eight ledger rows and tabulate round, item, decision, outside verdict; explain that the file is evidence metadata under knowledge/ holding closure-owned decisions, not a sourced domain claim, that the companion supplies the provenance trio a JSON file cannot carry, and that the ledger bytes are unchanged from base. Bound the entry: it proves record existence, not that an assessment was performed or that decision accuracy improved. Then draft LANE/.ufo/waves/round-88/w1/ScribeLedger/cache-current-age.md: the frozen base entry with ONLY its recheck: line corrected (no /fast/scratch, no TMPDIR=, keep a 180d cadence, point at the checklist) plus one appended checklist item carrying `TMPDIR=$(mktemp -d) python3 -B scripts/cache_current_age.py --selftest`; every other line byte-identical. Prove it with `diff -u` against LANE/.ufo/waves/round-88/frozen/base-cache-current-age.md and show exactly one replaced line plus one insertion. Do not edit corpus/."
+    },
+    "ScribeLesson": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "scribe",
+      "item": "Run the census first and keep both outputs: `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake` (paste full output and exit code). Then draft LANE/.ufo/waves/round-88/w1/ScribeLesson/round-88.md: a round lesson with `## Gate` (each candidate: URL, access date, a <=25-word located quote, admit/reject, reason and flip condition; at least one admit and one reject), `## Mistakes` (mine ONE mistake from this round or an earlier one: class, evidence pointer, captured-by criterion, fix — and show the fix can fail by naming the witness that reddens it), and short sections for claims, limits, reviews and the census before/after. Strongest available candidates: the round-87 routed R2 diagnostic that named the wrong JSON type, the round-87 eager unrelated-fixture load, the round-87 ephemeral recheck path, or a defect the round-88 seats actually find (ask your own reads, do not invent). Do not invent receipts: if a receipt does not exist yet, name it as pending in your report instead of writing it into the lesson prose. Read LANE/corpus/lessons/round-87.md and round-87-verifier-spotcheck.md first for shape."
+    },
+    "ReviewCounter": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Attack the C1 counter LANE/.ufo/waves/round-88/c88_defect_queue.py. Read contract.md and the frozen base copies first. Build fixtures under /fast/scratch/hyaku/kake-r88/ReviewCounter and run `TMPDIR=... python3 -B LANE/.ufo/waves/round-88/c88_defect_queue.py --mirror <fixture> --work <scratch>` for each attack: (a) a records-only tree that writes plausible prose but keeps the frozen base tool; (b) a tree that fixes everything except that one ledger row was changed (D1 must reopen); (c) a companion that names the ledger with a truncated or wrong digest; (d) an entry whose recheck line is fixed while a claim line is rewritten in a way an insertion could mask; (e) a tool that prints the right diagnostic words but computes wrong arithmetic. For each attack paste the exit code and the JSON detail line, and say which mutant survives. Then the converse: confirm the repaired-tool mirror really closes all three items, and audit the counter source for any read of a receipt, the fleet repo, or another claim's output (it must read lane bytes only). Report every false-green with exact commands. No production edits."
+    },
+    "ReviewReader": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "reviewer",
+      "item": "Independent implementation. Write your own Vary-match implementation from RFC 9111 section 4.1 and RFC 9110 section 12.5.5/5.2 at LANE/.ufo/waves/round-88/w1/ReviewReader/indep.py with the same CLI contract as contract.md — do not read ExecReader's candidate first; record the order you read things in. Then: (1) write your own expected-verdict table for the 20 frozen cases and compare it with LANE/.ufo/waves/round-88/vary-cases.json, reporting any case id where you disagree with the exact deciding sentence; (2) run your implementation and ExecReader's candidate (if it exists) over the 20 frozen cases and at least 12 fresh inputs of your own, and report every behavioural disagreement with which side you believe is spec-correct and why; (3) attack the conservative asymmetry — find an input where a 'match' verdict would be spec-unsound, or argue with quotes why none exists; (4) check the reference implementation inside LANE/.ufo/waves/round-88/c88_vary.py against the spec on at least 6 inputs of your own and report any disagreement with the counter's declared profile. Do not edit the case file, the counter or any candidate."
+    },
+    "CriticClaims": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "critic",
+      "item": "Falsify both claims using committed bytes only. C2: build a lookup-table stub that hashes the stdin JSON of each of the 20 frozen cases and prints canned verdicts, score it with `TMPDIR=/fast/scratch/hyaku/kake-r88/CriticClaims python3 -B LANE/.ufo/waves/round-88/c88_vary.py --tool <stub> --work <scratch>`, and report the frozen and random scores — if the random population does not kill it, say so plainly and explain why. Then test whether the random population is degenerate (are its cases separable by a trivial rule such as 'does the JSON contain the substring \"*\"'), by measuring the score of at least two cheap heuristic stubs you write. C1: build a tool that prints the right diagnostic words for float and boolean but computes wrong arithmetic, score the D2 item via a mirror fixture, and report whether it passes; test whether a companion entry that quotes the right sha256 but describes the ledger wrongly passes D1, and whether the junk-prose control really leaves exactly one item open. Report every false-green you can actually execute, with commands, exits and the exact item JSON, plus what would catch it. No production edits."
+    },
+    "MutReader": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "mutation-tester",
+      "item": "Mutation-test the frozen C2 counter's discriminating power against a real implementation. If LANE/.ufo/waves/round-88/w1/ExecReader/vary_match.py exists, copy it into your scratch, apply at least eight single-point mutants (for example: case-sensitive field names; no OWS trim; unordered array combination; '*' treated as a normal token; absent-both treated as mismatch; one-sided absence treated as match; value case-folding applied; internal whitespace collapsed; empty Vary accepted), and score each mutant with `python3 -B LANE/.ufo/waves/round-88/c88_vary.py --tool <mutant> --work <scratch>` recording exit and the frozen/random tallies. Report kills per mutant and any survivor with the cases that let it through. Also mutate the C1 counter's three items in a mirror tree (one mutant per item) and report which mutants the counter fails to catch. If ExecReader's candidate is absent, mutate the reference implementation from a copy you write yourself and say so. Restore and delete every scratch copy; never touch the wave candidate or production files."
+    },
+    "ConnectorScope": {
+      "kind": "spawn",
+      "agentId": null,
+      "role": "connector",
+      "item": "Sibling-overlap scan, read-only. (1) Check whether any other lane already owns Vary-match, cache-key or conditional-request-selection ground: grep the sibling lane repos named in /home/vgpnk/Projects/shokunin/shokunin.conf (for example tabi-, chousa-, kama-, kumitate-shokunin) for 'Vary', 'vary_match', 'cache key' and 'secondary cache' and report hits with file:line, or the exact absence. (2) Read LANE/PROVINCE.md and name which parts of this round sit inside kake's province and which are adjacency debt that must be reported, not absorbed. (3) Scan LANE/corpus/knowledge for an existing entry that already states a Vary rule (report each file:line) and say whether a new entry duplicates it; also check whether any existing entry claims a cache-key guarantee that the new conservative profile would contradict. (4) Report the exact merge/kake assimilation collision status this round: run the id-collision extractor from the addendum against /home/vgpnk/Projects/shokuknow/merge/kake/SOURCES.append.md and LANE/corpus/SOURCES.md (0-3 leading spaces pattern) and paste the two id lists, the collision count and the collision ids. No writes outside your wave directory; never write into the source repo."
+    }
+  }
+}
