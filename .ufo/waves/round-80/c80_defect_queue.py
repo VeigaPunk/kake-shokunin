@@ -121,7 +121,7 @@ def p_r79_1(tree: Path) -> tuple[bool, str]:
     lesson = read(tree / "corpus/lessons/round-80.md")
     if not ("R79-1" in lesson and "S453" in lesson and "RFC 9309" in lesson):
         return False, "round-80 lesson lacks the R79-1 erratum naming S453 and RFC 9309"
-    used = row[11] if len(row) > 11 else ""
+    used = row[10] if len(row) > 10 else ""
     cited = [p.strip() for p in used.split(",") if p.strip() and p.strip() != "—"]
     resolved = [p for p in cited if (tree / p).is_file() and "S453" in read(tree / p)]
     if not resolved:
@@ -232,17 +232,58 @@ def p_r79_8(tree: Path) -> tuple[bool, str]:
     return True, f"{len(empty)} empty-output seats recorded with re-derived bytes ({', '.join(empty)})"
 
 
+def selftest(work: Path) -> int:
+    """Prove the R79-1 conjuncts can pass and can fail (shape, used-by resolution)."""
+    base = work / "selftest"
+    cells = ["S453", "RFC 9110 dates — https://example.test/rfc9110.txt", "spec", "A",
+             "date grammar", "Section 5.6.7; 2026-11-04", "accepts three formats", "mined",
+             "2026-11-04", "365d", "corpus/knowledge/x.md"]
+
+    def make(name: str, row_cells: list[str], cites: bool) -> Path:
+        tree = base / name
+        (tree / "corpus/knowledge").mkdir(parents=True, exist_ok=True)
+        (tree / "corpus/lessons").mkdir(parents=True, exist_ok=True)
+        (tree / "corpus/SOURCES.md").write_text(
+            "# SOURCES\n\n| id | source | kind | tier | scope | anchor | teaches | status | opened "
+            "| recheck | used-by |\n|---|---|---|---|---|---|---|---|---|---|---|\n| "
+            + " | ".join(row_cells) + " |\n", encoding="utf-8")
+        (tree / "corpus/knowledge/x.md").write_text("cites S453\n" if cites else "other\n",
+                                                    encoding="utf-8")
+        (tree / "corpus/knowledge/y.md").write_text("other\n", encoding="utf-8")
+        (tree / "corpus/lessons/round-80.md").write_text(
+            "R79-1 erratum: S453 was never the RFC 9309 row.\n", encoding="utf-8")
+        return tree
+
+    green = make("green", cells, True)
+    unresolved = make("unresolved", cells[:-1] + ["corpus/knowledge/y.md"], True)
+    twelve = make("twelve", cells + ["extra"], True)
+    checks = [
+        ("green-closes", p_r79_1(green)[0] is True, str(p_r79_1(green))),
+        ("unresolved-open", p_r79_1(unresolved)[0] is False, str(p_r79_1(unresolved))),
+        ("twelve-open", p_r79_1(twelve)[0] is False and "shape" in p_r79_1(twelve)[1],
+         str(p_r79_1(twelve))),
+    ]
+    for name, ok, detail in checks:
+        print(f"  {'ok' if ok else 'FAIL'} {name} {detail}")
+    passed = sum(1 for _, ok, _ in checks if ok)
+    print(f"selftest: {passed}/{len(checks)} passed")
+    return 0 if passed == len(checks) else 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--root", default=".")
     ap.add_argument("--revision")
     ap.add_argument("--work")
+    ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     root = Path(a.root).resolve()
     work = Path(a.work) if a.work else Path(tempfile.mkdtemp(prefix="kake-c80-dq-"))
     work.mkdir(parents=True, exist_ok=True)
     owned = a.work is None
     try:
+        if a.selftest:
+            return selftest(work)
         if a.revision:
             tree, exported, errors = materialise(root, a.revision, work)
             label = a.revision
