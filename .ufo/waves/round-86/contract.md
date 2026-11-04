@@ -82,16 +82,18 @@ cases=0/14, met=false), `controls/ctl-c2-constant.txt`,
 decoders fail the frozen cases), `controls/c86-selftest-c1.txt` (counter
 selftest green), `controls/census-before.txt`. Kill rule: if any unchanged/shortcut
 control meets its target, that claim is unprovable and the counter or target is
-wrong — fix before data, never after. Never narrow the 14-case population or
+wrong — fix before data, never after. Never narrow the 15-case population or
 retrofit expectations after a seat scores. A nonzero after measurement is
 unprovable. New discovered defects are disclosed, never hidden by green counts.
 
 ## Wave / ownership
 
-One v1 wave of 13 seats inside the run-15 band 8–16: scout 2, executor 3, scribe 3,
-reviewer 2, critic 1, mutation-tester 1, connector 1; attack share 5/13 = 38.5%
-over {reviewer, critic, mutation-tester, labrat} (labrat rides as a seat here, see
-below). L1 holds the canonical planner (validator forbids planner); ScoutCache
+One v1 wave of 14 seats inside the run-15 band 8–16: scout 2, executor 4, scribe 3,
+reviewer 2, critic 1, mutation-tester 1, connector 1; attack share 4/14 = 28.6%
+over {reviewer, critic, mutation-tester} — the validator refuses `labrat` as a
+swarm role (frozen-topology taxonomy), so the capture probe rides an executor
+seat named LabratCapture.
+L1 holds the canonical planner (validator forbids planner); ScoutCache
 carries the bounded planning data-walk; this is the recorded r85 mitigation, not a
 settlement of D84-4 — routed to the operator under R2. Routing is
 `task.agentModelOverrides` (read before dispatch; no model passed). Seats write
