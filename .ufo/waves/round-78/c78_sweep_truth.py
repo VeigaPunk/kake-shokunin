@@ -95,9 +95,11 @@ def extract(root: Path, rev: str, dest: Path):
 
 
 def tree_identity(dirpath: Path) -> str:
-    """Hash of the measurable inputs (the source files the sweep reads)."""
+    """Hash of every input the sweep's §paths decision reads: SKILL.md, the
+    pins file, the sidecar, the sweep script itself, and every corpus/*.md."""
     h = hashlib.sha256()
-    for rel in ("SKILL.md", "corpus/knowledge/freshness-pins.json"):
+    for rel in ("SKILL.md", "corpus/knowledge/freshness-pins.json",
+                "corpus/knowledge/freshness-sidecar.json", SWEEP_REL):
         p = dirpath / rel
         if p.exists():
             h.update(rel.encode())
