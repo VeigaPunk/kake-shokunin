@@ -2557,7 +2557,7 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Wave `w1`.** One v1 wave, 15 seats: scout 2, executor 5, scribe 2, reviewer 2, critic 1,
   mutation-tester 1, connector 1, sentinel 1; attack share 4/15 = 26.7 %; the L1 held the planner seat.
   Spec `w1-spec.json`, dispatch `w1-dispatch.json`, ready `w1.ready`, registry `w1/swarm-registry.json`.
-- **C1 landed and measured.** `scripts/doc_quote_truth.py` (hardened from the frozen v1, selftest 47/47)
+- **C1 landed and measured.** `scripts/doc_quote_truth.py` (hardened from the frozen v1, selftest 63/63)
   re-derives every claim-bearing span in the round-75/76 claim rows against committed receipts, strips
   diagnostic lines, and requires `--base` for the append-only conjunct. Base `a0491fcd`: seven findings over
   16 rows, met=false, exit 1 (`controls/base-c1-quote-truth-v2.txt`). The repair lands seven whole-line
@@ -2588,7 +2588,7 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
   finding lines made absent spans "contiguous" and the do-nothing control turned green; the fix is the
   receipt-universe rule plus diagnostic-line stripping, proven by a red no-repair control. (ii) A frozen
   counter's selftest could not run (duplicate fixture payload, `git commit` exit 1, harness raise) and four
-  mutants survived behind it; the delivered build runs 47/47 and the mutation seat re-scored it.
+  mutants survived behind it; the delivered build runs 63/63 and the mutation seat re-scored it.
 - **Corrections (round-75 closure R1/R2).** The round-75 entry named the hardened counter as `0699a672…`
   and the receipt as `f3128628…` (both the blobs at `4e3fc159`). Re-derived at `a0491fcd`
   (`controls/r1-r2-digests.txt`): counter
