@@ -27,6 +27,7 @@ Exit: 0 met, 1 not met, 2 unevaluable, 64 usage. Read-only outside --work.
 from __future__ import annotations
 
 import argparse
+import datetime
 import hashlib
 import json
 import re
@@ -37,6 +38,7 @@ import tempfile
 from pathlib import Path
 
 ROUND_FIRST_DAY = "2026-11-04T00:00:00Z"
+ROUND_FIRST_INSTANT = datetime.datetime(2026, 11, 4, tzinfo=datetime.timezone.utc)
 WAVE = ".ufo/waves/round-81"
 EXPECTATIONS = f"{WAVE}/capture-expectations.json"
 MANIFEST = f"{WAVE}/capture/manifest.json"
@@ -65,6 +67,24 @@ def read_bytes(path: Path) -> bytes | None:
 
 def strip_one_newline(text: str) -> str:
     return text[:-1] if text.endswith("\n") else text
+
+
+def parse_instant(text: str) -> datetime.datetime | None:
+    """RFC 3339 date-time to an aware UTC instant, or None. Never a string compare.
+
+    A lexicographic compare accepts `2026-11-04T01:00:00+09:00` (2026-11-03T16:00Z, before the
+    round) and rejects `2026-11-03T23:00:00-02:00` (2026-11-04T01:00Z, fresh); this parses the
+    offset instead. Amendment 3.
+    """
+    if not isinstance(text, str) or not RFC3339_RE.match(text):
+        return None
+    try:
+        parsed = datetime.datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    return parsed.astimezone(datetime.timezone.utc)
 
 
 def host_of(url: str) -> str:
@@ -146,10 +166,12 @@ def verify_receipt(tree: Path, check: dict, declared: dict, allowlist: list[str]
     if isinstance(status, bool) or not isinstance(status, int) or not 100 <= status <= 599:
         return False, f"{source}: status {status!r} unparseable"
     fetched = receipt.get("fetchedAt")
-    if not isinstance(fetched, str) or not RFC3339_RE.match(fetched):
-        return False, f"{source}: fetchedAt {fetched!r} is not RFC 3339"
-    if fetched < ROUND_FIRST_DAY:
-        return False, f"{source}: fetchedAt {fetched} predates the round ({ROUND_FIRST_DAY})"
+    instant = parse_instant(fetched)
+    if instant is None:
+        return False, f"{source}: fetchedAt {fetched!r} is not an RFC 3339 instant"
+    if instant < ROUND_FIRST_INSTANT:
+        return False, (f"{source}: fetchedAt {fetched} predates the round "
+                       f"({ROUND_FIRST_DAY}; parsed {instant.isoformat()})")
     if receipt.get("method") != "GET":
         return False, f"{source}: method {receipt.get('method')!r} is not GET"
     if receipt.get("truncated") is not False:
@@ -361,6 +383,15 @@ def selftest(work: Path) -> int:
     ok, messages, _ = evaluate(two, work)
     checks.append(("missing-declared-surface-opens", not ok and any("missing from the manifest" in m for m in messages),
                    "; ".join(messages[:2])))
+
+    ahead = fixture("offset-ahead", fetched="2026-11-04T01:00:00+09:00")
+    ok, messages, _ = evaluate(ahead, work)
+    checks.append(("utc-offset-ahead-opens", not ok and any("predates the round" in m for m in messages),
+                   "; ".join(messages[:2])))
+
+    behind = fixture("offset-behind", fetched="2026-11-03T23:00:00-02:00")
+    ok, messages, _ = evaluate(behind, work)
+    checks.append(("utc-offset-behind-accepted", ok, "; ".join(messages[:2])))
 
     empty = fixture("empty")
     (empty / WAVE / "capture-expectations.json").write_text(

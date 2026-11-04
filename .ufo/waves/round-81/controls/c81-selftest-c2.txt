@@ -6,7 +6,7 @@ $ python3 -B .ufo/waves/round-81/c81_capture_audit.py --selftest --work $HYAKU_S
   ok counted-audit-ran :: rc=0
   ok byte-count-opens :: .ufo/waves/round-81/capture/surface-1/response.json: bytes 16 != body 15; .ufo/waves/round-81/capture/surface-1/response.json: bytes 16 != body 15
   ok stale-audit-ran :: rc=0
-  ok stale-capture-opens :: .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z); .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z)
+  ok stale-capture-opens :: .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z; parsed 2026-11-03T23:59:59+00:00); .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z; parsed 2026-11-03T23:59:59+00:00)
   ok drifted-audit-ran :: rc=0
   ok audit-drift-opens :: audit stdout differs from the committed receipt (byte comparison after one trailing newline); .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-04T12:00:00Z ds4cc.com
   ok url-drift-audit-ran :: rc=0
@@ -15,7 +15,11 @@ $ python3 -B .ufo/waves/round-81/c81_capture_audit.py --selftest --work $HYAKU_S
   ok manifest-expect-drift-opens :: surface-1: manifest expect differs from the declared expectations; .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-04T12:00:00Z ds4cc.com
   ok two-declared-audit-ran :: rc=1
   ok missing-declared-surface-opens :: declared surfaces missing from the manifest: surface-2; audit stdout differs from the committed receipt (byte comparison after one trailing newline)
+  ok offset-ahead-audit-ran :: rc=0
+  ok utc-offset-ahead-opens :: .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-04T01:00:00+09:00 predates the round (2026-11-04T00:00:00Z; parsed 2026-11-03T16:00:00+00:00); .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-04T01:00:00+09:00 predates the round (2026-11-04T00:00:00Z; parsed 2026-11-03T16:00:00+00:00)
+  ok offset-behind-audit-ran :: rc=0
+  ok utc-offset-behind-accepted :: .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-03T23:00:00-02:00 ds4cc.com
   ok empty-audit-ran :: rc=0
   ok no-surface-opens :: declared expectations: expectations declare no surface
-selftest: 18/18 passed
+selftest: 22/22 passed
 exit=0
