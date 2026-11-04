@@ -1,0 +1,7 @@
+$ python3 -B scripts/cache_key_conformance.py --candidate .ufo/waves/round-89/w1/MutKey/mutants/M24-lf-check-dropped.py --work /fast/scratch/hyaku/kake-r90/ScoutGround --seed 9090 --jobs 4 --verbose
+FAIL values/lf-only: expected refusal; rc=0 out=b'{"key": "https://e.test/p\\u001fa\\u001ex\\ny"}\n' err=b''
+FAIL values/lf-unnominated-novary: expected refusal; rc=0 out=b'{"key": "https://e.test/p"}\n' err=b''
+FAIL generated/g045: expected refusal; rc=0 out=b'{"key": "https://e.test/%1F%1F%1F/%252"}\n' err=b''
+cache_key_conformance advisory=1/3 outside-contract-gaps=utf8-required,nul-in-value
+cache_key_conformance clauses=5/6 hand=68/70 generated=119/120 sandbox=ok seed=9090 met=false
+exit=1

@@ -1,0 +1,16 @@
+# ctl-c1.txt sections lane=9 mine=9 headers_equal=True
+AGREE ## c1-do-nothing (lane at base; live tree carries the inherited baseclean.out) | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=False
+DISAGREE ## c1-F-D1a relocated copy committed, root file left untracked | first-line lane='C1v90 revision=<R> items=3 open=3 closed=0 met=false' mine="cp: cannot stat '/home/vgpnk/Projects/shokunin/kake-shokunin/baseclean.out': No such file or directory" | exit ['exit=1'] ['exit=1'] | json-line-equal=False
+AGREE ## c1-F-D1b relocated copy with different bytes, root clean | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c1-F-D2a correction whose numbers disagree with the cited receipt | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c1-F-D2b fabricated receipt agreeing with its correction | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c1-F-D2c valid correction but the filed SCORECARD row rewritten in place | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c1-F-D3a supersede row with a fabricated quote | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c1-F-D3b supersede row valid but S463 scope rewritten in place | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+DISAGREE ## c1-positive all three fixed in the fixture | first-line lane='C1v90 revision=<R> items=3 open=0 closed=3 met=true' mine="cp: cannot stat '/home/vgpnk/Projects/shokunin/kake-shokunin/baseclean.out': No such file or directory" | exit ['exit=0'] ['exit=1'] | json-line-equal=False
+# ctl-c2.txt sections lane=5 mine=5 headers_equal=True
+AGREE ## c2-do-nothing (lane at base: no gate) | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c2-refuse gate | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c2-admit gate | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c2-hashtable gate | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True
+AGREE ## c2-nametable gate | first-line eq | exit ['exit=1'] ['exit=1'] | json-line-equal=True

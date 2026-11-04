@@ -1,0 +1,9 @@
+env -i PATH=/usr/bin:/bin LC_ALL=C.UTF-8 PYTHONIOENCODING=utf-8 python3 -I -S -B :: utf8_mode=0 ignore_env=1 stdin=utf-8/surrogateescape
+env -i PATH=/usr/bin:/bin LC_ALL=C.UTF-8 PYTHONIOENCODING=utf-8 python3 -S -B :: utf8_mode=0 ignore_env=0 stdin=utf-8/strict
+env -i PATH=/usr/bin:/bin LC_ALL=en_US.UTF-8 python3 -I -S -B :: utf8_mode=0 ignore_env=1 stdin=utf-8/strict
+env -i PATH=/usr/bin:/bin LC_ALL=en_US.UTF-8 python3 -S -B :: utf8_mode=0 ignore_env=0 stdin=utf-8/strict
+stdin=7b22757269223a22ff222c22726571756573745f68656164657273223a7b7d7d env=[LC_ALL=C.UTF-8 PYTHONIOENCODING=utf-8] flags=[-I -S -B] rc=0 :: {"key": "\udcff"}
+stdin=7b22757269223a22ff222c22726571756573745f68656164657273223a7b7d7d env=[LC_ALL=C.UTF-8 PYTHONIOENCODING=utf-8] flags=[-S -B] rc=1 :: invalid_input: input is not valid JSON
+stdin=7b22757269223a22ff222c22726571756573745f68656164657273223a7b7d7d env=[LC_ALL=en_US.UTF-8] flags=[-I -S -B] rc=1 :: invalid_input: input is not valid JSON
+stdin=7b22757269223a22ff222c22726571756573745f68656164657273223a7b7d7d env=[LC_ALL=en_US.UTF-8] flags=[-S -B] rc=1 :: invalid_input: input is not valid JSON
+Python 3.14.8 (main, Oct  2 2026, 10:23:31) [GCC 16.2.1 20260810]

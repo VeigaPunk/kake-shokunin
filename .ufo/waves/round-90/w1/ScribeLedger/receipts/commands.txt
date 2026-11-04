@@ -1,0 +1,29 @@
+ScribeLedger round 90 — commands behind each receipt (2026-11-04). Scratch root /fast/scratch/hyaku/kake-r90/ScribeLedger (TMPDIR), deleted before yield.
+LANE=/home/vgpnk/Projects/shokunin/kake-shokunin
+
+c1-at-79e1aac2.txt:
+  python3 -B $LANE/.ufo/waves/round-90/c90_defects.py --root $LANE --revision 79e1aac2 --work <scratch>/w1     -> exit 0
+c2-at-79e1aac2.txt:
+  python3 -B $LANE/.ufo/waves/round-90/c90_gate.py --root $LANE --revision 79e1aac2 --work <scratch>/w2        -> exit 0
+
+forgery-c2-pin-reading-gate.txt (gate source: forgery-pin-reading-gate.py, 16 lines):
+  D=$(mktemp -d <scratch>/fx.XXXX); git clone -q --shared $LANE "$D"; toplevel asserted == $D
+  git -C "$D" checkout -q --detach 79e1aac24654e01dc0559eb3beb8abbe61ec73a8
+  overwrite $D/scripts/cache_key_conformance.py with forgery-pin-reading-gate.py
+  git -C "$D" -c user.name=fixture -c user.email=fixture@scratch.invalid commit -qam ...   -> b1f19dd0e817254e92c964ebb820ab8bf62973c1
+  python3 -B $LANE/.ufo/waves/round-90/c90_gate.py --root "$D" --revision HEAD --work <scratch>/w3   -> exit 0, met=true
+
+heldout-pos-comments-stripped.txt (subject heldout-pos-comments-stripped.py: git show 79e1aac2:scripts/cache_key.py,
+  every full-line comment removed, an unused function appended; sha256 not in frozen/c2-population.sha256):
+  python3 -B $LANE/scripts/cache_key_conformance.py --candidate <subject> --work <scratch>/w4   -> exit 0
+heldout-neg-value-htab-untrimmed.txt (subject heldout-neg-value-htab-untrimmed.py: same base, line 109
+  `_esc(_strip_ows(lowered[name]))` -> `_esc(lowered[name].strip(' '))`, values trimmed of SP only; contract clause 3 says SP and HTAB):
+  python3 -B $LANE/scripts/cache_key_conformance.py --candidate <subject> --work <scratch>/w6   -> exit 1
+  ($LANE/scripts/ is unmodified in the working tree: `git status --porcelain` lists no scripts/ path)
+
+noharm-c1-drafts-appended.txt:
+  same fixture, git -C "$D" checkout -q --detach 79e1aac2; append "\n" + scorecard-round-90.md to SCORECARD.md,
+  "\n" + log-round-90.md to LOG.md, "\n" + quality-round-90.md to corpus/QUALITY.md; fixture commit 4993644e
+  python3 -B $LANE/.ufo/waves/round-90/c90_defects.py --root "$D" --revision HEAD --work <scratch>/w7   -> exit 0, open=0 closed=3
+
+No tool installed or upgraded. No network access.

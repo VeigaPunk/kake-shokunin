@@ -1,0 +1,302 @@
+[
+ {
+  "probe": "utf8-required",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a22ff222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "b89f82625c956a0e6fbb38090aebbe2408008b1c5a1bb659d2cafc8db9fd7215",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises UnicodeDecodeError)"
+ },
+ {
+  "probe": "utf8-required",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a22ff222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "b89f82625c956a0e6fbb38090aebbe2408008b1c5a1bb659d2cafc8db9fd7215",
+  "rc": 0,
+  "stdout": "{\"key\": \"\\udcff\"}\n",
+  "stderr": "",
+  "reference": "n/a (gate's own decode raises UnicodeDecodeError)"
+ },
+ {
+  "probe": "utf8-required-in-value",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b2261223a22c328227d2c2276617279223a2261227d",
+  "stdin_sha256": "cccaa38c6be77acc56204863fd117d85c2aa21b9f61eae346ca230a4758a6ab1",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises UnicodeDecodeError)"
+ },
+ {
+  "probe": "utf8-required-in-value",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b2261223a22c328227d2c2276617279223a2261227d",
+  "stdin_sha256": "cccaa38c6be77acc56204863fd117d85c2aa21b9f61eae346ca230a4758a6ab1",
+  "rc": 0,
+  "stdout": "{\"key\": \"u\\u001fa\\u001e\\udcc3(\"}\n",
+  "stderr": "",
+  "reference": "n/a (gate's own decode raises UnicodeDecodeError)"
+ },
+ {
+  "probe": "utf8-overlong-slash",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a22c0af222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "c1fd8e049a95a9f67106ac19e3b16e7c823a01c493a4988fad968ae2e84d8d66",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises UnicodeDecodeError)"
+ },
+ {
+  "probe": "utf8-overlong-slash",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a22c0af222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "c1fd8e049a95a9f67106ac19e3b16e7c823a01c493a4988fad968ae2e84d8d66",
+  "rc": 0,
+  "stdout": "{\"key\": \"\\udcc0\\udcaf\"}\n",
+  "stderr": "",
+  "reference": "n/a (gate's own decode raises UnicodeDecodeError)"
+ },
+ {
+  "probe": "utf8-lone-surrogate-escaped",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a225c7564383030222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "e8714f3ef49aed01deb9ff04a5e49b82d21ace31ef6ac6d9e2bc5a0d4580574a",
+  "rc": 0,
+  "stdout": "{\"key\": \"\\ud800\"}\n",
+  "stderr": "",
+  "reference": "\ud800"
+ },
+ {
+  "probe": "utf8-lone-surrogate-escaped",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a225c7564383030222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "e8714f3ef49aed01deb9ff04a5e49b82d21ace31ef6ac6d9e2bc5a0d4580574a",
+  "rc": 0,
+  "stdout": "{\"key\": \"\\ud800\"}\n",
+  "stderr": "",
+  "reference": "\ud800"
+ },
+ {
+  "probe": "raw-control",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a22751f222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "58f7cba719ce6de62a8e787a9e0a2698336032916365fb6605cb9b5bd0fd2c12",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "raw-control",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a22751f222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "58f7cba719ce6de62a8e787a9e0a2698336032916365fb6605cb9b5bd0fd2c12",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "raw-control-contract-ex5-literal",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a2268747470733a2f2f652e746573742f61222c22726571756573745f68656164657273223a7b2261223a22781f621e79227d2c2276617279223a2261227d",
+  "stdin_sha256": "897fb7bd3bca206dcf979d84c53d8a475ddef338abd8bbfe9c120cd36640f9f6",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "raw-control-contract-ex5-literal",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a2268747470733a2f2f652e746573742f61222c22726571756573745f68656164657273223a7b2261223a22781f621e79227d2c2276617279223a2261227d",
+  "stdin_sha256": "897fb7bd3bca206dcf979d84c53d8a475ddef338abd8bbfe9c120cd36640f9f6",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "raw-nul-in-value",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b2261223a22780079227d2c2276617279223a2261227d",
+  "stdin_sha256": "b19b09f03576b3aba5d5c8b65ecc6536c0be418ecaa789c064a8c87dfa45e4dd",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "raw-nul-in-value",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b2261223a22780079227d2c2276617279223a2261227d",
+  "stdin_sha256": "b19b09f03576b3aba5d5c8b65ecc6536c0be418ecaa789c064a8c87dfa45e4dd",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "nul-in-value",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a202268747470733a2f2f652e746573742f70222c2022726571756573745f68656164657273223a207b2261223a2022785c753030303079227d2c202276617279223a202261227d",
+  "stdin_sha256": "88045428a3b5e6ea0cc79f5d69624c6be9c1c4e348387cd1916029953c576688",
+  "rc": 0,
+  "stdout": "{\"key\": \"https://e.test/p\\u001fa\\u001ex\\u0000y\"}\n",
+  "stderr": "",
+  "reference": "https://e.test/p\u001fa\u001ex\u0000y"
+ },
+ {
+  "probe": "nul-in-value",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a202268747470733a2f2f652e746573742f70222c2022726571756573745f68656164657273223a207b2261223a2022785c753030303079227d2c202276617279223a202261227d",
+  "stdin_sha256": "88045428a3b5e6ea0cc79f5d69624c6be9c1c4e348387cd1916029953c576688",
+  "rc": 0,
+  "stdout": "{\"key\": \"https://e.test/p\\u001fa\\u001ex\\u0000y\"}\n",
+  "stderr": "",
+  "reference": "https://e.test/p\u001fa\u001ex\u0000y"
+ },
+ {
+  "probe": "nul-in-uri-escaped",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a22755c7530303030222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "c73324a72ffab096f7f67d474c4e06427587dd84b18e6c4863207fb33e8e8682",
+  "rc": 0,
+  "stdout": "{\"key\": \"u\\u0000\"}\n",
+  "stderr": "",
+  "reference": "u\u0000"
+ },
+ {
+  "probe": "nul-in-uri-escaped",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a22755c7530303030222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "c73324a72ffab096f7f67d474c4e06427587dd84b18e6c4863207fb33e8e8682",
+  "rc": 0,
+  "stdout": "{\"key\": \"u\\u0000\"}\n",
+  "stderr": "",
+  "reference": "u\u0000"
+ },
+ {
+  "probe": "nul-in-unnominated-value",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b227a223a22785c7530303030227d7d",
+  "stdin_sha256": "fb17e02ebe554ad54d011391f42841565724991b8aec470cf2cea0cdabf9990c",
+  "rc": 0,
+  "stdout": "{\"key\": \"u\"}\n",
+  "stderr": "",
+  "reference": "u"
+ },
+ {
+  "probe": "nul-in-unnominated-value",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b227a223a22785c7530303030227d7d",
+  "stdin_sha256": "fb17e02ebe554ad54d011391f42841565724991b8aec470cf2cea0cdabf9990c",
+  "rc": 0,
+  "stdout": "{\"key\": \"u\"}\n",
+  "stderr": "",
+  "reference": "u"
+ },
+ {
+  "probe": "bom-prefixed",
+  "env": "plain",
+  "stdin_hex": "efbbbf7b22757269223a2275222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "98377e119a212b783873d7e9e82c2b4ae1f6a3ba3c9f15ca1851e043251e605d",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "bom-prefixed",
+  "env": "gate",
+  "stdin_hex": "efbbbf7b22757269223a2275222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "98377e119a212b783873d7e9e82c2b4ae1f6a3ba3c9f15ca1851e043251e605d",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "dup-json-key-exact",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b2261223a2231222c2261223a2232227d2c2276617279223a2261227d",
+  "stdin_sha256": "6964cded7f1d89450c97b62399ed902bd0ba59dfa8c43be0ef0bfa146ccdd355",
+  "rc": 0,
+  "stdout": "{\"key\": \"u\\u001fa\\u001e2\"}\n",
+  "stderr": "",
+  "reference": "u\u001fa\u001e2"
+ },
+ {
+  "probe": "dup-json-key-exact",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b2261223a2231222c2261223a2232227d2c2276617279223a2261227d",
+  "stdin_sha256": "6964cded7f1d89450c97b62399ed902bd0ba59dfa8c43be0ef0bfa146ccdd355",
+  "rc": 0,
+  "stdout": "{\"key\": \"u\\u001fa\\u001e2\"}\n",
+  "stderr": "",
+  "reference": "u\u001fa\u001e2"
+ },
+ {
+  "probe": "dup-json-key-uri",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a227531222c22757269223a227532222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "62fc068d5fd5bd254e01a615a567be4669108b572ce5b34eb38ae43fd19eb05b",
+  "rc": 0,
+  "stdout": "{\"key\": \"u2\"}\n",
+  "stderr": "",
+  "reference": "u2"
+ },
+ {
+  "probe": "dup-json-key-uri",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a227531222c22757269223a227532222c22726571756573745f68656164657273223a7b7d7d",
+  "stdin_sha256": "62fc068d5fd5bd254e01a615a567be4669108b572ce5b34eb38ae43fd19eb05b",
+  "rc": 0,
+  "stdout": "{\"key\": \"u2\"}\n",
+  "stderr": "",
+  "reference": "u2"
+ },
+ {
+  "probe": "nan-value",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b2261223a4e614e7d7d",
+  "stdin_sha256": "255d56b3a2039df3e7ae9d4c779c3ae21344b30b7784c0c6885795387fc79acb",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: header value must be a string\n",
+  "reference": "REFUSE"
+ },
+ {
+  "probe": "nan-value",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b2261223a4e614e7d7d",
+  "stdin_sha256": "255d56b3a2039df3e7ae9d4c779c3ae21344b30b7784c0c6885795387fc79acb",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: header value must be a string\n",
+  "reference": "REFUSE"
+ },
+ {
+  "probe": "trailing-garbage",
+  "env": "plain",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b7d7d2078",
+  "stdin_sha256": "966516d7189e01da7d903f0ea48d48722f446dbe530cf3180cce4ac7647f0bd1",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ },
+ {
+  "probe": "trailing-garbage",
+  "env": "gate",
+  "stdin_hex": "7b22757269223a2275222c22726571756573745f68656164657273223a7b7d7d2078",
+  "stdin_sha256": "966516d7189e01da7d903f0ea48d48722f446dbe530cf3180cce4ac7647f0bd1",
+  "rc": 1,
+  "stdout": "",
+  "stderr": "invalid_input: input is not valid JSON\n",
+  "reference": "n/a (gate's own decode raises JSONDecodeError)"
+ }
+]

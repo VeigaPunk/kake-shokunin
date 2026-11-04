@@ -1,0 +1,197 @@
+[
+ {
+  "mutant": "H01-del-name-percent-absent",
+  "desc": "delete hand case names/name-percent-absent",
+  "sha256": "5a32d490d2ddd1d2638985d315579394ee0401473e39ec3d4d521d4ae3f13749"
+ },
+ {
+  "mutant": "H02-del-cr-only",
+  "desc": "delete hand case values/cr-only",
+  "sha256": "efb9db9f6654d554ad072fa8f4bbc4d7108ca80535ad1cce7945166f03cae5f7"
+ },
+ {
+  "mutant": "H03-del-dup-header-unnominated",
+  "desc": "delete hand case names/dup-header-unnominated",
+  "sha256": "f2ec8f5660ec3cb77d92dbc72719451eb56f306718f9069531e557202550e50a"
+ },
+ {
+  "mutant": "H04-del-vt-kept",
+  "desc": "delete hand case values/vt-kept",
+  "sha256": "6c5b5b4d39003b847b8a54f8b6b76e1e461983c9eae4bde062d3a1bc9c98c08b"
+ },
+ {
+  "mutant": "H05-del-inner-ws-kept",
+  "desc": "delete hand case values/inner-ws-kept",
+  "sha256": "ab81979bd5024c40b95d4fdaf36b3355e65c4adcb49d4c099eec2b094aa1c133"
+ },
+ {
+  "mutant": "H06-del-worked-examples",
+  "desc": "delete the 7 worked-example hand cases",
+  "sha256": "c6997330372a0d83ff56361dc60dfac6f8d7b105aaf01e8f2ee8618ed306bcd4"
+ },
+ {
+  "mutant": "G01-del-members",
+  "desc": "delete clause group members",
+  "sha256": "9b9d5111e485c331961f73f63944e5e36ab8a51ac5955c2bceab405cf396f7b2"
+ },
+ {
+  "mutant": "G02-del-names",
+  "desc": "delete clause group names",
+  "sha256": "95aa662065f25f77fdb22bb4de059ae255af8a4567a832550f922b83e101754b"
+ },
+ {
+  "mutant": "G03-del-values",
+  "desc": "delete clause group values",
+  "sha256": "becf841f24440b53247ff42ddce845ec35cae23ddeb6277aa11a2c3093612382"
+ },
+ {
+  "mutant": "G04-del-escaping",
+  "desc": "delete clause group escaping",
+  "sha256": "922cdaa0640ca55380289d7df0506b1c730e8783a8f9604907e2b9153cbe0b12"
+ },
+ {
+  "mutant": "G05-del-layout",
+  "desc": "delete clause group layout (explicit, worked kept)",
+  "sha256": "74c171fb946fb23dffdf6c262637f18a4c5542ed86b8a411cfa4e766e9ed9a4a"
+ },
+ {
+  "mutant": "G06-del-refusals",
+  "desc": "delete clause group refusals",
+  "sha256": "1cc0cf5c12c4b30284e9c0e60128a8a7b66a5c9c7e5f3eb3172f4dc806bcfcf3"
+ },
+ {
+  "mutant": "J01-ignore-stdout-lines",
+  "desc": "judge: drop one-JSON-line shape check",
+  "sha256": "8dd13e47092c1a4b09d971008805c8ca8dab0b81dbab8585549e9f6f447fb638"
+ },
+ {
+  "mutant": "J02-accept-bare-key",
+  "desc": "judge: non-JSON stdout taken as bare key",
+  "sha256": "931fc5479e0fe213e312060eab1f3a1d26a2f4492538a474a8423e9d42d7bf55"
+ },
+ {
+  "mutant": "J03-ignore-stderr-prefix",
+  "desc": "judge: refusal ignores invalid_input: stderr prefix",
+  "sha256": "871796936b02a983c91fcc2836c836e095073fe7a39af8a100a213a12bdb52c9"
+ },
+ {
+  "mutant": "J04-refusal-rc0-ok",
+  "desc": "judge: refusal accepts rc 0",
+  "sha256": "499fa15a5346306c7068d37b00a68a6d7d9b82455367150c88510b1edd80d7af"
+ },
+ {
+  "mutant": "J05-refusal-ignore-stdout",
+  "desc": "judge: refusal ignores stdout emptiness",
+  "sha256": "be9a8e732dd5095aaff9e35057981f7c7c335841b4a02bc318480be5fae2009a"
+ },
+ {
+  "mutant": "J06-extra-keys-ok",
+  "desc": "judge: extra JSON members accepted",
+  "sha256": "aec53ec3e7ce5a51da058388f7aa19771599683da9306a0b365bef08bb5d4324"
+ },
+ {
+  "mutant": "J07-success-any-rc",
+  "desc": "judge: key accepted on any rc",
+  "sha256": "d5f501589c280cf4966e7b7d1696d10c23398a9c6ec72f33811d65c46675a396"
+ },
+ {
+  "mutant": "S01-no-import-check",
+  "desc": "sandbox: drop import event check",
+  "sha256": "4c855c93e391aed5bfcdea4efcea12aed3f86f0be3989671f18c77e4bd7963d2"
+ },
+ {
+  "mutant": "S02-no-open-check",
+  "desc": "sandbox: drop open event check",
+  "sha256": "98c68872f1ad80e62ed0357b334d0d1af0dd99dbd2e24a31dd073d66ee2cfd56"
+ },
+ {
+  "mutant": "S03-no-listdir-check",
+  "desc": "sandbox: drop os.listdir/os.scandir check",
+  "sha256": "acc63745a1c42b7f2fa7ff53a822fe6c056d60c00362cf107a347069571a01cf"
+ },
+ {
+  "mutant": "S04-no-popen-event",
+  "desc": "sandbox: drop subprocess.Popen from deny list",
+  "sha256": "28468e41dbc041cd0228f19ab18ef56bbffdbad6d0740594c60c9460f818d12a"
+ },
+ {
+  "mutant": "S05-no-socket-events",
+  "desc": "sandbox: drop socket events from deny list",
+  "sha256": "671dce35c40ecea5797b68108e3fd9a49735fc5190dc78ae8990f1e513eed16c"
+ },
+ {
+  "mutant": "S06-no-sandbox",
+  "desc": "run candidate directly, without the sandbox wrapper",
+  "sha256": "eb5a51dfa3dca0cef4dfb445ea03f209cdfedbf068d91a09605c1e1d5f88d56a"
+ },
+ {
+  "mutant": "S07-violation-not-scored",
+  "desc": "met ignores sandbox violation flag",
+  "sha256": "8faf3d3c8671887726ef088b915df0759ffb52be9df17e03b0e8f5bcd882078c"
+ },
+ {
+  "mutant": "S08-no-isolation-flags",
+  "desc": "candidate run without -I (env/sys.path/user-site isolation)",
+  "sha256": "02939f29c35e4afd93e3b46551dc8999bfd51328b3b6ae387c4d2b8da7cc8a82"
+ },
+ {
+  "mutant": "R01-ref-no-sort",
+  "desc": "reference: members not sorted",
+  "sha256": "407578e3808df9401cfd001b7535645b7d3e7c3eaa565dd0aab13d863800695d"
+ },
+ {
+  "mutant": "R02-ref-percent-last",
+  "desc": "reference: '%' escaped after separators",
+  "sha256": "98b9b7cc6c6b5b0eb49474227172264b36d477e87a26cb380af660d7f2590a0e"
+ },
+ {
+  "mutant": "R03-ref-no-percent",
+  "desc": "reference: '%' not escaped",
+  "sha256": "5d8b232eeb080282f6adff76fef36efa365fbb5d1b967fb4e5d699c3e9ca6701"
+ },
+ {
+  "mutant": "R04-ref-trim-strip",
+  "desc": "reference: _trim uses str.strip()",
+  "sha256": "2cb81953172962d8fbd09b43bcfdcc866fa630925410333241060aee1ee007c3"
+ },
+ {
+  "mutant": "R05-ref-no-lower",
+  "desc": "reference: members not lowercased",
+  "sha256": "94e20568e61b701ab4f002a1bab0be01f587ed5cfc69dc87c2d1298af1296fd4"
+ },
+ {
+  "mutant": "R06-ref-nosort-and-no-selfcheck",
+  "desc": "reference no sort AND self_check returns True (paired)",
+  "sha256": "369a364bf21120d517aa57ae5eec0382ad25c727378c5b68ea2c47cd09c2fd98"
+ },
+ {
+  "mutant": "P01-generated-default-0",
+  "desc": "--generated default 0",
+  "sha256": "721f0260d2ad2f591a72cff746a90698d523ee6c8e1b0ad32f947157f2d4e8c5"
+ },
+ {
+  "mutant": "P02-met-ignores-generated",
+  "desc": "met ignores generated",
+  "sha256": "f6b2b59a9a0666d8086de8f44c1a8f51ebed72d07ba8ef0d056a88177e250c73"
+ },
+ {
+  "mutant": "P03-met-ignores-clauses",
+  "desc": "met ignores clause tally",
+  "sha256": "e2365264e779b567a57ef793bfe9b23aa64edeaa8a124ea7442bba0efd46a68c"
+ },
+ {
+  "mutant": "P04-met-ignores-hand",
+  "desc": "met ignores hand tally",
+  "sha256": "9b36110fc24c3d2266b7ce2b0af73924635a2490c5ceba9b0d5b2f1b4875cc9b"
+ },
+ {
+  "mutant": "P05-no-crlf-generation",
+  "desc": "gen_case: no CR/LF injection",
+  "sha256": "2a93a5b5c80a6b380bb7ca6a29f496fabf3461c6f54969969e39d7968ac355f4"
+ },
+ {
+  "mutant": "P06-selfcheck-disabled",
+  "desc": "self_check returns True",
+  "sha256": "706beec71b1c961433720c0e539b3e9acf25f58762e34b2d3b92b01a5a870b7f"
+ }
+]

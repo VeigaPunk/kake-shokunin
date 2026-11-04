@@ -1,0 +1,23 @@
+id	sha256	description
+M01	a51c047d129eaf9d9e5dd95f7c58849af0fb9a4772d2d55117f125068893ce07	D2 drop base-prefix (append-only) check
+M02	31ac3867f783e66ffb01c41f9c33a0424824c7ade39a87d88cda50e2bb7a1a63	D2 drop frozen c89 re-run
+M03	a6aa3bafe51a00b5e3d4e436504766cf99d5673ec96ab95ca658a0f6ddba6378	D2 drop receipt first-line agreement check
+M04	15eb1a171be76ad4c776bc68d3cfa2346c8a7f15f8e7c1f5ebd269f18a584c11	D3 drop S463 byte-identity check
+M05	46ec1772334b26dec1695e61cc50717e73b613cf61b1557e118539a3beb3d144	D3 drop quote-in-retained-body check
+M06	86dcdef8221b3dfb53da7cca4d292156479f52657646f19500a5561edb3a32e8	D3 accept any 'supersedes' wording (substring S463 anywhere in teaches)
+M07	5283e60e7bece10b54e2791571ea7a34f82c39b379f5ad96e90ee7e0d0f42d04	D1 drop live untracked lane-root check
+M08	ff10e9aec04b5ec3d15f8ebc4aa3ec4fe4bf81b4f29b74eddd1b93772dd4796a	D1 drop relocated-copy sha check
+M09	48ae379ebf68b82c8ee4bb59e8291569eba6954d28a1c00376bd6c15b584f224	D2 accept either SCORECARD or LOG (one verified file suffices)
+M10	98f399ee71841cb4ed9c21dbfc97ef9d38cba041e7972e6efff664b4b6be381c	D1 drop 'baseclean.out not tracked at lane root' check
+M11	ca731c59621c7e931559a025d5aa3a4cf51719e1289eefb2980ceb401f3b503c	D3 drop rfc9111 URL in source cell
+M12	321914daef24158f087570b489b8890e60cbf660ca7431d6e587e20cedad923b	D3 drop status == mined
+M13	0c67b185639d599d2e19d87aa73e7d4acd929dce7b3af6ed8f730ee5a63e76f8	D3 drop new-row scope excludes 'not cache-key construction'
+M14	4627fd5348f70baafd700d73cdab47b4a6c19d790f36b8f70d24912f5fd3bc00	D3 drop retained RFC body digest check
+M15	770c83c022176ba4bdcd08f5a13bf0fb43cd2082a4282e1b1e4e5135696e3053	D3 drop quote word-count bounds 3..25
+M16	2aaa01e30f1ff16495d307dffcf0ab7588ccfd7f52514d7c2f98048e9ad65e68	D3 drop ## Gate section restriction (whole lesson)
+M17	42b437e82ef5cdbda7525e96ea48ac1e851e9362b2bba93a31c990233bf3a893	D3 drop row-id naming on the quote line
+M19	2d1e9d32c6f4f4258bb580c7e48a5d9c09325e455a202b2b15fdf9a3cefd3b44	D2 drop receipt-tracked requirement (untracked receipt skips first-line check)
+M20	2c6a6c2fcb6b170bcfdb8d2b71fddf1210239ca716954f544b53ba2645309680	D2 reading = first open/closed on whole line (pre-freeze v0 parse)
+M21	1b5c95bf05298e1394cbd13e2a00900ebad2c3632e5e7e5de689f9f37a561219	D3 drop 'new row' requirement (an existing row may supersede)
+M22	d98942bfe86a08996c5b1c920aa8df3d8fd6024efa778cc98549ef889b5e7d34	D1 live check counts only root files, not root directories
+M18	17cafb38c59d9a913bf7130566fe3e38a6f0863b6839f3c659a2d7d16170cef7	D2 drop f62e7954 requirement on the correction line (reading after f62e7954 if present, else whole line)

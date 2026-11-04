@@ -1,0 +1,26 @@
+$ python3 -B scripts/cache_key_conformance.py --candidate .ufo/waves/round-89/w1/ExecControls/adv-raw-sort.py --work /fast/scratch/hyaku/kake-r90/ScoutGround --seed 9090 --jobs 4 --verbose
+FAIL members/sort-lowered-a-B: key mismatch: got {'key': 'https://e.test/p\x1fb\x1e2\x1fa\x1e1'} want 'https://e.test/p\x1fa\x1e1\x1fb\x1e2'
+FAIL members/sort-lowered-B-a: key mismatch: got {'key': 'https://e.test/p\x1fb\x1e2\x1fa\x1e1'} want 'https://e.test/p\x1fa\x1e1\x1fb\x1e2'
+FAIL members/sort-lowered-Zb: key mismatch: got {'key': 'https://e.test/p\x1fzz\x1e\x1c\x1fb\x1e\x1c'} want 'https://e.test/p\x1fb\x1e\x1c\x1fzz\x1e\x1c'
+FAIL generated/g012: key mismatch: got {'key': 'https://e.test//2/2%25\x1fq1\x1eé%1F%1E\x1fb\x1e\x1c'} want 'https://e.test//2/2%25\x1fb\x1e\x1c\x1fq1\x1eé%1F%1E'
+FAIL generated/g014: key mismatch: got {'key': 'https://e.test/2\x1fb\x1ex*\x1fa\x1e\x1c\x1fq1\x1e\x1c'} want 'https://e.test/2\x1fa\x1e\x1c\x1fb\x1ex*\x1fq1\x1e\x1c'
+FAIL generated/g018: key mismatch: got {'key': 'https://e.test/\x1fb\x1exé\x1fa%25b\x1e\x1c'} want 'https://e.test/\x1fa%25b\x1e\x1c\x1fb\x1exé'
+FAIL generated/g019: key mismatch: got {'key': 'https://e.test/%1F%25%25%1C/%1F\x1fb\x1e%25\x0b\x0bY\x1fzz\x1e\x1c\x1fa%25b\x1e\x1c'} want 'https://e.test/%1F%25%25%1C/%1F\x1fa%25b\x1e\x1c\x1fb\x1e%25\x0b\x0bY\x1fzz\x1e\x1c'
+FAIL generated/g035: key mismatch: got {'key': 'https://e.test/p/\x1faccept\x1e\x1c\x1faccept-encoding\x1e\x1c\x1fq1\x1e\x1c\x1fb\x1e\x1c'} want 'https://e.test/p/\x1faccept\x1e\x1c\x1faccept-encoding\x1e\x1c\x1fb\x1e\x1c\x1fq1\x1e\x1c'
+FAIL generated/g039: key mismatch: got {'key': 'https://e.test/2%1C%1F\x1fq1\x1eé*\x1fzz\x1e\x1c\x1faccept-encoding\x1e\x1c'} want 'https://e.test/2%1C%1F\x1faccept-encoding\x1e\x1c\x1fq1\x1eé*\x1fzz\x1e\x1c'
+FAIL generated/g040: key mismatch: got {'key': 'https://e.test/2\x1fzz\x1e\x1c\x1fq1\x1e\x1c\x1fx-y\x1e\x1c'} want 'https://e.test/2\x1fq1\x1e\x1c\x1fx-y\x1e\x1c\x1fzz\x1e\x1c'
+FAIL generated/g046: key mismatch: got {'key': 'https://e.test/%1C\x1fq1\x1ex*%1F\x1faccept-encoding\x1e\x1c\x1fq\x1e\x1c'} want 'https://e.test/%1C\x1faccept-encoding\x1e\x1c\x1fq\x1e\x1c\x1fq1\x1ex*%1F'
+FAIL generated/g052: key mismatch: got {'key': 'https://e.test//%1C%1C%25\x1faccept\x1eY%25%251F,\x1fb\x1e%1C\x0b,\x1faccept-encoding\x1e\x1c'} want 'https://e.test//%1C%1C%25\x1faccept\x1eY%25%251F,\x1faccept-encoding\x1e\x1c\x1fb\x1e%1C\x0b,'
+FAIL generated/g054: key mismatch: got {'key': 'https://e.test/%1C/2\x1fzz\x1e\x1c\x1fa\x1e\x1c'} want 'https://e.test/%1C/2\x1fa\x1e\x1c\x1fzz\x1e\x1c'
+FAIL generated/g061: key mismatch: got {'key': 'https://e.test/p%1Cpp2/\x1fa\x1e\x1c\x1fq1\x1e*\x0b\x1fzz\x1e\x1c\x1faccept\x1e\x1c'} want 'https://e.test/p%1Cpp2/\x1fa\x1e\x1c\x1faccept\x1e\x1c\x1fq1\x1e*\x0b\x1fzz\x1e\x1c'
+FAIL generated/g079: key mismatch: got {'key': 'https://e.test//\x1fq1\x1e\x1c\x1fa%25b\x1e\x1c\x1faccept-encoding\x1e\x1f~t\x1e\x1c'} want 'https://e.test//\x1fa%25b\x1e\x1c\x1faccept-encoding\x1e\x1fq1\x1e\x1c\x1f~t\x1e\x1c'
+FAIL generated/g082: key mismatch: got {'key': 'https://e.test/%1C%1C2%25\x1fa\x1e\x1c\x1fb\x1e\x1c\x1faccept\x1e\x1c'} want 'https://e.test/%1C%1C2%25\x1fa\x1e\x1c\x1faccept\x1e\x1c\x1fb\x1e\x1c'
+FAIL generated/g084: key mismatch: got {'key': 'https://e.test//%1C\x1faccept-encoding\x1e\x1c\x1fx-y\x1e%1Eéé%1F,\x1fq1\x1e\x1c\x1f~t\x1e\x1c'} want 'https://e.test//%1C\x1faccept-encoding\x1e\x1c\x1fq1\x1e\x1c\x1fx-y\x1e%1Eéé%1F,\x1f~t\x1e\x1c'
+FAIL generated/g109: key mismatch: got {'key': 'https://e.test/2/\x1fq1\x1e\x1c\x1fzz\x1e\x1c\x1faccept-encoding\x1e\x1c'} want 'https://e.test/2/\x1faccept-encoding\x1e\x1c\x1fq1\x1e\x1c\x1fzz\x1e\x1c'
+FAIL generated/g111: key mismatch: got {'key': 'https://e.test//2pp\x1fx-y\x1e%1EY%1D\x0bé\x1fq\x1e\x1c'} want 'https://e.test//2pp\x1fq\x1e\x1c\x1fx-y\x1e%1EY%1D\x0bé'
+FAIL generated/g113: key mismatch: got {'key': 'https://e.test/%1F\x1fa\x1e\x1c\x1faccept-encoding\x1e\x0b\t\t1F*\x1faccept\x1e\x1c'} want 'https://e.test/%1F\x1fa\x1e\x1c\x1faccept\x1e\x1c\x1faccept-encoding\x1e\x0b\t\t1F*'
+FAIL generated/g115: key mismatch: got {'key': 'https://e.test/\x1faccept\x1e%1E%1Dé\x1fa%25b\x1e1FY%1Cé'} want 'https://e.test/\x1fa%25b\x1e1FY%1Cé\x1faccept\x1e%1E%1Dé'
+FAIL generated/g119: key mismatch: got {'key': 'https://e.test/%1F/%252%1F\x1fa%25b\x1e\x1c\x1fa\x1e\x1c'} want 'https://e.test/%1F/%252%1F\x1fa\x1e\x1c\x1fa%25b\x1e\x1c'
+cache_key_conformance advisory=1/3 outside-contract-gaps=utf8-required,nul-in-value
+cache_key_conformance clauses=5/6 hand=67/70 generated=101/120 sandbox=ok seed=9090 met=false
+exit=1

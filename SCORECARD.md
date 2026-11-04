@@ -5555,3 +5555,46 @@ Vary and Pragma behaviour; the D84-2/3 and literal L2-planner items.
 - The count stands, but the item list does not: at `f62e7954` only item E is closed; B, C, D and F are open because they read the round-89 lesson, absent at that revision. The words "items B, C, D, E, F closed" in the round-89 C1 row and move log are superseded by this receipt. The round's final C1 reading is unchanged: `open=1 closed=5` at `93475f7e` (`.ufo/waves/round-89/controls/final2-c1-at-tip.txt`).
 - D89-3: S463's scope cell stays as filed (CORPUS.md rule 2); construction ground now sits on S467, whose `teaches` opens `supersedes S463 —` (`corpus/lessons/round-90.md` §Gate, §Registry).
 - D89-1: the untracked lane-root `baseclean.out` is relocated byte-exact to `.ufo/waves/round-90/inherited/baseclean.out`.
+
+## Round 90 — measured claims (author-side; closure owns admission)
+
+Base `209027f49959e2e2f0e16867a90a7bb38bbcd3f4`; freeze `4ee62b18fec15af45654a9c8f8d5e7938d2bb796`
+(`.ufo/waves/round-90/freeze.md`); C2 carrier `7f6c68f10fbf4caca3912d6e23fa6eed6413857d`; C1 carrier
+`e50c95660a9651fd9abe45119abab0bc3e8aaa56`; post-wave tip `a4814f58f4c52dc4c089ca0aaf96cab9338388e0`.
+Counters `.ufo/waves/round-90/c90_defects.py` and `.ufo/waves/round-90/c90_gate.py`, unchanged since the freeze.
+
+| Claim | Axis / score delta | Before → after | Counting command | Evidence / author verdict |
+|---|---|---|---|---|
+| C1 the three round-89 spot-check defects D89-1..3 close | calibration 2→2 HOLD, lowest owned | `open=3 closed=0 met=false`, exit 1 at base → `open=0 closed=3 met=true`, exit 0 at `e50c9566` and at `a4814f58` | `python3 -B .ufo/waves/round-90/c90_defects.py --root . --revision <REV> --work <scratch>` | `controls/base-c1.txt` → `controls/after-c1-carrier.txt`, `controls/final-c1-at-tip.txt`; fixes real (ReviewC1 re-derivation); counter forgeable (ReviewC1 F1–F4, MutC1, CriticClaims) — measured met on the frozen predicate, bookkeeping-sized |
+| C2 a behavioural cache-key conformance gate refuses the 57-subject non-conforming population and admits the 4 conforming subjects | operability 10→10 HOLD, capability acquisition | `gate=absent met=false`, exit 1 at base → `positives=4/4 negatives_refused=57/57 false_admits=0 errors=0 anti_table=ok population=ok met=true`, exit 0 at `7f6c68f1` and at `a4814f58` | `python3 -B .ufo/waves/round-90/c90_gate.py --root . --revision <REV> --work <scratch>` | `controls/base-c2.txt` → `controls/after-c2-carrier.txt`, `controls/final-c2-at-tip.txt`; counter forgeable by pin-reading or allowlist gates (ScribeLedger, CriticClaims F1/F1b); the carrier gate had a sandbox escape and 14+7 held-out false admits, fixed after the wave (`integration/heldout-tip.txt`: positives 8/8, negatives refused 57/58, the one admit is the contract-silent NUL stub) |
+
+Held-out evidence, not a frozen target: the wave wrote 58 non-conforming subjects the frozen
+population never held (ExecStubs 23, ExecSandbox 20, CriticClaims 9, ScoutGround 3, ReviewGate 1,
+frozen sandbox negatives 2) and 4 independent conforming ones (ReviewGate `mine*.py`). At the
+carrier, 14/23 ExecStubs, 6/20 ExecSandbox and 7/7 CriticClaims H-probes were admitted; at the tip
+57/58 are refused and 8/8 positives admitted (`.ufo/waves/round-90/integration/heldout-tip.txt`).
+Registry 202 → 205 rows (tier A 177 → 180), knowledge `.md` 77 → 78; census exit 0 → 0 (26 → 29 × W04).
+No owned axis is claimed improved past HOLD; `git diff --numstat 209027f4 a4814f58` outside `.ufo/` has
+zero deleted lines.
+
+### Demonstrated repertoire — round 90
+
+| Capability | What it can now do | Evidence | First-working round |
+|---|---|---|---|
+| Behavioural cache-key conformance gate | Decide whether a stdin/stdout key constructor implements `.ufo/waves/round-89/c2-contract.md`: 92 clause-tagged hand cases, 120 seeded generated cases, an install-time-bound audit-hook sandbox against delegation, and an unscored advisory line for four contract gaps (S466, S468) | `scripts/cache_key_conformance.py`; `corpus/knowledge/cache-key-conformance-gate.md`; `controls/after-c2-carrier.txt`, `controls/final-c2-at-tip.txt`, `integration/heldout-tip.txt` | 90 |
+
+### Move log (round 90)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 90 | calibration (HOLD 2) | `open=3 closed=0` at `209027f4` | `open=0 closed=3` at `e50c9566` | `.ufo/waves/round-90/controls/{base-c1.txt,after-c1-carrier.txt}` |
+| 90 | operability (HOLD 10) | no gate; round-89 counter admits 7 of 15 stubs | gate `4/4`, `57/57` at `7f6c68f1`; held-out `8/8`, `57/58` at `a4814f58` | `.ufo/waves/round-90/controls/{base-c2.txt,after-c2-carrier.txt}`, `integration/heldout-tip.txt` |
+
+### Planned — after round 90
+
+Outside closure owns admission. Routed: R90-1…R90-5 (`corpus/lessons/round-90.md` §Routed); a
+successor C1-shaped counter must check the ignored and staged lane-root state against the revision,
+pin the corrected revision, and anchor the Gate quote to the row's own lines; a successor C2-shaped
+counter must withhold pins and labels from the gate's reachable tree, use a non-strippable nonce, check
+the pins against the freeze digest, and score held-out subjects per label. The frozen round-90 counters
+are not repaired after scoring. Frontier: storage, revalidation, freshness and serving; a method-bearing key.

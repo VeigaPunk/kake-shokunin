@@ -1,0 +1,79 @@
+frozen counter (M00) open items per fixture:
+  c1-do-nothing                                open=D1,D2,D3  exit=1
+  c1-F-D1a                                     open=D1,D2,D3  exit=1
+  c1-F-D1b                                     open=D1,D2,D3  exit=1
+  c1-F-D2a                                     open=D1,D2,D3  exit=1
+  c1-F-D2b                                     open=D1,D2,D3  exit=1
+  c1-F-D2c                                     open=D1,D2,D3  exit=1
+  c1-F-D3a                                     open=D1,D2,D3  exit=1
+  c1-F-D3b                                     open=D1,D2,D3  exit=1
+  c1-positive                                  open=  exit=0
+  X-D1c-root-tracked                           open=D1,D2,D3  exit=1
+  X-D1d-root-untracked-dir                     open=D1,D2,D3  exit=1
+  X-D1e-root-file-info-exclude                 open=D2,D3  exit=1
+  X-D1f-root-file-gitignored                   open=D2,D3  exit=1
+  X-D2d-scorecard-only                         open=D1,D2,D3  exit=1
+  X-D2e-receipt-disagrees-rerun-agrees         open=D1,D2,D3  exit=1
+  X-D2f-no-f62-reference                       open=D1,D2,D3  exit=1
+  X-D2g-untracked-receipt                      open=D1,D2,D3  exit=1
+  X-D2h-wrong-reading-right-number-earlier     open=D1,D2,D3  exit=1
+  X-D3c-teaches-not-supersedes                 open=D1,D2,D3  exit=1
+  X-D3d-source-not-rfc9111                     open=D1,D2,D3  exit=1
+  X-D3e-status-not-mined                       open=D1,D2,D3  exit=1
+  X-D3f-scope-repeats-defect                   open=D1,D2,D3  exit=1
+  X-D3g-fabricated-body                        open=D1,D2,D3  exit=1
+  X-D3h-two-word-quote                         open=D1,D2,D3  exit=1
+  X-D3i-quote-outside-gate                     open=D1,D2,D3  exit=1
+  X-D3j-quote-line-names-no-row                open=D1,D2,D3  exit=1
+  X-D3k-existing-row-rewritten                 open=D1,D2,D3  exit=1
+  X-D3l-trivial-3-word-quote                   open=D1,D2  exit=1
+
+fixture index: 1=c1-do-nothing; 2=c1-F-D1a; 3=c1-F-D1b; 4=c1-F-D2a; 5=c1-F-D2b; 6=c1-F-D2c; 7=c1-F-D3a; 8=c1-F-D3b; 9=c1-positive; 10=X-D1c-root-tracked; 11=X-D1d-root-untracked-dir; 12=X-D1e-root-file-info-exclude; 13=X-D1f-root-file-gitignored; 14=X-D2d-scorecard-only; 15=X-D2e-receipt-disagrees-rerun-agrees; 16=X-D2f-no-f62-reference; 17=X-D2g-untracked-receipt; 18=X-D2h-wrong-reading-right-number-earlier; 19=X-D3c-teaches-not-supersedes; 20=X-D3d-source-not-rfc9111; 21=X-D3e-status-not-mined; 22=X-D3f-scope-repeats-defect; 23=X-D3g-fabricated-body; 24=X-D3h-two-word-quote; 25=X-D3i-quote-outside-gate; 26=X-D3j-quote-line-names-no-row; 27=X-D3k-existing-row-rewritten; 28=X-D3l-trivial-3-word-quote
+cell: K=kill (forgery item closed by mutant only), .=same, P=positive broken, E=error, +=extra item open
+mut  1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28 
+M01  .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M02  .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M03  .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M04  .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M05  .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M06  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .  
+M07  .   K   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M08  .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M09  .   .   .   .   .   K   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M10  .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+M11  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .  
+M12  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .  
+M13  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .  
+M14  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .  
+M15  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .  
+M16  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .  
+M17  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .  
+M18  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .  
+M19  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .  
+M20  .   .   .   .   .   .   .   .   P   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .  
+M21  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   K   .  
+M22  .   .   .   .   .   .   .   .   .   .   K   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  
+
+verdicts (controls = run_controls.sh fixtures; X = MutC1 supplemental forgeries):
+  M01 D2 drop base-prefix (append-only) check                                KILLED by controls [c1-F-D2c]
+  M02 D2 drop frozen c89 re-run                                              KILLED by controls [c1-F-D2b]
+  M03 D2 drop receipt first-line agreement check                             SURVIVED controls; killed by X: X-D2e-receipt-disagrees-rerun-agrees
+  M04 D3 drop S463 byte-identity check                                       KILLED by controls [c1-F-D3b]
+  M05 D3 drop quote-in-retained-body check                                   KILLED by controls [c1-F-D3a]
+  M06 D3 accept any 'supersedes' wording (substring S463 anywhere in teaches) SURVIVED controls; killed by X: X-D3c-teaches-not-supersedes
+  M07 D1 drop live untracked lane-root check                                 KILLED by controls [c1-F-D1a]
+  M08 D1 drop relocated-copy sha check                                       KILLED by controls [c1-F-D1b]
+  M09 D2 accept either SCORECARD or LOG (one verified file suffices)         KILLED by controls [c1-F-D2c]
+  M10 D1 drop 'baseclean.out not tracked at lane root' check                 SURVIVED controls; killed by X: X-D1c-root-tracked
+  M11 D3 drop rfc9111 URL in source cell                                     SURVIVED controls; killed by X: X-D3d-source-not-rfc9111
+  M12 D3 drop status == mined                                                SURVIVED controls; killed by X: X-D3e-status-not-mined
+  M13 D3 drop new-row scope excludes 'not cache-key construction'            SURVIVED controls; killed by X: X-D3f-scope-repeats-defect
+  M14 D3 drop retained RFC body digest check                                 SURVIVED controls; killed by X: X-D3g-fabricated-body
+  M15 D3 drop quote word-count bounds 3..25                                  SURVIVED controls; killed by X: X-D3h-two-word-quote
+  M16 D3 drop ## Gate section restriction (whole lesson)                     SURVIVED controls; killed by X: X-D3i-quote-outside-gate
+  M17 D3 drop row-id naming on the quote line                                SURVIVED controls; killed by X: X-D3j-quote-line-names-no-row
+  M18 D2 drop f62e7954 requirement on the correction line (reading after f62e7954 if present, else whole line) SURVIVED controls; killed by X: X-D2f-no-f62-reference
+  M19 D2 drop receipt-tracked requirement (untracked receipt skips first-line check) SURVIVED controls; killed by X: X-D2g-untracked-receipt
+  M20 D2 reading = first open/closed on whole line (pre-freeze v0 parse)     DETECTED by positive control
+  M21 D3 drop 'new row' requirement (an existing row may supersede)          SURVIVED controls; killed by X: X-D3k-existing-row-rewritten
+  M22 D1 live check counts only root files, not root directories             SURVIVED controls; killed by X: X-D1d-root-untracked-dir

@@ -1,0 +1,30 @@
+utf8-required                      plain rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises UnicodeDecodeError)"
+utf8-required                      gate  rc=0 out={"key": "\udcff"} err= ref="n/a (gate's own decode raises UnicodeDecodeError)"
+utf8-required-in-value             plain rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises UnicodeDecodeError)"
+utf8-required-in-value             gate  rc=0 out={"key": "u\u001fa\u001e\udcc3("} err= ref="n/a (gate's own decode raises UnicodeDecodeError)"
+utf8-overlong-slash                plain rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises UnicodeDecodeError)"
+utf8-overlong-slash                gate  rc=0 out={"key": "\udcc0\udcaf"} err= ref="n/a (gate's own decode raises UnicodeDecodeError)"
+utf8-lone-surrogate-escaped        plain rc=0 out={"key": "\ud800"} err= ref='\ud800'
+utf8-lone-surrogate-escaped        gate  rc=0 out={"key": "\ud800"} err= ref='\ud800'
+raw-control                        plain rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+raw-control                        gate  rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+raw-control-contract-ex5-literal   plain rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+raw-control-contract-ex5-literal   gate  rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+raw-nul-in-value                   plain rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+raw-nul-in-value                   gate  rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+nul-in-value                       plain rc=0 out={"key": "https://e.test/p\u001fa\u001ex\u0000y"} err= ref='https://e.test/p\x1fa\x1ex\x00y'
+nul-in-value                       gate  rc=0 out={"key": "https://e.test/p\u001fa\u001ex\u0000y"} err= ref='https://e.test/p\x1fa\x1ex\x00y'
+nul-in-uri-escaped                 plain rc=0 out={"key": "u\u0000"} err= ref='u\x00'
+nul-in-uri-escaped                 gate  rc=0 out={"key": "u\u0000"} err= ref='u\x00'
+nul-in-unnominated-value           plain rc=0 out={"key": "u"} err= ref='u'
+nul-in-unnominated-value           gate  rc=0 out={"key": "u"} err= ref='u'
+bom-prefixed                       plain rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+bom-prefixed                       gate  rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+dup-json-key-exact                 plain rc=0 out={"key": "u\u001fa\u001e2"} err= ref='u\x1fa\x1e2'
+dup-json-key-exact                 gate  rc=0 out={"key": "u\u001fa\u001e2"} err= ref='u\x1fa\x1e2'
+dup-json-key-uri                   plain rc=0 out={"key": "u2"} err= ref='u2'
+dup-json-key-uri                   gate  rc=0 out={"key": "u2"} err= ref='u2'
+nan-value                          plain rc=1 out= err=invalid_input: header value must be a string ref='REFUSE'
+nan-value                          gate  rc=1 out= err=invalid_input: header value must be a string ref='REFUSE'
+trailing-garbage                   plain rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"
+trailing-garbage                   gate  rc=1 out= err=invalid_input: input is not valid JSON ref="n/a (gate's own decode raises JSONDecodeError)"

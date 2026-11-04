@@ -1,0 +1,61 @@
+commit 31b09129b82c8d6337d717ccd7338b56d1afd697
+Author: fixture <fixture@scratch.invalid>
+Date:   Wed Nov 4 19:22:13 2026 -0300
+
+    fixture C1 forgeries
+
+diff --git a/LOG.md b/LOG.md
+index 28e1a91a..0c99b41d 100644
+--- a/LOG.md
++++ b/LOG.md
+@@ -3082,3 +3082,5 @@ Adjacency: the cache-key ground overlaps `mori-shokunin` and the round-88 Vary r
+ (S463). Reported, not absorbed (`w1/ConnectorScope.md`).
+ 
+ Tools: none installed or upgraded (no pacman; no network beyond the two named RFC GETs).
++
++- D89-2 correction: the round-89 C1 statement `open=5 closed=1` at f62e7954 is superseded by `.ufo/waves/round-89/controls/base-c1.txt` revision 76225160d0dff8d2042fbcd037bd08b0971d5e07 open=6 closed=0
+diff --git a/SCORECARD.md b/SCORECARD.md
+index 6290f28a..870c620e 100644
+--- a/SCORECARD.md
++++ b/SCORECARD.md
+@@ -5548,3 +5548,5 @@ claim decision. The C2 instrument gap (seven uncovered contract clauses, R89-2)
+ frozen or refusal item per clause, with each stub in `w1/ExecControls/` re-scored `met=false`.
+ Frontier stays open: cache-key storage, revalidation, freshness and serving; browser
+ Vary and Pragma behaviour; the D84-2/3 and literal L2-planner items.
++
++- D89-2 correction: the round-89 C1 statement `open=5 closed=1` at f62e7954 is superseded by `.ufo/waves/round-89/controls/base-c1.txt` revision 76225160d0dff8d2042fbcd037bd08b0971d5e07 open=6 closed=0
+diff --git a/corpus/SOURCES.md b/corpus/SOURCES.md
+index 6578b33c..23b5b918 100644
+--- a/corpus/SOURCES.md
++++ b/corpus/SOURCES.md
+@@ -208,6 +208,7 @@ This is kake's curated reading list: each row records what a source teaches, the
+ | S461 | RFC 9111 — newly grounded duplicate and explicit lifetime rules — https://httpwg.org/specs/rfc9111.html | spec | A | Response Cache-Control first-match lifetime and duplicate-value first-occurrence option, case-insensitive directive tokens, recipient quoted arguments, no-store and delta-seconds overflow; not a full cache permission model or arbitrary-header equivalence | RFC 9111 June 2022; sections 1.2.2, 4.2.1 paragraphs 1 and 4, 5.2, 5.2.2.5 and 5.2.2.10; fresh GET 2026-11-04 retained in .ufo/waves/round-86/w1/ScoutCache/s457.body.html | supersedes S457 — only for the previously excluded ordering-rule support: first duplicate occurrence or stale are the source's alternatives; this reader chooses first occurrence, so reversing duplicate max-age values can change its result; exact JSON flags, cap and null lifetime are local conventions | mined | 2026-11-04 | 180d | corpus/knowledge/cache-control-effective.md |
+ | S462 | RFC 9111 — HTTP Caching, Calculating Age — https://httpwg.org/specs/rfc9111.html#age.calculations | spec | A | Conservative current-age arithmetic on supplied timestamps only; not header extraction, storage/reuse or browser behavior | RFC 9111 June 2022 section 4.2.3; age_value definition and three equation blocks; reopened 2026-11-04; retained .ufo/waves/round-87/w1/ScoutAge/rfc9111.html and w1/ScribeRegistry/source-access.md | Apparent age is clamped at zero; transit augments received Age; conservative initial age uses max of the independent estimates and adds residence; the MAY alternative remains permitted | mined | 2026-11-04 | 180d | corpus/knowledge/cache-current-age.md |
+ | S463 | RFC 9111 - HTTP Caching, Calculating Cache Keys with the Vary Header Field - https://httpwg.org/specs/rfc9111.html#caching.negotiated.responses | spec | A | The conservative Vary match profile this lane implements: nominated-field matching, absence semantics, ordered line combination and the wildcard member; not cache-key construction, storage, revalidation or serving | RFC 9111 June 2022 section 4.1; the MUST NOT sentence, the three permitted transformations, the absence sentence and the wildcard-member sentence; reopened 2026-11-04; retained .ufo/waves/round-88/w1/ScoutSpec/ and w1/ScribeVary/rfc9111.html | A stored response is reused without revalidation only when every nominated field matches; the wildcard member never matches and a field absent from one request matches only absence | mined | 2026-11-04 | 180d | corpus/knowledge/vary-matching.md, corpus/knowledge/cache-key-construction.md |
++| S499 | RFC 9111 - HTTP Caching, Calculating Cache Keys with the Vary Header Field - https://httpwg.org/specs/rfc9111.html#caching.negotiated.responses | spec | A | The conservative Vary match profile this lane implements: nominated-field matching, absence semantics, ordered line combination and the wildcard member; Not cache-key construction, storage, revalidation or serving | RFC 9111 June 2022 section 4.1; the MUST NOT sentence, the three permitted transformations, the absence sentence and the wildcard-member sentence; reopened 2026-11-04; retained .ufo/waves/round-88/w1/ScoutSpec/ and w1/ScribeVary/rfc9111.html | supersedes S463 — scope kept | mined | 2026-11-04 | 180d | corpus/knowledge/vary-matching.md, corpus/knowledge/cache-key-construction.md |
+ | S465 | RFC 9110: HTTP Semantics, section 5.6.2 Tokens and section 5.6.1.2 Recipient Requirements — https://www.rfc-editor.org/rfc/rfc9110.txt | spec | A | The token alphabet a Vary member and a field name must satisfy, and the empty-list-element rule that makes empty-member refusal an adapter convention; distinct from S010's validator scope, S033's media-type scope and S028's URI scope | Section 5.6.2 token production at plain-text lines 1730–1738 and section 5.6.1.2 empty-element sentence at lines 1695–1699; June 2022; fetched 2026-11-04T21:16:52Z, HTTP 200, 502941 bytes, sha256 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a | A Vary member and a field name are tokens over an alphabet without whitespace or delimiters, so SP, comma, CR and LF are outside it; a recipient must parse and ignore empty list elements, so refusing an empty Vary member is this lane's convention rather than an RFC requirement | mined | 2026-11-04 | 180d | corpus/knowledge/cache-key-construction.md |
+ 
+ ## Paths
+diff --git a/corpus/lessons/round-90.md b/corpus/lessons/round-90.md
+new file mode 100644
+index 00000000..5dc64ea0
+--- /dev/null
++++ b/corpus/lessons/round-90.md
+@@ -0,0 +1,5 @@
++# round 90
++
++## Gate
++
++- S499: "the cache key"
+commit 31b09129b82c8d6337d717ccd7338b56d1afd697
+Author: fixture <fixture@scratch.invalid>
+Date:   Wed Nov 4 19:22:13 2026 -0300
+
+    fixture C1 forgeries
+
+ .ufo/waves/round-90/inherited/baseclean.out | 28 ++++++++++++++++++++++++++++
+ LOG.md                                      |  2 ++
+ SCORECARD.md                                |  2 ++
+ corpus/SOURCES.md                           |  1 +
+ corpus/lessons/round-90.md                  |  5 +++++
+ 5 files changed, 38 insertions(+)

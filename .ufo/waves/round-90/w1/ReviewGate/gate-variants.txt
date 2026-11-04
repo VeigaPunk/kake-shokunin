@@ -1,0 +1,24 @@
+== mine
+      1 cache_key_conformance clauses=6/6 hand=70/70 generated=120/120 sandbox=ok seed=923161196 met=true
+      1 cache_key_conformance advisory=1/3 outside-contract-gaps=raw-control,nul-in-value
+exit=0
+== mine_tb
+     73 SANDBOX_VIOLATION open /fast/scratch/hyaku/kake-r90/ReviewGate/ckc-tpov0_xz/sandbox.py
+     21   invalid_input: dup member
+     16   invalid_input: value
+     10   invalid_input: member
+      6   invalid_input: wildcard
+      4   invalid_input: request_headers
+exit=1
+== mine_nonl
+      1 cache_key_conformance clauses=1/6 hand=36/70 generated=37/120 sandbox=ok seed=923161196 met=false
+      1 cache_key_conformance advisory=1/3 outside-contract-gaps=raw-control,nul-in-value
+      1 FAIL values/vt-kept: stdout must be one JSON line
+      1 FAIL values/nbsp-kept: stdout must be one JSON line
+      1 FAIL values/inner-ws-kept: stdout must be one JSON line
+      1 FAIL values/edge-ows: stdout must be one JSON line
+exit=1
+== mine_strictjson
+      1 cache_key_conformance clauses=6/6 hand=70/70 generated=120/120 sandbox=ok seed=923161196 met=true
+      1 cache_key_conformance advisory=2/3 outside-contract-gaps=nul-in-value
+exit=0

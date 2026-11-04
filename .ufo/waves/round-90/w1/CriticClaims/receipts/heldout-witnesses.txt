@@ -1,0 +1,39 @@
+H1-members-truncated-at-4
+  payload={"uri": "u", "request_headers": {}, "vary": "a,b,c,d,e"}
+  gate.reference={"key": "u\u001fa\u001e\u001c\u001fb\u001e\u001c\u001fc\u001e\u001c\u001fd\u001e\u001c\u001fe\u001e\u001c"}
+  shipped cache_key.py=(0, '{"key": "u\\u001fa\\u001e\\u001c\\u001fb\\u001e\\u001c\\u001fc\\u001e\\u001c\\u001fd\\u001e\\u001c\\u001fe\\u001e\\u001c"}', '')
+  mutant=(0, '{"key": "u\\u001fa\\u001e\\u001c\\u001fb\\u001e\\u001c\\u001fc\\u001e\\u001c\\u001fd\\u001e\\u001c"}', '')
+H2-tchar-missing-pipe-caret
+  payload={"uri": "u", "request_headers": {"a|b": "1"}, "vary": "a|b"}
+  gate.reference={"key": "u\u001fa|b\u001e1"}
+  shipped cache_key.py=(0, '{"key": "u\\u001fa|b\\u001e1"}', '')
+  mutant=(1, '', 'invalid_input: header name is not a token')
+H3-uri-nonascii-pctencoded
+  payload={"uri": "https://e.test/\u00e9", "request_headers": {}}
+  gate.reference={"key": "https://e.test/\u00e9"}
+  shipped cache_key.py=(0, '{"key": "https://e.test/\\u00e9"}', '')
+  mutant=(0, '{"key": "https://e.test/%25C3%25A9"}', '')
+H4-value-trims-DEL
+  payload={"uri": "u", "request_headers": {"a": "x\u007f"}, "vary": "a"}
+  gate.reference={"key": "u\u001fa\u001ex\u007f"}
+  shipped cache_key.py=(0, '{"key": "u\\u001fa\\u001ex\\u007f"}', '')
+  mutant=(0, '{"key": "u\\u001fa\\u001ex"}', '')
+H5-long-value-refused
+  payload={"uri": "u", "request_headers": {"a": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}, "vary": "a"}
+  gate.reference={"key": "u\u001fa\u001exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}
+  shipped cache_key.py=(0, '{"key": "u\\u001fa\\u001exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}', '')
+  mutant=(1, '', 'invalid_input: value too long')
+H6-name-ows-stripped
+  payload={"uri": "u", "request_headers": {" a": "1"}, "vary": "a"}
+  gate.reference=REFUSE
+  shipped cache_key.py=(1, '', 'invalid_input: header name is not a token')
+  mutant=(0, '{"key": "u\\u001fa\\u001e1"}', '')
+H7-many-headers-refused
+  payload={"uri": "u", "request_headers": {"a": "1", "b": "1", "c": "1", "d": "1", "e": "1", "f": "1", "g": "1"}}
+  gate.reference={"key": "u"}
+  shipped cache_key.py=(0, '{"key": "u"}', '')
+  mutant=(1, '', 'invalid_input: too many headers')
+DUP-EXACT-JSON-KEY (contract: two header names equal case-insensitively -> refused)
+  payload={"uri":"u","request_headers":{"a":"1","a":"2"},"vary":"a"}
+  gate.reference(json.loads)='u\x1fa\x1e2'
+  shipped cache_key.py=(0, '{"key": "u\\u001fa\\u001e2"}', '')

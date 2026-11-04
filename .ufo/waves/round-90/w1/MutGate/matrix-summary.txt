@@ -1,0 +1,87 @@
+seed 16906240
+POS cache_key.py scored-fails []
+POS cache_key.py scored-fails []
+POS M33-header-name-casefold.py scored-fails []
+POS M36-duplicate-member-deduped.py scored-fails []
+NEG M20-wildcard-anywhere-refused.py         hand= 1 gen=  0 groups=members  ONLY:members/star-in-token
+NEG adv-missing-headers.py                   hand= 2 gen=  0 groups=refusals  ONLY:refusals/headers-missing;refusals/headers-missing-vary
+NEG M06-member-trim-wider-than-ows.py        hand= 2 gen=  0 groups=members  ONLY:members/lf-not-ows;members/vt-not-ows
+NEG M25-header-token-check-dropped.py        hand= 2 gen=  0 groups=names  ONLY:names/name-not-token;names/name-empty
+NEG adv-bad-json.py                          hand= 2 gen=  0 groups=refusals  ONLY:refusals/malformed-json;refusals/empty-input
+NEG M22-duplicate-header-not-refused.py      hand= 2 gen=  1 groups=names  ONLY:names/dup-header-ci;names/dup-header-unnominated
+NEG adv-cr-only.py                           hand= 2 gen=  2 groups=values  ONLY:values/cr-only;values/cr-unnominated
+NEG adv-wildcard-ok.py                       hand= 3 gen=  1 groups=members  ONLY:members/wildcard;members/wildcard-listed;members/wildcard-ows
+NEG M19-wildcard-not-refused.py              hand= 3 gen=  1 groups=members  ONLY:members/wildcard;members/wildcard-listed;members/wildcard-ows
+NEG adv-space-trim.py                        hand= 2 gen=  3 groups=values  ONLY:values/edge-ows;values/all-ows-is-empty
+NEG M14-escape-RS-dropped.py                 hand= 3 gen=  2 groups=escaping,layout  ONLY:layout/worked-5;escaping/value-each-sep;escaping/uri-seps
+NEG adv-lower-values.py                      hand= 2 gen=  4 groups=escaping,values  ONLY:values/case-kept;escaping/value-percent-escape-literal
+NEG M09-value-case-lowered.py                hand= 2 gen=  4 groups=escaping,values  ONLY:values/case-kept;escaping/value-percent-escape-literal
+NEG M24-lf-check-dropped.py                  hand= 2 gen=  6 groups=values  ONLY:values/lf-only;values/lf-unnominated-novary
+NEG M26-vary-token-check-dropped.py          hand= 7 gen=  1 groups=members
+NEG M13-escape-FS-dropped.py                 hand= 2 gen=  8 groups=escaping  ONLY:escaping/value-each-sep;escaping/uri-seps
+NEG M37-absent-name-not-escaped.py           hand= 1 gen=  9 groups=names  ONLY:names/name-percent-absent
+NEG adv-no-name-escape.py                    hand= 2 gen=  9 groups=names  ONLY:names/name-percent-present;names/name-percent-absent
+NEG M07-value-ows-not-trimmed.py             hand= 2 gen=  9 groups=values  ONLY:values/edge-ows;values/all-ows-is-empty
+NEG M18-present-empty-emits-absent.py        hand= 3 gen=  9 groups=layout,values  ONLY:layout/worked-6;values/all-ows-is-empty;layout/present-empty
+NEG M23-crlf-check-dropped.py                hand= 4 gen=  8 groups=values
+NEG adv-raw-sort.py                          hand= 3 gen= 13 groups=members  ONLY:members/sort-lowered-a-B;members/sort-lowered-B-a;members/sort-lowered-Zb
+NEG M08-value-trim-wider-than-ows.py         hand= 4 gen= 13 groups=escaping,values
+NEG M10-value-case-uppered.py                hand=13 gen=  8 groups=escaping,layout,members,names,values
+NEG M32-value-internal-whitespace-collapsed. hand= 6 gen= 15 groups=escaping,layout,values
+NEG M02-header-stored-as-presented.py        hand= 8 gen= 18 groups=layout,members,names
+NEG M27-empty-vary-falls-through.py          hand= 5 gen= 24 groups=escaping,layout
+NEG adv-no-dup-vary.py                       hand= 2 gen= 27 groups=members  ONLY:members/dup-member-case;members/dup-member-exact
+NEG M21-duplicate-member-not-refused.py      hand= 2 gen= 27 groups=members  ONLY:members/dup-member-case;members/dup-member-exact
+NEG M28-layout-us-always.py                  hand= 5 gen= 24 groups=escaping,layout
+NEG adv-no-sort.py                           hand= 4 gen= 27 groups=layout,members
+NEG M03-member-order-unsorted.py             hand= 4 gen= 27 groups=layout,members
+NEG M12-escape-GS-dropped.py                 hand= 2 gen= 34 groups=escaping  ONLY:escaping/value-each-sep;escaping/uri-seps
+NEG M15-escape-US-dropped.py                 hand= 5 gen= 32 groups=escaping,layout
+NEG M04-member-order-reversed.py             hand= 6 gen= 34 groups=layout,members
+NEG M29-layout-comma-join.py                 hand= 6 gen= 34 groups=layout,members
+NEG M11-escape-percent-dropped.py            hand= 5 gen= 39 groups=escaping,layout,names
+NEG M30-layout-rs-dropped.py                 hand=24 gen= 23 groups=escaping,layout,members,names,values
+NEG adv-sort-no-escape.py                    hand= 5 gen= 50 groups=escaping,layout
+NEG M16-escape-percent-last.py               hand= 5 gen= 50 groups=escaping,layout
+NEG adv-absent-empty.py                      hand= 6 gen= 51 groups=layout,members,names
+NEG M17-absent-emits-empty.py                hand= 6 gen= 51 groups=layout,members,names
+NEG adv-member-ows.py                        hand= 5 gen= 53 groups=layout,members
+NEG M05-member-ows-not-trimmed.py            hand= 5 gen= 53 groups=layout,members
+NEG adv-no-uri-escape.py                     hand= 3 gen= 58 groups=escaping  ONLY:escaping/uri-percent;escaping/uri-seps;escaping/uri-seps-with-pair
+NEG M31-uri-not-escaped.py                   hand= 3 gen= 58 groups=escaping  ONLY:escaping/uri-percent;escaping/uri-seps;escaping/uri-seps-with-pair
+NEG M01-member-name-not-lowered.py           hand=10 gen= 58 groups=layout,members,names
+NEG M34-refusal-exits-zero.py                hand=34 gen= 41 groups=members,names,refusals,values
+NEG adv-uri-only.py                          hand=29 gen= 55 groups=escaping,layout,members,names,values
+NEG M35-stdout-bare-key.py                   hand=34 gen= 79 groups=escaping,layout,members,names,values
+NEG ctl-constant-key.py                      hand=70 gen=120 groups=escaping,layout,members,names,refusals,values
+NEG ctl-naive-join.py                        hand=70 gen=120 groups=escaping,layout,members,names,refusals,values
+NEG ctl-oracle-import.py                     hand=70 gen=120 groups=escaping,layout,members,names,refusals,values
+NEG ctl-repr-key.py                          hand=70 gen=120 groups=escaping,layout,members,names,refusals,values
+NEG ctl-table.py                             hand=70 gen=120 groups=escaping,layout,members,names,refusals,values
+NEG neg-oracle-path-import.py                hand=70 gen=120 groups=escaping,layout,members,names,refusals,values
+NEG neg-exec-source.py                       hand=70 gen=120 groups=escaping,layout,members,names,refusals,values
+negatives killed by hand cases of a single group only:
+   adv-bad-json.py {'refusals'} 2
+   adv-cr-only.py {'values'} 2
+   adv-missing-headers.py {'refusals'} 2
+   adv-no-dup-vary.py {'members'} 2
+   adv-no-name-escape.py {'names'} 2
+   adv-no-uri-escape.py {'escaping'} 3
+   adv-raw-sort.py {'members'} 3
+   adv-space-trim.py {'values'} 2
+   adv-wildcard-ok.py {'members'} 3
+   M06-member-trim-wider-than-ows.py {'members'} 2
+   M07-value-ows-not-trimmed.py {'values'} 2
+   M12-escape-GS-dropped.py {'escaping'} 2
+   M13-escape-FS-dropped.py {'escaping'} 2
+   M19-wildcard-not-refused.py {'members'} 3
+   M20-wildcard-anywhere-refused.py {'members'} 1
+   M21-duplicate-member-not-refused.py {'members'} 2
+   M22-duplicate-header-not-refused.py {'names'} 2
+   M23-crlf-check-dropped.py {'values'} 4
+   M24-lf-check-dropped.py {'values'} 2
+   M25-header-token-check-dropped.py {'names'} 2
+   M26-vary-token-check-dropped.py {'members'} 7
+   M31-uri-not-escaped.py {'escaping'} 3
+   M37-absent-name-not-escaped.py {'names'} 1
+negatives with zero hand kills: []

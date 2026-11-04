@@ -1,0 +1,12 @@
+$ python3 -B scripts/cache_key_conformance.py --candidate forge_forkexec.py --seed 923161196 --verbose
+cache_key_conformance advisory=1/3 outside-contract-gaps=utf8-required,nul-in-value
+cache_key_conformance clauses=6/6 hand=70/70 generated=120/120 sandbox=ok seed=923161196 met=true
+exit=0
+$ python3 -B scripts/cache_key_conformance.py --candidate cache_key.py --seed 923161196 --verbose
+cache_key_conformance advisory=1/3 outside-contract-gaps=utf8-required,nul-in-value
+cache_key_conformance clauses=6/6 hand=70/70 generated=120/120 sandbox=ok seed=923161196 met=true
+exit=0
+$ python3 -B scripts/cache_key_conformance.py --candidate forge_forkexec.py (random seed)
+cache_key_conformance advisory=1/3 outside-contract-gaps=utf8-required,nul-in-value
+cache_key_conformance clauses=6/6 hand=70/70 generated=120/120 sandbox=ok seed=167987485 met=true
+exit=0

@@ -1,0 +1,8 @@
+## p1_readline: python3 -B gate.py --candidate probe/scripts/p1_readline.py --seed 90 --work <scratch>
+cache_key_conformance advisory=0/3 outside-contract-gaps=utf8-required,raw-control,nul-in-value
+cache_key_conformance clauses=0/6 hand=0/70 generated=0/120 sandbox=violation seed=90 met=false
+exit=1
+## p2_forkexec: python3 -B gate.py --candidate probe/scripts/p2_forkexec.py --seed 90 --work <scratch>
+cache_key_conformance advisory=2/3 outside-contract-gaps=nul-in-value
+cache_key_conformance clauses=6/6 hand=70/70 generated=120/120 sandbox=ok seed=90 met=true
+exit=0

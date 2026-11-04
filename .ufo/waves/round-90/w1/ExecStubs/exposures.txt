@@ -1,0 +1,125 @@
+# minimal exposing input per stub: gate reference() vs stub (run directly: python3 -I -B <stub>, LC_ALL=C.UTF-8 PYTHONIOENCODING=utf-8); judged with the gate's own judge()
+=== S01-member-split-semicolon
+input: {"uri":"u","request_headers":{},"vary":"a;b"}
+reference: REFUSE
+stub: rc=0 stdout=b'{"key": "u\\u001fa\\u001e\\u001c\\u001fb\\u001e\\u001c"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S02-member-trim-one-leading
+input: {"uri":"u","request_headers":{},"vary":"  a"}
+reference: 'u\x1fa\x1e\x1c'
+stub: rc=1 stdout=b'' stderr_last=b'invalid_input: vary member is not a token'
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S03-member-sort-hyphen-high
+input: {"uri":"u","request_headers":{},"vary":"a-b, aa"}
+reference: 'u\x1fa-b\x1e\x1c\x1faa\x1e\x1c'
+stub: rc=0 stdout=b'{"key": "u\\u001faa\\u001e\\u001c\\u001fa-b\\u001e\\u001c"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S04-member-token-after-lower
+input: {"uri":"u","request_headers":{},"vary":"\u212a"}
+reference: REFUSE
+stub: rc=0 stdout=b'{"key": "u\\u001fk\\u001e\\u001c"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S05-name-token-isalnum
+input: {"uri":"u","request_headers":{"\u00e9":"1"}}
+reference: REFUSE
+stub: rc=0 stdout=b'{"key": "u"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S06-name-token-skipped-unnominated
+input: {"uri":"u","request_headers":{"a b":"1"},"vary":"x"}
+reference: REFUSE
+stub: rc=0 stdout=b'{"key": "u\\u001fx\\u001e\\u001c"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S07-value-nonascii-lowered
+input: {"uri":"u","request_headers":{"a":"\u00c9"},"vary":"a"}
+reference: 'u\x1fa\x1eÉ'
+stub: rc=0 stdout=b'{"key": "u\\u001fa\\u001e\\u00e9"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S08-value-nfc
+input: {"uri":"u","request_headers":{"a":"e\u0301"},"vary":"a"}
+reference: 'u\x1fa\x1eé'
+stub: rc=0 stdout=b'{"key": "u\\u001fa\\u001e\\u00e9"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S09-value-nul-refused
+input: {"uri":"u","request_headers":{"a":"x\u0000y"},"vary":"a"}
+reference: 'u\x1fa\x1ex\x00y'
+stub: rc=1 stdout=b'' stderr_last=b'invalid_input: header value contains CR or LF'
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S10-uri-lowercased
+input: {"uri":"https://E.test/A","request_headers":{}}
+reference: 'https://E.test/A'
+stub: rc=0 stdout=b'{"key": "https://e.test/a"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S11-uri-space-escaped
+input: {"uri":"u v","request_headers":{}}
+reference: 'u v'
+stub: rc=0 stdout=b'{"key": "u%20v"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S12-uri-stripped
+input: {"uri":" u ","request_headers":{}}
+reference: ' u '
+stub: rc=0 stdout=b'{"key": "u"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S13-output-duplicate-key-member
+input: {"uri":"u","request_headers":{"a":"1"},"vary":"a"}
+reference: 'u\x1fa\x1e1'
+stub: rc=0 stdout=b'{"key": "u", "key": "u\\u001fa\\u001e1"}\n' stderr_last=b''
+gate_judge_stub_ok=True shipped_cache_key_judge_ok=True
+=== S14-output-raw-utf8-surrogate-crash
+input: {"uri":"\ud800","request_headers":{}}
+reference: '\ud800'
+stub: rc=1 stdout=b'' stderr_last=b"UnicodeEncodeError: 'utf-8' codec can't encode character '\\ud800' in position 9: surrogates not allowed"
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S15-empty-as-absent-multi
+input: {"uri":"u","request_headers":{"a":"","b":"1"},"vary":"a,b"}
+reference: 'u\x1fa\x1e\x1fb\x1e1'
+stub: rc=0 stdout=b'{"key": "u\\u001fa\\u001e\\u001c\\u001fb\\u001e1"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S16-member-sort-length-first
+input: {"uri":"u","request_headers":{},"vary":"accept, q"}
+reference: 'u\x1faccept\x1e\x1c\x1fq\x1e\x1c'
+stub: rc=0 stdout=b'{"key": "u\\u001fq\\u001e\\u001c\\u001faccept\\u001e\\u001c"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S17-refusal-exit-2
+input: {"uri":1,"request_headers":{}}
+reference: REFUSE
+stub: rc=2 stdout=b'' stderr_last=b'invalid_input: uri must be a string'
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S18-refusal-to-stdout
+input: {"uri":1,"request_headers":{}}
+reference: REFUSE
+stub: rc=1 stdout=b'invalid_input: uri must be a string\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S19-dup-header-equal-values-ok
+input: {"uri":"u","request_headers":{"Q":"1","q":"1"}}
+reference: REFUSE
+stub: rc=0 stdout=b'{"key": "u"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S20-member-trim-sp-only
+input: {"uri":"u","request_headers":{},"vary":"\ta"}
+reference: 'u\x1fa\x1e\x1c'
+stub: rc=1 stdout=b'' stderr_last=b'invalid_input: vary member is not a token'
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S21-output-trailing-space-in-key
+input: {"uri":"u","request_headers":{}}
+reference: 'u'
+stub: rc=0 stdout=b'{"key": "u "}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S22-escape-1D-lowercase-hex
+input: {"uri":"u\u001d","request_headers":{}}
+reference: 'u%1D'
+stub: rc=0 stdout=b'{"key": "u%1d"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== S23-uri-strip-ows
+input: {"uri":" u ","request_headers":{}}
+reference: ' u '
+stub: rc=0 stdout=b'{"key": "u"}\n' stderr_last=b''
+gate_judge_stub_ok=False shipped_cache_key_judge_ok=True
+=== CONTRACT worked example 5 with raw US/RS as the contract text states
+input bytes: b'{"uri":"https://e.test/a","request_headers":{"a":"x\x1fb\x1ey"},"vary":"a"}'
+shipped cache_key.py: rc=1 stdout=b'' stderr=b'invalid_input: input is not valid JSON\n'
+=== advisory utf8-required on shipped cache_key.py
+input bytes: b'{"uri":"\\xff","request_headers":{}}'
+shipped: rc=0 stdout=b'{"key": "\\udcff"}\n' stderr=b''
+=== exact-duplicate JSON header key (never sent by the gate)
+input: {"uri":"u","request_headers":{"a":"1","a":"2"},"vary":"a"}
+shipped: rc=0 stdout=b'{"key": "u\\u001fa\\u001e2"}\n'; gate reference: 'u\x1fa\x1e2' (json.loads last-wins; the case-insensitive-duplicate refusal is invisible)

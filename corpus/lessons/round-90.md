@@ -89,3 +89,20 @@ Round 90 bears on line 301: the conformance gate is the instrument revision that
 line asked for, built as a new tool rather than a repair of the frozen round-89
 counter, so that question can be answered "superseded by round 90" without any
 ruling on round 89's frozen bytes.
+
+## Wave review (w1, 13 seats) — what the attack seats found and what changed
+
+| Seat | Finding | Disposition |
+|---|---|---|
+| ScoutGround F1, ReviewGate F1, ExecSandbox c11 | `_posixsubprocess.fork_exec` raises no audit event; a delegating child is admitted `sandbox=ok` | gate fixed after the wave: module denied at import (receipt `integration/heldout-tip.txt`) |
+| ExecSandbox c05, c13, c18, c20, c21 | hook state read from module globals at call time; frame walk, `gc.get_objects`, or a spoofed `os.path.realpath` rebinds it | state bound as hook arguments, `gc.get_*` denied, textual path check beside `realpath`, exact `str`/`bytes` paths only |
+| ExecStubs (14/23), CriticClaims H1–H7 (7/7) | held-out one-clause stubs admitted by the carrier gate | 22 hand cases added; 57/58 refused at the tip; S09 (refuses NUL) stays admitted, contract silent (R90-2) |
+| ReviewGate F2, F3 | a traceback read as a sandbox violation; judge stricter than the contract (trailing newline, layout) | wrapper file allowed; judge follows the contract's Output section and requires a `<reason>` |
+| ReviewGate F4, F6, F7 | non-UTF-8 diagnosis wrong (gate locale); `raw-control` is decided by the contract both ways; entry overstated the sandbox | Mistakes row 5 corrected; strict stdin in the sandbox; entry and advisory docstring rewritten |
+| ReviewGate F5, CriticClaims | exact duplicate JSON header members collapse in every positive and in the reference | advisory `dup-json-member`, routed R90-5 |
+| ScoutSources | S467 `used-by` names `cache-key-construction.md`, which did not cite it; three count/line slips | the entry now carries a round-90 ground update citing S467; slips corrected |
+| ReviewC1 F1–F4, MutC1, CriticClaims | the frozen C1 counter closes D1 when the root file is ignored, excluded or staged, closes D2 on any receipted revision, closes D3 on a case-variant scope and any 3-word quote | not repaired after scoring; the lane's actual fixes were re-derived as real by ReviewC1; routed to a successor counter (SCORECARD planned) |
+| ScribeLedger, CriticClaims F1/F1b/F2 | the frozen C2 counter admits a pin-reading or nonce-stripping allowlist gate, and cannot tell an independent gate from one that wraps the candidate | not repaired after scoring; independence evidence is ReviewGate's contract-only `mine.py` (0 disagreements with `reference()` over 20 000 fuzzed inputs) |
+| ExecReplay | both carrier readings replay; `run_controls.sh` no longer replays at the tip because the lane-root `baseclean.out` it copies has moved | disclosed; the controls receipts stand as pre-freeze evidence |
+| ConnectorScope | mori S594 holds RFC 9111 §4.1 at the same digest; no PROVINCE contested; no staged theme fits; eight ids collide | reported, nothing absorbed |
+| MutGate | the frozen C2 counter kills 13 of 39 single-point mutants of the carrier gate; survivors need held-out population members per clause (`w1/MutGate/survivor-cover.txt`); also K-X01, a sandbox-bypassing oracle candidate | K-X01 class closed by the post-wave sandbox; counter weakness routed with the C2 successor-counter item; the tip gate was not re-mutated this round |

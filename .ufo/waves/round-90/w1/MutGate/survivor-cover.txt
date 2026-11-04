@@ -1,0 +1,230 @@
+seed 16906240 (pristine carrier gate, 70 hand + 120 generated; per-negative failing cases)
+== H01
+  adv-absent-empty.py                      fails-deleted=name-percent-absent remaining-hand=5 generated=51
+  adv-no-name-escape.py                    fails-deleted=name-percent-absent remaining-hand=1 generated=9
+  adv-uri-only.py                          fails-deleted=name-percent-absent remaining-hand=28 generated=55
+  ctl-constant-key.py                      fails-deleted=name-percent-absent remaining-hand=69 generated=120
+  ctl-naive-join.py                        fails-deleted=name-percent-absent remaining-hand=69 generated=120
+  ctl-oracle-import.py                     fails-deleted=name-percent-absent remaining-hand=69 generated=120
+  ctl-repr-key.py                          fails-deleted=name-percent-absent remaining-hand=69 generated=120
+  ctl-table.py                             fails-deleted=name-percent-absent remaining-hand=69 generated=120
+  M01-member-name-not-lowered.py           fails-deleted=name-percent-absent remaining-hand=9 generated=58
+  M11-escape-percent-dropped.py            fails-deleted=name-percent-absent remaining-hand=4 generated=39
+  M17-absent-emits-empty.py                fails-deleted=name-percent-absent remaining-hand=5 generated=51
+  M35-stdout-bare-key.py                   fails-deleted=name-percent-absent remaining-hand=33 generated=79
+  M37-absent-name-not-escaped.py           fails-deleted=name-percent-absent remaining-hand=0 generated=9  <- rests on generated
+  neg-oracle-path-import.py                fails-deleted=name-percent-absent remaining-hand=69 generated=120
+  neg-exec-source.py                       fails-deleted=name-percent-absent remaining-hand=69 generated=120
+== H02
+  adv-cr-only.py                           fails-deleted=cr-only remaining-hand=1 generated=2
+  ctl-constant-key.py                      fails-deleted=cr-only remaining-hand=69 generated=120
+  ctl-naive-join.py                        fails-deleted=cr-only remaining-hand=69 generated=120
+  ctl-oracle-import.py                     fails-deleted=cr-only remaining-hand=69 generated=120
+  ctl-repr-key.py                          fails-deleted=cr-only remaining-hand=69 generated=120
+  ctl-table.py                             fails-deleted=cr-only remaining-hand=69 generated=120
+  M23-crlf-check-dropped.py                fails-deleted=cr-only remaining-hand=3 generated=8
+  M34-refusal-exits-zero.py                fails-deleted=cr-only remaining-hand=33 generated=41
+  neg-oracle-path-import.py                fails-deleted=cr-only remaining-hand=69 generated=120
+  neg-exec-source.py                       fails-deleted=cr-only remaining-hand=69 generated=120
+== H03
+  ctl-constant-key.py                      fails-deleted=dup-header-unnominated remaining-hand=69 generated=120
+  ctl-naive-join.py                        fails-deleted=dup-header-unnominated remaining-hand=69 generated=120
+  ctl-oracle-import.py                     fails-deleted=dup-header-unnominated remaining-hand=69 generated=120
+  ctl-repr-key.py                          fails-deleted=dup-header-unnominated remaining-hand=69 generated=120
+  ctl-table.py                             fails-deleted=dup-header-unnominated remaining-hand=69 generated=120
+  M02-header-stored-as-presented.py        fails-deleted=dup-header-unnominated remaining-hand=7 generated=18
+  M22-duplicate-header-not-refused.py      fails-deleted=dup-header-unnominated remaining-hand=1 generated=1
+  M34-refusal-exits-zero.py                fails-deleted=dup-header-unnominated remaining-hand=33 generated=41
+  neg-oracle-path-import.py                fails-deleted=dup-header-unnominated remaining-hand=69 generated=120
+  neg-exec-source.py                       fails-deleted=dup-header-unnominated remaining-hand=69 generated=120
+== H04
+  adv-uri-only.py                          fails-deleted=vt-kept remaining-hand=28 generated=55
+  ctl-constant-key.py                      fails-deleted=vt-kept remaining-hand=69 generated=120
+  ctl-naive-join.py                        fails-deleted=vt-kept remaining-hand=69 generated=120
+  ctl-oracle-import.py                     fails-deleted=vt-kept remaining-hand=69 generated=120
+  ctl-repr-key.py                          fails-deleted=vt-kept remaining-hand=69 generated=120
+  ctl-table.py                             fails-deleted=vt-kept remaining-hand=69 generated=120
+  M08-value-trim-wider-than-ows.py         fails-deleted=vt-kept remaining-hand=3 generated=13
+  M10-value-case-uppered.py                fails-deleted=vt-kept remaining-hand=12 generated=8
+  M30-layout-rs-dropped.py                 fails-deleted=vt-kept remaining-hand=23 generated=23
+  M32-value-internal-whitespace-collapsed.py fails-deleted=vt-kept remaining-hand=5 generated=15
+  M35-stdout-bare-key.py                   fails-deleted=vt-kept remaining-hand=33 generated=79
+  neg-oracle-path-import.py                fails-deleted=vt-kept remaining-hand=69 generated=120
+  neg-exec-source.py                       fails-deleted=vt-kept remaining-hand=69 generated=120
+== H05
+  adv-uri-only.py                          fails-deleted=inner-ws-kept remaining-hand=28 generated=55
+  ctl-constant-key.py                      fails-deleted=inner-ws-kept remaining-hand=69 generated=120
+  ctl-naive-join.py                        fails-deleted=inner-ws-kept remaining-hand=69 generated=120
+  ctl-oracle-import.py                     fails-deleted=inner-ws-kept remaining-hand=69 generated=120
+  ctl-repr-key.py                          fails-deleted=inner-ws-kept remaining-hand=69 generated=120
+  ctl-table.py                             fails-deleted=inner-ws-kept remaining-hand=69 generated=120
+  M10-value-case-uppered.py                fails-deleted=inner-ws-kept remaining-hand=12 generated=8
+  M30-layout-rs-dropped.py                 fails-deleted=inner-ws-kept remaining-hand=23 generated=23
+  M32-value-internal-whitespace-collapsed.py fails-deleted=inner-ws-kept remaining-hand=5 generated=15
+  M35-stdout-bare-key.py                   fails-deleted=inner-ws-kept remaining-hand=33 generated=79
+  neg-oracle-path-import.py                fails-deleted=inner-ws-kept remaining-hand=69 generated=120
+  neg-exec-source.py                       fails-deleted=inner-ws-kept remaining-hand=69 generated=120
+== H06
+  adv-absent-empty.py                      fails-deleted=worked-7 remaining-hand=5 generated=51
+  adv-member-ows.py                        fails-deleted=worked-3 remaining-hand=4 generated=53
+  adv-sort-no-escape.py                    fails-deleted=worked-5 remaining-hand=4 generated=50
+  adv-uri-only.py                          fails-deleted=worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=23 generated=55
+  ctl-constant-key.py                      fails-deleted=worked-1,worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=63 generated=120
+  ctl-naive-join.py                        fails-deleted=worked-1,worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=63 generated=120
+  ctl-oracle-import.py                     fails-deleted=worked-1,worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=63 generated=120
+  ctl-repr-key.py                          fails-deleted=worked-1,worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=63 generated=120
+  ctl-table.py                             fails-deleted=worked-1,worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=63 generated=120
+  M01-member-name-not-lowered.py           fails-deleted=worked-2,worked-3,worked-6,worked-7 remaining-hand=6 generated=58
+  M02-header-stored-as-presented.py        fails-deleted=worked-2,worked-3,worked-6 remaining-hand=5 generated=18
+  M04-member-order-reversed.py             fails-deleted=worked-3 remaining-hand=5 generated=34
+  M05-member-ows-not-trimmed.py            fails-deleted=worked-3 remaining-hand=4 generated=53
+  M10-value-case-uppered.py                fails-deleted=worked-2,worked-3,worked-5 remaining-hand=10 generated=8
+  M11-escape-percent-dropped.py            fails-deleted=worked-4 remaining-hand=4 generated=39
+  M14-escape-RS-dropped.py                 fails-deleted=worked-5 remaining-hand=2 generated=2
+  M15-escape-US-dropped.py                 fails-deleted=worked-5 remaining-hand=4 generated=32
+  M16-escape-percent-last.py               fails-deleted=worked-5 remaining-hand=4 generated=50
+  M17-absent-emits-empty.py                fails-deleted=worked-7 remaining-hand=5 generated=51
+  M18-present-empty-emits-absent.py        fails-deleted=worked-6 remaining-hand=2 generated=9
+  M27-empty-vary-falls-through.py          fails-deleted=worked-1 remaining-hand=4 generated=24
+  M28-layout-us-always.py                  fails-deleted=worked-1 remaining-hand=4 generated=24
+  M29-layout-comma-join.py                 fails-deleted=worked-3 remaining-hand=5 generated=34
+  M30-layout-rs-dropped.py                 fails-deleted=worked-2,worked-3,worked-4,worked-5,worked-6 remaining-hand=19 generated=23
+  M32-value-internal-whitespace-collapsed.py fails-deleted=worked-5 remaining-hand=5 generated=15
+  M35-stdout-bare-key.py                   fails-deleted=worked-1,worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=27 generated=79
+  neg-oracle-path-import.py                fails-deleted=worked-1,worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=63 generated=120
+  neg-exec-source.py                       fails-deleted=worked-1,worked-2,worked-3,worked-4,worked-5,worked-6,worked-7 remaining-hand=63 generated=120
+== G01
+  adv-absent-empty.py                      fails-deleted=sort-lowered-Zb remaining-hand=5 generated=51
+  adv-member-ows.py                        fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb remaining-hand=1 generated=53
+  adv-no-dup-vary.py                       fails-deleted=dup-member-case,dup-member-exact remaining-hand=0 generated=27  <- rests on generated
+  adv-no-sort.py                           fails-deleted=tab-trim,sort-lowered-B-a,sort-lowered-Zb remaining-hand=1 generated=27
+  adv-raw-sort.py                          fails-deleted=sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb remaining-hand=0 generated=13  <- rests on generated
+  adv-uri-only.py                          fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,star-in-token remaining-hand=23 generated=55
+  adv-wildcard-ok.py                       fails-deleted=wildcard,wildcard-listed,wildcard-ows remaining-hand=0 generated=1  <- rests on generated
+  ctl-constant-key.py                      fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,dup-member-case,dup-member-exact,trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii,wildcard,wildcard-listed,wildcard-ows,star-in-token remaining-hand=52 generated=120
+  ctl-naive-join.py                        fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,dup-member-case,dup-member-exact,trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii,wildcard,wildcard-listed,wildcard-ows,star-in-token remaining-hand=52 generated=120
+  ctl-oracle-import.py                     fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,dup-member-case,dup-member-exact,trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii,wildcard,wildcard-listed,wildcard-ows,star-in-token remaining-hand=52 generated=120
+  ctl-repr-key.py                          fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,dup-member-case,dup-member-exact,trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii,wildcard,wildcard-listed,wildcard-ows,star-in-token remaining-hand=52 generated=120
+  ctl-table.py                             fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,dup-member-case,dup-member-exact,trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii,wildcard,wildcard-listed,wildcard-ows,star-in-token remaining-hand=52 generated=120
+  M01-member-name-not-lowered.py           fails-deleted=sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,dup-member-case remaining-hand=5 generated=58
+  M02-header-stored-as-presented.py        fails-deleted=sort-lowered-a-B remaining-hand=7 generated=18
+  M03-member-order-unsorted.py             fails-deleted=tab-trim,sort-lowered-B-a,sort-lowered-Zb remaining-hand=1 generated=27
+  M04-member-order-reversed.py             fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb remaining-hand=2 generated=34
+  M05-member-ows-not-trimmed.py            fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb remaining-hand=1 generated=53
+  M06-member-trim-wider-than-ows.py        fails-deleted=lf-not-ows,vt-not-ows remaining-hand=0 generated=0  <- ADMITTED
+  M10-value-case-uppered.py                fails-deleted=member-name-lowered remaining-hand=12 generated=8
+  M17-absent-emits-empty.py                fails-deleted=sort-lowered-Zb remaining-hand=5 generated=51
+  M19-wildcard-not-refused.py              fails-deleted=wildcard,wildcard-listed,wildcard-ows remaining-hand=0 generated=1  <- rests on generated
+  M20-wildcard-anywhere-refused.py         fails-deleted=star-in-token remaining-hand=0 generated=0  <- ADMITTED
+  M21-duplicate-member-not-refused.py      fails-deleted=dup-member-case,dup-member-exact remaining-hand=0 generated=27  <- rests on generated
+  M26-vary-token-check-dropped.py          fails-deleted=trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii remaining-hand=0 generated=1  <- rests on generated
+  M29-layout-comma-join.py                 fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb remaining-hand=2 generated=34
+  M30-layout-rs-dropped.py                 fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,member-name-lowered,star-in-token remaining-hand=19 generated=23
+  M34-refusal-exits-zero.py                fails-deleted=dup-member-case,dup-member-exact,trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii,wildcard,wildcard-listed,wildcard-ows remaining-hand=22 generated=41
+  M35-stdout-bare-key.py                   fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,star-in-token remaining-hand=28 generated=79
+  neg-oracle-path-import.py                fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,dup-member-case,dup-member-exact,trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii,wildcard,wildcard-listed,wildcard-ows,star-in-token remaining-hand=52 generated=120
+  neg-exec-source.py                       fails-deleted=tab-trim,sort-lowered-a-B,sort-lowered-B-a,sort-lowered-Zb,member-name-lowered,dup-member-case,dup-member-exact,trailing-comma,leading-comma,only-ows,inner-space,lf-not-ows,vt-not-ows,non-ascii,wildcard,wildcard-listed,wildcard-ows,star-in-token remaining-hand=52 generated=120
+== G02
+  adv-absent-empty.py                      fails-deleted=name-percent-absent remaining-hand=5 generated=51
+  adv-no-name-escape.py                    fails-deleted=name-percent-present,name-percent-absent remaining-hand=0 generated=9  <- rests on generated
+  adv-uri-only.py                          fails-deleted=lookup-ci,name-percent-present,name-percent-absent remaining-hand=26 generated=55
+  ctl-constant-key.py                      fails-deleted=lookup-ci,dup-header-ci,dup-header-unnominated,name-not-token,name-empty,name-percent-present,name-percent-absent remaining-hand=63 generated=120
+  ctl-naive-join.py                        fails-deleted=lookup-ci,dup-header-ci,dup-header-unnominated,name-not-token,name-empty,name-percent-present,name-percent-absent remaining-hand=63 generated=120
+  ctl-oracle-import.py                     fails-deleted=lookup-ci,dup-header-ci,dup-header-unnominated,name-not-token,name-empty,name-percent-present,name-percent-absent remaining-hand=63 generated=120
+  ctl-repr-key.py                          fails-deleted=lookup-ci,dup-header-ci,dup-header-unnominated,name-not-token,name-empty,name-percent-present,name-percent-absent remaining-hand=63 generated=120
+  ctl-table.py                             fails-deleted=lookup-ci,dup-header-ci,dup-header-unnominated,name-not-token,name-empty,name-percent-present,name-percent-absent remaining-hand=63 generated=120
+  M01-member-name-not-lowered.py           fails-deleted=name-percent-absent remaining-hand=9 generated=58
+  M02-header-stored-as-presented.py        fails-deleted=lookup-ci,dup-header-ci,dup-header-unnominated remaining-hand=5 generated=18
+  M10-value-case-uppered.py                fails-deleted=lookup-ci,name-percent-present remaining-hand=11 generated=8
+  M11-escape-percent-dropped.py            fails-deleted=name-percent-present,name-percent-absent remaining-hand=3 generated=39
+  M17-absent-emits-empty.py                fails-deleted=name-percent-absent remaining-hand=5 generated=51
+  M22-duplicate-header-not-refused.py      fails-deleted=dup-header-ci,dup-header-unnominated remaining-hand=0 generated=1  <- rests on generated
+  M25-header-token-check-dropped.py        fails-deleted=name-not-token,name-empty remaining-hand=0 generated=0  <- ADMITTED
+  M30-layout-rs-dropped.py                 fails-deleted=lookup-ci,name-percent-present remaining-hand=22 generated=23
+  M34-refusal-exits-zero.py                fails-deleted=dup-header-ci,dup-header-unnominated,name-not-token,name-empty remaining-hand=30 generated=41
+  M35-stdout-bare-key.py                   fails-deleted=lookup-ci,name-percent-present,name-percent-absent remaining-hand=31 generated=79
+  M37-absent-name-not-escaped.py           fails-deleted=name-percent-absent remaining-hand=0 generated=9  <- rests on generated
+  neg-oracle-path-import.py                fails-deleted=lookup-ci,dup-header-ci,dup-header-unnominated,name-not-token,name-empty,name-percent-present,name-percent-absent remaining-hand=63 generated=120
+  neg-exec-source.py                       fails-deleted=lookup-ci,dup-header-ci,dup-header-unnominated,name-not-token,name-empty,name-percent-present,name-percent-absent remaining-hand=63 generated=120
+== G03
+  adv-cr-only.py                           fails-deleted=cr-only,cr-unnominated remaining-hand=0 generated=2  <- rests on generated
+  adv-lower-values.py                      fails-deleted=case-kept remaining-hand=1 generated=4
+  adv-space-trim.py                        fails-deleted=edge-ows,all-ows-is-empty remaining-hand=0 generated=3  <- rests on generated
+  adv-uri-only.py                          fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty remaining-hand=23 generated=55
+  ctl-constant-key.py                      fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty,cr-only,lf-only,cr-unnominated,lf-unnominated-novary,value-number,value-null remaining-hand=58 generated=120
+  ctl-naive-join.py                        fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty,cr-only,lf-only,cr-unnominated,lf-unnominated-novary,value-number,value-null remaining-hand=58 generated=120
+  ctl-oracle-import.py                     fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty,cr-only,lf-only,cr-unnominated,lf-unnominated-novary,value-number,value-null remaining-hand=58 generated=120
+  ctl-repr-key.py                          fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty,cr-only,lf-only,cr-unnominated,lf-unnominated-novary,value-number,value-null remaining-hand=58 generated=120
+  ctl-table.py                             fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty,cr-only,lf-only,cr-unnominated,lf-unnominated-novary,value-number,value-null remaining-hand=58 generated=120
+  M07-value-ows-not-trimmed.py             fails-deleted=edge-ows,all-ows-is-empty remaining-hand=0 generated=9  <- rests on generated
+  M08-value-trim-wider-than-ows.py         fails-deleted=vt-kept,nbsp-kept remaining-hand=2 generated=13
+  M09-value-case-lowered.py                fails-deleted=case-kept remaining-hand=1 generated=4
+  M10-value-case-uppered.py                fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept remaining-hand=8 generated=8
+  M18-present-empty-emits-absent.py        fails-deleted=all-ows-is-empty remaining-hand=2 generated=9
+  M23-crlf-check-dropped.py                fails-deleted=cr-only,lf-only,cr-unnominated,lf-unnominated-novary remaining-hand=0 generated=8  <- rests on generated
+  M24-lf-check-dropped.py                  fails-deleted=lf-only,lf-unnominated-novary remaining-hand=0 generated=6  <- rests on generated
+  M30-layout-rs-dropped.py                 fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty remaining-hand=18 generated=23
+  M32-value-internal-whitespace-collapsed.py fails-deleted=vt-kept,nbsp-kept,inner-ws-kept remaining-hand=3 generated=15
+  M34-refusal-exits-zero.py                fails-deleted=cr-only,lf-only,cr-unnominated,lf-unnominated-novary,value-number,value-null remaining-hand=28 generated=41
+  M35-stdout-bare-key.py                   fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty remaining-hand=28 generated=79
+  neg-oracle-path-import.py                fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty,cr-only,lf-only,cr-unnominated,lf-unnominated-novary,value-number,value-null remaining-hand=58 generated=120
+  neg-exec-source.py                       fails-deleted=edge-ows,vt-kept,nbsp-kept,case-kept,inner-ws-kept,all-ows-is-empty,cr-only,lf-only,cr-unnominated,lf-unnominated-novary,value-number,value-null remaining-hand=58 generated=120
+== G04
+  adv-lower-values.py                      fails-deleted=value-percent-escape-literal remaining-hand=1 generated=4
+  adv-no-uri-escape.py                     fails-deleted=uri-percent,uri-seps,uri-seps-with-pair remaining-hand=0 generated=58  <- rests on generated
+  adv-sort-no-escape.py                    fails-deleted=value-each-sep,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=1 generated=50
+  adv-uri-only.py                          fails-deleted=value-each-sep,value-percent-escape-literal,uri-seps-with-pair,value-sep-not-ows remaining-hand=25 generated=55
+  ctl-constant-key.py                      fails-deleted=value-each-sep,value-percent-escape-literal,uri-percent,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=64 generated=120
+  ctl-naive-join.py                        fails-deleted=value-each-sep,value-percent-escape-literal,uri-percent,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=64 generated=120
+  ctl-oracle-import.py                     fails-deleted=value-each-sep,value-percent-escape-literal,uri-percent,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=64 generated=120
+  ctl-repr-key.py                          fails-deleted=value-each-sep,value-percent-escape-literal,uri-percent,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=64 generated=120
+  ctl-table.py                             fails-deleted=value-each-sep,value-percent-escape-literal,uri-percent,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=64 generated=120
+  M08-value-trim-wider-than-ows.py         fails-deleted=value-each-sep,value-sep-not-ows remaining-hand=2 generated=13
+  M09-value-case-lowered.py                fails-deleted=value-percent-escape-literal remaining-hand=1 generated=4
+  M10-value-case-uppered.py                fails-deleted=uri-seps-with-pair,value-sep-not-ows remaining-hand=11 generated=8
+  M11-escape-percent-dropped.py            fails-deleted=value-percent-escape-literal,uri-percent remaining-hand=3 generated=39
+  M12-escape-GS-dropped.py                 fails-deleted=value-each-sep,uri-seps remaining-hand=0 generated=34  <- rests on generated
+  M13-escape-FS-dropped.py                 fails-deleted=value-each-sep,uri-seps remaining-hand=0 generated=8  <- rests on generated
+  M14-escape-RS-dropped.py                 fails-deleted=value-each-sep,uri-seps remaining-hand=1 generated=2
+  M15-escape-US-dropped.py                 fails-deleted=value-each-sep,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=1 generated=32
+  M16-escape-percent-last.py               fails-deleted=value-each-sep,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=1 generated=50
+  M27-empty-vary-falls-through.py          fails-deleted=uri-percent,uri-seps remaining-hand=3 generated=24
+  M28-layout-us-always.py                  fails-deleted=uri-percent,uri-seps remaining-hand=3 generated=24
+  M30-layout-rs-dropped.py                 fails-deleted=value-each-sep,value-percent-escape-literal,uri-seps-with-pair,value-sep-not-ows remaining-hand=20 generated=23
+  M31-uri-not-escaped.py                   fails-deleted=uri-percent,uri-seps,uri-seps-with-pair remaining-hand=0 generated=58  <- rests on generated
+  M32-value-internal-whitespace-collapsed.py fails-deleted=value-each-sep,value-sep-not-ows remaining-hand=4 generated=15
+  M35-stdout-bare-key.py                   fails-deleted=value-each-sep,value-percent-escape-literal,uri-percent,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=28 generated=79
+  neg-oracle-path-import.py                fails-deleted=value-each-sep,value-percent-escape-literal,uri-percent,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=64 generated=120
+  neg-exec-source.py                       fails-deleted=value-each-sep,value-percent-escape-literal,uri-percent,uri-seps,uri-seps-with-pair,value-sep-not-ows remaining-hand=64 generated=120
+== G05
+  adv-absent-empty.py                      fails-deleted=absent,three-pairs,empty-uri remaining-hand=3 generated=51
+  adv-no-sort.py                           fails-deleted=three-pairs remaining-hand=3 generated=27
+  adv-uri-only.py                          fails-deleted=present-empty,absent,three-pairs,empty-uri remaining-hand=25 generated=55
+  ctl-constant-key.py                      fails-deleted=vary-empty,vary-absent,present-empty,absent,three-pairs,empty-uri remaining-hand=64 generated=120
+  ctl-naive-join.py                        fails-deleted=vary-empty,vary-absent,present-empty,absent,three-pairs,empty-uri remaining-hand=64 generated=120
+  ctl-oracle-import.py                     fails-deleted=vary-empty,vary-absent,present-empty,absent,three-pairs,empty-uri remaining-hand=64 generated=120
+  ctl-repr-key.py                          fails-deleted=vary-empty,vary-absent,present-empty,absent,three-pairs,empty-uri remaining-hand=64 generated=120
+  ctl-table.py                             fails-deleted=vary-empty,vary-absent,present-empty,absent,three-pairs,empty-uri remaining-hand=64 generated=120
+  M02-header-stored-as-presented.py        fails-deleted=three-pairs remaining-hand=7 generated=18
+  M03-member-order-unsorted.py             fails-deleted=three-pairs remaining-hand=3 generated=27
+  M04-member-order-reversed.py             fails-deleted=three-pairs remaining-hand=5 generated=34
+  M17-absent-emits-empty.py                fails-deleted=absent,three-pairs,empty-uri remaining-hand=3 generated=51
+  M18-present-empty-emits-absent.py        fails-deleted=present-empty remaining-hand=2 generated=9
+  M27-empty-vary-falls-through.py          fails-deleted=vary-empty,vary-absent remaining-hand=3 generated=24
+  M28-layout-us-always.py                  fails-deleted=vary-empty,vary-absent remaining-hand=3 generated=24
+  M29-layout-comma-join.py                 fails-deleted=three-pairs remaining-hand=5 generated=34
+  M30-layout-rs-dropped.py                 fails-deleted=present-empty,three-pairs remaining-hand=22 generated=23
+  M35-stdout-bare-key.py                   fails-deleted=vary-empty,vary-absent,present-empty,absent,three-pairs,empty-uri remaining-hand=28 generated=79
+  neg-oracle-path-import.py                fails-deleted=vary-empty,vary-absent,present-empty,absent,three-pairs,empty-uri remaining-hand=64 generated=120
+  neg-exec-source.py                       fails-deleted=vary-empty,vary-absent,present-empty,absent,three-pairs,empty-uri remaining-hand=64 generated=120
+== G06
+  adv-bad-json.py                          fails-deleted=malformed-json,empty-input remaining-hand=0 generated=0  <- ADMITTED
+  adv-missing-headers.py                   fails-deleted=headers-missing,headers-missing-vary remaining-hand=0 generated=0  <- ADMITTED
+  ctl-constant-key.py                      fails-deleted=malformed-json,empty-input,array,string,uri-missing,uri-number,uri-null,headers-missing,headers-missing-vary,headers-list,headers-null,vary-number,vary-null,vary-list remaining-hand=56 generated=120
+  ctl-naive-join.py                        fails-deleted=malformed-json,empty-input,array,string,uri-missing,uri-number,uri-null,headers-missing,headers-missing-vary,headers-list,headers-null,vary-number,vary-null,vary-list remaining-hand=56 generated=120
+  ctl-oracle-import.py                     fails-deleted=malformed-json,empty-input,array,string,uri-missing,uri-number,uri-null,headers-missing,headers-missing-vary,headers-list,headers-null,vary-number,vary-null,vary-list remaining-hand=56 generated=120
+  ctl-repr-key.py                          fails-deleted=malformed-json,empty-input,array,string,uri-missing,uri-number,uri-null,headers-missing,headers-missing-vary,headers-list,headers-null,vary-number,vary-null,vary-list remaining-hand=56 generated=120
+  ctl-table.py                             fails-deleted=malformed-json,empty-input,array,string,uri-missing,uri-number,uri-null,headers-missing,headers-missing-vary,headers-list,headers-null,vary-number,vary-null,vary-list remaining-hand=56 generated=120
+  M34-refusal-exits-zero.py                fails-deleted=array,string,uri-missing,uri-number,uri-null,headers-missing,headers-missing-vary,headers-list,headers-null,vary-number,vary-null,vary-list remaining-hand=22 generated=41
+  neg-oracle-path-import.py                fails-deleted=malformed-json,empty-input,array,string,uri-missing,uri-number,uri-null,headers-missing,headers-missing-vary,headers-list,headers-null,vary-number,vary-null,vary-list remaining-hand=56 generated=120
+  neg-exec-source.py                       fails-deleted=malformed-json,empty-input,array,string,uri-missing,uri-number,uri-null,headers-missing,headers-missing-vary,headers-list,headers-null,vary-number,vary-null,vary-list remaining-hand=56 generated=120

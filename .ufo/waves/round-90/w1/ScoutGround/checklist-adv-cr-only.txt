@@ -1,0 +1,9 @@
+$ python3 -B scripts/cache_key_conformance.py --candidate .ufo/waves/round-89/w1/ExecControls/adv-cr-only.py --work /fast/scratch/hyaku/kake-r90/ScoutGround --verbose
+FAIL values/cr-only: expected refusal; rc=0 out=b'{"key": "https://e.test/p\\u001fa\\u001ex\\ry"}\n' err=b''
+FAIL values/cr-unnominated: expected refusal; rc=0 out=b'{"key": "https://e.test/p\\u001fa\\u001e\\u001c"}\n' err=b''
+FAIL generated/g009: expected refusal; rc=0 out=b'{"key": "https://e.test/pp%1C%1F%1F%1C\\u001fq1\\u001e*\\u000b*\\u001fzz\\u001e\\u001c' err=b''
+FAIL generated/g064: expected refusal; rc=0 out=b'{"key": "https://e.test/p%1C%1C/\\u001fzz\\u001e\\u001c"}\n' err=b''
+FAIL generated/g077: expected refusal; rc=0 out=b'{"key": "https://e.test/p//"}\n' err=b''
+cache_key_conformance advisory=1/3 outside-contract-gaps=utf8-required,nul-in-value
+cache_key_conformance clauses=5/6 hand=68/70 generated=117/120 sandbox=ok seed=1843433862 met=false
+exit=1

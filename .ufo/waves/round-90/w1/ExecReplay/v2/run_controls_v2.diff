@@ -1,0 +1,18 @@
+9c9
+< OUT=$R90/controls
+---
+> OUT=/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-90/w1/ExecReplay/v2
+11c11
+< SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kake-r90/L1/controls
+---
+> SCR=/fast/scratch/hyaku/kake-r90/ExecReplay/controls
+49,50c49,50
+< mkdir -p "$D/.ufo/waves/round-90/inherited"; cp "$LANE/baseclean.out" "$D/.ufo/waves/round-90/inherited/"
+< G add .ufo/waves/round-90/inherited && G commit -qm "fx D1a"; cp "$LANE/baseclean.out" "$D/baseclean.out"
+---
+> mkdir -p "$D/.ufo/waves/round-90/inherited"; cp "/fast/scratch/hyaku/kake-r90/ExecReplay/src/baseclean.out" "$D/.ufo/waves/round-90/inherited/"
+> G add .ufo/waves/round-90/inherited && G commit -qm "fx D1a"; cp "/fast/scratch/hyaku/kake-r90/ExecReplay/src/baseclean.out" "$D/baseclean.out"
+93c93
+< mkdir -p "$D/.ufo/waves/round-90/inherited"; cp "$LANE/baseclean.out" "$D/.ufo/waves/round-90/inherited/"
+---
+> mkdir -p "$D/.ufo/waves/round-90/inherited"; cp "/fast/scratch/hyaku/kake-r90/ExecReplay/src/baseclean.out" "$D/.ufo/waves/round-90/inherited/"

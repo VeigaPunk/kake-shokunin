@@ -3087,3 +3087,37 @@ Tools: none installed or upgraded (no pacman; no network beyond the two named RF
 
 - D89-2 correction: LOG round-89 C1 line `open=5 closed=1` at f62e7954 — receipted now by `.ufo/waves/round-90/controls/r89-c1-at-f62e7954.txt` (frozen counter blob `0dee1dc8` re-run on a scratch clone at f62e7954a9ed9515b13c2bd21fd881fa579ff628) reading open=5 closed=1
 - Only item E is closed at `f62e7954` (B, C, D, F read the round-89 lesson, absent there). The final round-89 reading stays `open=1 closed=5` at `93475f7e` (`.ufo/waves/round-89/controls/final2-c1-at-tip.txt`).
+
+## Round 90 — 2026-11-04, routed round-89 defects closed and a cache-key conformance gate
+
+Claims (frozen `4ee62b18`, `.ufo/waves/round-90/freeze.md`):
+- C1 calibration: D89-1..3 close, counter `c90_defects.py`; base `open=3` exit 1
+  (`controls/base-c1.txt`) → carrier `e50c9566` `open=0 closed=3 met=true` exit 0
+  (`controls/after-c1-carrier.txt`), same at tip `a4814f58` (`controls/final-c1-at-tip.txt`).
+- C2 operability capability: `scripts/cache_key_conformance.py`, counter `c90_gate.py`; base
+  `gate=absent` exit 1 → carrier `7f6c68f1` `positives=4/4 negatives_refused=57/57 met=true`
+  exit 0 (`controls/after-c2-carrier.txt`), same at tip (`controls/final-c2-at-tip.txt`).
+
+Controls before the freeze: `controls/ctl-c1.txt` (do-nothing, seven forgeries, positive),
+`controls/ctl-c2.txt` (no gate, blanket refuse/admit, hash- and name-table gates). The first C1
+control run caught a parse defect (`controls/ctl-c1-v0-before-parse-fix.txt`), fixed before freeze.
+
+Sources opened: RFC 9110, RFC 9111, RFC 8259 plain text (HTTP 200; digests in
+`corpus/lessons/round-90.md` §Gate). Registry 202 → 205 (S466, S467 supersedes S463, S468).
+
+Wave w1 (13 seats; `.ufo/waves/round-90/w1-spec.json`): found the carrier gate escapable through
+`_posixsubprocess.fork_exec`, frame-global and `gc` rebinding and a spoofed `realpath`
+(ScoutGround, ExecSandbox, ReviewGate), 14 + 7 held-out false admits (ExecStubs, CriticClaims),
+an over-strict output judge and a locale-caused non-UTF-8 misdiagnosis (ReviewGate), and forgeries
+that reach `met=true` on both frozen counters (ReviewC1, MutC1, CriticClaims, ScribeLedger).
+The gate was hardened after the wave (`a4814f58`); the frozen counters were not changed.
+Held-out at the tip: positives 8/8, negatives refused 57/58 (`integration/heldout-tip.txt`).
+
+Actual domain work: the gate on the shipped constructor over 5 seeds × 600 generated cases and
+48 recorded Vary capture cases (`w1/ExecTrial.md`), all agreeing with the gate's reference.
+
+Assimilation: none — `merge/kake` still collides on eight ids
+(`.ufo/waves/round-90/assimilation/collisions`). considerthese: `2026-10-26.md` Part 2 proposal 3
+(operator-decision queue) landed as a lesson section.
+
+Tools: none installed or upgraded (no pacman; network limited to the three RFC GETs).

@@ -1,0 +1,6 @@
+$ python3 -B scripts/cache_key_conformance.py --candidate .ufo/waves/round-89/w1/ExecControls/adv-missing-headers.py --work /fast/scratch/hyaku/kake-r90/ScoutGround --seed 9090 --jobs 4 --verbose
+FAIL refusals/headers-missing: expected refusal; rc=0 out=b'{"key": "https://e.test/p"}\n' err=b''
+FAIL refusals/headers-missing-vary: expected refusal; rc=0 out=b'{"key": "https://e.test/p\\u001fa\\u001e\\u001c"}\n' err=b''
+cache_key_conformance advisory=1/3 outside-contract-gaps=utf8-required,nul-in-value
+cache_key_conformance clauses=5/6 hand=68/70 generated=120/120 sandbox=ok seed=9090 met=false
+exit=1
