@@ -547,27 +547,20 @@ published.
 
 | Area | Entry | Coverage |
 |---|---|---|
-| Page-level robots meta directives (r78) | `knowledge/meta-robots-directives.md` (working tree at write time), `scripts/meta_robots_audit.py` (working tree at write time; selftest tally and digest pending the carrier re-cut), matrix `.ufo/waves/round-78/cases` (34 case directories) and `.ufo/waves/round-78/consts` (four constants); the matrix receipt was absent at write time | Frozen `kake-meta-robots-manifest/v1` input: `<meta name=… content=…>` elements matching the declared agents, read from local HTML only; ASCII-case-insensitive names and tokens, comma splitting, `none`/`all` expansion and a cross-element most-restrictive merge (`noindex` over `index`, `nofollow` over `follow`, `-1` loses to any non-negative integer, `none < standard < large`, earliest valid `unavailable_after`); value errors (`meta_robots_invalid_value`, `meta_robots_unknown_directive`) stay out of the effective set; `<head>`-only placement (`meta_robots_tag_outside_head`); default `["follow","index"]` when no element matches; `expect.effective` / `expect.findings` compared sorted (`meta_robots_expected_mismatch`); exits 0/1/2/64. |
+| Page-level robots meta declarations (r78) | `knowledge/meta-robots-directives.md`, `scripts/meta_robots_audit.py`, `.ufo/waves/round-78/cases`, `.ufo/waves/round-78/consts` | Local-file normalized declarations, source-backed knowledge with explicit lane policies; expectation-free tool input and opaque matrix payloads. Body declarations participate. Historical directives ignored, bounded date grammar, findings separate from effective declarations. |
 
-The contract's frozen population is the 24 case families g01–g24 (≥ 20 cases) and four degenerate
-constants; the counter is `.ufo/waves/round-78/c78_meta_robots_matrix.py` with the predicate
-`met <=> cases == decided and correct == cases and constants_failed == 4`. The four constants
-(always-clean, report-every-id, empty-findings-with-real-exits, a naive `substring noindex` reader)
-must each fail at least one case.
+Final finite-table evidence: `.ufo/waves/round-78/controls/after-c3-matrix.txt`
+at carrier `82c3d02c39d16ae99c6cd34238fa3ec6ea089fb9`; exact case identity set,
+three-field comparison, four degenerate constants and tool selftest. The
+g26 row and generic nosnippet/video prose conflict: this table-specific
+demonstration does not prove the combined specification.
 
 Ground it does not hold: `X-Robots-Tag` response headers (the `response_snapshot.py` /
 `header_audit.py` instruments own that channel), rendering or rendered-DOM observation, crawler
 behaviour, and whether any live property carries a correct declaration. No live property was
 measured this round, no network call was made, and publishing stays operator-owned.
 
-**State at write time** (2026-11-03T23:46-03:00, i.e. 2026-11-04T02:46Z). The working tree then carried
-`scripts/meta_robots_audit.py`, `knowledge/meta-robots-directives.md`,
-`.ufo/waves/round-78/cases` (34 case directories), the four constants under
-`.ufo/waves/round-78/consts` (`always_clean.py`, `empty_findings_real_exits.py`,
-`naive_substring.py`, `report_every_id.py`) and the counter
-`.ufo/waves/round-78/c78_meta_robots_matrix.py`; all were still being written, so this row cites no
-digest or selftest tally. The matrix receipt
-`.ufo/waves/round-78/controls/after-c3-matrix.txt` had not been written then (the frozen base
-control `.ufo/waves/round-78/controls/base-c3-absent.txt` records `git cat-file -e` rc=128), so
-`cases`, `decided`, `correct` and `constants_failed` are pending and no C3 result is claimed in this
-file.
+**Final integration:** the carrier contains all named artifacts; the receipt
+above replaces the scribe's earlier in-progress snapshot. No pending result is
+represented as a pass. `w1/ExecC3Tool/realrun.txt` covers the previously retained
+page bytes, not a new network observation.

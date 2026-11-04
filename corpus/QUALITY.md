@@ -1580,3 +1580,23 @@ evidence for that artifact.
 
 Criteria are not rewritten: this section is the round-77 row, and every earlier criterion stands
 unchanged.
+
+## Round-78 criteria — population snapshots and label isolation
+
+Grounding: corpus/lessons/round-78.md, ReviewC23 and CriticC round-78 receipts.
+
+- A self-assessment population is a per-revision snapshot: knowledge additions
+  update the corresponding declared population in the same carrier. Growing
+  count-at-least observations remain floors; exact population mismatches stay
+  red. Able-to-fail: round-78 fake-population and undeclared-row controls.
+- A revision-labelled counter executes that revision's measured/dependency
+  bytes, not an uncommitted worktree replacement. Missing checklist population
+  is a defect even if an older counter emits no findings. Able-to-fail:
+  ReviewC23/counter-revision-mismatch.json versus counter-revision-fixed.json.
+- A tool under evaluation receives payload inputs, not expectation labels or a
+  sibling oracle file. The matrix owns labels separately, compares effective
+  output as well as findings and exit, and rejects a sibling-label reader.
+  Able-to-fail: round-78 matrix's sibling-expect adversary.
+- A green explicit table does not resolve contradictory specification prose.
+  Preserve a scored population, report the inconsistency, and amend only in a
+  later claim; never rewrite expectations after seeing the scored result.

@@ -1,5 +1,47 @@
-# command: python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-78/c78_meta_robots_matrix.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --tool-revision e409f6c1f16d2ab72fb1ff53a4b438aa9b6583b7 --cases /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-78/cases --consts /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-78/consts --work /fast/scratch/hyaku/kake-r78/ExecC3Matrix/carrier
-C3v1 revision=e409f6c1f16d2ab72fb1ff53a4b438aa9b6583b7 cases=36 decided=0 correct=0 wrong=0 constants_failed=0/4 met=false
-tool_absent rc=128 error=fatal: path 'scripts/meta_robots_audit.py' exists on disk, but not in 'e409f6c1f16d2ab72fb1ff53a4b438aa9b6583b7'
-cases_sha256=2ee1dea32d6a10bb1e48059e17ae3396864b773a7e8a89c4367ae93b1614baa2
-rc=2
+# command: python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-78/c78_meta_robots_matrix.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --tool-revision 82c3d02c39d16ae99c6cd34238fa3ec6ea089fb9 --cases /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-78/cases --consts /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-78/consts --work /fast/scratch/hyaku/kake-r78/ExecC3Matrix/carrier-final
+sibling_expect_control_failed=true
+C3v1 revision=82c3d02c39d16ae99c6cd34238fa3ec6ea089fb9 cases=36 decided=36 correct=36 wrong=0 constants_failed=4/4 met=true
+selftest_ok=true selftest=94/94 selftest_exit=0 selftest_tail=["selftest: 94/94 passed"]
+case_set frozen=36 declared=36 missing=[] extra=[]
+tool_blob=ff0a9df0909428c1c7d5a498a157226ef2e4aa0a tool_sha256=886e88618f7064fb32b95f469ce825bd405b5ae943ba3e100bc0c645cf560ba3 tool_bytes=59428 cases_sha256=2ee1dea32d6a10bb1e48059e17ae3396864b773a7e8a89c4367ae93b1614baa2
+case g01_absent_tag verdict=correct
+case g02_noindex verdict=correct
+case g03_none_expansion verdict=correct
+case g04_all_default verdict=correct
+case g05_index_follow_one verdict=correct
+case g06_conflicting_noindex verdict=correct
+case g07_conflicting_nofollow verdict=correct
+case g08_max_snippet_two verdict=correct
+case g09_max_image_preview_two verdict=correct
+case g10_max_video_no_limit verdict=correct
+case g11_max_snippet_invalid verdict=correct
+case g12a_unavailable_datetime verdict=correct
+case g12b_unavailable_date verdict=correct
+case g12c_unavailable_rfc822 verdict=correct
+case g13_unavailable_invalid verdict=correct
+case g14_uppercase verdict=correct
+case g15_empty_content verdict=correct
+case g16_unknown_directive verdict=correct
+case g17_googlebot_ignored verdict=correct
+case g18_googlebot_with_agents verdict=correct
+case g19_body_tag_respected verdict=correct
+case g21_self_closing verdict=correct
+case g22_single_quotes verdict=correct
+case g23_noarchive_ignored verdict=correct
+case g24_trailing_comma verdict=correct
+case g25_nosnippet_dominates verdict=correct
+case g26_max_snippet_zero_video_minus_one verdict=correct
+case g27_indexifembedded verdict=correct
+case g28_within_content_conflict verdict=correct
+case g29_max_image_preview_none verdict=correct
+case g30_max_snippet_minus_one verdict=correct
+case g31_missing_content verdict=correct
+case g32_nocache_ignored verdict=correct
+case g33_lowercase_t_z verdict=correct
+case g34_missing_file_exit2 verdict=correct
+case g35_duplicate_id_exit2 verdict=correct
+const always_clean.py failed=32/36 first=["g02_noindex", "g03_none_expansion", "g06_conflicting_noindex", "g07_conflicting_nofollow"] passes_all=no
+const empty_findings_real_exits.py failed=8/36 first=["g11_max_snippet_invalid", "g13_unavailable_invalid", "g15_empty_content", "g16_unknown_directive"] passes_all=no
+const naive_substring.py failed=25/36 first=["g03_none_expansion", "g07_conflicting_nofollow", "g08_max_snippet_two", "g09_max_image_preview_two"] passes_all=no
+const report_every_id.py failed=36/36 first=["g01_absent_tag", "g02_noindex", "g03_none_expansion", "g04_all_default"] passes_all=no
+rc=0

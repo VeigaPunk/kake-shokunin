@@ -5004,3 +5004,27 @@ although S448 §4.2.6 asks for a date-time; no feed entry-count rule is claimed 
 separate a name-gated gzip dispatch except through g01's non-`.gz` payload (ReviewC2 F1, applied), and the
 SentinelC F2–F6 classes (lexical manifest containment, FIFO denial, unbounded manifest read, `--revision`
 label forgery, `--tool-revision` option injection) remain open and are routed in the lesson.
+
+## Round 78 — measured claims (author-side; closure owns admission)
+
+Base `fe50945399a386b48678b1f2051fdbe8a77b10bd`; frozen contract `78711a62`;
+terms amendments `c758904c`, `a5d7b7a5`, `715795eb`, `e409f6c1`.
+Measured carrier `82c3d02c39d16ae99c6cd34238fa3ec6ea089fb9`. Scores unchanged:
+calibration 2 HOLD, freshness 10 HOLD, operability 10 HOLD.
+
+| Claim | Axis | Before → after | Counting command | Evidence/verdict |
+|---|---|---|---|---|
+| C1 population-bound self-assessment | calibration 2→2 | four undeclared populations → four declared, zero stale populations/exact mismatches/floor violations | `python3 -B .ufo/waves/round-78/c78_shonen_population.py --root . --revision <rev>` | controls/base-c1-population.txt → controls/after-c1-population.txt under round-78; measured met |
+| C2 evaluated offline path freshness | freshness 10→10 | offline sweep red with one drift/new-missing token → evaluated paths green and planted-citation control red | `python3 -B .ufo/waves/round-78/c78_sweep_truth.py --root . --revision <rev> --work <scratch>` | controls/base-c2-sweep.txt → controls/after-c2-counter.txt; measured met; remote/history checks not passed |
+| C3 page-directive audit | operability 10→10 | tool absent → explicit finite table decided, constants rejected, tool selftest green | `python3 -B .ufo/waves/round-78/c78_meta_robots_matrix.py --root . --tool-revision <rev> --cases .ufo/waves/round-78/cases --consts .ufo/waves/round-78/consts --work <scratch>` | controls/after-c3-matrix.txt; table-specific met, combined-contract claim unprovable: g26 conflicts with generic nosnippet/video prose |
+
+### Demonstrated repertoire, round 78
+
+| Capability | What it can do | Evidence | First-working round |
+|---|---|---|---|
+| Offline page-level robots declaration audit (bounded) | Reads local HTML, emits normalized directive sets and five policy finding classes without expectation labels, fetches or publication; this is not complete crawler semantics and the g26 contract inconsistency stays open | scripts/meta_robots_audit.py; round-78 controls/after-c3-matrix.txt; w1/ExecC3Tool/realrun.txt | 78 |
+
+The knowledge population is sixty-five at the carrier, sixty-four at round start.
+Box two stays a gap. Non-ASCII agent-casefolding survives the frozen matrix and
+tool selftest (ReviewC23); no post-score case was added to conceal it. This round
+does not assert admission of the combined three-claim contract.

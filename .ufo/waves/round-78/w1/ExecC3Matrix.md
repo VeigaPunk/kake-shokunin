@@ -1,24 +1,27 @@
-IMPLEMENTED; final carrier receipt is honestly unevaluable because the tool has not yet been committed.
+PASS — committed carrier 82c3d02c39d16ae99c6cd34238fa3ec6ea089fb9: C3 met=true, exit 0.
 
-## Scope and behavior
-Axes: C3 operability/capability; preserve calibration and freshness gates.
+## Deliverables
+Axes: C3 operability/capability; preserve calibration/freshness gates.
+Changed only round-78/c78_meta_robots_matrix.py, cases/ (36 frozen underscore ids), consts/ (four controls), controls/after-c3-matrix.txt and this seat's w1 report/evidence. Did not edit scripts/meta_robots_audit.py. No installs. No LSP facility was mounted; no symbol refactor was required.
 
-Changed round-78/c78_meta_robots_matrix.py, cases/ (exactly 36 frozen underscore ids), consts/ (four controls), controls/after-c3-matrix.txt, and this seat's w1/ExecC3Matrix evidence. Did not edit scripts/meta_robots_audit.py. No tool installs. No LSP tool was mounted; no supported symbol lookup/refactor was available.
+- derivations.md:1 maps each case to contract/amendments 1–4 and its exact expected JSON. The fixed population is amendment 3 C4; amendment 4 overrides finding-case exits. g20 is retired; g34 intentionally lacks page.html; g35 duplicates a check id.
+- Counter compares exit/effective/findings (faults: exit/error), rejects missing/extra IDs as case_set_mismatch, extracts the tool via git show from the requested revision, and enforces the tool's final selftest line P==T>=40.
+- Input isolation copies only page payload and a no-expect manifest into random opaque scratch input/cwd, neutralizing check IDs/URLs. The oracle stays solely in the matrix. A sibling-expect echo adversary must fail, independently of the four constants.
 
-Authority: contract plus amendments 1–4. derivations.md:1 maps every case to its amended sentence and exact expected JSON; make_cases.py:217 computes amendment-4 exits. All 36 ids of amendment 3 C4 are present; g20 is retired. g34 intentionally has no page.html; g35 carries duplicate check ids. Manifests contain no expect. Counter compares exit/effective/findings (faults compare exit/error), rejects missing/extra case directories, extracts only the revision's tool blob, and requires its final selftest line to report P==T>=40.
+## Exact retained evidence
+controls/after-c3-matrix.txt:1 retains the full absolute-path command and output, rc=0:
+`C3v1 revision=82c3d02c39d16ae99c6cd34238fa3ec6ea089fb9 cases=36 decided=36 correct=36 wrong=0 constants_failed=4/4 met=true`
+Tool selftest: 94/94, exit 0. Case set: missing=[] extra=[]. Sibling-expect control rejected (true).
+Tool blob ff0a9df0909428c1c7d5a498a157226ef2e4aa0a; SHA-256 886e88618f7064fb32b95f469ce825bd405b5ae943ba3e100bc0c645cf560ba3.
+Case aggregate SHA-256 2ee1dea32d6a10bb1e48059e17ae3396864b773a7e8a89c4367ae93b1614baa2.
 
-Oracle isolation: each invocation gets a random opaque input and cwd; only manifest/page are copied, with neutral check ids and URLs. expect.json never crosses that boundary. echo_sibling_expect.py is an enforced extra adversarial control, separate from the four required constants.
+matrix-selftest.txt:1 retains exact command: 16/16, exit 0. Includes effective-only/finding-only differences and an integration fixture removing g16, requiring case_set_mismatch/metfalse.
+constant-failures.txt:1 lists every failed ID from the same isolated runner: always_clean 32/36; empty_findings_real_exits 8/36; naive_substring 25/36; report_every_id 36/36. The committed-carrier receipt independently records those same failure counts.
+sibling-control.txt:1 retains the separate sibling-label probe: rejected on 36/36 cases, control experiment rc=0.
+artifact-sha256.txt:1 records retained artifact digests. Counter SHA-256 2fccf1946a2f8f7cb292ef77743bcd4bf1d5e9ac10eab397e2c44d070f6ec9e0.
 
-## Retained evidence
-- matrix-selftest.txt:1 contains exact command; `C3v1 selftest cases=16 passed=16 failed=0`, rc=0. Includes effective-only/finding-only differences and a real missing-g16 population fixture requiring case_set_mismatch/metfalse.
-- constant-failures.txt:1 retains the imported counter runner invocation and every failing id: always_clean 32/36; empty_findings_real_exits 8/36; naive_substring 25/36; report_every_id 36/36. All four rejected. This is control evidence, not a real-tool pass.
-- sibling-control.txt:1 retains the isolated runner probe: sibling-expect echo rejected on all 36 cases (rc=0 for the control experiment).
-- controls/after-c3-matrix.txt:1 contains the exact absolute-path command at e409f6c1f16d2ab72fb1ff53a4b438aa9b6583b7; rc=2: tool exists on disk but not at that revision. `cases=36 decided=0 correct=0 wrong=0 constants_failed=0/4 met=false`. No working-tree tool was executed for that receipt. L1 was asked for a committed carrier revision.
-- artifact-sha256.txt:1 records SHA-256 of counter, controls, derivations and retained receipt bytes. Frozen case aggregate in the after receipt: 2ee1dea32d6a10bb1e48059e17ae3396864b773a7e8a89c4367ae93b1614baa2.
+## Limits / cleanup
+No blockers. No build/lint/formatter run. Prescribed matrix, selftest and negative controls only. Fixed population does not establish every RFC822 zone terminal, timezone-offset merging, http-equiv-only behavior, or multi-finding ordering; the sequence-vs-sorted finding mutant survives the single-finding population and remains a stated limit. RFC850 is explicitly unimplemented. No cases/tool were edited after the carrier.
+Superseded reference scaffolding removed. All seat scratch removed before yielding; no fleet-root or external substrates modified. Earlier pre-amendment experiments and absent-tool run were superseded, not represented as current after-state evidence.
 
-## Risks / integration prerequisite
-The final C3 claim is NOT established by the absent-tool carrier. L1 must commit the tool and run the retained exact matrix command with that new revision and a fresh seat scratch work directory. No build/lint/formatter was run. No claim is made for RFC850 support, every zone terminal, timezone-offset merging, http-equiv-only input, or multi-finding ordering beyond the frozen population. A sequence-vs-sorted finding mutant surviving single-finding cases remains a stated population limit; no cases were widened after scoring.
-
-Superseded pre-amendment reference scaffolding was removed. Scratch cleanup is performed before yielding. Early pre-amendment machinery/selftest experiments were superseded and are not after-state evidence. No fleet-root or external substrate files were edited.
-
-Self-evaluation (1–5): accuracy 4 (real-tool carrier absent, explicitly not a pass); completeness 4 (implementation/evidence complete, committed tool prerequisite remains); clarity 4 (four amendments require the derivation authority chain); actionability 4 (exact re-cut command retained); conciseness 4 (per-case derivations separated from summary). Overall 4.0. Highest-impact improvement: re-cut only after L1 commits the real tool. Would the user agree? The report does not round an unevaluable receipt to green.
+Self-evaluation: accuracy4 (fixed-population limits above); completeness4 (all assigned artifacts, no broader semantic proof); clarity4 (derivations preserve the amendment chain); actionability4 (exact command retained); conciseness4 (per-case detail separated). Overall4.0. Highest-impact future improvement is a newly frozen population for multi-finding ordering, not widening this scored matrix. Would the user agree? Evidence is bounded to the measured carrier.

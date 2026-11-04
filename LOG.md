@@ -2670,3 +2670,36 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Not done this round.** No publish or deploy; network reads were three public documentation GETs (each
   HTTP 200, retained under the wave dir); no operator-owned property fetched; no MANIFEST edit; no tool
   installed or upgraded; pacman untouched.
+
+## Round 78 — 2026-11-03 (hyaku run 15, attempt 1)
+
+- Claims: C1 calibration population-bound SHONEN ledger, C2 freshness evaluated
+  offline paths, C3 operability page-directive audit. Base fe509453; contract
+  78711a62; amendments c758904c/a5d7b7a5/715795eb/e409f6c1; carrier
+  82c3d02c39d16ae99c6cd34238fa3ec6ea089fb9. Numeric scores stay HOLD.
+- Motivating evidence: round-77 closure's stale box-four population and missing
+  coverage-map updates; standing sweep's unannotated lowercase-home-path drift;
+  no prior page-directive audit. Sources opened and receipts retained under
+  `.ufo/waves/round-78/w1/ScoutSources/` and `w1/L1Sources/`.
+- C1 measured met at carrier: four population declarations, no stale populations,
+  exact mismatches or floor violations; growing observations tolerated. Counter
+  uses committed c77 bytes and requires four examined checklist boxes; box two
+  remains a gap. Receipt `.ufo/waves/round-78/controls/after-c1-population.txt`.
+- C2 measured met at carrier: sidecar repair plus pin makes evaluated paths green,
+  while planted unannotated citation remains red. Wrapper measures archived
+  revision bytes. Receipt `.ufo/waves/round-78/controls/after-c2-counter.txt`.
+- C3 explicit table measured met with frozen cases, constants, tool selftest and
+  opaque label isolation; offline real run covers eight retained pages. Combined
+  contract remains unprovable: g26 and generic nosnippet/video prose conflict.
+  No post-score target change. Receipt `.ufo/waves/round-78/controls/after-c3-matrix.txt`;
+  real input `.ufo/waves/round-78/w1/ExecC3Tool/realrun.txt`.
+- Frontier: S449–S451, one new knowledge entry, coverage/province corrections;
+  registry census exits zero with nineteen duplicate-URL scope warnings (two new).
+  Assimilation none: eight staged id collisions remain. Lessons and new criteria
+  are recorded in corpus/lessons/round-78.md and corpus/QUALITY.md.
+- Wave: one requested v1 batch of fourteen seats, planner held by L1; actual
+  settlement and identity collisions come from the orchestrator handoff, not
+  inferred seat names. No tools installed, pacman untouched, no deployment.
+- Integration mistake: one malformed L1 edit briefly removed LOG.md locally.
+  It was restored byte-exactly from master immediately; no commit captured the
+  deletion. No historical LOG entry is removed.

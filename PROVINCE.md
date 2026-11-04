@@ -562,30 +562,20 @@ publisher places in a page's `<head>` — as an offline audit capability. The ru
 frozen contract `.ufo/waves/round-78/contract.md` §C3; the parts below state what that contract
 fixes, and the state paragraph names what was measured.
 
-**What the audit decides.** `scripts/meta_robots_audit.py` consumes a
-`kake-meta-robots-manifest/v1` manifest (`agents`, default `["robots"]`; `checks[]` with `id`, a
-lane-relative `path`, `url`, and `expect.effective` / `expect.findings`) and reads the named local
-HTML files only: no fetch, no browser, no write. It collects `<meta name=… content=…>` elements whose
-`name` ASCII-case-insensitively equals a declared agent; a matching element outside `<head>` is
-`meta_robots_tag_outside_head` and stays out of the effective set. Content splits on commas, tokens
-are ASCII-case-insensitive and whitespace-trimmed, empty tokens are ignored, and an all-empty
-content is `meta_robots_empty_content`. Vocabulary: `all`, `none`, `index`, `noindex`, `follow`,
-`nofollow`, `noarchive`, `nosnippet`, `noimageindex`, `notranslate`, `max-snippet:<int>`,
-`max-image-preview:<none|standard|large>`, `max-video-preview:<int>` and
-`unavailable_after:<RFC 3339 date-time>`. `none` expands to `noindex,nofollow` and `all` to
-`index,follow`; across elements the most restrictive value wins (`noindex` over `index`, `nofollow`
-over `follow`, `-1` loses to any non-negative integer, `none < standard < large`, and the earliest
-valid `unavailable_after`). Value errors are findings and never enter the effective set:
-`meta_robots_invalid_value` and `meta_robots_unknown_directive` (reporting an unknown token is lane
-policy; the source says unknown values are ignored). No matching element yields the default
-`["follow","index"]` with no finding. `expect.effective` and `expect.findings` compare as sorted
-lists, and a difference is `meta_robots_expected_mismatch`. Exits: 0 all checks match · 1 any
-finding · 2 input or check fault · 64 usage; `--selftest` is required to cover ≥ 40 cases. The
-capability is decided over the frozen 24 case families g01–g24 (≥ 20 cases) in
-`.ufo/waves/round-78/cases` by the counter `.ufo/waves/round-78/c78_meta_robots_matrix.py`, whose
-predicate is `met <=> cases == decided and correct == cases and constants_failed == 4`; the four
-degenerate constants in `.ufo/waves/round-78/consts` (always-clean, report-every-id,
-empty-findings-with-real-exits, a naive `substring noindex` reader) must each fail at least one case.
+**What the audit decides (final integration).** The manifest contains only agents and
+checks with id/path/url, never expectations. The tool emits normalized effective
+declarations and five finding classes; the matrix alone owns the oracle. Matching
+body tags participate, with an additional placement-policy finding. Historical
+noarchive/nocache/nositelinkssearchbox tokens are ignored for effect and reported;
+indexifembedded is recognized. Dates accept full-date/date-time and the bounded
+RFC822-style grammar; RFC850 remains unsupported. No valid rule gives the default
+follow/index pair. Exit 0 means no findings, 1 findings, 2 input fault, 64 usage.
+The frozen matrix has thirty-six exact identities, compares effective output,
+findings and exit, rejects four constants and a sibling-label reader, and requires
+the committed tool's selftest. See contract amendments 1–4 and the final carrier
+receipt. Its g26 table disagrees with generic nosnippet/video-collapse prose:
+the demonstrated guarantee is the explicit finite table, not the contradictory
+combined specification.
 
 **What it refuses.** `X-Robots-Tag` response headers (the lane's `scripts/response_snapshot.py` /
 `scripts/header_audit.py` instruments own that channel), rendering or rendered-DOM observation,
@@ -593,18 +583,8 @@ crawler behaviour, and whether any live property carries a correct declaration. 
 judge ranking or indexing outcomes: an effective `noindex` is a declaration the tool reads, not an
 observed crawler response.
 
-**State at write time** (2026-11-03T23:46-03:00, i.e. 2026-11-04T02:46Z; lane working tree; lane HEAD `78711a62`). No live
-property was measured, no network call was made, and publishing stays operator-owned. The working
-tree then carried the tool `scripts/meta_robots_audit.py`, the entry
-`corpus/knowledge/meta-robots-directives.md`, the case set `.ufo/waves/round-78/cases` (34 case
-directories, g01–g27 with lettered variants), the four constants under
-`.ufo/waves/round-78/consts` (`always_clean.py`, `empty_findings_real_exits.py`,
-`naive_substring.py`, `report_every_id.py`) and the counter
-`.ufo/waves/round-78/c78_meta_robots_matrix.py`. Every one of them was still being written while
-this block was composed, so this block cites no file digest and no selftest tally: the carrier's
-`--selftest` output and the matrix receipt are the C3 measurement, and a digest taken here would be
-superseded before the round closes. The matrix receipt
-`.ufo/waves/round-78/controls/after-c3-matrix.txt` had not been written at that time (the frozen
-base control `.ufo/waves/round-78/controls/base-c3-absent.txt` records the base `git cat-file -e`
-rc=128), so `cases` / `decided` / `correct` / `constants_failed` remain **pending** and no C3 result
-is claimed here. The round-78 coverage row is `corpus/README.md` §"Coverage — round 78".
+**Final state.** Carrier `82c3d02c39d16ae99c6cd34238fa3ec6ea089fb9` holds the
+tool, knowledge, oracle-free matrix and cases. The committed-blob matrix receipt
+is `.ufo/waves/round-78/controls/after-c3-matrix.txt`; real input is the eight
+previously retained served pages, not a fresh live fetch. Publishing stays
+operator-owned. No live crawler or deployment outcome is inferred.
