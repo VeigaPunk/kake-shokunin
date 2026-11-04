@@ -1,0 +1,24 @@
+# Landed bytes at 2026-11-04T09:56:40Z
+corpus/knowledge/x-robots-tag-header.md	19468 bytes	227 lines	37a6a75ea2f598d74de51d16fc304cc9279da54d10a99c48e3a4756ef62a29b1
+corpus/SOURCES.md	175232 bytes	307 lines	e9a50be8329e82ee096571504e0e8abadbe4970228ffb43ff88677322a3ba39e
+corpus/README.md	60018 bytes	582 lines	6b87908bdda1cb8abe2ffa07a02d991f958aec7011b9d53323703ade814f2d91
+PROVINCE.md	42614 bytes	598 lines	d355deaee8749d4c5bd94029e695e2e67a53d295a011df728716cc24245a7623
+corpus/knowledge/meta-robots-directives.md	13167 bytes	140 lines	4c0f5f03f7e5682f463cc5fd698cd6450f1e2135302ea8766a6ce72832871e55
+
+$ git status --porcelain -- corpus/SOURCES.md corpus/README.md PROVINCE.md corpus/knowledge/meta-robots-directives.md corpus/knowledge/x-robots-tag-header.md
+ M PROVINCE.md
+ M corpus/README.md
+ M corpus/SOURCES.md
+ M corpus/knowledge/meta-robots-directives.md
+?? corpus/knowledge/x-robots-tag-header.md
+
+$ git diff --stat -- corpus/SOURCES.md corpus/README.md PROVINCE.md corpus/knowledge/meta-robots-directives.md
+ PROVINCE.md                                |  8 ++++++++
+ corpus/README.md                           | 16 ++++++++++++++++
+ corpus/SOURCES.md                          |  3 ++-
+ corpus/knowledge/meta-robots-directives.md |  2 ++
+ 4 files changed, 28 insertions(+), 1 deletion(-)
+
+$ git diff -- corpus/SOURCES.md | grep '^[-+]| S449'
+-| S449 | Google Search Central — Robots meta tag, data-nosnippet, and X-Robots-Tag specifications — https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag | docs | A | Page-l
++| S449 | Google Search Central — Robots meta tag, data-nosnippet, and X-Robots-Tag specifications — https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag | docs | A | Page-l

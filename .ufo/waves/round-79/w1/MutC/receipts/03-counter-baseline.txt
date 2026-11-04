@@ -1,0 +1,25 @@
+# pristine counter: selftest, base-revision run, fixture battery
+$ python3 -B c79_receipt_ledger.py --selftest
+selftest: 15/15 passed
+exit=0
+$ python3 -B .ufo/waves/round-79/c79_receipt_ledger.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --revision 0898085450ee1b65d910f1dcb7a0efc20b413b88
+C1v2 revision=0898085450ee1b65d910f1dcb7a0efc20b413b88 events=32 undisclosed=5 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+exit=1
+$ python3 -B ctl_receipt_fixture.py (pristine copy)
+## correct (able-to-pass)
+C1v2 revision=cf974b3068d65b2eb7aafbd159dbb55e0359e7fa events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+## fabricated (must fail)
+C1v2 revision=5b6ed3dc15c85966a8450762471d4fb414ea4534 events=1 undisclosed=1 phantom=1 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## drop-one (must fail)
+C1v2 revision=a43597dc063625d2294b4fc63f6feaa760513812 events=1 undisclosed=1 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## cheap-note (must fail)
+C1v2 revision=08c4da2a9f172921a1ba87c4ec14dd311f6a044e events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## round-rewrite (must fail)
+C1v2 revision=24773cf55666c5a7b17502c6ab3c49bb0bd9ab49 events=2 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+exit=0

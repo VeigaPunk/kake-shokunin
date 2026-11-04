@@ -1,0 +1,110 @@
+## k1-drop-undisclosed-conjunct
+530a330707cd72f346b951facc2f8509f3161437c0cd6c877055f9d087031d74  /fast/scratch/hyaku/kake-r79/MutC/cm/k1-drop-undisclosed-conjunct/round-79/c79_receipt_ledger.py
+-- selftest
+selftest: 15/15 passed
+exit=0
+-- fixture battery
+## correct (able-to-pass)
+C1v2 revision=6cececc495f6825c7814c0cc1baa770caa0bd11b events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+## fabricated (must fail)
+C1v2 revision=214811b99e0fd8bf536c360f8989489b58611635 events=1 undisclosed=1 phantom=1 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## drop-one (must fail)
+C1v2 revision=ea1c1bb12c4c86d9b910591db74d5ac9217678ad events=1 undisclosed=1 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+## cheap-note (must fail)
+C1v2 revision=a3e24ba4ca38052f65e755b9b78e15d7956dee11 events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## round-rewrite (must fail)
+C1v2 revision=321313bfb455d906b1ee710a83c9b3c40c50d7c3 events=2 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+exit=0
+## k2-drop-round-scoping
+0096d2e91cca7054d172bc86bf7fee839e9dacb35b8b8d8c87d88b09fbea84cf  /fast/scratch/hyaku/kake-r79/MutC/cm/k2-drop-round-scoping/round-79/c79_receipt_ledger.py
+-- selftest
+selftest: 15/15 passed
+exit=0
+-- fixture battery
+## correct (able-to-pass)
+C1v2 revision=6cececc495f6825c7814c0cc1baa770caa0bd11b events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+## fabricated (must fail)
+C1v2 revision=214811b99e0fd8bf536c360f8989489b58611635 events=1 undisclosed=1 phantom=1 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+## drop-one (must fail)
+C1v2 revision=ea1c1bb12c4c86d9b910591db74d5ac9217678ad events=1 undisclosed=1 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+## cheap-note (must fail)
+C1v2 revision=a3e24ba4ca38052f65e755b9b78e15d7956dee11 events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+## round-rewrite (must fail)
+C1v2 revision=321313bfb455d906b1ee710a83c9b3c40c50d7c3 events=2 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=2 met=false
+exit=1
+exit=0
+## k3-accept-wrong-kind
+a01d88901c3810c992d82263697a958db81cec0c74355a4710ae57041b04d5cf  /fast/scratch/hyaku/kake-r79/MutC/cm/k3-accept-wrong-kind/round-79/c79_receipt_ledger.py
+-- selftest
+selftest: 15/15 passed
+exit=0
+-- fixture battery
+## correct (able-to-pass)
+C1v2 revision=6cececc495f6825c7814c0cc1baa770caa0bd11b events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+## fabricated (must fail)
+C1v2 revision=214811b99e0fd8bf536c360f8989489b58611635 events=1 undisclosed=1 phantom=1 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## drop-one (must fail)
+C1v2 revision=ea1c1bb12c4c86d9b910591db74d5ac9217678ad events=1 undisclosed=1 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## cheap-note (must fail)
+C1v2 revision=a3e24ba4ca38052f65e755b9b78e15d7956dee11 events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## round-rewrite (must fail)
+C1v2 revision=321313bfb455d906b1ee710a83c9b3c40c50d7c3 events=2 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+exit=0
+## k4-accept-empty-note
+a659a6a31a413c5b3216e60cacc885a82ea7549f303c7bfada0fe6703d8c3915  /fast/scratch/hyaku/kake-r79/MutC/cm/k4-accept-empty-note/round-79/c79_receipt_ledger.py
+-- selftest
+selftest: 15/15 passed
+exit=0
+-- fixture battery
+## correct (able-to-pass)
+C1v2 revision=fa9b25d47c3fc21762760cf1eaccba40e0b9a679 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+## fabricated (must fail)
+C1v2 revision=0e75871e859768938661f425ccbe14759f304cb7 events=1 undisclosed=1 phantom=1 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## drop-one (must fail)
+C1v2 revision=f1193a5bfa58d7074978d68c841a1e5d412a1a0a events=1 undisclosed=1 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## cheap-note (must fail)
+C1v2 revision=29ba988f50383674f784f7d963f18f0eed0ee566 events=1 undisclosed=1 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## round-rewrite (must fail)
+C1v2 revision=8606883cc15f973e41f74cef328d027c84236805 events=2 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+exit=0
+## k5-drop-symlinks-conjunct
+d6160f70e8ee40889831b545f1d7de9539300ed83c95af3536fba8a1cb476937  /fast/scratch/hyaku/kake-r79/MutC/cm/k5-drop-symlinks-conjunct/round-79/c79_receipt_ledger.py
+-- selftest
+selftest: 15/15 passed
+exit=0
+-- fixture battery
+## correct (able-to-pass)
+C1v2 revision=fa9b25d47c3fc21762760cf1eaccba40e0b9a679 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+## fabricated (must fail)
+C1v2 revision=0e75871e859768938661f425ccbe14759f304cb7 events=1 undisclosed=1 phantom=1 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## drop-one (must fail)
+C1v2 revision=f1193a5bfa58d7074978d68c841a1e5d412a1a0a events=1 undisclosed=1 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## cheap-note (must fail)
+C1v2 revision=29ba988f50383674f784f7d963f18f0eed0ee566 events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## round-rewrite (must fail)
+C1v2 revision=8606883cc15f973e41f74cef328d027c84236805 events=2 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1
+exit=0

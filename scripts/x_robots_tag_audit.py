@@ -27,11 +27,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
+import stat
 import sys
 
 SCHEMA_MANIFEST = "x-robots-tag-manifest/v1"
 SCHEMA_REPORT = "x-robots-tag-report/v1"
+MAX_MANIFEST_BYTES = 16 * 1024 * 1024
 
 KNOWN = {
     "all", "index", "noindex", "follow", "nofollow", "none", "nosnippet", "indexifembedded",
@@ -82,7 +85,12 @@ def parse_rule(segment: str, findings: set[str]) -> list[str]:
         if value is None or not INT_RE.match(value):
             findings.add("xrt_invalid_value")
             return []
-        return [f"{name}:{int(value)}"]
+        try:
+            number = int(value)
+        except ValueError:  # CPython's int()-digit limit is invisible to INT_RE
+            findings.add("xrt_invalid_value")
+            return []
+        return [f"{name}:{number}"]
     if name == "max-image-preview":
         if value is None or value.lower() not in ("none", "standard", "large"):
             findings.add("xrt_invalid_value")
@@ -146,20 +154,25 @@ def scope_findings(tokens: list[str], findings: set[str]) -> None:
         findings.add("xrt_mutually_exclusive")
     if "indexifembedded" in names and "noindex" not in names:
         findings.add("xrt_indexifembedded_without_noindex")
-    for cap in ("max-snippet", "max-video-preview"):
+    for cap in ("max-snippet", "max-video-preview", "max-image-preview", "unavailable_after"):
         if sum(1 for t in tokens if t.startswith(cap + ":")) > 1:
             findings.add("xrt_duplicate_directive")
 
 
 def load_manifest(path: str) -> dict:
     try:
+        info = os.stat(path)
+        if not stat.S_ISREG(info.st_mode):
+            raise Fault("xrt_input_unreadable", "manifest is not a regular file")
+        if info.st_size > MAX_MANIFEST_BYTES:
+            raise Fault("xrt_input_unreadable", f"manifest exceeds {MAX_MANIFEST_BYTES} bytes")
         with open(path, "rb") as handle:
-            raw = handle.read()
+            raw = handle.read(MAX_MANIFEST_BYTES + 1)
     except OSError as exc:
         raise Fault("xrt_input_unreadable", str(exc))
     try:
         doc = json.loads(raw.decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+    except (UnicodeDecodeError, json.JSONDecodeError, RecursionError) as exc:
         raise Fault("xrt_input_bad_json", str(exc))
     if not isinstance(doc, dict) or doc.get("schema") != SCHEMA_MANIFEST:
         raise Fault("xrt_input_schema", "manifest must carry schema %s" % SCHEMA_MANIFEST)
@@ -223,11 +236,16 @@ def error_report(fault: Fault) -> dict:
     return {"schema": SCHEMA_REPORT, "error": {"id": fault.ident, "detail": fault.detail}, "exit": 2}
 
 
+def _plain(text: str) -> str:
+    """Printable rendering of untrusted text for the text-mode surface (control chars escaped)."""
+    return "".join(ch if ch.isprintable() else f"\\x{ord(ch):02x}" for ch in text)
+
+
 def render_text(report: dict) -> str:
     lines = []
     for check in report.get("checks", []):
         lines.append(
-            f"check {check['id']} directives={check['directives']} "
+            f"check {_plain(str(check['id']))} directives={check['directives']} "
             f"effective={check['effective']} bots={check['bots']} findings={check['findings']}")
     lines.append(f"XRTv1 checks={len(report.get('checks', []))} "
                  f"findings={len(report.get('findings', []))} exit={report['exit']}")
@@ -297,6 +315,12 @@ def selftest() -> int:
         _case("t21", [("X-Robots-Tag", "googlebot: noindex, bingbot: nofollow")],
               {"directives": [], "effective": [],
                "bots": {"bingbot": ["nofollow"], "googlebot": ["noindex"]}, "findings": []}),
+        _case("t22", [("X-Robots-Tag", "unavailable_after:2025-12-31, unavailable_after:2026-01-01")],
+              {"directives": ["unavailable_after:2025-12-31", "unavailable_after:2026-01-01"],
+               "effective": ["unavailable_after:2025-12-31", "unavailable_after:2026-01-01"],
+               "bots": {}, "findings": ["xrt_duplicate_directive"]}),
+        _case("t23", [("X-Robots-Tag", "max-snippet:" + "1" * 5000)],
+              {"directives": [], "effective": [], "bots": {}, "findings": ["xrt_invalid_value"]}),
     ]
     passed = 0
     for check, want in cases:
@@ -352,8 +376,16 @@ def load_manifest_doc(doc) -> dict:
     return doc
 
 
+class Parser(argparse.ArgumentParser):
+    """Usage errors exit 64 (the contract reserves 2 for input faults with a JSON error)."""
+
+    def error(self, message):
+        self.print_usage(sys.stderr)
+        self.exit(64, f"{self.prog}: error: {message}\n")
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Offline X-Robots-Tag declaration audit")
+    parser = Parser(description="Offline X-Robots-Tag declaration audit")
     parser.add_argument("--manifest")
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--selftest", action="store_true")

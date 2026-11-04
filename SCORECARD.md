@@ -5028,3 +5028,63 @@ The knowledge population is sixty-five at the carrier, sixty-four at round start
 Box two stays a gap. Non-ASCII agent-casefolding survives the frozen matrix and
 tool selftest (ReviewC23); no post-score case was added to conceal it. This round
 does not assert admission of the combined three-claim contract.
+
+## Round 79 — measured claims (author-side; closure owns admission)
+
+Frozen contract `.ufo/waves/round-79/contract.md` at the freeze commit `e1a9a897`, frozen before any
+seat ran; terms-only amendment 1 at `43e0a9b7` (A1 adds `noarchive`, A2 pins the normalization wording;
+written before any tool existed and before any case was scored, and it changes no case, oracle byte or
+predicate). Base `0898085450ee1b65d910f1dcb7a0efc20b413b88`. Measured carrier:
+`carrier: 436f44291a01fbb26a692cae645045cb50ffc96d`; the after receipts are committed at `81e662f9`.
+Wave `w1`: one v1 wave, 14 seats (scout 2, executor 4, scribe 2, reviewer 2, critic 1, mutation-tester 1,
+connector 1, sentinel 1; attack share 4/14 = 28.6 %). Scores held: operability 10 HOLD, freshness 10
+HOLD, calibration 2 HOLD.
+
+| Claim | Axis | Before → after | Counting command | Evidence/verdict |
+|---|---|---|---|---|
+| C1 receipt-rewrite disclosure current, gate standing | calibration 2→2 HOLD | base `08980854`: `C1v2 revision=0898085450ee1b65d910f1dcb7a0efc20b413b88 events=32 undisclosed=5 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false`, exit 1 (`.ufo/waves/round-79/controls/base-c1-receipt-ledger.txt:1`) → carrier `436f4429`: `C1v2 revision=436f44291a01fbb26a692cae645045cb50ffc96d events=32 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true`, exit 0 (`.ufo/waves/round-79/controls/after-c1-receipt-ledger.txt:2`) | `python3 -B .ufo/waves/round-79/c79_receipt_ledger.py --root . --revision <rev>` | measured met; counter selftest `selftest: 15/15 passed`, exit 0 (`controls/c1-selftest.txt`); the frozen round-58 cross-check prints `undisclosed=0 … met=True` with `EXIT=0` at the same revision (`controls/after-c1-r58-crosscheck.txt:2`); the five entries carry the true blob pairs and the kinds `content`, `append`, `content`, `content`, `content`; the disclosure rows are `corpus/lessons/round-75.md:162-163` and `corpus/lessons/round-78.md:103-105` |
+| C2 offline X-Robots-Tag declaration audit (capability) | operability 10→10 HOLD (capability) | base `08980854`: tool absent — `git cat-file -e` prints `fatal: path 'scripts/x_robots_tag_audit.py' does not exist in '0898085450ee1b65d910f1dcb7a0efc20b413b88'` with `rc=128` (`.ufo/waves/round-79/controls/base-c2-tool-absent.txt:2-3`), matrix `TOOL_ABSENT rc=128 error=fatal: path 'scripts/x_robots_tag_audit.py' does not exist in '0898085450ee1b65d910f1dcb7a0efc20b413b88'` with `exit=2` (`controls/base-c2-matrix.txt:1-2`) → carrier `436f4429`: `C2v1 revision=436f44291a01fbb26a692cae645045cb50ffc96d tool_sha256=f06c47b5cdd38bccf3dd1c0f381fbd560f6622bdf9d25443a02a2e2c23a24de8 tool_bytes=18053 cases=31 decided=31 correct=31 wrong=0 undecided=0 constants_failed=4/4 selftest_ok=true cases_sha256=fd0a3bccbe7c1b6d3522259ab5c57d4eb1f272abe6acaba44013aae3af7978af met=true`, exit 0 (`.ufo/waves/round-79/controls/after-c2-matrix.txt:11`) | `python3 -B .ufo/waves/round-79/c79_xrt_matrix.py --root . --tool-revision <rev> --cases .ufo/waves/round-79/cases --expect .ufo/waves/round-79/expect/expect.json --consts .ufo/waves/round-79/consts --work <scratch>` | measured met; the receipt's digest equals `git show 436f4429:scripts/x_robots_tag_audit.py` (sha256 `f06c47b5…`, 18,053 bytes); the four degenerate constants each fail at least one case; the real run exits 0 with `XRTv1 checks=12 findings=0 exit=0` (`controls/after-c2-realrun.txt:17`) over the 12 recorded 2026-10-27 header sets — a negative population (0/12 carry the field; `realrun/manifest.json` is byte-faithful to the captures) |
+
+### Demonstrated repertoire, round 79
+
+| Capability | What it can do | Evidence | First-working round |
+|---|---|---|---|
+| Offline X-Robots-Tag declaration audit | Reads a recorded `x-robots-tag-manifest/v1` document and decides, per check, the declared normalized global directive set, the global effective restriction set (positives removed; `nosnippet` suppresses `max-snippet`/`max-video-preview`; duplicate caps collapse to the minimum) and the per-bot sets, with the seven-id finding vocabulary and the 0/1/2/64 exits, fetching nothing; the grammar, the bot-name charset and precedence rule, per-field scope and the date shapes are lane readings pinned by the frozen 31-case set, not a specification | `scripts/x_robots_tag_audit.py`; `.ufo/waves/round-79/controls/after-c2-matrix.txt`; `.ufo/waves/round-79/controls/after-c2-realrun.txt`; `corpus/knowledge/x-robots-tag-header.md` | 79 |
+| Standing receipt-rewrite disclosure gate | Runs at any revision, round-agnostic, and admits only ledger entries whose blobs, byte-level kind and pointing note match the measured first-parent events | `.ufo/waves/round-79/c79_receipt_ledger.py`; `controls/after-c1-receipt-ledger.txt`; `controls/ctl-c1-fixtures.txt` | 79 |
+
+Move log (round 79):
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 79 | calibration (HOLD 2) | `undisclosed=5 … met=false` at `08980854`; the frozen round-58 gate would have printed the same at the round-78 settle | `undisclosed=0 … met=true` at the carrier; five entries with true blobs/kinds, standing counter, QUALITY criterion and lesson corrections | `.ufo/waves/round-79/c79_receipt_ledger.py`, `controls/base-c1-receipt-ledger.txt` → `controls/after-c1-receipt-ledger.txt`, `controls/after-c1-r58-crosscheck.txt`, `corpus/QUALITY.md:1604`, `corpus/lessons/round-79.md` §Corrections |
+| 79 | operability (HOLD 10) | tool absent (`cat-file -e` rc 128), matrix `decided=0` exit 2 at `08980854` | `correct=31 wrong=0 … constants_failed=4/4 … met=true` at the carrier; real run `checks=12 findings=0`, negative population | `scripts/x_robots_tag_audit.py`, `.ufo/waves/round-79/c79_xrt_matrix.py`, `controls/after-c2-matrix.txt`, `controls/after-c2-realrun.txt`, `corpus/knowledge/x-robots-tag-header.md` |
+
+Appended correction (round 79) — the round-78 C1 cell text, not a rewrite of it:
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 78 (correction appended round 79) | calibration | the round-78 C1 row's axis cell read `calibration 2→2` | the same row read with the `HOLD` token: `calibration 2→2 HOLD` — the round-78 score was held and its row now carries the token; the row itself is not rewritten | `SCORECARD.md` `## Round 78` C1 row; the routed defect is R3 in `corpus/lessons/round-78-verifier-spotcheck.md` §Routed defects |
+
+Stated limits, not claimed closed: the real-input population is negative (0 of 12 recorded surfaces
+carry an `x-robots-tag` field, four are 404 records) so it proves acceptance and empty-set rendering,
+never a positive grammar path on publisher ground; the RFC 822 and RFC 850 date branches are
+unexercised by the frozen cases (only c16 ISO and c17 invalid) and **unreachable** under grammar rule
+1's comma split — S452's own `unavailable_after: Wed, 03 Dec 2025 13:09:53 GMT` yields
+`xrt_invalid_value` and `xrt_unknown_directive` with exit 1 (`w1/ScribeRecord/f1-comma-date-repro.txt`),
+so the reachable date language is ISO-only in practice, and S449's own `… 15:00:00 PST`
+example falls outside the grammar; `xrt_input_unreadable` is unexercised; per-bot effective
+resolution, meta+header conflicts and redirect-hop header inheritance are out of scope, and S452 does
+describe a per-bot merge; S452 is tier B and says the header is "not part of any specification"
+(retained text line 137, restated at 258), so the bot-name charset, precedence rule, per-field scope
+and several value rules are lane readings marked `[INFERENCE]`; C1's population is the measured
+revision's first-parent line, the byte-level `kind` cannot say whether a run happened, and the ledger
+has no chronological introduction cutoff; the C1 fixture control exercises `phantom`, `undisclosed`,
+`malformed` and `round_rewritten` end-to-end but not `wrong_kind`, `unpointed` or `symlinks` (those
+are pinned by the counter's selftest arithmetic); the freeze receipts print the `exit=` line twice and
+the contract's three named C1 control files ship as one combined `controls/ctl-c1-fixtures.txt` — both
+reported in `corpus/lessons/round-79.md` §Mistakes, neither edited; the freshness axis is held, not
+re-measured live — `node scripts/freshness-sweep.mjs --offline` prints `VERDICT: OK (exit 0, partial:
+offline)` (`controls/after-freshness-offline.txt:4`) and its remote, armed and history sections are
+skipped, never counted as pass. The knowledge population is sixty-six at the carrier, sixty-five at
+the base, and the source registry is 190 rows (`S452` added); the census exits 0 with 19 `W04` lines
+before and after (`controls/census-before.txt`, `controls/census-after.txt`).

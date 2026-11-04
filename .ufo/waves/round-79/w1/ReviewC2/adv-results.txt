@@ -1,0 +1,38 @@
+### a01-nospace-bot rc=0
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a01", "url": "https://example.test/a01", "directives": [], "effective": [], "bots": {"googlebot": ["noindex"]}, "findings": []}], "findings": [], "exit": 0}
+
+### a02-space-value rc=0
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a02", "url": "https://example.test/a02", "directives": ["max-snippet:50"], "effective": ["max-snippet:50"], "bots": {}, "findings": []}], "findings": [], "exit": 0}
+
+### a03-scope-switch rc=0
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a03", "url": "https://example.test/a03", "directives": ["noindex"], "effective": ["noindex"], "bots": {"bingbot": ["noindex"], "googlebot": ["nofollow"]}, "findings": []}], "findings": [], "exit": 0}
+
+### a04-tabs rc=1
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a04a", "url": "https://example.test/a04a", "directives": ["nofollow", "noindex"], "effective": ["nofollow", "noindex"], "bots": {}, "findings": []}, {"id": "a04b", "url": "https://example.test/a04b", "directives": ["max-snippet:50"], "effective": ["max-snippet:50"], "bots": {}, "findings": []}, {"id": "a04c", "url": "https://example.test/a04c", "directives": ["noindex"], "effective": ["noindex"], "bots": {}, "findings": ["xrt_invalid_value"]}], "findings": ["xrt_invalid_value"], "exit": 1}
+
+### a08-dates rc=1
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a08a-mdn-rfc822", "url": "https://example.test/a08a-mdn-rfc822", "directives": [], "effective": [], "bots": {}, "findings": ["xrt_invalid_value", "xrt_unknown_directive"]}, {"id": "a08b-nowd", "url": "https://example.test/a08b-nowd", "directives": [], "effective": [], "bots": {}, "findings": ["xrt_invalid_value"]}, {"id": "a08c-rfc850", "url": "https://example.test/a08c-rfc850", "directives": [], "effective": [], "bots": {}, "findings": ["xrt_invalid_value", "xrt_unknown_directive"]}, {"id": "a08d-iso-dateonly", "url": "https://example.test/a08d-iso-dateonly", "directives": ["unavailable_after:2025-12-31"], "effective": ["unavailable_after:2025-12-31"], "bots": {}, "findings": []}, {"id": "a08e-iso-space", "url": "https://example.test/a08e-iso-space", "directives": ["unavailable_after:2025-12-31 23:59"], "effective": ["unavailable_after:2025-12-31 23:59"], "bots": {}, "findings": []}, {"id": "a08f-iso-offset", "url": "https://example.test/a08f-iso-offset", "directives": ["unavailable_after:2025-12-31T23:59:59+02:00"], "effective": ["unavailable_after:2025-12-31T23:59:59+02:00"], "bots": {}, "findings": []}], "findings": ["xrt_invalid_value", "xrt_unknown_directive"], "exit": 1}
+
+### a09-directive-shaped rc=1
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a09a", "url": "https://example.test/a09a", "directives": ["nosnippet"], "effective": ["nosnippet"], "bots": {}, "findings": []}, {"id": "a09b", "url": "https://example.test/a09b", "directives": ["noindex"], "effective": ["noindex"], "bots": {}, "findings": []}, {"id": "a09c", "url": "https://example.test/a09c", "directives": ["noindex"], "effective": ["noindex"], "bots": {}, "findings": ["xrt_invalid_value"]}, {"id": "a09d", "url": "https://example.test/a09d", "directives": [], "effective": [], "bots": {"nosnip": ["noindex"]}, "findings": []}, {"id": "a09e", "url": "https://example.test/a09e", "directives": [], "effective": [], "bots": {"noindexx": ["noindex"]}, "findings": []}], "findings": ["xrt_invalid_value"], "exit": 1}
+
+### a10-nonascii rc=1
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a10", "url": "https://\u4f8b\u3048.test/\u30da\u30fc\u30b8", "directives": [], "effective": [], "bots": {}, "findings": ["xrt_unknown_directive"]}], "findings": ["xrt_unknown_directive"], "exit": 1}
+
+### a11-bot-all-dropped rc=1
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a11", "url": "https://example.test/a11", "directives": [], "effective": [], "bots": {"googlebot": []}, "findings": ["xrt_invalid_value"]}], "findings": ["xrt_invalid_value"], "exit": 1}
+
+### a18-caps-min rc=1
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a18a", "url": "https://example.test/a18a", "directives": ["max-video-preview:-1", "max-video-preview:10"], "effective": ["max-video-preview:-1"], "bots": {}, "findings": ["xrt_duplicate_directive"]}, {"id": "a18b", "url": "https://example.test/a18b", "directives": ["nofollow", "noindex", "noindex"], "effective": ["nofollow", "noindex"], "bots": {}, "findings": []}], "findings": ["xrt_duplicate_directive"], "exit": 1}
+
+### a12-empty-checks rc=2
+{"schema": "x-robots-tag-report/v1", "error": {"id": "xrt_input_schema", "detail": "`checks` must be a non-empty list"}, "exit": 2}
+
+### a13-headers-empty rc=0
+{"schema": "x-robots-tag-report/v1", "checks": [{"id": "a13", "url": "https://example.test/a13", "directives": [], "effective": [], "bots": {}, "findings": []}], "findings": [], "exit": 0}
+
+### a14-headers-missing rc=2
+{"schema": "x-robots-tag-report/v1", "error": {"id": "xrt_input_check_shape", "detail": "check a14 headers must be a list"}, "exit": 2}
+
+### a15-value-nonstring rc=2
+{"schema": "x-robots-tag-report/v1", "error": {"id": "xrt_input_check_shape", "detail": "check a15 header value"}, "exit": 2}

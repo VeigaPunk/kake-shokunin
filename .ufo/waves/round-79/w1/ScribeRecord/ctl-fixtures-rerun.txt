@@ -1,0 +1,15 @@
+## correct (able-to-pass)
+C1v2 revision=4be6ab086e75ed2371d75cd37c314b517b44f619 events=1 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=true
+exit=0
+## fabricated (must fail)
+C1v2 revision=c6f7963c2e9f83d76dee55291204ae84746cc7fe events=1 undisclosed=1 phantom=1 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## drop-one (must fail)
+C1v2 revision=b20a1becce5d619521a25d61f80f3cb736528a14 events=1 undisclosed=1 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## cheap-note (must fail)
+C1v2 revision=7ac54192989f54b040f71409d9c371926c4339a5 events=1 undisclosed=1 phantom=0 malformed=1 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=0 met=false
+exit=1
+## round-rewrite (must fail)
+C1v2 revision=54a6b8800728f73dc04ae904fe1087fbc7c3a21d events=2 undisclosed=0 phantom=0 malformed=0 wrong_kind=0 unpointed=0 symlinks=0 round_rewritten=1 met=false
+exit=1

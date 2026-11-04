@@ -1,0 +1,9 @@
+# RFC 9309 (S453 candidate) silence sweep, 2026-11-04
+$ grep -ci 'x-robots-tag' .ufo/waves/round-79/sources/reject-rfc9309.txt
+0
+exit=1
+$ grep -ci 'robots' .ufo/waves/round-79/sources/reject-rfc9309.txt
+42
+exit=0
+# S453 not appended: S099 already holds RFC 9309 for robots.txt (registry line below)
+107:| S099 | RFC 9309: Robots Exclusion Protocol â€” https://www.rfc-editor.org/rfc/rfc9309.html | spec | A | RFC 9309 REP behavior across Â
