@@ -152,13 +152,15 @@ Run from the lane root. Each command reads one JSON object on stdin.
 
    Expected: exit 1, empty stdout, stderr beginning `invalid_input:`.
 
-4. Offline selftest:
+4. Offline gate. The tool has no selftest of its own; its gate is the round-89 counter's
+   selftest, which scores the reference against the contract's worked examples:
 
    ```sh
-   TMPDIR=$(mktemp -d) python3 -B scripts/cache_key.py --selftest
+   TMPDIR=$(mktemp -d) python3 -B .ufo/waves/round-89/c89_key.py --selftest
    ```
 
-   Expected: `selftest: N/N passed`, exit 0.
+   Expected: `selftest: 43/43 passed`, exit 0. The counter's candidate gate is
+   `python3 -B .ufo/waves/round-89/c89_key.py --root . --revision <rev> --candidate scripts/cache_key.py --work "$TMPDIR/work"`.
 
 ## What this entry does not establish
 
