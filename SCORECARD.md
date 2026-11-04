@@ -5526,7 +5526,7 @@ improved: the calibration and freshness scores stay at their HOLD values.
 
 | Capability | What it can now do | Evidence | First-working round |
 |---|---|---|---|
-| Canonical Vary-nominated cache-key construction | From a URI, a request header map and a `Vary` value, produce the stored-response key under the declared form (sorted lowercased members, byte-exact trimmed values, escaped separators, absent distinct from empty), or refuse malformed input with `invalid_input:`; decides key construction only, not storability, reuse or freshness | `scripts/cache_key.py` (`9784ad54`); `controls/c2-carrier-frozen-v1.txt`; `corpus/knowledge/cache-key-construction.md`; S464, S465 | 89 (demonstrated; round unadmitted, instrument defect R89-2) |
+| Canonical Vary-nominated cache-key construction | From a URI, a request header map and a `Vary` value, produce the stored-response key under the declared form (sorted lowercased members, byte-exact trimmed values, escaped separators, absent distinct from empty), or refuse malformed input with `invalid_input:`; decides key construction only, not storability, reuse or freshness | `scripts/cache_key.py` (`9784ad54`); `controls/c2-carrier-frozen-v1.txt`; `corpus/knowledge/cache-key-construction.md`; S463, S465 | 89 (demonstrated; round unadmitted, instrument defect R89-2) |
 
 ### Move log (round 89)
 

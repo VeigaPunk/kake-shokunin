@@ -3054,8 +3054,9 @@ v1 counter too, so the amendment does not decide the verdict. Also reverted my o
 in-place edits to round-88 SCORECARD cells and lesson line 265 (filed bytes) and kept
 only appended `[r89-correction …]` tails.
 
-Registry: S464 (RFC 9111 §4.1) and S465 (RFC 9110 §5.6.2, §5.6.1.2) added after a
-full-mirror census gate in scratch (exit 0); 201 → 203 rows; no existing row edited.
+Registry: S465 (RFC 9110 §5.6.2, §5.6.1.2) added after a full-mirror census gate in scratch
+(exit 0); 201 → 202 rows. A draft S464 for the §4.1 section was dropped as a duplicate of S463
+(ScribeEntry F1). S463 `used-by` changed old → new: `vary-matching.md` → `vary-matching.md, cache-key-construction.md`.
 Census `validate --root … kake` exit 0 before (`controls/census-before.txt`) and
 after (`controls/census-after-append.txt`).
 

@@ -702,7 +702,7 @@ calibration metadata, not new province ground or domain knowledge.
 
 ## Round 89 — cache-key construction only
 
-`scripts/cache_key.py` and `corpus/knowledge/cache-key-construction.md` (S464,
+`scripts/cache_key.py` and `corpus/knowledge/cache-key-construction.md` (S463,
 S465) add offline construction of the stored-response key a presented request
 maps to under a `Vary` field: lowercased and sorted nominated names, trimmed
 values compared byte-exactly, escaped separators, absent distinct from empty.
