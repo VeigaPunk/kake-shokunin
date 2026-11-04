@@ -1,0 +1,13 @@
+url=https://www.rfc-editor.org/rfc/rfc9111.html
+opened_by=L1 kake round 86 (freeze grounding)
+date=2026-11-04
+status=200 bytes=232630
+sha256=ce91ee9848d2b9ac46386b0f0cbd4bfd9c0cd1948ebc363834cadc7e0997f3d7
+located: 4.2.1 Calculating Freshness Lifetime — "evaluating the following rules and using the first match: If the cache is shared and the s-maxage response directive ... use its value, or If the max-age response directive ... use its value, or If the Expires response header field ... use its value minus the value of the Date response header field"
+located: 4.2.1 duplicates — "When there is more than one value present for a given directive ... either the first occurrence should be used or the response should be considered stale. If directives conflict ... the most restrictive directive should be honored."
+located: 5.2 — "Cache directives are identified by a token, to be compared case-insensitively, and have an optional argument that can use both token and quoted-string syntax."
+located: 5.2.2.1 — "This directive uses the token form of the argument syntax: e.g., 'max-age=5' not 'max-age=\"5\"'. A sender MUST NOT generate the quoted-string form."
+located: 5.2.2.5 no-store — "indicates that a cache MUST NOT store any part of either the immediate request or the response and MUST NOT use the response to satisfy any other request."
+located: 5.2.2.10 s-maxage — "for a shared cache, the maximum age specified by this directive overrides the maximum age specified by either the max-age directive or the Expires header field."
+located: 1.2.2 — "delta-seconds value greater than the greatest integer it can represent ... MUST consider the value to be 2147483648 (2**31) or the greatest positive integer"
+note: Appendix B — "Handling of duplicate and conflicting cache directives has been clarified. (Section 4.2.1)" — RFC 9111 replaces RFC 7234's most-restrictive duplicate rule with first-occurrence-or-stale.
