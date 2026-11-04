@@ -5295,3 +5295,36 @@ is a second receipt (`controls/after-c83-instrument-check-carrier.txt`); the fre
 and not re-measured live. Registry 193 → 194 rows (`S456`), census exit 0 with `W04` 22 → 22
 (`controls/census-after.txt`). Assimilation: none — the `merge/kake` package still collides on 8 ids
 (S312, S329, S367, S372, S373, S374, S390, S409), unchanged since round 80.
+
+## Round 84 — measured results and honest stop
+
+Base `fe42ad11eb1084ad2ea68d12c5bbb2922a089868`; freeze
+`f358022f7e1b2f3846be8ceacbe3a7ef22edf4be`; measured carrier
+`b05c390135302c44415b021fd0c0723b3f58d45e`. Scores held:
+calibration 2→2, freshness 10→10, operability 10 unchanged.
+
+| Claim | Before → after | Counting command | Verdict |
+|---|---|---|---|
+| C1 calibration: round-83 D1–D4 queue closes | frozen v1 baseline open=3 (D4 state already fixed) → carrier open=0; diagnostic v2 freeze baseline open=4 → carrier open=0 | `python3 -B .ufo/waves/round-84/c84_defect_queue.py --root . --revision b05c390135302c44415b021fd0c0723b3f58d45e` | measured met, qualified: v1 omits two prose conjuncts; both are actually present; diagnostic v2 does not replace the frozen rule |
+| C2 freshness: policy-value semantics capability | tool absent, met=false → frozen counter met=true, real_changed=0, ctl_changed=3, eq_changed=1 | `python3 -B .ufo/waves/round-84/c84_policy_values.py --root . --revision b05c390135302c44415b021fd0c0723b3f58d45e --work /fast/scratch/hyaku/kake-r84/closure` | **unprovable**: frozen Referrer-Policy reorder can change semantics; green syntax counter insufficient |
+
+Receipts: `.ufo/waves/round-84/controls/{base-c84-defect-queue.txt,
+base-c84-defect-queue-v2.txt,base-c84-policy-values.txt,after-c1.txt,
+after-c1-v2.txt,after-c2.txt}`. Frozen selftests 8/8 and 4/4;
+diagnostic v2 10/10. Review evidence: `w1/ReviewC1.md`, `w1/ReviewC2.md`,
+`w1/MutC.md`. The retained tool is experimental: no capability-table row
+enters for a semantically unproved capability.
+
+One v1 wave: 13/13 settled, scout 2, executor 3, scribe 3, reviewer 2,
+critic 1, mutation-tester 1, connector 1 (`ConnectorSibling`).
+Attack 4/13; L1 planner; no replacement or residual call.
+Sources 194→195 rows; S457 added tier A on freshly opened HTTPWG HTML;
+census exits 0→0, W04 22→22. Evidence: `w1-accounting.json`,
+`controls/census-before.txt`, `controls/census-final.txt`.
+
+### Planned — after round-84 honest stop
+
+Do not assume semantic frontier moved to core. A later authorized round
+needs field-specific order/duplicate rules and a counter-owned occurrence
+oracle before re-declaring semantic equivalence. Closure owns admission;
+this round does not start round 85.

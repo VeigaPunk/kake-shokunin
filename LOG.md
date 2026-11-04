@@ -2766,3 +2766,25 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Mined mistakes.** (1) *mutant-harness-path*: a mutant scored against a harness whose path resolution moves with the mutant reads red for the wrong reason; fix: score in a tree at the counter's own depth, with the tool under `scripts/`, and read the pristine counter on the same fixture first (shown able to fail, three runs, `w1/ScribeLesson/harness-path-repro.txt`). (2) *units-drift*: a report printed character counts where the accounting recorded UTF-8 bytes; fix: `bytes_basis` plus per-seat `output_bytes` re-derived by the counter (the `d2-byte-count-drift` fixture shows it can fail). (3) *prose-provenance*: a report's Gate summary named a category the lesson never filed; fix: the standing `corpus/QUALITY.md` criterion (`d6-missing-criterion` shows it can fail).
 - **Routed (not fixed).** The class table classifies header names, not values, so a `policy` header whose value changes freshness semantics reads `policy`; value-level classification and an occurrence oracle stay frontier. C1's row conjuncts and the D6 criterion are textual by necessity; D5's `C2-m5` is an equivalence, not a kill. C2 decides the capture chain, not the property — a well-formed fabrication with real digests passes. The D3 receipt names the freeze revision; the carrier-time re-run is a second receipt. Open L0 lines unchanged.
 - **Not done this round.** No publish or deploy; one GET-only source open (RFC 9111) and no capture fetch; `corpus/`, `PROVINCE.md` and `SCORECARD.md` edits are append-only; no MANIFEST edit; no tool installed or upgraded; pacman untouched.
+
+## Round 84 — 2026-11-04; honest semantic stop
+
+- Claims: C1 calibration closes the four round-83 routed defects; C2
+  freshness acquires policy-value semantics. Freeze `f358022f`, wave dispatch
+  `87cbfd99`; implementation carrier `b05c390135302c44415b021fd0c0723b3f58d45e`.
+- C1 frozen counter open=3→0; v2 diagnostic open=4→0 at the freeze/carrier.
+  Both final receipts exit 0. ReviewC1 proved two omitted prose conjuncts
+  in v1; v2 is separately named, not a replacement frozen rule. Further
+  false-positive fixtures remain disclosed in `w1/ReviewC1.md`.
+- C2 frozen counter met=false→true, exit 1→0, but semantic claim
+  **unprovable**: `w1/ReviewC2.md` refutes the frozen Referrer-Policy
+  equivalence. No capability credit; no post-score target narrowing.
+  Tool and knowledge entry explicitly remain experimental.
+- Source/frontier: 194→195 registry rows, S457 fresh HTTPWG RFC 9111 HTML,
+  census exits 0→0 and W04 22→22. Before, after and final receipts retained.
+  `corpus/lessons/round-84.md` Gate records anchors/rejections; Mistakes
+  captures title, span, role, receipt and section-number errors. QUALITY
+  adds a field-specific equivalence criterion with a failing witness.
+- Wave WAVE-DONE: 13 settled, attack 4/13, one connector, no replacement.
+  Evidence `.ufo/waves/round-84/w1-results.json` and `w1-accounting.json`.
+  No publish/deploy, no tool installation; pacman untouched.
