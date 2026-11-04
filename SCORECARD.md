@@ -5548,3 +5548,10 @@ claim decision. The C2 instrument gap (seven uncovered contract clauses, R89-2) 
 frozen or refusal item per clause, with each stub in `w1/ExecControls/` re-scored `met=false`.
 Frontier stays open: cache-key storage, revalidation, freshness and serving; browser
 Vary and Pragma behaviour; the D84-2/3 and literal L2-planner items.
+
+## Round 90 — correction tail for round 89 (append-only)
+
+- D89-2 correction: round-89 C1 statement `open=5 closed=1` at f62e7954 — receipted now by `.ufo/waves/round-90/controls/r89-c1-at-f62e7954.txt` (frozen counter blob `0dee1dc8` re-run on a scratch clone at f62e7954a9ed9515b13c2bd21fd881fa579ff628) reading open=5 closed=1
+- The count stands, but the item list does not: at `f62e7954` only item E is closed; B, C, D and F are open because they read the round-89 lesson, absent at that revision. The words "items B, C, D, E, F closed" in the round-89 C1 row and move log are superseded by this receipt. The round's final C1 reading is unchanged: `open=1 closed=5` at `93475f7e` (`.ufo/waves/round-89/controls/final2-c1-at-tip.txt`).
+- D89-3: S463's scope cell stays as filed (CORPUS.md rule 2); construction ground now sits on S467, whose `teaches` opens `supersedes S463 —` (`corpus/lessons/round-90.md` §Gate, §Registry).
+- D89-1: the untracked lane-root `baseclean.out` is relocated byte-exact to `.ufo/waves/round-90/inherited/baseclean.out`.

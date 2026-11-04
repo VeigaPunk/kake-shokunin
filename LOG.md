@@ -3082,3 +3082,8 @@ Adjacency: the cache-key ground overlaps `mori-shokunin` and the round-88 Vary r
 (S463). Reported, not absorbed (`w1/ConnectorScope.md`).
 
 Tools: none installed or upgraded (no pacman; no network beyond the two named RFC GETs).
+
+## Round 90 — 2026-11-04, correction tail for round 89
+
+- D89-2 correction: LOG round-89 C1 line `open=5 closed=1` at f62e7954 — receipted now by `.ufo/waves/round-90/controls/r89-c1-at-f62e7954.txt` (frozen counter blob `0dee1dc8` re-run on a scratch clone at f62e7954a9ed9515b13c2bd21fd881fa579ff628) reading open=5 closed=1
+- Only item E is closed at `f62e7954` (B, C, D, F read the round-89 lesson, absent there). The final round-89 reading stays `open=1 closed=5` at `93475f7e` (`.ufo/waves/round-89/controls/final2-c1-at-tip.txt`).
