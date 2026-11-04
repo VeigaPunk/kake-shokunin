@@ -1,10 +1,9 @@
-$ python3 -B instrument_receipts.py --root . --revision c9c5e484c533aa65f4374b841a3edcf572ed19a9 --check --c1-tool /fast/scratch/hyaku/kake-r75/ExecC2Receipts/tool/c75_row_truth.py
-(cwd=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/lane-base)
-control: expect bound=16 mismatches=0 met=true extra=1 exit 0
-C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true missing_frozen=0
-  note: receipt=corpus/knowledge/instrument-receipts.json source=worktree receipt_revision=c9c5e484c533
-  crosscheck: c2_population=16 c1_counter=16 equal=true source=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/tool/c75_row_truth.py
-  extra: scripts/outside-the-population.py (outside the population; not counted)
-  finding: scripts/outside-the-population.py: receipt entry outside the population (reported separately, not counted)
+$ python3 -B instrument_receipts.py --root . --revision 14796049333547a9814a9506112206bdb234f661 --check
+(tool sha256=162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7; cwd=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/ctl-clone)
+control: expect bound=16 mismatches=0 met=true; the outside entry is reported, not counted (committed at 14796049333547a9814a9506112206bdb234f661)
+C2v1 revision=14796049333547a9814a9506112206bdb234f661 population=16 bound=16 mismatches=0 met=true
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=committed worktree=identical declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true
+  outside: scripts/outside-the-population.py (not counted toward bound)
 
 exit=0

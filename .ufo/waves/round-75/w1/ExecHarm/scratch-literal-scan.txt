@@ -1,0 +1,52 @@
+# scratch-literal scan, round-75 instrument bytes (measured 2026-11-03, host linux-x86_64)
+
+## freeze commit 88f2e05f36f008faf01fcf77afedd33ae3c53e40 (contract + counter + controls)
+$ git grep -n "/tmp" 88f2e05f -- .ufo/waves/round-75/
+exit=1 (1 = no hit)
+$ git grep -n -E "/tmp|tempfile" 88f2e05f -- .ufo/waves/round-75/
+88f2e05f36f008faf01fcf77afedd33ae3c53e40:.ufo/waves/round-75/c75_row_truth.py:37:import tempfile
+exit=0
+$ git cat-file -p 88f2e05f:.ufo/waves/round-75/c75_row_truth.py | sha256sum
+43538343c1f26e15a795f5486a6daca977c88ef5fa4458adacd2c68a00a596ce  -
+
+## lane HEAD ab939c46 (dispatch metadata added after freeze)
+$ git grep -n "/tmp" HEAD -- .ufo/waves/round-75/
+HEAD:.ufo/waves/round-75/w1-dispatch.json:60:        "item": "Measure the harm battery at base and prove the round's new
+HEAD:.ufo/waves/round-75/w1-dispatch.json:108:        "item": "Scope, secrets and scratch audit of the round so far. Wri
+HEAD:.ufo/waves/round-75/w1-dispatch.json:121:    "context": "You are a Godspeed-enabled subagent.\n\n1. **Name the axes
+HEAD:.ufo/waves/round-75/w1-dispatch.json:151:        "task": "/skill:godspeed\n\nMeasure the harm battery at base and p
+HEAD:.ufo/waves/round-75/w1-dispatch.json:191:        "task": "/skill:godspeed\n\nScope, secrets and scratch audit of th
+HEAD:.ufo/waves/round-75/w1-spec.json:5:  "context": "You are a Godspeed-enabled subagent.\n\n1. **Name the axes.**\n2. 
+HEAD:.ufo/waves/round-75/w1-spec.json:35:      "item": "Measure the harm battery at base and prove the round's new instr
+HEAD:.ufo/waves/round-75/w1-spec.json:75:      "item": "Scope, secrets and scratch audit of the round so far. Write /hom
+HEAD:.ufo/waves/round-75/w1/ScoutRegistry.md:142:| `.ufo/waves/round-58/c58_receipt_rewrites.py` | 1293 | `TMPDIR=<scrat
+HEAD:.ufo/waves/round-75/w1/ScoutRegistry.md:143:| `.ufo/waves/round-58/c58_resolver_cases.py` | 1294 | `TMPDIR=<scratch
+HEAD:.ufo/waves/round-75/w1/ScoutRegistry.md:145:| `.ufo/waves/round-59/c59_resolver_cases.py` | 1308 | `TMPDIR=<scratch
+HEAD:.ufo/waves/round-75/w1/ScoutRegistry.receipts.txt:2:# base c9c5e484c533aa65f4374b841a3edcf572ed19a9; clone --shared
+HEAD:.ufo/waves/round-75/w1/ScoutRegistry.receipts.txt:17:row L1293: TMPDIR=/fast/scratch/hyaku/kake-r75/ScoutRegistry/t
+HEAD:.ufo/waves/round-75/w1/ScoutRegistry.receipts.txt:20:row L1294: TMPDIR=/fast/scratch/hyaku/kake-r75/ScoutRegistry/t
+HEAD:.ufo/waves/round-75/w1/ScoutRegistry.receipts.txt:26:row L1308: TMPDIR=/fast/scratch/hyaku/kake-r75/ScoutRegistry/t
+HEAD:.ufo/waves/round-75/w1/swarm-registry.json:42:      "item": "Measure the harm battery at base and prove the round's
+HEAD:.ufo/waves/round-75/w1/swarm-registry.json:90:      "item": "Scope, secrets and scratch audit of the round so far. 
+exit=0
+
+## C2 tool produced by this wave (uncommitted, seat dir)
+$ sha256sum .ufo/waves/round-75/w1/ExecC2Tool/instrument_receipts.py
+60312744a8402343bab13128a35a263f97c3a0296093fec4671e83ebb725f1c7  .ufo/waves/round-75/w1/ExecC2Tool/instrument_receipts.py
+$ wc -l .ufo/waves/round-75/w1/ExecC2Tool/instrument_receipts.py
+1081
+$ grep -n "/tmp" <pinned copy>
+exit=1 (1 = no hit)
+$ grep -n "tempfile|mkdtemp|TMPDIR" .ufo/waves/round-75/w1/ExecC2Tool/instrument_receipts.py
+94:import tempfile
+754:    parent = tempfile.mkdtemp(prefix="fx-", dir=work)
+$ grep -n "tempfile\." .ufo/waves/round-75/c75_row_truth.py at freeze
+exit=1 (1 = import only, unused)
+
+## C2 receipt
+$ ls corpus/knowledge/instrument-receipts.json
+ls: cannot access 'corpus/knowledge/instrument-receipts.json': No such file or directory
+
+## controls
+$ grep -n -E "/tmp|/fast/scratch" .ufo/waves/round-75/controls/*.txt
+exit=1 (1 = no hit)

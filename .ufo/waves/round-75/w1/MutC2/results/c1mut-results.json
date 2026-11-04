@@ -1,0 +1,1236 @@
+{
+  "counter": "/fast/scratch/hyaku/kake-r75/MutationTesterC2/work/c1frozen/c75_row_truth.py",
+  "sha256": "43538343c1f26e15a795f5486a6daca977c88ef5fa4458adacd2c68a00a596ce",
+  "states": {
+    "A": "29907d44d60523d661ff9bf1d9e23b603d483580",
+    "B": "66cdf6257c9a1a74fb6df684e49586d0e262dbef",
+    "A2": "a825c9a6dc7e7856e44fb6d1af0f20349a095c52",
+    "A3": "47754c59a2088366165e5faf1700aaa0662e0aaa",
+    "C": "128d5d299fd301379ef6cac7867578a7c2981490",
+    "E": "cd0a9c38bd6137f909d3e22fdd0c7358cf1d8ee5",
+    "F": "c44bca4b3915dd18248cc3ec45fcbfbc8f869912",
+    "G": "54401ed5978d4db0ad8c29fce0e0fb7d8cf35127",
+    "H": "b1c6ab6d460684996b435f518bf1bf4190ebc1d3"
+  },
+  "pristine": {
+    "A": {
+      "exit": 1,
+      "stdout": "C1v1 revision=29907d44d60523d661ff9bf1d9e23b603d483580 rows=3 live=3 files=3 mismatches=2 classes=E1 E3 append_only=true met=false\n  finding: E1 scripts/a.py: Kind is gate without a self-test mode or a declared differential\n  finding: E3 scripts/b.py: cell enumerates 3 fixture ids, observed total 2\n",
+      "stderr": "",
+      "mismatches": 2,
+      "met": false,
+      "append_only": true,
+      "files": 3
+    },
+    "B": {
+      "exit": 0,
+      "stdout": "C1v1 revision=66cdf6257c9a1a74fb6df684e49586d0e262dbef rows=3 live=3 files=3 mismatches=0 classes=- append_only=true met=true\n",
+      "stderr": "",
+      "mismatches": 0,
+      "met": true,
+      "append_only": true,
+      "files": 3
+    },
+    "A2": {
+      "exit": 1,
+      "stdout": "C1v1 revision=a825c9a6dc7e7856e44fb6d1af0f20349a095c52 rows=3 live=3 files=3 mismatches=1 classes=E3 append_only=true met=false\n  finding: E3 scripts/b.py: cell enumerates 3 fixture ids, observed total 2\n",
+      "stderr": "",
+      "mismatches": 1,
+      "met": false,
+      "append_only": true,
+      "files": 3
+    },
+    "A3": {
+      "exit": 1,
+      "stdout": "C1v1 revision=47754c59a2088366165e5faf1700aaa0662e0aaa rows=3 live=3 files=3 mismatches=1 classes=E1 append_only=true met=false\n  finding: E1 scripts/a.py: Kind is gate without a self-test mode or a declared differential\n",
+      "stderr": "",
+      "mismatches": 1,
+      "met": false,
+      "append_only": true,
+      "files": 3
+    },
+    "C": {
+      "exit": 1,
+      "stdout": "C1v1 revision=128d5d299fd301379ef6cac7867578a7c2981490 rows=2 live=2 files=2 mismatches=1 classes=- append_only=false met=false\n  finding: append_only: base row '.ufo/waves/round-77/c77_c.py' is gone\n",
+      "stderr": "",
+      "mismatches": 1,
+      "met": false,
+      "append_only": false,
+      "files": 2
+    },
+    "E": {
+      "exit": 0,
+      "stdout": "C1v1 revision=cd0a9c38bd6137f909d3e22fdd0c7358cf1d8ee5 rows=4 live=4 files=4 mismatches=0 classes=- append_only=true met=true\n",
+      "stderr": "",
+      "mismatches": 0,
+      "met": true,
+      "append_only": true,
+      "files": 4
+    },
+    "F": {
+      "exit": 1,
+      "stdout": "C1v1 revision=c44bca4b3915dd18248cc3ec45fcbfbc8f869912 rows=5 live=5 files=5 mismatches=1 classes=E2 append_only=true met=false\n  finding: E2 scripts/d.py: cell claims 2/2, no tally in output\n",
+      "stderr": "",
+      "mismatches": 1,
+      "met": false,
+      "append_only": true,
+      "files": 5
+    },
+    "G": {
+      "exit": 0,
+      "stdout": "C1v1 revision=54401ed5978d4db0ad8c29fce0e0fb7d8cf35127 rows=5 live=5 files=3 mismatches=0 classes=- append_only=true met=true\n",
+      "stderr": "",
+      "mismatches": 0,
+      "met": true,
+      "append_only": true,
+      "files": 3
+    },
+    "H": {
+      "exit": 0,
+      "stdout": "C1v1 revision=b1c6ab6d460684996b435f518bf1bf4190ebc1d3 rows=4 live=4 files=4 mismatches=0 classes=- append_only=true met=true\n",
+      "stderr": "",
+      "mismatches": 0,
+      "met": true,
+      "append_only": true,
+      "files": 4
+    }
+  },
+  "mutants": [
+    {
+      "id": "C1-M1",
+      "mutation": "drop the append_only conjunct (block and finding)",
+      "dimension": "append-only",
+      "states": {
+        "A": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "B": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A2": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A3": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "C": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "diverged": true
+        },
+        "E": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "F": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "G": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "H": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        }
+      }
+    },
+    {
+      "id": "C1-M1b",
+      "mutation": "drop the append_only conjunct from the met verdict only",
+      "dimension": "append-only",
+      "states": {
+        "A": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "B": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A2": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A3": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "C": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "diverged": false
+        },
+        "E": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "F": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "G": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "H": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        }
+      }
+    },
+    {
+      "id": "C1-M2",
+      "mutation": "first-row-wins (any earlier row naming the file is effective)",
+      "dimension": "supersession",
+      "states": {
+        "A": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "B": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A2": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A3": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "C": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "diverged": false
+        },
+        "E": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "F": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "G": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "H": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        }
+      }
+    },
+    {
+      "id": "C1-M3",
+      "mutation": "ignore E3 (enumerated fixture ids)",
+      "dimension": "E3",
+      "states": {
+        "A": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "B": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A2": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "A3": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "C": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "diverged": false
+        },
+        "E": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "F": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "G": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "H": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        }
+      }
+    },
+    {
+      "id": "C1-M4",
+      "mutation": "parse the tally pair from the whole row, not the Self-test cell",
+      "dimension": "E2",
+      "states": {
+        "A": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "B": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A2": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A3": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "C": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "diverged": false
+        },
+        "E": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "F": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "G": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "H": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        }
+      }
+    },
+    {
+      "id": "C1-M5",
+      "mutation": "accept a command that exits 0 without printing its claimed tally",
+      "dimension": "E2",
+      "states": {
+        "A": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "B": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A2": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A3": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "C": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "diverged": false
+        },
+        "E": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "F": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "G": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "H": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        }
+      }
+    },
+    {
+      "id": "C1-M6",
+      "mutation": "treat the word differential anywhere in the row as the exemption",
+      "dimension": "E1",
+      "states": {
+        "A": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "B": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A2": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A3": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "C": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "diverged": false
+        },
+        "E": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "F": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "G": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "H": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        }
+      }
+    },
+    {
+      "id": "C1-M7",
+      "mutation": "skip E1 entirely",
+      "dimension": "E1",
+      "states": {
+        "A": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 2,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "B": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A2": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "A3": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": true
+        },
+        "C": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": false
+          },
+          "diverged": false
+        },
+        "E": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "F": {
+          "mutant": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 1,
+            "mismatches": 1,
+            "met": false,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "G": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        },
+        "H": {
+          "mutant": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "pristine": {
+            "exit": 0,
+            "mismatches": 0,
+            "met": true,
+            "append_only": true
+          },
+          "diverged": false
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+selftest: ok green: write, idempotent rewrite, check, emit-population
+selftest: ok missing receipt file: bound=0 mismatches=16
+selftest: ok wrong digest: bound=15 mismatches=1
+selftest: ok wrong byte count: bound=15 mismatches=1
+selftest: ok wrong mode flag: bound=15 mismatches=1
+selftest: ok duplicate path: bound=15 mismatches=1, class duplicate
+selftest: ok path outside population: reported separately, bound=16 mismatches=0
+selftest: ok receipt at another revision, changed blob: bound=15 mismatches=1, revision_match=false
+selftest: ok receipt committed after its revision: unchanged bytes bind, receipt=committed
+selftest: ok fabricated receipt (16 paths): bound=0 mismatches=16
+selftest: ok live row beyond the frozen 16: population=17 bound=17
+selftest: ok missing_frozen=1 keeps met=false with bound=16 mismatches=0
+selftest: ok classifier: add_argument, comparisons, docstrings, argv lists, .mjs
+selftest: ok usage: --write without --date exits 64, --selftest without --work exits 64
+selftest: fixtures under /fast/scratch/hyaku/kake-r75/ExecHarm/tmp/c2st2/fx-jekskxnj
+selftest: 14/14

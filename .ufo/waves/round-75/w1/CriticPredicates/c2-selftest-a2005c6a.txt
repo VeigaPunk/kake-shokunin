@@ -1,0 +1,232 @@
+selftest: FAIL green: write, idempotent rewrite, check, emit-population :: write_rc=0/0 idempotent=True check_rc=1 fields={'revision': '0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf', 'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'} emit_rc=0 emitted=16
+wrote corpus/knowledge/instrument-receipts.json revision=0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf population=16 missing_frozen=0 sha256=c0579ff51bbcf0ba6174565f98f282e77fe62303e6e1d930a3eed9cf98abc57a bytes=3365
+wrote corpus/knowledge/instrument-receipts.json revision=0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf population=16 missing_frozen=0 sha256=c0579ff51bbcf0ba6174565f98f282e77fe62303e6e1d930a3eed9cf98abc57a bytes=3365
+C2v1 revision=0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+.ufo/waves/round-52/c52_wave_ledger.py
+.ufo/waves/round-57/c57_idresolver_gate.py
+.ufo/waves/round-58/c58_receipt_rewrites.py
+.ufo/waves/round-58/c58_resolver_cases.py
+.ufo/waves/round-59/c59_axis_evidence.py
+.ufo/waves/round-59/c59_resolver_cases.py
+.ufo/waves/round-66/c66_gate_status_hostportable.py
+.ufo/waves/round-69/c69_recorded_counts.py
+.ufo/waves/round-69/c69_tmp_honour.py
+.ufo/waves/round-72/c72_tmp_v2.py
+.ufo/waves/round-73/c73_tmp_v3.py
+.ufo/waves/round-73/c73_wave_pointers.py
+.ufo/waves/round-74/c74_registry_gap.py
+scripts/citation_lint.py
+scripts/id_resolver.py
+scripts/redirect_audit.py
+
+selftest: ok missing receipt file: bound=0 mismatches=16
+selftest: FAIL wrong digest: bound=15 mismatches=1 :: rc=1 fields={'revision': '0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf', 'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'} want=(1, {'population': '16', 'bound': '15', 'mismatches': '1', 'met': 'false'})
+C2v1 revision=0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+
+selftest: FAIL wrong byte count: bound=15 mismatches=1 :: rc=1 fields={'revision': '0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf', 'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'} want=(1, {'population': '16', 'bound': '15', 'mismatches': '1', 'met': 'false'})
+C2v1 revision=0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+
+selftest: FAIL wrong mode flag: bound=15 mismatches=1 :: rc=1 fields={'revision': '0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf', 'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'} want=(1, {'population': '16', 'bound': '15', 'mismatches': '1', 'met': 'false'})
+C2v1 revision=0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3366 bytes); committed bytes at 0b96ba9ce95f1da6cd1bd2707867eaa7ba640bcf are required
+
+selftest: FAIL duplicate path: bound=15 mismatches=1, class duplicate :: rc=1 fields={'revision': '36c0d0fd7100d8cb6761b6cf5c666f154904516f', 'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'}
+C2v1 revision=36c0d0fd7100d8cb6761b6cf5c666f154904516f population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3566 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+
+selftest: FAIL path outside population: reported separately, bound=16 mismatches=0 :: rc=1 fields={'revision': '36c0d0fd7100d8cb6761b6cf5c666f154904516f', 'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'}
+C2v1 revision=36c0d0fd7100d8cb6761b6cf5c666f154904516f population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3553 bytes); committed bytes at 36c0d0fd7100d8cb6761b6cf5c666f154904516f are required
+
+selftest: FAIL receipt at another revision, changed blob: bound=15 mismatches=1, revision_match=false :: rc=1 fields={'revision': '30a8d060b1008a970459c4627de2504acc5c469d', 'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'}
+C2v1 revision=30a8d060b1008a970459c4627de2504acc5c469d population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 30a8d060b1008a970459c4627de2504acc5c469d are required
+
+selftest: FAIL receipt committed after its revision: unchanged bytes bind, receipt=committed :: rc=0 fields={'revision': '294d6f4e5d4c799bfb51af0e19bdcbdde7dcdb87', 'population': '16', 'bound': '16', 'mismatches': '0', 'met': 'true'}
+C2v1 revision=294d6f4e5d4c799bfb51af0e19bdcbdde7dcdb87 population=16 bound=16 mismatches=0 met=true
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=committed worktree=absent declared=36c0d0fd7100d8cb6761b6cf5c666f154904516f declared_match=false declared_valid=true
+
+selftest: FAIL strict committed: uncommitted receipt red, committed receipt green :: rc=64/64 fields={}/{}
+usage: c2_tool.py [-h] [--root ROOT] [--revision REVISION] [--check |
+                  --write | --selftest | --emit-population] [--date DATE]
+                  [--json] [--work WORK]
+64 usage: unrecognized arguments: --require-committed
+usage: c2_tool.py [-h] [--root ROOT] [--revision REVISION] [--check |
+                  --write | --selftest | --emit-population] [--date DATE]
+                  [--json] [--work WORK]
+64 usage: unrecognized arguments: --require-committed
+
+selftest: ok fabricated receipt (16 paths): bound=0 mismatches=16
+selftest: FAIL live row beyond the frozen 16: population=17 bound=17 :: rc=1 fields={'revision': '6025db40b5ba3178e53d897a919d3147ca8f8ccd', 'population': '17', 'bound': '0', 'mismatches': '17', 'met': 'false'} want=(0, {'population': '17', 'bound': '17', 'mismatches': '0', 'met': 'true'})
+C2v1 revision=6025db40b5ba3178e53d897a919d3147ca8f8ccd population=17 bound=0 mismatches=17 met=false
+  population: derived=17 frozen=16 missing_frozen=0 beyond_frozen=1
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  population: beyond-frozen .ufo/waves/round-99/c99_extra.py
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt .ufo/waves/round-99/c99_extra.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3560 bytes); committed bytes at 6025db40b5ba3178e53d897a919d3147ca8f8ccd are required
+
+selftest: FAIL missing_frozen=1 keeps met=false with bound=16 mismatches=0 :: rc=1 fields={'revision': '01ed572bad121e6b27a4fce3a550265714585171', 'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'}
+C2v1 revision=01ed572bad121e6b27a4fce3a550265714585171 population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=1 beyond_frozen=1
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: missing-frozen .ufo/waves/round-52/c52_wave_ledger.py: the frozen 16 no longer derive
+  population: beyond-frozen .ufo/waves/round-99/c99_replacement.py
+  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt .ufo/waves/round-99/c99_replacement.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt scripts/citation_lint.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt scripts/id_resolver.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+  finding: receipt scripts/redirect_audit.py: receipt exists only in the worktree (corpus/knowledge/instrument-receipts.json, 3365 bytes); committed bytes at 01ed572bad121e6b27a4fce3a550265714585171 are required
+
+selftest: ok classifier: add_argument, comparisons, docstrings, argv lists, .mjs
+selftest: ok usage: --write without --date exits 64, --selftest without --work exits 64
+selftest: fixtures under /fast/scratch/hyaku/kake-r75/CriticPredicates/st3/fx-4cpfri95
+selftest: 4/15

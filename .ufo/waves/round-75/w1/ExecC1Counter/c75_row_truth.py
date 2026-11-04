@@ -12,15 +12,21 @@ Frozen predicate (contract §C1, `.ufo/waves/round-75/contract.md`):
   Effective row: rows are grouped by instrument file; the last row naming a file
   wins (a row may be superseded by an appended row, never deleted).
 
-  E1  a row whose Kind family is ``gate`` carries a working self-test
-      (``--selftest`` exits 0) or its Kind cell declares the differential
-      substitute (the word ``differential``).
-  E2  when the Self-test cell records an ``a/b`` tally and names a command, the
-      observed ``--selftest`` pass/total equals it.
+  E1  a row whose Kind family is ``gate`` carries a working self-test of its
+      own (``--selftest`` exits 0), or its Kind cell declares the differential
+      substitute (the word ``differential`` as a word, in the Kind cell only).
+      The recorded command must run the effective row's instrument path: shell
+      comments are stripped and the program after the interpreter (``python``/
+      ``python3`` with optional ``-B``, or ``node``) is the bound file; a command
+      naming another file, or no file, is a finding whatever its exit code.
+  E2  when the Self-test cell's claim segment records an ``a/b`` tally and names
+      a command, the observed ``--selftest`` pass/total equals it.  A claim
+      segment carrying more than one distinct pair is an ambiguous tally; only a
+      bound command's output is measured.
   E3  when the Self-test cell enumerates two or more fixture ids ``f<N>``, the
       observed self-test total equals the number of distinct ids named.
-  E4  every ``.py``/``.mjs`` path token in the row's cells resolves at the
-      measured revision.
+  E4  every ``.py``/``.mjs`` path token in every live row's cells resolves at
+      the measured revision.
 
   append_only holds when every live row name present at ``--base`` is still
   present at the measured revision.
@@ -34,24 +40,37 @@ files beyond the floor are in-population and satisfy E1-E4 like the rest.
 ``--population FILE`` overrides the floor (one path per line; ``#`` comments and
 blank lines ignored).
 
+Amendment 2 (`.ufo/waves/round-75/amendment-2.md`, A3/A4), terms only: E1/E2
+measure the instrument's own self-test (program binding above); E4 covers every
+live row, and an instrument whose file or row disappears from the derivation is
+reported through ``missing_frozen``.  The E2 claim segment is the text after the
+recorded command up to its first ``;`` — the tally the row claims; pairs in later
+segments belong to receipt history.  The frozen base row `scripts/citation_lint.py`
+records the current 9/9 beside a then-tally 8/8 in later segments, so a cell-wide
+pair count would redden the frozen base; the claim segment keeps that row green
+while an in-segment contradiction (``0/3 then 3/3``) is an ambiguous tally.
+
 Measurement shape: the counter clones the measured revision with
 ``git clone --shared`` into ``--work/tree`` and runs every recorded self-test
 command literally in that clone, with a fresh ``HOME``/``TMPDIR`` under
 ``--work/scratch`` and every inherited ``GIT_*`` variable scrubbed.  The work
 tree is re-pointed at the measured revision when it already exists.
 
-Summary line (deterministic, contract shape plus the amendment term):
+Summary line (deterministic, contract shape plus the amendment term; the
+``missing_frozen`` term is appended so the frozen contract fields keep their
+order):
 
   C1v1 revision=<rev> rows=N live=N files=N mismatches=M classes=… append_only=<bool> met=<bool> missing_frozen=N
 
 Exit: 0 met, 1 not met, 2 unevaluable, 64 usage.
 
 Self-check: ``--selftest`` builds isolated fixture repositories under ``--work``
-(one red and one green fixture per E-rule, a superseding-row fixture, a deleted
-base-row fixture, a relabelled-to-historical frozen-path fixture, a distinct
-fixture-id count fixture and an all-green fixture) and asserts the counter's own
-verdicts on them.  ``--emit-population`` prints the effective floor, one path per
-line.  ``--json`` prints the per-file result list and the counts.
+(red and green fixtures per E-rule, superseding row, deleted base row, frozen
+floor floor, ambiguous tally, word-boundary differential, comment- and
+argument-laundered command binding, secondary-row and vanished-instrument E4,
+retired-in-place floor loss, all green) and asserts the counter's own verdicts on
+them.  ``--emit-population`` prints the effective floor, one path per line.
+``--json`` prints the per-file result list and the counts.
 """
 import argparse
 import json
@@ -66,6 +85,7 @@ FILE_RE = re.compile(r'((?:scripts|\.ufo)/[\w./-]+\.(?:py|mjs))')
 PAIR_RE = re.compile(r'\b(\d+)\s*/\s*(\d+)\b')
 FIX_RE = re.compile(r'\bf(\d+)\b')
 TALLY_RE = re.compile(r'\b(\d+)\s*/\s*(\d+)\b')
+INTERP_RE = re.compile(r'python(?:3(?:\.\d+)?)?')
 
 FROZEN_POPULATION = (
     '.ufo/waves/round-52/c52_wave_ledger.py',
@@ -224,12 +244,32 @@ def selftest_command(cell):
     return None
 
 
-def claim_pair(cell):
-    pairs = PAIR_RE.findall(cell)
-    if not pairs:
+def command_program(command):
+    """The program a recorded self-test command runs, or None.
+
+    Shell comments (``#`` at a word start) are stripped first, so a comment
+    naming the instrument does not bind it.  Leading ``VAR=value`` assignments
+    (and ``env``) are skipped; the file after the interpreter — ``python``/
+    ``python3`` (optional ``-B``) or ``node`` — is the bound program.
+    """
+    line = re.sub(r'(^|\s)#[^\n]*', ' ', command).strip()
+    toks = line.split()
+    i = 0
+    while i < len(toks) and re.match(r'^[A-Za-z_][A-Za-z0-9_]*=', toks[i]):
+        i += 1
+    if i < len(toks) and os.path.basename(toks[i]) == 'env':
+        i += 1
+        while i < len(toks) and re.match(r'^[A-Za-z_][A-Za-z0-9_]*=', toks[i]):
+            i += 1
+    if i < len(toks) and INTERP_RE.fullmatch(os.path.basename(toks[i])):
+        i += 1
+        if i < len(toks) and toks[i] == '-B':
+            i += 1
+    elif i < len(toks) and os.path.basename(toks[i]) in ('node', 'nodejs'):
+        i += 1
+    if i >= len(toks):
         return None
-    a, b = pairs[-1]
-    return int(a), int(b)
+    return toks[i].strip('\'"`')
 
 
 def observed_pair(output):
@@ -242,6 +282,32 @@ def observed_pair(output):
 
 def classes_of(findings):
     return sorted(set(re.findall(r'\bE[1-4]\b', ' '.join(findings))))
+
+
+def declares_differential(kind_cell):
+    """The Kind cell's differential substitute, matched as a word."""
+    return bool(re.search(r'\bdifferential\b', kind_cell))
+
+
+def claim_pairs(cell, command):
+    """Distinct ``a/b`` pairs in the claim segment that follows the command.
+
+    The claim segment is the text after the recorded command up to its first
+    ``;``; pairs recorded later in the cell belong to receipt history, not to the
+    row's claim.  With no pair there, the whole cell is the fallback.
+    """
+    region = cell
+    m = re.search(r'`([^`]*--selftest[^`]*)`', cell)
+    if m:
+        region = cell[m.end():]
+    elif command:
+        pos = cell.find(command)
+        if pos >= 0:
+            region = cell[pos + len(command):]
+    pairs = PAIR_RE.findall(region.split(';')[0])
+    if not pairs:
+        pairs = PAIR_RE.findall(cell)
+    return sorted({(int(a), int(b)) for a, b in pairs})
 
 
 def load_population(path):
@@ -297,29 +363,46 @@ def measure(root, rev, work, scratch, population, base=None):
     findings = []
     os.makedirs(os.path.join(scratch, 'tmp'), exist_ok=True)
     os.makedirs(os.path.join(scratch, 'home'), exist_ok=True)
+    # E4 — every .py/.mjs path token in every live row's cells resolves.
+    for row in live:
+        tokens = sorted(set(FILE_RE.findall(' '.join(row['cells']))))
+        row['e4_missing'] = [t for t in tokens
+                             if git(root, 'cat-file', '-e', f'{rev}:{t}').returncode != 0]
+        if row['e4_missing']:
+            miss = row['e4_missing']
+            who = row.get('file') or f'row {row["line"]}'
+            extra = f' (+{len(miss) - 1} more)' if len(miss) > 1 else ''
+            finding = (f'E4 {who}: path token {miss[0]} does not resolve '
+                       f'at {rev}{extra}')
+            if finding not in findings:
+                findings.append(finding)
     results = []
     for f in sorted(groups):
         row = groups[f][-1]
         kind = row['cells'][1]
         selftest_cell = row['cells'][4]
         fam = family(kind)
+        differential = declares_differential(kind)
         entry = {'file': f, 'row_line': row['line'], 'family': fam,
                  'frozen': f in population}
-        # E4 — every .py/.mjs path token in the effective row's cells resolves.
-        tokens = sorted(set(FILE_RE.findall(' '.join(row['cells']))))
-        missing_tokens = [t for t in tokens
-                          if git(root, 'cat-file', '-e', f'{rev}:{t}').returncode != 0]
-        if missing_tokens:
-            extra = f' (+{len(missing_tokens) - 1} more)' if len(missing_tokens) > 1 else ''
-            findings.append(f'E4 {f}: path token {missing_tokens[0]} does not resolve '
-                            f'at {rev}{extra}')
+        if row.get('e4_missing'):
             entry['mismatch'] = 'E4'
             entry['status'] = 'mismatch'
-            entry['e4_missing'] = missing_tokens
+            entry['e4_missing'] = row['e4_missing']
             results.append(entry)
             continue
         cmd = selftest_command(selftest_cell)
         entry['command'] = cmd
+        # E1 — the command must run this row's instrument, not another file.
+        if cmd and not differential:
+            prog = command_program(cmd)
+            entry['program'] = prog
+            if prog != f:
+                findings.append(f'E1 command names {prog or "(none)"} not {f}')
+                entry['mismatch'] = 'E1'
+                entry['status'] = 'mismatch'
+                results.append(entry)
+                continue
         out = ''
         rc = None
         if cmd:
@@ -328,7 +411,7 @@ def measure(root, rev, work, scratch, population, base=None):
         # E1 — gate kind needs a working self-test or a declared differential
         if fam == 'gate':
             if cmd is None:
-                if 'differential' not in kind:
+                if not differential:
                     findings.append(f'E1 {f}: Kind is gate without a self-test mode '
                                     f'or a declared differential')
                     entry['mismatch'] = 'E1'
@@ -339,16 +422,24 @@ def measure(root, rev, work, scratch, population, base=None):
             entry['status'] = 'mismatch'
             results.append(entry)
             continue
-        # E2 — recorded tally pair re-derives
-        pair = claim_pair(selftest_cell) if cmd else None
+        # E2 — the claimed tally re-derives, and must be unambiguous
         obs = observed_pair(out) if out else None
-        if pair and obs and pair != obs:
-            findings.append(f'E2 {f}: cell claims {pair[0]}/{pair[1]}, '
-                            f'observed {obs[0]}/{obs[1]}')
-            entry['mismatch'] = 'E2'
-        elif pair and not obs:
-            findings.append(f'E2 {f}: cell claims {pair[0]}/{pair[1]}, no tally in output')
-            entry['mismatch'] = 'E2'
+        if cmd:
+            pairs = claim_pairs(selftest_cell, cmd)
+            if len(pairs) > 1:
+                shown = ', '.join(f'{a}/{b}' for a, b in pairs)
+                findings.append(f'E2 {f}: ambiguous tally in the Self-test cell: {shown}')
+                entry['mismatch'] = 'E2'
+            elif pairs:
+                pair = pairs[0]
+                if obs and pair != obs:
+                    findings.append(f'E2 {f}: cell claims {pair[0]}/{pair[1]}, '
+                                    f'observed {obs[0]}/{obs[1]}')
+                    entry['mismatch'] = 'E2'
+                elif not obs:
+                    findings.append(f'E2 {f}: cell claims {pair[0]}/{pair[1]}, '
+                                    f'no tally in output')
+                    entry['mismatch'] = 'E2'
         # E3 — enumerated fixture ids match the observed total
         ids = {int(x) for x in FIX_RE.findall(selftest_cell)}
         if len(ids) >= 2:
@@ -452,6 +543,9 @@ class Fixture:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w', encoding='utf-8', newline='\n') as fh:
             fh.write(content)
+
+    def remove(self, rel):
+        os.remove(os.path.join(self.repo, rel))
 
     def commit(self, message):
         _run(['git', '-C', self.repo, 'add', '-A'])
@@ -584,7 +678,7 @@ def _selftest_cases(work):
     add('f08 E4 green', fx, fx.commit('f08'), ['.ufo/fixtures/ok_gate.py'],
         met=True)
 
-    # f09 — E4 red on a non-instrument token: the E4 cell is "every path token".
+    # f09 — E4 red on a non-instrument token: E4 covers every token of the row.
     fx = Fixture(work, 'f09_e4_token_red')
     fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
     fx.write('SKILL.md', _skill_md([_row(
@@ -674,6 +768,124 @@ def _selftest_cases(work):
         ['.ufo/fixtures/ok_gate.py', '.ufo/fixtures/ok_gate8.py'],
         files=2, met=True)
 
+    # f15 — E2 ambiguous tally: one claim segment, two different pairs.
+    fx = Fixture(work, 'f15_ambiguous_tally')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/ok_gate.py', 'gate (live; fixture)',
+        'python3 -B .ufo/fixtures/ok_gate.py',
+        '`python3 -B .ufo/fixtures/ok_gate.py --selftest` (0/3 then 3/3)')]))
+    add('f15 E2 ambiguous tally', fx, fx.commit('f15'), ['.ufo/fixtures/ok_gate.py'],
+        classes=('E2',), findings=1, met=False)
+
+    # f16 — E1 red: the instrument is only a trailing argument, not the program.
+    fx = Fixture(work, 'f16_argument_binding')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('.ufo/fixtures/other.py', SCRIPT_OK)
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/ok_gate.py', 'gate (live; fixture)',
+        'python3 -B .ufo/fixtures/ok_gate.py',
+        '`python3 -B .ufo/fixtures/other.py --selftest .ufo/fixtures/ok_gate.py`')]))
+    add('f16 E1 argument binding red', fx, fx.commit('f16'),
+        ['.ufo/fixtures/ok_gate.py'], classes=('E1',), findings=1, met=False)
+
+    # f17 — E1 red: the command runs another file; the instrument is only a comment.
+    fx = Fixture(work, 'f17_comment_binding')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('.ufo/fixtures/other.py', SCRIPT_OK)
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/ok_gate.py', 'gate (live; fixture)',
+        'python3 -B .ufo/fixtures/ok_gate.py',
+        '`python3 -B .ufo/fixtures/other.py --selftest` # .ufo/fixtures/ok_gate.py')]))
+    add('f17 E1 comment binding red', fx, fx.commit('f17'),
+        ['.ufo/fixtures/ok_gate.py'], classes=('E1',), findings=1, met=False)
+
+    # f18 — E1 red: `nondifferential` is not the word `differential`.
+    fx = Fixture(work, 'f18_nondifferential')
+    fx.write('.ufo/fixtures/no_selftest.py', SCRIPT_NO_SELFTEST)
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/no_selftest.py', 'gate (nondifferential; offline; fixture)',
+        'python3 -B .ufo/fixtures/no_selftest.py',
+        'the gate has no selftest of its own')]))
+    add('f18 E1 nondifferential red', fx, fx.commit('f18'),
+        ['.ufo/fixtures/no_selftest.py'], classes=('E1',), findings=1, met=False)
+
+    # f19 — E4 red on a NON-effective row: every live row is checked.
+    fx = Fixture(work, 'f19_e4_secondary_row')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('SKILL.md', _skill_md([
+        _row('.ufo/fixtures/ok_gate.py', 'instrument (live; fixture)',
+             'python3 -B .ufo/fixtures/ok_gate.py', 'none (no self-test mode)',
+             pinned='witness `.ufo/fixtures/ghost.py`'),
+        _row('.ufo/fixtures/ok_gate.py', 'instrument (live; fixture)',
+             'python3 -B .ufo/fixtures/ok_gate.py', 'none (no self-test mode)'),
+    ]))
+    add('f19 E4 secondary row red', fx, fx.commit('f19'),
+        ['.ufo/fixtures/ok_gate.py'], classes=('E4',), findings=1, met=False)
+
+    # f20 — ReviewerC1 F11: the file survives, the row is rewritten with no path
+    # token and the Name cell stays prose; only the floor catches the loss.
+    fx = Fixture(work, 'f20_retired_in_place')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('.ufo/fixtures/ok_gate8.py', SCRIPT_OK8)
+    fx.write('.ufo/fixtures/extra.py', SCRIPT_OK)
+    fx.write('SKILL.md', _skill_md([
+        _row('ok counter', 'instrument (live; fixture)',
+             'python3 -B .ufo/fixtures/ok_gate.py', 'none (no self-test mode)'),
+        _row('second counter', 'instrument (live; fixture)',
+             'python3 -B .ufo/fixtures/ok_gate8.py', 'none (no self-test mode)'),
+        _row('broken counter', 'instrument (live; fixture)',
+             'python3 -B .ufo/fixtures/extra.py', 'none (no self-test mode)'),
+    ]))
+    base20 = fx.commit('f20 base')
+    fx.write('SKILL.md', _skill_md([
+        _row('ok counter', 'instrument (live; fixture)',
+             'python3 -B .ufo/fixtures/ok_gate.py', 'none (no self-test mode)'),
+        _row('second counter', 'instrument (live; fixture)',
+             'python3 -B .ufo/fixtures/ok_gate8.py', 'none (no self-test mode)'),
+        _row('broken counter', 'instrument (retired in place)', 'none',
+             'none (no self-test mode)'),
+    ]))
+    add('f20 retired in place', fx, fx.commit('f20 tip'),
+        ['.ufo/fixtures/ok_gate.py', '.ufo/fixtures/ok_gate8.py',
+         '.ufo/fixtures/extra.py'],
+        findings=1, files=2, append_only=True, missing_frozen=1, met=False,
+        base=base20)
+
+    # f21 — the instrument file is deleted, its row is retained: E4 catches it.
+    fx = Fixture(work, 'f21_file_gone_row_kept')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/ok_gate.py', 'instrument (live; fixture)',
+        'python3 -B .ufo/fixtures/ok_gate.py', 'none (no self-test mode)')]))
+    base21 = fx.commit('f21 base')
+    fx.remove('.ufo/fixtures/ok_gate.py')
+    add('f21 file gone row kept', fx, fx.commit('f21 tip'),
+        ['.ufo/fixtures/ok_gate.py'], classes=('E4',), findings=1, files=1,
+        append_only=True, met=False, base=base21)
+
+    # f22 — E1 red: the word `differential` outside the Kind cell does not exempt.
+    fx = Fixture(work, 'f22_differential_elsewhere')
+    fx.write('.ufo/fixtures/no_selftest.py', SCRIPT_NO_SELFTEST)
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/no_selftest.py', 'gate (live; fixture)',
+        'python3 -B .ufo/fixtures/no_selftest.py',
+        'none (no self-test mode)',
+        pinned='the differential substitute lives in the prose, not the Kind cell')]))
+    add('f22 E1 differential elsewhere red', fx, fx.commit('f22'),
+        ['.ufo/fixtures/no_selftest.py'], classes=('E1',), findings=1, met=False)
+
+    # f23 — E1 red: the command's program is not an interpreter for the instrument.
+    fx = Fixture(work, 'f23_no_interpreter')
+    fx.write('.ufo/fixtures/ok_gate.py', SCRIPT_OK)
+    fx.write('.ufo/fixtures/run.sh', '#!/bin/sh\nexit 0\n')
+    fx.write('SKILL.md', _skill_md([_row(
+        '.ufo/fixtures/ok_gate.py', 'gate (live; fixture)',
+        'python3 -B .ufo/fixtures/ok_gate.py',
+        '`bash .ufo/fixtures/run.sh --selftest`')]))
+    add('f23 E1 no interpreter red', fx, fx.commit('f23'),
+        ['.ufo/fixtures/ok_gate.py'], classes=('E1',), findings=1, met=False)
+
     return out
 
 
@@ -717,6 +929,19 @@ def _harness_checks(work):
         rc = main(['--root', empty, '--revision', 'deadbeef'])
     checks.append({'name': 'h05 missing --work exit 64', 'ok': rc == 64, 'problems': []
                    if rc == 64 else [f'missing --work exit {rc} != 64']})
+
+    pop_file = os.path.join(work, 'selftest', 'h06_population.txt')
+    with open(pop_file, 'w', encoding='utf-8') as fh:
+        fh.write('# fixture floor\n.ufo/fixtures/ok_gate.py\n\n'
+                 '.ufo/fixtures/ok_gate8.py\n.ufo/fixtures/extra.py\n')
+    buf_out = io.StringIO()
+    with contextlib.redirect_stdout(buf_out), contextlib.redirect_stderr(io.StringIO()):
+        rc = main(['--emit-population', '--population', pop_file])
+    got = [line for line in buf_out.getvalue().splitlines() if line.strip()]
+    want = ['.ufo/fixtures/ok_gate.py', '.ufo/fixtures/ok_gate8.py', '.ufo/fixtures/extra.py']
+    checks.append({'name': 'h06 --population file', 'ok': rc == 0 and got == want,
+                   'problems': [] if (rc == 0 and got == want)
+                   else [f'exit {rc}, lines {got} != {want}']})
     return checks
 
 
@@ -729,11 +954,12 @@ def run_selftest(work):
         state = 'PASS' if check['ok'] else 'FAIL'
         print(f"fixture {check['name']}: {state} {check.get('summary', '')}".rstrip())
         for problem in check['problems']:
-            print(f"  problem: {problem}")
+            print(f'  problem: {problem}')
         if not check['ok']:
             failed += 1
     print(f'C1v1 selftest fixtures={len(checks)} passed={len(checks) - failed} '
           f'failed={failed}')
+    print(f'selftest {len(checks) - failed}/{len(checks)}')
     return 0 if failed == 0 else 1
 
 

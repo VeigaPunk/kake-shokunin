@@ -54,21 +54,19 @@ Exact static ``--selftest`` registration rule (implemented in
   * anything undecidable (non-UTF-8, Python syntax error, unknown extension)
     is reported as ``unparsable``: never silently ``false``.
 
-``--check`` re-derives every population file at ``--revision`` and compares the
-three recorded fields, exactly as contract section C2 freezes them: the
-receipt's own ``revision`` is metadata, reported as
-``revision_match=true|false`` and not gated, because a receipt can only be
-committed after the revision whose blobs it pins (a self-reference).  A receipt
-that pins another revision still binds the files whose bytes are unchanged, and
-fails per file on those whose bytes differ.
+``--check`` reads the receipt from committed bytes at ``--revision`` only:
+``git cat-file blob <rev>:corpus/knowledge/instrument-receipts.json``.  A
+receipt that exists only in the worktree is reported as ``source=uncommitted``
+and is a mismatch — the claim is a *committed* receipt, so an uncommitted
+``--write`` is never admission evidence.
 
-The receipt is read from the working tree at ``--root`` when that file exists
-(``receipt=worktree``) and otherwise from the measured revision's committed
-blob (``receipt=committed``).  The worktree file wins because the controls
-overwrite it in place to prove red; whether it equals the committed blob at
-``--revision`` is reported as ``committed=identical|differs|absent`` and is not
-gated (the landing commit is the L1's discipline, and a control that rewrites
-the receipt must not be masked by the committed copy).
+The receipt's declared ``revision`` must be a 40-hex commit id that
+``git cat-file -e <rev>^{commit}`` resolves and that is an ancestor of (or
+equal to) the measured revision (``git merge-base --is-ancestor``); otherwise
+every population file is a ``receipt_revision_invalid`` mismatch.  The declared
+revision is the *subject* revision whose committed blobs the entries pin; the
+measured revision is the *carrier* commit that holds the receipt, which may be
+a descendant (a receipt can only be committed after the revision it pins).
 
 Exit: 0 met, 1 not met, 2 unevaluable, 64 usage.
 
@@ -369,10 +367,14 @@ def receipt_path(root):
 
 
 def load_receipt(root, rev):
-    """Return (document|None, source, committed_state, problem|None).
+    """Return (document|None, source, worktree_state, problem|None).
 
-    The worktree file wins; the measured revision's committed blob is read when
-    the worktree file is absent, and is compared against it when present.
+    The receipt is read from committed bytes at ``--revision`` only:
+    ``git cat-file blob <rev>:corpus/knowledge/instrument-receipts.json``.  A
+    receipt that exists only in the worktree is ``source='uncommitted'`` and a
+    mismatch — the claim is a *committed* receipt, so an uncommitted write is
+    never admission evidence.  ``worktree_state`` is ``identical``/``differs``
+    when a worktree copy exists and is compared, ``absent`` when it does not.
     """
     path = receipt_path(root)
     local = None
@@ -380,30 +382,28 @@ def load_receipt(root, rev):
         with open(path, "rb") as handle:
             local = handle.read()
     committed = git_bytes(root, "cat-file", "blob", f"{rev}:{RECEIPT_PATH}")
-    committed_raw = committed.stdout if committed.returncode == 0 else None
+    if committed.returncode != 0:
+        if local is not None:
+            return None, "uncommitted", "only-worktree", (
+                f"receipt exists only in the worktree ({RECEIPT_PATH}, "
+                f"{len(local)} bytes); committed bytes at {rev} are required"
+            )
+        return None, "none", "absent", f"receipt file is absent at {rev} and in the worktree"
+    raw, source = committed.stdout, "committed"
+    worktree_state = "absent"
     if local is not None:
-        raw, source = local, "worktree"
-        if committed_raw is None:
-            committed_state = "absent"
-        elif committed_raw == local:
-            committed_state = "identical"
-        else:
-            committed_state = "differs"
-    elif committed_raw is not None:
-        raw, source, committed_state = committed_raw, "committed", "identical"
-    else:
-        return None, "none", "absent", "receipt file is absent"
+        worktree_state = "identical" if local == raw else "differs"
     try:
         document = json.loads(raw.decode("utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-        return None, source, committed_state, f"receipt is not valid JSON: {exc}"
+        return None, source, worktree_state, f"receipt is not valid JSON: {exc}"
     if not isinstance(document, dict):
-        return None, source, committed_state, "receipt root is not a JSON object"
+        return None, source, worktree_state, "receipt root is not a JSON object"
     if document.get("schema") != SCHEMA:
-        return None, source, committed_state, (
+        return None, source, worktree_state, (
             f"receipt schema is {document.get('schema')!r}, expected {SCHEMA!r}"
         )
-    return document, source, committed_state, None
+    return document, source, worktree_state, None
 
 
 def entry_problem(entry):
@@ -425,6 +425,25 @@ def entry_problem(entry):
 # predicates
 # --------------------------------------------------------------------------
 
+def declared_revision_problem(root, rev, declared):
+    """The declared revision must be a resolvable ancestor (or equal) of --revision."""
+    if not isinstance(declared, str) or not re.fullmatch(r"[0-9a-f]{40}", declared):
+        return f"declared revision {declared!r} is not a 40-hex commit id"
+    probe = git_bytes(root, "cat-file", "-e", declared + "^{commit}")
+    if probe.returncode != 0:
+        return f"declared revision {declared} does not resolve to a commit"
+    ancestor = git_bytes(root, "merge-base", "--is-ancestor", declared, rev)
+    if ancestor.returncode != 0:
+        detail = _decode(ancestor.stderr)
+        return (
+            f"declared revision {declared} is not an ancestor of the measured revision "
+            f"{rev} (merge-base --is-ancestor exit {ancestor.returncode}"
+            + (f": {detail}" if detail else "")
+            + ")"
+        )
+    return None
+
+
 def evaluate(root, rev, frozen=FROZEN_POPULATION):
     population = derive_population(read_skill(root, rev))
     present = set(population)
@@ -433,11 +452,19 @@ def evaluate(root, rev, frozen=FROZEN_POPULATION):
 
     findings, outside, malformed = [], [], []
     bound = 0
-    document, source, committed_state, problem = load_receipt(root, rev)
+    document, source, worktree_state, problem = load_receipt(root, rev)
+    declared = document.get("revision") if isinstance(document, dict) else None
+    revision_problem = None if problem else declared_revision_problem(root, rev, declared)
 
     if problem:
         for path in population:
             findings.append({"path": path, "class": "receipt", "detail": problem})
+    elif revision_problem:
+        for path in population:
+            findings.append({
+                "path": path, "class": "receipt_revision_invalid",
+                "detail": revision_problem,
+            })
     else:
         entries, duplicates = {}, set()
         for entry in document.get("files") or []:
@@ -516,9 +543,12 @@ def evaluate(root, rev, frozen=FROZEN_POPULATION):
         "missing_frozen": missing_frozen,
         "beyond_frozen": beyond_frozen,
         "receipt_source": source,
-        "receipt_committed": committed_state,
-        "receipt_revision": document.get("revision") if isinstance(document, dict) else None,
-        "revision_match": bool(isinstance(document, dict) and document.get("revision") == rev),
+        "receipt_worktree": worktree_state,
+        "receipt_revision": declared,
+        "receipt_revision_valid": bool(
+            problem is None and revision_problem is None and isinstance(document, dict)
+        ),
+        "revision_match": bool(isinstance(document, dict) and declared == rev),
         "bound": bound,
         "mismatches": mismatches,
         "outside": outside,
@@ -546,9 +576,10 @@ def report(result, as_json):
             f"beyond_frozen={len(result['beyond_frozen'])}"
         )
         print(
-            f"  receipt: {result['receipt_source']} committed={result['receipt_committed']} "
-            f"revision={result['receipt_revision']} "
-            f"revision_match={str(result['revision_match']).lower()}"
+            f"  receipt: source={result['receipt_source']} worktree={result['receipt_worktree']} "
+            f"declared={result['receipt_revision']} "
+            f"declared_match={str(result['revision_match']).lower()} "
+            f"declared_valid={str(result['receipt_revision_valid']).lower()}"
         )
         for path in result["missing_frozen"]:
             print(f"  finding: missing-frozen {path}: the frozen 16 no longer derive")
@@ -758,152 +789,214 @@ def selftest(work):
         results.append(ok)
         print(f"selftest: {'ok' if ok else 'FAIL'} {name}" + ("" if ok else f" :: {detail}"))
 
-    def expect(name, repo, rev, want_rc, want):
+    def check(name, repo, rev, want_rc, want, needles=()):
         code, fields, output = run_cli("--root", repo, "--revision", rev, "--check")
         ok = code == want_rc and all(fields.get(key) == value for key, value in want.items())
-        record(name, ok, f"rc={code} fields={fields} want=({want_rc}, {want})\n{output}")
+        ok = ok and all(needle in output for needle in needles)
+        record(name, ok, f"rc={code} fields={fields} want=({want_rc}, {want}) need={needles}\n{output}")
+        return code, fields, output
+
+    def write(repo, rev):
+        return run_cli("--root", repo, "--revision", rev, "--write", "--date", "2026-11-03")
+
+    def commit_paths(repo, paths, message):
+        _git_fixture(repo, "add", *paths)
+        _git_fixture(
+            repo,
+            "-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid",
+            "-c", "commit.gpgsign=false", "commit", "-q", "-m", message,
+        )
+        return _git_fixture(repo, "rev-parse", "HEAD").strip()
+
+    def mutate(repo, change, message):
+        path = os.path.join(repo, *RECEIPT_PATH.split("/"))
+        with open(path, encoding="ascii") as handle:
+            document = json.load(handle)
+        change(document)
+        with open(path, "w", encoding="ascii", newline="\n") as handle:
+            handle.write(json.dumps(document, indent=2, ensure_ascii=True) + "\n")
+        return commit_paths(repo, [RECEIPT_PATH], message)
 
     frozen = list(FROZEN_POPULATION)
     try:
-        # green: write twice (idempotent), check met, emit the population
-        green, green_rev = make_fixture(parent, "green", frozen)
-        first = run_cli("--root", green, "--revision", green_rev, "--write", "--date", "2026-11-03")
+        # green: write twice (idempotent), commit, check at the carrier commit
+        green, green_subject = make_fixture(parent, "green", frozen)
+        first = write(green, green_subject)
         receipt_file = os.path.join(green, *RECEIPT_PATH.split("/"))
         with open(receipt_file, "rb") as handle:
             bytes_one = handle.read()
-        second = run_cli("--root", green, "--revision", green_rev, "--write", "--date", "2026-11-03")
+        second = write(green, green_subject)
         with open(receipt_file, "rb") as handle:
             bytes_two = handle.read()
-        code, fields, output = run_cli("--root", green, "--revision", green_rev, "--check")
-        emitted = run_cli("--root", green, "--revision", green_rev, "--emit-population")
+        carrier = commit_paths(green, [RECEIPT_PATH], "receipt")
+        code, fields, output = run_cli("--root", green, "--revision", carrier, "--check")
+        emitted = run_cli("--root", green, "--revision", green_subject, "--emit-population")
         emitted_paths = [line for line in emitted[2].splitlines() if line and not line.startswith(" ")]
         record(
-            "green: write, idempotent rewrite, check, emit-population",
+            "green: write, idempotent rewrite, committed, check at carrier, emit-population",
             first[0] == 0 and second[0] == 0 and bytes_one == bytes_two
             and code == 0
             and fields.get("population") == "16" and fields.get("bound") == "16"
             and fields.get("mismatches") == "0" and fields.get("met") == "true"
+            and "source=committed" in output and "worktree=identical" in output
             and emitted[0] == 0 and emitted_paths == sorted(frozen),
             f"write_rc={first[0]}/{second[0]} idempotent={bytes_one == bytes_two} "
             f"check_rc={code} fields={fields} emit_rc={emitted[0]} emitted={len(emitted_paths)}\n"
             f"{first[2]}{second[2]}{output}{emitted[2]}",
         )
 
-        # missing receipt
+        # missing receipt at the measured revision and in the worktree
         missing_repo, missing_rev = make_fixture(parent, "missing-receipt", frozen)
-        expect(
-            "missing receipt file: bound=0 mismatches=16", missing_repo, missing_rev, 1,
+        check(
+            "missing receipt: bound=0 mismatches=16", missing_repo, missing_rev, 1,
             {"population": "16", "bound": "0", "mismatches": "16", "met": "false"},
+            ["source=none"],
+        )
+
+        # uncommitted receipt: the worktree copy is ignored
+        uncommitted_repo, uncommitted_rev = make_fixture(parent, "uncommitted-receipt", frozen)
+        write(uncommitted_repo, uncommitted_rev)
+        check(
+            "uncommitted receipt: ignored, bound=0 mismatches=16",
+            uncommitted_repo, uncommitted_rev, 1,
+            {"population": "16", "bound": "0", "mismatches": "16", "met": "false"},
+            ["source=uncommitted", "worktree=only-worktree"],
         )
 
         # wrong digest
-        digest_repo, digest_rev = make_fixture(parent, "wrong-digest", frozen)
-        run_cli("--root", digest_repo, "--revision", digest_rev, "--write", "--date", "2026-11-03")
-        path = os.path.join(digest_repo, *RECEIPT_PATH.split("/"))
-        with open(path, encoding="ascii") as handle:
-            document = json.load(handle)
-        document["files"][0]["sha256"] = ("0" if document["files"][0]["sha256"][0] != "0" else "1") + document["files"][0]["sha256"][1:]
-        with open(path, "w", encoding="ascii", newline="\n") as handle:
-            handle.write(json.dumps(document, indent=2, ensure_ascii=True) + "\n")
-        expect(
-            "wrong digest: bound=15 mismatches=1", digest_repo, digest_rev, 1,
+        digest_repo, digest_subject = make_fixture(parent, "wrong-digest", frozen)
+        write(digest_repo, digest_subject)
+        def flip_sha(document):
+            entry = document["files"][0]
+            entry["sha256"] = ("0" if entry["sha256"][0] != "0" else "1") + entry["sha256"][1:]
+        digest_carrier = mutate(digest_repo, flip_sha, "receipt wrong digest")
+        check(
+            "wrong digest: bound=15 mismatches=1", digest_repo, digest_carrier, 1,
             {"population": "16", "bound": "15", "mismatches": "1", "met": "false"},
+            ["finding: digest "],
         )
 
         # wrong byte count
-        bytes_repo, bytes_rev = make_fixture(parent, "wrong-bytes", frozen)
-        run_cli("--root", bytes_repo, "--revision", bytes_rev, "--write", "--date", "2026-11-03")
-        path = os.path.join(bytes_repo, *RECEIPT_PATH.split("/"))
-        with open(path, encoding="ascii") as handle:
-            document = json.load(handle)
-        document["files"][1]["bytes"] += 1
-        with open(path, "w", encoding="ascii", newline="\n") as handle:
-            handle.write(json.dumps(document, indent=2, ensure_ascii=True) + "\n")
-        expect(
-            "wrong byte count: bound=15 mismatches=1", bytes_repo, bytes_rev, 1,
+        bytes_repo, bytes_subject = make_fixture(parent, "wrong-bytes", frozen)
+        write(bytes_repo, bytes_subject)
+        def bump_bytes(document):
+            document["files"][1]["bytes"] += 1
+        bytes_carrier = mutate(bytes_repo, bump_bytes, "receipt wrong bytes")
+        check(
+            "wrong byte count: bound=15 mismatches=1", bytes_repo, bytes_carrier, 1,
             {"population": "16", "bound": "15", "mismatches": "1", "met": "false"},
+            ["finding: bytes "],
         )
 
         # wrong mode flag
-        mode_repo, mode_rev = make_fixture(parent, "wrong-mode", frozen)
-        run_cli("--root", mode_repo, "--revision", mode_rev, "--write", "--date", "2026-11-03")
-        path = os.path.join(mode_repo, *RECEIPT_PATH.split("/"))
-        with open(path, encoding="ascii") as handle:
-            document = json.load(handle)
-        target = next(entry for entry in document["files"] if entry["selftest_mode"])
-        target["selftest_mode"] = False
-        with open(path, "w", encoding="ascii", newline="\n") as handle:
-            handle.write(json.dumps(document, indent=2, ensure_ascii=True) + "\n")
-        expect(
-            "wrong mode flag: bound=15 mismatches=1", mode_repo, mode_rev, 1,
+        mode_repo, mode_subject = make_fixture(parent, "wrong-mode", frozen)
+        write(mode_repo, mode_subject)
+        def flip_mode(document):
+            target = next(entry for entry in document["files"] if entry["selftest_mode"])
+            target["selftest_mode"] = False
+        mode_carrier = mutate(mode_repo, flip_mode, "receipt wrong mode")
+        check(
+            "wrong mode flag: bound=15 mismatches=1", mode_repo, mode_carrier, 1,
             {"population": "16", "bound": "15", "mismatches": "1", "met": "false"},
+            ["finding: mode-flag "],
         )
 
         # duplicate path
-        dup_repo, dup_rev = make_fixture(parent, "duplicate-path", frozen)
-        run_cli("--root", dup_repo, "--revision", dup_rev, "--write", "--date", "2026-11-03")
-        path = os.path.join(dup_repo, *RECEIPT_PATH.split("/"))
-        with open(path, encoding="ascii") as handle:
-            document = json.load(handle)
-        document["files"].append(dict(document["files"][0]))
-        with open(path, "w", encoding="ascii", newline="\n") as handle:
-            handle.write(json.dumps(document, indent=2, ensure_ascii=True) + "\n")
-        code, fields, output = run_cli("--root", dup_repo, "--revision", dup_rev, "--check")
-        record(
+        dup_repo, dup_subject = make_fixture(parent, "duplicate-path", frozen)
+        write(dup_repo, dup_subject)
+        def duplicate(document):
+            document["files"].append(dict(document["files"][0]))
+        dup_carrier = mutate(dup_repo, duplicate, "receipt duplicate")
+        check(
             "duplicate path: bound=15 mismatches=1, class duplicate",
-            code == 1 and fields.get("bound") == "15" and fields.get("mismatches") == "1"
-            and "duplicate" in output,
-            f"rc={code} fields={fields}\n{output}",
+            dup_repo, dup_carrier, 1,
+            {"population": "16", "bound": "15", "mismatches": "1", "met": "false"},
+            ["finding: duplicate "],
         )
 
-        # path outside the population
-        outside_repo, outside_rev = make_fixture(parent, "outside-population", frozen)
-        run_cli("--root", outside_repo, "--revision", outside_rev, "--write", "--date", "2026-11-03")
-        path = os.path.join(outside_repo, *RECEIPT_PATH.split("/"))
-        with open(path, encoding="ascii") as handle:
-            document = json.load(handle)
-        document["files"].append({
-            "path": "scripts/fixture_outside.py",
-            "sha256": "0" * 64,
-            "bytes": 0,
-            "selftest_mode": False,
-        })
-        document["files"].sort(key=lambda entry: entry["path"])
-        with open(path, "w", encoding="ascii", newline="\n") as handle:
-            handle.write(json.dumps(document, indent=2, ensure_ascii=True) + "\n")
-        code, fields, output = run_cli("--root", outside_repo, "--revision", outside_rev, "--check")
-        record(
+        # path outside the population: reported separately, not counted toward bound
+        outside_repo, outside_subject = make_fixture(parent, "outside-population", frozen)
+        write(outside_repo, outside_subject)
+        def add_outside(document):
+            document["files"].append({
+                "path": "scripts/fixture_outside.py",
+                "sha256": "0" * 64,
+                "bytes": 0,
+                "selftest_mode": False,
+            })
+            document["files"].sort(key=lambda entry: entry["path"])
+        outside_carrier = mutate(outside_repo, add_outside, "receipt outside")
+        check(
             "path outside population: reported separately, bound=16 mismatches=0",
-            code == 0 and fields.get("bound") == "16" and fields.get("mismatches") == "0"
-            and "outside: scripts/fixture_outside.py" in output,
-            f"rc={code} fields={fields}\n{output}",
+            outside_repo, outside_carrier, 0,
+            {"population": "16", "bound": "16", "mismatches": "0", "met": "true"},
+            ["outside: scripts/fixture_outside.py"],
         )
 
-        # receipt at another revision
-        rev_repo, rev_one = make_fixture(parent, "other-revision", frozen)
-        run_cli("--root", rev_repo, "--revision", rev_one, "--write", "--date", "2026-11-03")
-        with open(os.path.join(rev_repo, "README.md"), "w", encoding="utf-8") as handle:
-            handle.write("second revision\n")
-        _git_fixture(rev_repo, "add", "README.md")
-        _git_fixture(
-            rev_repo,
-            "-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid",
-            "-c", "commit.gpgsign=false", "commit", "-q", "-m", "second",
+        # declared revision of another commit, with one population blob changed since
+        stale_repo, stale_subject = make_fixture(parent, "other-revision-stale", frozen)
+        write(stale_repo, stale_subject)
+        with open(os.path.join(stale_repo, *frozen[0].split("/")), "ab") as handle:
+            handle.write(b"# changed after the receipt was written\n")
+        stale_carrier = commit_paths(stale_repo, [frozen[0], RECEIPT_PATH], "changed and receipt")
+        check(
+            "declared revision of another commit, changed blob: bound=15 mismatches=1",
+            stale_repo, stale_carrier, 1,
+            {"population": "16", "bound": "15", "mismatches": "1", "met": "false"},
+            ["finding: digest ", "declared_valid=true", "declared_match=false"],
         )
-        rev_two = _git_fixture(rev_repo, "rev-parse", "HEAD").strip()
-        expect(
-            "receipt at another revision: bound=0 mismatches=16", rev_repo, rev_two, 1,
+
+        # the receipt committed one commit after the revision it declares
+        same_repo, same_subject = make_fixture(parent, "other-revision-identical", frozen)
+        write(same_repo, same_subject)
+        same_carrier = commit_paths(same_repo, [RECEIPT_PATH], "receipt")
+        os.remove(os.path.join(same_repo, *RECEIPT_PATH.split("/")))
+        check(
+            "receipt committed after its declared revision: unchanged bytes bind",
+            same_repo, same_carrier, 0,
+            {"population": "16", "bound": "16", "mismatches": "0", "met": "true"},
+            ["source=committed", "worktree=absent", "declared_valid=true", "declared_match=false"],
+        )
+
+        # declared revision that does not resolve
+        bad_rev_repo, bad_rev_subject = make_fixture(parent, "revision-nonexistent", frozen)
+        write(bad_rev_repo, bad_rev_subject)
+        def missing_revision(document):
+            document["revision"] = "f" * 40
+        bad_rev_carrier = mutate(bad_rev_repo, missing_revision, "receipt bad revision")
+        check(
+            "declared revision that does not resolve: receipt_revision_invalid, bound=0",
+            bad_rev_repo, bad_rev_carrier, 1,
             {"population": "16", "bound": "0", "mismatches": "16", "met": "false"},
+            ["finding: receipt_revision_invalid ", "does not resolve"],
+        )
+
+        # declared revision that resolves but is not an ancestor of the measured revision
+        side_repo, side_subject = make_fixture(parent, "revision-not-ancestor", frozen)
+        write(side_repo, side_subject)
+        side = _git_fixture(
+            side_repo,
+            "-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid",
+            "-c", "commit.gpgsign=false", "commit-tree", side_subject + "^{tree}", "-m", "side",
+        ).strip()
+        def unrelated_revision(document):
+            document["revision"] = side
+        side_carrier = mutate(side_repo, unrelated_revision, "receipt unrelated revision")
+        check(
+            "declared revision not an ancestor: receipt_revision_invalid, bound=0",
+            side_repo, side_carrier, 1,
+            {"population": "16", "bound": "0", "mismatches": "16", "met": "false"},
+            ["finding: receipt_revision_invalid ", "is not an ancestor"],
         )
 
         # fabricated receipt: 16 paths, digests that do not re-derive
-        fab_repo, fab_rev = make_fixture(parent, "fabricated", frozen)
+        fab_repo, fab_subject = make_fixture(parent, "fabricated", frozen)
         path = os.path.join(fab_repo, *RECEIPT_PATH.split("/"))
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="ascii", newline="\n") as handle:
             handle.write(json.dumps({
                 "schema": SCHEMA,
-                "revision": fab_rev,
+                "revision": fab_subject,
                 "date": "2026-11-03",
                 "host": host_string(),
                 "files": [
@@ -911,33 +1004,36 @@ def selftest(work):
                     for item in frozen
                 ],
             }, indent=2, ensure_ascii=True) + "\n")
-        expect(
-            "fabricated receipt (16 paths): bound=0 mismatches=16", fab_repo, fab_rev, 1,
+        fab_carrier = commit_paths(fab_repo, [RECEIPT_PATH], "fabricated receipt")
+        check(
+            "fabricated receipt (16 paths): bound=0 mismatches=16",
+            fab_repo, fab_carrier, 1,
             {"population": "16", "bound": "0", "mismatches": "16", "met": "false"},
+            ["finding: digest "],
         )
 
         # a live row beyond the frozen 16 is in-population
         grown = frozen + [".ufo/waves/round-99/c99_extra.py"]
-        grown_repo, grown_rev = make_fixture(parent, "grown", grown)
-        write = run_cli("--root", grown_repo, "--revision", grown_rev, "--write", "--date", "2026-11-03")
-        expect(
+        grown_repo, grown_subject = make_fixture(parent, "grown", grown)
+        write(grown_repo, grown_subject)
+        grown_carrier = commit_paths(grown_repo, [RECEIPT_PATH], "receipt 17")
+        check(
             "live row beyond the frozen 16: population=17 bound=17",
-            grown_repo, grown_rev, 0,
+            grown_repo, grown_carrier, 0,
             {"population": "17", "bound": "17", "mismatches": "0", "met": "true"},
+            ["beyond_frozen=1"],
         )
 
         # a frozen path that the derivation no longer produces
-        dropped = frozen[0]
         shifted = frozen[1:] + [".ufo/waves/round-99/c99_replacement.py"]
-        short_repo, short_rev = make_fixture(parent, "missing-frozen", shifted)
-        run_cli("--root", short_repo, "--revision", short_rev, "--write", "--date", "2026-11-03")
-        code, fields, output = run_cli("--root", short_repo, "--revision", short_rev, "--check")
-        record(
+        short_repo, short_subject = make_fixture(parent, "missing-frozen", shifted)
+        write(short_repo, short_subject)
+        short_carrier = commit_paths(short_repo, [RECEIPT_PATH], "receipt missing frozen")
+        check(
             "missing_frozen=1 keeps met=false with bound=16 mismatches=0",
-            code == 1 and fields.get("population") == "16" and fields.get("bound") == "16"
-            and fields.get("mismatches") == "0" and fields.get("met") == "false"
-            and "missing_frozen=1" in output,
-            f"rc={code} fields={fields}\n{output}",
+            short_repo, short_carrier, 1,
+            {"population": "16", "bound": "16", "mismatches": "0", "met": "false"},
+            ["missing_frozen=1"],
         )
 
         # classifier unit checks (docstrings and argv lists never count)
@@ -962,7 +1058,7 @@ def selftest(work):
         record("classifier: add_argument, comparisons, docstrings, argv lists, .mjs", all(outcomes), str(outcomes))
 
         # usage: --write without --date, --selftest without --work
-        code, _fields, output = run_cli("--root", green, "--revision", green_rev, "--write")
+        code, _fields, output = run_cli("--root", green, "--revision", green_subject, "--write")
         code_work, _fields2, output_work = run_cli("--selftest")
         record(
             "usage: --write without --date exits 64, --selftest without --work exits 64",

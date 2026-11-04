@@ -1,0 +1,63 @@
+# C2 measurements — CriticPredicates, round 75 w1 (2026-11-03)
+# tool: w1/ExecC2Tool/instrument_receipts.py  sha256 a2005c6ad8043fd9e800e3cf57573df550aa8edde981df91ced4970099aff852
+# fixture repos: git clone --shared of an independent lane clone at c9c5e484; toplevel asserted; no lane mutation.
+
+## (a) base, no receipt
+$ python3 -B c2_tool.py --root <clone@c9c5e484> --revision c9c5e484... --check
+C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false
+  receipt: source=none worktree=absent declared=None declared_match=false declared_valid=false
+exit=1
+
+## (b) receipt present only in the worktree (A6)
+C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt exists only in the worktree (... 3397 bytes); committed bytes at c9c5e484... are required
+exit=1
+
+## (c) receipt declares 88f2e05 (not an ancestor of the measured commit) (A7)
+C2v1 revision=712d2a814866af6b5d191bd1ee15667e49f4d8e3 population=16 bound=0 mismatches=16 met=false
+  receipt: source=committed worktree=identical declared=88f2e05... declared_match=false declared_valid=false
+  finding: receipt_revision_invalid ... declared revision 88f2e05... is not an ancestor of the measured revision 712d2a81... (merge-base --is-ancestor exit 1)
+exit=1
+
+## (d) delivered 16-entry receipt committed at base, declared base
+C2v1 revision=e6fac078c59c3866e2cda7ed912d2b2bdbe24113 population=16 bound=16 mismatches=0 met=true
+  receipt: source=committed worktree=identical declared=c9c5e484... declared_match=false declared_valid=true
+exit=0
+
+## (e) ordering hazard: 16-entry receipt at an 18-file after-state (round rows present)
+C2v1 revision=2dec73d211e67e8b39254827ba7be1b49013a652 population=18 bound=16 mismatches=2 met=false
+  population: derived=18 frozen=16 missing_frozen=0 beyond_frozen=2
+  population: beyond-frozen .ufo/waves/round-75/c75_row_truth.py
+  population: beyond-frozen scripts/instrument_receipts.py
+  finding: missing .ufo/waves/round-75/c75_row_truth.py: receipt has no entry for this path
+exit=1
+
+## (f) same tree, receipt rewritten at the tip and committed
+C2v1 revision=9f1d8368ef674ce66c6cf52298bc0179105b1825 population=18 bound=18 mismatches=0 met=true
+  receipt: source=committed worktree=identical declared=2dec73d2... declared_match=false declared_valid=true
+exit=0
+  receipt entries: 18, declared 2dec73d2...
+
+## (g) delivered C2 tool's own selftest
+$ python3 -B w1/ExecC2Tool/instrument_receipts.py --selftest --work <scratch>       -> selftest: 4/15, exit 1
+$ python3 -B w1/ExecC2Receipts/instrument_receipts.py --selftest --work <scratch>   -> selftest 23/23 checks passed, exit 0
+## (f) and (g) run with fresh HOME and TMPDIR under the seat's scratch; (g) also inside the C1 counter's harness (same result).
+
+## pre-amendment reference reader (not tool evidence): w1/CriticPredicates/refcheck_c2.py
+##   base, derive=skill      -> population=16 bound=0  mismatches=16 met=false
+##   base+receipt, derive=skill -> population=16 bound=16 mismatches=0 met=true
+##   empty receipt, derive=receipt -> population=0 bound=0 mismatches=0 met=true   (vacuity of the frozen equation)
+
+## (h) blob comparison, measured directly
+# ExecC2Receipts copy f1666904 (30,006 B): --selftest 23/23, exit 0
+#   worktree-only receipt  -> source=uncommitted, bound=0 mismatches=16 met=false, exit 1   (A6 enforced)
+#   descendant-declared    -> declared_valid=false, bound=0 mismatches=16 met=false, exit 1 (A7 enforced)
+#   18-file tip, 16-entry  -> population=18 bound=16 mismatches=2 met=false, exit 1
+# ExecC2Tool copy a2005c6a (49,634 B): --selftest 4/15, exit 1  (log: c2-selftest-a2005c6a.txt)
+#   same A6/A7/floor behaviour as f1666904 on all three states
+#   failing fixtures: green write+check (check_rc=1), wrong digest/bytes/mode, duplicate path,
+#   outside-population, other-revision, committed-after-revision, strict-committed (rc=64: the removed
+#   --require-committed flag is still passed at c2_tool.py:958,967), live-row-beyond-16, missing_frozen
+# receipts in ExecC2Receipts print tool sha256=62b795ea... -> neither delivered blob; their label shape
+#   "receipt: worktree committed=absent" matches neither (both print "receipt: source=... worktree=...").

@@ -1,0 +1,125 @@
+C1v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 rows=28 live=16 files=16 mismatches=2 classes=E1 E3 append_only=true met=false
+  finding: E1 .ufo/waves/round-69/c69_tmp_honour.py: Kind is gate without a self-test mode or a declared differential
+  finding: E3 .ufo/waves/round-74/c74_registry_gap.py: cell enumerates 5 fixture ids, observed total 8
+{
+  "revision": "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+  "findings": [
+    "E1 .ufo/waves/round-69/c69_tmp_honour.py: Kind is gate without a self-test mode or a declared differential",
+    "E3 .ufo/waves/round-74/c74_registry_gap.py: cell enumerates 5 fixture ids, observed total 8"
+  ],
+  "results": [
+    {
+      "file": ".ufo/waves/round-52/c52_wave_ledger.py",
+      "row_line": 1215,
+      "family": "gate",
+      "command": "python3 -B .ufo/waves/round-52/c52_wave_ledger.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-57/c57_idresolver_gate.py",
+      "row_line": 1274,
+      "family": "gate",
+      "command": null
+    },
+    {
+      "file": ".ufo/waves/round-58/c58_receipt_rewrites.py",
+      "row_line": 1293,
+      "family": "gate",
+      "command": "TMPDIR=<scratch> python3 -B .ufo/waves/round-58/c58_receipt_rewrites.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-58/c58_resolver_cases.py",
+      "row_line": 1294,
+      "family": "gate",
+      "command": "TMPDIR=<scratch> python3 -B .ufo/waves/round-58/c58_resolver_cases.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-59/c59_axis_evidence.py",
+      "row_line": 1307,
+      "family": "gate",
+      "command": "python3 -B .ufo/waves/round-59/c59_axis_evidence.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-59/c59_resolver_cases.py",
+      "row_line": 1308,
+      "family": "gate",
+      "command": "TMPDIR=<scratch> python3 -B .ufo/waves/round-59/c59_resolver_cases.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-66/c66_gate_status_hostportable.py",
+      "row_line": 1396,
+      "family": "gate",
+      "command": "python -B .ufo/waves/round-66/c66_gate_status_hostportable.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-69/c69_recorded_counts.py",
+      "row_line": 1425,
+      "family": "gate",
+      "command": "python3 -B .ufo/waves/round-69/c69_recorded_counts.py --selftest --work <dir>",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-69/c69_tmp_honour.py",
+      "row_line": 1426,
+      "family": "gate",
+      "command": null,
+      "mismatch": "E1"
+    },
+    {
+      "file": ".ufo/waves/round-72/c72_tmp_v2.py",
+      "row_line": 1430,
+      "family": "gate",
+      "command": "python3 -B .ufo/waves/round-72/c72_tmp_v2.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-73/c73_tmp_v3.py",
+      "row_line": 1404,
+      "family": "gate",
+      "command": "python3 -B .ufo/waves/round-73/c73_tmp_v3.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-73/c73_wave_pointers.py",
+      "row_line": 1431,
+      "family": "gate",
+      "command": "python3 -B .ufo/waves/round-73/c73_wave_pointers.py --selftest [--work <dir>]",
+      "exit": 0
+    },
+    {
+      "file": ".ufo/waves/round-74/c74_registry_gap.py",
+      "row_line": 1432,
+      "family": "gate",
+      "command": "python3 -B .ufo/waves/round-74/c74_registry_gap.py --selftest",
+      "exit": 0,
+      "mismatch": "E3"
+    },
+    {
+      "file": "scripts/citation_lint.py",
+      "row_line": 1199,
+      "family": "gate",
+      "command": "python3 -B scripts/citation_lint.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": "scripts/id_resolver.py",
+      "row_line": 1276,
+      "family": "tool",
+      "command": "python3 -B scripts/id_resolver.py --selftest",
+      "exit": 0
+    },
+    {
+      "file": "scripts/redirect_audit.py",
+      "row_line": 1198,
+      "family": "gate",
+      "command": "python3 -B scripts/redirect_audit.py --selftest",
+      "exit": 0
+    }
+  ],
+  "append_only": true
+}

@@ -1,0 +1,70 @@
+{
+  "sha256": "62b795eaa8ad446d28daa433ff203b4961ac96f326888e7989f39859828749c9",
+  "results": [
+    {
+      "name": "write",
+      "command": [
+        "python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.updated.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--write",
+        "--date",
+        "2026-11-03"
+      ],
+      "exit": 0,
+      "stdout": "wrote corpus/knowledge/instrument-receipts.json revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 missing_frozen=0 sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69 bytes=3397\n",
+      "stderr": ""
+    },
+    {
+      "name": "default-uncommitted",
+      "command": [
+        "python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.updated.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n",
+      "stderr": ""
+    },
+    {
+      "name": "strict-uncommitted",
+      "command": [
+        "python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.updated.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check",
+        "--require-committed"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: uncommitted receipt: --require-committed and the receipt bytes are not committed at --revision or HEAD\n",
+      "stderr": ""
+    },
+    {
+      "name": "updated-selftest",
+      "command": [
+        "python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.updated.py",
+        "--selftest",
+        "--work",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/updated-selftest"
+      ],
+      "exit": 0,
+      "stdout": "selftest: ok green: write, idempotent rewrite, check, emit-population\nselftest: ok missing receipt file: bound=0 mismatches=16\nselftest: ok wrong digest: bound=15 mismatches=1\nselftest: ok wrong byte count: bound=15 mismatches=1\nselftest: ok wrong mode flag: bound=15 mismatches=1\nselftest: ok duplicate path: bound=15 mismatches=1, class duplicate\nselftest: ok path outside population: reported separately, bound=16 mismatches=0\nselftest: ok receipt at another revision, changed blob: bound=15 mismatches=1, revision_match=false\nselftest: ok receipt committed after its revision: unchanged bytes bind, receipt=committed\nselftest: ok strict committed: uncommitted receipt red, committed receipt green\nselftest: ok fabricated receipt (16 paths): bound=0 mismatches=16\nselftest: ok live row beyond the frozen 16: population=17 bound=17\nselftest: ok missing_frozen=1 keeps met=false with bound=16 mismatches=0\nselftest: ok classifier: add_argument, comparisons, docstrings, argv lists, .mjs\nselftest: ok usage: --write without --date exits 64, --selftest without --work exits 64\nselftest: fixtures under /fast/scratch/hyaku/kake-r75/ReviewerC2/updated-selftest/fx-i4dwep3x\nselftest: 15/15\n",
+      "stderr": ""
+    }
+  ]
+}

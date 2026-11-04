@@ -1,9 +1,9 @@
-$ python3 -B instrument_receipts.py --root . --revision c9c5e484c533aa65f4374b841a3edcf572ed19a9 --check --c1-tool /fast/scratch/hyaku/kake-r75/ExecC2Receipts/tool/c75_row_truth.py
-(cwd=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/lane-base)
-control: expect bound=15 mismatches=1 met=false exit 1
-C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=15 mismatches=1 met=false missing_frozen=0
-  note: receipt=corpus/knowledge/instrument-receipts.json source=worktree receipt_revision=c9c5e484c533
-  crosscheck: c2_population=16 c1_counter=16 equal=true source=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/tool/c75_row_truth.py
-  finding: scripts/citation_lint.py: selftest_mode False != static registration True
+$ python3 -B instrument_receipts.py --root . --revision 48f55852fcb8f5d3f3454d908623aae6dac61237 --check
+(tool sha256=162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7; cwd=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/ctl-clone)
+control: expect bound=15 mismatches=1 met=false exit 1 (committed at 48f55852fcb8f5d3f3454d908623aae6dac61237)
+C2v1 revision=48f55852fcb8f5d3f3454d908623aae6dac61237 population=16 bound=15 mismatches=1 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=committed worktree=identical declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true
+  finding: mode-flag scripts/citation_lint.py: receipt False != derived True
 
 exit=1

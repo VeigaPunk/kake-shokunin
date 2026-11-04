@@ -1,0 +1,40 @@
+=== F01 exit=1
+C1v1 revision=fa685a7e713cb7e58dafe4858aaaf41aa470de3f rows=1 live=1 files=1 mismatches=1 classes=E1 append_only=true met=false
+  finding: E1 scripts/bad75.py: Kind is gate without a self-test mode or a declared differential
+=== F02 exit=1
+C1v1 revision=69e809836262a3468c260f5358b4860bac67dc80 rows=1 live=1 files=1 mismatches=1 classes=E4 append_only=true met=false
+  finding: E4 path scripts/ghost75.py does not resolve at 69e809836262a3468c260f5358b4860bac67dc80
+=== F03 exit=0
+C1v1 revision=3df026bf810eeffa74ea41966827ed1c412c02b3 rows=2 live=2 files=1 mismatches=0 classes=- append_only=true met=true
+=== F03M-mismatch exit=0
+C1v1 revision=ec51490b3b291710fba6476cf406d9f66a3a8a6f rows=2 live=2 files=1 mismatches=0 classes=- append_only=true met=true
+=== F04-base exit=0
+C1v1 revision=15eba942f0daec872ce82c663e49f826fda2739c rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true
+=== F04-false-supersede exit=1
+C1v1 revision=43b98430489ddafa8f53a515ced1615c2970c2fc rows=2 live=2 files=1 mismatches=2 classes=E2 E3 append_only=true met=false
+  finding: E2 scripts/tally3.py: cell claims 4/4, observed 3/3
+  finding: E3 scripts/tally3.py: cell enumerates 4 fixture ids, observed total 3
+=== F05 exit=1
+C1v1 revision=5c94144b0ac1975cb023ecad049785680ca2b779 rows=1 live=1 files=1 mismatches=1 classes=E1 append_only=true met=false
+  finding: E1 scripts/quiet75.py: Kind is gate without a self-test mode or a declared differential
+=== F06a-no-diff exit=1
+C1v1 revision=4f5db2fa55407756e3afeb1af0ab156c413af81a rows=1 live=1 files=1 mismatches=1 classes=E1 append_only=true met=false
+  finding: E1 scripts/hostportable.py: Kind is gate without a self-test mode or a declared differential
+=== F06b-with-diff-word exit=0
+C1v1 revision=40f3083c1bfad2bf3de0df29b04091e2c361a510 rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true
+=== F07-ids-equal-green exit=0
+C1v1 revision=72ce0b98a0b7b77ff700c74ceafd391d44fb07a6 rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true
+=== F08-id-short exit=1
+C1v1 revision=4f431c2e015c6d23f48d0f40e22fda9682b5eb30 rows=1 live=1 files=1 mismatches=1 classes=E3 append_only=true met=false
+  finding: E3 scripts/t4.py: cell enumerates 3 fixture ids, observed total 4
+=== F09-silent exit=1
+C1v1 revision=78d68267c1e622b9191073d56fd603ccbb774c40 rows=1 live=1 files=1 mismatches=1 classes=E2 append_only=true met=false
+  finding: E2 scripts/silent75.py: cell claims 3/3, no tally in output
+=== F10-deletion exit=1
+C1v1 revision=bda16475ec13e977706dd0eedf4d4b41475f2b8d rows=0 live=0 files=0 mismatches=1 classes=- append_only=false met=false
+  finding: append_only: base row 'doomed counter' is gone
+=== F11-shrink exit=0
+C1v1 revision=543ab1fd6ca9a94a053e5613bdc78cbb6ac4a206 rows=3 live=3 files=2 mismatches=0 classes=- append_only=true met=true
+=== F12-appended-broken exit=1
+C1v1 revision=df38c3c8c3180247e18565af1a25432f32ec4f50 rows=2 live=2 files=2 mismatches=1 classes=E1 append_only=true met=false
+  finding: E1 .ufo/waves/round-75/c75_row_truth.py: recorded self-test exits 1

@@ -1,0 +1,21 @@
+diff --git a/SKILL.md b/SKILL.md
+index 4b3d31cc..ba3036cf 100644
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -1434,3 +1434,9 @@ names its successor and the class, and the old cell is never edited in place.
+ **How to verify.** Run `python3 -B .ufo/waves/round-74/c74_registry_gap.py --root . --revision <rev>`; it must exit 0 with `unregistered=0`, the own-row conjunct satisfied (`own_row=true`), and every population line carrying `file_exit=0`.
+ Expected after line, not yet observed since no after-state exists at this draft: `unregistered=0 met=true`, exit 0.
+ Base control: the same command at `ced2878a` reproduces `.ufo/waves/round-74/controls/base-c1-registry.txt` — `c73_tmp_v3.py rows=1`, the other seven `rows=0`, `unregistered=7 met=false`, exit 1.
++
++### Round 75 gate registry additions
++
++| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
++|---|---|---|---|---|---|---|---|
++| scripts/filler75.py | gate | python3 scripts/filler75.py --root . | 0=met | `python3 scripts/filler75.py --selftest` (3/3) | dash | reports only | ReviewerC1 |
+diff --git a/scripts/filler75.py b/scripts/filler75.py
+new file mode 100644
+index 00000000..fef31660
+--- /dev/null
++++ b/scripts/filler75.py
+@@ -0,0 +1 @@
++print("3/3")

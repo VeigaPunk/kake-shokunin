@@ -1,0 +1,9 @@
+$ python3 -B instrument_receipts.py --root . --revision ae9e49be82463bd07a852362ad2544dbc5891dbd --check
+(tool sha256=162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7; cwd=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/ctl-clone)
+control: the receipt names ancestor A=e5ce54afe06b and carries the digest the blob had there; the measured commit ae9e49be8246 reverted the edit, so exactly that entry does not re-derive at the measured revision
+C2v1 revision=ae9e49be82463bd07a852362ad2544dbc5891dbd population=16 bound=15 mismatches=1 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=committed worktree=identical declared=e5ce54afe06bd3d6cde469d53561d5585c7f44a0 declared_match=false declared_valid=true
+  finding: digest scripts/citation_lint.py: receipt c2e7a113f525... != committed 0beba6478ce4...
+
+exit=1

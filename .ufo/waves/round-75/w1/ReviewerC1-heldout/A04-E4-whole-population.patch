@@ -1,0 +1,15 @@
+diff --git a/SKILL.md b/SKILL.md
+index 4b3d31cc..c809692e 100644
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -1434,3 +1434,10 @@ names its successor and the class, and the old cell is never edited in place.
+ **How to verify.** Run `python3 -B .ufo/waves/round-74/c74_registry_gap.py --root . --revision <rev>`; it must exit 0 with `unregistered=0`, the own-row conjunct satisfied (`own_row=true`), and every population line carrying `file_exit=0`.
+ Expected after line, not yet observed since no after-state exists at this draft: `unregistered=0 met=true`, exit 0.
+ Base control: the same command at `ced2878a` reproduces `.ufo/waves/round-74/controls/base-c1-registry.txt` — `c73_tmp_v3.py rows=1`, the other seven `rows=0`, `unregistered=7 met=false`, exit 1.
++
++### Round 75 gate registry additions
++
++| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
++|---|---|---|---|---|---|---|---|
++| c69_tmp_honour.py | instrument (superseding row; offline) | `python3 -B .ufo/waves/round-69/c69_tmp_honour.py --root <lane> --revision <rev> --work <scratch dir> [--baseline <rev>]` | `0=met` (`tmp_literals=0 selftest_under_tmpdir=true offline_unchanged=true`); `1=not met or runtime fault` (a failed `git show`, a missing `node`, or an absent sweep file raises a message and exits 1 — no separate fault code, named limitation); `2=usage` (argparse) | none (no self-test mode; `--selftest` is an argparse error, exit 2 — the counter's own three terms are exercised by the base and after controls, and its nested sweep `--selftest` is not a counter fixture suite) | predicate frozen `.ufo/waves/round-69/contract.md` section C2 plus Amendment 1 (`offline_exit=0` replaced by `offline_unchanged=true` against the frozen baseline); do-nothing control `.ufo/waves/round-69/controls/c2-base.txt` at `4d188f94` (`tmp_literals=2 selftest_under_tmpdir=false offline_unchanged=true`, exit 1); after `.ufo/waves/round-69/controls/c2-after-t1.txt` at `c182f579` (`tmp_literals=0 selftest_under_tmpdir=true offline_unchanged=true`, exit 0); baseline default `4d188f94`; round-74 base `ced2878a` is green (same three `true` values, exit 0) | offline; materialises the revision tree with `git archive` under `--work`; runs `node scripts/freshness-sweep.mjs` in that tree; writes nothing outside `--work` | kake round 69 (counter by wave-1 seat ExecC2Fix; row by the L1 in round 74) |
++| c74_registry_gap.py | gate | python3 -B .ufo/waves/round-74/c74_registry_gap.py --root . | 0=met | `python3 -B .ufo/waves/round-74/c74_registry_gap.py --selftest` (8/8) | proof path scripts/does_not_exist.py | reports only | ReviewerC1 |

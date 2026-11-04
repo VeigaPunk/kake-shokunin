@@ -1,0 +1,14 @@
+$ (cd /fast/scratch/hyaku/kake-r75/ExecC2Receipts/final-clone) python3 -B instrument_receipts.py --root . --revision c9c5e484c533aa65f4374b841a3edcf572ed19a9 --write --date 2026-11-03
+(tool: canonical ExecC2Tool writer sha256=162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7)
+wrote corpus/knowledge/instrument-receipts.json revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 missing_frozen=0 sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69 bytes=3397
+exit=0
+wrote corpus/knowledge/instrument-receipts.json revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 missing_frozen=0 sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69 bytes=3397
+
+second write (same clone, nothing committed between the two runs):
+  wrote sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69 bytes=3397
+  cmp of the two writes: identical
+  carrier commit C2=f51d9ce418b911281b81809d2a06cc81096039ff (base c9c5e484c533aa65f4374b841a3edcf572ed19a9 + corpus/knowledge/instrument-receipts.json only)
+  admitted check at C2: C2v1 revision=f51d9ce418b911281b81809d2a06cc81096039ff population=16 bound=16 mismatches=0 met=true
+  receipt_path=corpus/knowledge/instrument-receipts.json
+  receipt_sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69
+  receipt_bytes=3397

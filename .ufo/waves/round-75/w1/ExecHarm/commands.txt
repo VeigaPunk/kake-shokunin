@@ -1,0 +1,76 @@
+# ExecHarm — exact commands, revisions and exits (2026-11-03, host linux-x86_64)
+
+Toolchain: node v24.21.0, Python 3.14.8, git at lane checkout.
+Base revision under measurement: c9c5e484c533aa65f4374b841a3edcf572ed19a9
+Lane HEAD when the scan closed: d599c8be (round-75 amendment 2); freeze 88f2e05f.
+
+Scratch:
+  S=/fast/scratch/hyaku/kake-r75/ExecHarm
+  base clone: $S/lane = git clone --shared <lane> then git checkout --detach c9c5e484  (scratch outside clone)
+  fixtures:   $S/probe, probe2, probe3, probe4, probe5 = git clone --shared <lane> at c9c5e484, one local commit each
+  every run with an explicit TMPDIR/HOME under $S (never an inherited TMPDIR):
+    - "fresh HOME" runs: HOME=$S/home TMPDIR=$S/tmp (or $S/tmp/probe)
+    - "real HOME" runs:  HOME=/home/vgpnk TMPDIR=$S/tmp/probe
+  git toplevel asserted (= $S/<clone>) before the first commit in every fixture.
+
+## Base battery (cwd=$S/lane, revision c9c5e484)
+  node scripts/freshness-sweep.mjs --selftest                                  exit 0   selftest: 36/36 passed
+  node scripts/freshness-sweep.mjs --offline   (fresh HOME)                     exit 1   VERDICT: DRIFT — 23 unannotated miss · 4 NOT in pins.pathsMissSet
+  HOME=/home/vgpnk node scripts/freshness-sweep.mjs --offline                   exit 1   VERDICT: DRIFT — 1 unannotated miss · 1 NOT in pins.pathsMissSet
+  python3 -B .ufo/waves/round-66/c66_gate_status_hostportable.py --root . --revision c9c5e484  exit 0  members=28 evaluated=28 mismatches=3 structural=0 agreement=25 scores_held=3/3 met=True
+  python3 -B .ufo/waves/round-70/c70_pointer_audit.py --root . --revision c9c5e484  (fresh HOME) exit 1  pointers=373 dangling=20 annotated=17 unannotated=3 met=false
+  HOME=/home/vgpnk python3 -B .ufo/waves/round-70/c70_pointer_audit.py ... --revision c9c5e484   exit 0  pointers=373 dangling=17 annotated=17 unannotated=0 met=true
+  python3 -B .ufo/waves/round-72/c72_tmp_v2.py --lane . --revision c9c5e484     exit 0   brace_findings=0 command_findings=0 prose_findings=0 findings=[] removed=8 added=48 guard=ok met=True
+  python3 -B .ufo/waves/round-73/c73_tmp_v3.py --revision c9c5e484             exit 0   attack_accepted=0/0 legit_rejected=0/0 selftest=41/41 findings=[] met=True
+  python3 -B .ufo/waves/round-73/c73_wave_pointers.py --root . --revision c9c5e484  exit 0  pointers=9 dead=2 annotated=2 unannotated=0 append_only=true met=true
+  python3 -B .ufo/waves/round-74/c74_registry_gap.py --root . --revision c9c5e484   exit 0  population=8 unregistered=0 own_row=true met=true
+  python3 -B .ufo/waves/round-74/c74_registry_gap.py --selftest --work <scratch>    exit 0  selftest 8/8
+  python3 -B .ufo/waves/round-74/c74_sidecar_reobserve.py --root . --revision c9c5e484  (fresh HOME) exit 1  entries=174 restored_absent=170 contradictions=170 met=false
+  HOME=/home/vgpnk python3 -B .ufo/waves/round-74/c74_sidecar_reobserve.py ... --revision c9c5e484  exit 0  entries=174 restored_present=170 contradictions=0 annotation_findings=0 met=true
+
+## Append-at-EOF probes (each a clone at c9c5e484 + one local commit)
+  clean append, first new line 1437 (below the largest pin 935):
+    probe    a906ce2d227938347b041389972259e3e98f136c   10 lines: 2 superseding rows (c69_tmp_honour instrument, c74_registry_gap instrument)
+  row naming an uncommitted instrument path (scripts/instrument_receipts.py):
+    probe2   74975c3f65e2a950a97d9c7b27507c2f0952791b   8 lines
+  /tmp literal in appended prose (SKILL.md:1442):
+    probe3   cf2b679504e19a27b70b735143bbe56346e9acb0   6 lines
+  absent home token in appended prose (SKILL.md:1442):
+    probe5   a28c668da74b0db94eee5e2ea4ed32862b456baf   6 lines
+  mid-file insertion above line 935 (shifts every pin):
+    probe4   1e73238894e919b0bdba60f0d435b0903f00b7c4   +1 line after SKILL.md:933
+
+  Abnormal exits introduced by the probes (all other gate runs kept the base verdict):
+    probe3: c72_tmp_v2 exit 1  findings=[(1442, 0, 0, 1)] prose_findings=1 guard=fail met=False
+            c73_tmp_v3 exit 1  findings=[('skill', 1442, 0, 0, 1)] met=False
+            c66 exit 0 (members=28 evaluated=28 mismatches=3 structural=0 agreement=25 scores_held=3/3 met=True)
+            c70 exit 0, c73_wave_pointers exit 0, c74_registry_gap exit 0, c74_sidecar exit 0
+    probe4: freshness-sweep --offline exit 2  "paths sidecar binding invalid: SKILL.md:935"
+    probe5: freshness-sweep --offline exit 1  drift 1 -> 2; adds ~/Projects/execharm-probe-absent (SKILL.md:1442)
+    probe:  c72_tmp_v2 added 48 -> 58; probe2 -> 56; probe3 -> 54; probe5 -> 54 (line diff, informational)
+    probe, probe2, probe5: c66, c70, c72, c73_tmp_v3, c73_wave_pointers, c74_registry_gap, c74_sidecar all kept exit 0
+    probe4: c74_sidecar stayed exit 0 met=true (it does not validate line digests)
+
+## Scratch honesty of the round's new instruments
+  .ufo/waves/round-75/c75_row_truth.py at 88f2e05f sha256 43538343c1f26e15a795f5486a6daca977c88ef5fa4458adacd2c68a00a596ce
+    grep -n '/tmp'            -> no hit (exit 1)
+    grep -n 'tempfile\.'      -> no hit (exit 1; line 37 `import tempfile` is unused)
+    python3 -B .ufo/waves/round-75/c75_row_truth.py --root . --revision c9c5e484   (without --work)
+                              -> exit 64 "64 usage: --work <dir> is required"
+    clone target <work>/tree, HOME/TMPDIR = <work>/scratch/{home,tmp}: scratch is a sibling of the clone.
+  .ufo/waves/round-75/w1/ExecC2Tool/instrument_receipts.py (uncommitted at measurement; pinned copy)
+    sha256 60312744a8402343bab13128a35a263f97c3a0296093fec4671e83ebb725f1c7, 1081 lines
+    grep -n '/tmp'            -> no hit (exit 1)
+    line 94 import tempfile; line 754 tempfile.mkdtemp(prefix="fx-", dir=work)
+    --selftest --work <scratch>  -> exit 0, selftest: 14/14
+    --selftest (no --work)       -> exit 64 "64 usage: --selftest requires --work <dir>"
+  corpus/knowledge/instrument-receipts.json: absent (no C2 receipt produced at scan time)
+
+## Sidecar bounds
+  corpus/knowledge/freshness-sidecar.json: 174 entries; 25 with file=SKILL.md; max pinned line 935
+  SKILL.md: 1436 lines at c9c5e484 and at HEAD d599c8be; SHA-256 at base 2843f395bbb6b8cd8e5ec187221ff43debb68a129b9ee5eb04e7b31e5949dde9 (209459 B)
+  clean probe SKILL.md SHA-256 d83053854c07fae0ede2a80cb520cfc697b642db7873c03cda1547cbe8d7bf74 (210481 B)
+
+## Scope
+  No lane file was created, edited or deleted by this seat; no git mutation was run in the lane.
+  Every fixture commit was made inside $S/<clone> after asserting `git rev-parse --show-toplevel`.

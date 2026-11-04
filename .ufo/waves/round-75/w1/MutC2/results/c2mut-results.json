@@ -1,0 +1,2163 @@
+{
+  "tool": "/fast/scratch/hyaku/kake-r75/MutationTesterC2/ref/instrument_receipts.py",
+  "sha256": "9edcb78475400763c80878b6ec37d4a3ad1f74ab46b4a319e7399d6c27c51734",
+  "pristine_green": {
+    "exit": 0,
+    "stdout": "C2v1 revision=b58e9061d7410c339a4fa33346263e010c10396a population=3 bound=3 mismatches=0 met=true\n",
+    "stderr": "",
+    "met": true,
+    "population": 3,
+    "bound": 3,
+    "mismatches": 0
+  },
+  "mutants": [
+    {
+      "id": "C2-M1",
+      "mutation": "skip the digest comparison",
+      "dimension": "digest binding",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 10/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "fab_digest"
+      ],
+      "broken_states": [],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M2",
+      "mutation": "weaken the digest comparison to a length proxy (bytes instead of sha256)",
+      "dimension": "digest binding",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 10/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "fab_digest"
+      ],
+      "broken_states": [],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M3",
+      "mutation": "accept a missing receipt entry as bound",
+      "dimension": "population completeness",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 9/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "missing",
+        "combined"
+      ],
+      "broken_states": [],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M4",
+      "mutation": "count a path outside the population (derive population from the receipt)",
+      "dimension": "population completeness",
+      "selftest_exit": 0,
+      "selftest_tail": [
+        "C2v1 selftest 11/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 4
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 4
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [],
+      "broken_states": [
+        "extra: shape divergence (mutant pop=4 bound=4 vs pristine pop=3 bound=3)"
+      ],
+      "verdict": "SURVIVED its selftest; killed by independent probe"
+    },
+    {
+      "id": "C2-M5",
+      "mutation": "treat selftest_mode as always true",
+      "dimension": "mode binding",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 10/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "mode"
+      ],
+      "broken_states": [
+        "green: shape divergence (mutant pop=3 bound=2 vs pristine pop=3 bound=3)",
+        "extra: shape divergence (mutant pop=3 bound=2 vs pristine pop=3 bound=3)"
+      ],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M6",
+      "mutation": "read the working tree instead of the committed blob",
+      "dimension": "blob provenance",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 10/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "dirty"
+      ],
+      "broken_states": [],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M7",
+      "mutation": "ignore the receipt's revision",
+      "dimension": "blob provenance",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 10/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "stale"
+      ],
+      "broken_states": [],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M8",
+      "mutation": "write the receipt unsorted (reverse order)",
+      "dimension": "write idempotence",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 10/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": false,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [],
+      "broken_states": [
+        "write_format"
+      ],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M9",
+      "mutation": "drop the trailing newline from the written receipt",
+      "dimension": "write idempotence",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 10/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": false,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [],
+      "broken_states": [
+        "write_format"
+      ],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M10",
+      "mutation": "swallow a git failure and report unevaluable as met",
+      "dimension": "fault handling",
+      "selftest_exit": 0,
+      "selftest_tail": [
+        "C2v1 selftest 11/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 0
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "fault"
+      ],
+      "broken_states": [],
+      "verdict": "SURVIVED (red state still green)"
+    },
+    {
+      "id": "C2-M11",
+      "mutation": "accept a duplicated path (last entry wins)",
+      "dimension": "entry uniqueness",
+      "selftest_exit": 1,
+      "selftest_tail": [
+        "C2v1 selftest 10/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "dup"
+      ],
+      "broken_states": [],
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M12",
+      "mutation": "accept one receipt entry covering two paths",
+      "dimension": "entry uniqueness",
+      "selftest_exit": 0,
+      "selftest_tail": [
+        "C2v1 selftest 11/11"
+      ],
+      "states": [
+        {
+          "state": "green",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_digest",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "fab_bytes",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "missing",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "extra",
+          "expect": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "mode",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dirty",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "stale",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "dup",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          }
+        },
+        {
+          "state": "combined",
+          "expect": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 3
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 3
+          }
+        },
+        {
+          "state": "fault",
+          "expect": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null
+          }
+        }
+      ],
+      "write": {
+        "write_exit": 0,
+        "second_exit": 0,
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "entries": 3
+      },
+      "missed_red_states": [
+        "combined"
+      ],
+      "broken_states": [],
+      "verdict": "SURVIVED (red state still green)"
+    }
+  ],
+  "pristine_write": {
+    "write_exit": 0,
+    "second_exit": 0,
+    "sorted": true,
+    "newline": true,
+    "idempotent": true,
+    "entries": 3
+  }
+}

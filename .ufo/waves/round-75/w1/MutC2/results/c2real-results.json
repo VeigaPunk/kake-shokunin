@@ -1,0 +1,2807 @@
+{
+  "tool": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-75/w1/ExecC2Tool/instrument_receipts.py",
+  "tool_sha256": "162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7",
+  "selftest": {
+    "exit": 0,
+    "cases": {
+      "green: write, idempotent rewrite, committed, check at carrier, emit-population": true,
+      "missing receipt: bound=0 mismatches=16": true,
+      "uncommitted receipt: ignored, bound=0 mismatches=16": true,
+      "wrong digest: bound=15 mismatches=1": true,
+      "wrong byte count: bound=15 mismatches=1": true,
+      "wrong mode flag: bound=15 mismatches=1": true,
+      "duplicate path: bound=15 mismatches=1, class duplicate": true,
+      "path outside population: reported separately, bound=16 mismatches=0": true,
+      "declared revision of another commit, changed blob: bound=15 mismatches=1": true,
+      "receipt committed after its declared revision: unchanged bytes bind": true,
+      "declared revision that does not resolve: receipt_revision_invalid, bound=0": true,
+      "declared revision not an ancestor: receipt_revision_invalid, bound=0": true,
+      "fabricated receipt (16 paths): bound=0 mismatches=16": true,
+      "live row beyond the frozen 16: population=17 bound=17": true,
+      "missing_frozen=1 keeps met=false with bound=16 mismatches=0": true,
+      "classifier: add_argument, comparisons, docstrings, argv lists, .mjs": true,
+      "usage: --write without --date exits 64, --selftest without --work exits 64": true
+    }
+  },
+  "states": {
+    "good": {
+      "rev": "f22a50ee927f8a6f496b0a3037f684517d7bb6c8",
+      "kind": "green"
+    },
+    "fab_digest": {
+      "rev": "e1c12bc470646c19fd679871eec239541973ffdb",
+      "kind": "red"
+    },
+    "fab_bytes": {
+      "rev": "6906825d3bcd1c42fb5a1c2d8ef4882ce0be5063",
+      "kind": "red"
+    },
+    "mode_false": {
+      "rev": "3564beb32d81426b51e36fa9413f7987f1fbda85",
+      "kind": "red"
+    },
+    "mode_true": {
+      "rev": "9a48afd873631a0e851e83ae41b2a319bf6fb5cc",
+      "kind": "red"
+    },
+    "missing": {
+      "rev": "14e0ef0c4826881ffa27969975797c9786ed061c",
+      "kind": "red"
+    },
+    "outside": {
+      "rev": "affb76af44b65bb61b1e85c69eff4b0f82884b5d",
+      "kind": "green"
+    },
+    "duplicate": {
+      "rev": "8196321539717b7f41fff3ee7ceb2f110bff17be",
+      "kind": "red"
+    },
+    "combined": {
+      "rev": "ab87cc4a7bb20af47947f8f69857e0b8c4462658",
+      "kind": "red"
+    },
+    "dirty": {
+      "rev": "fe93ecb61e937a2e3ea442a40248daff4ac76602",
+      "kind": "red"
+    },
+    "stale": {
+      "rev": "1226637b50216e11a3586b46131428fde92e5cc2",
+      "kind": "red"
+    },
+    "fault": {
+      "rev": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+      "kind": "fault"
+    }
+  },
+  "pristine": {
+    "good": {
+      "exit": 0,
+      "met": true,
+      "population": 16,
+      "bound": 16,
+      "mismatches": 0,
+      "stdout": "C2v1 revision=f22a50ee927f8a6f496b0a3037f684517d7bb6c8 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=identical declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n",
+      "stderr": ""
+    },
+    "fab_digest": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 15,
+      "mismatches": 1,
+      "stdout": "C2v1 revision=e1c12bc470646c19fd679871eec239541973ffdb population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: digest .ufo/waves/round-52/c52_wave_ledger.py: receipt 000000000000... != committed 03033f83c63d...\n",
+      "stderr": ""
+    },
+    "fab_bytes": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 15,
+      "mismatches": 1,
+      "stdout": "C2v1 revision=6906825d3bcd1c42fb5a1c2d8ef4882ce0be5063 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: bytes .ufo/waves/round-57/c57_idresolver_gate.py: receipt 24622 != committed 24615\n",
+      "stderr": ""
+    },
+    "mode_false": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 15,
+      "mismatches": 1,
+      "stdout": "C2v1 revision=3564beb32d81426b51e36fa9413f7987f1fbda85 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: mode-flag .ufo/waves/round-52/c52_wave_ledger.py: receipt False != derived True\n",
+      "stderr": ""
+    },
+    "mode_true": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 15,
+      "mismatches": 1,
+      "stdout": "C2v1 revision=9a48afd873631a0e851e83ae41b2a319bf6fb5cc population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: mode-flag .ufo/waves/round-57/c57_idresolver_gate.py: receipt True != derived False\n",
+      "stderr": ""
+    },
+    "missing": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 15,
+      "mismatches": 1,
+      "stdout": "C2v1 revision=14e0ef0c4826881ffa27969975797c9786ed061c population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: missing scripts/id_resolver.py: receipt has no entry for this path\n",
+      "stderr": ""
+    },
+    "outside": {
+      "exit": 0,
+      "met": true,
+      "population": 16,
+      "bound": 16,
+      "mismatches": 0,
+      "stdout": "C2v1 revision=affb76af44b65bb61b1e85c69eff4b0f82884b5d population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  outside: scripts/outside_population.py (not counted toward bound)\n",
+      "stderr": ""
+    },
+    "duplicate": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 15,
+      "mismatches": 1,
+      "stdout": "C2v1 revision=8196321539717b7f41fff3ee7ceb2f110bff17be population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: duplicate .ufo/waves/round-52/c52_wave_ledger.py: receipt lists this path more than once\n",
+      "stderr": ""
+    },
+    "combined": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 14,
+      "mismatches": 2,
+      "stdout": "C2v1 revision=ab87cc4a7bb20af47947f8f69857e0b8c4462658 population=16 bound=14 mismatches=2 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: missing .ufo/waves/round-52/c52_wave_ledger.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-57/c57_idresolver_gate.py: receipt has no entry for this path\n  outside: .ufo/waves/round-52/c52_wave_ledger.py, .ufo/waves/round-57/c57_idresolver_gate.py (not counted toward bound)\n",
+      "stderr": ""
+    },
+    "dirty": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 15,
+      "mismatches": 1,
+      "stdout": "C2v1 revision=fe93ecb61e937a2e3ea442a40248daff4ac76602 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: digest scripts/id_resolver.py: receipt fdbee5ae9af7... != committed 6cb1d5db5784...\n",
+      "stderr": ""
+    },
+    "stale": {
+      "exit": 1,
+      "met": false,
+      "population": 16,
+      "bound": 15,
+      "mismatches": 1,
+      "stdout": "C2v1 revision=1226637b50216e11a3586b46131428fde92e5cc2 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: source=committed worktree=identical declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true\n  finding: digest scripts/id_resolver.py: receipt 6cb1d5db5784... != committed a981680da69b...\n",
+      "stderr": ""
+    },
+    "fault": {
+      "exit": 2,
+      "met": null,
+      "population": null,
+      "bound": null,
+      "mismatches": null,
+      "stdout": "",
+      "stderr": "2 unevaluable: cannot resolve revision 'deadbeefdeadbeefdeadbeefdeadbeefdeadbeef': fatal: Needed a single revision\n"
+    }
+  },
+  "mutants": [
+    {
+      "id": "C2-M1",
+      "mutation": "skip the digest comparison",
+      "dimension": "digest binding",
+      "selftest_exit": 1,
+      "selftest_failed": [
+        "declared revision of another commit, changed blob: bound=15 mismatches=1",
+        "fabricated receipt (16 paths): bound=0 mismatches=16",
+        "wrong digest: bound=15 mismatches=1"
+      ],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [
+        "fab_digest"
+      ],
+      "broken": [],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M2",
+      "mutation": "compare byte length instead of sha256",
+      "dimension": "digest binding",
+      "selftest_exit": 1,
+      "selftest_failed": [
+        "wrong byte count: bound=15 mismatches=1",
+        "wrong digest: bound=15 mismatches=1"
+      ],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [
+        "fab_digest"
+      ],
+      "broken": [],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M3",
+      "mutation": "accept a missing receipt entry as bound",
+      "dimension": "population completeness",
+      "selftest_exit": 0,
+      "selftest_failed": [],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [
+        "missing",
+        "combined"
+      ],
+      "broken": [],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "SURVIVED (red state still green)"
+    },
+    {
+      "id": "C2-M4",
+      "mutation": "count a path outside the population toward bound",
+      "dimension": "population completeness",
+      "selftest_exit": 1,
+      "selftest_failed": [
+        "path outside population: reported separately, bound=16 mismatches=0"
+      ],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 17,
+            "mismatches": -1
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [],
+      "broken": [
+        "outside: shape divergence (mutant 17/16 vs pristine 16/16)"
+      ],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M5",
+      "mutation": "treat selftest_mode as always true",
+      "dimension": "mode binding",
+      "selftest_exit": 1,
+      "selftest_failed": [
+        "declared revision of another commit, changed blob: bound=15 mismatches=1",
+        "duplicate path: bound=15 mismatches=1, class duplicate",
+        "green: write, idempotent rewrite, committed, check at carrier, emit-population",
+        "live row beyond the frozen 16: population=17 bound=17",
+        "missing_frozen=1 keeps met=false with bound=16 mismatches=0",
+        "path outside population: reported separately, bound=16 mismatches=0",
+        "receipt committed after its declared revision: unchanged bytes bind",
+        "wrong byte count: bound=15 mismatches=1",
+        "wrong digest: bound=15 mismatches=1",
+        "wrong mode flag: bound=15 mismatches=1"
+      ],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 13,
+            "mismatches": 3
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 13,
+            "mismatches": 3
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 13,
+            "mismatches": 3
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 13,
+            "mismatches": 3
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 13,
+            "mismatches": 3
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 13,
+            "mismatches": 3
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 13,
+            "mismatches": 3
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [],
+      "broken": [
+        "good: shape divergence (mutant 14/16 vs pristine 16/16)",
+        "outside: shape divergence (mutant 14/16 vs pristine 16/16)"
+      ],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M6",
+      "mutation": "read the working tree instead of the committed blob",
+      "dimension": "blob provenance",
+      "selftest_exit": 0,
+      "selftest_failed": [],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [
+        "dirty",
+        "stale"
+      ],
+      "broken": [],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "SURVIVED (red state still green)"
+    },
+    {
+      "id": "C2-M7",
+      "mutation": "derive blobs at the receipt's declared revision, not --revision",
+      "dimension": "blob provenance",
+      "selftest_exit": 1,
+      "selftest_failed": [
+        "declared revision of another commit, changed blob: bound=15 mismatches=1"
+      ],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [
+        "stale"
+      ],
+      "broken": [],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M8",
+      "mutation": "write the receipt unsorted (reverse path order)",
+      "dimension": "write idempotence",
+      "selftest_exit": 0,
+      "selftest_failed": [],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [],
+      "broken": [
+        "write_format"
+      ],
+      "write": {
+        "sorted": false,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "SURVIVED its selftest; killed by independent probe"
+    },
+    {
+      "id": "C2-M9",
+      "mutation": "drop the trailing newline from the written receipt",
+      "dimension": "write idempotence",
+      "selftest_exit": 0,
+      "selftest_failed": [],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [],
+      "broken": [
+        "write_format"
+      ],
+      "write": {
+        "sorted": true,
+        "newline": false,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "SURVIVED its selftest; killed by independent probe"
+    },
+    {
+      "id": "C2-M10",
+      "mutation": "swallow a git failure and report unevaluable as met",
+      "dimension": "fault handling",
+      "selftest_exit": 0,
+      "selftest_failed": [],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 0,
+            "bound": 0,
+            "mismatches": 0
+          }
+        }
+      },
+      "missed_red": [
+        "fault"
+      ],
+      "broken": [],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "SURVIVED (red state still green)"
+    },
+    {
+      "id": "C2-M11",
+      "mutation": "accept a duplicated path (last entry wins)",
+      "dimension": "entry uniqueness",
+      "selftest_exit": 1,
+      "selftest_failed": [
+        "duplicate path: bound=15 mismatches=1, class duplicate"
+      ],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14,
+            "mismatches": 2
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [
+        "duplicate"
+      ],
+      "broken": [],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "killed (tool --selftest)"
+    },
+    {
+      "id": "C2-M12",
+      "mutation": "accept one receipt entry covering two paths",
+      "dimension": "entry uniqueness",
+      "selftest_exit": 0,
+      "selftest_failed": [],
+      "selftest_missing": [],
+      "states": {
+        "good": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "fab_digest": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fab_bytes": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_false": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "mode_true": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "missing": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "outside": {
+          "kind": "green",
+          "pristine": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "duplicate": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "combined": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 14
+          },
+          "mutant": {
+            "exit": 0,
+            "met": true,
+            "population": 16,
+            "bound": 16,
+            "mismatches": 0
+          }
+        },
+        "dirty": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "stale": {
+          "kind": "red",
+          "pristine": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15
+          },
+          "mutant": {
+            "exit": 1,
+            "met": false,
+            "population": 16,
+            "bound": 15,
+            "mismatches": 1
+          }
+        },
+        "fault": {
+          "kind": "fault",
+          "pristine": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null
+          },
+          "mutant": {
+            "exit": 2,
+            "met": null,
+            "population": null,
+            "bound": null,
+            "mismatches": null
+          }
+        }
+      },
+      "missed_red": [
+        "combined"
+      ],
+      "broken": [],
+      "write": {
+        "sorted": true,
+        "newline": true,
+        "idempotent": true,
+        "rc": [
+          0,
+          0
+        ]
+      },
+      "verdict": "SURVIVED (red state still green)"
+    }
+  ]
+}

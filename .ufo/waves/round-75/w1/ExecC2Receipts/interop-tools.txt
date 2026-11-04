@@ -1,0 +1,20 @@
+C2 tool interop - round 75 (kake)
+
+canonical (landed) .ufo/waves/round-75/w1/ExecC2Tool/instrument_receipts.py
+  sha256=162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7
+this seat's writer (fallback, delivered for the audit trail)
+  sha256=48965bbb3c62f94939e09c4e39a928466bfea3bbe90bd30a8829ba3f1d5c9a53
+
+both writers derive population=16 at c9c5e484c533aa65f4374b841a3edcf572ed19a9 and write the same receipt:
+  corpus/knowledge/instrument-receipts.json sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69 bytes=3397 files=16
+two independent implementations of the frozen rule agree byte for byte on the
+receipt, and both are red on the same amendment-3 inputs:
+  canonical: worktree-only receipt                          -> C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false exit=1
+  fallback:  worktree-only receipt                          -> C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false missing_frozen=0 exit=1
+  canonical: receipt revision = freeze (descendant)         -> C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false exit=1
+  fallback:  receipt revision = freeze (descendant)         -> C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false missing_frozen=0 exit=1
+  canonical: receipt revision = 40 zeros (unresolvable)     -> C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false exit=1
+  fallback:  receipt revision = 40 zeros (unresolvable)     -> C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false missing_frozen=0 exit=1
+
+the landed canonical writer implements amendment 3 A6/A7 itself: the worktree-only
+receipt and both invalid-declaration probes are met=false, exit 1, in both tools.

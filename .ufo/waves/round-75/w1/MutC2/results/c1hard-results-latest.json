@@ -1,0 +1,101 @@
+{
+  "src": "/fast/scratch/hyaku/kake-r75/MutationTesterC2/work/c1hard/c75_hard_latest.py",
+  "sha256": "63e321b28e509781405f1b4209a66b99460bc2512c92a8615fec06f2423e944b",
+  "mutants": [
+    {
+      "id": "H-M1",
+      "mutation": "drop the append_only conjunct",
+      "dimension": "append-only",
+      "exit": 1,
+      "failed_cases": [
+        "C1v1 revision=fixture rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true missing_frozen=0"
+      ],
+      "tail": [
+        "C1v1 selftest fixtures=29 passed=28 failed=1"
+      ]
+    },
+    {
+      "id": "H-M2",
+      "mutation": "first-row-wins (superseded row stays effective)",
+      "dimension": "supersession",
+      "exit": 1,
+      "failed_cases": [
+        "C1v1 revision=fixture rows=2 live=2 files=1 mismatches=1 classes=E1 append_only=true met=false missing_frozen=0"
+      ],
+      "tail": [
+        "C1v1 selftest fixtures=29 passed=28 failed=1"
+      ]
+    },
+    {
+      "id": "H-M3",
+      "mutation": "ignore E3 (enumerated fixture ids)",
+      "dimension": "E3",
+      "exit": 1,
+      "failed_cases": [
+        "C1v1 revision=fixture rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true missing_frozen=0"
+      ],
+      "tail": [
+        "C1v1 selftest fixtures=29 passed=28 failed=1"
+      ]
+    },
+    {
+      "id": "H-M4",
+      "mutation": "parse the tally from the whole cell, not the claim segment",
+      "dimension": "E2",
+      "exit": 0,
+      "failed_cases": [],
+      "tail": [
+        "C1v1 selftest fixtures=29 passed=29 failed=0"
+      ]
+    },
+    {
+      "id": "H-M5",
+      "mutation": "accept a command that exits 0 without printing its claimed tally",
+      "dimension": "E2",
+      "exit": 0,
+      "failed_cases": [],
+      "tail": [
+        "C1v1 selftest fixtures=29 passed=29 failed=0"
+      ]
+    },
+    {
+      "id": "H-M6",
+      "mutation": "treat the word differential anywhere in the row as the exemption",
+      "dimension": "E1",
+      "exit": 1,
+      "failed_cases": [
+        "C1v1 revision=fixture rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true missing_frozen=0"
+      ],
+      "tail": [
+        "C1v1 selftest fixtures=29 passed=28 failed=1"
+      ]
+    },
+    {
+      "id": "H-M7",
+      "mutation": "skip E1 entirely",
+      "dimension": "E1",
+      "exit": 1,
+      "failed_cases": [
+        "C1v1 revision=fixture rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true missing_frozen=0",
+        "C1v1 revision=fixture rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true missing_frozen=0",
+        "C1v1 revision=fixture rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true missing_frozen=0"
+      ],
+      "tail": [
+        "C1v1 selftest fixtures=29 passed=26 failed=3"
+      ]
+    },
+    {
+      "id": "H-M8",
+      "mutation": "check E4 only on the instrument file",
+      "dimension": "E4",
+      "exit": 1,
+      "failed_cases": [
+        "C1v1 revision=fixture rows=1 live=1 files=1 mismatches=0 classes=- append_only=true met=true missing_frozen=0",
+        "C1v1 revision=fixture rows=2 live=2 files=1 mismatches=0 classes=- append_only=true met=true missing_frozen=0"
+      ],
+      "tail": [
+        "C1v1 selftest fixtures=29 passed=27 failed=2"
+      ]
+    }
+  ]
+}

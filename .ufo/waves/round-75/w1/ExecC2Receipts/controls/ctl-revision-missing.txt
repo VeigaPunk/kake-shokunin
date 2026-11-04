@@ -1,0 +1,24 @@
+$ python3 -B instrument_receipts.py --root . --revision 1eb7e12073000fcd6fe9711317b4550b4389c8e7 --check
+(tool sha256=162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7; cwd=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/ctl-clone)
+control: expect receipt_revision_invalid: the 40-hex token does not resolve (committed at 1eb7e12073000fcd6fe9711317b4550b4389c8e7)
+C2v1 revision=1eb7e12073000fcd6fe9711317b4550b4389c8e7 population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=committed worktree=identical declared=0000000000000000000000000000000000000000 declared_match=false declared_valid=false
+  finding: receipt_revision_invalid .ufo/waves/round-52/c52_wave_ledger.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-57/c57_idresolver_gate.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-58/c58_receipt_rewrites.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-58/c58_resolver_cases.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-59/c59_axis_evidence.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-59/c59_resolver_cases.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-66/c66_gate_status_hostportable.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-69/c69_recorded_counts.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-69/c69_tmp_honour.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-72/c72_tmp_v2.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-73/c73_tmp_v3.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-73/c73_wave_pointers.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-74/c74_registry_gap.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid scripts/citation_lint.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid scripts/id_resolver.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+  finding: receipt_revision_invalid scripts/redirect_audit.py: declared revision 0000000000000000000000000000000000000000 does not resolve to a commit
+
+exit=1

@@ -1,0 +1,411 @@
+{
+  "tool_sha256": "169e2136527531de568f84ec0ba8ea8256a743ca01424f5bead448b37f949eb3",
+  "idempotent": true,
+  "dirty_write_identical": true,
+  "results": [
+    {
+      "name": "baseline-no-receipt",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: none committed=absent revision=None revision_match=false\n  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt file is absent\n  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt file is absent\n  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt file is absent\n  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt file is absent\n  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt file is absent\n  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt file is absent\n  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt file is absent\n  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt file is absent\n  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt file is absent\n  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt file is absent\n  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt file is absent\n  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt file is absent\n  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt file is absent\n  finding: receipt scripts/citation_lint.py: receipt file is absent\n  finding: receipt scripts/id_resolver.py: receipt file is absent\n  finding: receipt scripts/redirect_audit.py: receipt file is absent\n",
+      "stderr": ""
+    },
+    {
+      "name": "write-first",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--write",
+        "--date",
+        "2026-11-03"
+      ],
+      "exit": 0,
+      "stdout": "wrote corpus/knowledge/instrument-receipts.json revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 missing_frozen=0 sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69 bytes=3397\n",
+      "stderr": ""
+    },
+    {
+      "name": "write-second",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--write",
+        "--date",
+        "2026-11-03"
+      ],
+      "exit": 0,
+      "stdout": "wrote corpus/knowledge/instrument-receipts.json revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 missing_frozen=0 sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69 bytes=3397\n",
+      "stderr": ""
+    },
+    {
+      "name": "UNCOMMITTED-valid-receipt-at-base",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n",
+      "stderr": ""
+    },
+    {
+      "name": "f01_right_digest_wrong_bytes.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: bytes .ufo/waves/round-52/c52_wave_ledger.py: receipt 29971 != committed 29970\n",
+      "stderr": ""
+    },
+    {
+      "name": "f02_right_bytes_wrong_digest.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: digest .ufo/waves/round-57/c57_idresolver_gate.py: receipt 982937415a84... != committed 982837415a84...\n",
+      "stderr": ""
+    },
+    {
+      "name": "f03_worktree_digest.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: digest .ufo/waves/round-52/c52_wave_ledger.py: receipt 02e00877387a... != committed 03033f83c63d...\n",
+      "stderr": ""
+    },
+    {
+      "name": "f04_duplicate_path.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: duplicate .ufo/waves/round-58/c58_receipt_rewrites.py: receipt lists this path more than once\n",
+      "stderr": ""
+    },
+    {
+      "name": "f05_outside_population.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  outside: .ufo/waves/round-46/c46_matrix.py (not counted toward bound)\n  outside: scripts/freshness-sweep.mjs (not counted toward bound)\n",
+      "stderr": ""
+    },
+    {
+      "name": "f06_foreign_revision_field.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9fd964354b03b163994519ae43d741b3ee3a81d revision_match=false\n",
+      "stderr": ""
+    },
+    {
+      "name": "f07_selftest_true_to_false.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: mode-flag .ufo/waves/round-52/c52_wave_ledger.py: receipt False != derived True\n",
+      "stderr": ""
+    },
+    {
+      "name": "f08_selftest_false_to_true_on_delegates.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=14 mismatches=2 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: mode-flag .ufo/waves/round-57/c57_idresolver_gate.py: receipt True != derived False\n  finding: mode-flag .ufo/waves/round-69/c69_tmp_honour.py: receipt True != derived False\n",
+      "stderr": ""
+    },
+    {
+      "name": "f09_omits_one_path.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=15 mismatches=1 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: missing .ufo/waves/round-58/c58_resolver_cases.py: receipt has no entry for this path\n",
+      "stderr": ""
+    },
+    {
+      "name": "f10_two_entries_swapped.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=14 mismatches=2 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: digest .ufo/waves/round-59/c59_axis_evidence.py: receipt 0dad783f7003... != committed 6df31e5f9a3d...\n  finding: digest .ufo/waves/round-59/c59_resolver_cases.py: receipt 6df31e5f9a3d... != committed 0dad783f7003...\n",
+      "stderr": ""
+    },
+    {
+      "name": "f11_uppercase_digests.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: shape .ufo/waves/round-52/c52_wave_ledger.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-57/c57_idresolver_gate.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-58/c58_receipt_rewrites.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-58/c58_resolver_cases.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-59/c59_axis_evidence.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-59/c59_resolver_cases.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-66/c66_gate_status_hostportable.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-69/c69_recorded_counts.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-69/c69_tmp_honour.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-72/c72_tmp_v2.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-73/c73_tmp_v3.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-73/c73_wave_pointers.py: sha256 is not 64 lowercase hex digits\n  finding: shape .ufo/waves/round-74/c74_registry_gap.py: sha256 is not 64 lowercase hex digits\n  finding: shape scripts/citation_lint.py: sha256 is not 64 lowercase hex digits\n  finding: shape scripts/id_resolver.py: sha256 is not 64 lowercase hex digits\n  finding: shape scripts/redirect_audit.py: sha256 is not 64 lowercase hex digits\n",
+      "stderr": ""
+    },
+    {
+      "name": "f12_wrong_schema.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=None revision_match=false\n  finding: receipt .ufo/waves/round-52/c52_wave_ledger.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-57/c57_idresolver_gate.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-58/c58_receipt_rewrites.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-58/c58_resolver_cases.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-59/c59_axis_evidence.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-59/c59_resolver_cases.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-69/c69_recorded_counts.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-69/c69_tmp_honour.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-72/c72_tmp_v2.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-73/c73_tmp_v3.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-73/c73_wave_pointers.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt .ufo/waves/round-74/c74_registry_gap.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt scripts/citation_lint.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt scripts/id_resolver.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n  finding: receipt scripts/redirect_audit.py: receipt schema is 'instrument-receipts/v2', expected 'instrument-receipts/v1'\n",
+      "stderr": ""
+    },
+    {
+      "name": "f13_bytes_as_string.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: shape .ufo/waves/round-52/c52_wave_ledger.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-57/c57_idresolver_gate.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-58/c58_receipt_rewrites.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-58/c58_resolver_cases.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-59/c59_axis_evidence.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-59/c59_resolver_cases.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-66/c66_gate_status_hostportable.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-69/c69_recorded_counts.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-69/c69_tmp_honour.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-72/c72_tmp_v2.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-73/c73_tmp_v3.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-73/c73_wave_pointers.py: bytes is not a non-negative integer\n  finding: shape .ufo/waves/round-74/c74_registry_gap.py: bytes is not a non-negative integer\n  finding: shape scripts/citation_lint.py: bytes is not a non-negative integer\n  finding: shape scripts/id_resolver.py: bytes is not a non-negative integer\n  finding: shape scripts/redirect_audit.py: bytes is not a non-negative integer\n",
+      "stderr": ""
+    },
+    {
+      "name": "f14_generated_at_other_rev_checked_at_base.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9fd964354b03b163994519ae43d741b3ee3a81d revision_match=false\n",
+      "stderr": ""
+    },
+    {
+      "name": "f15_path_traversal_entry.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  outside: ../../../../etc/passwd (not counted toward bound)\n",
+      "stderr": ""
+    },
+    {
+      "name": "f16_empty_files.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 1,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n  finding: missing .ufo/waves/round-52/c52_wave_ledger.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-57/c57_idresolver_gate.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-58/c58_receipt_rewrites.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-58/c58_resolver_cases.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-59/c59_axis_evidence.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-59/c59_resolver_cases.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-69/c69_recorded_counts.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-69/c69_tmp_honour.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-72/c72_tmp_v2.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-73/c73_tmp_v3.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-73/c73_wave_pointers.py: receipt has no entry for this path\n  finding: missing .ufo/waves/round-74/c74_registry_gap.py: receipt has no entry for this path\n  finding: missing scripts/citation_lint.py: receipt has no entry for this path\n  finding: missing scripts/id_resolver.py: receipt has no entry for this path\n  finding: missing scripts/redirect_audit.py: receipt has no entry for this path\n",
+      "stderr": ""
+    },
+    {
+      "name": "f_honest.json",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n",
+      "stderr": ""
+    },
+    {
+      "name": "base-generated-checked-at-ancestor",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9fd964354b03b163994519ae43d741b3ee3a81d",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9fd964354b03b163994519ae43d741b3ee3a81d population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=false\n",
+      "stderr": ""
+    },
+    {
+      "name": "dirty-worktree-write",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--write",
+        "--date",
+        "2026-11-03"
+      ],
+      "exit": 0,
+      "stdout": "wrote corpus/knowledge/instrument-receipts.json revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 missing_frozen=0 sha256=b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69 bytes=3397\n",
+      "stderr": ""
+    },
+    {
+      "name": "dirty-worktree-check",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--root",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/clone",
+        "--revision",
+        "c9c5e484c533aa65f4374b841a3edcf572ed19a9",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=true\n",
+      "stderr": ""
+    },
+    {
+      "name": "actual-selftest",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/instrument_receipts.snapshot.py",
+        "--selftest",
+        "--work",
+        "/fast/scratch/hyaku/kake-r75/ReviewerC2/actual-selftest"
+      ],
+      "exit": 1,
+      "stdout": "selftest: ok green: write, idempotent rewrite, check, emit-population\nselftest: ok missing receipt file: bound=0 mismatches=16\nselftest: ok wrong digest: bound=15 mismatches=1\nselftest: ok wrong byte count: bound=15 mismatches=1\nselftest: ok wrong mode flag: bound=15 mismatches=1\nselftest: ok duplicate path: bound=15 mismatches=1, class duplicate\nselftest: ok path outside population: reported separately, bound=16 mismatches=0\nselftest: FAIL receipt at another revision: bound=0 mismatches=16 :: rc=0 fields={'revision': 'cf231543bc4b0b8a96e9632f9877e83aff6c92ca', 'population': '16', 'bound': '16', 'mismatches': '0', 'met': 'true'} want=(1, {'population': '16', 'bound': '0', 'mismatches': '16', 'met': 'false'})\nC2v1 revision=cf231543bc4b0b8a96e9632f9877e83aff6c92ca population=16 bound=16 mismatches=0 met=true\n  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0\n  receipt: worktree committed=absent revision=09cee58ccf52fd71bcf424cea8df6c65b39c4791 revision_match=false\n\nselftest: ok fabricated receipt (16 paths): bound=0 mismatches=16\nselftest: ok live row beyond the frozen 16: population=17 bound=17\nselftest: ok missing_frozen=1 keeps met=false with bound=16 mismatches=0\nselftest: ok classifier: add_argument, comparisons, docstrings, argv lists, .mjs\nselftest: ok usage: --write without --date exits 64, --selftest without --work exits 64\nselftest: fixtures under /fast/scratch/hyaku/kake-r75/ReviewerC2/actual-selftest/fx-3048wwqs\nselftest: 12/13\n",
+      "stderr": ""
+    }
+  ]
+}

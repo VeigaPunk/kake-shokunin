@@ -1,0 +1,30 @@
+18-file landing simulation - round 75 (kake)
+
+Purpose: prove the landing sequence the L1 needs - write the receipt at the commit that carries
+the round-75 SKILL.md section (population grows 16 -> 18 by amendment 1 A2), commit the
+receipt as its child, and check the child from committed bytes.
+
+Fixture (scratch, deleted with the seat tree): a git clone --shared of the lane at
+c9c5e484c533aa65f4374b841a3edcf572ed19a9
+with the freeze commit's .ufo/waves/round-75/c75_row_truth.py and the canonical
+scripts/instrument_receipts.py added, plus a `### Round 75 gate registry additions` section
+carrying one live row for each (18 live-row instruments in total).
+
+$ python3 -B instrument_receipts.py --root . --revision T --write --date 2026-11-03
+wrote corpus/knowledge/instrument-receipts.json revision=747239959f33add079bcd27beb274af6709c72b9 population=18 missing_frozen=0 sha256=32a51c51eb97a66228c44792dd41c6c74ce6c14723ac3f906929ed24bc66b563 bytes=3793
+  exit=0
+  receipt sha256=32a51c51eb97a66228c44792dd41c6c74ce6c14723ac3f906929ed24bc66b563 bytes=3793
+
+$ python3 -B instrument_receipts.py --root . --revision T2 --check
+C2v1 revision=9069868b8d7a7ea44c98e637f3d33a90eac78cef population=18 bound=18 mismatches=0 met=true
+  population: derived=18 frozen=16 missing_frozen=0 beyond_frozen=2
+  receipt: source=committed worktree=identical declared=747239959f33add079bcd27beb274af6709c72b9 declared_match=false declared_valid=true
+  population: beyond-frozen .ufo/waves/round-75/c75_row_truth.py
+  population: beyond-frozen scripts/instrument_receipts.py
+  exit=0
+
+T  = 747239959f33add079bcd27beb274af6709c72b9 (carrier of the round-75 rows and both files)
+T2 = 9069868b8d7a7ea44c98e637f3d33a90eac78cef (T + the receipt, parent of nothing)
+The fixture commits are scratch-only: the durable artifact is the receipt bytes above.
+The real tip receipt will differ in `revision` (and in the counter digest if the C1 seat
+relabels its file), so re-run the write at the landing commit rather than reusing these bytes.

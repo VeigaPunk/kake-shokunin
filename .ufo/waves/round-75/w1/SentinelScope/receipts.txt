@@ -1,0 +1,179 @@
+# SentinelScope receipts — round 75 w1. Paths normalised: <scratch>, <lane>, <fleet>.
+# All runs 2026-11-03 21:0x–21:2x -03:00; lane HEAD 7348d37e until 21:15:56, then the landed tip 4e3fc159
+# (§[1]–[11] at 7348d37e; §[12]–[15] across the landing; §[16] at 4e3fc159).
+# Tool sha256 by section (they changed during the wave; each section names the bytes it measured):
+#   v0 counter (HEAD blob)                 43538343c1f26e15a795f5486a6daca977c88ef5fa4458adacd2c68a00a596ce
+#   hardened counter (w1, at 21:1x)        d982cc5d2af9311ba98766780d26402d9fa18c7a4201b37d8137957c91b056d9 (earlier 90a4cdd5/5055230b)
+#   C2 tool (w1, 21:10-21:12)              a2005c6ad8043fd9e800e3cf57573df550aa8edde981df91ced4970099aff852 (earlier 8fbbb23b/169e2136)
+#   C2 tool (w1, 21:21 re-confirmation)    162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7
+
+## [1] do-nothing/base control reproduced with the hardened C1 counter (sha 90a4cdd5 at run time)
+$ python3 -B <w1>/ExecC1Counter/c75_row_truth.py --root <scratch>/ro-lane --revision c9c5e484c533aa65f4374b841a3edcf572ed19a9 --base c9c5e484c533aa65f4374b841a3edcf572ed19a9 --work <scratch>/wc
+C1v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 rows=28 live=16 files=16 mismatches=2 classes=E1 E3 append_only=true met=false missing_frozen=0
+  finding: E1 .ufo/waves/round-69/c69_tmp_honour.py: Kind is gate without a self-test mode or a declared differential
+  finding: E3 .ufo/waves/round-74/c74_registry_gap.py: cell enumerates 5 fixture ids, observed total 8
+exit=1
+
+## [2] v0 counter (HEAD blob 43538343): unreadable SKILL.md exits 1, not 2
+$ python3 -B <scratch>/v0.py --root <scratch>/fix-noskill --revision 13059bb5… --work <scratch>/w5v0
+2 unevaluable: cannot read SKILL.md at 13059bb53e4888ff5ff0beb6461277523fc9fb30: fatal: path 'SKILL.md' does not exist in '13059bb53e4888ff5ff0beb6461277523fc9fb30'
+exit=1 (required 2)
+
+## [3] v0 counter (43538343): --work reuse across revisions executes the stale tree
+$ python3 -B <lane>/.ufo/waves/round-75/c75_row_truth.py --root <lane> --revision ab939c46… --work <scratch>/w4   # w4/tree was at c9c5e484
+C1v1 revision=ab939c46281bc18bcbe248a83a491ee7b7db76f3 rows=28 live=16 files=16 mismatches=2 classes=E1 E3 append_only=true met=false
+  finding: E1 .ufo/waves/round-69/c69_tmp_honour.py: Kind is gate without a self-test mode or a declared differential
+  finding: E3 .ufo/waves/round-74/c74_registry_gap.py: cell enumerates 5 fixture ids, observed total 8
+tree HEAD after run: c9c5e484c533aa65f4374b841a3edcf572ed19a9 (requested ab939c46…)
+exit=1
+
+## [4] v0 counter (HEAD blob 43538343): empty registry, no --base, reports met=true
+$ python3 -B <scratch>/v0.py --root <scratch>/fix-empty --revision dcdac294… --work <scratch>/w7v0
+C1v1 revision=dcdac294b4cc4b56c758e0994c647a65dc161028 rows=0 live=0 files=0 mismatches=0 classes=- append_only=true met=true
+exit=0 (vacuous)
+
+## [5] pre-amendment C2 tool (sha 8fbbb23b): good worktree receipt masks a fabricated committed receipt
+$ python3 -B <w1>/ExecC2Tool/instrument_receipts.py --root <scratch>/lane --revision 962554c9… --check
+C2v1 revision=962554c90955cec148f7e72befc6c5b5fc096926 population=16 bound=16 mismatches=0 met=true
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: worktree committed=differs revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 revision_match=false
+exit=0
+
+## [6] current C2 tool (sha a2005c6a): same state reads committed bytes and stays red
+$ python3 -B <w1>/ExecC2Tool/instrument_receipts.py --root <scratch>/lane --revision 962554c9… --check
+C2v1 revision=962554c90955cec148f7e72befc6c5b5fc096926 population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true
+  finding: digest .ufo/waves/round-52/c52_wave_ledger.py: receipt 000000000000... != committed 03033f83c63d...
+  finding: digest .ufo/waves/round-57/c57_idresolver_gate.py: receipt 000000000000... != committed 982837415a84...
+  finding: digest .ufo/waves/round-58/c58_receipt_rewrites.py: receipt 000000000000... != committed 3f52040a8a6d...
+  finding: digest .ufo/waves/round-58/c58_resolver_cases.py: receipt 000000000000... != committed 0716dbe81831...
+  finding: digest .ufo/waves/round-59/c59_axis_evidence.py: receipt 000000000000... != committed 6df31e5f9a3d...
+  finding: digest .ufo/waves/round-59/c59_resolver_cases.py: receipt 000000000000... != committed 0dad783f7003...
+  finding: digest .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt 000000000000... != committed 9beef91f77a6...
+  finding: digest .ufo/waves/round-69/c69_recorded_counts.py: receipt 000000000000... != committed e0c3fb746890...
+  finding: digest .ufo/waves/round-69/c69_tmp_honour.py: receipt 000000000000... != committed ebfb63139765...
+  finding: digest .ufo/waves/round-72/c72_tmp_v2.py: receipt 000000000000... != committed af2f0c9c6b7b...
+  finding: digest .ufo/waves/round-73/c73_tmp_v3.py: receipt 000000000000... != committed 9b4d2cd0d1a3...
+  finding: digest .ufo/waves/round-73/c73_wave_pointers.py: receipt 000000000000... != committed 37025eff8916...
+  finding: digest .ufo/waves/round-74/c74_registry_gap.py: receipt 000000000000... != committed 629d2c27f2af...
+  finding: digest scripts/citation_lint.py: receipt 000000000000... != committed 0beba6478ce4...
+  finding: digest scripts/id_resolver.py: receipt 000000000000... != committed 6cb1d5db5784...
+  finding: digest scripts/redirect_audit.py: receipt 000000000000... != committed 1e1dff18030c...
+exit=1
+
+## [7] current C2 tool: declared revision does not resolve
+$ python3 -B <w1>/ExecC2Tool/instrument_receipts.py --root <scratch>/lane --revision 8e968fa6… --check
+C2v1 revision=8e968fa6a2b72e3ad623108947a6e24d13bc7a49 population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=committed worktree=identical declared=ffffffffffffffffffffffffffffffffffffffff declared_match=false declared_valid=false
+  finding: receipt_revision_invalid .ufo/waves/round-52/c52_wave_ledger.py: declared revision ffffffffffffffffffffffffffffffffffffffff does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-57/c57_idresolver_gate.py: declared revision ffffffffffffffffffffffffffffffffffffffff does not resolve to a commit
+  finding: receipt_revision_invalid .ufo/waves/round-58/c58_receipt_rewrites.py: declared revision ffffffffffffffffffffffffffffffffffffffff does not resolve to a commit
+exit=1
+
+## [8] C2 --check on a read-only root writes nothing
+$ chmod -R a-w <scratch>/ro3; python3 -B <w1>/ExecC2Tool/instrument_receipts.py --root <scratch>/ro3 --revision 962554c9… --check
+C2v1 revision=962554c90955cec148f7e72befc6c5b5fc096926 population=16 bound=0 mismatches=16 met=false
+  population: derived=16 frozen=16 missing_frozen=0 beyond_frozen=0
+  receipt: source=committed worktree=differs declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true
+  finding: digest .ufo/waves/round-52/c52_wave_ledger.py: receipt 000000000000... != committed 03033f83c63d...
+  finding: digest .ufo/waves/round-57/c57_idresolver_gate.py: receipt 000000000000... != committed 982837415a84...
+  finding: digest .ufo/waves/round-58/c58_receipt_rewrites.py: receipt 000000000000... != committed 3f52040a8a6d...
+  finding: digest .ufo/waves/round-58/c58_resolver_cases.py: receipt 000000000000... != committed 0716dbe81831...
+  finding: digest .ufo/waves/round-59/c59_axis_evidence.py: receipt 000000000000... != committed 6df31e5f9a3d...
+  finding: digest .ufo/waves/round-59/c59_resolver_cases.py: receipt 000000000000... != committed 0dad783f7003...
+  finding: digest .ufo/waves/round-66/c66_gate_status_hostportable.py: receipt 000000000000... != committed 9beef91f77a6...
+  finding: digest .ufo/waves/round-69/c69_recorded_counts.py: receipt 000000000000... != committed e0c3fb746890...
+  finding: digest .ufo/waves/round-69/c69_tmp_honour.py: receipt 000000000000... != committed ebfb63139765...
+  finding: digest .ufo/waves/round-72/c72_tmp_v2.py: receipt 000000000000... != committed af2f0c9c6b7b...
+  finding: digest .ufo/waves/round-73/c73_tmp_v3.py: receipt 000000000000... != committed 9b4d2cd0d1a3...
+  finding: digest .ufo/waves/round-73/c73_wave_pointers.py: receipt 000000000000... != committed 37025eff8916...
+  finding: digest .ufo/waves/round-74/c74_registry_gap.py: receipt 000000000000... != committed 629d2c27f2af...
+  finding: digest scripts/citation_lint.py: receipt 000000000000... != committed 0beba6478ce4...
+  finding: digest scripts/id_resolver.py: receipt 000000000000... != committed 6cb1d5db5784...
+  finding: digest scripts/redirect_audit.py: receipt 000000000000... != committed 1e1dff18030c...
+writes since stamp: (none)
+exit=1
+
+## [9] C2 selftest prints the absolute fixture directory
+$ python3 -B <w1>/ExecC2Tool/instrument_receipts.py --selftest --work <scratch>/est3
+selftest: ok usage: --write without --date exits 64, --selftest without --work exits 64
+selftest: fixtures under <scratch>/est3/fx-17la6a4q
+selftest: 17/17
+exit=0
+
+## [10] hardened C1 counter selftest (sha d982cc5d at run time)
+$ python3 -B <w1>/ExecC1Counter/c75_row_truth.py --selftest --work <scratch>/ist2
+C1v1 selftest fixtures=26 passed=26 failed=0
+selftest 26/26
+exit=0
+
+## [11] hardened C1 counter failure modes (sha 90a4cdd5 at run time)
+$ ... --root <lane> --revision c9c5e484            # no --work
+64 usage: --work <dir> is required
+exit=64
+$ ... --root <lane> --revision deadbeef --work …   # unresolvable
+2 unevaluable: cannot resolve revision 'deadbeef': fatal: Needed a single revision
+exit=2
+$ ... --root <scratch>/fix-empty --work …          # empty registry
+C1v1 revision=dcdac294b4cc4b56c758e0994c647a65dc161028 rows=0 live=0 files=0 mismatches=16 classes=- append_only=true met=false missing_frozen=16
+exit=1
+
+## [12] receipt bytes re-derived independently at c9c5e484 with the wave writer (sha 162dd685; earlier runs with the 21:07 build gave the same bytes)
+$ sha256sum <scratch>/lane/corpus/knowledge/instrument-receipts.json <w1>/ExecC2Receipts/instrument-receipts.json
+b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69  <scratch>/lane/...  (mine)
+b37d1b09415e2e63816c701324cf53d86b5e8dcc150130609583dcc836d81a69  <w1>/ExecC2Receipts/instrument-receipts.json  (seat)
+bytes=3397 both
+
+## [13] frozen population sha of the retained source
+$ sha256sum <w1>/ScoutSources/intoto-statement.md
+cbe684a18b812b8b613d9202eb43b2ea24477f91a2ad6ca5be935185a455ebea  <w1>/ScoutSources/intoto-statement.md  (2492 B)
+
+## [14] lane state: the frozen counter path was replaced in the worktree during the wave
+$ sha256sum <lane>/.ufo/waves/round-75/c75_row_truth.py   # worktree, 21:14:55
+0699a672bc51311e4074ac17733b38954892d0b87084b7c9aa7b414f1716a501  worktree
+$ git show HEAD:.ufo/waves/round-75/c75_row_truth.py | sha256sum
+43538343c1f26e15a795f5486a6daca977c88ef5fa4458adacd2c68a00a596ce  HEAD (v0, the base-control counter)
+w1 deliverable at 21:15: d982cc5d2af9311ba98766780d26402d9fa18c7a4201b37d8137957c91b056d9 (45,404 B; 2 bytes shorter than the path copy)
+
+## [15] current C2 tool (sha 162dd685) re-confirmation at 21:21
+$ python3 -B <w1>/ExecC2Tool/instrument_receipts.py --root <scratch>/lane --revision 8e968fa6… --check   # fabricated committed receipt + good worktree copy
+C2v1 revision=8e968fa6a2b72e3ad623108947a6e24d13bc7a49 population=16 bound=0 mismatches=16 met=false
+  receipt: source=committed worktree=identical declared=ffffffffffffffffffffffffffffffffffffffff declared_match=false declared_valid=false
+exit=1
+$ python3 -B <w1>/ExecC2Tool/instrument_receipts.py --root <scratch>/base2 --revision c9c5e484… --check   # receipt written, never committed
+C2v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 population=16 bound=0 mismatches=16 met=false
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+exit=1
+$ python3 -B <w1>/ExecC2Tool/instrument_receipts.py --root <scratch>/ro4 --revision c9c5e484… --check     # chmod -R a-w root
+writes since stamp: (none); exit=1
+$ python3 -B <w1>/ExecC2Tool/instrument_receipts.py --selftest --work <scratch>/est4
+selftest: fixtures under <scratch>/est4/fx-qpmg4h_3
+selftest: 17/17
+exit=0
+
+## [16] landed tip 4e3fc159 — instruments measured independently (21:19-21:21)
+$ git show HEAD:scripts/instrument_receipts.py | sha256sum   # 162dd6852cd5f6ad… (48868 B)
+$ git show HEAD:.ufo/waves/round-75/c75_row_truth.py | sha256sum   # 0699a672bc5111… (45406 B)
+$ python3 -B .ufo/waves/round-75/c75_row_truth.py --root . --revision 4e3fc159 --base c9c5e484… --work <scratch>/tipwork
+C1v1 revision=4e3fc159919f1af8db139f0931ac096512747895 rows=32 live=20 files=18 mismatches=0 classes=- append_only=true met=true missing_frozen=0
+exit=0   (30.4 s)
+$ # same --work, different revision — the tree is re-checked out, not reused
+$ python3 -B .ufo/waves/round-75/c75_row_truth.py --root . --revision c9c5e484… --base c9c5e484… --work <scratch>/tipwork
+C1v1 revision=c9c5e484c533aa65f4374b841a3edcf572ed19a9 rows=28 live=16 files=16 mismatches=2 classes=E1 E3 append_only=true met=false missing_frozen=0
+exit=1; tree HEAD: 4e3fc159 -> c9c5e484 (stale-work defect fixed)
+$ python3 -B scripts/instrument_receipts.py --root . --revision 4e3fc159 --check
+C2v1 revision=4e3fc159919f1af8db139f0931ac096512747895 population=18 bound=18 mismatches=0 met=true
+  population: derived=18 frozen=16 missing_frozen=0 beyond_frozen=2
+  receipt: source=committed worktree=identical declared=f1fc5d0aba0aef588d943d423fc8767a784607a5 declared_match=false declared_valid=true
+exit=0
+$ python3 -B scripts/instrument_receipts.py --root . --revision f1fc5d0a… --check
+C2v1 revision=f1fc5d0aba0aef588d943d423fc8767a784607a5 population=18 bound=0 mismatches=18 met=false
+  receipt: source=uncommitted worktree=only-worktree declared=None declared_match=false declared_valid=false
+exit=1   (the receipt lands at 4e3fc159, one commit after the instruments it declares)
+$ git ls-tree -r HEAD -- scripts/instrument_receipts.py corpus/knowledge/instrument-receipts.json .ufo/waves/round-75/c75_row_truth.py
+100755 blob e5b7d141  .ufo/waves/round-75/c75_row_truth.py
+100644 blob 98ffca2a  corpus/knowledge/instrument-receipts.json   (3793 B, sha256 f3128628…)
+100755 blob 596e374f  scripts/instrument_receipts.py             (48868 B, sha256 162dd685…)
+$ git show HEAD:corpus/knowledge/instrument-receipts.json | grep -cE '/home/|/fast/|/tmp/|"hostname"'   -> 0

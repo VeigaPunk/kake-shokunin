@@ -1,0 +1,10 @@
+$ python3 -B instrument_receipts.py --root . --revision 78fc273ec066d76c21f5b019890d69c5e017a30e --check
+(tool sha256=162dd6852cd5f6adbf278405365464f0b2f5c5d66100883a0974c32b0e6a68e7; cwd=/fast/scratch/hyaku/kake-r75/ExecC2Receipts/ctl-clone)
+control: the redirect_audit row is gone at 78fc273ec066d76c21f5b019890d69c5e017a30e (frozen floor)
+C2v1 revision=78fc273ec066d76c21f5b019890d69c5e017a30e population=15 bound=15 mismatches=0 met=false
+  population: derived=15 frozen=16 missing_frozen=1 beyond_frozen=0
+  receipt: source=committed worktree=identical declared=c9c5e484c533aa65f4374b841a3edcf572ed19a9 declared_match=false declared_valid=true
+  finding: missing-frozen scripts/redirect_audit.py: the frozen 16 no longer derive
+  outside: scripts/redirect_audit.py (not counted toward bound)
+
+exit=1

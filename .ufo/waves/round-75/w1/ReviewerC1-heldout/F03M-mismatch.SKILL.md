@@ -1,0 +1,8 @@
+# SKILL
+
+### Round 75 gate registry additions
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| c75-row-truth | gate (offline) | `python3 -B .ufo/waves/round-75/c75_row_truth.py --selftest` | 0=met | `python3 -B .ufo/waves/round-75/c750_row_truth.py --selftest` (9/9) — passes at tip | dash | reports only | ReviewerC1 |
+| c750-rename | gate (offline) | retires `.ufo/waves/round-75/c75_row_truth.py` naming; entry is `python3 -B .ufo/waves/round-75/c750_row_truth.py --selftest` | 0=met | `python3 -B .ufo/waves/round-75/c750_row_truth.py --selftest` (9/9) | dash | reports only | ReviewerC1 |
