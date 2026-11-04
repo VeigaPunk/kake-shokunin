@@ -1,0 +1,35 @@
+eae0c5780af6609671192f73aed0f26f18309f593ee27216ef5c2a2addcfaaad  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/c81_defect_queue.py
+a59525ce4591e947b915c12222f6413fbb823d0b896dd927fc97ccd3658c12d8  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/c81_capture_audit.py
+100755 blob 8e73f15f34f88dffa2f151ee74cb55375b48d553	scripts/header_audit.py
+(end ls-tree)
+  ok r80-1-green :: R80-1 correction names corpus/SOURCES.md:6; S453 is on that line
+  ok r80-1-wrong-line-opens :: no R80-1 correction row names corpus/SOURCES.md:6 for S453
+  ok r80-2-green :: R80-2 correction re-derives constants_failed=4/4, 47/48, 11/12 over 4 constants
+  ok r80-2-wrong-arithmetic-opens :: no R80-2 correction row carries all of constants_failed=4/4, 47/48, 11/12
+  ok r80-3-green :: R80-3 correction re-derives rfc9110.txt rows=1 and rfc9110.html rows=1 (S453 / S010)
+  ok r80-3-wrong-count-opens :: no R80-3 correction row carries rfc9110.txt rows=1 and rfc9110.html rows=1
+  ok r80-4-green :: settled attack share 0.333 (1/3); requested 1/3; accounting record re-derives
+  ok r80-4-floor-opens :: settled attack share 0.200 below 0.25 (1/5)
+  ok r80-4-drifted-record-opens :: accounting record disagrees with re-derivation: attack_roles, spec_sha256
+  ok r80-4-empty-seat-excluded :: settled attack share 0.333 (1/3); requested 2/4; accounting record re-derives
+  ok r80-4-empty-seat-counted-opens :: accounting record disagrees with re-derivation: settled_total, settled_attack, share
+  ok r80-5-green :: junk tree rebuilt deterministically (1 files); C1v1 revision=worktree items=6 open=5 closed=1 exported=0 met=false
+  ok r80-5-overbuilt-junk-opens :: rebuilt junk tree reads 'C1v1 revision=worktree items=6 open=4 closed=2 exported=0 met=false'; missing ['open=5', 'closed=1']
+  ok r80-6-green (recorder rc=0) :: 2 seats recorded (1 empty: SeatA); record equals re-derivation
+  ok r80-6-tampered-record-opens :: committed seat record differs from re-derivation: seats
+selftest: 15/15 passed
+rc=0
+  ok green-audit-ran :: rc=0
+  ok green-met :: surfaces=1 
+  ok tampered-audit-ran :: rc=0
+  ok body-digest-opens :: .ufo/waves/round-81/capture/surface-1/response.json: body sha256 49a03ce6a4ec != receipt b6c951ed9485; .ufo/waves/round-81/capture/surface-1/response.json: body sha256 49a03ce6a4ec != receipt b6c951ed9485
+  ok counted-audit-ran :: rc=0
+  ok byte-count-opens :: .ufo/waves/round-81/capture/surface-1/response.json: bytes 16 != body 15; .ufo/waves/round-81/capture/surface-1/response.json: bytes 16 != body 15
+  ok stale-audit-ran :: rc=0
+  ok stale-capture-opens :: .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z); .ufo/waves/round-81/capture/surface-1/response.json: fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z)
+  ok drifted-audit-ran :: rc=0
+  ok audit-drift-opens :: audit stdout differs from the committed receipt (1 vs 2 lines); .ufo/waves/round-81/capture/surface-1/response.json: ok 200 15B 2026-11-04T12:00:00Z ds4cc.com
+  ok empty-audit-ran :: rc=0
+  ok no-surface-opens :: manifest carries no check
+selftest: 12/12 passed
+rc=0

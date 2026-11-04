@@ -595,3 +595,19 @@ S088/S433).
 Frontier line to append to §Frontier: the HTTP-date grammar moves from frontier to core for the
 `X-Robots-Tag` carrier; per-bot effective resolution, meta+header conflicts and header inheritance
 across redirect hops stay frontier.
+
+## Coverage — round 81 (2026-11-04)
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Capture-once / audit-offline chain (r81) | `.ufo/waves/round-81/c81_capture_audit.py` + `.ufo/waves/round-81/capture-expectations.json` + `.ufo/waves/round-81/capture/` + `scripts/header_audit.py` | One GET-only capture of three declared `ds4cc.com` surfaces (`/`, `/robots.txt`, `/sitemap.xml`), retained as committed receipts (final URL, integer status, fetch time, byte count, body sha256, retained body, header list) under `.ufo/waves/round-81/capture/`; a version-1 manifest that is the mechanical join of the frozen expectations file and the receipts; an offline audit of that manifest whose stdout is committed byte-for-byte; and a counter that re-derives the whole chain at a revision — digests, byte counts, status, fetch-time floor, GET/truncation, declared url identity, https final URL on an allowlisted host, manifest-versus-declared surface equality, and audit-output equality. Not covered: whether the capture came from a socket (a well-formed fabrication passes; the round transcript is the provenance record), any surface's policy at another instant, or per-bot behaviour. |
+| Absent-resource status semantics (r81) | `knowledge/response-header-expectations.md` §round-81 append (S454) | RFC 9110 §15.5.5 (404 Not Found) and §15.5.11 (410 Gone) read for what an audit verdict may conclude: a 404 or 410 answer records the target resource's absence with its status and is never folded into a header-policy failure, and the classes that read only 2xx responses draw no conclusion from it. Amendment 1 A2 corrects the contract's §15.5.4 anchor, which is 403 Forbidden; the frozen expectations file keeps the old string by design. |
+
+Sources opened this round: S454 (RFC 9110 §15.5.5/§15.5.11, tier A, new row) and S433 (RFC 9110,
+re-opened; bytes identical to the round-61 retained body). Registry 191 → 192 rows; census exit 0
+with 20 → 21 `W04` lines (S454 is a fourth scope on RFC 9110's `.txt` URL, the same pattern as
+S028/S033/S453).
+
+Frontier line: the capture-once/audit-offline chain moves from frontier to core as a lane
+instrument; an occurrence oracle (proving a capture came from the network, not from bytes) stays
+frontier and is the honest limit of the C2 counter.

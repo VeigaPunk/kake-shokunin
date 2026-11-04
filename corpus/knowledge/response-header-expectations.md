@@ -248,3 +248,24 @@ The source was re-opened live this round: one GET of
 https://fetch.spec.whatwg.org/ on 2026-10-27 returned a body byte-identical
 (sha256 `63b0a018…911b`) to the round-61 retained body. No registry cell
 changed; the S432 row stays `mined` with its existing scope.
+
+## Round-81 append — absent-resource status semantics (S454)
+
+A captured surface can answer with a status that says the target resource is absent, and the
+audit must record that answer instead of treating a skipped expectation as a pass. RFC 9110
+states that the 404 status "indicates that the origin server did not find a current
+representation for the target resource" and that "A 404 status code does not indicate whether
+this lack of representation is temporary or permanent", while "the 410 (Gone) status code is
+preferred over 404" when the origin server knows the absence is likely permanent [S454 §15.5.5,
+§15.5.11; retained plain text lines 7589-7590, 7591-7593, 7593]. Consequences the lane applies:
+a non-2xx answer is recorded with its status and its body digest as an absent resource, and a
+`content_type_present` expectation, which the audit evaluates only for 2xx answers, is not a
+suppressed finding on such a surface. What this does not say: nothing here is evidence that any
+lane surface is currently absent, and no search engine's treatment of an absent URL is asserted.
+
+[r81-correction 2026-11-04] Locator correction, append-only: the singleton_fields paragraph above
+labels the sender-side repeated-field-line sentence `[S433 §5.2]`; in RFC 9110 that sentence sits
+in §5.3 Field Order (retained plain text lines 1529-1536; stripped HTML 2756-2758), and §5.2 ends
+at line 1514. The sentence's text and its admission are unchanged; only its section label is
+superseded by this note. Found by the round-81 sources seat (`w1/ScoutSources.md` F2), which did
+not edit this file.

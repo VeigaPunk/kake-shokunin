@@ -1,0 +1,77 @@
+# S454 row shape vs the census 11-cell rule, and the R80-3 coupling
+# date: 2026-11-04T12:00:19Z
+
+## base registry facts (measured by the counter own parser)
+registry rows: 191
+rfc9110.txt rows= ['S028', 'S033', 'S453']
+rfc9110.html rows= ['S010', 'S088', 'S433']
+S453 line: [200]
+
+## census fixture: one lane copy with a plausible 11-cell S454 row inserted after line 200
+   (fixture lane = corpus/ copy + symlinks for the external used-by paths; command run against it)
+--- variant ok ---
+fixlane	W04	S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+fixlane	ok	/fast/scratch/hyaku/kake-r81/ScoutRecon/fixlane/corpus/SOURCES.md
+exit: (see earlier run)
+--- variant status-200 ---
+fixlane	W04	S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+fixlane	E07	S454 status=200
+exit: (see earlier run)
+--- variant twelve-cells ---
+fixlane	E01	S454 fields=12
+exit: (see earlier run)
+--- variant exact-scope ---
+fixlane	E04	S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt within scope The three HTTP-date formats a timestamp recipient must accept (IMF-fixdate, the obsolete RFC 850 shape, asctime), their ABNF, and the §5.5 sentence on a comma that is data inside a member; not the unavailable_after directive (defined by no specification), not robots.txt semantics, not ISO 8601, not any crawler's parsing behaviour; distinct scope from S010's validators, S028's URI schemes, S033's media types, S088's redirect statuses and S433's Content-Type field lines
+exit: (see earlier run)
+
+## recorded exits from the four runs
+ok             status-200     twelve-cells   exact-scope    
+## census (census mode) row count with the S454 row present
+
+## the R80-3 coupling: insert the proposed S454 row (rfc9110.txt) and re-run the live predicate
+R80-1: (True, 'R80-1 correction names corpus/SOURCES.md:200; S453 is on that line')
+R80-3: (False, 'no R80-3 correction row carries rfc9110.txt rows=4 and rfc9110.html rows=3')
+
+## the live lesson row that will open (corpus/lessons/round-81.md:77)
+R80-3 — corpus count/scope prose: counting every registry row whose `source` cell holds the URL token gives rfc9110.txt rows=3 (S028, S033, S453) and rfc9110.html rows=3 (S010, S088, S433), so round-80's "a URL the registry already holds five times … a second scope" was wrong twice over — `S453` is the third `.txt` scope, and the five-row count mixed the two URL forms.
+
+## the lesson own S454 placement notes (line 135)
+writes no registry byte; the row is inserted **after line 200**, so R80-1's `:200` pointer does
+
+## re-run of the four variants with exit codes captured
+variant=ok exit=0  findings=0  w04=21
+variant=status-200 exit=1  findings=1  w04=21
+variant=twelve-cells exit=1  findings=1  w04=20
+variant=exact-scope exit=1  findings=1  w04=20
+
+## census (census mode) row count with the S454 row present
+fixlane	rows	192
+fixlane	tier.A	168
+fixlane	tier.B	7
+fixlane	tier.C	17
+fixlane	status.mined	162
+fixlane	status.queued	8
+fixlane	status.rejected	22
+FLEET	rows	192
+FLEET	tier.A	168
+FLEET	tier.B	7
+FLEET	tier.C	17
+FLEET	tier.invalid	0
+FLEET	status.queued	8
+FLEET	status.mined	162
+FLEET	status.rejected	22
+FLEET	status.invalid	0
+census-mode exit=0
+
+## per-variant summary lines
+--- ok exit=0
+W04 lines: 21
+--- status-200 exit=1
+fixlane	E07	S454 status=200
+W04 lines: 21
+--- twelve-cells exit=1
+fixlane	E01	S454 fields=12
+W04 lines: 20
+--- exact-scope exit=1
+fixlane	E04	S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt within scope The three HTTP-date formats a timestamp recipient must accept (IMF-fixdate, the o
+W04 lines: 20

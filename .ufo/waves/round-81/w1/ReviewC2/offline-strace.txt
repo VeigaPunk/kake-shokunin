@@ -1,0 +1,27 @@
+# ReviewC2 — offline verification (measurement performs no network I/O)
+
+# 1) strace -f -e trace=network over the full selftest (counter body + 6+ header_audit
+#    subprocess invocations on fixtures):
+$ strace -f -e trace=network -o net2.trace python3 -B .ufo/waves/round-81/c81_capture_audit.py --selftest --work .../w-st5
+selftest-exit=0
+AF_INET lines in net2.trace: 0
+socket( lines: 0
+
+# 2) same, --revision mode (exercises materialise() git show/ls-tree subprocesses):
+AF_INET lines in net3.trace: 0
+
+# 3) v1 counter selftest with all socket primitives poisoned via PYTHONPATH sitecustomize
+#    (socket.socket / create_connection / getaddrinfo raise on any use):
+$ PYTHONPATH=.../netblock python3 -B .../c81_capture_audit.py --selftest --work .../w-st3
+selftest: 12/12 passed
+exit=0
+
+# 4) static grep over both tools (v2 counter and scripts/header_audit.py):
+#    no socket/urllib/http.client/requests/urlopen/os.environ/os.getenv hits in code;
+#    tempfile's implicit TMPDIR read applies only when --work is omitted (never in the
+#    prescribed commands). header_audit.py selftest() imports subprocess but the
+#    counter never invokes --selftest; the audited run() path is files-only.
+
+# 5) limitation: unshare -n is unavailable in this container
+#    ("unshare: unshare failed: Operation not permitted"), so the no-network proof is
+#    the strace + poison combination above, not a network namespace.

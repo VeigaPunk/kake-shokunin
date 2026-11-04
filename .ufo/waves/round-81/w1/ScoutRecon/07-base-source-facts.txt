@@ -1,0 +1,86 @@
+# base bytes behind R80-1 .. R80-6 (read-only)
+# date: 2026-11-04T12:00:45Z  base: 2e11925500dd5a739376c9108c94616243af0cd4
+
+## R80-1 — S453 line and the round-80 pointer
+$ git show 2e119255:corpus/SOURCES.md | grep -n "^| S453 |"
+200:| S453 | RFC 9110: HTTP Semantics, §5.6.7 Date/Time Formats — https://www.rfc-editor.org/rfc/rfc9110.txt | spec |
+EXIT=0
+$ git show 2e119255:corpus/SOURCES.md | sed -n "199,202p" | cut -c1-60
+| S452 | MDN — X-Robots-Tag header — https://developer.m
+| S453 | RFC 9110: HTTP Semantics, §5.6.7 Date/Time Formats
+
+## Paths
+$ git cat-file -e 2e119255:corpus/lessons/round-81.md
+fatal: path 'corpus/lessons/round-81.md' exists on disk, but not in '2e11925500dd5a739376c9108c94616243af0cd4'
+EXIT=128 (128 = absent)
+$ git ls-tree -r --name-only 2e119255 -- .ufo/reports/
+.ufo/reports/round-20/kake.md
+the round-80 report the spot-check names lives in the fleet root:
+$ sed -n "158p" /home/vgpnk/Projects/shokunin/.ufo/reports/round-80/kake.md
+(`corpus/SOURCES.md:201`). Rows touched old→new: none besides that append and the new entry's
+$ git -C kake-shokunin cat-file -e 855d1b35 (the report commit the spot-check cites)
+EXIT=1 (bad object at this lane remote)
+
+## R80-2 — constants receipt and the round-80 prose
+$ python3 -B .ufo/waves/round-79/c79_xrt_matrix.py --root . --cases .ufo/waves/round-80/cases --expect .ufo/waves/round-80/expect/expect.json --consts .ufo/waves/round-79/consts --consts-only
+const const_all.py failures=12 undecided=0 total=12 failed
+const const_clean.py failures=12 undecided=0 total=12 failed
+const const_echo.py failures=11 undecided=0 total=12 failed
+const const_regex.py failures=12 undecided=0 total=12 failed
+ctl constants_failed=4/4 cases=12
+exit=0
+exit=0
+$ grep -n "four frozen constants fail 12/12 each" LOG.md
+2726:- **C2 landed and measured.** Predicate `met <=> frozen wrong=0 and a2 wrong=0 and constants_failed=4/4 in both runs and selftest_ok=true in both runs`. Ba
+
+## R80-3 — the prose that conflated two URL forms
+$ git show 2e119255:corpus/lessons/round-80.md | sed -n "49,53p"
+
+Tier A: a Standards Track document with a normative `MUST` on the recipient. The row is
+`corpus/SOURCES.md:201` (kind `spec`, tier `A`, status `mined`, opened 2026-11-04, recheck `365d`,
+`used-by corpus/knowledge/http-date-grammar.md`). It is a second scoped row on a URL the registry
+already holds five times (S010, S028, S033, S088, S433), so the census reports a `W04` warning rather
+$ sed -n "592p" corpus/README.md
+`W04` lines (the S453 row is a second scope on RFC 9110's URL, the same pattern as S010/S028/S033/
+
+## R80-4 — base has no wave files
+base .ufo/waves/round-81/w1-spec.json EXIT=128 (128 = absent)
+base .ufo/waves/round-81/w1-results.json EXIT=128 (128 = absent)
+base .ufo/waves/round-81/w1-accounting.json EXIT=128 (128 = absent)
+$ python3 - (roles in the live spec)
+items 15 {'scout': 2, 'executor': 4, 'scribe': 2, 'reviewer': 4, 'critic': 1, 'mutation-tester': 1, 'connector': 1}
+attack requested 6
+
+## R80-5 — the round-80 junk control receipt and its scratch root
+$ python3 -B .ufo/waves/round-80/c80_defect_queue.py --root /fast/scratch/hyaku/kake-r80/l1/junk   # junk tree: closure asserted in words only
+R79-1 open S453 source is not RFC 9110: RFC 9109: Everything — https://example.invalid/rfc9109
+R79-2 open scripts/ledger_append_guard.py absent
+R79-3 open tool absent in measured tree
+R79-4 open .ufo/waves/round-80/c80_ledger_fixtures.py absent
+R79-5 closed withdrawal recorded; no self-assessment file repeats the sentence
+R79-8 open round-79 results unreadable: Expecting value: line 1 column 1 (char 0)
+C1v1 revision=worktree items=6 open=5 closed=1 exported=0 met=false
+exit=1
+exit=1
+
+## R80-6 — defect-queue.json records no error text
+{
+ "schema": "kake-defect-queue/v1",
+ "round": 79,
+ "seats": {
+  "ExecC2Tool": {
+   "status": null,
+   "output_bytes": 0,
+   "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "last_error": "the results file carries no error field for this seat",
+   "evidence": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-79/w1-results.json:2"
+  },
+  "CriticC": {
+   "status": null,
+   "output_bytes": 0,
+   "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "last_error": "the results file carries no error field for this seat",
+   "evidence": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-79/w1-results.json:10"
+  }
+ }
+}

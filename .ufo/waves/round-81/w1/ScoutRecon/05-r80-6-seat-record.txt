@@ -1,0 +1,20 @@
+# R80-6 — seat record end to end on a 15-seat synthetic round-81 wave
+# date: 2026-11-04T12:00:07Z
+
+$ python3 -B scripts/wave_seat_record.py --results <15-seat synth> --spec <round-81 w1-spec> --out seat-failures.json
+seats=15 empty=2 not_settled=0
+EXIT=0
+
+## record head (two empty seats; every exit/error is declared unknown)
+round 81 wave w1
+empty_output ['MutC', 'ReviewC1']
+not_settled []
+schema_limit: w1-results.json records only name, agent and output; it carries no status, exit code or error text, so a seat's failure cause is not recoverable from committed bytes and every exit/error here is declared unknown
+sample seat: {"agent": "reviewer", "error": "not recorded in w1-results.json", "exit": "unknown", "output_bytes": 0, "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "role": "reviewer", "status": "empty"}
+
+## the counter predicate on that tree
+(True, '15 seats recorded (2 empty: MutC, ReviewC1); record equals re-derivation')
+
+## recorder bytes: freeze commit vs worktree
+freeze: 95a00bd9621e933519122c2b020f6bcdd6e00d966ce4ee580cb679bf4df87b29
+disk  : 95a00bd9621e933519122c2b020f6bcdd6e00d966ce4ee580cb679bf4df87b29

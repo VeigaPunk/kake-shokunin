@@ -1,0 +1,29 @@
+# ReviewC2 — v2 (amendment-2, eccd0f9c) counter runs
+
+$ python3 -B .ufo/waves/round-81/c81_capture_audit.py --selftest --work $HYAKU_SCRATCH/kake-r81/ReviewC2/w-st4
+selftest: 18/18 passed
+exit=0
+
+# base control reproduction (ran from lane checkout, same command as committed receipt):
+$ python3 -B .ufo/waves/round-81/c81_capture_audit.py --root . --revision 2e11925500dd5a739376c9108c94616243af0cd4 --work $HYAKU_SCRATCH/kake-r81/ReviewC2/w-base3
+declared expectations: expectations unreadable: Expecting value: line 1 column 1 (char 0)
+C2v1 revision=2e11925500dd5a739376c9108c94616243af0cd4 declared=0 surfaces=0 failures=1 audit_rc=- met=false
+exit=1
+exit=1
+# content lines match committed .ufo/waves/round-81/controls/base-c81-capture-audit.txt
+# (line 5 of the receipt is the shell's echoed exit, reproduced as base-exit=1).
+
+# worktree scoring after ExecCapture landed the capture (untracked bytes at review time):
+$ python3 -B .ufo/waves/round-81/c81_capture_audit.py --root /home/vgpnk/Projects/shokunin/kake-shokunin --work $HYAKU_SCRATCH/kake-r81/ReviewC2/w-head
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: ok 200 78897B 2026-11-04T12:05:06Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: ok 200 62B 2026-11-04T12:05:06Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: ok 200 7810B 2026-11-04T12:05:06Z ds4cc.com
+C2v1 revision=worktree declared=3 surfaces=3 failures=0 audit_rc=1 met=true
+exit=0
+exit=0
+
+# --revision mode exercised at a pre-capture commit:
+$ python3 -B .ufo/waves/round-81/c81_capture_audit.py --root $L --revision eccd0f9c --work $HYAKU_SCRATCH/kake-r81/ReviewC2/w-rev3
+capture: no manifest at the measured revision
+C2v1 revision=eccd0f9c declared=0 surfaces=0 failures=1 audit_rc=- met=false
+exit=1

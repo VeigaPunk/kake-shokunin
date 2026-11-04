@@ -1,0 +1,30 @@
+# ReviewC2 — capture state (worktree at review time; capture untracked, landed 2026-11-04T12:05:06Z)
+
+# Independent re-verification (own script, not the counter):
+surfaces==checks ids: True ['ds4cc-primary', 'ds4cc-robots', 'ds4cc-sitemap']
+allowlist equal: True
+ds4cc-primary expect-equal: True url-equal: True sha-ok: True bytes-ok: True status: 200 finalUrl: https://ds4cc.com/ fetchedAt: 2026-11-04T12:05:06Z method: GET truncated: False error: None
+  hdr-names: ['Connection', 'Content-Length', 'Server', 'Content-Type', 'Last-Modified', 'Access-Control-Allow-Origin', 'ETag', 'expires', 'Cache-Control', 'x-proxy-cache', 'X-GitHub-Request-Id', 'x-github-edge-region', 'Accept-Ranges', 'Age', 'Date', 'Via', 'X-Served-By', 'X-Cache', 'X-Cache-Hits', 'X-Timer', 'Vary', 'X-Fastly-Request-ID']
+ds4cc-robots    expect-equal: True url-equal: True sha-ok: True bytes-ok: True status: 200 finalUrl: https://ds4cc.com/robots.txt fetchedAt: 2026-11-04T12:05:06Z
+ds4cc-sitemap   expect-equal: True url-equal: True sha-ok: True bytes-ok: True status: 200 finalUrl: https://ds4cc.com/sitemap.xml fetchedAt: 2026-11-04T12:05:06Z
+
+# committed audit receipt .ufo/waves/round-81/controls/after-c2-audit.txt:
+ds4cc-primary hsts_present missing
+ds4cc-primary csp_present missing
+ds4cc-robots hsts_present missing
+ds4cc-sitemap hsts_present missing
+checks=3 findings=4
+
+# population/ holds one fetch.json per surface (declarative id+url only; no per-attempt
+# status record). All three surfaces fetched 200 at the same second; none dropped.
+
+# Tampered control reproduced independently (byte 0 of ds4cc-primary/body.bin 0x3c->0x3d):
+flipped-body-sha=d1220935b5bd
+$ python3 -B .ufo/waves/round-81/c81_capture_audit.py --root <tampered copy> --work ...
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: body sha256 d1220935b5bd != receipt f2c5d2b3ab34
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: body sha256 d1220935b5bd != receipt f2c5d2b3ab34
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: ok 200 62B 2026-11-04T12:05:06Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: ok 200 7810B 2026-11-04T12:05:06Z ds4cc.com
+C2v1 revision=worktree declared=3 surfaces=3 failures=1 audit_rc=1 met=false
+exit=1
+# line-for-line equal to committed controls/ctl-c81-tampered-capture.txt output.

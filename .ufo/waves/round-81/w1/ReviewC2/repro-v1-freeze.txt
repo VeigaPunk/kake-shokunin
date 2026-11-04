@@ -1,0 +1,49 @@
+# ReviewC2 — v1 (freeze) counter runs, captured from the seat session transcript
+# Instrument measured: .ufo/waves/round-81/c81_capture_audit.py as of freeze commit
+# a77b8a19c2b65a07dfbe40aaf7ec86aaeee2f9cb (pre-amendment-2 working tree).
+
+$ python3 -B $L/.ufo/waves/round-81/c81_capture_audit.py --root $L --work $S/w-repro
+capture: no manifest at the measured revision
+C2v1 root=kake-shokunin surfaces=0 failures=1 audit_rc=- met=false
+exit=1
+exit=1            # shell echo
+
+$ python3 -B $L/.ufo/waves/round-81/c81_capture_audit.py --selftest --work $S/w-selftest
+  ok green-audit-ran :: rc=0
+  ok green-met :: surfaces=1
+  ok tampered-audit-ran :: rc=0
+  ok body-digest-opens :: .ufo/waves/round-81/capture/surface-1/response.json: body sha256 49a03ce6a4ec != receipt b6c951ed9485; ...
+  ok counted-audit-ran :: rc=0
+  ok byte-count-opens :: .ufo/waves/round-81/capture/surface-1/response.json: bytes 16 != body 15; ...
+  ok stale-audit-ran :: rc=0
+  ok stale-capture-opens :: ... fetchedAt 2026-11-03T23:59:59Z predates the round (2026-11-04T00:00:00Z); ...
+  ok drifted-audit-ran :: rc=0
+  ok audit-drift-opens :: audit stdout differs from the committed receipt (1 vs 2 lines); ...
+  ok empty-audit-ran :: rc=0
+  ok no-surface-opens :: manifest carries no check
+selftest: 12/12 passed
+exit=0
+
+# undocumented --revision probe (contract names [--revision <rev>]; freeze counter did not ship it)
+$ python3 -B $L/.ufo/waves/round-81/c81_capture_audit.py --root $L --revision 2e11925500dd5a739376c9108c94616243af0cd4 --work $S/w-rev
+usage: c81_capture_audit.py [-h] [--root ROOT] [--work WORK] [--selftest]
+c81_capture_audit.py: error: unrecognized arguments: --revision 2e11925500dd5a739376c9108c94616243af0cd4
+exit=2
+
+# base-revision content measured from `git -C $L archive 2e11925 | tar -x` under scratch:
+$ python3 -B $S/base/.ufo/waves/round-81/c81_capture_audit.py --root $S/base --work $S/w-base
+python3: can't open file '/fast/scratch/hyaku/kake-r81/ReviewC2/base/.ufo/waves/round-81/c81_capture_audit.py': [Errno 2] No such file or directory
+# (the counter did not exist at base; the honest base measurement is the freeze counter
+# with --root over base content:)
+$ python3 -B $L/.ufo/waves/round-81/c81_capture_audit.py --root $S/base --work $S/w-base2
+capture: no manifest at the measured revision
+C2v1 root=base surfaces=0 failures=1 audit_rc=- met=false
+exit=1
+exit=1
+
+# v1 forgery suite (bodies never fetched):
+T1: exit=0, met=true   — all three receipts fabricated; primary fetchedAt 2026-11-04T01:00:00+09:00 (== 2026-11-03T16:00:00Z, BEFORE the round) accepted; finalUrl https://cdn.evil.example/... accepted
+T2: exit=1, met=false  — fetchedAt 2026-11-03T23:00:00-02:00 (== 2026-11-04T01:00:00Z, genuinely fresh) rejected as "predates the round"
+T3: exit=0, met=true   — scripts/header_audit.py replaced by a 2-line echo stub; committed receipt equals stub output
+T4: exit=0, met=true   — manifest check url == receipt url swap passes (no binding)
+T5: exit=0, met=true   — committed receipt padded with trailing spaces per line + 2 blank lines still equal under line normalisation

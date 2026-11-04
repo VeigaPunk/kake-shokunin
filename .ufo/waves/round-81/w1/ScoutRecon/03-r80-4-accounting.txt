@@ -1,0 +1,26 @@
+# R80-4 population: freeze counter vs contractor builder vs amended counter
+
+## fixture A — empty output on a NON-attack seat
+$ make_accounting.py --root accA
+requested 1/3 settled 1/2 share=0.500 met=true
+record settled: {'requested_total': 3, 'requested_attack': 1, 'settled_total': 2, 'settled_attack': 1, 'share': 0.5}
+freeze counter : (False, 'accounting record disagrees with re-derivation: settled_total, share')
+amended counter: (True, 'settled attack share 0.500 (1/2); requested 1/3; accounting record re-derives')
+
+## fixture B — empty output on an ATTACK seat (honest share falls below the floor)
+$ make_accounting.py --root accB
+requested 1/3 settled 0/2 share=0.000 met=false
+record settled: {'requested_total': 3, 'requested_attack': 1, 'settled_total': 2, 'settled_attack': 0, 'share': 0.0}
+freeze counter : (False, 'accounting record disagrees with re-derivation: settled_total, settled_attack, share')
+amended counter: (False, 'settled attack share 0.000 below 0.25 (0/2)')
+
+## fixture C — the live 15-item round-81 spec, two attack seats empty (ReviewC1, MutC)
+$ make_accounting.py --root accC
+requested 6/15 settled 4/13 share=0.308 met=true
+record settled: {'requested_total': 15, 'requested_attack': 6, 'settled_total': 13, 'settled_attack': 4, 'share': 0.3076923076923077}
+freeze counter : (False, 'accounting record disagrees with re-derivation: settled_total, settled_attack, share')
+amended counter: (True, 'settled attack share 0.308 (4/13); requested 6/15; accounting record re-derives')
+
+## what the freeze counter read before amendment 1 (its own selftest had no empty-seat case)
+freeze selftest tally: 13/13 (controls/c81-selftest-c1.txt at a77b8a19)
+amended selftest tally: 15/15 (current receipt; two R80-4 fixtures added)

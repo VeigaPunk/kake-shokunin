@@ -607,3 +607,35 @@ example undecidable. Terms: `.ufo/waves/round-80/amendments/amendment-1.md`; gro
 frozen round-79 matrix unchanged. Calendar validity, the RFC 850 50-year window, per-bot effective
 resolution and header inheritance across redirect hops remain out of scope, and no crawler behaviour or
 live property state is claimed.
+
+## Round 81 capture-once front step
+
+The capture-once / audit-offline chain enters Core as an instrument.
+`.ufo/waves/round-81/c81_capture_audit.py` takes a committed capture tree (three declared
+`ds4cc.com` surfaces, one GET per URL, retained as `capture/<id>/{response.json,body.bin}`), joins
+the frozen `.ufo/waves/round-81/capture-expectations.json` to it as a version-1 manifest, runs
+`scripts/header_audit.py` over that manifest with no network, and re-derives the whole chain at the
+measured revision: body sha256 and byte count against the retained body, an integer status in
+100..599, an RFC 3339 fetch time at or after the round's start, GET and not truncated, the receipt's
+url identical to the declared url with an https final URL on an allowlisted host, the manifest's
+check set equal to the declared surfaces (ids, urls, expect objects, allowlist — a dropped surface
+fails), and the audit's stdout equal to the committed audit receipt after one trailing newline. Its
+base control reads `declared=0 surfaces=0 met=false`, its selftest `18/18`, and the tampered control
+(a copy of the real capture with one body byte flipped) reads `met=false`. Amendment 2 aligned the
+instrument to the sentence before the capture existed; amendment 1 had aligned the C1 counter's
+settled-seat population. What the counter cannot do is prove a capture came from a socket: a
+well-formed fabrication with the declared expectations and a real offline audit run reads `met=true`
+(the wave's critic measured this, `w1/CriticClaims.md` P3), so provenance is the round's own capture
+transcript, not the predicate. This is the first lane instrument that binds a *live capture* to an
+*offline verdict* through committed bytes rather than through a seat's narrative, and it is Core
+because the audit it wraps (`header_audit.py`, round 61) already is. It fetches nothing at
+measurement time and publishes nothing.
+
+S454 (RFC 9110 §15.5.5 404 Not Found and §15.5.11 410 Gone; the contract's §15.5.4 anchor is
+corrected by amendment 1 A2, and §15.5.4 is 403 Forbidden) fixes the boundary of what any such
+verdict may conclude. A 404 Not Found or 410 Gone answer is the target resource's absence recorded
+with its status; it is never folded into a header-policy failure, and a class that reads only 2xx
+responses draws no conclusion from it. So an audit verdict here is a statement about the bytes served
+at one `fetchedAt`, not about the property's policy, not about whether the resource exists at another
+instant, and not about whether any other client sees the same fields. Those limits are stated, not
+closed, and publishing stays operator-owned.

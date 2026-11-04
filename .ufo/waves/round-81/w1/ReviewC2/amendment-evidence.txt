@@ -1,0 +1,34 @@
+# ReviewC2 — instrument drift during the review (facts)
+
+$ git log --oneline --format='%h %ci %s' a77b8a19..HEAD
+0a27045e 2026-11-04 08:51:03 -0300 round-81: amendment 1 — C1 counts only non-empty settled seats; S454 anchor corrected
+bec3ecf7 2026-11-04 08:51:33 -0300 round-81: disclose the one receipt rewrite from amendment 1
+eccd0f9c 2026-11-04 09:01:40 -0300 round-81: amendment 2 — C2 measures the declared expectations, adds --revision and byte equality
+e93d26b7 2026-11-04 09:01:50 -0300 round-81: disclose the two C2 receipt rewrites from amendment 2
+
+$ git diff --stat a77b8a19 -- .ufo/waves/round-81/
+ .../amendments/amendment-1.md      |  73 ++
+ .../amendments/amendment-2.md      |  56 ++
+ .../c81_capture_audit.py           | 287 +++++++++++------
+ .../c81_defect_queue.py            |  21 +-
+ .../controls/base-c81-capture-audit.txt |   6 +-
+ .../controls/c81-selftest-c1.txt     |   4 +-
+ .../controls/c81-selftest-c2.txt     |  12 +-
+
+$ grep -nE 'base-c81-capture-audit|c81-selftest-c2' .ufo/waves/round-58/receipt-rewrites.json
+ 340:  "path": ".ufo/waves/round-81/controls/base-c81-capture-audit.txt", "commit": "eccd0f9cb0be...", "status": "M", ...
+ 349:  "path": ".ufo/waves/round-81/controls/c81-selftest-c2.txt", "commit": "eccd0f9cb0be...", "status": "M", ...
+
+# timing conditions for amendment 2 (capture + w1-results.json absent at 09:01:40):
+# .ufo/waves/round-81/capture landed later (receipts fetchedAt 2026-11-04T12:05:06Z, untracked);
+# w1-results.json absent at review time.
+
+# amendment-2 record in corpus/lessons/round-81.md: NOT PRESENT at review time
+$ grep -n 'amendment 2\|amendment-2' corpus/lessons/round-81.md
+(no matches; amendment 1 is recorded at lines 12-13, 37, 164, 218, 241)
+
+# S454 registry state at review time:
+$ grep -n S454 corpus/SOURCES.md
+(no matches)
+# drafted in corpus/lessons/round-81.md:139 (mined 2026-11-04, scope narrowed vs S088);
+# lesson census gate currently reports: file W04 S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes, exit 1 (round-81.md:144)

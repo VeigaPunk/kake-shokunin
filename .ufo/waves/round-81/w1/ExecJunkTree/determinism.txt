@@ -1,0 +1,17 @@
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/junk_tree_build.py --spec /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/junk-tree.json --out /fast/scratch/hyaku/kake-r81/ExecJunkTree/build-a
+wrote 1 files to /fast/scratch/hyaku/kake-r81/ExecJunkTree/build-a
+exit=0
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/junk_tree_build.py --spec /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/junk-tree.json --out /fast/scratch/hyaku/kake-r81/ExecJunkTree/build-b
+wrote 1 files to /fast/scratch/hyaku/kake-r81/ExecJunkTree/build-b
+exit=0
+$ diff -r /fast/scratch/hyaku/kake-r81/ExecJunkTree/build-a /fast/scratch/hyaku/kake-r81/ExecJunkTree/build-b
+(no output)
+exit=0
+--- build-a (find . -type f | LC_ALL=C sort | xargs sha256sum) ---
+f32ae6a609f182c13c9cc813f5e4a1f94afcc76838ec596f7855dc8ed71b0693  ./corpus/lessons/round-80.md
+--- build-b (same listing command) ---
+f32ae6a609f182c13c9cc813f5e4a1f94afcc76838ec596f7855dc8ed71b0693  ./corpus/lessons/round-80.md
+--- aggregate digests of the two listings ---
+c2cc56360ae367312eccee6221866482dbd3d6654f66226d1ae1270083f0c049  /fast/scratch/hyaku/kake-r81/ExecJunkTree/files-a.txt
+c2cc56360ae367312eccee6221866482dbd3d6654f66226d1ae1270083f0c049  /fast/scratch/hyaku/kake-r81/ExecJunkTree/files-b.txt
+deterministic=yes: identical file set (1 file), identical per-file sha256 (f32ae6a6...), diff -r silent

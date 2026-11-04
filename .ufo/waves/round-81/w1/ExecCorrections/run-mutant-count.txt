@@ -1,0 +1,10 @@
+root=/fast/scratch/hyaku/kake-r81/ExecCorrections/fixture-m3-count
+registry rows=191 S453_line=200 rfc9110.txt rows=3 rfc9110.html rows=3
+receipt per-const: const_all.py failures=12 total=12; const_clean.py failures=12 total=12; const_echo.py failures=11 total=12; const_regex.py failures=12 total=12
+sum_failures/sum_slots=47/48 constants_failed=4/4 const_echo 11/12
+lesson lines=7
+R80-1 closed=true :: found: - R80-1: the S453 pointer is pinned to bytes: corpus/SOURCES.md:200 for S453 (registry row verified in place this round).
+R80-2 closed=true :: found: - R80-2: constants receipt re-derived from ctl-c80-constants.txt: constants_failed=4/4, summed case failures 47/48, const_echo 11/12.
+R80-3 closed=false :: no R80-3 row carrying 'rfc9110.txt rows=3' AND 'rfc9110.html rows=3'
+open=1 met=false
+exit=1

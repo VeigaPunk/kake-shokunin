@@ -1,0 +1,182 @@
+== ExecSeatRecord 2026-11-04T11:56:29Z recorder=95a00bd9621e933519122c2b020f6bcdd6e00d966ce4ee580cb679bf4df87b29
+$ python3 -B /fast/scratch/hyaku/kake-r81/ExecSeatRecord/make_cases.py
+cases written: ['a-results.json', 'b-results.json', 'c-results.json', 'spec.json']
+rc=0
+$ python3 -B /fast/scratch/hyaku/kake-r81/ExecSeatRecord/reorder.py
+reordered rows: 15 first: SentinelS last: ScoutSources
+rc=0
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py --results /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1-results.json --spec /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1-spec.json --out /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80.json
+seats=15 empty=2 not_settled=0
+rc=0
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py --results /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-79/w1-results.json --spec /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-79/w1-spec.json --out /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r79.json
+seats=14 empty=2 not_settled=0
+rc=0
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py --results /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/a-results.json --spec /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/spec.json --out /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/a-record.json
+seats=3 empty=0 not_settled=0
+rc=0
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py --results /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/b-results.json --spec /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/spec.json --out /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/b-record.json
+seats=3 empty=1 not_settled=0
+rc=0
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py --results /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/c-results.json --spec /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/spec.json --out /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/c-record.json
+seats=3 empty=1 not_settled=0
+rc=0
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py --results /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1-results.json --spec /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1-spec.json --out /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80-again.json
+seats=15 empty=2 not_settled=0
+rc=0
+$ cmp /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80.json /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80-again.json
+rc=0
+$ python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py --results /fast/scratch/hyaku/kake-r81/ExecSeatRecord/cases/r80-reordered.json --spec /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1-spec.json --out /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80-reordered-record.json
+seats=15 empty=2 not_settled=0
+rc=0
+$ cmp /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80.json /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80-reordered-record.json
+rc=0
+$ sha256sum /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80.json /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80-again.json /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80-reordered-record.json /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r79.json
+ea7a00ae827c9799d98a583918d2788603217b5b0757c681a3dd2e57c9d57bb3  /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80.json
+ea7a00ae827c9799d98a583918d2788603217b5b0757c681a3dd2e57c9d57bb3  /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80-again.json
+ea7a00ae827c9799d98a583918d2788603217b5b0757c681a3dd2e57c9d57bb3  /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80-reordered-record.json
+b9a19f3ca0fad80f55c63e0ff5c2e17b113458147b2b900ba1af34ad859ecf6d  /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r79.json
+rc=0
+$ python3 -B /fast/scratch/hyaku/kake-r81/ExecSeatRecord/analyze.py
+== r80 results /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1-results.json
+top-level keys: ['lane', 'results', 'round', 'seats', 'wave']
+declared seats: 15 | rows: 15
+row key shapes: {'[agent,name,note,output]': 15}
+row key union: ['agent', 'name', 'note', 'output']
+ignored-candidate keys present: []
+== r80 spec /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/w1-spec.json: items=15 names=['ScoutSources', 'ScoutRecon', 'ExecGrammar', 'ExecOracle', 'ExecQueue', 'ExecGuard', 'ExecFixtures', 'ScribeKnowledge', 'ScribeRecord', 'ReviewC1', 'ReviewC2', 'CriticC', 'MutC', 'ConnectorC', 'SentinelS']
+== r79 results /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-79/w1-results.json
+top-level keys: ['lane', 'results', 'round', 'seats', 'wave']
+declared seats: 14 | rows: 14
+row key shapes: {'[agent,name,note,output]': 14}
+row key union: ['agent', 'name', 'note', 'output']
+ignored-candidate keys present: []
+== r79 spec /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-79/w1-spec.json: items=14 names=['ScoutSources', 'ScoutRealInput', 'ExecC2Tool', 'ExecC2RealRun', 'ExecC1Ledger', 'ExecR2R3', 'ScribeKnowledge', 'ScribeRecord', 'ReviewC1', 'ReviewC2', 'CriticC', 'MutC', 'ConnectorC', 'SentinelC']
+== r81 results /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/w1-results.json: ABSENT
+== r80 record /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r80.json
+wave: w1 | round: 80
+seats: 15
+empty_output: ['MutC', 'ReviewC1']
+not_settled: []
+seat-entry keys: ['agent', 'error', 'exit', 'output_bytes', 'output_sha256', 'role', 'status']
+schema_limit: "w1-results.json records only name, agent and output; it carries no status, exit code or error text, so a seat's failure cause is not recoverable from committed bytes and every exit/error here is declared unknown"
+== r79 record /fast/scratch/hyaku/kake-r81/ExecSeatRecord/r79.json
+wave: w1 | round: 79
+seats: 14
+empty_output: ['CriticC', 'ExecC2Tool']
+not_settled: []
+seat-entry keys: ['agent', 'error', 'exit', 'output_bytes', 'output_sha256', 'role', 'status']
+schema_limit: "w1-results.json records only name, agent and output; it carries no status, exit code or error text, so a seat's failure cause is not recoverable from committed bytes and every exit/error here is declared unknown"
+-- r80 ground truth: rows=15 empty=['MutC', 'ReviewC1'] spec-minus-results=[]
+-- r80 recorder agreement: empty_ok=True not_settled_ok=True seats_ok=True
+-- r79 ground truth: rows=14 empty=['CriticC', 'ExecC2Tool'] spec-minus-results=[]
+-- r79 recorder agreement: empty_ok=True not_settled_ok=True seats_ok=True
+-- digest ScoutSources: bytes_ok=True sha_ok=True status=reported role=scout exit=unknown error='not recorded in w1-results.json'
+-- digest ReviewC1: bytes_ok=True sha_ok=True status=empty role=reviewer exit=unknown error='not recorded in w1-results.json'
+-- case a statuses: SeatA=reported, SeatB=reported, SeatC=reported | empty_output=[]
+-- case b statuses: SeatA=reported, SeatB=reported, SeatC=empty | empty_output=['SeatC']
+-- case c statuses: SeatA=reported, SeatB=reported, SeatC=empty | empty_output=['SeatC']
+-- sha256 r80.json: ea7a00ae827c9799d98a583918d2788603217b5b0757c681a3dd2e57c9d57bb3 (4459 bytes)
+-- sha256 r80-again.json: ea7a00ae827c9799d98a583918d2788603217b5b0757c681a3dd2e57c9d57bb3 (4459 bytes)
+-- sha256 r80-reordered-record.json: ea7a00ae827c9799d98a583918d2788603217b5b0757c681a3dd2e57c9d57bb3 (4459 bytes)
+-- sha256 r79.json: b9a19f3ca0fad80f55c63e0ff5c2e17b113458147b2b900ba1af34ad859ecf6d (4193 bytes)
+rc=0
+$ python3 -c 
+import ast, pathlib, sys
+tree = ast.parse(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+for node in tree.body:
+    if isinstance(node, ast.Assign) and any(getattr(t, "id", None) == "RECORDER" for t in node.targets):
+        pathlib.Path(sys.argv[2]).write_text(node.value.value, encoding="utf-8")
+        print("extracted embedded RECORDER from", sys.argv[1])
+ /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/c81_defect_queue.py /fast/scratch/hyaku/kake-r81/ExecSeatRecord/embedded-recorder.py
+extracted embedded RECORDER from /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/c81_defect_queue.py
+rc=0
+$ diff -u /fast/scratch/hyaku/kake-r81/ExecSeatRecord/embedded-recorder.py /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py
+--- /fast/scratch/hyaku/kake-r81/ExecSeatRecord/embedded-recorder.py	2026-11-04 08:56:29.405399989 -0300
++++ /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/wave_seat_record.py	2026-11-04 08:40:37.187075281 -0300
+@@ -1,14 +1,27 @@
+ #!/usr/bin/env python3
+-"""Record per-seat outcome from a wave results file (round-81 R80-6).
++"""Record per-seat outcome from a wave results file (round 81, R80-6).
+ 
+ The orchestrator's `<wave>-results.json` carries per seat only `name`, `agent`
+-and `output`. It records no status, exit or error text, so a dead seat's cause
+-cannot be cited from it. This recorder writes the lane-owned record that makes
+-the outcome decidable: it joins the spec's roles, classifies each settling seat
+-(`reported` / `empty` / `unknown`), re-derives output bytes and digest, and
+-names the schema limit instead of inventing an error message.
++and `output`. It records no status, exit code or error text, so a dead seat's
++cause cannot be cited from committed bytes. This recorder writes the lane-owned
++record that makes the outcome decidable: it joins the wave spec's roles,
++classifies each settling seat (`reported` / `empty` / `unknown`), re-derives each
++output's byte count and digest, lists spec seats that never settled, and names
++the schema limit instead of inventing an error message.
++
++    python3 -B scripts/wave_seat_record.py --results <w1-results.json> --spec <w1-spec.json> --out <record.json>
++
++The record is canonical JSON (sorted keys, one-space indent) so a counter can
++compare a committed record against a fresh re-derivation byte for byte.
++
++Exit 0 wrote the record, 2 unreadable input, 64 usage.
+ """
+-import argparse, hashlib, json, sys
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++import sys
+ from pathlib import Path
+ 
+ SCHEMA_LIMIT = ("w1-results.json records only name, agent and output; it carries no status, "
+@@ -16,9 +29,12 @@
+                 "committed bytes and every exit/error here is declared unknown")
+ 
+ 
+-def load(path):
++def load(path: str) -> dict:
+     with open(path, encoding="utf-8") as handle:
+-        return json.load(handle)
++        document = json.load(handle)
++    if not isinstance(document, dict):
++        raise ValueError("top-level document is not an object")
++    return document
+ 
+ 
+ def main() -> int:
+@@ -40,27 +56,29 @@
+             continue
+         name = row["name"]
+         output = row.get("output") or ""
++        if not isinstance(output, str):
++            output = str(output)
+         raw = output.encode("utf-8")
+-        status = "reported" if raw.strip() else "empty"
+         seats[name] = {
++            "agent": row.get("agent") if isinstance(row.get("agent"), str) else "unknown",
+             "role": roles.get(name, "unknown"),
+-            "status": status,
++            "status": "reported" if raw.strip() else "empty",
+             "exit": "unknown",
+             "error": "not recorded in w1-results.json",
+             "output_bytes": len(raw),
+             "output_sha256": hashlib.sha256(raw).hexdigest(),
+         }
+-    unattributed = sorted(n for n in roles if n not in seats)
+     record = {
+         "wave": results.get("wave") or spec.get("wave"),
+         "round": results.get("round"),
+         "seats": seats,
+         "empty_output": sorted(n for n, e in seats.items() if e["status"] == "empty"),
+-        "not_settled": unattributed,
++        "not_settled": sorted(n for n in roles if n not in seats),
+         "schema_limit": SCHEMA_LIMIT,
+     }
+     Path(a.out).write_text(json.dumps(record, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+-    print(f"seats={len(seats)} empty={len(record['empty_output'])} not_settled={len(unattributed)}")
++    print(f"seats={len(seats)} empty={len(record['empty_output'])} "
++          f"not_settled={len(record['not_settled'])}")
+     return 0
+ 
+ 
+rc=1
+== driver done 2026-11-04T11:56:29Z

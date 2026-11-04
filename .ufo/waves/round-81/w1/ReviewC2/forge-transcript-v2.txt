@@ -1,0 +1,44 @@
+T1v2: fully forged capture (bodies never fetched); fetchedAt 2026-11-04T01:00:00+09:00 == 2026-11-03T16:00:00Z, BEFORE the round; receipt fields simply restate the declared url/expectations
+=== forge2: counter exit=0
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: ok 200 55B 2026-11-04T01:00:00+09:00 ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: ok 200 24B 2026-11-04T01:00:00+09:00 ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: ok 200 38B 2026-11-04T01:00:00+09:00 ds4cc.com
+C2v1 revision=worktree declared=3 surfaces=3 failures=0 audit_rc=0 met=true
+exit=0
+
+T2v2a: fetchedAt 2026-11-03T23:00:00-02:00 == 2026-11-04T01:00:00Z, genuinely AFTER round start
+=== forge2-false-reject: counter exit=1
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: fetchedAt 2026-11-03T23:00:00-02:00 predates the round (2026-11-04T00:00:00Z)
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: fetchedAt 2026-11-03T23:00:00-02:00 predates the round (2026-11-04T00:00:00Z)
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: fetchedAt 2026-11-03T23:00:00-02:00 predates the round (2026-11-04T00:00:00Z)
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: fetchedAt 2026-11-03T23:00:00-02:00 predates the round (2026-11-04T00:00:00Z)
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: fetchedAt 2026-11-03T23:00:00-02:00 predates the round (2026-11-04T00:00:00Z)
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: fetchedAt 2026-11-03T23:00:00-02:00 predates the round (2026-11-04T00:00:00Z)
+C2v1 revision=worktree declared=3 surfaces=3 failures=3 audit_rc=0 met=false
+exit=1
+
+T3v2: worktree mode; tree's scripts/header_audit.py replaced by a canned-echo stub; committed receipt equals the stub's output
+=== forge2-stub: counter exit=0
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: ok 200 55B 2026-11-05T10:00:00Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: ok 200 24B 2026-11-05T10:00:00Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: ok 200 38B 2026-11-05T10:00:00Z ds4cc.com
+C2v1 revision=worktree declared=3 surfaces=3 failures=0 audit_rc=0 met=true
+exit=0
+
+T4v2: receipt carries a non-null transport error next to a 200 status
+=== forge2-error: counter exit=0
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: ok 200 55B 2026-11-05T10:00:00Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: ok 200 24B 2026-11-05T10:00:00Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: ok 200 38B 2026-11-05T10:00:00Z ds4cc.com
+C2v1 revision=worktree declared=3 surfaces=3 failures=0 audit_rc=0 met=true
+exit=0
+
+T5v2: committed receipt padded with trailing spaces per line plus an extra newline — must now FAIL the byte comparison
+=== forge2-ws: counter exit=1
+audit stdout differs from the committed receipt (byte comparison after one trailing newline)
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: ok 200 55B 2026-11-05T10:00:00Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: ok 200 24B 2026-11-05T10:00:00Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: ok 200 38B 2026-11-05T10:00:00Z ds4cc.com
+C2v1 revision=worktree declared=3 surfaces=3 failures=1 audit_rc=0 met=false
+exit=1
+

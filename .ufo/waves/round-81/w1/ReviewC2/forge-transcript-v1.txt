@@ -1,0 +1,32 @@
+# ReviewC2 — v1 forgery suite transcript (freeze counter, pre-amendment-2)
+# Captured verbatim from the seat session; fixtures live under scratch (deleted at close).
+
+T1: fully forged capture (bodies never fetched); primary fetchedAt 2026-11-04T01:00:00+09:00 == 2026-11-03T16:00:00Z, BEFORE the round; robots/sitemap finalUrl points at cdn.evil.example
+=== forge: counter exit=0
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: ok 200 55B 2026-11-04T01:00:00+09:00 ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: ok 200 24B 2026-11-05T10:00:00Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: ok 200 38B 2026-11-05T10:00:00Z ds4cc.com
+C2v1 root=forge surfaces=3 failures=0 audit_rc=0 met=true
+exit=0
+
+T2: fetchedAt 2026-11-03T23:00:00-02:00 == 2026-11-04T01:00:00Z, genuinely AFTER round start
+=== forge-false-reject: counter exit=1
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: fetchedAt 2026-11-03T23:00:00-02:00 predates the round (2026-11-04T00:00:00Z)
+...
+C2v1 root=forge surfaces=3 failures=3 audit_rc=0 met=false
+exit=1
+
+T3: tree whose scripts/header_audit.py is a canned-echo stub; committed receipt equals the stub's output
+=== forge-stub: counter exit=0
+C2v1 root=forge-stub surfaces=3 failures=0 audit_rc=0 met=true
+exit=0
+
+T4: manifest check url says robots.txt; receipt url says https://ds4cc.com/ (no binding between the two)
+=== forge-urlswap: counter exit=0
+C2v1 root=forge-urlswap surfaces=3 failures=0 audit_rc=0 met=true
+exit=0
+
+T5: committed receipt padded with trailing spaces per line plus two blank lines
+=== forge-ws: counter exit=0
+C2v1 root=forge-ws surfaces=3 failures=0 audit_rc=0 met=true
+exit=0

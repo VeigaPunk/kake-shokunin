@@ -1,0 +1,24 @@
+$ tail -n +2 /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-80/controls/ctl-c80-junk-queue.txt > /fast/scratch/hyaku/kake-r81/ExecJunkTree/expected-body.txt
+$ diff /fast/scratch/hyaku/kake-r81/ExecJunkTree/expected-body.txt /fast/scratch/hyaku/kake-r81/ExecJunkTree/step2.out
+1c1
+< R79-1 open S453 source is not RFC 9110: RFC 9109: Everything — https://example.invalid/rfc9109
+---
+> R79-1 open no S453 row in corpus/SOURCES.md
+3c3
+< R79-3 open tool absent in measured tree
+---
+> R79-3 open receipt c80-selftest.txt lacks a `selftest: N/N passed` line or `exit=0`
+8d7
+< exit=1
+exit=1
+--- labeled comparison (committed ctl-c80-junk-queue.txt body vs rebuilt-tree run) ---
+AGREE  R79-2 open scripts/ledger_append_guard.py absent
+AGREE  R79-4 open .ufo/waves/round-80/c80_ledger_fixtures.py absent
+AGREE  R79-5 closed withdrawal recorded; no self-assessment file repeats the sentence
+AGREE  R79-8 open round-79 results unreadable: Expecting value: line 1 column 1 (char 0)
+AGREE  C1v1 revision=worktree items=6 open=5 closed=1 exported=0 met=false
+AGREE  exit=1 (counter stdout tail)
+DIFFER R79-1 reason: committed run had a decoy S453 row (RFC 9109) in the old scratch tree; the committed junk-tree.json supplies no SOURCES.md, so the rebuilt tree reports "no S453 row in corpus/SOURCES.md". Same verdict (open).
+DIFFER R79-3 reason: committed run failed at "tool absent in measured tree"; the rebuilt tree fails earlier at the missing c80-selftest.txt receipt. Same verdict (open).
+DIFFER committed receipt line 8 "exit=1" is the recorder-appended trailer, not counter stdout; re-added as the trailer of after-r80-5-junk-rerun.txt.
+DIFFER (by construction) line 1 command echo: old run names the deleted /fast/scratch/hyaku/kake-r80/l1/junk tree and carries a comment; the after-receipt names the builder-rebuilt tree.

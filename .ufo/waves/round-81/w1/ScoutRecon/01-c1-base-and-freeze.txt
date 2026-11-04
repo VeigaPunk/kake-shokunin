@@ -1,0 +1,28 @@
+# R80-1..R80-6 base/freeze re-derivation (ScoutRecon, round 81)
+# date: 2026-11-04T11:59:15Z  lane HEAD: bec3ecf7a067f2ec403888b16294aa6ce490cfd7
+
+## base revision 2e119255 — frozen counter (blob from the freeze commit)
+$ git -C kake-shokunin show a77b8a19:.ufo/waves/round-81/c81_defect_queue.py > freeze_counter.py
+freeze counter sha256: d4b0fa80d8d9d51cf4359be20fb92e18112b3b671c11667f56e0545b44c6b8e3
+$ python3 -B freeze_counter.py --root kake-shokunin --revision 2e119255... --work base
+R80-1 open no R80-1 correction row names corpus/SOURCES.md:200 for S453
+R80-2 open no R80-2 correction row carries all of constants_failed=4/4, 47/48, 11/12
+R80-3 open no R80-3 correction row carries rfc9110.txt rows=3 and rfc9110.html rows=3
+R80-4 open round-81 spec unreadable: w1-spec.json: Expecting value: line 1 column 1 (char 0)
+R80-5 open .ufo/waves/round-81/junk_tree_build.py absent at the measured revision
+R80-6 open scripts/wave_seat_record.py absent at the measured revision
+C1v1 revision=2e11925500dd5a739376c9108c94616243af0cd4 items=6 open=6 closed=0 met=false
+exit=1
+EXIT=1
+
+## freeze revision a77b8a19 — same counter (what the freeze already closes)
+$ python3 -B freeze_counter.py --root kake-shokunin --revision a77b8a19... --work freeze
+R80-1 open no R80-1 correction row names corpus/SOURCES.md:200 for S453
+R80-2 open no R80-2 correction row carries all of constants_failed=4/4, 47/48, 11/12
+R80-3 open no R80-3 correction row carries rfc9110.txt rows=3 and rfc9110.html rows=3
+R80-4 open round-81 spec unreadable: w1-spec.json: Expecting value: line 1 column 1 (char 0)
+R80-5 closed junk tree rebuilt deterministically (1 files); C1v1 revision=worktree items=6 open=5 closed=1 exported=0 met=false
+R80-6 open seat-failures.json unreadable: seat-failures.json: Expecting value: line 1 column 1 (char 0)
+C1v1 revision=a77b8a19c2b65a07dfbe40aaf7ec86aaeee2f9cb items=6 open=5 closed=1 met=false
+exit=1
+EXIT=1

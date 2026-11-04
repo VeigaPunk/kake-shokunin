@@ -1,0 +1,25 @@
+# Round-81 ScoutSources substring proofs — verbatim transcript
+# cwd: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-81/w1/ScoutSources
+# date: 2026-11-04T11:52:45Z
+# bodies: rfc9110.txt sha256 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a 502941 B; rfc9110.html.text sha256 928c4b2ed4973eacf70e52469699c9ccecdb1dc939512c447e8793054321aad5 559103 B
++ python3 -c 'b=open("rfc9110.txt",encoding="utf-8").read(); q="the 410 (Gone) status code is preferred over 404"; i=b.find(q); print("raw_in:",q in b,"offset:",i,"line:",b[:i].count(chr(10))+1)'
+raw_in: True offset: 357005 line: 7593
++ python3 -c 'b=open("rfc9110.html.text",encoding="utf-8").read(); q="A field value does not include leading or trailing whitespace."; i=b.find(q); print("raw_in:",q in b,"offset:",i,"line:",b[:i].count(chr(10))+1)'
+raw_in: True offset: 84831 line: 2834
++ python3 -c 'b=open("rfc9110.txt",encoding="utf-8").read(); q="A field value does not include leading or trailing whitespace."; i=b.find(q); print("raw_in:",q in b,"offset:",i,"line:",b[:i].count(chr(10))+1)'
+raw_in: True offset: 73711 line: 1591
++ python3 -c 'import re; b=open("rfc9110.txt",encoding="utf-8").read(); q="The 404 (Not Found) status code indicates that the origin server did not find a current representation for the target resource"; print("raw_in:",q in b,"collapsed_in:"," ".join(q.split()) in re.sub(r"\s+"," ",b))'
+raw_in: False collapsed_in: True
++ python3 -c 'import re; b=open("rfc9110.txt",encoding="utf-8").read(); q="A 404 status code does not indicate whether this lack of representation is temporary or permanent"; print("raw_in:",q in b,"collapsed_in:"," ".join(q.split()) in re.sub(r"\s+"," ",b))'
+raw_in: False collapsed_in: True
++ python3 -c 'import re; b=open("rfc9110.txt",encoding="utf-8").read(); q="The 410 (Gone) status code indicates that access to the target resource is no longer available at the origin server"; print("raw_in:",q in b,"collapsed_in:"," ".join(q.split()) in re.sub(r"\s+"," ",b))'
+raw_in: False collapsed_in: True
++ python3 -c 'import re; b=open("rfc9110.txt",encoding="utf-8").read(); q="the status code 404 (Not Found) ought to be used instead"; print("raw_in:",q in b,"collapsed_in:"," ".join(q.split()) in re.sub(r"\s+"," ",b))'
+raw_in: False collapsed_in: True
++ python3 -c 'import re; b=open("rfc9110.html.text",encoding="utf-8").read(); q="generate a Content-Type header field in that message unless the intended media type of the enclosed representation is unknown to the sender"; print("raw_in:",q in b,"collapsed_in:"," ".join(q.split()) in re.sub(r"\s+"," ",b))'
+raw_in: False collapsed_in: True
++ python3 -c 'import re; b=open("rfc9110.html.text",encoding="utf-8").read(); q="Content-Type is defined as a singleton field, it is sometimes incorrectly generated multiple times"; print("raw_in:",q in b,"collapsed_in:"," ".join(q.split()) in re.sub(r"\s+"," ",b))'
+raw_in: False collapsed_in: True
++ python3 -c 'import re; b=open("rfc9110.html.text",encoding="utf-8").read(); q="sender MUST NOT generate multiple field lines with the same name in a message"; print("raw_in:",q in b,"collapsed_in:"," ".join(q.split()) in re.sub(r"\s+"," ",b))'
+raw_in: False collapsed_in: True
++ set +x

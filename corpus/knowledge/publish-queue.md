@@ -397,3 +397,5 @@ Three standing records last dated 2026-10-21 on the old Linux host
 
 No publish/deploy action; no state-changing request; the r66/r67 probe
 sections above are unchanged (no re-probe claimed for those surfaces).
+
+[r81-observation 2026-11-04] The two lines above (PQ-2's and the r16 note's "live `sitemap.xml`/`robots.txt` still 404") are superseded for the captured instant, append-only: the round-81 capture records **HTTP 200** for both paths. `https://ds4cc.com/robots.txt` answered 200 with 62 bytes (`User-agent: *` / `Allow: /` / `Sitemap: https://ds4cc.com/sitemap.xml`), sha256 `70f9ea2885de…`, and `https://ds4cc.com/sitemap.xml` answered 200 with 7,810 bytes and 100 `<loc>` entries, sha256 `55cb947fa2d0…`; both fetched 2026-11-04T12:05:06Z, GET, no redirect, receipts and bodies under `.ufo/waves/round-81/capture/ds4cc-robots/` and `…/ds4cc-sitemap/`. This is a one-instant receipt from C2's capture, not a re-measurement of PQ-2's mirror accounting and not a claim that the kimi mirror's own `/sitemap.xml` changed; the earlier lines stay as they were filed.

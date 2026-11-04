@@ -1658,3 +1658,27 @@ mechanisms apart.
   Able-to-fail: the round-80 C1 counter's R79-3 item re-runs `--selftest` and compares
   (`.ufo/waves/round-80/c80_defect_queue.py`), and the base receipt shows the item open for want of the
   receipt it later requires.
+
+## Round 81 criterion — an audit verdict re-derives from committed bytes
+
+- **Audit verdict from committed bytes, not from a seat's word (round 81).** *Admit* an audit verdict
+  only when its capture tree is committed under the lane and a counter re-derives, offline and
+  without fetching, every receipt in it — the retained body's sha256 and byte count, an integer
+  status, an RFC 3339 fetch time on or after the round that claims the capture, GET and not
+  truncated, the receipt's url identical to the declared surface url with an https final URL on an
+  allowlisted host — **and** the manifest equals the frozen declared expectations (same ids, urls,
+  expect objects, allowlist; a dropped surface fails) **and** the audit's own stdout equals the
+  committed audit receipt byte-for-byte at the measured revision; an absent-resource answer (404 or
+  410, S454) is recorded with its status and is not an audit failure. *Reject* a verdict whose
+  capture tree lives only in scratch or is re-fetched at measurement time, whose audit receipt was
+  written by anything other than the audited tool's stdout, whose fetch time predates the round,
+  whose manifest declares its own expectations instead of the frozen file's, or whose
+  absent-resource answers are folded into header findings. *Grounding:* `corpus/lessons/round-81.md`
+  §Mistakes and §Gate; `.ufo/waves/round-81/c81_capture_audit.py` with
+  `controls/base-c81-capture-audit.txt` (`declared=0 met=false`), `controls/ctl-c81-tampered-capture.txt`
+  (a real capture with one body byte flipped), `controls/after-c2.txt`, `controls/after-c2-audit.txt`
+  and `controls/c81-selftest-c2.txt` (`18/18`, nine mutants opening the predicate). The class it
+  closes is the round-80 closure's R80-5 (a junk control naming a `/fast/scratch` tree no committed
+  builder recreated) and R80-6 (a cause asserted outside committed bytes). What it does not close:
+  a well-formed fabrication passes, so provenance stays a transcript claim — recorded as the
+  criterion's stated limit, not a pass.

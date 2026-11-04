@@ -1,0 +1,9 @@
+$ cp -a .ufo/waves/round-81/capture .ufo/waves/round-81/capture-expectations.json .ufo/waves/round-81/controls/after-c2-audit.txt scripts/header_audit.py <scratch>/tamper/... ; mkdir -p <scratch>/tamper/corpus ; python3 -c 'flip byte 0 of capture/ds4cc-primary/body.bin (0x3c -> 0x3d)'
+$ python3 -B .ufo/waves/round-81/c81_capture_audit.py --root $HYAKU_SCRATCH/kake-r81/l1/tamper
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: body sha256 d1220935b5bd != receipt f2c5d2b3ab34
+.ufo/waves/round-81/capture/ds4cc-primary/response.json: body sha256 d1220935b5bd != receipt f2c5d2b3ab34
+.ufo/waves/round-81/capture/ds4cc-robots/response.json: ok 200 62B 2026-11-04T12:05:06Z ds4cc.com
+.ufo/waves/round-81/capture/ds4cc-sitemap/response.json: ok 200 7810B 2026-11-04T12:05:06Z ds4cc.com
+C2v1 revision=worktree declared=3 surfaces=3 failures=1 audit_rc=1 met=false
+exit=1
+exit=1

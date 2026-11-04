@@ -1,0 +1,62 @@
+# amended counter, worktree state, selftest and receipt identity
+# date: 2026-11-04T11:59:33Z
+
+## counter bytes: freeze blob vs current
+freeze a77b8a19 blob: d4b0fa80d8d9d51cf4359be20fb92e18112b3b671c11667f56e0545b44c6b8e3  (27254 B)
+current worktree    : eae0c5780af6609671192f73aed0f26f18309f593ee27216ef5c2a2addcfaaad  (28602 B)
+
+## amendment commits after the freeze
+bec3ecf7 round-81: disclose the one receipt rewrite from amendment 1
+0a27045e round-81: amendment 1 — C1 counts only non-empty settled seats; S454 anchor corrected
+
+## base control with the amended counter
+$ python3 -B .ufo/waves/round-81/c81_defect_queue.py --root . --revision 2e119255... --work base-c1-amended
+R80-1 open no R80-1 correction row names corpus/SOURCES.md:200 for S453
+R80-2 open no R80-2 correction row carries all of constants_failed=4/4, 47/48, 11/12
+R80-3 open no R80-3 correction row carries rfc9110.txt rows=3 and rfc9110.html rows=3
+R80-4 open round-81 spec unreadable: w1-spec.json: Expecting value: line 1 column 1 (char 0)
+R80-5 open .ufo/waves/round-81/junk_tree_build.py absent at the measured revision
+R80-6 open scripts/wave_seat_record.py absent at the measured revision
+C1v1 revision=2e11925500dd5a739376c9108c94616243af0cd4 items=6 open=6 closed=0 met=false
+exit=1
+EXIT=1
+
+## committed base receipt vs that run (command echo and the receipt author"'s second exit= line removed)
+IDENTICAL
+
+## worktree (amended counter, uncommitted lesson present)
+$ python3 -B .ufo/waves/round-81/c81_defect_queue.py --root . --work worktree-c1
+R80-1 closed R80-1 correction names corpus/SOURCES.md:200; S453 is on that line
+R80-2 closed R80-2 correction re-derives constants_failed=4/4, 47/48, 11/12 over 4 constants
+R80-3 closed R80-3 correction re-derives rfc9110.txt rows=3 and rfc9110.html rows=3 (S028, S033, S453 / S010, S088, S433)
+R80-4 open round-81 results unreadable: w1-results.json: Expecting value: line 1 column 1 (char 0)
+R80-5 closed junk tree rebuilt deterministically (1 files); C1v1 revision=worktree items=6 open=5 closed=1 exported=0 met=false
+R80-6 open seat-failures.json unreadable: seat-failures.json: Expecting value: line 1 column 1 (char 0)
+C1v1 revision=worktree items=6 open=2 closed=4 met=false
+exit=1
+EXIT=1
+
+## selftest and committed selftest receipt
+$ python3 -B .ufo/waves/round-81/c81_defect_queue.py --selftest --work st3
+  ok r80-1-green :: R80-1 correction names corpus/SOURCES.md:6; S453 is on that line
+  ok r80-1-wrong-line-opens :: no R80-1 correction row names corpus/SOURCES.md:6 for S453
+  ok r80-2-green :: R80-2 correction re-derives constants_failed=4/4, 47/48, 11/12 over 4 constants
+  ok r80-2-wrong-arithmetic-opens :: no R80-2 correction row carries all of constants_failed=4/4, 47/48, 11/12
+  ok r80-3-green :: R80-3 correction re-derives rfc9110.txt rows=1 and rfc9110.html rows=1 (S453 / S010)
+  ok r80-3-wrong-count-opens :: no R80-3 correction row carries rfc9110.txt rows=1 and rfc9110.html rows=1
+  ok r80-4-green :: settled attack share 0.333 (1/3); requested 1/3; accounting record re-derives
+  ok r80-4-floor-opens :: settled attack share 0.200 below 0.25 (1/5)
+  ok r80-4-drifted-record-opens :: accounting record disagrees with re-derivation: attack_roles, spec_sha256
+  ok r80-4-empty-seat-excluded :: settled attack share 0.333 (1/3); requested 2/4; accounting record re-derives
+  ok r80-4-empty-seat-counted-opens :: accounting record disagrees with re-derivation: settled_total, settled_attack, share
+  ok r80-5-green :: junk tree rebuilt deterministically (1 files); C1v1 revision=worktree items=6 open=5 closed=1 exported=0 met=false
+  ok r80-5-overbuilt-junk-opens :: rebuilt junk tree reads 'C1v1 revision=worktree items=6 open=4 closed=2 exported=0 met=false'; missing ['open=5', 'closed=1']
+  ok r80-6-green (recorder rc=0) :: 2 seats recorded (1 empty: SeatA); record equals re-derivation
+  ok r80-6-tampered-record-opens :: committed seat record differs from re-derivation: seats
+selftest: 15/15 passed
+EXIT=0
+$ diff committed-selftest-body selftest-run
+
+## selftest re-run captured to a file, then compared with the committed receipt body
+EXIT=0
+IDENTICAL
