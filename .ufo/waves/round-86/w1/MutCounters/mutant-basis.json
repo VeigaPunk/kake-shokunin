@@ -1,0 +1,37 @@
+[
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/count.py",
+      "--selftest"
+    ],
+    "exit": 0,
+    "stdout": "selftest: 10/10 passed\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/count.py",
+      "--claim",
+      "c2",
+      "--tool",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/basis-mutant-basis/wrong-basis.py",
+      "--work",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/basis-mutant-basis/work"
+    ],
+    "exit": 0,
+    "stdout": "C2v1 revision=worktree cases=15/15 selftest_ok=1 tool_offline=1 tool_absent=0 met=true\n",
+    "stderr": ""
+  },
+  {
+    "detector": "r4-missing-flip",
+    "ok": false,
+    "detail": "d84_2=yes d84_3=yes flip=no lesson_cite=yes"
+  },
+  {
+    "counter_sha256": "982cf73c3b684a3d4c6c297c72b348508877e68cfd4bb4812830bf5338a39d4d"
+  }
+]

@@ -654,3 +654,32 @@ policy-value semantics, duplicate/order rules for other fields, full HTTP
 extraction and runtime/browser observations remain open. The r84 general
 classifier remains experimental; see `lessons/round-85.md` for the
 historical-instrument list mined from `considerthese/2026-10-26.md` proposal 5.
+
+## Coverage — round 86
+
+| Area | Entry | Bounded held ground |
+|---|---|---|
+| Value-level Cache-Control lifetime reader | `knowledge/cache-control-effective.md` (S461, S457); `scripts/cache_control_effective.py` | First-occurrence local profile, shared/private precedence, explicit Expires+Date, directive flags; not cache storage/reuse authorization |
+| Documented CrUX inspection route and API caller refusal | `knowledge/crux-keyless-check.md` (S459, S460) | Re-grounded `merge/kake` theme: documented origin-form checks plus one actual keyless 403; no dashboard query or origin eligibility outcome |
+
+This supersedes only the round-83 frontier sentence's value-level Cache-Control
+slice: that bounded reader is now held. General policy equivalence, the independent
+changed-row oracle, full HTTP extraction, Age/Vary/Pragma, browser/runtime cache
+behavior and live property repair remain frontier. Fifteen frozen examples alone
+do not measure coverage; these actual admitted entries and paths do.
+
+## Open instrument debt (round 86)
+
+Retained-open per the round-85 non-author routing; disposition, not repair.
+Ground: corpus/lessons/round-85.md and
+corpus/lessons/round-85-verifier-spotcheck.md.
+
+- **D84-2** defect-instrument soundness retained open. flip: a newly authorized
+  instrument enforces exact prose/output/exit/revision checks and rejects an
+  empty-equal census; the frozen historical instrument is not rewritten.
+- **D84-3** general-classifier semantic/input-dependence debt retained open. flip:
+  field-specific order/duplicate rules and an independent changed-row oracle
+  verify together; this field reader alone does not close it.
+- Round-86 C1's self-certifying after-receipt and live-fleet dependency remain
+  defective; see `lessons/round-86.md` and the frozen counter review. No fabricated
+  green receipt or post-scoring predicate amendment is allowed.

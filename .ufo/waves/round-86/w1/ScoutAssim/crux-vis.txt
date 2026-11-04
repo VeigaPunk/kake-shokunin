@@ -1,0 +1,266 @@
+CrUX Vis | Chrome UX Report | Chrome for Developers
+Skip to main content
+Docs
+Build with Chrome
+Learn how Chrome works, participate in origin trials, and build with Chrome everywhere.
+Web Platform
+Isolated Web Apps (IWA)
+Capabilities
+Automation and testing
+ChromeDriver
+Extensions
+Chrome Web Store
+Chromium
+Web on Android
+Origin trials
+Release notes
+Productivity
+Create the best experience for your users with the web's best tools.
+DevTools
+Lighthouse
+Chrome UX Report
+Accessibility
+Modern Web Guidance
+Get things done quicker and neater, with our ready-made libraries.
+Workbox
+Puppeteer
+Experience
+Design a beautiful and performant web with Chrome.
+AI
+Performance
+CSS and UI
+Identity
+Payments
+Privacy and security
+Ads
+Resources
+More from Chrome and Google.
+All documentation
+Baseline open_in_new
+web.dev open_in_new
+PageSpeed Insights audit open_in_new
+Case studies
+Blog
+New in Chrome
+/
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Nederlands
+Polski
+Português – Brasil
+Tiếng Việt
+Türkçe
+Русский
+עברית
+العربيّة
+فارسی
+हिंदी
+বাংলা
+ภาษาไทย
+中文 – 简体
+中文 – 繁體
+日本語
+한국어
+Sign in
+Docs
+Chrome UX Report
+Docs
+More
+Case studies
+Blog
+New in Chrome
+Get started
+CrUX overview
+Methodology
+Metrics
+Dimensions
+Release notes
+Feedback and support
+Tools
+Overview of CrUX tools
+CrUX Vis
+CrUX on BigQuery
+CrUX API
+CrUX History API
+Guides
+Guides overview
+How to view CrUX data on PageSpeed Insights
+How to use the CrUX API
+How to use the CrUX History API
+How to use the CrUX BigQuery dataset
+CrUX ad metrics
+Build with Chrome
+Web Platform
+Isolated Web Apps (IWA)
+Capabilities
+Automation and testing
+ChromeDriver
+Extensions
+Chrome Web Store
+Chromium
+Web on Android
+Origin trials
+Release notes
+Productivity
+DevTools
+Lighthouse
+Chrome UX Report
+Accessibility
+Modern Web Guidance
+Workbox
+Puppeteer
+Experience
+AI
+Performance
+CSS and UI
+Identity
+Payments
+Privacy and security
+Ads
+Resources
+All documentation
+Baseline <span class="material-icons" style="font-size: 12px;" aria-hidden="true" translate="no">open_in_new</span>
+web.dev <span class="material-icons" style="font-size: 12px;" aria-hidden="true" translate="no">open_in_new</span>
+PageSpeed Insights audit <span class="material-icons" style="font-size: 12px;" aria-hidden="true" translate="no">open_in_new</span>
+Home
+Docs
+Chrome UX Report
+CrUX Vis
+Stay organized with collections
+Save and categorize content based on your preferences.
+CrUX Vis is a dashboard that visualizes the weekly historical data from the CrUX History API.
+Access CrUX Vis
+To launch CrUX Vis, visit cruxvis.withgoogle.com, or enter an origin or URL, and press enter or click Go:
+Note: If the protocol (http or https) is not provided, then https will be assumed.
+The CrUX Vis URL can then be shared and bookmarked for quick reference.
+Does it work for all websites?
+No. If your origin is not included in the CrUX dataset, there will be no data to display. There are over 15 million origins in the dataset, but the one you want may not have sufficient data to be included.
+Some common issues with origins are providing the wrong protocol, for example http:// instead of https://, and omitting the subdomain when needed. Some websites include redirects, so if http://example.com redirects to https://www.example.com, then you should use the latter, which is the canonical version of the origin.
+Similarly, URL-level data may not be available even when origin-level data is available.
+CrUX Vis overview
+CrUX Vis has 6 pages:
+Core Web Vitals
+Loading Performance
+Interactivity
+Visual Stability
+Ad Metrics
+All Metrics
+Each page includes a chart showing distributions over time for the past 40 weeks (where daya is available).
+The weekly data is updated every Monday and each data point includes the previous 28-days worth of data. This means the data is overlapping.
+Controls
+Each page has a Controls section which lets you switch:
+Date: Origin and URL-level data
+Device: Phone, Desktop, Tablet, or all Data
+Time periods
+Display: 75th percentile, distributions, or both
+Controls section of the CrUX Vis.
+Core Web Vitals
+The first page is an overview of the URL or origin's Core Web Vitals performance. These are the most important UX metrics that Google recommends you focus on.
+Core Web Vitals page of CrUX Vis.
+Use the Core Web Vitals page to understand how the URL or origin is experienced by users and which metrics need work, either because they are under recommended limits, or because they are regressing.
+The page includes links to the next three sections to explore further.
+Loading Performance
+The Loading Performance pages includes all loading-related metrics in CrUX History API.
+Loading Performance page of CrUX Vis.
+This page includes the following metrics:
+Largest Contentful Paint (LCP)
+First Contentful Paint (FCP)
+Time to First Byte (TTFB)
+Largest Contentful Paint (LCP) resource type
+Largest Contentful Paint (LCP) image subparts
+Round Trip Time (RTT)
+Navigation types
+Form Factors
+Interactivity
+The Interactivity page includes all interactivity-related metrics in CrUX History API.
+Interactivity page of CrUX Vis.
+This page includes the following metrics:
+Interaction to Next Paint (INP)
+Form Factors
+Visual Stability
+The Visual Stability page includes all visual stability-related metrics in CrUX History API.
+Visual Stability page of CrUX Vis.
+This page includes the following metrics:
+Cumulative Layout Shift (CLS)
+Form Factors
+Ad Metrics
+The Ad Metrics page includes all ad-related metrics in CrUX History API.
+Ad metrics page of CrUX Vis.
+This page includes the following metrics:
+Ad Count
+Ad Density
+Ad Weight: CPU
+Ad Weight: Network
+For more information about ad metrics, see ad metrics documentation.
+All Metrics
+The All Metrics page includes all metrics in CrUX History API in one place:
+All Metrics page of CrUX Vis.
+This page includes the following metrics:
+Largest Contentful Paint (LCP)
+Interaction to Next Paint (INP)
+Cumulative Layout Shift (CLS)
+First Contentful Paint (FCP)
+Time to First Byte (TTFB)
+Largest Contentful Paint (LCP) resource type
+Largest Contentful Paint (LCP) image subparts
+Round Trip Time (RTT)
+Navigation types
+Form Factors
+Ad Count
+Ad Density
+Ad Weight: CPU
+Ad Weight: Network
+FAQ
+These are some of the frequently asked questions about the CrUX Vis:
+When would I use the CrUX Vis as opposed to other tools?
+CrUX Vis is for viewing historical data over time. Other tools such as PageSpeed Insights may only show the latest data.
+See also CrUX Tools.
+How can I get the data that CrUX Vis displays?
+All data in CrUX Vis comes from the CrUX History API which can be queried using a CrUX API key.
+How can I customize CrUX Vis?
+CrUX Vis does not offer customization options, beyond the controls. Users wishing to build a custom dashboard can use the CrUX History API that powers CrUX Vis to display the data as they want. Many third-party tools exist which provide alternative visualizations of this data.
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the Google Developers Site Policies. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2025-05-06 UTC.
+[[["Easy to understand","easyToUnderstand","thumb-up"],["Solved my problem","solvedMyProblem","thumb-up"],["Other","otherUp","thumb-up"]],[["Missing the information I need","missingTheInformationINeed","thumb-down"],["Too complicated / too many steps","tooComplicatedTooManySteps","thumb-down"],["Out of date","outOfDate","thumb-down"],["Samples / code issue","samplesCodeIssue","thumb-down"],["Other","otherDown","thumb-down"]],["Last updated 2025-05-06 UTC."],[],[]]
+Contribute
+File a bug
+See open issues
+Related content
+Chromium updates
+Case studies
+Archive
+Podcasts & shows
+Follow
+@ChromiumDev on X
+YouTube
+Chrome for Developers on LinkedIn
+RSS
+Terms
+Privacy
+Manage cookies
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Nederlands
+Polski
+Português – Brasil
+Tiếng Việt
+Türkçe
+Русский
+עברית
+العربيّة
+فارسی
+हिंदी
+বাংলা
+ภาษาไทย
+中文 – 简体
+中文 – 繁體
+日本語
+한국어

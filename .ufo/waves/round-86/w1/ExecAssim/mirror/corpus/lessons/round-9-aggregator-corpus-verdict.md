@@ -1,0 +1,11 @@
+# Round 9 lesson — aggregator corpus verdict: kake
+
+> **Path convention.** Bare `CORPUS.md`, `PROTOCOL.md`, `MANIFEST.json`, `SCORECARD.md`, `LOG.md`, `.ufo/…` and `<lane>-shokunin/…` pointers in this file are **main-repo (`shokunin`) relative** — they do not resolve inside this checkout. Paths inside this checkout are written `corpus/…`, `SKILL.md`, `SHONEN.md`, `PROVINCE.md`.
+
+Round 9 review evidence: `shokunin:.ufo/waves/round-9/seats/verdict-kake.md` (main repo), measured against kake landed HEAD `a209441` on 2026-09-29. The task's earlier `4c9a985` DIRTY-5 state had already landed as `a209441`; final status was clean (`git status --porcelain=v1 | wc -l` → 0). The seven-file `4c9a985..a209441` delta is lane-owned round-14 work.
+
+## Lesson
+The current rule-10 verdict is **not conformant — rules 1, 3, 4, 5, 6, 8, 9**. Rules 2 and 7 passed the scoped checks. Rule 8 is **FAIL-literal / PASS-intent**: landed corpus has exactly two `op://` occurrences (`corpus/lessons/round-5-aggregator-audit.md:54` and `round-6-aggregator-audit.md:56`), both schematic sweep-pattern examples rather than resolvable vault item/field paths. Literal CORPUS.md:43-46 still forbids vault ref paths “including this one's examples”; this is an integrator/operator amendment row. Rule 10 is discharged by emitting the review, not by passing the corpus. Compared with the round-6 ledger row (`dd4eabf`, not conformant — 4,1; 5 majors/11 defects), evidence freshness and timer documentation improved, but historical routed defects and citation/count/sweep shortcomings remain.
+A moving worktree must not be silently substituted for a landed corpus verdict. The required box-3 cold-run lesson at `4c9a985` still says `[x]`, but its decisive 15-command battery was measured against a dirty/moving tree and lacks a committed gate/self-test with pinned expected finding-id. Therefore each decisive box-3 claim remains provisional, even though the lane later landed the edited corpus at `a209441`.
+
+The read-only timer recheck remains consistent with the corpus: `is-enabled` = disabled, `is-active` = inactive, `LastTriggerUSec=` empty, no keeper timer row, and no firing journal record. This supports the narrow “keeper never fired” freshness claim; snapshot-relative log-age counts remain historical unless remeasured from durable evidence.

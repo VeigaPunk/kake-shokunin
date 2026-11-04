@@ -1,0 +1,300 @@
+[
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/count.py",
+      "--selftest"
+    ],
+    "exit": 0,
+    "stdout": "selftest: 10/10 passed\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/count.py",
+      "--claim",
+      "c2",
+      "--tool",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/basis-pristine/wrong-basis.py",
+      "--work",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/basis-pristine/work"
+    ],
+    "exit": 1,
+    "stdout": "C2v1 revision=worktree cases=0/15 selftest_ok=1 tool_offline=1 tool_absent=0 met=false\n",
+    "stderr": ""
+  },
+  {
+    "detector": "r4-missing-flip",
+    "ok": false,
+    "detail": "d84_2=yes d84_3=yes flip=no lesson_cite=yes"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/count.py",
+      "--claim",
+      "c2",
+      "--tool",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/pristine-green/tool.py",
+      "--work",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/pristine-green/work"
+    ],
+    "exit": 0,
+    "stdout": "C2v1 revision=worktree cases=15/15 selftest_ok=1 tool_offline=1 tool_absent=0 met=true\n",
+    "stderr": ""
+  },
+  {
+    "fixture": "green",
+    "sha256": "c351fc542fb1133e7044368032f52162e03907ec04cc063bd3420264f02cb536",
+    "mismatches": []
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/count.py",
+      "--claim",
+      "c2",
+      "--tool",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/pristine-last-occurrence/tool.py",
+      "--work",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/pristine-last-occurrence/work"
+    ],
+    "exit": 1,
+    "stdout": "C2v1 revision=worktree cases=13/15 selftest_ok=1 tool_offline=1 tool_absent=0 met=false\n",
+    "stderr": ""
+  },
+  {
+    "fixture": "last-occurrence",
+    "sha256": "39e70da69a69bdf717541153a866060980756890bda158b0809da46ec8194d0b",
+    "mismatches": [
+      {
+        "case": 5,
+        "name": "duplicate-first-occurrence",
+        "expected": {
+          "storable": true,
+          "freshness_lifetime_seconds": 100,
+          "basis": "max-age",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [
+            "max-age"
+          ],
+          "conflict": false,
+          "invalid_directives": []
+        },
+        "actual": {
+          "storable": true,
+          "freshness_lifetime_seconds": 200,
+          "basis": "max-age",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [
+            "max-age"
+          ],
+          "conflict": false,
+          "invalid_directives": []
+        }
+      },
+      {
+        "case": 15,
+        "name": "first-occurrence-not-minimum",
+        "expected": {
+          "storable": true,
+          "freshness_lifetime_seconds": 200,
+          "basis": "max-age",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [
+            "max-age"
+          ],
+          "conflict": false,
+          "invalid_directives": []
+        },
+        "actual": {
+          "storable": true,
+          "freshness_lifetime_seconds": 100,
+          "basis": "max-age",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [
+            "max-age"
+          ],
+          "conflict": false,
+          "invalid_directives": []
+        }
+      }
+    ]
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/count.py",
+      "--claim",
+      "c2",
+      "--tool",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/pristine-no-store-dropped/tool.py",
+      "--work",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/pristine-no-store-dropped/work"
+    ],
+    "exit": 1,
+    "stdout": "C2v1 revision=worktree cases=12/15 selftest_ok=1 tool_offline=1 tool_absent=0 met=false\n",
+    "stderr": ""
+  },
+  {
+    "fixture": "no-store-dropped",
+    "sha256": "c01a8cca49a875fcc1c66879d2e81da9c03efcf8eed6d936ae0a94d4c3fa5699",
+    "mismatches": [
+      {
+        "case": 4,
+        "name": "no-store-not-storable",
+        "expected": {
+          "storable": false,
+          "freshness_lifetime_seconds": null,
+          "basis": "no-store",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [],
+          "conflict": false,
+          "invalid_directives": []
+        },
+        "actual": {
+          "storable": true,
+          "freshness_lifetime_seconds": null,
+          "basis": null,
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [],
+          "conflict": false,
+          "invalid_directives": []
+        }
+      },
+      {
+        "case": 13,
+        "name": "order-independent-a",
+        "expected": {
+          "storable": false,
+          "freshness_lifetime_seconds": null,
+          "basis": "no-store",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [],
+          "conflict": false,
+          "invalid_directives": []
+        },
+        "actual": {
+          "storable": true,
+          "freshness_lifetime_seconds": 60,
+          "basis": "max-age",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [],
+          "conflict": false,
+          "invalid_directives": []
+        }
+      },
+      {
+        "case": 14,
+        "name": "order-independent-b",
+        "expected": {
+          "storable": false,
+          "freshness_lifetime_seconds": null,
+          "basis": "no-store",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [],
+          "conflict": false,
+          "invalid_directives": []
+        },
+        "actual": {
+          "storable": true,
+          "freshness_lifetime_seconds": 60,
+          "basis": "max-age",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [],
+          "conflict": false,
+          "invalid_directives": []
+        }
+      }
+    ]
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/count.py",
+      "--claim",
+      "c2",
+      "--tool",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/pristine-shared-always/tool.py",
+      "--work",
+      "/fast/scratch/hyaku/kake-r86/MutCounters/pristine-shared-always/work"
+    ],
+    "exit": 1,
+    "stdout": "C2v1 revision=worktree cases=14/15 selftest_ok=1 tool_offline=1 tool_absent=0 met=false\n",
+    "stderr": ""
+  },
+  {
+    "fixture": "shared-always",
+    "sha256": "d54a3c76c2ce84a8bb95416251d5480169e97e8c10702af6431d13550ac68eb5",
+    "mismatches": [
+      {
+        "case": 3,
+        "name": "private-ignores-s-maxage",
+        "expected": {
+          "storable": true,
+          "freshness_lifetime_seconds": 3600,
+          "basis": "max-age",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [],
+          "conflict": false,
+          "invalid_directives": []
+        },
+        "actual": {
+          "storable": true,
+          "freshness_lifetime_seconds": 60,
+          "basis": "s-maxage",
+          "no_cache": false,
+          "no_cache_qualified": [],
+          "must_revalidate": false,
+          "must_understand": false,
+          "duplicate_directives": [],
+          "conflict": false,
+          "invalid_directives": []
+        }
+      }
+    ]
+  },
+  {
+    "counter_sha256": "f21c3a73f82c053d9a45257a245c92fec35973bb56d7c98c4985eb6e1c2af421"
+  }
+]

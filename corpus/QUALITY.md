@@ -1720,3 +1720,21 @@ inspect sequential code and independent trial/selftest evidence. Broad Unicode
 whitespace stripping is the JSON adapter's local choice, not established by
 the W3C header algorithm. Historical-red scope never excuses a false-green
 semantic claim.
+
+## Round 86 — measurement evidence must be downstream of its predicate
+
+Grounding: `corpus/lessons/round-86.md` Mistakes and
+`.ufo/waves/round-86/w1/ReviewCounter.md` / `CriticClaims.md`.
+Reject a counter that requires its own future green receipt, or another claim's
+success receipt, inside the measured tree: it cannot bootstrap truthful proof
+and violates causal separability. The actual red R1 and the reviewer’s canned
+`met=true` substring witness show this rule can fail; a synthetic selftest green
+is not permission to seed production evidence. Bind mutable fleet inputs to a
+committed snapshot before freeze; the same base's open=4 then open=3 is not a
+revision-pinned comparison. Preserve frozen bytes and report an honest miss.
+
+Also reject widening an existing source row's immutable scope by adding a citation:
+append a newly grounded row for previously excluded order/argument support
+(S461 supplements S457). Literal `180d` belongs in the registry cadence cell;
+recheck commands and conditions belong in the lesson. The initial scratch mirror
+failed E09/E11 and only the corrected, real dependency-complete mirror passed.

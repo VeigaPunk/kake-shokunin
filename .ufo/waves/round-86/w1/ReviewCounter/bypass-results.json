@@ -1,0 +1,351 @@
+{
+  "r2_unrelated_prefix": [
+    true,
+    "l0_line"
+  ],
+  "r3_reference_missing_files": [
+    false,
+    "critic=no late=no lesson_ref=yes"
+  ],
+  "r4_no_flip_anywhere": [
+    false,
+    "d84_2=yes d84_3=yes flip=no lesson_cite=yes"
+  ],
+  "r4_unrelated_flip_and_closed_debts": [
+    true,
+    "d84_2=yes d84_3=yes flip=yes lesson_cite=yes"
+  ],
+  "r1_canned_receipt_strings": [
+    true,
+    "base_met_false=true after_absent_at_freeze=true after_met_true=true"
+  ],
+  "case_count": 15,
+  "cases": [
+    {
+      "number": 1,
+      "name": "basic-max-age",
+      "payload": {
+        "cache_control": [
+          "max-age=3600"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 3600,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 2,
+      "name": "shared-s-maxage-overrides",
+      "payload": {
+        "cache_control": [
+          "max-age=3600, s-maxage=60"
+        ],
+        "shared": true
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 60,
+        "basis": "s-maxage",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 3,
+      "name": "private-ignores-s-maxage",
+      "payload": {
+        "cache_control": [
+          "max-age=3600, s-maxage=60"
+        ],
+        "shared": false
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 3600,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 4,
+      "name": "no-store-not-storable",
+      "payload": {
+        "cache_control": [
+          "no-store"
+        ]
+      },
+      "expected": {
+        "storable": false,
+        "freshness_lifetime_seconds": null,
+        "basis": "no-store",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 5,
+      "name": "duplicate-first-occurrence",
+      "payload": {
+        "cache_control": [
+          "max-age=100",
+          "max-age=200"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 100,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [
+          "max-age"
+        ],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 6,
+      "name": "conflict-max-age-no-cache",
+      "payload": {
+        "cache_control": [
+          "max-age=100, no-cache"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 100,
+        "basis": "max-age",
+        "no_cache": true,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": true,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 7,
+      "name": "directive-case-insensitive",
+      "payload": {
+        "cache_control": [
+          "MAX-AGE=90"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 90,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 8,
+      "name": "unknown-directive-ignored",
+      "payload": {
+        "cache_control": [
+          "teapot=1, max-age=60"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 60,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 9,
+      "name": "expires-minus-date",
+      "payload": {
+        "cache_control": [],
+        "expires": "Wed, 21 Oct 2026 07:28:00 GMT",
+        "date": "Wed, 21 Oct 2026 07:00:00 GMT"
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 1680,
+        "basis": "expires",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 10,
+      "name": "delta-seconds-cap",
+      "payload": {
+        "cache_control": [
+          "max-age=99999999999999999999"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 2147483648,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 11,
+      "name": "must-revalidate-flag",
+      "payload": {
+        "cache_control": [
+          "max-age=5, must-revalidate"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 5,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": true,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 12,
+      "name": "no-cache-qualified",
+      "payload": {
+        "cache_control": [
+          "no-cache=\"Set-Cookie\"",
+          "max-age=300"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 300,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [
+          "Set-Cookie"
+        ],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 13,
+      "name": "order-independent-a",
+      "payload": {
+        "cache_control": [
+          "max-age=60, no-store"
+        ]
+      },
+      "expected": {
+        "storable": false,
+        "freshness_lifetime_seconds": null,
+        "basis": "no-store",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 14,
+      "name": "order-independent-b",
+      "payload": {
+        "cache_control": [
+          "no-store, max-age=60"
+        ]
+      },
+      "expected": {
+        "storable": false,
+        "freshness_lifetime_seconds": null,
+        "basis": "no-store",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    },
+    {
+      "number": 15,
+      "name": "first-occurrence-not-minimum",
+      "payload": {
+        "cache_control": [
+          "max-age=200",
+          "max-age=100"
+        ]
+      },
+      "expected": {
+        "storable": true,
+        "freshness_lifetime_seconds": 200,
+        "basis": "max-age",
+        "no_cache": false,
+        "no_cache_qualified": [],
+        "must_revalidate": false,
+        "must_understand": false,
+        "duplicate_directives": [
+          "max-age"
+        ],
+        "conflict": false,
+        "invalid_directives": []
+      }
+    }
+  ]
+}

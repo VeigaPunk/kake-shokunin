@@ -1,0 +1,46 @@
+{
+  "text": "# tabi-shokunin/scripts/\n## webmcp-invoke-round17.mjs#B0D5\n 303:        ledger.push({ seq: ledger.length + 1, at: Date.now(), ...(payload && typeof payload === 'object' ? payload : {}) });\n*304:        res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' }).end('ok');\n 305:      };\n 306:      if (req.method === 'POST') {\n 307:        let data = '';\n...\n 379:      'content-length': lst.size,\n*380:      'cache-control': 'no-store',\n 381:    });\n 382:    if (req.method === 'HEAD') {\n 383:      res.end();\n## webmcp-invoke-round18.mjs#EDE3\n 613:        ledger.push({ seq: ledger.length + 1, at: Date.now(), ...(payload && typeof payload === 'object' ? payload : {}) });\n*614:        res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' }).end('ok');\n 615:      };\n 616:      if (req.method === 'POST') {\n 617:        let data = '';\n...\n 655:        'content-length': body.length,\n*656:        'cache-control': 'no-store',\n 657:      });\n 658:      if (req.method === 'HEAD') res.end();\n 659:      else res.end(body);\n...\n 702:      'content-length': lst.size,\n*703:      'cache-control': 'no-store',\n 704:    });\n 705:    if (req.method === 'HEAD') {\n 706:      res.end();\n## webmcp-invoke-round19.mjs#7D65\n 640:        ledger.push({ seq: ledger.length + 1, at: Date.now(), ...(payload && typeof payload === 'object' ? payload : {}) });\n*641:        res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' }).end('ok');\n 642:      };\n 643:      if (req.method === 'POST') {\n 644:        let data = '';\n...\n 682:        'content-length': body.length,\n*683:        'cache-control': 'no-store',\n 684:      });\n 685:      if (req.method === 'HEAD') res.end();\n 686:      else res.end(body);\n...\n 729:      'content-length': lst.size,\n*730:      'cache-control': 'no-store',\n 731:    });\n 732:    if (req.method === 'HEAD') {\n 733:      res.end();\n## webmcp-lifecycle-round21.mjs#B381\n 140:    const body = routes.get(req.url);\n*141:    res.writeHead(body ? 200 : 404, { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' });\n 142:    res.end(body || 'not found');\n 143:  });\n 144:  await new Promise((ok, fail) => { server.once('error', fail); server.listen(0, '127.0.0.1', ok); });\n## webmcp-loopback-round16.mjs#B02A\n 345:      'content-length': lst.size,\n*346:      'cache-control': 'no-store',\n 347:    });\n 348:    if (req.method === 'HEAD') {\n 349:      res.end();\n## webmcp-validation-round19.mjs#DC21\n 717:    if (pathname === '/' || pathname === '') {\n*718:      res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' });\n 719:      res.end([...fixtureBytes.keys()].sort().join('\\\\n'));\n 720:      return;\n 721:    }\n...\n 733:      'content-length': bytes.length,\n*734:      'cache-control': 'no-store',\n 735:      'x-content-type-options': 'nosniff',\n 736:    });\n 737:    if (req.method === 'HEAD') res.end();",
+  "details": {
+    "scopePath": "audio-shokunin/corpus/knowledge, chousa-shokunin/corpus/knowledge, game-dev-2d-shokunin/corpus/knowledge, game-dev-3d-shokunin/corpus/knowledge, kagi-shokunin/corpus/knowledge, kaidoku-shokunin/corpus/knowledge, kama-shokunin/corpus/knowledge, kasegi-shokunin/corpus/knowledge, kengaku-shokunin/corpus/knowledge, kotoba-shokunin/corpus/knowledge, kotodama-shokunin/corpus/knowledge, kumitate-shokunin/corpus/knowledge, kumitate-shokunin/scripts, lore-shokunin/corpus/knowledge, mado-shokunin/corpus/knowledge, mori-shokunin/corpus/knowledge, revenger-shokunin/corpus/knowledge, souji-shokunin/corpus/knowledge, tabi-shokunin/corpus/knowledge, tabi-shokunin/scripts, tameshi-shokunin/corpus/knowledge, tsukuroi-shokunin/corpus/knowledge",
+    "searchPath": "/home/vgpnk/Projects/shokunin",
+    "cwd": "/home/vgpnk/Projects/shokunin",
+    "matchCount": 12,
+    "fileCount": 6,
+    "files": [
+      "tabi-shokunin/scripts/webmcp-invoke-round17.mjs",
+      "tabi-shokunin/scripts/webmcp-invoke-round18.mjs",
+      "tabi-shokunin/scripts/webmcp-invoke-round19.mjs",
+      "tabi-shokunin/scripts/webmcp-lifecycle-round21.mjs",
+      "tabi-shokunin/scripts/webmcp-loopback-round16.mjs",
+      "tabi-shokunin/scripts/webmcp-validation-round19.mjs"
+    ],
+    "fileMatches": [
+      {
+        "path": "tabi-shokunin/scripts/webmcp-invoke-round17.mjs",
+        "count": 2
+      },
+      {
+        "path": "tabi-shokunin/scripts/webmcp-invoke-round18.mjs",
+        "count": 3
+      },
+      {
+        "path": "tabi-shokunin/scripts/webmcp-invoke-round19.mjs",
+        "count": 3
+      },
+      {
+        "path": "tabi-shokunin/scripts/webmcp-lifecycle-round21.mjs",
+        "count": 1
+      },
+      {
+        "path": "tabi-shokunin/scripts/webmcp-loopback-round16.mjs",
+        "count": 1
+      },
+      {
+        "path": "tabi-shokunin/scripts/webmcp-validation-round19.mjs",
+        "count": 2
+      }
+    ],
+    "truncated": false,
+    "displayContent": "# tabi-shokunin/scripts/\n## webmcp-invoke-round17.mjs#B0D5\n 303│        ledger.push({ seq: ledger.length + 1, at: Date.now(), ...(payload && typeof payload === 'object' ? payload : {}) });\n*304│        res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' }).end('ok');\n 305│      };\n 306│      if (req.method === 'POST') {\n 307│        let data = '';\n    │...\n 379│      'content-length': lst.size,\n*380│      'cache-control': 'no-store',\n 381│    });\n 382│    if (req.method === 'HEAD') {\n 383│      res.end();\n## webmcp-invoke-round18.mjs#EDE3\n 613│        ledger.push({ seq: ledger.length + 1, at: Date.now(), ...(payload && typeof payload === 'object' ? payload : {}) });\n*614│        res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' }).end('ok');\n 615│      };\n 616│      if (req.method === 'POST') {\n 617│        let data = '';\n    │...\n 655│        'content-length': body.length,\n*656│        'cache-control': 'no-store',\n 657│      });\n 658│      if (req.method === 'HEAD') res.end();\n 659│      else res.end(body);\n    │...\n 702│      'content-length': lst.size,\n*703│      'cache-control': 'no-store',\n 704│    });\n 705│    if (req.method === 'HEAD') {\n 706│      res.end();\n## webmcp-invoke-round19.mjs#7D65\n 640│        ledger.push({ seq: ledger.length + 1, at: Date.now(), ...(payload && typeof payload === 'object' ? payload : {}) });\n*641│        res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' }).end('ok');\n 642│      };\n 643│      if (req.method === 'POST') {\n 644│        let data = '';\n    │...\n 682│        'content-length': body.length,\n*683│        'cache-control': 'no-store',\n 684│      });\n 685│      if (req.method === 'HEAD') res.end();\n 686│      else res.end(body);\n    │...\n 729│      'content-length': lst.size,\n*730│      'cache-control': 'no-store',\n 731│    });\n 732│    if (req.method === 'HEAD') {\n 733│      res.end();\n## webmcp-lifecycle-round21.mjs#B381\n 140│    const body = routes.get(req.url);\n*141│    res.writeHead(body ? 200 : 404, { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' });\n 142│    res.end(body || 'not found');\n 143│  });\n 144│  await new Promise((ok, fail) => { server.once('error', fail); server.listen(0, '127.0.0.1', ok); });\n## webmcp-loopback-round16.mjs#B02A\n 345│      'content-length': lst.size,\n*346│      'cache-control': 'no-store',\n 347│    });\n 348│    if (req.method === 'HEAD') {\n 349│      res.end();\n## webmcp-validation-round19.mjs#DC21\n 717│    if (pathname === '/' || pathname === '') {\n*718│      res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' });\n 719│      res.end([...fixtureBytes.keys()].sort().join('\\\\n'));\n 720│      return;\n 721│    }\n    │...\n 733│      'content-length': bytes.length,\n*734│      'cache-control': 'no-store',\n 735│      'x-content-type-options': 'nosniff',\n 736│    });\n 737│    if (req.method === 'HEAD') res.end();"
+  }
+}

@@ -1,0 +1,10 @@
+Candidate CC5D: qualified no-cache field names retain source spelling; selftest expectation updated accordingly.
+Command: env TMPDIR=/fast/scratch/hyaku/kake-r86/ExecCalc python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-86/w1/ExecCalc/cache_control_effective.py --selftest
+Exit: 0
+stdout: selftest: 28 isolated fixtures passed
+stderr: empty
+Command: env TMPDIR=/fast/scratch/hyaku/kake-r86/ExecCalc python3 -B /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-86/count.py --claim c2 --root /home/vgpnk/Projects/shokunin/kake-shokunin --tool /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-86/w1/ExecCalc/cache_control_effective.py --work /fast/scratch/hyaku/kake-r86/ExecCalc/count
+Exit: 1
+stdout: C2v1 revision=worktree cases=14/15 selftest_ok=1 tool_offline=1 tool_absent=0 met=false
+stderr: empty
+Spelling repair did not raise total; no frozen CASES opened by implementer. Synchronous requests again auto-backgrounded by tool runtime upon incoming message.

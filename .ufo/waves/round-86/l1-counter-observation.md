@@ -1,0 +1,3 @@
+# Round 86 — L1 frozen-counter observation
+
+Before integration, R1 in frozen count.py is self-referential: it requires the measured carrier to contain `controls/after-c1-carrier.txt` with `met=true`, while that receipt is itself supposed to report the counter's observation of the carrier. A truthful first after measurement cannot create a green fixed point. Do not seed a fabricated green receipt, amend the frozen predicate, or count the selftest's synthetic receipt as production evidence. Preserve the actual after result; an honest red means C1 unprovable despite reachable dispositions being recorded. Requested reviewer analysis from ReviewCounter-2. This note does not change a claim, target, population or kill rule.

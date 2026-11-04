@@ -2836,3 +2836,46 @@ repairs (S123/S124 `used-by` old→new; superseding rows S126–S128), `LOG.md` 
 - **Boundaries:** no publish/deploy, credentials, browser, account, DNS,
   upstream source writes or MANIFEST edits. No installs/upgrades; pacman
   untouched. Fleet misroot sweep receipt retained; no kake/r85 misroot found.
+
+## Round 86 — 2026-11-04, bounded cache reader; calibration honest stop
+
+- **Claims/motive:** C1 calibration (lowest 2 HOLD) records round-85 routed
+  dispositions; C2 freshness (10 HOLD) acquires a separate Cache-Control reader.
+  Contract freeze `efc2ad654f1ee56a86ecb57b3b709c18cd1323b5`, handoff
+  `2dd355bb0ce751b4df1f81e2f9b222c965560d77`; frozen counter unchanged.
+- **C1 unprovable:** R1 needs its own green after receipt and C2 success, violating
+  bootstrap/causal independence. Actual integrated counter closed=3/open=1,
+  met=false exit1 (`.ufo/waves/round-86/controls/integrated-c1.txt`). Original
+  base open4 and live-fleet replay open3 both remain visible. Never seeded green.
+  D84-2/3 retained open in README; D84-4 routed in fleet `44de6cb69439f23173ba7c3bfecace7faed9c797`.
+- **C2 implementation and exercised checks:** `scripts/cache_control_effective.py`
+  sequentially parses ordered directives, selects first occurrences and
+  shared/private explicit lifetime, emits bounded flags. Integrated frozen
+  cases15/15, selftest29, preserved Referrer-Policy selftest32/32; exits0.
+  `controls/integrated-c2.txt`, `decoder-selftest.txt`,
+  `preserved-referrer-selftest.txt`. Finite lookup/static import-screen limits
+  are explicit; no full RFC/cache/network-sandbox approval.
+- **Real domain task:** trigger publisher needs cache metadata interpretation →
+  read three actual round-82 retained property responses → run new reader →
+  three max-age600 observations, no new fetch → operator-facing JSON handoff
+  `controls/integrated-trial.json`, reproduced by `retained_trial.py --root .`.
+  No inference of current freshness, browser state or publication permission.
+- **Assimilation:** one `merge/kake` theme/entry adopted, CrUX keyless route
+  guidance re-grounded plus actual API caller-access refusal (HTTP403, not
+  eligibility). Reject duplicate route-map entry with flip in round lesson.
+  Id guard and initial-red/final-green mirror receipts retained; final three-row
+  mirror passed before append. S459/S460/S461 added, A2/B1, 196→199 rows;
+  census exit0, W04 warnings22→23. Old immutable source cells unchanged;
+  S456/S457 used-by extended, old→new in lesson.
+- **Mistakes/teaching:** lesson Gate/Mistakes and QUALITY append cover circular
+  evidence, mutable baseline, scoped source support, cadence mirror failures,
+  assignment ambiguity and surviving selftest mutants. Primary re-open corrects
+  false RFC7234 minimum-duplicate attribution without rewriting frozen bytes.
+- **Wave:** WAVE-DONE before integration;14 nonempty results; scout2/executor4/
+  scribe3/reviewer2/critic1/mutation-tester1/connector1; attack4/14. L1 planner;
+  labrat taxonomy refusal corrected before dispatch; no dead/replacement/residual.
+  `w1-accounting.json`; no IDs or answering models invented.
+- **Boundaries:** no publish, deployment, credentials, account/browser/DNS,
+  sibling/source-tree writes, MANIFEST or host config edits. No installs;
+  pacman untouched. Old decoder/classifier and r85 counterexamples byte-preserved
+  (`controls/preservation.json`). No promotion or numeric legacy rescore.

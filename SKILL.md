@@ -1542,3 +1542,34 @@ An empty decoder token is not a browser default, and no token proves a policy
 safe. The ten-case count is not universal correctness: a canned discriminator
 can pass it. Inspect the sequential implementation and separate selftest/trial
 receipts; see `corpus/lessons/round-85.md`.
+
+### Round 86 — bounded Cache-Control reading, not cache approval
+
+`corpus/knowledge/cache-control-effective.md` (S461 with S457 background) governs
+the separate reader. For duplicate max-age values this local profile takes the
+first, not the minimum: reversing duplicate values can change the output.
+Distinct no-store/max-age order does not change its no-store result. Do not infer
+arbitrary-header reorder equivalence, browser behavior or publish approval.
+
+| Observation | Action | Error boundary |
+|---|---|---|
+| Shared s-maxage, otherwise max-age | Select first applicable explicit lifetime | Ignore shared override for private-cache input |
+| Duplicate directive | Record duplicate name, use first occurrence profile | Source also allows stale treatment; not a universal cache algorithm |
+| no-store | Local `storable=false`, null lifetime | Absence of no-store is not full RFC §3 storage eligibility |
+| Expires with supplied Date | Compute explicit difference, clamp negative to zero | No receipt-time fallback; null/clamp/cap are local representations |
+
+Checklist: retain ordered response values; select shared/private explicitly;
+decode with the command below; inspect `no_cache`, duplicates and invalid flags;
+handoff the record plus its context to the operator, never automatic deployment.
+The actual retained-capture trial is in round-86 controls; it is not a new fetch.
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| cache_control_effective.py | probe, bounded field-value decoder | `python3 -B scripts/cache_control_effective.py` with stdin JSON object | 0=decoded, not cache/publish permission; 1=invalid input; 64=usage or empty input | `TMPDIR=<scratch> python3 -B scripts/cache_control_effective.py --selftest` | `.ufo/waves/round-86/count.py` fifteen CASES; `controls/after-c2-carrier.txt` and retained trial | stdin only; selftest isolated TMPDIR subprocess fixtures | kake |
+| count.py (round 86) | historical finite instrument, C1 defective | `python3 -B .ufo/waves/round-86/count.py --root . --claim c1 --freeze <freeze> --revision <rev> --work <scratch>`; use c2 for reader | 0=frozen target met; 1=not met; 2=argparse usage; unexpected exceptions could-not-evaluate | `TMPDIR=<scratch> python3 -B .ufo/waves/round-86/count.py --selftest` | `.ufo/waves/round-86/contract.md`; `w1/ReviewCounter.md` records circular R1, live R2 and permissive textual checks | exports revisions into supplied scratch; C1 also reads live fleet | kake |
+
+Always pass explicit `--root`: the frozen counter's default resolves incorrectly.
+The static import screen is not a network sandbox, and its green finite lookup
+selftest is not proof of a real parser. The delivered reader is a sequential
+implementation inspected separately. C1 stays unprovable; never seed a fabricated
+green receipt to satisfy R1.
