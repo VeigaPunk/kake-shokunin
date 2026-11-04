@@ -1531,3 +1531,52 @@ Appended 2026-11-03 by the round-76 C1 repair; every criterion above stands unch
   defective span. Reject: a splice that silently skips a field between two observed tokens, a quote that is
   only a fragment of a receipt line, and a quote whose receipt file and line are not named.
   `[r76-correction 2026-11-03]`
+
+## Round-77 criteria — the report's own evidence
+
+Appended 2026-11-03 by the round-77 scribe seat; every criterion above stands unchanged. Grounding:
+`corpus/lessons/round-76-verifier-spotcheck.md` §6 routed defects 1–3, and the round-76 report those
+criteria bind (`.ufo/reports/round-76/kake.md`). Both lanes' bytes below were re-read read-only while
+this section was written.
+
+- **Census-warning counts are quoted whole.** A round that states a `sources-census.sh` warning count
+  names the round-end census line it came from and accounts for the warnings its own rows added. The
+  round-76 report said the tip census carried "same 16 pre-existing `W04` duplicate-URL warnings,
+  unchanged" (`.ufo/reports/round-76/kake.md:130`), while the tip file prints 17 `W04` lines, the added
+  one reading `S445 duplicate url html.spec.whatwg.org/multipage/links.html across scopes`
+  (`corpus/lessons/round-76-verifier-spotcheck.md` §6.2). Admit: a count equal to the `W04` line count
+  of a named census run over a named input, with every warning the round's own rows add named as a
+  delta; a round that states no count states no count. Reject: a count measured before the round's rows
+  landed and restated as the round-end count, a count whose census line and input are not named, and an
+  inherited base count presented as the tip. Able-to-fail: over blobs extracted with
+  `git show <rev>:corpus/SOURCES.md`, `scripts/sources-census.sh validate --root
+  /home/vgpnk/Projects/shokunin --file <scratch>/SOURCES-<rev>.md` prints 16 `W04` lines at `a0491fcd`
+  and 17 at `a2cc5f51` (counted with `grep -c 'W04'` over each output; measured 2026-11-03 while writing
+  this row). The `--file` mode exits 1 with `E11` used-by rows unrelated to the count, so the `W04` line
+  count, not the exit, is the signal.
+- **A report's evidence quotes obey the same whole-line rule as the ledger's.** Any backticked command
+  output in a round report is a contiguous substring of a committed receipt line, or is marked as a
+  rendering whose transformation is named; the rule `scripts/doc_quote_truth.py` enforces on the
+  `SCORECARD.md` claim rows (the round-76 criterion above) applies to the round report too. The round-76
+  report rendered the real-input result as `pages=8 findings=[] exit=0`
+  (`.ufo/reports/round-76/kake.md:34`), a space-joined selection of JSON fields that no line of
+  `.ufo/waves/round-76/controls/after-c2-realrun.txt` contains: that receipt is one JSON object line
+  plus `rc=0` (`corpus/lessons/round-76-verifier-spotcheck.md` §6.3). Admit: a span equal to one
+  committed receipt line after trimming, an explicitly elided span whose non-empty fragments are each
+  contiguous inside one receipt line, or a span marked as a rendering that names the transformation and
+  the receipt it renders. Reject: a joined or reordered selection of fields presented as command output,
+  a span whose receipt file and line are not named, and a splice across two receipt lines. Able-to-fail:
+  `grep -cF 'pages=8 findings=[] exit=0' .ufo/waves/round-76/controls/after-c2-realrun.txt` prints 0
+  (measured 2026-11-03), so the round-76 span fails the rule and no reading of this criterion admits it.
+
+A receipt names one revision per artifact, and the named revision must contain the artifact's bytes
+(round-76 D1 class): the round-76 matrix receipt records `revision=master revision_ok=yes
+head=d00ea7fb1471f66bf6067cd6fcb5d82c743159c8`
+(`.ufo/waves/round-76/controls/after-c2-matrix.txt:4`), while `scripts/hreflang_audit.py` does not exist
+at `d00ea7fb` (`git cat-file -e d00ea7fb:scripts/hreflang_audit.py` prints `fatal: path
+'scripts/hreflang_audit.py' exists on disk, but not in 'd00ea7fb'`, exit 128; the path exists at
+`2cccd59a`, exit 0). A receipt naming a revision under which its artifact fails `git cat-file -e` is not
+evidence for that artifact.
+
+Criteria are not rewritten: this section is the round-77 row, and every earlier criterion stands
+unchanged.

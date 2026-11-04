@@ -1,0 +1,213 @@
+{
+  "schema": "shonen-ledger/v1",
+  "checklist": "SHONEN.md",
+  "counter": ".ufo/waves/round-77/c77_shonen_ledger.py",
+  "predicate": "met  <=>  boxes == 4  and  unexamined == 0  and  mismatches == 0",
+  "derived-at": "a2cc5f51002433e11cc3d2f70e650a6c60ad5e68",
+  "derivation": "Every observed value is re-derived at --revision by the counter from committed bytes (git show <rev>:<path>); `derived-at` records the revision the values were first measured at and is not a gate. The counter recomputes each rule's frozen predicate and refuses a `holds` flag that disagrees with it, so this file cannot declare a check green over a contradicting observation. Amendment 2 A2 removed the one executable check (a `command` kind is refused; the ledger describes measurements, never causes them) and Amendment 1 A11 added the box-4 sibling-citation rule.",
+  "rows": [
+    {
+      "box": 1,
+      "marker": "~",
+      "title": "SKILL.md contains real decision tables, error patterns, checklists, cited sources",
+      "status": "evidenced",
+      "checks": [
+        {
+          "id": "b1-skill-present",
+          "kind": "path",
+          "path": "SKILL.md",
+          "observed": {
+            "exists": true
+          },
+          "holds": true
+        },
+        {
+          "id": "b1-decision-tables",
+          "kind": "rule",
+          "rule": "md_table_delimiters",
+          "path": "SKILL.md",
+          "observed": {
+            "tables": 38
+          },
+          "holds": true,
+          "note": "38 delimiter rows: the property map, the audit checklist, the freshness gate registry and the round gate registries."
+        },
+        {
+          "id": "b1-verdict-map-rows",
+          "kind": "rule",
+          "rule": "table_verdict_rows",
+          "path": "SKILL.md",
+          "observed": {
+            "rows": 63
+          },
+          "holds": true,
+          "note": "63 table rows carrying a 0=/1= verdict map: the error-pattern half of the box (exit alphabets per gate)."
+        },
+        {
+          "id": "b1-pitfall-section",
+          "kind": "rule",
+          "rule": "pitfall_sections",
+          "path": "SKILL.md",
+          "observed": {
+            "sections": 1
+          },
+          "holds": true,
+          "note": "`## Mirror pitfalls (all observed, not hypothetical)` at SKILL.md:241."
+        },
+        {
+          "id": "b1-checklist",
+          "kind": "rule",
+          "rule": "checklist_section",
+          "path": "SKILL.md",
+          "observed": {
+            "sections": 1,
+            "items": 6
+          },
+          "holds": true,
+          "note": "`## Audit → source-fix → publish checklist` at SKILL.md:57 with six numbered steps."
+        },
+        {
+          "id": "b1-cited-sources",
+          "kind": "rule",
+          "rule": "source_id_citations",
+          "path": "SKILL.md",
+          "observed": {
+            "cited": 77,
+            "resolved": 77,
+            "unresolved": 0
+          },
+          "holds": true,
+          "note": "77 distinct S### ids cited in SKILL.md; all 77 have a row in corpus/SOURCES.md at the revision."
+        }
+      ]
+    },
+    {
+      "box": 2,
+      "marker": "~",
+      "title": "At least one end-to-end domain task executed and logged in LOG.md",
+      "status": "evidenced",
+      "checks": [
+        {
+          "id": "b2-log-present",
+          "kind": "path",
+          "path": "LOG.md",
+          "observed": {
+            "exists": true
+          },
+          "holds": true
+        },
+        {
+          "id": "b2-log-entries",
+          "kind": "rule",
+          "rule": "log_entries",
+          "path": "LOG.md",
+          "observed": {
+            "bullet_entries": 18,
+            "section_entries": 56,
+            "rounds": 65,
+            "max_round": 76
+          },
+          "holds": true,
+          "note": "65 distinct rounds logged, highest round 76: the box's 'at least one' is exceeded by two orders of magnitude."
+        },
+        {
+          "id": "b2-log-evidence",
+          "kind": "rule",
+          "rule": "log_evidence",
+          "path": "LOG.md",
+          "observed": {
+            "entries": 77,
+            "with_resolving_evidence": 69,
+            "path_tokens": 347,
+            "unresolved_paths": 14
+          },
+          "holds": true,
+          "note": "69 of 77 entry blocks cite at least one lane path that exists at the revision. The 14 unresolved tokens are host-local runtime or historical paths (`.ufo/state`, `.ufo/watchdog.log`, `.ufo/l0-questions.md`, `corpus/claims`, truncated tokens); the box's predicate is the 'at least one' reading, not a clean-corpus reading."
+        }
+      ],
+      "note": "Adjacent red, not hidden: the lane's own citation gate (`python3 -B scripts/citation_lint.py --root . --revision a2cc5f51…`) exits 1 at this revision on two dead_citation tokens — SCORECARD.md:4926 (`153fa2a9eda8d95618697186feb18574cc7daae1`, a mutant receipt line quoted in a correction row) and LOG.md:2317 (`b569bb638`, the one-char-drift token the surrounding text itself names as not an object name). Both are quoted prose tokens rather than task citations, and both are routed in the round report; they are not claimed clean and they do not bear on this box's 'at least one' predicate."
+    },
+    {
+      "box": 3,
+      "marker": " ",
+      "title": "Instructions executable by an agent without oral context",
+      "status": "gap",
+      "reason": "Of 157 backticked command spans in SKILL.md, 149 name a program that exists at the revision, 1 names a lane-relative program that does not exist (`scripts/kimi-surface.mjs`, a webzites-repo script written without its `~/Projects/webzites/` prefix, SKILL.md:222) and 3 name `~/Projects/webzites/...` executables whose checkout is absent from this host (SKILL.md:59, :111, :224). SKILL.md:59 and :111 carry the page's own r20 citation-local annotation — 'a historical record, not an executable instruction ... not executable until restored and re-checked' — and the kimi-map row at :224 carries none. The page therefore does not execute from the checkout alone. Nothing committed re-reads the positive half of the box either: the row's only executable check is the citation gate's own 9-fixture selftest, and no check in this derivation is a playbook run.",
+      "flip": "Every backticked command span resolves either to a committed program at the revision or to a documented path that exists where the page says it does (b3-command-surface holds), and one committed receipt records a non-author agent running the numbered checklist from SKILL.md alone with the commands it issued and their exit codes.",
+      "checks": [
+        {
+          "id": "b3-command-surface",
+          "kind": "rule",
+          "rule": "skill_commands",
+          "path": "SKILL.md",
+          "observed": {
+            "command_spans": 157,
+            "repo_resolved": 149,
+            "repo_missing": 1,
+            "host_tree": 3,
+            "url": 0,
+            "inline": 3,
+            "bare": 1
+          },
+          "holds": false,
+          "note": "host_tree=3 (the three `node ~/Projects/webzites/...` spans) and repo_missing=1 (`scripts/kimi-surface.mjs`) are the non-executable class; inline=3 (`node -e` twice, `python3 -m json.tool`) and bare=1 (a `<commit>`-placeholder template) make no path claim and are counted apart."
+        }
+      ]
+    },
+    {
+      "box": 4,
+      "marker": " ",
+      "title": "No cross-domain bleed (PROVINCE.md still accurate)",
+      "status": "evidenced",
+      "checks": [
+        {
+          "id": "b4-province-present",
+          "kind": "path",
+          "path": "PROVINCE.md",
+          "observed": {
+            "exists": true
+          },
+          "holds": true
+        },
+        {
+          "id": "b4-province-lines",
+          "kind": "rule",
+          "rule": "province_lines",
+          "path": "PROVINCE.md",
+          "observed": {
+            "domain": 1,
+            "owns": 1,
+            "refuses": 1,
+            "adjacent": 1
+          },
+          "holds": true,
+          "note": "`**Domain:**`, `**Owns:**`, `**Refuses:**` and one `## Adjacent` section."
+        },
+        {
+          "id": "b4-province-surfaces",
+          "kind": "rule",
+          "rule": "province_surfaces",
+          "path": "PROVINCE.md",
+          "observed": {
+            "declared": 5,
+            "resolved": 5
+          },
+          "holds": true,
+          "note": "`SKILL.md`, `corpus/knowledge/`, `corpus/lessons/`, `scripts/freshness-sweep.mjs`, `scripts/probe-delta.mjs` all exist at the revision."
+        },
+        {
+          "id": "b4-sibling-citations",
+          "kind": "rule",
+          "rule": "sibling_lane_citations",
+          "path": "PROVINCE.md",
+          "observed": {
+            "files": 63,
+            "citations": 0
+          },
+          "holds": true,
+          "note": "Amendment 1 A11's frozen scope: corpus/knowledge/**/*.md prose; the two freshness-*.json probe registries are named exclusions because they record a probed path as absent."
+        }
+      ]
+    }
+  ]
+}

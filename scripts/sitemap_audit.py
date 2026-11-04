@@ -10,20 +10,35 @@ Usage: python3 -B sitemap_audit.py --manifest <path>
 The tool reads the manifest and the files it names, writes exactly one JSON
 document on stdout and nothing else, and never touches the network.  Python 3
 standard library only.
+
+Round 77 (claim C2) extends the audit to three further families: the gzip
+container (magic-detected), the plain-text sitemap (one absolute URL per
+line) and RSS 2.0 / Atom 1.0 syndication feeds.  The round-77 contract and
+its amendment 1 are the rule of record; the 52,428,800-byte limit is applied
+to the bytes after container expansion for every family (A1's lane reading).
 """
 
+import gzip
 import json
 import os
 import re
 import sys
 import xml.parsers.expat
+import zlib
 from datetime import date
 from decimal import Decimal
+from email.utils import parsedate_to_datetime
 from urllib.parse import urlsplit
 from xml.etree import ElementTree
 
 SM_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
 SM_PREFIX = "{" + SM_NS + "}"
+
+# Round 77 (claim C2): the three further families the round-39 tool refused.
+ATOM_NS = "http://www.w3.org/2005/Atom"
+ATOM_PREFIX = "{" + ATOM_NS + "}"
+KNOWN_ROOT_NAMES = frozenset(("urlset", "sitemapindex", "rss", "feed"))
+GZIP_MAGIC = b"\x1f\x8b"
 
 MAX_BYTES = 52428800          # sentence 19
 MAX_ENTRIES = 50000           # sentence 20
@@ -368,6 +383,25 @@ def _valid_priority(value):
     return DECIMAL_ZERO <= number <= DECIMAL_ONE
 
 
+def _valid_feed_date(value):
+    """A syndication modification date (F1, F2).
+
+    Atom `<updated>` and an ISO-8601 `<pubDate>` reuse the sitemap
+    `lastmod` rule; RSS 2.0's `<pubDate>` is an RFC 822 date, which
+    `email.utils` reads.  S012 states no feed-date validity rule, so
+    accepting either form is lane policy (amendment 1, A4); a value
+    neither form accepts is malformed."""
+    if _valid_lastmod(value):
+        return True
+    if not value:
+        return False
+    try:
+        parsedate_to_datetime(value)
+    except (TypeError, ValueError):
+        return False
+    return True
+
+
 # --------------------------------------------------------------------------
 # One sitemap file (rules (a)-(k))
 # --------------------------------------------------------------------------
@@ -402,14 +436,48 @@ def _has_doctype(text):
     return bool(seen)
 
 
-def _audit_file(path, sitemap_url):
-    """Return (error_code_or_None, set_of_(code, entry)_findings)."""
+def _load_payload(path):
+    """Return (error_code_or_None, data) for one sitemap file.
+
+    The container is decided by the gzip magic, never by the file name (G2).
+    A gzip stream is decompressed with a bounded read: at most MAX_BYTES + 1
+    bytes are kept, so a compression bomb is never buffered whole and the
+    limit is applied to the expanded bytes (G1).  A corrupt or truncated
+    stream is returned as a container error, not as a policy finding (A6)."""
     try:
         with open(path, "rb") as handle:
-            data = handle.read(MAX_BYTES + 1)
+            magic = handle.read(2)
+            handle.seek(0)
+            if magic == GZIP_MAGIC:
+                try:
+                    with gzip.GzipFile(fileobj=handle, mode="rb") as stream:
+                        data = stream.read(MAX_BYTES + 1)
+                        if len(data) <= MAX_BYTES:
+                            stream.read(1)    # reach EOF: verify CRC and length
+                except (OSError, EOFError, zlib.error):
+                    return ("gzip_invalid", b"")
+                return (None, data)
+            return (None, handle.read(MAX_BYTES + 1))
     except OSError:
-        return ("file_unreadable", set())
+        return ("file_unreadable", b"")
+
+
+def _looks_xml(text):
+    """Round 77: a document that opens with '<' is parsed as XML; anything
+    else is a plain-text sitemap (one absolute URL per line, T1).  A NUL in
+    the opening bytes is the round-39 UTF-16-without-BOM fault, not text."""
+    sample = text[:64]
+    return "\x00" in sample or sample.lstrip(XML_WS).startswith("<")
+
+
+def _audit_file(path, sitemap_url):
+    """Return (error_code_or_None, set_of_(code, entry)_findings)."""
+    error, data = _load_payload(path)
+    if error is not None:
+        return (error, set())
     if len(data) > MAX_BYTES:
+        # A5: one condition, one id; the bytes after container expansion,
+        # whichever the family, over the limit are the round-39 `too_large`.
         return (None, {("too_large", None)})
     try:
         text = data.decode("utf-8")
@@ -417,10 +485,18 @@ def _audit_file(path, sitemap_url):
         return (None, {("encoding_invalid", None)})
     if text[:1] == "\ufeff":
         text = text[1:]
+    if _looks_xml(text):
+        return _audit_xml(text, sitemap_url)
+    return (None, _audit_text(text))
+
+
+def _audit_xml(text, sitemap_url):
+    """Rules (a)-(c) on one decoded XML document."""
     declared = _declared_encoding(text)
     if declared is not None and declared.lower() != "utf-8":
         return (None, {("encoding_invalid", None)})
     if _has_doctype(text):
+        # A9: the doctype gate runs before the root gate.
         return (None, {("doctype_present", None)})
     if "\x00" in text:
         return (None, {("xml_malformed", None)})   # U+0000 is not an XML Char
@@ -428,18 +504,35 @@ def _audit_file(path, sitemap_url):
         root = ElementTree.fromstring(text)
     except Exception:
         return (None, {("xml_malformed", None)})
-    return (None, _audit_tree(root, sitemap_url))
+    return _audit_tree(root, sitemap_url)
+
+
+def _local_name(tag):
+    if tag.startswith("{"):
+        return tag.split("}", 1)[1]
+    return tag
 
 
 def _audit_tree(root, sitemap_url):
-    findings = set()
-    if root.tag == SM_PREFIX + "urlset":
-        kind, entry_name = "urlset", "url"
-    elif root.tag == SM_PREFIX + "sitemapindex":
-        kind, entry_name = "sitemapindex", "sitemap"
-    else:
-        return {("root_invalid", None)}
+    """Return (error_code_or_None, findings) for one parsed XML document."""
+    tag = root.tag
+    if tag == SM_PREFIX + "urlset":
+        return (None, _audit_sitemap_document(root, "urlset", "url", sitemap_url))
+    if tag == SM_PREFIX + "sitemapindex":
+        return (None, _audit_sitemap_document(root, "sitemapindex", "sitemap", sitemap_url))
+    if tag == ATOM_PREFIX + "feed":
+        return (None, _audit_atom(root))
+    if tag == "rss":
+        return (None, _audit_rss(root))
+    if isinstance(tag, str) and _local_name(tag) in KNOWN_ROOT_NAMES:
+        # Round 39: a sitemap root in the wrong namespace.
+        return (None, {("root_invalid", None)})
+    # X1: never silently clean; an unknown root is an input fault.
+    return ("format_unsupported", set())
 
+
+def _audit_sitemap_document(root, kind, entry_name, sitemap_url):
+    findings = set()
     entries = []
     for child in root:
         if not isinstance(child.tag, str):
@@ -514,6 +607,111 @@ def _audit_loc(element, index, kind, sitemap_url, findings):
         prefix = _directory_of(sitemap_url[3])
         if not parsed[3].startswith(prefix):
             findings.add(("loc_out_of_scope", index))
+
+
+# --------------------------------------------------------------------------
+# Round 77: plain-text sitemaps and syndication feeds (T1, F1, F2)
+# --------------------------------------------------------------------------
+
+_SCHEME_PREFIX_RE = re.compile(r"\A[A-Za-z][A-Za-z0-9+.\-]*:")
+
+
+def _looks_like_reference(value):
+    """True when a non-URL line is a URL reference written without an
+    authority (a path or a scheme), false when it is prose or a comment."""
+    if value.startswith(("/", "./", "../", "//")):
+        return True
+    return _SCHEME_PREFIX_RE.match(value) is not None
+
+
+def _audit_text(text):
+    """T1: one absolute http(s) URL per line, blank lines ignored."""
+    findings = set()
+    entries = 0
+    for number, line in enumerate(text.split("\n"), 1):
+        value = line.strip(XML_WS)
+        if not value:
+            continue
+        entries += 1
+        if _parse_url(value) is None:
+            if _looks_like_reference(value):
+                findings.add(("text_url_not_absolute", number))
+            else:
+                findings.add(("text_line_not_url", number))
+    if entries == 0:
+        findings.add(("text_empty", None))
+    if entries > MAX_ENTRIES:
+        findings.add(("text_too_many_entries", None))
+    return findings
+
+
+def _audit_rss(root):
+    """F1: RSS 2.0.  The URL is `<item><link>` text; the date is the
+    optional `<pubDate>`; a missing link is `feed_item_missing_link`."""
+    findings = set()
+    items = []
+    for child in root:
+        if isinstance(child.tag, str) and child.tag == "channel":
+            for item in child:
+                if isinstance(item.tag, str) and item.tag == "item":
+                    items.append(item)
+            break
+    if not items:
+        findings.add(("no_entries", None))
+    for index, item in enumerate(items, 1):
+        links = []
+        dates = []
+        for child in item:
+            if not isinstance(child.tag, str):
+                continue
+            if child.tag == "link":
+                links.append(child)
+            elif child.tag == "pubDate":
+                dates.append(child)
+        value = ""
+        for link in links:
+            candidate = (link.text or "").strip(XML_WS)
+            if candidate:
+                value = candidate
+                break
+        if not value:
+            findings.add(("feed_item_missing_link", index))
+        elif _parse_url(value) is None:
+            findings.add(("loc_not_absolute", index))
+        if dates and not _valid_feed_date(_text_of(dates[0])):
+            findings.add(("lastmod_invalid", index))
+    return findings
+
+
+def _audit_atom(root):
+    """F2: Atom 1.0.  The URL is the entry's `<link href>`; the date is the
+    optional `<updated>`; a link without an href is `feed_item_missing_link`."""
+    findings = set()
+    entries = []
+    for child in root:
+        if isinstance(child.tag, str) and child.tag == ATOM_PREFIX + "entry":
+            entries.append(child)
+    if not entries:
+        findings.add(("no_entries", None))
+    for index, entry in enumerate(entries, 1):
+        href = None
+        updated = None
+        for child in entry:
+            if not isinstance(child.tag, str):
+                continue
+            if child.tag == ATOM_PREFIX + "link" and href is None:
+                candidate = child.get("href")
+                if candidate is not None and candidate.strip(XML_WS):
+                    href = candidate.strip(XML_WS)
+            elif child.tag == ATOM_PREFIX + "updated" and updated is None:
+                updated = child
+        if href is None:
+            findings.add(("feed_item_missing_link", index))
+        elif _parse_url(href) is None:
+            findings.add(("loc_not_absolute", index))
+        if updated is not None and not _valid_lastmod(_text_of(updated)):
+            findings.add(("lastmod_invalid", index))
+    return findings
 
 
 # --------------------------------------------------------------------------

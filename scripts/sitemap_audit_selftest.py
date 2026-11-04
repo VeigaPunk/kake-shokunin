@@ -20,6 +20,7 @@ constant-clean tool, runs the same suite against each, and requires both to be
 rejected.
 """
 
+import gzip
 import json
 import os
 import shutil
@@ -28,7 +29,9 @@ import sys
 import tempfile
 
 NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
+ATOM_NS = "http://www.w3.org/2005/Atom"
 DECL = '<?xml version="1.0" encoding="UTF-8"?>\n'
+LIMIT_BYTES = 52428800
 SENTENCES = tuple(range(1, 35))
 RULES = "abcdefghijk"
 
@@ -105,6 +108,99 @@ def _oversized(path):
         handle.write(('<urlset xmlns="%s">' % NS).encode("utf-8"))
         handle.seek(52428800)
         handle.write(b" ")
+
+
+# --- round 77 (claim C2) fixture builders ---------------------------------
+
+def _gzip_writer(payload):
+    def writer(path):
+        with open(path, "wb") as handle:
+            with gzip.GzipFile(fileobj=handle, mode="wb", mtime=0) as stream:
+                stream.write(payload)
+
+    return writer
+
+
+def _gzip_bomb(path):
+    """A gzip member whose decompressed body is one byte over the limit (G1)."""
+    chunk = b" " * (1024 * 1024)
+    remaining = LIMIT_BYTES + 1
+    with open(path, "wb") as handle:
+        with gzip.GzipFile(fileobj=handle, mode="wb", compresslevel=1,
+                           mtime=0) as stream:
+            while remaining > 0:
+                piece = chunk if remaining >= len(chunk) else chunk[:remaining]
+                stream.write(piece)
+                remaining -= len(piece)
+
+
+def _gzip_exact_limit(path):
+    """A gzip XML urlset whose decompressed body is exactly the limit."""
+    head = (DECL + '<urlset xmlns="%s">' % NS +
+            "<url><loc>http://example.com/a</loc></url>").encode("utf-8")
+    tail = b"</urlset>"
+    padding = LIMIT_BYTES - len(head) - len(tail)
+    with open(path, "wb") as handle:
+        with gzip.GzipFile(fileobj=handle, mode="wb", compresslevel=1,
+                           mtime=0) as stream:
+            stream.write(head)
+            stream.write(b" " * padding)
+            stream.write(tail)
+
+
+def _truncated_gzip(path):
+    body = urlset(url(L("http://example.com/a")))
+    with open(path, "wb") as handle:
+        handle.write(gzip.compress(body, mtime=0)[:-8])
+
+
+def _many_text_lines(count):
+    def writer(path):
+        with open(path, "wb") as handle:
+            for number in range(count):
+                handle.write(b"http://example.com/p%d\n" % number)
+
+    return writer
+
+
+def _oversized_text(path):
+    line = b"http://example.com/a\n"
+    written = 0
+    with open(path, "wb") as handle:
+        while written <= LIMIT_BYTES:
+            handle.write(line)
+            written += len(line)
+
+
+def rss_item(link=None, pubdate=None):
+    inner = "<title>t</title>"
+    if link is not None:
+        inner += "<link>%s</link>" % link
+    if pubdate is not None:
+        inner += "<pubDate>%s</pubDate>" % pubdate
+    return "<item>%s</item>" % inner
+
+
+def rss_doc(items):
+    return (DECL + '<rss version="2.0"><channel><title>t</title>'
+            "<link>http://example.com/</link>" + "".join(items)
+            + "</channel></rss>").encode("utf-8")
+
+
+def atom_entry(href=None, updated=None):
+    inner = "<title>t</title>"
+    if href is None:
+        inner += "<link/>"
+    else:
+        inner += '<link href="%s"/>' % href
+    if updated is not None:
+        inner += "<updated>%s</updated>" % updated
+    return "<entry>%s</entry>" % inner
+
+
+def atom_doc(entries):
+    return (DECL + '<feed xmlns="%s"><title>t</title>' % ATOM_NS
+            + "".join(entries) + "</feed>").encode("utf-8")
 
 
 # --------------------------------------------------------------------------
@@ -1034,6 +1130,143 @@ def build_cases():
         {"a.xml": urlset(url(L(long_base + "b")))}, [22, 23],
         rules=[("g", "pos")], manifest=mf(ck("a", "a.xml", "http://example.com/")),
         verdict="clean", checks=[E("a", "clean")])
+
+    # --- round 77 (claim C2): gzip container, text sitemaps, feeds --------
+    two_urls = urlset(url(L("http://example.com/a")) + url(L("http://example.com/b")))
+
+    # G2: the gzip magic decides the container, never the file name.
+    add("r77_gzip_magic_reads_body", {"a.txt": _gzip_writer(two_urls)}, [19],
+        rules=[("f", "pos")], manifest=mf(ck("a", "a.txt")), verdict="clean",
+        checks=[E("a", "clean")])
+    add("r77_gzip_name_plain_body", {"a.xml.gz": two_urls}, [19],
+        rules=[("f", "pos")], manifest=mf(ck("a", "a.xml.gz")), verdict="clean",
+        checks=[E("a", "clean")])
+    # G1: the limit is applied to the decompressed body, and the read is capped.
+    add("r77_gzip_decompressed_too_large", {"a.xml": _gzip_bomb}, [19],
+        rules=[("f", "neg")], manifest=mf(ck("a", "a.xml")),
+        expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("too_large", None)])])
+    add("r77_gzip_exact_limit_clean", {"a.xml": _gzip_exact_limit}, [19],
+        rules=[("f", "pos")], manifest=mf(ck("a", "a.xml")), verdict="clean",
+        checks=[E("a", "clean")])
+    # A6: a corrupt container is the check error `gzip_invalid`, never a finding.
+    add("r77_gzip_truncated_stream", {"a.xml": _truncated_gzip}, [19],
+        manifest=mf(ck("a", "a.xml")), expect_exit=2,
+        verdict="could-not-evaluate",
+        checks=[E("a", "error", "gzip_invalid")])
+
+    # T1: one absolute URL per line, blank lines ignored.
+    add("r77_text_three_urls",
+        {"s.txt": b"http://example.com/a\nhttps://example.com/b\nhttp://example.com/c\n"},
+        [19, 20], manifest=mf(ck("a", "s.txt")), verdict="clean",
+        checks=[E("a", "clean")])
+    add("r77_text_blank_lines_ignored",
+        {"s.txt": b"\nhttp://example.com/a\n\n\nhttp://example.com/b\n\n"}, [20],
+        manifest=mf(ck("a", "s.txt")), verdict="clean", checks=[E("a", "clean")])
+    add("r77_text_comment_line",
+        {"s.txt": b"http://example.com/a\n# comment\n"}, [20],
+        manifest=mf(ck("a", "s.txt")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("text_line_not_url", 2)])])
+    add("r77_text_relative_url",
+        {"s.txt": b"http://example.com/a\n/page\n"}, [20],
+        manifest=mf(ck("a", "s.txt")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("text_url_not_absolute", 2)])])
+    add("r77_text_scheme_url",
+        {"s.txt": b"ftp://example.com/a\n"}, [20],
+        manifest=mf(ck("a", "s.txt")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("text_url_not_absolute", 1)])])
+    add("r77_text_empty", {"s.txt": b""}, [20],
+        manifest=mf(ck("a", "s.txt")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("text_empty", None)])])
+    add("r77_text_blank_only", {"s.txt": b"\n \n\t\n"}, [20],
+        manifest=mf(ck("a", "s.txt")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("text_empty", None)])])
+    add("r77_text_too_many_entries", {"s.txt": _many_text_lines(50001)}, [20],
+        manifest=mf(ck("a", "s.txt")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("text_too_many_entries", None)])])
+    add("r77_text_exactly_50000_entries", {"s.txt": _many_text_lines(50000)}, [20],
+        manifest=mf(ck("a", "s.txt")), verdict="clean", checks=[E("a", "clean")])
+    add("r77_text_bom_first_url",
+        {"s.txt": b"\xef\xbb\xbfhttp://example.com/a\nhttp://example.com/b\n"}, [6, 20],
+        manifest=mf(ck("a", "s.txt")), verdict="clean", checks=[E("a", "clean")])
+    add("r77_text_invalid_utf8", {"s.txt": b"http://example.com/\xfc\n"}, [6, 20],
+        rules=[("a", "neg")], manifest=mf(ck("a", "s.txt")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("encoding_invalid", None)])])
+    add("r77_text_too_large", {"s.txt": _oversized_text}, [19],
+        rules=[("f", "neg")], manifest=mf(ck("a", "s.txt")), expect_exit=1,
+        verdict="failed-policy",
+        checks=[E("a", "findings", None, [("too_large", None)])])
+    add("r77_text_gzip", {"s.txt": _gzip_writer(
+        b"http://example.com/a\nhttp://example.com/b\n")}, [19, 20],
+        manifest=mf(ck("a", "s.txt")), verdict="clean", checks=[E("a", "clean")])
+    add("r77_text_suffix_no_inference", {"a.xml": b"http://example.com/a\n"}, [19, 20],
+        manifest=mf(ck("a", "a.xml")), verdict="clean", checks=[E("a", "clean")])
+
+    # F1: RSS 2.0.
+    add("r77_rss_two_items", {"feed.rss": rss_doc(
+        [rss_item("http://example.com/a", "2026-11-02T10:00:00Z"),
+         rss_item("http://example.com/b", "2026-11-02T10:00:00Z")])}, [19],
+        manifest=mf(ck("a", "feed.rss")), verdict="clean", checks=[E("a", "clean")])
+    add("r77_rss_rfc822_pubdate", {"feed.rss": rss_doc(
+        [rss_item("http://example.com/a", "Tue, 03 Jun 2003 09:39:21 GMT")])}, [19],
+        manifest=mf(ck("a", "feed.rss")), verdict="clean", checks=[E("a", "clean")])
+    add("r77_rss_missing_link", {"feed.rss": rss_doc(
+        [rss_item(None, "2026-11-02T10:00:00Z")])}, [15],
+        manifest=mf(ck("a", "feed.rss")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("feed_item_missing_link", 1)])])
+    add("r77_rss_bad_pubdate", {"feed.rss": rss_doc(
+        [rss_item("http://example.com/a", "not a date")])}, [28],
+        manifest=mf(ck("a", "feed.rss")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("lastmod_invalid", 1)])])
+    add("r77_rss_relative_link", {"feed.rss": rss_doc(
+        [rss_item("/a")])}, [22],
+        manifest=mf(ck("a", "feed.rss")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+
+    # F2: Atom 1.0.
+    add("r77_atom_two_entries", {"feed.atom": atom_doc([
+        atom_entry("http://example.com/a", "2026-11-02T10:00:00Z"),
+        atom_entry("http://example.com/b", "2026-11-02T10:00:00Z")])}, [19],
+        manifest=mf(ck("a", "feed.atom")), verdict="clean", checks=[E("a", "clean")])
+    add("r77_atom_link_without_href", {"feed.atom": atom_doc([
+        atom_entry(None, "2026-11-02T10:00:00Z")])}, [15],
+        manifest=mf(ck("a", "feed.atom")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("feed_item_missing_link", 1)])])
+    add("r77_atom_bad_updated", {"feed.atom": atom_doc([
+        atom_entry("http://example.com/a", "not a date")])}, [28],
+        manifest=mf(ck("a", "feed.atom")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("lastmod_invalid", 1)])])
+    add("r77_atom_relative_href", {"feed.atom": atom_doc([
+        atom_entry("/a", "2026-11-02T10:00:00Z")])}, [22],
+        manifest=mf(ck("a", "feed.atom")), expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("loc_not_absolute", 1)])])
+
+    # F3: a sitemap index's <loc>s are container-agnostic.
+    add("r77_index_container_agnostic", {"i.xml": index(
+        smap(L("http://example.com/a.txt")) + smap(L("http://example.com/b.rss"))
+        + smap(L("http://example.com/c.atom")))}, [10, 27],
+        rules=[("c", "pos"), ("h", "pos")], manifest=mf(ck("a", "i.xml")),
+        verdict="clean", checks=[E("a", "clean")])
+
+    # X1: an unknown root is an input fault, never silently clean.
+    add("r77_root_html_unsupported", {"a.xml": b"<html><body/></html>"}, [10],
+        rules=[("c", "neg")], manifest=mf(ck("a", "a.xml")), expect_exit=2,
+        verdict="could-not-evaluate",
+        checks=[E("a", "error", "format_unsupported")])
+    add("r77_root_html_doctype_first",
+        {"a.xml": b"<!DOCTYPE html><html><body/></html>"}, [9],
+        rules=[("b", "neg")], manifest=mf(ck("a", "a.xml")),
+        expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("doctype_present", None)])])
+    add("r77_doctype_prefixed_name",
+        {"a.xml": ('<?xml version="1.0" encoding="UTF-8"?>\n'
+                   '<!DOCTYPE s:urlset><s:urlset xmlns:s="%s">'
+                   "<s:url><s:loc>http://example.com/a</s:loc></s:url>"
+                   "</s:urlset>" % NS).encode("utf-8")}, [9],
+        rules=[("b", "neg")], manifest=mf(ck("a", "a.xml")),
+        expect_exit=1, verdict="failed-policy",
+        checks=[E("a", "findings", None, [("doctype_present", None)])])
 
     return cases
 
