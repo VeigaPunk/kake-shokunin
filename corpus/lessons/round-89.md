@@ -153,3 +153,45 @@ gate-sample: admits=2 rejects=2
 r88-gate-summary-correction: admits=2 rejects=2
 r88-c-rerun: retracted
 controls-count: 1604@2177058662d8778f1d1a685613f57deccb51ef01
+
+## Wave review — routed C1 counter defects (ReviewCounterC1)
+
+The reviewer seat attacked `c89_defect_queue.py` in scratch repositories, never the
+lane. Its receipts are `.ufo/waves/round-89/w1/ReviewCounterC1/receipts/` (38 files).
+The counter's verdicts on B through F are therefore not admissible as
+evidence that those items are sound. C1 is not admitted, and the routing below is
+the round's own finding, not a rule change applied to scored data.
+
+- **RC-1 (high). E reads HEAD, not `--revision`.** `item_e` calls git against the
+  checked-out HEAD. `E-bad-order-rev-HEAD-good` closes E on a reversed revision;
+  `E-good-order-rev-HEAD-bad` opens it on a correct revision. The base receipt
+  `controls/base-c1.txt` was produced with HEAD at a later commit, so its E line is
+  not a pure base measurement (`base-revision-HEAD-at-tip`: open=5, not 6).
+- **RC-2 (high). E ignores post-dispatch edits to the frozen counter.** A counter
+  edited after `w1.ready` passes E (`E-post-dispatch-edit-of-frozen-counter`). This is the
+  R88-E class again. Fixing it changes the frozen E claim (a claim decision for L1).
+- **RC-3 (med). E's time clause is strict at second granularity.** Correctly ordered
+  commits in the same second go red (`E-realtime-correct-order`).
+- **RC-4 (med). Mirror mode skips E silently** (`mirror-mode-no-freeze`).
+- **RC-5 (high). A's tag exemption accepts any line with `[r89-correction`** whether or not
+  it states the observed count (`A1-tagged-stale-stands`).
+- **RC-6 (high). A's scope skips the round-89 SCORECARD section and the round-89
+  lesson** (`A2`, `A3`).
+- **RC-7 (high). A trusts the tool's self-reported count** (`A4-selftest-self-report-99`).
+- **RC-8 (high). B classifies by substring**: a reject whose cell mentions `**admit**`
+  counts as an admit (`B1`, `B2`). B-column results are therefore unreliable.
+- **RC-9 (high). C's regex sees only the full `.ufo/waves/round-88/controls/` prefix.**
+  Its own tip audit finds 21 distinct receipt names in the round-88 text, and the
+  counter checks 5. One named receipt does not resolve (`controls/integrated-selftest.txt`,
+  SCORECARD.md:5469). Brace and trailing-character parsing false-green or false-red on
+  `C1`–`C4`, `BR1`–`BR4`.
+- **RC-10 (med). F's header test is a substring test** (`F1`, `F2`, `F3`).
+
+Do-nothing control: the base receipt reproduces only with HEAD at base for item E
+(RC-1). The reviewer found no false green for D's recount itself (`D1` red on a
+wrong count).
+
+Fix path (round 90): repair RC-1, RC-4 and RC-9 and bind A's count to tool bytes
+(RC-7); each repair needs a red-before witness from the existing receipts. RC-2 and
+RC-3 change a frozen claim and need an explicit claim decision. The routed R89-1
+(filed-byte rule for A) and R89-3 (short-form receipts) are subsumed by RC-9.
