@@ -140,3 +140,33 @@ rows re-read this round.
   `corpus/lessons/round-95.md`; assimilation: none (the merge/kake package
   still collides on 8 ids — `assimilation/collisions`, re-derived this round);
   considerthese mined only if a proposal fits a frozen claim's surface.
+
+## Amendment A (pre-scoring instrument correction, 2026-11-05)
+
+Found during claim rehearsal BEFORE any wave seat scored data, and fixed by a
+committed instrument change; no predicate, target, kill rule or claim text of
+the two claims changed. Defect: the frozen identity surface pinned each
+knowledge entry's first-eight-line digest, but the C1 claim's own declared
+repair route (the three E3 entry repairs, each an in-file head correction
+carrying a `[r95-correction 2026-11-05]` tag per the append-guard contract)
+legitimately changes exactly those lines, so the frozen surface made the
+target unreachable by the declared route. Fix (the instrument's own design
+rule): knowledge entries are pinned by PRESENCE only — their heads are
+correctable surfaces the E3 audit still validates line-by-line — while lessons
+keep full-content digests (append-only-frozen per round; a changed lesson
+still fires `lesson-content`). New digests supersede the wave-context
+digests for the C1 instrument only:
+
+- `c95_selfassess.py` sha256 `04be4a7dc32adee08e386936e2af8257a191421bd2005c97b40af49933a24a32`
+  (was `8fd27d626883f2b6852ea2ee425706a77a72eeaee10ef740b8e0fc15ac03b193`)
+- `frozen/c1-surfaces.json` sha256 `9eff04c5a0567f50a3a27004ac7d5aab4d4dc2d1311c4a8d8eb623db8ec4f665`
+  (was `00a04c9a68f00de1561d70822a8ff3cab718583de4cd2cbf6ebd06e87b5d47b8`)
+- Regenerated receipts: `controls/base-c1.txt` (mismatches=18 E3=3 E5=15,
+  met=false, exit 1, unchanged reading), `controls/ctl-c1-selftest.txt`
+  (13/13, battery 20/20, admit 5/5, shadow ok, --surfaces-file refused),
+  `controls/instrument-sha256.txt`.
+
+A wave seat that reproduced a context-digest mismatch on the C1 counter was
+looking at the pre-amendment bytes: this section is the explanation, and
+every post-amendment check must hash the values above. The C2 instrument is
+unchanged (`f09f84090fdda405992d7b51191be8838549e3df402b0898eb2ca00c4c3ff312`).
