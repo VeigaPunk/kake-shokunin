@@ -1689,3 +1689,10 @@ a defect. At the time these rows were written `scripts/heuristic_freshness.py`
 was not yet a LANE commit, so the C2 gate at HEAD read `candidate=absent …
 met=false`; the `met=true` line at the carrier is the C2 seat's receipt and
 L1's re-run at the landing revision is what counts.
+
+### Round 99 instrument registry
+
+| Name | Kind | Entry command | Verdict map | Self-test | Pinned values / frozen proof | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| c99_registry.py | gate (round-99 C1 tool-registry coverage calibration: committed `scripts/*.py`/`scripts/*.mjs` direct children vs conformant rows in this file's registry tables, with one executed self-test command per row; declared limit: row truth beyond structure is the review conjunct's) | `python3 -B .ufo/waves/round-99/c99_registry.py --root . --revision <REV> --work <scratch>` | `0=met=true` (`unlisted=0`, `dangling=0`); `1=met=false`; `2=could-not-evaluate` (git failure, missing SKILL.md, empty population, usage) | `python3 -B .ufo/waves/round-99/c99_registry.py --selftest --work <scratch>` (20 fixture git repos scored through `score()`) | `.ufo/waves/round-99/freeze.md`; `.ufo/waves/round-99/controls/instrument-sha256.txt` | reads committed bytes at `--revision`; extracts one tree and runs self-test commands under `--work` | kake |
+| c99_fresh304.py | gate (round-99 C2 304-freshening contract v1 conformance: 50 hand cases plus a seeded generated population; candidate `scripts/freshen_304.py` from committed bytes) | `python3 -B .ufo/waves/round-99/c99_fresh304.py --root . --revision <REV> --work <scratch>` (`--seed N`, `--generated N`; `--candidate-file` for controls only) | `0=met=true` (`hand=50/50`, `generated=G/G`); `1=met=false` or `candidate=absent`; `2=could-not-evaluate`, usage or reference drift | `python3 -B .ufo/waves/round-99/c99_fresh304.py --selftest` (reference vs every hand expectation; generated grammar reaches refusals and all seven decision/rule classes) | `.ufo/waves/round-99/fresh304-contract.md`; `.ufo/waves/round-99/frozen/` (positive control, seven forgeries) | per-case scratch under `--work` only | kake |
