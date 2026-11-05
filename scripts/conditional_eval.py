@@ -21,7 +21,13 @@ What this tool deliberately does not do (contract scope, stated up front):
     statement about any live property;
   * no range/If-Range handling -- the decision set is 200/304/412 only.
 
-Contract: ``.ufo/waves/round-93/c2-contract.md`` (v1). Clause numbers appear
+Contract: ``.ufo/waves/round-93/c2-contract.md`` (v1), extended by
+``.ufo/waves/round-95/c2-contract-v2.md``: empty list members are accepted and
+ignored (RFC 9110 sections 5.6.1.2/5.6.3, row S478); obs-text (0x80-0xFF) is
+legal inside an opaque-tag (section 8.8.3, row S455); ``"role": null`` is
+accepted and means origin (lane convention); an input document whose raw bytes
+carry duplicate object keys is refused (RFC 8259 leaves duplicate members
+undefined, row S034). Clause numbers appear
 in comments wherever a reader would otherwise have to guess.
 
 Usage:
@@ -74,7 +80,8 @@ def _entity_tag(value):
     opaque = rest[:-1]
     for ch in opaque:
         o = ord(ch)
-        if not (o == 0x21 or 0x23 <= o <= 0x7E):
+        # Contract v2 clause C2 (RFC 9110 8.8.3, S455): obs-text is legal.
+        if not (o == 0x21 or 0x23 <= o <= 0x7E or 0x80 <= o <= 0xFF):
             return None
     return weak, opaque
 
@@ -85,9 +92,14 @@ def _precondition_members(value, field):
     Parses the RFC 9110 list grammar sequentially rather than splitting on
     commas, because an opaque-tag may contain a comma (etagc includes 0x2C).
     Returns ("star", None) for the ``*`` form or ("tags", [(weak, opaque), ...]).
-    Raises InvalidInput on every clause-4 refusal: empty or whitespace-only
-    value, an empty member, ``*`` mixed with other members, or a member that
-    is not a well-formed entity-tag. SP/HTAB around each member is optional.
+    Contract v2 clause C1 (RFC 9110 sections 5.6.1.2/5.6.3, row S478): an
+    empty list member is accepted and ignored -- the list
+    ``"1", , "2"`` decides as ``["1", "2"]`` and a list of only empty members
+    decides as the empty list (matches nothing). A whitespace-only value is
+    still refused (an empty field is not a list), ``*`` mixed with other
+    members is still refused, and a member that is not a well-formed
+    entity-tag still raises InvalidInput. SP/HTAB around each member is
+    optional.
     """
     if value.strip(" \t") == "":
         raise InvalidInput("%s must not be an empty value" % field)
@@ -97,11 +109,10 @@ def _precondition_members(value, field):
     while True:
         while i < n and value[i] in " \t":
             i += 1
-        if i >= n:
-            raise InvalidInput("%s has an empty list member" % field)
-        if value[i] == ",":
-            raise InvalidInput("%s has an empty list member" % field)
-        if value[i] == "*":
+        if i >= n or value[i] == ",":
+            # Contract v2 C1: empty member -- accepted, ignored.
+            pass
+        elif value[i] == "*":
             items.append("*")
             i += 1
         else:
@@ -114,7 +125,8 @@ def _precondition_members(value, field):
                 raise InvalidInput("malformed entity-tag in %s" % field)
             while i < n and value[i] != '"':
                 o = ord(value[i])
-                if not (o == 0x21 or 0x23 <= o <= 0x7E):
+                # Contract v2 C2 (RFC 9110 8.8.3, S455): obs-text is legal.
+                if not (o == 0x21 or 0x23 <= o <= 0x7E or 0x80 <= o <= 0xFF):
                     raise InvalidInput("malformed entity-tag in %s" % field)
                 i += 1
             if i >= n:
@@ -167,6 +179,8 @@ def evaluate(inp):
         if name not in keys:
             raise InvalidInput("missing top-level key: %s" % name)
     role = inp.get("role", "origin")
+    if role is None:  # contract v2 clause C3 (lane convention): null = origin
+        role = "origin"
     if role not in ("origin", "cache"):
         raise InvalidInput("role must be \"origin\" or \"cache\"")
     method = inp["method"]
@@ -263,10 +277,22 @@ def evaluate(inp):
     return {"decision": "200", "precondition": None}
 
 
+def _no_duplicate_pairs(pairs):
+    """Contract v2 clause C4 (RFC 8259, S034): duplicate member semantics are
+    undefined, so an input document carrying duplicate object keys is refused
+    rather than silently last-wins."""
+    seen = set()
+    for k, _ in pairs:
+        if k in seen:
+            raise ValueError("duplicate object key in input document")
+        seen.add(k)
+    return dict(pairs)
+
+
 def _process(data):
     """Stdin bytes or text -> (exit_code, stdout_text, stderr_text); no real stdio."""
     try:
-        inp = json.loads(data)
+        inp = json.loads(data, object_pairs_hook=_no_duplicate_pairs)
     except Exception:
         return 1, "", "invalid_input: input is not valid JSON\n"
     try:
@@ -422,8 +448,8 @@ def selftest():
          ("refuse", "unknown top-level key: zzz")),
         ("r05", dict(_case(), role="proxy"),
          ("refuse", "role must be \"origin\" or \"cache\"")),
-        ("r06", dict(_case(), role=None),
-         ("refuse", "role must be \"origin\" or \"cache\"")),
+        # Contract v2 C3: "role": null is accepted and means origin (r06 moved
+        # to the decision cases below as d46).
         ("r07", _case(method=""),
          ("refuse", "method must be a non-empty HTTP token")),
         ("r08", _case(method="GE T"),
@@ -485,8 +511,8 @@ def selftest():
          ("refuse", "if_match must not be an empty value")),
         ("r28", _case(if_none_match="   "),
          ("refuse", "if_none_match must not be an empty value")),
-        ("r29", _case(if_match='"a",,"b"'),
-         ("refuse", "if_match has an empty list member")),
+        # Contract v2 C1: empty list members are accepted and ignored
+        # (r29/r42 moved to the decision cases below as d47/d48).
         ("r30", _case(if_match='*,"a"'),
          ("refuse", "if_match mixes '*' with other members")),
         ("r31", _case(if_none_match='*, "*"'),
@@ -511,14 +537,45 @@ def selftest():
          ("refuse", "method must be a non-empty HTTP token")),
         ("r41", _case(if_match='"a"extra'),
          ("refuse", "malformed entity-tag in if_match")),
-        ("r42", _case(if_match='*,'),
-         ("refuse", "if_match has an empty list member")),
         ("r43", _case(if_match='"a,'),
          ("refuse", "malformed entity-tag in if_match")),
         ("r44", _case(if_match='"a", "b'),
          ("refuse", "malformed entity-tag in if_match")),
         ("r45", b'\xff\xfe{"method":"GET"}',
          ("refuse", "input is not valid JSON")),
+        # --- contract v2 (round 95) decisions and refusals -------------------
+        ("d46", dict(_case(etag=strong_a), role=None),
+         ("ok", "200", None)),
+        ("d47", _case(etag=strong_a, if_match='"a",,"b"'),
+         ("ok", "412", "if_match")),
+        ("d48", _case(etag=strong_a, if_match=' *, '),
+         ("ok", "200", None)),
+        ("d49", _case(etag=strong_a, if_none_match='"zz-1", , "vx-9"'),
+         ("ok", "304", "if_none_match")),
+        ("d50", _case(etag=strong_a, if_none_match=' , '),
+         ("ok", "200", None)),
+        ("d51", _case(etag='W/"a\x80"', if_none_match='"a\x80"'),
+         ("ok", "304", "if_none_match")),
+        ("d52", _case(etag='"a\x80"', if_match='"a\x80"'),
+         ("ok", "200", None)),
+        ("d53", _case(method="OPTIONS", etag=strong_a,
+                      if_none_match=strong_a),
+         ("ok", "412", "if_none_match")),
+        ("d54", _case(method="OPTIONS", etag=None, last_modified=64010,
+                      if_modified_since=65000),
+         ("ok", "200", None)),
+        ("r46", '{"method": "GET", "method": "HEAD", "current":'
+                ' {"exists": true, "etag": null, "last_modified": null},'
+                ' "request": {"if_match": null, "if_none_match": null,'
+                ' "if_modified_since": null, "if_unmodified_since": null}}',
+         ("refuse", "input is not valid JSON")),
+        ("r47", '{"method": "GET", "current": {"exists": true, "etag": null,'
+                ' "last_modified": null}, "request": {"if_match": null,'
+                ' "if_none_match": null, "if_modified_since": null,'
+                ' "if_modified_since": null}}',
+         ("refuse", "input is not valid JSON")),
+        ("r48", _case(etag='"a\x01"'),
+         ("refuse", "malformed entity-tag in current.etag")),
     ]
     passed = 0
     failures = []

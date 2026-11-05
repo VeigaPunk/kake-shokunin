@@ -1807,3 +1807,55 @@ population — or a **verdict** about the round's own work. A reading that omits
 either is a number without a subject and is not evidence. Falsifier: a report
 line citing `met=false` or `EXIT=1` with no revision and no design status; or a
 report that presents a pinned historical gate's red as a regression.
+## Round 95 — instrument-population criteria
+
+Three criteria mined from the round-95 instrument work (each cites
+`corpus/lessons/round-95.md`; each is shown able to fail by a red-before state
+committed this round).
+
+- **R95-A. A counter's `met` battery must cover every rule class the counter
+  enforces, and the battery's refusal must be attributed to the named finding,
+  not to an incidental identity or cardinality pin.** Round 94's C1 battery
+  covered 4 of its 12 rule classes (round-94 MutC1, R94-7), and round-94
+  ReviewC1 produced five false-greens the battery never exercised. The
+  round-95 C1 counter's battery carries a named-finding assertion per defect
+  route (`battery=20/20 admit=5/5` with per-route `expect` checks). Shown
+  able to fail: replaying the round-94 counter's battery against its own
+  rule set reads `battery=4/12`-equivalent coverage — the frozen round-94
+  instrument's supplemental battery killed only 4 of 12 mutants
+  (`.ufo/waves/round-94/w1/MutC1/mutants.json`, full-battery column), the red
+  state this criterion flags.
+- **R95-B. A mutant population names its measured base, and that base must
+  resolve as committed bytes at measurement time.** The round-93/94 mutant
+  driver recorded `base_rev 191dd0ed…` (uncommitted worktree state, absent
+  from the lane: `git cat-file -t` fatal), so the population's base was
+  unrecoverable for two rounds. Round 95 pins the exact scored blobs in the
+  counter's population pins (pos-good bytes `e78f2845…`,
+  `mutants-posgood.json` `f15c99f4…`; `frozen/c2-population.sha256`) and the
+  counter exits 2 on any digest drift. Shown able to fail: the erratum sweep
+  (`corpus/lessons/round-95.md`, R94-8) reproduces the unrecoverable-pointer
+  red state.
+- **R95-C. A repair that removes a backticked path token must name its
+  replacement token in the same row; identity covers the row's path-token
+  floor, not only its first cell.** Round 94's repair route stripped backticks
+  from 13 directory rows and the counter read them clean (round-94 mistake 8,
+  X4/X5). The round-95 identity pins each row's path-token count at base and
+  refuses any shrink (`skill_row_tokens`). Shown able to fail: battery route
+  B15 (token strip) is refused by the counter's own battery, and the round-94
+  counter admitted the same shape (round-94 ReviewC1 R14-adjacent route
+  `skill.diff`), the red state this criterion flags.
+
+## Round 95 — held-out divergence beside the frozen met line
+
+- **R95-D. An instrument's frozen `met` line is reported beside an independent
+  held-out replay, and a divergence between the two is flagged, never
+  averaged away.** Grounded by `considerthese/2026-11-05.md` proposal 3 and
+  the round-90 record it cites: the frozen counter read 4/4 positives and
+  57/57 negatives refused while held-out seats admitted 14/23 stubs, 6/20
+  sandbox probes and 7/7 critic routes at the carrier. Round 95 reports both:
+  the frozen C2 verdict beside ExecC2V2's independent driver and ReviewC2's
+  contract-derived grid, and the frozen C1 verdict beside ReviewC1's route
+  replay. Shown able to fail: the criterion fires on the round-90 record
+  above — the historical divergence it flags is the red state
+  (`considerthese/2026-11-05.md` §Part 1 item 2; `corpus/lessons/round-95.md`
+  Gate, proposal-3 entry).

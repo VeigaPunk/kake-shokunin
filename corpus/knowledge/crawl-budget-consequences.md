@@ -1,5 +1,4 @@
-source: S273 — https://developers.google.com/crawling/docs/crawl-budget
-source: S274 — https://developers.google.com/crawling/docs/crawlers-fetchers/reduce-crawl-rate
+source: S273, S274 — https://developers.google.com/crawling/docs/crawl-budget and https://developers.google.com/crawling/docs/crawlers-fetchers/reduce-crawl-rate [r95-correction 2026-11-05: the two source: lines merged into the provenance trio's single line; the second line was unvalidated by the round-94 counter's single-line rule (route R03)]
 verified-at: 2026-10-24
 recheck: 180d
 ground: per-host crawl hygiene — budget consequence of robots and status codes
