@@ -1,0 +1,90 @@
+{
+ "note": "14 clause mutants over the frozen positive control pos-good-reval.py (R95-1 shape: find/replace pairs, each occurring exactly once; scored against the contract-v1 population by c96_reval.py).",
+ "base": "frozen/pos-good-reval.py",
+ "mutants": [
+  {
+   "id": "M01",
+   "find": "        return {\"decision\": \"construct\",\n                \"if_none_match\": etag,\n                \"if_modified_since\": lm}",
+   "replace": "        return {\"decision\": \"construct\",\n                \"if_none_match\": etag,\n                \"if_modified_since\": None if etag is not None else lm}",
+   "clause": "C2 both validators constructed together"
+  },
+  {
+   "id": "M02",
+   "find": "                \"if_none_match\": etag,\n                \"if_modified_since\": lm}",
+   "replace": "                \"if_none_match\": None,\n                \"if_modified_since\": lm}",
+   "clause": "C1 INM must be sent when an etag is stored"
+  },
+  {
+   "id": "M03",
+   "find": "                \"if_none_match\": etag,",
+   "replace": "                \"if_none_match\": etag[2:] if etag.startswith(\"W/\") else etag,",
+   "clause": "C1 weak etag sent verbatim"
+  },
+  {
+   "id": "M04",
+   "find": "    if status == 304:",
+   "replace": "    if status == 599:",
+   "clause": "C3 304 updates stored"
+  },
+  {
+   "id": "M05",
+   "find": "    if 500 <= status <= 599:",
+   "replace": "    if 500 <= status <= 504:",
+   "clause": "C4 5xx class boundary"
+  },
+  {
+   "id": "M06",
+   "find": "    return {\"decision\": \"replace-stored\",",
+   "replace": "    return {\"decision\": \"update-stored\",",
+   "clause": "C5 full response replaces stored"
+  },
+  {
+   "id": "M07",
+   "find": "        if not has_validator:\n            return {\"decision\": \"cannot-revalidate\",",
+   "replace": "        if False:\n            return {\"decision\": \"cannot-revalidate\",",
+   "clause": "C1 no-validator decision"
+  },
+  {
+   "id": "M08",
+   "find": "        if status < 200:\n            raise Invalid(\"1xx is interim and never a validation response\")",
+   "replace": "        if False:\n            raise Invalid(\"1xx is interim and never a validation response\")",
+   "clause": "C6 1xx refused"
+  },
+  {
+   "id": "M09",
+   "find": "    if status is not None and not has_validator:",
+   "replace": "    if False:",
+   "clause": "C6 status-without-validator refused"
+  },
+  {
+   "id": "M10",
+   "find": "    if exists is False and has_validator:",
+   "replace": "    if False:",
+   "clause": "C6 validators-without-representation refused"
+  },
+  {
+   "id": "M11",
+   "find": "        if k in seen:\n            raise Invalid(\"duplicate object key in input document\")",
+   "replace": "        if k in seen:\n            pass",
+   "clause": "C6 raw duplicate keys refused"
+  },
+  {
+   "id": "M12",
+   "find": "    if set(inp) != {\"stored\", \"received_status\"}:\n        raise Invalid(\"unexpected or missing top-level keys\")",
+   "replace": "    if set(inp) != {\"stored\", \"received_status\"}:\n        pass",
+   "clause": "C6 unknown top-level keys refused"
+  },
+  {
+   "id": "M13",
+   "find": "    if lm is not None and (not isinstance(lm, int) or isinstance(lm, bool)\n                           or lm < 0):",
+   "replace": "    if lm is not None and (not isinstance(lm, int) or isinstance(lm, bool)\n                           and lm < 0):",
+   "clause": "C6 negative last_modified refused"
+  },
+  {
+   "id": "M14",
+   "find": "        if ch not in ETAGC:\n            raise Invalid(\"malformed entity-tag\")",
+   "replace": "        if False:\n            raise Invalid(\"malformed entity-tag\")",
+   "clause": "C6 etagc control characters refused"
+  }
+ ]
+}
