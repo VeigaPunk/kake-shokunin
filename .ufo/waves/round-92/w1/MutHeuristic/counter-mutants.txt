@@ -1,0 +1,181 @@
+# Round-92 C2 counter mutants: .ufo/waves/round-92/c92_heuristic.py
+# pristine sha256 = 8f356c8d4a8dea5de80f97f61ba6e8147b0e60b9e356cf651df28b0db1405f3f
+# conforming subject = scripts/heuristic_freshness.py as shipped, sha256 7bfe82da8e1a1d541930ef1b4ee64cfe9b3fa5b8169680795bcc8626d2f37f5c, revision ee82c5bbfb9972f9442995772d835bfc421da66b
+# run: python3 -B <mutant> --root <clone> --revision <rev> --work <dir>
+#
+# id | clause mutated | exit@conforming | met@conforming | verdict | refusing subject / witness
+CM01-extra-top-key | reference: `if set(inp) - TOP_KEYS` disabled | 0 | true | SURVIVED (uncovered class) | N14-extra-top-key: mutant met=true, pristine met=true (class not discriminated at all)
+CM02-shared-type | reference: `shared` non-bool refusal disabled | 0 | true | SURVIVED (uncovered class) | N6-shared-truthy: mutant met=true, pristine met=true
+CM03-now-bound | reference: `now >= 0` bound disabled | 0 | true | SURVIVED (uncovered class) | N7-now-negative: mutant met=true, pristine met=true
+CM04-status-bounds | reference: status bounds 100..599 -> 0..999 | 0 | true | SURVIVED (uncovered class) | N8-status-bounds: mutant met=true, pristine met=true
+CM05-nul | reference: NUL dropped from the CR/LF/NUL set | 0 | true | SURVIVED (uncovered class) | N11-nul-accepted: mutant met=true, pristine met=true
+CM06-dup-header | reference: duplicate-header-name refusal disabled | 2 | false | killed | hand case refuse/duplicate-header-name: exit 2 reference drift
+CM07-drop-204 | reference: 204 removed from HEURISTICALLY_CACHEABLE | 1 | false | killed | generated population: generated=115/120, hand=28/28, exit 1
+CM08-cap | reference: cap 86400 -> 86401 | 2 | false | killed | hand case heuristic/cap-86400: exit 2 reference drift
+CM09-sandbox-open | sandbox: `open` denial raise removed | 0 | true | SURVIVED (invisible: redundant guard) | none: forgeries still 5/5 refused; the import allowlist blocks the counter's own argparse/shutil/subprocess imports
+CM10-sandbox-import | sandbox: import-allowlist denial removed | 0 | true | SURVIVED (invisible: redundant guard) | none: forgeries still 5/5 refused; the open denial blocks the counter-blob and pins reads
+CM11-anti-table | met: `not hits` (anti-table conjunct) dropped | 0 | true | SURVIVED (defect) | N2-stem: mutant met=true with anti_table=hit, pristine met=false (anti_table=hit)
+CM12-pins-digest | met: PINS_SHA blob-digest check dropped | 0 | true | SURVIVED (defect) | W-pins-comment: mutant met=true, pristine met=false (population=drift)
+CM13-met-true | met: forced true (`met = True or (...)`) | 0 | true | SURVIVED (defect) | N4-cap43200: mutant met=true with hand=25/28 generated=102/120, pristine met=false
+CM14-dead-keys-out | constant: KEYS_OUT emptied (dead in the counter) | 0 | true | SURVIVED (no effect) | none: KEYS_OUT is never read anywhere in the counter (dead constant)
+CM15-sandbox-proc | sandbox: process-creation denial raise removed | 0 | true | SURVIVED (invisible: no forgery exercises it) | none: no frozen forgery creates a process
+CM16-no-sandbox | scoring: subject launched without the sandbox script | 1 | false | killed | neg-oracle-import.py and neg-pin-reader.py admitted: forgeries_refused=3/5, exit 1
+#
+# total=16 killed=4 survived=12
+#
+# pristine baselines (same command, frozen counter):
+#   pristine S-conf             met=true exit=0
+#   pristine N2-stem            met=false exit=1
+#   pristine N4-cap43200        met=false exit=1
+#   pristine N6-shared-truthy   met=true exit=0
+#   pristine N7-now-negative    met=true exit=0
+#   pristine N8-status-bounds   met=true exit=0
+#   pristine N11-nul-accepted   met=true exit=0
+#   pristine N14-extra-top-key  met=true exit=0
+#   pristine W-pins-comment     met=false exit=1
+
+# Exact single-clause edits (unified diff against the frozen counter).
+
+## CM01-extra-top-key
+--- c92_heuristic.py
++++ CM01-extra-top-key
+@@ -128,3 +128,3 @@
+         raise Invalid("input is not an object")
+-    if set(inp) - TOP_KEYS:
++    if False:
+         raise Invalid("unexpected top-level key")
+
+## CM02-shared-type
+--- c92_heuristic.py
++++ CM02-shared-type
+@@ -140,3 +140,3 @@
+     shared = inp.get("shared", False)
+-    if not isinstance(shared, bool):
++    if False:
+         raise Invalid("shared is not a bool")
+
+## CM03-now-bound
+--- c92_heuristic.py
++++ CM03-now-bound
+@@ -137,3 +137,3 @@
+     now = inp.get("now")
+-    if not is_int(now) or now < 0:
++    if not is_int(now):
+         raise Invalid("now is not a non-negative int")
+
+## CM04-status-bounds
+--- c92_heuristic.py
++++ CM04-status-bounds
+@@ -134,3 +134,3 @@
+     status = stored.get("status")
+-    if not is_int(status) or not 100 <= status <= 599:
++    if not is_int(status) or not 0 <= status <= 999:
+         raise Invalid("status is not an int in 100..599")
+
+## CM05-nul
+--- c92_heuristic.py
++++ CM05-nul
+@@ -106,3 +106,3 @@
+             raise Invalid("header name or value is not a string")
+-        if any(c in value for c in "\r\n\0"):
++        if any(c in value for c in "\r\n"):
+             raise Invalid("header value contains CR, LF or NUL")
+
+## CM06-dup-header
+--- c92_heuristic.py
++++ CM06-dup-header
+@@ -109,3 +109,3 @@
+         low = ascii_lower(name)
+-        if low in seen:
++        if False:
+             raise Invalid("duplicate header name")
+
+## CM07-drop-204
+--- c92_heuristic.py
++++ CM07-drop-204
+@@ -54,3 +54,3 @@
+ ]
+-HEURISTICALLY_CACHEABLE = (200, 203, 204, 206, 300, 301, 308, 404, 405, 410, 414, 501)
++HEURISTICALLY_CACHEABLE = (200, 203, 206, 300, 301, 308, 404, 405, 410, 414, 501)
+ KEYS_OUT = {"decision", "lifetime", "heuristic"}
+
+## CM08-cap
+--- c92_heuristic.py
++++ CM08-cap
+@@ -185,3 +185,3 @@
+         return {"decision": "heuristic",
+-                "lifetime": min((date - lastmod) // 10, 86400), "heuristic": True}
++                "lifetime": min((date - lastmod) // 10, 86401), "heuristic": True}
+     return {"decision": "heuristic-undecided", "lifetime": None, "heuristic": False}
+
+## CM09-sandbox-open
+--- c92_heuristic.py
++++ CM09-sandbox-open
+@@ -347,3 +347,3 @@
+             return
+-        raise PermissionError("sandbox: open outside the subject tree: %s" % ap)
++        return
+     elif event == "import":
+
+## CM10-sandbox-import
+--- c92_heuristic.py
++++ CM10-sandbox-import
+@@ -351,3 +351,3 @@
+         if name.split(".")[0] not in allowed:
+-            raise PermissionError("sandbox: import denied: %s" % name)
++            return
+     elif event in ("os.system", "subprocess.Popen", "os.spawn", "os.posix_spawn"):
+
+## CM11-anti-table
+--- c92_heuristic.py
++++ CM11-anti-table
+@@ -528,3 +528,3 @@
+                        "candidate_sha256": sha_file(cand_path)})
+-        met = (not drift and pins_ok and not hits and hand_ok == len(cases)
++        met = (not drift and pins_ok and hand_ok == len(cases)
+                and gen_ok == len(gen_expected) and refused == len(FORGERIES))
+
+## CM12-pins-digest
+--- c92_heuristic.py
++++ CM12-pins-digest
+@@ -500,3 +500,3 @@
+         drift = [p for p in FORGERIES if pins.get(p) != sha_file(os.path.join(tree, p))]
+-        pins_ok = (not drift) and sha_file(os.path.join(tree, PINS_FILE)) == PINS_SHA
++        pins_ok = (not drift)
+         detail["population_drift"] = drift
+
+## CM13-met-true
+--- c92_heuristic.py
++++ CM13-met-true
+@@ -528,3 +528,3 @@
+                        "candidate_sha256": sha_file(cand_path)})
+-        met = (not drift and pins_ok and not hits and hand_ok == len(cases)
++        met = True or (not drift and pins_ok and not hits and hand_ok == len(cases)
+                and gen_ok == len(gen_expected) and refused == len(FORGERIES))
+
+## CM14-dead-keys-out
+--- c92_heuristic.py
++++ CM14-dead-keys-out
+@@ -55,3 +55,3 @@
+ HEURISTICALLY_CACHEABLE = (200, 203, 204, 206, 300, 301, 308, 404, 405, 410, 414, 501)
+-KEYS_OUT = {"decision", "lifetime", "heuristic"}
++KEYS_OUT = frozenset()
+ TOP_KEYS = {"stored", "now", "shared"}
+
+## CM15-sandbox-proc
+--- c92_heuristic.py
++++ CM15-sandbox-proc
+@@ -353,3 +353,3 @@
+     elif event in ("os.system", "subprocess.Popen", "os.spawn", "os.posix_spawn"):
+-        raise PermissionError("sandbox: process creation denied: %s" % event)
++        return
+ 
+
+## CM16-no-sandbox
+--- c92_heuristic.py
++++ CM16-no-sandbox
+@@ -384,3 +384,3 @@
+     try:
+-        p = subprocess.run([sys.executable, "-B", sandbox, path], input=payload,
++        p = subprocess.run([sys.executable, "-B", path], input=payload,
+                            capture_output=True, timeout=60, cwd=work,

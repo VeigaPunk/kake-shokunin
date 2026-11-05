@@ -1,0 +1,39 @@
+hand_cases=28
+explicit/max-age                         OK  exp={"decision": "explicit", "heuristic": false, "lifetime": 600}
+explicit/s-maxage-shared                 OK  exp={"decision": "explicit", "heuristic": false, "lifetime": 120}
+explicit/s-maxage-ignored-private        OK  exp={"decision": "explicit", "heuristic": false, "lifetime": 600}
+explicit/expires-minus-date              OK  exp={"decision": "explicit", "heuristic": false, "lifetime": 300}
+explicit/expires-before-date-negative    OK  exp={"decision": "explicit", "heuristic": false, "lifetime": -100}
+explicit/max-age-beats-expires           OK  exp={"decision": "explicit", "heuristic": false, "lifetime": 5}
+heuristic/ten-percent                    OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+heuristic/floor                          OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 1}
+heuristic/floor-below-one                OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 0}
+heuristic/equal-timestamps               OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 0}
+heuristic/cap-86400                      OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 86400}
+heuristic/cap-exact-boundary             OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 86400}
+heuristic/just-below-cap                 OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 86399}
+gate/404-heuristically-cacheable         OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+gate/500-not-cacheable                   OK  exp={"decision": "not-heuristically-cacheable", "heuristic": false, "lifetime": null}
+gate/500-public-overrides                OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+gate/200-no-last-modified                OK  exp={"decision": "heuristic-undecided", "heuristic": false, "lifetime": null}
+gate/last-modified-after-date            OK  exp={"decision": "heuristic-undecided", "heuristic": false, "lifetime": null}
+store/no-store                           OK  exp={"decision": "not-storable", "heuristic": false, "lifetime": null}
+store/private-shared                     OK  exp={"decision": "not-storable", "heuristic": false, "lifetime": null}
+store/private-not-shared                 OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+store/vary-star                          OK  exp={"decision": "not-storable", "heuristic": false, "lifetime": null}
+store/vary-members-not-star              OK  exp={"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+refuse/date-absent                       DRIFT exp=REFUSED
+refuse/date-non-integer                  DRIFT exp=REFUSED
+refuse/duplicate-header-name             DRIFT exp=REFUSED
+refuse/delta-seconds-signed              DRIFT exp=REFUSED
+refuse/empty-directive                   DRIFT exp=REFUSED
+
+explicit/max-age             -> {"decision": "explicit", "heuristic": false, "lifetime": 600}
+heuristic/10pct              -> {"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+heuristic/cap                -> {"decision": "heuristic", "heuristic": true, "lifetime": 86400}
+undecided/no-LM              -> {"decision": "heuristic-undecided", "heuristic": false, "lifetime": null}
+undecided/LM-after-Date      -> {"decision": "heuristic-undecided", "heuristic": false, "lifetime": null}
+not-cacheable/500            -> {"decision": "not-heuristically-cacheable", "heuristic": false, "lifetime": null}
+public/500                   -> {"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+not-storable/no-store        -> {"decision": "not-storable", "heuristic": false, "lifetime": null}
+explicit/expires-neg         -> {"decision": "explicit", "heuristic": false, "lifetime": -100}

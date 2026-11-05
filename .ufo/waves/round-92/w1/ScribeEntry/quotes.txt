@@ -1,0 +1,160 @@
+# Round 92 — ScribeEntry — located quotes from RFC 9111 §4.2.2 (and its two anchors)
+#
+# Source opened by this seat (live GET, not a retained copy):
+#   URL     https://www.rfc-editor.org/rfc/rfc9111.txt
+#   status  200
+#   bytes   84477
+#   sha256  aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e
+#   UTC     2026-11-05T00:30:25Z
+# The fetched body is byte-identical to the lane's retained copy
+# .ufo/waves/round-92/L1/src/rfc9111.txt (same sha256), so every line number
+# below is the same line number in both bodies.
+#
+# §4.2.2 heading: "4.2.2.  Calculating Heuristic Freshness" at line 686.
+# The section body runs lines 688-717.
+#
+# 32 quotes filed: 29 from RFC 9111, 3 from RFC 9110 §15.1.
+# Every quote is a raw substring of its stated line AND of the whole fetched
+# body AND of the landed entry corpus/knowledge/heuristic-freshness.md, and
+# every quote is 3-25 words. The check is mechanical, not by eye.
+
+--- A. The four required quotes from §4.2.2 -----------------------------------
+
+A1. Permission to assign a heuristic expiration time (lines 688-693)
+688  Since origin servers do not always provide explicit expiration times,
+689  a cache MAY assign a heuristic expiration time when an explicit time
+690  is not specified, employing algorithms that use other field values
+691  (such as the Last-Modified time) to estimate a plausible expiration
+692  time.  This specification does not provide specific algorithms, but
+693  it does impose worst-case constraints on their results.
+
+A2. Prohibition when an explicit expiration time is present (lines 695-696)
+695  A cache MUST NOT use heuristics to determine freshness when an
+696  explicit expiration time is present in the stored response.
+
+A3. Restriction to heuristically cacheable status codes or explicitly
+    cacheable responses (lines 697-701)
+697  of the requirements in Section 3, heuristics can only be used on
+698  responses without explicit freshness whose status codes are defined
+699  as "heuristically cacheable" (e.g., see Section 15.1 of [HTTP]) and
+700  on responses without explicit freshness that have been marked as
+701  explicitly cacheable (e.g., with a public response directive).
+
+A4. The fraction of the interval since Last-Modified, and the 10% figure
+    (lines 706-709)
+706  If the response has a Last-Modified header field (Section 8.8.2 of
+707  [HTTP]), caches are encouraged to use a heuristic expiration value
+708  that is no more than some fraction of the interval since that time.
+709  A typical setting of this fraction might be 10%.
+
+--- B. Supporting anchors in the same body -------------------------------------
+
+B1. §4.2.2 heading, line 686
+686  4.2.2.  Calculating Heuristic Freshness
+
+B2. §4.2.1's pointer forward to §4.2.2 (lines 669-670; line 671 is the
+    two-word cross-reference "Section 4.2.2.")
+669  Otherwise, no explicit expiration time is present in the response.
+670  A heuristic freshness lifetime might be applicable; see
+
+B3. §3's storage list, which grounds the disjunctive reading of clause 11
+    (lines 306 and 323)
+306  *  the response contains at least one of the following:
+323  -  a status code that is defined as heuristically cacheable (see
+
+B4. §4.1's wildcard rule, read by clause 9 as a storability bar (line 557)
+557  "*" always fails to match.
+
+B5. §5.2.2.7 private, unqualified vs qualified (lines 1327-1328, 1334-1335)
+1327  The unqualified private response directive indicates that a shared
+1328  cache MUST NOT store the response (i.e., the response is intended for
+1334  If a qualified private response directive is present, with an
+1335  argument that lists one or more field names, then only the listed
+
+B6. §3's shared-cache private rule (lines 297-298)
+297  if the cache is shared: the private response directive is either
+298  not present or allows a shared cache to store a modified response;
+
+--- C. RFC 9110 §15.1, the section RFC 9111 §4.2.2 line 699 points to -------
+# Read from the lane's retained body .ufo/waves/round-89/L1/src/rfc9110.txt
+# (502941 bytes, sha256 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a),
+# re-hashed by this seat. NO live GET of RFC 9110 was made by this seat (the
+# item authorised only the rfc9111.txt URL).
+6846  Responses with status codes that are defined as heuristically
+6847  cacheable (e.g., 200, 203, 204, 206, 300, 301, 308, 404, 405, 410,
+6848  414, and 501 in this specification) can be reused by a cache with
+
+# ---------------------------------------------------------------------------
+# Mechanical check, run by this seat against the fetched body, the lane's
+# retained body and the landed entry.
+#
+# The scratch copy of the fetched body was deleted after the receipts were
+# copied into this wave directory, so the check below is re-runnable after a
+# re-fetch: the fetch command and its digests are in receipt.txt (§1), and the
+# lane's retained copy .ufo/waves/round-92/L1/src/rfc9111.txt has the same
+# sha256, so a reader may run the same check against the retained body instead.
+# ---------------------------------------------------------------------------
+$ python3 - <<'EOF'
+body = open("/fast/scratch/hyaku/kake-r92/ScribeEntry/rfc9111.txt").read()  # or: .ufo/waves/round-92/L1/src/rfc9111.txt
+lines = body.split("\n")
+md = open("corpus/knowledge/heuristic-freshness.md").read()
+QS = [
+ (686, "4.2.2.  Calculating Heuristic Freshness"),
+ (688, "Since origin servers do not always provide explicit expiration times,"),
+ (689, "a cache MAY assign a heuristic expiration time when an explicit time"),
+ (690, "is not specified, employing algorithms that use other field values"),
+ (691, "(such as the Last-Modified time) to estimate a plausible expiration"),
+ (692, "time.  This specification does not provide specific algorithms, but"),
+ (693, "it does impose worst-case constraints on their results."),
+ (695, "A cache MUST NOT use heuristics to determine freshness when an"),
+ (696, "explicit expiration time is present in the stored response."),
+ (697, "of the requirements in Section 3, heuristics can only be used on"),
+ (698, "responses without explicit freshness whose status codes are defined"),
+ (699, 'as "heuristically cacheable" (e.g., see Section 15.1 of [HTTP]) and'),
+ (700, "on responses without explicit freshness that have been marked as"),
+ (701, "explicitly cacheable (e.g., with a public response directive)."),
+ (706, "If the response has a Last-Modified header field (Section 8.8.2 of"),
+ (707, "[HTTP]), caches are encouraged to use a heuristic expiration value"),
+ (708, "that is no more than some fraction of the interval since that time."),
+ (709, "A typical setting of this fraction might be 10%."),
+ (669, "Otherwise, no explicit expiration time is present in the response."),
+ (670, "A heuristic freshness lifetime might be applicable; see"),
+ (306, "the response contains at least one of the following:"),
+ (323, "a status code that is defined as heuristically cacheable (see"),
+ (557, '"*" always fails to match.'),
+ (1327, "The unqualified private response directive indicates that a shared"),
+ (1328, "cache MUST NOT store the response (i.e., the response is intended for"),
+ (1334, "If a qualified private response directive is present, with an"),
+ (1335, "argument that lists one or more field names, then only the listed"),
+ (297, "if the cache is shared: the private response directive is either"),
+ (298, "not present or allows a shared cache to store a modified response;"),
+]
+bad = []
+for n, q in QS:
+    ok_line = q in lines[n - 1]
+    ok_body = q in body
+    ok_md = q in md
+    wc = len(q.split())
+    if not (ok_line and ok_body and ok_md and 3 <= wc <= 25):
+        bad.append((n, q, ok_line, ok_body, ok_md, wc))
+    print("line=%-4d words=%-3d line=%-5s body=%-5s entry=%-5s %s"
+          % (n, wc, ok_line, ok_body, ok_md, q))
+b2 = open(".ufo/waves/round-89/L1/src/rfc9110.txt").read()
+L2 = b2.split("\n")
+Q2 = [(6846, "Responses with status codes that are defined as heuristically"),
+      (6847, "cacheable (e.g., 200, 203, 204, 206, 300, 301, 308, 404, 405, 410,"),
+      (6848, "414, and 501 in this specification) can be reused by a cache with")]
+for n, q in Q2:
+    ok_line = q in L2[n - 1]
+    ok_body = q in b2
+    ok_md = q in md
+    wc = len(q.split())
+    if not (ok_line and ok_body and ok_md and 3 <= wc <= 25):
+        bad.append((n, q, ok_line, ok_body, ok_md, wc))
+    print("9110 line=%-4d words=%-3d line=%-5s body=%-5s entry=%-5s %s"
+          % (n, wc, ok_line, ok_body, ok_md, q))
+print("quotes=%d violations=%d %s" % (len(QS) + len(Q2), len(bad), bad))
+EOF
+rfc9111_quotes=29 violations=0 []
+rfc9110_quotes=3  violations=0 []
+total_quotes=32 violations=0 []

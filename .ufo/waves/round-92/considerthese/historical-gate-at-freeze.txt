@@ -1,0 +1,10 @@
+# considerthese/2026-10-26.md proposal 5 grounding: a pinned historical gate reads red on a later tree
+revision=a5640ca02c20f94a0fa03af41b977b46ae99808e
+  C6_receipt_pins PASS
+  C7_validate_before_append FAIL
+    - validated scratch registry is not byte-equal to the landed registry
+  C8_mirror_bytes FAIL
+    - registry rows 206 != mirror rows 156 + 2
+    - append-only: measured registry minus new rows, used-by restored, != mirror bytes
+  revision: a5640ca02c20f94a0fa03af41b977b46ae99808e
+EXIT=1

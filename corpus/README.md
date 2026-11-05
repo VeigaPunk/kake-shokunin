@@ -133,6 +133,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Cache-key construction (Vary-nominated stored-response key; key only, not storage or reuse) | r89 (lands this round, instrument not admitted) | `knowledge/cache-key-construction.md` + `scripts/cache_key.py` | S463 S465 |
 | Cache-key conformance (does a key constructor implement the contract; field-value validity; JSON text encoding) | r90 | `knowledge/cache-key-conformance-gate.md` + `scripts/cache_key_conformance.py` | S466 S467 S468 |
 | Stored-response reuse decision (may a stored copy be handed to this request; first-match freshness order; when a stale copy is served or refused) | r91 | `knowledge/stored-response-reuse.md` + `scripts/stored_reuse.py` | S469 |
+| Heuristic freshness decision (may a heuristic expiration time be assigned to a stored response, and what lifetime it carries; no clock, no storage, no revalidation) | r92 | `knowledge/heuristic-freshness.md` + `scripts/heuristic_freshness.py` | S470 |
 
 Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
 (S102–S109, `used-by` only `corpus/lessons/round-39.md`; tool
@@ -731,4 +732,29 @@ r88/r89, the age arithmetic with r87, construction with r89/r90. Still open on t
 axis: the revalidation exchange (§4.3), heuristic freshness (§4.2.2), serving stale
 without a client directive (§4.2.4's permission rather than a preference),
 field-specific header normalisation, and every live-cache or browser observation.
+
+## Round-92 frontier step — heuristic freshness
+
+`corpus/knowledge/heuristic-freshness.md` (S470, RFC 9111 §4.2.2) moves the
+*heuristic freshness* half of the cache question out of the frontier: given a
+stored status and header map, an integer `Date` and an optional shared-cache
+flag, decide whether a heuristic expiration time may be assigned to a stored
+response and what lifetime that lifetime is — one decision out of five
+(`explicit`, `heuristic`, `not-heuristically-cacheable`, `heuristic-undecided`,
+`not-storable`), with the 10 % fraction and the 86400-second cap marked as the
+lane's conventions rather than the RFC's. `scripts/heuristic_freshness.py` is the
+offline reader; its 28 hand cases and 120 seeded generated cases are conformance
+to the round's frozen contract, not RFC conformance, and passing them proves
+nothing about a deployed cache. The entry is the second half of the reuse
+question that round 91 left open: `scripts/stored_reuse.py` reports
+`heuristic-undecided` when no explicit expiration is present, and this entry
+decides only the lifetime that would be attached to that stored response.
+
+Frontier line: the heuristic freshness decision moves from open ground to held,
+bounded ground for supplied integer seconds only. Storage-key identity stays
+with r88/r89/r90, the age arithmetic with r87, the reuse decision with r91.
+Still open on this axis: the revalidation exchange (§4.3), storage (§4.1 key
+identity), serving stale without a client directive (§4.2.4's permission rather
+than a preference), field-specific header normalisation, and every live-cache or
+browser observation.
 

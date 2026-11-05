@@ -1,0 +1,54 @@
+# Round 92 — ScribeEntry — refusal probes of the landed instrument
+# Written 2026-11-05T00:44:12Z UTC. Run from the lane root.
+# The instrument is in the lane WORKING TREE only (no LANE commit contains it
+# at the time of measurement). Exit status is the tool's own, measured with
+# subprocess rather than a shell pipeline.
+
+### no Date header
+$ printf '{"stored":{"status":200,"headers":{"Last-Modified":"990000"}},"now":1}' '<json>' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: Date is absent
+    exit=1
+
+### Date is not a decimal integer
+$ printf '{"stored":{"status":200,"headers":{"Date":"1e6"}},"now":1}' '<json>' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: Date is not a decimal integer
+    exit=1
+
+### duplicate header name
+$ printf '{"stored":{"status":200,"headers":{"Date":"1000000","date":"1000000"}},"now":1}' '<json>' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: duplicate header name
+    exit=1
+
+### signed delta-seconds
+$ printf '{"stored":{"status":200,"headers":{"Date":"1000000","Cache-Control":"max-age=+5"}},"now":1}' '<json>' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: max-age argument is not a bare non-negative decimal integer
+    exit=1
+
+### empty Cache-Control directive
+$ printf '{"stored":{"status":200,"headers":{"Date":"1000000","Cache-Control":"max-age=5, "}},"now":1}' '<json>' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: empty Cache-Control directive
+    exit=1
+
+### CR/LF/NUL in a value
+$ printf '{"stored":{"status":200,"headers":{"Date":"1000000","X-N":"a\u0000b"}},"now":1}' '<json>' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: header value contains CR, LF or NUL
+    exit=1
+
+### now absent or negative
+$ printf '{"stored":{"status":200,"headers":{"Date":"1000000"}},"now":-1}' '<json>' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: now is not a non-negative int
+    exit=1
+
+### unknown top-level key
+$ printf '{"stored":{"status":200,"headers":{"Date":"1000000"}},"now":1,"extra":2}' '<json>' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: unexpected top-level key extra
+    exit=1
+

@@ -1645,3 +1645,36 @@ a LANE commit, so the gate at HEAD read `candidate=absent … met=false`; the
 `met=true` line at the carrier is the C2 seat's receipt
 (`.ufo/waves/round-91/w1/ExecReuseTool/counter-final.txt`) and L1's re-run at the
 landing revision is what counts.
+
+## Round 92 — heuristic freshness decision and the round-91 instrument repairs
+
+`corpus/knowledge/heuristic-freshness.md` (S470, RFC 9111 §4.2.2) supplies the
+five-member heuristic-freshness decision table, the two lane conventions (the
+10 % fraction and the 86400-second cap, which the RFC does not require) and the
+refusal shapes. The probe answers one question over caller-supplied integer
+seconds: may a heuristic expiration time be assigned to this stored response, and
+what lifetime does it carry? No clock, no HTTP-date parsing, no network, no
+storage, no revalidation exchange, no serving permission, no live property. The
+C1 counter is a new frozen instrument that measures the four routed round-91
+defects (K91-1, K91-2, K91-4, K91-5); it does not repair the round-91 counter.
+
+| Name | Kind | Entry command | Verdict map | Selftest | Pinned values | Write scope | Owner |
+|---|---|---|---|---|---|---|---|
+| c92_defects.py | gate, round-91 routed instrument-defect queue (calibration) | `python3 -B .ufo/waves/round-92/c92_defects.py --root . --revision <rev> --work <explicit-scratch>` | 0 clean/met; 1 failed/not-met (open items named in the JSON line); 2 unresolved revision or argparse usage; `--selftest` returns 0 when its 12 checks pass and 2 otherwise | `python3 -B .ufo/waves/round-92/c92_defects.py --selftest` → `selftest 12/12` | predicate `met=true` iff items A, B and C are closed at `<REV>`, the five-fixture battery reads each fixture's exact open set and declared reason substring, the frozen round-91 counter still accepts the canned-runner fixture this counter refuses, and the counter blob at `<REV>` equals its pinned digest; item A ← K91-1, item B ← K91-2, item C ← K91-5, the battery and differential conjuncts ← K91-4; counter sha256 9ba79621…f13195, pin `frozen/c1-self.sha256`; base `open=3 closed=0 met=false` (`controls/base-c1.txt`) | `--work` scratch only (one scratch clone for the runner, one for the control replay, five fixture trees); reads the measured revision, never the working tree | kake |
+| c92_heuristic.py | gate, heuristic-freshness contract conformance (freshness capability) | `python3 -B .ufo/waves/round-92/c92_heuristic.py --root . --revision <rev> --work <explicit-scratch> [--seed N] [--generated N]` | 0 clean/met; 1 failed/not-met (candidate absent, a hand or generated failure, an admitted forgery, `anti_table=hit` or `population=drift` named in the JSON line); 2 reference or hand-case drift before any candidate is scored, unresolved revision, or argparse usage | no `--selftest` mode: the counter self-checks its own reference against all 28 hand cases before it scores any candidate and exits 2 on drift | contract `.ufo/waves/round-92/c2-contract.md` (clauses 1–13, sha256 5fc49c7a…4c944); 28 hand cases; a 120-case seeded generated population (default seed 92); five frozen forgery subjects under `frozen/`; pins file `frozen/c2-population.sha256` (sha256 b780fa24…7cec76) enforced inside `met`; the audit-hook sandbox denies `open` outside the subject tree, every import outside a frozen allowlist and every process creation | `--work` scratch only (one extracted tree plus a per-case cwd, removed on exit) | kake |
+| heuristic_freshness.py | probe | `printf '%s' '<payload>' \| python3 -B scripts/heuristic_freshness.py` with stdin JSON `{stored:{status,headers},now,shared?}` | 0 clean/decided (stdout `{"decision": <member>, "lifetime": <int\|null>, "heuristic": <bool>}`); 1 failed/`invalid_input:` on stderr with empty stdout; a decision is not a storage decision, a revalidation exchange, a serving permission or a browser behaviour | `TMPDIR=$(mktemp -d) python3 -B scripts/heuristic_freshness.py --selftest` → `selftest <n>/<n>` over its own in-memory fixtures | contract `.ufo/waves/round-92/c2-contract.md` (sha256 5fc49c7a…4c944); vocabulary `explicit` / `heuristic` / `not-heuristically-cacheable` / `heuristic-undecided` / `not-storable`; the 10 % fraction and the 86400-second cap are the lane's conventions, not the RFC's | stdin/stdout/stderr only; writes nothing | kake |
+
+**How to verify.** `python3 -B .ufo/waves/round-92/c92_defects.py --root . --revision <rev> --work <scratch>` must print `items=3 open=0 closed=3 battery=exact differential=ok self=ok met=true`, exit 0; `python3 -B .ufo/waves/round-92/c92_heuristic.py --root . --revision <rev> --work <scratch>` must print `hand=28/28 generated=120/120 forgeries_refused=5/5 anti_table=ok population=ok met=true`, exit 0; and `python3 -B scripts/heuristic_freshness.py --selftest` must print a final `selftest <n>/<n>` line, exit 0.
+
+Two limits worth carrying beside these rows. The C2 gate scores the *contract*,
+not the RFC: its 28 hand cases and its 120-case generated population were
+written by the same round as the contract, so `met=true` is conformance to
+contract v1 and never evidence about a deployed cache; the same applies to the
+C1 gate over its own battery, whose fixtures the same round wrote. And the C2
+gate's `anti_table` conjunct is a substring screen over the five forgery file
+stems and the 28 hand-case input digests, so a legitimate candidate that
+merely quoted a stem in prose would be refused — a designed false-positive, not
+a defect. At the time these rows were written `scripts/heuristic_freshness.py`
+was not yet a LANE commit, so the C2 gate at HEAD read `candidate=absent …
+met=false`; the `met=true` line at the carrier is the C2 seat's receipt and
+L1's re-run at the landing revision is what counts.

@@ -1,0 +1,60 @@
+kake round 92 w1 / seat ExecTrial-6 -- heuristic freshness instrument trial on recorded domain bytes
+trial, not a claim: exercises the delivered instrument; admits nothing about any live cache
+
+lane head           : f0b2dc635e34cc1c593655d926af74f19bd21034
+freeze revision     : a5640ca02c20f94a0fa03af41b977b46ae99808e
+instrument          : scripts/heuristic_freshness.py
+instrument sha256   : 7bfe82da8e1a1d541930ef1b4ee64cfe9b3fa5b8169680795bcc8626d2f37f5c (22985 bytes)
+instrument committed: no (worktree bytes during wave, bound by digest above)
+python              : Python 3.14.8
+run at (UTC)        : 2026-11-05T00:41:45Z
+population          : 18 recorded surfaces = 12 x round-61/capture + 3 x round-81/capture + 3 x round-82/capture
+
+Replay (from LANE=/home/vgpnk/Projects/shokunin/kake-shokunin, stdlib-only, no network):
+  python3 -B .ufo/waves/round-92/w1/ExecTrial/build_inputs.py   # rebuilds inputs/ from the capture trees
+  python3 -B .ufo/waves/round-92/w1/ExecTrial/run_trial.py      # runs the instrument once per input, captures outputs/
+
+Per-surface: decision | lifetime | heuristic | recorded headers the decision rests on (as recorded;
+HTTP-dates shown verbatim, epoch in inputs.index.json). EXP = hand-derived from the frozen
+contract before the run; AGREE = instrument vs EXP.
+
+surface                   st decision                   lifetime heur  agree basis (recorded headers) / EXP clause
+------------------------------------------------------------------------------------------------------------------
+r61-burnerchrome-kimi    200 not-storable                      - false yes   cache-control: no-store; vary: Accept-Encoding, Origin; date: Tue, 27 Oct 2026 09:15:55 GMT
+                                                                             EXP: c9 no-store -> not-storable, -, false
+r61-charter-ghp          200 explicit                        600 false yes   cache-control: max-age=600; expires: Tue, 27 Oct 2026 09:24:45 GMT; last-modified: Wed, 30 Sep 2026 03:49:10 GMT; vary: Accept-Encoding; date: Tue, 27 Oct 2026 09:15:55 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r61-charter-kimi         404 heuristic-undecided               - false yes   vary: Accept-Encoding, Origin; date: Tue, 27 Oct 2026 09:15:57 GMT
+                                                                             EXP: c11 404 cacheable, no explicit; c13 Last-Modified absent -> heuristic-undecided, -, false
+r61-ds4cc-kimi           200 not-storable                      - false yes   cache-control: no-store; vary: Accept-Encoding, Origin; date: Tue, 27 Oct 2026 09:15:57 GMT
+                                                                             EXP: c9 no-store -> not-storable, -, false
+r61-ds4cc-primary        200 explicit                        600 false yes   cache-control: max-age=600; expires: Tue, 27 Oct 2026 09:24:45 GMT; last-modified: Sun, 25 Oct 2026 07:29:57 GMT; vary: Accept-Encoding; date: Tue, 27 Oct 2026 09:15:58 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r61-lucario-ghp          200 explicit                        600 false yes   cache-control: max-age=600; expires: Tue, 27 Oct 2026 09:24:45 GMT; last-modified: Sun, 27 Sep 2026 15:31:45 GMT; vary: Accept-Encoding; date: Tue, 27 Oct 2026 09:15:58 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r61-lucario-kimi         404 heuristic-undecided               - false yes   vary: Accept-Encoding, Origin; date: Tue, 27 Oct 2026 09:15:58 GMT
+                                                                             EXP: c11 404 cacheable, no explicit; c13 Last-Modified absent -> heuristic-undecided, -, false
+r61-plazir15-ghp         200 explicit                        600 false yes   cache-control: max-age=600; expires: Tue, 27 Oct 2026 09:24:45 GMT; last-modified: Wed, 30 Sep 2026 06:20:19 GMT; vary: Accept-Encoding; date: Tue, 27 Oct 2026 09:15:58 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r61-plazir15-kimi        404 heuristic-undecided               - false yes   vary: Accept-Encoding, Origin; date: Tue, 27 Oct 2026 09:16:00 GMT
+                                                                             EXP: c11 404 cacheable, no explicit; c13 Last-Modified absent -> heuristic-undecided, -, false
+r61-plazir27-kimi        404 heuristic-undecided               - false yes   vary: Accept-Encoding, Origin; date: Tue, 27 Oct 2026 09:16:00 GMT
+                                                                             EXP: c11 404 cacheable, no explicit; c13 Last-Modified absent -> heuristic-undecided, -, false
+r61-ufo-fsd-kimi-pro     200 not-storable                      - false yes   cache-control: no-store; date: Tue, 27 Oct 2026 09:16:02 GMT
+                                                                             EXP: c9 no-store -> not-storable, -, false
+r61-vault-index-kimi     200 not-storable                      - false yes   cache-control: no-store; vary: Accept-Encoding, Origin; date: Tue, 27 Oct 2026 09:16:03 GMT
+                                                                             EXP: c9 no-store -> not-storable, -, false
+r81-ds4cc-primary        200 explicit                        600 false yes   cache-control: max-age=600; expires: Wed, 04 Nov 2026 11:47:14 GMT; last-modified: Sun, 25 Oct 2026 07:29:57 GMT; vary: Accept-Encoding; date: Wed, 04 Nov 2026 12:05:06 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r81-ds4cc-robots         200 explicit                        600 false yes   cache-control: max-age=600; expires: Wed, 04 Nov 2026 12:15:06 GMT; last-modified: Sun, 25 Oct 2026 07:29:57 GMT; vary: Accept-Encoding; date: Wed, 04 Nov 2026 12:05:06 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r81-ds4cc-sitemap        200 explicit                        600 false yes   cache-control: max-age=600; expires: Wed, 04 Nov 2026 12:15:06 GMT; last-modified: Sun, 25 Oct 2026 07:29:57 GMT; vary: Accept-Encoding; date: Wed, 04 Nov 2026 12:05:06 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r82-ds4cc-primary        200 explicit                        600 false yes   cache-control: max-age=600; expires: Wed, 04 Nov 2026 11:47:14 GMT; last-modified: Sun, 25 Oct 2026 07:29:57 GMT; vary: Accept-Encoding; date: Wed, 04 Nov 2026 13:00:28 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r82-ds4cc-robots         200 explicit                        600 false yes   cache-control: max-age=600; expires: Wed, 04 Nov 2026 12:15:06 GMT; last-modified: Sun, 25 Oct 2026 07:29:57 GMT; vary: Accept-Encoding; date: Wed, 04 Nov 2026 13:00:28 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+r82-ds4cc-sitemap        200 explicit                        600 false yes   cache-control: max-age=600; expires: Wed, 04 Nov 2026 12:15:06 GMT; last-modified: Sun, 25 Oct 2026 07:29:57 GMT; vary: Accept-Encoding; date: Wed, 04 Nov 2026 13:00:28 GMT
+                                                                             EXP: c10 max-age=600 (shadows Expires) -> explicit, 600, false
+
+totals: surfaces=18 exit0=18 refused=0 agree_with_pre_run_contract_derivation=18/18

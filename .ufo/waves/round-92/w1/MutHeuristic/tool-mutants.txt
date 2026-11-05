@@ -1,0 +1,257 @@
+# Round-92 C2 tool mutants: LANE/scripts/heuristic_freshness.py
+# pristine sha256 = 7bfe82da8e1a1d541930ef1b4ee64cfe9b3fa5b8169680795bcc8626d2f37f5c
+# scoring: frozen .ufo/waves/round-92/c92_heuristic.py --root <clone> --revision <mutant commit>
+#           (candidate = scripts/heuristic_freshness.py at that revision)
+# baseline: T00-shipped met=true exit=0
+#
+# id | clause mutated | sha256 | revision | exit | met | verdict | detector
+T01-drop-204 | clause 11 (heuristically-cacheable set: 204 removed) | 3a57095e5e08567452a65026561bdaa219f5e4bf577725563ba1013bb8e7198a | c332574fa925 | 1 | false | killed | generated
+T02-drop-404 | clause 11 (set: 404 removed) | 2d8434191fd8a7cc3cb725d4daf78a33e5cc84e3f0808ddb38afb45d89dffd79 | 6338ec5b8a5a | 1 | false | killed | gate/404-heuristically-cacheable
+T03-add-500 | clause 11 (set: 500 added) | 88f67ff4696b9a6bdea8491423629b9a65c2de23c324ad3ae972482aed68c167 | 3f90ffc3a046 | 1 | false | killed | gate/500-not-cacheable
+T04-cap-86401 | clause 12 (cap 86400 -> 86401) | cd0c36a826c136b54d965fbd7c932aa07860de00f0fddc4d97eeacf580710af2 | 00af60cc6481 | 1 | false | killed | heuristic/cap-86400
+T05-fraction-9 | clause 12 (fraction 10 -> 9) | 081f2d0ee5bf450aacb75ba5312befe5e97362615fd74cb927fe2c3e3933d58f | 8888c107b412 | 1 | false | killed | heuristic/ten-percent
+T06-boundary-lt | clause 12/13 (Last-Modified <= Date -> <) | 4e6a7e5a1b42891c43f73be6a4128a7a553b46d4da26283c9b4b706dcb028ed6 | efc4fea23440 | 1 | false | killed | heuristic/equal-timestamps
+T07-private-any | clause 9 (private honoured when not shared) | e6e605d8a2eac47a51d6c606550de46b712fea95e1ed3183dbe8f60130bfc11c | 5af6cc974ce2 | 1 | false | killed | store/private-not-shared
+T08-vary-contains | clause 9 (Vary member equality -> substring) | 5928a911296e3968200ee72492fd3c0b632c58b93a9ed1f604104a740f50a383 | 79a5b9b45f33 | 0 | true | SURVIVED | none (counter reads met=true)
+T09-expires-negated | clause 10 (Expires-Date sign reversed) | 8f1766090e4250f937ab17a80a98838d197b9a7c65e9d702a29d16b0caf9abe5 | 4b8da2040ef8 | 1 | false | killed | explicit/expires-minus-date
+T10-smaxage-any | clause 10 (s-maxage honoured when not shared) | 856a0c293047e6fb3f04c4c6b26ecf0c970b27b52f4a289019a1c38a6152b609 | d0c6e57e0789 | 1 | false | killed | explicit/s-maxage-ignored-private
+T11-public-inverted | clause 11 (public gate polarity inverted) | 2face1171747f67b46c8bed337b9d2fba06c68b59dd79e298347d4db9990ff26 | 08b178d66702 | 1 | false | killed | gate/500-not-cacheable
+T12-quoted-delta-accepted | clause 4 (quoted delta-seconds accepted) | 1fba86ddd34e911c000a2512cdc05a90a8ff1a12fb2b4dae2bb2cba3af8fd5e9 | c9db66600980 | 0 | true | SURVIVED | none (counter reads met=true)
+T13-nul-accepted | clause 2 (NUL in a header value accepted) | e922ad58f38c4769770664e7418516891ddf473be2acacdd766c83be3a7fde3d | 503c060dd51b | 0 | true | SURVIVED | none (counter reads met=true)
+T14-shared-type | clause 3 (shared non-bool accepted) | b17c6814f8c716f8a3c015e9b51abcb70a060e8f36dfee34601e53e55abd5909 | effaf280608c | 0 | true | SURVIVED | none (counter reads met=true)
+T15-now-negative | clause 3 (negative now accepted) | b4ecc1418ba4bdc9df50b144a954acd760ee45d294c0cf02c7e62c35df51b731 | ddc7aa1d5b03 | 0 | true | SURVIVED | none (counter reads met=true)
+T16-status-bounds | clause 3 (status bounds 100..599 -> 0..999) | 2ad42d2ba00f2632ccaa14304d28f50de3d4fc09c3db4ad90f37fceba68e7c5c | 0cb7f9f2081a | 0 | true | SURVIVED | none (counter reads met=true)
+T17-bool-is-int | clause 3 (bool accepted as int) | bff9b4a56f781bab310e83fe58a9f885e5e459fae4f4c3f3a83f9066f0c80810 | 98670b9f069d | 0 | true | SURVIVED | none (counter reads met=true)
+T18-extra-top-key | Input (extra top-level key accepted) | 46fa27a079618cae5ce47be97cd59d56cc423c4977744b2413d04211378f4870 | 6fa787cc965f | 0 | true | SURVIVED | none (counter reads met=true)
+T19-extra-stored-key | Input (extra key in stored accepted) | 8ff0176e58f10c13cf5a5b2e7bcdb1b0a58fc06c5d6d86c7ba6f7eccf615ce18 | bd817aea60e5 | 0 | true | SURVIVED | none (counter reads met=true)
+T20-value-no-trim | clause 2 (header value not trimmed) | 7515ff1a940ceb381aae024a080fc43d67d424e2d3b150a37b3c732180b94900 | 2bafd5fe3046 | 0 | true | SURVIVED | none (counter reads met=true)
+T21-strip-all | clause 2 (trim set widened beyond SP/HTAB) | c84e6b174e971a7c0b96cb18dabebaf33bdfa8b92321d13e303cef6457ec0812 | 3d515b7ad7b9 | 0 | true | SURVIVED | none (counter reads met=true)
+T22-signed-date | clause 5 (signed Date accepted) | c966cf76268021521a6181e6181634ba6f9eae665c548fee53d84b411b54a02a | 1da72b4b83eb | 0 | true | SURVIVED | none (counter reads met=true)
+T23-early-notstorable | clause 8 (not-storable decided before validation) | a7d9d9f4946ce36592ed41a4ec0b6b998fae3db75aafe8e143c758c1641c4309 | ef8699a7522d | 0 | true | SURVIVED | none (counter reads met=true)
+T24-dup-name | clause 1 (duplicate header name accepted) | 9da905a811f163012a87879a012e0e6b9527be1108efedcff856fe97599a8a34 | acd089f54da3 | 1 | false | killed | refuse/duplicate-header-name
+#
+# total=24 killed=11 survived=13
+
+# Exact single-clause edits (unified diff against the shipped tool).
+
+## T01-drop-204
+--- shipped
++++ T01-drop-204
+@@ -65,3 +65,3 @@
+ # Clause 11: the statuses RFC 9111 defines as heuristically cacheable.
+-HEURISTICALLY_CACHEABLE = (200, 203, 204, 206, 300, 301, 308, 404, 405, 410,
++HEURISTICALLY_CACHEABLE = (200, 203, 206, 300, 301, 308, 404, 405, 410,
+                            414, 501)
+
+## T02-drop-404
+--- shipped
++++ T02-drop-404
+@@ -65,3 +65,3 @@
+ # Clause 11: the statuses RFC 9111 defines as heuristically cacheable.
+-HEURISTICALLY_CACHEABLE = (200, 203, 204, 206, 300, 301, 308, 404, 405, 410,
++HEURISTICALLY_CACHEABLE = (200, 203, 204, 206, 300, 301, 308, 405, 410,
+                            414, 501)
+
+## T03-add-500
+--- shipped
++++ T03-add-500
+@@ -66,3 +66,3 @@
+ HEURISTICALLY_CACHEABLE = (200, 203, 204, 206, 300, 301, 308, 404, 405, 410,
+-                           414, 501)
++                           414, 500, 501)
+ # Clause 4: directives whose argument is delta-seconds.
+
+## T04-cap-86401
+--- shipped
++++ T04-cap-86401
+@@ -71,3 +71,3 @@
+ FRACTION = 10
+-CAP = 86400
++CAP = 86401
+ 
+
+## T05-fraction-9
+--- shipped
++++ T05-fraction-9
+@@ -70,3 +70,3 @@
+ # Clause 12, lane convention (not the RFC's): 10 % of the interval, capped.
+-FRACTION = 10
++FRACTION = 9
+ CAP = 86400
+
+## T06-boundary-lt
+--- shipped
++++ T06-boundary-lt
+@@ -227,3 +227,3 @@
+     # Clause 12: heuristic, with the lane's 10 % fraction and 86400 s cap.
+-    if lastmod is not None and lastmod <= date:
++    if lastmod is not None and lastmod < date:
+         return {"decision": "heuristic",
+
+## T07-private-any
+--- shipped
++++ T07-private-any
+@@ -207,3 +207,3 @@
+                         for m in headers["vary"].split(","))
+-    if "no-store" in cc or ("private" in cc and shared) or vary_star:
++    if "no-store" in cc or "private" in cc or vary_star:
+         return {"decision": "not-storable", "lifetime": None,
+
+## T08-vary-contains
+--- shipped
++++ T08-vary-contains
+@@ -205,3 +205,3 @@
+     if "vary" in headers:
+-        vary_star = any(m.strip(" \t") == "*"
++        vary_star = any("*" in m
+                         for m in headers["vary"].split(","))
+
+## T09-expires-negated
+--- shipped
++++ T09-expires-negated
+@@ -217,3 +217,3 @@
+     if expires is not None:
+-        return {"decision": "explicit", "lifetime": expires - date,
++        return {"decision": "explicit", "lifetime": date - expires,
+                 "heuristic": False}
+
+## T10-smaxage-any
+--- shipped
++++ T10-smaxage-any
+@@ -212,3 +212,3 @@
+     # Clause 10: explicit wins, first match; heuristics are never used.
+-    if shared and smaxage is not None:
++    if smaxage is not None:
+         return {"decision": "explicit", "lifetime": smaxage, "heuristic": False}
+
+## T11-public-inverted
+--- shipped
++++ T11-public-inverted
+@@ -222,3 +222,3 @@
+     # cacheable).
+-    if status not in HEURISTICALLY_CACHEABLE and "public" not in cc:
++    if status not in HEURISTICALLY_CACHEABLE and "public" in cc:
+         return {"decision": "not-heuristically-cacheable", "lifetime": None,
+
+## T12-quoted-delta-accepted
+--- shipped
++++ T12-quoted-delta-accepted
+@@ -148,4 +148,3 @@
+                 arg = arg[1:-1]
+-            if name in DELTA_SECONDS and (quoted or
+-                                          not re.fullmatch(r"[0-9]+", arg)):
++            if name in DELTA_SECONDS and not re.fullmatch(r"[0-9]+", arg):
+                 raise Invalid("%s argument is not a bare non-negative decimal "
+
+## T13-nul-accepted
+--- shipped
++++ T13-nul-accepted
+@@ -113,3 +113,3 @@
+             raise Invalid("header name or value is not a string")
+-        if any(c in value for c in "\r\n\0"):
++        if any(c in value for c in "\r\n"):
+             raise Invalid("header value contains CR, LF or NUL")
+
+## T14-shared-type
+--- shipped
++++ T14-shared-type
+@@ -180,3 +180,3 @@
+     shared = inp.get("shared", False)
+-    if not isinstance(shared, bool):
++    if False:
+         raise Invalid("shared is not a bool")
+
+## T15-now-negative
+--- shipped
++++ T15-now-negative
+@@ -177,3 +177,3 @@
+     now = inp.get("now")
+-    if not is_int(now) or now < 0:
++    if not is_int(now):
+         raise Invalid("now is not a non-negative int")
+
+## T16-status-bounds
+--- shipped
++++ T16-status-bounds
+@@ -174,3 +174,3 @@
+     status = stored.get("status")
+-    if not is_int(status) or not 100 <= status <= 599:
++    if not is_int(status) or not 0 <= status <= 999:
+         raise Invalid("status is not an int in 100..599")
+
+## T17-bool-is-int
+--- shipped
++++ T17-bool-is-int
+@@ -88,3 +88,3 @@
+     """Clause 3: an int that is not a bool (bool is an int subclass)."""
+-    return isinstance(value, int) and not isinstance(value, bool)
++    return isinstance(value, int)
+ 
+
+## T18-extra-top-key
+--- shipped
++++ T18-extra-top-key
+@@ -164,3 +164,3 @@
+         raise Invalid("input is not an object")
+-    extra = set(inp) - {"stored", "now", "shared"}
++    extra = set()
+     if extra:
+
+## T19-extra-stored-key
+--- shipped
++++ T19-extra-stored-key
+@@ -170,3 +170,3 @@
+         raise Invalid("stored is not an object")
+-    extra = set(stored) - {"status", "headers"}
++    extra = set()
+     if extra:
+
+## T20-value-no-trim
+--- shipped
++++ T20-value-no-trim
+@@ -119,3 +119,3 @@
+         seen.add(low)
+-        out[low] = value.strip(" \t")
++        out[low] = value
+     return out
+
+## T21-strip-all
+--- shipped
++++ T21-strip-all
+@@ -119,3 +119,3 @@
+         seen.add(low)
+-        out[low] = value.strip(" \t")
++        out[low] = value.strip()
+     return out
+
+## T22-signed-date
+--- shipped
++++ T22-signed-date
+@@ -93,3 +93,3 @@
+     """Clauses 4-7: a bare non-negative decimal integer field."""
+-    if not re.fullmatch(r"[0-9]+", value):
++    if not re.fullmatch(r"[+-]?[0-9]+", value):
+         raise Invalid("%s is not a decimal integer" % what)
+
+## T23-early-notstorable
+--- shipped
++++ T23-early-notstorable
+@@ -190,5 +190,8 @@
+     expires = None
++    expires = None
++    lastmod = None
++    if "no-store" in cc:
++        return {"decision": "not-storable", "lifetime": None, "heuristic": False}
+     if "expires" in headers:
+         expires = decimal_int(headers["expires"], "Expires")
+-    lastmod = None
+     if "last-modified" in headers:
+
+## T24-dup-name
+--- shipped
++++ T24-dup-name
+@@ -116,3 +116,3 @@
+         low = ascii_lower(name)
+-        if low in seen:
++        if False:
+             raise Invalid("duplicate header name")

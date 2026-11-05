@@ -1,0 +1,22 @@
+# Round 92 — ScribeEntry — composition evidence (r91 stored_reuse vs r92 heuristic_freshness)
+# Written 2026-11-05T00:38:25Z UTC. Run from the lane root.
+
+$ printf '%s' '{"stored":{"status":200,"headers":{"Date":"1000000","Last-Modified":"990000"}},"request":{"method":"GET"},"now":1000000}' | python3 -B scripts/stored_reuse.py
+    {"decision": "heuristic-undecided", "freshness_lifetime": null, "current_age": 0}
+    exit=0   <- r91: no explicit expiration => heuristic-undecided, lifetime null
+
+$ printf '%s' '{"stored":{"status":500,"headers":{"Cache-Control":"public","Date":"1000000","Last-Modified":"990000"}},"request":{"method":"GET"},"now":1000000}' | python3 -B scripts/stored_reuse.py
+    {"decision": "not-storable", "freshness_lifetime": null, "current_age": null}
+    exit=0   <- r91: 500 is outside CACHEABLE_STATUS => not-storable
+    (r92 clause 11 on the same stored response => heuristic, lifetime 1000,
+     because public opens the gate; the two tools answer different questions.)
+
+$ grep -rn 'heuristic_freshness' scripts/
+
+$ grep -n 'heuristic' scripts/stored_reuse.py
+    17:    heuristic-undecided    no explicit freshness lifetime; this contract guesses nothing
+    30:  * no heuristic freshness (RFC 9111 4.2.2) -- with no max-age/s-maxage and no
+    31:    Expires the answer is ``heuristic-undecided``, never a guessed lifetime;
+    224:        decision = "heuristic-undecided"                          # clause 11
+    306:        # Worked cases 11-13: Expires lifetime and heuristic-undecided.
+    312:               decision="heuristic-undecided", lifetime=None, ageout=10)),

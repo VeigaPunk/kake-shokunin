@@ -1,0 +1,97 @@
+# Round 92 — ScribeEntry — census receipts for the DRAFTED S470 row
+# Written 2026-11-05T00:39:33Z UTC.
+# The lane's corpus/SOURCES.md was NOT edited by this seat. The draft row was
+# inserted into a SCRATCH COPY of the registry and validated against a scratch
+# mirror whose corpus/knowledge, corpus/lessons, SKILL.md, SCORECARD.md, PROVINCE.md
+# and scripts/ are symlinks to the real lane, so the used-by existence check
+# (E11) resolves against the real lane tree. Nothing in the lane was written.
+
+## A. Baseline: the lane's registry as it stands (no draft row)
+
+$ scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake
+    kake	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    kake	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+    kake	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+    kake	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+    kake	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+    kake	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+    kake	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+    kake	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+    kake	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+    kake	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+    kake	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+    kake	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+    kake	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+    kake	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+    kake	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+    kake	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+    kake	W04	S445 duplicate url html.spec.whatwg.org/multipage/links.html across scopes
+    kake	W04	S450 duplicate url html.spec.whatwg.org/multipage/semantics.html across scopes
+    kake	W04	S451 duplicate url www.rfc-editor.org/rfc/rfc3339.txt across scopes
+    kake	W04	S453 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    kake	W04	S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    kake	W04	S455 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    kake	W04	S461 duplicate url httpwg.org/specs/rfc9111.html across scopes
+    kake	W04	S462 duplicate url httpwg.org/specs/rfc9111.html across scopes
+    kake	W04	S463 duplicate url httpwg.org/specs/rfc9111.html across scopes
+    kake	W04	S465 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    kake	W04	S466 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    kake	W04	S467 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+    kake	W04	S468 duplicate url www.rfc-editor.org/rfc/rfc8259.txt across scopes
+    kake	W04	S469 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+    kake	ok	/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md
+    exit=0
+
+## B. Draft row inserted (scratch copy), validated in the mirror
+
+$ scripts/sources-census.sh validate --file <scratch-mirror>/corpus/SOURCES.md --root /home/vgpnk/Projects/shokunin --today 2026-11-04
+    file	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    file	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+    file	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+    file	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+    file	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+    file	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+    file	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+    file	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+    file	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+    file	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+    file	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+    file	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+    file	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+    file	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+    file	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+    file	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+    file	W04	S445 duplicate url html.spec.whatwg.org/multipage/links.html across scopes
+    file	W04	S450 duplicate url html.spec.whatwg.org/multipage/semantics.html across scopes
+    file	W04	S451 duplicate url www.rfc-editor.org/rfc/rfc3339.txt across scopes
+    file	W04	S453 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    file	W04	S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    file	W04	S455 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    file	W04	S461 duplicate url httpwg.org/specs/rfc9111.html across scopes
+    file	W04	S462 duplicate url httpwg.org/specs/rfc9111.html across scopes
+    file	W04	S463 duplicate url httpwg.org/specs/rfc9111.html across scopes
+    file	W04	S465 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    file	W04	S466 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+    file	W04	S467 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+    file	W04	S468 duplicate url www.rfc-editor.org/rfc/rfc8259.txt across scopes
+    file	W04	S469 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+    file	W04	S470 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+    file	ok	/fast/scratch/hyaku/kake-r92/ScribeEntry/mirror/corpus/SOURCES.md
+    exit=0 (no E codes)
+
+## C. What the draft row adds
+
+    - one W04 advisory: 'S470 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes'
+      (same URL already carried by S467 and S469 on different sections).
+      W04 is advisory and does not change the exit code.
+    - NO E01 (NF!=13): the row has 12 pipes / 13 fields.
+    - NO E02 (id form), E03 (duplicate id: S470 unused), E05/E06 (kind/tier enum),
+      E07 (status enum), E08 (opened date), E09 (recheck cadence), E10 (tier inflation).
+    - NO E11 for S470: corpus/knowledge/heuristic-freshness.md exists on disk.
+
+## D. Row count delta
+
+$ grep -cE '^ {0,3}\|[[:space:]]*S[0-9]{3,}[[:space:]]*\|' corpus/SOURCES.md
+    lane now: 206
+    with draft: 207
+    (the L1's append takes the lane from 206 to 207 rows)

@@ -1,0 +1,61 @@
+# Round 92 — ScribeEntry — probes of the landed instrument
+# Written 2026-11-05T00:43:09Z UTC. Run from the lane root.
+# The instrument landed in the WORKING TREE at 21:40 local while this seat was
+# writing the entry. It is NOT in a LANE commit yet, so these are working-tree
+# observations, not commit-scoped evidence. Each run's exit status is the
+# tool's own exit status (measured with subprocess, not a pipeline's).
+
+$ sha256sum scripts/heuristic_freshness.py
+    7bfe82da8e1a1d541930ef1b4ee64cfe9b3fa5b8169680795bcc8626d2f37f5c  scripts/heuristic_freshness.py
+$ git log --oneline -1 -- scripts/heuristic_freshness.py
+    (no output — no commit contains it)
+
+## Worked examples from the entry's runnable checklist
+
+### 1 heuristic lifetime
+$ printf '%s' '{"stored":{"status":200,"headers":{"Date":"1000000","Last-Modified":"990000"}},"now":1000000}' | python3 -B scripts/heuristic_freshness.py
+    stdout: {"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+    stderr: (empty)
+    exit=0
+
+### 2 the 86400 cap
+$ printf '%s' '{"stored":{"status":200,"headers":{"Date":"1000000","Last-Modified":"100000"}},"now":1000000}' | python3 -B scripts/heuristic_freshness.py
+    stdout: {"decision": "heuristic", "heuristic": true, "lifetime": 86400}
+    stderr: (empty)
+    exit=0
+
+### 3 explicit wins
+$ printf '%s' '{"stored":{"status":200,"headers":{"Date":"1000000","Cache-Control":"max-age=600","Last-Modified":"990000"}},"now":1000000}' | python3 -B scripts/heuristic_freshness.py
+    stdout: {"decision": "explicit", "heuristic": false, "lifetime": 600}
+    stderr: (empty)
+    exit=0
+
+### 4a gate: 500, no public
+$ printf '%s' '{"stored":{"status":500,"headers":{"Date":"1000000","Last-Modified":"990000"}},"now":1000000}' | python3 -B scripts/heuristic_freshness.py
+    stdout: {"decision": "not-heuristically-cacheable", "heuristic": false, "lifetime": null}
+    stderr: (empty)
+    exit=0
+
+### 4b gate: 500 + public
+$ printf '%s' '{"stored":{"status":500,"headers":{"Date":"1000000","Cache-Control":"public","Last-Modified":"990000"}},"now":1000000}' | python3 -B scripts/heuristic_freshness.py
+    stdout: {"decision": "heuristic", "heuristic": true, "lifetime": 1000}
+    stderr: (empty)
+    exit=0
+
+### 5 undecided
+$ printf '%s' '{"stored":{"status":200,"headers":{"Date":"1000000","Last-Modified":"1000001"}},"now":1000000}' | python3 -B scripts/heuristic_freshness.py
+    stdout: {"decision": "heuristic-undecided", "heuristic": false, "lifetime": null}
+    stderr: (empty)
+    exit=0
+
+### 6 refusal: Date absent
+$ printf '%s' '{"stored":{"status":200,"headers":{"Last-Modified":"990000"}},"now":1000000}' | python3 -B scripts/heuristic_freshness.py
+    stdout: (empty)
+    stderr: invalid_input: Date is absent
+    exit=1
+
+## Selftest
+
+$ TMPDIR=<scratch> python3 -B scripts/heuristic_freshness.py --selftest
+    selftest 54/54
+    exit=0

@@ -1,0 +1,1217 @@
+{
+  "heuristic freshness": [],
+  "RFC 9111 \u00a74.2.2": [],
+  "Last-Modified": [
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/SOURCES.md",
+      "line": 51,
+      "text": "| S045 | GNU Binutils objdump manual \u2014 https://sourceware.org/binutils/docs/binutils/objdump.html | docs | A | The stated meaning of objdump `-i`/`--info` (architectures and object formats selectable with `-b` or `-m`); not output format, ordering, or one build's list | Fetched 2026-10-20T17:46:58-03:00, sha256 `4fe129bd37a262b2db8e7f55f35fdd2644ec6f76b03a8e4a405614b0715e8028` (68879 bytes, Last-Modified 2026-07-26); `-i`/`--info` entry | `list-objdump-architectures` output (REA runs `objdump -i`) is the installed objdump's own selection list, not an REA catalog | mined | 2026-10-20 | 180d | corpus/knowledge/2026-10-20-r20-objdump-architecture-list.md, corpus/lessons/round-20.md |"
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/SOURCES.md",
+      "line": 131,
+      "text": "| S125 | AVM FRITZ!Box 6490 Cable FRITZ!OS 07.57 download directory, info_en.txt and image-internal `var/content` \u2014 https://download.avm.de/fritzbox/fritzbox-6490-cable/other/fritz.os/ (files `info_en.txt`, `info_de.txt`, `FRITZ.Box_6490_Cable-07.57.image`) | dataset | A | The vendor's own published identity (product, FRITZ!OS version, build, release date, file sizes) for the V1 carrier image; not the SquashFS layout of any member, not licence permission to redistribute or reverse engineer, not other FRITZ!OS versions | opened 2026-10-26T18:18Z, HTTP 200 for the listing (592 B, sha256 063ec39af00bd45e668519cc2ce95debf41cf5d56ed9dcde37223b57f6d8f7bc), `info_en.txt` (67591 B, sha256 6c601b342da91f7598dde1e7842ba92a61a1ec7f4b3d00564573fea3d11070a7, Last-Modified 2023-09-04 17:08:03 GMT), `info_de.txt` (111698 B, sha256 3becce798a914683a366e838aab015d31d5c361a4eb32ab401ee77f40cdc5a1e) and the image (39741440 B, sha256 f518ce6baa05b30d84264d9349cca9bf0b9402986d4112bda8ad73a04f9ede6d, ETag \"64f60ef3-25e6800\"); `info_en.txt` lines 8-14 \"Product: FRITZ!Box 6490 Cable / Version: FRITZ!OS 7.57 / Release date: 04.09.2023\"; tar member `./var/content` (346 B, sha256 ab238b0ed62419a4f3f32454e81bb14ef4bbce7ce462f7631f9555a38eca9557) \"Product=Fritz_Box_HW213a (FRITZ!Box 6490 Cable)\" and \"Version=07.57\" with \"Build=107830\"; `./var/version` `FIRMWAREVERSION=141.07.57,,107830,120308002013`; `./var/info.txt` (2807 B) is only the AVM licence notice, it names no product or version | The vendor page and the image's own `var/content` agree on product and version, so V1 can be cited as FRITZ!OS 07.57 build 107830 for FRITZ!Box 6490 Cable; the image is a tar whose `var/remote/var/tmp/filesystem.image` (5443592 B) and `var/remote/var/tmp/x86/filesystem.image` (28200968 B) are the two members, and the AVM licence notice forbids redistribution and reverse engineering, so keep the image out of the lane and cite by sha256 | mined | 2026-10-26 | on-release | corpus/knowledge/2026-10-26-r40-avm-be-squashfs-core.md |"
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/SOURCES.md",
+      "line": 133,
+      "text": "| S127 | AVM FRITZ!Box 5490 FRITZ!OS 07.31 download directory and info_en.txt \u2014 https://download.avm.de/fritzbox/fritzbox-5490/other/fritz.os/ (files info_en.txt, info_de.txt, FRITZ.Box_5490-07.31.image) | dataset | A | The vendor's own published identity (product, FRITZ!OS version, release date, the directory's single image name, its size and mtime) for the V3 carrier image; not the SquashFS layout, superblock or member contents of that image, not a build number, not licence permission to redistribute or reverse engineer, not other FRITZ!OS versions or models | opened 2026-10-26T20:21:50Z, HTTP 200 for the listing (574 B, sha256 88c8d6485e1400cc77d8881bec189d065a045f5fe8ee285528eafaab8c4a19f4), info_en.txt (50653 B, sha256 e3100cdaeae9d72c8f8637119e492677ef074c468394e6d52a21fe73b7360d18, Last-Modified 2024-11-18 14:01:57 GMT) and info_de.txt (56125 B, sha256 519e5038d4e28935f6c356333d0d48062e770125b11f2092600486b6b174a5c9) each fetched twice with identical digests, plus a HEAD of the image (200, 33269760 B, ETag 64f592ae-1fba800 = mtime+size, Last-Modified 2023-09-04 08:17:50 GMT; body not fetched); both info files are CRLF and Latin-1, not UTF-8 (strict UTF-8 fails at info_en.txt byte 17974); info_en.txt lines 8-14 \"Product: FRITZ!Box 5490 / Version: FRITZ!OS 7.31 / Release date: 09/04/2023\", line 29 \"# Further Improvements of FRITZ!OS 7.31\", line 672 \"DHA 2023/09/04\", lines 663-670 the AVM licence notice | The listing, info_en.txt, info_de.txt (Release-Datum 04.09.2023), the image Last-Modified and the trailing signature line all agree on FRITZ!Box 5490 and 2023-09-04, so V3 may be cited as FRITZ!OS 07.31 for that model; info_en.txt names only the template FRITZ.Box_5490-xx.xx.image (line 1), so the filename-to-version binding rests on the directory's single image entry; the file carries no Build number, so build identity must come from the image's own var/content; the licence notice forbids reverse engineering and redistribution, so cite the image by sha256 and keep it out of the lane | mined | 2026-10-26 | 180d | corpus/knowledge/2026-10-26-r41-avm-be-squashfs-core.md |"
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/SOURCES.md",
+      "line": 134,
+      "text": "| S128 | AVM FRITZ!Box 5491 FRITZ!OS 07.31 download directory and info_en.txt \u2014 https://download.avm.de/fritzbox/fritzbox-5491/other/fritz.os/ (files info_en.txt, info_de.txt, FRITZ.Box_5491-07.31.image) | dataset | A | The vendor's own published identity (product, FRITZ!OS version, release date, the directory's single image name, its size and mtime) for the V4 carrier image; not the SquashFS layout, superblock, nested member or filesystem_core contents of that image, not a build number, not licence permission to redistribute or reverse engineer, not other FRITZ!OS versions or models | opened 2026-10-26T20:21:52Z, HTTP 200 for the listing (574 B, sha256 badbb744ff9d916fb52b4e89d6bd613009fc1b5891f115fa93b74c73583af6f7), info_en.txt (53166 B, sha256 ec2528eb91f16d35c9245c8f7c276a57edd7fb58344a649fa1add451051970b4, Last-Modified 2024-11-18 14:01:04 GMT) and info_de.txt (47098 B, sha256 dc663791cbb0499e69d0be097a844ed105772c2c7ad8e33d6e9b8397292c745e) each fetched twice with identical digests, plus a HEAD of the image (200, 36392960 B, ETag 64f5a91e-22b5000 = mtime+size, Last-Modified 2023-09-04 09:53:34 GMT; body not fetched); both info files are CRLF and Latin-1, not UTF-8; info_en.txt lines 8-14 \"Product: FRITZ!Box 5491 / Version: FRITZ!OS 7.31 / Release date: 09/04/2023\", line 30 \"# Further Improvements of FRITZ!OS 7.31\", line 695 \"HKR 2021/11/17\", lines 686-693 the AVM licence notice | The listing, info_en.txt, info_de.txt (Release-Datum 04.09.2023) and the image Last-Modified agree on FRITZ!Box 5491 and 2023-09-04, so V4 may be cited as FRITZ!OS 07.31 for that model; the trailing signature line is stale (info_en.txt 695 and info_de.txt 584 read 2021/11/17, two years before the stated release date), so never date this carrier from the file tail; info_en.txt carries no Build number, so build identity must come from the image's own var/content; the licence notice forbids reverse engineering and redistribution, so cite the image by sha256 and keep it out of the lane | mined | 2026-10-26 | 180d | corpus/knowledge/2026-10-26-r41-avm-be-squashfs-core.md |"
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/SOURCES.md",
+      "line": 190,
+      "text": "| S273 | GitHub Flavored Markdown Spec, tables extension \u2014 https://github.github.com/gfm/ (plain HTML; snapshot and sha256 in `.ufo/waves/round-71/l1/s273/`) | spec | A | A table body row's cell count may differ from the header's and a short row is end-padded with empty cells, so a conformant Markdown parser accepts the lane's six 6-cell registry rows as an empty owner; grounds grammar v2's decision to index positionally (no padding) instead of accepting them \u2014 which is what makes those rows fail as `pinned-empty` \u2014 and records that a GFM-faithful padding reader is a false green; not a complete GFM implementation claim | `#tables-extension-`, between Examples 203 and 204, snapshot lines 4696-4698: \"The remainder of the table\u2019s rows may vary in the number of cells.\" (13 words); fetched 2026-11-04, HTTP 200, 508 310 bytes, sha256 `b153d814fdfc8624bb6da7449162c1cd707a637f7d1c1b636eb44b9cf63fa220`, Last-Modified 2022-09-07 (edition frozen) | A registry row's cell count may vary; the reader declares the logical-column mapping and names a missing cell instead of padding it, and a padding reader is a documented false green | mined | 2026-11-04 | 365d | corpus/knowledge/2026-11-04-r71-registry-grammar.md |"
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/knowledge/2026-11-04-r71-registry-grammar.md",
+      "line": 4,
+      "text": "Source locator: S273 snapshot `.ufo/waves/round-71/l1/s273/gfm.html`; 4.10 Tables (`#tables-extension-`), between Examples 203 and 204, snapshot lines 4696\u20134698: \u201cThe remainder of the table\u2019s rows may vary in the number of cells.\u201d (13 words); the same paragraph continues \u201cIf there are a number of cells fewer than the number of cells in the header row, empty cells are inserted. If there are greater, the excess is ignored:\u201d (composite across the served line breaks). Fetched 2026-11-04, HTTP 200, 508 310 bytes, sha256 `b153d814fdfc8624bb6da7449162c1cd707a637f7d1c1b636eb44b9cf63fa220` (byte-identical to S258\u2019s 2026-11-01 snapshot; Last-Modified 2022-09-07). S258\u2019s scope is the escaped-pipe rule (an over-count failure); S273\u2019s scope is the tolerance rule (a short row is valid Markdown and is end-padded with empty cells), which grounds grammar v2\u2019s decision to index positionally instead of padding \u2014 the reason the six 6-cell round-70 rows are named `pinned-empty` rather than silently accepted. A GFM-faithful padding reader would read those rows as an empty owner and pass them: that is the false green the census must not implement. S274 snapshot `.ufo/waves/round-71/l1/s274/tempfile.html`; the `tempfile.mkdtemp` section (snapshot `<p>` bytes 49032\u201349191, line 485) states \u201cmkdtemp() returns the absolute pathname of the new directory.\u201d (9 words), and the page grounds race-free creation, caller-only (0700) permissions and path shape; about names it says only \u201ca string of random characters\u201d (module introduction) with no uniqueness or collision statement, so it does not ground the seam\u2019s distinctness property."
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/SOURCES.md",
+      "line": 250,
+      "text": "- S098 recheck cell old \u2192 new: `90d` \u2192 `180d` (round-65 correction after the EntryS098 finding: the page carries no publication date, its HTTP Last-Modified was 2026-01-26 and its prose is mutable under a version-embedding URL, so it matches the tier-A documentation cadence). No other cell changed."
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/first-psirt-services-framework.md",
+      "line": 41,
+      "text": "- This entry is grounded in the round-65 S098 capture. L1 opened the page with `capture-source.py` (HTTP 200, 229255 fetched bytes, 170137 snapshot bytes, `fetched_utc` 2026-11-04T19:26:27Z); ScoutS098's independent capture is compared in the round-65 wave record. The page body states no publication or revision date; the served HTTP `Last-Modified` header read 2026-01-26T14:43:46Z at capture (round-65 independent fetch, `w1/ReviewC2Base/source-check.md`), so `verified-at` is the access date, not the edition. The canonical non-slash URL serves 200 with no redirect; the trailing-slash form redirects to `\u2026_framework_v1-1`, whose raw bytes differ while its normalized text is identical."
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/first-psirt-maturity-document.md",
+      "line": 60,
+      "text": "- **No publication date is asserted for the HTML page.** Its body's only year token is \"2013\" (the CSIRT-framework origin story at L220); its HTTP `Last-Modified` (2026-01-26T14:43:46Z) is a server header identical to the sibling S098 page's and is not an edition. `verified-at` is an access date. The PDF's `pdfinfo` CreationDate is 2018-12-06 and its cover reads 2019."
+    },
+    {
+      "lane": "kotoba-shokunin",
+      "path": "kotoba-shokunin/corpus/SOURCES.md",
+      "line": 26,
+      "text": "| S013 | OpenAI \u2014 Build skills (ChatGPT and Codex) \u2014 https://learn.chatgpt.com/docs/build-skills | docs | A | Codex client skill routing: initial-list budget, description shortening, implicit invocation | \u00a7 How ChatGPT and Codex use skills; page Last-Modified 2026-10-21T15:05:00Z; opened 2026-10-21 (308 from developers.openai.com/codex/skills) | Codex caps its initial skill list at 2% of context (8,000 characters when unknown), shortens descriptions first, and gates implicit invocation on the description | queued | 2026-10-21 | 90d | \u2014 |"
+    },
+    {
+      "lane": "kotoba-shokunin",
+      "path": "kotoba-shokunin/corpus/SOURCES.md",
+      "line": 34,
+      "text": "| S021 | OpenAI \u2014 Build skills (ChatGPT and Codex) \u2014 https://learn.chatgpt.com/docs/build-skills | docs | A | Documented Codex and ChatGPT skill-list budget and implicit invocation (vendor documentation, not a measurement of omp or opencode) | page intro md:37-40 (budget, shortening, may omit skills); md:43-44 override; \u00a7 How ChatGPT and Codex use skills md:91, implicit-invocation bullet md:98-99; revision = build-skills.md sha256 `ed6e324f\u2026` (11,035 B, 232 lines), fetched 2026-10-22T08:13:33Z, byte-identical to the round-47 fetch while the HTML Last-Modified moved | supersedes S013 \u2014 by default Codex's initial skill list uses at most 2% of the context window, or 8,000 characters when the window is unknown, may omit skills and shortens descriptions first; `skills.max_context_tokens` overrides it (up to 10,000 tokens); implicit invocation is stated for ChatGPT or Codex and keys on the description | mined | 2026-10-22 | 90d | corpus/knowledge/frontmatter-rule-authorities-round48.md, corpus/knowledge/skill-overlap-levers-round51.md |"
+    },
+    {
+      "lane": "kotoba-shokunin",
+      "path": "kotoba-shokunin/corpus/SOURCES.md",
+      "line": 38,
+      "text": "| S025 | VS Code \u2014 Use Agent Skills in VS Code \u2014 https://code.visualstudio.com/docs/agent-customization/agent-skills | docs | A | How VS Code / GitHub Copilot presents a skill's frontmatter `description` and loads the skill from it, and what the page says about skills that collide (vendor documentation, not a measurement of omp or opencode) | \u00a7 SKILL.md file format \u2192 \u00a7 Header (required), `description` row (`agent-skills.md:148`); \u00a7 How Copilot uses skills, step 1 Discovery (`agent-skills.md:302`) and the three-level note (`:308`); \u00a7 Create a skill \u2192 NOTE on duplicate names across workspace roots (`agent-skills.md:64`); \u00a7 Install a skill from the Customization Marketplace, same-name paragraph (`agent-skills.md:129`); fetched as https://code.visualstudio.com/docs/agent-customization/agent-skills.md (200, 22871 B, sha256 `de5ba34f\u2026`) on 2026-10-22T12:29:33Z, twice byte-identical; the requested route https://code.visualstudio.com/docs/copilot/customization/agent-skills answers HTTP 301 to it, and its HTML renders 200, 157298 B, sha256 `9118c27c\u2026`; page Last-Modified Wed, 21 Oct 2026 06:19:42 GMT; upstream source docs/agent-customization/agent-skills.md in microsoft/vscode-docs (24087 B, sha256 `bae0c84d\u2026`, DateApproved 10/21/2026) | Copilot matches a request against the skill's `description`, which must say what the skill does and when to use it, capped at 1024 characters; no tie-break between two overlapping skills is documented \u2014 the sweep on the fetched text (grep -ciE) gives overlap 0, ambig 0, tie-break 0, conflict 0, prioriti 0, truncat 0, precedence 1 (duplicate names across workspace roots), multiple skills 1 (composing skills), same name 1 (Marketplace keeps both) | mined | 2026-10-22 | 90d | corpus/knowledge/sibling-overlap-census-round49.md, corpus/lessons/round-50.md, corpus/knowledge/skill-selection-rules-round50.md, corpus/knowledge/skill-overlap-levers-round51.md |"
+    },
+    {
+      "lane": "kotoba-shokunin",
+      "path": "kotoba-shokunin/corpus/SOURCES.md",
+      "line": 42,
+      "text": "| S029 | Gemini CLI \u2014 Agent Skills \u2014 https://geminicli.com/docs/cli/skills/ | docs | A | How Gemini CLI discovers and activates skills (the `description`'s role) and what its documentation says about skills that collide (vendor documentation, not a measurement of omp or opencode) | \u00a7 How it works (`skills.md:20-24`); \u00a7 Discovery tiers (`skills.md:37-47`); \u00a7 Precedence and aliases (`skills.md:49-53`); \u00a7 Design for discovery (`skills-best-practices.md:8-17`); fetched as https://geminicli.com/docs/cli/skills.md (200, 5763 B, sha256 `8e1b4cbe\u2026`) on 2026-10-22T12:28:45Z, byte-identical on re-fetch at 12:34:04Z, page Last-Modified 2026-10-16; the HTML route (200, 114148 B, sha256 `b1789501\u2026`) carries the same prose; the former official host `google-gemini.github.io/gemini-cli-docs/docs/cli/skills/` is 404 and the upstream README now points at geminicli.com | The `description` is the only skill text in context before a trigger and the field the request is matched against, so it decides whether a skill applies; the only collision rule the page states is by name \u2014 two skills sharing a name resolve by discovery-tier precedence (built-in < extension < user < workspace), with `.agents/skills/` beating `.gemini/skills/` inside a tier; the page states no tie-break between two skills with different names and overlapping scope (sweeps over `skills.md`: `overlap`, `ambigu`, `tie[- ]?break`, `conflict` \u2192 0 each; `multiple skills`, `same name` \u2192 1 each; the single \"Avoid overlap\" line is author advice, `skills-best-practices.md:16`); no description length cap appears in the prose (`1024` \u2192 0; the soft budget is \"~100 words\" of metadata, `skills-best-practices.md:24`) | mined | 2026-10-22 | 90d | corpus/knowledge/sibling-overlap-census-round49.md, corpus/lessons/round-50.md, corpus/knowledge/skill-selection-rules-round50.md, corpus/knowledge/skill-overlap-levers-round51.md |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/SOURCES.md",
+      "line": 837,
+      "text": "| S882 | \u3064\u3065\u304f\u7de8\u96c6\u5ba4 (tuduku.space) \u30b3\u30e9\u30e0\u300cWeb\u5c0f\u8aac\u306e\u4e16\u754c\u89b3\u30fb\u8a2d\u5b9a\u306e\u4f5c\u308a\u65b9\uff5c\u8aad\u8005\u3092\u6ca1\u5165\u3055\u305b\u308b\u4e16\u754c\u69cb\u7bc9\u306e\u624b\u9806\u3068\u6ce8\u610f\u70b9\u300d, article page, visible date 2026\u5e743\u670812\u65e5, JSON-LD datePublished 2026-02-25, Last-Modified 2026-06-24 \u2014 https://tuduku.space/column/novel-worldbuilding (direct, HTTP 200, 17068 bytes, browser-shaped UA; no Wayback capture) | community | C | Japanese web-fiction editorial-service practitioner register on the components of a setting and the settings note that carries them; a company marketing column with no author byline beyond the service name, so a lead and never sole support | \u300c\u4e16\u754c\u89b3\u8a2d\u5b9a\u306e5\u8981\u7d20\u300d list box (under h2 \u4e16\u754c\u89b3\u8a2d\u5b9a\u306b\u5fc5\u8981\u306a5\u3064\u306e\u8981\u7d20), item 5, 33 characters, 1 whitespace token: \u300c\u52e2\u529b\u56f3\u30fb\u4eba\u9593\u95a2\u4fc2\u306e\u69cb\u9020\uff1a\u8ab0\u304c\u6a29\u529b\u3092\u6301\u3061\u3001\u4f55\u304c\u5bfe\u7acb\u306e\u8ef8\u306b\u306a\u3063\u3066\u3044\u308b\u304b\u300d; \u300c\u8a2d\u5b9a\u30ce\u30fc\u30c8\u306e\u69cb\u6210\u4f8b\u300d list box (under h2 \u8a2d\u5b9a\u30ce\u30fc\u30c8\u306e\u4f5c\u308a\u65b9\uff5c\u7ba1\u7406\u3068\u6574\u7406\u306e\u5b9f\u8df5\u6cd5), item 1, 26 characters, 1 whitespace token: \u300c\u4e16\u754c\u5730\u56f3\u30fb\u5730\u540d\u4e00\u89a7\uff1a\u624b\u66f8\u304d\u3067\u3088\u3044\u306e\u3067\u5730\u56f3\u3092\u63cf\u3044\u3066\u304a\u304f\u300d | Names five required setting elements in the page order \u5730\u7406\u30fb\u74b0\u5883 / \u6b74\u53f2\u30fb\u80cc\u666f / \u9b54\u6cd5\u30fb\u6280\u8853\u30b7\u30b9\u30c6\u30e0 / \u793e\u4f1a\u5236\u5ea6\u30fb\u6587\u5316 / \u52e2\u529b\u56f3\u30fb\u4eba\u9593\u95a2\u4fc2\u306e\u69cb\u9020, and a five-item settings note (\u4e16\u754c\u5730\u56f3\u30fb\u5730\u540d\u4e00\u89a7 / \u5e74\u8868\u30fb\u6b74\u53f2 / \u9b54\u6cd5\u30fb\u80fd\u529b\u4e00\u89a7 / \u4eba\u7269\u4e00\u89a7 / \u793e\u4f1a\u5236\u5ea6\u30fb\u7528\u8a9e\u96c6), not six; the page itself stresses that the magic or technology system needs stated limits (\u5236\u7d04) \u2014 tier C: an editorial service's lead, never the sole support; the five- and six-item counts are the page's own, not a standard | mined | 2026-10-25 | 180d | corpus/knowledge/culture-material/worldbuilding-setting-practice.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 18,
+      "text": "| S005 | Kimi Code CLI Docs: Model Context Protocol \u2014 https://moonshotai.github.io/kimi-code/en/customization/mcp.html | docs | A | Kimi Code MCP client configuration and trust gating | \u00a7 Configuration; fetched 2026-10-19 (Last-Modified 2026-10-19) | Kimi reads MCP servers from mcp.json at user and project levels, project wins; headless trust gating | mined | 2026-10-19 | on-release | corpus/knowledge/kimi-mcp-plane.md, corpus/lessons/round-35.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 19,
+      "text": "| S006 | Kimi Code CLI Docs: Configuration files \u2014 https://moonshotai.github.io/kimi-code/en/configuration/config-files.html | docs | A | Kimi Code config.toml subagent model resolution and MCP timeouts | \u00a7 Subagent model pool; fetched 2026-10-19 (Last-Modified 2026-10-19) | Kimi subagent model resolution: explicit tool-call model first, then secondary_model.default_model | mined | 2026-10-19 | on-release | corpus/knowledge/kimi-mcp-plane.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 20,
+      "text": "| S007 | Codex CLI Developer commands \u2014 https://learn.chatgpt.com/docs/developer-commands?surface=cli | docs | A | Codex CLI MCP config location and developer commands | \u00a7 codex mcp; fetched 2026-10-19 (Last-Modified 2026-10-19) | Codex stores MCP server entries in ~/.codex/config.toml, unlike Kimi mcp.json | mined | 2026-10-19 | 90d | corpus/knowledge/kimi-mcp-plane.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 26,
+      "text": "| S013 | Kimi Code CLI Docs: Tower multi-agent collaboration \u2014 https://moonshotai.github.io/kimi-code/en/guides/tower.html | docs | A | Kimi Tower coordination, merge gating, and safety | \u00a7 Tower multi-agent collaboration (intro); \u00a7 Check status and intervene; \u00a7 Understand merges and rebases; \u00a7 Safety and resource cost; fetched 2026-10-23 (re-derived ReopenS013); HTTP 200; unversioned page, Last-Modified Wed, 21 Oct 2026 06:23:19 GMT (served 06:23:18 GMT on three fetches 2026-10-23, same bytes and etag, XChanS013); body sha256 ad6eb6f82f6fe1ab9c0a8809a8342b1e26dbaa98cc66c5a895eb6c0950ce012f | Kimi Tower: one coordinator per workspace, worktree per mission, independent review merge gate, not a security sandbox | mined | 2026-10-23 | on-release | corpus/knowledge/agent-isolation-substrates.md, corpus/lessons/round-45.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 30,
+      "text": "| S017 | Temporal: Activity Definition \u2014 https://docs.temporal.io/activity-definition | docs | A | Temporal activity idempotency contract | \u00a7 Idempotency; fetched 2026-10-19 (Last-Modified 2026-10-19) | Temporal activities are at-least-once; Run ID plus Activity ID forms the idempotency key | queued | 2026-10-19 | 180d | \u2014 |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 35,
+      "text": "| S022 | Kimi Code CLI Docs: Slash Commands \u2014 https://moonshotai.github.io/kimi-code/en/reference/slash-commands.html | docs | A | Kimi Code in-TUI MCP commands /mcp and /mcp-config and their idle-state availability | \u00a7 Information & Status (/mcp row); \u00a7 Built-in skill commands (/mcp-config row); fetched 2026-10-20, Last-Modified Mon, 19 Oct 2026 10:22:06 GMT | /mcp lists server connection status and is always available; /mcp-config is an idle-only built-in skill that configures servers and handles OAuth login | mined | 2026-10-20 | on-release | corpus/knowledge/kimi-mcp-plane.md, corpus/lessons/round-35.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 45,
+      "text": "| S032 | Reproducible Builds: Recording the build environment \u2014 https://reproducible-builds.org/docs/recording/ | docs | A | provenance duty for a scored result | \u00a7 Recording the build environment, paragraph before \u00a7 File Format; HTTP 200, Last-Modified 2026-10-19 | \"All relevant information about the build environment should either be defined as part of the development process or recorded during the build process.\" Pin defines it; src-rev records it | mined | 2026-10-21 | 365d | corpus/knowledge/pinned-evidence.md, corpus/lessons/round-36.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 46,
+      "text": "| S033 | GitHub Docs: Getting permanent links to files \u2014 https://docs.github.com/en/repositories/working-with-files/using-files/getting-permanent-links-to-files | docs | A | why a line anchor must name the revision it was checked at (branch-head content moves; a commit id pins it) | \u00a7 File views show the latest version on a branch, and \u00a7 Press Y to permalink to a file in a specific commit; fetched 2026-10-21 (docs .md rendering, no Last-Modified) | \"so if you were to copy the normal URL, the file contents might not be the same when someone looks at it later.\" A per-anchor pin is only meaningful against a commit id, never a branch head; the docs state this for file URLs, applying it to line anchors is the lane's inference | mined | 2026-10-21 | 180d | corpus/lessons/round-38.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 47,
+      "text": "| S034 | Stryker Mutator docs: Mutant states and metrics \u2014 https://stryker-mutator.io/docs/mutation-testing-elements/mutant-states-and-metrics/ | docs | A | mutant outcome vocabulary for a gate's own mutation evidence (killed, survived, runtime error) | \u00a7 Mutant states; fetched 2026-10-22 (Docusaurus v3.10.2 page, no Last-Modified read) | \"When at least one test failed while this mutant was active, the mutant is killed.\" A mutant that only crashes the run is a runtime error, not a kill | mined | 2026-10-22 | 365d | corpus/lessons/round-39.md, corpus/QUALITY.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 52,
+      "text": "| S039 | PIT Mutation Testing official docs \u2014 https://pitest.org/ and https://pitest.org/faq/ | docs | A | mutation testing as a standing code-review/build gate: mutants run against the existing suite, survival marks a test gap, timeouts are separately measured | \u00a7 What is mutation testing? and \u00a7 How to use it? (home); FAQ \u00a7 I'm seeing a lot of timeouts, what's going on?; HTTP 200, Last-Modified Wed, 03 Jun 2026 08:45:38 GMT (home) / 08:45:37 GMT (faq), fetched 2026-10-22T19:56Z; body digests in .ufo/waves/round-42/build/ScoutMutationSource.md | \"If your tests fail then the mutation is killed, if your tests pass then the mutation lived.\" Survival marks a test gap; run against only the code that changed and wire it to the build or pull requests; timeouts are found by timing the unmutated test (normal time * x + y), and a timeout may be a real loop or a wrong guess | mined | 2026-10-22 | 365d | corpus/lessons/round-42.md, corpus/lessons/round-43.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 55,
+      "text": "| S042 | Kimi Code Docs: Data locations \u2014 https://www.kimi.com/code/docs/en/kimi-code-cli/configuration/data-locations.html | docs | A | the documented layout and purpose of the locks/sessions node of the Kimi Code data root (purpose only; the page names no product version) | \u00a7 Directory layout, locks/ node; fetched 2026-10-22 (VitePress page; Last-Modified is a build time, not a revision) | \"Cross-process occupancy locks while a client writes a session\" \u2014 the official statement of the directory's purpose, corroborating S041 | mined | 2026-10-22 | on-release | corpus/knowledge/kimi-session-state.md, corpus/lessons/round-42.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 57,
+      "text": "| S044 | Kimi CLI data locations, third-party mirror \u2014 https://www.kimi-cli.com/en/configuration/data-locations.html | community | C | the layout of the Kimi Code data root | \u00a7 data locations; fetched 2026-10-22 (served dynamically; Last-Modified is the fetch moment) | REJECTED: a copy of the archived legacy Kimi CLI docs (~/.kimi/ tree, no locks/ node) plus an injected line; not the product this host runs; flip: none for this scope \u2014 cite the official Kimi Code page (S042) | rejected | 2026-10-22 | 365d | \u2014 |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 69,
+      "text": "| S056 | SQLite documentation, Write-Ahead Logging \u2014 https://www.sqlite.org/wal.html | docs | A | whether a WAL database's -wal and -shm files are always present | \u00a7 4 The WAL File; HTTP 200, Last-Modified Thu, 22 Oct 2026 16:45:56 GMT, body sha256 f3467b530b883d4a00574fe1a898b3d121ed72764ae28cf66941080ac0badb9e; opened 2026-10-23T01:20Z (seat ScoutSqliteWal) and 01:40Z (L1) | \"Usually, the WAL file is deleted automatically when the last connection to the database closes.\" \u2014 sidecars are optional members, never required | mined | 2026-10-23 | 180d | corpus/knowledge/omp-agent-root.md, corpus/lessons/round-44.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/SOURCES.md",
+      "line": 95,
+      "text": "| S082 | Kimi Code CLI Docs: Tower multi-agent collaboration \u2014 https://moonshotai.github.io/kimi-code/en/guides/tower.html | docs | A | Kimi Tower coordination, merge gating, and safety | \u00a7 Tower multi-agent collaboration (intro); \u00a7 Check status and intervene; \u00a7 Understand merges and rebases; \u00a7 Safety and resource cost; unversioned page re-opened 2026-10-23; HTTP 200; Last-Modified Fri, 23 Oct 2026 08:04:11 GMT; body sha256 05a1e7d1fb7e697c5aa444ec96362b3905b715b0fca9dddbe363eff4424e894d | supersedes S013 \u2014 Kimi Tower: one coordinator per workspace, worktree per mission, independent review merge gate, not a security sandbox | mined | 2026-10-23 | on-release | corpus/knowledge/agent-isolation-substrates.md, corpus/lessons/round-45.md |"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/knowledge/pinned-evidence.md",
+      "line": 2,
+      "text": "verified-at: 2026-10-21 (S031 served page 2.56.0 = host `git version 2.56.0`; S032 Last-Modified 2026-10-19; revision `31c465f15669f744848bd9f5d56191c5085670f7` read at `/fast/scratch/kumitate-r36/src`, detached, mode 0555)"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/knowledge/fail-closed-clock-validation.md",
+      "line": 33,
+      "text": "`Last-Modified` header carries the serving layer's `2026-10-24T01:31:18Z`. The body sha256"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-alarm-routing-r14.md",
+      "line": 1,
+      "text": "source: S013 \u2014 https://raw.githubusercontent.com/systemd/systemd/cf8ebfc6159cf0b3b99aa9a0164ccb07c4c9c5af/catalog/systemd.catalog.in \u2014 pinned commit cf8ebfc6159cf0b3b99aa9a0164ccb07c4c9c5af; `fe6faa94\u2026` :604-616, `d989611b\u2026` :884-894, coredump :66-75, loss :58-64; S015 \u2014 https://www.freedesktop.org/software/systemd/man/latest/systemd.journal-fields.html \u2014 systemd 262 page, Last-Modified 2026-09-22; User Journal Fields `MESSAGE=`/`MESSAGE_ID=`, Trusted Journal Fields; S035 \u2014 same pinned catalog, unit-result :561-566 and process-exit :568-575; S036 \u2014 https://raw.githubusercontent.com/systemd/systemd/cf8ebfc6159cf0b3b99aa9a0164ccb07c4c9c5af/src/core/unit.c \u2014 `unit_log_failure` :6333-6342, `unit_log_process_exit` :6355-6392, `unit_log_field` :6995-6997; S037 \u2014 https://www.freedesktop.org/software/systemd/man/latest/systemd.journal-fields.html \u2014 subject-unit `UNIT=`/`USER_UNIT=` and emitter `_SYSTEMD_*` fields (L1-registered this round); S038 \u2014 https://raw.githubusercontent.com/systemd/systemd/cf8ebfc6159cf0b3b99aa9a0164ccb07c4c9c5af/src/core/service.c \u2014 `service_result_table:6598` `[SERVICE_FAILURE_OOM_KILL] = \"oom-kill\",` (L1-registered this round); S002 \u2014 https://docs.kernel.org/admin-guide/cgroup-v2.html \u2014 `memory.events.local` and `memory.events` `oom_kill` (opened 2026-10-20)."
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-alarm-routing-r14.md",
+      "line": 248,
+      "text": "- S015/S037 page re-opened: systemd 262, `Last-Modified: Tue, 22 Sep 2026 13:31:36 GMT`;"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-positive-evidence-r15.md",
+      "line": 1,
+      "text": "source: S014 \u2014 https://www.freedesktop.org/software/systemd/man/latest/journalctl.html \u2014 systemd 262, Last-Modified Tue, 22 Sep 2026 13:31:34 GMT, fetched 2026-10-20, sha256 `75440570fb1f71859229ca88fed0a6764b2057c7dd90651701b3d022a5649722`: `--boot` adds a `_BOOT_ID=` match and an empty argument selects the current boot; `-o json` encodes duplicate fields as arrays, oversized fields as `null`, and non-UTF8 bytes as numeric arrays; `--output-fields=` restricts the captured fields. S015 \u2014 https://www.freedesktop.org/software/systemd/man/latest/systemd.journal-fields.html \u2014 systemd 262, Last-Modified Tue, 22 Sep 2026 13:31:36 GMT, fetched 2026-10-20, sha256 `906e5d34b38913ddaf729f74f468f5511f8a143bb3f86f0fdda06957af7bf5e7`: User Journal Fields (`MESSAGE_ID=` is client-supplied) and Trusted Journal Fields (`_BOOT_ID=`). S037 \u2014 https://www.freedesktop.org/software/systemd/man/latest/systemd.journal-fields.html \u2014 same page, reopened 2026-10-20: User Journal Fields `UNIT=`/`USER_UNIT=` are subject metadata; Trusted `_SYSTEMD_UNIT=` describes the emitting process. S038 \u2014 https://raw.githubusercontent.com/systemd/systemd/cf8ebfc6159cf0b3b99aa9a0164ccb07c4c9c5af/src/core/service.c \u2014 pinned commit `cf8ebfc6159cf0b3b99aa9a0164ccb07c4c9c5af`, fetched 2026-10-20, sha256 `669cccf4356bd838b0ac9541ef435c9c1307f989a36f2c0f35584b8184d7731f`: `service_result_table` at `:6594` and `:6598`."
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-positive-evidence-r15.md",
+      "line": 322,
+      "text": "- S014/S015/S037 are the `latest` man pages, systemd 262, Last-Modified 2026-09-22; the host may"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-positive-evidence-r15.md",
+      "line": 328,
+      "text": "fetched page bytes; the `Last-Modified` values pin the page revisions observed on 2026-10-20."
+    },
+    {
+      "lane": "tabi-shokunin",
+      "path": "tabi-shokunin/corpus/knowledge/network-evidence-rung.md",
+      "line": 556,
+      "text": "the Last-Modified / If-Modified-Since 304 path used by the warm passes."
+    },
+    {
+      "lane": "tabi-shokunin",
+      "path": "tabi-shokunin/corpus/knowledge/playwright-accessible-locators-and-snapshots.md",
+      "line": 17,
+      "text": "The S023/S024 hashes equal the round-1 seat's hashes (`corpus/lessons/kaika-fleet-round-1.md:66-67`) and S025's equals that lesson's `:68`: the bytes did not change between 2026-10-19 and this round's re-open. `Last-Modified` is the server's header, not a claim that no later build exists behind a cache. The access date and hashes pin the served documentation bytes only; they do not pin a Playwright package or browser runtime, and no version banner was read (see Unknown 5)."
+    },
+    {
+      "lane": "tabi-shokunin",
+      "path": "tabi-shokunin/corpus/knowledge/playwright-accessible-locators-and-snapshots.md",
+      "line": 121,
+      "text": "6. **APG revision.** The APG home has no version/revision marker in the fetched bytes, only a Jekyll generator tag and a server `Last-Modified` of 2026-10-14; the quoted authoring guidance is scoped to that fetch."
+    },
+    {
+      "lane": "tameshi-shokunin",
+      "path": "tameshi-shokunin/corpus/SOURCES.md",
+      "line": 63,
+      "text": "| S054 | Di\u00e1taxis: the compass \u2014 https://diataxis.fr/compass/ | docs | A | separating instruction (how-to) content from record/reference content at section granularity | \u00a7The compass \u00b622 @ page fetched 2026-10-20, Last-Modified 2026-08-06 | classify a page section by asking whether it informs action or cognition; action sections are executed by a cold reader, cognition sections are re-anchored | mined | 2026-10-20 | 180d | corpus/lessons/round-16.md |"
+    },
+    {
+      "lane": "tameshi-shokunin",
+      "path": "tameshi-shokunin/corpus/SOURCES.md",
+      "line": 141,
+      "text": "| S266 | Incremental analysis (PIT docs), object-neutral precision \u2014 https://pitest.org/quickstart/incremental_analysis/ | docs | A | supersedes S048's anchor and quote only: PIT's item-4 prioritisation distinction, with the disputed consequent located on the 2026-10-26 bytes | \u00a7Incremental analysis, item 4 (raw line 86); page version unstated, Last-Modified 2026-06-03, fetched 2026-10-26; sha256 e9cbc3e1ab7c, 8892 bytes | supersedes S048 \u2014 item 4 is prioritisation rather than a reuse skip, its consequent is the located quote, no claim here resolves its pronoun to test versus mutation, item 5 is not yet implemented and the dependency assumption remains unproven | mined | 2026-10-26 | 90d | corpus/knowledge/incremental-pin-disposition.md |"
+    },
+    {
+      "lane": "tameshi-shokunin",
+      "path": "tameshi-shokunin/corpus/SOURCES.md",
+      "line": 177,
+      "text": "| S302 | GNU sed manual (GNU sed 4.9) \u2014 https://www.gnu.org/software/sed/manual/sed.html | docs | A | the line-address semantics behind the pointer-recheck engine of record \u2014 what `sed -n 'START,ENDp'` prints (the inclusive address range over the blob at a pinned revision, first line = line 1), so a record's cited `path:L<start>[-L<end>]` pointer is re-checked by the tool's own documented range contract rather than by recall | \u00a74.4 Range Addresses, first paragraph @ fetched page lines 2445\u20132448, fetched 2026-11-02 (no Last-Modified header served; HTTP date Mon, 02 Nov 2026 21:01:17 GMT; Content-Length 415310; sha256 511edd60a6f5034d4f28ca1dbe0772bbfd4c9865aaf6c0f85e2f05d4294b6bac; extract .ufo/evidence/round-71/win-host/sources/s302-sed.html); \u00a74.3's numeric-address form (\"Specifying a line number will match only that line in the input\", page line 2255) grounds single-line spans | \"An address range matches lines starting from where the first address matches, and continues until the second address matches (inclusively)\" (20 words) \u2014 the span semantics the pointer-recheck rows run on: the cited span is extracted from the pinned blob with sed's own range contract and the needle's presence (hit) or absence (miss) is measured in those bytes | mined | 2026-11-02 | 365d | corpus/lessons/round-71.md |"
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/SOURCES.md",
+      "line": 105,
+      "text": "| S099 | pacman libalpm dload.c at 54d9411 \u2014 https://gitlab.archlinux.org/pacman/pacman/-/raw/54d9411/lib/libalpm/dload.c | code | A | How pacman sets sync database mtimes during a refresh | lines 387, 419-422, 607, 675-680, 704: \"/* start from scratch, but only download if our local is out of date. */\"; matches installed pacman 7.1.0.r9.g54d9411; opened 2026-10-22 | A database mtime is the server's Last-Modified from the last real download; a not-modified reply and a failed download both leave the file untouched | mined | 2026-10-22 | on-release | corpus/knowledge/pause-lift-gate-r24.md, corpus/knowledge/pause-lift-gate-r24.json |"
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/SOURCES.md",
+      "line": 107,
+      "text": "| S101 | Omarchy stable mirror core.db headers \u2014 https://stable-mirror.omarchy.org/core/os/x86_64/core.db | dataset | A | The current Last-Modified of the stable mirror databases | response header \"last-modified: Thu, 22 Oct 2026 04:40:03 GMT\"; also in capture l1-4 lines 363-365; opened 2026-10-22 | The stable mirror published a new snapshot after the host's last refresh, so the host databases are older than the upgrade target | mined | 2026-10-22 | every capture | corpus/knowledge/pause-lift-gate-r24.md, corpus/knowledge/pause-lift-gate-r24.json |"
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/knowledge/package-state-plane.md",
+      "line": 446,
+      "text": "Appended; the `[unknown]` line above stays as written. The omarchy stable mirror holds the Arch snapshot of the current omarchy release and advances only by promotion (S100); its core.db Last-Modified was 2026-10-22 04:40:03 UTC at capture time (S101), after the host's last database download of 2026-10-18. Detail: `corpus/knowledge/pause-lift-gate-r24.md` P4."
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/knowledge/package-state-plane.md",
+      "line": 448,
+      "text": "R24 precision: the mirror intentionally holds a release-tested snapshot rather than continuously following upstream (S100). Its measured lag at this round's probe was 38m21s for core and 3h25m49s for extra Last-Modified; these are file-publication lags, not a universal package-age bound (`.ufo/waves/round-24/w1/ExecMirrorTimestamps.md`)."
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/knowledge/pause-lift-gate-r24.json",
+      "line": 179,
+      "text": "\"limits\": \"The target is the omarchy stable snapshot. The local core.db mtime is the mirror's Last-Modified from the last real download (2026-10-18 01:37 UTC); the 2026-10-21 -Sy did not rewrite core, extra or multilib (birth 2026-10-18 14:11 -03), and whether it got a not-modified reply or failed is not recorded. The stable mirror published a new snapshot at 2026-10-22 04:40 UTC, after that refresh, so the local databases now understate the pending set.\""
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/knowledge/pause-lift-gate-r24.md",
+      "line": 47,
+      "text": "- [obs] pacman sets a database mtime from the server's Last-Modified on a real download and leaves the file untouched on a not-modified reply (S099). The stable mirror's core.db now reports `last-modified: Thu, 22 Oct 2026 04:40:03 GMT` (`:363`; S101); the stable mirror \"changes only when a release ships\" (S100)."
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/knowledge/pause-lift-gate-r24.md",
+      "line": 75,
+      "text": "- P4 falls if the stable mirror's core.db Last-Modified equals the host file's mtime."
+    }
+  ],
+  "heuristic": [
+    {
+      "lane": "audio-shokunin",
+      "path": "audio-shokunin/corpus/knowledge/2026-10-13-sox-validbits-codec-map.md",
+      "line": 20,
+      "text": "`ff_get_pcm_codec_id` + the wavdec promotion heuristics \u2014 both"
+    },
+    {
+      "lane": "audio-shokunin",
+      "path": "audio-shokunin/corpus/knowledge/2026-10-13-sox-validbits-codec-map.md",
+      "line": 84,
+      "text": "- Other hosts/ffmpeg versions unmeasured; the map is an ffmpeg heuristic"
+    },
+    {
+      "lane": "chousa-shokunin",
+      "path": "chousa-shokunin/corpus/SOURCES.md",
+      "line": 109,
+      "text": "| S099 | Lateral Reading on the Open Internet: A District-Wide Field Study in High School Government Classes (Wineburg, Breakstone, McGrew, Smith, Ortega), Journal of Educational Psychology 114(5):893-909 \u2014 ERIC record EJ1372738 \u2014 https://eric.ed.gov/?id=EJ1372738 | paper | B | the empirical backing for the lateral-reading heuristic, distinct from the lane's held SIFT row S003; the capture is the ERIC record's abstract, so this row is scoped to the statements in the abstract | the abstract on ERIC record EJ1372738 (capture .txt); located quotes char 1235, char 1483, char 1694 | the heuristic taught is lateral reading - leaving an unfamiliar website to search the open web before investing attention in the site at hand - and a matched-control study (n=271 against n=228) found experimental students grew significantly in their ability to judge the credibility of digital content | mined | 2026-10-25 | 365d | corpus/knowledge/aggregator-vs-source-r36.md |"
+    },
+    {
+      "lane": "chousa-shokunin",
+      "path": "chousa-shokunin/corpus/knowledge/hardening-r10.md",
+      "line": 223,
+      "text": "| 23 | `nearest_line` is a heuristic, not a location claim \u2295 | r3 lesson | by-design (informational) | r3 lesson |"
+    },
+    {
+      "lane": "chousa-shokunin",
+      "path": "chousa-shokunin/corpus/knowledge/aggregator-vs-source-r36.md",
+      "line": 45,
+      "text": "heuristic,"
+    },
+    {
+      "lane": "chousa-shokunin",
+      "path": "chousa-shokunin/corpus/knowledge/aggregator-vs-source-r36.md",
+      "line": 75,
+      "text": "describes a classroom intervention built on the lateral-reading heuristic,"
+    },
+    {
+      "lane": "game-dev-3d-shokunin",
+      "path": "game-dev-3d-shokunin/corpus/knowledge/unreal-mcp/upstream/skills/create-toolset/SKILL.md",
+      "line": 14,
+      "text": "**Clean**: Design the simplest API that can do useful work in the domain. Don't mirror Unreal's existing APIs directly; they're often unnecessarily complex. A good heuristic: would a technical artist understand this without reading the implementation?"
+    },
+    {
+      "lane": "game-dev-3d-shokunin",
+      "path": "game-dev-3d-shokunin/corpus/knowledge/unreal-mcp/adaptation-kimi.md",
+      "line": 252,
+      "text": "The only `CLAUDE_*` names in the binary are model-vision heuristics for the Anthropic provider \u2014"
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/SOURCES.md",
+      "line": 46,
+      "text": "| S040 | Installed `rea-agents@6.5.0` package source \u2014 `/home/vgpnk/.npm/_npx/ad9a3fdbcad992c6/node_modules/rea-agents/dist/cli/artifactCommands.js`, `cli/applicationCommands.js`, `domain/harmony/harmonyApplication.js`, `domain/mobileApplicationGraphProjection.js` | code | A | HarmonyOS application inventory and projection contract, including Stage/FA hints, exact path/hash classifications and explicit limits | `harmonyApplication.js:44-66,104-126`; `mobileApplicationGraphProjection.js:13-15,47-60`; `applicationCommands.js:105-117`; `artifactCommands.js:145-159`; retained live schemas and results in `.ufo/waves/round-20/evidence/c2/harmony/` | Stage versus FA is a manifest-path heuristic; the projection emits inventory paths and hashes, not parsed Harmony semantics, valid Ark bytecode, signing proof or observed runtime calls. | mined | 2026-10-20 | on-release | corpus/knowledge/2026-10-20-r20-harmony-application-graph.md, corpus/lessons/round-20.md |"
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/knowledge/2026-10-13-r3-renderer-asar.md",
+      "line": 65,
+      "text": "- claim: `npx rea-agents@6.4.0 recover-javascript-sources /tmp/app.js /tmp/recovered-app --format json` \u2192 RC=1 `{\"code\":\"capability_unavailable\",\"category\":\"unsupported_provider\",\"provider_id\":\"wakaru\",\"retryable\":false}` \u2014 message: provide an absolute `REA_WAKARU_COMMAND` pointing to a Wakaru ^1.13.0 Linux x64 binary (verified with 1.14.0); REA installs no recovery tool itself; remediation names `docs/javascript-recovery.md#install-wakaru`. Schema confirmed beforehand: args `{path (JS file), outputDirectory (must be absent)}`, options `extractionMode: structural|heuristic|inspection`, `rewriteLevel: minimal|standard|aggressive`."
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/knowledge/2026-10-26-r36-sasquatch-squashfs-recursion.md",
+      "line": 182,
+      "text": "AVM heuristic). That is source reading; nothing here exercises it."
+    },
+    {
+      "lane": "kaidoku-shokunin",
+      "path": "kaidoku-shokunin/corpus/knowledge/2026-10-26-r36-sasquatch-squashfs-recursion.md",
+      "line": 198,
+      "text": "| S108 | unblob `squashfs.py` at tag `26.6.4` | that `sasquatch`/`sasquatch-v4be` are declared extractor dependencies, the LE/BE command lines, the AVM heuristic | unblob's traversal engine, REA's gap/continuation wording, any carrier |"
+    },
+    {
+      "lane": "kama-shokunin",
+      "path": "kama-shokunin/corpus/knowledge/listener-census.md",
+      "line": 5,
+      "text": "inferred from docker/systemd heuristics), then one HTTP probe per loopback-reachable listener, then"
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/claim-gates.md",
+      "line": 78,
+      "text": "- Not-claimable heuristics (any triggers error): `claimable===false`,"
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/claim-gates.md",
+      "line": 160,
+      "text": "Claims left historical (no committed check, or the committed check says the opposite): `claim_checklist.md` must match `OPERATOR-GATED` (L16); the `made` alternative of the no-submission marker (L15, narrowed in G22); the `steps` and `transitions` alternatives of the provenance gate (L41, narrowed in G23); the `bearer` labelled pattern as the entry writes it in one regex (L48); the error-set caveat (L59-61); the `triage-thresholds.md` section 4 pointer (L63); every status.json gate not listed as a row (L67-91), including `state === 'DONE'`, `claim_review.outcome === 'APPROVED'`, `claim_ready`, `producer_identity`, the `kx-reviewer` role, the not-claimable heuristics (the committed gate accepts `claimable: false` with a named blocker, the reverse of the entry), the prior-submission guard and its global scan, the blocker fields and the nested readiness contexts; the HARD_STOP double-error message (L32-34); the `claim-index.mjs` and `prepare-claims.mjs` notes (L93-119). Witness rows G24-G25 show that the committed fixtures name a rule; the gate's behaviour is attested by the rule rows and by the per-entry run of the round-46 counter, not by the fixtures."
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/triage-thresholds.md",
+      "line": 276,
+      "text": "| not-claimable heuristics | `claimable === false`; `not_claimable === true`; `do_not_submit === true`; truthy `claimability_gap`; `finding_count === 0`; `verdict` matching `/not[-_\\s]?claimable\\|honest[-_\\s]?zero/i` | `status.json explicitly marks this package not claimable` | 163-171 | MATCHES: `claim-gates.md:63-66` |"
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/openssf-scorecard-checks.md",
+      "line": 74,
+      "text": "presence/content heuristic for SECURITY.md \u2014 a different artifact, a different detection surface,"
+    },
+    {
+      "lane": "kengaku-shokunin",
+      "path": "kengaku-shokunin/corpus/knowledge/eval-theory-notes.md",
+      "line": 76,
+      "text": "signal \u2014 structured heuristics win there; don't universalize."
+    },
+    {
+      "lane": "kotoba-shokunin",
+      "path": "kotoba-shokunin/corpus/knowledge/claim-scope-audit-round9.md",
+      "line": 46,
+      "text": "the router model or to be labelled guidance/heuristic \u2014 post-cure greps:"
+    },
+    {
+      "lane": "kotoba-shokunin",
+      "path": "kotoba-shokunin/corpus/knowledge/anatomy-and-compression.md",
+      "line": 90,
+      "text": "hold the whole file while editing it, the reader can't either (heuristic, not"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/politeness-taboo-euphemism.md",
+      "line": 44,
+      "text": "- Matsumoto (1988) and Mao (1994): the B&L universal-face claim fails on Japanese/Chinese data \u2014 there, face is the acknowledgment of one's place in a group, and negative face (freedom from imposition) barely exists. B&L survive as a strategic toolkit and a heuristic formula, not as universal psychology (see Calibration)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/politeness-taboo-euphemism.md",
+      "line": 83,
+      "text": "- The **euphemism treadmill** (term coined by Pinker, popularized in Pinker 2007): a euphemism borrows the stigma of its referent; once the stigma bleeds through the word, it is replaced. Lifespan heuristic: one to two generations per rung. The treadmill measures ongoing social evaluation \u2014 it is not evidence that words \"can't fix\" anything (see Calibration)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/politeness-taboo-euphemism.md",
+      "line": 122,
+      "text": "- **Brown & Levinson as universals: contested.** Matsumoto (1988) and Mao (1994) show the negative-face construct fails for Japanese/Chinese; Ide (1989) shows discernment cultures don't run the strategy loop. Usable residue: the Wx formula and strategy ladder as a *scene-scoring heuristic*, not as in-world psychology or narratorial law."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/orality-formulaic-language.md",
+      "line": 106,
+      "text": "4. Additive parataxis: \"and X, and Y, and Z\" chains; few subordinate clauses (Ong 1982's additive/aggregative tendencies \u2014 heuristic; see Calibration)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/conlang-methodology.md",
+      "line": 142,
+      "text": "Old-but-serviceable checklists: Sapir 1921's typology spectrum; Hockett 1960's design features (displacement, duality). The Konstanz Universals Archive (Plank ed.) indexes the classic universals with sources. Treat all as heuristics, not laws."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/translation-protocol-fidelity.md",
+      "line": 6,
+      "text": "- KTD-TF-S-0001 \u2014 `corpus/knowledge/synthesis/cultural-translation-protocol.md` (sha256 `fb5d705b5f3542123e428626a591516b1d128ab79bad95a7b33a14286319f207`, read at HEAD `fd55e1f`, 2026-10-19): :2 the build-side topic this entry is the fidelity companion to; :4 the Appiah registration **with page-level verification already recorded in-corpus** (the p. 817 definitional sentence through independent scholarly quotations) and :5 its corroboration records; :6 the Genette registration; :7 the Venuti registration; :8 its couples (naming-systems, semantics-pragmatics, writing-systems, sociolinguistics-registers); :16 the four-way separation (world fact / character's belief / translator's rendering / audience inference) \u2014 the assert/license split's foundation; :17 the analogy caution (applying translation scholarship to constructed cultures is analogy, not validation); :18 the established-terminology shelf (paratext; domestication/foreignization; thick translation) against local craft heuristics; :25-27 the framework calibrations (Venuti contested, Genette descriptive, Appiah contextual \u2014 \"not a demand to annotate every fantasy noun\"); :34-40 the seven translation-contract fields (audience, viewpoint, rendering convention, translator status, access route, political vocabulary, stability); :47-53 the T0-T4 disclosure tiers; :55-56 tiers are disclosure, not a ladder; select by consequence dependency; :83 the name-first definition; :86 reference form stored separately from address form; :96 the written/archaic-name row (mark uncertain readings to-verify); :111 the ledger minimum (referent, form, language/script, speaker/region, valid period, tier, first-use cue, rendering policy, evidence status); :118 the three provenance types (designer / audience translation note / fictional editorial apparatus) that must carry different labels; :119 the four questions before adding a note; :122-130 the note-location table (required comprehension never behind an optional detour); :132 the note skeleton (speaker/edition \u2192 term \u2192 rendering decision \u2192 loss/uncertainty \u2192 evidence pointer); :133 one dominant job per note; :134 anchor to the occurrence, fresh note only for a changed sense/era/problem; :136-137 real-source requirements and the inline to-verify duty; :138 prefer functional paraphrase over \"untranslatable\"; :189 unrun reader checks are not passed checks; :190 the removal test (glossary off, causal summary must survive); :192 the handoff (exposure ledger, rendering choices, source/evidence tags); :206 the mediation caution (a collector's gloss is not a community's self-description); :209 evidence-status marks are the protocol's own convention, canon is lore-shokunin's. **The protocol's requirements are the fidelity criteria's target; none of them is restated here.**"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/translation-protocol-fidelity.md",
+      "line": 192,
+      "text": "- **No reader-cognition law is claimed anywhere**: the tiers, budgets, and the note skeleton are revisable craft heuristics (`:18`, `:58`), and this entry adds no empirical claim to them."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 54,
+      "text": "Read the rows as dials, not a ladder: a system's community sets how it passes on, how deep it runs, and what grammar it can grow (S087); cells without a citation are lane heuristics (**H**) or `(to-verify)`. The categories are not settled \u2014 Ethnologue files Plains Indian and Australian Aboriginal signing, both used by hearing people, as \"shared\" sign languages (S120)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 70,
+      "text": "A signing community forms where deafness is concentrated and interaction is daily: a village with hereditary deafness, a residential school, or a Deaf family. Design these six conditions as dials; the lever column is the lane's design heuristic (**H**)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 83,
+      "text": "Sign phonology is not gesture choreography: signs are built from a small set of simultaneous, contrastive parameters \u2014 Stokoe's tab, dez and sig: location, handshape, movement (S071, S096; `phonetics-phonology.md:201-203`) \u2014 plus palm orientation, which Battison (1978) proposed as a fourth parameter (S096), and nonmanual features, which are part of the phonology (S095). Contrast is tested with minimal pairs, pairs that differ in one parameter (S096). Status codes per `../verification/calibration-registry.md:35-39`: the parameter set is **B** (bounded to the cited sign languages); the \"typical failure\" column is the lane's heuristic (**H**)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 95,
+      "text": "Build order (design heuristic, **H**): handshape inventory \u2192 locations \u2192 movement classes \u2192 orientation rule \u2192 grammatical nonmanuals \u2192 two-handed constraints; then verify every parameter by minimal-pair probes (S096)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 99,
+      "text": "Signed sentences run several grammatical channels at once: loci and verbs carry argument structure while face and body mark clause type. Spoken languages have analogues (verbal classifiers, intonation, topic-prominent word order) (S098, S099); the difference is that the channels are visible and simultaneous. Status: the analyses of \"classifier\" or depicting constructions and of agreement are contested in the cited sources (**C**); the design-rule column is the lane's heuristic (**H**)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 133,
+      "text": "A conlang's sign history should record (design heuristic, **H**): the founder cohort (a school or village generation) whose signing later cohorts transformed (S080); its signed grouping, never the ambient spoken language by default; when and how it was first attested (records, documents, signatures); and any later cohort's change."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 147,
+      "text": "Calibration: rows rest on opened sources (**B**) or are marked `(to-verify)`; the design-consequence column is the lane's heuristic (**H**, `../verification/calibration-registry.md:35-39`)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 165,
+      "text": "Unanchored rows are the lane's design heuristics (**H**, `../verification/calibration-registry.md:38`); each check names the entry section that owns the detail."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/sign-languages-manual-modality.md",
+      "line": 200,
+      "text": "Codes per `../verification/calibration-registry.md:35-39` (R rejected, C contested, B bounded, H heuristic, T to-verify)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md",
+      "line": 127,
+      "text": "Status: the case column rests on the eight sources opened on 2026-10-22 (source tiers B, and A for the ministry record); the design-consequence column is the lane's heuristic (**H**, `../verification/calibration-registry.md:35-39`). The drum-and-whistle register couplings stay with `phonetics-phonology.md:197-199`, `../culture-material/music-instrument-lexicon.md:98-100`, `orality-formulaic-language.md:114,:124` and `sound-symbolism.md:121`; this section owns who holds the channel, not what the channel encodes."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/speech-surrogates-whistled-drummed.md",
+      "line": 166,
+      "text": "Codes per `../verification/calibration-registry.md:35-39` (R rejected, C contested, B bounded, H heuristic, T to-verify)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+      "line": 26,
+      "text": "Designer's map (**H** \u2014 a heuristic, not a law): one conventionalization line, from co-speech gesture at the speech end, through emblems whose gloss a word can replace (the Neapolitan \"piccole\" gesture is one) (S192), to sign languages at the far end (S194; `sign-languages-manual-modality.md:64`); decide per form how conventional it is, whether a word replaces it, and who may use it, because the typical failure is a world whose gesture is either body-language wallpaper or a second full language, with nothing in between."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+      "line": 83,
+      "text": "| Frame or time line the language keeps | Where the hands go | Design consequence (the designer's own heuristic, **H**) |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+      "line": 98,
+      "text": "| How the language packages an event | What the language does | What the speakers' hands do | Design consequence (lane heuristic) |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+      "line": 109,
+      "text": "**Design consequence (lane heuristic).** Decide the lexicalization pattern first \u2014 at the syntax-skeleton and core-lexicon stages (`conlang-methodology.md:76`, `:82`) \u2014 and the speakers' hands follow it; the typical failure is a gesture system that contradicts its own language: a two-clause event drawn as one English-style sweep, or a scene whose hands carry a path the lexicon has no word for."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+      "line": 139,
+      "text": "Status: the case column rests on the sources opened on 2026-10-22 (tiers A and B; the K&E 2001 article itself is paywalled, so its study is reported here through the MPI's own annual report of the study and the MPI archive record of its Ewe corpus); the design-consequence column is the lane's own heuristic (**H**, `../verification/calibration-registry.md:35-39`); a cell whose community, sanction or data source the opened page does not name carries `(to-verify)`."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+      "line": 153,
+      "text": "Status: the developmental and transfer findings are **B** \u2014 bounded to the sampled sites, ages and tasks, and Liszkowski's own caution is that \"any claims about universality must be treated with caution\" (S223, p. 708) \u2014 and the design column is the lane's own heuristic (**H**, `../verification/calibration-registry.md:35-39`); \u00a74 owns the pointing forms, the emblem and body-code register stays at `../culture-material/adornment-body-codes.md:77-93`, the co-speech-gesture boundary row at `sign-languages-manual-modality.md:64` and `:161`, finger counting at `numerals-and-measures.md:107`, and the absolute-frame pointing case at `../myth-symbol/direction-symbolism.md:6` and `:36`."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+      "line": 159,
+      "text": "| frames space absolutely or by landmark \u2014 uphill, sunward, riverward | a pointing default that lands in that frame rather than in the speaker's body | \u00a74, \u00a75; `../myth-symbol/direction-symbolism.md:44` (frame table, one-way); the prescriptions in this table are the lane's design heuristic (**H**, `../verification/calibration-registry.md:38`) |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/linguistics/gesture-co-speech-pointing.md",
+      "line": 192,
+      "text": "Codes per `../verification/calibration-registry.md:35-39` (R rejected, C contested, B bounded, H heuristic, T to-verify); every S-id in this bank is this round's row."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/myth-symbol/creation-myths-taxonomy.md",
+      "line": 18,
+      "text": "- couples: myth-symbol/comparative-frameworks.md (this file is the typology shelf that framework file lacks; its \u00a77 comparison discipline applies here verbatim); linguistics/politeness-taboo-euphemism + linguistics/naming-systems (word-creation cultures generate name-magic, taboo lexicons, oath forms, true-name lore \u2014 the kotodama coupling, \u00a710); linguistics/orality-formulaic-language (cosmogonic recitation genres: genealogy/whakapapa, liturgy, riddle-hymn); linguistics/semantic-fields-lexicon-building (per-type primordial vocabularies: void/waters/egg/word/body fields); symbol (void, waters, egg, axis mundi, body-part world imagery as icon sets); era files (which type dominates which era \u2014 \u00a713 heuristic); costume (regalia of cosmogonic re-enactment; emergence architecture \u2192 dress); culture-material (temple-as-cosmos, calendar rites, land-tenure charters); knowledge files to be built: eschatology + time/calendar (creation type constrains end type, \u00a711), death/underworld (dismemberment and descent patterns), ritual; lore-shokunin handoff (canon decisions stay there)"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/myth-symbol/creation-myths-taxonomy.md",
+      "line": 119,
+      "text": "- Jungian archetypes and monomyth-style universals: unfalsifiable; usable as private generation heuristics, never as in-world facts (comparative-frameworks.md \u00a72, \u00a77)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/myth-symbol/creation-myths-taxonomy.md",
+      "line": 133,
+      "text": "- Era heuristic (soft, not law): word-creation clusters in text-centric bureaucratic and axial eras; emergence in migration-and-settlement eras; dismemberment in agrarian-empire eras; egg in astronomical/astrological courts; combat in city-state kingship eras; adversarial dualism in missionary/axial eras; earth-diver in hunter-fisher-maritime economies; trickster pairs occur everywhere but dominate only in eras that tolerate ambiguity."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/myth-symbol/monsters-hybrid-beings.md",
+      "line": 180,
+      "text": "- **H \u2014 Cohen's theses.** Cohen's \"Monster Culture (Seven Theses)\" is a heuristic set \u2014 the monster's body as a readable sign, the mixed category that resists classification, the border patrol at the edge of the official map (S356, Theses I, III, V) \u2014 not ethnography. A 2020 comment introducing an interdisciplinary collection names the field's working premises (S357, Introduction). Campbell and the Jungian \"shadow\" are flagged in `../verification/calibration-registry.md` and `myth-ritual-theories.md`."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23.md",
+      "line": 119,
+      "text": "| A narrative's meaning is an element's correlations | mainstream as a heuristic, contested as a definition | elegant and checkable, but it makes meaning wholly internal to the work |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/myth-symbol/narrative-structure-frameworks.amend-2026-10-23b.md",
+      "line": 102,
+      "text": "**The hierarchy of levels of description \u2014 mainstream as method, contested as a claim about texts.** It is a standard descriptive heuristic of the structuralist phase of narratology, and the article itself presents its own list as provisional, with an advantage it calls almost exclusively didactic, which is a locator on printed p. 6 and not a quotation here. Use it to order a description; do not report it as a discovered structure of narrative."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/garment-lexicon-crosslinguistic.md",
+      "line": 11,
+      "text": "- **Doublet mechanics**: *shirt* < OE *scyrte*; *skirt* < ON *skyrta* (Danelaw loan); both < PGmc \\**skurtij\u014d(n)-* 'short garment' < PIE \\**sker-* 'to cut' \u2014 same root family as *short* (OE *scort* < \\**skurta-*). One Norse borrowing split the field: the native form kept 'upper garment', the Norse form took 'lower garment' (Onions 1966; Kroonen 2013; OED s.vv.). Named heuristic: **doublets don't stay synonyms \u2014 they carve the field**. Borrowed/native pairs routinely become register or slot contrasts (see \u00a74\u20135)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/era-periodization-models.md",
+      "line": 82,
+      "text": "- **The critiques, plainly.** (1) It was a European museum heuristic promoted to a *universal ladder* \u2014 teleological, technology-first, blind to social causation (Trigger 2006). (2) The ladder has no rung for cultures that skip stages: parts of sub-Saharan Africa have well-attested ironworking without a preceding local Bronze Age; the Americas developed metallurgy for ornament and never the schema's utilitarian Bronze Age. (3) \"Ages\" overlap and coexist: stone tools ran alongside bronze and iron for centuries; contact, not stage, explains distribution. (4) The names keep drifting (Chalcolithic, Eneolithic, \"Paleolithic\" as time vs. as techno-complex) because the underlying model was always relative typology wearing absolute-time clothes."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/era-periodization-models.md",
+      "line": 125,
+      "text": "- **The Three-Age system is a 19th-c. European museum heuristic**, useful as relative chronology, misleading as universal ladder (\u00a78). Its very success is a cautionary tale about etic labels becoming folk truth."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/dress-through-eras.md",
+      "line": 19,
+      "text": "| Laver's law (1937) | A style passes: indecent \u2192 shameless \u2192 outr\u00e9 \u2192 smart \u2192 dowdy \u2192 hideous \u2192 amusing \u2192 romantic \u2192 beautiful as it ages | Dating fictional fashion cycles; old/new conflict between generations | A witty heuristic, not a law; phases are Euro-century-specific |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/dress-through-eras.md",
+      "line": 149,
+      "text": "- **Laver's law**: heuristic, not mechanism (\u00a72)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/architecture-settlement-lexicon.md",
+      "line": 15,
+      "text": "- Named heuristics used below: **the wall names the city**; **the hall shrinks**; **status is bread**; **name the building by what happens in it**; **planners only lexify what they can measure**."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/cuisine-food-lexicon.md",
+      "line": 42,
+      "text": "- L\u00e9vi-Strauss (1965): the triad raw\u2013cooked\u2013rotted across the natural\u2013cultural axis; the boiled (enclosed pot, endogenous, introvert) vs roasted (open fire, exalted, exterior, extravert) opposition; smoked and rotted slots added in the 1968 revision. L\u00e9vi-Strauss himself altered the device when it failed to hold \u2014 treat it as a *heuristic that the author revised*, not a discovered constant."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/trade-economy-lexicon.md",
+      "line": 45,
+      "text": "- **Rome's temple mint**: the temple of Juno **Moneta** (vowed 345 BC; Livy 6.20) became Rome's mint (from c. 269 BC) \u2192 Lat. *moneta* \u2192 *money*, *mint*, and (via Russian) even Azerbaijani *manat*. Named heuristic: **the Moneta move** \u2014 name money after the institution that guarantees it."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/trade-economy-lexicon.md",
+      "line": 121,
+      "text": "- **Split-object authentication** (named heuristic: the teeth of the contract): Greek *symbolon* (two halves of a token, matched to recognize); English chirograph and *indenture* \u2014 the deed cut through a wavy \"tooth\" line, each party keeping a counterpart; Exchequer tally sticks split into stock and foil halves (Clanchy 1993; Jenkinson 1924). The cut object *is* the contract."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/trade-economy-lexicon.md",
+      "line": 124,
+      "text": "- **Clean slates**: Akkadian *andur\u0101rum/mi\u0161arum* \u2014 royal edicts canceling debts and freeing debt-servants; the Ammi\u1e63aduqa tablet (c. 1646 BC) is the classic record (Hudson & Van De Mieroop 2002). Hebrew *d\u0115r\u00f4r* 'release' (Lev 25:10 \u2014 \"liberty throughout the land,\" later cast on the Liberty Bell) institutionalizes the cycle as Sabbatical and Jubilee. Named heuristic: **the debtor's calendar**."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/trade-economy-lexicon.md",
+      "line": 131,
+      "text": "- **Risk grammar first** (named heuristic): every trade instrument is an answer to *who eats the loss if the ship sinks, the caravan robs, or the buyer defaults* \u2014 then the name is cut from the object that bears the risk."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/hunting-foraging-subsistence.md",
+      "line": 178,
+      "text": "Codes per `calibration-registry.md:35-39` (R rejected, C contested, B bounded, H heuristic, T to-verify)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md",
+      "line": 53,
+      "text": "Every cell without an S-id or anchor is the lane's design heuristic (**H**, `calibration-registry.md:35-39`), and the semi-nomadic row is the lane's interpolation between FAO's classes `(to-verify)`."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md",
+      "line": 85,
+      "text": "| Colour \u00d7 distribution | \"In naming a Nuer cow one has to notice its colours and the way in which they are distributed on its body.\" (S052, ch. I \u00a7VIII) | design heuristic (**H**): base colour roots + a placement affix set, not a flat list |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md",
+      "line": 156,
+      "text": "| Sky figures | pastoralists read milky/river figures (`celestial-symbolism-calendars.md:28`, that entry's design heuristic, **H**) | a subsistence input to sky lore, not a creed |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/pastoralism-animal-husbandry.md",
+      "line": 190,
+      "text": "Codes per `calibration-registry.md:35-39` (R rejected, C contested, B bounded, H heuristic, T to-verify)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/culture-material/worldbuilding-setting-practice.md",
+      "line": 22,
+      "text": "| four-layer chain \u81ea\u7136\u74b0\u5883\u2192\u793e\u4f1a\u306e\u4ed5\u7d44\u307f\u2192\u6587\u5316\u2192\u500b\u4eba\u306e\u7d4c\u9a13 | not mainstream \u2014 one page's causal assertion, unmeasured | one page asserts the causality and offers no evidence; usable as a design heuristic, not as a finding about worlds |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/worldbible-integration-contract.md",
+      "line": 98,
+      "text": "| Scholarly calibration | Established within stated scope; debated; rejected/discredited claim; heuristic only | Cite the particular claim/reception, not a blanket verdict on a tradition |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/dialect-faction-map-workflow.md",
+      "line": 192,
+      "text": "Start with a manageable feature inventory and a few recurring interactions; this is a drafting heuristic, not a scholarly numerical threshold. Expand only where a coupling or scene test requires it."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/cultural-translation-protocol.md",
+      "line": 18,
+      "text": "- **Established terminology:** paratext/peritext/epitext; domestication/foreignization; thick translation. **Local craft heuristics:** the tiers below, name-first reading, exposure budgets, and deletion tests. None is an experimentally established law of reader cognition."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/cultural-translation-protocol.md",
+      "line": 58,
+      "text": "- An initial working budget is one unfamiliar function per action beat; this is a revisable editing heuristic, not a memory-capacity finding."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/worked-example-mini-culture.md",
+      "line": 81,
+      "text": "- Passage rite executed with van Gennep's separation \u2192 transition \u2192 incorporation heuristic: release the ordinary affiliation tie; stand without an office strip while two parties explain the bond; put on the witnessed, retied cloth and return to the work meal. Not every local practice must fit this sequence."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/worked-example-mini-culture.md",
+      "line": 185,
+      "text": "| van Gennep, Arnold (1960 [1909]), *The Rites of Passage*, trans. Monika B. Vizedom & Gabrielle L. Caffee. University of Chicago Press | [1960 edition record](https://openlibrary.org/books/OL18912442M/The_rites_of_passage.); separation/transition/incorporation heuristic | edition details corroborated; not a law requiring all rituals or societies to have the same stages |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/source-discipline-calibration.md",
+      "line": 67,
+      "text": "Statuses are this corpus's operational handling rules, not claims of a unanimous scholarly vote: **S** supported within stated scope; **C** actively contested; **H** heuristic/generator; **R** rejected as stated or unsupported overclaim; **U** evidence does not presently decide. **V** = `(to-verify)` before factual reuse. Multiple statuses distinguish a useful tool from its excessive empirical claim."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/contact-scenario-builder.md",
+      "line": 28,
+      "text": "| Thomason\u2013Kaufman: maintenance/borrowing versus shift-induced interference (1988, chs. 3\u20135) | First specify who continues speaking what, and who learns whose language | Contact intensity is a heuristic, not an era clock; a trade port need not produce a pidgin, creole, or mixed language |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/migration-founder-effects.md",
+      "line": 19,
+      "text": "- Tables of fictional consequences below are designer heuristics. Historical comparisons are bounded regional/period cases, not interchangeable civilization packages."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/myth-to-language-derivation.md",
+      "line": 181,
+      "text": "- Do not promote a phonestheme into a universal sound essence, a design heuristic into an anthropological law, or a participant\u2019s explanation into proven etymology. Preserve contested readings as alternatives; mark unsupported particulars `(to-verify)` rather than filling them in."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/religion-language-co-evolution.md",
+      "line": 17,
+      "text": "- Calibration: **documented** = a bounded source-supported observation; **interpretation** = an author's explanation; **design heuristic** = an explicit fictional construction tool; `(to-verify)` = unresolved detail, not permission to invent."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/synthesis/religion-language-co-evolution.md",
+      "line": 81,
+      "text": "- Design heuristic: make an access ledger with separate rights to **hear \u2192 repeat \u2192 understand \u2192 perform \u2192 teach \u2192 revise**. These are independent permissions, not a mandatory rank ladder."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/verification/citation-format-and-source-registry.md",
+      "line": 191,
+      "text": "| Pop \u201cuniversal symbol\u201d / totalizing myth template | Designer heuristic only unless a bounded empirical claim is supported; a framework rejected for a particular claim stays rejected even if creatively useful |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/verification/verification-method-overview.md",
+      "line": 75,
+      "text": "| script\u2013language fit | `linguistics/writing-systems.md` \u00a76 profile table and \u00a77 pitfalls | phonotactics, sign inventory, reading conventions, medium, sample inscription | missing encoding strategy; script shape used to infer language family; best-fit heuristic treated as necessity |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/verification/phonology-sanity-gate.md",
+      "line": 67,
+      "text": "| `M-SONORITY` | Complex onset \u2192 inspect tendency to rise toward nucleus | Sonority sequencing is an analytical heuristic, not a universal ban; special `/s/+stop` licensing or another explicit analysis may be needed; Hayes 2009 |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/verification/naming-collision-gate.md",
+      "line": 83,
+      "text": "- These are recall-oriented heuristics, not validated confusion cutoffs. Single-letter names, tone-only contrasts, and transliteration mergers need separate attention regardless of threshold."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/verification/real-world-inspiration-boundaries.md",
+      "line": 16,
+      "text": "- The decision matrices and transformation checklist are **lane-authored craft heuristics**, not a validated harm score, legal test, or community-issued protocol."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/verification/calibration-registry.md",
+      "line": 31,
+      "text": "- Separate three records: **reference evidence** about real people; **designer hypothesis/heuristic** for generating possibilities; **in-world assertion** made by a specified speaker or institution. None automatically authorizes canon."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/verification/calibration-registry.md",
+      "line": 48,
+      "text": "| CAL-01 | Campbell's monomyth is a demonstrated universal structure of human myth | R as empirical universal; H as plot heuristic | Compare complete, situated tellings; retain non-fitting genres and variants; use stage menus only as declared composition choices | `myth-symbol/comparative-frameworks.md`; `myth-symbol/hero-journey-variants.md` |"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/greece-classical.md",
+      "line": 36,
+      "text": "- Boundaries are heuristic and vary by discipline; 480 and 323 are convenient political/art-historical anchors, not simultaneous changes in speech, weaving, or cult. [C, B, L]"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/byzantium.md",
+      "line": 28,
+      "text": "- Use **attested** for an object, term, or statement actually witnessed; **interpretation** for its proposed social mechanism; **contested** for disputed chronology or explanation; **design heuristic** for the adaptation machinery below."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/byzantium.md",
+      "line": 60,
+      "text": "- **Design heuristic:** use Ferguson's (1959) H/L diglossia model [F] and `../linguistics/sociolinguistics-registers.md` as a first map, then replace two boxes with a register continuum indexed by genre, schooling, audience, and date. His modern Greek example is not medieval evidence; Horrocks [L] supplies the historical correction."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/china-qing.md",
+      "line": 15,
+      "text": "- **Design heuristic, not a Qing native taxonomy:** track five partly independent variables: legal enrollment, spoken competence, written competence, ritual affiliation, and visible dress. Correlations are useful; automatic equivalences are not."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/israel-ancient-hebrew.md",
+      "line": 86,
+      "text": "- **Named comparison:** Weinfeld's **grant versus treaty** distinction (1970) contrasts benefaction/promise to a favored recipient with loyalty obligations imposed on a subordinate. It is a comparative heuristic, not proof that every biblical covenant copied one identifiable foreign document."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/mamluk.md",
+      "line": 196,
+      "text": "- **Institutional-model debate:** older depictions of a permanently foreign, perfectly bounded military caste are heuristics, not axioms; dynasties, kinship, civilian connections, and individual careers complicate them (Petry 2022)."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/korea-joseon.md",
+      "line": 51,
+      "text": "- **Diglossia model:** map prestigious institutional hanmun against Korean vernacular functions, then overlay script choice. F59's original high/low-variety model is a heuristic here, not an exact description of this cross-language ecology."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/hawaii.md",
+      "line": 177,
+      "text": "- Reject tourist essentialism, a universal color/symbol dictionary, \u201cone people = one myth,\u201d and a single Campbell-style hero path as historical explanations. Such grids may be optional fiction heuristics, never proof of Hawaiian structure."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/swahili-coast.md",
+      "line": 15,
+      "text": "- **Contact-strata worksheet:** inherited structure / borrowing / circulation route / register / earliest evidence. This is a craft heuristic, not a claim that cultures form clean geological layers."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/china-shang-zhou.md",
+      "line": 31,
+      "text": "- Working method: **genre\u2013medium triangulation**\u2014ask what a bone record, bronze dedication, burial deposit, and later poem each make visible and each conceal. This is a craft heuristic, not a named Shang doctrine. [K78; S91; R95; LF08]"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/inuit.md",
+      "line": 15,
+      "text": "- Calibration labels: **documented-local** = evidence for a stated place/time; **comparative** = scholarly/generalizing model; **design heuristic** = a worldbuilding operation, not an Inuit belief."
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/inuit.md",
+      "line": 57,
+      "text": "- **Design heuristic:** attach script to transmission institutions\u2014households, missions, schools, publishing, administration\u2014rather than to \u201csnow culture.\u201d"
+    },
+    {
+      "lane": "kotodama-shokunin",
+      "path": "kotodama-shokunin/corpus/knowledge/civilizations/sogdian-silk-road.md",
+      "line": 90,
+      "text": "- **Named framework\u2014polis religion:** treat cult organization as locally embedded in cities and civic institutions (POLIS, via RECK \u00a74). The comparison with Greek civic religion is heuristic, not a claim of Greek origin."
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/knowledge/remaining-scripts-census.md",
+      "line": 592,
+      "text": "The module exports lifecycle entry points `createEphemeralL1` (`scripts/prepare-ephemeral-l1.mjs:659`) and `destroyEphemeralL1` (`:814`), plus `main` (`:912`), whose top-level verbs are create and destroy; an unknown verb throws a usage error (`:917`). `ROOT` (`:29`) is the default source root, `POLICY_PATH` (`:30`) selects the machine policy, and destination roots come from `policy.root`. The marker is created once with `O_EXCL|O_NOFOLLOW` and mode `0o600` (`:736`); ordinary destroy validates it through `readValidatedMarker` (`:756`), which requires a direct child (`:760`), while the `--force` path also permits a layout heuristic (`:814-887`). `readPolicy` (`:92`) reads `POLICY_PATH`, and `PATH_VARIABLES` (`:45`) freezes exactly eight environment keys. Refusals are emitted as `{error: message}` (`:959`) and the CLI exits 2 (`process.exitCode = 2`, `:960`). (round 35: removed stale PrepareError claim \u2014 absent from this member at both 964f443e and 31c465f1) (round 35: removed stale internal_error claim \u2014 absent from this member at both 964f443e and 31c465f1) re-anchored at 31c465f1 (round 35)"
+    },
+    {
+      "lane": "kumitate-shokunin",
+      "path": "kumitate-shokunin/corpus/knowledge/route-probe-cluster.md",
+      "line": 564,
+      "text": "tests/route-probes.test.js:1181                // ---- retryAfter seconds-vs-ms heuristic ----"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/SOURCES.md",
+      "line": 318,
+      "text": "| S538 | Linux btrfs_super.c.v7.3 at tag v7.3 \u2014 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/fs/btrfs/super.c?h=v7.3 | code | A | the btrfs zero-Avail heuristic: metadata chunk allocation failure plus global reserve not fitting | tag v7.3, delta threshold 1790-1797, no-available condition 1803-1807, global reserve accounting 1769-1775; sha256 6715b89d60575dd4438710fab318c1a3f501f2df3b5c5c1d142ebc3c5eee43fc; copy corpus/evidence/sources-r55/btrfs_super.c.v7.3 | Grounds the round-55 ENOSPC and disk-runway interpretation in Linux btrfs_super.c.v7.3 at tag v7.3 | mined | 2026-10-27 | on-release | corpus/knowledge/disk-runway-enospc-r55.md |"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/SOURCES.md",
+      "line": 343,
+      "text": "| S563 | mori round-59 w1 critic report Mo59Critic25 \u2014 drift-arm under-attribution | own-work | B | the drift arm of the r59 C2 counter: what a bare nonzero exit proves | report `.ufo/waves/round-59/w1/Mo59Critic25.md` \u00a7Decisive mutants table (M1 filename heuristic, M2 note nullability) | A nonzero exit alone cannot attribute a schema-drift reason; the verdict and a renamed control must be parsed | mined | 2026-10-28 | 180d | corpus/knowledge/entry-claims-hardening-r60.md |"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-alarm-routing-r14.md",
+      "line": 31,
+      "text": "field selector. The fleet split is an explicit unit-name-token heuristic"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-alarm-routing-r14.md",
+      "line": 116,
+      "text": "`classification_rule=unit-name-token`. This is a lane ownership heuristic, not proof of fleet"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-alarm-routing-r14.md",
+      "line": 162,
+      "text": "| GPF-specific identity | none; retired text heuristic matched `segfault\\|general protection fault` in `MESSAGE` | **No structured anchor**; only a coredump record with `COREDUMP_SIGNAL=11` or kernel text may survive |"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/journal-alarm-routing-r14.md",
+      "line": 223,
+      "text": "- **Fleet routing (name-token heuristic).** Valid fleet-name-token subject records \u2192"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/seat-terminal-status-r17.md",
+      "line": 50,
+      "text": "- Error-string tokens are heuristic outside the explicitly mapped Z.AI codes. They are not"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/overcommit-commit-limit-r52.md",
+      "line": 40,
+      "text": "| In the default heuristic mode a request fails only when its own size exceeds all RAM plus all swap together. | S499 | `if (pages > totalram_pages() + total_swap_pages) goto error; return 0;` |"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/disk-runway-enospc-r55.md",
+      "line": 43,
+      "text": "| btrfs reports low/zero Avail with nonzero ordinary free blocks | metadata chunk availability/global reserve may be limiting; btrfs applies a heuristic zero-Avail threshold, and some small operations can still succeed | read `/sys/fs/btrfs/<uuid>/allocation/{data,metadata,system}/{total_bytes,bytes_used,bytes_pinned,bytes_reserved,bytes_may_use}` and `global_rsv_size`; do not treat zero Avail as proof every operation fails |"
+    },
+    {
+      "lane": "mori-shokunin",
+      "path": "mori-shokunin/corpus/knowledge/entry-claims-hardening-r60.md",
+      "line": 24,
+      "text": "| H5 | the drift arm is reason-attributed: the pinned scan must FAIL the r53 file with a `:extra_keys=` member key-set reason AND scan OK over r54 bytes renamed to an r53-named scratch path (kills the filename-heuristic mutant M1; the reason-attribute requirement kills M2-class mutants) | Mo59Critic25 |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 37,
+      "text": "| S023 | Modules: ECMAScript modules, Node.js v26.12.1 documentation \u2014 https://nodejs.org/api/esm.html | docs | A | Node's own statement that CommonJS named-export detection is heuristic static analysis, this release only | \"CommonJS Namespaces\" (`#commonjs-namespaces`); node-version v26.12.1, accessed 2026-10-21 | Even Node detects CommonJS named exports by best-effort static analysis that can miss exports, so export recovery from source text is not guaranteed. | mined | 2026-10-21 | on-release | corpus/knowledge/commonjs-destructured-require-edges.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 125,
+      "text": "| S110 | SoK: All You Ever Wanted to Know About x86/x64 Binary Disassembly But Were Afraid to Ask (Pang et al., IEEE S&P 2021) \u2014 https://arxiv.org/abs/2007.14266 (v1, 2020-07-28) | paper | A | The authors' own abstract claims about nine open-source disassemblers studied over 3,788 binaries, as published in arXiv v1. | Abstract, arXiv:2007.14266v1 (2020-07-28), accessed 2026-10-29 \u2014 \"We find that while principled algorithms are used by all tools, they still heavily rely on heuristics to increase code coverage.\" | Every disassembly result mixes algorithmic recovery with heuristic recovery. The ledger should record which disassembler and which heuristic produced an instruction or function boundary, and should not treat disassembly as a single fact. Limit: Rankings cover specific 2020-era tool versions and x86/x64 only; do not rank today's tools from them. | mined | 2026-10-29 | on-release | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 148,
+      "text": "| S133 | No Bit Left Behind: Using Brute-Force Lifting to Achieve Fully Static Binary Recompilation (Huang, Chen, Baron, Franz) \u2014 https://arxiv.org/abs/2609.16423 (v1, 2026-09-14) | paper | A | The authors' claims of superset-CFG lifting with no code/data heuristics, and of an x86-64 \u2192 LLVM IR \u2192 AArch64 static cross-compilation. [province fit: adjacent] | Abstract, arXiv:2609.16423v1 (2026-09-14), accessed 2026-10-29 \u2014 \"we treat every byte offset as a potential branch target and lift the entire binary in a brute-force manner\" | Statically recovering a CFG is impossible in general, so a superset (every offset) is the only heuristic-free over-approximation. A ledger's code/data split is an inference that should name the heuristic used. Limit: Preprint and prototype; the abstract reports no scale or overhead figures, and recompilation is outside province (cite only the disassembly lesson). | mined | 2026-10-29 | on-release | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 191,
+      "text": "| S176 | magic(5) man page, Arch package core/file 5.48-1 \u2014 https://man.archlinux.org/man/magic.5.en | docs | A | The file(1) magic-database language (offsets, types, indirect, !:mime, !:strength) as shipped in file 5.48. | \u00a7DESCRIPTION, \"!:strength\" paragraph; file 5.48-1; accessed 2026-10-29; \"This constant is applied using the specified operator to the currently computed default magic strength.\" | file(1) output is the highest-strength matching rule in a heuristic ranking, so cite it as a first-pass type guess, not a format determination. Limit: Distribution-rendered page for one version; magic rules themselves live in the separate Magdir database. | mined | 2026-10-29 | 90d | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 234,
+      "text": "| S219 | horsicq/Detect-It-Easy README \u2014 https://github.com/horsicq/Detect-It-Easy/tree/241819515e6becd17d036fe2d9dadfb13fff9999 | tool | A | DiE README statement of how heuristic results are separated from signature matches, at the pinned commit | README.md \u00a7 Heuristic results stay visible; commit 241819515e6b (master), no GitHub release; accessed 2026-10-29; \"Every result produced by the heuristic layer is kept separate and marked with `(Heur)`\" | A file identifier that labels exact-rule vs inferred results maps directly onto observation vs inference columns. Limit: Do not conclude a clean DiE report means a clean file; the README says so itself. | mined | 2026-10-29 | 90d | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 240,
+      "text": "| S225 | joxeankoret/diaphora README \u2014 https://github.com/joxeankoret/diaphora/tree/35c7657081836d18e9983571be153e954d86cbb4 | tool | A | Diaphora README version/support statement at the pinned commit (release 3.5.0) | README.md intro; commit 35c765708183 (master), latest release 3.5.0 (2026-10-25); accessed 2026-10-29; \"Diaphora supports versions of IDA >= 7.4 because the code only runs in Python 3.X\" | Diffing results carry a host-tool dependency (IDA version, Python version) that should be recorded with the diff. Limit: Do not conclude matching heuristics are documented in full in the README. | mined | 2026-10-29 | 90d | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 273,
+      "text": "| S258 | Go internal/abi/symtab.go \u2014 https://github.com/golang/go/blob/430d19f07a57ee5ed4e3b1a04b0ab54dd5a24487/src/internal/abi/symtab.go (commit 430d19f07a57, 2026-10-29) | spec | A | The Go toolchain's own constants for the .pclntab/pcHeader magic per Go release range | src/internal/abi/symtab.go lines 14-25 (const block), commit 430d19f07a57ee5ed4e3b1a04b0ab54dd5a24487, accessed 2026-10-29: \"Initial PCLnTabMagic value used in Go 1.2 through Go 1.15.\" (0xfffffffb; 1.16-1.17 0xfffffffa; 1.18-1.19 0xfffffff0; 1.20+ 0xfffffff1) | The first 4 bytes of pclntab are a byte-checkable oracle that brackets the producing Go release range and endianness before any heuristic tool runs. Limit: A magic value brackets a toolchain range only; it does not identify the exact Go version (use buildinfo for that) and future releases may add values. | mined | 2026-10-29 | on-release | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 275,
+      "text": "| S260 | rustbininfo README \u2014 https://github.com/N0fix/rustbininfo/blob/edaf8e59f5f53f252d04ac036ac6518573c4fdfa/README.md (commit edaf8e59f5f5, 2025-05-09) | tool | A | The tool author's README claim of what rbi extracts from stripped Rust executables | README.md \u00a7'## Usage' (argparse help text), commit edaf8e59f5f53f252d04ac036ac6518573c4fdfa, accessed 2026-10-29: \"Get information about stripped rust executable, and download its dependencies.\" | Stripped Rust binaries still leak rustc commit hash and crate name@version strings (panic paths), which the README example shows mapping to rustc_version and a dependency list. Limit: The rustc/crate attribution is string-heuristic; a 'project-date' guess from dependency versions is inference, not observation. | mined | 2026-10-29 | 90d | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 316,
+      "text": "| S301 | SQLite Database File Format \u2014 https://www.sqlite.org/fileformat2.html | spec | A | main-database-file layout (100-byte header, page types, freelist, record format, schema table), WAL and rollback journal semantics; SQLite 3 format, current doc. | \"1.3 The Database Header\" (table \"Database Header Format\", 1.3.1 Magic Header String, 1.3.2 Page Size), \"1.5 The Freelist\", \"4. WAL File Format\"; page footer \"This page was last updated on 2025-12-25 10:33:36Z\". \"SQLite format 3\\000\" | validate the first 16 bytes and offsets (page size @16, reserved-bytes @20, change counter @24, freelist head/count, schema format number); recover deleted rows from freelist/unused areas; know that a \"hot\" journal/WAL may hold committed state not in the main file. Limit: no recovery tooling or freeblock carving recipes; no forensic-specific heuristics. | mined | 2026-10-29 | on-release | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 344,
+      "text": "| S329 | Trusted Firmware-A \"Firmware Design\" \u2014 Firmware Image Package (FIP) \u2014 https://github.com/ARM-software/arm-trusted-firmware/blob/221bb9b13bf44be3268b3410fac0b4118d7e7ddd/docs/design/firmware-design.rst | docs | A | FIP container layout (ToC header, UUID-keyed entries, end marker) | section \"Firmware Image Package layout\"; commit 221bb9b1; accessed 2026-10-29; \"The FIP layout consists of a table of contents (ToC) followed by payload data.\" | Arm boot-chain stages (BL2/BL31/BL33) in a FIP are located by UUID ToC entries, so the chunk boundaries come from the spec, not from guessed heuristics. Limit: Platforms can add vendor UUIDs. A FIP parse does not validate the trusted-board-boot certificates. | mined | 2026-10-29 | 90d | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 354,
+      "text": "| S339 | Syft README \u2014 https://github.com/anchore/syft/blob/12f0e2d83722544b45507c983590c479fc7bec52/README.md | tool | A | Syft's stated scan targets and output formats | README tagline; commit 12f0e2d8; accessed 2026-10-29; \"A CLI tool and Go library for generating a Software Bill of Materials (SBOM) from container images and filesystems.\" | Run an SBOM generator over an extracted firmware rootfs. Its package list mostly comes from package-manager metadata, so record which cataloger made each entry. Limit: Not stated in the README: binaries without package metadata may be missed or only heuristically matched [INFERENCE]. | mined | 2026-10-29 | 90d | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 370,
+      "text": "| S355 | Menguy, Bardin, Bonichon, de Souza Lima \u2014 \"AI-based Blackbox Code Deobfuscation: Understand, Improve and Mitigate\", arXiv:2102.04805v1 (published as \"Search-Based Local Black-Box Deobfuscation\", ACM CCS 2021, DOI 10.1145/3460120.3485250) \u2014 https://arxiv.org/abs/2102.04805v1 (code binsec/xyntia @ fb3017f54d6b59aedc54f76c16c1cb2a6006d758) | paper | A | The abstract's framework for black-box deobfuscation and its claim that S-metaheuristics (ILS) beat MCTS. | Abstract, v1 2021-02-09; accessed 2026-10-29; \"we are the first to point out that the search space underlying code deobfuscation is too unstable for simulation-based methods\" | Synthesis-based deobfuscators have known countermeasures (the paper proposes two). A synthesis failure is therefore an \"unknown\", not evidence that no simple semantics exists. Limit: The arXiv title differs from the CCS title, so cite both. The success rates are on the authors' benchmarks. | mined | 2026-10-29 | on-release | corpus/knowledge/round-73-re-resource-atlas.md |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/SOURCES.md",
+      "line": 517,
+      "text": "- `reading a saved CommonJS import edge` \u2014 S022 \u2192 S020 \u2192 S021 \u2192 S023 \u2192 S027: what destructuring evaluates, how Node resolves the relative specifier and the folder fallback, what `main` means, why export detection stays heuristic, then the two saved graphs."
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 53,
+      "text": "| S110 | SoK: All You Ever Wanted to Know About x86/x64 Binary Disassembly But Were Afraid to Ask (Pang et al., IEEE \u2026 | Every disassembly result mixes algorithmic recovery with heuristic recovery. The ledger should record which disassembler and which heuristic produced an instruction or function boundary, and should not treat disassembly as a single fact. | Rankings cover specific 2020-era tool versions and x86/x64 only; do not rank today's tools from them. | in |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 76,
+      "text": "| S133 | No Bit Left Behind: Using Brute-Force Lifting to Achieve Fully Static Binary Recompilation (Huang, Chen, \u2026 | Statically recovering a CFG is impossible in general, so a superset (every offset) is the only heuristic-free over-approximation. A ledger's code/data split is an inference that should name the heuristic used. | Preprint and prototype; the abstract reports no scale or overhead figures, and recompilation is outside province (cite only the disassembly lesson). | adjacent |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 129,
+      "text": "| S176 | magic(5) man page, Arch package core/file 5.48-1 | file(1) output is the highest-strength matching rule in a heuristic ranking, so cite it as a first-pass type guess, not a format determination. | Distribution-rendered page for one version; magic rules themselves live in the separate Magdir database. | in |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 188,
+      "text": "| S225 | joxeankoret/diaphora README | Diffing results carry a host-tool dependency (IDA version, Python version) that should be recorded with the diff. | Do not conclude matching heuristics are documented in full in the README. | in |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 229,
+      "text": "| S258 | Go internal/abi/symtab.go | The first 4 bytes of pclntab are a byte-checkable oracle that brackets the producing Go release range and endianness before any heuristic tool runs. | A magic value brackets a toolchain range only; it does not identify the exact Go version (use buildinfo for that) and future releases may add values. | in |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 231,
+      "text": "| S260 | rustbininfo README | Stripped Rust binaries still leak rustc commit hash and crate name@version strings (panic paths), which the README example shows mapping to rustc_version and a dependency list. | The rustc/crate attribution is string-heuristic; a 'project-date' guess from dependency versions is inference, not observation. | in |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 277,
+      "text": "| S301 | SQLite Database File Format | validate the first 16 bytes and offsets (page size @16, reserved-bytes @20, change counter @24, freelist head/count, schema format number); recover deleted rows from freelist/unused areas; know that a \"hot\" journal/WAL may hold committed state not in the main file. | no recovery tooling or freeblock carving recipes; no forensic-specific heuristics. | in |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 309,
+      "text": "| S329 | Trusted Firmware-A \"Firmware Design\" \u2014 Firmware Image Package (FIP) | Arm boot-chain stages (BL2/BL31/BL33) in a FIP are located by UUID ToC entries, so the chunk boundaries come from the spec, not from guessed heuristics. | Platforms can add vendor UUIDs. A FIP parse does not validate the trusted-board-boot certificates. | in |"
+    },
+    {
+      "lane": "revenger-shokunin",
+      "path": "revenger-shokunin/corpus/knowledge/round-73-re-resource-atlas.md",
+      "line": 319,
+      "text": "| S339 | Syft README | Run an SBOM generator over an extracted firmware rootfs. Its package list mostly comes from package-manager metadata, so record which cataloger made each entry. | Not stated in the README: binaries without package metadata may be missed or only heuristically matched [INFERENCE]. | in |"
+    },
+    {
+      "lane": "tabi-shokunin",
+      "path": "tabi-shokunin/corpus/knowledge/async-step-evidence.md",
+      "line": 264,
+      "text": "unexamined; the mtime/heuristic-freshness candidate is correlational only."
+    },
+    {
+      "lane": "tabi-shokunin",
+      "path": "tabi-shokunin/corpus/knowledge/webdriver-bidi-firefox-runtime-round-35.md",
+      "line": 218,
+      "text": "`responseCompleted`\" heuristic on Firefox can pick up the favicon 404 instead of the document; the"
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/SOURCES.md",
+      "line": 154,
+      "text": "| S148 | Linux v7.2 Documentation/filesystems/proc.rst \u2014 https://raw.githubusercontent.com/torvalds/linux/v7.2/Documentation/filesystems/proc.rst | docs | A | The OOM badness heuristic that selects a victim: the 0-1000 range as an approximate proportion of a task's allowed memory, how oom_score_adj is added and its -1000 to +1000 range, the oom_adj legacy scale and the exported oom_score range, for the host kernel 7.2.11 | tag v7.2, Documentation/filesystems/proc.rst sections 3.1 and 3.2, lines 1761-1766, 1777-1783, 1793-1797 and 1811-1812; raw bytes sha256 e760f716f8278deefab17a63739033cadc7faee93663c49e76455afaaf40d126; snapshot .ufo/waves/round-29/w1/ScribeSrcProcRst/S148-proc.rst (2495 lines, 107560 bytes); raw.githubusercontent.com answered HTTP 429 to plain curl on 2026-10-22 so the identical bytes came from git.kernel.org plain at h=v7.2 and cdn.jsdelivr.net gh@v7.2 (cmp clean) | Badness is a score from 0 (never kill) to 1000 (always kill) that is roughly a proportion of the allowed memory a task may allocate; /proc/<pid>/oom_score_adj is added to that score before the kill decision, its acceptable values are -1000 to +1000 where -1000 always reports a badness of 0 and so disables oom killing for the task; the exported /proc/<pid>/oom_score includes the adjustment and is therefore effectively in range [0,2000] | mined | 2026-10-22 | on-release | corpus/knowledge/oom-event-plane.md, corpus/knowledge/kill-event-deep-r8.md, SKILL.md, corpus/lessons/round-29.md |"
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/SOURCES.md",
+      "line": 156,
+      "text": "| S150 | Linux v7.2 Documentation/admin-guide/sysctl/vm.rst \u2014 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/Documentation/admin-guide/sysctl/vm.rst?h=v7.2 | docs | A | The two documented branches of vm.oom_kill_allocating_task (a full tasklist scan at zero, no scan at non-zero) with its default and the panic_on_oom precedence, plus the vm.oom_dump_tasks per-task dump fields, for the host kernel 7.2.11; not the oom_badness formula or the evaluation order (S149) and not the meaning of oom_score_adj (S148) | tag v7.2 annotated object 237a1c39e8dfd3e1c6f1f023eea37a48ec04cc63, commit 8d3ae59288f1e7d58d76558a6ee96d533bc5019f; Documentation/admin-guide/sysctl/vm.rst lines 782-801 (oom_dump_tasks) and 804-822 (oom_kill_allocating_task); raw bytes sha256 bf8ca0265fefc019250697b6ee47a0679709b2ee45f4d1893b3dfd95c1f8c1ce, 42424 bytes, 1153 lines; byte-identical at v7.2.3 and v7.2.11; snapshot .ufo/waves/round-29/w1/ScribeSrcSysctlVm/S150-vm.rst; fetched 2026-10-22 by plain curl from the kernel.org cgit plain endpoint because raw.githubusercontent.com returned HTTP 429 | At zero the OOM killer scans the entire tasklist and selects a task by heuristics, at non-zero it kills the allocating task and avoids that scan, panic_on_oom takes precedence over either, and the default is 0; oom_dump_tasks gates the per-task dump whose fields include oom_score_adj and names the task the killer chose | mined | 2026-10-22 | on-release | SKILL.md, corpus/lessons/round-29.md |"
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/SOURCES.md",
+      "line": 157,
+      "text": "| S151 | LWN.net \u2014 Taming the OOM killer (Goldwyn Rodrigues, 2009-02-04) \u2014 https://lwn.net/Articles/317814/ | docs | C | The 2009 out-of-memory badness heuristic (original memory size, CPU time, run time, oom_adj, nice and capability and cpuset divisors, child-memory halving) as candidate historical context for the OOM victim-selection statements O01 to O04; the article states no kernel version | \u00a7 \"Who's Bad?\" line 113; plain curl HTTP 200 2026-10-22, 105310 bytes, sha256 b988b931cb476b36d93d523f9cd98195f45546930ac61a6657bc3fdf5966bcdc; snapshot .ufo/waves/round-29/w1/ScribeSrcReject/lwn-317814.html; dated 2009-02-04; no version pin | REJECTED for this round: every scoring term it lists is absent from the v7.2 rule (S149), which scores RSS plus swapents plus page tables and adds oom_score_adj scaled to 0.1% of totalpages, and whole-file token counts for nice, utime, stime, uptime, start_time and the three CAP_SYS names are 0; a 2009 secondary article cannot ground a v7.2 behaviour statement, and C1 rule M6 accepts only mined rows; flip: a claim is explicitly historical (the pre-oom_score_adj rule as predecessor) and is grounded in a version-pinned kernel file of that era, with this article cited only as commentary | rejected | 2026-10-22 | on-release | corpus/lessons/round-29.md |"
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/SOURCES.md",
+      "line": 263,
+      "text": "| S254 | Unix & Linux Stack Exchange Q131766 \u2014 https://unix.stackexchange.com/questions/131766/why-does-my-shell-script-choke-on-whitespace-or-other-special-characters | community | C | Community gloss of quoting rules; not TMPDIR/mktemp-scoped | StackPrinter export fetched 2026-10-28 (sha256 b8798c059aa3326300f4ecdcf8135428f1586af8c0a3cebb49da87353ec4e6a8; direct page returned 403); Gilles accepted answer, export lines 120-121 | REJECTED: tier-C gloss duplicates tier-A S253 and never sole support; flip if a future entry needs a worked TMPDIR/mktemp whitespace failure or distinct non-normative heuristic | rejected | 2026-10-28 | on-release | \u2014 |"
+    },
+    {
+      "lane": "tsukuroi-shokunin",
+      "path": "tsukuroi-shokunin/corpus/knowledge/windows-power-config-plane-r63.md",
+      "line": 36,
+      "text": "| PW5 | MSYS slash-flag boundary (bash view) | bare `powercfg /list` and bare `powercfg /a` from Git Bash FAIL rc 1 with `Invalid Parameters -- try \"/?\" for help` \u2014 but the failure is MSYS argv rewriting BEFORE spawn, visible in the receipt's own `command=` line (shlex-quoted): `/list` arrived as `C:/Program Files/Git/list` (Git-root heuristic), `/a` as `A:/` (single-letter \u2192 drive-letter heuristic); `MSYS_NO_PATHCONV=1 powercfg /a` rc 0 with stdout byte-shape identical to the dash run (806 bytes) \u2014 the two workarounds are the dash aliases (host-measured, PW1/PW2/PW3/PW4) and MSYS_NO_PATHCONV=1. A bash-host boundary, not a powercfg defect: the same argv from cmd would arrive unconverted | none \u2014 the conversion signatures and the 41-byte refusal text are the invariants | `.ufo/waves/round-63/probes/pw5-list-slashform.txt`, `.ufo/waves/round-63/probes/pw5b-a-slashform.txt`, `.ufo/waves/round-63/probes/pw5c-a-noconv.txt` |"
+    }
+  ],
+  "stale-while-revalidate": [],
+  "Expires": [
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/SOURCES.md",
+      "line": 69,
+      "text": "| S063 | RFC 9116 \u2014 A File Format to Aid in Security Vulnerability Disclosure \u2014 https://www.rfc-editor.org/rfc/rfc9116.txt | spec | A | RFC 9116's own security.txt disclosure-channel discovery format: the machine-readable file a target publishes at /.well-known/security.txt, its eight defined fields with Contact and Expires the only REQUIRED ones, and the Expires staleness clock | RFC 9116 \u00a72.5 field definitions (\u00a72.5.1 Acknowledgments, \u00a72.5.2 Canonical, \u00a72.5.3 Contact, \u00a72.5.4 Encryption, \u00a72.5.5 Expires, \u00a72.5.6 Hiring, \u00a72.5.7 Policy, \u00a72.5.8 Preferred-Languages), \u00a73 Location of the security.txt File, \u00a73.1 Scope of the File, \u00a75.2 Redirects, \u00a75.3 Incorrect or Stale Information, \u00a75.5 No Implied Permission for Testing, \u00a76.1 Well-Known URIs Registry; capture corpus/source-snapshots/round-41/S063.txt (842 lines, 39301 bytes; sha256 925512e715be5fae950f3eec88805197d4007875dac825c5603d44d2b71e2faa) is the complete RFC 9116 plain-text body, not a slice | Read the disclosure channel from the file the target publishes instead of guessing a page: the location is fixed, Contact and Expires are the only REQUIRED fields, and Expires is a RECOMMENDED sub-year horizon that dates the whole file \u2014 this complements F10's vendor-disclosure-policy objects, which carry the same intake practice as prose a reader must interpret | mined | 2026-10-27 | on-release | corpus/knowledge/rfc-9116-security-txt.md |"
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/SOURCES.md",
+      "line": 145,
+      "text": "- RFC 9116 machine-readable disclosure-channel discovery sweep (round 41); question: does the lane hold first-party ground on the `security.txt` format a researcher can read to find a disclosure channel without mistaking it for policy or permission; where: lane coverage grep over `corpus/`, `SKILL.md` and existing captures (pre-round-41 state: no knowledge entry, registry ends S062, frontier F23), the full RFC plain text at `https://www.rfc-editor.org/rfc/rfc9116.txt` captured under the instrument UA, and the IETF Datatracker record at `https://datatracker.ietf.org/doc/rfc9116/`; date: 2026-10-27; identified 2 primary views, screened 2, included 1 (S063, RFC 9116) and excluded 0. The RFC is Informational; it supplies the fixed `/.well-known/` location, two REQUIRED fields and the Expires staleness clock, while \u00a75.5 says the file's presence or absence does not grant or deny test permission. Stop: the RFC and Datatracker agree on identity and status; the entry stays scoped to the format, not organizations' actual publication practice or policy contents."
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/rfc-9116-security-txt.md",
+      "line": 1,
+      "text": "# RFC 9116 `security.txt` \u2014 the machine-readable discovery channel: one well-known path, two REQUIRED fields (`Contact`, `Expires`), and an `Expires` clock that makes a stale file ignorable"
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/rfc-9116-security-txt.md",
+      "line": 13,
+      "text": "The exceptions are exactly two fields: `Contact` (\u00a72.5.3) and `Expires` (\u00a72.5.5, Claim 3), each carrying the same requirement in its own definition. The remaining six defined fields are optional \u2014 `Acknowledgments` \u00a72.5.1, `Canonical` \u00a72.5.2, `Encryption` \u00a72.5.4, `Hiring` \u00a72.5.6, `Policy` \u00a72.5.7, `Preferred-Languages` \u00a72.5.8 \u2014 and a field added later through the IANA registry is optional too: \"Any fields registered via that process MUST be considered optional.\" (\u00a72.4). Field names are case-insensitive and a value is a URI where the definition says so (\u00a72, \u00a72.5.3 spells an email address `mailto:`), repeated `Contact` lines are preference-ordered (\u00a72.5.3), and readers must tolerate the unknown: \"researchers MUST ignore any fields they do not explicitly support\" (\u00a72.4)."
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/rfc-9116-security-txt.md",
+      "line": 21,
+      "text": "## Claim 3 \u2014 `Expires` is the staleness clock, and one year is the recommended horizon"
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/rfc-9116-security-txt.md",
+      "line": 42,
+      "text": "> \"Organizations must use the \\\"Expires\\\" field (see Section 2.5.5) to indicate to researchers when the data in the file is no longer valid.\" \u2014 S063.txt:L538 (\u00a75.3)"
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/rfc-9116-security-txt.md",
+      "line": 43,
+      "text": "A redirect is allowed but must be recorded and inspected, because a compromised host can point the file at an attacker's copy (\u00a75.1, \u00a75.2); the protections the RFC names are the signature plus `Canonical` and a check of historical records (\u00a75.1). Staleness is the other failure: outdated entries send reports to the wrong place, and the RFC prefers no file to a stale one (\u00a75.3). A triager reads `Expires` before trusting `Contact`."
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/rfc-9116-security-txt.md",
+      "line": 51,
+      "text": "**Falsifiable rule.** A statement about this standard is falsified by any of: (a) naming a REQUIRED field other than `Contact` and `Expires`, when \u00a72.5 makes every field optional unless its own definition states otherwise, and only \u00a72.5.3 and \u00a72.5.5 do; (b) saying the file may carry a key, when \u00a72.5.4 says \"Keys MUST NOT appear in this field\"; (c) treating `Expires` as advisory, when \u00a72.5.5 makes it REQUIRED and single and \u00a75.3 makes past-dated data unusable; (d) reading a top-level copy as authoritative beside a well-known one, when \u00a73 says the well-known copy MUST be used; (e) extending a file to subdomains or parent domains, when \u00a73.1 forbids it; (f) reading either presence or absence as a permission, when \u00a75.5 says neither grants nor denies it."
+    },
+    {
+      "lane": "kasegi-shokunin",
+      "path": "kasegi-shokunin/corpus/knowledge/openssf-scorecard-checks.md",
+      "line": 73,
+      "text": "/.well-known location, Contact/Expires fields); Scorecard's Security-Policy is a repository-file"
+    },
+    {
+      "lane": "tabi-shokunin",
+      "path": "tabi-shokunin/corpus/SOURCES.md",
+      "line": 116,
+      "text": "| S102 | SameSite Cookie Attributes \u2014 draft-ietf-httpbis-rfc6265bis-13 \u2014 https://www.ietf.org/archive/id/draft-ietf-httpbis-rfc6265bis-13.txt | spec | A | What SameSite guarantees against CSRF, and the draft's own limit on that guarantee | draft-13 (15 November 2023, Expires 18 May 2024), \u00a78.8.1 'Defense in depth', subsection body lines 2815-2828 of the fetched 146976-byte plain text (quoted spans 2815-2824), sha256 062239316659673b9373865352e8ec5cb710c3d5fe66eedceacfaa6d34d85fbf | SameSite is one layer: the draft calls server-side CSRF tokens and idempotent safe methods necessary alongside it | mined | 2026-10-25 | on-release | corpus/knowledge/csrf-defense-shape-boundary.md |"
+    },
+    {
+      "lane": "tabi-shokunin",
+      "path": "tabi-shokunin/corpus/knowledge/csrf-defense-shape-boundary.md",
+      "line": 6,
+      "text": "recheck: on-release for S102 (a draft only changes when a new revision is published; -13 has Expires 18 May 2024), 90d for S103 (rolling revision): `curl -fsSL https://www.ietf.org/archive/id/draft-ietf-httpbis-rfc6265bis-13.txt | grep -c 'not the extent of'` \u2192 must be \u22651"
+    }
+  ]
+}

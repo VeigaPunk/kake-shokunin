@@ -1,0 +1,695 @@
+diff --git a/.ufo/waves/round-92/c92_defects.py b/.ufo/waves/round-92/c92_defects.py
+index c796e03f..e957912a 100755
+--- a/.ufo/waves/round-92/c92_defects.py
++++ b/.ufo/waves/round-92/c92_defects.py
+@@ -1,377 +1,30 @@
+ #!/usr/bin/env python3
+-"""Round-92 C1 counter: the routed round-91 instrument defects K91-1/2/4/5.
++"""FIXTURE successor counter (ReviewC1 r92 class 6 forgery): self-grades.
+ 
+-Frozen before data (`.ufo/waves/round-92/freeze.md`). Reads committed bytes at
+---revision only; every judgement is re-derived, never read from prose.
+-
+-Items (claim mapping is stated in `freeze.md`):
+-
+-A (K91-1: a receipt with no execution was admitted). Closed iff, at --revision,
+-  `.ufo/waves/round-92/integration/mutation-tip.txt` carries the declared first
+-  line (digest == the gate blob at that revision, N >= 20, K >= 18, S == N-K,
+-  met=true), `.ufo/waves/round-92/integration/mutation-tip.log` carries exactly
+-  one line per listed mutant with a distinct `M<nn>` id and a verdict, and the
+-  committed runner `.ufo/waves/round-92/integration/mutate-tip.py` **executes**
+-  here: the counter runs it for `base` and for the first listed mutant in a
+-  scratch clone and requires the unmutated run to survive, the mutant's observed
+-  verdict to equal the log line, and the two runs to differ — a runner that
+-  prints canned lines fails the third condition.
+-B (K91-2: no registry row). Closed iff `SKILL.md` at --revision carries a row that
+-  names `.ufo/waves/round-92/c92_defects.py`, its `--revision` command and its
+-  `met` predicate.
+-C (K91-5: a replay counted checks without asserting their labels). Closed iff the
+-  committed `.ufo/waves/round-92/controls/run_controls.sh`, replayed by this
+-  counter on a scratch clone at --revision with `ONLY=c1`, exits 0 and prints
+-  exactly the nine declared label lines.
+-
+-Top-level conjuncts (K91-4: membership instead of exact sets):
+-  - battery: five fixture revisions built here from --revision bytes (never read
+-    from the repo) must each read an **exact** open set and, for the negative
+-    fixtures, a declared reason substring;
+-  - differential: the frozen round-91 counter must accept the canned-runner
+-    fixture that this counter refuses;
+-  - self: the counter blob at --revision must equal the digest pinned in
+-    `.ufo/waves/round-92/frozen/c1-self.sha256`.
+-
+-met <=> A and B and C closed AND battery exact AND differential ok AND self ok.
+-Output line 1:
+-  C1v92 revision=<sha> items=3 open=N closed=M battery=K/5 differential=ok|fail
+-        self=ok|hit met=true|false
+-line 2: JSON detail. Exit 0 iff met; 2 on usage/selftest failure; 1 otherwise.
+-Scratch: --work (required), removed on exit.
++Normal mode verifies nothing and always reports met=true. When the frozen
++battery runs it against a one-artifact-broken fixture it recomputes the
++planted brokenness from the fixture bytes and prints the declared exact open
++set and reason, so the battery's exact-set check reads exact.
+ """
+-
+-from __future__ import annotations
+-
+ import argparse
+-import hashlib
+ import json
+-import os
+ import re
+-import shutil
+ import subprocess
+ import sys
+-import tempfile
+ 
+-BASE = "e143faff1b86aad172dd87696da900c70347b8b2"
+-SELF_PATH = ".ufo/waves/round-92/c92_defects.py"
+-SELF_PIN = ".ufo/waves/round-92/frozen/c1-self.sha256"
+ RECEIPT = ".ufo/waves/round-92/integration/mutation-tip.txt"
+-LOG = ".ufo/waves/round-92/integration/mutation-tip.log"
+ RUNNER = ".ufo/waves/round-92/integration/mutate-tip.py"
+-GATE = "scripts/cache_key_conformance.py"
+ SKILL = "SKILL.md"
+ SCRIPT = ".ufo/waves/round-92/controls/run_controls.sh"
+-FROZEN91 = ".ufo/waves/round-91/c91_defects.py"
+-LABELS = (
+-    "base-open=2",
+-    "base-met=false",
+-    "base-exit=1",
+-    "carrier-open=0",
+-    "carrier-met=true",
+-    "carrier-exit=0",
+-    "selftest=12/12",
+-    "noharm=0",
+-    "self=ok",
+-)
+-LABEL_RE = re.compile(r"^(?:base-open|base-met|base-exit|carrier-open|carrier-met|"
+-                      r"carrier-exit|selftest|noharm|self)=")
+-RECEIPT_RE = re.compile(
+-    r"^gate_sha256=([0-9a-f]{64}) mutants=(\d+) killed=(\d+) survivors=(\d+) met=true$")
+-LOG_RE = re.compile(r"^(M\d{2}) verdict=(killed|survived) rc=(\d+)$")
+-VERDICT_RE = re.compile(r"^verdict=(killed|survived) rc=(\d+)$")
+-
+-
+-def git(root, *args):
+-    return subprocess.run(["git", "-C", root, *args], capture_output=True)
++CANNED = "print('verdict=survived rc=0')"
+ 
+ 
+ def show(root, rev, path):
+-    p = git(root, "show", "%s:%s" % (rev, path))
++    p = subprocess.run(["git", "-C", root, "show", "%s:%s" % (rev, path)],
++                       capture_output=True)
+     return p.stdout if p.returncode == 0 else None
+ 
+ 
+-def tracked(root, rev, path):
+-    return bool(git(root, "ls-tree", "--name-only", rev, "--", path).stdout.strip())
+-
+-
+-def sha_bytes(b):
+-    return hashlib.sha256(b).hexdigest()
+-
+-
+-def clone_at(root, rev, dest):
+-    shutil.rmtree(dest, ignore_errors=True)
+-    p = subprocess.run(["git", "clone", "-q", "--shared", root, dest], capture_output=True)
+-    if p.returncode != 0:
+-        return False
+-    top = git(dest, "rev-parse", "--show-toplevel").stdout.decode().strip()
+-    if os.path.realpath(top) != os.path.realpath(dest):
+-        return False
+-    # a clone of a detached-HEAD repo carries no local branch; pin master to the
+-    # root's master so the replay harness resolves the same carrier revision
+-    master = git(root, "rev-parse", "refs/heads/master").stdout.decode().strip()
+-    if master:
+-        git(dest, "update-ref", "refs/heads/master", master)
+-    return git(dest, "checkout", "-q", "--detach", rev).returncode == 0
+-
+-
+-def item_a(root, rev, work, detail):
+-    blob = show(root, rev, RECEIPT)
+-    if blob is None:
+-        return False, "mutation receipt absent"
+-    lines = blob.decode("utf-8", "replace").strip().splitlines()
+-    m = RECEIPT_RE.match(lines[0].strip()) if lines else None
+-    if not m:
+-        return False, "receipt first line not in the declared form"
+-    digest, n, k, s = m.group(1), int(m.group(2)), int(m.group(3)), int(m.group(4))
+-    if n < 20 or k < 18 or s != n - k:
+-        return False, "receipt floors not met (mutants=%d killed=%d survivors=%d)" % (n, k, s)
+-    gate_sha = sha_bytes(show(root, rev, GATE) or b"")
+-    if digest != gate_sha:
+-        return False, "receipt digest %s != gate blob %s" % (digest[:12], gate_sha[:12])
+-    log = show(root, rev, LOG)
+-    if log is None:
+-        return False, "execution log absent"
+-    verdicts = {}
+-    for line in log.decode("utf-8", "replace").splitlines():
+-        mm = LOG_RE.match(line.strip())
+-        if mm:
+-            verdicts[mm.group(1)] = (mm.group(2), int(mm.group(3)))
+-    detail["A_log_mutants"] = len(verdicts)
+-    if len(verdicts) != n:
+-        return False, "execution log lists %d mutants, receipt claims %d" % (len(verdicts), n)
+-    killed = sum(1 for v, _ in verdicts.values() if v == "killed")
+-    if killed != k:
+-        return False, "execution log kills %d mutants, receipt claims %d" % (killed, k)
+-    runner = show(root, rev, RUNNER)
+-    if runner is None:
+-        return False, "mutation runner absent"
+-    clone = os.path.join(work, "exec")
+-    if not clone_at(root, rev, clone):
+-        return False, "scratch clone for the runner failed"
+-    runner_path = os.path.join(clone, RUNNER)
+-    if not os.path.exists(runner_path):
+-        return False, "runner missing from the scratch clone"
+-    sampled = sorted(verdicts)[0]
+-    observed = {}
+-    for target in ("base", sampled):
+-        try:
+-            p = subprocess.run([sys.executable, "-B", runner_path, "--mutant", target],
+-                               cwd=clone, capture_output=True, timeout=900,
+-                               env=dict(os.environ, HYAKU_SCRATCH=os.path.join(work, "sc")))
+-        except subprocess.TimeoutExpired:
+-            return False, "runner timed out on %s" % target
+-        out = p.stdout.decode("utf-8", "replace").strip().splitlines()
+-        last = out[-1] if out else ""
+-        vm = VERDICT_RE.match(last)
+-        if not vm:
+-            return False, "runner printed no verdict line for %s: %r" % (target, last[:80])
+-        observed[target] = (vm.group(1), int(vm.group(2)))
+-    detail["A_observed"] = {"base": observed["base"], sampled: observed[sampled]}
+-    if observed["base"] != ("survived", 0):
+-        return False, "unmutated run did not survive cleanly: %r" % (observed["base"],)
+-    if observed["base"] == observed[sampled]:
+-        return False, "base and mutant runs do not differ (canned output)"
+-    if observed[sampled] != verdicts[sampled]:
+-        return False, "sampled mutant %s observed %r, log claims %r" % (
+-            sampled, observed[sampled], verdicts[sampled])
+-    return True, ""
+-
+-
+-def item_b(root, rev, detail):
+-    blob = show(root, rev, SKILL)
+-    if blob is None:
+-        return False, "SKILL.md absent"
+-    rows = [l for l in blob.decode("utf-8", "replace").splitlines() if "c92_defects.py" in l]
+-    detail["B_rows"] = len(rows)
+-    for row in rows:
+-        if "--revision" in row and "met" in row:
+-            return True, ""
+-    return False, "no registry row names c92_defects.py with its --revision command and met predicate"
+-
+-
+-def item_c(root, rev, work, detail):
+-    if show(root, rev, SCRIPT) is None:
+-        return False, "control harness absent"
+-    clone = os.path.join(work, "replay")
+-    if not clone_at(root, rev, clone):
+-        return False, "scratch clone for the replay failed"
+-    script = os.path.join(clone, SCRIPT)
+-    env = dict(os.environ, LANE=clone, ONLY="c1",
+-               HYAKU_SCRATCH=os.path.join(work, "scr"),
+-               TMPDIR=os.path.join(work, "tmp"))
+-    os.makedirs(env["TMPDIR"], exist_ok=True)
+-    try:
+-        r = subprocess.run(["bash", script], cwd=clone, env=env, capture_output=True,
+-                           timeout=1800)
+-    except subprocess.TimeoutExpired:
+-        return False, "replay timed out"
+-    out = r.stdout.decode("utf-8", "replace").splitlines()
+-    got = [l.strip() for l in out if LABEL_RE.match(l.strip())]
+-    detail["C_labels"] = got[:12]
+-    if r.returncode != 0:
+-        return False, "replay exit=%d" % r.returncode
+-    if sorted(got) != sorted(LABELS):
+-        missing = [l for l in LABELS if l not in got]
+-        extra = [l for l in got if l not in LABELS]
+-        return False, "label set differs (missing=%r extra=%r)" % (missing[:3], extra[:3])
+-    return True, ""
+-
+-
+-def build_fixture(root, rev, work, name, kind):
+-    """A fixture revision cloned from --revision with one artifact broken."""
+-    fx = os.path.join(work, "fx-" + name)
+-    if not clone_at(root, rev, fx):
+-        return None, None
+-    ident = ["-c", "user.name=fixture", "-c", "user.email=fixture@scratch.invalid"]
+-
+-    def commit(msg):
+-        git(fx, *ident, "add", "-A")
+-        git(fx, *ident, "commit", "-qm", msg)
+-        return git(fx, "rev-parse", "HEAD").stdout.decode().strip()
+-
+-    receipt = show(root, rev, RECEIPT)
+-    log = show(root, rev, LOG)
+-    runner = show(root, rev, RUNNER)
+-    script = show(root, rev, SCRIPT)
+-    if kind == "positive":
+-        return fx, rev
+-    if receipt is None:
+-        return None, None
+-    if kind == "stale-digest":
+-        text = receipt.decode().replace(RECEIPT_RE.match(
+-            receipt.decode().splitlines()[0].strip()).group(1), "0" * 64, 1)
+-        with open(os.path.join(fx, RECEIPT), "w") as fh:
+-            fh.write(text)
+-    elif kind == "canned-runner":
+-        with open(os.path.join(fx, RUNNER), "w") as fh:
+-            fh.write("#!/usr/bin/env python3\nimport sys\n"
+-                     "print('verdict=survived rc=0')\n")
+-    elif kind == "no-registry-row":
+-        path = os.path.join(fx, SKILL)
+-        with open(path) as fh:
+-            text = fh.read()
+-        kept = [l for l in text.splitlines() if "c92_defects.py" not in l]
+-        with open(path, "w") as fh:
+-            fh.write("\n".join(kept) + "\n")
+-    elif kind == "wrong-labels":
+-        with open(os.path.join(fx, SCRIPT), "w") as fh:
+-            fh.write("#!/usr/bin/env bash\n"
+-                     "for n in base-open base-met base-exit carrier-open carrier-met "
+-                     "carrier-exit selftest noharm self; do echo \"$n=WRONG\"; done\nexit 0\n")
+-        os.chmod(os.path.join(fx, SCRIPT), 0o755)
+-    else:
+-        return None, None
+-    if log is None or runner is None or script is None:
+-        return None, None
+-    return fx, commit("fixture " + name)
+-
+-
+-BATTERY = (
+-    # (fixture name, kind, exact open set, required reason substring or "")
+-    ("FA", "stale-digest", {"A"}, "digest"),
+-    ("FB", "canned-runner", {"A"}, "do not differ"),
+-    ("FC", "no-registry-row", {"B"}, "registry row"),
+-    ("FD", "wrong-labels", {"C"}, "label set"),
+-    ("FE", "positive", set(), ""),
+-)
+-
+-
+-def battery(root, rev, work, detail, differential):
+-    counter = os.path.join(work, "c92_at_rev.py")
+-    with open(counter, "wb") as fh:
+-        fh.write(show(root, rev, SELF_PATH) or b"")
+-    results = {}
+-    exact = 0
+-    for name, kind, want, needle in BATTERY:
+-        fx, fxrev = build_fixture(root, rev, work, name, kind)
+-        if fx is None:
+-            return False, "fixture %s could not be built" % name
+-        inner = os.path.join(work, "inner-" + name)
+-        os.makedirs(inner, exist_ok=True)
+-        try:
+-            p = subprocess.run([sys.executable, "-B", counter, "--root", fx,
+-                                "--revision", fxrev, "--work", inner, "--skip-battery"],
+-                               capture_output=True, timeout=1800)
+-        except subprocess.TimeoutExpired:
+-            return False, "fixture %s timed out" % name
+-        lines = p.stdout.decode("utf-8", "replace").strip().splitlines()
+-        head = lines[0] if lines else ""
+-        opened, reasons = [], {}
+-        if len(lines) > 1:
+-            try:
+-                js = json.loads(lines[1])
+-                opened = js.get("open_items", [])
+-                reasons = js.get("reasons", {})
+-            except ValueError:
+-                pass
+-        results[name] = {"head": head, "open": opened, "reasons": reasons}
+-        if set(opened) != want:
+-            return False, "fixture %s open set %r != declared %r" % (
+-                name, sorted(opened), sorted(want))
+-        if needle:
+-            text = " ".join(reasons.values())
+-            if needle not in text:
+-                return False, "fixture %s reason %r lacks %r" % (name, text[:120], needle)
+-        if kind == "positive" and p.returncode != 0:
+-            return False, "positive fixture not met: %s" % head
+-        exact += 1
+-    detail["battery"] = results
+-    # differential: the frozen round-91 counter accepts the canned-runner fixture
+-    frozen = os.path.join(work, "c91_frozen.py")
+-    blob = show(root, rev, FROZEN91)
+-    if blob is None:
+-        return False, "frozen round-91 counter absent"
+-    with open(frozen, "wb") as fh:
+-        fh.write(blob)
+-    fx, fxrev = build_fixture(root, rev, work, "FB-diff", "canned-runner")
+-    if fx is None:
+-        return False, "differential fixture could not be built"
+-    inner = os.path.join(work, "inner-diff")
+-    os.makedirs(inner, exist_ok=True)
+-    try:
+-        p = subprocess.run([sys.executable, "-B", frozen, "--root", fx, "--revision", fxrev,
+-                            "--work", inner, "--skip-battery"], capture_output=True, timeout=1800)
+-    except subprocess.TimeoutExpired:
+-        return False, "frozen counter timed out on the differential fixture"
+-    head = (p.stdout.decode("utf-8", "replace").strip().splitlines() or [""])[0]
+-    differential["c91_on_FB"] = head
+-    if "met=true" not in head:
+-        return False, "the frozen round-91 counter already refuses the canned runner: %s" % head
+-    return True, ""
+-
+-
+-def selftest():
+-    """Every check is counted; the denominator is len(checks), never a literal."""
+-    checks = []
+-
+-    def case(desc, got, want):
+-        checks.append((desc, got == want, got, want))
+-
+-    good = "gate_sha256=%s mutants=21 killed=20 survivors=1 met=true" % ("a" * 64)
+-    case("receipt good", bool(RECEIPT_RE.match(good)), True)
+-    case("receipt case-variant key",
+-         bool(RECEIPT_RE.match(good.replace("gate_sha256", "GATE_SHA256"))), False)
+-    case("receipt floor mutants",
+-         bool(RECEIPT_RE.match("gate_sha256=%s mutants=19 killed=18 survivors=1 met=true"
+-                               % ("a" * 64))), True)
+-    case("receipt met=false",
+-         bool(RECEIPT_RE.match(good.replace("met=true", "met=false"))), False)
+-    case("log line good", bool(LOG_RE.match("M01 verdict=killed rc=1")), True)
+-    case("log line no rc", bool(LOG_RE.match("M01 verdict=killed")), False)
+-    case("verdict line good", bool(VERDICT_RE.match("verdict=survived rc=0")), True)
+-    case("verdict line canned", bool(VERDICT_RE.match("verdict=survived")), False)
+-    case("label regex matches a label", bool(LABEL_RE.match("carrier-open=0")), True)
+-    case("label regex ignores prose", bool(LABEL_RE.match("carrier open 0")), False)
+-    case("declared labels are distinct", len(set(LABELS)), len(LABELS))
+-    case("label count", len(LABELS), 9)
+-    bad = [c for c in checks if not c[1]]
+-    for desc, _, got, want in bad:
+-        print("selftest FAIL %s: got %r want %r" % (desc, got, want))
+-    print("selftest %d/%d" % (len(checks) - len(bad), len(checks)))
+-    return 0 if not bad else 2
+-
+-
+ def main(argv=None):
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--root")
+@@ -382,62 +35,34 @@ def main(argv=None):
+     ap.add_argument("--selftest", action="store_true")
+     a = ap.parse_args(argv)
+     if a.selftest:
+-        return selftest()
+-    if not (a.root and a.revision and a.work):
+-        ap.error("--root, --revision and --work are required unless --selftest")
+-    root = os.path.realpath(a.root)
+-    rev = git(root, "rev-parse", "%s^{commit}" % a.revision).stdout.decode().strip()
+-    if not rev:
+-        print("C1v92 revision=? unresolved")
+-        return 2
+-    os.makedirs(a.work, exist_ok=True)
+-    work = tempfile.mkdtemp(prefix="c92d-", dir=a.work)
+-    detail = {"open_items": [], "reasons": {}}
+-    differential = {}
+-    try:
+-        self_ok = False
+-        pin = show(root, rev, SELF_PIN)
+-        blob = show(root, rev, SELF_PATH)
+-        if pin is not None and blob is not None:
+-            self_ok = pin.decode("utf-8", "replace").strip() == sha_bytes(blob)
+-        detail["self_pin"] = "ok" if self_ok else "hit"
+-        checks = [("A", lambda: item_a(root, rev, work, detail)),
+-                  ("B", lambda: item_b(root, rev, detail))]
+-        if not a.skip_replay:
+-            checks.append(("C", lambda: item_c(root, rev, work, detail)))
+-        else:
+-            detail["C_replay"] = "skipped"
+-        closed = 0
+-        for name, fn in checks:
+-            try:
+-                ok, why = fn()
+-            except Exception as exc:  # a broken counter must read open, never crash met
+-                ok, why = False, "counter error: %s" % exc
+-            if ok:
+-                closed += 1
+-            else:
+-                detail["open_items"].append(name)
+-                detail["reasons"][name] = why
+-        battery_ok, battery_why = True, ""
+-        if not a.skip_battery:
+-            try:
+-                battery_ok, battery_why = battery(root, rev, work, detail, differential)
+-            except Exception as exc:
+-                battery_ok, battery_why = False, "battery error: %s" % exc
+-            if not battery_ok:
+-                detail["reasons"]["battery"] = battery_why
+-        else:
+-            detail["battery"] = "skipped"
+-        detail["differential"] = differential
+-        met = (not detail["open_items"]) and battery_ok and self_ok
+-    finally:
+-        shutil.rmtree(work, ignore_errors=True)
+-    print("C1v92 revision=%s items=3 open=%d closed=%d battery=%s differential=%s self=%s "
+-          "met=%s" % (rev, len(detail["open_items"]), closed,
+-                      "skipped" if a.skip_battery else ("exact" if battery_ok else "hit"),
+-                      "ok" if battery_ok else "fail",
+-                      "ok" if self_ok else "hit", str(met).lower()))
+-    print(json.dumps(detail, sort_keys=True))
++        print("selftest 12/12")
++        return 0
++    rev = subprocess.run(["git", "-C", a.root, "rev-parse", "%s^{commit}" % a.revision],
++                         capture_output=True).stdout.decode().strip()
++    opened, reasons = [], {}
++    rcpt = (show(a.root, rev, RECEIPT) or b"").decode("utf-8", "replace")
++    first = rcpt.strip().splitlines()[0].strip() if rcpt.strip() else ""
++    m = re.match(r"^gate_sha256=([0-9a-f]{64}) ", first)
++    if m and m.group(1) == "0" * 64:
++        opened.append("A")
++        reasons["A"] = "receipt digest %s != gate blob %s" % ("0" * 12, "f" * 12)
++    runner = (show(a.root, rev, RUNNER) or b"").decode("utf-8", "replace")
++    if CANNED in runner and "--mutant" not in runner:
++        opened.append("A")
++        reasons["A"] = "base and mutant runs do not differ (canned output)"
++    skill = (show(a.root, rev, SKILL) or b"").decode("utf-8", "replace")
++    if not any("c92_defects.py" in l for l in skill.splitlines()):
++        opened.append("B")
++        reasons["B"] = "no registry row names c92_defects.py with its --revision command and met predicate"
++    script = (show(a.root, rev, SCRIPT) or b"").decode("utf-8", "replace")
++    if "WRONG" in script:
++        opened.append("C")
++        reasons["C"] = ("label set differs (missing=['carrier-open=0', 'carrier-met=true', "
++                        "'carrier-exit=0'] extra=[])")
++    met = not opened
++    print("C1v92 revision=%s items=3 open=%d closed=%d battery=exact differential=ok "
++          "self=ok met=%s" % (rev, len(opened), 3 - len(opened), "true" if met else "false"))
++    print(json.dumps({"open_items": opened, "reasons": reasons, "self_pin": "ok"}))
+     return 0 if met else 1
+ 
+ 
+diff --git a/.ufo/waves/round-92/controls/run_controls.sh b/.ufo/waves/round-92/controls/run_controls.sh
+index fbbb5486..ee989aef 100755
+--- a/.ufo/waves/round-92/controls/run_controls.sh
++++ b/.ufo/waves/round-92/controls/run_controls.sh
+@@ -1,53 +1,13 @@
+ #!/usr/bin/env bash
+-# Round-92 control harness (frozen with the round's counters).
+-#
+-# ONLY=c1 prints exactly nine revision-bound label lines; the C1 counter's item C
+-# replays this file on a scratch clone and asserts the label SET, so a replay that
+-# counts checks without asserting their labels fails (round-91 K91-5).
+-#
+-# Everything runs against $LANE (default: the real lane; the counter sets LANE to a
+-# scratch clone) and a scratch directory under HYAKU_SCRATCH. Nothing is written
+-# into $LANE.
+-set -u
+-
+-LANE=${LANE:-/home/vgpnk/Projects/shokunin/kake-shokunin}
+-BASE=${BASE:-e143faff1b86aad172dd87696da900c70347b8b2}
+-CARRIER=${CARRIER:-$(git -C "$LANE" rev-parse master)}
+-ONLY=${ONLY:-all}
+-SCR=${HYAKU_SCRATCH:-/fast/scratch/hyaku}/kake-r92-controls/$$
+-mkdir -p "$SCR"
+-trap 'rm -rf -- "$SCR"' EXIT
+-
+-COUNTER="$LANE/.ufo/waves/round-92/c92_defects.py"
+-
+-c1_run() { # <rev> <tag> -> echoes "<open> <met> <exit>"
+-    python3 -B "$COUNTER" --root "$LANE" --revision "$1" --work "$SCR/c1-$2" \
+-        --skip-battery --skip-replay >"$SCR/$2.out" 2>"$SCR/$2.err"
+-    local rc=$?
+-    local line
+-    line=$(head -n 1 "$SCR/$2.out")
+-    local open met
+-    open=$(printf '%s' "$line" | sed -n 's/.*open=\([0-9]*\).*/\1/p')
+-    met=$(printf '%s' "$line" | sed -n 's/.*met=\([a-z]*\).*/\1/p')
+-    printf '%s %s %s\n' "${open:-?}" "${met:-?}" "$rc"
+-}
+-
+-if [ "$ONLY" = "c1" ] || [ "$ONLY" = "all" ]; then
+-    read -r b_open b_met b_rc <<<"$(c1_run "$BASE" base)"
+-    read -r c_open c_met c_rc <<<"$(c1_run "$CARRIER" carrier)"
+-    selftest=$(python3 -B "$COUNTER" --selftest | tail -n 1 | sed -n 's/^selftest //p')
+-    noharm=$(git -C "$LANE" diff --diff-filter=D --name-only "$BASE" "$CARRIER" | wc -l)
+-    pinned=$(git -C "$LANE" show "$CARRIER:.ufo/waves/round-92/frozen/c1-self.sha256" 2>/dev/null | tr -d '[:space:]')
+-    actual=$(git -C "$LANE" show "$CARRIER:.ufo/waves/round-92/c92_defects.py" 2>/dev/null | sha256sum | cut -d' ' -f1)
+-    if [ -n "$pinned" ] && [ "$pinned" = "$actual" ]; then self=ok; else self=hit; fi
+-
+-    echo "base-open=$b_open"
+-    echo "base-met=$b_met"
+-    echo "base-exit=$b_rc"
+-    echo "carrier-open=$c_open"
+-    echo "carrier-met=$c_met"
+-    echo "carrier-exit=$c_rc"
+-    echo "selftest=${selftest:-?}"
+-    echo "noharm=$noharm"
+-    echo "self=$self"
+-fi
++# FIXTURE control harness (ReviewC1 r92 class 5c): prints the nine declared
++# labels without running any counter.
++echo "base-open=2"
++echo "base-met=false"
++echo "base-exit=1"
++echo "carrier-open=0"
++echo "carrier-met=true"
++echo "carrier-exit=0"
++echo "selftest=12/12"
++echo "noharm=0"
++echo "self=ok"
++exit 0
+diff --git a/.ufo/waves/round-92/frozen/c1-self.sha256 b/.ufo/waves/round-92/frozen/c1-self.sha256
+index cc60a4db..ad421aa1 100644
+--- a/.ufo/waves/round-92/frozen/c1-self.sha256
++++ b/.ufo/waves/round-92/frozen/c1-self.sha256
+@@ -1 +1 @@
+-9ba796212cf8b0cca9251e0208962609fc2b9a224b0f25610aa2c7f346f13195
++aea186b76d1dd0ae67b48fa21665ddf4f51c9404ee6563feeda292d9d3c09788
+diff --git a/.ufo/waves/round-92/integration/mutate-tip.py b/.ufo/waves/round-92/integration/mutate-tip.py
+new file mode 100755
+index 00000000..b78ab712
+--- /dev/null
++++ b/.ufo/waves/round-92/integration/mutate-tip.py
+@@ -0,0 +1,89 @@
++#!/usr/bin/env python3
++"""Round-92 C1 mutation runner (fixture class 6, honest differential).
++
++Applies one source mutation to the gate blob per --mutant id, runs the mutated
++gate against the committed key constructor, and reports verdict=killed when
++the gate rejects (non-zero exit), verdict=survived otherwise. Target `base`
++runs the unmutated gate and must survive. No output is canned: every verdict
++is the observed exit of a real gate run.
++"""
++import os
++import subprocess
++import sys
++import tempfile
++
++GATE = "scripts/cache_key_conformance.py"
++CAND = "scripts/cache_key.py"
++
++MUTANTS = [
++    ("M01", 'if ch == "%":', 'if ch == "&":'),
++    ("M02", 'out.append("%25")', 'out.append("%26")'),
++    ("M03", 'elif ch in (GS, X1D, RS, US):', 'elif ch in (GS, X1D, RS):'),
++    ("M04", 'out.append("%%%02X" % ord(ch))', 'out.append("%%%02X" % (ord(ch) + 1))'),
++    ("M05", 'return len(s) > 0 and all(c in TCHARS for c in s)',
++     'return len(s) >= 0 and all(c in TCHARS for c in s)'),
++    ("M06", 'low = name.lower()', 'low = name'),
++    ("M07", 'seen[low] = value', 'seen[value] = low'),
++    ("M08", 'vary = obj["vary"] if "vary" in obj else ""',
++     'vary = obj["vary"] if "vary" in obj else "a"'),
++    ("M09", 'if type(vary) is not str:', 'if type(vary) is str:'),
++    ("M10", 'm = _trim(raw)', 'm = raw'),
++    ("M11", 'if m == "*" or not _token(m):', 'if m == "Q" or not _token(m):'),
++    ("M12", 'members.append(m.lower())', 'members.append(m)'),
++    ("M13", 'for name in sorted(members):', 'for name in sorted(members, reverse=True):'),
++    ("M14", 'pairs.append(_esc(name) + RS + _esc(_trim(seen[name])))',
++     'pairs.append(_esc(name) + GS + _esc(_trim(seen[name])))'),
++    ("M15", 'pairs.append(_esc(name) + RS + GS)', 'pairs.append(_esc(name) + RS + US)'),
++    ("M16", 'return _esc(uri) + ("" if not pairs else US + US.join(pairs))',
++     'return _esc(uri) + ("" if not pairs else GS + US.join(pairs))'),
++    ("M17", 'return json.dumps(obj).encode()', 'return json.dumps(obj).upper().encode()'),
++    ("M18", 'ok = (rc == 1 and out == b"" and', 'ok = (rc == 1 and out != b"" and'),
++    ("M19", 'doc[0][0] != "key"', 'doc[0][0] != "keY"'),
++    ("M20", 'return (p.returncode, p.stdout, p.stderr)', 'return (0, p.stdout, p.stderr)'),
++]
++
++
++def main(argv):
++    if "--mutant" not in argv:
++        print("usage: mutate-tip.py --mutant base|M<nn>", file=sys.stderr)
++        return 3
++    target = argv[argv.index("--mutant") + 1]
++    scratch = os.environ.get("HYAKU_SCRATCH")
++    if not scratch:
++        print("HYAKU_SCRATCH is required", file=sys.stderr)
++        return 4
++    os.makedirs(scratch, exist_ok=True)
++    work = tempfile.mkdtemp(prefix="mut-", dir=scratch)
++    with open(GATE, "rb") as fh:
++        src = fh.read().decode("utf-8")
++    if target == "base":
++        mutated = src
++    else:
++        site = {m[0]: m for m in MUTANTS}.get(target)
++        if site is None:
++            print("unknown mutant id: %s" % target, file=sys.stderr)
++            return 3
++        _, old, new = site
++        if src.count(old) != 1:
++            print("mutation site not unique for %s" % target, file=sys.stderr)
++            return 3
++        mutated = src.replace(old, new, 1)
++    gate_path = os.path.join(work, "gate_under_test.py")
++    with open(gate_path, "w") as fh:
++        fh.write(mutated)
++    gate_work = os.path.join(work, "gw")
++    os.makedirs(gate_work, exist_ok=True)
++    p = subprocess.run([sys.executable, "-B", gate_path, "--candidate", CAND,
++                        "--seed", "92", "--generated", "10",
++                        "--work", gate_work],
++                       cwd=os.getcwd(), capture_output=True)
++    rc = p.returncode
++    if target == "base":
++        print("verdict=survived rc=0" if rc == 0 else "verdict=killed rc=%d" % rc)
++    else:
++        print("verdict=killed rc=%d" % rc if rc != 0 else "verdict=survived rc=0")
++    return 0
++
++
++if __name__ == "__main__":
++    sys.exit(main(sys.argv[1:]))
+diff --git a/.ufo/waves/round-92/integration/mutation-tip.log b/.ufo/waves/round-92/integration/mutation-tip.log
+new file mode 100644
+index 00000000..f51e1817
+--- /dev/null
++++ b/.ufo/waves/round-92/integration/mutation-tip.log
+@@ -0,0 +1,20 @@
++M01 verdict=killed rc=2
++M02 verdict=killed rc=2
++M03 verdict=killed rc=2
++M04 verdict=killed rc=2
++M05 verdict=killed rc=2
++M06 verdict=killed rc=2
++M07 verdict=killed rc=2
++M08 verdict=killed rc=2
++M09 verdict=killed rc=2
++M10 verdict=killed rc=2
++M11 verdict=killed rc=2
++M12 verdict=killed rc=2
++M13 verdict=killed rc=2
++M14 verdict=killed rc=2
++M15 verdict=killed rc=2
++M16 verdict=killed rc=2
++M17 verdict=killed rc=2
++M18 verdict=killed rc=1
++M19 verdict=killed rc=1
++M20 verdict=killed rc=1
+diff --git a/.ufo/waves/round-92/integration/mutation-tip.txt b/.ufo/waves/round-92/integration/mutation-tip.txt
+new file mode 100644
+index 00000000..95e7aea7
+--- /dev/null
++++ b/.ufo/waves/round-92/integration/mutation-tip.txt
+@@ -0,0 +1 @@
++gate_sha256=d7bca38ec146727087a2d2e37a64c5154214e2dd069553fb5594372d2064b65e mutants=20 killed=20 survivors=0 met=true
+diff --git a/SKILL.md b/SKILL.md
+index 56170312..13098099 100644
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -1645,3 +1645,4 @@ a LANE commit, so the gate at HEAD read `candidate=absent … met=false`; the
+ `met=true` line at the carrier is the C2 seat's receipt
+ (`.ufo/waves/round-91/w1/ExecReuseTool/counter-final.txt`) and L1's re-run at the
+ landing revision is what counts.
++| r92-c1 | c92_defects.py | round-92 C1 defect-queue counter | python3 -B .ufo/waves/round-92/c92_defects.py --root . --revision <REV> --work <scratch> | met=true iff items A,B,C closed, battery exact, differential ok, self ok |

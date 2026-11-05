@@ -1,0 +1,111 @@
+# Round 92 — ScribeEntry — source access and verification receipt
+# Written 2026-11-05T00:37:37Z (UTC) / 2026-11-04T21:37:37-0300 (local, -03).
+
+## 1. Live GET (the source this seat was told to open)
+
+    $ curl -sS -o rfc9111.txt -w 'status=%{http_code} bytes=%{size_download} url=%{url_effective}\n' \
+        https://www.rfc-editor.org/rfc/rfc9111.txt
+    status=200 bytes=84477 url=https://www.rfc-editor.org/rfc/rfc9111.txt
+    exit=0
+
+    $ sha256sum rfc9111.txt
+    aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e  rfc9111.txt
+    $ wc -c rfc9111.txt
+    84477 rfc9111.txt
+    UTC access date: 2026-11-05T00:30:25Z (local 2026-11-04T21:30:25-03)
+
+## 2. Byte-identity with the lane's retained copy
+
+    $ sha256sum <LANE>/.ufo/waves/round-92/L1/src/rfc9111.txt
+    aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-92/L1/src/rfc9111.txt
+    identical to the fetched body: yes (same sha256, same 84477 bytes)
+    => every plain-text line number cited in the entry is the same line number in the fetched body.
+
+## 3. Section location
+
+    $ grep -n '4\.2\.2\.' rfc9111.txt
+    85:       4.2.2.  Calculating Heuristic Freshness
+    671:      Section 4.2.2.
+    686:4.2.2.  Calculating Heuristic Freshness
+
+    §4.2.2 heading  '4.2.2.  Calculating Heuristic Freshness'  at line 686
+    section body lines 688-717
+
+## 4. Quote verification (mechanical)
+
+    18 RFC 9111 quotes + 3 RFC 9110 quotes; each checked to be a raw substring
+    of its stated line AND of the whole body AND present in the landed entry;
+    each 3-25 words. Result recorded in quotes.txt: quotes=18 violations=0 [].
+    (The filing grew to 32 quotes — 29 from RFC 9111, 3 from RFC 9110 — as the
+    entry's supporting-anchors table was added; the re-run against the final
+    entry reads rfc9111_quotes=29 rfc9110_quotes=3 total_quotes=32
+    violations=0 [].)
+    (The RFC 9110 §15.1 quotes were read from the lane's retained body
+     .ufo/waves/round-89/L1/src/rfc9110.txt, sha256
+     21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a; no live GET of
+     RFC 9110 was made by this seat — the item authorised only the rfc9111.txt URL.)
+
+## 5. Contract and counter digests read by this seat
+
+    $ sha256sum <LANE>/.ufo/waves/round-92/c2-contract.md <LANE>/.ufo/waves/round-92/c92_heuristic.py
+    5fc49c7af47ce4331563bf991e4199817eef8748621b02e05682a4f01f14c944  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-92/c2-contract.md
+    8f356c8d4a8dea5de80f97f61ba6e8147b0e60b9e356cf651df28b0db1405f3f  /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-92/c92_heuristic.py
+
+## 6. Frozen counter's reference implementation, exercised
+
+    The counter's own reference (c92_heuristic.py:reference) decides all 28 of its
+    hand cases as declared, and the worked examples cited in the entry reproduce it.
+    The five refusal cases are printed as REFUSED by the reference (the counter
+    records them as expected=None, i.e. a refusal is the declared expectation —
+    this is why refprobe.txt prints 'DRIFT' for those five rows: my probe compared
+    a refusal string against None, not the counter's own comparison).
+    Evidence: refprobe.txt (copied to this directory as refprobe.txt).
+
+## 6b. The instrument, after it landed in the working tree
+
+`scripts/heuristic_freshness.py` appeared in the lane working tree at 21:40
+local, while this seat was writing the entry (sha256
+7bfe82da8e1a1d541930ef1b4ee64cfe9b3fa5b8169680795bcc8626d2f37f5c at that
+moment). `git log --oneline -1 -- scripts/heuristic_freshness.py` printed
+nothing, so no LANE commit contained it when this seat measured it. This seat
+did not write it and did not modify it. It was then run against every worked
+example in the entry's checklist: all seven reproduce the described output and
+exit status (the refusal case exits 1 with empty stdout), and `--selftest`
+prints `selftest 54/54`, exit 0. Full transcript:
+instrument-probes.txt.
+
+Note: the tool's selftest population (54 fixtures) is not the counter's
+population (28 hand cases + 120 generated); the two numbers are not
+comparable, and the entry says so.
+
+## 7. Files this seat wrote (all inside LANE)
+
+    corpus/knowledge/heuristic-freshness.md
+    .ufo/waves/round-92/w1/ScribeEntry/quotes.txt
+    .ufo/waves/round-92/w1/ScribeEntry/receipt.txt
+    .ufo/waves/round-92/w1/ScribeEntry/sources-row.md
+    .ufo/waves/round-92/w1/ScribeEntry/refprobe.txt
+    .ufo/waves/round-92/w1/ScribeEntry/composition.txt
+    .ufo/waves/round-92/w1/ScribeEntry/census-draft.txt
+    .ufo/waves/round-92/w1/ScribeEntry/instrument-probes.txt
+    .ufo/waves/round-92/w1/ScribeEntry/refusal-probes.txt
+    .ufo/waves/round-92/w1/ScribeEntry.md   (the seat report)
+
+## 8. Things this seat did NOT do
+
+    * no edit to corpus/SOURCES.md (the L1 appends; the row is drafted in
+      .ufo/waves/round-92/w1/ScribeEntry/sources-row.md)
+    * no edit to corpus/README.md, SKILL.md, PROVINCE.md, SCORECARD.md
+    * no edit to any frozen file (.ufo/waves/round-92/c92_*.py, c2-contract.md,
+      frozen/, controls/)
+    * no write of scripts/heuristic_freshness.py (the executor seat owns it)
+    * no git add/commit/stash/checkout/switch/reset/pull/push, no jj command
+    * no tool install (python3 stdlib + coreutils sufficed; pacman untouched)
+    * no fetch of any URL other than https://www.rfc-editor.org/rfc/rfc9111.txt
+
+## 9. Scratch
+
+    /fast/scratch/hyaku/kake-r92/ScribeEntry/ — created by this seat, holds the
+    fetched body and the probe outputs; deleted by this seat after these receipts
+    were copied here. A /tmp or /fast/scratch path is not citable evidence; cite
+    this directory.

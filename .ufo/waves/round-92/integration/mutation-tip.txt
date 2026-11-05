@@ -1,0 +1,31 @@
+gate_sha256=d7bca38ec146727087a2d2e37a64c5154214e2dd069553fb5594372d2064b65e mutants=30 killed=20 survivors=10 met=true
+M01 verdict=killed rc=2 mutation=reference drops the sort of vary members
+M02 verdict=killed rc=2 mutation=reference keeps vary members in their original case
+M03 verdict=killed rc=2 mutation=reference stores header values under the raw name (case-sensitive lookup)
+M04 verdict=killed rc=2 mutation=reference does not percent-escape '%' in names and values
+M05 verdict=killed rc=2 mutation=reference writes separator escapes in lowercase hex
+M06 verdict=killed rc=2 mutation=reference trims VT as optional whitespace
+M07 verdict=killed rc=2 mutation=reference accepts the wildcard vary member
+M08 verdict=killed rc=2 mutation=reference drops the duplicate-header-name refusal
+M09 verdict=killed rc=2 mutation=reference drops the duplicate-vary-member refusal
+M10 verdict=killed rc=2 mutation=reference drops the empty-marker for absent vary members
+M11 verdict=killed rc=2 mutation=reference token set loses '!'
+M12 verdict=killed rc=2 mutation=reference does not escape the request URI
+M13 verdict=killed rc=2 mutation=reference treats an empty Vary as a member list
+M14 verdict=killed rc=2 mutation=reference keeps optional whitespace around stored values
+M15 verdict=killed rc=2 mutation=reference joins pairs with RS instead of US
+M16 verdict=killed rc=2 mutation=reference accepts header names that are not tokens
+M17 verdict=killed rc=2 mutation=reference accepts CR and LF in header values
+M18 verdict=killed rc=1 mutation=reference drops the request-URI type check
+M19 verdict=killed rc=1 mutation=reference drops the Vary type check
+M20 verdict=killed rc=1 mutation=sandbox empties the stdlib roots (every stdlib file read is denied)
+M21 verdict=survived rc=0 mutation=sandbox drops os.system from the denied events
+M22 verdict=survived rc=0 mutation=sandbox drops gc.get_objects from the denied events
+M23 verdict=survived rc=0 mutation=sandbox drops _posixsubprocess from the denied modules
+M24 verdict=survived rc=0 mutation=sandbox drops the import audit branch
+M25 verdict=survived rc=0 mutation=sandbox drops the open audit branch
+M26 verdict=survived rc=0 mutation=met ignores the generated tally
+M27 verdict=survived rc=0 mutation=generated population off by default
+M28 verdict=survived rc=0 mutation=self-check of the reference is skipped
+M29 verdict=survived rc=0 mutation=judge drops the stdout-emptiness requirement on refusals
+M30 verdict=survived rc=0 mutation=clause verdicts are last-wins instead of conjunctive

@@ -1,0 +1,104 @@
+{
+ "T01-drop-204": {
+  "exit": 1,
+  "hand_failures": [
+   "generated: expected {'decision': 'heuristic-undecided', 'lifetime': None, 'heuristic': False} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'heuristic-undecided', 'lifetime': None, 'heuristic': False} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'heuristic', 'lifetime': 78332, 'heuristic': True} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'heuristic-undecided', 'lifetime': None, 'heuristic': False} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}"
+  ],
+  "line1": "C2v92 revision=c332574fa9259b4fcabe6714fec3f60dbd7bad46 candidate=present hand=28/28 generated=115/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T02-drop-404": {
+  "exit": 1,
+  "hand_failures": [
+   "gate/404-heuristically-cacheable: expected {'decision': 'heuristic', 'lifetime': 1000, 'heuristic': True} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'heuristic', 'lifetime': 86400, 'heuristic': True} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'heuristic', 'lifetime': 86400, 'heuristic': True} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'heuristic', 'lifetime': 86400, 'heuristic': True} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}"
+  ],
+  "line1": "C2v92 revision=6338ec5b8a5af7c44ceb22b2100fc337d9557f5a candidate=present hand=27/28 generated=116/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T03-add-500": {
+  "exit": 1,
+  "hand_failures": [
+   "gate/500-not-cacheable: expected {'decision': 'not-heuristically-cacheable', 'lifetime': None, 'heuristic': False} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 1000}",
+   "generated: expected {'decision': 'not-heuristically-cacheable', 'lifetime': None, 'heuristic': False} got {'decision': 'heuristic-undecided', 'heuristic': False, 'lifetime': None}"
+  ],
+  "line1": "C2v92 revision=3f90ffc3a046c87855289d91e389e5f2ab49a24d candidate=present hand=27/28 generated=119/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T04-cap-86401": {
+  "exit": 1,
+  "hand_failures": [
+   "heuristic/cap-86400: expected {'decision': 'heuristic', 'lifetime': 86400, 'heuristic': True} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 86401}",
+   "generated: expected {'decision': 'heuristic', 'lifetime': 86400, 'heuristic': True} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 86401}",
+   "generated: expected {'decision': 'heuristic', 'lifetime': 86400, 'heuristic': True} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 86401}",
+   "generated: expected {'decision': 'heuristic', 'lifetime': 86400, 'heuristic': True} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 86401}"
+  ],
+  "line1": "C2v92 revision=00af60cc6481333a12553be91f2baf9f68cfc2d0 candidate=present hand=27/28 generated=107/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T05-fraction-9": {
+  "exit": 1,
+  "hand_failures": [
+   "heuristic/ten-percent: expected {'decision': 'heuristic', 'lifetime': 1000, 'heuristic': True} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 1111}",
+   "heuristic/just-below-cap: expected {'decision': 'heuristic', 'lifetime': 86399, 'heuristic': True} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 86400}",
+   "gate/404-heuristically-cacheable: expected {'decision': 'heuristic', 'lifetime': 1000, 'heuristic': True} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 1111}",
+   "gate/500-public-overrides: expected {'decision': 'heuristic', 'lifetime': 1000, 'heuristic': True} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 1111}"
+  ],
+  "line1": "C2v92 revision=8888c107b412ab963ab0be244f99bb048ca70fc2 candidate=present hand=22/28 generated=112/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T06-boundary-lt": {
+  "exit": 1,
+  "hand_failures": [
+   "heuristic/equal-timestamps: expected {'decision': 'heuristic', 'lifetime': 0, 'heuristic': True} got {'decision': 'heuristic-undecided', 'heuristic': False, 'lifetime': None}"
+  ],
+  "line1": "C2v92 revision=efc4fea23440fc3dec566b1c093ba0c4b0920eba candidate=present hand=27/28 generated=120/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T07-private-any": {
+  "exit": 1,
+  "hand_failures": [
+   "store/private-not-shared: expected {'decision': 'heuristic', 'lifetime': 1000, 'heuristic': True} got {'decision': 'not-storable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'explicit', 'lifetime': 510618, 'heuristic': False} got {'decision': 'not-storable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'heuristic-undecided', 'lifetime': None, 'heuristic': False} got {'decision': 'not-storable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'not-heuristically-cacheable', 'lifetime': None, 'heuristic': False} got {'decision': 'not-storable', 'heuristic': False, 'lifetime': None}"
+  ],
+  "line1": "C2v92 revision=5af6cc974ce2f350fbad95661cdace0b815892bb candidate=present hand=27/28 generated=116/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T09-expires-negated": {
+  "exit": 1,
+  "hand_failures": [
+   "explicit/expires-minus-date: expected {'decision': 'explicit', 'lifetime': 300, 'heuristic': False} got {'decision': 'explicit', 'heuristic': False, 'lifetime': -300}",
+   "explicit/expires-before-date-negative: expected {'decision': 'explicit', 'lifetime': -100, 'heuristic': False} got {'decision': 'explicit', 'heuristic': False, 'lifetime': 100}",
+   "generated: expected {'decision': 'explicit', 'lifetime': 124390, 'heuristic': False} got {'decision': 'explicit', 'heuristic': False, 'lifetime': -124390}",
+   "generated: expected {'decision': 'explicit', 'lifetime': 40783, 'heuristic': False} got {'decision': 'explicit', 'heuristic': False, 'lifetime': -40783}"
+  ],
+  "line1": "C2v92 revision=4b8da2040ef84b75cdbfa683bdc7f273e61ec9a2 candidate=present hand=26/28 generated=93/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T10-smaxage-any": {
+  "exit": 1,
+  "hand_failures": [
+   "explicit/s-maxage-ignored-private: expected {'decision': 'explicit', 'lifetime': 600, 'heuristic': False} got {'decision': 'explicit', 'heuristic': False, 'lifetime': 120}",
+   "generated: expected {'decision': 'heuristic', 'lifetime': 39701, 'heuristic': True} got {'decision': 'explicit', 'heuristic': False, 'lifetime': 11990}",
+   "generated: expected {'decision': 'explicit', 'lifetime': 779624, 'heuristic': False} got {'decision': 'explicit', 'heuristic': False, 'lifetime': 85386}",
+   "generated: expected {'decision': 'explicit', 'lifetime': 53835, 'heuristic': False} got {'decision': 'explicit', 'heuristic': False, 'lifetime': 34266}"
+  ],
+  "line1": "C2v92 revision=d0c6e57e0789bad77ef4dd31e51de56da39db53f candidate=present hand=27/28 generated=108/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T11-public-inverted": {
+  "exit": 1,
+  "hand_failures": [
+   "gate/500-not-cacheable: expected {'decision': 'not-heuristically-cacheable', 'lifetime': None, 'heuristic': False} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 1000}",
+   "gate/500-public-overrides: expected {'decision': 'heuristic', 'lifetime': 1000, 'heuristic': True} got {'decision': 'not-heuristically-cacheable', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'not-heuristically-cacheable', 'lifetime': None, 'heuristic': False} got {'decision': 'heuristic-undecided', 'heuristic': False, 'lifetime': None}",
+   "generated: expected {'decision': 'not-heuristically-cacheable', 'lifetime': None, 'heuristic': False} got {'decision': 'heuristic', 'heuristic': True, 'lifetime': 86400}"
+  ],
+  "line1": "C2v92 revision=08b178d667028357be6884cf4d2fb5a5ef1521ce candidate=present hand=26/28 generated=110/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ },
+ "T24-dup-name": {
+  "exit": 1,
+  "hand_failures": [
+   "refuse/duplicate-header-name: expected refusal, got {'decision': 'heuristic-undecided', 'heuristic': False, 'lifetime': None}"
+  ],
+  "line1": "C2v92 revision=acd089f54da30b462f68db295be5ee1e3ce47f21 candidate=present hand=27/28 generated=120/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=false"
+ }
+}

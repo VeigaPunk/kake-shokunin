@@ -1780,3 +1780,22 @@ Able-to-fail witnesses: `.ufo/waves/round-90/controls/ctl-c1-v0-before-parse-fix
 forgeries and four C2 gate forgeries all `met=false`). The round-89 instrument
 (`.ufo/waves/round-89/w1/ExecControls/scoring-receipt.txt`: seven stubs admitted)
 is the case this criterion rejects.
+
+## Round 92 — a cited counter reading names its revision and whether it is by design
+
+Grounding: `considerthese/2026-10-26.md` proposal 5, opened this round (2026-11-04)
+— "keep a list of gates that go red by design on later trees … so the daily report
+doesn't mistake a pinned historical gate for a regression, and can flag when one
+*should* have been re-pinned"; measured instance
+`.ufo/waves/round-92/considerthese/historical-gate-at-freeze.txt`:
+`.ufo/waves/round-56/c56_quote_truth.py` exits 1 at `a5640ca0` on
+`C8_mirror_bytes` (`registry rows 206 != mirror rows 156 + 2`) because the gate
+pins an earlier population, not because the round broke anything.
+
+A report, lesson or scorecard cell that cites a counter's exit code or verdict
+MUST name (1) the revision it measured and (2) whether the reading is **by
+design** — a base/do-nothing control, or a frozen gate pinned to an earlier
+population — or a **verdict** about the round's own work. A reading that omits
+either is a number without a subject and is not evidence. Falsifier: a report
+line citing `met=false` or `EXIT=1` with no revision and no design status; or a
+report that presents a pinned historical gate's red as a regression.

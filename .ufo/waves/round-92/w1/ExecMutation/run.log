@@ -1,0 +1,50 @@
+# ExecMutation run log — round 92, item A (C1). Seat: ExecMutation (executor, leaf).
+# Scratch /fast/scratch/hyaku/kake-r92/ExecMutation was deleted after these receipts were copied here.
+# Lane master at start: f0b2dc635e34cc1c593655d926af74f19bd21034; freeze a5640ca02c20f94a0fa03af41b977b46ae99808e.
+# Gate blob sha256 (freeze, master, working tree) — all equal:
+#   d7bca38ec146727087a2d2e37a64c5154214e2dd069553fb5594372d2064b65e
+# Tooling: no install, no upgrade. python3 3.14.8 (/usr/bin/python3), stdlib only. No network GET.
+
+[1] git show a5640ca02c20f94a0fa03af41b977b46ae99808e:scripts/cache_key_conformance.py | sha256sum  -> d7bca38e…; exit 0
+[2] python3 -B scripts/cache_key_conformance.py --candidate scripts/cache_key.py --work <scratch> --seed 1
+      -> advisory=2/4 outside-contract-gaps=nul-in-value,dup-json-member ; clauses=6/6 hand=92/92 generated=120/120 sandbox=ok seed=1 met=true ; rc=0
+      (establishes scripts/cache_key.py as the conforming candidate)
+[3] first runner probe (base, M01), HYAKU_SCRATCH set, exit 0 both
+      base -> stderr FileNotFoundError (gate --work dir not created by the runner) ; verdict=killed rc=1   [HARNESS BUG, base wrongly killed]
+      M01  -> self-check failed (reference disagrees) ; verdict=killed rc=2
+[4] runner fix: os.makedirs(work) in run_gate. One edit inserted a line at the wrong place and broke parsing;
+    repaired by two follow-up edits (M08 header restored, makedirs placed in run_gate). Parse and run verified in [5].
+[5] (printf '%s\n' base; printf 'M%02d\n' $(seq 1 30)) | xargs -P 8 -I{} sh -c 'python3 -B mutate-tip.py --mutant {} > out/{}.out'
+      Wall time: 2.87 seconds.  Every job exit=0 (runner exit 0 on a printed verdict). Verdicts (last line of each out file):
+        base  verdict=survived rc=0
+        M01..M17 verdict=killed rc=2   (gate self-check drift)
+        M18, M19, M20 verdict=killed rc=1   (M18/M19: TypeError crash in self-check; M20: sandbox violation, met=false)
+        M21..M30 verdict=survived rc=0
+      Undetermined mutants: none (all 30 printed a verdict line; no anchor mismatch).
+[6] compose log and receipt from out/*.out (counts computed from the log, not typed):
+      N=30 K=20 S=10 ; S==N-K ; gate_sha256 equals the freeze blob ; met=true
+      -> integration/mutation-tip.log (30 lines), integration/mutation-tip.txt (31 lines)
+[7] fixture: git clone -q --shared LANE clone ; checkout --detach a5640ca ; update-ref master to LANE master ;
+      toplevel assert = clone ; copied mutate-tip.py, mutation-tip.txt, mutation-tip.log ;
+      SKILL.md row inserted after row 1614 (scratch only, not landed in LANE) ; committed 371f9eb7 with fixture identity
+      (4 files changed, 239 insertions, 0 deletions vs base e143faff: git diff --diff-filter=D --name-only -> 0 lines)
+      update-ref refs/heads/master -> 371f9eb7 so the replay harness's CARRIER resolves to the fixture.
+[8] HYAKU_SCRATCH=$S/sc python3 -B c92_defects.py --root clone --revision 371f9eb7 --work $S/w --skip-battery
+      -> exit 0 ; C1v92 revision=371f9eb73dba244ad0f786878d26b39d15dac01a items=3 open=0 closed=3 battery=skipped differential=ok self=ok met=true
+      (item A: A_log_mutants=30, observed base survived rc0, M01 killed rc2; item C labels 9/9 exact; noharm=0; selftest 12/12)
+[9] full counter (battery on): python3 -B c92_defects.py --root clone --revision 371f9eb7 --work $S/w-full
+      -> exit 0 ; C1v92 revision=371f9eb7… items=3 open=0 closed=3 battery=exact differential=ok self=ok met=true
+[10] python3 -B c92_defects.py --selftest -> selftest 12/12, exit 0
+[11] runner direct in clone: --mutant base -> survived rc0 ; --mutant M01 -> killed rc2 ; --mutant M21 -> survived rc0 (exit 0 each)
+[12] forge (scratch, not landed): edited the log so M30 reads killed rc=1 and the receipt reads killed=21 survivors=9
+      (the runner observes M30 survived rc=0). Committed cbe74334 (fixture identity). Counter --skip-battery
+      -> exit 0 ; C1v92 revision=cbe7433… items=3 open=0 closed=3 battery=skipped differential=ok self=ok met=true
+      => item A admits an unexecuted verdict for an unsampled mutant (the counter executes only the first sorted id).
+
+Receipts copied to this directory: mutant-out/ (31 runner outputs), counter/ (full, skip-battery, forge, selftest-independent
+stdout/stderr), mutation-tip.log, mutation-tip.txt, sha256sums.txt.
+[13] correction: the receipt copy in the wave step ran `cp` of the early probe outputs after copying out/*.out, so
+    mutant-out/base.out and mutant-out/M01.out held the broken first probe (base: killed rc=1, FileNotFoundError) and
+    the M01 probe. Both were regenerated from the final runner (sha256 e163b591…, unchanged since the batch) in a fresh
+    scratch and checked: base.out = survived rc=0 (met=true); M01.out = killed rc=2 (self-check). The broken probe output
+    is not retained; the batch table in [5] is unaffected because it reads out/*.out directly.

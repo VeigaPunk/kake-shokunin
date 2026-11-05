@@ -1,0 +1,354 @@
+# Witness subjects built by this seat (not the lane's deliverables).
+# Each is a single-clause edit of `bootstrap_subject.py` (this seat's own contract
+# implementation, which the frozen counter scores met=true: hand=28/28 generated=120/120
+# forgeries_refused=5/5), committed in scratch and scored with the frozen counter:
+#   python3 -B .ufo/waves/round-92/c92_heuristic.py --root <clone> --revision <commit> --work <dir>
+# `pristine` is the frozen counter's reading of that subject.
+#
+# subject | contract clause violated | pristine exit | pristine met
+N10-vary-contains | clause 9 (a Vary member must equal `*`) | 0 | true
+N11-nul-accepted | clause 2 (NUL is a refusal) | 0 | true
+N12-quoted-delta | clause 4 (a quoted delta-seconds argument is a refusal) | 0 | true
+N13-early-notstorable | clause 8 (no decision before validation) | 0 | true
+N14-extra-top-key | Input (any other top-level key is refused) | 0 | true
+N2-stem | none behaviourally; carries the comment `# neg-status-table` (anti-table conjunct) | 1 | false
+N3-digest | none behaviourally; carries a 16-hex hand-case input digest (anti-table conjunct) | 1 | false
+N4-cap43200 | clause 12 lane convention (cap 43200) | 1 | false
+N5-fraction9 | clause 12 lane convention (fraction 9) | 1 | false
+N6-shared-truthy | clause 3 (`shared` must be a bool) | 0 | true
+N7-now-negative | clause 3 (`now` >= 0) | 0 | true
+N8-status-bounds | clause 3 (status 100..599) | 0 | true
+N9-strip-all | clause 2 (trim only SP and HTAB) | 0 | true
+
+# Exact edits (unified diff against bootstrap_subject.py).
+
+## N10-vary-contains
+--- bootstrap_subject.py
++++ N10-vary-contains
+@@ -125,3 +125,3 @@
+     if "vary" in headers and any(
+-            m.strip(" \t") == "*" for m in headers["vary"].split(",")):
++            "*" in m for m in headers["vary"].split(",")):
+         return {"decision": "not-storable", "lifetime": None, "heuristic": False}
+
+## N11-nul-accepted
+--- bootstrap_subject.py
++++ N11-nul-accepted
+@@ -72,3 +72,3 @@
+             raise Invalid("header name or value is not a string")
+-        if "\r" in value or "\n" in value or "\0" in value:
++        if "\r" in value or "\n" in value:
+             raise Invalid("header value contains CR, LF or NUL")
+
+## N12-quoted-delta
+--- bootstrap_subject.py
++++ N12-quoted-delta
+@@ -50,2 +50,4 @@
+             if name in DELTA:
++                if len(arg) >= 2 and arg[0] == '"' and arg[-1] == '"':
++                    arg = arg[1:-1]
+                 if not INT_RE.fullmatch(arg):
+
+## N13-early-notstorable
+--- bootstrap_subject.py
++++ N13-early-notstorable
+@@ -115,2 +115,5 @@
+     cc = parse_cc(headers["cache-control"]) if "cache-control" in headers else {}
++    # clause 9 — not-storable (evaluated before the date/expires/last-modified reads)
++    if "no-store" in cc:
++        return {"decision": "not-storable", "lifetime": None, "heuristic": False}
+     date = int_header(headers, "date", required=True)
+@@ -118,6 +121,2 @@
+     lastmod = int_header(headers, "last-modified")
+-
+-    # clause 9 — not-storable
+-    if "no-store" in cc:
+-        return {"decision": "not-storable", "lifetime": None, "heuristic": False}
+     if shared and "private" in cc:
+
+## N14-extra-top-key
+--- bootstrap_subject.py
++++ N14-extra-top-key
+@@ -96,3 +96,3 @@
+         raise Invalid("input is not an object")
+-    if set(inp) - {"stored", "now", "shared"}:
++    if False:
+         raise Invalid("unexpected top-level key")
+
+## N2-stem
+--- bootstrap_subject.py
++++ N2-stem
+@@ -14,2 +14,4 @@
+ """
++
++# neg-status-table
+ 
+
+## N3-digest
+--- bootstrap_subject.py
++++ N3-digest
+@@ -14,2 +14,4 @@
+ """
++
++# cc21640f8b24c74f
+ 
+
+## N4-cap43200
+--- bootstrap_subject.py
++++ N4-cap43200
+@@ -144,3 +144,3 @@
+         return {"decision": "heuristic",
+-                "lifetime": min((date - lastmod) // 10, 86400), "heuristic": True}
++                "lifetime": min((date - lastmod) // 10, 43200), "heuristic": True}
+     return {"decision": "heuristic-undecided", "lifetime": None, "heuristic": False}
+
+## N5-fraction9
+--- bootstrap_subject.py
++++ N5-fraction9
+@@ -144,3 +144,3 @@
+         return {"decision": "heuristic",
+-                "lifetime": min((date - lastmod) // 10, 86400), "heuristic": True}
++                "lifetime": min((date - lastmod) // 9, 86400), "heuristic": True}
+     return {"decision": "heuristic-undecided", "lifetime": None, "heuristic": False}
+
+## N6-shared-truthy
+--- bootstrap_subject.py
++++ N6-shared-truthy
+@@ -109,5 +109,3 @@
+         raise Invalid("now is not a non-negative int")
+-    shared = inp.get("shared", False)
+-    if not isinstance(shared, bool):
+-        raise Invalid("shared is not a bool")
++    shared = bool(inp.get("shared", False))
+ 
+
+## N7-now-negative
+--- bootstrap_subject.py
++++ N7-now-negative
+@@ -107,3 +107,3 @@
+     now = inp.get("now")
+-    if not is_int(now) or now < 0:
++    if not is_int(now):
+         raise Invalid("now is not a non-negative int")
+
+## N8-status-bounds
+--- bootstrap_subject.py
++++ N8-status-bounds
+@@ -104,3 +104,3 @@
+     status = stored.get("status")
+-    if not is_int(status) or not 100 <= status <= 599:
++    if not is_int(status) or not 0 <= status <= 999:
+         raise Invalid("status is not an int in 100..599")
+
+## N9-strip-all
+--- bootstrap_subject.py
++++ N9-strip-all
+@@ -78,3 +78,3 @@
+         seen.add(low)
+-        out[low] = value.strip(" \t")
++        out[low] = value.strip()
+     return out
+
+# ---------------------------------------------------------------------------
+# bootstrap_subject.py — the base the witnesses were edited from (verbatim).
+# ---------------------------------------------------------------------------
+#!/usr/bin/env python3
+"""Heuristic freshness decision instrument — contract v1 (round 92, kake).
+
+Decides whether a heuristic freshness lifetime may be assigned to a stored
+response, and what that lifetime is. RFC 9111 §4.2.2, over supplied integer
+epoch seconds only: no clock, no HTTP-date parser, no network, no cache store.
+
+Lane conventions (NOT RFC requirements): the 10 % fraction and the 86400-second
+cap. The RFC encourages "no more than some fraction of the interval" and calls
+10 % a typical setting; it names no cap.
+
+Output: one JSON object with exactly `decision`, `lifetime`, `heuristic`; exit 0.
+Refusal: `invalid_input: <reason>` on stderr, exit 1, nothing on stdout.
+"""
+
+import json
+import re
+import sys
+
+HEURISTICALLY_CACHEABLE = frozenset(
+    (200, 203, 204, 206, 300, 301, 308, 404, 405, 410, 414, 501))
+DELTA = ("max-age", "s-maxage")
+INT_RE = re.compile(r"[0-9]+")
+
+
+class Invalid(Exception):
+    pass
+
+
+def ascii_lower(s):
+    return "".join(chr(ord(c) + 32) if "A" <= c <= "Z" else c for c in s)
+
+
+def is_int(v):
+    return isinstance(v, int) and not isinstance(v, bool)
+
+
+def parse_cc(value):
+    out = {}
+    for raw in value.split(","):
+        d = raw.strip(" \t")
+        if not d:
+            raise Invalid("empty Cache-Control directive")
+        name, sep, arg = d.partition("=")
+        name = ascii_lower(name.strip(" \t"))
+        if not name:
+            raise Invalid("empty Cache-Control directive name")
+        if sep:
+            arg = arg.strip(" \t")
+            if name in DELTA:
+                if not INT_RE.fullmatch(arg):
+                    raise Invalid("delta-seconds argument is not a bare "
+                                  "non-negative integer")
+                arg = int(arg)
+            elif len(arg) >= 2 and arg[0] == '"' and arg[-1] == '"':
+                arg = arg[1:-1]
+        else:
+            arg = None
+        if name in out and out[name] != arg:
+            raise Invalid("conflicting Cache-Control directive %s" % name)
+        out[name] = arg
+    return out
+
+
+def norm_headers(raw):
+    if not isinstance(raw, dict):
+        raise Invalid("headers is not an object")
+    seen = set()
+    out = {}
+    for name, value in raw.items():
+        if not isinstance(name, str) or not isinstance(value, str):
+            raise Invalid("header name or value is not a string")
+        if "\r" in value or "\n" in value or "\0" in value:
+            raise Invalid("header value contains CR, LF or NUL")
+        low = ascii_lower(name)
+        if low in seen:
+            raise Invalid("duplicate header name")
+        seen.add(low)
+        out[low] = value.strip(" \t")
+    return out
+
+
+def int_header(headers, name, required=False):
+    v = headers.get(name)
+    if v is None:
+        if required:
+            raise Invalid("%s is absent" % name)
+        return None
+    if not INT_RE.fullmatch(v):
+        raise Invalid("%s is not a decimal integer" % name)
+    return int(v)
+
+
+def decide(inp):
+    if not isinstance(inp, dict):
+        raise Invalid("input is not an object")
+    if set(inp) - {"stored", "now", "shared"}:
+        raise Invalid("unexpected top-level key")
+    stored = inp.get("stored")
+    if not isinstance(stored, dict):
+        raise Invalid("stored is not an object")
+    if set(stored) - {"status", "headers"}:
+        raise Invalid("unexpected stored key")
+    status = stored.get("status")
+    if not is_int(status) or not 100 <= status <= 599:
+        raise Invalid("status is not an int in 100..599")
+    now = inp.get("now")
+    if not is_int(now) or now < 0:
+        raise Invalid("now is not a non-negative int")
+    shared = inp.get("shared", False)
+    if not isinstance(shared, bool):
+        raise Invalid("shared is not a bool")
+
+    headers = norm_headers(stored.get("headers", {}))
+    cc = parse_cc(headers["cache-control"]) if "cache-control" in headers else {}
+    date = int_header(headers, "date", required=True)
+    expires = int_header(headers, "expires")
+    lastmod = int_header(headers, "last-modified")
+
+    # clause 9 — not-storable
+    if "no-store" in cc:
+        return {"decision": "not-storable", "lifetime": None, "heuristic": False}
+    if shared and "private" in cc:
+        return {"decision": "not-storable", "lifetime": None, "heuristic": False}
+    if "vary" in headers and any(
+            m.strip(" \t") == "*" for m in headers["vary"].split(",")):
+        return {"decision": "not-storable", "lifetime": None, "heuristic": False}
+
+    # clause 10 — explicit expiration wins; heuristics are never used
+    if shared and cc.get("s-maxage") is not None:
+        return {"decision": "explicit", "lifetime": cc["s-maxage"], "heuristic": False}
+    if cc.get("max-age") is not None:
+        return {"decision": "explicit", "lifetime": cc["max-age"], "heuristic": False}
+    if expires is not None:
+        return {"decision": "explicit", "lifetime": expires - date, "heuristic": False}
+
+    # clause 11 — the cacheability gate
+    if status not in HEURISTICALLY_CACHEABLE and "public" not in cc:
+        return {"decision": "not-heuristically-cacheable", "lifetime": None,
+                "heuristic": False}
+
+    # clause 12 / 13 — lane conventions: 10 % fraction, 86400 s cap
+    if lastmod is not None and lastmod <= date:
+        return {"decision": "heuristic",
+                "lifetime": min((date - lastmod) // 10, 86400), "heuristic": True}
+    return {"decision": "heuristic-undecided", "lifetime": None, "heuristic": False}
+
+
+def main(argv):
+    if argv and argv[0] == "--selftest":
+        return selftest()
+    try:
+        raw = sys.stdin.read()
+        inp = json.loads(raw)
+    except ValueError:
+        sys.stderr.write("invalid_input: input is not JSON\n")
+        return 1
+    try:
+        out = decide(inp)
+    except Invalid as exc:
+        sys.stderr.write("invalid_input: %s\n" % exc)
+        return 1
+    sys.stdout.write(json.dumps(out, sort_keys=True) + "\n")
+    return 0
+
+
+CASES = [
+    ({"stored": {"status": 200, "headers": {"Date": "1000000",
+                                            "Last-Modified": "990000"}},
+      "now": 1000000}, {"decision": "heuristic", "lifetime": 1000, "heuristic": True}),
+    ({"stored": {"status": 200, "headers": {"Date": "1000000",
+                                            "Last-Modified": "100000"}},
+      "now": 1000000}, {"decision": "heuristic", "lifetime": 86400, "heuristic": True}),
+    ({"stored": {"status": 200, "headers": {"Date": "1000000",
+                                            "Cache-Control": "max-age=600"}},
+      "now": 1000000}, {"decision": "explicit", "lifetime": 600, "heuristic": False}),
+    ({"stored": {"status": 500, "headers": {"Date": "1000000"}},
+      "now": 1000000}, {"decision": "not-heuristically-cacheable", "lifetime": None,
+                        "heuristic": False}),
+    ({"stored": {"status": 200, "headers": {"Date": "1000000",
+                                            "Cache-Control": "no-store"}},
+      "now": 1000000}, {"decision": "not-storable", "lifetime": None, "heuristic": False}),
+]
+
+
+def selftest():
+    ok = 0
+    for inp, want in CASES:
+        got = decide(inp)
+        if got != want:
+            sys.stderr.write("selftest FAIL %r != %r\n" % (got, want))
+        else:
+            ok += 1
+    print("selftest %d/%d" % (ok, len(CASES)))
+    return 0 if ok == len(CASES) else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
+
