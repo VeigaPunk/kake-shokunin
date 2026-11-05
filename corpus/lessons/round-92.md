@@ -64,9 +64,22 @@ Rejects:
 | 3 | A declared label was the label of a different mode | the harness printed `base-open=2` where the freeze declared `base-open=3`: the replay runs the counter with `--skip-replay`, which leaves item C out of the open set | the replay's own label assertion (item C) | the declared set is `base-open=2`; the positive fixture now reads the exact nine labels |
 | 4 | A refusal fired for the wrong reason, so the fixture proved nothing about its class | the canned-runner fixture FB was refused as "observed ≠ log" instead of "base and mutant do not differ", because the log comparison ran first | the battery's declared reason substring for FB | the "do not differ" check now precedes the log comparison; FB's reason names the canned class |
 
+| 5 | A round committed its work and then ended without a report | attempt 1 landed `a5640ca0`…`9f15115b` and ended at 21:58:46 with no `.ufo/reports/round-92/kake.md`; `.ufo/watchdog.log:2603` reads `lane-dead-no-report kake round=92` | the driver's `report_of` content gate — it fired on this very round and relaunched attempt 2 (`watchdog.log:2604`) | none beyond that gate; attempt 2 re-ran both frozen counters at the base and at the carrier (`controls/attempt2-reverify.txt`) before filing, and changed no counter, case, predicate or label |
+
 Disclosure: mistakes 1–4 were found and fixed before the freeze commit; no counter, case,
 predicate or label was changed after it. Every instrument defect the wave found is routed
-below, not patched.
+below, not patched. Mistake 5 is a close-order defect of attempt 1, recorded by attempt 2.
+
+## Attempt 2 — inherited state
+
+Attempt 1 (21:13–21:58) committed the freeze, the wave-1 spec and dispatch, the wave-1 evidence,
+the instruments, the registrations and the SCORECARD/LOG/lesson sections; it ended before the
+report. Attempt 2 re-verified rather than re-did: both frozen counters reproduce their carrier
+readings exactly (`open=0 closed=3 … met=true`, `hand=28/28 120/120 5/5 … met=true`, both exit 0)
+and their base readings exactly (`open=3 … met=false`, `candidate=absent … met=false`, both exit
+1) — receipt `controls/attempt2-reverify.txt`; the lane tree was clean at the tip, so nothing
+inherited was discarded. No claim, counter, case, predicate, label, receipt or wave artifact was
+changed by attempt 2; the only additions are that receipt and this note.
 
 ## Wave review (w1, 14 seats) — what the attack seats found
 

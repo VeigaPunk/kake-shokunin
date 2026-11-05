@@ -1,0 +1,56 @@
+# Round 92 attempt 2 — re-verification of the inherited carrier readings
+# Measured 2026-11-04T22:03-03:00 (2026-11-05T01:03Z) by the L1 (KakeR92a2), lane tip
+# 9f15115bc8f07c5ca88105530086924faf65247e (remote equal at measurement).
+# Scratch: /fast/scratch/hyaku/kake-r92/KakeR92a2 (removed before the report was filed).
+
+## C1 — do-nothing control at the base
+$ python3 -B .ufo/waves/round-92/c92_defects.py --root . \
+    --revision e143faff1b86aad172dd87696da900c70347b8b2 --work /fast/scratch/hyaku/kake-r92/KakeR92a2/b1
+C1v92 revision=e143faff1b86aad172dd87696da900c70347b8b2 items=3 open=3 closed=0 battery=hit differential=fail self=hit met=false
+{"B_rows": 0, "differential": {}, "open_items": ["A", "B", "C"], "reasons": {"A": "mutation receipt absent", "B": "no registry row names c92_defects.py with its --revision command and met predicate", "C": "control harness absent", "battery": "fixture FA could not be built"}, "self_pin": "hit"}
+exit=1
+
+## C1 — carrier
+$ python3 -B .ufo/waves/round-92/c92_defects.py --root . \
+    --revision 2a4447c1a4696cbfb40b17014e47fc6af716c06d --work /fast/scratch/hyaku/kake-r92/KakeR92a2/c1
+C1v92 revision=2a4447c1a4696cbfb40b17014e47fc6af716c06d items=3 open=0 closed=3 battery=exact differential=ok self=ok met=true
+{"A_log_mutants": 30, "A_observed": {"M01": ["killed", 2], "base": ["survived", 0]}, "B_rows": 2, "C_labels": ["base-open=2", "base-met=false", "base-exit=1", "carrier-open=0", "carrier-met=true", "carrier-exit=0", "selftest=12/12", "noharm=0", "self=ok"], ...}
+exit=0
+
+## C2 — do-nothing control at the base
+$ python3 -B .ufo/waves/round-92/c92_heuristic.py --root . \
+    --revision e143faff1b86aad172dd87696da900c70347b8b2 --work /fast/scratch/hyaku/kake-r92/KakeR92a2/b2
+C2v92 revision=e143faff1b86aad172dd87696da900c70347b8b2 candidate=absent hand=0/28 generated=0/120 forgeries_refused=0/5 anti_table=n/a population=n/a seed=92 met=false
+{"reason": "candidate absent"}
+exit=1
+
+## C2 — carrier
+$ python3 -B .ufo/waves/round-92/c92_heuristic.py --root . \
+    --revision 2a4447c1a4696cbfb40b17014e47fc6af716c06d --work /fast/scratch/hyaku/kake-r92/KakeR92a2/c2
+C2v92 revision=2a4447c1a4696cbfb40b17014e47fc6af716c06d candidate=present hand=28/28 generated=120/120 forgeries_refused=5/5 anti_table=ok population=ok seed=92 met=true
+{"anti_table_hits": [], "candidate_sha256": "7bfe82da8e1a1d541930ef1b4ee64cfe9b3fa5b8169680795bcc8626d2f37f5c", ...}
+exit=0
+
+## No-harm — deletions between the base and the carrier
+$ git diff --diff-filter=D --name-only e143faff 2a4447c1 | wc -l
+0
+$ git diff --numstat e143faff 2a4447c1 -- . ':(exclude).ufo' | awk '{a+=$1; d+=$2} END {print "added",a,"removed",d}'
+added 1059 removed 0
+
+## Sources census at round end
+$ /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake
+kake	W04	S033 … (31 advisories) … kake	ok	/home/vgpnk/Projects/shokunin/kake-shokunin/corpus/SOURCES.md
+exit=0
+
+## Inherited wave evidence present at the tip
+.ufo/waves/round-92/w1-results.json (14 seats: 13 returned a report, SentinelQuote settled with an
+empty directory), w1/{ScoutGround,ScoutSources,ConnectorScope,ExecHeuristic,ExecMutation,ExecStubs,
+ExecTrial,ScribeEntry,ScribeRegistry,ReviewC1,ReviewC2,CriticClaims,MutHeuristic}, integration/
+{mutation-tip.txt,mutation-tip.log,mutate-tip.py}, controls/{base-c1,base-c2,ctl-c1-known-good,
+ctl-c2-positive,after-c1-carrier,after-c2-carrier}.txt — all present and byte-identical to the
+committed blobs at 9f15115b (git status --porcelain empty in the lane before this file was written).
+
+# Verdict of this re-verification: both carrier readings reproduce exactly; the before readings
+# reproduce at the base; no inherited artifact needed repair. The falsification recorded by the
+# wave (C1 forgeable by construction; C2 population under-covering) is not repaired here — it is
+# routed as R92-1…R92-5, per the freeze's kill rule.
