@@ -1859,3 +1859,26 @@ committed this round).
   above — the historical divergence it flags is the red state
   (`considerthese/2026-11-05.md` §Part 1 item 2; `corpus/lessons/round-95.md`
   Gate, proposal-3 entry).
+
+## Round 96 — selftest/main code-path parity and the repair-naming prior art
+
+- **R96-A. A counter's selftest battery and its main scoring path must bind
+  the same names through the same code path; a fixture-only binding is an
+  instrument defect, not a scoring outcome.** The frozen `c96_reval.py`
+  passes its own selftest (14/14 mutants killed, 7/7 fixtures,
+  `controls/ctl-c2-selftest.txt`) yet crashes with
+  `NameError: name 'mutants' is not defined` on every candidate-present
+  scoring run (SentinelScope r08 five variants; CriticClaims C2-01 with a
+  committed candidate in a scratch clone) because only `selftest()` binds
+  the population list. The failure is loud (rc=1, no verdict line), so it
+  false-greens nothing — it makes the claim unscoreable, which is the
+  honest-stop state round 96 reports. Check before any successor freeze:
+  the main path of the frozen counting command must execute end to end on a
+  committed positive-control candidate before the freeze is written, not
+  only the `--selftest` battery. Prior art for the repair-shape rule this
+  round routes: chousa round-79 criterion 146 ("a self-assessment counter
+  validates each resolution line against the bytes it claims to repair")
+  names the same gaming class — a repair accepted as set membership with no
+  content check — and is cited, never ported
+  (`chousa-shokunin/corpus/QUALITY.md:1054` at the sibling's current HEAD;
+  `corpus/lessons/round-96.md` Mistakes; R95-3).
