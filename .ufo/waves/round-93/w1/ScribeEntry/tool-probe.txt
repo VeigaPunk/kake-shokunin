@@ -1,0 +1,34 @@
+# tool probe — the entry's 13 worked decisions and 6 refusals, run against
+#   (a) the delivered candidate  scripts/conditional_eval.py
+#   (b) the frozen independent positive control .ufo/waves/round-93/frozen/pos-good.py
+# expected values written by hand from the contract's clauses
+# candidate sha256 at the moment of this measurement:
+d3bac7de1c2d04fc355db795aebdf6012030ea5c5793d9362bc9cd8e0b8cac5e  /home/vgpnk/Projects/shokunin/kake-shokunin/scripts/conditional_eval.py
+
+== decisions: candidate vs frozen positive control ==
+W1 ok clause 8 (If-Match, strong comparison) expected={"decision": "200", "precondition": null} candidate={"decision": "200", "precondition": null} positive_control={"decision": "200", "precondition": null}
+W2 ok clause 8 (strong comparison refuses a weak tag) expected={"decision": "412", "precondition": "if_match"} candidate={"decision": "412", "precondition": "if_match"} positive_control={"decision": "412", "precondition": "if_match"}
+W3 ok clause 8 (If-Match '*' with no representation) expected={"decision": "412", "precondition": "if_match"} candidate={"decision": "412", "precondition": "if_match"} positive_control={"decision": "412", "precondition": "if_match"}
+W4 ok clause 9 (If-Unmodified-Since, equal modification date passes) expected={"decision": "200", "precondition": null} candidate={"decision": "200", "precondition": null} positive_control={"decision": "200", "precondition": null}
+W5 ok clause 9 (If-Unmodified-Since, newer representation fails) expected={"decision": "412", "precondition": "if_unmodified_since"} candidate={"decision": "412", "precondition": "if_unmodified_since"} positive_control={"decision": "412", "precondition": "if_unmodified_since"}
+W6 ok clause 10 (If-None-Match, weak comparison on GET is 304) expected={"decision": "304", "precondition": "if_none_match"} candidate={"decision": "304", "precondition": "if_none_match"} positive_control={"decision": "304", "precondition": "if_none_match"}
+W7 ok clause 10 (If-None-Match on POST is 412) expected={"decision": "412", "precondition": "if_none_match"} candidate={"decision": "412", "precondition": "if_none_match"} positive_control={"decision": "412", "precondition": "if_none_match"}
+W8 ok clause 10 (If-None-Match absent representation passes on GET) expected={"decision": "200", "precondition": null} candidate={"decision": "200", "precondition": null} positive_control={"decision": "200", "precondition": null}
+W9 ok clause 11 (If-Modified-Since, equal date is 304) expected={"decision": "304", "precondition": "if_modified_since"} candidate={"decision": "304", "precondition": "if_modified_since"} positive_control={"decision": "304", "precondition": "if_modified_since"}
+W10 ok clause 11 (If-Modified-Since ignored on POST) expected={"decision": "200", "precondition": null} candidate={"decision": "200", "precondition": null} positive_control={"decision": "200", "precondition": null}
+W11 ok clause 7 (cache role skips If-Match and If-Unmodified-Since) expected={"decision": "200", "precondition": null} candidate={"decision": "200", "precondition": null} positive_control={"decision": "200", "precondition": null}
+W12 ok clause 10 (If-None-Match takes precedence over If-Modified-Since) expected={"decision": "200", "precondition": null} candidate={"decision": "200", "precondition": null} positive_control={"decision": "200", "precondition": null}
+W13 ok clause 12 (no precondition evaluated) expected={"decision": "200", "precondition": null} candidate={"decision": "200", "precondition": null} positive_control={"decision": "200", "precondition": null}
+== refusals: candidate and positive control must both refuse ==
+R1 ok clause 3 (malformed entity-tag) candidate_refused=True positive_refused=True candidate_reason=rc=1 invalid_input: malformed entity-tag in current.etag
+R2 ok clause 4 ('*' mixed with a tag) candidate_refused=True positive_refused=True candidate_reason=rc=1 invalid_input: if_none_match mixes '*' with other members
+R3 ok clause 1 (date is a string, not an int) candidate_refused=True positive_refused=True candidate_reason=rc=1 invalid_input: if_modified_since must be null or an integer >= 0
+R4 ok clause 1 (date is a bool) candidate_refused=True positive_refused=True candidate_reason=rc=1 invalid_input: if_unmodified_since must be null or an integer >= 0
+R5 ok clause 2 (absent representation carries a validator) candidate_refused=True positive_refused=True candidate_reason=rc=1 invalid_input: absent representation must have null etag and last_modified
+R6 ok clause 1 (unexpected top-level key) candidate_refused=True positive_refused=True candidate_reason=rc=1 invalid_input: unknown top-level key: extra
+mismatches=0 decisions=13 refusals=6
+probe_exit=0
+
+## candidate --selftest
+selftest 90/90
+selftest_exit=0

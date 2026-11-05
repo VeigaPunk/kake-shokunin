@@ -1,0 +1,15 @@
+scenario A1b: FROZEN counter bytes, unchanged, spoofed by a sys.path[0]
+shadow of stdlib 'subprocess' sitting in the counter's own directory.
+The documented counting command (python3 -B .ufo/waves/round-93/
+c93_selfassess.py --root . --revision <rev>) puts that directory first
+on sys.path, so 'import subprocess' loads the attacker's file.
+counter copy sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f (frozen: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f)
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.18A1b
+defect revision: 80522f684f0aecfb8b7a3afcb8b45deafe33430e
+disk truth, same revision:
+$ git -C /fast/scratch/hyaku/kake-r93/ReviewC1/fx.18A1b show 80522f684f0aecfb8b7a3afcb8b45deafe33430e:corpus/lessons/round-05.md  -> exit=0 '# r5\n\nno gate here\n\n## Mistakes\n\n| # | Class |\n|---|---|\n| 1 | a |\n'
+$ git -C /fast/scratch/hyaku/kake-r93/ReviewC1/fx.18A1b show 80522f684f0aecfb8b7a3afcb8b45deafe33430e:SKILL.md | grep gone.py  -> ['| g1 | probe | `scripts/gone.py` | 0=ok |']
+$ cd /fast/scratch/hyaku/kake-r93/ReviewC1/fx.18A1b && python3 -B .ufo/waves/round-93/c93_selfassess.py --root . --revision 80522f684f0aecfb8b7a3afcb8b45deafe33430e
+exit=0
+line1: C1v93 revision=80522f684f0aecfb8b7a3afcb8b45deafe33430e lessons=87 entries=80 rows=257 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 257}, "short": []}

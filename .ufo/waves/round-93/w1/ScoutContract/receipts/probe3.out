@@ -1,0 +1,77 @@
+ALL 44 HAND CASE NAMES:
+   1 ifmatch/exact-match
+   2 ifmatch/weak-tag-no-strong-match
+   3 ifmatch/strong-vs-weak-current
+   4 ifmatch/list-second-member
+   5 ifmatch/star-with-representation
+   6 ifmatch/star-without-representation
+   7 ifmatch/list-no-member
+   8 ifmatch/skipped-for-cache
+   9 ius/older-modification-passes
+  10 ius/equal-passes
+  11 ius/newer-fails
+  12 ius/ignored-when-last-modified-absent
+  13 ius/ignored-when-if-match-present
+  14 ius/skipped-for-cache
+  15 inm/match-get
+  16 inm/weak-member-matches-strong-current
+  17 inm/weak-current-matches-strong-member
+  18 inm/both-weak-different
+  19 inm/match-post-412
+  20 inm/star-with-representation
+  21 inm/star-without-representation
+  22 inm/no-match
+  23 inm/precedes-if-modified-since
+  24 inm/ignored-when-current-etag-absent
+  25 ims/equal-304
+  26 ims/later-value-304
+  27 ims/earlier-value-200
+  28 ims/ignored-for-post
+  29 ims/ignored-when-last-modified-absent
+  30 ims/ignored-when-if-none-match-present
+  31 refuse/unknown-top-key
+  32 refuse/method-not-token
+  33 refuse/exists-not-bool
+  34 refuse/last-modified-bool
+  35 refuse/etag-unquoted
+  36 refuse/etag-bad-char
+  37 refuse/star-mixed
+  38 refuse/empty-member
+  39 refuse/empty-value
+  40 refuse/absent-with-etag
+  41 refuse/date-as-string-not-int
+  42 refuse/date-bool
+  43 refuse/negative-date
+  44 refuse/role-unknown
+
+cases mentioning options/trace/connect: []
+cases with role=cache: ['ifmatch/skipped-for-cache', 'ius/skipped-for-cache']
+cases whose expected is None (refusals): ['refuse/unknown-top-key', 'refuse/method-not-token', 'refuse/exists-not-bool', 'refuse/last-modified-bool', 'refuse/etag-unquoted', 'refuse/etag-bad-char', 'refuse/star-mixed', 'refuse/empty-member', 'refuse/empty-value', 'refuse/absent-with-etag', 'refuse/date-as-string-not-int', 'refuse/date-bool', 'refuse/negative-date', 'refuse/role-unknown']
+
+== A6 label: passed precondition then 200 ==
+A6  im='"1"' matches, inm='"2"' no match -> label?       -> {"decision": "200", "precondition": null}
+== A13 role=null vs role=proxy ==
+A13a role=null                                           -> REFUSED: role is not origin or cache
+A13b role='proxy'                                        -> REFUSED: role is not origin or cache
+== A20 OPTIONS/TRACE/CONNECT ==
+A20a OPTIONS inm='"1"' matches -> contract 412           -> {"decision": "412", "precondition": "if_none_match"}
+A20b TRACE   inm='"1"' matches -> contract 412           -> {"decision": "412", "precondition": "if_none_match"}
+A20c CONNECT im='"2"' no match -> contract 412           -> {"decision": "412", "precondition": "if_match"}
+== A21 malformed current.etag scope of clause 3 ==
+A21a current.etag='unquoted', inm='"x"'                  -> REFUSED: malformed entity-tag
+== A24 padded star / padded tag ==
+A24a im=' * ' exists=true                                -> {"decision": "200", "precondition": null}
+A24b im=' "1" ' exists=true (strong match)               -> {"decision": "200", "precondition": null}
+A24c im='* ' exists=false                                -> {"decision": "412", "precondition": "if_match"}
+== A26 empty list member per RFC 5.6.1.2 ==
+A26a inm='"a",, "b"'                                     -> REFUSED: empty list member
+A26b im='"a",'                                           -> REFUSED: empty list member
+== A27 empty field value ==
+A27a im='' (If-Match empty)                              -> REFUSED: empty precondition field value
+A27b inm='' (If-None-Match empty)                        -> REFUSED: empty precondition field value
+== A28 negative epoch (pre-1970 legal IMF-fixdate) ==
+A28a ims=-2208988800 (1900-01-01)                        -> REFUSED: if_modified_since is neither null nor a non-negative int
+A28b ius=-2208988800                                     -> REFUSED: if_unmodified_since is neither null nor a non-negative int
+== A29 obs-text in etag per RFC 8.8.3 etagc ==
+A29a current.etag='"a\u0080b"' (obs-text)                -> REFUSED: malformed entity-tag
+A29b current.etag='"a\u00e9b"'                           -> REFUSED: malformed entity-tag

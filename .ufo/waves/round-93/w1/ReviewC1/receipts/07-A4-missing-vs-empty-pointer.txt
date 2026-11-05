@@ -1,0 +1,19 @@
+scenario A4 part 1: QUALITY section cites a NONEXISTENT lesson
+expectation: E2 fires (counter catches missing pointer)
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.07A4missing
+defect revision: b110e9ff53f13ca2c912a59dd636e4b275f38439
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.07A4missing --revision b110e9ff53f13ca2c912a59dd636e4b275f38439
+exit=1
+line1: C1v93 revision=b110e9ff53f13ca2c912a59dd636e4b275f38439 lessons=87 entries=80 rows=257 criteria=40 mismatches=1 E1=0 E2=1 E3=0 E4=0 E5=0 pins=ok met=false
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [{"class": "E2", "detail": "section 'Round-90 criterion \u2014 deferred checks' cites missing corpus/lessons/round-missing.md", "path": "corpus/QUALITY.md"}], "pins": {"criteria": 40, "entries": 80, "lessons": 87, "rows": 257}, "short": []}
+
+scenario A4 part 2: same section cites corpus/lessons/round-empty.md,
+an EXISTING lesson whose only content is a bare '## Gate' heading
+expectation: passes (read() returns text, not None) — grounding that grounds nothing
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.07A4empty
+cheat revision: c6fb36bbca8069b81810c5cb16ba3f0dc2e4dc38
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.07A4empty --revision c6fb36bbca8069b81810c5cb16ba3f0dc2e4dc38
+exit=0
+line1: C1v93 revision=c6fb36bbca8069b81810c5cb16ba3f0dc2e4dc38 lessons=88 entries=80 rows=257 criteria=40 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 40, "entries": 80, "lessons": 88, "rows": 257}, "short": []}

@@ -1,0 +1,9 @@
+scenario B-E4b: TWO blank-line gaps in one Mistakes table
+counter breaks after the first gap -> E4=1 (undercount; exit still 1)
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.15BE4b
+revision: d88f3423d5103ab148c9ed1974a175ef64f66b32
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.15BE4b --revision d88f3423d5103ab148c9ed1974a175ef64f66b32
+exit=1
+line1: C1v93 revision=d88f3423d5103ab148c9ed1974a175ef64f66b32 lessons=87 entries=80 rows=257 criteria=39 mismatches=1 E1=0 E2=0 E3=0 E4=1 E5=0 pins=ok met=false
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [{"class": "E4", "detail": "blank line inside the Mistakes table after row 4", "path": "corpus/lessons/round-08.md"}], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 257}, "short": []}

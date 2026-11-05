@@ -1,0 +1,343 @@
+{
+  "round": 93,
+  "seat": "ScoutContract",
+  "subject": "LANE/.ufo/waves/round-93/c2-contract.md (v1, frozen)",
+  "freeze_revision": "bb8012fee38c0e497cdaf36337072737bca0b3cd",
+  "base_revision": "10ecbd1ade91d0721e87a9942a66a2b61d5ce8d5",
+  "generated": "2026-11-04",
+  "sources_read": [
+    {
+      "path": ".ufo/waves/round-93/L1/src/rfc9110.txt",
+      "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+      "bytes": 502941,
+      "sections_read": ["8.8.3 (3570-3593)", "8.8.3.2 (3643-3672)", "5.5 (1579-1616)", "5.6.1 (1663-1727)", "5.6.2 (1728-1744)", "5.6.3 (1745-1775)", "5.6.7 (1836-1880)", "9.1 (3728-3760)", "13.1.1 (5785-5871)", "13.1.2 (5872-5941)", "13.1.3 (5942-6022)", "13.1.4 (6023-6100)", "13.2 (6182-6207)", "13.2.1 (6184-6196)", "13.2.2 (6222-6289)"]
+    },
+    {
+      "path": ".ufo/waves/round-93/L1/src/rfc9111.txt",
+      "sha256": "aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e",
+      "bytes": 84477,
+      "sections_read": ["3 (282-337)", "4.3.1 (812-860)", "4.3.2 (866-923)"]
+    }
+  ],
+  "reference_implementation_probed": ".ufo/waves/round-93/c93_conditional.py :: reference() (read-only import; no file in LANE written by it)",
+  "ambiguities": [
+    {
+      "id": "A1",
+      "clause": "7",
+      "title": "cache role + non-cacheable request semantics: is If-None-Match evaluated at all?",
+      "input": {"method": "POST", "current": {"exists": true, "etag": "\"1\"", "last_modified": 500}, "request": {"if_match": null, "if_none_match": "\"1\"", "if_modified_since": null, "if_unmodified_since": null}, "role": "cache"},
+      "reading_a": "Contract clause 7 says only that if_match and if_unmodified_since are skipped in cache role; evaluation 'starts at step 10', so If-None-Match is evaluated and the false condition on a non-GET/HEAD method yields 412.",
+      "reading_b": "RFC 9111 4.3.2 line 881-885: 'A cache MUST NOT evaluate conditional header fields that ... occur in a request with semantics that cannot be satisfied with a cached response'. RFC 9111 3 line 284-324 restricts what a cache may store/use, and RFC 9110 9.2.3 line 3914-3916 notes caching semantics exist for GET/HEAD/POST only in narrow cases; a cache that cannot serve this POST from a stored response MUST NOT evaluate the precondition at all, so the request is forwarded and no 412 is produced here.",
+      "clause_silent_on": "clause 7's 'skipped' list names only if_match and if_unmodified_since; it says nothing about a cache declining to evaluate if_none_match for a request whose semantics a cache cannot satisfy",
+      "reference_decides": "412 / precondition=if_none_match",
+      "rfc_anchors": ["rfc9111.txt:881-885", "rfc9111.txt:875-879", "rfc9111.txt:284-324"],
+      "severity": "material",
+      "note": "The frozen counter's own generated population contains 40 cache-role inputs and 22 OPTIONS-role inputs (13 of which land on a 412), so both classes are exercised but neither is covered by a hand case that pins the RFC-vs-contract divergence."
+    },
+    {
+      "id": "A2",
+      "clause": "7, 11",
+      "title": "cache role + If-Modified-Since with no Last-Modified: ignore, or fall back to the stored Date?",
+      "input": {"method": "GET", "current": {"exists": true, "etag": null, "last_modified": null}, "request": {"if_match": null, "if_none_match": null, "if_modified_since": 500, "if_unmodified_since": null}, "role": "cache"},
+      "reading_a": "Contract clause 11 ignores If-Modified-Since when current.last_modified is null, unconditionally for both roles -> 200 / precondition=null.",
+      "reading_b": "RFC 9111 4.3.2 line 904-907: 'If a request contains an If-Modified-Since header field and the Last-Modified header field is not present in a stored response, a cache SHOULD use the stored response's Date field value (or, if no Date field is present, the time that the stored response was received) to evaluate the conditional.' The contract's input model has no Date and no stored-receipt time, so this SHOULD cannot be evaluated; the contract is silent on whether the case is out of scope or is a refusal.",
+      "clause_silent_on": "clause 11's null-last_modified rule is stated without a role distinction, and the Input section declares no Date field, so the RFC 9111 fallback has no representation and no stated disposition",
+      "reference_decides": "200 / precondition=null",
+      "rfc_anchors": ["rfc9111.txt:904-907", "rfc9110.txt:5968-5969"],
+      "severity": "material"
+    },
+    {
+      "id": "A3",
+      "clause": "10",
+      "title": "If-None-Match '*' in cache role: 'exists' is the stored response or the origin's current representation?",
+      "input": {"method": "GET", "current": {"exists": true, "etag": "\"1\"", "last_modified": 500}, "request": {"if_match": null, "if_none_match": "*", "if_modified_since": null, "if_unmodified_since": null}, "role": "cache"},
+      "reading_a": "Contract clause 10: the precondition is false when the value is '*' and 'exists', with 'exists' read as the single 'current' object -> false -> 304 for GET.",
+      "reading_b": "RFC 9110 13.1.2 line 5919-5920 conditions the '*' case on 'the origin server has a current representation for the target resource'; RFC 9111 4.3.2 line 894-897 says an If-None-Match request 'indicates that the client wants to validate one or more of its own stored responses in comparison to the stored response chosen by the cache'. Under the cache reading, 'exists' must mean 'the cache holds a stored response for this key', which is a different predicate from the origin's current representation and can differ (a cache may hold a stale stored response while the origin has none).",
+      "clause_silent_on": "clause 10's 'exists' is unqualified by role; the contract never says which store 'current' denotes for role=cache",
+      "reference_decides": "304 / precondition=if_none_match",
+      "rfc_anchors": ["rfc9110.txt:5917-5926", "rfc9111.txt:894-897", "rfc9111.txt:875-879"],
+      "severity": "material"
+    },
+    {
+      "id": "A4",
+      "clause": "8",
+      "title": "If-Match '*' in cache role: skipped entirely, or evaluated against the stored response?",
+      "input": {"method": "GET", "current": {"exists": true, "etag": "\"1\"", "last_modified": 500}, "request": {"if_match": "*", "if_none_match": null, "if_modified_since": null, "if_unmodified_since": null}, "role": "cache"},
+      "reading_a": "Contract clause 7 skips if_match in cache role -> 200 / precondition=null.",
+      "reading_b": "RFC 9110 13.1.1 line 5864-5865: 'A cache or intermediary MAY ignore If-Match because its interoperability features are only necessary for an origin server' - MAY, not MUST, and RFC 9111 4.3.2 line 889-891 lists only If-Match and If-Unmodified-Since as 'not applicable to a cache' in the summary sentence while line 881-885's MUST NOT is conditioned on three narrower circumstances. So a cache that does evaluate If-Match (or that must forward the request) is not excluded by the cited text.",
+      "clause_silent_on": "clause 7 states an unconditional skip; the contract cites only RFC 9111's summary sentence and never the normative MUST NOT at 881-885 nor the MAY at RFC 9110 5864-5865",
+      "reference_decides": "200 / precondition=null (skipped)",
+      "rfc_anchors": ["rfc9111.txt:887-892", "rfc9111.txt:881-885", "rfc9110.txt:5864-5865"],
+      "severity": "minor"
+    },
+    {
+      "id": "A5",
+      "clause": "8, 9",
+      "title": "412 'unless already succeeded' escape hatch: the contract's fixed 412 vs RFC 9110's MAY",
+      "input": {"method": "PUT", "current": {"exists": true, "etag": "\"1\"", "last_modified": 500}, "request": {"if_match": "\"other\"", "if_none_match": null, "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 8: false -> {'decision':'412','precondition':'if_match'}, unconditionally.",
+      "reading_b": "RFC 9110 13.2.2 step 1 line 6241-6243: 'if false, respond 412 (Precondition Failed) unless it can be determined that the state-changing request has already succeeded (see Section 13.1.1)', and 13.1.1 line 5831-5841 allows a 2xx instead of 412. The contract's input model has no 'already succeeded' signal, so under the RFC text the correct answer is not always 412.",
+      "clause_silent_on": "clause 8 states a fixed 412 and the contract's Scope section says it decides 'which status a recipient would answer', never disclosing that the RFC's alternative 2xx is unreachable in this model",
+      "reference_decides": "412 / precondition=if_match",
+      "rfc_anchors": ["rfc9110.txt:6236-6243", "rfc9110.txt:5831-5841", "rfc9110.txt:6077-6087"],
+      "severity": "disclosure",
+      "note": "This is arguably in-scope-of-the-decision, since the RFC grants the choice, but a reader of the contract cannot tell that the RFC permits other statuses."
+    },
+    {
+      "id": "A6",
+      "clause": "7, 8, 9, 10, 11",
+      "title": "the RFC 9110 13.2 method filter (CONNECT/OPTIONS/TRACE) is absent from the contract entirely",
+      "input": {"method": "OPTIONS", "current": {"exists": true, "etag": "\"1\"", "last_modified": 500}, "request": {"if_match": null, "if_none_match": "\"1\"", "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract: If-None-Match is false (weak match), method is not GET/HEAD -> 412 / precondition=if_none_match. The contract's decision order has no method filter and no step that says 'ignore preconditions for these methods'.",
+      "reading_b": "RFC 9110 13.2 line 6203-6207: 'a server MUST ignore the conditional request header fields defined by this specification when received with a request method that does not involve the selection or modification of a selected representation, such as CONNECT, OPTIONS, or TRACE'. Under this the fields are ignored and the request is answered without any precondition status, i.e. 200 / precondition=null.",
+      "clause_silent_on": "the contract's Scope and Grounding sections cite 13.2.2 (precedence) and 13.1.1-13.1.4 but never 13.2 (6182-6207); no clause encodes the method filter, so a 412 for OPTIONS is a defensible reading of the written contract and a 200 is a defensible reading of the cited RFC section",
+      "reference_decides": "412 / precondition=if_none_match",
+      "rfc_anchors": ["rfc9110.txt:6198-6207", "rfc9110.txt:6222-6234"],
+      "severity": "material",
+      "note": "13 of the counter's 120 generated inputs use OPTIONS and 6 of those land on a 412, so this class is inside the scored population; no hand case covers it."
+    },
+    {
+      "id": "A7",
+      "clause": "1, 4",
+      "title": "RFC 9110 5.6.1.2 requires a recipient to accept empty list elements; the contract refuses them",
+      "input": {"method": "GET", "current": {"exists": true, "etag": "\"a\"", "last_modified": 500}, "request": {"if_match": null, "if_none_match": "\"a\",, \"b\"", "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 4: 'An empty member is a refusal' -> refused, exit 1.",
+      "reading_b": "RFC 9110 5.6.1.2 line 1693-1702: 'A recipient MUST parse and ignore a reasonable number of empty list elements ... a recipient MUST accept lists that satisfy the following syntax: #element => [ element ] *( OWS \",\" OWS [ element ] )', and the worked examples at 1717-1719 list 'foo ,bar,' and 'foo , ,bar,charlie' as valid recipient-side values. The contract's list parser therefore refuses a value RFC 9110 requires a recipient to accept.",
+      "clause_silent_on": "clause 4 states the refusal as a rule but never cites 5.6.1.2's recipient requirement, nor states that the contract deliberately departs from it (5.6.1.1's sender rule is the opposite: 'a sender MUST NOT generate empty list elements')",
+      "reference_decides": "REFUSED: empty list member",
+      "rfc_anchors": ["rfc9110.txt:1693-1719", "rfc9110.txt:1674-1691"],
+      "severity": "material"
+    },
+    {
+      "id": "A8",
+      "clause": "4",
+      "title": "trailing comma / trailing empty member is refused",
+      "input": {"method": "PUT", "current": {"exists": true, "etag": "\"a\"", "last_modified": 500}, "request": {"if_match": "\"a\",", "if_none_match": null, "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 4: an empty member (here the one after the trailing comma) is a refusal.",
+      "reading_b": "RFC 9110 5.6.1.2 line 1702's recipient syntax allows a trailing empty element, and 1718 gives 'foo ,bar,' as a valid recipient-side value.",
+      "clause_silent_on": "clause 4 does not distinguish a leading/trailing empty member from a medial one",
+      "reference_decides": "REFUSED: empty list member",
+      "rfc_anchors": ["rfc9110.txt:1693-1719"],
+      "severity": "material"
+    },
+    {
+      "id": "A9",
+      "clause": "4",
+      "title": "whitespace-only field value: refusal or empty list?",
+      "input": {"method": "GET", "current": {"exists": true, "etag": "\"1\"", "last_modified": 500}, "request": {"if_match": null, "if_none_match": "   ", "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 4: 'A value that is the empty string or only whitespace is a refusal' -> refused.",
+      "reading_b": "RFC 9110 5.5 line 1591-1594: 'A field value does not include leading or trailing whitespace. When a specific version of HTTP allows such whitespace to appear in a message, a field parsing implementation MUST exclude such whitespace prior to evaluating the field value.' After that exclusion the value is the empty string, which under 5.6.1.2 is an empty list - a valid If-None-Match value with zero members, and under 13.1.2 line 5926 the condition is true -> 200 / precondition=null.",
+      "clause_silent_on": "clause 4 states the refusal but never cites 5.5's mandatory whitespace exclusion, and never says which of the two readings it intends",
+      "reference_decides": "REFUSED: empty precondition field value",
+      "rfc_anchors": ["rfc9110.txt:1591-1594", "rfc9110.txt:1693-1702", "rfc9110.txt:5926"],
+      "severity": "material"
+    },
+    {
+      "id": "A10",
+      "clause": "4",
+      "title": "OWS around a member: is SP/HTAB before the first member and after the last one part of the value?",
+      "input": {"method": "PUT", "current": {"exists": true, "etag": null, "last_modified": null}, "request": {"if_match": " * ", "if_none_match": null, "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 4: 'optional SP/HTAB around each member' - the OWS belongs to members, and '*' is a whole-value alternative, so ' * ' is neither '*' nor a list of entity-tags; at best it is a refusal, at best it is '*' with OWS.",
+      "reading_b": "RFC 9110 5.5 line 1591-1594 requires excluding leading/trailing whitespace from the field value before evaluation, so ' * ' evaluates to '*', which under 13.1.1 line 5822-5823 is true when a current representation exists -> 200 / precondition=null.",
+      "clause_silent_on": "clause 4's 'around each member' does not say whether leading/trailing OWS of the whole value is stripped, and it never cites 5.5",
+      "reference_decides": "200 / precondition=null (the reference strips ' \\t' from the whole value before testing for '*')",
+      "rfc_anchors": ["rfc9110.txt:1591-1594", "rfc9110.txt:1774"],
+      "severity": "minor"
+    },
+    {
+      "id": "A11",
+      "clause": "1, 3",
+      "title": "obs-text in an entity-tag: RFC 9110 permits %x80-FF, the contract does not",
+      "input": {"method": "GET", "current": {"exists": true, "etag": "\"a\u0080b\"", "last_modified": 500}, "request": {"if_match": null, "if_none_match": "\"a\u0080b\"", "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 3: etagc is 'any character in ! or #-~ (0x23-0x7E)' -> U+0080 is outside the set -> refused as a malformed entity-tag.",
+      "reading_b": "RFC 9110 8.8.3 line 3587: 'etagc = %x21 / %x23-7E / obs-text' (collected ABNF line 9873-9874 the same), with obs-text = %x80-FF (line 1589). RFC 9110 5.5 line 1603-1604: 'A recipient SHOULD treat other allowed octets in field content (i.e., obs-text) as opaque data.' A tag containing an obs-text octet is a legal RFC entity-tag.",
+      "clause_silent_on": "clause 3's etagc set is stated without the obs-text alternative and the contract never cites 8.8.3's ABNF; the contract's own 'byte-for-byte' comparison language also conflicts with a Unicode-input transport",
+      "reference_decides": "REFUSED: malformed entity-tag",
+      "rfc_anchors": ["rfc9110.txt:3582-3588", "rfc9110.txt:1588-1589", "rfc9110.txt:1603-1604"],
+      "severity": "material"
+    },
+    {
+      "id": "A12",
+      "clause": "1",
+      "title": "pre-1970 HTTP-date: the epoch-second adapter cannot represent it",
+      "input": {"method": "GET", "current": {"exists": true, "etag": null, "last_modified": 500}, "request": {"if_match": null, "if_none_match": null, "if_modified_since": -2208988800, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 1: if_modified_since is 'null or an int (not a bool) >= 0' -> refused.",
+      "reading_b": "RFC 9110 5.6.7 line 1844 'HTTP-date = IMF-fixdate / obs-date' with IMF-fixdate at 1873-1880 admits any four-digit year, so a pre-1970 date is a legal HTTP-date; the contract's '>= 0' epoch bound cannot express it. The contract states the >= 0 bound without citing 5.6.7 or noting that it narrows the legal date range.",
+      "clause_silent_on": "clause 1's non-negativity bound is stated as a type rule, not as a documented departure from 5.6.7's date range",
+      "reference_decides": "REFUSED: if_modified_since is neither null nor a non-negative int",
+      "rfc_anchors": ["rfc9110.txt:1844", "rfc9110.txt:1873-1880", "rfc9110.txt:1589"],
+      "severity": "minor"
+    },
+    {
+      "id": "A13",
+      "clause": "1",
+      "title": "case sensitivity of the GET/HEAD test in clauses 10 and 11 is not stated (the tchar set itself matches 5.6.2 exactly)",
+      "input": {"method": "get", "current": {"exists": true, "etag": null, "last_modified": null}, "request": {"if_match": null, "if_none_match": null, "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 1 lists tchar as '! # $ % & \\' * + - . ^ _ ` | ~, DIGIT, ALPHA' - which matches RFC 9110 5.6.2 line 1735-1737 exactly (collected ABNF 9960-9961). So a lowercase 'get' is a legal method token and is accepted.",
+      "reading_b": "RFC 9110 9.1 line 3748-3749: 'The method token is case-sensitive' - so 'get' is a distinct method from 'GET'. The contract's clause 10/11 test 'method is GET or HEAD' case-sensitively (correct), but its Scope and Grounding never say that a lowercase 'get' is a different method, and the RFC 13.1.3/13.2.2 consequences (no If-Modified-Since, 412 rather than 304) follow silently.",
+      "clause_silent_on": "clause 1 says the token is 'compared case-sensitively' for the method itself but does not state that the GET/HEAD tests in clauses 10 and 11 are likewise case-sensitive and what that means for a lowercase method",
+      "reference_decides": "lowercase 'get' is a valid token; a lowercase 'get' with a matching If-None-Match yields 412, not 304",
+      "rfc_anchors": ["rfc9110.txt:1733-1737", "rfc9110.txt:3746-3751"],
+      "severity": "minor"
+    },
+    {
+      "id": "A14",
+      "clause": "1, 3",
+      "title": "does clause 3 govern current.etag, or only the request's precondition values?",
+      "input": {"method": "GET", "current": {"exists": true, "etag": "not-a-tag", "last_modified": 500}, "request": {"if_match": null, "if_none_match": "\"x\"", "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Clause 3's 'A malformed entity-tag is a refusal' is unqualified, so current.etag='not-a-tag' is refused (this is the reference's behaviour).",
+      "reading_b": "Clause 3 sits under 'Field reading' and clause 1 types current.etag as merely 'null or a string'; reading clause 3 as governing only the precondition field values (which is where entity-tag syntax is defined in RFC 9110 13.1.1/13.1.2) leaves current.etag as an opaque string, and the comparison in clause 5 then compares opaque-tags of unequal shape - undefined rather than refused.",
+      "clause_silent_on": "clause 3 does not scope 'an entity-tag' to the request side, and clause 1 explicitly permits any string for current.etag",
+      "reference_decides": "REFUSED: malformed entity-tag",
+      "rfc_anchors": ["rfc9110.txt:5799", "rfc9110.txt:5885", "rfc9110.txt:3582-3588"],
+      "severity": "material"
+    },
+    {
+      "id": "A15",
+      "clause": "10, 12",
+      "title": "the 'precondition' label when a precondition was evaluated but did not decide the outcome",
+      "input": {"method": "PUT", "current": {"exists": true, "etag": "\"1\"", "last_modified": 500}, "request": {"if_match": "\"1\"", "if_none_match": "\"2\"", "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract Output section: 'precondition names the field that decided the outcome ..., or null when no precondition was evaluated.' Here If-Match was evaluated and was true, If-None-Match was evaluated and was true, and neither decided anything -> precondition=null (the reference's behaviour).",
+      "reading_b": "Read 'null when no precondition was evaluated' as the governing sentence and the first clause as illustrative: preconditions WERE evaluated (If-Match, If-None-Match), so precondition must name one of them - the contract gives no rule for choosing which, and names only four allowed values.",
+      "clause_silent_on": "the Output section's two sentences can be read as conflicting on the 'evaluated but did not decide' case, and no clause resolves which wins",
+      "reference_decides": "200 / precondition=null",
+      "rfc_anchors": ["rfc9110.txt:6233-6283"],
+      "severity": "minor"
+    },
+    {
+      "id": "A16",
+      "clause": "1, 7",
+      "title": "role: null is refused, but role absent defaults to origin - is that intended?",
+      "input": {"method": "GET", "current": {"exists": true, "etag": "\"1\"", "last_modified": 500}, "request": {"if_match": null, "if_none_match": null, "if_modified_since": null, "if_unmodified_since": null}, "role": null},
+      "reading_a": "Contract clause 1 types role as '<\"origin\"|\"cache\", optional, default \"origin\">'; a JSON null is neither of the two allowed strings, so it is 'anything else' -> refused (the reference's behaviour).",
+      "reading_b": "Read 'optional, default \"origin\"' as meaning a null (or absent) role takes the default 'origin'; then the input is evaluated normally -> 200 / precondition=null.",
+      "clause_silent_on": "clause 1 does not say whether null is an absent value (default) or an invalid value (refusal), and the contract's Input block shows role as a typed optional key without a null case",
+      "reference_decides": "REFUSED: role is not origin or cache",
+      "rfc_anchors": ["rfc9111.txt:881-885"],
+      "severity": "minor"
+    },
+    {
+      "id": "A17",
+      "clause": "10",
+      "title": "the If-None-Match '*' case vs. 13.1.2's 'origin server has a current representation' wording",
+      "input": {"method": "GET", "current": {"exists": false, "etag": null, "last_modified": null}, "request": {"if_match": null, "if_none_match": "*", "if_modified_since": null, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 10: the precondition is false when the value is '*' and 'exists'; here exists is false, so the precondition is TRUE -> continue -> 200 / precondition=null (the reference's behaviour).",
+      "reading_b": "RFC 9110 13.1.2 line 5919-5920: for '*', 'the condition is false if the origin server has a current representation for the target resource' - which is the same as the contract, so the readings agree here. The disagreement is only about what 'exists' denotes for a cache (see A3).",
+      "clause_silent_on": "n/a - the two readings agree on this input; retained because A3's variant of it does not",
+      "reference_decides": "200 / precondition=null",
+      "rfc_anchors": ["rfc9110.txt:5917-5926"],
+      "severity": "informational"
+    },
+    {
+      "id": "A18",
+      "clause": "11",
+      "title": "If-Modified-Since is skipped for a non-GET/HEAD method - but is it 'ignored' or 'evaluated to true'?",
+      "input": {"method": "POST", "current": {"exists": true, "etag": null, "last_modified": 500}, "request": {"if_match": null, "if_none_match": null, "if_modified_since": 900, "if_unmodified_since": null}},
+      "reading_a": "Contract clause 11 gates on 'method GET or HEAD', so the field is not evaluated at all -> 200 / precondition=null (the reference's behaviour).",
+      "reading_b": "RFC 9110 13.1.3 line 5963-5966: 'A recipient MUST ignore the If-Modified-Since header field if the received field value is not a valid HTTP-date, the field value has more than one member, or if the request method is neither GET nor HEAD.' 'Ignore' is what the contract does, so this input is NOT ambiguous - the RFC's own term matches the contract. Recorded so a later reviewer does not re-derive it.",
+      "clause_silent_on": "n/a",
+      "reference_decides": "200 / precondition=null",
+      "rfc_anchors": ["rfc9110.txt:5963-5966", "rfc9110.txt:6264-6270"],
+      "severity": "informational"
+    }
+  ],
+  "population_coverage_gaps_observed": [
+    {
+      "class": "empty list member / trailing comma / whitespace-only value",
+      "hand_cases": ["refuse/empty-member", "refuse/empty-value"],
+      "generated_cases": 0,
+      "note": "hand cases pin the contract's refusal; the RFC 9110 5.6.1.2 recipient-acceptance reading is never exercised"
+    },
+    {
+      "class": "obs-text in an entity-tag",
+      "hand_cases": [],
+      "generated_cases": 0,
+      "note": "no case at all"
+    },
+    {
+      "class": "negative epoch seconds",
+      "hand_cases": ["refuse/negative-date"],
+      "generated_cases": 0,
+      "note": "pinned to refusal, but no case distinguishes '>= 0' from 'any int'"
+    },
+    {
+      "class": "role: null",
+      "hand_cases": ["refuse/role-unknown (role='proxy')"],
+      "generated_cases": 0,
+      "note": "role=null is never exercised; only role='proxy'"
+    },
+    {
+      "class": "CONNECT/OPTIONS/TRACE method filter",
+      "hand_cases": [],
+      "generated_cases": 22,
+      "note": "22 OPTIONS inputs exist in the generated population, 13 of which land on a 412, but no hand case pins it and no case covers CONNECT or TRACE"
+    },
+    {
+      "class": "cache role + POST/unsafe method",
+      "hand_cases": [],
+      "generated_cases": "part of the 40 cache-role generated inputs",
+      "note": "RFC 9111 4.3.2 line 881-885's 'semantics that cannot be satisfied with a cached response' condition is never exercised as such"
+    },
+    {
+      "class": "cache role + If-None-Match '*' / '*' semantics against a stored response",
+      "hand_cases": [],
+      "generated_cases": "present in the 40 cache-role generated inputs",
+      "note": "no case distinguishes 'exists means the origin current representation' from 'exists means the cache holds a stored response'"
+    },
+    {
+      "class": "precondition label after a passed precondition (200 with precondition=null)",
+      "hand_cases": ["ifmatch/exact-match", "ius/older-modification-passes", "ims/earlier-value-200"],
+      "generated_cases": "present",
+      "note": "the contract's two Output sentences are not disambiguated by any case"
+    },
+    {
+      "class": "RFC 9110 13.2.2 step 5 (If-Range / Range) and step 6's 'respond according to its success or failure'",
+      "hand_cases": [],
+      "generated_cases": 0,
+      "note": "the contract has no Range/If-Range input at all; clause 12 returns 200 unconditionally, so the contract's 200 is not the RFC's step-6 outcome (the RFC lets the method's own success or failure decide)"
+    }
+  ],
+  "counter_and_instrument_defects_found": [
+    {
+      "id": "D1",
+      "file": ".ufo/waves/round-93/c93_conditional.py",
+      "line": 6,
+      "defect": "docstring says '(30 hand cases + a seeded generated population ...)' but hand_cases() returns 44 (measured: probe2.py output 'hand_cases() length = 44')",
+      "impact": "documentation only; the freeze.md and controls/base-c2.txt both say 44, so the docstring is the sole outlier"
+    },
+    {
+      "id": "D2",
+      "file": ".ufo/waves/round-93/c93_conditional.py",
+      "line": 214,
+      "defect": "hand_cases() docstring repeats '30 worked cases' against an actual 44",
+      "impact": "documentation only"
+    },
+    {
+      "id": "D3",
+      "file": ".ufo/waves/round-93/c93_conditional.py",
+      "line": "generate() (approx. 334-360)",
+      "defect": "the generated population's method set includes OPTIONS but never CONNECT or TRACE, and no generated input uses an empty list member, whitespace-only value, obs-text tag, negative date, or role=null; the seeded population therefore does not reach the classes where the contract is ambiguous (probe2.py measured 0 for each)",
+      "impact": "the 120-case generated population cannot discriminate the readings listed above; only the 44 hand cases can, and they cover none of these classes except by refusing them. Round 92's C2 counter had 28 hand cases over a 120-case seeded population (.ufo/waves/round-92/freeze.md line 45), so the hand-case count grew but the generated population's class reach did not"
+    },
+    {
+      "id": "D4",
+      "file": ".ufo/waves/round-93/c2-contract.md",
+      "line": "1-91 (whole document)",
+      "defect": "the contract's Grounding paragraph names RFC 9110 13.2.2, 13.1.1-13.1.4 and 8.8.3.2 plus RFC 9111 4.3.2, but the contract's own decisions rely on RFC 9110 13.2 lines 6198-6207 (the CONNECT/OPTIONS/TRACE MUST-ignore), 13.2.1 lines 6190-6193 (ignore preconditions when the underlying response would be non-2xx/non-412), 5.5 lines 1591-1594 (strip field-value whitespace), 5.6.1.2 lines 1693-1702 (recipient MUST accept empty list elements), 8.8.3 line 3587 (obs-text in etagc) and 5.6.7 line 1844 (the HTTP-date range) - none of which are cited or acknowledged",
+      "impact": "a reader cannot tell which of the listed ambiguities are deliberate narrowing and which are oversights; the freeze-time contract is therefore not self-describing against the RFC it claims to implement"
+    },
+    {
+      "id": "D5",
+      "file": ".ufo/waves/round-93/c2-contract.md",
+      "line": 91,
+      "defect": "clause 12 returns 200 unconditionally, which is RFC 9110 13.2.2 step 6 ('perform the requested method and respond according to its success or failure') narrowed to one outcome; the contract's Scope does not disclose that the method's own outcome is outside the model",
+      "impact": "a 200 from this instrument means 'no precondition blocked', not 'the response was 200'; a reader can easily misread it"
+    }
+  ],
+  "notes": [
+    "This seat is report-only. No frozen instrument was edited: c2-contract.md, c93_conditional.py, c1-predicate.md, frozen/ and controls/ are unchanged.",
+    "The frozen reference was exercised by importing c93_conditional.py read-only from a scratch copy and calling reference() directly; no LANE file was written by the counter and no subject was scored.",
+    "Scratch root used: /fast/scratch/hyaku/kake-r93/ScoutContract/ (removed after receipts were copied into .ufo/waves/round-93/w1/ScoutContract/receipts/).",
+    "No network fetch was performed; both RFC bodies were read from the round's retained L1/src copies, whose sha256 values match the freeze's declared digests exactly."
+  ]
+}

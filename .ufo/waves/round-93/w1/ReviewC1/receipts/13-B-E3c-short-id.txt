@@ -1,0 +1,11 @@
+scenario B-E3c: source: S47 — an S<digits> id that resolves to no row
+counter ID_RE is S\d{3,} (three or more digits), so S47 is invisible:
+no unresolved-id check runs. Predicate letter says every S<digits> id.
+expectation: admitted -> miss vs the predicate letter
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.13BE3c
+revision: 058ba919e614473b9ab673ea7f384a82a24f600f
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.13BE3c --revision 058ba919e614473b9ab673ea7f384a82a24f600f
+exit=0
+line1: C1v93 revision=058ba919e614473b9ab673ea7f384a82a24f600f lessons=87 entries=80 rows=257 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 257}, "short": []}

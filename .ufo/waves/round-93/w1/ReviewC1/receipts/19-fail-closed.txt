@@ -1,0 +1,14 @@
+scenario: fail-closed controls on unevaluable input
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+(a) unknown revision:
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.19dead --revision deadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+exit=2
+stdout: C1v93 revision=deadbeefdeadbeefdeadbeefdeadbeefdeadbeef^{commit} unevaluable=missing-surface
+(b) SKILL.md absent at revision:
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.19noskill --revision 220dde0692e0617faa18b6375de541c72de7ca6f
+exit=2
+stdout: C1v93 revision=220dde0692e0617faa18b6375de541c72de7ca6f unevaluable=missing-surface
+(c) empty repository:
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.19empty --revision cfa4b8e20d8ecfd4575473ba7136f602c32c5846
+exit=2
+line1: C1v93 revision=cfa4b8e20d8ecfd4575473ba7136f602c32c5846 unevaluable=missing-surface

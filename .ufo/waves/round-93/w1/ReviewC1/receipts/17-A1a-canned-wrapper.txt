@@ -1,0 +1,12 @@
+scenario A1a: the counter at the documented path replaced by a wrapper that
+prints a canned frozen-format success line and exits 0. No audit runs.
+The same revision's round-05.md has no '## Gate' (git show exit=0):
+'# r5\n\nno gate here\n\n## Mistakes\n\n| # | Class |\n|---|---|\n| 1 | a |\n'
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.17A1a
+defect revision: bd02dcd52632637b6fb3eee23a0ae894ff07579e
+$ cd /fast/scratch/hyaku/kake-r93/ReviewC1/fx.17A1a && python3 -B .ufo/waves/round-93/c93_selfassess.py --root . --revision bd02dcd52632637b6fb3eee23a0ae894ff07579e
+exit=0
+stdout: C1v93 revision=bd02dcd52632637b6fb3eee23a0ae894ff07579e lessons=87 entries=80 rows=257 criteria=40 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+counter sha256 used by the honest run: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+verdict: output format is fully forgeable; defense is procedural only
+(byte-identity of the counter against the freeze blob + clean-tree check).

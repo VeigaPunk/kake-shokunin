@@ -1,0 +1,27 @@
+# S451 source re-open — ExecC1Fixes, kake round 93 w1 (2026-11-04 local)
+
+Command (scratch, one public GET; no credentials, no account state):
+  S=/fast/scratch/hyaku/kake-r93/ExecC1Fixes
+  mkdir -p "$S/s451" && cd "$S/s451" && code=$(curl -sS -o rfc3339.txt -w '%{http_code}' --max-time 45 https://www.rfc-editor.org/rfc/rfc3339.txt)
+
+Observed:
+  http        = 200
+  bytes       = 35064
+  sha256      = 9ab2b8864a85dca73a88f49b0927bc7bc85f596926e4fd1890905777924e700a
+  access UTC  = 2026-11-05T01:29:13Z (2026-11-04 local)
+
+Pin comparisons (both confirmed from this seat):
+  - SOURCES row S451 (corpus/SOURCES.md:198) pins "fetched 2026-11-03 HTTP 200, 35064 bytes,
+    raw sha256 9ab2b886…e700a" — my GET digest is EQUAL (raw/wire bytes reproduce).
+  - The entry's bottom provenance line (corpus/knowledge/meta-robots-directives.md, S451 raw
+    sha256 9ab2b886…; text sha256 1d35e529…eb620) — my GET digest is EQUAL to the raw pin, and
+    the retained local body .ufo/waves/round-78/w1/ScoutSources/rfc3339.txt hashes to
+    1d35e5292cadacc72542e2161f11458d413108ef111bdfc3a0ee026fec8eb620 (this seat, sha256sum),
+    EQUAL to the pinned text digest. Raw and text pins are distinct and both reproduce.
+
+Consequence: the S451 leg of the E3 verified-at statement is a fresh 2026-11-04 observation;
+no source drift. S449/S450 were re-read from the retained round-78 bodies only (no GET), and
+the verified-at line in the prefix says exactly that.
+
+The fetched raw body was kept in scratch only; this record is the receipt. Re-derivation: same
+GET, or compare the retained text body's digest above.

@@ -1,0 +1,10 @@
+scenario B-E4: blank-line-split table inside the SECOND '## Mistakes' section
+counter checks only the FIRST '## Mistakes' match (re.search)
+expectation: E4 silent -> counter fooled
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.14BE4
+revision: 23e41013046916c44275383023ac30e7cac76677
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.14BE4 --revision 23e41013046916c44275383023ac30e7cac76677
+exit=0
+line1: C1v93 revision=23e41013046916c44275383023ac30e7cac76677 lessons=87 entries=80 rows=257 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 257}, "short": []}

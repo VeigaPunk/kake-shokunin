@@ -1,0 +1,25 @@
+generated 120: cases with method in {CONNECT,OPTIONS,TRACE} whose contract decision != 200: 13
+   idx=3 method=OPTIONS -> {'decision': '412', 'precondition': 'if_match'}
+   idx=30 method=OPTIONS -> {'decision': '412', 'precondition': 'if_none_match'}
+   idx=34 method=OPTIONS -> {'decision': '412', 'precondition': 'if_none_match'}
+   idx=39 method=OPTIONS -> {'decision': '412', 'precondition': 'if_match'}
+   idx=45 method=OPTIONS -> {'decision': '412', 'precondition': 'if_none_match'}
+   idx=49 method=OPTIONS -> {'decision': '412', 'precondition': 'if_none_match'}
+   idx=57 method=OPTIONS -> {'decision': '412', 'precondition': 'if_match'}
+   idx=67 method=OPTIONS -> {'decision': '412', 'precondition': 'if_none_match'}
+   idx=72 method=OPTIONS -> {'decision': '412', 'precondition': 'if_none_match'}
+   idx=79 method=OPTIONS -> {'decision': '412', 'precondition': 'if_match'}
+   idx=91 method=OPTIONS -> {'decision': '412', 'precondition': 'if_none_match'}
+   idx=101 method=OPTIONS -> {'decision': '412', 'precondition': 'if_match'}
+   idx=108 method=OPTIONS -> {'decision': '412', 'precondition': 'if_none_match'}
+
+hand cases with method in {CONNECT,OPTIONS,TRACE}: []
+
+RFC 9110 5.6.1.2 recipient-accepted list shapes: '#element => [ element ] *( OWS "," OWS [ element ] )'
+   '"a",, "b"'    REFUSED by reference (empty list member)
+   '"a",'         REFUSED by reference (empty list member)
+   '"a" , , "b"'  REFUSED by reference (empty list member)
+   ''             REFUSED by reference (empty precondition field value)
+   '   '          REFUSED by reference (empty precondition field value)
+
+reference treats null role as invalid: REFUSED: role is not origin or cache

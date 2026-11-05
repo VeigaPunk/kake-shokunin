@@ -1,0 +1,14 @@
+hand_cases() length = 44
+docstring says: ["(30 hand cases + a seeded generated population decided by this file's own", '      AND hand cases all decided as declared']
+generated inputs: 120
+generated methods: {'DELETE': 20, 'GET': 15, 'OPTIONS': 22, 'POST': 13, 'HEAD': 18, 'PUT': 13, 'PATCH': 19}
+generated cases where method in OPTIONS/TRACE/CONNECT and If-None-Match is FALSE (contract says 412; RFC9110 13.2 line 6203-6207 says the server MUST ignore conditional fields for such methods): 6
+gen with role present: 40
+gen with role null: 0
+gen with whitespace-only / empty precondition value: 0
+gen with empty list member (',,' or trailing ','): 0
+gen with '*' padded by whitespace: 0
+gen with non-ASCII in a tag: 0
+gen with negative date: 0
+hand case names:
+ifmatch/exact-match, ifmatch/weak-tag-no-strong-match, ifmatch/strong-vs-weak-current, ifmatch/list-second-member, ifmatch/star-with-representation, ifmatch/star-without-representation, ifmatch/list-no-member, ifmatch/skipped-for-cache, ius/older-modification-passes, ius/equal-passes, ius/newer-fails, ius/ignored-when-last-modified-absent, ius/ignored-when-if-match-present, ius/skipped-for-cache, inm/match-get, inm/weak-member-matches-strong-current, inm/weak-current-matches-strong-member, inm/both-weak-different, inm/match-post-412, inm/star-with-representation, inm/star-without-representation, inm/no-match, inm/precedes-if-modified-since, inm/ignored-when-current-etag-absent, ims/equal-304, ims/later-value-304, ims/earlier-value-200, ims/ignored-for-post, ims/ignored-when-last-modified-absent, ims/ignored-when-if-none-match-present, refuse/unknown-top-key, refuse/method-not-token, refuse/exists-not-bool, refuse/last-modified-bool, refuse/etag-unquoted, refuse/etag-bad-char, refuse/star-mixed, refuse/empty-member, refuse/empty-value, refuse/absent-with-etag, refuse/date-as-string-not-int, refuse/date-bool, refuse/negative-date, refuse/role-unknown

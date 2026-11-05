@@ -1,0 +1,113 @@
+# ScribeSources round-93 — fetch and comparison receipt
+
+All commands run from the lane root /home/vgpnk/Projects/shokunin/kake-shokunin.
+
+## 1. One public GET each, bodies retained under this seat's wave directory
+
+```
+$ cd .ufo/waves/round-93/w1/ScribeSources/src
+$ curl -sS -o rfc9110.txt -w "rfc9110 http=%{http_code} bytes=%{size_download}\\n" https://www.rfc-editor.org/rfc/rfc9110.txt
+rfc9110 http=200 bytes=502941
+$ curl -sS -o rfc9111.txt -w "rfc9111 http=%{http_code} bytes=%{size_download}\\n" https://www.rfc-editor.org/rfc/rfc9111.txt
+rfc9111 http=200 bytes=84477
+$ sha256sum rfc9110.txt rfc9111.txt
+21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a  rfc9110.txt
+aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e  rfc9111.txt
+$ date -u +%Y-%m-%dT%H:%M:%SZ
+2026-11-05T01:26:51Z
+```
+
+UTC access date: 2026-11-05T01:26:51Z (local 2026-11-04T22:26:51-03:00).
+
+## 2. cmp against the L1's retained bodies
+
+```
+$ cmp .ufo/waves/round-93/L1/src/rfc9110.txt .ufo/waves/round-93/w1/ScribeSources/src/rfc9110.txt
+(no output) -> identical, exit 0
+$ cmp .ufo/waves/round-93/L1/src/rfc9111.txt .ufo/waves/round-93/w1/ScribeSources/src/rfc9111.txt
+(no output) -> identical, exit 0
+$ cmp .ufo/waves/round-92/L1/src/rfc9111.txt .ufo/waves/round-93/w1/ScribeSources/src/rfc9111.txt
+(no output) -> identical, exit 0  (round-92 retained body unchanged)
+```
+
+## 3. Errata listings fetched for the reject reason (same host as the L1's retained copies)
+
+```
+$ curl -sSL -o errata-rfc9110.html -w "rfc9110 http=%{http_code} bytes=%{size_download} url=%{url_effective}\\n" https://www.rfc-editor.org/errata/rfc9110
+rfc9110 http=200 bytes=97750 url=https://errata.rfc-editor.org/search/?rfc_number=9110&presentation=records
+$ curl -sSL -o errata-rfc9111.html -w "rfc9111 http=%{http_code} bytes=%{size_download} url=%{url_effective}\\n" https://www.rfc-editor.org/errata/rfc9111
+rfc9111 http=200 bytes=40383 url=https://errata.rfc-editor.org/search/?rfc_number=9111&presentation=records
+$ sha256sum errata-rfc9110.html errata-rfc9111.html
+cec32fd170146656d933f627b512f2e027ae5c3592f5ec7760c3627493b30505  errata-rfc9110.html
+1df394f9c04e33e74bf69360e3b7d3bbdeccbe80e27caaa18fdace216ccb54a4  errata-rfc9111.html
+$ date -u +%Y-%m-%dT%H:%M:%SZ
+2026-11-05T01:30:04Z
+$ cmp .ufo/waves/round-93/L1/src/errata-9110.html .ufo/waves/round-93/w1/ScribeSources/src/errata-rfc9110.html
+(no output) -> identical, exit 0
+$ cmp .ufo/waves/round-93/L1/src/errata-9111.html .ufo/waves/round-93/w1/ScribeSources/src/errata-rfc9111.html
+(no output) -> identical, exit 0
+```
+
+## 4. Errata record census (parsed from the fetched bodies)
+
+RFC 9110: 14 records (7138 7306 7419 7105 7109 8268 9162 9164 7107 7599 7870 8138 8459 7530);
+6 Verified, 2 Reported, 6 Rejected. Targeted sections: 12.5.1, 14.1.1, 8.3.2, 15.4.2, 15.4.9, 7.2,
+5.2, 5.5/5.6.1/5.6.4, 6.5.1/7.1.2, 6.4.1, 8.6, 15.4, 15/6/6.1.1, 15.5.2, B.1. None in 13.x or 8.8.3.x.
+RFC 9111: 4 records (9004 9185 9166 7695); 2 Reported (9004 Sec 3.5, 9185 Sec 4.3.4),
+1 Held for Document Update (9166 Sec 5.2.3), 1 Rejected (7695 Sec 4.3.2).
+
+## 5. Quote verification (this seat's own script)
+
+```
+$ cd .ufo/waves/round-93/w1/ScribeSources && python3 -B verify_quotes.py
+  9110 §13.2.2 lines 6233-6234  words=19 <=25: True  exact:True
+  9110 §13.1.1 lines 5794-5795  words=15 <=25: True  exact:True
+  9110 §13.1.2 lines 5880-5881  words=14 <=25: True  exact:True
+  9110 §13.1.3 lines 5956-5957  words=13 <=25: True  exact:True
+  9110 §13.1.3 lines 5963-5966  words= 8 <=25: True  exact:True
+  9110 §13.1.4 lines 6037-6038  words=13 <=25: True  exact:True
+  9110 §13.1.4 lines 6072-6073  words=16 <=25: True  exact:True
+  9110 §13.1.2 lines 5930-5931  words=22 <=25: True  exact:True
+  9110 §8.8.3.2 lines 3648-3649  words=15 <=25: True  exact:True
+  9111 §4.3.2 lines   889-890  words=13 <=25: True  exact:True
+  9110 §15.4.5 lines 7477-7478  words=18 <=25: True  exact:True
+  ALL_OK
+exit=0   (receipt: quotes.json, all_ok=true)
+```
+
+## 6. Audit of the L1's already-written Gate quotes
+
+```
+$ cd .ufo/waves/round-93/w1/ScribeSources && python3 -B check_l1_gate.py
+  body   cited span   w  <=25  in cited  in true  true location
+  9110    6229-6231  19  True     False     True  9110 6233-6234 (13.2.2 evaluation-order sentence)
+  9110    5794-5795  15  True      True     True  9110 5794-5795 (13.1.1 strong comparison)
+  9110    5880-5881  14  True      True     True  9110 5880-5881 (13.1.2 weak comparison)
+  9110    3648-3653  15  True      True     True  9110 3648-3649 (8.8.3.2 strong definition)
+  9110    3648-3653  19  True     False    False  9110 3651-3653 (8.8.3.2 weak definition (opaque- / tags split across lines))
+  9110    5930-5933  26 False      True     True  9110 5928-5932 (13.1.2 304-or-412 split)
+  9110    5956-5958  13  True      True     True  9110 5956-5957 (13.1.3 ignore on If-None-Match)
+  9110    5963-5965   8  True     False     True  9110 5963-5966 (13.1.3 ignore on invalid value / non-GET-HEAD method)
+  9110    6037-6039  13  True      True     True  9110 6037-6038 (13.1.4 ignore on If-Match)
+  9110    6072-6073  16  True      True     True  9110 6072-6073 (13.1.4 true-condition boundary)
+  9111      889-891  13  True      True     True  9111 889-890 (9111 4.3.2 not-applicable-to-a-cache)
+  pairs=11 quote_violations=2 all_inside_cited_span=False
+exit=1   (receipt: l1-gate-audit.json) -- 2 quote violations, 2 spans not containing their quote
+```
+
+## 7. Drafted rows validated against the fleet census (scratch clone)
+
+```
+$ git clone -q --shared <LANE> $S/clone ; git -C $S/clone checkout -q --detach bb8012fee38c0e497cdaf36337072737bca0b3cd
+$ git -C $S/clone update-ref refs/heads/master $(git -C <LANE> rev-parse refs/heads/master)
+$ # six drafted rows inserted after the S470 row inside the ## Registry section
+$ scripts/sources-census.sh validate --file $S/clone/corpus/SOURCES.md --today 2026-11-05
+file	W04	S471 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S472 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S473 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S474 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S475 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S476 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	ok	/fast/scratch/hyaku/kake-r93/ScribeSources/clone/corpus/SOURCES.md
+exit=0   (W04 count 31 -> 37, matching the six new rows re-scoping the two RFC URLs)
+```

@@ -1,0 +1,9 @@
+scenario A3a: E1 satisfied by a bare '## Gate' heading with no content
+predicate letter: 'carries a line exactly ## Gate' — heading presence suffices
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.06A3a
+cheat revision: 42cc5abf8350dc3a2cb963090ff16120c62ef378
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.06A3a --revision 42cc5abf8350dc3a2cb963090ff16120c62ef378
+exit=0
+line1: C1v93 revision=42cc5abf8350dc3a2cb963090ff16120c62ef378 lessons=87 entries=80 rows=257 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 257}, "short": []}

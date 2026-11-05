@@ -1,0 +1,29 @@
+# ScribeEntry receipts — round 93 C2 knowledge entry
+
+## source open (live GET, this seat)
+
+utc_access_at=2026-11-05T01:38:44Z
+
+url=https://www.rfc-editor.org/rfc/rfc9110.txt
+http_status=200
+bytes=502941
+sha256=21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a
+access_at=2026-11-05T01:38:44Z
+
+url=https://www.rfc-editor.org/rfc/rfc9111.txt
+http_status=200
+bytes=84477
+sha256=aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e
+access_at=2026-11-05T01:38:44Z
+
+## cmp against the lane's retained bodies (.ufo/waves/round-93/L1/src/)
+cmp rfc9110.txt identical (exit 0)
+cmp rfc9111.txt identical (exit 0)
+
+## frozen instrument selftests, re-run by this seat
+### c93_selfassess.py --selftest
+selftest 5/5 planted findings, exit 1 on planted, exit 0 on repaired
+c1_selftest_exit=0
+### c93_conditional.py --selftest
+selftest 7/7 fixtures scored as declared; drifted-reference cases=4
+c2_selftest_exit=0

@@ -134,6 +134,7 @@ are inclusive and each id was checked individually; a row set is the entry's
 | Cache-key conformance (does a key constructor implement the contract; field-value validity; JSON text encoding) | r90 | `knowledge/cache-key-conformance-gate.md` + `scripts/cache_key_conformance.py` | S466 S467 S468 |
 | Stored-response reuse decision (may a stored copy be handed to this request; first-match freshness order; when a stale copy is served or refused) | r91 | `knowledge/stored-response-reuse.md` + `scripts/stored_reuse.py` | S469 |
 | Heuristic freshness decision (may a heuristic expiration time be assigned to a stored response, and what lifetime it carries; no clock, no storage, no revalidation) | r92 | `knowledge/heuristic-freshness.md` + `scripts/heuristic_freshness.py` | S470 |
+| Conditional request evaluation (which status a recipient answers a conditional request with, and which precondition decided it; no clock, no HTTP-date parsing, no storage, no freshness, no serving or forwarding) | r93 (lands this round) | `knowledge/conditional-request-evaluation.md` + `scripts/conditional_eval.py` | S471 S472 S473 S474 S475 S476 |
 
 Two dated row sets hold no entry of their own: the round-39 sitemap-file audit
 (S102–S109, `used-by` only `corpus/lessons/round-39.md`; tool
@@ -757,4 +758,35 @@ Still open on this axis: the revalidation exchange (§4.3), storage (§4.1 key
 identity), serving stale without a client directive (§4.2.4's permission rather
 than a preference), field-specific header normalisation, and every live-cache or
 browser observation.
+
+## Round-93 frontier step — conditional request evaluation
+
+`corpus/knowledge/conditional-request-evaluation.md` (S471–S476, RFC 9110
+§13.2.2, §13.1.1–§13.1.4, §8.8.3.2 incl. Table 3; RFC 9111 §4.3.2) moves the
+*conditional request* half of the validator question out of the frontier:
+given a supplied current representation and supplied precondition field
+values, decide which status a recipient would answer a conditional request
+with, and which precondition decided it — one decision out of three (`200`,
+`304`, `412`) over the RFC 9110 §13.2.2 evaluation order: If-Match (strong
+comparison), If-Unmodified-Since, If-None-Match (weak comparison),
+If-Modified-Since, with the cache role entering at the top because RFC 9111
+§4.3.2 says If-Match and If-Unmodified-Since "are not applicable to a
+cache". `scripts/conditional_eval.py` is the offline reader; its 44 hand
+cases and 120 seeded generated cases are conformance to the round's frozen
+contract, not RFC conformance, and passing them proves nothing about a
+deployed server. Dates are integer epoch seconds — the lane's adapter
+convention, not the RFC's `HTTP-date` — and the entry says so rather than
+hiding the narrowing. The entry is the request side of the question r92 left
+open: r92 decides the lifetime that would be attached to a stored response,
+and this entry decides only what status a conditional request draws back.
+
+Frontier line: the conditional request evaluation moves from open ground to
+held, bounded ground for supplied values only. The reuse decision stays with
+r91 and the heuristic lifetime with r92; storage-key identity stays with
+r88/r89/r90 and the age arithmetic with r87. Still open on this axis: the
+revalidation *exchange* (RFC 9111 §4.3.4 — receiving a 304 and updating
+stored metadata), the header set a 304 response carries (§15.4.5), the
+`If-Range`/`Range` step the contract does not implement, HTTP-date parsing,
+field-specific header normalisation, validator generation, and every
+live-cache, CDN or browser observation.
 

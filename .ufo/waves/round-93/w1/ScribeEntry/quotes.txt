@@ -1,0 +1,32 @@
+# quote verification — every quoted passage in corpus/knowledge/conditional-request-evaluation.md
+# command: python3 -B verify_entry_quotes.py
+# bodies: the lane's COMMITTED retained copies at .ufo/waves/round-93/L1/src/,
+#   byte-identical (cmp exit 0) to the live GETs this seat took — see receipts.txt.
+# re-run: violations=0 checks=20, exit 0
+
+== pass A: blockquotes ==
+B01 ok file=rfc9110.txt words=20 where_ok=True words_ok=True :: "lost update" preconditions have more strict requirements than cache v
+B02 ok file=rfc9110.txt words=19 where_ok=True words_ok=True :: A recipient cache or origin server MUST evaluate the request precondit
+B03 ok file=rfc9110.txt words=17 where_ok=True words_ok=True :: "Strong comparison": two entity tags are equivalent if both are not we
+B04 ok file=rfc9110.txt words=22 where_ok=True words_ok=True :: "Weak comparison": two entity tags are equivalent if their opaque- tag
+B05 ok file=rfc9110.txt words=15 where_ok=True words_ok=True :: An origin server MUST use the strong comparison function when comparin
+B06 ok file=rfc9110.txt words=14 where_ok=True words_ok=True :: A recipient MUST use the weak comparison function when comparing entit
+B07 ok file=rfc9111.txt words=19 where_ok=True words_ok=True :: the If-Match and If-Unmodified-Since conditional header fields are not
+B08 ok file=rfc9111.txt words=15 where_ok=True words_ok=True :: A cache MUST NOT evaluate conditional header fields that only apply to
+B09 ok file=rfc9110.txt words=13 where_ok=True words_ok=True :: A recipient MUST ignore If-Modified-Since if the request contains an I
+B10 ok file=rfc9110.txt words=13 where_ok=True words_ok=True :: A recipient MUST ignore If-Unmodified-Since if the request contains an
+== pass B: inline fragments with a stated line span ==
+I01 ok rfc9110.txt:6227-6230 words=20 span=True file=True words_ok=True :: "lost update" preconditions have more strict requirements th
+I02 ok rfc9110.txt:5963-5966 words=15 span=True file=True words_ok=True :: has more than one member, or if the request method is neithe
+I03 ok rfc9110.txt:7477-7478 words=15 span=True file=True words_ok=True :: is terminated by the end of the header section; it cannot co
+== pass C: source: line anchors ==
+A ok rfc9110.txt:6222 expected '13.2.2.' got '13.2.2.  Precedence of Preconditions'
+A ok rfc9110.txt:5785 expected '13.1.1.' got '13.1.1.  If-Match'
+A ok rfc9110.txt:5872 expected '13.1.2.' got '13.1.2.  If-None-Match'
+A ok rfc9110.txt:5942 expected '13.1.3.' got '13.1.3.  If-Modified-Since'
+A ok rfc9110.txt:6023 expected '13.1.4.' got '13.1.4.  If-Unmodified-Since'
+A ok rfc9110.txt:3643 expected '8.8.3.2.' got '8.8.3.2.  Comparison'
+A ok rfc9111.txt:866 expected '4.3.2.' got '4.3.2.  Handling a Received Validation R'
+source ids: ['S471', 'S472', 'S473', 'S474', 'S475', 'S476']
+violations=0 checks=20
+exit=0

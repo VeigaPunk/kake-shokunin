@@ -1,3 +1,6 @@
+source: S449 — https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag; S450 — https://html.spec.whatwg.org/multipage/semantics.html; S451 — https://www.rfc-editor.org/rfc/rfc3339.txt (raw/text sha256 pairs and retained paths in the source block at the end of this entry)
+verified-at: 2026-11-04 — r93 wave seat ExecC1Fixes re-opened S451 live (GET 2026-11-05T01:29:13Z, HTTP 200, 35064 bytes, sha256 9ab2b8864a85dca73a88f49b0927bc7bc85f596926e4fd1890905777924e700a — equal to the pinned raw digest) and re-read the retained S449/S450 round-78 bodies; the historical quotes and the bottom provenance block are unchanged
+recheck: 90d for S449/S450; 365d for S451; re-locate quotes and hashes when sources change
 scope: offline declarations in local HTML meta elements; not crawler behaviour or any live property's state
 
 # Page-level robots directives

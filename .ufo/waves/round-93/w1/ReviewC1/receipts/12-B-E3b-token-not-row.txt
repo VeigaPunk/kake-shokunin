@@ -1,0 +1,11 @@
+scenario B-E3b: entry cites S999; SOURCES.md contains the token S999 only in a
+prose footer sentence, not as a row id. Predicate says 'resolves to a row id'.
+expectation: counter admits (ids scanned over the WHOLE file text) -> fooled
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.12BE3b
+revision: 14f057bc512263949e688d8b36b8844965f230ab
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ git -C /fast/scratch/hyaku/kake-r93/ReviewC1/fx.12BE3b show 14f057bc512263949e688d8b36b8844965f230ab:corpus/SOURCES.md | grep -n S999
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.12BE3b --revision 14f057bc512263949e688d8b36b8844965f230ab
+exit=0
+line1: C1v93 revision=14f057bc512263949e688d8b36b8844965f230ab lessons=87 entries=80 rows=257 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 257}, "short": []}

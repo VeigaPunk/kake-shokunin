@@ -1,0 +1,11 @@
+scenario B-E5: SKILL row names a missing path without backticks
+PATH_RE only reads backticked tokens; the predicate says 'named inside a
+SKILL.md table row' with no backtick requirement
+expectation: admitted -> miss vs the predicate letter
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.16BE5
+revision: df5f93c87840c7a55ce7b4b582b60462364b11b3
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.16BE5 --revision df5f93c87840c7a55ce7b4b582b60462364b11b3
+exit=0
+line1: C1v93 revision=df5f93c87840c7a55ce7b4b582b60462364b11b3 lessons=87 entries=80 rows=258 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 258}, "short": []}

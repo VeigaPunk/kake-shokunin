@@ -1,0 +1,9 @@
+scenario A2a: E1 defect 'repaired' by deleting the whole lesson file
+expectation: pins=short (lessons 86<87), met=false exit 0 NOT reachable
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.02A2a
+cheat revision: 80150a839cc8f3f2a14fad5adfd3a33c1331da2f
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.02A2a --revision 80150a839cc8f3f2a14fad5adfd3a33c1331da2f
+exit=1
+line1: C1v93 revision=80150a839cc8f3f2a14fad5adfd3a33c1331da2f lessons=86 entries=80 rows=257 criteria=39 mismatches=1 E1=0 E2=1 E3=0 E4=0 E5=0 pins=short met=false
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [{"class": "E2", "detail": "section 'Round-05 criterion \u2014 thing 5' cites missing corpus/lessons/round-05.md", "path": "corpus/QUALITY.md"}], "pins": {"criteria": 39, "entries": 80, "lessons": 86, "rows": 257}, "short": ["lessons"]}

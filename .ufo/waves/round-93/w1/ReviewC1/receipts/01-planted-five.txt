@@ -1,0 +1,8 @@
+scenario: one planted defect per class, expect E1..E5 = 1 each, met=false exit 1
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.01five
+defect revision: 23b99b0679185072e023dcecb67b2e824953a117
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.01five --revision 23b99b0679185072e023dcecb67b2e824953a117
+exit=1
+line1: C1v93 revision=23b99b0679185072e023dcecb67b2e824953a117 lessons=87 entries=81 rows=258 criteria=40 mismatches=5 E1=1 E2=1 E3=1 E4=1 E5=1 pins=ok met=false
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [{"class": "E1", "detail": "no '## Gate' heading", "path": "corpus/lessons/round-05.md"}, {"class": "E4", "detail": "blank line inside the Mistakes table after row 4", "path": "corpus/lessons/round-06.md"}, {"class": "E2", "detail": "section 'Round-90 criterion \u2014 deferred checks' cites missing corpus/lessons/round-missing.md", "path": "corpus/QUALITY.md"}, {"class": "E3", "detail": "missing verified-at:; missing recheck:; unresolved S404", "path": "corpus/knowledge/entry-81.md"}, {"class": "E5", "detail": "names missing path scripts/gone.py", "path": "SKILL.md"}], "pins": {"criteria": 40, "entries": 81, "lessons": 87, "rows": 258}, "short": []}

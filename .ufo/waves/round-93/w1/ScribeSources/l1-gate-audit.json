@@ -1,0 +1,137 @@
+{
+ "bodies": {
+  "9110": {
+   "bytes": 502941,
+   "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a"
+  },
+  "9111": {
+   "bytes": 84477,
+   "sha256": "aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e"
+  }
+ },
+ "pairs": [
+  {
+   "body": "9110",
+   "cited_span": "6229-6231",
+   "quote": "A recipient cache or origin server MUST evaluate the request preconditions defined by this specification in the following order",
+   "words": 19,
+   "words_le_25": true,
+   "exact_in_cited_span": false,
+   "true_location": "9110 6233-6234 (13.2.2 evaluation-order sentence)",
+   "exact_in_true_span": true,
+   "cited_span_text": "validation, a validated cache is more efficient than a partial response, and entity tags are presumed to be more accurate than date validators."
+  },
+  {
+   "body": "9110",
+   "cited_span": "5794-5795",
+   "quote": "An origin server MUST use the strong comparison function when comparing entity tags for If-Match",
+   "words": 15,
+   "words_le_25": true,
+   "exact_in_cited_span": true,
+   "true_location": "9110 5794-5795 (13.1.1 strong comparison)",
+   "exact_in_true_span": true,
+   "cited_span_text": "An origin server MUST use the strong comparison function when comparing entity tags for If-Match (Section 8.8.3.2), since the"
+  },
+  {
+   "body": "9110",
+   "cited_span": "5880-5881",
+   "quote": "A recipient MUST use the weak comparison function when comparing entity tags for If-None-Match",
+   "words": 14,
+   "words_le_25": true,
+   "exact_in_cited_span": true,
+   "true_location": "9110 5880-5881 (13.1.2 weak comparison)",
+   "exact_in_true_span": true,
+   "cited_span_text": "A recipient MUST use the weak comparison function when comparing entity tags for If-None-Match (Section 8.8.3.2), since weak entity"
+  },
+  {
+   "body": "9110",
+   "cited_span": "3648-3653",
+   "quote": "two entity tags are equivalent if both are not weak and their opaque-tags match character-by-character",
+   "words": 15,
+   "words_le_25": true,
+   "exact_in_cited_span": true,
+   "true_location": "9110 3648-3649 (8.8.3.2 strong definition)",
+   "exact_in_true_span": true,
+   "cited_span_text": "\"Strong comparison\": two entity tags are equivalent if both are not weak and their opaque-tags match character-by-character. \"Weak comparison\": two entity tags are equivalent if their opaque- tags match character-by-character, regardless of either or both being tagged as \"weak\"."
+  },
+  {
+   "body": "9110",
+   "cited_span": "3648-3653",
+   "quote": "two entity tags are equivalent if their opaque-tags match character-by-character, regardless of either or both being tagged as 'weak'",
+   "words": 19,
+   "words_le_25": true,
+   "exact_in_cited_span": false,
+   "true_location": "9110 3651-3653 (8.8.3.2 weak definition (opaque- / tags split across lines))",
+   "exact_in_true_span": false,
+   "cited_span_text": "\"Strong comparison\": two entity tags are equivalent if both are not weak and their opaque-tags match character-by-character. \"Weak comparison\": two entity tags are equivalent if their opaque- tags match character-by-character, regardless of either or both being tagged as \"weak\"."
+  },
+  {
+   "body": "9110",
+   "cited_span": "5930-5933",
+   "quote": "the origin server MUST respond with either a) the 304 (Not Modified) status code if the request method is GET or HEAD or b) the 412",
+   "words": 26,
+   "words_le_25": false,
+   "exact_in_cited_span": true,
+   "true_location": "9110 5928-5932 (13.1.2 304-or-412 split)",
+   "exact_in_true_span": true,
+   "cited_span_text": "instead, the origin server MUST respond with either a) the 304 (Not Modified) status code if the request method is GET or HEAD or b) the 412 (Precondition Failed) status code for all other request methods."
+  },
+  {
+   "body": "9110",
+   "cited_span": "5956-5958",
+   "quote": "A recipient MUST ignore If-Modified-Since if the request contains an If-None-Match header field",
+   "words": 13,
+   "words_le_25": true,
+   "exact_in_cited_span": true,
+   "true_location": "9110 5956-5957 (13.1.3 ignore on If-None-Match)",
+   "exact_in_true_span": true,
+   "cited_span_text": "A recipient MUST ignore If-Modified-Since if the request contains an If-None-Match header field; the condition in If-None-Match is considered to be a more accurate replacement for the condition in If-"
+  },
+  {
+   "body": "9110",
+   "cited_span": "5963-5965",
+   "quote": "the request method is neither GET nor HEAD",
+   "words": 8,
+   "words_le_25": true,
+   "exact_in_cited_span": false,
+   "true_location": "9110 5963-5966 (13.1.3 ignore on invalid value / non-GET-HEAD method)",
+   "exact_in_true_span": true,
+   "cited_span_text": "A recipient MUST ignore the If-Modified-Since header field if the received field value is not a valid HTTP-date, the field value has more than one member, or if the request method is neither GET nor"
+  },
+  {
+   "body": "9110",
+   "cited_span": "6037-6039",
+   "quote": "A recipient MUST ignore If-Unmodified-Since if the request contains an If-Match header field",
+   "words": 13,
+   "words_le_25": true,
+   "exact_in_cited_span": true,
+   "true_location": "9110 6037-6038 (13.1.4 ignore on If-Match)",
+   "exact_in_true_span": true,
+   "cited_span_text": "A recipient MUST ignore If-Unmodified-Since if the request contains an If-Match header field; the condition in If-Match is considered to be a more accurate replacement for the condition in If-Unmodified-"
+  },
+  {
+   "body": "9110",
+   "cited_span": "6072-6073",
+   "quote": "earlier than or equal to the date provided in the field value, the condition is true",
+   "words": 16,
+   "words_le_25": true,
+   "exact_in_cited_span": true,
+   "true_location": "9110 6072-6073 (13.1.4 true-condition boundary)",
+   "exact_in_true_span": true,
+   "cited_span_text": "earlier than or equal to the date provided in the field value, the condition is true."
+  },
+  {
+   "body": "9111",
+   "cited_span": "889-891",
+   "quote": "the If-Match and If-Unmodified-Since conditional header fields are not applicable to a cache",
+   "words": 13,
+   "words_le_25": true,
+   "exact_in_cited_span": true,
+   "true_location": "9111 889-890 (9111 4.3.2 not-applicable-to-a-cache)",
+   "exact_in_true_span": true,
+   "cited_span_text": "summary, the If-Match and If-Unmodified-Since conditional header fields are not applicable to a cache, and If-None-Match takes precedence over If-Modified-Since. See Section 13.2.2 of [HTTP] for"
+  }
+ ],
+ "all_spanned": false,
+ "quote_violations": 2
+}

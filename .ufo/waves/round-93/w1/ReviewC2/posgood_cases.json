@@ -1,0 +1,5381 @@
+{
+ "target": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93/frozen/pos-good.py",
+ "target_sha256": "0fe018a8e33ca82928a876f2b0d2e5b3f33befa00260f2fdf995418822a868e4",
+ "cases_total": 162,
+ "rows": [
+  {
+   "id": "R01",
+   "clause": "schema-extra-topkey",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "extra": 1
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: extra key\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R02",
+   "clause": "schema-missing-method",
+   "kind": "R",
+   "input": {
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: missing key\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R03",
+   "clause": "c1-method-type",
+   "kind": "R",
+   "input": {
+    "method": 7,
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: method\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R04",
+   "clause": "c1-method-empty",
+   "kind": "R",
+   "input": {
+    "method": "",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: method\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R05",
+   "clause": "c1-method-tchar",
+   "kind": "R",
+   "input": {
+    "method": "GE T",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: method\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R06",
+   "clause": "c1-method-tchar",
+   "kind": "R",
+   "input": {
+    "method": "GET,",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: method\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R07",
+   "clause": "c1-method-tchar",
+   "kind": "R",
+   "input": {
+    "method": "GÉT",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: method\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R08",
+   "clause": "c1-method-tchar",
+   "kind": "R",
+   "input": {
+    "method": "GET\t",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: method\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R09",
+   "clause": "c1-method-type",
+   "kind": "R",
+   "input": {
+    "method": null,
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: method\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R10",
+   "clause": "schema-missing-current",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: missing key\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R11",
+   "clause": "schema-current-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": null,
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: current\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R12",
+   "clause": "schema-current-extra",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null,
+     "x": 1
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: current\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R13",
+   "clause": "schema-current-missing-key",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: current\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R14",
+   "clause": "c1-exists-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": "true",
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: exists\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R15",
+   "clause": "schema-current-missing-key",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: current\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R16",
+   "clause": "c2-absent-etag",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": false,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: absent validator\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R17",
+   "clause": "c2-absent-lm",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": false,
+     "etag": null,
+     "last_modified": 5
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: absent validator\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R18",
+   "clause": "c1-etag-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": 123,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: etag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R19",
+   "clause": "c1-etag-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": true,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: etag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R20",
+   "clause": "c1-lm-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": "100"
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: last_modified\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R21",
+   "clause": "c1-lm-bool",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": true
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: last_modified\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R22",
+   "clause": "c1-lm-negative",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": -1
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: last_modified\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R23",
+   "clause": "c1-lm-float",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 1.5
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: last_modified\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R24",
+   "clause": "schema-missing-request",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: missing key\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R25",
+   "clause": "schema-request-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": null
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: request\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R26",
+   "clause": "schema-request-extra",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null,
+     "if_range": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: request\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R27",
+   "clause": "schema-request-missing-key",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: request\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R28",
+   "clause": "c1-im-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": 123,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_match\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R29",
+   "clause": "c1-inm-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": true,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_none_match\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R30",
+   "clause": "c1-ims-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": "100",
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_modified_since\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R31",
+   "clause": "c1-ius-bool",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": true
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_unmodified_since\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R32",
+   "clause": "c1-ius-negative",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": -5
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_unmodified_since\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R33",
+   "clause": "c1-ims-float",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 1.5,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_modified_since\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R34",
+   "clause": "schema-role-value",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "proxy"
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: role\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R35",
+   "clause": "schema-role-type",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": 123
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: role\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R36",
+   "clause": "schema-role-value",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "Origin"
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: role\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R37",
+   "clause": "c4-empty",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: empty\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R38",
+   "clause": "c4-blank",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "   ",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: empty\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R39",
+   "clause": "c4-blank",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\t",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: empty\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R40",
+   "clause": "c3-unterminated",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R41",
+   "clause": "c3-malformed",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R42",
+   "clause": "c3-unterminated-weak",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "W/\"a",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R43",
+   "clause": "c3-lowercase-w",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "w/\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R44",
+   "clause": "c3-space-after-W",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "W/ \"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R45",
+   "clause": "c3-trailing-junk",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"x",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R46",
+   "clause": "c3-space-in-opaque",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\" a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R47",
+   "clause": "c4-no-comma",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\" \"b\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R48",
+   "clause": "c4-empty-member",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\",,",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: empty member\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R49",
+   "clause": "c4-empty-member",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\", ",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: empty member\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R50",
+   "clause": "c4-empty-member",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": ",\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: empty member\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R51",
+   "clause": "c4-star-mixed",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "*, \"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: star mixed\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R52",
+   "clause": "c4-star-mixed",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\", *",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: star mixed\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R53",
+   "clause": "c3-space-in-opaque",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a, b\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R54",
+   "clause": "c3-trailing-junk",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"b",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R55",
+   "clause": "c3-DEL-in-opaque",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R56",
+   "clause": "c3-control-in-opaque",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\nb\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R57",
+   "clause": "c4-not-ows",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\u000b\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R58",
+   "clause": "c4-empty-inm",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: empty\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R59",
+   "clause": "c3-malformed-inm",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"b\"c",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R60",
+   "clause": "c3-opaque-nonascii",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"café\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R61",
+   "clause": "c6-unevaluated-field",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a",
+     "if_none_match": null,
+     "if_modified_since": 0,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R62",
+   "clause": "c6-cache-role",
+   "kind": "R",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R63",
+   "clause": "c6-unevaluated-field",
+   "kind": "R",
+   "input": {
+    "method": "POST",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R64",
+   "clause": "c6-unevaluated-field",
+   "kind": "R",
+   "input": {
+    "method": "POST",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": -5,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_modified_since\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R65",
+   "clause": "c6-unevaluated-field",
+   "kind": "R",
+   "input": {
+    "method": "DELETE",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": -1,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_modified_since\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R66",
+   "clause": "c6-unevaluated-field",
+   "kind": "R",
+   "input": {
+    "method": "POST",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": -1
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: if_unmodified_since\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R67",
+   "clause": "stdin-nonobject",
+   "kind": "R",
+   "input": {
+    "__raw__": "[]"
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: object\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R68",
+   "clause": "stdin-invalidjson",
+   "kind": "R",
+   "input": {
+    "__raw__": "{{{"
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: input is not JSON\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R69",
+   "clause": "stdin-empty",
+   "kind": "R",
+   "input": {
+    "__raw__": ""
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: input is not JSON\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "R70",
+   "clause": "stdin-json-null",
+   "kind": "R",
+   "input": {
+    "__raw__": "null"
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: object\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D01",
+   "clause": "s12-no-preconds",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D02",
+   "clause": "s12-role-origin",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "origin"
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D03",
+   "clause": "s12-role-cache",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D04",
+   "clause": "s8-star-exists",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "*",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D05",
+   "clause": "s8-star-missing",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": false,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "*",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D06",
+   "clause": "s8-strong-match",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D07",
+   "clause": "s8-strong-miss",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"b\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D08",
+   "clause": "s8-list-hit",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"x\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\", \"x\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D09",
+   "clause": "s8-list-miss",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"x\", \"y\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D10",
+   "clause": "c5-strong-weak-lhs",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "W/\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D11",
+   "clause": "c5-strong-both-weak",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "W/\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "W/\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D12",
+   "clause": "c5-current-weak",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "W/\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D13",
+   "clause": "s8-star-etag-null",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "*",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D14",
+   "clause": "s8-etag-null",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D15",
+   "clause": "s8-missing-rep",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": false,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D16",
+   "clause": "c5-case-sensitive",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"A\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D17",
+   "clause": "c5-empty-opaque",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D18",
+   "clause": "c5-etagc-specials",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a#b!~\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a#b!~\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D19",
+   "clause": "s8-ows",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": " \"a\" ",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D20",
+   "clause": "s8-htab-ows",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"\t,\t\"x\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D21",
+   "clause": "c4-comma-in-opaque",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a,b\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a,b\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": false,
+   "classification": "PENDING-CLASSIFY"
+  },
+  {
+   "id": "D22",
+   "clause": "s9-ignored-when-im-present",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 200
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D23",
+   "clause": "s9-equal",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D24",
+   "clause": "s9-older",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 50
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D25",
+   "clause": "s9-equal-noim",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D26",
+   "clause": "s9-newer",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 200
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "412",
+    "if_unmodified_since"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_unmodified_since\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_unmodified_since"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D27",
+   "clause": "s9-lm-null-ignored",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D28",
+   "clause": "s10-star-get",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "*",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D29",
+   "clause": "s10-star-post",
+   "kind": "D",
+   "input": {
+    "method": "POST",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "*",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D30",
+   "clause": "s10-star-head",
+   "kind": "D",
+   "input": {
+    "method": "HEAD",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "*",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D31",
+   "clause": "s10-star-missing",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": false,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "*",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D32",
+   "clause": "s10-weak-eq-get",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D33",
+   "clause": "c5-weak-current-weak",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "W/\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D34",
+   "clause": "c5-weak-tag-strong-cur",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "W/\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D35",
+   "clause": "c5-weak-both",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "W/\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "W/\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D36",
+   "clause": "s10-miss",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"b\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D37",
+   "clause": "c5-inm-case",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"A\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D38",
+   "clause": "s10-list-weak-hit",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"b\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"x\", W/\"b\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D39",
+   "clause": "s10-etag-null",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D40",
+   "clause": "s10-missing-rep",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": false,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D41",
+   "clause": "s10-non-gethead-true",
+   "kind": "D",
+   "input": {
+    "method": "DELETE",
+    "current": {
+     "exists": true,
+     "etag": "\"b\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D42",
+   "clause": "s10-non-gethead-false",
+   "kind": "D",
+   "input": {
+    "method": "DELETE",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D43",
+   "clause": "s10-patch-false",
+   "kind": "D",
+   "input": {
+    "method": "PATCH",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D44",
+   "clause": "s10-lowercase-get",
+   "kind": "D",
+   "input": {
+    "method": "get",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D45",
+   "clause": "s10-lowercase-head",
+   "kind": "D",
+   "input": {
+    "method": "head",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D46",
+   "clause": "s10-token-star-method",
+   "kind": "D",
+   "input": {
+    "method": "*",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D47",
+   "clause": "s11-inm-suppresses-eq",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"z\"",
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D48",
+   "clause": "s11-inm-suppresses-older",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 50
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"z\"",
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D49",
+   "clause": "s11-inm-suppresses-newer",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 200
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"z\"",
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D50",
+   "clause": "s11-eq",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_modified_since"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_modified_since\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_modified_since"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D51",
+   "clause": "s11-lm-null-ignored",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D52",
+   "clause": "s11-post-ignored",
+   "kind": "D",
+   "input": {
+    "method": "POST",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D53",
+   "clause": "s11-head-eq",
+   "kind": "D",
+   "input": {
+    "method": "HEAD",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_modified_since"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_modified_since\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_modified_since"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D54",
+   "clause": "s11-lowercase-head",
+   "kind": "D",
+   "input": {
+    "method": "head",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D55",
+   "clause": "s8-before-s10",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"b\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"x\"",
+     "if_none_match": "\"b\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D56",
+   "clause": "s10-after-im",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D57",
+   "clause": "s10-after-im-ius",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D58",
+   "clause": "s9-before-s10",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 200
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "412",
+    "if_unmodified_since"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_unmodified_since\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_unmodified_since"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D59",
+   "clause": "s9-before-s10-hit",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 200
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    }
+   },
+   "expected": [
+    "412",
+    "if_unmodified_since"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_unmodified_since\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_unmodified_since"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D60",
+   "clause": "s7-im-skipped",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"b\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D61",
+   "clause": "s7-inm-decides",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"a\"",
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D62",
+   "clause": "s7-ius-skipped",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 200
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D63",
+   "clause": "s7-ims-decides",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": "\"b\"",
+     "if_none_match": null,
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "304",
+    "if_modified_since"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_modified_since\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_modified_since"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D64",
+   "clause": "s7-inm-post",
+   "kind": "D",
+   "input": {
+    "method": "POST",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D65",
+   "clause": "s7-stars-missing",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": false,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "*",
+     "if_none_match": "*",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D66",
+   "clause": "s11-inm-present-lm-null",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"z\"",
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D67",
+   "clause": "s11-boundary-zero",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 0
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 0,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_modified_since"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_modified_since\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_modified_since"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D68",
+   "clause": "s9-boundary-zero",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 0
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 0
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D69",
+   "clause": "s11-large-ints",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 4611686018427387904
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 4611686018427387904,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_modified_since"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_modified_since\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_modified_since"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D70",
+   "clause": "s10-ows",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": " \"a\" ",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D71",
+   "clause": "s10-mixed-list-ows",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"b\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\tW/\"b\" , \"x\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D72",
+   "clause": "s9-then-s11-chain",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": 50,
+     "if_unmodified_since": 200
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D73",
+   "clause": "s10-before-s11",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 100
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": 100,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D74",
+   "clause": "c5-inm-empty-opaque",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "W/\"\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D75",
+   "clause": "s12-post",
+   "kind": "D",
+   "input": {
+    "method": "POST",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D76",
+   "clause": "s10-options-false",
+   "kind": "D",
+   "input": {
+    "method": "OPTIONS",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D77",
+   "clause": "s10-prefix-not-equal",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"ab\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D78",
+   "clause": "s8-prefix-not-equal",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"ab\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D79",
+   "clause": "c5-weak-case",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "W/\"A\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"a\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D80",
+   "clause": "s8-star-trailing-ows-missing",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": false,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "*  ",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D81",
+   "clause": "s8-star-leading-ows",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": " *",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D82",
+   "clause": "s10-star-ows-get",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": " * ",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D83",
+   "clause": "s10-list-all-miss",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": " \"x\" , W/\"y\" ",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D84",
+   "clause": "s8-weak-list-no-strong",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "\"x\", W/\"a\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D85",
+   "clause": "c5-weak-both-empty",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "W/\"\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "W/\"\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "304",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "304",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "D86",
+   "clause": "s7-im-ius-skipped",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 200
+    },
+    "request": {
+     "if_match": "\"b\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": 100
+    },
+    "role": "cache"
+   },
+   "expected": [
+    "200",
+    null
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"200\", \"precondition\": null}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "200",
+    null
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "X01",
+   "clause": "c3-scope-current-etag",
+   "kind": "X",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "abc",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": "\"abc\"",
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "X02",
+   "clause": "c3-scope-current-obs",
+   "kind": "X",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"café\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: tag\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "X03",
+   "clause": "schema-role-null",
+   "kind": "X",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": null,
+     "last_modified": null
+    },
+    "request": {
+     "if_match": null,
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    },
+    "role": null
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "invalid_input: role\n"
+   },
+   "actual_verdict": [
+    "REFUSE"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "X04",
+   "clause": "undefined-dup-keys",
+   "kind": "X",
+   "input": {
+    "__raw__": "{\"method\":\"GET\",\"current\":{\"exists\":true,\"etag\":\"\\\"a\\\"\",\"last_modified\":null},\"request\":{\"if_match\":null,\"if_none_match\":\"\\\"a\\\"\",\"if_modified_since\":null,\"if_unmodified_since\":null},\"method\":\"POST\"}"
+   },
+   "expected": [
+    "412",
+    "if_none_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_none_match"
+   ],
+   "agree": true,
+   "classification": ""
+  },
+  {
+   "id": "E01",
+   "clause": "stdin-non-utf8",
+   "kind": "R",
+   "input": {
+    "__rawbytes__": "ÿþ{\"method\":\"GET\"}"
+   },
+   "expected": [
+    "REFUSE"
+   ],
+   "actual": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93/frozen/pos-good.py\", line 147, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93/frozen/pos-good.py\", line 131, in main\n    raw = sys.stdin.read()\n  File \"<frozen codecs>\", line 325, in decode\nUnicodeDecodeError: 'utf-"
+   },
+   "actual_verdict": [
+    "BROKEN",
+    "Traceback (most recent call last):\n  File \"/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93/frozen/pos-good.py\", line 147, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/"
+   ],
+   "agree": false,
+   "classification": "PENDING-CLASSIFY"
+  },
+  {
+   "id": "E02",
+   "clause": "s8-t3row4-weak-diff",
+   "kind": "D",
+   "input": {
+    "method": "GET",
+    "current": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": null
+    },
+    "request": {
+     "if_match": "W/\"x\"",
+     "if_none_match": null,
+     "if_modified_since": null,
+     "if_unmodified_since": null
+    }
+   },
+   "expected": [
+    "412",
+    "if_match"
+   ],
+   "actual": {
+    "exit": 0,
+    "stdout": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+    "stderr": ""
+   },
+   "actual_verdict": [
+    "DECIDE",
+    "412",
+    "if_match"
+   ],
+   "agree": true,
+   "classification": ""
+  }
+ ]
+}

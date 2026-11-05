@@ -1,0 +1,10 @@
+scenario A5: SKILL rows name `scripts/pkg` (a committed DIRECTORY) and `scripts/empty.py` (0-byte blob)
+git show on the tree: exit=0 stdout='tree 4c07a12c1b744985d2923df578c6ce7753c1026a:scripts/pkg\n\nx.py\n'
+expectation: both admitted (read() non-None) -> met=true
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.08A5dir
+revision: 4c07a12c1b744985d2923df578c6ce7753c1026a
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.08A5dir --revision 4c07a12c1b744985d2923df578c6ce7753c1026a
+exit=0
+line1: C1v93 revision=4c07a12c1b744985d2923df578c6ce7753c1026a lessons=87 entries=80 rows=259 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 259}, "short": []}

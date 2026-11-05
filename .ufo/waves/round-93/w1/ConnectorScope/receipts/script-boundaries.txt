@@ -1,0 +1,17 @@
+=== stored_reuse.py ===
+8: {"decision": "<member>", "freshness_lifetime": <int|null>, "current_age": <int|null>}
+13: revalidate             stale or otherwise unusable as-is; revalidate first
+15: must-revalidate-fail   stale under must-revalidate/proxy-revalidate: do not serve
+23: What this tool deliberately does not do (contract scope, stated up front):
+32: * no storage-key identity, no Vary field matching, and no decision to serve
+=== heuristic_freshness.py ===
+2: """Heuristic freshness lifetime decision (RFC 9111 section 4.2.2) - round-92 C2.
+8: {"decision": "<member>", "lifetime": <int|null>, "heuristic": <bool>}
+24: Scope, stated up front: this is a decision over supplied integer seconds only.
+27: lifetime and the heuristic flag; it does not store, reuse, serve or revalidate
+=== cache_current_age.py ===
+6: defaults to zero. This is not a Date parser, clock, network client, freshness
+=== cache_key.py ===
+=== vary_match.py ===
+=== cache_control_effective.py ===
+=== capture_delta.py ===

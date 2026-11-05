@@ -1,0 +1,10 @@
+scenario B-E3a: source: line with no S<digits> token at all
+predicate: 'every S<digits> id on its source: line resolves' — vacuously true
+expectation: admitted (trio present, no ids to resolve)
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.11BE3a
+revision: ce1ea461f04baab6db062110da66d989c16a8845
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.11BE3a --revision ce1ea461f04baab6db062110da66d989c16a8845
+exit=0
+line1: C1v93 revision=ce1ea461f04baab6db062110da66d989c16a8845 lessons=87 entries=80 rows=257 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 257}, "short": []}

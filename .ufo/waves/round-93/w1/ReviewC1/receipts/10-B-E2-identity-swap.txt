@@ -1,0 +1,14 @@
+scenario B-E2: defective counted section escapes the population
+(heading loses the word criteri, mention moved past char 400); a junk
+section citing round-01.md restores criteria=39. The defective pointer
+to round-missing.md REMAINS in corpus/QUALITY.md, unrepaired.
+expectation: pins=ok mismatches=0 met=true -> counter fooled
+fixture: /fast/scratch/hyaku/kake-r93/ReviewC1/fx.10BE2
+cheat revision: d9471a18c7e60e056dc8316fb63b50c898958402
+counter sha256: 4e25b72e88299300c55525cc21bcc30e1c5b05f1f74ebbcd2ad4e6d50bb7390f
+$ git -C /fast/scratch/hyaku/kake-r93/ReviewC1/fx.10BE2 show d9471a18c7e60e056dc8316fb63b50c898958402:corpus/QUALITY.md | grep -n round-missing
+  (the unrepaired pointer is still present at the measured revision)
+$ python3 -B /fast/scratch/hyaku/kake-r93/ReviewC1/c93_selfassess.frozen.py --root /fast/scratch/hyaku/kake-r93/ReviewC1/fx.10BE2 --revision d9471a18c7e60e056dc8316fb63b50c898958402
+exit=0
+line1: C1v93 revision=d9471a18c7e60e056dc8316fb63b50c898958402 lessons=87 entries=80 rows=257 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok met=true
+detail: {"base_pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 255}, "mismatches": [], "pins": {"criteria": 39, "entries": 80, "lessons": 87, "rows": 257}, "short": []}
