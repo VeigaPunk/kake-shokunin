@@ -1,0 +1,21 @@
+# control falseselftest fixture-commit f104a88e96a20b4d383a534c3fbf322c2ca08b4b (scratch clone; base cde408e5817bf1376c701d8decc5469fa82b2985)
+revision=f104a88e96a20b4d383a534c3fbf322c2ca08b4b
+tools=54 rows=150 listed=46 unlisted=8 dangling=0 exec_fail=9 mismatches=8 met=false
+unlisted scripts/cache_key.py
+unlisted scripts/cache_key_conformance.py
+unlisted scripts/live_snapshot.py
+unlisted scripts/probe-delta.mjs
+unlisted scripts/response_snapshot.py
+unlisted scripts/reval_exchange.py
+unlisted scripts/source_snapshot.py
+unlisted scripts/wave_seat_record.py
+exec_fail 1104 scripts/robots_audit.py rc=2
+exec_fail 1707 scripts/cache_key.py rc=1
+exec_fail 1708 scripts/cache_key_conformance.py rc=2
+exec_fail 1718 scripts/live_snapshot.py rc=64
+exec_fail 1719 scripts/probe-delta.mjs rc=1
+exec_fail 1721 scripts/response_snapshot.py rc=64
+exec_fail 1722 scripts/reval_exchange.py rc=1
+exec_fail 1729 scripts/source_snapshot.py rc=2
+exec_fail 1731 scripts/wave_seat_record.py rc=2
+exit=1
