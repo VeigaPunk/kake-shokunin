@@ -3175,3 +3175,65 @@ Assimilation: none — `merge/kake` still collides on eight ids
 verdicts stay as recorded in round 86.
 
 Tools: none installed or upgraded (no pacman; network limited to the two RFC GETs).
+
+## Round 92 — 2026-11-04, the round-91 instrument defects and a heuristic freshness decision
+
+Claims (frozen `a5640ca0`, `.ufo/waves/round-92/freeze.md`):
+- C1 calibration: the routed round-91 defects K91-1, K91-2, K91-4 and K91-5 close, counter
+  `c92_defects.py`; base `e143faff` `open=3 closed=0 battery=hit differential=fail self=hit met=false`
+  exit 1 (`controls/base-c1.txt`) → carrier `2a4447c1a4696cbfb40b17014e47fc6af716c06d`
+  `open=0 closed=3 battery=exact differential=ok self=ok met=true` exit 0 (`controls/after-c1-carrier.txt`).
+  Item A ← K91-1 (receipt digest bound to the gate blob, a committed execution log, a committed
+  runner executed for `base` and one mutant with the two runs required to differ); item B ← K91-2
+  (a SKILL.md row naming the counter, its `--revision` command and its predicate); item C ← K91-5
+  (the harness replayed with `ONLY=c1` must print exactly the nine declared labels); the
+  five-fixture battery and the frozen-counter differential ← K91-4. **Falsified as worded by the
+  round's own attack seats** (ReviewC1 classes 3/5c/6, CriticClaims F1–F3, ExecMutation's forged
+  unsampled line): a runner executing a different gate, a constant-label harness and a rewritten
+  self-pin all reach `met=true`. Reported met on the frozen predicate, not admitted.
+- C2 freshness capability: `scripts/heuristic_freshness.py` under `c2-contract.md` (13 clauses),
+  counter `c92_heuristic.py`; base `candidate=absent` exit 1 (`controls/base-c2.txt`) → carrier
+  `2a4447c1` `hand=28/28 generated=120/120 forgeries_refused=5/5 anti_table=ok population=ok met=true`
+  exit 0 (`controls/after-c2-carrier.txt`). The frozen population under-proves conformance
+  (ExecStubs: 5 clause-violating subjects admitted; MutHeuristic: 13/24 tool mutants survive;
+  the counter's reference accepts a quoted delta-seconds argument clause 4 refuses), while the
+  delivered tool passes an independent 97-case contract-derived review at 93/97 with 0 defects
+  (`w1/ReviewC2.md`) and refuses that form itself.
+
+Controls before the freeze: `controls/base-c1.txt` (do-nothing at the base), `controls/base-c2.txt`
+(no candidate), `controls/ctl-c1-known-good.txt` (a conforming scratch fixture reads `met=true`,
+and the frozen round-91 counter reads `met=true` on the same bytes) and
+`controls/ctl-c2-positive.txt` (a known-good subject `28/28 120/120 5/5 met=true`, plus the
+sandbox differential: the oracle-import forgery answers correctly without the sandbox and is
+refused with it). Four control defects were found and fixed before the freeze commit
+(`corpus/lessons/round-92.md` §Mistakes 1–4).
+
+Sources opened: `https://www.rfc-editor.org/rfc/rfc9111.txt`, GET 200, 84 477 bytes, sha256
+`aeb52adb…`, 2026-11-05T00:30:13Z, byte-identical to the retained body (`w1/ScoutSources/Sources.md`).
+Four errata exist for RFC 9111 and none names §4.2.x. Registry 206 → 207 (S470, §4.2.2);
+census exit 0 before and after, W04 30 → 31. K91-7 (the round-91 row's provenance) is answered by
+this fetch.
+
+Wave w1 (14 seats; `.ufo/waves/round-92/w1-spec.json`, dispatch `.ufo/waves/round-92/w1-dispatch.json`,
+results `.ufo/waves/round-92/w1-results.json`): thirteen seats returned reports or receipts;
+`SentinelQuote` settled with an empty directory (dead seat, no quote or scope check performed).
+ReviewC1 and CriticClaims falsified the C1 counter by construction; ExecMutation landed item A's
+artifacts (N=30 K=20 S=10) and showed only one line is executed; ExecStubs scored 14 held-out
+subjects (2 conforming admitted, 7 refused, 5 admitted); MutHeuristic found 13/24 tool mutants
+surviving; ReviewC2 measured 93/97 agreement with 0 tool defects; ExecTrial decided the twelve
+recorded round-61 surfaces and the r81/r82 captures; ConnectorScope found no sibling lane holds
+§4.2.2 ground and confirmed S470 is not a within-scope duplicate.
+
+Actual domain work: the instrument decided every recorded round-61 surface (12) plus the r81/r82
+captures from their recorded headers, with the headers each decision rests on tabulated
+(`w1/ExecTrial/trial.txt`); no live property was fetched and no cache was observed.
+
+Assimilation: none — `merge/kake` still collides on eight ids
+(`.ufo/waves/round-92/assimilation/collisions`); registry 206 rows, staged 129 ids from S287.
+considerthese: `considerthese/2026-10-26.md` proposal 5 (a pinned historical gate reads red on a
+later tree) landed as `corpus/QUALITY.md` §Round 92, grounded by
+`.ufo/waves/round-92/considerthese/historical-gate-at-freeze.txt` (`c56_quote_truth.py` exit 1 at
+`a5640ca0` on `C8_mirror_bytes`, registry 206 vs a mirror pinned at 156+2).
+
+Tools: none installed or upgraded (no pacman; network limited to the named RFC/errata/datatracker
+GETs and the ordinary public documentation reads the seats list in their own reports).

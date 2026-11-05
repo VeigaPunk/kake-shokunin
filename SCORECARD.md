@@ -5638,3 +5638,43 @@ anti-table conjunct with a frozen subject, and add the five clause variants MutR
 tool mutants name. Frontier: the reuse decision is held for supplied integers only; revalidation
 exchanges (§4.3), storage (§4.1 key identity), heuristic freshness (§4.2.2), serving stale without
 a client directive, and browser behaviour stay open.
+
+## Round 92 — the round-91 instrument defects and a heuristic freshness decision
+
+Base `e143faff1b86aad172dd87696da900c70347b8b2`; freeze `a5640ca02c20f94a0fa03af41b977b46ae99808e`
+(`.ufo/waves/round-92/freeze.md`); carrier `2a4447c1a4696cbfb40b17014e47fc6af716c06d`.
+Counters `.ufo/waves/round-92/c92_defects.py` and `c92_heuristic.py`, unchanged since the freeze.
+
+| Claim | Axis / score delta | Before → after | Counting command | Evidence / author verdict |
+|---|---|---|---|---|
+| C1 the routed round-91 instrument defects K91-1, K91-2, K91-4 and K91-5 close | calibration 2→2 HOLD, lowest owned | `open=3 closed=0 battery=hit differential=fail self=hit met=false`, exit 1 at base → `open=0 closed=3 battery=exact differential=ok self=ok met=true`, exit 0 at `2a4447c1` | `python3 -B .ufo/waves/round-92/c92_defects.py --root . --revision <REV> --work <scratch>` | `controls/base-c1.txt` → `controls/after-c1-carrier.txt`; **met on the frozen predicate, falsified as worded**: ReviewC1 reached `met=true` with a canned-verdict runner, a constant-label harness and a rewritten self-pin; CriticClaims with a runner that executes a different gate (F1), a row naming a refusing counter (F2) and constant labels (F3); ExecMutation with a forged unsampled log line. Not admitted (R92-1…R92-3) |
+| C2 a heuristic freshness decision instrument implements contract v1 | freshness 10→10 HOLD, capability acquisition | `candidate=absent hand=0/28 generated=0/120 forgeries_refused=0/5 met=false`, exit 1 at base → `hand=28/28 generated=120/120 forgeries_refused=5/5 anti_table=ok population=ok met=true`, exit 0 at `2a4447c1` | `python3 -B .ufo/waves/round-92/c92_heuristic.py --root . --revision <REV> --work <scratch>` | `controls/base-c2.txt` → `controls/after-c2-carrier.txt`; the delivered tool passes an independent 97-case contract-derived review at 93/97 with 0 tool defects (`w1/ReviewC2.md`) and refuses the quoted delta-seconds form the frozen reference accepts; the frozen counter itself under-proves conformance (13/24 tool mutants survive, 9 clause-violating subjects admitted — R92-4/R92-5). Met on the frozen predicate; contract conformance rests on the independent review, not on the counter |
+
+No owned axis is claimed improved past HOLD. `git diff --diff-filter=D --name-only e143faff 2a4447c1`
+prints nothing (0 deletions); `git diff --numstat` outside `.ufo/` is 1059 added lines and 0 removed.
+
+### Demonstrated repertoire — round 92
+
+| Capability | What it can now do | Evidence | First-working round |
+|---|---|---|---|
+| Heuristic freshness decision | From a stored status, header map and `shared` flag over supplied integer seconds, decide `explicit` / `heuristic` / `not-heuristically-cacheable` / `heuristic-undecided` / `not-storable` and report the lifetime and the heuristic flag: s-maxage (shared) → max-age → Expires−Date for explicit, else the 10 %-of-interval heuristic capped at 86400 (both lane conventions, not RFC requirements), with the RFC 9111 §4.2.2 permission, prohibition and cacheability gate; refuses malformed input; decides nothing about storage, revalidation, serving or any live property | `scripts/heuristic_freshness.py`; `corpus/knowledge/heuristic-freshness.md`; `controls/after-c2-carrier.txt`; `w1/ReviewC2/agreement.txt`; `w1/ExecTrial/trial.txt`; S470 | 92 |
+| Differential defect-queue successor | Reports `met` only when three items close at a revision, a five-fixture battery built at run time reads each exact open set and declared reason, the frozen predecessor still accepts the canned-runner fixture this one refuses, and its own blob equals a pinned digest | `.ufo/waves/round-92/c92_defects.py`; `controls/{base-c1,after-c1-carrier,ctl-c1-known-good}.txt`; falsified as a calibration instrument by `w1/ReviewC1/Attack.md` and `w1/CriticClaims/C1.md` — entered as a tool, not as a calibration proof | 92 (entered; R92-1…R92-3 open) |
+
+### Move log (round 92)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 92 | calibration (HOLD 2) | `open=3 closed=0 met=false` at `e143faff` | `open=0 closed=3 met=true` at `2a4447c1`, then falsified as a calibration measurement by the round's own attack seats | `.ufo/waves/round-92/controls/{base-c1,after-c1-carrier}.txt`; `w1/CriticClaims/C1.md` |
+| 92 | freshness (HOLD 10) | candidate absent at `e143faff` | instrument meets the frozen population at `2a4447c1`; independent review 93/97 with 0 tool defects | `.ufo/waves/round-92/controls/{base-c2,after-c2-carrier}.txt`; `w1/ReviewC2.md` |
+
+### Planned — after round 92
+
+Outside closure owns admission. Routed: R92-1 (bind item A's execution to the named gate
+and to a sample chosen after the receipt is read), R92-2 (bind the harness's labels to
+runs through a nonce), R92-3 (a row is text; either say "registered" or resolve and run
+the row's command), R92-4 (one case per contract clause and refusal class; a
+type-mismatch case for clause 3), R92-5 (check the counter's reference against the
+contract by an independent reader before the freeze). Frontier: the reuse decision and
+heuristic freshness are held for supplied integers only; revalidation exchanges (§4.3),
+storage (§4.1 key identity), serving stale without a client directive, browser behaviour
+and every live-cache observation stay open.
