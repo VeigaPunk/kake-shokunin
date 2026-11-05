@@ -1,0 +1,11 @@
+receipt: frozen mutant M04 (population .ufo/waves/round-96/frozen/mutants-reval.json)
+clause: C3 304 updates stored
+subject: find/replace applied once to frozen pos-good-reval.py; sha256(mutant)=4561e96f9b0750d930b39a3dd2ebea32d18ec7ae38c52185ab456763d90b722e
+find:
+    if status == 304:
+replace:
+    if status == 599:
+counter mutant_cases(): killed=True first_failure=c304/with-etag: expected {'decision': 'update-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'replace-stored', 'if_modified_since':
+counter rule (gen_limit=40): hand=34/37 gen=36/40 killed=True first_failure=c304/with-etag: expected {'decision': 'update-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'replace-stored', 'if_modified_since': None, 'if_none_match': None}
+full generated set: hand=34/37 gen=102/112 killed=True first_failure=c304/with-etag: expected {'decision': 'update-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'replace-stored', 'if_modified_since': None, 'if_none_match': None}
+verdict: KILLED

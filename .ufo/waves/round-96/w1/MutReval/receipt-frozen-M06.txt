@@ -1,0 +1,11 @@
+receipt: frozen mutant M06 (population .ufo/waves/round-96/frozen/mutants-reval.json)
+clause: C5 full response replaces stored
+subject: find/replace applied once to frozen pos-good-reval.py; sha256(mutant)=76f277f9c18890498c3a367facc36152dec2796814e77594ff443374f5c55729
+find:
+    return {"decision": "replace-stored",
+replace:
+    return {"decision": "update-stored",
+counter mutant_cases(): killed=True first_failure=c200/replace: expected {'decision': 'replace-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'update-stored', 'if_modified_since': N
+counter rule (gen_limit=40): hand=32/37 gen=31/40 killed=True first_failure=c200/replace: expected {'decision': 'replace-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'update-stored', 'if_modified_since': None, 'if_none_match': None}
+full generated set: hand=32/37 gen=86/112 killed=True first_failure=c200/replace: expected {'decision': 'replace-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'update-stored', 'if_modified_since': None, 'if_none_match': None}
+verdict: KILLED

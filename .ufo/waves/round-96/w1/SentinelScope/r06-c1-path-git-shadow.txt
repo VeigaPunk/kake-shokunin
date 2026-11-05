@@ -1,0 +1,17 @@
+C1v96 revision=bde9869144f69c5a459c0d2c93f5135922fe3a8d counter=a282da654d5ee6af923abb2cae4bd0a4fd6e4309db81de5a67999ed7b25ad134 lessons=90 entries=83 rows=260 criteria=40 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=skipped met=n/a verdict=clean
+{"identity_missing": [], "mismatches": [], "pins": {"criteria": 40, "entries": 83, "lessons": 90, "rows": 260}, "short": []}
+
+[stderr]
+
+--- interpreter controls (separate bash probes, cwd=SCR) ---
+control A (unhardened python honors PYTHONPATH subprocess shadow):
+  $ env PYTHONPATH=$SCR/shadow python3 -B -c 'import subprocess; print(subprocess.__file__)'
+  -> SUBPROCESS-SHADOW-LOADED /fast/scratch/hyaku/kake-r96/SentinelScope/shadow/subprocess.py ; rc=0
+control B (startup os NOT shadowable from PYTHONPATH):
+  $ env PYTHONPATH=$SCR/shadowos python3 -B -c 'import os; print(os.__file__)'
+  -> /usr/lib/python3.14/os.py ; rc=0 (no OS-SHADOW-LOADED line)
+--- PATHMARKER written by the shadowed git wrapper during the a5 run ---
+invoked: -C /home/vgpnk/Projects/shokunin/kake-shokunin rev-parse bde9869144f69c5a459c0d2c93f5135922fe3a8d^{commit}
+invoked: -C /home/vgpnk/Projects/shokunin/kake-shokunin show bde9869144f69c5a459c0d2c93f5135922fe3a8d:SKILL.md
+invoked: -C /home/vgpnk/Projects/shokunin/kake-shokunin show bde9869144f69c5a459c0d2c93f5135922fe3a8d:corpus/SOURCES.md
+invoked: -C /home/vgpnk/Projects/shokunin/kake-shokun

@@ -1,0 +1,86 @@
+{
+ "root0": "/fast/scratch/hyaku/kake-r96/SentinelScope/sbx3",
+ "cwd0": "/fast/scratch/hyaku/kake-r96/SentinelScope/sbx3",
+ "symlink-inTree-to-vault": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/vault/outside.txt"
+ },
+ "abs-open-vault": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/vault/outside.txt"
+ },
+ "chdir-vault-rel-open": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/vault/outside.txt"
+ },
+ "chdir-vault-and-back": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/vault/outside.txt"
+ },
+ "os-open-vault": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/vault/outside.txt"
+ },
+ "open_code-vault": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/vault/outside.py"
+ },
+ "runpy-vault-outside-py": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/vault/outside.py"
+ },
+ "execv": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: process creation denied: os.exec"
+ },
+ "fork": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: process creation denied: os.fork"
+ },
+ "posix_spawn": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: process creation denied: os.posix_spawn"
+ },
+ "system": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: process creation denied: os.system"
+ },
+ "spawnv": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: process creation denied: os.fork"
+ },
+ "kill-ppid-sig0": {
+  "ran": true,
+  "r": "None"
+ },
+ "listdir-etc": {
+  "ran": true,
+  "r": "['pacman.d', 'arch-release']"
+ },
+ "stat-etc-passwd": {
+  "ran": true,
+  "r": "1819"
+ },
+ "read-sibling-in-root": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/vault/probe5.py"
+ },
+ "open-parent-sandbox-src": {
+  "ran": false,
+  "exc": "PermissionError",
+  "msg": "sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/SentinelScope/sandbox.py"
+ }
+}

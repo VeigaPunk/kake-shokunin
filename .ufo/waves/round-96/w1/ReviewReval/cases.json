@@ -1,0 +1,487 @@
+{
+ "grid": "ReviewReval round-96 independent reval grid (24 cases, contract v1 + RFC 9111 s4.3)",
+ "cases": [
+  {
+   "name": "construct/lm-zero-no-etag",
+   "kind": "dict",
+   "expected": {
+    "decision": "construct",
+    "if_none_match": null,
+    "if_modified_since": 0
+   },
+   "clause": "C1",
+   "grounding": "lane-convention (SHOULD treated as sent; boundary value 0 must not be dropped by a falsy check)",
+   "quote": "SHOULD send the Last-Modified value (using If-Modified-Since) if the request is not for a subrange, a single stored response is being validated, and that response contains a Last-Modified value",
+   "line": 852,
+   "note": "zero last_modified is the falsy-trap boundary; RFC 9111 leaves the SHOULD's subrange condition unrepresentable over supplied values, so sending is the labeled lane convention",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 0
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "construct/etag-single-obtext",
+   "kind": "dict",
+   "expected": {
+    "decision": "construct",
+    "if_none_match": "\"\u0086\"",
+    "if_modified_since": null
+   },
+   "clause": "C1",
+   "grounding": "rfc-exact (etagc grammar)",
+   "quote": "entity-tag = [ weak ] opaque-tag / weak = %s\"W/\" / opaque-tag = DQUOTE *etagc DQUOTE / etagc = %x21 / %x23-7E / obs-text (RFC 9110 sec 8.8.3, retained round-81 body lines 3579-3585; RFC example: ETag: \"\")",
+   "line": null,
+   "note": "entity-tag whose opaque part is a single obs-text byte U+0086",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"\u0086\"",
+     "last_modified": null
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "construct/weak-obtext-both",
+   "kind": "dict",
+   "expected": {
+    "decision": "construct",
+    "if_none_match": "W/\"\u00ff\"",
+    "if_modified_since": 5
+   },
+   "clause": "C1+C2",
+   "grounding": "rfc-exact (MUST send tags verbatim, weak marker is part of the tag) + lane-convention (both fields together)",
+   "quote": "MUST send the relevant entity tags (using If-Match, If-None-Match, or If-Range) if the entity tags were provided in the stored response(s) being validated",
+   "line": 848,
+   "note": "weak marker W/ is case-sensitive and carried verbatim",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "W/\"\u00ff\"",
+     "last_modified": 5
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "construct/empty-opaque-tag",
+   "kind": "dict",
+   "expected": {
+    "decision": "construct",
+    "if_none_match": "\"\"",
+    "if_modified_since": null
+   },
+   "clause": "C1",
+   "grounding": "rfc-exact (etagc grammar: *etagc allows zero etagc, so \"\" is a well-formed entity-tag)",
+   "quote": "entity-tag = [ weak ] opaque-tag / weak = %s\"W/\" / opaque-tag = DQUOTE *etagc DQUOTE / etagc = %x21 / %x23-7E / obs-text (RFC 9110 sec 8.8.3, retained round-81 body lines 3579-3585; RFC example: ETag: \"\")",
+   "line": null,
+   "note": "a candidate that demands non-empty opaque content over-refuses a grammar-valid tag",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"\"",
+     "last_modified": null
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "construct/exists-false-no-validators",
+   "kind": "dict",
+   "expected": {
+    "decision": "cannot-revalidate",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C1",
+   "grounding": "contract-definition (C1 keys on validators; C6 refusal list has no entry for exists=false without validators at construction stage)",
+   "quote": "MUST send the relevant entity tags (using If-Match, If-None-Match, or If-Range) if the entity tags were provided in the stored response(s) being validated",
+   "line": 848,
+   "note": "negative cacheability shape; no validator means no conditional request is constructible",
+   "input": {
+    "stored": {
+     "exists": false,
+     "etag": null,
+     "last_modified": null
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "construct/lm-huge",
+   "kind": "dict",
+   "expected": {
+    "decision": "construct",
+    "if_none_match": null,
+    "if_modified_since": 253402300799
+   },
+   "clause": "C1",
+   "grounding": "lane-convention (supplied values: non-negative integer, no ceiling; the lane never parses HTTP dates)",
+   "quote": "SHOULD send the Last-Modified value (using If-Modified-Since) if the request is not for a subrange, a single stored response is being validated, and that response contains a Last-Modified value",
+   "line": 852,
+   "note": "year-9999 epoch value; contract fixes no upper bound",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 253402300799
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "c304/etag-only",
+   "kind": "dict",
+   "expected": {
+    "decision": "update-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C3",
+   "grounding": "rfc-exact",
+   "quote": "A 304 (Not Modified) response status code indicates that the stored response can be updated and reused",
+   "line": 935,
+   "note": "304 indication holds for any stored validator shape",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"e1\"",
+     "last_modified": null
+    },
+    "received_status": 304
+   }
+  },
+  {
+   "name": "c304/lm-zero",
+   "kind": "dict",
+   "expected": {
+    "decision": "update-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C3",
+   "grounding": "rfc-exact",
+   "quote": "A 304 (Not Modified) response status code indicates that the stored response can be updated and reused",
+   "line": 935,
+   "note": "304 with only-LM stored, LM value zero",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 0
+    },
+    "received_status": 304
+   }
+  },
+  {
+   "name": "c5xx/500-etag-only",
+   "kind": "dict",
+   "expected": {
+    "decision": "may-reuse-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C4",
+   "grounding": "rfc-exact",
+   "quote": "if a cache receives a 5xx (Server Error) response while attempting to validate a response, it can either forward this response to the requesting client or act as if the server failed to respond",
+   "line": 944,
+   "note": "lower edge of the 5xx class",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"x9\"",
+     "last_modified": null
+    },
+    "received_status": 500
+   }
+  },
+  {
+   "name": "c5xx/501-both",
+   "kind": "dict",
+   "expected": {
+    "decision": "may-reuse-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C4",
+   "grounding": "rfc-exact",
+   "quote": "if a cache receives a 5xx (Server Error) response while attempting to validate a response, it can either forward this response to the requesting client or act as if the server failed to respond",
+   "line": 944,
+   "note": "both validators stored; decision is status-driven",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"501\"",
+     "last_modified": 7
+    },
+    "received_status": 501
+   }
+  },
+  {
+   "name": "c5xx/599-lm-only",
+   "kind": "dict",
+   "expected": {
+    "decision": "may-reuse-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C4",
+   "grounding": "rfc-exact",
+   "quote": "if a cache receives a 5xx (Server Error) response while attempting to validate a response, it can either forward this response to the requesting client or act as if the server failed to respond",
+   "line": 944,
+   "note": "upper edge of the 5xx class, LM-only",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 3
+    },
+    "received_status": 599
+   }
+  },
+  {
+   "name": "c4xx/299-both",
+   "kind": "dict",
+   "expected": {
+    "decision": "replace-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C5",
+   "grounding": "lane-convention (200-499 by status code alone)",
+   "quote": "A full response (i.e., one containing content) indicates that none of the stored responses nominated in the conditional request are suitable.  Instead, the cache MUST use the full response to satisfy the request.",
+   "line": 938,
+   "note": "just below 3xx; status-only class boundary",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"a\"",
+     "last_modified": 11
+    },
+    "received_status": 299
+   }
+  },
+  {
+   "name": "c4xx/300-lm-only",
+   "kind": "dict",
+   "expected": {
+    "decision": "replace-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C5",
+   "grounding": "lane-convention (200-499 by status code alone)",
+   "quote": "A full response (i.e., one containing content) indicates that none of the stored responses nominated in the conditional request are suitable.  Instead, the cache MUST use the full response to satisfy the request.",
+   "line": 938,
+   "note": "a redirect status is still the full-response class here",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 4
+    },
+    "received_status": 300
+   }
+  },
+  {
+   "name": "c4xx/200-etag-only",
+   "kind": "dict",
+   "expected": {
+    "decision": "replace-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C5",
+   "grounding": "lane-convention over the class membership; rfc-exact that a full response MUST be used once it is one",
+   "quote": "A full response (i.e., one containing content) indicates that none of the stored responses nominated in the conditional request are suitable.  Instead, the cache MUST use the full response to satisfy the request.",
+   "line": 938,
+   "note": "plain 200 with only an etag stored",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"r96-b\"",
+     "last_modified": null
+    },
+    "received_status": 200
+   }
+  },
+  {
+   "name": "c4xx/499-both",
+   "kind": "dict",
+   "expected": {
+    "decision": "replace-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C5",
+   "grounding": "lane-convention (200-499 by status code alone)",
+   "quote": "A full response (i.e., one containing content) indicates that none of the stored responses nominated in the conditional request are suitable.  Instead, the cache MUST use the full response to satisfy the request.",
+   "line": 938,
+   "note": "upper edge of the full-response class",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"n\"",
+     "last_modified": 2
+    },
+    "received_status": 499
+   }
+  },
+  {
+   "name": "c4xx/204-lm-only",
+   "kind": "dict",
+   "expected": {
+    "decision": "replace-stored",
+    "if_none_match": null,
+    "if_modified_since": null
+   },
+   "clause": "C5",
+   "grounding": "lane-convention, explicitly the contract's named exclusion (payload-less 204 is invisible to supplied values)",
+   "quote": "A full response (i.e., one containing content) indicates that none of the stored responses nominated in the conditional request are suitable.  Instead, the cache MUST use the full response to satisfy the request.",
+   "line": 938,
+   "note": "RFC-exactly a 204 carries no content, so the bullet's 'full response' reading is the lane's, properly labeled",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": null,
+     "last_modified": 6
+    },
+    "received_status": 204
+   }
+  },
+  {
+   "name": "refuse/status-200-exists-false-no-validator",
+   "kind": "dict",
+   "expected": null,
+   "clause": "C6",
+   "grounding": "contract-definition (received_status present while no validator is stored)",
+   "quote": null,
+   "line": null,
+   "note": "the exchange presupposes a conditional request, which needs a validator",
+   "input": {
+    "stored": {
+     "exists": false,
+     "etag": null,
+     "last_modified": null
+    },
+    "received_status": 200
+   }
+  },
+  {
+   "name": "refuse/exists-false-etag",
+   "kind": "dict",
+   "expected": null,
+   "clause": "C6",
+   "grounding": "contract-definition (validators present while exists is false)",
+   "quote": null,
+   "line": null,
+   "note": "an absent representation cannot carry a validator",
+   "input": {
+    "stored": {
+     "exists": false,
+     "etag": "\"z\"",
+     "last_modified": null
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "refuse/etag-empty-string",
+   "kind": "dict",
+   "expected": null,
+   "clause": "C6",
+   "grounding": "rfc-exact (etagc grammar)",
+   "quote": "entity-tag = [ weak ] opaque-tag / weak = %s\"W/\" / opaque-tag = DQUOTE *etagc DQUOTE / etagc = %x21 / %x23-7E / obs-text (RFC 9110 sec 8.8.3, retained round-81 body lines 3579-3585; RFC example: ETag: \"\")",
+   "line": null,
+   "note": "zero-length string is not [weak] DQUOTE *etagc DQUOTE; distinct from the grammar-valid two-DQUOTE empty opaque tag",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "",
+     "last_modified": null
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "refuse/etag-space-inner",
+   "kind": "dict",
+   "expected": null,
+   "clause": "C6",
+   "grounding": "rfc-exact (etagc grammar)",
+   "quote": "entity-tag = [ weak ] opaque-tag / weak = %s\"W/\" / opaque-tag = DQUOTE *etagc DQUOTE / etagc = %x21 / %x23-7E / obs-text (RFC 9110 sec 8.8.3, retained round-81 body lines 3579-3585; RFC example: ETag: \"\")",
+   "line": null,
+   "note": "0x20 is not etagc (0x21 and 0x23-0x7E are); SP boundary",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"a b\"",
+     "last_modified": null
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "refuse/status-199",
+   "kind": "dict",
+   "expected": null,
+   "clause": "C6",
+   "grounding": "rfc-exact ground (1xx is the interim class, never a validation response)",
+   "quote": null,
+   "line": null,
+   "note": "upper edge of the 1xx refusal range",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": "\"q\"",
+     "last_modified": 1
+    },
+    "received_status": 199
+   }
+  },
+  {
+   "name": "refuse/lm-bool-true",
+   "kind": "dict",
+   "expected": null,
+   "clause": "C6",
+   "grounding": "contract-definition (last_modified neither null nor a non-negative integer; JSON true is not a number)",
+   "quote": null,
+   "line": null,
+   "note": "Python bool-is-int trap; is_int must exclude bool",
+   "input": {
+    "stored": {
+     "exists": true,
+     "etag": null,
+     "last_modified": true
+    },
+    "received_status": null
+   }
+  },
+  {
+   "name": "refuse/raw-dup-exists-nested",
+   "kind": "raw",
+   "expected": null,
+   "clause": "C6",
+   "grounding": "lane-convention (S034 raw duplicate-key refusal)",
+   "quote": null,
+   "line": null,
+   "note": "duplicate \"exists\" key inside the stored object; values differ, refusal must not silently last-win",
+   "payload": "{\"stored\": {\"exists\": true, \"exists\": false, \"etag\": null, \"last_modified\": null}, \"received_status\": null}"
+  },
+  {
+   "name": "refuse/raw-dup-stored-top",
+   "kind": "raw",
+   "expected": null,
+   "clause": "C6",
+   "grounding": "lane-convention (S034 raw duplicate-key refusal)",
+   "quote": null,
+   "line": null,
+   "note": "duplicate \"stored\" key at top level",
+   "payload": "{\"stored\": {\"exists\": true, \"etag\": null, \"last_modified\": null}, \"stored\": {\"exists\": true, \"etag\": null, \"last_modified\": null}, \"received_status\": null}"
+  }
+ ]
+}

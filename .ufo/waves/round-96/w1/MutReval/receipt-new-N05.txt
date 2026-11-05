@@ -1,0 +1,19 @@
+receipt: new clause mutant N05 (seat MutReval, round-96 w1)
+clause: C6: empty-string etag is refused (parse_etag skipped for empty)
+find occurrences in pos-good bytes: 1 (asserted == 1)
+syntax_ok: True
+subject: find/replace applied once to a scratch copy of frozen pos-good-reval.py; sha256(mutant)=910264e73d55bd03087e452a09f6aebc85ac6a42277fc5cf6b9f2c6e3b1dd654
+find:
+    if etag is not None:
+        if not isinstance(etag, str) or not etag:
+            raise Invalid("etag is neither null nor a string")
+        parse_etag(etag)
+replace:
+    if etag is not None:
+        if not isinstance(etag, str) or not etag:
+            raise Invalid("etag is neither null nor a string")
+        if etag:
+            parse_etag(etag)
+counter rule (gen_limit=40): hand=37/37 gen=40/40 killed=False first_failure=(none)
+full generated set: hand=37/37 gen=112/112 killed=False first_failure=(none)
+verdict: SURVIVED (counter rule) / SURVIVED (full generated set)

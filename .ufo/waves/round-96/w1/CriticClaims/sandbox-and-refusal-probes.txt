@@ -1,0 +1,178 @@
+### sandbox-probe p01_execv.py
+# rc=1
+
+--- stderr tail ---
+n run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/probe/tree/p01_execv.py", line 2, in <module>
+    os.execv('/usr/bin/true',['true'])
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 39, in hook
+PermissionError: sandbox: process creation denied: os.exec
+
+### sandbox-probe p02_execve.py
+# rc=1
+
+--- stderr tail ---
+_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/probe/tree/p02_execve.py", line 2, in <module>
+    os.execve('/usr/bin/true',['true'],{})
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 39, in hook
+PermissionError: sandbox: process creation denied: os.exec
+
+### sandbox-probe p03_system.py
+# rc=1
+
+--- stderr tail ---
+", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/probe/tree/p03_system.py", line 2, in <module>
+    os.system('true')
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 39, in hook
+PermissionError: sandbox: process creation denied: os.system
+
+### sandbox-probe p04_spawnv.py
+# rc=1
+
+--- stderr tail ---
+in _run_code
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/probe/tree/p04_spawnv.py", line 2, in <module>
+    os.spawnv(os.P_WAIT,'/usr/bin/true',['true'])
+  File "<frozen os>", line 926, in spawnv
+  File "<frozen os>", line 898, in _spawnvef
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 39, in hook
+PermissionError: sandbox: process creation denied: os.fork
+
+### sandbox-probe p05_posix_spawn.py
+# rc=1
+
+--- stderr tail ---
+ozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/probe/tree/p05_posix_spawn.py", line 2, in <module>
+    os.posix_spawn('/usr/bin/true',['true'],{})
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 39, in hook
+PermissionError: sandbox: process creation denied: os.posix_spawn
+
+### sandbox-probe p06_forkpty.py
+# rc=0
+forkpty-ok
+
+--- stderr tail ---
+
+### sandbox-probe p07_open_reference.py
+# rc=1
+
+--- stderr tail ---
+e/p07_open_reference.py", line 1, in <module>
+    print(open('/fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/c96_reval.py').read()[:20])
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 32, in hook
+PermissionError: sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/c96_reval.py
+
+### sandbox-probe p08_symlink_reference.py
+# rc=1
+
+--- stderr tail ---
+y>", line 88, in _run_code
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/probe/tree/p08_symlink_reference.py", line 2, in <module>
+    os.symlink('/fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/c96_reval.py', 'tree_ref.py')
+FileExistsError: [Errno 17] File exists: '/fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/c96_reval.py' -> 'tree_ref.py'
+
+### sandbox-probe p09_hardlink_reference.py
+# rc=1
+
+--- stderr tail ---
+n runpy>", line 88, in _run_code
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/probe/tree/p09_hardlink_reference.py", line 2, in <module>
+    os.link('/fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/c96_reval.py', 'hl_ref.py')
+FileExistsError: [Errno 17] File exists: '/fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/c96_reval.py' -> 'hl_ref.py'
+
+### sandbox-probe p10_spec_from_file.py
+# rc=1
+
+--- stderr tail ---
+ 759, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 896, in get_code
+  File "<frozen importlib._bootstrap_external>", line 954, in get_data
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 32, in hook
+PermissionError: sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/c96_reval.py
+
+### sandbox-probe p11_ext_posixsubprocess.py
+# rc=1
+
+--- stderr tail ---
+loader.exec_module(m)
+  File "<frozen importlib._bootstrap>", line 816, in module_from_spec
+  File "<frozen importlib._bootstrap_external>", line 1057, in create_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 36, in hook
+PermissionError: sandbox: import denied: _posixsubprocess
+
+### sandbox-probe p12_ext_ctypes.py
+# rc=1
+
+--- stderr tail ---
+t('loaded-ctypes', m.__name__)
+  File "<frozen importlib._bootstrap>", line 816, in module_from_spec
+  File "<frozen importlib._bootstrap_external>", line 1057, in create_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/../probe/sandbox.py", line 36, in hook
+PermissionError: sandbox: import denied: _ctypes
+
+### escape-probe hl_pins.py
+# rc=1
+
+--- stderr tail ---
+-r96/CriticClaims/lane-clone/.ufo/waves/round-96/frozen/c2-population.sha256', dst)
+FileExistsError: [Errno 17] File exists: '/fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/frozen/c2-population.sha256' -> '/fast/scratch/hyaku/kake-r96/CriticClaims/work/hl/tree/pins_hl.txt'
+
+### escape-probe sym_pins.py
+# rc=1
+
+--- stderr tail ---
+r96/CriticClaims/lane-clone/.ufo/waves/round-96/frozen/c2-population.sha256', dst)
+FileExistsError: [Errno 17] File exists: '/fast/scratch/hyaku/kake-r96/CriticClaims/lane-clone/.ufo/waves/round-96/frozen/c2-population.sha256' -> '/fast/scratch/hyaku/kake-r96/CriticClaims/work/hl/tree/pins_sym.txt'
+
+### C1 --surfaces-file escape (argparse)
+# rc=2
+
+--- stderr ---
+usage: c96_selfassess.py [-h] [--root ROOT] [--revision REVISION]
+                         [--work WORK] [--selftest] [--self-pin SELF_PIN]
+                         [--verdict-only] [--base-pins-json BASE_PINS_JSON]
+c96_selfassess.py: error: unrecognized arguments: --surfaces-file x.json
+
+### C1 surfaces-file substitution (scratch clone worktree edit of frozen/c1-surfaces.json)
+# rc=2
+C1v96 revision=bde9869144f69c5a459c0d2c93f5135922fe3a8d unevaluable=surfaces digest drift: 6cd20298eb123d6992891e78909bb6512f3c116385cd7b48577da3e370c86518
+
+--- stderr ---
+
+### C1 canned wrapper (forged receipt line carrying the public counter digest)
+# rc=0
+C1v96 revision=bde9869144f69c5a459c0d2c93f5135922fe3a8d counter=a282da654d5ee6af923abb2cae4bd0a4fd6e4309db81de5a67999ed7b25ad134 lessons=90 entries=83 rows=260 criteria=40 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=23/23 admit=5/5 shadow=absent predecessor_admits=6/22 floor=4 ng_pred_admits=3/3 self_pin=ok met=true
+
+### C1 --verdict-only (no self-pin supplied)
+# rc=0
+C1v96 revision=bde9869144f69c5a459c0d2c93f5135922fe3a8d counter=a282da654d5ee6af923abb2cae4bd0a4fd6e4309db81de5a67999ed7b25ad134 lessons=90 entries=83 rows=260 criteria=40 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=skipped met=n/a verdict=clean
+{"identity_missing": [], "mismatches": [], "
+
+### direct subject K7-execv-shellout
+# rc=1
+
+--- stderr tail ---
+ in <module>
+    os.execv('/usr/bin/cat', ['cat', '/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-96/c96_reval.py'])
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/direct-K7-execv-shellout/sandbox.py", line 39, in hook
+PermissionError: sandbox: process creation denied: os.exec
+
+### direct subject K8-read-pins
+# rc=1
+
+--- stderr tail ---
+round-96/frozen/c2-population.sha256').read()
+  File "/fast/scratch/hyaku/kake-r96/CriticClaims/work/direct-K8-read-pins/sandbox.py", line 32, in hook
+PermissionError: sandbox: open outside the subject tree: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-96/frozen/c2-population.sha256

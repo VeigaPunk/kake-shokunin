@@ -1,0 +1,11 @@
+receipt: frozen mutant M10 (population .ufo/waves/round-96/frozen/mutants-reval.json)
+clause: C6 validators-without-representation refused
+subject: find/replace applied once to frozen pos-good-reval.py; sha256(mutant)=f87188790e06d17b391c6a5e01f685f2ed66e7bd3a8e73a8c3b9f37018ec5711
+find:
+    if exists is False and has_validator:
+replace:
+    if False:
+counter mutant_cases(): killed=True first_failure=refuse/validators-without-representation: expected refusal, got {'decision': 'construct', 'if_modified_since': 1, 'if_none_match': '"v"'}
+counter rule (gen_limit=40): hand=36/37 gen=40/40 killed=True first_failure=refuse/validators-without-representation: expected refusal, got {'decision': 'construct', 'if_modified_since': 1, 'if_none_match': '"v"'}
+full generated set: hand=36/37 gen=112/112 killed=True first_failure=refuse/validators-without-representation: expected refusal, got {'decision': 'construct', 'if_modified_since': 1, 'if_none_match': '"v"'}
+verdict: KILLED

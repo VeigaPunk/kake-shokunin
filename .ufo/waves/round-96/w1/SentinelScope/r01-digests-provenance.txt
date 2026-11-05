@@ -1,0 +1,27 @@
+# r01 instrument digest + provenance verification (2026-11-05T15:45:38-03:00)
+$ sha256sum -c .ufo/waves/round-96/controls/instrument-sha256.txt   (cwd=LANE)  rc=0
+.ufo/waves/round-96/c96_selfassess.py: OK
+.ufo/waves/round-96/c96_reval.py: OK
+.ufo/waves/round-96/reval-contract-v1.md: OK
+.ufo/waves/round-96/frozen/c1-surfaces.json: OK
+.ufo/waves/round-96/frozen/c2-population.sha256: OK
+.ufo/waves/round-96/frozen/pos-good-reval.py: OK
+.ufo/waves/round-96/frozen/mutants-reval.json: OK
+.ufo/waves/round-96/frozen/neg-blanket-construct.py: OK
+.ufo/waves/round-96/frozen/neg-blanket-update.py: OK
+.ufo/waves/round-96/frozen/neg-swap-precedence.py: OK
+.ufo/waves/round-96/frozen/neg-refuse-all.py: OK
+.ufo/waves/round-96/frozen/neg-oracle-import.py: OK
+.ufo/waves/round-96/frozen/neg-pin-reader.py: OK
+.ufo/waves/round-96/gen-surfaces.py: OK
+
+
+$ git show <7ae3e9b0>:c96_selfassess.py | sha256sum ; same for c96_reval.py ; freeze blob vs working tree ; predecessor digest ; ancestry
+a282da654d5ee6af923abb2cae4bd0a4fd6e4309db81de5a67999ed7b25ad134  -
+ec40aec19d0b4563ad21d79b398c7aaa65a99806984dbca55086c099571eebb9  -
+d3eee8eebc8e39d0ea0fdbceb32a3f8c152039eaf102c3e8101db77e081a6136  -
+d3eee8eebc8e39d0ea0fdbceb32a3f8c152039eaf102c3e8101db77e081a6136  .ufo/waves/round-96/freeze.md
+8fd27d626883f2b6852ea2ee425706a77a72eeaee10ef740b8e0fc15ac03b193  .ufo/waves/round-95/c95_selfassess.py
+ancestors-ok
+
+rc=0

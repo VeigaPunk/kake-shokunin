@@ -1,0 +1,62 @@
+GET https://www.rfc-editor.org/rfc/rfc9111.txt
+requested_url: https://www.rfc-editor.org/rfc/rfc9111.txt (single GET, no redirect chain, no second page)
+final_url: https://www.rfc-editor.org/rfc/rfc9111.txt
+http_status: 200
+content_type: text/plain;charset=utf-8
+url_effective: https://www.rfc-editor.org/rfc/rfc9111.txt
+bytes: 84477 (curl size_download=84477; wc -c of the saved body = 84477)
+sha256: aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e
+accessed_utc: 2026-11-05T18:17:11Z (date -u taken in the same shell command immediately before curl)
+accessed_local: 2026-11-05T15:17:11-03:00
+curl_rc: 0 (curl stderr was empty)
+client: curl 8.23.0 (x86_64-pc-linux-gnu) libcurl/8.23.0 OpenSSL/3.6.5
+command: curl -sS --http1.1 -o rfc9111.txt -w 'http_code=%{http_code} size_download=%{size_download} url_effective=%{url_effective} content_type=%{content_type}\n' 'https://www.rfc-editor.org/rfc/rfc9111.txt'   (rc 0)
+page_fetches: exactly one curl invocation; one URL; no crawl, no second page, no HEAD probe.
+
+## Comparison against the retained round-93 body
+
+comparison_target: .ufo/waves/round-93/L1/src/rfc9111.txt (lane-relative; committed blob cef95c761dfcbc6f649019efa2cf5f97dc5f9020 at base bde9869144f69c5a459c0d2c93f5135922fe3a8d)
+retained_sha256: aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e
+expected_sha256 (freeze.md, Sourced-claim requirement): aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e
+sha256_match: IDENTICAL (fetched sha256 == expected sha256 == retained sha256)
+cmp_result: `cmp rfc9111.txt <retained>` -> rc 0, no output (byte-identical)
+byte_count_match: 84477 == 84477
+
+## Quote location (grep -n on the fetched bytes)
+
+Command shape: `grep -n -F '<fragment>' rfc9111.txt` (run in the seat scratch dir on the fetched body; the body is byte-identical to the retained round-93 body, so the same line numbers hold for .ufo/waves/round-93/L1/src/rfc9111.txt).
+
+expected_line  fragment                                                                                                                          found_line  exact_at_line  words
+848           MUST send the relevant entity tags                                                                                           848           yes             6
+852           SHOULD send the Last-Modified value                                                                                           852           yes             5
+861           In most cases, both validators are generated                                                                                   861           yes             7
+935           A 304 (Not Modified) response status code indicates                                                                             935           yes             8
+938           A full response (i.e., one containing content) indicates                                                                          938           yes             8
+944           However, if a cache receives a 5xx (Server Error) response                                                                       944           yes             10
+
+quotes_located: 6/6 (each fragment is an exact substring of the line it is named at, found with grep -n -F on the fetched bytes)
+
+Full lines as fetched (leading whitespace preserved, tab-free):
+848: "   *  MUST send the relevant entity tags (using If-Match, If-None-Match,"
+852: "   *  SHOULD send the Last-Modified value (using If-Modified-Since) if"
+861: "   In most cases, both validators are generated in cache validation"
+935: "   *  A 304 (Not Modified) response status code indicates that the"
+938: "   *  A full response (i.e., one containing content) indicates that none"
+944: "   *  However, if a cache receives a 5xx (Server Error) response while"
+
+Section headings the fragments sit under (same body, plain-text line numbers):
+801: "4.3.  Validation"
+812: "4.3.1.  Sending a Validation Request"
+866: "4.3.2.  Handling a Received Validation Request"
+930: "4.3.3.  Handling a Validation Response"
+951: "4.3.4.  Freshening Stored Responses upon Validation"
+
+## Read-only sibling read (chousa, criterion 146)
+
+file: /home/vgpnk/Projects/shokunin/chousa-shokunin/corpus/QUALITY.md (read-only; nothing in chousa was written)
+line: 1054
+first_sentence_verbatim: "A self-assessment counter validates each resolution line against the bytes it claims to repair, and its audit window covers every block rather than the newest."
+first_sentence_units: 25 (one per non-CJK whitespace token)
+provenance: R95-3 prior art for the repair-naming rule — cited, never ported.
+
+VERDICT: SCOUT fetch=0 sha-match=yes quotes=6/6 located

@@ -1,0 +1,379 @@
+{
+ "base": ".ufo/waves/round-96/frozen/pos-good-reval.py",
+ "base_sha256": "47c657255624030171caaf9da8a2d930ce1fdcc2ba460a1c402c2c6d1b24d10a",
+ "counter_module": ".ufo/waves/round-96/c96_reval.py",
+ "counter_module_sha256": "ec40aec19d0b4563ad21d79b398c7aaa65a99806984dbca55086c099571eebb9",
+ "frozen_population_rescore": {
+  "killed": [
+   "M01",
+   "M02",
+   "M03",
+   "M04",
+   "M05",
+   "M06",
+   "M07",
+   "M08",
+   "M09",
+   "M10",
+   "M11",
+   "M12",
+   "M13",
+   "M14"
+  ],
+  "survivors": []
+ },
+ "generated": {
+  "decided": 112,
+  "raw": 120,
+  "reference_refused": 8
+ },
+ "hand_case_count": 37,
+ "lane_bytes_restoration_equal": true,
+ "mutants": [
+  {
+   "clause": "C1/C2: IMS constructed only when an etag is stored (lm-only stores lose If-Modified-Since)",
+   "find": "                \"if_modified_since\": lm}",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N01",
+   "replace": "                \"if_modified_since\": None if etag is None else lm}",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "construct/lm-only: expected {'decision': 'construct', 'if_none_match': None, 'if_modified_since': 12345} got {'decision': 'construct', 'if_modified_since': None, 'if_none_match': None}",
+     "gen_ok": 34,
+     "gen_total": 40,
+     "hand_ok": 36,
+     "killed": true
+    },
+    "full": {
+     "first_failure": "construct/lm-only: expected {'decision': 'construct', 'if_none_match': None, 'if_modified_since': 12345} got {'decision': 'construct', 'if_modified_since': None, 'if_none_match': None}",
+     "gen_ok": 93,
+     "gen_total": 112,
+     "hand_ok": 36,
+     "hand_total": 37,
+     "killed": true
+    }
+   },
+   "sha256": "da75cc3daf1e33155147d616ea8f5839b7091b95cc3cf9cdf9a9879100cf5dde",
+   "syntax_ok": true,
+   "verdict_counter_rule": "killed",
+   "verdict_full_gen": "killed"
+  },
+  {
+   "clause": "C1: weak-marker etag must survive parsing (W/ prefix dropped)",
+   "find": "    weak = s.startswith(\"W/\")",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N02",
+   "replace": "    weak = False",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "construct/weak-etag-verbatim: expected {'decision': 'construct', 'if_none_match': 'W/\"v2\"', 'if_modified_since': 700} got None (rc=1 invalid_input: malformed entity-tag)",
+     "gen_ok": 30,
+     "gen_total": 40,
+     "hand_ok": 36,
+     "killed": true
+    },
+    "full": {
+     "first_failure": "construct/weak-etag-verbatim: expected {'decision': 'construct', 'if_none_match': 'W/\"v2\"', 'if_modified_since': 700} got None (rc=1 invalid_input: malformed entity-tag)",
+     "gen_ok": 91,
+     "gen_total": 112,
+     "hand_ok": 36,
+     "hand_total": 37,
+     "killed": true
+    }
+   },
+   "sha256": "08a80d9e6f1e6e2bb7b622e8f1c8a0e52e7eee1fcdff47c79f1409961c96b6e7",
+   "syntax_ok": true,
+   "verdict_counter_rule": "killed",
+   "verdict_full_gen": "killed"
+  },
+  {
+   "clause": "C5: 499 stays the full-response class (update-stored usurps the upper edge)",
+   "find": "    return {\"decision\": \"replace-stored\",\n            \"if_none_match\": None, \"if_modified_since\": None}",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N03",
+   "replace": "    if status == 499:\n        return {\"decision\": \"update-stored\",\n                \"if_none_match\": None, \"if_modified_since\": None}\n    return {\"decision\": \"replace-stored\",\n            \"if_none_match\": None, \"if_modified_since\": None}",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "c499/replace-upper-edge: expected {'decision': 'replace-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'update-stored', 'if_modified_since': None, 'if_none_match': None}",
+     "gen_ok": 40,
+     "gen_total": 40,
+     "hand_ok": 36,
+     "killed": true
+    },
+    "full": {
+     "first_failure": "c499/replace-upper-edge: expected {'decision': 'replace-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'update-stored', 'if_modified_since': None, 'if_none_match': None}",
+     "gen_ok": 110,
+     "gen_total": 112,
+     "hand_ok": 36,
+     "hand_total": 37,
+     "killed": true
+    }
+   },
+   "sha256": "6b8253019afcf9b9ae3289c0fe0ea5e8830e96fcc5d1476c5e4c2d9579b21ac6",
+   "syntax_ok": true,
+   "verdict_counter_rule": "killed",
+   "verdict_full_gen": "killed"
+  },
+  {
+   "clause": "C3: 304 maps to update-stored (decision-word swap to may-reuse-stored)",
+   "find": "    if status == 304:\n        return {\"decision\": \"update-stored\",",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N04",
+   "replace": "    if status == 304:\n        return {\"decision\": \"may-reuse-stored\",",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "c304/with-etag: expected {'decision': 'update-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'may-reuse-stored', 'if_modified_since': None, 'if_none_match': None}",
+     "gen_ok": 36,
+     "gen_total": 40,
+     "hand_ok": 35,
+     "killed": true
+    },
+    "full": {
+     "first_failure": "c304/with-etag: expected {'decision': 'update-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'may-reuse-stored', 'if_modified_since': None, 'if_none_match': None}",
+     "gen_ok": 105,
+     "gen_total": 112,
+     "hand_ok": 35,
+     "hand_total": 37,
+     "killed": true
+    }
+   },
+   "sha256": "47c7b80684007be5de762bd5eddeb1a7e865444f0b1d76bebe8ec8964e80d094",
+   "syntax_ok": true,
+   "verdict_counter_rule": "killed",
+   "verdict_full_gen": "killed"
+  },
+  {
+   "clause": "C6: empty-string etag is refused (parse_etag skipped for empty)",
+   "find": "    if etag is not None:\n        if not isinstance(etag, str) or not etag:\n            raise Invalid(\"etag is neither null nor a string\")\n        parse_etag(etag)",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N05",
+   "replace": "    if etag is not None:\n        if not isinstance(etag, str) or not etag:\n            raise Invalid(\"etag is neither null nor a string\")\n        if etag:\n            parse_etag(etag)",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "",
+     "gen_ok": 40,
+     "gen_total": 40,
+     "hand_ok": 37,
+     "killed": false
+    },
+    "full": {
+     "first_failure": "",
+     "gen_ok": 112,
+     "gen_total": 112,
+     "hand_ok": 37,
+     "hand_total": 37,
+     "killed": false
+    }
+   },
+   "sha256": "910264e73d55bd03087e452a09f6aebc85ac6a42277fc5cf6b9f2c6e3b1dd654",
+   "syntax_ok": true,
+   "verdict_counter_rule": "survived",
+   "verdict_full_gen": "survived"
+  },
+  {
+   "clause": "C6: boolean last_modified is refused (bool leg dropped)",
+   "find": "    if lm is not None and (not isinstance(lm, int) or isinstance(lm, bool)\n                           or lm < 0):",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N06",
+   "replace": "    if lm is not None and (not isinstance(lm, int)\n                           or lm < 0):",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "",
+     "gen_ok": 40,
+     "gen_total": 40,
+     "hand_ok": 37,
+     "killed": false
+    },
+    "full": {
+     "first_failure": "",
+     "gen_ok": 112,
+     "gen_total": 112,
+     "hand_ok": 37,
+     "hand_total": 37,
+     "killed": false
+    }
+   },
+   "sha256": "5d8747fd04ab3e92273278f53f7c7d7c0d112217812a722c4336aa08b910d74f",
+   "syntax_ok": true,
+   "verdict_counter_rule": "survived",
+   "verdict_full_gen": "survived"
+  },
+  {
+   "clause": "C6: validators on an absent representation refused at every stage (status-bearing exchange accepted)",
+   "find": "    if exists is False and has_validator:",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N07",
+   "replace": "    if exists is False and has_validator and status is None:",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "",
+     "gen_ok": 40,
+     "gen_total": 40,
+     "hand_ok": 37,
+     "killed": false
+    },
+    "full": {
+     "first_failure": "",
+     "gen_ok": 112,
+     "gen_total": 112,
+     "hand_ok": 37,
+     "hand_total": 37,
+     "killed": false
+    }
+   },
+   "sha256": "a9873bee5314f8a05e0e2e17f78303e4c2e509a8d5fe948fc1859d3f871f76ac",
+   "syntax_ok": true,
+   "verdict_counter_rule": "survived",
+   "verdict_full_gen": "survived"
+  },
+  {
+   "clause": "C6: non-object input refused by the dedicated check",
+   "find": "    if not isinstance(inp, dict):\n        raise Invalid(\"input is not an object\")",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N08",
+   "replace": "    if False:\n        raise Invalid(\"input is not an object\")",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "",
+     "gen_ok": 40,
+     "gen_total": 40,
+     "hand_ok": 37,
+     "killed": false
+    },
+    "full": {
+     "first_failure": "",
+     "gen_ok": 112,
+     "gen_total": 112,
+     "hand_ok": 37,
+     "hand_total": 37,
+     "killed": false
+    }
+   },
+   "sha256": "aed7d89df01071908218c43a75f3a92b508ece38387f4f17961af1bf6a6a2b9f",
+   "syntax_ok": true,
+   "verdict_counter_rule": "survived",
+   "verdict_full_gen": "survived"
+  },
+  {
+   "clause": "C6: raw duplicate keys refused at the json.loads hook (hook removed)",
+   "find": "        inp = json.loads(raw.decode(\"utf-8\"), object_pairs_hook=_no_duplicate_keys)",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N09",
+   "replace": "        inp = json.loads(raw.decode(\"utf-8\"))",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "refuse/raw-nested-dup: expected refusal, got {'decision': 'construct', 'if_modified_since': 2, 'if_none_match': None}",
+     "gen_ok": 40,
+     "gen_total": 40,
+     "hand_ok": 36,
+     "killed": true
+    },
+    "full": {
+     "first_failure": "refuse/raw-nested-dup: expected refusal, got {'decision': 'construct', 'if_modified_since': 2, 'if_none_match': None}",
+     "gen_ok": 112,
+     "gen_total": 112,
+     "hand_ok": 36,
+     "hand_total": 37,
+     "killed": true
+    }
+   },
+   "sha256": "bfe58eca705aa3c06a1939bb51b1e42df0a2e3b2b625128df5ce367893b39ddf",
+   "syntax_ok": true,
+   "verdict_counter_rule": "killed",
+   "verdict_full_gen": "killed"
+  },
+  {
+   "clause": "C4: 5xx lower edge inclusive (500 falls out of the class)",
+   "find": "    if 500 <= status <= 599:",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N10",
+   "replace": "    if 500 < status <= 599:",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "c5xx/500: expected {'decision': 'may-reuse-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'replace-stored', 'if_modified_since': None, 'if_none_match': None}",
+     "gen_ok": 40,
+     "gen_total": 40,
+     "hand_ok": 36,
+     "killed": true
+    },
+    "full": {
+     "first_failure": "c5xx/500: expected {'decision': 'may-reuse-stored', 'if_none_match': None, 'if_modified_since': None} got {'decision': 'replace-stored', 'if_modified_since': None, 'if_none_match': None}",
+     "gen_ok": 110,
+     "gen_total": 112,
+     "hand_ok": 36,
+     "hand_total": 37,
+     "killed": true
+    }
+   },
+   "sha256": "03edcbc322d0ff43a2245ba99475a375ce2cdeefa9c6eea30012db6b858f4182",
+   "syntax_ok": true,
+   "verdict_counter_rule": "killed",
+   "verdict_full_gen": "killed"
+  },
+  {
+   "clause": "C6: duplicate-key refusal scoped by naive completion-order depth tracking (nested-only trap)",
+   "find": "def _no_duplicate_keys(pairs):\n    seen = set()\n    for k, _ in pairs:\n        if k in seen:\n            raise Invalid(\"duplicate object key in input document\")\n        seen.add(k)\n    return dict(pairs)",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N11",
+   "replace": "def _no_duplicate_keys(pairs):\n    _depth[0] += 1\n    top = _depth[0] == 1\n    seen = set()\n    for k, _ in pairs:\n        if top and k in seen:\n            raise Invalid(\"duplicate object key in input document\")\n        seen.add(k)\n    _depth[0] -= 1\n    return dict(pairs)\n\n\n_depth = [0]",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "",
+     "gen_ok": 40,
+     "gen_total": 40,
+     "hand_ok": 37,
+     "killed": false
+    },
+    "full": {
+     "first_failure": "",
+     "gen_ok": 112,
+     "gen_total": 112,
+     "hand_ok": 37,
+     "hand_total": 37,
+     "killed": false
+    }
+   },
+   "sha256": "8b0a3c66ba729c152eb12f236c921812e671f0c10439d58ab49ada791f7cd3c8",
+   "syntax_ok": true,
+   "verdict_counter_rule": "survived",
+   "verdict_full_gen": "survived"
+  },
+  {
+   "clause": "C6/C1: etagc obs-text accepted per RFC 9110 8.8.3 (0x80-0xFF leg dropped)",
+   "find": "ETAGC = {chr(0x21)} | {chr(c) for c in range(0x23, 0x7F)} \\\n    | {chr(c) for c in range(0x80, 0x100)}",
+   "find_occurrences_in_pos_good": 1,
+   "id": "N12",
+   "replace": "ETAGC = {chr(0x21)} | {chr(c) for c in range(0x23, 0x7F)}",
+   "scores": {
+    "counter_rule_40": {
+     "first_failure": "construct/obs-text-etag: expected {'decision': 'construct', 'if_none_match': '\"caf\u00e9\"', 'if_modified_since': None} got None (rc=1 invalid_input: malformed entity-tag)",
+     "gen_ok": 38,
+     "gen_total": 40,
+     "hand_ok": 36,
+     "killed": true
+    },
+    "full": {
+     "first_failure": "construct/obs-text-etag: expected {'decision': 'construct', 'if_none_match': '\"caf\u00e9\"', 'if_modified_since': None} got None (rc=1 invalid_input: malformed entity-tag)",
+     "gen_ok": 96,
+     "gen_total": 112,
+     "hand_ok": 36,
+     "hand_total": 37,
+     "killed": true
+    }
+   },
+   "sha256": "80242829260e9c56bc05fb0549ff2f5af0b89455cf3e69a98522a27450e82633",
+   "syntax_ok": true,
+   "verdict_counter_rule": "killed",
+   "verdict_full_gen": "killed"
+  }
+ ],
+ "note": "12 new clause mutants of frozen/pos-good-reval.py designed by seat MutReval (round-96 w1). Find/replace pairs, each asserted to occur exactly once in the positive-control bytes; scored against the frozen 37 hand cases plus the seeded generated set recomputed with the frozen counter's reference (c96_reval imported as a module inside the seat scratch; the counter was never edited). Verdicts use the counter's own mutant rule (hand cases + first 40 generated); a full-generated-set verdict (112 decided cases) is recorded alongside.",
+ "pristine_control": {
+  "admitted": true,
+  "first_failure": "",
+  "gen_ok": 112,
+  "gen_total": 112,
+  "hand_ok": 37,
+  "hand_total": 37
+ }
+}

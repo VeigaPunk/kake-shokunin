@@ -1,0 +1,14 @@
+receipt: frozen mutant M03 (population .ufo/waves/round-96/frozen/mutants-reval.json)
+clause: C1 weak etag sent verbatim
+subject: find/replace applied once to frozen pos-good-reval.py; sha256(mutant)=af421d08039e78660a3cc46b27e7fed9a27be0b14292b85eed08ff528a7972b7
+find:
+                "if_none_match": etag,
+replace:
+                "if_none_match": etag[2:] if etag.startswith("W/") else etag,
+counter mutant_cases(): killed=True first_failure=construct/lm-only: expected {'decision': 'construct', 'if_none_match': None, 'if_modified_since': 12345} got None (rc=1 Traceback (most recent call last):
+  Fil
+counter rule (gen_limit=40): hand=35/37 gen=28/40 killed=True first_failure=construct/lm-only: expected {'decision': 'construct', 'if_none_match': None, 'if_modified_since': 12345} got None (rc=1 Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r96/MutReval/drv-work/sandbox.py
+full generated set: hand=35/37 gen=82/112 killed=True first_failure=construct/lm-only: expected {'decision': 'construct', 'if_none_match': None, 'if_modified_since': 12345} got None (rc=1 Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r96/MutReval/drv-work/sandbox.py
+verdict: KILLED

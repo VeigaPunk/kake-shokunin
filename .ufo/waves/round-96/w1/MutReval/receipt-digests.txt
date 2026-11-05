@@ -1,0 +1,18 @@
+# MutReval instrument digest verification before attacking (2026-11-05)
+# lane HEAD 049e8eca2f0fa5e981232eb4efe367357dce578c (= freeze commit;
+# ancestors: 7ae3e9b0 instruments, bde98691 round base — verified via git log)
+# observed sha256sum (from cwd /home/vgpnk/Projects/shokunin/kake-shokunin):
+a282da654d5ee6af923abb2cae4bd0a4fd6e4309db81de5a67999ed7b25ad134  .ufo/waves/round-96/c96_selfassess.py   -> MATCH controls/instrument-sha256.txt
+ec40aec19d0b4563ad21d79b398c7aaa65a99806984dbca55086c099571eebb9  .ufo/waves/round-96/c96_reval.py       -> MATCH controls/instrument-sha256.txt
+d9c8f96eec5c98565a3c75350d425770efa012b76e5e8151f4daec7d8d50c4e9  .ufo/waves/round-96/frozen/c2-population.sha256 -> MATCH pins-file pin (PINS_SHA)
+47c657255624030171caaf9da8a2d930ce1fdcc2ba460a1c402c2c6d1b24d10a  .ufo/waves/round-96/frozen/pos-good-reval.py    -> MATCH controls/instrument-sha256.txt
+517f7b16a41e1c72e82ebb581f4f242509e2e87bf4c6a3963e5381e4af457fd5  .ufo/waves/round-96/frozen/mutants-reval.json   -> MATCH controls/instrument-sha256.txt
+# frozen round-95 counter, read-only check (never amended by this seat):
+8fd27d626883f2b6852ea2ee425706a77a72eeaee10ef740b8e0fc15ac03b193  .ufo/waves/round-95/c95_selfassess.py  -> MATCH frozen digest, untouched
+# driver-side re-verification before scoring (driver.py asserts all four
+# round-96 digests and aborts on drift): no drift observed.
+# lane worktree state at attack time: git status --porcelain | wc -l -> 6
+# (other seats' wave files); MutReval wrote nothing outside
+# .ufo/waves/round-96/w1/MutReval/ + .ufo/waves/round-96/w1/MutReval.md and
+# /fast/scratch/hyaku/kake-r96/MutReval/. No mutating git/jj command was run
+# anywhere; the only git invocations were rev-parse/show/log (read-only).

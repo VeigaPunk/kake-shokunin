@@ -1,0 +1,9 @@
+# r18 static citations
+c2 crash-site citations: {"selftest_local_def_lines": [511], "mutant_cases_call_lines": [516, 624], "n_mut_load_lines": [561], "absent_early_return_lines": [563]}
+c1 flag citations (only docstring negations mention -I; executable spawns use -B only): {"isolation_flag_mentions": [{"line": 12, "text": "claims a `python3 -I` invocation: the frozen command is `python3 -B`, and"}], "B_flag_spawn_lines": [847, 870, 1090]}
+c1 full-lane line1 == committed controls/c1-successor-at-base.txt line2: false
+c2 full-lane line1 == committed controls/base-c2.txt line2: false
+Frozen counting commands carry no -I and no -E (freeze.md, control receipt headers); the c96_selfassess.py docstring
+states the command is python3 -B and no longer claims interpreter isolation (lines 11-13, 78-79).
+Tooling authorization: NO tools installed or upgraded by this seat (system python3 3.14.*, git, sha256sum only).
+No sysctls touched. No mutating git/jj anywhere; the single scratch fixture repo is the only repo mutated (allowed).

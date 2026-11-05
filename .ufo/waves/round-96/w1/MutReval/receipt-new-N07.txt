@@ -1,0 +1,12 @@
+receipt: new clause mutant N07 (seat MutReval, round-96 w1)
+clause: C6: validators on an absent representation refused at every stage (status-bearing exchange accepted)
+find occurrences in pos-good bytes: 1 (asserted == 1)
+syntax_ok: True
+subject: find/replace applied once to a scratch copy of frozen pos-good-reval.py; sha256(mutant)=a9873bee5314f8a05e0e2e17f78303e4c2e509a8d5fe948fc1859d3f871f76ac
+find:
+    if exists is False and has_validator:
+replace:
+    if exists is False and has_validator and status is None:
+counter rule (gen_limit=40): hand=37/37 gen=40/40 killed=False first_failure=(none)
+full generated set: hand=37/37 gen=112/112 killed=False first_failure=(none)
+verdict: SURVIVED (counter rule) / SURVIVED (full generated set)

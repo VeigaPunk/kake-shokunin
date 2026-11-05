@@ -1,0 +1,5 @@
+# r15 PYTHONPATH vs -I (C2 sandbox spawns subjects with python3 -I -B)
+Setup: PYTHONPATH=<dir containing json.py that writes MARKER-PPSH then raises SystemExit(7)>; subject imports json and re.
+with -I    : rc=0 marker=False stdout='json_at=/usr/lib/python3.14/json/__init__.py' stderr='re_at=/usr/lib/python3.14/re/__init__.py'
+without -I : rc=7 marker=True stdout='' (shadow json.py executed, SystemExit(7))
+=> the sandbox's -I is load-bearing: PYTHONPATH shadows are honored without it and ignored with it. Refused.

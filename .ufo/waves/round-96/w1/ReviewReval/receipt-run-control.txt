@@ -1,0 +1,35 @@
+ReviewReval grid run — pos-good-control
+subject: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-96/frozen/pos-good-reval.py
+subject sha256 before: 47c657255624030171caaf9da8a2d930ce1fdcc2ba460a1c402c2c6d1b24d10a
+subject sha256 after:  47c657255624030171caaf9da8a2d930ce1fdcc2ba460a1c402c2c6d1b24d10a
+counter copy sha256:   ec40aec19d0b4563ad21d79b398c7aaa65a99806984dbca55086c099571eebb9 (frozen ec40aec19d0b4563ad21d79b398c7aaa65a99806984dbca55086c099571eebb9)
+date: 2026-11-05T18:21:35Z
+command: python3 -B runner.py /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-96/frozen/pos-good-reval.py receipts/run-posgood-control.txt pos-good-control (each case: python3 -B <subject>, stdin = case payload, cwd=/fast/scratch/hyaku/kake-r96/ReviewReval, env PATH=/usr/bin:/bin HOME=/fast/scratch/hyaku/kake-r96/ReviewReval)
+wall: 0.3s
+
+construct/lm-zero-no-etag                      C1   agree   {"decision": "construct", "if_modified_since": 0, "if_none_match": null}
+construct/etag-single-obtext                   C1   agree   {"decision": "construct", "if_modified_since": null, "if_none_match": "\"\u0086\""}
+construct/weak-obtext-both                     C1+C2 agree   {"decision": "construct", "if_modified_since": 5, "if_none_match": "W/\"\u00ff\""}
+construct/empty-opaque-tag                     C1   agree   {"decision": "construct", "if_modified_since": null, "if_none_match": "\"\""}
+construct/exists-false-no-validators           C1   agree   {"decision": "cannot-revalidate", "if_modified_since": null, "if_none_match": null}
+construct/lm-huge                              C1   agree   {"decision": "construct", "if_modified_since": 253402300799, "if_none_match": null}
+c304/etag-only                                 C3   agree   {"decision": "update-stored", "if_modified_since": null, "if_none_match": null}
+c304/lm-zero                                   C3   agree   {"decision": "update-stored", "if_modified_since": null, "if_none_match": null}
+c5xx/500-etag-only                             C4   agree   {"decision": "may-reuse-stored", "if_modified_since": null, "if_none_match": null}
+c5xx/501-both                                  C4   agree   {"decision": "may-reuse-stored", "if_modified_since": null, "if_none_match": null}
+c5xx/599-lm-only                               C4   agree   {"decision": "may-reuse-stored", "if_modified_since": null, "if_none_match": null}
+c4xx/299-both                                  C5   agree   {"decision": "replace-stored", "if_modified_since": null, "if_none_match": null}
+c4xx/300-lm-only                               C5   agree   {"decision": "replace-stored", "if_modified_since": null, "if_none_match": null}
+c4xx/200-etag-only                             C5   agree   {"decision": "replace-stored", "if_modified_since": null, "if_none_match": null}
+c4xx/499-both                                  C5   agree   {"decision": "replace-stored", "if_modified_since": null, "if_none_match": null}
+c4xx/204-lm-only                               C5   agree   {"decision": "replace-stored", "if_modified_since": null, "if_none_match": null}
+refuse/status-200-exists-false-no-validator    C6   agree   refusal rc=1 invalid_input: validation response without a stored validator
+refuse/exists-false-etag                       C6   agree   refusal rc=1 invalid_input: absent representation carries a validator
+refuse/etag-empty-string                       C6   agree   refusal rc=1 invalid_input: etag is neither null nor a string
+refuse/etag-space-inner                        C6   agree   refusal rc=1 invalid_input: malformed entity-tag
+refuse/status-199                              C6   agree   refusal rc=1 invalid_input: 1xx is interim and never a validation response
+refuse/lm-bool-true                            C6   agree   refusal rc=1 invalid_input: last_modified is neither null nor a non-negative int
+refuse/raw-dup-exists-nested                   C6   agree   refusal rc=1 invalid_input: duplicate object key in input document
+refuse/raw-dup-stored-top                      C6   agree   refusal rc=1 invalid_input: duplicate object key in input document
+
+agree=24/24 reference_agree=22/22

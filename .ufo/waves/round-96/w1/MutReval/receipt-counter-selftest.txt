@@ -1,0 +1,15 @@
+# receipt: c96_reval --selftest, the counter's own population scoring path
+# (MutReval, round-96 w1, 2026-11-05)
+# command (from cwd /home/vgpnk/Projects/shokunin/kake-shokunin):
+#   TMPDIR=/fast/scratch/hyaku/kake-r96/MutReval python3 -B .ufo/waves/round-96/c96_reval.py --work /fast/scratch/hyaku/kake-r96/MutReval/reval-selftest --selftest
+selftest 7/7 fixtures scored as declared; mutants killed 14/14 survivors=none; anti_table=ok; generated-vs-reference seeded cases=37
+rc=0
+# comparison control .ufo/waves/round-96/controls/ctl-c2-selftest.txt reads:
+#   selftest 7/7 fixtures scored as declared; mutants killed 14/14 survivors=none; anti_table=ok; generated-vs-reference seeded cases=37
+#   exit=0
+# -> line-identical reproduction of the committed base receipt; the control
+#    was reproduced, not re-stamped.
+# interpretation: the frozen 14-mutant population is LIVE under the counter's
+# own scoring rule (find/replace over frozen pos-good bytes, scored under the
+# sandbox against 37 hand cases + generated-vs-reference at gen_limit=40):
+# every one of the 14 mutants fails at least one case.

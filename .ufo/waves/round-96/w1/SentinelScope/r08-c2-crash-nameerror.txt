@@ -1,0 +1,58 @@
+# r08 FINDING F1 (HIGH): frozen c96_reval.py crashes on every candidate-present scoring run
+
+Repro fixture: /fast/scratch/hyaku/kake-r96/SentinelScope/fx (git rev-parse --show-toplevel asserted == fixture dir; identity SentinelScope@example.invalid)
+Candidate revisions (one commit per variant): {
+ "base": "7aa5e206b4bfa47fb682a5bd9f14b002618dba2b",
+ "effectin": "964a99e650cff9e768424fd539aa6b80a3e6f426",
+ "effectout": "d403431d40d7c5101f907881273c1eda919ae852",
+ "symlink": "9e1e35d8f661f468612c3dc1b21bf4f6d117e99c",
+ "execv": "df5195fce98e78cce3d755718ce93b2762050072"
+}
+Command shape (frozen form): python3 -B .ufo/waves/round-96/c96_reval.py --root <fixture> --revision <rev> --work <scratch>/w-c2-<tag>
+Observed for ALL five candidates (positive control, effectful-in-tree, effectful-outside, symlink, execv):
+  rc=1, stdout EMPTY -> no C2v96 verdict line is ever emitted; stderr = NameError traceback:
+
+[stdout]
+
+[stderr]
+Traceback (most recent call last):
+  File "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-96/c96_reval.py", line 649, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-96/c96_reval.py", line 624, in main
+    work, sandbox, cases, gen_expected, base_src, mutants, tree)
+                                                  ^^^^^^^
+NameError: name 'mutants' is not defined
+
+  NameError: name 'mutants' is not defined (line 624 of the frozen bytes; selftest binds 'mutants' locally at line 511;
+  main() never binds it — it computes n_mut at line 561 and discards the population list).
+
+Per-variant receipts (stdout then stderr tail):
+### base
+  stdout: (empty)
+  stderr tail: NameError: name 'mutants' is not defined
+### effectin
+  stdout: (empty)
+  stderr tail: NameError: name 'mutants' is not defined
+### effectout
+  stdout: (empty)
+  stderr tail: NameError: name 'mutants' is not defined
+### symlink
+  stdout: (empty)
+  stderr tail: NameError: name 'mutants' is not defined
+### execv
+  stdout: (empty)
+  stderr tail: NameError: name 'mutants' is not defined
+
+Why the committed controls missed it: base-c2.txt exercises the candidate=absent early return (line ~563)
+and ctl-c2-selftest.txt exercises --selftest (own scope, line 511). No committed receipt ever runs the
+candidate-present path, which is the only path C2's claim needs (candidate=present ... met=true).
+
+Impact: C2's claimed terminal state is unreachable through the frozen instrument. Any candidate the wave lands
+will crash the counter (rc=1, no verdict line) at integration. No false-green is possible (the failure is loud),
+but the claim cannot be scored this round by the frozen instrument. Honest handling per freeze.md: route to
+round 97; never patch the frozen bytes (this seat did not modify them; digests re-verified in r01 after all runs).
+
+Seat-fault note (honesty): this seat's first baseline attempt reported population=drift because the fixture
+initially lacked the contract file that c2-population.sha256 pins; after copying the contract the run reaches
+the NameError above. The drift was fixture-setup error, not an instrument defect.

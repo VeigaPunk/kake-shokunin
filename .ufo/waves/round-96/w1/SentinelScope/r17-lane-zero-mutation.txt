@@ -1,0 +1,17 @@
+# r17 lane-tree zero-mutation across every scoring run
+Bracketed runs (P0 before / P1 after, all concurrent): c96_selfassess full battery on the lane (frozen command form),
+c96_reval base on the lane (frozen command form), 4x c96_selfassess --verdict-only under weaponized env.
+Result: P0 porcelain == P1 porcelain (difflib unified diff: 0 lines); HEAD unchanged = 049e8eca2f0fa5e981232eb4efe367357dce578c.
+Porcelain content both times: untracked dispatch/seat files only (w1-dispatch.json, w1-spec.json, w1.ready*, w1/,
+scripts/reval_exchange.py — the latter is an untracked peer-seat working file, present before and after, untouched).
+Porcelain after this seat's report writes (r17 written before sentinel.md/report; files since added are this seat's own):
+?? .ufo/waves/round-96/w1-dispatch.json
+?? .ufo/waves/round-96/w1-spec.json
+?? .ufo/waves/round-96/w1.ready
+?? .ufo/waves/round-96/w1.ready.dispatched
+?? .ufo/waves/round-96/w1/
+?? scripts/reval_exchange.py
+
+HEAD now: 049e8eca2f0fa5e981232eb4efe367357dce578c
+resume_continuity_v1: zero occurrences anywhere in .ufo/waves/round-96/ (instruments, contract, freeze) — grep receipt in r18;
+substituted the zero-mutation check above (precedent: round-61 w1/SentinelC1Bounds.md). No rejection machinery exists in this lane.

@@ -1,0 +1,19 @@
+# receipt: c96_reval main counting command at wave HEAD (MutReval, round-96 w1, 2026-11-05)
+# command (from cwd /home/vgpnk/Projects/shokunin/kake-shokunin):
+#   TMPDIR=/fast/scratch/hyaku/kake-r96/MutReval python3 -B .ufo/waves/round-96/c96_reval.py --root . --revision $(git rev-parse HEAD) --work /fast/scratch/hyaku/kake-r96/MutReval/reval-main
+# git rev-parse HEAD -> 049e8eca2f0fa5e981232eb4efe367357dce578c (freeze commit)
+# candidate presence at this revision: git show HEAD:scripts/reval_exchange.py -> rc=128 (absent)
+C2v96 revision=049e8eca2f0fa5e981232eb4efe367357dce578c candidate=absent hand=0/37 generated=0/120 forgeries_refused=0/6 positive=refused mutants=0/14 survivors=none anti_table=ok population=ok seed=96 met=false
+{"detail": "candidate absent"}
+rc=1
+# note: line-identical to the committed do-nothing base control
+# .ufo/waves/round-96/controls/base-c2.txt (stamped at revision
+# bde9869144f69c5a459c0d2c93f5135922fe3a8d) except the revision field. The
+# candidate scripts/reval_exchange.py does not exist yet at the wave HEAD, so
+# the counter's main path scores zero subjects and reports mutants=0/14
+# WITHOUT scoring the population. Population liveness at this revision is
+# therefore carried by receipt-counter-selftest.txt (the counter's own
+# --selftest population path, which reproduces controls/ctl-c2-selftest.txt
+# line-identically) and by the per-mutant receipts receipt-frozen-M*.txt
+# (the counter's mutant_cases() driven as a module, never edited).
+# The committed control was reproduced, not re-stamped.

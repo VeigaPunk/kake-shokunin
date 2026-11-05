@@ -5749,3 +5749,53 @@ Controls executed before the freeze: `controls/base-c1.txt`, `controls/base-c2.t
 #### Planned — after round 95
 
 Outside closure owns admission. Frontier: the revalidation exchange (RFC 9111 §4.3), serving stale without a client directive, storage/key identity (§4.1), and every live-cache observation stay open. Routed to round 96: R95-1 (successor C1 counter pins entries by presence and freezes before dispatch), R95-2 (fleet kill-predicate decision owed; kumitate K43 vs tabi catalogue-time equivalence vs kake receipts — `w1/ConnectorScope/overlaps.md` rows 4–5), R95-3 (chousa round-79 criterion 146 is prior art for the repair-naming rule; cite, do not port), R95-4 (the closure's row-by-row re-read of the 15 repaired SKILL rows). Frontier: the revalidation exchange (RFC 9111 §4.3), serving stale without a client directive, storage/key identity (§4.1), and every live-cache observation stay open.
+
+### Round 96 — claims and verdicts (2026-11-05, attempt 1; not an admission)
+
+Round base `bde9869144f69c5a459c0d2c93f5135922fe3a8d`; instruments commit
+`7ae3e9b07e2435f7fde6e73838d9fa14488b8dda`; freeze
+`049e8eca2f0fa5e981232eb4efe367357dce578c` with both counters digest-pinned
+(`.ufo/waves/round-96/controls/instrument-sha256.txt`) BEFORE the wave
+(`.ufo/waves/round-96/freeze.md`; do-nothing controls executed pre-freeze:
+`controls/base-c1-predecessor.txt`, `controls/c1-successor-at-base.txt`,
+`controls/base-c2.txt`). Integration commit `7dc9bf43b6bd6ddae741f5b3af1d7e4224990428`.
+Claims declared before any seat scored; counters, predicates and targets unchanged after.
+
+| Claim | Axis / type | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 the routed R95-1/R95-5/R95-7-C1 instrument defects close | calibration (HOLD 2), lowest owned | predecessor `pins=identity met=false` at `bde98691` (`.ufo/waves/round-96/controls/base-c1-predecessor.txt`) → successor `pins=ok mismatches=0 battery=23/23 admit=5/5 shadow=absent predecessor_admits=6/22 ng_pred_admits=3/3 met=true` at the landed tip | `python3 -B .ufo/waves/round-96/c96_selfassess.py --root . --revision <REV> --work <scratch>` beside the frozen predecessor `python3 -B .ufo/waves/round-95/c95_selfassess.py --root . --revision <REV> --work <scratch>` | **met on the frozen predicate** (successor exit 0, predecessor exit 1, both receipts at the tip); instrument falsified by the round's own attack seats (R96-3/R96-4: four new false-green shapes, laundering/stuffing/replace routes); score stays 2; non-author spot-check owed |
+| C2 revalidation exchange, contract v1 | freshness (HOLD 10), capability | `candidate=absent hand=0/37 generated=0/120 forgeries_refused=0/6 positive=refused mutants=0/14 met=false` at base → **unscoreable**: the frozen counter crashes on every candidate-present run (`NameError: mutants`, `c96_reval.py:624`; SentinelScope r08, CriticClaims C2-01) | `python3 -B .ufo/waves/round-96/c96_reval.py --root . --revision <REV> --work <scratch>` | **unmet (honest stop)** — the frozen bytes are not amended (round-95 Amendment-A rule); the candidate `scripts/reval_exchange.py` lands and is independently verified (ReviewReval 24/24, zero defects; MutReval frozen population 14/14 live); no Capabilities row enters (round-64 precedent); R96-1 routes the fix; score stays 10 |
+
+Controls executed before the freeze: `controls/base-c1-predecessor.txt`,
+`controls/c1-successor-at-base.txt`, `controls/base-c2.txt`,
+`controls/ctl-c1-selftest.txt`, `controls/ctl-c2-selftest.txt`,
+`controls/instrument-sha256.txt`. Landed-tip receipts:
+`controls/after-c1-successor.txt`, `controls/after-c1-predecessor.txt`,
+`controls/census-after.txt`.
+
+#### Move log (round 96)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 96 | calibration (HOLD 2) | predecessor `pins=identity met=false` at `bde98691` | successor `pins=ok met=true` at the tip; predecessor still red at the same revision | `.ufo/waves/round-96/controls/{base-c1-predecessor,c1-successor-at-base,after-c1-successor,after-c1-predecessor}.txt` |
+| 96 | freshness (HOLD 10), instrument | candidate absent, counter met=false at base | counter crash routed R96-1; candidate landed + independently verified, credit withheld | `.ufo/waves/round-96/w1/{SentinelScope/receipts,CriticClaims/claims.md,ReviewReval/grid.md}`; `scripts/reval_exchange.py` |
+
+#### Demonstrated repertoire — round 96
+
+No new capability row (no frozen-counter pass; `corpus/lessons/round-96.md`
+§Capability note). The conditional-request line's successors carry forward
+R95-6/R95-7-C2 unchanged.
+
+#### Planned — after round 96
+
+Outside closure owns admission. Routed to round 97: R96-1 (bind `mutants`
+in `main()`; pre-freeze main-path execution proof per QUALITY R96-A — the
+landed candidate is ready to score), R96-2 (anti-table: digest canonical +
+minified + re-encoded inputs; pin refusal diagnostics — MutReval recipes in
+`w1/MutReval/new-mutants.json`), R96-3 (C1 false-greens RX01/RX02/RX03b/
+RX09 + absence-laundering + vocabulary stuffing + `GIT_NO_REPLACE_OBJECTS=1`
+pin), R96-4 (C1 git-from-PATH; C2 effectful-shadow defense; carried R95-6/
+R95-7-C2), and the R95-2 L0 arbitration (filed this round). Frontier: the
+revalidation exchange is held for supplied values only; storage/key
+identity (§4.1), serving stale, live-cache observation, and the merged 304
+field set (§4.3.4) stay open.

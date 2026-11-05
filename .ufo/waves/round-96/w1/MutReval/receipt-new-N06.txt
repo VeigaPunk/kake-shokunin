@@ -1,0 +1,14 @@
+receipt: new clause mutant N06 (seat MutReval, round-96 w1)
+clause: C6: boolean last_modified is refused (bool leg dropped)
+find occurrences in pos-good bytes: 1 (asserted == 1)
+syntax_ok: True
+subject: find/replace applied once to a scratch copy of frozen pos-good-reval.py; sha256(mutant)=5d8747fd04ab3e92273278f53f7c7d7c0d112217812a722c4336aa08b910d74f
+find:
+    if lm is not None and (not isinstance(lm, int) or isinstance(lm, bool)
+                           or lm < 0):
+replace:
+    if lm is not None and (not isinstance(lm, int)
+                           or lm < 0):
+counter rule (gen_limit=40): hand=37/37 gen=40/40 killed=False first_failure=(none)
+full generated set: hand=37/37 gen=112/112 killed=False first_failure=(none)
+verdict: SURVIVED (counter rule) / SURVIVED (full generated set)
