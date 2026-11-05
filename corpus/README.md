@@ -848,3 +848,16 @@ s-maxage/freshness-lifetime coupling the contract leaves to the caller.
 | Area | Entry | Coverage |
 |---|---|---|
 | Stale-serving extensions decision (r98) | `knowledge/stale-extensions.md` (S482, S483, S469, S457, S461, S478) | Whether a stale stored response may be served on a request or on an error, and for how long, decided over supplied values under contract v1; no live cache, no storage, no revalidation scheduling |
+
+## Round-99 frontier step — 304 freshening
+
+New ground this round: RFC 9111 §4.3.4 and §3.2 with the §3.1 exceptions (S484, opened
+2026-11-05; erratum EID 9185 Reported, not Verified, S485), decided over supplied values by
+`scripts/freshen_304.py` under contract v1 (`.ufo/waves/round-99/fresh304-contract.md`). Still
+open: the initial-set computation (§4 reuse conditions, keys, Vary), HEAD freshening (§4.3.5),
+invalidation (§4.4), trailer fields, the contract-v1 limits the entry lists, and any observation of
+a live cache.
+
+| Area | Entry | Coverage |
+|---|---|---|
+| 304 freshening decision (r99) | `knowledge/freshening-304.md` (S484, S485) | Which stored responses a 304 (Not Modified) identifies for update and which of their header fields it changes, decided over supplied values under contract v1; no initial-set computation, no live cache |

@@ -1736,3 +1736,12 @@ were observed at the round-99 base and are dated samples, not constants.
 | source_snapshot.py | evidence tool (records live source fetches as a round-36 version-1 manifest) | `python3 -B scripts/source_snapshot.py --input <list.json> --manifest <out.json> --out-dir <dir>` | `0` manifest written; `1` not used; `2` bad input or fetch-recording fault | no self-test (no `--selftest` mode) | writes the manifest and body files it names | kake |
 | stale_extensions.py | probe (RFC 5861 stale-while-revalidate / stale-if-error decision, round-98 contract v1) | `printf '%s' '<payload>' \| python3 -B scripts/stale_extensions.py` | `0` `{"decision": ..., "staleness": ...}` on stdout; `1` refusal, `invalid_input: <reason>` on stderr, empty stdout | `python3 -B scripts/stale_extensions.py --selftest` | stdin/stdout/stderr only | kake |
 | wave_seat_record.py | recorder (per-seat outcome record from a wave results file, R80-6) | `python3 -B scripts/wave_seat_record.py --results <wave-results.json> --spec <wave-spec.json> --out <record.json>` | `0` record written; `1` not used; `2` unreadable input; `64` usage | no self-test (no `--selftest` mode) | writes `--out` only | kake |
+
+### Round 99 C2 capability tool
+
+Registered with its landing (the C1 counter counts every committed `scripts/` tool, so a tool
+landed without a row would reopen the round-99 C1 mismatch).
+
+| Name | Kind | Entry command | Verdict map | Self-test | Write scope | Owner |
+|---|---|---|---|---|---|---|
+| freshen_304.py | probe (which stored responses a 304 freshens and their updated header fields, RFC 9111 §4.3.4 + §3.2, round-99 contract v1 `.ufo/waves/round-99/fresh304-contract.md`) | `printf '%s' '<payload>' \| python3 -B scripts/freshen_304.py` with stdin JSON `{stored:[{id,received,headers}],response:{status:304,headers}}` | `0` `{"decision": "update"\|"must-not-update"\|"no-update", "rule": ..., "updated": [...]}` on stdout; `1` refusal, `invalid_input: <reason>` on stderr, empty stdout | `python3 -B scripts/freshen_304.py --selftest` | stdin/stdout/stderr only | kake |
