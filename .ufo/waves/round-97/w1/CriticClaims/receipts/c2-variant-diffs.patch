@@ -1,0 +1,102 @@
+ scripts/reval_exchange.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/scripts/reval_exchange.py b/scripts/reval_exchange.py
+index 84f1eaf0..f67232b6 100755
+--- a/scripts/reval_exchange.py
++++ b/scripts/reval_exchange.py
+@@ -88,7 +88,7 @@ def decide(inp):
+             "if_none_match": None,
+             "if_modified_since": None,
+         }
+-    if 500 <= status <= 599:
++    if status in (500, 503, 599):
+         return {
+             "decision": "may-reuse-stored",
+             "if_none_match": None,
+ scripts/reval_exchange.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/scripts/reval_exchange.py b/scripts/reval_exchange.py
+index 84f1eaf0..8e2c6897 100755
+--- a/scripts/reval_exchange.py
++++ b/scripts/reval_exchange.py
+@@ -28,7 +28,7 @@ def _parse_etag(s):
+     if len(rest) < 2 or rest[0] != '"' or rest[-1] != '"':
+         raise Invalid("malformed entity-tag")
+     for ch in rest[1:-1]:
+-        if ch not in ETAGC:
++        if ord(ch) < 0x20:
+             raise Invalid("malformed entity-tag")
+     return s
+ 
+ scripts/reval_exchange.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/scripts/reval_exchange.py b/scripts/reval_exchange.py
+index 84f1eaf0..3d73fa49 100755
+--- a/scripts/reval_exchange.py
++++ b/scripts/reval_exchange.py
+@@ -19,7 +19,7 @@ class Invalid(Exception):
+ 
+ 
+ def _is_int(v):
+-    return isinstance(v, int) and not isinstance(v, bool)
++    return isinstance(v, int)
+ 
+ 
+ def _parse_etag(s):
+ scripts/reval_exchange.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/scripts/reval_exchange.py b/scripts/reval_exchange.py
+index 84f1eaf0..2e3ca78f 100755
+--- a/scripts/reval_exchange.py
++++ b/scripts/reval_exchange.py
+@@ -62,7 +62,7 @@ def decide(inp):
+             raise Invalid("received_status is neither null nor an int")
+         if not 100 <= status <= 599:
+             raise Invalid("received_status out of 100..599")
+-        if status < 200:
++        if status == 100:
+             raise Invalid("1xx is interim and never a validation response")
+     has_validator = etag is not None or lm is not None
+     if exists is False and has_validator:
+ scripts/reval_exchange.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+diff --git a/scripts/reval_exchange.py b/scripts/reval_exchange.py
+index 84f1eaf0..dd434cc1 100755
+--- a/scripts/reval_exchange.py
++++ b/scripts/reval_exchange.py
+@@ -19,7 +19,7 @@ class Invalid(Exception):
+ 
+ 
+ def _is_int(v):
+-    return isinstance(v, int) and not isinstance(v, bool)
++    return isinstance(v, int)
+ 
+ 
+ def _parse_etag(s):
+@@ -28,7 +28,7 @@ def _parse_etag(s):
+     if len(rest) < 2 or rest[0] != '"' or rest[-1] != '"':
+         raise Invalid("malformed entity-tag")
+     for ch in rest[1:-1]:
+-        if ch not in ETAGC:
++        if ord(ch) < 0x20:
+             raise Invalid("malformed entity-tag")
+     return s
+ 
+@@ -62,7 +62,7 @@ def decide(inp):
+             raise Invalid("received_status is neither null nor an int")
+         if not 100 <= status <= 599:
+             raise Invalid("received_status out of 100..599")
+-        if status < 200:
++        if status == 100:
+             raise Invalid("1xx is interim and never a validation response")
+     has_validator = etag is not None or lm is not None
+     if exists is False and has_validator:
+@@ -88,7 +88,7 @@ def decide(inp):
+             "if_none_match": None,
+             "if_modified_since": None,
+         }
+-    if 500 <= status <= 599:
++    if status in (500, 503, 599):
+         return {
+             "decision": "may-reuse-stored",
+             "if_none_match": None,

@@ -1,0 +1,154 @@
+# mirror-validate.txt — ExecCensus (kake r97 w1): scratch validation of the planned S481 append
+
+## Run under validation (the seat-spec command)
+# cmd: /home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --file /fast/scratch/hyaku/kake-r97/ExecCensus/mirror/corpus/SOURCES.md
+# mirror built with: cp -r /home/vgpnk/Projects/shokunin/kake-shokunin/corpus /fast/scratch/hyaku/kake-r97/ExecCensus/mirror
+# S481 row appended after S480 (line 227): verbatim copy of the S479 row shape,
+#   id S479->S481, source URL https://www.rfc-editor.org/errata_search.php?rfc=9111; no other byte changed; placeholder-free.
+# TMPDIR=/fast/scratch/hyaku/kake-r97/ExecCensus/tmp  cwd=/fast/scratch/hyaku/kake-r97/ExecCensus
+
+file	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+file	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+file	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+file	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+file	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+file	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+file	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+file	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+file	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S445 duplicate url html.spec.whatwg.org/multipage/links.html across scopes
+file	W04	S450 duplicate url html.spec.whatwg.org/multipage/semantics.html across scopes
+file	W04	S451 duplicate url www.rfc-editor.org/rfc/rfc3339.txt across scopes
+file	W04	S453 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S455 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S461 duplicate url httpwg.org/specs/rfc9111.html across scopes
+file	W04	S462 duplicate url httpwg.org/specs/rfc9111.html across scopes
+file	W04	S463 duplicate url httpwg.org/specs/rfc9111.html across scopes
+file	W04	S465 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S466 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S467 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	W04	S468 duplicate url www.rfc-editor.org/rfc/rfc8259.txt across scopes
+file	W04	S469 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	W04	S470 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	W04	S471 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S472 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S473 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S474 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S475 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S476 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	W04	S477 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S478 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S480 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	E11	S088 missing used-by scripts/source_recheck.py
+file	E11	S089 missing used-by scripts/source_recheck.py
+file	E11	S090 missing used-by scripts/source_recheck.py
+file	E11	S091 missing used-by scripts/source_recheck.py
+file	E11	S092 missing used-by scripts/source_recheck.py
+file	E11	S117 missing used-by SCORECARD.md
+file	E11	S118 missing used-by .ufo/waves/round-41/c1_count.py
+file	E11	S118 missing used-by SCORECARD.md
+file	E11	S119 missing used-by .ufo/waves/round-41/oracle_crosscheck.py
+file	E11	S119 missing used-by SCORECARD.md
+file	E11	S120 missing used-by SCORECARD.md
+file	E11	S121 missing used-by SCORECARD.md
+file	E11	S122 missing used-by SCORECARD.md
+file	E11	S124 missing used-by SKILL.md
+file	E11	S129 missing used-by SCORECARD.md
+file	E11	S131 missing used-by SCORECARD.md
+file	E11	S132 missing used-by SCORECARD.md
+file	E11	S440 missing used-by .ufo/waves/round-73/contract.md
+file	E11	S479 missing used-by .ufo/waves/round-95/freeze.md
+file	E11	S481 missing used-by .ufo/waves/round-95/freeze.md
+exit=1
+
+## Expected vs observed
+- spec expectation: exit 0, W04-class warnings allowed.
+- observed: exit 1 — E-class findings present at BASELINE, before S481 (attribution run below).
+
+## Baseline attribution run (same mirror WITHOUT S481, added by the seat for delta isolation)
+```
+file	W04	S033 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S088 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S092 duplicate url html.spec.whatwg.org/multipage/syntax.html across scopes
+file	W04	S098 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S099 duplicate url www.rfc-editor.org/rfc/rfc9309.html across scopes
+file	W04	S102 duplicate url www.sitemaps.org/protocol.html across scopes
+file	W04	S110 duplicate url www.w3.org/TR/xml across scopes
+file	W04	S111 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S115 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S116 duplicate url docs.python.org/3/library/urllib.parse.html across scopes
+file	W04	S117 duplicate url www.rfc-editor.org/rfc/rfc3986.txt across scopes
+file	W04	S127 duplicate url www.rfc-editor.org/rfc/rfc9844.txt across scopes
+file	W04	S416 duplicate url ziyuan.baidu.com/college/courseinfo?id=1399 across scopes
+file	W04	S417 duplicate url ziyuan.baidu.com/college/courseinfo?id=267&page=15 across scopes
+file	W04	S427 duplicate url developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers across scopes
+file	W04	S433 duplicate url www.rfc-editor.org/rfc/rfc9110.html across scopes
+file	W04	S445 duplicate url html.spec.whatwg.org/multipage/links.html across scopes
+file	W04	S450 duplicate url html.spec.whatwg.org/multipage/semantics.html across scopes
+file	W04	S451 duplicate url www.rfc-editor.org/rfc/rfc3339.txt across scopes
+file	W04	S453 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S454 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S455 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S461 duplicate url httpwg.org/specs/rfc9111.html across scopes
+file	W04	S462 duplicate url httpwg.org/specs/rfc9111.html across scopes
+file	W04	S463 duplicate url httpwg.org/specs/rfc9111.html across scopes
+file	W04	S465 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S466 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S467 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	W04	S468 duplicate url www.rfc-editor.org/rfc/rfc8259.txt across scopes
+file	W04	S469 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	W04	S470 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	W04	S471 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S472 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S473 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S474 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S475 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S476 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	W04	S477 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S478 duplicate url www.rfc-editor.org/rfc/rfc9110.txt across scopes
+file	W04	S480 duplicate url www.rfc-editor.org/rfc/rfc9111.txt across scopes
+file	E11	S088 missing used-by scripts/source_recheck.py
+file	E11	S089 missing used-by scripts/source_recheck.py
+file	E11	S090 missing used-by scripts/source_recheck.py
+file	E11	S091 missing used-by scripts/source_recheck.py
+file	E11	S092 missing used-by scripts/source_recheck.py
+file	E11	S117 missing used-by SCORECARD.md
+file	E11	S118 missing used-by .ufo/waves/round-41/c1_count.py
+file	E11	S118 missing used-by SCORECARD.md
+file	E11	S119 missing used-by .ufo/waves/round-41/oracle_crosscheck.py
+file	E11	S119 missing used-by SCORECARD.md
+file	E11	S120 missing used-by SCORECARD.md
+file	E11	S121 missing used-by SCORECARD.md
+file	E11	S122 missing used-by SCORECARD.md
+file	E11	S124 missing used-by SKILL.md
+file	E11	S129 missing used-by SCORECARD.md
+file	E11	S131 missing used-by SCORECARD.md
+file	E11	S132 missing used-by SCORECARD.md
+file	E11	S440 missing used-by .ufo/waves/round-73/contract.md
+file	E11	S479 missing used-by .ufo/waves/round-95/freeze.md
+exit=1
+```
+
+## Delta S481-mirror minus baseline
+- E11 added: file	E11	S481 missing used-by .ufo/waves/round-95/freeze.md
+- E11 removed: none
+- W04 line set: identical (40 lines, all pre-existing).
+- No E01/E02/E03/E04/E05..E10/E12 for S481: id unique, URL new, 13 fields, tier/kind/status enums valid,
+  opened past date, recheck well-formed, tier A + dataset, mined with non-empty used-by.
+- Rows visible to the 0-3-space extractor: 217 -> 218 (S481 counted; last ids: S480 S481).
+
+## Interpretation (reporter note, no repair made)
+- The corpus-only mirror dangles 19 lane-root-relative used-by paths (scripts/, SCORECARD.md, SKILL.md, .ufo/...)
+  that exist at the real lane root: E11 fires for S088-S092, S117, S118-S122, S124, S129, S131-S132, S440, S479 at baseline.
+- S481 copies S479's used-by cell verbatim, so it adds exactly one E11 of that same pre-existing class
+  (file	E11	S481 missing used-by .ufo/waves/round-95/freeze.md). At the real lane root .ufo/waves/round-95/freeze.md exists,
+  so an append of this row there is expected to keep validate at exit 0 with only the pre-existing W04 class.
+- The S481-mirror exit 1 is fully attributed to the mirror-context artifact; nothing was repaired anywhere.

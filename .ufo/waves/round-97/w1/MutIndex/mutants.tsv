@@ -1,0 +1,15 @@
+id	patch	killed_by	rc
+M01-no-fence-skip	visible_lines: delete fence open/close handling (fenced rows become visible)	none	selftest=0,base=1,repair=0
+M02-no-comment-skip	visible_lines: delete HTML comment open/close handling	none	selftest=0,base=1,repair=0
+M03-no-entry-header-required	index_rows: header-less tables fall back to Entry column index 1 instead of None	selftest+base+repair	selftest=1,base=1,repair=0
+M04-ids-from-entry-cell-only	audit: id coverage checked against the Entry cell only, not the whole row	base+repair	selftest=0,base=1,repair=1
+M05-no-range-expansion	ids_in: delete S###-S### range expansion block	base+repair	selftest=0,base=1,repair=1
+M06-min-words-8to1	MIN_WORDS constant 8 -> 1	none	selftest=0,base=1,repair=0
+M07-min-shared-2to0	MIN_SHARED constant 2 -> 0	selftest	selftest=1,base=1,repair=0
+M08-readme-from-worktree	load: README read from the working tree file instead of git show REV:corpus/README.md	selftest+base	selftest=1,base=0,repair=0
+M09-no-empty-pop-exit2	load: delete empty-population GitError (fails-open on empty corpus)	selftest	selftest=1,base=1,repair=0
+M10-dangling-not-counted	run: mismatches = unindexed only; dangling tokens not counted	selftest	selftest=1,base=1,repair=0
+M11-unmet-exit-2	run: unmet exit code 1 -> 2 (wrong failure mode)	selftest+base	selftest=1,base=2,repair=0
+M12-no-git-no-replace-objects	git_env: drop GIT_NO_REPLACE_OBJECTS=1 pin (git replace refs become visible)	none	selftest=0,base=1,repair=0
+M13-git-from-path	GIT constant "/usr/bin/git" -> "git" (PATH-resolved, shadowable)	none	selftest=0,base=1,repair=0
+M14-no-range-zero-padding	ids_in: range expansion loses zero padding ("S%0*d" % (width, n) -> "S%d" % n)	base+repair	selftest=0,base=1,repair=1

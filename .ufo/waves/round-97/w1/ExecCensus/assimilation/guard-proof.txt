@@ -1,0 +1,20 @@
+# guard-proof.txt — ExecCensus (kake r97 w1): id-collision guard catches indented rows
+
+Purpose (seat spec item 2): prove the §10 0-3-space id extractor still sees an indented
+registry row, so an append carrying `  | S002 |` cannot slip past the collision commut.
+Scratch registry file (2-space indent before the row):
+
+      | S002 | Guard proof — https://guard.example/s002 | docs | B | guard-proof | p1 | indented row must still collide | queued | 2026-11-05 | 90d | — |
+
+Pipeline (verbatim §10 commands, kake-round-97.md lines 609-613; cwd=/fast/scratch/hyaku/kake-r97/ExecCensus):
+
+    grep -oE '^ {0,3}\|[[:space:]]*S[0-9]{3,}' '/fast/scratch/hyaku/kake-r97/ExecCensus/guard/registry.md' | grep -oE 'S[0-9]+' | sort > '/fast/scratch/hyaku/kake-r97/ExecCensus/guard/guard-ids'
+      -> guard-ids  : S002  (grep rc=0)
+    comm -12 '/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-97/w1/ExecCensus/assimilation/reg-ids' '/fast/scratch/hyaku/kake-r97/ExecCensus/guard/guard-ids' > '/fast/scratch/hyaku/kake-r97/ExecCensus/guard/collisions'
+      -> collisions : S002  (comm rc=0)
+
+Result: guard-collisions is NONEMPTY (1 line(s): S002) — the indented
+row's id was extracted and collided against reg-ids (S002 is present in the lane registry).
+guard=ok.
+
+Counts: guard-ids=1 nonempty-id(s); guard-collisions=1.

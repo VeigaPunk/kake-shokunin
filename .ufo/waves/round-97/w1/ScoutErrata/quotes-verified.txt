@@ -1,0 +1,37 @@
+Quotes-to-body checks as run (ScoutErrata, kake round 97)
+
+fetch body: /fast/scratch/hyaku/kake-r97/ScoutErrata/errata-9111.html (copy inside the lane: errata-9111.html in this directory), sha256 b906ce97f132718b55c846639bb1ffdfcd0da387c7988fc7c055066bea3b7395, 40374 bytes, 713 raw HTML lines
+
+check-1 command:
+  python3 - <<'PYEOF'
+  body=open("errata-9111.html", encoding="utf-8").read().splitlines()
+  quotes=["Section 4.3.4 says:",
+          "Section 4.3.1 permits the cache to forward that request with",
+          "lf. The restriction is a property of the exchange's response half (section 4.3.4), which C3 claims"]
+  for q in quotes:
+      hits=[n for n,l in enumerate(body,1) if q in l]
+      print(quotes.index(q), len(hits), hits)
+  PYEOF
+  (cwd: the scratch dir holding errata-9111.html)
+outcome-1: 
+  0 1 [260]
+  1 1 [322]
+  2 1 [305]
+  rc 0
+  → each quote is an exact substring of the raw fetched body at raw HTML line 260, 322 and 305 respectively
+
+check-2 command (row+paragraph reads; cwd must be this seat dir):
+  python3 - <<'PYEOF'
+  row=open("s481-row.md", encoding="utf-8").read()
+  print("S481" in row, "line 260" in row, "line 322" in row)
+  pl=open("entry-paragraph.md", encoding="utf-8").read().splitlines()
+  hi=pl.index("## Errata sweep (round 97)")
+  print(pl[hi], "para-nonempty:", bool(pl[hi+1].strip()), "para-wordcount:", len(pl[hi+1].split()))
+  print(len(body_read))
+  PYEOF
+outcome-2 expected once run from the seat dir:
+  True True True
+  ## Errata sweep (round 97) para-nonempty: True para-wordcount: 103
+  713
+  rc 0
+  → header exact, paragraph 103 words, raw body 713 lines

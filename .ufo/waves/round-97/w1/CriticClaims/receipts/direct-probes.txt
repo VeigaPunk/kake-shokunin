@@ -1,0 +1,32 @@
+generate seed=97 count=120 reference_refuses(silently dropped)=16
+generate seed=9797 count=30 reference_refuses(silently dropped)=1
+real(9e27ce0b)     P-5xx-502                  rc=0 out={"decision": "may-reuse-stored", "if_modified_since": null, "if_none_match": null} err=
+real(9e27ce0b)     P-etag-embedded-dquote     rc=1 out= err=invalid_input: malformed entity-tag
+real(9e27ce0b)     P-etag-DEL                 rc=1 out= err=invalid_input: malformed entity-tag
+real(9e27ce0b)     P-lm-true                  rc=1 out= err=invalid_input: last_modified is neither null nor a non-negative int
+real(9e27ce0b)     P-status-101               rc=1 out= err=invalid_input: 1xx is interim and never a validation response
+k1-5xx-enumerated  P-5xx-502                  rc=0 out={"decision": "replace-stored", "if_modified_since": null, "if_none_match": null} err=
+k1-5xx-enumerated  P-etag-embedded-dquote     rc=1 out= err=invalid_input: malformed entity-tag
+k1-5xx-enumerated  P-etag-DEL                 rc=1 out= err=invalid_input: malformed entity-tag
+k1-5xx-enumerated  P-lm-true                  rc=1 out= err=invalid_input: last_modified is neither null nor a non-negative int
+k1-5xx-enumerated  P-status-101               rc=1 out= err=invalid_input: 1xx is interim and never a validation response
+k2-etag-control-only P-5xx-502                  rc=0 out={"decision": "may-reuse-stored", "if_modified_since": null, "if_none_match": null} err=
+k2-etag-control-only P-etag-embedded-dquote     rc=0 out={"decision": "construct", "if_modified_since": null, "if_none_match": "\"a\"b\""} err=
+k2-etag-control-only P-etag-DEL                 rc=0 out={"decision": "construct", "if_modified_since": null, "if_none_match": "\"a\u007fb\""} err=
+k2-etag-control-only P-lm-true                  rc=1 out= err=invalid_input: last_modified is neither null nor a non-negative int
+k2-etag-control-only P-status-101               rc=1 out= err=invalid_input: 1xx is interim and never a validation response
+k3-bool-lastmod    P-5xx-502                  rc=0 out={"decision": "may-reuse-stored", "if_modified_since": null, "if_none_match": null} err=
+k3-bool-lastmod    P-etag-embedded-dquote     rc=1 out= err=invalid_input: malformed entity-tag
+k3-bool-lastmod    P-etag-DEL                 rc=1 out= err=invalid_input: malformed entity-tag
+k3-bool-lastmod    P-lm-true                  rc=0 out={"decision": "construct", "if_modified_since": true, "if_none_match": null} err=
+k3-bool-lastmod    P-status-101               rc=1 out= err=invalid_input: 1xx is interim and never a validation response
+k4-1xx-only-100    P-5xx-502                  rc=0 out={"decision": "may-reuse-stored", "if_modified_since": null, "if_none_match": null} err=
+k4-1xx-only-100    P-etag-embedded-dquote     rc=1 out= err=invalid_input: malformed entity-tag
+k4-1xx-only-100    P-etag-DEL                 rc=1 out= err=invalid_input: malformed entity-tag
+k4-1xx-only-100    P-lm-true                  rc=1 out= err=invalid_input: last_modified is neither null nor a non-negative int
+k4-1xx-only-100    P-status-101               rc=0 out={"decision": "replace-stored", "if_modified_since": null, "if_none_match": null} err=
+k5-all-four        P-5xx-502                  rc=0 out={"decision": "replace-stored", "if_modified_since": null, "if_none_match": null} err=
+k5-all-four        P-etag-embedded-dquote     rc=0 out={"decision": "construct", "if_modified_since": null, "if_none_match": "\"a\"b\""} err=
+k5-all-four        P-etag-DEL                 rc=0 out={"decision": "construct", "if_modified_since": null, "if_none_match": "\"a\u007fb\""} err=
+k5-all-four        P-lm-true                  rc=0 out={"decision": "construct", "if_modified_since": true, "if_none_match": null} err=
+k5-all-four        P-status-101               rc=0 out={"decision": "replace-stored", "if_modified_since": null, "if_none_match": null} err=

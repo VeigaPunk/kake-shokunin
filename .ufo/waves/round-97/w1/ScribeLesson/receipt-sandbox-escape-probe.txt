@@ -1,0 +1,6 @@
+# cmd: effectful-shadow / escape probes against the frozen round-97 C2 sandbox (SANDBOX constant from a2208ac7:.ufo/waves/round-97/c97_reval.py, byte-identical to the round-96 c96_reval.py SANDBOX)
+# --- os.execv ---
+execv: PermissionError sandbox: process creation denied: os.exec
+# --- in-tree symlink then open through it ---
+symlink created: True
+open via symlink: PermissionError sandbox: open outside the subject tree: /etc/hostname

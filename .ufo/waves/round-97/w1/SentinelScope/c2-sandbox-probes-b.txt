@@ -1,0 +1,16 @@
+# real-layout sandbox probes (sandbox.py = byte-copy of c97_reval.py SANDBOX; sha256 f4374ac48c9c53fb7657960ac13b55cbe090ef0789593bc0b467ffd9feedcaa5)
+# subject tree = /fast/scratch/hyaku/kake-r97/SentinelScope/layout/tree (root). stdin = hand-case JSON.
+== A_outside_write (subject=tree/A.py) rc=1 :: PermissionError: sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r97/SentinelScope/layout/marker-outside
+== B_inside_write (subject=tree/B.py) rc=0 :: {"decision": "construct", "if_none_match": null, "if_modified_since": null}
+== C_tmp_write (subject=tree/C.py) rc=1 :: PermissionError: sandbox: open outside the subject tree: /tmp/sentinel-marker-r97
+== D_listdir_fleet (subject=tree/D.py) rc=0 :: {"decision": "construct", "if_none_match": null, "if_modified_since": 58}
+== E_stat_counter (subject=tree/E.py) rc=0 :: {"decision": "construct", "if_none_match": null, "if_modified_since": 29759}
+== F_kill_ppid (subject=tree/F.py) rc=0 :: {"decision": "construct", "if_none_match": null, "if_modified_since": 1}
+== G_usr_read (subject=tree/G.py) rc=0 :: {"decision": "construct", "if_none_match": null, "if_modified_since": 41958}
+== H_import_posixsubprocess (subject=tree/H.py) rc=1 :: PermissionError: sandbox: import denied: _posixsubprocess
+== I_os_open_outside (subject=tree/I.py) rc=1 :: PermissionError: sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r97/SentinelScope/layout/marker-osopen
+== J_symlink_open_outside (subject=tree/J.py) rc=1 :: FileExistsError: [Errno 17] File exists: '/fast/scratch/hyaku/kake-r97/SentinelScope/layout/marker-link-target' -> '/fast/scratch/hyaku/kake-r97/SentinelScope/layout/tree/linkmarker'
+# artifacts:
+ls: cannot access '/fast/scratch/hyaku/kake-r97/SentinelScope/layout/marker-outside': No such file or directory
+lrwxrwxrwx 1 vgpnk vgpnk 68 Nov  5 18:25 /fast/scratch/hyaku/kake-r97/SentinelScope/layout/tree/linkmarker -> /fast/scratch/hyaku/kake-r97/S
+-rw-r--r-- 1 vgpnk vgpnk  1 Nov  5 18:27 /fast/scratch/hyaku/kake-r97/SentinelScope/layout/tree/marker-inside

@@ -1,0 +1,16 @@
+GET https://www.rfc-editor.org/errata_search.php?rfc=9111
+requested_url: https://www.rfc-editor.org/errata_search.php?rfc=9111 (bare form; not empty, so &rec_updated=1 was NOT appended)
+hop 1: HTTP/2 302, content-length 0, location https://errata.rfc-editor.org/search/?rfc_number=9111 (followed automatically by curl -L inside the same single invocation; num_redirects=1)
+final_url: https://errata.rfc-editor.org/search/?rfc_number=9111
+http_status: 200 (final); 302 (hop 1)
+content_type: text/html; charset=utf-8
+server_date: Thu, 05 Nov 2026 21:07:55 GMT (Date header, both hops)
+accessed_utc: 2026-11-05T21:07:55Z (date -u taken immediately before curl; shell-side t0/t1 both 2026-11-05T21:07:55Z)
+bytes: 40374 (wc -c of the saved body)
+sha256: b906ce97f132718b55c846639bb1ffdfcd0da387c7988fc7c055066bea3b7395
+time_total_s: 0.666224
+command: cd /fast/scratch/hyaku/kake-r97/ScoutErrata && curl -sS -L --max-redirs 10 -o errata-9111.html -D headers-raw.txt -w '...' "https://www.rfc-editor.org/errata_search.php?rfc=9111" (rc 0, printed final_code=200)
+retained_copy: .ufo/waves/round-97/w1/ScoutErrata/errata-9111.html (this directory; body copied into the lane after the sha256 was taken over the scratch bytes)
+page_fetches: exactly one curl invocation (one line on the wire per hop, both hops in that invocation); one page; no crawl, no per-EID page opened. The 302 hop is the origin's move of the errata search to errata.rfc-editor.org, the same move S479 recorded for RFC 9110.
+headers_note: the raw hop headers were retained in headers-raw.txt; they carry Cloudflare __cf_bm set-cookie values (one per hop), which live only in this directory's fetch.txt copy of the header dump, never written elsewhere in the lane.
+retention_note: only strip-tags-rendered quotes and line-number anchors from this page appear in lane corpus files; raw HTML is retained only here per lane convention S469 (mirror of the round-95 ScoutErrata retention).

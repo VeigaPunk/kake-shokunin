@@ -1,0 +1,228 @@
+{
+ "pristine_sha256": "8535150e91bd610bd42186b3ad8be23477b0386a1f8d14b95aba8375788aa008",
+ "ref_selftest": {
+  "rc": 0,
+  "out": "selftest 14/14 fixtures scored as declared via the public CLI"
+ },
+ "ref_base": {
+  "rc": 1,
+  "line1": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false"
+ },
+ "ref_repair": {
+  "rc": 0,
+  "line1": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true"
+ },
+ "mutants": [
+  {
+   "id": "M01-no-fence-skip",
+   "patch": "visible_lines: delete fence open/close handling (fenced rows become visible)",
+   "killed_by": "none",
+   "verdict": "SURVIVED",
+   "rc": "selftest=0,base=1,repair=0",
+   "sha256": "79ea64a1b4abdd2b67526204ce394d61d4417984c32f0fbffb9f58b550fc6df9",
+   "selftest_line": "selftest 14/14 fixtures scored as declared via the public CLI",
+   "selftest_fail_lines": [],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": false,
+   "repair_differs": false
+  },
+  {
+   "id": "M02-no-comment-skip",
+   "patch": "visible_lines: delete HTML comment open/close handling",
+   "killed_by": "none",
+   "verdict": "SURVIVED",
+   "rc": "selftest=0,base=1,repair=0",
+   "sha256": "90e835a5ebbb509d9d502b1ab94f7ebeafb1559e70d4c4df4836c4c6fc115351",
+   "selftest_line": "selftest 14/14 fixtures scored as declared via the public CLI",
+   "selftest_fail_lines": [],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": false,
+   "repair_differs": false
+  },
+  {
+   "id": "M03-no-entry-header-required",
+   "patch": "index_rows: header-less tables fall back to Entry column index 1 instead of None",
+   "killed_by": "selftest+base+repair",
+   "verdict": "killed",
+   "rc": "selftest=1,base=1,repair=0",
+   "sha256": "97b417a2abe93b2ed551502e2e29fc24a74b66d08837b225a901ae15de5c507f",
+   "selftest_line": "selftest FAIL row-in-table-without-entry-header: rc=0 want=1 line=C1v97 revision=e753fffc5b70752256bbb7bcc404d7104e9174bf entries=2 indexed=2 unindexed=0 dangli",
+   "selftest_fail_lines": [
+    "selftest FAIL row-in-table-without-entry-header: rc=0 want=1 line=C1v97 revision=e753fffc5b70752256bbb7bcc404d7104e9174bf entries=2 indexed=2 unindexed=0 dangling=0 mismatches=0 met=true"
+   ],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": true,
+   "repair_differs": true
+  },
+  {
+   "id": "M04-ids-from-entry-cell-only",
+   "patch": "audit: id coverage checked against the Entry cell only, not the whole row",
+   "killed_by": "base+repair",
+   "verdict": "killed",
+   "rc": "selftest=0,base=1,repair=1",
+   "sha256": "7b59fbc3a2b94acc0d81c521ee0a6b8284f9ee644c9e25ed453e28cc42eb7bc6",
+   "selftest_line": "selftest 14/14 fixtures scored as declared via the public CLI",
+   "selftest_fail_lines": [],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=44 unindexed=40 dangling=0 mismatches=40 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=82 unindexed=2 dangling=0 mismatches=2 met=false",
+   "base_differs": true,
+   "repair_differs": true
+  },
+  {
+   "id": "M05-no-range-expansion",
+   "patch": "ids_in: delete S###-S### range expansion block",
+   "killed_by": "base+repair",
+   "verdict": "killed",
+   "rc": "selftest=0,base=1,repair=1",
+   "sha256": "5b7c7b9b8b477c6d12669e4cae006ec868b144c2321e4d8bfec45b42abdb8479",
+   "selftest_line": "selftest 14/14 fixtures scored as declared via the public CLI",
+   "selftest_fail_lines": [],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=41 unindexed=43 dangling=0 mismatches=43 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=79 unindexed=5 dangling=0 mismatches=5 met=false",
+   "base_differs": true,
+   "repair_differs": true
+  },
+  {
+   "id": "M06-min-words-8to1",
+   "patch": "MIN_WORDS constant 8 -> 1",
+   "killed_by": "none",
+   "verdict": "SURVIVED",
+   "rc": "selftest=0,base=1,repair=0",
+   "sha256": "b37e3446263bf8d69adf29aca7ea2a36486d090e6325415beaa242ba1dd5019d",
+   "selftest_line": "selftest 14/14 fixtures scored as declared via the public CLI",
+   "selftest_fail_lines": [],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": false,
+   "repair_differs": false
+  },
+  {
+   "id": "M07-min-shared-2to0",
+   "patch": "MIN_SHARED constant 2 -> 0",
+   "killed_by": "selftest",
+   "verdict": "killed",
+   "rc": "selftest=1,base=1,repair=0",
+   "sha256": "d4bd5021cf78e78140c6f3c1cc6128bc137a4d1aeb6f8c1f85a77907ea24665c",
+   "selftest_line": "selftest FAIL junk-row-ids-no-shared-words: rc=0 want=1 line=C1v97 revision=6d1b6b0b817e530397919da6c5260ac90b5bb0a9 entries=2 indexed=2 unindexed=0 dangling=0 ",
+   "selftest_fail_lines": [
+    "selftest FAIL junk-row-ids-no-shared-words: rc=0 want=1 line=C1v97 revision=6d1b6b0b817e530397919da6c5260ac90b5bb0a9 entries=2 indexed=2 unindexed=0 dangling=0 mismatches=0 met=true"
+   ],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": false,
+   "repair_differs": false
+  },
+  {
+   "id": "M08-readme-from-worktree",
+   "patch": "load: README read from the working tree file instead of git show REV:corpus/README.md",
+   "killed_by": "selftest+base",
+   "verdict": "killed",
+   "rc": "selftest=1,base=0,repair=0",
+   "sha256": "24c192894b5799b084f4b81e71484542632f973665078d53950ab0e07aef012d",
+   "selftest_line": "selftest FAIL uncommitted-row: rc=0 want=1 line=C1v97 revision=3ea2da44059f8249480708be98c279ef8b7ac108 entries=2 indexed=2 unindexed=0 dangling=0 mismatches=0 ",
+   "selftest_fail_lines": [
+    "selftest FAIL uncommitted-row: rc=0 want=1 line=C1v97 revision=3ea2da44059f8249480708be98c279ef8b7ac108 entries=2 indexed=2 unindexed=0 dangling=0 mismatches=0 met=true"
+   ],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": true,
+   "repair_differs": false
+  },
+  {
+   "id": "M09-no-empty-pop-exit2",
+   "patch": "load: delete empty-population GitError (fails-open on empty corpus)",
+   "killed_by": "selftest",
+   "verdict": "killed",
+   "rc": "selftest=1,base=1,repair=0",
+   "sha256": "6b6269ae590a9019be2b6e536c119392326fc6f0dc7b785f1cf962f3cd8976c7",
+   "selftest_line": "selftest FAIL empty-population: rc=0 want=2 line=C1v97 revision=3a9d5577ea243f534f2956d7a311fececc82fcd0 entries=0 indexed=0 unindexed=0 dangling=0 mismatches=0",
+   "selftest_fail_lines": [
+    "selftest FAIL empty-population: rc=0 want=2 line=C1v97 revision=3a9d5577ea243f534f2956d7a311fececc82fcd0 entries=0 indexed=0 unindexed=0 dangling=0 mismatches=0 met=true"
+   ],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": false,
+   "repair_differs": false
+  },
+  {
+   "id": "M10-dangling-not-counted",
+   "patch": "run: mismatches = unindexed only; dangling tokens not counted",
+   "killed_by": "selftest",
+   "verdict": "killed",
+   "rc": "selftest=1,base=1,repair=0",
+   "sha256": "9dbb56b6ede0e740d0764c18d4cdf5340c1ffb9169af9195ede04f843ffc90a8",
+   "selftest_line": "selftest FAIL dangling-row: rc=0 want=1 line=C1v97 revision=cec185da2b2b1120bf2c49bda69a428d3795f7aa entries=2 indexed=2 unindexed=0 dangling=1 mismatches=0 met",
+   "selftest_fail_lines": [
+    "selftest FAIL dangling-row: rc=0 want=1 line=C1v97 revision=cec185da2b2b1120bf2c49bda69a428d3795f7aa entries=2 indexed=2 unindexed=0 dangling=1 mismatches=0 met=true"
+   ],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": false,
+   "repair_differs": false
+  },
+  {
+   "id": "M11-unmet-exit-2",
+   "patch": "run: unmet exit code 1 -> 2 (wrong failure mode)",
+   "killed_by": "selftest+base",
+   "verdict": "killed",
+   "rc": "selftest=1,base=2,repair=0",
+   "sha256": "38a031ca7d1ce465e5271da20f12d8d4e54b936e4874a212c92b726d09c01819",
+   "selftest_line": "selftest FAIL do-nothing-missing-row: rc=2 want=1 line=C1v97 revision=a067fe61ac16c56a3900a4c702263ae59513c195 entries=2 indexed=1 unindexed=1 dangling=0 mismat",
+   "selftest_fail_lines": [
+    "selftest FAIL do-nothing-missing-row: rc=2 want=1 line=C1v97 revision=a067fe61ac16c56a3900a4c702263ae59513c195 entries=2 indexed=1 unindexed=1 dangling=0 mismatches=1 met=false",
+    "selftest FAIL junk-row-path-only: rc=2 want=1 line=C1v97 revision=409a2033b253ce914134a586d05023d99fd2330f entries=2 indexed=1 unindexed=1 dangling=0 mismatches=1 met=false",
+    "selftest FAIL junk-row-ids-no-shared-words: rc=2 want=1 line=C1v97 revision=fb9c0c6aa2c64fb72230e6941e9ef1efc76f10ff entries=2 indexed=1 unindexed=1 dangling=0 mismatches=1 met=false",
+    "selftest FAIL row-missing-one-id: rc=2 want=1 line=C1v97 revision=03118e09765ae252483a04f8fb281a197e3ceef7 entries=2 indexed=1 unindexed=1 dangling=0 mismatches=1 met=false"
+   ],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": true,
+   "repair_differs": false
+  },
+  {
+   "id": "M12-no-git-no-replace-objects",
+   "patch": "git_env: drop GIT_NO_REPLACE_OBJECTS=1 pin (git replace refs become visible)",
+   "killed_by": "none",
+   "verdict": "SURVIVED",
+   "rc": "selftest=0,base=1,repair=0",
+   "sha256": "7148702ef9012ffcb1f2eaf28d39544bf6b9080755419a2d6c6bd035607f5a67",
+   "selftest_line": "selftest 14/14 fixtures scored as declared via the public CLI",
+   "selftest_fail_lines": [],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": false,
+   "repair_differs": false
+  },
+  {
+   "id": "M13-git-from-path",
+   "patch": "GIT constant \"/usr/bin/git\" -> \"git\" (PATH-resolved, shadowable)",
+   "killed_by": "none",
+   "verdict": "SURVIVED",
+   "rc": "selftest=0,base=1,repair=0",
+   "sha256": "599ba3739a7ea197593a8acc21eac14b48c5d3b1754fa9f949cf6087868ad0ff",
+   "selftest_line": "selftest 14/14 fixtures scored as declared via the public CLI",
+   "selftest_fail_lines": [],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=46 unindexed=38 dangling=0 mismatches=38 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=84 unindexed=0 dangling=0 mismatches=0 met=true",
+   "base_differs": false,
+   "repair_differs": false
+  },
+  {
+   "id": "M14-no-range-zero-padding",
+   "patch": "ids_in: range expansion loses zero padding (\"S%0*d\" % (width, n) -> \"S%d\" % n)",
+   "killed_by": "base+repair",
+   "verdict": "killed",
+   "rc": "selftest=0,base=1,repair=1",
+   "sha256": "d55d212724c1fe35e27688c73fba0522b51339705bbbc6a2e2841ba9504a5f16",
+   "selftest_line": "selftest 14/14 fixtures scored as declared via the public CLI",
+   "selftest_fail_lines": [],
+   "base_line": "C1v97 revision=36d148f5c60100021304903c30e5663207c72f4f entries=84 indexed=43 unindexed=41 dangling=0 mismatches=41 met=false",
+   "repair_line": "C1v97 revision=9e27ce0b2a8d168e032ab79ea11471b36eaceedf entries=84 indexed=81 unindexed=3 dangling=0 mismatches=3 met=false",
+   "base_differs": true,
+   "repair_differs": true
+  }
+ ]
+}

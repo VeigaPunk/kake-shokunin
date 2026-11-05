@@ -1,0 +1,10 @@
+# cmd: module-availability probe inside the counter sandbox (subject: import <mod>; print ok)
+json         -> ok-json
+re           -> ok-re
+hashlib      -> ModuleNotFoundError: No module named 'hashlib'
+base64       -> ModuleNotFoundError: No module named 'base64'
+random       -> ModuleNotFoundError: No module named 'random'
+textwrap     -> ModuleNotFoundError: No module named 'textwrap'
+collections  -> ok-collections
+
+# note: the sandbox allowlist names hashlib; the failure is ModuleNotFoundError (stdlib not on sys.path after sys.path[:] = [root]), not PermissionError('sandbox: import denied')

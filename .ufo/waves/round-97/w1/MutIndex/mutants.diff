@@ -1,0 +1,161 @@
+### M01-no-fence-skip.py
+@@ -124,13 +124,6 @@
+             if "-->" in line:
+                 in_comment = False
+             continue
+-        if in_fence:
+-            if st.startswith(in_fence):
+-                in_fence = None
+-            continue
+-        if st.startswith("```") or st.startswith("~~~"):
+-            in_fence = st[:3]
+-            continue
+         if st.startswith("<!--"):
+             if "-->" not in st[4:]:
+                 in_comment = True
+### M02-no-comment-skip.py
+@@ -120,20 +120,12 @@
+     in_comment = False
+     for line in text.splitlines():
+         st = line.lstrip()
+-        if in_comment:
+-            if "-->" in line:
+-                in_comment = False
+-            continue
+         if in_fence:
+             if st.startswith(in_fence):
+                 in_fence = None
+             continue
+         if st.startswith("```") or st.startswith("~~~"):
+             in_fence = st[:3]
+-            continue
+-        if st.startswith("<!--"):
+-            if "-->" not in st[4:]:
+-                in_comment = True
+             continue
+         yield line
+ 
+### M03-no-entry-header-required.py
+@@ -151,7 +151,7 @@
+         if not prev_table:
+             prev_table = True
+             lowered = [c.lower() for c in cells]
+-            entry_col = lowered.index("entry") if "entry" in lowered else None
++            entry_col = lowered.index("entry") if "entry" in lowered else 1
+             continue
+         if entry_col is None or all(re.fullmatch(r":?-{3,}:?", c or "---")
+                                     for c in cells):
+### M04-ids-from-entry-cell-only.py
+@@ -177,7 +177,7 @@
+         for entry_cell, others, line in rows:
+             if name not in TOKEN.findall(entry_cell):
+                 continue
+-            have = ids_in(line)
++            have = ids_in(entry_cell)
+             missing = sorted(need - have)
+             ow = words(" ".join(others))
+             shared = {w for w in ow if len(w) >= SHARED_LEN and w in body_words}
+### M05-no-range-expansion.py
+@@ -85,11 +85,6 @@
+ 
+ def ids_in(text):
+     out = set()
+-    for a, b in ID_RANGE.findall(text):
+-        lo, hi = int(a), int(b)
+-        if lo <= hi and hi - lo <= 50:
+-            width = len(a)
+-            out.update("S%0*d" % (width, n) for n in range(lo, hi + 1))
+     out.update("S" + m for m in ID_ONE.findall(text))
+     return out
+ 
+### M06-min-words-8to1.py
+@@ -54,7 +54,7 @@
+ GIT = "/usr/bin/git"
+ README = "corpus/README.md"
+ KDIR = "corpus/knowledge/"
+-MIN_WORDS = 8
++MIN_WORDS = 1
+ MIN_SHARED = 2
+ SHARED_LEN = 6
+ 
+### M07-min-shared-2to0.py
+@@ -55,7 +55,7 @@
+ README = "corpus/README.md"
+ KDIR = "corpus/knowledge/"
+ MIN_WORDS = 8
+-MIN_SHARED = 2
++MIN_SHARED = 0
+ SHARED_LEN = 6
+ 
+ ID_RANGE = re.compile(r"S(\d{3,})\s*[\u2013\u2014-]\s*S?(\d{3,})")
+### M08-readme-from-worktree.py
+@@ -203,7 +203,8 @@
+ 
+ def load(root, rev):
+     sha = git(root, "rev-parse", "--verify", "%s^{commit}" % rev).decode().strip()
+-    readme = git(root, "show", "%s:%s" % (sha, README)).decode("utf-8", "replace")
++    with open(os.path.join(root, README), "rb") as fh:
++        readme = fh.read().decode("utf-8", "replace")
+     listing = git(root, "ls-tree", "-z", sha, KDIR).decode("utf-8", "replace")
+     entries = {}
+     for rec in listing.split("\0"):
+### M09-no-empty-pop-exit2.py
+@@ -216,8 +216,6 @@
+             continue
+         entries[name] = git(root, "show", "%s:%s" % (sha, path)).decode(
+             "utf-8", "replace")
+-    if not entries:
+-        raise GitError("empty population under %s at %s" % (KDIR, sha))
+     return sha, readme, entries
+ 
+ 
+### M10-dangling-not-counted.py
+@@ -229,7 +229,7 @@
+         print(json.dumps({"error": str(e)}, sort_keys=True))
+         return 2
+     d = audit(readme, entries)
+-    mism = len(d["unindexed"]) + len(d["dangling"])
++    mism = len(d["unindexed"])
+     met = mism == 0
+     print("C1v97 revision=%s entries=%d indexed=%d unindexed=%d dangling=%d "
+           "mismatches=%d met=%s" % (sha, len(entries), len(d["indexed"]),
+### M11-unmet-exit-2.py
+@@ -237,7 +237,7 @@
+                                     mism, str(met).lower()))
+     print(json.dumps({"unindexed": d["unindexed"], "dangling": d["dangling"],
+                       "index_rows": d["rows"]}, sort_keys=True))
+-    return 0 if met else 1
++    return 0 if met else 2
+ 
+ 
+ # ---------------------------------------------------------------- selftest
+### M12-no-git-no-replace-objects.py
+@@ -69,7 +69,7 @@
+ 
+ 
+ def git_env():
+-    return {"PATH": "/usr/bin:/bin", "GIT_NO_REPLACE_OBJECTS": "1",
++    return {"PATH": "/usr/bin:/bin",
+             "HOME": os.environ.get("HOME", "/"), "LC_ALL": "C",
+             "GIT_CONFIG_NOSYSTEM": "1"}
+ 
+### M13-git-from-path.py
+@@ -51,7 +51,7 @@
+ import subprocess
+ import sys
+ 
+-GIT = "/usr/bin/git"
++GIT = "git"
+ README = "corpus/README.md"
+ KDIR = "corpus/knowledge/"
+ MIN_WORDS = 8
+### M14-no-range-zero-padding.py
+@@ -89,7 +89,7 @@
+         lo, hi = int(a), int(b)
+         if lo <= hi and hi - lo <= 50:
+             width = len(a)
+-            out.update("S%0*d" % (width, n) for n in range(lo, hi + 1))
++            out.update("S%d" % n for n in range(lo, hi + 1))
+     out.update("S" + m for m in ID_ONE.findall(text))
+     return out
+ 
