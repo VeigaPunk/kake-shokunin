@@ -149,3 +149,69 @@ conciseness 3 (historical draft plus supplement is longer than ideal).
 Overall 3.6/5. Highest-impact improvement applied: report the bounded claims
 only, never claim the whole D84 queue closed. Operator/non-author closure
 still owns admission and independent admit/reject agreement.
+
+## Gate
+
+Round-93 C1 E1 repair (2026-11-04): this lesson's own Gate decisions are recorded
+above in `## Gate — admit a parser algorithm, reject blanket equivalence` (retained
+unchanged); this section adds the canonical `## Gate` heading the round-93 C1
+predicate requires and restates those decisions from the lesson's own evidence.
+No source work was opened for this section; every line below cites the round-85
+receipts and quotes already in this lesson. The lesson records source work (the
+2026-11-04 GETs below), so the flip conditions are stated per row.
+
+Admits:
+
+- **S458 — W3C Referrer Policy §8.1 (parser semantics), admitted.** Source: the
+  W3C Referrer-Policy TR page,
+  https://www.w3.org/TR/referrer-policy/#parse-referrer-policy-from-header,
+  opened GET-only on 2026-11-04, HTTP 200, 128,023 bytes, sha256 recorded in
+  `.ufo/waves/round-85/w1/ScribeLesson/source-receipt.json`; retained body
+  `.ufo/waves/round-85/w1/ScribeLesson/referrer-policy.html`. Located admission
+  quote, 23 words, §8.1 step 3, retained HTML lines 706–707:
+
+  > For each token in policy-tokens, if token is a referrer policy and token is
+  > not the empty string, then set policy to token.
+
+  Reason: step 2 initializes the empty string and step 4 returns the policy, so
+  the accumulator is overwritten by each recognized token in sequence — the
+  source grounds a field-specific effective-token decoder only; the JSON
+  interface, exit-code convention and ten-case oracle are the lane contract, not
+  W3C's.
+- **Registry-URL evidence for the same row (admitted).** The S458 registry row
+  uses the Editor's Draft URL, https://w3c.github.io/webappsec-referrer-policy/
+  (HTTP 200, 246,577 bytes, sha256
+  `339bdd20be241c9eca2f47a18d35368af460edfc708288d90c51e094393743a6`, receipt
+  `.ufo/waves/round-85/sources/prefreeze-receipt.json`); the same 23-word quote
+  stands at retained `w1/ScoutSources/source.html` lines 1612–1614. Reason: it
+  grounds token iteration only; an Editor's Draft is not a W3C endorsement.
+
+Rejects:
+
+- **Blanket response-policy reorder equivalence, rejected.** Source: the same TR
+  page, §11.1, retained HTML lines 881–882, 22 words:
+
+  > policy values will be ignored, and when multiple sources specify a referrer
+  > policy, the value of the latest one will be used.
+
+  Reason: `no-referrer, strict-origin` selects `strict-origin` while
+  `strict-origin, no-referrer` selects `no-referrer`; identical token multisets
+  do not imply identical effective policy, so a field-agnostic `reordered` label
+  is syntax evidence only.
+
+Flips:
+
+- Reject flip: an expressly scoped, source-grounded rule for a particular field
+  plus independent order/duplicate witnesses could support equivalence for that
+  field; this source does not establish it for arbitrary response headers.
+- Admit flip: the admit covers token iteration for the field only; it flips on a
+  source that specifies a general extraction, ordering or browser-default rule
+  for the field. No such source is cited in this lesson.
+- Registry flip: the row's URL is the Editor's Draft rendering; it flips if the
+  row is re-pinned to the TR rendering or the draft moves.
+
+### Author self-evaluation (round-93 E1 section)
+
+Accuracy: this section restates, and does not extend, the decisions above;
+completeness: the digests live in the retained receipts cited here; clarity: the
+suffixed Gate heading above remains this lesson's own Gate prose.

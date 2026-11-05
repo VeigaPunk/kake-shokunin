@@ -1,0 +1,12 @@
+{
+  "why": "ScribeC1Prose's E2/E4 repairs append 87 lines (0 deletions) to corpus/QUALITY.md, corpus/lessons/round-29.md, round-33.md, round-54.md, round-85.md, round-92.md. Three freshness-sidecar entries are line-bound (file + line + lineSha256) and their pinned lines moved. The §paths sweep crashes with 'Error: paths sidecar binding invalid' until these three entries are re-pinned. lineSha256 values are UNCHANGED (the pinned line content moved, it was not modified) — verified sha_ok=True for all three in the scratch clone.",
+  "measured_in": "scratch clone /fast/scratch/hyaku/kake-r93/ScribeC1Prose/clone at fixture commit 436678a4a9fe014902dcc305eec143eb6a20da1d (this seat's repairs committed there)",
+  "re_pin": [
+    {"file": "corpus/QUALITY.md", "old_line": 649, "new_line": 651, "token": "~/Projects/shokunin/.ufo/reports/round-33/kake.md", "lineSha256": "unchanged"},
+    {"file": "corpus/lessons/round-29.md", "old_line": 128, "new_line": 131, "token": "~/Projects/shokunin/.scratch/goal-20261022-hyaku-12h.md", "lineSha256": "unchanged"},
+    {"file": "corpus/lessons/round-29.md", "old_line": 200, "new_line": 203, "token": "~/.local/bin/time", "lineSha256": "unchanged"}
+  ],
+  "how_to_verify": "python3 - (re-derive by sha256 match, robust to any other line shifts): for each entry, read the file lines and find the line whose sha256 equals entry.lineSha256, then set entry.line to that 1-based index; require the entry token present on that line. Then: node scripts/freshness-sweep.mjs --offline --section=paths must exit 1 with the pre-existing '1 unannotated miss' (~/projects, corpus/lessons/round-90.md:82) and no sidecar error.",
+  "note_staleness": "The three entries' note texts embed the old line number ('Citation corpus/QUALITY.md:649 is a historical record.' etc.). The round-64 re-pin precedent updated the line field only; updating the note's line reference (649→651, 128→131, 200→203) is recommended for accuracy but not validated by the sweep.",
+  "sweep_evidence": "BEFORE re-pin: 'freshness-sweep: Error: paths sidecar binding invalid: corpus/lessons/round-29.md:200', exit 2. AFTER re-pin: 'VERDICT: DRIFT — §paths: 1 unannotated miss · 0 NOT in pins.pathsMissSet (exit 1, partial: offline)' — identical to the master baseline."
+}

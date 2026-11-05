@@ -1,0 +1,208 @@
+diff --git i/corpus/QUALITY.md w/corpus/QUALITY.md
+index cbf1de0a..ce2ad73f 100644
+--- i/corpus/QUALITY.md
++++ w/corpus/QUALITY.md
+@@ -543,6 +543,7 @@ criteria themselves stand.
+   sentence that holds the cited quote, not in the whole page; a claim made
+   over a list of keys is checked key by key. A mark `[INFERENCE]` placed on a
+   fact the retained text states is also a defect (round-31 line 22, PORT).
++- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-31.md` — the receipt this section quotes (`verification/a2-fixes/hostile-selftest-fde133a-runner.json`, P5 fails on `.h5b`) is the one its §Mistakes row "doc claim wider than its probe" rests on; that row's Fix column is the per-name-class check this section states.
+ 
+ ## Round-32 criteria
+ 
+@@ -565,6 +566,7 @@ criteria themselves stand.
+   exits 2 on other wording. A reviewer applying the criterion reads the
+   stated time by hand when the check exits 2 or the commit is within minutes
+   of midnight UTC.
++- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-32.md` — the declaration-time check and the `5b32cc7` declaration quoted above rest on that lesson's sole `## Mistakes` row, "unobserved timestamp written as fact", whose Fix column names the receipt `.ufo/waves/round-32/verification/declared-time-check.txt`.
+ 
+ ## Round-33 criteria
+ 
+@@ -689,6 +691,7 @@ criteria themselves stand.
+ - (d): an honest tool also reaches the full score and exits 1; the check
+   only means something for a control whose diff shows it does none of the
+   work (wave-2 `ReviewLookupControlCheck`).
++- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-34.md` — the receipt quoted in (b), `verification/criterion-gate-reject-fixtures-at-76fac3b.txt`, rests on that lesson's §Wave-2 corrections (appended) bullet "Gate check repairs at 76fac3b"; (c) and (d) rest on the same section's "Receipt check repair" and "Lookup check" entries.
+ 
+ ## Round-35 criteria
+ 
+@@ -856,6 +859,7 @@ Limits found by wave-2 `ReviewCriteriaChecks` and `MutCriteriaChecks` (reports i
+ - (a) The C1 target of 22 of 24 let a whole contract bullet be skipped: (c) moves only two sealed
+   cases (`w2/ExecPartialRepairs.md`). A sealed target should be set so that no declared bullet
+   can be skipped, and each bullet needs at least one more sealed case than the slack.
++- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-35.md` — the wave-2 reports quoted above and `w2/ExecPartialRepairs.md` rest on that lesson's §Wave-2 corrections (appended) C1-sufficiency entry, whose `ExecPartialRepairs` bullet is the basis of (a).
+ 
+ ## Round-36 criteria
+ 
+@@ -1017,6 +1021,7 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
+   (`.ufo/waves/round-41/verification/r40standing/`). Still open on it: bubblewrap's own environment at
+   `/proc/1/environ` (counter v2 passes a minimal one), inherited stdin, no output byte cap
+   (`.ufo/waves/round-41/w1/SentinelSandbox.md`).
++- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-40.md` — the checks and receipts quoted above rest on that lesson's §Mistakes rows 1 and 2, whose Fix columns name `preseal_order_check.py` and `d1_check.py` and their receipts.
+ 
+ ## Round-41 criteria
+ 
+@@ -1045,6 +1050,7 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
+   still meets, and the classification cannot be settled after scores. Name control classes by the behaviour
+   they skip (a position, a component, a sub-shape the class generates), and decide equivalence by a
+   frozen differential before scores, not by how the tool is written.
++- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-41.md` — the checks and receipts quoted above rest on that lesson's §Mistakes rows 1, 2 and 3 (`live_tally_check.py` with `verification/criteria/live-tally-r40.txt`, `fresh_review_check.py` with `verification/criteria/fresh-review-r40.txt`, and the generated-counter controls under `verification/w1v2/`).
+ 
+ ## Round-42 criteria
+ 
+@@ -1075,6 +1081,7 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
+ ## Round-47 pointer correction — R6
+ 
+ The preceding criterion's initial working filename `offline-sweep-r46-verdict-time.txt` was withdrawn as misleading: the retained run is a round-47 rerun, not contemporaneous r46 evidence. Current receipt: `.ufo/waves/round-47/verification/offline-sweep-r47-rerun.txt` (2026-10-24T06:46:36Z, sha256 `b86bc45992aa4f93c2c6d55d972a7d1a84ac0ffb46bedb7a674afd4a9822a717`); it does not retroactively receipt the r46 claim.
++Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-47.md` — the rerun receipt quoted above rests on that lesson's §Mistakes row 3, "verdict filed without a committed receipt (operability)", whose fix retains this same receipt and digest as a contemporaneous r47 rerun and not retroactive r46 evidence.
+ 
+ ## Round-47 criterion grounding note
+ 
+@@ -1531,6 +1538,7 @@ Appended 2026-11-03 by the round-76 C1 repair; every criterion above stands unch
+   defective span. Reject: a splice that silently skips a field between two observed tokens, a quote that is
+   only a fragment of a receipt line, and a quote whose receipt file and line are not named.
+   `[r76-correction 2026-11-03]`
++- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-76.md` — the deletion-control receipt line quoted above rests on its §Mistakes row "A claim row quoted an interior slice of a receipt line (unmarked elision)" and on §Routed dispositions row 6, which records that the r76 criterion quotes the landed deletion-control line whole.
+ 
+ ## Round-77 criteria — the report's own evidence
+ 
+diff --git i/corpus/lessons/round-29.md w/corpus/lessons/round-29.md
+index dada72af..62c143e7 100644
+--- i/corpus/lessons/round-29.md
++++ w/corpus/lessons/round-29.md
+@@ -100,8 +100,11 @@ the landed rows and fails on each named mutation (for example
+ | vacuous | The round-28 C2 counter graded quote shape, not quote truth: `.ufo/waves/round-28/c2_source_count.py:126-127` counted one curly-quoted span of 1–25 words per Gate line and never opened a source, so a quote that is worded correctly but is not in the source scored the same as a true one. `corpus/lessons/round-28.md:107-110` and `corpus/lessons/round-28-verifier-spotcheck.md:225-227` (routed defect 3) record the defect; quote truth was checked outside the counter by `residual/ReviewGateQuotes.md`. | none — the round-28 `QUALITY.md` section "Counters and field evidence — round 28" (`corpus/QUALITY.md:298-332`) requires a counter to reject a constant and to keep its scope named, but no criterion required a quote to be found in retained text, so a shape-only check passed review. | The round-29 C1 counter `.ufo/waves/round-29/c1_quote_truth.py` checks check `d_quote_in_retained_text`: the Gate quote must be an exact substring of the retained visible text `.ufo/waves/round-29/sources/S0NN.txt`, whose sha256 must equal the committed receipt (`receipts.json`) before the comparison. Shown able to fail: at the landed commit `f8675e5` the counter scores 4/4, exit 0; at the sandbox commit `609e6777fe3836ec813f499186248ff1992c6e99`, which changes exactly one letter of the S042 Gate quote and nothing else, it scores 3/4, exit 1, with `d_quote_in_retained_text` false on S042 alone. The round-28 counter cannot see that state: at the sandbox commit `1f9ffdcffcad9fa78a41aad60c00b6576d0dcfbc`, which changes exactly one letter of the round-28 S036 Gate quote, `.ufo/waves/round-28/c2_source_count.py` still scores 4/4, exit 0, although the flipped quote is not an exact substring of the retained `.ufo/waves/round-28/sources/S036.txt`. |
+ | vacuous | The round-28 source gate screened only the four sources it then admitted and rejected none, so no outside reviewer could draw a reject sample from the gate itself: `corpus/SOURCES.md` search log for round 28 records "Identified 4, screened 4, included 4 (S036–S039, scoped tier A), excluded 0", and `corpus/lessons/round-28-verifier-spotcheck.md:228-231` (routed defect 4) records that the reject sample had to come from outside the source gate. | none — `corpus/QUALITY.md` had no criterion requiring a screened source step to produce a checkable rejection, and the round-28 `## Gate` section had no rejected line to point at. | The round-29 lesson `## Gate` section carries a "Screened candidates (round-28 routed defect 4)" block with three rejected candidates (S044, S045, S046) and two queued ones (S047, S048), each with a quote, a one-line reason and a flip condition, and the registry rows S044–S046 read `REJECTED: … ; flip: …` with status `rejected`. Shown able to fail: the check `reject_path_check.py` reads the committed registry, lesson and entry and fails when a rejected candidate's quote is not an exact substring of that candidate's own retained text (`.ufo/waves/round-29/sources/screened/C*.txt`), when the teaches cell loses its `flip:` clause, when the row's status is not `rejected`, when a cited primary id is not tier A mined with retained text, when a rejected candidate URL appears in the entry body or in an admitting Gate line, or when no candidate is rejected at all. It scores 5/5, exit 0 on the landed bytes at `f8675e5`, and exit 1 on each of five sandbox mutations: one letter changed in the S044 quote, the S044 flip clause removed, the S044 status changed to `mined`, all three rejections relabelled as queued, and the S044 URL appended to the entry body. |
+ | misroot (landing) | Wave-2 seat `FieldsAndCounts` wrote its report once through a relative path, which landed at the fleet root as `/home/vgpnk/Projects/shokunin/.ufo/waves/round-29/w2/FieldsAndCounts.md` (`.ufo/waves/round-29/w2/FieldsAndCounts.md`, "Process incident"). | the wave context rule "every `Report:` trailer path is relative to the lane" (stated, not enforced) | The seat removed the fleet copy and the `w2` directory its write created and kept the lane copy; the L1's own sweep (`git -C /home/vgpnk/Projects/shokunin status --porcelain`, before the report) found no round-29 kake file at the fleet root. Not shown able to fail beyond that sweep. |
++| absent-path annotation (r43 re-census 2026-10-23) — re-appended r93 (round-93 C1 E4 repair) | `/home/vgpnk/Projects/shokunin/.ufo/waves/round-29/w2/FieldsAndCounts.md` is absent — the fleet-root copy was removed by the round-29 misroot sweep; the byte-exact lane copy survives at `.ufo/waves/round-29/w2/FieldsAndCounts.md`. Historical incident record, not an executable path. | freshness sweep §paths gate (unannotated miss + newMissing) | This annotation row: the citation above carries its own absence wording within ±2 lines, and the token is entered in `corpus/knowledge/freshness-pins.json` `pathsMissSet` in round 43. |
++The row above re-appends the round-43 annotation row inside this table (round-93 C1 E4 repair); the row below is the historical append, retained byte-for-byte.
+ 
+ | absent-path annotation (r43 re-census 2026-10-23) | `/home/vgpnk/Projects/shokunin/.ufo/waves/round-29/w2/FieldsAndCounts.md` is absent — the fleet-root copy was removed by the round-29 misroot sweep; the byte-exact lane copy survives at `.ufo/waves/round-29/w2/FieldsAndCounts.md`. Historical incident record, not an executable path. | freshness sweep §paths gate (unannotated miss + newMissing) | This annotation row: the citation above carries its own absence wording within ±2 lines, and the token is entered in `corpus/knowledge/freshness-pins.json` `pathsMissSet` in round 43. |
++The blank line below is the round-43 append boundary, kept unchanged; with the re-appended copy above, this lesson's Mistakes table is contiguous (round-93 C1 E4 repair).
+ 
+ ## Not repaired this round (routed defects 1 and 2)
+ 
+diff --git i/corpus/lessons/round-33.md w/corpus/lessons/round-33.md
+index 53d4a866..5bc6f5b9 100644
+--- i/corpus/lessons/round-33.md
++++ w/corpus/lessons/round-33.md
+@@ -41,8 +41,11 @@ row's status, recheck or used-by cell changed. S066 new (`—` → `mined`, open
+ |---|---|---|---|
+ | a repair counter accepts a faked repair at its declared after-value | The round-32 C2 counter `.ufo/waves/round-32/c2_retained_count.py` (frozen at `5b32cc7`) scores 3 both on the landed repair `e9283ec` and on hollow commit `6ffa03e` (the two ds4cc blobs at `scripts/fixtures/unrelated/{a,b}.txt`, a fabricated row `S099` inside `## Registry`, one unrelated mention of it); before `a0b0dff` scores 0. Built by wave-1 seat `ScribeMistakeMine`; the hollow commit is retained as `.ufo/waves/round-33/verification/hollow-r32-c2-6ffa03e.bundle`. The round-32 closure had to re-measure C2 by hand. | none: round-32 wave-1 seats saw the looseness (`.ufo/waves/round-32/w1/CriticC2Scope.md`, `MutC2Conditions.md`), but no rule required a counter to score a hollow control below its after-value before its `met` was read as evidence. | `corpus/QUALITY.md` "Round-33 criteria", second bullet, with `.ufo/waves/round-33/criteria/counter_control_check.py`. Shown able to fail: exit 1 on the round-32 counter with the bundled hollow commit (`verification/criterion-counter-control-r32-c2.txt`). |
+ | seat report misrooted into the fleet repo | Wave-2 seat `ScoutPinsFlagAccuracy` wrote its report at `/home/vgpnk/Projects/shokunin/.ufo/waves/round-33/w2/ScoutPinsFlagAccuracy.md` (fleet root) instead of under the lane, although the wave context said every `Report:` path is relative to the lane; found by the misroot sweep (`git -C /home/vgpnk/Projects/shokunin status --porcelain`), copied byte-exact into the lane (`cmp` identical) and the fleet copy deleted. | the round prompt's misroot sweep (§6.3) caught it after the fact; nothing prevents it at write time. | none landed this round: the sweep stays the catch. The wave context already carries the rule; a seat-side check is not in the lane's write scope. |
++| absent-path annotation (r43 re-census 2026-10-23) — re-appended r93 (round-93 C1 E4 repair) | `/home/vgpnk/Projects/shokunin/.ufo/waves/round-33/w2/ScoutPinsFlagAccuracy.md` is absent — the fleet-root copy was removed by the round-33 misroot sweep; the byte-exact lane copy survives at `.ufo/waves/round-33/w2/ScoutPinsFlagAccuracy.md`. Historical incident record, not an executable path. | freshness sweep §paths gate (unannotated miss + newMissing) | This annotation row: the citation above carries its own absence wording within ±2 lines, and the token is entered in `corpus/knowledge/freshness-pins.json` `pathsMissSet` in round 43. |
++The row above re-appends the round-43 annotation row inside this table (round-93 C1 E4 repair); the row below is the historical append, retained byte-for-byte.
+ 
+ | absent-path annotation (r43 re-census 2026-10-23) | `/home/vgpnk/Projects/shokunin/.ufo/waves/round-33/w2/ScoutPinsFlagAccuracy.md` is absent — the fleet-root copy was removed by the round-33 misroot sweep; the byte-exact lane copy survives at `.ufo/waves/round-33/w2/ScoutPinsFlagAccuracy.md`. Historical incident record, not an executable path. | freshness sweep §paths gate (unannotated miss + newMissing) | This annotation row: the citation above carries its own absence wording within ±2 lines, and the token is entered in `corpus/knowledge/freshness-pins.json` `pathsMissSet` in round 43. |
++The blank line below is the round-43 append boundary, kept unchanged; with the re-appended copy above, this lesson's Mistakes table is contiguous (round-93 C1 E4 repair).
+ 
+ The same criterion applied to this round's C2 counter: its hollow shape
+ (bytes at an unrelated path) drops c1 and therefore c4, so it scores at most
+diff --git i/corpus/lessons/round-54.md w/corpus/lessons/round-54.md
+index 755762fb..3f307fdd 100644
+--- i/corpus/lessons/round-54.md
++++ w/corpus/lessons/round-54.md
+@@ -26,9 +26,13 @@ its cross-registry proposal is not expanded by this round's settlement.
+ | Material crawl qualifier dropped by an endorsement-only translation | `corpus/lessons/round-53-verifier-spotcheck.md` §Discernment (S374, quality harmed); exact source phrase and page title in retained `.ufo/waves/round-52/sources/S374.html`; the round-52 knowledge gloss at `corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md` renders “does not recommend” / “cannot vouch” without saying that the crawling of the link target is not recommended. | No existing criterion checked that the English rendering preserves material qualifiers from its located source. | Append the S374 correction without rewriting the earlier gloss; add a QUALITY criterion and a calibration counter over committed entry/body bytes. The counter must reject the round-open no-op (one mismatch) and accept only a quote-backed correction that explicitly retains the crawl qualifier. |
+ | A launched wave was presented without a durable seat-report settlement | The round-53 closure records 40 spawned, 0 committed reports, seven unresolved report names and no `w1/` directory (`corpus/lessons/round-53-verifier-spotcheck.md` §Dead-seat reconciliation). | Round-53 report described seat-level dispatch results but no settled manifest check required committed reports or an honest lost disposition. | Preserve the dispatch spec; add `.ufo/waves/round-53/settlement.md` with each cited report resolved or lost and state explicitly that the individual dead-seat count is unverified. Add a SKILL registry row for `c53_gate_truth.py`; test both obligations from committed bytes. |
+ | CJK quote “word” counts were conflated with unit counts | The round-53 verifier recorded S367/S372/S373 at 31/27/27 units under the inherited counter, whose `units()` gives one per CJK character and one per non-CJK whitespace token. These values exceed 25 units; they do not establish how many lexical words the CORPUS rule means for Japanese. | `corpus/QUALITY.md` had no explicit CJK accounting criterion; the inherited counter's unit convention was not called out alongside the separate ≤25-word corpus language. | Add a criterion stating the CJK unit convention and report its counts as units, not words. Do not claim these values satisfy the 25-word rule; the exact meaning of “word” for CJK remains ambiguous until the corpus contract specifies segmentation. |
++| A lexical correction marker could be unrelated to the old gloss — re-appended r93 (round-93 C1 E4 repair) | Round-54 attack found an appended marker plus quote/negative-crawl words could pass without superseding the old translation; the selftest's duplicate line-wise parser also missed the real multiline suspect. `.ufo/waves/round-54/w1/CriticC1CorrectionBinding.md`, `ExecC1Selftest.md`, and `ReviewerC1Substitution.md`. | C1's first implementation looked for co-occurring tokens, while its fixture parser was separate from the committed-byte matcher. | Anchor the marker to a correction heading line; require the exact source quote and explicit language binding the earlier endorsement-only gloss to its supersession; count the exact round-open rendering once; share the same helper between production and selftest. Final selftest rejects unrelated marker, wrong polarity, deleted base gloss, and pre-render correction. |
++| A settlement counter could confuse recorded status with observed loss — re-appended r93 (round-93 C1 E4 repair) | C2's first committed counter rejected the valid backticked filename format and could accept reason-free or false `resolved`/`lost` rows; three bare filenames were also absent from the path-only citation extraction. Review evidence: `.ufo/waves/round-54/w1/ReviewerC2Manifest.md`, `ReviewerC2Citations.md`, `CriticC2Loss.md`. | C2 matched row substrings, did not read the disposition reason or check report paths against committed Git bytes, and scanned only full-path citations. | Parse all eight registry cells; parse reason-bearing settlement rows, derive cited names from the closure's `w1/` report list, require each required row exactly once, and verify `lost` paths are absent / `resolved` paths exist in the measured revision. |
++The two rows above re-append the two mistake rows that round 54 appended below this table (round-93 C1 E4 repair); the rows below are the historical append, retained byte-for-byte.
+ 
+ | A lexical correction marker could be unrelated to the old gloss | Round-54 attack found an appended marker plus quote/negative-crawl words could pass without superseding the old translation; the selftest's duplicate line-wise parser also missed the real multiline suspect. `.ufo/waves/round-54/w1/CriticC1CorrectionBinding.md`, `ExecC1Selftest.md`, and `ReviewerC1Substitution.md`. | C1's first implementation looked for co-occurring tokens, while its fixture parser was separate from the committed-byte matcher. | Anchor the marker to a correction heading line; require the exact source quote and explicit language binding the earlier endorsement-only gloss to its supersession; count the exact round-open rendering once; share the same helper between production and selftest. Final selftest rejects unrelated marker, wrong polarity, deleted base gloss, and pre-render correction. |
+ | A settlement counter could confuse recorded status with observed loss | C2's first committed counter rejected the valid backticked filename format and could accept reason-free or false `resolved`/`lost` rows; three bare filenames were also absent from the path-only citation extraction. Review evidence: `.ufo/waves/round-54/w1/ReviewerC2Manifest.md`, `ReviewerC2Citations.md`, `CriticC2Loss.md`. | C2 matched row substrings, did not read the disposition reason or check report paths against committed Git bytes, and scanned only full-path citations. | Parse all eight registry cells; parse reason-bearing settlement rows, derive cited names from the closure's `w1/` report list, require each required row exactly once, and verify `lost` paths are absent / `resolved` paths exist in the measured revision. |
++The blank line below is the round-54 append boundary, kept unchanged; with the re-appended copies above, this lesson's Mistakes table is contiguous (round-93 C1 E4 repair).
+ 
+ ## Round-53 settlement
+ 
+diff --git i/corpus/lessons/round-85.md w/corpus/lessons/round-85.md
+index ef12876c..584c1034 100644
+--- i/corpus/lessons/round-85.md
++++ w/corpus/lessons/round-85.md
+@@ -149,3 +149,69 @@ conciseness 3 (historical draft plus supplement is longer than ideal).
+ Overall 3.6/5. Highest-impact improvement applied: report the bounded claims
+ only, never claim the whole D84 queue closed. Operator/non-author closure
+ still owns admission and independent admit/reject agreement.
++
++## Gate
++
++Round-93 C1 E1 repair (2026-11-04): this lesson's own Gate decisions are recorded
++above in `## Gate — admit a parser algorithm, reject blanket equivalence` (retained
++unchanged); this section adds the canonical `## Gate` heading the round-93 C1
++predicate requires and restates those decisions from the lesson's own evidence.
++No source work was opened for this section; every line below cites the round-85
++receipts and quotes already in this lesson. The lesson records source work (the
++2026-11-04 GETs below), so the flip conditions are stated per row.
++
++Admits:
++
++- **S458 — W3C Referrer Policy §8.1 (parser semantics), admitted.** Source: the
++  W3C Referrer-Policy TR page,
++  https://www.w3.org/TR/referrer-policy/#parse-referrer-policy-from-header,
++  opened GET-only on 2026-11-04, HTTP 200, 128,023 bytes, sha256 recorded in
++  `.ufo/waves/round-85/w1/ScribeLesson/source-receipt.json`; retained body
++  `.ufo/waves/round-85/w1/ScribeLesson/referrer-policy.html`. Located admission
++  quote, 23 words, §8.1 step 3, retained HTML lines 706–707:
++
++  > For each token in policy-tokens, if token is a referrer policy and token is
++  > not the empty string, then set policy to token.
++
++  Reason: step 2 initializes the empty string and step 4 returns the policy, so
++  the accumulator is overwritten by each recognized token in sequence — the
++  source grounds a field-specific effective-token decoder only; the JSON
++  interface, exit-code convention and ten-case oracle are the lane contract, not
++  W3C's.
++- **Registry-URL evidence for the same row (admitted).** The S458 registry row
++  uses the Editor's Draft URL, https://w3c.github.io/webappsec-referrer-policy/
++  (HTTP 200, 246,577 bytes, sha256
++  `339bdd20be241c9eca2f47a18d35368af460edfc708288d90c51e094393743a6`, receipt
++  `.ufo/waves/round-85/sources/prefreeze-receipt.json`); the same 23-word quote
++  stands at retained `w1/ScoutSources/source.html` lines 1612–1614. Reason: it
++  grounds token iteration only; an Editor's Draft is not a W3C endorsement.
++
++Rejects:
++
++- **Blanket response-policy reorder equivalence, rejected.** Source: the same TR
++  page, §11.1, retained HTML lines 881–882, 22 words:
++
++  > policy values will be ignored, and when multiple sources specify a referrer
++  > policy, the value of the latest one will be used.
++
++  Reason: `no-referrer, strict-origin` selects `strict-origin` while
++  `strict-origin, no-referrer` selects `no-referrer`; identical token multisets
++  do not imply identical effective policy, so a field-agnostic `reordered` label
++  is syntax evidence only.
++
++Flips:
++
++- Reject flip: an expressly scoped, source-grounded rule for a particular field
++  plus independent order/duplicate witnesses could support equivalence for that
++  field; this source does not establish it for arbitrary response headers.
++- Admit flip: the admit covers token iteration for the field only; it flips on a
++  source that specifies a general extraction, ordering or browser-default rule
++  for the field. No such source is cited in this lesson.
++- Registry flip: the row's URL is the Editor's Draft rendering; it flips if the
++  row is re-pinned to the TR rendering or the draft moves.
++
++### Author self-evaluation (round-93 E1 section)
++
++Accuracy: this section restates, and does not extend, the decisions above;
++completeness: the digests live in the retained receipts cited here; clarity: the
++suffixed Gate heading above remains this lesson's own Gate prose.
+diff --git i/corpus/lessons/round-92.md w/corpus/lessons/round-92.md
+index 7a865a27..94cab508 100644
+--- i/corpus/lessons/round-92.md
++++ w/corpus/lessons/round-92.md
+@@ -63,8 +63,11 @@ Rejects:
+ | 2 | A sandbox denied a mechanism the runner itself needs | the known-good C2 subject scored `hand=5/28`: the audit hook refused the builtin `exec` event, which `runpy` raises while loading the subject | the pre-freeze C2 positive control `controls/ctl-c2-positive.txt` | the hook now denies only process creation (`os.system`, `subprocess.Popen`, `os.spawn*`); the same subject reads `28/28 120/120` |
+ | 3 | A declared label was the label of a different mode | the harness printed `base-open=2` where the freeze declared `base-open=3`: the replay runs the counter with `--skip-replay`, which leaves item C out of the open set | the replay's own label assertion (item C) | the declared set is `base-open=2`; the positive fixture now reads the exact nine labels |
+ | 4 | A refusal fired for the wrong reason, so the fixture proved nothing about its class | the canned-runner fixture FB was refused as "observed ≠ log" instead of "base and mutant do not differ", because the log comparison ran first | the battery's declared reason substring for FB | the "do not differ" check now precedes the log comparison; FB's reason names the canned class |
++| 5b | A round committed its work and then ended without a report (re-appended r93; original row 5 kept below) | attempt 1 landed `a5640ca0`…`9f15115b` and ended at 21:58:46 with no `.ufo/reports/round-92/kake.md`; `.ufo/watchdog.log:2603` reads `lane-dead-no-report kake round=92` | the driver's `report_of` content gate — it fired on this very round and relaunched attempt 2 (`watchdog.log:2604`) | none beyond that gate; attempt 2 re-ran both frozen counters at the base and at the carrier (`controls/attempt2-reverify.txt`) before filing, and changed no counter, case, predicate or label |
++Row 5b above re-appends attempt 2's close-order mistake row inside this table (round-93 C1 E4 repair); row 5 below is the historical append, retained byte-for-byte.
+ 
+ | 5 | A round committed its work and then ended without a report | attempt 1 landed `a5640ca0`…`9f15115b` and ended at 21:58:46 with no `.ufo/reports/round-92/kake.md`; `.ufo/watchdog.log:2603` reads `lane-dead-no-report kake round=92` | the driver's `report_of` content gate — it fired on this very round and relaunched attempt 2 (`watchdog.log:2604`) | none beyond that gate; attempt 2 re-ran both frozen counters at the base and at the carrier (`controls/attempt2-reverify.txt`) before filing, and changed no counter, case, predicate or label |
++The blank line below is the attempt-2 append boundary, kept unchanged; with the re-appended copy above, this lesson's Mistakes table is contiguous (round-93 C1 E4 repair).
+ 
+ Disclosure: mistakes 1–4 were found and fixed before the freeze commit; no counter, case,
+ predicate or label was changed after it. Every instrument defect the wave found is routed

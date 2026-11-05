@@ -543,6 +543,7 @@ criteria themselves stand.
   sentence that holds the cited quote, not in the whole page; a claim made
   over a list of keys is checked key by key. A mark `[INFERENCE]` placed on a
   fact the retained text states is also a defect (round-31 line 22, PORT).
+- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-31.md` — the receipt this section quotes (`verification/a2-fixes/hostile-selftest-fde133a-runner.json`, P5 fails on `.h5b`) is the one its §Mistakes row "doc claim wider than its probe" rests on; that row's Fix column is the per-name-class check this section states.
 
 ## Round-32 criteria
 
@@ -565,6 +566,7 @@ criteria themselves stand.
   exits 2 on other wording. A reviewer applying the criterion reads the
   stated time by hand when the check exits 2 or the commit is within minutes
   of midnight UTC.
+- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-32.md` — the declaration-time check and the `5b32cc7` declaration quoted above rest on that lesson's sole `## Mistakes` row, "unobserved timestamp written as fact", whose Fix column names the receipt `.ufo/waves/round-32/verification/declared-time-check.txt`.
 
 ## Round-33 criteria
 
@@ -689,6 +691,7 @@ criteria themselves stand.
 - (d): an honest tool also reaches the full score and exits 1; the check
   only means something for a control whose diff shows it does none of the
   work (wave-2 `ReviewLookupControlCheck`).
+- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-34.md` — the receipt quoted in (b), `verification/criterion-gate-reject-fixtures-at-76fac3b.txt`, rests on that lesson's §Wave-2 corrections (appended) bullet "Gate check repairs at 76fac3b"; (c) and (d) rest on the same section's "Receipt check repair" and "Lookup check" entries.
 
 ## Round-35 criteria
 
@@ -856,6 +859,7 @@ Limits found by wave-2 `ReviewCriteriaChecks` and `MutCriteriaChecks` (reports i
 - (a) The C1 target of 22 of 24 let a whole contract bullet be skipped: (c) moves only two sealed
   cases (`w2/ExecPartialRepairs.md`). A sealed target should be set so that no declared bullet
   can be skipped, and each bullet needs at least one more sealed case than the slack.
+- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-35.md` — the wave-2 reports quoted above and `w2/ExecPartialRepairs.md` rest on that lesson's §Wave-2 corrections (appended) C1-sufficiency entry, whose `ExecPartialRepairs` bullet is the basis of (a).
 
 ## Round-36 criteria
 
@@ -1017,6 +1021,7 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
   (`.ufo/waves/round-41/verification/r40standing/`). Still open on it: bubblewrap's own environment at
   `/proc/1/environ` (counter v2 passes a minimal one), inherited stdin, no output byte cap
   (`.ufo/waves/round-41/w1/SentinelSandbox.md`).
+- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-40.md` — the checks and receipts quoted above rest on that lesson's §Mistakes rows 1 and 2, whose Fix columns name `preseal_order_check.py` and `d1_check.py` and their receipts.
 
 ## Round-41 criteria
 
@@ -1045,6 +1050,7 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
   still meets, and the classification cannot be settled after scores. Name control classes by the behaviour
   they skip (a position, a component, a sub-shape the class generates), and decide equivalence by a
   frozen differential before scores, not by how the tool is written.
+- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-41.md` — the checks and receipts quoted above rest on that lesson's §Mistakes rows 1, 2 and 3 (`live_tally_check.py` with `verification/criteria/live-tally-r40.txt`, `fresh_review_check.py` with `verification/criteria/fresh-review-r40.txt`, and the generated-counter controls under `verification/w1v2/`).
 
 ## Round-42 criteria
 
@@ -1075,6 +1081,7 @@ defects 1–6) and `corpus/lessons/round-38.md` `## Mistakes`. Drafted by wave-1
 ## Round-47 pointer correction — R6
 
 The preceding criterion's initial working filename `offline-sweep-r46-verdict-time.txt` was withdrawn as misleading: the retained run is a round-47 rerun, not contemporaneous r46 evidence. Current receipt: `.ufo/waves/round-47/verification/offline-sweep-r47-rerun.txt` (2026-10-24T06:46:36Z, sha256 `b86bc45992aa4f93c2c6d55d972a7d1a84ac0ffb46bedb7a674afd4a9822a717`); it does not retroactively receipt the r46 claim.
+Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-47.md` — the rerun receipt quoted above rests on that lesson's §Mistakes row 3, "verdict filed without a committed receipt (operability)", whose fix retains this same receipt and digest as a contemporaneous r47 rerun and not retroactive r46 evidence.
 
 ## Round-47 criterion grounding note
 
@@ -1531,6 +1538,7 @@ Appended 2026-11-03 by the round-76 C1 repair; every criterion above stands unch
   defective span. Reject: a splice that silently skips a field between two observed tokens, a quote that is
   only a fragment of a receipt line, and a quote whose receipt file and line are not named.
   `[r76-correction 2026-11-03]`
+- Grounding lesson (round-93 C1 E2 repair, 2026-11-04): `corpus/lessons/round-76.md` — the deletion-control receipt line quoted above rests on its §Mistakes row "A claim row quoted an interior slice of a receipt line (unmarked elision)" and on §Routed dispositions row 6, which records that the r76 criterion quotes the landed deletion-control line whole.
 
 ## Round-77 criteria — the report's own evidence
 
