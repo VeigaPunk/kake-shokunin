@@ -1,0 +1,1 @@
+import importlib.util as u,sys; s=u.spec_from_file_location('shutil','/usr/lib/python3.14/shutil.py'); m=u.module_from_spec(s); s.loader.exec_module(m); print('LOADED', m.__name__, hasattr(m,'which'))

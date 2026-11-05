@@ -1,0 +1,18 @@
+SUBJ b00_ok rc=0 stdout=[] stderr_last=[<none>]
+SUBJ p01_open_outside rc=1 stdout=[] stderr_last=[PermissionError: sandbox: open outside the subject tree: /etc/hostname]
+SUBJ p02_import_nonallow rc=1 stdout=[] stderr_last=[PermissionError: sandbox: import denied: shutil]
+SUBJ p03_os_system rc=1 stdout=[] stderr_last=[PermissionError: sandbox: process creation denied: os.system]
+SUBJ p04_popen rc=1 stdout=[] stderr_last=[PermissionError: sandbox: import denied: subprocess]
+SUBJ p05_read_counter rc=1 stdout=[] stderr_last=[PermissionError: sandbox: open outside the subject tree: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-95/c95_conditional.py]
+SUBJ x01_symlink_outside rc=0 stdout=[plazir27  ] stderr_last=[<none>]
+SUBJ x02_symlink_counter rc=0 stdout=[#!/usr/bin/env python3 """Round-95 C2 co ] stderr_last=[<none>]
+SUBJ x03_execv_sh rc=0 stdout=[] stderr_last=[<none>]
+SUBJ x04_os_open_write rc=1 stdout=[] stderr_last=[PermissionError: sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r95/SentinelScope/sbx/work/osopen_marker]
+SUBJ x05_spec_stdlib_shutil rc=1 stdout=[] stderr_last=[PermissionError: sandbox: import denied: fnmatch]
+SUBJ x06_spec_posixsubprocess rc=1 stdout=[] stderr_last=[PermissionError: sandbox: import denied: glob]
+SUBJ x07_spec_then_fork_exec rc=1 stdout=[] stderr_last=[PermissionError: sandbox: import denied: glob]
+--- markers present in sandbox work:
+-rw-r--r-- 1 vgpnk vgpnk    5 Nov  5 13:36 exec_marker
+--- symlinks created in subject tree:
+lrwxrwxrwx 1 vgpnk vgpnk   13 Nov  5 13:36 lnk1 -> /etc/hostname
+lrwxrwxrwx 1 vgpnk vgpnk   82 Nov  5 13:36 lnk2 -> /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-95/c95_conditional.py

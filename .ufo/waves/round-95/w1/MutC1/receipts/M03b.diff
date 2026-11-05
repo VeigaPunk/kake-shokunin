@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M03b
+@@ -249,7 +249,7 @@
+                 break
+             if round_no >= 95:
+                 if not (re.search(r"admit", head_line, re.I)
+-                        or re.search(r"admit", body, re.I)):
++                        or re.search(r"adopt", body, re.I)):
+                     mismatches.append({"class": "E1", "path": path,
+                                        "detail": "vacuous Gate: no admit decision "
+                                                  "line (route R01)"})

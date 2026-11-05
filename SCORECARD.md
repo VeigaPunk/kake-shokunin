@@ -5720,3 +5720,32 @@ No new capability row. The conditional-request counter (capability entered in ro
 ### Planned — after round 94
 
 Outside closure owns admission. Routed: R94-1 (successor C1 counter closing ReviewC1 R01, R02b, R03, R05, R08, R09, R10b, R12, R18), R94-2 (the counter must not import from its script directory before its guard; effectful shadow in the battery), R94-3 (a repair that removes a backticked path token must name a replacement path), R94-4 (equivalence check on every survivor before a kill target is frozen), R94-5 (13 directory references in SKILL.md, each a row-by-row file choice with a non-author reviewer), R94-6 (contract v2: empty list members, R93-9), R94-7 (a stronger counter battery: 4 of 12 counter mutants killed by its own battery), R94-8 (the round-93 receipts cite the absent base `191dd0ed`). Frontier: the revalidation exchange (RFC 9111 §4.3.4), the 304 header set, `If-Range`/`Range`, HTTP-date parsing and every live-cache observation stay open.
+
+### Round 95 — claims and verdicts (2026-11-05, attempt 1; not an admission)
+
+Round base `fdd5fdbeb8a2ba6c18f0f23135d1bee98068dca3`; instruments commit `43cdd9fc899a2613d8ba7b55edf820825e57b4d1`; freeze `8f638b591e739e1863f5fa22334d5e15178189ed` with pre-scoring Amendment A `d9be693fdb61dd080ae8cf6c007871d3a118c1d2` (`.ufo/waves/round-95/freeze.md`); measured at lane HEAD `9cf924700308995354d85c165acbba9930d02981`. Claims declared before any seat scored; counters, predicates and targets unchanged after Amendment A (which changed no predicate — it corrected the entry identity-pin mechanism so the declared repair route is reachable; recorded in `corpus/lessons/round-95.md` Mistakes).
+
+| Claim | Axis / type | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 self-assessment conformance repaired | calibration (HOLD 2), lowest owned | mismatches 18 (E3=3, E5=15) at base → mismatches 0 with `pins=identity` (the three `entry-content` pins on the repaired entries) at <TIP> — `met=false` | `python3 -B .ufo/waves/round-95/c95_selfassess.py --root . --revision <REV>` | **unmet (honest stop under the frozen rule)**: the repairs are real and land, but the frozen instrument cannot certify its own declared E3 repair route; score stays 2 (`controls/after-c1-final.txt`; Mistakes 1–2 in `corpus/lessons/round-95.md`; R95-1 routes the successor) |
+| C2 conditional_eval contract v2 | freshness (HOLD 10), capability acquisition | hand 57/66 generated 79/120 at the instruments commit (v1 candidate refuses the v2 clauses) → hand 66/66 generated 120/120 forgeries 7/7 mutants 40/40 `met=true` exit 0 at <TIP> | `python3 -B .ufo/waves/round-95/c95_conditional.py --root . --revision <REV> --work <scratch>` | **met on the frozen counter** (capability demonstrated; score stays 10; the closure owns admission) |
+
+Controls executed before the freeze: `controls/base-c1.txt`, `controls/base-c2.txt`, `controls/ctl-c1-selftest.txt`, `controls/ctl-c2-selftest.txt`, `controls/mutant-scan-v2.txt` (R94-4 pre-freeze equivalence scan: 40/40, zero survivors, M11 included). Landed-tip receipts: `controls/after-c1-final.txt`, `controls/after-c2-final.txt`.
+
+#### Move log (round 95)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 95 | calibration (HOLD 2) | mismatches 18 at `fdd5fdbe` (`controls/base-c1.txt`) | mismatches 0 at 9cf924700308995354d85c165acbba9930d02981 (`controls/after-c1-final.txt`); ReviewC1 replay Outside closure owns admission. | `.ufo/waves/round-95/controls/`; `.ufo/waves/round-95/w1/ReviewC1/` |
+| 95 | freshness (HOLD 10), capability | `conditional_eval.py` v1 refuses empty-member lists (57/66) | v2 meets contract v2 under the frozen population (66/66, 120/120, 7/7, 40/40) | `.ufo/waves/round-95/controls/after-c2-final.txt`; `c2-contract-v2.md` |
+
+#### Demonstrated repertoire — round 95
+
+| Capability | What it can now do | Evidence | First-working round |
+|---|---|---|---|
+| Conditional request evaluation, contract v2 | Extends the round-93 instrument with the v2 clauses: empty list members accepted and ignored, obs-text in opaque-tags, `"role": null` = origin, raw duplicate-key refusal, pinned GET/HEAD method-filter edge cases | `scripts/conditional_eval.py` at 9cf924700308995354d85c165acbba9930d02981; `.ufo/waves/round-95/c95_conditional.py` `met=true`; `c2-contract-v2.md` (S478/S455/S034/S473/S474/S479) | 95 (extends the round-93 capability; amendment row, not a second entry) |
+| Content-pinned self-assessment identity (counter mechanism) | Pins lessons by full-blob digest, SKILL rows by first cell plus path-token floor, Mistakes carriers by exact section, and refuses the `--surfaces-file` escape entirely; entries pinned by presence because their heads are correctable surfaces | `c95_selfassess.py`; `frozen/c1-surfaces.json`; battery 20 refuse + 5 admit routes; `controls/ctl-c1-selftest.txt` | 95 (instrument mechanism entered with C1) |
+
+#### Planned — after round 95
+
+Outside closure owns admission. Frontier: the revalidation exchange (RFC 9111 §4.3), serving stale without a client directive, storage/key identity (§4.1), and every live-cache observation stay open. Routed to round 96: R95-1 (successor C1 counter pins entries by presence and freezes before dispatch), R95-2 (fleet kill-predicate decision owed; kumitate K43 vs tabi catalogue-time equivalence vs kake receipts — `w1/ConnectorScope/overlaps.md` rows 4–5), R95-3 (chousa round-79 criterion 146 is prior art for the repair-naming rule; cite, do not port), R95-4 (the closure's row-by-row re-read of the 15 repaired SKILL rows). Frontier: the revalidation exchange (RFC 9111 §4.3), serving stale without a client directive, storage/key identity (§4.1), and every live-cache observation stay open.

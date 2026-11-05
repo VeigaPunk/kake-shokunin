@@ -1,0 +1,380 @@
+diff --git c/.ufo/waves/round-95/c95_selfassess.py w/.ufo/waves/round-95/c95_selfassess.py
+index f1836665..985e39bb 100755
+--- c/.ufo/waves/round-95/c95_selfassess.py
++++ w/.ufo/waves/round-95/c95_selfassess.py
+@@ -114,7 +114,7 @@ import sys
+ BASE = "fdd5fdbeb8a2ba6c18f0f23135d1bee98068dca3"
+ BASE_PINS = {"lessons": 89, "entries": 82, "rows": 255, "criteria": 39}
+ SURFACES = "frozen/c1-surfaces.json"
+-SURFACES_SHA = "00a04c9a68f00de1561d70822a8ff3cab718583de4cd2cbf6ebd06e87b5d47b8"
++SURFACES_SHA = "9eff04c5a0567f50a3a27004ac7d5aab4d4dc2d1311c4a8d8eb623db8ec4f665"
+ PREDECESSOR = ".ufo/waves/round-94/c94_selfassess.py"
+ PREDECESSOR_FLOOR = 4
+ SYNTH_PINS = {"lessons": 2, "entries": 1, "rows": 2, "criteria": 1}
+@@ -413,13 +413,11 @@ def audit(root, rev, base_pins=None, surfaces=None):
+             ident.append("lesson-displaced:%s -> %s" % (path, q))
+     for item in surfaces["entries"]:
+         path = item["path"]
+-        text = read(root, rev, path)
+-        if text is None:
++        if read(root, rev, path) is None:
+             ident.append("entry:" + path)
+-            continue
+-        head8 = "\n".join(text.splitlines()[:8])
+-        if hashlib.sha256(head8.encode("utf-8")).hexdigest() != item["head8_sha256"]:
+-            ident.append("entry-content:" + path)
++        # knowledge entries legitimately gain [rNN-correction]-tagged head edits
++        # (Amendment A): pinned by presence, not content digest. Lessons keep
++        # full-content digests because they are append-only-frozen per round.
+     for h in surfaces["quality_criteria_headings"]:
+         if h not in criteria:
+             ident.append("criterion:" + h)
+@@ -636,11 +634,7 @@ def surfaces_of(files):
+         "lessons": [{"path": p,
+                      "sha256": hashlib.sha256(files[p].encode("utf-8")).hexdigest()}
+                     for p in lessons],
+-        "entries": [{"path": p,
+-                     "head8_sha256": hashlib.sha256(
+-                         "\n".join(files[p].splitlines()[:8]).encode("utf-8")
+-                     ).hexdigest()}
+-                    for p in entries],
++        "entries": [{"path": p} for p in entries],
+         "quality_criteria_headings": ["Round-01 criterion — a thing"],
+         "skill_rows": [{"cell": c, "path_tokens": tokens[c]} for c in first],
+         "mistakes_sections": [p for p in lessons if "## Mistakes" in files[p]],
+diff --git c/.ufo/waves/round-95/frozen/c1-surfaces.json w/.ufo/waves/round-95/frozen/c1-surfaces.json
+index bd4277fc..cadca48b 100644
+--- c/.ufo/waves/round-95/frozen/c1-surfaces.json
++++ w/.ufo/waves/round-95/frozen/c1-surfaces.json
+@@ -1,331 +1,249 @@
+ {
+ "entries": [
+ {
+-"head8_sha256": "437d217a19ae29c2d0409b098603c5d4160e8b3ddeac3d02f5015b1700143ede",
+ "path": "corpus/knowledge/accessibility-review-packet.md"
+ },
+ {
+-"head8_sha256": "2629e0fc97667984729b41ad8dbacb34e6ffa0332abe201a56a24018c3c92d38",
+ "path": "corpus/knowledge/baidu-dead-link-types.md"
+ },
+ {
+-"head8_sha256": "77f99c252b366ac8ecae5e8eb9ff993c915e020785545bdca01a7c511f6ab620",
+ "path": "corpus/knowledge/baidu-friendly-crawl-guidance.md"
+ },
+ {
+-"head8_sha256": "3d392ce8aa6783037daf54262ee8766d6bdcd437a8cc05914167c91488286a52",
+ "path": "corpus/knowledge/baidu-mobile-matching-error-causes.md"
+ },
+ {
+-"head8_sha256": "632faa710de3cc0909d70c633ca98785b00254a833e1b41001e619040616c799",
+ "path": "corpus/knowledge/baidu-spider-identification.md"
+ },
+ {
+-"head8_sha256": "4c7808c591e5cb840ea46c3d99d1fabc8c647d293463c0f1dd18650c9e836b7f",
+ "path": "corpus/knowledge/baidu-spider-unblocking.md"
+ },
+ {
+-"head8_sha256": "14e72269960304a9426427a411a48c0cd0a620ae3e22fffccb5a41b837fc3bae",
+ "path": "corpus/knowledge/baidu-spider3-dead-link-model.md"
+ },
+ {
+-"head8_sha256": "4ddfaa987e3b2f7b67d3ca4baaac99bd7c9e5f926d4d131770f5bd69a41b3468",
+ "path": "corpus/knowledge/cache-control-effective.md"
+ },
+ {
+-"head8_sha256": "37eb686743953f6da8a30ccbfe39ecaf7003cb7726513db4feb4daccbb5e693f",
+ "path": "corpus/knowledge/cache-current-age.md"
+ },
+ {
+-"head8_sha256": "ec3773500db539de9972c8bb2e716490fa3ba6120950c430f0c8695a7a13bde7",
+ "path": "corpus/knowledge/cache-key-conformance-gate.md"
+ },
+ {
+-"head8_sha256": "e3f6514074aa484544b85414b082fc1adddbec8d27bf046201498d4bcdead326",
+ "path": "corpus/knowledge/cache-key-construction.md"
+ },
+ {
+-"head8_sha256": "7ca9f6d63c90d2007b3566f8ab8ccb1b095fedd0bb98c94f81e20927a0502f89",
+ "path": "corpus/knowledge/canonical-selection.md"
+ },
+ {
+-"head8_sha256": "3cb9672ce80b03d5b4e580b46a2a4930bda5db247d97d4472b3008abc9ce3b33",
+ "path": "corpus/knowledge/capture-drift-validators.md"
+ },
+ {
+-"head8_sha256": "d7e965bbe4ad083c2cab5789cc982285c44ec6f135b9af89c9e3411d8d137f1b",
+ "path": "corpus/knowledge/claim-count-derivation.md"
+ },
+ {
+-"head8_sha256": "e95b31b8819cb7ddd04cc87c4c0f4a67b7d25c58f13c512d6931b042e2b79de8",
+ "path": "corpus/knowledge/commit-citation-hygiene.md"
+ },
+ {
+-"head8_sha256": "dce7203e585eca51a0b8800c344a2d449b8cd803bb906adc412ea1064999e724",
+ "path": "corpus/knowledge/conditional-request-evaluation.md"
+ },
+ {
+-"head8_sha256": "6672a049342baee66740142a73265d1095dfe70a7ff93aaa603fae38cbee9622",
+ "path": "corpus/knowledge/crawl-budget-consequences.md"
+ },
+ {
+-"head8_sha256": "47577002c63266f89eef12af3426a7c49baf221a6fbfff6cf404e2604fc4b9cf",
+ "path": "corpus/knowledge/crawl-error-status-table.md"
+ },
+ {
+-"head8_sha256": "77cb5dd034d8f5d01b85bd63bc866de10c338bbe817e138b29b8bdff586c5f99",
+ "path": "corpus/knowledge/crawl-scope-per-host.md"
+ },
+ {
+-"head8_sha256": "b38de237e065b9f104434bf901479415d45b68e951eef336016923a09d199cf4",
+ "path": "corpus/knowledge/crawler-identity-signals.md"
+ },
+ {
+-"head8_sha256": "9f439f5c116307b4e1e128e68062feba1d73e787f397c4c45a151fcde29006e1",
+ "path": "corpus/knowledge/crawler-identity.md"
+ },
+ {
+-"head8_sha256": "a9b03c11668827924cd5d66124245c5cd5650a4ea36c77f93cf5d6eeb7961d35",
+ "path": "corpus/knowledge/crux-bigquery-origin-membership.md"
+ },
+ {
+-"head8_sha256": "c2f278d7ff1310119768dd80a93dc996146eac28a2b7e75f897ba8df567855b2",
+ "path": "corpus/knowledge/crux-keyless-check.md"
+ },
+ {
+-"head8_sha256": "662ef76620643dce6d9a3c02afb1cd6893d170c27d2812bba43463f3d444e215",
+ "path": "corpus/knowledge/drift-detection.md"
+ },
+ {
+-"head8_sha256": "6457c21c739ab4ac598dea0117002784075a2aeb6c2095aaf408127f9ff45f25",
+ "path": "corpus/knowledge/dynamic-rendering-workaround-limits.md"
+ },
+ {
+-"head8_sha256": "55cd0bfa2ce9704ef0b7e6c5e3e965aef6ef31396feaf91a8f523ef66b997b73",
+ "path": "corpus/knowledge/field-performance-cwv.md"
+ },
+ {
+-"head8_sha256": "328a57094f42009703c88f2ffaf556c6f1baf4f4ce449fca2a70df84cf6b02ee",
+ "path": "corpus/knowledge/fire-journal-codes.md"
+ },
+ {
+-"head8_sha256": "ac5e60ae579b2132c1a5f2097453fef00ea21a54ff5f1386f569030cce05f97d",
+ "path": "corpus/knowledge/fleet-registry.md"
+ },
+ {
+-"head8_sha256": "89eb4758eac6ce168a11ead12e47103d477bfa07058a5b89cdb82bd01c57380f",
+ "path": "corpus/knowledge/free-read-verbs.md"
+ },
+ {
+-"head8_sha256": "0db3eebad5d6c8071e4910d1d35dc50248757927b5f406f46bd1ab49d6da932c",
+ "path": "corpus/knowledge/freshness-sweep.md"
+ },
+ {
+-"head8_sha256": "58d636cdb58d2e24f04b61f07a47a967abc5031d2f905c6a232a0c37be2845cc",
+ "path": "corpus/knowledge/gate-agreement-metadata.md"
+ },
+ {
+-"head8_sha256": "9020d762211e7a9be58a1edd1b12a589cad5fb9de831f9c7ab31e307d554922a",
+ "path": "corpus/knowledge/gate-status-ledger.md"
+ },
+ {
+-"head8_sha256": "e2dbb6ca039a45430bd7105abc77ad5effde95da00f7a7c9c68d0aec96af1b79",
+ "path": "corpus/knowledge/ghp-custom-domain.md"
+ },
+ {
+-"head8_sha256": "23a5a42e9fc07a4a2b925aed1ef2353a02a6a5ba2ed2bc2b071f9ff1bf232c6d",
+ "path": "corpus/knowledge/ghp-etag-anatomy.md"
+ },
+ {
+-"head8_sha256": "2acad3987886b971c5845d273f03e329772691fde66b0b2cae2a57c21b99965a",
+ "path": "corpus/knowledge/ghp-served-set.md"
+ },
+ {
+-"head8_sha256": "22953fc01d326bef9ba8d8a60fad35e090cb4d49da74a229541530fc5e131214",
+ "path": "corpus/knowledge/ghp-subpath-spotcheck.md"
+ },
+ {
+-"head8_sha256": "f01d07b15cc9cfd4562bc05dfdc8f8c0fa2c1b253df7cddb7dc9120a6378fc97",
+ "path": "corpus/knowledge/google-user-triggered-fetchers.md"
+ },
+ {
+-"head8_sha256": "60a79a8cc3dae9cd37a7d77d0759c3b8ec75a5b5a26569790d41329c4714d5a3",
+ "path": "corpus/knowledge/googlebot-verification.md"
+ },
+ {
+-"head8_sha256": "1e55921c08979524924734a16dd07d5e69c4edc2b0b6296d6d93c63da1d3c5af",
+ "path": "corpus/knowledge/header-change-classes.md"
+ },
+ {
+-"head8_sha256": "a203a0921a79952e201c231ac411aef92ec8d37ed2e787b0e9a06cd5210690ec",
+ "path": "corpus/knowledge/heuristic-freshness.md"
+ },
+ {
+-"head8_sha256": "50f261d0d7791c26177169fd4f94a15b1885559341c3b94d73b56bfa152ecb65",
+ "path": "corpus/knowledge/hreflang-declaration.md"
+ },
+ {
+-"head8_sha256": "b9637246f8b0861e9e8021c4ea00b2a397c6e4542b4f9b609bbbc46a5cb863d1",
+ "path": "corpus/knowledge/http-date-grammar.md"
+ },
+ {
+-"head8_sha256": "9b77416afd7e70c760f050493cd75a93a3f44a3d86e7a3c1123c6595f78bcf87",
+ "path": "corpus/knowledge/http-list-and-method-grammar.md"
+ },
+ {
+-"head8_sha256": "57a641e38ba37525eab21747a47b0c1b4408e347f6c669f4be05bdc1ed6ad1c5",
+ "path": "corpus/knowledge/instrument-receipts.md"
+ },
+ {
+-"head8_sha256": "40a52c79806e510f315e34e734dc9c25a5c43a5b2edf4793ace2b8fb6af9f35a",
+ "path": "corpus/knowledge/js-rendering-queue.md"
+ },
+ {
+-"head8_sha256": "569d6dfa70faff56d30339f1454974e72614bea3ee2a9961bbb17162a96fe50b",
+ "path": "corpus/knowledge/keeper-timer-inert.md"
+ },
+ {
+-"head8_sha256": "d473a720e02808056d0f6bc96d108fbb91030b9fc1726c30be9ee3287b770e63",
+ "path": "corpus/knowledge/kimi-subpath-audit.md"
+ },
+ {
+-"head8_sha256": "561490b1d325f916f3035683d15fa71804bb4628b5dcbda77462206339bca688",
+ "path": "corpus/knowledge/link-preview-metadata.md"
+ },
+ {
+-"head8_sha256": "0f9434d55b8d1219f2470abf789da73b9a371f798b3903575880f7dd04041599",
+ "path": "corpus/knowledge/meta-robots-directives.md"
+ },
+ {
+-"head8_sha256": "541e1d923afa31fb5b62a3b1041f3e5905e04182837aeb83d49c08bf17bd751c",
+ "path": "corpus/knowledge/mirror-pitfalls.md"
+ },
+ {
+-"head8_sha256": "7be1a45992f071ff616c286de0a4ccb56655cb489f7d08517f7168f0969ec278",
+ "path": "corpus/knowledge/ops-automation.md"
+ },
+ {
+-"head8_sha256": "652f67c55166f7c8c717c4161f9d530f4d75050e47b4653083f1188668b7af2d",
+ "path": "corpus/knowledge/origin-repos.md"
+ },
+ {
+-"head8_sha256": "67067c26c76fab9ec694c755b6036bc9451744d7f0e6313d1150b2ad0b6aa369",
+ "path": "corpus/knowledge/pages-base-path.md"
+ },
+ {
+-"head8_sha256": "d0fc52b3d22aebce4a29445fa9d61c6bc23c854a0bad9223cfefb268597b639f",
+ "path": "corpus/knowledge/policy-value-classes.md"
+ },
+ {
+-"head8_sha256": "c9b5d2846e900df32b52720a277af953a76a6209363aa70b918cabaf83104d18",
+ "path": "corpus/knowledge/probe-delta-alerting.md"
+ },
+ {
+-"head8_sha256": "4790998dcd23bc0e66c027a904896234af001d9c041e8518c284611af76e47c8",
+ "path": "corpus/knowledge/publish-channels.md"
+ },
+ {
+-"head8_sha256": "c2485c54d2816f7153af38875e254ae616f98dc2d2cfae77ac31b32f70d84c6d",
+ "path": "corpus/knowledge/publish-queue.md"
+ },
+ {
+-"head8_sha256": "caa619823d4c94c9f2e334d67eaa1a0a3a31d7ba57465a8bf0483dbd686ee30f",
+ "path": "corpus/knowledge/receipt-integrity.md"
+ },
+ {
+-"head8_sha256": "946599641f20cfed9183fb7cad596feb1fc4e68bd8bbcb1c15372c81c86f252f",
+ "path": "corpus/knowledge/redirect-rewrite-rules.md"
+ },
+ {
+-"head8_sha256": "9f8be9705b020f812fb4da8488595f418c1b20a6dc101c57a8ead28da46dc382",
+ "path": "corpus/knowledge/referrer-policy-effective.md"
+ },
+ {
+-"head8_sha256": "827fc4db831825a075e84069b7933e9f9eb266cd6dc9d33ee900a0ceb26061b6",
+ "path": "corpus/knowledge/render-static-sites.md"
+ },
+ {
+-"head8_sha256": "3131411df6471725fcc5cf67072a8579064f1ca4bb8c522b2fcc2fdf1ec7dc8d",
+ "path": "corpus/knowledge/render-web-services.md"
+ },
+ {
+-"head8_sha256": "b0ddc4d87008a12fa4c2218489344b84dc118ac84e390ae5ec8eb3eb90b38e4b",
+ "path": "corpus/knowledge/response-header-expectations.md"
+ },
+ {
+-"head8_sha256": "80d0806075dfc7f5e78b326ada4ddd59c4430ce4bf8b9fe4aa6bb3399e4c1c10",
+ "path": "corpus/knowledge/robots-txt-limits.md"
+ },
+ {
+-"head8_sha256": "644cf3e74ee1b9336d39f4af1acfdfe2bb401dbe3e08515263d716d9432e7cbc",
+ "path": "corpus/knowledge/robots-txt-rules.md"
+ },
+ {
+-"head8_sha256": "0a4840b00a596140bc818f6bb6e278a33c661db886ad52eee40bca445e1efdff",
+ "path": "corpus/knowledge/security-txt-publishing.md"
+ },
+ {
+-"head8_sha256": "3ccbe712d7b7f1a8eca03addd621e67a7fb62060ba72312ac3d931bb2eb9ff1b",
+ "path": "corpus/knowledge/sidecar-reobservation.md"
+ },
+ {
+-"head8_sha256": "78cb4f7e4039e50df755521bd9da40cb31ee3df60818f39cb1557a0dbdc22883",
+ "path": "corpus/knowledge/sitemap-formats.md"
+ },
+ {
+-"head8_sha256": "b6e89e98c728c4c16c1bd662c716707f8c0941815aca5161ce9da45c9ac8dcf4",
+ "path": "corpus/knowledge/sitemap-orphan-audit.md"
+ },
+ {
+-"head8_sha256": "f0e811d4c9d98e3bf666003b581282258c59beaff842a5acbe35e36ad519f547",
+ "path": "corpus/knowledge/speedrun-pipeline.md"
+ },
+ {
+-"head8_sha256": "960e6cf8221c3a15ca99e3b26b6d42391d572436785b09f1b8d0a5cd2d8c1e3c",
+ "path": "corpus/knowledge/static-canonical-preflight.md"
+ },
+ {
+-"head8_sha256": "04c176d46b916abd777c3453c547cbcd21ed4d79a60581a75b43c784542c7154",
+ "path": "corpus/knowledge/stored-response-reuse.md"
+ },
+ {
+-"head8_sha256": "1a0b469b52b580e32791e2033db6ea3c8770181c823a3c8240a8b192db6825ad",
+ "path": "corpus/knowledge/vary-matching.md"
+ },
+ {
+-"head8_sha256": "ca06b30f10ae0350f3f095066b8c3bbdfcaf58173f294a50599d49126a7f0657",
+ "path": "corpus/knowledge/vault-properties.md"
+ },
+ {
+-"head8_sha256": "ab1cdde11458f786a636fd0c866c854af13207a9e9f261b1c64a2df551fbb647",
+ "path": "corpus/knowledge/x-robots-tag-header.md"
+ },
+ {
+-"head8_sha256": "f0558412071967d8a09a8e6e2e2d2fdf014ee4575e352b7d46cc289c58d2e474",
+ "path": "corpus/knowledge/yahoo-japan-deleted-url-recrawl.md"
+ },
+ {
+-"head8_sha256": "9214a148d3cd30dc88c07c3677b6b294c06bd148f79e2f1c03f86d6b7be89899",
+ "path": "corpus/knowledge/yahoo-japan-link-target-crawl-restriction.md"
+ },
+ {
+-"head8_sha256": "563a926ac8e618cfba5206b67af4a85bbd41af34c552511517cba5b64b41c62f",
+ "path": "corpus/knowledge/yahoo-japan-nonexistent-url-recrawl.md"
+ },
+ {
+-"head8_sha256": "c4688f145aa9022e5e804f4776b4da43b5078157716dc69d7386ec133230661a",
+ "path": "corpus/knowledge/yahoo-japan-rel-nofollow-semantics.md"
+ },
+ {
+-"head8_sha256": "2358dfe9a70bdf75c1399b664731214fb116263ebfd3dd43b771135299858661",
+ "path": "corpus/knowledge/yahoo-japan-robots-pattern-syntax.md"
+ },
+ {
+-"head8_sha256": "012102ab54bad2ce108deeabc02e3411f4f71e90665a8ad415e9c2dfeff8805d",
+ "path": "corpus/knowledge/yahoo-japan-robots-txt-basics.md"
+ },
+ {
+-"head8_sha256": "052110e50f40ff0c5d8bc379433f7375d1f0f5acb672d8b089c711d3916059ca",
+ "path": "corpus/knowledge/yahoo-japan-robots-txt-refusal-rules.md"
+ }
+ ],

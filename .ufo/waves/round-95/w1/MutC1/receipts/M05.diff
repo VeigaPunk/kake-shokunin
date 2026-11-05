@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M05
+@@ -301,7 +301,7 @@
+                 mismatches.append({"class": "E2", "path": "corpus/QUALITY.md",
+                                    "detail": "section %r cites missing %s"
+                                              % (head, c)})
+-            elif meta[0] != "blob" or meta[1] <= 0:
++            elif meta[0] != "blob" and meta[1] <= 0:
+                 mismatches.append({"class": "E2", "path": "corpus/QUALITY.md",
+                                    "detail": "section %r cites %s: %s of %d bytes"
+                                              % (head, c, meta[0], meta[1])})

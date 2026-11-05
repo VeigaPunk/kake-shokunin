@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r95/SentinelScope/sbx/sandbox.py", line 41, in <module>
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/fast/scratch/hyaku/kake-r95/SentinelScope/sbx/subj/x05_spec_stdlib_shutil.py", line 1, in <module>
+    import importlib.util as u,sys; s=u.spec_from_file_location('shutil','/usr/lib/python3.14/shutil.py'); m=u.module_from_spec(s); s.loader.exec_module(m); print('LOADED', m.__name__, hasattr(m,'which'))
+  File "<frozen importlib._bootstrap_external>", line 763, in exec_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "/usr/lib/python3.14/shutil.py", line 10, in <module>
+    import fnmatch
+  File "/fast/scratch/hyaku/kake-r95/SentinelScope/sbx/sandbox.py", line 33, in hook
+PermissionError: sandbox: import denied: fnmatch

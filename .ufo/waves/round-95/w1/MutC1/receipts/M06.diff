@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M06
+@@ -124,7 +124,7 @@
+ ABSENCE_OPEN_RE = re.compile(r"\[r\d{2,}-absence(?![^\]]*\])")
+ ID_RE = re.compile(r"S\d{3,}")
+ CRIT_RE = re.compile(r"Round[- ]\d+")
+-ROW_ID_RE = re.compile(r"^\|[ \t]*(S[0-9]{3,})[ \t]*\|")
++ROW_ID_RE = re.compile(r"^\|[ \t]*(S[0-9]{4,})[ \t]*\|")
+ LOCATOR_RE = re.compile(
+     r"https?://|~/|[A-Za-z0-9._/~\-]+\.(?:md|py|mjs|json|txt|html|yml|yaml)\b")
+ TMP_LOCATOR_RE = re.compile(r"(?:^|[\s`\"'])/(?:var/)?tmp/")

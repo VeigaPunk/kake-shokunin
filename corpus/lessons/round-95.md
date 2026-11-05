@@ -97,3 +97,26 @@ CriticClaims, MutC1, SentinelScope) and are not the closure.
   repair-naming rule — cite, do not port (`overlaps.md` row 2).
 - **R95-4**: the row-by-row non-author re-read of the 15 repaired SKILL.md
   rows beyond CriticClaims' X-route coverage is owed by the round closure.
+- **R95-5** (ReviewC1): 27 routes refused; three new false-green shapes —
+  NG01, NG08, NG11 (`w1/ReviewC1/ReviewC1.md`, `route_runs.txt`) — are
+  admitted-shape on synthetic lanes (refused there only by cardinality pins,
+  which are `ok` on the real lane). The successor counter must close them as
+  class rules.
+- **R95-6** (ReviewC2): the frozen C2 reference has two RFC-exact deviations
+  unobservable in the frozen population — R1 the reference over-refuses a
+  comma inside an opaque-tag where the candidate is RFC-exact, R2
+  If-Unmodified-Since under OPTIONS evaluates 412 against the §13.2.1 ignore
+  reading; contract C5 must pin the reading (`w1/ReviewC2.md`, grid 30/30).
+- **R95-7** (SentinelScope): the C2 sandbox is escapable — in-tree symlinks
+  are trusted (`abspath`, not `realpath`) and `os.execv` is unaudited, so a
+  candidate can read the counter reference end-to-end (`sentinel.md` x01–x03);
+  the C2 counter has no effectful-shadow defense (R94-2 was implemented for
+  C1 only); C1's sys.path sanitization does not cover PYTHONPATH shadows from
+  a non-script directory; and the frozen C1 docstring's "python3 -I" sentence
+  is false for the frozen `-B` command. All four are successor-counter items.
+- **R95-8** (CriticClaims): the C2 anti-table digests hand inputs only — a
+  memorizing lookup-table candidate over hand + generated cases passes met;
+  the successor anti-table must digest generated inputs too. The mutant-kill
+  rule is circular as validation (v2 semantics kill v1-semantics mutants;
+  M11, M19, M20, M33, M40) — the RFC grounding and digest pinning stand
+  against it, and both sides are recorded.

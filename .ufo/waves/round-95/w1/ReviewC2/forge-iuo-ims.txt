@@ -1,0 +1,2 @@
+D2a IU-S 600 vs lm 700 -> expect 412 if_unmodified_since; got: {'decision': '412', 'precondition': 'if_unmodified_since'}
+D2b GET lm500 ims400 ius600 -> RFC 13.2.2: IU-S passes (500<=600), then IM-S false at step 4 -> 412 if_modified_since. Got: {'decision': '200', 'precondition': None}

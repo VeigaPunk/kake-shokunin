@@ -1,0 +1,8 @@
+prediction (python replication of c95_selfassess E5 rule + identity; frozen counter NOT run):
+git apply --check /fast/scratch/hyaku/kake-r95/ExecC1Repair/repair.diff -> rc 0 (scratch copy of base bytes)
+git apply -> rc 0; result sha256 prefix 2349de2beb12 == intended patched bytes: True
+base rows 255, patched rows 260 (pins rows>=base: True)
+identity: all base first cells present: True; rows whose path-token count shrank: none
+E5-type findings at fdd5fdbe with diff: 6 (all round-95 paths; missing before instruments commit 43cdd9fc)
+E5-type findings at freeze 8f638b59 with diff (tip proxy): 0
+base SKILL E5-type occurrences at fdd5fdbe (method check): 15 occurrences, 13 distinct tokens

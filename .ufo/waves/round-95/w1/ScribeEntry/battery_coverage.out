@@ -1,0 +1,73 @@
+counter: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-95/c95_selfassess.py
+sha256: 8fd27d626883f2b6852ea2ee425706a77a72eeaee10ef740b8e0fc15ac03b193
+routes in frozen bytes: 24 (24 defect routes + clean routes)
+
+  covered   E1   no '## Gate' heading
+  covered   E1   vacuous Gate: fewer than two non-empty body lines
+  covered   E1   vacuous Gate: no admit decision line (route R01)
+  UNCOVERED E1   vacuous Gate: no reject decision line (route R01)
+  covered   E4   indented table row inside Mistakes section 1 line 1 (route R02b)
+  covered   E4   blank line inside Mistakes section 2 after row 1
+  covered   E4   carried a Mistakes section at base and now has none (deletion route F4)
+  UNCOVERED E2   section 'Round-95 criterion — x' names no corpus/lessons/ file
+  UNCOVERED E2   section 'Round-95 criterion — x' cites missing corpus/lessons/gone.md
+  covered   E2   section 'Round-95 criterion — x' cites corpus/lessons/empty.md: blob of 0 bytes
+  UNCOVERED E3   missing source:
+  UNCOVERED E3   missing verified-at:
+  UNCOVERED E3   missing recheck:
+  covered   E3   multiple source: lines (2); only the provenance trio's single line is validated (route R03)
+  covered   E3   non-citable locator: /tmp is never evidence (route R12)
+  covered   E3   unresolved row id S999
+  UNCOVERED E3   vacuous source: no row id, URL or path locator
+  covered   E5   absence marker without a closing bracket on the same line (route R10b)
+  covered   E5   annotated absent but present at the revision: scripts/t.py
+  covered   E5   names missing path scripts/gone.py
+  covered   E5   names a tree, not a blob: corpus/knowledge
+  covered   E5   names an empty blob: scripts/empty.py
+  covered   E5   names a symlink, not a regular blob: scripts/link.py (route R09)
+
+uncovered finding shapes: 7 of 23
+   E1   vacuous Gate: no reject decision line (route R01)
+   E2   section 'Round-95 criterion — x' names no corpus/lessons/ file
+   E2   section 'Round-95 criterion — x' cites missing corpus/lessons/gone.md
+   E3   missing source:
+   E3   missing verified-at:
+   E3   missing recheck:
+   E3   vacuous source: no row id, URL or path locator
+
+reachability: vacuous Gate: no reject decision line (route R01)
+  fixture defects: ['corpus/lessons/round-96.md']
+  audit emitted E1: ['vacuous Gate: no reject decision line (route R01)']
+  shape reachable: True ; covered by a battery route: False
+
+reachability: section 'Round-95 criterion — x' names no corpus/lessons/ file
+  fixture defects: ['corpus/QUALITY.md']
+  audit emitted E2: ["section 'Round-95 criterion — x' names no corpus/lessons/ file"]
+  shape reachable: True ; covered by a battery route: False
+
+reachability: section 'Round-95 criterion — x' cites missing corpus/lessons/gone.md
+  fixture defects: ['corpus/QUALITY.md']
+  audit emitted E2: ["section 'Round-95 criterion — x' cites missing corpus/lessons/gone.md"]
+  shape reachable: True ; covered by a battery route: False
+
+reachability: missing recheck:
+  fixture defects: ['corpus/knowledge/entry.md']
+  audit emitted E3: ['missing recheck:']
+  shape reachable: True ; covered by a battery route: False
+
+reachability: missing source:
+  fixture defects: ['corpus/knowledge/entry.md']
+  audit emitted E3: ['missing source:']
+  shape reachable: True ; covered by a battery route: False
+
+reachability: missing verified-at:
+  fixture defects: ['corpus/knowledge/entry.md']
+  audit emitted E3: ['missing verified-at:']
+  shape reachable: True ; covered by a battery route: False
+
+reachability: vacuous source: no row id, URL or path locator
+  fixture defects: ['corpus/knowledge/entry.md']
+  audit emitted E3: ['vacuous source: no row id, URL or path locator']
+  shape reachable: True ; covered by a battery route: False
+
+VERDICT: 7 of 23 emitted finding shapes have no battery route; every probed uncovered branch was reachable by the frozen audit.

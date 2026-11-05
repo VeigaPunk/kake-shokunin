@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M14
+@@ -427,7 +427,7 @@
+         cell = item["cell"]
+         if cell not in first_cells:
+             ident.append("skill_row:" + cell)
+-        elif row_tokens.get(cell, 0) < item["path_tokens"]:
++        elif row_tokens.get(cell, 0) > item["path_tokens"]:
+             ident.append("skill_row_tokens:%s had %d repo paths, now %d (R94-3)"
+                          % (cell, item["path_tokens"], row_tokens.get(cell, 0)))
+     for p in surfaces["mistakes_sections"]:

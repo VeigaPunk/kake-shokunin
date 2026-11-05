@@ -1,0 +1,62 @@
+ExecMutVerify — independent R94-4 mutant-scan re-derivation
+date_utc=2026-11-05T16:40:22Z
+freeze_commit=8f638b591e739e1863f5fa22334d5e15178189ed
+module=.ufo/waves/round-95/c95_conditional.py
+module_sha256=f09f84090fdda405992d7b51191be8838549e3df402b0898eb2ca00c4c3ff312 (matches controls/instrument-sha256.txt)
+mutant_base=.ufo/waves/round-93/frozen/pos-good.py sha256=0fe018a8e33ca82928a876f2b0d2e5b3f33befa00260f2fdf995418822a868e4
+mutants_json=.ufo/waves/round-93/w1/recovered-partial/MutConditional/mutants-posgood.json sha256=b09e011e9965ec978843f997be26c1a7f37fd32de04e05a75b35da4be14ee567
+receipts=.ufo/waves/round-95/frozen/c2-equiv-receipts.json sha256=4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945 content=[]
+instrument_pins=8/8 ok (sha256sum -c rc=0)
+population_pins=12/12 ok (sha256sum -c rc=0)
+python=3.14.8
+hand_cases=66 (reference_selfcheck: no drift)
+generate(95,120)->valid_expectations=120; mutant battery window=gen_expected[:40] (counter mutant_cases gen_limit=40)
+mutants=40; every find-string occurs exactly once in base (mdrift=None)
+elapsed=57.9s
+
+M01 killed=True first_failure="ifmatch/weak-tag-no-strong-match: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}"
+M02 killed=True first_failure="inm/weak-member-matches-strong-current: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}"
+M03 killed=True first_failure="ifmatch/strong-vs-weak-current: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}"
+M04 killed=True first_failure="ifmatch/weak-tag-no-strong-match: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}"
+M05 killed=True first_failure="ifmatch/star-without-representation: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}"
+M06 killed=True first_failure="ifmatch/star-with-representation: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}"
+M07 killed=True first_failure="inm/precedes-if-modified-since: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}"
+M08 killed=True first_failure="ius/ignored-when-if-match-present: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}"
+M09 killed=True first_failure="ifmatch/skipped-for-cache: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}"
+M10 killed=True first_failure="ius/skipped-for-cache: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}"
+M11 killed=True first_failure="inm/empty-member-middle-ignored: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: empty member)"
+M12 killed=True first_failure="ims/ignored-when-last-modified-absent: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}"
+M13 killed=True first_failure="inm/match-post-412: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '304', 'precondition': 'if_none_match'}"
+M14 killed=True first_failure="inm/match-get: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '412', 'precondition': 'if_none_match'}"
+M15 killed=True first_failure="ims/ignored-for-post: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}"
+M16 killed=True first_failure="refuse/etag-unquoted: expected refusal, got {'decision': '200', 'precondition': None}"
+M17 killed=True first_failure="refuse/etag-bad-char: expected refusal, got {'decision': '200', 'precondition': None}"
+M18 killed=True first_failure="refuse/ifmatch-lowercase-weak-prefix: expected refusal, got {'decision': '412', 'precondition': 'if_match'}"
+M19 killed=True first_failure="inm/empty-opaque-tag-matches: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: tag)"
+M20 killed=True first_failure="etag/obs-text-current-weak-matches: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: tag)"
+M21 killed=True first_failure="refuse/star-mixed: expected refusal, got {'decision': '304', 'precondition': 'if_none_match'}"
+M22 killed=True first_failure="refuse/empty-value: expected refusal, got {'decision': '412', 'precondition': 'if_match'}"
+M23 killed=True first_failure="refuse/last-modified-bool: expected refusal, got {'decision': '200', 'precondition': None}"
+M24 killed=True first_failure="refuse/negative-if-modified-since: expected refusal, got {'decision': '200', 'precondition': None}"
+M25 killed=True first_failure="refuse/date-as-string-not-int: expected refusal, got {'decision': '200', 'precondition': None}"
+M26 killed=True first_failure="refuse/exists-not-bool: expected refusal, got {'decision': '200', 'precondition': None}"
+M27 killed=True first_failure="refuse/absent-with-etag: expected refusal, got {'decision': '200', 'precondition': None}"
+M28 killed=True first_failure="refuse/absent-representation-with-last-modified: expected refusal, got {'decision': '200', 'precondition': None}"
+M29 killed=True first_failure="refuse/unmodified-since-malformed-under-if-match: expected refusal, got {'decision': '200', 'precondition': None}"
+M30 killed=True first_failure="refuse/role-unknown: expected refusal, got {'decision': '200', 'precondition': None}"
+M31 killed=True first_failure="refuse/unknown-top-key: expected refusal, got {'decision': '200', 'precondition': None}"
+M32 killed=True first_failure="refuse/current-extra-key: expected refusal, got {'decision': '200', 'precondition': None}"
+M33 killed=True first_failure="inm/ignored-when-current-etag-absent: expected {'decision': '200', 'precondition': None} got None (rc=1 Traceback (most recent call last):\n  File \"/fast/scratch"
+M34 killed=True first_failure="ius/equal-passes: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}"
+M35 killed=True first_failure="ims/equal-304: expected {'decision': '304', 'precondition': 'if_modified_since'} got {'decision': '200', 'precondition': None}"
+M36 killed=True first_failure="refuse/method-not-token: expected refusal, got {'decision': '200', 'precondition': None}"
+M37 killed=True first_failure="inm/lowercase-method-is-not-get: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '304', 'precondition': 'if_none_match'}"
+M38 killed=True first_failure="ifmatch/star-with-representation: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}"
+M39 killed=True first_failure="inm/weak-member-matches-strong-current: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}"
+M40 killed=True first_failure="inm/htab-around-list-members: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: tag)"
+
+M11 (round-94 survivor): killed=True first_failure="inm/empty-member-middle-ignored: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: empty member)"
+
+killed=40/40 survivors=none
+freeze_control: killed=40/40 survivors=none
+freeze_control_comparison=agree — same kill set, same (empty) survivor set

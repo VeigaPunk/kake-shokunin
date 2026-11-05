@@ -1,0 +1,22 @@
+frozen counter module sha256 = f09f84090fdda405992d7b51191be8838549e3df402b0898eb2ca00c4c3ff312
+candidate sha256 = 9cff0c34128477dbe98e1449e074206e80b0985d223de720e1453fcc6b608848
+pins file digest 93f7067c00a0faf77fc4b5d17065a7905654845f202eab4532da03b1574d6f45 (want 93f7067c00a0faf77fc4b5d17065a7905654845f202eab4532da03b1574d6f45) ok
+pinned fixtures checked=12 drift=0
+hand cases: 66
+reference selfcheck: ok
+generated expected pairs: 120 (reference-refused inputs excluded: 0)
+CANDIDATE hand=66/66 generated=120/120
+anti_table: ok
+FORGERY neg-blanket-200.py hand=40/66 gen=31/120 admitted=False first=ifmatch/weak-tag-no-strong-match: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'prec
+FORGERY neg-blanket-304.py hand=26/66 gen=9/120 admitted=False first=ifmatch/exact-match: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_none
+FORGERY neg-weak-strong-swap.py hand=53/66 gen=76/120 admitted=False first=ifmatch/weak-tag-no-strong-match: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'prec
+FORGERY neg-ignore-precedence.py hand=55/66 gen=78/120 admitted=False first=inm/precedes-if-modified-since: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition
+FORGERY neg-oracle-import.py hand=21/66 gen=0/120 admitted=False first=ifmatch/exact-match: expected {'decision': '200', 'precondition': None} got None (rc=1 Traceback (most recent call last)
+FORGERY neg-pin-reader.py hand=21/66 gen=0/120 admitted=False first=ifmatch/exact-match: expected {'decision': '200', 'precondition': None} got None (rc=1 Traceback (most recent call last)
+FORGERY neg-refuse-empty-member.py hand=61/66 gen=100/120 admitted=False first=inm/empty-member-middle-ignored: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_in
+forgeries_refused=7/7
+POSITIVE hand=66/66 gen=120/120 admitted=True first=
+mutant drift: None
+mutants killed=40/40 survivors=none
+receipted=[] unequived_survivors=[]
+DRIVER VERDICT met=true

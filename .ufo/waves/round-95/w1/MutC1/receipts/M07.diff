@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M07
+@@ -331,7 +331,7 @@
+             if unresolved:
+                 problems.append("unresolved row id " + ", ".join(unresolved))
+             elif not ids_here:
+-                if TMP_LOCATOR_RE.search(line):
++                if False and TMP_LOCATOR_RE.search(line):
+                     problems.append("non-citable locator: /tmp is never evidence "
+                                     "(route R12)")
+                 elif not LOCATOR_RE.search(line):

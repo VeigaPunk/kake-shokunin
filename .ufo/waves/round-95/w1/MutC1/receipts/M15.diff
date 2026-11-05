@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M15
+@@ -406,7 +406,7 @@
+         if text is None:
+             ident.append("lesson:" + path)
+             continue
+-        if hashlib.sha256(text.encode("utf-8")).hexdigest() != item["sha256"]:
++        if hashlib.sha256(text.encode("utf-8")).hexdigest() == item["sha256"]:
+             ident.append("lesson-content:" + path)
+         twins = [q for q in by_basename.get(os.path.basename(path), []) if q != path]
+         for q in twins:

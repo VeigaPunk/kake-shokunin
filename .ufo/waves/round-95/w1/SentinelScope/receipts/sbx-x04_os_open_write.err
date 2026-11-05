@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r95/SentinelScope/sbx/sandbox.py", line 41, in <module>
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/fast/scratch/hyaku/kake-r95/SentinelScope/sbx/subj/x04_os_open_write.py", line 1, in <module>
+    import os; fd=os.open('/fast/scratch/hyaku/kake-r95/SentinelScope/sbx/work/osopen_marker', os.O_CREAT|os.O_WRONLY); os.write(fd,b'x'); os.close(fd)
+  File "/fast/scratch/hyaku/kake-r95/SentinelScope/sbx/sandbox.py", line 29, in hook
+PermissionError: sandbox: open outside the subject tree: /fast/scratch/hyaku/kake-r95/SentinelScope/sbx/work/osopen_marker

@@ -1,0 +1,43 @@
+PRISTINE frozen counter (lane-shaped side tree)
+  battery=20/20 admit=5/5 shadow_absent=1 predecessor_admits=10/19
+  audit shapes on a deliberately broken tree:
+     E1 vacuous Gate: no reject decision line (route R01)
+     E3 missing recheck:
+
+MUTATION E1-reject-vocabulary       kills E1 vacuous Gate: no reject decision line
+   battery=20/20 admit=5/5 shadow_absent=1 predecessor_admits=10/19
+   battery verdict UNCHANGED: True ; shape still emitted: False
+   ==> PROVEN GAP: the branch is gone and the battery cannot see it
+MUTATION E2-no-lesson-citation      kills E2 section %r names no corpus/lessons/ file
+   battery=20/20 admit=5/5 shadow_absent=1 predecessor_admits=10/19
+   battery verdict UNCHANGED: True ; shape still emitted: False
+   ==> PROVEN GAP: the branch is gone and the battery cannot see it
+MUTATION E2-cites-missing           kills E2 section %r cites missing %s
+   battery=20/20 admit=5/5 shadow_absent=1 predecessor_admits=10/19
+   battery verdict UNCHANGED: True ; shape still emitted: False
+   ==> PROVEN GAP: the branch is gone and the battery cannot see it
+MUTATION E3-missing-source          kills E3 missing source:
+   battery=20/20 admit=5/5 shadow_absent=1 predecessor_admits=10/19
+   battery verdict UNCHANGED: True ; shape still emitted: False
+   ==> PROVEN GAP: the branch is gone and the battery cannot see it
+MUTATION E3-missing-verified-at     kills E3 missing verified-at:
+   battery=20/20 admit=5/5 shadow_absent=1 predecessor_admits=10/19
+   battery verdict UNCHANGED: True ; shape still emitted: False
+   ==> PROVEN GAP: the branch is gone and the battery cannot see it
+MUTATION E3-missing-recheck         kills E3 missing recheck:
+   battery=20/20 admit=5/5 shadow_absent=1 predecessor_admits=10/19
+   battery verdict UNCHANGED: True ; shape still emitted: False
+   ==> PROVEN GAP: the branch is gone and the battery cannot see it
+MUTATION E3-vacuous-source          kills E3 vacuous source: no row id, URL or path locator
+   battery=20/20 admit=5/5 shadow_absent=1 predecessor_admits=10/19
+   battery verdict UNCHANGED: True ; shape still emitted: False
+   ==> PROVEN GAP: the branch is gone and the battery cannot see it
+
+summary
+   E1-reject-vocabulary       E1 vacuous Gate: no reject decision line battery-unchanged shape-eliminated
+   E2-no-lesson-citation      E2 section %r names no corpus/lessons/ file battery-unchanged shape-eliminated
+   E2-cites-missing           E2 section %r cites missing %s           battery-unchanged shape-eliminated
+   E3-missing-source          E3 missing source:                       battery-unchanged shape-eliminated
+   E3-missing-verified-at     E3 missing verified-at:                  battery-unchanged shape-eliminated
+   E3-missing-recheck         E3 missing recheck:                      battery-unchanged shape-eliminated
+   E3-vacuous-source          E3 vacuous source: no row id, URL or path locator battery-unchanged shape-eliminated

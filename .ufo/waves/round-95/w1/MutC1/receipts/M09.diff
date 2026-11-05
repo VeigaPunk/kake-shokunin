@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M09
+@@ -264,7 +264,7 @@
+         for idx, body in enumerate(mistakes):
+             lines = body.splitlines()
+             for i, line in enumerate(lines):
+-                if re.match(r"^[ \t]+\|", line):
++                if re.match(r"^\t+\|", line):
+                     mismatches.append({
+                         "class": "E4", "path": path,
+                         "detail": "indented table row inside Mistakes section %d "

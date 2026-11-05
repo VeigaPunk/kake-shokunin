@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M16
+@@ -393,7 +393,7 @@
+     pins = {"lessons": len(lessons), "entries": len(entries), "rows": rows,
+             "criteria": len(criteria)}
+     base_pins = BASE_PINS if base_pins is None else base_pins
+-    short = [k for k, v in base_pins.items() if pins[k] < v]
++    short = [k for k, v in base_pins.items() if pins[k] <= v]
+     ident = []
+     # Identity, pinned by CONTENT (R08): base lesson paths must still carry the
+     # same blob digest, and their basenames must not appear at other paths.

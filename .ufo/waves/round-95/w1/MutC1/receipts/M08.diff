@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M08
+@@ -321,7 +321,7 @@
+             if not re.search(r"(?m)^" + key + r":\s*\S", head):
+                 problems.append("missing %s:" % key)
+         source_lines = re.findall(r"(?m)^source:.*$", head)
+-        if len(source_lines) > 1:
++        if len(source_lines) > 2:
+             problems.append("multiple source: lines (%d); only the provenance "
+                             "trio's single line is validated (route R03)"
+                             % len(source_lines))

@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M10
+@@ -277,7 +277,7 @@
+                         "class": "E4", "path": path,
+                         "detail": "blank line inside Mistakes section %d after "
+                                   "row %d" % (idx + 1, i + 1)})
+-        if path in set(surfaces["mistakes_sections"]) and not mistakes:
++        if path in set(surfaces["mistakes_sections"]) and mistakes is None:
+             mismatches.append({"class": "E4", "path": path,
+                                "detail": "carried a Mistakes section at base and "
+                                          "now has none (deletion route F4)"})

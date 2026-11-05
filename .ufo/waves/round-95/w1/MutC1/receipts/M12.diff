@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M12
+@@ -121,7 +121,7 @@
+ LESSON_SKIP = ("-verifier-spotcheck.md",)
+ PATH_RE = re.compile(r"`((?:scripts|corpus|\.ufo)/[^`\s]+)`")
+ ABSENCE_SPAN_RE = re.compile(r"\[r\d{2,}-absence\b[^\]]*\]")
+-ABSENCE_OPEN_RE = re.compile(r"\[r\d{2,}-absence(?![^\]]*\])")
++ABSENCE_OPEN_RE = re.compile(r"\[r\d{3,}-absence(?![^\]]*\])")
+ ID_RE = re.compile(r"S\d{3,}")
+ CRIT_RE = re.compile(r"Round[- ]\d+")
+ ROW_ID_RE = re.compile(r"^\|[ \t]*(S[0-9]{3,})[ \t]*\|")

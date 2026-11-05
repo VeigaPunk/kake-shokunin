@@ -1,0 +1,25 @@
+body .ufo/waves/round-94/w1/ScoutRFC/rfc9110.txt sha256=21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a bytes=502941
+body .ufo/waves/round-90/L1/src/rfc8259.txt sha256=61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7 bytes=28360
+draft quoted lines: 21
+C1-empty-elements        grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     Empty elements do not contribute to the count of elem
+C1-must-accept-a         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     recipient MUST parse and ignore a reasonable number o
+C1-must-accept-b         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     elements: enough to handle common mistakes by senders
+C1-must-accept-c         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     values, but not so much that they could be used as a 
+C1-must-accept-d         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     service mechanism.  In other words, a recipient MUST 
+C1-must-accept-e         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     that satisfy the following syntax:
+C1-list-syntax           grep_rc=0 grep_count=1 bytes_exact=True in_draft=True      #element => [ element ] *( OWS "," OWS [ element ] )
+C1-ows                   grep_rc=0 grep_count=1 bytes_exact=True in_draft=True      OWS            = *( SP / HTAB )
+C2-etagc                 grep_rc=0 grep_count=1 bytes_exact=True in_draft=True       etagc      = %x21 / %x23-7E / obs-text
+C2-etagc-comment         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True                  ; VCHAR except double quotes, plus obs-t
+C2-obs-text              grep_rc=0 grep_count=1 bytes_exact=True in_draft=True       obs-text       = %x80-FF
+C5-inm-304-412-a         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     An origin server that evaluates an If-None-Match cond
+C5-inm-304-412-b         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     perform the requested method if the condition evaluat
+C5-inm-304-412-c         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     instead, the origin server MUST respond with either a
+C5-inm-304-412-d         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     Modified) status code if the request method is GET or
+C5-inm-304-412-e         grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     412 (Precondition Failed) status code for all other r
+C5-ims-ignore-a          grep_rc=0 grep_count=2 bytes_exact=True in_draft=True     A recipient MUST ignore the If-Modified-Since header 
+C5-ims-ignore-b          grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     received field value is not a valid HTTP-date, the fi
+C5-ims-ignore-c          grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     more than one member, or if the request method is nei
+C5-ims-ignore-d          grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     HEAD.
+C4-json-unique-names     grep_rc=0 grep_count=1 bytes_exact=True in_draft=True     name.  The names within an object SHOULD be unique.
+violations 0

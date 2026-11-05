@@ -1,0 +1,202 @@
+[
+ {
+  "id": "M01",
+  "killed": true,
+  "first_failure": "ifmatch/weak-tag-no-strong-match: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M02",
+  "killed": true,
+  "first_failure": "inm/weak-member-matches-strong-current: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M03",
+  "killed": true,
+  "first_failure": "ifmatch/strong-vs-weak-current: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M04",
+  "killed": true,
+  "first_failure": "ifmatch/weak-tag-no-strong-match: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M05",
+  "killed": true,
+  "first_failure": "ifmatch/star-without-representation: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M06",
+  "killed": true,
+  "first_failure": "ifmatch/star-with-representation: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}"
+ },
+ {
+  "id": "M07",
+  "killed": true,
+  "first_failure": "inm/precedes-if-modified-since: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}"
+ },
+ {
+  "id": "M08",
+  "killed": true,
+  "first_failure": "ius/ignored-when-if-match-present: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}"
+ },
+ {
+  "id": "M09",
+  "killed": true,
+  "first_failure": "ifmatch/skipped-for-cache: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}"
+ },
+ {
+  "id": "M10",
+  "killed": true,
+  "first_failure": "ius/skipped-for-cache: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}"
+ },
+ {
+  "id": "M11",
+  "killed": true,
+  "first_failure": "inm/empty-member-middle-ignored: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: empty member)"
+ },
+ {
+  "id": "M12",
+  "killed": true,
+  "first_failure": "ims/ignored-when-last-modified-absent: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}"
+ },
+ {
+  "id": "M13",
+  "killed": true,
+  "first_failure": "inm/match-post-412: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '304', 'precondition': 'if_none_match'}"
+ },
+ {
+  "id": "M14",
+  "killed": true,
+  "first_failure": "inm/match-get: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '412', 'precondition': 'if_none_match'}"
+ },
+ {
+  "id": "M15",
+  "killed": true,
+  "first_failure": "ims/ignored-for-post: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}"
+ },
+ {
+  "id": "M16",
+  "killed": true,
+  "first_failure": "refuse/etag-unquoted: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M17",
+  "killed": true,
+  "first_failure": "refuse/etag-bad-char: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M18",
+  "killed": true,
+  "first_failure": "refuse/ifmatch-lowercase-weak-prefix: expected refusal, got {'decision': '412', 'precondition': 'if_match'}"
+ },
+ {
+  "id": "M19",
+  "killed": true,
+  "first_failure": "inm/empty-opaque-tag-matches: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: tag)"
+ },
+ {
+  "id": "M20",
+  "killed": true,
+  "first_failure": "etag/obs-text-current-weak-matches: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: tag)"
+ },
+ {
+  "id": "M21",
+  "killed": true,
+  "first_failure": "refuse/star-mixed: expected refusal, got {'decision': '304', 'precondition': 'if_none_match'}"
+ },
+ {
+  "id": "M22",
+  "killed": true,
+  "first_failure": "refuse/empty-value: expected refusal, got {'decision': '412', 'precondition': 'if_match'}"
+ },
+ {
+  "id": "M23",
+  "killed": true,
+  "first_failure": "refuse/last-modified-bool: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M24",
+  "killed": true,
+  "first_failure": "refuse/negative-if-modified-since: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M25",
+  "killed": true,
+  "first_failure": "refuse/date-as-string-not-int: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M26",
+  "killed": true,
+  "first_failure": "refuse/exists-not-bool: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M27",
+  "killed": true,
+  "first_failure": "refuse/absent-with-etag: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M28",
+  "killed": true,
+  "first_failure": "refuse/absent-representation-with-last-modified: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M29",
+  "killed": true,
+  "first_failure": "refuse/unmodified-since-malformed-under-if-match: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M30",
+  "killed": true,
+  "first_failure": "refuse/role-unknown: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M31",
+  "killed": true,
+  "first_failure": "refuse/unknown-top-key: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M32",
+  "killed": true,
+  "first_failure": "refuse/current-extra-key: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M33",
+  "killed": true,
+  "first_failure": "inm/ignored-when-current-etag-absent: expected {'decision': '200', 'precondition': None} got None (rc=1 Traceback (most recent call last):\n  File \"/fast/scratch"
+ },
+ {
+  "id": "M34",
+  "killed": true,
+  "first_failure": "ius/equal-passes: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}"
+ },
+ {
+  "id": "M35",
+  "killed": true,
+  "first_failure": "ims/equal-304: expected {'decision': '304', 'precondition': 'if_modified_since'} got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M36",
+  "killed": true,
+  "first_failure": "refuse/method-not-token: expected refusal, got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M37",
+  "killed": true,
+  "first_failure": "inm/lowercase-method-is-not-get: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '304', 'precondition': 'if_none_match'}"
+ },
+ {
+  "id": "M38",
+  "killed": true,
+  "first_failure": "ifmatch/star-with-representation: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}"
+ },
+ {
+  "id": "M39",
+  "killed": true,
+  "first_failure": "inm/weak-member-matches-strong-current: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}"
+ },
+ {
+  "id": "M40",
+  "killed": true,
+  "first_failure": "inm/htab-around-list-members: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: tag)"
+ }
+]

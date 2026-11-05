@@ -1,0 +1,15 @@
+GET https://www.rfc-editor.org/errata_search.php?rfc=9110
+requested_url: https://www.rfc-editor.org/errata_search.php?rfc=9110 (bare form; not empty, so &rec_updated=1 was NOT appended)
+redirect: HTTP/2 302, content-length 0, location https://errata.rfc-editor.org/search/?rfc_number=9110 (followed automatically by curl -L inside the same single invocation)
+final_url: https://errata.rfc-editor.org/search/?rfc_number=9110
+http_status: 200 (final); 302 (first hop)
+content_type: text/html; charset=utf-8
+server_date: Thu, 05 Nov 2026 16:32:52 GMT (final hop Date header)
+accessed_utc: 2026-11-05T16:32:51Z (date -u taken in the same shell command immediately before curl)
+bytes: 97741 (wc -c of the saved body; stat -c %s of the retained copy = 97741)
+sha256: e6ddebb240b522f36acf0ccc9b6a52030a35ff77d17203dbd1fcf6d1339c0911
+client: curl 8.23.0 (x86_64-pc-linux-gnu) libcurl/8.23.0 OpenSSL/3.6.5
+command: curl -sS -L -o errata-9110.html -D headers.txt -w '%{http_code}' -A 'Mozilla/5.0 (kake-r95 ScoutErrata)' 'https://www.rfc-editor.org/errata_search.php?rfc=9110'   (rc 0, printed 200)
+retained_copy: .ufo/waves/round-95/w1/ScoutErrata/errata-9110.html (cmp identical to the scratch body; sha256 identical)
+page_fetches: exactly one curl invocation; one page; no crawl, no per-EID page opened. The 302 hop is the origin's move of the errata search to errata.rfc-editor.org, not a second page request by this seat.
+headers_note: the raw response headers carried Cloudflare __cf_bm set-cookie values; they are not retained in the lane (the header dump stayed in scratch and was deleted with it).

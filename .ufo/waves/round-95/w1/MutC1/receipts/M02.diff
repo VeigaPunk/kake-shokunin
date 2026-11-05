@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M02
+@@ -242,7 +242,7 @@
+                                "detail": "no '## Gate' heading"})
+         for head_line, body in gates:
+             nonempty = [l for l in body.splitlines() if l.strip()]
+-            if len(nonempty) < 2:
++            if len(nonempty) < 3:
+                 mismatches.append({"class": "E1", "path": path,
+                                    "detail": "vacuous Gate: fewer than two "
+                                              "non-empty body lines"})

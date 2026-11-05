@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M11
+@@ -203,7 +203,7 @@
+ 
+ def strip_path_suffixes(raw):
+     """R05/R05b: drop a trailing `#anchor` (e.g. `#L42`) and `:line` suffix."""
+-    raw = re.sub(r"#([^#]*)$", "", raw)
++    raw = re.sub(r"#KEEP([^#]*)$", "", raw)
+     raw = re.sub(r":\d+(-\d+)?$", "", raw)
+     return raw
+ 

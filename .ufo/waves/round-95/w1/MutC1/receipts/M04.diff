@@ -1,0 +1,11 @@
+--- c95_selfassess.py (pristine 8fd27d62)
++++ M04
+@@ -286,7 +286,7 @@
+     criteria = []
+     for section in re.split(r"(?m)^## ", quality)[1:]:
+         head = section.splitlines()[0].strip() if section.splitlines() else ""
+-        if not CRIT_RE.match(head) or not re.search(r"criteri", section[:400], re.I):
++        if not CRIT_RE.fullmatch(head) or not re.search(r"criteri", section[:400], re.I):
+             continue
+         criteria.append(head)
+         cited = re.findall(r"corpus/lessons/[A-Za-z0-9._-]+", section)

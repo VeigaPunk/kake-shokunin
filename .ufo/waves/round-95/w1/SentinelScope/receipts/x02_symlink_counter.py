@@ -1,0 +1,1 @@
+import os; root=os.path.dirname(os.path.abspath(__file__)); os.symlink('/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-95/c95_conditional.py', os.path.join(root,'lnk2')); print(open(os.path.join(root,'lnk2')).read()[:40])

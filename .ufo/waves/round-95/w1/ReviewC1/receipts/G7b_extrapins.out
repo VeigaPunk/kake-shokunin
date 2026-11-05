@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/fast/scratch/hyaku/kake-r95/ReviewC1/instruments/c95_selfassess.py", line 1090, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/fast/scratch/hyaku/kake-r95/ReviewC1/instruments/c95_selfassess.py", line 1081, in main
+    return report(root, rev, base_pins or BASE_PINS, surfaces=None,
+                  self_pin=a.self_pin, verdict_only=a.verdict_only,
+                  work=a.work)
+  File "/fast/scratch/hyaku/kake-r95/ReviewC1/instruments/c95_selfassess.py", line 848, in report
+    pins, short, ident, mismatches, counts = audit(root, rev, base_pins=base_pins,
+                                             ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                   surfaces=surfaces)
+                                                   ^^^^^^^^^^^^^^^^^^
+  File "/fast/scratch/hyaku/kake-r95/ReviewC1/instruments/c95_selfassess.py", line 396, in audit
+    short = [k for k, v in base_pins.items() if pins[k] < v]
+                                                ~~~~^^^
+KeyError: 'extra'

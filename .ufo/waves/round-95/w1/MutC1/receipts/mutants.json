@@ -1,0 +1,441 @@
+{
+ "target": "c95_selfassess.py",
+ "pristine_sha256": "8fd27d626883f2b6852ea2ee425706a77a72eeaee10ef740b8e0fc15ac03b193",
+ "surfaces_sha256": "00a04c9a68f00de1561d70822a8ff3cab718583de4cd2cbf6ebd06e87b5d47b8",
+ "base_revision": "fdd5fdbeb8a2ba6c18f0f23135d1bee98068dca3",
+ "predecessor": ".ufo/waves/round-94/c94_selfassess.py sha256 58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a (side-tree copy, byte-identical to lane)",
+ "baseline": {
+  "full_rc": 1,
+  "selftest_rc": 0,
+  "line1": "C1v95 revision=fdd5fdbeb8a2ba6c18f0f23135d1bee98068dca3 counter=8fd27d626883f2b6852ea2ee425706a77a72eeaee10ef740b8e0fc15ac03b193 lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=20/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+  "selftest_tail": "selftest 13/13 planted findings, exit 1 on planted, exit 0 on repaired, battery 20/20 admit 5/5 shadow ok, predecessor_admits 10/19, --surfaces-file refused"
+ },
+ "kill_rule": "killed iff selftest rc != baseline(0) OR baseline line-1 audit field of the guarded rule class changes OR battery verdict fields change",
+ "mutants": [
+  {
+   "id": "M01",
+   "class": "E1-heading",
+   "find_count": 1,
+   "mutant_sha256_16": "84634e6a36cf3349",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: clean fixture [{'class': 'E1', 'path': 'corpus/lessons/round-01.md', 'detail': \"no '## Gate' heading\"}, {'class': 'E1', 'path': 'corpus/lessons/round-02.md', 'detail': \"no '## Gate' hea",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=107 E1=89 E2=0 E3=3 E4=0 E5=15 pins=ok battery=18/20 admit=0/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "E1",
+    "admit",
+    "battery",
+    "counter",
+    "mismatches"
+   ],
+   "battery_changed": [
+    "admit",
+    "battery"
+   ],
+   "audit_changed": [
+    "E1",
+    "mismatches"
+   ],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:admit,battery",
+    "baseline-rule:E1"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M02",
+   "class": "E1-vacuity",
+   "find_count": 1,
+   "mutant_sha256_16": "4779d46dcb36c25d",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: clean fixture [{'class': 'E1', 'path': 'corpus/lessons/round-01.md', 'detail': 'vacuous Gate: fewer than two non-empty body lines'}, {'class': 'E1', 'path': 'corpus/lessons/round-02.md'",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=19/20 admit=0/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "admit",
+    "battery",
+    "counter"
+   ],
+   "battery_changed": [
+    "admit",
+    "battery"
+   ],
+   "audit_changed": [],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:admit,battery"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M03",
+   "class": "E1-vocabulary",
+   "find_count": 1,
+   "mutant_sha256_16": "77c644c715a0e348",
+   "selftest_rc": 0,
+   "selftest_tail": "selftest 13/13 planted findings, exit 1 on planted, exit 0 on repaired, battery 20/20 admit 5/5 shadow ok, predecessor_admits 10/19, --surfaces-file refused",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=20/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "counter"
+   ],
+   "battery_changed": [],
+   "audit_changed": [],
+   "channels": [],
+   "verdict": "survived"
+  },
+  {
+   "id": "M04",
+   "class": "E2-scope",
+   "find_count": 1,
+   "mutant_sha256_16": "a0ec15fcee1fd48f",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: clean fixture [] short=['criteria'] ident=['criterion:Round-01 criterion \u2014 a thing']",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=0 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=short battery=19/20 admit=0/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "admit",
+    "battery",
+    "counter",
+    "criteria",
+    "pins"
+   ],
+   "battery_changed": [
+    "admit",
+    "battery"
+   ],
+   "audit_changed": [
+    "criteria",
+    "pins"
+   ],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:admit,battery"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M05",
+   "class": "E2-blob",
+   "find_count": 1,
+   "mutant_sha256_16": "3a7e6c29113e7518",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL routes: {\"B18-criteria-empty-lesson\": {\"refused_ok\": false, \"hit\": false, \"pred_admits\": false, \"mismatches\": 0, \"identity\": 1}}",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=19/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "battery",
+    "counter"
+   ],
+   "battery_changed": [
+    "battery"
+   ],
+   "audit_changed": [],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:battery"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M06",
+   "class": "E3-rowid",
+   "find_count": 1,
+   "mutant_sha256_16": "6ec4b48c312c4a9c",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: clean fixture [{'class': 'E3', 'path': 'corpus/knowledge/entry.md', 'detail': 'unresolved row id S001'}] short=[] ident=[]",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=95 E1=0 E2=0 E3=80 E4=0 E5=15 pins=ok battery=20/20 admit=0/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "E3",
+    "admit",
+    "counter",
+    "mismatches"
+   ],
+   "battery_changed": [
+    "admit"
+   ],
+   "audit_changed": [
+    "E3",
+    "mismatches"
+   ],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:admit",
+    "baseline-rule:E3"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M07",
+   "class": "E3-locator",
+   "find_count": 1,
+   "mutant_sha256_16": "5f13afc18c8e1323",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: ['E3 tmp locator'] not found in [('E4', 'carried a Mistakes section at base and now has none (deletion route F4)'), ('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E4', '",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=17 E1=0 E2=0 E3=2 E4=0 E5=15 pins=ok battery=19/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "E3",
+    "battery",
+    "counter",
+    "mismatches"
+   ],
+   "battery_changed": [
+    "battery"
+   ],
+   "audit_changed": [
+    "E3",
+    "mismatches"
+   ],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:battery",
+    "baseline-rule:E3"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M08",
+   "class": "E3-multi-source",
+   "find_count": 1,
+   "mutant_sha256_16": "6f1176e785063dd9",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: ['E3 dual source'] not found in [('E4', 'carried a Mistakes section at base and now has none (deletion route F4)'), ('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E4', '",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=16 E1=0 E2=0 E3=1 E4=0 E5=15 pins=ok battery=19/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "E3",
+    "battery",
+    "counter",
+    "mismatches"
+   ],
+   "battery_changed": [
+    "battery"
+   ],
+   "audit_changed": [
+    "E3",
+    "mismatches"
+   ],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:battery",
+    "baseline-rule:E3"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M09",
+   "class": "E4-indent",
+   "find_count": 1,
+   "mutant_sha256_16": "60415f715a6d9a88",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: ['E4 indented row (r03)'] not found in [('E4', 'carried a Mistakes section at base and now has none (deletion route F4)'), ('E1', 'vacuous Gate: fewer than two non-empty body lines'), (",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=19/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "battery",
+    "counter"
+   ],
+   "battery_changed": [
+    "battery"
+   ],
+   "audit_changed": [],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:battery"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M10",
+   "class": "E4-deletion",
+   "find_count": 1,
+   "mutant_sha256_16": "a82793e1acc0a544",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: ['E4 deletion via identity (r02)'] not found in [('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E4', 'indented table row inside Mistakes section 1 line 2 (route R02b)'),",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=19/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "battery",
+    "counter"
+   ],
+   "battery_changed": [
+    "battery"
+   ],
+   "audit_changed": [],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:battery"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M11",
+   "class": "E5-suffix-strip",
+   "find_count": 1,
+   "mutant_sha256_16": "5a509e035e8c3139",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL routes: {\"C02-anchor-existing\": {\"admitted\": false, \"mismatches\": 1}}",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=20/20 admit=4/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "admit",
+    "counter"
+   ],
+   "battery_changed": [
+    "admit"
+   ],
+   "audit_changed": [],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:admit"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M12",
+   "class": "E5-absence-open",
+   "find_count": 1,
+   "mutant_sha256_16": "1cf176de9c12e756",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: ['E5 unclosed absence'] not found in [('E4', 'carried a Mistakes section at base and now has none (deletion route F4)'), ('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=19/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "battery",
+    "counter"
+   ],
+   "battery_changed": [
+    "battery"
+   ],
+   "audit_changed": [],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:battery"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M13",
+   "class": "E5-symlink",
+   "find_count": 1,
+   "mutant_sha256_16": "8330ea0d200d0dff",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: ['E5 symlink'] not found in [('E4', 'carried a Mistakes section at base and now has none (deletion route F4)'), ('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E4', 'inde",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=19/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "battery",
+    "counter"
+   ],
+   "battery_changed": [
+    "battery"
+   ],
+   "audit_changed": [],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:battery"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M14",
+   "class": "identity-path-tokens",
+   "find_count": 1,
+   "mutant_sha256_16": "7a7e5bdf6a966dee",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL routes: {\"B15-row-token-stripped\": {\"refused_ok\": false, \"hit\": false, \"pred_admits\": true, \"mismatches\": 0, \"identity\": 0}}",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=ok battery=19/20 admit=5/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "battery",
+    "counter"
+   ],
+   "battery_changed": [
+    "battery"
+   ],
+   "audit_changed": [],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:battery"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M15",
+   "class": "identity-content",
+   "find_count": 1,
+   "mutant_sha256_16": "27fb09615e4f6214",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: clean fixture [] short=[] ident=['lesson-content:corpus/lessons/round-01.md', 'lesson-content:corpus/lessons/round-02.md']",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=identity battery=20/20 admit=0/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "admit",
+    "counter",
+    "pins"
+   ],
+   "battery_changed": [
+    "admit"
+   ],
+   "audit_changed": [
+    "pins"
+   ],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:admit",
+    "baseline-rule:pins"
+   ],
+   "verdict": "killed"
+  },
+  {
+   "id": "M16",
+   "class": "cardinality-short",
+   "find_count": 1,
+   "mutant_sha256_16": "7e509eb0dcc4c129",
+   "selftest_rc": 1,
+   "selftest_tail": "selftest FAIL: clean fixture [] short=['lessons', 'entries', 'criteria'] ident=[]",
+   "base_rc": 1,
+   "line1_norm": "C1v95 revision=<rev> counter=<sha> lessons=89 entries=82 rows=255 criteria=39 mismatches=18 E1=0 E2=0 E3=3 E4=0 E5=15 pins=short battery=20/20 admit=0/5 shadow=absent predecessor_admits=10/19 floor=4 self_pin=ok met=false",
+   "baseline_run": "ok",
+   "changed_fields": [
+    "admit",
+    "counter",
+    "pins"
+   ],
+   "battery_changed": [
+    "admit"
+   ],
+   "audit_changed": [
+    "pins"
+   ],
+   "channels": [
+    "selftest(rc=1)",
+    "battery:admit",
+    "baseline-rule:pins"
+   ],
+   "verdict": "killed"
+  }
+ ],
+ "mutants_total": 16,
+ "killed": 15,
+ "battery_killed": 15,
+ "floor_2_of_3_met": true
+}

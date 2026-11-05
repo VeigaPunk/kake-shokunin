@@ -1,0 +1,1309 @@
+[
+ [
+  "ifmatch/exact-match",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"1\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ifmatch/weak-tag-no-strong-match",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "W/\"1\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_match"
+  }
+ ],
+ [
+  "ifmatch/strong-vs-weak-current",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "W/\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"1\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_match"
+  }
+ ],
+ [
+  "ifmatch/list-second-member",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"b\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"a\", \"b\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ifmatch/star-with-representation",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": "*",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ifmatch/star-without-representation",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": false,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": "*",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_match"
+  }
+ ],
+ [
+  "ifmatch/list-no-member",
+  {
+   "method": "DELETE",
+   "current": {
+    "exists": true,
+    "etag": "\"z\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"a\", \"b\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_match"
+  }
+ ],
+ [
+  "ifmatch/skipped-for-cache",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"z\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"a\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   },
+   "role": "cache"
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ius/older-modification-passes",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 600
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ius/equal-passes",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 600
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 600
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ius/newer-fails",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 700
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 600
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_unmodified_since"
+  }
+ ],
+ [
+  "ius/ignored-when-last-modified-absent",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 0
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ius/ignored-when-if-match-present",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 700
+   },
+   "request": {
+    "if_match": "\"1\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 600
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ius/skipped-for-cache",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 700
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 600
+   },
+   "role": "cache"
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "inm/match-get",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "inm/weak-member-matches-strong-current",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "W/\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "inm/weak-current-matches-strong-member",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "W/\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "inm/both-weak-different",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "W/\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "W/\"2\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "inm/match-post-412",
+  {
+   "method": "POST",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "inm/star-with-representation",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "*",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "inm/star-without-representation",
+  {
+   "method": "GET",
+   "current": {
+    "exists": false,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "*",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "inm/no-match",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"2\", \"3\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "inm/precedes-if-modified-since",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"2\"",
+    "if_modified_since": 900,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "inm/ignored-when-current-etag-absent",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ims/equal-304",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 500,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_modified_since"
+  }
+ ],
+ [
+  "ims/later-value-304",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 900,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_modified_since"
+  }
+ ],
+ [
+  "ims/earlier-value-200",
+  {
+   "method": "HEAD",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 400,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ims/ignored-for-post",
+  {
+   "method": "POST",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 900,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ims/ignored-when-last-modified-absent",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 900,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ims/ignored-when-if-none-match-present",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"9\"",
+    "if_modified_since": 900,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "refuse/unknown-top-key",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   },
+   "role_hint": "origin"
+  },
+  null
+ ],
+ [
+  "refuse/method-not-token",
+  {
+   "method": "G ET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/exists-not-bool",
+  {
+   "method": "GET",
+   "current": {
+    "exists": 1,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/last-modified-bool",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": true
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/etag-unquoted",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/etag-bad-char",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"a b\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/star-mixed",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "*, \"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/empty-value",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "  ",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/absent-with-etag",
+  {
+   "method": "GET",
+   "current": {
+    "exists": false,
+    "etag": "\"1\"",
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/date-as-string-not-int",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": "400",
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/date-bool",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": false
+   }
+  },
+  null
+ ],
+ [
+  "refuse/negative-date",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": -5
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/role-unknown",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   },
+   "role": "proxy"
+  },
+  null
+ ],
+ [
+  "ius/unbounded-when-last-modified-absent",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 600
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "refuse/ifmatch-lowercase-weak-prefix",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "w/\"1\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "inm/empty-opaque-tag-matches",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "refuse/negative-if-modified-since",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": -1,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/absent-representation-with-last-modified",
+  {
+   "method": "GET",
+   "current": {
+    "exists": false,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "refuse/unmodified-since-malformed-under-if-match",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"1\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": -1
+   }
+  },
+  null
+ ],
+ [
+  "refuse/current-extra-key",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500,
+    "extra": 1
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "inm/lowercase-method-is-not-get",
+  {
+   "method": "get",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "inm/htab-around-list-members",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"9\",\t\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "inm/empty-member-middle-ignored",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"2\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"1\", , \"2\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "ifmatch/empty-member-leading-ignored",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"b\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": " , \"a\", \"b\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "inm/empty-member-trailing-ignored",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"9\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"9\", ",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "inm/all-empty-members-match-nothing",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": " , ",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "ifmatch/all-empty-members-match-nothing",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": " , ",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_match"
+  }
+ ],
+ [
+  "etag/obs-text-current-weak-matches",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "W/\"a\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"a\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "304",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "etag/obs-text-strong-ifmatch",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"a\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"a\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ],
+ [
+  "refuse/etag-control-char",
+  {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"a\u0001\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"a\u0001\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  null
+ ],
+ [
+  "role/null-equals-origin-412",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"2\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"1\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_match"
+  }
+ ],
+ [
+  "role/null-key-explicit",
+  {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"2\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": "\"1\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   },
+   "role": null
+  },
+  {
+   "decision": "412",
+   "precondition": "if_match"
+  }
+ ],
+ [
+  "refuse/duplicate-top-keys",
+  {
+   "__raw_hex__": "7b226d6574686f64223a2022474554222c20226d6574686f64223a202248454144222c202263757272656e74223a207b22657869737473223a20747275652c202265746167223a206e756c6c2c20226c6173745f6d6f646966696564223a206e756c6c7d2c202272657175657374223a207b2269665f6d61746368223a206e756c6c2c202269665f6e6f6e655f6d61746368223a206e756c6c2c202269665f6d6f6469666965645f73696e6365223a206e756c6c2c202269665f756e6d6f6469666965645f73696e6365223a206e756c6c7d7d"
+  },
+  null
+ ],
+ [
+  "refuse/duplicate-request-keys",
+  {
+   "__raw_hex__": "7b226d6574686f64223a2022474554222c202263757272656e74223a207b22657869737473223a20747275652c202265746167223a206e756c6c2c20226c6173745f6d6f646966696564223a206e756c6c7d2c202272657175657374223a207b2269665f6d61746368223a206e756c6c2c202269665f6e6f6e655f6d61746368223a206e756c6c2c202269665f6d6f6469666965645f73696e6365223a206e756c6c2c202269665f6d6f6469666965645f73696e6365223a206e756c6c7d7d"
+  },
+  null
+ ],
+ [
+  "inm/options-method-412",
+  {
+   "method": "OPTIONS",
+   "current": {
+    "exists": true,
+    "etag": "\"1\"",
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "412",
+   "precondition": "if_none_match"
+  }
+ ],
+ [
+  "ims/options-ignored",
+  {
+   "method": "OPTIONS",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 500
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 900,
+    "if_unmodified_since": null
+   }
+  },
+  {
+   "decision": "200",
+   "precondition": null
+  }
+ ]
+]

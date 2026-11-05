@@ -1,0 +1,20 @@
+candidate sha256 d3bac7de1c2d04fc355db795aebdf6012030ea5c5793d9362bc9cd8e0b8cac5e
+generated cases 120
+generated failures 41
+  ALL:C1 6
+  ALL:C1+C2+C5? 2
+  ALL:C1+C5? 12
+  ALL:C2 2
+  ALL:C2+C5? 6
+  ALL:C5? 10
+  ALL:none 3
+  C1 20
+  C2 10
+  C5? 30
+unattributed 3
+  U {"current": {"etag": null, "exists": true, "last_modified": 861609}, "method": "HEAD", "request": {"if_match": null, "if_modified_since": 902473, "if_none_match": "W/\"b\", \"a\u0080\"", "if_unmodified_since": null}} exp {'decision': '200', 'precondition': None} got None rc=1 invalid_input: malformed entity-tag in if_none_match
+  U {"current": {"etag": "\"a\"", "exists": true, "last_modified": 940331}, "method": "HEAD", "request": {"if_match": "\"a\u0080\", \"a\u0080\"", "if_modified_since": 462980, "if_none_match": "*", "if_unmodified_since": null}} exp {'decision': '412', 'precondition': 'if_match'} got None rc=1 invalid_input: malformed entity-tag in if_match
+  U {"current": {"etag": null, "exists": false, "last_modified": null}, "method": "GET", "request": {"if_match": "\"a\u0080\"", "if_modified_since": null, "if_none_match": "*", "if_unmodified_since": 490780}} exp {'decision': '412', 'precondition': 'if_match'} got None rc=1 invalid_input: malformed entity-tag in if_match
+--- failures by method (C5 method-filter check)
+all failures by method: {'PATCH': 5, 'DELETE': 8, 'OPTIONS': 5, 'PUT': 2, 'HEAD': 4, 'POST': 10, 'GET': 7}
+failures with no C1/C2 tag, by method: {'DELETE': 2, 'HEAD': 2, 'OPTIONS': 4, 'POST': 3, 'GET': 1, 'PATCH': 1}
