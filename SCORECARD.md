@@ -5696,3 +5696,27 @@ Controls executed before the freeze: `controls/base-c1.txt`, `controls/base-c2.t
 ### Planned — after round 93
 
 Outside closure owns admission. Routed: R93-1 (run the counter from a digest-verified blob; print its sha256), R93-2 (self-digest in the receipt), R93-3 (pin surfaces by identity, not cardinality), R93-4 (check every `## Mistakes` section and every gap), R93-5 (row-level id resolution; reject trees and empty blobs in E5), R93-6 (decide vacuity in the C1 predicate before scoring), R93-7 (one C2 case per surviving mutant class: M11, M18, M19, M24, M28, M29, M32, M37, M40), R93-8 (add quoted-comma and non-UTF-8 stdin cases to the frozen population), R93-9/R93-10 (contract v2: empty list elements, obs-text in etagc, `role: null`, duplicate keys, the §13.2 method filter), R93-11 (sandbox import allowlist for `__future__`), R93-12 (E5 annotation-skip or documented absence rule). Frontier: the revalidation exchange (RFC 9111 §4.3.4), the 304 header set (RFC 9110 §15.4.5), the `If-Range`/`Range` step, HTTP-date parsing, validator generation and every live-cache, CDN or browser observation stay open.
+
+### Round 94 — claims and verdicts (2026-11-05, attempt 1; not an admission)
+
+Freeze `ba667b245f26125c13885958498b3b4999756d04` (base `0f7d9bbcdd6a9ed36f5bc62b2116ddd040e871a8`). Instruments: `.ufo/waves/round-94/c94_selfassess.py` (sha256 `58028584…8306a`), `.ufo/waves/round-94/c94_conditional.py` (sha256 `357d8cd1…50a`). Claims declared before any seat scored; counters, predicates and targets unchanged after.
+
+| Claim | Axis / type | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 strict self-assessment conformance | calibration (HOLD 2) | mismatches 15 (E5=15) at base → not reached; the only repair route to 0 was counter-gaming (directory backticks removed) and was reverted | `python3 -B .ufo/waves/round-94/c94_selfassess.py --root . --revision <REV>` | **unmet (honest stop)**. The base reading 15 corrects round 93's `mismatches=0`, which the round-93 counter could not see (its `read()` accepted trees). The strict instrument is itself falsified: ReviewC1 false-greens R02b, R03, R05, R10b, R12 and weaknesses R01, R08, R09, R18; SentinelScope F1 (path-shadow runs before the guard). Score stays 2 |
+| C2 mutant-kill sensitivity of the conditional counter | freshness (HOLD 10), instrument | v1 killed 31/40 at base → v2 killed 39/40; target 40/40 | mutant driver over `.ufo/waves/round-93/w1/recovered-partial/MutConditional/mutants-posgood.json`, scored by v1 and v2 (`.ufo/waves/round-94/w1/ExecC2Mutants/summary.txt`) | **unmet (39/40)**. Survivor M11 is semantically equivalent to the base candidate (115 200 of 115 200 inputs agree), so 40/40 was unattainable as frozen. The candidate is unchanged; score stays 10 |
+
+### Move log (round 94)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 94 | calibration (HOLD 2) | strict counter: mismatches 15 (E5) at `0f7d9bbc`; round 93's `met=true` overstated | unchanged score; mismatches still 15 (repair not landed); instrument falsified (ReviewC1) | `.ufo/waves/round-94/controls/base-c1.txt`; `.ufo/waves/round-94/w1/ReviewC1.md`; `corpus/lessons/round-94.md` Mistakes 5, 8, 10 |
+| 94 | freshness (HOLD 10), instrument | v1 kills 31/40 | v2 kills 39/40 (M11 equivalent) | `.ufo/waves/round-94/w1/ExecC2Mutants/summary.txt`; `.ufo/waves/round-94/w1/ExecC2Mutants.md` §Equivalence |
+
+### Demonstrated repertoire — round 94
+
+No new capability row. The conditional-request counter (capability entered in round 93) gained nine hand cases; the knowledge entry `corpus/knowledge/http-list-and-method-grammar.md` (S477, S478) extends the method-token and list-member ground the instrument decides.
+
+### Planned — after round 94
+
+Outside closure owns admission. Routed: R94-1 (successor C1 counter closing ReviewC1 R01, R02b, R03, R05, R08, R09, R10b, R12, R18), R94-2 (the counter must not import from its script directory before its guard; effectful shadow in the battery), R94-3 (a repair that removes a backticked path token must name a replacement path), R94-4 (equivalence check on every survivor before a kill target is frozen), R94-5 (13 directory references in SKILL.md, each a row-by-row file choice with a non-author reviewer), R94-6 (contract v2: empty list members, R93-9), R94-7 (a stronger counter battery: 4 of 12 counter mutants killed by its own battery), R94-8 (the round-93 receipts cite the absent base `191dd0ed`). Frontier: the revalidation exchange (RFC 9111 §4.3.4), the 304 header set, `If-Range`/`Range`, HTTP-date parsing and every live-cache observation stay open.

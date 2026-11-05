@@ -1,0 +1,81 @@
+== census script head
+#!/usr/bin/env bash
+# sources-census.sh — fleet-wide corpus/SOURCES.md census, validation, recheck queue.
+# Conforms to SOURCES-CONTRACT-v1: one registry table, 11 columns => NF=13,
+# statuses queued|mined|rejected ("watch" is NOT a status; recheck carries cadence),
+# community is never tier A.
+# Read-only: parses shokunin.conf LANES rows textually (never sources the conf),
+# reads corpus/SOURCES.md, writes only stdout or --out; selftest uses cleaned temp files.
+# Bash + coreutils + gawk.
+#
+#   sources-census.sh [mode] [lane-or-dir ...] [--root DIR] [--file PATH]
+#                     [--today YYYY-MM-DD] [--out PATH] [--verbose]
+#   modes:  census (default) | validate | overdue | shared | selftest
+#   lanes:  lane ids from conf or root *-shokunin dirs, or explicit lane dirs
+#   default targets: child repositories only; conf entries with repo "." are excluded.
+#                     use --file or an explicit directory for a specific registry.
+#   exit:   0 clean or warnings · 1 E/overdue findings (or census missing)
+#           · 2 usage/env/missing registry · 3 selftest failure; W-codes and unlisted
+#             lanes never change status (validate missing registry returns 2).
+#
+# Output: TSV on stdout — lane<TAB>metric|code<TAB>value…
+#   census:   rows | tier.A|tier.B|tier.C|tier.invalid
+#             | status.queued|status.mined|status.rejected|status.invalid
+#             | missing | FLEET.rows | FLEET.tier.X | FLEET.status.X | FLEET.missing
+#   validate: E01 malformed row (NF!=13)         E02 id not S[0-9]{3,}
+#             E03 duplicate id                   E04 duplicate URL+scope (no supersedes)
+#             E05 kind enum violation            E06 tier enum violation
+#             E07 status enum violation          E08 opened not a past/present ISO date
+#             E09 invalid recheck (ISO date, NNd, or symbolic cadence)
+#             E10 community at tier A            E11 used-by path missing on disk
+#             E12 row-shaped source outside the ## Registry section
+#             W01 tier-C mined with non-— used-by   W02 rejected row, thin teaches
+#             W03 mined row with used-by = — (warnings do not affect clean lanes)
+#             W04 same URL across scopes (warnings do not affect clean lanes)
+#   overdue:  overdue<SPC>id<SPC><days>d<SPC>recheck=<x><SPC>opened=<x> — ISO recheck
+#             dates or NNd cadence (due = opened + N days); report on/after due date.
+#             cadence<SPC>id<SPC>recheck=<x> — symbolic cadences (e.g. on-release)
+#             are reported, never judged overdue.
+#   shared:   url<TAB>shared<TAB>lane,lane,… — normalized URL present in >=2 lanes.
+
+# Maintained parser accepts 0–3 leading ASCII spaces before Markdown rows/headings;
+# 4 or more spaces are indented code and ignored. Frozen manual examples assume
+# column-zero input.
+set -u
+MODE=census; OUT=""; FILE=""; ROOT=""; ROOT_SET=0; VERBOSE=0; TODAY=""
+declare -a LANES_WANT=()
+
+usage() { sed -n '2,38p' "$0"; }
+die() { echo "ERROR: $*" >&2; exit 2; }
+iso_epoch() {
+  gawk -v input="$1" '
+    function epoch(s,   a,y,m,d,t) {
+      if (s !~ /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) return -1e15
+      split(s,a,"-"); y=a[1]+0; m=a[2]+0; d=a[3]+0
+      if (y==0) return -1e15
+      t=mktime(sprintf("%04d %02d %02d 00 00 00",y,m,d),1)
+      if (strftime("%Y-%m-%d",t,1)!=s) return -1e15
+      return t
+    }
+    BEGIN {
+      t=epoch(input)
+== lane targets
+ls: cannot access 'kake-shokunin/corpus/knowledge/http-list-and-method-grammar.md': No such file or directory
+-rw-r--r-- 1 vgpnk vgpnk 3564 Nov  5 12:01 kake-shokunin/corpus/lessons/round-94.md
+== collision guard
+guard_grep_exit=1
+== row count
+213
+== revision
+﻿
+
+
+
+Internet Engineering Task Force (IETF)                  R. Fielding, Ed.
+Request for Comments: 9110                                         Adobe
+STD: 97                                               M. Nottingham, Ed.
+Obsoletes: 2818, 7230, 7231, 7232, 7233, 7235,                    Fastly
+           7538, 7615, 7694                              J. Reschke, Ed.
+Updates: 3864                                                 greenbytes
+Category: Standards Track                                      June 2022
+ISSN: 2070-1721

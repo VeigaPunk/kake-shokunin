@@ -1,0 +1,186 @@
+[
+ {
+  "route": "R01_gate_two_junk_lines",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=fb860719839ec9e02eee2f4c1250b51c31c32ca9 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: 2 non-empty lines DO count",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R02_mistakes_all_indented",
+  "rc": 1,
+  "verdict": "REFUSED",
+  "line1": "C1v94 revision=c593ea33856d9f41a8e4bebd19c0f019be848092 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=1 E5=0 pins=identity b",
+  "findings": [
+   "E4 corpus/lessons/round-02.md | carried a Mistakes section at base and now has none (deletion route F4)"
+  ],
+  "note": "refusal expected: no L1 Mistakes section",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R02b_mistakes_leading_spaces",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=4a77c7ba37092306a8d3182b02a70e6400d63636 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: no L1 Mistakes section",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R03_two_source_lines",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=7355df971897ef6e8f613d0470ec2b4b8027a168 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: first source line only is parsed",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R03b_missing_verified_at",
+  "rc": 1,
+  "verdict": "REFUSED",
+  "line1": "C1v94 revision=b165c17fad0da34a07d5825c9de9446c746b2810 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=1 E4=0 E5=0 pins=ok battery",
+  "findings": [
+   "E3 corpus/knowledge/entry.md | missing verified-at:"
+  ],
+  "note": "refusal expected: header key misspelled",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R04a_sources_row_leading_space",
+  "rc": 1,
+  "verdict": "REFUSED",
+  "line1": "C1v94 revision=987604a5a1c486e4de4d8a4eb7db5151208e9f6e counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=1 E4=0 E5=0 pins=ok battery",
+  "findings": [
+   "E3 corpus/knowledge/entry.md | unresolved row id S001"
+  ],
+  "note": "refusal expected: unnamed row in row_ids",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R04b_sources_row_lowercase",
+  "rc": 1,
+  "verdict": "REFUSED",
+  "line1": "C1v94 revision=5917eaeb7ebea35e1193119231ee84151df3eae4 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=1 E4=0 E5=0 pins=ok battery",
+  "findings": [
+   "E3 corpus/knowledge/entry.md | unresolved row id S001"
+  ],
+  "note": "refusal expected: unnamed row in row_ids",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R05_skill_anchor",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=38f0fe3f646593650df4b7dc576b3b3d31e08c2b counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: not a parseable suffix",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R05b_skill_line_suffix_existing",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=fa1393d2eeef1af763bb35671e96c5a7ddc5ec90 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: suffix stripped then resolves; no finding",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R06_skill_glob",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=1479c3f501bfde2ccdaac097685494c453d35667 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: glob skipped",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R07_cite_one_byte_lesson",
+  "rc": 1,
+  "verdict": "REFUSED",
+  "line1": "C1v94 revision=1c90b47754edf43af69c7280fdd635c93844f150 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=identity b",
+  "findings": [],
+  "note": "refusal expected: lesson name must contain criteria",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R08_same_name_other_dir",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=8b9f738dadea29674feecd623f7dc2522d17e9a4 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=4 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "stderr_tail": ""
+ },
+ {
+  "route": "R09_skill_symlink_as_target",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=396d7e5fe9c53b1722c0838cd0699bdc7209282f counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: the symlink text is a gigantic blob",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R10_absence_alt_bracket",
+  "rc": 1,
+  "verdict": "REFUSED",
+  "line1": "C1v94 revision=9af1b9feaace693552c9103f3afa681297e2f521 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=5 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery",
+  "findings": [
+   "E5 SKILL.md | names missing path scripts/gone2.py"
+  ],
+  "note": "seen: the square-bracket form refused (present scripts/t.py)",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R10b_absence_mixed_bracket",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=aea57c0174b93178ad6da2300cf1573ec71a795a counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=5 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "seen: the craft-exact square form refused",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R11_nodot_locator",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=416e1b9df7f808732a13368560421ba53cb36fe6 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: locator ~/docs/\u2026 is not a path-like token and is a source-locator, not a lane-scope locator",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R12_registry_locator",
+  "rc": 0,
+  "verdict": "GREEN(rc0)",
+  "line1": "C1v94 revision=a6005d8c2a8a3916c2aa6ce31a16cff8609a0b1c counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [],
+  "note": "refusal expected: index token ships a path/locator",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R13_gate_header_stub",
+  "rc": 1,
+  "verdict": "REFUSED",
+  "line1": "C1v94 revision=4d5b514d780d38fddac7d69d3a51190ba82a50e6 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=1 E2=0 E3=0 E4=0 E5=0 pins=ok battery",
+  "findings": [
+   "E1 corpus/lessons/round-02.md | no '## Gate' heading"
+  ],
+  "note": "refusal expected: no exact L1 '## Gate' heading",
+  "stderr_tail": ""
+ },
+ {
+  "route": "R14_row_names_with_suffix",
+  "rc": 1,
+  "verdict": "REFUSED",
+  "line1": "C1v94 revision=3c7882c24f257ef7ef645252b79a1742e070e1b7 counter=58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a lessons=2 entries=1 rows=2 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery",
+  "findings": [
+   "E5 SKILL.md | names missing path scripts/hop.py"
+  ],
+  "note": "seen: false refusal if the counter treats the row name as a path",
+  "stderr_tail": ""
+ }
+]

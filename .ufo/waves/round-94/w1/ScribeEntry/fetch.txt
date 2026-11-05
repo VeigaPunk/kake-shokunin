@@ -1,0 +1,16 @@
+GET https://www.rfc-editor.org/rfc/rfc9110.txt
+http_status: 200
+bytes: 502941
+sha256: 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a
+accessed_utc: 2026-11-05T15:00:25Z
+client: curl (Arch Linux, /usr/bin/curl)
+command: curl -sS -o rfc9110.txt -w 'status=%{http_code} bytes=%{size_download} url=%{url_effective}\n' https://www.rfc-editor.org/rfc/rfc9110.txt
+retained_body: verified byte-identical (sha256 as above) to
+  ../ScoutRFC/rfc9110.txt, which the scout seat retained in this wave; the local copy made by
+  this seat was deleted with the scratch directory, so the retained body of record is the
+  scout's file, whose sha256 and byte count are recorded identically here and in
+  ../ScoutRFC/fetch.txt.
+note: the scout's own GET at 2026-11-05T15:00:17Z returned the same 502941 bytes and the same
+  sha256 (8 s earlier); both GETs are recorded, and the located quotes used by the entry are the
+  scout's verified ones in ../ScoutRFC/quotes.json.
+no credentials were sent; no other URL was fetched.

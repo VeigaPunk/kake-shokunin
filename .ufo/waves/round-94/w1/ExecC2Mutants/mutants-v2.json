@@ -1,0 +1,1086 @@
+{
+ "base_rev": "6d75ee0c2d893b67315cdef42855f68a48606707",
+ "counter": "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-94/c94_conditional.py",
+ "mutants": [
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "5 strong comparison / 8 If-Match uses weak",
+   "find": "if not hit(parsed[\"if_match\"], strong):",
+   "id": "M01",
+   "rev": "7d4ea5d4ba54f2aa97470b3f002ccbcfd77f3de6",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ifmatch/weak-tag-no-strong-match: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}",
+    "killed": true,
+    "line1": "C2v93 revision=7d4ea5d4ba54f2aa97470b3f002ccbcfd77f3de6 candidate=present hand=51/53 generated=116/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "5 weak comparison / 10 If-None-Match uses strong",
+   "find": "if hit(parsed[\"if_none_match\"], weak):",
+   "id": "M02",
+   "rev": "bb338782d2fe55d76a9f898549ffd7669477b49f",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/weak-member-matches-strong-current: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}",
+    "killed": true,
+    "line1": "C2v93 revision=bb338782d2fe55d76a9f898549ffd7669477b49f candidate=present hand=51/53 generated=117/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "5 strong ignores current-tag weakness",
+   "find": "return a[0] is False and b[0] is False and a[1] == b[1]",
+   "id": "M03",
+   "rev": "18098f85f2ac6b279280588354447590ac10034f",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ifmatch/strong-vs-weak-current: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '304', 'precondition': 'if_none_match'}",
+    "killed": true,
+    "line1": "C2v93 revision=18098f85f2ac6b279280588354447590ac10034f candidate=present hand=52/53 generated=117/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "5 strong ignores request-tag weakness",
+   "find": "return a[0] is False and b[0] is False and a[1] == b[1]",
+   "id": "M04",
+   "rev": "480afc9f9e9e066644c4058fb93876901e544185",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ifmatch/weak-tag-no-strong-match: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}",
+    "killed": true,
+    "line1": "C2v93 revision=480afc9f9e9e066644c4058fb93876901e544185 candidate=present hand=52/53 generated=119/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "4/8/10 '*' treated as representation present regardless of exists",
+   "find": "if spec == \"*\":\n            return exists",
+   "id": "M05",
+   "rev": "f7e0aca8c3cd3b1ef9b3591640068af990eba007",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ifmatch/star-without-representation: expected {'decision': '412', 'precondition': 'if_match'} got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "generated: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_none_match'}",
+    "killed": true,
+    "line1": "C2v93 revision=f7e0aca8c3cd3b1ef9b3591640068af990eba007 candidate=present hand=51/53 generated=112/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "4/10 '*' in If-None-Match never matches",
+   "find": "if spec == \"*\":\n            return exists",
+   "id": "M06",
+   "rev": "250e8169e37b4eff8d473cc8aa2ad68aca66546b",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ifmatch/star-with-representation: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '412', 'precondition': 'if_match'}",
+    "killed": true,
+    "line1": "C2v93 revision=250e8169e37b4eff8d473cc8aa2ad68aca66546b candidate=present hand=51/53 generated=84/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "10/11 precedence: If-Modified-Since evaluated with If-None-Match present",
+   "find": "    elif (parsed[\"if_modified_since\"] is not None and method in (\"GET\", \"HEAD\")",
+   "id": "M07",
+   "rev": "2a804415d6506d7ebf7093a50f576c0c32f6c0b2",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/precedes-if-modified-since: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}",
+    "generated_first_failure": "generated: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}",
+    "killed": true,
+    "line1": "C2v93 revision=2a804415d6506d7ebf7093a50f576c0c32f6c0b2 candidate=present hand=51/53 generated=118/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "8/9 precedence: If-Unmodified-Since evaluated with If-Match present",
+   "find": "    elif role == \"origin\" and parsed[\"if_unmodified_since\"] is not None and stamp is not None:",
+   "id": "M08",
+   "rev": "2ab96c57afd750bde94444f31768bcb3c42e8f80",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ius/ignored-when-if-match-present: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}",
+    "generated_first_failure": "generated: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}",
+    "killed": true,
+    "line1": "C2v93 revision=2ab96c57afd750bde94444f31768bcb3c42e8f80 candidate=present hand=52/53 generated=118/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "7 cache role: If-Match not skipped",
+   "find": "if role == \"origin\" and parsed[\"if_match\"] is not None:",
+   "id": "M09",
+   "rev": "84e5469ee2fce259735db4e60eee1696c4ef33e4",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ifmatch/skipped-for-cache: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}",
+    "generated_first_failure": "generated: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}",
+    "killed": true,
+    "line1": "C2v93 revision=84e5469ee2fce259735db4e60eee1696c4ef33e4 candidate=present hand=52/53 generated=110/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "7 cache role: If-Unmodified-Since not skipped",
+   "find": "elif role == \"origin\" and parsed[\"if_unmodified_since\"] is not None and stamp is not None:",
+   "id": "M10",
+   "rev": "b5ab754f6a6d3d23b4ff1f227afb6cf788ab6310",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ius/skipped-for-cache: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}",
+    "generated_first_failure": "generated: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}",
+    "killed": true,
+    "line1": "C2v93 revision=b5ab754f6a6d3d23b4ff1f227afb6cf788ab6310 candidate=present hand=52/53 generated=117/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "9 If-Unmodified-Since not ignored when last_modified absent",
+   "find": "    elif role == \"origin\" and parsed[\"if_unmodified_since\"] is not None and stamp is not None:\n        if stamp > parsed[\"if_unmodified_since\"]:",
+   "id": "M11",
+   "rev": "ca7b78fdb735413ab97d8cc5c92fb2d0841d26b6",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 0,
+    "first_failing_case": "",
+    "generated_first_failure": "",
+    "killed": false,
+    "line1": "C2v93 revision=ca7b78fdb735413ab97d8cc5c92fb2d0841d26b6 candidate=present hand=53/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=true",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "11 If-Modified-Since not ignored when last_modified absent",
+   "find": "and stamp is not None and stamp <= parsed[\"if_modified_since\"]):",
+   "id": "M12",
+   "rev": "d377ba3bf149279eaaa8586783c44b1bae39f8e5",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ims/ignored-when-last-modified-absent: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}",
+    "generated_first_failure": "generated: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}",
+    "killed": true,
+    "line1": "C2v93 revision=d377ba3bf149279eaaa8586783c44b1bae39f8e5 candidate=present hand=52/53 generated=118/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "10 304-vs-412 by method: always 304",
+   "find": "code = \"304\" if method in (\"GET\", \"HEAD\") else \"412\"",
+   "id": "M13",
+   "rev": "09176d896404805b847136ff9230dfcd8a51e26b",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/match-post-412: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '304', 'precondition': 'if_none_match'}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '304', 'precondition': 'if_none_match'}",
+    "killed": true,
+    "line1": "C2v93 revision=09176d896404805b847136ff9230dfcd8a51e26b candidate=present hand=51/53 generated=96/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "10 304-vs-412 by method: method test inverted",
+   "find": "code = \"304\" if method in (\"GET\", \"HEAD\") else \"412\"",
+   "id": "M14",
+   "rev": "a88fca7dd29527cfaa93a2f3508b0093dc571875",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/match-get: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '412', 'precondition': 'if_none_match'}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '304', 'precondition': 'if_none_match'}",
+    "killed": true,
+    "line1": "C2v93 revision=a88fca7dd29527cfaa93a2f3508b0093dc571875 candidate=present hand=46/53 generated=105/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "11 If-Modified-Since method gate widened to POST",
+   "find": "    elif (parsed[\"if_modified_since\"] is not None and method in (\"GET\", \"HEAD\")",
+   "id": "M15",
+   "rev": "23073eee7e37eb389bc957366eaae440e4c959e9",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ims/ignored-for-post: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}",
+    "generated_first_failure": "generated: expected {'decision': '200', 'precondition': None} got {'decision': '304', 'precondition': 'if_modified_since'}",
+    "killed": true,
+    "line1": "C2v93 revision=23073eee7e37eb389bc957366eaae440e4c959e9 candidate=present hand=52/53 generated=119/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "3 entity-tag syntax: quoting not required",
+   "find": "if len(text) < 2 or text[0] != '\"' or text[-1] != '\"':",
+   "id": "M16",
+   "rev": "f39be7f8ad8c7fb258aa0a9152cf7af1299ce3e3",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/etag-unquoted: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=f39be7f8ad8c7fb258aa0a9152cf7af1299ce3e3 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "3 entity-tag syntax: etagc character set not checked",
+   "find": "if any(ch not in ETAGC for ch in body):",
+   "id": "M17",
+   "rev": "cfd460ba7414be26e58f12a168569b09404d4a8b",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/etag-bad-char: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=cfd460ba7414be26e58f12a168569b09404d4a8b candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "3 entity-tag syntax: lowercase w/ accepted as weak prefix",
+   "find": "if text[:2] == \"W/\":",
+   "id": "M18",
+   "rev": "3e08dc92b00801a03441e3b71daec57ad61d320b",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/ifmatch-lowercase-weak-prefix: expected refusal, got {'decision': '412', 'precondition': 'if_match'}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=3e08dc92b00801a03441e3b71daec57ad61d320b candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "3 entity-tag syntax: empty opaque-tag refused",
+   "find": "if len(text) < 2 or text[0] != '\"' or text[-1] != '\"':",
+   "id": "M19",
+   "rev": "a1e02c943ec58295283d68f71a03de921f0b407e",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/empty-opaque-tag-matches: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: tag)",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=a1e02c943ec58295283d68f71a03de921f0b407e candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "4 list syntax: empty member tolerated",
+   "find": "        if item == \"\":\n            raise Bad(\"empty member\")",
+   "id": "M20",
+   "rev": "2b9e1db29ba70c45cb3d1b1e6f56e47483095138",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/empty-member: expected refusal, got {'decision': '304', 'precondition': 'if_none_match'}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=2b9e1db29ba70c45cb3d1b1e6f56e47483095138 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "4 list syntax: '*' mixed with tags tolerated",
+   "find": "        if item == \"*\":\n            raise Bad(\"star mixed\")",
+   "id": "M21",
+   "rev": "e93d5866aaaf14976155ad507e1344a10fafdce0",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/star-mixed: expected refusal, got {'decision': '304', 'precondition': 'if_none_match'}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=e93d5866aaaf14976155ad507e1344a10fafdce0 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "4 list syntax: empty/whitespace-only value tolerated",
+   "find": "    if text == \"\":\n        raise Bad(\"empty\")",
+   "id": "M22",
+   "rev": "fbd5d55aa853481e86a8c74f7ddc7355180973ba",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/empty-value: expected refusal, got {'decision': '412', 'precondition': 'if_match'}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=fbd5d55aa853481e86a8c74f7ddc7355180973ba candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "1 type check: bool accepted as int",
+   "find": "if not isinstance(value, int) or isinstance(value, bool) or value < 0:",
+   "id": "M23",
+   "rev": "2aa6350e96482f6968a82f26048ea1a23ebd7623",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/last-modified-bool: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=2aa6350e96482f6968a82f26048ea1a23ebd7623 candidate=present hand=51/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "1 type check: negative integer accepted",
+   "find": "if not isinstance(value, int) or isinstance(value, bool) or value < 0:",
+   "id": "M24",
+   "rev": "70b82c14ba3c2311ac20dbf2fb1fff3bae69bc69",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/negative-if-modified-since: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=70b82c14ba3c2311ac20dbf2fb1fff3bae69bc69 candidate=present hand=51/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "1 type check: string date coerced to int",
+   "find": "            integer(value, key)\n            parsed[key] = value",
+   "id": "M25",
+   "rev": "e5a2f1de2f2b0bd5db8ef8fb581fbcd83e7cfe60",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/date-as-string-not-int: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=e5a2f1de2f2b0bd5db8ef8fb581fbcd83e7cfe60 candidate=present hand=51/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "1 type check: exists not required to be bool",
+   "find": "    if not isinstance(exists, bool):\n        raise Bad(\"exists\")",
+   "id": "M26",
+   "rev": "c4d1b1459c2903ba670e260d7d56889063f1782e",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/exists-not-bool: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=c4d1b1459c2903ba670e260d7d56889063f1782e candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "2 absent representation: etag allowed when exists=false",
+   "find": "if not exists and (tag_text is not None or stamp is not None):",
+   "id": "M27",
+   "rev": "497994638d20bfd38790bccdce10bd4b75cdf2d2",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/absent-with-etag: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=497994638d20bfd38790bccdce10bd4b75cdf2d2 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "2 absent representation: last_modified allowed when exists=false",
+   "find": "if not exists and (tag_text is not None or stamp is not None):",
+   "id": "M28",
+   "rev": "45d3c1d94471f02dba489d755c2c93280ecae565",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/absent-representation-with-last-modified: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=45d3c1d94471f02dba489d755c2c93280ecae565 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "6 no evaluation before validation: If-Unmodified-Since skipped when If-Match present",
+   "find": "        else:\n            integer(value, key)\n            parsed[key] = value",
+   "id": "M29",
+   "rev": "15a1c86d0840e75b057aaa16587376d0efb02bd8",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/unmodified-since-malformed-under-if-match: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=15a1c86d0840e75b057aaa16587376d0efb02bd8 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "7 role: unknown role treated as origin",
+   "find": "    if role not in (\"origin\", \"cache\"):\n        raise Bad(\"role\")",
+   "id": "M30",
+   "rev": "a1c8920372cbc24605bd557c37f5ef03ab5ed1ab",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/role-unknown: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=a1c8920372cbc24605bd557c37f5ef03ab5ed1ab candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "1 unknown top-level key tolerated",
+   "find": "if [k for k in payload if k not in (\"method\", \"current\", \"request\", \"role\")]:",
+   "id": "M31",
+   "rev": "92517f77ca2083c2f4878db0dfd82816e17a64a2",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/unknown-top-key: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=92517f77ca2083c2f4878db0dfd82816e17a64a2 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "1 extra key in current tolerated",
+   "find": "if not isinstance(cur, dict) or sorted(cur) != [\"etag\", \"exists\", \"last_modified\"]:",
+   "id": "M32",
+   "rev": "b0cdcf1bfc957d98111c2eaa0f389367e2083e60",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/current-extra-key: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=b0cdcf1bfc957d98111c2eaa0f389367e2083e60 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "5 current.etag null treated as equivalent to any tag",
+   "find": "        if tag is None or not exists:\n            return False",
+   "id": "M33",
+   "rev": "faa288a8eef1ceaf24ec763612f6bc2562bac4ab",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/ignored-when-current-etag-absent: expected {'decision': '200', 'precondition': None} got None (rc=1 Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r94/ExecC2Mutants/works/v2/w-M33/c93c-3094942/sandbo)",
+    "generated_first_failure": "generated: expected {'decision': '200', 'precondition': None} got None (rc=1 Traceback (most recent call last):\n  File \"/fast/scratch/hyaku/kake-r94/ExecC2Mutants/works/v2/w-M33/c93c-3094942/sandbo)",
+    "killed": true,
+    "line1": "C2v93 revision=faa288a8eef1ceaf24ec763612f6bc2562bac4ab candidate=present hand=51/53 generated=115/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "9 If-Unmodified-Since comparison strict instead of <=",
+   "find": "if stamp > parsed[\"if_unmodified_since\"]:",
+   "id": "M34",
+   "rev": "f5e4ae51d594a5747c35b4c8c937b3f37ffe0cd2",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ius/equal-passes: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_unmodified_since'}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=f5e4ae51d594a5747c35b4c8c937b3f37ffe0cd2 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "11 If-Modified-Since comparison strict instead of <=",
+   "find": "and stamp is not None and stamp <= parsed[\"if_modified_since\"]):",
+   "id": "M35",
+   "rev": "b8be407380121dbe6ebb6183e0da9c4821e4ecdd",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ims/equal-304: expected {'decision': '304', 'precondition': 'if_modified_since'} got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=b8be407380121dbe6ebb6183e0da9c4821e4ecdd candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "1 method token syntax not checked",
+   "find": "if not isinstance(method, str) or not TOKEN.match(method):",
+   "id": "M36",
+   "rev": "ceec8d83b1f2806282e3eea0b7b7ca63a1ae3c78",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "refuse/method-not-token: expected refusal, got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=ceec8d83b1f2806282e3eea0b7b7ca63a1ae3c78 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "1 method compared case-insensitively in the 304/412 test",
+   "find": "code = \"304\" if method in (\"GET\", \"HEAD\") else \"412\"",
+   "id": "M37",
+   "rev": "cb6ecd254d13cece02922887acf22857bdd193bb",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/lowercase-method-is-not-get: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '304', 'precondition': 'if_none_match'}",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=cb6ecd254d13cece02922887acf22857bdd193bb candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "8 '*' in If-Match requires a current entity-tag",
+   "find": "if spec == \"*\":\n            return exists",
+   "id": "M38",
+   "rev": "c2517a77e706d01afdd8e69f59aabad2b0ab946d",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "ifmatch/star-with-representation: expected {'decision': '200', 'precondition': None} got {'decision': '412', 'precondition': 'if_match'}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}",
+    "killed": true,
+    "line1": "C2v93 revision=c2517a77e706d01afdd8e69f59aabad2b0ab946d candidate=present hand=52/53 generated=112/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "5 weak comparison requires equal weakness",
+   "find": "    def weak(a, b):\n        return a[1] == b[1]",
+   "id": "M39",
+   "rev": "25141f1598343dfb1f3b2d62216fe237f4c560d5",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/weak-member-matches-strong-current: expected {'decision': '304', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}",
+    "generated_first_failure": "generated: expected {'decision': '412', 'precondition': 'if_none_match'} got {'decision': '200', 'precondition': None}",
+    "killed": true,
+    "line1": "C2v93 revision=25141f1598343dfb1f3b2d62216fe237f4c560d5 candidate=present hand=51/53 generated=118/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  },
+  {
+   "base_find_count": 1,
+   "candidate_find_count": 0,
+   "clause": "4 list syntax: HTAB not accepted around members",
+   "find": "        item = chunk.strip(\" \\t\")",
+   "id": "M40",
+   "rev": "561afbab005d4ea4f0426d0cbb26647920fa0e37",
+   "status": "APPLIED",
+   "v2": {
+    "detail_keys": [
+     "anti_table_hits",
+     "candidate_sha256",
+     "forgeries",
+     "hand_failures",
+     "pins_digest",
+     "population_drift",
+     "positive",
+     "seed"
+    ],
+    "exit": 1,
+    "first_failing_case": "inm/htab-around-list-members: expected {'decision': '304', 'precondition': 'if_none_match'} got None (rc=1 invalid_input: tag)",
+    "generated_first_failure": "",
+    "killed": true,
+    "line1": "C2v93 revision=561afbab005d4ea4f0426d0cbb26647920fa0e37 candidate=present hand=52/53 generated=120/120 forgeries_refused=6/6 positive=admitted anti_table=ok population=ok seed=93 met=false",
+    "stderr": ""
+   }
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+GET https://www.rfc-editor.org/rfc/rfc9110.txt
+http_status: 200
+bytes: 502941
+sha256: 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a
+accessed_utc: 2026-11-05T15:00:17Z
+client: curl 8.23.0 (x86_64-pc-linux-gnu) libcurl/8.23.0 OpenSSL/3.6.5
+command: curl -sS -o rfc9110.txt -w '%{http_code} %{size_download}\n' https://www.rfc-editor.org/rfc/rfc9110.txt
+bytes_measured_by: curl size_download = 502941; stat -c %s of retained copy = 502941
+retained_copy: .ufo/waves/round-94/w1/ScoutRFC/rfc9110.txt (sha256 identical to fetched body)
+note: exactly one GET was issued; the accessed_utc timestamp was taken by `date -u` immediately
+      after the GET returned in the same shell command, so it is accurate to the second but is
+      a post-fetch timestamp, not a client-supplied Date header.

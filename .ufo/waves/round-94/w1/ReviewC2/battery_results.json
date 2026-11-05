@@ -1,0 +1,448 @@
+{
+ "summary": {
+  "total": 54,
+  "decision_agree": 52,
+  "syntactic_agree": 0,
+  "conflict_family_agree": 0,
+  "disagree": 2,
+  "date": "2026-11-05",
+  "candidate": "git -C /home/vgpnk/Projects/shokunin/kake-shokunin show ba667b245f26125c13885958498b3b4999756d04:scripts/conditional_eval.py",
+  "candidate_sha256": "d3bac7de1c2d04fc355db795aebdf6012030ea5c5793d9362bc9cd8e0b8cac5e"
+ },
+ "cases": [
+  {
+   "i": 1,
+   "id": "battery/ius-no-lm-equal-value",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.4 ignore rule (no Last-Modified)",
+   "rfc": "9110 13.1.4: ignore when the resource has no modification date"
+  },
+  {
+   "i": 2,
+   "id": "battery/ius-zero-lm-zero-value",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.4 eval rule (equal is true)",
+   "rfc": "9110 13.1.4 step 1: earlier than or equal = true"
+  },
+  {
+   "i": 3,
+   "id": "battery/ifmatch-get-failure",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+   "clause": "13.2.2 step 1",
+   "rfc": "9110 13.1.1: MUST NOT perform on any method; 412"
+  },
+  {
+   "i": 4,
+   "id": "battery/ifmatch-partial-coverage",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.1 step 2",
+   "rfc": "9110 13.1.1 step 2: any listed tag"
+  },
+  {
+   "i": 5,
+   "id": "battery/ifmatch-fail-overrides-inm",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+   "clause": "13.2.2 step 1",
+   "rfc": "9110 13.2.2 step 1: If-Match false answers 412 before If-None-Match"
+  },
+  {
+   "i": 6,
+   "id": "battery/ifmatch-star-head",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.1 step 1",
+   "rfc": "9110 13.1.1 step 1: true when a current representation exists"
+  },
+  {
+   "i": 8,
+   "id": "battery/cache-ius-higher-lm-passes",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "9111 4.3.2",
+   "rfc": "9111 4.3.2: If-Unmodified-Since is not applicable to a cache"
+  },
+  {
+   "i": 9,
+   "id": "battery/inm-weak-both-oooo",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "13.1.2 weak comparison",
+   "rfc": "9110 8.8.3.2 Table 3 W/\"1\" vs W/\"1\": weak match"
+  },
+  {
+   "i": 10,
+   "id": "battery/inm-weak-miss-put",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.2 step 3 (condition true continues)",
+   "rfc": "9110 13.1.2 step 3: condition true continues to step 5/6 (no agreement with my initial 412 misread)"
+  },
+  {
+   "i": 11,
+   "id": "battery/ims-no-lm-under-inm",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.2+13.1.3",
+   "rfc": "9110 13.1.3: ignore without a modification date"
+  },
+  {
+   "i": 12,
+   "id": "battery/ims-eq-head",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_modified_since\"}\n",
+   "clause": "13.2.2 step 4 (HEAD)",
+   "rfc": "9110 13.1.3 step 1: earlier or equal, condition false, 304"
+  },
+  {
+   "i": 13,
+   "id": "battery/ims-lm-just-later-200",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.3 step 2",
+   "rfc": "9110 13.1.3 step 2: modification more recent than the date"
+  },
+  {
+   "i": 14,
+   "id": "battery/ows-leading-space",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "5.6.1.2 OWS",
+   "rfc": "9110 5.6.3: OWS = *( SP / HTAB )"
+  },
+  {
+   "i": 15,
+   "id": "battery/ows-tab-no-space",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "5.6.1.2 OWS",
+   "rfc": "9110 5.6.3: OWS includes HTAB"
+  },
+  {
+   "i": 16,
+   "id": "battery/ifmatch-pass-allows-ims-304",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_modified_since\"}\n",
+   "clause": "13.2.2 step 1->3->4",
+   "rfc": "9110 13.2.2 step 1: if true, continue to step 3"
+  },
+  {
+   "i": 17,
+   "id": "battery/comma-inside-tag",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.1 C-quoted comma",
+   "rfc": "9110 8.8.3: etagc includes 0x2C"
+  },
+  {
+   "i": 18,
+   "id": "battery/comma-tag-v-split",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+   "clause": "13.1.1 list split",
+   "rfc": "9110 8.8.3: bytes differ from case 17"
+  },
+  {
+   "i": 21,
+   "id": "battery/excl-opaque-tag",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "8.8.3 etagc 0x21",
+   "rfc": "9110 8.8.3: etagc = %x21 / %x23-7E"
+  },
+  {
+   "i": 23,
+   "id": "battery/inm-no-current-rep",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.2.2 step 6",
+   "rfc": "9110 13.2.2 step 6"
+  },
+  {
+   "i": 26,
+   "id": "battery/inm-no-match-third-method",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.2 step 3 positive->continue",
+   "rfc": "9110 13.1.2 step 3: condition true continues"
+  },
+  {
+   "i": 27,
+   "id": "battery/method-case-head",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "9.1 method case-sensitivity",
+   "rfc": "9110 9.1: the method token is case-sensitive; \"head\" is not HEAD"
+  },
+  {
+   "i": 28,
+   "id": "battery/method-case-inm-post",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "9.1 method case-sensitivity",
+   "rfc": "9110 13.1.2 step 3: condition true continues"
+  },
+  {
+   "i": 29,
+   "id": "battery/inm-no-match-ims-ignored",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.3 ignore rule (inm present)",
+   "rfc": "9110 13.1.3: recipient MUST ignore If-Modified-Since when If-None-Match is present"
+  },
+  {
+   "i": 30,
+   "id": "battery/star-solo-tab",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "5.6.1.2 OWS around *",
+   "rfc": "9110 13.1.2 step 1"
+  },
+  {
+   "i": 31,
+   "id": "battery/cache-role-oms",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "9111 4.3.2 cache role",
+   "rfc": "9111 4.3.2: If-None-Match is applicable to a cache; 9110 13.1.2 412 for non-GET/HEAD [INFERENCE: cache semantics nuance, contract choice -- see report]"
+  },
+  {
+   "i": 32,
+   "id": "battery/inm-post-tag",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "13.1.2 412 branch",
+   "rfc": "9110 13.1.2: 304 for GET/HEAD, 412 otherwise"
+  },
+  {
+   "i": 33,
+   "id": "battery/ifmatch-weak-current-only",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+   "clause": "8.8.3.2 Table 3",
+   "rfc": "9110 8.8.3.2 Table 3 W/\"1\" vs \"1\": no strong match"
+  },
+  {
+   "i": 38,
+   "id": "battery/current-comma-tag",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "8.8.3 etagc 0x2C",
+   "rfc": "9110 8.8.3"
+  },
+  {
+   "i": 39,
+   "id": "battery/ims-eq-get",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_modified_since\"}\n",
+   "clause": "13.1.3 step 1",
+   "rfc": "9110 13.1.3 step 1"
+  },
+  {
+   "i": 42,
+   "id": "battery/cache-ims-non-safe-method",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "9111 4.3.2 + 13.1.3 method rule",
+   "rfc": "9110 13.1.3: ignored when the method is not GET/HEAD"
+  },
+  {
+   "i": 43,
+   "id": "battery/empty-tag-vs-nonempty",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.2 step 2",
+   "rfc": "9110 13.1.2: no listed tag weak-matches"
+  },
+  {
+   "i": 44,
+   "id": "battery/empty-tag-eq",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "8.8.3 empty opaque-tag",
+   "rfc": "9110 8.8.3 Example: ETag: \"\""
+  },
+  {
+   "i": 45,
+   "id": "battery/cache-inm-star-miss",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "9111 4.3.2 cache role",
+   "rfc": "9110 13.1.2 step 1: \"*\" true when no current representation"
+  },
+  {
+   "i": 46,
+   "id": "battery/ius-equal-etag-present",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.4 step 1",
+   "rfc": "9110 13.1.4: earlier or equal"
+  },
+  {
+   "i": 47,
+   "id": "battery/ius-equal-etag-absent",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.4 step 1",
+   "rfc": "9110 13.1.4: earlier or equal"
+  },
+  {
+   "i": 48,
+   "id": "battery/ifmatch-star-miss",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.1 step 1",
+   "rfc": "9110 13.1.1 step 1"
+  },
+  {
+   "i": 50,
+   "id": "battery/ows-trailing-space",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "5.6.1.2 OWS",
+   "rfc": "9110 5.6.1.2: \"foo ,bar,\" valid"
+  },
+  {
+   "i": 53,
+   "id": "battery/empty-tag-vs-nonempty-curr",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"200\", \"precondition\": null}\n",
+   "clause": "13.1.2 step 2",
+   "rfc": "9110 13.1.2: no listed tag weak-matches"
+  },
+  {
+   "i": 54,
+   "id": "battery/cache-inm-list",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"304\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "9111 4.3.2 cache role",
+   "rfc": "9111 4.3.2: If-None-Match applicable to a cache"
+  },
+  {
+   "i": 55,
+   "id": "battery/method-negated-nonstandard",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"412\", \"precondition\": \"if_none_match\"}\n",
+   "clause": "13.1.2 412 branch + 9.1",
+   "rfc": "9110 9.1: \"head\" is not HEAD; 13.1.2: false for other methods responds 412"
+  },
+  {
+   "i": 7,
+   "id": "battery/ifmatch-malformed-under-cache-role",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: malformed entity-tag in if_match",
+   "clause": "9111 4.3.2 + contract clause 6",
+   "rfc": "9111 4.3.2: not applicable to a cache; contract v1 clause 6 validates first"
+  },
+  {
+   "i": 19,
+   "id": "battery/lowercase-weak-inm",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: malformed entity-tag in if_none_match",
+   "clause": "8.8.3 grammar (W/ case-sensitive)",
+   "rfc": "9110 8.8.3: weak = %s\"W/\" (case-sensitive)"
+  },
+  {
+   "i": 22,
+   "id": "battery/del-opaque-tag",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: malformed entity-tag in current.etag",
+   "clause": "8.8.3 etagc excludes 0x7F",
+   "rfc": "9110 8.8.3: 0x7F is not in etagc"
+  },
+  {
+   "i": 24,
+   "id": "battery/ifmatch-nomatch-two-weak",
+   "result": "agree",
+   "cand_bytes": "{\"decision\": \"412\", \"precondition\": \"if_match\"}\n",
+   "clause": "8.8.3.2 strong comparison",
+   "rfc": "9110 13.1.1 strong comparison: the weak member does not match"
+  },
+  {
+   "i": 34,
+   "id": "battery/bad-charset-inm",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: malformed entity-tag in if_none_match",
+   "clause": "8.8.3 etagc excludes 0x20",
+   "rfc": "9110 8.8.3: space is not in etagc"
+  },
+  {
+   "i": 35,
+   "id": "battery/method-space",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: method must be a non-empty HTTP token",
+   "clause": "5.6.2 token",
+   "rfc": "9110 5.6.2: token forbids SP"
+  },
+  {
+   "i": 36,
+   "id": "battery/etag-unquoted",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: malformed entity-tag in if_none_match",
+   "clause": "8.8.3 opaque-tag",
+   "rfc": "9110 8.8.3: opaque-tag = DQUOTE *etagc DQUOTE"
+  },
+  {
+   "i": 37,
+   "id": "battery/method-slash",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: method must be a non-empty HTTP token",
+   "clause": "5.6.2 token",
+   "rfc": "9110 5.6.2: token forbids '/'"
+  },
+  {
+   "i": 40,
+   "id": "battery/trailing-junk-inm",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: malformed entity-tag in if_none_match",
+   "clause": "8.8.3 opaque-tag",
+   "rfc": "9110 8.8.3: must end at DQUOTE"
+  },
+  {
+   "i": 41,
+   "id": "battery/w2-tag-strong",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: malformed entity-tag in if_match",
+   "clause": "8.8.3 weak prefix",
+   "rfc": "9110 8.8.3: weak = %s\"W/\""
+  },
+  {
+   "i": 49,
+   "id": "battery/malformed-star-lead-comma",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: if_none_match mixes '*' with other members",
+   "clause": "13.1.2 list value with *",
+   "rfc": "9110 13.1.2 note: syntactically invalid"
+  },
+  {
+   "i": 51,
+   "id": "battery/only-commas-space",
+   "result": "agree",
+   "cand_bytes": "refusal: invalid_input: if_none_match has an empty list member",
+   "clause": "5.6.1.2 zero elements",
+   "rfc": "9110 5.6.1.2: \"\", \",\", \",   ,\" invalid -- no non-empty element"
+  },
+  {
+   "i": 25,
+   "id": "battery/empty-list-element",
+   "result": "DISAGREE",
+   "cand_bytes": "refusal: invalid_input: if_none_match has an empty list member",
+   "clause": "5.6.1.2 empty members",
+   "rfc": "9110 5.6.1.2: MUST parse and ignore a reasonable number of empty list elements; \"foo , ,bar,charlie\" is a valid value",
+   "rfc_conflict": true
+  },
+  {
+   "i": 56,
+   "id": "battery/empty-list-trailing",
+   "result": "DISAGREE",
+   "cand_bytes": "refusal: invalid_input: if_none_match has an empty list member",
+   "clause": "5.6.1.2 empty members",
+   "rfc": "9110 5.6.1.2: \"foo ,bar,\" is a valid value",
+   "rfc_conflict": true
+  }
+ ]
+}

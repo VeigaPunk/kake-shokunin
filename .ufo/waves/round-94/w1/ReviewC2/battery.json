@@ -1,0 +1,1327 @@
+[
+ {
+  "i": 1,
+  "touch": "battery",
+  "id": "battery/ius-no-lm-equal-value",
+  "inp": {
+   "method": "DELETE",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 0
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.4 ignore rule (no Last-Modified)",
+  "rfc": "9110 13.1.4: ignore when the resource has no modification date"
+ },
+ {
+  "i": 2,
+  "touch": "battery",
+  "id": "battery/ius-zero-lm-zero-value",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 0
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 0
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.4 eval rule (equal is true)",
+  "rfc": "9110 13.1.4 step 1: earlier than or equal = true"
+ },
+ {
+  "i": 3,
+  "touch": "battery",
+  "id": "battery/ifmatch-get-failure",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"q\"",
+    "last_modified": 5
+   },
+   "request": {
+    "if_match": "\"zz\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "412",
+   "precondition": "if_match"
+  },
+  "clause": "13.2.2 step 1",
+  "rfc": "9110 13.1.1: MUST NOT perform on any method; 412"
+ },
+ {
+  "i": 4,
+  "touch": "battery",
+  "id": "battery/ifmatch-partial-coverage",
+  "inp": {
+   "method": "POST",
+   "current": {
+    "exists": true,
+    "etag": "\"q\"",
+    "last_modified": 5
+   },
+   "request": {
+    "if_match": "\"q\", \"r\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.1 step 2",
+  "rfc": "9110 13.1.1 step 2: any listed tag"
+ },
+ {
+  "i": 5,
+  "touch": "battery",
+  "id": "battery/ifmatch-fail-overrides-inm",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"q\"",
+    "last_modified": 5
+   },
+   "request": {
+    "if_match": "\"r\"",
+    "if_none_match": "\"q\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "412",
+   "precondition": "if_match"
+  },
+  "clause": "13.2.2 step 1",
+  "rfc": "9110 13.2.2 step 1: If-Match false answers 412 before If-None-Match"
+ },
+ {
+  "i": 6,
+  "touch": "battery",
+  "id": "battery/ifmatch-star-head",
+  "inp": {
+   "method": "HEAD",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": "*",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.1 step 1",
+  "rfc": "9110 13.1.1 step 1: true when a current representation exists"
+ },
+ {
+  "i": 8,
+  "touch": "battery",
+  "id": "battery/cache-ius-higher-lm-passes",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 5
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 2
+   },
+   "role": "cache"
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "9111 4.3.2",
+  "rfc": "9111 4.3.2: If-Unmodified-Since is not applicable to a cache"
+ },
+ {
+  "i": 9,
+  "touch": "battery",
+  "id": "battery/inm-weak-both-oooo",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "W/\"oooo\"",
+    "last_modified": 11
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "W/\"oooo\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "13.1.2 weak comparison",
+  "rfc": "9110 8.8.3.2 Table 3 W/\"1\" vs W/\"1\": weak match"
+ },
+ {
+  "i": 10,
+  "touch": "battery",
+  "id": "battery/inm-weak-miss-put",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "W/\"left-media-0001\"",
+    "last_modified": 11
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "W/\"left-media-000Z\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.2 step 3 (condition true continues)",
+  "rfc": "9110 13.1.2 step 3: condition true continues to step 5/6 (no agreement with my initial 412 misread)"
+ },
+ {
+  "i": 11,
+  "touch": "battery",
+  "id": "battery/ims-no-lm-under-inm",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"gone-validator-v2\"",
+    "if_modified_since": 900,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.2+13.1.3",
+  "rfc": "9110 13.1.3: ignore without a modification date"
+ },
+ {
+  "i": 12,
+  "touch": "battery",
+  "id": "battery/ims-eq-head",
+  "inp": {
+   "method": "HEAD",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 1234
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 1234,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_modified_since"
+  },
+  "clause": "13.2.2 step 4 (HEAD)",
+  "rfc": "9110 13.1.3 step 1: earlier or equal, condition false, 304"
+ },
+ {
+  "i": 13,
+  "touch": "battery",
+  "id": "battery/ims-lm-just-later-200",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 54001
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 54000,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.3 step 2",
+  "rfc": "9110 13.1.3 step 2: modification more recent than the date"
+ },
+ {
+  "i": 14,
+  "touch": "battery",
+  "id": "battery/ows-leading-space",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"stand-b\"",
+    "last_modified": 3
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": " \"zz\", \"stand-b\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "5.6.1.2 OWS",
+  "rfc": "9110 5.6.3: OWS = *( SP / HTAB )"
+ },
+ {
+  "i": 15,
+  "touch": "battery",
+  "id": "battery/ows-tab-no-space",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"tag-003\"",
+    "last_modified": 3
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"tag-00a\",\t\"tag-003\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "5.6.1.2 OWS",
+  "rfc": "9110 5.6.3: OWS includes HTAB"
+ },
+ {
+  "i": 16,
+  "touch": "battery",
+  "id": "battery/ifmatch-pass-allows-ims-304",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"im-q\"",
+    "last_modified": 60
+   },
+   "request": {
+    "if_match": "\"im-q\"",
+    "if_none_match": null,
+    "if_modified_since": 60,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_modified_since"
+  },
+  "clause": "13.2.2 step 1->3->4",
+  "rfc": "9110 13.2.2 step 1: if true, continue to step 3"
+ },
+ {
+  "i": 17,
+  "touch": "battery",
+  "id": "battery/comma-inside-tag",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"media,v4\"",
+    "last_modified": 6
+   },
+   "request": {
+    "if_match": "\"media,v4\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.1 C-quoted comma",
+  "rfc": "9110 8.8.3: etagc includes 0x2C"
+ },
+ {
+  "i": 18,
+  "touch": "battery",
+  "id": "battery/comma-tag-v-split",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"media,v4\"",
+    "last_modified": 6
+   },
+   "request": {
+    "if_match": "\"media\", \"v4\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "412",
+   "precondition": "if_match"
+  },
+  "clause": "13.1.1 list split",
+  "rfc": "9110 8.8.3: bytes differ from case 17"
+ },
+ {
+  "i": 21,
+  "touch": "battery",
+  "id": "battery/excl-opaque-tag",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"!\"",
+    "last_modified": 3
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"!\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "8.8.3 etagc 0x21",
+  "rfc": "9110 8.8.3: etagc = %x21 / %x23-7E"
+ },
+ {
+  "i": 23,
+  "touch": "battery",
+  "id": "battery/inm-no-current-rep",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"X\"",
+    "last_modified": 0
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"later-tag\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.2.2 step 6",
+  "rfc": "9110 13.2.2 step 6"
+ },
+ {
+  "i": 26,
+  "touch": "battery",
+  "id": "battery/inm-no-match-third-method",
+  "inp": {
+   "method": "PATCH",
+   "current": {
+    "exists": true,
+    "etag": "\"X\"",
+    "last_modified": 0
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"later-tag\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.2 step 3 positive->continue",
+  "rfc": "9110 13.1.2 step 3: condition true continues"
+ },
+ {
+  "i": 27,
+  "touch": "battery",
+  "id": "battery/method-case-head",
+  "inp": {
+   "method": "head",
+   "current": {
+    "exists": true,
+    "etag": "\"m\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 2,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "9.1 method case-sensitivity",
+  "rfc": "9110 9.1: the method token is case-sensitive; \"head\" is not HEAD"
+ },
+ {
+  "i": 28,
+  "touch": "battery",
+  "id": "battery/method-case-inm-post",
+  "inp": {
+   "method": "post",
+   "current": {
+    "exists": true,
+    "etag": "\"m\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"other\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "9.1 method case-sensitivity",
+  "rfc": "9110 13.1.2 step 3: condition true continues"
+ },
+ {
+  "i": 29,
+  "touch": "battery",
+  "id": "battery/inm-no-match-ims-ignored",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"e\"",
+    "last_modified": 4
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"9\", \"1\"",
+    "if_modified_since": 4,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.3 ignore rule (inm present)",
+  "rfc": "9110 13.1.3: recipient MUST ignore If-Modified-Since when If-None-Match is present"
+ },
+ {
+  "i": 30,
+  "touch": "battery",
+  "id": "battery/star-solo-tab",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"9\"",
+    "last_modified": 4
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": " * ",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "5.6.1.2 OWS around *",
+  "rfc": "9110 13.1.2 step 1"
+ },
+ {
+  "i": 31,
+  "touch": "battery",
+  "id": "battery/cache-role-oms",
+  "inp": {
+   "method": "POST",
+   "current": {
+    "exists": true,
+    "etag": "\"x\"",
+    "last_modified": 6
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"x\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   },
+   "role": "cache"
+  },
+  "expect": {
+   "decision": "412",
+   "precondition": "if_none_match"
+  },
+  "clause": "9111 4.3.2 cache role",
+  "rfc": "9111 4.3.2: If-None-Match is applicable to a cache; 9110 13.1.2 412 for non-GET/HEAD [INFERENCE: cache semantics nuance, contract choice -- see report]"
+ },
+ {
+  "i": 32,
+  "touch": "battery",
+  "id": "battery/inm-post-tag",
+  "inp": {
+   "method": "POST",
+   "current": {
+    "exists": true,
+    "etag": "\"x\"",
+    "last_modified": 6
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"x\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "412",
+   "precondition": "if_none_match"
+  },
+  "clause": "13.1.2 412 branch",
+  "rfc": "9110 13.1.2: 304 for GET/HEAD, 412 otherwise"
+ },
+ {
+  "i": 33,
+  "touch": "battery",
+  "id": "battery/ifmatch-weak-current-only",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"s\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": "W/\"s\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "412",
+   "precondition": "if_match"
+  },
+  "clause": "8.8.3.2 Table 3",
+  "rfc": "9110 8.8.3.2 Table 3 W/\"1\" vs \"1\": no strong match"
+ },
+ {
+  "i": 38,
+  "touch": "battery",
+  "id": "battery/current-comma-tag",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"a,b\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"a,b\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "8.8.3 etagc 0x2C",
+  "rfc": "9110 8.8.3"
+ },
+ {
+  "i": 39,
+  "touch": "battery",
+  "id": "battery/ims-eq-get",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"e\"",
+    "last_modified": 4
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 4,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_modified_since"
+  },
+  "clause": "13.1.3 step 1",
+  "rfc": "9110 13.1.3 step 1"
+ },
+ {
+  "i": 42,
+  "touch": "battery",
+  "id": "battery/cache-ims-non-safe-method",
+  "inp": {
+   "method": "DELETE",
+   "current": {
+    "exists": true,
+    "etag": "\"x\"",
+    "last_modified": 6
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": 999,
+    "if_unmodified_since": null
+   },
+   "role": "cache"
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "9111 4.3.2 + 13.1.3 method rule",
+  "rfc": "9110 13.1.3: ignored when the method is not GET/HEAD"
+ },
+ {
+  "i": 43,
+  "touch": "battery",
+  "id": "battery/empty-tag-vs-nonempty",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"dq\"",
+    "last_modified": 3
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.2 step 2",
+  "rfc": "9110 13.1.2: no listed tag weak-matches"
+ },
+ {
+  "i": 44,
+  "touch": "battery",
+  "id": "battery/empty-tag-eq",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"\"",
+    "last_modified": 3
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "8.8.3 empty opaque-tag",
+  "rfc": "9110 8.8.3 Example: ETag: \"\""
+ },
+ {
+  "i": 45,
+  "touch": "battery",
+  "id": "battery/cache-inm-star-miss",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": false,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "*",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   },
+   "role": "cache"
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "9111 4.3.2 cache role",
+  "rfc": "9110 13.1.2 step 1: \"*\" true when no current representation"
+ },
+ {
+  "i": 46,
+  "touch": "battery",
+  "id": "battery/ius-equal-etag-present",
+  "inp": {
+   "method": "PATCH",
+   "current": {
+    "exists": true,
+    "etag": "\"g\"",
+    "last_modified": 7
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 7
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.4 step 1",
+  "rfc": "9110 13.1.4: earlier or equal"
+ },
+ {
+  "i": 47,
+  "touch": "battery",
+  "id": "battery/ius-equal-etag-absent",
+  "inp": {
+   "method": "PATCH",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": 7
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": 7
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.4 step 1",
+  "rfc": "9110 13.1.4: earlier or equal"
+ },
+ {
+  "i": 48,
+  "touch": "battery",
+  "id": "battery/ifmatch-star-miss",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"q\"",
+    "last_modified": 0
+   },
+   "request": {
+    "if_match": "*",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.1 step 1",
+  "rfc": "9110 13.1.1 step 1"
+ },
+ {
+  "i": 50,
+  "touch": "battery",
+  "id": "battery/ows-trailing-space",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"s\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"s\" ",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "5.6.1.2 OWS",
+  "rfc": "9110 5.6.1.2: \"foo ,bar,\" valid"
+ },
+ {
+  "i": 53,
+  "touch": "battery",
+  "id": "battery/empty-tag-vs-nonempty-curr",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"empty-tag-11\"",
+    "last_modified": 6
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "200",
+   "precondition": null
+  },
+  "clause": "13.1.2 step 2",
+  "rfc": "9110 13.1.2: no listed tag weak-matches"
+ },
+ {
+  "i": 54,
+  "touch": "battery",
+  "id": "battery/cache-inm-list",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"c-1\"",
+    "last_modified": 6
+   },
+   "request": {
+    "if_match": "\"zz\"",
+    "if_none_match": "\"c-1\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   },
+   "role": "cache"
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "9111 4.3.2 cache role",
+  "rfc": "9111 4.3.2: If-None-Match applicable to a cache"
+ },
+ {
+  "i": 55,
+  "touch": "battery",
+  "id": "battery/method-negated-nonstandard",
+  "inp": {
+   "method": "head",
+   "current": {
+    "exists": true,
+    "etag": "\"m\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"m\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "412",
+   "precondition": "if_none_match"
+  },
+  "clause": "13.1.2 412 branch + 9.1",
+  "rfc": "9110 9.1: \"head\" is not HEAD; 13.1.2: false for other methods responds 412"
+ },
+ {
+  "i": 7,
+  "touch": "battery",
+  "id": "battery/ifmatch-malformed-under-cache-role",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"q\"",
+    "last_modified": 7
+   },
+   "request": {
+    "if_match": "\"unclosed",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   },
+   "role": "cache"
+  },
+  "expect": null,
+  "clause": "9111 4.3.2 + contract clause 6",
+  "rfc": "9111 4.3.2: not applicable to a cache; contract v1 clause 6 validates first"
+ },
+ {
+  "i": 19,
+  "touch": "battery",
+  "id": "battery/lowercase-weak-inm",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"tag-8\"",
+    "last_modified": 6
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "w/\"tag-8\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "8.8.3 grammar (W/ case-sensitive)",
+  "rfc": "9110 8.8.3: weak = %s\"W/\" (case-sensitive)"
+ },
+ {
+  "i": 22,
+  "touch": "battery",
+  "id": "battery/del-opaque-tag",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"a\u007fb\"",
+    "last_modified": 3
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"a\u007fb\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "8.8.3 etagc excludes 0x7F",
+  "rfc": "9110 8.8.3: 0x7F is not in etagc"
+ },
+ {
+  "i": 24,
+  "touch": "battery",
+  "id": "battery/ifmatch-nomatch-two-weak",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"target\"",
+    "last_modified": 4
+   },
+   "request": {
+    "if_match": "W/\"target\", \"other\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "412",
+   "precondition": "if_match"
+  },
+  "clause": "8.8.3.2 strong comparison",
+  "rfc": "9110 13.1.1 strong comparison: the weak member does not match"
+ },
+ {
+  "i": 34,
+  "touch": "battery",
+  "id": "battery/bad-charset-inm",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"d\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"a b\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "8.8.3 etagc excludes 0x20",
+  "rfc": "9110 8.8.3: space is not in etagc"
+ },
+ {
+  "i": 35,
+  "touch": "battery",
+  "id": "battery/method-space",
+  "inp": {
+   "method": "G ET",
+   "current": {
+    "exists": true,
+    "etag": "\"d\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "5.6.2 token",
+  "rfc": "9110 5.6.2: token forbids SP"
+ },
+ {
+  "i": 36,
+  "touch": "battery",
+  "id": "battery/etag-unquoted",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"stand-71\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"stand-71",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "8.8.3 opaque-tag",
+  "rfc": "9110 8.8.3: opaque-tag = DQUOTE *etagc DQUOTE"
+ },
+ {
+  "i": 37,
+  "touch": "battery",
+  "id": "battery/method-slash",
+  "inp": {
+   "method": "GE/T",
+   "current": {
+    "exists": true,
+    "etag": "\"d\"",
+    "last_modified": 2
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "5.6.2 token",
+  "rfc": "9110 5.6.2: token forbids '/'"
+ },
+ {
+  "i": 40,
+  "touch": "battery",
+  "id": "battery/trailing-junk-inm",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"e\"",
+    "last_modified": 4
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"e\"x",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "8.8.3 opaque-tag",
+  "rfc": "9110 8.8.3: must end at DQUOTE"
+ },
+ {
+  "i": 41,
+  "touch": "battery",
+  "id": "battery/w2-tag-strong",
+  "inp": {
+   "method": "PUT",
+   "current": {
+    "exists": true,
+    "etag": "\"w2\"",
+    "last_modified": 3
+   },
+   "request": {
+    "if_match": "W2\"w2\"",
+    "if_none_match": null,
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "8.8.3 weak prefix",
+  "rfc": "9110 8.8.3: weak = %s\"W/\""
+ },
+ {
+  "i": 49,
+  "touch": "battery",
+  "id": "battery/malformed-star-lead-comma",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"9\"",
+    "last_modified": 4
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "*, \"9\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "13.1.2 list value with *",
+  "rfc": "9110 13.1.2 note: syntactically invalid"
+ },
+ {
+  "i": 51,
+  "touch": "battery",
+  "id": "battery/only-commas-space",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": null,
+    "last_modified": null
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": " , ",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": null,
+  "clause": "5.6.1.2 zero elements",
+  "rfc": "9110 5.6.1.2: \"\", \",\", \",   ,\" invalid -- no non-empty element"
+ },
+ {
+  "i": 25,
+  "touch": "battery",
+  "id": "battery/empty-list-element",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"e\"",
+    "last_modified": 1
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"zz\", , \"e\"",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "5.6.1.2 empty members",
+  "rfc": "9110 5.6.1.2: MUST parse and ignore a reasonable number of empty list elements; \"foo , ,bar,charlie\" is a valid value",
+  "rfc_conflict": true
+ },
+ {
+  "i": 56,
+  "touch": "battery",
+  "id": "battery/empty-list-trailing",
+  "inp": {
+   "method": "GET",
+   "current": {
+    "exists": true,
+    "etag": "\"e\"",
+    "last_modified": 1
+   },
+   "request": {
+    "if_match": null,
+    "if_none_match": "\"e\" ,",
+    "if_modified_since": null,
+    "if_unmodified_since": null
+   }
+  },
+  "expect": {
+   "decision": "304",
+   "precondition": "if_none_match"
+  },
+  "clause": "5.6.1.2 empty members",
+  "rfc": "9110 5.6.1.2: \"foo ,bar,\" is a valid value",
+  "rfc_conflict": true
+ }
+]

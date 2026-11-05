@@ -1,0 +1,605 @@
+{
+  "round": "round-94",
+  "seat": "MutC1",
+  "base": "0f7d9bbcdd6a9ed36f5bc62b2116ddd040e871a8",
+  "counter_sha256": "58028584f1aab19a294d24147854f56a703b2442f5af2d32fed69a5a87a8306a",
+  "reference": {
+    "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+    "base_rc": 1,
+    "selftest_rc": 0,
+    "fixtures": {
+      "E1-gate": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=1 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E1-vac": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=1 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E2-criteri-A": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=2 mismatches=1 E1=0 E2=1 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E2-criteri-B": {
+        "rc": 0,
+        "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true"
+      },
+      "E2-blob": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=2 mismatches=1 E1=0 E2=1 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E3-rowid": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=1 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E3-loc": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=1 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E4-del": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=1 E5=0 pins=identity battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E4-first": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=1 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E5-tree": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E5-empty": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E5-abs": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      },
+      "E5-abs-B": {
+        "rc": 0,
+        "line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true"
+      },
+      "PIN-ident": {
+        "rc": 1,
+        "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=identity battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false"
+      }
+    },
+    "full_battery_base": {
+      "rc": 1,
+      "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false"
+    }
+  },
+  "mutants": [
+    {
+      "id": "E1-gate-heading",
+      "cls": "E1",
+      "find": "if not gates:",
+      "replace": "if False:",
+      "selftest_rc": 0,
+      "selftest_line": "selftest 9/9 planted findings, exit 1 on planted, exit 0 on repaired",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E1-gate": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=1 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E1-gate"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": false
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E1-gate": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E1-vacuity-threshold",
+      "cls": "E1",
+      "find": "if len([l for l in body.splitlines() if l.strip()]) < 2:",
+      "replace": "if len([l for l in body.splitlines() if l.strip()]) < 1:",
+      "selftest_rc": 0,
+      "selftest_line": "selftest 9/9 planted findings, exit 1 on planted, exit 0 on repaired",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E1-vac": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=1 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E1-vac"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": false
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E1-vac": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E2-criteri-test",
+      "cls": "E2",
+      "find": "or not re.search(r\"criteri\", section[:400], re.I):",
+      "replace": "or False:",
+      "selftest_rc": 0,
+      "selftest_line": "selftest 9/9 planted findings, exit 1 on planted, exit 0 on repaired",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=48 mismatches=18 E1=0 E2=3 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": true,
+      "fixtures": {
+        "E2-criteri-A": {
+          "rc": 1,
+          "line1": "lessons=2 entries=1 rows=3 criteria=2 mismatches=1 E1=0 E2=1 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=2 mismatches=1 E1=0 E2=1 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": false
+        },
+        "E2-criteri-B": {
+          "rc": 1,
+          "line1": "lessons=2 entries=1 rows=3 criteria=2 mismatches=1 E1=0 E2=1 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E2-criteri-B"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": false
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E2-criteri-A": false,
+          "E2-criteri-B": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {
+        "E2-criteri-B": "over-flag (ref met=true)"
+      }
+    },
+    {
+      "id": "E2-blob-nonempty",
+      "cls": "E2",
+      "find": "elif meta[0] != \"blob\" or meta[1] <= 0:",
+      "replace": "elif meta[0] != \"blob\":",
+      "selftest_rc": 0,
+      "selftest_line": "selftest 9/9 planted findings, exit 1 on planted, exit 0 on repaired",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E2-blob": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=3 criteria=2 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=2 mismatches=1 E1=0 E2=1 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E2-blob"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": false
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E2-blob": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E3-rowid-vs-prose",
+      "cls": "E3",
+      "find": "m = ROW_ID_RE.match(line)",
+      "replace": "m = re.search(r\"(S[0-9]{3,})\", line)",
+      "selftest_rc": 0,
+      "selftest_line": "selftest 9/9 planted findings, exit 1 on planted, exit 0 on repaired",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E3-rowid": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=1 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E3-rowid"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=7/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": true
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E3-rowid": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E3-locator",
+      "cls": "E3",
+      "find": "elif not ids_here and not LOCATOR_RE.search(line):",
+      "replace": "elif False:",
+      "selftest_rc": 1,
+      "selftest_line": "selftest FAIL: ['E3 vacuous locator'] not found in [('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E4', 'blank line inside Mistakes section 1 after row 4'), ('E4', 'carried a Mistakes ",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E3-loc": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=1 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E3-loc"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": false
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E3-loc": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E4-deletion-pin",
+      "cls": "E4",
+      "find": "if path in set(surfaces[\"mistakes_sections\"]) and not mistakes:",
+      "replace": "if False and not mistakes:",
+      "selftest_rc": 0,
+      "selftest_line": "selftest 9/9 planted findings, exit 1 on planted, exit 0 on repaired",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E4-del": {
+          "rc": 1,
+          "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=identity battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=1 E5=0 pins=identity battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E4-del"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": false
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E4-del": false
+        }
+      },
+      "met_only_killed": false,
+      "count_only_killed": true,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E4-blankline-first-section",
+      "cls": "E4",
+      "find": "for idx, body in enumerate(mistakes):",
+      "replace": "for idx, body in enumerate(mistakes[:1]):",
+      "selftest_rc": 0,
+      "selftest_line": "selftest 9/9 planted findings, exit 1 on planted, exit 0 on repaired",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E4-first": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=1 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E4-first"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": false
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E4-first": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E5-tree-check",
+      "cls": "E5",
+      "find": "elif meta[0] != \"blob\":",
+      "replace": "elif False:",
+      "selftest_rc": 1,
+      "selftest_line": "selftest FAIL: ['E5 tree'] not found in [('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E4', 'blank line inside Mistakes section 1 after row 4'), ('E4', 'carried a Mistakes section at ",
+      "base_rc": 0,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+      "base_killed": true,
+      "fixtures": {
+        "E5-tree": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E5-tree"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=7/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": true
+      },
+      "met_flip": {
+        "base": true,
+        "fixtures": {
+          "E5-tree": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E5-empty-blob-check",
+      "cls": "E5",
+      "find": "elif meta[1] <= 0:",
+      "replace": "elif False:",
+      "selftest_rc": 1,
+      "selftest_line": "selftest FAIL: ['E5 empty blob'] not found in [('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E4', 'blank line inside Mistakes section 1 after row 4'), ('E4', 'carried a Mistakes secti",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E5-empty": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E5-empty"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=7/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": true
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E5-empty": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    },
+    {
+      "id": "E5-absence-span-ignored",
+      "cls": "E5",
+      "find": "for span in ABSENCE_SPAN_RE.findall(body):",
+      "replace": "for span in []:",
+      "selftest_rc": 1,
+      "selftest_line": "selftest FAIL: ['E5 annotated-present'] not found in [('E1', 'vacuous Gate: fewer than two non-empty body lines'), ('E4', 'blank line inside Mistakes section 1 after row 4'), ('E4', 'carried a Mistake",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "E5-abs": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        },
+        "E5-abs-B": {
+          "rc": 1,
+          "line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=1 E1=0 E2=0 E3=0 E4=0 E5=1 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "ref_line1": "lessons=2 entries=1 rows=4 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E5-abs",
+        "E5-abs-B"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=8/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": false
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "E5-abs": true,
+          "E5-abs-B": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {
+        "E5-abs-B": "over-flag (ref met=true)"
+      }
+    },
+    {
+      "id": "identity-pins-removed",
+      "cls": "pins",
+      "find": "return pins, short, sorted(set(ident)), mismatches, counts",
+      "replace": "return pins, short, [], mismatches, counts",
+      "selftest_rc": 1,
+      "selftest_line": "selftest FAIL: identity pin read []",
+      "base_rc": 1,
+      "base_line1": "lessons=88 entries=81 rows=255 criteria=39 mismatches=15 E1=0 E2=0 E3=0 E4=0 E5=15 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+      "base_killed": false,
+      "fixtures": {
+        "PIN-ident": {
+          "rc": 0,
+          "line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=ok battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=true",
+          "ref_line1": "lessons=2 entries=1 rows=3 criteria=1 mismatches=0 E1=0 E2=0 E3=0 E4=0 E5=0 pins=identity battery=0/8 predecessor_admits=0/0 floor=2 self_pin=ok met=false",
+          "killed": true
+        }
+      },
+      "cross_fixture_differs": [
+        "E4-del",
+        "PIN-ident"
+      ],
+      "killed": true,
+      "full_battery_base": {
+        "rc": 1,
+        "tail": "battery=7/8 predecessor_admits=7/7 floor=2 self_pin=ok met=false",
+        "differs_from_ref": true
+      },
+      "met_flip": {
+        "base": false,
+        "fixtures": {
+          "PIN-ident": true
+        }
+      },
+      "met_only_killed": true,
+      "count_only_killed": false,
+      "designated_fixtures_mut_ref_note": {}
+    }
+  ],
+  "killed": 12,
+  "total": 12,
+  "surviving": [],
+  "fixture_revs": {
+    "E1-gate": "d7dfe56edf78ae012d166042031c656ff199141a",
+    "E1-vac": "26df4bea6c31b1e4b64b4e679baf2b923d29c491",
+    "E2-criteri-A": "b12ea878828826399ddb6b0328b4652d0542305a",
+    "E2-criteri-B": "717d877316c892ffbba1b151920b29184ee1dbb0",
+    "E2-blob": "7b6bfd91f000f279622b936abba73c8fd4e03857",
+    "E3-rowid": "467626239b7b41f1928f1c81c59e2ff4d8a49f44",
+    "E3-loc": "bf8fa6003b20e6b13459dd525e85768f1139e538",
+    "E4-del": "7146c82cfe0e405eaa3a5fd0704ecc50f16d5bf7",
+    "E4-first": "e0763af2e92a90a16ae949c134b4e3185582fe5e",
+    "E5-tree": "d066ef68b0c9533b47fd0834418597fc415286c9",
+    "E5-empty": "a96d81559acf0e7d97c56a63d147ffd8fbd2e0b9",
+    "E5-abs": "5a6d4e5097d1758bb826025b25f00041d642a9e8",
+    "E5-abs-B": "e6b492cb07472b8f956c12e2c5aa06034343f0c8",
+    "PIN-ident": "1298cb436bed1c5ac7c18d1ae7dd6e844c4e672b"
+  },
+  "fixture_ref_rc": {
+    "E1-gate": 1,
+    "E1-vac": 1,
+    "E2-criteri-A": 1,
+    "E2-criteri-B": 0,
+    "E2-blob": 1,
+    "E3-rowid": 1,
+    "E3-loc": 1,
+    "E4-del": 1,
+    "E4-first": 1,
+    "E5-tree": 1,
+    "E5-empty": 1,
+    "E5-abs": 1,
+    "E5-abs-B": 0,
+    "PIN-ident": 1
+  },
+  "summary": {
+    "killed_by_spec_rule": 12,
+    "total": 12,
+    "surviving_spec_rule": [],
+    "killed_met_only": [
+      "E1-gate-heading",
+      "E1-vacuity-threshold",
+      "E2-criteri-test",
+      "E2-blob-nonempty",
+      "E3-rowid-vs-prose",
+      "E3-locator",
+      "E4-blankline-first-section",
+      "E5-tree-check",
+      "E5-empty-blob-check",
+      "E5-absence-span-ignored",
+      "identity-pins-removed"
+    ],
+    "count_only": [
+      "E4-deletion-pin"
+    ],
+    "battery_supplemental_killed": [
+      "E3-rowid-vs-prose",
+      "E5-tree-check",
+      "E5-empty-blob-check",
+      "identity-pins-removed"
+    ],
+    "overflag_kills": [
+      "E2-criteri-test",
+      "E5-absence-span-ignored"
+    ]
+  }
+}
