@@ -3,9 +3,11 @@
 
 R96-2 class: a memorizing subject. It carries the reference answer for every
 hand case and every fixed-seed generated input (seeds 96 and 97, 120 each),
-keyed by the REVERSED sha256 hex of the minified canonical JSON (a key form
-the c97 anti-table blacklist does not search, so only the held-out cases can
-refuse it in the candidate slot). Unknown inputs get the most common
+keyed by the REVERSED minified canonical JSON text (a key form the c97
+anti-table blacklist does not search, so only the held-out cases can refuse
+it in the candidate slot). The subject imports only json and sys: the
+counter's sandbox leaves no other stdlib module importable (a first build
+keyed on hashlib crashed with ModuleNotFoundError inside the sandbox). Unknown inputs get the most common
 answer. Run once before the freeze; output is pinned in c97_reval.py.
 """
 import collections
@@ -22,7 +24,7 @@ spec.loader.exec_module(c97)
 
 
 def key(b):
-    return hashlib.sha256(b).hexdigest()[::-1]
+    return b.decode("utf-8", "replace")[::-1]
 
 
 table = {}
@@ -44,7 +46,6 @@ common = collections.Counter(json.dumps(v, sort_keys=True) for v in table.values
 
 src = '''#!/usr/bin/env python3
 """Forgery (R96-2 class): memorized answers, no decision logic."""
-import hashlib
 import json
 import sys
 
@@ -53,12 +54,12 @@ DEFAULT = %s
 
 raw = sys.stdin.buffer.read()
 try:
-    k = hashlib.sha256(json.dumps(json.loads(raw), sort_keys=True,
-                                  separators=(",", ":")).encode()).hexdigest()[::-1]
+    k = json.dumps(json.loads(raw), sort_keys=True,
+                   separators=(",", ":"))[::-1]
 except ValueError:
-    k = hashlib.sha256(raw).hexdigest()[::-1]
+    k = raw.decode("utf-8", "replace")[::-1]
 if k not in TABLE:
-    k2 = hashlib.sha256(raw).hexdigest()[::-1]
+    k2 = raw.decode("utf-8", "replace")[::-1]
     k = k2 if k2 in TABLE else k
 ans = TABLE.get(k, DEFAULT)
 if ans is None:
