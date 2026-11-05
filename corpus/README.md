@@ -835,3 +835,16 @@ One row per knowledge entry whose earlier index row was missing or omitted sourc
 | Static canonical preflight (r22) | `knowledge/static-canonical-preflight.md` (S020, S021, S026, S027, S028, S029) | Source-backed publisher-policy comparison of a named static HTML population; canonical signals versus selection, parser/URL limits; local fixture proof under `.ufo/waves/round-22/` |
 | Stored-response reuse decision (r91) | `knowledge/stored-response-reuse.md` (S461, S462, S463, S467, S469) | What one stored response may be used for under contract v1: the reuse decision over supplied status, header and request maps with first-match freshness lifetime and current age; no live property |
 | Conservative Vary matching (r88) | `knowledge/vary-matching.md` (S461, S462, S463) | The RFC 9111 section 4.1 match rule as this reader applies it offline to two supplied request-header maps; not cache-key construction, storage, revalidation, freshness or serving |
+
+## Round-98 frontier step — stale-serving extensions
+
+New ground this round: RFC 5861 `stale-while-revalidate` and `stale-if-error` (S482, opened
+2026-11-05; errata record S483, two Verified Editorial errata, neither touching the decision
+text), decided under the RFC 9111 §4.2.4 prohibitions by `scripts/stale_extensions.py`
+(contract v1, `.ufo/waves/round-98/stale-contract.md`). Still open: live-cache observation of
+either extension, background revalidation scheduling, Warning/Age emission, and the
+s-maxage/freshness-lifetime coupling the contract leaves to the caller.
+
+| Area | Entry | Coverage |
+|---|---|---|
+| Stale-serving extensions decision (r98) | `knowledge/stale-extensions.md` (S482, S483, S469, S457, S461, S478) | Whether a stale stored response may be served on a request or on an error, and for how long, decided over supplied values under contract v1; no live cache, no storage, no revalidation scheduling |
