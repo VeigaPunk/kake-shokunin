@@ -3237,3 +3237,12 @@ later tree) landed as `corpus/QUALITY.md` §Round 92, grounded by
 
 Tools: none installed or upgraded (no pacman; network limited to the named RFC/errata/datatracker
 GETs and the ordinary public documentation reads the seats list in their own reports).
+
+## Round 93 — 2026-11-05, self-assessment conformance (C1) and a conditional request evaluation instrument (C2)
+
+- C1 calibration (HOLD 2): the lane's self-assessment mismatches moved 20 → 0 at `4f5846fe` (E1 1→0, E2 8→0, E3 1→0, E4 4→0, E5 6→0; pins ok). Base control: `.ufo/waves/round-93/controls/base-c1.txt` (exit 1 at `10ecbd1a`). Repairs: SKILL.md absence annotations and re-pointed citations (`w1/ExecC1Fixes.md`), E3 metadata trio on `corpus/knowledge/meta-robots-directives.md` (`w1/ExecC1Fixes.md`), E1/E2/E4 Gate, QUALITY and Mistakes repairs (`w1/ScribeC1Prose.md`).
+- C2 freshness (HOLD 10), capability: `scripts/conditional_eval.py` enters the Capabilities table. Frozen counter met=true exit 0 at `4f5846fe`; selftest 90/90; `corpus/knowledge/conditional-request-evaluation.md` cites S471–S476 (six primary-source rows, registry 207 → 213, census exit 0). Evidence: `.ufo/waves/round-93/c93_conditional.py`, `controls/base-c2.txt`, `w1/ReviewC2.md`.
+- Attack evidence that bounds both claims: ReviewC1 falsified the C1 instrument (six routes, two live-capable: R93-1, R93-2); MutConditional found 9 of 40 reference mutants surviving the frozen C2 population (R93-7); ReviewC2 found the frozen positive control refuses a legal quoted-comma tag (R93-8). Routed, not repaired after scoring.
+- Frontier step: `corpus/SOURCES.md` 207 → 213 rows (S471–S476, tier A, `spec`), census exit 0 at base and at `4f5846fe`; mistakes 5–7 mined into `corpus/lessons/round-93.md` `## Mistakes`; sidecar re-pinned by digest (`corpus/knowledge/freshness-sidecar.json`, three entries, commit `4f5846fe`).
+- Trend verdicts (lane-internal; no non-author spot-check yet): expansion improved (conditional request evaluation held as a bounded capability on primary-source ground); quality improved (C1 self-assessment mismatches 0; knowledge entry carries the provenance trio); discernment unchanged (the instrument that admitted C1 is falsified, and the C2 population misses nine reference mutants).
+- Assimilation: none (merge/kake collides on eight ids). considerthese: none taken. Tools: none installed or upgraded.

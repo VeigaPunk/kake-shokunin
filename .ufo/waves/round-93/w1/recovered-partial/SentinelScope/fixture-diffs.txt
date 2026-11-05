@@ -1,0 +1,95 @@
+===== neg-blanket-200 =====
+--- pos-good.py	2026-11-04 22:22:21.222089693 -0300
++++ neg-blanket-200.py	2026-11-04 22:22:28.829741805 -0300
+@@ -135,10 +135,11 @@
+         sys.stderr.write("invalid_input: input is not JSON\n")
+         return 1
+     try:
+-        out = decide(payload)
++        decide(payload)
+     except Bad as exc:
+         sys.stderr.write("invalid_input: %s\n" % exc)
+         return 1
++    out = {"decision": "200", "precondition": None}
+     sys.stdout.write(json.dumps(out) + "\n")
+     return 0
+ 
+rc=0
+===== neg-blanket-304 =====
+--- pos-good.py	2026-11-04 22:22:21.222089693 -0300
++++ neg-blanket-304.py	2026-11-04 22:22:28.829835275 -0300
+@@ -135,10 +135,11 @@
+         sys.stderr.write("invalid_input: input is not JSON\n")
+         return 1
+     try:
+-        out = decide(payload)
++        decide(payload)
+     except Bad as exc:
+         sys.stderr.write("invalid_input: %s\n" % exc)
+         return 1
++    out = {"decision": "304", "precondition": "if_none_match"}
+     sys.stdout.write(json.dumps(out) + "\n")
+     return 0
+ 
+rc=0
+===== neg-weak-strong-swap =====
+--- pos-good.py	2026-11-04 22:22:21.222089693 -0300
++++ neg-weak-strong-swap.py	2026-11-04 22:22:28.829883225 -0300
+@@ -112,13 +112,13 @@
+         return a[1] == b[1]
+ 
+     if role == "origin" and parsed["if_match"] is not None:
+-        if not hit(parsed["if_match"], strong):
++        if not hit(parsed["if_match"], weak):
+             return {"decision": "412", "precondition": "if_match"}
+     elif role == "origin" and parsed["if_unmodified_since"] is not None and stamp is not None:
+         if stamp > parsed["if_unmodified_since"]:
+             return {"decision": "412", "precondition": "if_unmodified_since"}
+     if parsed["if_none_match"] is not None:
+-        if hit(parsed["if_none_match"], weak):
++        if hit(parsed["if_none_match"], strong):
+             code = "304" if method in ("GET", "HEAD") else "412"
+             return {"decision": code, "precondition": "if_none_match"}
+     elif (parsed["if_modified_since"] is not None and method in ("GET", "HEAD")
+rc=0
+===== neg-ignore-precedence =====
+--- pos-good.py	2026-11-04 22:22:21.222089693 -0300
++++ neg-ignore-precedence.py	2026-11-04 22:22:28.829918876 -0300
+@@ -117,6 +117,9 @@
+     elif role == "origin" and parsed["if_unmodified_since"] is not None and stamp is not None:
+         if stamp > parsed["if_unmodified_since"]:
+             return {"decision": "412", "precondition": "if_unmodified_since"}
++    if (parsed["if_modified_since"] is not None and method in ("GET", "HEAD")
++          and stamp is not None and stamp <= parsed["if_modified_since"]):
++        return {"decision": "304", "precondition": "if_modified_since"}
+     if parsed["if_none_match"] is not None:
+         if hit(parsed["if_none_match"], weak):
+             code = "304" if method in ("GET", "HEAD") else "412"
+rc=0
+===== neg-oracle-import =====
+--- pos-good.py	2026-11-04 22:22:21.222089693 -0300
++++ neg-oracle-import.py	2026-11-04 22:22:28.829953746 -0300
+@@ -128,6 +128,8 @@
+ 
+ 
+ def main():
++    sys.path.insert(0, "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93")
++    import c93_conditional  # noqa: F401  (absolute-path import of the scoring oracle)
+     raw = sys.stdin.read()
+     try:
+         payload = json.loads(raw)
+rc=0
+===== neg-pin-reader =====
+--- pos-good.py	2026-11-04 22:22:21.222089693 -0300
++++ neg-pin-reader.py	2026-11-04 22:22:28.829985086 -0300
+@@ -128,6 +128,9 @@
+ 
+ 
+ def main():
++    with open("/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93/frozen/"
++              "c2-population.sha256") as fh:
++        fh.read()
+     raw = sys.stdin.read()
+     try:
+         payload = json.loads(raw)
+rc=0

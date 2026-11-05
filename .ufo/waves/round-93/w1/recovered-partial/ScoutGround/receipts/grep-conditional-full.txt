@@ -1,0 +1,514 @@
+corpus/QUALITY.md:16:| Validator is not identity (r20 resume) | A validator claim names the generating mechanism, decodes the literal, and states what it cannot prove; content identity uses a normalized digest. | An ETag flip read as a content change, a matching ETag read as byte identity, or a fetch from another replica offered as refutation. | `corpus/lessons/round-16.md:35-38`; `corpus/knowledge/ghp-etag-anatomy.md`; `corpus/lessons/round-20.md` §Round-20 resume. |
+corpus/QUALITY.md:111:  the validator (S027-S029). Fails if `postfix/defect-probe.py` against the gate exits 1.
+corpus/QUALITY.md:143:  `python3 .ufo/waves/round-23/relaxation_probe.py --validator scripts/canonical_audit.py`
+corpus/README.md:43:| ETag anatomy (r20) | `knowledge/ghp-etag-anatomy.md` | the recorded root ETag decodes to mtime-length (nginx format, backend identity [INFERENCE]); validator, never identity |
+corpus/README.md:137:| Conditional request evaluation (which status a recipient answers a conditional request with, and which precondition decided it; no clock, no HTTP-date parsing, no storage, no freshness, no serving or forwarding) | r93 (lands this round) | `knowledge/conditional-request-evaluation.md` + `scripts/conditional_eval.py` | S471 S472 S473 S474 S475 S476 |
+corpus/README.md:186:  (verb-outcome samples, journal shape, ETag literals, fire counts) have
+corpus/README.md:625:| Capture-to-capture drift gate (r82) | `knowledge/capture-drift-validators.md` + `scripts/capture_delta.py` + `.ufo/waves/round-82/capture/` + `.ufo/waves/round-82/controls/after-c2-delta.txt` (S455; RFC 9110 §8.8.1 and §8.8.3) | Two dated GET-only captures of the same three declared `ds4cc.com` surfaces (round-81 capture A, round-82 capture B), every receipt verified offline against its retained body (GET, integer status, byte count, body sha256, RFC 3339 fetch time, not truncated); the delta compares status, body sha256, byte count and the header mapping per surface and prints `surfaces=… identical=… changed=… added=… removed=…`. The committed record re-derives from committed bytes at a measured revision, and identical-capture and one-byte-flipped controls both read `met=false`. Not covered: which answer is correct, whether a future change would be detected, or that a capture came from a socket — a well-formed fabrication with real digests passes. |
+corpus/README.md:627:Sources opened this round: S455 (RFC 9110 §8.8.1 Weak versus Strong and §8.8.3 ETag, tier A,
+corpus/README.md:629:`knowledge/capture-drift-validators.md`); registry 192 → 193 rows, census exit 0
+corpus/README.md:640:| Header-change classification (r83) | `knowledge/header-change-classes.md` + `scripts/header_change_class.py` + `.ufo/waves/round-83/controls/after-c2-classes.txt` (S456; RFC 9111 §3.1, §3.2, §4, §4.2, §4.2.3, §4.3.1) | Two dated capture trees of the same three declared `ds4cc.com` surfaces, each receipt verified offline against its retained body and each changed header classified against the frozen class table as `per-request`, `validator`, `representation`, `policy` or `unknown`; a surface is `representation-changed` when status or body sha256 differs or any changed header is validator/representation/unknown, else `same-object`. The committed record re-derives from committed bytes at a measured revision, and a control pair with a changed `ETag` and one body byte flips the verdict. |
+corpus/README.md:762:## Round-93 frontier step — conditional request evaluation
+corpus/README.md:766:*conditional request* half of the validator question out of the frontier:
+corpus/README.md:767:given a supplied current representation and supplied precondition field
+corpus/README.md:768:values, decide which status a recipient would answer a conditional request
+corpus/README.md:769:with, and which precondition decided it — one decision out of three (`200`,
+corpus/README.md:770:`304`, `412`) over the RFC 9110 §13.2.2 evaluation order: If-Match (strong
+corpus/README.md:771:comparison), If-Unmodified-Since, If-None-Match (weak comparison),
+corpus/README.md:772:If-Modified-Since, with the cache role entering at the top because RFC 9111
+corpus/README.md:773:§4.3.2 says If-Match and If-Unmodified-Since "are not applicable to a
+corpus/README.md:781:and this entry decides only what status a conditional request draws back.
+corpus/README.md:783:Frontier line: the conditional request evaluation moves from open ground to
+corpus/README.md:787:revalidation *exchange* (RFC 9111 §4.3.4 — receiving a 304 and updating
+corpus/README.md:788:stored metadata), the header set a 304 response carries (§15.4.5), the
+corpus/README.md:790:field-specific header normalisation, validator generation, and every
+corpus/SOURCES.md:17:| S009 | nginx source release-1.28.0, src/http/ngx_http_core_module.c — https://raw.githubusercontent.com/nginx/nginx/release-1.28.0/src/http/ngx_http_core_module.c | code | A | nginx's own ETag format only; not an assertion about the GitHub Pages backend | ngx_http_set_etag at line 1682, ETag sprintf lines 1708-1710; tag release-1.28.0, commit 481d28cb4e04c8096b9b6134856891dc52ecc68f | nginx formats its ETag from hexadecimal last-modified time and hexadecimal content length; this says nothing about which server GitHub Pages runs | mined | 2026-10-19 | 2027-10-19 | corpus/knowledge/ghp-etag-anatomy.md |
+corpus/SOURCES.md:18:| S010 | RFC 9110: HTTP Semantics — https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8 | spec | A | HTTP validator semantics for entity tags | Section 8.8.1 Weak versus Strong and 8.8.3 ETag; published June 2022 | Entity tags are opaque validators, and a strong validator can change for metadata reasons without representation-data changes | mined | 2026-10-19 | 2027-10-19 | corpus/knowledge/ghp-etag-anatomy.md |
+corpus/SOURCES.md:41:| S033 | RFC 9110: HTTP Semantics, media types — https://www.rfc-editor.org/rfc/rfc9110.txt | spec | A | Content-Type media-type grammar, distinct from S010 validator and S028 URI scopes | Sections 8.3, 8.3.1, 5.6.2 and 5.6.6, June 2022; opened 2026-10-21 | Media types have token type/subtype and optional parameters; nullable omitted headers are distinguished from malformed values by the receipt schema | mined | 2026-10-21 | 365d | corpus/knowledge/static-canonical-preflight.md, corpus/lessons/round-24.md |
+corpus/SOURCES.md:96:| S088 | RFC 9110: HTTP Semantics — https://www.rfc-editor.org/rfc/rfc9110.html#section-15.4 | spec | A | HTTP response status meanings for 3xx redirects, Location references, 404 Not Found and 410 Gone; distinct from S010's entity-tag validators, S028's http(s) URI validity and S033's media-type syntax; protocol semantics, not evidence that any source remains fresh | Sections 15.4 Redirection, 10.2.2 Location, 15.5.5 404 Not Found, and 15.5.11 410 Gone; fetched 2026-10-23T01:08:56Z, HTTP 200, retained text sha256 81c719743867… | RFC 9110 says 301 assigns a new permanent URI, 302 indicates the resource is temporarily elsewhere, 303 uses Location to identify an indirect response, 307 is temporary and 308 is permanent; relative Location is resolved against the target URI; 404 and 410 distinguish not found from likely permanent unavailability | mined | 2026-10-23 | 90d | scripts/source_recheck.py |
+corpus/SOURCES.md:102:| S094 | MDN: Redirections in HTTP — https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Redirections | docs | B | MDN's explanatory guide to redirect categories and what crawlers and feed readers do with them; not normative HTTP semantics | Sections Principle, Permanent redirections and Temporary redirections; last modified 2026-08-27; fetched 2026-10-23T01:09:01Z, HTTP 200, retained text sha256 458c6cc943e3… | REJECTED: it restates the permanent/temporary split that S088 states normatively, and its Principle section says every redirect response has a Location header, which S088 contradicts for 300 (Location SHOULD) and 304 (no Location in its list), so it cannot ground a re-check rule; wave-1 ScoutReopenS094; flip: a redirect question S088 does not answer | rejected | 2026-10-23 | 90d | — |
+corpus/SOURCES.md:200:| S453 | RFC 9110: HTTP Semantics, §5.6.7 Date/Time Formats — https://www.rfc-editor.org/rfc/rfc9110.txt | spec | A | The three HTTP-date formats a timestamp recipient must accept (IMF-fixdate, the obsolete RFC 850 shape, asctime), their ABNF, and the §5.5 sentence on a comma that is data inside a member; not the unavailable_after directive (defined by no specification), not robots.txt semantics, not ISO 8601, not any crawler's parsing behaviour; distinct scope from S010's validators, S028's URI schemes, S033's media types, S088's redirect statuses and S433's Content-Type field lines | §5.6.7 Date/Time Formats lines 1836-1937 (ABNF 1873, 1902, 1910-1911; examples 1848-1853; case rule 1914) and §5.5 Field Values lines 1579-1633; June 2022; retained plain text 502,941 B, sha256 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a, fetched 2026-11-04T10:44:53Z, HTTP 200 | A recipient that parses a timestamp value in an HTTP field must accept all three HTTP-date formats, and a comma allowed as data inside a member such as an HTTP-date is not a list separator | mined | 2026-11-04 | 365d | corpus/knowledge/http-date-grammar.md |
+corpus/SOURCES.md:202:| S455 | RFC 9110: HTTP Semantics, §8.8.1 Weak versus Strong and §8.8.3 ETag — https://www.rfc-editor.org/rfc/rfc9110.txt | spec | A | What a strong validator establishes about representation bytes and what a weak one does not, and the definitional ground for the lane's capture-to-capture delta, which compares a body digest it computes itself plus the header mapping across two dated GET-only captures; not ETag generation by any server, not weak/strong comparison of tags observed in the wild, not cache policy, not conditional requests, not provenance of a capture, not any property's correctness; distinct section and scope from S010's ETag opacity and metadata-change lesson and from S453's date formats | §8.8.1 lines 3393-3478 (definitions 3403-3405 and 3438-3439; uniqueness 3417-3422; hash-as-validator 3428-3429; shared-validator rule 3463-3465), §8.8.3 lines 3570-3617 (opaque validator 3574-3576; W/ rule 3607-3612), §8.8.3.2 lines 3643-3669 (strong 3648-3649, weak 3651-3653) of `.ufo/waves/round-81/w1/ScoutSources/rfc9110.txt` (502,941 B, sha256 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a, fetched 2026-11-04T10:44:53Z, HTTP 200; re-hashed 2026-11-04 by this row's author, no GET by this seat) | A strong validator changes whenever representation data observable in a 200 GET body changes, and a collision-resistant hash of those bytes is sufficient; a weak validator may not change for such a change, and a validator shared by simultaneous representations is weak unless their data is identical. Equal bytes under a self-computed digest bear on two dated captures; they do not prove a surface correct, and a matching or flipped ETag decides nothing here | mined | 2026-11-04 | 365d | corpus/knowledge/capture-drift-validators.md, corpus/lessons/round-82.md |
+corpus/SOURCES.md:203:| S456 | RFC 9111 — HTTP Caching — https://www.rfc-editor.org/rfc/rfc9111.txt | spec | A | HTTP cache storage, freshness and validation as they bear on reading two dated captures of one URI: that a stored response includes unrecognised header fields and is updated from newer responses, that Age is a clock estimate, and that ETag and Last-Modified are the validators compared for equivalence; not the lane's class names or bucket membership, which are lane policy; not any server's cache policy; not ETag generation or comparison strength (RFC 9110 §8.8, S010 and S455); not cache-directive argument syntax; not any claim that a capture observed origin bytes | §3.1 heading 338, quote 340-342 (unrecognised fields stored); §3.2 lines 369-388 (merge rule 375-377; Content-Length exception 387); §4 lines 466-490 (reuse gate 468-469; fresh, stale or validated alternatives 484-490); §4.2 lines 581-599 (fresh and stale definitions 583-585; age as elapsed time 594-595; fresh reuse without contacting the origin 597-599); §4.2.3 lines 719-738 (Age as an estimate 721-724; date_value 736-738); §4.3.1 lines 812-850 (validators compared 827-829; Last-Modified 831-834; entity tag 838-844); §4.3.4 lines 986-988 (a 304 freshens the stored response); June 2022, STD 98, obsoletes RFC 7234; fetched 2026-11-04T13:29:41Z by the round-83 ScoutSources seat, HTTP 200, 84,477 bytes, sha256 aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e, retained at .ufo/waves/round-83/w1/ScoutSources/rfc9111.txt | A cache must not reuse a stored response unless it is fresh, allowed to be served stale or successfully validated; a stored response includes unrecognised header fields and is updated from a newer response's fields, so a moved field is part of the object a cache holds; Age is the cache's estimate of elapsed time, and ETag and Last-Modified are the validators compared to decide whether a stored response is equivalent to a current representation | mined | 2026-11-04 | 365d | corpus/knowledge/header-change-classes.md, corpus/knowledge/cache-control-effective.md |
+corpus/SOURCES.md:211:| S465 | RFC 9110: HTTP Semantics, section 5.6.2 Tokens and section 5.6.1.2 Recipient Requirements — https://www.rfc-editor.org/rfc/rfc9110.txt | spec | A | The token alphabet a Vary member and a field name must satisfy, and the empty-list-element rule that makes empty-member refusal an adapter convention; distinct from S010's validator scope, S033's media-type scope and S028's URI scope | Section 5.6.2 token production at plain-text lines 1730–1738 and section 5.6.1.2 empty-element sentence at lines 1695–1699; June 2022; fetched 2026-11-04T21:16:52Z, HTTP 200, 502941 bytes, sha256 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a | A Vary member and a field name are tokens over an alphabet without whitespace or delimiters, so SP, comma, CR and LF are outside it; a recipient must parse and ignore empty list elements, so refusing an empty Vary member is this lane's convention rather than an RFC requirement | mined | 2026-11-04 | 180d | corpus/knowledge/cache-key-construction.md |
+corpus/SOURCES.md:222:- Validators and crawl hygiene — S010 → S009 → S011 → S012 → S013: establish HTTP validator semantics before examining nginx's format, then move from standards-defined host and sitemap boundaries to Google's implementation guidance.
+corpus/SOURCES.md:239:The query was which primary sources define ETag validators, robots host scope, and sitemap scope. Where: the fixed S009-S013 set, checked in nginx source, RFC Editor text, sitemaps.org, and Google Search Central. Date: 2026-10-19. Identified 5, screened 5, included 5, excluded 0. No candidate from this fixed set was dropped; stop rationale: the five assigned sources were opened and each topic had a direct source for its stated scope.
+corpus/SOURCES.md:282:- nginx docs: the `etag` directive — https://nginx.org/en/docs/http/ngx_http_core_module.html#etag
+corpus/SOURCES.md:323:- S094: read the reject reason as "overbroad" for 304 (RFC 9110 15.4.5 does not require Location; it does not forbid it), not "contradicts".
+corpus/knowledge/accessibility-review-cards.json:598:    "failureExample": "A delivery-date field rejects \"31/12/2026\" because the form only accepts YYYY-MM-DD, but the only message shown is \"Invalid date\"; the expected format is known to the validator yet is never suggested to the user.",
+corpus/knowledge/baidu-mobile-matching-error-causes.md:34:- **The ajax cause is a precondition for the lane's rendering rows.** The operator's render agent
+corpus/knowledge/cache-control-effective.md:36:RFC 7234 §4.2.1, retained lines 691–695, considered a duplicate directive's value **invalid**, encouraging stale treatment. It did not prescribe taking the minimum duplicate value. Calling minimum selection “RFC 7234's most-restrictive rule” is therefore a false attribution. RFC 9111 Appendix B (retained HTML line 304) says duplicate/conflicting directive handling was clarified. Its first-occurrence-or-stale rule and its separate most-restrictive **conflict** advice must not be collapsed into a minimum-value algorithm.
+corpus/knowledge/capture-drift-validators.md:1:source: S455 — RFC 9110 §8.8.1 Weak versus Strong and §8.8.3 ETag — https://www.rfc-editor.org/rfc/rfc9110.txt — §8.8.1 lines 3393-3478, §8.8.3 lines 3570-3617 and §8.8.3.2 lines 3643-3669 of `.ufo/waves/round-81/w1/ScoutSources/rfc9110.txt` (502,941 B, sha256 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a, fetched 2026-11-04T10:44:53Z, HTTP 200; this entry's author re-hashed the retained copy on 2026-11-04 and opened no socket)
+corpus/knowledge/capture-drift-validators.md:5:scope: what RFC 9110 §8.8.1 and §8.8.3 make a strong validator establish about representation bytes, what a weak one does not, and how the lane's `scripts/capture_delta.py` compares two dated GET-only captures of the same three surfaces. Not ETag generation by any server, not cache policy, not conditional requests, not any property's correctness, not provenance of a capture
+corpus/knowledge/capture-drift-validators.md:7:# Capture-to-capture drift: what a validator settles, and what the delta decides
+corpus/knowledge/capture-drift-validators.md:11:Everything it can say is bounded by two things: what RFC 9110 makes a validator mean, and what the
+corpus/knowledge/capture-drift-validators.md:16:RFC 9110 §8.8.1 defines validator strength by the relation between the validator and the
+corpus/knowledge/capture-drift-validators.md:23:| A strong validator tracks representation-data changes | `rfc9110.txt:3403-3405` | A "strong validator" is representation metadata that changes value whenever a change occurs to the representation data that would be observable in the content of a 200 (OK) response to GET. | 31 |
+corpus/knowledge/capture-drift-validators.md:24:| A strong validator may also change without a data change | `rfc9110.txt:3407-3409` | A strong validator might change for reasons other than a change to the representation data, such as when a semantically significant part of the representation metadata is changed (e.g., Content-Type)… | 30 |
+corpus/knowledge/capture-drift-validators.md:25:| Uniqueness is per resource, not across resources | `rfc9110.txt:3417-3422` | A strong validator is unique across all versions of all representations associated with a particular resource over time. … no implication of uniqueness across representations of different resources | 18 + 9 |
+corpus/knowledge/capture-drift-validators.md:26:| A hash of the data is a sufficient strong validator | `rfc9110.txt:3428-3429` | A collision-resistant hash function applied to the representation data is also sufficient… | 12 |
+corpus/knowledge/capture-drift-validators.md:27:| A weak validator may not move when the data moves | `rfc9110.txt:3438-3439` | In contrast, a "weak validator" is representation metadata that might not change for every change to the representation data. | 19 |
+corpus/knowledge/capture-drift-validators.md:28:| A validator shared by simultaneous representations is weak | `rfc9110.txt:3463-3465` | a validator is weak if it is shared by two or more representations of a given resource at the same time, unless those representations have identical representation data. | 28 |
+corpus/knowledge/capture-drift-validators.md:29:| An entity tag is opaque, not a content literal | `rfc9110.txt:3574-3576` | An entity tag is an opaque validator for differentiating between multiple representations of the same resource… | 16 |
+corpus/knowledge/capture-drift-validators.md:30:| Strong is the default; a failing tag is marked weak | `rfc9110.txt:3607-3612` | An entity tag can be either a weak or strong validator, with strong being the default. … then the origin server MUST mark the entity tag as weak by prefixing its opaque value with "W/" (case-sensitive). | 16 + 19 |
+corpus/knowledge/capture-drift-validators.md:41:   to validator: a change in the representation data observable in a 200 GET body is accompanied by a
+corpus/knowledge/capture-drift-validators.md:42:   change in the validator. It does not run the other way as a proof that equal bytes produced the
+corpus/knowledge/capture-drift-validators.md:43:   validator — the tag is opaque, and the RFC only requires uniqueness across versions of *one*
+corpus/knowledge/capture-drift-validators.md:45:2. **A strong validator may move with no byte change** (:3407-3409). So a validator flip is never,
+corpus/knowledge/capture-drift-validators.md:47:3. **A weak validator cannot exclude a byte change.** It "might not change for every change to the
+corpus/knowledge/capture-drift-validators.md:52:This is why the lane's drift gate computes a digest of the bytes instead of reading `ETag`. The
+corpus/knowledge/capture-drift-validators.md:82:`ETag` — makes the surface `changed` while its line still reads `body=same`. The body question is
+corpus/knowledge/capture-drift-validators.md:87:A further consequence of the mapping rule: the gate never reads `ETag` as a validator. If an `ETag`
+corpus/knowledge/capture-drift-validators.md:88:differs it shows up as one more `field=etag change=changed` entry with `body=same`, which is the
+corpus/knowledge/capture-drift-validators.md:163:- **Choosing sha256 over `ETag` is a lane policy grounded in :3428-3429.** The RFC says a
+corpus/knowledge/capture-drift-validators.md:164:  collision-resistant hash of the representation data is a sufficient strong validator; it does not
+corpus/knowledge/capture-drift-validators.md:165:  require this gate to compute one, and it does not make the server's `ETag` usable as a byte
+corpus/knowledge/capture-drift-validators.md:167:- **The weak-validator reading is used only negatively here.** The entry claims that a weak validator
+corpus/knowledge/capture-drift-validators.md:171:  (`rfc9110.html#section-8.8`) for ETag opacity and for a strong validator changing on a metadata
+corpus/knowledge/capture-drift-validators.md:173:  the hash-as-validator sentence (:3428-3429) and the two tag-comparison functions, read against a
+corpus/knowledge/capture-drift-validators.md:174:  byte delta that never consumes a server `ETag`. `[INFERENCE]`
+corpus/knowledge/conditional-request-evaluation.md:1:source: S471 S472 S473 S474 S475 S476 — RFC 9110 HTTP Semantics, §13.2.2 Precedence of Preconditions (plain-text line 6222), §13.1.1 If-Match (5785), §13.1.2 If-None-Match (5872), §13.1.3 If-Modified-Since (5942), §13.1.4 If-Unmodified-Since (6023), §8.8.3.2 Comparison incl. Table 3 (3643, 3658-3670); and RFC 9111 HTTP Caching, §4.3.2 Handling a Received Validation Request (plain-text line 866) — https://www.rfc-editor.org/rfc/rfc9110.txt (502941 B, sha256 21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a) and https://www.rfc-editor.org/rfc/rfc9111.txt (84477 B, sha256 aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e); both opened by this seat with a live GET on 2026-11-05T01:27:45Z, HTTP 200, and byte-identical (`cmp` exit 0) to the lane's retained copies at `.ufo/waves/round-93/L1/src/`, so every line number below is the line number in the fetched body. Registry rows S471-S476 are this round's rows for those six anchors; the L1 appends them to `corpus/SOURCES.md`.
+corpus/knowledge/conditional-request-evaluation.md:4:ground: freshness — round-93 C2, a bounded capability: deciding which status a recipient would answer a conditional request with, over supplied values.
+corpus/knowledge/conditional-request-evaluation.md:5:scope: one decision per conditional request under contract v1 of this lane. Not a clock, an HTTP-date parser, a network client, a cache store, a validator generator, a storage or freshness decision, a serving or forwarding decision, or any claim about any live CDN, Pages front or Render service.
+corpus/knowledge/conditional-request-evaluation.md:7:# Conditional request evaluation: which status a recipient would answer with
+corpus/knowledge/conditional-request-evaluation.md:9:A **conditional request** is a request that carries a precondition: a claim
+corpus/knowledge/conditional-request-evaluation.md:12:of a conditional request is a promise about *when the answer changes*: a client
+corpus/knowledge/conditional-request-evaluation.md:13:that already holds a representation sends back the validator it holds
+corpus/knowledge/conditional-request-evaluation.md:14:(`If-None-Match`, `If-Modified-Since`) and asks "has this changed since?", and
+corpus/knowledge/conditional-request-evaluation.md:15:a client about to write sends back the validator it read (`If-Match`,
+corpus/knowledge/conditional-request-evaluation.md:16:`If-Unmodified-Since`) and asks "has this changed since I read it?". A `200`
+corpus/knowledge/conditional-request-evaluation.md:17:means "your precondition held, carry on"; a `304` means "your stored
+corpus/knowledge/conditional-request-evaluation.md:18:representation is still current"; a `412` means "your precondition failed, do
+corpus/knowledge/conditional-request-evaluation.md:29:> "lost update" preconditions have more strict requirements than cache
+corpus/knowledge/conditional-request-evaluation.md:36:> preconditions defined by this specification in the following order
+corpus/knowledge/conditional-request-evaluation.md:38:The order the RFC then lists is: **If-Match** (origin server only) → **If-Unmodified-Since**
+corpus/knowledge/conditional-request-evaluation.md:39:(origin server only, and only when If-Match is absent) → **If-None-Match** →
+corpus/knowledge/conditional-request-evaluation.md:40:**If-Modified-Since** (GET/HEAD only, and only when If-None-Match is absent) →
+corpus/knowledge/conditional-request-evaluation.md:42:wins; a false precondition stops the evaluation there.
+corpus/knowledge/conditional-request-evaluation.md:56:| ETag 1 | ETag 2 | Strong Comparison | Weak Comparison |
+corpus/knowledge/conditional-request-evaluation.md:63:Each field names its function. For If-Match (lines 5794-5797):
+corpus/knowledge/conditional-request-evaluation.md:66:> comparing entity tags for If-Match
+corpus/knowledge/conditional-request-evaluation.md:68:For If-None-Match (lines 5880-5881):
+corpus/knowledge/conditional-request-evaluation.md:71:> entity tags for If-None-Match
+corpus/knowledge/conditional-request-evaluation.md:73:So `W/"1"` **matches** `"1"` under If-None-Match and **does not match** it
+corpus/knowledge/conditional-request-evaluation.md:74:under If-Match. The third row of Table 3 is the case that decides a request:
+corpus/knowledge/conditional-request-evaluation.md:76:"the client already has this, send me 304" under If-None-Match, and "this is
+corpus/knowledge/conditional-request-evaluation.md:77:not the representation I read, refuse" under If-Match.
+corpus/knowledge/conditional-request-evaluation.md:85:> the If-Match and If-Unmodified-Since conditional header
+corpus/knowledge/conditional-request-evaluation.md:86:> fields are not applicable to a cache, and If-None-Match takes
+corpus/knowledge/conditional-request-evaluation.md:87:> precedence over If-Modified-Since.
+corpus/knowledge/conditional-request-evaluation.md:94:A cache's job is to answer from what it already holds; If-Match and
+corpus/knowledge/conditional-request-evaluation.md:95:If-Unmodified-Since are write-protection preconditions aimed at whoever
+corpus/knowledge/conditional-request-evaluation.md:97:protect. What a cache *does* evaluate is the validation pair: If-None-Match
+corpus/knowledge/conditional-request-evaluation.md:98:and If-Modified-Since.
+corpus/knowledge/conditional-request-evaluation.md:104:status a recipient would answer a conditional request with, and which
+corpus/knowledge/conditional-request-evaluation.md:105:precondition decided it.
+corpus/knowledge/conditional-request-evaluation.md:108:  `request` and optionally `role`. `current` carries `exists`, `etag` and
+corpus/knowledge/conditional-request-evaluation.md:111:  as the **raw field value** (the string after the colon), so the entity-tag
+corpus/knowledge/conditional-request-evaluation.md:114:- **Output**: `{"decision": "200"|"304"|"412", "precondition": <name>|null}`
+corpus/knowledge/conditional-request-evaluation.md:115:  on stdout, exit 0. `precondition` names the field that decided the outcome
+corpus/knowledge/conditional-request-evaluation.md:117:  is `null` when no precondition was evaluated.
+corpus/knowledge/conditional-request-evaluation.md:124:| Step | Applies when | Precondition true | Precondition false |
+corpus/knowledge/conditional-request-evaluation.md:126:| If-Match | `role=origin`, `if_match` present | continue | `412` (`if_match`) |
+corpus/knowledge/conditional-request-evaluation.md:127:| If-Unmodified-Since | `role=origin`, `if_match` absent, `if_unmodified_since` present, `current.last_modified` present | continue | `412` (`if_unmodified_since`) |
+corpus/knowledge/conditional-request-evaluation.md:128:| If-None-Match | `if_none_match` present | continue | `304` for GET/HEAD, else `412` (`if_none_match`) |
+corpus/knowledge/conditional-request-evaluation.md:129:| If-Modified-Since | method is GET or HEAD, `if_none_match` absent, `if_modified_since` present, `current.last_modified` present | continue | `304` (`if_modified_since`) |
+corpus/knowledge/conditional-request-evaluation.md:135:the two ignore rules the RFC states as MUSTs. For If-Modified-Since (lines
+corpus/knowledge/conditional-request-evaluation.md:138:> A recipient MUST ignore If-Modified-Since if the request contains an
+corpus/knowledge/conditional-request-evaluation.md:139:> If-None-Match header field
+corpus/knowledge/conditional-request-evaluation.md:141:For If-Unmodified-Since (lines 6037-6038):
+corpus/knowledge/conditional-request-evaluation.md:143:> A recipient MUST ignore If-Unmodified-Since if the request contains
+corpus/knowledge/conditional-request-evaluation.md:144:> an If-Match header field
+corpus/knowledge/conditional-request-evaluation.md:158:`If-Modified-Since: Sat, 29 Oct 1994 19:43:31 GMT` and will refuse it.
+corpus/knowledge/conditional-request-evaluation.md:162:MUST ignore If-Modified-Since if the field value "has more than one member,
+corpus/knowledge/conditional-request-evaluation.md:164:of an invalid or list-valued If-Unmodified-Since. In the lane's integer
+corpus/knowledge/conditional-request-evaluation.md:167:rather than an ignored precondition. That is a narrowing the lane's
+corpus/knowledge/conditional-request-evaluation.md:182:| W1 | 8 | `PUT`, current `"abc"` mtime 500, `if_match: "\"abc\""` | `200`, precondition `null` |
+corpus/knowledge/conditional-request-evaluation.md:183:| W2 | 8 | `PUT`, current `"abc"`, `if_match: "W/\"abc\""` | `412`, precondition `if_match` |
+corpus/knowledge/conditional-request-evaluation.md:184:| W3 | 8 | `PUT`, no representation, `if_match: "*"` | `412`, precondition `if_match` |
+corpus/knowledge/conditional-request-evaluation.md:185:| W4 | 9 | `PUT`, mtime 600, `if_unmodified_since: 600` | `200`, precondition `null` |
+corpus/knowledge/conditional-request-evaluation.md:186:| W5 | 9 | `PUT`, mtime 700, `if_unmodified_since: 600` | `412`, precondition `if_unmodified_since` |
+corpus/knowledge/conditional-request-evaluation.md:187:| W6 | 10 | `GET`, current `"abc"`, `if_none_match: "W/\"abc\""` | `304`, precondition `if_none_match` |
+corpus/knowledge/conditional-request-evaluation.md:188:| W7 | 10 | `POST`, current `"abc"`, `if_none_match: "\"abc\""` | `412`, precondition `if_none_match` |
+corpus/knowledge/conditional-request-evaluation.md:189:| W8 | 10 | `GET`, no representation, `if_none_match: "*"` | `200`, precondition `null` |
+corpus/knowledge/conditional-request-evaluation.md:190:| W9 | 11 | `GET`, mtime 500, `if_modified_since: 500` | `304`, precondition `if_modified_since` |
+corpus/knowledge/conditional-request-evaluation.md:191:| W10 | 11 | `POST`, mtime 500, `if_modified_since: 900` | `200`, precondition `null` |
+corpus/knowledge/conditional-request-evaluation.md:192:| W11 | 7 | `PUT`, `role: "cache"`, `if_match: "\"zzz\""`, `if_unmodified_since: 600` | `200`, precondition `null` |
+corpus/knowledge/conditional-request-evaluation.md:193:| W12 | 10 | `GET`, `if_none_match: "\"zzz\""` and `if_modified_since: 900` | `200`, precondition `null` |
+corpus/knowledge/conditional-request-evaluation.md:194:| W13 | 12 | `GET`, no precondition at all | `200`, precondition `null` |
+corpus/knowledge/conditional-request-evaluation.md:199:cache role: a non-matching `if_match` that would be a `412` at the origin is
+corpus/knowledge/conditional-request-evaluation.md:201:the precedence: If-None-Match is present and does not match, so the
+corpus/knowledge/conditional-request-evaluation.md:202:precondition is *true* and evaluation continues — If-Modified-Since is never
+corpus/knowledge/conditional-request-evaluation.md:203:reached, and the answer is `200`, not the `304` that If-Modified-Since alone
+corpus/knowledge/conditional-request-evaluation.md:206:The six refusals: a malformed entity-tag in `current.etag` (clause 3);
+corpus/knowledge/conditional-request-evaluation.md:210:`current.exists` false with a non-null `etag` (clause 2); and an unexpected
+corpus/knowledge/conditional-request-evaluation.md:218:  with a conditional request. A `304` is a decision over the values the caller
+corpus/knowledge/conditional-request-evaluation.md:227:  request, does not receive a `304`, does not update stored metadata, and
+corpus/knowledge/conditional-request-evaluation.md:229:  If-None-Match lists with its own stored set. RFC 9111 §4.3.2 is cited here
+corpus/knowledge/conditional-request-evaluation.md:231:- **No serving decision.** `304` and `412` are statuses a recipient *would*
+corpus/knowledge/conditional-request-evaluation.md:236:- **No validator generation.** The tool never produces an entity-tag, never
+corpus/knowledge/conditional-request-evaluation.md:238:  validator should be.
+corpus/knowledge/conditional-request-evaluation.md:239:- **The 304 body content is not decided here.** RFC 9110 §15.4.5 (lines
+corpus/knowledge/conditional-request-evaluation.md:240:  7477-7478) says a 304 response "is terminated by the end of the header
+corpus/knowledge/conditional-request-evaluation.md:242:  fields a server generating a 304 MUST reproduce. The tool decides the
+corpus/knowledge/conditional-request-evaluation.md:245:Two narrower limits worth carrying. The contract's `304` is the status a
+corpus/knowledge/conditional-request-evaluation.md:247:what a 304 response *contains*, and that is not this tool's output. And the
+corpus/knowledge/freshness-pins.json:200:   "corpus/knowledge/ghp-etag-anatomy.md",
+corpus/knowledge/freshness-sweep.md:40:shas, ETags, code-line pins, verb *outcomes* (ok/attention lists), journal
+corpus/knowledge/freshness-sweep.md:44:literal, a journal top-level key union that was wrong when written, an ETag
+corpus/knowledge/ghp-etag-anatomy.md:1:source: S009, S010 (corpus/SOURCES.md) — https://raw.githubusercontent.com/nginx/nginx/release-1.28.0/src/http/ngx_http_core_module.c §ngx_http_set_etag
+corpus/knowledge/ghp-etag-anatomy.md:3:recheck: on recorded ETag or source revision change — printf '%d\n' 0x1365d; date -u -d @$((0x6ab49127)) +%FT%TZ
+corpus/knowledge/ghp-etag-anatomy.md:5:# Decoding the recorded ETag
+corpus/knowledge/ghp-etag-anatomy.md:8:format generated by nginx `ngx_http_set_etag`: hexadecimal last-modified
+corpus/knowledge/ghp-etag-anatomy.md:23:  `ngx_sprintf(etag->value.data, "\"%xT-%xO\"", r->headers_out.last_modified_time, r->headers_out.content_length_n)`.
+corpus/knowledge/ghp-etag-anatomy.md:24:- S010 §8.8.3: “An entity tag is an opaque validator for differentiating
+corpus/knowledge/ghp-etag-anatomy.md:27:  one-second resolution, might be a weak validator” when changed twice
+corpus/knowledge/ghp-etag-anatomy.md:33:fields. Consequently, these recorded ETags cannot by themselves certify
+corpus/knowledge/ghp-etag-anatomy.md:56:- **Validator is not identity:** the opaque marker is not treated as a content digest.
+corpus/knowledge/ghp-etag-anatomy.md:62:- [r26-recheck S010 STALE] Locator correction for line 1: the URL there is S009's nginx source only. S010 is RFC 9110 §8.8 — https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8 (§8.8.1 Weak versus Strong; §8.8.3 ETag), re-fetched 2026-10-21. Evidence: w1/PairS010GhpEtagAnatomy.md (C1).
+corpus/knowledge/ghp-etag-anatomy.md:64:- [r26-recheck S010 STALE] Lines 25-28 paraphrase the §8.8.1 condition as “when changed twice within that second”. The 2026-10-21 bytes condition it on modification twice during a single second “and retrieved between those modifications”; two changes within one second are not by themselves that condition. Evidence: w1/PairS010GhpEtagAnatomy.md (C2). Current nginx lines (1.30/1.31) move the same format expression; the release-1.28.0 pin and its line anchors remain correct as pinned (w1/PairS009GhpEtagAnatomy.md).
+corpus/knowledge/header-change-classes.md:5:scope: What RFC 9111 makes a stored response contain (unrecognised fields included), what Age measures, and what makes a field a validator, so that a moved response header between two dated captures is read against the object rather than waved through. Not a definition of the lane's class names or of which header belongs in which class (that table is lane policy, frozen in the contract); not any server's cache policy; not ETag generation, opacity or comparison strength (RFC 9110 §8.8, S455); not a claim that any capture observed origin bytes
+corpus/knowledge/header-change-classes.md:43:| Validators decide equivalence | 827-829 | `The precondition header fields are then compared by recipients to` |
+corpus/knowledge/header-change-classes.md:45:| Last-Modified is one validator | 831-834 | `One such validator is the timestamp given in a Last-Modified header` |
+corpus/knowledge/header-change-classes.md:46:| ETag is the other | 838-844 | `Another validator is the entity tag given in an ETag field` |
+corpus/knowledge/header-change-classes.md:47:| A 304 freshens the stored response | 986-988 | `For each stored response identified, the cache MUST update its header` |
+corpus/knowledge/header-change-classes.md:48:| …from the 304's fields | 988 | `response, as per Section 3.2.` |
+corpus/knowledge/header-change-classes.md:62:body sha256 differs, or when any changed header falls in `validator`, `representation` or `unknown`;
+corpus/knowledge/header-change-classes.md:78:response the origin generated from one the cache freshened from a 304 (Not Modified): §4.3.4
+corpus/knowledge/header-change-classes.md:79:requires the cache to update the stored response's header fields from the 304's fields (`986-988`),
+corpus/knowledge/header-change-classes.md:83:**`validator`.** `etag` and `last-modified`. §4.3.1 defines the validation exchange: the precondition
+corpus/knowledge/header-change-classes.md:86:entity tag (`838-844`) as the validators that carry it. A moved validator withdraws the ground for a
+corpus/knowledge/header-change-classes.md:88:a strong validator to change for metadata reasons (S455, adjacent and not re-taught here) — but this
+corpus/knowledge/header-change-classes.md:107:The names are the lane's. RFC 9111 uses `validator` and names exactly two members (Last-Modified and
+corpus/knowledge/header-change-classes.md:153:summary surfaces=3 diffs=14 per_request=14 validator=0 representation=0 policy=0 unknown=0 verdict=same-object
+corpus/knowledge/header-change-classes.md:159:surface=ds4cc-primary status_a=200 status_b=200 diffs=4 per_request=4 validator=0 representation=0 policy=0 unknown=0 verdict=same-object
+corpus/knowledge/header-change-classes.md:160:surface=ds4cc-robots status_a=200 status_b=200 diffs=5 per_request=5 validator=0 representation=0 policy=0 unknown=0 verdict=same-object
+corpus/knowledge/header-change-classes.md:161:surface=ds4cc-sitemap status_a=200 status_b=200 diffs=5 per_request=5 validator=0 representation=0 policy=0 unknown=0 verdict=same-object
+corpus/knowledge/header-change-classes.md:168:same field set that `corpus/knowledge/capture-drift-validators.md` §6 reports from the earlier delta
+corpus/knowledge/heuristic-freshness.md:434:  understood, the status being final, the cache understanding a 206/304 or a
+corpus/knowledge/heuristic-freshness.md:465:- **No revalidation.** RFC 9111 §4.3 — conditional requests, 304 handling,
+corpus/knowledge/heuristic-freshness.md:467:  lifetime does not authorise a conditional request, and it is not an answer
+corpus/knowledge/heuristic-freshness.md:468:  about validators.
+corpus/knowledge/hreflang-declaration.md:166:  BCP-47-shaped tags, not a BCP-47 validator: it rejects RFC 5646 grandfathered tags (`en-GB-oed`),
+corpus/knowledge/publish-channels.md:12:  `marketplace/validator`, `upload-pages-artifact` repo root → `deploy-pages`.
+corpus/knowledge/publish-channels.md:37:| Verb | Precondition | Metered? |
+corpus/knowledge/publish-channels.md:68:- [publish-channels:c2] **UNVERIFIABLE** — The Kimi script still enforces the listed update precondition and one-fire confirmation gate, with the documented human publish and post-click verification sequence. Surface: `test -e /home/vgpnk/Projects/webzites/scripts/kimi-surface.mjs; test -e /home/vgpnk/Projects/webzites/fleet/kimi-surface-ops.md; command -v kimi-webbridge; unauthenticated GET https://www.kimi.ai/apiv2/`. Unverifiable: The cited CLI and operations sources are absent, and the host's missing `kimi-webbridge` command does not establish the absence or behavior of every possible channel. An unauthenticated GET of the API root does not determine whether cookie-authenticated methods or the human-gated UI flow exist; those flows were not accessed under the no-auth/no-chat boundary.
+corpus/knowledge/publish-queue.md:26:| PQ-2 | `ds4cc-kimi-mirror` (chat `1a073c43-bf42-874a-8000-0907bd80b9dc`) | stale ~Aug-29 mirror; **75 missing canonical paths** (sitemap f3d2ecd: 18→93 locs — "74" in dedupe is off by one); r13 decomposition: `/speedrun/ /burnerchrome/` 404s are the **kimi dir-index pitfall** (`index.html` twins serve 200 — not staleness), `/iqrunway/` is dead on BOTH surfaces (0 sitemap locs, absent from source) | `metered-fire` + human | `sync-check ds4cc-kimi-mirror` (in-sync* = identity only); bound chat verified | live URL 200 → `GetWebsiteByChatID` PUBLISHED → `sync-check` → `kimi-map` | r13 22:47Z re-verify: **delta UNCHANGED** — 19/93 served, 74 missing by live-GET (75 by f3d2ecd accounting: 5 pre-serve, 4 misses pre-f3d2ecd), 0 per-URL transitions, **mirror root (ds4cc.kimi.page)** content-frozen 74,641B (r14 erratum: r13 said "byte-frozen" — raw sha varies per fetch via Cloudflare cfemail re-encoding, 1 occurrence; valid freeze metric = cfemail-normalized sha `4427b7f8…`, equal across r13+r14 fetches; max embedded date 08-21); `update` verb ships index.html-only (kimi-surface.mjs:459-466) — subpath restore needs recreate-class zip; source `ds4cc-marketplace` is **20 commits unpushed** (live canonical sitemap 404) — pushing GHP first also advances canonical; r14 23:15Z re-verify: **delta unchanged again** — 19/93, 74 missing, 0 transitions, universe identical; mirror `sitemap.xml` itself 404 (0 locs live) — the 93-loc universe is the source-tree sitemap (md5 `0adbb105…`, unchanged vs r13); **r15 00:49Z gate check: remote `e6bd071` unchanged, still 20 ahead — gate CLOSED, delta stands; erratum — the "root" figures above are the MIRROR root (`/tmp/kake-r14/pq2-root.html` fetched ds4cc.kimi.page); canonical `ds4cc.com/` is 79,453B sha `b6f65899…` byte-identical to `origin/main:index.html` (etag `6ab49127-1365d`, last-modified = `e6bd071` commit instant, 0 cfemail → plain sha is its freeze metric); normalization method variance: r14 series computed `4427b7f8…`, r15 series `6a0c24b5…` — same mirror body, different normalizer |
+corpus/knowledge/publish-queue.md:48:  mention the vault but have no shared precondition).
+corpus/knowledge/publish-queue.md:87:  remote+local main both `9c28d29` (PQ-3's behind-5 precondition cleared —
+corpus/knowledge/publish-queue.md:259:  `sitemap.xml`+`robots.txt` still 404/9,379B. **ETag anomaly:** the r16
+corpus/knowledge/publish-queue.md:262:  `6ab49126-1365d` in 8/8 fetches: the ETag flips between edge nodes.
+corpus/knowledge/publish-queue.md:263:  Confirms the standing rule: ETags are **edge-unstable identifiers**, never
+corpus/knowledge/publish-queue.md:315:- **ds4cc.com root redeployed.** 200, 78,897B, ETag `6addaff5-13431`,
+corpus/knowledge/render-static-sites.md:97:  server-generated ETag anatomy, corpus/knowledge/ghp-etag-anatomy.md), and
+corpus/knowledge/security-txt-publishing.md:46:  prefixes securitytxt.org's validator enforces (S079).
+corpus/knowledge/static-canonical-preflight.md:75:cannot be claimed as an exact WHATWG URL implementation (S027). The validator
+corpus/knowledge/static-canonical-preflight.md:119:the head was also silently accepted by the round-22 validator.
+corpus/knowledge/static-canonical-preflight.md:132:bytes (no network), which is how a validator change is applied without
+corpus/knowledge/static-canonical-preflight.md:169:Both modes retain round23's digest-pinned populations, baseline anchors, heading and canonical replay. Exit0 means all named receipts pass, exit1 means at least one named rejection, exit2 unreadable inputs/usage or a caught internal error (one-line stderr, never a Python traceback). They read Git blobs and create only isolated temporary validator inputs; they do not GET, publish, edit source trees, or renew observation times. Raw revision options are resolved once to a commit object before blob reads.
+corpus/knowledge/stored-response-reuse.md:52:- **No revalidation exchange.** §4.3 (conditional requests, 304 handling,
+corpus/lessons/round-16.md:17:ETags, dates, marker literals, exit predicates, code-line pins, verb outcomes,
+corpus/lessons/round-16.md:35:- **ETag literal** — one r16 sampler read `6ab49126-1365d` where the file said
+corpus/lessons/round-16.md:38:  ETags are edge-unstable identifiers, never freeze metrics (the sha is).
+corpus/lessons/round-16.md:112:- **E. ETag as a freeze metric** (lines 35-38). Rejected as a freeze metric and
+corpus/lessons/round-16.md:113:  replaced by the rule "ETags are edge-unstable identifiers; the sha is the metric".
+corpus/lessons/round-20.md:177:  entries (`ghp-served-set`, `ghp-custom-domain`, `ghp-etag-anatomy`,
+corpus/lessons/round-20.md:211:| S009 | https://raw.githubusercontent.com/nginx/nginx/release-1.28.0/src/http/ngx_http_core_module.c | `etag->value.len = ngx_sprintf(etag->value.data, "\"%xT-%xO\"", r->headers_out.last_modified_time, r->headers_out.content_length_n)` | `ngx_http_set_etag`, `src/http/ngx_http_core_module.c:1708-1710` (L1 re-verified 2026-10-19 with `grep -nF` at commit 481d28cb; the writer's 1671-1673 was wrong); release tag `release-1.28.0`, commit `481d28cb4e04c8096b9b6134856891dc52ecc68f`. |
+corpus/lessons/round-20.md:212:| S010 | https://www.rfc-editor.org/rfc/rfc9110.html#section-8.8 | “An entity tag is an opaque validator”; “A strong validator might change for reasons other than a change to the representation data” | Section 8.8.1, “Weak versus Strong,” and 8.8.3, “ETag”; RFC 9110, June 2022. |
+corpus/lessons/round-20.md:260:| A1 | Validator treated as identity: an ETag flip read as content change, then "refuted" by a fetch that hit another replica | `corpus/knowledge/publish-queue.md:255-261`; `LOG.md:245-247`; `corpus/lessons/round-16.md:35-38` | `none` | C3: S009/S010 rows plus `ghp-etag-anatomy`; ETag = mtime/length, never a freeze metric |
+corpus/lessons/round-20.md:276:(Population unit named), A1 (Validator is not identity), A2–A4 (Platform
+corpus/lessons/round-20.md:324:UTC fleet validator: `TZ=UTC bash <fleet-census>/scripts/sources-census.sh
+corpus/lessons/round-22-verifier-spotcheck.md:41:validator not executed — Gate standard, closure consequence):
+corpus/lessons/round-22-verifier-spotcheck.md:52:git show b539cc1:scripts/canonical_audit.py | sha256sum = git show d5a0369:… = frozen/expected.json validator pin 5de32200…
+corpus/lessons/round-22-verifier-spotcheck.md:54:git diff --stat b539cc1 d5a0369 → only evidence, LOG, SCORECARD, lesson, err.txt, out.txt (no validator/instrument bytes)
+corpus/lessons/round-22-verifier-spotcheck.md:127:| WHATWG URL slash-skipping not opened as a row | reject | https://url.spec.whatwg.org/ “special authority ignore slashes state”; committed selftest `network_path_empty_authority(_four)`, `base_empty_authority` | agree | WHATWG skips extra slashes for special schemes, RFC reads an empty authority; the validator rejects `///` and `////` either way, so the row would not change a decision |
+corpus/lessons/round-22.md:9:has no lane-owned canonical validator (accepted cases 0/32, unavailable), not
+corpus/lessons/round-22.md:17:The validator compares a publisher's declared canonical with an explicit local
+corpus/lessons/round-22.md:24:Candidates: an offline publisher-side canonical-policy validator; its frozen
+corpus/lessons/round-22.md:77:L1 holds the canonical planner seat; the validator excludes planner from swarm
+corpus/lessons/round-22.md:130:- Reused after re-verification: landed `c0fd6d5` (validator, matrix, cases,
+corpus/lessons/round-22.md:146:  `measure-after.json` and `replay-integrated.json` (instrument/validator since
+corpus/lessons/round-22.md:171:`frozen/expected.json` re-pins only the validator digest
+corpus/lessons/round-23.md:17:  receipts the counter reproduces with the revision's validator
+corpus/lessons/round-23.md:20:  Making the validator able to evaluate real owned pages (body SVG, `<input />`)
+corpus/lessons/round-23.md:29:snapshots; validator relaxation; two WHATWG sources; five re-opened round-22 rows.
+corpus/lessons/round-23.md:38:- Validator relaxation only together with the base/foreign guards and the
+corpus/lessons/round-23.md:42:- The round-23 candidate validator `4d95d2e` as shipped: it reported nine
+corpus/lessons/round-23.md:139:(r22 validator9/13). Canonical selftest82/82 (`postfix/stable-smoke.txt`) and
+corpus/lessons/round-26-verifier-spotcheck.md:31:Heavy scratch was confined to `/fast/scratch/hyaku/kake-r26-closure/`, with a throwaway clone checked out at H. No lane gate, selftest, validator mutation, or prior r24 probe was executed.
+corpus/lessons/round-27.md:100:historical source/provenance/local-validator uncertainty. No r24 stopped
+corpus/lessons/round-36-verifier-spotcheck.md:128:| S094 MDN Redirections | reject, B | https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Redirections#principle; RFC 9110 §15.4.1, §15.4.5 (live, `GateRejects`) | agree (qualified) | Principle's blanket "redirects carry Location" is overbroad vs 300 SHOULD / 304; 7-word quote verbatim. "Contradicts" overstates: §15.4.5 omits Location, it does not forbid it. L1 rejected against the scribe's admit draft (`w1/ScribeSourcesRows.md:6–7`) |
+corpus/lessons/round-36-verifier-spotcheck.md:167:   S094 reason should say "overbroad" not "contradicts" for 304; `used-by` of S088–S092 names
+corpus/lessons/round-36.md:44:- S094 — https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Redirections — accessed 2026-10-23T01:09:01Z, HTTP 200 — reject, tier B, kind docs, status rejected: it restates S088's permanent/temporary split and its Principle section says every redirect response has a Location header, which S088 contradicts for 300 and 304 (wave-1 `ScoutReopenS094`, both quotes located there); the scribe draft proposed admit, the L1 rejects; quote “These redirections are meant to last forever.” (Permanent redirections, first paragraph; 7 words).
+corpus/lessons/round-36.md:48:restatement that contradicts S088 on Location for 300 and 304).
+corpus/lessons/round-37.md:148:  "overbroad" (RFC 9110 15.4.5 does not require Location on 304; it does not forbid it), not
+corpus/lessons/round-44.md:28:    flips the **default-port branch** (`controls-r43/buildport-m6-default-branch.py:303-304`:
+corpus/lessons/round-47.md:97:its validator taskCall. The lane-scope build and repairs were executed by the
+corpus/lessons/round-51-verifier-spotcheck.md:47:w51-taskcall.json counts {spawn 48, resume 0, total 48}; tasks[] length 48; w51-validator.err 0 bytes
+corpus/lessons/round-51.md:151:exactly one `task` call from the validator's `ufo-swarm-wave-dispatch-v1` payload
+corpus/lessons/round-51.md:152:(`.ufo/waves/round-51/w51-taskcall.json`, `counts.spawn 48`, validator exit 0). Role mix: reviewer
+corpus/lessons/round-52-verifier-spotcheck.md:28:| L2 floor (≥8 lanes, one batched swarm) | **not met, disclosed** | `0` seats spawned of a declared 46 (`.ufo/waves/round-52/w1-dispatch.json`, `w1-validator.err` empty); refused at the host job cap — orchestrator-side, status-neutral, recorded in the report and lesson |
+corpus/lessons/round-52.md:72:   (`.ufo/waves/round-52/w1-dispatch.json`, validator stderr empty) was refused at the
+corpus/lessons/round-59-verifier-spotcheck.md:145:  restart); no planner seat (validator rejects `planner`, L1 held it); salvage commit `7eff1faf` was made by the orchestrator under the
+corpus/lessons/round-61.md:56:- S009 — https://raw.githubusercontent.com/nginx/nginx/release-1.28.0/src/http/ngx_http_core_module.c — accessed 2026-10-27 — § ngx_http_set_etag / ETag sprintf — "etag->value.data = ngx_pnalloc(r->pool, NGX_OFF_T_LEN + NGX_TIME_T_LEN + 3);" (8 units; `.ufo/waves/round-61/recheck/S009.html`, sha256 `c58ebede93aa6c790858ce7e14e01f80f3480466ceb9f7d784c1051321cec3fe`, 147410 bytes, HTTP 200) — recheck `365d` → 2027-10-19.
+corpus/lessons/round-64-verifier-spotcheck.md:43:6. Ran `/home/vgpnk/Projects/shokunin/scripts/sources-census.sh validate --root /home/vgpnk/Projects/shokunin kake`: **exit 0**, `kake ok .../corpus/SOURCES.md`, **16 W04** duplicate-URL warnings (S033,S088,S092,S098,S099,S102,S110,S111,S115,S116,S117,S127,S416,S417,S427,S433). Validator does not print the row count.
+corpus/lessons/round-69-verifier-spotcheck.md:19:- Wave shape: W1 one v1 wave, 12 seats (3 scout, 3 executor, 1 scribe, 1 reviewer, 1 critic, 1 mutation-tester, 1 connector, 1 revenger), attack share 3/12 = 25 %, 1 connector ≤ 2, planner held by the L1 (validator rejects a planner seat — recorded). `w1-results.json`: 12 results, no error field. Residual wave refused by the validator: `w1r-run.stderr` → `{"code":"impossible_band","message":"spec.maxLanes 3 is below the wave floor 8 …"}` — refusal evidence committed, round total 12. Conformant with the run-15 band rule; no defect.
+corpus/lessons/round-76.md:13:grammar is a frozen ASCII validator, not a BCP-47 validator). Each amendment is terms-only and recorded
+corpus/lessons/round-76.md:18:validator rejects a `planner` role).
+corpus/lessons/round-81.md:331:  `ReviewReach` after the policy validator refused `labrat` as a swarm role; the item's report path
+corpus/lessons/round-82-verifier-spotcheck.md:119:| S455 — RFC 9110 §8.8.1 + §8.8.3 as the drift gate's definitional ground | admit (tier A, `spec`, `mined`) | live RFC 9110 text, lines cited in the row and the lesson | **agree** | The admission quote is a raw substring at `:3572-3574` and 24 words — "The "ETag" field in a response provides the current entity tag for / the selected representation, as determined at the conclusion of / handling the request." The two supporting spans are raw substrings at `:3403-3404` (16 words) and `:3438-3439` (17 words); the 31-word full strong-validator sentence is raw-absent and collapsed-present, exactly as the lesson discloses. The row's `teaches` follows `:3428-3429` (hash-as-validator) and `:3463-3465` (shared validator weak unless data identical) |
+corpus/lessons/round-82-verifier-spotcheck.md:120:| §8.8.3's trailer paragraph as an anchor for S455 | reject | live RFC 9110 `:3614-3617` | **agree** | "A sender MAY send the ETag field in a trailer section … unless the entity tag is generated while sending the content" is field placement; it states nothing about what a validator guarantees, and the row's own scope cell excludes trailer placement |
+corpus/lessons/round-82-verifier-spotcheck.md:121:| §8.8.3.1 *Generation* as an anchor for S455 | reject | live RFC 9110 `:3619-3641` | **agree** | The section is mechanism selection ("only the service author knows the implementation … to select the most accurate and efficient validation mechanism"); read as a validator guarantee it would make the anchor wider than the row's scope |
+corpus/lessons/round-82-verifier-spotcheck.md:131:  not hold (`corpus/knowledge/capture-drift-validators.md`, cross-instant drift plus RFC 9110
+corpus/lessons/round-82-verifier-spotcheck.md:132:  validator semantics), its `source:` citing `S455` — a `mined` row opened this round — and the
+corpus/lessons/round-82.md:100:**Admit S455** — RFC 9110, *HTTP Semantics*, §8.8.1 *Weak versus Strong* and §8.8.3 *ETag*,
+corpus/lessons/round-82.md:115:> The "ETag" field in a response provides the current entity tag for
+corpus/lessons/round-82.md:119:Two supporting spans, both raw substrings and both under the cap: the strong-validator definition
+corpus/lessons/round-82.md:121:occurs to the representation data that would be" — and the weak-validator definition, 17 words at
+corpus/lessons/round-82.md:122:`:3438-3439` — "a "weak validator" is representation metadata that might not change for every
+corpus/lessons/round-82.md:123:change to the representation data." The full strong-validator sentence (`:3403-3405`) is 31 words
+corpus/lessons/round-82.md:127:Tier A: Standards Track document, definitional semantics. Scope: what a strong validator guarantees
+corpus/lessons/round-82.md:129:freshness, *not* conditional-request evaluation, *not* the ETag trailer placement, *not* any lane
+corpus/lessons/round-82.md:140:Located at `:3614-3617` ("A sender MAY send the ETag field in a trailer section … unless the entity
+corpus/lessons/round-82.md:144:states what a validator guarantees, and the proposed row's own scope cell excludes trailer
+corpus/lessons/round-82.md:243:`verdict=` as "any recorded facet differed". `field=etag` is redundant with `last-modified` plus
+corpus/lessons/round-82.md:244:`content-length` (`corpus/knowledge/ghp-etag-anatomy.md`). And both trees must come from the same
+corpus/lessons/round-83-verifier-spotcheck.md:88:  (`scripts/header_change_class.py:46-51`), so `per_request=14 validator=0 representation=0
+corpus/lessons/round-83-verifier-spotcheck.md:91:  differs by exactly one byte with a matching digest; the primary `ETag` also differs →
+corpus/lessons/round-83-verifier-spotcheck.md:92:  `validator=1` and `representation-changed`, i.e. the verdict can flip.
+corpus/lessons/round-83-verifier-spotcheck.md:97:  `summary surfaces=3 diffs=14 per_request=14 validator=0 representation=0 policy=0 unknown=0
+corpus/lessons/round-83-verifier-spotcheck.md:101:both read `met=true`, exit 0, with `# control=verdict=representation-changed validator=1`; base
+corpus/lessons/round-83-verifier-spotcheck.md:113:| freshness (10, held) | **improved** | C2: the round-82 drift count becomes a classified verdict that re-derives offline; receipts verify, bodies equal, all 14 moved fields per-request, and a one-byte/ETag control pair flips the verdict. Score held by the lane as declared |
+corpus/lessons/round-83-verifier-spotcheck.md:135:| `:838-839` / `:840-844` (entity tag as "another validator") as `S456`'s anchor | reject | retained `:838-844`; `corpus/SOURCES.md:202` | **agree** | `S455` at `:202` already owns strong/weak validator semantics (RFC 9110 §8.8.1/§8.8.3, admitted round 82); the classifier's `validator` class is a naming decision over two header names, not a claim about validator strength, so re-anchoring it here would count one source twice |
+corpus/lessons/round-83.md:51:        and diffs > 0 and validator == 0 and representation == 0 and unknown == 0
+corpus/lessons/round-83.md:57:                              classifier prints verdict=representation-changed with validator >= 1)
+corpus/lessons/round-83.md:67:with the frozen header-class table (`per-request`, `validator`, `representation`, `policy`, and
+corpus/lessons/round-83.md:71:identical pair, reads `control_ok=0 met=false` with `# control=verdict=same-object validator=0`,
+corpus/lessons/round-83.md:73:(green, body-changed, validator-changed, record-mismatch, control-does-not-flip, tool-absent,
+corpus/lessons/round-83.md:77:`controls/after-c2-classes.txt`: `summary surfaces=3 diffs=14 per_request=14 validator=0
+corpus/lessons/round-83.md:123:>   not replaced. The L1 held the planner seat (the validator refuses `planner` as a swarm role); the
+corpus/lessons/round-83.md:137:The proposed ground is the classifier's split of a changed header into `per-request`, `validator`,
+corpus/lessons/round-83.md:138:`representation` and `policy`: RFC 9111 defines validators, representation metadata and the fields
+corpus/lessons/round-83.md:160:  unless:" Raw substring, one occurrence; the reuse precondition, not a freshness statement.
+corpus/lessons/round-83.md:161:- `:838-839` with `:840-844`, 22 + 44 words — the entity tag as "another validator". Raw substrings,
+corpus/lessons/round-83.md:175:**Reject — `:838-839` / `:840-844` (entity tag as "another validator") as an anchor for this row.**
+corpus/lessons/round-83.md:176:`S455` already owns validator semantics at `corpus/SOURCES.md:202` (§8.8.1 plus §8.8.3 of RFC 9110,
+corpus/lessons/round-83.md:177:admitted at round 82). The classifier's `validator` class is a naming decision over two field names,
+corpus/lessons/round-83.md:178:not a claim about validator strength, and re-anchoring it here would count one source twice.
+corpus/lessons/round-85-verifier-spotcheck.md:89:- kake/operator validator owner: resolve D84-4 literal L2-planner versus validator prohibition. L1 planning/scout data-walk is mitigation, not an actual dispatched planner seat.
+corpus/lessons/round-85.md:69:- **D84-4:** read-before-dispatch and single-integration-owner mitigations are explicit in the frozen r85 contract; `/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-85/bindings-read.md` records all 18 roles `@m_zfl` read before dispatch. These are documented procedural mitigations, not this seat's independent dispatch audit. Planner disagreement remains open: the local validator forbids planner, L1 holds canonical planner, and ScoutSources carries bounded planning data-walk; the outside integrator's literal L2-planner requirement is not silently settled. A single writer reduces overlap but is not evidence of separate-worktree isolation.
+corpus/lessons/round-86.md:91:all nonempty, no replacement/residual. labrat was refused by validator and
+corpus/lessons/round-88-verifier-spotcheck.md:55:  `w1.ready.dispatched` (`2026-11-04T15:52:15`) present, `validator.err` empty,
+corpus/lessons/round-88-verifier-spotcheck.md:215:| "the C2 counter's 220-case pass shows the reader implements RFC 9111 §4.1" | reject (proposition) | same §4.1 sentence plus the round's own `w1/CriticClaims.md` §2.1/2.2 and `w1/ReviewReader.md` §4b | **agree** | The sentence is a precondition on reuse, not a conformance procedure; the counter scores a published oracle and a table keyed on the committed seed or an oracle-import stub also reaches `met=true`. The entry's scope is correctly narrower. |
+corpus/lessons/round-88.md:35:| “the C2 counter's 220-case pass shows the reader implements RFC 9111 §4.1” | **reject** (proposition) | same RFC 9111 §4.1, txt lines 528–534, the quote above, read as the *precondition* sentence: it makes matching a **condition** on reuse, not a rule about what the reader is | The sentence is a permission-shaped precondition; it does not decide case-normalisation, ordering or OWS handling, and the contract's conservative profile deliberately declines the third permitted transformation, so a `mismatch` may be stricter than the RFC allows. Flip: a *separately bounded* procedure that applies the field-specific normalisation for the fields it names, with its own cases — then the claim can be restated against that narrower target. |
+corpus/lessons/round-89.md:43:| "the C2 pass shows the reader implements RFC 9111 §4.1" | **reject** (proposition) | same line 530 read as the reuse precondition | A counter pass shows agreement with a declared canonical form, not with the RFC. The contract's escaping, sort and absent marker are adapter conventions, declared as such in `c2-contract.md`. Flip: a separately bounded procedure that the RFC itself specifies byte-for-byte. |
+corpus/lessons/round-90.md:85:| round-86 (294) | D84-4 literal L2 planner seat vs validator | 4 |
+corpus/lessons/round-93.md:1:# Round 93 — kake: self-assessment conformance, and a conditional request evaluation instrument
+corpus/lessons/round-93.md:23:  preconditions defined by this specification in the following order" (20 words). Grounds the
+corpus/lessons/round-93.md:26:  comparing entity tags for If-Match" (15 words). Grounds If-Match using strong comparison only.
+corpus/lessons/round-93.md:28:  entity tags for If-None-Match" (15 words). Grounds If-None-Match using weak comparison only.
+corpus/lessons/round-93.md:33:- **§13.1.2 lines 5930–5933** — "the origin server MUST respond with either a) the 304 (Not
+corpus/lessons/round-93.md:34:  Modified) status code if the request method is GET or HEAD or b) the 412" (23 words). Grounds
+corpus/lessons/round-93.md:35:  clause 10's 304-versus-412 split by method.
+corpus/lessons/round-93.md:36:- **§13.1.3 lines 5956–5958** — "A recipient MUST ignore If-Modified-Since if the request contains
+corpus/lessons/round-93.md:37:  an If-None-Match header field" (16 words). Grounds If-None-Match precedence over
+corpus/lessons/round-93.md:38:  If-Modified-Since.
+corpus/lessons/round-93.md:41:- **§13.1.4 lines 6037–6039** — "A recipient MUST ignore If-Unmodified-Since if the request contains
+corpus/lessons/round-93.md:42:  an If-Match header field" (14 words). Grounds clause 9's suppression rule.
+corpus/lessons/round-93.md:45:- **RFC 9111 §4.3.2 lines 889–891** — "the If-Match and If-Unmodified-Since conditional header
+scripts/cache_control_effective.py:191:        qualified = parse(['no-cache="ETag, X-Mode", max-age=13'])
+scripts/cache_control_effective.py:192:        assert qualified["no_cache_qualified"] == ["ETag", "X-Mode"]
+scripts/citation_lint.py:44:PIN_RE = re.compile(r"\bbeat\b|marker|pinned|\bpin\b|sentinel|etag", re.I)
+scripts/conditional_eval.py:2:"""Decide which status a recipient answers a conditional request with.
+scripts/conditional_eval.py:5:selected representation (or its absence) and the supplied precondition field
+scripts/conditional_eval.py:8:    {"decision": "200"|"304"|"412", "precondition": "<name>"|null}
+scripts/conditional_eval.py:10:``precondition`` names the field that decided the outcome (``if_match``,
+scripts/conditional_eval.py:12:when no precondition was evaluated. Malformed input is refused with
+scripts/conditional_eval.py:20:  * no clock, no network, no cache store, no validator generation, and no
+scripts/conditional_eval.py:22:  * no range/If-Range handling -- the decision set is 200/304/412 only.
+scripts/conditional_eval.py:50:# RFC 9110 section 13.1.3/13.1.4 and 13.2.2 step 4: date preconditions and the
+scripts/conditional_eval.py:51:# 304 branch apply to GET and HEAD only, compared case-sensitively.
+scripts/conditional_eval.py:60:    """Clause 3: parse an entity-tag; return (weak, opaque_tag) or None.
+scripts/conditional_eval.py:62:    entity-tag = [ weak ] opaque-tag ; weak = %x57.2F ("W/") ;
+scripts/conditional_eval.py:63:    opaque-tag = DQUOTE *etagc DQUOTE ; etagc = %x21 / %x23-7E.
+scripts/conditional_eval.py:84:def _precondition_members(value, field):
+scripts/conditional_eval.py:85:    """Clauses 3-4 for one precondition field value.
+scripts/conditional_eval.py:90:    or a member that is not a well-formed entity-tag. SP/HTAB around each
+scripts/conditional_eval.py:106:            raise InvalidInput("malformed entity-tag in %s" % field)
+scripts/conditional_eval.py:148:            or set(current) != {"exists", "etag", "last_modified"}):
+scripts/conditional_eval.py:150:            "current must be an object with exactly exists, etag, last_modified")
+scripts/conditional_eval.py:154:            "request must be an object with exactly the four precondition keys")
+scripts/conditional_eval.py:158:    etag = current["etag"]
+scripts/conditional_eval.py:159:    if etag is not None and not isinstance(etag, str):
+scripts/conditional_eval.py:160:        raise InvalidInput("etag must be null or a string")
+scripts/conditional_eval.py:174:    if exists is False and (etag is not None or lm is not None):
+scripts/conditional_eval.py:176:            "absent representation must have null etag and last_modified")
+scripts/conditional_eval.py:178:    # Clause 3 on the current representation's entity-tag.
+scripts/conditional_eval.py:180:    if etag is not None:
+scripts/conditional_eval.py:181:        cur_tag = _entity_tag(etag)
+scripts/conditional_eval.py:183:            raise InvalidInput("malformed entity-tag in current.etag")
+scripts/conditional_eval.py:185:    # Clauses 3-4 on the two entity-tag precondition fields, for every input.
+scripts/conditional_eval.py:189:        parsed[name] = None if v is None else _precondition_members(v, name)
+scripts/conditional_eval.py:191:    # Clause 7: a cache does not evaluate the origin-only preconditions; RFC
+scripts/conditional_eval.py:192:    # 9111 4.3.2 makes If-Match and If-Unmodified-Since inapplicable to a
+scripts/conditional_eval.py:195:        # Clause 8: If-Match, strong comparison (RFC 9110 13.1.1).
+scripts/conditional_eval.py:203:                return {"decision": "412", "precondition": "if_match"}
+scripts/conditional_eval.py:204:        # Clause 9: If-Unmodified-Since, only when If-Match is absent and a
+scripts/conditional_eval.py:209:            return {"decision": "412", "precondition": "if_unmodified_since"}
+scripts/conditional_eval.py:211:    # Clause 10: If-None-Match, weak comparison, both roles (RFC 9110 13.1.2).
+scripts/conditional_eval.py:219:            decision = "304" if method in _SAFE_METHODS else "412"
+scripts/conditional_eval.py:220:            return {"decision": decision, "precondition": "if_none_match"}
+scripts/conditional_eval.py:222:    # Clause 11: If-Modified-Since, GET/HEAD only and never alongside
+scripts/conditional_eval.py:223:    # If-None-Match (RFC 9110 13.1.3, 13.2.2 step 4). The condition is false
+scripts/conditional_eval.py:224:    # -- and the answer 304 -- iff last_modified <= value.
+scripts/conditional_eval.py:230:        return {"decision": "304", "precondition": "if_modified_since"}
+scripts/conditional_eval.py:233:    return {"decision": "200", "precondition": None}
+scripts/conditional_eval.py:249:def _case(method="GET", exists=True, etag=None, last_modified=None,
+scripts/conditional_eval.py:255:        "current": {"exists": exists, "etag": etag,
+scripts/conditional_eval.py:273:        # --- decisions: 200 with no deciding precondition -------------------
+scripts/conditional_eval.py:274:        ("d01", _case(etag=strong_a, last_modified=64010),
+scripts/conditional_eval.py:276:        ("d02", _case(etag=strong_a, if_match=strong_a),
+scripts/conditional_eval.py:278:        ("d03", _case(method="DELETE", etag=strong_a, if_none_match='"zz-1"'),
+scripts/conditional_eval.py:280:        ("d04", _case(etag=strong_a, if_match="*"),
+scripts/conditional_eval.py:282:        ("d05", _case(exists=False, etag=None, last_modified=None,
+scripts/conditional_eval.py:285:        ("d06", _case(etag='""', if_match='""'),
+scripts/conditional_eval.py:287:        ("d07", _case(etag=strong_a, last_modified=64010,
+scripts/conditional_eval.py:290:        ("d08", _case(method="POST", etag=strong_a, last_modified=64010,
+scripts/conditional_eval.py:293:        ("d09", _case(method="get", etag=strong_a, last_modified=64010,
+scripts/conditional_eval.py:296:        ("d10", _case(etag=strong_a, last_modified=None,
+scripts/conditional_eval.py:299:        ("d11", _case(etag=strong_a, last_modified=None,
+scripts/conditional_eval.py:302:        ("d12", _case(etag=strong_a, last_modified=64010,
+scripts/conditional_eval.py:305:        ("d13", _case(etag=strong_a, last_modified=64010,
+scripts/conditional_eval.py:308:        ("d14", _case(etag=None, last_modified=None, if_none_match='"zz-1"'),
+scripts/conditional_eval.py:310:        ("d15", _case(etag=strong_a, if_match=' * '),
+scripts/conditional_eval.py:312:        ("d16", _case(etag=strong_a, if_match='\t"vx-9"\t'),
+scripts/conditional_eval.py:314:        ("d17", _case(etag=strong_a, role="cache", if_match='"zz-1"'),
+scripts/conditional_eval.py:316:        ("d18", _case(etag=strong_a, last_modified=64010, role="cache",
+scripts/conditional_eval.py:319:        # --- decisions: 412 --------------------------------------------------
+scripts/conditional_eval.py:320:        ("d19", _case(etag=strong_a, if_match='"zz-1"'),
+scripts/conditional_eval.py:321:         ("ok", "412", "if_match")),
+scripts/conditional_eval.py:322:        ("d20", _case(exists=False, etag=None, last_modified=None,
+scripts/conditional_eval.py:324:         ("ok", "412", "if_match")),
+scripts/conditional_eval.py:325:        ("d21", _case(exists=False, etag=None, last_modified=None,
+scripts/conditional_eval.py:327:         ("ok", "412", "if_match")),
+scripts/conditional_eval.py:328:        ("d22", _case(etag='W/"vx-9"', if_match=strong_a),
+scripts/conditional_eval.py:329:         ("ok", "412", "if_match")),
+scripts/conditional_eval.py:330:        ("d23", _case(etag=strong_a, if_match='W/"vx-9"'),
+scripts/conditional_eval.py:331:         ("ok", "412", "if_match")),
+scripts/conditional_eval.py:332:        ("d24", _case(etag='W/"vx-9"', if_match='W/"vx-9"'),
+scripts/conditional_eval.py:333:         ("ok", "412", "if_match")),
+scripts/conditional_eval.py:334:        ("d25", _case(etag=strong_a, last_modified=64010,
+scripts/conditional_eval.py:336:         ("ok", "412", "if_unmodified_since")),
+scripts/conditional_eval.py:337:        ("d26", _case(method="POST", etag=strong_a, if_none_match=strong_a),
+scripts/conditional_eval.py:338:         ("ok", "412", "if_none_match")),
+scripts/conditional_eval.py:339:        ("d27", _case(method="get", etag=strong_a, if_none_match=strong_a),
+scripts/conditional_eval.py:340:         ("ok", "412", "if_none_match")),
+scripts/conditional_eval.py:341:        ("d28", _case(method="PUT", etag=strong_a, if_none_match=strong_a),
+scripts/conditional_eval.py:342:         ("ok", "412", "if_none_match")),
+scripts/conditional_eval.py:343:        ("d29", _case(etag=strong_a, if_match='"zz-1"',
+scripts/conditional_eval.py:345:         ("ok", "412", "if_match")),
+scripts/conditional_eval.py:346:        ("d30", _case(etag=None, last_modified=None, if_match='"zz-1"'),
+scripts/conditional_eval.py:347:         ("ok", "412", "if_match")),
+scripts/conditional_eval.py:348:        # --- decisions: 304 --------------------------------------------------
+scripts/conditional_eval.py:349:        ("d31", _case(etag=strong_a, if_none_match='W/"vx-9"'),
+scripts/conditional_eval.py:350:         ("ok", "304", "if_none_match")),
+scripts/conditional_eval.py:351:        ("d32", _case(method="HEAD", etag=strong_a, if_none_match=strong_a),
+scripts/conditional_eval.py:352:         ("ok", "304", "if_none_match")),
+scripts/conditional_eval.py:353:        ("d33", _case(etag='W/"vx-9"', if_none_match=strong_a),
+scripts/conditional_eval.py:354:         ("ok", "304", "if_none_match")),
+scripts/conditional_eval.py:355:        ("d34", _case(etag=strong_a, if_none_match="*"),
+scripts/conditional_eval.py:356:         ("ok", "304", "if_none_match")),
+scripts/conditional_eval.py:357:        ("d35", _case(etag=strong_a, last_modified=64010,
+scripts/conditional_eval.py:359:         ("ok", "304", "if_modified_since")),
+scripts/conditional_eval.py:360:        ("d36", _case(method="HEAD", etag=strong_a, last_modified=64010,
+scripts/conditional_eval.py:362:         ("ok", "304", "if_modified_since")),
+scripts/conditional_eval.py:363:        ("d37", _case(etag=strong_a, if_match="*", if_none_match=strong_a),
+scripts/conditional_eval.py:364:         ("ok", "304", "if_none_match")),
+scripts/conditional_eval.py:365:        ("d38", _case(etag=strong_a, role="cache", if_none_match=strong_a),
+scripts/conditional_eval.py:366:         ("ok", "304", "if_none_match")),
+scripts/conditional_eval.py:367:        ("d39", _case(etag=strong_a, if_match='"aa-1", "vx-9", "zz-2"'),
+scripts/conditional_eval.py:369:        ("d40", _case(etag=strong_a, if_match=' "zz-1" ,\t"vx-9" '),
+scripts/conditional_eval.py:371:        ("d41", _case(etag=strong_a, if_none_match='"zz-1", W/"vx-9"'),
+scripts/conditional_eval.py:372:         ("ok", "304", "if_none_match")),
+scripts/conditional_eval.py:373:        ("d42", _case(exists=True, etag=None, last_modified=64010,
+scripts/conditional_eval.py:375:         ("ok", "304", "if_modified_since")),
+scripts/conditional_eval.py:381:        ("r04", '{"method": "GET", "current": {"exists": true, "etag": null,'
+scripts/conditional_eval.py:399:         ("refuse", "current must be an object with exactly exists, etag,"
+scripts/conditional_eval.py:401:        ("r12", '{"method": "GET", "current": {"exists": true, "etag": null},'
+scripts/conditional_eval.py:404:         ("refuse", "current must be an object with exactly exists, etag,"
+scripts/conditional_eval.py:406:        ("r13", '{"method": "GET", "current": {"exists": true, "etag": null,'
+scripts/conditional_eval.py:410:         ("refuse", "current must be an object with exactly exists, etag,"
+scripts/conditional_eval.py:412:        ("r14", '{"method": "GET", "current": {"exists": true, "etag": null,'
+scripts/conditional_eval.py:416:                    " precondition keys")),
+scripts/conditional_eval.py:417:        ("r15", '{"method": "GET", "current": {"exists": true, "etag": null,'
+scripts/conditional_eval.py:422:                    " precondition keys")),
+scripts/conditional_eval.py:427:        ("r18", _case(etag=200),
+scripts/conditional_eval.py:428:         ("refuse", "etag must be null or a string")),
+scripts/conditional_eval.py:429:        ("r19", _case(etag="x"),
+scripts/conditional_eval.py:430:         ("refuse", "malformed entity-tag in current.etag")),
+scripts/conditional_eval.py:431:        ("r20", _case(etag='w/"vx-9"'),
+scripts/conditional_eval.py:432:         ("refuse", "malformed entity-tag in current.etag")),
+scripts/conditional_eval.py:433:        ("r21", _case(etag='"a\x7fb"'),
+scripts/conditional_eval.py:434:         ("refuse", "malformed entity-tag in current.etag")),
+scripts/conditional_eval.py:441:        ("r25", _case(exists=False, etag='"vx-9"', last_modified=None),
+scripts/conditional_eval.py:442:         ("refuse", "absent representation must have null etag and"
+scripts/conditional_eval.py:444:        ("r26", _case(exists=False, etag=None, last_modified=3),
+scripts/conditional_eval.py:445:         ("refuse", "absent representation must have null etag and"
+scripts/conditional_eval.py:458:         ("refuse", "malformed entity-tag in if_match")),
+scripts/conditional_eval.py:460:         ("refuse", "malformed entity-tag in if_none_match")),
+scripts/conditional_eval.py:470:         ("refuse", "malformed entity-tag in if_match")),
+scripts/conditional_eval.py:472:         ("refuse", "malformed entity-tag in if_none_match")),
+scripts/conditional_eval.py:476:         ("refuse", "malformed entity-tag in if_match")),
+scripts/conditional_eval.py:487:                {"decision": want[1], "precondition": want[2]}) + "\n"
+scripts/header_change_class.py:13:  validator       fields that identify a representation version
+scripts/header_change_class.py:14:                  (etag, last-modified)
+scripts/header_change_class.py:23:any changed header is validator, representation or unknown; otherwise
+scripts/header_change_class.py:49:VALIDATOR = {"etag", "last-modified"}
+scripts/header_change_class.py:70:    if lowered in VALIDATOR:
+scripts/header_change_class.py:71:        return "validator"
+scripts/header_change_class.py:141:    counts = {"per-request": 0, "validator": 0, "representation": 0,
+scripts/header_change_class.py:153:                or counts["validator"] or counts["representation"]
+scripts/header_change_class.py:165:    totals = {"diffs": 0, "per-request": 0, "validator": 0, "representation": 0,
+scripts/header_change_class.py:181:              f"validator={counts['validator']} representation={counts['representation']} "
+scripts/header_change_class.py:184:          f"per_request={totals['per-request']} validator={totals['validator']} "
+scripts/header_change_class.py:215:BASE_HEADERS = {"Date": "Tue, 04 Nov 2026 10:00:00 GMT", "ETag": '"v1"',
+scripts/header_change_class.py:250:    def validator_change(root: Path) -> None:
+scripts/header_change_class.py:253:                                  for item in doc["headers"] if item["name"] == "ETag"])
+scripts/header_change_class.py:258:                                  for item in doc["headers"] if item["name"] == "ETag"])
+scripts/header_change_class.py:276:          {"per-request": 2, "validator": 0, "representation": 0, "unknown": 0,
+scripts/header_change_class.py:278:    score("validator-change", {"validator": 1, "verdict_representation": 1}, validator_change)
+scripts/header_change_class.py:281:    score("body-change", {"validator": 0, "verdict_representation": 1}, body_change)
+scripts/live_snapshot.py:4:live_snapshot.py --population POP.json --out DIR [--reaudit] [--validator PATH]
+scripts/live_snapshot.py:134:def audit(validator: str, directory: str, directory_fd: int, page_url: str, expected: str) -> dict:
+scripts/live_snapshot.py:138:        done = subprocess.run([sys.executable, "-B", validator, "--manifest", os.path.join(directory, "manifest.json"), "--json"],
+scripts/live_snapshot.py:195:    parser.add_argument("--validator", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "canonical_audit.py"))
+scripts/live_snapshot.py:239:                        receipt = audit(args.validator, os.path.join(out, name), directory_fd, str(meta["finalUrl"]), surface["expectedCanonical"])
+scripts/receipt_replay.py:10:populations, the BASE commit, the heading, the ROUND paths and the validator at REV
+scripts/receipt_replay.py:27:problems; 2 when REV, a frozen population, BASE or the validator cannot be read, on usage
+scripts/receipt_replay.py:56:VALIDATOR = "scripts/canonical_audit.py"
+scripts/receipt_replay.py:65:VALIDATOR_TIMEOUT_SECONDS = 60
+scripts/receipt_replay.py:466:        problems.append("audit.json differs from the receipt the validator reproduces at this revision")
+scripts/receipt_replay.py:470:        return problems + ["validator result has no string verdict"], None
+scripts/receipt_replay.py:498:def make_reproducer(validator: bytes) -> Callable[[str, bytes, str], tuple[dict | None, str | None]]:
+scripts/receipt_replay.py:499:    """Re-run the revision's validator on a fresh one-page manifest, as measure_c2 does."""
+scripts/receipt_replay.py:508:                handle.write(validator)
+scripts/receipt_replay.py:517:                                      timeout=VALIDATOR_TIMEOUT_SECONDS, check=False)
+scripts/receipt_replay.py:519:                return None, f"validator could not complete ({type(exc).__name__})"
+scripts/receipt_replay.py:523:            return None, f"validator output {exc}"
+scripts/receipt_replay.py:533:    validator = store.read(rev, VALIDATOR)
+scripts/receipt_replay.py:534:    if validator is None:
+scripts/receipt_replay.py:535:        raise Unreadable(f"validator {VALIDATOR} is unreadable at the revision")
+scripts/receipt_replay.py:536:    reproduce = make_reproducer(validator)
+scripts/receipt_replay.py:542:    return {"mode": "c2", "validatorSha256": hashlib.sha256(validator).hexdigest(),
+SKILL.md:486:  verifies the frozen round-22 matrix. Round-22 replay pins the validator digest
+SKILL.md:487:  of `b539cc1` (`5de32200…`); after round 23's validator change it exits 2
+SKILL.md:503:  `python3 .ufo/waves/round-23/snapshot_probe.py --snapshot-script scripts/live_snapshot.py --validator scripts/canonical_audit.py`
+SKILL.md:538:| receipt-replay | gate | `python3 -B scripts/receipt_replay.py c1` or `c2 --root . --revision <commit> --json` (both modes require root/revision) | 0 clean receipts; 1 failed receipt criterion; 2 could-not-evaluate input/usage/internal error | `python3 -B scripts/receipt_replay.py --selftest` | round23 populations/digests and BASE embedded in reader; round24 malformed-case population and matrix receipts | Git blobs read-only; isolated temporary validator inputs; no network | kake |
+SKILL.md:1467:| scripts/hreflang_audit.py | gate (live; offline over a version-1 manifest of local HTML pages; operability: reports a missing or invalid hreflang tag, a non-absolute alternate href, duplicate (tag, href) pairs, more than one x-default element, a missing self-reference, a manifest-internal non-reciprocal target, a canonical that is not the page itself, and manifest/serving faults; frozen ASCII grammar, not a BCP-47 validator; no fetch, header, rendering, language-detection or ranking claim) | `python3 -B scripts/hreflang_audit.py --manifest <manifest.json> --root <dir> --json` | `0=clean` (or informational findings only); `1=policy findings`; `2=input faults`; `64=usage` | `python3 -B scripts/hreflang_audit.py --selftest --work <dir>` → `selftest 59/59 passed`, exit 0 | contract `.ufo/waves/round-76/contract.md` §C2 with amendments 1–2 and 6–8; matrix receipt `.ufo/waves/round-76/controls/after-c2-matrix.txt` (`cases=71 decided=69 correct=69 wrong=0 undecided=2 constants_failed=4/4 met=true`); real-input receipt `controls/after-c2-realrun.txt` (`pages=8 findings=[] exit=0`) | lane, read-only | kake |
+PROVINCE.md:15:  serves, where the custom domain lives, what an ETag can prove
+PROVINCE.md:64:publisher policy and offline parser limits. The lane's local validator and
+PROVINCE.md:518:  validator; no fetch, header, rendering, language-detection or ranking claim.
+PROVINCE.md:653:`corpus/knowledge/capture-drift-validators.md` (S455, RFC 9110 §8.8.1 and §8.8.3). What the
+PROVINCE.md:668:`age`, `x-cache`, edge ids and timers), `validator` (`etag`, `last-modified`), `representation`
+PROVINCE.md:672:any changed header is validator, representation or unknown; otherwise `same-object`. The record is
+PROVINCE.md:674:`summary surfaces=3 diffs=14 per_request=14 validator=0 representation=0 policy=0 unknown=0

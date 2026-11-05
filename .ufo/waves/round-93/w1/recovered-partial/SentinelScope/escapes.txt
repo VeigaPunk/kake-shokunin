@@ -1,0 +1,27 @@
+== sub-env.py rc=0
+   out: ENVKEYS ['HOME', 'LC_CTYPE', 'PATH'] | HOME /fast/scratch/hyaku/kake-r93/SentinelScope/esc/work | HOME-READ DENIED PermissionError | PROC-READ DENIED PermissionError
+   err: 
+== sub-execv.py rc=0
+   out: EXECV-READ 27753
+   err: 
+== sub-fork-exec.py rc=0
+   out: 27764 /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93/c93_conditional.py
+   err: 
+== sub-import-oracle.py rc=0
+   out: DENIED PermissionError sandbox: import denied: c93_conditional
+   err: 
+== sub-loader.py rc=0
+   out: DENIED PermissionError sandbox: open outside the subject tree: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93/c93_conditional.py
+   err: 
+== sub-open-counter.py rc=0
+   out: DENIED PermissionError sandbox: open outside the subject tree: /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-93/c93_conditional.py
+   err: 
+== sub-proc-create.py rc=1
+   out: 
+   err: Traceback (most recent call last): |   File "/fast/scratch/hyaku/kake-r93/SentinelScope/esc/sandbox.py", line 41, in <module> |   File "<frozen runpy>", line 294, in run_path |   File "<frozen runpy>", line 98, in _run_module_code |   File "<frozen runpy>", line 88, in _run_code |   File "/fast/scra
+== sub-symlink.py rc=0
+   out: SYMLINK-READ 27753
+   err: 
+== sub-write-root.py rc=0
+   out: WRITE-ROOT allowed True | WRITE-LANE DENIED PermissionError
+   err: 

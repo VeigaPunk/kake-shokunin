@@ -225,6 +225,7 @@ Round 44 (2026-10-23): the witness-class gate capability row below entered in
 this round; its first working demonstration is the C1 before/after pair.
 
 | Witness-class gate (differential counter observation set) | Proves, in one command over committed bytes, that a shortcut class (27 live-seat controls across ten class shapes G1–G10) is inside a frozen differential counter's observation set: each registered control witnesses (exit/stdout divergence on ≥1 class run, no timing-only/legacy-only/error witnesses accepted), while the do-nothing placebo counter reaches only seed-luck k<27, the held build still meets the counter 3/3 unseeded, and the four round-42 canaries plus a junk control stay red; per-row receipts re-derive at their recorded seeds | `.ufo/waves/round-44/c44_count_v5.py` (sha `5cedaa3b…`) + `c44_audit.py` + `classes/gN_*.py`; after: `python3 -B .ufo/waves/round-44/c44_audit.py --root . --controls .ufo/waves/round-44/controls-27.tsv --counter .ufo/waves/round-44/c44_count_v5.py --classes v5 --expect witnessed --build-rev 020bc457 --build-runs 3 --workers 4 --out .ufo/waves/round-44/verification/claim/after-final/after-v5.json` → witnessed 27/27, build 3/3, exit 0 (cohorts `verification/claim/{after-final,placebo-final,v4-final,canary-final}/`); before: placebo `--expect witnessed` exit 1, k=0/27 fresh (k∈{0,1} over 7 audits); wave-2 falsification: `.ufo/waves/round-44/w2/` | 44 |
+| Conditional request evaluation (contract v1) | Decides, over supplied values only, which status a recipient would answer a conditional request with (`200`, `304`, `412`) and which precondition decided it: If-Match (strong comparison, origin role) → If-Unmodified-Since → If-None-Match (weak comparison) → If-Modified-Since (GET/HEAD); the cache role skips If-Match and If-Unmodified-Since (RFC 9111 §4.3.2); refuses malformed input with `invalid_input:` and exit 1; decides nothing about storage, freshness, revalidation exchange, serving, HTTP-date parsing or any live property | `scripts/conditional_eval.py` (sha256 `d3bac7de…`); frozen counter `python3 -B .ufo/waves/round-93/c93_conditional.py --root . --revision 4f5846fe2e2d08b9e7548ace57172095dbdfbcad --work <scratch>` → `candidate=present hand=44/44 generated=120/120 forgeries_refused=6/6 positive=admitted met=true` exit 0; tool selftest `python3 -B scripts/conditional_eval.py --selftest` 90/90; `corpus/knowledge/conditional-request-evaluation.md`; `.ufo/waves/round-93/w1/ReviewC2.md` (162/162 contract-only battery run by a lane-dispatched seat, so not non-author) | 93 |
 
 ## Saturation
 
@@ -5666,6 +5667,8 @@ prints nothing (0 deletions); `git diff --numstat` outside `.ufo/` is 1059 added
 |---|---|---|---|---|
 | 92 | calibration (HOLD 2) | `open=3 closed=0 met=false` at `e143faff` | `open=0 closed=3 met=true` at `2a4447c1`, then falsified as a calibration measurement by the round's own attack seats | `.ufo/waves/round-92/controls/{base-c1,after-c1-carrier}.txt`; `w1/CriticClaims/C1.md` |
 | 92 | freshness (HOLD 10) | candidate absent at `e143faff` | instrument meets the frozen population at `2a4447c1`; independent review 93/97 with 0 tool defects | `.ufo/waves/round-92/controls/{base-c2,after-c2-carrier}.txt`; `w1/ReviewC2.md` |
+| 93 | calibration (HOLD 2) | mismatches 20, E1=1 E2=8 E3=1 E4=4 E5=6, `met=false` exit 1 at base `10ecbd1a` (`.ufo/waves/round-93/controls/base-c1.txt`) | mismatches 0, `met=true` exit 0 at `4f5846fe` (predicate met on the frozen counter); the instrument is falsified as a calibration proof by `.ufo/waves/round-93/w1/ReviewC1.md` (R93-1…R93-6) | `.ufo/waves/round-93/c93_selfassess.py`; `.ufo/waves/round-93/controls/ctl-c1-selftest.txt`; `corpus/lessons/round-93.md` §Wave review and Routed |
+| 93 | freshness (HOLD 10), capability | candidate absent, `met=false` exit 1 at base (`.ufo/waves/round-93/controls/base-c2.txt`) | candidate present, hand 44/44, generated 120/120, forgeries refused 6/6, `met=true` exit 0 at `4f5846fe`; frozen population misses 9/40 reference mutants (R93-7) and the reference misses two legal classes (R93-8) | `.ufo/waves/round-93/c93_conditional.py`; `.ufo/waves/round-93/w1/recovered-partial/MutConditional/`; `.ufo/waves/round-93/w1/ReviewC2.md` |
 
 ### Planned — after round 92
 
@@ -5678,3 +5681,18 @@ contract by an independent reader before the freeze). Frontier: the reuse decisi
 heuristic freshness are held for supplied integers only; revalidation exchanges (§4.3),
 storage (§4.1 key identity), serving stale without a client directive, browser behaviour
 and every live-cache observation stay open.
+
+### Round 93 — claims and verdicts (2026-11-05, resumed attempt; not an admission)
+
+Freeze `bb8012fee38c0e497cdaf36337072737bca0b3cd` (base `10ecbd1ade91d0721e87a9942a66a2b61d5ce8d5`); measured at lane HEAD `4f5846fe2e2d08b9e7548ace57172095dbdfbcad`. Claims declared before data; counters, predicates and targets unchanged after the first seat scored.
+
+| Claim | Axis / type | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 self-assessment conformance | calibration (HOLD 2) | mismatches 20 → 0 | `python3 -B .ufo/waves/round-93/c93_selfassess.py --root . --revision 4f5846fe2e2d08b9e7548ace57172095dbdfbcad` | met on the frozen predicate (exit 0); instrument falsified by ReviewC1 (R93-1…R93-6), so it is not a calibration proof; score stays 2; non-author spot-check owed |
+| C2 conditional request evaluation | freshness (HOLD 10), capability | candidate absent → present; met false → true | `python3 -B .ufo/waves/round-93/c93_conditional.py --root . --revision 4f5846fe2e2d08b9e7548ace57172095dbdfbcad --work <scratch>` | met on the frozen counter (exit 0); capability entered (Capabilities table); counter population gaps routed (R93-7, R93-8); score stays 10 |
+
+Controls executed before the freeze: `controls/base-c1.txt`, `controls/base-c2.txt`, `controls/ctl-c1-selftest.txt`, `controls/ctl-c2-fixtures.txt`.
+
+### Planned — after round 93
+
+Outside closure owns admission. Routed: R93-1 (run the counter from a digest-verified blob; print its sha256), R93-2 (self-digest in the receipt), R93-3 (pin surfaces by identity, not cardinality), R93-4 (check every `## Mistakes` section and every gap), R93-5 (row-level id resolution; reject trees and empty blobs in E5), R93-6 (decide vacuity in the C1 predicate before scoring), R93-7 (one C2 case per surviving mutant class: M11, M18, M19, M24, M28, M29, M32, M37, M40), R93-8 (add quoted-comma and non-UTF-8 stdin cases to the frozen population), R93-9/R93-10 (contract v2: empty list elements, obs-text in etagc, `role: null`, duplicate keys, the §13.2 method filter), R93-11 (sandbox import allowlist for `__future__`), R93-12 (E5 annotation-skip or documented absence rule). Frontier: the revalidation exchange (RFC 9111 §4.3.4), the 304 header set (RFC 9110 §15.4.5), the `If-Range`/`Range` step, HTTP-date parsing, validator generation and every live-cache, CDN or browser observation stay open.
