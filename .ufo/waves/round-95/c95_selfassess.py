@@ -114,7 +114,7 @@ import sys
 BASE = "fdd5fdbeb8a2ba6c18f0f23135d1bee98068dca3"
 BASE_PINS = {"lessons": 89, "entries": 82, "rows": 255, "criteria": 39}
 SURFACES = "frozen/c1-surfaces.json"
-SURFACES_SHA = "9eff04c5a0567f50a3a27004ac7d5aab4d4dc2d1311c4a8d8eb623db8ec4f665"
+SURFACES_SHA = "00a04c9a68f00de1561d70822a8ff3cab718583de4cd2cbf6ebd06e87b5d47b8"
 PREDECESSOR = ".ufo/waves/round-94/c94_selfassess.py"
 PREDECESSOR_FLOOR = 4
 SYNTH_PINS = {"lessons": 2, "entries": 1, "rows": 2, "criteria": 1}
@@ -413,11 +413,13 @@ def audit(root, rev, base_pins=None, surfaces=None):
             ident.append("lesson-displaced:%s -> %s" % (path, q))
     for item in surfaces["entries"]:
         path = item["path"]
-        if read(root, rev, path) is None:
+        text = read(root, rev, path)
+        if text is None:
             ident.append("entry:" + path)
-        # knowledge entries legitimately gain [rNN-correction]-tagged head edits
-        # (Amendment A): pinned by presence, not content digest. Lessons keep
-        # full-content digests because they are append-only-frozen per round.
+            continue
+        head8 = "\n".join(text.splitlines()[:8])
+        if hashlib.sha256(head8.encode("utf-8")).hexdigest() != item["head8_sha256"]:
+            ident.append("entry-content:" + path)
     for h in surfaces["quality_criteria_headings"]:
         if h not in criteria:
             ident.append("criterion:" + h)
@@ -634,7 +636,11 @@ def surfaces_of(files):
         "lessons": [{"path": p,
                      "sha256": hashlib.sha256(files[p].encode("utf-8")).hexdigest()}
                     for p in lessons],
-        "entries": [{"path": p} for p in entries],
+        "entries": [{"path": p,
+                     "head8_sha256": hashlib.sha256(
+                         "\n".join(files[p].splitlines()[:8]).encode("utf-8")
+                     ).hexdigest()}
+                    for p in entries],
         "quality_criteria_headings": ["Round-01 criterion — a thing"],
         "skill_rows": [{"cell": c, "path_tokens": tokens[c]} for c in first],
         "mistakes_sections": [p for p in lessons if "## Mistakes" in files[p]],
